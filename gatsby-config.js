@@ -6,13 +6,13 @@ module.exports = {
     author: '@gatsbyjs',
   },
   plugins: [
-    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-react-helmet-async',
     'gatsby-plugin-typescript',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'images',
-        path: '${__dirname}/src/images',
+        path: `${__dirname}/src/images`,
       },
     },
     'gatsby-transformer-sharp',
@@ -20,7 +20,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'gatsby-starter-default',
+        name: 'git-gatsby',
         short_name: 'starter',
         start_url: '/',
         background_color: '#663399',

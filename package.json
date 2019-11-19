@@ -1,24 +1,24 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "git-gatsby",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "description": "LaunchDarkly's Docs Site",
+  "version": "1.0.0",
+  "author": "Yus Ng",
   "dependencies": {
-    "@types/react-helmet": "5.0.14",
     "gatsby": "^2.18.0",
     "gatsby-image": "^2.2.33",
     "gatsby-plugin-manifest": "^2.2.29",
     "gatsby-plugin-offline": "^3.0.22",
-    "gatsby-plugin-react-helmet": "^3.1.15",
+    "gatsby-plugin-react-helmet-async": "1.0.11",
     "gatsby-plugin-sharp": "^2.3.2",
     "gatsby-source-filesystem": "^2.1.38",
     "gatsby-transformer-sharp": "^2.3.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet": "^5.2.1"
+    "react-helmet-async": "1.0.4"
   },
   "devDependencies": {
+    "@types/react-helmet-async": "1.0.3",
     "@typescript-eslint/eslint-plugin": "^2.8.0",
     "@typescript-eslint/parser": "^2.8.0",
     "eslint": "^6.6.0",
@@ -46,9 +46,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/launchdarkly/git-gatsby"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/launchdarkly/git-gatsby/issues"
   }
 }
