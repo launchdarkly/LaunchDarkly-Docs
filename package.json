@@ -5,22 +5,29 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
-    "gatsby": "^2.17.11",
-    "gatsby-image": "^2.2.31",
-    "gatsby-plugin-manifest": "^2.2.27",
-    "gatsby-plugin-offline": "^3.0.19",
-    "gatsby-plugin-react-helmet": "^3.1.14",
-    "gatsby-plugin-sharp": "^2.2.37",
-    "gatsby-source-filesystem": "^2.1.36",
-    "gatsby-transformer-sharp": "^2.3.3",
-    "prop-types": "^15.7.2",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
+    "@types/react-helmet": "5.0.14",
+    "gatsby": "^2.18.0",
+    "gatsby-image": "^2.2.33",
+    "gatsby-plugin-manifest": "^2.2.29",
+    "gatsby-plugin-offline": "^3.0.22",
+    "gatsby-plugin-react-helmet": "^3.1.15",
+    "gatsby-plugin-sharp": "^2.3.2",
+    "gatsby-source-filesystem": "^2.1.38",
+    "gatsby-transformer-sharp": "^2.3.5",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1"
   },
   "devDependencies": {
-    "gatsby-plugin-typescript": "2.1.18",
-    "prettier": "^1.19.1"
+    "@typescript-eslint/eslint-plugin": "^2.8.0",
+    "@typescript-eslint/parser": "^2.8.0",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
+    "gatsby-plugin-typescript": "^2.1.18",
+    "prettier": "^1.19.1",
+    "typescript": "3.7.2"
   },
   "keywords": [
     "gatsby"
@@ -33,7 +40,9 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "tsc": "tsc",
+    "lint": "eslint --ignore-path .gitignore . --ext ts --ext tsx --ext js --ext jsx"
   },
   "repository": {
     "type": "git",
