@@ -5,20 +5,28 @@
   "version": "1.0.0",
   "author": "Yus Ng",
   "dependencies": {
+    "@emotion/core": "^10.0.22",
+    "@mdx-js/mdx": "^1.5.1",
+    "@mdx-js/react": "^1.5.1",
+    "@theme-ui/components": "^0.2.49",
     "gatsby": "^2.18.0",
     "gatsby-image": "^2.2.33",
     "gatsby-plugin-manifest": "^2.2.29",
+    "gatsby-plugin-mdx": "^1.0.57",
     "gatsby-plugin-offline": "^3.0.22",
-    "gatsby-plugin-react-helmet-async": "1.0.11",
+    "gatsby-plugin-react-helmet-async": "^1.0.11",
     "gatsby-plugin-sharp": "^2.3.2",
+    "gatsby-plugin-theme-ui": "^0.2.43",
     "gatsby-source-filesystem": "^2.1.38",
     "gatsby-transformer-sharp": "^2.3.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet-async": "1.0.4"
+    "react-helmet-async": "^1.0.4",
+    "theme-ui": "^0.2.49"
   },
   "devDependencies": {
-    "@types/react-helmet-async": "1.0.3",
+    "@types/react-helmet-async": "^1.0.3",
+    "@types/theme-ui": "^0.2.4",
     "@typescript-eslint/eslint-plugin": "^2.8.0",
     "@typescript-eslint/parser": "^2.8.0",
     "eslint": "^6.6.0",
@@ -27,7 +35,7 @@
     "eslint-plugin-react": "^7.16.0",
     "gatsby-plugin-typescript": "^2.1.18",
     "prettier": "^1.19.1",
-    "typescript": "3.7.2"
+    "typescript": "^3.7.2"
   },
   "keywords": [
     "gatsby"

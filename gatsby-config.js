@@ -6,6 +6,7 @@ module.exports = {
     author: '@gatsbyjs',
   },
   plugins: [
+    'gatsby-plugin-theme-ui',
     'gatsby-plugin-react-helmet-async',
     'gatsby-plugin-typescript',
     {
