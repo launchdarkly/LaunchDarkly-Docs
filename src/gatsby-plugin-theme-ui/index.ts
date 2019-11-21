@@ -3,11 +3,11 @@ export default {
   fontSizes: [8, 10, '0.75rem', '0.875rem', '1rem', '1.5rem', '1.75rem', '2rem'],
   colors: {
     primary: '#20C99F',
-    graydark: '#343A40',
-    graybase: '#868E96',
-    graymed: '#CED4DA',
-    graywash: '#F8F9FA',
-    graylight: '#F1F3F5',
+    grayDark: '#343A40',
+    grayBase: '#868E96',
+    grayMed: '#CED4DA',
+    grayWash: '#F8F9FA',
+    grayLight: '#F1F3F5',
   },
   space: [0, 4, 8, 12, 16, 24, 32, 48, 64, 128, 256],
   fonts: {
