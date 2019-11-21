@@ -1,36 +1,44 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import { FunctionComponent } from 'react'
+import React, { FunctionComponent } from 'react'
 import { Styled } from 'theme-ui'
+import Layout from '../components/layout'
 
-const App: FunctionComponent = () => {
+const Home: FunctionComponent = () => {
   return (
-    <div
-      sx={{
-        display: 'grid',
-        gridTemplateColumns: '100%',
-        gridTemplateRows: ['3rem auto', null, '3.3rem auto'],
-        gridTemplateAreas: `
-          'header'
-          'main'
-        `,
-      }}
-    >
-      <header sx={{ bg: 'grayDark', py: 4, gridArea: 'header', color: 'white' }}>
-        <div sx={{ display: 'flex', flexDirection: 'row' }}>
-          <img sx={{ pl: 5, width: ['30%', '10rem', '12rem'] }} src="https://75oio.csb.app/logo.svg" alt="logo" />
-          <span sx={{ pl: 2 }}>DOCS</span>
+    <Layout>
+      <div>
+        <Styled.h4>
+          <a href="/">Documentation</a> / Quickstart
+        </Styled.h4>
+        <Styled.h1>Getting started with LaunchDarkly</Styled.h1>
+        <div
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            borderBottom: '1px solid',
+            borderColor: 'grayMed',
+            pb: 2,
+            mb: 4,
+          }}
+        >
+          <Styled.h5>Est Read Time: 6 Minutes</Styled.h5>
+          <Styled.h5>Last edited: Sep 28, 2019</Styled.h5>
         </div>
-      </header>
-      <main sx={{ gridArea: 'main' }}>
         <Styled.p>
-          Welcome to LaunchDarkly! We&apos;re excited to partner with you as you use feature flags to make high-impact
+          Welcome to LaunchDarkly! We're excited to partner with you as you use feature flags to make high-impact
           changes with minimal risk and maximum control. It only takes a few minutes to get started with LaunchDarkly
           and control your first feature flag.
         </Styled.p>
-      </main>
-    </div>
+        <div sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div>
+            See also: <a href="/">Creating a card</a>
+          </div>
+          <img sx={{ m: 1, variant: 'icon' }} alt="bookmark" src="https://75oio.csb.app/bookmark-outline.svg" />
+        </div>
+      </div>
+    </Layout>
   )
 }
 
-export default App
+export default Home

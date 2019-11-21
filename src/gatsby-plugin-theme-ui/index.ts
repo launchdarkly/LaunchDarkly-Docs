@@ -53,7 +53,7 @@ export default {
       paddingX: 5,
       paddingY: 4,
       lineHeight: 'body',
-      bg: 'graywash',
+      bg: 'grayWash',
     },
     information: {
       padding: 2,
@@ -64,7 +64,7 @@ export default {
       paddingX: 5,
       paddingY: 4,
       lineHeight: 'body',
-      bg: 'graywash',
+      bg: 'grayWash',
     },
   },
   images: {

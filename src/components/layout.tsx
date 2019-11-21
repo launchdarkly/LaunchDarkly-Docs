@@ -1,50 +1,33 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
+/** @jsx jsx */
+import { jsx } from 'theme-ui'
+import React, { FunctionComponent } from 'react'
+import Reset from './resetStyles'
 
-import React from 'react'
-import PropTypes from 'prop-types'
-import { useStaticQuery, graphql } from 'gatsby'
-
-import Header from './header'
-import './layout.css'
-
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
+const Layout: FunctionComponent = ({ children }) => {
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata.title} />
+    <div>
+      <Reset />
       <div
-        style={{
-          margin: '0 auto',
-          maxWidth: 960,
-          padding: '0px 1.0875rem 1.45rem',
-          paddingTop: 0,
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: '100%',
+          gridTemplateRows: ['3rem auto', null, '3.3rem auto'],
+          gridTemplateAreas: `
+          'header'
+          'main'
+        `,
         }}
       >
-        <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
+        <header sx={{ gridArea: 'header', bg: 'grayDark', color: 'white' }}>
+          <div sx={{ display: 'flex', height: '100%', alignItems: 'center' }}>
+            <img sx={{ pl: 4, width: ['35%', '12rem', '13rem'] }} src="https://75oio.csb.app/logo.svg" alt="logo" />
+            <span sx={{ pl: 2 }}>DOCS</span>
+          </div>
+        </header>
+        <main sx={{ gridArea: 'main' }}>{children}</main>
       </div>
-    </>
+    </div>
   )
-}
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
 }
 
 export default Layout
