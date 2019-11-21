@@ -25,6 +25,7 @@
     "theme-ui": "^0.2.49"
   },
   "devDependencies": {
+    "@types/react-helmet": "5.0.14",
     "@types/react-helmet-async": "^1.0.3",
     "@types/theme-ui": "^0.2.4",
     "@typescript-eslint/eslint-plugin": "^2.8.0",

@@ -12,5 +12,5 @@
     "include": [
         "./src/**/*"
     ],
-    "exclude": ["node_modules", "public", ".cache"]
+    "exclude": ["node_modules", "public", ".cache", "./src/_delete"]
 }

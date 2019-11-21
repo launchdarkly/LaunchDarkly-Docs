@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import React from 'react'
 
-export default () => {
+const Frontmatter = () => {
   return (
     <div
       sx={{
@@ -19,3 +18,5 @@ export default () => {
     </div>
   )
 }
+
+export default Frontmatter
