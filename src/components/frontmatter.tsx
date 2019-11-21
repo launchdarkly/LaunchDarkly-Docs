@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx, Styled } from 'theme-ui'
 
 const Frontmatter = () => {
   return (
@@ -13,8 +13,8 @@ const Frontmatter = () => {
         mb: 4,
       }}
     >
-      <h5>Est Read Time: 6 Minutes</h5>
-      <h5>Last edited: Sep 28, 2019</h5>
+      <Styled.h5>Est Read Time: 6 Minutes</Styled.h5>
+      <Styled.h5>Last edited: Sep 28, 2019</Styled.h5>
     </div>
   )
 }
