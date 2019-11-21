@@ -16,8 +16,11 @@ const App: FunctionComponent = () => {
         `,
       }}
     >
-      <header sx={{ bg: 'grayDark', py: 4, gridArea: 'header' }}>
-        <img sx={{ pl: 5, width: ['30%', '10rem', '12rem'] }} src="https://75oio.csb.app/logo.svg" alt="logo" />
+      <header sx={{ bg: 'grayDark', py: 4, gridArea: 'header', color: 'white' }}>
+        <div sx={{ display: 'flex', flexDirection: 'row' }}>
+          <img sx={{ pl: 5, width: ['30%', '10rem', '12rem'] }} src="https://75oio.csb.app/logo.svg" alt="logo" />
+          <span sx={{ pl: 2 }}>DOCS</span>
+        </div>
       </header>
       <main sx={{ gridArea: 'main' }}>
         <Styled.p>
