@@ -6,7 +6,17 @@ import { MDXRenderer } from 'gatsby-plugin-mdx'
 
 import Reset from './resetStyles'
 
-const Layout: FunctionComponent = ({
+interface LayoutProps {
+  data: {
+    mdx: {
+      body: string
+      frontmatter: {
+        author: string
+      }
+    }
+  }
+}
+const Layout: FunctionComponent<LayoutProps> = ({
   data: {
     mdx: {
       body,
