@@ -6,6 +6,7 @@ module.exports = {
     author: '@gatsbyjs',
   },
   plugins: [
+    'gatsby-plugin-mdx',
     'gatsby-plugin-theme-ui',
     'gatsby-plugin-react-helmet-async',
     'gatsby-plugin-typescript',
@@ -14,6 +15,13 @@ module.exports = {
       options: {
         name: 'images',
         path: `${__dirname}/src/images`,
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/src/mdx`,
+        name: 'mdx',
       },
     },
     'gatsby-transformer-sharp',

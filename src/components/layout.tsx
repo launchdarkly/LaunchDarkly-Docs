@@ -1,9 +1,19 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx, Styled } from 'theme-ui'
 import React, { FunctionComponent } from 'react'
+import { graphql } from 'gatsby'
+import { MDXRenderer } from 'gatsby-plugin-mdx'
+
 import Reset from './resetStyles'
 
-const Layout: FunctionComponent = ({ children }) => {
+const Layout: FunctionComponent = ({
+  data: {
+    mdx: {
+      body,
+      frontmatter: { author },
+    },
+  },
+}) => {
   return (
     <div>
       <Reset />
@@ -24,10 +34,23 @@ const Layout: FunctionComponent = ({ children }) => {
             <span sx={{ pl: 2 }}>DOCS</span>
           </div>
         </header>
-        <main sx={{ gridArea: 'main' }}>{children}</main>
+        <main sx={{ gridArea: 'main' }}>
+          <MDXRenderer author={author}>{body}</MDXRenderer>
+        </main>
       </div>
     </div>
   )
 }
+
+export const pageQuery = graphql`
+  query Query($id: String) {
+    mdx(id: { eq: $id }) {
+      body
+      frontmatter {
+        author
+      }
+    }
+  }
+`
 
 export default Layout
