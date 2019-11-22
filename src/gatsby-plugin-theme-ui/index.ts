@@ -30,6 +30,12 @@ export default {
     label: {
       fontSize: 3,
       lineHeight: 'small',
+      color: 'grayDark',
+      textDecoration: 'none',
+      display: 'block',
+      paddingBottom: 4,
+      lineHeight: 'small',
+      fontWeight: 'bold',
     },
     labelBold: {
       fontSize: 3,
@@ -45,15 +51,16 @@ export default {
   },
   cards: {
     primary: {
-      padding: 2,
       borderRadius: 2,
       border: '1px solid',
-      borderColor: 'graymed',
+      borderColor: 'grayMed',
       boxShadow: '0 2px 4px #CED4DA',
       paddingX: 5,
       paddingY: 4,
       lineHeight: 'body',
       bg: 'grayWash',
+      mb: 4,
+      display: 'flex',
     },
     information: {
       padding: 2,

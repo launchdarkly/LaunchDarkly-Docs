@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx, Styled } from 'theme-ui'
 import { FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
@@ -29,12 +29,13 @@ const Layout: FunctionComponent<LayoutProps> = ({
       <Reset />
       <div
         sx={{
+          height: '100vh',
           display: 'grid',
-          gridTemplateColumns: '100%',
-          gridTemplateRows: ['3rem auto', null, '3.3rem auto'],
+          gridTemplateColumns: ['1rem auto', null, '18rem 48rem auto'],
+          gridTemplateRows: ['3rem auto', null, '4rem auto'],
           gridTemplateAreas: `
-          'header'
-          'main'
+          'header header header'
+          'sidenav main aside'
         `,
         }}
       >
@@ -44,9 +45,19 @@ const Layout: FunctionComponent<LayoutProps> = ({
             <span sx={{ pl: 2 }}>DOCS</span>
           </div>
         </header>
-        <main sx={{ gridArea: 'main' }}>
+        <nav sx={{ gridArea: 'sidenav', bg: 'grayLight', px: 5, py: 6 }}>
+          <a href="" sx={{variant: 'text.label'}}>Quickstart</a>
+          <a href="" sx={{variant: 'text.label'}}>Managing Flags</a>
+          <a href="" sx={{variant: 'text.label'}}>Managing Users</a>
+          <a href="" sx={{variant: 'text.label'}}>Account Security</a>
+          <a href="" sx={{variant: 'text.label'}}>Metrics and Insights</a>
+          <a href="" sx={{variant: 'text.label'}}>Experimentation</a>
+        </nav>
+        <main sx={{ gridArea: 'main', px: [4, 6, 7], pt: 6}}>
+          <Styled.h4>Documentation / Breadcrumb </Styled.h4>
           <MDXRenderer author={author}>{body}</MDXRenderer>
         </main>
+        <aside sx={{gridArea: 'aside', pt: 6}}>TOC</aside>
       </div>
     </div>
   )
