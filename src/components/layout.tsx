@@ -45,7 +45,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
           ],
         }}
       >
-        <header sx={{ gridArea: 'header', bg: 'grayDark', color: 'white' }}>
+        <header sx={{ gridArea: 'header', bg: 'secondaryDark', color: 'white' }}>
           <div sx={{ display: 'flex', height: '100%', alignItems: 'center' }}>
             <img sx={{ pl: 4, width: ['35%', '12rem', '13rem'] }} src="https://75oio.csb.app/logo.svg" alt="logo" />
             <span sx={{ pl: 2 }}>DOCS</span>

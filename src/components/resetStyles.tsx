@@ -84,7 +84,7 @@ const ResetStyles = () => {
         }
         html {
           font-size: 100%;
-          line-height: 1.25rem;
+          line-height: 1rem;
         }
       `}
     />

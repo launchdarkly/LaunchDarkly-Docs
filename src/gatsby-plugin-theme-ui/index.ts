@@ -2,12 +2,30 @@ export default {
   breakpoints: ['36em', '48em', '62em', '75em'],
   fontSizes: [8, 10, '0.75rem', '0.875rem', '1rem', '1.5rem', '1.75rem', '2rem'],
   colors: {
-    primary: '#20C99F',
-    grayDark: '#343A40',
-    grayBase: '#868E96',
+    primaryDark: '#087F5B',
+    primarySafe: '#0CA678',
+    primaryBase: '#20C99F',
+    primaryWash: '#EAFCF8',
+    secondaryDark: '#0E1932',
+    infoDark: '#1864AB',
+    infoSafe: '#1C7ED6',
+    infoBase: '#339AF0',
+    infoWash: '#E7F5FF',
+    alertDark: '#D44512',
+    alertSafe: '#F76707',
+    alertBase: '#FF922B',
+    alertWash: '#FFF4E6',
+    warnDark: '#C92A2A',
+    warnSafe: '#F03E3E',
+    warnBase: '#FF6B6B',
+    warnWash: '#FFF5F5',
+    grayBlack: '#212529',
+    grayDark: '#434A51',
+    graySafe: '#646f7A',
+    grayBase: '#8A929C',
     grayMed: '#CED4DA',
-    grayWash: '#F8F9FA',
     grayLight: '#F1F3F5',
+    grayWash: '#F8F9FA',
   },
   space: [0, 4, 8, 12, 16, 24, 32, 48, 64, 128, 256],
   fonts: {
@@ -78,7 +96,7 @@ export default {
     icon: {
       width: '1.25rem',
       height: '1.25rem',
-      fill: 'primary',
+      fill: 'primarySafe',
     },
   },
   styles: {
@@ -88,7 +106,7 @@ export default {
       fontWeight: 'body',
     },
     a: {
-      color: 'primary',
+      color: 'primarySafe',
       ':hover': {
         color: 'grayBase',
       },
@@ -130,6 +148,7 @@ export default {
     li: {
       listStylePosition: 'inside',
       paddingBottom: 4,
+      lineHeight: 'body',
       '::before': {
         fontWeight: 'bold',
         fontSize: 6,
