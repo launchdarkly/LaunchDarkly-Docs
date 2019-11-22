@@ -60,12 +60,13 @@ export default {
       bg: 'grayWash',
       mb: 4,
       display: 'flex',
+      justifyContent: 'space-between',
     },
     information: {
       padding: 2,
       borderRadius: 2,
       border: '1px solid',
-      borderColor: 'graymed',
+      borderColor: 'grayMed',
       boxShadow: 'inset 4px 0 0 #339AF0, 0 2px 4px #CED4DA',
       paddingX: 5,
       paddingY: 4,
@@ -89,7 +90,7 @@ export default {
     a: {
       color: 'primary',
       ':hover': {
-        color: 'graybase',
+        color: 'grayBase',
       },
     },
     p: {
@@ -121,7 +122,7 @@ export default {
       fontSize: 2,
       textTransform: 'uppercase',
       fontWeight: 'bold',
-      color: 'graysafe',
+      color: 'grayBase',
     },
     h6: {
       fontSize: 1,
