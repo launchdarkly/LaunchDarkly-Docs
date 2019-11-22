@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx, Styled } from 'theme-ui'
 import { FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
@@ -44,7 +44,8 @@ const Layout: FunctionComponent<LayoutProps> = ({
             <span sx={{ pl: 2 }}>DOCS</span>
           </div>
         </header>
-        <main sx={{ gridArea: 'main' }}>
+        <main sx={{ gridArea: 'main', px: [4, 6, 7], pt: 6}}>
+          <Styled.h4>Documentation / Breadcrumb </Styled.h4>
           <MDXRenderer author={author}>{body}</MDXRenderer>
         </main>
       </div>
