@@ -30,17 +30,23 @@ export default {
     label: {
       fontSize: 3,
       lineHeight: 'small',
+      color: 'grayDark',
+      textDecoration: 'none',
+      display: 'block',
+      paddingBottom: 4,
+      lineHeight: 'small',
+      fontWeight: 'bold'
     },
     labelBold: {
       fontSize: 3,
       lineHeight: 'small',
-      fontWeight: 'bold',
+      fontWeight: 'bold'
     },
     labelCaps: {
       fontSize: 3,
       lineHeight: 'small',
       textTransform: 'uppercase',
-      fontWeight: 'bold',
+      fontWeight: 'bold'
     },
   },
   cards: {

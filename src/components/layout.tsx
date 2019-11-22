@@ -29,12 +29,13 @@ const Layout: FunctionComponent<LayoutProps> = ({
       <Reset />
       <div
         sx={{
+          height: '100vh',
           display: 'grid',
-          gridTemplateColumns: '100%',
-          gridTemplateRows: ['3rem auto', null, '3.3rem auto'],
+          gridTemplateColumns: ['1rem auto', null, '18rem auto'],
+          gridTemplateRows: ['3rem auto', null, '4rem auto'],
           gridTemplateAreas: `
-          'header'
-          'main'
+          'header header'
+          'sidenav main'
         `,
         }}
       >
@@ -44,6 +45,14 @@ const Layout: FunctionComponent<LayoutProps> = ({
             <span sx={{ pl: 2 }}>DOCS</span>
           </div>
         </header>
+        <nav sx={{ gridArea: 'sidenav', bg: 'grayLight', px: 5, py: 6 }}>
+          <a href="" sx={{variant: 'text.label'}}>Quickstart</a>
+          <a href="" sx={{variant: 'text.label'}}>Managing Flags</a>
+          <a href="" sx={{variant: 'text.label'}}>Managing Users</a>
+          <a href="" sx={{variant: 'text.label'}}>Account Security</a>
+          <a href="" sx={{variant: 'text.label'}}>Metrics and Insights</a>
+          <a href="" sx={{variant: 'text.label'}}>Experimentation</a>
+        </nav>
         <main sx={{ gridArea: 'main', px: [4, 6, 7], pt: 6}}>
           <Styled.h4>Documentation / Breadcrumb </Styled.h4>
           <MDXRenderer author={author}>{body}</MDXRenderer>
