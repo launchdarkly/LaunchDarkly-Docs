@@ -26,8 +26,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
 }) => {
   return (
     <div>
-      <Reset
-      />
+      <Reset />
       <div
         sx={{
           height: '100vh',
