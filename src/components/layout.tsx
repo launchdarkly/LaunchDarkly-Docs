@@ -31,12 +31,18 @@ const Layout: FunctionComponent<LayoutProps> = ({
         sx={{
           height: '100vh',
           display: 'grid',
-          gridTemplateColumns: ['1rem auto', null, '18rem 48rem auto'],
+          gridTemplateColumns: ['100%', '12rem 40rem auto', '18rem 48rem auto'],
           gridTemplateRows: ['3rem auto', null, '4rem auto'],
-          gridTemplateAreas: `
-          'header header header'
-          'sidenav main aside'
-        `,
+          gridTemplateAreas: [
+            `
+            'header'
+            'main'
+            `,
+            `
+            'header header header'
+            'sidenav main aside'
+            `,
+          ],
         }}
       >
         <header sx={{ gridArea: 'header', bg: 'grayDark', color: 'white' }}>
@@ -46,18 +52,30 @@ const Layout: FunctionComponent<LayoutProps> = ({
           </div>
         </header>
         <nav sx={{ gridArea: 'sidenav', bg: 'grayLight', px: 5, py: 6 }}>
-          <a href="" sx={{variant: 'text.label'}}>Quickstart</a>
-          <a href="" sx={{variant: 'text.label'}}>Managing Flags</a>
-          <a href="" sx={{variant: 'text.label'}}>Managing Users</a>
-          <a href="" sx={{variant: 'text.label'}}>Account Security</a>
-          <a href="" sx={{variant: 'text.label'}}>Metrics and Insights</a>
-          <a href="" sx={{variant: 'text.label'}}>Experimentation</a>
+          <a href="" sx={{ variant: 'text.label' }}>
+            Quickstart
+          </a>
+          <a href="" sx={{ variant: 'text.label' }}>
+            Managing Flags
+          </a>
+          <a href="" sx={{ variant: 'text.label' }}>
+            Managing Users
+          </a>
+          <a href="" sx={{ variant: 'text.label' }}>
+            Account Security
+          </a>
+          <a href="" sx={{ variant: 'text.label' }}>
+            Metrics and Insights
+          </a>
+          <a href="" sx={{ variant: 'text.label' }}>
+            Experimentation
+          </a>
         </nav>
-        <main sx={{ gridArea: 'main', px: [4, 6, 7], pt: 6}}>
+        <main sx={{ gridArea: 'main', px: [4, 6, 7], pt: 6 }}>
           <Styled.h4>Documentation / Breadcrumb </Styled.h4>
           <MDXRenderer author={author}>{body}</MDXRenderer>
         </main>
-        <aside sx={{gridArea: 'aside', pt: 6}}>TOC</aside>
+        <aside sx={{ gridArea: 'aside', pt: 6 }}>TOC</aside>
       </div>
     </div>
   )
