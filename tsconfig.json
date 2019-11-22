@@ -1,16 +1,14 @@
 {
-    "compilerOptions": {
-        "outDir": "./dist/",
-        "sourceMap": true,
-        "esModuleInterop": true,
-        "noImplicitAny": true,
-        "module": "commonjs",
-        "target": "esnext",
-        "jsx": "react",
-        "lib": ["dom", "es2015", "esnext"]
-    },
-    "include": [
-        "./src/**/*"
-    ],
-    "exclude": ["node_modules", "public", ".cache", "./src/_delete"]
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "esnext",
+    "jsx": "react",
+    "lib": ["dom", "es2015", "esnext"]
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "public", ".cache", "./src/_delete"]
 }

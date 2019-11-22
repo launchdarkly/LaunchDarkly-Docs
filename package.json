@@ -30,11 +30,13 @@
     "@types/theme-ui": "^0.2.4",
     "@typescript-eslint/eslint-plugin": "^2.8.0",
     "@typescript-eslint/parser": "^2.8.0",
-    "eslint": "^6.6.0",
+    "eslint": "^6.7.0",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
-    "gatsby-plugin-typescript": "^2.1.18",
+    "gatsby-plugin-typescript": "^2.1.19",
+    "husky": ">=1",
+    "lint-staged": ">=8",
     "prettier": "^1.19.1",
     "typescript": "^3.7.2"
   },
@@ -44,7 +46,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "prettier": "prettier --write \"**/*.{js,ts,tsx,json,mdx}\"",
     "start": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
@@ -58,5 +60,13 @@
   },
   "bugs": {
     "url": "https://github.com/launchdarkly/git-gatsby/issues"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,mdx,json}": "eslint"
   }
 }
