@@ -34,7 +34,6 @@ export default {
       textDecoration: 'none',
       display: 'block',
       paddingBottom: 4,
-      lineHeight: 'small',
       fontWeight: 'bold',
     },
     labelBold: {
