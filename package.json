@@ -35,8 +35,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "gatsby-plugin-typescript": "^2.1.19",
-    "husky": ">=1",
-    "lint-staged": ">=8",
+    "husky": "^3.1.0",
     "prettier": "^1.19.1",
     "typescript": "^3.7.2"
   },
@@ -63,10 +62,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint"
+      "pre-commit": "yarn prettier && yarn lint && yarn tsc"
     }
-  },
-  "lint-staged": {
-    "*.{ts,tsx,js,mdx,json}": "eslint"
   }
 }
