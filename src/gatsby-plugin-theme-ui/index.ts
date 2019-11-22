@@ -35,18 +35,18 @@ export default {
       display: 'block',
       paddingBottom: 4,
       lineHeight: 'small',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     },
     labelBold: {
       fontSize: 3,
       lineHeight: 'small',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     },
     labelCaps: {
       fontSize: 3,
       lineHeight: 'small',
       textTransform: 'uppercase',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     },
   },
   cards: {
@@ -60,7 +60,7 @@ export default {
       lineHeight: 'body',
       bg: 'grayWash',
       mb: 4,
-      display: 'flex'
+      display: 'flex',
     },
     information: {
       padding: 2,

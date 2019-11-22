@@ -31,11 +31,11 @@ const Layout: FunctionComponent<LayoutProps> = ({
         sx={{
           height: '100vh',
           display: 'grid',
-          gridTemplateColumns: ['1rem auto', null, '18rem auto'],
+          gridTemplateColumns: ['1rem auto', null, '18rem 48rem auto'],
           gridTemplateRows: ['3rem auto', null, '4rem auto'],
           gridTemplateAreas: `
-          'header header'
-          'sidenav main'
+          'header header header'
+          'sidenav main aside'
         `,
         }}
       >
@@ -57,6 +57,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
           <Styled.h4>Documentation / Breadcrumb </Styled.h4>
           <MDXRenderer author={author}>{body}</MDXRenderer>
         </main>
+        <aside sx={{gridArea: 'aside', pt: 6}}>TOC</aside>
       </div>
     </div>
   )
