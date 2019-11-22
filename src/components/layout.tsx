@@ -3,15 +3,16 @@ import { jsx, Styled } from 'theme-ui'
 import { FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
-
 import Reset from './resetStyles'
 
 interface LayoutProps {
   data: {
     mdx: {
       body: string
-      frontmatter: {
-        author: string
+      timeToRead: number
+      fields: {
+        slug: string
+        lastModifiedTime: string
       }
     }
   }
@@ -20,7 +21,8 @@ const Layout: FunctionComponent<LayoutProps> = ({
   data: {
     mdx: {
       body,
-      frontmatter: { author },
+      timeToRead,
+      fields: { lastModifiedTime },
     },
   },
 }) => {
@@ -73,7 +75,9 @@ const Layout: FunctionComponent<LayoutProps> = ({
         </nav>
         <main sx={{ gridArea: 'main', px: [4, 6, 7], pt: 6 }}>
           <Styled.h4>Documentation / Breadcrumb </Styled.h4>
-          <MDXRenderer author={author}>{body}</MDXRenderer>
+          <MDXRenderer timeToRead={timeToRead} lastModifiedDateFormated={lastModifiedTime}>
+            {body}
+          </MDXRenderer>
         </main>
         <aside sx={{ gridArea: 'aside', pt: 6 }}>TOC</aside>
       </div>
@@ -85,9 +89,11 @@ export const pageQuery = graphql`
   query Query($id: String) {
     mdx(id: { eq: $id }) {
       body
-      frontmatter {
-        author
+      fields {
+        slug
+        lastModifiedTime(formatString: "MMM d, YYYY")
       }
+      timeToRead
     }
   }
 `

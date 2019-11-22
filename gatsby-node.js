@@ -16,6 +16,13 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       // createFilePath returns a path with the leading "/".
       value: `${value}`,
     })
+
+    const fileNode = getNode(node.parent)
+    createNodeField({
+      name: 'lastModifiedTime',
+      node,
+      value: fileNode.mtime,
+    })
   }
 }
 

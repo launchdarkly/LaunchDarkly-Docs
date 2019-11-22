@@ -1,7 +1,13 @@
 /** @jsx jsx */
 import { jsx, Styled } from 'theme-ui'
+import { FunctionComponent } from 'react'
+import pluralize from 'pluralize'
 
-const Frontmatter = () => {
+interface FrontmatterProps {
+  timeToRead: number
+  lastModifiedDateFormatted: string
+}
+const Frontmatter: FunctionComponent<FrontmatterProps> = ({ timeToRead, lastModifiedDateFormatted }) => {
   return (
     <div
       sx={{
@@ -13,8 +19,10 @@ const Frontmatter = () => {
         mb: 4,
       }}
     >
-      <Styled.h5>Est Read Time: 6 Minutes</Styled.h5>
-      <Styled.h5>Last edited: Sep 28, 2019</Styled.h5>
+      <Styled.h5>
+        Est Read Time: {timeToRead} {pluralize('minute', timeToRead)}
+      </Styled.h5>
+      <Styled.h5>Last edited: {lastModifiedDateFormatted}</Styled.h5>
     </div>
   )
 }
