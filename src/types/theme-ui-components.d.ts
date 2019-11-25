@@ -4,7 +4,7 @@ declare module '@theme-ui/components' {
   import { ResponsiveValue } from 'styled-system'
 
   type SxComponent<T extends SxProps = IntrinsicSxElements['div']> = React.ComponentClass<
-    T & { as?: React.ElementType; variant?: ResponsiveValue<string> }
+    T & { as?: React.ElementType; variant?: string }
   >
   type LinkSxComponent = SxComponent<IntrinsicSxElements['a']>
 
