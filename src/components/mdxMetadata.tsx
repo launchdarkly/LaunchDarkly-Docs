@@ -3,11 +3,11 @@ import { jsx, Styled } from 'theme-ui'
 import { FunctionComponent } from 'react'
 import pluralize from 'pluralize'
 
-interface FrontmatterProps {
+interface MdxMetadataProps {
   timeToRead: number
   lastModifiedDateFormatted: string
 }
-const Frontmatter: FunctionComponent<FrontmatterProps> = ({ timeToRead, lastModifiedDateFormatted }) => {
+const MdxMetadata: FunctionComponent<MdxMetadataProps> = ({ timeToRead, lastModifiedDateFormatted }) => {
   return (
     <div
       sx={{
@@ -27,4 +27,4 @@ const Frontmatter: FunctionComponent<FrontmatterProps> = ({ timeToRead, lastModi
   )
 }
 
-export default Frontmatter
+export default MdxMetadata

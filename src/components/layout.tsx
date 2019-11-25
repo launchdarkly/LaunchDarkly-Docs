@@ -80,7 +80,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
         </nav>
         <main sx={{ gridArea: 'main', px: [4, 6, 7], pt: 6 }}>
           <Breadcrumbs items={breadcrumbs} />
-          <MDXRenderer timeToRead={timeToRead} lastModifiedDateFormated={lastModifiedTime}>
+          <MDXRenderer timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedTime}>
             {body}
           </MDXRenderer>
         </main>
@@ -94,6 +94,7 @@ export const pageQuery = graphql`
   query Query($id: String) {
     mdx(id: { eq: $id }) {
       body
+      timeToRead
       fields {
         lastModifiedTime(formatString: "MMM d, YYYY")
       }
@@ -103,7 +104,6 @@ export const pageQuery = graphql`
           path
         }
       }
-      timeToRead
     }
   }
 `
