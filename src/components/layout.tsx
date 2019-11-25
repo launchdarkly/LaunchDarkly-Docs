@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import { jsx, Styled } from 'theme-ui'
+import { jsx } from 'theme-ui'
 import { Link } from '@theme-ui/components'
 import { FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import Reset from './resetStyles'
+import Breadcrumbs, { BreadcrumbItem } from './breadcrumbs'
 
 interface LayoutProps {
   data: {
@@ -12,8 +13,10 @@ interface LayoutProps {
       body: string
       timeToRead: number
       fields: {
-        slug: string
         lastModifiedTime: string
+      }
+      frontmatter: {
+        breadcrumbs: Array<BreadcrumbItem>
       }
     }
   }
@@ -24,6 +27,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
       body,
       timeToRead,
       fields: { lastModifiedTime },
+      frontmatter: { breadcrumbs },
     },
   },
 }) => {
@@ -75,7 +79,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
           </Link>
         </nav>
         <main sx={{ gridArea: 'main', px: [4, 6, 7], pt: 6 }}>
-          <Styled.h4>Documentation / Breadcrumb </Styled.h4>
+          <Breadcrumbs items={breadcrumbs} />
           <MDXRenderer timeToRead={timeToRead} lastModifiedDateFormated={lastModifiedTime}>
             {body}
           </MDXRenderer>
@@ -91,8 +95,13 @@ export const pageQuery = graphql`
     mdx(id: { eq: $id }) {
       body
       fields {
-        slug
         lastModifiedTime(formatString: "MMM d, YYYY")
+      }
+      frontmatter {
+        breadcrumbs {
+          label
+          path
+        }
       }
       timeToRead
     }
