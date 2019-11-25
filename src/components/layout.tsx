@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, Styled } from 'theme-ui'
+import { Link } from '@theme-ui/components'
 import { FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
@@ -54,24 +55,24 @@ const Layout: FunctionComponent<LayoutProps> = ({
           </div>
         </header>
         <nav sx={{ gridArea: 'sidenav', bg: 'grayLight', px: 5, py: 6 }}>
-          <a href="" sx={{ variant: 'text.label' }}>
+          <Link href="" variant="text.label">
             Quickstart
-          </a>
-          <a href="" sx={{ variant: 'text.label' }}>
+          </Link>
+          <Link href="" variant="text.label">
             Managing Flags
-          </a>
-          <a href="" sx={{ variant: 'text.label' }}>
+          </Link>
+          <Link href="" variant="text.label">
             Managing Users
-          </a>
-          <a href="" sx={{ variant: 'text.label' }}>
+          </Link>
+          <Link href="" variant="text.label">
             Account Security
-          </a>
-          <a href="" sx={{ variant: 'text.label' }}>
+          </Link>
+          <Link href="" variant="text.label">
             Metrics and Insights
-          </a>
-          <a href="" sx={{ variant: 'text.label' }}>
+          </Link>
+          <Link href="" variant="text.label">
             Experimentation
-          </a>
+          </Link>
         </nav>
         <main sx={{ gridArea: 'main', px: [4, 6, 7], pt: 6 }}>
           <Styled.h4>Documentation / Breadcrumb </Styled.h4>
