@@ -13,5 +13,7 @@
 yarn && yarn start
 ```
 
+Then navigate to [localhost:8000](http://localhost:8000)
+
 ## 💫 Build & Deploy
  TODO
