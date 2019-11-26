@@ -47,7 +47,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
             `,
             `
             'header header header'
-            'sidenav main aside'
+            'sideMenu main aside'
             `,
           ],
         }}
@@ -58,7 +58,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
             <span sx={{ pl: 2 }}>DOCS</span>
           </div>
         </header>
-        <nav sx={{ gridArea: 'sidenav', bg: 'grayLight', px: 5, py: 6 }}>
+        <nav sx={{ gridArea: 'sideMenu', bg: 'grayLight', px: 5, py: 6, display: ['none', 'block'] }}>
           <Link href="" variant="text.label">
             Quickstart
           </Link>
@@ -84,7 +84,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
             {body}
           </MDXRenderer>
         </main>
-        <aside sx={{ gridArea: 'aside', pt: 6 }}>TOC</aside>
+        <aside sx={{ gridArea: 'aside', pt: 6, display: ['none', 'block'] }}>TOC</aside>
       </div>
     </div>
   )
