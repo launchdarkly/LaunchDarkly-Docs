@@ -1,0 +1,44 @@
+---
+path: '/getting-started'
+breadcrumbs: [{ label: 'Documentation', path: '/' }, { label: 'Getting started', path: '/' }]
+---
+
+import Metadata from '../../../components/mdxMetadata'
+import { Card } from '@theme-ui/components'
+
+# Getting started with LaunchDarkly
+
+<Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
+
+Welcome to LaunchDarkly! We're excited to partner with you as you use feature flags to make high-impact
+changes with minimal risk and maximum control.
+
+It only takes a few minutes to get started with LaunchDarkly and control your first feature flag.
+
+<Card>
+  <span>
+    See also: <a href="">Creating a card</a>
+  </span>
+  <img src="https://75oio.csb.app/bookmark-outline.svg" alt="card icon" />
+</Card>
+
+## Integrating with LaunchDarkly
+
+The steps to integrate your application with LaunchDarkly are common across all SDKs. We provide a variety
+of client, server, and mobile SDKs for you to use. To learn more about our SDK offerings, read Choosing an
+SDK.
+
+To setup LaunchDarkly:
+
+1. Install the LaunchDarkly SDK in your application using your project's dependency manager. This lets your
+application access the LaunchDarkly SDK.
+2. Import the LaunchDarkly client in your application code. This client is the primary way your application
+uses the SDK and communicates with LaunchDarkly.
+3. Configure the LaunchDarkly client with the appropriate key for your environment and create the client.
+Your SDK key, Client-side ID, and Mobile key uniquely identify your project and environment, and they
+authorize your application to connect to LaunchDarkly.
+
+### Flag evaluations are always available.
+
+If the SDK you're using loses the connection with LaunchDarkly, your feature flags will still work. The SDK
+relies on its stored state to evaluate flags.
