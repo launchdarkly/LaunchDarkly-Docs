@@ -5,10 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Lint
     steps:
-      steps:
-        - uses: actions/checkout@v1
-        - uses: actions/setup-node@v1
-          with:
-            node-version: '13.x'
-        - run: yarn
-        - run: yarn lint
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '13.x'
+      - run: yarn
+      - run: yarn lint
