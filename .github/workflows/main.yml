@@ -3,6 +3,7 @@ on: [push]
 jobs:
   lint:
     runs-on: ubuntu-latest
+    name: Run eslint
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -12,6 +13,7 @@ jobs:
       - run: yarn lint
   tsc:
     runs-on: ubuntu-latest
+    name: Check typescript
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
