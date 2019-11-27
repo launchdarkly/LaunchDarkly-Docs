@@ -11,3 +11,4 @@ jobs:
           node-version: '13.x'
       - run: yarn
       - run: yarn lint
+      - run: yarn tsc
