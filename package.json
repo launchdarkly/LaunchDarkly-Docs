@@ -47,7 +47,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "prettier": "prettier --write \"**/*.{js,ts,tsx,json,mdx}\"",
+    "prettier": "prettier --write \"**/*.{js,ts,tsx,json,mdx,yml}\"",
     "start": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
