@@ -4,8 +4,19 @@ import { Link } from '@theme-ui/components'
 import { FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
+import { MDXProvider } from '@mdx-js/react'
 import Reset from './resetStyles'
 import Breadcrumbs, { BreadcrumbItem } from './breadcrumbs'
+import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
+
+const components = {
+  h1: H1,
+  h2: H2,
+  h3: H3,
+  h4: H4,
+  h5: H5,
+  h6: H6,
+}
 
 interface LayoutProps {
   data: {
@@ -80,9 +91,11 @@ const Layout: FunctionComponent<LayoutProps> = ({
         </nav>
         <main sx={{ gridArea: 'main', px: [4, 6, 7], pt: 6 }}>
           <Breadcrumbs items={breadcrumbs} />
-          <MDXRenderer timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedTime}>
-            {body}
-          </MDXRenderer>
+          <MDXProvider components={components}>
+            <MDXRenderer timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedTime}>
+              {body}
+            </MDXRenderer>
+          </MDXProvider>
         </main>
         <aside sx={{ gridArea: 'aside', pt: 6, display: ['none', 'block'] }}>TOC</aside>
       </div>

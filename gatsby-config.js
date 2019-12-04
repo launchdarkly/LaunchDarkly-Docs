@@ -6,10 +6,26 @@ module.exports = {
     author: '@gatsbyjs',
   },
   plugins: [
-    'gatsby-plugin-mdx',
+    {
+      resolve: 'gatsby-plugin-mdx',
+      options: {
+        remarkPlugins: [require('remark-slug')],
+      },
+    },
     'gatsby-plugin-theme-ui',
     'gatsby-plugin-react-helmet-async',
     'gatsby-plugin-typescript',
+    {
+      resolve: 'gatsby-plugin-svgr-loader',
+      options: {
+        rule: {
+          options: {
+            icon: true,
+          },
+          include: /icons/,
+        },
+      },
+    },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
