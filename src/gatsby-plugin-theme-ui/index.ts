@@ -1,4 +1,6 @@
 export default {
+  // breakpoints are intentionally set using em after some research and discussion based on this
+  // https://zellwk.com/blog/media-query-units/
   breakpoints: ['36em', '48em', '62em', '75em'],
   sizes: ['1rem', '1.25rem', '1.5rem', '2rem', '4rem', '8rem', '16rem'],
   fontSizes: [8, 10, '0.75rem', '0.875rem', '1rem', '1.5rem', '1.75rem', '2rem'],
@@ -29,6 +31,7 @@ export default {
     grayWash: '#F8F9FA',
   },
   space: [0, 4, 8, 12, 16, 24, 32, 48, 64, 128, 256],
+  radii: [0, 4, 6],
   fonts: {
     body: 'system-ui, sans-serif',
     heading: 'inherit',

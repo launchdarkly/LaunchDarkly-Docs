@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    { "removeAttrs": { "attrs": "*:fill:((?!^none$).)*" } },
+    {
+      "removeViewBox": false
+    },
+    {
+      "removeDimensions": true
+    }
+  ]
+}

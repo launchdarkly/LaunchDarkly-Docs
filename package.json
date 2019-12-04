@@ -29,9 +29,10 @@
     "theme-ui": "^0.2.49"
   },
   "devDependencies": {
-    "@testing-library/react": "9.3.2",
-    "@types/jest": "24.0.23",
-    "@types/react-helmet": "5.0.14",
+    "@testing-library/react": "^9.3.2",
+    "@types/jest": "^24.0.23",
+    "@svgr/cli": "^4.3.3",
+    "@types/react-helmet": "^5.0.14",
     "@types/react-helmet-async": "^1.0.3",
     "@types/theme-ui": "^0.2.4",
     "@typescript-eslint/eslint-plugin": "^2.8.0",
@@ -42,10 +43,7 @@
     "eslint-plugin-react": "^7.16.0",
     "gatsby-plugin-typescript": "^2.1.19",
     "husky": "^3.1.0",
-    "jest": "24.9.0",
-    "jest-emotion": "10.0.26",
     "prettier": "^1.19.1",
-    "ts-jest": "24.2.0",
     "typescript": "^3.7.2"
   },
   "keywords": [
@@ -60,7 +58,8 @@
     "clean": "gatsby clean",
     "test": "jest",
     "tsc": "tsc",
-    "lint": "eslint --ignore-path .gitignore . --ext ts --ext tsx --ext js --ext jsx"
+    "lint": "eslint --ignore-path .gitignore . --ext ts --ext tsx --ext js --ext jsx",
+    "svgr": "svgr assets/icons -d src/components/icons --ext tsx --template src/components/icons/svgrTemplate.js --filename-case camel --svgo-config svgo-config.json"
   },
   "repository": {
     "type": "git",
