@@ -7,6 +7,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from '@mdx-js/react'
 import Reset from './resetStyles'
 import Breadcrumbs, { BreadcrumbItem } from './breadcrumbs'
+import { TableOfContents, TOC } from './tableOfContents'
 import Header from './header'
 import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
 
@@ -23,6 +24,7 @@ interface LayoutProps {
   data: {
     mdx: {
       body: string
+      toc: TOC
       timeToRead: number
       fields: {
         lastModifiedTime: string
@@ -37,6 +39,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
   data: {
     mdx: {
       body,
+      toc,
       timeToRead,
       fields: { lastModifiedTime },
       frontmatter: { breadcrumbs },
@@ -93,7 +96,9 @@ const Layout: FunctionComponent<LayoutProps> = ({
             </MDXRenderer>
           </MDXProvider>
         </main>
-        <aside sx={{ gridArea: 'aside', pt: 6, display: ['none', 'block'] }}>TOC</aside>
+        <aside sx={{ gridArea: 'aside', pt: 6, display: ['none', 'block'] }}>
+          <TableOfContents toc={toc} />
+        </aside>
       </div>
     </div>
   )
@@ -103,6 +108,7 @@ export const pageQuery = graphql`
   query Query($id: String) {
     mdx(id: { eq: $id }) {
       body
+      toc: tableOfContents(maxDepth: 2)
       timeToRead
       fields {
         lastModifiedTime(formatString: "MMM d, YYYY")

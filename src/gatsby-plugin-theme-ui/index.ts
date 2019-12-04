@@ -31,6 +31,7 @@ export default {
     grayWash: '#F8F9FA',
   },
   space: [0, 4, 8, 12, 16, 24, 32, 48, 64, 128, 256],
+  borderWidths: [0, '.0625rem', '.125rem', '.25rem', '.5rem', '1rem', '2rem'],
   radii: [0, 4, 6],
   fonts: {
     body: 'system-ui, sans-serif',
