@@ -36,4 +36,16 @@ module.exports = {
     '@typescript-eslint/camelcase': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
   },
+  globals: {
+    describe: true,
+    it: true,
+    expect: true,
+    jest: true,
+    beforeEach: true,
+    afterEach: true,
+    beforeAll: true,
+    afterAll: true,
+    test: true,
+    jsdom: true,
+  },
 }

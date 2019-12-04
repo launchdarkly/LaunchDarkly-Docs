@@ -21,3 +21,13 @@ jobs:
           node-version: '13.x'
       - run: yarn
       - run: yarn tsc
+  test:
+    runs-on: ubuntu-latest
+    name: Run tests
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '13.x'
+      - run: yarn
+      - run: yarn test

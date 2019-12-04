@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mdx metadata renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border-bottom: 1px solid;
+  border-color: grayMed;
+  padding-bottom: 8px;
+  margin-bottom: 32px;
+}
+
+<div
+    class="emotion-2"
+  >
+    <h5
+      class="emotion-0"
+    >
+      Est Read Time: 10 minutes
+    </h5>
+    <h5
+      class="emotion-0"
+    >
+      Last edited: Nov 12 1999
+    </h5>
+  </div>
+</DocumentFragment>
+`;
