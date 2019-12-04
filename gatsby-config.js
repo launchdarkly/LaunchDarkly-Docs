@@ -16,17 +16,6 @@ module.exports = {
     'gatsby-plugin-react-helmet-async',
     'gatsby-plugin-typescript',
     {
-      resolve: 'gatsby-plugin-svgr-loader',
-      options: {
-        rule: {
-          options: {
-            icon: true,
-          },
-          include: /icons/,
-        },
-      },
-    },
-    {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'images',

@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import { Styled, IntrinsicSxElements } from 'theme-ui'
-import LinkIcon from '../../../assets/icons/anchor.svg'
+import { jsx, Styled, IntrinsicSxElements } from 'theme-ui'
+import React from 'react'
+import SvgAnchor from '../icons/anchor'
 
-// This module defines custom components to be used in place of the default HTML
-// elements that Markdown compiles to.
+// This module defines custom heading components to be used in place
+// of the default HTML elements that Markdown compiles to.
 
 type HeadingTag = keyof Pick<IntrinsicSxElements, 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'>
 
@@ -35,7 +35,7 @@ function createHeading(tag: HeadingTag) {
             float: 'left',
           }}
         >
-          <LinkIcon sx={{ size: 1 }} />
+          <SvgAnchor sx={{ size: 1, fill: 'gray' }} />
         </a>
         {props.children}
       </Tag>
