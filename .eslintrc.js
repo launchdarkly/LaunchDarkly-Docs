@@ -26,6 +26,8 @@ module.exports = {
     sourceType: 'module', // Allows for the use of imports
   },
   rules: {
+    'no-duplicate-imports': 'error',
+
     // Disable prop-types as we use TypeScript for type checking
     'react/prop-types': 'off',
 
