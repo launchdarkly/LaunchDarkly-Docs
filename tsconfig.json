@@ -10,5 +10,5 @@
     "lib": ["dom", "es2015", "esnext"]
   },
   "include": ["./src/**/*"],
-  "exclude": ["node_modules", "public", ".cache", "./src/_delete"]
+  "exclude": [".cache", ".github", "assets", "dist", "node_modules", "public"]
 }

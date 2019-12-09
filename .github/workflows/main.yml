@@ -24,6 +24,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     name: Run tests
+    needs: [lint, tsc] # ensure tests are run only after eslint and tsc pass
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
