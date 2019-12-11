@@ -54,7 +54,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
           height: '100vh',
           display: 'grid',
           gridTemplateColumns: ['100%', '12rem auto', '18rem 48rem auto'],
-          gridTemplateRows: ['3.3rem auto', null, '4rem auto'],
+          gridTemplateRows: theme => [`${theme.sizes[4]} auto`, null, `${theme.sizes[4]} auto`],
           gridTemplateAreas: [
             `
             'header'

@@ -1,0 +1,62 @@
+[
+  {
+    "label": "HOME",
+    "href": "/",
+    "items": [
+      {
+        "label": "Quickstart",
+        "href": "",
+        "items": [
+          {
+            "label": "Getting started",
+            "href": "/getting-started"
+          },
+          {
+            "label": "Your team and LaunchDarkly",
+            "href": "/new-members"
+          },
+          {
+            "label": "Creating a feature flag",
+            "href": "/creating-a-feature-flag"
+          }
+        ]
+      },
+      {
+        "label": "Managing Flags",
+        "href": ""
+      },
+      {
+        "label": "Managing Users",
+        "href": ""
+      },
+      {
+        "label": "Account Security",
+        "href": ""
+      },
+      {
+        "label": "Metrics and Insights",
+        "href": ""
+      },
+      {
+        "label": "Experimentation",
+        "href": ""
+      },
+      {
+        "label": "Advanced",
+        "href": ""
+      }
+    ]
+  },
+  {
+    "label": "INTEGRATIONS",
+    "items": []
+  },
+  {
+    "label": "SDK",
+    "items": []
+  },
+  {
+    "label": "API DOCS",
+    "items": []
+  }
+]

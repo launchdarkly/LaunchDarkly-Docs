@@ -22,6 +22,14 @@ module.exports = {
     },
     'gatsby-plugin-react-helmet-async',
     'gatsby-plugin-typescript',
+    'gatsby-transformer-json',
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'navigationData',
+        path: `${__dirname}/navigationData.json`,
+      },
+    },
     {
       resolve: 'gatsby-source-filesystem',
       options: {

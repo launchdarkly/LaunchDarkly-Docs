@@ -18,6 +18,7 @@
     "gatsby-plugin-sharp": "^2.3.2",
     "gatsby-plugin-theme-ui": "^0.2.43",
     "gatsby-source-filesystem": "^2.1.38",
+    "gatsby-transformer-json": "^2.2.20",
     "gatsby-transformer-sharp": "^2.3.5",
     "pluralize": "^8.0.0",
     "react": "^16.12.0",
