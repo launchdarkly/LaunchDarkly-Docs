@@ -53,12 +53,16 @@ const Layout: FunctionComponent<LayoutProps> = ({
         sx={{
           height: '100vh',
           display: 'grid',
-          gridTemplateColumns: ['100%', '12rem 40rem auto', '18rem 48rem auto'],
+          gridTemplateColumns: ['100%', '12rem auto', '18rem 48rem auto'],
           gridTemplateRows: ['3.3rem auto', null, '4rem auto'],
           gridTemplateAreas: [
             `
             'header'
             'main'
+            `,
+            `
+            'header header'
+            'sideMenu main'
             `,
             `
             'header header header'
@@ -68,8 +72,18 @@ const Layout: FunctionComponent<LayoutProps> = ({
         }}
       >
         <Header />
-        <nav sx={{ gridArea: 'sideMenu', bg: 'grayLight', px: 5, py: 6, display: ['none', 'block'] }}>
-          <Link href="" variant="text.label">
+        <nav
+          sx={{
+            gridArea: 'sideMenu',
+            bg: 'grayLight',
+            paddingLeft: 6,
+            py: 6,
+            display: ['none', 'block'],
+            borderRight: '1px solid',
+            borderColor: 'grayMed',
+          }}
+        >
+          <Link href="" variant="text.label" sx={{ color: 'primarySafe' }}>
             Quickstart
           </Link>
           <Link href="" variant="text.label">
@@ -96,7 +110,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
             </MDXRenderer>
           </MDXProvider>
         </main>
-        <aside sx={{ gridArea: 'aside', pt: 6, display: ['none', 'block'] }}>
+        <aside sx={{ gridArea: 'aside', pt: 6, display: ['none', 'none', 'block'], maxWidth: '18rem' }}>
           <TableOfContents toc={toc} />
         </aside>
       </div>

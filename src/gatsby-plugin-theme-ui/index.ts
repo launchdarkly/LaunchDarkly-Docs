@@ -1,7 +1,7 @@
 export default {
   // breakpoints are intentionally set using em after some research and discussion based on this
   // https://zellwk.com/blog/media-query-units/
-  breakpoints: ['36em', '48em', '62em', '75em'],
+  breakpoints: ['36em', '52em', '62em', '75em'],
   sizes: ['1rem', '1.25rem', '1.5rem', '2rem', '4rem', '8rem', '16rem'],
   fontSizes: [8, 10, '0.75rem', '0.875rem', '1rem', '1.5rem', '1.75rem', '2rem'],
   colors: {
@@ -39,6 +39,7 @@ export default {
     monospace: 'Menlo, monospace',
   },
   fontWeights: {
+    light: 300,
     body: 400,
     heading: 700,
     bold: 500,
@@ -113,7 +114,8 @@ export default {
     h1: {
       fontSize: [5, 6, 7],
       lineHeight: 'fixed',
-      marginBottom: '6',
+      marginBottom: '3',
+      fontWeight: 'light',
     },
     h2: {
       fontSize: [4, 6],
@@ -134,7 +136,7 @@ export default {
       fontSize: 2,
       textTransform: 'uppercase',
       fontWeight: 'bold',
-      color: 'grayBase',
+      color: 'graySafe',
     },
     h6: {
       fontSize: 1,
@@ -143,6 +145,12 @@ export default {
       color: 'primarySafe',
       ':hover': {
         color: 'grayBase',
+      },
+      ':visited': {
+        color: 'primarySafe',
+      },
+      ':active': {
+        color: 'primarySafe',
       },
     },
     p: {

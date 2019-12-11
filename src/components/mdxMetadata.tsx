@@ -13,10 +13,7 @@ const MdxMetadata: FunctionComponent<MdxMetadataProps> = ({ timeToRead, lastModi
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
-        borderBottom: '1px solid',
-        borderColor: 'grayMed',
-        pb: 2,
-        mb: 4,
+        mb: 6,
       }}
     >
       <Styled.h5>

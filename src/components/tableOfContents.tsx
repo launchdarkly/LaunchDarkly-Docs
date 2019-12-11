@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx, Styled } from 'theme-ui'
 import { Link } from '@theme-ui/components'
 
 type TOCItem = {
@@ -21,13 +21,8 @@ export function TableOfContents({ toc, ...props }: TableOfContentsProps) {
 
   return (
     <div {...props}>
-      <h3
+      <Styled.h5
         sx={{
-          fontSize: 2,
-          fontWeight: 'heading',
-          lineHeight: 'fixed',
-          textTransform: 'uppercase',
-          color: 'graySafe',
           borderBottomStyle: 'solid',
           borderBottomWidth: 1,
           borderColor: 'grayMed',
@@ -35,7 +30,7 @@ export function TableOfContents({ toc, ...props }: TableOfContentsProps) {
         }}
       >
         On this page
-      </h3>
+      </Styled.h5>
       <ul>
         {children.map(({ url, title }) => (
           <li

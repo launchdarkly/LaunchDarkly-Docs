@@ -13,7 +13,7 @@ interface BreadcrumbsProps {
 }
 const Breadcrumbs: FunctionComponent<BreadcrumbsProps> = ({ items }) => {
   return (
-    <Styled.h4>
+    <Styled.h4 sx={{ pb: '2' }}>
       {items.map(({ label, path }, index) => {
         const lastItem = index === items.length - 1
         return (

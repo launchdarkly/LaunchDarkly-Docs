@@ -11,10 +11,7 @@ exports[`mdx metadata renders correctly 1`] = `
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  border-bottom: 1px solid;
-  border-color: grayMed;
-  padding-bottom: 8px;
-  margin-bottom: 32px;
+  margin-bottom: 128px;
 }
 
 <div
