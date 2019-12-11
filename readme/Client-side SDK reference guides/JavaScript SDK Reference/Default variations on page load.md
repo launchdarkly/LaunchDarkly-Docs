@@ -1,0 +1,35 @@
+---
+title: "Default variations on page load"
+excerpt: ""
+---
+When using LaunchDarkly on your website the content the user sees will often depend on the values of your feature flags. If the page is initially rendered with one set of flag variations then updated with a new set it can cause a jarring switch between two views of the content. This can appear as a "flash" or "flicker" of the initial content during a page load. Usually we don't expect this to happen, but under certain use cases extra steps might be necessary to prevent it.
+[block:api-header]
+{
+  "title": "Causes"
+}
+[/block]
+As the feature flags must be evaluated against a user to get the correct variations, the default behavior of the JavaScript SDK is to request the flags for the user from LaunchDarkly's servers. Once the flags have been retrieved the SDK will send a `ready` event to signal that it is ready to evaluate flags. If the page is initially rendered before the `ready` event triggers an update to the page, the initial rendering could be displayed briefly before the final page content.
+[block:api-header]
+{
+  "title": "Initialize the client earlier"
+}
+[/block]
+As a simple change to reduce the chance and duration of these flashes is to optimize your page to allow evaluating the flags earlier. By moving LaunchDarkly's script higher in the page's `<head>` and initializing the SDK earlier in your code you can reduce the amount of time waiting for the SDK script to download and the SDK to initialize. This means drawing the right content earlier, preventing or reducing the impact of "flashes".
+[block:api-header]
+{
+  "title": "Block drawing the page until the flag values are available"
+}
+[/block]
+A different approach is to block showing the page content until the flag values have been signaled to be available by the `ready` event. This can be accomplished by setting the styling on the `body` to be hidden at the start of loading the page. When the SDK sends the `ready` event page content can be updated depending on the flag values before setting the `body` to be visible. However, as the SDK may take 100ms or more to fetch the flag values this can lead to an undesirable delay in page load time.
+[block:api-header]
+{
+  "title": "Bootstrap the flag values to be available immediately"
+}
+[/block]
+Bootstrapping refers to providing the LaunchDarkly client object with an initial, immediately available set of feature flag values so that on page load `variation` can be called with no delay. In this approach flags are evaluated using a server SDK and the results are passed into the JavaScript SDK initialization using templating. With this approach the JavaScript SDK will not fetch the flags, and instead will directly use the given bootstrap flag values. This allows flag evaluation to be ready immediately. See the [boostrapping section](https://docs.launchdarkly.com/docs/js-sdk-reference#section-bootstrapping) of the JS SDK reference for more information.
+[block:api-header]
+{
+  "title": "Use the React SDK's asyncWithLDProvider function"
+}
+[/block]
+If you are using the React SDK, another option is to use the `asyncWithLDProvider` function. See the [React SDK reference](https://docs.launchdarkly.com/docs/react-sdk-reference#section--asyncwithldprovider-) for more information.

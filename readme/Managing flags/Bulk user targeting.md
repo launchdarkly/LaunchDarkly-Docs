@@ -1,0 +1,100 @@
+---
+title: "Bulk user targeting"
+excerpt: ""
+---
+[block:api-header]
+{
+  "title": "Overview"
+}
+[/block]
+This topic explains how to perform edits on groups of users with the **Bulk Edit** button, or export all the users a flag is targeted to with the **Export as CSV** button.
+
+The **Bulk Edit** button lets you manage all of your user targets for a single feature flag variation. You can use it to make changes to users in large numbers, such as adding or removing them to a flag variation. The **Export as CSV** button lets you export all the user keys for a flag's targeting settings as a spreadsheet.
+[block:callout]
+{
+  "type": "warning",
+  "title": "Bulk user targeting limits",
+  "body": "We recommend using bulk user targeting judiciously. Very large lists of named users increases the size of the payload fetched by the SDK when initializing, as well as the memory footprint of the SDK. \n\nLists of over 50,000 individual users are not supported for flags or segments in LaunchDarkly. We recommend not exceeding a few thousand individual users across your flags and segments.\n\nWe recommend using custom attributes to target a large number of individual users. Custom attributes let you assign an attribute to the users who should receive the feature flag and then set up the targeting rules to serve the flag to users who have that attribute. This allows you to target groups of users without increasing the size of the payload.\n\nTo learn more about custom attributes, read [Targeting users based on custom attributes](doc:targeting-users#section-targeting-users-based-on-custom-attributes)."
+}
+[/block]
+
+[block:api-header]
+{
+  "type": "basic",
+  "title": "Bulk editing users"
+}
+[/block]
+You can bulk edit users from a flag's Targeting screen. 
+
+To add, remove, or replace user targets for a flag variation, click **Bulk Edit** or paste a list of users into the "Add users" field.
+[block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/b08859e-Screen_Shot_2019-10-24_at_3_11_01_PM.png",
+        "Screen_Shot_2019-10-24_at_3_11_01_PM.png",
+        1089,
+        466,
+        "#faf9f9"
+      ],
+      "caption": "The user targeting section with the **Bulk Edit** button called out."
+    }
+  ]
+}
+[/block]
+In the screenshot below, we are bulk editing the `true` variation by targeting 8 additional users.  Users that are already targeted are greyed out.
+[block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/9e67061-bulkss.png",
+        "bulkss.png",
+        1287,
+        547,
+        "#969696"
+      ],
+      "caption": "The Bulk editing screen."
+    }
+  ]
+}
+[/block]
+Use the dropdown to do one of the following actions:
+   *  **Add** adds the selected users as targets to the variation
+   * **Remove** removes the selected users from the target variation
+   * **Replace**  replaces all currently targeted users with the selected users
+
+In the left text area, you can paste or type user keys or e-mails as comma separated values (CSV), one per line or separated by a comma. 
+
+Once you're finished, LaunchDarkly looks up users by key or e-mail and displays them in the right panel. If you want to target a user that has not been seen by LaunchDarkly, you must enter their key. 
+   
+* **All** represents all of the users that may be impacted by the action, whether they are added or removed. Check the user's checkbox for the action to apply.
+* **The checkmark** represents inputted user keys that currently match users in the system. For example, if you enter the user key `bob@example.com`, and `bob@example.com` already exists in LaunchDarkly, he will show up in this list.
+* **The question mark** represents users with no matching records in LaunchDarkly. If you are adding users and they users do not currently exist in LaunchDarkly, they will be added to the targeting list.
+* **The exclamation mark** represents user key inputs with multiple matching records. For example, if you enter the e-mail address `bob@example.com`, but there are multiple user keys that have `bob@example.com` as an email address, the system may return multiple matching records.  You can select the correct record by clicking the checkbox.
+* **Current** lists all of the currently targeted users for the variation.
+[block:api-header]
+{
+  "title": "Exporting a list of users to CSV"
+}
+[/block]
+You can download a list of all the users a flag variation is targeted to from the flag's Targeting screen.
+
+Click **Export as CSV** to download a list of the keys for users a flag variation is targeted to.
+[block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/c851ed4-Screen_Shot_2019-10-24_at_3_11_01_PM-2.png",
+        "Screen_Shot_2019-10-24_at_3_11_01_PM-2.png",
+        1089,
+        466,
+        "#faf9f9"
+      ],
+      "caption": "The user targeting section with the **Export as CSV** button called out."
+    }
+  ]
+}
+[/block]

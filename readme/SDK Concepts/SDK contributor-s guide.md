@@ -1,0 +1,225 @@
+---
+title: "SDK contributor's guide"
+excerpt: ""
+---
+[block:api-header]
+{
+  "title": "Overview"
+}
+[/block]
+This topic explains how LaunchDarkly SDKs work. It is intended to help anyone create a LaunchDarkly SDK for a new platform from scratch or contribute to an existing SDK implementation.
+
+Our SDKs are all open source, and we encourage pull-requests and other contributions from the community.
+[block:api-header]
+{
+  "type": "basic",
+  "title": "Algorithms"
+}
+[/block]
+There are three main components to a LaunchDarkly SDK implementation: 
+* [Receiving feature flag updates](#section-receiving-feature-flag-updates)
+* [Evaluating feature flags](#section-evaluating-feature-flags), and
+* [Recording events in the backend](#section-recording-events)
+[block:api-header]
+{
+  "type": "basic",
+  "title": "Receiving feature flag updates"
+}
+[/block]
+LaunchDarkly's server-side SDKs store all feature flags in memory. Server-side SDKs receive flag updates asynchronously. Flag updates are triggered when you make changes on your LaunchDarkly dashboard, and arrive by one of two mechanisms:
+
+1. **Through LaunchDarkly's streaming API.** An SDK can subscribe to our streaming API at `https://stream.launchdarkly.com/all`. This call must include an `Authorization` header with the value `${sdk_key}`, where `${sdk_key}` is the SDK key the client application passess to the LaunchDarkly client configuration. Our streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events). 
+
+2. **By polling our evaluation API**. An SDK can poll `https://app.launchdarkly.com/sdk/latest-all`. This call must include an `Authorization` header with value `${sdk_key}`, where `${sdk_key}` is the API key the client application passed to the LaunchDarkly client configuration. Ideally, the SDK implementor should poll this resource once per second. You **must** throttle the implementation to make **at most** one call per second. This resource may return caching headers. Use [etags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This is a common use case, so remember to account for it.
+
+The SDK can use either of the above mechanisms to populate a feature flag store, which is a thread-safe, in-memory map from feature flag keys to feature flag JSON. Evaluating a feature flag is a very lightweight and inexpensive effort; you can read the flag from the in-memory store and evaluate it using the Go SDK evaluation algorithm. To learn more, read [Evaluating feature flags](#section-evaluating-feature-flags).
+
+Expose the store itself as an interface so that you can easily implement alternative configurations (for example, a Redis-backed store).
+[block:api-header]
+{
+  "type": "basic",
+  "title": "Evaluating feature flags"
+}
+[/block]
+To implement the `variation` method in a server side SDK, a feature flag is retrieved from the store and evaluated directly in the SDK. For evaluation rules please refer to [Flag evaluation rules in server-side SDKs](doc:flag-evaluation-rules).
+
+Our [Go SDK](https://github.com/launchdarkly/go-server-sdk/blob/v4/ldclient.go) serves as our reference evaluation algorithm. 
+
+[block:api-header]
+{
+  "type": "basic",
+  "title": "Recording events"
+}
+[/block]
+The SDKs send six kinds of events: "feature” and "debug" events produced every time a feature flag is evaluated (depending on what controls are enabled for that flag), “identify” and "index" events which push user data to LaunchDarkly, “custom” events that are triggered by the client application via an SDK method, and "summary" events that roll up a series of "feature" events. Events must be batched and sent to the LaunchDarkly server **asynchronously**. This is a requirement for all SDKs. Conceptually, this is accomplished by creating a background job that runs every 30 seconds and makes a `POST` call to `/api/events/bulk`. This call must have a `Content-Type` header set to `application/json`, an `Authorization` header set to `api_key ${api_key}`, and must include a JSON body consisting of a list of events. On platforms with poor multithreading support, you may need to [get creative](https://segment.com/blog/how-to-make-async-requests-in-php/).
+
+The time between batch calls to the event API should be configurable. The SDK should have a configuration element for the maximum number of events to store between batch calls. If this capacity is exceeded before a batch call, events should be discarded and a warning logged.
+
+“Feature” events have the following shape:
+[block:code]
+{
+  "codes": [
+    {
+      "code": " {\n    \"kind\": \"feature\",\n    \"userKey\": \"feature@test.com\",\n    \"creationDate\": 1462220944000,\n    \"key\": \"my.feature.key\",\n    \"value\": false,\n    \"default\": false,\n    \"version\": 42,\n    \"prereqOf\": \"parent-flag\"\n  }",
+      "language": "json"
+    }
+  ]
+}
+[/block]
+The `kind` should always be `feature`.  A "feature" event should only by generated it the "trackEvents" attribute of the flag is sent.  The "prereqOf" attribute should be set to a flag key if this flag evaluation was only performed in order to determine whether the prerequisite values were met for the indicated flag.
+
+The "debug" event is a variant on the "feature" event, with two differences.  It has has "kind" set to "debug" and it inlines the "user" value.  It is only sent if the "debugEventsUntilDate" attribute is set for a feature flag and indicates a unix timestamp (in milliseconds) that has not yet elapsed.  "debug" events are not controlled by the "trackEvents" field.
+[block:code]
+{
+  "codes": [
+    {
+      "code": " {\n    \"kind\": \"debug\",\n    \"user\": {\n      \"key\": \"feature@test.com\",\n      \"custom\": {\n        \"groups\": [\n          \"microsoft\",\n          \"google\"\n        ]\n      }\n    },\n    \"creationDate\": 1462220944000,\n    \"key\": \"my.feature.key\",\n    \"value\": false,\n    \"default\": false,\n    \"version\": 42,\n    \"prereqOf\": \"parent-flag\"\n  }",
+      "language": "json"
+    }
+  ]
+}
+[/block]
+​The `user` has the same schema as `user` objects for feature flag evaluation. The `creationDate` must be the time the feature flag was requested as Unix epoch time in milliseconds. The `key` is the key of the feature flag requested. The `value` is the value of the feature flag returned by feature flag evaluation. Finally, the `default` field, which is optional, should be set to `true` if feature flag evaluation failed and the value returned was the default value passed to `variation`. If the default field is omitted, it is assumed to be `false`.
+
+Because the system time available to the SDK may not be in sync with our server time, we encourage the developer to prevent a second check to prevent writing "debug" when a previous Date header returned when posting to /api/events/bulk has passed the "debugEventsUntilDate".
+
+The details of the "user" object used in a feature flag evaluation as reported by the "feature" event are transmitted periodically via a separate "index" event.  It is expected that the SDK will only send "index" events no more than 5 seconds and that user attributes will not change between most evaluations.
+[block:code]
+{
+  "codes": [
+    {
+      "code": "  {\n    \"kind\": \"index\",\n    \"user\": {\n      \"key\": \"feature@test.com\",\n      \"custom\": {\n        \"groups\": [\n          \"microsoft\",\n          \"google\"\n        ]\n      }\n    },\n    \"creationDate\": 1462220944000,\n  }\n",
+      "language": "json"
+    }
+  ]
+}
+[/block]
+The `kind` for an index event is "index".   The value of "user" is the same as described above for a "debug" event.
+
+“Identify” events are produced when the client application calls an SDK method called identify. Identify events have an identical structure to "index" events:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "{\n  \"kind\": \"identify\",\n  \"user\": {\n    \"key\": \"user@test.com\"\n  },\n  \"creationDate\": 1462220944000\n}",
+      "language": "json"
+    }
+  ]
+}
+[/block]
+“Custom” events are produced when the client application calls an SDK method called `track`. Custom events have the following shape:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "{\n  \"kind\": \"custom\",\n  \"user\": {\n    \"key\": \"user@test.com\"\n  },\n  \"creationDate\": 1416003645758,\n  \"key\": \"custom.event.key\",\n  \"data\": {\n    \"custom\": \"value\"\n  }\n}",
+      "language": "json"
+    }
+  ]
+}
+[/block]
+Most of the fields are self-explanatory. The `data` field is optional, and can contain any arbitrary JSON.
+
+[block:api-header]
+{
+  "title": "Summary events"
+}
+[/block]
+The SDK is expected to send summary events for every flush interval describing all of the feature evaluations that occurred during that interval.  Summary events include all feature evaluations, regardless of whether the `trackEvents` field was set for individual flags.
+[block:code]
+{
+  "codes": [
+    {
+      "code": "{\n  \"startDate\": 1517350765387,\n  \"endDate\":  1517350825243,\n  \"features\": {\n    \"flag-key\": {\n      \"default\": \"default-value\",\n      \"counters\": [\n        {\n          \"value\": \"result-value\"\n          \"version\": 17,\n          \"count\": 23,\n          \"variation\": 1,\n        },\n        {\n          \"value\": \"another-value\"\n          \"version\": 17,\n          \"count\": 2,\n          \"variation\": 0,\n        }\n      ]\n    },\n    \"another-flag-key\" :{\n      \"default\": \"some-other-result-value\",\n      \"counters\": [{\n        \"value\": \"some-other-result-value\",\n        \"version\": 19,\n        \"count\": 29,\n        \"variation\": null (or leave empty)\n      }],\n    \"nonexistent-flag-key\" : {\n      \"default\": false,\n      \"counters\": [\n        {\n          \"unknown\": true,\n          \"value\": false,\n          \"count\": 3,\n        }]\n    }\n}",
+      "language": "json"
+    }
+  ]
+}
+[/block]
+The summary event represents a set of feature flag evaluations occurring during an interval defined by startDate and endDate, broken out by feature flag.  For each feature flag, the following data should be provided:
+[block:parameters]
+{
+  "data": {
+    "h-0": "Field",
+    "h-1": "Meaning",
+    "0-0": "default",
+    "0-1": "the default value the SDK received for the feature (sampled at some point during the interval)",
+    "1-0": "startDate",
+    "2-0": "endDate",
+    "1-1": "the timestamp of the first feature flag evaluation included in this packet.  This value is a UNIX  Epoch time in milliseconds.",
+    "2-1": "the timestamp of the last feature flag evaluation included in this packet.  This value is a UNIX Epoch time in milliseconds.",
+    "3-0": "counters",
+    "3-1": "A set of counters as described below."
+  },
+  "cols": 2,
+  "rows": 4
+}
+[/block]
+The `counters` field is an array of objects with the following shape:
+[block:parameters]
+{
+  "data": {
+    "h-0": "Field",
+    "h-1": "Meaning",
+    "0-0": "version",
+    "0-1": "the version of the feature flag evaluated",
+    "1-0": "value",
+    "1-1": "the value returned by the SDK for the flag evaluation",
+    "2-0": "variation",
+    "2-1": "A zero-based index into the list of variations.  If this field not provided, a default value was used.",
+    "3-0": "count",
+    "3-1": "the number of times this value/version/variation combination was an evaluation result during during the interval",
+    "4-0": "unknown (optional)",
+    "4-1": "if this is present and true it indicates that no flag by this name was known to LaunchDarkly (and therefore the SDK default value was returned)"
+  },
+  "cols": 2,
+  "rows": 5
+}
+[/block]
+The SDK should generate be a separate entry in `counters` for each unique value/version/variation combination seen during the interval.
+
+The call to `/api/events/bulk` should contain a JSON list of events.
+[block:api-header]
+{
+  "type": "basic",
+  "title": "Principles"
+}
+[/block]
+1. Minimize external dependencies — try to use as few external libraries as possible. If all you need from a library is a single utility method, prefer inlining it to importing the library (license permitting). This helps minimize version conflicts if client applications happen to be using the same libraries.
+2. Be consistent with the conventions and style of the target language. For example, if most libraries in that language are written in snake case, use snake case. If camel case is standard, use camel case. Target language consistency trumps consistency with other LaunchDarkly SDKs.
+3. Use the target language's preferred module and package layout. Java — jar files, Ruby — gems, etc. 
+4. Publish libraries to the most popular module hosting service for the target language. For example, the Java SDK is published to Maven central. The Python SDK is published to PyPi. .Net should be published via NuGet. Try not to publish to a nonstandard location that requires clients to customize their project build definitions (for example, don't use Bintray).
+5. If there's a platform standard for generating and publishing documentation, use it. For example, the Java SDK includes Javadoc comments and a build target to produce Javadoc pages. 
+6. All SDKs should be open sourced and published with the Apache 2.0 license.
+7. SDK versions should follow [semantic versioning](http://semver.org/) guidelines. 
+8. Unit tests should be written using a standard testing framework.
+9. In statically typed languages, make the SDK as type-safe as possible.
+10. Use best practices with respect to logging. A proper logging package should be used, and log entries should have appropriate log levels. Simply logging output to standard out is (probably) not appropriate.
+11. Use best practices with respect to error handling. Be extremely defensive and assume anything can fail. For `variation` calls, use a top-level catch-all error handler that returns the default value if any exceptions / unexpected errors occur. Log when the default value is returned because of an exception or unexpected error.
+12. The SDK should be thread-safe. SDKs should not be expected to have to introduce locking around API calls for thread-safety. Furthermore, the LDClient instance itself should be a thread-safe singleton— clients should be expected to instantiate one LDClient for the lifetime of their application.
+13. All SDK calls to the LaunchDarkly REST API with an entity body should have the `Content-Type` header set to `application/json`.
+14. All timestamps should be sent as Unix time in milliseconds. Event timestamps should reflect (as nearly as possible) the time that the event was created, not the time that the event was sent.
+15. The HTTP client used in the SDK should have reasonable timeouts set by default. If supported by the client library, separate connection and read timeouts should be specified. A reasonable but conservative set of default values is 1 second for connection timeouts and 2 seconds for read timeouts.
+[block:api-header]
+{
+  "type": "basic",
+  "title": "Common pitfalls"
+}
+[/block]
+We've seen a few common mistakes in integrating the LaunchDarkly SDK at customer sites. It's helpful for the SDKs to introduce specific logging around these errors and / or handle them as gracefully as possible:
+
+1. Passing `null` (or the language equivalent) as the user `key`, or omitting the `key` property altogether. SDKs should log this at error level and return the default value.
+2. Including a trailing slash in the base URL of a custom config object. Example: `https://app.launchdarkly.com/`, which when appended to something like `/api`, yields `https://app.launchdarkly.com//api`. SDKs should deal with this by trimming trailing slashes off of custom base URL parameters.
+[block:api-header]
+{
+  "type": "basic",
+  "title": "More resources"
+}
+[/block]
+Some examples from other LaunchDarkly SDK implementations:
+
+* Java Server SDK: https://github.com/launchdarkly/java-server-sdk
+* Javadoc: http://launchdarkly.github.io/java-server-sdk 
+* Python Server SDK: https://github.com/launchdarkly/python-server-sdk
+
+The [LaunchDarkly REST API documentation](http://apidocs.launchdarkly.com) may be helpful as well.

@@ -10,6 +10,7 @@ import Breadcrumbs, { BreadcrumbItem } from './breadcrumbs'
 import { TableOfContents, TOC } from './tableOfContents'
 import Header from './header'
 import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
+import { ReadmeBlock } from './readme'
 
 const components = {
   h1: H1,
@@ -18,6 +19,7 @@ const components = {
   h4: H4,
   h5: H5,
   h6: H6,
+  ReadmeBlock,
 }
 
 interface LayoutProps {
@@ -28,6 +30,7 @@ interface LayoutProps {
       timeToRead: number
       fields: {
         lastModifiedTime: string
+        isImported: boolean
       }
       frontmatter: {
         breadcrumbs: Array<BreadcrumbItem>
@@ -41,7 +44,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
       body,
       toc,
       timeToRead,
-      fields: { lastModifiedTime },
+      fields: { lastModifiedTime, isImported },
       frontmatter: { breadcrumbs },
     },
   },
@@ -103,7 +106,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
           </Link>
         </nav>
         <main sx={{ gridArea: 'main', px: [4, 6, 7], pt: 6 }}>
-          <Breadcrumbs items={breadcrumbs} />
+          {!isImported && breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
           <MDXProvider components={components}>
             <MDXRenderer timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedTime}>
               {body}
@@ -111,7 +114,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
           </MDXProvider>
         </main>
         <aside sx={{ gridArea: 'aside', pt: 6, display: ['none', 'none', 'block'], maxWidth: '18rem' }}>
-          <TableOfContents toc={toc} />
+          {!isImported && <TableOfContents toc={toc} />}
         </aside>
       </div>
     </div>
@@ -126,6 +129,7 @@ export const pageQuery = graphql`
       timeToRead
       fields {
         lastModifiedTime(formatString: "MMM d, YYYY")
+        isImported
       }
       frontmatter {
         breadcrumbs {

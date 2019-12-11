@@ -44,6 +44,13 @@ module.exports = {
         name: 'mdx',
       },
     },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/readme`,
+        name: 'readme',
+      },
+    },
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {

@@ -1,16 +1,84 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
+const slug = require('slug')
+
+// This generates URL-safe slugs.
+slug.defaults.mode = 'rfc3986'
 
 // https://www.gatsbyjs.org/docs/mdx/programmatically-creating-pages/#generate-slugs
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
+exports.onCreateNode = async ({
+  node,
+  actions,
+  createNodeId,
+  createContentDigest,
+  loadNodeContent,
+  getNode,
+  reporter,
+}) => {
+  const { createNode, createNodeField } = actions
+
+  if (node.sourceInstanceName === 'readme' && node.internal.type === 'File') {
+    let content = await loadNodeContent(node)
+
+    content = content
+      .replace(/\[block:([a-zA-Z-]+)\]/g, '<ReadmeBlock type="$1" content={')
+      .replace(/\[\/block\]/g, '} />\n')
+
+    try {
+      const readmeNode = {
+        parent: node.id,
+        id: createNodeId(`${node.id} >>> Readme`),
+        relativePath: node.relativePath,
+
+        internal: {
+          type: 'ReadmeMarkdown',
+          mediaType: 'text/markdown',
+          content,
+        },
+      }
+
+      readmeNode.internal.contentDigest = createContentDigest(readmeNode)
+      readmeNode.fileAbsolutePath = node.absolutePath
+
+      createNode(readmeNode)
+
+      return readmeNode
+    } catch (err) {
+      reporter.panicOnBuild(
+        `Error processing Markdown ${node.absolutePath ? `file ${node.absolutePath}` : `in node ${node.id}`}:\n
+      ${err.message}`,
+      )
+
+      return {}
+    }
+  }
 
   if (node.internal.type === 'Mdx') {
-    const { mtime: lastModifiedTime } = getNode(node.parent)
+    const parent = getNode(node.parent)
+    const { mtime: lastModifiedTime } = parent
+
     createNodeField({
       name: 'lastModifiedTime',
       node,
       value: lastModifiedTime,
+    })
+
+    let isImported = false
+
+    if (parent && parent.internal && parent.internal.type === 'ReadmeMarkdown') {
+      createNodeField({
+        name: 'slug',
+        node,
+        value: `/${slug(path.basename(parent.fileAbsolutePath, '.md'))}`,
+      })
+
+      isImported = true
+    }
+
+    createNodeField({
+      name: 'isImported',
+      node,
+      value: isImported,
     })
   }
 }
@@ -35,6 +103,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             frontmatter {
               path
             }
+            fields {
+              slug
+            }
           }
         }
       }
@@ -46,9 +117,11 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   const mdxFiles = result.data.allMdx.edges
-  mdxFiles.forEach(({ node: { id, frontmatter } }) => {
+  mdxFiles.forEach(({ node }) => {
+    const { id, fields, frontmatter } = node
+
     createPage({
-      path: frontmatter.path,
+      path: frontmatter.path || `/readme${fields.slug}`,
       component: path.resolve('./src/components/layout.tsx'),
       context: { id },
     })

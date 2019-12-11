@@ -32,7 +32,7 @@ export default {
   },
   space: [0, 4, 8, 12, 16, 24, 32, 48, 64, 128, 256],
   borderWidths: [0, '.0625rem', '.125rem', '.25rem', '.5rem', '1rem', '2rem'],
-  radii: [0, 4, 6],
+  radii: [0, 2, 4, 6],
   fonts: {
     body: 'system-ui, sans-serif',
     heading: 'inherit',
@@ -73,7 +73,7 @@ export default {
     },
   },
   cards: {
-    primary: {
+    'learn-more': {
       borderRadius: 2,
       border: '1px solid',
       borderColor: 'grayMed',
@@ -86,9 +86,9 @@ export default {
       display: 'flex',
       justifyContent: 'space-between',
     },
-    information: {
+    info: {
       padding: 2,
-      borderRadius: 2,
+      borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
       boxShadow: 'inset 4px 0 0 #339AF0, 0 2px 4px #CED4DA',
@@ -103,6 +103,13 @@ export default {
       width: '1.25rem',
       height: '1.25rem',
       fill: 'primarySafe',
+    },
+  },
+  icons: {
+    info: {
+      width: '1.25rem',
+      height: '1.25rem',
+      fill: 'infoSafe',
     },
   },
   styles: {

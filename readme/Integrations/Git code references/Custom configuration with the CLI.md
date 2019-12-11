@@ -1,0 +1,20 @@
+---
+title: "Custom configuration with the CLI"
+excerpt: ""
+---
+[block:api-header]
+{
+  "title": "Overview"
+}
+[/block]
+This topic gives a high-level explanation of how to use the `ld-find-code-refs` script to perform other functions.
+[block:api-header]
+{
+  "title": "Custom ld-find-code-refs configuration"
+}
+[/block]
+If you need a trigger mechanism other than one of the supported ones (e.g. GitHub Actions), you can execute the [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) utility directly from your own trigger (e.g. a `cron` job, or webhook). 
+
+You can configure [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) to detect and push code references to LaunchDarkly from a Git repository.
+
+You can also use the CLI to test the flag finder before setting up an automated trigger. To learn more, read our [GitHub documentation](https://github.com/launchdarkly/ld-find-code-refs/#execution-via-cli) for `ld-find-code-refs`.
