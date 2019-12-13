@@ -7,7 +7,7 @@ import Icon from '../icon'
 
 export interface SideMenuItem {
   label: string
-  href: string
+  path: string
   items: Array<SideMenuItem>
 }
 
@@ -20,14 +20,14 @@ const SideMenu = () => {
         nodes {
           items {
             label
-            href
+            path
             items {
-              href
+              path
               label
             }
           }
           label
-          href
+          path
         }
       }
     }
@@ -68,6 +68,7 @@ const SideMenu = () => {
             alignItems: 'center',
             bg: 'grayWash',
             mx: 5,
+            mt: 4,
             fontSize: 3,
           }}
         >

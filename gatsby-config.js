@@ -56,7 +56,6 @@ module.exports = {
       options: {
         rule: {
           options: {
-            icon: true,
             svgoConfig: {
               plugins: [
                 { removeAttrs: { attrs: 'fill' } },

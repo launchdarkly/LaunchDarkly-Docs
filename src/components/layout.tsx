@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 import { Link } from '@theme-ui/components'
-import { FunctionComponent } from 'react'
+import { Fragment, FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from '@mdx-js/react'
 import Reset from './resetStyles'
-import Breadcrumbs, { BreadcrumbItem } from './breadcrumbs'
+import Breadcrumbs from './breadcrumbs'
 import { TableOfContents, TOC } from './tableOfContents'
 import Header from './header'
 import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
@@ -32,12 +32,10 @@ interface LayoutProps {
         lastModifiedTime: string
         isImported: boolean
       }
-      frontmatter: {
-        breadcrumbs: Array<BreadcrumbItem>
-      }
     }
   }
 }
+
 const Layout: FunctionComponent<LayoutProps> = ({
   data: {
     mdx: {
@@ -45,19 +43,18 @@ const Layout: FunctionComponent<LayoutProps> = ({
       toc,
       timeToRead,
       fields: { lastModifiedTime, isImported },
-      frontmatter: { breadcrumbs },
     },
   },
 }) => {
   return (
-    <div>
+    <Fragment>
       <Reset />
       <div
         sx={{
           height: '100vh',
           display: 'grid',
           gridTemplateColumns: ['100%', '12rem auto', '18rem 48rem auto'],
-          gridTemplateRows: theme => [`${theme.sizes[4]} auto`, null, `${theme.sizes[4]} auto`],
+          gridTemplateRows: theme => [`${theme.sizes[5]} auto`, null, `${theme.sizes[5]} auto`],
           gridTemplateAreas: [
             `
             'header'
@@ -106,7 +103,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
           </Link>
         </nav>
         <main sx={{ gridArea: 'main', px: [4, 6, 7], pt: 6 }}>
-          {!isImported && breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
+          <Breadcrumbs />
           <MDXProvider components={components}>
             <MDXRenderer timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedTime}>
               {body}
@@ -117,7 +114,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
           {!isImported && <TableOfContents toc={toc} />}
         </aside>
       </div>
-    </div>
+    </Fragment>
   )
 }
 
@@ -130,12 +127,6 @@ export const pageQuery = graphql`
       fields {
         lastModifiedTime(formatString: "MMM d, YYYY")
         isImported
-      }
-      frontmatter {
-        breadcrumbs {
-          label
-          path
-        }
       }
     }
   }

@@ -43,11 +43,11 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
 
         return (
           <li key={`${node.label}-${index}`} sx={{ m: 5 }}>
-            {node.href ? (
+            {node.path ? (
               <Link
                 activeStyle={{ color: theme.colors.primarySafe }}
                 sx={{ ...labelStyles, textDecoration: 'none' }}
-                to={node.href}
+                to={node.path}
               >
                 {node.label}
               </Link>

@@ -169,8 +169,8 @@ export default {
       },
     },
     header: {
-      width: 2,
-      height: 2,
+      height: 3,
+      width: 'auto',
       fill: 'white',
     },
     sideMenu: { width: 2, height: 2, fill: 'white', cursor: 'pointer' },
@@ -182,7 +182,8 @@ export default {
     close: {
       width: 3,
       height: 3,
-      fill: 'secondaryDark',
+      p: 1,
+      fill: 'grayDark',
     },
   },
   styles: {

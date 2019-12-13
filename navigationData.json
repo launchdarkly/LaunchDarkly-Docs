@@ -1,62 +1,65 @@
 [
   {
-    "label": "HOME",
-    "href": "/",
+    "label": "Home",
+    "path": "/home",
     "items": [
       {
         "label": "Quickstart",
-        "href": "",
+        "path": "/home/quickstart",
         "items": [
           {
             "label": "Getting started",
-            "href": "/getting-started"
+            "path": "/home/quickstart/getting-started"
           },
           {
             "label": "Your team and LaunchDarkly",
-            "href": "/new-members"
+            "path": "/home/quickstart/new-members"
           },
           {
             "label": "Creating a feature flag",
-            "href": "/creating-a-feature-flag"
+            "path": "/home/quickstart/creating-a-feature-flag"
           }
         ]
       },
       {
         "label": "Managing Flags",
-        "href": ""
+        "path": "/managing-flags"
       },
       {
         "label": "Managing Users",
-        "href": ""
+        "path": "/managing-users"
       },
       {
         "label": "Account Security",
-        "href": ""
+        "path": "/account-security"
       },
       {
         "label": "Metrics and Insights",
-        "href": ""
+        "path": "/metrics-and-insights"
       },
       {
         "label": "Experimentation",
-        "href": ""
+        "path": "/experimentation"
       },
       {
         "label": "Advanced",
-        "href": ""
+        "path": "/advanced"
       }
     ]
   },
   {
-    "label": "INTEGRATIONS",
+    "label": "Integrations",
+    "path": "/integrations",
     "items": []
   },
   {
     "label": "SDK",
+    "path": "/sdk",
     "items": []
   },
   {
-    "label": "API DOCS",
+    "label": "API docs",
+    "path": "/api-docs",
     "items": []
   }
 ]
