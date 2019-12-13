@@ -5,13 +5,7 @@ import { useState } from 'react'
 import TreeNode from './treeNode'
 import Icon from '../icon'
 
-export interface SideMenuItem {
-  label: string
-  path: string
-  items: Array<SideMenuItem>
-}
-
-const SideMenu = () => {
+const Hamburger = () => {
   const {
     allNavigationDataJson: { nodes: navigationData },
   } = useStaticQuery(graphql`
@@ -104,4 +98,4 @@ const SideMenu = () => {
   )
 }
 
-export default SideMenu
+export default Hamburger

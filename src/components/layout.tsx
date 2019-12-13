@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import { Link } from '@theme-ui/components'
 import { Fragment, FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
@@ -10,6 +9,7 @@ import Breadcrumbs from './breadcrumbs'
 import { TableOfContents, TOC } from './tableOfContents'
 import Header from './header'
 import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
+import CurrentCategoryMenu from './sideNav/currentCategoryMenu'
 import { ReadmeBlock } from './readme'
 
 const components = {
@@ -62,46 +62,17 @@ const Layout: FunctionComponent<LayoutProps> = ({
             `,
             `
             'header header'
-            'sideMenu main'
+            'sideNav main'
             `,
             `
             'header header header'
-            'sideMenu main aside'
+            'sideNav main aside'
             `,
           ],
         }}
       >
         <Header />
-        <nav
-          sx={{
-            gridArea: 'sideMenu',
-            bg: 'grayLight',
-            paddingLeft: 6,
-            py: 6,
-            display: ['none', 'block'],
-            borderRight: '1px solid',
-            borderColor: 'grayMed',
-          }}
-        >
-          <Link href="" variant="text.label" sx={{ color: 'primarySafe' }}>
-            Quickstart
-          </Link>
-          <Link href="" variant="text.label">
-            Managing Flags
-          </Link>
-          <Link href="" variant="text.label">
-            Managing Users
-          </Link>
-          <Link href="" variant="text.label">
-            Account Security
-          </Link>
-          <Link href="" variant="text.label">
-            Metrics and Insights
-          </Link>
-          <Link href="" variant="text.label">
-            Experimentation
-          </Link>
-        </nav>
+        <CurrentCategoryMenu />
         <main sx={{ gridArea: 'main', px: [4, 6, 7], pt: 6 }}>
           <Breadcrumbs />
           <MDXProvider components={components}>
@@ -110,8 +81,8 @@ const Layout: FunctionComponent<LayoutProps> = ({
             </MDXRenderer>
           </MDXProvider>
         </main>
-        <aside sx={{ gridArea: 'aside', pt: 6, display: ['none', 'none', 'block'], maxWidth: '18rem' }}>
-          {!isImported && <TableOfContents toc={toc} />}
+        <aside sx={{ gridArea: 'aside', pt: 6, display: ['none', 'none', 'block'], width: '18rem' }}>
+          {!isImported && <TableOfContents toc={toc} sx={{ position: 'sticky', top: 5 }} />}
         </aside>
       </div>
     </Fragment>

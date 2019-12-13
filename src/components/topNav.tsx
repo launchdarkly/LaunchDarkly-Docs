@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, useThemeUI } from 'theme-ui'
 import { graphql, useStaticQuery, Link } from 'gatsby'
-import { SideMenuItem } from './sideMenu/sideMenu'
+import { SideNavItem } from './sideNav/types'
 
 const TopNav = () => {
   const { theme } = useThemeUI()
@@ -29,7 +29,7 @@ const TopNav = () => {
         pl: [null, 2, 8],
       }}
     >
-      {navigationData.map((rootItem: SideMenuItem, index: number) => {
+      {navigationData.map((rootItem: SideNavItem, index: number) => {
         return (
           <li key={`${rootItem.label}-${index}`} sx={{ display: 'inline', pl: [null, 3, 5] }}>
             <Link

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 import Icon from './icon'
-import Hamburger from './sideMenu/sideMenu'
+import Hamburger from './sideNav/hamburger'
 import TopNav from './topNav'
 
 const Header = () => {

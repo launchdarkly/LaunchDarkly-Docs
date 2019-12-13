@@ -2,7 +2,7 @@
 import { jsx } from 'theme-ui'
 import { graphql, useStaticQuery, Link } from 'gatsby'
 import { globalHistory } from '@reach/router'
-import { SideMenuItem } from './sideMenu/sideMenu'
+import { SideNavItem } from './sideNav/types'
 
 const Breadcrumbs = () => {
   const {
@@ -25,7 +25,7 @@ const Breadcrumbs = () => {
       }
     }
   `)
-  const findAndFlatten = (item: SideMenuItem): Array<SideMenuItem> => {
+  const findAndFlatten = (item: SideNavItem): Array<SideNavItem> => {
     const { label, path, items } = item
 
     if (path === globalHistory.location.pathname) {
@@ -34,14 +34,14 @@ const Breadcrumbs = () => {
       for (let i = 0; i < items?.length ?? -1; i++) {
         const r = findAndFlatten(items[i])
         if (r.length > 0) {
-          r.unshift({ label, path, items: [] as Array<SideMenuItem> })
+          r.unshift({ label, path, items: [] as Array<SideNavItem> })
           return r
         }
       }
     }
     return []
   }
-  const findAndFlattenWrapper = (): Array<SideMenuItem> => {
+  const findAndFlattenWrapper = (): Array<SideNavItem> => {
     for (let i = 0; i < navigationData.length; i++) {
       const result = findAndFlatten(navigationData[i])
       // Don't render any breadcrumbs if there's only 1 crumb
