@@ -3,9 +3,7 @@ import { jsx } from 'theme-ui'
 import { graphql, useStaticQuery } from 'gatsby'
 import { useState } from 'react'
 import TreeNode from './treeNode'
-import SvgMenu from '../icons/menu'
-import SvgEarth from '../icons/earth'
-import SvgWindowClose from '../icons/windowClose'
+import Icon from '../icon'
 
 export interface SideMenuItem {
   label: string
@@ -44,7 +42,7 @@ const SideMenu = () => {
   }
   return (
     <div>
-      <SvgMenu sx={{ width: 2, fill: 'white', cursor: 'pointer' }} onClick={onClickMenu} />
+      <Icon name="menu" variant="sideMenu" onClick={onClickMenu} />
       <div
         sx={{
           display: show ? 'block' : 'none',
@@ -75,7 +73,7 @@ const SideMenu = () => {
         >
           <div sx={{ cursor: 'pointer' }}>EXPAND ALL</div>
           <div onClick={onClickMenu} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-            CLOSE <SvgWindowClose sx={{ ml: 2, width: 2, fill: 'grayBase' }} />
+            CLOSE <Icon name="window-close" variant="close" />
           </div>
         </div>
         <div sx={{ mb: 4 }}>
@@ -94,7 +92,7 @@ const SideMenu = () => {
           }}
         >
           <a href="https://launchdarkly.com">
-            <SvgEarth sx={{ width: 2, fill: 'grayBase' }} />
+            <Icon name="earth" variant="heading" />
           </a>
           <a href="https://launchdarkly.com" sx={{ color: 'graySafe', ml: 2 }}>
             launchdarkly.com

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, Styled, IntrinsicSxElements } from 'theme-ui'
 import React from 'react'
-import SvgAnchor from '../icons/anchor'
+import Icon from '../icon'
 
 // This module defines custom heading components to be used in place
 // of the default HTML elements that Markdown compiles to.
@@ -18,6 +18,8 @@ function createHeading(tag: HeadingTag) {
       <Tag
         {...props}
         css={{
+          display: 'flex',
+          alignItems: 'center',
           position: 'relative',
           '& > a': {
             visibility: 'hidden',
@@ -33,9 +35,10 @@ function createHeading(tag: HeadingTag) {
             paddingRight: 1,
             marginLeft: -5,
             float: 'left',
+            display: 'flex',
           }}
         >
-          <SvgAnchor sx={{ size: 1, fill: 'gray' }} />
+          <Icon name="link-variant" variant="heading" />
         </a>
         {props.children}
       </Tag>

@@ -3,7 +3,7 @@ import { jsx } from 'theme-ui'
 import { FunctionComponent } from 'react'
 import MDX from '@mdx-js/runtime'
 
-import { Info } from '../Info'
+import Callout from '../callout'
 import { Intent } from '../intent'
 
 export type ReadmeBlockProps = {
@@ -27,8 +27,8 @@ type ReadmeCalloutProps = {
 
 export function ReadmeCallout({ intent, body }: ReadmeCalloutProps) {
   return (
-    <Info intent={intent}>
+    <Callout intent={intent}>
       <MDX>{body}</MDX>
-    </Info>
+    </Callout>
   )
 }

@@ -4,22 +4,20 @@ import { Card } from '@theme-ui/components'
 import { ReactNode } from 'react'
 
 import { Intent } from './intent'
-import LinkVariant from './icons/linkVariant'
+import Icon from './icon'
 
-export type InfoProps = {
+export type CalloutProps = {
   intent: Intent
   children: ReactNode
 }
 
-export function Info({ intent, children }: InfoProps) {
+export default function Callout({ intent, children }: CalloutProps) {
   return (
     <Card variant={intent}>
       <Flex>
         <Box>{children}</Box>
 
-        <Box>
-          <LinkVariant sx={{ variant: 'icons.info' }} />
-        </Box>
+        <Icon name="information" variant="info" />
       </Flex>
     </Card>
   )

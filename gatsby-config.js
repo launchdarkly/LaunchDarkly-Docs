@@ -51,6 +51,28 @@ module.exports = {
         name: 'readme',
       },
     },
+    {
+      resolve: 'gatsby-plugin-svgr-loader',
+      options: {
+        rule: {
+          options: {
+            icon: true,
+            svgoConfig: {
+              plugins: [
+                { removeAttrs: { attrs: 'fill' } },
+                {
+                  removeViewBox: false,
+                },
+                {
+                  removeDimensions: true,
+                },
+              ],
+            },
+          },
+          include: /icons/,
+        },
+      },
+    },
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {

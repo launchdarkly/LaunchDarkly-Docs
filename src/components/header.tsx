@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 import SideMenu from './sideMenu/sideMenu'
-import SvgLaunchDarklyLogo from './icons/launchDarklyLogo'
+import Icon from './icon'
 
 const Header = () => {
   return (
@@ -10,7 +10,7 @@ const Header = () => {
         <span sx={{ pl: 4, display: ['block', 'none'] }}>
           <SideMenu />
         </span>
-        <SvgLaunchDarklyLogo sx={{ fill: 'white', pl: 2, width: ['2.2rem', '2.3rem', '2.5rem'] }} />
+        <Icon name="launchdarkly" variant="header" />
         <input
           type="text"
           placeholder="Search documentation"
