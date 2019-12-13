@@ -8,3 +8,10 @@ const customErrorLogFunction = function(...args) {
   throw new Error(format(...args))
 }
 global.console.warn = global.console.error = customErrorLogFunction
+
+global.___loader = {
+  enqueue: jest.fn(),
+}
+
+// Component mocks
+jest.mock('./src/components/icon')

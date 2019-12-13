@@ -77,8 +77,9 @@ export default {
     },
   },
   cards: {
-    'learn-more': {
-      borderRadius: 2,
+    learnMore: {
+      padding: 2,
+      borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
       boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayMed}`,
@@ -86,9 +87,6 @@ export default {
       paddingY: 4,
       lineHeight: 'body',
       bg: 'grayWash',
-      mb: 4,
-      display: 'flex',
-      justifyContent: 'space-between',
     },
     info: {
       padding: 2,
@@ -143,6 +141,11 @@ export default {
     },
   },
   icons: {
+    learnMore: {
+      width: 2,
+      height: 2,
+      fill: 'grayBase',
+    },
     callout: {
       info: {
         width: 2,
@@ -220,14 +223,17 @@ export default {
     },
     a: {
       color: 'primarySafe',
+      textDecoration: 'none',
       ':hover': {
         color: 'grayBase',
+        textDecoration: 'underline',
       },
       ':visited': {
         color: 'primarySafe',
       },
       ':active': {
         color: 'primarySafe',
+        textDecoration: 'underline',
       },
     },
     p: {

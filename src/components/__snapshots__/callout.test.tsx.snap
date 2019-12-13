@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`callout renders 1`] = `
+<DocumentFragment>
+  .emotion-4 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+}
+
+.emotion-3 {
+  box-sizing: border-box;
+  min-width: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-2 {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.emotion-0 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  font-size: 24px;
+  line-height: body;
+  margin-bottom: 32px;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  font-size: 20px;
+  line-height: small;
+}
+
+<div
+    class="emotion-4"
+  >
+    <div
+      class="emotion-3"
+    >
+      <div
+        class="emotion-2"
+      >
+        <div
+          class="emotion-0"
+        >
+          Adding users to LaunchDarkly
+        </div>
+        <div
+          class="emotion-1"
+        >
+          You do not have to send users to LaunchDarkly in advance. 
+          <a
+            href=""
+          >
+            Check out this page
+          </a>
+          . You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they encounter feature flags.
+        </div>
+      </div>
+      <div>
+        Icon: checkbox-marked-circle
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

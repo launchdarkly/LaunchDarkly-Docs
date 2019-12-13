@@ -6,10 +6,20 @@ breadcrumbs: [{ label: 'Home', path: '/' }, { label: 'Getting started', path: '/
 import Metadata from '../../../components/mdxMetadata'
 import { Card } from '@theme-ui/components'
 import Callout from '../../../components/callout'
+import LearnMore from '../../../components/learnMore'
 
 # Getting started with LaunchDarkly
 
 <Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
+<LearnMore>
+  <LearnMore.Link to="">Adding users to LaunchDarkly</LearnMore.Link>
+</LearnMore>
+<LearnMore>
+  <LearnMore.Title>Readings on flag targeting:</LearnMore.Title>
+  <LearnMore.Link to="">Creating a feature flag</LearnMore.Link>
+  <LearnMore.Link to="">Managing your team</LearnMore.Link>
+  <LearnMore.Link to="">Running A/B tests</LearnMore.Link>
+</LearnMore>
 <Callout>
   <Callout.Title>Adding users to LaunchDarkly</Callout.Title>
   <Callout.Description>
@@ -28,13 +38,6 @@ changes with minimal risk and maximum control.
 </Callout>
 
 It only takes a few minutes to get started with LaunchDarkly and control your first feature flag.
-
-<Card variant="learn-more">
-  <span>
-    See also: <a href="">Creating a card</a>
-  </span>
-  <img src="https://75oio.csb.app/bookmark-outline.svg" alt="card icon" />
-</Card>
 
 ## Integrating with LaunchDarkly
 
