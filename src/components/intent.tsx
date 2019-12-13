@@ -1,1 +1,1 @@
-export type Intent = 'info' | 'alert' | 'warning' | 'success'
+export type Intent = 'info' | 'alert' | 'warning' | 'primary'

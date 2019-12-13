@@ -5,13 +5,27 @@ breadcrumbs: [{ label: 'Home', path: '/' }, { label: 'Getting started', path: '/
 
 import Metadata from '../../../components/mdxMetadata'
 import { Card } from '@theme-ui/components'
+import Callout from '../../../components/callout'
 
 # Getting started with LaunchDarkly
 
 <Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
+<Callout>
+  <Callout.Title>Adding users to LaunchDarkly</Callout.Title>
+  <Callout.Description>
+    You don't have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them
+    with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they
+    encounter feature flags.
+  </Callout.Description>
+</Callout>
 
 Welcome to LaunchDarkly! We're excited to partner with you as you use feature flags to make high-impact
 changes with minimal risk and maximum control.
+
+<Callout intent="warning">
+  <Callout.Title>Be careful</Callout.Title>
+  <Callout.Description>This is something you should be careful about.</Callout.Description>
+</Callout>
 
 It only takes a few minutes to get started with LaunchDarkly and control your first feature flag.
 

@@ -14,7 +14,7 @@ export type ReadmeBlockProps = {
 export const ReadmeBlock: FunctionComponent<ReadmeBlockProps> = ({ type, content }: ReadmeBlockProps) => {
   switch (type) {
     case 'callout':
-      return <ReadmeCallout intent={content.type as Intent} body={content.body} />
+      return <ReadmeCallout intent={content.type as Intent} title={content.title} body={content.body} />
     default:
       return <pre sx={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(content, null, 2)}</pre>
   }
@@ -22,13 +22,17 @@ export const ReadmeBlock: FunctionComponent<ReadmeBlockProps> = ({ type, content
 
 type ReadmeCalloutProps = {
   intent: Intent
+  title?: string
   body: string
 }
 
-export function ReadmeCallout({ intent, body }: ReadmeCalloutProps) {
+export function ReadmeCallout({ intent, title, body }: ReadmeCalloutProps) {
   return (
     <Callout intent={intent}>
-      <MDX>{body}</MDX>
+      <Callout.Title>{title}</Callout.Title>
+      <Callout.Description>
+        <MDX>{body}</MDX>
+      </Callout.Description>
     </Callout>
   )
 }

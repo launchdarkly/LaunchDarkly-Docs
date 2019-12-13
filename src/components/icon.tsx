@@ -1,8 +1,11 @@
 /** @jsx jsx */
 import { jsx, SxProps } from 'theme-ui'
+import React from 'react'
 
-type IconName =
+export type IconName =
   | 'alert-rhombus'
+  | 'checkbox-marked-circle'
+  | 'remove-circle'
   | 'atom'
   | 'bullseye-arrow'
   | 'calendar-edit'

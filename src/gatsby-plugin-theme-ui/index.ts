@@ -1,3 +1,7 @@
+// This sucks, but it's not clear if it is possible and how to be able to
+// use the type of the theme object from functions that require the theme
+// itself, like boxShadow.
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export default {
   // breakpoints are intentionally set using em after some research and discussion based on this
   // https://zellwk.com/blog/media-query-units/
@@ -77,7 +81,7 @@ export default {
       borderRadius: 2,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: '0 2px 4px #CED4DA',
+      boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayMed}`,
       paddingX: 5,
       paddingY: 4,
       lineHeight: 'body',
@@ -91,11 +95,44 @@ export default {
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: 'inset 4px 0 0 #339AF0, 0 2px 4px #CED4DA',
+      boxShadow: (theme: any) => `inset 4px 0 0 ${theme.colors.infoBase}, 0 2px 4px ${theme.colors.grayMed}`,
       paddingX: 5,
       paddingY: 4,
       lineHeight: 'body',
-      bg: 'grayWash',
+      bg: 'infoWash',
+    },
+    warning: {
+      padding: 2,
+      borderRadius: 1,
+      border: '1px solid',
+      borderColor: 'grayMed',
+      boxShadow: (theme: any) => `inset 4px 0 0 ${theme.colors.warnBase}, 0 2px 4px ${theme.colors.grayMed}`,
+      paddingX: 5,
+      paddingY: 4,
+      lineHeight: 'body',
+      bg: 'warnWash',
+    },
+    alert: {
+      padding: 2,
+      borderRadius: 1,
+      border: '1px solid',
+      borderColor: 'grayMed',
+      boxShadow: (theme: any) => `inset 4px 0 0 ${theme.colors.alertBase}, 0 2px 4px ${theme.colors.grayMed}`,
+      paddingX: 5,
+      paddingY: 4,
+      lineHeight: 'body',
+      bg: 'alertWash',
+    },
+    primary: {
+      padding: 2,
+      borderRadius: 1,
+      border: '1px solid',
+      borderColor: 'grayMed',
+      boxShadow: (theme: any) => `inset 4px 0 0 ${theme.colors.primaryBase}, 0 2px 4px ${theme.colors.grayMed}`,
+      paddingX: 5,
+      paddingY: 4,
+      lineHeight: 'body',
+      bg: 'primaryWash',
     },
   },
   images: {
@@ -106,10 +143,27 @@ export default {
     },
   },
   icons: {
-    info: {
-      width: 2,
-      height: 2,
-      fill: 'infoSafe',
+    callout: {
+      info: {
+        width: 2,
+        height: 2,
+        fill: 'infoSafe',
+      },
+      warning: {
+        width: 2,
+        height: 2,
+        fill: 'warnSafe',
+      },
+      alert: {
+        width: 2,
+        height: 2,
+        fill: 'alertSafe',
+      },
+      primary: {
+        width: 2,
+        height: 2,
+        fill: 'primarySafe',
+      },
     },
     header: {
       width: 2,

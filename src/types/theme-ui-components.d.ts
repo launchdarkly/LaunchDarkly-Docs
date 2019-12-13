@@ -9,5 +9,6 @@ declare module '@theme-ui/components' {
   type LinkSxComponent = SxComponent<IntrinsicSxElements['a']>
 
   export const Card: SxComponent
+  export const Text: SxComponent
   export const Link: LinkSxComponent
 }
