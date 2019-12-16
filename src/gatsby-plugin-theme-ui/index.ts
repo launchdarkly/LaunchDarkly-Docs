@@ -87,6 +87,7 @@ export default {
       paddingY: 4,
       lineHeight: 'body',
       bg: 'grayWash',
+      my: 4,
     },
     info: {
       padding: 2,
@@ -98,6 +99,7 @@ export default {
       paddingY: 4,
       lineHeight: 'body',
       bg: 'infoWash',
+      my: 4,
     },
     warning: {
       padding: 2,
@@ -109,6 +111,7 @@ export default {
       paddingY: 4,
       lineHeight: 'body',
       bg: 'warnWash',
+      my: 4,
     },
     alert: {
       padding: 2,
@@ -120,6 +123,7 @@ export default {
       paddingY: 4,
       lineHeight: 'body',
       bg: 'alertWash',
+      my: 4,
     },
     primary: {
       padding: 2,
@@ -131,6 +135,7 @@ export default {
       paddingY: 4,
       lineHeight: 'body',
       bg: 'primaryWash',
+      my: 4,
     },
   },
   images: {
