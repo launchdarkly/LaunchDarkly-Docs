@@ -26,6 +26,9 @@ const CurrentCategoryMenu = () => {
     }
   `)
   const currentNode = findCurrentCategory(navigationData)
+  if (!currentNode) {
+    return null
+  }
   return (
     <nav
       sx={{

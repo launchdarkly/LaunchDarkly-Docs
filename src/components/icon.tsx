@@ -35,7 +35,7 @@ export type IconProps = {
 } & SxProps &
   React.HTMLProps<SVGSVGElement>
 
-export default function Icon({ name, className, variant, onClick, ...props }: IconProps) {
+export default function Icon({ name = 'window-close', className, variant, onClick, ...props }: IconProps) {
   const SVGComponent = require(`../../assets/icons/${name}.svg`).default
   return (
     <SVGComponent
