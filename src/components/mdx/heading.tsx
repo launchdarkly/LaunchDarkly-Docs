@@ -32,10 +32,10 @@ function createHeading(tag: HeadingTag) {
         <a
           href={`#${props.id}`}
           sx={{
-            paddingRight: 1,
-            marginLeft: -5,
+            paddingRight: 2,
+            marginLeft: -6,
             float: 'left',
-            display: 'flex',
+            display: ['none', 'flex'],
           }}
         >
           <Icon name="link-variant" variant="heading" />
