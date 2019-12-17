@@ -108,6 +108,13 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     toPath: '/home/quickstart/getting-started',
   })
 
+  createRedirect({
+    fromPath: '/integrations',
+    isPermanent: true,
+    redirectInBrowser: true,
+    toPath: '/integrations/introduction',
+  })
+
   const result = await graphql(`
     query {
       allMdx {
