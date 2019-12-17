@@ -52,6 +52,14 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-plugin-s3',
+      options: {
+        bucketName: 'launchdarkly-docs-staging',
+        protocol: 'https',
+        hostname: 'docs-stg.launchdarkly.com',
+      },
+    },
+    {
       resolve: 'gatsby-plugin-svgr-loader',
       options: {
         rule: {

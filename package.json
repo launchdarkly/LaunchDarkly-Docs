@@ -46,6 +46,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^2.3.0",
+    "gatsby-plugin-s3": "0.3.2",
     "gatsby-plugin-typescript": "^2.1.19",
     "gatsby-theme-style-guide": "0.2.49",
     "husky": "^3.1.0",
@@ -61,6 +62,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
+    "deploy": "gatsby-plugin-s3 deploy",
     "prettier": "prettier --write \"**/*.{js,ts,tsx,json,mdx,yml}\"",
     "start": "gatsby develop",
     "serve": "gatsby serve",
