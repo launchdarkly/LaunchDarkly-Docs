@@ -19,6 +19,12 @@ export type TableOfContentsProps = {
 export function TableOfContents({ toc, ...props }: TableOfContentsProps) {
   const children = toc.items[0].items
 
+  // TODO: children is null for the integrations page for some reason
+  if (!children) {
+    console.warn("There's no heading to render for toc")
+    return null
+  }
+
   return (
     <div {...props}>
       <Styled.h5

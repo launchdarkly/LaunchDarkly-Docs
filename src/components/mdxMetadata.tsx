@@ -17,7 +17,7 @@ const MdxMetadata: FunctionComponent<MdxMetadataProps> = ({ timeToRead, lastModi
       }}
     >
       <Styled.h5>
-        Est Read Time: {timeToRead} {pluralize('minute', timeToRead)}
+        Est. Read Time: {timeToRead} {pluralize('minute', timeToRead)}
       </Styled.h5>
       <Styled.h5>Last edited: {lastModifiedDateFormatted}</Styled.h5>
     </div>

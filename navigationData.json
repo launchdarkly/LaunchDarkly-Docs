@@ -23,34 +23,63 @@
       },
       {
         "label": "Managing Flags",
-        "path": "/managing-flags"
+        "path": "/home/managing-flags"
       },
       {
         "label": "Managing Users",
-        "path": "/managing-users"
+        "path": "/home/managing-users"
       },
       {
         "label": "Account Security",
-        "path": "/account-security"
+        "path": "/home/account-security"
       },
       {
         "label": "Metrics and Insights",
-        "path": "/metrics-and-insights"
+        "path": "/home/metrics-and-insights"
       },
       {
         "label": "Experimentation",
-        "path": "/experimentation"
+        "path": "/home/experimentation"
       },
       {
         "label": "Advanced",
-        "path": "/advanced"
+        "path": "/home/advanced",
+        "items": [
+          {
+            "label": "The flag insights graph",
+            "path": "/home/advanced/flag-insights"
+          }
+        ]
       }
     ]
   },
   {
     "label": "Integrations",
     "path": "/integrations",
-    "items": []
+    "items": [
+      {
+        "label": "Introduction",
+        "path": "/introduction"
+      },
+      {
+        "label": "Azure DevOps (formerly VSTS)",
+        "path": "/introduction"
+      },
+      {
+        "label": "Bitbucket Pipelines",
+        "path": "/introduction"
+      },
+      {
+        "label": "Slack",
+        "path": "/introduction",
+        "items": [
+          {
+            "label": "Setting up Slack accounts",
+            "path": "/introduction"
+          }
+        ]
+      }
+    ]
   },
   {
     "label": "SDK",
