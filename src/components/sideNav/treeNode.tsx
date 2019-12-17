@@ -10,7 +10,7 @@ interface TreeNodeProps {
 }
 
 const leafNodeStyles = {
-  color: 'graySafe',
+  color: 'grayBlack',
   fontSize: [null, 2, 3],
   textDecoration: 'none',
 }
@@ -25,7 +25,7 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
   const { theme } = useThemeUI()
   const setActiveStyles = ({ isCurrent, isPartiallyCurrent }: { isCurrent: boolean; isPartiallyCurrent: boolean }) => {
     if (isCurrent) {
-      return { style: { color: theme.colors.primarySafe } }
+      return { style: { color: theme.colors.primarySafe, fontWeight: theme.fontWeights.bold } }
     } else if (isPartiallyCurrent) {
       return { style: { fontWeight: theme.fontWeights.bold } }
     }
@@ -47,10 +47,10 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
         }
 
         return (
-          <li key={`${label}-${index}`} sx={{ m: [5, 3, 5], my: [4, 4, 6], mr: [4, 1] }}>
+          <li key={`${label}-${index}`} sx={{ ml: [5, 4, 5] }}>
             {path ? (
               <Link getProps={setActiveStyles} sx={labelStyles} to={path}>
-                {label}
+                <div sx={{ py: [2, 3] }}>{label}</div>
               </Link>
             ) : (
               <span sx={labelStyles}>{label}</span>

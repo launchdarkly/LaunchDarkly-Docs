@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx, Styled } from 'theme-ui'
 import { graphql, useStaticQuery, Link } from 'gatsby'
 import { globalHistory } from '@reach/router'
 import { SideNavItem } from './sideNav/types'
@@ -53,20 +53,20 @@ const Breadcrumbs = () => {
   }
   const breadcrumbItems = findAndFlattenWrapper()
   return (
-    <h4 sx={{ pb: '2', fontSize: 3 }}>
+    <Styled.h4 sx={{ mb: [3, 5], fontSize: 3 }}>
       {breadcrumbItems.map(({ label, path }, index) => {
         const lastItem = index === breadcrumbItems.length - 1
         return lastItem ? (
-          <span key={label} sx={{ color: 'primarySafe' }}>
+          <span key={label} sx={{ color: 'grayDark' }}>
             {label}
           </span>
         ) : (
-          <Link key={label} to={path} sx={{ textDecoration: 'none', color: 'graySafe' }}>
+          <Link key={label} to={path} sx={{ textDecoration: 'none', color: 'primarySafe' }}>
             {`${label} / `}
           </Link>
         )
       })}
-    </h4>
+    </Styled.h4>
   )
 }
 export default Breadcrumbs

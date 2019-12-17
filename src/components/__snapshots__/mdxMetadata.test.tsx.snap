@@ -11,7 +11,7 @@ exports[`mdx metadata renders correctly 1`] = `
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  margin-bottom: 128px;
+  margin-bottom: 256px;
 }
 
 <div
@@ -20,7 +20,7 @@ exports[`mdx metadata renders correctly 1`] = `
     <h5
       class="emotion-0"
     >
-      Est Read Time: 10 minutes
+      Read time: 10 minutes
     </h5>
     <h5
       class="emotion-0"

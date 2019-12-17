@@ -13,11 +13,11 @@ const MdxMetadata: FunctionComponent<MdxMetadataProps> = ({ timeToRead, lastModi
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
-        mb: 6,
+        mb: 7,
       }}
     >
       <Styled.h5>
-        Est. Read Time: {timeToRead} {pluralize('minute', timeToRead)}
+        Read time: {timeToRead} {pluralize('minute', timeToRead)}
       </Styled.h5>
       <Styled.h5>Last edited: {lastModifiedDateFormatted}</Styled.h5>
     </div>
