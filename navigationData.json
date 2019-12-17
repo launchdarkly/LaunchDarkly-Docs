@@ -23,11 +23,59 @@
       },
       {
         "label": "Managing Flags",
-        "path": "/home/managing-flags"
+        "path": "/home/managing-flags",
+        "items": [
+          {
+            "label": "Introduction",
+            "path": "/home/managing-flags/introduction"
+          },
+          {
+            "label": "The dashboard",
+            "path": "/home/managing-flags/the-dashboard"
+          },
+          {
+            "label": "Turning flags on and off",
+            "path": "/home/managing-flags/the-kill-switch"
+          },
+          {
+            "label": "Compare and copy",
+            "path": "/home/managing-flags/compare-and-copy"
+          },
+          {
+            "label": "Managing flag variations",
+            "path": "/home/managing-flags/managing-flag-variations"
+          },
+          {
+            "label": "Archiving and deleting",
+            "path": "/home/managing-flags/archiving-and-deleting"
+          }
+        ]
       },
       {
         "label": "Managing Users",
-        "path": "/home/managing-users"
+        "path": "/home/managing-users",
+        "items": [
+          {
+            "label": "Introduction",
+            "path": "/home/managing-users/introduction"
+          },
+          {
+            "label": "The Users dashboard",
+            "path": "/home/managing-users/the-dashboard"
+          },
+          {
+            "label": "Setting user attributes",
+            "path": "/home/managing-users/setting-user-attributes"
+          },
+          {
+            "label": "Building user segments",
+            "path": "/home/managing-users/segments"
+          },
+          {
+            "label": "Anonymous users",
+            "path": "/home/managing-users/anonymous-users"
+          }
+        ]
       },
       {
         "label": "Account Security",
@@ -46,8 +94,16 @@
         "path": "/home/advanced",
         "items": [
           {
-            "label": "The flag insights graph",
-            "path": "/home/advanced/flag-insights"
+            "label": "Custom properties",
+            "path": "/home/advanced/custom-properties"
+          },
+          {
+            "label": "Public IP list",
+            "path": "/home/advanced/public-ip-list"
+          },
+          {
+            "label": "The LaunchDarkly Relay Proxy",
+            "path": "/home/advanced/relay-proxy"
           }
         ]
       }
@@ -59,23 +115,43 @@
     "items": [
       {
         "label": "Introduction",
-        "path": "/introduction"
+        "path": "/integrations/introduction"
       },
       {
-        "label": "Azure DevOps (formerly VSTS)",
-        "path": "/introduction"
+        "label": "Azure DevOps",
+        "path": "/integrations/azure"
       },
       {
         "label": "Bitbucket Pipelines",
-        "path": "/introduction"
+        "path": "/integrations/bitbucket"
+      },
+      {
+        "label": "Datadog",
+        "path": "/integrations/datadog"
       },
       {
         "label": "Slack",
-        "path": "/introduction",
+        "path": "/integrations/slack",
         "items": [
           {
             "label": "Setting up Slack accounts",
-            "path": "/introduction"
+            "path": "/integrations/slack/setting-up-accounts"
+          },
+          {
+            "label": "Viewing and monitoring",
+            "path": "/integrations/slack/viewing-monitoring"
+          },
+          {
+            "label": "Subscribing to notifications",
+            "path": "/integrations/slack/subscribing-to-notifications"
+          },
+          {
+            "label": "Turning targeting on and off",
+            "path": "/integrations/slack/turning-targeting-on-off"
+          },
+          {
+            "label": "Webhook integration",
+            "path": "/integrations/slack/webhook-integration"
           }
         ]
       }
