@@ -83,7 +83,21 @@
       },
       {
         "label": "Metrics and Insights",
-        "path": "/home/metrics-and-insights"
+        "path": "/home/metrics-and-insights",
+        "items": [
+          {
+            "label": "Introduction",
+            "path": "/home/metrics-and-insights/introduction"
+          },
+          {
+            "label": "Account usage metrics",
+            "path": "/home/metrics-and-insights/account-usage-metrics"
+          },
+          {
+            "label": "The flag Insights graph",
+            "path": "/home/metrics-and-insights/flag-insights"
+          }
+        ]
       },
       {
         "label": "Experimentation",
