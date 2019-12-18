@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 import { graphql, useStaticQuery } from 'gatsby'
-import { useState } from 'react'
+import { useState, useEffect, useRef, Fragment } from 'react'
+import { enableBodyScroll, disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import TreeNode from './treeNode'
 import Icon from '../icon'
 
@@ -27,17 +28,26 @@ const Hamburger = () => {
     }
   `)
   const [show, setShow] = useState(false)
+  const rootDiv = useRef<HTMLDivElement>()
+  useEffect(() => {
+    if (show) {
+      disableBodyScroll(rootDiv.current)
+    } else {
+      enableBodyScroll(rootDiv.current)
+    }
+
+    return () => {
+      clearAllBodyScrollLocks()
+    }
+  }, [show])
   const onClickMenu = () => {
-    setShow(prev => {
-      const newValue = !prev
-      document.body.style.overflowY = newValue ? 'hidden' : 'unset'
-      return newValue
-    })
+    setShow(prev => !prev)
   }
   return (
-    <div>
+    <Fragment>
       <Icon name="menu" variant="sideMenu" onClick={onClickMenu} />
       <div
+        ref={rootDiv}
         sx={{
           display: show ? 'block' : 'none',
           position: 'fixed',
@@ -47,7 +57,7 @@ const Hamburger = () => {
           left: 0,
           top: 0,
           zIndex: 2,
-          backgroundColor: 'grayWash',
+          bg: 'grayWash',
           color: 'graySafe',
         }}
       >
@@ -71,17 +81,17 @@ const Hamburger = () => {
             CLOSE <Icon name="window-close" variant="close" />
           </div>
         </div>
-        <div sx={{ mb: 4 }}>
+        <div sx={{ mb: 8 }}>
           <TreeNode nodes={navigationData} />
         </div>
         <div
           key="footer"
           sx={{
-            ml: 5,
+            pl: 4,
             bg: 'grayWash',
-            position: 'sticky',
+            position: 'fixed',
             bottom: 0,
-            height: 3,
+            height: 5,
             display: 'flex',
             alignItems: 'center',
           }}
@@ -94,7 +104,7 @@ const Hamburger = () => {
           </a>
         </div>
       </div>
-    </div>
+    </Fragment>
   )
 }
 
