@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 import { FunctionComponent } from 'react'
+// eslint-disable-next-line import/no-unresolved
 import MDX from '@mdx-js/runtime'
 
 import Callout from '../callout'
