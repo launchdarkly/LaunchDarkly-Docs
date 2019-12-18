@@ -57,6 +57,7 @@ module.exports = {
         bucketName: 'launchdarkly-docs-staging',
         protocol: 'https',
         hostname: 'docs-stg.launchdarkly.com',
+        enableS3StaticWebsiteHosting: false,
       },
     },
     {
