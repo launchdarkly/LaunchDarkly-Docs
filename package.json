@@ -64,7 +64,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "deploy": "gatsby-plugin-s3 deploy",
+    "deploy": "yarn build && gatsby-plugin-s3 deploy",
     "prettier": "prettier --write \"**/*.{js,ts,tsx,json,mdx,yml}\"",
     "start": "gatsby develop",
     "serve": "gatsby serve",
