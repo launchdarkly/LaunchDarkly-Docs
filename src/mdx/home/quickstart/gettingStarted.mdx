@@ -2,35 +2,95 @@
 path: '/home/quickstart/getting-started'
 ---
 
-import { Card } from '@theme-ui/components'
 import Metadata from '../../../components/mdxMetadata'
+import { Card } from '@theme-ui/components'
 import Callout from '../../../components/callout'
 import LearnMore from '../../../components/learnMore'
+import { CodeViewer } from '../../../components/code'
 
 # Getting started with LaunchDarkly
 
 <Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
 
+```javascript snippetId=test
+console.log('woohoo')
+```
+
+<CodeViewer snippetId="test" />
+
+Here is a code snippet:
+
+```javascript snippetId=targeting-custom
+export function createAccessDecision(props = {}) {
+  // Cool code
+  return new AccessDecision(fromJS(props))
+}
+
+export function combineAccessDecisions(...args) {
+  const decisions = List(args)
+  const isAllowed = decisions.every(d => d.isAllowed)
+  const firstDenied = decisions.find(d => !d.isAllowed)
+  return new AccessDecision({
+    isAllowed,
+    reason: firstDenied ? firstDenied.reason : decisions.first().reason,
+    appliedRoleName: firstDenied ? firstDenied.appliedRoleName : decisions.first().appliedRoleName,
+  })
+}
+```
+
+```go snippetId=targeting-custom
+var InternalPostResetAccountToken = Route{
+	"internal.post.reset.account.token",
+	"POST",
+}
+
+var InternalDeleteAccountToken = Route{
+	"internal.delete.account.token",
+	"DELETE",
+}
+```
+
+```ruby snippetId=targeting-custom
+user = {:key => "foo@example.com", :custom => {:groups => "beta_testers"}}
+```
+
+<CodeViewer snippetId="targeting-custom" />
+
+And here is another code snippet:
+
+```go snippetId=example
+if member.Role != primaryRole {
+  m.Role = primaryRole
+  accesses = append(accesses, roles.ResourceAccess{
+    Action:   roles.UpdateMemberRole,
+    Resource: resource_identifiers.MakeMemberResourceIdentifier(&member.Id, nil),
+  })
+}
+
+allCustomRolesById := map[bson.ObjectId]roles.CustomRole{}
+for _, role := range allCustomRoles {
+  allCustomRolesById[role.Id] = role
+}
+```
+
+```javascript snippetId=example
+export function createAccessDecision(props = {}) {
+  if (props.props instanceof AccessDecision) {
+    return props
+  }
+  return new AccessDecision(fromJS(props))
+}
+```
+
+```ruby snippetId=example
+puts "Hello world!"
+```
+
+<CodeViewer snippetId="example" />
+
 Welcome to LaunchDarkly! We're excited to partner with you as you use feature flags to make high-impact
 changes with minimal risk and maximum control.
 
-<LearnMore>
-  <LearnMore.Link to="">Adding users to LaunchDarkly</LearnMore.Link>
-</LearnMore>
-<LearnMore>
-  <LearnMore.Title>Readings on flag targeting:</LearnMore.Title>
-  <LearnMore.Link to="">Creating a feature flag</LearnMore.Link>
-  <LearnMore.Link to="">Managing your team</LearnMore.Link>
-  <LearnMore.Link to="">Running A/B tests</LearnMore.Link>
-</LearnMore>
-<Callout>
-  <Callout.Title>Adding users to LaunchDarkly</Callout.Title>
-  <Callout.Description>
-    You don't have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them
-    with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they
-    encounter feature flags.
-  </Callout.Description>
-</Callout>
 <Callout intent="warning">
   <Callout.Title>Be careful</Callout.Title>
   <Callout.Description>This is something you should be careful about.</Callout.Description>

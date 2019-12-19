@@ -1,0 +1,70 @@
+/** @jsx jsx */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { jsx, Styled } from 'theme-ui'
+import Highlight, { defaultProps } from 'prism-react-renderer'
+import Prism from 'prismjs'
+import 'prismjs/components/prism-go'
+import 'prismjs/components/prism-ruby'
+import 'prismjs/components/prism-java'
+import 'prismjs/components/prism-javascript'
+import 'prismjs/components/prism-python'
+import 'prismjs/components/prism-haskell'
+import 'prismjs/components/prism-c'
+import 'prismjs/components/prism-cpp'
+import 'prismjs/components/prism-swift'
+import 'prismjs/components/prism-objectivec'
+import 'prismjs/components/prism-csharp'
+import 'prismjs/components/prism-php'
+import { LanguageName } from './languages'
+
+export type CodeSnippetProps = {
+  language: LanguageName
+  code: string
+}
+
+export function CodeSnippet({ language, code, ...props }: CodeSnippetProps) {
+  return (
+    <Highlight
+      {...defaultProps}
+      {...props}
+      code={code.trim()}
+      theme={undefined}
+      // Override prism-react-renderer's vendored Prism and limited language list
+      Prism={Prism as any}
+      language={language as any}
+    >
+      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+        <Styled.pre className={className} style={style} sx={{ position: 'relative', paddingLeft: 6 }}>
+          {tokens.map((line, i) => {
+            const lineProps = getLineProps({ line, key: i })
+            return (
+              <div key={lineProps.key} {...lineProps}>
+                <span
+                  sx={{
+                    color: 'grayMed',
+                    paddingRight: 2,
+                    marginRight: 2,
+                    textAlign: 'right',
+                    fontSize: 2,
+                    display: 'inline-block',
+                    userSelect: 'none',
+                    pointerEvents: 'none',
+                    width: 4,
+                    position: 'absolute',
+                    left: 0,
+                  }}
+                >
+                  {i + 1}
+                </span>
+                {line.map((token, key) => {
+                  const tokenProps = getTokenProps({ token, key })
+                  return <span key={tokenProps.key} {...tokenProps} sx={{ display: 'inline-block' }} />
+                })}
+              </div>
+            )
+          })}
+        </Styled.pre>
+      )}
+    </Highlight>
+  )
+}

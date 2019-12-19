@@ -11,6 +11,7 @@ import Header from './header'
 import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
 import CurrentCategoryMenu from './sideNav/currentCategoryMenu'
 import { ReadmeBlock } from './readme'
+import { CodeBlock, CodeSnippetProvider } from './code'
 
 const components = {
   h1: H1,
@@ -20,6 +21,10 @@ const components = {
   h5: H5,
   h6: H6,
   ReadmeBlock,
+  pre: function Pre({ children }: React.HTMLProps<HTMLPreElement>) {
+    return <Fragment>{children}</Fragment>
+  },
+  code: CodeBlock,
 }
 
 interface LayoutProps {
@@ -75,11 +80,13 @@ const Layout: FunctionComponent<LayoutProps> = ({
         <CurrentCategoryMenu />
         <main sx={{ gridArea: 'main', px: [4, 7, 9], pt: 6 }}>
           <Breadcrumbs />
-          <MDXProvider components={components}>
-            <MDXRenderer timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedTime}>
-              {body}
-            </MDXRenderer>
-          </MDXProvider>
+          <CodeSnippetProvider>
+            <MDXProvider components={components}>
+              <MDXRenderer timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedTime}>
+                {body}
+              </MDXRenderer>
+            </MDXProvider>
+          </CodeSnippetProvider>
         </main>
         <aside sx={{ gridArea: 'aside', pt: 6, display: ['none', 'none', 'block'], width: '18rem' }}>
           {!isImported && <TableOfContents toc={toc} sx={{ position: 'sticky', top: 5 }} />}

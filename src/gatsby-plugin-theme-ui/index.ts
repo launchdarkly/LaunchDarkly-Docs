@@ -78,7 +78,60 @@ export default {
       fontWeight: 'bold',
     },
   },
+  buttons: {
+    code: {
+      language: {
+        padding: 1,
+        paddingLeft: 3,
+        paddingRight: 3,
+        marginLeft: 1,
+        marginRight: 1,
+        fontSize: 3,
+        lineHeight: 'small',
+        borderRadius: 0,
+        color: 'grayBase',
+        cursor: 'pointer',
+        bg: 'transparent',
+        '&:hover': {
+          color: 'grayDark',
+          boxShadow: (theme: any) => `inset 0px -2px 0px ${theme.colors.primaryBase}`,
+        },
+      },
+      languageActive: (theme: any) => ({
+        ...theme.buttons.code.language,
+        ...theme.buttons.code.language['&:hover'],
+      }),
+      copy: {
+        padding: 1,
+        paddingLeft: 3,
+        paddingRight: 3,
+        textTransform: 'uppercase',
+        fontSize: 2,
+        fontWeight: 'bold',
+        lineHeight: 'small',
+        borderRadius: 1,
+        color: 'grayDark',
+        cursor: 'pointer',
+        bg: 'transparent',
+        '&:hover': {
+          bg: 'grayMed',
+        },
+      },
+    },
+  },
   cards: {
+    code: {
+      padding: 2,
+      marginBottom: 4,
+      borderRadius: 1,
+      border: '1px solid',
+      borderColor: 'grayMed',
+      boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayMed}`,
+      paddingX: 5,
+      paddingY: 4,
+      lineHeight: 'small',
+      bg: 'grayWash',
+    },
     learnMore: {
       padding: 2,
       borderRadius: 1,
@@ -266,15 +319,42 @@ export default {
       },
     },
     pre: {
-      fontFamily: 'monospace',
-      overflowX: 'auto',
-      code: {
-        color: 'inherit',
+      whiteSpace: 'pre-wrap',
+
+      color: '#393A34',
+      backgroundColor: '#f6f8fa',
+      '.comment,.prolog,.doctype,.cdata': {
+        color: '#999988',
+        fontStyle: 'italic',
+      },
+      '.namespace': {
+        opacity: 0.7,
+      },
+      '.string,.attr-value': {
+        color: '#e3116c',
+      },
+      '.punctuation,.operator': {
+        color: '#393A34',
+      },
+      '.entity,.url,.symbol,.number,.boolean,.variable,.constant,.property,.regex,.inserted': {
+        color: '#36acaa',
+      },
+      '.atrule,.keyword,.attr-name,.selector': {
+        color: '#00a4db',
+      },
+      '.function,.deleted,.tag': {
+        color: '#d73a49',
+      },
+      '.function-variable': {
+        color: '#6f42c1',
+      },
+      '.tag,.selector,.keyword': {
+        color: '#00009f',
       },
     },
     code: {
       fontFamily: 'monospace',
-      fontSize: 'inherit',
+      fontSize: 3,
     },
     table: {
       width: '100%',

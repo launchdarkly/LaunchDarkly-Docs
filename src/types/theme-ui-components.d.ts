@@ -9,5 +9,7 @@ declare module '@theme-ui/components' {
 
   export const Card: SxComponent
   export const Text: SxComponent
+  export const Button: SxComponent
+  export const Select: SxComponent
   export const Link: LinkSxComponent
 }
