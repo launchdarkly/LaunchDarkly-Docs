@@ -13,7 +13,7 @@ import Header from './header'
 import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
 import CurrentCategoryMenu from './sideNav/currentCategoryMenu'
 import { ReadmeBlock } from './readme'
-import { CodeBlock, CodeSnippetProvider } from './code'
+import { CodeBlock, CodeSnippetProvider, CodeViewer } from './code'
 import Metadata from './mdxMetadata'
 
 const components = {
@@ -28,6 +28,7 @@ const components = {
     return <Fragment>{children}</Fragment>
   },
   code: CodeBlock,
+  CodeViewer,
   Card,
   Metadata,
 }
