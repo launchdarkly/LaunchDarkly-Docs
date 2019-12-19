@@ -13,7 +13,7 @@
           },
           {
             "label": "Your team and LaunchDarkly",
-            "path": "/home/quickstart/new-members"
+            "path": "/home/quickstart/your-team-and-launchdarkly"
           },
           {
             "label": "Creating a feature flag",
@@ -38,16 +38,48 @@
             "path": "/home/managing-flags/the-kill-switch"
           },
           {
-            "label": "Compare and copy",
-            "path": "/home/managing-flags/compare-and-copy"
+            "label": "Compare and copy flag settings",
+            "path": "/home/managing-flags/compare-and-copy-flag-settings"
           },
           {
             "label": "Managing flag variations",
             "path": "/home/managing-flags/managing-flag-variations"
           },
           {
-            "label": "Archiving and deleting",
-            "path": "/home/managing-flags/archiving-and-deleting"
+            "label": "Archiving and deleting flags",
+            "path": "/home/managing-flags/archiving-and-deleting-flags"
+          },
+          {
+            "label": "Projects",
+            "path": "/home/managing-flags/projects"
+          },
+          {
+            "label": "Environments",
+            "path": "/home/managing-flags/environments"
+          },
+          {
+            "label": "Targeting users",
+            "path": "/home/managing-flags/targeting-users"
+          },
+          {
+            "label": "Bulk user targeting",
+            "path": "/home/managing-flags/bulk-user-targeting"
+          },
+          {
+            "label": "Other flag setttings",
+            "path": "/home/managing-flags/other-flag-settings"
+          },
+          {
+            "label": "Prerequisites",
+            "path": "/home/managing-flags/prerequisites"
+          },
+          {
+            "label": "The audit log and history tabs",
+            "path": "/home/managing-flags/the-audit-log-and-history-tabs"
+          },
+          {
+            "label": "The debugger",
+            "path": "/home/managing-flags/the-debugger"
           }
         ]
       },
@@ -61,7 +93,7 @@
           },
           {
             "label": "The Users dashboard",
-            "path": "/home/managing-users/the-dashboard"
+            "path": "/home/managing-users/the-users-dashboard"
           },
           {
             "label": "Setting user attributes",
@@ -79,7 +111,89 @@
       },
       {
         "label": "Account Security",
-        "path": "/home/account-security"
+        "path": "/home/account-security",
+        "items": [
+          {
+            "label": "Introduction",
+            "path": "/home/account-security/introduction"
+          },
+          {
+            "label": "Managing your team",
+            "path": "/home/account-security/managing-your-team"
+          },
+          {
+            "label": "Custom roles",
+            "path": "/home/account-security/custom-roles",
+            "items": [
+              {
+                "label": "Configuring custom roles",
+                "path": "/home/account-security/custom-roles/configuring-custom-roles"
+              },
+              {
+                "label": "Resources in custom roles",
+                "path": "/home/account-security/custom-roles/resources-in-custom-roles"
+              },
+              {
+                "label": "Tags in custom roles",
+                "path": "/home/account-security/custom-roles/tags-in-custom-roles"
+              },
+              {
+                "label": "Actions in custom roles",
+                "path": "/home/account-security/custom-roles/actions-in-custom-roles"
+              },
+              {
+                "label": "Policies in custom roles",
+                "path": "/home/account-security/custom-roles/policies-in-custom-roles"
+              },
+              {
+                "label": "Example policies",
+                "path": "/home/account-security/custom-roles/example-policies"
+              },
+              {
+                "label": "Creating private projects with custom roles",
+                "path": "/home/account-security/custom-roles/creating-private-projects-with-custom-roles"
+              }
+            ]
+          },
+          {
+            "label": "Multi-factor authentication",
+            "path": "/home/account-security/multi-factor-authentication"
+          },
+          {
+            "label": "Personal API access tokens",
+            "path": "/home/account-security/personal-api-access-tokens"
+          },
+          {
+            "label": "Managing sessions",
+            "path": "/home/account-security/managing-sessions"
+          },
+          {
+            "label": "Enabling single sign-on",
+            "path": "/home/account-security/enabling-single-sign-on",
+            "items": [
+              {
+                "label": "Okta",
+                "path": "/home/account-security/enabling-single-sign-on/okta"
+              },
+              {
+                "label": "OneLogin",
+                "path": "/home/account-security/enabling-single-sign-on/onelogin"
+              },
+              {
+                "label": "Google Apps",
+                "path": "/home/account-security/enabling-single-sign-on/google-apps"
+              },
+              {
+                "label": "ADFS",
+                "path": "/home/account-security/enabling-single-sign-on/adfs"
+              },
+              {
+                "label": "Azure",
+                "path": "/home/account-security/enabling-single-sign-on/azure"
+              }
+            ]
+          }
+        ]
       },
       {
         "label": "Metrics and Insights",
@@ -95,13 +209,45 @@
           },
           {
             "label": "The flag Insights graph",
-            "path": "/home/metrics-and-insights/flag-insights"
+            "path": "/home/metrics-and-insights/the-flag-insights-graph"
           }
         ]
       },
       {
         "label": "Experimentation",
-        "path": "/home/experimentation"
+        "path": "/home/experimentation",
+        "items": [
+          {
+            "label": "Introduction",
+            "path": "/home/experimentation/introduction"
+          },
+          {
+            "label": "Experimentation",
+            "path": "/home/experimentation/experimentation"
+          },
+          {
+            "label": "Creating experiments",
+            "path": "/home/experimentation/creating-experiments"
+          },
+          {
+            "label": "Managing experiments",
+            "path": "/home/experimentation/managing-experiments",
+            "items": [
+              {
+                "label": "The experiment lifecycle",
+                "path": "/home/experimentation/managing-experiments/the-experiment-lifecycle"
+              },
+              {
+                "label": "Interpreting experiment data",
+                "path": "/home/experimentation/managing-experiments/interpreting-experiment-data"
+              },
+              {
+                "label": "Controlling experiment populations",
+                "path": "/home/experimentation/managing-experiments/controlling-experiment-populations"
+              }
+            ]
+          }
+        ]
       },
       {
         "label": "Advanced",
@@ -117,7 +263,29 @@
           },
           {
             "label": "The LaunchDarkly Relay Proxy",
-            "path": "/home/advanced/relay-proxy"
+            "path": "/home/advanced/the-launchdarkly-relay-proxy",
+            "items": [
+              {
+                "label": "Using the Relay Proxy",
+                "path": "/home/advanced/the-launchdarkly-relay-proxy/using-the-relay-proxy"
+              },
+              {
+                "label": "Monitoring the Relay Proxy",
+                "path": "/home/advanced/the-launchdarkly-relay-proxy/monitoring-the-relay-proxy"
+              }
+            ]
+          },
+          {
+            "label": "Evaluation reasons",
+            "path": "/home/advanced/evaluation-reasons"
+          },
+          {
+            "label": "Reading flags from a file",
+            "path": "/home/advanced/reading-flags-from-a-file"
+          },
+          {
+            "label": "Using a persistent feature store",
+            "path": "/home/advanced/using-a-persistent-feature-store"
           }
         ]
       }
@@ -132,28 +300,40 @@
         "path": "/integrations/introduction"
       },
       {
-        "label": "Azure DevOps",
-        "path": "/integrations/azure"
+        "label": "Azure DevOps (formerly VSTS)",
+        "path": "/integrations/azure-devops-formerly-vsts"
       },
       {
         "label": "Bitbucket Pipelines",
-        "path": "/integrations/bitbucket"
+        "path": "/integrations/bitbucket-pipelines"
       },
       {
         "label": "Datadog",
         "path": "/integrations/datadog"
       },
       {
+        "label": "Jira",
+        "path": "/integrations/jira"
+      },
+      {
+        "label": "New Relic",
+        "path": "/integrations/new-relic"
+      },
+      {
+        "label": "OAuth applications",
+        "path": "/integrations/oauth-applications"
+      },
+      {
         "label": "Slack",
         "path": "/integrations/slack",
         "items": [
           {
-            "label": "Setting up Slack accounts",
-            "path": "/integrations/slack/setting-up-accounts"
+            "label": "Setting up Slack accounts and permissions",
+            "path": "/integrations/slack/setting-up-slack-accounts-and-permissions"
           },
           {
-            "label": "Viewing and monitoring",
-            "path": "/integrations/slack/viewing-monitoring"
+            "label": "Viewing, monitoring and subscribing to flags",
+            "path": "/integrations/slack/viewing-monitoring-and-subscribing-to-flags"
           },
           {
             "label": "Subscribing to notifications",
@@ -168,17 +348,211 @@
             "path": "/integrations/slack/webhook-integration"
           }
         ]
+      },
+      {
+        "label": "Terraform",
+        "path": "/integrations/terraform"
+      },
+      {
+        "label": "Visual Studio Code",
+        "path": "/integrations/visual-studio-code"
+      },
+      {
+        "label": "Webhooks",
+        "path": "/integrations/webhooks"
+      },
+      {
+        "label": "Git code references",
+        "path": "/integrations/git-code-references",
+        "items": [
+          {
+            "label": "Bitbucket Pipes",
+            "path": "/integrations/git-code-references/bitbucket-pipes"
+          },
+          {
+            "label": "CircleCI Orbs",
+            "path": "/integrations/git-code-references/circleci-orbs"
+          },
+          {
+            "label": "GitHub Actions",
+            "path": "/integrations/git-code-references/github-actions"
+          },
+          {
+            "label": "GitLab CI",
+            "path": "/integrations/git-code-references/gitlab-ci"
+          },
+          {
+            "label": "Custom configuration with the CLI",
+            "path": "/integrations/git-code-references/custom-configuration-with-the-cli"
+          }
+        ]
+      },
+      {
+        "label": "Data Export",
+        "path": "/integrations/data-export",
+        "items": [
+          {
+            "label": "Google Cloud Pub/Sub",
+            "path": "/integrations/data-export/google-cloud-pub-sub"
+          },
+          {
+            "label": "Kinesis",
+            "path": "/integrations/data-export/kinesis"
+          },
+          {
+            "label": "mParticle",
+            "path": "/integrations/data-export/mparticle"
+          },
+          {
+            "label": "Segment",
+            "path": "/integrations/data-export/segment"
+          },
+          {
+            "label": "Data export schema reference",
+            "path": "/integrations/data-export/data-export-schema-reference"
+          }
+        ]
       }
     ]
   },
   {
     "label": "SDK",
     "path": "/sdk",
-    "items": []
+    "items": [
+      {
+        "label": "SDK Concepts",
+        "path": "/sdk/sdk-concepts",
+        "items": [
+          {
+            "label": "Getting started with SDKs",
+            "path": "/sdk/getting-started-with-sdks"
+          },
+          {
+            "label": "Client-side and server-side SDKs",
+            "path": "/sdk/client-side-and-server-side-sdks"
+          },
+          {
+            "label": "SDK versioning policy",
+            "path": "/sdk/sdk-versioning-policy"
+          },
+          {
+            "label": "SDK contributor's guide",
+            "path": "/sdk/sdk-contributors-guide",
+            "items": [
+              {
+                "label": "Flag evaluation rules in server-side SDKs",
+                "path": "/sdk/sdk-contributors-guide/flag-evaluation-rules-in-server-side-sdks"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Server-side SDK Guides",
+        "path": "/sdk/server-side-sdk-guides",
+        "items": [
+          {
+            "label": ".NET SDK Reference",
+            "path": "/sdk/server-side-sdk-guides/dotnet-sdk-reference"
+          },
+          {
+            "label": "C/C++ (server-side) SDK reference",
+            "path": "/sdk/server-side-sdk-guides/c-c-plus-plus-server-side-sdk-reference"
+          },
+          {
+            "label": "Go SDK Reference",
+            "path": "/sdk/server-side-sdk-guides/go-sdk-reference"
+          },
+          {
+            "label": "Haskell SDK Reference",
+            "path": "/sdk/server-side-sdk-guides/haskell-sdk-reference"
+          },
+          {
+            "label": "Java SDK Reference",
+            "path": "/sdk/server-side-sdk-guides/java-sdk-reference"
+          },
+          {
+            "label": "Node.js (server-side) SDK Reference",
+            "path": "/sdk/server-side-sdk-guides/node-js-server-side-sdk-reference"
+          },
+          {
+            "label": "PHP SDK Reference",
+            "path": "/sdk/server-side-sdk-guides/php-sdk-reference"
+          },
+          {
+            "label": "Python SDK Reference",
+            "path": "/sdk/server-side-sdk-guides/python-sdk-reference"
+          },
+          {
+            "label": "Ruby SDK Reference",
+            "path": "/sdk/server-side-sdk-guides/ruby-sdk-reference"
+          }
+        ]
+      },
+      {
+        "label": "Client-side sdk reference guides",
+        "path": "/sdk/client-side-sdk-reference-guides",
+        "items": [
+          {
+            "label": "Android SDK Reference",
+            "path": "/sdk/client-side-sdk-reference-guides/android-sdk-reference"
+          },
+          {
+            "label": "C/C++ (client-side) SDK Reference",
+            "path": "/sdk/client-side-sdk-reference-guides/c-c-plus-plus-client-side-sdk-reference"
+          },
+          {
+            "label": "Electron SDK Reference",
+            "path": "/sdk/client-side-sdk-reference-guides/electron-sdk-reference"
+          },
+          {
+            "label": "iOS Objective-C SDK Reference",
+            "path": "/sdk/client-side-sdk-reference-guides/ios-objective-c-sdk-reference"
+          },
+          {
+            "label": "iOS Swift SDK Reference",
+            "path": "/sdk/client-side-sdk-reference-guides/ios-swift-sdk-reference"
+          },
+          {
+            "label": "JavaScript SDK Reference",
+            "path": "/sdk/client-side-sdk-reference-guides/javascript-sdk-reference",
+            "items": [
+              {
+                "label": "Default variations on page load",
+                "path": "/sdk/client-side-sdk-reference-guides/javascript-sdk-reference/default-variations-on-page-load"
+              },
+              {
+                "label": "Requirements and polyfills",
+                "path": "/sdk/client-side-sdk-reference-guides/javascript-sdk-reference/requirements-and-polyfills"
+              }
+            ]
+          },
+          {
+            "label": "Node.js (client-side) SDK Reference",
+            "path": "/sdk/client-side-sdk-reference-guides/node-js-client-side-sdk-reference"
+          },
+          {
+            "label": "React SDK Reference",
+            "path": "/sdk/client-side-sdk-reference-guides/react-sdk-reference"
+          },
+          {
+            "label": "React Native SDK Reference",
+            "path": "/sdk/client-side-sdk-reference-guides/react-native-sdk-reference"
+          },
+          {
+            "label": "Roku SDK Reference",
+            "path": "/sdk/client-side-sdk-reference-guides/roku-sdk-reference"
+          },
+          {
+            "label": "Xamarin SDK Reference",
+            "path": "/sdk/client-side-sdk-reference-guides/xamarin-sdk-reference"
+          }
+        ]
+      }
+    ]
   },
   {
     "label": "API docs",
-    "path": "/api-docs",
-    "items": []
+    "path": "https://apidocs.launchdarkly.com/"
   }
 ]
