@@ -73,6 +73,7 @@
     "start": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
+    "clean-all": "yarn clean && rimraf node_modules && rimraf yarn.lock && yarn",
     "test": "jest",
     "tsc": "tsc",
     "lint": "eslint --ignore-path .gitignore . --ext ts --ext tsx --ext js --ext jsx"
