@@ -1,0 +1,118 @@
+---
+path: '/home/quickstart/getting-started'
+---
+
+import Callout from '../../../../components/callout'
+import LearnMore from '../../../../components/learnMore'
+import { CodeViewer } from '../../../components/code'
+
+# Getting started with LaunchDarkly
+
+<Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
+
+```javascript snippetId=test
+console.log('woohoo')
+```
+
+<CodeViewer snippetId="test" />
+
+Here is a code snippet:
+
+```javascript snippetId=targeting-custom
+export function createAccessDecision(props = {}) {
+  // Cool code
+  return new AccessDecision(fromJS(props))
+}
+
+export function combineAccessDecisions(...args) {
+  const decisions = List(args)
+  const isAllowed = decisions.every(d => d.isAllowed)
+  const firstDenied = decisions.find(d => !d.isAllowed)
+  return new AccessDecision({
+    isAllowed,
+    reason: firstDenied ? firstDenied.reason : decisions.first().reason,
+    appliedRoleName: firstDenied ? firstDenied.appliedRoleName : decisions.first().appliedRoleName,
+  })
+}
+```
+
+```go snippetId=targeting-custom
+var InternalPostResetAccountToken = Route{
+	"internal.post.reset.account.token",
+	"POST",
+}
+
+var InternalDeleteAccountToken = Route{
+	"internal.delete.account.token",
+	"DELETE",
+}
+```
+
+```ruby snippetId=targeting-custom
+user = {:key => "foo@example.com", :custom => {:groups => "beta_testers"}}
+```
+
+<CodeViewer snippetId="targeting-custom" />
+
+And here is another code snippet:
+
+```go snippetId=example
+if member.Role != primaryRole {
+  m.Role = primaryRole
+  accesses = append(accesses, roles.ResourceAccess{
+    Action:   roles.UpdateMemberRole,
+    Resource: resource_identifiers.MakeMemberResourceIdentifier(&member.Id, nil),
+  })
+}
+
+allCustomRolesById := map[bson.ObjectId]roles.CustomRole{}
+for _, role := range allCustomRoles {
+  allCustomRolesById[role.Id] = role
+}
+```
+
+```javascript snippetId=example
+export function createAccessDecision(props = {}) {
+  if (props.props instanceof AccessDecision) {
+    return props
+  }
+  return new AccessDecision(fromJS(props))
+}
+```
+
+```ruby snippetId=example
+puts "Hello world!"
+```
+
+<CodeViewer snippetId="example" />
+
+Welcome to LaunchDarkly! We're excited to partner with you as you use feature flags to make high-impact
+changes with minimal risk and maximum control.
+
+<Callout intent="warning">
+  <Callout.Title>Be careful</Callout.Title>
+  <Callout.Description>This is something you should be careful about.</Callout.Description>
+</Callout>
+
+It only takes a few minutes to get started with LaunchDarkly and control your first feature flag.
+
+## Integrating with LaunchDarkly
+
+The steps to integrate your application with LaunchDarkly are common across all SDKs. We provide a variety
+of client, server, and mobile SDKs for you to use. To learn more about our SDK offerings, read Choosing an
+SDK.
+
+To setup LaunchDarkly:
+
+1. Install the LaunchDarkly SDK in your application using your project's dependency manager. This lets your
+   application access the LaunchDarkly SDK.
+2. Import the LaunchDarkly client in your application code. This client is the primary way your application
+   uses the SDK and communicates with LaunchDarkly.
+3. Configure the LaunchDarkly client with the appropriate key for your environment and create the client.
+   Your SDK key, Client-side ID, and Mobile key uniquely identify your project and environment, and they
+   authorize your application to connect to LaunchDarkly.
+
+### Flag evaluations are always available.
+
+If the SDK you're using loses the connection with LaunchDarkly, your feature flags will still work. The SDK
+relies on its stored state to evaluate flags.

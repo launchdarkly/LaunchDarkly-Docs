@@ -1,5 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
+import { Card } from '@theme-ui/components'
+
 import { Fragment, FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
@@ -12,6 +14,7 @@ import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
 import CurrentCategoryMenu from './sideNav/currentCategoryMenu'
 import { ReadmeBlock } from './readme'
 import { CodeBlock, CodeSnippetProvider } from './code'
+import Metadata from './mdxMetadata'
 
 const components = {
   h1: H1,
@@ -25,6 +28,8 @@ const components = {
     return <Fragment>{children}</Fragment>
   },
   code: CodeBlock,
+  Card,
+  Metadata,
 }
 
 interface LayoutProps {

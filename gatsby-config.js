@@ -27,7 +27,7 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'navigationData',
-        path: `${__dirname}/navigationData.json`,
+        path: `${__dirname}/src/content/navigationData.json`,
       },
     },
     {
@@ -40,7 +40,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${__dirname}/src/mdx`,
+        path: `${__dirname}/src/content/topics`,
         name: 'mdx',
       },
     },
