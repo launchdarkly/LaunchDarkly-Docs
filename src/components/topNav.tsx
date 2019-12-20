@@ -27,7 +27,6 @@ const TopNav = () => {
         display: ['none', 'flex'],
         justifyContent: 'space-between',
         width: [null, 'auto', 'auto'],
-        pl: [null, 2, 8],
       }}
     >
       {navigationData.map((rootItem: SideNavItem, index: number) => {
@@ -37,7 +36,7 @@ const TopNav = () => {
         const variant = 'links.topNav'
 
         return (
-          <li key={`${label}-${index}`} sx={{ display: 'inline', pl: [null, 3, 5] }}>
+          <li key={`${label}-${index}`} sx={{ display: 'inline', pr: [null, 4, 6] }}>
             {isExternalLink ? (
               <ExternalLink href={path} target="_blank" variant={variant}>
                 {capitalizedLabel}

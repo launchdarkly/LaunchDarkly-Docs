@@ -9,15 +9,52 @@ import LearnMore from '../../../../components/learnMore'
 
 <Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
 
-```javascript snippetId=test
-console.log('woohoo')
-```
+Welcome to LaunchDarkly! We're excited to partner with you as you use feature flags to make high-impact
+changes with minimal risk and maximum control.
 
-<CodeViewer snippetId="test" />
+It only takes a few minutes to get started with LaunchDarkly and control your first feature flag.
 
-Here is a code snippet:
+## Integrating with LaunchDarkly
 
-```javascript snippetId=targeting-custom
+The steps to integrate your application with LaunchDarkly are common across all SDKs. We provide a variety
+of client, server, and mobile SDKs for you to use. To learn more about our SDK offerings, read Choosing an
+SDK.
+
+To setup LaunchDarkly:
+
+1. **Install the LaunchDarkly SDK in your application using your project's dependency manager.** This lets your
+   application access the LaunchDarkly SDK.
+2. **Import the LaunchDarkly client in your application code.** This client is the primary way your application
+   uses the SDK and communicates with LaunchDarkly.
+3. **Configure the LaunchDarkly client with the appropriate key for your environment and create the client.**
+   Your SDK key, Client-side ID, and Mobile key uniquely identify your project and environment, and they
+   authorize your application to connect to LaunchDarkly.
+4. **Set which feature flag variation a user will see.** Every feature flag is uniquely identified by a feature flag key. Use the key to associate flag variations with different users.
+
+<Callout>
+  <Callout.Title>Adding users to LaunchDarkly</Callout.Title>
+  <Callout.Description>
+    You don't have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them
+    with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they
+    encounter feature flags.
+  </Callout.Description>
+</Callout>
+
+5. **Shut down the LaunchDarkly client when your application is about to terminate.** The client releases the resources it is using and sends pending analytics events to LaunchDarkly. If your application quits without this shutdown step, you may not see requests and users on the dashboard, because they are derived from analytics events. You only need to shut down the application manually once.
+
+<LearnMore>
+  <LearnMore.Link to="">Adding users to LaunchDarkly</LearnMore.Link>
+</LearnMore>
+
+## Choosing an SDK
+
+We have a variety of client-side, server-side, and mobile SDKs to choose from.
+
+To learn more about the different types of SDKs, read Client-side and server-side SDKs.
+
+Explore the following SDK reference guides for specific details about how to use LaunchDarkly with your tech stack. To learn more about advanced configuration options for your platform's SDK, read the Reference guides section.
+
+```javascript snippet=targeting-custom
 export function createAccessDecision(props = {}) {
   // Cool code
   return new AccessDecision(fromJS(props))
@@ -35,7 +72,7 @@ export function combineAccessDecisions(...args) {
 }
 ```
 
-```go snippetId=targeting-custom
+```go snippet=targeting-custom
 var InternalPostResetAccountToken = Route{
 	"internal.post.reset.account.token",
 	"POST",
@@ -47,71 +84,18 @@ var InternalDeleteAccountToken = Route{
 }
 ```
 
-```ruby snippetId=targeting-custom
+```ruby snippet=targeting-custom
 user = {:key => "foo@example.com", :custom => {:groups => "beta_testers"}}
 ```
 
-<CodeViewer snippetId="targeting-custom" />
+<CodeViewer snippet="targeting-custom" />
 
-And here is another code snippet:
+### Flag evaluations are always available
 
-```go snippetId=example
-if member.Role != primaryRole {
-  m.Role = primaryRole
-  accesses = append(accesses, roles.ResourceAccess{
-    Action:   roles.UpdateMemberRole,
-    Resource: resource_identifiers.MakeMemberResourceIdentifier(&member.Id, nil),
-  })
-}
+If the SDK you're using loses the connection with LaunchDarkly, your feature flags will still work. The SDK relies on its stored state to evaluate flags.
 
-allCustomRolesById := map[bson.ObjectId]roles.CustomRole{}
-for _, role := range allCustomRoles {
-  allCustomRolesById[role.Id] = role
-}
-```
+By default, an SDK initializes with an empty state. When the SDK first initializes, it opens a streaming connection to LaunchDarkly. The response from LaunchDarkly contains the SDKs' current state, which your SDK uses to make any necessary changes to feature flag. After the initial update, the SDK keeps a streaming connection open to LaunchDarkly. If you make a change in the LaunchDarkly dashboard or with the REST API, LaunchDarkly sends these changes to all connected SDKs automatically.
 
-```javascript snippetId=example
-export function createAccessDecision(props = {}) {
-  if (props.props instanceof AccessDecision) {
-    return props
-  }
-  return new AccessDecision(fromJS(props))
-}
-```
+If the SDK ever loses connectivity to LaunchDarkly, it continues to try to establish a streaming connection until it succeeds. If you evaluate a flag before the SDK receives its initial state, or you try to fetch a flag which otherwise doesn't exist, then the SDK returns a fallback value you can specify in the flag's settings.
 
-```ruby snippetId=example
-puts "Hello world!"
-```
-
-<CodeViewer snippetId="example" />
-
-Welcome to LaunchDarkly! We're excited to partner with you as you use feature flags to make high-impact
-changes with minimal risk and maximum control.
-
-<Callout intent="warning">
-  <Callout.Title>Be careful</Callout.Title>
-  <Callout.Description>This is something you should be careful about.</Callout.Description>
-</Callout>
-
-It only takes a few minutes to get started with LaunchDarkly and control your first feature flag.
-
-## Integrating with LaunchDarkly
-
-The steps to integrate your application with LaunchDarkly are common across all SDKs. We provide a variety
-of client, server, and mobile SDKs for you to use. To learn more about our SDK offerings, read Choosing an
-SDK.
-
-To setup LaunchDarkly:
-
-1. Install the LaunchDarkly SDK in your application using your project's dependency manager. This lets your
-   application access the LaunchDarkly SDK.
-2. Import the LaunchDarkly client in your application code. This client is the primary way your application
-   uses the SDK and communicates with LaunchDarkly.
-3. Configure the LaunchDarkly client with the appropriate key for your environment and create the client.
-   Your SDK key, Client-side ID, and Mobile key uniquely identify your project and environment, and they
-   authorize your application to connect to LaunchDarkly.
-
-### Flag evaluations are always available.
-
-If the SDK you're using loses the connection with LaunchDarkly, your feature flags will still work. The SDK
-relies on its stored state to evaluate flags.
+All SDKs provide synchronous and asynchronous ways of waiting for the SDKs state to initialize.

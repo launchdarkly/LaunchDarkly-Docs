@@ -5,7 +5,7 @@
 export default {
   // breakpoints are intentionally set using em after some research and discussion based on this
   // https://zellwk.com/blog/media-query-units/
-  breakpoints: ['44rem', '76rem', '88rem', '102rem'],
+  breakpoints: ['48rem', '76rem', '88rem', '102rem'],
   sizes: ['.75rem', '1rem', '1.25rem', '1.5rem', '2rem', '4rem', '8rem', '16rem'],
   fontSizes: ['0.5rem', '0.625rem', '0.75rem', '0.875rem', '1rem', '1.5rem', '1.75rem', '2.25rem'],
   colors: {
@@ -238,7 +238,7 @@ export default {
       width: 'auto',
       fill: 'white',
     },
-    sideMenu: { width: 2, height: 2, fill: 'white', cursor: 'pointer' },
+    sideMenu: { width: 3, height: 3, fill: 'white', cursor: 'pointer' },
     heading: {
       width: 3,
       height: 3,
@@ -324,14 +324,23 @@ export default {
       lineHeight: 'body',
       marginBottom: [5, 5, 6],
     },
-    li: {
-      listStylePosition: 'inside',
+    ol: {
       marginBottom: [5, 5, 6],
+      marginLeft: 5,
+      listStylePosition: 'outside',
+    },
+    ul: {
+      marginBottom: [5, 5, 6],
+      marginLeft: 5,
+      listStylePosition: 'outside',
+      listStyleType: 'disc',
+    },
+    'p + ol': {
+      // target sibling components
+    },
+    li: {
+      marginBottom: [3, 3, 4],
       lineHeight: 'body',
-      '::before': {
-        fontWeight: 'bold',
-        fontSize: 6,
-      },
     },
     pre: {
       whiteSpace: 'pre-wrap',

@@ -47,7 +47,7 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
         }
 
         return (
-          <li key={`${label}-${index}`} sx={{ ml: [5, 4, 5] }}>
+          <li key={`${label}-${index}`} sx={{ ml: [5, 4, 5], mr: 2 }}>
             {path ? (
               <Link getProps={setActiveStyles} sx={labelStyles} to={path}>
                 <div sx={{ py: [2, 3] }}>{label}</div>
