@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, useThemeUI } from 'theme-ui'
-import { graphql, useStaticQuery, Link } from 'gatsby'
+import { Link as ExternalLink } from '@theme-ui/components'
+import { graphql, useStaticQuery, Link as GatsbyLink } from 'gatsby'
 import { SideNavItem } from './sideNav/types'
 
 const TopNav = () => {
@@ -30,16 +31,27 @@ const TopNav = () => {
       }}
     >
       {navigationData.map((rootItem: SideNavItem, index: number) => {
+        const { label, path } = rootItem
+        const capitalizedLabel = label.toUpperCase()
+        const isExternalLink = path.startsWith('http')
+        const variant = 'links.topNav'
+
         return (
-          <li key={`${rootItem.label}-${index}`} sx={{ display: 'inline', pl: [null, 3, 5] }}>
-            <Link
-              to={rootItem.path}
-              partiallyActive={true}
-              activeStyle={{ color: theme.colors.primarySafe }}
-              sx={{ color: 'grayMed', textDecoration: 'none' }}
-            >
-              {rootItem.label.toUpperCase()}
-            </Link>
+          <li key={`${label}-${index}`} sx={{ display: 'inline', pl: [null, 3, 5] }}>
+            {isExternalLink ? (
+              <ExternalLink href={path} target="_blank" variant={variant}>
+                {capitalizedLabel}
+              </ExternalLink>
+            ) : (
+              <GatsbyLink
+                to={path}
+                partiallyActive={true}
+                activeStyle={{ color: theme.colors.primaryBase }}
+                sx={{ variant }}
+              >
+                {capitalizedLabel}
+              </GatsbyLink>
+            )}
           </li>
         )
       })}

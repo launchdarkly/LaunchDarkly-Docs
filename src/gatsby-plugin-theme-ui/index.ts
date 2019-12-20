@@ -251,6 +251,21 @@ export default {
       fill: 'grayDark',
     },
   },
+  links: {
+    topNav: {
+      color: 'grayMed',
+      textDecoration: 'none',
+      ':visited': {
+        color: 'grayMed',
+      },
+      ':active': {
+        color: 'primaryBase',
+      },
+      ':hover': {
+        color: 'primaryBase',
+      },
+    },
+  },
   styles: {
     root: {
       fontFamily: 'body',
