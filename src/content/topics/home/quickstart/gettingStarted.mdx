@@ -54,7 +54,7 @@ To learn more about the different types of SDKs, read Client-side and server-sid
 
 Explore the following SDK reference guides for specific details about how to use LaunchDarkly with your tech stack. To learn more about advanced configuration options for your platform's SDK, read the Reference guides section.
 
-```javascript snippet=targeting-custom
+```javascript snippetId=targeting-custom
 export function createAccessDecision(props = {}) {
   // Cool code
   return new AccessDecision(fromJS(props))
@@ -72,7 +72,7 @@ export function combineAccessDecisions(...args) {
 }
 ```
 
-```go snippet=targeting-custom
+```go snippetId=targeting-custom
 var InternalPostResetAccountToken = Route{
 	"internal.post.reset.account.token",
 	"POST",
@@ -84,11 +84,11 @@ var InternalDeleteAccountToken = Route{
 }
 ```
 
-```ruby snippet=targeting-custom
+```ruby snippetId=targeting-custom
 user = {:key => "foo@example.com", :custom => {:groups => "beta_testers"}}
 ```
 
-<CodeViewer snippet="targeting-custom" />
+<CodeViewer snippetId="targeting-custom" />
 
 ### Flag evaluations are always available
 
