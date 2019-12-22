@@ -2,8 +2,8 @@
 import { jsx, Flex, Box } from 'theme-ui'
 import { Fragment, isValidElement, Children, PropsWithChildren } from 'react'
 import { Card, Text } from '@theme-ui/components'
-import Icon from './icon'
-import Link from './link'
+import Icon from '../icon'
+import Link from '../link'
 
 function Title({ children }: PropsWithChildren<{}>) {
   return children && <Text sx={{ fontSize: 4, lineHeight: 'body', marginBottom: 4 }}>{children}</Text>

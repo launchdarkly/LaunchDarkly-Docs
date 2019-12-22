@@ -3,8 +3,8 @@ import { jsx, Flex, Box } from 'theme-ui'
 import { Card, Text } from '@theme-ui/components'
 import { PropsWithChildren } from 'react'
 
-import { Intent } from './intent'
-import Icon, { IconName } from './icon'
+import { Intent } from '../intent'
+import Icon, { IconName } from '../icon'
 
 const iconNames: { [key in Intent]: IconName } = {
   info: 'information',

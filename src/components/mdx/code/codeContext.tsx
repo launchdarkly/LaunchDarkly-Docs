@@ -1,6 +1,6 @@
 import React, { ReactNode, useReducer, useContext, useMemo, createContext } from 'react'
-import { ActionUnion, createAction } from '../../utils/actions'
-import usePersistentState from '../usePersistentState'
+import { ActionUnion, createAction } from '../../../utils/actions'
+import usePersistentState from '../../../hooks/usePersistentState'
 import { LanguageName } from './languages'
 
 type LanguagePair = {

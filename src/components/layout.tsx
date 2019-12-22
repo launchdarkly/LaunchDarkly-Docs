@@ -7,14 +7,14 @@ import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from '@mdx-js/react'
 import Reset from './resetStyles'
-import Breadcrumbs from './breadcrumbs'
+import Breadcrumbs from './mdx/breadcrumbs'
 import { TableOfContents, TOC } from './tableOfContents'
 import Header from './header'
 import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
 import CurrentCategoryMenu from './sideNav/currentCategoryMenu'
 import { ReadmeBlock } from './readme'
-import { CodeBlock, CodeSnippetProvider, CodeViewer } from './code'
-import Metadata from './mdxMetadata'
+import { CodeBlock, CodeSnippetProvider, CodeViewer } from './mdx/code'
+import Metadata from './mdx/metadata'
 
 const components = {
   h1: H1,

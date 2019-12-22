@@ -3,7 +3,7 @@
 import { jsx, Flex, Box } from 'theme-ui'
 import { Card, Button } from '@theme-ui/components'
 import { useMemo, useCallback } from 'react'
-import { copyToClipboard } from '../../utils/copyToClipboard'
+import { copyToClipboard } from '../../../utils/copyToClipboard'
 import { LanguageName, languageDisplay } from './languages'
 import { useCodeSnippetContext } from './codeContext'
 import { CodeSnippet } from './codeSnippet'

@@ -4,7 +4,7 @@ import { FunctionComponent } from 'react'
 // eslint-disable-next-line import/no-unresolved
 import MDX from '@mdx-js/runtime'
 
-import Callout from '../callout'
+import Callout from '../mdx/callout'
 import { Intent } from '../intent'
 
 export type ReadmeBlockProps = {
