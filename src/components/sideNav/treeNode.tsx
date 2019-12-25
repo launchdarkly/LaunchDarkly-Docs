@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import { jsx, useThemeUI } from 'theme-ui'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useState, MouseEvent } from 'react'
 import { Link } from 'gatsby'
 import { SideNavItem } from './types'
+import isExternalLink from '../../utils/isExternalLink'
+import { containsPath } from '../../utils/navigationDataUtils'
 
 interface TreeNodeProps {
   nodes: Array<SideNavItem>
@@ -22,6 +24,10 @@ const defaultNodeStyles = {
 }
 
 const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
+  // use local state to manage expand/collapse states on menu item clicks
+  const initialState = nodes.map(() => 'collapsed')
+  const [state, setState] = useState(initialState)
+
   const { theme } = useThemeUI()
   const setActiveStyles = ({ isCurrent, isPartiallyCurrent }: { isCurrent: boolean; isPartiallyCurrent: boolean }) => {
     if (isCurrent) {
@@ -35,28 +41,47 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
 
   return (
     <ul sx={{ fontWeight: 'body' }}>
-      {nodes.map(({ label, path, items }, index) => {
+      {nodes.map((node, index) => {
+        const { label, path, items } = node
         const nodeChildrenCount = items?.length ?? 0
         const isLeafNode = nodeChildrenCount === 0
-        const isRootNode = level === 0
         let labelStyles = defaultNodeStyles
-        if (isRootNode) {
-          labelStyles = defaultNodeStyles
-        } else if (isLeafNode) {
+        if (isLeafNode) {
           labelStyles = leafNodeStyles
         }
 
+        const onExpandCollapse = (event: MouseEvent<HTMLAnchorElement>) => {
+          // leaf nodes don't need to be expanded/collapsed
+          if (isLeafNode) {
+            return
+          }
+          // don't go to links for parent nodes. they just expand/collapse their children
+          if (!isLeafNode) {
+            event.preventDefault()
+          }
+          setState(prevState => {
+            const clone = [...prevState]
+            clone[index] = clone[index] === 'collapsed' ? 'expanded' : 'collapsed'
+            return clone
+          })
+        }
+        // Force partically active nodes to always be expanded
+        const partiallyActive = containsPath(node)
+        const expandedCollapsed = partiallyActive ? 'expanded' : state[index]
+
         return (
-          <li key={`${label}-${index}`} sx={{ ml: [5, 4, 5], mr: 2 }}>
-            {path ? (
-              <Link getProps={setActiveStyles} sx={labelStyles} to={path}>
-                <div sx={{ py: [2, 3] }}>{label}</div>
-              </Link>
+          <li key={`${label}-${index}`} sx={{ ml: [5, 4, 5], mr: 2, py: [2, 3] }}>
+            {isExternalLink(path) ? (
+              <a href={path} sx={labelStyles} target="_blank" rel="noopener noreferrer">
+                {label}
+              </a>
             ) : (
-              <span sx={labelStyles}>{label}</span>
+              <Link getProps={setActiveStyles} sx={labelStyles} to={path} onClick={onExpandCollapse}>
+                {label}
+              </Link>
             )}
 
-            {isLeafNode ? null : <TreeNode nodes={items} level={level + 1} />}
+            {isLeafNode || expandedCollapsed === 'collapsed' ? null : <TreeNode nodes={items} level={level + 1} />}
           </li>
         )
       })}
