@@ -3,6 +3,7 @@ import { jsx, useThemeUI } from 'theme-ui'
 import { Link as ExternalLink } from '@theme-ui/components'
 import { graphql, useStaticQuery, Link as GatsbyLink } from 'gatsby'
 import { SideNavItem } from './sideNav/types'
+import isExternalLink from '../utils/isExternalLink'
 
 const TopNav = () => {
   const { theme } = useThemeUI()
@@ -32,12 +33,11 @@ const TopNav = () => {
       {navigationData.map((rootItem: SideNavItem, index: number) => {
         const { label, path } = rootItem
         const capitalizedLabel = label.toUpperCase()
-        const isExternalLink = path.startsWith('http')
         const variant = 'links.topNav'
 
         return (
           <li key={`${label}-${index}`} sx={{ display: 'inline', pr: [null, 4, 6] }}>
-            {isExternalLink ? (
+            {isExternalLink(path) ? (
               <ExternalLink href={path} target="_blank" variant={variant}>
                 {capitalizedLabel}
               </ExternalLink>
