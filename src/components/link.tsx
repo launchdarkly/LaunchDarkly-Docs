@@ -1,19 +1,18 @@
 /** @jsx jsx */
-import { jsx, Styled } from 'theme-ui'
-import { SxComponent } from '@theme-ui/components'
+import { jsx } from 'theme-ui'
+import { FunctionComponent, RefAttributes, PropsWithoutRef } from 'react'
+import { Link as ThemeUILink, LinkProps } from '@theme-ui/components'
 import { Link as GatsbyLink, GatsbyLinkProps } from 'gatsby'
 
-export type LinkProps = {
-  to: string
-  children: string
-}
+type ForwardRef<T, P> = React.ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>
+const ThemedGatsbyLink: ForwardRef<HTMLAnchorElement, LinkProps & GatsbyLinkProps<{}>> = ThemeUILink
 
-const StyledGatsbyLink = Styled.a as SxComponent<GatsbyLinkProps<{}>>
-
-export default function Link({ to, children }: LinkProps) {
+const Link: FunctionComponent<GatsbyLinkProps<{}>> = ({ to, children }) => {
   return (
-    <StyledGatsbyLink as={GatsbyLink} to={to}>
+    <ThemedGatsbyLink as={GatsbyLink} to={to}>
       {children}
-    </StyledGatsbyLink>
+    </ThemedGatsbyLink>
   )
 }
+
+export default Link

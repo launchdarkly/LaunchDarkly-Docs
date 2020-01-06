@@ -14,7 +14,13 @@ const iconNames: { [key in Intent]: IconName } = {
 }
 
 function Title({ children }: PropsWithChildren<{}>) {
-  return children && <Text sx={{ fontSize: 4, lineHeight: 'body', marginBottom: 4 }}>{children}</Text>
+  return (
+    children && (
+      <Text mb={4} sx={{ fontSize: 4, lineHeight: 'body' }}>
+        {children}
+      </Text>
+    )
+  )
 }
 
 function Description({ children }: PropsWithChildren<{}>) {
@@ -30,7 +36,7 @@ export default function Callout({ intent = 'info', children }: PropsWithChildren
     <Card variant={intent}>
       <Flex>
         <Box>{children}</Box>
-        <Icon name={iconNames[intent]} variant={`callout.${intent}`} sx={{ marginTop: 1, marginLeft: 'auto' }} />
+        <Icon name={iconNames[intent]} variant={`callout.${intent}`} mt={1} ml="auto" />
       </Flex>
     </Card>
   )

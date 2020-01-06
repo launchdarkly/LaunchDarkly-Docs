@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { jsx, SxProps } from 'theme-ui'
-import React from 'react'
+import { jsx } from 'theme-ui'
+import { BoxOwnProps } from '@theme-ui/components'
+import { HTMLProps } from 'react'
 
 export type IconName =
   | 'alert-rhombus'
@@ -30,10 +31,9 @@ export type IconName =
 
 export type IconProps = {
   name: IconName
-  variant?: string
   onClick?: Function
-} & SxProps &
-  React.HTMLProps<SVGSVGElement>
+} & BoxOwnProps &
+  HTMLProps<SVGSVGElement>
 
 export default function Icon({ name = 'window-close', className, variant, onClick, ...props }: IconProps) {
   const SVGComponent = require(`../../assets/icons/${name}.svg`).default
