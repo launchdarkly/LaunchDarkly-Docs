@@ -323,6 +323,9 @@ export default {
       fontSize: 4,
       lineHeight: 'body',
       marginBottom: [5, 5, 6],
+      '&+ol, &+ul': {
+        marginTop: '-1rem',
+      },
     },
     ol: {
       marginBottom: [5, 5, 6],
