@@ -2,9 +2,6 @@
 path: '/home/quickstart/getting-started'
 ---
 
-import Callout from '../../../../components/mdx/callout'
-import LearnMore from '../../../../components/mdx/learnMore'
-
 # Getting started with LaunchDarkly
 
 <Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
@@ -32,18 +29,18 @@ To setup LaunchDarkly:
 4. **Set which feature flag variation a user will see.** Every feature flag is uniquely identified by a feature flag key. Use the key to associate flag variations with different users.
 
 <Callout>
-  <Callout.Title>Adding users to LaunchDarkly</Callout.Title>
-  <Callout.Description>
+  <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
+  <CalloutDescription>
     You don't have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them
     with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they
     encounter feature flags.
-  </Callout.Description>
+  </CalloutDescription>
 </Callout>
 
 5. **Shut down the LaunchDarkly client when your application is about to terminate.** The client releases the resources it is using and sends pending analytics events to LaunchDarkly. If your application quits without this shutdown step, you may not see requests and users on the dashboard, because they are derived from analytics events. You only need to shut down the application manually once.
 
 <LearnMore>
-  <LearnMore.Link to="">Adding users to LaunchDarkly</LearnMore.Link>
+  <LearnMoreLink to="">Adding users to LaunchDarkly</LearnMoreLink>
 </LearnMore>
 
 ## Choosing an SDK

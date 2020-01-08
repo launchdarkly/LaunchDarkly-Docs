@@ -4,7 +4,7 @@ import { FunctionComponent } from 'react'
 // eslint-disable-next-line import/no-unresolved
 import MDX from '@mdx-js/runtime'
 
-import Callout from '../mdx/callout'
+import Callout, { CalloutTitle, CalloutDescription } from '../mdx/callout'
 import { Intent } from '../intent'
 
 export type ReadmeBlockProps = {
@@ -30,10 +30,10 @@ type ReadmeCalloutProps = {
 export function ReadmeCallout({ intent, title, body }: ReadmeCalloutProps) {
   return (
     <Callout intent={intent}>
-      <Callout.Title>{title}</Callout.Title>
-      <Callout.Description>
+      <CalloutTitle>{title}</CalloutTitle>
+      <CalloutDescription>
         <MDX>{body}</MDX>
-      </Callout.Description>
+      </CalloutDescription>
     </Callout>
   )
 }

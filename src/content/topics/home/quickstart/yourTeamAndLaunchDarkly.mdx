@@ -2,8 +2,6 @@
 path: '/home/quickstart/your-team'
 ---
 
-import Callout from '../../../../components/mdx/callout'
-
 # Your team and LaunchDarkly
 
 <Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
@@ -11,11 +9,11 @@ import Callout from '../../../../components/mdx/callout'
 This topic explains how to join LaunchDarkly as a new team member.
 
 <Callout intent="alert">
-  <Callout.Title>LaunchDarkly is for groups and teams</Callout.Title>
-  <Callout.Description>
+  <CalloutTitle>LaunchDarkly is for groups and teams</CalloutTitle>
+  <CalloutDescription>
     You cannot sign up for LaunchDarkly as a user who is not associated with a company's team account. Instead, an admin
     or account owner from your team must send you an invitation email.
-  </Callout.Description>
+  </CalloutDescription>
 </Callout>
 
 ## Bringing your team to LaunchDarkly
@@ -27,13 +25,13 @@ If you want to get your team started with LaunchDarkly, you have a few different
 - Team members on a LaunchDarkly trial can join from the trial
 
 <Callout>
-  <Callout.Title>LaunchDarkly supports SCIM</Callout.Title>
-  <Callout.Description>
+  <CalloutTitle>LaunchDarkly supports SCIM</CalloutTitle>
+  <CalloutDescription>
     LaunchDarkly supports the System for Cross-domain Identity Management (SCIM) API specification for certain identity
     providers. SCIM is designed to make managing user identities in cloud-based applications and services easier. To use
     SCIM with LaunchDarkly, you must be using one of the IdPs we support that uses SCIM, and you must be an Enterprise
     customer.
-  </Callout.Description>
+  </CalloutDescription>
 </Callout>
 
 ## Adding individual team members
@@ -53,11 +51,11 @@ To learn more about IdP-driven user provisioning, read Single sign-on.
 If you're on a LaunchDarkly trial, you can use the same email address to join your team.
 
 <Callout intent="alert">
-  <Callout.Title>Invitations fail when your email address is in use by a trial account </Callout.Title>
-  <Callout.Description>
+  <CalloutTitle>Invitations fail when your email address is in use by a trial account </CalloutTitle>
+  <CalloutDescription>
     If your email address is associated with a trial account, you must de-associate it or delete the trial account
     before you can receive an invitation email from your team. Follow either procedure below to resolve that problem
-  </Callout.Description>
+  </CalloutDescription>
 </Callout>
 
 Each email address is associated with one LaunchDarkly account, so if you used your preferred email address to sign up for a trial, you must de-associate it with the trial before you can join your team's LaunchDarkly account.

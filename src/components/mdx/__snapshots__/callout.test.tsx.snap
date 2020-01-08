@@ -2,7 +2,7 @@
 
 exports[`callout renders 1`] = `
 <DocumentFragment>
-  .emotion-4 {
+  .emotion-2 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -10,16 +10,12 @@ exports[`callout renders 1`] = `
 
 .emotion-3 {
   box-sizing: border-box;
+  margin: 0;
   min-width: 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-}
-
-.emotion-2 {
-  box-sizing: border-box;
-  min-width: 0;
 }
 
 .emotion-0 {
@@ -40,7 +36,7 @@ exports[`callout renders 1`] = `
 }
 
 <div
-    class="emotion-4"
+    class="emotion-2"
   >
     <div
       class="emotion-3"

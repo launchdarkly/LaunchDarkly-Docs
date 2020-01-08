@@ -1,17 +1,20 @@
 /** @jsx jsx */
-import { jsx, Flex, Box } from 'theme-ui'
-import { Fragment, isValidElement, Children, PropsWithChildren } from 'react'
-import { Card, Text } from '@theme-ui/components'
+import { jsx } from 'theme-ui'
+import { Card, Text, Flex, Box } from '@theme-ui/components'
+import { Fragment, Children, PropsWithChildren, ReactElement } from 'react'
 import Icon from '../icon'
 import Link from '../link'
 
-function Title({ children }: PropsWithChildren<{}>) {
+export const LearnMoreLink = Link
+
+export function LearnMoreTitle({ children }: PropsWithChildren<{}>) {
   return children && <Text sx={{ fontSize: 4, lineHeight: 'body', marginBottom: 4 }}>{children}</Text>
 }
 
 export default function LearnMore({ children }: PropsWithChildren<{}>) {
-  const title = Children.toArray(children).find(child => isValidElement(child) && child.type === Title)
-  const links = Children.toArray(children).filter(child => isValidElement(child) && child.type === Link)
+  const childrenArray = Children.toArray(children)
+  const title = childrenArray.find((child: ReactElement) => child.props.mdxType === 'LearnMoreTitle')
+  const links = childrenArray.filter((child: ReactElement) => child.props.mdxType === 'LearnMoreLink')
   const defaultTitle = 'See also:'
 
   return (
@@ -36,6 +39,3 @@ export default function LearnMore({ children }: PropsWithChildren<{}>) {
     </Card>
   )
 }
-
-LearnMore.Title = Title
-LearnMore.Link = Link

@@ -8,8 +8,9 @@ exports[`learn more renders correctly with a single link 1`] = `
   min-width: 0;
 }
 
-.emotion-2 {
+.emotion-1 {
   box-sizing: border-box;
+  margin: 0;
   min-width: 0;
   display: -webkit-box;
   display: -webkit-flex;
@@ -17,27 +18,18 @@ exports[`learn more renders correctly with a single link 1`] = `
   display: flex;
 }
 
-.emotion-1 {
-  box-sizing: border-box;
-  min-width: 0;
-}
-
 <div
     class="emotion-0"
   >
     <div
-      class="emotion-2"
+      class="emotion-1"
     >
       <div
-        class="emotion-1"
+        class="emotion-0"
       >
-        See also: 
-        <a
-          class="emotion-0"
-          href="/foobar"
-        >
-          Foobar
-        </a>
+        <div>
+          See also:
+        </div>
       </div>
       <div>
         Icon: lightbulb-on-outline
@@ -55,8 +47,9 @@ exports[`learn more renders correctly with multiple links 1`] = `
   min-width: 0;
 }
 
-.emotion-4 {
+.emotion-1 {
   box-sizing: border-box;
+  margin: 0;
   min-width: 0;
   display: -webkit-box;
   display: -webkit-flex;
@@ -64,46 +57,17 @@ exports[`learn more renders correctly with multiple links 1`] = `
   display: flex;
 }
 
-.emotion-3 {
-  box-sizing: border-box;
-  min-width: 0;
-}
-
 <div
     class="emotion-0"
   >
     <div
-      class="emotion-4"
+      class="emotion-1"
     >
       <div
-        class="emotion-3"
+        class="emotion-0"
       >
         <div>
           See also:
-        </div>
-        <div>
-          <a
-            class="emotion-0"
-            href="/foobar"
-          >
-            a
-          </a>
-        </div>
-        <div>
-          <a
-            class="emotion-0"
-            href="/foobar"
-          >
-            b
-          </a>
-        </div>
-        <div>
-          <a
-            class="emotion-0"
-            href="/foobar"
-          >
-            c
-          </a>
         </div>
       </div>
       <div>

@@ -15,6 +15,8 @@ import CurrentCategoryMenu from './sideNav/currentCategoryMenu'
 import { ReadmeBlock } from './readme'
 import { CodeBlock, CodeSnippetProvider, CodeViewer } from './mdx/code'
 import Metadata from './mdx/metadata'
+import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
+import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
 
 const components = {
   h1: H1,
@@ -31,6 +33,12 @@ const components = {
   CodeViewer,
   Card,
   Metadata,
+  Callout,
+  CalloutTitle,
+  CalloutDescription,
+  LearnMore,
+  LearnMoreTitle,
+  LearnMoreLink,
 }
 
 interface LayoutProps {

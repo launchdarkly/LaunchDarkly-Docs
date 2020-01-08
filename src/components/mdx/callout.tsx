@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx, Flex, Box } from 'theme-ui'
-import { Card, Text } from '@theme-ui/components'
+import { jsx } from 'theme-ui'
+import { Card, Text, Flex, Box } from '@theme-ui/components'
 import { PropsWithChildren } from 'react'
 
 import { Intent } from '../intent'
@@ -13,7 +13,11 @@ const iconNames: { [key in Intent]: IconName } = {
   primary: 'checkbox-marked-circle',
 }
 
-function Title({ children }: PropsWithChildren<{}>) {
+export type CalloutProps = {
+  intent?: Intent
+}
+
+export function CalloutTitle({ children }: PropsWithChildren<{}>) {
   return (
     children && (
       <Text mb={4} sx={{ fontSize: 4, lineHeight: 'body' }}>
@@ -23,12 +27,8 @@ function Title({ children }: PropsWithChildren<{}>) {
   )
 }
 
-function Description({ children }: PropsWithChildren<{}>) {
+export function CalloutDescription({ children }: PropsWithChildren<{}>) {
   return <Text sx={{ fontSize: 3, lineHeight: 'small' }}>{children}</Text>
-}
-
-export type CalloutProps = {
-  intent?: Intent
 }
 
 export default function Callout({ intent = 'info', children }: PropsWithChildren<CalloutProps>) {
@@ -41,6 +41,3 @@ export default function Callout({ intent = 'info', children }: PropsWithChildren
     </Card>
   )
 }
-
-Callout.Title = Title
-Callout.Description = Description
