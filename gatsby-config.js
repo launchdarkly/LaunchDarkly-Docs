@@ -9,6 +9,13 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'mdx-images',
+        path: `${__dirname}/src/content/images`,
+      },
+    },
+    {
       resolve: 'gatsby-plugin-algolia',
       options: {
         appId: process.env.GATSBY_ALGOLIA_APP_ID,
@@ -21,6 +28,18 @@ module.exports = {
       resolve: 'gatsby-plugin-mdx',
       options: {
         remarkPlugins: [require('remark-slug')],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: 'gatsby-remark-relative-images',
+          },
+          {
+            resolve: 'gatsby-remark-images',
+            options: {
+              maxWidth: 590,
+              showCaptions: true,
+            },
+          },
+        ],
       },
     },
     'gatsby-plugin-theme-ui',

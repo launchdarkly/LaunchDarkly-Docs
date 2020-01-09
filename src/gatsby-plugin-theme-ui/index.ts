@@ -319,6 +319,10 @@ export default {
         textDecoration: 'underline',
       },
     },
+    figcaption: {
+      fontSize: 2,
+      color: 'graySafe',
+    },
     p: {
       fontSize: 4,
       lineHeight: 'body',
@@ -326,6 +330,9 @@ export default {
       '&+ol, &+ul': {
         marginTop: '-1rem',
       },
+      '& figcaption': (theme: any) => ({
+        ...theme.styles.figcaption,
+      }),
     },
     ol: {
       marginBottom: [5, 5, 6],
