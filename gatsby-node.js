@@ -123,6 +123,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             id
             frontmatter {
               path
+              isInternal
             }
             fields {
               slug
@@ -143,7 +144,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
     createPage({
       path: frontmatter.path || `/readme${fields.slug}`,
-      component: path.resolve('./src/components/layout.tsx'),
+      component: frontmatter.isInternal
+        ? path.resolve('./src/components/internalLayout.tsx')
+        : path.resolve('./src/components/layout.tsx'),
       context: { id },
     })
   })

@@ -1,0 +1,92 @@
+---
+path: '/components'
+isInternal: true
+---
+
+This guide helps authors and developers unify implementation by providing you with components, tokens and practices for our docsite.
+
+### Table of Contents
+
+- **Components**
+- LearnMore
+- Callout
+- CodeViewer
+- Table
+- Image
+- **Tokens**
+- Typography
+- Spacing
+- Color
+
+# Components
+
+## Learn more
+
+### Single
+
+<LearnMore>
+  <LearnMoreLink to="/foobar">Single link</LearnMoreLink>
+</LearnMore>
+
+```javascript snippetId=learn-more
+<LearnMore>
+  <LearnMoreLink to="/foobar">Single link</LearnMoreLink>
+</LearnMore>
+```
+
+<CodeViewer snippetId="learn-more" />
+
+### Multiple
+
+<LearnMore>
+  <LearnMoreLink to="/foobar">Link 1</LearnMoreLink>
+  <LearnMoreLink to="/foobar">Link 2</LearnMoreLink>
+  <LearnMoreLink to="/foobar">Link 3</LearnMoreLink>
+</LearnMore>
+
+```javascript snippetId=learn-more-alt
+<LearnMore>
+  <LearnMoreLink to="/foobar">Link 1</LearnMoreLink>
+  <LearnMoreLink to="/foobar">Link 2</LearnMoreLink>
+  <LearnMoreLink to="/foobar">Link 3</LearnMoreLink>
+</LearnMore>
+```
+
+<CodeViewer snippetId="learn-more-alt" />
+
+## Callout
+
+### Primary
+
+<Callout intent="primary">
+  <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
+  <CalloutDescription>
+    You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them
+    with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they
+    encounter feature flags.
+  </CalloutDescription>
+</Callout>
+
+```javascript snippetId=callout
+<Callout intent="callout">
+  <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
+  <CalloutDescription>
+    You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them
+    with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they
+    encounter feature flags.
+  </CalloutDescription>
+</Callout>
+```
+
+<CodeViewer snippetId="callout" />
+
+## Code samples
+
+1. Write code block as markdown as usual, and you specify the `snippet` attribute.
+1. Add a `CodeViewer` component with the `snippet` prop set to what you used in your markdown code blocks.
+
+```javascript snippetId=code
+user = {:key => "foo@example.com", :custom => {:groups => "beta_testers"}}
+```
+
+<CodeViewer snippetId="code" />
