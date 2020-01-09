@@ -37,7 +37,7 @@ const CurrentCategoryMenu = () => {
         display: ['none', 'block'],
         borderRight: '1px solid',
         borderColor: 'grayMed',
-        pt: 5,
+        pt: 4,
       }}
     >
       <TreeNode nodes={currentNode.items} />

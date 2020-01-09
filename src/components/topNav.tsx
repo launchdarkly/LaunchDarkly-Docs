@@ -36,7 +36,7 @@ const TopNav = () => {
         const variant = 'links.topNav'
 
         return (
-          <li key={`${label}-${index}`} sx={{ display: 'inline', pr: [null, 4, 6] }}>
+          <li key={`${label}-${index}`} sx={{ display: 'inline', pr: [null, 5, 6] }}>
             {isExternalLink(path) ? (
               <ExternalLink href={path} target="_blank" variant={variant}>
                 {capitalizedLabel}

@@ -10,14 +10,14 @@ const Header = () => {
       <div
         sx={{
           display: 'grid',
-          gridTemplateColumns: ['100%', '12rem auto', '22rem 48rem auto'],
+          gridTemplateColumns: ['100%', '18rem auto', '18rem 48rem auto'],
           minHeight: '100%',
           gridTemplateAreas: [
             `
             'mobile'
             `,
             `
-            'brand nav'
+            'brand nav nav'
             `,
             `
             'brand nav nav'
@@ -25,10 +25,13 @@ const Header = () => {
           ],
         }}
       >
-        <span sx={{ gridArea: 'brand', display: ['none', 'flex'], alignItems: 'center', ml: [4, 4, 5] }}>
-          <Icon name="launchdarkly-logo" variant="header" sx={{ height: [null, 2, 4], mr: [2, 3] }} />
-          <Icon name="launchdarkly-word" variant="header" sx={{ height: [null, 2, 3], display: ['none', 'block'] }} />
-          <span sx={{ pl: [null, 1, 2], fontSize: [null, 1, 2], display: ['none', 'none', 'block'] }}>DOCS</span>
+        <span sx={{ gridArea: 'brand', display: ['none', 'flex'], alignItems: 'center', ml: [4, 6, 6] }}>
+          <Icon name="launchdarkly-logo" variant="header" sx={{ height: [null, 3, 3] }} />
+          <span
+            sx={{ pl: [null, 1, 1], pt: [null, 1, 1], fontSize: [null, 2, 2], display: ['none', 'block', 'block'] }}
+          >
+            DOCS
+          </span>
         </span>
         <span
           sx={{
@@ -37,14 +40,24 @@ const Header = () => {
             height: '100%',
             alignItems: 'center',
             justifyContent: 'space-between',
+            whiteSpace: 'nowrap',
           }}
         >
-          <Icon name="launchdarkly-logo" variant="header" sx={{ height: 3, mx: 4, display: ['block', 'none'] }} />
+          <Icon name="launchdarkly-icon" variant="header" sx={{ height: 3, mx: 4, display: ['block', 'none'] }} />
           <span sx={{ ml: [0, 7, 9] }}>
             <TopNav />
           </span>
-          <div sx={{ display: 'flex', alignItems: 'center', width: ['100%', '16rem', '32rem'], mx: [0, 4] }}>
-            <Icon name="search" variant="search" sx={{ display: ['none', 'none', 'block'] }} />
+          <div
+            sx={{
+              gridArea: ['nav'],
+              display: 'flex',
+              alignItems: 'right',
+              width: ['100%', '100%', '35%'],
+              mx: [0, 4],
+              ml: [0, 0, 4],
+            }}
+          >
+            <Icon name="search" variant="search" sx={{ display: ['none', 'block', 'block'] }} />
             <input
               type="text"
               placeholder="Search"

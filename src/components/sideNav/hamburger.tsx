@@ -87,7 +87,8 @@ const Hamburger = () => {
         <div
           key="footer"
           sx={{
-            pl: 4,
+            pl: 5,
+            pr: 10,
             bg: 'grayWash',
             position: 'fixed',
             bottom: 0,
@@ -99,7 +100,7 @@ const Hamburger = () => {
           <a href="https://launchdarkly.com">
             <Icon name="earth" variant="heading" />
           </a>
-          <a href="https://launchdarkly.com" sx={{ color: 'graySafe', ml: 2 }}>
+          <a href="https://launchdarkly.com" sx={{ color: 'graySafe', ml: 2, pr: 10 }}>
             launchdarkly.com
           </a>
         </div>

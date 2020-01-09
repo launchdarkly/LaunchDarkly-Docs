@@ -28,7 +28,7 @@ export function CalloutTitle({ children }: PropsWithChildren<{}>) {
 }
 
 export function CalloutDescription({ children }: PropsWithChildren<{}>) {
-  return <Text sx={{ fontSize: 3, lineHeight: 'small' }}>{children}</Text>
+  return <Text sx={{ fontSize: 3, lineHeight: 'spaced' }}>{children}</Text>
 }
 
 export default function Callout({ intent = 'info', children }: PropsWithChildren<CalloutProps>) {

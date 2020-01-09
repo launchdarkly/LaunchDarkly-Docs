@@ -72,8 +72,8 @@ const Layout: FunctionComponent<LayoutProps> = ({
         sx={{
           height: '100vh',
           display: 'grid',
-          gridTemplateColumns: ['100%', '12rem auto', '22rem 48rem auto'],
-          gridTemplateRows: theme => [`${theme.sizes[5]} auto`, null, '4.5rem auto'],
+          gridTemplateColumns: ['100%', '18rem auto', '18rem 48rem auto'],
+          gridTemplateRows: ['4.5rem auto', '4.5rem auto', '4.5rem auto'],
           gridTemplateAreas: [
             `
             'header'
@@ -92,7 +92,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
       >
         <Header />
         <CurrentCategoryMenu />
-        <main sx={{ gridArea: 'main', px: [4, 7, 9], pt: 6 }}>
+        <main sx={{ gridArea: 'main', px: [4, 7, 9], pt: 7 }}>
           <Breadcrumbs />
           <CodeSnippetProvider>
             <MDXProvider components={components}>

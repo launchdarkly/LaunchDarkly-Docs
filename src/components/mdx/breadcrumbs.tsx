@@ -53,15 +53,25 @@ const Breadcrumbs = () => {
   }
   const breadcrumbItems = findAndFlattenWrapper()
   return (
-    <Styled.h4 sx={{ mb: [3, 5], fontSize: 3 }}>
+    <Styled.h4 sx={{ mb: [3, 4], fontSize: 3 }}>
       {breadcrumbItems.map(({ label, path }, index) => {
         const lastItem = index === breadcrumbItems.length - 1
         return lastItem ? (
-          <span key={label} sx={{ color: 'grayDark' }}>
+          <span key={label} sx={{ color: 'graySafe' }}>
             {label}
           </span>
         ) : (
-          <Link key={label} to={path} sx={{ textDecoration: 'none', color: 'primarySafe' }}>
+          <Link
+            key={label}
+            to={path}
+            sx={{
+              textDecoration: 'none',
+              color: 'grayBase',
+              ':hover': {
+                color: 'primarySafe',
+              },
+            }}
+          >
             {`${label} / `}
           </Link>
         )

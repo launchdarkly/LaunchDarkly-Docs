@@ -11,19 +11,38 @@ interface TreeNodeProps {
   level?: number
 }
 
-const leafNodeStyles = {
+const defaultLabelStyles = {
   color: 'grayBlack',
-  fontSize: [null, 2, 3],
+  fontSize: [null, 4, 4],
   textDecoration: 'none',
+  ':hover': {
+    color: 'primarySafe',
+  },
+  ':active': {
+    color: 'grayBlack',
+  },
 }
 
-const defaultNodeStyles = {
-  color: 'grayBlack',
-  fontSize: [null, 3, 4],
-  textDecoration: 'none',
+const leafLabelStyles = {
+  ...defaultLabelStyles,
+  fontSize: [null, 3, 3],
+  ':hover': {
+    color: 'primarySafe',
+  },
+  ':active': {
+    color: 'grayBlack',
+  },
+}
+
+const defaultListItemStyles = { ml: [6, 6, 6], mr: 4, mt: [5, 5, 5] }
+const rootListItemStyles = {
+  ...defaultListItemStyles,
+  mt: [6, 6, 6],
 }
 
 const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
+  const isRootNode = level === 0
+
   // use local state to manage expand/collapse states on menu item clicks
   const initialState = nodes.map(() => 'collapsed')
   const [state, setState] = useState(initialState)
@@ -35,7 +54,7 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
     } else if (isPartiallyCurrent) {
       return { style: { fontWeight: theme.fontWeights.bold } }
     }
-    // use defaultNodeStyles specified at the Link level below
+    // use defaultLabelStyles specified at the Link level below
     return null
   }
 
@@ -45,9 +64,12 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
         const { label, path, items } = node
         const nodeChildrenCount = items?.length ?? 0
         const isLeafNode = nodeChildrenCount === 0
-        let labelStyles = defaultNodeStyles
+        let labelStyles = defaultLabelStyles
+        let listItemStyles = defaultListItemStyles
         if (isLeafNode) {
-          labelStyles = leafNodeStyles
+          labelStyles = leafLabelStyles
+        } else if (isRootNode) {
+          listItemStyles = rootListItemStyles
         }
 
         const onExpandCollapse = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -70,7 +92,7 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
         const expandedCollapsed = partiallyActive ? 'expanded' : state[index]
 
         return (
-          <li key={`${label}-${index}`} sx={{ ml: [5, 4, 5], mr: 2, py: [2, 3] }}>
+          <li key={`${label}-${index}`} sx={listItemStyles}>
             {isExternalLink(path) ? (
               <a href={path} sx={labelStyles} target="_blank" rel="noopener noreferrer">
                 {label}

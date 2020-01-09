@@ -137,7 +137,7 @@ export default {
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayLight}, inset 0 0 12px ${theme.colors.grayLight}`,
+      boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayMed}`,
       paddingX: 5,
       paddingY: 4,
       lineHeight: 'body',
@@ -145,11 +145,11 @@ export default {
     },
     info: {
       padding: 2,
+      bg: 'infoWash',
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) =>
-        `inset 4px 0 0 ${theme.colors.infoBase}, inset 0 0 12px ${theme.colors.infoWash},  0 2px 4px ${theme.colors.grayLight}`,
+      boxShadow: (theme: any) => `inset 4px 0 0 ${theme.colors.infoBase}, 0 2px 4px ${theme.colors.grayMed}`,
       paddingX: 5,
       paddingY: 4,
       lineHeight: 'body',
@@ -157,11 +157,11 @@ export default {
     },
     warning: {
       padding: 2,
+      bg: 'warnWash',
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) =>
-        `inset 4px 0 0 ${theme.colors.warnBase}, inset 0 0 12px ${theme.colors.warnWash}, 0 2px 4px ${theme.colors.grayLight}`,
+      boxShadow: (theme: any) => `inset 4px 0 0 ${theme.colors.warnBase}, 0 2px 4px ${theme.colors.grayMed}`,
       paddingX: 5,
       paddingY: 4,
       lineHeight: 'body',
@@ -169,11 +169,11 @@ export default {
     },
     alert: {
       padding: 2,
+      bg: 'alertWash',
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) =>
-        `inset 4px 0 0 ${theme.colors.alertBase}, inset 0 0 12px ${theme.colors.alertWash}, 0 2px 4px ${theme.colors.grayLight}`,
+      boxShadow: (theme: any) => `inset 4px 0 0 ${theme.colors.alertBase}, 0 2px 4px ${theme.colors.grayMed}`,
       paddingX: 5,
       paddingY: 4,
       lineHeight: 'body',
@@ -181,11 +181,11 @@ export default {
     },
     primary: {
       padding: 2,
+      bg: 'primaryWash',
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) =>
-        `inset 4px 0 0 ${theme.colors.primaryBase}, inset 0 0 12px ${theme.colors.primaryWash}, 0 2px 4px ${theme.colors.grayLight}`,
+      boxShadow: (theme: any) => `inset 4px 0 0 ${theme.colors.primaryBase}, 0 2px 4px ${theme.colors.grayMed}`,
       paddingX: 5,
       paddingY: 4,
       lineHeight: 'body',

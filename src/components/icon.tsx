@@ -17,6 +17,7 @@ export type IconName =
   | 'file-table'
   | 'information'
   | 'launchdarkly-logo'
+  | 'launchdarkly-icon'
   | 'launchdarkly-word'
   | 'lightbulb-on-outline'
   | 'link-variant'
