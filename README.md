@@ -41,11 +41,20 @@ To index mdx content and send to algolia, create a local `.env.development` file
 GATSBY_ALGOLIA_APP_ID=insertValue
 GATSBY_ALGOLIA_SEARCH_KEY=insertValue
 ALGOLIA_ADMIN_KEY=insertValue
+ALGOLIA_INDEX=insertValue
 ```
 
-Then run `yarn build-dev`. This will crawl all mdx files under src/content/topics and create algolia indices in a dev 
-account. You can see the indices created if you login to the algolia dashboard.
+`ALGOLIA_INDEX` is the index name that will be used to create the algolia index for your content.
+For example, if you set `ALGOLIA_INDEX=Pages` and you run `yarn build-dev`, this will crawl 
+all mdx files under src/content/topics and create an algolia index called `Pages_development`.
+The convention is `{ALGOLIA_INDEX}_{ENVIRONMENT}`. The environment variable can be set via
+cli param `GATSBY_ACTIVE_ENV`. For example, for staging, you would run the following command:
 
+```bash
+"build-staging": "GATSBY_ACTIVE_ENV=staging gatsby build",
+``` 
+
+This will create an algolia index called `Pages_staging`.
 
 ## 👥 Public content
 
