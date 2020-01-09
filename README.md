@@ -32,6 +32,21 @@ yarn deploy
 
 This will build gatsby and upload the artifacts to the staging s3 bucket.
 
+## 🔍 Algolia search
+Please reach out to Sarah Day if you need to login to the Algolia dashboard. She will be able to send you an invite.
+
+To index mdx content and send to algolia, create a local `.env.development` file that contains the following:
+
+```dotenv
+GATSBY_ALGOLIA_APP_ID=insertValue
+GATSBY_ALGOLIA_SEARCH_KEY=insertValue
+ALGOLIA_ADMIN_KEY=insertValue
+```
+
+Then run `yarn build-dev`. This will crawl all mdx files under src/content/topics and create algolia indices in a dev 
+account. You can see the indices created if you login to the algolia dashboard.
+
+
 ## 👥 Public content
 
 The `src/content` folder is meant to be publicly mirrored. This is so anyone can submit a PR
