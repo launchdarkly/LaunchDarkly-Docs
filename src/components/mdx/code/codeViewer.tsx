@@ -1,7 +1,7 @@
 /** @jsx jsx */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jsx, Flex, Box } from 'theme-ui'
-import { Card, Button } from '@theme-ui/components'
+import { jsx } from 'theme-ui'
+import { Card, Flex, Box, Button } from '@theme-ui/components'
 import { useMemo, useCallback } from 'react'
 import { copyToClipboard } from '../../../utils/copyToClipboard'
 import { LanguageName, languageDisplay } from './languages'

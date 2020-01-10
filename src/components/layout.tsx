@@ -15,6 +15,7 @@ import CurrentCategoryMenu from './sideNav/currentCategoryMenu'
 import { ReadmeBlock } from './readme'
 import { CodeBlock, CodeSnippetProvider, CodeViewer } from './mdx/code'
 import Metadata from './mdx/metadata'
+import Table, { TableHeader, TableHeadCell, TableBody, TableRow, TableCell } from './mdx/table'
 import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
 import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
 
@@ -33,6 +34,12 @@ const components = {
   CodeViewer,
   Card,
   Metadata,
+  Table,
+  TableHeader,
+  TableHeadCell,
+  TableBody,
+  TableRow,
+  TableCell,
   Callout,
   CalloutTitle,
   CalloutDescription,
