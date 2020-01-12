@@ -38,8 +38,8 @@ Please reach out to Sarah Day if you need to login to the Algolia dashboard. She
 To index mdx content and send to algolia, create a local `.env.development` file that contains the following:
 
 ```dotenv
-GATSBY_ALGOLIA_APP_ID=insertValue
-GATSBY_ALGOLIA_SEARCH_KEY=insertValue
+ALGOLIA_APP_ID=insertValue
+ALGOLIA_SEARCH_KEY=insertValue
 ALGOLIA_ADMIN_KEY=insertValue
 ALGOLIA_INDEX=insertValue
 ```

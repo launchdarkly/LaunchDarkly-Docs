@@ -19,3 +19,8 @@ jobs:
           aws-region: us-east-1
       - run: yarn
       - run: yarn deploy
+        env:
+          ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
+          ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
+          ALGOLIA_INDEX: ${{ secrets.ALGOLIA_INDEX }}
+          ALGOLIA_SEARCH_KEY: ${{ secrets.ALGOLIA_SEARCH_KEY }}
