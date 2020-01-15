@@ -3,6 +3,7 @@ import { jsx } from 'theme-ui'
 import Icon from './icon'
 import Hamburger from './sideNav/hamburger'
 import TopNav from './topNav'
+import SearchRoot from './search/searchRoot'
 
 const Header = () => {
   return (
@@ -17,7 +18,7 @@ const Header = () => {
             'mobile'
             `,
             `
-            'brand nav nav'
+            'brand nav'
             `,
             `
             'brand nav nav'
@@ -40,7 +41,6 @@ const Header = () => {
             height: '100%',
             alignItems: 'center',
             justifyContent: 'space-between',
-            whiteSpace: 'nowrap',
           }}
         >
           <Icon name="launchdarkly-icon" variant="header" sx={{ height: 3, mx: 5, display: ['block', 'none'] }} />
@@ -57,20 +57,7 @@ const Header = () => {
               ml: [0, 0, 4],
             }}
           >
-            <Icon name="search" variant="search" sx={{ display: ['none', 'block', 'block'] }} />
-            <input
-              type="text"
-              placeholder="Search"
-              sx={{
-                pl: 2,
-                border: 0,
-                borderRadius: 1,
-                height: 4,
-                fontSize: 4,
-                width: '100%',
-                '::placeholder': { fontSize: [4, 3, 4] },
-              }}
-            />
+            <SearchRoot />
           </div>
           <span sx={{ display: ['block', 'none'], mx: 5 }}>
             <Hamburger />

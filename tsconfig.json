@@ -4,6 +4,7 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "noImplicitAny": true,
+    "resolveJsonModule": true,
     "module": "commonjs",
     "target": "esnext",
     "jsx": "react",

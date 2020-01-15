@@ -2,14 +2,15 @@
 import { jsx } from 'theme-ui'
 import { graphql, useStaticQuery } from 'gatsby'
 import TreeNode from './treeNode'
-import { findCurrentCategory } from '../../utils/navigationDataUtils'
+import { findRootTopic } from '../../utils/navigationDataUtils'
 
-const CurrentCategoryMenu = () => {
+const DesktopSideNav = () => {
   const {
-    allNavigationDataJson: { nodes: navigationData },
+    allData: { nodes: navigationData },
+    rootTopics: { nodes: topics },
   } = useStaticQuery(graphql`
     query {
-      allNavigationDataJson {
+      allData: allNavigationDataJson {
         nodes {
           items {
             label
@@ -23,9 +24,17 @@ const CurrentCategoryMenu = () => {
           path
         }
       }
+
+      rootTopics: allRootTopicsJson {
+        nodes {
+          path
+          allItems
+        }
+      }
     }
   `)
-  const currentNode = findCurrentCategory(navigationData)
+
+  const currentNode = findRootTopic(topics, navigationData)
   if (!currentNode) {
     return null
   }
@@ -45,4 +54,4 @@ const CurrentCategoryMenu = () => {
   )
 }
 
-export default CurrentCategoryMenu
+export default DesktopSideNav

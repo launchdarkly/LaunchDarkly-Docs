@@ -1,20 +1,23 @@
 import { globalHistory } from '@reach/router'
 import { SideNavItem } from '../components/sideNav/types'
 
-export const containsPath = (item: SideNavItem) => {
-  const { path, items } = item
-  if (path === globalHistory.location.pathname) {
-    return true
-  } else {
-    for (let i = 0; i < items?.length ?? -1; i++) {
-      if (containsPath(items[i])) {
-        return true
-      }
-    }
-  }
-  return false
+type Topic = {
+  path: string
+  allItems: string[]
 }
 
-export const findCurrentCategory = (navigationData: Array<SideNavItem>) => {
-  return navigationData.find((rootItem: SideNavItem) => containsPath(rootItem))
+const stripTrailingSlash = (s: string) => {
+  if (s.substr(-1) === '/') {
+    return s.substr(0, s.length - 1)
+  }
+  return s
+}
+
+export const findRootTopic = (topics: Topic[], navigationData: Array<SideNavItem>) => {
+  const currentPath = stripTrailingSlash(globalHistory.location.pathname)
+  const topic = topics.find((t: Topic) => !!t.allItems.find(a => a === currentPath))
+
+  if (topic) {
+    return navigationData.find(n => n.path === topic.path)
+  }
 }

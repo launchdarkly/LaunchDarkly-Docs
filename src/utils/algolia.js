@@ -12,7 +12,7 @@ const algoliaIndex = `${algoliaIndexPrefix}_${activeEnv}`
 console.log(`Using environment config: '${activeEnv}', indexing to: ${algoliaIndex}`)
 
 const pageQuery = `{
-  allMdx(filter: {fileAbsolutePath: {regex: "/src/content/topics/"}}) {
+  mdx: allMdx(filter: {fileAbsolutePath: {regex: "/src/content/topics/"}}) {
     edges {
       node {
         objectID: id
@@ -24,18 +24,35 @@ const pageQuery = `{
       }
     }
   }
+  
+  topics: allSecondLevelTopicsJson {
+    nodes {
+      label
+      path
+      allItems
+    }
+  }
 }`
 
-const flatten = arr =>
-  arr.map(({ node: { frontmatter, ...rest } }) => ({
-    ...frontmatter,
-    ...rest,
-  }))
-const settings = { attributesToSnippet: ['excerpt:20'] }
+const flatten = (mdx, topics) => {
+  return mdx.map(({ node: { frontmatter, ...rest } }) => {
+    // add second level category to index
+    const { path } = frontmatter
+    const secondLevelTopic = topics.find(t => !!t.allItems.find(i => i === path))
+
+    return {
+      ...frontmatter,
+      ...rest,
+      secondLevelTopic: secondLevelTopic ? secondLevelTopic.label : 'Unlabelled',
+    }
+  })
+}
+
+const settings = { attributesToSnippet: ['excerpt:40'] }
 const queries = [
   {
     query: pageQuery,
-    transformer: ({ data }) => flatten(data.allMdx.edges),
+    transformer: ({ data: { mdx, topics } }) => flatten(mdx.edges, topics.nodes),
     indexName: algoliaIndex,
     settings,
   },

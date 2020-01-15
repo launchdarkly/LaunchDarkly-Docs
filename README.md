@@ -32,6 +32,11 @@ yarn deploy
 
 This will build gatsby and upload the artifacts to the staging s3 bucket.
 
+## 🔨 Navigation data
+All navigation data are stored in [src/content/navigationData.json](https://github.com/launchdarkly/git-gatsby/blob/master/src/content/navigationData.json).
+This is flattened at build time to autogenerate two files `rootTopics.json` and `secondLevelTopics.json`. The
+flattened data are queryable via graphql and allows us to render the side nav more efficiently. 
+
 ## 🔍 Algolia search
 Please reach out to Sarah Day if you need to login to the Algolia dashboard. She will be able to send you an invite.
 

@@ -28,6 +28,7 @@ const TopNav = () => {
         display: ['none', 'flex'],
         justifyContent: 'space-between',
         width: [null, 'auto', 'auto'],
+        whiteSpace: 'nowrap',
       }}
     >
       {navigationData.map((rootItem: SideNavItem, index: number) => {

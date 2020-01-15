@@ -2,9 +2,9 @@
 import { jsx, useThemeUI } from 'theme-ui'
 import { FunctionComponent, useState, MouseEvent } from 'react'
 import { Link } from 'gatsby'
+import { globalHistory } from '@reach/router'
 import { SideNavItem } from './types'
 import isExternalLink from '../../utils/isExternalLink'
-import { containsPath } from '../../utils/navigationDataUtils'
 
 interface TreeNodeProps {
   nodes: Array<SideNavItem>
@@ -91,8 +91,8 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
             return clone
           })
         }
-        // Force partically active nodes to always be expanded
-        const partiallyActive = containsPath(node)
+        // Force partially active nodes to always be expanded
+        const partiallyActive = globalHistory.location.pathname.startsWith(node.path)
         const expandedCollapsed = partiallyActive ? 'expanded' : state[index]
 
         return (

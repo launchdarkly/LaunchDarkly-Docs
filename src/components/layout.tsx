@@ -11,7 +11,7 @@ import Breadcrumbs from './mdx/breadcrumbs'
 import { TableOfContents, TOC } from './tableOfContents'
 import Header from './header'
 import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
-import CurrentCategoryMenu from './sideNav/currentCategoryMenu'
+import DesktopSideNav from './sideNav/desktopSideNav'
 import { ReadmeBlock } from './readme'
 import { CodeBlock, CodeSnippetProvider, CodeViewer } from './mdx/code'
 import Metadata from './mdx/metadata'
@@ -99,8 +99,8 @@ const Layout: FunctionComponent<LayoutProps> = ({
         }}
       >
         <Header />
-        <CurrentCategoryMenu />
-        <main sx={{ gridArea: 'main', px: [5, 7, 9], pt: 7 }}>
+        <DesktopSideNav />
+        <main sx={{ gridArea: 'main', px: [4, 7, 9], pt: 7 }}>
           <Breadcrumbs />
           <CodeSnippetProvider>
             <MDXProvider components={components}>
