@@ -43,7 +43,7 @@ const Header = () => {
             whiteSpace: 'nowrap',
           }}
         >
-          <Icon name="launchdarkly-icon" variant="header" sx={{ height: 3, mx: 4, display: ['block', 'none'] }} />
+          <Icon name="launchdarkly-icon" variant="header" sx={{ height: 3, mx: 5, display: ['block', 'none'] }} />
           <span sx={{ ml: [0, 7, 9] }}>
             <TopNav />
           </span>
@@ -72,7 +72,7 @@ const Header = () => {
               }}
             />
           </div>
-          <span sx={{ display: ['block', 'none'], mx: 4 }}>
+          <span sx={{ display: ['block', 'none'], mx: 5 }}>
             <Hamburger />
           </span>
         </span>

@@ -17,9 +17,9 @@ const Metadata: FunctionComponent<MetadataProps> = ({ timeToRead, lastModifiedDa
       }}
     >
       <Styled.h5>
-        Read time: {timeToRead} {pluralize('minute', timeToRead)}
+        Read time : {timeToRead} {pluralize('minute', timeToRead)}
       </Styled.h5>
-      <Styled.h5>Last edited: {lastModifiedDateFormatted}</Styled.h5>
+      <Styled.h5>Last edited : {lastModifiedDateFormatted}</Styled.h5>
     </div>
   )
 }

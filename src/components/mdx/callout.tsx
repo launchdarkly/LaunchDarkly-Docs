@@ -20,7 +20,7 @@ export type CalloutProps = {
 export function CalloutTitle({ children }: PropsWithChildren<{}>) {
   return (
     children && (
-      <Text mb={4} sx={{ fontSize: 4, lineHeight: 'body' }}>
+      <Text mb={3} sx={{ fontSize: 4, lineHeight: 'body' }}>
         {children}
       </Text>
     )
@@ -28,7 +28,7 @@ export function CalloutTitle({ children }: PropsWithChildren<{}>) {
 }
 
 export function CalloutDescription({ children }: PropsWithChildren<{}>) {
-  return <Text sx={{ fontSize: 3, lineHeight: 'spaced' }}>{children}</Text>
+  return <Text sx={{ fontSize: 3, lineHeight: 'spaced', mb: 1 }}>{children}</Text>
 }
 
 export default function Callout({ intent = 'info', children }: PropsWithChildren<CalloutProps>) {
@@ -36,7 +36,7 @@ export default function Callout({ intent = 'info', children }: PropsWithChildren
     <Card variant={intent}>
       <Flex>
         <Box>{children}</Box>
-        <Icon name={iconNames[intent]} variant={`callout.${intent}`} mt={1} ml="auto" />
+        <Icon name={iconNames[intent]} variant={`callout.${intent}`} mt={1} mr={1} ml="auto" />
       </Flex>
     </Card>
   )

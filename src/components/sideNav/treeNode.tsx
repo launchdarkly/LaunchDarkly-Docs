@@ -21,6 +21,7 @@ const defaultLabelStyles = {
   ':active': {
     color: 'grayBlack',
   },
+  lineHeight: 1.5,
 }
 
 const leafLabelStyles = {
@@ -32,12 +33,15 @@ const leafLabelStyles = {
   ':active': {
     color: 'grayBlack',
   },
+  lineHeight: 1.5,
 }
 
-const defaultListItemStyles = { ml: [6, 6, 6], mr: 4, mt: [5, 5, 5] }
+const defaultListItemStyles = { ml: [5, 5, 5], mr: 3, mt: [4, 4, 4] }
 const rootListItemStyles = {
   ...defaultListItemStyles,
   mt: [6, 6, 6],
+  ml: [6, 6, 6],
+  mr: 5,
 }
 
 const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {

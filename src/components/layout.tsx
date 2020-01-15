@@ -77,6 +77,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
       <Reset />
       <div
         sx={{
+          color: 'grayBlack',
           height: '100vh',
           display: 'grid',
           gridTemplateColumns: ['100%', '18rem auto', '18rem 48rem auto'],
@@ -99,7 +100,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
       >
         <Header />
         <CurrentCategoryMenu />
-        <main sx={{ gridArea: 'main', px: [4, 7, 9], pt: 7 }}>
+        <main sx={{ gridArea: 'main', px: [5, 7, 9], pt: 7 }}>
           <Breadcrumbs />
           <CodeSnippetProvider>
             <MDXProvider components={components}>

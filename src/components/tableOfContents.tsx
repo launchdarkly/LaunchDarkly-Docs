@@ -33,7 +33,7 @@ export function TableOfContents({ toc, ...props }: TableOfContentsProps) {
           borderBottomWidth: 1,
           borderColor: 'grayMed',
           padding: 3,
-          pt: '6.25rem',
+          pt: '6.75rem',
         }}
       >
         On this page

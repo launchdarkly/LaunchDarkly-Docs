@@ -1,14 +1,44 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 import { Card, Text, Flex, Box } from '@theme-ui/components'
-import { Fragment, Children, PropsWithChildren, ReactElement } from 'react'
+import { Fragment, Children, PropsWithChildren, ReactElement, FunctionComponent } from 'react'
 import Icon from '../icon'
 import Link from '../link'
 
-export const LearnMoreLink = Link
+interface LearnMoreLinkProps {
+  to: string
+}
+export const LearnMoreLink: FunctionComponent<LearnMoreLinkProps> = ({ to, children }) => {
+  return (
+    <Link
+      to={to}
+      sx={{
+        color: 'infoSafe',
+        textDecoration: 'none',
+        fontWeight: 'bold',
+        '&:visited': { color: 'infoSafe' },
+        '&:hover': { color: 'grayBlack' },
+      }}
+    >
+      {children}
+    </Link>
+  )
+}
 
 export function LearnMoreTitle({ children }: PropsWithChildren<{}>) {
-  return children && <Text sx={{ fontSize: 4, lineHeight: 'body', marginBottom: 4 }}>{children}</Text>
+  return (
+    children && (
+      <Text
+        sx={{
+          fontSize: 4,
+          lineHeight: 'small',
+          marginBottom: 4,
+        }}
+      >
+        {children}
+      </Text>
+    )
+  )
 }
 
 export default function LearnMore({ children }: PropsWithChildren<{}>) {
