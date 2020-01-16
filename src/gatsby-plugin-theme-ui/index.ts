@@ -120,6 +120,18 @@ export default {
         },
       },
     },
+    edit: {
+      padding: 0,
+      textTransform: 'uppercase',
+      fontSize: 2,
+      marginTop: '-1rem',
+      color: 'graySafe',
+      cursor: 'pointer',
+      bg: 'transparent',
+      '&:focus': {
+        outline: 'none',
+      },
+    },
   },
   cards: {
     code: {

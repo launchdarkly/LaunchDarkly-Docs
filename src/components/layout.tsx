@@ -18,6 +18,7 @@ import Metadata from './mdx/metadata'
 import Table, { TableHeader, TableHeadCell, TableBody, TableRow, TableCell } from './mdx/table'
 import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
 import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
+import EditButton from './mdx/editButton'
 
 const components = {
   h1: H1,
@@ -46,6 +47,7 @@ const components = {
   LearnMore,
   LearnMoreTitle,
   LearnMoreLink,
+  EditButton,
 }
 
 interface LayoutProps {

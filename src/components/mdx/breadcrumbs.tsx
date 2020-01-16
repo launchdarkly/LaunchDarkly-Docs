@@ -3,6 +3,9 @@ import { jsx, Styled } from 'theme-ui'
 import { graphql, useStaticQuery, Link } from 'gatsby'
 import { globalHistory } from '@reach/router'
 import { SideNavItem } from '../sideNav/types'
+import EditButton from './editButton'
+
+const GITHUB_ROOT_URL = 'https://github.com/launchdarkly/git-gatsby/blob/master/src/content/topics'
 
 const Breadcrumbs = () => {
   const {
@@ -52,31 +55,36 @@ const Breadcrumbs = () => {
     return []
   }
   const breadcrumbItems = findAndFlattenWrapper()
+  const path = `${GITHUB_ROOT_URL}${breadcrumbItems[breadcrumbItems.length - 1].path}.mdx`
+
   return (
-    <Styled.h4 sx={{ mb: [3, 4], fontSize: 3 }}>
-      {breadcrumbItems.map(({ label, path }, index) => {
-        const lastItem = index === breadcrumbItems.length - 1
-        return lastItem ? (
-          <span key={label} sx={{ color: 'graySafe' }}>
-            {label}
-          </span>
-        ) : (
-          <Link
-            key={label}
-            to={path}
-            sx={{
-              textDecoration: 'none',
-              color: 'grayBase',
-              ':hover': {
-                color: 'primarySafe',
-              },
-            }}
-          >
-            {`${label} / `}
-          </Link>
-        )
-      })}
-    </Styled.h4>
+    <div sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Styled.h4 sx={{ mb: [3, 4], fontSize: 3 }}>
+        {breadcrumbItems.map(({ label, path }, index) => {
+          const lastItem = index === breadcrumbItems.length - 1
+          return lastItem ? (
+            <span key={label} sx={{ color: 'graySafe' }}>
+              {label}
+            </span>
+          ) : (
+            <Link
+              key={label}
+              to={path}
+              sx={{
+                textDecoration: 'none',
+                color: 'grayBase',
+                ':hover': {
+                  color: 'primarySafe',
+                },
+              }}
+            >
+              {`${label} / `}
+            </Link>
+          )
+        })}
+      </Styled.h4>
+      <EditButton path={path} />
+    </div>
   )
 }
 export default Breadcrumbs

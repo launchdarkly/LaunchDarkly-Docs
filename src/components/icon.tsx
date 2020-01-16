@@ -29,10 +29,12 @@ export type IconName =
   | 'security'
   | 'toggles-multiple-solid'
   | 'window-close'
+  | 'pencil'
 
 export type IconProps = {
   name: IconName
   onClick?: Function
+  fill?: string
 } & BoxOwnProps &
   HTMLProps<SVGSVGElement>
 
