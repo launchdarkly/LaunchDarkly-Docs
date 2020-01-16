@@ -13,10 +13,14 @@ const stripTrailingSlash = (s: string) => {
   return s
 }
 
-export const findRootTopic = (topics: Topic[], navigationData: Array<SideNavItem>) => {
-  const currentPath = stripTrailingSlash(globalHistory.location.pathname)
-  const topic = topics.find((t: Topic) => !!t.allItems.find(a => a === currentPath))
+export const findRootTopic = (topics: Topic[], navigationData: Array<SideNavItem>, pathPrefix: string) => {
+  let currentPath = stripTrailingSlash(globalHistory.location.pathname)
 
+  if (pathPrefix) {
+    currentPath = currentPath.replace(pathPrefix, '')
+  }
+
+  const topic = topics.find((t: Topic) => !!t.allItems.find(a => a === currentPath))
   if (topic) {
     return navigationData.find(n => n.path === topic.path)
   }

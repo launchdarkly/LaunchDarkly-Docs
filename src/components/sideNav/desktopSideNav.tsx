@@ -6,11 +6,16 @@ import { findRootTopic } from '../../utils/navigationDataUtils'
 
 const DesktopSideNav = () => {
   const {
-    allData: { nodes: navigationData },
+    site: { pathPrefix },
+    allNavigationData: { nodes: navigationData },
     rootTopics: { nodes: topics },
   } = useStaticQuery(graphql`
     query {
-      allData: allNavigationDataJson {
+      site {
+        pathPrefix
+      }
+
+      allNavigationData: allNavigationDataJson {
         nodes {
           items {
             label
@@ -34,8 +39,9 @@ const DesktopSideNav = () => {
     }
   `)
 
-  const currentNode = findRootTopic(topics, navigationData)
+  const currentNode = findRootTopic(topics, navigationData, pathPrefix)
   if (!currentNode) {
+    console.error(`Can't find root topic! pathPrefix: ${pathPrefix}`)
     return null
   }
   return (

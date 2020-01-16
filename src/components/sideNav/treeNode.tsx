@@ -92,7 +92,7 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
           })
         }
         // Force partially active nodes to always be expanded
-        const partiallyActive = globalHistory.location.pathname.startsWith(node.path)
+        const partiallyActive = globalHistory.location.pathname.includes(node.path)
         const expandedCollapsed = partiallyActive ? 'expanded' : state[index]
 
         return (

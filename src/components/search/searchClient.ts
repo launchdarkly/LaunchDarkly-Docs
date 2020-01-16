@@ -7,7 +7,8 @@ interface AlgoliaSearchRequest {
   query: string
   params: QueryParameters
 }
-const algoliaClient = algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_SEARCH_KEY)
+
+const baseSearchClient = algoliasearch(process.env.GATSBY_ALGOLIA_APP_ID, process.env.GATSBY_ALGOLIA_SEARCH_KEY)
 
 const searchClient = {
   search(requests: AlgoliaSearchRequest[]) {
@@ -24,7 +25,7 @@ const searchClient = {
       })
     }
 
-    return algoliaClient.search(requests)
+    return baseSearchClient.search(requests)
   },
 }
 

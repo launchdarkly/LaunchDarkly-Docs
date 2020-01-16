@@ -1,0 +1,32 @@
+on:
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Deploy to s3 staging
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '13.x'
+      - run: echo ::set-env name=PR_NUMBER::$(echo "$GITHUB_REF" | awk -F / '{str = sprintf("%s", $3)} END {print str}')
+      - run: yarn
+      - run: yarn build-staging
+        env:
+          PR_NUMBER: ${{ env.PR_NUMBER }}
+          ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
+          GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
+          GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
+          GATSBY_ALGOLIA_INDEX: 'Docs'
+      - uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
+          AWS_REGION: 'us-east-1'
+          AWS_S3_BUCKET: 'launchdarkly-docs-staging'
+          SOURCE_DIR: 'public'
+          DEST_DIR: ${{ env.PR_NUMBER}}

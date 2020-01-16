@@ -55,7 +55,12 @@ const Breadcrumbs = () => {
     return []
   }
   const breadcrumbItems = findAndFlattenWrapper()
-  const path = `${GITHUB_ROOT_URL}${breadcrumbItems[breadcrumbItems.length - 1].path}.mdx`
+
+  let githubUrl = GITHUB_ROOT_URL
+  if (breadcrumbItems.length > 0) {
+    const lastBreadcrumb = breadcrumbItems[breadcrumbItems.length - 1]
+    githubUrl = `${githubUrl}${lastBreadcrumb.path}.mdx`
+  }
 
   return (
     <div sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -83,7 +88,7 @@ const Breadcrumbs = () => {
           )
         })}
       </Styled.h4>
-      <EditButton path={path} />
+      <EditButton path={githubUrl} />
     </div>
   )
 }

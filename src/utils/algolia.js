@@ -7,7 +7,7 @@ const activeEnv = process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || 'deve
 require('dotenv').config({
   path: `.env.${activeEnv}`,
 })
-const algoliaIndexPrefix = process.env.ALGOLIA_INDEX || 'DELETE'
+const algoliaIndexPrefix = process.env.GATSBY_ALGOLIA_INDEX || 'DELETE'
 const algoliaIndex = `${algoliaIndexPrefix}_${activeEnv}`
 console.log(`Using environment config: '${activeEnv}', indexing to: ${algoliaIndex}`)
 
