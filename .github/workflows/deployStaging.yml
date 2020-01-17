@@ -24,8 +24,8 @@ jobs:
         with:
           args: --acl public-read --follow-symlinks --delete
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.STG_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.STG_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'us-east-1'
           AWS_S3_BUCKET: 'launchdarkly-docs-staging'
           SOURCE_DIR: 'public'
