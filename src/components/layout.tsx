@@ -13,7 +13,7 @@ import Header from './header'
 import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
 import DesktopSideNav from './sideNav/desktopSideNav'
 import { ReadmeBlock } from './readme'
-import { CodeBlock, CodeSnippetProvider, CodeViewer } from './mdx/code'
+import { CodeTabs, CodeTabItem, Code } from './mdx/code'
 import Metadata from './mdx/metadata'
 import Table, { TableHeader, TableHeadCell, TableBody, TableRow, TableCell } from './mdx/table'
 import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
@@ -28,11 +28,6 @@ const components = {
   h5: H5,
   h6: H6,
   ReadmeBlock,
-  pre: function Pre({ children }: React.HTMLProps<HTMLPreElement>) {
-    return <Fragment>{children}</Fragment>
-  },
-  code: CodeBlock,
-  CodeViewer,
   Card,
   Metadata,
   Table,
@@ -47,6 +42,12 @@ const components = {
   LearnMore,
   LearnMoreTitle,
   LearnMoreLink,
+  CodeTabs,
+  CodeTabItem,
+  code: Code,
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  // eslint-disable-next-line react/display-name
+  pre: (props: any) => <pre {...props} />,
   EditButton,
 }
 
@@ -104,13 +105,11 @@ const Layout: FunctionComponent<LayoutProps> = ({
         <DesktopSideNav />
         <main sx={{ gridArea: 'main', px: [4, 7, 9], pt: 7 }}>
           <Breadcrumbs />
-          <CodeSnippetProvider>
-            <MDXProvider components={components}>
-              <MDXRenderer timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedTime}>
-                {body}
-              </MDXRenderer>
-            </MDXProvider>
-          </CodeSnippetProvider>
+          <MDXProvider components={components}>
+            <MDXRenderer timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedTime}>
+              {body}
+            </MDXRenderer>
+          </MDXProvider>
         </main>
         <aside sx={{ gridArea: 'aside', pt: 6, display: ['none', 'none', 'block'], width: '18rem' }}>
           {!isImported && <TableOfContents toc={toc} sx={{ position: 'sticky', top: 5 }} />}

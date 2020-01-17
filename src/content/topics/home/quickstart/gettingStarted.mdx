@@ -78,41 +78,45 @@ To learn more about the different types of SDKs, read Client-side and server-sid
 
 Explore the following SDK reference guides for specific details about how to use LaunchDarkly with your tech stack. To learn more about advanced configuration options for your platform's SDK, read the Reference guides section.
 
-```javascript snippetId=targeting-custom
-export function createAccessDecision(props = {}) {
-  // Cool code
-  return new AccessDecision(fromJS(props))
-}
 
-export function combineAccessDecisions(...args) {
-  const decisions = List(args)
-  const isAllowed = decisions.every(d => d.isAllowed)
-  const firstDenied = decisions.find(d => !d.isAllowed)
-  return new AccessDecision({
-    isAllowed,
-    reason: firstDenied ? firstDenied.reason : decisions.first().reason,
-    appliedRoleName: firstDenied ? firstDenied.appliedRoleName : decisions.first().appliedRoleName,
-  })
-}
-```
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+    { label: 'Python', value: 'py', },
+    { label: 'Java', value: 'java', },
+  ]
+}>
 
-```go snippetId=targeting-custom
-var InternalPostResetAccountToken = Route{
-	"internal.post.reset.account.token",
-	"POST",
-}
+<CodeTabItem value="js">
 
-var InternalDeleteAccountToken = Route{
-	"internal.delete.account.token",
-	"DELETE",
+```js
+function helloWorld() {
+  console.log('Hello, world!');
 }
 ```
 
-```ruby snippetId=targeting-custom
-user = {:key => "foo@example.com", :custom => {:groups => "beta_testers"}}
+</CodeTabItem>
+<CodeTabItem value="py">
+
+```py
+def hello_world():
+  print 'Hello, world!'
 ```
 
-<CodeViewer snippetId="targeting-custom" />
+</CodeTabItem>
+<CodeTabItem value="java">
+
+```java
+class HelloWorld {
+  public static void main(String args[]) {
+    System.out.println("Hello, World");
+  }
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ### Flag evaluations are always available
 

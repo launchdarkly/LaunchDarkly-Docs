@@ -1,3 +1,4 @@
-export { CodeBlock } from './codeBlock'
-export { CodeViewer } from './codeViewer'
-export { CodeSnippetProvider } from './codeContext'
+export { CodeSnippet } from './codeSnippet'
+export { CodeTabs } from './codeTabs'
+export { CodeTabItem } from './codeTabItem'
+export { Code } from './code'

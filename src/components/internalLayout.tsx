@@ -5,7 +5,7 @@ import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from '@mdx-js/react'
 import Reset from './resetStyles'
-import { CodeBlock, CodeSnippetProvider, CodeViewer } from './mdx/code'
+import { Code } from './mdx/code'
 import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
 import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
 
@@ -13,8 +13,7 @@ const components = {
   pre: function Pre({ children }: React.HTMLProps<HTMLPreElement>) {
     return <div>{children}</div>
   },
-  code: CodeBlock,
-  CodeViewer,
+  code: Code,
   Callout,
   CalloutTitle,
   CalloutDescription,
@@ -40,11 +39,9 @@ const Layout: FunctionComponent<LayoutProps> = ({
     <Fragment>
       <Reset />
       <main sx={{ width: '40rem', margin: '0 auto', my: 6 }}>
-        <CodeSnippetProvider>
-          <MDXProvider components={components}>
-            <MDXRenderer>{body}</MDXRenderer>
-          </MDXProvider>
-        </CodeSnippetProvider>
+        <MDXProvider components={components}>
+          <MDXRenderer>{body}</MDXRenderer>
+        </MDXProvider>
       </main>
     </Fragment>
   )

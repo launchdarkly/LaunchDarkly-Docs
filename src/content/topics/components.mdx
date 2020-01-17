@@ -10,7 +10,8 @@ This guide helps authors and developers unify implementation by providing you wi
 - **Components**
 - LearnMore
 - Callout
-- CodeViewer
+- CodeTabs
+- CodeTabItem
 - Table
 - Image
 - **Tokens**
@@ -28,13 +29,25 @@ This guide helps authors and developers unify implementation by providing you wi
   <LearnMoreLink to="/foobar">Single link</LearnMoreLink>
 </LearnMore>
 
-```javascript snippetId=learn-more
+
+<CodeTabs
+  defaultValue="text"
+  values={[
+    { label: 'Single Learn More', value: 'text', },
+  ]
+}>
+
+<CodeTabItem value="text">
+
+```javascript
 <LearnMore>
   <LearnMoreLink to="/foobar">Single link</LearnMoreLink>
 </LearnMore>
 ```
 
-<CodeViewer snippetId="learn-more" />
+</CodeTabItem>
+
+</CodeTabs>
 
 ### Multiple
 
@@ -44,7 +57,17 @@ This guide helps authors and developers unify implementation by providing you wi
   <LearnMoreLink to="/foobar">Link 3</LearnMoreLink>
 </LearnMore>
 
-```javascript snippetId=learn-more-alt
+<CodeTabs
+  defaultValue="LearnMore"
+  values={[
+    { label: 'Multiple Learn More', value: 'LearnMore', },
+  ]
+}>
+
+<CodeTabItem value="LearnMore">
+
+
+```javascript
 <LearnMore>
   <LearnMoreLink to="/foobar">Link 1</LearnMoreLink>
   <LearnMoreLink to="/foobar">Link 2</LearnMoreLink>
@@ -52,7 +75,11 @@ This guide helps authors and developers unify implementation by providing you wi
 </LearnMore>
 ```
 
-<CodeViewer snippetId="learn-more-alt" />
+
+</CodeTabItem>
+
+</CodeTabs>
+
 
 ## Callout
 
@@ -67,7 +94,17 @@ This guide helps authors and developers unify implementation by providing you wi
   </CalloutDescription>
 </Callout>
 
-```javascript snippetId=callout
+
+<CodeTabs
+  defaultValue="LearnMore"
+  values={[
+    { label: 'Callout', value: 'Callout', },
+  ]
+}>
+
+<CodeTabItem value="Callout">
+
+```javascript
 <Callout intent="callout">
   <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
   <CalloutDescription>
@@ -78,15 +115,67 @@ This guide helps authors and developers unify implementation by providing you wi
 </Callout>
 ```
 
-<CodeViewer snippetId="callout" />
+</CodeTabItem>
+
+</CodeTabs>
 
 ## Code samples
 
-1. Write code block as markdown as usual, and you specify the `snippet` attribute.
-1. Add a `CodeViewer` component with the `snippet` prop set to what you used in your markdown code blocks.
+1. Write code block as markdown as usual.
+2. Add a `CodeTabs` component with a default value (which will be the first tab shown) and a values array of objects with a label and value.
+3. Each CodeTabItem will be one of the tabs
 
-```javascript snippetId=code
-user = {:key => "foo@example.com", :custom => {:groups => "beta_testers"}}
+<CodeTabs
+  defaultValue="code"
+  values={[
+    { label: 'Code snippet', value: 'code', },
+  ]
+}>
+
+<CodeTabItem value="code">
+
+```js
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+    { label: 'Python', value: 'py', },
+    { label: 'Java', value: 'java', },
+  ]
+}>
+
+<CodeTabItem value="js">
+
+```js
+function helloWorld() {
+  console.log('Hello, world!');
+}
 ```
 
-<CodeViewer snippetId="code" />
+</CodeTabItem>
+<CodeTabItem value="py">
+
+```py
+def hello_world():
+  print 'Hello, world!'
+```
+
+</CodeTabItem>
+<CodeTabItem value="java">
+
+```java
+class HelloWorld {
+  public static void main(String args[]) {
+    System.out.println("Hello, World");
+  }
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+```
+
+</CodeTabItem>
+
+</CodeTabs>
