@@ -36,6 +36,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet-async": "^1.0.4",
+    "react-spring": "8.0.27",
     "react-instantsearch-dom": "^6.1.0",
     "remark-slug": "^5.1.2",
     "slug": "^1.1.0",

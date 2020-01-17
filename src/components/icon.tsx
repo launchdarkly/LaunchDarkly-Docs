@@ -29,6 +29,8 @@ export type IconName =
   | 'security'
   | 'toggles-multiple-solid'
   | 'window-close'
+  | 'arrow-down'
+  | 'arrow-up'
   | 'pencil'
 
 export type IconProps = {

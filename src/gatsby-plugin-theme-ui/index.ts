@@ -53,6 +53,7 @@ export default {
   lineHeights: {
     fixed: '1',
     spaced: '1.5',
+    regular: '1rem',
     small: '1.25rem',
     body: '1.75rem',
     medium: '2rem',
@@ -273,7 +274,7 @@ export default {
       width: 'auto',
       fill: 'white',
     },
-    sideMenu: { width: 3, height: 3, fill: 'white', cursor: 'pointer' },
+    sideNav: { width: 3, height: 3, fill: 'white', cursor: 'pointer' },
     heading: {
       width: 3,
       height: 3,

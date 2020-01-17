@@ -45,7 +45,7 @@ const Hamburger = () => {
   }
   return (
     <Fragment>
-      <Icon name="menu" variant="sideMenu" onClick={onClickMenu} />
+      <Icon name="menu" variant="sideNav" onClick={onClickMenu} />
       <div
         ref={rootDiv}
         sx={{
