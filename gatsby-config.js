@@ -7,7 +7,6 @@ console.log(`
   PR_NUMBER=${process.env.PR_NUMBER}
   GATSBY_ALGOLIA_INDEX=${process.env.GATSBY_ALGOLIA_INDEX}
   GATSBY_ALGOLIA_APP_ID=${process.env.GATSBY_ALGOLIA_APP_ID}
-  AWS_S3_BUCKET=${process.env.AWS_S3_BUCKET}
 `)
 
 const plugins = [
@@ -16,15 +15,6 @@ const plugins = [
     options: {
       name: 'mdx-images',
       path: `${__dirname}/src/content/images`,
-    },
-  },
-  {
-    resolve: 'gatsby-plugin-algolia',
-    options: {
-      appId: process.env.GATSBY_ALGOLIA_APP_ID,
-      apiKey: process.env.ALGOLIA_ADMIN_KEY,
-      queries,
-      chunkSize: 10000, // default: 1000
     },
   },
   {
@@ -135,6 +125,19 @@ const plugins = [
   },
 ]
 
+// Only build algolia indexes in staging and production
+if (process.env.GATSBY_ACTIVE_ENV === 'staging' || process.env.GATSBY_ACTIVE_ENV === 'production') {
+  plugins.push({
+    resolve: 'gatsby-plugin-algolia',
+    options: {
+      appId: process.env.GATSBY_ALGOLIA_APP_ID,
+      apiKey: process.env.ALGOLIA_ADMIN_KEY,
+      queries,
+      chunkSize: 10000, // default: 1000
+    },
+  })
+}
+
 // Only use gatsby-plugin-s3 when deploying to production because it does not support
 // pushing to s3 subfolders.
 // Staging deploy uses a github action called s3-sync-action to push to a subfolder
@@ -149,13 +152,13 @@ if (process.env.GATSBY_ACTIVE_ENV === 'production') {
       enableS3StaticWebsiteHosting: false,
     },
   }
-
-  // GOTCHA: the client side redirect plugin auto-generates index.html files
-  // which acts as default pages which contains scripts to enforce redirects
-  // defined in gatsby-node.js
-  // production don't need this because gatsby-plugin-s3 does this for us
+  plugins.push(gatsbyPluginS3)
+} else if (process.env.GATSBY_ACTIVE_ENV === 'staging') {
+  // GOTCHA: On staging, the client side redirect plugin auto-generates index.html files
+  // which acts as default pages which contains scripts to enforce redirects defined in
+  // gatsby-node.js. Production don't need this because gatsby-plugin-s3 does this for us
   // automatically
-  plugins.push(gatsbyPluginS3, 'gatsby-plugin-client-side-redirect')
+  plugins.push('gatsby-plugin-client-side-redirect')
 }
 
 module.exports = {
