@@ -8,6 +8,7 @@ import Link from '../link'
 interface LearnMoreLinkProps {
   to: string
 }
+
 export const LearnMoreLink: FunctionComponent<LearnMoreLinkProps> = ({ to, children }) => {
   return (
     <Link

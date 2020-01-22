@@ -8,10 +8,19 @@ type ForwardRef<T, P> = React.ForwardRefExoticComponent<PropsWithoutRef<P> & Ref
 const ThemedGatsbyLink: ForwardRef<HTMLAnchorElement, LinkProps & GatsbyLinkProps<{}>> = ThemeUILink
 
 const Link: FunctionComponent<GatsbyLinkProps<{}>> = ({ to, children, className }) => {
+  const isInternalLink = to.startsWith('/')
+  if (isInternalLink) {
+    return (
+      <ThemedGatsbyLink as={GatsbyLink} to={to} className={className}>
+        {children}
+      </ThemedGatsbyLink>
+    )
+  }
+
   return (
-    <ThemedGatsbyLink as={GatsbyLink} to={to} className={className}>
+    <a href={to} className={className} target="_blank" rel="noopener noreferrer">
       {children}
-    </ThemedGatsbyLink>
+    </a>
   )
 }
 
