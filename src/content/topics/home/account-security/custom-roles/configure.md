@@ -105,9 +105,9 @@ To delete a custom role:
 Policies are sets of actions a custom role is allowed or not allowed to take. You can create policies from the **Roles** tab.
 
 <Callout intent="info">
-  <CalloutTitle>Write policies by hand in the Advanced editor</CalloutTitle>
-   <CalloutDescription>Advanced users can write custom policies of their own with the Advanced editor. 
-To learn more about writing your own policies, read [Policies in custom roles](./policies-in-custom-roles).</CalloutDescription>
+  <Callout.Title>Write policies by hand in the Advanced editor</Callout.Title>
+   <Callout.Description>Advanced users can write custom policies of their own with the Advanced editor. 
+To learn more about writing your own policies, read [Policies in custom roles](./policies-in-custom-roles).</Callout.Description>
 </Callout>
 
 To create a policy:
@@ -117,8 +117,8 @@ To create a policy:
 2. In the "Create a role" screen, click into the **Resources** field.
 3. Specify a resource this policy affects.
  <Callout intent="info">
-  <CalloutTitle>The Resource Finder can help</CalloutTitle>
-   <CalloutDescription>Click **Resource finder** to choose projects, feature flags, environments, metrics, and roles to add to your policy.</CalloutDescription>
+  <Callout.Title>The Resource Finder can help</Callout.Title>
+   <Callout.Description>Click **Resource finder** to choose projects, feature flags, environments, metrics, and roles to add to your policy.</Callout.Description>
  </Callout>
 
 4. Choose an **Effect** from the dropdown. 
@@ -220,8 +220,8 @@ To give a member a custom role:
 [/block]
 
 <Callout intent="alert">
-  <CalloutTitle>Add members individually</CalloutTitle>
-   <CalloutDescription>You must add a custom role to one member at a time. You may not apply a role to multiple members simultaneously. \n\nFor example, if you wish to add a role for the QA team, you must find each QA team member and add the role to each member individually.</CalloutDescription>
+  <Callout.Title>Add members individually</Callout.Title>
+   <Callout.Description>You must add a custom role to one member at a time. You may not apply a role to multiple members simultaneously. \n\nFor example, if you wish to add a role for the QA team, you must find each QA team member and add the role to each member individually.</Callout.Description>
 </Callout>
 
 ## Viewing custom role details
@@ -285,8 +285,9 @@ Use the "Role policy details" screen to view detailed information about a custom
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>\"Role policy details\" is for custom roles only</CalloutTitle>
-   <CalloutDescription>The \"Role policy details\" screen is only available for custom roles. It won't open if you click on a default `reader`, `writer`, or `admin` role.</CalloutDescription>
+  <Callout.Title>\"Role policy details\" is for custom roles only</Callout.Title>
+   <Callout.Description>The \"Role policy details\" screen is only available for custom roles. It won't open if you click on a default `reader`, `writer`, or `admin` role.</Callout.Description>
+
 </Callout>
 
 ## Removing a custom role from a member

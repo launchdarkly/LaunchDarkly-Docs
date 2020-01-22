@@ -4,13 +4,13 @@ excerpt: ""
 ---
 This reference guide documents all of the methods available in our client-side React SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source — head to the [React SDK code](https://github.com/launchdarkly/react-client-sdk) in our JavaScript SDK GitHub repository to look under the hood. The online [API docs](https://launchdarkly.github.io/react-client-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://docs.launchdarkly.com/docs/react-sdk-reference#example-app) using this SDK.
 <Callout intent="info">
-  <CalloutTitle>React SDK is based on the JavaScript SDK</CalloutTitle>
-   <CalloutDescription>The React SDK builds on top of LaunchDarkly's JavaScript SDK to provide a better integration for use in React applications. As a result, much of the JavaScript SDK functionality is also available for use by the React SDK. For a complete client-side JavaScript SDK reference, please refer to our [documentation](https://docs.launchdarkly.com/docs/js-sdk-reference).</CalloutDescription>
+  <Callout.Title>React SDK is based on the JavaScript SDK</Callout.Title>
+   <Callout.Description>The React SDK builds on top of LaunchDarkly's JavaScript SDK to provide a better integration for use in React applications. As a result, much of the JavaScript SDK functionality is also available for use by the React SDK. For a complete client-side JavaScript SDK reference, please refer to our [documentation](https://docs.launchdarkly.com/docs/js-sdk-reference).</Callout.Description>
 </Callout>
 
 <Callout intent="alert">
-   <CalloutDescription>This SDK uses the Context API, which requires React version 16.3.0 or later. Please note that you must use a newer version if you wish to additionally use the Hooks API -- see the \"Hooks\" section below for more information.",
-  <CalloutTitle>Requires React 16.3.0 or later</CalloutDescription>
+   <Callout.Description>This SDK uses the Context API, which requires React version 16.3.0 or later. Please note that you must use a newer version if you wish to additionally use the Hooks API -- see the \"Hooks\" section below for more information.",
+  <Callout.Title>Requires React 16.3.0 or later</Callout.Description>
 </Callout>
 
 ## Getting started
@@ -53,13 +53,14 @@ The `asyncWithLDProvider` function initializes the React SDK and returns a provi
 [/block]
 Once initialization is complete, your flags and the ldClient will be available at the start of your React app lifecycle. This will ensure your app does not flicker due to flag changes at startup time. 
 <Callout intent="alert">
-  <CalloutTitle>Delayed rendering</CalloutTitle>
-   <CalloutDescription>The asynchronous nature of the `asyncWithLDProvider` function means that the rendering of your React app will be delayed until initialization is completed. Typically this should take only a few milliseconds but can take up to 200 milliseconds. Alternatively you can use the [`withLDProvider`](https://docs.launchdarkly.com/docs/react-sdk-reference#-withldprovider-) function if you prefer to render your app first and then process flag updates once rendering is complete.</CalloutDescription>
+  <Callout.Title>Delayed rendering</Callout.Title>
+   <Callout.Description>The asynchronous nature of the `asyncWithLDProvider` function means that the rendering of your React app will be delayed until initialization is completed. Typically this should take only a few milliseconds but can take up to 200 milliseconds. Alternatively you can use the [`withLDProvider`](https://docs.launchdarkly.com/docs/react-sdk-reference#-withldprovider-) function if you prefer to render your app first and then process flag updates once rendering is complete.</Callout.Description>
 </Callout>
 
 <Callout intent="alert">
-<CalloutTitle>Requires React 16.8.0 or later</CalloutTitle>
-   <CalloutDescription>The `asyncWithLDProvider` function uses the Hooks API, which requires React version 16.8.0 or later.</CalloutDescription>
+<Callout.Title>Requires React 16.8.0 or later</Callout.Title>
+   <Callout.Description>The `asyncWithLDProvider` function uses the Hooks API, which requires React version 16.8.0 or later.</Callout.Description>
+
 </Callout>
 
 ## `withLDProvider`
@@ -112,8 +113,8 @@ The [`ProviderConfig`](https://launchdarkly.github.io/react-client-sdk/interface
 ## Hooks
 The React SDK offers two custom hooks which you can use as an alternative to `withLDConsumer`: `useFlags` and `useLDClient`.
 <Callout intent="alert">
-  <CalloutTitle>Requires React 16.8.0 or later</CalloutTitle>
-   <CalloutDescription>`useFlags` and `useLDClient` use the Hooks API, which requires React version 16.8.0 or later.</CalloutDescription>
+  <Callout.Title>Requires React 16.8.0 or later</Callout.Title>
+   <Callout.Description>`useFlags` and `useLDClient` use the Hooks API, which requires React version 16.8.0 or later.</Callout.Description>
 </Callout>
 `useFlags` is a custom hook which returns all feature flags. It uses the useContext primitive to access the LaunchDarkly context set up by `asyncWithLDProvider` or `withLDProvider`. You will still need to use the `asyncWithLDProvider` or the `withLDProvider` higher-order component at the root of your application to initialize the React SDK and populate the context with `LDClient` and your flags.
 

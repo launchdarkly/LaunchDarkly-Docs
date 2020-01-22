@@ -4,10 +4,10 @@ excerpt: ""
 ---
 This reference guide documents all of the methods available in our Node.js SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [Node.js SDK repository](https://github.com/launchdarkly/node-server-sdk) on GitHub to look under the hood. The online [API docs](https://launchdarkly.github.io/node-server-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run sample applications using this SDK with [vanilla JavaScript](https://github.com/launchdarkly/hello-node-server), [TypeScript](https://github.com/launchdarkly/hello-node-typescript), and [server-side bootstrapping](https://github.com/launchdarkly/hello-bootstrap).
 <Callout intent="info">
-  <CalloutTitle>Client-side feature flags?</CalloutTitle>
-   <CalloutDescription>Our Node.js SDK is designed specifically for server-side Node.js. Learn more about our [client-side and server-side SDKs](./client-side-and-server-side).
+  <Callout.Title>Client-side feature flags?</Callout.Title>
+   <Callout.Description>Our Node.js SDK is designed specifically for server-side Node.js. Learn more about our [client-side and server-side SDKs](./client-side-and-server-side).
 If you're looking to use feature flags in JavaScript in a browser environment, see our [JavaScript SDK Reference](./js-sdk-reference).
-If you're creating a *client-side* Node application, see our [Node Client-Side SDK Reference](node-client-sdk-reference). Alternatively if you're creating a desktop application in Electron, see our [Electron SDK Reference](./electron-sdk-reference).</CalloutDescription>
+If you're creating a *client-side* Node application, see our [Node Client-Side SDK Reference](node-client-sdk-reference). Alternatively if you're creating a desktop application in Electron, see our [Electron SDK Reference](./electron-sdk-reference).</Callout.Description>
 </Callout>
 
 ## Getting started
@@ -49,8 +49,8 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 [/block]
 
 <Callout intent="alert">
-  <CalloutTitle>LDClient must be a singleton</CalloutTitle>
-   <CalloutDescription>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**</CalloutDescription>
+  <Callout.Title>LDClient must be a singleton</Callout.Title>
+   <Callout.Description>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**</Callout.Description>
 </Callout>
 
 The client will emit a `ready` event when it has been initialized and can serve feature flags.
@@ -215,9 +215,9 @@ Besides the `key`, LaunchDarkly supports the following attributes at the "top le
 
 In addition to built-in attributes, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above. 
 <Callout intent="info">
-  <CalloutTitle>A note on types</CalloutTitle>
-   <CalloutDescription>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
-If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.</CalloutDescription>
+  <Callout.Title>A note on types</Callout.Title>
+   <Callout.Description>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
+If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.</Callout.Description>
 </Callout>
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
 
@@ -297,9 +297,9 @@ The `track` method allows you to record actions your users take on your site. Th
 ## Subscribing to feature flag changes
 
 <Callout intent="info">
-  <CalloutTitle>This feature is not available on other server-side SDKs</CalloutTitle>
-   <CalloutDescription>You cannot subscribe to feature flag changes with other server-side SDKs. Only the Node.js SDK supports this feature from the server side. 
-All client-side SDKs support this feature.</CalloutDescription>
+  <Callout.Title>This feature is not available on other server-side SDKs</Callout.Title>
+   <Callout.Description>You cannot subscribe to feature flag changes with other server-side SDKs. Only the Node.js SDK supports this feature from the server side. 
+All client-side SDKs support this feature.</Callout.Description>
 </Callout>
 
 To subscribe to all feature flag changes, listen for the update event:
@@ -341,9 +341,9 @@ The `identify` method creates or updates users on LaunchDarkly, making them avai
 ## All flags
 
 <Callout intent="alert">
-<CalloutTitle>Creating user</CalloutTitle>
-   <CalloutDescription>Note that unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard and your flags' last requested date will not be updated.",
-  s</CalloutDescription>
+<Callout.Title>Creating user</Callout.Title>
+   <Callout.Description>Note that unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard and your flags' last requested date will not be updated.",
+  s</Callout.Description>
 </Callout>
 
 The `allFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.

@@ -14,18 +14,19 @@ To set up a Kinesis destination, you must configure your AWS account with the fo
 
 If you don't already have a Kinesis stream, create one by reading [Amazon's documentation](https://console.aws.amazon.com/kinesis/home#/initial-start).
 <Callout intent="info">
-  <CalloutTitle>Recommended shard count</CalloutTitle>
-   <CalloutDescription>As a best practice, we recommend that you use **1 shard for every 50 million events you send us a month**. 
-This recommendation is an estimate based on typical usage patterns, not a requirement. To prevent performance degradation, adjust your shard count based on your actual usage at peak times. If you expect to see usage spikes, provision more shards. If you do not use enough shards for the load, AWS may throttle your data stream. IF this happens, you may experience data loss.</CalloutDescription>
+  <Callout.Title>Recommended shard count</Callout.Title>
+   <Callout.Description>As a best practice, we recommend that you use **1 shard for every 50 million events you send us a month**. 
+This recommendation is an estimate based on typical usage patterns, not a requirement. To prevent performance degradation, adjust your shard count based on your actual usage at peak times. If you expect to see usage spikes, provision more shards. If you do not use enough shards for the load, AWS may throttle your data stream. IF this happens, you may experience data loss.</Callout.Description>
 </Callout>
 
 ## Creating the IAM Policy
 This section explains how to create an IAM policy to support the Kinesis data export.
 <Callout intent="info">
-  <CalloutTitle>Save this information</CalloutTitle>
-  <CalloutDescription>If you create a new Kinesis stream, write down or save the following information:
+  <Callout.Title>Save this information</Callout.Title>
+  <Callout.Description>If you create a new Kinesis stream, write down or save the following information:
 * _Region_\n* _Stream name_ \n* _Stream ARN_
-You will need this information when you configure your export.</CalloutDescription>
+You will need this information when you configure your export.</Callout.Description>
+
 </Callout>
 
 1. Sign in to the [Identity and Access Management (IAM) console](https://console.aws.amazon.com/iam/).
@@ -73,10 +74,10 @@ This section explains how to create a cross-account IAM role for LaunchDarkly to
 [/block]
 3. Add the policy you created earlier to this role. Write down or save the _role ARN_.
 <Callout intent="alert">
-  <CalloutTitle>Restricting trust</CalloutTitle>
-   <CalloutDescription>It's safe and straightforward to set up the role as described above, but your organization may have security requirements limiting what kind of roles you can trust. 
+  <Callout.Title>Restricting trust</Callout.Title>
+   <Callout.Description>It's safe and straightforward to set up the role as described above, but your organization may have security requirements limiting what kind of roles you can trust. 
 If your organization's security policies require you to trust a specific role, we've provided `arn:aws:iam::554582317989:role/LaunchDarkly-data-export` for you to trust instead. 
-This role can only be assumed by our Data Export services (no humans). You can trust our role by following a [procedure in Amazon's documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_modify.html#roles-managingrole-editing-console). When you complete that procedure, set the `Principal` in the trust relationship to `{\"Principal\": { \"AWS\": [\"arn:aws:iam::554582317989:role/LaunchDarkly-data-export\"] }` after you've created a role.</CalloutDescription>
+This role can only be assumed by our Data Export services (no humans). You can trust our role by following a [procedure in Amazon's documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_modify.html#roles-managingrole-editing-console). When you complete that procedure, set the `Principal` in the trust relationship to `{\"Principal\": { \"AWS\": [\"arn:aws:iam::554582317989:role/LaunchDarkly-data-export\"] }` after you've created a role.</Callout.Description>
 </Callout>
 
 ## Creating the Kinesis Destination in LaunchDarkly
@@ -151,8 +152,8 @@ After you've saved the destination, send a test event to confirm that the destin
 2. If you have configured the destination correctly, an event is logged in the Kinesis destination. 
 3. Identify a successful test event by searching for the user or flag key `LaunchDarklyDataExportTestEvent`. When this key appears in the destination, you know the test event arrived.
 <Callout intent="info">
-  <CalloutTitle>Partition Keys</CalloutTitle>
-   <CalloutDescription>Kinesis records have [partition keys](https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html#partition-key). When we create a record, we use the user key that was sent with the event as the partition key. If the event does not contain a user key, we create a random partition key.</CalloutDescription>
+  <Callout.Title>Partition Keys</Callout.Title>
+   <Callout.Description>Kinesis records have [partition keys](https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html#partition-key). When we create a record, we use the user key that was sent with the event as the partition key. If the event does not contain a user key, we create a random partition key.</Callout.Description>
 </Callout>
 
 ## Consuming the Kinesis Data Stream

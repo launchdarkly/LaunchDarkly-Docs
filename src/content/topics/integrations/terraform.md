@@ -9,9 +9,9 @@ Use the LaunchDarkly Terraform provider to manage LaunchDarkly resources as Terr
 
 You do not have to choose between the LaunchDarkly UI and the Terraform provider. You can use a hybrid of both if that meets your needs better. It may make sense to manage one set of LaunchDarkly resources through the Terraform provider, and another set through the UI. For example, you could designate a group of flags to update and configure only through the Terraform provider.
 <Callout intent="info">
-  <CalloutTitle>The Terraform provider and custom roles</CalloutTitle>
-   <CalloutDescription>A common scenario is to use custom roles to define the LaunchDarkly entities that are managed by Terraform. For example, you can tag Terraform-managed resources with a `terraform` tag, and use custom roles to prevent team members from modifying those resources via the LaunchDarkly UI.
-To learn more about custom roles, read [Custom roles](./custom-roles).</CalloutDescription>
+  <Callout.Title>The Terraform provider and custom roles</Callout.Title>
+   <Callout.Description>A common scenario is to use custom roles to define the LaunchDarkly entities that are managed by Terraform. For example, you can tag Terraform-managed resources with a `terraform` tag, and use custom roles to prevent team members from modifying those resources via the LaunchDarkly UI.
+To learn more about custom roles, read [Custom roles](./custom-roles).</Callout.Description>
 </Callout>
 
 ## Using the Terraform provider

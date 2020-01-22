@@ -7,9 +7,9 @@ This topic explains how to enable and disable flags in the LaunchDarkly UI.
 
 One-click control of flag behavior is critical to nimble feature management. With LaunchDarkly, you can turn a flag on or off right from the dashboard.
 <Callout intent="info">
-  <CalloutTitle>The flag button is a kill switch for any feature</CalloutTitle>
-  <CalloutDescription>The flag button lets you turn off a feature that's misbehaving without needing to touch any code or re-deploy your application. Wrap the entire feature in a feature flag to control or revoke its rollout seamlessly.",
-   </CalloutDescription>
+  <Callout.Title>The flag button is a kill switch for any feature</Callout.Title>
+  <Callout.Description>The flag button lets you turn off a feature that's misbehaving without needing to touch any code or re-deploy your application. Wrap the entire feature in a feature flag to control or revoke its rollout seamlessly.",
+   </Callout.Description>
 </Callout>
 
 [block:image]
@@ -30,8 +30,8 @@ One-click control of flag behavior is critical to nimble feature management. Wit
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>Use the button in a flag's Targeting tab</CalloutTitle>
-   <CalloutDescription>You can also turn a flag on or off from the flag's Targeting tab. To learn more about flag targeting, read [Targeting users](./targeting-users).</CalloutDescription>
+  <Callout.Title>Use the button in a flag's Targeting tab</Callout.Title>
+   <Callout.Description>You can also turn a flag on or off from the flag's Targeting tab. To learn more about flag targeting, read [Targeting users](./targeting-users).</Callout.Description>
 </Callout>
 Flag behavior can do a lot more than just turning features on or off. Continue reading to learn more.
 
@@ -106,8 +106,8 @@ If you don't specify an explicit **off** variation, LaunchDarkly serves the fall
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>Planning feature flags for future events</CalloutTitle>
-   <CalloutDescription>You can't schedule a flag for a particular date, but you can use targeting rules to control what it affects and when.
+  <Callout.Title>Planning feature flags for future events</Callout.Title>
+   <Callout.Description>You can't schedule a flag for a particular date, but you can use targeting rules to control what it affects and when.
 For example, you can serve `false` to deprecate a feature after a date of your choosing. 
-For more information about targeting a flag to appear before or after a date, see [Targeting users](./targeting-users).</CalloutDescription>
+For more information about targeting a flag to appear before or after a date, see [Targeting users](./targeting-users).</Callout.Description>
 </Callout>

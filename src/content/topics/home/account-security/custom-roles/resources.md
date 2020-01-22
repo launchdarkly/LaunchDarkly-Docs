@@ -47,9 +47,9 @@ In the example below, we create a resource that names all of the projects in an 
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>Syntax supports wildcards</CalloutTitle>
-   <CalloutDescription>The resource syntax accepts globs, so you can name collections of resources with `*`.
-You can also name a specific project by ID.</CalloutDescription>
+  <Callout.Title>Syntax supports wildcards</Callout.Title>
+   <Callout.Description>The resource syntax accepts globs, so you can name collections of resources with `*`.
+You can also name a specific project by ID.</Callout.Description>
 </Callout>
 
 

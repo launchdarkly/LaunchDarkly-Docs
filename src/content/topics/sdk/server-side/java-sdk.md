@@ -4,14 +4,14 @@ excerpt: ""
 ---
 This reference guide documents all of the methods available in our Java SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [Java SDK GitHub repository](https://github.com/launchdarkly/java-server-sdk) or our [Javadocs](http://launchdarkly.github.io/java-server-sdk/) to look under the hood. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-java) using this SDK and an example of running it in another JRE-based language such as [Scala](https://github.com/launchdarkly/hello-scala).
 <Callout intent="alert">
-  <CalloutTitle>Android support</CalloutTitle>
-   <CalloutDescription>The Java SDK is intended for use in server environments only, and should not be used in mobile devices. Learn more about our [client-side and server-side SDKs](./client-side-and-server-side).
-If you want to use LaunchDarkly in an Android application, see our [Android SDK Reference](./android-sdk-reference) Guide.</CalloutDescription>
+  <Callout.Title>Android support</Callout.Title>
+   <Callout.Description>The Java SDK is intended for use in server environments only, and should not be used in mobile devices. Learn more about our [client-side and server-side SDKs](./client-side-and-server-side).
+If you want to use LaunchDarkly in an Android application, see our [Android SDK Reference](./android-sdk-reference) Guide.</Callout.Description>
 </Callout>
 
 <Callout intent="info">
-  <CalloutTitle>Java Compatibility</CalloutTitle>
-   <CalloutDescription>The LaunchDarkly Java SDK is compatible with Java 7 and higher.</CalloutDescription>
+  <Callout.Title>Java Compatibility</Callout.Title>
+   <Callout.Description>The LaunchDarkly Java SDK is compatible with Java 7 and higher.</Callout.Description>
 </Callout>
 
 ## Getting started
@@ -52,8 +52,8 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 [/block]
 
 <Callout intent="alert">
-  <CalloutTitle>LDClient must be a singleton</CalloutTitle>
-   <CalloutDescription>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**</CalloutDescription>
+  <Callout.Title>LDClient must be a singleton</Callout.Title>
+   <Callout.Description>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**</Callout.Description>
 </Callout>
 Using `ldClient`, you can check which variation a particular user should receive for a given feature flag.
 [block:code]
@@ -109,9 +109,9 @@ All of the other attributes (like `firstName`, `email`, and the `custom` attribu
 
 Our Javadoc for [LDUser.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/client/LDUser.Builder.html) shows you all the attributes that LaunchDarkly supports by default. In addition to these, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above. 
 <Callout intent="info">
-  <CalloutTitle>A note on types</CalloutTitle>
-   <CalloutDescription>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
-If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The Java SDK is strongly typed, so be aware of this distinction.</CalloutDescription>
+  <Callout.Title>A note on types</Callout.Title>
+   <Callout.Description>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
+If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The Java SDK is strongly typed, so be aware of this distinction.</Callout.Description>
 </Callout>
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
 
@@ -213,8 +213,8 @@ The `identify` method creates or updates users in LaunchDarkly, making them avai
 ## All flags
 
 <Callout intent="alert">
-  <CalloutTitle>Creating users</CalloutTitle>
-   <CalloutDescription>Note that unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.</CalloutDescription>
+  <Callout.Title>Creating users</Callout.Title>
+   <Callout.Description>Note that unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.</Callout.Description>
 </Callout>
 The `allFlagsState` captures the state of all feature flags with regard to a specific user. This includes their values as well as other metadata.
 
@@ -304,10 +304,10 @@ The Java SDK provides an interface to use Redis as a persistent store of feature
 [/block]
 For advanced `RedisFeatureStore` configuration options, please see the SDK's [JavaDoc](https://static.javadoc.io/com.launchdarkly/launchdarkly-java-server-sdk/4.6.5/com/launchdarkly/client/RedisFeatureStoreBuilder.html)
 <Callout intent="alert">
-  <CalloutTitle>Potential network connectivity issues caused by DNS caching</CalloutTitle>
-   <CalloutDescription>There is a potential problem for any Java application that communicates with a web service, if that service uses a load-balancing framework. LaunchDarkly is such a service.
+  <Callout.Title>Potential network connectivity issues caused by DNS caching</Callout.Title>
+   <Callout.Description>There is a potential problem for any Java application that communicates with a web service, if that service uses a load-balancing framework. LaunchDarkly is such a service.
 The issue is that if a service starts to use a different set of IP addresses, a Java application could continue trying to use an old IP address, causing connection attempts to fail. In most environments, this is unlikely to be a problem because IP addresses are not cached for very long. However, Java has special behavior if the runtime environment has a [security manager](https://docs.oracle.com/javase/tutorial/essential/environment/security.html): in that case, it caches IP addresses indefinitely and will never update them until the application is restarted.
-If you are running in an environment that has a security manager—or if you're not sure whether that is the case—we recommend that you set the cache duration (TTL) explicitly. [This page](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-jvm-ttl.html) describes two ways to do so.</CalloutDescription>
+If you are running in an environment that has a security manager—or if you're not sure whether that is the case—we recommend that you set the cache duration (TTL) explicitly. [This page](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-jvm-ttl.html) describes two ways to do so.</Callout.Description>
 </Callout>
 
 ## Using the Java SDK in OSGi

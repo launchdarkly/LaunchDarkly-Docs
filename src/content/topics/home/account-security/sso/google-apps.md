@@ -85,8 +85,9 @@ To configure these fields:
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>Allow multiple values for custom roles</CalloutTitle> 
-  <CalloutDescription>Set the \"Multiple values\" field for `customRoles` to **Yes**. Some users may have more than one custom role, which requires multiple values.</CalloutDescription>
+  <Callout.Title>Allow multiple values for custom roles</Callout.Title> 
+  <Callout.Description>Set the \"Multiple values\" field for `customRoles` to **Yes**. Some users may have more than one custom role, which requires multiple values.</Callout.Description>
+
 </Callout>
 
 ## Adding LaunchDarkly as a Custom SAML Application
@@ -189,8 +190,8 @@ To add LaunchDarkly:
 [/block]
 
 <Callout intent="alert">
-  <CalloutTitle>Names are case sensitive</CalloutTitle>
-   <CalloutDescription>In the screenshot above, the names in the lefthand columns map to those present in LaunchDarkly. You must name them exactly as shown or configuration will fail.</CalloutDescription>
+  <Callout.Title>Names are case sensitive</Callout.Title>
+   <Callout.Description>In the screenshot above, the names in the lefthand columns map to those present in LaunchDarkly. You must name them exactly as shown or configuration will fail.</Callout.Description>
 </Callout>
 You've successfully connected LaunchDarkly to GSuite.
 

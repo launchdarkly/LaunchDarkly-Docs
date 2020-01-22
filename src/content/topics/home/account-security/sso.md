@@ -5,9 +5,9 @@ excerpt: ""
 ## Overview
 This topic explains what Single Sign-On (SSO) features are available in LaunchDarkly and how to configure your environment for SSO.
 <Callout intent="info">
-  <CalloutTitle>Only available to enterprise customers</CalloutTitle>
-   <CalloutDescription>Single sign-on and user provisioning are only available to customers on our enterprise plans. If you're interested in learning more about our enterprise plans, contact [sales@launchdarkly.com](mailto:sales@launchdarkly.com?Subject=Single+sign-on).
-SSO allows your team to authenticate with LaunchDarkly using the same identity provider (IdP) you use for your other internal and external services. LaunchDarkly implements SSO via the SAML 2.0 protocol.</CalloutDescription>
+  <Callout.Title>Only available to enterprise customers</Callout.Title>
+   <Callout.Description>Single sign-on and user provisioning are only available to customers on our enterprise plans. If you're interested in learning more about our enterprise plans, contact [sales@launchdarkly.com](mailto:sales@launchdarkly.com?Subject=Single+sign-on).
+SSO allows your team to authenticate with LaunchDarkly using the same identity provider (IdP) you use for your other internal and external services. LaunchDarkly implements SSO via the SAML 2.0 protocol.</Callout.Description>
 </Callout>
 
 Administrators can use SSO with their IdP to manage access rights in LaunchDarkly. After SSO is enabled, administrators can also enable System for Cross-domain Identity Management (SCIM) provisioning through their IdP. 
@@ -101,8 +101,8 @@ LaunchDarkly automatically creates accounts for new team members who sign in thr
 
 You can configure your identity provider to send the following attributes when the team member is signing into LaunchDarkly. Each attribute is optional and can also be managed from LaunchDarkly. Attribute names should be specified using "basic" format.
 <Callout intent="info">
- <CalloutTitle>First-time users must sign into LaunchDarkly through your IdP
-  <CalloutDescription>New team members will not be able to sign in from LaunchDarkly's login screen until they have accessed LaunchDarkly through your IdP at least once.</CalloutDescription>
+ <Callout.Title>First-time users must sign into LaunchDarkly through your IdP
+  <Callout.Description>New team members will not be able to sign in from LaunchDarkly's login screen until they have accessed LaunchDarkly through your IdP at least once.</Callout.Description>
 </Callout>
 
 ## <a name="custom-attributes"></a>Custom attributes
@@ -226,8 +226,8 @@ To disable SSO:
 [block:callout]
 {
   "type": "warning"
-  <CalloutTitle>SSO is required</CalloutTitle>
-   <CalloutDescription>You must be a LaunchDarkly administrator and have SSO enabled to complete the following procedure."</CalloutDescription>
+  <Callout.Title>SSO is required</Callout.Title>
+   <Callout.Description>You must be a LaunchDarkly administrator and have SSO enabled to complete the following procedure."</Callout.Description>
 </Callout>
 
 If you have enabled SSO, you can enable SCIM provisioning as well. SCIM facilitates _user provisioning_, which means your IdP can use it to create update, and deactivate members in LaunchDarkly.

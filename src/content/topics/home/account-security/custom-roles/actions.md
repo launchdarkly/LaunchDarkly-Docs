@@ -248,8 +248,8 @@ To learn more, read [Environments](./environments).
 
 ### Metrics actions
 <Callout intent="info">
-  <CalloutTitle>The name of this action has changed</CalloutTitle>
-   <CalloutDescription>Goals have been redesigned as metrics and associated with our Experimentation add-on. You do not need to update your actions to use `metric`, however. If you are using goals actions, they will still work.</CalloutDescription>
+  <Callout.Title>The name of this action has changed</Callout.Title>
+   <Callout.Description>Goals have been redesigned as metrics and associated with our Experimentation add-on. You do not need to update your actions to use `metric`, however. If you are using goals actions, they will still work.</Callout.Description>
 </Callout>
 
 `metric` is a child resource of **projects**. A code sample is below:
@@ -546,8 +546,8 @@ To learn more, read [Git code references](./git-code-references).
 [/block]
 
 <Callout intent="alert">
-  <CalloutTitle>Optimizely API Tokens</CalloutTitle>
-   <CalloutDescription>For customers with A/B testing, a special resource `integration/optimizely` in conjunction with the action `updateIntegration` can be used to control access to updating their Optimizely API Token.</CalloutDescription>
+  <Callout.Title>Optimizely API Tokens</Callout.Title>
+   <Callout.Description>For customers with A/B testing, a special resource `integration/optimizely` in conjunction with the action `updateIntegration` can be used to control access to updating their Optimizely API Token.</Callout.Description>
 </Callout>
 
 ### Users actions

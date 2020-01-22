@@ -9,8 +9,8 @@ The debugger gives you real-time insight into the events your application is sen
 ## Using the debugger
 The debugger shows you a real-time stream of events arriving in LaunchDarkly from your app. When you first open the debugger, it connects to the event stream to show live events as they appear. Establishing the connection can take up to 30 seconds. In high-volume environments, you may see sampled events, rather than 100% of events.
 <Callout intent="info">
-  <CalloutTitle>The debugger must be visible to work</CalloutTitle>
-   <CalloutDescription>The debugger will not display events when it is not the active window in your browser. Leave it open and visible to see events as they occur. If you need to click around in your app to generate events, open the app in a second window.</CalloutDescription>
+  <Callout.Title>The debugger must be visible to work</Callout.Title>
+   <Callout.Description>The debugger will not display events when it is not the active window in your browser. Leave it open and visible to see events as they occur. If you need to click around in your app to generate events, open the app in a second window.</Callout.Description>
 </Callout>
 
 ## Flag events
@@ -34,10 +34,10 @@ Flag evaluation events display as a summary. This saves data load. To get detail
 
 This will temporarily enables detailed events for that flag, which appear as they are received. View additional information, including the user attributes used for evaluation, by clicking on an individual event.
 <Callout intent="alert">
-  <CalloutTitle>Older SDK versions send detailed events for every evaluation</CalloutTitle>
-   <CalloutDescription>The minimum required version for each platform SDK to use summary events is:\n.NET: 5.0.0\nGo: 4.0.0\nJava: 4.0.0\nNode: 5.0.0\nPython: 6.0.0\nRuby: 4.0.0\nJavaScript: 2.0.0\nAndroid: 2.4.0\niOS: 2.13.0
+  <Callout.Title>Older SDK versions send detailed events for every evaluation</Callout.Title>
+   <Callout.Description>The minimum required version for each platform SDK to use summary events is:\n.NET: 5.0.0\nGo: 4.0.0\nJava: 4.0.0\nNode: 5.0.0\nPython: 6.0.0\nRuby: 4.0.0\nJavaScript: 2.0.0\nAndroid: 2.4.0\niOS: 2.13.0
 PHP: The PHP SDK does not itself support summary events. However, when PHP is used with LD Relay, the LD Relay event-forwarding mode has the ability to turn the events received from the PHP SDK into summary events. This requires that you are using PHP SDK version 3.1.0 or higher.
-LD Relay: If you are using LD Relay with PHP you will need to upgrade LD Relay to version 4.0.0 or higher. Other SDKs do not require an LD Relay update to use summary events.</CalloutDescription>
+LD Relay: If you are using LD Relay with PHP you will need to upgrade LD Relay to version 4.0.0 or higher. Other SDKs do not require an LD Relay update to use summary events.</Callout.Description>
 </Callout>
 
 ## User events

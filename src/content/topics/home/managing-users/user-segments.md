@@ -5,11 +5,11 @@ excerpt: ""
 ## Overview
 This topic explains how to build and manage user segments. User segments let you target groups of users by attribute.
 <Callout intent="alert">
-  <CalloutTitle>This feature is only supported on newer versions of our SDKs</CalloutTitle>
-   <CalloutDescription>* Go: **v3**\n* Java: **3.0.1**\n* Node: **4.0**      \n* PHP: **3.0.0**\n* Python: **5.0.1**\n* Ruby: **3.0.1**\n* .NET: **4.0.0**
+  <Callout.Title>This feature is only supported on newer versions of our SDKs</Callout.Title>
+   <Callout.Description>* Go: **v3**\n* Java: **3.0.1**\n* Node: **4.0**      \n* PHP: **3.0.0**\n* Python: **5.0.1**\n* Ruby: **3.0.1**\n* .NET: **4.0.0**
 If you want to use user segments with the LaunchDarkly Relay Proxy, you must upgrade to the latest version **3.0.1** before upgrading your SDKs. To learn more, read [The LaunchDarkly Relay Proxy](./the-relay-proxy).
 You do not need to upgrade mobile (iOS and Android) and client-side Javascript SDKs to use this feature.
-If you don't see the **Segments** tab in your project, <span><a href=\"https://ld.click/DocsBuildingUserSegments\" target=\"_blank\" >contact Support</a> </span> to confirm that your SDKs are up-to-date. If they are, we can enable this feature for you.</CalloutDescription>
+If you don't see the **Segments** tab in your project, <span><a href=\"https://ld.click/DocsBuildingUserSegments\" target=\"_blank\" >contact Support</a> </span> to confirm that your SDKs are up-to-date. If they are, we can enable this feature for you.</Callout.Description>
 </Callout>
 
 ## Understanding user segments
@@ -110,6 +110,6 @@ To customize a segment:
 [/block]
 6. When you are done configuring a rule, click **Save Changes**.
 <Callout intent="info">
-  <CalloutTitle>Understanding segment rule logic</CalloutTitle>
-   <CalloutDescription>When you specify rules for a segment, LaunchDarkly parses them in order of appearance from top to bottom. You can change how segment targeting applies based on the order of the rules you create.</CalloutDescription>
+  <Callout.Title>Understanding segment rule logic</Callout.Title>
+   <Callout.Description>When you specify rules for a segment, LaunchDarkly parses them in order of appearance from top to bottom. You can change how segment targeting applies based on the order of the rules you create.</Callout.Description>
 </Callout>

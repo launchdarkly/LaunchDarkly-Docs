@@ -7,9 +7,9 @@ This topic explains how to use custom roles to create private projects or restri
 
 This topic uses the `viewProject` action to restrict and grant access to projects. To learn more about it, read [Actions in custom roles](./actions-in-custom-roles).
 <Callout intent="info">
-  <CalloutTitle>Team members can't modify what they can't see</CalloutTitle>
-   <CalloutDescription>Viewing access is required to modify a resource, so if a member cannot view a resource, they also cannot modify it in any way. 
-You can use the policies below to control who can access and modify the feature flags or other child resources in a project.",</CalloutDescription>
+  <Callout.Title>Team members can't modify what they can't see</Callout.Title>
+   <Callout.Description>Viewing access is required to modify a resource, so if a member cannot view a resource, they also cannot modify it in any way. 
+You can use the policies below to control who can access and modify the feature flags or other child resources in a project.",</Callout.Description>
 </Callout>
 
 ## Restricting access to a project

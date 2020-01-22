@@ -58,8 +58,8 @@ To create an mParticle destination in LaunchDarkly:
 4. (Optional) Enter a **Name** for the destination.
 5. Select an **Environment** for this destination to receive events from.
 <Callout intent="alert">
-  <CalloutTitle>Environment settings are permanent</CalloutTitle>
-   <CalloutDescription>You cannot change an environment after you create the destination. If you wish to export event data from a different environment, you must set up another destination.</CalloutDescription>
+  <Callout.Title>Environment settings are permanent</Callout.Title>
+   <Callout.Description>You cannot change an environment after you create the destination. If you wish to export event data from a different environment, you must set up another destination.</Callout.Description>
 </Callout>
 6. Select an **mParticle Environment**.
 7. Enter your mParticle **Server to Server Key** in the **API key** field.
@@ -104,10 +104,10 @@ To create an mParticle destination in LaunchDarkly:
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>Choose the correct user identifier for your events</CalloutTitle>
-   <CalloutDescription>The user identifier you choose must match an identity you chose to identify users in the mParticle ecosystem.
+  <Callout.Title>Choose the correct user identifier for your events</Callout.Title>
+   <Callout.Description>The user identifier you choose must match an identity you chose to identify users in the mParticle ecosystem.
 Every event LaunchDarkly exports has a user key specified by the SDK. The user identifier should correspond to the mParticle user identity your SDK user key represents. For example, if your user key represents an email address, you should choose `email` as the user identifier.
-To learn more about exported events, read [Schema reference](./schema-reference).</CalloutDescription>
+To learn more about exported events, read [Schema reference](./schema-reference).</Callout.Description>
 </Callout>
 10. Click **Save Destination**.
 

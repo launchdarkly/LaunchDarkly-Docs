@@ -112,8 +112,8 @@ After you have configured it, follow the procedure below to validate your Relay 
 
 1. Start your SDK. If the SDK connects successfully, the proxy is working. 
 <Callout intent="alert">
-  <CalloutTitle>Look for connection or environment-related erorrs</CalloutTitle>
-   <CalloutDescription>Error messages on initialization, including messages saying an environment was not found, can indicate that the proxy is configured incorrectly. These messages can appear when an SDK key cannot be validated or when there is a connection issue to LaunchDarkly.</CalloutDescription>
+  <Callout.Title>Look for connection or environment-related erorrs</Callout.Title>
+   <Callout.Description>Error messages on initialization, including messages saying an environment was not found, can indicate that the proxy is configured incorrectly. These messages can appear when an SDK key cannot be validated or when there is a connection issue to LaunchDarkly.</Callout.Description>
 </Callout>
 2. To confirm the proxy is configured correctly, test it by evaluating a feature flag. 
 3. In the LaunchDarkly UI, change the value of a feature flag so you will see a different variation in production.
@@ -170,9 +170,9 @@ To set the Relay Proxy to daemon mode:
   To learn more about setting up a persistent data store, read [Using a persistent feature store](./using-a-persistent-feature-store).
 2. Configure your SDK to use "LDD mode". To do so, set the `UseLdd` SDK configuration property to `true`. The name of this property is often `UseLdd`, but can vary between SDKs. To learn more about customizing SDK configuration, read the documentation for your SDK. 
 <Callout intent="info">
-  <CalloutTitle>Restoring the Relay Proxy to proxy mode</CalloutTitle>
-   <CalloutDescription>If you have set your Relay Proxy to daemon mode and wish to restore proxy mode, set the `UseLdd` SDK configuration property to `false`. 
-In some SDKs, the configuration property you must change is not named `UseLdd`, but that name is the most common. To learn more about customizing SDK configuration, read the documentation for your SDK.</CalloutDescription>
+  <Callout.Title>Restoring the Relay Proxy to proxy mode</Callout.Title>
+   <Callout.Description>If you have set your Relay Proxy to daemon mode and wish to restore proxy mode, set the `UseLdd` SDK configuration property to `false`. 
+In some SDKs, the configuration property you must change is not named `UseLdd`, but that name is the most common. To learn more about customizing SDK configuration, read the documentation for your SDK.</Callout.Description>
 </Callout>
 In daemon mode, there is no need to put a load balancer in front of the Relay Proxy. Enable a monitoring service, such as Datadog, when you are using the Relay Proxy in daemon mode. Because the data store communicates directly with the SDKs when the proxy is in in daemon mode, in the event of an outage an external monitoring service provides information about problems that might otherwise be lost.
 [block:image]

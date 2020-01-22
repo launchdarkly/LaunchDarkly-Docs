@@ -41,9 +41,9 @@ To add a new environment:
 1. Navigate to the **Account Settings** page.
 2. Click **New Environment**. The "Create an environment" screen appears.
 <Callout intent="alert">
-   <CalloutTitle>Make sure you're in the right project</CalloutTitle>
-   <CalloutDescription>Confirm you're creating the environment in the project where you want it to live. You cannot move an environment from one project to another.
-   </CalloutDescription>
+   <Callout.Title>Make sure you're in the right project</Callout.Title>
+   <Callout.Description>Confirm you're creating the environment in the project where you want it to live. You cannot move an environment from one project to another.
+   </Callout.Description>
 </Callout>
 
 [block:image]
@@ -68,21 +68,21 @@ To add a new environment:
 7. (Optional) Select the **Enable secure mode** checkbox to ensure a user of the client-side SDK cannot impersonate another user.
 8. (Optional) Select the **Require comments for flag and segment changes** checkbox to force members who modify flags and user segments to leave a comment to explain their changes.
 <Callout intent="info">
-  <CalloutTitle>Comments help establish a change history</CalloutTitle>
-   <CalloutDescription>Requiring members to leave comments when they change flags or segments helps future users understand why flags or segments look and behave certain ways.</CalloutDescription>
+  <Callout.Title>Comments help establish a change history</Callout.Title>
+   <Callout.Description>Requiring members to leave comments when they change flags or segments helps future users understand why flags or segments look and behave certain ways.</Callout.Description>
 </Callout>
 9. (Optional) Select the **Require confirmation for flag and segment changes** checkbox to force members who modify flags and user segments to verify they wish to make these changes. 
 <Callout intent="info">
-  <CalloutTitle>Confirm changes helps prevent mistakes</CalloutTitle>
-   <CalloutDescription>Requiring members to confirm that they wish to make changes may help them from changing the wrong flag or segment inadvertently.</CalloutDescription>
+  <Callout.Title>Confirm changes helps prevent mistakes</Callout.Title>
+   <Callout.Description>Requiring members to confirm that they wish to make changes may help them from changing the wrong flag or segment inadvertently.</Callout.Description>
 </Callout>
 10. (Optional) Select the **Send detailed events to data export destinations** checkbox to enable data export for every flag created in this environment after this checkbox is selected. To learn more, read [Data Export](./data-export).
 1
 1. (Optional) Specify a **TTL** between 0 and 60 minutes. TTL, or Time to Live, is a setting in DNS records that dictates how long the record should be cached by nameservers and browsers.
 <Callout intent="info">
-  <CalloutTitle>PHP users need a TTL setting</CalloutTitle>
-   <CalloutDescription>The TTL setting checkbox only applies to environments using the PHP SDK. 
-To learn more, read [TTL settings](#ttl-settings).</CalloutDescription>
+  <Callout.Title>PHP users need a TTL setting</Callout.Title>
+   <Callout.Description>The TTL setting checkbox only applies to environments using the PHP SDK. 
+To learn more, read [TTL settings](#ttl-settings).</Callout.Description>
 </Callout>
 12. Choose a **Color** to differentiate this environment from other environments. 
 13. Click **Save Environment**. The new environment appears on the Account Settings page.

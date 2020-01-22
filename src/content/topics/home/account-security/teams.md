@@ -10,16 +10,16 @@ LaunchDarkly supports user object management with OAuth, SAML, and SCIM. To lear
 ## Understanding teams in LaunchDarkly
 Teams are groups of people who work at your organization or have access rights to your organization's LaunchDarkly environment for another reason, such as contractors or part-time employees. 
 <Callout intent="info">
-  <CalloutTitle>Team members are not LaunchDarkly users</CalloutTitle>
-   <CalloutDescription>LaunchDarkly users are resources, including people, who encounter feature flags in your app. In many cases, they are customers or people accessing your product. 
-To learn more about users, read [The Users dashboard](./the-user-dashboard).</CalloutDescription>
+  <Callout.Title>Team members are not LaunchDarkly users</Callout.Title>
+   <Callout.Description>LaunchDarkly users are resources, including people, who encounter feature flags in your app. In many cases, they are customers or people accessing your product. 
+To learn more about users, read [The Users dashboard](./the-user-dashboard).</Callout.Description>
 </Callout>
 
 ## Building your team on LaunchDarkly
 <Callout intent="alert">
-  <CalloutTitle>This is an Admin feature</CalloutTitle>
-  <CalloutDescription>The Team dashboard is only accessible if you're a LaunchDarkly Admin. 
-To learn more, read [Understanding user roles](#understanding-user-roles).</CalloutDescription>
+  <Callout.Title>This is an Admin feature</Callout.Title>
+  <Callout.Description>The Team dashboard is only accessible if you're a LaunchDarkly Admin. 
+To learn more, read [Understanding user roles](#understanding-user-roles).</Callout.Description>
 </Callout>
 
 Use the **Team** tab to invite new team members to LaunchDarkly, remove old team members, or manage access controls for team members by setting roles.
@@ -73,9 +73,9 @@ This role is perfect for members of your organization that need visibility into 
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>Assign precise permissions with custom roles</CalloutTitle>
-   <CalloutDescription>If you need more granular control over which users can do what, custom roles are for you. Custom roles let you define specific permissions for users or groups and apply them across your organization. This is great if you have users with multiple jobs, such as someone who needs access to flags controlled by an engineering team and the support team, or product managers who also code.
-To learn more, read [Custom roles](https://docs.launchdarkly.com/docs/custom-roles).</CalloutDescription>
+  <Callout.Title>Assign precise permissions with custom roles</Callout.Title>
+   <Callout.Description>If you need more granular control over which users can do what, custom roles are for you. Custom roles let you define specific permissions for users or groups and apply them across your organization. This is great if you have users with multiple jobs, such as someone who needs access to flags controlled by an engineering team and the support team, or product managers who also code.
+To learn more, read [Custom roles](https://docs.launchdarkly.com/docs/custom-roles).</Callout.Description>
 </Callout>
 
 ## Enabling multi-factor authentication

@@ -12,9 +12,9 @@ To set up Bitbucket Pipes, you have the following prerequisite:
 * A Bitbucket Pipelines configuration file. To create one, navigate to the Pipelines section of your Bitbucket repository.
 * A personal API access token with `writer` permissions. To learn more, read [Personal API access tokens](./api-access-tokens).
 <Callout intent="info">
-  <CalloutTitle>Personal API tokens can also use custom roles</CalloutTitle>
-   <CalloutDescription>Alternatively, you can give the access token access to a custom role with the `code-reference-repository` resource specifier. 
-To learn more, read [Custom roles](./custom-roles).</CalloutDescription>
+  <Callout.Title>Personal API tokens can also use custom roles</Callout.Title>
+   <Callout.Description>Alternatively, you can give the access token access to a custom role with the `code-reference-repository` resource specifier. 
+To learn more, read [Custom roles](./custom-roles).</Callout.Description>
 </Callout>
 
 ## Setting up the Pipes configuration

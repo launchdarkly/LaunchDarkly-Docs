@@ -11,9 +11,9 @@ Environments are organizational units contained within a project. To learn more,
 
 Set up a project to serve one set of end users. Sorting your flags into related chunks of functionality based on their impact on end users helps you logically organize related flags.
 <Callout intent="info">
-  <CalloutTitle>Creating private projects</CalloutTitle>
-   <CalloutDescription>You can restrict who has access to a project with LaunchDarkly's custom roles feature. 
-To learn more, read [Configuring private projects with custom roles](./configuring-private-projects-with-custom-roles).</CalloutDescription>
+  <Callout.Title>Creating private projects</Callout.Title>
+   <Callout.Description>You can restrict who has access to a project with LaunchDarkly's custom roles feature. 
+To learn more, read [Configuring private projects with custom roles](./configuring-private-projects-with-custom-roles).</Callout.Description>
 </Callout>
 
 [block:image]
@@ -59,8 +59,8 @@ When you first create your LaunchDarkly account, you will start with a *Default*
 3. Give your project a human-readable **Name**. 
 4. (Optional) Give your project a unique **Key**. This field populates automatically based on your name, but you can change it now if you wish.
 <Callout intent="alert">
-  <CalloutTitle>Project keys are permanent after you save them</CalloutTitle>
-   <CalloutDescription>After you save the project key, you cannot modify it. You can change a project's name, however, whenever you want.</CalloutDescription>
+  <Callout.Title>Project keys are permanent after you save them</Callout.Title>
+   <Callout.Description>After you save the project key, you cannot modify it. You can change a project's name, however, whenever you want.</Callout.Description>
 </Callout>
 5. (Optional) Assign **tags** to your project.
 6. (Optional) Check the **Make new flags available to client-side SDKs by default** checkbox to make all flags created in this environment available on the client side. To learn more, read [Other flag settings](./other-flag-settings). 

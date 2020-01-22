@@ -3,8 +3,9 @@ title: "Haskell SDK Reference"
 excerpt: ""
 ---
 <Callout intent="info">
-<CalloutTitle>This SDK is in beta</CalloutTitle>
-   <CalloutDescription>The SDK is currently in beta. We do not recommend using it for production deployments.</CalloutDescription>
+<Callout.Title>This SDK is in beta</Callout.Title>
+   <Callout.Description>The SDK is currently in beta. We do not recommend using it for production deployments.</Callout.Description>
+
 </Callout>
 
 ## Overview
@@ -42,9 +43,10 @@ Specify your SDK key here to authorize your application to connect to LaunchDark
 [/block]
 
 <Callout intent="alert">
-<CalloutTitle>Client must be a singleton</CalloutTitle>
-   <CalloutDescription>Make `Client` a singleton. 
-The client instance maintains an internal state that allows us to serve feature flags without making any remote requests.</CalloutDescription>
+<Callout.Title>Client must be a singleton</Callout.Title>
+   <Callout.Description>Make `Client` a singleton. 
+The client instance maintains an internal state that allows us to serve feature flags without making any remote requests.</Callout.Description>
+
 </Callout>
 
 Using `client`, you can check which variation a particular user should receive for a given feature flag.

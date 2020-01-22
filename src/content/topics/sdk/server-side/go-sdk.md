@@ -43,13 +43,15 @@ We'll assume you've imported the LaunchDarkly SDK package as `ld`:
 [/block]
 The timeout parameter (the second argument to `MakeClient`) can be used to block initialization until the client has been bootstrapped. 
 <Callout intent="info">
-<CalloutTitle>Best practices for error handling</CalloutTitle>
-   <CalloutDescription>The second return type in these code samples (` _ `) represents an error in case the LaunchDarkly client does not initialize. Consider naming the return value and using it with proper error handling.</CalloutDescription>
+<Callout.Title>Best practices for error handling</Callout.Title>
+   <Callout.Description>The second return type in these code samples (` _ `) represents an error in case the LaunchDarkly client does not initialize. Consider naming the return value and using it with proper error handling.</Callout.Description>
+
 </Callout>
 
 <Callout intent="alert">
-  <CalloutTitle>LDClient must be a singleton</CalloutTitle>
-   <CalloutDescription>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**</CalloutDescription>
+  <Callout.Title>LDClient must be a singleton</Callout.Title>
+   <Callout.Description>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**</Callout.Description>
+
 </Callout>
 
 Using `ldClient`, you can check which variation a particular user should receive for a given feature flag.
@@ -118,9 +120,9 @@ Besides the `Key`, LaunchDarkly supports the following attributes at the "top le
 
 In addition to these, you can pass us any of your own user data by passing custom attributes, like the `groups` attribute in the example above. 
 <Callout intent="info">
-  <CalloutTitle>A note on types</CalloutTitle>
-   <CalloutDescription>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. This is why `Custom` is defined as a `map` from `string` to `interface{}`.
-If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The Go SDK is strongly typed, so be aware of this distinction.</CalloutDescription>
+  <Callout.Title>A note on types</Callout.Title>
+   <Callout.Description>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. This is why `Custom` is defined as a `map` from `string` to `interface{}`.
+If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The Go SDK is strongly typed, so be aware of this distinction.</Callout.Description>
 </Callout>
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
@@ -221,9 +223,9 @@ The `Identify` method creates or updates users on LaunchDarkly, making them avai
 ## All flags
 
 <Callout intent="alert">
- <CalloutTitle>Creating users</CalloutTitle>
-   <CalloutDescription>Note that unlike variation and identify calls, AllFlagsState does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.",
- </CalloutDescription>
+ <Callout.Title>Creating users</Callout.Title>
+   <Callout.Description>Note that unlike variation and identify calls, AllFlagsState does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.",
+ </Callout.Description>
 </Callout>
 
 The `AllFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.

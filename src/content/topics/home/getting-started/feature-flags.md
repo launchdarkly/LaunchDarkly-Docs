@@ -5,10 +5,10 @@ excerpt: ""
 ## Overview
 This topic explains how to create feature flags in LaunchDarkly. You can also clone and modify an existing flag to create new ones.
 <Callout intent="info">
-  <CalloutTitle>You can always use the API instead</CalloutTitle>
-   <CalloutDescription>You can also use the LaunchDarkly API to create and manage feature flags, as well as do many other tasks. LaunchDarkly is an API-first product, so everything you can do in the LaunchDarkly API is also available as an API endpoint.
+  <Callout.Title>You can always use the API instead</Callout.Title>
+   <Callout.Description>You can also use the LaunchDarkly API to create and manage feature flags, as well as do many other tasks. LaunchDarkly is an API-first product, so everything you can do in the LaunchDarkly API is also available as an API endpoint.
 To learn more, read our [REST API Documentation](./rest-api).
-  </CalloutDescription>
+  </Callout.Description>
 </Callout>
 
 ## Creating a feature flag
@@ -41,18 +41,18 @@ To create a feature flag:
 5. (Optional) Enter a **Description** of the flag. A brief, human-readable description helps your team members understand what the flag is for.
 6. (Optional) Click into the **Tags** dropdown and choose one or more tags for your flag. 
 <Callout intent="info">
-  <CalloutTitle>Tags let you sort flags into groups</CalloutTitle>
-   <CalloutDescription>Tags are useful for managing flag permissions using custom roles. For example, you can tag a flag as \"Marketing\" and \"DevOps\", and then use these tags to determine who has read or write access for the flag.
-To learn more, read [Custom roles](./custom-roles).</CalloutDescription>
+  <Callout.Title>Tags let you sort flags into groups</Callout.Title>
+   <Callout.Description>Tags are useful for managing flag permissions using custom roles. For example, you can tag a flag as \"Marketing\" and \"DevOps\", and then use these tags to determine who has read or write access for the flag.
+To learn more, read [Custom roles](./custom-roles).</Callout.Description>
 </Callout>
 7. Choose an option in the **Flag variations** dropdown. To learn more, read [Flag variations](./flag-variations).
 8. (Optional) Specify details for your **Variation**. To learn more, read [Flag variations](./flag-variations).
 9. (Optional) Select the **This is a permanent flag** checkbox. If you choose this option, no one will be able to delete this flag after it is created.
 10. (Optional) Select the **Make this flag available to client-side SDKs** checkbox. If you choose this option, the flag will be pushed out to client-side SDKs. 
 <Callout intent="info">
-  <CalloutTitle>Flags are not available on the client-side by default</CalloutTitle>
-   <CalloutDescription>If you're using a client-side SDK, you must make each flag you wish to appear on the frontend available to the client. Making flags available on the client side may have security implications you should consider. 
-To learn more, read [Client-side and server-side SDKs](./client-side-and-server-side).</CalloutDescription>
+  <Callout.Title>Flags are not available on the client-side by default</Callout.Title>
+   <Callout.Description>If you're using a client-side SDK, you must make each flag you wish to appear on the frontend available to the client. Making flags available on the client side may have security implications you should consider. 
+To learn more, read [Client-side and server-side SDKs](./client-side-and-server-side).</Callout.Description>
 </Callout>
 1
 1. Click **Save Flag**.
@@ -77,10 +77,10 @@ That's it! You just created a feature flag. You can see it in the dashboard.
 ## Configuring the same flag in different environments
 When you create a feature flag, the flag is scoped to the project you created it from. All environments within a project have the same set of feature flags. 
 <Callout intent="info">
-  <CalloutTitle>Understanding flag scopes</CalloutTitle>
-  <CalloutDescription>Flag scoping refers to the parts of LaunchDarkly where a flag is available or used. If a flag is scoped at the project level, it is available to all environments within the project, because projects contain environments.
+  <Callout.Title>Understanding flag scopes</Callout.Title>
+  <Callout.Description>Flag scoping refers to the parts of LaunchDarkly where a flag is available or used. If a flag is scoped at the project level, it is available to all environments within the project, because projects contain environments.
 To learn more about projects, read [Projects](./projects).\nTo learn more about environments, read [Environments](./environments)."
-  </CalloutDescription>
+  </Callout.Description>
 </Callout>
   
 Flag configuration settings are specific to each environment. The changes you make in one environment do not apply to the same flag in any other environment. If you want to, you can configure the same flag in a unique way for every environment you have. 
@@ -109,8 +109,8 @@ To configure a flag:
 [/block]
 3. Search for the environment you wish to switch to and click on it, or choose it from the list. The dashboard for the new environment appears.
 <Callout intent="info">
-  <CalloutTitle>Look for the header change</CalloutTitle>
-   <CalloutDescription>You know you're in a different environment because the name displayed in the top left corner changes when you select that environment from the list.</CalloutDescription>
+  <Callout.Title>Look for the header change</Callout.Title>
+   <Callout.Description>You know you're in a different environment because the name displayed in the top left corner changes when you select that environment from the list.</Callout.Description>
 </Callout>
 4. Find the flag you wish to modify and make whatever changes you like.
 ## Cloning flags
@@ -161,9 +161,9 @@ To clone a flag:
 7. (Optional) Enter a **Description** of the flag. A brief, human-readable description helps your team members understand what the flag is for.
 8. (Optional) Click into the **Tags** dropdown and choose one or more tags for your flag. 
 <Callout intent="info">
-  <CalloutTitle>Tags sort flags into groups</CalloutTitle>
-   <CalloutDescription>Tags are useful for managing flag permissions using custom roles. For example, you can tag a flag as \"Marketing\" and \"DevOps\", and then use these tags to determine who has read or write access for the flag.
-To learn more, read [Custom roles](./custom-roles).</CalloutDescription>
+  <Callout.Title>Tags sort flags into groups</Callout.Title>
+   <Callout.Description>Tags are useful for managing flag permissions using custom roles. For example, you can tag a flag as \"Marketing\" and \"DevOps\", and then use these tags to determine who has read or write access for the flag.
+To learn more, read [Custom roles](./custom-roles).</Callout.Description>
 </Callout>
 9. Click **Save Flag.** You are taken to the new flag's details page.
 [block:image]

@@ -7,8 +7,8 @@ This topic gives a high-level summary of LaunchDarkly's built-in privacy feature
 
 Use this topic to determine if LaunchDarkly's native behavior is sufficient to satisfy your organization's privacy requirements, or if you need further configuration to enhance user privacy. 
 <Callout intent="alert">
-  <CalloutTitle>Increased privacy comes with tradeoffs</CalloutTitle>
-   <CalloutDescription>Further hardening the privacy of your LaunchDarkly projects may require some LaunchDarkly features to stop working, or cause performance degradation. To learn more, read the \"Impacted Features\" sections in the guide.</CalloutDescription>
+  <Callout.Title>Increased privacy comes with tradeoffs</Callout.Title>
+   <Callout.Description>Further hardening the privacy of your LaunchDarkly projects may require some LaunchDarkly features to stop working, or cause performance degradation. To learn more, read the \"Impacted Features\" sections in the guide.</Callout.Description>
 </Callout>
 
 ## Understanding LaunchDarkly's built-in privacy features
@@ -36,10 +36,10 @@ To learn more, read [All about Do Not Track](https://allaboutdnt.com/).
 ## Ad blockers
 You can enable a third-party ad blocker in your browser to prevent identifying information from user events from being sent to LaunchDarkly. 
 <Callout intent="alert">
-  <CalloutTitle>Ad blockers can cause unintended behavior</CalloutTitle>
-  <CalloutDescription>Some ad blockers may impact how feature flags work in the browser. Ad blockers are made by third-party companies. 
+  <Callout.Title>Ad blockers can cause unintended behavior</Callout.Title>
+  <Callout.Description>Some ad blockers may impact how feature flags work in the browser. Ad blockers are made by third-party companies. 
   
-  If you experience unexpected behavior and believe it's connected to an ad blocker, [contact Support](https://support.launchdarkly.com/hc/en-us).</CalloutDescription>
+  If you experience unexpected behavior and believe it's connected to an ad blocker, [contact Support](https://support.launchdarkly.com/hc/en-us).</Callout.Description>
 </Callout>
 
 ## Impacted features

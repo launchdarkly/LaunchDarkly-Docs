@@ -32,7 +32,8 @@ To integrate LaunchDarkly with Azure:
 4. Search for the LaunchDarkly application. 
 5. Once you've added it, follow the [Azure LaunchDarkly Application Tutorial](https://docs.microsoft.com/en-us/azure/active-directory/active-directory-saas-launchdarkly-tutorial).
 <Callout intent="info">
-  <CalloutTitle>Azure User Identifier Guidelines</CalloutTitle>
-   <CalloutDescription>During configuration, we recommend using the identifier `user.mail` provided that every user has their email addresses attribute set. 
-If you haven't set attributes for every user, use the identifier `user.userprincipalname`.</CalloutDescription>
+  <Callout.Title>Azure User Identifier Guidelines</Callout.Title>
+   <Callout.Description>During configuration, we recommend using the identifier `user.mail` provided that every user has their email addresses attribute set. 
+If you haven't set attributes for every user, use the identifier `user.userprincipalname`.</Callout.Description>
+
 </Callout>

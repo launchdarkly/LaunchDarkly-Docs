@@ -4,8 +4,8 @@ excerpt: ""
 ---
 This reference guide documents all of the methods available in our PHP SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [PHP SDK repository](https://github.com/launchdarkly/php-server-sdk) on GitHub. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-php) using this SDK.
 <Callout intent="info">
-  <CalloutTitle>Requirements</CalloutTitle>
-   <CalloutDescription>PHP 5.5 or higher.</CalloutDescription>
+  <Callout.Title>Requirements</Callout.Title>
+   <Callout.Description>PHP 5.5 or higher.</Callout.Description>
 </Callout>
 
 ## Getting started
@@ -107,9 +107,9 @@ Create the LDClient with the Redis feature requester as an option:
 
     $client = new LaunchDarkly\LDClient("your_sdk_key", ['feature_requester_class' => 'LaunchDarkly\LDDFeatureRequester', 'redis_host' => 'your.redis.host', 'redis_port' => 6379]);
 <Callout intent="warning">
-  <CalloutTitle>Caching and PHP</CalloutTitle>
-   <CalloutDescription>PHP's *shared-nothing* architecture means that the out-of-the-box in-memory HTTP cache used by our SDK won't cache feature flags across requests.
-In production, we strongly recommend the ld-relay for PHP.</CalloutDescription>
+  <Callout.Title>Caching and PHP</Callout.Title>
+   <Callout.Description>PHP's *shared-nothing* architecture means that the out-of-the-box in-memory HTTP cache used by our SDK won't cache feature flags across requests.
+In production, we strongly recommend the ld-relay for PHP.</Callout.Description>
 </Callout>
 
 ## Customizing your client
@@ -142,10 +142,10 @@ We've set the client connect timeout to 3 seconds in addition to providing a cus
 * `allAttributesPrivate`: Whether all user attributes (except the user key) should be marked as [private user attributes](https://docs.launchdarkly.com/docs/private-user-attributes) and not sent to LaunchDarkly. Defaults to `false`.
 * `privateAttributeNames`: Must be a list of strings. The names of user attributes that should be marked as [private user attributes](https://docs.launchdarkly.com/docs/private-user-attributes), and not sent to LaunchDarkly. Defaults to an empty array.
 <Callout intent="alert">
-  <CalloutTitle>Sending events in PHP</CalloutTitle>
-   <CalloutDescription>The LaunchDarkly SDK sends data back to our server to record events from Track and Variation calls. On our other platforms, this data is sent asynchronously, so that it adds no latency to serving web pages. 
+  <Callout.Title>Sending events in PHP</Callout.Title>
+   <Callout.Description>The LaunchDarkly SDK sends data back to our server to record events from Track and Variation calls. On our other platforms, this data is sent asynchronously, so that it adds no latency to serving web pages. 
 Once again, PHP's *shared-nothing* architecture makes this a bit difficult. By default, LaunchDarkly forks an external process that executes `curl` to send this data. In practice we've found that this is the most reliable way to send data without introducing latency to page load times. 
-If your server does not have `curl` installed, or has other restrictions that make it impossible to invoke `curl` as an external process, you may need to implement a custom `EventProcessor` to send events to LaunchDarkly.</CalloutDescription>
+If your server does not have `curl` installed, or has other restrictions that make it impossible to invoke `curl` as an external process, you may need to implement a custom `EventProcessor` to send events to LaunchDarkly.</Callout.Description>
 </Callout>
 
 ## Users
@@ -178,9 +178,9 @@ Besides the `key`, LaunchDarkly supports the following attributes at the "top le
 
 In addition to these, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above. 
 <Callout intent="info">
-  <CalloutTitle>A note on types</CalloutTitle>
-   <CalloutDescription>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
-If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The PHP SDK is strongly typed, so be aware of this distinction.</CalloutDescription>
+  <Callout.Title>A note on types</Callout.Title>
+   <Callout.Description>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
+If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The PHP SDK is strongly typed, so be aware of this distinction.</Callout.Description>
 </Callout>
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
 
@@ -278,8 +278,9 @@ The `identify` creates or updates users on LaunchDarkly, making them available f
 ## All flags
 
 <Callout intent="alert">
-<CalloutTitle>Creating users</CalloutTitle>
-   <CalloutDescription>Unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.</CalloutDescription>
+<Callout.Title>Creating users</Callout.Title>
+   <Callout.Description>Unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.</Callout.Description>
+
 </Callout>
 The `allFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 

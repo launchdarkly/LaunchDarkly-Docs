@@ -37,9 +37,9 @@ We release a patch version to modify a behavior when:
 * the behavior is unintended and does not work as documented (a "bug"), or
 * the behavior works as intended at the time of release but is later found to cause problems
 <Callout intent="info">
-  <CalloutTitle>What qualifies as \"documented\" behavior?</CalloutTitle>
-   <CalloutDescription>\"Documented\" behavior is behavior that is referenced or explained in technical documentation we provide about LaunchDarkly, or behavior that exists in the public API.
-</CalloutDescription>
+  <Callout.Title>What qualifies as \"documented\" behavior?</Callout.Title>
+   <Callout.Description>\"Documented\" behavior is behavior that is referenced or explained in technical documentation we provide about LaunchDarkly, or behavior that exists in the public API.
+</Callout.Description>
 </Callout>
 
 ## Adding new functionality

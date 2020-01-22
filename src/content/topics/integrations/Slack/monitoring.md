@@ -135,9 +135,9 @@ The table below explains the flag detail fields:
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>Remember your cases!</CalloutTitle>
-   <CalloutDescription>The data you specify for the in-line commands are case sensitive. If a filter you specify manually does not return any results, verify that you used the correct cases.
-For example, if you type `my-project` when the actual name of the project is `My-Project`, the filter does not return any results.</CalloutDescription>
+  <Callout.Title>Remember your cases!</Callout.Title>
+   <Callout.Description>The data you specify for the in-line commands are case sensitive. If a filter you specify manually does not return any results, verify that you used the correct cases.
+For example, if you type `my-project` when the actual name of the project is `My-Project`, the filter does not return any results.</Callout.Description>
 </Callout>
 
 ## Filter flag results

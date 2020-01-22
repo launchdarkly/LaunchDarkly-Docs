@@ -44,9 +44,9 @@ To set up your Bitbucket Pipeline with LaunchDarkly:
 [/block]
 
 <Callout intent="alert">
-  <CalloutTitle>Do not use the LaunchDarkly environment key</CalloutTitle>
-   <CalloutDescription>Be careful to use the LaunchDarkly **project key** in the Bitbucket Pipelines settings, not the environment key. 
-The screenshot below calls out both the project and environment keys.</CalloutDescription>
+  <Callout.Title>Do not use the LaunchDarkly environment key</Callout.Title>
+   <Callout.Description>Be careful to use the LaunchDarkly **project key** in the Bitbucket Pipelines settings, not the environment key. 
+The screenshot below calls out both the project and environment keys.</Callout.Description>
 </Callout>
 
 [block:image]

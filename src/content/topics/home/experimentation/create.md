@@ -55,9 +55,10 @@ For example, how many items are in a user's cart when they check out of your onl
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>We recommend the Javascript or React SDKs for some metrics</CalloutTitle>
-  <CalloutDescription>You must be using the Javascript or React SDK to use click and pageview metrics.
-If you do not have the Javascript or React SDK and would like to track clicks or pageviews, use a custom conversion metric.</CalloutDescription>
+  <Callout.Title>We recommend the Javascript or React SDKs for some metrics</Callout.Title>
+  <Callout.Description>You must be using the Javascript or React SDK to use click and pageview metrics.
+If you do not have the Javascript or React SDK and would like to track clicks or pageviews, use a custom conversion metric.</Callout.Description>
+
 </Callout>
 
 ## <a name="creating-click-metrics"></a>Creating click metrics
@@ -69,9 +70,9 @@ For example, you might want to track how often a user clicks a **Save** button w
 You can even monitor clicks on the button across different URLs by telling the metric to track different URLs based on substrings or simple matches. For example, you could track an event on every URL with `/checkout-page/` in the URL path.
 
 <Callout intent="info">
-  <CalloutTitle>What's a CSS selector?</CalloutTitle>
-   <CalloutDescription>CSS selectors designate specific areas of your product UI, like buttons or images, that your users can interact with. 
-For example, some CSS selectors include `#example-element-id`, `.example-classname`, `button.example-button`, or `.example-button, .example-button-alt`.</CalloutDescription>
+  <Callout.Title>What's a CSS selector?</Callout.Title>
+   <Callout.Description>CSS selectors designate specific areas of your product UI, like buttons or images, that your users can interact with. 
+For example, some CSS selectors include `#example-element-id`, `.example-classname`, `button.example-button`, or `.example-button, .example-button-alt`.</Callout.Description>
 </Callout>
 
 To create a click metric:
@@ -223,8 +224,8 @@ For example, you can use numeric metrics to track:
 * The efficacy of various search algorithms 
 * The number of items in a shopping cart at checkout
 <Callout intent="alert">
-  <CalloutTitle>iOS and React Native SDK feature availability</CalloutTitle>
-   <CalloutDescription>Numeric metrics are not supported on the iOS and React Native SDKs.</CalloutDescription>
+  <Callout.Title>iOS and React Native SDK feature availability</Callout.Title>
+   <Callout.Description>Numeric metrics are not supported on the iOS and React Native SDKs.</Callout.Description>
 </Callout>
 To add a custom numeric metric in LaunchDarkly, you must identify it with a code snippet embedded in your app.
 
@@ -246,10 +247,10 @@ Like conversion metrics, numeric metrics also require you to create an event nam
 Often, the information you should put in your code includes the event key, user object, data field, or numeric value fields. To learn more, read the documentation for your SDKs.
 
 <Callout intent="info">
-  <CalloutTitle>Can't see numeric metrics options?</CalloutTitle>
-   <CalloutDescription>If you can't see the feature described below, your SDKs may be out of date. To solve this problem:
+  <Callout.Title>Can't see numeric metrics options?</Callout.Title>
+   <Callout.Description>If you can't see the feature described below, your SDKs may be out of date. To solve this problem:
 
-1. Update your SDKs to the latest version.\n2. Contact support@launchdarkly.com to enable numeric metrics.</CalloutDescription>
+1. Update your SDKs to the latest version.\n2. Contact support@launchdarkly.com to enable numeric metrics.</Callout.Description>
 </Callout>
 
 To create a numeric metric:
@@ -278,9 +279,9 @@ To create a numeric metric:
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>Choosing success criteria for numeric metrics</CalloutTitle>
-   <CalloutDescription>When you designate a success criteria, you can choose **Lower than baseline** or **Higher than baseline** depending on what you want to track. 
-For example, if you're trying to track page load time to measure the impact of your infrastructure changes, you might want a success criteria that is lower than the baseline if your baseline flag variation shows the original page load time and you want to measure decreases in page load time.</CalloutDescription>
+  <Callout.Title>Choosing success criteria for numeric metrics</Callout.Title>
+   <Callout.Description>When you designate a success criteria, you can choose **Lower than baseline** or **Higher than baseline** depending on what you want to track. 
+For example, if you're trying to track page load time to measure the impact of your infrastructure changes, you might want a success criteria that is lower than the baseline if your baseline flag variation shows the original page load time and you want to measure decreases in page load time.</Callout.Description>
 </Callout>
 
 ## <a name="connecting-metrics-to-feature-flags"></a>Connecting metrics to feature flags
@@ -337,7 +338,7 @@ After you've connected a metric to a flag, you can start your experiment wheneve
 To learn more about starting and pausing recording for experiments, read [The experiment lifecycle](./experimentation-lifecycle).
 
 <Callout intent="info">
-  <CalloutTitle>Experiment settings are environment-specific</CalloutTitle>
-  <CalloutDescription>When you create an experiment, it appears in every environment in your project. However, the **Start Recording** button only impacts the experiment in one environment at a time. If you want to run the experiment in multiple environments, you must click **Start Recording** for each environment individually. 
-For example, you might run an experiment in Staging to gather data internally before turning it on in Production to gather customer data.</CalloutDescription>
+  <Callout.Title>Experiment settings are environment-specific</Callout.Title>
+  <Callout.Description>When you create an experiment, it appears in every environment in your project. However, the **Start Recording** button only impacts the experiment in one environment at a time. If you want to run the experiment in multiple environments, you must click **Start Recording** for each environment individually. 
+For example, you might run an experiment in Staging to gather data internally before turning it on in Production to gather customer data.</Callout.Description>
 </Callout>

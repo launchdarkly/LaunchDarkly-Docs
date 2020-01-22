@@ -3,9 +3,9 @@ title: "iOS Objective-C SDK Reference"
 excerpt: ""
 ---
 <Callout intent="alert">
-  <CalloutTitle>iOS Client SDK for Objective-C</CalloutTitle>
-   <CalloutDescription>This documentation is for the LaunchDarkly SDK for Objective-C iOS versions 3.0.1 and earlier.
-Versions 4.0.0 and later support [Swift](./ios-sdk-reference).</CalloutDescription>
+  <Callout.Title>iOS Client SDK for Objective-C</Callout.Title>
+   <Callout.Description>This documentation is for the LaunchDarkly SDK for Objective-C iOS versions 3.0.1 and earlier.
+Versions 4.0.0 and later support [Swift](./ios-sdk-reference).</Callout.Description>
 </Callout>
 This reference guide documents all of the methods available in our iOS SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [iOS SDK GitHub repository](https://github.com/launchdarkly/ios-client-sdk) to look under the hood. Additionally you can clone and run sample applications using this SDK with [iOS](https://github.com/launchdarkly/hello-ios/tree/objective-c), [macOS](https://github.com/launchdarkly/hello-macos/tree/objective-c), and [tvOS](https://github.com/launchdarkly/hello-tvos/tree/objective-c).
 ## Getting started
@@ -81,8 +81,8 @@ LDClient.sharedInstance().start(config, with: user)",
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>Mobile keys</CalloutTitle>
-   <CalloutDescription>Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into a mobile application.</CalloutDescription>
+  <Callout.Title>Mobile keys</Callout.Title>
+   <Callout.Description>Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into a mobile application.</Callout.Description>
 </Callout>
 Using `LDClient`, you can check which variation a particular user should receive for a given feature flag.
 [block:code]
@@ -125,8 +125,9 @@ You can also pass other custom parameters to the client via the configuration ob
 [/block]
 Here, we've customized the client connect and flush interval parameters. 
 <Callout intent="info">
-<CalloutTitle>Network access</CalloutTitle>
-   <CalloutDescription>By default, the LaunchDarkly client will need network access to `*.launchdarkly.com` using `https`.</CalloutDescription>
+<Callout.Title>Network access</Callout.Title>
+   <Callout.Description>By default, the LaunchDarkly client will need network access to `*.launchdarkly.com` using `https`.</Callout.Description>
+
 </Callout>
 
 ## Users
@@ -153,9 +154,9 @@ All of the other attributes (like `firstName`, `email`, and the `custom` attribu
 
 In addition to built-in attributes like names and e-mail addresses, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above. 
 <Callout intent="info">
-  <CalloutTitle>A note on types</CalloutTitle>
-   <CalloutDescription>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
-If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The iOS SDK is strongly typed, so be aware of this distinction.</CalloutDescription>
+  <Callout.Title>A note on types</Callout.Title>
+   <Callout.Description>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
+If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The iOS SDK is strongly typed, so be aware of this distinction.</Callout.Description>
 </Callout>
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
 ## Private user attributes
@@ -230,9 +231,9 @@ The fallback value will only be returned if an error is encountered-- for exampl
 
 The `variation` call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at Identify). 
 <Callout intent="info">
-  <CalloutTitle>Handling flag values on initial app launch</CalloutTitle>
-   <CalloutDescription>When `LDClient` is initialized for the first time at app launch, users will receive the feature flag fallback values until polling is completed for the first time.
-You can use the `userDidUpdate` delegate method to be notified when the feature flag values have been polled and are ready to use (See [Realtime UI Updates](#real-time-updates)). Once the flags have been polled for the first time, the SDK will always use the latest stored flag values thereafter.</CalloutDescription>
+  <Callout.Title>Handling flag values on initial app launch</Callout.Title>
+   <Callout.Description>When `LDClient` is initialized for the first time at app launch, users will receive the feature flag fallback values until polling is completed for the first time.
+You can use the `userDidUpdate` delegate method to be notified when the feature flag values have been polled and are ready to use (See [Realtime UI Updates](#real-time-updates)). Once the flags have been polled for the first time, the SDK will always use the latest stored flag values thereafter.</Callout.Description>
 </Callout>
 
 ## Track
@@ -272,8 +273,8 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 [/block]
 You can bring LaunchDarkly back online by calling `online`.
 <Callout intent="info">
-  <CalloutTitle>Airplane/Flight Mode</CalloutTitle>
-   <CalloutDescription>If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in CoreData.  If there are no previously stored flag settings, then the fallback values will be used.</CalloutDescription>
+  <Callout.Title>Airplane/Flight Mode</Callout.Title>
+   <Callout.Description>If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in CoreData.  If there are no previously stored flag settings, then the fallback values will be used.</Callout.Description>
 </Callout>
 
 ## Flush
@@ -320,8 +321,9 @@ If more than one class relies on LaunchDarkly’s feature flags, we recommend yo
 [/block]
 After this, you can add a notification observer to any class that needs to update the app based on the flag values. This observer will point to a selector which can then update your app accordingly.
 <Callout intent="info">
-<CalloutTitle>Variation methods</CalloutTitle>
-   <CalloutDescription>Make sure to use `variation` methods to get new flag values instead of any locally stored variables.</CalloutDescription>
+<Callout.Title>Variation methods</Callout.Title>
+   <Callout.Description>Make sure to use `variation` methods to get new flag values instead of any locally stored variables.</Callout.Description>
+
 </Callout>
 
 ## Background fetch

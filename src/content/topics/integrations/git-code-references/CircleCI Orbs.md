@@ -10,8 +10,8 @@ To complete this procedure, you must have the following prerequisites:
 * A personal API access token with `writer` permissions. To learn more, read [Personal API access tokens](./api-access-tokens).
 * The LaunchDarkly [CircleCI Orb](https://circleci.com/orbs/registry/orb/launchdarkly/ld-find-code-refs).
 <Callout intent="info">
-  <CalloutTitle>Circle Workflow version 2.1 or higher is required</CalloutTitle>
-   <CalloutDescription>To use CircleCI Orbs, you must be using a Circle Workflow version of 2.1 or higher.
+  <Callout.Title>Circle Workflow version 2.1 or higher is required</Callout.Title>
+   <Callout.Description>To use CircleCI Orbs, you must be using a Circle Workflow version of 2.1 or higher.
 If you're using an earlier version, try manually using the utility [binary or docker image](https://github.com/launchdarkly/ld-find-code-refs/tree/master/README.md#execution-via-cli) to create your own workflow job.
 
 ## Setting up the LaunchDarkly CircleCI integration

@@ -5,9 +5,9 @@ excerpt: ""
 This reference guide documents all of the methods available in our .NET SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [.NET SDK GitHub repository](https://github.com/launchdarkly/dotnet-server-sdk) to look under the hood. The online [API docs](https://launchdarkly.github.io/dotnet-server-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-dotnet) using this SDK.
 
 <Callout intent="info">
-  <CalloutTitle>Requirements</CalloutTitle>
-   <CalloutDescription>The .NET SDK requires version 4.5 or later of the .NET framework or .NETCoreApp 1.0 or later.
-</CalloutDescription>
+  <Callout.Title>Requirements</Callout.Title>
+   <Callout.Description>The .NET SDK requires version 4.5 or later of the .NET framework or .NETCoreApp 1.0 or later.
+</Callout.Description>
 </Callout>
 
 ## Getting started
@@ -51,8 +51,9 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 [/block]
 
 <Callout intent="alert">
-<CalloutTitle>LDClient must be a singleton</CalloutTitle>
-   <CalloutDescription>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**</CalloutDescription>
+<Callout.Title>LDClient must be a singleton</Callout.Title>
+   <Callout.Description>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**</Callout.Description>
+
 </Callout>
 
 Using `ldClient`, you can check which variation a particular user should receive for a given feature flag.
@@ -168,10 +169,10 @@ Here, we've customized the event flush interval. The complete list of customizab
 [/block]
 
 <Callout intent="alert">
-   <CalloutDescription>LaunchDarkly servers operate in a load-balancing framework which may cause their IP addresses to change. This could result in the SDK failing to connect to LaunchDarkly if an old IP address is still in your system's DNS cache.
+   <Callout.Description>LaunchDarkly servers operate in a load-balancing framework which may cause their IP addresses to change. This could result in the SDK failing to connect to LaunchDarkly if an old IP address is still in your system's DNS cache.
 In .NET, the DNS cache retains IP addresses for two minutes by default. If you are noticing intermittent connection failures that always resolve in two minutes, you may wish to change this setting to a lower value as described [here](https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.dnsrefreshtimeout?view=netframework-4.7.2).",
-  <CalloutTitle>DNS caching issues
-</CalloutDescription>
+  <Callout.Title>DNS caching issues
+</Callout.Description>
 </Callout>
 
 ## Users
@@ -193,10 +194,10 @@ All of the other attributes (set via calls to `FirstName`, `LastName`, `Email`, 
 
 In addition to the built-in attributes defined in the `User` class, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above. 
 <Callout intent="info">
-  <CalloutTitle>A note on types</CalloutTitle>
-   <CalloutDescription>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, arrays, or objects (a.k.a. dictionaries)—the same types supported by JSON. For representing the complex types—arrays and objects—the SDK uses the `LdValue` type.
+  <Callout.Title>A note on types</Callout.Title>
+   <Callout.Description>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, arrays, or objects (a.k.a. dictionaries)—the same types supported by JSON. For representing the complex types—arrays and objects—the SDK uses the `LdValue` type.
 If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The .NET SDK is strongly typed, so be aware of this distinction.
-</CalloutDescription>
+</Callout.Description>
 </Callout>
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
@@ -297,8 +298,8 @@ You can also attach custom data to your event by passing an extra parameter to `
 ## All Flags
 
 <Callout intent="alert">
-   <CalloutDescription>Note that unlike `Variation` and `Identify` calls, `AllFlagsState` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
-</CalloutDescription>
+   <Callout.Description>Note that unlike `Variation` and `Identify` calls, `AllFlagsState` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
+</Callout.Description>
 </Callout>
 The `AllFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 

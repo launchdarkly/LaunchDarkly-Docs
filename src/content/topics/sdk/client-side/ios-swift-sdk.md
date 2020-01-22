@@ -3,10 +3,10 @@ title: "iOS Swift SDK Reference"
 excerpt: ""
 ---
 <Callout intent="alert">
-  <CalloutTitle>iOS Client SDK for Swift</CalloutTitle>
-   <CalloutDescription>This documentation is for the LaunchDarkly SDK for Swift iOS versions 4.0.0 and later.
+  <Callout.Title>iOS Client SDK for Swift</Callout.Title>
+   <Callout.Description>This documentation is for the LaunchDarkly SDK for Swift iOS versions 4.0.0 and later.
 Earlier versions of the SDK support [Objective-C](./ios-objc-sdk-reference).
-This reference guide documents all of the methods available in our iOS SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [iOS SDK GitHub repository](https://github.com/launchdarkly/ios-client-sdk/tree/v4) to look under the hood. Additionally you can clone and run sample applications using this SDK with [iOS](https://github.com/launchdarkly/hello-ios-swift), [macOS](https://github.com/launchdarkly/hello-macos), and [tvOS](https://github.com/launchdarkly/hello-tvos).</CalloutDescription>
+This reference guide documents all of the methods available in our iOS SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [iOS SDK GitHub repository](https://github.com/launchdarkly/ios-client-sdk/tree/v4) to look under the hood. Additionally you can clone and run sample applications using this SDK with [iOS](https://github.com/launchdarkly/hello-ios-swift), [macOS](https://github.com/launchdarkly/hello-macos), and [tvOS](https://github.com/launchdarkly/hello-tvos).</Callout.Description>
 </Callout>
 
 ## Getting started
@@ -89,8 +89,9 @@ LDConfig *config = [[LDConfig alloc] initWithMobileKey:@\"YOUR_MOBILE_KEY\"];\n"
 [/block]
 
 <Callout intent="info">
-<CalloutTitle>Mobile Keys</CalloutTitle>
-   <CalloutDescription>Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into a mobile application.</CalloutDescription>
+<Callout.Title>Mobile Keys</Callout.Title>
+   <Callout.Description>Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into a mobile application.</Callout.Description>
+
 </Callout>
 Using `LDClient`, you can check which variation a particular user should receive for a given feature flag.
 [block:code]
@@ -235,15 +236,16 @@ When offline, LDClient closes the clientstream connection and no longer requests
 A call to `variation` records events reported later. Recorded events allow clients to analyze usage and assist in debugging issues.
 
 <Callout intent="info">
-<CalloutTitle>Handling flag values on initial application launch</CalloutTitle>
-   <CalloutDescription>When LDClient is initialized for the first time at app launch, users will receive feature flag fallback values until an initial connection to LaunchDarkly is completed for the first time. Take a look at the section above on various ways to initialize the client.</CalloutDescription>
+<Callout.Title>Handling flag values on initial application launch</Callout.Title>
+   <Callout.Description>When LDClient is initialized for the first time at app launch, users will receive feature flag fallback values until an initial connection to LaunchDarkly is completed for the first time. Take a look at the section above on various ways to initialize the client.</Callout.Description>
+
 </Callout>
 
 ## VariationDetail
 
 <Callout intent="info">
-  <CalloutTitle>Availability</CalloutTitle>
-   <CalloutDescription>Since V4.3.0</CalloutDescription>
+  <Callout.Title>Availability</Callout.Title>
+   <Callout.Description>Since V4.3.0</Callout.Description>
 </Callout>
 The `variationDetail` methods work the same as `variation`, but also provide additional `reason` information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the `reason` data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
 
@@ -251,8 +253,9 @@ For more information, see [Evaluation reasons](./evaluation-reasons).
 ## Getting All Flags
 
 <Callout intent="alert">
-<CalloutTitle>Creating Users</CalloutTitle>
-   <CalloutDescription>Note that unlike `variation` and `identify` calls, `allFlags` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.</CalloutDescription>
+<Callout.Title>Creating Users</Callout.Title>
+   <Callout.Description>Note that unlike `variation` and `identify` calls, `allFlags` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.</Callout.Description>
+
 </Callout>
 Returns a dictionary with the flag keys and their values. If the LDClient is not started, returns nil. The dictionary will not contain feature flags from the server with null values. LDClient will not provide any source or change information, only flag keys and flag values. The client app should convert the feature flag value into the desired type.
 [block:code]
@@ -274,8 +277,8 @@ Returns a dictionary with the flag keys and their values. If the LDClient is not
 Adds a custom event to the LDClient event store. A client app can set a tracking event to allow client customized data analysis. Once an app has called `trackEvent`, the app cannot remove the event from the event store. LDClient periodically transmits events to LaunchDarkly based on the frequency set in LDConfig.eventFlushInterval. The LDClient must be started and online. The SDK stores events tracked while the LDClient is offline, but started. Once the SDK's event store is full, the SDK discards events until they can be reported to LaunchDarkly. Configure the size of the event store using `eventCapacity` on the `config`. The first parameter key: is the key for the event. The SDK does nothing with the key, which can be any string the client app sends. The second parameter data: is the data for the event and is optional. The SDK does nothing with the data, which can be any valid JSON item the client app sends. The method throws `JSONSerialization.JSONError.invalidJsonObject` if the data is not a valid JSON item.
 
 <Callout intent="info">
-  <CalloutTitle>Experimentation Metric Values</CalloutTitle>
-   <CalloutDescription>Since V4.3.0</CalloutDescription>
+  <Callout.Title>Experimentation Metric Values</Callout.Title>
+   <Callout.Description>Since V4.3.0</Callout.Description>
 </Callout>
 You can now optionally add a `metricValue` parameter of type `Double` to `track` in Swift or as a required paramter to the overloaded `track` method in Objective C.
 [block:code]
@@ -317,8 +320,9 @@ Use `isOnline` to get the online/offline state.
 [/block]
 
 <Callout intent="info">
-<CalloutTitle>Lack of Network Connectivity</CalloutTitle>
-   <CalloutDescription>If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory. If there are no previously stored flag settings, then the fallback values will be used.</CalloutDescription>
+<Callout.Title>Lack of Network Connectivity</Callout.Title>
+   <Callout.Description>If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory. If there are no previously stored flag settings, then the fallback values will be used.</Callout.Description>
+
 </Callout>
 
 ## Reporting Events
@@ -341,8 +345,8 @@ Internally, the LaunchDarkly SDK keeps an event buffer for `trackEvent` calls. T
 ## Changing the User Context
 
 <Callout intent="info">
-  <CalloutTitle>Availability</CalloutTitle>
-   <CalloutDescription>Since version 4.2.0</CalloutDescription>
+  <Callout.Title>Availability</Callout.Title>
+   <Callout.Description>Since version 4.2.0</Callout.Description>
 </Callout>
 If your app is used by multiple users on a single device, you may want to change users and have separate flag settings for each user. To achieve this, the SDK will store the last 5 user contexts on a single device, with support for switching between different user contexts. When a new user is set, the LDClient goes offline and sets the new user. If the client was online when the new user was set, it goes online again, subject to a throttling delay if in force. To change both the `config` and `user`, set the LDClient offline, set both properties, then set the LDClient online. Setting `user` is now deprecated, please use the `identify` method instead. This method allows you to set a completion and you no longer need to manually set LDClient online. Client apps should follow [Apple's Privacy Policy](apple.com/legal/privacy) when collecting user information. If the client app does not create a LDUser, LDClient creates an anonymous default user, which can affect the feature flags delivered to the LDClient.
 
@@ -410,8 +414,8 @@ To change the  background fetch interval for flags in your app, just add the fol
 ## Monitoring SDK Status
 
 <Callout intent="info">
-  <CalloutTitle>Availability</CalloutTitle>
-   <CalloutDescription>Since version 4.2.0</CalloutDescription>
+  <Callout.Title>Availability</Callout.Title>
+   <Callout.Description>Since version 4.2.0</Callout.Description>
 </Callout>
 The iOS SDK exposes some of its internal status through the Connection Status API to allow your application to monitor the SDK's status. This is provided primarily as a mechanism for the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
 

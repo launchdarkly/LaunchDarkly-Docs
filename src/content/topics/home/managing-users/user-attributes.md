@@ -36,9 +36,9 @@ For example, you may want to target customers by their personally identifying in
 
 LaunchDarkly's **private user attributes** feature lets you choose which attributes get sent back to LaunchDarkly. This lets you create targeting rules based on the attributes without having to send sensitive data back to LaunchDarkly.
 <Callout intent="alert">
-  <CalloutTitle>The SDK does not use the attributes on the Users dashboard to evaluate flags</CalloutTitle>
-   <CalloutDescription>The SDK only evaluates flags based on the user object you provide. The SDK does not use the attributes shown on the dashboard, and user attributes are not synchronized across SDK instances. 
-You must provide all applicable user attributes for your targeting rules to apply correctly.</CalloutDescription>
+  <Callout.Title>The SDK does not use the attributes on the Users dashboard to evaluate flags</Callout.Title>
+   <Callout.Description>The SDK only evaluates flags based on the user object you provide. The SDK does not use the attributes shown on the dashboard, and user attributes are not synchronized across SDK instances. 
+You must provide all applicable user attributes for your targeting rules to apply correctly.</Callout.Description>
 </Callout>
 Configure private attribute settings in your SDK. 
 
@@ -51,9 +51,9 @@ User `key`s cannot be marked private.
 
 To learn more about setting these configuration options, read your SDK's documentation. 
 <Callout intent="alert">
-  <CalloutTitle>Implications of using private attributes</CalloutTitle>
-   <CalloutDescription>If a feature flag contains targeting rules that reference private attributes, the user page may not be able to calculate flag settings for your users. The Users page indicates when it is unable to calculate flag settings because of private attributes. 
-LaunchDarkly cannot perform autocomplete attributes you have made private.</CalloutDescription>
+  <Callout.Title>Implications of using private attributes</Callout.Title>
+   <Callout.Description>If a feature flag contains targeting rules that reference private attributes, the user page may not be able to calculate flag settings for your users. The Users page indicates when it is unable to calculate flag settings because of private attributes. 
+LaunchDarkly cannot perform autocomplete attributes you have made private.</Callout.Description>
 </Callout>
 
 ## Setting custom user attributes

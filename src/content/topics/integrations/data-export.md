@@ -3,9 +3,9 @@ title: "Data Export"
 excerpt: ""
 ---
 <Callout intent="info">
-  <CalloutTitle>Data Export is an add-on feature for Enterprise plans</CalloutTitle>
-   <CalloutDescription>Data Export is only available to customers on our Enterprise plans. To learn more about our plans, [read about our pricing](https://launchdarkly.com/pricing/).
-If you want to add Data Export to an existing plan, [contact our Sales team](mailto:sales@launchdarkly.com).</CalloutDescription>
+  <Callout.Title>Data Export is an add-on feature for Enterprise plans</Callout.Title>
+   <Callout.Description>Data Export is only available to customers on our Enterprise plans. To learn more about our plans, [read about our pricing](https://launchdarkly.com/pricing/).
+If you want to add Data Export to an existing plan, [contact our Sales team](mailto:sales@launchdarkly.com).</Callout.Description>
 </Callout>
 
 ## Overview
@@ -39,9 +39,10 @@ We support the following export destinations:
 
 To learn more about event formatting, read [Export format reference](./data-export-schema-reference).
 <Callout intent="info">
- <CalloutTitle>Data Export requires certain SDK versions</CalloutTitle>
-  <CalloutDescription>This feature is supported on the following versions of our SDKs (and later versions, if applicable):
-* Go: **4.11.0**\n* Java: **4.8.0**\n* Node (server-side): **5.9.0**\n* Node (client-side): **1.1.0**\n* PHP: **3.6.0**\n* Python: **6.10.0**\n* Ruby: **5.6.0**\n* .NET: **5.8.0**\n* JavaScript: **2.14.0**\n* Xamarin: **1.1.0**\n* Android: **2.9.0**\n* Electron: **1.2.0**</CalloutDescription>
+ <Callout.Title>Data Export requires certain SDK versions</Callout.Title>
+  <Callout.Description>This feature is supported on the following versions of our SDKs (and later versions, if applicable):
+* Go: **4.11.0**\n* Java: **4.8.0**\n* Node (server-side): **5.9.0**\n* Node (client-side): **1.1.0**\n* PHP: **3.6.0**\n* Python: **6.10.0**\n* Ruby: **5.6.0**\n* .NET: **5.8.0**\n* JavaScript: **2.14.0**\n* Xamarin: **1.1.0**\n* Android: **2.9.0**\n* Electron: **1.2.0**</Callout.Description>
+
 </Callout>
 
 ## Exporting event data for flags and environments
@@ -104,10 +105,11 @@ To export data from an environment to a destination:
 ## Customizing which data LaunchDarkly exports
 You can control which users send event data to destinations by choosing a group of users affected by certain flag targeting rules. To learn more, read [Controlling experiment populations](./experimentation-targeting).
 <Callout intent="alert">
-<CalloutTitle>Enabling data export population targeting</CalloutTitle>
-   <CalloutDescription>If you can't see this feature, your SDKs may be out of date. To solve this problem:
+<Callout.Title>Enabling data export population targeting</Callout.Title>
+   <Callout.Description>If you can't see this feature, your SDKs may be out of date. To solve this problem:
 
-1. Update your SDKs to the latest version.\n2. Contact support@launchdarkly.com to enable the feature.</CalloutDescription>
+1. Update your SDKs to the latest version.\n2. Contact support@launchdarkly.com to enable the feature.</Callout.Description>
+
 </Callout>
 To customize which users send event data to data export destinations:
 

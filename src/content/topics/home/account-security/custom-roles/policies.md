@@ -27,9 +27,9 @@ This attribute defines whether the statement allows or denies access to the name
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>Inverse resource and action sets</CalloutTitle>
-   <CalloutDescription>If you would like to create a statement using `notActions` or `notResources`, you must do so in the advanced editor. 
-To learn more about the advanced editor, read [Writing policies in the advanced editor](#writing-policies-in-the-advanced-editor).</CalloutDescription>
+  <Callout.Title>Inverse resource and action sets</Callout.Title>
+   <Callout.Description>If you would like to create a statement using `notActions` or `notResources`, you must do so in the advanced editor. 
+To learn more about the advanced editor, read [Writing policies in the advanced editor](#writing-policies-in-the-advanced-editor).</Callout.Description>
 </Callout>
 
 Here's an example statement:
@@ -100,8 +100,8 @@ To access the Advanced Editor:
 [/block]
 
 <Callout intent="alert">
-  <CalloutTitle>Note: Resources are case-sensitive</CalloutTitle>
-   <CalloutDescription>When constructing your policy by hand with the advanced editor, make sure to use the resource key, which is case sensitive. If the Production environment of your default project has the key `production` then `proj/default:env/Production` will not work to allow actions to be taken in your default project's production environment.</CalloutDescription>
+  <Callout.Title>Note: Resources are case-sensitive</Callout.Title>
+   <Callout.Description>When constructing your policy by hand with the advanced editor, make sure to use the resource key, which is case sensitive. If the Production environment of your default project has the key `production` then `proj/default:env/Production` will not work to allow actions to be taken in your default project's production environment.</Callout.Description>
 </Callout>
 
 ## Finding resource IDs

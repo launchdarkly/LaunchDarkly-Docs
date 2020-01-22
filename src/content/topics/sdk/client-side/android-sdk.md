@@ -3,9 +3,9 @@ title: "Android SDK Reference"
 excerpt: ""
 ---
 <Callout intent="info">
-  <CalloutTitle>Supported Android SDK Versions</CalloutTitle>
-   <CalloutDescription>This library is compatible with Android SDK versions 
-1. and up (4.1 Jelly Bean)</CalloutDescription>
+  <Callout.Title>Supported Android SDK Versions</Callout.Title>
+   <Callout.Description>This library is compatible with Android SDK versions 
+1. and up (4.1 Jelly Bean)</Callout.Description>
 </Callout>
 
 This reference guide documents all of the methods available in our Android SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [Android SDK GitHub repository](https://github.com/launchdarkly/android-client-sdk) or our [JavaDocs](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/) to look under the hood. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-android) using this SDK.
@@ -26,8 +26,8 @@ To get started, declare a dependency on the LaunchDarkly Android SDK.
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>ProGuard / R8</CalloutTitle>
-   <CalloutDescription>If you're using ProGuard or R8, the configuration for the Android SDK should be automatically included from the `aar` artifact. If this is not the case for your build, include the Proguard configuration lines from [consumer-proguard-rules.pro](https://github.com/launchdarkly/android-client-sdk/blob/master/launchdarkly-android-client-sdk/consumer-proguard-rules.pro) into your proguard file.</CalloutDescription>
+  <Callout.Title>ProGuard / R8</Callout.Title>
+   <Callout.Description>If you're using ProGuard or R8, the configuration for the Android SDK should be automatically included from the `aar` artifact. If this is not the case for your build, include the Proguard configuration lines from [consumer-proguard-rules.pro](https://github.com/launchdarkly/android-client-sdk/blob/master/launchdarkly-android-client-sdk/consumer-proguard-rules.pro) into your proguard file.</Callout.Description>
 </Callout>
 Once the SDK is installed, you'll want to create a single, shared instance of `LDClient`. You should specify your *mobile key* here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
 
@@ -46,8 +46,9 @@ ldClient = LDClient.init(this.getApplication(), ldConfig, user, 5);\n",
 [/block]
 
 <Callout intent="info">
-<CalloutTitle>Use a mobile key</CalloutTitle>
-   <CalloutDescription>Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into an embedded or desktop application.</CalloutDescription>
+<Callout.Title>Use a mobile key</Callout.Title>
+   <Callout.Description>Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into an embedded or desktop application.</Callout.Description>
+
 </Callout>
 However, calling blocking code from the main thread in an Android app is not considered a best practice. The preferred method is shown below. It will allow you to use the client immediately. Flags from the previous launch of the app are stored on the device and retrieved for immediate use. The client will still connect in the background and continually update itself with the latest flags.
 [block:code]
@@ -115,9 +116,9 @@ All of the other attributes (like `firstName`, `email`, and the `custom` attribu
 
 In addition to built-in attributes like names and e-mail addresses, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above. 
 <Callout intent="info">
-  <CalloutTitle>A note on types</CalloutTitle>
-   <CalloutDescription>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
-If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The Android SDK is strongly typed, so be aware of this distinction.</CalloutDescription>
+  <Callout.Title>A note on types</Callout.Title>
+   <Callout.Description>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
+If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The Android SDK is strongly typed, so be aware of this distinction.</Callout.Description>
 </Callout>
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
 
@@ -180,15 +181,15 @@ The fallback value will only be returned if an error is encountered-- for exampl
 
 The `variation` call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at Identify). 
 <Callout intent="info">
-  <CalloutTitle>Handling flag values on initial application launch</CalloutTitle>
-   <CalloutDescription>When `LDClient` is initialized for the first time at app launch, users will receive the feature flag fallback values until an initial connection to LaunchDarkly is completed for the first time. Take a look at the section above on various ways to initialize the client.</CalloutDescription>
+  <Callout.Title>Handling flag values on initial application launch</Callout.Title>
+   <Callout.Description>When `LDClient` is initialized for the first time at app launch, users will receive the feature flag fallback values until an initial connection to LaunchDarkly is completed for the first time. Take a look at the section above on various ways to initialize the client.</Callout.Description>
 </Callout>
 
 ## VariationDetail
 
 <Callout intent="info">
-  <CalloutTitle>Availability</CalloutTitle>
-   <CalloutDescription>Since V2.7.0</CalloutDescription>
+  <Callout.Title>Availability</Callout.Title>
+   <Callout.Description>Since V2.7.0</Callout.Description>
 </Callout>
 The `variationDetail` methods (`boolVariationDetail`, etc.) work the same as `variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
 
@@ -196,8 +197,8 @@ For more information, see [Evaluation reasons](./evaluation-reasons).
 ## All flags
 
 <Callout intent="alert">
-  <CalloutTitle>Creating users</CalloutTitle>
-   <CalloutDescription>Note that unlike variation and identify calls, allFlags does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.</CalloutDescription>
+  <Callout.Title>Creating users</Callout.Title>
+   <Callout.Description>Note that unlike variation and identify calls, allFlags does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.</Callout.Description>
 </Callout>
 The `allFlags` method produces a map of feature flag keys to their values for a specific user.
 [block:code]
@@ -240,8 +241,8 @@ ldClient = LDClient.init(this.getApplication(), ldConfig, user);
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>Airplane/Flight Mode</CalloutTitle>
-   <CalloutDescription>If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory.  If there are no previously stored flag settings, then the fallback values will be used.</CalloutDescription>
+  <Callout.Title>Airplane/Flight Mode</Callout.Title>
+   <Callout.Description>If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory.  If there are no previously stored flag settings, then the fallback values will be used.</Callout.Description>
 </Callout>
 
 ## Flush
@@ -314,8 +315,8 @@ Similarly you can unregister listeners to disable them:
 [/block]
 ---
 <Callout intent="info">
-  <CalloutTitle>Availability</CalloutTitle>
-   <CalloutDescription>Since V2.8.0:\n`LDAllFlagsListener`\n`LDClient.registerAllFlagsListener`\n`LDClient.unregisterAllFlagsListener`</CalloutDescription>
+  <Callout.Title>Availability</Callout.Title>
+   <Callout.Description>Since V2.8.0:\n`LDAllFlagsListener`\n`LDClient.registerAllFlagsListener`\n`LDClient.unregisterAllFlagsListener`</Callout.Description>
 </Callout>
 Additionally an update listener interface is provided for cases where you would like to be notified any time the flag cache is updated. The application provides a class implementing `LDAllFlagsListener` which provides the SDK with the method `onChange`. Whenever the SDK's flag cache is updated it will call the `onChange` method with a list of flag keys for flags that were updated during the update to the flag cache. 
 [block:code]
@@ -333,8 +334,9 @@ Additionally an update listener interface is provided for cases where you would 
 ## Multiple Environments
 
 <Callout intent="info">
-<CalloutTitle>Availablility</CalloutTitle>
-   <CalloutDescription>Since V2.6.0</CalloutDescription>
+<Callout.Title>Availablility</Callout.Title>
+   <Callout.Description>Since V2.6.0</Callout.Description>
+
 </Callout>
 LaunchDarkly's Android SDK supports having multiple LDClient instances tied to separate mobile keys. This allows evaluating flags from multiple environments.
 
@@ -377,8 +379,8 @@ Track calls, listeners, and flag evaluation are all tied to the client instance 
 ## Monitoring SDK Status
 
 <Callout intent="info">
-  <CalloutTitle>Availablility</CalloutTitle>
-   <CalloutDescription>Since version 2.8.0</CalloutDescription>
+  <Callout.Title>Availablility</Callout.Title>
+   <Callout.Description>Since version 2.8.0</Callout.Description>
 </Callout>
 The Android SDK exposes some of its internal status through new APIs to allow your application to monitor the SDK's status. This is provided primarily as a mechanism for the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
 
@@ -453,8 +455,8 @@ If matching on the `FailureType`, a default case should be used to handle any fu
 [/block]
 A callback based interface is also provided to allow notifying the application when the `ConnectionMode` changes as well as whenever the `LDFailure` in `ConnectionStatus` changes. The application must provide a class instance implementing `LDStatusListener` to the SDK client instance method `registerStatusListener` to register the listeners with the SDK. A brief example is given below.
 <Callout intent="alert">
-  <CalloutTitle>Listener Weak Reference</CalloutTitle>
-   <CalloutDescription>The SDK maintains only a weak reference to the registered `LDStatusListener`, so a reference should be maintained by the application for as long as the application desires the listener to be available. This was designed to help prevent creating an inadvertent long term reference to an Activity by creating a static internal class instance for use as a listener. By using an weak reference to the listener, the Activity can still be garbage collected normally, even if it maintains a registered `LDStatusListener` (though unregistering the listener when finished is still recommended).</CalloutDescription>
+  <Callout.Title>Listener Weak Reference</Callout.Title>
+   <Callout.Description>The SDK maintains only a weak reference to the registered `LDStatusListener`, so a reference should be maintained by the application for as long as the application desires the listener to be available. This was designed to help prevent creating an inadvertent long term reference to an Activity by creating a static internal class instance for use as a listener. By using an weak reference to the listener, the Activity can still be garbage collected normally, even if it maintains a registered `LDStatusListener` (though unregistering the listener when finished is still recommended).</Callout.Description>
 </Callout>
 
 [block:code]

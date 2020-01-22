@@ -97,8 +97,9 @@ For example, if you only want to receive an event when a change is made to one o
 ## Payload format
 The webhook payload format is identical to the entry format for the [audit log](./the-audit-log). See our [REST API Documentation](https://apidocs.launchdarkly.com/docs/webhooks-overview#payload) for an example payload. 
 <Callout intent="info">
-<CalloutTitle>Webhook delivery order</CalloutTitle>
-   <CalloutDescription>Note that webhooks may not be delivered in chronological order. We recommend using the payload's \"date\" field as a timestamp to reorder webhooks as they are received.</CalloutDescription>
+<Callout.Title>Webhook delivery order</Callout.Title>
+   <Callout.Description>Note that webhooks may not be delivered in chronological order. We recommend using the payload's \"date\" field as a timestamp to reorder webhooks as they are received.</Callout.Description>
+
 </Callout>
 
 ## Retries

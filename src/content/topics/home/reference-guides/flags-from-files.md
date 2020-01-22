@@ -18,8 +18,8 @@ This feature is currently available in the following server-side SDKs:
 * Node.js (5.7.0 and up)
 * PHP (5.3.0 and up)
 <Callout intent="alert">
-  <CalloutTitle>Do not use file-based flag values in production environments</CalloutTitle>
-  <CalloutDescription>Always configure production environments to receive flag updates from LaunchDarkly. Only use file-based flags in testing and pre-production environments.</CalloutDescription>
+  <Callout.Title>Do not use file-based flag values in production environments</Callout.Title>
+  <Callout.Description>Always configure production environments to receive flag updates from LaunchDarkly. Only use file-based flags in testing and pre-production environments.</Callout.Description>
 </Callout>
 
 ## Creating a flag data file
@@ -30,8 +30,8 @@ They contain up to three properties:
 * `flagValues`: Simplified feature flags that specify only a value, and produce the same value for all users.
 * `segments`: User segment definitions. You will only use this property if you have feature flags that use segments.
 <Callout intent="alert">
-  <CalloutTitle>YAML files have limitations</CalloutTitle>
-  <CalloutDescription>In some of the SDKs, YAML support requires an additional dependency. YAML is not available in PHP.",</CalloutDescription>
+  <Callout.Title>YAML files have limitations</Callout.Title>
+  <Callout.Description>In some of the SDKs, YAML support requires an additional dependency. YAML is not available in PHP.",</Callout.Description>
 </Callout>
 The format of the data in `flags` and `segments` is defined by the LaunchDarkly application and is subject to change. Rather than trying to construct these objects yourself, it's simpler to request existing flags directly from the LaunchDarkly server in JSON format and use this output as the starting point for your file. 
 

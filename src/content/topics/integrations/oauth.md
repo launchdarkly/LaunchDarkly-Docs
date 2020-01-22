@@ -5,9 +5,10 @@ excerpt: ""
 ## Overview
 This topic explains the workflow to authorize or revoke access of an OAuth app.
 <Callout intent="alert">
-<CalloutTitle>OAuth apps may require extensive permissions</CalloutTitle>
-   <CalloutDescription>It is critically important to only authorize applications you trust to use your LaunchDarkly account. 
-Read the permissions required by the app carefully and use your own best judgment about whether you trust an app enough to use it.</CalloutDescription>
+<Callout.Title>OAuth apps may require extensive permissions</Callout.Title>
+   <Callout.Description>It is critically important to only authorize applications you trust to use your LaunchDarkly account. 
+Read the permissions required by the app carefully and use your own best judgment about whether you trust an app enough to use it.</Callout.Description>
+
 </Callout>
 
 ## Connecting an OAuth app to LaunchDarkly
@@ -21,15 +22,15 @@ On initial authorization, an OAuth app shows you a complete list of permissions 
 
 Additionally, if your own permissions are reduced, applications you have previously authorized will have reduced permissions as will. 
 <Callout intent="info">
-  <CalloutTitle>When you authorize an OAuth app, it can never do more than you can do</CalloutTitle>
-   <CalloutDescription>For example, if you are a Writer and authorize an app, and then are downgraded to a Reader, your app will only have Reader-level permissions.</CalloutDescription>
+  <Callout.Title>When you authorize an OAuth app, it can never do more than you can do</Callout.Title>
+   <Callout.Description>For example, if you are a Writer and authorize an app, and then are downgraded to a Reader, your app will only have Reader-level permissions.</Callout.Description>
 </Callout>
 
 ## Disconnecting an OAuth app
 We care about the security of your information. You or an Administrator can revoke an app's permission to use your account at any time. 
 <Callout intent="info">
-  <CalloutTitle>Administrators can revoke any app</CalloutTitle>
-   <CalloutDescription>If you are a LaunchDarkly administrator, you can revoke access of any app added to LaunchDarkly, regardless of which team member added it.</CalloutDescription>
+  <Callout.Title>Administrators can revoke any app</Callout.Title>
+   <Callout.Description>If you are a LaunchDarkly administrator, you can revoke access of any app added to LaunchDarkly, regardless of which team member added it.</Callout.Description>
 </Callout>
 To disconnect an app:
 

@@ -1,0 +1,30 @@
+---
+path: '/sdk'
+title: 'Getting started with sdks'
+---
+
+# Getting started with SDKs
+
+<Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
+
+## Overview
+
+This topic explains the prerequisites you must consider when you're setting up a LaunchDarkly SDK
+for the first time.
+
+## Prerequisites
+
+Regardless of which SDK you use, everyone who integrates LaunchDarkly with their code must consider
+the following prerequisites. Making decisions about the items listed below will help you use feature
+flags in a way that makes sense for your use case, customers, security considerations, and existing
+network architecture.
+
+Consider the following factors when you're starting to integrate LaunchDarkly SDKs with your code:
+
+1. Determine what kind of SDK you need to use.
+
+Depending on your use case, you may need a server-side, client-side, or mobile SDK.
+You only need one SDK per application or service. You can use multiple SDKs if your product is comprised
+of applications or services written in multiple languages. You do not need multiple SDKs to support
+frontend and backend behavior, but we support this configuration if it works best for you. To learn more
+about SDKs, read [Client-side and server-side SDKs](https://docs.launchdarkly.com/).

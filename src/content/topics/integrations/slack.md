@@ -7,9 +7,9 @@ This topic explains how to set up and use the [LaunchDarkly Slack app](https://s
 
 You can use the LaunchDarkly Slack app to view, monitor, and control feature flags for your organization from your team's Slack workspace. Use the app to find feature flags, subscribe to notifications about flag changes, and toggle flags on or off.
 <Callout intent="alert">
-  <CalloutTitle>Slack app permissions</CalloutTitle>
-   <CalloutDescription>The actions you can perform in Slack are limited by your LaunchDarkly role. 
-For more information, see [Understanding the Slack App's Permissions](./slack-app-account-management#understanding-the-slack-apps-permissions).</CalloutDescription>
+  <Callout.Title>Slack app permissions</Callout.Title>
+   <Callout.Description>The actions you can perform in Slack are limited by your LaunchDarkly role. 
+For more information, see [Understanding the Slack App's Permissions](./slack-app-account-management#understanding-the-slack-apps-permissions).</Callout.Description>
 </Callout>
 
 ## Why should I use the Slack app?

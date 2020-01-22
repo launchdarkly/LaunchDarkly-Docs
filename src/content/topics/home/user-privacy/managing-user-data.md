@@ -3,8 +3,8 @@ title: "Managing user data"
 excerpt: ""
 ---
 <Callout intent="warning">
-  <CalloutTitle>Not for external release</CalloutTitle>
-   <CalloutDescription>These docs are under active development and contain sensitive guidance. Do not share them outside LaunchDarkly.</CalloutDescription>
+  <Callout.Title>Not for external release</Callout.Title>
+   <Callout.Description>These docs are under active development and contain sensitive guidance. Do not share them outside LaunchDarkly.</Callout.Description>
 </Callout>
 
 ## Overview

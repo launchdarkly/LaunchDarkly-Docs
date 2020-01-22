@@ -5,18 +5,18 @@ excerpt: ""
 This reference guide documents all of the methods available in our Xamarin SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [Xamarin SDK GitHub repository](https://github.com/launchdarkly/xamarin-client-sdk) to look under the hood. Additionally you can clone and run sample applications using this SDK with [Xamarin](https://github.com/launchdarkly/hello-xamarin), and [Xamarin.Forms](https://github.com/launchdarkly/hello-xamarin-forms). The [online API docs](https://launchdarkly.github.io/xamarin-client-sdk/) contain the programmatic definitions of every type, property, and method.
 
 <Callout intent="alert">
- <CalloutTitle>For use in mobile / desktop and embedded client applications only</CalloutTitle>
-   <CalloutDescription>The LaunchDarkly Xamarin SDK is designed primarily for use in *single user* desktop and embedded applications. It follows the client-side LaunchDarkly model for single-user contexts (much like our other mobile or JavaScript SDKs)-- a network call must be made to change user contexts, so changing users should be infrequent. It is not intended for use in multi-user systems such as web servers. Learn more about our [client-side and server-side SDKs](./client-side-and-server-side).",
- </CalloutDescription>
+ <Callout.Title>For use in mobile / desktop and embedded client applications only</Callout.Title>
+   <Callout.Description>The LaunchDarkly Xamarin SDK is designed primarily for use in *single user* desktop and embedded applications. It follows the client-side LaunchDarkly model for single-user contexts (much like our other mobile or JavaScript SDKs)-- a network call must be made to change user contexts, so changing users should be infrequent. It is not intended for use in multi-user systems such as web servers. Learn more about our [client-side and server-side SDKs](./client-side-and-server-side).",
+ </Callout.Description>
 </Callout>
 
 ## Getting started
 Building on top of our [Quickstart](./getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Xamarin application.
 <Callout intent="info">
-  <CalloutTitle>Requirements</CalloutTitle>
-   <CalloutDescription>The Xamarin SDK natively supports Android (version 7.1 or higher) or iOS (version 
+  <Callout.Title>Requirements</Callout.Title>
+   <Callout.Description>The Xamarin SDK natively supports Android (version 7.1 or higher) or iOS (version 
 1. or higher); it can also be used on any other platform that supports .NET Standard (version 1.6 or higher), although the .NET Standard version lacks some mobile-specific features such as detecting network connectivity.
-Previous beta releases of the SDK used the Xamarin.Essentials library, but it no longer has that dependency.</CalloutDescription>
+Previous beta releases of the SDK used the Xamarin.Essentials library, but it no longer has that dependency.</Callout.Description>
 </Callout>
 The first step is to install the LaunchDarkly SDK as a dependency. You should use [NuGet](http://docs.nuget.org/docs/start-here/using-the-package-manager-console) to add the Xamarin SDK to your project. (Note that previous beta releases of the SDK used a different package name.)
 [block:code]
@@ -71,14 +71,15 @@ However, calling blocking code from the main thread in an Android app is not con
 [/block]
 
 <Callout intent="alert">
-<CalloutTitle>LdClient must be a singleton</CalloutTitle>
-   <CalloutDescription>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**</CalloutDescription>
+<Callout.Title>LdClient must be a singleton</Callout.Title>
+   <Callout.Description>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**</Callout.Description>
+
 </Callout>
 
 <Callout intent="alert">
-  <CalloutTitle>Android requires AccessNetworkState permission</CalloutTitle>
-   <CalloutDescription>For Android, the `AccessNetworkState` permission is required and must be configured in the Android project.  Read more in the [Xamarin docs](https://docs.microsoft.com/en-us/xamarin/essentials/connectivity?context=xamarin%2Fios&tabs=android) about how to implement this requirement.
-</CalloutDescription>
+  <Callout.Title>Android requires AccessNetworkState permission</Callout.Title>
+   <Callout.Description>For Android, the `AccessNetworkState` permission is required and must be configured in the Android project.  Read more in the [Xamarin docs](https://docs.microsoft.com/en-us/xamarin/essentials/connectivity?context=xamarin%2Fios&tabs=android) about how to implement this requirement.
+</Callout.Description>
 </Callout>
 Using `ldClient`, you can check which variation a particular user should receive for a given feature flag.
 [block:code]
@@ -201,10 +202,10 @@ All of the other attributes (set via calls to `FirstName`, `LastName`, `Email`, 
 
 In addition to the built-in attributes defined in the `User` class, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above. 
 <Callout intent="info">
-  <CalloutTitle>A note on types</CalloutTitle>
-   <CalloutDescription>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or arbitrary JSON values.
+  <Callout.Title>A note on types</Callout.Title>
+   <Callout.Description>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or arbitrary JSON values.
 If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The Xamarin SDK is strongly typed, so be aware of this distinction.
-</CalloutDescription>
+</Callout.Description>
 </Callout>
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
 
@@ -308,7 +309,7 @@ You can also attach custom data to your event by passing an extra parameter to `
 ## All Flags
 
 <Callout intent="alert">
-   <CalloutDescription>Note that unlike `Variation` and `Identify` calls, `AllFlags` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.</CalloutDescription>
+   <Callout.Description>Note that unlike `Variation` and `Identify` calls, `AllFlags` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.</Callout.Description>
 </Callout>
 
 The `AllFlags` method produces a map of feature flag keys to their values for the current user.

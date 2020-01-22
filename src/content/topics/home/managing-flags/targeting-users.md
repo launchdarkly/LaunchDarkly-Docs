@@ -11,9 +11,9 @@ While the Targeting tab uses the language of targeted "users", a user can be any
 ## Assigning users to a variation
 The "Target individual users" section of the targeting tab allows you to assign individual users to a particular flag variation.
 <Callout intent="info">
-  <CalloutTitle>Only target small numbers of users individually</CalloutTitle>
-   <CalloutDescription>We recommend using individual user targeting for very small numbers of individual users. Targeting more than 10,000 users individually may cause performance degradation, because the SDK takes longer to initialize when the targeting rules payload is large. 
-To learn more about targeting many users, read [Targeting rules based on user attributes](#targeting-rules-based-on-user-attributes).</CalloutDescription>
+  <Callout.Title>Only target small numbers of users individually</Callout.Title>
+   <Callout.Description>We recommend using individual user targeting for very small numbers of individual users. Targeting more than 10,000 users individually may cause performance degradation, because the SDK takes longer to initialize when the targeting rules payload is large. 
+To learn more about targeting many users, read [Targeting rules based on user attributes](#targeting-rules-based-on-user-attributes).</Callout.Description>
 </Callout>
 If your application is already sending data back to LaunchDarkly, you can search for users by name, email address, or user key. These strings are case sensitive. Hover over the user row to see more attributes for that user.
 
@@ -108,23 +108,23 @@ LaunchDarkly supports the following operators:
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>Scheduling feature flags</CalloutTitle>
-   <CalloutDescription>LaunchDarkly does not have a built in way to schedule a flag for a particular date, but you can achieve this with targeting rules.
-For example, you may want to serve true to show your feature, but only after November 19th, 2018.</CalloutDescription>
+  <Callout.Title>Scheduling feature flags</Callout.Title>
+   <Callout.Description>LaunchDarkly does not have a built in way to schedule a flag for a particular date, but you can achieve this with targeting rules.
+For example, you may want to serve true to show your feature, but only after November 19th, 2018.</Callout.Description>
 </Callout>
 
 ### Date Comparisons
 <Callout intent="alert">
-  <CalloutTitle>Dates require UNIX formatting</CalloutTitle>
-   <CalloutDescription>Dates specified in the `user` object should be formatted in UNIX milliseconds (UNIX epoch * 1000). 
-To learn more about UNIX date formatting, or convert a date and time to UNIX milliseconds read [Current Millis](https://currentmillis.com/).</CalloutDescription>
+  <Callout.Title>Dates require UNIX formatting</Callout.Title>
+   <Callout.Description>Dates specified in the `user` object should be formatted in UNIX milliseconds (UNIX epoch * 1000). 
+To learn more about UNIX date formatting, or convert a date and time to UNIX milliseconds read [Current Millis](https://currentmillis.com/).</Callout.Description>
 </Callout>
 
 <Callout intent="info">
-  <CalloutTitle>Required SDK versions for semantic versions</CalloutTitle>
-   <CalloutDescription>Older versions of our server SDKs do not support semantic version operators. Minimum SDK versions are:
+  <Callout.Title>Required SDK versions for semantic versions</Callout.Title>
+   <Callout.Description>Older versions of our server SDKs do not support semantic version operators. Minimum SDK versions are:
 Go: v3\nNode: 3.4.0\nPython: 4.3.0\nRuby: 2.5.0\n.NET: 3.6.1\nJava: 2.6.0\nPHP: 2.5.0
-No updates are required for Android, iOS, or JavaScript.</CalloutDescription>
+No updates are required for Android, iOS, or JavaScript.</Callout.Description>
 </Callout>
 
 ### Built-in attributes
@@ -166,36 +166,36 @@ LaunchDarkly includes some useful built-in attributes for users. All of them are
 [/block]
 
 <Callout intent="info">
-  <CalloutTitle>We do not provide built-in attributes</CalloutTitle>
-   <CalloutDescription>While we provide all of these fields for you to fill in, the SDK does not automatically collect any information. If you want to target your users based on any of these attributes you must supply their values.
-  </CalloutDescription>
+  <Callout.Title>We do not provide built-in attributes</Callout.Title>
+   <Callout.Description>While we provide all of these fields for you to fill in, the SDK does not automatically collect any information. If you want to target your users based on any of these attributes you must supply their values.
+  </Callout.Description>
 </Callout>
 ### Anonymous users
 <Callout intent="alert">
-  <CalloutTitle>Anonymous users</CalloutTitle>
-   <CalloutDescription>You will still need to generate a unique key for anonymous users-- session IDs or UUIDs work best for this. 
+  <Callout.Title>Anonymous users</Callout.Title>
+   <Callout.Description>You will still need to generate a unique key for anonymous users-- session IDs or UUIDs work best for this. 
 Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing-- it keeps anonymous users from polluting your Users page!
-Note that anonymous users will still count toward your monthly active user limit.</CalloutDescription>
+Note that anonymous users will still count toward your monthly active user limit.</Callout.Description>
 </Callout>
 
 <Callout intent="primary">
-  <CalloutTitle>Maintaining experience across anonymous and logged-in states</CalloutTitle>
-   <CalloutDescription>To associate pre-login (anonymous) behaviors with post-login (known) behaviors to get a singular view of a user flow, you should use a custom attribute, and the advanced option for percentage rollouts that allows you to rollout based on a different attribute.
+  <Callout.Title>Maintaining experience across anonymous and logged-in states</Callout.Title>
+   <Callout.Description>To associate pre-login (anonymous) behaviors with post-login (known) behaviors to get a singular view of a user flow, you should use a custom attribute, and the advanced option for percentage rollouts that allows you to rollout based on a different attribute.
 The steps to make this happen are as follows:
-• store a unique identifier for the anonymous user into a cookie. A session ID or UUID works well.\n• until the user logs in, use this unique identifier as both the user’s key, and a custom attribute. The custom attribute could be named anything, but for this example it is named \"uniqueId\".\n• while the user is logged in, set the users key to their real (primary) user key, but continue to use to use the unique identifier stored in the cookie as the users \"uniqueId\" custom attribute.\n• for all flags (or at least those that may effect logged out users), use the advanced option for all percentage rollouts to do rollouts based on the \"uniqueId\" custom attribute.</CalloutDescription>
+• store a unique identifier for the anonymous user into a cookie. A session ID or UUID works well.\n• until the user logs in, use this unique identifier as both the user’s key, and a custom attribute. The custom attribute could be named anything, but for this example it is named \"uniqueId\".\n• while the user is logged in, set the users key to their real (primary) user key, but continue to use to use the unique identifier stored in the cookie as the users \"uniqueId\" custom attribute.\n• for all flags (or at least those that may effect logged out users), use the advanced option for all percentage rollouts to do rollouts based on the \"uniqueId\" custom attribute.</Callout.Description>
 </Callout>
 
 <Callout intent="info">
-  <CalloutTitle>Secondary attribute</CalloutTitle>
-   <CalloutDescription>The secondary attribute is a special attribute that the SDKs incorporate into the bucketing hash automatically when it is included in your user object. Unlike other attributes, you cannot use the secondary attribute in targeting rules.</CalloutDescription>
+  <Callout.Title>Secondary attribute</Callout.Title>
+   <Callout.Description>The secondary attribute is a special attribute that the SDKs incorporate into the bucketing hash automatically when it is included in your user object. Unlike other attributes, you cannot use the secondary attribute in targeting rules.</Callout.Description>
 </Callout>
 
 ## Targeting users based on custom attributes
 LaunchDarkly allows you to target users based on arbitrary custom attributes-- meaning you can control who sees features based on any criteria that you send to us.
 <Callout intent="alert">
-  <CalloutTitle>Custom attributes and built-in attributes</CalloutTitle>
-   <CalloutDescription>Setting a custom attribute with the same key as one of the built-in attributes will cause the attribute to be ignored during feature flag evaluation. 
-For mobile SDKs, the custom attributes 'os' and 'device' are automatically included with os and device data. You can override this by specifying them as custom attributes in your user object and setting your own values.</CalloutDescription>
+  <Callout.Title>Custom attributes and built-in attributes</Callout.Title>
+   <Callout.Description>Setting a custom attribute with the same key as one of the built-in attributes will cause the attribute to be ignored during feature flag evaluation. 
+For mobile SDKs, the custom attributes 'os' and 'device' are automatically included with os and device data. You can override this by specifying them as custom attributes in your user object and setting your own values.</Callout.Description>
 </Callout>
 You can add multiple conditions to a rule. Users must meet all the conditions in a rule to match the rule. If any of the conditions are not met, the user will not match the rule.
 
@@ -297,9 +297,9 @@ In this example, 25% of our `beta_testers` will see the new dashboard feature.
 ##Percentage rollout logic
 When you set up a percentage rollout, the variation a user receives is determined by the user's key. When a percentage rollout is evaluated, it generates a hash from the user's key (or the user attribute selected in the advanced section), the user's secondary attribute (if provided), the flag's key, and a hidden salt attribute stored in the flag. The SDK then uses this hash to generate a percentage value for that user. That value, compared to the value set for the percentage rollout value, determines which variation a user receives. 
 <Callout intent="info">
-  <CalloutTitle>Advanced Targeting:  Percentage rollouts bucketed by attribute</CalloutTitle>
-   <CalloutDescription>In the Advanced area of a percentage rollout, you can bucket users by any attribute sent to LaunchDarkly.  For example, you can roll out a feature to 20% of `companies`, whereby users will be bucketed by the value of their `company` attribute.  This ensures that every user with a matching attribute-value pairing is treated consistently.
-If you choose a custom attribute for this purpose, it should have either string values or integer numeric values. For any user where the value of the custom attribute is a number with a fractional component, or a value of any other type besides string and number, the bucketing result is undefined.</CalloutDescription>
+  <Callout.Title>Advanced Targeting:  Percentage rollouts bucketed by attribute</Callout.Title>
+   <Callout.Description>In the Advanced area of a percentage rollout, you can bucket users by any attribute sent to LaunchDarkly.  For example, you can roll out a feature to 20% of `companies`, whereby users will be bucketed by the value of their `company` attribute.  This ensures that every user with a matching attribute-value pairing is treated consistently.
+If you choose a custom attribute for this purpose, it should have either string values or integer numeric values. For any user where the value of the custom attribute is a number with a fractional component, or a value of any other type besides string and number, the bucketing result is undefined.</Callout.Description>
 </Callout>
 
 ## Default rule: targeting remaining users
@@ -322,8 +322,8 @@ LaunchDarkly defines a final default rollout rule for any users that don't match
 [/block]
 Now, 50% of all users who have not been targeted by any other rules will receive `true`.
 <Callout intent="info">
-  <CalloutTitle>Conducting a Simple Rollout</CalloutTitle>
-   <CalloutDescription>If you do not want to target users based on user key or any custom attributes, you can simply use the default rule to control the flag's rollout for all users.</CalloutDescription>
+  <Callout.Title>Conducting a Simple Rollout</Callout.Title>
+   <Callout.Description>If you do not want to target users based on user key or any custom attributes, you can simply use the default rule to control the flag's rollout for all users.</Callout.Description>
 </Callout>
 
 ## Setting the Off variation

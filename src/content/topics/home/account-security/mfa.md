@@ -74,8 +74,8 @@ To enable MFA for your account:
 [/block]
 If you lose access to the mobile device with your MFA settings, you can use one of these recovery codes to access your account and reset your MFA settings.
 <Callout intent="alert">
-   <CalloutTitle>Do not lose your recovery codes</CalloutTitle>
-   <CalloutDescription>**Store your recovery codes in a safe location other than your mobile device**. If you lose your recovery codes and cannot access your account, you must contact a LaunchDarkly administrator for help. They can send you a new recovery code.</CalloutDescription>
+   <Callout.Title>Do not lose your recovery codes</Callout.Title>
+   <Callout.Description>**Store your recovery codes in a safe location other than your mobile device**. If you lose your recovery codes and cannot access your account, you must contact a LaunchDarkly administrator for help. They can send you a new recovery code.</Callout.Description>
 </Callout>
   
 
@@ -121,17 +121,17 @@ If you've lost access to your device or your authenticator application, click th
 When you use a recovery code, you'll be sent to your account profile page. When this happens, reset your MFA settings and generate new recovery codes immediately.
 
 <Callout intent="alert">
-  <CalloutTitle>Recovery codes are single-use</CalloutTitle>
-   <CalloutDescription>Once you've logged in with a recovery code, reset your MFA settings immediately. You can only use recovery codes once, so every time you use one, you should generate new recovery codes and store them in a safe location as soon as possible.
-If you've lost your device **and** do not have access to any of your recovery codes, contact an administrator for your team's LaunchDarkly account. Your administrator can send you an e-mail with a new recovery code.</CalloutDescription>
+  <Callout.Title>Recovery codes are single-use</Callout.Title>
+   <Callout.Description>Once you've logged in with a recovery code, reset your MFA settings immediately. You can only use recovery codes once, so every time you use one, you should generate new recovery codes and store them in a safe location as soon as possible.
+If you've lost your device **and** do not have access to any of your recovery codes, contact an administrator for your team's LaunchDarkly account. Your administrator can send you an e-mail with a new recovery code.</Callout.Description>
 </Callout>
 
 ## Account administration for MFA
 
 <Callout intent="info">
-  <CalloutTitle>This is an Admin-only feature</CalloutTitle>
-   <CalloutDescription>To follow the procedures in the next section, you must be a LaunchDarkly Admin or Owner.
-If you're a LaunchDarkly administrator or account owner, you can require all newly invited team members to enable MFA.</CalloutDescription>
+  <Callout.Title>This is an Admin-only feature</Callout.Title>
+   <Callout.Description>To follow the procedures in the next section, you must be a LaunchDarkly Admin or Owner.
+If you're a LaunchDarkly administrator or account owner, you can require all newly invited team members to enable MFA.</Callout.Description>
 </Callout>
 
 To do this, click the checkbox labeled **Require multi-factor authentication for new members**under **Multi-factor authentication** on your [Security](https://app.launchdarkly.com/settings#/security) page.

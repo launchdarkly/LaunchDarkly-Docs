@@ -28,8 +28,8 @@ Once the SDK is installed, you'll want to create a single, shared instance of th
 [/block]
 
 <Callout intent="alert">
-  <CalloutTitle>TwistedLDClient must be a singleton</CalloutTitle>
-   <CalloutDescription>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**</CalloutDescription>
+  <Callout.Title>TwistedLDClient must be a singleton</Callout.Title>
+   <Callout.Description>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**</Callout.Description>
 </Callout>
 
 ## Customizing your client
@@ -76,10 +76,10 @@ Besides the `key`, LaunchDarkly supports the following attributes at the "top le
 
 In addition to built-in attributes, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above. 
 <Callout intent="info">
-  <CalloutTitle>A note on types</CalloutTitle>
-   <CalloutDescription>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can be strings, booleans (like True or False), numbers, or lists of strings, booleans or numbers. 
+  <Callout.Title>A note on types</Callout.Title>
+   <Callout.Description>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can be strings, booleans (like True or False), numbers, or lists of strings, booleans or numbers. 
 If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
-</CalloutDescription>
+</Callout.Description>
 </Callout>
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
 ## Anonymous users
@@ -156,8 +156,9 @@ The `identify` method creates or updates users on LaunchDarkly, making them avai
 ## All flags
 
 <Callout intent="alert">
-<CalloutTitle>Creating users</CalloutTitle>
-   <CalloutDescription>Note that unlike variation and identify calls, all_flags does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.</CalloutDescription>
+<Callout.Title>Creating users</Callout.Title>
+   <Callout.Description>Note that unlike variation and identify calls, all_flags does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.</Callout.Description>
+
 </Callout>
 
 The `all_flags` method produces a dictionary of feature flag keys to their values for a specific user.
