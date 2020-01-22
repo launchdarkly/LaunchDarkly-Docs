@@ -9,8 +9,8 @@ The Users dashboard gives you a summary view of how each user sees all of the fe
 ## Understanding the Users dashboard
 The Users dashboard populates automatically when users encounter a feature flag and are evaluated by a LaunchDarkly SDK. The data on the User dashboard is populated from the user data you send in `variation` calls, as well as data from `identify` calls.
 <Callout intent="alert">
-  <Callout.Title>You cannot add users manually</Callout.Title>
-   <Callout.Description>You cannot create users in the Users dashboard. User data appears in it when users are evaluated by a LaunchDarkly SDK.</Callout.Description>
+  <CalloutTitle>You cannot add users manually</CalloutTitle>
+   <CalloutDescription>You cannot create users in the Users dashboard. User data appears in it when users are evaluated by a LaunchDarkly SDK.</CalloutDescription>
 </Callout>
 From the user dashboard, you can filter users by name, key, or e-mail address.
 [block:image]
@@ -95,7 +95,7 @@ Deleting users from the dashboard does not decrease your Monthly Active User (MA
 [/block]
 
 <Callout intent="alert">
-  <Callout.Title>Exceeding your Monthly Active Users limit</Callout.Title>
-   <Callout.Description>We never stop or throttle LaunchDarkly services based on your Monthly Active Users (MAU) limits, but we may not save all user information for users beyond your MAU. 
-For more information about MAU, see [Usage metrics](./usage-metrics).</Callout.Description>
+  <CalloutTitle>Exceeding your Monthly Active Users limit</CalloutTitle>
+   <CalloutDescription>We never stop or throttle LaunchDarkly services based on your Monthly Active Users (MAU) limits, but we may not save all user information for users beyond your MAU. 
+For more information about MAU, see [Usage metrics](./usage-metrics).</CalloutDescription>
 </Callout>

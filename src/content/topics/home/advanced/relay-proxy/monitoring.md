@@ -27,8 +27,8 @@ To learn more about monitoring your datastore, read the documentation from your 
 
 You can configure the Relay Proxy to export statistics, requests received, and route traces to Datadog, Stackdriver, and Prometheus by using the OpenCensus protocol. 
 <Callout intent="alert">
-  <Callout.Title>You cannot export metrics and traces about the Relay Proxy from LaunchDarkly</Callout.Title>
-   <Callout.Description>You can only export Relay Proxy-related metrics with the OpenCensus protocol. The core LaunchDarkly app and API do not export data in this way.</Callout.Description>
+  <CalloutTitle>You cannot export metrics and traces about the Relay Proxy from LaunchDarkly</CalloutTitle>
+   <CalloutDescription>You can only export Relay Proxy-related metrics with the OpenCensus protocol. The core LaunchDarkly app and API do not export data in this way.</CalloutDescription>
 </Callout>
 
 To learn more about configuring the Relay Proxy to export metrics and traces, read the instructions in our [GitHub repository](https://github.com/launchdarkly/ld-relay#exporting-metrics-and-traces).

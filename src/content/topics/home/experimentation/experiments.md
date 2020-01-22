@@ -5,10 +5,9 @@ excerpt: ""
 ## Overview
 This topic explains the concepts and value of LaunchDarkly's experimentation feature. Read on to learn about experimentation, how to use it, and what it can do for you.
 <Callout intent="info">
-  <Callout.Title>Experimentation is an add-on feature</Callout.Title>
-  <Callout.Description>Experimentation is only available to customers on our Enterprise and Pro plans. To learn more about our plans, [read about our pricing](https://launchdarkly.com/pricing/).
-If you want to add Experimentation to an existing plan, [contact our Sales team](mailto:sales@launchdarkly.com).</Callout.Description>
-
+  <CalloutTitle>Experimentation is an add-on feature</CalloutTitle>
+  <CalloutDescription>Experimentation is only available to customers on our Enterprise and Pro plans. To learn more about our plans, [read about our pricing](https://launchdarkly.com/pricing/).
+If you want to add Experimentation to an existing plan, [contact our Sales team](mailto:sales@launchdarkly.com).</CalloutDescription>
 </Callout>
 
 ## What is experimentation?
@@ -33,10 +32,9 @@ By connecting metrics you create to flags in your LaunchDarkly environment, you 
 [/block]
 
 <Callout intent="info">
-  <Callout.Title>Experimentation is available in the LaunchDarkly API</Callout.Title>
-  <Callout.Description>As always, LaunchDarkly is an API-first product. Everything you see in the experimentation UI is powered by a fully supported API endpoint.
-To learn more, read our [API docs](https://apidocs.launchdarkly.com/reference).</Callout.Description>
-
+  <CalloutTitle>Experimentation is available in the LaunchDarkly API</CalloutTitle>
+  <CalloutDescription>As always, LaunchDarkly is an API-first product. Everything you see in the experimentation UI is powered by a fully supported API endpoint.
+To learn more, read our [API docs](https://apidocs.launchdarkly.com/reference).</CalloutDescription>
 </Callout>
 
 ## Why should I use experimentation?
@@ -80,9 +78,9 @@ To learn more about using experiments, read [Managing experiments](./experimenta
 [/block]
 
 <Callout intent="info">
-  <Callout.Title>Experimentation requires certain SDK versions</Callout.Title>
-   <Callout.Description>This feature is supported on the following versions of our SDKs (and later versions, if applicable):
-* Go: **4.11.0**\n* Java: **4.8.0**\n* Node (server-side): **5.9.0**\n* Node (client-side): **1.1.0**\n* PHP: **3.6.0**\n* Python: **6.10.0**\n* Ruby: **5.6.0**\n* .NET: **5.8.0**\n* JavaScript: **2.14.0**\n* Xamarin: **1.1.0**\n* Android: **2.9.0**\n* Electron: **1.2.0**</Callout.Description>
+  <CalloutTitle>Experimentation requires certain SDK versions</CalloutTitle>
+   <CalloutDescription>This feature is supported on the following versions of our SDKs (and later versions, if applicable):
+* Go: **4.11.0**\n* Java: **4.8.0**\n* Node (server-side): **5.9.0**\n* Node (client-side): **1.1.0**\n* PHP: **3.6.0**\n* Python: **6.10.0**\n* Ruby: **5.6.0**\n* .NET: **5.8.0**\n* JavaScript: **2.14.0**\n* Xamarin: **1.1.0**\n* Android: **2.9.0**\n* Electron: **1.2.0**</CalloutDescription>
 </Callout>
 
 ## Best practices for using experimentation
@@ -106,7 +104,7 @@ Experimentation includes a built-in feature that lets you refine the users inclu
 
 You may be billed twice for some events if you're also using LaunchDarkly's Data Export features. To learn more, read [Data Export](./data-export).
 <Callout intent="info">
-  <Callout.Title>We want your feedback!</Callout.Title>
-   <Callout.Description>We're actively soliciting feedback and input on Experimentation. If you try it out and have something to tell us, we're eager to hear from you.
-Send us an email at feedback@launchdarkly.com.</Callout.Description>
+  <CalloutTitle>We want your feedback!</CalloutTitle>
+   <CalloutDescription>We're actively soliciting feedback and input on Experimentation. If you try it out and have something to tell us, we're eager to hear from you.
+Send us an email at feedback@launchdarkly.com.</CalloutDescription>
 </Callout>

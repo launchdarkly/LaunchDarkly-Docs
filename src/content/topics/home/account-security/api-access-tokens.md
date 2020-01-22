@@ -7,9 +7,9 @@ excerpt: ""
 This topic explains how to use personal API access tokens to authenticate with the [LaunchDarkly REST API](https://apidocs.launchdarkly.com), as well as constraints and suggestions for implementing them.
 
 <Callout intent="info">
-  <Callout.Title>Personal API access tokens are private</Callout.Title>
-   <Callout.Description>Only you can see the tokens you create; other team members cannot see them. 
-Administrators can delete your tokens, but cannot see their values.</Callout.Description>
+  <CalloutTitle>Personal API access tokens are private</CalloutTitle>
+   <CalloutDescription>Only you can see the tokens you create; other team members cannot see them. 
+Administrators can delete your tokens, but cannot see their values.</CalloutDescription>
 </Callout>
 
 ## Scoping personal API access tokens
@@ -23,8 +23,8 @@ The available scoping options are:
 * **In-line custom roles**: Gives a token a custom set of permissions in-line, rather than specifying it as an existing custom role. This option is only available if your LaunchDarkly plan includes custom roles.
 
 <Callout intent="warning">
-  <Callout.Title>Never share a personal API access token</Callout.Title>
-   <Callout.Description>Personal API access tokens are unique to the person who creates them. If you share your access token with others, they may be able to use it to impersonate you, or perform actions with it that could later be attributed to you erroneously.</Callout.Description>
+  <CalloutTitle>Never share a personal API access token</CalloutTitle>
+   <CalloutDescription>Personal API access tokens are unique to the person who creates them. If you share your access token with others, they may be able to use it to impersonate you, or perform actions with it that could later be attributed to you erroneously.</CalloutDescription>
 </Callout>
 
 ## Understanding personal API access tokens' permissions
@@ -32,9 +32,9 @@ The available scoping options are:
 When you create a new token, it has the same permissions that you do. Your tokens can never do more than you can in LaunchDarkly.
 
 <Callout intent="info">
- <Callout.Title>Personal API access tokens and the principle of least privilege</Callout.Title>
- <Callout.Description>As a best practice, we recommend giving your tokens the smallest scope required for your integration. 
-For example, if your integration is not designed to modify your **Production** environment, use a custom role or inline policy to restrict access appropriately.</Callout.Description>
+ <CalloutTitle>Personal API access tokens and the principle of least privilege</CalloutTitle>
+ <CalloutDescription>As a best practice, we recommend giving your tokens the smallest scope required for your integration. 
+For example, if your integration is not designed to modify your **Production** environment, use a custom role or inline policy to restrict access appropriately.</CalloutDescription>
 </Callout>
 
 If your own permissions are ever reduced, tokens you have created have reduced scope as well. 
@@ -74,9 +74,9 @@ You can also manage existing tokens from the **Authorizations** tab. From that t
 
 If you delete a token, API calls made with that token will return `401 Unauthorized` status codes.
 <Callout intent="alert">
-  <Callout.Title>Rotate your tokens regularly</Callout.Title>
-   <Callout.Description>As a best practice, we recommend rotating your tokens regularly to prevent tokens from becoming outdated, such as when team members leave.
-If you remove a team member from your account, their personal API access tokens become invalid. We recommend updating integrations to use new access tokens before removing team members.</Callout.Description>
+  <CalloutTitle>Rotate your tokens regularly</CalloutTitle>
+   <CalloutDescription>As a best practice, we recommend rotating your tokens regularly to prevent tokens from becoming outdated, such as when team members leave.
+If you remove a team member from your account, their personal API access tokens become invalid. We recommend updating integrations to use new access tokens before removing team members.</CalloutDescription>
 </Callout>
 
 ## Restricting who can create and manage personal API access tokens

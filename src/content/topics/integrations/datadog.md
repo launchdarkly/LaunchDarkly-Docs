@@ -97,8 +97,8 @@ To set up the Datadog integration:
 [/block]
 After you set up the Datadog integration, events from LaunchDarkly appear in your Datadog dashboard.
 <Callout intent="info">
-  <Callout.Title>Events may not appear immediately</Callout.Title>
-   <Callout.Description>It may take time for changes made in LaunchDarkly to propagate and appear in the Datadog events dashboard depending on Datadog's polling intervals.</Callout.Description>
+  <CalloutTitle>Events may not appear immediately</CalloutTitle>
+   <CalloutDescription>It may take time for changes made in LaunchDarkly to propagate and appear in the Datadog events dashboard depending on Datadog's polling intervals.</CalloutDescription>
 </Callout>
 
 ## Filtering the events you send to Datadog

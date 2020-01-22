@@ -4,10 +4,9 @@ excerpt: ""
 ---
 This reference guide documents all of the methods available in our client-side JavaScript SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [JavaScript SDK GitHub repository](https://github.com/launchdarkly/js-client-sdk) to look under the hood. The online [API docs](https://launchdarkly.github.io/js-client-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-js) using this SDK.
 <Callout intent="alert">
-<Callout.Title>For client-side JavaScript only</Callout.Title>
-   <Callout.Description>Our JavaScript SDK is intended for client-side (browser) feature flags **only**.
-If you have a Node.js application and are looking to set up LaunchDarkly on the server-side, head to our [Node.js SDK Reference](./node-sdk-reference).</Callout.Description>
-
+<CalloutTitle>For client-side JavaScript only</CalloutTitle>
+   <CalloutDescription>Our JavaScript SDK is intended for client-side (browser) feature flags **only**.
+If you have a Node.js application and are looking to set up LaunchDarkly on the server-side, head to our [Node.js SDK Reference](./node-sdk-reference).</CalloutDescription>
 </Callout>
 This SDK does two things:
 * Makes feature flags available to your client-side (front-end) JavaScript code.
@@ -62,10 +61,10 @@ Note that in earlier versions of the SDK, the package was named `ldclient-js` in
 
 To load our JavaScript SDK as a script tag, include the following in the `<head>` tag of your site on any pages where you need feature flags or want to track A/B testing goals:
 <Callout intent="info">
-  <Callout.Title>Unpkg and versions</Callout.Title>
-   <Callout.Description>Integrating with the LaunchDarkly JavaScript SDK as a script tag is only intended for development environments and getting started with using LaunchDarkly. It is not intended to be used in production environments as this introduces a critical dependency on a third-party service, [unpkg](https://unpkg.com/).
+  <CalloutTitle>Unpkg and versions</CalloutTitle>
+   <CalloutDescription>Integrating with the LaunchDarkly JavaScript SDK as a script tag is only intended for development environments and getting started with using LaunchDarkly. It is not intended to be used in production environments as this introduces a critical dependency on a third-party service, [unpkg](https://unpkg.com/).
 Previously it was suggested to use the JS SDK hosted on LaunchDarkly's servers in script tags. This URL would point to the most recently released SDK version. To give more control over SDK updates unpkg is now suggested, and the version hosted at \"https://app.launchdarkly.com/snippet/ldclient.min.js\" is frozen at release 2.10.1.
-</Callout.Description>
+</CalloutDescription>
 </Callout>
 [block:code]
 {
@@ -101,9 +100,8 @@ Here's a basic example showing how to initialize the client:
 [/block]
 
 <Callout intent="info">
-<Callout.Title>Initialization delay</Callout.Title>
-   <Callout.Description>Out of the box, initializing the client will make a remote request to LaunchDarkly, so it may take 100 milliseconds or more before the ready event is emitted. If you require feature flag values before rendering the page, we recommend bootstrapping the client (see the Bootstrapping section). If the client is bootstrapped, it will emit the ready event immediately.</Callout.Description>
-
+<CalloutTitle>Initialization delay</CalloutTitle>
+   <CalloutDescription>Out of the box, initializing the client will make a remote request to LaunchDarkly, so it may take 100 milliseconds or more before the ready event is emitted. If you require feature flag values before rendering the page, we recommend bootstrapping the client (see the Bootstrapping section). If the client is bootstrapped, it will emit the ready event immediately.</CalloutDescription>
 </Callout>
 The client will emit a `ready` event when it has been initialized. Once it has been initialized, you can safely call `variation` to access your feature flags:
 [block:code]
@@ -119,15 +117,15 @@ The client will emit a `ready` event when it has been initialized. Once it has b
 [/block]
 
 <Callout intent="info">
-  <Callout.Title>Streaming Updates</Callout.Title>
-   <Callout.Description>The SDK does not subscribe to streaming real-time updates automatically when it is initialized. As a side effect, subscribing to the SDK's **change** event by calling **.on('change')** will cause the SDK to open a streaming connection to LaunchDarkly. This is the only way to receive realtime updates.
-</Callout.Description>
+  <CalloutTitle>Streaming Updates</CalloutTitle>
+   <CalloutDescription>The SDK does not subscribe to streaming real-time updates automatically when it is initialized. As a side effect, subscribing to the SDK's **change** event by calling **.on('change')** will cause the SDK to open a streaming connection to LaunchDarkly. This is the only way to receive realtime updates.
+</CalloutDescription>
 </Callout>
 <Callout intent="alert">
-  <Callout.Title>Making feature flags available to the client-side SDK</Callout.Title>
-   <Callout.Description>Feature flags must be marked available to the client-side SDK (see your feature flag's settings page) before they can be used in `variation` calls on the front-end. If you request a feature flag that is not available, you'll receive the default value for that flag.
+  <CalloutTitle>Making feature flags available to the client-side SDK</CalloutTitle>
+   <CalloutDescription>Feature flags must be marked available to the client-side SDK (see your feature flag's settings page) before they can be used in `variation` calls on the front-end. If you request a feature flag that is not available, you'll receive the default value for that flag.
 If you always want flags marked as available to the client-side SDK by default, you can check the \"Make new flags available to the client-side (JavaScript) SDK by default\" in your [project settings](https://app.launchdarkly.com/settings#/projects).
-</Callout.Description>
+</CalloutDescription>
 </Callout>
 ## Customizing your client
 You can pass custom parameters to the client by creating a custom configuration object:
@@ -190,10 +188,10 @@ You can pass custom parameters to the client by creating a custom configuration 
 ## Users
 
 <Callout intent="alert">
-  <Callout.Title>Personally-identifying user keys</Callout.Title>
-   <Callout.Description>If the `key` attribute you rely on in your user JSON contains personally identifiable information, you should enable the `useReport` option by [customizing your client](https://docs.launchdarkly.com/docs/js-sdk-reference#customizing-your-client) .
+  <CalloutTitle>Personally-identifying user keys</CalloutTitle>
+   <CalloutDescription>If the `key` attribute you rely on in your user JSON contains personally identifiable information, you should enable the `useReport` option by [customizing your client](https://docs.launchdarkly.com/docs/js-sdk-reference#customizing-your-client) .
 By default, flag settings are fetched by sending the user JSON as a JSON base64 URL-encoded path parameter. When `useReport` is enabled, flag settings will be fetched by sending the user JSON in the body of a REPORT request instead, thereby hiding that information from request logs.
-</Callout.Description>
+</CalloutDescription>
 </Callout>
 Let's walk through the user JSON in more detail. The most important attribute is the user key-- in this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
@@ -224,10 +222,10 @@ Besides the `key`, LaunchDarkly supports the following attributes at the "top le
 
 In addition to built-in attributes, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above. 
 <Callout intent="info">
-  <Callout.Title>A note on types</Callout.Title>
-   <Callout.Description>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
+  <CalloutTitle>A note on types</CalloutTitle>
+   <CalloutDescription>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
 If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
-</Callout.Description>
+</CalloutDescription>
 </Callout>
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
 
@@ -264,8 +262,8 @@ var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {\n  p
 [/block]
 In the example above, only the user's key and their name will be sent back to LaunchDarkly.
 <Callout intent="alert">
-  <Callout.Title>Parameters for JS SDK < 2.0</Callout.Title>
-   <Callout.Description>SDK versions earlier than 2.0 use snake case rather than camel case in the options object. `private_attribute_names` and `all_attributes_private` are the parameter names that should be used. `privateAttributeNames` is still valid when specified in the user object.</Callout.Description>
+  <CalloutTitle>Parameters for JS SDK < 2.0</CalloutTitle>
+   <CalloutDescription>SDK versions earlier than 2.0 use snake case rather than camel case in the options object. `private_attribute_names` and `all_attributes_private` are the parameter names that should be used. `privateAttributeNames` is still valid when specified in the user object.</CalloutDescription>
 </Callout>
 
 ## Anonymous users
@@ -317,8 +315,8 @@ If you've defined [click or pageview goals](./running-ab-tests) in LaunchDarkly,
 
 You can completely disable event sending by setting `sendEvents` to `false` in the client options, but be aware that this means you will not have user data on your LaunchDarkly dashboard.
 <Callout intent="alert">
-  <Callout.Title>A note on Do Not Track and ad blocking software</Callout.Title>
-   <Callout.Description>The JavaScript SDK respects the [Do Not Track](https://www.eff.org/issues/do-not-track) header. If an end-user has Do Not Track enabled in their browser, the SDK will not send analytics events for flag evaluations or goals to events.launchdarkly.com. In addition, ad blocking software may block analytics events from being sent. This will not impact feature flag evaluations.</Callout.Description>
+  <CalloutTitle>A note on Do Not Track and ad blocking software</CalloutTitle>
+   <CalloutDescription>The JavaScript SDK respects the [Do Not Track](https://www.eff.org/issues/do-not-track) header. If an end-user has Do Not Track enabled in their browser, the SDK will not send analytics events for flag evaluations or goals to events.launchdarkly.com. In addition, ad blocking software may block analytics events from being sent. This will not impact feature flag evaluations.</CalloutDescription>
 </Callout>
 
 ## Subscribing to feature flag changes
@@ -348,11 +346,11 @@ The `settings` object will contain a map of updated feature flag keys and values
 ## All flags
 
 <Callout intent="alert">
-  <Callout.Title>Creating users</Callout.Title>
-   <Callout.Description>Note that the allFlags method in the JavaScript SDK functions differently than our other SDKs.
+  <CalloutTitle>Creating users</CalloutTitle>
+   <CalloutDescription>Note that the allFlags method in the JavaScript SDK functions differently than our other SDKs.
 **This method will send analytics events to LaunchDarkly as if you'd called variation for every feature flag.**
 You can disable this behavior by initializing the SDK with `sendEventsOnlyForVariation` set to `true`
-</Callout.Description>
+</CalloutDescription>
 </Callout>
 The `allFlags` method will return a key / value map of all your feature flags. 
 
@@ -456,8 +454,8 @@ Note that the SDK always has _one_ current user. The client-side SDKs are not de
 ## Tracking click and pageview events
 If you've defined click or pageview goals (see [Running A/B tests](./running-ab-tests)) in LaunchDarkly, they'll be sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or pageview goals.
 <Callout intent="info">
-  <Callout.Title>Single-page apps</Callout.Title>
-   <Callout.Description>The SDK automatically handles URL changes (made via the HTML5 history API or by changing the URL hash fragment), and will trigger pageview and click events correctly.</Callout.Description>
+  <CalloutTitle>Single-page apps</CalloutTitle>
+   <CalloutDescription>The SDK automatically handles URL changes (made via the HTML5 history API or by changing the URL hash fragment), and will trigger pageview and click events correctly.</CalloutDescription>
 </Callout>
 
 ## Flush

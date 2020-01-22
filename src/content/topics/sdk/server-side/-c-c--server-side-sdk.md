@@ -4,8 +4,8 @@ excerpt: ""
 ---
 This reference guide documents basic usage of our C server-side SDK, and explains in detail how its functions work. If you want to dig even deeper, our SDKs are open source-- head to our [C SDK GitHub repository](https://github.com/launchdarkly/c-server-sdk) to look under the hood. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-c-server) using this SDK.
 <Callout intent="alert">
-  <Callout.Title>For use in server applications</Callout.Title>
-   <Callout.Description>LaunchDarkly provides both a client-side and a server-side C/C++ SDK. If you are embedding LaunchDarkly in a client-side application please use the [client-side SDK](https://docs.launchdarkly.com/docs/c-sdk-reference). Learn more about our [client-side and server-side SDKs](./client-side-and-server-side).</Callout.Description>
+  <CalloutTitle>For use in server applications</CalloutTitle>
+   <CalloutDescription>LaunchDarkly provides both a client-side and a server-side C/C++ SDK. If you are embedding LaunchDarkly in a client-side application please use the [client-side SDK](https://docs.launchdarkly.com/docs/c-sdk-reference). Learn more about our [client-side and server-side SDKs](./client-side-and-server-side).</CalloutDescription>
 </Callout>
 
 ## Getting started
@@ -51,9 +51,9 @@ Calling `LDClientInit` will initiate a remote call to the LaunchDarkly service t
 [/block]
 
 <Callout intent="alert">
-   <Callout.Description>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**",
-  <Callout.Title>LDClient must be a singleton
-  </Callout.Description>
+   <CalloutDescription>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**",
+  <CalloutTitle>LDClient must be a singleton
+  </CalloutDescription>
 </Callout>
 
 Using `client`, you can check which variation a particular user should receive for a given feature flag.
@@ -209,9 +209,9 @@ For particular information on the `LDDetails` structure please inspect `ldvariat
 ## All flags
 
 <Callout intent="alert">
-  <Callout.Title>Creating users</Callout.Title>
-   <Callout.Description>Note that unlike variation and identify calls, `LDAllFlags` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
-</Callout.Description>
+  <CalloutTitle>Creating users</CalloutTitle>
+   <CalloutDescription>Note that unlike variation and identify calls, `LDAllFlags` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
+</CalloutDescription>
 </Callout>
 The `LDAllFlags` function captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 

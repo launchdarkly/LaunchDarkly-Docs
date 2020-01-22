@@ -51,8 +51,8 @@ To add a LaunchDarkly SAML application to OneLogin:
 [/block]
 
 <Callout intent="alert">
-  <Callout.Title>SAML 2.0 is Required</Callout.Title>
-   <Callout.Description>Choose the SAML 2.0, provisioning app from the list of LaunchDarkly apps. If you choose another app, it will not work.</Callout.Description>
+  <CalloutTitle>SAML 2.0 is Required</CalloutTitle>
+   <CalloutDescription>Choose the SAML 2.0, provisioning app from the list of LaunchDarkly apps. If you choose another app, it will not work.</CalloutDescription>
 </Callout>
 
 ## Configuring LaunchDarkly's Security Settings
@@ -187,9 +187,9 @@ Now that you have the LaunchDarkly application configured in OneLogin, all that 
  
 8. (Optional) If you are using a custom role, enter the custom role key in the **customRole** field. If a user has multiple custom roles, add them by entering the role keys for each role, separated by commas. 
 <Callout intent="alert">
-  <Callout.Title>Enter All of a User's Roles</Callout.Title>
-   <Callout.Description>When you are configuring a user, you must enter the complete list of the user's roles, including the roles already present in LaunchDarkly. This list overrides what is in LaunchDarkly. It does not append to an existing list in LaunchDarkly. 
-If you make any changes to the user's name or roles within OneLogin, they update the next time the user accesses LaunchDarkly through the OneLogin portal.</Callout.Description>
+  <CalloutTitle>Enter All of a User's Roles</CalloutTitle>
+   <CalloutDescription>When you are configuring a user, you must enter the complete list of the user's roles, including the roles already present in LaunchDarkly. This list overrides what is in LaunchDarkly. It does not append to an existing list in LaunchDarkly. 
+If you make any changes to the user's name or roles within OneLogin, they update the next time the user accesses LaunchDarkly through the OneLogin portal.</CalloutDescription>
 </Callout>
 9. Click **Save**. 
 
@@ -200,9 +200,8 @@ If this is a new user who has never accessed LaunchDarkly before, an account wil
 ## User Provisioning with SCIM
 You can also configure OneLogin to provision users with LaunchDarkly's SCIM API.
 <Callout intent="alert">
-  <Callout.Title>Administrator Permissions and SSO are Required</Callout.Title>
-  <Callout.Description>You must be a LaunchDarkly administrator or account owner to complete this procedure. In addition, you must have already enabled SSO by following the procedure above.</Callout.Description>
-
+  <CalloutTitle>Administrator Permissions and SSO are Required</CalloutTitle>
+  <CalloutDescription>You must be a LaunchDarkly administrator or account owner to complete this procedure. In addition, you must have already enabled SSO by following the procedure above.</CalloutDescription>
 </Callout>
 
 

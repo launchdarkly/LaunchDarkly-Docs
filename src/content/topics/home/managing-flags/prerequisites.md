@@ -30,12 +30,12 @@ In the screenshot above, the `api_reads` flag is a prerequisite of the `api_writ
 
 In this example, if a user receives the `false` variation of the `api_reads` flag, they will not be able to write to the API. The `api_writes` flag will not evaluate for them, because the prerequisites are not met.
 <Callout intent="info">
-  <Callout.Title>Don't worry about circular dependencies</Callout.Title>
-   <Callout.Description>LaunchDarkly automatically prevents you from saving changes that would introduce circular dependencies between prerequisites. 
-For example, you cannot make Flag A a prerequisite of Flag B and also make Flag B a prerequisite of Flag A.</Callout.Description>
+  <CalloutTitle>Don't worry about circular dependencies</CalloutTitle>
+   <CalloutDescription>LaunchDarkly automatically prevents you from saving changes that would introduce circular dependencies between prerequisites. 
+For example, you cannot make Flag A a prerequisite of Flag B and also make Flag B a prerequisite of Flag A.</CalloutDescription>
 </Callout>
 
 <Callout intent="alert">
-  <Callout.Title>Deleting flags with prerequisites</Callout.Title>
-   <Callout.Description>You cannot remove a flag that is a prerequisite for other flags. You must remove the dependency before you can delete the prerequisite flag.</Callout.Description>
+  <CalloutTitle>Deleting flags with prerequisites</CalloutTitle>
+   <CalloutDescription>You cannot remove a flag that is a prerequisite for other flags. You must remove the dependency before you can delete the prerequisite flag.</CalloutDescription>
 </Callout>

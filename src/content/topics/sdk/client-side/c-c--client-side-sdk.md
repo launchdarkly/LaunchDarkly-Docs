@@ -6,9 +6,9 @@ This reference guide documents basic usage of our C client-side SDK, and explain
 
 The C / C++ SDK supports Windows and POSIX environments (Linux, OSX, BSD). The networking library `libcurl` is a universal dependency.
 <Callout intent="alert">
-  <Callout.Title>For use in desktop / embedded client applications</Callout.Title>
-   <Callout.Description>The LaunchDarkly C / C++ SDK is designed primarily for use in *single user* desktop and embedded applications. It follows the client-side LaunchDarkly model for single-user contexts (much like our mobile or JavaScript SDKs)-- a network call must be made to change user contexts, so changing users should be infrequent. It is not intended for use in multi-user systems such as web servers. Learn more about our [client-side and server-side SDKs](./client-side-and-server-side).
-For using LaunchDarkly in C / C++ server-side applications, refer to our [C / C++ server-side SDK](./c-server-sdk-reference).</Callout.Description>
+  <CalloutTitle>For use in desktop / embedded client applications</CalloutTitle>
+   <CalloutDescription>The LaunchDarkly C / C++ SDK is designed primarily for use in *single user* desktop and embedded applications. It follows the client-side LaunchDarkly model for single-user contexts (much like our mobile or JavaScript SDKs)-- a network call must be made to change user contexts, so changing users should be infrequent. It is not intended for use in multi-user systems such as web servers. Learn more about our [client-side and server-side SDKs](./client-side-and-server-side).
+For using LaunchDarkly in C / C++ server-side applications, refer to our [C / C++ server-side SDK](./c-server-sdk-reference).</CalloutDescription>
 </Callout>
 
 ## Getting started
@@ -52,9 +52,8 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 [/block]
 
 <Callout intent="info">
-<Callout.Title>Use a mobile key</Callout.Title>
-   <Callout.Description>Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into an embedded or desktop application.</Callout.Description>
-
+<CalloutTitle>Use a mobile key</CalloutTitle>
+   <CalloutDescription>Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into an embedded or desktop application.</CalloutDescription>
 </Callout>
 Calling `LDClientInit` will initiate a remote call to the LaunchDarkly service to fetch the feature flag settings for the specified user. This call will block up to the time defined by `maxwaitmilliseconds`, however. If you request a feature flag before the client has completed initialization, you will receive the default flag value. To wait for client initialization, you can register a callback: 
 [block:code]
@@ -122,9 +121,9 @@ All of the other attributes (like `firstName`, `email`, and the `custom` attribu
 
 In addition to built-in attributes like names and e-mail addresses, you can pass us any of your own user data by passing `custom` attributes
 <Callout intent="info">
-  <Callout.Title>A note on types</Callout.Title>
-   <Callout.Description>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
-If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.</Callout.Description>
+  <CalloutTitle>A note on types</CalloutTitle>
+   <CalloutDescription>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
+If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.</CalloutDescription>
 </Callout>
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
 ## Private user attributes

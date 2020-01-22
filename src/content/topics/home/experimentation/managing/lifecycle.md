@@ -73,10 +73,9 @@ If you want to start a paused experiment, click **Resume recording**. Resumed ex
 ## Deleting experiments
 You can delete an experiment permanently from the flag's Experiments page.
 <Callout intent="warning">
-  <Callout.Title>You cannot restore deleted experiment data</Callout.Title>
-  <Callout.Description>Deleting an experiment means deleting all the event data collected for that experiment in every environment. 
-We recommend pausing experiments whenever possible, rather than deleting them.</Callout.Description>
-
+  <CalloutTitle>You cannot restore deleted experiment data</CalloutTitle>
+  <CalloutDescription>Deleting an experiment means deleting all the event data collected for that experiment in every environment. 
+We recommend pausing experiments whenever possible, rather than deleting them.</CalloutDescription>
 </Callout>
 To delete an experiment:
 

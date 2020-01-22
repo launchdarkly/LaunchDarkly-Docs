@@ -35,10 +35,10 @@ To archive a flag:
 [/block]
 3. Choose the environments your team or customers depend on to confirm you can archive the flag from those environments without unintended consequences. Verify that the flag is not in use by reviewing its states in the flag archive fields. 
 <Callout intent="alert">
-   <Callout.Title>Archiving a flag removes it from every environment in your project</Callout.Title>
-   <Callout.Description>All flags exist in every environment for a project, but often only a few environments matter for your teams’ production processes. 
+   <CalloutTitle>Archiving a flag removes it from every environment in your project</CalloutTitle>
+   <CalloutDescription>All flags exist in every environment for a project, but often only a few environments matter for your teams’ production processes. 
    
-   Archiving a flag will remove it from every environment in the project. Be absolutely certain you can archive a flag without any unintended impact.</Callout.Description>
+   Archiving a flag will remove it from every environment in the project. Be absolutely certain you can archive a flag without any unintended impact.</CalloutDescription>
 </Callout>
 
 [block:image]
@@ -80,8 +80,8 @@ To archive a flag:
 [/block]
 The flag is archived and removed from the flag dashboard. You can find it in the archived flag list. To learn more, read [Viewing and restoring archived flags](#viewing-and-restoring-archived-flags).
 <Callout intent="info">
-  <Callout.Title>Archived flags serve their coded values if requested</Callout.Title>
-   <Callout.Description>If users request a flag after you archive it, the flag value that returns is the value you defined in code.</Callout.Description>
+  <CalloutTitle>Archived flags serve their coded values if requested</CalloutTitle>
+   <CalloutDescription>If users request a flag after you archive it, the flag value that returns is the value you defined in code.</CalloutDescription>
 </Callout>
 Archived flags are indicated with a grey and white striped background.
 [block:image]
@@ -224,8 +224,8 @@ To restore an archived flag:
 3. Confirm that the flag state is such that restoring the flag will have no unexpected consequences. 
 
 <Callout intent="info">
-  <Callout.Title>Restoring a flag means it will be evaluated again</Callout.Title>
-   <Callout.Description>When you restore an archived flag, it returns to evaluation just like any other flag. This is why it is important to confirm that the flag will have no unexpected impact after you restore it.</Callout.Description>
+  <CalloutTitle>Restoring a flag means it will be evaluated again</CalloutTitle>
+   <CalloutDescription>When you restore an archived flag, it returns to evaluation just like any other flag. This is why it is important to confirm that the flag will have no unexpected impact after you restore it.</CalloutDescription>
 </Callout>
 
 4. Type the flag's name in the "Restore flag" text box.
@@ -272,8 +272,8 @@ After you archive a flag, you can delete it if you no longer need it.
 
 If you delete a flag, its rules will be deleted. Should it be requested again, the flag value defined in code will be returned for all users. Remove any references to the feature flag from your application code before you delete it.
 <Callout intent="alert">
-  <Callout.Title>Deleted flags are gone forever</Callout.Title>
-   <Callout.Description>If you delete a flag, you cannot restore it. Be absolutely certain you do not need a flag anymore before you delete it.</Callout.Description>
+  <CalloutTitle>Deleted flags are gone forever</CalloutTitle>
+   <CalloutDescription>If you delete a flag, you cannot restore it. Be absolutely certain you do not need a flag anymore before you delete it.</CalloutDescription>
 </Callout>
 To delete an archived flag:
 

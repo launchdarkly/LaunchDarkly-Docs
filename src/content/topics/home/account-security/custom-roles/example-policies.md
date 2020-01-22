@@ -5,9 +5,9 @@ excerpt: ""
 ## Overview
 This topic shows some examples of different types of policies you can implement with custom roles. It also provides a reference for different actions you can configure in a policy.
 <Callout intent="info">
-  <Callout.Title>Creating private projects with custom roles</Callout.Title>
-   <Callout.Description>Use the `viewProject` action to allow or deny viewing and editing access to projects. 
-To learn more, read [Configuring private projects with custom roles](./configuring-private-projects-with-custom-roles).</Callout.Description>
+  <CalloutTitle>Creating private projects with custom roles</CalloutTitle>
+   <CalloutDescription>Use the `viewProject` action to allow or deny viewing and editing access to projects. 
+To learn more, read [Configuring private projects with custom roles](./configuring-private-projects-with-custom-roles).</CalloutDescription>
 </Callout>
 
 ## Granting access to specific environments and flags

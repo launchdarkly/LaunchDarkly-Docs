@@ -153,9 +153,9 @@ Your winning variation is the flag variation that has the most positive impact c
 
 After you determine a winning variation, you can roll the winning variation out to 100% of your users from the flag's targeting page. To learn more, read [Percentage rollouts](https://docs.launchdarkly.com/docs/targeting-users#percentage-rollouts).
 <Callout intent="info">
-  <Callout.Title>Consider pausing an experiment after choosing a winning variation</Callout.Title>
-   <Callout.Description>If you're done with an experiment and have rolled the winning variation to your user base, it might be a good time to pause your experiment. Experiments on a userbase that only sees one flag variation do not return useful results. 
-Pausing an experiment retains all the data collected so far. To learn more, read [Managing experiments](./managing-experiments).</Callout.Description>
+  <CalloutTitle>Consider pausing an experiment after choosing a winning variation</CalloutTitle>
+   <CalloutDescription>If you're done with an experiment and have rolled the winning variation to your user base, it might be a good time to pause your experiment. Experiments on a userbase that only sees one flag variation do not return useful results. 
+Pausing an experiment retains all the data collected so far. To learn more, read [Managing experiments](./managing-experiments).</CalloutDescription>
 </Callout>
 
 ## Further analyzing results

@@ -46,15 +46,14 @@ To set up
 [/block]
 
 <Callout intent="info">
-   <Callout.Title>Best practices for configuring an Actions file</Callout.Title>
-   <Callout.Description>We strongly recommend that you update the second `uses` attribute value to reference the latest tag in the [launchdarkly/find-code-references](https://github.com/launchdarkly/find-code-references) repository. 
-This pins your workflow to a particular version of the launchdarkly/find-code-references action.</Callout.Description>
+   <CalloutTitle>Best practices for configuring an Actions file</CalloutTitle>
+   <CalloutDescription>We strongly recommend that you update the second `uses` attribute value to reference the latest tag in the [launchdarkly/find-code-references](https://github.com/launchdarkly/find-code-references) repository. 
+This pins your workflow to a particular version of the launchdarkly/find-code-references action.</CalloutDescription>
 </Callout>
 5. Commit this file under a new branch and submit as a PR to your code reviewers to be merged into your master branch. 
 <Callout intent="info">
-<Callout.Title>Code references are not blocked by PR approval</Callout.Title>
-   <Callout.Description>You do not need to have this branch merged into the master branch for code references to appear in the LaunchDarkly UI; code references will appear for this newly created branch.</Callout.Description>
-
+<CalloutTitle>Code references are not blocked by PR approval</CalloutTitle>
+   <CalloutDescription>You do not need to have this branch merged into the master branch for code references to appear in the LaunchDarkly UI; code references will appear for this newly created branch.</CalloutDescription>
 </Callout>
 As shown in the example above, the workflow should run on the `push` event and contain an action provided by the [launchdarkly/find-code-references](https://github.com/launchdarkly/find-code-references) repository. 
 

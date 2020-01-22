@@ -52,16 +52,16 @@ We will not prompt you to remove permanent flags, even if one variation has been
 [/block]
 
 <Callout intent="info">
-  <Callout.Title>Flag keys can't be changed</Callout.Title>
-   <Callout.Description>In addition to the descriptors, every flag has a unique key which you set during flag creation. The key cannot be edited after the flag is created.</Callout.Description>
+  <CalloutTitle>Flag keys can't be changed</CalloutTitle>
+   <CalloutDescription>In addition to the descriptors, every flag has a unique key which you set during flag creation. The key cannot be edited after the flag is created.</CalloutDescription>
 </Callout>
 
 ## Sending detailed event information
 
 <Callout intent="info">
-  <Callout.Title>Detailed events require Data Export</Callout.Title>
-   <Callout.Description>This setting is only visible to customers using Data Export.
-Data Export is only available to customers on our enterprise plans. If you're interested in learning more about our enterprise plans, contact [sales@launchdarkly.com](mailto:sales@launchdarkly.com?Subject=Data%20Export).</Callout.Description>
+  <CalloutTitle>Detailed events require Data Export</CalloutTitle>
+   <CalloutDescription>This setting is only visible to customers using Data Export.
+Data Export is only available to customers on our enterprise plans. If you're interested in learning more about our enterprise plans, contact [sales@launchdarkly.com](mailto:sales@launchdarkly.com?Subject=Data%20Export).</CalloutDescription>
 </Callout>
 Flag evaluation events are summarized by default to minimize data use.  
 

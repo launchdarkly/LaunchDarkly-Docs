@@ -5,10 +5,9 @@ excerpt: ""
 ## Overview
 This topic explains how to join LaunchDarkly as a new team member. 
 <Callout intent="alert">
-  <Callout.Title>LaunchDarkly is for groups and teams</Callout.Title>
-  <Callout.Description>You cannot sign up for LaunchDarkly as a user who is not associated with a company's team account. Instead, an admin or account owner from your team must send you an invitation email. 
-If you want to sign up for LaunchDarkly as an individual, you can sign up for a [free 30-day trial](https://launchdarkly.com/start-trial/).</Callout.Description>
-
+  <CalloutTitle>LaunchDarkly is for groups and teams</CalloutTitle>
+  <CalloutDescription>You cannot sign up for LaunchDarkly as a user who is not associated with a company's team account. Instead, an admin or account owner from your team must send you an invitation email. 
+If you want to sign up for LaunchDarkly as an individual, you can sign up for a [free 30-day trial](https://launchdarkly.com/start-trial/).</CalloutDescription>
 </Callout>
 
 ## Bringing your team to LaunchDarkly
@@ -17,11 +16,10 @@ If you want to get your team started with LaunchDarkly, you have a few different
 * You can import team members from your [identity provider (IdP)](#adding-members-from-an-identity-provider)
 * Team members on a LaunchDarkly trial can [join from the trial](#joining-from-a-launchdarkly-trial)
 <Callout intent="info">
-  <Callout.Title>LaunchDarkly supports SCIM</Callout.Title>
-  <Callout.Description>LaunchDarkly supports the System for Cross-domain Identity Management (SCIM) API specification for certain identity providers. SCIM is designed to make managing user identities in cloud-based applications and services easier. 
+  <CalloutTitle>LaunchDarkly supports SCIM</CalloutTitle>
+  <CalloutDescription>LaunchDarkly supports the System for Cross-domain Identity Management (SCIM) API specification for certain identity providers. SCIM is designed to make managing user identities in cloud-based applications and services easier. 
 To use SCIM with LaunchDarkly, you must be using one of the IdPs we support that uses SCIM, and you must be an Enterprise customer.
-To learn more, read [Enabling single sign-on](./single-sign-on).</Callout.Description>
-
+To learn more, read [Enabling single sign-on](./single-sign-on).</CalloutDescription>
 </Callout>
 
 ## <a name="adding-individual-team-members"></a>Adding individual team members
@@ -36,10 +34,9 @@ To learn more about IdP-driven user provisioning, read [Single sign-on](./single
 
 If you're on a LaunchDarkly trial, you can use the same email address to join your team. 
 <Callout intent="warning">
-  <Callout.Title>Invitations fail when your email address is in use by a trial account</Callout.Title>
-  <Callout.Description>If your email address is associated with a trial account, you must de-associate it or delete the trial account before you can receive an invitation email from your team. 
-Follow either procedure below to resolve that problem.</Callout.Description>
-
+  <CalloutTitle>Invitations fail when your email address is in use by a trial account</CalloutTitle>
+  <CalloutDescription>If your email address is associated with a trial account, you must de-associate it or delete the trial account before you can receive an invitation email from your team. 
+Follow either procedure below to resolve that problem.</CalloutDescription>
 </Callout>
 Each email address is associated with one LaunchDarkly account, so if you used your preferred email address to sign up for a trial, you must de-associate it with the trial before you can join your team's LaunchDarkly account.
 

@@ -7,8 +7,8 @@ This topic explains how to configure SSO integration between a self-hosted Activ
 
 ADFS is a service provided by Microsoft as a standard role for Windows Server. It provides a web login using existing Active Directory credentials. Also, for ADFS-based SSO, it's recommended to always check the ADFS logs in the Windows Event Viewer to locate error details.
 <Callout intent="info">
-  <Callout.Title>Troubleshooting ADFS-based SSO</Callout.Title>
-   <Callout.Description>If you need information about ADFS errors during configuration, troubleshoot it by accessing the ADFS logs in the Windows Event Viewer.</Callout.Description>
+  <CalloutTitle>Troubleshooting ADFS-based SSO</CalloutTitle>
+   <CalloutDescription>If you need information about ADFS errors during configuration, troubleshoot it by accessing the ADFS logs in the Windows Event Viewer.</CalloutDescription>
 </Callout>
 
 ## Prerequisites
@@ -19,9 +19,9 @@ To give your team access to LaunchDarkly through ADFS, you need the following co
 - An Active Directory instance where all users have an email address attribute.
 - A Microsoft Server instance with ADFS installed and configured.
 <Callout intent="alert">
-  <Callout.Title>Setting up ADFS</Callout.Title>
-   <Callout.Description>This topic will not tell you how to set up ADFS. 
-For information about setting up ADFS, see [Microsoft's documentation]( https://docs.microsoft.com/en-us/previous-versions/dynamicscrm-2016/deployment-administrators-guide/gg188612)",</Callout.Description>
+  <CalloutTitle>Setting up ADFS</CalloutTitle>
+   <CalloutDescription>This topic will not tell you how to set up ADFS. 
+For information about setting up ADFS, see [Microsoft's documentation]( https://docs.microsoft.com/en-us/previous-versions/dynamicscrm-2016/deployment-administrators-guide/gg188612)",</CalloutDescription>
 </Callout>
 
 ## Set Up LaunchDarkly
@@ -276,8 +276,8 @@ After you have successfully completed this procedure, a new LaunchDarkly trust w
 [/block]
 
 <Callout intent="alert">
-  <Callout.Title>Configure the User's UPN Correctly</Callout.Title>
-   <Callout.Description>In the following example, we use the user's UPN as their name ID. As a best practice, we recommend setting the user's UPN to their email address instead.",</Callout.Description>
+  <CalloutTitle>Configure the User's UPN Correctly</CalloutTitle>
+   <CalloutDescription>In the following example, we use the user's UPN as their name ID. As a best practice, we recommend setting the user's UPN to their email address instead.",</CalloutDescription>
 </Callout>
 
 6. Set the following options:

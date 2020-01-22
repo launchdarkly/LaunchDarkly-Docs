@@ -7,11 +7,11 @@ This topic explains how to perform edits on groups of users with the **Bulk Edit
 
 The **Bulk Edit** button lets you manage all of your user targets for a single feature flag variation. You can use it to make changes to users in large numbers, such as adding or removing them to a flag variation. The **Export as CSV** button lets you export all the user keys for a flag's targeting settings as a spreadsheet.
 <Callout intent="alert">
-  <Callout.Title>Bulk user targeting limits</Callout.Title>
-   <Callout.Description>We recommend using bulk user targeting judiciously. Very large lists of named users increases the size of the payload fetched by the SDK when initializing, as well as the memory footprint of the SDK. 
+  <CalloutTitle>Bulk user targeting limits</CalloutTitle>
+   <CalloutDescription>We recommend using bulk user targeting judiciously. Very large lists of named users increases the size of the payload fetched by the SDK when initializing, as well as the memory footprint of the SDK. 
 Lists of over 50,000 individual users are not supported for flags or segments in LaunchDarkly. We recommend not exceeding a few thousand individual users across your flags and segments.
 We recommend using custom attributes to target a large number of individual users. Custom attributes let you assign an attribute to the users who should receive the feature flag and then set up the targeting rules to serve the flag to users who have that attribute. This allows you to target groups of users without increasing the size of the payload.
-To learn more about custom attributes, read [Targeting users based on custom attributes](./targeting-users#targeting-users-based-on-custom-attributes).</Callout.Description>
+To learn more about custom attributes, read [Targeting users based on custom attributes](./targeting-users#targeting-users-based-on-custom-attributes).</CalloutDescription>
 </Callout>
 
 ## Bulk editing users

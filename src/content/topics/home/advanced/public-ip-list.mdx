@@ -1,0 +1,21 @@
+---
+path: '/home/advanced/public-ip-list'
+title: 'Public IP list'
+---
+
+# Public IP list
+
+## Overview
+
+This topic explains how to access LaunchDarkly through one of our public IPs. If you're using a firewall, add a LaunchDarkly IP range to your firewall settings.
+
+## Accessing LaunchDarkly through a public IP range
+
+To help you access LaunchDarkly services through your firewall, we provide a list of LaunchDarkly's public IP ranges. To learn more, read [the public IP list](https://app.launchdarkly.com/api/v2/public-ip-list).
+
+The public IP endpoint returns a JSON object with two attributes:
+
+- `addresses`: This element contains the IP addresses LaunchDarkly uses.
+- `outboundAddresses`: This element contains the IP addresses LaunchDarkly uses for outbound webhook notifications. LaunchDarkly uses these addresses when making calls to your network.
+
+You can automate calls to this API to detect when the IP ranges change. We post upcoming changes to this list in advance on our [status page](https://status.launchdarkly.com/).

@@ -55,12 +55,12 @@ Here are the flag modifications you can do in the flag's Variations tab:
 [/block]
 When you add, edit, or delete a feature flag's variations, the change impacts environments within the project.
 <Callout intent="info">
-  <Callout.Title>Changing variation types</Callout.Title>
-   <Callout.Description>After a feature flag has been created, you cannot change the type of its variations.  For example, you can't edit a feature flag that returns numbers to make it return strings instead.</Callout.Description>
+  <CalloutTitle>Changing variation types</CalloutTitle>
+   <CalloutDescription>After a feature flag has been created, you cannot change the type of its variations.  For example, you can't edit a feature flag that returns numbers to make it return strings instead.</CalloutDescription>
 </Callout>
 
 <Callout intent="alert">
-  <Callout.Title>Deleting variations</Callout.Title>
-   <Callout.Description>When you delete a variation, custom rules that return that variation are also deleted. If a custom rule has a percentage rollout, the rollout for that variation is set to zero.
-If the default rule returns the deleted variation, it will be changed to return the `off` variation instead.</Callout.Description>
+  <CalloutTitle>Deleting variations</CalloutTitle>
+   <CalloutDescription>When you delete a variation, custom rules that return that variation are also deleted. If a custom rule has a percentage rollout, the rollout for that variation is set to zero.
+If the default rule returns the deleted variation, it will be changed to return the `off` variation instead.</CalloutDescription>
 </Callout>

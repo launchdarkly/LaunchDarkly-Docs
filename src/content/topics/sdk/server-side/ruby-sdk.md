@@ -4,8 +4,8 @@ excerpt: ""
 ---
 This reference guide documents all of the methods available in our Ruby SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [Ruby SDK GitHub repository](https://github.com/launchdarkly/ruby-server-sdk) to look under the hood. The online [Ruby API docs](https://www.rubydoc.info/gems/launchdarkly-server-sdk) contain the programmatic definitions of every class and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-ruby) using this SDK.
 <Callout intent="alert">
-  <Callout.Title>RubyGem</Callout.Title>
-   <Callout.Description>Due to a bug in recent versions of RubyGems, versions 2.4.x (of RubyGems, not of Ruby) are not compatible with the LaunchDarkly Ruby SDK.</Callout.Description>
+  <CalloutTitle>RubyGem</CalloutTitle>
+   <CalloutDescription>Due to a bug in recent versions of RubyGems, versions 2.4.x (of RubyGems, not of Ruby) are not compatible with the LaunchDarkly Ruby SDK.</CalloutDescription>
 </Callout>
 
 ## Getting started
@@ -48,8 +48,8 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 [/block]
 
 <Callout intent="alert">
-  <Callout.Title>LDClient must be a singleton</Callout.Title>
-   <Callout.Description>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**</Callout.Description>
+  <CalloutTitle>LDClient must be a singleton</CalloutTitle>
+   <CalloutDescription>It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**</CalloutDescription>
 </Callout>
 
 Using `ld_client`, you can check which variation a particular user should receive for a given feature flag.
@@ -261,14 +261,14 @@ Besides the `key`, LaunchDarkly supports the following attributes at the "top le
 
 In addition to built-in attributes, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above. 
 <Callout intent="info">
-  <Callout.Title>A note on attribute keys</Callout.Title>
-   <Callout.Description>All user attribute keys (both built-in and custom attributes) must be symbols and not strings.</Callout.Description>
+  <CalloutTitle>A note on attribute keys</CalloutTitle>
+   <CalloutDescription>All user attribute keys (both built-in and custom attributes) must be symbols and not strings.</CalloutDescription>
 </Callout>
 
 <Callout intent="info">
-  <Callout.Title>A note on types</Callout.Title>
-   <Callout.Description>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
-If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.</Callout.Description>
+  <CalloutTitle>A note on types</CalloutTitle>
+   <CalloutDescription>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
+If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.</CalloutDescription>
 </Callout>
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
@@ -364,9 +364,8 @@ The `identify` method creates or updates users on LaunchDarkly, making them avai
 ## All flags
 
 <Callout intent="alert">
-  <Callout.Title>Creating users</Callout.Title>
-  <Callout.Description>Note that unlike variation and identify calls, all_flags_state does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.</Callout.Description>
-
+  <CalloutTitle>Creating users</CalloutTitle>
+  <CalloutDescription>Note that unlike variation and identify calls, all_flags_state does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.</CalloutDescription>
 </Callout>
 
 The `all_flags_state` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.

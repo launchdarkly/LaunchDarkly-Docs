@@ -3,9 +3,9 @@ title: "Custom roles"
 excerpt: ""
 ---
 <Callout intent="info">
-  <Callout.Title>This feature requires an enterprise plan</Callout.Title>
-   <Callout.Description>Custom roles are only available to customers on our enterprise plans. 
-To learn more about enterprise plans, contact [sales@launchdarkly.com](mailto:sales@launchdarkly.com?Subject=Custom%20roles).</Callout.Description>
+  <CalloutTitle>This feature requires an enterprise plan</CalloutTitle>
+   <CalloutDescription>Custom roles are only available to customers on our enterprise plans. 
+To learn more about enterprise plans, contact [sales@launchdarkly.com](mailto:sales@launchdarkly.com?Subject=Custom%20roles).</CalloutDescription>
 </Callout>
 
 ## Overview

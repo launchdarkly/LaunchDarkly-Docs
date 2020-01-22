@@ -17,18 +17,18 @@ You may want to refine your experiment population for any of the following reaso
 2. Excluding user groups whose events you do not need to measure. For example, users affected by 'Default' rules.
 3. Reducing the events volume an experiment generates in order to manage billing costs.
 <Callout intent="info">
-  <Callout.Title>Can't see the \"Configure event settings\" options?</Callout.Title>
-   <Callout.Description>If you can't see the feature described below, your SDKs may be out of date. To solve this problem:
+  <CalloutTitle>Can't see the \"Configure event settings\" options?</CalloutTitle>
+   <CalloutDescription>If you can't see the feature described below, your SDKs may be out of date. To solve this problem:
 
-1. Update your SDKs to the latest version.\n2. Contact support@launchdarkly.com to enable the feature.</Callout.Description>
+1. Update your SDKs to the latest version.\n2. Contact support@launchdarkly.com to enable the feature.</CalloutDescription>
 </Callout>
 
 ## Customizing experiment population
 You can refine your user base into a specific experiment population by following the procedure below.
 <Callout intent="info">
-  <Callout.Title>Customizing events for Data Export</Callout.Title>
-   <Callout.Description>You can also configure which user data LaunchDarkly sends to Data Export destinations in this menu.
-To learn more, read [Customizing which data LaunchDarkly exports](./data-export#customizing-which-data-launchdarkly-exports).</Callout.Description>
+  <CalloutTitle>Customizing events for Data Export</CalloutTitle>
+   <CalloutDescription>You can also configure which user data LaunchDarkly sends to Data Export destinations in this menu.
+To learn more, read [Customizing which data LaunchDarkly exports](./data-export#customizing-which-data-launchdarkly-exports).</CalloutDescription>
 </Callout>
 To customize your experiment population:
 
@@ -75,8 +75,8 @@ To customize your experiment population:
 
 The modified list of users you created is now the experiment's population.
 <Callout intent="info">
-  <Callout.Title>Experiment populations do not affect flag targeting rules</Callout.Title>
-   <Callout.Description>You can customize your experiment's population at will without your flag targeting rules changing.
+  <CalloutTitle>Experiment populations do not affect flag targeting rules</CalloutTitle>
+   <CalloutDescription>You can customize your experiment's population at will without your flag targeting rules changing.
 Flag targeting controls which variation of a flag a user sees. An experiment's population determines which of your users contribute to experimentation results or data export streams. 
-To learn more, read [Targeting users](./targeting-users).</Callout.Description>
+To learn more, read [Targeting users](./targeting-users).</CalloutDescription>
 </Callout>

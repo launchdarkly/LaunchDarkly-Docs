@@ -7,9 +7,9 @@ This topic explains what anonymous users are and how their information is handle
 
 Anonymous users are identical to regular users but they are not stored in your dashboard. One of the primary reasons that users are sent anonymously is to avoid unauthenticated users diluting the useful data in the user dashboard. 
 <Callout intent="info">
-  <Callout.Title>Ensuring user privacy</Callout.Title>
-   <Callout.Description>You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user attributes instead. 
-To learn more, read [Private user attributes](./private-user-attributes).</Callout.Description>
+  <CalloutTitle>Ensuring user privacy</CalloutTitle>
+   <CalloutDescription>You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user attributes instead. 
+To learn more, read [Private user attributes](./private-user-attributes).</CalloutDescription>
 </Callout>
 
 ## Best practices for using unique keys

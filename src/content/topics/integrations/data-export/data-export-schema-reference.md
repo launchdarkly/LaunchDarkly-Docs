@@ -12,11 +12,11 @@ Data Export exposes five different kinds of events:
 * Custom events
 * Summary events. To export summary events, contact [LaunchDarkly Support](https://support.launchdarkly.com/).
 <Callout intent="alert">
-  <Callout.Title>mParticle and Segment schema differences</Callout.Title>
-   <Callout.Description>The JSON schemas for both Segment and mParticle are formatted differently than LaunchDarkly's. The events listed below may not appear identically in those integrations' UI.
+  <CalloutTitle>mParticle and Segment schema differences</CalloutTitle>
+   <CalloutDescription>The JSON schemas for both Segment and mParticle are formatted differently than LaunchDarkly's. The events listed below may not appear identically in those integrations' UI.
 The `index`, `identify`, and `data` event types are **not available** in Segment or mParticle data export destinations.
 To learn more about mParticle's JSON schema reference, read [mParticle's documentation](https://docs.mparticle.com/integrations/launchdarkly/feed/).
-To learn more about Segment's JSON schema reference, read [Segment's documentation](https://segment.com/docs/sources/cloud-apps/launchdarkly/).</Callout.Description>
+To learn more about Segment's JSON schema reference, read [Segment's documentation](https://segment.com/docs/sources/cloud-apps/launchdarkly/).</CalloutDescription>
 </Callout>
 These events are described in more detail below.
 ## Event Kinds
@@ -45,8 +45,8 @@ This event kind is **not available** for Segment or mParticle destinations.",
 [/block]
 
 <Callout intent="alert">
-  <Callout.Title>mParticle and Segment schema differences</Callout.Title>
-   <Callout.Description>The `index` and `identify` event kinds are **not available** for Segment and mParticle destinations.</Callout.Description>
+  <CalloutTitle>mParticle and Segment schema differences</CalloutTitle>
+   <CalloutDescription>The `index` and `identify` event kinds are **not available** for Segment and mParticle destinations.</CalloutDescription>
 </Callout>
 
 ## SDK Versioning for Events
@@ -63,8 +63,8 @@ The minimum SDK version numbers for SDKs support the new `summary` and `index` e
 * Python: **6.0.0**
 * Ruby: **4.0.0**
 <Callout intent="info">
-  <Callout.Title>Enabling detailed analytics events</Callout.Title>
-   <Callout.Description>To see \"feature\" events for a feature flag using recent SDKs, select “Send detailed event information for this flag” in the **Settings** menu for a feature flag or environment.</Callout.Description>
+  <CalloutTitle>Enabling detailed analytics events</CalloutTitle>
+   <CalloutDescription>To see \"feature\" events for a feature flag using recent SDKs, select “Send detailed event information for this flag” in the **Settings** menu for a feature flag or environment.</CalloutDescription>
 </Callout>
 
 ## Understanding event type structures
@@ -129,8 +129,8 @@ An example `index` event is pictured below:
 * `user`: The same schema as `user` objects for feature flag evaluation. 
 * `creationDate`: The time this user was recorded at Unix epoch time in milliseconds.  
 <Callout intent="info">
-  <Callout.Title>SDKs determine when index events are sent</Callout.Title>
-   <Callout.Description>The SDKs have internal logic that determines whether it is necessary to send an \"index\" event. Index events are not created for every flag evaluation. If the same user (as defined by their key) is seen multiple times in succession, multiple index events will not be sent.</Callout.Description>
+  <CalloutTitle>SDKs determine when index events are sent</CalloutTitle>
+   <CalloutDescription>The SDKs have internal logic that determines whether it is necessary to send an \"index\" event. Index events are not created for every flag evaluation. If the same user (as defined by their key) is seen multiple times in succession, multiple index events will not be sent.</CalloutDescription>
 </Callout>
 
 ## Identify events
@@ -153,8 +153,8 @@ An example `identify` event is pictured below:
 ## Custom events
 Custom events are produced when the client application calls an SDK method called `track`. 
 <Callout intent="alert">
-  <Callout.Title>mParticle and Segment schema differences</Callout.Title>
-   <Callout.Description>The `data` event kind is **not available** for mParticle or Segment events.</Callout.Description>
+  <CalloutTitle>mParticle and Segment schema differences</CalloutTitle>
+   <CalloutDescription>The `data` event kind is **not available** for mParticle or Segment events.</CalloutDescription>
 </Callout>
 An example custom event is pictured below:
 [block:code]
@@ -175,8 +175,8 @@ An example custom event is pictured below:
 ## Summary events
 
 <Callout intent="info">
-  <Callout.Title>Enabling summary event exports</Callout.Title>
-   <Callout.Description>By default, we do not export summary events. To export summary events, contact [LaunchDarkly Support](https://support.launchdarkly.com/).</Callout.Description>
+  <CalloutTitle>Enabling summary event exports</CalloutTitle>
+   <CalloutDescription>By default, we do not export summary events. To export summary events, contact [LaunchDarkly Support](https://support.launchdarkly.com/).</CalloutDescription>
 </Callout>
 Summary events are sent periodically by SDKs to describe a set of feature evaluations. Summary events include all feature evaluations, regardless of whether `trackEvents` field was set for individual flags.
 

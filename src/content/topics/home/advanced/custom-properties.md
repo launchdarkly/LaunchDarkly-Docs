@@ -37,7 +37,6 @@ To add a custom property to a flag through the UI:
 [/block]
 
 <Callout intent="alert">
-  <Callout.Title>Custom property restrictions</Callout.Title>
-  <Callout.Description>Custom properties have the following restrictions\n- You can set a maximum of 64 custom properties\n- Each custom property's name and key must be at most 64 characters</Callout.Description>
-
+  <CalloutTitle>Custom property restrictions</CalloutTitle>
+  <CalloutDescription>Custom properties have the following restrictions\n- You can set a maximum of 64 custom properties\n- Each custom property's name and key must be at most 64 characters</CalloutDescription>
 </Callout>

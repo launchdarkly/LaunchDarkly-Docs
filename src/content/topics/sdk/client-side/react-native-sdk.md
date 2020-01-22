@@ -3,17 +3,17 @@ title: "React Native SDK Reference"
 excerpt: ""
 ---
 <Callout intent="alert">
-  <Callout.Title>SDK Version Compatibility</Callout.Title>
-   <Callout.Description>The latest version of the SDK is compatible with Xcode 10.2.1/10.3 and React Native 0.61.2. For compatibility with earlier React Native versions, please refer to older SDK versions.
-</Callout.Description>
+  <CalloutTitle>SDK Version Compatibility</CalloutTitle>
+   <CalloutDescription>The latest version of the SDK is compatible with Xcode 10.2.1/10.3 and React Native 0.61.2. For compatibility with earlier React Native versions, please refer to older SDK versions.
+</CalloutDescription>
 </Callout>
 This reference guide documents all of the methods available in our React Native SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [React Native SDK GitHub repository](https://github.com/launchdarkly/react-native-client-sdk) to look under the hood. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-react-native) using this SDK.
 ## Getting Started
 
 <Callout intent="warning">
-  <Callout.Title>Expo Usage</Callout.Title>
-   <Callout.Description>The LaunchDarkly React Native Client SDK does not work with Expo because the SDK uses native modules. Please consider using [ExpoKit](https://docs.expo.io/versions/latest/expokit/expokit/)
-</Callout.Description>
+  <CalloutTitle>Expo Usage</CalloutTitle>
+   <CalloutDescription>The LaunchDarkly React Native Client SDK does not work with Expo because the SDK uses native modules. Please consider using [ExpoKit](https://docs.expo.io/versions/latest/expokit/expokit/)
+</CalloutDescription>
 </Callout>
 Building on top of our [Quickstart](./getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your React Native code.
 
@@ -74,16 +74,16 @@ await client.configure(clientConfig, userConfig);",
 [/block]
 
 <Callout intent="info">
-  <Callout.Title>Mobile Keys</Callout.Title>
-   <Callout.Description>Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into a mobile application.</Callout.Description>
+  <CalloutTitle>Mobile Keys</CalloutTitle>
+   <CalloutDescription>Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into a mobile application.</CalloutDescription>
 </Callout>
 
 ## Client Configuration Options
 
 <Callout intent="info">
-  <Callout.Title>Default Values</Callout.Title>
-   <Callout.Description>This complete config object shows all possible config options in their default form. Do not change the defaults unless you are required to.
-</Callout.Description>
+  <CalloutTitle>Default Values</CalloutTitle>
+   <CalloutDescription>This complete config object shows all possible config options in their default form. Do not change the defaults unless you are required to.
+</CalloutDescription>
 </Callout>
 Here is a complete client configuration object utilizing all available fields:
 [block:code]
@@ -136,15 +136,15 @@ The fallback value will only be returned if an error is encountered-- for exampl
 
 The variation call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at `identify`).
 <Callout intent="info">
-  <Callout.Title>Handling flag values on initial application launch</Callout.Title>
-   <Callout.Description>When LDClient is initialized for the first time at app launch, users will receive feature flag fallback values until an initial connection to LaunchDarkly is completed for the first time. Take a look at the section above on various ways to initialize the client.
+  <CalloutTitle>Handling flag values on initial application launch</CalloutTitle>
+   <CalloutDescription>When LDClient is initialized for the first time at app launch, users will receive feature flag fallback values until an initial connection to LaunchDarkly is completed for the first time. Take a look at the section above on various ways to initialize the client.
 
 ## All Flags
 
 <Callout intent="alert">
-  <Callout.Title>Creating Users</Callout.Title>
-   <Callout.Description>Note that unlike `variation` and `identify` calls, `allFlags` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
-</Callout.Description>
+  <CalloutTitle>Creating Users</CalloutTitle>
+   <CalloutDescription>Note that unlike `variation` and `identify` calls, `allFlags` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
+</CalloutDescription>
 </Callout>
 The `allFlags` method returns an object containing flag keys and values.
 [block:code]
@@ -187,9 +187,8 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 [/block]
 
 <Callout intent="info">
-<Callout.Title>Lack of Network Connectivity</Callout.Title>
-   <Callout.Description>If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory. If there are no previously stored flag settings, then the fallback values will be used.</Callout.Description>
-
+<CalloutTitle>Lack of Network Connectivity</CalloutTitle>
+   <CalloutDescription>If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory. If there are no previously stored flag settings, then the fallback values will be used.</CalloutDescription>
 </Callout>
 
 ## Flush

@@ -68,6 +68,6 @@ The following resources are searchable:
 [/block]
 You can also build integrations on top of our audit log using the Audit Log REST API. To learn more, read [Audit log overview](http://apidocs.launchdarkly.com/docs/audit-log-overview).
 <Callout intent="info">
-  <Callout.Title>Additional integration options</Callout.Title>
-   <Callout.Description>You can also receive audit log notifications by creating [webhooks](./webhooks), or setting up [Slack](./slack) or [HipChat](./hipchat) notifications.</Callout.Description>
+  <CalloutTitle>Additional integration options</CalloutTitle>
+   <CalloutDescription>You can also receive audit log notifications by creating [webhooks](./webhooks), or setting up [Slack](./slack) or [HipChat](./hipchat) notifications.</CalloutDescription>
 </Callout>

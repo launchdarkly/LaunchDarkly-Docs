@@ -14,10 +14,10 @@ To connect LaunchDarkly and Azure DevOps, you need the following things:
 
 To learn more, read [Personal API access tokens](./api-access-tokens).
 <Callout intent="info">
-  <Callout.Title>The Azure DevOps integration supports custom roles</Callout.Title>
-  <Callout.Description>If you're using custom roles, you can create an access token with a role targeting environments and feature flags relevant to your Azure DevOps projects.
+  <CalloutTitle>The Azure DevOps integration supports custom roles</CalloutTitle>
+  <CalloutDescription>If you're using custom roles, you can create an access token with a role targeting environments and feature flags relevant to your Azure DevOps projects.
 
-To learn more, read [Custom roles](./custom-roles).</Callout.Description>
+To learn more, read [Custom roles](./custom-roles).</CalloutDescription>
 </Callout>
 
 ## <a name="connecting-to-launchdarkly"></a>Connecting to LaunchDarkly

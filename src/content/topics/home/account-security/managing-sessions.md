@@ -41,6 +41,6 @@ To reset all sessions:
 2. Click into the **Security** tab and scroll to the **Session configuration** section. 
 3. Click **Revoke all sessions**.
 <Callout intent="alert">
-  <Callout.Title>Resetting all sessions also resets yours</Callout.Title>
-   <Callout.Description>If you reset all sessions for your organization's users, your session will also be reset. You will log out and and have to re-authenticate.</Callout.Description>
+  <CalloutTitle>Resetting all sessions also resets yours</CalloutTitle>
+   <CalloutDescription>If you reset all sessions for your organization's users, your session will also be reset. You will log out and and have to re-authenticate.</CalloutDescription>
 </Callout>

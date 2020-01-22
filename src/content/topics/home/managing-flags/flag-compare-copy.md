@@ -81,9 +81,9 @@ To compare a flag:
 [/block]
 5. Click **Copy Settings** to save the changes.
 <Callout intent="alert">
- <Callout.Title>Restrictions on custom targeting rules</Callout.Title>
- <Callout.Description>You can copy all custom targeting rules simultaneously with the **Select all** checkbox. 
-However, if one of your rules references a segment that does not exist in the target environment, you cannot copy any targeting rules. You will still be able to copy Targeting state, Prequisites, Individual user targets, Default rule, and fallback rule (\"If targeting is off, serve\").</Callout.Description>
+ <CalloutTitle>Restrictions on custom targeting rules</CalloutTitle>
+ <CalloutDescription>You can copy all custom targeting rules simultaneously with the **Select all** checkbox. 
+However, if one of your rules references a segment that does not exist in the target environment, you cannot copy any targeting rules. You will still be able to copy Targeting state, Prequisites, Individual user targets, Default rule, and fallback rule (\"If targeting is off, serve\").</CalloutDescription>
 </Callout>
 
 [block:image]

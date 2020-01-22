@@ -13,10 +13,10 @@ All of our SDKs are one of these two categories:
 * client-side
 * server-side 
 <Callout intent="info">
-  <Callout.Title>Client-side SDKs include mobile SDKs</Callout.Title>
-   <Callout.Description>Our SDKs primarily for mobile devices, known as our \"mobile SDKs\", are categorized as client-side SDKs since, like our client-side SDKs, most mobile applications have a single-user context. This includes our Android, iOS, React Native and Xamarin SDKs. Each of these SDKs also has some mobile-specific functionality. 
+  <CalloutTitle>Client-side SDKs include mobile SDKs</CalloutTitle>
+   <CalloutDescription>Our SDKs primarily for mobile devices, known as our \"mobile SDKs\", are categorized as client-side SDKs since, like our client-side SDKs, most mobile applications have a single-user context. This includes our Android, iOS, React Native and Xamarin SDKs. Each of these SDKs also has some mobile-specific functionality. 
 To learn more, read [Functional Differences](#functional-differences).
-</Callout.Description>
+</CalloutDescription>
 </Callout>
 The table below summarizes the differences between client- and server-side SDKs:
 [block:parameters]
@@ -114,9 +114,9 @@ Configure JavaScript-based client-side SDKs to use the client-side ID. This ID g
 
 The client-side ID is public and does not need to be kept a secret.
 <Callout intent="info">
-  <Callout.Title>Making flags available to client-side SDKs</Callout.Title>
-   <Callout.Description>Find the \"Make this flag available to client-side SDKs\" option on a flag's **Settings** tab.
-</Callout.Description>
+  <CalloutTitle>Making flags available to client-side SDKs</CalloutTitle>
+   <CalloutDescription>Find the \"Make this flag available to client-side SDKs\" option on a flag's **Settings** tab.
+</CalloutDescription>
 </Callout>
 
 

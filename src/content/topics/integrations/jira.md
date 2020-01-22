@@ -6,9 +6,9 @@ excerpt: ""
 This topic explains how LaunchDarkly's Jira app allows you to link your feature flags with your team's Jira issues. When a feature flag is turned on, off, or has its targeting rules update, its associated Jira issue pages display the flag's current status.
 
 <Callout intent="info">
-   <Callout.Title>This integration is for Jira Cloud only</Callout.Title>
-   <Callout.Description>The LaunchDarkly Jira integration is only for Jira Cloud product offerings. It does not work in Jira Server.
-  </Callout.Description>
+   <CalloutTitle>This integration is for Jira Cloud only</CalloutTitle>
+   <CalloutDescription>The LaunchDarkly Jira integration is only for Jira Cloud product offerings. It does not work in Jira Server.
+  </CalloutDescription>
 </Callout>
 
 ## Prerequisites
@@ -65,9 +65,9 @@ Now that you've created an access token, use it to configure the Jira integratio
 [/block]
 
 <Callout intent="alert">
-  <Callout.Title>Environment selection</Callout.Title>
-   <Callout.Description>If selected environments are reconfigured after issues have already been associated with flags, the existing connections display the environments they were historically connected to until the next time that flag is updated. 
-New flag connections display the flag configuration for the updated environment.</Callout.Description>
+  <CalloutTitle>Environment selection</CalloutTitle>
+   <CalloutDescription>If selected environments are reconfigured after issues have already been associated with flags, the existing connections display the environments they were historically connected to until the next time that flag is updated. 
+New flag connections display the flag configuration for the updated environment.</CalloutDescription>
 </Callout>
 After you have set up the LaunchDarkly for Jira app is set up, a "Releases" panel appears when you view issues on the "Active sprints" board. 
 
@@ -75,9 +75,9 @@ If no flags are associated with an existing Jira issue, you can add one with a b
 
 Now that the Jira app is configured, you can connect feature flags to Jira issues.
 <Callout intent="info">
-  <Callout.Title>Enable the release panel</Callout.Title>
-   <Callout.Description>The Jira issue view, which contains the release panel, is a per-user setting. If it is off, the release panel does not appear. 
-To learn more, read [Jira's documentation](https://confluence.atlassian.com/jiracorecloud/the-new-jira-issue-view-938040503.html).</Callout.Description>
+  <CalloutTitle>Enable the release panel</CalloutTitle>
+   <CalloutDescription>The Jira issue view, which contains the release panel, is a per-user setting. If it is off, the release panel does not appear. 
+To learn more, read [Jira's documentation](https://confluence.atlassian.com/jiracorecloud/the-new-jira-issue-view-938040503.html).</CalloutDescription>
 </Callout>
 
 ## Creating a new feature flag from a Jira issue
@@ -164,7 +164,7 @@ If you have already created a feature flag for your Jira issue, you can add a Ji
 [/block]
 
 <Callout intent="alert">
-<Callout.Title>Adding issues to an existing flag</Callout.Title>
-   <Callout.Description>Your Jira issue must exist before you associate it with your feature flag. If you accidentally added a Jira issue to your flag, delete the custom property, create your Jira issue, and try again.
-  </Callout.Description>
+<CalloutTitle>Adding issues to an existing flag</CalloutTitle>
+   <CalloutDescription>Your Jira issue must exist before you associate it with your feature flag. If you accidentally added a Jira issue to your flag, delete the custom property, create your Jira issue, and try again.
+  </CalloutDescription>
 </Callout>

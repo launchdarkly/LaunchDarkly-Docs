@@ -5,8 +5,8 @@ excerpt: ""
 ## Overview
 This topic explains how to use the Slack webhook integration to set up [Slack Incoming Webhooks](https://api.slack.com/incoming-webhooks) to receive any activities in LaunchDarkly. When something is changed (e.g. when a feature flag is updated, when a new team member is invited to LaunchDarkly, and more) we'll send an incoming webhook to Slack.
 <Callout intent="info">
-  <Callout.Title>New Slack app is now available</Callout.Title>
-   <Callout.Description>LaunchDarkly has developed a [new Slack app](./slack-app) which is more powerful and easier to use than the Slack webhooks integration.
+  <CalloutTitle>New Slack app is now available</CalloutTitle>
+   <CalloutDescription>LaunchDarkly has developed a [new Slack app](./slack-app) which is more powerful and easier to use than the Slack webhooks integration.
 The content below describes the older webhook-based integration.
 
 ## Creating a Slack incoming hook

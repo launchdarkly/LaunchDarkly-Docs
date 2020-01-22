@@ -5,8 +5,8 @@ excerpt: ""
 ## Overview
 This topic explains how to use the New Relic integration to annotate New Relic transactions with feature flag information. You can use this data to correlate feature flag variations with changes in application performance or error rates.
 <Callout intent="alert">
-  <Callout.Title>SDK Support</Callout.Title>
-   <Callout.Description>Currently, the New Relic integration is only available for Java and Ruby.</Callout.Description>
+  <CalloutTitle>SDK Support</CalloutTitle>
+   <CalloutDescription>Currently, the New Relic integration is only available for Java and Ruby.</CalloutDescription>
 </Callout>
 
 ## Adding the New Relic integration
