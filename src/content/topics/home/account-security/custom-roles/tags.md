@@ -1,0 +1,24 @@
+---
+title: "Tags in custom roles"
+excerpt: ""
+---
+## Overview
+
+This topic explains how custom roles use tags.
+
+## Understanding tags
+
+Tags are simple strings that you can attach to any resource in LaunchDarkly. Tags are useful for grouping resources into a set that you can name in a resource specifier. For example, you can create a `dev` tag for your environments and use it in a policy to specify custom rules that only apply to development environments.
+
+Tags are supported on the following resources: 
+
+* projects
+* environments
+* segments
+* flags
+
+Other resources like metrics, webhooks and integrations do not support tags.
+
+## Adding tags to resources
+
+You can add tags to resources in LaunchDarkly with the UI or API.

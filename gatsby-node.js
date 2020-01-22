@@ -91,21 +91,21 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     fromPath: '/',
     isPermanent: true,
     redirectInBrowser: true,
-    toPath: '/home/quickstart/getting-started',
+    toPath: '/home/getting-started/introduction',
   })
 
   createRedirect({
     fromPath: '/home',
     isPermanent: true,
     redirectInBrowser: true,
-    toPath: '/home/quickstart/getting-started',
+    toPath: '/home/getting-started/introduction',
   })
 
   createRedirect({
     fromPath: '/getting-started',
     isPermanent: true,
     redirectInBrowser: true,
-    toPath: '/home/quickstart/getting-started',
+    toPath: '/home/getting-started/introduction',
   })
 
   createRedirect({

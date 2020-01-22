@@ -1,0 +1,15 @@
+---
+title: "Introduction"
+excerpt: ""
+---
+This category has documentation topics about LaunchDarkly's Experimentation add-on feature. 
+
+Experiments let you validate the impact of features you roll out to your app or infrastructure. Measure whatever you need, from pageviews to clicks, page load time to infrastructure costs, and more.
+
+Read the content in this category to understand everything about how experiments work in LaunchDarkly.
+## Related content
+Here are the topics in this category:
+
+* [Experimentation](./experimentation) 
+* [Creating experiments](./experimentation-create) 
+* [Managing experiments](./experimentation-manage)

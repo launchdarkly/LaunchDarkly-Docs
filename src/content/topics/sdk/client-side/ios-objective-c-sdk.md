@@ -1,0 +1,404 @@
+---
+title: "iOS Objective-C SDK Reference"
+excerpt: ""
+---
+<Callout intent="alert">
+  <Callout.Title>iOS Client SDK for Objective-C</Callout.Title>
+   <Callout.Description>This documentation is for the LaunchDarkly SDK for Objective-C iOS versions 3.0.1 and earlier.
+Versions 4.0.0 and later support [Swift](./ios-sdk-reference).</Callout.Description>
+</Callout>
+This reference guide documents all of the methods available in our iOS SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [iOS SDK GitHub repository](https://github.com/launchdarkly/ios-client-sdk) to look under the hood. Additionally you can clone and run sample applications using this SDK with [iOS](https://github.com/launchdarkly/hello-ios/tree/objective-c), [macOS](https://github.com/launchdarkly/hello-macos/tree/objective-c), and [tvOS](https://github.com/launchdarkly/hello-tvos/tree/objective-c).
+## Getting started
+Building on top of our [Quickstart](./getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your iOS application.
+
+The first step is to install the LaunchDarkly SDK as a dependency in your application. LaunchDarkly supports multiple methods for installing the SDK in your application. 
+
+If you're using [CocoaPods](https://cocoapods.org/), you can install the SDK by adding the following to your `Podfile`. Refer to the [SDK releases page](https://github.com/launchdarkly/ios-client-sdk/releases) to identify the latest version. Note that versions starting with 4.0.0 support Swift instead of Objective-C.
+[block:code]
+{
+  "codes": [
+    {
+      "code": "target 'TargetName' do\n    platform :ios, '8.0'\n    pod 'LaunchDarkly', '3.0.1'\nend",
+      "language": "objectivec",
+      "name": "CocoaPods"
+    }
+  ]
+}
+[/block]
+Then, run `pod install` from the project directory that contains the podfile:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "pod install",
+      "language": "objectivec"
+    }
+  ]
+}
+[/block]
+If you're using [Carthage](https://github.com/Carthage/Carthage), you can install the SDK by specifying it in your `Cartfile`. Again, refer to the [SDK releases page](https://github.com/launchdarkly/ios-client-sdk/releases) to identify the latest version.
+[block:code]
+{
+  "codes": [
+    {
+      "code": "github \"launchdarkly/ios-client\" \"3.0.1\"",
+      "language": "objectivec",
+      "name": "Carthage"
+    }
+  ]
+}
+[/block]
+Then run `carthage update` to build the framework. Optionally, specify the `--platform` option to build only the frameworks that support your platform(s). Drag the built `Darkly.framework` from your platform's Carthage/Build folder into your Xcode project. Follow the instructions at [Getting Started](https://github.com/Carthage/Carthage#getting-started) to finish the setup. Your app may not build until you add the run script phase to `copy-frameworks` to your target(s).
+
+Refer to the [SDK readme](https://github.com/launchdarkly/ios-client-sdk/blob/master/README.md) for instructions on installing the SDK without CocoaPods or Carthage.
+
+Next you should import the LaunchDarkly client in your application code.
+[block:code]
+{
+  "codes": [
+    {
+      "code": "#import \"Darkly.h\"",
+      "language": "objectivec"
+    }
+  ]
+}
+[/block]
+Once the SDK is installed and imported, you'll want to create a single, shared instance of `LDClient`. You should specify your *mobile key* here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+[block:code]
+{
+  "codes": [
+    {
+      "code": "LDConfig *config = [[LDConfig alloc] initWithMobileKey:@\"YOUR_MOBILE_KEY\"];\n    \nLDUserBuilder *user = [[LDUserBuilder alloc] init];\nuser.key = @\"aa0ceb\";\n    \n[[LDClient sharedInstance] start:config withUserBuilder:user];",
+      "language": "objectivec"
+    },
+    {
+      "code": "let config = LDConfig.init(mobileKey: \"YOUR_MOBILE_KEY\")\nlet user = LDUserBuilder()\nuser.key = \"aa0ceb\"
+LDClient.sharedInstance().start(config, with: user)",
+      "language": "swift"
+    }
+  ]
+}
+[/block]
+
+<Callout intent="info">
+  <Callout.Title>Mobile keys</Callout.Title>
+   <Callout.Description>Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into a mobile application.</Callout.Description>
+</Callout>
+Using `LDClient`, you can check which variation a particular user should receive for a given feature flag.
+[block:code]
+{
+  "codes": [
+    {
+      "code": "BOOL showFeature = [[LDClient sharedInstance] boolVariation:@\"YOUR_FLAG_KEY\" fallback:NO];\nif (showFeature) {\n    NSLog(@\"Showing feature for %@\", user.key);\n} else {\n    NSLog(@\"Not showing feature for user %@\", user.key);\n}",
+      "language": "objectivec"
+    }
+  ]
+}
+[/block]
+Lastly, when your application is about to terminate, shut down `LDClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+[block:code]
+{
+  "codes": [
+    {
+      "code": "// In iOS, you would shut down the client like this:\n[[LDClient sharedInstance] stopClient];",
+      "language": "objectivec"
+    }
+  ]
+}
+[/block]
+
+## Customizing your client
+You can also pass other custom parameters to the client via the configuration object:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "config.connectionTimeout = [NSNumber numberWithInt:10];\nconfig.flushInterval = [NSNumber numberWithInt:10];\n...\n[[LDClient sharedInstance] start:config withUserBuilder:user];\n",
+      "language": "objectivec"
+    },
+    {
+      "code": "config.connectionTimeout = 10\nconfig.flushInterval = 10\n...\nLDClient.sharedInstance().start(config, with: user)\n",
+      "language": "swift"
+    }
+  ]
+}
+[/block]
+Here, we've customized the client connect and flush interval parameters. 
+<Callout intent="info">
+<Callout.Title>Network access</Callout.Title>
+   <Callout.Description>By default, the LaunchDarkly client will need network access to `*.launchdarkly.com` using `https`.</Callout.Description>
+
+</Callout>
+
+## Users
+Feature flag targeting and rollouts are all determined by the *user* you pass to your client. In our iOS SDK, we use a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern) to make it easy to construct users. Here's an example:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "LDUserBuilder *user = [[LDUserBuilder alloc] init];
+user.key = @\"aa0ceb\";\nuser.firstName = @\"Ernestina\";\nuser.lastName = @\"Evans\";\nuser.email = @\"ernestina@example.com\";\n[user customArray:@\"groups\" value:groups];",
+      "language": "objectivec"
+    },
+    {
+      "code": "let user = LDUserBuilder()
+user.key = \"aa0ceb\"\nuser.firstName = \"Ernestina\"\nuser.lastName = \"Evans\"\nuser.email = \"ernestina@example.com\"\nuser.customArray(\"groups\", value: groups)\n",
+      "language": "swift"
+    }
+  ]
+}
+[/block]
+Let's walk through this snippet. The first argument to the builder is the user's key-- in this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+
+All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes. 
+
+In addition to built-in attributes like names and e-mail addresses, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above. 
+<Callout intent="info">
+  <Callout.Title>A note on types</Callout.Title>
+   <Callout.Description>Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
+If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The iOS SDK is strongly typed, so be aware of this distinction.</Callout.Description>
+</Callout>
+Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
+## Private user attributes
+You can optionally configure the iOS SDK to treat some or all user attributes as private user attributes. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+
+In the iOS SDK there are two ways to define private attributes for the *entire* LaunchDarkly client:
+
+* When creating the `LDConfig` object, you can set the `allUserAttributesPrivate` attribute to `YES`
+* When creating the `LDConfig` object, you can set the `privateUserAttributes` attribute to a list of user attribute names, such as `@[@"name", @"email"]`;. If any user has a custom or built-in attribute named in this list, it will be removed before the user is sent to LaunchDarkly.
+
+You can also mark attributes as private when building the user object itself by calling the equivalent “private” user builder method. For example:
+
+[block:code]
+{
+  "codes": [
+    {
+      "code": "LDUserBuilder *user = [[LDUserBuilder alloc] init];
+user.key = @\"aa0ceb\";\nuser.email = @\"ernestina@example.com\";\nuser.privateAttributes = @[@\"email\"];",
+      "language": "objectivec"
+    },
+    {
+      "code": "let user = LDUserBuilder()
+user.key = \"aa0ceb\"\nuser.email = \"ernestina@example.com\"\nuser.privateAttributes = [\"email\"];",
+      "language": "swift"
+    }
+  ]
+}
+[/block]
+
+## Anonymous users
+You can also distinguish logged-in users from anonymous users in the SDK, as follows:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "LDUserBuilder *user = [[LDUserBuilder alloc] init];
+user.key = @\"aa0ceb\";\nuser.isAnonymous = TRUE;",
+      "language": "objectivec"
+    },
+    {
+      "code": "let user = LDUserBuilder()
+user.key = \"aa0ceb\"\nuser.isAnonymous = true",
+      "language": "swift"
+    }
+  ]
+}
+[/block]
+You will still need to generate a unique key for anonymous users-- session IDs or UUIDs work best for this. 
+
+Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing-- it keeps anonymous users from polluting your Users page!
+## Variation
+The `variation` method determines whether a flag is enabled or not for a specific user. In iOS, there is  a `variation` method for each type (e.g. `boolVariation`, `stringVariation`):
+[block:code]
+{
+  "codes": [
+    {
+      "code": "[[LDClient sharedInstance] boolVariation:@\"your.feature.key\" fallback:FALSE];
+",
+      "language": "objectivec"
+    },
+    {
+      "code": "LDClient.sharedInstance().boolVariation(\"your.feature.key\", fallback: false)
+",
+      "language": "swift"
+    }
+  ]
+}
+[/block]
+`variation` calls take the feature flag key and a fallback value. 
+
+The fallback value will only be returned if an error is encountered-- for example, if the feature flag key doesn't exist or the user doesn't have a key specified. 
+
+The `variation` call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at Identify). 
+<Callout intent="info">
+  <Callout.Title>Handling flag values on initial app launch</Callout.Title>
+   <Callout.Description>When `LDClient` is initialized for the first time at app launch, users will receive the feature flag fallback values until polling is completed for the first time.
+You can use the `userDidUpdate` delegate method to be notified when the feature flag values have been polled and are ready to use (See [Realtime UI Updates](#real-time-updates)). Once the flags have been polled for the first time, the SDK will always use the latest stored flag values thereafter.</Callout.Description>
+</Callout>
+
+## Track
+The `track` method allows you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests. You can also attach custom JSON data to your event by passing an extra `NSDictionary` parameter to `track`. Here's a simple example:
+[block:code]
+{
+  "codes": [
+    {
+      "code": " [[LDClient sharedInstance] track:@\"your-goal-key\" data:dict];",
+      "language": "objectivec"
+    },
+    {
+      "code": "LDClient.sharedInstance().track(\"Signed up\", data: dict)",
+      "language": "swift"
+    }
+  ]
+}
+[/block]
+
+## Offline mode
+In some situations, you might want to stop making remote calls to LaunchDarkly and switch to fallback values for your feature flags.  `offline` lets you do this easily. 
+[block:code]
+{
+  "codes": [
+    {
+      "code": "[[LDClient sharedInstance] offline];\n[[LDClient sharedInstance] boolVariation:@\"your.feature.key\" fallback:FALSE]; // will always return the fallback value (FALSE)
+",
+      "language": "objectivec"
+    },
+    {
+      "code": "LDClient.sharedInstance().offline()\nLDClient.sharedInstance().stopClient()\nLDClient.sharedInstance().boolVariation(\"your.feature.key\", fallback: false) // will always return the fallback value (FALSE)
+",
+      "language": "swift"
+    }
+  ]
+}
+[/block]
+You can bring LaunchDarkly back online by calling `online`.
+<Callout intent="info">
+  <Callout.Title>Airplane/Flight Mode</Callout.Title>
+   <Callout.Description>If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in CoreData.  If there are no previously stored flag settings, then the fallback values will be used.</Callout.Description>
+</Callout>
+
+## Flush
+Internally, the LaunchDarkly SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `flush` to process events immediately. 
+[block:code]
+{
+  "codes": [
+    {
+      "code": "[[LDClient sharedInstance] flush];",
+      "language": "objectivec"
+    },
+    {
+      "code": "LDClient.sharedInstance().flush()",
+      "language": "swift"
+    }
+  ]
+}
+[/block]
+Note that the flush interval is configurable-- if you need to change the interval, you can do so via the configuration.
+
+## <a name="real-time-updates"></a>Real-time updates
+LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream.  When a flag is modified via the LaunchDarkly dashboard, the flag values for the current user will update almost immediately.
+
+To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is listened to by the iOS SDK. Whenever an event is performed on the dashboard, the iOS SDK is notified of the updated flag settings in real-time.
+
+To perform real-time updates in your app, your base class will need to conform to the `ClientDelegate` protocol. When your flag configurations change, either the `userDidUpdate` or the `userUnchanged` method of the protocol is called. Additionally, the `featureFlagDidUpdate` method of the protocol is called (with the specific flag key) when a flag value is changed.
+
+If more than one class relies on LaunchDarkly’s feature flags, we recommend you post a notification in this method, in a manner similar to the following:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "- (void)userDidUpdate{\n    [[NSNotificationCenter defaultCenter] postNotificationName:@\"userUpdatedNotification\" object:nil];\n}
+",
+      "language": "objectivec"
+    },
+    {
+      "code": "func userDidUpdate() {\n NSNotificationCenter.defaultCenter().postNotificationName(\"userUpdatedNotification\", object: nil)\n}
+",
+      "language": "swift"
+    }
+  ]
+}
+[/block]
+After this, you can add a notification observer to any class that needs to update the app based on the flag values. This observer will point to a selector which can then update your app accordingly.
+<Callout intent="info">
+<Callout.Title>Variation methods</Callout.Title>
+   <Callout.Description>Make sure to use `variation` methods to get new flag values instead of any locally stored variables.</Callout.Description>
+
+</Callout>
+
+## Background fetch
+When the app is backgrounded, the iOS SDK does not receive real-time events.  However, there is support for a background fetch to update flag values opportunistically, according to iOS standard defaults.
+
+To allow background fetch for flags in your app, just add the following code in your `AppDelegate`:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "-(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{\n    [[NSNotificationCenter defaultCenter] postNotificationName:kLDBackgroundFetchInitiated object:nil];\n}
+",
+      "language": "objectivec"
+    },
+    {
+      "code": "func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {\n    NSNotificationCenter.defaultCenter().postNotificationName(kLDBackgroundFetchInitiated, object: nil)\n}
+",
+      "language": "swift"
+    }
+  ]
+}
+[/block]
+You will also need to enable Background fetch in your Target’s capabilities.
+## Changing the user context
+If your app is used by multiple users on a single device, then you will want to ensure that each user has persistent and personalized flag settings. To achieve this, the SDK will store up to 5 user contexts on a single device, with support for switching between different user contexts.
+
+You can use the `updateUser` method to switch user contexts:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "LDUserBuilder *user = [[LDUserBuilder alloc] init];\nuser.key = @\"aa0ceb\";\n[[LDClient sharedInstance] updateUser:user];\n",
+      "language": "objectivec"
+    },
+    {
+      "code": "let user = LDUserBuilder()\nuser.key = \"aa0ceb\"\nLDClient.sharedInstance().updateUser(user)",
+      "language": "swift"
+    }
+  ]
+}
+[/block]
+
+## Multiple environments
+LaunchDarkly's iOS SDK supports having multiple `LDClient` instances tied to separate mobile keys. This allows evaluating flags from multiple environments.
+
+All `LDClient` instances will evaluate against the same `LDUser`. The mobile keys for additional environments are specified, along with identifying names, in a dictionary passed to your `LDConfig` object.
+[block:code]
+{
+  "codes": [
+    {
+      "code": "LDConfig *config = [[LDConfig alloc] initWithMobileKey:@\"YOUR_MOBILE_KEY\"];\nNSDictionary *otherMobileKeys = [[NSDictionary alloc] initWithObjectsAndKeys:@\"PLATFORM_MOBILE_KEY\", @\"platform\", nil];\n[config setSecondaryMobileKeys:otherMobileKeys];
+LDUserBuilder *user = [[LDUserBuilder alloc] init];\nuser.key = @\\\"aa0ceb\\\";\n  \n[[LDClient sharedInstance] start:config withUserBuilder:user];",
+      "language": "objectivec"
+    },
+    {
+      "code": "let config = LDConfig.init(mobileKey: \"YOUR_MOBILE_KEY\")\nlet otherMobileKeys = [platform: \"PLATFORM_MOBILE_KEY\"]\nconfig.setSecondaryMobileKeys(otherMobileKeys)\nlet user = LDUserBuilder()\nuser.key = \"aa0ceb\"
+LDClient.sharedInstance().start(config, with: user)",
+      "language": "swift"
+    }
+  ]
+}
+[/block]
+To access the secondary mobile key instances, use the `environmentForMobileKeyNamed` method on `LDClient`. This method takes the identifier name assigned to your environment key in the secondaryMobileKeys dictionary and returns the associated `LDClient` instance.
+[block:code]
+{
+  "codes": [
+    {
+      "code": "LDClient *coreInstance = [[LDClient sharedInstance] environmentForMobileKeyNamed:@\"platform\"];\n[coreInstance boolVariation:@\"platform-bool-flag\" fallback:FALSE];",
+      "language": "objectivec"
+    },
+    {
+      "code": "let coreInstance = LDClient.sharedInstance().environmentForMobileKeyNamed(\"platform\")\ncoreInstance.boolVariation(\"platform-bool-flag\", fallback: false)",
+      "language": "swift"
+    }
+  ]
+}
+[/block]
+As all the client instances use the same `LDUser` object, some calls will affect all instances. These methods include: `updateUser`, `flush`, `stopClient`, and set online/offline.  Track calls, listeners, and flag evaluation are all tied to the client instance they are evaluated against.

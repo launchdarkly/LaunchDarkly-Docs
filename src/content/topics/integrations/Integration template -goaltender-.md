@@ -1,0 +1,19 @@
+---
+title: "Integration template (goaltender)"
+excerpt: ""
+---
+## Overview
+* Very brief description of the third-party service (including a link to the third-party service!)
+* Recap of what the integration does
+* Quick reference for who might want to use this integration (common use cases -- is it _anyone_ using both LD and the third-party tool or only specific users trying to do something in particular?)
+* Include screenshots when possible of the integration in action
+## Initial configuration
+* How to find the integration (find it on the integrations page)
+* How to configure it - only required fields here (to keep this section simple)
+* How to configure it in the third-party service (if appropriate) / Next steps for in-app usage
+## Advanced configuration
+* Go into more detail about optional fields (if appropriate). For example, talk here about webhook policies.
+## Using the integration
+* How to use the integration once it is configured
+* When will data be sent to the integration
+* In what other ways will LaunchDarkly interact with this third-party service

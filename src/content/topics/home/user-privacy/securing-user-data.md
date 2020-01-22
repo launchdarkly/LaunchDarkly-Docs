@@ -1,0 +1,48 @@
+---
+title: "Tightly securing user data"
+excerpt: ""
+---
+## Overview
+This topic explains some of the configuration options you can use to increase user privacy in LaunchDarkly. Using these features can impact certain features in the LaunchDarkly UI. To learn more, read [Impacted features](#impacted-features).
+
+If the features listed below don't meet your privacy requirements, we have even more options to secure your user's private data. To learn more,  read [Completely restricting secure user data](./user-data-completely-restricted).
+
+## Securing user data
+### SDK key restrictions
+You can use limited SDK keys so SDKs can only access specific levels or types of information.
+
+NEED MORE INFO HERE
+
+### Mobile SDK restrictions
+Mobile SDKs have the option to use REPORT, rather than GET, when communicating with LaunchDarkly servers. 
+
+Requests made with REPORT inject user data into the body of the HTTP request, rather than the URL. This is moderately more secure than GET.
+
+To learn more, read our documentation about mobile SDKs.
+
+### Secure mode
+Client-side SDKs are inherently less secure than server-side SDKs because web browsers are vulnerable to different types of exploitation. Malicious third parties can `inspect element` in a browser to see a user's key or other PII. Because of this reality, we transmit the minimum amount of information necessary to client-side SDKs. If you're still concerned about a browser-based exploit, enable LaunchDarkly's **Secure mode**. 
+
+Secure mode links the data an SDK uses to make a request with the identifying data of the user making it. If a malicious third party tries to modify the user key to see other users' information, the request fails.
+
+Secure mode is a browser-based client-side SDK feature. To enable it, you must use a backend SDK with frontend feature flags, so the user identity verification happens securely in the server-side SDK.
+
+IS THERE ANY ADDITIONAL DETAIL WE CAN PROVIDE HERE ABOUT IDENTITY VERIFICATION THAT HAPPENS ON THE SERVER-SIDE?
+
+To learn more about enabling secure mode, read [Environments](./environments).
+
+### Private user attributes
+You can use LaunchDarkly's built-in user attribute settings to restrict what data your service sends to LaunchDarkly. You can make all attributes private, choose specific attributes to make private, or make attributes private for specific users. 
+
+To learn more, read [Setting user attributes](./private-user-attributes).
+
+### Anonymous users
+
+NEED INFORMATION ABOUT THIS
+
+## <a name="impacted-features"></a>Impacted features
+If you use the additional security features listed above, some features in LaunchDarkly will not function as designed. 
+
+These features are:
+ * If you use **anonymous users** or **private user attributes**, the Users dashboard won't populate with a complete list of users who access LaunchDarkly
+ * If you use **anonymous users** or **private user attributes**, autocomplete won't function anywhere in LaunchDarkly

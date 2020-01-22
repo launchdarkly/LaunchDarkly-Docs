@@ -1,0 +1,82 @@
+---
+path: '/home/getting-started/introduction'
+title: 'Getting started'
+---
+
+import Callout from '../../../../components/mdx/callout'
+import LearnMore from '../../../../components/mdx/learnMore'
+
+# Getting started
+
+Welcome to LaunchDarkly! We're excited to partner with you as you use feature flags to make high-impact changes with minimal risk and maximum control.
+
+It only takes a few minutes to get started with LaunchDarkly and control your first feature flag.
+
+## Integrating with LaunchDarkly
+
+The steps to integrate your application with LaunchDarkly are common across all SDKs. We provide a variety of client, server, and mobile SDKs for you to use. To learn more about our SDK offerings, read [Choosing an SDK](#choosing-an-sdk).
+
+To set up LaunchDarkly:
+
+1. **Install the LaunchDarkly SDK in your application using your project's dependency manager.** This lets your application access the LaunchDarkly SDK.
+2. **Import the LaunchDarkly client in your application code.** This client is the primary way your application uses the SDK and communicates with LaunchDarkly.
+3. **Configure the LaunchDarkly client with the appropriate key for your environment and create the client.** Your SDK key, Client-side ID, and Mobile key uniquely identify your project and environment, and they authorize your application to connect to LaunchDarkly.
+4. **Set which feature flag variation a user will see.** Every feature flag is uniquely identified by a feature flag key. Use the key to associate flag variations with different users.
+   <Callout intent="info">
+     <Callout.Title>Adding users to LaunchDarkly</Callout.Title>
+     <Callout.Description>
+       You don't have to send users to LaunchDarkly in advance. You can target them with feature flags have LaunchDarkly
+       accounts of their own. Users appear in the dashboard automatically after they encounter feature flags.
+     </Callout.Description>
+   </Callout>
+5. **Shut down the LaunchDarkly client when your application is about to terminate.** The client releases the resources it is using and sends pending analytics events to LaunchDarkly. If your application quits without this shutdown step, you may not see requests and users on the dashboard, because they are derived from analytics events. **You only need to shut down the application manually once**.
+
+## <a name="choosing-an-sdk"></a>Choosing an SDK
+
+We have a variety of client-side, server-side, and mobile SDKs to choose from.
+
+To learn more about the different types of SDKs, read [Client-side and server-side SDKs](./client-side-and-server-side).
+
+Explore the following SDK reference guides for specific details about how to use LaunchDarkly with your tech stack. To learn more about advanced configuration options for your platform's SDK, read the Reference guides section.
+
+Server-side SDKs:
+
+- [.NET](./dotnet-sdk-reference)
+- [C/C++ (server-side)](./c-server-sdk-reference)
+- [Go](./go-sdk-reference)
+- [Haskell](./haskell-server-sdk-reference)
+- [Java](./java-sdk-reference)
+- [Node.js (server-side)](./node-sdk-reference)
+- [PHP](./php-sdk-reference)
+- [Python](./python-sdk-reference)
+- [Ruby](./ruby-sdk-reference)
+
+Client-side SDKs:
+
+- [Android](./android-sdk-reference)
+- [C/C++ (client-side)](./c-sdk-reference)
+- [Electron](./electron-sdk-reference)
+- [iOS (Objective-C)](./ios-objc-sdk-reference)
+- [iOS (Swift)](./ios-sdk-reference)
+- [JavaScript](./js-sdk-reference)
+- [Node.js (client-side)](./node-client-sdk-reference)
+- [React](./react-sdk-reference)
+- [React Native](./react-native-sdk-reference)
+- [Roku](./roku-sdk-reference)
+- [Xamarin](./xamarin-sdk-reference)
+
+### Flag evaluations are always available
+
+If the SDK you're using loses the connection with LaunchDarkly, your feature flags will still work. The SDK relies on its stored state to evaluate flags.
+
+By default, an SDK initializes with an empty state. When the SDK first initializes, it opens a streaming connection to LaunchDarkly. The response from LaunchDarkly contains the SDKs' current state, which your SDK uses to make any necessary changes to feature flag. After the initial update, the SDK keeps a streaming connection open to LaunchDarkly. If you make a change in the LaunchDarkly dashboard or with the REST API, LaunchDarkly sends these changes to all connected SDKs automatically.
+
+If the SDK ever loses connectivity to LaunchDarkly, it continues to try to establish a streaming connection until it succeeds. If you evaluate a flag before the SDK receives its initial state, or you try to fetch a flag which otherwise doesn't exist, then the SDK returns a fallback value you can specify in the flag's settings.
+
+All SDKs provide synchronous and asynchronous ways of waiting for the SDKs state to initialize.
+
+## Next steps
+
+That's it! Now you can manage features on your dashboard-- read on to see how to [target users](./targeting-users) or do [controlled rollouts](./targeting-users) and [A/B tests](./running-ab-tests) without re-deploying your application!
+
+Once you're ready to test your integration, head over to the [debugger](./debugger) to get a real-time view of your feature flag requests as they're received.

@@ -1,0 +1,29 @@
+---
+title: "Considerations for your privacy requirements"
+excerpt: ""
+---
+## Overview
+This topic explains some best practices you think about when it comes to protecting your users' data. 
+
+These guidelines do not apply universally to all cases, but you can consider them to begin shaping your own security and privacy story for how your users interact with LaunchDarkly.
+## Considering privacy requirements
+## What does your company consider 'private'?
+Every company and product area has different definitions of what data you do not want to see, and what data you can use to improve services or collect metrics. Consider whether there is any data it is advantageous for your business to collect, or any data that may expose you to unwanted risk to collect. If you are collecting data, examine the methods you use to store it, and how long you want to keep it. 
+
+## How often do you handle your users' personally identifiable information?
+Your product area and business objectives may affect how often you are exposed to or collect users' personally identifiable information (PII). 
+
+If you are collecting user data once, for initial configuration in LaunchDarkly, you will have different long-term considerations than people who collect their users' data daily. If collecting and analyzing user data is a core part of your business, you may want to have a clear and aggressive security practice to protect that information.
+
+## Whose data are you handling, and where in the world are they located?
+When you pass user data through LaunchDarkly, consider whether the users affected are protected by regional laws that restrict which data you can transmit or we can see. 
+
+You may wish to default to a more restrictive set of data transmitted and stored than is required by your home country in order to comply with relevant international laws. 
+
+## Which SDKs do you use?
+LaunchDarkly SDKs handle user data differently, with server-side SDKs being substantially more secure than client-side SDKs. The types of SDKs you use may affect what kinds of data you wish to collect, transmit, and store.
+
+To learn more, read [Client-side and server-side SDKs](./client-side-and-server-side).
+
+## Who can write and configure feature flags?
+Team members with `writer` or `owner / admin` roles in LaunchDarkly can see and configure flag settings, including targeting flags by PII like user email addresses. Consider if your organization needs practices to restrict which team members can see user data.
