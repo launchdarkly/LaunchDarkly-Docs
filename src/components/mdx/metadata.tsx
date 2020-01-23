@@ -13,7 +13,7 @@ const Metadata: FunctionComponent<MetadataProps> = ({ timeToRead, lastModifiedDa
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
-        mb: 7,
+        mb: 6,
       }}
     >
       <Styled.h5>

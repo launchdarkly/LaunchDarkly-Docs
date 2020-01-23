@@ -89,21 +89,24 @@ const Layout: FunctionComponent<LayoutProps> = ({
             `
             'header'
             'main'
+            'footer'
             `,
             `
             'header header'
             'sideNav main'
+            'footer footer'
             `,
             `
             'header header header'
             'sideNav main aside'
+            'footer footer footer'
             `,
           ],
         }}
       >
         <Header />
         <DesktopSideNav />
-        <main sx={{ gridArea: 'main', px: [4, 7, 9], pt: 7 }}>
+        <main sx={{ gridArea: 'main', px: [5, 7, 9], pt: 7 }}>
           <Breadcrumbs />
           <MDXProvider components={components}>
             <MDXRenderer timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedTime}>
@@ -111,9 +114,10 @@ const Layout: FunctionComponent<LayoutProps> = ({
             </MDXRenderer>
           </MDXProvider>
         </main>
-        <aside sx={{ gridArea: 'aside', pt: 6, display: ['none', 'none', 'block'], width: '18rem' }}>
+        <aside sx={{ gridArea: 'aside', pt: 4, display: ['none', 'none', 'block'], width: '18rem' }}>
           {!isImported && <TableOfContents toc={toc} sx={{ position: 'sticky', top: 5 }} />}
         </aside>
+        <footer sx={{ gridArea: 'footer', height: '7rem' }}></footer>
       </div>
     </Fragment>
   )

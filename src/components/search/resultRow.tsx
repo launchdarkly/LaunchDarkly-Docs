@@ -25,7 +25,7 @@ const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, onClick }) => {
   }
   return (
     <GatsbyLink to={path} sx={{ textDecoration: 'none' }} onClick={onClickWrapper}>
-      <Flex p={4} sx={{ flexDirection: 'column', '&:hover': { bg: 'grayLight' } }}>
+      <Flex px={5} py={3} sx={{ flexDirection: 'column', '&:hover': { bg: 'grayLight' } }}>
         <Highlight hit={hit} attribute="title" tagName="mark" sx={{ color: 'primarySafe', ...markStyles }} />
         <Box pt={2} sx={{ color: 'graySafe', fontSize: 2, fontWeight: 'bold' }}>
           {secondLevelTopic.toUpperCase()}

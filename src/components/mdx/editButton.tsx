@@ -9,7 +9,7 @@ export default function EditButton({ path }: { path: string }) {
   }
   return (
     <Button variant="edit" onClick={onClick}>
-      <Icon name="pencil" height="1rem" fill="gray" marginBottom="-.2rem" marginRight=".2rem" />
+      <Icon name="pencil" height="1rem" fill="grayBase" marginBottom="-.15rem" marginRight=".2rem" marginTop=".75rem" />
       Edit on github
     </Button>
   )

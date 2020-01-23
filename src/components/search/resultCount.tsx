@@ -12,7 +12,8 @@ const ResultCount: FunctionComponent<ResultCountProps> = ({ count }) => {
   const { theme } = useThemeUI()
   return (
     <Box
-      m={4}
+      mx={5}
+      my={4}
       p={2}
       sx={{
         display: 'inline-block',

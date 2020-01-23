@@ -11,7 +11,7 @@ exports[`mdx metadata renders correctly 1`] = `
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  margin-bottom: 256px;
+  margin-bottom: 128px;
 }
 
 <div

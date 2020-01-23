@@ -55,7 +55,7 @@ export default {
     spaced: '1.5',
     regular: '1rem',
     small: '1.25rem',
-    body: '1.75rem',
+    body: '1.5rem',
     medium: '2rem',
     heading: '3rem',
   },
@@ -317,7 +317,7 @@ export default {
     h2: {
       fontSize: [5, 5, 6],
       lineHeight: ['medium', 'medium', 'fixed'],
-      marginTop: [4, 5, 7],
+      marginTop: [5, 5, 6],
       marginBottom: [4, 4, 5],
     },
     h3: {
@@ -361,7 +361,7 @@ export default {
     p: {
       fontSize: 4,
       lineHeight: 'body',
-      marginBottom: [5, 5, 5],
+      marginBottom: [4, 4, 4],
       '& figcaption': (theme: any) => ({
         ...theme.styles.figcaption,
       }),
