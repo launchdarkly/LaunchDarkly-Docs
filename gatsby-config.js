@@ -32,6 +32,7 @@ const plugins = [
             showCaptions: true,
           },
         },
+        'gatsby-remark-copy-linked-files',
       ],
     },
   },
