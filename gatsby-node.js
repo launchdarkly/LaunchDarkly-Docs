@@ -655,8 +655,14 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     redirectInBrowser: true,
   })
   createRedirect({
+    fromPath: '/sdk',
+    toPath: '/sdk/concepts',
+    isPermanent: true,
+    redirectInBrowser: true,
+  })
+  createRedirect({
     fromPath: '/docs/getting-started-with-launchdarkly-sdks',
-    toPath: '/sdk/concepts/getting-started',
+    toPath: '/sdk/concepts',
     isPermanent: true,
     redirectInBrowser: true,
   })
