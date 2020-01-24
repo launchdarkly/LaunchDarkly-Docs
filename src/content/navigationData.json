@@ -297,7 +297,7 @@
     "items": [
       {
         "label": "Introduction",
-        "path": "/integrations/introduction"
+        "path": "/integrations"
       },
       {
         "label": "Azure DevOps (formerly VSTS)",
