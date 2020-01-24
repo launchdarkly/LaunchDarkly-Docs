@@ -8,10 +8,6 @@
         "path": "/home/getting-started",
         "items": [
           {
-            "label": "Introduction",
-            "path": "/home/getting-started"
-          },
-          {
             "label": "Your team and LaunchDarkly",
             "path": "/home/getting-started/your-team"
           },
