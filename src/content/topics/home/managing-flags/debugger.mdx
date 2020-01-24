@@ -1,0 +1,74 @@
+---
+path: '/home/managing-flags/debugger'
+title: 'The debugger'
+---
+
+# The debugger
+
+<Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
+
+## Overview
+
+This topic explains how to use the debugger.
+
+The debugger gives you real-time insight into the events your application is sending to LaunchDarkly, so you can ensure that you've set LaunchDarkly up correctly. Different types of events appear, in detail or in summary, depending on what you want to see.
+
+## Using the debugger
+
+The debugger shows you a real-time stream of events arriving in LaunchDarkly from your app. When you first open the debugger, it connects to the event stream to show live events as they appear. Establishing the connection can take up to 30 seconds. In high-volume environments, you may see sampled events, rather than 100% of events.
+
+<Callout intent="info">
+  <CalloutTitle>The debugger must be visible to work</CalloutTitle>
+  <CalloutDescription>
+    The debugger will not display events when it is not the active window in your browser. Leave it open and visible to
+    see events as they occur. If you need to click around in your app to generate events, open the app in a second
+    window.
+  </CalloutDescription>
+</Callout>
+
+## Flag events
+
+The debugger displays evaluation counts and variation breakdowns for each flag evaluated since you opened the debugger. Click on a flag or select it from the dropdown to access individual event information.
+
+![The debugger.](../../images/debugger-flag-events.png)
+
+Flag evaluation events display as a summary. This saves data load. To get detailed evaluation event information for a flag, select it and click **Debug**.
+
+This will temporarily enables detailed events for that flag, which appear as they are received. View additional information, including the user attributes used for evaluation, by clicking on an individual event.
+
+<Callout intent="alert">
+  <CalloutTitle>Older SDK versions send detailed events for every evaluation</CalloutTitle>
+  <CalloutDescription>
+    The minimum required version for each platform SDK to use summary events is:\n.NET: 5.0.0\nGo: 4.0.0\nJava:
+    4.0.0\nNode: 5.0.0\nPython: 6.0.0\nRuby: 4.0.0\nJavaScript: 2.0.0\nAndroid: 2.4.0\niOS: 2.13.0 PHP: The PHP SDK does
+    not itself support summary events. However, when PHP is used with LD Relay, the LD Relay event-forwarding mode has
+    the ability to turn the events received from the PHP SDK into summary events. This requires that you are using PHP
+    SDK version 3.1.0 or higher. LD Relay: If you are using LD Relay with PHP you will need to upgrade LD Relay to
+    version 4.0.0 or higher. Other SDKs do not require an LD Relay update to use summary events.
+  </CalloutDescription>
+</Callout>
+
+## User events
+
+There are two types of user events:
+
+- **Identify** events are explicitly triggered by your application code
+- **Index** events are automatically triggered by the LaunchDarkly SDK based on flag evaluations.
+
+Click on a user to see individual event information.
+
+![The debugger, showing user events.](../../images/debugger-user-events.png)
+
+## Experimentation events
+
+Experimentation events only display for customers who have Experimentation enabled. To learn more, read [Running A/B tests](./running-ab-tests-bak).
+
+![The Experimentation events tab.](../../images/debugger-experimentation-events.png)
+
+There are three types of experiment events.
+
+- **Click** events
+- **Page view** events
+- **Custom** events
+
+These events correspond to the kind of metric that triggered the event.

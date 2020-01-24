@@ -19,6 +19,7 @@ import Table, { TableHeader, TableHeadCell, TableBody, TableRow, TableCell } fro
 import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
 import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
 import EditButton from './mdx/editButton'
+import Link from './link'
 
 const components = {
   h1: H1,
@@ -42,6 +43,7 @@ const components = {
   LearnMore,
   LearnMoreTitle,
   LearnMoreLink,
+  Link,
   CodeTabs,
   CodeTabItem,
   code: Code,
@@ -59,7 +61,6 @@ interface LayoutProps {
       timeToRead: number
       fields: {
         lastModifiedTime: string
-        isImported: boolean
       }
     }
   }
@@ -71,7 +72,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
       body,
       toc,
       timeToRead,
-      fields: { lastModifiedTime, isImported },
+      fields: { lastModifiedTime },
     },
   },
 }) => {
@@ -115,7 +116,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
           </MDXProvider>
         </main>
         <aside sx={{ gridArea: 'aside', pt: 4, display: ['none', 'none', 'block'], width: '18rem' }}>
-          {!isImported && <TableOfContents toc={toc} sx={{ position: 'sticky', top: 5 }} />}
+          <TableOfContents toc={toc} sx={{ position: 'sticky', top: 5 }} />
         </aside>
         <footer sx={{ gridArea: 'footer', height: '7rem' }}></footer>
       </div>
@@ -131,7 +132,6 @@ export const pageQuery = graphql`
       timeToRead
       fields {
         lastModifiedTime(formatString: "MMM d, YYYY")
-        isImported
       }
     }
   }

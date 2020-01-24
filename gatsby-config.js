@@ -83,13 +83,6 @@ const plugins = [
     },
   },
   {
-    resolve: 'gatsby-source-filesystem',
-    options: {
-      path: `${__dirname}/readme`,
-      name: 'readme',
-    },
-  },
-  {
     resolve: 'gatsby-plugin-svgr-loader',
     options: {
       rule: {
@@ -150,6 +143,7 @@ if (process.env.GATSBY_ACTIVE_ENV === 'production') {
       bucketName: process.env.AWS_S3_BUCKET,
       protocol: 'https',
       hostname: process.env.AWS_HOSTNAME,
+      generateRedirectObjectsForPermanentRedirects: true,
       enableS3StaticWebsiteHosting: false,
     },
   }

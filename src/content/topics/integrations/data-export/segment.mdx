@@ -1,0 +1,225 @@
+---
+path: '/integrations/data-export/segment'
+title: 'Segment'
+---
+
+# Segment
+
+<Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
+
+## Overview
+
+This topic explains how to create and test a Segment destination for data export.
+
+## Prerequisites
+
+There are two prerequisites to configure the Segment integration:
+
+- You must add the LaunchDarkly Source in Segment
+- You must find the **Write Key** for your Segment account
+
+First, add the LaunchDarkly Source in Segment. To add the source, [read Segment's documentation](https://segment.com/docs/sources/cloud-apps/launchdarkly/).
+
+Next, configure the Segment integration in LaunchDarkly. To do this, you need the **Write Key** from your Segment account.
+
+To find the write key:
+
+1. Log into Segment and navigate to your project
+2. Navigate to **Sources** and select your LaunchDarkly source
+3. Select **API Keys** on the Source integration's menu bar
+4. Copy the **Write Key** as shown in the text box
+
+![The API Keys section of Segment's UI.](../../images/integrations-segment-write-key.png)
+
+## Creating a Segment destination in LaunchDarkly
+
+To create the Segment destination:
+
+1. Navigate to the **Integrations** screen.
+2. Click on the Segment icon or, if this is not your first destination, click the **Add Destination** drop down.
+3. Choose **Segment** from the dropdown. The "Create a destination" screen appears.
+4. (Optional) Give your integration a human-readable **Name**.
+5. Choose an **Environment** for this integration to apply to.
+6. Enter the Segment **Write key**.
+7. Click **Save Destination**. The new integration appears in the list of integrations.
+
+![The "Create a Destination" screen.](../../images/integrations-segment-create.png)
+
+## Testing a Segment destination
+
+After you create a Segment destination for data export, you can confirm that it's working correctly in the "Edit destination screen."
+
+To test the Segment destination:
+
+1. Navigate to the **Integrations** screen.
+2. Find the Segment destination and click **Edit**. The "Edit destination" screen opens.
+3. Click **Send Event** in the "Send a test event" section.
+
+![The Send a test event section of the Edit destination screen.](../../images/integrations-segment-test-event.png)
+
+4. Verify the event appears in the Segment **Debugger**.
+
+## Example events
+
+These example events display the structure of the events LaunchDarkly sends to Segment.
+
+LaunchDarkly sends events in the following formats:
+
+
+<CodeTabs
+  defaultValue="feature-event"
+  values={[
+    { label: 'Feature event', value: 'feature-event', },
+  ]
+}>
+
+<CodeTabItem value="feature-event">
+
+```json
+{
+  "event": "feature",
+  "integrations": {},
+  "messageId": "c2f7a2d1-0a1b-456f-8e9a-16756e7a6db5",
+  "originalTimestamp": "2019-09-13T21:20:18.114Z",
+  "properties": {
+    "default": "true",
+    "environment": "5d4b12345d2a2806bd2cc6eb",
+    "eventId": "5d7c12345a51a0006e16ae5",
+    "flagVersion": 42,
+    "key": "b2dee41d-a10b-4f57-855b-10239fb28bec",
+    "prereqOf": "example parent flag",
+    "project": "5744c12345c9900708000001",
+    "reasonKind": "FALLTHROUGH",
+    "value": "example-flag-value",
+    "version": 1
+  },
+  "receivedAt": "2019-09-13T21:20:19.406Z",
+  "sentAt": "2019-09-13T21:20:19.366Z",
+  "timestamp": "2019-09-13T21:20:18.153Z",
+  "type": "track",
+  "userId": "example-user-id",
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+<CodeTabs
+  defaultValue="click-event"
+  values={[
+    { label: 'Click event', value: 'click-event', },
+  ]
+}>
+
+<CodeTabItem value="click-event">
+
+```json
+{
+  "event": "click",
+  "integrations": {},
+  "messageId": "18925338-0a1b-4521-a36a-c8e9839e4593",
+  "originalTimestamp": "2019-09-13T21:21:43.114Z",
+  "properties": {
+    "environment": "5d4b12345d2a2806bd2cc6eb",
+    "eventId": "5d7c123a86f26000065862da",
+    "key": "5d7c12345a0c92071ec8963d",
+    "project": "5744c98765c9900708000001",
+    "selector": "btn",
+    "url": "http://example.com",
+    "version": 1
+  },
+  "receivedAt": "2019-09-13T21:21:46.415Z",
+  "sentAt": "2019-09-13T21:21:46.375Z",
+  "timestamp": "2019-09-13T21:21:43.154Z",
+  "type": "track",
+  "userId": "example-user-id",
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+<CodeTabs
+  defaultValue="custom-event"
+  values={[
+    { label: 'Custom event', value: 'custom-event', },
+  ]
+}>
+<CodeTabItem value="custom-event">
+
+```json
+{
+  "event": "custom",
+  "integrations": {},
+  "messageId": "d747a382-0a1b-41d5-b9a6-7ae9b93925bc",
+  "originalTimestamp": "2019-09-13T21:21:58.114Z",
+  "properties": {
+    "environment": "5d4b12345d2a2806bd2cc6eb",
+    "eventId": "5d7c123452db400061b14dd",
+    "key": "90f49c28-0a1b-4187-b196-de0e8f57a5a7",
+    "project": "5744c12345c9900708000001",
+    "version": 1
+  },
+  "receivedAt": "2019-09-13T21:22:00.673Z",
+  "sentAt": "2019-09-13T21:22:00.393Z",
+  "timestamp": "2019-09-13T21:21:58.393Z",
+  "type": "track",
+  "userId": "example-user-id",
+}
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<CodeTabs
+  defaultValue="page-event"
+  values={[
+    { label: 'Page view event', value: 'page-event', },
+  ]
+}>
+<CodeTabItem value="page-event">
+
+```json
+{
+  "integrations": {},
+  "messageId": "8c235148-0a1b-4428-a4de-00b90adf2833",
+  "originalTimestamp": "2019-09-13T21:19:43.114Z",
+  "properties": {
+    "environment": "5d123454d2a2806bd2cc6eb",
+    "eventId": "5d7c12345db400061b14c1",
+    "key": "5d7c071234592071ec8954d",
+    "project": "5744c123459900708000001",
+    "url": "http://example.com",
+    "version": 1
+  },
+  "receivedAt": "2019-09-13T21:19:45.371Z",
+  "sentAt": "2019-09-13T21:19:45.331Z",
+  "timestamp": "2019-09-13T21:19:43.154Z",
+  "type": "page",
+  "userId": "example-user-id",
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Enabling data export for flags and environments
+
+After you create a data export destination, you must start sending flag or environment event data to it. You can enable data export for individual flags, or for all the flags in an environment.
+
+To learn more about exporting event data from flags and environments, read [Exporting event data for flags and environments](./data-export#exporting-event-data-for-flags-and-environments).
+
+## Deleting a Segment destination
+
+You can delete a data export destination from the **Integrations** screen.
+
+To delete a destination:
+
+1. Navigate to the **Integrations** screen.
+2. Find the destination you wish to delete and click **Edit**. The "Create a destination" screen opens.
+3. Click **Delete Destination**.
+
+![The Delete destination section.](../../images/integrations-segment-delete.png)

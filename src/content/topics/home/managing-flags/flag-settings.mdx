@@ -1,0 +1,95 @@
+---
+path: '/home/managing-flags/flag-settings'
+title: 'Other flag settings'
+---
+
+# Other flag settings
+
+<Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
+
+## Overview
+
+This topic explains how to make other changes to your feature flags in the flag's **Settings** tab.
+
+A feature flag's Settings tab lets you change flag settings, including the name and description of the flag.
+
+![A flag's settings tab.](../../images/flag-settings.png)
+
+The fields in the Settings tab do the following things:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Field Name</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Maintainer</TableCell>
+      <TableCell>
+        The flag maintainer is the team member who's primarily responsible for the flag. By default, the Maintainer is
+        set to the member who created the flag, but you can assign any member of your team as the maintainer for a
+        particular flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Name</TableCell>
+      <TableCell>The feature flag's name. You can change it here.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Description</TableCell>
+      <TableCell>The feature flag's description. You can change it here.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Tags</TableCell>
+      <TableCell>
+        Tags are labels that help you categorize flags. They're especially helpful for managing flag permissions with
+        custom roles. For example, you can tag flags with <code>marketing</code> flags or <code>devOps</code> tags, and
+        then use these tags to determine who has read or write access for the flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Make this flag available to the client-side SDK</TableCell>
+      <TableCell>
+        You must make feature flags available to the client-side SDK before they can be used in variation calls on the
+        front-end. If you request a feature flag that is not available, you'll receive the default value for that flag.
+        If you want flags marked as available to the client-side SDK by default, you can check the "Make new flags
+        available to the client-side (JavaScript) SDK by default" in the Settings page. Click the Edit button just above
+        the project table to edit this project specific setting.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>This is a permanent flag</TableCell>
+      <TableCell>
+        You can mark flags permanent if they're intended to exist in your codebase long-term (e.g. a flag that's used to
+        enable a site-wide maintenance mode). We will not prompt you to remove permanent flags, even if one variation
+        has been rolled out to all of your users.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+<Callout intent="info">
+  <CalloutTitle>Flag keys can't be changed</CalloutTitle>
+  <CalloutDescription>
+    In addition to the descriptors, every flag has a unique key which you set during flag creation. The key cannot be
+    edited after the flag is created.
+  </CalloutDescription>
+</Callout>
+
+## Sending detailed event information
+
+<Callout intent="info">
+  <CalloutTitle>Detailed events require Data Export</CalloutTitle>
+  <CalloutDescription>
+    This setting is only visible to customers using Data Export. Data Export is only available to customers on our
+    enterprise plans. If you're interested in learning more about our enterprise plans, contact
+    [sales@launchdarkly.com](mailto:sales@launchdarkly.com?Subject=Data%20Export).
+  </CalloutDescription>
+</Callout>
+
+Flag evaluation events are summarized by default to minimize data use.
+
+If you use Data Export, you can enable it to send detailed event data for a given flag. Unlike other flag settings on this page, you can adjust this setting for each environment in the project.
+
+To learn more, read [Data Export](./data-export).
+
+![The "Send detailed event information for this flag" field.](../../images/env-settings-event-info.png)

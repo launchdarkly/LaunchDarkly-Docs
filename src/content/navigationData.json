@@ -9,7 +9,7 @@
         "items": [
           {
             "label": "Introduction",
-            "path": "/home/getting-started/introduction"
+            "path": "/home/getting-started"
           },
           {
             "label": "Your team and LaunchDarkly",
@@ -421,27 +421,23 @@
     "items": [
       {
         "label": "SDK Concepts",
-        "path": "/sdk/sdk-concepts",
+        "path": "/sdk/concepts",
         "items": [
           {
-            "label": "Getting started with SDKs",
-            "path": "/sdk/getting-started"
-          },
-          {
             "label": "Client-side and server-side SDKs",
-            "path": "/sdk/client-side-and-server-side"
+            "path": "/sdk/concepts/client-vs-server"
           },
           {
             "label": "SDK versioning policy",
-            "path": "/sdk/versioning"
+            "path": "/sdk/concepts/versioning"
           },
           {
             "label": "SDK contributor's guide",
-            "path": "/sdk/contributors-guide",
+            "path": "/sdk/concepts/contributors-guide",
             "items": [
               {
                 "label": "Flag evaluation rules in server-side SDKs",
-                "path": "/sdk/sdk-contributors-guide/server-side-flag-evals"
+                "path": "/sdk/concepts/contributors-guide/flag-evaluation-rules"
               }
             ]
           }
@@ -449,43 +445,43 @@
       },
       {
         "label": "Server-side SDK Guides",
-        "path": "/sdk/server-side-sdk-guides",
+        "path": "/sdk/server-side",
         "items": [
           {
             "label": ".NET SDK Reference",
-            "path": "/sdk/server-side-sdk-guides/dotnet"
+            "path": "/sdk/server-side/dotnet"
           },
           {
             "label": "C/C++ (server-side) SDK reference",
-            "path": "/sdk/server-side-sdk-guides/c-c-plus-plus"
+            "path": "/sdk/server-side/c-c-plus-plus"
           },
           {
             "label": "Go SDK Reference",
-            "path": "/sdk/server-side-sdk-guides/go"
+            "path": "/sdk/server-side/go"
           },
           {
             "label": "Haskell SDK Reference",
-            "path": "/sdk/server-side-sdk-guides/haskell"
+            "path": "/sdk/server-side/haskell"
           },
           {
             "label": "Java SDK Reference",
-            "path": "/sdk/server-side-sdk-guides/java"
+            "path": "/sdk/server-side/java"
           },
           {
             "label": "Node.js (server-side) SDK Reference",
-            "path": "/sdk/server-side-sdk-guides/node-js"
+            "path": "/sdk/server-side/node-js"
           },
           {
             "label": "PHP SDK Reference",
-            "path": "/sdk/server-side-sdk-guides/php"
+            "path": "/sdk/server-side/php"
           },
           {
             "label": "Python SDK Reference",
-            "path": "/sdk/server-side-sdk-guides/python"
+            "path": "/sdk/server-side/python"
           },
           {
             "label": "Ruby SDK Reference",
-            "path": "/sdk/server-side-sdk-guides/ruby"
+            "path": "/sdk/server-side/ruby"
           }
         ]
       },

@@ -1,0 +1,626 @@
+---
+path: '/home/reference/flag-evaluations'
+title: 'Evaluation reasons'
+---
+
+# Evaluation reasons
+
+<Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
+
+## Overview
+
+This topic explains how to use LaunchDarkly to determine why a user receives a given flag variation. It can be useful to have this information when you're diagnosing problems or doing analysis of the impact of different flags.
+
+You can access this information programmatically from your SDK or from Data Export events. To learn more about Data Export, read [Data Export](./data-export).
+
+## Accessing flag variation information programmatically
+
+For each of the SDK methods that you call to evaluate a feature flag, there is a corresponding `detail` method.
+
+This method returns three pieces of information:
+
+- The computed flag variation, which what you get when you only evaluated the flag
+- The variation index, which is a zero-based integer indicating which variation was selected. For example, if the flag's possible variations are `A`, `B`, and `C`, in that order, and the current variation is `C`, the variation index would be 2. This value is useful for tabulation, although in some cases, it may be absent. To learn more, read [Error conditions](#error-conditions).
+- A `reason` object, which contains information about why that variation was selected. This data structure is described below.
+
+An example call in our Go SDK is depicted below:
+
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+    { label: 'Java', value: 'java', },
+    { label: 'C# (.NET)', value: 'csharp', },
+    { label: 'Ruby', value: 'ruby', },
+    { label: 'Python', value: 'py', },
+    { label: 'Node.js', value: 'node', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'PHP', value: 'php', },
+    { label: 'C# (Xamarin)', value: 'xamarin', },
+    { label: 'Android', value: 'android', },
+    { label: 'iOS (Swift)', value: 'swift', },
+    { label: 'React Native', value: 'react', },
+  ]
+}>
+
+<CodeTabItem value="go">
+
+```go
+value, detail, err := client.BoolVariationDetail("flag-key", myUser, false)
+// or StringVariationDetail for a string-valued flag, etc.
+
+index := detail.VariationIndex   // may be nil
+reason := detail.Reason          // will always be present
+```
+
+</CodeTabItem>
+<CodeTabItem value="java">
+
+```java
+EvaluationDetail<Boolean> detail =
+  client.boolVariationDetail("flag-key", myUser, false);
+  // or stringVariationDetail for a string-valued flag, etc.
+
+boolean value = detail.getValue();
+Integer index = detail.getVariationIndex();   // may be null
+EvaluationReason reason = detail.getReason(); // will always be present
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp">
+
+```csharp
+EvaluationDetail<bool> detail =
+  client.BoolVariationDetail("flag-key", myUser, false);
+  // or StringVariationDetail for a string-valued flag, etc.
+
+bool value = detail.Value;
+int? index = detail.VariationIndex;       // may be null
+EvaluationReason reason = detail.Reason;  // will always be present
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby">
+
+```ruby
+detail = client.variation_detail("flag-key", my_user, false)
+
+value = detail.value
+index = detail.variation_index  # may be nil
+reason = detail.reason          # will always be present
+```
+
+</CodeTabItem>
+<CodeTabItem value="py">
+
+```py
+detail = client.variation_detail("flag-key", my_user, False)
+
+value = detail.value
+index = detail.variation_index  # may be None
+reason = detail.reason          # will always be present
+```
+
+</CodeTabItem>
+<CodeTabItem value="node">
+
+```js
+var detail = client.variationDetail("flag-key", myUser, false);
+
+var value = detail.value;
+var index = detail.variationIndex;  // may be null
+var reason = detail.reason;         // will always be present
+```
+
+</CodeTabItem>
+<CodeTabItem value="js">
+
+```js
+// Note that in order for this to work, your client configuration must
+// include the property "evaluationReasons: true"
+
+var detail = client.variationDetail("flag-key", false);
+
+var value = detail.value;
+var index = detail.variationIndex;  // may be null
+var reason = detail.reason;         // will always be present
+```
+
+</CodeTabItem>
+<CodeTabItem value="php">
+
+```php
+
+$detail = $client->variationDetail("flag-key", $myUser, false);
+
+$value = $detail->getValue();
+$index = $detail->getVariationIndex();  // may be null
+$reason = $detail->getReason();         // will always be present
+```
+
+</CodeTabItem>
+<CodeTabItem value="xamarin">
+
+```csharp
+// Note that in order for this to work, your client configuration must
+// include the property WithEvaluationReasons(true)
+
+EvaluationDetail<bool> detail =
+  client.BoolVariationDetail("flag-key", false);
+  // or StringVariationDetail for a string-valued flag, etc.
+
+bool value = detail.Value;
+int? index = detail.VariationIndex;       // may be null
+EvaluationReason reason = detail.Reason;  // will always be present
+```
+
+</CodeTabItem>
+<CodeTabItem value="android">
+
+```java
+EvaluationDetail<Boolean> detail =
+  client.boolVariationDetail("flag-key", false);
+  // or stringVariationDetail for a string-valued flag, etc.
+
+boolean value = detail.getValue();
+Integer index = detail.getVariationIndex();   // may be null
+EvaluationReason reason = detail.getReason(); // will always be present
+```
+
+</CodeTabItem>
+<CodeTabItem value="swift">
+
+```swift
+let EvaluationDetail<Bool> detail =
+  client.variationDetail("flag-key", false);
+
+bool value = detail.value;
+Int? index = detail.variationIndex;   // may be null
+Dictionary<String, Any>? reason = detail.reason; // may be null
+```
+
+</CodeTabItem>
+<CodeTabItem value="react">
+
+```js
+const detail =
+  client.boolVariationDetail("flag-key", false);
+
+const value = detail.value;
+const index = detail.variationIndex;   // may be null
+const reason = detail.reason; // may be null
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Understanding the reason data
+
+In strongly typed languages, the reason object is composed of specific classes. In other languages, it is a hash, such as a dictionary or object.
+
+The JSON representation is the same in every language, so we will describe the reason object here as if it were a JSON object.
+
+The reason object's only required property is `kind`. This describes the general reason that LaunchDarkly selected this variation. The possible values for `kind` are enums in the strongly typed languages and strings in other languages.
+
+These values are:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Value name</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>OFF</code>
+      </TableCell>
+      <TableCell>
+        The flag is on, but the user did not match any targets or rules, so it returned the value that appears on the
+        dashboard under "Default rule." The "default rule" is not the same thing as the default value discussed in
+        "Error conditions".
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>FALLTHROUGH</code>
+      </TableCell>
+      <TableCell>
+        The flag is off and therefore returned its configured off value. This value appears on the dashboard next to "If
+        targeting is off, serve: ".
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>TARGET_MATCH</code>
+      </TableCell>
+      <TableCell>
+        The user key was specifically targeted for this flag in the "Target individual users" section.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>RULE_MATCH</code>
+      </TableCell>
+      <TableCell>
+        The user who encountered the flag matched one of the flag's rules. In this case, the reason object also has
+        these properties: <code>ruleIndex</code>, which is the positional index of the matched rule (0 for the first
+        rule), and <code>ruleId</code>, which is the rule's unique identifier, which stays the same even if you
+        rearrange the order of the rules.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>PREREQUISITE_FAILED</code>
+      </TableCell>
+      <TableCell>
+        The flag had at least one prerequisite flag that either was off or did not return the desired variation. Because
+        of this, the flag returned its "off" value. In this case, the reason object also has this property:{' '}
+        <code>prerequisiteKey</code>: The key of the prerequisite flag that failed.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>ERROR</code>
+      </TableCell>
+      <TableCell>The flag could not be evaluated, so the default value was returned.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+Here is an example of how you could access the details of a reason object in some of LaunchDarkly's SDKs:
+
+
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+    { label: 'Java', value: 'java', },
+    { label: 'C# (.NET of Xamarin)', value: 'csharp', },
+    { label: 'Ruby', value: 'ruby', },
+    { label: 'Python', value: 'py', },
+    { label: 'Node.js or JS', value: 'node', },
+    { label: 'PHP', value: 'php', },
+    { label: 'Android', value: 'android', },
+  ]
+}>
+
+<CodeTabItem value="go">
+
+```go
+func PrintReason(reason ldclient.EvaluationReason) {
+  switch r := reason.(type) {
+  case EvaluationReasonOff:
+    fmt.Println("it's off")
+  case EvaluationReasonFallthrough:
+    fmt.Println("fell through")
+  case EvaluationReasonTargetMatch:
+    fmt.Println("targeted")
+  case EvaluationReasonRuleMatch:
+    fmt.Printf("matched rule %d/%s\n", r.RuleIndex, r.RuleID)
+  case EvaluationReasonPrerequisiteFailed:
+    fmt.Printf("prereq failed: %s\n", r.PrerequisiteKey)
+  case EvaluationReasonError:
+    fmt.Printf("error: %s\n", r.ErrorKind)
+  }
+  // or, if all you want is a simple descriptive string:
+  fmt.Println(reason)
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="java">
+
+```java
+
+void printReason(EvaluationReason reason) {
+  switch (reason.getKind()) {
+    case OFF:
+      System.out.println("it's off");
+      break;
+    case FALLTHROUGH:
+      System.out.println("fell through");
+      break;
+    case TARGET_MATCH:
+      System.out.println("targeted");
+      break;
+    case RULE_MATCH:
+      EvaluationReason.RuleMatch rm = (EvaluationReason.RuleMatch)reason;
+      System.out.println("matched rule " + rm.getRuleIndex()
+        + "/" + rm.getRuleId());
+      break;
+    case PREREQUISITE_FAILED:
+      EvaluationReason.PrerequisiteFailed pf =
+        (EvaluationReason.PrerequisiteFailed)reason;
+      System.out.println("prereq failed: " + pf.getPrerequisiteKey());
+      break;
+    case ERROR:
+      EvaluationReason.Error e = (EvaluationReason.Error)reason;
+      System.out.println("error: " + e.getErrorKind());
+  }
+  // or, if all you want is a simple descriptive string:
+  System.out.println(reason.toString());
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp">
+
+```csharp
+void PrintReason(EvaluationReason reason)
+{
+  switch (reason.Kind)
+  {
+    case EvaluationReasonKind.OFF:
+      Console.WriteLine("it's off");
+      break;
+    case EvaluationReasonKind.FALLTHROUGH:
+      Console.WriteLine("fell through");
+      break;
+    case EvaluationReasonKind.TARGET_MATCH:
+      Console.WriteLine("targeted");
+      break;
+    case EvaluationReasonKind.RULE_MATCH:
+      var rm = reason as EvaluationReason.RuleMatch;
+      Console.WriteLine("matched rule " + rm.RuleIndex + "/" + rm.RuleID);
+      break;
+    case EvaluationReasonKind.PREREQUISITE_FAILED:
+			var pf = reason as EvaluationReason.PrerequisiteFailed;
+      Console.WriteLine("prereq failed: " + pf.PrerequisiteKey);
+      break;
+    case EvaluationReasonKind.ERROR:
+      var e = reason as EvaluationReason.Error;
+      Console.WriteLine("error: " + e.ErrorKind);
+      break;
+  }
+  // or, if all you want is a simple descriptive string:
+  System.out.println(reason.ToString());
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby">
+
+```ruby
+def print_reason(reason)
+  case reason[:kind]
+  when "OFF"
+    puts "it's off"
+  when "FALLTHROUGH"
+    puts "fell through"
+  when "TARGET_MATCH"
+    puts "targeted"
+  when "RULE_MATCH"
+    puts "matched rule #{reason[:ruleIndex]}/#{reason[:ruleId]}"
+	when "PREREQUISITE_FAILED"
+		puts "prereq failed: #{reason[:prerequisiteKey]}"
+	when "ERROR"
+		puts "error: #{reason[:errorKind]}"
+  end
+end
+```
+
+</CodeTabItem>
+<CodeTabItem value="py">
+
+```py
+def print_reason(reason):
+  kind = reason["kind"]
+  if kind == "OFF":
+    print "it's off"
+  elif kind == "FALLTHROUGH":
+    print "fell through"
+  elif kind == "TARGET_MATCH":
+    print "targeted"
+  elif kind == "RULE_MATCH":
+    print "matched rule %d/%s" % (reason["ruleIndex"], reason["ruleId"])
+  elif kind == "PREREQUISITE_FAILED":
+    print "prereq failed: %s" % reason["prerequisiteKey"]
+  elif kind == "ERROR":
+    print "error: %s" % reason["errorKind"]
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="node">
+
+```js
+function printReason(reason) {
+  switch(reason.kind) {
+    case "OFF":
+      console.log("it's off");
+      break;
+    case "FALLTHROUGH":
+      console.log("fell through");
+      break;
+    case "TARGET_MATCH":
+      console.log("targeted");
+      break;
+    case "RULE_MATCH":
+      console.log("matched rule " + reason.ruleIndex + ", "  + reason.ruleId);
+      break;
+    case "PREREQUISITE_FAILED":
+      console.log("prereq failed: " + reason.prerequisiteKey);
+      break;
+    case "ERROR":
+      console.log("error: " + reason.errorKind);
+      break;
+  }
+}
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="php">
+
+```php
+function printReason($reason) {
+  switch ($reason->getKind()) {
+		case EvaluationReason::OFF:
+			echo("it's off");
+			break;
+		case EvaluationReason::FALLTHROUGH:
+			echo("fell through");
+			break;
+		case EvaluationReason::TARGET_MATCH:
+			echo("targeted");
+			break;
+		case EvaluationReason::RULE_MATCH:
+			echo("matched rule " . $reason->getRuleIndex() .
+				"/" . $reason->getRuleId());
+			break;
+		case EvaluationReason::PREREQUISITE_FAILED:
+			echo("prereq failed: " . $reason->getPrerequisiteKey());
+			break;
+		case EvaluationReason::ERROR:
+			echo("error: " . $reason->getErrorKind());
+			break;
+	}
+  // or, if all you want is a simple descriptive string:
+  echo($reason);
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="android">
+
+```java
+void printReason(EvaluationReason reason) {
+  switch (reason.getKind()) {
+    case OFF:
+    	Timber.d("it's off");
+    	break;
+    case FALLTHROUGH:
+    	Timber.d("fell through");
+    	break;
+    case TARGET_MATCH:
+    	Timber.d("targeted");
+      break;
+    case RULE_MATCH:
+    	EvaluationReason.RuleMatch rm =
+        (EvaluationReason.RuleMatch)reason;
+    	Timber.d("matched rule %d/%s",
+      	       rm.getRuleIndex(),
+        	     rm.getRuleId());
+    	break;
+    case PREREQUISITE_FAILED:
+    	EvaluationReason.PrerequisiteFailed pf =
+        (EvaluationReason.PrerequisiteFailed)reason;
+    	Timber.d("prereq failed: %s", pf.getPrerequisiteKey());
+    	break;
+    case ERROR:
+    	EvaluationReason.Error e = (EvaluationReason.Error)reason;
+    	Timber.d("error: %s", e.getErrorKind());
+  }
+  // or, if all you want is a simple descriptive string:
+  Timber.d(reason.toString());
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## <a name="error-conditions"></a>Error conditions
+
+If the `kind` is `ERROR`, it means that the SDK was unable to select any of the flag's variations. This is an abnormal occurrence.
+
+In this case, the returned flag value is default value that you specified in your code, which is the last parameter of the method you called to evaluate the flag, rather than any value that you specified on your dashboard. In addition, the variation index will be `null/nil`.
+
+When there is an error, the reason object also has an `errorKind` property which will be one of the following:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Property Name</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>CLIENT_NOT_READY</code>
+      </TableCell>
+      <TableCell>
+        The client is not able to establish a connection to LaunchDarkly yet. If there is a persistent feature store,
+        the store does not yet contain flag data.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>FLAG_NOT_FOUND</code>
+      </TableCell>
+      <TableCell>The flag key did not match any known flag.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>USER_NOT_SPECIFIED</code>
+      </TableCell>
+      <TableCell>The user object or user key was not provided.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>MALFORMED_FLAG</code>
+      </TableCell>
+      <TableCell>
+        There was an internal inconsistency in the flag data. For example, a rule specified a nonexistent variation.
+        This is an unusual condition that might require assistance from LaunchDarkly's Support team.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>WRONG_TYPE</code>
+      </TableCell>
+      <TableCell>
+        An unexpected error stopped flag evaluation. This could happen if you are using a persistent feature store and
+        the database stops working. When this happens, the SDK always prints the specific error to the log.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>EXCEPTION</code>
+      </TableCell>
+      <TableCell>
+        The application code requested the flag value with a different data type than it actually is. For example, the
+        code asked for a boolean when the flag type is actually a string. This can only happen in strongly typed
+        languages, such as Go, Java, and C#.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+## Understanding how Data Export events display
+
+Calling any of the `variation detail` methods not only make extra information available to your code, it also causes the SDK to include it in analytics events. You can see this information if you use the event debugger or Data Export.
+
+To learn more, read [Data Export](./data-export).
+
+The JSON representation of the reason data will be included in the feature evaluation event as an extra property called `reason`.
+
+For instance, a debug event might look like this:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'JSON event data', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+{
+  "type": "debug",
+  "creationDate": 1548195712000,
+  "key": "my-flag-key",
+  "userKey": "test@example.com",
+  "version": 1000,
+  "variation": 0,
+  "value": true,
+  "default": false,
+  "reason": {
+    "kind": "TARGET_MATCH"
+  }
+}
+```
+
+</CodeTabItem>
+</CodeTabs>

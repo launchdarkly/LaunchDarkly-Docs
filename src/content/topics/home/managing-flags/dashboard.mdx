@@ -1,0 +1,73 @@
+---
+path: '/home/managing-flags/dashboard'
+title: 'The dashboard'
+---
+
+# The dashboard
+
+<Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
+
+## Overview
+
+This topic explains how to use the dashboard, the core interface of LaunchDarkly platform. The dashboard shows your feature flags and gives you many options to create, modify, and manage them.
+
+## Viewing feature flags
+
+When you create a new feature flag, it appears on the dashboard in each of your environments. Similarly, deleting a feature flag removes it from all the environments in your project.
+
+To learn more, read [Creating a feature flag](./creating-a-feature-flag).
+
+Use the search bar to filter by flag name, tag, key, or description, or create a new feature flag by clicking **New**.
+
+![The dashboard with the "New" button called out.](../../images/flag-new-callout.png)
+
+## Flag statuses
+
+The flag status indicator lets you see when a flag is active or inactive. It's important to understand flag statuses so you know which flags are safe to remove from your code.
+
+Every feature flag has a status that reflects the state of a flag in each environment. For example, if the flag is listed as "Active" in your Production environment, LaunchDarkly is currently receiving requests for that flag using your Production SDK key.
+
+![The flag status indicator](../../images/flag-status-indicators-callout.png)
+
+The various flag statuses are explained below:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Satus Type</TableHeadCell>
+    <TableHeadCell>Name</TableHeadCell>
+    <TableHeadCell>Definition</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <a href="http://i.imgur.com/j3ADAHb.png?1">Active Status</a>
+      </TableCell>
+      <TableCell>Active</TableCell>
+      <TableCell>LaunchDarkly is receiving requests for this flag.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <a href="http://i.imgur.com/IvoIydt.png?1">Inactive Status</a>
+      </TableCell>
+      <TableCell>Inactive</TableCell>
+      <TableCell>This flag has not been requested for 7 days.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <a href="http://i.imgur.com/fd4IkYV.png?1">New Status</a>
+      </TableCell>
+      <TableCell>New</TableCell>
+      <TableCell>This flag is new and has not been requested yet.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <a href="http://i.imgur.com/vSPuWcU.png?1">Launched Status</a>
+      </TableCell>
+      <TableCell>Launched</TableCell>
+      <TableCell>
+        All users have been receiving one variation of this flag for 7 days. You may be able to remove this flag from
+        your code.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>

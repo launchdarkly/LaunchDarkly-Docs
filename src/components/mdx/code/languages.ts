@@ -11,6 +11,8 @@ export type LanguageName =
   | 'php'
   | 'c'
   | 'cpp'
+  | 'json'
+  | 'text'
 
 export const languageDisplay: { [key in LanguageName]: string } = {
   go: 'Go',
@@ -25,4 +27,6 @@ export const languageDisplay: { [key in LanguageName]: string } = {
   python: 'Python',
   objectivec: 'iOS Objective-C',
   swift: 'iOS Swift',
+  json: 'JSON',
+  text: 'Text',
 }

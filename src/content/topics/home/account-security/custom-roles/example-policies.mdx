@@ -1,0 +1,80 @@
+---
+path: '/home/account-security/custom-roles/example-policies'
+title: 'Example policies'
+---
+
+# Example policies
+
+<Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
+
+## Overview
+
+This topic shows some examples of different types of policies you can implement with custom roles. It also provides a reference for different actions you can configure in a policy.
+
+<Callout intent="info">
+  <CalloutTitle>Creating private projects with custom roles</CalloutTitle>
+  <CalloutDescription>
+    Use the `viewProject` action to allow or deny viewing and editing access to projects. To learn more, read
+    [Configuring private projects with custom roles](./configuring-private-projects-with-custom-roles).
+  </CalloutDescription>
+</Callout>
+
+## Granting access to specific environments and flags
+
+This example policy allows members of the QA team to administer environments tagged `qa_*` and manage flags in environments tagged `qa_*`.
+
+
+<CodeTabs
+  defaultValue="text"
+  values={[
+    { label: 'QA team policy', value: 'text', },
+  ]
+}>
+
+<CodeTabItem value="text">
+
+```text
+[
+  {
+    "effect": "allow",
+    "resources": ["proj/*:env/*;qa_*"],
+    "actions": ["*"]
+  },
+  {
+    "effect": "allow",
+    "resources": ["proj/*:env/*;qa_*:/flag/*"],
+    "actions": ["*"]
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+## Granting access to kill switch features, but not flag rollout or targeting rules
+
+This example policy allows members of the ops team to kill switch features on the production environment. They may not change percentage rollouts or targeting rules, or manage any environments or projects.
+
+
+<CodeTabs
+  defaultValue="text"
+  values={[
+    { label: 'Ops team', value: 'text', },
+  ]
+}>
+
+<CodeTabItem value="text">
+
+```text
+[
+  {
+    "effect": "allow",
+    "resources": ["proj/*:env/production:flag/*"],
+    "actions": ["updateOn"]
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>

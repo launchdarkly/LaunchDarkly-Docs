@@ -1,5 +1,6 @@
 /** @jsx jsx */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, useCallback } from 'react'
 import { jsx, Styled } from 'theme-ui'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import Prism from 'prismjs'
@@ -15,7 +16,10 @@ import 'prismjs/components/prism-swift'
 import 'prismjs/components/prism-objectivec'
 import 'prismjs/components/prism-csharp'
 import 'prismjs/components/prism-php'
-import { useState, useCallback } from 'react'
+import 'prismjs/components/prism-json'
+import 'prismjs/components/prism-yaml'
+import 'prismjs/components/prism-bash'
+import 'prismjs/components/prism-brightscript'
 import { Box, Button, Flex } from '@theme-ui/components'
 import { copyToClipboard } from '../../../utils/copyToClipboard'
 
@@ -87,11 +91,13 @@ export function CodeSnippet({ children, className: languageClassName, ...props }
                   })}
                 </Styled.pre>
               </Box>
-              <Box sx={{ marginLeft: 'auto', marginTop: '-2.7rem', fontFamily: 'monospace', fontSize: 3 }}>
-                <Button variant="code.copy" onClick={onClickCopy} aria-label="Copy code" type="button">
-                  {showCopied ? 'Copied' : 'Copy'}
-                </Button>
-              </Box>
+              {languageClassName && (
+                <Box sx={{ marginLeft: 'auto', marginTop: '-2.7rem', fontFamily: 'monospace', fontSize: 3 }}>
+                  <Button variant="code.copy" onClick={onClickCopy} aria-label="Copy code" type="button">
+                    {showCopied ? 'Copied' : 'Copy'}
+                  </Button>
+                </Box>
+              )}
             </Flex>
           </Box>
         </Flex>

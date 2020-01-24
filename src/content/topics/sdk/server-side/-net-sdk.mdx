@@ -1,0 +1,641 @@
+---
+path: '/sdk/server-side/dotnet/'
+title: '.NET SDK Reference'
+---
+
+# .NET SDK Reference
+
+<Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
+
+This reference guide documents all of the methods available in our .NET SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [.NET SDK GitHub repository](https://github.com/launchdarkly/dotnet-server-sdk) to look under the hood. The online [API docs](https://launchdarkly.github.io/dotnet-server-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-dotnet) using this SDK.
+
+<Callout intent="info">
+  <CalloutTitle>Requirements</CalloutTitle>
+  <CalloutDescription>
+    The .NET SDK requires version 4.5 or later of the .NET framework or .NETCoreApp 1.0 or later.
+  </CalloutDescription>
+</Callout>
+
+## Getting started
+
+Building on top of our [Quickstart](./getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your .NET application.
+
+The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager.
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Shell', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```bash
+Install-Package LaunchDarkly.ServerSdk
+
+# Note that in earlier versions, the package name was LaunchDarkly.Client
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Next you should import the LaunchDarkly client in your application code.
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'C#', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+using LaunchDarkly.Client;
+
+// Note that this namespace is no longer the same as the package name
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Once the SDK is installed and imported, you'll want to create a single, shared instance of `LdClient`. You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+LdClient ldClient = new LdClient("YOUR_SDK_KEY");
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<Callout intent="alert">
+  <CalloutTitle>LDClient must be a singleton</CalloutTitle>
+  <CalloutDescription>
+    It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to
+    serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with
+    every request.**
+  </CalloutDescription>
+</Callout>
+
+Using `ldClient`, you can check which variation a particular user should receive for a given feature flag.
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+User user = User.WithKey(username);
+bool showFeature = ldClient.BoolVariation("your.feature.key", user, false);
+if (showFeature) {
+  // application code to show the feature
+}
+else {
+  // the code to run if the feature is off
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Lastly, when your application is about to terminate, shut down `ldClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+// shut down the client, since we're about to quit
+ldClient.Dispose();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Customizing your client
+You can also pass custom parameters to the client by creating a custom configuration object:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+Configuration config = LaunchDarkly.Client.Configuration.Builder("YOUR_SDK_KEY")
+          .EventFlushInterval(TimeSpan.FromSeconds(2))
+          .Build();
+LdClient ldClient = new LdClient(config);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Here, we've customized the event flush interval. The complete list of customizable parameters is as follows:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Builder Method</TableHeadCell>
+    <TableHeadCell>Parameter Type</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+    <TableHeadCell>Default Value</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>Uri</code>
+      </TableCell>
+      <TableCell>
+        <code>Uri</code> or <code>string</code>
+      </TableCell>
+      <TableCell>Set the base URL of the LaunchDarkly server for this configuration</TableCell>
+      <TableCell>https://app.launchdarkly.com</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>StreamUri</code>
+      </TableCell>
+      <TableCell>
+        <code>Uri</code> or <code>string</code>
+      </TableCell>
+      <TableCell>LaunchDarkly stream URI to be used.</TableCell>
+      <TableCell>https://stream.launchdarkly.com/</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>EventsUri</code>
+      </TableCell>
+      <TableCell>
+        <code>Uri</code> or <code>string</code>
+      </TableCell>
+      <TableCell>Set the events URL of the LaunchDarkly server for this configuration.</TableCell>
+      <TableCell>https://events.launchdarkly.com</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>IsStreamingEnabled</code>
+      </TableCell>
+      <TableCell>
+        <code>bool</code>
+      </TableCell>
+      <TableCell>Boolean value which enables streaming.</TableCell>
+      <TableCell>
+        <code>true</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>EventCapacity</code>
+      </TableCell>
+      <TableCell>
+        <code>int</code>
+      </TableCell>
+      <TableCell>Set the capacity of the events buffer.</TableCell>
+      <TableCell>10000 events</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>EventFlushInterval</code>
+      </TableCell>
+      <TableCell>
+        <code>TimeSpan</code>
+      </TableCell>
+      <TableCell>Set the number of seconds between flushes of the event buffer.</TableCell>
+      <TableCell>5 seconds</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>PollingInterval</code>
+      </TableCell>
+      <TableCell>
+        <code>TimeSpan</code>
+      </TableCell>
+      <TableCell>
+        Set the polling interval (when streaming is disabled). Values less than the default of 30 seconds will be set to
+        30 seconds.
+      </TableCell>
+      <TableCell>30 seconds</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>StartWaitTime</code>
+      </TableCell>
+      <TableCell>
+        <code>TimeSpan</code>
+      </TableCell>
+      <TableCell>The timeout when reading data from the EventSource API.</TableCell>
+      <TableCell>10 seconds</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>ReadTimeout</code>
+      </TableCell>
+      <TableCell>
+        <code>TimeSpan</code>
+      </TableCell>
+      <TableCell>The timeout when reading data from the stream.</TableCell>
+      <TableCell>5 minutes</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>ReconnectTime</code>
+      </TableCell>
+      <TableCell>
+        <code>TimeSpan</code>
+      </TableCell>
+      <TableCell>The stream connection timeout.</TableCell>
+      <TableCell>1 second</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>ConnectionTimeout</code>
+      </TableCell>
+      <TableCell>
+        <code>TimeSpan</code>
+      </TableCell>
+      <TableCell>Set the connection timeout for the configuration.</TableCell>
+      <TableCell>10 seconds</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>HttpMessageHandler</code>
+      </TableCell>
+      <TableCell>
+        <code>HttpMessageHandler</code>
+      </TableCell>
+      <TableCell>Sets the handler for http requests. Can be used to configure proxy authentication.</TableCell>
+      <TableCell>
+        A default <code>HttpClientHandler</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>Offline</code>
+      </TableCell>
+      <TableCell>
+        <code>bool</code>
+      </TableCell>
+      <TableCell>Set whether this client is offline.</TableCell>
+      <TableCell>
+        <code>false</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>AllAttributesPrivate</code>
+      </TableCell>
+      <TableCell>
+        <code>bool</code>
+      </TableCell>
+      <TableCell>
+        Whether all user attributes (except the user key) should be marked as Private user attributes, and not sent to
+        LaunchDarkly.
+      </TableCell>
+      <TableCell>
+        <code>false</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>PrivateAttributeName</code>
+      </TableCell>
+      <TableCell>
+        <code>string</code>
+      </TableCell>
+      <TableCell>
+        Adds the name of a user attribute that should be marked as private to a internally managed list. May be called
+        multiple times to mark additional attributes as private.
+      </TableCell>
+      <TableCell>No attributes are private by default.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+<Callout intent="alert">
+  <CalloutTitle>DNS caching issues</CalloutTitle>
+  <CalloutDescription>
+    LaunchDarkly servers operate in a load-balancing framework which may cause their IP addresses to change. This could
+    result in the SDK failing to connect to LaunchDarkly if an old IP address is still in your system's DNS cache. In
+    .NET, the DNS cache retains IP addresses for two minutes by default. If you are noticing intermittent connection
+    failures that always resolve in two minutes, you may wish to change this setting to a lower value as described
+    [here](https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.dnsrefreshtimeout?view=netframework-4.7.2).
+  </CalloutDescription>
+</Callout>
+
+## Users
+Feature flag targeting and rollouts are all determined by the *user* you pass to your `variation` calls. In our .NET SDK, the `User` class has a `WithKey` method for creating a simple user with only a key, and a `Builder` method for building a user with other properties. Here's an example:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: '.Net', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+ LDUser user = User.Builder("aa0ceb")
+      .FirstName("Ernestina")
+      .LastName("Evans")
+      .Email("ernestina@example.com")
+      .Custom("groups", LdValue.ArrayOf(LdValue.Of("Google"), LdValueOf("Microsoft")))
+      .Build();
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Let's walk through this snippet. The argument to `Builder` is the user's key-- in this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+
+All of the other attributes (set via calls to `FirstName`, `LastName`, `Email`, and `Custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
+
+In addition to the built-in attributes defined in the `User` class, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
+
+<Callout intent="info">
+  <CalloutTitle>A note on types</CalloutTitle>
+  <CalloutDescription>
+    Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can
+    be strings, booleans (like true or false), numbers, arrays, or objects (a.k.a. dictionaries)—the same types
+    supported by JSON. For representing the complex types—arrays and objects—the SDK uses the `LdValue` type. If you
+    enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The .NET
+    SDK is strongly typed, so be aware of this distinction.
+  </CalloutDescription>
+</Callout>
+
+Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
+
+## Private user attributes
+
+You can optionally configure the .NET SDK to treat some or all user attributes as [private user attributes](./private-user-attributes) . Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+
+In the .NET SDK there are two ways to define private attributes for the entire LaunchDarkly client:
+
+- When creating the LaunchDarkly `Configuration` object, you can call the `AllAttributesPrivate` method, which takes in a boolean parameter. If `true`, all user attributes (except the key) for _all users_ are removed before the user is sent to LaunchDarkly.
+- When creating the LaunchDarkly `Configuration` object, you can call the `PrivateAttributeName` method, which takes in an attribute name (string) as a parameter and adds it to an internally managed list of private attributes. This method may be called multiple times to mark additional attributes as private. If any user has a custom or built-in attribute named in the private attributes list, it will be removed before the user is sent to LaunchDarkly.
+
+You can also mark attributes as private when building the user object itself by calling `AsPrivateAttribute()` after setting the attribute on the user builder. For example:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+var user = User.Builder("aa0ceb")
+  .Email("test@example.com").AsPrivateAttribute()
+  .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+When this user is sent back to LaunchDarkly, the `email` attribute will be omitted.
+
+## Anonymous users
+
+You can also distinguish logged-in users from anonymous users in the SDK, as follows:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+ LDUser user = User.Builder("aa0ceb")
+      .Anonymous(true)
+      .Build();
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You will still need to generate a unique key for anonymous users-- session IDs or UUIDs work best for this.
+
+Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing-- it keeps anonymous users from polluting your Users page!
+
+## Variation
+The `Variation` method determines whether a flag is enabled or not for a specific user.   In .NET, there is  a `variation` method for each type (e.g. `BoolVariation`, `StringVariation`):
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+var value = ldClient.BoolVariation("your.feature.key", user, false);
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+`variation` calls take the feature flag key, an `LDUser`, and a default value.
+
+The `variation` call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at Identify).
+
+## Track
+
+The `Track` method allows you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests. Here's a simple example:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+ldClient.Track("your-goal-key", user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You can also attach custom data to your event by passing an extra parameter to `Track`, using the `LdValue` type which can contain any kind of data supported by JSON: 
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+ldClient.Track("Completed purchase", user, LdValue.Of("sku132"));
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Identify
+`Identify` creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `Identify`-- the `Variation` call will automatically create users on the dashboard for you. `Identify` can be useful if you want to pre-populate your dashboard before launching any features. 
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+ldClient.Identify(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## All Flags
+
+<Callout intent="alert">
+  <CalloutDescription>
+    Note that unlike `Variation` and `Identify` calls, `AllFlagsState` does not send events to LaunchDarkly. Thus, users
+    are not created or updated in the LaunchDarkly dashboard.
+  </CalloutDescription>
+</Callout>
+
+The `AllFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
+
+This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](./js-sdk-reference).
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+var state = ldClient.AllFlagsState(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Fallback value and offline mode
+
+The default (fallback) values are defined in your code. The default value will only be returned if an error is encountered or if LaunchDarkly is unreachable -- for example, if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when running on premise. You can do this by setting offline mode in the client's Config. When the client is in offline mode, no network requests will be made, so it is suitable for unit-testing.
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+Configuration config = Configuration.Builder("SDK_KEY")
+        .Offline(true)
+        .Build();
+LdClient client = new LdClient(config);
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Secure mode hash
+
+The `SecureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](./js-sdk-reference) for client-side flags, this method generates the signature you need for secure mode.
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+var hash = ldClient.SecureModeHash(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Flush
+Internally, the LaunchDarkly SDK keeps an event buffer for `Track` and `Identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `Flush` to process events immediately. 
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+ldClient.Flush();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Note that the flush interval is configurable-- if you need to change the interval, you can do so via the `Configuration` class.
+
+## Dispose
+
+Dispose safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you should not have to call dispose.
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+ldClient.Flush();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Logging
+The .NET SDK uses the `Common.Logging` framework. For an example configuration check out the [Common.Logging readme](https://github.com/net-commons/common-logging#2-register-and-configure-commonlogging).
+
+Be aware of two considerations when enabling the DEBUG log level:
+
+1. Debug-level logs can be very verbose. It is not recommended that you turn on debug logging in high-volume environments.
+2. Potentially sensitive information is logged including LaunchDarkly users created by you in your usage of this SDK.
+
+## Database integrations
+
+Separate packages allow feature flag data to be cached with [Redis](https://github.com/launchdarkly/dotnet-server-sdk-redis), [DynamoDB](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb), or [Consul](https://github.com/launchdarkly/dotnet-server-sdk-consul).
+
+See ["Using a persistent feature store"](./using-a-persistent-feature-store) for more information.

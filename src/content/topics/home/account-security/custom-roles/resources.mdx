@@ -1,0 +1,312 @@
+---
+path: '/home/account-security/custom-roles/resources'
+title: 'Resources in custom roles'
+---
+
+# Resources in custom roles
+
+<Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
+
+## Overview
+
+This topic explains how custom roles use resources.
+
+Almost everything in LaunchDarkly is a resource, including:
+
+- Projects
+- Feature flags
+- Environments
+- Metrics
+- Custom roles
+
+When you change a feature flag's rollout rules, or rename an environment, you are accessing a particular resource.
+
+## Understanding the resource specifier syntax
+
+LaunchDarkly uses a resource specifier syntax to name resources or collections of resources. This is a precise but flexible categorizing taxonomy that allows you to name any resource in a way that accurately reflects the information structures your organization uses.
+
+The pattern looks like this:
+
+
+<CodeTabs
+  defaultValue="text"
+  values={[
+    { label: 'Resource specifier syntax', value: 'text', },
+  ]
+}>
+
+<CodeTabItem value="text">
+
+```text
+resource-type/name;tag1,tag2
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+The example above shows two tags separated by a comma. Tags are also optional. If you don't need to use any tags, you can omit the semicolon (`;`) and all content following.
+
+In the example below, we create a resource that names all of the projects in an account:
+
+
+<CodeTabs
+  defaultValue="text"
+  values={[
+    { label: 'Resource showing all projects', value: 'text', },
+  ]
+}>
+
+<CodeTabItem value="text">
+
+```text
+proj/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+<Callout intent="info">
+  <CalloutTitle>Syntax supports wildcards</CalloutTitle>
+  <CalloutDescription>
+    The resource syntax accepts globs, so you can name collections of resources with `*`. You can also name a specific
+    project by ID.
+  </CalloutDescription>
+</Callout>
+
+In the example below, we name a project by the `default` ID.
+
+
+<CodeTabs
+  defaultValue="text"
+  values={[
+    { label: 'Project ID is `default`', value: 'text', },
+  ]
+}>
+
+<CodeTabItem value="text">
+
+```text
+proj/default
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You can name sets of resources all the way down to the tag level.
+
+In the example below, we name all projects with the `mobile` tag.
+
+
+<CodeTabs
+  defaultValue="text"
+  values={[
+    { label: 'All projects tagged `mobile`', value: 'text', },
+  ]
+}>
+
+<CodeTabItem value="text">
+
+```text
+proj/*;mobile
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+## Scoping resources
+
+The term scoping refers to granting or restricting permissions and access to a resource based on relationships the resource has. Resources can be scoped within parent resources.
+
+For example, metrics are scoped within a project, and feature flags are scoped within a project and environment.
+
+Name scoped resources by using the resource syntax structure depicted below.
+
+
+<CodeTabs
+  defaultValue="text"
+  values={[
+    { label: 'Scoped resources', value: 'text', },
+  ]
+}>
+
+<CodeTabItem value="text">
+
+```text
+resource-type/name;tag1,tag2:resource-type/name;tag3,tag4,tag5
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+In the following example, we name all feature flags across all environments:
+
+
+<CodeTabs
+  defaultValue="text"
+  values={[
+    { label: 'All feature flags', value: 'text', },
+  ]
+}>
+
+<CodeTabItem value="text">
+
+```text
+proj/*:env/*:flag/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+In the example above, `proj/*:`indicates that all named projects will be included in the list of results. `env/*:` indicates that all environments will be included in the list of results. `flag/*:` indicates that all flags will be included in the list of results.
+
+Because of the range of resources referenced in this example, we can say it has very broad scope.
+
+For a more refined example, we could name all feature flags whose keys start with `ops_`:
+
+
+<CodeTabs
+  defaultValue="text"
+  values={[
+    { label: 'All feature flags with keys that begin with `ops_`', value: 'text', },
+  ]
+}>
+
+<CodeTabItem value="text">
+
+```text
+proj/*:env/*:flag/ops_*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Understanding resource types and scopes
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Resource Type</TableHeadCell>
+    <TableHeadCell>Resource Scope</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>proj</code>
+      </TableCell>
+      <TableCell>
+        Top-level resource. Projects have no parent resource. Write it as <code>proj/*</code>.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>env</code>
+      </TableCell>
+      <TableCell>
+        A child resources of <code>projects</code>. Write it as <code>proj/*:env/*</code>.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>metric</code>
+      </TableCell>
+      <TableCell>
+        <code>metric</code> is a child resource of <code>projects</code>. Write it as <code>proj/*:metric/*</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>member</code>
+      </TableCell>
+      <TableCell>
+        <code>member</code> is a top-level resource. Write it as <code>member/*</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>token</code>
+      </TableCell>
+      <TableCell>
+        <code>token</code> is a child resource of <code>members</code>. Write it as <code>member/*:token/*</code>.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>role</code>
+      </TableCell>
+      <TableCell>
+        <code>role</code> is a top-level resource. Write it as <code>role/*</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>flag</code>
+      </TableCell>
+      <TableCell>
+        <code>flag</code> is a child of both a project and environments. Write it as <code>proj/*:env/*:flag/*</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>segment</code>
+      </TableCell>
+      <TableCell>
+        <code>segment</code> is a child of both a project and environments. Write it as{' '}
+        <code>proj/*:env/*:segment/*</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>integration</code>
+      </TableCell>
+      <TableCell>
+        <code>integration</code> is a top-level resource. Write it as <code>integration/*</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>webhook</code>
+      </TableCell>
+      <TableCell>
+        <code>webhook</code> is a top-level resource. Write it as <code>webhook/*</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>user</code>
+      </TableCell>
+      <TableCell>
+        <code>user</code> is a child of both a project and environments. Write it as <code>proj/*:env/*:user/*</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>code-reference-repository</code>
+      </TableCell>
+      <TableCell>
+        <code>code-reference-repository</code> is a top-level resource. Write it as{' '}
+        <code>code-reference-repository/*</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>destination</code>
+      </TableCell>
+      <TableCell>
+        <code>destination</code> is a child of both a project and environments. Write it as{' '}
+        <code>proj/*:env/*:destination/*</code>.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>acct</code>
+      </TableCell>
+      <TableCell>
+        <code>acct</code> is a unique resource specifier representing modifications to your account itself, such as
+        managing
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>

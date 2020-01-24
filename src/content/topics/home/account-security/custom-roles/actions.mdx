@@ -1,0 +1,697 @@
+---
+path: '/home/account-security/custom-roles/actions'
+title: 'Actions in custom roles'
+---
+
+# Actions in custom roles
+
+<Metadata timeToRead={props.timeToRead} lastModifiedDateFormatted={props.lastModifiedDateFormatted} />
+
+## Overview
+
+This topic explains how to use actions to write policies for custom roles. These actions are scoped by resource type.
+
+To learn more about policies in custom roles, read:
+
+- [Policies in custom roles](./policies-in-custom-roles)
+- [Example policies](./example-policies)
+
+Each resource has a set of actions associated with it that represent changes that you can make to that resource. For example, feature flags have actions like `createFlag`, `deleteFlag`, `updateName`, and more.
+
+Action names generally begin with `create`, `update`, or `delete`.
+
+To learn more about resources, read [Resources in custom roles](./resources-in-custom-roles).
+
+You can specify actions in bulk using glob syntax. For example, you can describe all modifications to feature flags with the action specifier `update*`.
+
+## Actions reference
+
+### Account actions
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>updateOrganization</code>
+      </TableCell>
+      <TableCell>Update the organization name.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateSubscription</code>
+      </TableCell>
+      <TableCell>Change the pricing plan for the account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updatePaymentCard</code>
+      </TableCell>
+      <TableCell>Change the credit card for the account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateRequireMfa</code>
+      </TableCell>
+      <TableCell>Change whether multi-factor authentication (MFA) is required for all users on the account</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccountToken</code>
+      </TableCell>
+      <TableCell>
+        Modify account tokens (for the{' '}
+        <a href="http://apidocs.launchdarkly.com/docs/authentication">LaunchDarkly REST API</a>.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateSessionRefresh</code>
+      </TableCell>
+      <TableCell>Change the time a user session will remain active before the user has to re-authenticate</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateSessionDuration</code>
+      </TableCell>
+      <TableCell>Change whether sessions are refreshed automatically</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>revokeSessions</code>
+      </TableCell>
+      <TableCell>Revoke all user sessions (logs out all users)</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+### Members actions
+
+`member` is a top-level action. A code sample is below:
+[block:code]
+{
+"codes": [
+{
+"code": "member/*",
+"language": "json",
+"name": "Example"
+}
+]
+}
+[/block]
+To learn more, read [Managing teams](../getting-started/your-team).
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createMember</code>
+      </TableCell>
+      <TableCell>Add a new team member to an account</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateRole</code>
+      </TableCell>
+      <TableCell>Update a team member's built-in roles (reader, writer, or admin)</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+### Tokens actions
+
+`token` is a child resources of **members**. A code sample is below:
+[block:code]
+{
+"codes": [
+{
+"code": "member/*:token/*",
+"language": "text"
+}
+]
+}
+[/block]
+To learn more, read [Personal API access tokens](./api-access-tokens).
+
+### Role actions
+
+`role` is a **top-level resource**. A code sample is below:
+[block:code]
+{
+"codes": [
+{
+"code": "role/*",
+"language": "json",
+"name": "Example"
+}
+]
+}
+[/block]
+To learn more, read [Custom roles](./custom-roles).
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createRole</code>
+      </TableCell>
+      <TableCell>Create new custom roles</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updatePolicy</code>
+      </TableCell>
+      <TableCell>Update a custom role's policy</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateName</code>
+      </TableCell>
+      <TableCell>Update a custom role's name</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteRole</code>
+      </TableCell>
+      <TableCell>Delete a custom role</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateMembers</code>
+      </TableCell>
+      <TableCell>
+        Add or remove users from a custom role (equivalent to <code>updateCustomRole</code> on team members).
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+### Project actions
+
+`proj` is a **top-level resource**.
+[block:code]
+{
+"codes": [
+{
+"code": "proj/*",
+"language": "json",
+"name": "Example"
+}
+]
+}
+[/block]
+To learn more, read [Projects](./projects).
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createProject</code>
+      </TableCell>
+      <TableCell>Create a new project</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteProject</code>
+      </TableCell>
+      <TableCell>Delete a project</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateProjectName</code>
+      </TableCell>
+      <TableCell>Rename a project</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateIncludeInSnippetByDefault</code>
+      </TableCell>
+      <TableCell>Make new flags available to the client-side (JavaScript) SDK by default</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTags</code>
+      </TableCell>
+      <TableCell>Update tags associated with a project</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>viewProject</code>
+      </TableCell>
+      <TableCell>
+        View a project. If set to <code>deny</code>, anyone impacted by this policy can neither view nor modify a
+        project. To learn more, read <a href="./private-projects">Configuring private projects with custom roles</a>.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+### Environments actions
+
+`env` is a child resources of **projects**. A code sample is below:
+[block:code]
+{
+"codes": [
+{
+"code": "proj/*:env/*",
+"language": "json",
+"name": "Example"
+}
+]
+}
+[/block]
+To learn more, read [Environments](./environments).
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createEnvironment</code>
+      </TableCell>
+      <TableCell>Create new environments</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteEnvironment</code>
+      </TableCell>
+      <TableCell>Delete an existing environment</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateName</code>
+      </TableCell>
+      <TableCell>Change the name of an environment</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateColor</code>
+      </TableCell>
+      <TableCell>Change the color swatch for an environment</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTtl</code>
+      </TableCell>
+      <TableCell>Change the TTL for an environment</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateApiKey</code>
+      </TableCell>
+      <TableCell>Reset the API key for an environment</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateMobileKey</code>
+      </TableCell>
+      <TableCell>Reset the mobile key for an environment</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateSecureMode</code>
+      </TableCell>
+      <TableCell>Turn secure mode on or off for an environment</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTags</code>
+      </TableCell>
+      <TableCell>Update tags associated with an environment</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateRequireComments</code>
+      </TableCell>
+      <TableCell>Require comments for changes to flags and segments</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateConfirmChanges</code>
+      </TableCell>
+      <TableCell>Require environment confirmation for changes to flags and segments</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+### Metrics actions
+
+<Callout intent="info">
+  <CalloutTitle>The name of this action has changed</CalloutTitle>
+  <CalloutDescription>
+    Goals have been redesigned as metrics and associated with our Experimentation add-on. You do not need to update your
+    actions to use `metric`, however. If you are using goals actions, they will still work.
+  </CalloutDescription>
+</Callout>
+
+`metric` is a child resource of **projects**. A code sample is below:
+[block:code]
+{
+"codes": [
+{
+"code": "proj/*:metric/*",
+"language": "json",
+"name": "Example"
+}
+]
+}
+[/block]
+To learn more, read [Experimentation introduction](./experimentation).
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createMetric</code>
+      </TableCell>
+      <TableCell>Create metrics</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteMetric</code>
+      </TableCell>
+      <TableCell>Delete metrics</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateKey</code>
+      </TableCell>
+      <TableCell>Update keys for custom metrics</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateName</code>
+      </TableCell>
+      <TableCell>Update metrics names</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateDescription</code>
+      </TableCell>
+      <TableCell>Update metrics descriptions</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateUrls</code>
+      </TableCell>
+      <TableCell>Update the URLs for a click or page view metric</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateSelector</code>
+      </TableCell>
+      <TableCell>Update the CSS selector for a click metric</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateOptimizelyMetrics</code>
+      </TableCell>
+      <TableCell>Update Optimizely metrics</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+### Feature flags actions
+
+`flag` is a child of **both a project and environments**. A code sample is below:
+
+<CodeTabs
+  defaultValue="text"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+proj/*:env/*:flag/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [Creating a feature flag](./creating-a-feature-flag).
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createFlag</code>
+      </TableCell>
+      <TableCell>
+        Create a feature flag. Creating a feature flag impacts all environments in a project, so users will need
+        permission to create flags in all environments.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>cloneFlag</code>
+      </TableCell>
+      <TableCell>
+        Create a new flag with settings based on an existing flag. To clone a flag, you need to have the{' '}
+        <code>cloneFlag</code> permission on the source flag, as well as the <code>createFlag</code> permission for the
+        new flag
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteFlag</code>
+      </TableCell>
+      <TableCell>
+        Delete a feature. Deleting a feature impacts all environments in a project, so users will need permission to
+        delete features in all environments.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateOn</code>
+      </TableCell>
+      <TableCell>Toggle a feature off</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateIncludeInSnippet</code>
+      </TableCell>
+      <TableCell>
+        Change whether the feature flag is available to front-end code via the{' '}
+        <a href="../../../sdks/javascript-sdk">JavaScript SDK</a>. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateName</code>
+      </TableCell>
+      <TableCell>Change the name of a feature flag. Impacts all environments in a project.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateDescription</code>
+      </TableCell>
+      <TableCell>Change the description of a feature flag. Impacts all environments in a project.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTemporary</code>
+      </TableCell>
+      <TableCell>Marks a flag temporary or permanent. Impacts all environments in a project.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTags</code>
+      </TableCell>
+      <TableCell>Update tags associated with a flag. Impacts all environments in a project.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updatePrerequisites</code>
+      </TableCell>
+      <TableCell>Update flag prerequisites.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTargets</code>
+      </TableCell>
+      <TableCell>Update individual user targeting.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateRules</code>
+      </TableCell>
+      <TableCell>Update custom targeting rules.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFallthrough</code>
+      </TableCell>
+      <TableCell>Update the "default" or "fallthrough" rule.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateOffVariation</code>
+      </TableCell>
+      <TableCell>Update the variation returned when flag toggle is set to `off`.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateMaintainer</code>
+      </TableCell>
+      <TableCell>Update the flag maintainer. Impacts all environments.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFlagVariations</code>
+      </TableCell>
+      <TableCell>Change the flag's variations. Impacts all environments.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAttachedMetrics</code>
+      </TableCell>
+      <TableCell>Update metrics connected to a flag (start or pause an experiment).</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFlagCustomProperties</code>
+      </TableCell>
+      <TableCell>Update custom properties attached to a flag. Impacts all environments.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateVariations</code>
+      </TableCell>
+      <TableCell>Update percentage rollout variations</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+### Segments actions
+
+`segment` is a child of **both a project and environments**. A code sample is below:
+[block:code]
+{
+"codes": [
+{
+"code": "proj/*:env/*:segment/*",
+"language": "json",
+"name": "Example"
+}
+]
+}
+[/block]
+To learn more, read [Building user segments](./segmenting-users).
+
+### Webhooks actions
+
+`webhook` is a **top-level resource**. A code sample is below:
+[block:code]
+{
+"codes": [
+{
+"code": "webhook/*",
+"language": "json",
+"name": "Example"
+}
+]
+}
+[/block]
+To learn more, read [Webhooks](./webhooks).
+
+### Integrations actions
+
+Most third-party integrations (e.g. [HipChat room notifications](./hipchat)) use a shared set of custom role actions.
+
+`integration` is a **top-level resource**. A code sample is below:
+[block:code]
+{
+"codes": [
+{
+"code": "integration/*",
+"language": "json",
+"name": "Example"
+}
+]
+}
+[/block]
+
+### Destinations actions
+
+`destination` is a child of **both a project and environments**.
+[block:code]
+{
+"codes": [
+{
+"code": "proj/*:env/*:destination/*",
+"language": "json",
+"name": "Example"
+}
+]
+}
+[/block]
+To learn more, read [Data Export](./data-export).
+
+### Code references actions
+
+`code-reference-repository` is a **top-level resource**. A code sample is below:
+[block:code]
+{
+"codes": [
+{
+"code": "code-reference-repository/*",
+"language": "json",
+"name": "Example"
+}
+]
+}
+[/block]
+To learn more, read [Git code references](../../integrations/git-code-references).
+
+<Callout intent="alert">
+  <CalloutTitle>Optimizely API Tokens</CalloutTitle>
+  <CalloutDescription>
+    For customers with A/B testing, a special resource `integration/optimizely` in conjunction with the action
+    `updateIntegration` can be used to control access to updating their Optimizely API Token.
+  </CalloutDescription>
+</Callout>
+
+### Users actions
+
+`user` is a child of **both a project and environments**. A code sample is below:
+[block:code]
+{
+"codes": [
+{
+"code": "proj/*:env/*:user/*",
+"language": "json",
+"name": "Example"
+}
+]
+}
+[/block]
+To learn more, read [The user dashboard](../../managing-users/users-dashboard).
