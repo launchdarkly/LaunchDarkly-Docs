@@ -12,7 +12,6 @@ import { TableOfContents, TOC } from './tableOfContents'
 import Header from './header'
 import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
 import DesktopSideNav from './sideNav/desktopSideNav'
-import { ReadmeBlock } from './readme'
 import { CodeTabs, CodeTabItem, Code } from './mdx/code'
 import Metadata from './mdx/metadata'
 import Table, { TableHeader, TableHeadCell, TableBody, TableRow, TableCell } from './mdx/table'
@@ -28,7 +27,6 @@ const components = {
   h4: H4,
   h5: H5,
   h6: H6,
-  ReadmeBlock,
   Card,
   Metadata,
   Table,

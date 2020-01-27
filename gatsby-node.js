@@ -19,52 +19,8 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 }
 
 // https://www.gatsbyjs.org/docs/mdx/programmatically-creating-pages/#generate-slugs
-exports.onCreateNode = async ({
-  node,
-  actions,
-  createNodeId,
-  createContentDigest,
-  loadNodeContent,
-  getNode,
-  reporter,
-}) => {
-  const { createNode, createNodeField } = actions
-
-  if (node.sourceInstanceName === 'readme' && node.internal.type === 'File') {
-    let content = await loadNodeContent(node)
-
-    content = content
-      .replace(/\[block:([a-zA-Z-]+)\]/g, '<ReadmeBlock type="$1" content={')
-      .replace(/\[\/block\]/g, '} />\n')
-
-    try {
-      const readmeNode = {
-        parent: node.id,
-        id: createNodeId(`${node.id} >>> Readme`),
-        relativePath: node.relativePath,
-
-        internal: {
-          type: 'ReadmeMarkdown',
-          mediaType: 'text/markdown',
-          content,
-        },
-      }
-
-      readmeNode.internal.contentDigest = createContentDigest(readmeNode)
-      readmeNode.fileAbsolutePath = node.absolutePath
-
-      createNode(readmeNode)
-
-      return readmeNode
-    } catch (err) {
-      reporter.panicOnBuild(
-        `Error processing Markdown ${node.absolutePath ? `file ${node.absolutePath}` : `in node ${node.id}`}:\n
-      ${err.message}`,
-      )
-
-      return {}
-    }
-  }
+exports.onCreateNode = async ({ node, actions, getNode }) => {
+  const { createNodeField } = actions
 
   if (node.internal.type === 'Mdx') {
     const parent = getNode(node.parent)
