@@ -297,42 +297,85 @@ Here, we've created a custom rule with two conditions. This rule serves `true` t
 When you've finished setting up the conditions for your rule, you can decide whether your users will receive one variation, or a percentage rollout across several variations.
 
 Let's turn a feature on for a group of external beta testers. First, we need to ensure that our backend sends a custom attribute called `groups` that identifies users that should be in the `beta_testers` group:
-[block:code]
-{
-"codes": [
-{
-"code": " LDUser user = new LDUser.Builder(\"foo@example.com\")\n .custom(\"groups\", \"beta_testers\") \n .build()\n ",
-"language": "java",
-"name": "Java"
-},
-{
-"code": "user = {\"key\" : \"foo@example.com\", \"custom\": {\"groups\": \"beta_testers}}",
-"language": "python",
-"name": "Python"
-},
-{
-"code": "user = {:key => \"foo@example.com\", :custom => {:groups => \"beta_testers\"}}",
-"language": "ruby",
-"name": "Ruby"
-},
-{
-"code": "var custom = make(map[string]interface{})\ncustom[\"groups\"] = \"beta_testers\"\nuser = User {\n Key: \"foo@example.com\",\n Custom: custom,\n}",
-"language": "go",
-"name": "Go"
-},
-{
-"code": "var user = {\"key\" : \"foo@example.com\", \"custom\" : {\"groups\": \"beta_testers\"}}",
-"language": "javascript",
-"name": "Node.js"
-},
-{
-"code": "\$user = new LDUser(\"foo@example.com\", null, null, null, [\"groups\" => \"beta_testers\"]);\n ",
-"language": "php",
-"name": "PHP"
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Python', value: 'py', },
+    { label: 'Ruby', value: 'ruby', },
+    { label: 'Go', value: 'go', },
+    { label: 'Node.js', value: 'js', },
+    { label: 'PHP', value: 'php', },
+  ]
+}>
+
+<CodeTabItem value="java">
+
+```java
+LDUser user = new LDUser.Builder("foo@example.com")
+        .custom("groups", "beta_testers")
+        .build()
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="py">
+
+```python
+user = {
+    "key": "foo@example.com",
+    "custom": {
+        "groups": "beta_testers"
+    }
 }
-]
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="ruby">
+
+```ruby
+user = {:key => "foo@example.com", :custom => {:groups => "beta_testers"}}
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="go">
+
+```go
+var custom = make(map[string]interface{})
+custom["groups"] = "beta_testers"
+user = User {
+    Key: "foo@example.com",
+    Custom: custom,
 }
-[/block]
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="js">
+
+```js
+var user = {
+    "key": "foo@example.com",
+    "custom": {
+        "groups": "beta_testers"
+    }
+}
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="php">
+
+```java
+$user = new LDUser("foo@example.com", null, null, null, ["groups" => "beta_testers"]);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 On the Targeting tab, we add a new rule, set the attribute name to `groups`, the operator to `is one of`and enter `beta_testers`, the name of our group of beta testers.
 
 That's it! Any users in the `beta_testers` group will see the new dashboard feature. We've also kept the feature on for our internal tester Ernesto, since there's still an Include rule for him.
@@ -346,6 +389,7 @@ If you want to do a percentage rollout, select "percentage rollout" from the dro
 In this example, 25% of our `beta_testers` will see the new dashboard feature.
 
 ##Percentage rollout logic
+
 When you set up a percentage rollout, the variation a user receives is determined by the user's key. When a percentage rollout is evaluated, it generates a hash from the user's key (or the user attribute selected in the advanced section), the user's secondary attribute (if provided), the flag's key, and a hidden salt attribute stored in the flag. The SDK then uses this hash to generate a percentage value for that user. That value, compared to the value set for the percentage rollout value, determines which variation a user receives.
 
 <Callout intent="info">

@@ -31,33 +31,46 @@ Additionally, we recommend that you set a _Name_ for your integration configurat
 ## Advanced configuration
 
 The _Policy_ configuration field allows you to control which kinds of LaunchDarkly events are sent to SignalFx. The default policy value restricts to production environments:
-[block:code]
-{
-"codes": [
-{
-"code": "proj/*:env/production:flag/*",
-"language": "text",
-"name": ""
-}
-]
-}
-[/block]
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+proj/*:env/production:flag/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 Reasons to override the default policy include wanting to restrict the integration to:
 
 - a specific combination of LaunchDarkly projects/environments
 - a specific action (or set of actions)
 
 For example, setting the policy configuration to the following will restrict LaunchDarkly such that only changes from the `cool-project` project are sent to SignalFx:
-[block:code]
-{
-"codes": [
-{
-"code": "proj/cool-project:env/production:flag/*",
-"language": "text"
-}
-]
-}
-[/block]
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+proj/cool-project:env/production:flag/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 TODO link to generic policies doc describing this in more detail.
 
 ## Using the integration

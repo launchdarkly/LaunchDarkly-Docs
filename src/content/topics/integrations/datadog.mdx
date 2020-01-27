@@ -66,17 +66,33 @@ To filter events, write a policy using the same syntax as our custom roles featu
 For more information about writing policies, read [Policies in custom roles](./policies-in-custom-roles).
 
 For example, if you only want to receive an event when a change is made to one of the feature flags in your testing environment, you can add the following policy to your events stream:
-[block:code]
-{
-"codes": [
-{
-"code": "[\n {\n \"effect\": \"allow\",\n \"resources\": [\n \"proj/*:env/your-test-environment:flag/*\"\n ],\n \"actions\": [\n \"*\"\n ]\n\t}\n]",
-"language": "json",
-"name": "Example Datadog policy"
-}
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example Datadog policy', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "effect": "allow",
+    "resources": [
+      "proj/*:env/your-test-environment:flag/*"
+    ],
+    "actions": [
+      "*"
+    ]
+	}
 ]
-}
-[/block]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 To add a custom filter:
 
 1. Navigate to the Integrations page and scroll to the "Your APM integrations" section.

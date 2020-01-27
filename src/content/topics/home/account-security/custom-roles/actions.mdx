@@ -91,17 +91,23 @@ You can specify actions in bulk using glob syntax. For example, you can describe
 ### Members actions
 
 `member` is a top-level action. A code sample is below:
-[block:code]
-{
-"codes": [
-{
-"code": "member/*",
-"language": "json",
-"name": "Example"
-}
-]
-}
-[/block]
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+member/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 To learn more, read [Managing teams](../getting-started/your-team).
 
 <Table>
@@ -128,32 +134,45 @@ To learn more, read [Managing teams](../getting-started/your-team).
 ### Tokens actions
 
 `token` is a child resources of **members**. A code sample is below:
-[block:code]
-{
-"codes": [
-{
-"code": "member/*:token/*",
-"language": "text"
-}
-]
-}
-[/block]
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+member/*:token/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 To learn more, read [Personal API access tokens](./api-access-tokens).
 
 ### Role actions
 
 `role` is a **top-level resource**. A code sample is below:
-[block:code]
-{
-"codes": [
-{
-"code": "role/*",
-"language": "json",
-"name": "Example"
-}
-]
-}
-[/block]
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+role/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 To learn more, read [Custom roles](./custom-roles).
 
 <Table>
@@ -200,17 +219,23 @@ To learn more, read [Custom roles](./custom-roles).
 ### Project actions
 
 `proj` is a **top-level resource**.
-[block:code]
-{
-"codes": [
-{
-"code": "proj/*",
-"language": "json",
-"name": "Example"
-}
-]
-}
-[/block]
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+proj/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 To learn more, read [Projects](./projects).
 
 <Table>
@@ -264,17 +289,22 @@ To learn more, read [Projects](./projects).
 ### Environments actions
 
 `env` is a child resources of **projects**. A code sample is below:
-[block:code]
-{
-"codes": [
-{
-"code": "proj/*:env/*",
-"language": "json",
-"name": "Example"
-}
-]
-}
-[/block]
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+proj/*:env/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 To learn more, read [Environments](./environments).
 
 <Table>
@@ -363,17 +393,23 @@ To learn more, read [Environments](./environments).
 </Callout>
 
 `metric` is a child resource of **projects**. A code sample is below:
-[block:code]
-{
-"codes": [
-{
-"code": "proj/*:metric/*",
-"language": "json",
-"name": "Example"
-}
-]
-}
-[/block]
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+proj/*:metric/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 To learn more, read [Experimentation introduction](./experimentation).
 
 <Table>
@@ -594,33 +630,45 @@ To learn more, read [Creating a feature flag](./creating-a-feature-flag).
 ### Segments actions
 
 `segment` is a child of **both a project and environments**. A code sample is below:
-[block:code]
-{
-"codes": [
-{
-"code": "proj/*:env/*:segment/*",
-"language": "json",
-"name": "Example"
-}
-]
-}
-[/block]
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+proj/*:env/*:segment/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 To learn more, read [Building user segments](./segmenting-users).
 
 ### Webhooks actions
 
 `webhook` is a **top-level resource**. A code sample is below:
-[block:code]
-{
-"codes": [
-{
-"code": "webhook/*",
-"language": "json",
-"name": "Example"
-}
-]
-}
-[/block]
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+webhook/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 To learn more, read [Webhooks](./webhooks).
 
 ### Integrations actions
@@ -628,48 +676,65 @@ To learn more, read [Webhooks](./webhooks).
 Most third-party integrations (e.g. [HipChat room notifications](./hipchat)) use a shared set of custom role actions.
 
 `integration` is a **top-level resource**. A code sample is below:
-[block:code]
-{
-"codes": [
-{
-"code": "integration/*",
-"language": "json",
-"name": "Example"
-}
-]
-}
-[/block]
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+integration/*
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ### Destinations actions
 
 `destination` is a child of **both a project and environments**.
-[block:code]
-{
-"codes": [
-{
-"code": "proj/*:env/*:destination/*",
-"language": "json",
-"name": "Example"
-}
-]
-}
-[/block]
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+proj/*:env/*:destination/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 To learn more, read [Data Export](./data-export).
 
 ### Code references actions
 
 `code-reference-repository` is a **top-level resource**. A code sample is below:
-[block:code]
-{
-"codes": [
-{
-"code": "code-reference-repository/*",
-"language": "json",
-"name": "Example"
-}
-]
-}
-[/block]
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+member/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 To learn more, read [Git code references](../../integrations/git-code-references).
 
 <Callout intent="alert">
@@ -683,15 +748,21 @@ To learn more, read [Git code references](../../integrations/git-code-references
 ### Users actions
 
 `user` is a child of **both a project and environments**. A code sample is below:
-[block:code]
-{
-"codes": [
-{
-"code": "proj/*:env/*:user/*",
-"language": "json",
-"name": "Example"
-}
-]
-}
-[/block]
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+member/*:token/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 To learn more, read [The user dashboard](../../managing-users/users-dashboard).

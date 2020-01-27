@@ -43,16 +43,29 @@ Here's an example of a minimal Pipeline configuration:
 
 You can copy and paste the following code into a blank Pipelines configuration if you have set the `LD_PROJ_KEY` and `LD_ACCESS_TOKEN` environment variables as repository variables:
 
-[block:code]
-{
-"codes": [
-{
-"code": "pipelines:\n default:\n - step:\n script:\n - pipe: launchdarkly/ld-find-code-refs-pipe:1.0.0\n environment:\n LD_ACCESS_TOKEN: $LD_ACCESS_TOKEN\n LD_PROJ_KEY: $LD_PROJ_KEY\n",
-"language": "yaml"
-}
-]
-}
-[/block]
+<CodeTabs
+  defaultValue="yaml"
+  values={[
+    { label: 'YAML', value: 'yaml', },
+  ]
+}>
+
+<CodeTabItem value="yaml">
+
+```yaml
+pipelines:
+  default:
+    - step:
+        script:
+          - pipe: launchdarkly/ld-find-code-refs-pipe:1.0.0
+            environment:
+              LD_ACCESS_TOKEN: $LD_ACCESS_TOKEN
+              LD_PROJ_KEY: $LD_PROJ_KEY
+
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 To learn more about repository variables, read [Atlassian's documentation](https://confluence.atlassian.com/bitbucket/variables-in-pipelines-794502608.html).
 
