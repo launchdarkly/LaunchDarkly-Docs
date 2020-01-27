@@ -385,7 +385,7 @@ export default {
       lineHeight: 'body',
     },
     pre: {
-      whiteSpace: 'pre-wrap',
+      overflow: 'auto',
 
       color: '#393A34',
       backgroundColor: '#f6f8fa',
