@@ -5,7 +5,7 @@ import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from '@mdx-js/react'
 import Reset from './resetStyles'
-import { Code } from './mdx/code'
+import { Code, CodeTabItem, CodeTabs } from './mdx/code'
 import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
 import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
 
@@ -20,6 +20,8 @@ const components = {
   LearnMore,
   LearnMoreTitle,
   LearnMoreLink,
+  CodeTabs,
+  CodeTabItem,
 }
 
 interface LayoutProps {

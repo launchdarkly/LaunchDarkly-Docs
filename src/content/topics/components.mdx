@@ -37,17 +37,15 @@ This guide helps authors and developers unify implementation by providing you wi
     { label: 'Single Learn More', value: 'text', },
   ]
 }>
-
 <CodeTabItem value="text">
 
-```javascript
+```js
 <LearnMore>
   <LearnMoreLink to="/foobar">Single link</LearnMoreLink>
 </LearnMore>
 ```
 
 </CodeTabItem>
-
 </CodeTabs>
 
 ### Multiple
@@ -65,11 +63,9 @@ This guide helps authors and developers unify implementation by providing you wi
     { label: 'Multiple Learn More', value: 'LearnMore', },
   ]
 }>
-
 <CodeTabItem value="LearnMore">
 
-
-```javascript
+```js
 <LearnMore>
   <LearnMoreLink to="/foobar">This is an internal link</LearnMoreLink>
   <LearnMoreLink to="http://reactjunkie.com">External link</LearnMoreLink>
@@ -77,9 +73,7 @@ This guide helps authors and developers unify implementation by providing you wi
 </LearnMore>
 ```
 
-
 </CodeTabItem>
-
 </CodeTabs>
 
 
@@ -119,15 +113,14 @@ This guide helps authors and developers unify implementation by providing you wi
 
 
 <CodeTabs
-  defaultValue="LearnMore"
+  defaultValue="Callout"
   values={[
     { label: 'Callout', value: 'Callout', },
   ]
 }>
-
 <CodeTabItem value="Callout">
 
-```javascript
+```js
 <Callout intent="callout">
   <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
   <CalloutDescription>
@@ -139,7 +132,6 @@ This guide helps authors and developers unify implementation by providing you wi
 ```
 
 </CodeTabItem>
-
 </CodeTabs>
 
 ## Code samples
@@ -155,11 +147,9 @@ This guide helps authors and developers unify implementation by providing you wi
     { label: 'Code snippet', value: 'code', },
   ]
 }>
-
 <CodeTabItem value="code">
 
 ```js
-
 <CodeTabs
   defaultValue="js"
   values={[
@@ -198,10 +188,7 @@ class HelloWorld {
 
 </CodeTabItem>
 </CodeTabs>
-
 ```
 
 </CodeTabItem>
 </CodeTabs>
-
-
