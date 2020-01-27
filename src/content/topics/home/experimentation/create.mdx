@@ -25,7 +25,7 @@ It takes three steps to create an experiment. You must:
 
 After you create an experiment, you can reuse its components to create new experiments. You can reuse existing metrics by connecting them to multiple flags simultaneously, which allows you to run experiments measuring the impact of those flags on the same metric. Similarly, a single flag can have multiple metrics connected to it, which allows you to run many experiments.
 
-## <a name="creating-metrics"></a>Creating metrics
+## Creating metrics
 
 Metrics are the measure against which you evaluate flag events. You can use metrics to track all kinds of things, from how often users access a URL to how long that URL takes to load a page. Create metrics that align with your business goals and connect them to your team's flags to track the impact of different flag variations over time.
 
@@ -80,7 +80,7 @@ The following table explains different actions you can track with a metric:
   </CalloutDescription>
 </Callout>
 
-## <a name="creating-click-metrics"></a>Creating click metrics
+## Creating click metrics
 
 Click metrics track how often a user interacts with an element of your product's UI.
 
@@ -176,7 +176,7 @@ To create a click metric:
 10. (Optional) Click Add Additional URL to track behavior on more than one URL.
 11. Click Save Metric.
 
-## <a name="creating-pageview-metrics"></a>Creating pageview metrics
+## Creating pageview metrics
 
 Pageview metrics track how often users see an element on a page hosted at a specific URL.
 
@@ -232,7 +232,7 @@ To create a custom conversion metric:
 
 ![The "Event information" section of the "Create a new metric" screen with a conversion metric configured.](../../../images/metrics-event-information.png)
 
-## <a name="creating-numeric-metrics"></a>Creating numeric metrics
+## Creating numeric metrics
 
 Alternatively, you can use **numeric metrics** to track the changes in a value against a baseline value. Unlike conversion metrics, which track whether or not an event occurred, numeric metrics let you measure changes in value against a baseline flag variation you choose.
 
@@ -301,7 +301,7 @@ To create a numeric metric:
   </CalloutDescription>
 </Callout>
 
-## <a name="connecting-metrics-to-feature-flags"></a>Connecting metrics to feature flags
+## Connecting metrics to feature flags
 
 After you've created a metric, you can connect it to one or more feature flags. If users load a URL, click an element, or otherwise participate in the behavior the metric tracks, LaunchDarkly sends an event to your experiment.
 
@@ -322,7 +322,7 @@ To connect a metric to a flag:
 
 You're not done yet! After you create an experiment, you have to start it in every environment where you want it to run.
 
-## <a name="starting-your-experiment"></a>Starting your experiment
+## Starting your experiment
 
 After you've connected a metric to a flag, you can start your experiment whenever you want. All you need to do is press the **Start Recording** button in every environment where you want to record data.
 

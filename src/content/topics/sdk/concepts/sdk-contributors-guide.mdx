@@ -33,13 +33,13 @@ The SDK can use either of the above mechanisms to populate a feature flag store,
 
 Expose the store itself as an interface so that you can easily implement alternative configurations (for example, a Redis-backed store).
 
-## <a name="evaluating-feature-flags"></a>Evaluating feature flags
+## Evaluating feature flags
 
 To implement the `variation` method in a server side SDK, a feature flag is retrieved from the store and evaluated directly in the SDK. For evaluation rules please refer to [Flag evaluation rules in server-side SDKs](./flag-evaluation-rules).
 
 Our [Go SDK](https://github.com/launchdarkly/go-server-sdk/blob/v4/ldclient.go) serves as our reference evaluation algorithm.
 
-## <a name="recording-events"></a>Recording events
+## Recording events
 
 The SDKs send six kinds of events: "feature” and "debug" events produced every time a feature flag is evaluated (depending on what controls are enabled for that flag), “identify” and "index" events which push user data to LaunchDarkly, “custom” events that are triggered by the client application via an SDK method, and "summary" events that roll up a series of "feature" events. Events must be batched and sent to the LaunchDarkly server **asynchronously**. This is a requirement for all SDKs. Conceptually, this is accomplished by creating a background job that runs every 30 seconds and makes a `POST` call to `/api/events/bulk`. This call must have a `Content-Type` header set to `application/json`, an `Authorization` header set to `api_key ${api_key}`, and must include a JSON body consisting of a list of events. On platforms with poor multithreading support, you may need to [get creative](https://segment.com/blog/how-to-make-async-requests-in-php/).
 
