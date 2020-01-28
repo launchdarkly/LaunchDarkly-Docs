@@ -38,7 +38,7 @@ const createRedirects = createRedirect => {
     fromPath: '/docs/integrations',
     isPermanent: true,
     redirectInBrowser: true,
-    toPath: '/integrations/index',
+    toPath: '/integrations',
   })
 
   createRedirect({
@@ -57,7 +57,7 @@ const createRedirects = createRedirect => {
 
   createRedirect({
     fromPath: '/docs/flags-index',
-    toPath: '/home/managing-flags/index',
+    toPath: '/home/managing-flags',
     isPermanent: true,
     redirectInBrowser: true,
   })
