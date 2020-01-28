@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 import { Card } from '@theme-ui/components'
+import Helmet from 'react-helmet'
 
 import { Fragment, FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
@@ -67,6 +68,9 @@ interface LayoutProps {
   }
 }
 
+const description =
+  "LaunchDarkly's comprehensive app documentation. Development teams are using feature management as a best practice to separate code deployments from feature releases and control their feature lifecycles from concept to launch to value. LaunchDarkly is the feature management platform that software teams use to build better software, faster."
+
 const Layout: FunctionComponent<LayoutProps> = ({
   data: {
     mdx: {
@@ -82,6 +86,10 @@ const Layout: FunctionComponent<LayoutProps> = ({
   return (
     <Fragment>
       <Reset />
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+      </Helmet>
       <div
         sx={{
           color: 'grayBlack',
@@ -134,6 +142,9 @@ export const pageQuery = graphql`
   query Query($id: String) {
     mdx(id: { eq: $id }) {
       body
+      frontmatter {
+        title
+      }
       toc: tableOfContents(maxDepth: 2)
       timeToRead
       fields {
