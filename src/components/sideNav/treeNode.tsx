@@ -41,10 +41,9 @@ const leafLabelStyles = {
 
 const defaultListItemStyles = { ml: [5, 5, 5], mr: 3, mt: [4, 4, 4] }
 const rootListItemStyles = {
-  ...defaultListItemStyles,
   mt: [6, 6, 6],
   ml: [6, 6, 6],
-  mr: 5,
+  mr: 2,
 }
 
 const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
@@ -73,10 +72,12 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
         const isLeafNode = nodeChildrenCount === 0
         let labelStyles = defaultLabelStyles
         let listItemStyles = defaultListItemStyles
-        if (isLeafNode) {
-          labelStyles = leafLabelStyles
-        } else if (isRootNode) {
+
+        // apply root styles to root nodes and single level root nodes
+        if (isRootNode || (isLeafNode && isRootNode)) {
           listItemStyles = rootListItemStyles
+        } else if (isLeafNode) {
+          labelStyles = leafLabelStyles
         }
 
         const partiallyActive = globalHistory.location.pathname.startsWith(node.path)
