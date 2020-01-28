@@ -9,16 +9,16 @@ This reference guide documents all of the methods available in our Node.js SDK, 
   <CalloutTitle>Client-side feature flags?</CalloutTitle>
   <CalloutDescription>
     Our Node.js SDK is designed specifically for server-side Node.js. Learn more about our [client-side and server-side
-    SDKs](./client-side-and-server-side). If you're looking to use feature flags in JavaScript in a browser environment,
-    see our [JavaScript SDK Reference](./js-sdk-reference). If you're creating a *client-side* Node application, see our
+    SDKs](/sdk/concepts/client-side-server-side). If you're looking to use feature flags in JavaScript in a browser environment,
+    see our [JavaScript SDK Reference](/sdk/client-side/javascript). If you're creating a *client-side* Node application, see our
     [Node Client-Side SDK Reference](node-client-sdk-reference). Alternatively if you're creating a desktop application
-    in Electron, see our [Electron SDK Reference](./electron-sdk-reference).
+    in Electron, see our [Electron SDK Reference](/sdk/client-side/electron).
   </CalloutDescription>
 </Callout>
 
 ## Getting started
 
-Building on top of our [Quickstart](./getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Node.js application.
+Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Node.js application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager.
 
@@ -499,7 +499,7 @@ Custom attributes are one of the most powerful features of LaunchDarkly. They le
 
 ## Private user attributes
 
-You can optionally configure the Node SDK to treat some or all user attributes as [Private user attributes](./private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Node SDK to treat some or all user attributes as [Private user attributes](/home/managing-users/user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Node SDK there are two ways to define private attributes for the **entire** LaunchDarkly client:
 
@@ -593,7 +593,7 @@ The variation detail is returned in an object that contains both the result valu
 
 You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
 
-For more information, see [Evaluation reasons](./evaluation-reasons).
+For more information, see [Evaluation reasons](/home/advanced/flag-evaluations).
 
 ## Track
 
@@ -693,7 +693,7 @@ ldClient.identify(user);
 
 The `allFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
-This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](./js-sdk-reference).
+This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
 
 <CodeTabs
   defaultValue="js"
@@ -714,7 +714,7 @@ ldClient.allFlagsState(user, function(err, flagsState) {
 
 ## Secure mode hash
 
-The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](./js-sdk-reference) for client-side flags, this method generates the signature you need for secure mode.
+The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
 
 <CodeTabs
   defaultValue="js"
@@ -848,7 +848,7 @@ Be aware of two considerations when enabling the DEBUG log level:
 
 Feature flag data can be cached with Redis, DynamoDB, or Consul.
 
-See ["Using a persistent feature store"](./using-a-persistent-feature-store) for more information.
+See ["Using a persistent feature store"](/home/advanced/feature-store) for more information.
 
 ## Promises and async
 

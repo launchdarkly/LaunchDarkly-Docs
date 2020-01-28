@@ -12,13 +12,13 @@ This reference guide documents all of the methods available in our Xamarin SDK, 
     follows the client-side LaunchDarkly model for single-user contexts (much like our other mobile or JavaScript
     SDKs)-- a network call must be made to change user contexts, so changing users should be infrequent. It is not
     intended for use in multi-user systems such as web servers. Learn more about our [client-side and server-side
-    SDKs](./client-side-and-server-side).",
+    SDKs](/sdk/concepts/client-side-server-side).",
   </CalloutDescription>
 </Callout>
 
 ## Getting started
 
-Building on top of our [Quickstart](./getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Xamarin application.
+Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Xamarin application.
 
 <Callout intent="info">
   <CalloutTitle>Requirements</CalloutTitle>
@@ -392,7 +392,7 @@ Custom attributes are one of the most powerful features of LaunchDarkly. They le
 
 ## Private user attributes
 
-You can optionally configure the Xamarin SDK to treat some or all user attributes as [private user attributes](./private-user-attributes) . Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Xamarin SDK to treat some or all user attributes as [private user attributes](/home/managing-users/user-attributes) . Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Xamarin SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
@@ -489,7 +489,7 @@ The default value will only be returned if an error is encountered-- for example
 
 The `VariationDetail` methods (`BoolVariationDetail`, etc.) work the same as `Variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag. To enable this feature, you must call `WithEvaluationReasons(true)` on your `Configuration`.
 
-For more information, see [Evaluation reasons](./evaluation-reasons).
+For more information, see [Evaluation reasons](/home/advanced/flag-evaluations).
 
 ## Track
 

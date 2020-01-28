@@ -9,8 +9,8 @@ This reference guide documents all of the methods available in our Java SDK, and
   <CalloutTitle>Android support</CalloutTitle>
   <CalloutDescription>
     The Java SDK is intended for use in server environments only, and should not be used in mobile devices. Learn more
-    about our [client-side and server-side SDKs](./client-side-and-server-side). If you want to use LaunchDarkly in an
-    Android application, see our [Android SDK Reference](./android-sdk-reference) Guide.
+    about our [client-side and server-side SDKs](/sdk/concepts/client-side-server-side). If you want to use LaunchDarkly in an
+    Android application, see our [Android SDK Reference](/sdk/client-side/android) Guide.
   </CalloutDescription>
 </Callout>
 <Callout intent="info">
@@ -20,7 +20,7 @@ This reference guide documents all of the methods available in our Java SDK, and
 
 ## Getting started
 
-Building on top of our [Quickstart](./getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Java application.
+Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Java application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/java-server-sdk/releases) to identify the latest version. In this example, it will use the latest published release of major version 4.x.
 
@@ -279,7 +279,7 @@ The `variation` call will automatically create a user in LaunchDarkly if a user 
 
 The `variationDetail` methods (`boolVariationDetail`, etc.) work the same as `variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
 
-For more information, see [Evaluation reasons](./evaluation-reasons).
+For more information, see [Evaluation reasons](/home/advanced/flag-evaluations).
 
 ## Track
 
@@ -352,7 +352,7 @@ ldClient.identify(user);
 
 The `allFlagsState` captures the state of all feature flags with regard to a specific user. This includes their values as well as other metadata.
 
-This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](./js-sdk-reference).
+This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
 
 
 <CodeTabs
@@ -373,7 +373,7 @@ FeatureFlagsState state = ldClient.allFlagsState(user);
 
 ## Secure mode hash
 
-The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](./js-sdk-reference) for client-side flags, this method generates the signature you need for secure mode.
+The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
 
 <CodeTabs
   defaultValue="java"

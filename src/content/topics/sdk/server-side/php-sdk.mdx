@@ -12,7 +12,7 @@ This reference guide documents all of the methods available in our PHP SDK, and 
 
 ## Getting started
 
-Building on top of our [Quickstart](./getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your PHP application.
+Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your PHP application.
 
 The first step is to install [Composer](https://getcomposer.org/) and the LaunchDarkly SDK as a dependency in your application. Refer to the [SDK releases page](https://github.com/launchdarkly/php-server-sdk/releases) to identify the latest version if you want to depend on a specific version.
 
@@ -92,7 +92,7 @@ if ($client->variation("your.flag.key", $user)) {
 
 That's all!
 
-You may remember from our [Quickstart](./getting-started) guide that users should be sure to shut down the LaunchDarkly client on application termination. This step does not exist in PHP because the PHP SDK does not maintain long-lived network connections nor an event queue.
+You may remember from our [Quickstart](/home/getting-started) guide that users should be sure to shut down the LaunchDarkly client on application termination. This step does not exist in PHP because the PHP SDK does not maintain long-lived network connections nor an event queue.
 
 ## Fetching Flags
 
@@ -431,7 +431,7 @@ $client->identify(user);
 
 The `allFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
-This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](./js-sdk-reference).
+This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
 
 <CodeTabs
   defaultValue="php"
@@ -450,7 +450,7 @@ $state  = $client->allFlagsState($user);
 
 ## Secure mode hash
 
-The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](./js-sdk-reference) for client-side flags, this method generates the signature you need for secure mode.
+The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
 
 <CodeTabs
   defaultValue="php"

@@ -19,7 +19,7 @@ This topic explains how LaunchDarkly's Jira app allows you to link your feature 
 To complete this procedure, you must have the following prerequisites:
 
 - The LaunchDarkly for Jira app from the [Atlassian Marketplace](https://marketplace.atlassian.com/apps/1219142/launchdarkly-for-jira?hosting=cloud&tab=overview) in your Jira Cloud instance.
-- A personal API access token with `writer` permissions. To learn more, read [Personal API access tokens](./api-access-tokens).
+- A personal API access token with `writer` permissions. To learn more, read [Personal API access tokens](/home/account-security/api-access-tokens).
 
 You can also give the access token a custom role allowing it to control webhooks. In the custom role policy, **Allow** the Jira integration to access the `webhook/*` resources with the `createWebhook` and `deleteWebhook` actions.
 
@@ -73,7 +73,7 @@ To create a new flag with Jira issues:
 
 ## Connecting an existing feature flag to a Jira issue from LaunchDarkly
 
-If you have already created a feature flag for your Jira issue, you can add a Jira issue to your existing flag by creating a [custom property](./custom-properties) for your flag.
+If you have already created a feature flag for your Jira issue, you can add a Jira issue to your existing flag by creating a [custom property](/home/advanced/custom-properties) for your flag.
 
 1. Navigate to the flag's **Settings** page.
 2. Name the custom property `Jira issues`.

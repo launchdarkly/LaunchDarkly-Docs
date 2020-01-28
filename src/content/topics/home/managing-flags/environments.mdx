@@ -11,7 +11,7 @@ Environments are organizational units contained within projects. Environments al
 
 Your LaunchDarkly account supports an unlimited number of projects, environments, flags, and server-side Monthly Active Users (MAU). If you are on a **legacy Starter plan**, your account may be limited to two projects and two environments. Contact our Support team at support@launchdarkly.com to remove those restrictions.
 
-You can create multiple environments within each project, and all projects must have at least one environment. To learn more about projects, read [Projects](./projects).
+You can create multiple environments within each project, and all projects must have at least one environment. To learn more about projects, read [Projects]/home/managing-flags/projects.
 
 ## Getting started with environments
 
@@ -64,7 +64,7 @@ To add a new environment:
   </CalloutDescription>
 </Callout>
 
-9. (Optional) Select the **Send detailed events to data export destinations** checkbox to enable data export for every flag created in this environment after this checkbox is selected. To learn more, read [Data Export](./data-export).
+9. (Optional) Select the **Send detailed events to data export destinations** checkbox to enable data export for every flag created in this environment after this checkbox is selected. To learn more, read [Data Export](/integrations/data-export).
 10. (Optional) Specify a **TTL** between 0 and 60 minutes. TTL, or Time to Live, is a setting in DNS records that dictates how long the record should be cached by nameservers and browsers.
 
 <Callout intent="info">
@@ -82,7 +82,7 @@ To add a new environment:
 
 ## Migrating content between environments
 
-You can migrate some, but not all, content between environments. Compare and copy flag settings between environments from the LaunchDarkly UI. To learn more, read [Compare and copy flag settings](./compare-and-copy-flag-settings).
+You can migrate some, but not all, content between environments. Compare and copy flag settings between environments from the LaunchDarkly UI. To learn more, read [Compare and copy flag settings](/home/managing-flags/flag-compare-copy).
 
 Alternatively, use the REST API to migrate flags from one environment to another. First, GET the feature flag you wish to import, then PATCH to update the flag configuration in production.
 
@@ -108,4 +108,4 @@ If your site has relatively low traffic (fewer than one request per minute), you
 
 If the TTL is set to 0 minutes, the SDK will not use a local cache, and every call to `variation` will make a remote request to our CDN. You can set your TTL to 0 in testing environments to see changes reflected immediately, but we do not recommend a 0 minute TTL in production.
 
-In high volume PHP environments, we strongly recommend using our Relay Proxy. To learn more, read [The LaunchDarkly Relay Proxy](./the-relay-proxy).
+In high volume PHP environments, we strongly recommend using our Relay Proxy. To learn more, read [The LaunchDarkly Relay Proxy](/home/advanced/relay-proxy).

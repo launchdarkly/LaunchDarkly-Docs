@@ -11,18 +11,16 @@ This topic explains how to read an experiment's card in the flag's Experiments t
 
 When your experiments are running, you can view information about them on the Experiments tab for the flags connected to them. The Experiments tab displays all the experiments a flag is participating in, including both experiments that are currently recording and experiments that are paused.
 
-![A flag's Experiments tab, with one paused experiment and one recording experiment.](../../../images/)
-
 An experiment's card shows details about what data the experiment is collecting and what that data means. You can see information about the experiment, like its name and experiment type, in the header line.
 
 ![An experiment's card.](../../../images/experiment-card.png)
 
 Here are some things you can do from an experiment's card:
 
-- Pause the experiment or resume recording. To learn more, read [The experiment lifecycle](./experimentation-lifecycle).
+- Pause the experiment or resume recording. To learn more, read [The experiment lifecycle](/home/experimentation/managing/lifecycle).
 - Edit metrics connected to the experiment. Edit experiment metrics to start new experiments using this flag.
 - Reset the experiment data. This leaves the metric connected to the flag, but deletes all the data the experiment has collected so far. After the historical data is deleted, the experiment begins collecting new data.
-- Delete the experiment. To learn more, read [Deleting experiments](./experimentation-delete).
+- Delete the experiment. 
 
 ![The experiment card's 3-dot menu.](../../../images/experiment-menu.png)
 
@@ -69,7 +67,7 @@ After you determine a winning variation, you can roll the winning variation out 
     If you're done with an experiment and have rolled the winning variation to your user base, it might be a good time
     to pause your experiment. Experiments on a userbase that only sees one flag variation do not return useful results.
     Pausing an experiment retains all the data collected so far. To learn more, read [Managing
-    experiments](./managing-experiments).
+    experiments](/home/experimentation/managing).
   </CalloutDescription>
 </Callout>
 
@@ -77,4 +75,4 @@ After you determine a winning variation, you can roll the winning variation out 
 
 If you're using Data Export, you can find experiment data in your data export destinations to further analyze it using third-party tools of your own.
 
-To learn more, read [Data Export](./data-export).
+To learn more, read [Data Export](/integrations/data-export).

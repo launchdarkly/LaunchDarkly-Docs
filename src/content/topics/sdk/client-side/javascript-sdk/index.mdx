@@ -10,7 +10,7 @@ This reference guide documents all of the methods available in our client-side J
   <CalloutDescription>
     Our JavaScript SDK is intended for client-side (browser) feature flags **only**. If you have a Node.js application
     and are looking to set up LaunchDarkly on the server-side, head to our [Node.js SDK
-    Reference](./node-sdk-reference).
+    Reference](/sdk/client-side/node-js).
   </CalloutDescription>
 </Callout>
 
@@ -21,11 +21,11 @@ This SDK does two things:
 ## Browser support
 The LaunchDarkly client-side JavaScript SDK can be used in all major browsers. However, not all browsers have built-in support for the standard APIs that it uses. Those APIs are Promise, EventSource, and querySelectorAll; Promise is always required, the other two are optional depending on which SDK features you use.
 
-The standard solution for ensuring that you will get the same functionality even in browsers that do not have native support for these features is to use [polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill). For a detailed description, and links to information about which browsers may require this, see [JS SDK requirements and polyfills](./js-sdk-requirements-and-polyfills).
+The standard solution for ensuring that you will get the same functionality even in browsers that do not have native support for these features is to use [polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill). For a detailed description, and links to information about which browsers may require this, see [JS SDK requirements and polyfills](/sdk/client-side/javascript/requirements-polyfills).
 
 ## Getting started
 
-Building on top of our [Quickstart](./getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your JavaScript code.
+Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your JavaScript code.
 
 The first step is to install the LaunchDarkly SDK as a dependency. There are two ways to install our JavaScript SDK-- as an `npm`, `yarn` or `bower` module, or as a JavaScript snippet served from LaunchDarkly's CDN.
 
@@ -576,7 +576,7 @@ ldclient.track("your-event-name", { customProperty: someValue });
 </CodeTabItem>
 </CodeTabs>
 
-If you've defined [click or pageview goals](./running-ab-tests) in LaunchDarkly, they'll be sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or pageview goals. The SDK will generate pageview events correctly regardless of how the URL is changed (via the HTML5 history API, by changing the URL hash fragment, etc.).
+If you've defined [click or pageview goals](/home/experimentation) in LaunchDarkly, they'll be sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or pageview goals. The SDK will generate pageview events correctly regardless of how the URL is changed (via the HTML5 history API, by changing the URL hash fragment, etc.).
 
 You can completely disable event sending by setting `sendEvents` to `false` in the client options, but be aware that this means you will not have user data on your LaunchDarkly dashboard.
 
@@ -792,7 +792,9 @@ Note that the SDK always has _one_ current user. The client-side SDKs are not de
 
 ## Tracking click and pageview events
 
-If you've defined click or pageview goals (see [Running A/B tests](./running-ab-tests)) in LaunchDarkly, they'll be sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or pageview goals.
+If you've defined click or pageview goals in LaunchDarkly, they'll be sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or pageview goals.
+
+To learn more about click and pageview goals, read [Experimentation](/home/experimentation).
 
 <Callout intent="info">
   <CalloutTitle>Single-page apps</CalloutTitle>

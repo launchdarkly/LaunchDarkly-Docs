@@ -14,14 +14,14 @@ The C / C++ SDK supports Windows and POSIX environments (Linux, OSX, BSD). The n
     follows the client-side LaunchDarkly model for single-user contexts (much like our mobile or JavaScript SDKs)-- a
     network call must be made to change user contexts, so changing users should be infrequent. It is not intended for
     use in multi-user systems such as web servers. Learn more about our [client-side and server-side
-    SDKs](./client-side-and-server-side). For using LaunchDarkly in C / C++ server-side applications, refer to our [C /
-    C++ server-side SDK](./c-server-sdk-reference).
+    SDKs](/sdk/concepts/client-side-server-side). For using LaunchDarkly in C / C++ server-side applications, refer to our [C /
+    C++ server-side SDK](/sdk/server-side/c-c--).
   </CalloutDescription>
 </Callout>
 
 ## Getting started
 
-Building on top of our [Quickstart](./getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your C application.
+Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your C application.
 
 Unlike other LaunchDarkly SDKs, the C SDK has no installation steps. To get started, clone [the GitHub repository](https://github.com/launchdarkly/c-client-sdk) or download a release archive from the [GitHub Releases](https://github.com/launchdarkly/c-client-sdk/releases) page. Two makefiles exist in this repository as a starting point for integrating the SDK into your application. You may need to modify the `Makefile` to support your specific use case.
 

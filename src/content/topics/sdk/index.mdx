@@ -17,11 +17,11 @@ Consider the following factors when you're starting to integrate LaunchDarkly SD
    Depending on your use case, you may need a server-side, client-side, or mobile SDK.
    You only need one SDK per application or service. You can use multiple SDKs if your product is comprised of applications or services written in multiple languages.
    You do not need multiple SDKs to support frontend and backend behavior, but we support this configuration if it works best for you.
-   To learn more about SDKs, read [Client-side and server-side SDKs](./client-side-and-server-side).
+   To learn more about SDKs, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 2. **Identify the language you wish to use**. In some cases, we support multiple SDKs for a language. To learn more, read [Supported SDKs](#supported-sdks).
 3. **Confirm that your tech stack's versions are compatible with the SDK you wish to use**. More information about SDK versioning is available in the documentation for a specific SDK, or in the SDK's readme in Github.
 4. (Optional) **Determine if you need to use the LaunchDarkly relay proxy.**
-   To learn more, read [The LaunchDarkly relay proxy](./the-relay-proxy).
+   To learn more, read [The LaunchDarkly relay proxy](/home/advanced/relay-proxy).
 
 ## Implementation guidelines for LaunchDarkly SDKs
 
@@ -31,7 +31,7 @@ Here are some basic guidelines for implementing LaunchDarkly SDKs:
 
 The SDK types have different security considerations as well as some behavioral and architectural differences. They handle flag evaluations differently, utilize different kinds of SDK keys, and support different languages.
 
-To learn more, read [Client-side and server-side SDKs](./client-side-and-server-side).
+To learn more, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
 ### Plan for a large initial payload from the streaming endpoint
 
@@ -53,26 +53,26 @@ We provide the following SDKs:
 
 Server-side SDKs:
 
-- [.NET](./dotnet-sdk-reference)
-- [C/C++ (server-side)](./c-server-sdk-reference)
-- [Go](./go-sdk-reference)
-- [Haskell](./haskell-server-sdk-reference)
-- [Java](./java-sdk-reference)
-- [Node.js (server-side)](./node-sdk-reference)
-- [PHP](./php-sdk-reference)
-- [Python](./python-sdk-reference)
-- [Ruby](./ruby-sdk-reference)
+- [.NET](/sdk/server-side/dotnet)
+- [C/C++ (server-side)](/sdk/server-side/c-c--)
+- [Go](/sdk/server-side/go)
+- [Haskell](/sdk/server-side/haskell)
+- [Java](/sdk/server-side/java)
+- [Node.js (server-side)](/sdk/server-side/node-js)
+- [PHP](/sdk/server-side/php)
+- [Python](/sdk/server-side/python)
+- [Ruby](/sdk/server-side/ruby)
 
 Client-side SDKs:
 
-- [Android](./android-sdk-reference)
-- [C/C++ (client-side)](./c-sdk-reference)
-- [Electron](./electron-sdk-reference)
-- [iOS (Objective-C)](./ios-objc-sdk-reference)
-- [iOS (Swift)](./ios-sdk-reference)
-- [JavaScript](./js-sdk-reference)
-- [Node.js (client-side)](./node-client-sdk-reference)
-- [React](./react-sdk-reference)
-- [React Native](./react-native-sdk-reference)
-- [Roku](./roku-sdk-reference)
-- [Xamarin](./xamarin-sdk-reference)
+- [Android](/sdk/client-side/android)
+- [C/C++ (client-side)](/sdk/client-side/c-c--)
+- [Electron](/sdk/client-side/electron)
+- [iOS (Objective-C)](/sdk/client-side/ios-objective-c)
+- [iOS (Swift)](/sdk/client-side/ios-swift)
+- [JavaScript](/sdk/client-side/javascript)
+- [Node.js (client-side)](/sdk/client-side/node-js)
+- [React](/sdk/client-side/react)
+- [React Native](/sdk/client-side/react-native)
+- [Roku](/sdk/client-side/roku)
+- [Xamarin](/sdk/client-side/xamarin)
