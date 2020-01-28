@@ -11,6 +11,17 @@ console.log(`
 
 const plugins = [
   {
+    //https://www.gatsbyjs.org/packages/gatsby-plugin-segment-js/
+    resolve: 'gatsby-plugin-segment-js',
+    options: {
+      prodKey: process.env.SEGMENT_KEY,
+      //track pageviews when there is a route change. Calls window.analytics.page() on each route change.
+      trackPage: true,
+      delayLoad: false,
+      delayLoadTime: 1000,
+    },
+  },
+  {
     resolve: 'gatsby-source-filesystem',
     options: {
       name: 'mdx-images',
@@ -116,6 +127,14 @@ const plugins = [
       theme_color: '#663399',
       display: 'minimal-ui',
       icon: 'assets/images/launchdarkly-logo.png', // This path is relative to the root of the site.
+    },
+  },
+  {
+    resolve: 'gatsby-plugin-google-analytics',
+    options: {
+      trackingId: 'UA-44750782-3',
+      head: true,
+      cookieDomain: 'launchdarkly.com',
     },
   },
 ]
