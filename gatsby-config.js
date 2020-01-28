@@ -28,7 +28,7 @@ const plugins = [
         {
           resolve: 'gatsby-remark-images',
           options: {
-            maxWidth: 590,
+            maxWidth: 640,
             showCaptions: true,
           },
         },

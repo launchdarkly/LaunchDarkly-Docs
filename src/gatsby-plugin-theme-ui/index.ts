@@ -163,6 +163,14 @@ export default {
       width: '100%',
       my: [5, 6],
     },
+    image: {
+      borderRadius: 1,
+      border: '1px solid',
+      borderColor: 'grayMed',
+      boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayMed}`,
+      maxWidth: '100%',
+      my: [5, 6],
+    },
     learnMore: {
       padding: 2,
       bg: 'grayWash',
@@ -355,7 +363,9 @@ export default {
       },
     },
     figcaption: {
-      fontSize: 2,
+      fontSize: 3,
+      fontStyle: 'italic',
+      pt: 2,
       color: 'graySafe',
     },
     p: {

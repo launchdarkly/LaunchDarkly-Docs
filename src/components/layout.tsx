@@ -11,6 +11,8 @@ import Breadcrumbs from './mdx/breadcrumbs'
 import { TableOfContents, TOC } from './tableOfContents'
 import Header from './header'
 import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
+import Figure from './mdx/figure'
+import Pre from './mdx/pre'
 import DesktopSideNav from './sideNav/desktopSideNav'
 import { CodeTabs, CodeTabItem, Code } from './mdx/code'
 import Metadata from './mdx/metadata'
@@ -27,6 +29,7 @@ const components = {
   h4: H4,
   h5: H5,
   h6: H6,
+  figure: Figure,
   Card,
   Metadata,
   Table,
@@ -45,9 +48,7 @@ const components = {
   CodeTabs,
   CodeTabItem,
   code: Code,
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  // eslint-disable-next-line react/display-name
-  pre: (props: any) => <pre {...props} />,
+  pre: Pre,
   EditButton,
 }
 
