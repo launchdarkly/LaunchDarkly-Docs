@@ -98,12 +98,12 @@ const Layout: FunctionComponent<LayoutProps> = ({
             `
             'header header'
             'sideNav main'
-            'footer footer'
+            'sideNav footer'
             `,
             `
             'header header header'
             'sideNav main aside'
-            'footer footer footer'
+            'sideNav footer footer'
             `,
           ],
         }}
@@ -122,7 +122,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
           </MDXProvider>
         </main>
         <aside sx={{ gridArea: 'aside', pt: 4, display: ['none', 'none', 'block'], width: '18rem' }}>
-          <TableOfContents toc={toc} sx={{ position: 'sticky', top: 5 }} />
+          <TableOfContents toc={toc} sx={{ position: 'sticky', top: 2 }} />
         </aside>
         <footer sx={{ gridArea: 'footer', height: '7rem' }}></footer>
       </div>
