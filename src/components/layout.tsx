@@ -7,7 +7,7 @@ import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from '@mdx-js/react'
 import Reset from './resetStyles'
-import Breadcrumbs from './mdx/breadcrumbs'
+import MdxHeader from './mdx/mdxHeader'
 import { TableOfContents, TOC } from './tableOfContents'
 import Header from './header'
 import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
@@ -19,7 +19,6 @@ import Metadata from './mdx/metadata'
 import Table, { TableHeader, TableHeadCell, TableBody, TableRow, TableCell } from './mdx/table'
 import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
 import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
-import EditButton from './mdx/editButton'
 import Link from './link'
 
 const components = {
@@ -49,7 +48,6 @@ const components = {
   CodeTabItem,
   code: Code,
   pre: Pre,
-  EditButton,
 }
 
 interface LayoutProps {
@@ -61,6 +59,10 @@ interface LayoutProps {
       fields: {
         lastModifiedTime: string
       }
+      frontmatter: {
+        title: string
+      }
+      fileAbsolutePath: string
     }
   }
 }
@@ -72,6 +74,8 @@ const Layout: FunctionComponent<LayoutProps> = ({
       toc,
       timeToRead,
       fields: { lastModifiedTime },
+      frontmatter: { title },
+      fileAbsolutePath,
     },
   },
 }) => {
@@ -107,11 +111,14 @@ const Layout: FunctionComponent<LayoutProps> = ({
         <Header />
         <DesktopSideNav />
         <main sx={{ gridArea: 'main', px: [5, 7, 9], pt: 7 }}>
-          <Breadcrumbs />
+          <MdxHeader
+            fileAbsolutePath={fileAbsolutePath}
+            title={title}
+            timeToRead={timeToRead}
+            lastModifiedDateFormatted={lastModifiedTime}
+          />
           <MDXProvider components={components}>
-            <MDXRenderer timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedTime}>
-              {body}
-            </MDXRenderer>
+            <MDXRenderer>{body}</MDXRenderer>
           </MDXProvider>
         </main>
         <aside sx={{ gridArea: 'aside', pt: 4, display: ['none', 'none', 'block'], width: '18rem' }}>
@@ -132,6 +139,10 @@ export const pageQuery = graphql`
       fields {
         lastModifiedTime(formatString: "MMM d, YYYY")
       }
+      frontmatter {
+        title
+      }
+      fileAbsolutePath
     }
   }
 `

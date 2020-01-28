@@ -7,20 +7,20 @@ import { Link as GatsbyLink, GatsbyLinkProps } from 'gatsby'
 type ForwardRef<T, P> = React.ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>
 const ThemedGatsbyLink: ForwardRef<HTMLAnchorElement, LinkProps & GatsbyLinkProps<{}>> = ThemeUILink
 
-const Link: FunctionComponent<GatsbyLinkProps<{}>> = ({ to, children, className }) => {
+const Link: FunctionComponent<LinkProps & GatsbyLinkProps<{}>> = ({ to, children, className, variant }) => {
   const isInternalLink = to.startsWith('/')
   if (isInternalLink) {
     return (
-      <ThemedGatsbyLink as={GatsbyLink} to={to} className={className}>
+      <ThemedGatsbyLink as={GatsbyLink} to={to} className={className} variant={variant}>
         {children}
       </ThemedGatsbyLink>
     )
   }
 
   return (
-    <a href={to} className={className} target="_blank" rel="noopener noreferrer">
+    <ThemeUILink href={to} className={className} target="_blank" rel="noopener noreferrer" variant={variant}>
       {children}
-    </a>
+    </ThemeUILink>
   )
 }
 

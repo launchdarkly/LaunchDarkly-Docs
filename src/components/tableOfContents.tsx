@@ -17,10 +17,9 @@ export type TableOfContentsProps = {
 }
 
 export function TableOfContents({ toc, ...props }: TableOfContentsProps) {
-  const children = toc.items[0].items
+  const tocItems = toc.items
 
-  // TODO: children is null for the integrations page for some reason
-  if (!children) {
+  if (!tocItems) {
     console.warn("There's no heading to render for toc")
     return null
   }
@@ -39,7 +38,7 @@ export function TableOfContents({ toc, ...props }: TableOfContentsProps) {
         On this page
       </Styled.h5>
       <ul>
-        {children.map(({ url, title }) => (
+        {tocItems.map(({ url, title }) => (
           <li
             key={url}
             sx={{

@@ -3,9 +3,6 @@ import { jsx, Styled } from 'theme-ui'
 import { graphql, useStaticQuery, Link } from 'gatsby'
 import { globalHistory } from '@reach/router'
 import { SideNavItem } from '../sideNav/types'
-import EditButton from './editButton'
-
-const GITHUB_ROOT_URL = 'https://github.com/launchdarkly/git-gatsby/blob/master/src/content/topics'
 
 const Breadcrumbs = () => {
   const {
@@ -56,12 +53,6 @@ const Breadcrumbs = () => {
   }
   const breadcrumbItems = findAndFlattenWrapper()
 
-  let githubUrl = GITHUB_ROOT_URL
-  if (breadcrumbItems.length > 0) {
-    const lastBreadcrumb = breadcrumbItems[breadcrumbItems.length - 1]
-    githubUrl = `${githubUrl}${lastBreadcrumb.path}.mdx`
-  }
-
   return (
     <div sx={{ display: 'flex', justifyContent: 'space-between' }}>
       <Styled.h4 sx={{ mb: [3, 4], fontSize: 3 }}>
@@ -88,7 +79,6 @@ const Breadcrumbs = () => {
           )
         })}
       </Styled.h4>
-      <EditButton path={githubUrl} />
     </div>
   )
 }
