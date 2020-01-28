@@ -22,15 +22,11 @@
         "path": "/home/managing-flags",
         "items": [
           {
-            "label": "Introduction",
-            "path": "/home/managing-flags/introduction"
-          },
-          {
             "label": "The dashboard",
             "path": "/home/managing-flags/dashboard"
           },
           {
-            "label": "Turning flags on and off",
+            "label": "Toggling flags on and off",
             "path": "/home/managing-flags/flag-toggle"
           },
           {
@@ -84,10 +80,6 @@
         "path": "/home/managing-users",
         "items": [
           {
-            "label": "Introduction",
-            "path": "/home/managing-users/introduction"
-          },
-          {
             "label": "The Users dashboard",
             "path": "/home/managing-users/users-dashboard"
           },
@@ -110,10 +102,6 @@
         "path": "/home/account-security",
         "items": [
           {
-            "label": "Introduction",
-            "path": "/home/account-security/introduction"
-          },
-          {
             "label": "Managing your team",
             "path": "/home/account-security/managing-your-team"
           },
@@ -123,23 +111,23 @@
             "items": [
               {
                 "label": "Configuring custom roles",
-                "path": "/home/account-security/custom-roles/configuring-custom-roles"
+                "path": "/home/account-security/custom-roles/configure"
               },
               {
                 "label": "Resources in custom roles",
-                "path": "/home/account-security/custom-roles/resources-in-custom-roles"
+                "path": "/home/account-security/custom-roles/resources"
               },
               {
                 "label": "Tags in custom roles",
-                "path": "/home/account-security/custom-roles/tags-in-custom-roles"
+                "path": "/home/account-security/custom-roles/tags"
               },
               {
                 "label": "Actions in custom roles",
-                "path": "/home/account-security/custom-roles/actions-in-custom-roles"
+                "path": "/home/account-security/custom-roles/actions"
               },
               {
                 "label": "Policies in custom roles",
-                "path": "/home/account-security/custom-roles/policies-in-custom-roles"
+                "path": "/home/account-security/custom-roles/policies"
               },
               {
                 "label": "Example policies",
@@ -164,7 +152,7 @@
             "path": "/home/account-security/managing-sessions"
           },
           {
-            "label": "Enabling single sign-on",
+            "label": "Single sign-on",
             "path": "/home/account-security/sso",
             "items": [
               {
@@ -196,10 +184,6 @@
         "path": "/home/metrics-insights",
         "items": [
           {
-            "label": "Introduction",
-            "path": "/home/metrics-insights/introduction"
-          },
-          {
             "label": "Account usage metrics",
             "path": "/home/metrics-insights/usage-metrics"
           },
@@ -214,32 +198,24 @@
         "path": "/home/experimentation",
         "items": [
           {
-            "label": "Introduction",
-            "path": "/home/experimentation/introduction"
-          },
-          {
-            "label": "Experimentation",
-            "path": "/home/experimentation/experiments"
-          },
-          {
             "label": "Creating experiments",
-            "path": "/home/experimentation/creating-experiments"
+            "path": "/home/experimentation/create"
           },
           {
             "label": "Managing experiments",
-            "path": "/home/experimentation/managing-experiments",
+            "path": "/home/experimentation/managing",
             "items": [
               {
                 "label": "The experiment lifecycle",
-                "path": "/home/experimentation/managing-experiments/lifecycle"
+                "path": "/home/experimentation/managing/lifecycle"
               },
               {
                 "label": "Interpreting experiment data",
-                "path": "/home/experimentation/managing-experiments/interpreting-experiment-data"
+                "path": "/home/experimentation/managing/interpreting"
               },
               {
                 "label": "Controlling experiment populations",
-                "path": "/home/experimentation/managing-experiments/controlling-experiment-populations"
+                "path": "/home/experimentation/managing/populations"
               }
             ]
           }
@@ -263,11 +239,11 @@
             "items": [
               {
                 "label": "Using the Relay Proxy",
-                "path": "/home/advanced/relay-proxy/using-the-relay-proxy"
+                "path": "/home/advanced/relay-proxy/using"
               },
               {
                 "label": "Monitoring the Relay Proxy",
-                "path": "/home/advanced/relay-proxy/monitoring-the-relay-proxy"
+                "path": "/home/advanced/relay-proxy/monitoring"
               }
             ]
           },
@@ -281,7 +257,7 @@
           },
           {
             "label": "Using a persistent feature store",
-            "path": "/home/advanced/using-a-persistent-feature-store"
+            "path": "/home/advanced/feature-store"
           }
         ]
       }
@@ -291,10 +267,6 @@
     "label": "Integrations",
     "path": "/integrations",
     "items": [
-      {
-        "label": "Introduction",
-        "path": "/integrations"
-      },
       {
         "label": "Azure DevOps (formerly VSTS)",
         "path": "/integrations/azure-devops"
@@ -320,7 +292,7 @@
         "path": "/integrations/oauth"
       },
       {
-        "label": "Slack",
+        "label": "The LaunchDarkly Slack app",
         "path": "/integrations/slack",
         "items": [
           {
@@ -329,7 +301,7 @@
           },
           {
             "label": "Viewing, monitoring and subscribing to flags",
-            "path": "/integrations/slack/managing-flags"
+            "path": "/integrations/slack/managing"
           },
           {
             "label": "Subscribing to notifications",
@@ -351,7 +323,7 @@
       },
       {
         "label": "Visual Studio Code",
-        "path": "/integrations/visual-studio-code"
+        "path": "/integrations/vscode"
       },
       {
         "label": "Webhooks",
@@ -405,7 +377,7 @@
           },
           {
             "label": "Data export schema reference",
-            "path": "/integrations/data-export/data-export-schema-reference"
+            "path": "/integrations/data-export/schema-reference"
           }
         ]
       }
@@ -421,7 +393,7 @@
         "items": [
           {
             "label": "Client-side and server-side SDKs",
-            "path": "/sdk/concepts/client-vs-server"
+            "path": "/sdk/concepts/client-side-server-side"
           },
           {
             "label": "SDK versioning policy",
@@ -429,13 +401,11 @@
           },
           {
             "label": "SDK contributor's guide",
-            "path": "/sdk/concepts/contributors-guide",
-            "items": [
-              {
-                "label": "Flag evaluation rules in server-side SDKs",
-                "path": "/sdk/concepts/contributors-guide/flag-evaluation-rules"
-              }
-            ]
+            "path": "/sdk/concepts/contributors-guide"
+          },
+          {
+            "label": "Flag evaluation rules in server-side SDKs",
+            "path": "/sdk/concepts/flag-evaluation-rules"
           }
         ]
       },
@@ -449,7 +419,7 @@
           },
           {
             "label": "C/C++ (server-side) SDK reference",
-            "path": "/sdk/server-side/c-c-plus-plus"
+            "path": "/sdk/server-side/c-c--"
           },
           {
             "label": "Go SDK Reference",
@@ -483,61 +453,61 @@
       },
       {
         "label": "Client-side sdk reference guides",
-        "path": "/sdk/client-side-guides",
+        "path": "/sdk/client-side",
         "items": [
           {
             "label": "Android SDK Reference",
-            "path": "/sdk/client-side-guides/android"
+            "path": "/sdk/client-side/android"
           },
           {
             "label": "C/C++ (client-side) SDK Reference",
-            "path": "/sdk/client-side-guides/c-c-plus-plus"
+            "path": "/sdk/client-side/c-c--"
           },
           {
             "label": "Electron SDK Reference",
-            "path": "/sdk/client-side-guides/electron"
+            "path": "/sdk/client-side/electron"
           },
           {
             "label": "iOS Objective-C SDK Reference",
-            "path": "/sdk/client-side-guides/ios-objective-c"
+            "path": "/sdk/client-side/ios-objective-c"
           },
           {
             "label": "iOS Swift SDK Reference",
-            "path": "/sdk/client-side-guides/ios-swift"
+            "path": "/sdk/client-side/ios-swift"
           },
           {
             "label": "JavaScript SDK Reference",
-            "path": "/sdk/client-side-guides/javascript",
+            "path": "/sdk/client-side/javascript",
             "items": [
               {
                 "label": "Default variations on page load",
-                "path": "/sdk/client-side-guides/javascript/default-variations-on-page-load"
+                "path": "/sdk/client-side/javascript/default-variations"
               },
               {
                 "label": "Requirements and polyfills",
-                "path": "/sdk/client-side-guides/javascript/requirements-and-polyfills"
+                "path": "/sdk/client-side/javascript/requirements-polyfills"
               }
             ]
           },
           {
             "label": "Node.js (client-side) SDK Reference",
-            "path": "/sdk/client-side-guides/node-js"
+            "path": "/sdk/client-side/node-js"
           },
           {
             "label": "React SDK Reference",
-            "path": "/sdk/client-side-guides/react"
+            "path": "/sdk/client-side/react"
           },
           {
             "label": "React Native SDK Reference",
-            "path": "/sdk/client-side-guides/react-native"
+            "path": "/sdk/client-side/react-native"
           },
           {
             "label": "Roku SDK Reference",
-            "path": "/sdk/client-side-guides/roku"
+            "path": "/sdk/client-side/roku"
           },
           {
             "label": "Xamarin SDK Reference",
-            "path": "/sdk/client-side-guides/xamarin"
+            "path": "/sdk/client-side/xamarin"
           }
         ]
       }
