@@ -15,7 +15,7 @@ This reference guide documents all of the methods available in our Ruby SDK, and
 
 ## Getting started
 
-Building on top of our [Quickstart](./getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Ruby application.
+Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Ruby application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/ruby-server-sdk/releases) to identify the latest version if you want to depend on a specific version.
 
@@ -637,7 +637,7 @@ ld_client.identify(user)
 
 The `all_flags_state` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
-This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](./js-sdk-reference).
+This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
 
 <CodeTabs
   defaultValue="ruby"
@@ -656,7 +656,7 @@ state = ld_client.all_flags_state(user)
 
 ## Secure mode hash
 
-The `secure_mode_hash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](./js-sdk-reference) for client-side flags, this method generates the signature you need for secure mode.
+The `secure_mode_hash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
 
 <CodeTabs
   defaultValue="ruby"
@@ -786,4 +786,4 @@ Be aware of two considerations when enabling the DEBUG log level:
 
 Feature flag data can be kept in a persistent store using Redis, DynamoDB, or Consul. These adapters are implemented in the `LaunchDarkly::Integrations::Redis`, `LaunchDarkly::Integrations::DynamoDB`, and `LaunchDarkly::Integrations::Consul` modules; to use them, call the `new_feature_store` method in the module, and put the returned object in the `feature_store` property of your client configuration.
 
-See the [API documentation](https://www.rubydoc.info/gems/launchdarkly-server-sdk/LaunchDarkly/Integrations) and ["Using a persistent feature store"](./using-a-persistent-feature-store) for more information.
+See the [API documentation](https://www.rubydoc.info/gems/launchdarkly-server-sdk/LaunchDarkly/Integrations) and ["Using a persistent feature store"](/home/advanced/feature-store) for more information.

@@ -7,7 +7,7 @@ This reference guide documents all of the methods available in our Go SDK, and e
 
 ## Getting started
 
-Building on top of our [Quickstart](./getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Go application.
+Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Go application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/go-server-sdk/releases) to identify the latest major version.
 
@@ -303,7 +303,7 @@ The `Variation` call will automatically create a user in LaunchDarkly if a user 
 
 The `VariationDetail` methods (`BoolVariationDetail`, etc.) work the same as `Variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
 
-For more information, see [Evaluation reasons](./evaluation-reasons).
+For more information, see [Evaluation reasons](/home/advanced/flag-evaluations).
 
 ## Track
 
@@ -374,7 +374,7 @@ ldClient.Identify(user)
 
 The `AllFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
-This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](./js-sdk-reference).
+This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
 
 <CodeTabs
   defaultValue="go"
@@ -415,7 +415,7 @@ ldClient := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 
 ## Secure mode hash
 
-The `SecureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](./js-sdk-reference) for client-side flags, this method generates the signature you need for secure mode.
+The `SecureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
 
 <CodeTabs
   defaultValue="go"

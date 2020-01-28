@@ -37,7 +37,7 @@ To give your team access to LaunchDarkly through ADFS, you need the following co
 
 ## Set Up LaunchDarkly
 
-For more information on configuring LaunchDarkly's SSO, read [Single sign-on](./single-sign-on).
+For more information on configuring LaunchDarkly's SSO, read [Single sign-on](/home/account-security/sso).
 
 <Table>
   <TableHeader>
@@ -84,24 +84,10 @@ For more information on configuring LaunchDarkly's SSO, read [Single sign-on](./
 6. Click **Next** on the following screen. You do not need to choose a certificate.
 7. Select **Enable support for the SAML 2.0 WebSSO protocol**.
 8. Enter the **Assertion consumer service URL** from the SSO section of LaunchDarkly into the **Relying party SAML 2.0 SSO service URL** field and click **Next**.
-
-![The Configure URL screen.](../../../../images/adfs-wizard-enable-saml-support.png)
-
 9. In the **Relying party trust identifier** field, enter `app.launchdarkly.com` and click **Add** and click **Next**.
-
-![The Configure Identifiers screen.](../../../../images/)
-
 10. Click **Next**. You do not need to change any access control policies.
-
-![The Choose Access Control Policy screen.](../../../../images/)
-
 11. Review your changes and click **Next**.
-
-![The Ready to Add Trust screen.](../../../../images/)
-
 12. If you are satisfied with the configuration, click **Close**.
-
-![The wizard's Finish screen.](../../../../images/)
 
 After you have successfully completed this procedure, a new LaunchDarkly trust will appear in the ADFS Management tool.
 
@@ -110,13 +96,7 @@ After you have successfully completed this procedure, a new LaunchDarkly trust w
 1. Log into the ADFS Management tool
 2. Select the **LaunchDarkly Trust**
 3. Click **Edit Claim Issuance Policy...** in the dropdown. The **Edit Claim Issuance Policy** window opens.
-
-![The Edit Claim Issuance Policy field is called out.](../../../../images/)
-
 4. Click **Add Rule**.
-
-![The Edit Claim Issuance Policy screen.](../../../../images/)
-
 5. Set **Claim rule template** to **Transform an Incoming Claim** and click **Next**.
 
 ![The Select Rule Template screen.]()
@@ -142,6 +122,6 @@ After you have successfully completed this procedure, ADFS will be configured wi
 
 ## Test Drive and Enable
 
-After you successfully complete the procedures in this topic, you can log in through ADFS when test drive is enabled. For more information about test drive, read [Test drive mode](./single-sign-on#test-drive-mode).
+After you successfully complete the procedures in this topic, you can log in through ADFS when test drive is enabled. For more information about test drive, read [Test drive mode](/home/account-security/sso#test-drive-mode).
 
-If you are able to successfully log in with test drive enabled, you can enable SSO fully. For more information about enabling SSO, read [Enabling SSO](./single-sign-on#enabling-sso) .
+If you are able to successfully log in with test drive enabled, you can enable SSO fully. For more information about enabling SSO, read [Enabling SSO](/home/account-security/sso#enabling-sso) .

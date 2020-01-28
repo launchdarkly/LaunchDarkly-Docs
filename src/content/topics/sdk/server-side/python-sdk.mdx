@@ -7,7 +7,7 @@ This reference guide documents all of the methods available in our Python SDK, a
 
 ## Getting started
 
-Building on top of our [Quickstart](./getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Python application.
+Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Python application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/python-server-sdk/releases) to identify the latest version if you want to depend on a specific version.
 
@@ -587,7 +587,7 @@ ldclient.get().identify(user)
 
 The `all_flags_state` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
-This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](./js-sdk-reference).
+This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
 
 <CodeTabs
   defaultValue="py"
@@ -606,7 +606,7 @@ state = ldclient.get().all_flags_state(user)
 
 ## Secure mode hash
 
-The `SecureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](./js-sdk-reference) for client-side flags, this method generates the signature you need for secure mode.
+The `SecureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
 
 <CodeTabs
   defaultValue="py"
@@ -756,4 +756,4 @@ os.environ["https_proxy"] = "https://web-proxy.domain.com:8080"
 
 ## Using a database as a persistent store
 
-The Python SDK supports Redis, Consul, or DynamoDB as a persistent store of feature flag configurations. For more information, see [Using a persistent feature store](./using-a-persistent-feature-store).
+The Python SDK supports Redis, Consul, or DynamoDB as a persistent store of feature flag configurations. For more information, see [Using a persistent feature store](/home/advanced/feature-store).

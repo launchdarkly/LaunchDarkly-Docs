@@ -9,7 +9,7 @@ If you want to dig even deeper, our SDKs are open source-- head to our [Electron
 
 ## Why use this instead of the Node SDK?
 
-Since Electron is based on Node.js, it is possible to run the [LaunchDarkly Node SDK](./node-sdk-reference) in it. However, this is strongly discouraged, as the Node SDK is meant for server-side use—not for applications that are distributed to users. There are several reasons why this distinction matters:
+Since Electron is based on Node.js, it is possible to run the [LaunchDarkly Node SDK](/sdk/client-side/node-js) in it. However, this is strongly discouraged, as the Node SDK is meant for server-side use—not for applications that are distributed to users. There are several reasons why this distinction matters:
 
 - The server-side SDKs include an SDK key that can download the entire definition (including rollout rules and individual user targets) of all of your feature flags. If you embed this SDK key in an application, any user who looks inside the application can then access all of your feature flag definitions—which may include sensitive data such as other users' email addresses. The client-side and mobile SDKs use different credentials that do not allow this.
 - The server-side SDKs do in fact download your entire flag data using this key, since they have to be able to evaluate flags quickly for any user. That can be quite a large amount of data. The client-side and mobile SDKs, which normally evaluate flags for just one user at a time, use a much more efficient protocol where they request only the active variation for each flag for that specific user.
@@ -22,7 +22,7 @@ Since Electron is based on Node.js, it is possible to run the [LaunchDarkly Node
 
 ## Getting started
 
-Building on top of our [Quickstart](./getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Electron code.
+Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Electron code.
 
 You can install the SDK into your Electron project using `npm`:
 
@@ -124,7 +124,7 @@ If you try to evaluate feature flags before the client is ready, it will behave 
 
 The `bootstrap` property in the client options allows you to speed up the startup process by providing an initial set of flag values.
 
-If you set `bootstrap` to an object, the client will treat it as a map of flag keys to flag values. These values can be whatever you want (although in the browser environment, there is a [special mechanism](./js-sdk-reference#bootstrapping) that is commonly used). The client will immediately start out in a ready state using these values. It will still make an initial request to LaunchDarkly to get the actual latest values, but that will happen in the background.
+If you set `bootstrap` to an object, the client will treat it as a map of flag keys to flag values. These values can be whatever you want (although in the browser environment, there is a [special mechanism](/sdk/client-side/javascript#bootstrapping) that is commonly used). The client will immediately start out in a ready state using these values. It will still make an initial request to LaunchDarkly to get the actual latest values, but that will happen in the background.
 
 If you set `bootstrap` to the string `"localstorage"`, the client will try to get flag values from persistent storage, using a unique key that is based on the user properties. In Electron, persistent storage consists of files in the [`userData`](https://electronjs.org/docs/all?query=getpath#appgetpathname) directory. If the client finds flag values stored for this user, it uses them and starts up immediately in a ready state—but also makes a background request to LaunchDarkly to get the latest values, and stores them as soon as it receives them.
 

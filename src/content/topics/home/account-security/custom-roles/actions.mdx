@@ -9,14 +9,14 @@ This topic explains how to use actions to write policies for custom roles. These
 
 To learn more about policies in custom roles, read:
 
-- [Policies in custom roles](./policies-in-custom-roles)
-- [Example policies](./example-policies)
+- [Policies in custom roles](/home/account-security/custom-roles/policies)
+- [Example policies](/home/account-security/custom-roles/example-policies)
 
 Each resource has a set of actions associated with it that represent changes that you can make to that resource. For example, feature flags have actions like `createFlag`, `deleteFlag`, `updateName`, and more.
 
 Action names generally begin with `create`, `update`, or `delete`.
 
-To learn more about resources, read [Resources in custom roles](./resources-in-custom-roles).
+To learn more about resources, read [Resources in custom roles](/home/account-security/custom-roles/resources).
 
 You can specify actions in bulk using glob syntax. For example, you can describe all modifications to feature flags with the action specifier `update*`.
 
@@ -276,7 +276,7 @@ To learn more, read [Projects](./projects).
       </TableCell>
       <TableCell>
         View a project. If set to <code>deny</code>, anyone impacted by this policy can neither view nor modify a
-        project. To learn more, read <a href="./private-projects">Configuring private projects with custom roles</a>.
+        project. To learn more, read <a href="/home/account-security/custom-roles/private-projects">Configuring private projects with custom roles</a>.
       </TableCell>
     </TableRow>
   </TableBody>
@@ -485,7 +485,7 @@ proj/*:env/*:flag/*
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [Creating a feature flag](./creating-a-feature-flag).
+To learn more, read [Creating a feature flag](/home/getting-started/feature-flags).
 
 <Table>
   <TableHeader>
@@ -669,7 +669,7 @@ To learn more, read [Webhooks](./webhooks).
 
 ### Integrations actions
 
-Most third-party integrations (e.g. [HipChat room notifications](./hipchat)) use a shared set of custom role actions.
+Most third-party integrations use a shared set of custom role actions.
 
 `integration` is a **top-level resource**. A code sample is below:
 
@@ -761,4 +761,4 @@ member/*:token/*
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [The user dashboard](../../managing-users/users-dashboard).
+To learn more, read [The user dashboard](/home/managing-users/users-dashboard).

@@ -12,7 +12,7 @@ This topic explains how to create feature flags in LaunchDarkly. You can also cl
   <CalloutDescription>
     You can also use the LaunchDarkly API to create and manage feature flags, as well as do many other tasks.
     LaunchDarkly is an API-first product, so everything you can do in the LaunchDarkly API is also available as an API
-    endpoint. To learn more, read our [REST API Documentation](./rest-api).
+    endpoint. To learn more, read our [REST API Documentation](https://apidocs.launchdarkly.com/).
   </CalloutDescription>
 </Callout>
 
@@ -20,7 +20,7 @@ This topic explains how to create feature flags in LaunchDarkly. You can also cl
 
 You can create and modify feature flags from the dashboard.
 
-To learn more about the dashboard, read [The dashboard](./the-dashboard).
+To learn more about the dashboard, read [The dashboard](/home/managing-flags/dashboard).
 
 To create a feature flag:
 
@@ -43,8 +43,8 @@ To create a feature flag:
   </CalloutDescription>
 </Callout>
 
-7. Choose an option in the **Flag variations** dropdown. To learn more, read [Flag variations](./flag-variations).
-8. (Optional) Specify details for your **Variation**. To learn more, read [Flag variations](./flag-variations).
+7. Choose an option in the **Flag variations** dropdown. To learn more, read [Flag variations](/home/managing-flags/flag-variations).
+8. (Optional) Specify details for your **Variation**. To learn more, read [Flag variations](/home/managing-flags/flag-variations).
 9. (Optional) Select the **This is a permanent flag** checkbox. If you choose this option, no one will be able to delete this flag after it is created.
 10. (Optional) Select the **Make this flag available to client-side SDKs** checkbox. If you choose this option, the flag will be pushed out to client-side SDKs.
 
@@ -53,7 +53,7 @@ To create a feature flag:
   <CalloutDescription>
     If you're using a client-side SDK, you must make each flag you wish to appear on the frontend available to the
     client. Making flags available on the client side may have security implications you should consider. To learn more,
-    read [Client-side and server-side SDKs](./client-side-and-server-side).
+    read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
   </CalloutDescription>
 </Callout>
 
@@ -72,8 +72,8 @@ When you create a feature flag, the flag is scoped to the project you created it
   <CalloutDescription>
     Flag scoping refers to the parts of LaunchDarkly where a flag is available or used. If a flag is scoped at the
     project level, it is available to all environments within the project, because projects contain environments. To
-    learn more about projects, read [Projects](./projects).\nTo learn more about environments, read
-    [Environments](./environments)."
+    learn more about projects, read [Projects]/home/managing-flags/projects.\nTo learn more about environments, read
+    [Environments]/home/managing-flags/environments."
   </CalloutDescription>
 </Callout>
 Flag configuration settings are specific to each environment. The changes you make in one environment do not apply to the same flag in any other environment. If you want to, you can configure the same flag in a unique way for every environment you have.

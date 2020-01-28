@@ -153,7 +153,7 @@ In addition to built-in attributes like names and email addresses, you can pass 
 
 Optionally, you can configure the Haskell SDK to treat some or all user attributes as private user attributes. You can use private user attributes for targeting purposes without sending data about the user associated with them back to LaunchDarkly.
 
-To learn more about private user attributes, read [Setting user attributes](./private-user-attributes).
+To learn more about private user attributes, read [Setting user attributes](/home/managing-users/user-attributes).
 
 When you create the `Config` object, use `configSetAllAttributesPrivate` to set all user attributes as private. When you do this, all user attributes (except the key) are removed before the user is sent to LaunchDarkly.
 
@@ -250,7 +250,7 @@ The `allFlags` function captures the state of all feature flag keys as evaluated
 
 This method is useful when you're passing feature flags to your frontend. Specifically, you can use it to provide bootstrap flag settings for our JavaScript SDK.
 
-To learn more, read the [JavaScript SDK Reference](./js-sdk-reference).
+To learn more, read the [JavaScript SDK Reference](/sdk/client-side/javascript).
 
 <CodeTabs
   defaultValue="haskell"
