@@ -376,7 +376,7 @@ export default {
     },
     ul: {
       marginBottom: [5, 5, 6],
-      marginLeft: 5,
+      marginLeft: 7,
       listStylePosition: 'outside',
       listStyleType: 'disc',
     },
