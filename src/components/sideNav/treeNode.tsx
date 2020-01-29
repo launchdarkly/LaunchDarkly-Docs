@@ -39,10 +39,10 @@ const leafLabelStyles = {
   lineHeight: 1.5,
 }
 
-const defaultListItemStyles = { ml: [5, 5, 5], mr: 3, mt: [4, 4, 4] }
+const defaultListItemStyles = { ml: 5, mr: 3, mt: 2 }
 const rootListItemStyles = {
-  mt: [6, 6, 6],
-  ml: [6, 6, 6],
+  mt: 5,
+  ml: 6,
   mr: 2,
 }
 

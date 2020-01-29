@@ -28,11 +28,13 @@ export function TableOfContents({ toc, ...props }: TableOfContentsProps) {
     <div {...props}>
       <Styled.h5
         sx={{
-          borderBottomStyle: 'dashed',
+          borderBottomStyle: 'dotted',
           borderBottomWidth: 1,
           borderColor: 'grayMed',
-          padding: 3,
-          pt: '2.5rem',
+          px: 2,
+          py: 2,
+          pt: '2rem',
+          color: 'grayBlack',
         }}
       >
         On this page
@@ -42,20 +44,22 @@ export function TableOfContents({ toc, ...props }: TableOfContentsProps) {
           <li
             key={url}
             sx={{
-              lineHeight: 1.5,
-              borderBottomStyle: 'dashed',
+              lineHeight: 1.25,
+              borderBottomStyle: 'dotted',
               borderBottomWidth: 1,
               borderColor: 'grayMed',
-              padding: 3,
+              px: 2,
+              py: 2,
             }}
           >
             <Link
               href={url}
               sx={{
-                color: 'inherit',
+                fontSize: '3',
+                color: 'graySafe',
                 textDecoration: 'none',
                 ':visited': {
-                  color: 'inherit',
+                  color: 'graySafe',
                 },
                 ':hover': {
                   textDecoration: 'none',

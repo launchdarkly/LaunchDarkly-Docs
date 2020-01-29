@@ -135,7 +135,7 @@ export default {
       paddingRight: 4,
       paddingY: 4,
       lineHeight: 'small',
-      my: [5, 6],
+      my: [4, 5],
     },
     table: {
       padding: 2,
@@ -149,7 +149,7 @@ export default {
       lineHeight: 'body',
       fontSize: 3,
       width: '100%',
-      my: [5, 6],
+      my: [4, 5],
     },
     image: {
       borderRadius: 1,
@@ -157,7 +157,7 @@ export default {
       borderColor: 'grayMed',
       boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayMed}`,
       maxWidth: '100%',
-      my: [5, 6],
+      my: [4, 5],
     },
     learnMore: {
       padding: 2,
@@ -169,7 +169,7 @@ export default {
       paddingX: 5,
       paddingY: 4,
       lineHeight: 'body',
-      my: [5, 6],
+      my: [4, 5],
     },
     info: {
       padding: 2,
@@ -182,7 +182,7 @@ export default {
       paddingRight: 4,
       paddingY: 4,
       lineHeight: 'body',
-      my: [5, 6],
+      my: [4, 5],
     },
     warning: {
       padding: 2,
@@ -195,7 +195,7 @@ export default {
       paddingRight: 4,
       paddingY: 4,
       lineHeight: 'body',
-      my: [5, 6],
+      my: [4, 5],
     },
     alert: {
       padding: 2,
@@ -208,7 +208,7 @@ export default {
       paddingRight: 4,
       paddingY: 4,
       lineHeight: 'body',
-      my: [5, 6],
+      my: [4, 5],
     },
     primary: {
       padding: 2,
@@ -221,7 +221,7 @@ export default {
       paddingRight: 4,
       paddingY: 4,
       lineHeight: 'body',
-      my: [5, 6],
+      my: [4, 5],
     },
   },
   images: {
@@ -310,23 +310,23 @@ export default {
       fontWeight: 'body',
     },
     h1: {
-      fontSize: [6, 6, 7],
+      fontSize: [5, 5, 6],
       lineHeight: ['medium', 'medium', 'fixed'],
-      marginBottom: [3, 3, 5],
+      marginBottom: [3, 3, 4],
       fontWeight: 'body',
     },
     h2: {
-      fontSize: [5, 5, 6],
+      fontSize: [5, 5, 5],
       lineHeight: ['medium', 'medium', 'fixed'],
       marginTop: [5, 5, 6],
-      marginBottom: [4, 4, 5],
+      marginBottom: [3, 3, 4],
     },
     h3: {
-      fontSize: [4, 5, 5],
-      lineHeight: ['medium', 'medium', 'fixed'],
+      fontSize: [4, 4, 4],
+      lineHeight: ['small', 'medium', 'fixed'],
       marginTop: [2, 4, 5],
-      marginBottom: [4, 4, 5],
-      fontWeight: ['bold', 'light', 'body'],
+      marginBottom: [3, 3, 4],
+      fontWeight: 'heading',
       color: ['grayBlack', 'grayDark'],
     },
     h4: {
@@ -360,6 +360,7 @@ export default {
       fontStyle: 'italic',
       pt: 2,
       color: 'graySafe',
+      textAlign: 'center',
     },
     p: {
       fontSize: 4,
@@ -370,7 +371,7 @@ export default {
       }),
     },
     ol: {
-      marginBottom: [5, 5, 6],
+      marginBottom: [5, 5, 5],
       marginLeft: 5,
       listStylePosition: 'outside',
     },
@@ -384,7 +385,7 @@ export default {
       // target sibling components
     },
     li: {
-      marginBottom: [3, 3, 4],
+      marginBottom: [3, 3, 3],
       lineHeight: 'body',
     },
     pre: {
