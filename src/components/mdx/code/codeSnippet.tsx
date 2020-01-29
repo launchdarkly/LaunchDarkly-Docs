@@ -91,13 +91,11 @@ export function CodeSnippet({ children, className: languageClassName, ...props }
                   })}
                 </Styled.pre>
               </Box>
-              {languageClassName && (
-                <Box sx={{ marginLeft: 'auto', marginTop: '-2.7rem', fontFamily: 'monospace', fontSize: 3 }}>
-                  <Button variant="code.copy" onClick={onClickCopy} aria-label="Copy code" type="button">
-                    {showCopied ? 'Copied' : 'Copy'}
-                  </Button>
-                </Box>
-              )}
+              <Box sx={{ marginLeft: 'auto', marginTop: '-2.7rem', fontFamily: 'monospace', fontSize: 3 }}>
+                <Button variant="code.copy" onClick={onClickCopy} aria-label="Copy code" type="button">
+                  {showCopied ? 'Copied' : 'Copy'}
+                </Button>
+              </Box>
             </Flex>
           </Box>
         </Flex>
