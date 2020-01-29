@@ -18,7 +18,7 @@
         ]
       },
       {
-        "label": "Managing Flags",
+        "label": "Managing flags",
         "path": "/home/managing-flags",
         "items": [
           {
@@ -76,11 +76,11 @@
         ]
       },
       {
-        "label": "Managing Users",
+        "label": "Managing users",
         "path": "/home/managing-users",
         "items": [
           {
-            "label": "The Users dashboard",
+            "label": "The users dashboard",
             "path": "/home/managing-users/users-dashboard"
           },
           {
@@ -98,7 +98,7 @@
         ]
       },
       {
-        "label": "Account Security",
+        "label": "Account security",
         "path": "/home/account-security",
         "items": [
           {
@@ -180,7 +180,7 @@
         ]
       },
       {
-        "label": "Metrics and Insights",
+        "label": "Metrics and insights",
         "path": "/home/metrics-insights",
         "items": [
           {
@@ -388,7 +388,7 @@
     "path": "/sdk",
     "items": [
       {
-        "label": "SDK Concepts",
+        "label": "SDK concepts",
         "path": "/sdk/concepts",
         "items": [
           {
@@ -410,11 +410,11 @@
         ]
       },
       {
-        "label": "Server-side SDK Guides",
+        "label": "Server-side SDK guides",
         "path": "/sdk/server-side",
         "items": [
           {
-            "label": ".NET SDK Reference",
+            "label": ".NET SDK reference",
             "path": "/sdk/server-side/dotnet"
           },
           {
@@ -422,7 +422,7 @@
             "path": "/sdk/server-side/c-c--"
           },
           {
-            "label": "Go SDK Reference",
+            "label": "Go SDK reference",
             "path": "/sdk/server-side/go"
           },
           {
@@ -430,23 +430,23 @@
             "path": "/sdk/server-side/haskell"
           },
           {
-            "label": "Java SDK Reference",
+            "label": "Java SDK reference",
             "path": "/sdk/server-side/java"
           },
           {
-            "label": "Node.js (server-side) SDK Reference",
+            "label": "Node.js (server-side) SDK reference",
             "path": "/sdk/server-side/node-js"
           },
           {
-            "label": "PHP SDK Reference",
+            "label": "PHP SDK reference",
             "path": "/sdk/server-side/php"
           },
           {
-            "label": "Python SDK Reference",
+            "label": "Python SDK reference",
             "path": "/sdk/server-side/python"
           },
           {
-            "label": "Ruby SDK Reference",
+            "label": "Ruby SDK reference",
             "path": "/sdk/server-side/ruby"
           }
         ]
@@ -456,27 +456,27 @@
         "path": "/sdk/client-side",
         "items": [
           {
-            "label": "Android SDK Reference",
+            "label": "Android SDK reference",
             "path": "/sdk/client-side/android"
           },
           {
-            "label": "C/C++ (client-side) SDK Reference",
+            "label": "C/C++ (client-side) SDK reference",
             "path": "/sdk/client-side/c-c--"
           },
           {
-            "label": "Electron SDK Reference",
+            "label": "Electron SDK reference",
             "path": "/sdk/client-side/electron"
           },
           {
-            "label": "iOS Objective-C SDK Reference",
+            "label": "iOS Objective-C SDK reference",
             "path": "/sdk/client-side/ios-objective-c"
           },
           {
-            "label": "iOS Swift SDK Reference",
+            "label": "iOS Swift SDK reference",
             "path": "/sdk/client-side/ios-swift"
           },
           {
-            "label": "JavaScript SDK Reference",
+            "label": "JavaScript SDK reference",
             "path": "/sdk/client-side/javascript",
             "items": [
               {
@@ -490,23 +490,23 @@
             ]
           },
           {
-            "label": "Node.js (client-side) SDK Reference",
+            "label": "Node.js (client-side) SDK reference",
             "path": "/sdk/client-side/node-js"
           },
           {
-            "label": "React SDK Reference",
+            "label": "React SDK reference",
             "path": "/sdk/client-side/react"
           },
           {
-            "label": "React Native SDK Reference",
+            "label": "React Native SDK reference",
             "path": "/sdk/client-side/react-native"
           },
           {
-            "label": "Roku SDK Reference",
+            "label": "Roku SDK reference",
             "path": "/sdk/client-side/roku"
           },
           {
-            "label": "Xamarin SDK Reference",
+            "label": "Xamarin SDK reference",
             "path": "/sdk/client-side/xamarin"
           }
         ]
