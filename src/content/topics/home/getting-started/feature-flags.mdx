@@ -10,9 +10,11 @@ This topic explains how to create feature flags in LaunchDarkly. You can also cl
 <Callout intent="info">
   <CalloutTitle>You can always use the API instead</CalloutTitle>
   <CalloutDescription>
-    You can also use the LaunchDarkly API to create and manage feature flags, as well as do many other tasks.
-    LaunchDarkly is an API-first product, so everything you can do in the LaunchDarkly API is also available as an API
-    endpoint. To learn more, read our [REST API Documentation](https://apidocs.launchdarkly.com/).
+
+You can also use the LaunchDarkly API to create and manage feature flags, as well as do many other tasks.
+LaunchDarkly is an API-first product, so everything you can do in the LaunchDarkly API is also available as an API
+endpoint. To learn more, read our [REST API Documentation](https://apidocs.launchdarkly.com/).
+
   </CalloutDescription>
 </Callout>
 
@@ -37,9 +39,11 @@ To create a feature flag:
 <Callout intent="info">
   <CalloutTitle>Tags let you sort flags into groups</CalloutTitle>
   <CalloutDescription>
-    Tags are useful for managing flag permissions using custom roles. For example, you can tag a flag as \"Marketing\"
-    and \"DevOps\", and then use these tags to determine who has read or write access for the flag. To learn more, read
-    [Custom roles](/home/account-security/custom-roles).
+
+Tags are useful for managing flag permissions using custom roles. For example, you can tag a flag as "Marketing"
+and "DevOps", and then use these tags to determine who has read or write access for the flag. To learn more, read
+[Custom roles](/home/account-security/custom-roles).
+
   </CalloutDescription>
 </Callout>
 
@@ -51,9 +55,11 @@ To create a feature flag:
 <Callout intent="info">
   <CalloutTitle>Flags are not available on the client-side by default</CalloutTitle>
   <CalloutDescription>
-    If you're using a client-side SDK, you must make each flag you wish to appear on the frontend available to the
-    client. Making flags available on the client side may have security implications you should consider. To learn more,
-    read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+
+If you're using a client-side SDK, you must make each flag you wish to appear on the frontend available to the
+client. Making flags available on the client side may have security implications you should consider. To learn more,
+read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+
   </CalloutDescription>
 </Callout>
 
@@ -70,10 +76,13 @@ When you create a feature flag, the flag is scoped to the project you created it
 <Callout intent="info">
   <CalloutTitle>Understanding flag scopes</CalloutTitle>
   <CalloutDescription>
-    Flag scoping refers to the parts of LaunchDarkly where a flag is available or used. If a flag is scoped at the
-    project level, it is available to all environments within the project, because projects contain environments. To
-    learn more about projects, read [Projects]/home/managing-flags/projects.\nTo learn more about environments, read
-    [Environments]/home/managing-flags/environments."
+
+Flag scoping refers to the parts of LaunchDarkly where a flag is available or used. If a flag is scoped at the
+project level, it is available to all environments within the project, because projects contain environments. To
+learn more about projects, read [Projects]/home/managing-flags/projects.
+
+To learn more about environments, read [Environments]/home/managing-flags/environments.
+
   </CalloutDescription>
 </Callout>
 Flag configuration settings are specific to each environment. The changes you make in one environment do not apply to the same flag in any other environment. If you want to, you can configure the same flag in a unique way for every environment you have.
@@ -123,9 +132,11 @@ To clone a flag:
 <Callout intent="info">
   <CalloutTitle>Tags sort flags into groups</CalloutTitle>
   <CalloutDescription>
-    Tags are useful for managing flag permissions using custom roles. For example, you can tag a flag as \"Marketing\"
-    and \"DevOps\", and then use these tags to determine who has read or write access for the flag. To learn more, read
-    [Custom roles](/home/account-security/custom-roles).
+
+Tags are useful for managing flag permissions using custom roles. For example, you can tag a flag as "Marketing"
+and "DevOps", and then use these tags to determine who has read or write access for the flag. To learn more, read
+[Custom roles](/home/account-security/custom-roles).
+
   </CalloutDescription>
 </Callout>
 

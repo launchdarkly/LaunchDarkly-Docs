@@ -33,13 +33,16 @@ To set up Git code references in LaunchDarkly, you must have:
 
 - A personal API access token with writer-level access or higher. Create a Personal API access token in the [Access Tokens](https://app.launchdarkly.com/settings/tokens) page. To learn more, read [Personal API access tokens](/home/account-security/api-access-tokens).
 - You must allow [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) to run whenever you commit to your git repository.
-  <Callout intent="info">
-    <CalloutTitle>Personal API access tokens can also use custom roles</CalloutTitle>
-    <CalloutDescription>
-      Alternatively, you can give the access token access to a custom role with the `code-reference-repository` resource
-      specifier. To learn more, read [Custom roles](/home/account-security/custom-roles).
-    </CalloutDescription>
-  </Callout>
+
+<Callout intent="info">
+<CalloutTitle>Personal API access tokens can also use custom roles</CalloutTitle>
+<CalloutDescription>
+
+  Alternatively, you can give the access token access to a custom role with the `code-reference-repository` resource
+  specifier. To learn more, read [Custom roles](/home/account-security/custom-roles).
+
+</CalloutDescription>
+</Callout>
 
 ## Using code references
 
@@ -73,10 +76,12 @@ If you click **Delete,** LaunchDarkly purges all data associated with that repos
 <Callout intent="alert">
   <CalloutTitle>Remove code references before you click Delete</CalloutTitle>
   <CalloutDescription>
-    If you want to remove a connection permanently, be sure to remove any `ld-find-code-refs` triggers from your code.
-    If you're not sure how or where the trigger is invoked, you can also delete the personal access token your trigger
-    uses. If you delete a repository with automated code reference updates enabled, the connection is recreated the next
-    time an automated code reference trigger executes.
+
+If you want to remove a connection permanently, be sure to remove any `ld-find-code-refs` triggers from your code.
+If you're not sure how or where the trigger is invoked, you can also delete the personal access token your trigger
+uses. If you delete a repository with automated code reference updates enabled, the connection is recreated the next
+time an automated code reference trigger executes.
+
   </CalloutDescription>
 </Callout>
 

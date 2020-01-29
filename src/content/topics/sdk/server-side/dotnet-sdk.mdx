@@ -74,9 +74,11 @@ LdClient ldClient = new LdClient("YOUR_SDK_KEY");
 <Callout intent="alert">
   <CalloutTitle>LDClient must be a singleton</CalloutTitle>
   <CalloutDescription>
-    It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to
-    serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with
-    every request.**
+
+It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to
+serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with
+every request.**
+
   </CalloutDescription>
 </Callout>
 
@@ -326,11 +328,13 @@ Here, we've customized the event flush interval. The complete list of customizab
 <Callout intent="alert">
   <CalloutTitle>DNS caching issues</CalloutTitle>
   <CalloutDescription>
-    LaunchDarkly servers operate in a load-balancing framework which may cause their IP addresses to change. This could
-    result in the SDK failing to connect to LaunchDarkly if an old IP address is still in your system's DNS cache. In
-    .NET, the DNS cache retains IP addresses for two minutes by default. If you are noticing intermittent connection
-    failures that always resolve in two minutes, you may wish to change this setting to a lower value as described
-    [here](https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.dnsrefreshtimeout?view=netframework-4.7.2).
+
+LaunchDarkly servers operate in a load-balancing framework which may cause their IP addresses to change. This could
+result in the SDK failing to connect to LaunchDarkly if an old IP address is still in your system's DNS cache. In
+.NET, the DNS cache retains IP addresses for two minutes by default. If you are noticing intermittent connection
+failures that always resolve in two minutes, you may wish to change this setting to a lower value as described
+[here](https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.dnsrefreshtimeout?view=netframework-4.7.2).
+
   </CalloutDescription>
 </Callout>
 
@@ -367,11 +371,13 @@ In addition to the built-in attributes defined in the `User` class, you can pass
 <Callout intent="info">
   <CalloutTitle>A note on types</CalloutTitle>
   <CalloutDescription>
-    Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can
-    be strings, booleans (like true or false), numbers, arrays, or objects (a.k.a. dictionaries)—the same types
-    supported by JSON. For representing the complex types—arrays and objects—the SDK uses the `LdValue` type. If you
-    enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The .NET
-    SDK is strongly typed, so be aware of this distinction.
+
+Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can
+be strings, booleans (like true or false), numbers, arrays, or objects (a.k.a. dictionaries)—the same types
+supported by JSON. For representing the complex types—arrays and objects—the SDK uses the `LdValue` type. If you
+enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The .NET
+SDK is strongly typed, so be aware of this distinction.
+
   </CalloutDescription>
 </Callout>
 
@@ -515,8 +521,10 @@ ldClient.Identify(user);
 
 <Callout intent="alert">
   <CalloutDescription>
-    Note that unlike `Variation` and `Identify` calls, `AllFlagsState` does not send events to LaunchDarkly. Thus, users
-    are not created or updated in the LaunchDarkly dashboard.
+
+Note that unlike `Variation` and `Identify` calls, `AllFlagsState` does not send events to LaunchDarkly. Thus, users
+are not created or updated in the LaunchDarkly dashboard.
+
   </CalloutDescription>
 </Callout>
 

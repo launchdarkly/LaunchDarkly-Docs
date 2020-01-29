@@ -8,9 +8,11 @@ This reference guide documents basic usage of our C server-side SDK, and explain
 <Callout intent="alert">
   <CalloutTitle>For use in server applications</CalloutTitle>
   <CalloutDescription>
-    LaunchDarkly provides both a client-side and a server-side C/C++ SDK. If you are embedding LaunchDarkly in a
-    client-side application please use the [client-side SDK](https://docs.launchdarkly.com/docs/c-sdk-reference). Learn
-    more about our [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+
+LaunchDarkly provides both a client-side and a server-side C/C++ SDK. If you are embedding LaunchDarkly in a
+client-side application please use the [client-side SDK](https://docs.launchdarkly.com/docs/c-sdk-reference). Learn
+more about our [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+
   </CalloutDescription>
 </Callout>
 
@@ -80,9 +82,11 @@ struct LDClient *client = LDClientInit(config, maxwaitmilliseconds);
 <Callout intent="alert">
   <CalloutTitle>LDClient must be a singleton</CalloutTitle>
   <CalloutDescription>
-    It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to
-    serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with
-    every request.**
+
+It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to
+serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with
+every request.**
+
   </CalloutDescription>
 </Callout>
 
@@ -341,8 +345,10 @@ For particular information on the `LDDetails` structure please inspect `ldvariat
 <Callout intent="alert">
   <CalloutTitle>Creating users</CalloutTitle>
   <CalloutDescription>
-    Note that unlike variation and identify calls, `LDAllFlags` does not send events to LaunchDarkly. Thus, users are
-    not created or updated in the LaunchDarkly dashboard.
+
+Note that unlike variation and identify calls, `LDAllFlags` does not send events to LaunchDarkly. Thus, users are
+not created or updated in the LaunchDarkly dashboard.
+
   </CalloutDescription>
 </Callout>
 
@@ -472,7 +478,7 @@ LDJsonFree(data);
 
 
 ## Identify
-The `LDClientIdentify` function creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `LDClientIdentify`-- the `variation` call will automatically create users on the dashboard for you. `LDClientIdentify` can be useful if you want to pre-populate your dashboard before launching any features. 
+The `LDClientIdentify` function creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `LDClientIdentify`-- the `variation` call will automatically create users on the dashboard for you. `LDClientIdentify` can be useful if you want to pre-populate your dashboard before launching any features.
 
 <CodeTabs
   defaultValue="c"
