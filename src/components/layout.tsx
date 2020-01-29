@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 import { Card } from '@theme-ui/components'
-import Helmet from 'react-helmet'
+import { Helmet } from 'react-helmet'
 
 import { Fragment, FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
