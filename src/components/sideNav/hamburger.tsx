@@ -19,6 +19,10 @@ const Hamburger = () => {
             items {
               path
               label
+              items {
+                label
+                path
+              }
             }
           }
           label

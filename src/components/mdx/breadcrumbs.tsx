@@ -17,6 +17,10 @@ const Breadcrumbs = () => {
             items {
               path
               label
+              items {
+                label
+                path
+              }
             }
           }
           label
