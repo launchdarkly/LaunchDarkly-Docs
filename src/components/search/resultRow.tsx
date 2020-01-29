@@ -35,7 +35,7 @@ const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, onClick }) => {
           attribute="excerpt"
           tagName="mark"
           sx={{
-            lineHeight: '1.4rem',
+            lineHeight: 'small',
             color: 'grayBlack',
             pt: 2,
             fontSize: 3,

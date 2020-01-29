@@ -53,11 +53,11 @@ export default {
   lineHeights: {
     fixed: '1',
     spaced: '1.5',
-    regular: '1rem',
+    xsmall: '1rem',
     small: '1.25rem',
-    body: '1.5rem',
+    regular: '1.5rem',
     medium: '2rem',
-    heading: '3rem',
+    large: '3rem',
   },
   text: {
     label: {
@@ -146,7 +146,7 @@ export default {
       boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayMed}`,
       paddingX: [3, 5],
       paddingY: [2, 4],
-      lineHeight: 'body',
+      lineHeight: 'regular',
       fontSize: 3,
       width: '100%',
       my: [4, 5],
@@ -168,7 +168,7 @@ export default {
       boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayMed}`,
       paddingX: 5,
       paddingY: 4,
-      lineHeight: 'body',
+      lineHeight: 'regular',
       my: [4, 5],
     },
     info: {
@@ -181,7 +181,7 @@ export default {
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
-      lineHeight: 'body',
+      lineHeight: 'regular',
       my: [4, 5],
     },
     warning: {
@@ -194,7 +194,7 @@ export default {
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
-      lineHeight: 'body',
+      lineHeight: 'regular',
       my: [4, 5],
     },
     alert: {
@@ -207,7 +207,7 @@ export default {
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
-      lineHeight: 'body',
+      lineHeight: 'regular',
       my: [4, 5],
     },
     primary: {
@@ -220,7 +220,7 @@ export default {
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
-      lineHeight: 'body',
+      lineHeight: 'regular',
       my: [4, 5],
     },
   },
@@ -306,7 +306,7 @@ export default {
   styles: {
     root: {
       fontFamily: 'body',
-      lineHeight: 'body',
+      lineHeight: 'regular',
       fontWeight: 'body',
     },
     h1: {
@@ -364,7 +364,7 @@ export default {
     },
     p: {
       fontSize: 4,
-      lineHeight: 'body',
+      lineHeight: 'regular',
       marginBottom: [4, 4, 4],
       '& figcaption': (theme: any) => ({
         ...theme.styles.figcaption,
@@ -386,7 +386,7 @@ export default {
     },
     li: {
       marginBottom: [3, 3, 3],
-      lineHeight: 'body',
+      lineHeight: 'regular',
     },
     pre: {
       overflow: 'auto',

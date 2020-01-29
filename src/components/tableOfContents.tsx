@@ -44,7 +44,7 @@ export function TableOfContents({ toc, ...props }: TableOfContentsProps) {
           <li
             key={url}
             sx={{
-              lineHeight: 1.25,
+              lineHeight: 'small',
               borderBottomStyle: 'dotted',
               borderBottomWidth: 1,
               borderColor: 'grayMed',

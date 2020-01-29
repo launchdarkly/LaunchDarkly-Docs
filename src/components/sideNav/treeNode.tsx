@@ -30,7 +30,7 @@ const defaultLabelStyles = {
   ':active': {
     color: 'grayBlack',
   },
-  lineHeight: 'body',
+  lineHeight: 'regular',
 }
 
 const leafLabelStyles = {
