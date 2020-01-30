@@ -227,8 +227,8 @@ We've set the client connect timeout to 3 seconds in addition to providing a cus
 - `feature_requester_class`: An optional class implementing `LaunchDarkly\FeatureRequester`, if `feature_requester` is not specified. Defaults to a `GuzzleFeatureRequester`.
 - `event_publisher`: An optional `LaunchDarkly\EventPublisher` instance.
 - `event_publisher_class`: An optional class implementing `LaunchDarkly\EventPublisher`, if `event_publisher` is not specified. Defaults to `CurlEventPublisher`.
-- `allAttributesPrivate`: Whether all user attributes (except the user key) should be marked as [private user attributes](https://docs.launchdarkly.com/docs/private-user-attributes) and not sent to LaunchDarkly. Defaults to `false`.
-- `privateAttributeNames`: Must be a list of strings. The names of user attributes that should be marked as [private user attributes](https://docs.launchdarkly.com/docs/private-user-attributes), and not sent to LaunchDarkly. Defaults to an empty array.
+- `allAttributesPrivate`: Whether all user attributes (except the user key) should be marked as [private user attributes](/home/managing-users/user-attributes#creating-private-user-attributes) and not sent to LaunchDarkly. Defaults to `false`.
+- `privateAttributeNames`: Must be a list of strings. The names of user attributes that should be marked as [private user attributes](/home/managing-users/user-attributes#creating-private-user-attributes), and not sent to LaunchDarkly. Defaults to an empty array.
   <Callout intent="alert">
     <CalloutTitle>Sending events in PHP</CalloutTitle>
     <CalloutDescription>
@@ -293,7 +293,7 @@ Custom attributes are one of the most powerful features of LaunchDarkly. They le
 
 ## Private user attributes
 
-You can optionally configure the PHP SDK to treat some or all user attributes as [private user attributes](https://docs.launchdarkly.com/v2.0/docs/private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the PHP SDK to treat some or all user attributes as [private user attributes](/home/managing-users/user-attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the PHP SDK there are two ways to define private attributes for the **entire** LaunchDarkly client:
 
