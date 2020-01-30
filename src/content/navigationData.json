@@ -426,11 +426,11 @@
             "path": "/sdk/client-side/electron"
           },
           {
-            "label": "iOS Objective-C SDK reference",
+            "label": "iOS (Objective-C) SDK reference",
             "path": "/sdk/client-side/ios-objective-c"
           },
           {
-            "label": "iOS Swift SDK reference",
+            "label": "iOS (Swift) SDK reference",
             "path": "/sdk/client-side/ios-swift"
           },
           {
