@@ -24,7 +24,7 @@ exports[`callout renders 1`] = `
   min-width: 0;
   margin-bottom: 16px;
   font-size: 24px;
-  line-height: body;
+  line-height: regular;
 }
 
 .emotion-1 {
