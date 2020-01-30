@@ -62,14 +62,12 @@ interface LayoutProps {
       }
       frontmatter: {
         title: string
+        description: string
       }
       fileAbsolutePath: string
     }
   }
 }
-
-const description =
-  "LaunchDarkly's comprehensive app documentation. Development teams are using feature management as a best practice to separate code deployments from feature releases and control their feature lifecycles from concept to launch to value. LaunchDarkly is the feature management platform that software teams use to build better software, faster."
 
 const Layout: FunctionComponent<LayoutProps> = ({
   data: {
@@ -78,7 +76,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
       toc,
       timeToRead,
       fields: { lastModifiedTime },
-      frontmatter: { title },
+      frontmatter: { title, description },
       fileAbsolutePath,
     },
   },
@@ -152,6 +150,7 @@ export const pageQuery = graphql`
       }
       frontmatter {
         title
+        description
       }
       fileAbsolutePath
     }
