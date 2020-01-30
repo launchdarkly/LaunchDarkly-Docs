@@ -17,6 +17,6 @@ This topic explains how to use the New Relic integration to annotate New Relic t
 LaunchDarkly SDKs automatically detect whether you have New Relic installed without any additional configuration steps. If LaunchDarkly detects New Relic,
 LaunchDarkly adds a [custom attribute](https://docs.newrelic.com/docs/insights/new-relic-insights/decorating-events/insights-custom-attributes) for every feature flag request call made within a New Relic transaction trace.
 
-![In this transaction, a feature flag with key `map.save.header` was requested, and the variation returned was `true`.](../images/new-relic-custom-attribute.png)
+![In this transaction, a feature flag with key "map.save.header" was requested, and the variation returned was "true".](../images/new-relic-custom-attribute.png)
 
 You can see custom attributes for particular transactions on your New Relic dashboard, or use [NRQL](https://docs.newrelic.com/docs/insights/new-relic-insights/using-new-relic-query-language/nrql-reference) to explore how feature flags impact performance across many transactions.
