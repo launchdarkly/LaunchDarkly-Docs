@@ -80,7 +80,7 @@ const Hamburger = () => {
             fontSize: 3,
           }}
         >
-          <div sx={{ cursor: 'pointer' }}>EXPAND ALL</div>
+          <div sx={{ visibility: 'hidden', cursor: 'pointer' }}>EXPAND ALL</div>
           <div onClick={onClickMenu} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
             CLOSE <Icon name="window-close" variant="close" />
           </div>
