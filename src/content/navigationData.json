@@ -260,6 +260,10 @@
             "path": "/home/advanced/feature-store"
           }
         ]
+      },
+      {
+        "label": "Changelog",
+        "path": "/home/changelog"
       }
     ]
   },
