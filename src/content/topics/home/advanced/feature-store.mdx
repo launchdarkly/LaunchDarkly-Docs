@@ -1,6 +1,7 @@
 ---
 path: '/home/advanced/feature-store'
 title: 'Using a persistent feature store'
+description: 'This topic explains how to use a persistent feature store to keep flag data. Flag evaluations always refer to the last known state in memory. This collection of last known flag data is the "feature store." You can use a database like Redis, DynamoDB, and Consul as a feature store.'
 ---
 
 ## Overview
@@ -20,7 +21,7 @@ Alternatively, you can use a database for the feature store. Most of the server-
 Whichever database you use, there are two ways to use it:
 
 - Exactly like the default configuration, except substituting a database for the in-memory store, or
-- Using _only_ the database as a source of flag data, without connecting to LaunchDarkly
+- Using _only_ the database as a source of flag data, without connecting to LaunchDarkly.
 
 ## Using a persistent feature store while still connecting to LaunchDarkly
 
