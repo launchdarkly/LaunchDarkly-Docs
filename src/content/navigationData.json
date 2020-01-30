@@ -134,7 +134,7 @@
                 "path": "/home/account-security/custom-roles/example-policies"
               },
               {
-                "label": "Creating private projects with custom roles",
+                "label": "Creating private projects",
                 "path": "/home/account-security/custom-roles/private-projects"
               }
             ]
