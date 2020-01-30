@@ -2,7 +2,7 @@ import * as React from 'react'
 import { CodeSnippet, CodeSnippetProps } from './codeSnippet'
 
 export function Code(props: CodeSnippetProps) {
-  const { children } = props
+  const { children, className } = props
 
   if (!children) {
     console.warn(
@@ -11,8 +11,16 @@ export function Code(props: CodeSnippetProps) {
     return null
   }
 
+  if (!className) {
+    return <code>{children}</code>
+  }
+
   if (typeof children === 'string') {
-    return <CodeSnippet {...props}>{children}</CodeSnippet>
+    return (
+      <CodeSnippet className={className} {...props}>
+        {children}
+      </CodeSnippet>
+    )
   }
 
   return children

@@ -23,6 +23,10 @@ const DesktopSideNav = () => {
             items {
               path
               label
+              items {
+                label
+                path
+              }
             }
           }
           label

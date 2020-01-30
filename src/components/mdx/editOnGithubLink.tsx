@@ -15,7 +15,7 @@ const EditOnGithubLink: FunctionComponent<EditOnGithubLinkProps> = ({ fileAbsolu
   const githubUrl = `${GITHUB_ROOT_URL}/${relativePath}`
   return (
     <Link variant="githubEdit" to={githubUrl}>
-      <Icon name="pencil" height="1rem" fill="grayBase" mb="-.15rem" mr=".2rem" />
+      <Icon name="pencil" height="1rem" fill="grayBase" pt=".2rem" mr=".2rem" />
       EDIT ON GITHUB
     </Link>
   )

@@ -53,11 +53,11 @@ export default {
   lineHeights: {
     fixed: '1',
     spaced: '1.5',
-    regular: '1rem',
+    xsmall: '1rem',
     small: '1.25rem',
-    body: '1.5rem',
+    regular: '1.5rem',
     medium: '2rem',
-    heading: '3rem',
+    large: '3rem',
   },
   text: {
     label: {
@@ -135,7 +135,7 @@ export default {
       paddingRight: 4,
       paddingY: 4,
       lineHeight: 'small',
-      my: [5, 6],
+      my: [4, 5],
     },
     table: {
       padding: 2,
@@ -146,10 +146,10 @@ export default {
       boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayMed}`,
       paddingX: [3, 5],
       paddingY: [2, 4],
-      lineHeight: 'body',
+      lineHeight: 'regular',
       fontSize: 3,
       width: '100%',
-      my: [5, 6],
+      my: [4, 5],
     },
     image: {
       borderRadius: 1,
@@ -157,7 +157,7 @@ export default {
       borderColor: 'grayMed',
       boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayMed}`,
       maxWidth: '100%',
-      my: [5, 6],
+      my: [4, 5],
     },
     learnMore: {
       padding: 2,
@@ -168,8 +168,8 @@ export default {
       boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayMed}`,
       paddingX: 5,
       paddingY: 4,
-      lineHeight: 'body',
-      my: [5, 6],
+      lineHeight: 'regular',
+      my: [4, 5],
     },
     info: {
       padding: 2,
@@ -181,8 +181,8 @@ export default {
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
-      lineHeight: 'body',
-      my: [5, 6],
+      lineHeight: 'regular',
+      my: [4, 5],
     },
     warning: {
       padding: 2,
@@ -194,8 +194,8 @@ export default {
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
-      lineHeight: 'body',
-      my: [5, 6],
+      lineHeight: 'regular',
+      my: [4, 5],
     },
     alert: {
       padding: 2,
@@ -207,8 +207,8 @@ export default {
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
-      lineHeight: 'body',
-      my: [5, 6],
+      lineHeight: 'regular',
+      my: [4, 5],
     },
     primary: {
       padding: 2,
@@ -220,8 +220,8 @@ export default {
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
-      lineHeight: 'body',
-      my: [5, 6],
+      lineHeight: 'regular',
+      my: [4, 5],
     },
   },
   images: {
@@ -306,27 +306,27 @@ export default {
   styles: {
     root: {
       fontFamily: 'body',
-      lineHeight: 'body',
+      lineHeight: 'regular',
       fontWeight: 'body',
     },
     h1: {
-      fontSize: [6, 6, 7],
+      fontSize: [5, 5, 6],
       lineHeight: ['medium', 'medium', 'fixed'],
-      marginBottom: [3, 3, 5],
+      marginBottom: [3, 3, 4],
       fontWeight: 'body',
     },
     h2: {
-      fontSize: [5, 5, 6],
+      fontSize: [5, 5, 5],
       lineHeight: ['medium', 'medium', 'fixed'],
       marginTop: [5, 5, 6],
-      marginBottom: [4, 4, 5],
+      marginBottom: [3, 3, 4],
     },
     h3: {
-      fontSize: [4, 5, 5],
-      lineHeight: ['medium', 'medium', 'fixed'],
+      fontSize: [4, 4, 4],
+      lineHeight: ['small', 'medium', 'fixed'],
       marginTop: [2, 4, 5],
-      marginBottom: [4, 4, 5],
-      fontWeight: ['bold', 'light', 'body'],
+      marginBottom: [3, 3, 4],
+      fontWeight: 'heading',
       color: ['grayBlack', 'grayDark'],
     },
     h4: {
@@ -360,17 +360,18 @@ export default {
       fontStyle: 'italic',
       pt: 2,
       color: 'graySafe',
+      textAlign: 'center',
     },
     p: {
       fontSize: 4,
-      lineHeight: 'body',
+      lineHeight: 'regular',
       marginBottom: [4, 4, 4],
       '& figcaption': (theme: any) => ({
         ...theme.styles.figcaption,
       }),
     },
     ol: {
-      marginBottom: [5, 5, 6],
+      marginBottom: [5, 5, 5],
       marginLeft: 5,
       listStylePosition: 'outside',
     },
@@ -384,8 +385,8 @@ export default {
       // target sibling components
     },
     li: {
-      marginBottom: [3, 3, 4],
-      lineHeight: 'body',
+      marginBottom: [3, 3, 3],
+      lineHeight: 'regular',
     },
     pre: {
       overflow: 'auto',

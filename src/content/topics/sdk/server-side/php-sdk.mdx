@@ -1,6 +1,6 @@
 ---
 path: '/sdk/server-side/php'
-title: 'PHP SDK Reference'
+title: 'PHP SDK reference'
 ---
 
 This reference guide documents all of the methods available in our PHP SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [PHP SDK repository](https://github.com/launchdarkly/php-server-sdk) on GitHub. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-php) using this SDK.
@@ -186,8 +186,10 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", ['feature_requester_class' =
 <Callout intent="warning">
   <CalloutTitle>Caching and PHP</CalloutTitle>
   <CalloutDescription>
-    PHP's *shared-nothing* architecture means that the out-of-the-box in-memory HTTP cache used by our SDK won't cache
-    feature flags across requests. In production, we strongly recommend the ld-relay for PHP.
+
+PHP's *shared-nothing* architecture means that the out-of-the-box in-memory HTTP cache used by our SDK won't cache
+feature flags across requests. In production, we strongly recommend the ld-relay for PHP.
+
   </CalloutDescription>
 </Callout>
 
@@ -230,13 +232,15 @@ We've set the client connect timeout to 3 seconds in addition to providing a cus
   <Callout intent="alert">
     <CalloutTitle>Sending events in PHP</CalloutTitle>
     <CalloutDescription>
-      The LaunchDarkly SDK sends data back to our server to record events from Track and Variation calls. On our other
-      platforms, this data is sent asynchronously, so that it adds no latency to serving web pages. Once again, PHP's
-      *shared-nothing* architecture makes this a bit difficult. By default, LaunchDarkly forks an external process that
-      executes `curl` to send this data. In practice we've found that this is the most reliable way to send data without
-      introducing latency to page load times. If your server does not have `curl` installed, or has other restrictions
-      that make it impossible to invoke `curl` as an external process, you may need to implement a custom
-      `EventProcessor` to send events to LaunchDarkly.
+
+  The LaunchDarkly SDK sends data back to our server to record events from Track and Variation calls. On our other
+  platforms, this data is sent asynchronously, so that it adds no latency to serving web pages. Once again, PHP's
+  *shared-nothing* architecture makes this a bit difficult. By default, LaunchDarkly forks an external process that
+  executes `curl` to send this data. In practice we've found that this is the most reliable way to send data without
+  introducing latency to page load times. If your server does not have `curl` installed, or has other restrictions
+  that make it impossible to invoke `curl` as an external process, you may need to implement a custom
+  `EventProcessor` to send events to LaunchDarkly.
+
     </CalloutDescription>
   </Callout>
 

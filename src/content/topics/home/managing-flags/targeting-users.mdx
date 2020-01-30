@@ -18,10 +18,12 @@ The "Target individual users" section of the targeting tab allows you to assign 
 <Callout intent="info">
   <CalloutTitle>Only target small numbers of users individually</CalloutTitle>
   <CalloutDescription>
-    We recommend using individual user targeting for very small numbers of individual users. Targeting more than 10,000
-    users individually may cause performance degradation, because the SDK takes longer to initialize when the targeting
-    rules payload is large. To learn more about targeting many users, read [Targeting rules based on user
-    attributes](#targeting-rules-based-on-user-attributes).
+
+We recommend using individual user targeting for very small numbers of individual users. Targeting more than 10,000
+users individually may cause performance degradation, because the SDK takes longer to initialize when the targeting
+rules payload is large. To learn more about targeting many users, read [Targeting rules based on user
+attributes](#targeting-rules-based-on-user-attributes).
+
   </CalloutDescription>
 </Callout>
 
@@ -132,17 +134,21 @@ LaunchDarkly supports the following operators:
 <Callout intent="alert">
   <CalloutTitle>Dates require UNIX formatting</CalloutTitle>
   <CalloutDescription>
-    Dates specified in the `user` object should be formatted in UNIX milliseconds (UNIX epoch * 1000). To learn more
-    about UNIX date formatting, or convert a date and time to UNIX milliseconds read [Current
-    Millis](https://currentmillis.com/).
+
+Dates specified in the `user` object should be formatted in UNIX milliseconds (UNIX epoch * 1000). To learn more
+about UNIX date formatting, or convert a date and time to UNIX milliseconds read [Current
+Millis](https://currentmillis.com/).
+
   </CalloutDescription>
 </Callout>
 <Callout intent="info">
   <CalloutTitle>Required SDK versions for semantic versions</CalloutTitle>
   <CalloutDescription>
-    Older versions of our server SDKs do not support semantic version operators. Minimum SDK versions are: Go: v3\nNode:
-    3.4.0\nPython: 4.3.0\nRuby: 2.5.0\n.NET: 3.6.1\nJava: 2.6.0\nPHP: 2.5.0 No updates are required for Android, iOS, or
-    JavaScript.
+
+Older versions of our server SDKs do not support semantic version operators. Minimum SDK versions are: Go: v3\nNode:
+3.4.0\nPython: 4.3.0\nRuby: 2.5.0\n.NET: 3.6.1\nJava: 2.6.0\nPHP: 2.5.0 No updates are required for Android, iOS, or
+JavaScript.
+
   </CalloutDescription>
 </Callout>
 
@@ -251,15 +257,22 @@ You still must generate a unique key for anonymous users-- session IDs or UUIDs 
 <Callout intent="primary">
   <CalloutTitle>Maintaining experience across anonymous and logged-in states</CalloutTitle>
   <CalloutDescription>
-    To associate pre-login (anonymous) behaviors with post-login (known) behaviors to get a singular view of a user
-    flow, you should use a custom attribute, and the advanced option for percentage rollouts that allows you to rollout
-    based on a different attribute. The steps to make this happen are as follows: • store a unique identifier for the
-    anonymous user into a cookie. A session ID or UUID works well.\n• until the user logs in, use this unique identifier
-    as both the user’s key, and a custom attribute. The custom attribute could be named anything, but for this example
-    it is named \"uniqueId\".\n• while the user is logged in, set the users key to their real (primary) user key, but
-    continue to use to use the unique identifier stored in the cookie as the users \"uniqueId\" custom attribute.\n• for
-    all flags (or at least those that may effect logged out users), use the advanced option for all percentage rollouts
-    to do rollouts based on the \"uniqueId\" custom attribute.
+
+To associate pre-login (anonymous) behaviors with post-login (known) behaviors to get a singular view of a user
+flow, you should use a custom attribute, and the advanced option for percentage rollouts that allows you to rollout
+based on a different attribute. The steps to make this happen are as follows:
+
+• store a unique identifier for the anonymous user into a cookie. A session ID or UUID works well.
+
+• until the user logs in, use this unique identifier as both the user’s key, and a custom attribute. The custom
+attribute could be named anything, but for this example it is named "uniqueId".
+
+• while the user is logged in, set the users key to their real (primary) user key, but
+continue to use to use the unique identifier stored in the cookie as the users "uniqueId" custom attribute.
+
+• for all flags (or at least those that may effect logged out users), use the advanced option for all percentage rollouts
+to do rollouts based on the "uniqueId" custom attribute.
+
   </CalloutDescription>
 </Callout>
 <Callout intent="info">
@@ -284,6 +297,7 @@ LaunchDarkly allows you to target users based on arbitrary custom attributes-- m
     and setting your own values.
   </CalloutDescription>
 </Callout>
+
 You can add multiple conditions to a rule. Users must meet all the conditions in a rule to match the rule. If any of the conditions are not met, the user will not match the rule.
 
 Here, we've created a custom rule with two conditions. This rule serves `true` to all users whose e-mail address ends with `gmail.com` and whose country is either `USA` or `CANADA`.
@@ -391,12 +405,14 @@ When you set up a percentage rollout, the variation a user receives is determine
 <Callout intent="info">
   <CalloutTitle>Advanced Targeting: Percentage rollouts bucketed by attribute</CalloutTitle>
   <CalloutDescription>
-    In the Advanced area of a percentage rollout, you can bucket users by any attribute sent to LaunchDarkly. For
-    example, you can roll out a feature to 20% of `companies`, whereby users will be bucketed by the value of their
-    `company` attribute. This ensures that every user with a matching attribute-value pairing is treated consistently.
-    If you choose a custom attribute for this purpose, it should have either string values or integer numeric values.
-    For any user where the value of the custom attribute is a number with a fractional component, or a value of any
-    other type besides string and number, the bucketing result is undefined.
+
+In the Advanced area of a percentage rollout, you can bucket users by any attribute sent to LaunchDarkly. For
+example, you can roll out a feature to 20% of `companies`, whereby users will be bucketed by the value of their
+`company` attribute. This ensures that every user with a matching attribute-value pairing is treated consistently.
+If you choose a custom attribute for this purpose, it should have either string values or integer numeric values.
+For any user where the value of the custom attribute is a number with a fractional component, or a value of any
+other type besides string and number, the bucketing result is undefined.
+
   </CalloutDescription>
 </Callout>
 

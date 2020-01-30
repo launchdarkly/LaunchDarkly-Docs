@@ -8,9 +8,11 @@ This reference guide documents all of the methods available in our client-side J
 <Callout intent="alert">
   <CalloutTitle>For client-side JavaScript only</CalloutTitle>
   <CalloutDescription>
-    Our JavaScript SDK is intended for client-side (browser) feature flags **only**. If you have a Node.js application
-    and are looking to set up LaunchDarkly on the server-side, head to our [Node.js SDK
-    Reference](/sdk/client-side/node-js).
+
+Our JavaScript SDK is intended for client-side (browser) feature flags **only**. If you have a Node.js application
+and are looking to set up LaunchDarkly on the server-side, head to our [Node.js SDK
+Reference](/sdk/client-side/node-js).
+
   </CalloutDescription>
 </Callout>
 
@@ -96,12 +98,14 @@ To load our JavaScript SDK as a script tag, include the following in the `<head>
 <Callout intent="info">
   <CalloutTitle>Unpkg and versions</CalloutTitle>
   <CalloutDescription>
-    Integrating with the LaunchDarkly JavaScript SDK as a script tag is only intended for development environments and
-    getting started with using LaunchDarkly. It is not intended to be used in production environments as this introduces
-    a critical dependency on a third-party service, [unpkg](https://unpkg.com/). Previously it was suggested to use the
-    JS SDK hosted on LaunchDarkly's servers in script tags. This URL would point to the most recently released SDK
-    version. To give more control over SDK updates unpkg is now suggested, and the version hosted at
-    "https://app.launchdarkly.com/snippet/ldclient.min.js" is frozen at release 2.10.1.
+
+Integrating with the LaunchDarkly JavaScript SDK as a script tag is only intended for development environments and
+getting started with using LaunchDarkly. It is not intended to be used in production environments as this introduces
+a critical dependency on a third-party service, [unpkg](https://unpkg.com/). Previously it was suggested to use the
+JS SDK hosted on LaunchDarkly's servers in script tags. This URL would point to the most recently released SDK
+version. To give more control over SDK updates unpkg is now suggested, and the version hosted at
+"https://app.launchdarkly.com/snippet/ldclient.min.js" is frozen at release 2.10.1.
+
   </CalloutDescription>
 </Callout>
 
@@ -157,8 +161,13 @@ var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
 
 
 <Callout intent="info">
-<CalloutTitle>Initialization delay</CalloutTitle>
-   <CalloutDescription>Out of the box, initializing the client will make a remote request to LaunchDarkly, so it may take 100 milliseconds or more before the ready event is emitted. If you require feature flag values before rendering the page, we recommend bootstrapping the client (see the Bootstrapping section). If the client is bootstrapped, it will emit the ready event immediately.</CalloutDescription>
+    <CalloutTitle>Initialization delay</CalloutTitle>
+    <CalloutDescription>
+        Out of the box, initializing the client will make a remote request to LaunchDarkly, so it may take 100 milliseconds
+        or more before the ready event is emitted. If you require feature flag values before rendering the page,
+        we recommend bootstrapping the client (see the Bootstrapping section). If the client is bootstrapped, it will emit
+        the ready event immediately.
+    </CalloutDescription>
 </Callout>
 
 The client will emit a `ready` event when it has been initialized. Once it has been initialized, you can safely call `variation` to access your feature flags:
@@ -190,16 +199,25 @@ ldclient.on('ready', function() {
 <Callout intent="info">
   <CalloutTitle>Streaming Updates</CalloutTitle>
   <CalloutDescription>
-    The SDK does not subscribe to streaming real-time updates automatically when it is initialized. As a side effect,
-    subscribing to the SDK's **change** event by calling **.on('change')** will cause the SDK to open a streaming
-    connection to LaunchDarkly. This is the only way to receive realtime updates.
+
+The SDK does not subscribe to streaming real-time updates automatically when it is initialized. As a side effect,
+subscribing to the SDK's **change** event by calling **.on('change')** will cause the SDK to open a streaming
+connection to LaunchDarkly. This is the only way to receive realtime updates.
+
   </CalloutDescription>
 </Callout>
+
 <Callout intent="alert">
   <CalloutTitle>Making feature flags available to the client-side SDK</CalloutTitle>
-   <CalloutDescription>Feature flags must be marked available to the client-side SDK (see your feature flag's settings page) before they can be used in `variation` calls on the front-end. If you request a feature flag that is not available, you'll receive the default value for that flag.
-If you always want flags marked as available to the client-side SDK by default, you can check the \"Make new flags available to the client-side (JavaScript) SDK by default\" in your [project settings](https://app.launchdarkly.com/settings#/projects).
-</CalloutDescription>
+  <CalloutDescription>
+
+Feature flags must be marked available to the client-side SDK (see your feature flag's settings page)
+before they can be used in `variation` calls on the front-end. If you request a feature flag that is not available,
+you'll receive the default value for that flag. If you always want flags marked as available to the client-side
+SDK by default, you can check the "Make new flags available to the client-side (JavaScript) SDK by default"
+in your [project settings](https://app.launchdarkly.com/settings#/projects).
+
+  </CalloutDescription>
 </Callout>
 
 ## Customizing your client
@@ -362,12 +380,14 @@ These options are used less frequently:
 <Callout intent="alert">
   <CalloutTitle>Personally-identifying user keys</CalloutTitle>
   <CalloutDescription>
-    If the `key` attribute you rely on in your user JSON contains personally identifiable information, you should enable
-    the `useReport` option by [customizing your
-    client](https://docs.launchdarkly.com/docs/js-sdk-reference#customizing-your-client) . By default, flag settings are
-    fetched by sending the user JSON as a JSON base64 URL-encoded path parameter. When `useReport` is enabled, flag
-    settings will be fetched by sending the user JSON in the body of a REPORT request instead, thereby hiding that
-    information from request logs.
+
+If the `key` attribute you rely on in your user JSON contains personally identifiable information, you should enable
+the `useReport` option by [customizing your
+client](https://docs.launchdarkly.com/docs/js-sdk-reference#customizing-your-client) . By default, flag settings are
+fetched by sending the user JSON as a JSON base64 URL-encoded path parameter. When `useReport` is enabled, flag
+settings will be fetched by sending the user JSON in the body of a REPORT request instead, thereby hiding that
+information from request logs.
+
   </CalloutDescription>
 </Callout>
 
@@ -488,9 +508,11 @@ In the example above, only the user's key and their name will be sent back to La
 <Callout intent="alert">
   <CalloutTitle>Parameters for JS SDK &lt; 2.0</CalloutTitle>
   <CalloutDescription>
-    SDK versions earlier than 2.0 use snake case rather than camel case in the options object. `private_attribute_names`
-    and `all_attributes_private` are the parameter names that should be used. `privateAttributeNames` is still valid
-    when specified in the user object.
+
+SDK versions earlier than 2.0 use snake case rather than camel case in the options object. `private_attribute_names`
+and `all_attributes_private` are the parameter names that should be used. `privateAttributeNames` is still valid
+when specified in the user object.
+
   </CalloutDescription>
 </Callout>
 
@@ -583,10 +605,12 @@ You can completely disable event sending by setting `sendEvents` to `false` in t
 <Callout intent="alert">
   <CalloutTitle>A note on Do Not Track and ad blocking software</CalloutTitle>
   <CalloutDescription>
-    The JavaScript SDK respects the [Do Not Track](https://www.eff.org/issues/do-not-track) header. If an end-user has
-    Do Not Track enabled in their browser, the SDK will not send analytics events for flag evaluations or goals to
-    events.launchdarkly.com. In addition, ad blocking software may block analytics events from being sent. This will not
-    impact feature flag evaluations.
+
+The JavaScript SDK respects the [Do Not Track](https://www.eff.org/issues/do-not-track) header. If an end-user has
+Do Not Track enabled in their browser, the SDK will not send analytics events for flag evaluations or goals to
+events.launchdarkly.com. In addition, ad blocking software may block analytics events from being sent. This will not
+impact feature flag evaluations.
+
   </CalloutDescription>
 </Callout>
 
@@ -635,9 +659,11 @@ ldclient.on('change:YOUR_FLAG_KEY', function(value, previous) {
 <Callout intent="alert">
   <CalloutTitle>Creating users</CalloutTitle>
   <CalloutDescription>
-    Note that the allFlags method in the JavaScript SDK functions differently than our other SDKs. **This method will
-    send analytics events to LaunchDarkly as if you'd called variation for every feature flag.** You can disable this
-    behavior by initializing the SDK with `sendEventsOnlyForVariation` set to `true`
+
+Note that the allFlags method in the JavaScript SDK functions differently than our other SDKs. **This method will
+send analytics events to LaunchDarkly as if you'd called variation for every feature flag.** You can disable this
+behavior by initializing the SDK with `sendEventsOnlyForVariation` set to `true`
+
   </CalloutDescription>
 </Callout>
 
