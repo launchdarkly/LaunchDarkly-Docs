@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import { Card, Text, Flex, Box } from '@theme-ui/components'
+import { jsx, Card, Text, Flex, Box } from 'theme-ui'
 import { Fragment, Children, PropsWithChildren, ReactElement, FunctionComponent } from 'react'
 import Icon from '../icon'
 import Link from '../link'

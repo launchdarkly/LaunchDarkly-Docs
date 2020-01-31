@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { jsx, useThemeUI } from 'theme-ui'
-import { Link as ExternalLink } from '@theme-ui/components'
+import { jsx, useThemeUI, Link as ExternalLink } from 'theme-ui'
 import { graphql, useStaticQuery, Link as GatsbyLink } from 'gatsby'
 import { SideNavItem } from './sideNav/types'
 import isExternalLink from '../utils/isExternalLink'

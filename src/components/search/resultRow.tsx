@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { jsx, Theme } from 'theme-ui'
-import { Box, Flex } from '@theme-ui/components'
+import { jsx, Theme, Box, Flex } from 'theme-ui'
 import { FunctionComponent, MouseEvent } from 'react'
 import { Link as GatsbyLink } from 'gatsby'
 import { Hit } from 'react-instantsearch-core'

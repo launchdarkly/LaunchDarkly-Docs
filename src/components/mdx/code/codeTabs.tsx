@@ -1,9 +1,10 @@
+/** @jsx jsx */
+import { jsx, Box, Card, Flex, Button } from 'theme-ui'
+import { useState, Children, PropsWithChildren } from 'react'
+
 /**
  * https://github.com/facebook/docusaurus/blob/master/packages/docusaurus-theme-classic/src/theme/Tabs/index.js
  */
-
-import React, { useState, Children, PropsWithChildren } from 'react'
-import { Box, Card, Flex, Button } from '@theme-ui/components'
 
 type TabProps = {
   defaultValue?: string

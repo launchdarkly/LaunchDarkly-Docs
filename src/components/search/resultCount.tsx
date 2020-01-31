@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { jsx, useThemeUI } from 'theme-ui'
-import { Box } from '@theme-ui/components'
+import { jsx, useThemeUI, Box } from 'theme-ui'
 import { FunctionComponent } from 'react'
 import pluralize from 'pluralize'
 

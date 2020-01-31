@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { FunctionComponent, PropsWithChildren } from 'react'
-import { jsx } from 'theme-ui'
-import { Card } from '@theme-ui/components'
+import { jsx, Card } from 'theme-ui'
 
 export default function Table({ children }: PropsWithChildren<{}>) {
   return (

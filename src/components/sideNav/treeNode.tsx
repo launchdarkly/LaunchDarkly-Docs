@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { jsx, useThemeUI } from 'theme-ui'
-import { Flex } from '@theme-ui/components'
+import { jsx, useThemeUI, Flex } from 'theme-ui'
 import { FunctionComponent, useState } from 'react'
 import { Link } from 'gatsby'
 import { globalHistory } from '@reach/router'
