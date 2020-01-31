@@ -1,0 +1,521 @@
+---
+path: '/sdk/client-side/roku'
+title: 'Roku SDK Reference'
+---
+
+This reference guide documents basic usage of our Roku SDK, and explains in detail how features work. If you want to dig even deeper, our SDKs are open source-- head to our [Roku Client Github repository](https://github.com/launchdarkly/roku-client-sdk) to look under the hood. The complete API reference is available here. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-roku) using this SDK.
+
+The Roku SDK is written in BrightScript.
+
+## Getting started
+
+Building on top of our [Quickstart guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your Roku Application.
+
+We provide releases on [GitHub](https://github.com/launchdarkly/roku-client-sdk/releases). Download the latest release and extract the provided files into your source tree. You may need to rename the paths inside `LaunchDarklyTask.xml` depending on your project structure.
+
+For SceneGraph usage add a `LaunchDarklyTask` node to your scene and then:
+
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+REM get a reference to to task
+launchDarklyNode = m.top.findNode("my-node-name")
+REM create configuration
+config = LaunchDarklyConfig("MY_MOBILE_KEY", launchDarklyNode)
+REM create a user
+user = LaunchDarklyUser("user-key")
+REM initialize the client
+LaunchDarklySGInit(config, user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+For each SceneGraph component you want to use the SDK in you need to initialize an interface to talk to the SceneGraph. This interface provides all the expected client functionality such as evaluation.
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+REM create the scenegraph communication wrapper
+launchDarkly = LaunchDarklySG(launchDarklyNode)
+REM use the client
+value = launchDarkly.boolVariation("MY_FLAG_KEY", false)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Creating a client outside of the SceneGraph API is similar. In the legacy API you do not need `LaunchDarklySGInit` or the `LaunchDarklySG` functions.
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+REM get a reference to the task
+launchDarklyNode = m.top.findNode("MY_NODE_NAME")
+REM create configuration
+config = LaunchDarklyConfig("MY_MOBILE_KEY", launchDarklyNode)
+REM create a user
+user = LaunchDarklyUser("user-key")
+
+REM create message port
+messagePort = createObject("roMessagePort")
+REM initialize the client
+launchDarkly = LaunchDarkly(config, user, messagePort)
+
+REM use the client
+value = launchDarkly.boolVariation("MY_FLAG_KEY", false)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+If not using the SceneGraph you need to poll events to drive the client in your standard event loop.
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+while (true)
+    REM do not wait forever or timers will break
+    msg = wait(3000, messagePort)
+
+    if launchDarkly.handleMessage(msg) then
+        REM this message was for the client
+    else
+        REM handle non client messages
+    end if
+end while
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Variations
+
+The `*variation` methods determine which variation of a feature flag a user receives.
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+REM typed variations
+myInt = launchDarkly.intVariation("MY_FLAG_KEY", 123)
+myBool = launchDarkly.boolVariation("MY_FLAG_KEY", false)
+myString = launchDarkly.stringVariation("MY_FLAG_KEY", "hello world!")
+myObjectOrArray = launchDarkly.jsonVariation("MY_FLAG_KEY", {"value": 123})
+REM generic variation
+myValue = launchDarkly.variation("MY_FLAG_KEY", false)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+`*variation` calls take a feature flag key and a default value.
+
+The default value will only be returned if an error is encountered—for example, if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+## Evaluation explanations
+
+For each variation type there is also an associated version that returns the reason a particular value was returned. For example:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+details = launchDarkly.intVariationDetail("MY_FLAG_KEY", 123)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+These variation methods return an object containing the keys `value`, `reason`, and `variationIndex`. The `value` field is the result of the evaluation. The `reason` field is an object that explains why the result happened, for example details about a rule match. The reason object will always contain a `kind` field. Lastly the (potentially null) `variationIndex` field contains the id of the particular value returned.
+
+## Customizing your client
+
+You can create a client configuration object with:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+REM for a legacy Roku application
+config = LaunchDarklyConfig("YOUR_MOBILE_KEY")
+REM for a SceneGraph Roku Application
+config = LaunchDarklyConfig("YOUR_MOBILE_KEY", CLIENT_SCENEGRAPH_NODE)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+We support the following configuration options for both SceneGraph and non SceneGraph usage:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+config.setAppURI(String)
+config.setEventsURI(String)
+config.setStreamURI(String)
+
+config.setPollingIntervalSeconds(Integer)
+config.setOffline(Boolean)
+
+config.addPrivateAttribute(String)
+config.setAllAttributesPrivate(Boolean)
+
+config.setEventsCapacity(Integer)
+config.setEventsFlushIntervalSeconds(Integer)
+config.setStreaming(Boolean)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Logging
+
+### Log levels
+
+You can configure the SDK log level. For example to set the level to `info`:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+config.setLogLevel(LaunchDarklyLogLevels().info)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The SDK supports the following Levels:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+LaunchDarklyLogLevels().error
+LaunchDarklyLogLevels().warn
+LaunchDarklyLogLevels().info
+LaunchDarklyLogLevels().debug
+LaunchDarklyLogLevels().none
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+A custom logging backend can be provided. This will be different depending on if you are using the SceneGraph API or the Legacy API.
+
+### Legacy API Custom Logger
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+function CustomLogger() as Object
+    return {
+        log: function(level as Integer, message as String)
+            print level message
+        end function
+    }
+end function
+
+config.setLogger(CustomLogger())
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### SceneGraph API Custom Logger
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'XML', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```xml
+<!-- /components/CustomLogger.xml -->
+
+<component name="CustomLogger" extends="Task">
+    <interface>
+        <field id="log" type="assocarray" alwaysNotify="true"/>
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/CustomLogger.brs"/>
+</component>
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+REM /components/CustomLogger.brs
+
+function init()
+    m.messagePort = createObject("roMessagePort")
+
+    m.top.observeField("log", m.messagePort)
+end function
+
+function mainThread() as Void
+    while (true)
+        msg = wait(0, m.messagePort)
+
+        if type(msg) = "roSGNodeEvent" then
+            if field = "log" then
+                value = msg.getData()
+                print value.level value.message
+            end if
+        end if
+    end while
+end function
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To use the logger create the SceneGraph logger node and then:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+config.setLoggerNode(myLoggerNode)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Users
+
+You can create a user object with:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+user = LaunchDarklyUser("my-user-key")
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+User objects can be customized with:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+user.setFirstName(String)
+user.setLastName(String)
+user.setEmail(String)
+user.setName(String)
+user.setAvatar(String)
+user.setCustom(AssociativeArray)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+A user can be marked as [anonymous](/home/managing-users/anonymous-users) with:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+user.setAnonymous(Boolean)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Users can have specific fields marked as private with:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+user.addPrivateAttribute(String)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Track
+
+The track method allows you to record custom events in your application with LaunchDarkly:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+REM without optional data
+launchDarkly.track("YOUR_EVENT_KEY")
+REM with optional data
+launchDarkly.track("YOUR_EVENT_KEY", {"customField": 123})
+REM with optional numeric metric
+launchDarkly.track("YOUR_EVENT_KEY", invalid, 52.3)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Flush
+
+Internally, the LaunchDarkly SDK keeps an event buffer for analytics events. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a simulator), you may want to manually call flush to process events immediately.
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+launchDarkly.flush()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Changing the user context
+
+If your app is used by multiple users on a single device, you may want to change users and have separate flag settings for each user. To achieve this, the SDK supports switching between different user contexts.
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+user = LaunchDarklyUser("abc")
+launchDarkly.identify(user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The `identify` call will load any saved flag values for the new user and immediately trigger an update of the latest flags from LaunchDarkly. Since this method re-fetches flag settings for the new user, it should not be called at high frequency. The intended use case for switching user contexts is the login / logout flow.
+
+## Getting all flags
+
+You can get an associative array of `flagKey` -> `flagValue` for all flags from the client with:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+allFlags = launchDarkly.allFlags()
+```
+
+</CodeTabItem>
+</CodeTabs>

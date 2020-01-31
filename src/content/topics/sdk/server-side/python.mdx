@@ -1,0 +1,759 @@
+---
+path: '/sdk/server-side/python'
+title: 'Python SDK reference'
+---
+
+This reference guide documents all of the methods available in our Python SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [Python SDK GitHub repository](https://github.com/launchdarkly/python-server-sdk) to look under the hood. The online [Python API docs](https://launchdarkly-python-sdk.readthedocs.io/) contain the programmatic definitions of every class and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-python) using this SDK.
+
+## Getting started
+
+Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Python application.
+
+The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/python-server-sdk/releases) to identify the latest version if you want to depend on a specific version.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Shell', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```bash
+pip install launchdarkly-server-sdk
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Next you should import the LaunchDarkly client in your application code.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+import ldclient
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Once the SDK is installed and imported, you'll want to create a single, shared instance of `ldclient`. The `get()` function enforces the singleton pattern; you should only have one instance of the client in your application. You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+ldclient.set_sdk_key("YOUR_SDK_KEY")
+ld_client = ldclient.get()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Using `ld_client`, you can check which variation a particular user should receive for a given feature flag.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+show_feature = ld_client.variation("your.flag.key", {"key": "user@test.com"}, False)
+if show_feature:
+  # application code to show the feature
+else:
+  # the code to run if the feature is off
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Lastly, when your application is about to terminate, shut down `ld_client`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+# shut down the client, since we're about to quit
+ld_client.close()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Customizing your client
+
+You can also pass custom parameters to the client by creating a custom configuration object:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+ldclient.set_config(Config(sdk_key='YOUR_SDK_KEY', connect_timeout=5))
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The `Config` allows you to specify a variety of options. Most likely the defaults will work just fine. The complete list of customizable parameters is as follows:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Parameter</TableHeadCell>
+    <TableHeadCell>Type</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+    <TableHeadCell>Default value</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>base_uri</code>
+      </TableCell>
+      <TableCell>
+        <code>string</code>
+      </TableCell>
+      <TableCell>Sets the base URL of the LaunchDarkly server for this configuration.</TableCell>
+      <TableCell>https://app.launchdarkly.com</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>events_uri</code>
+      </TableCell>
+      <TableCell>
+        <code>string</code>
+      </TableCell>
+      <TableCell>Set the events URL of the LaunchDarkly server for this configuration.</TableCell>
+      <TableCell>https://events.launchdarkly.com</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>stream_uri</code>
+      </TableCell>
+      <TableCell>
+        <code>string</code>
+      </TableCell>
+      <TableCell>Sets the stream URL of the LaunchDarkly server for this configuration.</TableCell>
+      <TableCell>https://stream.launchdarkly.com/</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>connect_timeout</code>
+      </TableCell>
+      <TableCell>
+        <code>integer</code>
+      </TableCell>
+      <TableCell>Set the connection timeout for the configuration.</TableCell>
+      <TableCell>10 seconds</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>read_timeout</code>
+      </TableCell>
+      <TableCell>
+        <code>integer</code>
+      </TableCell>
+      <TableCell>The timeout when reading data from feature flag requests.</TableCell>
+      <TableCell>15 seconds</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>events_upload_max_batch_size</code>
+      </TableCell>
+      <TableCell>
+        <code>integer</code>
+      </TableCell>
+      <TableCell>The maximum amount of events to be sent in a single request.</TableCell>
+      <TableCell>10000</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>flush_interval</code>
+      </TableCell>
+      <TableCell>
+        <code>integer</code>
+      </TableCell>
+      <TableCell>
+        The number of seconds in between flushes of the events buffer.
+        <br />
+        Decreasing the flush interval means that the event buffer is less likely to reach capacity.
+      </TableCell>
+      <TableCell></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>events_max_pending</code>
+      </TableCell>
+      <TableCell>
+        <code>integer</code>
+      </TableCell>
+      <TableCell>Sets the capacity of the events buffer.</TableCell>
+      <TableCell>
+        <code>10000</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>stream</code>
+      </TableCell>
+      <TableCell>
+        <code>boolean</code>
+      </TableCell>
+      <TableCell>Boolean value which enables streaming.</TableCell>
+      <TableCell>True</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>offline</code>
+      </TableCell>
+      <TableCell>
+        <code>boolean</code>
+      </TableCell>
+      <TableCell>Set whether this client is offline.</TableCell>
+      <TableCell>False</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>poll_interval</code>
+      </TableCell>
+      <TableCell>
+        <code>integer</code>
+      </TableCell>
+      <TableCell>Set the polling interval (when streaming is disabled).</TableCell>
+      <TableCell>1</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>use_ldd</code>
+      </TableCell>
+      <TableCell>
+        <code>boolean</code>
+      </TableCell>
+      <TableCell>
+        If true, the SDK will rely on LDD for feature updates. See Deployment options for more details.
+      </TableCell>
+      <TableCell>False</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>feature_store</code>
+      </TableCell>
+      <TableCell>
+        <code>InMemoryFeatureStore</code> or <code>RedisFeatureStore</code>
+      </TableCell>
+      <TableCell>
+        Sets the feature flag store to be used by the client. By default, flags are stored in memory, with an option to
+        use a redis feature store.
+      </TableCell>
+      <TableCell>
+        An <code>InMemoryFeatureStore</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>feature_requester_class</TableCell>
+      <TableCell>
+        <code>(str, Config, FeatureStore) -> FeatureRequester</code>
+      </TableCell>
+      <TableCell>A factory for a FeatureRequester implementation taking the sdk key and config</TableCell>
+      <TableCell>
+        <code>None</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>event_consumer_class</code>
+      </TableCell>
+      <TableCell>
+        <code>(queue.Queue, str, Config) -> EventConsumer</code>
+      </TableCell>
+      <TableCell>A factory for an EventConsumer implementation taking the event queue, sdk key, and config</TableCell>
+      <TableCell>
+        <code>None</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>update_processor_class</code>
+      </TableCell>
+      <TableCell>
+        <code>(str, Config, FeatureStore) -> UpdateProcessor</code>
+      </TableCell>
+      <TableCell>
+        A factory for an UpdateProcessor implementation taking the sdk key, config, and FeatureStore implementation
+      </TableCell>
+      <TableCell>
+        <code>None</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>all_attributes_private</code>
+      </TableCell>
+      <TableCell>
+        <code>bool</code>
+      </TableCell>
+      <TableCell>
+        Whether all user attributes (except the user key) should be marked as Private user attributes, and not sent to
+        LaunchDarkly.
+      </TableCell>
+      <TableCell>
+        <code>False</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>all_attribute_names</code>
+      </TableCell>
+      <TableCell>
+        <code>string</code>
+      </TableCell>
+      <TableCell>
+        Must be a list of strings. The names of user attributes that should be marked as Private user attributes, and
+        not sent to LaunchDarkly.
+      </TableCell>
+      <TableCell>
+        <code>[]</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>user_keys_capacity</code>
+      </TableCell>
+      <TableCell>
+        <code>integer</code>
+      </TableCell>
+      <TableCell>
+        The number of user keys that the event processor can remember at any one time, so that duplicate user details
+        will not be sent in analytics events.
+      </TableCell>
+      <TableCell>
+        <code>1000</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>user_keys_flush_interval</code>
+      </TableCell>
+      <TableCell>
+        <code>integer</code>
+      </TableCell>
+      <TableCell>
+        The interval (in seconds) at which the event processor will reset its set of known user keys.
+      </TableCell>
+      <TableCell>
+        <code>300</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>inline_users_in_events</code>
+      </TableCell>
+      <TableCell>
+        <code>bool</code>
+      </TableCell>
+      <TableCell>
+        Whether to include full user details in every analytics event. By default, events will only include the user
+        key, except for one "index" event that provides the full details for the user.
+      </TableCell>
+      <TableCell>
+        <code>False</code>
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+## Users
+
+Feature flag targeting and rollouts are all determined by the _user_ you pass to your `Variation` calls. In our Python SDK, users are simply dictionaries. Here's an example:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+user = {
+  "key": "aa0ceb",
+  "firstName": "Ernestina",
+  "lastName": "Evans",
+  "email": "ernestina@example.com",
+  "custom": {
+    "groups": ["Google", "Microsoft"]
+  }
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Let's walk through this snippet. The most important attribute is the user key-- in this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+
+All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
+
+Besides the `key`, LaunchDarkly supports the following attributes at the "top level". Remember, all of these are optional:
+
+- `ip`: Must be an IP address.
+- `firstName`: Must be a string. If you provide a first name, you can search for users on the Users page by name.
+- `lastName`: Must be a string. If you provide a last name, you can search for users on the Users page by name.
+- `country`: Must be a string representing the country associated with the user.
+- `email`: Must be a string representing the user's e-mail address. If an `avatar` URL is not provided, we'll use [Gravatar](http://en.gravatar.com/) to try to display an avatar for the user on the Users page.
+- `avatar`: Must be an absolute URL to an avatar image for the user.
+- `name`: Must be a string. You can search for users on the User page by name
+- `anonymous`: Must be a boolean. See the section below on anonymous users for more details.
+
+In addition to built-in attributes, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
+
+<Callout intent="info">
+  <CalloutTitle>A note on types</CalloutTitle>
+  <CalloutDescription>
+    Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can
+    be strings, booleans (like True or False), numbers, or lists of strings, booleans or numbers. If you enter a custom
+    value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
+  </CalloutDescription>
+</Callout>
+
+Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
+
+## Private user attributes
+
+You can optionally configure the Python SDK to treat some or all user attributes as [Private user attribute](/home/managing-users/user-attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+
+In the Python SDK there are two ways to define private attributes for the entire LaunchDarkly client:
+
+- In the LaunchDarkly `config`, you can set `all_attributes_private` to true. If this is enabled, all user attributes (except the key) for all users are removed before the user is sent to LaunchDarkly.
+- In the LaunchDarkly `config` object, you can define a list of `private_attribute_names`. If any user has a custom or built-in attribute named in this list, it will be removed before the user is sent to LaunchDarkly.
+
+You can also define a set of `privateAttributeNames` on the user object itself. For example:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+user = {
+  "key": "aa0ceb",
+  "email": "test@example.com",
+  "privateAttributeNames": ["email"]
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+When this user is sent back to LaunchDarkly, the `email` attribute will be removed.
+
+## Anonymous users
+
+You can also distinguish logged-in users from anonymous users in the SDK, as follows:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+user = {"key":"aa0ceb", "anonymous": True}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You will still need to generate a unique key for anonymous users-- session IDs or UUIDs work best for this. Anonymous users still count toward your plan's MAU limit, so make sure you capture and reuse your anonymous user's key between requests.
+
+Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing-- it keeps anonymous users from polluting your Users page!
+
+## Variation
+
+The `variation` method determines which variation of a feature flag a user receives.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+ldclient.get().variation("your.feature.key", user, False)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+`variation` calls take the feature flag key, an `LDUser`, and a default value.
+
+The default value will only be returned if an error is encountered-- for example, if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+The `variation` call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at Identify).
+
+## Track
+
+The `track` method allows you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests. Here's a simple example:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+ldclient.get().track("your-goal-key", user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You can also attach an extra dictionary containing arbitrary data to your event:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+ldclient.get().track("Completed purchase", user, {"price": 320})
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Identify
+
+The `identify` method creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `identify`-- the `variation` call will automatically create users on the dashboard for you. `identify` can be useful if you want to pre-populate your dashboard before launching any features.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+ldclient.get().identify(user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## All Flags
+
+<Callout intent="alert">
+  <CalloutTitle>Creating users</CalloutTitle>
+  <CalloutDescription>
+    Note that unlike variation and identify calls, all_flags_state does not send events to LaunchDarkly. Thus, users are
+    not created or updated in the LaunchDarkly dashboard.
+  </CalloutDescription>
+</Callout>
+
+The `all_flags_state` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
+
+This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+state = ldclient.get().all_flags_state(user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Secure mode hash
+
+The `SecureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+ldclient.get().secure_mode_hash(user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Offline mode
+
+In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when running on premise. You can do this by setting `offline` mode in the client's `Config`.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+# Initialization:
+ldclient.config = Config(offline = True)
+ldclient.sdk_key = "YOUR_SDK_KEY"
+
+ldclient.get().variation("any.feature.flag", user, False) # will always return the default value (false)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Flush
+
+Internally, the LaunchDarkly SDK keeps an event buffer for `variation`, `track`, and `identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `flush` to process events immediately. Otherwise Python may close before flushing the event buffer and your user changes and tracks will not be lost.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+ldclient.get().flush()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Note that the flush interval is configurable-- if you need to change the interval, you can do so when configuring your client instance.
+
+## Close
+
+Close safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you should not have to call close.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+ldclient.get().close()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Configuring uWSGI
+
+The LaunchDarkly SDK is compatible with uWSGI. However, in uWSGI environments, the SDK requires the `enable-threads` option to be set.
+
+## Logging
+
+The Python SDK uses Python's built-in [logging library](https://docs.python.org/2/library/logging.html). All loggers are namespaced under `ldclient.util`. For an example configuration check out the [hello-python](https://github.com/launchdarkly/hello-python) project.
+
+Be aware of two considerations when enabling the DEBUG log level:
+
+1. Debug-level logs can be very verbose. It is not recommended that you turn on debug logging in high-volume environments.
+2. Potentially sensitive information is logged including LaunchDarkly users created by you in your usage of this SDK.
+
+## HTTPS proxy
+
+Python's standard HTTP library provides a built-in HTTPS proxy. If the HTTPS_PROXY environment variable is present then the SDK will proxy all network requests through the URL provided.
+
+How to set the HTTPS_PROXY environment variable on Mac/Linux systems:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Shell', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```bash
+export HTTPS_PROXY=https://web-proxy.domain.com:8080
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+How to set the HTTPS_PROXY environment variable on Windows systems:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'CMD', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```bash
+set HTTPS_PROXY=https://web-proxy.domain.com:8080
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Or it can be set from within python:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+os.environ["https_proxy"] = "https://web-proxy.domain.com:8080"
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Using a database as a persistent store
+
+The Python SDK supports Redis, Consul, or DynamoDB as a persistent store of feature flag configurations. For more information, see [Using a persistent feature store](/home/advanced/feature-store).

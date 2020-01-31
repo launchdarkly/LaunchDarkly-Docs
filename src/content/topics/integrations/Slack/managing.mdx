@@ -1,0 +1,220 @@
+---
+path: '/integrations/slack/managing'
+title: 'Viewing, monitoring, and subscribing to flags'
+---
+
+## Overview
+
+This topic explains how to view and filter flags with the LaunchDarkly Slack app.
+
+## Filtering for feature flags with the menu
+
+You can filter flags to see a list of flags that match the criteria that you enter.
+
+To filter flags:
+
+1. Type `/launchdarkly subscribe` in your Slack client's text bar and press **Enter**.
+2. The Filter Flags menu appears.
+3. Enter optional arguments to search for a specific flag. You can only search for one flag at a time.
+4. Use the dropdown menus to specify filtering criteria and hit **Filter**.
+5. Subscribe to any flags by selecting "Add flag to channel" from the dropdown.
+6. Subscribe to all the flags from this Filter by clicking the "Add filter to channel" button.
+
+You can use the four types of filters in any combination to view different flags. If you click **Filter** without specifying any of the fields, all flags will display.
+
+The table below explains the different filtering criteria:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Filter Criteria</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Status</TableCell>
+      <TableCell>
+        Optional.
+        <br />
+        Filter by flag status. Available statuses are:
+        <br />
+        Any
+        <br />
+        Active
+        <br />
+        Inactive
+        <br />
+        Archived
+        <br />
+        Launched
+        <br />
+        New
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Project / Environment</TableCell>
+      <TableCell>
+        Optional.
+        <br />
+        Filter by project, environment, or a combination of both.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Tag</TableCell>
+      <TableCell>
+        Optional.
+        <br />
+        Filter by a list of all tags that exist in LaunchDarkly.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Flag Key</TableCell>
+      <TableCell>
+        Optional.
+        <br />
+        Enter a flag key, which can begin or end with a wildcard *.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+## Filtering for feature flags with in-line commands
+
+You can also use in-line commands to filter flags in Slack.
+
+**Note**: All in-line commands start with `/launchdarkly` and typing `/launchdarkly` or `/ld` will bring up a help menu listing the commands.
+
+To filter feature flags with in-line commands:
+
+1. Type `/launchdarkly subscribe` but append filtering criteria.
+2. Specify the filtering criteria with either a single dash (`-`) and the first letter of the criteria, or a double dash (`--`) and the criteria name and an equal sign.
+3. Press **Enter.** The results of the filter display.
+4. Subscribe to any flags by selecting "Add flag to channel" from the dropdown.
+5. Subscribe to all the flags from this Filter by clicking the "Add filter to channel" button.
+
+Examples of both types of entries:
+
+- `-e` or `--environment=`
+- `-p` or `--project=`
+- `-t` or `--tag=`
+- `-s` or `--status=`
+- `-f` or `--flag_key=`
+
+**Note**: `/launchdarkly subscribe -p mobile -e test -s active` would retrieve the same flags as `/launchdarkly subscribe --project=mobile --environment=test --status=active`
+
+## Viewing feature flag information
+
+You can view more detail about any flag with the Flag Overview page. The Flag Overview page is available from the list of filtered flags and any flag update notification by clicking "View Flag Details".
+
+You can use the Flag Overview page to interact with the flag and access it on the LaunchDarkly website.
+
+Here are some things you can do from the Flag Overview page:
+
+- Click the flag's name to be taken to the Flag Targeting screen of the LaunchDarkly website.
+- Toggle the flag on or off by clicking the **Toggle Targeting** button. If you change the flag's state to on or off, a flag update notification appears in the Slack channel.
+
+For more information about flag update notifications, see [Subscribing to Notifications](/integrations/slack/notifications).
+
+![The Flag Overview page.](../../images/slack-flag-overview.png)
+
+The table below explains the flag detail fields:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Flag Detail name</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Flag name</TableCell>
+      <TableCell>
+        Displays the flag name. In the example above, the flag name is displayed in blue, under the LaunchDarkly app
+        title.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Description</TableCell>
+      <TableCell>Displays the description of the flag as entered in LaunchDarkly.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Project</TableCell>
+      <TableCell>Displays the name of the project in which the flag exists.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Environment</TableCell>
+      <TableCell>Displays the name of the environment in which the flag exists.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Key</TableCell>
+      <TableCell>Displays the flag's key.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Tags</TableCell>
+      <TableCell>Displays any tags associated with the flag.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Status</TableCell>
+      <TableCell>Displays the flag's status.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Kind</TableCell>
+      <TableCell>Displays which kind of flag this is.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Targeting</TableCell>
+      <TableCell>Indicates whether the flag targeting is on or off.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Temporary</TableCell>
+      <TableCell>Displays whether or not the flag is temporary.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+<Callout intent="info">
+  <CalloutTitle>Remember your cases!</CalloutTitle>
+  <CalloutDescription>
+
+The data you specify for the in-line commands are case sensitive. If a filter you specify manually does not return
+any results, verify that you used the correct cases. For example, if you type `my-project` when the actual name of
+the project is `My-Project`, the filter does not return any results.
+
+  </CalloutDescription>
+</Callout>
+
+## Filter flag results
+
+When you filter flags, the results appear in your Slack channel or DM. You can use the filter results to perform different actions on the flag.
+
+![An example set of filtered flags.](../../images/slack-flag-filtered-list.png)
+
+Flags matching the filter criteria appear in this screen.
+
+Here are some of the actions you can perform on a flag in this list:
+
+- Click the flag name to open the Flag Targeting screen in LaunchDarkly.
+- Click the dropdown menu to choose between **View Flag Details** and **Add to channel**. If you choose to add the flag to the channel, a notification appears in that channel every time the flag status changes.
+
+At the bottom of the filter results, there are three buttons:
+
+- **Next** takes you to another page of filter results, if available.
+- **Add filter to Channel** adds the filter criteria to be added to the channel. This automatically adds flags that match that criteria for this filter to the channel. A notification appears in the channel every time the status of one of those flags changes.
+- **Adjust Filter** opens the Filter Flags screen where you can adjust the filtering criteria.
+
+## Listing flags in a channel
+
+When a flag is subscribed to a channel, any updates automatically send notifications to that channel.
+
+Use `/launchdarkly flags` to view and manage flags associated with the current channel.
+
+![The flags in a given channel.](../../images/slack-flag-remove.png)
+
+## Listing filters in a channel
+
+When a filter is applied to the channel, any sets of flags that match the filter criteria automatically send notifications to that channel.
+
+Use `/launchdarkly filters` to view and manage filters associated with the current channel.
+
+For more information about associating filters with channels, see [Filter Flag Results](/integrations/slack/managing-flags#filter-flag-results)
+
+![The filters configured for the channel.](../../images/slack-channel-filters.png)
+
+This menu displays the values that define the filter, including Status, Project, Environment, and Tag. If you make changes to the filter, including removing it, the channel receives a notification about the changes.

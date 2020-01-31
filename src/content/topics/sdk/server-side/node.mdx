@@ -1,0 +1,908 @@
+---
+path: '/sdk/server-side/node-js'
+title: 'Node.js SDK reference'
+---
+
+This reference guide documents all of the methods available in our Node.js SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [Node.js SDK repository](https://github.com/launchdarkly/node-server-sdk) on GitHub to look under the hood. The online [API docs](https://launchdarkly.github.io/node-server-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run sample applications using this SDK with [vanilla JavaScript](https://github.com/launchdarkly/hello-node-server), [TypeScript](https://github.com/launchdarkly/hello-node-typescript), and [server-side bootstrapping](https://github.com/launchdarkly/hello-bootstrap).
+
+<Callout intent="info">
+  <CalloutTitle>Client-side feature flags?</CalloutTitle>
+  <CalloutDescription>
+    Our Node.js SDK is designed specifically for server-side Node.js. Learn more about our [client-side and server-side
+    SDKs](/sdk/concepts/client-side-server-side). If you're looking to use feature flags in JavaScript in a browser environment,
+    see our [JavaScript SDK Reference](/sdk/client-side/javascript). If you're creating a *client-side* Node application, see our
+    [Node Client-Side SDK Reference](node-client-sdk-reference). Alternatively if you're creating a desktop application
+    in Electron, see our [Electron SDK Reference](/sdk/client-side/electron).
+  </CalloutDescription>
+</Callout>
+
+## Getting started
+
+Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Node.js application.
+
+The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'shell', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```bash
+npm install launchdarkly-node-server-sdk --save
+
+# Note that in earlier versions, the package name was ldclient-node
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Next you should import the LaunchDarkly client in your application code.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Once the SDK is installed and imported, you'll want to create a single, shared instance of the LaunchDarkly client. You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient = LaunchDarkly.init("YOUR_SDK_KEY");
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<Callout intent="alert">
+  <CalloutTitle>LDClient must be a singleton</CalloutTitle>
+  <CalloutDescription>
+    It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to
+    serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with
+    every request.**
+  </CalloutDescription>
+</Callout>
+
+The client will emit a `ready` event when it has been initialized and can serve feature flags.
+
+Using `ldClient`, you can check which variation a particular user should receive for a given feature flag. Note that the `ready` event is _only_ emitted once - when the client first initializes. In a production application you should place your `ldClient.variation` code so that it is invoked as desired.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.once("ready", function() {
+  ldClient.variation("your.flag.key", {"key": "user@test.com"}, false,
+                     function(err, showFeature) {
+    if (showFeature) {
+      // application code to show the feature
+    } else {
+      // the code to run if the feature is off
+    }
+  });
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Lastly, when your application is about to terminate, shut down `ldClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+// This example repeats the code from the previous example because in Node, the client methods are
+// asynchronous, so in order to add another step that happens after the previous steps are finished,
+// we need to add code *inside* the existing block. In other words, do not type the whole thing over
+// again, just modify the last part you added as shown.
+//
+// Again, in a real application, this step is something you would only do when the application is
+// about to quit-- NOT after every call to variation().
+
+ldClient.once("ready", function() {
+  ldClient.variation("your.flag.key", {"key": "user@test.com"}, false,
+                     function(err, showFeature) {
+    if (showFeature) {
+      // application code to show the feature
+    } else {
+      // the code to run if the feature is off
+    }
+
+    // ADDED: shut down the client, since we're about to quit
+    ldClient.close();
+  });
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Customizing your client
+
+You can also pass custom parameters to the client by creating a custom configuration object:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var config = {"timeout": 3};
+ldClient = LaunchDarkly.init("YOUR_SDK_KEY", config);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Parameters</TableHeadCell>
+    <TableHeadCell>Type</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+    <TableHeadCell>Default</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>timeout</code>
+      </TableCell>
+      <TableCell>
+        <code>int</code>
+      </TableCell>
+      <TableCell>Must be a number, in seconds, and controls the request timeout to LaunchDarkly.</TableCell>
+      <TableCell>5 seconds</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>capacity</code>
+      </TableCell>
+      <TableCell>
+        <code>int</code>
+      </TableCell>
+      <TableCell>
+        Must be a number, and controls the maximum size of the event buffer. LaunchDarkly sends events asynchronously,
+        and buffers them for efficiency.
+      </TableCell>
+      <TableCell>1000 events</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>logger</code>
+      </TableCell>
+      <TableCell>
+        <code>object</code>
+      </TableCell>
+      <TableCell>Configures a logger for warnings and errors generated by the SDK.</TableCell>
+      <TableCell>
+        See <a href="#logging">Logging</a>.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>flushInterval</code>
+      </TableCell>
+      <TableCell>
+        <code>int</code>
+      </TableCell>
+      <TableCell>
+        Controls how long the SDK buffers events before sending them back to our server. If your server generates many
+        events per second, we suggest decreasing the <code>flush_interval</code> and / or increasing{' '}
+        <code>capacity</code> to meet your needs.
+      </TableCell>
+      <TableCell>5 seconds</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>proxyHost</code>
+      </TableCell>
+      <TableCell>
+        <code>string</code>
+      </TableCell>
+      <TableCell>Allows you to specify a host for an optional HTTP proxy.</TableCell>
+      <TableCell>
+        <code>null</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>proxyPort</code>
+      </TableCell>
+      <TableCell>
+        <code>int</code>
+      </TableCell>
+      <TableCell>
+        Allows you to specify a port for an optional HTTP proxy. Both the host and port must be specified to enable
+        proxy support.
+      </TableCell>
+      <TableCell>
+        <code>null</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>proxyAuth</code>
+      </TableCell>
+      <TableCell>
+        <code>string</code>
+      </TableCell>
+      <TableCell>
+        Allows you to specify basic authentication parameters for an optional HTTP proxy. Usually of the form{' '}
+        <code>username:password</code>.
+      </TableCell>
+      <TableCell>
+        <code>null</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>offline</code>
+      </TableCell>
+      <TableCell>
+        <code>bool</code>
+      </TableCell>
+      <TableCell>
+        Whether the client should be initialized in offline mode. In offline mode, default values are returned for all
+        flags and no remote network requests are made.
+      </TableCell>
+      <TableCell>
+        <code>false</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>stream</code>
+      </TableCell>
+      <TableCell>
+        <code>bool</code>
+      </TableCell>
+      <TableCell>Whether streaming or polling should be used to receive flag updates.</TableCell>
+      <TableCell>
+        <code>true</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>useLdd</code>
+      </TableCell>
+      <TableCell>
+        <code>bool</code>
+      </TableCell>
+      <TableCell>
+        If true, the SDK will rely on LDD for feature updates. See Deployment options for more details.
+      </TableCell>
+      <TableCell>
+        <code>false</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>baseUri</code>
+      </TableCell>
+      <TableCell>
+        <code>Uri</code> or <code>string</code>
+      </TableCell>
+      <TableCell>Set the base URL of the LaunchDarkly server for this configuration.</TableCell>
+      <TableCell>https://app.launchdarkly.com/</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>streamUri</code>
+      </TableCell>
+      <TableCell>
+        <code>Uri</code> or <code>string</code>
+      </TableCell>
+      <TableCell>Set the stream URL of the LaunchDarkly server for this configuration.</TableCell>
+      <TableCell>https://stream.launchdarkly.com/</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>eventsUri</code>
+      </TableCell>
+      <TableCell>
+        <code>Uri</code> or <code>string</code>
+      </TableCell>
+      <TableCell>Set the events URL of the LaunchDarkly server for this configuration.</TableCell>
+      <TableCell>https://events.launchdarkly.com/</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>featureStore</code>
+      </TableCell>
+      <TableCell>
+        <code>InMemoryFeatureStore</code> or <code>RedisFeatureStore</code>
+        <br />
+        Depending on your configuration, you may also be able to use <code>dynamodb</code> or <code>consul</code>. These
+        types require additional dependencies./code>
+      </TableCell>
+      <TableCell>Sets the feature flag store to be used by the client.</TableCell>
+      <TableCell>
+        Flags are stored in memory, with an option to use a redis feature store. To learn more, read Database
+        integrations.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>allAttributesPrivate</code>
+      </TableCell>
+      <TableCell>
+        <code>bool</code>
+      </TableCell>
+      <TableCell>
+        Whether all user attributes (except the user key) should be marked as private, and not sent to LaunchDarkly.
+      </TableCell>
+      <TableCell>
+        <code>false</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>privateAttributeNames</code>
+      </TableCell>
+      <TableCell>
+        <code>An array of strings</code>
+      </TableCell>
+      <TableCell>
+        Must be a list of strings. The names of user attributes that should be marked as private, and not sent to
+        LaunchDarkly.
+      </TableCell>
+      <TableCell>
+        <code>[]]</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>userKeysCapacity</code>
+      </TableCell>
+      <TableCell>
+        <code>integer</code>
+      </TableCell>
+      <TableCell>
+        The number of user keys that the event processor can remember at any one time, so that duplicate user details
+        will not be sent in analytics events.
+      </TableCell>
+      <TableCell>
+        <code>1000</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>userKeysFlushInterval</code>
+      </TableCell>
+      <TableCell>
+        <code>integer</code>
+      </TableCell>
+      <TableCell>
+        The interval (in seconds) at which the event processor will reset its set of known user keys.
+      </TableCell>
+      <TableCell>
+        <code>300</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>inlineUsersInEvents</code>
+      </TableCell>
+      <TableCell>
+        <code>bool</code>
+      </TableCell>
+      <TableCell>
+        Whether to include full user details in every analytics event. By default, events will only include the user
+        key, except for one "index" event that provides* the full details for the user.
+      </TableCell>
+      <TableCell>
+        <code>false</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>sendEvents</code>
+      </TableCell>
+      <TableCell>
+        <code>bool</code>
+      </TableCell>
+      <TableCell>Boolean value which enables sending events back to LaunchDarkly.</TableCell>
+      <TableCell>
+        <code>true</code>
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+## Users
+
+Feature flag targeting and rollouts are all determined by the _user_ you pass to your `variation` calls. In our Node.JS SDK, users are simply JSON objects. Here's an example:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var user = {
+  "key": "aa0ceb",
+  "firstName": "Ernestina",
+  "lastName": "Evans",
+  "email": "ernestina@example.com",
+  "custom": {
+    "groups": ["Google", "Microsoft"]
+  }
+};
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Let's walk through this snippet. The most important attribute is the user key-- in this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+
+All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
+
+Besides the `key`, LaunchDarkly supports the following attributes at the "top level". Remember, all of these are optional:
+
+- `ip`: Must be an IP address.
+- `firstName`: Must be a string. If you provide a first name, you can search for users on the Users page by name.
+- `lastName`: Must be a string. If you provide a last name, you can search for users on the Users page by name.
+- `country`: Must be a string representing the country associated with the user.
+- `email`: Must be a string representing the user's e-mail address. If an `avatar` URL is not provided, we'll use [Gravatar](http://en.gravatar.com/) to try to display an avatar for the user on the Users page.
+- `avatar`: Must be an absolute URL to an avatar image for the user.
+- `name`: Must be a string. You can search for users on the User page by name
+- `anonymous`: Must be a boolean. See the section below on anonymous users for more details.
+
+In addition to built-in attributes, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
+
+<Callout intent="info">
+  <CalloutTitle>A note on types</CalloutTitle>
+  <CalloutDescription>
+    Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can
+    be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom
+    value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
+  </CalloutDescription>
+</Callout>
+
+Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
+
+## Private user attributes
+
+You can optionally configure the Node SDK to treat some or all user attributes as [Private user attributes](/home/managing-users/user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+
+In the Node SDK there are two ways to define private attributes for the **entire** LaunchDarkly client:
+
+- In the LaunchDarkly `config`, you can set `allAttributesPrivate` to `true`. If this is enabled, all user attributes (except the key) for _all users_ are removed before the user is sent to LaunchDarkly.
+- In the LaunchDarkly `config` object, you can define a list of `privateAttributeNames`. If any user has a custom or built-in attribute named in this list, it will be removed before the user is sent to LaunchDarkly.
+
+You can also define a set of `privateAttributeNames` on the user object itself. For example:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JSON', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```json
+var user = {
+  "key": "aa0ceb",
+  "email": "test@example.com",
+  "privateAttributeNames": ["email"]
+}
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+When this user is sent back to LaunchDarkly, the `email` attribute will be removed.
+
+## Anonymous users
+
+You can also distinguish logged-in users from anonymous users in the SDK, as follows:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var user = {"key":"aa0ceb", "anonymous": true};
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You will still need to generate a unique key for anonymous users-- session IDs or UUIDs work best for this.
+
+Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing-- it keeps anonymous users from polluting your Users page!
+
+## Variation
+
+The `variation` method determines which variation of a feature flag a user receives.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.variation("your.feature.key", user, false, function(err, show_feature) {
+  if (show_feature) {
+      # application code to show the feature
+  }
+  else {
+      # the code to run if the feature is off
+  }
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+`variation` calls take the feature flag key, an `LDUser`, and a default value.
+
+The default value will only be returned in offline mode or if an error is encountered-- for example, if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+The `variation` call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at Identify).
+
+## VariationDetail
+
+The `variationDetail` method allows you to evaluate a feature flag (using the same parameters as you would for variation) and receive more information about how the value was calculated.
+
+The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the user was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error.
+
+You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
+
+For more information, see [Evaluation reasons](/home/advanced/flag-evaluations).
+
+## Track
+
+The `track` method allows you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests. Here's a simple example:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.track("your-goal-key", user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Subscribing to feature flag changes
+
+<Callout intent="info">
+  <CalloutTitle>This feature is not available on other server-side SDKs</CalloutTitle>
+  <CalloutDescription>
+    You cannot subscribe to feature flag changes with other server-side SDKs. Only the Node.js SDK supports this feature
+    from the server side. All client-side SDKs support this feature.
+  </CalloutDescription>
+</Callout>
+
+To subscribe to all feature flag changes, listen for the update event:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.on('update', function(settings) {
+  console.log('flags changed:', settings);
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The `settings` object will contain detailed information for flags that have changed. You can also subscribe to specific flags:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.on('update:YOUR_FLAG_KEY', function(oldValue, newValue) {
+  console.log('YOUR_FLAG_KEY changed:', newValue, '(' + oldValue + ')');
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Identify
+
+The `identify` method creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `identify`-- the `variation` call will automatically create users on the dashboard for you. `identify` can be useful if you want to pre-populate your dashboard before launching any features.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.identify(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## All flags
+
+<Callout intent="alert">
+  <CalloutTitle>Creating user</CalloutTitle>
+  <CalloutDescription>
+    Note that unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Thus, users are
+    not created or updated in the LaunchDarkly dashboard and your flags' last requested date will not be updated.", s
+  </CalloutDescription>
+</Callout>
+
+The `allFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
+
+This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.allFlagsState(user, function(err, flagsState) {
+  // this object can be converted to JSON or can be queried for flag values
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Secure mode hash
+
+The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.secureModeHash(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Flush
+
+Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `flush` to process events immediately.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.flush();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Note that the flush interval is configurable-- if you need to change the interval, you can do so when configuring your client instance.
+
+## Offline mode
+
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when running on premise. You can do this by setting `offline` mode in the client's `config` object.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var config = {"offline": true};
+ldClient = LaunchDarkly.init("YOUR_SDK_KEY", config);
+ldClient.variation("any.feature.flag", user, false, cb) // cb will always be invoked with the default value (false)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Note that the default value you set in the variation method will be returned in offline mode, this does not refer to the default rule set in your flag configuration.
+
+## Close
+
+Close safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you should not have to call `close`.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.close();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Logging
+
+The Node.js SDK uses [Winston](https://github.com/winstonjs/winston) by default. All loggers are namespaced under `[LaunchDarkly]`.
+
+A custom logger may be passed to the SDK via the configurable `logger` property. Note that Winston's syntax for instantiating and configuring loggers changed between versions 2.x and 3.x. Be sure to declare a dependency on a specific Winston version if you run into errors using the transitive dependency.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Winston 2.x', value: 'js', },
+    { label: 'Winston 3.x', value: 'js2', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+logger =
+  new winston.Logger({
+    level: "debug",
+    transports: [
+      new winston.transports.Console()
+    ]
+  }
+);
+ldClient = LaunchDarkly.init("YOUR_SDK_KEY", {"logger": logger});
+```
+
+</CodeTabItem>
+<CodeTabItem value="js2">
+
+```js
+logger =
+  winston.createLogger({
+    level: 'debug',
+    transports: [
+      new winston.transports.Console()
+    ]
+  }
+);
+ldClient = LaunchDarkly.init("YOUR_SDK_KEY", {"logger": logger});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Be aware of two considerations when enabling the DEBUG log level:
+
+1. Debug-level logs can be very verbose. It is not recommended that you turn on debug logging in high-volume environments.
+2. Potentially sensitive information is logged including LaunchDarkly users created by you in your usage of this SDK.
+
+## Database integrations
+
+Feature flag data can be cached with Redis, DynamoDB, or Consul.
+
+See ["Using a persistent feature store"](/home/advanced/feature-store) for more information.
+
+## Promises and async
+
+All asynchronous SDK methods which accept a callback also return a `Promise`. This means that if your application uses promises to manage asynchronous operations, interacting with the SDK should be convenient. Since the `async/await` syntax is based on Promises, these methods will also work with `await`.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+// Using the .then() method to add a continuation handler for a Promise
+ldClient.variation("any.feature.flag", user, false).then(function(value) {
+  // application code
+});
+
+// Using "await" instead, within an async function
+var value = await ldClient.variation("any.feature.flag", user, false);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There is also an alternative to the `ready` event:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+// Using .then() and .catch() to add success and error handlers to a Promise
+ldClient.waitForInitialization().then(function(client) {
+	// initialization complete
+}).catch(function(err) {
+  // initialization failed
+});
+
+// Using "await" instead, within an async function
+try {
+  await ldClient.waitForInitialization();
+  // initialization complete
+} catch (err) {
+  // initialization failed
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+`allFlagsState` and `flush` also return a `Promise`.
