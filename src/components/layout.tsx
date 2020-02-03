@@ -50,6 +50,31 @@ const components = {
   pre: Pre,
 }
 
+const rootGridStyles = {
+  color: 'grayBlack',
+  height: '100vh',
+  display: 'grid',
+  gridTemplateColumns: ['100%', '18rem auto', '18rem 48rem auto'],
+  gridTemplateRows: '4.5rem auto',
+  gridTemplateAreas: [
+    `
+            'header'
+            'main'
+            'footer'
+            `,
+    `
+            'header header'
+            'sideNav main'
+            'sideNav footer'
+            `,
+    `
+            'header header header'
+            'sideNav main aside'
+            'sideNav footer footer'
+            `,
+  ],
+}
+
 interface LayoutProps {
   data: {
     mdx: {
@@ -87,32 +112,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
         <title>{title}</title>
         <meta name="description" content={description} />
       </Helmet>
-      <div
-        sx={{
-          color: 'grayBlack',
-          height: '100vh',
-          display: 'grid',
-          gridTemplateColumns: ['100%', '18rem auto', '18rem 48rem auto'],
-          gridTemplateRows: ['4.5rem auto', '4.5rem auto', '4.5rem auto'],
-          gridTemplateAreas: [
-            `
-            'header'
-            'main'
-            'footer'
-            `,
-            `
-            'header header'
-            'sideNav main'
-            'sideNav footer'
-            `,
-            `
-            'header header header'
-            'sideNav main aside'
-            'sideNav footer footer'
-            `,
-          ],
-        }}
-      >
+      <div sx={rootGridStyles}>
         <Header />
         <DesktopSideNav />
         <main sx={{ gridArea: 'main', px: [5, 7, 8], pt: '2.75rem' }}>
