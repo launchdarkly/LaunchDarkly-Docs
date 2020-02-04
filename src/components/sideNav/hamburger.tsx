@@ -86,7 +86,7 @@ const Hamburger = () => {
           </div>
         </div>
         <div sx={{ mb: 8 }}>
-          <TreeNode nodes={navigationData} />
+          <TreeNode nodes={navigationData} maxDepth={3} />
         </div>
         <div
           key="footer"

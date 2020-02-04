@@ -54,7 +54,7 @@ const rootGridStyles = {
   color: 'grayBlack',
   height: '100vh',
   display: 'grid',
-  gridTemplateColumns: ['100%', '18rem auto', '18rem 48rem auto'],
+  gridTemplateColumns: ['100%', '19rem auto', '19rem 48rem auto'],
   gridTemplateRows: '4.5rem auto',
   gridTemplateAreas: [
     `

@@ -9,7 +9,8 @@ import Icon from '../icon'
 
 type TreeNodeProps = {
   nodes: Array<SideNavItem>
-  level?: number
+  maxDepth?: number
+  depth?: number
 }
 
 enum ExpandCollapseEnum {
@@ -19,7 +20,7 @@ enum ExpandCollapseEnum {
 
 const defaultLabelStyles = {
   color: 'grayBlack',
-  fontSize: [null, 4, 4],
+  fontSize: 4,
   display: 'flex',
   alignItems: 'center',
   textDecoration: 'none',
@@ -31,27 +32,19 @@ const defaultLabelStyles = {
   },
   lineHeight: 'regular',
 }
-
-const leafLabelStyles = {
+const maxDepthLabelStyles = {
   ...defaultLabelStyles,
-  fontSize: [null, 3, 3],
-  ':hover': {
-    color: 'primarySafe',
-  },
-  ':active': {
-    color: 'grayBlack',
-  },
+  fontSize: 3,
 }
 
-const defaultListItemStyles = { ml: 5, mr: 3, mt: 2 }
-const rootListItemStyles = {
-  mt: 5,
-  ml: 6,
-  mr: 2,
-}
+const defaultListItemStyles = { mt: 2, ml: 5 }
+const rootListItemStyles = { mt: 5, mr: 2, ml: 6 }
 
-const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
-  const isRootNode = level === 0
+// Hamburger maxDepth is 3 since root topics are displayed.
+// Desktop sideNav maxDepth is 2 since root topics are displayed in the top nav.
+const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, maxDepth = 2, depth = 0 }) => {
+  const isRootNode = depth === 0
+  const isMaxDepth = depth === maxDepth
 
   // Detect if this tree node has ever been expanded/collapsed
   const [isPristine, setIsPristine] = useState(true)
@@ -67,8 +60,19 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
     } else if (isPartiallyCurrent) {
       return { style: { fontWeight: theme.fontWeights.bold } }
     }
-    // use defaultLabelStyles specified at the Link level below
+    // use defaultLabelStyles specified at the Link depth below
     return null
+  }
+
+  const onExpandCollapse = (isLeafNode: boolean, index: number) => {
+    if (!isLeafNode) {
+      setState(prevState => {
+        const clone = [...prevState]
+        clone[index] =
+          clone[index] === ExpandCollapseEnum.Collapsed ? ExpandCollapseEnum.Expanded : ExpandCollapseEnum.Collapsed
+        return clone
+      })
+    }
   }
 
   return (
@@ -78,16 +82,8 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
         const nodeChildrenCount = items?.length ?? 0
         const isLeafNode = nodeChildrenCount === 0
         const partiallyActive = globalHistory.location.pathname.includes(node.path)
-
-        let labelStyles = defaultLabelStyles
-        let listItemStyles = defaultListItemStyles
-
-        // apply root styles to root nodes and single level root nodes
-        if (isRootNode || (isLeafNode && isRootNode)) {
-          listItemStyles = rootListItemStyles
-        } else if (isLeafNode) {
-          labelStyles = leafLabelStyles
-        }
+        const listItemStyles = isRootNode ? rootListItemStyles : defaultListItemStyles
+        const labelStyles = isMaxDepth ? maxDepthLabelStyles : defaultLabelStyles
 
         if (isPristine && partiallyActive && expandCollapseStates[index] === ExpandCollapseEnum.Collapsed) {
           setIsPristine(false)
@@ -97,22 +93,7 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
             return clone
           })
         }
-
-        const onExpandCollapse = () => {
-          if (!isLeafNode) {
-            setState(prevState => {
-              const clone = [...prevState]
-              clone[index] =
-                clone[index] === ExpandCollapseEnum.Collapsed
-                  ? ExpandCollapseEnum.Expanded
-                  : ExpandCollapseEnum.Collapsed
-              return clone
-            })
-          }
-        }
-
         const expandedCollapsed = expandCollapseStates[index]
-
         return (
           <li key={`${label}-${index}`} sx={listItemStyles}>
             {isExternalLink(path) ? (
@@ -121,13 +102,18 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
               </a>
             ) : (
               <Flex>
-                <Link getProps={setActiveStyles} sx={labelStyles} to={path} onClick={onExpandCollapse}>
+                <Link
+                  getProps={setActiveStyles}
+                  sx={labelStyles}
+                  to={path}
+                  onClick={() => onExpandCollapse(isLeafNode, index)}
+                >
                   {label}
                 </Link>
                 {!isLeafNode && (
                   <Icon
                     name={expandedCollapsed === ExpandCollapseEnum.Collapsed ? 'arrow-down' : 'arrow-up'}
-                    onClick={onExpandCollapse}
+                    onClick={() => onExpandCollapse(isLeafNode, index)}
                     variant="sideNav"
                     fill="grayBase"
                     sx={{ marginLeft: 2 }}
@@ -135,9 +121,8 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, level = 0 }) => {
                 )}
               </Flex>
             )}
-
             {isLeafNode || expandedCollapsed === ExpandCollapseEnum.Collapsed ? null : (
-              <TreeNode nodes={items} level={level + 1} />
+              <TreeNode nodes={items} depth={depth + 1} maxDepth={maxDepth} />
             )}
           </li>
         )
