@@ -22,14 +22,14 @@ a complete client-side JavaScript SDK reference, please refer to our
   <CalloutDescription>
 
 This SDK uses the Context API, which requires React version 16.3.0 or later. Please note that you must use a newer
-version if you wish to additionally use the Hooks API -- see the "Hooks" section below for more information.
+version if you wish to additionally use the Hooks API. To learn more, read [Hooks](#hooks).
 
   </CalloutDescription>
 </Callout>
 
 ## Getting started
 
-Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your React code.
+Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your React code.
 
 You can use either `npm` or `yarn` to install the React SDK:
 
@@ -150,7 +150,7 @@ export default withLDProvider({
 </CodeTabItem>
 </CodeTabs>
 
-Customizing your client can be done via the `options` field. See the [JavaScript SDK reference](https://docs.launchdarkly.com/docs/js-sdk-reference#customizing-your-client) for all the available options.
+Customizing your client can be done via the `options` field. To learn more, read the [JavaScript SDK reference](https://docs.launchdarkly.com/docs/js-sdk-reference#customizing-your-client).
 
 Note that the React SDK automatically subscribes to flag change events; this is unlike the [JavaScript SDK Reference](/sdk/client-side/javascript#subscribing-to-feature-flag-changes) where customers need to opt in to event listening. Consequently, in the React SDK, streaming mode is enabled by default. To disable streaming mode, specify a `streaming: false` attribute in your `options` object.
 

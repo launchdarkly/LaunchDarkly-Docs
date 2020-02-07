@@ -24,11 +24,11 @@ This SDK does two things:
 ## Browser support
 The LaunchDarkly client-side JavaScript SDK can be used in all major browsers. However, not all browsers have built-in support for the standard APIs that it uses. Those APIs are Promise, EventSource, and querySelectorAll; Promise is always required, the other two are optional depending on which SDK features you use.
 
-The standard solution for ensuring that you will get the same functionality even in browsers that do not have native support for these features is to use [polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill). For a detailed description, and links to information about which browsers may require this, see [JS SDK requirements and polyfills](/sdk/client-side/javascript/requirements-polyfills).
+The standard solution for ensuring that you will get the same functionality even in browsers that do not have native support for these features is to use [polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill). For a detailed description, and links to information about which browsers may require this, read [JS SDK requirements and polyfills](/sdk/client-side/javascript/requirements-polyfills).
 
 ## Getting started
 
-Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your JavaScript code.
+Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your JavaScript code.
 
 The first step is to install the LaunchDarkly SDK as a dependency. There are two ways to install our JavaScript SDK-- as an `npm`, `yarn` or `bower` module, or as a JavaScript snippet served from LaunchDarkly's CDN.
 
@@ -166,8 +166,7 @@ var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
     <CalloutDescription>
         Out of the box, initializing the client will make a remote request to LaunchDarkly, so it may take 100 milliseconds
         or more before the ready event is emitted. If you require feature flag values before rendering the page,
-        we recommend bootstrapping the client (see the Bootstrapping section). If the client is bootstrapped, it will emit
-        the ready event immediately.
+        we recommend bootstrapping the client. To learn more, read [Bootstrapping](#bootstrapping). If the client is bootstrapped, it will emit the ready event immediately.
     </CalloutDescription>
 </Callout>
 

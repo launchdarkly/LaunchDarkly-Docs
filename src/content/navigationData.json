@@ -284,6 +284,10 @@
         "path": "/integrations/jira"
       },
       {
+        "label": "Microsoft Teams",
+        "path": "/integrations/microsoft-teams"
+      },
+      {
         "label": "New Relic",
         "path": "/integrations/new-relic"
       },

@@ -8,7 +8,7 @@ This reference guide documents all of the methods available in our Go SDK, and e
 
 ## Getting started
 
-Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Go application.
+Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Go application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/go-server-sdk/releases) to identify the latest major version.
 
@@ -143,7 +143,7 @@ ldClient := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 </CodeTabItem>
 </CodeTabs>
 
-Here, we've customized the client flush interval parameter. See the [Godocs](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#Config) for a complete list of configuration options for the client.
+Here, we've customized the client flush interval parameter. For a complete list of configuration options for the client, read [Go docs](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#Config).
 
 ## Users
 Feature flag targeting and rollouts are all determined by the *user* you pass to your `Variation` calls. The Go SDK defines a `User` struct to make this easy. Here's an example:
@@ -304,7 +304,7 @@ The `Variation` call will automatically create a user in LaunchDarkly if a user 
 
 The `VariationDetail` methods (`BoolVariationDetail`, etc.) work the same as `Variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
 
-For more information, see [Evaluation reasons](/home/advanced/flag-evaluations).
+To learn more, read [Evaluation reasons](/home/advanced/flag-evaluations).
 
 ## Track
 
@@ -527,7 +527,7 @@ ldClient, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 </CodeTabItem>
 </CodeTabs>
 
-For advanced `RedisFeatureStore` configuration options, please see the SDK's [GoDoc](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4/redis).
+For advanced `RedisFeatureStore` configuration options, read the SDK's [GoDoc](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4/redis).
 
 ## HTTPS Proxy
 

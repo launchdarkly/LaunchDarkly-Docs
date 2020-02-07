@@ -20,7 +20,7 @@ A different approach is to block showing the page content until the flag values 
 
 ## Bootstrap the flag values to be available immediately
 
-Bootstrapping refers to providing the LaunchDarkly client object with an initial, immediately available set of feature flag values so that on page load `variation` can be called with no delay. In this approach flags are evaluated using a server SDK and the results are passed into the JavaScript SDK initialization using templating. With this approach the JavaScript SDK will not fetch the flags, and instead will directly use the given bootstrap flag values. This allows flag evaluation to be ready immediately. See the [boostrapping section](https://docs.launchdarkly.com/docs/js-sdk-reference#bootstrapping) of the JS SDK reference for more information.
+Bootstrapping refers to providing the LaunchDarkly client object with an initial, immediately available set of feature flag values so that on page load `variation` can be called with no delay. In this approach flags are evaluated using a server SDK and the results are passed into the JavaScript SDK initialization using templating. With this approach the JavaScript SDK will not fetch the flags, and instead will directly use the given bootstrap flag values. This allows flag evaluation to be ready immediately. To learn more, read [Bootstrapping](/sdk/client-side/javascript-sdk#bootstrapping).
 
 ## Use the React SDK's asyncWithLDProvider function
 

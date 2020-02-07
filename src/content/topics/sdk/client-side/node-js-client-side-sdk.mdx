@@ -17,7 +17,7 @@ This reference guide documents all of the methods available in our client-side N
   </CalloutDescription>
 </Callout>
 This SDK is closely related to the [browser JavaScript SDK](/sdk/client-side/javascript) and has almost exactly the same API, but does not have any browser-specific functionality, and adds several features specific to Node. ## Getting started
-Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Node.js code.
+Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Node.js code.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager.
 
@@ -534,7 +534,7 @@ ldClient.flush().then(() => {
 
 ## Logging
 
-By default, the SDK uses the `winston` package. There are four logging levels: `debug`, `info`, `warn`, and `error`; by default, `debug` and `info` messages are hidden. See the [TypeScript definitions](https://github.com/launchdarkly/js-client-sdk/blob/master/packages/launchdarkly-js-sdk-common/typings.d.ts) for `LDLogger`, `LDOptions`, and `createConsoleLogger` for more details.
+By default, the SDK uses the `winston` package. There are four logging levels: `debug`, `info`, `warn`, and `error`; by default, `debug` and `info` messages are hidden. To learn more, read the [TypeScript definitions](https://github.com/launchdarkly/js-client-sdk/blob/master/packages/launchdarkly-js-sdk-common/typings.d.ts) for `LDLogger`, `LDOptions`, and `createConsoleLogger` for more details.
 
 A custom logger may be passed to the SDK via the configurable logger property. Note that Winston's syntax for instantiating and configuring loggers changed between versions 2.x and 3.x. Be sure to declare a dependency on a specific Winston version if you run into errors using the transitive dependency.
 

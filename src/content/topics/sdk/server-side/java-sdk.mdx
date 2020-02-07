@@ -12,7 +12,7 @@ This reference guide documents all of the methods available in our Java SDK, and
 
 The Java SDK is intended for use in server environments only, and should not be used in mobile devices. Learn more
 about our [client-side and server-side SDKs](/sdk/concepts/client-side-server-side). If you want to use LaunchDarkly in an
-Android application, see our [Android SDK Reference](/sdk/client-side/android) Guide.
+Android application, read the [Android SDK Reference](/sdk/client-side/android).
 
   </CalloutDescription>
 </Callout>
@@ -23,7 +23,7 @@ Android application, see our [Android SDK Reference](/sdk/client-side/android) G
 
 ## Getting started
 
-Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Java application.
+Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Java application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/java-server-sdk/releases) to identify the latest version. In this example, it will use the latest published release of major version 4.x.
 
@@ -58,6 +58,12 @@ Next you should import the LaunchDarkly client in your application code.
 
 ```java
 import com.launchdarkly.client.*;
+
+// If you are on version 4.9.0 or later of this SDK,
+// and you use JSON arrays or objects in feature flag values or in custom user attributes, 
+// add this import too:
+
+import com.launchdarkly.client.value.*;
 ```
 
 </CodeTabItem>
@@ -166,7 +172,20 @@ Feature flag targeting and rollouts are all determined by the _user_ you pass to
     { label: 'Java', value: 'java', },
   ]
 }>
-<CodeTabItem value="java">
+<CodeTabItem value="Java">
+
+```java
+LDUser user = new LDUser.Builder("aa0ceb")
+    .firstName("Ernestina")
+    .lastName("Evans")
+    .email("ernestina@example.com")
+    .custom("groups",
+        LDValue.buildArray().add("Google").add("Microsoft").build()
+    .build()
+```
+
+</CodeTabItem>
+<CodeTabItem value="Java SDK versions 4.3.x and earlier">
 
 ```java
  LDUser user = new LDUser.Builder("aa0ceb") // required
@@ -215,7 +234,26 @@ You can also mark attributes as private when building the user object itself by 
     { label: 'Java', value: 'java', },
   ]
 }>
-<CodeTabItem value="java">
+<CodeTabItem value="Java">
+
+```java
+LDConfig configWithAllAttributesPrivate = new LDConfig.Builder()
+    .events(
+        Components.sendEvents()
+            .allAttributesPrivate(true)
+    )
+    .build();
+
+LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
+    .events(
+        Components.sendEvents()
+            .privateAttributeNames("name", "email", "someCustomAttribute")
+    )
+    .build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="Java SDK versions 4.3.x and earlier">
 
 ```java
 LDUser user = new LDUser.Builder("aa0ceb")
@@ -282,7 +320,7 @@ The `variation` call will automatically create a user in LaunchDarkly if a user 
 
 The `variationDetail` methods (`boolVariationDetail`, etc.) work the same as `variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
 
-For more information, see [Evaluation reasons](/home/advanced/flag-evaluations).
+To learn more, read [Evaluation reasons](/home/advanced/flag-evaluations).
 
 ## Track
 
@@ -311,7 +349,15 @@ You can also attach custom JSON data to your event by passing an extra parameter
     { label: 'Java', value: 'java', },
   ]
 }>
-<CodeTabItem value="java">
+<CodeTabItem value="Java">
+
+```java
+LDValue data = LDValue.buildObject().put("price", 320).build();
+ldClient.trackData("Completed purchase", user, data);
+```
+
+</CodeTabItem>
+<CodeTabItem value="Java SDK versions 4.3.x and earlier">
 
 ```java
 JsonObject data = new JsonObject();
@@ -431,7 +477,9 @@ LDConfig config = new LDConfig.Builder()
       .offline(true)
       .build();
 LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
-ldClient.boolVariation("any.feature.flag", user, false) // will always return the default value (false)
+ldClient.boolVariation("any.feature.flag", user, false) 
+
+// This call to ldClient.boolVariation will always return the default value (false).
 ```
 
 </CodeTabItem>
@@ -465,50 +513,11 @@ Be aware of two considerations when enabling the DEBUG log level:
 1. Debug-level logs can be very verbose. It is not recommended that you turn on debug logging in high-volume environments.
 2. Potentially sensitive information is logged including LaunchDarkly users created by you in your usage of this SDK.
 
-## Redis
+## Database integrations
 
-The Java SDK provides an interface to use Redis as a persistent store of feature flag configurations. Here's an example client configuration hooked up to a Redis instance:
+The Java SDK can use Redis, Consul, or DynamoDB as a persistent store of feature flag configurations.
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
-
-```java
-String host = "localhost";
-int port = 443;
-int cacheTimeSecs = 60
-RedisFeatureStore store = new RedisFeatureStoreBuilder(host, port, cacheTimeSecs).build()
-
-LDConfig config = new LDConfig.Builder()
-      .featureStore(store)
-      .build();
-LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-For advanced `RedisFeatureStore` configuration options, please see the SDK's [JavaDoc](https://static.javadoc.io/com.launchdarkly/launchdarkly-java-server-sdk/4.6.5/com/launchdarkly/client/RedisFeatureStoreBuilder.html)
-
-<Callout intent="alert">
-  <CalloutTitle>Potential network connectivity issues caused by DNS caching</CalloutTitle>
-  <CalloutDescription>
-    There is a potential problem for any Java application that communicates with a web service, if that service uses a
-    load-balancing framework. LaunchDarkly is such a service. The issue is that if a service starts to use a different
-    set of IP addresses, a Java application could continue trying to use an old IP address, causing connection attempts
-    to fail. In most environments, this is unlikely to be a problem because IP addresses are not cached for very long.
-    However, Java has special behavior if the runtime environment has a [security
-    manager](https://docs.oracle.com/javase/tutorial/essential/environment/security.html): in that case, it caches IP
-    addresses indefinitely and will never update them until the application is restarted. If you are running in an
-    environment that has a security manager—or if you're not sure whether that is the case—we recommend that you set the
-    cache duration (TTL) explicitly. [This
-    page](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-jvm-ttl.html) describes two ways to do so.
-  </CalloutDescription>
-</Callout>
+To learn more, read [Using a persistent feature store](/home/advanced/feature-store).
 
 ## Using the Java SDK in OSGi
 
@@ -542,3 +551,19 @@ However, there is also a distribution that includes Gson and SLF4j as part of th
 
 </CodeTabItem>
 </CodeTabs>
+
+<Callout intent="alert">
+  <CalloutTitle>Potential network connectivity issues caused by DNS caching</CalloutTitle>
+  <CalloutDescription>
+    There is a potential problem for any Java application that communicates with a web service, if that service uses a
+    load-balancing framework. LaunchDarkly is such a service. The issue is that if a service starts to use a different
+    set of IP addresses, a Java application could continue trying to use an old IP address, causing connection attempts
+    to fail. In most environments, this is unlikely to be a problem because IP addresses are not cached for very long.
+    However, Java has special behavior if the runtime environment has a [security
+    manager](https://docs.oracle.com/javase/tutorial/essential/environment/security.html): in that case, it caches IP
+    addresses indefinitely and will never update them until the application is restarted. If you are running in an
+    environment that has a security manager—or if you're not sure whether that is the case—we recommend that you set the
+    cache duration (TTL) explicitly. [This
+    page](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-jvm-ttl.html) describes two ways to do so.
+  </CalloutDescription>
+</Callout>
