@@ -1,6 +1,8 @@
 ---
 path: '/sdk/server-side/php'
 title: 'PHP SDK reference'
+description: 'This topic explains all of the methods available in the server-side PHP SDK, with detail about how they work.'
+published: true
 ---
 
 This reference guide documents all of the methods available in our PHP SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [PHP SDK repository](https://github.com/launchdarkly/php-server-sdk) on GitHub. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-php) using this SDK.
@@ -12,7 +14,7 @@ This reference guide documents all of the methods available in our PHP SDK, and 
 
 ## Getting started
 
-Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your PHP application.
+Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your PHP application.
 
 The first step is to install [Composer](https://getcomposer.org/) and the LaunchDarkly SDK as a dependency in your application. Refer to the [SDK releases page](https://github.com/launchdarkly/php-server-sdk/releases) to identify the latest version if you want to depend on a specific version.
 
@@ -92,7 +94,7 @@ if ($client->variation("your.flag.key", $user)) {
 
 That's all!
 
-You may remember from our [Quickstart](/home/getting-started) guide that users should be sure to shut down the LaunchDarkly client on application termination. This step does not exist in PHP because the PHP SDK does not maintain long-lived network connections nor an event queue.
+You may remember from our [Getting Started guide](/home/getting-started) guide that users should be sure to shut down the LaunchDarkly client on application termination. This step does not exist in PHP because the PHP SDK does not maintain long-lived network connections nor an event queue.
 
 ## Fetching Flags
 
@@ -340,7 +342,7 @@ $user = (new LDUserBuilder("aa0ceb"))->anonymous(true)->build();
 </CodeTabItem>
 </CodeTabs>
 
-You will still need to generate a unique key for anonymous users-- session IDs or UUIDs work best for this. 
+You will still need to generate a unique key for anonymous users-- session IDs or UUIDs work best for this.
 
 Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing-- it keeps anonymous users from polluting your Users page!
 
@@ -363,7 +365,7 @@ $value = $client->variation($key, $user, false);
 </CodeTabItem>
 </CodeTabs>
 
-`variation` calls take the feature flag key, an `LDUser`, and a default value. 
+`variation` calls take the feature flag key, an `LDUser`, and a default value.
 
 The default value will only be returned if an error is encountered-- for example, if the feature flag key doesn't exist or the user doesn't have a key specified.
 
@@ -388,7 +390,7 @@ $client->track("your-goal-key", user);
 </CodeTabItem>
 </CodeTabs>
 
-You can also attach custom data (anything that can be marshaled to JSON) to your event by passing an extra parameter to `track`: 
+You can also attach custom data (anything that can be marshaled to JSON) to your event by passing an extra parameter to `track`:
 
 <CodeTabs
   defaultValue="php"
@@ -406,7 +408,7 @@ $client->track("Completed purchase", user, ["price" => 320]);
 </CodeTabs>
 
 ## Identify
-The `identify` creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `identify`-- the `variation` call will automatically create users on the dashboard for you. `identify` can be useful if you want to pre-populate your dashboard before launching any features. 
+The `identify` creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `identify`-- the `variation` call will automatically create users on the dashboard for you. `identify` can be useful if you want to pre-populate your dashboard before launching any features.
 
 <CodeTabs
   defaultValue="php"
@@ -472,7 +474,7 @@ $client->secureModeHash(user);
 </CodeTabs>
 
 ## Offline mode
-In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when running on premise. `setOffline` lets you do this easily. 
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when running on premise. `setOffline` lets you do this easily.
 
 <CodeTabs
   defaultValue="php"

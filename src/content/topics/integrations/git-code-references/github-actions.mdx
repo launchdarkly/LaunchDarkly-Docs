@@ -1,6 +1,8 @@
 ---
 path: '/integrations/git-code-references/github-actions'
 title: 'GitHub Actions'
+description: 'This topic explains how to use the ld-find-code-refs utility with GitHub Actions to automatically populate code references in LaunchDarkly.'
+published: true
 ---
 
 ## Overview
@@ -21,8 +23,8 @@ To set up:
 2. Navigate to **Settings** > **Secrets** and click **Add a new secret**.
 3. Paste in your access token to the field that appears and click **Save secret**.
 
-4. Return to your GitHub repository to create a new Actions workflow. 
- * **If you already have a `action.yml` file**: Copy and paste the `launchDarklyCodeReferences` job declaration below into the jobs section in your `action.yml` file. 
+4. Return to your GitHub repository to create a new Actions workflow.
+ * **If you already have a `action.yml` file**: Copy and paste the `launchDarklyCodeReferences` job declaration below into the jobs section in your `action.yml` file.
  * **If you don't already have a workflow file:** Create a new file titled `action.yml` in the `.github/workflows` directory of your repository. Paste the following code in the **Edit file** section:
 
 <CodeTabs

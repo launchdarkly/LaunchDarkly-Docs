@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { jsx, Theme } from 'theme-ui'
-import { Box, Flex } from '@theme-ui/components'
+import { jsx, Theme, Box, Flex } from 'theme-ui'
 import { FunctionComponent, MouseEvent } from 'react'
 import { Link as GatsbyLink } from 'gatsby'
 import { Hit } from 'react-instantsearch-core'
@@ -18,7 +17,7 @@ const markStyles = {
   },
 }
 const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, onClick }) => {
-  const { path, secondLevelTopic } = hit
+  const { path, displayCategory } = hit
   const onClickWrapper = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
     onClick(path)
@@ -28,7 +27,7 @@ const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, onClick }) => {
       <Flex px={5} py={3} sx={{ flexDirection: 'column', '&:hover': { bg: 'grayLight' } }}>
         <Highlight hit={hit} attribute="title" tagName="mark" sx={{ color: 'primarySafe', ...markStyles }} />
         <Box pt={2} sx={{ color: 'graySafe', fontSize: 2, fontWeight: 'bold' }}>
-          {secondLevelTopic.toUpperCase()}
+          {displayCategory.toUpperCase()}
         </Box>
         <Snippet
           hit={hit}

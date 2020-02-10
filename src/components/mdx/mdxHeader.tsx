@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from 'theme-ui'
-import { Flex } from '@theme-ui/components'
+import { jsx, Styled, Flex } from 'theme-ui'
 import { Fragment, FunctionComponent } from 'react'
 import Breadcrumbs from './breadcrumbs'
 import Metadata from './metadata'

@@ -1,6 +1,8 @@
 ---
 path: '/sdk/server-side/node-js'
-title: 'Node.js SDK reference'
+title: 'Node.js SDK reference (server-side)'
+description: 'This topic explains all of the methods available in the server-side Node.js SDK, with detail about how they work.'
+published: true
 ---
 
 This reference guide documents all of the methods available in our Node.js SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [Node.js SDK repository](https://github.com/launchdarkly/node-server-sdk) on GitHub to look under the hood. The online [API docs](https://launchdarkly.github.io/node-server-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run sample applications using this SDK with [vanilla JavaScript](https://github.com/launchdarkly/hello-node-server), [TypeScript](https://github.com/launchdarkly/hello-node-typescript), and [server-side bootstrapping](https://github.com/launchdarkly/hello-bootstrap).
@@ -8,17 +10,19 @@ This reference guide documents all of the methods available in our Node.js SDK, 
 <Callout intent="info">
   <CalloutTitle>Client-side feature flags?</CalloutTitle>
   <CalloutDescription>
-    Our Node.js SDK is designed specifically for server-side Node.js. Learn more about our [client-side and server-side
-    SDKs](/sdk/concepts/client-side-server-side). If you're looking to use feature flags in JavaScript in a browser environment,
-    see our [JavaScript SDK Reference](/sdk/client-side/javascript). If you're creating a *client-side* Node application, see our
-    [Node Client-Side SDK Reference](node-client-sdk-reference). Alternatively if you're creating a desktop application
-    in Electron, see our [Electron SDK Reference](/sdk/client-side/electron).
+
+Our Node.js SDK is designed specifically for server-side Node.js. Learn more about our [client-side and server-side
+SDKs](/sdk/concepts/client-side-server-side). If you're looking to use feature flags in JavaScript in a browser environment,
+read [JavaScript SDK](/sdk/client-side/javascript). If you're creating a *client-side* Node application, read
+[Node SDK](node-client-sdk-reference). Alternatively if you're creating a desktop application
+in Electron, read [Electron SDK](/sdk/client-side/electron).
+
   </CalloutDescription>
 </Callout>
 
 ## Getting started
 
-Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Node.js application.
+Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Node.js application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager.
 
@@ -593,7 +597,7 @@ The variation detail is returned in an object that contains both the result valu
 
 You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
 
-For more information, see [Evaluation reasons](/home/advanced/flag-evaluations).
+To learn more, read [Evaluation reasons](/home/advanced/flag-evaluations).
 
 ## Track
 
@@ -848,7 +852,7 @@ Be aware of two considerations when enabling the DEBUG log level:
 
 Feature flag data can be cached with Redis, DynamoDB, or Consul.
 
-See ["Using a persistent feature store"](/home/advanced/feature-store) for more information.
+To learn more, read [Using a persistent feature store](/home/advanced/feature-store).
 
 ## Promises and async
 

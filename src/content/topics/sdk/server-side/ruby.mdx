@@ -1,6 +1,8 @@
 ---
 path: '/sdk/server-side/ruby'
 title: 'Ruby SDK reference'
+description: 'This topic explains all of the methods available in the server-side Ruby SDK, with detail about how they work.'
+published: true
 ---
 
 This reference guide documents all of the methods available in our Ruby SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [Ruby SDK GitHub repository](https://github.com/launchdarkly/ruby-server-sdk) to look under the hood. The online [Ruby API docs](https://www.rubydoc.info/gems/launchdarkly-server-sdk) contain the programmatic definitions of every class and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-ruby) using this SDK.
@@ -15,7 +17,7 @@ This reference guide documents all of the methods available in our Ruby SDK, and
 
 ## Getting started
 
-Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Ruby application.
+Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Ruby application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/ruby-server-sdk/releases) to identify the latest version if you want to depend on a specific version.
 
@@ -176,7 +178,7 @@ end
 </CodeTabItem>
 </CodeTabs>
 
-If you're using the [Puma](https://github.com/puma/puma) web server, we recommend initializing the client in `on_worker_boot`: 
+If you're using the [Puma](https://github.com/puma/puma) web server, we recommend initializing the client in `on_worker_boot`:
 
 <CodeTabs
   defaultValue="ruby"
@@ -195,7 +197,7 @@ end
 </CodeTabItem>
 </CodeTabs>
 
-If you're using the [Passenger](https://www.phusionpassenger.com/library/indepth/ruby/spawn_methods/#smart-spawning-hooks) web server, we recommend initializing the client in `config.ru`, or from any code called while loading `config.ru`: 
+If you're using the [Passenger](https://www.phusionpassenger.com/library/indepth/ruby/spawn_methods/#smart-spawning-hooks) web server, we recommend initializing the client in `config.ru`, or from any code called while loading `config.ru`:
 
 <CodeTabs
   defaultValue="ruby"
@@ -542,7 +544,7 @@ user = {key: "aa0ceb", anonymous: true}
 </CodeTabItem>
 </CodeTabs>
 
-You will still need to generate a unique key for anonymous users-- session IDs or UUIDs work best for this. 
+You will still need to generate a unique key for anonymous users-- session IDs or UUIDs work best for this.
 
 Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing-- it keeps anonymous users from polluting your Users page!
 
@@ -608,7 +610,7 @@ ld_client.track("Completed purchase", user, {price: 320})
 </CodeTabs>
 
 ## Identify
-The `identify` method creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `identify`-- the `variation` call will automatically create users on the dashboard for you. `identify` can be useful if you want to pre-populate your dashboard before launching any features. 
+The `identify` method creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `identify`-- the `variation` call will automatically create users on the dashboard for you. `identify` can be useful if you want to pre-populate your dashboard before launching any features.
 
 <CodeTabs
   defaultValue="ruby"
@@ -674,7 +676,7 @@ ld_client.secure_mode_hash(user)
 </CodeTabs>
 
 ## Flush
-Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `flush` to process events immediately. 
+Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `flush` to process events immediately.
 
 <CodeTabs
   defaultValue="ruby"
@@ -786,4 +788,4 @@ Be aware of two considerations when enabling the DEBUG log level:
 
 Feature flag data can be kept in a persistent store using Redis, DynamoDB, or Consul. These adapters are implemented in the `LaunchDarkly::Integrations::Redis`, `LaunchDarkly::Integrations::DynamoDB`, and `LaunchDarkly::Integrations::Consul` modules; to use them, call the `new_feature_store` method in the module, and put the returned object in the `feature_store` property of your client configuration.
 
-See the [API documentation](https://www.rubydoc.info/gems/launchdarkly-server-sdk/LaunchDarkly/Integrations) and ["Using a persistent feature store"](/home/advanced/feature-store) for more information.
+To learn more, read the [API documentation](https://www.rubydoc.info/gems/launchdarkly-server-sdk/LaunchDarkly/Integrations) and ["Using a persistent feature store"](/home/advanced/feature-store).

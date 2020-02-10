@@ -3,6 +3,10 @@
 // itself, like boxShadow.
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export default {
+  // Adds styles defined in theme.styles.root to the <body> element along with color and background-color
+  // https://theme-ui.com/theming/#configuration-flags
+  useBodyStyles: false,
+
   // breakpoints are intentionally set using em after some research and discussion based on this
   // https://zellwk.com/blog/media-query-units/
   breakpoints: ['48rem', '76rem', '88rem', '102rem'],
@@ -295,6 +299,10 @@ export default {
       },
       ':hover': {
         color: 'primaryBase',
+
+        '& svg': {
+          fill: 'primaryBase',
+        },
       },
     },
     githubEdit: {

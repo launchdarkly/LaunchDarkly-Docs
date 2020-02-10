@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import { BoxOwnProps } from '@theme-ui/components'
+import { jsx, BoxOwnProps } from 'theme-ui'
 import { HTMLProps } from 'react'
 
 export type IconName =

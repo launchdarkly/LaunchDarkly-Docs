@@ -20,6 +20,7 @@ const DesktopSideNav = () => {
           items {
             label
             path
+            svg
             items {
               path
               label
@@ -45,7 +46,9 @@ const DesktopSideNav = () => {
 
   const currentNode = findRootTopic(topics, navigationData, pathPrefix)
   if (!currentNode) {
-    console.error(`Can't find root topic! pathPrefix: ${pathPrefix}`)
+    if (typeof window !== 'undefined') {
+      console.error(`Can't find root topic! pathPrefix: ${pathPrefix}`)
+    }
     return null
   }
   return (

@@ -1,6 +1,8 @@
 ---
 path: '/sdk/client-side/ios-objective-c'
 title: 'iOS Objective-C SDK Reference'
+description: 'This topic explains all of the methods available in the LaunchDarkly iOS Objective-C SDK, with detail about how they work.'
+published: true
 ---
 
 <Callout intent="alert">
@@ -15,7 +17,7 @@ later support [Swift](/sdk/client-side/ios-swift).
 
 This reference guide documents all of the methods available in our iOS SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [iOS SDK GitHub repository](https://github.com/launchdarkly/ios-client-sdk) to look under the hood. Additionally you can clone and run sample applications using this SDK with [iOS](https://github.com/launchdarkly/hello-ios/tree/objective-c), [macOS](https://github.com/launchdarkly/hello-macos/tree/objective-c), and [tvOS](https://github.com/launchdarkly/hello-tvos/tree/objective-c).
 ## Getting started
-Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your iOS application.
+Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your iOS application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application. LaunchDarkly supports multiple methods for installing the SDK in your application.
 
@@ -221,7 +223,7 @@ LDClient.sharedInstance().start(config, with: user)
 </CodeTabItem>
 </CodeTabs>
 
-Here, we've customized the client connect and flush interval parameters. 
+Here, we've customized the client connect and flush interval parameters.
 
 <Callout intent="info">
   <CalloutTitle>Network access</CalloutTitle>
@@ -405,7 +407,7 @@ The `variation` call will automatically create a user in LaunchDarkly if a user 
   <CalloutDescription>
     When `LDClient` is initialized for the first time at app launch, users will receive the feature flag fallback values
     until polling is completed for the first time. You can use the `userDidUpdate` delegate method to be notified when
-    the feature flag values have been polled and are ready to use (See [Realtime UI Updates](#real-time-updates)). Once
+    the feature flag values have been polled and are ready to use. To learn more, read [Realtime UI Updates](#real-time-updates). Once
     the flags have been polled for the first time, the SDK will always use the latest stored flag values thereafter.
   </CalloutDescription>
 </Callout>
@@ -438,7 +440,7 @@ LDClient.sharedInstance().track("Signed up", data: dict)
 </CodeTabs>
 
 ## Offline mode
-In some situations, you might want to stop making remote calls to LaunchDarkly and switch to fallback values for your feature flags.  `offline` lets you do this easily. 
+In some situations, you might want to stop making remote calls to LaunchDarkly and switch to fallback values for your feature flags.  `offline` lets you do this easily.
 
 <CodeTabs
   defaultValue="c"

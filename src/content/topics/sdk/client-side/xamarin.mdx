@@ -1,6 +1,8 @@
 ---
 path: '/sdk/client-side/xamarin'
 title: 'Xamarin SDK Reference'
+description: 'This topic explains all of the methods available in the client-side Roku SDK, with detail about how they work.'
+published: true
 ---
 
 This reference guide documents all of the methods available in our Xamarin SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [Xamarin SDK GitHub repository](https://github.com/launchdarkly/xamarin-client-sdk) to look under the hood. Additionally you can clone and run sample applications using this SDK with [Xamarin](https://github.com/launchdarkly/hello-xamarin), and [Xamarin.Forms](https://github.com/launchdarkly/hello-xamarin-forms). The [online API docs](https://launchdarkly.github.io/xamarin-client-sdk/) contain the programmatic definitions of every type, property, and method.
@@ -18,7 +20,7 @@ This reference guide documents all of the methods available in our Xamarin SDK, 
 
 ## Getting started
 
-Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Xamarin application.
+Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Xamarin application.
 
 <Callout intent="info">
   <CalloutTitle>Requirements</CalloutTitle>
@@ -70,7 +72,7 @@ Once the SDK is installed, you'll want to create a single, shared instance of `L
 Once the dependency is installed, you'll want to initialize the LaunchDarkly client. You'll want to create a single, shared instance of `LdClient`. To create a client instance, you need your environment's mobile key (available on your [account settings page](https://app.launchdarkly.com/settings#/projects)). Never embed a server-side SDK key into a mobile application.
 
 The following example shows the simplest way to create the client. It will block for up to
-1. seconds until the latest feature flags have been retrieved from LaunchDarkly. 
+1. seconds until the latest feature flags have been retrieved from LaunchDarkly.
 
 <CodeTabs
   defaultValue="csharp"
@@ -481,7 +483,7 @@ ldClient.BoolVariation("your.feature.key", false);
 </CodeTabItem>
 </CodeTabs>
 
-`variation` calls take the feature flag key and a default value. 
+`variation` calls take the feature flag key and a default value.
 
 The default value will only be returned if an error is encountered-- for example, if the feature flag key doesn't exist or the user doesn't have a key specified.
 
@@ -489,7 +491,7 @@ The default value will only be returned if an error is encountered-- for example
 
 The `VariationDetail` methods (`BoolVariationDetail`, etc.) work the same as `Variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag. To enable this feature, you must call `WithEvaluationReasons(true)` on your `Configuration`.
 
-For more information, see [Evaluation reasons](/home/advanced/flag-evaluations).
+To learn more, read [Evaluation reasons](/home/advanced/flag-evaluations).
 
 ## Track
 
@@ -510,7 +512,7 @@ ldClient.Track("your-goal-key");
 </CodeTabItem>
 </CodeTabs>
 
-You can also attach custom data to your event by passing an extra parameter to `Track` (using the `LdValue` class to represent any value that can be encoded in JSON): 
+You can also attach custom data to your event by passing an extra parameter to `Track` (using the `LdValue` class to represent any value that can be encoded in JSON):
 
 <CodeTabs
   defaultValue="csharp"
@@ -578,7 +580,7 @@ LdClient client = LdClient.Init(config);
 </CodeTabs>
 
 ## Flush
-Internally, the LaunchDarkly SDK keeps an event buffer for `Track` and `Identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `Flush` to process events immediately. 
+Internally, the LaunchDarkly SDK keeps an event buffer for `Track` and `Identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `Flush` to process events immediately.
 
 <CodeTabs
   defaultValue="csharp"

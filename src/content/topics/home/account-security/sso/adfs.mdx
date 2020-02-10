@@ -1,13 +1,15 @@
 ---
 path: '/home/account-security/sso/adfs'
 title: 'Active Directory Federation Services (ADFS)'
+description: 'This topic explains how to configure a self-hosted ADFS server with LaunchDarkly.'
+published: true
 ---
 
 ## Overview
 
 This topic explains how to configure SSO integration between a self-hosted Active Directory Federation Services (ADFS) server and LaunchDarkly.
 
-ADFS is a service provided by Microsoft as a standard role for Windows Server. It provides a web login using existing Active Directory credentials. Also, for ADFS-based SSO, it's recommended to always check the ADFS logs in the Windows Event Viewer to locate error details.
+ADFS is a service provided by Microsoft as a standard role for Windows Server. It provides a web login using existing Active Directory credentials.
 
 <Callout intent="info">
   <CalloutTitle>Troubleshooting ADFS-based SSO</CalloutTitle>
@@ -30,7 +32,7 @@ To give your team access to LaunchDarkly through ADFS, you need the following co
     <CalloutTitle>Setting up ADFS</CalloutTitle>
     <CalloutDescription>
 
-  This topic will not tell you how to set up ADFS. For information about setting up ADFS, see [Microsoft's
+  This topic will not tell you how to set up ADFS. To learn more about setting up ADFS, read [Microsoft's
   documentation](
   https://docs.microsoft.com/en-us/previous-versions/dynamicscrm-2016/deployment-administrators-guide/gg188612)
 

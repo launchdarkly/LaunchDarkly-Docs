@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import { Card, Text, Flex, Box } from '@theme-ui/components'
+import { jsx, Card, Text, Flex, Box } from 'theme-ui'
 import { PropsWithChildren } from 'react'
 
 import { Intent } from '../intent'

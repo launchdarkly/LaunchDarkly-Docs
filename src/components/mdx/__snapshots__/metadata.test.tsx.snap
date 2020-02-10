@@ -20,12 +20,12 @@ exports[`mdx metadata renders correctly 1`] = `
     <h5
       class="emotion-0"
     >
-      Read time : 10 minutes
+      Read time: 10 minutes
     </h5>
     <h5
       class="emotion-0"
     >
-      Last edited : Nov 12 1999
+      Last edited: Nov 12 1999
     </h5>
   </div>
 </DocumentFragment>

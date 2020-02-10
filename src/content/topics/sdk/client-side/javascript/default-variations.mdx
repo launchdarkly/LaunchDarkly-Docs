@@ -1,6 +1,8 @@
 ---
 path: '/sdk/client-side/javascript/default-variations'
 title: 'Default variations on page load'
+description: 'This topic explains how to resolve issues with default flag variations displaying.'
+published: true
 ---
 
 When using LaunchDarkly on your website the content the user sees will often depend on the values of your feature flags. If the page is initially rendered with one set of flag variations then updated with a new set it can cause a jarring switch between two views of the content. This can appear as a "flash" or "flicker" of the initial content during a page load. Usually we don't expect this to happen, but under certain use cases extra steps might be necessary to prevent it.

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useCallback } from 'react'
-import { jsx, Styled } from 'theme-ui'
+import { jsx, Styled, Box, Button, Flex } from 'theme-ui'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import Prism from 'prismjs'
 import 'prismjs/components/prism-go'
@@ -20,7 +20,6 @@ import 'prismjs/components/prism-json'
 import 'prismjs/components/prism-yaml'
 import 'prismjs/components/prism-bash'
 import 'prismjs/components/prism-brightscript'
-import { Box, Button, Flex } from '@theme-ui/components'
 import { copyToClipboard } from '../../../utils/copyToClipboard'
 
 export type CodeSnippetProps = {

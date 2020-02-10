@@ -1,6 +1,8 @@
 ---
 path: '/sdk/client-side/react-native'
 title: 'React Native SDK Reference'
+description: 'This topic explains all of the methods available in the client-side React Native, with detail about how they work.'
+published: true
 ---
 
 <Callout intent="alert">
@@ -23,7 +25,7 @@ This reference guide documents all of the methods available in our React Native 
   </CalloutDescription>
 </Callout>
 
-Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your React Native code.
+Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your React Native code.
 
 The first step is to install the LaunchDarkly SDK as a dependency. Add the LaunchDarkly npm dependency to your project and link it to your React Native project.
 
@@ -337,7 +339,7 @@ client.track('MY_GOAL_FLAG_KEY_WITH_DATA', {'some_data':'value'});
 </CodeTabs>
 
 ## Offline Mode
-In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags. Offline mode lets you do this easily. 
+In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags. Offline mode lets you do this easily.
 
 <CodeTabs
   defaultValue="js"

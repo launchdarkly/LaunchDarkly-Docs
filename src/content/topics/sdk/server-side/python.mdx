@@ -1,13 +1,15 @@
 ---
 path: '/sdk/server-side/python'
 title: 'Python SDK reference'
+description: 'This topic explains all of the methods available in the server-side Python SDK, with detail about how they work.'
+published: true
 ---
 
 This reference guide documents all of the methods available in our Python SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [Python SDK GitHub repository](https://github.com/launchdarkly/python-server-sdk) to look under the hood. The online [Python API docs](https://launchdarkly-python-sdk.readthedocs.io/) contain the programmatic definitions of every class and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-python) using this SDK.
 
 ## Getting started
 
-Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Python application.
+Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Python application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/python-server-sdk/releases) to identify the latest version if you want to depend on a specific version.
 
@@ -756,4 +758,4 @@ os.environ["https_proxy"] = "https://web-proxy.domain.com:8080"
 
 ## Using a database as a persistent store
 
-The Python SDK supports Redis, Consul, or DynamoDB as a persistent store of feature flag configurations. For more information, see [Using a persistent feature store](/home/advanced/feature-store).
+The Python SDK supports Redis, Consul, or DynamoDB as a persistent store of feature flag configurations. To learn more, read [Using a persistent feature store](/home/advanced/feature-store).

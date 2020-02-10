@@ -13,6 +13,9 @@ const Hamburger = () => {
     query {
       allNavigationDataJson {
         nodes {
+          label
+          path
+          svg
           items {
             label
             path
@@ -25,8 +28,6 @@ const Hamburger = () => {
               }
             }
           }
-          label
-          path
         }
       }
     }
@@ -80,13 +81,13 @@ const Hamburger = () => {
             fontSize: 3,
           }}
         >
-          <div sx={{ cursor: 'pointer' }}>EXPAND ALL</div>
+          <div sx={{ visibility: 'hidden', cursor: 'pointer' }}>EXPAND ALL</div>
           <div onClick={onClickMenu} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
             CLOSE <Icon name="window-close" variant="close" />
           </div>
         </div>
-        <div sx={{ mb: 8 }}>
-          <TreeNode nodes={navigationData} />
+        <div sx={{ mb: 9 }}>
+          <TreeNode nodes={navigationData} maxDepth={3} />
         </div>
         <div
           key="footer"

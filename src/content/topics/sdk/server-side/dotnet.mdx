@@ -1,6 +1,8 @@
 ---
 path: '/sdk/server-side/dotnet'
 title: '.NET SDK reference'
+description: 'This topic explains all of the methods available in the server-side .NET SDK, with detail about how they work.'
+published: true
 ---
 
 This reference guide documents all of the methods available in our .NET SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [.NET SDK GitHub repository](https://github.com/launchdarkly/dotnet-server-sdk) to look under the hood. The online [API docs](https://launchdarkly.github.io/dotnet-server-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-dotnet) using this SDK.
@@ -14,7 +16,7 @@ This reference guide documents all of the methods available in our .NET SDK, and
 
 ## Getting started
 
-Building on top of our [Quickstart](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your .NET application.
+Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your .NET application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager.
 
@@ -481,7 +483,7 @@ ldClient.Track("your-goal-key", user);
 </CodeTabItem>
 </CodeTabs>
 
-You can also attach custom data to your event by passing an extra parameter to `Track`, using the `LdValue` type which can contain any kind of data supported by JSON: 
+You can also attach custom data to your event by passing an extra parameter to `Track`, using the `LdValue` type which can contain any kind of data supported by JSON:
 
 <CodeTabs
   defaultValue="csharp"
@@ -500,7 +502,7 @@ ldClient.Track("Completed purchase", user, LdValue.Of("sku132"));
 </CodeTabs>
 
 ## Identify
-`Identify` creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `Identify`-- the `Variation` call will automatically create users on the dashboard for you. `Identify` can be useful if you want to pre-populate your dashboard before launching any features. 
+`Identify` creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `Identify`-- the `Variation` call will automatically create users on the dashboard for you. `Identify` can be useful if you want to pre-populate your dashboard before launching any features.
 
 <CodeTabs
   defaultValue="csharp"
@@ -592,7 +594,7 @@ var hash = ldClient.SecureModeHash(user);
 </CodeTabs>
 
 ## Flush
-Internally, the LaunchDarkly SDK keeps an event buffer for `Track` and `Identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `Flush` to process events immediately. 
+Internally, the LaunchDarkly SDK keeps an event buffer for `Track` and `Identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `Flush` to process events immediately.
 
 <CodeTabs
   defaultValue="csharp"
@@ -642,4 +644,4 @@ Be aware of two considerations when enabling the DEBUG log level:
 
 Separate packages allow feature flag data to be cached with [Redis](https://github.com/launchdarkly/dotnet-server-sdk-redis), [DynamoDB](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb), or [Consul](https://github.com/launchdarkly/dotnet-server-sdk-consul).
 
-See ["Using a persistent feature store"](/home/advanced/feature-store) for more information.
+To learn more, read [Using a persistent feature store](/home/advanced/feature-store).
