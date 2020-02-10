@@ -258,24 +258,24 @@ You still must generate a unique key for anonymous users-- session IDs or UUIDs 
 
 <Callout intent="primary">
   <CalloutTitle>Maintaining experience across anonymous and logged-in states</CalloutTitle>
-  <CalloutDescription>
+<CalloutDescription>
 
 To associate pre-login (anonymous) behaviors with post-login (known) behaviors to get a singular view of a user
 flow, you should use a custom attribute, and the advanced option for percentage rollouts that allows you to rollout
 based on a different attribute. The steps to make this happen are as follows:
 
-• store a unique identifier for the anonymous user into a cookie. A session ID or UUID works well.
+* store a unique identifier for the anonymous user into a cookie. A session ID or UUID works well.
 
-• until the user logs in, use this unique identifier as both the user’s key, and a custom attribute. The custom
+* until the user logs in, use this unique identifier as both the user's key, and a custom attribute. The custom
 attribute could be named anything, but for this example it is named "uniqueId".
 
-• while the user is logged in, set the users key to their real (primary) user key, but
+* while the user is logged in, set the users key to their real (primary) user key, but
 continue to use to use the unique identifier stored in the cookie as the users "uniqueId" custom attribute.
 
-• for all flags (or at least those that may effect logged out users), use the advanced option for all percentage rollouts
+* for all flags (or at least those that may effect logged out users), use the advanced option for all percentage rollouts
 to do rollouts based on the "uniqueId" custom attribute.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 <Callout intent="info">
   <CalloutTitle>Secondary attribute</CalloutTitle>
