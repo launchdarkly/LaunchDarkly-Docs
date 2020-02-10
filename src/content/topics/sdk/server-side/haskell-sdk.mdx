@@ -2,6 +2,7 @@
 path: '/sdk/server-side/haskell'
 title: 'Haskell SDK reference'
 description: 'This topic explains all of the methods available in the server-side Haskell SDK, with detail about how they work.'
+published: true
 ---
 
 <Callout intent="info">
@@ -38,9 +39,9 @@ import LaunchDarkly.Server
 </CodeTabItem>
 </CodeTabs>
 
-After you import and install the SDK, create a single shared instance of `Client`. 
+After you import and install the SDK, create a single shared instance of `Client`.
 
-Specify your SDK key here to authorize your application to connect to LaunchDarkly for a particular environment. 
+Specify your SDK key here to authorize your application to connect to LaunchDarkly for a particular environment.
 
 <CodeTabs
   defaultValue="haskell"
@@ -60,7 +61,7 @@ client = makeClient $ makeConfig "YOUR_SDK_KEY"
 
 <Callout intent="alert">
 <CalloutTitle>Client must be a singleton</CalloutTitle>
-   <CalloutDescription>Make `Client` a singleton. 
+   <CalloutDescription>Make `Client` a singleton.
 The client instance maintains an internal state that allows us to serve feature flags without making any remote requests.</CalloutDescription>
 </Callout>
 
@@ -192,7 +193,7 @@ config' = configSetPrivateAttributeNames (fromList ["email"]) config
 </CodeTabItem>
 </CodeTabs>
 
-You can also define private attribute names on a per-user basis. 
+You can also define private attribute names on a per-user basis.
 
 For example:
 

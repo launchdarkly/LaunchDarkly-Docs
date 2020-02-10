@@ -137,7 +137,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
 
 export const pageQuery = graphql`
   query Query($id: String) {
-    mdx(id: { eq: $id }) {
+    mdx(id: { eq: $id }, frontmatter: { published: { eq: true } }) {
       body
       frontmatter {
         title

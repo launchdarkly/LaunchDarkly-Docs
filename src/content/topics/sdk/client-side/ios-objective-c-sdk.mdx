@@ -2,6 +2,7 @@
 path: '/sdk/client-side/ios-objective-c'
 title: 'iOS Objective-C SDK Reference'
 description: 'This topic explains all of the methods available in the LaunchDarkly iOS Objective-C SDK, with detail about how they work.'
+published: true
 ---
 
 <Callout intent="alert">
@@ -222,7 +223,7 @@ LDClient.sharedInstance().start(config, with: user)
 </CodeTabItem>
 </CodeTabs>
 
-Here, we've customized the client connect and flush interval parameters. 
+Here, we've customized the client connect and flush interval parameters.
 
 <Callout intent="info">
   <CalloutTitle>Network access</CalloutTitle>
@@ -439,7 +440,7 @@ LDClient.sharedInstance().track("Signed up", data: dict)
 </CodeTabs>
 
 ## Offline mode
-In some situations, you might want to stop making remote calls to LaunchDarkly and switch to fallback values for your feature flags.  `offline` lets you do this easily. 
+In some situations, you might want to stop making remote calls to LaunchDarkly and switch to fallback values for your feature flags.  `offline` lets you do this easily.
 
 <CodeTabs
   defaultValue="c"

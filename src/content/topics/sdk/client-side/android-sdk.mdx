@@ -2,6 +2,7 @@
 path: '/sdk/client-side/android'
 title: 'Android SDK Reference'
 description: 'This topic explains all the methods available in the Android SDK.'
+published: true
 ---
 
 <Callout intent="info">
@@ -363,7 +364,7 @@ ldClient.track("your-goal-key", data)
 </CodeTabs>
 
 ## Offline mode
-In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags.  `offline` mode lets you do this easily. 
+In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags.  `offline` mode lets you do this easily.
 
 <CodeTabs
   defaultValue="java"
@@ -509,7 +510,7 @@ LDClient.get().unregisterFeatureFlagListener(flagKey, listener);
   </CalloutDescription>
 </Callout>
 
-Additionally an update listener interface is provided for cases where you would like to be notified any time the flag cache is updated. The application provides a class implementing `LDAllFlagsListener` which provides the SDK with the method `onChange`. Whenever the SDK's flag cache is updated it will call the `onChange` method with a list of flag keys for flags that were updated during the update to the flag cache. 
+Additionally an update listener interface is provided for cases where you would like to be notified any time the flag cache is updated. The application provides a class implementing `LDAllFlagsListener` which provides the SDK with the method `onChange`. Whenever the SDK's flag cache is updated it will call the `onChange` method with a list of flag keys for flags that were updated during the update to the flag cache.
 
 <CodeTabs
   defaultValue="java"
@@ -575,7 +576,7 @@ LDClient.init(this.getApplication(), ldConfig, user);
 </CodeTabItem>
 </CodeTabs>
 
- To access the secondary mobile key instances, use the `getForMobileKey` method on LDClient. This method takes the identifier name assigned to your environment key in the `secondaryMobileKeys` map and returns the associated LDClient instance. 
+ To access the secondary mobile key instances, use the `getForMobileKey` method on LDClient. This method takes the identifier name assigned to your environment key in the `secondaryMobileKeys` map and returns the associated LDClient instance.
 
 <CodeTabs
   defaultValue="java"
@@ -699,7 +700,7 @@ The SDK has seven connectivity states dependent on its configuration, applicatio
   </TableBody>
 </Table>
 
-The SDK also internally stores a timestamp of the most recent successful and failed connections to LaunchDarkly, as well as information related to the most recent failed connection. The `LDClient` method `getConnectionInformation()` returns a structure allowing retrieval of these fields. 
+The SDK also internally stores a timestamp of the most recent successful and failed connections to LaunchDarkly, as well as information related to the most recent failed connection. The `LDClient` method `getConnectionInformation()` returns a structure allowing retrieval of these fields.
 
 <CodeTabs
   defaultValue="java"

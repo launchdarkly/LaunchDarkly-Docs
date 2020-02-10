@@ -13,19 +13,28 @@ console.log(`Using environment config: '${activeEnv}', indexing to: ${algoliaInd
 
 const pageQuery = `{
   mdx: allMdx(filter: {fileAbsolutePath: {regex: "/src/content/topics/"}}) {
-    edges {
-      node {
-        objectID: id
-        frontmatter {
-          title
-          path
-        }
-        excerpt(pruneLength: 5000)
+    nodes {
+      id
+      fileAbsolutePath
+      frontmatter {
+        title
+        path
+        description
+        published
       }
+      excerpt(pruneLength: 5000)
     }
   }
   
-  topics: allSecondLevelTopicsJson {
+  rootTopics: allRootTopicsJson {
+    nodes {
+      path
+      label
+      allItems
+    }
+  }
+  
+  secondLevelTopics: allSecondLevelTopicsJson {
     nodes {
       label
       path
@@ -34,25 +43,54 @@ const pageQuery = `{
   }
 }`
 
-const flatten = (mdx, topics) => {
-  return mdx.map(({ node: { frontmatter, ...rest } }) => {
-    // add second level category to index
-    const { path } = frontmatter
-    const secondLevelTopic = topics.find(t => !!t.allItems.find(i => i === path))
+// Intentionally exclude root topics from search. These are compared against absolute file paths.
+const excludedPages = ['/integrations/index.mdx', '/sdk/index.mdx', '/components.mdx']
 
-    return {
-      ...frontmatter,
-      ...rest,
-      secondLevelTopic: secondLevelTopic ? secondLevelTopic.label : 'Unlabelled',
+const flatten = (mdx, rootTopics, secondLevelTopics) => {
+  const result = []
+  mdx.forEach(({ id, fileAbsolutePath, frontmatter, excerpt }) => {
+    const included = frontmatter.published && !excludedPages.find(p => fileAbsolutePath.includes(p))
+
+    if (included) {
+      const { title, path, description } = frontmatter
+      const displayCategory = secondLevelTopics.find(t => !!t.allItems.find(i => i === path))
+      let displayCategoryLabel
+
+      if (!displayCategory) {
+        displayCategoryLabel = 'Unlabelled'
+        console.error(`Can't find a category for ${path}`)
+      } else {
+        // display the root topic for second level topics to avoid
+        // showing duplicate title/category in search results
+        if (path === displayCategory.path) {
+          const { label } = rootTopics.find(r => !!r.allItems.find(i => i === path))
+          displayCategoryLabel = label
+        } else {
+          displayCategoryLabel = displayCategory.label
+        }
+      }
+      result.push({
+        objectID: id,
+        title,
+        path,
+        description,
+        excerpt,
+        displayCategory: displayCategoryLabel,
+      })
+    } else {
+      console.log(`Excluding ${fileAbsolutePath}`)
     }
   })
+
+  return result
 }
 
 const settings = { attributesToSnippet: ['excerpt:40'] }
 const queries = [
   {
     query: pageQuery,
-    transformer: ({ data: { mdx, topics } }) => flatten(mdx.edges, topics.nodes),
+    transformer: ({ data: { mdx, rootTopics, secondLevelTopics } }) =>
+      flatten(mdx.nodes, rootTopics.nodes, secondLevelTopics.nodes),
     indexName: algoliaIndex,
     settings,
   },

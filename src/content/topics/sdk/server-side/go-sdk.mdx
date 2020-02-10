@@ -2,6 +2,7 @@
 path: '/sdk/server-side/go'
 title: 'Go SDK reference'
 description: 'This topic explains all of the methods available in the server-side Go SDK, with detail about how they work.'
+published: true
 ---
 
 This reference guide documents all of the methods available in our Go SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [Go SDK GitHub repository](https://github.com/launchdarkly/go-server-sdk). The online [Go API docs](https://godoc.org/github.com/launchdarkly/go-server-sdk) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-go) using this SDK.
@@ -63,7 +64,7 @@ ldClient, _ := ld.MakeClient("YOUR_SDK_KEY", 5 * time.Second)
 </CodeTabItem>
 </CodeTabs>
 
-The timeout parameter (the second argument to `MakeClient`) can be used to block initialization until the client has been bootstrapped. 
+The timeout parameter (the second argument to `MakeClient`) can be used to block initialization until the client has been bootstrapped.
 
 <Callout intent="info">
   <CalloutTitle>Best practices for error handling</CalloutTitle>
@@ -325,7 +326,7 @@ ldClient.Track("your-goal-key", user)
 </CodeTabItem>
 </CodeTabs>
 
-You can also attach custom data to your event by passing an extra parameter to `Track`: 
+You can also attach custom data to your event by passing an extra parameter to `Track`:
 
 <CodeTabs
   defaultValue="go"
@@ -346,7 +347,7 @@ ldClient.Track("Completed purchase", user, data)
 You can attach any data that can be marshaled to JSON to your events.
 
 ## Identify
-The `Identify` method creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `Identify`-- calling `Variation` will automatically create users on the dashboard for you. `Identify` can be useful if you want to pre-populate your dashboard before launching any features. 
+The `Identify` method creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `Identify`-- calling `Variation` will automatically create users on the dashboard for you. `Identify` can be useful if you want to pre-populate your dashboard before launching any features.
 
 <CodeTabs
   defaultValue="go"
@@ -434,7 +435,7 @@ ldClient.SecureModeHash(user)
 </CodeTabs>
 
 ## Flush
-Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK on the command line), you may want to manually call `flush` to process events immediately. 
+Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK on the command line), you may want to manually call `flush` to process events immediately.
 
 <CodeTabs
   defaultValue="go"

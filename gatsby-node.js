@@ -41,15 +41,13 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   createRedirects(createRedirect)
 
   const result = await graphql(`
-    query {
-      allMdx {
-        edges {
-          node {
-            id
-            frontmatter {
-              path
-              isInternal
-            }
+    {
+      allMdx(filter: { frontmatter: { published: { eq: true } } }) {
+        nodes {
+          id
+          frontmatter {
+            path
+            isInternal
           }
         }
       }
@@ -60,10 +58,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     reporter.panicOnBuild('🚨  ERROR: Loading "createPages" query')
   }
 
-  const mdxFiles = result.data.allMdx.edges
-  mdxFiles.forEach(({ node }) => {
-    const { id, frontmatter } = node
-
+  const mdxFiles = result.data.allMdx.nodes
+  mdxFiles.forEach(({ id, frontmatter }) => {
     createPage({
       path: frontmatter.path,
       component: frontmatter.isInternal
