@@ -44,8 +44,9 @@ An example configuration is below:
     { label: '.NET', value: 'csharp', },
     { label: 'Ruby', value: 'ruby', },
     { label: 'Python', value: 'py', },
-    { label: 'Node.js', value: 'js', },
+    { label: 'Node.js', value: 'node', },
     { label: 'PHP', value: 'php', },
+    { label: 'C', value: 'c', },
   ]
 }>
 
@@ -65,12 +66,22 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 
 ```java
 import com.launchdarkly.client.*;
+import com.launchdarkly.client.integrations.*;
 
-FeatureStoreFactory store = SomeKindOfFeatureStoreBuilder(storeOptions);
-Config config = new Config.Builder()
-    .featureStoreFactory(store)
+LDConfig config = new LDConfig.Builder()
+    .dataStore(
+        Components.persistentDataStore(
+            SomeDatabaseName.dataStore(storeOptions)
+        )
+    )
     .build();
 LDClient client = new LDClient(sdkKey, config);
+
+
+// Before version 4.12.0, the preferred syntax was different:
+LDConfig deprecatedConfig = new LDConfig.Builder()
+    .featureStoreFactory(new SomeFeatureStoreBuilder(storeOptions))
+    .build();
 ```
 
 </CodeTabItem>
@@ -100,7 +111,7 @@ client = LaunchDarkly::Client.new(sdk_key, config)
 </CodeTabItem>
 <CodeTabItem value="py">
 
-```py
+```python
 import ldclient
 from ldclient.config import Config
 
@@ -110,10 +121,10 @@ ldclient.set_config(config)
 ```
 
 </CodeTabItem>
-<CodeTabItem value="js">
+<CodeTabItem value="node">
 
 ```js
-const LaunchDarkly = require('ldclient-node');
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
 
 const store = SomeKindOfFeatureStore(storeOptions);
 const config = {
@@ -138,6 +149,19 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 ```
 
 </CodeTabItem>
+<CodeTabItem value="c">
+
+```c
+#include <launchdarkly/api.h>
+
+struct LDConfig *config = LDConfigNew("my-key");  
+
+struct LDStoreInterface *store = ConstructYourFeatureStoreInterface();
+
+LDConfigSetFeatureStoreBackend(config, store);
+```
+
+</CodeTabItem>
 </CodeTabs>
 
 If there are multiple instances of your application configured in this way with the same database, the same data gets written to the database multiple times, because each instance receives feature flags from LaunchDarkly.
@@ -150,7 +174,7 @@ This is similar to the previous configuration, except that the SDK does not conn
 
 The other process could be the LaunchDarkly Relay Proxy, or any other application that creates a SDK client with the same persistent store. To learn more about the Relay Proxy, read [The LaunchDarkly Relay Proxy](/home/advanced/relay-proxy).
 
-Since the Relay Proxy is also known as the *L*aunch*D*arkly *D*aemon, the SDKs generally refer to this mode as "LDD mode." Creating the client is the same as described above, except that you must also specify LDD mode.
+Since the Relay Proxy is also known as the *L*aunch*D*arkly *D*aemon, some versionf of the SDKs refer to this mode as "LDD mode." Creating the client is the same as above in terms of specifying the persistent store, but you must also add an option to make the SDK _not_ connect to LaunchDarkly.
 
 <CodeTabs
   defaultValue="go"
@@ -160,8 +184,9 @@ Since the Relay Proxy is also known as the *L*aunch*D*arkly *D*aemon, the SDKs g
     { label: '.NET', value: 'csharp', },
     { label: 'Ruby', value: 'ruby', },
     { label: 'Python', value: 'py', },
-    { label: 'Node.js', value: 'js', },
+    { label: 'Node.js', value: 'node', },
     { label: 'PHP', value: 'php', },
+    { label: 'C', value: 'c', },
   ]
 }>
 
@@ -173,7 +198,7 @@ import ld "gopkg.in/launchdarkly/go-server-sdk.v4"
 store, err := examplepackage.NewExampleFeatureStore(storeOptions)
 config := ld.DefaultConfig
 config.FeatureStore = store
-config.UseLdd = true
+config.UseLdd = true  // <-- the extra option
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
@@ -183,12 +208,22 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```java
 import com.launchdarkly.client.*;
 
-FeatureStoreFactory store = SomeKindOfFeatureStoreBuilder(storeOptions);
-Config config = new Config.Builder()
-    .featureStoreFactory(store)
-    .useLdd(true)
+LDConfig config = new LDConfig.Builder()
+    .dataStore(
+        Components.persistentDataStore(
+            SomeDatabaseName.dataStore(storeOptions)
+        )
+    )
+    .dataSource(Components.externalUpdatesOnly())  // <-- the extra option
     .build();
 LDClient client = new LDClient(sdkKey, config);
+
+
+// Before version 4.12.0, the preferred syntax was different:
+LDConfig deprecatedConfig = new LDConfig.Builder()
+    .featureStoreFactory(new SomeFeatureStoreBuilder(storeOptions))
+    .useLdd(true)
+    .build();
 ```
 
 </CodeTabItem>
@@ -200,7 +235,7 @@ using LaunchDarkly.Client;
 var store = createSomeKindOfFeatureStore();
 var config = Configuration.Default(sdkKey)
     .WithFeatureStoreFactory(store)
-    .WithUseLdd(true);
+    .WithUseLdd(true);  // <-- the extra option
 var client = new LDClient(config);
 ```
 
@@ -213,7 +248,7 @@ require 'ldclient-rb'
 store = SomeKindOfFeatureStore.new(storeOptions)
 config = LaunchDarkly::Config.new(
   feature_store: store,
-  use_ldd: true
+  use_ldd: true  # <-- the extra option
 )
 client = LaunchDarkly::Client.new(sdk_key, config)
 ```
@@ -221,25 +256,28 @@ client = LaunchDarkly::Client.new(sdk_key, config)
 </CodeTabItem>
 <CodeTabItem value="py">
 
-```py
+```python
 import ldclient
 from ldclient.config import Config
 
 store = SomeKindOfFeatureStore(store_options)
-config = Config(feature_store=store, use_ldd=True)
+config = Config(
+  feature_store=store,
+  use_ldd=True  # <-- the extra option
+)
 ldclient.set_config(config)
 ```
 
 </CodeTabItem>
-<CodeTabItem value="js">
+<CodeTabItem value="node">
 
 ```js
-const LaunchDarkly = require('ldclient-node');
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
 
 const store = SomeKindOfFeatureStore(storeOptions);
 const config = {
   featureStore: store,
-  useLdd: true
+  useLdd: true  // the extra option
 };
 const client = LaunchDarkly.init(sdkKey, config);
 ```
@@ -261,6 +299,20 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 // $client = new LaunchDarkly\LDClient("your_sdk_key", [
 //     'feature_requester_class' => 'LaunchDarkly\SomeKindOfFeatureRequester'
 // ]);
+```
+
+</CodeTabItem>
+<CodeTabItem value="c">
+
+```c
+#include <launchdarkly/api.h>
+
+struct LDConfig *config = LDConfigNew("my-key");
+
+struct LDStoreInterface *store = ConstructYourFeatureStoreInterface();
+
+LDConfigSetFeatureStoreBackend(config, store);
+LDConfigSetUseLDD(config, true);  // <-- the extra option
 ```
 
 </CodeTabItem>
@@ -286,8 +338,9 @@ In the following examples, the Redis feature store is set to use a host address 
     { label: '.NET', value: 'csharp', },
     { label: 'Ruby', value: 'ruby', },
     { label: 'Python', value: 'py', },
-    { label: 'Node.js', value: 'js', },
+    { label: 'Node.js', value: 'node', },
     { label: 'PHP', value: 'php', },
+    { label: 'C', value: 'c', },
   ]
 }>
 
@@ -314,16 +367,28 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 
 ```java
 import com.launchdarkly.client.*;
+import com.launchdarkly.client.integrations.*;
 
-FeatureStoreFactory store =
-    Components.redisFeatureStore(URI.create("redis://my-redis:6379"))
-        .prefix("my-key-prefix")
-        .cacheTime(30, TimeUnit.SECONDS);
-
-Config config = new Config.Builder()
-    .featureStoreFactory(store)
+LDConfig config = new LDConfig.Builder()
+    .dataStore(
+        Components.persistentDataStore(
+            Redis.dataStore().uri(URI.create("redis://my-redis:6379"))
+                .prefix("my-key-prefix")
+        ).cacheSeconds(30)
+    )
     .build();
 LDClient client = new LDClient(sdkKey, config);
+
+
+// Before version 4.12.0, the preferred syntax was different:
+LDConfig deprecatedConfig = new LDConfig.Builder()
+    .featureStoreFactory(
+        Components.redisFeatureStore(URI.create("redis://my-redis:6379"))
+            .prefix("my-key-prefix")
+            .cacheTime(30, TimeUnit.SECONDS)
+    )
+    .build();
+
 ```
 
 </CodeTabItem>
@@ -371,7 +436,7 @@ client = LaunchDarkly::Client.new(sdk_key, config)
 </CodeTabItem>
 <CodeTabItem value="py">
 
-```py
+```python
 import ldclient
 from ldclient.config import Config
 from ldclient.feature_store import CacheConfig
@@ -389,10 +454,10 @@ ldclient.set_config(config)
 ```
 
 </CodeTabItem>
-<CodeTabItem value="js">
+<CodeTabItem value="node">
 
 ```js
-const LaunchDarkly = require('ldclient-node');
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
 
 const redisOpts = {
   url: 'redis://my-redis:6379'
@@ -439,7 +504,7 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 
 ## Using DynamoDB
 
-All of the current versions of the server-side SDKs support DynamoDB. DynamoDB is a particularly useful solution if you are running code in AWS Lambda, since it can be accessed from Lambda without needing access to any VPC resource.
+All of the current versions of the server-side SDKs except C support DynamoDB. DynamoDB is a particularly useful solution if you are running code in AWS Lambda, since it can be accessed from Lambda without needing access to any VPC resource.
 
 In the Go SDK (as of version 4.5.1), the Ruby SDK (as of version 5.5.1), the Python SDK (as of version 6.7.0), and the PHP SDK (as of version 3.5.0), this feature is built into the main SDK distribution. The other SDKs require an additional package: [Java](https://github.com/launchdarkly/java-server-sdk-dynamodb), [.NET](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb), [Node.js](https://github.com/launchdarkly/node-server-sdk-dynamodb).
 
@@ -459,7 +524,7 @@ In the following examples, the DynamoDB feature store is set to use a table call
     { label: '.NET', value: 'csharp', },
     { label: 'Ruby', value: 'ruby', },
     { label: 'Python', value: 'py', },
-    { label: 'Node.js', value: 'js', },
+    { label: 'Node.js', value: 'node', },
     { label: 'PHP', value: 'php', },
   ]
 }>
@@ -487,16 +552,27 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 // Requires this package: https://github.com/launchdarkly/java-server-sdk-dynamodb
 
 import com.launchdarkly.client.*;
-import com.launchdarkly.client.dynamodb.*;
+import com.launchdarkly.client.integrations.*;
 
-FeatureStoreFactory store =
-    DynamoDbComponents.dynamoDbFeatureStore("my-table")
-        .caching(FeatureStoreCacheConfig.enabled().withTtlSeconds(30));
-
-Config config = new Config.Builder()
-    .featureStoreFactory(store)
+LDConfig config = new LDConfig.Builder()
+    .dataStore(
+        Components.persistentDataStore(
+            DynamoDb.dataStore("my-table")
+        ).cacheSeconds(30)
+    )
     .build();
 LDClient client = new LDClient(sdkKey, config);
+
+
+// Before version 4.12.0, the preferred syntax was different:
+import com.launchdarkly.client.dynamodb.*;
+
+LDConfig deprecatedConfig = new LDConfig.Builder()
+    .featureStoreFactory(
+        DynamoDbComponents.dynamoDbFeatureStore("my-table")
+            .caching(FeatureStoreCacheConfig.enabled().withTtlSeconds(30));
+    )
+    .build();
 ```
 
 </CodeTabItem>
@@ -552,13 +628,13 @@ ldclient.set_config(config)
 ```
 
 </CodeTabItem>
-<CodeTabItem value="js">
+<CodeTabItem value="node">
 
 ```js
 // Requires this package: https://github.com/launchdarkly/node-server-sdk-dynamodb
 
-const LaunchDarkly = require('ldclient-node');
-const DynamoDBFeatureStore = require('ldclient-node-dynamodb-store');
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
+const DynamoDBFeatureStore = require('launchdarkly-node-server-sdk-dynamodb');
 
 const store = DynamoDBFeatureStore('my-table', { cacheTTL: 30 });
 
@@ -592,7 +668,7 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 
 ## Using Consul
 
-All of the current versions of the server-side SDKs support Consul. In the Go SDK (as of version 4.5.0), the Ruby SDK (as of version 5.5.1), the Python SDK (as of version 6.8.1), and the PHP SDK (as of version 3.5.0), this feature is built into the main SDK distribution. The other SDKs require an additional package: Java, .NET, Node.js.
+All of the current versions of the server-side SDKs except C support Consul. In the Go SDK (as of version 4.5.0), the Ruby SDK (as of version 5.5.1), the Python SDK (as of version 6.8.1), and the PHP SDK (as of version 3.5.0), this feature is built into the main SDK distribution. The other SDKs require an additional package: Java, .NET, Node.js.
 
 In the following examples, the Consul feature store is set to use a host address of `my-consul:8100`, a prefix string of `"my-key-prefix"`, and a cache TTL of 30 seconds.
 
@@ -605,7 +681,7 @@ In the following examples, the Consul feature store is set to use a host address
     { label: '.NET', value: 'csharp', },
     { label: 'Ruby', value: 'ruby', },
     { label: 'Python', value: 'py', },
-    { label: 'Node.js', value: 'js', },
+    { label: 'Node.js', value: 'node', },
     { label: 'PHP', value: 'php', },
   ]
 }>
@@ -635,18 +711,30 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 // Requires this package: https://github.com/launchdarkly/java-server-sdk-consul
 
 import com.launchdarkly.client.*;
-import com.launchdarkly.client.consul.*;
+import com.launchdarkly.client.integrations.*;
 
-FeatureStoreFactory store =
-    ConsulComponents.consulFeatureStore()
-        .url(URL.create("http://my-consul:8100"))
-        .prefix("my-key-prefix")
-        .caching(FeatureStoreCacheConfig.enabled().withTtlSeconds(30));
-
-Config config = new Config.Builder()
-    .featureStoreFactory(store)
+LDConfig config = new LDConfig.Builder()
+    .dataStore(
+        Components.persistentDataStore(
+            Consul.dataStore().url(URL.create("http://my-consul:8100"))
+                .prefix("my-key-prefix")
+        ).cacheSeconds(30)
+    )
     .build();
 LDClient client = new LDClient(sdkKey, config);
+
+
+// Before version 4.12.0, the preferred syntax was different:
+import com.launchdarkly.client.consul.*;
+
+LDConfig deprecatedConfig = new Config.Builder()
+    .featureStoreFactory(
+        ConsulComponents.consulFeatureStore()
+            .url(URL.create("http://my-consul:8100"))
+            .prefix("my-key-prefix")
+            .caching(FeatureStoreCacheConfig.enabled().withTtlSeconds(30))
+    )
+    .build();
 ```
 
 </CodeTabItem>
@@ -687,7 +775,7 @@ client = LaunchDarkly::Client.new(sdk_key, config)
 </CodeTabItem>
 <CodeTabItem value="py">
 
-```py
+```python
 # Requires the additional package 'python-consul' - note that this is not
 # compatible with Python 3.3 or 3.4.
 
@@ -704,13 +792,13 @@ ldclient.set_config(config)
 ```
 
 </CodeTabItem>
-<CodeTabItem value="js">
+<CodeTabItem value="node">
 
 ```js
 // Requires this package: https://github.com/launchdarkly/node-server-sdk-consul
 
-const LaunchDarkly = require('ldclient-node');
-const ConsulFeatureStore = require('ldclient-node-consul-store');
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
+const ConsulFeatureStore = require('launchdarkly-node-server-sdk-consul');
 
 const store = ConsulFeatureStore({
   consulOptions: {
