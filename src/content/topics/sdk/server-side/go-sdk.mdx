@@ -33,7 +33,7 @@ Next you should import the LaunchDarkly client in your application code.
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
@@ -52,7 +52,7 @@ We'll assume you've imported the LaunchDarkly SDK package as `ld`:
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
@@ -87,7 +87,7 @@ Using `ldClient`, you can check which variation a particular user should receive
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
@@ -110,7 +110,7 @@ Lastly, when your application is about to terminate, shut down `ldClient`. This 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
@@ -130,7 +130,7 @@ You can also pass custom parameters to the client by creating a custom configura
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
@@ -152,13 +152,38 @@ Feature flag targeting and rollouts are all determined by the *user* you pass to
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.15.x and earlier', value: 'go-pre-4.16', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
-key := "aa0ceb"
+// User with only a key
+user1 := ld.NewUser("user1-key")
+
+// User with a key plus other attributes
+user2 := ld.NewUserBuilder("user2-key").
+    FirstName("Ernestina").
+    LastName("Events").
+    Email("ernestina@example.com").
+    Custom("Ernestina", ldvalue.ArrayOf(
+      ldvalue.String("Google"), ldvalue.String("Microsoft"))).
+    Build()
+
+// Note that ldvalue comes from this import:
+//   gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-4.16">
+
+```go
+// User with only a key
+user1 := ld.NewUser("user1-key")
+
+// User with a key plus other attributes
+key := "user2-key"
 firstName := "Ernestina"
 lastName := "Evans"
 email := "ernestina@example.com"
@@ -177,29 +202,17 @@ user := ld.User{
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this snippet. The most attribute is the user's key-- in this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+Let's walk through this snippet. The most attribute is the user's key-- in this case we've used the strings `"user1-key"` and `"user2-key"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 All of the other attributes (like `FirstName`, `Email`, and the `Custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
 
-Besides the `Key`, LaunchDarkly supports the following attributes at the "top level". Remember, all of these are optional:
-
-- `Ip`: Must be an IP address.
-- `FirstName`: Must be a string. If you provide a first name, you can search for users on the Users page by name.
-- `LastName`: Must be a string. If you provide a last name, you can search for users on the Users page by name.
-- `Country`: Must be a string representing the country associated with the user.
-- `Email`: Must be a string representing the user's e-mail address. If an `avatar` URL is not provided, we'll use [Gravatar](http://en.gravatar.com/) to try to display an avatar for the user on the Users page.
-- `Avatar`: Must be an absolute URL to an avatar image for the user.
-- `Name`: Must be a string. You can search for users on the User page by name
-- `Anonymous`: Must be a boolean. See the section below on anonymous users for more details.
-
-In addition to these, you can pass us any of your own user data by passing custom attributes, like the `groups` attribute in the example above.
+The documentation for [`User`](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#User) and [`UserBuilder`](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#UserBuilder) shows all of the available attributes.
 
 <Callout intent="info">
   <CalloutTitle>A note on types</CalloutTitle>
   <CalloutDescription>
     Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can
-    be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. This is why `Custom`
-    is defined as a `map` from `string` to `interface{}`. If you enter a custom value on our dashboard that looks like a
+    be strings, booleans (like true or false), numbers, or arrays or maps containing any of those types-- any type of value supported by JSON. In SDK versions 4.16.0 and later, these types are all represented by the [`ldvalue.Value`](https://godoc.org/gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue#Value) type; earlier versions use the catch-all Go type  `interface{}`. If you enter a custom value on our dashboard that looks like a
     number or a boolean, it'll be interpreted that way. The Go SDK is strongly typed, so be aware of this distinction.
   </CalloutDescription>
 </Callout>
@@ -212,21 +225,35 @@ You can optionally configure the Go SDK to treat some or all user attributes as 
 
 In the Go SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- In the LaunchDarkly config, you can set `AllAttributesPrivate` to true. If this is enabled, all user attributes (except the key) for all users are removed before the user is sent to LaunchDarkly.
-- In the LaunchDarkly config object, you can define a list of `PrivateAttributeNames`. If any user has a custom or built-in attribute named in this list, it will be removed before the user is sent to LaunchDarkly.
+- In the LaunchDarkly configuration, you can set `AllAttributesPrivate` to true. If this is enabled, all user attributes (except the key) for all users are removed before the user is sent to LaunchDarkly.
+- In the LaunchDarkly configuration object, you can define a list of `PrivateAttributeNames`. If any user has a custom or built-in attribute named in this list, it will be removed before the user is sent to LaunchDarkly.
 
-You can also define a set of `PrivateAttributes` on the user object itself. For example:
+You can also define a set of private attributes on the user object itself. In this example, `Email` is private for this user (in addition to any private attributes that were specified globally):
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.15.x and earlier', value: 'go-pre-4.16', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
-key := "aa0ceb"
+user := ld.NewUserBuilder("user-key").
+    FirstName("Ernestina").
+    LastName("Events").
+    Email("ernestina@example.com").AsPrivateAttribute().
+    Custom("Ernestina", ldvalue.ArrayOf(
+      ldvalue.String("Google"), ldvalue.String("Microsoft"))).
+    Build()
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-4.16">
+
+```go
+key := "user-key"
 firstName := "Ernestina"
 lastName := "Evans"
 email := "ernestina@example.com"
@@ -255,16 +282,38 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.15.x and earlier', value: 'go-pre-4.16', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
-key := "aa0ceb"
-anonymous := true
+// Anonymous user with only a key
+user1 := ld.NewAnonymousUser("user1-key")
 
-user := ld.User{
+// Anonymous user with a key plus other attributes
+user2 := ld.NewUserBuilder("user2-key").
+    Anonymous(true)
+    Country("US").
+    Build()
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-4.16">
+
+```go
+// Anonymous user with only a key
+user1 := ld.NewAnonymousUser("user1-key")
+
+// Anonymous user with a key plus other attributes
+// Anonymous user with only a key
+user1 := ld.NewAnonymousUser("user1-key")
+
+// Anonymous user with a key plus other attributes
+key := "user2-key"
+anonymous := true
+user2 := ld.User{
   Key: &key,
   Anonymous: &anonymous,
 }
@@ -283,7 +332,7 @@ The `Variation` method determines whether a flag is enabled or not for a specifi
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
@@ -309,18 +358,26 @@ To learn more, read [Evaluation reasons](/home/advanced/flag-evaluations).
 
 ## Track
 
-The `Track` method allows you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests. Here's a simple example:
+The `Track` methods allow you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests. Here's a simple example:
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.15.x and earlier', value: 'go-pre-4.16', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
-ldClient.Track("your-goal-key", user)
+ldClient.TrackEvent("your-goal-key", user)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-4.16">
+
+```go
+ldClient.Track("your-goal-key", user, nil)
 ```
 
 </CodeTabItem>
@@ -331,10 +388,19 @@ You can also attach custom data to your event by passing an extra parameter to `
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.15.x and earlier', value: 'go-pre-4.16', },
   ]
 }>
 <CodeTabItem value="go">
+
+```go
+data := ldvalue.BuildObject().Set("price", ldvalue.Int(320)).Build()
+ldClient.TrackData("Completed purchase", user, data)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-4.16">
 
 ```go
 data := map[string]interface{}{"price": 320}
@@ -344,15 +410,13 @@ ldClient.Track("Completed purchase", user, data)
 </CodeTabItem>
 </CodeTabs>
 
-You can attach any data that can be marshaled to JSON to your events.
-
 ## Identify
 The `Identify` method creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `Identify`-- calling `Variation` will automatically create users on the dashboard for you. `Identify` can be useful if you want to pre-populate your dashboard before launching any features.
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
@@ -381,7 +445,7 @@ This method can be useful for passing feature flags to your front-end. In partic
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
@@ -401,7 +465,7 @@ The Go SDK uses Go's built in [log](https://golang.org/pkg/log/). All loggers ar
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
@@ -422,7 +486,7 @@ The `SecureModeHash` method computes an HMAC signature of a user signed with the
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
@@ -440,7 +504,7 @@ Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
@@ -461,7 +525,7 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
@@ -483,7 +547,7 @@ The Go SDK uses Go's built-in [log](https://golang.org/pkg/log) package. All log
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Example', value: 'go', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
@@ -502,67 +566,55 @@ Be aware of two considerations when enabling the DEBUG log level:
 1. Debug-level logs can be very verbose. It is not recommended that you turn on debug logging in high-volume environments.
 2. Potentially sensitive information is logged including LaunchDarkly users created by you in your usage of this SDK.
 
-## Redis
+## Database integrations
 
-The Go SDK provides an option to use Redis as a persistent store of feature flag configurations. Here's an example client configuration hooked up to a Redis instance:
-
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Example', value: 'go', },
-  ]
-}>
-<CodeTabItem value="go">
-
-```go
-host = "localhost"
-port = 6379
-timeout = 2 * time.Second
-store := NewRedisFeatureStore(host, port, "", timeout, myLogger)
-
-config := ld.DefaultConfig
-config.FeatureStore = store
-ldClient, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-For advanced `RedisFeatureStore` configuration options, read the SDK's [GoDoc](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4/redis).
+The Go SDK can use Redis, Consul, or DynamoDB as a persistent store of feature flag configurations. See [Using a persistent feature store](/home/advanced/feature-store) for examples.
 
 ## HTTPS Proxy
 
 Go's standard HTTP library provides a built-in HTTPS proxy. If the HTTPS_PROXY environment variable is present then the SDK will proxy all network requests through the URL provided.
 
-How to set the HTTPS_PROXY environment variable on Mac/Linux systems:
-
 <CodeTabs
-  defaultValue="go"
+  defaultValue="linux"
   values={[
-    { label: 'shell', value: 'go', },
+    { label: 'command line - on Mac or Linux', value: 'linux', },
+    { label: 'command line - on Windows', value: 'windows', },
   ]
 }>
-<CodeTabItem value="go">
+<CodeTabItem value="linux">
 
 ```bash
 export HTTPS_PROXY=https://web-proxy.domain.com:8080
 ```
 
 </CodeTabItem>
+<CodeTabItem value="windows">
+
+```
+set HTTPS_PROXY=https://web-proxy.domain.com:8080
+```
+
+</CodeTabItem>
 </CodeTabs>
 
-How to set the HTTPS_PROXY environment variable on Windows systems:
+You can also specify a proxy programmatically through the SDK configuration:
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'cmd', value: 'go', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
 
-```bash
-set HTTPS_PROXY=https://web-proxy.domain.com:8080
+```go
+import "gopkg.in/launchdarkly/go-server-sdk.v4/ldhttp"
+
+config := ld.DefaultConfig
+config.HTTPClientFactory = ldhttp.NewHTTPClientFactory(
+    ldhttp.ProxyURL("https://web-proxy.domain.com:8080"))
+
+// Note, this is supported only in SDK versions 4.14.0 and higher
 ```
 
 </CodeTabItem>
