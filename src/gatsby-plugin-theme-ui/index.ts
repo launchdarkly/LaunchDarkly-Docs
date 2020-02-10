@@ -299,6 +299,10 @@ export default {
       },
       ':hover': {
         color: 'primaryBase',
+
+        '& svg': {
+          fill: 'primaryBase',
+        },
       },
     },
     githubEdit: {

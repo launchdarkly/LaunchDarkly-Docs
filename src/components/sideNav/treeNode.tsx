@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { jsx, useThemeUI, Flex } from 'theme-ui'
+import { jsx, useThemeUI, Flex, Link as ThemeUILink } from 'theme-ui'
 import { FunctionComponent, useState } from 'react'
-import { Link } from 'gatsby'
+import { Link as GatsbyLink } from 'gatsby'
 import { globalHistory } from '@reach/router'
 import { SideNavItem } from './types'
 import isExternalLink from '../../utils/isExternalLink'
-import Icon from '../icon'
+import Icon, { IconName } from '../icon'
 
 type TreeNodeProps = {
   nodes: Array<SideNavItem>
@@ -26,6 +26,9 @@ const defaultLabelStyles = {
   textDecoration: 'none',
   ':hover': {
     color: 'primarySafe',
+    '& svg': {
+      fill: 'primarySafe',
+    },
   },
   ':active': {
     color: 'grayBlack',
@@ -78,10 +81,10 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, maxDepth = 2, depth
   return (
     <ul sx={{ fontWeight: 'body' }}>
       {nodes.map((node, index) => {
-        const { label, path, items } = node
+        const { label, path, svg, items } = node
         const nodeChildrenCount = items?.length ?? 0
         const isLeafNode = nodeChildrenCount === 0
-        const partiallyActive = globalHistory.location.pathname.includes(node.path)
+        const partiallyActive = globalHistory.location.pathname.includes(path)
         const listItemStyles = isRootNode ? rootListItemStyles : defaultListItemStyles
         const labelStyles = isMaxDepth ? maxDepthLabelStyles : defaultLabelStyles
 
@@ -97,26 +100,30 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, maxDepth = 2, depth
         return (
           <li key={`${label}-${index}`} sx={listItemStyles}>
             {isExternalLink(path) ? (
-              <a href={path} sx={labelStyles} target="_blank" rel="noopener noreferrer">
+              <ThemeUILink href={path} sx={labelStyles} target="_blank" rel="noopener noreferrer">
                 {label}
-              </a>
+                {svg && <Icon name={svg as IconName} height="0.8rem" fill="grayDark" ml={1} />}
+              </ThemeUILink>
             ) : (
               <Flex>
-                <Link
+                <GatsbyLink
                   getProps={setActiveStyles}
                   sx={labelStyles}
                   to={path}
                   onClick={() => onExpandCollapse(isLeafNode, index)}
                 >
-                  {label}
-                </Link>
+                  <Flex sx={{ alignItems: 'center' }}>
+                    {svg && <Icon name={svg as IconName} height="1rem" fill="grayDark" mr={2} />}
+                    {label}
+                  </Flex>
+                </GatsbyLink>
                 {!isLeafNode && (
                   <Icon
                     name={expandedCollapsed === ExpandCollapseEnum.Collapsed ? 'arrow-down' : 'arrow-up'}
                     onClick={() => onExpandCollapse(isLeafNode, index)}
                     variant="sideNav"
                     fill="grayBase"
-                    sx={{ marginLeft: 2 }}
+                    ml={2}
                   />
                 )}
               </Flex>

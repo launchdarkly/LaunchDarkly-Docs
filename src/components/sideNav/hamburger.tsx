@@ -13,6 +13,9 @@ const Hamburger = () => {
     query {
       allNavigationDataJson {
         nodes {
+          label
+          path
+          svg
           items {
             label
             path
@@ -25,8 +28,6 @@ const Hamburger = () => {
               }
             }
           }
-          label
-          path
         }
       }
     }
@@ -85,7 +86,7 @@ const Hamburger = () => {
             CLOSE <Icon name="window-close" variant="close" />
           </div>
         </div>
-        <div sx={{ mb: 8 }}>
+        <div sx={{ mb: 9 }}>
           <TreeNode nodes={navigationData} maxDepth={3} />
         </div>
         <div

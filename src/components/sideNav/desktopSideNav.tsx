@@ -20,6 +20,7 @@ const DesktopSideNav = () => {
           items {
             label
             path
+            svg
             items {
               path
               label

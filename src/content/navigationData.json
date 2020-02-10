@@ -6,6 +6,7 @@
       {
         "label": "Getting started",
         "path": "/home/getting-started",
+        "svg": "compass",
         "items": [
           {
             "label": "Your team and LaunchDarkly",
@@ -20,6 +21,7 @@
       {
         "label": "Managing flags",
         "path": "/home/managing-flags",
+        "svg": "toggles-multiple-solid",
         "items": [
           {
             "label": "The dashboard",
@@ -78,6 +80,7 @@
       {
         "label": "Managing users",
         "path": "/home/managing-users",
+        "svg": "people",
         "items": [
           {
             "label": "The users dashboard",
@@ -100,6 +103,7 @@
       {
         "label": "Account security",
         "path": "/home/account-security",
+        "svg": "security",
         "items": [
           {
             "label": "Managing your team",
@@ -182,6 +186,7 @@
       {
         "label": "Metrics and insights",
         "path": "/home/metrics-insights",
+        "svg": "bullseye-arrow",
         "items": [
           {
             "label": "Account usage metrics",
@@ -196,6 +201,7 @@
       {
         "label": "Experimentation",
         "path": "/home/experimentation",
+        "svg": "chart-areaspline",
         "items": [
           {
             "label": "Creating experiments",
@@ -224,6 +230,7 @@
       {
         "label": "Advanced",
         "path": "/home/advanced",
+        "svg": "atom",
         "items": [
           {
             "label": "Custom properties",
@@ -519,6 +526,7 @@
   },
   {
     "label": "API docs",
-    "path": "https://apidocs.launchdarkly.com/"
+    "path": "https://apidocs.launchdarkly.com/",
+    "svg": "open-in-new"
   }
 ]

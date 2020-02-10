@@ -1,8 +1,11 @@
 /** @jsx jsx */
-import { jsx, useThemeUI, Link as ExternalLink } from 'theme-ui'
+import { jsx, useThemeUI, Link as ThemUILink } from 'theme-ui'
 import { graphql, useStaticQuery, Link as GatsbyLink } from 'gatsby'
 import { SideNavItem } from './sideNav/types'
 import isExternalLink from '../utils/isExternalLink'
+import Icon, { IconName } from './icon'
+
+const variant = 'links.topNav'
 
 const TopNav = () => {
   const { theme } = useThemeUI()
@@ -14,6 +17,7 @@ const TopNav = () => {
         nodes {
           label
           path
+          svg
         }
       }
     }
@@ -30,23 +34,28 @@ const TopNav = () => {
         whiteSpace: 'nowrap',
       }}
     >
-      {navigationData.map((rootItem: SideNavItem, index: number) => {
-        const { label, path } = rootItem
+      {navigationData.map((rootItem: SideNavItem) => {
+        const { label, path, svg } = rootItem
         const capitalizedLabel = label.toUpperCase()
-        const variant = 'links.topNav'
-
         return (
-          <li key={`${label}-${index}`} sx={{ display: 'inline', pr: [null, 5, 6] }}>
+          <li key={label} sx={{ display: 'inline', pr: [null, 5, 6] }}>
             {isExternalLink(path) ? (
-              <ExternalLink href={path} target="_blank" variant={variant}>
+              <ThemUILink
+                href={path}
+                variant={variant}
+                sx={{ display: 'flex' }}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {capitalizedLabel}
-              </ExternalLink>
+                {svg && <Icon name={svg as IconName} height="1rem" fill="grayMed" ml={1} />}
+              </ThemUILink>
             ) : (
               <GatsbyLink
                 to={path}
+                sx={{ variant }}
                 partiallyActive={true}
                 activeStyle={{ color: theme.colors.primaryBase }}
-                sx={{ variant }}
               >
                 {capitalizedLabel}
               </GatsbyLink>
