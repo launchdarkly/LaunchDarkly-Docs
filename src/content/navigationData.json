@@ -138,7 +138,7 @@
                 "path": "/home/account-security/custom-roles/example-policies"
               },
               {
-                "label": "Creating private projects with custom roles",
+                "label": "Creating private projects",
                 "path": "/home/account-security/custom-roles/private-projects"
               }
             ]
@@ -267,6 +267,10 @@
             "path": "/home/advanced/feature-store"
           }
         ]
+      },
+      {
+        "label": "Changelog",
+        "path": "/home/changelog"
       }
     ]
   },
@@ -421,53 +425,7 @@
         ]
       },
       {
-        "label": "Server-side SDK guides",
-        "path": "/sdk/server-side",
-        "items": [
-          {
-            "label": ".NET SDK reference",
-            "path": "/sdk/server-side/dotnet"
-          },
-          {
-            "label": "C/C++ (server-side) SDK reference",
-            "path": "/sdk/server-side/c-c--"
-          },
-          {
-            "label": "Erlang SDK reference",
-            "path": "/sdk/server-side/erlang"
-          },
-          {
-            "label": "Go SDK reference",
-            "path": "/sdk/server-side/go"
-          },
-          {
-            "label": "Haskell SDK Reference",
-            "path": "/sdk/server-side/haskell"
-          },
-          {
-            "label": "Java SDK reference",
-            "path": "/sdk/server-side/java"
-          },
-          {
-            "label": "Node.js (server-side) SDK reference",
-            "path": "/sdk/server-side/node-js"
-          },
-          {
-            "label": "PHP SDK reference",
-            "path": "/sdk/server-side/php"
-          },
-          {
-            "label": "Python SDK reference",
-            "path": "/sdk/server-side/python"
-          },
-          {
-            "label": "Ruby SDK reference",
-            "path": "/sdk/server-side/ruby"
-          }
-        ]
-      },
-      {
-        "label": "Client-side sdk reference guides",
+        "label": "Client-side SDK guides",
         "path": "/sdk/client-side",
         "items": [
           {
@@ -475,7 +433,7 @@
             "path": "/sdk/client-side/android"
           },
           {
-            "label": "C/C++ (client-side) SDK reference",
+            "label": "C/C++ SDK reference",
             "path": "/sdk/client-side/c-c--"
           },
           {
@@ -483,11 +441,11 @@
             "path": "/sdk/client-side/electron"
           },
           {
-            "label": "iOS Objective-C SDK reference",
+            "label": "iOS (Objective-C) SDK reference",
             "path": "/sdk/client-side/ios-objective-c"
           },
           {
-            "label": "iOS Swift SDK reference",
+            "label": "iOS (Swift) SDK reference",
             "path": "/sdk/client-side/ios-swift"
           },
           {
@@ -505,7 +463,7 @@
             ]
           },
           {
-            "label": "Node.js (client-side) SDK reference",
+            "label": "Node.js SDK reference",
             "path": "/sdk/client-side/node-js"
           },
           {
@@ -523,6 +481,48 @@
           {
             "label": "Xamarin SDK reference",
             "path": "/sdk/client-side/xamarin"
+          }
+        ]
+      },
+      {
+        "label": "Server-side SDK guides",
+        "path": "/sdk/server-side",
+        "items": [
+          {
+            "label": ".NET SDK reference",
+            "path": "/sdk/server-side/dotnet"
+          },
+          {
+            "label": "C/C++ SDK reference",
+            "path": "/sdk/server-side/c-c--"
+          },
+          {
+            "label": "Go SDK reference",
+            "path": "/sdk/server-side/go"
+          },
+          {
+            "label": "Haskell SDK Reference",
+            "path": "/sdk/server-side/haskell"
+          },
+          {
+            "label": "Java SDK reference",
+            "path": "/sdk/server-side/java"
+          },
+          {
+            "label": "Node.js SDK reference",
+            "path": "/sdk/server-side/node-js"
+          },
+          {
+            "label": "PHP SDK reference",
+            "path": "/sdk/server-side/php"
+          },
+          {
+            "label": "Python SDK reference",
+            "path": "/sdk/server-side/python"
+          },
+          {
+            "label": "Ruby SDK reference",
+            "path": "/sdk/server-side/ruby"
           }
         ]
       }

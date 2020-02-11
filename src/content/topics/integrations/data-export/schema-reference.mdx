@@ -182,9 +182,7 @@ An example feature event is pictured below:
 - `userKey`: The key of the user object used in a feature flag evaluation. Details for the `user` object used in a feature flag evaluation as reported by the "feature" event are transmitted periodically with a separate `index` event.
 - `creationDate` When the feature flag was requested at Unix epoch time in milliseconds.
 - `key`: The key of the feature flag requested.
-- `variation`: The variation of the flag requested. Flag variation values are stored in an array. This value corresponds to the index of the variation the array. Boolean flags show as `0` or `
-
-1. for `true` and `false`, and other flag types are numbered starting with `0` for their different variations.
+- `variation`: The variation of the flag requested. Flag variation values are stored in an array. This value corresponds to the index of the variation the array. Boolean flags show as `0` or `1` for `true` and `false`, and other flag types are numbered starting with `0` for their different variations.
 
 - `variationName`: The evaluated variation's name, if it exists. If the evaluated variation doesn't have a name, this field doesn't appear.
 - `value`: The value of the feature flag returned by feature flag evaluation.

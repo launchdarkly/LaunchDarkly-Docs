@@ -43,7 +43,7 @@ const createRedirects = createRedirect => {
 
   createRedirect({
     fromPath: '/docs/new-members',
-    toPath: '/home/account-security/your-team',
+    toPath: '/home/account-security/managing-your-team',
     isPermanent: true,
     redirectInBrowser: true,
   })
@@ -197,7 +197,7 @@ const createRedirects = createRedirect => {
 
   createRedirect({
     fromPath: '/docs/teams',
-    toPath: '/home/account-security/your-team',
+    toPath: '/home/account-security/managing-your-team',
     isPermanent: true,
     redirectInBrowser: true,
   })
@@ -340,6 +340,12 @@ const createRedirects = createRedirect => {
     redirectInBrowser: true,
   })
   createRedirect({
+    fromPath: '/docs/running-ab-tests',
+    toPath: '/home/experimentation',
+    isPermanent: true,
+    redirectInBrowser: true,
+  })
+  createRedirect({
     fromPath: '/docs/experimentation-index',
     toPath: '/home/experimentation',
     isPermanent: true,
@@ -347,7 +353,7 @@ const createRedirects = createRedirect => {
   })
   createRedirect({
     fromPath: '/docs/experimentation',
-    toPath: '/home/experimentation/introduction',
+    toPath: '/home/experimentation/',
     isPermanent: true,
     redirectInBrowser: true,
   })
@@ -509,7 +515,7 @@ const createRedirects = createRedirect => {
   })
   createRedirect({
     fromPath: '/docs/custom-configuration-via-cli',
-    toPath: '/integrations/git-code-references/custom-config-cli',
+    toPath: '/integrations/git-code-references/custom-config',
     isPermanent: true,
     redirectInBrowser: true,
   })
@@ -580,20 +586,32 @@ const createRedirects = createRedirect => {
     redirectInBrowser: true,
   })
   createRedirect({
-    fromPath: '/sdk',
-    toPath: '/sdk/concepts',
+    fromPath: '/docs/evaluation-reasons',
+    toPath: '/home/advanced/flag-evaluations',
+    isPermanent: true,
+    redirectInBrowser: true,
+  })
+  createRedirect({
+    fromPath: '/docs/reading-flags-from-a-file',
+    toPath: '/home/advanced/flags-from-files',
+    isPermanent: true,
+    redirectInBrowser: true,
+  })
+  createRedirect({
+    fromPath: '/docs/using-a-persistent-feature-store',
+    toPath: '/home/advanced/feature-store',
     isPermanent: true,
     redirectInBrowser: true,
   })
   createRedirect({
     fromPath: '/docs/getting-started-with-launchdarkly-sdks',
-    toPath: '/sdk/concepts',
+    toPath: '/sdk/',
     isPermanent: true,
     redirectInBrowser: true,
   })
   createRedirect({
     fromPath: '/docs/client-side-and-server-side',
-    toPath: '/sdk/concepts/client-vs-server',
+    toPath: '/sdk/concepts/client-side-server-side',
     isPermanent: true,
     redirectInBrowser: true,
   })
@@ -754,30 +772,6 @@ const createRedirects = createRedirect => {
   createRedirect({
     fromPath: '/docs/xamarin-sdk-reference',
     toPath: '/sdk/client-side/xamarin',
-    isPermanent: true,
-    redirectInBrowser: true,
-  })
-  createRedirect({
-    fromPath: '/docs/evaluation-reasons',
-    toPath: '/home/reference/flag-evaluations',
-    isPermanent: true,
-    redirectInBrowser: true,
-  })
-  createRedirect({
-    fromPath: '/docs/reading-flags-from-a-file',
-    toPath: '/home/reference/flags-from-files',
-    isPermanent: true,
-    redirectInBrowser: true,
-  })
-  createRedirect({
-    fromPath: '/docs/using-a-persistent-feature-store',
-    toPath: '/home/reference/feature-store',
-    isPermanent: true,
-    redirectInBrowser: true,
-  })
-  createRedirect({
-    fromPath: '/docs/running-ab-tests',
-    toPath: '/home/experimentation',
     isPermanent: true,
     redirectInBrowser: true,
   })

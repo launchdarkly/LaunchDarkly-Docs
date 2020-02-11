@@ -384,7 +384,7 @@ These options are used less frequently:
 
 If the `key` attribute you rely on in your user JSON contains personally identifiable information, you should enable
 the `useReport` option by [customizing your
-client](https://docs.launchdarkly.com/docs/js-sdk-reference#customizing-your-client) . By default, flag settings are
+client](/sdk/client-side/javascript#customizing-your-client) . By default, flag settings are
 fetched by sending the user JSON as a JSON base64 URL-encoded path parameter. When `useReport` is enabled, flag
 settings will be fetched by sending the user JSON in the body of a REPORT request instead, thereby hiding that
 information from request logs.
@@ -447,7 +447,7 @@ Custom attributes are one of the most powerful features of LaunchDarkly. They le
 
 ## Private user attributes
 
-You can optionally configure the JavaScript SDK to treat all user attributes as [private user attributes](https://docs.launchdarkly.com/v2.0/docs/private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the JavaScript SDK to treat all user attributes as [private user attributes](/home/managing-users/user-attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 To mark all user attributes (except the key) as private in the JavaScript SDK, you can use the  `allAttributesPrivate` option:
 

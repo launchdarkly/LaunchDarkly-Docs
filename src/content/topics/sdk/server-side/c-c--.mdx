@@ -12,7 +12,7 @@ This reference guide documents basic usage of our C server-side SDK, and explain
   <CalloutDescription>
 
 LaunchDarkly provides both a client-side and a server-side C/C++ SDK. If you are embedding LaunchDarkly in a
-client-side application please use the [client-side SDK](https://docs.launchdarkly.com/docs/c-sdk-reference). Learn
+client-side application please use the [client-side SDK](/sdk/client-side/c-c--). Learn
 more about our [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
   </CalloutDescription>
@@ -234,7 +234,7 @@ When you are done with an `LDUser` ensure that you free the structure.
 
 ## Private user attributes
 
-You can optionally configure the C SDK to treat some or all user attributes as [private user attributes](https://docs.launchdarkly.com/v2.0/docs/private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the C SDK to treat some or all user attributes as [private user attributes](/home/managing-users/user-attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the C SDK there are three ways to define private attributes for the LaunchDarkly client:
 
