@@ -18,9 +18,9 @@ The debugger shows you a real-time stream of events arriving in LaunchDarkly fro
 <Callout intent="info">
   <CalloutTitle>The debugger must be visible to work</CalloutTitle>
   <CalloutDescription>
-    The debugger will not display events when it is not the active window in your browser. Leave it open and visible to
-    see events as they occur. If you need to click around in your app to generate events, open the app in a second
-    window.
+    
+The debugger will not display events when it is not the active window in your browser. Leave it open and visible to see events as they occur. If you need to click around in your app to generate events, open the app in a second window.
+    
   </CalloutDescription>
 </Callout>
 
@@ -37,12 +37,20 @@ This will temporarily enables detailed events for that flag, which appear as the
 <Callout intent="alert">
   <CalloutTitle>Older SDK versions send detailed events for every evaluation</CalloutTitle>
   <CalloutDescription>
-    The minimum required version for each platform SDK to use summary events is:\n.NET: 5.0.0\nGo: 4.0.0\nJava:
-    4.0.0\nNode: 5.0.0\nPython: 6.0.0\nRuby: 4.0.0\nJavaScript: 2.0.0\nAndroid: 2.4.0\niOS: 2.13.0 PHP: The PHP SDK does
-    not itself support summary events. However, when PHP is used with LD Relay, the LD Relay event-forwarding mode has
-    the ability to turn the events received from the PHP SDK into summary events. This requires that you are using PHP
-    SDK version 3.1.0 or higher. LD Relay: If you are using LD Relay with PHP you will need to upgrade LD Relay to
-    version 4.0.0 or higher. Other SDKs do not require an LD Relay update to use summary events.
+    
+The minimum required version for each platform SDK to use summary events is:
+
+- .NET: 5.0.0
+- Go: 4.0.0
+- Java: 4.0.0
+- Node: 5.0.0
+- Python: 6.0.0
+- Ruby: 4.0.0
+- JavaScript: 2.0.0
+- Android: 2.4.0
+- iOS: 2.13.0
+- PHP: The PHP SDK does not itself support summary events. However, when PHP is used with LD Relay, the LD Relay event forwarding mode has the ability to turn the events received from the PHP SDK into summary events. This requires that you are using PHP SDK version 3.1.0 or higher. LD Relay: If you are using LD Relay with PHP you will need to upgrade LD Relay to version 4.0.0 or higher. Other SDKs do not require an LD Relay update to use summary events.
+    
   </CalloutDescription>
 </Callout>
 
