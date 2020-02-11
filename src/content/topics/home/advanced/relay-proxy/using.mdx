@@ -60,7 +60,7 @@ go get -u gopkg.in/launchdarkly/ld-relay.v5/...
 </CodeTabItem>
 </CodeTabs>
 
-   To learn more about the supported configuration options, visit [the Relay Proxy Github repository](https://github.com/launchdarkly/ld-relay#configuration-file-format).
+   To learn more about the supported configuration options, visit the [Relay Proxy Github repository](https://github.com/launchdarkly/ld-relay#configuration-file-format).
 
 You can connect your Relay Proxy to multiple LaunchDarkly environments by specifying multiple environment configurations. Additionally, you can specify client-side IDs and mobile keys if your application connects to LaunchDarkly in a client-side or mobile architecture. For example:
 
@@ -181,7 +181,7 @@ After you have configured it, follow the procedure below to validate your Relay 
 3. In the LaunchDarkly UI, change the value of a feature flag so you will see a different variation in production.
 4. Verify in your application that the flag value has changed.
 
-Alternatively, you can validate your Relay Proxy by using `curl`. Note that you need to specify your Relay Proxy base URL, SDK key, and user details in the command:
+Alternatively, you can validate your Relay Proxy with `curl`. Note that you need to specify your Relay Proxy base URL, SDK key, and user details in the command:
 
 <CodeTabs
   defaultValue="relay"
@@ -235,7 +235,9 @@ is the most common. To learn more about customizing SDK configuration, read the 
   </CalloutDescription>
 </Callout>
 
-In daemon mode, there is no need to put a load balancer in front of the Relay Proxy. Enable a monitoring service, such as Datadog, when you are using the Relay Proxy in daemon mode. Because the data store communicates directly with the SDKs when the proxy is in in daemon mode, in the event of an outage an external monitoring service provides information about problems that might otherwise be lost.
+In daemon mode, there is no need to put a load balancer in front of the Relay Proxy. Enable a monitoring service, such as Datadog, when you are using the Relay Proxy in daemon mode. 
+
+Because the data store communicates directly with the SDKs when the proxy is in in daemon mode, in the event of an outage an external monitoring service provides information about problems that might otherwise be lost.
 
 ![The Relay Proxy arranged in daemon mode.](../../../images/relayproxy-daemon-mode.png)
 

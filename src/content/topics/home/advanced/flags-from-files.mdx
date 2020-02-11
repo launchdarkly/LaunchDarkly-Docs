@@ -15,14 +15,15 @@ However, in the server-side SDKs, you can also use files to configure the featur
 
 This feature is currently available in the following server-side SDKs:
 
-- Go (version 4.4.0 and up),
+- Go (version 4.4.0 and up)
 - Java (4.5.0 and up)
 - .NET (5.5.0 and up)
 - Ruby (5.4.0 and up)
 - Python (6.6.0 and up)
 - Node.js (5.7.0 and up)
 - PHP (5.3.0 and up)
-  <Callout intent="alert">
+
+<Callout intent="alert">
     <CalloutTitle>Do not use file-based flag values in production environments</CalloutTitle>
     <CalloutDescription>
       Always configure production environments to receive flag updates from LaunchDarkly. Only use file-based flags in
@@ -40,14 +41,14 @@ They contain up to three properties:
 - `flagValues`: Simplified feature flags that specify only a value, and produce the same value for all users.
 - `segments`: User segment definitions. You will only use this property if you have feature flags that use segments.
 
-  <Callout intent="alert">
+<Callout intent="alert">
     <CalloutTitle>YAML files have limitations</CalloutTitle>
     <CalloutDescription>
       In some of the SDKs, YAML support requires an additional dependency. YAML is not available in PHP.
     </CalloutDescription>
   </Callout>
 
-  The format of the data in `flags` and `segments` is defined by the LaunchDarkly application and is subject to change. Rather than trying to construct these objects yourself, it's simpler to request existing flags directly from the LaunchDarkly server in JSON format and use this output as the starting point for your file.
+The format of the data in `flags` and `segments` is defined by the LaunchDarkly application and is subject to change. Rather than trying to construct these objects yourself, it's simpler to request existing flags directly from the LaunchDarkly server in JSON format and use this output as the starting point for your file.
 
 Get the flags from `https://app.launchdarkly.com/sdk/latest-all`. Pass your SDK key in the `Authorization` header.
 

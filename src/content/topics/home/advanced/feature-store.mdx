@@ -506,7 +506,13 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 
 All of the current versions of the server-side SDKs except C support DynamoDB. DynamoDB is a particularly useful solution if you are running code in AWS Lambda, since it can be accessed from Lambda without needing access to any VPC resource.
 
-In the Go SDK (as of version 4.5.1), the Ruby SDK (as of version 5.5.1), the Python SDK (as of version 6.7.0), and the PHP SDK (as of version 3.5.0), this feature is built into the main SDK distribution. The other SDKs require an additional package: [Java](https://github.com/launchdarkly/java-server-sdk-dynamodb), [.NET](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb), [Node.js](https://github.com/launchdarkly/node-server-sdk-dynamodb).
+In the Go SDK (as of version 4.5.1), the Ruby SDK (as of version 5.5.1), the Python SDK (as of version 6.7.0), and the PHP SDK (as of version 3.5.0), this feature is built into the main SDK distribution. 
+
+The other SDKs require an additional package: 
+
+* [Java](https://github.com/launchdarkly/java-server-sdk-dynamodb)
+* [.NET](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb)
+* [Node.js](https://github.com/launchdarkly/node-server-sdk-dynamodb)
 
 In your application code, the only required parameter is the table name, although you can also specify any other options supported by AWS; by default, the DynamoDB driver will expect to get your AWS credentials and region from environment variables or local configuration files, as described in the AWS SDK documentation.
 
