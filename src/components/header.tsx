@@ -28,11 +28,6 @@ const Header = () => {
       >
         <span sx={{ gridArea: 'brand', display: ['none', 'flex'], alignItems: 'center', ml: [4, 6, 6] }}>
           <Icon name="launchdarkly-logo" variant="header" sx={{ height: [null, 3, 3] }} />
-          <span
-            sx={{ pl: [null, 1, 1], pt: [null, 1, 1], fontSize: [null, 2, 2], display: ['none', 'block', 'block'] }}
-          >
-            DOCS
-          </span>
         </span>
         <span
           sx={{

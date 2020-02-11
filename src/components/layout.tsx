@@ -51,6 +51,7 @@ const components = {
 }
 
 const rootGridStyles = {
+  letterSpacing: '0.0125rem',
   color: 'grayBlack',
   height: '100vh',
   display: 'grid',

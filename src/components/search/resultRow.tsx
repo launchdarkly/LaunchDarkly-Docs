@@ -13,7 +13,7 @@ interface ResultRowProps {
 const markStyles = {
   '& mark': {
     backgroundColor: (theme: Theme) => theme.colors.infoWash,
-    borderBottom: (theme: Theme) => `0.1rem solid ${theme.colors.infoDark}`,
+    borderBottom: (theme: Theme) => `0.1rem solid ${theme.colors.grayBase}`,
   },
 }
 const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, onClick }) => {

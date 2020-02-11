@@ -19,7 +19,7 @@ export type CalloutProps = {
 export function CalloutTitle({ children }: PropsWithChildren<{}>) {
   return (
     children && (
-      <Text mb={3} sx={{ fontSize: 4, lineHeight: 'regular' }}>
+      <Text mb={3} mr={6} sx={{ fontSize: 4, lineHeight: 'regular' }}>
         {children}
       </Text>
     )

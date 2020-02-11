@@ -38,9 +38,10 @@ const defaultLabelStyles = {
 const maxDepthLabelStyles = {
   ...defaultLabelStyles,
   fontSize: 3,
+  lineHeight: 'small',
 }
 
-const defaultListItemStyles = { mt: 2, ml: 5 }
+const defaultListItemStyles = { mt: 4, ml: 5 }
 const rootListItemStyles = { mt: 5, mr: 2, ml: 6 }
 
 // Hamburger maxDepth is 3 since root topics are displayed.

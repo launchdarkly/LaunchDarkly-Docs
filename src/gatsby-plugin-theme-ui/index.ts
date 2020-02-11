@@ -11,7 +11,7 @@ export default {
   // https://zellwk.com/blog/media-query-units/
   breakpoints: ['48rem', '76rem', '88rem', '102rem'],
   sizes: ['.75rem', '1rem', '1.25rem', '1.5rem', '2rem', '4rem', '8rem', '16rem'],
-  fontSizes: ['0.5rem', '0.625rem', '0.75rem', '0.875rem', '1rem', '1.5rem', '1.75rem', '2.25rem'],
+  fontSizes: ['0.5rem', '0.625rem', '0.75rem', '0.875rem', '1rem', '1.25rem', '1.5rem', '1.75rem', '2.25rem'],
   colors: {
     primaryDark: '#087F5B',
     primarySafe: '#0CA678',
@@ -51,8 +51,8 @@ export default {
     light: 300,
     body: 400,
     medium: 500,
-    heading: 700,
-    bold: 600,
+    heading: 500,
+    bold: 500,
   },
   lineHeights: {
     fixed: '1',
@@ -177,11 +177,11 @@ export default {
     },
     info: {
       padding: 2,
-      bg: 'infoWash',
+      bg: 'grayWash',
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) => `inset 4px 0 0 ${theme.colors.infoBase}, 0 2px 4px ${theme.colors.grayMed}`,
+      boxShadow: (theme: any) => `inset 6px 0 0 ${theme.colors.infoBase}, 0 2px 4px ${theme.colors.grayMed}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
@@ -190,11 +190,11 @@ export default {
     },
     warning: {
       padding: 2,
-      bg: 'warnWash',
+      bg: 'grayWash',
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) => `inset 4px 0 0 ${theme.colors.warnBase}, 0 2px 4px ${theme.colors.grayMed}`,
+      boxShadow: (theme: any) => `inset 6px 0 0 ${theme.colors.warnBase}, 0 2px 4px ${theme.colors.grayMed}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
@@ -203,11 +203,11 @@ export default {
     },
     alert: {
       padding: 2,
-      bg: 'alertWash',
+      bg: 'grayWash',
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) => `inset 4px 0 0 ${theme.colors.alertBase}, 0 2px 4px ${theme.colors.grayMed}`,
+      boxShadow: (theme: any) => `inset 6px 0 0 ${theme.colors.alertBase}, 0 2px 4px ${theme.colors.grayMed}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
@@ -216,11 +216,11 @@ export default {
     },
     primary: {
       padding: 2,
-      bg: 'primaryWash',
+      bg: 'grayWash',
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) => `inset 4px 0 0 ${theme.colors.primaryBase}, 0 2px 4px ${theme.colors.grayMed}`,
+      boxShadow: (theme: any) => `inset 6px 0 0 ${theme.colors.primaryBase}, 0 2px 4px ${theme.colors.grayMed}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
@@ -318,19 +318,19 @@ export default {
       fontWeight: 'body',
     },
     h1: {
-      fontSize: [5, 5, 6],
+      fontSize: 7,
       lineHeight: ['medium', 'medium', 'fixed'],
       marginBottom: [3, 3, 4],
       fontWeight: 'body',
     },
     h2: {
-      fontSize: [5, 5, 5],
+      fontSize: 6,
       lineHeight: ['medium', 'medium', 'fixed'],
       marginTop: [5, 5, 6],
       marginBottom: [3, 3, 4],
     },
     h3: {
-      fontSize: [4, 4, 4],
+      fontSize: 5,
       lineHeight: ['small', 'medium', 'fixed'],
       marginTop: [2, 4, 5],
       marginBottom: [3, 3, 4],
@@ -349,6 +349,9 @@ export default {
     },
     h6: {
       fontSize: 1,
+    },
+    strong: {
+      fontWeight: 'bold',
     },
     a: {
       color: 'infoSafe',
@@ -373,7 +376,7 @@ export default {
     p: {
       fontSize: 4,
       lineHeight: 'regular',
-      marginBottom: [4, 4, 4],
+      marginBottom: 5,
       '& figcaption': (theme: any) => ({
         ...theme.styles.figcaption,
       }),

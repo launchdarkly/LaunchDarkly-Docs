@@ -23,6 +23,7 @@ exports[`callout renders 1`] = `
   margin: 0;
   min-width: 0;
   margin-bottom: 16px;
+  margin-right: 128px;
   font-size: 24px;
   line-height: regular;
 }
