@@ -39,7 +39,7 @@ const Header = () => {
           }}
         >
           <Icon name="launchdarkly-icon" variant="header" sx={{ height: 3, mx: 5, display: ['block', 'none'] }} />
-          <span sx={{ ml: [0, 7, 8] }}>
+          <span sx={{ ml: [0, 9, '4.5rem'] }}>
             <TopNav />
           </span>
           <div
