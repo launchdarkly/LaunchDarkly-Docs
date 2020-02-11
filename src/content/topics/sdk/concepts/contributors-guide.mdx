@@ -16,7 +16,7 @@ Our SDKs are all open source, and we encourage pull-requests and other contribut
 There are three main components to a LaunchDarkly SDK implementation:
 
 - [Receiving feature flag updates](#receiving-feature-flag-updates)
-- [Evaluating feature flags](#evaluating-feature-flags), and
+- [Evaluating feature flags](#evaluating-feature-flags)
 - [Recording events in the backend](#recording-events)
 
 ## Receiving feature flag updates
@@ -39,7 +39,9 @@ Our [Go SDK](https://github.com/launchdarkly/go-server-sdk/blob/v4/ldclient.go) 
 
 ## Recording events
 
-The SDKs send six kinds of events: "feature” and "debug" events produced every time a feature flag is evaluated (depending on what controls are enabled for that flag), “identify” and "index" events which push user data to LaunchDarkly, “custom” events that are triggered by the client application via an SDK method, and "summary" events that roll up a series of "feature" events. Events must be batched and sent to the LaunchDarkly server **asynchronously**. This is a requirement for all SDKs. Conceptually, this is accomplished by creating a background job that runs every 30 seconds and makes a `POST` call to `/api/events/bulk`. This call must have a `Content-Type` header set to `application/json`, an `Authorization` header set to `api_key ${api_key}`, and must include a JSON body consisting of a list of events. On platforms with poor multithreading support, you may need to [get creative](https://segment.com/blog/how-to-make-async-requests-in-php/).
+The SDKs send six kinds of events: "feature” and "debug" events produced every time a feature flag is evaluated (depending on what controls are enabled for that flag), “identify” and "index" events which push user data to LaunchDarkly, “custom” events that are triggered by the client application via an SDK method, and "summary" events that roll up a series of "feature" events. 
+
+Events must be batched and sent to the LaunchDarkly server **asynchronously**. This is a requirement for all SDKs. Do this by creating a background job that runs every 30 seconds and makes a `POST` call to `/api/events/bulk`. This call must have a `Content-Type` header set to `application/json`, an `Authorization` header set to `api_key ${api_key}`, and must include a JSON body consisting of a list of events. On platforms with poor multithreading support, you may need to [get creative](https://segment.com/blog/how-to-make-async-requests-in-php/).
 
 The time between batch calls to the event API should be configurable. The SDK should have a configuration element for the maximum number of events to store between batch calls. If this capacity is exceeded before a batch call, events should be discarded and a warning logged.
 
@@ -362,7 +364,6 @@ The call to `/api/events/bulk` should contain a JSON list of events.
 8. Unit tests should be written using a standard testing framework.
 9. In statically typed languages, make the SDK as type-safe as possible.
 10. Use best practices with respect to logging. A proper logging package should be used, and log entries should have appropriate log levels. Simply logging output to standard out is (probably) not appropriate.
-    1
 11. Use best practices with respect to error handling. Be extremely defensive and assume anything can fail. For `variation` calls, use a top-level catch-all error handler that returns the default value if any exceptions / unexpected errors occur. Log when the default value is returned because of an exception or unexpected error.
 12. The SDK should be thread-safe. SDKs should not be expected to have to introduce locking around API calls for thread-safety. Furthermore, the LDClient instance itself should be a thread-safe singleton— clients should be expected to instantiate one LDClient for the lifetime of their application.
 13. All SDK calls to the LaunchDarkly REST API with an entity body should have the `Content-Type` header set to `application/json`.
@@ -371,17 +372,17 @@ The call to `/api/events/bulk` should contain a JSON list of events.
 
 ## Common pitfalls
 
-We've seen a few common mistakes in integrating the LaunchDarkly SDK at customer sites. It's helpful for the SDKs to introduce specific logging around these errors and / or handle them as gracefully as possible:
+We've seen a few common mistakes in integrating the LaunchDarkly SDK at customer sites. It's helpful for the SDKs to introduce specific logging around these errors and/or handle them as gracefully as possible:
 
 1. Passing `null` (or the language equivalent) as the user `key`, or omitting the `key` property altogether. SDKs should log this at error level and return the default value.
 2. Including a trailing slash in the base URL of a custom config object. Example: `https://app.launchdarkly.com/`, which when appended to something like `/api`, yields `https://app.launchdarkly.com//api`. SDKs should deal with this by trimming trailing slashes off of custom base URL parameters.
 
 ## More resources
 
-Some examples from other LaunchDarkly SDK implementations:
+Here are some examples from other LaunchDarkly SDK implementations:
 
-- Java Server SDK: https://github.com/launchdarkly/java-server-sdk
-- Javadoc: http://launchdarkly.github.io/java-server-sdk
-- Python Server SDK: https://github.com/launchdarkly/python-server-sdk
+- [Java Server SDK](https://github.com/launchdarkly/java-server-sdk)
+- [Javadoc](http://launchdarkly.github.io/java-server-sdk)
+- [Python Server SDK](https://github.com/launchdarkly/python-server-sdk)
 
 The [LaunchDarkly REST API documentation](http://apidocs.launchdarkly.com) may be helpful as well.
