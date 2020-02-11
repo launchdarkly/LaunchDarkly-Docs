@@ -24,5 +24,6 @@ jobs:
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
           GATSBY_ALGOLIA_INDEX: 'Docs'
+          SEGMENT_KEY: 'RUtph5AIOikMUv9vQUVqHrb6G2pALs0T'
           AWS_S3_BUCKET: 'launchdarkly-docs-production'
           AWS_HOSTNAME: 'docs-prod.launchdarkly.com'
