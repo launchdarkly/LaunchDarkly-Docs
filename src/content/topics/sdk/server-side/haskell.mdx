@@ -8,7 +8,9 @@ published: true
 <Callout intent="info">
   <CalloutTitle>This SDK is in beta</CalloutTitle>
   <CalloutDescription>
-    The SDK is currently in beta. We do not recommend using it for production deployments.
+    
+The SDK is currently in beta. We do not recommend using it for production deployments.
+
   </CalloutDescription>
 </Callout>
 
@@ -61,8 +63,11 @@ client = makeClient $ makeConfig "YOUR_SDK_KEY"
 
 <Callout intent="alert">
 <CalloutTitle>Client must be a singleton</CalloutTitle>
-   <CalloutDescription>Make `Client` a singleton.
-The client instance maintains an internal state that allows us to serve feature flags without making any remote requests.</CalloutDescription>
+<CalloutDescription>
+
+Make `Client` a singleton. The client instance maintains an internal state that allows us to serve feature flags without making any remote requests.
+
+</CalloutDescription>
 </Callout>
 
 Using `client`, you can check which variation a particular user should receive for a given feature flag.
@@ -332,7 +337,6 @@ For example:
 ```haskell
 track client user "your-goal-key" Nothing Nothing
 ```
-
 </CodeTabItem>
 </CodeTabs>
 

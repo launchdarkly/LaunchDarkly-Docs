@@ -5,7 +5,7 @@ description: 'This topic explains all of the methods available in the server-sid
 published: true
 ---
 
-This reference guide documents all of the methods available in our Go SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [Go SDK GitHub repository](https://github.com/launchdarkly/go-server-sdk). The online [Go API docs](https://godoc.org/github.com/launchdarkly/go-server-sdk) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-go) using this SDK.
+This reference guide documents all of the methods available in our Go SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [Go SDK GitHub f repository](https://github.com/launchdarkly/go-server-sdk). The online [Go API docs](https://godoc.org/github.com/launchdarkly/go-server-sdk) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-go) using this SDK.
 
 ## Getting started
 
@@ -67,18 +67,20 @@ ldClient, _ := ld.MakeClient("YOUR_SDK_KEY", 5 * time.Second)
 The timeout parameter (the second argument to `MakeClient`) can be used to block initialization until the client has been bootstrapped.
 
 <Callout intent="info">
-  <CalloutTitle>Best practices for error handling</CalloutTitle>
-  <CalloutDescription>
-    The second return type in these code samples (` _ `) represents an error in case the LaunchDarkly client does not
-    initialize. Consider naming the return value and using it with proper error handling.
-  </CalloutDescription>
+<CalloutTitle>Best practices for error handling</CalloutTitle>
+<CalloutDescription>
+
+The second return type in these code samples ( `_` ) represents an error in case the LaunchDarkly client does not initialize. Consider naming the return value and using it with proper error handling.
+
+</CalloutDescription>
 </Callout>
+
 <Callout intent="alert">
-  <CalloutTitle>LDClient must be a singleton</CalloutTitle>
-  <CalloutDescription>
-    It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to
-    serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with
-    every request.**
+<CalloutTitle>LDClient must be a singleton</CalloutTitle>
+<CalloutDescription>
+
+It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
+
   </CalloutDescription>
 </Callout>
 
@@ -209,12 +211,16 @@ All of the other attributes (like `FirstName`, `Email`, and the `Custom` attribu
 The documentation for [`User`](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#User) and [`UserBuilder`](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#UserBuilder) shows all of the available attributes.
 
 <Callout intent="info">
-  <CalloutTitle>A note on types</CalloutTitle>
-  <CalloutDescription>
-    Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can
-    be strings, booleans (like true or false), numbers, or arrays or maps containing any of those types-- any type of value supported by JSON. In SDK versions 4.16.0 and later, these types are all represented by the [`ldvalue.Value`](https://godoc.org/gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue#Value) type; earlier versions use the catch-all Go type  `interface{}`. If you enter a custom value on our dashboard that looks like a
-    number or a boolean, it'll be interpreted that way. The Go SDK is strongly typed, so be aware of this distinction.
-  </CalloutDescription>
+<CalloutTitle>A note on types</CalloutTitle>
+<CalloutDescription>
+
+Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or arrays or maps containing any of those types-- any type of value supported by JSON. 
+
+In SDK versions 4.16.0 and later, these types are all represented by the [`ldvalue.Value`](https://godoc.org/gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue#Value) type; earlier versions use the catch-all Go type  `interface{}`. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. 
+
+The Go SDK is strongly typed, so be aware of this distinction.
+
+</CalloutDescription>
 </Callout>
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.

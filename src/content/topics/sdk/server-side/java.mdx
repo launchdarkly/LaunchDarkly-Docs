@@ -17,6 +17,7 @@ Android application, read the [Android SDK Reference](/sdk/client-side/android).
 
   </CalloutDescription>
 </Callout>
+
 <Callout intent="info">
   <CalloutTitle>Java Compatibility</CalloutTitle>
   <CalloutDescription>The LaunchDarkly Java SDK is compatible with Java 7 and higher.</CalloutDescription>
@@ -88,12 +89,12 @@ LDClient ldClient = new LDClient("YOUR_SDK_KEY");
 </CodeTabs>
 
 <Callout intent="alert">
-  <CalloutTitle>LDClient must be a singleton</CalloutTitle>
-  <CalloutDescription>
-    It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to
-    serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with
-    every request.**
-  </CalloutDescription>
+<CalloutTitle>LDClient must be a singleton</CalloutTitle>
+<CalloutDescription>
+
+It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
+
+</CalloutDescription>
 </Callout>
 
 Using `ldClient`, you can check which variation a particular user should receive for a given feature flag.
@@ -208,13 +209,12 @@ All of the other attributes (like `firstName`, `email`, and the `custom` attribu
 Our Javadoc for [LDUser.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/client/LDUser.Builder.html) shows you all the attributes that LaunchDarkly supports by default. In addition to these, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
 
 <Callout intent="info">
-  <CalloutTitle>A note on types</CalloutTitle>
-  <CalloutDescription>
-    Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can
-    be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom
-    value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The Java SDK is
-    strongly typed, so be aware of this distinction.
-  </CalloutDescription>
+<CalloutTitle>A note on types</CalloutTitle>
+<CalloutDescription>
+
+Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The Java SDK is strongly typed, so be aware of this distinction.
+
+</CalloutDescription>
 </Callout>
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
@@ -396,11 +396,12 @@ ldClient.identify(user);
 ## All flags
 
 <Callout intent="alert">
-  <CalloutTitle>Creating users</CalloutTitle>
-  <CalloutDescription>
-    Note that unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Thus, users are
-    not created or updated in the LaunchDarkly dashboard.
-  </CalloutDescription>
+<CalloutTitle>Creating users</CalloutTitle>
+<CalloutDescription>
+
+Note that unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
+
+</CalloutDescription>
 </Callout>
 
 The `allFlagsState` captures the state of all feature flags with regard to a specific user. This includes their values as well as other metadata.
@@ -559,15 +560,10 @@ However, there is also a distribution that includes Gson and SLF4j as part of th
 <Callout intent="alert">
   <CalloutTitle>Potential network connectivity issues caused by DNS caching</CalloutTitle>
   <CalloutDescription>
-    There is a potential problem for any Java application that communicates with a web service, if that service uses a
-    load-balancing framework. LaunchDarkly is such a service. The issue is that if a service starts to use a different
-    set of IP addresses, a Java application could continue trying to use an old IP address, causing connection attempts
-    to fail. In most environments, this is unlikely to be a problem because IP addresses are not cached for very long.
-    However, Java has special behavior if the runtime environment has a [security
-    manager](https://docs.oracle.com/javase/tutorial/essential/environment/security.html): in that case, it caches IP
-    addresses indefinitely and will never update them until the application is restarted. If you are running in an
-    environment that has a security manager—or if you're not sure whether that is the case—we recommend that you set the
-    cache duration (TTL) explicitly. [This
-    page](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-jvm-ttl.html) describes two ways to do so.
+
+There is a potential problem for any Java application that communicates with a web service, if that service uses a load-balancing framework. LaunchDarkly is such a service. The issue is that if a service starts to use a different set of IP addresses, a Java application could continue trying to use an old IP address, causing connection attempts to fail. In most environments, this is unlikely to be a problem because IP addresses are not cached for very long. 
+    
+However, Java has special behavior if the runtime environment has a [security manager](https://docs.oracle.com/javase/tutorial/essential/environment/security.html): in that case, it caches IP addresses indefinitely and will never update them until the application is restarted. If you are running in an environment that has a security manager—or if you're not sure whether that is the case—we recommend that you set the cache duration (TTL) explicitly. [This page](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-jvm-ttl.html) describes two ways to do so.
+
   </CalloutDescription>
 </Callout>

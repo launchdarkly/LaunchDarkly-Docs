@@ -580,11 +580,12 @@ ldclient.get().identify(user)
 ## All Flags
 
 <Callout intent="alert">
-  <CalloutTitle>Creating users</CalloutTitle>
-  <CalloutDescription>
-    Note that unlike variation and identify calls, all_flags_state does not send events to LaunchDarkly. Thus, users are
-    not created or updated in the LaunchDarkly dashboard.
-  </CalloutDescription>
+<CalloutTitle>Creating users</CalloutTitle>
+<CalloutDescription>
+
+Unlike variation and identify calls, `all_flags_state` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
+
+</CalloutDescription>
 </Callout>
 
 The `all_flags_state` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.

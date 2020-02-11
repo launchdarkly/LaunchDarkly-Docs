@@ -10,8 +10,9 @@ This reference guide documents all of the methods available in our Ruby SDK, and
 <Callout intent="alert">
   <CalloutTitle>RubyGem</CalloutTitle>
   <CalloutDescription>
-    Due to a bug in recent versions of RubyGems, versions 2.4.x (of RubyGems, not of Ruby) are not compatible with the
-    LaunchDarkly Ruby SDK.
+
+Due to a bug in recent versions of RubyGems, versions 2.4.x (of RubyGems, not of Ruby) are not compatible with the LaunchDarkly Ruby SDK.
+
   </CalloutDescription>
 </Callout>
 
@@ -75,9 +76,9 @@ ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY")
 <Callout intent="alert">
   <CalloutTitle>LDClient must be a singleton</CalloutTitle>
   <CalloutDescription>
-    It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to
-    serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with
-    every request.**
+
+It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to Íserve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
+
   </CalloutDescription>
 </Callout>
 
@@ -474,15 +475,18 @@ In addition to built-in attributes, you can pass us any of your own user data by
 <Callout intent="info">
   <CalloutTitle>A note on attribute keys</CalloutTitle>
   <CalloutDescription>
-    All user attribute keys (both built-in and custom attributes) must be symbols and not strings.
+
+All user attribute keys (both built-in and custom attributes) must be symbols and not strings.
+  
   </CalloutDescription>
 </Callout>
+
 <Callout intent="info">
   <CalloutTitle>A note on types</CalloutTitle>
   <CalloutDescription>
-    Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can
-    be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom
-    value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
+
+Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
+
   </CalloutDescription>
 </Callout>
 
@@ -632,8 +636,9 @@ ld_client.identify(user)
 <Callout intent="alert">
   <CalloutTitle>Creating users</CalloutTitle>
   <CalloutDescription>
-    Note that unlike variation and identify calls, all_flags_state does not send events to LaunchDarkly. Thus, users are
-    not created or updated in the LaunchDarkly dashboard.
+
+Unlike variation and identify calls, `all_flags_state` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
+
   </CalloutDescription>
 </Callout>
 
@@ -676,6 +681,7 @@ ld_client.secure_mode_hash(user)
 </CodeTabs>
 
 ## Flush
+
 Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `flush` to process events immediately.
 
 <CodeTabs
@@ -696,6 +702,7 @@ ld_client.flush
 Note that the flush interval is configurable-- if you need to change the interval, you can do so when configuring your client instance.
 
 ## Offline mode
+
 In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when running on premise. Offline mode lets you do this easily.
 
 <CodeTabs
