@@ -26,8 +26,9 @@ export function CalloutTitle({ children }: PropsWithChildren<{}>) {
   )
 }
 
+const descriptionStyles = { fontSize: 3, lineHeight: 'spaced', mb: 1 }
 export function CalloutDescription({ children }: PropsWithChildren<{}>) {
-  return <Text sx={{ fontSize: 3, lineHeight: 'spaced', mb: 1 }}>{children}</Text>
+  return <Text sx={{ ...descriptionStyles, '& p': { ...descriptionStyles } }}>{children}</Text>
 }
 
 export default function Callout({ intent = 'info', children }: PropsWithChildren<CalloutProps>) {
