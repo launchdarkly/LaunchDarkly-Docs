@@ -29,8 +29,8 @@ Metrics are the measure against which you evaluate flag events. You can use metr
 
 You can use different metrics to track experiment results in LaunchDarkly. They are:
 
-- Conversion metrics, which register events when a user takes an action based on a feature flag they encounter.
-- Numeric metrics, which measure numeric values against a baseline you set.
+- **Conversion metrics**, which register events when a user takes an action based on a feature flag they encounter.
+- **Numeric metrics**, which measure numeric values against a baseline you set.
 
 The following table explains different actions you can track with a metric:
 
@@ -87,20 +87,26 @@ For example, you might want to track how often a user clicks a **Save** button w
 You can even monitor clicks on the button across different URLs by telling the metric to track different URLs based on substrings or simple matches. For example, you could track an event on every URL with <code>/checkout-page/</code> in the URL path.
 
 <Callout intent="info">
-  <CalloutTitle>What's a CSS selector?</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>What's a CSS selector?</CalloutTitle>
+<CalloutDescription>
 
-CSS selectors designate specific areas of your product UI, like buttons or images, that your users can interact
-with. For example, some CSS selectors include `#example-element-id`, `.example-classname`, `button.example-button`,
-or `.example-button, .example-button-alt`.
+CSS selectors designate specific areas of your product UI, like buttons or images, that your users can interact with. 
 
-  </CalloutDescription>
+For example, some CSS selectors include: 
+
+* `#example-element-id`, 
+
+* `.example-classname`, 
+
+* `button.example-button`, or `.example-button, .example-button-alt`.
+
+</CalloutDescription>
 </Callout>
 
 To create a click metric:
 
 1. Navigate to the Metrics screen.
-2. Click New. The "Create a new metric" screen appears.
+2. Click **New**. The "Create a new metric" screen appears.
 3. Enter a human-readable Name for the metric.
 4. (Optional) Enter a Description.
 5. (Optional) Type or choose from available Tags.
@@ -276,8 +282,10 @@ Often, the information you should put in your code includes the event key, user 
 <Callout intent="info">
   <CalloutTitle>Can't see numeric metrics options?</CalloutTitle>
   <CalloutDescription>
-    If you can't see the feature described below, your SDKs may be out of date. To solve this problem: Update your SDKs
-    to the latest version, and contact [support@launchdarkly.com](mailto:support@@launchdarkly.com) to enable numeric metrics.
+    
+  If you can't see the feature described below, your SDKs may be out of date. To solve this problem, update your SDKs
+  to the latest version, and contact Support to enable numeric metrics.
+
   </CalloutDescription>
 </Callout>
 
