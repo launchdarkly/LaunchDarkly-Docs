@@ -326,16 +326,16 @@ export default {
     h2: {
       fontSize: 6,
       lineHeight: ['medium', 'medium', 'fixed'],
-      marginTop: [5, 5, 6],
+      marginTop: [5, 6, 7],
       marginBottom: [3, 3, 4],
     },
     h3: {
       fontSize: 5,
       lineHeight: ['small', 'medium', 'fixed'],
-      marginTop: [2, 4, 5],
-      marginBottom: [3, 3, 4],
+      marginTop: [5, 5, 6],
+      marginBottom: [2, 2, 3],
       fontWeight: 'heading',
-      color: ['grayBlack', 'grayDark'],
+      color: ['grayBlack', 'grayBlack'],
     },
     h4: {
       fontSize: 3,
