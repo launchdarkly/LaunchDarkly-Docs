@@ -72,7 +72,7 @@ For more information on configuring LaunchDarkly's SSO, read [Single sign-on](/h
 ## Set Up Relaying Party Trust
 
 1. Log into ADFS Management tool.
-2. Click **Add Relying Party Trust...** to open the "Add Relying Party Trust Wizard".
+2. Click **Add Relying Party Trust...** to open the Add Relying Party Trust Wizard.
 
 ![The Add Relying Party Trust field is called out.](../../../../images/adfs-add-party-trust.png)
 
@@ -82,7 +82,7 @@ For more information on configuring LaunchDarkly's SSO, read [Single sign-on](/h
 
 4. Choose **Enter data about the relying party manually** and click **Next**.
 
-![The Select Data Source screen.}(../../../../images/adfs-qizard-enter-data-manually.png)
+![The Select Data Source screen.](../../../../images/adfs-qizard-enter-data-manually.png)
 
 5. Set the display name. You can enter any name you want and click **Next**.
 6. Click **Next** on the following screen. You do not need to choose a certificate.
@@ -102,6 +102,8 @@ After you have successfully completed this procedure, a new LaunchDarkly trust w
 3. Click **Edit Claim Issuance Policy...** in the dropdown. The **Edit Claim Issuance Policy** window opens.
 4. Click **Add Rule**.
 5. Set **Claim rule template** to **Transform an Incoming Claim** and click **Next**.
+
+![The Select Rule Template screen.](../../../../images/adfs-select-rule-template)
 
 <Callout intent="alert">
   <CalloutTitle>Configure the User's UPN Correctly</CalloutTitle>
@@ -126,4 +128,4 @@ After you have successfully completed this procedure, ADFS will be configured wi
 
 After you successfully complete the procedures in this topic, you can log in through ADFS when test drive is enabled. For more information about test drive, read [Test drive mode](/home/account-security/sso#test-drive-mode).
 
-If you are able to successfully log in with test drive enabled, you can enable SSO fully. For more information about enabling SSO, read [Enabling SSO](/home/account-security/sso#enabling-sso) .
+If you are able to successfully log in with test drive enabled, you can enable SSO fully. For more information about enabling SSO, read [Enabling SSO](/home/account-security/sso#enabling-sso).
