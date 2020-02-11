@@ -48,8 +48,7 @@ const Breadcrumbs = () => {
   const findAndFlattenWrapper = (): Array<SideNavItem> => {
     for (let i = 0; i < navigationData.length; i++) {
       const result = findAndFlatten(navigationData[i])
-      // Don't render any breadcrumbs if there's only 1 crumb
-      if (result.length > 1) {
+      if (result.length > 0) {
         return result
       }
     }
