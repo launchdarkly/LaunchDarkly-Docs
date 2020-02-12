@@ -7,11 +7,12 @@ published: true
 
 <Callout intent="alert">
   <CalloutTitle>iOS Client SDK for Swift</CalloutTitle>
-<CalloutDescription>
+  <CalloutDescription>
 
-This documentation is for the LaunchDarkly SDK for Swift iOS versions 4.0.0 and later. Earlier versions of the SDK support [Objective-C](/sdk/client-side/ios-objective-c).
+This documentation is for the LaunchDarkly SDK for Swift iOS versions 4.0.0 and later. Earlier versions of the SDK
+support [Objective-C](/sdk/client-side/ios-objective-c).
 
-</CalloutDescription>
+  </CalloutDescription>
 </Callout>
 
 This reference guide documents all of the methods available in our iOS SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [iOS SDK GitHub repository](https://github.com/launchdarkly/ios-client-sdk/tree/v4). Additionally you can clone and run sample applications using this SDK with [iOS](https://github.com/launchdarkly/hello-ios-swift), [macOS](https://github.com/launchdarkly/hello-macos), and [tvOS](https://github.com/launchdarkly/hello-tvos).
@@ -729,8 +730,11 @@ To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is
 The SDK provides methods for listening to a single flag, all the flags, or a lack of change to any flags. `observeFlagsUnchanged` is called when the SDK successfully receives an update or comes back online but no flags have changed. If the value of the flag changes, the method executes the handler, passing in the `changedFlag` containing the old and new flag values, and old and new flag value source. The SDK retains only weak references to the owner, which allows the client app to freely destroy owners without issues. Client apps should use a capture list specifying `[weak self]` inside handlers to avoid retain cycles causing a memory leak. The SDK executes handlers on the main thread. `LDChangedFlag` does not know the type of `oldValue` or `newValue`. The client app should cast the value into the type needed.
 <Callout intent="alert">
   <CalloutTitle>LDObserverOwner Lifecycle</CalloutTitle>
-<CalloutDescription>
-The lifetime of the `LDObserverOwner` must extend for at least as long as you wish to receive flag change notifications.</CalloutDescription>
+  <CalloutDescription>
+
+The lifetime of the `LDObserverOwner` must extend for at least as long as you wish to receive flag change notifications.
+
+  </CalloutDescription>
 </Callout>
 
 <CodeTabs

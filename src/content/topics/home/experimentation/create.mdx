@@ -130,10 +130,9 @@ To create a click metric:
         string you enter in the Target URL field or a formulation of that URL that included appended parameters. If you
         want events to record for URLs with substrings, specify each URL individually
       </TableCell>
-      <TableCell>
-        You specify: <code>example.com</code>. Views or clicks at <code>example.com</code>, and{' '}
-        <code>example.com#signin</code> trigger events. You specify: <code>example.com</code> and{' '}
-        <code>example.com/login</code>. Views or clicks on <code>example.com</code> and <code>example.com/login</code>{' '}
+      <TableCell>You specify: <code>example.com</code>.<br />  Views or clicks at <code>example.com</code>, and <br />
+        <code>example.com#signin</code> trigger events.<br /> You specify: <code>example.com</code> and <br />
+        <code>example.com/login</code>.<br /> Views or clicks on <code>example.com</code> and <code>example.com/login</code>{' '}
         trigger events.
       </TableCell>
     </TableRow>
@@ -145,10 +144,8 @@ To create a click metric:
         events.
       </TableCell>
       <TableCell>
-        You specify: <code>example.com</code>
-        Only views or clicks at <code>example.com</code> trigger events. Views and clicks at <code>
-          www.example.com/signup
-        </code> and\n<code>https://www.example.com</code> do not trigger events.
+        You specify: <code>example.com</code>.<br /> Only views or clicks at <code>example.com</code> trigger events.<br /> Views and clicks at <code> www.example.com/signup
+        </code> and <br /><code>https://www.example.com</code> do not trigger events.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -161,8 +158,7 @@ To create a click metric:
         You specify: <code>your-substring</code>
         <code>example.com/your-substring</code>, <code>home.com/username/your-substring/</code>, <code>
           launchdarkly.com/your-substring/settings
-        </code>
-        Because all of these URLs contain <code>your-substring</code>, clicks on the CSS selectors you specify on each
+        </code> Because all of these URLs contain <code>your-substring</code>, clicks on the CSS selectors you specify on each
         page trigger events.
       </TableCell>
     </TableRow>
@@ -173,8 +169,7 @@ To create a click metric:
         to trigger click and pageview events.
       </TableCell>
       <TableCell>
-        You specify: <code>example\\.com\\/account\\/.*\\/billing</code>
-        This matches any string between <code>account/</code> and <code>/billing</code>, such as <code>http://example.com/account/12345/billing</code>
+        You specify: <code>example\.com\\/account\\/.*\\/billing</code> This matches any string between <code>account/</code> and <code>/billing</code>, such as <code>http://example.com/account/12345/billing</code>
       </TableCell>
     </TableRow>
   </TableBody>
