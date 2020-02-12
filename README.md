@@ -4,7 +4,7 @@
   </a>
 </p>
 <h1 align="center">
-  The Git Gatsby - LaunchDarkly's Docs Site
+  LaunchDarkly's Docs
 </h1>
 
 ## 🚴 Development
