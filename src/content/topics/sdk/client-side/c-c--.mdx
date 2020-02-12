@@ -1,26 +1,21 @@
 ---
 path: '/sdk/client-side/c-c--'
-title: 'C/C++ SDK Reference (Client-side)'
+title: 'C/C++ SDK Reference'
 description: 'This topic explains how to use the C and C++ client-side SDK.'
 published: true
 ---
 
-This reference guide documents basic usage of our C client-side SDK, and explains in detail how features work. If you want to dig even deeper, our SDKs are open source-- head to our [C SDK GitHub repository](https://github.com/launchdarkly/c-client-sdk) to look under the hood. The complete API reference is available [here](https://github.com/launchdarkly/c-client-sdk/blob/master/DOCS.md). Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-c-client) using this SDK.
+This reference guide documents basic usage of our C client-side SDK, and explains in detail how features work. If you want to dig even deeper, our SDKs are open source. To learn more, read [C SDK GitHub repository](https://github.com/launchdarkly/c-client-sdk). The complete API reference is available [here](https://github.com/launchdarkly/c-client-sdk/blob/master/DOCS.md). Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-c-client) using this SDK.
 
 The C / C++ SDK supports Windows and POSIX environments (Linux, OSX, BSD). The networking library `libcurl` is a universal dependency.
 
 <Callout intent="alert">
   <CalloutTitle>For use in desktop / embedded client applications</CalloutTitle>
-  <CalloutDescription>
+<CalloutDescription>
 
-The LaunchDarkly C / C++ SDK is designed primarily for use in *single user* desktop and embedded applications. It
-follows the client-side LaunchDarkly model for single-user contexts (much like our mobile or JavaScript SDKs)-- a
-network call must be made to change user contexts, so changing users should be infrequent. It is not intended for
-use in multi-user systems such as web servers. Learn more about our [client-side and server-side
-SDKs](/sdk/concepts/client-side-server-side). For using LaunchDarkly in C / C++ server-side applications, refer to our [C /
-C++ server-side SDK](/sdk/server-side/c-c--).
+The LaunchDarkly C / C++ SDK is designed primarily for use in *single user* desktop and embedded applications. It follows the client-side LaunchDarkly model for single-user contexts (much like our mobile or JavaScript SDKs)-- a network call must be made to change user contexts, so changing users should be infrequent. It is not intended for use in multi-user systems such as web servers. Learn more about our [client-side and server-side SDKs](/sdk/concepts/client-side-server-side). For using LaunchDarkly in C / C++ server-side applications, refer to our [C / C++ server-side SDK](/sdk/server-side/c-c--).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Getting started
@@ -79,10 +74,11 @@ LDClient *client = LDClientInit(config, user, maxwaitmilliseconds);
 
 <Callout intent="info">
   <CalloutTitle>Use a mobile key</CalloutTitle>
-  <CalloutDescription>
-    Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page.
-    Never embed a server-side SDK key into an embedded or desktop application.
-  </CalloutDescription>
+<CalloutDescription>
+
+Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into an embedded or desktop application.
+
+</CalloutDescription>
 </Callout>
 
 Calling `LDClientInit` will initiate a remote call to the LaunchDarkly service to fetch the feature flag settings for the specified user. This call will block up to the time defined by `maxwaitmilliseconds`, however. If you request a feature flag before the client has completed initialization, you will receive the default flag value. To wait for client initialization, you can register a callback:
@@ -200,12 +196,12 @@ All of the other attributes (like `firstName`, `email`, and the `custom` attribu
 In addition to built-in attributes like names and e-mail addresses, you can pass us any of your own user data by passing `custom` attributes
 
 <Callout intent="info">
-  <CalloutTitle>A note on types</CalloutTitle>
-  <CalloutDescription>
-    Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can
-    be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom
-    value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
-  </CalloutDescription>
+<CalloutTitle>A note on types</CalloutTitle>
+<CalloutDescription>
+
+Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
+
+</CalloutDescription>
 </Callout>
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard. ## Private user attributes

@@ -5,17 +5,16 @@ description: 'This topic explains all of the methods available in the client-sid
 published: true
 ---
 
-This reference guide documents all of the methods available in our Xamarin SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [Xamarin SDK GitHub repository](https://github.com/launchdarkly/xamarin-client-sdk) to look under the hood. Additionally you can clone and run sample applications using this SDK with [Xamarin](https://github.com/launchdarkly/hello-xamarin), and [Xamarin.Forms](https://github.com/launchdarkly/hello-xamarin-forms). The [online API docs](https://launchdarkly.github.io/xamarin-client-sdk/) contain the programmatic definitions of every type, property, and method.
+This reference guide documents all of the methods available in our Xamarin SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Xamarin SDK GitHub repository](https://github.com/launchdarkly/xamarin-client-sdk). Additionally you can clone and run sample applications using this SDK with [Xamarin](https://github.com/launchdarkly/hello-xamarin), and [Xamarin.Forms](https://github.com/launchdarkly/hello-xamarin-forms). The [online API docs](https://launchdarkly.github.io/xamarin-client-sdk/) contain the programmatic definitions of every type, property, and method.
 
 <Callout intent="alert">
   <CalloutTitle>For use in mobile / desktop and embedded client applications only</CalloutTitle>
-  <CalloutDescription>
-    The LaunchDarkly Xamarin SDK is designed primarily for use in *single user* desktop and embedded applications. It
-    follows the client-side LaunchDarkly model for single-user contexts (much like our other mobile or JavaScript
-    SDKs)-- a network call must be made to change user contexts, so changing users should be infrequent. It is not
-    intended for use in multi-user systems such as web servers. Learn more about our [client-side and server-side
-    SDKs](/sdk/concepts/client-side-server-side).",
-  </CalloutDescription>
+
+<CalloutDescription>
+
+The LaunchDarkly Xamarin SDK is designed primarily for use in *single user* desktop and embedded applications. It follows the client-side LaunchDarkly model for single-user contexts (much like our other mobile or JavaScript SDKs). A network call must be made to change user contexts, so changing users should be infrequent. It is not intended for use in multi-user systems such as web servers. To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+
+</CalloutDescription>
 </Callout>
 
 ## Getting started
@@ -24,12 +23,11 @@ Building on top of our [Getting Started guide](/home/getting-started) guide, the
 
 <Callout intent="info">
   <CalloutTitle>Requirements</CalloutTitle>
-  <CalloutDescription>
-    The Xamarin SDK natively supports Android (version 7.1 or higher) or iOS (version 1. or higher); it can also be used
-    on any other platform that supports .NET Standard (version 1.6 or higher), although the .NET Standard version lacks
-    some mobile-specific features such as detecting network connectivity. Previous beta releases of the SDK used the
-    Xamarin.Essentials library, but it no longer has that dependency.
-  </CalloutDescription>
+<CalloutDescription>
+
+The Xamarin SDK natively supports Android (version 7.1 or higher) or iOS (version 1. or higher); it can also be used on any other platform that supports .NET Standard (version 1.6 or higher), although the .NET Standard version lacks some mobile-specific features such as detecting network connectivity. Previous beta releases of the SDK used the Xamarin.Essentials library, but it no longer has the dependency.
+
+</CalloutDescription>
 </Callout>
 
 The first step is to install the LaunchDarkly SDK as a dependency. You should use [NuGet](http://docs.nuget.org/docs/start-here/using-the-package-manager-console) to add the Xamarin SDK to your project. (Note that previous beta releases of the SDK used a different package name.)
@@ -111,20 +109,20 @@ ldClient = await LdClient.InitAsync("MY_MOBILE_KEY", user);
 
 <Callout intent="alert">
   <CalloutTitle>LdClient must be a singleton</CalloutTitle>
-  <CalloutDescription>
-    It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to
-    serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with
-    every request.**
-  </CalloutDescription>
+<CalloutDescription>
+
+It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
+
+</CalloutDescription>
 </Callout>
+
 <Callout intent="alert">
   <CalloutTitle>Android requires AccessNetworkState permission</CalloutTitle>
-  <CalloutDescription>
-    For Android, the `AccessNetworkState` permission is required and must be configured in the Android project. Read
-    more in the [Xamarin
-    docs](https://docs.microsoft.com/en-us/xamarin/essentials/connectivity?context=xamarin%2Fios&tabs=android) about how
-    to implement this requirement.
-  </CalloutDescription>
+<CalloutDescription>
+
+For Android, the `AccessNetworkState` permission is required and must be configured in the Android project. To learn more, read the [Xamarin docs](https://docs.microsoft.com/en-us/xamarin/essentials/connectivity?context=xamarin%2Fios&tabs=android) about how to implement this requirement.
+
+</CalloutDescription>
 </Callout>
 
 Using `ldClient`, you can check which variation a particular user should receive for a given feature flag.
@@ -352,6 +350,7 @@ Here, we've customized the event queue flush frequency. The complete list of cus
 </Table>
 
 ## Users
+
 Feature flag targeting and rollouts are all determined by the *user* you pass to your `Identify` call. In our Xamarin SDK, you can construct a simple `User` that only has a key by calling `User.WithKey`, or use `User.Builder` which allows setting all properties. Here's an example:
 
 <CodeTabs
@@ -382,12 +381,11 @@ In addition to the built-in attributes defined in the `User` class, you can pass
 
 <Callout intent="info">
   <CalloutTitle>A note on types</CalloutTitle>
-  <CalloutDescription>
-    Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can
-    be strings, booleans (like true or false), numbers, or arbitrary JSON values. If you enter a custom value on our
-    dashboard that looks like a number or a boolean, it'll be interpreted that way. The Xamarin SDK is strongly typed,
-    so be aware of this distinction.
-  </CalloutDescription>
+<CalloutDescription>
+
+Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or arbitrary JSON values. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The Xamarin SDK is strongly typed, so be aware of this distinction.
+
+</CalloutDescription>
 </Callout>
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
@@ -532,10 +530,12 @@ ldClient.Track("Completed purchase", LdValue.Of("sku132"));
 ## All Flags
 
 <Callout intent="alert">
-  <CalloutDescription>
-    Note that unlike `Variation` and `Identify` calls, `AllFlags` does not send events to LaunchDarkly. Thus, users are
-    not created or updated in the LaunchDarkly dashboard.
-  </CalloutDescription>
+<CalloutTitle>Different behavior between calls</CalloutTitle>
+<CalloutDescription>
+
+Unlike `Variation` and `Identify` calls, `AllFlags` does not send events to LaunchDarkly. Users from `AllFlags` calls are not created or updated in the LaunchDarkly dashboard.
+
+</CalloutDescription>
 </Callout>
 
 The `AllFlags` method produces a map of feature flag keys to their values for the current user.
@@ -653,14 +653,13 @@ Be aware of two considerations when enabling the DEBUG log level:
 
 LaunchDarkly manages all flags for a user context in real-time by updating the flag cached based on a real-time event stream. When a flag is modified via the LaunchDarkly dashboard, the flag values for the current user will update almost immediately. The default SDK configuration has been found to be the best combination of low latency updates and minimal battery drain:
 
-1. When the app is foregrounded a (Server-Sent Events)[https://en.wikipedia.org/wiki/Server-sent_events] streaming connection is made to LaunchDarkly. This streaming connection stays open as long as your app is in the foreground and is connected to the internet.
+1. When the app is foregrounded, a [Server-sent events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection is made to LaunchDarkly. This streaming connection stays open as long as your app is in the foreground and is connected to the internet. 
 
-2. When the app is backgrounded, the stream connection is terminated and the SDK will poll (with caching) for flag updates every
-3. minutes.
+2. When the app is backgrounded, the stream connection is terminated and the SDK will poll (with caching) for flag updates every 3 minutes.
 
-4. When the app is foregrounded, we reconnect to the stream and fetch the latest flags.
+3. When the app is foregrounded, we reconnect to the stream and fetch the latest flags.
 
-5. In either the foreground or background, we don't try to update unless your device has internet connectivity.
+4. In either the foreground or background, we don't try to update unless your device has internet connectivity.
 
 This configuration means that you will get near real-time updates for your feature flag values when the app is in the foreground. See the "customizing your client" section above for information on how to change your configuration.
 

@@ -7,28 +7,29 @@ published: true
 
 <Callout intent="alert">
   <CalloutTitle>SDK Version Compatibility</CalloutTitle>
-  <CalloutDescription>
-    The latest version of the SDK is compatible with Xcode 10.2.1/10.3 and React Native 0.61.2. For compatibility with
-    earlier React Native versions, please refer to older SDK versions.
-  </CalloutDescription>
+<CalloutDescription>
+
+The latest version of the SDK is compatible with Xcode 10.2.1/10.3 and React Native 0.61.2. For compatibility with earlier React Native versions, please refer to older SDK versions.
+
+</CalloutDescription>
 </Callout>
 
-This reference guide documents all of the methods available in our React Native SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source-- head to our [React Native SDK GitHub repository](https://github.com/launchdarkly/react-native-client-sdk) to look under the hood. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-react-native) using this SDK.
+This reference guide documents all of the methods available in our React Native SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [React Native SDK GitHub repository](https://github.com/launchdarkly/react-native-client-sdk). Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-react-native) using this SDK.
 
 ## Getting Started
 
 <Callout intent="warning">
   <CalloutTitle>Expo Usage</CalloutTitle>
-  <CalloutDescription>
-    The LaunchDarkly React Native Client SDK does not work with Expo because the SDK uses native modules. Please
-    consider using [ExpoKit](https://docs.expo.io/versions/latest/expokit/expokit/)
-  </CalloutDescription>
+<CalloutDescription>
+
+The LaunchDarkly React Native Client SDK does not work with Expo because the SDK uses native modules. Please consider using [ExpoKit](https://docs.expo.io/versions/latest/expokit/expokit/).
+
+</CalloutDescription>
 </Callout>
 
 Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your React Native code.
 
 The first step is to install the LaunchDarkly SDK as a dependency. Add the LaunchDarkly npm dependency to your project and link it to your React Native project.
-
 
 <CodeTabs
   defaultValue="js"
@@ -168,20 +169,24 @@ client.close();
 
 <Callout intent="info">
   <CalloutTitle>Mobile Keys</CalloutTitle>
-  <CalloutDescription>
-    Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page.
-    Never embed a server-side SDK key into a mobile application.
-  </CalloutDescription>
+<CalloutDescription>
+
+Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page.
+
+Never embed a server-side SDK key into a mobile application.
+
+</CalloutDescription>
 </Callout>
 
 ## Client Configuration Options
 
 <Callout intent="info">
   <CalloutTitle>Default Values</CalloutTitle>
-  <CalloutDescription>
-    This complete config object shows all possible config options in their default form. Do not change the defaults
-    unless you are required to.
-  </CalloutDescription>
+<CalloutDescription>
+
+This complete config object shows all possible config options in their default form. Do not change the default unless you are required to.
+
+</CalloutDescription>
 </Callout>
 
 Here is a complete client configuration object utilizing all available fields:
@@ -280,16 +285,19 @@ The variation call will automatically create a user in LaunchDarkly if a user wi
 
 <Callout intent="info">
   <CalloutTitle>Handling flag values on initial application launch</CalloutTitle>
-   <CalloutDescription>When LDClient is initialized for the first time at app launch, users will receive feature flag fallback values until an initial connection to LaunchDarkly is completed for the first time. Take a look at the section above on various ways to initialize the client.</CalloutDescription>
+ <CalloutDescription>
+When LDClient is initialized for the first time at app launch, users will receive feature flag fallback values until an initial connection to LaunchDarkly is completed for the first time. Take a look at the section above on various ways to initialize the client.</CalloutDescription>
 </Callout>
+
 ## All Flags
 
 <Callout intent="alert">
   <CalloutTitle>Creating Users</CalloutTitle>
-  <CalloutDescription>
-    Note that unlike `variation` and `identify` calls, `allFlags` does not send events to LaunchDarkly. Thus, users are
-    not created or updated in the LaunchDarkly dashboard.
-  </CalloutDescription>
+<CalloutDescription>
+
+Unlike `variation` and `identify` calls, `allFlags` does not send events to LaunchDarkly. When you use `allFlags`, users are not created or updated in the LaunchDarkly dashboard.
+
+</CalloutDescription>
 </Callout>
 
 The `allFlags` method returns an object containing flag keys and values.
@@ -360,11 +368,11 @@ let onlineResult = client.setOnline(); //true or false
 
 <Callout intent="info">
   <CalloutTitle>Lack of Network Connectivity</CalloutTitle>
-  <CalloutDescription>
-    If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the
-    latest stored flag settings in memory. If there are no previously stored flag settings, then the fallback values
-    will be used.
-  </CalloutDescription>
+<CalloutDescription>
+
+If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory. If there are no previously stored flag settings, then the fallback values will be used.
+
+</CalloutDescription>
 </Callout>
 
 ## Flush
