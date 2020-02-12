@@ -38,13 +38,36 @@ We support the following export destinations:
 To learn more about event formatting, read [Export format reference](/integrations/data-export/schema-reference).
 
 <Callout intent="info">
-  <CalloutTitle>Data Export requires certain SDK versions</CalloutTitle>
-  <CalloutDescription>
-    This feature is supported on the following versions of our SDKs (and later versions, if applicable): * Go:
-    **4.11.0**\n* Java: **4.8.0**\n* Node (server-side): **5.9.0**\n* Node (client-side): **1.1.0**\n* PHP: **3.6.0**\n*
-    Python: **6.10.0**\n* Ruby: **5.6.0**\n* .NET: **5.8.0**\n* JavaScript: **2.14.0**\n* Xamarin: **1.1.0**\n* Android:
-    **2.9.0**\n* Electron: **1.2.0**
-  </CalloutDescription>
+<CalloutTitle>Data Export requires certain SDK versions</CalloutTitle>
+<CalloutDescription>
+
+This feature is supported on the following versions of our SDKs (and later versions, if applicable): 
+ 
+* Go: 4.11.0
+
+* Java: 4.8.0
+
+* Node (server-side): 5.9.0
+
+* Node (client-side): 1.1.0
+
+* PHP: 3.6.0
+
+* Python: 6.10.0
+
+* Ruby: 5.6.0
+
+* .NET: 5.8.0
+
+* JavaScript: 2.14.0
+
+* Xamarin: 1.1.0
+
+* Android: 2.9.0
+
+* Electron: 1.2.0
+
+</CalloutDescription>
 </Callout>
 
 ## Exporting event data for flags and environments
@@ -96,11 +119,14 @@ To customize which users send event data to data export destinations:
 
 1. Identify which flag you wish to export events from.
 2. Navigate to the flag's **Settings** page.
-3. Click **N of N targeting rules** in the "Exporting events from" line. The "Configure event settings" screen appears.
+3. Click **N of N targeting rules** i
+n the "Exporting events from" line. The "Configure event settings" screen appears.
+
 
 ![The flag's Settings tab with the targeting rules link called out.](../images/flag-settings-experiments-targeting-rules.png)
 
-4. Click the **Custom selection** radio box to modify the users whose events are exported. When you click **Custom selection**, you can choose which targeting rules you wish to include or exclude in data exports.
+4. Click the **Custom selection** radio box to modify the users whose events are exported. When you click **Custom selectio
+n**, you can choose which targeting rules you wish to include or exclude in data exports.
 5. Select the checkboxes of rules you wish to include in the experiment. This refines the population of users whose events are exported.
 
 ![The "Configure event settings" screen](../images/experiments-rules-custom-selection.png)

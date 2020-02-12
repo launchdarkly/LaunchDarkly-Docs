@@ -22,8 +22,7 @@ Data Export exposes five different kinds of events:
   <CalloutDescription>
 
 The JSON schemas for both Segment and mParticle are formatted differently than LaunchDarkly's. The events listed
-below may not appear identically in those integrations' UI. The `index`, `identify`, and `data` event types are
-**not available** in Segment or mParticle data export destinations. To learn more about mParticle's JSON schema
+below may not appear identically in those integrations' UI. The `index`, `identify`, and `data` event types are **not available** in Segment or mParticle data export destinations. To learn more about mParticle's JSON schema
 reference, read [mParticle's documentation](https://docs.mparticle.com/integrations/launchdarkly/feed/). To learn
 more about Segment's JSON schema reference, read
 [Segment's documentation](https://segment.com/docs/sources/cloud-apps/launchdarkly/).
@@ -278,8 +277,13 @@ An example `identify` event is pictured below:
 Custom events are produced when the client application calls an SDK method called `track`.
 
 <Callout intent="alert">
-  <CalloutTitle>mParticle and Segment schema differences</CalloutTitle>
-  <CalloutDescription>The `data` event kind is **not available** for mParticle or Segment events.</CalloutDescription>
+<CalloutTitle>mParticle and Segment schema differences</CalloutTitle>
+
+<CalloutDescription>
+  
+The `data` event kind is **not available** for mParticle or Segment events.
+
+</CalloutDescription>
 </Callout>
 
 An example custom event is pictured below:
@@ -311,13 +315,12 @@ An example custom event is pictured below:
 
 
 <Callout intent="info">
-  <CalloutTitle>Enabling summary event exports</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Enabling summary event exports</CalloutTitle>
+<CalloutDescription>
 
-By default, we do not export summary events. To export summary events, contact [LaunchDarkly
-Support](https://support.launchdarkly.com/).
+By default, we do not export summary events. To export summary events, contact [LaunchDarkly Support](https://support.launchdarkly.com/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 Summary events are sent periodically by SDKs to describe a set of feature evaluations. Summary events include all feature evaluations, regardless of whether `trackEvents` field was set for individual flags.
