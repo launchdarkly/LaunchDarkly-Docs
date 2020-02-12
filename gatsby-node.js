@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
 const slug = require('slug')
-const createRedirects = require('./createRedirects')
+const legacyRedirectRules = require('./legacyRedirectRules')
 
 // This generates URL-safe slugs.
 slug.defaults.mode = 'rfc3986'
@@ -38,7 +38,14 @@ exports.onCreateNode = async ({ node, actions, getNode }) => {
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createRedirect, createPage } = actions
 
-  createRedirects(createRedirect)
+  legacyRedirectRules.forEach(({ fromPath, toPath }) => {
+    createRedirect({
+      fromPath,
+      toPath,
+      isPermanent: true,
+      redirectInBrowser: true,
+    })
+  })
 
   const result = await graphql(`
     {

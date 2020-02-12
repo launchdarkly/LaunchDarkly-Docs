@@ -63,6 +63,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
   },
+  ignorePatterns: ['cypress/plugins', 'cypress/support', 'cypress/fixtures'],
   globals: {
     describe: true,
     it: true,
@@ -74,5 +75,12 @@ module.exports = {
     afterAll: true,
     test: true,
     jsdom: true,
+    cy: true,
+    chai: true,
+    before: true,
+    after: true,
+    Cypress: true,
+    context: true,
+    assert: true,
   },
 }
