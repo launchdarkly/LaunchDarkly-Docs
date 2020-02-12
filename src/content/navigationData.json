@@ -265,6 +265,10 @@
           {
             "label": "Using a persistent feature store",
             "path": "/home/advanced/feature-store"
+          },
+          {
+            "label": "LaunchDarkly in China",
+            "path": "/home/advanced/china"
           }
         ]
       },
