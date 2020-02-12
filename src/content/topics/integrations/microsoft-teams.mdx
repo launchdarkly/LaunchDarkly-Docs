@@ -18,24 +18,29 @@ In order to add LaunchDarkly to a Teams workspace, you must configure an incomin
 1. Log into Microsoft Teams.
 2. Navigate to **Connectors**.
 
-![The Microsoft Teams dashboard with the Connectors option called out.](../images/ms-teams-connectors-callout.png)
+![The Microsoft Teams dashboard with the Connectors option called out.](../images/ms-teams-connectors-callout.png) 
+
 
 3. Configure an incoming webhook and create a webhook URL.
 4. When Teams prompts you to upload a logo, right-click the image below, save it locally, and upload it to Teams.
 
-![The LaunchDarkly logo.](../images/ms-teams-ld-logo.png)
+![The LaunchDarkly logo.](../images/ms-teams-ld-logo.png) 
+
 
 5. Click **Configure** to add an Incoming Webhook.
 
-![The Incoming Webhook option with the Configure button called out.](../images/ms-teams-incoming-webhook-callout.png)
+![The Incoming Webhook option with the Configure button called out.](../images/ms-teams-incoming-webhook-callout.png) 
+
 
 6. Enter information for your webhook.
 
-![The Connectors details screen for the incoming webhook.](../images/ms-teams-connectors-detail.png)
+![The Connectors details screen for the incoming webhook.](../images/ms-teams-connectors-detail.png) 
+
 
 7. Copy the URL provided to your clipboard and click **Save**.
 
-![The webhook URL.](../images/ms-teams-connectors-url.png)
+![The webhook URL.](../images/ms-teams-connectors-url.png) 
+
 
 ## Configuring LaunchDarkly to work with Teams
 
@@ -43,13 +48,15 @@ To configure LaunchDarkly to connect with the Microsoft Teams webhook:
 
 1. Navigate to the Integrations screen and click Add Integration by "Microsoft Teams."
 
-![The Microsoft Teams section of the Integrations page.](../images/ms-teams-add-integration.png)
+![The Microsoft Teams section of the Integrations page.](../images/ms-teams-add-integration.png) 
+
 
 2. Paste your incoming webhook URL into the relevant field.
 3. Set any filters for sending notifications to Teams by configuring a policy. To learn more about policies like this, read [Custom roles](/home/account-security/custom-roles). By default, the policy is configured to send notifications for all feature flags updates in production environment.
 4. Save your configuration.
 
-![The Create Microsoft Teams configuration screen.](../images/ms-teams-ld-integration-config.png)
+![The Create Microsoft Teams configuration screen.](../images/ms-teams-ld-integration-config.png) 
+
 
 That's it! Now you'll receive notifications in your Teams workspace.
 

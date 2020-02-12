@@ -18,7 +18,7 @@ read [JavaScript SDK](/sdk/client-side/javascript). If you're creating a *client
 in Electron, read [Electron SDK](/sdk/client-side/electron).
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Getting started
 
@@ -85,7 +85,7 @@ ldClient = LaunchDarkly.init("YOUR_SDK_KEY");
     serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with
     every request.**
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 The client will emit a `ready` event when it has been initialized and can serve feature flags.
 
@@ -497,7 +497,7 @@ In addition to built-in attributes, you can pass us any of your own user data by
     be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom
     value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
 
@@ -626,7 +626,7 @@ ldClient.track("your-goal-key", user);
     You cannot subscribe to feature flag changes with other server-side SDKs. Only the Node.js SDK supports this feature
     from the server side. All client-side SDKs support this feature.
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 To subscribe to all feature flag changes, listen for the update event:
 
@@ -693,7 +693,7 @@ ldClient.identify(user);
     Note that unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Thus, users are
     not created or updated in the LaunchDarkly dashboard and your flags' last requested date will not be updated.", s
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 The `allFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
@@ -771,7 +771,8 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 ```js
 var config = {"offline": true};
 ldClient = LaunchDarkly.init("YOUR_SDK_KEY", config);
-ldClient.variation("any.feature.flag", user, false, cb) // cb will always be invoked with the default value (false)
+ldClient.variation("any.feature.flag", user, false, cb) // cb will always be invoked with the default value (false) 
+
 ```
 
 </CodeTabItem>
@@ -818,7 +819,8 @@ logger =
   new winston.Logger({
     level: "debug",
     transports: [
-      new winston.transports.Console()
+      new winston.transports.Console() 
+
     ]
   }
 );
@@ -833,7 +835,8 @@ logger =
   winston.createLogger({
     level: 'debug',
     transports: [
-      new winston.transports.Console()
+      new winston.transports.Console() 
+
     ]
   }
 );

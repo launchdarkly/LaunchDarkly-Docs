@@ -437,7 +437,8 @@ To perform real-time updates in your app, your app will need to register listene
 <CodeTabItem value="js">
 
 ```js
-if (this.state.listeners.hasOwnProperty(key))
+if (this.state.listeners.hasOwnProperty(key)) 
+
   return;
 let listener = value => Alert.alert('Listener Callback', value);
 client.registerFeatureFlagListener('MY_LISTEN_FLAG_KEY', listener);

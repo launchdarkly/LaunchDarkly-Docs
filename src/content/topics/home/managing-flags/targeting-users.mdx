@@ -27,7 +27,7 @@ rules payload is large. To learn more about targeting many users, read [Targetin
 attributes](#targeting-rules-based-on-user-attributes).
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 If your application is already sending data back to LaunchDarkly, you can search for users by name, email address, or user key. These strings are case sensitive. Hover over the user row to see more attributes for that user.
 
@@ -35,7 +35,8 @@ If you need to target a user that LaunchDarkly doesn't know about, you can enter
 
 In the screenshot below, two users are seeing the `true` variation of the "Show new dashboard" flag. That flag is targeted to them. This means that these users will see the new dashboard when they access it.
 
-![The "Show new dashboard" flag with two users targeted.](../../images/flag-targeting-users-seeing-true.png)
+![The "Show new dashboard" flag with two users targeted.](../../images/flag-targeting-users-seeing-true.png) 
+
 
 ## Targeting rules based on user attributes
 
@@ -51,7 +52,8 @@ For example, let's define a rule that serves `true` to all users whose e-mail ad
 
 To write this rule, we specify the attribute as `email`, the operator as `ends with`, and the user value as `gmail.com`. Remember to click **Save Changes** to apply the rule.
 
-![A user targeting rule.](../../images/users-targeting-rules.png)
+![A user targeting rule.](../../images/users-targeting-rules.png) 
+
 
 ### Operators
 
@@ -90,9 +92,7 @@ LaunchDarkly supports the following operators:
       <TableCell>substring match</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>
-        greater than (&gt;), less than (&lt;), greater than or equal to (&gt;=), less than or equal to (&lt;=)
-      </TableCell>
+      <TableCell>greater than (&gt;), less than (&lt;), greater than or equal to (&gt;=), less than or equal to (&lt;=)</TableCell>
       <TableCell>number</TableCell>
       <TableCell>numeric comparisons</TableCell>
     </TableRow>
@@ -111,10 +111,7 @@ LaunchDarkly supports the following operators:
     </TableRow>
     <TableRow>
       <TableCell>string</TableCell>
-      <TableCell>
-        semantic version is one of (=), is not one of (!=), greater than (&gt;), less than (&lt;), greater than or equal
-        to (&gt;=), less than or equal to (&lt;=)
-      </TableCell>
+      <TableCell>semantic version is one of (=), is not one of (!=), greater than (&gt;), less than (&lt;), greater than or equal to (&gt;=), less than or equal to (&lt;=)</TableCell>
       <TableCell>
         [Semantic version](https://semver.org/) comparison. Valid string attributes must follow the semantic versioning
         specification, though we allow the PATCH version to be omitted (so that, e.g. `2.0` is considered a valid
@@ -123,13 +120,15 @@ LaunchDarkly supports the following operators:
     </TableRow>
   </TableBody>
 </Table>
+
 <Callout intent="info">
-  <CalloutTitle>Scheduling feature flags</CalloutTitle>
-  <CalloutDescription>
-    LaunchDarkly does not have a built in way to schedule a flag for a particular date, but you can achieve this with
-    targeting rules. For example, you may want to serve true to show your feature, but only after November 19th, 2018.
-  </CalloutDescription>
-</Callout>
+<CalloutTitle>Scheduling feature flags</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly does not have a built in way to schedule a flag for a particular date, but you can achieve this with targeting rules. For example, you may want to serve true to show your feature, but only after November 19th, 2018.
+
+</CalloutDescription>
+</Callout> 
 
 ### Date Comparisons
 
@@ -142,7 +141,7 @@ about UNIX date formatting, or convert a date and time to UNIX milliseconds read
 Millis](https://currentmillis.com/).
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 <Callout intent="info">
   <CalloutTitle>Required SDK versions for semantic versions</CalloutTitle>
   <CalloutDescription>
@@ -167,7 +166,7 @@ No updates are required for Android, iOS, or
 JavaScript.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ### Built-in attributes
 
@@ -260,7 +259,7 @@ LaunchDarkly includes some useful built-in attributes for users. All of them are
     While we provide all of these fields for you to fill in, the SDK does not automatically collect any information. If
     you want to target your users based on any of these attributes you must supply their values.
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ### Anonymous users
 
@@ -291,7 +290,7 @@ continue to use to use the unique identifier stored in the cookie as the users "
 to do rollouts based on the "uniqueId" custom attribute.
 
 </CalloutDescription>
-</Callout>
+</Callout> 
 <Callout intent="info">
   <CalloutTitle>Secondary attribute</CalloutTitle>
   <CalloutDescription>
@@ -299,7 +298,7 @@ to do rollouts based on the "uniqueId" custom attribute.
     it is included in your user object. Unlike other attributes, you cannot use the secondary attribute in targeting
     rules.
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Targeting users based on custom attributes
 
@@ -313,7 +312,7 @@ LaunchDarkly allows you to target users based on arbitrary custom attributes-- m
     included with os and device data. You can override this by specifying them as custom attributes in your user object
     and setting your own values.
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 You can add multiple conditions to a rule. Users must meet all the conditions in a rule to match the rule. If any of the conditions are not met, the user will not match the rule.
 
@@ -340,9 +339,12 @@ Let's turn a feature on for a group of external beta testers. First, we need to 
 <CodeTabItem value="java">
 
 ```java
-LDUser user = new LDUser.Builder("foo@example.com")
-        .custom("groups", "beta_testers")
-        .build()
+LDUser user = new LDUser.Builder("foo@example.com") 
+
+        .custom("groups", "beta_testers") 
+
+        .build() 
+
 ```
 
 </CodeTabItem>
@@ -371,7 +373,8 @@ user = {:key => "foo@example.com", :custom => {:groups => "beta_testers"}}
 <CodeTabItem value="go">
 
 ```go
-var custom = make(map[string]interface{})
+var custom = make(map[string]interface{}) 
+
 custom["groups"] = "beta_testers"
 user = User {
     Key: "foo@example.com",
@@ -411,11 +414,12 @@ That's it! Any users in the `beta_testers` group will see the new dashboard feat
 
 If you want to do a percentage rollout, select "percentage rollout" from the dropdown and allocate users accordingly.
 
-![The percentage rollout screen.](../../images/rules-percentage-rollout.png)
+![The percentage rollout screen.](../../images/rules-percentage-rollout.png) 
+
 
 In this example, 25% of our `beta_testers` will see the new dashboard feature.
 
-##Percentage rollout logic
+## Percentage rollout logic
 
 When you set up a percentage rollout, the variation a user receives is determined by the user's key. When a percentage rollout is evaluated, it generates a hash from the user's key (or the user attribute selected in the advanced section), the user's secondary attribute (if provided), the flag's key, and a hidden salt attribute stored in the flag. The SDK then uses this hash to generate a percentage value for that user. That value, compared to the value set for the percentage rollout value, determines which variation a user receives.
 
@@ -431,13 +435,14 @@ For any user where the value of the custom attribute is a number with a fraction
 other type besides string and number, the bucketing result is undefined.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Default rule: targeting remaining users
 
 LaunchDarkly defines a final default rollout rule for any users that don't match any of the previous sections on the page. As with other rules, you can choose to serve a specific variation, or apply a percentage rollout to any remaining users.
 
-![A percentage rollout, set to 50%.](../../images/rules-percentage-fifty.png)
+![A percentage rollout, set to 50%.](../../images/rules-percentage-fifty.png) 
+
 
 Now, 50% of all users who have not been targeted by any other rules will receive `true`.
 
@@ -447,7 +452,7 @@ Now, 50% of all users who have not been targeted by any other rules will receive
     If you do not want to target users based on user key or any custom attributes, you can simply use the default rule
     to control the flag's rollout for all users.
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Setting the Off variation
 
@@ -461,11 +466,13 @@ The Targeting tab evaluates rules top-down. Imagine a highway with exits along t
 
 If a user matches multiple rules, the first matching rule applies.
 
-![A tree diagram showing rule matching behavior.](../../images/flag-targeting-diagram.png)
+![A tree diagram showing rule matching behavior.](../../images/flag-targeting-diagram.png) 
+
 
 Here, we have two custom rules. Rules are evaluated top down, so in this example, the first rule (`email` ends with `gmail.com` and `country` is one of `USA` or `Canada`) is evaluated before the second rule (`groups` is one of `beta_testers`). If a user matched both rules, the first rule would take priority.
 
-![Two custom rules targeted at user groups.](../../images/users-targeting-multiple-groups.png)
+![Two custom rules targeted at user groups.](../../images/users-targeting-multiple-groups.png) 
+
 
 Rules can be re-ordered by clicking on the left edge of a rule and dragging it up or down.
 

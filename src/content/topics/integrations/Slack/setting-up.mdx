@@ -19,11 +19,13 @@ To sign into the LaunchDarkly Slack app:
 2. A message appears prompting you to connect your Slack account with LaunchDarkly.
 3. Click **Connect with LaunchDarkly**.
 
-![Signing into the LaunchDarkly Slack App.](../../images/slack-ld-connect.png)
+![Signing into the LaunchDarkly Slack App.](../../images/slack-ld-connect.png) 
+
 
 4. Review the permissions required and click **Authorize** to authorize the Slack app.
 
-![The permissions authorization screen](../../images/slack-ld-authorize.png)
+![The permissions authorization screen](../../images/slack-ld-authorize.png) 
+
 
 5. A confirmation screen appears in your browser and the Slack app's username appears in the **Apps** section of your Slack client.
 
@@ -55,7 +57,8 @@ To add more accounts to the Slack app:
 2. The account management field appears.
 3. Click **Add an account**.
 
-![An example of an account associated with the Slack app.](../../images/slack-ld-add-account.png)
+![An example of an account associated with the Slack app.](../../images/slack-ld-add-account.png) 
+
 
 If you want to add another account, click the Add an Account button. You'll then follow the same process as your first account to authorize.
 
@@ -78,10 +81,12 @@ Members with the `reader` role in LaunchDarkly do not have the ability to create
 
 To learn more about member permissions, read [Understanding Member Roles](/home/account-security/managing-your-team#understanding-member-roles).
 
-![The Slack app, with limited permissions.](../../images/slack-ld-reader-authorization.png)
+![The Slack app, with limited permissions.](../../images/slack-ld-reader-authorization.png) 
+
 
 If a `reader` initially authorizes the Slack app, an error appears. When this happens, the member can only use some of the app's features. They can view and manage flags, but can't subscribe to notifications.
 
-![The Slack app, displaying a webhook error.](../../images/slack-ld-failed-subscribe.png)
+![The Slack app, displaying a webhook error.](../../images/slack-ld-failed-subscribe.png) 
+
 
 To remedy this situation, the `reader`-level member should ask a team member with write permission to authorize the Slack app to communicate with LaunchDarkly. After the `writer`-level user authorizes the app, the webhook is created. All subsequent team members to authorize the Slack app will be able to subscribe to notifications.

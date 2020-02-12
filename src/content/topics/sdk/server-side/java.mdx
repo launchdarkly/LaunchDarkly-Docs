@@ -21,7 +21,7 @@ Android application, read the [Android SDK Reference](/sdk/client-side/android).
 <Callout intent="info">
   <CalloutTitle>Java Compatibility</CalloutTitle>
   <CalloutDescription>The LaunchDarkly Java SDK is compatible with Java 7 and higher.</CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Getting started
 
@@ -152,9 +152,12 @@ You can also pass custom parameters to the client by creating a custom configura
 <CodeTabItem value="java">
 
 ```java
-LDConfig config = new LDConfig.Builder()
-      .connectTimeout(3)
-      .socketTimeout(3)
+LDConfig config = new LDConfig.Builder() 
+
+      .connectTimeout(3) 
+
+      .socketTimeout(3) 
+
       .build();
 LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
 ```
@@ -178,13 +181,19 @@ Feature flag targeting and rollouts are all determined by the _user_ you pass to
 <CodeTabItem value="Java">
 
 ```java
-LDUser user = new LDUser.Builder("aa0ceb")
-    .firstName("Ernestina")
-    .lastName("Evans")
-    .email("ernestina@example.com")
+LDUser user = new LDUser.Builder("aa0ceb") 
+
+    .firstName("Ernestina") 
+
+    .lastName("Evans") 
+
+    .email("ernestina@example.com") 
+
     .custom("groups",
-        LDValue.buildArray().add("Google").add("Microsoft").build()
-    .build()
+        LDValue.buildArray().add("Google").add("Microsoft").build() 
+
+    .build() 
+
 ```
 
 </CodeTabItem>
@@ -209,7 +218,8 @@ LDUser user = new LDUser.Builder("aa0ceb")
       .lastName("Evans")                    // optional
       .email("ernestina@example.com")       // optional
       .customString("groups", Arrays.asList("Google", "Microsoft")) // optional
-      .build()
+      .build() 
+
 ```
 
 </CodeTabItem>
@@ -253,18 +263,26 @@ You can also mark attributes as private when building the user object itself by 
 <CodeTabItem value="Java">
 
 ```java
-LDConfig configWithAllAttributesPrivate = new LDConfig.Builder()
+LDConfig configWithAllAttributesPrivate = new LDConfig.Builder() 
+
     .events(
-        Components.sendEvents()
-            .allAttributesPrivate(true)
-    )
+        Components.sendEvents() 
+
+            .allAttributesPrivate(true) 
+
+    ) 
+
     .build();
 
-LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
+LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder() 
+
     .events(
-        Components.sendEvents()
-            .privateAttributeNames("name", "email", "someCustomAttribute")
-    )
+        Components.sendEvents() 
+
+            .privateAttributeNames("name", "email", "someCustomAttribute") 
+
+    ) 
+
     .build();
 ```
 
@@ -314,8 +332,10 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 <CodeTabItem value="java">
 
 ```java
- LDUser user = new LDUser.Builder("aa0ceb")
-      .anonymous(true)
+ LDUser user = new LDUser.Builder("aa0ceb") 
+
+      .anonymous(true) 
+
       .build();
 ```
 
@@ -518,8 +538,10 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 <CodeTabItem value="java">
 
 ```java
-LDConfig config = new LDConfig.Builder()
-      .offline(true)
+LDConfig config = new LDConfig.Builder() 
+
+      .offline(true) 
+
       .build();
 LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
 ldClient.boolVariation("any.feature.flag", user, false) 
@@ -543,7 +565,8 @@ Close safely shuts down the client instance and releases all resources associate
 <CodeTabItem value="java">
 
 ```java
-ldClient.close()
+ldClient.close() 
+
 ```
 
 </CodeTabItem>

@@ -83,7 +83,8 @@ If you are using a package manager, and then combining dependencies with your co
 <CodeTabItem value="js">
 
 ```js
-// using require()
+// using require() 
+
 const LDClient = require('launchdarkly-js-client-sdk');
 
 // using ES2015 imports
@@ -221,7 +222,8 @@ connection to LaunchDarkly. This is the only way to receive realtime updates.
 <CalloutDescription>
 
 
-Feature flags must be marked available to the client-side SDK (see your feature flag's settings page)
+Feature flags must be marked available to the client-side SDK (see your feature flag's settings page) 
+
 before they can be used in `variation` calls on the front-end. If you request a feature flag that is not available,
 you'll receive the default value for that flag. If you always want flags marked as available to the client-side
 SDK by default, you can check the "Make new flags available to the client-side (JavaScript) SDK by default"
@@ -712,7 +714,8 @@ var ldclient = LDClient.initialize(
   user,
   options = {
     bootstrap: {{ # this is a ruby template directive
-      ldclient.all_flags_state(user, {client_side_only: true})
+      ldclient.all_flags_state(user, {client_side_only: true}) 
+
     }} // this is a ruby template directive
   }
 );

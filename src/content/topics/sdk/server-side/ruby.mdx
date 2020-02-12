@@ -14,7 +14,7 @@ This reference guide documents all of the methods available in our Ruby SDK, and
 Due to a bug in recent versions of RubyGems, versions 2.4.x (of RubyGems, not of Ruby) are not compatible with the LaunchDarkly Ruby SDK.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Getting started
 
@@ -39,7 +39,8 @@ gem install launchdarkly-server-sdk
 </CodeTabItem>
 </CodeTabs>
 
-Next you should import the LaunchDarkly client in your application code. (This step may not be necessary if you are using a framework that automatically loads all dependencies, as Rails does.)
+Next you should import the LaunchDarkly client in your application code. (This step may not be necessary if you are using a framework that automatically loads all dependencies, as Rails does.) 
+
 
 <CodeTabs
   defaultValue="ruby"
@@ -67,7 +68,8 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 <CodeTabItem value="ruby">
 
 ```ruby
-ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY")
+ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY") 
+
 ```
 
 </CodeTabItem>
@@ -80,7 +82,7 @@ ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY")
 It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to Íserve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 Using `ld_client`, you can check which variation a particular user should receive for a given feature flag.
 
@@ -93,7 +95,8 @@ Using `ld_client`, you can check which variation a particular user should receiv
 <CodeTabItem value="ruby">
 
 ```ruby
-show_feature = ld_client.variation("your.flag.key", {key: "user@test.com"}, false)
+show_feature = ld_client.variation("your.flag.key", {key: "user@test.com"}, false) 
+
 if show_feature
   # application code to show the feature
 else
@@ -134,7 +137,8 @@ To use LaunchDarkly in a Rails application, initialize the client in `config/ini
 <CodeTabItem value="ruby">
 
 ```ruby
-Rails.configuration.ld_client = LaunchDarkly::LDClient.new("your_sdk_key")
+Rails.configuration.ld_client = LaunchDarkly::LDClient.new("your_sdk_key") 
+
 ```
 
 </CodeTabItem>
@@ -152,7 +156,8 @@ To use LaunchDarkly with the Rails application preloader [Spring](https://github
 
 ```ruby
 Spring.after_fork do
-  Rails.configuration.ld_client = LaunchDarkly::LDClient.new('SDK KEY')
+  Rails.configuration.ld_client = LaunchDarkly::LDClient.new('SDK KEY') 
+
 end
 ```
 
@@ -171,7 +176,8 @@ Similarly, with [Unicorn](https://bogomips.org/unicorn/), you'll need to specify
 
 ```ruby
 after_fork do |server,worker|
-  Rails.configuration.ld_client = LaunchDarkly::LDClient.new('SDK KEY')
+  Rails.configuration.ld_client = LaunchDarkly::LDClient.new('SDK KEY') 
+
 end
 
 ```
@@ -191,7 +197,8 @@ If you're using the [Puma](https://github.com/puma/puma) web server, we recommen
 
 ```ruby
 on_worker_boot do
-  Rails.configuration.ld_client = LaunchDarkly::LDClient.new('SDK KEY')
+  Rails.configuration.ld_client = LaunchDarkly::LDClient.new('SDK KEY') 
+
 end
 ```
 
@@ -209,9 +216,11 @@ If you're using the [Passenger](https://www.phusionpassenger.com/library/indepth
 <CodeTabItem value="ruby">
 
 ```ruby
-if defined?(PhusionPassenger)
+if defined?(PhusionPassenger) 
+
   PhusionPassenger.on_event(:starting_worker_process) do |forked|
-    Rails.configuration.ld_client = LaunchDarkly::LDClient.new('SDK KEY')
+    Rails.configuration.ld_client = LaunchDarkly::LDClient.new('SDK KEY') 
+
   end
 end
 ```
@@ -232,8 +241,10 @@ You can also customize the behavior of the client by creating a custom configura
 <CodeTabItem value="ruby">
 
 ```ruby
-config = LaunchDarkly::Config.new({connect_timeout: 1, read_timeout: 1})
-ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
+config = LaunchDarkly::Config.new({connect_timeout: 1, read_timeout: 1}) 
+
+ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config) 
+
 ```
 
 </CodeTabItem>
@@ -488,7 +499,7 @@ All user attribute keys (both built-in and custom attributes) must be symbols an
 Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
 
@@ -565,7 +576,8 @@ The `variation` method determines which variation of a feature flag a user recei
 <CodeTabItem value="ruby">
 
 ```ruby
-value = ld_client.variation("your.feature.key", user, false)
+value = ld_client.variation("your.feature.key", user, false) 
+
 ```
 
 </CodeTabItem>
@@ -590,7 +602,8 @@ The `track` method allows you to record actions your users take on your site. Th
 <CodeTabItem value="ruby">
 
 ```ruby
-ld_client.track("your-goal-key", user)
+ld_client.track("your-goal-key", user) 
+
 ```
 
 </CodeTabItem>
@@ -607,7 +620,8 @@ You can also attach an extra hash containing arbitrary data to your event:
 <CodeTabItem value="ruby">
 
 ```ruby
-ld_client.track("Completed purchase", user, {price: 320})
+ld_client.track("Completed purchase", user, {price: 320}) 
+
 ```
 
 </CodeTabItem>
@@ -625,7 +639,8 @@ The `identify` method creates or updates users on LaunchDarkly, making them avai
 <CodeTabItem value="ruby">
 
 ```ruby
-ld_client.identify(user)
+ld_client.identify(user) 
+
 ```
 
 </CodeTabItem>
@@ -640,7 +655,7 @@ ld_client.identify(user)
 Unlike variation and identify calls, `all_flags_state` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 The `all_flags_state` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
@@ -655,7 +670,8 @@ This method can be useful for passing feature flags to your front-end. In partic
 <CodeTabItem value="ruby">
 
 ```ruby
-state = ld_client.all_flags_state(user)
+state = ld_client.all_flags_state(user) 
+
 ```
 
 </CodeTabItem>
@@ -674,7 +690,8 @@ The `secure_mode_hash` method computes an HMAC signature of a user signed with t
 <CodeTabItem value="ruby">
 
 ```ruby
-ld_client.secure_mode_hash(user)
+ld_client.secure_mode_hash(user) 
+
 ```
 
 </CodeTabItem>
@@ -714,9 +731,12 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 <CodeTabItem value="ruby">
 
 ```ruby
-config = LaunchDarkly::Config.new({offline: true})
-ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
-ld_client.variation("any.feature.flag", user, false) # will always return the default value (false)
+config = LaunchDarkly::Config.new({offline: true}) 
+
+ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config) 
+
+ld_client.variation("any.feature.flag", user, false) # will always return the default value (false) 
+
 ```
 
 </CodeTabItem>
@@ -737,7 +757,8 @@ Alternatively the `:proxy` configuration option can be passed.
 <CodeTabItem value="ruby">
 
 ```ruby
-config = LaunchDarkly::Config.new({proxy: "https://user:pass@hostname"})
+config = LaunchDarkly::Config.new({proxy: "https://user:pass@hostname"}) 
+
 ```
 
 </CodeTabItem>
@@ -777,10 +798,13 @@ The Ruby SDK uses Ruby's built-in [Logger class](https://ruby-doc.org/stdlib-2.4
 <CodeTabItem value="ruby">
 
 ```ruby
-log = ::Logger.new($stdout)
+log = ::Logger.new($stdout) 
+
 log.level = ::Logger::DEBUG
-config = LaunchDarkly::Config.new({logger: log})
-client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
+config = LaunchDarkly::Config.new({logger: log}) 
+
+client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config) 
+
 ```
 
 </CodeTabItem>

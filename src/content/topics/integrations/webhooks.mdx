@@ -13,7 +13,8 @@ LaunchDarkly's webhooks allow you to build your own integrations that subscribe 
 
 Use webhooks to update external issue trackers, update support tickets, notify customers of new feature rollouts, and more.
 
-![The webhook configuration screen.](../../images/integrations-webhooks-create.png)
+![The webhook configuration screen.](../../images/integrations-webhooks-create.png) 
+
 
 ## Creating a webhook
 
@@ -27,7 +28,8 @@ When creating a webhook, you can define an optional secret. If defined, the webh
 
 You should compute the signature of the payload using the same shared secret in your code to verify that the webhook was triggered by LaunchDarkly.
 
-![The webhook configuration screen, configured with a secret.](../images/integrations-webhook-sign.png)
+![The webhook configuration screen, configured with a secret.](../images/integrations-webhook-sign.png) 
+
 
 You can use the auto-generated secret, or supply your own when creating or editing a webhook.
 
@@ -60,7 +62,8 @@ For example, if you only want to receive an event when a change is made to one o
 </CodeTabItem>
 </CodeTabs>
 
-![The webhook configuration screen, configured with a policy.](../../images/integrations-slack-webhook-create-with-policy.png)
+![The webhook configuration screen, configured with a policy.](../../images/integrations-slack-webhook-create-with-policy.png) 
+
 
 ## Payload format
 
@@ -72,7 +75,7 @@ The webhook payload format is identical to the entry format for the [audit log](
     Note that webhooks may not be delivered in chronological order. We recommend using the payload's "date" field as a
     timestamp to reorder webhooks as they are received.
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 The webhook payload format is identical to the entry format for the [audit log](/home/managing-flags/audit-log-history). See our [REST API Documentation](https://apidocs.launchdarkly.com/docs/webhooks-overview#payload) for an example payload.
 
@@ -82,7 +85,7 @@ The webhook payload format is identical to the entry format for the [audit log](
     Note that webhooks may not be delivered in chronological order. We recommend using the payload's "date" field as a
     timestamp to reorder webhooks as they are received.
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Retries
 

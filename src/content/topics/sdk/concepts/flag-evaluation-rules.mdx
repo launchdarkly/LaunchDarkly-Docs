@@ -50,7 +50,8 @@ Below are the steps for prerequisite evaluations:
 
 - Retrieve the prerequisite flag; if not found, the prerequisite has failed
 - If the prerequisite flag is off, the prerequisite has failed
-- Evaluate the prerequisite flag for the given user (no default value)
+- Evaluate the prerequisite flag for the given user (no default value) 
+
 - If the prerequisite flag evaluation result's variation index matches the variation index defined for the prerequisite, the prerequisite has been satisfied
 
 Prerequisite flags themselves may also have their own prerequisites - the evaluations are recursive. Note that LaunchDarkly prevents recursive cycles during flag creation and modification.
@@ -78,9 +79,11 @@ If there were no rules, or no rules matched the user, the evaluation algorithm p
 Rules have clauses, all of which must be satisfied for a rule to match the user. Clauses are defined as a tuple of:
 
 - attribute: user attribute to consider for comparison
-- operator: comparison to perform (see below)
+- operator: comparison to perform (see below) 
+
 - values: list of arbitrary values to compare to
-- negate: boolean, whether to negate the outcome of clause's comparison (note that in the LaunchDarkly UI, negated clauses are represented as separate negated operators)
+- negate: boolean, whether to negate the outcome of clause's comparison (note that in the LaunchDarkly UI, negated clauses are represented as separate negated operators) 
+
 
 Evaluating a clause is a matter of taking the value of the given user attribute and performing the given operator comparison against the given values, and then applying whether the outcome should be negated. If this produces a positive result, the clause has been satisfied.
 
@@ -241,7 +244,8 @@ To bucket the given user and calculate the final variation:
   - Concatenate the flag's key, the flag's salt, the user's attribute value and the secondary identifier (if any), joined by "." character
   - Take the first characters of the sha1 of the above
   - Convert the resulting base 16 integer to a base 10 integer
-  - Divide the resulting base 10 integer by `0xFFFFFFFFFFFFFFF` (`1152921504606846975`)
+  - Divide the resulting base 10 integer by `0xFFFFFFFFFFFFFFF` (`1152921504606846975`) 
+
   - The result of this division is the user's bucket number
 
 - Iterate over the rollout's weighted variations

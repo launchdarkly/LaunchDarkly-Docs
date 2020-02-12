@@ -134,7 +134,7 @@ const createRedirects = createRedirect => {
 
   createRedirect({
     fromPath: '/docs/prerequisites',
-    toPath: '/home/managing-flags/prerequisites',
+    toPath: '/home/managing-flags/flag-prerequisites',
     isPermanent: true,
     redirectInBrowser: true,
   })

@@ -12,7 +12,7 @@ This reference guide documents all of the methods available in our .NET SDK, and
   <CalloutDescription>
     The .NET SDK requires version 4.5 or later of the .NET framework or .NETCoreApp 1.0 or later.
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Getting started
 
@@ -82,7 +82,7 @@ serve feature flags without making any remote requests. **Be sure that you're no
 every request.**
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 Using `ldClient`, you can check which variation a particular user should receive for a given feature flag.
 
@@ -138,8 +138,10 @@ You can also pass custom parameters to the client by creating a custom configura
 <CodeTabItem value="csharp">
 
 ```csharp
-Configuration config = LaunchDarkly.Client.Configuration.Builder("YOUR_SDK_KEY")
-          .EventFlushInterval(TimeSpan.FromSeconds(2))
+Configuration config = LaunchDarkly.Client.Configuration.Builder("YOUR_SDK_KEY") 
+
+          .EventFlushInterval(TimeSpan.FromSeconds(2)) 
+
           .Build();
 LdClient ldClient = new LdClient(config);
 ```
@@ -338,7 +340,7 @@ failures that always resolve in two minutes, you may wish to change this setting
 [here](https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.dnsrefreshtimeout?view=netframework-4.7.2).
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Users
 Feature flag targeting and rollouts are all determined by the *user* you pass to your `variation` calls. In our .NET SDK, the `User` class has a `WithKey` method for creating a simple user with only a key, and a `Builder` method for building a user with other properties. Here's an example:
@@ -352,11 +354,16 @@ Feature flag targeting and rollouts are all determined by the *user* you pass to
 <CodeTabItem value="csharp">
 
 ```csharp
- LDUser user = User.Builder("aa0ceb")
-      .FirstName("Ernestina")
-      .LastName("Evans")
-      .Email("ernestina@example.com")
-      .Custom("groups", LdValue.ArrayOf(LdValue.Of("Google"), LdValueOf("Microsoft")))
+ LDUser user = User.Builder("aa0ceb") 
+
+      .FirstName("Ernestina") 
+
+      .LastName("Evans") 
+
+      .Email("ernestina@example.com") 
+
+      .Custom("groups", LdValue.ArrayOf(LdValue.Of("Google"), LdValueOf("Microsoft"))) 
+
       .Build();
 
 ```
@@ -381,7 +388,7 @@ enter a custom value on our dashboard that looks like a number or a boolean, it'
 SDK is strongly typed, so be aware of this distinction.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
 
@@ -405,8 +412,10 @@ You can also mark attributes as private when building the user object itself by 
 <CodeTabItem value="csharp">
 
 ```csharp
-var user = User.Builder("aa0ceb")
-  .Email("test@example.com").AsPrivateAttribute()
+var user = User.Builder("aa0ceb") 
+
+  .Email("test@example.com").AsPrivateAttribute() 
+
   .Build();
 ```
 
@@ -428,8 +437,10 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 <CodeTabItem value="csharp">
 
 ```csharp
- LDUser user = User.Builder("aa0ceb")
-      .Anonymous(true)
+ LDUser user = User.Builder("aa0ceb") 
+
+      .Anonymous(true) 
+
       .Build();
 
 ```
@@ -528,7 +539,7 @@ Note that unlike `Variation` and `Identify` calls, `AllFlagsState` does not send
 are not created or updated in the LaunchDarkly dashboard.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 The `AllFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
@@ -564,8 +575,10 @@ In some situations, you might want avoid remote calls to LaunchDarkly and fall b
 <CodeTabItem value="csharp">
 
 ```csharp
-Configuration config = Configuration.Builder("SDK_KEY")
-        .Offline(true)
+Configuration config = Configuration.Builder("SDK_KEY") 
+
+        .Offline(true) 
+
         .Build();
 LdClient client = new LdClient(config);
 

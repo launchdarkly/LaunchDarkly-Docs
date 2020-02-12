@@ -16,7 +16,7 @@ client-side application please use the [client-side SDK](/sdk/client-side/c-c--)
 more about our [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Getting started
 
@@ -90,7 +90,7 @@ serve feature flags without making any remote requests. **Be sure that you're no
 every request.**
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 Using `client`, you can check which variation a particular user should receive for a given feature flag.
 
@@ -352,7 +352,7 @@ Note that unlike variation and identify calls, `LDAllFlags` does not send events
 not created or updated in the LaunchDarkly dashboard.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 The `LDAllFlags` function captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
@@ -536,7 +536,8 @@ You can also use your own custom log function:
 
 ```c
 static void
-myCustomLogger(const LDLogLevel level, const char *const text)
+myCustomLogger(const LDLogLevel level, const char *const text) 
+
 {
     printf("[%s] %s\n", LDLogLevelToString(level), text);
 }

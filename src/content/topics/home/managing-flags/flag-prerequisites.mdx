@@ -1,6 +1,6 @@
 ---
-path: '/home/managing-flags/prerequisites'
-title: 'Prerequisites'
+path: '/home/managing-flags/flag-prerequisites'
+title: 'Flag prerequisites'
 description: 'This topic explains how to use feature flag prerequisites to enable or disable features based on different states. Prerequisites allow you to control feature dependencies in LaunchDarkly. You can make flags depend on other flags being enabled to take effect themselves.'
 published: true
 ---
@@ -17,7 +17,8 @@ For example, you have two flags that control read and write access to an API: "A
 
 Manage prerequisites in the feature flag's Targeting tab:
 
-![The flag's Targeting tab.](../../images/flag-targeting-prerequisite.png)
+![The flag's Targeting tab.](../../images/flag-targeting-prerequisite.png) 
+
 
 In the screenshot above, the "Alternate sort order" flag is a prerequisite of the "API Migration" flag. To meet a prerequisite, the prerequisite flag must be **On**, and the user must receive the variation you specify.
 
@@ -30,11 +31,11 @@ In this example, if a user receives the `false` variation of the "Alternate sort
     prerequisites. For example, you cannot make Flag A a prerequisite of Flag B and also make Flag B a prerequisite of
     Flag A.
   </CalloutDescription>
-</Callout>
+</Callout> 
 <Callout intent="alert">
   <CalloutTitle>Deleting flags with prerequisites</CalloutTitle>
   <CalloutDescription>
     You cannot remove a flag that is a prerequisite for other flags. You must remove the dependency before you can
     delete the prerequisite flag.
   </CalloutDescription>
-</Callout>
+</Callout> 

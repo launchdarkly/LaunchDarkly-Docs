@@ -25,7 +25,7 @@ To set up LaunchDarkly:
        You don't have to send users to LaunchDarkly in advance. You can target them with feature flags have LaunchDarkly
        accounts of their own. Users appear in the dashboard automatically after they encounter feature flags.
      </CalloutDescription>
-   </Callout>
+   </Callout> 
 5. **Shut down the LaunchDarkly client when your application is about to terminate.** The client releases the resources it is using and sends pending analytics events to LaunchDarkly. If your application quits without this shutdown step, you may not see requests and users on the dashboard, because they are derived from analytics events. **You only need to shut down the application manually once**.
 
 ## Choosing an SDK
@@ -34,33 +34,53 @@ We have a variety of client-side, server-side, and mobile SDKs to choose from.
 
 To learn more about the different types of SDKs, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
-Explore the following SDK reference guides for specific details about how to use LaunchDarkly with your tech stack. To learn more about advanced configuration options for your platform's SDK, read the Reference guides section.
+Explore the following SDK reference guides for specific details about how to use LaunchDarkly with your tech stack.
 
 Server-side SDKs:
 
-- [.NET](/sdk/server-side/dotnet)
-- [C/C++ (server-side)](/sdk/server-side/c-c--)
-- [Go](/sdk/server-side/go)
-- [Haskell](/sdk/server-side/haskell)
-- [Java](/sdk/server-side/java)
-- [Node.js (server-side)](/sdk/server-side/node-js)
-- [PHP](/sdk/server-side/php)
-- [Python](/sdk/server-side/python)
-- [Ruby](/sdk/server-side/ruby)
+- [.NET](/sdk/server-side/dotnet) 
+
+- [C/C++ (server-side)](/sdk/server-side/c-c--) 
+
+- [Go](/sdk/server-side/go) 
+
+- [Haskell](/sdk/server-side/haskell) 
+
+- [Java](/sdk/server-side/java) 
+
+- [Node.js (server-side)](/sdk/server-side/node-js) 
+
+- [PHP](/sdk/server-side/php) 
+
+- [Python](/sdk/server-side/python) 
+
+- [Ruby](/sdk/server-side/ruby) 
+
 
 Client-side SDKs:
 
-- [Android](/sdk/client-side/android)
-- [C/C++ (client-side)](/sdk/client-side/c-c--)
-- [Electron](/sdk/client-side/electron)
-- [iOS (Objective-C)](/sdk/client-side/ios-objective-c)
-- [iOS (Swift)](/sdk/client-side/ios-swift)
-- [JavaScript](/sdk/client-side/javascript)
-- [Node.js (client-side)](/sdk/client-side/node-js)
-- [React](/sdk/client-side/react)
-- [React Native](/sdk/client-side/react-native)
-- [Roku](/sdk/client-side/roku)
-- [Xamarin](/sdk/client-side/xamarin)
+- [Android](/sdk/client-side/android) 
+
+- [C/C++ (client-side)](/sdk/client-side/c-c--) 
+
+- [Electron](/sdk/client-side/electron) 
+
+- [iOS (Objective-C)](/sdk/client-side/ios-objective-c) 
+
+- [iOS (Swift)](/sdk/client-side/ios-swift) 
+
+- [JavaScript](/sdk/client-side/javascript) 
+
+- [Node.js (client-side)](/sdk/client-side/node-js) 
+
+- [React](/sdk/client-side/react) 
+
+- [React Native](/sdk/client-side/react-native) 
+
+- [Roku](/sdk/client-side/roku) 
+
+- [Xamarin](/sdk/client-side/xamarin) 
+
 
 ## Flag evaluations are always available
 

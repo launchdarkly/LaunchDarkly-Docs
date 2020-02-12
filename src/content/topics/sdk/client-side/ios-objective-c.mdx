@@ -132,11 +132,14 @@ user.key = @"aa0ceb";
 <CodeTabItem value="swift">
 
 ```swift
-let config = LDConfig.init(mobileKey: "YOUR_MOBILE_KEY")
-let user = LDUserBuilder()
+let config = LDConfig.init(mobileKey: "YOUR_MOBILE_KEY") 
+
+let user = LDUserBuilder() 
+
 user.key = "aa0ceb"
 
-LDClient.sharedInstance().start(config, with: user)
+LDClient.sharedInstance().start(config, with: user) 
+
 ```
 
 </CodeTabItem>
@@ -219,7 +222,8 @@ config.flushInterval = [NSNumber numberWithInt:10];
 config.connectionTimeout = 10
 config.flushInterval = 10
 ...
-LDClient.sharedInstance().start(config, with: user)
+LDClient.sharedInstance().start(config, with: user) 
+
 ```
 
 </CodeTabItem>
@@ -263,13 +267,15 @@ user.email = @"ernestina@example.com";
 <CodeTabItem value="swift">
 
 ```swift
-let user = LDUserBuilder()
+let user = LDUserBuilder() 
+
 
 user.key = "aa0ceb"
 user.firstName = "Ernestina"
 user.lastName = "Evans"
 user.email = "ernestina@example.com"
-user.customArray("groups", value: groups)
+user.customArray("groups", value: groups) 
+
 ```
 
 </CodeTabItem>
@@ -327,7 +333,8 @@ user.privateAttributes = @[@"email"];
 <CodeTabItem value="swift">
 
 ```swift
-let user = LDUserBuilder()
+let user = LDUserBuilder() 
+
 
 user.key = "aa0ceb"
 user.email = "ernestina@example.com"
@@ -361,7 +368,8 @@ user.isAnonymous = TRUE;
 <CodeTabItem value="swift">
 
 ```swift
-let user = LDUserBuilder()
+let user = LDUserBuilder() 
+
 
 user.key = "aa0ceb"
 user.isAnonymous = true
@@ -395,7 +403,8 @@ The `variation` method determines whether a flag is enabled or not for a specifi
 <CodeTabItem value="swift">
 
 ```swift
-LDClient.sharedInstance().boolVariation("your.feature.key", fallback: false)
+LDClient.sharedInstance().boolVariation("your.feature.key", fallback: false) 
+
 ```
 
 </CodeTabItem>
@@ -437,7 +446,8 @@ The `track` method allows you to record actions your users take on your site. Th
 <CodeTabItem value="swift">
 
 ```swift
-LDClient.sharedInstance().track("Signed up", data: dict)
+LDClient.sharedInstance().track("Signed up", data: dict) 
+
 ```
 
 </CodeTabItem>
@@ -457,16 +467,20 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 ```c
 [[LDClient sharedInstance] offline];
-[[LDClient sharedInstance] boolVariation:@"your.feature.key" fallback:FALSE]; // will always return the fallback value (FALSE)
+[[LDClient sharedInstance] boolVariation:@"your.feature.key" fallback:FALSE]; // will always return the fallback value (FALSE) 
+
 ```
 
 </CodeTabItem>
 <CodeTabItem value="swift">
 
 ```swift
-LDClient.sharedInstance().offline()
-LDClient.sharedInstance().stopClient()
-LDClient.sharedInstance().boolVariation("your.feature.key", fallback: false) // will always return the fallback value (FALSE)
+LDClient.sharedInstance().offline() 
+
+LDClient.sharedInstance().stopClient() 
+
+LDClient.sharedInstance().boolVariation("your.feature.key", fallback: false) // will always return the fallback value (FALSE) 
+
 ```
 
 </CodeTabItem>
@@ -504,7 +518,8 @@ Internally, the LaunchDarkly SDK keeps an event buffer for `track` calls. These 
 <CodeTabItem value="swift">
 
 ```swift
-LDClient.sharedInstance().flush()
+LDClient.sharedInstance().flush() 
+
 ```
 
 </CodeTabItem>
@@ -542,7 +557,8 @@ If more than one class relies on LaunchDarkly’s feature flags, we recommend yo
 
 ```swift
 func userDidUpdate() {
- NSNotificationCenter.defaultCenter().postNotificationName("userUpdatedNotification", object: nil)
+ NSNotificationCenter.defaultCenter().postNotificationName("userUpdatedNotification", object: nil) 
+
 }
 ```
 
@@ -586,7 +602,8 @@ To allow background fetch for flags in your app, just add the following code in 
 
 ```swift
 func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-    NSNotificationCenter.defaultCenter().postNotificationName(kLDBackgroundFetchInitiated, object: nil)
+    NSNotificationCenter.defaultCenter().postNotificationName(kLDBackgroundFetchInitiated, object: nil) 
+
 }
 ```
 
@@ -621,9 +638,11 @@ user.key = @"aa0ceb";
 <CodeTabItem value="swift">
 
 ```swift
-let user = LDUserBuilder()
+let user = LDUserBuilder() 
+
 user.key = "aa0ceb"
-LDClient.sharedInstance().updateUser(user)
+LDClient.sharedInstance().updateUser(user) 
+
 ```
 
 </CodeTabItem>
@@ -659,13 +678,17 @@ user.key = @\"aa0ceb\";
 <CodeTabItem value="swift">
 
 ```swift
-let config = LDConfig.init(mobileKey: "YOUR_MOBILE_KEY")
+let config = LDConfig.init(mobileKey: "YOUR_MOBILE_KEY") 
+
 let otherMobileKeys = [platform: "PLATFORM_MOBILE_KEY"]
-config.setSecondaryMobileKeys(otherMobileKeys)
-let user = LDUserBuilder()
+config.setSecondaryMobileKeys(otherMobileKeys) 
+
+let user = LDUserBuilder() 
+
 user.key = "aa0ceb"
 
-LDClient.sharedInstance().start(config, with: user)
+LDClient.sharedInstance().start(config, with: user) 
+
 ```
 
 </CodeTabItem>
@@ -691,8 +714,10 @@ LDClient *coreInstance = [[LDClient sharedInstance] environmentForMobileKeyNamed
 <CodeTabItem value="swift">
 
 ```swift
-let coreInstance = LDClient.sharedInstance().environmentForMobileKeyNamed("platform")
-coreInstance.boolVariation("platform-bool-flag", fallback: false)
+let coreInstance = LDClient.sharedInstance().environmentForMobileKeyNamed("platform") 
+
+coreInstance.boolVariation("platform-bool-flag", fallback: false) 
+
 ```
 
 </CodeTabItem>

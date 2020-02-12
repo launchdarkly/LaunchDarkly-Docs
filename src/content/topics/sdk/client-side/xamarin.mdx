@@ -30,7 +30,6 @@ The Xamarin SDK natively supports Android (version 7.1 or higher) or iOS (versio
 </CalloutDescription>
 </Callout>
 
-The first step is to install the LaunchDarkly SDK as a dependency. You should use [NuGet](http://docs.nuget.org/docs/start-here/using-the-package-manager-console) to add the Xamarin SDK to your project. (Note that previous beta releases of the SDK used a different package name.)
 
 <CodeTabs
   defaultValue="csharp"
@@ -162,8 +161,10 @@ You can also pass custom parameters to the client by creating a custom configura
 
 ```csharp
 Configuration config = LaunchDarkly.Client.Configuration
-    .Builder("YOUR_SDK_KEY")
-    .EventFlushInterval(TimeSpan.FromSeconds(2))
+    .Builder("YOUR_SDK_KEY") 
+
+    .EventFlushInterval(TimeSpan.FromSeconds(2)) 
+
     .Build();
 LdClient ldClient = LdClient.Init(config, user);
 ```
@@ -362,11 +363,16 @@ Feature flag targeting and rollouts are all determined by the *user* you pass to
 <CodeTabItem value="csharp">
 
 ```csharp
- LDUser user = User.Builder("aa0ceb")
-     .FirstName("Ernestina")
-     .LastName("Evans")
-     .Email("ernestina@example.com")
-     .Custom("group", "admins")
+ LDUser user = User.Builder("aa0ceb") 
+
+     .FirstName("Ernestina") 
+
+     .LastName("Evans") 
+
+     .Email("ernestina@example.com") 
+
+     .Custom("group", "admins") 
+
      .Build();
 ```
 
@@ -410,8 +416,10 @@ You can also mark attributes as private when building the user object itself by 
 <CodeTabItem value="csharp">
 
 ```csharp
-var user = User.Builder("aa0ceb")
-    .Email("test@example.com").AsPrivateAttribute()
+var user = User.Builder("aa0ceb") 
+
+    .Email("test@example.com").AsPrivateAttribute() 
+
     .Build();
 ```
 
@@ -433,8 +441,10 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 <CodeTabItem value="csharp">
 
 ```csharp
- LDUser user = User.Builder("aa0ceb")
-     .Anonymous(true)
+ LDUser user = User.Builder("aa0ceb") 
+
+     .Anonymous(true) 
+
      .Build();
 ```
 
@@ -570,8 +580,10 @@ In some situations, you might want avoid remote calls to LaunchDarkly and fall b
 <CodeTabItem value="csharp">
 
 ```csharp
-Configuration config = Configuration.Builder("SDK_KEY")
-    .Offline(true)
+Configuration config = Configuration.Builder("SDK_KEY") 
+
+    .Offline(true) 
+
     .Build();
 LdClient client = LdClient.Init(config);
 ```
@@ -631,8 +643,10 @@ You can configure the Xamarin SDK to connect to the [LaunchDarkly relay proxy](h
 <CodeTabItem value="csharp">
 
 ```csharp
-Configuration config = Configuration.Builder("YOUR_SDK_KEY")
-      .StreamUri(new URI("YOUR_RELAY_URI"))
+Configuration config = Configuration.Builder("YOUR_SDK_KEY") 
+
+      .StreamUri(new URI("YOUR_RELAY_URI")) 
+
       .Build();
 LdClient ldClient = LdClient.Init(config);
 ```

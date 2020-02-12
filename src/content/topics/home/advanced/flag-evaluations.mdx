@@ -45,7 +45,8 @@ An example call in our Go SDK is depicted below:
 <CodeTabItem value="go">
 
 ```go
-value, detail, err := client.BoolVariationDetail("flag-key", myUser, false)
+value, detail, err := client.BoolVariationDetail("flag-key", myUser, false) 
+
 // or StringVariationDetail for a string-valued flag, etc.
 
 index := detail.VariationIndex   // may be nil
@@ -82,7 +83,8 @@ EvaluationReason reason = detail.Reason;  // will always be present
 <CodeTabItem value="ruby">
 
 ```ruby
-detail = client.variation_detail("flag-key", my_user, false)
+detail = client.variation_detail("flag-key", my_user, false) 
+
 
 value = detail.value
 index = detail.variation_index  # may be nil
@@ -93,7 +95,8 @@ reason = detail.reason          # will always be present
 <CodeTabItem value="py">
 
 ```py
-detail = client.variation_detail("flag-key", my_user, False)
+detail = client.variation_detail("flag-key", my_user, False) 
+
 
 value = detail.value
 index = detail.variation_index  # may be None
@@ -142,7 +145,8 @@ $reason = $detail->getReason();         // will always be present
 
 ```csharp
 // Note that in order for this to work, your client configuration must
-// include the property WithEvaluationReasons(true)
+// include the property WithEvaluationReasons(true) 
+
 
 EvaluationDetail<bool> detail =
   client.BoolVariationDetail("flag-key", false);
@@ -290,20 +294,27 @@ Here is an example of how you could access the details of a reason object in som
 func PrintReason(reason ldclient.EvaluationReason) {
   switch r := reason.(type) {
   case EvaluationReasonOff:
-    fmt.Println("it's off")
+    fmt.Println("it's off") 
+
   case EvaluationReasonFallthrough:
-    fmt.Println("fell through")
+    fmt.Println("fell through") 
+
   case EvaluationReasonTargetMatch:
-    fmt.Println("targeted")
+    fmt.Println("targeted") 
+
   case EvaluationReasonRuleMatch:
-    fmt.Printf("matched rule %d/%s\n", r.RuleIndex, r.RuleID)
+    fmt.Printf("matched rule %d/%s\n", r.RuleIndex, r.RuleID) 
+
   case EvaluationReasonPrerequisiteFailed:
-    fmt.Printf("prereq failed: %s\n", r.PrerequisiteKey)
+    fmt.Printf("prereq failed: %s\n", r.PrerequisiteKey) 
+
   case EvaluationReasonError:
-    fmt.Printf("error: %s\n", r.ErrorKind)
+    fmt.Printf("error: %s\n", r.ErrorKind) 
+
   }
   // or, if all you want is a simple descriptive string:
-  fmt.Println(reason)
+  fmt.Println(reason) 
+
 }
 ```
 
@@ -325,7 +336,8 @@ void printReason(EvaluationReason reason) {
       break;
     case RULE_MATCH:
       EvaluationReason.RuleMatch rm = (EvaluationReason.RuleMatch)reason;
-      System.out.println("matched rule " + rm.getRuleIndex()
+      System.out.println("matched rule " + rm.getRuleIndex() 
+
         + "/" + rm.getRuleId());
       break;
     case PREREQUISITE_FAILED:
@@ -346,9 +358,11 @@ void printReason(EvaluationReason reason) {
 <CodeTabItem value="csharp">
 
 ```csharp
-void PrintReason(EvaluationReason reason)
+void PrintReason(EvaluationReason reason) 
+
 {
-  switch (reason.Kind)
+  switch (reason.Kind) 
+
   {
     case EvaluationReasonKind.OFF:
       Console.WriteLine("it's off");
@@ -381,7 +395,8 @@ void PrintReason(EvaluationReason reason)
 <CodeTabItem value="ruby">
 
 ```ruby
-def print_reason(reason)
+def print_reason(reason) 
+
   case reason[:kind]
   when "OFF"
     puts "it's off"
@@ -412,7 +427,8 @@ def print_reason(reason):
   elif kind == "TARGET_MATCH":
     print "targeted"
   elif kind == "RULE_MATCH":
-    print "matched rule %d/%s" % (reason["ruleIndex"], reason["ruleId"])
+    print "matched rule %d/%s" % (reason["ruleIndex"], reason["ruleId"]) 
+
   elif kind == "PREREQUISITE_FAILED":
     print "prereq failed: %s" % reason["prerequisiteKey"]
   elif kind == "ERROR":

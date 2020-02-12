@@ -10,7 +10,7 @@ This reference guide documents all of the methods available in our PHP SDK, and 
 <Callout intent="info">
   <CalloutTitle>Requirements</CalloutTitle>
   <CalloutDescription>PHP 5.5 or higher.</CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Getting started
 
@@ -100,8 +100,10 @@ You may remember from our [Getting Started guide](/home/getting-started) guide t
 
 There are two distinct methods of integrating LaunchDarkly in a PHP environment.
 
-- [Guzzle Cache Middleware](https://github.com/Kevinrob/guzzle-cache-middleware) to request and cache HTTP responses in an in-memory array (default)
-- [ld-relay](https://github.com/launchdarkly/ld-relay) to retrieve and store flags in Redis (recommended)
+- [Guzzle Cache Middleware](https://github.com/Kevinrob/guzzle-cache-middleware) to request and cache HTTP responses in an in-memory array (default) 
+
+- [ld-relay](https://github.com/launchdarkly/ld-relay) to retrieve and store flags in Redis (recommended) 
+
 
 We strongly suggest using the ld-relay. Per-flag caching mode (Guzzle) is only intended for low-throughput environments.
 
@@ -193,7 +195,7 @@ PHP's *shared-nothing* architecture means that the out-of-the-box in-memory HTTP
 feature flags across requests. In production, we strongly recommend the ld-relay for PHP.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Customizing your client
 
@@ -286,7 +288,7 @@ In addition to these, you can pass us any of your own user data by passing `cust
     value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The PHP SDK is strongly
     typed, so be aware of this distinction.
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
 
@@ -310,8 +312,10 @@ You can also mark attributes as private when building the user object itself by 
 <CodeTabItem value="php">
 
 ```php
-$user = (new LDUserBuilder('aa0ceb'))
-  ->privateEmail('test@example.com')
+$user = (new LDUserBuilder('aa0ceb')) 
+
+  ->privateEmail('test@example.com') 
+
 	->build();
 ```
 
@@ -431,7 +435,7 @@ $client->identify(user);
 Unlike variation and identify calls, `allFlagsState` does not send events to LaunchDarkly. Users are not created or updated in the LaunchDarkly dashboard.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 The `allFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
@@ -484,7 +488,8 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 ```php
 $client = new LaunchDarkly\LDClient("YOUR_SDK_KEY", array("offline" => true));
-$client->variation("any.feature.flag", user, false); // will always return the default value (false)
+$client->variation("any.feature.flag", user, false); // will always return the default value (false) 
+
 ```
 
 </CodeTabItem>

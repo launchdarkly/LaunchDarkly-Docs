@@ -19,11 +19,13 @@ To generate an API key:
 
 1. Log into Datadog and navigate to the [APIs tab](https://app.datadoghq.com/account/settings#api) in the "Integrations" section.
 
-![The Datadog UI with the APIs tab selected.](../images/datadog-api-tab.png)
+![The Datadog UI with the APIs tab selected.](../images/datadog-api-tab.png) 
+
 
 2. Click **New API key** in the "API keys" section. A new API key appears in the UI.
 
-![The Datadog UI with the "Create API key" button called out.](../images/datadog-create-api-key-callout.png)
+![The Datadog UI with the "Create API key" button called out.](../images/datadog-create-api-key-callout.png) 
+
 
 3. Hover over the bar in the "Key" column to see the API key. Copy the key and save it somewhere secure. You need it to set up the Datadog integration in LaunchDarkly.
 
@@ -37,13 +39,16 @@ To set up the Datadog integration:
 2. Click **Add Integration**. The "Create a Datadog configuration" screen appears.
 3. (Optional) Give your integration a human-readable **Name**.
 4. Paste the Datadog API key into the **API key** field. You created this key in the [Prerequisites](#prerequisites) section.
-5. (Optional) Add a policy statement or set a policy with the Advanced editor. To learn more, read [Filtering the events you send to Datadog](#filtering-the-events-you-send-to-datadog)
+5. (Optional) Add a policy statement or set a policy with the Advanced editor. To learn more, read [Filtering the events you send to Datadog](#filtering-the-events-you-send-to-datadog) 
 
-![The Create a Datadog configuration screen.](../images/datadog-config.png)
+
+![The Create a Datadog configuration screen.](../images/datadog-config.png) 
+
 
 6. Click **Save Datadog Configuration**. The new integration appears in the "Your APM integrations" section of the Integrations page. It is switched **on** by default.
 
-![A Datadog integration in the Your APM integrations section.](../images/datadog-integration.png)
+![A Datadog integration in the Your APM integrations section.](../images/datadog-integration.png) 
+
 
 After you set up the Datadog integration, events from LaunchDarkly appear in your Datadog dashboard.
 
@@ -53,7 +58,7 @@ After you set up the Datadog integration, events from LaunchDarkly appear in you
     It may take time for changes made in LaunchDarkly to propagate and appear in the Datadog events dashboard depending
     on Datadog's polling intervals.
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Filtering the events you send to Datadog
 
@@ -101,7 +106,8 @@ To add a custom filter:
 3. Click **Advanced editor**. The Advanced editor opens.
 4. Enter your custom policy.
 
-![he Create a Datadog configuration screen with the Advanced editor open and a policy inside it.](../images/datadog-custom-policy.png)
+![he Create a Datadog configuration screen with the Advanced editor open and a policy inside it.](../images/datadog-custom-policy.png) 
+
 
 5. Click **Save Datadog Configuration**.
 6. Verify that LaunchDarkly is sending a customized set of events by viewing the events in your Datadog dashboard.
@@ -118,7 +124,8 @@ To temporarily disable the Datadog integration:
 1. Navigate to the Integrations page and scroll to the "Your APM integrations" section.
 2. Find the Datadog integration you wish to disable.
 
-![A Datadog integration in the Your APM integrations section.](../images/datadog-integration.png)
+![A Datadog integration in the Your APM integrations section.](../images/datadog-integration.png) 
+
 
 3. Click the toggle to turn the integration **off**.
 
@@ -131,4 +138,5 @@ To permanently delete the Datadog integration:
 3. Click **Delete** in the "Delete Datadog configuration" section. A confirmation screen appears.
 4. Click **Delete** to confirm.
 
-![The Delete Datadog configuration section.](../images/datadog-delete.png)
+![The Delete Datadog configuration section.](../images/datadog-delete.png) 
+

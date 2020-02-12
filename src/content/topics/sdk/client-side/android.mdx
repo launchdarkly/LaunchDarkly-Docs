@@ -61,12 +61,16 @@ The following example shows the simplest way to create the client. It will block
 <CodeTabItem value="java">
 
 ```java
-LDConfig ldConfig = new LDConfig.Builder()
-    .setMobileKey("YOUR_MOBILE_KEY")
+LDConfig ldConfig = new LDConfig.Builder() 
+
+    .setMobileKey("YOUR_MOBILE_KEY") 
+
     .build();
 
-user = new LDUser.Builder("user key")
-   .email("fake@example.com")
+user = new LDUser.Builder("user key") 
+
+   .email("fake@example.com") 
+
    .build();
 
 ldClient = LDClient.init(this.getApplication(), ldConfig, user, 5);
@@ -155,10 +159,14 @@ You can also pass other custom parameters to the client via the configuration ob
 <CodeTabItem value="java">
 
 ```java
-LDConfig ldConfig = new LDConfig.Builder()
-    .setMobileKey("YOUR_MOBILE_KEY")
-  	.setConnectionTimeoutMillis(5000)
-    .setEventsFlushIntervalMillis(5000)
+LDConfig ldConfig = new LDConfig.Builder() 
+
+    .setMobileKey("YOUR_MOBILE_KEY") 
+
+  	.setConnectionTimeoutMillis(5000) 
+
+    .setEventsFlushIntervalMillis(5000) 
+
     .build();
 ```
 
@@ -179,11 +187,16 @@ Feature flag targeting and rollouts are all determined by the *user* you pass to
 <CodeTabItem value="java">
 
 ```java
-user = new LDUser.Builder("aa0ceb")
-   .email("fake@example.com")
-   .firstName("Jake")
-   .lastName("Fake")
-   .custom("group", "microsoft")
+user = new LDUser.Builder("aa0ceb") 
+
+   .email("fake@example.com") 
+
+   .firstName("Jake") 
+
+   .lastName("Fake") 
+
+   .custom("group", "microsoft") 
+
    .build();
 ```
 
@@ -222,8 +235,10 @@ In the Android SDK you can define private attributes for the **entire** LaunchDa
 <CodeTabItem value="java">
 
 ```java
-LDConfig ldConfig = new LDConfig.Builder()
-  	.setPrivateAttributes(new ArrayList<String>(){{add("email");}})
+LDConfig ldConfig = new LDConfig.Builder() 
+
+  	.setPrivateAttributes(new ArrayList<String>(){{add("email");}}) 
+
     .build();
 ```
 
@@ -241,8 +256,10 @@ You can also mark attributes as private when building the user object itself by 
 <CodeTabItem value="java">
 
 ```java
-user = new LDUser.Builder("aa0ceb")
-   .email("test@example.com")
+user = new LDUser.Builder("aa0ceb") 
+
+   .email("test@example.com") 
+
    .build(new ArrayList<String>(){{add("email");}});
 ```
 
@@ -264,8 +281,10 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 <CodeTabItem value="java">
 
 ```java
-user = new LDUser.Builder("user key")
-   .anonymous(true)
+user = new LDUser.Builder("user key") 
+
+   .anonymous(true) 
+
    .build();
 ```
 
@@ -366,7 +385,8 @@ The `track` method allows you to record actions your users take on your site. Th
 <CodeTabItem value="java">
 
 ```java
-ldClient.track("your-goal-key", data)
+ldClient.track("your-goal-key", data) 
+
 ```
 
 </CodeTabItem>
@@ -384,15 +404,19 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 <CodeTabItem value="java">
 
 ```java
-LDConfig ldConfig = new LDConfig.Builder()
-    .setMobileKey("YOUR_MOBILE_KEY")
-  	.setOffline(true)
+LDConfig ldConfig = new LDConfig.Builder() 
+
+    .setMobileKey("YOUR_MOBILE_KEY") 
+
+  	.setOffline(true) 
+
     .build();
 
 ldClient = LDClient.init(this.getApplication(), ldConfig, user);
 
 // Or to switch an already-instantiated client to offline mode:
-ldclient.setOffline()
+ldclient.setOffline() 
+
 ```
 
 </CodeTabItem>
@@ -421,7 +445,8 @@ Internally, the LaunchDarkly SDK keeps an event buffer for `track` calls. These 
 <CodeTabItem value="java">
 
 ```java
-ldclient.flush()
+ldclient.flush() 
+
 ```
 
 </CodeTabItem>
@@ -444,8 +469,10 @@ You can use the `identify` method to switch user contexts:
 <CodeTabItem value="java">
 
 ```java
-LDUser updatedUser = new LDUser.Builder(user)
-   .email("fake2@example.com")
+LDUser updatedUser = new LDUser.Builder(user) 
+
+   .email("fake2@example.com") 
+
    .build();
 
 ldClient.identify(updatedUser);
@@ -581,13 +608,17 @@ Map<String, String> otherKeys = new HashMap<String, String>();
 otherKeys.put("platform", "PLATFORM_MOBILE_KEY");
 otherKeys.put("core", "CORE_MOBILE_KEY");
 
-LDConfig ldConfig = new LDConfig.Builder()
-        .setMobileKey("MOBILE_KEY")
+LDConfig ldConfig = new LDConfig.Builder() 
+
+        .setMobileKey("MOBILE_KEY") 
+
         .setSecondaryMobileKeys(otherKeys);
         .build();
 
-LDUser user = new LDUser.Builder("user key")
-        .email("fake@example.com")
+LDUser user = new LDUser.Builder("user key") 
+
+        .email("fake@example.com") 
+
         .build();
 
 LDClient.init(this.getApplication(), ldConfig, user);

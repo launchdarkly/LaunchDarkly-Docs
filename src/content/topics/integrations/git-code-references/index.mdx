@@ -21,11 +21,16 @@ ur approach makes it possible to push references to LaunchDarkly whether you're 
 
 We support most common trigger mechanisms and CI/CD providers, including:
 
-- [GitHub Actions](/integrations/git-code-references/github-actions)
-- [Bitbucket Pipelines](/integrations/git-code-references/bitbucket-pipelines)
-- [CircleCI Orbs](/integrations/git-code-references/circleci-orbs)
-- [GitLab CI](/integrations/git-code-references/gitlab-ci)
-- [Custom configuration with the CLI](/integrations/git-code-references/custom-config)
+- [GitHub Actions](/integrations/git-code-references/github-actions) 
+
+- [Bitbucket Pipelines](/integrations/git-code-references/bitbucket-pipelines) 
+
+- [CircleCI Orbs](/integrations/git-code-references/circleci-orbs) 
+
+- [GitLab CI](/integrations/git-code-references/gitlab-ci) 
+
+- [Custom configuration with the CLI](/integrations/git-code-references/custom-config) 
+
 
 You can also invoke the [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) utility from the command line. Run this utility in any custom workflow, such as a bash script or cron job.
 
@@ -44,7 +49,7 @@ To set up Git code references in LaunchDarkly, you must have:
   specifier. To learn more, read [Custom roles](/home/account-security/custom-roles).
 
 </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Using code references
 
@@ -54,13 +59,15 @@ To do so, visit a feature flag's **Code references** tab.
 
 The screenshot below shows the Code references tab:
 
-![The Code references tab for a feature flag.](../images/flag-code-references.png)
+![The Code references tab for a feature flag.](../images/flag-code-references.png) 
+
 
 You can also view and edit your connected repositories from the [Integrations](https://app.launchdarkly.com/integrations) page.
 
 The screenshot below shows the Integrations page:
 
-![The code references repositories section of the Integrations page.](../images/integrations-code-references.png)
+![The code references repositories section of the Integrations page.](../images/integrations-code-references.png) 
+
 
 You can toggle a repository on or off to allow or forbid code reference triggers from pushing new data to it.
 
@@ -85,11 +92,12 @@ uses. If you delete a repository with automated code reference updates enabled, 
 time an automated code reference trigger executes.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 The disabling and delete options appear below:
 
-![The code reference repositories section of the Integrations page.](../images/integrations-code-references.png)
+![The code reference repositories section of the Integrations page.](../images/integrations-code-references.png) 
+
 
 ## Configuring context lines
 
@@ -99,7 +107,8 @@ Two lines of code appear above, and two lines appear below the actual reference.
 
 The screenshot below shows code references with context lines:
 
-![Code references with context lines.](../images/../images/flag-code-references.png)
+![Code references with context lines.](../images/../images/flag-code-references.png) 
+
 
 Having a few lines of context can make it easier to understand references to a feature flag. However, these lines are optional. You can disable this feature when you configure `ld-find-code-refs`.
 
@@ -107,7 +116,8 @@ If context lines are disabled, your code references only show a code location in
 
 The following screenshot shows code references without context lines:
 
-![Code references with no context lines.](../images/flag-code-references-no-highlighting.png)
+![Code references with no context lines.](../images/flag-code-references-no-highlighting.png) 
+
 
 ## Limitations
 

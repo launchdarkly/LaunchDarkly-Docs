@@ -64,8 +64,8 @@
             "path": "/home/managing-flags/flag-settings"
           },
           {
-            "label": "Prerequisites",
-            "path": "/home/managing-flags/prerequisites"
+            "label": "Flag prerequisites",
+            "path": "/home/managing-flags/flag-prerequisites"
           },
           {
             "label": "The audit log and history tabs",

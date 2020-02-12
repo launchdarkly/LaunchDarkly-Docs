@@ -20,7 +20,7 @@ with LaunchDarkly using the same identity provider (IdP) you use for your other 
 LaunchDarkly implements SSO via the SAML 2.0 protocol.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 Administrators can use SSO with their IdP to manage access rights in LaunchDarkly. After SSO is enabled, administrators can also enable System for Cross-domain Identity Management (SCIM) provisioning through their IdP.
 
@@ -31,11 +31,12 @@ If you're a LaunchDarkly administrator or account owner, you can configure Launc
 1. Log in to LaunchDarkly as an administrator or account owner.
 2. Navigate to the [Security tab](https://app.launchdarkly.com/settings/security) on the Account Settings page.
 
-![The Team Management section of the Security tab.](../../../images/settings-security-enable-sso.png)
+![The Team Management section of the Security tab.](../../../images/settings-security-enable-sso.png) 
 
-3. Click **Configure SAML**. The SAML configuration screen appears, pre-populated with information you need to set up LaunchDarkly as a SAML application with your identity provider.
 
-![The SAML configuration screen.](../../../images/settings-security-saml-config.png)
+3. Click **Configure SAML**. The SAML configuration screen appears, pre-populated with information you need to set up LaunchDarkly as a SAML application with your identity provider. 
+
+![The SAML configuration screen.](../../../images/settings-security-saml-config.png) 
 
 You cannot complete SAML configuration without configuration details from your IdP.
 
@@ -45,11 +46,16 @@ We've provided configuration guidance for some of the IdPs LaunchDarkly supports
 
 The supported IdPs are:
 
-- [Okta](/home/account-security/sso/okta)
-- [OneLogin](/home/account-security/sso/onelogin)
-- [Google Apps](/home/account-security/sso/google-apps)
-- [ADFS](/home/account-security/sso/adfs)
-- [Azure](/home/account-security/sso/azure)
+- [Okta](/home/account-security/sso/okta) 
+
+- [OneLogin](/home/account-security/sso/onelogin) 
+
+- [Google Apps](/home/account-security/sso/google-apps) 
+
+- [ADFS](/home/account-security/sso/adfs) 
+
+- [Azure](/home/account-security/sso/azure) 
+
 
 We have also tested the following identity providers:
 
@@ -72,8 +78,10 @@ We also have a SCIM API available to allow for user provisioning from IdPs.
 
 We have pre-built integrations with the following providers:
 
-- [Okta](/home/account-security/sso/okta)
-- [OneLogin](/home/account-security/sso/onelogin)
+- [Okta](/home/account-security/sso/okta) 
+
+- [OneLogin](/home/account-security/sso/onelogin) 
+
 
 You may also configure your provider manually with the following information:
 
@@ -98,7 +106,7 @@ You can configure your identity provider to send the following attributes when t
     New team members will not be able to sign in from LaunchDarkly's login screen until they have accessed LaunchDarkly
     through your IdP at least once.
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Custom attributes
 
@@ -148,7 +156,8 @@ To use SSO in test-drive mode:
 2. Navigate to the Team Management screen.
 3. Click **Simulate SSO**. This performs the same authentication request flow that occurs for LaunchDarkly-initiated SSO logins.
 
-![The test-drive enablement option.](../../../images/settings-security-sso-test-drive.png)
+![The test-drive enablement option.](../../../images/settings-security-sso-test-drive.png) 
+
 
 ## Enabling SSO
 
@@ -161,7 +170,8 @@ To enable SSO:
 3. Click **Enable SSO**. A confirmation screen appears.
 4. Click **Enable**.
 
-![The enable SSO confirmation screen.](../../../images/settings-security-enable-sso-confirm.png)
+![The enable SSO confirmation screen.](../../../images/settings-security-enable-sso-confirm.png) 
+
 
 Once SSO is enabled, the LaunchDarkly login procedure defers to your identity provider for authentication. Users will no longer be able to log in with their existing LaunchDarkly password.
 
@@ -180,7 +190,8 @@ To disable SSO:
 3. Click **Disable SSO**. A confirmation screen appears.
 4. Click **Disable**.
 
-![The disable SSO confirmation screen.](../../../images/settings-security-sso-disable.png)
+![The disable SSO confirmation screen.](../../../images/settings-security-sso-disable.png) 
+
 
 ## Enabling SCIM Provisioning
 
@@ -189,7 +200,7 @@ To disable SSO:
   <CalloutDescription>
     You must be a LaunchDarkly administrator and have SSO enabled to complete the following procedure.
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 If you have enabled SSO, you can enable SCIM provisioning as well. SCIM facilitates _user provisioning_, which means your IdP can use it to create update, and deactivate members in LaunchDarkly.
 
@@ -207,4 +218,5 @@ To disconnect SCIM:
 2. Navigate to the Team Management screen.
 3. Click **Disconnect SCIM**.
 
-![The Disconnect SCIM option.](../../../images/settings-security-scim-disconnect.png)
+![The Disconnect SCIM option.](../../../images/settings-security-scim-disconnect.png) 
+

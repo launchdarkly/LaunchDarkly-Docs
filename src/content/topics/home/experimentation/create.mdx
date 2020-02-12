@@ -19,7 +19,8 @@ It takes three steps to create an experiment. You must:
 
 1. [Create a metric](#creating-metrics), or choose an existing metric
 2. [Connect the metric to feature flags](#connecting-metrics-to-feature-flags), and
-3. [Start recording your experiment](#starting-your-experiment)
+3. [Start recording your experiment](#starting-your-experiment) 
+
 
 After you create an experiment, you can reuse its components to create new experiments. You can reuse existing metrics by connecting them to multiple flags simultaneously, which allows you to run experiments measuring the impact of those flags on the same metric. Similarly, a single flag can have multiple metrics connected to it, which allows you to run many experiments.
 
@@ -76,7 +77,7 @@ The following table explains different actions you can track with a metric:
     You must be using the Javascript or React SDK to use click and pageview metrics. If you do not have the Javascript
     or React SDK and would like to track clicks or pageviews, use a custom conversion metric.
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Creating click metrics
 
@@ -236,7 +237,8 @@ To create a custom conversion metric:
 4. Enter a human-readable **Event name**. This is the event name you will reference in your code snippet when you insert the metric information into your app.
 5. Click **Save Metric**.
 
-![The "Event information" section of the "Create a new metric" screen with a conversion metric configured.](../../../images/metrics-event-information.png)
+![The "Event information" section of the "Create a new metric" screen with a conversion metric configured.](../../../images/metrics-event-information.png) 
+
 
 ## Creating numeric metrics
 
@@ -251,7 +253,7 @@ For example, you can use numeric metrics to track:
   <Callout intent="alert">
     <CalloutTitle>iOS and React Native SDK feature availability</CalloutTitle>
     <CalloutDescription>Numeric metrics are not supported on the iOS and React Native SDKs.</CalloutDescription>
-  </Callout>
+  </Callout> 
 
   To add a custom numeric metric in LaunchDarkly, you must identify it with a code snippet embedded in your app.
 
@@ -287,7 +289,7 @@ Often, the information you should put in your code includes the event key, user 
   to the latest version, and contact Support to enable numeric metrics.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 To create a numeric metric:
 
@@ -297,7 +299,8 @@ To create a numeric metric:
 4. Choose a **Success criteria** from the dropdown.
 5. Click **Save Metric**.
 
-![The "Event information" section of the "Create a new metric" screen with a numeric metric configured.](../../../images/metrics-event-information-numeric.png)
+![The "Event information" section of the "Create a new metric" screen with a numeric metric configured.](../../../images/metrics-event-information-numeric.png) 
+
 
 <Callout intent="info">
   <CalloutTitle>Choosing success criteria for numeric metrics</CalloutTitle>
@@ -309,7 +312,7 @@ infrastructure changes, you might want a success criteria that is lower than the
 variation shows the original page load time and you want to measure decreases in page load time.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Connecting metrics to feature flags
 
@@ -328,7 +331,8 @@ To connect a metric to a flag:
 4. Choose a **Baseline** from the dropdown.
 5. Click **Save Experiment Settings**. The new experiment appears in the flag's Experiments tab.
 
-![The "Update experiment settings for all environments" screen, configured to connect a metric to a flag.](../../../images/experiment-settings-metrics.png)
+![The "Update experiment settings for all environments" screen, configured to connect a metric to a flag.](../../../images/experiment-settings-metrics.png) 
+
 
 You're not done yet! After you create an experiment, you have to start it in every environment where you want it to run.
 
@@ -348,4 +352,4 @@ environments, you must click **Start Recording** for each environment individual
 experiment in Staging to gather data internally before turning it on in Production to gather customer data.
 
   </CalloutDescription>
-</Callout>
+</Callout> 

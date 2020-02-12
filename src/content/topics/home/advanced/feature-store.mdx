@@ -55,10 +55,12 @@ An example configuration is below:
 ```go
 import ld "gopkg.in/launchdarkly/go-server-sdk.v4"
 
-store, err := examplepackage.NewExampleFeatureStore(storeOptions)
+store, err := examplepackage.NewExampleFeatureStore(storeOptions) 
+
 config := ld.DefaultConfig
 config.FeatureStore = store
-client := ld.MakeCustomClient(sdkKey, config, waitTime)
+client := ld.MakeCustomClient(sdkKey, config, waitTime) 
+
 ```
 
 </CodeTabItem>
@@ -68,19 +70,25 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 import com.launchdarkly.client.*;
 import com.launchdarkly.client.integrations.*;
 
-LDConfig config = new LDConfig.Builder()
+LDConfig config = new LDConfig.Builder() 
+
     .dataStore(
         Components.persistentDataStore(
-            SomeDatabaseName.dataStore(storeOptions)
-        )
-    )
+            SomeDatabaseName.dataStore(storeOptions) 
+
+        ) 
+
+    ) 
+
     .build();
 LDClient client = new LDClient(sdkKey, config);
 
 
 // Before version 4.12.0, the preferred syntax was different:
-LDConfig deprecatedConfig = new LDConfig.Builder()
-    .featureStoreFactory(new SomeFeatureStoreBuilder(storeOptions))
+LDConfig deprecatedConfig = new LDConfig.Builder() 
+
+    .featureStoreFactory(new SomeFeatureStoreBuilder(storeOptions)) 
+
     .build();
 ```
 
@@ -91,7 +99,8 @@ LDConfig deprecatedConfig = new LDConfig.Builder()
 using LaunchDarkly.Client;
 
 var store = createSomeKindOfFeatureStore();
-var config = Configuration.Default(sdkKey)
+var config = Configuration.Default(sdkKey) 
+
     .WithFeatureStoreFactory(store);
 var client = new LDClient(config);
 ```
@@ -101,11 +110,14 @@ var client = new LDClient(config);
 ```ruby
 require 'ldclient-rb'
 
-store = SomeKindOfFeatureStore.new(storeOptions)
+store = SomeKindOfFeatureStore.new(storeOptions) 
+
 config = LaunchDarkly::Config.new(
   feature_store: store
-)
-client = LaunchDarkly::Client.new(sdk_key, config)
+) 
+
+client = LaunchDarkly::Client.new(sdk_key, config) 
+
 ```
 
 </CodeTabItem>
@@ -115,9 +127,12 @@ client = LaunchDarkly::Client.new(sdk_key, config)
 import ldclient
 from ldclient.config import Config
 
-store = SomeKindOfFeatureStore(store_options)
-config = Config(feature_store=store)
-ldclient.set_config(config)
+store = SomeKindOfFeatureStore(store_options) 
+
+config = Config(feature_store=store) 
+
+ldclient.set_config(config) 
+
 ```
 
 </CodeTabItem>
@@ -138,7 +153,8 @@ const client = LaunchDarkly.init(sdkKey, config);
 
 ```php
 $client = new LaunchDarkly\LDClient("your_sdk_key", [
-    'feature_requester' => LaunchDarkly\Integrations\Redis::featureRequester()
+    'feature_requester' => LaunchDarkly\Integrations\Redis::featureRequester() 
+
 ]);
 
 // Prior to version 3.5.0, use this syntax:
@@ -195,11 +211,13 @@ Since the Relay Proxy is also known as the *L*aunch*D*arkly *D*aemon, some versi
 ```go
 import ld "gopkg.in/launchdarkly/go-server-sdk.v4"
 
-store, err := examplepackage.NewExampleFeatureStore(storeOptions)
+store, err := examplepackage.NewExampleFeatureStore(storeOptions) 
+
 config := ld.DefaultConfig
 config.FeatureStore = store
 config.UseLdd = true  // <-- the extra option
-client := ld.MakeCustomClient(sdkKey, config, waitTime)
+client := ld.MakeCustomClient(sdkKey, config, waitTime) 
+
 ```
 
 </CodeTabItem>
@@ -208,21 +226,28 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```java
 import com.launchdarkly.client.*;
 
-LDConfig config = new LDConfig.Builder()
+LDConfig config = new LDConfig.Builder() 
+
     .dataStore(
         Components.persistentDataStore(
-            SomeDatabaseName.dataStore(storeOptions)
-        )
-    )
+            SomeDatabaseName.dataStore(storeOptions) 
+
+        ) 
+
+    ) 
+
     .dataSource(Components.externalUpdatesOnly())  // <-- the extra option
     .build();
 LDClient client = new LDClient(sdkKey, config);
 
 
 // Before version 4.12.0, the preferred syntax was different:
-LDConfig deprecatedConfig = new LDConfig.Builder()
-    .featureStoreFactory(new SomeFeatureStoreBuilder(storeOptions))
-    .useLdd(true)
+LDConfig deprecatedConfig = new LDConfig.Builder() 
+
+    .featureStoreFactory(new SomeFeatureStoreBuilder(storeOptions)) 
+
+    .useLdd(true) 
+
     .build();
 ```
 
@@ -233,8 +258,10 @@ LDConfig deprecatedConfig = new LDConfig.Builder()
 using LaunchDarkly.Client;
 
 var store = createSomeKindOfFeatureStore();
-var config = Configuration.Default(sdkKey)
-    .WithFeatureStoreFactory(store)
+var config = Configuration.Default(sdkKey) 
+
+    .WithFeatureStoreFactory(store) 
+
     .WithUseLdd(true);  // <-- the extra option
 var client = new LDClient(config);
 ```
@@ -245,12 +272,15 @@ var client = new LDClient(config);
 ```ruby
 require 'ldclient-rb'
 
-store = SomeKindOfFeatureStore.new(storeOptions)
+store = SomeKindOfFeatureStore.new(storeOptions) 
+
 config = LaunchDarkly::Config.new(
   feature_store: store,
   use_ldd: true  # <-- the extra option
-)
-client = LaunchDarkly::Client.new(sdk_key, config)
+) 
+
+client = LaunchDarkly::Client.new(sdk_key, config) 
+
 ```
 
 </CodeTabItem>
@@ -260,12 +290,15 @@ client = LaunchDarkly::Client.new(sdk_key, config)
 import ldclient
 from ldclient.config import Config
 
-store = SomeKindOfFeatureStore(store_options)
+store = SomeKindOfFeatureStore(store_options) 
+
 config = Config(
   feature_store=store,
   use_ldd=True  # <-- the extra option
-)
-ldclient.set_config(config)
+) 
+
+ldclient.set_config(config) 
+
 ```
 
 </CodeTabItem>
@@ -292,7 +325,8 @@ const client = LaunchDarkly.init(sdkKey, config);
   database, not both
 */
 $client = new LaunchDarkly\LDClient("your_sdk_key", [
-    'feature_requester' => LaunchDarkly\Integrations\Redis::featureRequester()
+    'feature_requester' => LaunchDarkly\Integrations\Redis::featureRequester() 
+
 ]);
 
 // Prior to version 3.5.0, use this syntax:
@@ -324,7 +358,8 @@ All of the LaunchDarkly server-side SDKs support Redis. This feature is built in
 
 The available options are slightly different in each language, but you can always specify the following:
 
-- The Redis host address (defaults to `localhost:6379`)
+- The Redis host address (defaults to `localhost:6379`) 
+
 - A prefix string to add to all keys used by the store, to avoid collisions in case the database is also being used for some other purpose
 - The length of time that recently read or updated data should be cached in memory
 
@@ -350,16 +385,19 @@ In the following examples, the Redis feature store is set to use a host address 
 import (
     ld "gopkg.in/launchdarkly/go-server-sdk.v4"
     ldredis "gopkg.in/launchdarkly/go-server-sdk.v4/redis"
-)
+) 
+
 
 store, err := ldredis.NewRedisFeatureStoreWithDefaults(
     ldredis.HostAndPort("my-redis", 6379),
     ldredis.Prefix("my-key-prefix"),
-    ldredis.CacheTTL(30 * time.Second))
+    ldredis.CacheTTL(30 * time.Second)) 
+
 
 config := ld.DefaultConfig
 config.FeatureStore = store
-client := ld.MakeCustomClient(sdkKey, config, waitTime)
+client := ld.MakeCustomClient(sdkKey, config, waitTime) 
+
 ```
 
 </CodeTabItem>
@@ -369,24 +407,34 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 import com.launchdarkly.client.*;
 import com.launchdarkly.client.integrations.*;
 
-LDConfig config = new LDConfig.Builder()
+LDConfig config = new LDConfig.Builder() 
+
     .dataStore(
         Components.persistentDataStore(
-            Redis.dataStore().uri(URI.create("redis://my-redis:6379"))
-                .prefix("my-key-prefix")
-        ).cacheSeconds(30)
-    )
+            Redis.dataStore().uri(URI.create("redis://my-redis:6379")) 
+
+                .prefix("my-key-prefix") 
+
+        ).cacheSeconds(30) 
+
+    ) 
+
     .build();
 LDClient client = new LDClient(sdkKey, config);
 
 
 // Before version 4.12.0, the preferred syntax was different:
-LDConfig deprecatedConfig = new LDConfig.Builder()
+LDConfig deprecatedConfig = new LDConfig.Builder() 
+
     .featureStoreFactory(
-        Components.redisFeatureStore(URI.create("redis://my-redis:6379"))
-            .prefix("my-key-prefix")
-            .cacheTime(30, TimeUnit.SECONDS)
-    )
+        Components.redisFeatureStore(URI.create("redis://my-redis:6379")) 
+
+            .prefix("my-key-prefix") 
+
+            .cacheTime(30, TimeUnit.SECONDS) 
+
+    ) 
+
     .build();
 
 ```
@@ -400,12 +448,16 @@ LDConfig deprecatedConfig = new LDConfig.Builder()
 using LaunchDarkly.Client;
 using LaunchDarkly.Client.Redis;
 
-var store = RedisComponents.RedisFeatureStore()
-    .WithRedisHostAndPort("my-redis", 6379)
-    .WithPrefix("my-key-prefix")
+var store = RedisComponents.RedisFeatureStore() 
+
+    .WithRedisHostAndPort("my-redis", 6379) 
+
+    .WithPrefix("my-key-prefix") 
+
     .WithCacheExpiration(TimeSpan.FromSeconds(30));
 
-var config = Configuration.Default(sdkKey)
+var config = Configuration.Default(sdkKey) 
+
     .WithFeatureStoreFactory(store);
 var client = new LDClient(config);
 ```
@@ -422,15 +474,18 @@ store = LaunchDarkly::Integrations::Redis.new_feature_store(
   redis_url: 'redis://my-redis:6379',
   prefix: 'my-key-prefix',
   expiration: 30
-)
+) 
+
 
 # Prior to version 5.5.0, use "LaunchDarkly::RedisFeatureStore.new" instead
 # of "LaunchDarkly::Integrations::Redis.new_feature_store"
 
 config = LaunchDarkly::Config.new(
   feature_store: store
-)
-client = LaunchDarkly::Client.new(sdk_key, config)
+) 
+
+client = LaunchDarkly::Client.new(sdk_key, config) 
+
 ```
 
 </CodeTabItem>
@@ -443,14 +498,18 @@ from ldclient.feature_store import CacheConfig
 from ldclient.integrations import Redis
 
 store = Redis.new_feature_store(url='redis://my-redis:6379',
-    prefix='my-key-prefix', caching=CacheConfig(expiration=30))
+    prefix='my-key-prefix', caching=CacheConfig(expiration=30)) 
+
 
 # Prior to version 6.7.0, use this syntax:
 # store = RedisFeatureStore(url='redis://my-redis:6379', prefix='my-key-prefix',
-#     expiration=30)
+#     expiration=30) 
 
-config = Config(feature_store=store)
-ldclient.set_config(config)
+
+config = Config(feature_store=store) 
+
+ldclient.set_config(config) 
+
 ```
 
 </CodeTabItem>
@@ -516,7 +575,8 @@ The other SDKs require an additional package:
 
 In your application code, the only required parameter is the table name, although you can also specify any other options supported by AWS; by default, the DynamoDB driver will expect to get your AWS credentials and region from environment variables or local configuration files, as described in the AWS SDK documentation.
 
-The table must already exist before your application starts. It must have a partition key called `"namespace"`, and a sort key called `"key"`. (The SDK does not create the table automatically because it would not know what values to use for other properties such as permissions and throughput.)
+The table must already exist before your application starts. It must have a partition key called `"namespace"`, and a sort key called `"key"`. (The SDK does not create the table automatically because it would not know what values to use for other properties such as permissions and throughput.) 
+
 
 DynamoDB imposes a limit of 400KB on the total size of any database item. In this implementation, each feature flag or user segment is a single item, so the feature store will not be able to persist any flag or segment whose JSON representation is larger than that limit.
 
@@ -541,14 +601,17 @@ In the following examples, the DynamoDB feature store is set to use a table call
 import (
     ld "gopkg.in/launchdarkly/go-server-sdk.v4"
     "gopkg.in/launchdarkly/go-server-sdk.v4/lddynamodb"
-)
+) 
+
 
 store, err := ldredis.NewDynamoDBFeatureStore("my-table",
-    lddynamodb.CacheTTL(30 * time.Second))
+    lddynamodb.CacheTTL(30 * time.Second)) 
+
 
 config := ld.DefaultConfig
 config.FeatureStore = store
-client := ld.MakeCustomClient(sdkKey, config, waitTime)
+client := ld.MakeCustomClient(sdkKey, config, waitTime) 
+
 ```
 
 </CodeTabItem>
@@ -560,12 +623,16 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 import com.launchdarkly.client.*;
 import com.launchdarkly.client.integrations.*;
 
-LDConfig config = new LDConfig.Builder()
+LDConfig config = new LDConfig.Builder() 
+
     .dataStore(
         Components.persistentDataStore(
-            DynamoDb.dataStore("my-table")
-        ).cacheSeconds(30)
-    )
+            DynamoDb.dataStore("my-table") 
+
+        ).cacheSeconds(30) 
+
+    ) 
+
     .build();
 LDClient client = new LDClient(sdkKey, config);
 
@@ -573,11 +640,14 @@ LDClient client = new LDClient(sdkKey, config);
 // Before version 4.12.0, the preferred syntax was different:
 import com.launchdarkly.client.dynamodb.*;
 
-LDConfig deprecatedConfig = new LDConfig.Builder()
+LDConfig deprecatedConfig = new LDConfig.Builder() 
+
     .featureStoreFactory(
-        DynamoDbComponents.dynamoDbFeatureStore("my-table")
+        DynamoDbComponents.dynamoDbFeatureStore("my-table") 
+
             .caching(FeatureStoreCacheConfig.enabled().withTtlSeconds(30));
-    )
+    ) 
+
     .build();
 ```
 
@@ -590,10 +660,12 @@ LDConfig deprecatedConfig = new LDConfig.Builder()
 using LaunchDarkly.Client;
 using LaunchDarkly.Client.DynamoDB;
 
-var store = DynamoDBComponents.DynamoDBFeatureStore("my-table")
+var store = DynamoDBComponents.DynamoDBFeatureStore("my-table") 
+
     .WithCaching(FeatureStoreCacheConfig.Enabled.WithTtlSeconds(30));
 
-var config = Configuration.Default(sdkKey)
+var config = Configuration.Default(sdkKey) 
+
     .WithFeatureStoreFactory(store);
 var client = new LDClient(config);
 ```
@@ -607,12 +679,15 @@ var client = new LDClient(config);
 require 'ldclient-rb'
 
 store = LaunchDarkly::Integrations::DynamoDB.new_feature_store('my-table',
-  { expiration: 30 })
+  { expiration: 30 }) 
+
 
 config = LaunchDarkly::Config.new(
   feature_store: store
-)
-client = LaunchDarkly::Client.new(sdk_key, config)
+) 
+
+client = LaunchDarkly::Client.new(sdk_key, config) 
+
 ```
 
 </CodeTabItem>
@@ -627,10 +702,13 @@ from ldclient.feature_store import CacheConfig
 from ldclient.integrations import DynamoDB
 
 store = DynamoDB.new_feature_store('my_table',
-    caching=CacheConfig(expiration=30))
+    caching=CacheConfig(expiration=30)) 
 
-config = Config(feature_store=store)
-ldclient.set_config(config)
+
+config = Config(feature_store=store) 
+
+ldclient.set_config(config) 
+
 ```
 
 </CodeTabItem>
@@ -698,16 +776,19 @@ In the following examples, the Consul feature store is set to use a host address
 import (
     ld "gopkg.in/launchdarkly/go-server-sdk.v4"
     "gopkg.in/launchdarkly/go-server-sdk.v4/ldconsul"
-)
+) 
+
 
 store, err := ldconsul.NewConsulFeatureStore(
     ldconsul.Address("http://my-consul:8100"),
     ldconsul.Prefix("my-key-prefix"),
-    ldconsul.CacheTTL(30 * time.Second))
+    ldconsul.CacheTTL(30 * time.Second)) 
+
 
 config := ld.DefaultConfig
 config.FeatureStore = store
-client := ld.MakeCustomClient(sdkKey, config, waitTime)
+client := ld.MakeCustomClient(sdkKey, config, waitTime) 
+
 ```
 
 </CodeTabItem>
@@ -719,13 +800,18 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 import com.launchdarkly.client.*;
 import com.launchdarkly.client.integrations.*;
 
-LDConfig config = new LDConfig.Builder()
+LDConfig config = new LDConfig.Builder() 
+
     .dataStore(
         Components.persistentDataStore(
-            Consul.dataStore().url(URL.create("http://my-consul:8100"))
-                .prefix("my-key-prefix")
-        ).cacheSeconds(30)
-    )
+            Consul.dataStore().url(URL.create("http://my-consul:8100")) 
+
+                .prefix("my-key-prefix") 
+
+        ).cacheSeconds(30) 
+
+    ) 
+
     .build();
 LDClient client = new LDClient(sdkKey, config);
 
@@ -733,13 +819,19 @@ LDClient client = new LDClient(sdkKey, config);
 // Before version 4.12.0, the preferred syntax was different:
 import com.launchdarkly.client.consul.*;
 
-LDConfig deprecatedConfig = new Config.Builder()
+LDConfig deprecatedConfig = new Config.Builder() 
+
     .featureStoreFactory(
-        ConsulComponents.consulFeatureStore()
-            .url(URL.create("http://my-consul:8100"))
-            .prefix("my-key-prefix")
-            .caching(FeatureStoreCacheConfig.enabled().withTtlSeconds(30))
-    )
+        ConsulComponents.consulFeatureStore() 
+
+            .url(URL.create("http://my-consul:8100")) 
+
+            .prefix("my-key-prefix") 
+
+            .caching(FeatureStoreCacheConfig.enabled().withTtlSeconds(30)) 
+
+    ) 
+
     .build();
 ```
 
@@ -752,11 +844,14 @@ LDConfig deprecatedConfig = new Config.Builder()
 using LaunchDarkly.Client;
 using LaunchDarkly.Client.Consul;
 
-var store = ConsulComponents.ConsulFeatureStore()
-    .WithAddress(new Uri("http://my-consul:8100"))
+var store = ConsulComponents.ConsulFeatureStore() 
+
+    .WithAddress(new Uri("http://my-consul:8100")) 
+
     .WithCaching(FeatureStoreCacheConfig.Enabled.WithTtlSeconds(30));
 
-var config = Configuration.Default(sdkKey)
+var config = Configuration.Default(sdkKey) 
+
     .WithFeatureStoreFactory(store);
 var client = new LDClient(config);
 ```
@@ -770,12 +865,15 @@ var client = new LDClient(config);
 require 'ldclient-rb'
 
 store = LaunchDarkly::Integrations::Consul.new_feature_store(
-  { url: 'http://my-consul:8100', prefix: 'my-key-prefix', expiration: 30 })
+  { url: 'http://my-consul:8100', prefix: 'my-key-prefix', expiration: 30 }) 
+
 
 config = LaunchDarkly::Config.new(
   feature_store: store
-)
-client = LaunchDarkly::Client.new(sdk_key, config)
+) 
+
+client = LaunchDarkly::Client.new(sdk_key, config) 
+
 ```
 
 </CodeTabItem>
@@ -791,10 +889,13 @@ from ldclient.feature_store import CacheConfig
 from ldclient.integrations import Consul
 
 store = Consul.new_feature_store(host='my-consul', port=8100,
-    prefix='my-key-prefix', caching=CacheConfig(expiration=30))
+    prefix='my-key-prefix', caching=CacheConfig(expiration=30)) 
 
-config = Config(feature_store=store)
-ldclient.set_config(config)
+
+config = Config(feature_store=store) 
+
+ldclient.set_config(config) 
+
 ```
 
 </CodeTabItem>

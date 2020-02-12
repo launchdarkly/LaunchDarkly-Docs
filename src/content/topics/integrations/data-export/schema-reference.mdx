@@ -28,7 +28,7 @@ more about Segment's JSON schema reference, read
 [Segment's documentation](https://segment.com/docs/sources/cloud-apps/launchdarkly/).
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
   These events are described in more detail below.
 
@@ -83,7 +83,7 @@ more about Segment's JSON schema reference, read
 The `index` and `identify` event kinds are **not available** for Segment and mParticle destinations.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## SDK Versioning for Events
 
@@ -94,7 +94,8 @@ Older SDKs will also send `user` attributes as an object inside `feature` events
 The minimum SDK version numbers for SDKs support the new `summary` and `index` events and limit the sending of "feature" events are listed below:
 
 - .NET: **4.0.0**
-- Go: **4.0.0** (aka v4)
+- Go: **4.0.0** (aka v4) 
+
 - Java: **4.0.0**
 - Node: **5.0.0**
 - PHP: **4.0.0**
@@ -109,7 +110,7 @@ To see "feature" events for a feature flag using recent SDKs, select "Send detai
 flag" in the **Settings** menu for a feature flag or environment.
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 ## Understanding event type structures
 
@@ -233,7 +234,7 @@ An example `index` event is pictured below:
       not created for every flag evaluation. If the same user (as defined by their key) is seen multiple times in
       succession, multiple index events will not be sent.
     </CalloutDescription>
-  </Callout>
+  </Callout> 
 
 ## Identify events
 
@@ -363,7 +364,8 @@ An example summary event is pictured below:
         "value": "some-other-result-value",
         "version": 19,
         "count": 29,
-        "variation": null (or leave empty)
+        "variation": null (or leave empty) 
+
       }],
     "nonexistent-flag-key" : {
       "default": false,
