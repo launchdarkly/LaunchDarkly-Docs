@@ -8,6 +8,7 @@ This guide helps authors and developers unify implementation by providing you wi
 
 ### Table of Contents
 
+- Best practices & gotchas
 - **Components**
 - LearnMore
 - Callout
@@ -19,6 +20,36 @@ This guide helps authors and developers unify implementation by providing you wi
 - Typography
 - Spacing
 - Color
+
+# Best practices & gotchas
+
+Translating markdown and HTML components into human-usable formatting can be scary. Follow these best practices to have a better experience:
+
+* Line breaks to separate HTML-style tags in React components from other types of content. For example:
+```  
+  <Callout intent="info">
+  <CalloutTitle>CALLOUT-TITLE</CalloutTitle>
+  <CalloutDescription>
+
+CALLOUT CONTENT.
+
+  </CalloutDescription>
+</Callout>
+```
+
+* Left-justify text content inside callouts
+
+  As pictured above. Callout contents do not respect markdown unless they are left-justified. 
+
+* Line breaks after every component
+   
+  Separate headers, components, and other formatting with a paragraph break. This ensures the text formats correctly. Don't worry about inline links, those don't mess up any formatting. 
+  
+```
+# EXAMPLE HEADER
+< -- this line deliberately left blank -- > 
+Content content.
+```
 
 # Components
 
