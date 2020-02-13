@@ -120,11 +120,11 @@ const plugins = [
   {
     resolve: 'gatsby-plugin-manifest',
     options: {
-      name: 'git-gatsby',
-      short_name: 'starter',
+      name: 'LaunchDarkly Docs',
+      short_name: 'LD Docs',
       start_url: '/',
-      background_color: '#663399',
-      theme_color: '#663399',
+      background_color: '#0E1932',
+      theme_color: '#FFF',
       display: 'minimal-ui',
       icon: 'assets/images/launchdarkly-logo.png', // This path is relative to the root of the site.
     },
