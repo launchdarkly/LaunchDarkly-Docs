@@ -41,14 +41,16 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({ refine, ...rest }) =
           onChange={event => refine(event.currentTarget.value)}
           sx={{
             border: 0,
-            width: '85%',
+            width: '100%',
             outline: 'none',
             fontSize: 4,
             '::placeholder': { fontSize: [4, 3, 4] },
           }}
           {...rest}
         />
-        <Icon name="window-close" variant="close" onClick={onClearSearch} sx={{ cursor: 'pointer' }} />
+        {inputRef.current?.value && (
+          <Icon name="window-close" variant="close" onClick={onClearSearch} sx={{ cursor: 'pointer' }} />
+        )}
       </div>
     </Fragment>
   )
