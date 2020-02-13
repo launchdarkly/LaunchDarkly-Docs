@@ -104,7 +104,8 @@
     "test": "jest",
     "tsc": "tsc",
     "lint": "eslint --ignore-path .gitignore . --ext ts,tsx,js,jsx",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "cypress:ci": "cypress run"
   },
   "repository": {
     "type": "git",

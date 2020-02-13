@@ -10,6 +10,7 @@ jobs:
         with:
           node-version: '13.x'
       - run: yarn
+      - run: yarn build-nav-data
       - run: yarn lint
   tsc:
     runs-on: ubuntu-latest

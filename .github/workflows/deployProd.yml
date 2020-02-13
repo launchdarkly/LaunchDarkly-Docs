@@ -27,20 +27,23 @@ jobs:
           SEGMENT_KEY: 'RUtph5AIOikMUv9vQUVqHrb6G2pALs0T'
           AWS_S3_BUCKET: 'launchdarkly-docs-production'
           AWS_HOSTNAME: 'docs.launchdarkly.com'
-#  cypress-run:
-#    runs-on: ubuntu-latest
-#    name: Run cypress
-#    needs: [build-deploy]
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v1
-#      - name: Cypress run
-#        uses: cypress-io/github-action@v1
-#      - run: echo ::set-env name=SLACK_MESSAGE::$(echo "{\\\"channel\\\":\\\"CPM7ALZC2\\\",\\\"text\\\":\\\"<https://github.com/launchdarkly/git-gatsby/actions/runs/$GITHUB_RUN_ID|Cypress> failed for <https://github.com/launchdarkly/git-gatsby/commit/$GITHUB_SHA|$GITHUB_SHA>.\\\"}")
-#      - name: Notify slack
-#        if: failure()
-#        uses: pullreminders/slack-action@master
-#        with:
-#          args: ${{ env.SLACK_MESSAGE }}
-#        env:
-#          SLACK_BOT_TOKEN: ${{ secrets.CYPRESS_SLACK_BOT_TOKEN }}
+
+  cypress-run:
+    runs-on: ubuntu-latest
+    name: Run cypress
+    needs: [build-deploy]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - run: yarn
+      - run: yarn build-nav-data
+      - name: Cypress run
+        uses: cypress-io/github-action@v1
+      - run: echo ::set-env name=SLACK_MESSAGE::$(echo "{\\\"channel\\\":\\\"CPM7ALZC2\\\",\\\"text\\\":\\\"<https://github.com/launchdarkly/git-gatsby/actions/runs/$GITHUB_RUN_ID|Cypress> failed for <https://github.com/launchdarkly/git-gatsby/commit/$GITHUB_SHA|$GITHUB_SHA>.\\\"}")
+      - name: Notify slack
+        if: failure()
+        uses: pullreminders/slack-action@master
+        with:
+          args: ${{ env.SLACK_MESSAGE }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.CYPRESS_SLACK_BOT_TOKEN }}

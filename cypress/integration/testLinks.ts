@@ -4,27 +4,30 @@ import isExternalLink from '../../src/utils/isExternalLink'
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 chai.use(require('chai-string'))
 
+const ignore = ['mailto', 'https://stream.launchdarkly.', 'https://events.launchdarkly.', 'https://console.aws.']
+
 describe('Verify links', () => {
   flattenedNavigationData.forEach(({ label, allItems }) => {
-    if (label === 'SDK')
-      allItems.forEach(path => {
-        if (!path.startsWith('mailto') && !path.startsWith('https://stream.launchdarkly.com')) {
-          it(`${label}: ${path}`, () => {
-            if (isExternalLink(path)) {
-              cy.request(path).then(resp => {
+    allItems.forEach(path => {
+      it(`${label}: ${path}`, () => {
+        if (isExternalLink(path)) {
+          cy.request(path).then(resp => {
+            expect(resp.status).to.eq(200)
+          })
+        } else {
+          cy.visit(path)
+          cy.get('main a').each($a => {
+            const href = $a.prop('href')
+
+            const included = !ignore.find(prefix => href.startsWith(prefix))
+            if (included) {
+              cy.request(`${href}`).then(resp => {
                 expect(resp.status).to.eq(200)
-              })
-            } else {
-              cy.visit(path)
-              cy.get('main a').each($a => {
-                const href = $a.prop('href')
-                cy.request(`${href}`).then(resp => {
-                  expect(resp.status).to.eq(200)
-                })
               })
             }
           })
         }
       })
+    })
   })
 })
