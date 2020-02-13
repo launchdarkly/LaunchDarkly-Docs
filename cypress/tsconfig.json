@@ -5,6 +5,7 @@
     "target": "es5",
     "lib": ["es5", "dom"],
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "types": ["cypress", "node"],
     "typeRoots": ["cypress/types", "./node_modules/@types"]
   },
