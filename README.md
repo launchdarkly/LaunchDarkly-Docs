@@ -38,7 +38,7 @@ This is flattened at build time to autogenerate two files `rootTopics.json` and 
 flattened data are queryable via graphql and allows us to render the side nav more efficiently. 
 
 ## 🔍 Algolia search
-Please reach out to Sarah Day if you need to login to the Algolia dashboard. She will be able to send you an invite.
+Please reach out to @scribblingfox if you need to login to the Algolia dashboard. She will be able to send you an invite.
 
 To index mdx content and send to algolia, create a local `.env.development` file that contains the following:
 
@@ -61,10 +61,10 @@ cli param `GATSBY_ACTIVE_ENV`. For example, for staging, you would run the follo
 
 This will create an algolia index called `Pages_staging`.
 
-## 👥 Public content
+## 👥 Markdown content
 
-The `src/content` folder is meant to be publicly mirrored. This is so anyone can submit a PR
-to update our docs.
+The `src/content/topics` folder contains all the docs markdown. If you would like to contribute to the
+docs, this will be the place to start.
 
 ## 🔥 Issues
 If you encounter what looks like a gatsby cache issue, you can clean the gatsby cache first:
