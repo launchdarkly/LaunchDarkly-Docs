@@ -140,6 +140,7 @@ export default {
       paddingY: 4,
       lineHeight: 'small',
       my: [4, 5],
+      overflowX: 'auto',
     },
     table: {
       padding: 2,
@@ -154,6 +155,7 @@ export default {
       fontSize: 3,
       width: '100%',
       my: [4, 5],
+      overflowX: 'auto',
     },
     image: {
       borderRadius: 1,
