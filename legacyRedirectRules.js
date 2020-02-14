@@ -413,7 +413,7 @@ module.exports = [
   },
   {
     fromPath: '/docs/node-sdk-reference',
-    toPath: '/sdk/server-side/node',
+    toPath: '/sdk/server-side/node-js',
   },
   {
     fromPath: '/docs/php-sdk-reference',
