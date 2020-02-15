@@ -4,6 +4,10 @@ module.exports = [
     toPath: '/home/getting-started',
   },
   {
+    fromPath: '/v2.0/docs',
+    toPath: '/home/getting-started',
+  },
+  {
     fromPath: '/home',
     toPath: '/home/getting-started',
   },
