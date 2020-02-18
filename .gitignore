@@ -80,3 +80,4 @@ cypress/screenshots
 cypress/videos
 cypress.env.json
 
+package-lock.json
