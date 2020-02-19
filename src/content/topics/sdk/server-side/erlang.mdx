@@ -2,7 +2,7 @@
 path: '/sdk/server-side/erlang'
 title: 'Erlang SDK reference'
 description: 'This topic explains all of the methods available in the server-side Erlang SDK, with detail about how they work.'
-published: false 
+published: true 
 ---
 
 <Callout intent="info">
@@ -35,17 +35,19 @@ First, you'll need to download the dependency using [Rebar](https://www.rebar3.o
 
 ```
 {deps, [
-	{eld, {git, "https://github.com/launchdarkly/erlang-server-sdk", {tag, "1.0.0-alpha4"}}}
+	{eld, {git, "https://github.com/launchdarkly/erlang-server-sdk", {tag, "1.0.0-beta1"}}}
 ]}.
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
+After you install the SDK dependency, create an instance of the SDK.
+
 <Callout intent="info">
-  <CalloutTitle>The client does not need to be a singleton.</CalloutTitle>
+  <CalloutTitle>Use a single instance</CalloutTitle>
   <CalloutDescription>
-    Unlike other SDKs, the Erlang SDK is designed so that developers can start an arbitrary number of instances. Because of this, most SDK functions allow you to specify an instance tag parameter. In cases where you can't specify an instance tag parameter, the SDK uses the default instance.
+    The Erlang SDK supports starting multiple instances, but you probably only need one instance.
   </CalloutDescription>
 </Callout>
 
@@ -79,7 +81,7 @@ Now you can check which flag variation a specific user should receive.
 <CodeTabItem value="erlang">
 
 ```
-Flag = eld:variation("YOUR_FLAG_KEY", #{key => aa0ceb}, false)
+Flag = eld:variation(<<"YOUR_FLAG_KEY">>, #{key => <<"123">>}, false)
 ```
 
 </CodeTabItem>
@@ -98,17 +100,21 @@ You can pass other custom parameters when the client starts by using the `Option
 <CodeTabItem value="erlang">
 
 ```
+% Specify options
+eld:start_instance("YOUR_SDK_KEY", #{stream => false})
+
+% With a custom instance name
 eld:start_instance("YOUR_SDK_KEY", my_instance, #{stream => false})
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-In the example above, we've turned off streaming and the SDK will now connect to LaunchDarkly via polling.
+The code sample above turns off streaming. The SDK now connects to LaunchDarkly through polling.
 
 ## Users
 
-Feature flag targeting and rollouts are all determined by the user you pass to your variation calls.
+Feature flag targeting and rollouts are determined by the user you pass to your variation calls.
 
 <CodeTabs
   defaultValue="erlang"
@@ -119,30 +125,18 @@ Feature flag targeting and rollouts are all determined by the user you pass to y
 <CodeTabItem value="erlang">
 
 ```
-Key = aa0ceb,
-Secondary = "abc",
-Ip = "198.51.100.0",
-Country = <<"your-country">>,
-Email = "foo@bar.com",
-FirstName = "a",
-LastName = "z",
-Avatar = "ratavA",
-Name = "foobar",
-Anonymous = false,
-CustomKey = <<"custom-key">>,
-CustomValue = <<"custom-value">>,
 Map = #{
-    <<"key">> => Key,
-    secondary => Secondary,
-    ip => Ip,
-    country => Country,
-    email => Email,
-    first_name => FirstName,
-    last_name => LastName,
-    avatar => Avatar,
-    name => Name,
-    anonymous => Anonymous,
-    CustomKey => CustomValue
+    key => <<"aa0ceb">>,
+    secondary => <<"abc">>,
+    ip => <<"198.51.100.0">>,
+    country => <<"your-country">>,
+    email => <<"foo@bar.com">>,
+    first_name => <<"a">>,
+    last_name => <<"z">>,
+    avatar => <<"ratavA">>,
+    name => <<"foobar">>,
+    anonymous => false,
+    <<"custom-key">> => <<"custom-value">>
 },
 User = eld_user:new_from_map(Map)
 ```
@@ -152,15 +146,14 @@ User = eld_user:new_from_map(Map)
 
 <Callout>
     <CalloutTitle>The user key is mandatory.</CalloutTitle>
-    <CalloutDescription>The most important attribute in the example above is the user key. The user key should be unique to each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+    <CalloutDescription>The most important attribute in the example above is the user key. The user key should be unique to each user. In the example above, we used the binary `aa0ceb`. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 </CalloutDescription>
 </Callout>
-
-In the example above, we used the atom hash `aa0ceb`.
 
 All of the other attributes, like `FirstName`, `Email`, and the custom attributes, are optional. The attributes you specify appear on the LaunchDarkly dashboard automatically. You can start making user segments and targeting users with these attributes right away.
 
 In addition to built-in attributes like names and email addresses, you can pass any of your own user data as key-value pairs in the map, like the `CustomKey` in the example above. Custom attributes are one of LaunchDarkly's most powerful features. They let you target users according to any data that you want to send, including organizations, groups, and account plans. Anything you pass to us becomes available instantly on our dashboard.
+
 
 ## Anonymous users 
 
@@ -173,10 +166,10 @@ In addition to built-in attributes like names and email addresses, you can pass 
 <CodeTabItem value="erlang">
 
 ```
-Key = aa0ceb,
+Key = <<"aa0ceb">>,
 Anonymous = true,
 Map = #{
-    <<"key">> => Key,
+    key => Key,
     anonymous => Anonymous,
 },
 User = eld_user:new_from_map(Map)
@@ -239,7 +232,7 @@ For example, if the feature flag key doesn't exist or the user doesn't have a ke
 <CodeTabItem value="erlang">
 
 ```
-Flag = eld:variation("my-bool-key", #{key => aa0ceb,}, false, my_instance)
+Flag = eld:variation(<<"my-bool-key">>, #{key => <<"aa0ceb">>,}, false, my_instance)
 ```
 
 </CodeTabItem>
@@ -260,7 +253,7 @@ To learn more about this data, read [Flag evaluation rules](/sdk/concepts/flag-e
 <CodeTabItem value="erlang">
 
 ```
-Flag = eld:variation_detail("my-bool-key", #{key => aa0ceb,}, false, my_instance)
+Flag = eld:variation_detail(<<"my-bool-key">>, #{key => <<"aa0ceb">>}, false)
 ```
 
 </CodeTabItem>
@@ -283,7 +276,7 @@ To learn more, read the [JavaScript SDK Reference](/sdk/client-side/javascript).
 <CodeTabItem value="erlang">
 
 ```
-eld:all_flags_state(#{key => aa0ceb}, my_instance)
+eld:all_flags_state(#{key => <<"aa0ceb">>})
 ```
 
 </CodeTabItem>
@@ -304,7 +297,7 @@ In this example, we connect a metric to track:
 <CodeTabItem value="erlang">
 
 ```
-eld:track("EXAMPLE-METRIC-KEY", #{key => aa0ceb}, #{data => example}, your_instance)
+eld:track(<<"YOUR-METRIC-KEY">>, #{key => <<"aa0ceb">>}, #{data => <<"example">>})
 ```
 
 </CodeTabItem>
@@ -321,8 +314,7 @@ You can also attach a JSON object containing arbitrary data to your event, or a 
 <CodeTabItem value="erlang">
 
 ```
-eld:track_with_metric("YOUR-GOAL-KEY", #{key => aa0ceb}, #{data => example}, 0.5, your_instance)
-```
+eld:track_with_metric(<<"YOUR-METRIC-KEY">>, #{key => <<"aa0ceb">>}, #{data => <<"example">>}, 0.5)```
 
 </CodeTabItem>
 </CodeTabs>
@@ -342,7 +334,7 @@ In most cases, you won't need to call `identify`. The `variation` call automatic
 <CodeTabItem value="erlang">
 
 ```
-eld:identify( #{key => aa0ceb}, my_instance)
+eld:identify(#{key => <<"aa0ceb">>})
 ```
 
 </CodeTabItem>
@@ -365,7 +357,7 @@ You can do this by setting offline mode in the config map with the `offline` key
 <CodeTabItem value="erlang">
 
 ```
-eld:start_instance("YOUR_SDK_KEY", my_instance, #{offline => true})
+eld:start_instance("YOUR_SDK_KEY", #{offline => true})
 ```
 
 </CodeTabItem>
@@ -388,13 +380,13 @@ Do not evaluate flags after any of these functions have been initiated.
 <CodeTabItem value="erlang">
 
 ```
-stop_all_instances()
+eld:stop_all_instances()
 
 % Stops the default instance
-stop_instance()
+eld:stop_instance()
 
 % Stops a named instance
-stop_instance(my_instance)
+eld:stop_instance(my_instance)
 ```
 
 </CodeTabItem>

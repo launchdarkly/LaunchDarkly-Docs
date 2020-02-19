@@ -501,6 +501,10 @@
             "path": "/sdk/server-side/c-c--"
           },
           {
+            "label": "Erlang SDK reference",
+            "path": "/sdk/server-side/erlang"
+          },
+          {
             "label": "Go SDK reference",
             "path": "/sdk/server-side/go"
           },
