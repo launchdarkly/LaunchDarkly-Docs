@@ -255,18 +255,6 @@
             ]
           },
           {
-            "label": "Evaluation reasons",
-            "path": "/home/advanced/flag-evaluations"
-          },
-          {
-            "label": "Reading flags from a file",
-            "path": "/home/advanced/flags-from-files"
-          },
-          {
-            "label": "Using a persistent feature store",
-            "path": "/home/advanced/feature-store"
-          },
-          {
             "label": "LaunchDarkly in China",
             "path": "/home/advanced/china"
           }
@@ -415,6 +403,18 @@
             "path": "/sdk/concepts/client-side-server-side"
           },
           {
+            "label": "Evaluation reasons",
+            "path": "/sdk/concepts/flag-evaluations"
+          },
+          {
+            "label": "Reading flags from a file",
+            "path": "/sdk/concepts/flags-from-files"
+          },
+          {
+            "label": "Using a persistent feature store",
+            "path": "/sdk/concepts/feature-store"
+          },
+          {
             "label": "SDK versioning policy",
             "path": "/sdk/concepts/versioning"
           },
@@ -509,7 +509,7 @@
             "path": "/sdk/server-side/go"
           },
           {
-            "label": "Haskell SDK Reference",
+            "label": "Haskell SDK reference",
             "path": "/sdk/server-side/haskell"
           },
           {

@@ -252,6 +252,10 @@ module.exports = [
     toPath: '/integrations/jira',
   },
   {
+    fromPath: '/docs/microsoft-teams',
+    toPath: '/integrations/microsoft-teams',
+  },
+  {
     fromPath: '/docs/newrelic',
     toPath: '/integrations/newrelic',
   },
@@ -365,15 +369,27 @@ module.exports = [
   },
   {
     fromPath: '/docs/evaluation-reasons',
-    toPath: '/home/advanced/flag-evaluations',
+    toPath: '/sdk/concepts/flag-evaluations',
   },
   {
     fromPath: '/docs/reading-flags-from-a-file',
-    toPath: '/home/advanced/flags-from-files',
+    toPath: '/sdk/concepts/flags-from-files',
   },
   {
     fromPath: '/docs/using-a-persistent-feature-store',
-    toPath: '/home/advanced/feature-store',
+    toPath: '/sdk/concepts/feature-store',
+  },
+  {
+    fromPath: '/home/advanced/flag-evaluations',
+    toPath: '/sdk/concepts/flag-evaluations',
+  },
+  {
+    fromPath: '/home/advanced/flags-from-files',
+    toPath: '/sdk/concepts/flags-from-files',
+  },
+  {
+    fromPath: '/home/advanced/feature-store',
+    toPath: '/sdk/concepts/feature-store',
   },
   {
     fromPath: '/docs/getting-started-with-launchdarkly-sdks',
@@ -402,6 +418,10 @@ module.exports = [
   {
     fromPath: '/docs/c-server-sdk-reference',
     toPath: '/sdk/server-side/c-c--',
+  },
+  {
+    fromPath: '/docs/erlang-sdk-reference',
+    toPath: '/sdk/server-side/erlang',
   },
   {
     fromPath: '/docs/go-sdk-reference',
