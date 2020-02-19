@@ -77,16 +77,6 @@ The webhook payload format is identical to the entry format for the [audit log](
   </CalloutDescription>
 </Callout> 
 
-The webhook payload format is identical to the entry format for the [audit log](/home/managing-flags/audit-log-history). See our [REST API Documentation](https://apidocs.launchdarkly.com/docs/webhooks-overview#payload) for an example payload.
-
-<Callout intent="info">
-  <CalloutTitle>Webhook delivery order</CalloutTitle>
-  <CalloutDescription>
-    Note that webhooks may not be delivered in chronological order. We recommend using the payload's "date" field as a
-    timestamp to reorder webhooks as they are received.
-  </CalloutDescription>
-</Callout> 
-
 ## Retries
 
 If LaunchDarkly receives a non-2xx response to a webhook `POST`, it will attempt to retry the delivery once. Webhook delivery is not guaranteed, and integrations built on webhooks should be tolerant of delivery failures.
