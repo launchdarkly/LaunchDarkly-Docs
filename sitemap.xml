@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+<url>
+  <loc>https://docs.launchdarkly.com/home/getting-started</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/concepts/client-side-server-side</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/dotnet</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/c-c--</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/go</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/haskell</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/java</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/node-js</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/php</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/python</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/ruby</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/android</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/c-c--</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/electron</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/ios-objective-c</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/ios-swift</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/javascript</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/node-js</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/react</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/react-native</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/roku</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/xamarin</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/managing-flags/targeting-users</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/experimentation</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/managing-flags/debugger</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/azure-devops</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/bitbucket-pipelines</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/jira</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/slack</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/terraform</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/vscode</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/webhooks</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/git-code-references</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/data-export</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/advanced/relay-proxy</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/advanced/feature-store</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/dotnet/</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/android/</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/c-c--/</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/c-c--/</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/go/</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/haskell/</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/ios-objective-c/</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/ios-swift/</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/java/</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/javascript/</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/node-js/</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/node-js/</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/php/</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/server-side/python/</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/react-native/</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/managing-users/user-attributes</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/advanced/flag-evaluations</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/sdk/client-side/javascript/requirements-polyfills</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/managing-users/anonymous-users</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/experimentation/managing</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/experimentation/managing/populations</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/experimentation/create</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/experimentation/managing/lifecycle</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/experimentation/managing/interpreting</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/api-access-tokens</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/custom-roles/</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/advanced/custom-properties</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/slack/setting-up</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/custom-roles</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/managing-flags/audit-log-history</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/git-code-references/github-actions</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/git-code-references/circleci-orbs</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/git-code-references/gitlab-ci</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/git-code-references/custom-config</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/data-export/kinesis</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/data-export/google-pubsub</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/data-export/mparticle</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/data-export/segment</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/integrations/data-export/schema-reference</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/advanced/relay-proxy/using</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/advanced/relay-proxy/monitoring</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/managing-users/users-dashboard</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/custom-roles/actions</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/custom-roles/configure</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/custom-roles/resources</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/custom-roles/tags</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/custom-roles/policies</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/managing-your-team</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/metrics-insights/usage-metrics</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/custom-roles/example-policies</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/custom-roles/private-projects</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/getting-started/feature-flags</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/sso</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/mfa</loc>
+  <lastmod>2020-02-11T22:15:08+00:00</lastmod>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/managing-flags/dashboard</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/managing-flags/flag-variations</loc>
+  <lastmod>2020-02-11T22:15:09+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/sso/okta</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/sso/onelogin</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/sso/google-apps</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/sso/adfs</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+<url>
+  <loc>https://docs.launchdarkly.com/home/account-security/sso/azure</loc>
+  <lastmod>2020-02-11T22:15:10+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+
+
+</urlset>
