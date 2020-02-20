@@ -45,6 +45,14 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       isPermanent: true,
       redirectInBrowser: true,
     })
+    if (fromPath.startsWith('/docs')) {
+      createRedirect({
+        fromPath: '/v2.0' + fromPath,
+        toPath,
+        isPermanent: true,
+        redirectInBrowser: true,
+      })
+    }
   })
 
   const result = await graphql(`
