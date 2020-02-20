@@ -365,7 +365,7 @@ module.exports = [
   },
   {
     fromPath: '/docs/evaluation-reasons',
-    toPath: '/sdk/concepts/flag-evaluations',
+    toPath: '/sdk/concepts/evaluation-reasons',
   },
   {
     fromPath: '/docs/reading-flags-from-a-file',
@@ -377,7 +377,11 @@ module.exports = [
   },
   {
     fromPath: '/home/advanced/flag-evaluations',
-    toPath: '/sdk/concepts/flag-evaluations',
+    toPath: '/sdk/concepts/evaluation-reasons',
+  },
+  {
+    fromPath: '/sdk-concepts/flag-evaluations',
+    toPath: '/sdk/concepts/evaluation-reasons',
   },
   {
     fromPath: '/home/advanced/flags-from-files',

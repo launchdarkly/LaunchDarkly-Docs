@@ -404,7 +404,7 @@
           },
           {
             "label": "Evaluation reasons",
-            "path": "/sdk/concepts/flag-evaluations"
+            "path": "/sdk/concepts/evaluation-reasons"
           },
           {
             "label": "Reading flags from a file",
