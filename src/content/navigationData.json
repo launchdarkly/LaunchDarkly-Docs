@@ -299,7 +299,7 @@
         "path": "/integrations/oauth"
       },
       {
-        "label": "The LaunchDarkly Slack app",
+        "label": "Slack",
         "path": "/integrations/slack",
         "items": [
           {
