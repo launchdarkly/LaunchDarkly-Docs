@@ -50,6 +50,10 @@ pod install
 
 You will need a `Podfile` in your `ios/` directory. Once you've written your `Podfile`, run `pod install` in the `ios/` directory. This SDK currently requires Xcode 10.2.1 (it is compatible with Xcode 10.3) and is compiled against Swift 5.
 
+<Callout intent="info">
+  <CalloutTitle><code>use_frameworks!</code> and undefined symbols errors</CalloutTitle>
+  <CalloutDescription>As of v2.1.0 <code>use_frameworks!</code> is not necessary in the Podfile. If you encounter an undefined symbols error when building without <code>use_frameworks!</code> in your <code>Podfile</code> you will need to create a new empty Swift file and accept the prompt to create a matching Objective-C bridging header. If you are building for multiple platforms, add those as targets for the bridging header. If you're still having trouble resolving the undefined symbols error, clean and rebuild and try again.</CalloutDescription>
+</Callout>
 
 <CodeTabs
   defaultValue="js"
@@ -97,7 +101,7 @@ target 'YOUR_MODULE_NAME' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   #launchdarkly-react-native-client-sdk dependencies
-  pod 'LaunchDarkly', '4.3.2'
+  pod 'LaunchDarkly', '4.4.0'
 
   use_native_modules!
 end
@@ -214,7 +218,8 @@ let clientConfig =
     "stream": true,
     "disableBackgroundUpdating": false,
     "offline": false,
-    "debugMode": true
+    "debugMode": true,
+    "evaluationReasons": false
   };
 ```
 
@@ -242,6 +247,7 @@ let userConfig =
      	email: 'gracehopper@example.net',
      	anonymous: false,
      	privateAttributeNames: ['name'],
+      country: 'USA',
      	custom: {'groups': 'users'}
     };
 ```
@@ -289,6 +295,17 @@ The variation call will automatically create a user in LaunchDarkly if a user wi
 When LDClient is initialized for the first time at app launch, users will receive feature flag fallback values until an initial connection to LaunchDarkly is completed for the first time. Take a look at the section above on various ways to initialize the client.</CalloutDescription>
 </Callout>
 
+## VariationDetail
+
+<Callout intent="info">
+  <CalloutTitle>Availability</CalloutTitle>
+  <CalloutDescription>Since v2.1.0</CalloutDescription>
+</Callout>
+
+The `variationDetail` methods work the same as `variation`, but also provide additional `reason` information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the `reason` data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
+
+For more information, see [Evaluation reasons](/sdk/concepts/flag-evaluations).
+
 ## All Flags
 
 <Callout intent="alert">
@@ -300,7 +317,7 @@ Unlike `variation` and `identify` calls, `allFlags` does not send events to Laun
 </CalloutDescription>
 </Callout>
 
-The `allFlags` method returns an object containing flag keys and values.
+The `allFlags` method returns an object containing flag keys and values. You may also register a listener that will fire when any flag in your environment changes.
 
 <CodeTabs
   defaultValue="js"
@@ -329,6 +346,12 @@ client.registerAllFlagsListener(listenerId, listener);
 
 The `track` method allows you to record actions your users take in your app. In the LaunchDarkly dashboard, you can tie these events to goals in A/B tests. You can also attach custom JSON data to your event by passing an extra parameter to `track`. Here's a simple example:
 
+<Callout intent="info">
+  <CalloutTitle>Availability</CalloutTitle>
+  <CalloutDescription>Since v2.1.0</CalloutDescription>
+</Callout>
+
+You can now optionally add a `metricValue` parameter to the `track` method if you are using the latest version of Experimentation.
 
 <CodeTabs
   defaultValue="js"
