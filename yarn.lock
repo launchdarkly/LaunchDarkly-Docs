@@ -2497,7 +2497,7 @@
   dependencies:
     csstype "^2.6.4"
 
-"@types/styled-system__css@*":
+"@types/styled-system__css@*", "@types/styled-system__css@5.0.4":
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/@types/styled-system__css/-/styled-system__css-5.0.4.tgz#df83b015cf377ab39ecf33ea31339c05eeb9230a"
   integrity sha512-SHHoNh9cCRTG9hcmCD2ua0NeYUrLmLXoMJ7g0U/e0FjrzcwNQtM5wjjEJVCVZymU632xA1PdPEykrtoSHTIecA==

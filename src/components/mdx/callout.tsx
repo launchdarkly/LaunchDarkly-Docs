@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, Card, Text, Flex, Box } from 'theme-ui'
 import { PropsWithChildren } from 'react'
+import { SystemStyleObject } from '@styled-system/css'
 
 import { Intent } from '../intent'
 import Icon, { IconName } from '../icon'
@@ -26,7 +27,7 @@ export function CalloutTitle({ children }: PropsWithChildren<{}>) {
   )
 }
 
-const descriptionStyles = { fontSize: 3, lineHeight: 'spaced', mb: 1 }
+const descriptionStyles: SystemStyleObject = { fontSize: 3, lineHeight: 'spaced', mb: 1, overflowWrap: 'break-word' }
 export function CalloutDescription({ children }: PropsWithChildren<{}>) {
   return <Text sx={{ ...descriptionStyles, '& p': { ...descriptionStyles } }}>{children}</Text>
 }

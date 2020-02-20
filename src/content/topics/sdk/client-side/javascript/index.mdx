@@ -59,7 +59,7 @@ yarn add launchdarkly-js-client-sdk
 ```
 
 </CodeTabItem>
-<CodeTabItem value="yarn">
+<CodeTabItem value="bower">
 
 ```bash
 # LaunchDarkly's minified JS snippet is served from unpkg
@@ -83,8 +83,7 @@ If you are using a package manager, and then combining dependencies with your co
 <CodeTabItem value="js">
 
 ```js
-// using require() 
-
+// using require()
 const LDClient = require('launchdarkly-js-client-sdk');
 
 // using ES2015 imports
@@ -452,9 +451,9 @@ In addition to built-in attributes, you can pass us any of your own user data by
   <CalloutTitle>A note on types</CalloutTitle>
 <CalloutDescription>
 
-    Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can
-    be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom
-    value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
+Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can
+be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom
+value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
 
 </CalloutDescription>
 </Callout>
@@ -850,8 +849,8 @@ To learn more about click and pageview goals, read [Experimentation](/home/exper
   <CalloutTitle>Single-page apps</CalloutTitle>
 <CalloutDescription>
 
-    The SDK automatically handles URL changes (made via the HTML5 history API or by changing the URL hash fragment), and
-    will trigger pageview and click events correctly.
+The SDK automatically handles URL changes (made via the HTML5 history API or by changing the URL hash fragment), and
+will trigger pageview and click events correctly.
 
 </CalloutDescription>
 </Callout>

@@ -59,6 +59,7 @@
     "@types/react-helmet": "^5.0.14",
     "@types/react-helmet-async": "^1.0.3",
     "@types/react-instantsearch-dom": "5.2.6",
+    "@types/styled-system__css": "5.0.4",
     "@types/theme-ui": "^0.3.0",
     "@typescript-eslint/eslint-plugin": "^2.8.0",
     "@typescript-eslint/parser": "^2.8.0",
