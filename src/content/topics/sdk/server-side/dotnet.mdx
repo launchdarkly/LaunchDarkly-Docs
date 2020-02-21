@@ -646,6 +646,7 @@ ldClient.Flush();
 </CodeTabs>
 
 ## Logging
+
 The .NET SDK uses the `Common.Logging` framework. For an example configuration check out the [Common.Logging readme](https://github.com/net-commons/common-logging#2-register-and-configure-commonlogging).
 
 Be aware of two considerations when enabling the DEBUG log level:
@@ -658,3 +659,9 @@ Be aware of two considerations when enabling the DEBUG log level:
 Separate packages allow feature flag data to be cached with [Redis](https://github.com/launchdarkly/dotnet-server-sdk-redis), [DynamoDB](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb), or [Consul](https://github.com/launchdarkly/dotnet-server-sdk-consul).
 
 To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
+
+## Transport Layer Security (TLS)
+
+.NET applications running on older operating systems are prone to use older, less secure versions of TLS. It is possible to increase your application's security using AppContext switches. 
+
+To learn more, [read Microsoft's documentation](https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls#configuring-security-via-appcontext-switches-for-net-framework-46-or-later-versions).
