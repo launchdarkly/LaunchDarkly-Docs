@@ -101,7 +101,11 @@ module.exports = [
   },
   {
     fromPath: '/docs/segmenting-users',
-    toPath: '/home/managing-users/user-segments',
+    toPath: '/home/managing-users/segments',
+  },
+  {
+    fromPath: '/home/managing-users/user-segments',
+    toPath: '/home/managing-users/segments',
   },
   {
     fromPath: '/docs/anonymous-users',
