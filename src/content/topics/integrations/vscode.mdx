@@ -22,99 +22,11 @@ To install the VSCode extension, visit the [Visual Studio Marketplace](https://m
 
 ## Extension settings
 
-You can configure the extension with the following settings:
+On installation of the LaunchDarkly extension, VSCode will prompt you to configure the extension, selecting a LaunchDarkly project and environment for your workspace. To reconfigure the extension, run the "LaunchDarkly: Configure" command from your command pallete. See the extension's [GitHub repository](https://github.com/launchdarkly/ld-vscode/blob/master/README.md#installation-and-configuration) to see additional settings.
 
-<Table>
-  <TableHeader>
-    <TableHeadCell>Setting</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-    <TableHeadCell>Default Value</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>launchdarkly.sdkKey</code>
-      </TableCell>
-      <TableCell>
-        Required
-        <br />
-        Your LaunchDarkly SDK key.
-      </TableCell>
-      <TableCell>Find in Account Settings</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>launchdarkly.accessToken</code>
-      </TableCell>
-      <TableCell>
-        Required.
-        <br />
-        Your LaunchDarkly API access token.
-      </TableCell>
-      <TableCell>Find in Account Settings</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>launchdarkly.project</code>
-      </TableCell>
-      <TableCell>
-        Required.
-        <br />
-        Your LaunchDarkly project key, should match the provided SDK key.
-      </TableCell>
-      <TableCell>Find in Account Settings</TableCell>
-    </TableRow>
-    ><TableRow>
-      <TableCell>
-        <code>launchdarkly.env</code>
-      </TableCell>
-      <TableCell>Your LaunchDarkly environment key, should match the provided SDK key.</TableCell>
-      <TableCell>Production</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>launchdarkly.baseUri</code>
-      </TableCell>
-      <TableCell>
-        Optional.
-        <br />
-        The LaunchDarkly base uri to be used.
-      </TableCell>
-      <TableCell>https://app.launchdarkly.com</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>launchdarkly.streamUri</code>
-      </TableCell>
-      <TableCell>
-        Optional.
-        <br />
-        The LaunchDarkly base uri to be used.{' '}
-      </TableCell>
-      <TableCell>https://stream.launchdarkly.com</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>launchdarkly.enableHover</code>
-      </TableCell>
-      <TableCell>Enables flag info to be displayed on hover of a valid flag key.</TableCell>
-      <TableCell>
-        <code>true</code>
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>launchdarkly.enableAutocomplete</code>
-      </TableCell>
-      <TableCell>Enable flag key autocompletion.</TableCell>
-      <TableCell>
-        <code>true</code>
-      </TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
+*Note: If you use quick suggestions to autocomplete words, LaunchDarkly autocomplete functionality requires the `editor.quickSuggestions.strings` setting to be enabled. Otherwise, you'll need to press Ctrl+Space (default binding) to see your flag key suggestions.
 
-Here's an example setting configuration with quick suggestions enabled:
+Here's an example configuration with quick suggestions enabled:
 
 <CodeTabs
   defaultValue="json"
@@ -126,10 +38,6 @@ Here's an example setting configuration with quick suggestions enabled:
 
 ```json
 {
-  "launchdarkly.accessToken": "api-xxx",
-  "launchdarkly.sdkKey": "sdk-xxx",
-  "launchdarkly.project": "default",
-  "launchdarkly.env": "production",
   "editor.quickSuggestions": {
     "other": true,
     "comments": false,
