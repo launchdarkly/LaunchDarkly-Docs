@@ -145,7 +145,7 @@ The `withLDProvider` function initializes the React SDK and wraps your root comp
 ```js
 import { withLDProvider } from 'launchdarkly-react-client-sdk';
 
-export default withLDProvider({
+export default withLDProvider({ 
   clientSideID: 'your-client-side-id',
   user: {
     "key": "aa0ceb",
@@ -180,9 +180,8 @@ import { withLDConsumer } from 'launchdarkly-react-client-sdk';
 
 const Home = ({ flags, ldClient /*, ...otherProps */ }) => {
   // You can call any of the methods from the JavaScript SDK
-  // ldClient.identify({...}) 
-
-
+  // ldClient.identify({...})
+  
   return flags.devTestFlag ? <div>Flag on</div> : <div>Flag off</div>;
 };
 
@@ -238,7 +237,7 @@ import { useFlags, useLDClient } from 'launchdarkly-react-client-sdk';
 const HooksDemo = () => {
   const { devTestFlag } = useFlags();
   const ldClient = useLDClient();
-
+  
   const onLoginSuccessful = () => ldClient.identify({ key: 'aa0ceb' });
 
   return (
@@ -279,14 +278,14 @@ To disable the SDK's automatic camel-casing feature, you can provide `asyncWithL
 <CodeTabItem value="js">
 
 ```js
-export default withLDProvider({
+export default withLDProvider({ 
   clientSideID: 'your-client-side-id',
   user: {
     "key": "aa0ceb",
     "name": "Grace Hopper",
     "email": "gracehopper@example.com"
   },
-  reactOptions: {
+  reactOptions: { 
     useCamelCaseFlagKeys: false
   }
 })(App);

@@ -9,7 +9,9 @@ published: true
   <CalloutTitle>iOS Client SDK for Swift</CalloutTitle>
   <CalloutDescription>
 
-This documentation is for the LaunchDarkly SDK for Swift iOS versions 4.0.0 and later. Earlier versions of the SDK
+This documentation is for the LaunchDarkly SDK for Swift iOS versions 4.0.0 and later. 
+
+Earlier versions of the SDK
 support [Objective-C](/sdk/client-side/ios-objective-c).
 
   </CalloutDescription>
@@ -36,7 +38,7 @@ If you're using [CocoaPods](https://cocoapods.org/), you can install the SDK by 
 ```swift
 use_frameworks!
 target 'YourTargetName' do
-  pod 'LaunchDarkly', '4.4.0'
+  pod 'LaunchDarkly', '4.4.1'
 end
 ```
 
@@ -71,7 +73,7 @@ If you're using [Carthage](https://github.com/Carthage/Carthage), you can instal
 <CodeTabItem value="swift">
 
 ```swift
-github "launchdarkly/ios-client" "4.4.0"
+github "launchdarkly/ios-client" "4.4.1"
 ```
 
 </CodeTabItem>
@@ -118,20 +120,16 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 <CodeTabItem value="swift">
 
 ```swift
-let config = LDConfig(mobileKey: "YOUR_MOBILE_KEY") 
+let config = LDConfig(mobileKey: "YOUR_MOBILE_KEY")
 
+let user = LDUser(key: "test-user")
 
-let user = LDUser(key: "test-user") 
+LDClient.shared.start(config: config, user: user)
 
-
-LDClient.shared.start(config: config, user: user) 
-
-
-// If you need feature flags to load before continuing use the
+// If you need feature flags to load before continuing use the 
 // startCompleteWhenFlagsReceived method with a completion
 LDClient.shared.startCompleteWhenFlagsReceived(config: config, user: user) {
-  NSLog("Flags ready!") 
-
+  NSLog("Flags ready!")
 }
 ```
 
@@ -142,13 +140,12 @@ LDClient.shared.startCompleteWhenFlagsReceived(config: config, user: user) {
 LDUser *user = [[LDUser alloc] initWithKey:@"human@example.com"];
 
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
-
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-<Callout intent="info">
+<Callout intent="alert">
   <CalloutTitle>Mobile Keys</CalloutTitle>
 <CalloutDescription>
 
@@ -169,13 +166,13 @@ Using `LDClient`, you can check which variation a particular user should receive
 <CodeTabItem value="swift">
 
 ```swift
-let boolFeatureFlagValue = LDClient.shared.variation(forKey: "bool-flag-key", fallback: false) 
-
+let boolFeatureFlagValue = LDClient.shared.variation(forKey: "bool-flag-key", fallback: false)
 
 if boolFeatureFlagValue {
   // application code to show the feature
 else {
   // the code to run if the feature is off
+}
 }
 ```
 
@@ -236,8 +233,7 @@ Here is a complete client configuration object utilizing all available fields:
 <CodeTabItem value="swift">
 
 ```swift
-var ldConfig = LDConfig(mobileKey: safeKey) 
-
+var ldConfig = LDConfig(mobileKey: safeKey)
 /// The default url for making feature flag requests
 ldConfig.baseUrl = URL(string: "https://app.launchdarkly.com")!
 /// The default url for making event reports
@@ -248,41 +244,31 @@ ldConfig.streamUrl = URL(string: "https://clientstream.launchdarkly.com")!
 ldConfig.eventCapacity = 100
 /// The default maximum number of events the LDClient can store
 ldConfig.connectionTimeout: TimeInterval = 10.0
-/// The default time interval between event reports. (30 seconds) 
-
+/// The default time interval between event reports. (30 seconds)
 ldConfig.eventFlushInterval: TimeInterval = 30.0
-/// The default time interval between feature flag requests. Used only for polling mode. (5 minutes) 
-
+/// The default time interval between feature flag requests. Used only for polling mode. (5 minutes)
 ldConfig.flagPollingInterval: TimeInterval =  300.0
-/// The default interval between feature flag requests while running in the background. Used only for polling mode. (60 minutes) 
-
+/// The default interval between feature flag requests while running in the background. Used only for polling mode. (60 minutes)
 ldConfig.backgroundFlagPollingInterval: TimeInterval = 3600.0
-/// The default streaming mode (streaming) 
-
+/// The default streaming mode (streaming)
 ldConfig.streamingMode = LDStreamingMode.streaming
-/// The default mode for enabling background flag requests. (false) 
-
+/// The default mode for enabling background flag requests. (false)
 ldConfig.enableBackgroundUpdates = false
-/// The default mode to set LDClient online on a start call. (true) 
-
+/// The default mode to set LDClient online on a start call. (true)
 ldConfig.startOnline = true
-/// The default setting for private user attributes. (false) 
-
+/// The default setting for private user attributes. (false)
 ldConfig.allUserAttributesPrivate = false
-/// The default private user attribute list (nil) 
-
+/// The default private user attribute list (nil)
 ldConfig.privateUserAttributes: [String]? = nil
-/// The default HTTP request method for `clientstream` connection and feature flag requests. When true, these requests will use the non-standard verb `REPORT`. When false, these requests will use the standard verb `GET`. (false) 
-
+/// The default HTTP request method for `clientstream` connection and feature flag requests. When true, these requests will use the non-standard verb `REPORT`. When false, these requests will use the standard verb `GET`. (false)
 ldConfig.useReport = false
-/// The default setting controlling the amount of user data sent in events. When true the SDK will generate events using the full LDUser, excluding private attributes. When false the SDK will generate events using only the LDUser.key. (false) 
-
+/// The default setting controlling the amount of user data sent in events. When true the SDK will generate events using the full LDUser, excluding private attributes. When false the SDK will generate events using only the LDUser.key. (false)
 ldConfig.inlineUserInEvents = false
-/// The default setting controlling information logged to the console, and modifying some setting ranges to facilitate debugging. (false) 
-
+/// The default setting controlling information logged to the console, and modifying some setting ranges to facilitate debugging. (false)
 ldConfig.debugMode = false
 /// The default setting for whether we request evaluation reasons for all flags.
 ldConfig.evaluationReasons = false
+
 ```
 
 </CodeTabItem>
@@ -311,50 +297,38 @@ Here is a complete user configuration object utilizing all available fields:
 <CodeTabItem value="swift">
 
 ```swift
-var user = LDUser() 
-
+var user = LDUser()
 ///Client app defined string that uniquely identifies the user. If the client app does not define a key, the SDK will assign an identifier associated with the anonymous user. The key cannot be made private.
 user.key: String
-///Client app defined name for the user. (Default: nil) 
-
+///Client app defined name for the user. (Default: nil)
 user.name: String?
-///Client app defined first name for the user. (Default: nil) 
-
+///Client app defined first name for the user. (Default: nil)
 user.firstName: String?
-///Client app defined last name for the user. (Default: nil) 
-
+///Client app defined last name for the user. (Default: nil)
 user.lastName: String?
-///Client app defined country for the user. (Default: nil) 
-
+///Client app defined country for the user. (Default: nil)
 user.country: String?
-///Client app defined ipAddress for the user. (Default: nil) 
-
+///Client app defined ipAddress for the user. (Default: nil)
 user.ipAddress: String?
-///Client app defined email address for the user. (Default: nil) 
-
+///Client app defined email address for the user. (Default: nil)
 user.email: String?
-///Client app defined avatar for the user. (Default: nil) 
-
+///Client app defined avatar for the user. (Default: nil)
 user.avatar: String?
-///Client app defined dictionary for the user. The client app may declare top level dictionary items as private. If the client app defines custom as private, the SDK considers the dictionary private except for device & operatingSystem (which cannot be made private). See `privateAttributes` for details. (Default: nil) 
-
+///Client app defined dictionary for the user. The client app may declare top level dictionary items as private. If the client app defines custom as private, the SDK considers the dictionary private except for device & operatingSystem (which cannot be made private). See `privateAttributes` for details. (Default: nil)
 user.custom: [String: Any]?
-///Client app defined isAnonymous for the user. If the client app does not define isAnonymous, the SDK will use the `key` to set this attribute. isAnonymous cannot be made private. (Default: true) 
-
+///Client app defined isAnonymous for the user. If the client app does not define isAnonymous, the SDK will use the `key` to set this attribute. isAnonymous cannot be made private. (Default: true)
 user.isAnonymous: Bool
-///Client app defined device for the user. The SDK will determine the device automatically, however the client app can override the value. The SDK will insert the device into the `custom` dictionary. The device cannot be made private. (Default: the system identified device) 
-
+///Client app defined device for the user. The SDK will determine the device automatically, however the client app can override the value. The SDK will insert the device into the `custom` dictionary. The device cannot be made private. (Default: the system identified device)
 user.device: String?
-///Client app defined operatingSystem for the user. The SDK will determine the operatingSystem automatically, however the client app can override the value. The SDK will insert the operatingSystem into the `custom` dictionary. The operatingSystem cannot be made private. (Default: the system identified operating system) 
-
+///Client app defined operatingSystem for the user. The SDK will determine the operatingSystem automatically, however the client app can override the value. The SDK will insert the operatingSystem into the `custom` dictionary. The operatingSystem cannot be made private. (Default: the system identified operating system)
 user.operatingSystem: String?
 /**
 Client app defined privateAttributes for the user.
 The SDK will not include private attribute values in analytics events, but private attribute names will be sent.
-This attribute is ignored if `LDConfig.allUserAttributesPrivate` is true. Combined with `LDConfig.privateUserAttributes`. (Default: nil) 
-
+This attribute is ignored if `LDConfig.allUserAttributesPrivate` is true. Combined with `LDConfig.privateUserAttributes`. (Default: nil)
 */
 user.privateAttributes: [String]?
+
 ```
 
 </CodeTabItem>
@@ -370,7 +344,7 @@ user.custom = @{@"groups": @[@"beta_testers"]};
 </CodeTabItem>
 </CodeTabs>
 
-`## Private User Attributes
+## Private User Attributes
 
 You can optionally configure the iOS SDK to treat some or all user attributes as private user attributes. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
@@ -392,8 +366,7 @@ You can also mark attributes as private when building the user object itself by 
 <CodeTabItem value="swift">
 
 ```swift
-var user = LDUser() 
-
+var user = LDUser()
 user.key = "PRIVATE_USER_ATTRIBUTE_KEY"
 user.name = "private_citizen"
 user.privateAttributes = ["name"]
@@ -425,8 +398,7 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 <CodeTabItem value="swift">
 
 ```swift
-var user = LDUser() 
-
+var user = LDUser()
 user.key = "ANONYMOUS_USER_ATTRIBUTE_KEY"
 user.name = "anonymous_citizen"
 user.isAnonymous = true
@@ -462,11 +434,9 @@ The variation method determines whether a flag is enabled or not for a specific 
 <CodeTabItem value="swift">
 
 ```swift
-let boolFeatureFlagValue = LDClient.shared.variation(forKey: "bool-flag-key", fallback: false) 
+let boolFeatureFlagValue = LDClient.shared.variation(forKey: "bool-flag-key", fallback: false)
 
-
-let dictionaryFlagValue = LDClient.shared.variation(forKey: "dictionary-key", fallback: ["a": 1, "b": 2] as [LDFlagKey: Any]) 
-
+let dictionaryFlagValue = LDClient.shared.variation(forKey: "dictionary-key", fallback: ["a": 1, "b": 2] as [LDFlagKey: Any])
 ```
 
 </CodeTabItem>
@@ -507,7 +477,7 @@ When LDClient is initialized for the first time at app launch, users will receiv
 <Callout intent="info">
   <CalloutTitle>Availability</CalloutTitle>
 <CalloutDescription>
-This has been available since V4.3.0</CalloutDescription>
+This has been available since v4.3.0.</CalloutDescription>
 </Callout>
 
 The `variationDetail` methods work the same as `variation`, but also provide additional `reason` information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the `reason` data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
@@ -552,12 +522,14 @@ NSArray allFlags = [LDClient sharedInstance].allFlagValues;
 
 ## Tracking Events
 
-Adds a custom event to the LDClient event store. A client app can set a tracking event to allow client customized data analysis. Once an app has called `trackEvent`, the app cannot remove the event from the event store. LDClient periodically transmits events to LaunchDarkly based on the frequency set in LDConfig.eventFlushInterval. The LDClient must be started and online. The SDK stores events tracked while the LDClient is offline, but started. Once the SDK's event store is full, the SDK discards events until they can be reported to LaunchDarkly. Configure the size of the event store using `eventCapacity` on the `config`. The first parameter key: is the key for the event. The SDK does nothing with the key, which can be any string the client app sends. The second parameter data: is the data for the event and is optional. The SDK does nothing with the data, which can be any valid JSON item the client app sends. The method throws `JSONSerialization.JSONError.invalidJsonObject` if the data is not a valid JSON item.
+Adds a custom event to the LDClient event store. A client app can set a tracking event to allow client customized data analysis. Once an app has called `trackEvent`, the app cannot remove the event from the event store. LDClient periodically transmits events to LaunchDarkly based on the frequency set in LDConfig.eventFlushInterval. The LDClient must be started and online. The SDK stores events tracked while the LDClient is offline, but started. 
+
+Once the SDK's event store is full, the SDK discards events until they can be reported to LaunchDarkly. Configure the size of the event store using `eventCapacity` on the `config`. The first parameter key: is the key for the event. The SDK does nothing with the key, which can be any string the client app sends. The second parameter data: is the data for the event and is optional. The SDK does nothing with the data, which can be any valid JSON item the client app sends. The method throws `JSONSerialization.JSONError.invalidJsonObject` if the data is not a valid JSON item.
 
 <Callout intent="info">
-  <CalloutTitle>Experimentation Metric Values</CalloutTitle>
+  <CalloutTitle>Experimentation metric values</CalloutTitle>
 <CalloutDescription>
-Since V4.3.0</CalloutDescription>
+This has been available since v4.3.0.</CalloutDescription>
 </Callout>
 
 You can now optionally add a `metricValue` parameter of type `Double` to `track` in Swift or as a required paramter to the overloaded `track` method in Objective-C.
@@ -573,7 +545,7 @@ You can now optionally add a `metricValue` parameter of type `Double` to `track`
 
 ```swift
 let data = ["some-custom-key": "some-custom-value", "another-custom-key": 7]
-LDClient.shared.trackEvent(key: "MY_TRACK_EVENT_NAME", data: data) 
+LDClient.shared.trackEvent(key: "MY_TRACK_EVENT_NAME", data: data)
 
 ```
 
@@ -607,8 +579,7 @@ Use `isOnline` to get the online/offline state.
 <CodeTabItem value="swift">
 
 ```swift
-LDClient.shared.setOnline(false) 
-
+LDClient.shared.setOnline(false)
 LDClient.shared.setOnline(true) {
 	return true
 }
@@ -629,7 +600,7 @@ let connectionStatus = LDClient.shared.isOnline
 </CodeTabs>
 
 <Callout intent="info">
-  <CalloutTitle>Lack of Network Connectivity</CalloutTitle>
+  <CalloutTitle>Lack of network connectivity</CalloutTitle>
 <CalloutDescription>
 
 If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory. If there are no previously stored flag settings, then the fallback values will be used.
@@ -665,12 +636,12 @@ LDClient.shared.reportEvents()
 </CodeTabItem>
 </CodeTabs>
 
-## Changing the User Context
+## Changing the user context
 
 <Callout intent="info">
   <CalloutTitle>Availability</CalloutTitle>
 <CalloutDescription>
-This has been available since version 4.2.0</CalloutDescription>
+This has been available since version 4.2.0.</CalloutDescription>
 </Callout>
 
 If your app is used by multiple users on a single device, you may want to change users and have separate flag settings for each user. To achieve this, the SDK will store the last 5 user contexts on a single device, with support for switching between different user contexts. When a new user is set, the LDClient goes offline and sets the new user. If the client was online when the new user was set, it goes online again, subject to a throttling delay if in force. To change both the `config` and `user`, set the LDClient offline, set both properties, then set the LDClient online. Setting `user` is now deprecated, please use the `identify` method instead. This method allows you to set a completion and you no longer need to manually set LDClient online. Client apps should follow the [Apple Privacy Policy](https://apple.com/legal/privacy) when collecting user information. If the client app does not create a LDUser, LDClient creates an anonymous default user, which can affect the feature flags delivered to the LDClient.
@@ -688,21 +659,16 @@ You can use the `identify` method to switch user contexts:
 
 ```swift
 // Usage as of 4.2.0
-var newUser = LDUser() 
-
+var newUser = LDUser()
 newUser.key = "MY_NEW_USER_KEY"
-LDClient.shared.identify(user: newUser) 
-
+LDClient.shared.identify(user: newUser)
 //identify can also be called with a completion
 LDClient.shared.identify(user: newUser) {
-	NSLog("User updated!") 
-
+	NSLog("User updated!")
 }
 
-// Usage in versions prior to 4.2.0 (now deprecrated) 
-
-var newUser = LDUser() 
-
+// Usage in versions prior to 4.2.0 (now deprecrated)
+var newUser = LDUser()
 newUser.key = "MY_NEW_USER_KEY"
 LDClient.shared.user = newUser
 
@@ -719,7 +685,7 @@ LDUser *newUser = [[LDUser alloc] initWithKey:@"martian@example.com"];
 </CodeTabItem>
 </CodeTabs>
 
-## Real-time Updates
+## Real-time updates
 
 LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream. When a flag is modified via the LaunchDarkly dashboard, the flag values for the current user will update almost immediately.
 
@@ -752,20 +718,16 @@ LDClient.shared.observe(keys: [flagKey], owner: flagObserverOwner, handler: { (c
 	if changedFlags[flagKey] != nil {
 		//Your code here
 	}
-}) 
+})
 
-
-LDClient.shared.stopObserving(owner: flagObserverOwner) 
-
+LDClient.shared.stopObserving(owner: flagObserverOwner)
 
 LDClient.shared.observeFlagsUnchanged(owner: self) {
-	LDClient.shared.stopObserving(owner: self as LDObserverOwner) 
-
+	LDClient.shared.stopObserving(owner: self as LDObserverOwner)
 }
 
 LDClient.shared.observeAll(owner: self) {_ in
-	LDClient.shared.stopObserving(owner: self as LDObserverOwner) 
-
+	LDClient.shared.stopObserving(owner: self as LDObserverOwner)
 }
 ```
 
@@ -789,7 +751,7 @@ __weak typeof(self) weakSelf = self;
 </CodeTabItem>
 </CodeTabs>
 
-## Background Fetch
+## Background fetch
 
 When the app is backgrounded, the V4 SDK does not receive real-time events. However, there is support for a background fetch to update flag values opportunistically, according to iOS standard defaults.
 
@@ -826,7 +788,7 @@ config.backgroundFlagPollingInterval = 3600
 <Callout intent="info">
   <CalloutTitle>Availability</CalloutTitle>
 <CalloutDescription>
-Since version 4.2.0</CalloutDescription>
+This has been available since v4.2.0</CalloutDescription>
 </Callout>
 
 The iOS SDK exposes some of its internal status through the Connection Status API to allow your application to monitor the SDK's status. This is provided primarily as a mechanism for the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
@@ -914,15 +876,12 @@ You can listen to changes in `ConnectionInformation.ConnectionMode` in a similar
 <CodeTabItem value="swift">
 
 ```swift
-let connectionInformation = LDClient.shared.getConnectionInformation() 
-
-print("Current Connection Status: \(connectionInformation.description())") 
-
+let connectionInformation = LDClient.shared.getConnectionInformation()
+print("Current Connection Status: \(connectionInformation.description())")
 //Setting a Connection Mode Listener
 LDClient.shared.observeCurrentConnectionMode(owner: self) { [weak self] (connectionMode) in
 	//do something after ConnectionMode was updated.
-	print("Connection Mode: \(connectionMode)") 
-
+	print("Connection Mode: \(connectionMode)")
 }
 ```
 

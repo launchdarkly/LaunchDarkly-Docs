@@ -18,10 +18,12 @@ later support [Swift](/sdk/client-side/ios-swift).
 </Callout>
 
 This reference guide documents all of the methods available in our iOS SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [iOS SDK GitHub repository](https://github.com/launchdarkly/ios-client-sdk). Additionally you can clone and run sample applications using this SDK with [iOS](https://github.com/launchdarkly/hello-ios/tree/objective-c), [macOS](https://github.com/launchdarkly/hello-macos/tree/objective-c), and [tvOS](https://github.com/launchdarkly/hello-tvos/tree/objective-c).
-## Getting started
-Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your iOS application.
 
-The first step is to install the LaunchDarkly SDK as a dependency in your application. LaunchDarkly supports multiple methods for installing the SDK in your application.
+## Getting started
+
+Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps help you use the LaunchDarkly SDK in your iOS application.
+
+The first step is to install the LaunchDarkly SDK as a dependency in your application. LaunchDarkly supports multiple methods for installing the SDK in your application. 
 
 If you're using [CocoaPods](https://cocoapods.org/), you can install the SDK by adding the following to your `Podfile`. Refer to the [SDK releases page](https://github.com/launchdarkly/ios-client-sdk/releases) to identify the latest version. Note that versions starting with 4.0.0 support Swift instead of Objective-C.
 
@@ -89,7 +91,6 @@ Next you should import the LaunchDarkly client in your application code.
   defaultValue="c"
   values={[
     { label: 'Objective-C', value: 'c', },
-    { label: 'Swift', value: 'swift', },
   ]
 }>
 <CodeTabItem value="c">
@@ -99,16 +100,9 @@ Next you should import the LaunchDarkly client in your application code.
 ```
 
 </CodeTabItem>
-<CodeTabItem value="swift">
-
-```c
-@import LaunchDarkly;
-```
-
-</CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of `LDClient`. You should specify your *mobile key* here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+Once the SDK is installed and imported, you'll want to create a single, shared instance of `LDClient`. You should specify your **mobile key** here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
 
 <CodeTabs
   defaultValue="c"
@@ -145,7 +139,7 @@ LDClient.sharedInstance().start(config, with: user)
 </CodeTabItem>
 </CodeTabs>
 
-<Callout intent="info">
+<Callout intent="alert">
 <CalloutTitle>Mobile keys</CalloutTitle>
 <CalloutDescription>
 
@@ -222,7 +216,7 @@ config.flushInterval = [NSNumber numberWithInt:10];
 config.connectionTimeout = 10
 config.flushInterval = 10
 ...
-LDClient.sharedInstance().start(config, with: user) 
+LDClient.sharedInstance().start(config, with: user)
 
 ```
 
@@ -267,14 +261,13 @@ user.email = @"ernestina@example.com";
 <CodeTabItem value="swift">
 
 ```swift
-let user = LDUserBuilder() 
-
+let user = LDUserBuilder()
 
 user.key = "aa0ceb"
 user.firstName = "Ernestina"
 user.lastName = "Evans"
 user.email = "ernestina@example.com"
-user.customArray("groups", value: groups) 
+user.customArray("groups", value: groups)
 
 ```
 
@@ -283,9 +276,9 @@ user.customArray("groups", value: groups)
 
 Let's walk through this snippet. The first argument to the builder is the user's key-- in this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
-All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
+All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes. 
 
-In addition to built-in attributes like names and e-mail addresses, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
+In addition to built-in attributes like names and e-mail addresses, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above. 
 
 <Callout intent="info">
   <CalloutTitle>A note on types</CalloutTitle>
@@ -304,10 +297,10 @@ Custom attributes are one of the most powerful features of LaunchDarkly. They le
 
 You can optionally configure the iOS SDK to treat some or all user attributes as private user attributes. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
-In the iOS SDK there are two ways to define private attributes for the _entire_ LaunchDarkly client:
+In the iOS SDK there are two ways to define private attributes for the *entire* LaunchDarkly client:
 
-- When creating the `LDConfig` object, you can set the `allUserAttributesPrivate` attribute to `YES`
-- When creating the `LDConfig` object, you can set the `privateUserAttributes` attribute to a list of user attribute names, such as `@[@"name", @"email"]`;. If any user has a custom or built-in attribute named in this list, it will be removed before the user is sent to LaunchDarkly.
+* When creating the `LDConfig` object, you can set the `allUserAttributesPrivate` attribute to `YES`
+* When creating the `LDConfig` object, you can set the `privateUserAttributes` attribute to a list of user attribute names, such as `@[@"name", @"email"]`;. If any user has a custom or built-in attribute named in this list, it will be removed before the user is sent to LaunchDarkly.
 
 You can also mark attributes as private when building the user object itself by calling the equivalent “private” user builder method. For example:
 
@@ -333,8 +326,7 @@ user.privateAttributes = @[@"email"];
 <CodeTabItem value="swift">
 
 ```swift
-let user = LDUserBuilder() 
-
+let user = LDUserBuilder()
 
 user.key = "aa0ceb"
 user.email = "ernestina@example.com"
@@ -369,7 +361,6 @@ user.isAnonymous = TRUE;
 
 ```swift
 let user = LDUserBuilder() 
-
 
 user.key = "aa0ceb"
 user.isAnonymous = true
@@ -420,7 +411,9 @@ The `variation` call will automatically create a user in LaunchDarkly if a user 
   <CalloutTitle>Handling flag values on initial app launch</CalloutTitle>
 <CalloutDescription>
 
-When `LDClient` is initialized for the first time at app launch, users will receive the feature flag fallback values until polling is completed for the first time. You can use the `userDidUpdate` delegate method to be notified when the feature flag values have been polled and are ready to use. To learn more, read [Realtime UI Updates](#real-time-updates). Once the flags have been polled for the first time, the SDK will always use the latest stored flag values thereafter.
+When `LDClient` is initialized for the first time at app launch, users will receive the feature flag fallback values until polling is completed for the first time. 
+
+You can use the `userDidUpdate` delegate method to be notified when the feature flag values have been polled and are ready to use. To learn more, read [Realtime UI Updates](#real-time-updates). Once the flags have been polled for the first time, the SDK will always use the latest stored flag values thereafter.
 
 </CalloutDescription>
 </Callout>
@@ -454,6 +447,7 @@ LDClient.sharedInstance().track("Signed up", data: dict)
 </CodeTabs>
 
 ## Offline mode
+
 In some situations, you might want to stop making remote calls to LaunchDarkly and switch to fallback values for your feature flags.  `offline` lets you do this easily.
 
 <CodeTabs
@@ -529,7 +523,7 @@ Note that the flush interval is configurable-- if you need to change the interva
 
 ## Real-time updates
 
-LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream. When a flag is modified via the LaunchDarkly dashboard, the flag values for the current user will update almost immediately.
+LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream.  When a flag is modified via the LaunchDarkly dashboard, the flag values for the current user will update almost immediately.
 
 To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is listened to by the iOS SDK. Whenever an event is performed on the dashboard, the iOS SDK is notified of the updated flag settings in real-time.
 
@@ -557,8 +551,7 @@ If more than one class relies on LaunchDarkly’s feature flags, we recommend yo
 
 ```swift
 func userDidUpdate() {
- NSNotificationCenter.defaultCenter().postNotificationName("userUpdatedNotification", object: nil) 
-
+ NSNotificationCenter.defaultCenter().postNotificationName("userUpdatedNotification", object: nil)
 }
 ```
 
@@ -571,7 +564,7 @@ After this, you can add a notification observer to any class that needs to updat
   <CalloutTitle>Variation methods</CalloutTitle>
 <CalloutDescription>
 
-ake sure to use `variation` methods to get new flag values instead of any locally stored variables.
+Make sure to use `variation` methods to get new flag values instead of any locally stored variables.
 
 </CalloutDescription>
 </Callout>
@@ -602,8 +595,7 @@ To allow background fetch for flags in your app, just add the following code in 
 
 ```swift
 func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-    NSNotificationCenter.defaultCenter().postNotificationName(kLDBackgroundFetchInitiated, object: nil) 
-
+    NSNotificationCenter.defaultCenter().postNotificationName(kLDBackgroundFetchInitiated, object: nil)
 }
 ```
 
@@ -638,10 +630,9 @@ user.key = @"aa0ceb";
 <CodeTabItem value="swift">
 
 ```swift
-let user = LDUserBuilder() 
-
+let user = LDUserBuilder()
 user.key = "aa0ceb"
-LDClient.sharedInstance().updateUser(user) 
+LDClient.sharedInstance().updateUser(user)
 
 ```
 
@@ -670,7 +661,7 @@ NSDictionary *otherMobileKeys = [[NSDictionary alloc] initWithObjectsAndKeys:@"P
 
 LDUserBuilder *user = [[LDUserBuilder alloc] init];
 user.key = @\"aa0ceb\";
-
+  
 [[LDClient sharedInstance] start:config withUserBuilder:user];
 ```
 
@@ -678,16 +669,13 @@ user.key = @\"aa0ceb\";
 <CodeTabItem value="swift">
 
 ```swift
-let config = LDConfig.init(mobileKey: "YOUR_MOBILE_KEY") 
-
+let config = LDConfig.init(mobileKey: "YOUR_MOBILE_KEY")
 let otherMobileKeys = [platform: "PLATFORM_MOBILE_KEY"]
-config.setSecondaryMobileKeys(otherMobileKeys) 
-
-let user = LDUserBuilder() 
-
+config.setSecondaryMobileKeys(otherMobileKeys)
+let user = LDUserBuilder()
 user.key = "aa0ceb"
 
-LDClient.sharedInstance().start(config, with: user) 
+LDClient.sharedInstance().start(config, with: user)
 
 ```
 
@@ -714,9 +702,8 @@ LDClient *coreInstance = [[LDClient sharedInstance] environmentForMobileKeyNamed
 <CodeTabItem value="swift">
 
 ```swift
-let coreInstance = LDClient.sharedInstance().environmentForMobileKeyNamed("platform") 
-
-coreInstance.boolVariation("platform-bool-flag", fallback: false) 
+let coreInstance = LDClient.sharedInstance().environmentForMobileKeyNamed("platform")
+coreInstance.boolVariation("platform-bool-flag", fallback: false)
 
 ```
 
