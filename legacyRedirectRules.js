@@ -253,7 +253,7 @@ module.exports = [
   },
   {
     fromPath: '/docs/newrelic',
-    toPath: '/integrations/newrelic',
+    toPath: '/integrations/new-relic',
   },
   {
     fromPath: '/docs/authorizing-oauth-applications',
@@ -473,7 +473,7 @@ module.exports = [
   },
   {
     fromPath: '/docs/js-sdk-reference',
-    toPath: '/sdk/client-side',
+    toPath: '/sdk/client-side/javascript',
   },
   {
     fromPath: '/docs/default-variations-shown-before-page-is-completely-loaded',
