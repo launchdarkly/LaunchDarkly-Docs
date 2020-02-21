@@ -108,6 +108,15 @@ You can configure your identity provider to send the following attributes when t
   </CalloutDescription>
 </Callout> 
 
+
+## Required attributes
+
+We require the NameID field in your SSO provider to be mapped to email addresses. See below for an example of what your SSO provider should be providing LaunchDarkly:
+
+`<saml:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">admin@test.com</saml:NameID>`
+
+This is the only required field for LaunchDarkly.
+
 ## Custom attributes
 
 These attributes are available for both SSO provisioning and SCIM provisioning.
