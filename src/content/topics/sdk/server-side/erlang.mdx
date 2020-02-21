@@ -35,8 +35,50 @@ First, you'll need to download the dependency using [Rebar](https://www.rebar3.o
 
 ```
 {deps, [
-	{eld, {git, "https://github.com/launchdarkly/erlang-server-sdk", {tag, "1.0.0-beta1"}}}
+	{launchdarkly_server_sdk, "1.0.0-beta2"}
 ]}.
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+And then add it to your `app.src` file.
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', },
+  ]
+}>
+<CodeTabItem value="erlang">
+
+```
+{applications,
+  [kernel,
+  stdlib,
+  launchdarkly_server_sdk
+]},
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+If you're using Elixir you can download the dependency using [Mix](https://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html).
+
+<CodeTabs
+  defaultValue="elixir"
+  values={[
+    { label: 'Elixir', value: 'elixir', },
+  ]
+}>
+<CodeTabItem value="elixir">
+
+```
+defp deps do
+  [
+    {:ldclient, "~> 1.0.0-beta2", hex: :launchdarkly_server_sdk}
+  ]
+end
 ```
 
 </CodeTabItem>
@@ -61,10 +103,10 @@ After you install the SDK dependency, create an instance of the SDK.
 
 ```
 % This starts an instance with the default options
-eld:start_instance("YOUR_SDK_KEY")
+ldclient:start_instance("YOUR_SDK_KEY")
 
 % You can also start a named instance
-eld:start_instance("YOUR_SDK_KEY", my_instance)
+ldclient:start_instance("YOUR_SDK_KEY", my_instance)
 ```
 
 </CodeTabItem>
@@ -81,7 +123,7 @@ Now you can check which flag variation a specific user should receive.
 <CodeTabItem value="erlang">
 
 ```
-Flag = eld:variation(<<"YOUR_FLAG_KEY">>, #{key => <<"123">>}, false)
+Flag = ldclient:variation(<<"YOUR_FLAG_KEY">>, #{key => <<"123">>}, false)
 ```
 
 </CodeTabItem>
@@ -101,10 +143,10 @@ You can pass other custom parameters when the client starts by using the `Option
 
 ```
 % Specify options
-eld:start_instance("YOUR_SDK_KEY", #{stream => false})
+ldclient:start_instance("YOUR_SDK_KEY", #{stream => false})
 
 % With a custom instance name
-eld:start_instance("YOUR_SDK_KEY", my_instance, #{stream => false})
+ldclient:start_instance("YOUR_SDK_KEY", my_instance, #{stream => false})
 ```
 
 </CodeTabItem>
@@ -138,7 +180,7 @@ Map = #{
     anonymous => false,
     <<"custom-key">> => <<"custom-value">>
 },
-User = eld_user:new_from_map(Map)
+User = ldclient_user:new_from_map(Map)
 ```
 
 </CodeTabItem>
@@ -172,7 +214,7 @@ Map = #{
     key => Key,
     anonymous => Anonymous,
 },
-User = eld_user:new_from_map(Map)
+User = ldclient_user:new_from_map(Map)
 ```
 
 </CodeTabItem>
@@ -209,7 +251,7 @@ When you create the Options map, use the `private_attributes` key to set private
 <CodeTabItem value="erlang">
 
 ```
-eld:start_instance("YOUR_SDK_KEY", my_instance, #{private_attributes => [email]})
+ldclient:start_instance("YOUR_SDK_KEY", my_instance, #{private_attributes => [email]})
 ```
 
 </CodeTabItem>
@@ -232,7 +274,7 @@ For example, if the feature flag key doesn't exist or the user doesn't have a ke
 <CodeTabItem value="erlang">
 
 ```
-Flag = eld:variation(<<"my-bool-key">>, #{key => <<"aa0ceb">>,}, false, my_instance)
+Flag = ldclient:variation(<<"my-bool-key">>, #{key => <<"aa0ceb">>,}, false, my_instance)
 ```
 
 </CodeTabItem>
@@ -253,7 +295,7 @@ To learn more about this data, read [Flag evaluation rules](/sdk/concepts/flag-e
 <CodeTabItem value="erlang">
 
 ```
-Flag = eld:variation_detail(<<"my-bool-key">>, #{key => <<"aa0ceb">>}, false)
+Flag = ldclient:variation_detail(<<"my-bool-key">>, #{key => <<"aa0ceb">>}, false)
 ```
 
 </CodeTabItem>
@@ -276,7 +318,7 @@ To learn more, read the [JavaScript SDK Reference](/sdk/client-side/javascript).
 <CodeTabItem value="erlang">
 
 ```
-eld:all_flags_state(#{key => <<"aa0ceb">>})
+ldclient:all_flags_state(#{key => <<"aa0ceb">>})
 ```
 
 </CodeTabItem>
@@ -297,7 +339,7 @@ In this example, we connect a metric to track:
 <CodeTabItem value="erlang">
 
 ```
-eld:track(<<"YOUR-METRIC-KEY">>, #{key => <<"aa0ceb">>}, #{data => <<"example">>})
+ldclient:track(<<"YOUR-METRIC-KEY">>, #{key => <<"aa0ceb">>}, #{data => <<"example">>})
 ```
 
 </CodeTabItem>
@@ -314,7 +356,7 @@ You can also attach a JSON object containing arbitrary data to your event, or a 
 <CodeTabItem value="erlang">
 
 ```
-eld:track_with_metric(<<"YOUR-METRIC-KEY">>, #{key => <<"aa0ceb">>}, #{data => <<"example">>}, 0.5)
+ldclient:track_with_metric(<<"YOUR-METRIC-KEY">>, #{key => <<"aa0ceb">>}, #{data => <<"example">>}, 0.5)
 ```
 
 </CodeTabItem>
@@ -335,7 +377,7 @@ In most cases, you won't need to call `identify`. The `variation` call automatic
 <CodeTabItem value="erlang">
 
 ```
-eld:identify(#{key => <<"aa0ceb">>})
+ldclient:identify(#{key => <<"aa0ceb">>})
 ```
 
 </CodeTabItem>
@@ -358,7 +400,7 @@ You can do this by setting offline mode in the config map with the `offline` key
 <CodeTabItem value="erlang">
 
 ```
-eld:start_instance("YOUR_SDK_KEY", #{offline => true})
+ldclient:start_instance("YOUR_SDK_KEY", #{offline => true})
 ```
 
 </CodeTabItem>
@@ -381,13 +423,13 @@ Do not evaluate flags after any of these functions have been initiated.
 <CodeTabItem value="erlang">
 
 ```
-eld:stop_all_instances()
+ldclient:stop_all_instances()
 
 % Stops the default instance
-eld:stop_instance()
+ldclient:stop_instance()
 
 % Stops a named instance
-eld:stop_instance(my_instance)
+ldclient:stop_instance(my_instance)
 ```
 
 </CodeTabItem>
