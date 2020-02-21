@@ -113,8 +113,8 @@ find-launchdarkly-code-refs:
        -repoUrl $CI_PROJECT_URL
        -branch $CI_COMMIT_REF_NAME
        -updateSequenceId $CI_PIPELINE_IID
-       -commitUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/commit/"\${sha}"
-       -hunkUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/blob/"\${sha}/\${filePath}#L\${lineNumber}"
+       -commitUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/commit/${sha}
+       -hunkUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/blob/${sha}/
 ```
 
 </CodeTabItem>
