@@ -59,6 +59,12 @@ const plugins = [
   'gatsby-plugin-typescript',
   'gatsby-transformer-json',
   {
+    resolve: 'gatsby-plugin-sitemap',
+    options: {
+      exclude: ['/systemLayout/', '/components', '/design-system'],
+    },
+  },
+  {
     resolve: 'gatsby-source-filesystem',
     options: {
       name: 'navigationData',
@@ -185,6 +191,7 @@ module.exports = {
     title: 'LaunchDarkly Docs',
     description: 'LaunchDarkly documentation',
     author: '@launchdarkly',
+    siteUrl: 'https://docs.launchdarkly.com',
   },
   plugins,
 }
