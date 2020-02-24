@@ -18,9 +18,10 @@ The Users dashboard populates automatically when users encounter a feature flag 
 <Callout intent="alert">
   <CalloutTitle>You cannot add users manually</CalloutTitle>
   <CalloutDescription>
-    You cannot create users in the Users dashboard. User data appears in it when users are evaluated by a LaunchDarkly
-    SDK.
-  </CalloutDescription>
+ 
+You cannot create users in the Users dashboard. The Users dashboard is not a database, and exists to serveusers that have already been evaluated by a LaunchDarkly SDK. Evaluation always happens with the SDK locally on the machine.
+
+</CalloutDescription>
 </Callout> 
 
 From the user dashboard, you can filter users by name, key, or e-mail address.
