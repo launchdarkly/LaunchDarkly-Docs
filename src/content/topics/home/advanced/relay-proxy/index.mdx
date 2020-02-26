@@ -51,7 +51,7 @@ To learn more about performance expectations once the Relay Proxy is running, re
 
 ### Scaling guidelines
 
-If you want to size or scale your Relay Proxy, the most important thing to consider is the amount of dedicated network bandwidth available to it. The amount of available memory is not a serious concern because the Relay Proxy does not demand a high amount of CPU or network processing. However, it does use a high amount of networking load, because it makes many small requests, very frequently.
+If you want to size or scale your Relay Proxy, the most important thing to consider is the amount of dedicated network bandwidth available to it. The Relay Proxy is not CPU or memory intensive, so these are unlikely to be performance bottlenecks. However, the Relay Proxy does require a significant amount of network bandwidth, because it makes many small requests, very frequently.
 
 We have tested and developed the Relay Proxy to work with an AWS `m4.xlarge` instance, but you can use the Relay Proxy with any technical equivalent. The `m4.xlarge` instances we test against have 4 vCPUs and 16GiB of memory, but that is not a hard requirement. In fact, the Relay Proxy may use significantly less memory and CPU than the `m4.xlarge` instance offers. More importantly, the `m4.xlarge` instance has sufficient networking performance that the Relay Proxy should perform well.
 
