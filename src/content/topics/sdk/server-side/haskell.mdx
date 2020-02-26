@@ -5,15 +5,6 @@ description: 'This topic explains all of the methods available in the server-sid
 published: true
 ---
 
-<Callout intent="info">
-  <CalloutTitle>This SDK is in beta</CalloutTitle>
-  <CalloutDescription>
-    
-The SDK is currently in beta. We do not recommend using it for production deployments.
-
-  </CalloutDescription>
-</Callout> 
-
 ## Overview
 
 This topic explains the basics of our Haskell server-side SDK and how it works.
@@ -103,13 +94,10 @@ You can also pass other custom parameters to the client with the configuration o
 {-# LANGUAGE OverloadedStrings #-}
 
 import LaunchDarkly.Server.Config
-
-import Data.Function ((&)) 
-
+import Data.Function ((&))
 
 config :: Config
-config = (makeConfig "YOUR_SDK_KEY") 
-
+config = (makeConfig "YOUR_SDK_KEY")
     & configSetEventsCapacity 1000
     & configSetFlushIntervalSeconds 30
 ```
@@ -135,13 +123,10 @@ Feature flag targeting and rollouts are all determined by the user you pass to y
 {-# LANGUAGE OverloadedStrings #-}
 
 import LaunchDarkly.Server.User
-
-import Data.Function ((&)) 
-
+import Data.Function ((&))
 
 user :: User
-user = (makeUser "aa0ceb") 
-
+user = (makeUser "aa0ceb")
     & setFirstName "Ernestina"
     & setLastName "Evans"
     & setEmail "ernestina@example.com"
@@ -194,8 +179,7 @@ When you create the `Config` object, you can list specific private attributes wi
 <CodeTabItem value="haskell">
 
 ```haskell
-import Data.Set (fromList) 
-
+import Data.Set (fromList)
 
 config' = configSetPrivateAttributeNames (fromList ["email"]) config
 ```
@@ -216,8 +200,7 @@ For example:
 <CodeTabItem value="haskell">
 
 ```haskell
-import Data.Set (fromList) 
-
+import Data.Set (fromList)
 
 user' = userSetPrivateAttributeNames (fromList ["email"]) user
 ```
@@ -248,8 +231,7 @@ To learn more about the "reason" data, read [Evaluation reasons](/sdk/concepts/e
 <CodeTabItem value="haskell">
 
 ```haskell
-details :: IO (EvaluationDetail Bool) 
-
+details :: IO (EvaluationDetail Bool)
 details = boolVariationDetail client user "YOUR_FEATURE_KEY" False
 ```
 
