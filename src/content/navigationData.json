@@ -325,6 +325,10 @@
         ]
       },
       {
+        "label": "Splunk",
+        "path": "/integrations/splunk"
+      },
+      {
         "label": "Terraform",
         "path": "/integrations/terraform"
       },
