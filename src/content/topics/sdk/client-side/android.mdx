@@ -9,12 +9,12 @@ published: true
   <CalloutTitle>Supported Android SDK Versions</CalloutTitle>
 <CalloutDescription>
 
-    This library is compatible with Android SDK versions 1. and up (4.1 Jelly Bean)
+    This library is compatible with Android SDK versions 16 and up (4.1 Jelly Bean)
 
 </CalloutDescription>
 </Callout>
 
-This reference guide documents all of the methods available in our Android SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Android SDK GitHub repository](https://github.com/launchdarkly/android-client-sdk) or our [JavaDocs](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/). Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-android) using this SDK.
+This reference guide documents all of the methods available in our Android SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, view the source on [GitHub](https://github.com/launchdarkly/android-client-sdk) or the generated [Javadocs](https://launchdarkly.github.io/android-client-sdk/). Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-android) that uses this SDK.
 
 ## Getting started
 
@@ -31,7 +31,7 @@ To get started, declare a dependency on the LaunchDarkly Android SDK.
 <CodeTabItem value="java">
 
 ```java
-implementation 'com.launchdarkly:launchdarkly-android-client-sdk:2.8.5'
+implementation 'com.launchdarkly:launchdarkly-android-client-sdk:2.11.0'
 ```
 
 </CodeTabItem>
@@ -48,7 +48,7 @@ into your proguard file.
 </CalloutDescription>
 </Callout>
 
-Once the SDK is installed, you'll want to create a single, shared instance of `LDClient`. You should specify your _mobile key_ here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+Once the SDK is installed, you'll want to create a single, shared instance of `LDClient`. You should specify your _mobile key_ here so that your application will be authorized to connect to LaunchDarkly and retrieve flag values for your application and environment.
 
 The following example shows the simplest way to create the client. It will block for up to 5 seconds until the latest feature flags have been retrieved from LaunchDarkly.
 
@@ -62,18 +62,14 @@ The following example shows the simplest way to create the client. It will block
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder() 
-
     .setMobileKey("YOUR_MOBILE_KEY") 
-
     .build();
 
-user = new LDUser.Builder("user key") 
-
-   .email("fake@example.com") 
-
+LDUser user = new LDUser.Builder("user key")
+   .email("fake@example.com")
    .build();
 
-ldClient = LDClient.init(this.getApplication(), ldConfig, user, 5);
+LDClient ldClient = LDClient.init(this.getApplication(), ldConfig, user, 5);
 ```
 
 </CodeTabItem>
@@ -160,23 +156,19 @@ You can also pass other custom parameters to the client via the configuration ob
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder() 
-
     .setMobileKey("YOUR_MOBILE_KEY") 
-
   	.setConnectionTimeoutMillis(5000) 
-
     .setEventsFlushIntervalMillis(5000) 
-
     .build();
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-Here, we've customized the client connect and flush interval parameters. For the full set of config options check out the [JavaDoc](http://launchdarkly.github.io/android-client-sdk/) and the Github [Readme](https://github.com/launchdarkly/android-client-sdk/blob/master/README.md).
+Here, we've customized the client connect and flush interval parameters. For the full set of config options check out the [Javadoc](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/android/LDConfig.Builder.html).
 
 ## Users
-Feature flag targeting and rollouts are all determined by the *user* you pass to your client. In our Android SDK, we use a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern) to make it easy to construct users. Here's an example:
+Feature flag targeting and rollouts are all determined by the *user* you pass to your client. In our Android SDK, we use a [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to make it easy to construct users. Here's an example:
 
 <CodeTabs
   defaultValue="java"
@@ -187,16 +179,11 @@ Feature flag targeting and rollouts are all determined by the *user* you pass to
 <CodeTabItem value="java">
 
 ```java
-user = new LDUser.Builder("aa0ceb") 
-
+LDUser user = new LDUser.Builder("aa0ceb")
    .email("fake@example.com") 
-
    .firstName("Jake") 
-
    .lastName("Fake") 
-
    .custom("group", "microsoft") 
-
    .build();
 ```
 
@@ -224,7 +211,7 @@ Custom attributes are one of the most powerful features of LaunchDarkly. They le
 
 You can optionally configure the Android SDK to treat some or all user attributes as [private user attributes](/home/managing-users/user-attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
-In the Android SDK you can define private attributes for the **entire** LaunchDarkly client. When creating the `LDConfig` object, you can call the `setPrivateAttributes` method, which which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this list, it will be removed before the user is sent to LaunchDarkly.
+In the Android SDK you can define private attributes for the **entire** LaunchDarkly client. When creating the `LDConfig` object, you can call the `setPrivateAttributeNames` method, which which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this set, it will be removed before the user is sent to LaunchDarkly.
 
 <CodeTabs
   defaultValue="java"
@@ -235,17 +222,19 @@ In the Android SDK you can define private attributes for the **entire** LaunchDa
 <CodeTabItem value="java">
 
 ```java
-LDConfig ldConfig = new LDConfig.Builder() 
+HashSet<String> privateAttributes = new HashSet<>();
+privateAttributes.add("name");  // built-in attribute
+privateAttributes.add("group"); // custom attribute
 
-  	.setPrivateAttributes(new ArrayList<String>(){{add("email");}}) 
-
+LDConfig ldConfig = new LDConfig.Builder()
+    .setPrivateAttributeNames(privateAttributes)
     .build();
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-You can also mark attributes as private when building the user object itself by passing a list of attribute names to the user build method. For example:
+You can also mark attributes as private when building the user object itself by using the private versions of the builder methods to set the attributes. For example:
 
 <CodeTabs
   defaultValue="java"
@@ -256,17 +245,17 @@ You can also mark attributes as private when building the user object itself by 
 <CodeTabItem value="java">
 
 ```java
-user = new LDUser.Builder("aa0ceb") 
-
-   .email("test@example.com") 
-
-   .build(new ArrayList<String>(){{add("email");}});
+LDUser user = new LDUser.Builder("aa0ceb")
+   .email("fake@example.com")
+   .privateName("Jane")
+   .privateCustom("group", "microsoft")
+   .build();
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-When this user is sent back to LaunchDarkly, the `email` attribute will be removed.
+When this user is sent back to LaunchDarkly, the `name` and `group` attributes will be removed.
 
 ## Anonymous users
 
@@ -281,10 +270,8 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 <CodeTabItem value="java">
 
 ```java
-user = new LDUser.Builder("user key") 
-
-   .anonymous(true) 
-
+LDUser user = new LDUser.Builder("user key")
+   .anonymous(true)
    .build();
 ```
 
@@ -307,7 +294,7 @@ The `variation` method determines whether a flag is enabled or not for a specifi
 <CodeTabItem value="java">
 
 ```java
-variationResult = ldClient.boolVariation(flagKey, false);
+boolean variationResult = ldClient.boolVariation(flagKey, false);
 ```
 
 </CodeTabItem>
@@ -317,7 +304,7 @@ variationResult = ldClient.boolVariation(flagKey, false);
 
 The fallback value will only be returned if an error is encountered-- for example, if the feature flag key doesn't exist or the user doesn't have a key specified.
 
-The `variation` call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at Identify).
+The `variation` call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at `identify`).
 
 <Callout intent="info">
   <CalloutTitle>Handling flag values on initial application launch</CalloutTitle>
@@ -366,7 +353,7 @@ The `allFlags` method produces a map of feature flag keys to their values for a 
 <CodeTabItem value="java">
 
 ```java
-ldclient.allFlags();
+ldClient.allFlags();
 ```
 
 </CodeTabItem>
@@ -385,8 +372,7 @@ The `track` method allows you to record actions your users take on your site. Th
 <CodeTabItem value="java">
 
 ```java
-ldClient.track("your-goal-key", data) 
-
+ldClient.track("your-goal-key", data) ;
 ```
 
 </CodeTabItem>
@@ -405,18 +391,14 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder() 
-
     .setMobileKey("YOUR_MOBILE_KEY") 
-
   	.setOffline(true) 
-
     .build();
 
-ldClient = LDClient.init(this.getApplication(), ldConfig, user);
+LDClient ldClient = LDClient.init(this.getApplication(), ldConfig, user);
 
 // Or to switch an already-instantiated client to offline mode:
-ldclient.setOffline() 
-
+ldClient.setOffline();
 ```
 
 </CodeTabItem>
@@ -434,7 +416,7 @@ ldclient.setOffline()
 </Callout>
 
 ## Flush
-Internally, the LaunchDarkly SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a simulator), you may want to manually call `flush` to process events immediately.
+Internally, the LaunchDarkly SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a simulator), you may want to manually call `flush` to request any queued events to be sent immediately. Note that this call is still non-blocking, so it will return before the events are actually sent.
 
 <CodeTabs
   defaultValue="java"
@@ -445,8 +427,7 @@ Internally, the LaunchDarkly SDK keeps an event buffer for `track` calls. These 
 <CodeTabItem value="java">
 
 ```java
-ldclient.flush() 
-
+ldClient.flush();
 ```
 
 </CodeTabItem>
@@ -470,9 +451,7 @@ You can use the `identify` method to switch user contexts:
 
 ```java
 LDUser updatedUser = new LDUser.Builder(user) 
-
    .email("fake2@example.com") 
-
    .build();
 
 ldClient.identify(updatedUser);
@@ -481,23 +460,22 @@ ldClient.identify(updatedUser);
 </CodeTabItem>
 </CodeTabs>
 
-The identify() call will load any saved flag values for the new user and immediately trigger an update of the latest flags from LaunchDarkly.
+The `identify` call will load any saved flag values for the new user and immediately trigger an update of the latest flags from LaunchDarkly.
 
-Identify() returns a [Future](https://developer.android.com/reference/java/util/concurrent/Future) to indicate completion. If you want to be sure subsequent code is using the latest values from the server, you can wait on the future using `get`.
+`identify` returns a [Future](https://developer.android.com/reference/java/util/concurrent/Future) to indicate completion. If you want to be sure subsequent code is using the latest values from the server, you can wait on the future using `get`.
 
 ## Real-Time Updates
 
 LaunchDarkly manages all flags for a user context in real-time by polling flags based on a real-time event stream. When a flag is modified via the LaunchDarkly dashboard, the flag values for the current user will update almost immediately. The default SDK configuration has been found to be the best combination of low latency updates and minimal battery drain:
 
 1. When the app is foregrounded a [Server-Sent Events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection is made to LaunchDarkly. This streaming connection stays open as long as your app is in the foreground and is connected to the internet.
-2. When the app is backgrounded, the stream connection is terminated and the SDK will poll (with caching) for flag updates every
-3. minutes.
-4. When the app is foregrounded, we fetch the latest flags and reconnect to the stream.
+2. When the app is backgrounded, the stream connection is terminated and the SDK will poll (with caching) for flag updates every hour (configurable).
+4. When the app is foregrounded, we reconnect to the stream which sends the latest flag values.
 5. In either the foreground or background, we don't try to update unless your device has internet connectivity.
 
 This configuration means that you will get near real-time updates for your feature flag values when the app is in the foreground. See the "customizing your client" section above for information on how to change your configuration.
 
-To perform real-time updates in your app, your app will need to register listeners for updates from the streams / polls for each flag you'd like to watch:
+To perform real-time updates in your app, your app will need to register listeners to be notified of changes to a flag's value when it is updated:
 
 <CodeTabs
   defaultValue="java"
@@ -513,7 +491,7 @@ String flagKey = "yourFlagKey";
 FeatureFlagChangeListener listener = new FeatureFlagChangeListener() {
 	@Override
   public void onFeatureFlagChange(String flagKey) {
-  	bool newValue = newLDClient.get().boolVariation(flagKey, false);
+    boolean newValue = LDClient.get().boolVariation(flagKey, false);
   }
 }
 
@@ -522,6 +500,9 @@ LDClient.get().registerFeatureFlagListener(flagKey, listener);
 
 </CodeTabItem>
 </CodeTabs>
+
+The flag key passed to `onFeatureFlagChange` is the key of the updated flag, allowing a single listener to be registered for multiple flags.
+
 Similarly you can unregister listeners to disable them:
 
 <CodeTabs
@@ -548,15 +529,13 @@ LDClient.get().unregisterFeatureFlagListener(flagKey, listener);
 These calls have been available since V2.8.0: 
 
 * `LDAllFlagsListener`
-
 * `LDClient.registerAllFlagsListener`
-
 * `LDClient.unregisterAllFlagsListener`
 
 </CalloutDescription>
 </Callout>
 
-Additionally an update listener interface is provided for cases where you would like to be notified any time the flag cache is updated. The application provides a class implementing `LDAllFlagsListener` which provides the SDK with the method `onChange`. Whenever the SDK's flag cache is updated it will call the `onChange` method with a list of flag keys for flags that were updated during the update to the flag cache.
+Additionally an update listener interface is provided for cases where you would like to be notified any time the flag cache is updated. The application provides a class implementing `LDAllFlagsListener` which provides the SDK with the method `onChange`. Whenever the SDK's flag cache is updated it will call the `onChange` method with a list of flag keys for flags that were updated during the update to the flag cache. If no flag values changed, this list will be empty.
 
 <CodeTabs
   defaultValue="java"
@@ -609,16 +588,12 @@ otherKeys.put("platform", "PLATFORM_MOBILE_KEY");
 otherKeys.put("core", "CORE_MOBILE_KEY");
 
 LDConfig ldConfig = new LDConfig.Builder() 
-
         .setMobileKey("MOBILE_KEY") 
-
         .setSecondaryMobileKeys(otherKeys);
         .build();
 
-LDUser user = new LDUser.Builder("user key") 
-
+LDUser user = new LDUser.Builder("user key")
         .email("fake@example.com") 
-
         .build();
 
 LDClient.init(this.getApplication(), ldConfig, user);
@@ -941,10 +916,6 @@ class MainActivity extends Activity {
 
 </CodeTabItem>
 </CodeTabs>
-
-## Background Fetch
-
-When the app is backgrounded, the Android SDK does not receive real-time events. However, a battery-conscious [Android Alarm](https://developer.android.com/training/scheduling/alarms.html) is set to poll for updates once every
 
 ## Troubleshooting
 
