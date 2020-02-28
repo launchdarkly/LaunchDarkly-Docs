@@ -84,3 +84,22 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     })
   })
 }
+
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+  const typeDefs = `
+    type NavigationDataJson implements Node {
+      flagKey: String
+    }
+    type NavigationDataJsonItems {
+      flagKey: String
+    }
+    type NavigationDataJsonItemsItems {
+      flagKey: String
+    }
+    type NavigationDataJsonItemsItemsItems {
+      flagKey: String
+    }
+  `
+  createTypes(typeDefs)
+}

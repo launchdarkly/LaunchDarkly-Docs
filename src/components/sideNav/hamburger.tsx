@@ -16,15 +16,19 @@ const Hamburger = () => {
           label
           path
           svg
+          flagKey
           items {
             label
             path
+            flagKey
             items {
               path
               label
+              flagKey
               items {
                 label
                 path
+                flagKey
               }
             }
           }

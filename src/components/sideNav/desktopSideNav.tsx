@@ -21,12 +21,15 @@ const DesktopSideNav = () => {
             label
             path
             svg
+            flagKey
             items {
               path
               label
+              flagKey
               items {
                 label
                 path
+                flagKey
               }
             }
           }

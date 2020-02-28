@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, useThemeUI, Link as ThemUILink } from 'theme-ui'
 import { graphql, useStaticQuery, Link as GatsbyLink } from 'gatsby'
+import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { SideNavItem } from './sideNav/types'
 import isExternalLink from '../utils/isExternalLink'
 import Icon, { IconName } from './icon'
@@ -8,6 +9,7 @@ import Icon, { IconName } from './icon'
 const variant = 'links.topNav'
 
 const TopNav = () => {
+  const flags = useFlags()
   const { theme } = useThemeUI()
   const {
     allNavigationDataJson: { nodes: navigationData },
@@ -18,6 +20,7 @@ const TopNav = () => {
           label
           path
           svg
+          flagKey
         }
       }
     }
@@ -35,9 +38,11 @@ const TopNav = () => {
       }}
     >
       {navigationData.map((rootItem: SideNavItem) => {
-        const { label, path, svg } = rootItem
+        const { label, path, flagKey, svg } = rootItem
         const capitalizedLabel = label.toUpperCase()
-        return (
+        const showItem = flagKey ? flags[flagKey] : true
+
+        return showItem ? (
           <li key={label} sx={{ display: 'inline', pr: [null, 5, 6] }}>
             {isExternalLink(path) ? (
               <ThemUILink
@@ -61,7 +66,7 @@ const TopNav = () => {
               </GatsbyLink>
             )}
           </li>
-        )
+        ) : null
       })}
     </ul>
   )

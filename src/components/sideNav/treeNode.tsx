@@ -2,6 +2,7 @@
 import { jsx, useThemeUI, Flex, Link as ThemeUILink } from 'theme-ui'
 import { FunctionComponent, useState } from 'react'
 import { Link as GatsbyLink } from 'gatsby'
+import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { globalHistory } from '@reach/router'
 import { SideNavItem } from './types'
 import isExternalLink from '../../utils/isExternalLink'
@@ -50,6 +51,8 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, maxDepth = 2, depth
   const isRootNode = depth === 0
   const isMaxDepth = depth === maxDepth
 
+  const flags = useFlags()
+
   // Detect if this tree node has ever been expanded/collapsed
   const [isPristine, setIsPristine] = useState(true)
 
@@ -82,7 +85,7 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, maxDepth = 2, depth
   return (
     <ul sx={{ fontWeight: 'body' }}>
       {nodes.map((node, index) => {
-        const { label, path, svg, items } = node
+        const { label, path, svg, flagKey, items } = node
         const nodeChildrenCount = items?.length ?? 0
         const isLeafNode = nodeChildrenCount === 0
         const partiallyActive = globalHistory.location.pathname.includes(path)
@@ -98,7 +101,8 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, maxDepth = 2, depth
           })
         }
         const expandedCollapsed = expandCollapseStates[index]
-        return (
+        const showItem = flagKey ? flags[flagKey] : true
+        return showItem ? (
           <li key={`${label}-${index}`} sx={listItemStyles}>
             {isExternalLink(path) ? (
               <ThemeUILink href={path} sx={labelStyles} target="_blank" rel="noopener noreferrer">
@@ -133,7 +137,7 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, maxDepth = 2, depth
               <TreeNode nodes={items} depth={depth + 1} maxDepth={maxDepth} />
             )}
           </li>
-        )
+        ) : null
       })}
     </ul>
   )

@@ -143,6 +143,16 @@ const plugins = [
       cookieDomain: 'launchdarkly.com',
     },
   },
+  {
+    resolve: 'gatsby-plugin-launchdarkly',
+    options: {
+      clientSideID:
+        process.env.GATSBY_ACTIVE_ENV === 'production' ? '5e44ab7d09107307fa78bd08' : '5e44ab7d09107307fa78bd09',
+      options: {
+        bootstrap: 'localstorage',
+      },
+    },
+  },
 ]
 
 // Only build algolia indexes in staging and production

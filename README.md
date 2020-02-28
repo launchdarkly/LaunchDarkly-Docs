@@ -35,7 +35,21 @@ This will build gatsby and upload the artifacts to the staging s3 bucket.
 ## 🔨 Navigation data
 All navigation data are stored in [src/content/navigationData.json](https://github.com/launchdarkly/git-gatsby/blob/master/src/content/navigationData.json).
 This is flattened at build time to autogenerate two files `rootTopics.json` and `secondLevelTopics.json`. The
-flattened data are queryable via graphql and allows us to render the side nav more efficiently. 
+flattened data are queryable via graphql and allows us to render the side nav more efficiently.
+
+### Hiding nav item behind a feature flags
+
+Using the [gatsby-plugin-launchdarkly](https://github.com/launchdarkly-labs/gatsby-plugin-launchdarkly), you can hide nav items behind a feature flag. All you need to do is add the `flagKey` property to the nav item you'd like controlled by a flag in `navigationData.json`:
+
+```json
+...
+  {
+    "label": "Your flag controlled nav item",
+    "path": "/home/getting-started/hiding-your-nav-behind-a-flag",
+    "flagKey": "my-hidden-nav"
+  },
+...
+```
 
 ## 🔍 Algolia search
 Please reach out to @scribblingfox if you need to login to the Algolia dashboard. She will be able to send you an invite.
@@ -50,14 +64,14 @@ GATSBY_ALGOLIA_INDEX=insertValue
 ```
 
 `GATSBY_ALGOLIA_INDEX` is the index name that will be used to create the algolia index for your content.
-For example, if you set `GATSBY_ALGOLIA_INDEX=Pages` and you run `yarn build-dev`, this will crawl 
+For example, if you set `GATSBY_ALGOLIA_INDEX=Pages` and you run `yarn build-dev`, this will crawl
 all mdx files under src/content/topics and create an algolia index called `Pages_development`.
 The convention is `{GATSBY_ALGOLIA_INDEX}_{ENVIRONMENT}`. The environment variable can be set via
 cli param `GATSBY_ACTIVE_ENV`. For example, for staging, you would run the following command:
 
 ```bash
 "build-staging": "GATSBY_ACTIVE_ENV=staging gatsby build",
-``` 
+```
 
 This will create an algolia index called `Pages_staging`.
 
