@@ -1,0 +1,148 @@
+---
+path: '/integrations/dynatrace'
+title: 'Dynatrace'
+description: 'This topic explains how to use the LaunchDarkly Dynatrace integration. Dynatrace is an infrastructure monitoring platform that offers application performance management (APM) and automated problem remediation.'
+published: true
+---
+
+## Overview
+
+This topic explains how to use the LaunchDarkly Dynatrace integration. [Dynatrace](https://dynatrace.com/) is an infrastructure monitoring platform that offers [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) and automated problem remediation. The LaunchDarkly Dynatrace integration makes it easier to diagnose problems by sending flag change events to Dynatrace. Dynatrace can display those events alongside performance graphs, making it easier for Dynatrace users to correlate feature rollouts to changes in operational health.
+
+![A Dynatrace events graph, showing LaunchDarkly flag change events.](../images/dynatrace-dashboard.png)
+
+The integration only sends `flag` actions to Dynatrace. To learn more, read [Feature flag actions](/home/account-security/custom-roles/actions#feature-flags-actions).
+
+To send flag change events to Dynatrace:
+
+1. [Create a Dynatrace API token](#creating-a-dynatrace-api-token)
+2. [Configure the Dynatrace integration](#adding-and-configuring-the-dynatrace-integration)
+3. (Optional) [Configure the integration's policy to allow or restrict specific projects and environments](#configuring-integration-policies)
+4. [Associate flags with Dynatrace tags](#associating-flags-with-dynatrace-tags)
+
+## Prerequisites
+
+To use the LaunchDarkly Dynatrace integration successfully, you must meet the following prerequisites:
+
+* You must know the URL of your Dynatrace service. Find it by loading your Dynatrace dashboard and looking at the URL in your browser's address bar. For example: `https://csd50042.live.dynatrace.com`. Copy this URL and save it.
+* You must have an API token from your Dynatrace account. To learn more, read [Creating a Dynatrace API token](#creating-a-dynatrace-api-token).
+
+## Creating a Dynatrace API token
+
+The Dynatrace API token authenticates the LaunchDarkly integration so it can submit events to your Dynatrace account. To learn more about Dynatrace's API tokens, read [Dynatrace's documentation](https://www.dynatrace.com/support/help/extend-dynatrace/dynatrace-api/basics/dynatrace-api-authentication/).
+
+When you create the token, confirm that the _"Access problem and event feed, metrics, and topology"_ option is enabled. This is the only access scope the LaunchDarkly integration needs.
+
+## Configuring the Dynatrace integration
+
+Here's how to add and configure the Dynatrace integration: 
+
+1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) and find the Dynatrace card. 
+2. Click to expand the card, then click **+ Integration**. The integration configuration screen appears.
+
+![The Dynatrace card, showing the "+ Integration" button.](../images/dynatrace-card-expanded.png)
+
+3. (Optional) Type a human-readable **Name**.
+4. Paste in your **Dynatrace API token**. 
+5. Enter the URL of your Dynatrace service in the **Dynatrace URL** field. Do not include a slash at the end.
+6. If this is all the configuration you need to do, click **Save Dynatrace Configuration**.
+
+If you want to configure the Dynatrace integration to alter which events LaunchDarkly sends to Dynatrace, read [Configuring integration policies](#configuring-integration-policies). If not, continue to [Associating flags with Dynatrace tags](#associating-flags-with-dynatrace-tags).
+
+### Configuring integration policies
+
+The "Policy" field lets you control which LaunchDarkly events are sent to Dynatrace. The Resource specifier in the default policy value allows Production environments across all projects to send events:
+
+import {CodeTabs} from '../../../components/mdx/code/codeTabs';
+import {CodeTabItem} from '../../../components/mdx/code/codeTabItem';
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+proj/*:env/production:flag/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more about the Resource configuration fields, read [Resources in custom roles](/home/account-security/custom-roles/resources).
+
+You may want to override the default policy for various reasons, including restricting how the integration sees and exports events. Using the policy editor, you can restrict the integration to: 
+
+* a specific set of LaunchDarkly projects/environments
+* a specific set of flags
+* a specific set of actions 
+
+For example, to restrict the policy to a single project called `cool-app`, set the policy configuration's Resource field to the following Resource specifier: 
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+proj/cool-app:env/production:flag/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The policy above makes it so that the only events the integrations sends to Dynatrace are flag events from the `cool-app` project's Production environment.
+
+If you need to restrict or allow a more complex set of resources than you can specify in a single policy, you might want to add multiple Dynatrace integrations and configure each one to a specific task. Each integration can have its own separate policy configuration.
+
+To learn more about using the policy editor, read [Policies in custom roles](/home/account-security/custom-roles/policies).
+
+## Associating flags with Dynatrace tags
+
+The LaunchDarkly Dynatrace integration only sends events from flags which are explicitly associated with Dynatrace tags. It does **not** send events from every flag in your LaunchDarkly project.
+
+The integration lets you see an application's flag change events beside its performance graphs. This makes it easier to correlate problems with the flag changes that may have caused them.
+
+For this to be most effective, attach a flag's events to all the applications the flag affects, and _only_ those applications.
+
+Associating flags with Dynatrace tags ensures that flag events are attached to the Dynatrace entities which are affected by those events. To learn more about Dynatrace tags, read [Dynatrace's documentation](https://www.dynatrace.com/support/help/how-to-use-dynatrace/tags-and-metadata/setup/how-to-define-tags/).
+
+<Callout intent="info">
+<CalloutTitle>The integration does not support all Dynatrace entities</CalloutTitle>
+<CalloutDescription>
+
+The integration only attaches events to **Application** entities within Dynatrace.
+
+</CalloutDescription>
+</Callout>
+
+To associate a flag with one or more applications using Dynatrace tags:
+
+1. **In Dynatrace:** Create a new tag and add it to each of the applications which depend on the flag. To learn more about creating tags, read [Dynatrace's documentation](https://www.dynatrace.com/support/help/how-to-use-dynatrace/tags-and-metadata/setup/how-to-define-tags).
+
+![An application page in Dynatrace, with the "my-dynatrace-tag" added.](../images/dynatrace-add-tag.png)
+
+2. **In LaunchDarkly:** Go to the flag's Settings tab.
+
+![The available tabs on a flag page, with Settings highlighted.](../images/dynatrace-flag-tabs.png)
+
+3. Scroll down to the "Custom properties" section and click **Add custom property**.
+
+![The Custom Properties section of a Flag page, shown empty.](../images/flag-settings-custom-properties-empty.png)
+
+4. In the "Select a property type..." dropdown, select **New**.
+5. Enter `Dynatrace` in the "Name" field. The _Key_ field auto-populates with the string `dynatrace`.
+6. Enter the name of the tag you created in the "Value" field.
+
+![The Custom Properties section of a Flag page, shown complete with Dynatrace tag.](../images/dynatrace-custom-properties-complete.png)
+
+7. Click **Save with Comment** button to save the custom property.
+
+That's it! Now events from your feature flags will appear in Dynatrace.

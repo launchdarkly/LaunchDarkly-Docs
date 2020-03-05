@@ -283,6 +283,10 @@
         "path": "/integrations/datadog"
       },
       {
+        "label": "Dynatrace",
+        "path": "/integrations/dynatrace"
+      },
+      {
         "label": "Jira",
         "path": "/integrations/jira"
       },
