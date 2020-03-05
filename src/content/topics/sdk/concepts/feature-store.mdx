@@ -559,6 +559,23 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 ```
 
 </CodeTabItem>
+
+<CodeTabItem value="c">
+
+```c
+#include <launchdarkly/api.h>
+#include <launchdarkly/store/redis.h>
+
+struct LDConfig *config = LDConfigNew("my-key");  
+
+struct LDRedisConfig *redisConfig = LDRedisConfigNew();
+struct LDStoreInterface *store = LDStoreInterfaceRedisNew(redisConfig);
+
+LDConfigSetFeatureStoreBackend(config, store);
+```
+
+</CodeTabItem>
+
 </CodeTabs>
 
 ## Using DynamoDB

@@ -56,7 +56,7 @@ client = makeClient $ makeConfig "YOUR_SDK_KEY"
 <CalloutTitle>Client must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-Make `Client` a singleton. The client instance maintains an internal state that allows us to serve feature flags without making any remote requests.
+Make `client` a singleton. The client instance maintains an internal state that allows us to serve feature flags without making any remote requests.
 
 </CalloutDescription>
 </Callout>
@@ -94,6 +94,7 @@ You can also pass other custom parameters to the client with the configuration o
 {-# LANGUAGE OverloadedStrings #-}
 
 import LaunchDarkly.Server.Config
+
 import Data.Function ((&))
 
 config :: Config
@@ -123,6 +124,7 @@ Feature flag targeting and rollouts are all determined by the user you pass to y
 {-# LANGUAGE OverloadedStrings #-}
 
 import LaunchDarkly.Server.User
+
 import Data.Function ((&))
 
 user :: User
@@ -211,6 +213,21 @@ user' = userSetPrivateAttributeNames (fromList ["email"]) user
 ## Variation
 
 The `variation` family of functions determine whether a flag is enabled or not for a specific user.
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', },
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+myBoolVariation <- boolVariation client user "YOUR_FEATURE_KEY" False
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 The functions take a `Client`, `User`, feature flag key, and a default value.
 
@@ -311,7 +328,7 @@ This function will not block, but instead initiate a flush operation in the back
 
 ## Track
 
-The `track` function allows you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in experiments.
+The `track` function allows you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to metrics in experiments.
 
 For example:
 
@@ -324,7 +341,7 @@ For example:
 <CodeTabItem value="haskell">
 
 ```haskell
-track client user "your-goal-key" Nothing Nothing
+track client user "your-metric-key" Nothing Nothing
 ```
 </CodeTabItem>
 </CodeTabs>

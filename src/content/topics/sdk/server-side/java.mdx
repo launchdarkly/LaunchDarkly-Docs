@@ -19,7 +19,7 @@ Android application, read the [Android SDK reference](/sdk/client-side/android).
 </Callout>
 
 <Callout intent="info">
-  <CalloutTitle>Java Compatibility</CalloutTitle>
+  <CalloutTitle>Java compatibility</CalloutTitle>
   <CalloutDescription>The LaunchDarkly Java SDK is compatible with Java 7 and higher.</CalloutDescription>
 </Callout> 
 
@@ -61,10 +61,9 @@ Next you should import the LaunchDarkly client in your application code.
 ```java
 import com.launchdarkly.client.*;
 
-// If you are on version 4.9.0 or later of this SDK,
-// and you use JSON arrays or objects in feature flag values or in custom user attributes, 
-// add this import too:
-
+// If you will be using JSON arrays or objects in feature flag values
+// or in custom user attributes, and you are using version 4.9.0 or
+// later of the SDK, add this import too:
 import com.launchdarkly.client.value.*;
 ```
 
@@ -92,7 +91,7 @@ LDClient ldClient = new LDClient("YOUR_SDK_KEY");
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
+It's important to make this a singleton. Internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
 
 </CalloutDescription>
 </Callout>
@@ -213,13 +212,12 @@ LDUser user = new LDUser.Builder("aa0ceb")
 <CodeTabItem value="java-pre-4.9">
 
 ```java
- LDUser user = new LDUser.Builder("aa0ceb") // required
-      .firstName("Ernestina")               // optional
-      .lastName("Evans")                    // optional
-      .email("ernestina@example.com")       // optional
-      .customString("groups", Arrays.asList("Google", "Microsoft")) // optional
-      .build() 
-
+LDUser user = new LDUser.Builder("aa0ceb")
+    .firstName("Ernestina")
+    .lastName("Evans")
+    .email("ernestina@example.com")
+    .customString("groups", Arrays.asList("Google", "Microsoft"))
+    .build()
 ```
 
 </CodeTabItem>
@@ -263,33 +261,6 @@ You can also mark attributes as private when building the user object itself by 
 <CodeTabItem value="Java">
 
 ```java
-LDConfig configWithAllAttributesPrivate = new LDConfig.Builder() 
-
-    .events(
-        Components.sendEvents() 
-
-            .allAttributesPrivate(true) 
-
-    ) 
-
-    .build();
-
-LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder() 
-
-    .events(
-        Components.sendEvents() 
-
-            .privateAttributeNames("name", "email", "someCustomAttribute") 
-
-    ) 
-
-    .build();
-```
-
-</CodeTabItem>
-<CodeTabItem value="Java SDK versions 4.3.x and earlier">
-
-```java
 LDConfig configWithAllAttributesPrivate = new LDConfig.Builder()
     .events(
         Components.sendEvents()
@@ -306,7 +277,30 @@ LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
 ```
 
 </CodeTabItem>
-<CodeTabItem value="java-pre-4.12">
+<CodeTabItem value="Java SDK versions 4.3.x and earlier">
+
+```java
+LDConfig configWithAllAttributesPrivate = new LDConfig.Builder()
+    .allAttributesPrivate(true)
+    .build();
+
+LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
+    .privateAttributeNames("name", "email", "someCustomAttribute")
+    .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You can also mark attributes as private when building the user object itself by calling the equivalent “private” user builder method. For example:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="Java">
 
 ```java
 LDUser user = new LDUser.Builder("aa0ceb")
@@ -396,7 +390,7 @@ ldClient.track("your-goal-key", user);
 </CodeTabItem>
 </CodeTabs>
 
-You can also attach custom JSON data to your event by passing an extra parameter to `track`:
+You can also attach custom JSON data to your event using an alternate version of `track`. This example sets the data to a JSON object, `{"price": 320}`, but it can be any value that can be represented in JSON; see [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/client/value/LDValue.html).
 
 <CodeTabs
   defaultValue="java"
@@ -424,6 +418,10 @@ ldClient.trackData("Completed purchase", user, data);
 <CodeTabItem value="java-pre-4.9">
 
 ```java
+// Older versions of the Java SDK used the Gson API to represent
+// JSON values. See:
+// http://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/index.html
+
 JsonObject data = new JsonObject();
 data.add("price", 320);
 ldClient.track("Completed purchase", user, data);
@@ -431,8 +429,6 @@ ldClient.track("Completed purchase", user, data);
 
 </CodeTabItem>
 </CodeTabs>
-
-You can attach any JSON object (using [Google's GSON API](https://github.com/google/gson)) to your events.
 
 ## Identify
 
@@ -459,7 +455,7 @@ ldClient.identify(user);
 <CalloutTitle>Creating users</CalloutTitle>
 <CalloutDescription>
 
-Note that unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
+Unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
 
 </CalloutDescription>
 </Callout>
@@ -538,15 +534,15 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 <CodeTabItem value="java">
 
 ```java
-LDConfig config = new LDConfig.Builder() 
-
-      .offline(true) 
-
+LDConfig config = new LDConfig.Builder()
+      .offline(true)
       .build();
 LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
-ldClient.boolVariation("any.feature.flag", user, false) 
+ldClient.boolVariation("any.feature.flag", user, false)
 
-// This call to ldClient.boolVariation will always return the default value (false).
+// This call to ldClient.boolVariation always
+// returns the default value (false)
+
 ```
 
 </CodeTabItem>

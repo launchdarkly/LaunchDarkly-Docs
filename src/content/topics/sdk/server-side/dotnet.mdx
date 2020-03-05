@@ -42,7 +42,7 @@ Next you should import the LaunchDarkly client in your application code.
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: '.NET', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -61,7 +61,7 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'Example', value: 'csharp', },
+    { label: '.NET', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -89,7 +89,7 @@ Using `ldClient`, you can check which variation a particular user should receive
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'Example', value: 'csharp', },
+    { label: '.NET', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -98,7 +98,7 @@ Using `ldClient`, you can check which variation a particular user should receive
 User user = User.WithKey(username);
 bool showFeature = ldClient.BoolVariation("your.feature.key", user, false);
 if (showFeature) {
-  // application code to show the feature
+  // application code to show the feature 
 }
 else {
   // the code to run if the feature is off
@@ -113,7 +113,7 @@ Lastly, when your application is about to terminate, shut down `ldClient`. This 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'Example', value: 'csharp', },
+    { label: '.NET', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -132,16 +132,14 @@ You can also pass custom parameters to the client by creating a custom configura
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'Example', value: 'csharp', },
+    { label: '.NET', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
 
 ```csharp
-Configuration config = LaunchDarkly.Client.Configuration.Builder("YOUR_SDK_KEY") 
-
-          .EventFlushInterval(TimeSpan.FromSeconds(2)) 
-
+Configuration config = LaunchDarkly.Client.Configuration.Builder("YOUR_SDK_KEY")
+          .EventFlushInterval(TimeSpan.FromSeconds(2))
           .Build();
 LdClient ldClient = new LdClient(config);
 ```
@@ -283,7 +281,7 @@ Here, we've customized the event flush interval. The complete list of customizab
       </TableCell>
       <TableCell>Sets the handler for http requests. Can be used to configure proxy authentication.</TableCell>
       <TableCell>
-        A default <code>HttpClientHandler</code>
+        A default <a href="https://msdn.microsoft.com/en-us/library/system.NET.http.httpclienthandler.aspx"><code>HttpClientHandler</code></a>.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -337,35 +335,30 @@ LaunchDarkly servers operate in a load-balancing framework which may cause their
 result in the SDK failing to connect to LaunchDarkly if an old IP address is still in your system's DNS cache. In
 .NET, the DNS cache retains IP addresses for two minutes by default. If you are noticing intermittent connection
 failures that always resolve in two minutes, you may wish to change this setting to a lower value as described
-[here](https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.dnsrefreshtimeout?view=netframework-4.7.2).
+[here](https://docs.microsoft.com/en-us/dotnet/api/system.NET.servicepointmanager.dnsrefreshtimeout?view=netframework-4.7.2).
 
   </CalloutDescription>
 </Callout> 
 
 ## Users
+
 Feature flag targeting and rollouts are all determined by the *user* you pass to your `variation` calls. In our .NET SDK, the `User` class has a `WithKey` method for creating a simple user with only a key, and a `Builder` method for building a user with other properties. Here's an example:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: '.Net', value: 'csharp', },
+    { label: '.NET', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
 
 ```csharp
- LDUser user = User.Builder("aa0ceb") 
-
-      .FirstName("Ernestina") 
-
-      .LastName("Evans") 
-
-      .Email("ernestina@example.com") 
-
-      .Custom("groups", LdValue.ArrayOf(LdValue.Of("Google"), LdValueOf("Microsoft"))) 
-
+ LDUser user = User.Builder("aa0ceb")
+      .FirstName("Ernestina")
+      .LastName("Evans")
+      .Email("ernestina@example.com")
+      .Custom("groups", LdValue.ArrayOf(LdValue.Of("Google"), LdValueOf("Microsoft")))
       .Build();
-
 ```
 
 </CodeTabItem>
@@ -412,10 +405,8 @@ You can also mark attributes as private when building the user object itself by 
 <CodeTabItem value="csharp">
 
 ```csharp
-var user = User.Builder("aa0ceb") 
-
-  .Email("test@example.com").AsPrivateAttribute() 
-
+var user = User.Builder("aa0ceb")
+  .Email("test@example.com").AsPrivateAttribute()
   .Build();
 ```
 
@@ -431,18 +422,15 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'Example', value: 'csharp', },
+    { label: '.NET', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
 
 ```csharp
- LDUser user = User.Builder("aa0ceb") 
-
-      .Anonymous(true) 
-
+ LDUser user = User.Builder("aa0ceb")
+      .Anonymous(true)
       .Build();
-
 ```
 
 </CodeTabItem>
@@ -453,12 +441,13 @@ You will still need to generate a unique key for anonymous users-- session IDs o
 Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing-- it keeps anonymous users from polluting your Users page!
 
 ## Variation
+
 The `Variation` method determines whether a flag is enabled or not for a specific user.   In .NET, there is  a `variation` method for each type (e.g. `BoolVariation`, `StringVariation`):
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'Example', value: 'csharp', },
+    { label: '.NET', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -482,7 +471,7 @@ The `Track` method allows you to record actions your users take on your site. Th
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'Example', value: 'csharp', },
+    { label: '.NET', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -499,7 +488,7 @@ You can also attach custom data to your event by passing an extra parameter to `
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'Example', value: 'csharp', },
+    { label: '.NET', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -513,12 +502,13 @@ ldClient.Track("Completed purchase", user, LdValue.Of("sku132"));
 </CodeTabs>
 
 ## Identify
+
 `Identify` creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `Identify`-- the `Variation` call will automatically create users on the dashboard for you. `Identify` can be useful if you want to pre-populate your dashboard before launching any features.
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'Example', value: 'csharp', },
+    { label: '.NET', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -548,7 +538,7 @@ This method can be useful for passing feature flags to your front-end. In partic
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'Example', value: 'csharp', },
+    { label: '.NET', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -569,16 +559,14 @@ In some situations, you might want avoid remote calls to LaunchDarkly and fall b
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'Example', value: 'csharp', },
+    { label: '.NET', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
 
 ```csharp
-Configuration config = Configuration.Builder("SDK_KEY") 
-
-        .Offline(true) 
-
+Configuration config = Configuration.Builder("SDK_KEY")
+        .Offline(true)
         .Build();
 LdClient client = new LdClient(config);
 
@@ -607,6 +595,7 @@ var hash = ldClient.SecureModeHash(user);
 </CodeTabs>
 
 ## Flush
+
 Internally, the LaunchDarkly SDK keeps an event buffer for `Track` and `Identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `Flush` to process events immediately.
 
 <CodeTabs

@@ -97,12 +97,11 @@ Using `ldClient`, you can check which variation a particular user should receive
 
 ```go
 key := "user@test.com"
-showFeature, _ := ldClient.BoolVariation("your.flag.key", ld.NewUser(key), false) 
-
+showFeature, _ := ldClient.BoolVariation("your.flag.key", ld.NewUser(key), false)
 if showFeature {
   // application code to show the feature
 } else {
-  // the code to run if the feature is off
+  // the code to run if the feature is off 
 }
 ```
 
@@ -153,6 +152,7 @@ ldClient := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 Here, we've customized the client flush interval parameter. For a complete list of configuration options for the client, read [Go docs](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#Config).
 
 ## Users
+
 Feature flag targeting and rollouts are all determined by the *user* you pass to your `Variation` calls. The Go SDK defines a `User` struct to make this easy. Here's an example:
 
 <CodeTabs
@@ -166,8 +166,7 @@ Feature flag targeting and rollouts are all determined by the *user* you pass to
 
 ```go
 // User with only a key
-user1 := ld.NewUser("user1-key") 
-
+user1 := ld.NewUser("user1-key")
 
 // User with a key plus other attributes
 user2 := ld.NewUserBuilder("user2-key").
@@ -176,8 +175,7 @@ user2 := ld.NewUserBuilder("user2-key").
     Email("ernestina@example.com").
     Custom("Ernestina", ldvalue.ArrayOf(
       ldvalue.String("Google"), ldvalue.String("Microsoft"))).
-    Build() 
-
+    Build()
 
 // Note that ldvalue comes from this import:
 //   gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue
@@ -188,8 +186,7 @@ user2 := ld.NewUserBuilder("user2-key").
 
 ```go
 // User with only a key
-user1 := ld.NewUser("user1-key") 
-
+user1 := ld.NewUser("user1-key")
 
 // User with a key plus other attributes
 key := "user2-key"
@@ -213,19 +210,17 @@ user := ld.User{
 
 Let's walk through this snippet. The most attribute is the user's key-- in this case we've used the strings `"user1-key"` and `"user2-key"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
-All of the other attributes (like `FirstName`, `Email`, and the `Custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
-
-The documentation for [`User`](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#User) and [`UserBuilder`](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#UserBuilder) shows all of the available attributes.
+All of the other attributes (like `FirstName`, `Email`, and the `Custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes. The documentation for [`User`](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#User) and [`UserBuilder`](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#UserBuilder) shows all of the available attributes.
 
 <Callout intent="info">
 <CalloutTitle>A note on types</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or arrays or maps containing any of those types-- any type of value supported by JSON. 
+Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or arrays or maps containing any of type of value supported by JSON. 
 
-In SDK versions 4.16.0 and later, these types are all represented by the [`ldvalue.Value`](https://godoc.org/gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue#Value) type; earlier versions use the catch-all Go type  `interface{}`. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. 
+In SDK versions 4.16.0 and later, these types are all represented by the [`ldvalue.Value`](https://godoc.org/gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue#Value) type; earlier versions use the catch-all Go type `interface{}`.
 
-The Go SDK is strongly typed, so be aware of this distinction.
+If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The Go SDK is strongly typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
@@ -259,8 +254,7 @@ user := ld.NewUserBuilder("user-key").
     Email("ernestina@example.com").AsPrivateAttribute().
     Custom("Ernestina", ldvalue.ArrayOf(
       ldvalue.String("Google"), ldvalue.String("Microsoft"))).
-    Build() 
-
+    Build()
 ```
 
 </CodeTabItem>
@@ -304,15 +298,13 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 
 ```go
 // Anonymous user with only a key
-user1 := ld.NewAnonymousUser("user1-key") 
-
+user1 := ld.NewAnonymousUser("user1-key")
 
 // Anonymous user with a key plus other attributes
 user2 := ld.NewUserBuilder("user2-key").
-    Anonymous(true) 
-
+    Anonymous(true)
     Country("US").
-    Build() 
+    Build()
 
 ```
 
@@ -321,13 +313,7 @@ user2 := ld.NewUserBuilder("user2-key").
 
 ```go
 // Anonymous user with only a key
-user1 := ld.NewAnonymousUser("user1-key") 
-
-
-// Anonymous user with a key plus other attributes
-// Anonymous user with only a key
-user1 := ld.NewAnonymousUser("user1-key") 
-
+user1 := ld.NewAnonymousUser("user1-key")
 
 // Anonymous user with a key plus other attributes
 key := "user2-key"
@@ -336,6 +322,7 @@ user2 := ld.User{
   Key: &key,
   Anonymous: &anonymous,
 }
+
 ```
 
 </CodeTabItem>
@@ -390,7 +377,7 @@ The `Track` methods allow you to record actions your users take on your site. Th
 <CodeTabItem value="go">
 
 ```go
-ldClient.TrackEvent("your-goal-key", user) 
+ldClient.TrackEvent("your-goal-key", user)
 
 ```
 
@@ -398,7 +385,7 @@ ldClient.TrackEvent("your-goal-key", user)
 <CodeTabItem value="go-pre-4.16">
 
 ```go
-ldClient.Track("your-goal-key", user, nil) 
+ldClient.Track("your-goal-key", user)
 
 ```
 
@@ -417,9 +404,8 @@ You can also attach custom data to your event by passing an extra parameter to `
 <CodeTabItem value="go">
 
 ```go
-data := ldvalue.BuildObject().Set("price", ldvalue.Int(320)).Build() 
-
-ldClient.TrackData("Completed purchase", user, data) 
+data := ldvalue.BuildObject().Set("price", ldvalue.Int(320)).Build()
+ldClient.TrackData("Completed purchase", user, data)
 
 ```
 
@@ -428,7 +414,7 @@ ldClient.TrackData("Completed purchase", user, data)
 
 ```go
 data := map[string]interface{}{"price": 320}
-ldClient.Track("Completed purchase", user, data) 
+ldClient.Track("Completed purchase", user, data)
 
 ```
 
@@ -436,6 +422,7 @@ ldClient.Track("Completed purchase", user, data)
 </CodeTabs>
 
 ## Identify
+
 The `Identify` method creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `Identify`-- calling `Variation` will automatically create users on the dashboard for you. `Identify` can be useful if you want to pre-populate your dashboard before launching any features.
 
 <CodeTabs
@@ -500,7 +487,7 @@ The Go SDK uses Go's built in [log](https://golang.org/pkg/log/). All loggers ar
 ```go
 config := ld.DefaultConfig
 config.Logger = myLogger
-ldClient := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second) 
+ldClient := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 
 ```
 
@@ -562,9 +549,8 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 ```go
 config := ld.DefaultConfig
 config.Offline = true
-ldClient, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second) 
-
-ldClient.BoolVariation("any.feature.flag", user, false) // will always return the default value (false) 
+ldClient, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
+ldClient.BoolVariation("any.feature.flag", user, false) // will always return the default value (false)
 
 ```
 
@@ -586,8 +572,7 @@ The Go SDK uses Go's built-in [log](https://golang.org/pkg/log) package. All log
 ```go
 config := ld.DefaultConfig
 config.Logger = myLogger
-ldClient, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second) 
-
+ldClient, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 ```
 
 </CodeTabItem>
@@ -644,10 +629,10 @@ import "gopkg.in/launchdarkly/go-server-sdk.v4/ldhttp"
 
 config := ld.DefaultConfig
 config.HTTPClientFactory = ldhttp.NewHTTPClientFactory(
-    ldhttp.ProxyURL("https://web-proxy.domain.com:8080")) 
+    ldhttp.ProxyURL("https://web-proxy.domain.com:8080"))
 
+// This is supported only in SDK versions 4.14.0 and higher.
 
-// Note, this is supported only in SDK versions 4.14.0 and higher
 ```
 
 </CodeTabItem>

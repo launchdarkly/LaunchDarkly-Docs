@@ -5,7 +5,7 @@ description: 'This topic explains all of the methods available in the server-sid
 published: true
 ---
 
-This reference guide documents basic usage of our C server-side SDK, and explains in detail how its functions work. If you want to dig even deeper, our SDKs are open source. To learn more, read [C SDK GitHub repository](https://github.com/launchdarkly/c-server-sdk). Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-c-server) using this SDK.
+This reference guide documents basic usage of our C server-side SDK, and explains in detail how its functions work. If you want to dig even deeper, our SDKs are open source. To learn more, read [C SDK GitHub repository](https://github.com/launchdarkly/c-server-sdk). The online [API docs](https://launchdarkly.github.io/c-server-sdk) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-c-server) using this SDK.
 
 <Callout intent="alert">
   <CalloutTitle>For use in server applications</CalloutTitle>
@@ -173,6 +173,8 @@ LDConfigSetEventsFlushInterval(config, 30000);
 </CodeTabs>
 
 Here, we've customized the event queue capacity and flush interval parameters. Note that you should finish setting up your configuration object before you call `LDClientInit`.
+
+See the [API docs](https://launchdarkly.github.io/c-server-sdk/config_8h.html) for a complete list of configuration options.
 
 ## Users
 
@@ -348,7 +350,7 @@ To learn more about the `LDDetails` structure, inspect `ldvariations.h`.
   <CalloutTitle>Creating users</CalloutTitle>
   <CalloutDescription>
 
-Note that unlike variation and identify calls, `LDAllFlags` does not send events to LaunchDarkly. Thus, users are
+Unlike variation and identify calls, `LDAllFlags` does not send events to LaunchDarkly. Thus, users are
 not created or updated in the LaunchDarkly dashboard.
 
   </CalloutDescription>
@@ -478,8 +480,8 @@ LDJsonFree(data);
 </CodeTabItem>
 </CodeTabs>
 
-
 ## Identify
+
 The `LDClientIdentify` function creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `LDClientIdentify`-- the `variation` call will automatically create users on the dashboard for you. `LDClientIdentify` can be useful if you want to pre-populate your dashboard before launching any features.
 
 <CodeTabs
@@ -510,15 +512,7 @@ By default, there is no log output. We provide a default logger that you can ena
 <CodeTabItem value="c">
 
 ```c
-struct LDDetails details;
-bool value = LDBoolVariation(client, user, "your.feature.key", false, &details);
-
-/* inspect details here */
-if (details.reason == LD_FLAG_NOT_FOUND) {
-	/* ... */
-}
-
-LDDetailsClear(&details);
+LDConfigureGlobalLogger(LD_LOG_TRACE, LDBasicLogger);
 ```
 
 </CodeTabItem>
@@ -536,8 +530,7 @@ You can also use your own custom log function:
 
 ```c
 static void
-myCustomLogger(const LDLogLevel level, const char *const text) 
-
+myCustomLogger(const LDLogLevel level, const char *const text)
 {
     printf("[%s] %s\n", LDLogLevelToString(level), text);
 }
@@ -571,3 +564,7 @@ LDClientClose(client);
 
 </CodeTabItem>
 </CodeTabs>
+
+## Database integrations
+
+The C SDK can use Redis as a persistent store of feature flag configurations. To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
