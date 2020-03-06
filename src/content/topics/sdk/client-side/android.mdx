@@ -55,7 +55,8 @@ The following example shows the simplest way to create the client. It will block
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java', value: 'java' },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
@@ -70,6 +71,22 @@ LDUser user = new LDUser.Builder("user key")
    .build();
 
 LDClient ldClient = LDClient.init(this.getApplication(), ldConfig, user, 5);
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="kotlin">
+
+```kotlin
+val ldConfig: LDConfig = LDConfig.Builder()
+    .setMobileKey("YOUR_MOBILE_KEY")
+    .build()
+
+val user: LDUser = LDUser.Builder("user key")
+    .email("fake@example.com")
+    .build()
+
+val ldClient: LDClient = LDClient.init(application, ldConfig, user, 5)
 ```
 
 </CodeTabItem>
@@ -91,12 +108,21 @@ However, calling blocking code from the main thread in an Android app is not con
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
 LDClient ldClient = LDClient.init(this.getApplication(), ldConfig, user, 0);
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="kotlin">
+
+```kotlin
+val ldClient: LDClient = LDClient.init(application, ldConfig, user, 0)
 ```
 
 </CodeTabItem>
@@ -108,12 +134,27 @@ Using `ldClient`, you can check which variation a particular user should receive
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
 boolean showFeature = ldClient.boolVariation(flagKey, true);
+if (showFeature) {
+  // application code to show the feature
+}
+else {
+  // the code to run if the feature is off
+}
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="kotlin">
+
+```kotlin
+val showFeature: Boolean = ldClient.boolVariation(flagKey, true)
 if (showFeature) {
   // application code to show the feature
 }
@@ -131,12 +172,20 @@ Lastly, when your application is about to terminate, shut down `ldClient`. This 
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
 ldClient.close();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+ldClient.close()
 ```
 
 </CodeTabItem>
@@ -150,16 +199,28 @@ You can also pass other custom parameters to the client via the configuration ob
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
-LDConfig ldConfig = new LDConfig.Builder() 
-    .setMobileKey("YOUR_MOBILE_KEY") 
-  	.setConnectionTimeoutMillis(5000) 
-    .setEventsFlushIntervalMillis(5000) 
+LDConfig ldConfig = new LDConfig.Builder()
+    .setMobileKey("YOUR_MOBILE_KEY")
+    .setConnectionTimeoutMillis(5000)
+    .setEventsFlushIntervalMillis(5000)
     .build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val ldConfig: LDConfig = LDConfig.Builder()
+    .setMobileKey("YOUR_MOBILE_KEY")
+    .setConnectionTimeoutMillis(5000)
+    .setEventsFlushIntervalMillis(5000)
+    .build()
 ```
 
 </CodeTabItem>
@@ -174,17 +235,30 @@ Feature flag targeting and rollouts are all determined by the *user* you pass to
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
 LDUser user = new LDUser.Builder("aa0ceb")
-   .email("fake@example.com") 
-   .firstName("Jake") 
-   .lastName("Fake") 
-   .custom("group", "microsoft") 
+   .email("fake@example.com")
+   .firstName("Jake")
+   .lastName("Fake")
+   .custom("group", "microsoft")
    .build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val user: LDUser = LDUser.Builder("aa0ceb")
+   .email("fake@example.com")
+   .firstName("Jake")
+   .lastName("Fake")
+   .custom("group", "microsoft")
+   .build()
 ```
 
 </CodeTabItem>
@@ -217,6 +291,7 @@ In the Android SDK you can define private attributes for the **entire** LaunchDa
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
@@ -232,6 +307,19 @@ LDConfig ldConfig = new LDConfig.Builder()
 ```
 
 </CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val privateAttributes: HashSet<String> = HashSet()
+privateAttributes.add("name")  // built-in attribute
+privateAttributes.add("group") // custom attribute
+
+val ldConfig: LDConfig = LDConfig.Builder()
+    .setPrivateAttributeNames(privateAttributes)
+    .build()
+```
+
+</CodeTabItem>
 </CodeTabs>
 
 You can also mark attributes as private when building the user object itself by using the private versions of the builder methods to set the attributes. For example:
@@ -240,6 +328,7 @@ You can also mark attributes as private when building the user object itself by 
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
@@ -250,6 +339,17 @@ LDUser user = new LDUser.Builder("aa0ceb")
    .privateName("Jane")
    .privateCustom("group", "microsoft")
    .build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val user: LDUser = LDUser.Builder("aa0ceb")
+   .email("fake@example.com")
+   .privateName("Jane")
+   .privateCustom("group", "microsoft")
+   .build()
 ```
 
 </CodeTabItem>
@@ -265,6 +365,7 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
@@ -273,6 +374,15 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 LDUser user = new LDUser.Builder("user key")
    .anonymous(true)
    .build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val user: LDUser = LDUser.Builder("user key")
+   .anonymous(true)
+   .build()
 ```
 
 </CodeTabItem>
@@ -289,12 +399,20 @@ The `variation` method determines whether a flag is enabled or not for a specifi
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
 boolean variationResult = ldClient.boolVariation(flagKey, false);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val variationResult: Boolean = ldClient.boolVariation(flagKey, false)
 ```
 
 </CodeTabItem>
@@ -348,12 +466,20 @@ The `allFlags` method produces a map of feature flag keys to their values for a 
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
 ldClient.allFlags();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+ldClient.allFlags()
 ```
 
 </CodeTabItem>
@@ -367,12 +493,20 @@ The `track` method allows you to record actions your users take on your site. Th
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
-ldClient.track("your-goal-key", data) ;
+ldClient.track("your-goal-key", data);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+ldClient.track("your-goal-key", data)
 ```
 
 </CodeTabItem>
@@ -385,6 +519,7 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
@@ -392,13 +527,28 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 ```java
 LDConfig ldConfig = new LDConfig.Builder() 
     .setMobileKey("YOUR_MOBILE_KEY") 
-  	.setOffline(true) 
+    .setOffline(true)
     .build();
 
 LDClient ldClient = LDClient.init(this.getApplication(), ldConfig, user);
 
 // Or to switch an already-instantiated client to offline mode:
 ldClient.setOffline();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val ldConfig: LDConfig = LDConfig.Builder() 
+    .setMobileKey("YOUR_MOBILE_KEY") 
+    .setOffline(true)
+    .build()
+
+val ldClient: LDClient = LDClient.init(application, ldConfig, user);
+
+// Or to switch an already-instantiated client to offline mode:
+ldClient.setOffline()
 ```
 
 </CodeTabItem>
@@ -422,12 +572,20 @@ Internally, the LaunchDarkly SDK keeps an event buffer for `track` calls. These 
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
 ldClient.flush();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+ldClient.flush()
 ```
 
 </CodeTabItem>
@@ -445,16 +603,28 @@ You can use the `identify` method to switch user contexts:
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
-LDUser updatedUser = new LDUser.Builder(user) 
-   .email("fake2@example.com") 
+LDUser updatedUser = new LDUser.Builder(user)
+   .email("fake2@example.com")
    .build();
 
 ldClient.identify(updatedUser);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val updatedUser: LDUser = LDUser.Builder(user)
+   .email("fake2@example.com")
+   .build()
+
+ldClient.identify(updatedUser)
 ```
 
 </CodeTabItem>
@@ -481,6 +651,7 @@ To perform real-time updates in your app, your app will need to register listene
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
@@ -489,13 +660,26 @@ To perform real-time updates in your app, your app will need to register listene
 String flagKey = "yourFlagKey";
 
 FeatureFlagChangeListener listener = new FeatureFlagChangeListener() {
-	@Override
+  @Override
   public void onFeatureFlagChange(String flagKey) {
     boolean newValue = LDClient.get().boolVariation(flagKey, false);
   }
 }
 
 LDClient.get().registerFeatureFlagListener(flagKey, listener);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val flagKey = "yourFlagKey"
+
+val listener = FeatureFlagChangeListener {
+    val newValue = LDClient.get().boolVariation(flagKey, false)
+}
+
+LDClient.get().registerFeatureFlagListener(flagKey, listener)
 ```
 
 </CodeTabItem>
@@ -509,12 +693,20 @@ Similarly you can unregister listeners to disable them:
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
 LDClient.get().unregisterFeatureFlagListener(flagKey, listener);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+LDClient.get().unregisterFeatureFlagListener(flagKey, listener)
 ```
 
 </CodeTabItem>
@@ -541,15 +733,16 @@ Additionally an update listener interface is provided for cases where you would 
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
 LDAllFlagsListener listener = new LDAllFlagsListener() {
-	@Override
+  @Override
   public void onChange(List<String> flagKeys) {
-		// Get new values for flagKeys or other operations
+    // Get new values for flagKeys or other operations
   }
 }
 
@@ -557,6 +750,20 @@ LDAllFlagsListener listener = new LDAllFlagsListener() {
 LDClient.get().registerAllFlagsListener(listener);
 // when done with all flags listener it should be unregistered
 LDClient.get().unregisterAllFlagsListener(listener);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val listener = LDAllFlagsListener {
+    // Get new values for flag keys (from implicit "it" list variable) or other operations
+}
+
+// register all flags listener
+LDClient.get().registerAllFlagsListener(listener)
+// when done with all flags listener it should be unregistered
+LDClient.get().unregisterAllFlagsListener(listener)
 ```
 
 </CodeTabItem>
@@ -578,6 +785,7 @@ All LDClient instances will evaluate against the same LDUser. The mobile keys fo
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
@@ -587,16 +795,36 @@ Map<String, String> otherKeys = new HashMap<String, String>();
 otherKeys.put("platform", "PLATFORM_MOBILE_KEY");
 otherKeys.put("core", "CORE_MOBILE_KEY");
 
-LDConfig ldConfig = new LDConfig.Builder() 
-        .setMobileKey("MOBILE_KEY") 
-        .setSecondaryMobileKeys(otherKeys);
+LDConfig ldConfig = new LDConfig.Builder()
+        .setMobileKey("MOBILE_KEY")
+        .setSecondaryMobileKeys(otherKeys)
         .build();
 
 LDUser user = new LDUser.Builder("user key")
-        .email("fake@example.com") 
+        .email("fake@example.com")
         .build();
 
 LDClient.init(this.getApplication(), ldConfig, user);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val otherKeys: Map<String, String> = HashMap()
+otherKeys.put("platform", "PLATFORM_MOBILE_KEY")
+otherKeys.put("core", "CORE_MOBILE_KEY")
+
+val ldConfig: LDConfig = LDConfig.Builder()
+        .setMobileKey("MOBILE_KEY")
+        .setSecondaryMobileKeys(otherKeys)
+        .build()
+
+val user: LDUser = LDUser.Builder("user key")
+        .email("fake@example.com")
+        .build()
+
+LDClient.init(application, ldConfig, user)
 ```
 
 </CodeTabItem>
@@ -608,6 +836,7 @@ LDClient.init(this.getApplication(), ldConfig, user);
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
@@ -615,6 +844,14 @@ LDClient.init(this.getApplication(), ldConfig, user);
 ```java
 LDClient coreInstance = LDClient.getForMobileKey("core");
 coreInstance.boolVariation("core-flag", false);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val coreInstance: LDClient = LDClient.getForMobileKey("core")
+coreInstance.boolVariation("core-flag", false)
 ```
 
 </CodeTabItem>
@@ -626,6 +863,7 @@ As all the client instances use the same LDUser object, some calls will affect a
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
@@ -639,6 +877,20 @@ coreInstance.flush();
 coreInstance.setOffline();
 coreInstance.setOnline();
 coreInstance.close();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val coreInstance: LDClient = LDClient.getForMobileKey("core")
+
+// Calls affect all LDClient Instances
+coreInstance.identify(/*User Object*/)
+coreInstance.flush()
+coreInstance.setOffline()
+coreInstance.setOnline()
+coreInstance.close()
 ```
 
 </CodeTabItem>
@@ -733,6 +985,7 @@ The SDK also internally stores a timestamp of the most recent successful and fai
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
@@ -751,6 +1004,25 @@ Long lastSuccess = connectionInfo.getLastSuccessfulConnection();
 Long lastSuccess = connectionInfo.getLastFailedConnection();
 // Most recent failure or null
 LDFailure ldFailure = connectionInfo.getLastFailure();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val ldClient: LDClient = LDClient.get()
+val connectionInfo: ConnectionInformation = ldClient.connectionInformation
+// One of the seven modes described above
+val connectionMode: ConnectionInformation.ConnectionMode =
+    connectionInfo.connectionMode
+// Most recent successful flag cache update in millis from the epoch
+// Or null if flags have never been retrieved
+val lastSuccess: Long? = connectionInfo.lastSuccessfulConnection
+// Most recent unsuccessful flag cache update attempt in millis from the epoch
+// Or null if flag update has never been attempted
+val lastSuccess: Long? = connectionInfo.lastFailedConnection
+// Most recent failure or null
+val ldFailure: LDFailure? = connectionInfo.lastFailure
 ```
 
 </CodeTabItem>
@@ -811,6 +1083,7 @@ If matching on the `FailureType`, a default case should be used to handle any fu
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
@@ -822,34 +1095,76 @@ LDFailure ldFailure = connectionInfo.getLastFailure();
 if (ldFailure != null) {
   Timber.d("Received failure with message %s", ldFailure.getMessage());
   // Retrieve the failure type
-	LDFailure.FailureType failureType = ldFailure.getFailureType();
+  LDFailure.FailureType failureType = ldFailure.getFailureType();
   switch (failureType) {
     case INVALID_RESPONSE_BODY:
-    	Timber.d("Received invalid response body");
-    	break;
+      Timber.d("Received invalid response body");
+      break;
     case NETWORK_FAILURE:
-    	Timber.d("Network failure, may have bad connection");
-    	break;
+      Timber.d("Network failure, may have bad connection");
+      break;
     case UNEXPECTED_STREAM_ELEMENT_TYPE:
-    	Timber.d("Unexpected stream element, may require update");
-    	break;
+      Timber.d("Unexpected stream element, may require update");
+      break;
     case UNEXPECTED_RESPONSE_CODE:
-    	LDInvalidResponseCodeFailure responseCodeFailure =
+      LDInvalidResponseCodeFailure responseCodeFailure =
         (LDInvalidResponseCodeFailure) ldFailure;
-    	int responseCode = responseCodeFailure.getResponseCode();
-    	if (responseCodeFailure.isRetryable()) {
+      int responseCode = responseCodeFailure.getResponseCode();
+      if (responseCodeFailure.isRetryable()) {
         Timber.d("Received invalid response code %d", responseCode);
       } else {
         Timber.d("Received invalid response code %d, giving up", responseCode);
       }
-    	break;
+      break;
     case UNKNOWN_ERROR:
     default:
-    	Timber.d("Unknown error");
-    	break;
+      Timber.d("Unknown error");
+      break;
   }
 
   Throwable cause = ldFailure.getCause();
+  if (cause != null) {
+    // Do something with underlying cause
+  }
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val ldClient: LDClient = LDClient.get()
+val connectionInfo: ConnectionInformation = ldClient.connectionInformation
+val ldFailure: LDFailure? = connectionInfo.lastFailure
+if (ldFailure != null) {
+  Timber.d("Received failure with message %s", ldFailure.message)
+  // Retrieve the failure type
+  val failureType: LDFailure.FailureType = ldFailure.failureType
+  when (failureType) {
+    INVALID_RESPONSE_BODY -> {
+      Timber.d("Received invalid response body")
+    }
+    NETWORK_FAILURE -> {
+      Timber.d("Network failure, may have bad connection")
+    }
+    UNEXPECTED_STREAM_ELEMENT_TYPE -> {
+      Timber.d("Unexpected stream element, may require update")
+    }
+    UNEXPECTED_RESPONSE_CODE -> {
+      val responseCodeFailure: LDInvalidResponseCodeFailure =
+          ldFailure as LDInvalidResponseCodeFailure
+      val responseCode = responseCodeFailure.responseCode
+      if (responseCodeFailure.isRetryable) {
+        Timber.d("Received invalid response code %d", responseCode)
+      } else {
+        Timber.d("Received invalid response code %d, giving up", responseCode)
+      }
+    }
+    UNKNOWN_ERROR -> {
+      Timber.d("Unknown error")
+    }
+  }
+  val cause: Throwable? = ldFailure.cause
   if (cause != null) {
     // Do something with underlying cause
   }
@@ -875,6 +1190,7 @@ The SDK maintains only a weak reference to the registered `LDStatusListener`, so
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
@@ -897,7 +1213,7 @@ class MainActivity extends Activity {
 
       @Override
       public void onInternalFailure(LDFailure ldFailure) {
-       	// handle failure
+        // handle failure
       }
 
     };
@@ -915,6 +1231,39 @@ class MainActivity extends Activity {
 ```
 
 </CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+class MainActivity : Activity() {
+  private var ldClient: LDClient? = null
+  private var ldStatusListener: LDStatusListener? = null
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_main)
+
+    ldStatusListener = object : LDStatusListener {
+      override fun onConnectionModeChanged(connectionInfo: ConnectionInformation) {
+        // handle new connection info
+      }
+
+      override fun onInternalFailure(ldFailure: LDFailure) {
+        // handle failure
+      }
+    }
+
+    ldClient = LDClient.get()
+    ldClient.registerStatusListener(ldStatusListener)
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    ldClient?.unregisterStatusListener(ldStatusListener)
+  }
+}
+```
+
+</CodeTabItem>
 </CodeTabs>
 
 ## Troubleshooting
@@ -925,6 +1274,7 @@ The Android SDK makes heavy use of the Timber logging. Include Timber in your ap
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
   ]
 }>
 <CodeTabItem value="java">
@@ -932,6 +1282,15 @@ The Android SDK makes heavy use of the Timber logging. Include Timber in your ap
 ```java
 if (BuildConfig.DEBUG) {
   Timber.plant(new Timber.DebugTree());
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+if (BuildConfig.DEBUG) {
+  Timber.plant(Timber.DebugTree())
 }
 ```
 
