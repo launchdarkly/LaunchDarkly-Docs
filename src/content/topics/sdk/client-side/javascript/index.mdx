@@ -854,6 +854,46 @@ will trigger pageview and click events correctly.
 </CalloutDescription>
 </Callout>
 
+## Tracking custom events
+
+You can record custom events using the `track` function. In LaunchDarkly, you can tie these events to metrics in experiments.
+
+To learn more, read [Experimentation](/home/experimentation).
+
+Call track with the event name to record custom conversion metrics. The second argument is optional.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldclient.track("your-event-name", { customProperty: someValue });
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+For numeric metrics, include a numeric value (`float` or `int` are accepted) as a third argument in the call.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldclient.track("your-event-name", null, 5);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 ## Flush
 
 Internally, the LaunchDarkly SDK keeps an analytics event buffer. These events are flushed periodically (asynchronously). In some situations, you may want to manually call `flush` to process events immediately.
