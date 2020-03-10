@@ -366,7 +366,7 @@ Feature flag targeting and rollouts are all determined by the *user* you pass to
 
 Let's walk through this snippet. The argument to `Builder` is the user's key-- in this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
-All of the other attributes (set via calls to `FirstName`, `LastName`, `Email`, and `Custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
+All of the other attributes (set by calls to `FirstName`, `LastName`, `Email`, and `Custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
 
 In addition to the built-in attributes defined in the `User` class, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
 
@@ -613,7 +613,7 @@ ldClient.Flush();
 </CodeTabItem>
 </CodeTabs>
 
-Note that the flush interval is configurable-- if you need to change the interval, you can do so via the `Configuration` class.
+Note that the flush interval is configurable-- if you need to change the interval, you can do so with the `Configuration` class.
 
 ## Dispose
 

@@ -148,7 +148,7 @@ if (show_feature) {
 
 ## Customizing your client
 
-You can also pass other custom parameters to the client via the configuration object:
+You can also pass other custom parameters to the client with the configuration object:
 
 <CodeTabs
   defaultValue="c"
@@ -319,7 +319,7 @@ LDClientFlush(client);
 </CodeTabItem>
 </CodeTabs>
 
-Note that the flush interval is configurable-- if you need to change the interval, you can do so via the configuration.
+Note that the flush interval is configurable-- if you need to change the interval, you can do so in the configuration.
 
 ## Changing the user context
 
@@ -346,7 +346,7 @@ The 'identify' call will load any saved flag values for the new user and immedia
 
 ## Real-time updates
 
-LaunchDarkly manages all flags for a user context in real-time by polling flags based on a real-time event stream. When a flag is modified via the LaunchDarkly dashboard, the flag values for the current user will update almost immediately.
+LaunchDarkly manages all flags for a user context in real-time by polling flags based on a real-time event stream. When a flag is modified from the LaunchDarkly dashboard, the flag values for the current user will update almost immediately.
 
 To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is listened to by the C SDK. Whenever an event is performed on the dashboard, the C SDK is notified of the updated flag settings in real-time.
 

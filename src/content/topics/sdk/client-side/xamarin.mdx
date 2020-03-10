@@ -381,7 +381,7 @@ Feature flag targeting and rollouts are all determined by the *user* you pass to
 
 Let's walk through this snippet. The argument to `Builder` is the user's key-- in this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
-All of the other attributes (set via calls to `FirstName`, `LastName`, `Email`, and `Custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
+All of the other attributes (set by calls to `FirstName`, `LastName`, `Email`, and `Custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
 
 In addition to the built-in attributes defined in the `User` class, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
 
@@ -609,7 +609,7 @@ ldClient.Flush();
 </CodeTabItem>
 </CodeTabs>
 
-Note that the flush interval is configurable-- if you need to change the interval, you can do so via the `Configuration` class.
+Note that the flush interval is configurable-- if you need to change the interval, you can do so from the `Configuration` class.
 
 ## Dispose
 
@@ -665,7 +665,7 @@ Be aware of two considerations when enabling the DEBUG log level:
 
 ## Real-Time Updates
 
-LaunchDarkly manages all flags for a user context in real-time by updating the flag cached based on a real-time event stream. When a flag is modified via the LaunchDarkly dashboard, the flag values for the current user will update almost immediately. The default SDK configuration has been found to be the best combination of low latency updates and minimal battery drain:
+LaunchDarkly manages all flags for a user context in real-time by updating the flag cached based on a real-time event stream. When a flag is modified from the LaunchDarkly dashboard, the flag values for the current user will update almost immediately. The default SDK configuration has been found to be the best combination of low latency updates and minimal battery drain:
 
 1. When the app is foregrounded, a [Server-sent events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection is made to LaunchDarkly. This streaming connection stays open as long as your app is in the foreground and is connected to the internet. 
 

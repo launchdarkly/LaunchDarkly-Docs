@@ -615,7 +615,7 @@ ldclient.track("your-event-name", { customProperty: someValue });
 </CodeTabItem>
 </CodeTabs>
 
-If you've defined [click or pageview goals](/home/experimentation) in LaunchDarkly, they'll be sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or pageview goals. The SDK will generate pageview events correctly regardless of how the URL is changed (via the HTML5 history API, by changing the URL hash fragment, etc.).
+If you've defined [click or pageview goals](/home/experimentation) in LaunchDarkly, they'll be sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or pageview goals. The SDK will generate pageview events correctly regardless of how the URL is changed (by the HTML5 history API, by changing the URL hash fragment, etc.).
 
 You can completely disable event sending by setting `sendEvents` to `false` in the client options, but be aware that this means you will not have user data on your LaunchDarkly dashboard.
 
@@ -848,7 +848,7 @@ To learn more about click and pageview goals, read [Experimentation](/home/exper
   <CalloutTitle>Single-page apps</CalloutTitle>
 <CalloutDescription>
 
-The SDK automatically handles URL changes (made via the HTML5 history API or by changing the URL hash fragment), and
+The SDK automatically handles URL changes (made by the HTML5 history API or by changing the URL hash fragment), and
 will trigger pageview and click events correctly.
 
 </CalloutDescription>

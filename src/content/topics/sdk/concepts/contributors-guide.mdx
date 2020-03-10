@@ -39,7 +39,7 @@ Our [Go SDK](https://github.com/launchdarkly/go-server-sdk/blob/v4/ldclient.go) 
 
 ## Recording events
 
-The SDKs send six kinds of events: "feature” and "debug" events produced every time a feature flag is evaluated (depending on what controls are enabled for that flag), “identify” and "index" events which push user data to LaunchDarkly, “custom” events that are triggered by the client application via an SDK method, and "summary" events that roll up a series of "feature" events. 
+The SDKs send six kinds of events: "feature” and "debug" events produced every time a feature flag is evaluated (depending on what controls are enabled for that flag), “identify” and "index" events which push user data to LaunchDarkly, “custom” events that are triggered by the client application by an SDK method, and "summary" events that roll up a series of "feature" events. 
 
 Events must be batched and sent to the LaunchDarkly server **asynchronously**. This is a requirement for all SDKs. Do this by creating a background job that runs every 30 seconds and makes a `POST` call to `/api/events/bulk`. This call must have a `Content-Type` header set to `application/json`, an `Authorization` header set to `api_key ${api_key}`, and must include a JSON body consisting of a list of events. On platforms with poor multithreading support, you may need to [get creative](https://segment.com/blog/how-to-make-async-requests-in-php/).
 
@@ -112,7 +112,7 @@ The "debug" event is a variant on the "feature" event, with two differences. It 
 
 Because the system time available to the SDK may not be in sync with our server time, we encourage the developer to prevent a second check to prevent writing "debug" when a previous Date header returned when posting to /api/events/bulk has passed the "debugEventsUntilDate".
 
-The details of the "user" object used in a feature flag evaluation as reported by the "feature" event are transmitted periodically via a separate "index" event. It is expected that the SDK will only send "index" events no more than 5 seconds and that user attributes will not change between most evaluations.
+The details of the "user" object used in a feature flag evaluation as reported by the "feature" event are transmitted periodically from a separate "index" event. It is expected that the SDK will only send "index" events no more than 5 seconds and that user attributes will not change between most evaluations.
 
 
 <CodeTabs
@@ -358,7 +358,7 @@ The call to `/api/events/bulk` should contain a JSON list of events.
 1. Minimize external dependencies — try to use as few external libraries as possible. If all you need from a library is a single utility method, prefer inlining it to importing the library (license permitting). This helps minimize version conflicts if client applications happen to be using the same libraries.
 2. Be consistent with the conventions and style of the target language. For example, if most libraries in that language are written in snake case, use snake case. If camel case is standard, use camel case. Target language consistency trumps consistency with other LaunchDarkly SDKs.
 3. Use the target language's preferred module and package layout. Java — jar files, Ruby — gems, etc.
-4. Publish libraries to the most popular module hosting service for the target language. For example, the Java SDK is published to Maven central. The Python SDK is published to PyPi. .Net should be published via NuGet. Try not to publish to a nonstandard location that requires clients to customize their project build definitions (for example, don't use Bintray).
+4. Publish libraries to the most popular module hosting service for the target language. For example, the Java SDK is published to Maven central. The Python SDK is published to PyPi. .Net should be published by NuGet. Try not to publish to a nonstandard location that requires clients to customize their project build definitions (for example, don't use Bintray).
 5. If there's a platform standard for generating and publishing documentation, use it. For example, the Java SDK includes Javadoc comments and a build target to produce Javadoc pages.
 6. All SDKs should be open sourced and published with the Apache 2.0 license.
 7. SDK versions should follow [semantic versioning](http://semver.org/) guidelines.

@@ -687,7 +687,7 @@ LDUser *newUser = [[LDUser alloc] initWithKey:@"martian@example.com"];
 
 ## Real-time updates
 
-LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream. When a flag is modified via the LaunchDarkly dashboard, the flag values for the current user will update almost immediately.
+LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream. When a flag is modified from the LaunchDarkly dashboard, the flag values for the current user will update almost immediately.
 
 To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is listened to by the V4 SDK. Whenever an event is performed on the dashboard, the V4 SDK is notified of the updated flag settings in real-time.
 
@@ -823,7 +823,7 @@ The SDK has four connectivity states dependent on its configuration, application
       <TableCell>
         <code>establishingStreamingConnection</code>
       </TableCell>
-      <TableCell>The SDK is attempting to connect to LaunchDarkly via streaming.</TableCell>
+      <TableCell>The SDK is attempting to connect to LaunchDarkly by streaming.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
