@@ -29,7 +29,7 @@ This feature is currently available in the following server-side SDKs:
       Always configure production environments to receive flag updates from LaunchDarkly. Only use file-based flags in
       testing and pre-production environments.
     </CalloutDescription>
-  </Callout> 
+  </Callout>
 
 ## Creating a flag data file
 
@@ -46,7 +46,7 @@ They contain up to three properties:
     <CalloutDescription>
       In some of the SDKs, YAML support requires an additional dependency. YAML is not available in PHP.
     </CalloutDescription>
-  </Callout> 
+  </Callout>
 
 The format of the data in `flags` and `segments` is defined by the LaunchDarkly application and is subject to change. Rather than trying to construct these objects yourself, it's simpler to request existing flags directly from the LaunchDarkly server in JSON format and use this output as the starting point for your file.
 
@@ -174,22 +174,22 @@ The examples below show how to configure the client to use two data files called
 
 ```go
 import (
-    ld "gopkg.in/launchdarkly/go-client.v4"
-    "gopkg.in/launchdarkly/go-client.v4/ldfiledata"
-    "gopkg.in/launchdarkly/go-client.v4/ldfilewatch"
-) 
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+    "gopkg.in/launchdarkly/go-server-sdk.v4/ldfiledata"
+    "gopkg.in/launchdarkly/go-server-sdk.v4/ldfilewatch"
+)
 
 
 fileSource, err := ldfiledata.NewFileDataSourceFactory(
     ldfiledata.FilePaths("file1.json", "file2.json"),
-    ldfiledata.UseReloader(ldfilewatch.WatchFiles)) 
+    ldfiledata.UseReloader(ldfilewatch.WatchFiles))
 
 
 config := ld.DefaultConfig
 config.UpdateProcessorFactory = fileSource
 config.SendEvents = false
 
-client := ld.MakeCustomClient("sdk key", config, 5*time.Second) 
+client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
 
 ```
 
@@ -200,17 +200,17 @@ client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
 import com.launchdarkly.client.*;
 import com.launchdarkly.client.files.*;
 
-FileDataSourceFactory fileSource = FileComponents.fileDataSource() 
+FileDataSourceFactory fileSource = FileComponents.fileDataSource()
 
-    .filePaths("file1.json", "file2.json") 
+    .filePaths("file1.json", "file2.json")
 
     .autoUpdate(true);
 
-LDConfig config = new LDConfig.Builder() 
+LDConfig config = new LDConfig.Builder()
 
-    .updateProcessorFactory(fileSource) 
+    .updateProcessorFactory(fileSource)
 
-    .sendEvents(false) 
+    .sendEvents(false)
 
     .build();
 
@@ -224,15 +224,15 @@ LDClient client = new LDClient("sdk key", config);
 using LaunchDarkly.Client;
 using LaunchDarkly.Client.Files;
 
-var fileSource = FileComponents.FileDataSource() 
+var fileSource = FileComponents.FileDataSource()
 
-    .WithFilePaths("file1.json", "file2.json") 
+    .WithFilePaths("file1.json", "file2.json")
 
     .WithAutoUpdate(true);
 
-var config = Configuration.Default("sdk key") 
+var config = Configuration.Default("sdk key")
 
-    .WithUpdateProcessorFactory(fileSource) 
+    .WithUpdateProcessorFactory(fileSource)
 
     .WithEventProcessorFactory(Components.NullEventProcessor);
 
@@ -250,16 +250,16 @@ require 'ldclient-rb'
 factory = LaunchDarkly::FileDataSource.factory(
   paths: [ "file1.json", "file2.json" ],
   auto_update: true
-) 
+)
 
 
 config = LaunchDarkly::Config.new(
   update_processor_factory: factory,
   send_events: false
-) 
+)
 
 
-client = LaunchDarkly::Client.new("sdk key", config) 
+client = LaunchDarkly::Client.new("sdk key", config)
 
 
 # Note that in the Ruby SDK, automatic reloading uses a somewhat inefficient
@@ -275,17 +275,17 @@ from ldclient.config import Config
 from ldclient.file_data_source import FileDataSource
 
 factory = FileDataSource.factory(paths=["file1.json", "file2.json"],
-    auto_update=True) 
+    auto_update=True)
 
 
-config = Config(update_processor_class=factory, send_events=False) 
+config = Config(update_processor_class=factory, send_events=False)
 
 
-ldclient.set_config(config) 
+ldclient.set_config(config)
 
-ldclient.set_sdk_key("sdk key") 
+ldclient.set_sdk_key("sdk key")
 
-client = ldclient.get() 
+client = ldclient.get()
 
 
 # Note that in the Python SDK, if you want to use YAML files instead of JSON
