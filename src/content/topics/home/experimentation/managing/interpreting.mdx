@@ -42,17 +42,29 @@ Here are some things you can do from an experiment's card:
 
 The data an experiment has collected is represented in a set of columns in the experiment's card.
 
-![An experiment's data.](../../../images/experiment-data.png) 
+![A numeric experiment's data.](../../../images/experiment-card.png) 
 
+Experiment data differs based on whether you're running a numeric or conversion (clicks, pageviews, or custom) experiment. 
 
-Each column represents something different:
+<Callout intent="info">
+<CalloutTitle>Your UI may be different from the list below</CalloutTitle>
+<CalloutDescription>
+
+Not all columns appear for each experiment. Some are unique to numeric or conversion experiments. 
+
+</CalloutDescription>
+</Callout>
+
+The list below explains what each column means:
 
 - **Variation**: Which flag variation's data is shown in the row
 - **Conversions / unique visitors**: How many unique visitors take action based on the variation they see, relative to the total number of users who views the page. For click experiments, this means the denominator is the number of views matching the URL specified in the click metric UI.
 - **Conversion rate**: The percentage of users who take action based on the variation they see, relative to the total number of unique visitors who encounter the flag variation.
+- **Total evaluations**: The number of times this flag variation has been evaluated.
+- **Average**: The average numeric value this flag variation returns.
 - **Confidence interval**: A range of values between which the actual value for the conversion rate likely falls. A smaller confidence interval equates a more confident prediction. For example, a confidence interval of 11%-13% is more reliable than a confidence interval of 10%-30%.
 - **Change**: The difference, in positive or negative values, the flag variation has from the baseline variation. Baseline flag variations say **Baseline** rather than showing a value.
-- **Statistical significance**: The likelihood of a variation to impact the users who see it. LaunchDarkly calculates this with a p-value of .05.
+- **P-Value**: The likelihood of a variation to impact the users who see it. LaunchDarkly calculates this with a P-value of .05. This means that for every experiment you run with a statistical significance of 95%, there is a 5% chance that there is actually no difference between the comparisons. The smaller this number gets, the lower the probability our significant outcome is random.
 
 ## Winning variations
 
