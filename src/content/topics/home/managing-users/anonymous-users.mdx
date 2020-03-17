@@ -37,11 +37,11 @@ To learn more about MAU, read [Account usage metrics](/home/metrics-insights/usa
 Sometimes it is useful to generate a unique key for anonymous users. We recommend using unique keys for the following reasons:
 
 - You are targeting users individually by key
-- You are using LaunchDarkly's A/B testing feature
+- You are using Experimentation to run A/B/n tests
 - You are using the Analytics Data Stream
 - You are conducting percentage rollouts
 
-If you do not need to uniquely identify your anonymous users. Instead, you can use a shared key for them. If you do this, you can still target users by their attributes, but you will not be able to target specific user segments unless they have unique keys. 
+You do not need to uniquely identify your anonymous users. Instead, you can use a shared key for them. If you do this, you can still target users by their attributes, but you will not be able to target specific user segments unless they have unique keys. 
 
 Using anonymous users instead of unique keys may help prevent you from hitting your maximum user count. 
 
