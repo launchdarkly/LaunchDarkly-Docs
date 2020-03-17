@@ -41,5 +41,25 @@ Sometimes it is useful to generate a unique key for anonymous users. We recommen
 - You are using the Analytics Data Stream
 - You are conducting percentage rollouts
 
-If you do not need to uniquely identify your anonymous users, you can use a shared key for them. If you do this, you can still target users by their attributes, but you will not be able to target specific user segments unless they have unique keys.
+If you do not need to uniquely identify your anonymous users. Instead, you can use a shared key for them. If you do this, you can still target users by their attributes, but you will not be able to target specific user segments unless they have unique keys. 
+
+Using anonymous users instead of unique keys may help prevent you from hitting your maximum user count. 
+
+To learn more about user limits, read [Understanding the Users dashboard](/home/managing-users/users-dashboard#understanding-the-users-dashboard).
+
+### Understanding how unique keys contribute to user count
+
+Your account is limited to 100,000,000 users by default. You may hit this limit accidentally if you use too many unique keys.
+
+If you feel like you hit this limit too frequently, you may be creating more users than you know. 
+
+Here are some examples of ways you may be creating unique user IDs: 
+
+* Creating users that include request IDs, so each user generates a new ID every time they request against the server. Users do not need a user ID to use a request ID. For example, an unathenticated API might only give you a request ID, not a user ID. 
+* Server-to-server communication where there are no human operators, just software components interacting.
+* If you use LaunchDarkly to configure log levels or tracing, you may use a different type of ID, like a timestamp. LaunchDarkly classifies each of those IDs as unique IDs.
+
+You can replace some of the unique IDs in the examples above with anonymous users. This will decrease your maximum user count, but keep in mind that anonymous users do not appear on the Users dashboard. Assess the components interacting with LaunchDarkly and feature flags to determine which require unique IDs, user IDs, or both, or can be classified as anonymous users.
+
+You can remove users you don't need anymore with the LaunchDarkly API, or by clicking the **Delete** button on their user card. To learn more, read [Removing a user](/home/managing-users/users-dashboard#removing-a-user).
 

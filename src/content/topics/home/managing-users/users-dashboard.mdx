@@ -13,7 +13,7 @@ The Users dashboard gives you a summary view of how each user sees all of the fe
 
 ## Understanding the Users dashboard
 
-The Users dashboard populates automatically when users encounter a feature flag and are evaluated by a LaunchDarkly SDK. The data on the User dashboard is populated from the user data you send in `variation` calls, as well as data from `identify` calls.
+The Users dashboard populates automatically when users encounter a feature flag and are evaluated by a LaunchDarkly SDK. The data on the User dashboard is populated from the user data you send in `variation` calls, as well as data from `identify` calls. 
 
 <Callout intent="alert">
   <CalloutTitle>You cannot add users manually</CalloutTitle>
@@ -24,10 +24,26 @@ You cannot create users in the Users dashboard. The Users dashboard is not a dat
 </CalloutDescription>
 </Callout> 
 
-From the user dashboard, you can filter users by name, key, or e-mail address.
+From the Users dashboard, you can filter users by name, key, or e-mail address.
 
 ![The Users dashboard.](../../images/users.png) 
 
+Users live in the dashboard for 30 days from creation. If a user does not evaluate a feature flag within 30 days, they age out of the system and their information no longer appears in the Users dashboard. Those users can reappear on the dashboard when they evaluate a feature flag, provided your account has not reached the maximum number of users.
+
+All accounts are limited to 100,000,000 users. If you hit the 100,000,000 users cap, new users won't appear in the Users dashboard until stale users age out of the 30-day user cache. Users that evaluate a feature flag w/in 30 days of initial population don't age out of the system. If you stop creating a bunch of users at once, 30 days later those stale users are gone. 
+
+To learn more about how the Users dashboard is populated, and how you might exceed the 100,000,000 user limit, read [Anonymous users](/home/managing-users/anonymous-users).
+
+<Callout intent="info">
+  <CalloutTitle>Do you need more users?</CalloutTitle>
+  <CalloutDescription>
+ 
+You can add more users to your LaunchDarkly account if you need to. Your bill will not go up if you add more users to your LaunchDarkly account.
+
+To add more users, [contact Support](mailto:support@launchdarkly.com).
+
+</CalloutDescription>
+</Callout> 
 
 ## Modifying feature flags for a user 
 
