@@ -264,7 +264,7 @@ val user: LDUser = LDUser.Builder("aa0ceb")
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this snippet. The first argument to the builder is the user's key-- in this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+Let's walk through this snippet. The first argument to the builder is the user's key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
 
@@ -279,7 +279,7 @@ Most of our built-in attributes (like names and e-mail addresses) expect string 
 </CalloutDescription>
 </Callout>
 
-Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
+Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, and account plans. Anything you pass to us becomes available instantly on our dashboard.
 
 ## Private user attributes
 
@@ -390,7 +390,7 @@ val user: LDUser = LDUser.Builder("user key")
 
 You can leave the key parameter in the Builder null or make it an empty string and the client will automatically set it to a LaunchDarkly-specific device-unique string that is consistent between app restarts and device reboots.
 
-Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing-- it keeps anonymous users from polluting your Users page!
+Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
 
 ## Variation
 The `variation` method determines whether a flag is enabled or not for a specific user. In Android, there is  a `variation` method for each type (e.g. `boolVariation`, `stringVariation`):
@@ -420,7 +420,7 @@ val variationResult: Boolean = ldClient.boolVariation(flagKey, false)
 
 `variation` calls take the feature flag key and a fallback value.
 
-The fallback value will only be returned if an error is encountered-- for example, if the feature flag key doesn't exist or the user doesn't have a key specified.
+The fallback value will only be returned if an error is encountered. For example, the fallback value is served if the feature flag key doesn't exist or the user doesn't have a key specified.
 
 The `variation` call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at `identify`).
 
@@ -591,7 +591,7 @@ ldClient.flush()
 </CodeTabItem>
 </CodeTabs>
 
-Note that the flush interval is configurable-- if you need to change the interval, you can do so via the configuration.
+The flush interval is configurable. If you need to change the interval, you can do so via the configuration.
 
 ## Changing the User Context
 

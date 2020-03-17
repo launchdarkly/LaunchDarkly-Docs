@@ -63,7 +63,7 @@ const LaunchDarkly = require('launchdarkly-node-client-sdk');
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of the LaunchDarkly client. To create a client instance, you need your environment's client-side ID (available on your [account settings page](https://app.launchdarkly.com/settings#/projects)). Client-side IDs are not secret-- they can be safely exposed in your client-side code.
+Once the SDK is installed and imported, you'll want to create a single, shared instance of the LaunchDarkly client. To create a client instance, you need your environment's client-side ID (available on your [account settings page](https://app.launchdarkly.com/settings#/projects)). Client-side IDs are not secret. You can expose them in your client-side code with no risk.
 
 Feature flag targeting and rollouts are all determined by the active _user_. You must pass a user context to the SDK during initialization before requesting any feature flags with `variation`. Failure to pass a valid user context to the SDK during initialization will result in an error.
 
@@ -190,7 +190,7 @@ By default, when the SDK requests feature flags from LaunchDarkly, it makes an H
 </CalloutDescription>
 </Callout>
 
-Let's walk through the user JSON in more detail. The most important attribute is the user key-- in this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+Let's walk through the user JSON in more detail. The most important attribute is the user key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 Here's a more complete example of a user:
 
@@ -241,7 +241,7 @@ Most of our built-in attributes (like names and e-mail addresses) expect string 
 </CalloutDescription>
 </Callout>
 
-Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard. 
+Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available instantly on our dashboard. 
 
 ## Private user attributes
 
@@ -329,7 +329,7 @@ const user2 = { key: "aa0ceb", anonymous: true };
 </CodeTabItem>
 </CodeTabs>
 
-Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing-- it keeps anonymous users from polluting your Users page!
+Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
 
 ## Variation
 

@@ -265,10 +265,10 @@ LaunchDarkly includes some useful built-in attributes for users. All of them are
 
 Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You
 also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user
-keys. This is actually a good thing-- it keeps anonymous users from polluting your Users page! Note that anonymous
+keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page! Note that anonymous
 users will still count toward your monthly active user limit.
 
-You still must generate a unique key for anonymous users-- session IDs or UUIDs work best for this.
+You still must generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
 
 <Callout intent="primary">
   <CalloutTitle>Maintaining experience across anonymous and logged-in states</CalloutTitle>
@@ -302,7 +302,7 @@ to do rollouts based on the "uniqueId" custom attribute.
 
 ## Targeting users based on custom attributes
 
-LaunchDarkly allows you to target users based on arbitrary custom attributes-- meaning you can control who sees features based on any criteria that you send to us.
+LaunchDarkly allows you to target users based on arbitrary custom attributes, which means you can control who sees features based on any criteria that you send to us.
 
 <Callout intent="alert">
   <CalloutTitle>Custom attributes and built-in attributes</CalloutTitle>

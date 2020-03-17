@@ -301,7 +301,7 @@ user` = userSetAnonymous True user
 
 You still must generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
 
-Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing-- it keeps anonymous users from polluting your Users page!
+Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
 
 ## Flush
 
@@ -324,7 +324,7 @@ flushEvents client
 </CodeTabItem>
 </CodeTabs>
 
-This function will not block, but instead initiate a flush operation in the background. Note that the flush interval is configurable-- if you need to change the interval, you can do so via the configuration.
+This function will not block, but instead initiate a flush operation in the background. The flush interval is configurable. If you need to change the interval, you can do so via the configuration.
 
 ## Track
 

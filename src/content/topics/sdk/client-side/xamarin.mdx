@@ -110,7 +110,7 @@ ldClient = await LdClient.InitAsync("MY_MOBILE_KEY", user);
   <CalloutTitle>LdClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make this a singleton-- internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
+It's important to make this a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
 
 </CalloutDescription>
 </Callout>
@@ -379,7 +379,7 @@ Feature flag targeting and rollouts are all determined by the *user* you pass to
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this snippet. The argument to `Builder` is the user's key-- in this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+Let's walk through this snippet. The argument to `Builder` is the user's key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 All of the other attributes (set via calls to `FirstName`, `LastName`, `Email`, and `Custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
 
@@ -394,7 +394,7 @@ Most of our built-in attributes (like names and e-mail addresses) expect string 
 </CalloutDescription>
 </Callout>
 
-Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
+Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available instantly on our dashboard.
 
 ## Private user attributes
 
@@ -451,9 +451,9 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 </CodeTabItem>
 </CodeTabs>
 
-You will still need to generate a unique key for anonymous users-- session IDs or UUIDs work best for this.
+You will still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
 
-Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing-- it keeps anonymous users from polluting your Users page!
+Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
 
 In Android or iOS, you can also allow the SDK to create a key for an anonymous user based on a unique device identifier (as defined by the [DeviceInfo](https://github.com/jamesmontemagno/DeviceInfoPlugin) Xamarin plugin); it will do so if you set the key to null and also set the anonymous flag:
 
@@ -493,7 +493,7 @@ ldClient.BoolVariation("your.feature.key", false);
 
 `variation` calls take the feature flag key and a default value.
 
-The default value will only be returned if an error is encountered-- for example, if the feature flag key doesn't exist or the user doesn't have a key specified.
+The default value will only be returned if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
 
 ## VariationDetail
 
@@ -567,7 +567,7 @@ ldClient.AllFlags();
 
 ## Fallback value and offline mode
 
-The default (fallback) values are defined in your code. The default value will only be returned if an error is encountered or if LaunchDarkly is unreachable -- for example, if the feature flag key doesn't exist.
+The default (fallback) values are defined in your code. The default value will only be returned if an error is encountered or if LaunchDarkly is unreachable.
 
 In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when running on premise. You can do this by setting offline mode in the client's Config. When the client is in offline mode, no network requests will be made, so it is suitable for unit-testing.
 
@@ -609,7 +609,7 @@ ldClient.Flush();
 </CodeTabItem>
 </CodeTabs>
 
-Note that the flush interval is configurable-- if you need to change the interval, you can do so via the `Configuration` class.
+The flush interval is configurable. If you need to change the interval, you can do so via the `Configuration` class.
 
 ## Dispose
 

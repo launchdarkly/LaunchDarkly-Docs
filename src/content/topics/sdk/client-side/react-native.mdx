@@ -127,7 +127,7 @@ import LDClient from 'launchdarkly-react-native-client-sdk';
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of LDClient, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key (available on your [account settings page](https://app.launchdarkly.com/settings#/projects)). Mobile keys are not secret-- they can be safely exposed in your client-side code.
+Once the SDK is installed and imported, you'll want to create a single, shared instance of LDClient, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key (available on your [account settings page](https://app.launchdarkly.com/settings#/projects)). Mobile keys are not secret. You can expose them in your client-side code with no risk.
 
 <CodeTabs
   defaultValue="js"
@@ -255,11 +255,11 @@ let userConfig =
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this code. The first key in the object is the user's key-- in this case we've used the value `2fbfa269b78e24c8e967f482b89c939b`. The user key is the only mandatory user attribute. The key should also uniquely identify each user. You can use any value such as a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+Let's walk through this code. The first key in the object is the user's key. In this case we've used the value `2fbfa269b78e24c8e967f482b89c939b`. The user key is the only mandatory user attribute. The key should also uniquely identify each user. You can use any value such as a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 All of the other keys (like firstName, email, and the custom attributes) are optional. The attributes you specify will automatically appear on the LaunchDarkly application dashboard, meaning that you can start segmenting and targeting users with these attributes.
 
-In addition to built-in attributes like names and e-mail addresses, you can pass us any of your own user data by passing custom attributes, like the groups attribute in the example above. Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on your dashboard.
+In addition to built-in attributes like names and e-mail addresses, you can pass us any of your own user data by passing custom attributes, like the groups attribute in the example above. Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available instantly on your dashboard.
 
 Private attributes allow you to specify keys you do not want to be sent to the LaunchDarkly servers. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly. When this user is sent back to LaunchDarkly, the `name` attribute will be removed.
 
@@ -285,7 +285,7 @@ let jsonResult = await client.jsonVariation('MY_JSON_FLAG_KEY', {});
 
 Variation calls take the feature flag key and a fallback value.
 
-The fallback value will only be returned if an error is encountered-- for example, if the feature flag key doesn't exist or the user doesn't have a key specified.
+The fallback value will only be returned if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
 
 The variation call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at `identify`).
 

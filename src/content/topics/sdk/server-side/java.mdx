@@ -223,7 +223,7 @@ LDUser user = new LDUser.Builder("aa0ceb")
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this snippet. The first argument to the builder is the user's key-- in this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+Let's walk through this snippet. The first argument to the builder is the user's key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
 
@@ -238,7 +238,7 @@ Most of our built-in attributes (like names and e-mail addresses) expect string 
 </CalloutDescription>
 </Callout>
 
-Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us-- organizations, groups, account plans-- anything you pass to us becomes available instantly on our dashboard.
+Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available instantly on our dashboard.
 
 ## Private user attributes
 
@@ -336,9 +336,9 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 </CodeTabItem>
 </CodeTabs>
 
-You will still need to generate a unique key for anonymous users-- session IDs or UUIDs work best for this. Each unique user key registers a user in our system, so capture and reuse your anonymous user's key between requests.
+You will still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this. Each unique user key registers a user in our system, so capture and reuse your anonymous user's key between requests.
 
-Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing-- it keeps anonymous users from polluting your Users page!
+Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
 
 ## Variation
 
@@ -361,7 +361,7 @@ boolean value = ldClient.boolVariation("your.feature.key", user, false);
 
 `variation` calls take the feature flag key, an `LDUser`, and a default value.
 
-The default value will only be returned if an error is encountered-- for example, if the feature flag key doesn't exist or the user doesn't have a key specified.
+The default value will only be returned if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
 
 The `variation` call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at Identify).
 
@@ -432,7 +432,7 @@ ldClient.track("Completed purchase", user, data);
 
 ## Identify
 
-The `identify` method creates or updates users in LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `identify`-- the `variation` call will automatically create users on the dashboard for you. `identify` can be useful if you want to pre-populate your dashboard before launching any features.
+The `identify` method creates or updates users in LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `identify`. The `variation` call will automatically create users on the dashboard for you. `identify` can be useful if you want to pre-populate your dashboard before launching any features.
 
 <CodeTabs
   defaultValue="java"
@@ -519,7 +519,7 @@ ldClient.flush();
 </CodeTabItem>
 </CodeTabs>
 
-Note that the flush interval is configurable-- if you need to change the interval, you can do so via `LDConfig.Builder`.
+The flush interval is configurable. If you need to change the interval, you can do so via `LDConfig.Builder`.
 
 ## Offline mode
 
