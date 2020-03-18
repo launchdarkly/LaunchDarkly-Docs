@@ -1,47 +1,59 @@
 ---
 path: '/integrations/signalfx'
 title: 'SignalFx'
-description: 'This topic explains how to use tHE LaunchDarkly SignalFX integration. SignalFX is an application performance management (APM) tool that can detect and alert engineers when their applications are trending in an unstable direction.'
-published: false
+description: 'This topic explains how to use the LaunchDarkly SignalFx integration. SignalFx is an application performance management (APM) tool that can detect and alert engineers when their applications are trending in an unstable direction.'
+published: true
 ---
 
 ## Overview
 
-This topic explains how to use tHE LaunchDarkly SignalFX integration. [SignalFx](https://www.signalfx.com/) is an [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) tool. It allows customers to monitor the operational health of their application and infrastructure.
+This topic explains how to use the LaunchDarkly SignalFx integration. [SignalFx](https://www.signalfx.com/) is an [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) tool. It allows customers to monitor the operational health of their application and infrastructure.
 
 SignalFx can detect and alert engineers when their applications are trending in an unstable direction. In doing so, these engineers will likely want to identify what changed and caused the application to become unstable. One potential cause could be the toggling of a feature flag. The LaunchDarkly SignalFx integration works to streamline this use case by exposing flag change data to SignalFx.
 
-![The SignalFX dashboard.](../images/signalfx-dashboard.png)
+![SignalFx with a LaunchDarkly event](../../images/signalfx-marker-1.png)
 
 With clear data markers representing feature flag changes, SignalFx users can more easily correlate their feature flag rollouts with changes in operational health.
 
-## Initial configuration
+## Prerequisites
 
-Head to your LaunchDarkly integrations page to configure the SignalFx integration. You can find this by selecting the "Integrations" navigation item. Then, click "Add integration" on the SignalFx card.
+To configure the SignalFx integration, you must have the following prerequisites:
 
-There are two required fields:
+* **SignalFx access token**: This token authenticates your LaunchDarkly account to send data to your SignalFx account. To learn more about about working with SignalFx access tokens, read [SignalFx's documentation](https://docs.signalfx.com/en/latest/admin-guide/tokens.html#working-with-access-tokens).
+* **SignalFx realm**: The realm identifies the self-contained deployment of SignalFx that hosts your organization. Find the name of your organization's realm on your SignalFx profile page.
 
-- _SignalFx access token_: This token authenticates your LaunchDarkly account to send data to your SignalFx account. [Learn more](https://docs.signalfx.com/en/latest/admin-guide/tokens.html#working-with-access-tokens) about working with SignalFX access tokens.
-- _SignalFx Realm_: The realm identifies the data center where your SignalFx account is hosted. You can look up your realm on your [SignalFx profile page](https://app.us1.signalfx.com/#/myprofile).
+## Configuring the SignalFx integration
 
-With this configuration in place, LaunchDarkly should now be sending flag change data to SignalFx.
+Here's how to configure the SignalFx integration:
 
-Additionally, we recommend that you set a _Name_ for your integration configuration so that you can refer back to it later. This is especially helpful in the case that you configure multiple SignalFx integrations.
+1. Navigate to the <Link to="https://app.launchdarkly.com/default/integrations">LaunchDarkly integrations</Link> page. 
+2. Click to expand the SignalFx card.
+3. Click **Add integration**.
+
+![SignalFx integration configuration](../../images/signalfx-ld-config.png)
+
+4. (Optional) Enter a human-readable **Name**.
+5. Paste in your **SignalFx Access Token**.
+6. Paste in your **SignalFx Realm**.
+7. (Optional) Configure a custom policy to control which flag information LaunchDarkly sends to SignalFX. To learn more about this option, read [Advanced configuration](#advanced-configuration).
+8. Click **Save SignalFx Configuration**.
+
+When you configure the integration correctly, LaunchDarkly sends flag change data to SignalFx.
 
 ## Advanced configuration
 
-The _Policy_ configuration field allows you to control which kinds of LaunchDarkly events are sent to SignalFx. The default policy value restricts to production environments:
+The _Policy_ configuration field allows you to control which kinds of LaunchDarkly events are sent to SignalFx. The default policy value restricts it to flag changes in production environments:
 
 <CodeTabs
-  defaultValue="json"
+  defaultValue="txt"
   values={[
-    { label: 'Example', value: 'json', },
+    { label: 'Policy example', value: 'txt', },
   ]
 }>
 
-<CodeTabItem value="json">
+<CodeTabItem value="txt">
 
-```json
+```txt
 proj/*:env/production:flag/*
 ```
 
@@ -51,40 +63,43 @@ proj/*:env/production:flag/*
 Reasons to override the default policy include wanting to restrict the integration to:
 
 - a specific combination of LaunchDarkly projects/environments
-- a specific action (or set of actions) 
+- a specific action (or set of actions)
 
 
-For example, setting the policy configuration to the following will restrict LaunchDarkly such that only changes from the `cool-project` project are sent to SignalFx:
+For example, setting the policy configuration to the following will restrict LaunchDarkly such that only changes from the `web-app` project's production environment are sent to SignalFx:
 
 <CodeTabs
-  defaultValue="json"
+  defaultValue="txt"
   values={[
-    { label: 'Example', value: 'json', },
+    { label: 'Policy example', value: 'txt', },
   ]
 }>
 
-<CodeTabItem value="json">
+<CodeTabItem value="txt">
 
-```json
-proj/cool-project:env/production:flag/*
+```txt
+proj/web-app:env/production:flag/*
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-TODO link to generic policies doc describing this in more detail.
+To learn more about setting custom policies, read [Policies in custom roles](/home/account-security/custom-roles/policies).
 
 ## Using the integration
 
-Once your integration is configured, head to SignalFx and open one of your charts.
+After you configure the integration, SignalFx charts are annotated with LaunchDarkly flag changes. 
 
-1. On the "Plot Editor" panel, click the "Add Metric Or Event" button.
-2. Select `LaunchDarkly flag changed` in the text input selector.
-3. (Optional) Add a filter if you wish to filter on a specific LaunchDarkly project or environment.
-4. Click the "Save" button to save your chart changes.
+To do this:
 
-Additionally, SignalFx's "Chart Options" tab offers the option of viewing LaunchDarkly events as small marks or lines. [Learn more](https://docs.signalfx.com/en/latest/charts/chart-options-tab.html#event-lines).
+1. Log into your SignalFx account.
+2. On the "Plot Editor" panel, click **Add Metric or Event**.
+2. Select **LaunchDarkly flag changed**.
+3. (Optional) Add a filter if you wish to filter by a specific LaunchDarkly attribute such as project or environment.
+4. Click **Save** to save your chart changes.
 
-With your charts now configured, charts will become annotated with LaunchDarkly flag changes once the corresponding changes are made. Clicking on these annotations will provide additional details about the flag changes.
+SignalFx's "Chart Options" tab also lets you view LaunchDarkly events as small marks or lines. Click on the annotations in your chart to see additional details.
 
-TODO insert another image here of having clicked on a flag change.
+To learn more, read [SignalFx's documentation](https://docs.signalfx.com/en/latest/charts/chart-options-tab.html#event-lines).
+
+![SignalFx with LaunchDarkly event details](../../images/signalfx-marker-2.png)

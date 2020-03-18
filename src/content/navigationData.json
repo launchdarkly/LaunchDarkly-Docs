@@ -303,6 +303,10 @@
         "path": "/integrations/oauth"
       },
       {
+        "label": "SignalFx",
+        "path": "/integrations/signalfx"
+      },
+      {
         "label": "Slack",
         "path": "/integrations/slack",
         "items": [
