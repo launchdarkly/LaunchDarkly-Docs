@@ -59,7 +59,7 @@ pipelines:
   default:
     - step:
         script:
-          - pipe: launchdarkly/ld-find-code-refs-pipe:1.0.0
+          - pipe: launchdarkly/ld-find-code-refs-pipe:1.4.0
             environment:
               LD_ACCESS_TOKEN: $LD_ACCESS_TOKEN
               LD_PROJ_KEY: $LD_PROJ_KEY
@@ -137,7 +137,7 @@ The [code reference pipe](https://bitbucket.org/launchdarkly/ld-find-code-refs-p
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>LD_CONTEXT_LINES</code>
+        <code>LD_BASE_URI</code>
       </TableCell>
       <TableCell>
         Optional.
@@ -148,7 +148,7 @@ The [code reference pipe](https://bitbucket.org/launchdarkly/ld-find-code-refs-p
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>LD_CONTEXT_LINES</code>
+        <code>LD_DEBUG</code>
       </TableCell>
       <TableCell>
         Optional.
@@ -158,7 +158,7 @@ The [code reference pipe](https://bitbucket.org/launchdarkly/ld-find-code-refs-p
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>LD_CONTEXT_LINES</code>
+        <code>LD_DELIMETERS</code>
       </TableCell>
       <TableCell>
         Optional.
@@ -172,6 +172,16 @@ The [code reference pipe](https://bitbucket.org/launchdarkly/ld-find-code-refs-p
         By default, only flags delimited by single-quotes, double-quotes, and backticks will be matched.
         <br />
         Default: <code>[" ']`</code>.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>LD_IGNORE_SERVICE_ERRORS</code>
+      </TableCell>
+      <TableCell>
+        Optional.
+        <br />
+        If enabled, the scanner will terminate with exit code 0 when the LaunchDarkly API is unreachable or returns an unexpected response. Defaults to <code>false</code>
       </TableCell>
     </TableRow>
   </TableBody>
