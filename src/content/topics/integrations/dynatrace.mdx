@@ -45,7 +45,8 @@ Here's how to add and configure the Dynatrace integration:
 3. (Optional) Type a human-readable **Name**.
 4. Paste in your **Dynatrace API token**. 
 5. Enter the URL of your Dynatrace service in the **Dynatrace URL** field. Do not include a slash at the end.
-6. If this is all the configuration you need to do, click **Save Dynatrace Configuration**.
+6. Select the Dynatrace entity type you want to associate with LaunchDarkly events.
+7. If this is all the configuration you need to do, click **Save Dynatrace Configuration**.
 
 If you want to configure the Dynatrace integration to alter which events LaunchDarkly sends to Dynatrace, read [Configuring integration policies](#configuring-integration-policies). If not, continue to [Associating flags with Dynatrace tags](#associating-flags-with-dynatrace-tags).
 
@@ -65,7 +66,7 @@ import {CodeTabItem} from '../../../components/mdx/code/codeTabItem';
 
 <CodeTabItem value="json">
 
-```json
+```text
 proj/*:env/production:flag/*
 ```
 
@@ -91,7 +92,7 @@ For example, to restrict the policy to a single project called `cool-app`, set t
 
 <CodeTabItem value="json">
 
-```json
+```text
 proj/cool-app:env/production:flag/*
 ```
 
@@ -114,15 +115,6 @@ For this to be most effective, attach a flag's events to all the applications th
 
 Associating flags with Dynatrace tags ensures that flag events are attached to the Dynatrace entities which are affected by those events. To learn more about Dynatrace tags, read [Dynatrace's documentation](https://www.dynatrace.com/support/help/how-to-use-dynatrace/tags-and-metadata/setup/how-to-define-tags/).
 
-<Callout intent="info">
-<CalloutTitle>The integration does not support all Dynatrace entities</CalloutTitle>
-<CalloutDescription>
-
-The integration only attaches events to **Application** entities within Dynatrace.
-
-</CalloutDescription>
-</Callout>
-
 To associate a flag with one or more applications using Dynatrace tags:
 
 1. **In Dynatrace:** Create a new tag and add it to each of the applications which depend on the flag. To learn more about creating tags, read [Dynatrace's documentation](https://www.dynatrace.com/support/help/how-to-use-dynatrace/tags-and-metadata/setup/how-to-define-tags).
@@ -137,9 +129,8 @@ To associate a flag with one or more applications using Dynatrace tags:
 
 ![The Custom Properties section of a Flag page, shown empty.](../images/flag-settings-custom-properties-empty.png)
 
-4. In the "Select a property type..." dropdown, select **New**.
-5. Enter `Dynatrace` in the "Name" field. The _Key_ field auto-populates with the string `dynatrace`.
-6. Enter the name of the tag you created in the "Value" field.
+4. In the "Select a property type..." dropdown, select **Dynatrace tags**.
+5. Enter the name of the tag you created in the "Values" field.
 
 ![The Custom Properties section of a Flag page, shown complete with Dynatrace tag.](../images/dynatrace-custom-properties-complete.png)
 
