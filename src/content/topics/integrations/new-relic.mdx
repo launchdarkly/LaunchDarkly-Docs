@@ -11,12 +11,12 @@ This topic explains how to use the New Relic integration to annotate New Relic t
 
 <Callout intent="alert">
   <CalloutTitle>SDK Support</CalloutTitle>
-  <CalloutDescription>Currently, the New Relic integration is only available for our Java and Ruby SDKs.</CalloutDescription>
+  <CalloutDescription>Currently, the New Relic integration is only available for our Java SDK.</CalloutDescription>
 </Callout>
 
 ## Adding the New Relic integration
 
-LaunchDarkly SDKs automatically detect whether you have New Relic installed without any additional configuration steps. If LaunchDarkly detects New Relic,
+LaunchDarkly SDKs that support New Relic will automatically detect whether you have New Relic installed without any additional configuration steps. If LaunchDarkly detects New Relic,
 LaunchDarkly adds a [custom attribute](https://docs.newrelic.com/docs/insights/new-relic-insights/decorating-events/insights-custom-attributes) for every feature flag request call made within a New Relic transaction trace.
 
 ![In this transaction, a feature flag with key "map.save.header" was requested, and the variation returned was "true".](../images/new-relic-custom-attribute.png)
