@@ -177,7 +177,7 @@ Feature flag targeting and rollouts are all determined by the _user_ you pass to
     { label: 'Java SDK versions 4.8.x and earlier', value: 'java-pre-4.9', },
   ]
 }>
-<CodeTabItem value="Java">
+<CodeTabItem value="java">
 
 ```java
 LDUser user = new LDUser.Builder("aa0ceb") 
@@ -258,7 +258,7 @@ You can also mark attributes as private when building the user object itself by 
     { label: 'Java SDK versions 4.11.x and earlier', value: 'java-pre-4.12' },
   ]
 }>
-<CodeTabItem value="Java">
+<CodeTabItem value="java">
 
 ```java
 LDConfig configWithAllAttributesPrivate = new LDConfig.Builder()
@@ -300,7 +300,7 @@ You can also mark attributes as private when building the user object itself by 
     { label: 'Java', value: 'java', },
   ]
 }>
-<CodeTabItem value="Java">
+<CodeTabItem value="java">
 
 ```java
 LDUser user = new LDUser.Builder("aa0ceb")
@@ -399,7 +399,7 @@ You can also attach custom JSON data to your event using an alternate version of
     { label: 'Java SDK versions 4.8.x and earlier', value: 'java-pre-4.9' },
   ]
 }>
-<CodeTabItem value="Java">
+<CodeTabItem value="java">
 
 ```java
 LDValue data = LDValue.buildObject().put("price", 320).build();
