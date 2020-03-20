@@ -43,13 +43,13 @@ jobs:
     name: LaunchDarkly Code References
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: LaunchDarkly Code References
-      uses: launchdarkly/find-code-references@v3
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        LD_ACCESS_TOKEN: ${{ secrets.LD_ACCESS_TOKEN }}
-        LD_PROJ_KEY: YOUR_PROJECT_KEY
+      uses: launchdarkly/find-code-references@v5
+      with:
+        githubToken: ${{ secrets.GITHUB_TOKEN }}
+        accessToken: ${{ secrets.LD_ACCESS_TOKEN }}
+        projKey: YOUR_PROJECT_KEY
 ```
 
 </CodeTabItem>
@@ -88,7 +88,7 @@ If the action fails, there may be a problem with your configuration. To investig
 
 ## Additional configuration options
 
-You can configure `ld-find-code-refs` with additional environment variables to enable more functionality.
+You can configure `ld-find-code-refs` with additional [inputs](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepswith) to enable more functionality.
 
 <Table>
   <TableHeader>
@@ -99,7 +99,7 @@ You can configure `ld-find-code-refs` with additional environment variables to e
   <TableBody>
     <TableRow>
       <TableCell>
-        <code>LD_ACCESS_TOKEN</code>
+        <code>accessToken</code>
       </TableCell>
       <TableCell>
         A LaunchDarkly personal access token with writer-level access, or access to the{' '}
@@ -109,7 +109,7 @@ You can configure `ld-find-code-refs` with additional environment variables to e
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>LD_PROJ_KEY</code>
+        <code>projKey</code>
       </TableCell>
       <TableCell>
         A LaunchDarkly project key. The flag finder searches this project for code references in this project.
@@ -118,7 +118,7 @@ You can configure `ld-find-code-refs` with additional environment variables to e
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>LD_EXCLUDE</code>
+        <code>exclude</code>
       </TableCell>
       <TableCell>
         A regular expression (PCRE) defining the files and directories which the flag finder should exclude. Partial
@@ -130,7 +130,7 @@ You can configure `ld-find-code-refs` with additional environment variables to e
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>LD_CONTEXT_LINES</code>
+        <code>contextLines</code>
       </TableCell>
       <TableCell>
         The number of context lines above and below a code reference for the flag finder to send to LaunchDarkly.
@@ -146,7 +146,7 @@ You can configure `ld-find-code-refs` with additional environment variables to e
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>LD_BASE_URI</code>
+        <code>baseUri</code>
       </TableCell>
       <TableCell>
         Set the base URL of the LaunchDarkly server for this configuration. Defaults to{' '}
@@ -156,7 +156,7 @@ You can configure `ld-find-code-refs` with additional environment variables to e
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>LD_DEBUG</code>
+        <code>debug</code>
       </TableCell>
       <TableCell>
         Enables verbose default logging. Defaults to <code>false</code>.
@@ -165,7 +165,7 @@ You can configure `ld-find-code-refs` with additional environment variables to e
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>LD_DELIMITERS</code>
+        <code>delimiters</code>
       </TableCell>
       <TableCell>
         Specifies additional delimiters used to match flag keys. Must be a non-control ASCII character. If you provide
@@ -175,9 +175,19 @@ You can configure `ld-find-code-refs` with additional environment variables to e
         You can also specify this option multiple times for multiple delimiters. By default, only flags delimited by
         single-quotes, double-quotes, and backticks are matched.
         <br />
-        Default: <code>[" ']`</code>
+        Default: <code>[" ' `]</code>
       </TableCell>
       <TableCell>No</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>ignoreServiceErrors</code>
+      </TableCell>
+      <TableCell>
+        Optional.
+        <br />
+        If enabled, the scanner will terminate with exit code 0 when the LaunchDarkly API is unreachable or returns an unexpected response. Defaults to <code>false</code>
+      </TableCell>
     </TableRow>
   </TableBody>
 </Table>
