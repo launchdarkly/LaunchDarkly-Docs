@@ -193,7 +193,7 @@ ldClient.close()
 
 ## Customizing your client
 
-You can also pass other custom parameters to the client via the configuration object:
+You can also pass other custom parameters to the client with the configuration object:
 
 <CodeTabs
   defaultValue="java"
@@ -636,7 +636,7 @@ The `identify` call will load any saved flag values for the new user and immedia
 
 ## Real-Time Updates
 
-LaunchDarkly manages all flags for a user context in real-time by polling flags based on a real-time event stream. When a flag is modified via the LaunchDarkly dashboard, the flag values for the current user will update almost immediately. The default SDK configuration has been found to be the best combination of low latency updates and minimal battery drain:
+LaunchDarkly manages all flags for a user context in real-time by polling flags based on a real-time event stream. When a flag is modified from the LaunchDarkly dashboard, the flag values for the current user will update almost immediately. The default SDK configuration has been found to be the best combination of low latency updates and minimal battery drain:
 
 1. When the app is foregrounded a [Server-Sent Events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection is made to LaunchDarkly. This streaming connection stays open as long as your app is in the foreground and is connected to the internet.
 2. When the app is backgrounded, the stream connection is terminated and the SDK will poll (with caching) for flag updates every hour (configurable).

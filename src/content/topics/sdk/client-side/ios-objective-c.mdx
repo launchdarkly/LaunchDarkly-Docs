@@ -190,7 +190,7 @@ Lastly, when your application is about to terminate, shut down `LDClient`. This 
 
 ## Customizing your client
 
-You can also pass other custom parameters to the client via the configuration object:
+You can also pass other custom parameters to the client in the configuration object:
 
 <CodeTabs
   defaultValue="c"
@@ -523,7 +523,7 @@ The flush interval is configurable. If you need to change the interval, you can 
 
 ## Real-time updates
 
-LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream.  When a flag is modified via the LaunchDarkly dashboard, the flag values for the current user will update almost immediately.
+LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream.  When a flag is modified from the LaunchDarkly dashboard, the flag values for the current user will update almost immediately.
 
 To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is listened to by the iOS SDK. Whenever an event is performed on the dashboard, the iOS SDK is notified of the updated flag settings in real-time.
 

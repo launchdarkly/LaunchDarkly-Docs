@@ -473,7 +473,7 @@ state := ldClient.AllFlagsState(user)
 
 ## Logging
 
-The Go SDK uses Go's built in [log](https://golang.org/pkg/log/). All loggers are namespaced under `[LaunchDarkly]`. A custom logger may be passed to the SDK via the configurable `Logger` property:
+The Go SDK uses Go's built in [log](https://golang.org/pkg/log/). All loggers are namespaced under `[LaunchDarkly]`. A custom logger may be passed to the SDK by the configurable `Logger` property:
 
 
 <CodeTabs
@@ -559,7 +559,7 @@ ldClient.BoolVariation("any.feature.flag", user, false) // will always return th
 
 ## Logging
 
-The Go SDK uses Go's built-in [log](https://golang.org/pkg/log) package. All loggers are namespaced under `[LaunchDarkly]`. A custom logger may be passed to the SDK via the configurable `Logger` property:
+The Go SDK uses Go's built-in [log](https://golang.org/pkg/log) package. All loggers are namespaced under `[LaunchDarkly]`. A custom logger may be passed to the SDK by the configurable `Logger` property:
 
 <CodeTabs
   defaultValue="go"
