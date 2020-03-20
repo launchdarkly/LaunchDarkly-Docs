@@ -442,7 +442,7 @@ Anonymous users work just like regular users, except that they won't appear on y
 
 ## Variation
 
-The `Variation` method determines whether a flag is enabled or not for a specific user.   In .NET, there is  a `variation` method for each type (e.g. `BoolVariation`, `StringVariation`):
+The `Variation` methods determine whether a flag is enabled or not for a specific user.   In .NET, there is  a `Variation` method for each type (e.g. `BoolVariation`, `StringVariation`):
 
 <CodeTabs
   defaultValue="csharp"
@@ -463,6 +463,12 @@ var value = ldClient.BoolVariation("your.feature.key", user, false);
 `variation` calls take the feature flag key, an `LDUser`, and a default value.
 
 The `variation` call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at Identify).
+
+## VariationDetail
+
+The `VariationDetail` methods (`BoolVariationDetail`, etc.) work the same as the `Variation` methods, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
+
+To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 
 ## Track
 

@@ -355,6 +355,14 @@ const value = ldClient.variation("your.feature.key", false);
 
 The default value will only be returned if an error is encountered—for example, if the feature flag key doesn't exist or the user doesn't have a key specified.
 
+## VariationDetail
+
+The `variationDetail` method allows you to evaluate a feature flag (using the same parameters as you would for `variation`) and receive more information about how the value was calculated.
+
+The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the user was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
+
+To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
+
 ## Track
 
 The `track` method allows you to record actions your users take, giving them any event name you wish. This lets you record events that take place client-side. The current user data automatically accompanies the event.

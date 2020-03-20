@@ -420,7 +420,7 @@ You will still need to generate a unique key for anonymous users. Session IDs or
 
 Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
 
-## Getting Flag Variations
+## Variation
 
 The variation method determines whether a flag is enabled or not for a specific user. In the V4 SDK, there is a single variation method for all types using Swift, however Objective-C requires type specific methods:
 
@@ -484,7 +484,7 @@ The `variationDetail` methods work the same as `variation`, but also provide add
 
 To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 
-## Getting All Flags
+## All Flags
 
 <Callout intent="alert">
   <CalloutTitle>Creating Users</CalloutTitle>

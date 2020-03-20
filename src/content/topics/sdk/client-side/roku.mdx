@@ -130,7 +130,7 @@ end while
 </CodeTabItem>
 </CodeTabs>
 
-## Variations
+## Variation
 
 The `*variation` methods determine which variation of a feature flag a user receives.
 
@@ -164,8 +164,7 @@ myValue = launchDarkly.variation("MY_FLAG_KEY", false)
 
 The default value will only be returned if an error is encountered—for example, if the feature flag key doesn't exist or the user doesn't have a key specified.
 
-## Evaluation explanations
-
+## VariationDetail
 For each variation type there is also an associated version that returns the reason a particular value was returned. For example:
 
 <CodeTabs
@@ -560,7 +559,7 @@ launchDarkly.identify(user)
 
 The `identify` call will load any saved flag values for the new user and immediately trigger an update of the latest flags from LaunchDarkly. Since this method re-fetches flag settings for the new user, it should not be called at high frequency. The intended use case for switching user contexts is the login / logout flow.
 
-## Getting all flags
+## All flags
 
 You can get an associative array of `flagKey` -> `flagValue` for all flags from the client with:
 
