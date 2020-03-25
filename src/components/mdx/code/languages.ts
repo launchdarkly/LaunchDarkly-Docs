@@ -5,6 +5,7 @@ export type LanguageName =
   | 'javascript'
   | 'python'
   | 'haskell'
+  | 'lua'
   | 'swift'
   | 'objectivec'
   | 'csharp'
@@ -23,6 +24,7 @@ export const languageDisplay: { [key in LanguageName]: string } = {
   csharp: '.NET',
   haskell: 'Haskell',
   javascript: 'JavaScript',
+  lua: 'Lua',
   php: 'PHP',
   python: 'Python',
   objectivec: 'iOS Objective-C',

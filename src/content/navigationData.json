@@ -525,6 +525,10 @@
             "path": "/sdk/server-side/haskell"
           },
           {
+            "label": "Lua SDK reference",
+            "path": "/sdk/server-side/lua"
+          },
+          {
             "label": "Java SDK reference",
             "path": "/sdk/server-side/java"
           },

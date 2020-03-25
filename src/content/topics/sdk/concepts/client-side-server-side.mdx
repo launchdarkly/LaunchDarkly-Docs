@@ -30,7 +30,7 @@ React Native and Xamarin SDKs. Each of these SDKs also has some mobile-specific 
 [Functional Differences](#functional-differences-between-sdks).
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 The table below summarizes the differences between client- and server-side SDKs:
 
@@ -98,7 +98,7 @@ Flag rules may include user identifiers or other personally identifiable informa
 
 ### Server-side SDKs
 
-These SDKs operate within server-architected applications running on your own infrastructure or trusted cloud-based infrastructure. Neither of these locations is directly accessible by end users. Because of the limited access to server-based applications, our server-side SDKs can safely receive flag data and rulesets without needing to obscure or filter out sensitive data. 
+These SDKs operate within server-architected applications running on your own infrastructure or trusted cloud-based infrastructure. Neither of these locations is directly accessible by end users. Because of the limited access to server-based applications, our server-side SDKs can safely receive flag data and rulesets without needing to obscure or filter out sensitive data.
 
 ## Flag evaluations
 
@@ -118,7 +118,7 @@ When requested, server-side SDKs evaluate feature flags to determine a user's fl
 
 Server-side SDKs can evaluate flags because these SDKs know your complete flag ruleset. These SDKs can determine users' flag variations without having to make requests to LaunchDarkly's servers for every evaluated flag.
 
-Server-side SDKs get the complete ruleset associated with an SDK key when initializing a connection to LaunchDarkly's servers. Through this persistent connection, LaunchDarkly will continuously update the SDK's cached flag ruleset whenever flag rules change on LaunchDarkly. 
+Server-side SDKs get the complete ruleset associated with an SDK key when initializing a connection to LaunchDarkly's servers. Through this persistent connection, LaunchDarkly will continuously update the SDK's cached flag ruleset whenever flag rules change on LaunchDarkly.
 
 You can think of each flag evaluation as a pure function, where we use the provided user context along with the complete ruleset to see if your user should be included in an evaluation or not. It is important to note that we pass along *rule data* not user data. If a user does not have the correct attributes locally, then it will not get evaluated by the rules that are cached by the SDK.
 
@@ -161,7 +161,7 @@ The client-side ID is public and does not need to be kept a secret.
 Find the "Make this flag available to client-side SDKs" option on a flag's **Settings** tab.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Language support
 
@@ -259,6 +259,13 @@ Explore the following SDK reference guides for specific details about how to use
       </TableCell>
       <TableCell>Client-side</TableCell>
       <TableCell>Client-side ID</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <a href="../server-side/lua/">Lua</a>
+      </TableCell>
+      <TableCell>Server-side</TableCell>
+      <TableCell>SDK Key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
