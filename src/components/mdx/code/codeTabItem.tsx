@@ -5,5 +5,5 @@
 import React, { PropsWithChildren } from 'react'
 
 export function CodeTabItem(props: PropsWithChildren<{}>) {
-  return <div>{props.children}</div>
+  return <>{props.children}</>
 }
