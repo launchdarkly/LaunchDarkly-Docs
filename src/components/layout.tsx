@@ -146,7 +146,7 @@ export const pageQuery = graphql`
       toc: tableOfContents(maxDepth: 2)
       timeToRead
       fields {
-        lastModifiedTime(formatString: "MMM d, YYYY")
+        lastModifiedTime(formatString: "MMM DD, YYYY")
       }
       frontmatter {
         title

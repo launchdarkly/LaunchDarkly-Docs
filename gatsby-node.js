@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+const { execSync } = require('child_process')
 const path = require('path')
 const slug = require('slug')
 const legacyRedirectRules = require('./legacyRedirectRules')
@@ -18,13 +19,12 @@ exports.onCreateWebpackConfig = ({ actions }) => {
   })
 }
 
-// https://www.gatsbyjs.org/docs/mdx/programmatically-creating-pages/#generate-slugs
-exports.onCreateNode = async ({ node, actions, getNode }) => {
+exports.onCreateNode = async ({ node, actions }) => {
   const { createNodeField } = actions
 
   if (node.internal.type === 'Mdx') {
-    const parent = getNode(node.parent)
-    const { mtime: lastModifiedTime } = parent
+    // Ripped from: https://angelos.dev/2019/09/add-support-for-modification-times-in-gatsby/
+    const lastModifiedTime = execSync(`git log -1 --pretty=format:%aI ${node.fileAbsolutePath}`).toString()
 
     createNodeField({
       name: 'lastModifiedTime',
