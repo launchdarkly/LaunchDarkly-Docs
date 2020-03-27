@@ -388,11 +388,23 @@
           },
           {
             "label": "mParticle",
-            "path": "/integrations/data-export/mparticle"
+            "path": "/integrations/data-export/mparticle",
+            "items": [
+              {
+                "label": "mParticle schema reference",
+                "path": "/integrations/data-export/mparticle/mparticle-schema-reference"
+              }
+            ]
           },
           {
             "label": "Segment",
-            "path": "/integrations/data-export/segment"
+            "path": "/integrations/data-export/segment",
+            "items": [
+              {
+                "label": "Segment schema reference",
+                "path": "/integrations/data-export/segment/segment-schema-reference"
+              }
+            ]
           },
           {
             "label": "Data export schema reference",

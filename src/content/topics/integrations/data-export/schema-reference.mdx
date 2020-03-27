@@ -17,20 +17,12 @@ Data Export exposes five different kinds of events:
 - Custom events
 - Summary events. To export summary events, contact [LaunchDarkly Support](https://support.launchdarkly.com/).
 
-<Callout intent="alert">
-  <CalloutTitle>mParticle and Segment schema differences</CalloutTitle>
-  <CalloutDescription>
+Some data export destinations have different event formatting schema. If you use mParticle or Segment as your event destination, we have specific documentation for their event schema. 
 
-The JSON schemas for both Segment and mParticle are formatted differently than LaunchDarkly's. The events listed
-below may not appear identically in those integrations' UI. The `index`, `identify`, and `data` event types are **not available** in Segment or mParticle data export destinations. To learn more about mParticle's JSON schema
-reference, read [mParticle's documentation](https://docs.mparticle.com/integrations/launchdarkly/feed/). To learn
-more about Segment's JSON schema reference, read
-[Segment's documentation](https://segment.com/docs/sources/cloud-apps/launchdarkly/).
+* [mParticle schema reference](/integrations/data-export/mparticle/mparticle-schema-reference)
+* [Segment schema reference](/integrations/data-export/segment/segment-schema-reference)
 
-  </CalloutDescription>
-</Callout> 
-
-  These events are described in more detail below.
+These events are described in more detail below.
 
 ## Event Kinds
 
