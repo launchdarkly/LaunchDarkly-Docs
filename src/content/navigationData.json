@@ -262,7 +262,8 @@
       },
       {
         "label": "Changelog",
-        "path": "/home/changelog"
+        "path": "/home/changelog",
+        "svg": "timeline-text"
       }
     ]
   },
