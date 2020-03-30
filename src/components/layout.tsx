@@ -109,7 +109,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
   return (
     <Fragment>
       <Reset />
-      <Helmet>
+      <Helmet defer={false}>
         <title>{title}</title>
         <meta name="description" content={description} />
       </Helmet>
