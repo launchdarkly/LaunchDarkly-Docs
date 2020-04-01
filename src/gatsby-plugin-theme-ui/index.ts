@@ -435,7 +435,7 @@ export default {
         color: '#00009f',
       },
     },
-    code: {
+    inlineCode: {
       fontFamily: 'monospace',
       fontSize: 3,
     },
