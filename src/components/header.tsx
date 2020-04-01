@@ -4,6 +4,7 @@ import Icon from './icon'
 import Hamburger from './sideNav/hamburger'
 import TopNav from './topNav'
 import SearchRoot from './search/searchRoot'
+import Link from './link'
 
 const Header = () => {
   return (
@@ -26,8 +27,10 @@ const Header = () => {
           ],
         }}
       >
-        <span sx={{ gridArea: 'brand', display: ['none', 'flex'], alignItems: 'center', ml: [4, 6, 6] }}>
-          <Icon name="launchdarkly-logo" variant="header" sx={{ height: [null, 3, 3] }} />
+        <span sx={{ gridArea: 'brand', display: ['none', 'flex'], alignItems: 'center', ml: [4, 6] }}>
+          <Link to="/">
+            <Icon name="launchdarkly-logo" variant="header" sx={{ height: [null, 3] }} />
+          </Link>
         </span>
         <span
           sx={{
@@ -38,7 +41,9 @@ const Header = () => {
             justifyContent: 'space-between',
           }}
         >
-          <Icon name="launchdarkly-icon" variant="header" sx={{ height: 3, mx: 5, display: ['block', 'none'] }} />
+          <Link to="/" sx={{ height: 3, mx: 5, display: ['block', 'none'] }}>
+            <Icon name="launchdarkly-icon" variant="header" />
+          </Link>
           <span sx={{ ml: [0, 9, '4.5rem'] }}>
             <TopNav />
           </span>
