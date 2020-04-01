@@ -9,7 +9,7 @@ published: true
   <CalloutTitle>SDK Version Compatibility</CalloutTitle>
 <CalloutDescription>
 
-The latest version of the SDK is compatible with Xcode 10.2.1/10.3 and React Native 0.61.2. For compatibility with earlier React Native versions, please refer to older SDK versions.
+The latest version of the SDK is compatible with Xcode 11.4 and React Native 0.62. For compatibility with earlier React Native versions, please refer to older SDK versions.
 
 </CalloutDescription>
 </Callout>
@@ -92,7 +92,7 @@ target 'YOUR_MODULE_NAME' do
   pod 'React-jsi', :path => '../node_modules/react-native/ReactCommon/jsi'
   pod 'React-jsiexecutor', :path => '../node_modules/react-native/ReactCommon/jsiexecutor'
   pod 'React-jsinspector', :path => '../node_modules/react-native/ReactCommon/jsinspector'
-  pod 'ReactCommon/jscallinvoker', :path => "../node_modules/react-native/ReactCommon"
+  pod 'ReactCommon/callinvoker', :path => "../node_modules/react-native/ReactCommon"
   pod 'ReactCommon/turbomodule/core', :path => "../node_modules/react-native/ReactCommon"
   pod 'Yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
 
@@ -101,7 +101,7 @@ target 'YOUR_MODULE_NAME' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   #launchdarkly-react-native-client-sdk dependencies
-  pod 'LaunchDarkly', '4.4.0'
+  pod 'LaunchDarkly', '4.5.0'
 
   use_native_modules!
 end
