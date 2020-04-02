@@ -15,7 +15,7 @@ When you create a new feature flag, it appears on the dashboard in each of your 
 
 To learn more, read [Creating a feature flag](/home/getting-started/feature-flags).
 
-Use the search bar to filter by flag name, tag, key, or description, or create a new feature flag by clicking **New**.
+Use the search bar to filter by flag name, tag, key, or description, or create a new feature flag by clicking **+ Flag**.
 
 ![The dashboard with the "New" button called out.](../../images/flag-new-callout.png) 
 
@@ -41,29 +41,20 @@ The various flag statuses are explained below:
     <TableRow>
 <TableCell>
 
-![](../../images/flag-status-indicator-active.png)
-
-</TableCell>
-        <TableCell>Active</TableCell>
-        <TableCell>LaunchDarkly is receiving requests for this flag.</TableCell>
-    </TableRow>
-    <TableRow>
-<TableCell>
-
-![](../../images/flag-status-indicator-inactive.png)
-
-</TableCell>
-      <TableCell>Inactive</TableCell>
-      <TableCell>This flag has not been requested for 7 days.</TableCell>
-    </TableRow>
-    <TableRow>
-<TableCell>
-
 ![](../../images/flag-status-indicator-new.png)
 
 </TableCell>
       <TableCell>New</TableCell>
       <TableCell>This flag is new and has not been requested yet.</TableCell>
+    </TableRow>
+    <TableRow>
+<TableCell>
+
+![](../../images/flag-status-indicator-active.png)
+
+</TableCell>
+        <TableCell>Active</TableCell>
+        <TableCell>LaunchDarkly is receiving requests for this flag.</TableCell>
     </TableRow>
     <TableRow>
 <TableCell>
@@ -76,6 +67,15 @@ The various flag statuses are explained below:
         All users have been receiving one variation of this flag for 7 days. You may be able to remove this flag from
         your code.
       </TableCell>
+    </TableRow>
+    <TableRow>
+<TableCell>
+
+![](../../images/flag-status-indicator-inactive.png)
+
+</TableCell>
+      <TableCell>Inactive</TableCell>
+      <TableCell>This flag has not been requested for 7 days.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
