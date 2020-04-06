@@ -733,6 +733,10 @@ ldclient.set_config(config)
 
 ```js
 // Requires this package: https://github.com/launchdarkly/node-server-sdk-dynamodb
+// As of the 2.0.0 release of node-server-sdk-dynamodb, the aws-sdk package
+// is *not* automatically loaded as a transitive dependency. This saves
+// space when running in AWS Lambda, where aws-sdk is built in. If you are not running
+// in Lambda, you must separately install aws-sdk.
 
 const LaunchDarkly = require('launchdarkly-node-server-sdk');
 const DynamoDBFeatureStore = require('launchdarkly-node-server-sdk-dynamodb');
