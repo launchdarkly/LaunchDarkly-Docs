@@ -288,6 +288,10 @@
         "path": "/integrations/dynatrace"
       },
       {
+        "label": "Gatsby",
+        "path": "/integrations/gatsby"
+      },
+      {
         "label": "Jira",
         "path": "/integrations/jira"
       },
