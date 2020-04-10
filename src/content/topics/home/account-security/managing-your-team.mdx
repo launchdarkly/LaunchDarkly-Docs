@@ -87,9 +87,20 @@ LaunchDarkly has several different roles for team members:
         <code>admin</code>
       </TableCell>
       <TableCell>
-        Admins and owners can do anything in LaunchDarkly. The only difference between them is that you can add or
-        remove admins but you cannot remove owners from your LaunchDarkly account.
+        Admins can do anything in LaunchDarkly except modify which team member has the owner role. There can be multiple admins in a LaunchDarkly project.
       </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>owner</code>
+      </TableCell>
+<TableCell>
+
+Owners can do anything in LaunchDarkly, including adding or removing admins or reassigning the owner role to another team member.<br/>
+
+To learn more about the owner role, read [Changing account owners](/home/account-security/account-owners).
+
+</TableCell>
     </TableRow>
   </TableBody>
 </Table>

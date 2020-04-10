@@ -110,6 +110,10 @@
             "path": "/home/account-security/managing-your-team"
           },
           {
+            "label": "Changing account owners",
+            "path": "/home/account-security/account-owners"
+          },
+          {
             "label": "Custom roles",
             "path": "/home/account-security/custom-roles",
             "items": [
