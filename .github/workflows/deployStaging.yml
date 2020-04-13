@@ -3,7 +3,34 @@ on:
     types: [assigned, opened, synchronize, reopened]
 
 jobs:
-  lint:
+  cypress-run:
+    runs-on: ubuntu-latest
+    name: Run cypress
+    steps:
+      - run: echo ::set-env name=PR_NUMBER::$(echo "$GITHUB_REF" | awk -F / '{str = sprintf("%s", $3)} END {print str}')
+      - run: echo ::set-env name=SLACK_MESSAGE::$(echo "<https://github.com/launchdarkly/git-gatsby/actions/runs/$GITHUB_RUN_ID|Staging e2e tests> failed for <https://github.com/launchdarkly/git-gatsby/pull/$PR_NUMBER|#$PR_NUMBER>.")
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Cypress run
+        uses: cypress-io/github-action@v1
+        with:
+          build: yarn build-dev
+          start: yarn serve-dev
+          headless: true
+          wait-on: 'http://localhost:9000/home/getting-started'
+          wait-on-timeout: 5
+      - name: Notify slack
+        if: failure()
+        uses: Ilshidur/action-slack@master
+        env:
+          SLACK_CHANNEL: docs
+          SLACK_USERNAME: Cypress
+          SLACK_WEBHOOK: ${{ secrets.CYPRESS_SLACK_WEBHOOK_URL }}
+          SLACK_MESSAGE: ${{ env.SLACK_MESSAGE }}
+        with:
+          args: ${{ env.SLACK_MESSAGE }}
+
+  build-deploy:
     runs-on: ubuntu-latest
     name: Deploy to s3 staging
     steps:

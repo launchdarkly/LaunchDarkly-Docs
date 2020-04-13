@@ -1,3 +1,4 @@
 {
-  "baseUrl": "https://docs.launchdarkly.com"
+  "baseUrl": "https://docs.launchdarkly.com",
+  "video": false
 }
