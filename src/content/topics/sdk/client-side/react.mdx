@@ -5,7 +5,9 @@ description: 'This topic explains all of the methods available in the client-sid
 published: true
 ---
 
-This reference guide documents all of the methods available in our client-side React SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source — head to the [React SDK code](https://github.com/launchdarkly/react-client-sdk) in our JavaScript SDK GitHub repository. The online [API docs](https://launchdarkly.github.io/react-client-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](/sdk/client-side/react#example-app) using this SDK.
+This reference guide documents all of the methods available in our client-side React SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source — head to the [React SDK code](https://github.com/launchdarkly/react-client-sdk) in our JavaScript SDK GitHub repository. The online [API docs](https://launchdarkly.github.io/react-client-sdk/) contain the programmatic definitions of every type and method. You can also clone and run a [sample application](/sdk/client-side/react#example-app) using this SDK. 
+
+If you want to use LaunchDarkly in a Gatsby application, we have a Gatsby plugin. To learn more, read [Gatsby](/integrations/gatsby).
 
 <Callout intent="info">
   <CalloutTitle>React SDK is based on the JavaScript SDK</CalloutTitle>
@@ -195,7 +197,7 @@ export default withLDConsumer()(Home);
 
 The [`ProviderConfig`](https://launchdarkly.github.io/react-client-sdk/interfaces/providerconfig.html) object is used to configure the React SDK. The only mandatory property is the client-side id. All other properties are optional.
 
-- `clientSideId`: This is your project and environment specific client-side id. This property is mandatory.
+- `clientSideID`: This is your project and environment specific client-side id. This property is mandatory.
 
 - `user`: A LaunchDarkly [user](/sdk/client-side/javascript#users) object. This property is optional.
 
@@ -204,6 +206,42 @@ The [`ProviderConfig`](https://launchdarkly.github.io/react-client-sdk/interface
 - `reactOptions`: This property is specific to the React SDK. You can use this option to [disable automatic camel casing](/sdk/client-side/react#flag-keys) of flag keys when using the React SDK. This property is optional.
 
 - `flags`: If specified, the React SDK will only request and subscribe for updates to these flags. The React SDK will request for and subscribe to all flags when this property is unspecified. This property is optional.
+
+  The `flags` property should be specified as a map of flag keys and values. The flag keys must be in their original form (as known to LaunchDarkly) rather than in their camel-cased form. The flag values will be passed along to the resulting JS SDK [`variation`](/sdk/client-side/javascript#variation) invocation and used as the flag's default value in the case of an error.
+  
+The following is an example `ProviderConfig` object including each of the above properties:
+  
+<CodeTabs
+defaultValue="js"
+values={[
+  { label: 'JavaScript', value: 'js', },
+]
+}>
+<CodeTabItem value="js">
+
+```js
+{
+  clientSideID: "your-client-side-id",
+  user: {
+    key: "aa0ceb",
+    name: "Grace Hopper",
+    email: "gracehopper@example.com"
+  },
+  options: {
+    bootstrap: "localStorage"
+  },
+  reactOptions: { 
+    useCamelCaseFlagKeys: false
+  },
+  flags: {
+    "my-bool-flag": true,
+    "my-int-flag": 5
+  }
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ## Hooks
 
@@ -280,11 +318,6 @@ To disable the SDK's automatic camel-casing feature, you can provide `asyncWithL
 ```js
 export default withLDProvider({ 
   clientSideID: 'your-client-side-id',
-  user: {
-    "key": "aa0ceb",
-    "name": "Grace Hopper",
-    "email": "gracehopper@example.com"
-  },
   reactOptions: { 
     useCamelCaseFlagKeys: false
   }

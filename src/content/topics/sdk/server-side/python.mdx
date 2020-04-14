@@ -659,9 +659,9 @@ In some situations, you might want avoid remote calls to LaunchDarkly and fall b
 
 ```py
 # Initialization:
-ldclient.config = Config(offline = True) 
+ldclient.set_config(Config(offline = True))
 
-ldclient.sdk_key = "YOUR_SDK_KEY"
+ldclient.set_sdk_key("YOUR_SDK_KEY")
 
 ldclient.get().variation("any.feature.flag", user, False) # will always return the default value (false) 
 
