@@ -621,12 +621,12 @@ import (
 ) 
 
 
-store, err := ldredis.NewDynamoDBFeatureStore("my-table",
+store, err := lddynamodb.NewDynamoDBFeatureStoreFactory("my-table", 
     lddynamodb.CacheTTL(30 * time.Second)) 
 
 
 config := ld.DefaultConfig
-config.FeatureStore = store
+config.FeatureStoreFactory = store
 client := ld.MakeCustomClient(sdkKey, config, waitTime) 
 
 ```
