@@ -51,6 +51,47 @@ CALLOUT CONTENT.
 Content content.
 ```
 
+## Formatting callouts
+
+You can put code samples and markdown into callouts in one of two ways. 
+
+Use a code block:
+
+```
+<CalloutTitle><code>more_code</code></CalloutTitle>
+```
+
+Or insert blank lines above and below where you want to use the markdown:
+
+```
+<Callout intent="info">
+  <CalloutTitle>
+
+`more_code`
+
+  </CalloutTitle>
+  <CalloutDescription>
+
+`even_more_code`
+
+  </CalloutDescription>
+</Callout>
+```
+
+### Different types of callouts
+
+There are four different types of callouts:
+
+```
+<Callout intent="info"> (blue)
+
+<Callout intent="alert"> (yellow)
+
+<Callout intent="warning"> (red)
+
+<Callout intent="info"> (green)
+```
+
 # Components
 
 ## Learn more
