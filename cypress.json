@@ -1,4 +1,4 @@
 {
-  "baseUrl": "https://docs.launchdarkly.com",
+  "baseUrl": "http://localhost:9000",
   "video": false
 }
