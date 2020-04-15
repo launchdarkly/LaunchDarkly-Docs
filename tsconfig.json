@@ -6,7 +6,7 @@
     "noImplicitAny": true,
     "resolveJsonModule": true,
     "module": "commonjs",
-    "target": "esnext",
+    "target": "ES2019",
     "jsx": "react",
     "lib": ["dom", "es2015", "esnext"]
   },
