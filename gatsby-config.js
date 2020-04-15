@@ -184,8 +184,8 @@ if (process.env.GATSBY_ACTIVE_ENV === 'production') {
     },
   }
   plugins.push(gatsbyPluginS3)
-} else if (process.env.GATSBY_ACTIVE_ENV === 'staging') {
-  // GOTCHA: On staging, the client side redirect plugin auto-generates index.html files
+} else {
+  // GOTCHA: On staging or dev, the client side redirect plugin auto-generates index.html files
   // which acts as default pages which contains scripts to enforce redirects defined in
   // gatsby-node.js. Production don't need this because gatsby-plugin-s3 does this for us
   // automatically

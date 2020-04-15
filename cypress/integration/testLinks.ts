@@ -4,7 +4,14 @@ import isExternalLink from '../../src/utils/isExternalLink'
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 chai.use(require('chai-string'))
 
-const ignore = ['mailto', 'https://stream.launchdarkly.', 'https://events.launchdarkly.', 'https://console.aws.']
+const ignore = [
+  'mailto',
+  // github responds with 429 too many requests because it thinks we are spamming them
+  'https://github.com',
+  'https://stream.launchdarkly.',
+  'https://events.launchdarkly.',
+  'https://console.aws.',
+]
 
 describe('Verify links', () => {
   flattenedNavigationData.forEach(({ label, allItems }) => {

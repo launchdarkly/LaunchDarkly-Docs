@@ -209,7 +209,7 @@ module.exports = [
   },
   {
     fromPath: '/docs/experimentation',
-    toPath: '/home/experimentation/',
+    toPath: '/home/experimentation',
   },
   {
     fromPath: '/docs/experimentation-create',
@@ -397,7 +397,7 @@ module.exports = [
   },
   {
     fromPath: '/docs/getting-started-with-launchdarkly-sdks',
-    toPath: '/sdk/',
+    toPath: '/sdk',
   },
   {
     fromPath: '/docs/client-side-and-server-side',
