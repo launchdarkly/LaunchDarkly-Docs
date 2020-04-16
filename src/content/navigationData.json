@@ -292,6 +292,10 @@
         "path": "/integrations/dynatrace"
       },
       {
+        "label": "Elastic (ELK) Stack",
+        "path": "/integrations/elastic-stack"
+      },
+      {
         "label": "Gatsby",
         "path": "/integrations/gatsby"
       },
