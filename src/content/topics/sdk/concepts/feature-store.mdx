@@ -55,9 +55,9 @@ An example configuration is below:
 ```go
 import ld "gopkg.in/launchdarkly/go-server-sdk.v4"
 
-store, err := examplepackage.NewExampleFeatureStore(storeOptions)
+factory, err := examplepackage.NewExampleFeatureStoreFactory(storeOptions)
 config := ld.DefaultConfig
-config.FeatureStore = store
+config.FeatureStoreFactory = factory
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
@@ -145,7 +145,6 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 // $client = new LaunchDarkly\LDClient("your_sdk_key", [
 //     'feature_requester_class' => 'LaunchDarkly\SomeKindOfFeatureRequester'
 // ]);
-
 ```
 
 </CodeTabItem>
@@ -154,7 +153,7 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 ```c
 #include <launchdarkly/api.h>
 
-struct LDConfig *config = LDConfigNew("my-key");  
+struct LDConfig *config = LDConfigNew("my-key");
 
 struct LDStoreInterface *store = ConstructYourFeatureStoreInterface();
 
@@ -195,9 +194,9 @@ Since the Relay Proxy is also known as the *L*aunch*D*arkly *D*aemon, some versi
 ```go
 import ld "gopkg.in/launchdarkly/go-server-sdk.v4"
 
-store, err := examplepackage.NewExampleFeatureStore(storeOptions)
+factory, err := examplepackage.NewExampleFeatureStoreFactory(storeOptions)
 config := ld.DefaultConfig
-config.FeatureStore = store
+config.FeatureStoreFactory = factory
 config.UseLdd = true  // <-- the extra option
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
@@ -320,7 +319,7 @@ LDConfigSetUseLDD(config, true);  // <-- the extra option
 
 ## Using Redis
 
-All of the LaunchDarkly server-side SDKs support Redis. This feature is built into the main SDK distribution in all cases except .NET, where it requires a [separate package](https://github.com/launchdarkly/dotnet-server-sdk-redis).
+All of the LaunchDarkly server-side SDKs support Redis (see "Platform-specific notes" below).
 
 The available options are slightly different in each language, but you can always specify the following:
 
@@ -352,13 +351,13 @@ import (
     ldredis "gopkg.in/launchdarkly/go-server-sdk.v4/redis"
 )
 
-store, err := ldredis.NewRedisFeatureStoreWithDefaults(
+factory, err := ldredis.NewRedisFeatureStoreWithDefaults(
     ldredis.HostAndPort("my-redis", 6379),
     ldredis.Prefix("my-key-prefix"),
     ldredis.CacheTTL(30 * time.Second))
 
 config := ld.DefaultConfig
-config.FeatureStore = store
+config.FeatureStoreFactory = factory
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
@@ -394,8 +393,6 @@ LDConfig deprecatedConfig = new LDConfig.Builder()
 <CodeTabItem value="csharp">
 
 ```csharp
-// Requires this package: https://github.com/launchdarkly/dotnet-server-sdk-redis
-
 using LaunchDarkly.Client;
 using LaunchDarkly.Client.Redis;
 
@@ -413,8 +410,6 @@ var client = new LDClient(config);
 <CodeTabItem value="ruby">
 
 ```ruby
-# Requires the additional gems 'redis' and 'connection_pool'
-
 require 'ldclient-rb'
 
 store = LaunchDarkly::Integrations::Redis.new_feature_store(
@@ -477,8 +472,6 @@ const client = LaunchDarkly.init(sdkKey, config);
   Note that there is no parameter for the cache TTL; the PHP SDK does not cache
   data from Redis, since in PHP the entire in-memory application state is
   normally discarded after each request.
-
-  Also, you must install the package "predis/predis".
 */
 $fr = LaunchDarkly\Integrations\Redis::featureRequester([
     'redis_host' => 'my-redis',
@@ -506,8 +499,7 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 #include <launchdarkly/api.h>
 #include <launchdarkly/store/redis.h>
 
-struct LDConfig *config = LDConfigNew("my-key");  
-
+struct LDConfig *config = LDConfigNew("my-key");
 struct LDRedisConfig *redisConfig = LDRedisConfigNew();
 struct LDStoreInterface *store = LDStoreInterfaceRedisNew(redisConfig);
 
@@ -518,17 +510,20 @@ LDConfigSetFeatureStoreBackend(config, store);
 
 </CodeTabs>
 
+### Platform-specific notes
+
+- **C**: This integration is part of the main SDK distribution.
+- **Go**: This integration is part of the main SDK distribution.
+- **Java**: This integration is part of the main SDK distribution.
+- **.NET**: You must install an additional package named [`LaunchDarkly.ServerSdk.Redis`](https://github.com/launchdarkly/dotnet-server-sdk-redis).
+- **Node.js**: This integration is part of the main SDK distribution.
+- **PHP**: This integration is part of the main SDK distribution, but you must also must install the package `predis/predis`.
+- **Python**: This integration is part of the main SDK distribution, but you must also install the package `redis`.
+- **Ruby**: This integration is part of the main SDK distribution, but you must also install the gems `redis` and `connection_pool`.
+
 ## Using DynamoDB
 
-All of the current versions of the server-side SDKs except C support DynamoDB. DynamoDB is a particularly useful solution if you are running code in AWS Lambda, since it can be accessed from Lambda without needing access to any VPC resource.
-
-In the Go SDK (as of version 4.5.1), the Ruby SDK (as of version 5.5.1), the Python SDK (as of version 6.7.0), and the PHP SDK (as of version 3.5.0), this feature is built into the main SDK distribution. 
-
-The other SDKs require an additional package: 
-
-* [Java](https://github.com/launchdarkly/java-server-sdk-dynamodb)
-* [.NET](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb)
-* [Node.js](https://github.com/launchdarkly/node-server-sdk-dynamodb)
+All of the current versions of the server-side SDKs except C support DynamoDB (see "Platform-specific notes" below). DynamoDB is a particularly useful solution if you are running code in AWS Lambda, since it can be accessed from Lambda without needing access to any VPC resource.
 
 In your application code, the only required parameter is the table name, although you can also specify any other options supported by AWS; by default, the DynamoDB driver will expect to get your AWS credentials and region from environment variables or local configuration files, as described in the AWS SDK documentation.
 
@@ -559,11 +554,10 @@ import (
     "gopkg.in/launchdarkly/go-server-sdk.v4/lddynamodb"
 )
 
-store, err := ldredis.NewDynamoDBFeatureStore("my-table",
+factory, err := lddynamodb.NewDynamoDBFeatureStoreFactory("my-table",
     lddynamodb.CacheTTL(30 * time.Second))
-
 config := ld.DefaultConfig
-config.FeatureStore = store
+config.FeatureStoreFactory = factory
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
@@ -571,8 +565,6 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 <CodeTabItem value="java">
 
 ```java
-// Requires this package: https://github.com/launchdarkly/java-server-sdk-dynamodb
-
 import com.launchdarkly.client.*;
 import com.launchdarkly.client.integrations.*;
 
@@ -601,8 +593,6 @@ LDConfig deprecatedConfig = new LDConfig.Builder()
 <CodeTabItem value="csharp">
 
 ```csharp
-// Requires this package: https://github.com/launchdarkly/dotnet-server-sdk-dynamodb
-
 using LaunchDarkly.Client;
 using LaunchDarkly.Client.DynamoDB;
 
@@ -618,8 +608,6 @@ var client = new LDClient(config);
 <CodeTabItem value="ruby">
 
 ```ruby
-# Requires the additional gem 'aws-sdk-dynamodb'
-
 require 'ldclient-rb'
 
 store = LaunchDarkly::Integrations::DynamoDB.new_feature_store('my-table',
@@ -635,8 +623,6 @@ client = LaunchDarkly::Client.new(sdk_key, config)
 <CodeTabItem value="py">
 
 ```py
-# Requires the additional package 'boto3'
-
 import ldclient
 from ldclient.config import Config
 from ldclient.feature_store import CacheConfig
@@ -653,12 +639,6 @@ ldclient.set_config(config)
 <CodeTabItem value="node">
 
 ```js
-// Requires this package: https://github.com/launchdarkly/node-server-sdk-dynamodb
-// As of the 2.0.0 release of node-server-sdk-dynamodb, the aws-sdk package
-// is *not* automatically loaded as a transitive dependency. This saves
-// space when running in AWS Lambda, where aws-sdk is built in. If you are not running
-// in Lambda, you must separately install aws-sdk.
-
 const LaunchDarkly = require('launchdarkly-node-server-sdk');
 const DynamoDBFeatureStore = require('launchdarkly-node-server-sdk-dynamodb');
 
@@ -678,8 +658,6 @@ const client = LaunchDarkly.init(sdkKey, config);
   Note that there is no parameter for the cache TTL; the PHP SDK does not cache
   data from DynamoDB, since in PHP the entire in-memory application state is
   normally discarded after each request.
-
-  Also, you must install the package "aws/aws-sdk-php".
 */
 $fr = LaunchDarkly\Integrations\DynamoDb::featureRequester([
     'dynamodb_table' => 'my-table'
@@ -692,9 +670,20 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 </CodeTabItem>
 </CodeTabs>
 
+### Platform-specific notes
+
+- **C**: Currently there is no DynamoDB integration for the C server-side SDK.
+- **Go**: This integration is part of the main SDK distribution as of version 4.5.1.
+- **Java**: You must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-dynamodb-store`](https://github.com/launchdarkly/java-server-sdk-dynamodb). You must also add `software.amazon.awssdk.dynamodb` if your application does not already use the AWS SDK.
+- **.NET**: You must install the additional package [`LaunchDarkly.ServerSdk.DynamoDB`](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb).
+- **Node.js**: You must install the additional package [`launchdarkly-node-server-sdk`](https://github.com/launchdarkly/node-server-sdk-dynamodb). Also, as of the 2.0.0 release of that package, the `aws-sdk` package that it uses is _not_ automatically loaded as a transitive dependency; this saves space when running in AWS Lambda, where `aws-sdk` is built in. If you are not running in Lambda, you must separately install `aws-sdk`.
+- **PHP**: This integration is part of the main SDK distribution as of version 3.5.0, but you must also install the package `aws/aws-sdk-php`.
+- **Python**: This integration is part of the main SDK distribution as of version 6.7.0, but you must also install the package `boto3`.
+- **Ruby**: This integration is part of the main SDK distribution as of version 5.1.1, but you must also install the gem `aws-sdk-dynamodb`.
+
 ## Using Consul
 
-All of the current versions of the server-side SDKs except C support Consul. In the Go SDK (as of version 4.5.0), the Ruby SDK (as of version 5.5.1), the Python SDK (as of version 6.8.1), and the PHP SDK (as of version 3.5.0), this feature is built into the main SDK distribution. The other SDKs require an additional package: Java, .NET, Node.js.
+All of the current versions of the server-side SDKs except C support Consul (see "Platform-specific notes" below).
 
 In the following examples, the Consul feature store is set to use a host address of `my-consul:8100`, a prefix string of `"my-key-prefix"`, and a cache TTL of 30 seconds.
 
@@ -720,13 +709,13 @@ import (
     "gopkg.in/launchdarkly/go-server-sdk.v4/ldconsul"
 )
 
-store, err := ldconsul.NewConsulFeatureStore(
+factory, err := ldconsul.NewConsulFeatureStoreFactory(
     ldconsul.Address("http://my-consul:8100"),
     ldconsul.Prefix("my-key-prefix"),
     ldconsul.CacheTTL(30 * time.Second))
 
 config := ld.DefaultConfig
-config.FeatureStore = store
+config.FeatureStoreFactory = factory
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
@@ -734,8 +723,6 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 <CodeTabItem value="java">
 
 ```java
-// Requires this package: https://github.com/launchdarkly/java-server-sdk-consul
-
 import com.launchdarkly.client.*;
 import com.launchdarkly.client.integrations.*;
 
@@ -767,8 +754,6 @@ LDConfig deprecatedConfig = new Config.Builder()
 <CodeTabItem value="csharp">
 
 ```csharp
-// Requires this package: https://github.com/launchdarkly/dotnet-server-sdk-consul
-
 using LaunchDarkly.Client;
 using LaunchDarkly.Client.Consul;
 
@@ -785,8 +770,6 @@ var client = new LDClient(config);
 <CodeTabItem value="ruby">
 
 ```ruby
-# Requires the additional gem 'diplomat'
-
 require 'ldclient-rb'
 
 store = LaunchDarkly::Integrations::Consul.new_feature_store(
@@ -802,9 +785,6 @@ client = LaunchDarkly::Client.new(sdk_key, config)
 <CodeTabItem value="py">
 
 ```python
-# Requires the additional package 'python-consul' - note that this is not
-# compatible with Python 3.3 or 3.4.
-
 import ldclient
 from ldclient.config import Config
 from ldclient.feature_store import CacheConfig
@@ -821,8 +801,6 @@ ldclient.set_config(config)
 <CodeTabItem value="node">
 
 ```js
-// Requires this package: https://github.com/launchdarkly/node-server-sdk-consul
-
 const LaunchDarkly = require('launchdarkly-node-server-sdk');
 const ConsulFeatureStore = require('launchdarkly-node-server-sdk-consul');
 
@@ -849,8 +827,6 @@ const client = LaunchDarkly.init(sdkKey, config);
   Note that there is no parameter for the cache TTL; the PHP SDK does not cache
   data from Consul, since in PHP the entire in-memory application state is
   normally discarded after each request.
-
-  Also, you must install the package "sensiolabs/consul-php-sdk".
 */
 $fr = LaunchDarkly\Integrations\Consul::featureRequester([
     'consul_uri' => 'http://my-consul:8100',
@@ -863,3 +839,14 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 
 </CodeTabItem>
 </CodeTabs>
+
+### Platform-specific notes
+
+- **C**: Currently there is no Consul integration for the C server-side SDK.
+- **Go**: This integration is part of the main SDK distribution as of version 4.5.0.
+- **Java**: You must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-consul-store`](https://github.com/launchdarkly/java-server-sdk-consul).
+- **.NET**: You must install the additional package [`LaunchDarkly.ServerSdk.Consul`](https://github.com/launchdarkly/dotnet-server-sdk-consul).
+- **Node.js**: You must install the additional package [`launchdarkly-node-server-consul`](https://github.com/launchdarkly/node-server-sdk-consul).
+- **PHP**: This integration is part of the main SDK distribution as of version 3.5.0, but you must also install the package `aws/sensiolabs/consul-php-sdk`.
+- **Python**: This integration is part of the main SDK distribution as of version 6.8.1, but you must also install the package `python-consul`. Python 3.3 and 3.4 are not supported.
+- **Ruby**: This integration is part of the main SDK distribution as of version 5.1.1, but you must also install the gem `diplomat`.
