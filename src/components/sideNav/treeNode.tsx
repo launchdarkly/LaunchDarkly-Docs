@@ -124,7 +124,7 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, maxDepth = 2, depth
                 </GatsbyLink>
                 {!isLeafNode && (
                   <Icon
-                    name={expandedCollapsed === ExpandCollapseEnum.Collapsed ? 'arrow-down' : 'arrow-up'}
+                    name={expandedCollapsed === ExpandCollapseEnum.Collapsed ? 'arrow-right' : 'arrow-down'}
                     onClick={() => onExpandCollapse(isLeafNode, index)}
                     variant="sideNav"
                     fill="grayBase"
