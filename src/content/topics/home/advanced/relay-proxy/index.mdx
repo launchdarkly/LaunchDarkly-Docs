@@ -17,9 +17,11 @@ The Relay Proxy is an open-source project supported by LaunchDarkly. The full so
 
 ## Should I use the Relay Proxy?
 
-We recommend using the Relay Proxy if you anticipate or already have many outbound connections from your app to LaunchDarkly. This can occur when your app uses many LaunchDarkly SDKs heavily or has many LaunchDarkly clients, such as when your app consists of many nodes or microservices.
+We recommend that all customers on LaunchDarkly's Enterprise plan use the Relay Proxy. Customers on LaunchDarkly's Starter and Professional plans may optionally choose to use the Relay Proxy, however, the associated operating costs with onboarding the Relay Proxy may be prohibitive; see our [best practices](#best-practices-for-using-the-relay-proxy) for more information on operational concerns.
 
-We developed the Relay Proxy to address specific scenarios. If your requirements meet any of the following criteria, use the Relay Proxy to improve performance and reliability.
+Another deciding factor is based on your usage of LaunchDarkly's [client-side and server-side SDKs](/sdk/concepts/client-side-server-side#understanding-the-different-types-of-sdks). Relay Proxy provides performance and resilience improvements for all server-side SDKs and for SDKs configured to poll. This means that the Relay Proxy works best with the default SDK configurations for all server-side SDKs and for the [client-side JavaScript SDK](/sdk/client-side/javascript). Relay Proxy does not currently scale well when maintaining streaming connections with a large number of client-side SDKs (including mobile SDKs); when utilizing LaunchDarkly's streaming architecture in a heavily-used client-side or mobile application, connecting directly to LaunchDarkly's main service may be most optimal.
+
+All in all, the Relay Proxy was developed to address specific scenarios:
 
 ### You use PHP
 
@@ -37,11 +39,11 @@ Use the Relay Proxy in **proxy mode** so your servers can connect directly to ho
 
 On an appropriately configured host, each Relay Proxy can handle tens of thousands of concurrent connections. This dramatically reduces the number of outbound connections to the LaunchDarkly streaming API.
 
-### You want to reduce redundant update traffic to Redis
+### You want to reduce redundant database traffic
 
-If you use Redis as a shared persistence option for feature flags and you have a large number of servers connected to LaunchDarkly, each server attempts to update Redis when a flag update occurs. This behavior is safe, but inefficient.
+If you use a [persistent feature store](/sdk/concepts/feature-store) and you have a large number of servers connected to LaunchDarkly, each server attempts to update the data store when a flag update occurs. This behavior is safe, but inefficient.
 
-Deploy the Relay Proxy in **daemon mode** and set your LaunchDarkly SDKs to daemon mode. By doing this, you can delegate flag updates to a small number of Relay Proxy instances and reduce the number of redundant update calls to Redis.
+Deploy the Relay Proxy in **daemon mode** and set your LaunchDarkly SDKs to daemon mode. By doing this, you can delegate flag updates to a small number of Relay Proxy instances and reduce the number of redundant update calls to your data store.
 
 ## Best practices for using the Relay Proxy
 
@@ -57,11 +59,15 @@ We have tested and developed the Relay Proxy to work with an AWS `m4.xlarge` ins
 
 To learn more about instance sizing, read [Amazon's documentation on EC2 instance types](https://aws.amazon.com/ec2/instance-types/).
 
+Note that the Relay Proxy works best with LaunchDarkly's server-side SDKs and with SDKs configured for polling. Relay Proxy does not efficiently handle streaming connections from client-side SDKs. When utilizing LaunchDarkly's streaming architecture in a heavily-used client-side or mobile application, be sure to [monitor](/home/advanced/relay-proxy/monitoring) and scale the Relay Proxy accordingly.
+
 ### Architectural guidelines
 
 If you choose to use the LaunchDarkly Relay Proxy, position it effectively within your network architecture. Your application must be able to access the Relay Proxy for it to work, and that architecture varies based on the type of app you have.
 
 For example, do not put the Relay Proxy inside a firewall if you intend to connect it to any client-side apps.
+
+If your application is deployed to multiple regions, consider running one or more Relay instances in each of those regions in close proximity to your application. Doing so will limit latency between your application and the Relay Proxy.
 
 ### Caching guidelines
 
