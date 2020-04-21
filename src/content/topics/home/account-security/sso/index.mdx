@@ -103,15 +103,21 @@ You can configure your identity provider to send the following attributes when t
 <Callout intent="info">
   <CalloutTitle>First-time users must sign into LaunchDarkly through your IdP</CalloutTitle>
   <CalloutDescription>
-    New team members will not be able to sign in from LaunchDarkly's login screen until they have accessed LaunchDarkly
-    through your IdP at least once.
+    New team members will not be able to sign in from LaunchDarkly's login screen until they have accessed LaunchDarkly through your IdP at least once.
   </CalloutDescription>
 </Callout> 
 
 
 ## NameID field formatting
 
-We require the NameID field in your SSO provider to be mapped to email addresses. See below for an example of what your SSO provider should be providing LaunchDarkly:
+<Callout intent="alert">
+  <CalloutTitle>Only use email addresses in the NameID field</CalloutTitle>
+  <CalloutDescription>
+    LaunchDarkly only supports the use of email addresses in the NameID field. Do not use other types of identifying strings.
+  </CalloutDescription>
+</Callout> 
+
+See below for an example of what your SSO provider should be providing LaunchDarkly:
 
 `<saml:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">admin@test.com</saml:NameID>`
 
