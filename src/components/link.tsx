@@ -10,13 +10,14 @@ const ThemedGatsbyLink: ForwardRef<HTMLAnchorElement, LinkProps & GatsbyLinkProp
 const Link: FunctionComponent<LinkProps & GatsbyLinkProps<{}>> = ({ to, href, ...props }) => {
   const url = to ?? href
   const isExternal = isExternalLink(url)
+  const isMailTo = url.startsWith('mailto:')
   const isSection = url.startsWith('#')
 
   if (isSection) {
     return <ThemeUILink href={url} {...props} />
   }
 
-  if (isExternal) {
+  if (isExternal || isMailTo) {
     return <ThemeUILink href={url} {...props} target="_blank" rel="noopener noreferrer" />
   }
 
