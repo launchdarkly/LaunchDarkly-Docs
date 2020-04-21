@@ -83,9 +83,9 @@ Using `$client`, you can check which variation a particular user should receive 
 $user = new LaunchDarkly\LDUser("user@test.com");
 
 if ($client->variation("your.flag.key", $user)) {
-  # application code to show the feature
+    // application code to show the feature
 } else {
-  # the code to run if the feature is off
+    // the code to run if the feature is off
 }
 ```
 
@@ -297,10 +297,8 @@ You can also mark attributes as private when building the user object itself by 
 
 ```php
 $user = (new LDUserBuilder('aa0ceb')) 
-
-  ->privateEmail('test@example.com') 
-
-	->build();
+    ->privateEmail('test@example.com') 
+    ->build();
 ```
 
 </CodeTabItem>
@@ -481,7 +479,6 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 ```php
 $client = new LaunchDarkly\LDClient("YOUR_SDK_KEY", array("offline" => true));
 $client->variation("any.feature.flag", user, false); // will always return the default value (false) 
-
 ```
 
 </CodeTabItem>

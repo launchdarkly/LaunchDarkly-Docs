@@ -93,12 +93,10 @@ Calling `LDClientInit` will initiate a remote call to the LaunchDarkly service t
 
 ```c
 void initCallback(LDStatus status) 
-
-
 {
-  if (status == LDStatusInitialized) {
-    printf("Completed LaunchDarkly client initialization");
-  }
+    if (status == LDStatusInitialized) {
+        printf("Completed LaunchDarkly client initialization");
+    }
 }
 
 LDSetClientStatusCallback(initCallback);
@@ -225,7 +223,7 @@ In the C SDK there are two ways to define private attributes for the LaunchDarkl
 <CodeTabItem value="c">
 
 ```c
- LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
+LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
 
 // Mark all attributes private
 LDConfigSetAllAttributesPrivate(config, true);
@@ -385,7 +383,7 @@ If you are having trouble debugging the SDK consider registering a log handler, 
 
 ```c
 void logger(const char *s) {
-  printf("LD: %s\n", s);
+    printf("LD: %s\n", s);
 }
 
 LDSetLogFunction(LD_LOG_TRACE, logger);

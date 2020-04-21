@@ -67,8 +67,8 @@ LDConfig ldConfig = new LDConfig.Builder()
     .build();
 
 LDUser user = new LDUser.Builder("user key")
-   .email("fake@example.com")
-   .build();
+    .email("fake@example.com")
+    .build();
 
 LDClient ldClient = LDClient.init(this.getApplication(), ldConfig, user, 5);
 ```
@@ -142,10 +142,10 @@ Using `ldClient`, you can check which variation a particular user should receive
 ```java
 boolean showFeature = ldClient.boolVariation(flagKey, true);
 if (showFeature) {
-  // application code to show the feature
+    // application code to show the feature
 }
 else {
-  // the code to run if the feature is off
+    // the code to run if the feature is off
 }
 ```
 
@@ -156,10 +156,10 @@ else {
 ```kotlin
 val showFeature: Boolean = ldClient.boolVariation(flagKey, true)
 if (showFeature) {
-  // application code to show the feature
+    // application code to show the feature
 }
 else {
-  // the code to run if the feature is off
+    // the code to run if the feature is off
 }
 ```
 
@@ -242,11 +242,11 @@ Feature flag targeting and rollouts are all determined by the *user* you pass to
 
 ```java
 LDUser user = new LDUser.Builder("aa0ceb")
-   .email("fake@example.com")
-   .firstName("Jake")
-   .lastName("Fake")
-   .custom("group", "microsoft")
-   .build();
+    .email("fake@example.com")
+    .firstName("Jake")
+    .lastName("Fake")
+    .custom("group", "microsoft")
+    .build();
 ```
 
 </CodeTabItem>
@@ -254,11 +254,11 @@ LDUser user = new LDUser.Builder("aa0ceb")
 
 ```kotlin
 val user: LDUser = LDUser.Builder("aa0ceb")
-   .email("fake@example.com")
-   .firstName("Jake")
-   .lastName("Fake")
-   .custom("group", "microsoft")
-   .build()
+    .email("fake@example.com")
+    .firstName("Jake")
+    .lastName("Fake")
+    .custom("group", "microsoft")
+    .build()
 ```
 
 </CodeTabItem>
@@ -335,10 +335,10 @@ You can also mark attributes as private when building the user object itself by 
 
 ```java
 LDUser user = new LDUser.Builder("aa0ceb")
-   .email("fake@example.com")
-   .privateName("Jane")
-   .privateCustom("group", "microsoft")
-   .build();
+    .email("fake@example.com")
+    .privateName("Jane")
+    .privateCustom("group", "microsoft")
+    .build();
 ```
 
 </CodeTabItem>
@@ -346,10 +346,10 @@ LDUser user = new LDUser.Builder("aa0ceb")
 
 ```kotlin
 val user: LDUser = LDUser.Builder("aa0ceb")
-   .email("fake@example.com")
-   .privateName("Jane")
-   .privateCustom("group", "microsoft")
-   .build()
+    .email("fake@example.com")
+    .privateName("Jane")
+    .privateCustom("group", "microsoft")
+    .build()
 ```
 
 </CodeTabItem>
@@ -372,8 +372,8 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 
 ```java
 LDUser user = new LDUser.Builder("user key")
-   .anonymous(true)
-   .build();
+    .anonymous(true)
+    .build();
 ```
 
 </CodeTabItem>
@@ -381,8 +381,8 @@ LDUser user = new LDUser.Builder("user key")
 
 ```kotlin
 val user: LDUser = LDUser.Builder("user key")
-   .anonymous(true)
-   .build()
+    .anonymous(true)
+    .build()
 ```
 
 </CodeTabItem>
@@ -605,8 +605,8 @@ You can use the `identify` method to switch user contexts:
 
 ```java
 LDUser updatedUser = new LDUser.Builder(user)
-   .email("fake2@example.com")
-   .build();
+    .email("fake2@example.com")
+    .build();
 
 ldClient.identify(updatedUser);
 ```
@@ -616,8 +616,8 @@ ldClient.identify(updatedUser);
 
 ```kotlin
 val updatedUser: LDUser = LDUser.Builder(user)
-   .email("fake2@example.com")
-   .build()
+    .email("fake2@example.com")
+    .build()
 
 ldClient.identify(updatedUser)
 ```
@@ -655,11 +655,11 @@ To perform real-time updates in your app, your app will need to register listene
 String flagKey = "yourFlagKey";
 
 FeatureFlagChangeListener listener = new FeatureFlagChangeListener() {
-  @Override
-  public void onFeatureFlagChange(String flagKey) {
-    boolean newValue = LDClient.get().boolVariation(flagKey, false);
-  }
-}
+    @Override
+    public void onFeatureFlagChange(String flagKey) {
+        boolean newValue = LDClient.get().boolVariation(flagKey, false);
+    }
+};
 
 LDClient.get().registerFeatureFlagListener(flagKey, listener);
 ```
@@ -735,11 +735,11 @@ Additionally an update listener interface is provided for cases where you would 
 
 ```java
 LDAllFlagsListener listener = new LDAllFlagsListener() {
-  @Override
-  public void onChange(List<String> flagKeys) {
-    // Get new values for flagKeys or other operations
-  }
-}
+    @Override
+    public void onChange(List<String> flagKeys) {
+        // Get new values for flagKeys or other operations
+    }
+};
 
 // register all flags listener
 LDClient.get().registerAllFlagsListener(listener);
@@ -791,13 +791,13 @@ otherKeys.put("platform", "PLATFORM_MOBILE_KEY");
 otherKeys.put("core", "CORE_MOBILE_KEY");
 
 LDConfig ldConfig = new LDConfig.Builder()
-        .setMobileKey("MOBILE_KEY")
-        .setSecondaryMobileKeys(otherKeys)
-        .build();
+    .setMobileKey("MOBILE_KEY")
+    .setSecondaryMobileKeys(otherKeys)
+    .build();
 
 LDUser user = new LDUser.Builder("user key")
-        .email("fake@example.com")
-        .build();
+    .email("fake@example.com")
+    .build();
 
 LDClient.init(this.getApplication(), ldConfig, user);
 ```
@@ -811,13 +811,13 @@ otherKeys.put("platform", "PLATFORM_MOBILE_KEY")
 otherKeys.put("core", "CORE_MOBILE_KEY")
 
 val ldConfig: LDConfig = LDConfig.Builder()
-        .setMobileKey("MOBILE_KEY")
-        .setSecondaryMobileKeys(otherKeys)
-        .build()
+    .setMobileKey("MOBILE_KEY")
+    .setSecondaryMobileKeys(otherKeys)
+    .build()
 
 val user: LDUser = LDUser.Builder("user key")
-        .email("fake@example.com")
-        .build()
+    .email("fake@example.com")
+    .build()
 
 LDClient.init(application, ldConfig, user)
 ```
@@ -1088,39 +1088,39 @@ LDClient ldClient = LDClient.get();
 ConnectionInformation connectionInfo = ldClient.getConnectionInformation();
 LDFailure ldFailure = connectionInfo.getLastFailure();
 if (ldFailure != null) {
-  Timber.d("Received failure with message %s", ldFailure.getMessage());
-  // Retrieve the failure type
-  LDFailure.FailureType failureType = ldFailure.getFailureType();
-  switch (failureType) {
-    case INVALID_RESPONSE_BODY:
-      Timber.d("Received invalid response body");
-      break;
-    case NETWORK_FAILURE:
-      Timber.d("Network failure, may have bad connection");
-      break;
-    case UNEXPECTED_STREAM_ELEMENT_TYPE:
-      Timber.d("Unexpected stream element, may require update");
-      break;
-    case UNEXPECTED_RESPONSE_CODE:
-      LDInvalidResponseCodeFailure responseCodeFailure =
-        (LDInvalidResponseCodeFailure) ldFailure;
-      int responseCode = responseCodeFailure.getResponseCode();
-      if (responseCodeFailure.isRetryable()) {
-        Timber.d("Received invalid response code %d", responseCode);
-      } else {
-        Timber.d("Received invalid response code %d, giving up", responseCode);
-      }
-      break;
-    case UNKNOWN_ERROR:
-    default:
-      Timber.d("Unknown error");
-      break;
-  }
+    Timber.d("Received failure with message %s", ldFailure.getMessage());
+    // Retrieve the failure type
+    LDFailure.FailureType failureType = ldFailure.getFailureType();
+    switch (failureType) {
+        case INVALID_RESPONSE_BODY:
+            Timber.d("Received invalid response body");
+            break;
+        case NETWORK_FAILURE:
+            Timber.d("Network failure, may have bad connection");
+            break;
+        case UNEXPECTED_STREAM_ELEMENT_TYPE:
+            Timber.d("Unexpected stream element, may require update");
+            break;
+        case UNEXPECTED_RESPONSE_CODE:
+            LDInvalidResponseCodeFailure responseCodeFailure =
+                (LDInvalidResponseCodeFailure) ldFailure;
+            int responseCode = responseCodeFailure.getResponseCode();
+            if (responseCodeFailure.isRetryable()) {
+                Timber.d("Received invalid response code %d", responseCode);
+            } else {
+                Timber.d("Received invalid response code %d, giving up", responseCode);
+            }
+            break;
+        case UNKNOWN_ERROR:
+        default:
+            Timber.d("Unknown error");
+            break;
+    }
 
-  Throwable cause = ldFailure.getCause();
-  if (cause != null) {
-    // Do something with underlying cause
-  }
+    Throwable cause = ldFailure.getCause();
+    if (cause != null) {
+        // Do something with underlying cause
+    }
 }
 ```
 
@@ -1132,37 +1132,37 @@ val ldClient: LDClient = LDClient.get()
 val connectionInfo: ConnectionInformation = ldClient.connectionInformation
 val ldFailure: LDFailure? = connectionInfo.lastFailure
 if (ldFailure != null) {
-  Timber.d("Received failure with message %s", ldFailure.message)
-  // Retrieve the failure type
-  val failureType: LDFailure.FailureType = ldFailure.failureType
-  when (failureType) {
-    INVALID_RESPONSE_BODY -> {
-      Timber.d("Received invalid response body")
+    Timber.d("Received failure with message %s", ldFailure.message)
+    // Retrieve the failure type
+    val failureType: LDFailure.FailureType = ldFailure.failureType
+    when (failureType) {
+        INVALID_RESPONSE_BODY -> {
+            Timber.d("Received invalid response body")
+        }
+        NETWORK_FAILURE -> {
+            Timber.d("Network failure, may have bad connection")
+        }
+        UNEXPECTED_STREAM_ELEMENT_TYPE -> {
+            Timber.d("Unexpected stream element, may require update")
+        }
+        UNEXPECTED_RESPONSE_CODE -> {
+            val responseCodeFailure: LDInvalidResponseCodeFailure =
+                ldFailure as LDInvalidResponseCodeFailure
+            val responseCode = responseCodeFailure.responseCode
+            if (responseCodeFailure.isRetryable) {
+                Timber.d("Received invalid response code %d", responseCode)
+            } else {
+                Timber.d("Received invalid response code %d, giving up", responseCode)
+            }
+        }
+        UNKNOWN_ERROR -> {
+            Timber.d("Unknown error")
+        }
     }
-    NETWORK_FAILURE -> {
-      Timber.d("Network failure, may have bad connection")
+    val cause: Throwable? = ldFailure.cause
+    if (cause != null) {
+        // Do something with underlying cause
     }
-    UNEXPECTED_STREAM_ELEMENT_TYPE -> {
-      Timber.d("Unexpected stream element, may require update")
-    }
-    UNEXPECTED_RESPONSE_CODE -> {
-      val responseCodeFailure: LDInvalidResponseCodeFailure =
-          ldFailure as LDInvalidResponseCodeFailure
-      val responseCode = responseCodeFailure.responseCode
-      if (responseCodeFailure.isRetryable) {
-        Timber.d("Received invalid response code %d", responseCode)
-      } else {
-        Timber.d("Received invalid response code %d, giving up", responseCode)
-      }
-    }
-    UNKNOWN_ERROR -> {
-      Timber.d("Unknown error")
-    }
-  }
-  val cause: Throwable? = ldFailure.cause
-  if (cause != null) {
-    // Do something with underlying cause
-  }
 }
 ```
 
@@ -1192,36 +1192,35 @@ The SDK maintains only a weak reference to the registered `LDStatusListener`, so
 
 ```java
 class MainActivity extends Activity {
-  private LDClient ldClient;
-  private LDStatusListener ldStatusListener;
+    private LDClient ldClient;
+    private LDStatusListener ldStatusListener;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-    ldStatusListener = new LDStatusListener() {
-      @Override
-      public void onConnectionModeChanged(ConnectionInformation connectionInfo) {
-        // handle new connection info
-      }
+        ldStatusListener = new LDStatusListener() {
+            @Override
+            public void onConnectionModeChanged(ConnectionInformation connectionInfo) {
+                // handle new connection info
+            }
 
-      @Override
-      public void onInternalFailure(LDFailure ldFailure) {
-        // handle failure
-      }
+            @Override
+            public void onInternalFailure(LDFailure ldFailure) {
+                // handle failure
+            }
+        };
 
-    };
+        ldClient = LDClient.get();
+        ldClient.registerStatusListener(ldStatusListener);
+    }
 
-    ldClient = LDClient.get();
-    ldClient.registerStatusListener(ldStatusListener);
-  }
-
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-    ldClient.unregisterStatusListener(ldStatusListener);
-  }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ldClient.unregisterStatusListener(ldStatusListener);
+    }
 }
 ```
 
@@ -1230,31 +1229,31 @@ class MainActivity extends Activity {
 
 ```kotlin
 class MainActivity : Activity() {
-  private var ldClient: LDClient? = null
-  private var ldStatusListener: LDStatusListener? = null
+    private var ldClient: LDClient? = null
+    private var ldStatusListener: LDStatusListener? = null
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-    ldStatusListener = object : LDStatusListener {
-      override fun onConnectionModeChanged(connectionInfo: ConnectionInformation) {
-        // handle new connection info
-      }
+        ldStatusListener = object : LDStatusListener {
+            override fun onConnectionModeChanged(connectionInfo: ConnectionInformation) {
+                // handle new connection info
+            }
 
-      override fun onInternalFailure(ldFailure: LDFailure) {
-        // handle failure
-      }
+            override fun onInternalFailure(ldFailure: LDFailure) {
+                // handle failure
+            }
+        }
+
+        ldClient = LDClient.get()
+        ldClient.registerStatusListener(ldStatusListener)
     }
 
-    ldClient = LDClient.get()
-    ldClient.registerStatusListener(ldStatusListener)
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    ldClient?.unregisterStatusListener(ldStatusListener)
-  }
+    override fun onDestroy() {
+        super.onDestroy()
+        ldClient?.unregisterStatusListener(ldStatusListener)
+    }
 }
 ```
 
@@ -1276,7 +1275,7 @@ The Android SDK makes heavy use of the Timber logging. Include Timber in your ap
 
 ```java
 if (BuildConfig.DEBUG) {
-  Timber.plant(new Timber.DebugTree());
+    Timber.plant(new Timber.DebugTree());
 }
 ```
 
@@ -1285,7 +1284,7 @@ if (BuildConfig.DEBUG) {
 
 ```kotlin
 if (BuildConfig.DEBUG) {
-  Timber.plant(Timber.DebugTree())
+    Timber.plant(Timber.DebugTree())
 }
 ```
 

@@ -126,7 +126,7 @@ If it is possible for your flag evaluation to be executed before `client` initia
 
 ```c
 if (LDClientIsInitialized(client)) {
-  // flag evaluation goes here
+    // flag evaluation goes here
 }
 ```
 
@@ -333,7 +333,7 @@ bool value = LDBoolVariation(client, user, "your.feature.key", false, &details);
 
 /* inspect details here */
 if (details.reason == LD_FLAG_NOT_FOUND) {
-	/* ... */
+    /* ... */
 }
 
 LDDetailsClear(&details);

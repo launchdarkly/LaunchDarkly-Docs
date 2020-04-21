@@ -58,8 +58,7 @@ We'll assume you've imported the LaunchDarkly SDK package as `ld`:
 <CodeTabItem value="go">
 
 ```go
-ldClient, _ := ld.MakeClient("YOUR_SDK_KEY", 5 * time.Second) 
-
+ldClient, _ := ld.MakeClient("YOUR_SDK_KEY", 5 * time.Second)
 ```
 
 </CodeTabItem>
@@ -99,9 +98,9 @@ Using `ldClient`, you can check which variation a particular user should receive
 key := "user@test.com"
 showFeature, _ := ldClient.BoolVariation("your.flag.key", ld.NewUser(key), false)
 if showFeature {
-  // application code to show the feature
+    // application code to show the feature
 } else {
-  // the code to run if the feature is off 
+    // the code to run if the feature is off 
 }
 ```
 
@@ -120,8 +119,7 @@ Lastly, when your application is about to terminate, shut down `ldClient`. This 
 
 ```go
 // shut down the client, since we're about to quit
-ldClient.Close() 
-
+ldClient.Close()
 ```
 
 </CodeTabItem>
@@ -142,8 +140,7 @@ You can also pass custom parameters to the client by creating a custom configura
 ```go
 config := ld.DefaultConfig
 config.FlushInterval = 10 * time.Second
-ldClient := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second) 
-
+ldClient := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 ```
 
 </CodeTabItem>
@@ -194,14 +191,14 @@ firstName := "Ernestina"
 lastName := "Evans"
 email := "ernestina@example.com"
 custom := map[string]interface{} {
-  "groups": []string{"Google", "Microsoft"},
+    "groups": []string{"Google", "Microsoft"},
 }
 user := ld.User{
-  Key: &key,
-  FirstName: &firstName,
-  LastName: &lastName,
-  Email: &email,
-  Custom: &custom,
+    Key: &key,
+    FirstName: &firstName,
+    LastName: &lastName,
+    Email: &email,
+    Custom: &custom,
 }
 ```
 
@@ -266,17 +263,17 @@ firstName := "Ernestina"
 lastName := "Evans"
 email := "ernestina@example.com"
 custom := map[string]interface{} {
-  "groups": []string{"Google", "Microsoft"},
+    "groups": []string{"Google", "Microsoft"},
 }
 privateAttributeNames := []string{"email"}
 
 user := ld.User{
-  Key: &key,
-  FirstName: &firstName,
-  LastName: &lastName,
-  Email: &email,
-  Custom: &custom,
-  PrivateAttributes: privateAttributeNames,
+    Key: &key,
+    FirstName: &firstName,
+    LastName: &lastName,
+    Email: &email,
+    Custom: &custom,
+    PrivateAttributes: privateAttributeNames,
 }
 ```
 
@@ -305,7 +302,6 @@ user2 := ld.NewUserBuilder("user2-key").
     Anonymous(true)
     Country("US").
     Build()
-
 ```
 
 </CodeTabItem>
@@ -319,10 +315,9 @@ user1 := ld.NewAnonymousUser("user1-key")
 key := "user2-key"
 anonymous := true
 user2 := ld.User{
-  Key: &key,
-  Anonymous: &anonymous,
+    Key: &key,
+    Anonymous: &anonymous,
 }
-
 ```
 
 </CodeTabItem>
@@ -344,8 +339,7 @@ The `Variation` method determines whether a flag is enabled or not for a specifi
 <CodeTabItem value="go">
 
 ```go
-shouldShow, _ := ldClient.BoolVariation("your.feature.key", user, false) 
-
+shouldShow, _ := ldClient.BoolVariation("your.feature.key", user, false)
 ```
 
 </CodeTabItem>
@@ -378,7 +372,6 @@ The `Track` methods allow you to record actions your users take on your site. Th
 
 ```go
 ldClient.TrackEvent("your-goal-key", user)
-
 ```
 
 </CodeTabItem>
@@ -386,7 +379,6 @@ ldClient.TrackEvent("your-goal-key", user)
 
 ```go
 ldClient.Track("your-goal-key", user)
-
 ```
 
 </CodeTabItem>
@@ -406,7 +398,6 @@ You can also attach custom data to your event by passing an extra parameter to `
 ```go
 data := ldvalue.BuildObject().Set("price", ldvalue.Int(320)).Build()
 ldClient.TrackData("Completed purchase", user, data)
-
 ```
 
 </CodeTabItem>
@@ -415,7 +406,6 @@ ldClient.TrackData("Completed purchase", user, data)
 ```go
 data := map[string]interface{}{"price": 320}
 ldClient.Track("Completed purchase", user, data)
-
 ```
 
 </CodeTabItem>
@@ -434,8 +424,7 @@ The `Identify` method creates or updates users on LaunchDarkly, making them avai
 <CodeTabItem value="go">
 
 ```go
-ldClient.Identify(user) 
-
+ldClient.Identify(user)
 ```
 
 </CodeTabItem>
@@ -464,8 +453,7 @@ This method can be useful for passing feature flags to your front-end. In partic
 <CodeTabItem value="go">
 
 ```go
-state := ldClient.AllFlagsState(user) 
-
+state := ldClient.AllFlagsState(user)
 ```
 
 </CodeTabItem>
@@ -488,7 +476,6 @@ The Go SDK uses Go's built in [log](https://golang.org/pkg/log/). All loggers ar
 config := ld.DefaultConfig
 config.Logger = myLogger
 ldClient := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
-
 ```
 
 </CodeTabItem>
@@ -507,8 +494,7 @@ The `SecureModeHash` method computes an HMAC signature of a user signed with the
 <CodeTabItem value="go">
 
 ```go
-ldClient.SecureModeHash(user) 
-
+ldClient.SecureModeHash(user)
 ```
 
 </CodeTabItem>
@@ -551,7 +537,6 @@ config := ld.DefaultConfig
 config.Offline = true
 ldClient, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 ldClient.BoolVariation("any.feature.flag", user, false) // will always return the default value (false)
-
 ```
 
 </CodeTabItem>

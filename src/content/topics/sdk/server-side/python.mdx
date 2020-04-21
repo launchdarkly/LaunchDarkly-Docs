@@ -56,10 +56,8 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 <CodeTabItem value="py">
 
 ```py
-ldclient.set_sdk_key("YOUR_SDK_KEY") 
-
+ldclient.set_sdk_key("YOUR_SDK_KEY")
 ld_client = ldclient.get() 
-
 ```
 
 </CodeTabItem>
@@ -99,8 +97,7 @@ Lastly, when your application is about to terminate, shut down `ld_client`. This
 
 ```py
 # shut down the client, since we're about to quit
-ld_client.close() 
-
+ld_client.close()
 ```
 
 </CodeTabItem>
@@ -119,8 +116,7 @@ You can also pass custom parameters to the client by creating a custom configura
 <CodeTabItem value="py">
 
 ```py
-ldclient.set_config(Config(sdk_key='YOUR_SDK_KEY', connect_timeout=5)) 
-
+ldclient.set_config(Config(sdk_key='YOUR_SDK_KEY', connect_timeout=5))
 ```
 
 </CodeTabItem>
@@ -406,13 +402,13 @@ Feature flag targeting and rollouts are all determined by the _user_ you pass to
 
 ```py
 user = {
-  "key": "aa0ceb",
-  "firstName": "Ernestina",
-  "lastName": "Evans",
-  "email": "ernestina@example.com",
-  "custom": {
-    "groups": ["Google", "Microsoft"]
-  }
+    "key": "aa0ceb",
+    "firstName": "Ernestina",
+    "lastName": "Evans",
+    "email": "ernestina@example.com",
+    "custom": {
+      "groups": ["Google", "Microsoft"]
+    }
 }
 ```
 
@@ -468,9 +464,9 @@ You can also define a set of `privateAttributeNames` on the user object itself. 
 
 ```py
 user = {
-  "key": "aa0ceb",
-  "email": "test@example.com",
-  "privateAttributeNames": ["email"]
+    "key": "aa0ceb",
+    "email": "test@example.com",
+    "privateAttributeNames": ["email"]
 }
 ```
 
@@ -492,7 +488,7 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 <CodeTabItem value="py">
 
 ```py
-user = {"key":"aa0ceb", "anonymous": True}
+user = { "key":"aa0ceb", "anonymous": True }
 ```
 
 </CodeTabItem>
@@ -515,8 +511,7 @@ The `variation` method determines which variation of a feature flag a user recei
 <CodeTabItem value="py">
 
 ```py
-ldclient.get().variation("your.feature.key", user, False) 
-
+show_feature = ldclient.get().variation("your.feature.key", user, False)
 ```
 
 </CodeTabItem>
@@ -549,8 +544,7 @@ The `track` method allows you to record actions your users take on your site. Th
 <CodeTabItem value="py">
 
 ```py
-ldclient.get().track("your-goal-key", user) 
-
+ldclient.get().track("your-goal-key", user)
 ```
 
 </CodeTabItem>
@@ -567,8 +561,7 @@ You can also attach an extra dictionary containing arbitrary data to your event:
 <CodeTabItem value="py">
 
 ```py
-ldclient.get().track("Completed purchase", user, {"price": 320}) 
-
+ldclient.get().track("Completed purchase", user, { "price": 320 })
 ```
 
 </CodeTabItem>
@@ -587,8 +580,7 @@ The `identify` method creates or updates users on LaunchDarkly, making them avai
 <CodeTabItem value="py">
 
 ```py
-ldclient.get().identify(user) 
-
+ldclient.get().identify(user)
 ```
 
 </CodeTabItem>
@@ -618,8 +610,7 @@ This method can be useful for passing feature flags to your front-end. In partic
 <CodeTabItem value="py">
 
 ```py
-state = ldclient.get().all_flags_state(user) 
-
+state = ldclient.get().all_flags_state(user)
 ```
 
 </CodeTabItem>
@@ -638,8 +629,7 @@ The `SecureModeHash` method computes an HMAC signature of a user signed with the
 <CodeTabItem value="py">
 
 ```py
-ldclient.get().secure_mode_hash(user) 
-
+hash = ldclient.get().secure_mode_hash(user)
 ```
 
 </CodeTabItem>
@@ -660,9 +650,7 @@ In some situations, you might want avoid remote calls to LaunchDarkly and fall b
 ```py
 # Initialization:
 ldclient.set_config(Config(offline = True))
-
 ldclient.set_sdk_key("YOUR_SDK_KEY")
-
 ldclient.get().variation("any.feature.flag", user, False) # will always return the default value (false) 
 
 ```
@@ -683,8 +671,7 @@ Internally, the LaunchDarkly SDK keeps an event buffer for `variation`, `track`,
 <CodeTabItem value="py">
 
 ```py
-ldclient.get().flush() 
-
+ldclient.get().flush()
 ```
 
 </CodeTabItem>
@@ -705,8 +692,7 @@ Close safely shuts down the client instance and releases all resources associate
 <CodeTabItem value="py">
 
 ```py
-ldclient.get().close() 
-
+ldclient.get().close()
 ```
 
 </CodeTabItem>

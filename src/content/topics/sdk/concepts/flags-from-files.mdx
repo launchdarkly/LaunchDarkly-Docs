@@ -179,18 +179,15 @@ import (
     "gopkg.in/launchdarkly/go-server-sdk.v4/ldfilewatch"
 )
 
-
 fileSource, err := ldfiledata.NewFileDataSourceFactory(
     ldfiledata.FilePaths("file1.json", "file2.json"),
     ldfiledata.UseReloader(ldfilewatch.WatchFiles))
-
 
 config := ld.DefaultConfig
 config.UpdateProcessorFactory = fileSource
 config.SendEvents = false
 
 client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
-
 ```
 
 </CodeTabItem>
@@ -201,17 +198,12 @@ import com.launchdarkly.client.*;
 import com.launchdarkly.client.files.*;
 
 FileDataSourceFactory fileSource = FileComponents.fileDataSource()
-
     .filePaths("file1.json", "file2.json")
-
     .autoUpdate(true);
 
 LDConfig config = new LDConfig.Builder()
-
     .updateProcessorFactory(fileSource)
-
     .sendEvents(false)
-
     .build();
 
 LDClient client = new LDClient("sdk key", config);
@@ -225,15 +217,11 @@ using LaunchDarkly.Client;
 using LaunchDarkly.Client.Files;
 
 var fileSource = FileComponents.FileDataSource()
-
     .WithFilePaths("file1.json", "file2.json")
-
     .WithAutoUpdate(true);
 
 var config = Configuration.Default("sdk key")
-
     .WithUpdateProcessorFactory(fileSource)
-
     .WithEventProcessorFactory(Components.NullEventProcessor);
 
 var client = new LDClient(config);
@@ -252,15 +240,12 @@ factory = LaunchDarkly::FileDataSource.factory(
   auto_update: true
 )
 
-
 config = LaunchDarkly::Config.new(
   update_processor_factory: factory,
   send_events: false
 )
 
-
 client = LaunchDarkly::Client.new("sdk key", config)
-
 
 # Note that in the Ruby SDK, automatic reloading uses a somewhat inefficient
 # file-polling mechanism unless you install the "listen" gem.
@@ -277,16 +262,11 @@ from ldclient.file_data_source import FileDataSource
 factory = FileDataSource.factory(paths=["file1.json", "file2.json"],
     auto_update=True)
 
-
 config = Config(update_processor_class=factory, send_events=False)
 
-
 ldclient.set_config(config)
-
 ldclient.set_sdk_key("sdk key")
-
 client = ldclient.get()
-
 
 # Note that in the Python SDK, if you want to use YAML files instead of JSON
 # you must install the "pyyaml" package. Also, automatic reloading uses a

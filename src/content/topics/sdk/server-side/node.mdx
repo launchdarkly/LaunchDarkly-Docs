@@ -104,15 +104,15 @@ Using `ldClient`, you can check which variation a particular user should receive
 <CodeTabItem value="js">
 
 ```js
-ldClient.once("ready", function() {
+ldClient.once("ready", () => {
   ldClient.variation("your.flag.key", {"key": "user@test.com"}, false,
-                     function(err, showFeature) {
-    if (showFeature) {
-      // application code to show the feature
-    } else {
-      // the code to run if the feature is off
-    }
-  });
+    (err, showFeature) => {
+      if (showFeature) {
+        // application code to show the feature
+      } else {
+        // the code to run if the feature is off
+      }
+    });
 });
 ```
 
@@ -138,18 +138,18 @@ Lastly, when your application is about to terminate, shut down `ldClient`. This 
 // Again, in a real application, this step is something you would only do when the application is
 // about to quit, not after every call to variation().
 
-ldClient.once("ready", function() {
+ldClient.once("ready", () => {
   ldClient.variation("your.flag.key", {"key": "user@test.com"}, false,
-                     function(err, showFeature) {
-    if (showFeature) {
-      // application code to show the feature
-    } else {
-      // the code to run if the feature is off
-    }
+    (err, showFeature) => {
+      if (showFeature) {
+        // application code to show the feature
+      } else {
+        // the code to run if the feature is off
+      }
 
-    // ADDED: shut down the client, since we're about to quit
-    ldClient.close();
-  });
+      // ADDED: shut down the client, since we're about to quit
+      ldClient.close();
+    });
 });
 ```
 
@@ -529,8 +529,7 @@ var user = {
   "key": "aa0ceb",
   "email": "test@example.com",
   "privateAttributeNames": ["email"]
-}
-
+};
 ```
 
 </CodeTabItem>
@@ -574,14 +573,15 @@ The `variation` method determines which variation of a feature flag a user recei
 <CodeTabItem value="js">
 
 ```js
-ldClient.variation("your.feature.key", user, false, function(err, show_feature) {
-  if (show_feature) {
-      # application code to show the feature
-  }
-  else {
-      # the code to run if the feature is off
-  }
-});
+ldClient.variation("your.feature.key", user, false,
+  (err, show_feature) => {
+    if (show_feature) {
+      // application code to show the feature
+    }
+    else {
+      // the code to run if the feature is off
+    }
+  });
 ```
 
 </CodeTabItem>
@@ -641,7 +641,7 @@ To subscribe to all feature flag changes, listen for the update event:
 <CodeTabItem value="js">
 
 ```js
-ldClient.on('update', function(settings) {
+ldClient.on('update', (settings) => {
   console.log('flags changed:', settings);
 });
 ```
@@ -660,7 +660,7 @@ The `settings` object will contain detailed information for flags that have chan
 <CodeTabItem value="js">
 
 ```js
-ldClient.on('update:YOUR_FLAG_KEY', function(oldValue, newValue) {
+ldClient.on('update:YOUR_FLAG_KEY', (oldValue, newValue) => {
   console.log('YOUR_FLAG_KEY changed:', newValue, '(' + oldValue + ')');
 });
 ```
@@ -710,7 +710,7 @@ This method can be useful for passing feature flags to your front-end. In partic
 <CodeTabItem value="js">
 
 ```js
-ldClient.allFlagsState(user, function(err, flagsState) {
+ldClient.allFlagsState(user, (err, flagsState) => {
   // this object can be converted to JSON or can be queried for flag values
 });
 ```
@@ -817,15 +817,12 @@ A custom logger may be passed to the SDK by the configurable `logger` property. 
 <CodeTabItem value="js">
 
 ```js
-logger =
-  new winston.Logger({
-    level: "debug",
-    transports: [
-      new winston.transports.Console() 
-
-    ]
-  }
-);
+logger = new winston.Logger({
+  level: "debug",
+  transports: [
+    new winston.transports.Console() 
+  ]
+});
 ldClient = LaunchDarkly.init("YOUR_SDK_KEY", {"logger": logger});
 ```
 
@@ -833,15 +830,13 @@ ldClient = LaunchDarkly.init("YOUR_SDK_KEY", {"logger": logger});
 <CodeTabItem value="js2">
 
 ```js
-logger =
-  winston.createLogger({
-    level: 'debug',
-    transports: [
-      new winston.transports.Console() 
+logger = winston.createLogger({
+  level: 'debug',
+  transports: [
+    new winston.transports.Console() 
 
-    ]
-  }
-);
+  ]
+});
 ldClient = LaunchDarkly.init("YOUR_SDK_KEY", {"logger": logger});
 ```
 
@@ -873,7 +868,7 @@ All asynchronous SDK methods which accept a callback also return a `Promise`. Th
 
 ```js
 // Using the .then() method to add a continuation handler for a Promise
-ldClient.variation("any.feature.flag", user, false).then(function(value) {
+ldClient.variation("any.feature.flag", user, false).then((value) => {
   // application code
 });
 
@@ -896,9 +891,9 @@ There is also an alternative to the `ready` event:
 
 ```js
 // Using .then() and .catch() to add success and error handlers to a Promise
-ldClient.waitForInitialization().then(function(client) {
-	// initialization complete
-}).catch(function(err) {
+ldClient.waitForInitialization().then((client) => {
+  // initialization complete
+}).catch((err) => {
   // initialization failed
 });
 

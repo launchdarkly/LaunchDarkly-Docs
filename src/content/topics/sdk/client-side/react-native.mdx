@@ -141,10 +141,10 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 let client = new LDClient();
 
 let clientConfig =
-    { "mobileKey": "YOUR_MOBILE_KEY",
-      "stream": true,
-      "offline": false
-    };
+  { "mobileKey": "YOUR_MOBILE_KEY",
+    "stream": true,
+    "offline": false
+  };
 
 let userConfig = { "key": "user_key" };
 
@@ -240,16 +240,16 @@ Here is a complete user configuration object utilizing all available fields:
 
 ```js
 let userConfig =
-    { key: '2fbfa269b78e24c8e967f482b89c939b',
-     	name: 'grace_hopper',
-     	firstName: 'Grace',
-     	lastName: 'Hopper',
-     	email: 'gracehopper@example.net',
-     	anonymous: false,
-     	privateAttributeNames: ['name'],
-      country: 'USA',
-     	custom: {'groups': 'users'}
-    };
+  { key: '2fbfa269b78e24c8e967f482b89c939b',
+    name: 'grace_hopper',
+    firstName: 'Grace',
+    lastName: 'Hopper',
+    email: 'gracehopper@example.net',
+    anonymous: false,
+    privateAttributeNames: ['name'],
+    country: 'USA',
+    custom: {'groups': 'users'}
+  };
 ```
 
 </CodeTabItem>
@@ -460,9 +460,9 @@ To perform real-time updates in your app, your app will need to register listene
 <CodeTabItem value="js">
 
 ```js
-if (this.state.listeners.hasOwnProperty(key)) 
-
+if (this.state.listeners.hasOwnProperty(key)) {
   return;
+}
 let listener = value => Alert.alert('Listener Callback', value);
 client.registerFeatureFlagListener('MY_LISTEN_FLAG_KEY', listener);
 this.setState({listeners: {...this.state.listeners, ...{['MY_LISTEN_FLAG_KEY']: listener}}});

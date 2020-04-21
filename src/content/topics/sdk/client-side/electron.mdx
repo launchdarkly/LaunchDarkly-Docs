@@ -310,9 +310,9 @@ var realClient = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, option
 var wrappedClient = LDElectron.createNodeSdkAdapter(realClient);
 
 wrappedClient.waitForInitialization().then(function() {
-    wrappedClient.variation(flagKey, user, defaultValue, function(err, result) {
-        console.log('flag value is ' + result);
-    });
+  wrappedClient.variation(flagKey, user, defaultValue, function(err, result) {
+    console.log('flag value is ' + result);
+  });
 });
 ```
 

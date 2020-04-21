@@ -45,8 +45,7 @@ An example call in our Go SDK is depicted below:
 <CodeTabItem value="go">
 
 ```go
-value, detail, err := client.BoolVariationDetail("flag-key", myUser, false) 
-
+value, detail, err := client.BoolVariationDetail("flag-key", myUser, false)
 // or StringVariationDetail for a string-valued flag, etc.
 
 index := detail.VariationIndex   // may be nil
@@ -83,9 +82,7 @@ EvaluationReason reason = detail.Reason;  // will always be present
 <CodeTabItem value="ruby">
 
 ```ruby
-detail = client.variation_detail("flag-key", my_user, false) 
-
-
+detail = client.variation_detail("flag-key", my_user, false)
 value = detail.value
 index = detail.variation_index  # may be nil
 reason = detail.reason          # will always be present
@@ -95,9 +92,7 @@ reason = detail.reason          # will always be present
 <CodeTabItem value="py">
 
 ```py
-detail = client.variation_detail("flag-key", my_user, False) 
-
-
+detail = client.variation_detail("flag-key", my_user, False)
 value = detail.value
 index = detail.variation_index  # may be None
 reason = detail.reason          # will always be present
@@ -145,8 +140,7 @@ $reason = $detail->getReason();         // will always be present
 
 ```csharp
 // Note that in order for this to work, your client configuration must
-// include the property WithEvaluationReasons(true) 
-
+// include the property WithEvaluationReasons(true)
 
 EvaluationDetail<bool> detail =
   client.BoolVariationDetail("flag-key", false);
@@ -279,7 +273,7 @@ Here is an example of how you could access the details of a reason object in som
   values={[
     { label: 'Go', value: 'go', },
     { label: 'Java', value: 'java', },
-    { label: 'C# (.NET of Xamarin)', value: 'csharp', },
+    { label: 'C# (.NET or Xamarin)', value: 'csharp', },
     { label: 'Ruby', value: 'ruby', },
     { label: 'Python', value: 'py', },
     { label: 'Node.js or JS', value: 'node', },
@@ -294,27 +288,20 @@ Here is an example of how you could access the details of a reason object in som
 func PrintReason(reason ldclient.EvaluationReason) {
   switch r := reason.(type) {
   case EvaluationReasonOff:
-    fmt.Println("it's off") 
-
+    fmt.Println("it's off")
   case EvaluationReasonFallthrough:
-    fmt.Println("fell through") 
-
+    fmt.Println("fell through")
   case EvaluationReasonTargetMatch:
-    fmt.Println("targeted") 
-
+    fmt.Println("targeted")
   case EvaluationReasonRuleMatch:
-    fmt.Printf("matched rule %d/%s\n", r.RuleIndex, r.RuleID) 
-
+    fmt.Printf("matched rule %d/%s\n", r.RuleIndex, r.RuleID)
   case EvaluationReasonPrerequisiteFailed:
-    fmt.Printf("prereq failed: %s\n", r.PrerequisiteKey) 
-
+    fmt.Printf("prereq failed: %s\n", r.PrerequisiteKey)
   case EvaluationReasonError:
-    fmt.Printf("error: %s\n", r.ErrorKind) 
-
+    fmt.Printf("error: %s\n", r.ErrorKind)
   }
   // or, if all you want is a simple descriptive string:
-  fmt.Println(reason) 
-
+  fmt.Println(reason)
 }
 ```
 
@@ -336,8 +323,7 @@ void printReason(EvaluationReason reason) {
       break;
     case RULE_MATCH:
       EvaluationReason.RuleMatch rm = (EvaluationReason.RuleMatch)reason;
-      System.out.println("matched rule " + rm.getRuleIndex() 
-
+      System.out.println("matched rule " + rm.getRuleIndex()
         + "/" + rm.getRuleId());
       break;
     case PREREQUISITE_FAILED:
@@ -358,11 +344,9 @@ void printReason(EvaluationReason reason) {
 <CodeTabItem value="csharp">
 
 ```csharp
-void PrintReason(EvaluationReason reason) 
-
+void PrintReason(EvaluationReason reason)
 {
-  switch (reason.Kind) 
-
+  switch (reason.Kind)
   {
     case EvaluationReasonKind.OFF:
       Console.WriteLine("it's off");
@@ -378,7 +362,7 @@ void PrintReason(EvaluationReason reason)
       Console.WriteLine("matched rule " + rm.RuleIndex + "/" + rm.RuleID);
       break;
     case EvaluationReasonKind.PREREQUISITE_FAILED:
-			var pf = reason as EvaluationReason.PrerequisiteFailed;
+      var pf = reason as EvaluationReason.PrerequisiteFailed;
       Console.WriteLine("prereq failed: " + pf.PrerequisiteKey);
       break;
     case EvaluationReasonKind.ERROR:
@@ -395,8 +379,7 @@ void PrintReason(EvaluationReason reason)
 <CodeTabItem value="ruby">
 
 ```ruby
-def print_reason(reason) 
-
+def print_reason(reason)
   case reason[:kind]
   when "OFF"
     puts "it's off"
@@ -406,10 +389,10 @@ def print_reason(reason)
     puts "targeted"
   when "RULE_MATCH"
     puts "matched rule #{reason[:ruleIndex]}/#{reason[:ruleId]}"
-	when "PREREQUISITE_FAILED"
-		puts "prereq failed: #{reason[:prerequisiteKey]}"
-	when "ERROR"
-		puts "error: #{reason[:errorKind]}"
+  when "PREREQUISITE_FAILED"
+    puts "prereq failed: #{reason[:prerequisiteKey]}"
+  when "ERROR"
+    puts "error: #{reason[:errorKind]}"
   end
 end
 ```
@@ -427,13 +410,11 @@ def print_reason(reason):
   elif kind == "TARGET_MATCH":
     print "targeted"
   elif kind == "RULE_MATCH":
-    print "matched rule %d/%s" % (reason["ruleIndex"], reason["ruleId"]) 
-
+    print "matched rule %d/%s" % (reason["ruleIndex"], reason["ruleId"])
   elif kind == "PREREQUISITE_FAILED":
     print "prereq failed: %s" % reason["prerequisiteKey"]
   elif kind == "ERROR":
     print "error: %s" % reason["errorKind"]
-
 ```
 
 </CodeTabItem>
@@ -462,7 +443,6 @@ function printReason(reason) {
       break;
   }
 }
-
 ```
 
 </CodeTabItem>
@@ -471,26 +451,26 @@ function printReason(reason) {
 ```php
 function printReason($reason) {
   switch ($reason->getKind()) {
-		case EvaluationReason::OFF:
-			echo("it's off");
-			break;
-		case EvaluationReason::FALLTHROUGH:
-			echo("fell through");
-			break;
-		case EvaluationReason::TARGET_MATCH:
-			echo("targeted");
-			break;
-		case EvaluationReason::RULE_MATCH:
-			echo("matched rule " . $reason->getRuleIndex() .
-				"/" . $reason->getRuleId());
-			break;
-		case EvaluationReason::PREREQUISITE_FAILED:
-			echo("prereq failed: " . $reason->getPrerequisiteKey());
-			break;
-		case EvaluationReason::ERROR:
-			echo("error: " . $reason->getErrorKind());
-			break;
-	}
+    case EvaluationReason::OFF:
+      echo("it's off");
+      break;
+    case EvaluationReason::FALLTHROUGH:
+      echo("fell through");
+      break;
+    case EvaluationReason::TARGET_MATCH:
+      echo("targeted");
+      break;
+    case EvaluationReason::RULE_MATCH:
+      echo("matched rule " . $reason->getRuleIndex() .
+        "/" . $reason->getRuleId());
+      break;
+    case EvaluationReason::PREREQUISITE_FAILED:
+      echo("prereq failed: " . $reason->getPrerequisiteKey());
+      break;
+    case EvaluationReason::ERROR:
+      echo("error: " . $reason->getErrorKind());
+      break;
+  }
   // or, if all you want is a simple descriptive string:
   echo($reason);
 }
@@ -503,29 +483,29 @@ function printReason($reason) {
 void printReason(EvaluationReason reason) {
   switch (reason.getKind()) {
     case OFF:
-    	Timber.d("it's off");
-    	break;
+      Timber.d("it's off");
+      break;
     case FALLTHROUGH:
-    	Timber.d("fell through");
-    	break;
+      Timber.d("fell through");
+      break;
     case TARGET_MATCH:
-    	Timber.d("targeted");
+      Timber.d("targeted");
       break;
     case RULE_MATCH:
-    	EvaluationReason.RuleMatch rm =
+      EvaluationReason.RuleMatch rm =
         (EvaluationReason.RuleMatch)reason;
-    	Timber.d("matched rule %d/%s",
-      	       rm.getRuleIndex(),
-        	     rm.getRuleId());
-    	break;
+      Timber.d("matched rule %d/%s",
+               rm.getRuleIndex(),
+               rm.getRuleId());
+      break;
     case PREREQUISITE_FAILED:
-    	EvaluationReason.PrerequisiteFailed pf =
+      EvaluationReason.PrerequisiteFailed pf =
         (EvaluationReason.PrerequisiteFailed)reason;
-    	Timber.d("prereq failed: %s", pf.getPrerequisiteKey());
-    	break;
+      Timber.d("prereq failed: %s", pf.getPrerequisiteKey());
+      break;
     case ERROR:
-    	EvaluationReason.Error e = (EvaluationReason.Error)reason;
-    	Timber.d("error: %s", e.getErrorKind());
+      EvaluationReason.Error e = (EvaluationReason.Error)reason;
+      Timber.d("error: %s", e.getErrorKind());
   }
   // or, if all you want is a simple descriptive string:
   Timber.d(reason.toString());

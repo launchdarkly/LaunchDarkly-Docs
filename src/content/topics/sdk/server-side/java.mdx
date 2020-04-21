@@ -151,13 +151,10 @@ You can also pass custom parameters to the client by creating a custom configura
 <CodeTabItem value="java">
 
 ```java
-LDConfig config = new LDConfig.Builder() 
-
-      .connectTimeout(3) 
-
-      .socketTimeout(3) 
-
-      .build();
+LDConfig config = new LDConfig.Builder()
+  .connectTimeout(3)
+  .socketTimeout(3)
+  .build();
 LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
 ```
 
@@ -180,19 +177,13 @@ Feature flag targeting and rollouts are all determined by the _user_ you pass to
 <CodeTabItem value="java">
 
 ```java
-LDUser user = new LDUser.Builder("aa0ceb") 
-
-    .firstName("Ernestina") 
-
-    .lastName("Evans") 
-
-    .email("ernestina@example.com") 
-
-    .custom("groups",
-        LDValue.buildArray().add("Google").add("Microsoft").build()) 
-
-    .build() 
-
+LDUser user = new LDUser.Builder("aa0ceb")
+  .firstName("Ernestina")
+  .lastName("Evans")
+  .email("ernestina@example.com")
+  .custom("groups",
+    LDValue.buildArray().add("Google").add("Microsoft").build())
+  .build()
 ```
 
 </CodeTabItem>
@@ -200,12 +191,12 @@ LDUser user = new LDUser.Builder("aa0ceb")
 
 ```java
 LDUser user = new LDUser.Builder("aa0ceb")
-    .firstName("Ernestina")
-    .lastName("Evans")
-    .email("ernestina@example.com")
-    .custom("groups",
-        LDValue.buildArray().add("Google").add("Microsoft").build())
-    .build()
+  .firstName("Ernestina")
+  .lastName("Evans")
+  .email("ernestina@example.com")
+  .custom("groups",
+    LDValue.buildArray().add("Google").add("Microsoft").build())
+  .build()
 ```
 
 </CodeTabItem>
@@ -213,11 +204,11 @@ LDUser user = new LDUser.Builder("aa0ceb")
 
 ```java
 LDUser user = new LDUser.Builder("aa0ceb")
-    .firstName("Ernestina")
-    .lastName("Evans")
-    .email("ernestina@example.com")
-    .customString("groups", Arrays.asList("Google", "Microsoft"))
-    .build()
+  .firstName("Ernestina")
+  .lastName("Evans")
+  .email("ernestina@example.com")
+  .customString("groups", Arrays.asList("Google", "Microsoft"))
+  .build()
 ```
 
 </CodeTabItem>
@@ -262,18 +253,18 @@ You can also mark attributes as private when building the user object itself by 
 
 ```java
 LDConfig configWithAllAttributesPrivate = new LDConfig.Builder()
-    .events(
-        Components.sendEvents()
-            .allAttributesPrivate(true)
-    )
-    .build();
+  .events(
+    Components.sendEvents()
+      .allAttributesPrivate(true)
+  )
+  .build();
 
 LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
-    .events(
-        Components.sendEvents()
-            .privateAttributeNames("name", "email", "someCustomAttribute")
-    )
-    .build();
+  .events(
+    Components.sendEvents()
+      .privateAttributeNames("name", "email", "someCustomAttribute")
+  )
+  .build();
 ```
 
 </CodeTabItem>
@@ -281,12 +272,12 @@ LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
 
 ```java
 LDConfig configWithAllAttributesPrivate = new LDConfig.Builder()
-    .allAttributesPrivate(true)
-    .build();
+  .allAttributesPrivate(true)
+  .build();
 
 LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
-    .privateAttributeNames("name", "email", "someCustomAttribute")
-    .build();
+  .privateAttributeNames("name", "email", "someCustomAttribute")
+  .build();
 ```
 
 </CodeTabItem>
@@ -326,11 +317,9 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 <CodeTabItem value="java">
 
 ```java
- LDUser user = new LDUser.Builder("aa0ceb") 
-
-      .anonymous(true) 
-
-      .build();
+LDUser user = new LDUser.Builder("aa0ceb")
+  .anonymous(true)
+  .build();
 ```
 
 </CodeTabItem>
@@ -535,8 +524,8 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 ```java
 LDConfig config = new LDConfig.Builder()
-      .offline(true)
-      .build();
+  .offline(true)
+  .build();
 LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
 ldClient.boolVariation("any.feature.flag", user, false)
 
@@ -561,8 +550,7 @@ Close safely shuts down the client instance and releases all resources associate
 <CodeTabItem value="java">
 
 ```java
-ldClient.close() 
-
+ldClient.close()
 ```
 
 </CodeTabItem>
