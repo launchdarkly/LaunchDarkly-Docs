@@ -17,11 +17,19 @@ The Relay Proxy is an open-source project supported by LaunchDarkly. The full so
 
 ## Should I use the Relay Proxy?
 
-We recommend that all customers on LaunchDarkly's Enterprise plan use the Relay Proxy. Customers on LaunchDarkly's Starter and Professional plans may optionally choose to use the Relay Proxy, however, the associated operating costs with onboarding the Relay Proxy may be prohibitive; see our [best practices](#best-practices-for-using-the-relay-proxy) for more information on operational concerns.
+We recommend that all customers on LaunchDarkly's Enterprise plan use the Relay Proxy. 
 
-Another deciding factor is based on your usage of LaunchDarkly's [client-side and server-side SDKs](/sdk/concepts/client-side-server-side#understanding-the-different-types-of-sdks). Relay Proxy provides performance and resilience improvements for all server-side SDKs and for SDKs configured to poll. This means that the Relay Proxy works best with the default SDK configurations for all server-side SDKs and for the [client-side JavaScript SDK](/sdk/client-side/javascript). Relay Proxy does not currently scale well when maintaining streaming connections with a large number of client-side SDKs (including mobile SDKs); when utilizing LaunchDarkly's streaming architecture in a heavily-used client-side or mobile application, connecting directly to LaunchDarkly's main service may be most optimal.
+If you're on LaunchDarkly's Starter or Professional plan, you can use the Relay Proxy if you wish, but the associated operating costs with onboarding the Relay Proxy may be prohibitive. 
 
-All in all, the Relay Proxy was developed to address specific scenarios:
+To learn more, read [Best practices for using the Relay Proxy](#best-practices-for-using-the-relay-proxy).
+
+Another deciding factor which of LaunchDarkly's [client-side and server-side SDKs](/sdk/concepts/client-side-server-side#understanding-the-different-types-of-sdks) you use. The Relay Proxy provides performance and resilience improvements for all server-side SDKs and for SDKs configured to poll. 
+
+The Relay Proxy works best with the default SDK configurations for all server-side SDKs and for the [client-side JavaScript SDK](/sdk/client-side/javascript). It does not scale well when it has to maintain streaming connections with a large number of client-side SDKs, including mobile SDKs. If you're utilizing LaunchDarkly's streaming architecture in a heavily-used client-side or mobile application, connecting directly to LaunchDarkly's main service may give you the best performance.
+
+The Relay Proxy was developed to address specific scenarios, and it works best when you use it for those purposes. 
+
+Those scenarios are:
 
 ### You use PHP
 
@@ -41,7 +49,9 @@ On an appropriately configured host, each Relay Proxy can handle tens of thousan
 
 ### You want to reduce redundant database traffic
 
-If you use a [persistent feature store](/sdk/concepts/feature-store) and you have a large number of servers connected to LaunchDarkly, each server attempts to update the data store when a flag update occurs. This behavior is safe, but inefficient.
+If you use a persistent feature store and you have a large number of servers connected to LaunchDarkly, each server attempts to update the data store when a flag update occurs. This behavior is safe, but inefficient.
+
+To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
 
 Deploy the Relay Proxy in **daemon mode** and set your LaunchDarkly SDKs to daemon mode. By doing this, you can delegate flag updates to a small number of Relay Proxy instances and reduce the number of redundant update calls to your data store.
 
@@ -59,7 +69,9 @@ We have tested and developed the Relay Proxy to work with an AWS `m4.xlarge` ins
 
 To learn more about instance sizing, read [Amazon's documentation on EC2 instance types](https://aws.amazon.com/ec2/instance-types/).
 
-Note that the Relay Proxy works best with LaunchDarkly's server-side SDKs and with SDKs configured for polling. Relay Proxy does not efficiently handle streaming connections from client-side SDKs. When utilizing LaunchDarkly's streaming architecture in a heavily-used client-side or mobile application, be sure to [monitor](/home/advanced/relay-proxy/monitoring) and scale the Relay Proxy accordingly.
+The Relay Proxy works best with LaunchDarkly's server-side SDKs and with SDKs configured for polling. It does not handle streaming connections from client-side SDKs efficiently. When you use LaunchDarkly's streaming architecture in a heavily-used client-side or mobile application, be sure to monitor and scale the Relay Proxy accordingly.
+
+To learn more, read [Monitoring the Relay Proxy](/home/advanced/relay-proxy/monitoring).
 
 ### Architectural guidelines
 
@@ -67,7 +79,7 @@ If you choose to use the LaunchDarkly Relay Proxy, position it effectively withi
 
 For example, do not put the Relay Proxy inside a firewall if you intend to connect it to any client-side apps.
 
-If your application is deployed to multiple regions, consider running one or more Relay instances in each of those regions in close proximity to your application. Doing so will limit latency between your application and the Relay Proxy.
+If you have deployed your application to multiple regions, consider running one or more Relay Proxy instances in each of those regions in close proximity to your application. This limits latency between your application and the Relay Proxy.
 
 ### Caching guidelines
 
