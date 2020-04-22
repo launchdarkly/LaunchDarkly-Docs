@@ -805,7 +805,7 @@ ldClient.close();
 
 The Node.js SDK uses [Winston](https://github.com/winstonjs/winston) by default. All loggers are namespaced under `[LaunchDarkly]`.
 
-A custom logger may be passed to the SDK by the configurable `logger` property. Note that Winston's syntax for instantiating and configuring loggers changed between versions 2.x and 3.x. Be sure to declare a dependency on a specific Winston version if you run into errors using the transitive dependency.
+A custom logger may be passed to the SDK by the configurable `logger` property. The logger must suppot `error`, `warn`, `info`, and `debug` levels. Note that Winston's syntax for instantiating and configuring loggers changed between versions 2.x and 3.x. Be sure to declare a dependency on a specific Winston version if you run into errors using the transitive dependency.
 
 <CodeTabs
   defaultValue="js"
