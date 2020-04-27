@@ -59,21 +59,38 @@ For example, if you are a Writer and create a Writer token, but then are downgra
 
 You can create a personal API access token from the **Account settings** page.
 
+<Callout intent="alert">
+  <CalloutTitle>Save new tokens immediately</CalloutTitle>
+  <CalloutDescription>
+    Your API access token is visible one time, immediately after you create it. If you leave or refresh the page where the token is displayed, it will be obscured and no longer visible. You must copy and store new access tokens somewhere secure before you leave the creation page, or you will lost access to the token.
+  </CalloutDescription>
+</Callout> 
+
+![The Access tokens page with an obscured access token called out.](../../images/settings-access-tokens-obscured-callout.png) 
+
 To create a personal access token:
 
 1. Navigate to the **Account settings** page.
 2. Click into the **Access tokens** tab.
-3. Click **New token**. The **Create an access token** screen appears.
+3. Click **+ token**. The **Create an access token** screen appears.
 
 ![The Create an access token screen.](../../images/settings-access-tokens.png) 
 
 4. Give your token a human-readable **Name**.
 5. Assign a **Role** to the token by choosing one from the dropdown.
-6. Click **Save Token**. The new token appears in the **Access tokens** page.
+6. Click **Save Token**. The new token appears in the **Access tokens** page. 
+7. Copy and save the token somewhere secure. After you leave this page, the token will be obscured.
+
+![A new access token with a reminder to copy and store it displayed.](../../images/settings-access-tokens-notification.png)
+
+After you create a token, you can **Clone** or **Delete** it from the "Access tokens" screen.
+
+* **Clone**: Clones the access token. This allows you to create multiple access tokens with the same set of permissions, rather than having to fill out each token's information in the "Create an access token" screen.
+* **Delete**: Deletes the access token. If you delete a token, API calls made with that token return `401 Unauthorized` status codes.
+
+![A new access token with the Clone and Delete buttons called out.](../../images/settings-access-tokens-clone-delete-callout.png)
 
 You can also manage existing tokens from the **Authorizations** tab. From that tab, you can change the scope of your tokens or delete them.
-
-If you delete a token, API calls made with that token will return `401 Unauthorized` status codes.
 
 <Callout intent="alert">
   <CalloutTitle>Rotate your tokens regularly</CalloutTitle>
