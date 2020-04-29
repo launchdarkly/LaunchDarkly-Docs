@@ -9,7 +9,7 @@ published: true
 
 This topic explains what the **Users** dashboard is, how it is populated, and how to use it.
 
-The Users dashboard gives you a summary view of how each user sees all of the features on your site, and lets you customize their experience from one screen.
+The Users dashboard gives you a summary view of how each user sees all of the features on your site, and lets you customize their experience from one screen. You can even set expiration dates for flag targeting, or remove flags targeted to individual users.
 
 ## Understanding the Users dashboard
 
@@ -62,6 +62,25 @@ To modify a feature flag the user sees:
 
 ![The Flag settings screen with different flag variations called out.](../../images/users-details-targeting-callout.png) 
 
+## Scheduling removal dates for user targeting
+
+You can also specify a date and time on which the user should no longer be targeted by this flag. 
+
+To schedule a date for the user to be removed from the flag's targeting settings:
+
+1. Navigate to the **Users** dashboard.
+2. Click the user you wish to modify. Their user page appears, with their unique **Attributes** on the left and their **Flag settings** on the right.
+3. Click the **three-dot** menu. The user editing menu appears.
+
+![A user's entry with the "Remove user on" menu expanded.](../../images/users-flag-expiration-date.png)
+
+4. In the "Remove user on" section, click to expand a calendar view.
+4. Set a date and time for the user to be removed from that flag's targeting settings.
+5. Click **Save with Comment**.
+
+When you schedule a user to be removed from a flag, a **clock icon** appears next to the flag's varation. Hover over it to see when that user will be removed.
+
+To learn more about targeting users for specific dates, read [Scheduling expiration dates for user targeting](/home/managing-flags/targeting-users#scheduling-removal-dates-for-user-targeting).
 
 ## Removing a user 
 

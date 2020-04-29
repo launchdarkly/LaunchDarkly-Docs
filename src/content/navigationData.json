@@ -83,7 +83,7 @@
         "svg": "people",
         "items": [
           {
-            "label": "The users dashboard",
+            "label": "The Users dashboard",
             "path": "/home/managing-users/users-dashboard"
           },
           {

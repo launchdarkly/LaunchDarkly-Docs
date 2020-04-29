@@ -7,9 +7,9 @@ published: true
 
 ## Overview
 
-This topic explains how to use a flag's **Targeting** tab to control which users or targets see a variation of a feature flag.
+This topic explains how to use a flag's **Targeting** tab to control which users see a variation of a feature flag. Configuring which users see which variation of a flag is referred to as a flag's targeting.
 
-You can use the Targeting tab to roll features out for internal testing, private betas, or usability tests before performing a broader rollout.
+You can use the Targeting tab to roll features out for internal testing, private betas, or usability tests before performing a broader rollout. You can even set expiration dates for flag targeting if you know you only want users to see a flag for a specific period of time.
 
 While the Targeting tab uses the language of targeted "users", a user can be any identifier that uniquely corresponds to a target. You can target users of your application, email addresses, systems, services, machines, resources, or anything else that can be uniquely identified.
 
@@ -33,10 +33,41 @@ If your application is already sending data back to LaunchDarkly, you can search
 
 If you need to target a user that LaunchDarkly doesn't know about, you can enter their key manually. These users display in yellow until they encounter a feature flag.
 
-In the screenshot below, seven users are seeing the `true` variation of the "Show new dashboard" flag. That flag is targeted to them. This means that these users will see the new dashboard when they access it.
+In the screenshot below, we see which users are seeing the `true` variation of the "Show new dashboard" flag. That flag is targeted to them. This means that these users will see the new dashboard when they access it.
 
 ![A flag with users targeted.](../../images/flag-targeting-users-seeing-true.png) 
 
+### Removing targeted users
+
+You can remove a user from a flag's targeting list by clicking the user's name. 
+
+1. Naviate to the flag's **Targeting** tab.
+2. In the "Target individual users" section, find the name of the user you wish to remove.
+3. Click the **X** next to their name to remove them.
+
+![A user in the flag's targeting section, with the X to remove called out.](../../images/flag-targeting-remove-user-callout.png)
+
+## Scheduling removal dates for user targeting
+
+You can schedule a removal date and time for each individual user who is targeted by a flag. By doing this, you can specify a future date and time after which the user will no longer be targeted for the specific flag.
+
+This is useful if you want to give users trial access to a feature, run a controlled beta test, or just keep your flags organized by not having too many flags at work at once.
+
+To set an expiration date:
+
+1. Naviate to the flag dashboard and select the flag for which you want to configure an expiration date. The flag's **Targeting** tab appears.
+2. In the "Target individual users" section, click the name of the user for which you wish to set an expiration date.
+
+![The user editing menu.](../../images/flag-targeting-user-dropdown.png)
+
+3. In the "Remove user on" section, click "Select a date" to expand a calendar view.
+
+![The removal scheduling calendar.](../../images/flag-targeting-user-expire-calendar.png)
+
+4. Set a date and time for the targeting to expire.
+5. Click **Apply**.
+
+The user is now scheduled for removal on the date and time you specified.
 
 ## Targeting rules based on user attributes
 
@@ -130,7 +161,7 @@ LaunchDarkly does not have a built in way to schedule a flag for a particular da
 </CalloutDescription>
 </Callout> 
 
-### Date Comparisons
+### Date comparisons
 
 <Callout intent="alert">
   <CalloutTitle>Dates require UNIX formatting</CalloutTitle>
@@ -476,7 +507,7 @@ Here, we have two custom rules. Rules are evaluated top down, so in this example
 
 Rules can be re-ordered by clicking on the left edge of a rule and dragging it up or down.
 
-## User Storage
+## User storage
 
 The LaunchDarkly dashboard user page shows only cached user information. The user data is evicted after 30-days if a user has not been seen by LaunchDarkly for more than 30 days. The rational behind this is that the system should be regularly calling variations on users which would cause them to appear in the dashboard through normal usage.
 
