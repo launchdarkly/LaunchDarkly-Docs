@@ -296,10 +296,6 @@
         "path": "/integrations/elastic-stack"
       },
       {
-        "label": "Gatsby",
-        "path": "/integrations/gatsby"
-      },
-      {
         "label": "Jira",
         "path": "/integrations/jira"
       },
@@ -509,7 +505,13 @@
           },
           {
             "label": "React SDK reference",
-            "path": "/sdk/client-side/react"
+            "path": "/sdk/client-side/react",
+            "items": [
+              {
+                "label": "Gatsby plugin",
+                "path": "/sdk/client-side/react/gatsby"
+              }
+            ]
           },
           {
             "label": "React Native SDK reference",

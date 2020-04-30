@@ -348,6 +348,10 @@ module.exports = [
     toPath: '/integrations/data-export/schema-reference',
   },
   {
+    fromPath: '/integrations/gatsby',
+    toPath: '/sdk/client-side/react/gatsby',
+  },
+  {
     fromPath: '/docs/custom-properties',
     toPath: '/home/advanced/custom-properties',
   },
