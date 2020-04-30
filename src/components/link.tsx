@@ -12,12 +12,13 @@ const Link: FunctionComponent<LinkProps & GatsbyLinkProps<{}>> = ({ to, href, ..
   const isExternal = isExternalLink(url)
   const isMailTo = url.startsWith('mailto:')
   const isSection = url.startsWith('#')
+  const isImage = url.endsWith('.png') || url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.svg')
 
   if (isSection) {
     return <ThemeUILink href={url} {...props} />
   }
 
-  if (isExternal || isMailTo) {
+  if (isExternal || isMailTo || isImage) {
     return <ThemeUILink href={url} {...props} target="_blank" rel="noopener noreferrer" />
   }
 
