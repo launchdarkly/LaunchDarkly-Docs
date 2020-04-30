@@ -550,12 +550,18 @@
             "path": "/sdk/server-side/haskell"
           },
           {
-            "label": "Lua SDK reference",
-            "path": "/sdk/server-side/lua"
+            "label": "Java SDK reference",
+            "path": "/sdk/server-side/java",
+            "items": [
+              {
+                "label": "Java SDK 4.x to 5.0 migration guide",
+                "path": "/sdk/server-side/java/migration-4-to-5"
+              }
+            ]
           },
           {
-            "label": "Java SDK reference",
-            "path": "/sdk/server-side/java"
+            "label": "Lua SDK reference",
+            "path": "/sdk/server-side/lua"
           },
           {
             "label": "Node.js SDK reference",
