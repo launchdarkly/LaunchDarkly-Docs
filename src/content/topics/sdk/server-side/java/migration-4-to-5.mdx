@@ -478,11 +478,13 @@ LDConfig config = new LDConfig.Builder()
 </CodeTabItem>
 </CodeTabs>
 
-## Using Gson or Jackson for JSON conversion
+## Converting objects to or from JSON data
 
-[Gson](https://github.com/google/gson) and [Jackson](https://github.com/FasterXML/jackson) are two commonly used JSON frameworks for Java. If you are not using either of them, you don't need to read this section.
+You might want to convert LaunchDarkly SDK classes such as `LDUser`, `LDValue`, or `FeatureFlagsState` into JSON if you are passing them to front-end JavaScript code. Less commonly, you might want to convert them from JSON. The SDK provides ways to do both.
 
-You might want to convert LaunchDarkly SDK classes such as `LDUser`, `LDValue`, or `FeatureFlagsState` into JSON if you are passing them to front-end JavaScript code. Less commonly, you might want to convert them from JSON. The SDK provides a way to do both.
+First, you can use the serialize and deserialize methods in `com.launchdarkly.sdk.json.JsonSerialization` to quickly convert things to or from JSON strings.
+
+Second, if you prefer to use the popular [Gson](https://github.com/google/gson) or [Jackson](https://github.com/FasterXML/jackson) JSON frameworks for Java, see below.
 
 ### Gson
 
@@ -513,6 +515,8 @@ Gson gson = new GsonBuilder()
 </CodeTabItem>
 </CodeTabs>
 
+As long as you have registered `LDGson.typeAdapters()` in the Gson instance you're using, `toJson()` and `fromJson()` will work as expected with LaunchDarkly types.
+
 ### Jackson
 
 Previously, it was not possible to convert LaunchDarkly SDK classes to or from JSON using Jackson. This is now possible as long as you configure your Jackson `ObjectMapper` as follows:
@@ -535,8 +539,6 @@ mapper.registerModule(LDJackson.module());
 
 </CodeTabItem>
 </CodeTabs>
-
-As long as you have registered `LDGson.typeAdapters()` in the Gson instance you're using, `toJson()` and `fromJson()` will work as expected with LaunchDarkly types. You can also use the serialize and deserialize methods in `com.launchdarkly.sdk.json.JsonSerialization` to quickly convert things to or from JSON strings without needing a Gson instance.
 
 ## Using other third-party dependencies
 
