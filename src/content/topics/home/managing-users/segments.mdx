@@ -89,3 +89,40 @@ To customize a segment:
        change how segment targeting applies based on the order of the rules you create.
      </CalloutDescription>
    </Callout> 
+
+## Scheduling user removal from segments
+
+<Callout intent="info">
+  <CalloutTitle>This feature requires an Enterprise or Pro plan</CalloutTitle>
+  <CalloutDescription>
+
+Scheduling user removal dates are only available to customers on our Enterprise or Pro plans. To learn more about upgrading your plan, [contact Support](https://support.launchdarkly.com) or your LaunchDarkly account representative.
+
+   </CalloutDescription>
+</Callout> 
+
+You can schedule a date and time on which a user is removed from a segment. 
+
+By doing this, you can specify a future date and time after which the user will no longer be a member of that segment. You can do this for existing users, or when you create a new one.
+
+This is useful if you want to give users temporary access to a feature that has their segment targeted. The ability to remove users from segments, instead of flag targeting, allows you to keep your flag's targeting rules permanent and clean.
+
+To set a targeting removal date:
+
+1. Navigate to the Segments dashboard and choose the segment you wish to modify.
+2. In the "Included users" field, click the user you wish to remove from the segment. 
+
+![](../../images/segments-remove-user-on.png)
+
+3. In the "Remove user on" section, click to expand a calendar view.
+
+![The removal scheduling calendar.](../../images/segments-schedule-calendar.png)
+
+4. Set a date and time for the user to be removed from the segment.
+5. Click **Apply**.
+6. The user is now scheduled for removal from the segment on the date and time you specified.
+
+Additionally, when you add a user to a segment, you can schedule them for removal later by clicking **Add + Schedule Removal**.
+
+![The user targeting field with the "Add + Schedule Removal" option called out.](../../images/flag-targeting-user-add-schedule-callout.png)
+
