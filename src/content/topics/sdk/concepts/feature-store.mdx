@@ -47,6 +47,7 @@ An example configuration is below:
     { label: 'Node.js', value: 'node', },
     { label: 'PHP', value: 'php', },
     { label: 'C', value: 'c', },
+    { label: 'Haskell', value: 'haskell', },
   ]
 }>
 
@@ -161,6 +162,20 @@ LDConfigSetFeatureStoreBackend(config, store);
 ```
 
 </CodeTabItem>
+<CodeTabItem value="haskell">
+
+```haskell
+import LaunchDarkly.Server
+
+main = do
+    backend <- makeYourBackendInterface
+
+    let config = configSetStoreBackend backend $ makeConfig "your_sdk_key"
+
+    client <- makeClient config
+```
+
+</CodeTabItem>
 </CodeTabs>
 
 If there are multiple instances of your application configured in this way with the same database, the same data gets written to the database multiple times, because each instance receives feature flags from LaunchDarkly.
@@ -186,6 +201,7 @@ Since the Relay Proxy is also known as the *L*aunch*D*arkly *D*aemon, some versi
     { label: 'Node.js', value: 'node', },
     { label: 'PHP', value: 'php', },
     { label: 'C', value: 'c', },
+    { label: 'Haskell', value: 'haskell', },
   ]
 }>
 
@@ -315,6 +331,20 @@ LDConfigSetUseLDD(config, true);  // <-- the extra option
 ```
 
 </CodeTabItem>
+<CodeTabItem value="haskell">
+
+```haskell
+import LaunchDarkly.Server
+
+main = do
+    backend <- makeYourBackendInterface
+
+    let config = configSetUseLdd True $ configSetStoreBackend backend $ makeConfig "your_sdk_key"
+
+    client <- makeClient config
+```
+
+</CodeTabItem>
 </CodeTabs>
 
 ## Using Redis
@@ -340,6 +370,7 @@ In the following examples, the Redis feature store is set to use a host address 
     { label: 'Node.js', value: 'node', },
     { label: 'PHP', value: 'php', },
     { label: 'C', value: 'c', },
+    { label: 'Haskell', value: 'haskell', },
   ]
 }>
 
@@ -508,11 +539,30 @@ LDConfigSetFeatureStoreBackend(config, store);
 
 </CodeTabItem>
 
+<CodeTabItem value="haskell">
+
+```haskell
+import qualified Database.Redis as               R
+import           LaunchDarkly.Server
+import           LaunchDarkly.Server.Store.Redis
+
+main = do
+    con <- R.checkedConnect R.defaultConnectInfo { R.connectHost = "my-redis:6379" }
+    backend <- makeRedisStore $ redisConfigSetNamespace "my-key-prefix" $ makeRedisStoreConfig con
+
+    let config = configSetStoreBackend backend $ makeConfig "your_sdk_key"
+
+    client <- makeClient config
+```
+
+</CodeTabItem>
+
 </CodeTabs>
 
 ### Platform-specific notes
 
 - **C**: This integration is part of the main SDK distribution.
+- **Haskell** You must install an additional package named `launchdarkly-server-sdk-redis`.
 - **Go**: This integration is part of the main SDK distribution.
 - **Java**: This integration is part of the main SDK distribution.
 - **.NET**: You must install an additional package named [`LaunchDarkly.ServerSdk.Redis`](https://github.com/launchdarkly/dotnet-server-sdk-redis).
@@ -673,6 +723,7 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 ### Platform-specific notes
 
 - **C**: Currently there is no DynamoDB integration for the C server-side SDK.
+- **Haskell**: Currently there is no DynamoDB integration for the Haskell server-side SDK.
 - **Go**: This integration is part of the main SDK distribution as of version 4.5.1.
 - **Java**: You must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-dynamodb-store`](https://github.com/launchdarkly/java-server-sdk-dynamodb). You must also add `software.amazon.awssdk.dynamodb` if your application does not already use the AWS SDK.
 - **.NET**: You must install the additional package [`LaunchDarkly.ServerSdk.DynamoDB`](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb).
@@ -843,6 +894,7 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 ### Platform-specific notes
 
 - **C**: Currently there is no Consul integration for the C server-side SDK.
+- **Haskell**: Currently there is no Consul integration for the Haskell server-side SDK.
 - **Go**: This integration is part of the main SDK distribution as of version 4.5.0.
 - **Java**: You must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-consul-store`](https://github.com/launchdarkly/java-server-sdk-consul).
 - **.NET**: You must install the additional package [`LaunchDarkly.ServerSdk.Consul`](https://github.com/launchdarkly/dotnet-server-sdk-consul).
