@@ -32,6 +32,17 @@ When you view filter results in a channel, you can subscribe to updates from any
 
 For more information about filtering flags, read [Viewing, monitoring, and subscribing to flags](/integrations/slack/managing).
 
+<Callout intent="info">
+  <CalloutTitle>You must invite the LaunchDarkly Slack app to private Slack channels</CalloutTitle>
+  <CalloutDescription>
+
+If you want to subscribe to notifications in private channels, you must invite the LaunchDarkly bot (`@LaunchDarkly`) to the channel. If the LaunchDarkly Slack bot is not in a channel, it cannot send notifications to that channel.
+
+You do not need to manually invite the LaunchDarkly bot user to public channels.
+
+  </CalloutDescription>
+</Callout>
+
 To add a flag to a channel:
 
 1. Open the Slack channel where you wish notifications about a flag to appear.
