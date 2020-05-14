@@ -578,6 +578,9 @@ These include:
 
 * You can tell the SDK to notify you whenever a feature flag's configuration has changed in any way, using `FlagChangeListener` and `LDClientInterface.registerFlagChangeListener()`.
 * Or, you can tell the SDK to notify you only if the value of a flag for some particular User has changed, using `FlagValueChangeListener` and `Components.flagValueMonitoringListener()`.
+* You can monitor the status of the SDK's connection to LaunchDarkly services with `LDClient.getDataSourceStatusProvider()`.
 * You can monitor the status of a persistent data store (for instance, to get caching statistics, or to be notified if the store's availability changes due to a database outage) with `LDClient.getDataStoreStatusProvider()`.
+* You can configure the SDK's use of different logging levels depending on the duration of a service outage with `LDConfig.Builder.logging()` and `LoggingConfigurationBuilder`.
+* The thread priority for SDK background tasks can be configured with `LDConfig.Builder.threadPriority()`.
 
 To learn more, read the API documentation for these classes and methods.

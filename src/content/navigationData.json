@@ -237,14 +237,6 @@
         "svg": "atom",
         "items": [
           {
-            "label": "Custom properties",
-            "path": "/home/advanced/custom-properties"
-          },
-          {
-            "label": "Public IP list",
-            "path": "/home/advanced/public-ip-list"
-          },
-          {
             "label": "The LaunchDarkly Relay Proxy",
             "path": "/home/advanced/relay-proxy",
             "items": [
@@ -257,6 +249,14 @@
                 "path": "/home/advanced/relay-proxy/monitoring"
               }
             ]
+          },
+          {
+            "label": "Custom properties",
+            "path": "/home/advanced/custom-properties"
+          },
+          {
+            "label": "Public IP list",
+            "path": "/home/advanced/public-ip-list"
           },
           {
             "label": "LaunchDarkly in China",
