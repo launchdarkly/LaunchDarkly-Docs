@@ -706,25 +706,55 @@ The map will contain null values for any flags that would return the fallback va
 
 Bootstrapping refers to providing the LaunchDarkly client object with an initial, immediately available set of feature flag values so that on page load `variation` can be called with no delay.
 
-The preferred approach to bootstrapping is to populate the bootstrap values (a map of feature flag keys to flag values) from your backend. LaunchDarkly's server-side SDKs have a function called `all_flags_state`. This function provides the initial set of bootstrap values. (In earlier versions of the SDKs, this function was called `all_flags`).You can then provide these values to your front-end as a template. Depending on your templating language and the language you are using on the back end (this example is for Ruby), this might look something like this:
+The preferred approach to bootstrapping is to populate the bootstrap values (a map of flag keys to flag values) from your back-end using one of LaunchDarkly's server-side SDKs. All of the server-side SDKs have a function to evaluate flags on behalf of a specified user. It is named along the lines of "allFlagsState" -- although, the exact name varies depending on the back-end technology's conventions (for example, camel-case versus snake-case). This function can provide the initial set of bootstrap values to your front-end.
+
+Below are two examples of how to bootstrap flags into the JavaScript client.
 
 <CodeTabs
-  defaultValue="js"
+  defaultValue="param"
   values={[
-    { label: 'JavaScript', value: 'js', },
+    { label: 'Flags passed on pageload', value: 'param', },
+    { label: 'Flags acquired from a Ruby template directive', value: 'ruby', },
   ]
 }>
-<CodeTabItem value="js">
+<CodeTabItem value="param">
 
 ```js
+// If your back-end passes values to your front-end on pageload,
+// you can call your server-side SDK's allFlagsState function 
+// on pageload and pass the results as a parameter to your 
+// front-end initialization code.
+function onPageLoad(flags) {
+  ...
+
+  var ldclient = LDClient.initialize(
+    'YOUR_CLIENT_SIDE_ID',
+    user,
+    options = {
+      bootstrap: flags
+    }
+  );
+
+  ...
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby">
+
+```js
+// If your back-end can be invoked dynamically, such as in Ruby 
+// with a template directory, you can inline the function 
+// invocation. Note that we are requesting only the client-side 
+// flags to be returned.
 var ldclient = LDClient.initialize(
   'YOUR_CLIENT_SIDE_ID',
   user,
   options = {
-    bootstrap: {{ # this is a ruby template directive
+    // Load values from a Ruby template directive
+    bootstrap: {{
       ldclient.all_flags_state(user, {client_side_only: true}) 
-
-    }} // this is a ruby template directive
+    }}
   }
 );
 ```
@@ -732,7 +762,7 @@ var ldclient = LDClient.initialize(
 </CodeTabItem>
 </CodeTabs>
 
-If you bootstrap from the server-side, feature flags will be ready immediately, and clients will always receive the latest feature flag values. An demonstration of server-side bootstrapping can be found in [this github repo](https://github.com/launchdarkly/hello-bootstrap).
+If you bootstrap from the server-side, feature flags will be ready immediately, and clients will always receive the latest feature flag values. A demonstration of server-side bootstrapping can be found in [this GitHub repository](https://github.com/launchdarkly/hello-bootstrap).
 
 Alternatively, you can bootstrap feature flags from local storage:
 

@@ -205,9 +205,9 @@ The [`ProviderConfig`](https://launchdarkly.github.io/react-client-sdk/interface
 
 - `reactOptions`: This property is specific to the React SDK. You can use this option to [disable automatic camel casing](/sdk/client-side/react#flag-keys) of flag keys when using the React SDK. This property is optional.
 
-- `flags`: If specified, the React SDK will only request and subscribe for updates to these flags. The React SDK will request for and subscribe to all flags when this property is unspecified. This property is optional.
+- `flags`: If specified, the React SDK will only subscribe for updates to these flags. The React SDK will subscribe to all flags when this property is unspecified. This property is optional.
 
-  The `flags` property should be specified as a map of flag keys and values. The flag keys must be in their original form (as known to LaunchDarkly) rather than in their camel-cased form. The flag values will be passed along to the resulting JS SDK [`variation`](/sdk/client-side/javascript#variation) invocation and used as the flag's default value in the case of an error.
+  The `flags` property should be specified as a map of flag keys and values. The flag keys must be in their original form (as known to LaunchDarkly) rather than in their camel-cased form. Each flag's value will be passed along to the resulting JS SDK [`variation`](/sdk/client-side/javascript#variation) invocation and used as the flag's default value in the case of an error.
   
 The following is an example `ProviderConfig` object including each of the above properties:
   
