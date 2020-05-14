@@ -22,6 +22,7 @@ The staging url is [docs-stg.launchdarkly.com](https://docs-stg.launchdarkly.com
 Staging is automatically refreshed on push to master. See [Build & Deploy](#-build--deploy).
 
 ## 🚀 Build & Deploy
+
 Github action automatically builds and deploys to staging on push to master.
 
 If you want to manually deploy your own branch to staging, do this:
@@ -32,7 +33,22 @@ yarn deploy
 
 This will build gatsby and upload the artifacts to the staging s3 bucket.
 
+## Running tests
+
+To run our integration tests locally, make sure the dev server is running via `yarn start`, and
+
+```shell
+yarn cypress
+```
+
+To run them in headless mode,
+
+```shell
+yarn cypress:ci
+```
+
 ## 🔨 Navigation data
+
 All navigation data are stored in [src/content/navigationData.json](https://github.com/launchdarkly/git-gatsby/blob/master/src/content/navigationData.json).
 This is flattened at build time to autogenerate two files `rootTopics.json` and `secondLevelTopics.json`. The
 flattened data are queryable via graphql and allows us to render the side nav more efficiently.
@@ -52,6 +68,7 @@ Using the [gatsby-plugin-launchdarkly](https://github.com/launchdarkly-labs/gats
 ```
 
 ## 🔍 Algolia search
+
 Please reach out to @scribblingfox if you need to login to the Algolia dashboard. She will be able to send you an invite.
 
 To index mdx content and send to algolia, create a local `.env.development` file that contains the following:
@@ -81,6 +98,7 @@ The `src/content/topics` folder contains all the docs markdown. If you would lik
 docs, this will be the place to start.
 
 ## 🔥 Issues
+
 If you encounter what looks like a gatsby cache issue, you can clean the gatsby cache first:
 
 ```shell script
