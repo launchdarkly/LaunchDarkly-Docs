@@ -342,6 +342,10 @@
         ]
       },
       {
+        "label": "Sleuth",
+        "path": "/integrations/sleuth"
+      },
+      {
         "label": "Splunk",
         "path": "/integrations/splunk"
       },
