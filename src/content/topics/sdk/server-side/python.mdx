@@ -5,7 +5,7 @@ description: 'This topic explains all of the methods available in the server-sid
 published: true
 ---
 
-This reference guide documents all of the methods available in our Python SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Python SDK GitHub repository](https://github.com/launchdarkly/python-server-sdk). The online [Python API docs](https://launchdarkly-python-sdk.readthedocs.io/) contain the programmatic definitions of every class and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-python) using this SDK.
+This reference guide documents all of the methods available in our Python SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Python SDK GitHub repository](https://github.com/launchdarkly/python-server-sdk). The online [Python API docs](https://launchdarkly-python-sdk.readthedocs.io/) contain the programmatic definitions of every class and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-python) using this SDK. For an example of using the Python SDK inside an R application see [hello-r](https://github.com/launchdarkly/hello-r).
 
 ## Getting started
 
@@ -57,7 +57,7 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 
 ```py
 ldclient.set_sdk_key("YOUR_SDK_KEY")
-ld_client = ldclient.get() 
+ld_client = ldclient.get()
 ```
 
 </CodeTabItem>
@@ -74,7 +74,7 @@ Using `ld_client`, you can check which variation a particular user should receiv
 <CodeTabItem value="py">
 
 ```py
-show_feature = ld_client.variation("your.flag.key", {"key": "user@test.com"}, False) 
+show_feature = ld_client.variation("your.flag.key", {"key": "user@test.com"}, False)
 
 if show_feature:
   # application code to show the feature
@@ -439,7 +439,7 @@ In addition to built-in attributes, you can pass us any of your own user data by
     be strings, booleans (like True or False), numbers, or lists of strings, booleans or numbers. If you enter a custom
     value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available instantly on our dashboard.
 
@@ -651,7 +651,7 @@ In some situations, you might want avoid remote calls to LaunchDarkly and fall b
 # Initialization:
 ldclient.set_config(Config(offline = True))
 ldclient.set_sdk_key("YOUR_SDK_KEY")
-ldclient.get().variation("any.feature.flag", user, False) # will always return the default value (false) 
+ldclient.get().variation("any.feature.flag", user, False) # will always return the default value (false)
 
 ```
 
