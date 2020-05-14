@@ -630,7 +630,22 @@ ldClient.track("your-goal-key", user);
   </CalloutDescription>
 </Callout> 
 
-To subscribe to all feature flag changes, listen for the update event:
+The SDK provides an event-based mechanism to notify you when flag configurations change.
+
+For example, imagine you have a feature flag named `EXAMPLE_FLAG_KEY`. If the SDK detects a change in `EXAMPLE_FLAG_KEY`'s configuration, or in anything else that could indirectly affect the flag value, such as a prerequisite flag or a user segment that `EXAMPLE_FLAG_KEY` uses, it emits two events.
+
+These events are: 
+
+* `"update"` and 
+* `"update:EXAMPLE_FLAG_KEY"`. 
+
+You can listen for `"update:EXAMPLE_FLAG_KEY"` if you only want to know about updates affecting that flag specifically, or `"update"` if you want to know about all updates.
+
+For both of these event types, an extra parameter is sent to event listeners. This object has the single property `key`, with its value set to the flag key. If you listened for the general `"update"` event, this lets you see which flag changed.
+
+The event parameter does not contain the flag value. In server-side SDKs, there is no such thing as a flag value except when it is evaluated for a specific set of user properties.
+
+To find out what the effect, if any, of the configuration change was, call `variation()` after receiving an update event.
 
 <CodeTabs
   defaultValue="js"
@@ -641,27 +656,12 @@ To subscribe to all feature flag changes, listen for the update event:
 <CodeTabItem value="js">
 
 ```js
-ldClient.on('update', (settings) => {
-  console.log('flags changed:', settings);
+ldClient.on('update', (param) => {
+  console.log('a flag was changed: ' + param.key);
 });
-```
 
-</CodeTabItem>
-</CodeTabs>
-
-The `settings` object will contain detailed information for flags that have changed. You can also subscribe to specific flags:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Node.js', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-ldClient.on('update:YOUR_FLAG_KEY', (oldValue, newValue) => {
-  console.log('YOUR_FLAG_KEY changed:', newValue, '(' + oldValue + ')');
+ldClient.on('update:EXAMPLE_FLAG_KEY', () => {
+  console.log('the EXAMPLE_FLAG_KEY flag was changed');
 });
 ```
 
