@@ -9,86 +9,98 @@ published: true
 
 This topic explains how to use the LaunchDarkly Sleuth integration.
 
-Sleuth's native LaunchDarkly integration helps track feature flags as a source of change in your DevOps stack. Sleuth captures the full state of your LaunchDarkly feature flags at deployment time. This helps you keep track of the affected code deploys, what environment the change occurred in, who changed the flag, and flag descriptions and flag value states, both before and after code deploys.
+The LaunchDarkly Sleuth integration tracks feature flags as a source of change in your DevOps tools. Sleuth captures the full state of your LaunchDarkly feature flags at deployment time. This helps you keep track of the affected code deploys, what environment the change occurred in, who changed the flag, and flag descriptions and values before and after code deploys.
 
 ## Prerequisites
 
-To connect Sleuth to LaunchDarkly, you will need your LaunchDarkly credentials and have a LaunchDarkly non-Reader role to grant authorization. The integration is initiated from your Sleuth account; once connected, no further action is necessary. There are no Sleuth settings or preferences that need to be configured in LaunchDarkly.  
+To connect Sleuth to LaunchDarkly, you must meet the following prerequisites:
 
-<Callout intent="warning">
-  <CalloutTitle>LaunchDarkly Team roles</CalloutTitle>
+* You must have access to your LaunchDarkly credentials and
+* A LaunchDarkly account with a `writer`, `owner`, or `admin` role. 
+
+The integration is initiated from your Sleuth account. After you connect it, you do not need to take further action. There are no Sleuth settings or preferences to configure in LaunchDarkly.
+
+<Callout intent="alert">
+  <CalloutTitle>Make sure your role in LaunchDarkly allows you to modify integrations</CalloutTitle>
      <CalloutDescription>   
-       If you are notified that the integration is successful yet experience issues accessing deploy data in Sleuth, check with your LaunchDarkly Admin to ensure your role allows authorization of external apps (e.g., Reader or custom role). 
+       If you get a notification that the integration is connected, but cannot access deploy data in Sleuth, confirm that your LaunchDarkly role allows you to enable external apps. If you are a Reader, or have a custom role that restricts these permissions, the integration may not work.
      </CalloutDescription>
    </Callout>
 
 ## Setting up the Sleuth integration
 
-To make the Sleuth integration with LaunchDarkly:
+To connect the Sleuth integration with LaunchDarkly:
 
-1. Log into your [Sleuth](https://app.sleuth.io/accounts/login/) Dashboard.
-
+1. Log into your [Sleuth Dashboard](https://app.sleuth.io/accounts/login/).
 2. In the left sidebar, click the **Create** dropdown, then click **Add feature flags**.
+3. Click **Enable LaunchDarkly feature flags**. 
+4. Click **Authorize**. This allows Sleuth to read and modify your LaunchDarkly data. 
 
-3. Click on the **Enable LaunchDarkly feature flags**. 
-
-4. Click **Authorize** to allow Sleuth to read and modify your LaunchDarkly data. 
-
-<Callout intent="warning">
-  <CalloutTitle>Authorizing Sleuth to access your data</CalloutTitle>
+<Callout intent="info">
+  <CalloutTitle>You must authorize Sleuth for the integration to work</CalloutTitle>
      <CalloutDescription>
-       Clicking **Deny** prevents the integration from being instantiated. This effectively severs the ability of Sleuth analyzing feature flags as a change source. 
+      If you click <strong>Deny</strong>, the integration cannot access your flag data.
      </CalloutDescription>
    </Callout>
 
-![LaunchDarkly authorization dialog](../images/sleuth-ld-integration-auth-dialog.png)
+![The LaunchDarkly authorization dialog.](../images/sleuth-ld-integration-auth-dialog.png)
 
-5. The integration is successful when the green **LaunchDarkly feature flags enabled** button is displayed in the Sleuth integration card for Feature Flags. 
+5. Confirm that the integration has connected LaunchDarkly and Sleuth by finding the **LaunchDarkly feature flags enabled** button in the Sleuth integration card.
 
-![A successful integration!](../images/sleuth-ld-integration-success-dialog_3.png)
+![A successfully connected integration.](../images/sleuth-ld-integration-success-dialog_3.png)
 
 ## Configuring the Sleuth integration
 
-Now that the Sleuth LaunchDarkly integration has been set up, you must now configure Sleuth to know which feature flags it should track. 
+Now that you've set up the Sleuth LaunchDarkly integration, you must configure Sleuth to know which feature flags it should track. 
 
 To select a LaunchDarkly project and environment to track:  
 
-1. Click the **LaunchDarkly feature flags enabled** button (shown above). 
+1. Navigate to the Integrations page in LaunchDarkly and find the Sleuth integration card.
+2. Click **LaunchDarkly feature flags enabled**. 
 
-2. Select the **Feature Flag Project** and **Environment** you would like to track. The projects and environments shown in the dropdowns are taken from your LaunchDarkly configuration.  
+![The LaunchDarkly feature flags enabled button.](../images/sleuth-ld-integration-success-dialog_3.png)
 
-![Feature flag change source setup in Sleuth](../images/sleuth-ld-integration-config-dialog.png)  
+3. Select the **Feature Flag Project** and **Environment** you want to track.
 
-![Projects and environments in LaunchDarkly](../images/sleuth-ld-integration-projects-dialog.png)
+![The feature flag change source setup in Sleuth.](../images/sleuth-ld-integration-config-dialog.png)  
 
-3. Give the integration a **Name**, then press **Create**. 
+![Projects and environments in LaunchDarkly.](../images/sleuth-ld-integration-projects-dialog.png)
 
-4. Once the connection is established, you will be taken to the Sleuth trend graph, where you will be able to monitor how your feature flags impact your code over time. You're set&mdash;now sit back and let Sleuth track your code over time. 
+4. Give the integration a **Name**. 
+5. Click **Create**. 
 
-![Sleuth trend graph](../images/sleuth-ld-integration-trendgraph.png)
+After the connection is established, the Sleuth trend graph appears. Use this graph to monitor how your feature flags impact your code over time. You're set&mdash;now sit back and let Sleuth track your code over time. 
+
+![The Sleuth trend graph.](../images/sleuth-ld-integration-trendgraph.png)
 
 <Callout intent="info">
-  <CalloutTitle>Tracking multiple projects/environments</CalloutTitle>
+  <CalloutTitle>Tracking multiple projects and environments</CalloutTitle>
     <CalloutDescription>
-       To track multiple LaunchDarkly projects/environments in Sleuth, create a new Sleuth project. You can create as many Sleuth projects as needed to track any number of feature flag project and environment combinations. 
+       To track multiple LaunchDarkly projects and environments in Sleuth, create a new Sleuth project and attach each LaunchDarkly project or environment to Sleuth individually. You can create as many Sleuth projects as you need to track any number of feature flag project and environment combinations. 
        
-       For more information, read <a href="https://help.sleuth.io/projects#creating-a-project">Creating a project</a> in Sleuth Documentation.  
+       To learn more, read <a href="https://help.sleuth.io/projects#creating-a-project">Sleuth's documentation</a>.  
   </CalloutDescription>
 </Callout>
 
-## Disabling the Sleuth integration
+## Removing the Sleuth integration
 
-To disable the Sleuth integration:
+To remove the Sleuth integration:
 
-1. Click the gear icon in the upper-right corner of the dashboard. 
-2. Click **Delete**. Click **Delete** again if you're sure. 
+1. Log in to your Sleuth account.
+2. Click the gear icon in the upper-right corner of the dashboard. 
+3. Click **Delete**. A confirmation screen appears.
+4. Click **Delete** again to confirm. 
 
 ![Deleting the LaunchDarkly integration in Sleuth](../images/sleuth-ld-integration-delete_2.png)
 
-3. The integration is removed.
+This removes the LaunchDarkly integation.
 
-## LaunchDarkly Slack notifications from Sleuth
+## Getting Slack notifications from Sleuth
 
-With Slack integration in Sleuth, notify your entire team or just the commit author/PR initiator of a code change, including feature flag changes. 
+With the Slack integration in Sleuth, you can notify your entire team, or just the commit author or PR initiator, of a code change. This includes feature flag changes. 
 
-For more information, read about the <a href="https://help.sleuth.io/integrations/slack">Slack integration</a> in Sleuth Documentation. The Sleuth Slack integration works independently&mdash;yet alongside&mdash;the [LaunchDarkly Slack integration](/integrations/slack/). 
+To learn more, read <a href="https://help.sleuth.io/integrations/slack">Sleuth's documentation</a>. 
+
+The Sleuth Slack integration works independently from the LaunchDarkly Slack integration. If you use both, you may see notifications from both Sleuth and LaunchDarkly about flag activity. 
+
+To learn more about the LaunchDarkly Slack integation, read [Slack](/integrations/slack/).
