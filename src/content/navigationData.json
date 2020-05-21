@@ -594,7 +594,7 @@
     "path": "/guides",
     "items": [
       {
-        "label": "Hands-on tutorials",
+        "label": "Tutorials",
         "path": "/guides/tutorials",
         "svg": "atom",
         "items": [
