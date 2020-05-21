@@ -590,6 +590,46 @@
     ]
   },
   {
+    "label": "Guides",
+    "path": "/guides",
+    "items": [
+      {
+        "label": "Hands-on tutorials",
+        "path": "/guides/tutorials",
+        "svg": "atom",
+        "items": [
+          {
+            "label": "Your first flag",
+            "path": "/guides/tutorials/first-flag"
+          },
+          {
+            "label": "Flag rules and targeting",
+            "path": "/guides/tutorials/rules-and-targeting"
+          }
+        ]
+      },
+      {
+        "label": "Best practices",
+        "path": "/guides/best-practices",
+        "svg": "compass",
+        "items": [
+          {
+            "label": "Creating flags",
+            "path": "/guides/best-practices/creating-flags"
+          },
+          {
+            "label": "Deployment and release strategies",
+            "path": "/guides/best-practices/deployment-strategies"
+          },
+          {
+            "label": "LaunchDarkly integrations",
+            "path": "/guides/best-practices/integrations"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "label": "API docs",
     "path": "https://apidocs.launchdarkly.com/",
     "svg": "open-in-new"
