@@ -71,7 +71,7 @@ The time between batch calls to the event API should be configurable. The SDK sh
 </CodeTabItem>
 </CodeTabs>
 
-The `kind` should always be `feature`. A "feature" event should only by generated it the "trackEvents" attribute of the flag is sent. The "prereqOf" attribute should be set to a flag key if this flag evaluation was only performed in order to determine whether the prerequisite values were met for the indicated flag.
+The `kind` should always be `feature`. A "feature" event should only by generated if the "trackEvents" attribute of the flag is sent. The "prereqOf" attribute should be set to a flag key if this flag evaluation was only performed in order to determine whether the prerequisite values were met for the indicated flag.
 
 The "debug" event is a variant on the "feature" event, with two differences. It has has "kind" set to "debug" and it inlines the "user" value. It is only sent if the "debugEventsUntilDate" attribute is set for a feature flag and indicates a unix timestamp (in milliseconds) that has not yet elapsed. "debug" events are not controlled by the "trackEvents" field.
 
