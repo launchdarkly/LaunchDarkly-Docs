@@ -474,7 +474,7 @@
         ]
       },
       {
-        "label": "Client-side SDK guides",
+        "label": "Client-side SDKs",
         "path": "/sdk/client-side",
         "items": [
           {
@@ -540,7 +540,7 @@
         ]
       },
       {
-        "label": "Server-side SDK guides",
+        "label": "Server-side SDKs",
         "path": "/sdk/server-side",
         "items": [
           {
