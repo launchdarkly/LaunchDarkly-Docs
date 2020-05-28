@@ -117,12 +117,28 @@ LaunchDarkly sends events in the following formats:
 ```json
 {
   "user_identities": {
-    "customer_id": "example_user"
+    "customer_id": "example_customer"
   },
   "environment": "production",
   "events": [
     {
-      "event_type": "custom_event"
+      "event_type": "custom_event",
+      "data": {
+        "source_message_id": "###-##",
+        "event_name": "feature",
+        "timestamp_unixtime_ms": 1590697814783,
+        "custom_event_type": "other",
+        "custom_attributes": {
+          "project": "project",
+          "environment": "environmentId",
+          "version": "1",
+          "key": "flag",
+          "value": "true",
+          "flag_version": "42",
+          "default": "false",
+          "reason_kind": "FALLTHROUGH",
+          "prerequisite_of": "parent flag"
+        }
       }
     }
   ]
@@ -171,7 +187,18 @@ LaunchDarkly sends events in the following formats:
   "environment": "production",
   "events": [
     {
-      "event_type": "custom_event"
+      "event_type": "custom_event",
+      "data": {
+        "source_message_id": "###-##",
+        "event_name": "custom",
+        "timestamp_unixtime_ms": 1590698576956,
+        "custom_event_type": "other",
+        "custom_attributes": {
+          "project": "project",
+          "environment": "environmentId",
+          "version": "1",
+          "key": "custom-event-key"
+        }
       }
     }
   ]
@@ -189,7 +216,18 @@ LaunchDarkly sends events in the following formats:
   "environment": "production",
   "events": [
     {
-      "event_type": "screen_view"
+      "event_type": "screen_view",
+      "data": {
+        "source_message_id": "###-##",
+        "screen_name": "http://example.com",
+        "timestamp_unixtime_ms": 1590698654895,
+        "custom_attributes": {
+          "project": "project",
+          "environment": "environmentId",
+          "version": "1",
+          "key": "pageview-event-key",
+          "url": "http://example.com?queryParam=this"
+        }
       }
     }
   ]
