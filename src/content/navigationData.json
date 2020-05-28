@@ -296,6 +296,10 @@
         "path": "/integrations/elastic-stack"
       },
       {
+        "label": "Honeycomb",
+        "path": "/integrations/honeycomb"
+      },
+      {
         "label": "Jira",
         "path": "/integrations/jira"
       },

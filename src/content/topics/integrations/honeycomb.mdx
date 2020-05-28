@@ -1,0 +1,131 @@
+---
+path: '/integrations/honeycomb'
+title: 'Honeycomb'
+description: 'This topic explains how to use the LaunchDarkly Honeycomb integration. Honeycomb is a tool for viewing and interrogating your production systems.'
+published: true
+---
+
+## Overview
+
+This topic explains how to use the LaunchDarkly Honeycomb integration. [Honeycomb](https://honeycomb.io/) is an infrastructure monitoring platform that
+offers [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) and
+automated problem remediation.
+
+The LaunchDarkly Honeycomb integration helps you diagnose problems by sending flag events to Honeycomb. Honeycomb displays those events alongside performance graphs so you can correlate feature rollouts with changes in operational health.
+
+![A Honeycomb events graph showing LaunchDarkly flag change
+events, with a flag event called out.](../images/honeycomb-query.png)
+
+<Callout intent="info">
+ <CalloutTitle>The integration only sends flag actions to Honeycomb</CalloutTitle>
+ <CalloutDescription>
+
+ Only flag action events appear in Honeycomb after you configure the integration. Other event types do not appear.<br/><br/>
+
+To learn more, read
+[Feature flag actions](/home/account-security/custom-roles/actions#feature-flags-actions).
+
+ </CalloutDescription>
+</Callout>
+
+To send flag change events to Honeycomb:
+
+1. [Create a Honeycomb API key](#creating-a-honeycomb-api-key).
+2. [Add the Honeycomb integration in LaunchDarkly](#adding-and-configuring-the-honeycomb-integration).
+3. (Optional) [Configure the integration's policy](#configuring-integration-policies) to allow or restrict specific projects and environments.
+
+## Prerequisites
+
+To use the LaunchDarkly Honeycomb integration successfully, you must meet the
+following prerequisites:
+
+* You must have an API key from your Honeycomb account. To learn more,
+  read [Creating a Honeycomb API key](#creating-a-honeycomb-api-key).
+
+## Creating a Honeycomb API key
+
+The Honeycomb API key authenticates the LaunchDarkly integration so it can
+submit events to your Honeycomb account. The LaunchDarkly integration uses
+Honeycomb's Marker API.
+
+To learn more about Honeycomb's  Marker API, read
+[Honeycomb's documentation](https://docs.honeycomb.io/api/markers/).
+
+When you create the API key, confirm that the key has access to create
+"markers". This is the only access scope the LaunchDarkly integration needs.
+
+## Add the Honeycomb integration
+
+Here's how to add the Honeycomb integration:
+
+1. Navigate to the [Integrations
+   page](https://app.launchdarkly.com/default/integrations) and find the
+   Honeycomb card.
+2. Click to expand the card, then click **+ Integration**. The integration
+   configuration screen appears.
+
+![The Honeycomb card, showing the "+ Integration"
+button.](../images/honeycomb-card.png)
+
+3. (Optional) Type a human-readable **Name**.
+4. Enter the **Honeycomb dataset name** you would like flag markers to be
+   associated with.
+5. Paste in your **Honeycomb API key**.
+6. Click **Save Honeycomb Configuration**.
+
+This is all you need to do to add the Honeycomb integration, but you can further configure the integration to alter which events LaunchDarkly sends to Honeycomb.
+
+### Configuring integration policies
+
+The "Policy" field in the integration configuration screen lets you control which LaunchDarkly events LaunchDarkly sends to Honeycomb.
+
+The Resource specifier in the default policy value allows Production environments across all projects to send events:
+
+<CodeTabs
+  defaultValue="json" values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+<CodeTabItem value="json">
+
+```text
+proj/*:env/production:flag/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [Resources in custom
+roles](/home/account-security/custom-roles/resources).
+
+You can use the policy editor to restrict the integration to:
+
+* a specific set of LaunchDarkly projects/environments * a specific set of flags
+* a specific set of actions
+
+For example, to restrict the policy to a single project called `cool-app`, set
+the policy configuration's `resource` field to the following resource specifier:
+
+<CodeTabs
+  defaultValue="json" values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+<CodeTabItem value="json">
+
+```text
+proj/cool-app:env/production:flag/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The policy above makes the integration only send flag events from the `cool-app` project's Production environment to Honeycomb.
+
+If you need to restrict or allow a more complex set of resources than you can
+specify in a single policy, you can add multiple Honeycomb
+integrations and configure each one to a specific task. Each integration can
+have its own separate policy configuration.
+
+To learn more about using the policy editor, read [Policies in custom
+roles](/home/account-security/custom-roles/policies).
