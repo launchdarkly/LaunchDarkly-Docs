@@ -304,6 +304,10 @@
         "path": "/integrations/jira"
       },
       {
+        "label": "LogDNA",
+        "path": "/integrations/logdna"
+      },
+      {
         "label": "Microsoft Teams",
         "path": "/integrations/microsoft-teams"
       },
