@@ -117,12 +117,28 @@ LaunchDarkly sends events in the following formats:
 ```json
 {
   "user_identities": {
-    "customer_id": "example_user"
+    "customer_id": "EXAMPLE-CUSTOMER"
   },
-  "environment": "production",
+  "environment": "EXAMPLE-ENVIRONMENT-NAME",
   "events": [
     {
-      "event_type": "custom_event"
+      "event_type": "CUSTOM-EVENT",
+      "data": {
+        "source_message_id": "###-##",
+        "event_name": "EXAMPLE-FEATURE-NAME",
+        "timestamp_unixtime_ms": 1590697814783,
+        "custom_event_type": "other",
+        "custom_attributes": {
+          "project": "EXAMPLE-PROJECT-NAME",
+          "environment": "5d4b12345d2a2806bd2cc6eb",
+          "version": "1",
+          "key": "flag",
+          "value": "true",
+          "flag_version": "42",
+          "default": "false",
+          "reason_kind": "FALLTHROUGH",
+          "prerequisite_of": "PARENT-FLAG"
+        }
       }
     }
   ]
@@ -135,12 +151,12 @@ LaunchDarkly sends events in the following formats:
 ```json
 {
   "user_identities": {
-    "customer_id": "example_customer"
+    "customer_id": "EXAMPLE-CUSTOMER"
   },
-  "environment": "production",
+  "environment": "EXAMPLE-ENVIRONMENT-NAME",
   "events": [
     {
-      "event_type": "custom_event",
+      "event_type": "CUSTOM-EVENT",
       "data": {
         "source_message_id": "###-##",
         "event_name": "click",
@@ -148,9 +164,9 @@ LaunchDarkly sends events in the following formats:
         "custom_event_type": "navigation",
         "custom_attributes": {
           "project": "project",
-          "environment": "environmentID",
+          "environment": "5d4b12345d2a2806bd2cc6eb",
           "version": "1",
-          "key": "click-event-key",
+          "key": "EXAMPLE-CLICK-EVENT-KEY",
           "selector": "btn",
           "url": "http://example.com?queryParam=this"
         }
@@ -166,12 +182,23 @@ LaunchDarkly sends events in the following formats:
 ```json
 {
   "user_identities": {
-    "customer_id": "example_customer"
+    "customer_id": "EXAMPLE-CUSTOMER"
   },
-  "environment": "production",
+  "environment": "EXAMPLE-ENVIRONMENT-NAME",
   "events": [
     {
-      "event_type": "custom_event"
+      "event_type": "custom_event",
+      "data": {
+        "source_message_id": "###-##",
+        "event_name": "custom",
+        "timestamp_unixtime_ms": 1590698576956,
+        "custom_event_type": "other",
+        "custom_attributes": {
+          "project": "project",
+          "environment": "5d4b12345d2a2806bd2cc6eb",
+          "version": "1",
+          "key": "EXAMPLE-CUSTOM-EVENT-KEY",
+        }
       }
     }
   ]
@@ -184,12 +211,23 @@ LaunchDarkly sends events in the following formats:
 ```json
 {
   "user_identities": {
-    "customer_id": "example_customer"
+    "customer_id": "EXAMPLE-CUSTOMER"
   },
-  "environment": "production",
+  "environment": "EXAMPLE-ENVIRONMENT-NAME",
   "events": [
     {
-      "event_type": "screen_view"
+      "event_type": "screen_view",
+      "data": {
+        "source_message_id": "###-##",
+        "screen_name": "http://example.com",
+        "timestamp_unixtime_ms": 1590698654895,
+        "custom_attributes": {
+          "project": "project",
+          "environment": "5d4b12345d2a2806bd2cc6eb",
+          "version": "1",
+          "key": "EXAMPLE-PAGEVIEW-EVENT-KEY",
+          "url": "http://example.com?queryParam=this"
+        }
       }
     }
   ]
