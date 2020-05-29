@@ -27,7 +27,7 @@ To find the write key:
 3. Select **API Keys** on the Source integration's menu bar
 4. Copy the **Write Key** as shown in the text box
 
-![The API Keys section of Segment's UI.](../../images/integrations-segment-write-key.png) 
+![The API Keys section of Segment's UI.](../../images/integrations-segment-write-key.png)
 
 
 ## Creating a Segment destination in LaunchDarkly
@@ -42,7 +42,7 @@ To create the Segment destination:
 6. Enter the Segment **Write key**.
 7. Click **Save Destination**. The new integration appears in the list of integrations.
 
-![The "Create a Destination" screen.](../../images/integrations-segment-create.png) 
+![The "Create a Destination" screen.](../../images/integrations-segment-create.png)
 
 
 ## Testing a Segment destination
@@ -55,7 +55,7 @@ To test the Segment destination:
 2. Find the Segment destination and click **Edit**. The "Edit destination" screen opens.
 3. Click **Send Event** in the "Send a test event" section.
 
-![The Send a test event section of the Edit destination screen.](../../images/integrations-segment-test-event.png) 
+![The Send a test event section of the Edit destination screen.](../../images/integrations-segment-test-event.png)
 
 
 4. Verify the event appears in the Segment **Debugger**.
@@ -87,18 +87,18 @@ LaunchDarkly sends events in the following formats:
     "environment": "5d4b12345d2a2806bd2cc6eb",
     "eventId": "5d7c12345a51a0006e16ae5",
     "flagVersion": 42,
-    "key": "b2dee41d-a10b-4f57-855b-10239fb28bec",
-    "prereqOf": "example parent flag",
+    "key": "EXAMPLE-FLAG-KEY",
+    "prereqOf": "EXAMPLE-PARENT-FLAG",
     "project": "5744c12345c9900708000001",
     "reasonKind": "FALLTHROUGH",
-    "value": "example-flag-value",
+    "value": "EXAMPLE-FLAG-VALUE",
     "version": 1
   },
   "receivedAt": "2019-09-13T21:20:19.406Z",
   "sentAt": "2019-09-13T21:20:19.366Z",
   "timestamp": "2019-09-13T21:20:18.153Z",
   "type": "track",
-  "userId": "example-user-id",
+  "userId": "EXAMPLE-USER-ID",
 }
 ```
 
@@ -124,7 +124,7 @@ LaunchDarkly sends events in the following formats:
   "properties": {
     "environment": "5d4b12345d2a2806bd2cc6eb",
     "eventId": "5d7c123a86f26000065862da",
-    "key": "5d7c12345a0c92071ec8963d",
+    "key": "EXAMPLE-FLAG-KEY",
     "project": "5744c98765c9900708000001",
     "selector": "btn",
     "url": "http://example.com",
@@ -134,7 +134,7 @@ LaunchDarkly sends events in the following formats:
   "sentAt": "2019-09-13T21:21:46.375Z",
   "timestamp": "2019-09-13T21:21:43.154Z",
   "type": "track",
-  "userId": "example-user-id",
+  "userId": "EXAMPLE-USER-ID",
 }
 ```
 
@@ -159,7 +159,7 @@ LaunchDarkly sends events in the following formats:
   "properties": {
     "environment": "5d4b12345d2a2806bd2cc6eb",
     "eventId": "5d7c123452db400061b14dd",
-    "key": "90f49c28-0a1b-4187-b196-de0e8f57a5a7",
+    "key": "EXAMPLE-EVENT-KEY",
     "project": "5744c12345c9900708000001",
     "version": 1
   },
@@ -167,7 +167,7 @@ LaunchDarkly sends events in the following formats:
   "sentAt": "2019-09-13T21:22:00.393Z",
   "timestamp": "2019-09-13T21:21:58.393Z",
   "type": "track",
-  "userId": "example-user-id",
+  "userId": "EXAMPLE-USER-ID",
 }
 
 ```
@@ -191,7 +191,7 @@ LaunchDarkly sends events in the following formats:
   "properties": {
     "environment": "5d123454d2a2806bd2cc6eb",
     "eventId": "5d7c12345db400061b14c1",
-    "key": "5d7c071234592071ec8954d",
+    "key": "EXAMPLE-FLAG-KEY",
     "project": "5744c123459900708000001",
     "url": "http://example.com",
     "version": 1
@@ -200,7 +200,7 @@ LaunchDarkly sends events in the following formats:
   "sentAt": "2019-09-13T21:19:45.331Z",
   "timestamp": "2019-09-13T21:19:43.154Z",
   "type": "page",
-  "userId": "example-user-id",
+  "userId": "EXAMPLE-USER-ID",
 }
 ```
 
@@ -223,5 +223,5 @@ To delete a destination:
 2. Find the destination you wish to delete and click **Edit**. The "Create a destination" screen opens.
 3. Click **Delete Destination**.
 
-![The Delete destination section.](../../images/integrations-segment-delete.png) 
+![The Delete destination section.](../../images/integrations-segment-delete.png)
 
