@@ -11,6 +11,8 @@ const ignore = [
   'https://stream.launchdarkly.',
   'https://events.launchdarkly.',
   'https://console.aws.',
+  'https://mockbin.org',
+  'https://glitch.com',
 ]
 
 describe('Verify links', () => {
