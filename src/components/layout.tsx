@@ -20,6 +20,7 @@ import Table, { TableHeader, TableHeadCell, TableBody, TableRow, TableCell } fro
 import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
 import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
 import Link from './link'
+import Icon from './icon'
 
 const components = {
   h1: H1,
@@ -47,6 +48,7 @@ const components = {
   Link,
   CodeTabs,
   CodeTabItem,
+  Icon,
   code: Code,
   pre: Pre,
 }
