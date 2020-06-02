@@ -56,9 +56,22 @@ reason := detail.Reason          // will always be present
 <CodeTabItem value="java">
 
 ```java
+import com.launchdarkly.sdk.*;
+
 EvaluationDetail<Boolean> detail =
   client.boolVariationDetail("flag-key", myUser, false);
   // or stringVariationDetail for a string-valued flag, etc.
+
+boolean value = detail.getValue();
+int index = detail.getVariationIndex();       // will be < 0 if evaluation failed
+EvaluationReason reason = detail.getReason(); // will always be present
+
+
+// Before version 5.0, this was slightly different:
+import com.launchdarkly.client.*;
+
+EvaluationDetail<Boolean> detail =
+  client.boolVariationDetail("flag-key", myUser, false);
 
 boolean value = detail.getValue();
 Integer index = detail.getVariationIndex();   // may be null

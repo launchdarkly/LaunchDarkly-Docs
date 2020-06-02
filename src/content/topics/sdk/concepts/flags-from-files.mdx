@@ -194,6 +194,21 @@ client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
 <CodeTabItem value="java">
 
 ```java
+import com.launchdarkly.sdk.server.*;
+import com.launchdarkly.sdk.server.integrations.*;
+
+LDConfig config = new LDConfig.Builder()
+  .dataSource(
+    FileData.dataSource().filePaths("file1.json", "file2.json").autoUpdate(true)
+  )
+  .sendEvents(false)
+  .build();
+
+LDClient client = new LDClient("sdk key", config);
+
+
+// Prior to version 5.0, use this syntax:
+
 import com.launchdarkly.client.*;
 import com.launchdarkly.client.files.*;
 

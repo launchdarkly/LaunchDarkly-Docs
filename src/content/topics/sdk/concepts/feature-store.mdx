@@ -66,8 +66,8 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 <CodeTabItem value="java">
 
 ```java
-import com.launchdarkly.client.*;
-import com.launchdarkly.client.integrations.*;
+import com.launchdarkly.sdk.server.*;
+import com.launchdarkly.sdk.server.integrations.*;
 
 LDConfig config = new LDConfig.Builder()
   .dataStore(
@@ -79,8 +79,12 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = new LDClient(sdkKey, config);
 
 
-// Before version 4.12.0, the preferred syntax was different:
-LDConfig deprecatedConfig = new LDConfig.Builder()
+// Before version 5.0, the syntax was different:
+
+import com.launchdarkly.client.*;
+import com.launchdarkly.client.integrations.*;
+
+LDConfig config = new LDConfig.Builder()
   .featureStoreFactory(new SomeFeatureStoreBuilder(storeOptions))
   .build();
 ```
@@ -221,7 +225,8 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 <CodeTabItem value="java">
 
 ```java
-import com.launchdarkly.client.*;
+import com.launchdarkly.sdk.server.*;
+import com.launchdarkly.sdk.server.integrations.*;
 
 LDConfig config = new LDConfig.Builder()
   .dataStore(
@@ -234,8 +239,10 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = new LDClient(sdkKey, config);
 
 
-// Before version 4.12.0, the preferred syntax was different:
-LDConfig deprecatedConfig = new LDConfig.Builder()
+// Before version 5.0, the syntax was different:
+import com.launchdarkly.client.*;
+
+LDConfig config = new LDConfig.Builder()
   .featureStoreFactory(new SomeFeatureStoreBuilder(storeOptions))
   .useLdd(true)
   .build();
@@ -396,8 +403,8 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 <CodeTabItem value="java">
 
 ```java
-import com.launchdarkly.client.*;
-import com.launchdarkly.client.integrations.*;
+import com.launchdarkly.sdk.server.*;
+import com.launchdarkly.sdk.server.integrations.*;
 
 LDConfig config = new LDConfig.Builder()
   .dataStore(
@@ -410,8 +417,10 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = new LDClient(sdkKey, config);
 
 
-// Before version 4.12.0, the preferred syntax was different:
-LDConfig deprecatedConfig = new LDConfig.Builder()
+// Before version 5.0, the syntax was different:
+import com.launchdarkly.client.*;
+
+LDConfig config = new LDConfig.Builder()
   .featureStoreFactory(
     Components.redisFeatureStore(URI.create("redis://my-redis:6379"))
       .prefix("my-key-prefix")
@@ -564,7 +573,7 @@ main = do
 - **C**: This integration is part of the main SDK distribution.
 - **Haskell** You must install an additional package named `launchdarkly-server-sdk-redis`.
 - **Go**: This integration is part of the main SDK distribution.
-- **Java**: This integration is part of the main SDK distribution.
+- **Java**: In Java SDK 5.0 and later, you must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-redis-store`](https://github.com/launchdarkly/java-server-sdk-redis). In Java SDK 4.x and earlier, this integration is part of the main SDK distribution.
 - **.NET**: You must install an additional package named [`LaunchDarkly.ServerSdk.Redis`](https://github.com/launchdarkly/dotnet-server-sdk-redis).
 - **Node.js**: This integration is part of the main SDK distribution.
 - **PHP**: This integration is part of the main SDK distribution, but you must also must install the package `predis/predis`.
@@ -615,8 +624,8 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 <CodeTabItem value="java">
 
 ```java
-import com.launchdarkly.client.*;
-import com.launchdarkly.client.integrations.*;
+import com.launchdarkly.sdk.server.*;
+import com.launchdarkly.sdk.server.integrations.*;
 
 LDConfig config = new LDConfig.Builder()
   .dataStore(
@@ -628,10 +637,11 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = new LDClient(sdkKey, config);
 
 
-// Before version 4.12.0, the preferred syntax was different:
+// Before version 5.0, the syntax was different:
+import com.launchdarkly.client.*;
 import com.launchdarkly.client.dynamodb.*;
 
-LDConfig deprecatedConfig = new LDConfig.Builder()
+LDConfig config = new LDConfig.Builder()
   .featureStoreFactory(
     DynamoDbComponents.dynamoDbFeatureStore("my-table")
       .caching(FeatureStoreCacheConfig.enabled().withTtlSeconds(30));
@@ -774,8 +784,8 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 <CodeTabItem value="java">
 
 ```java
-import com.launchdarkly.client.*;
-import com.launchdarkly.client.integrations.*;
+import com.launchdarkly.sdk.server.*;
+import com.launchdarkly.sdk.server.integrations.*;
 
 LDConfig config = new LDConfig.Builder()
   .dataStore(
@@ -788,7 +798,8 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = new LDClient(sdkKey, config);
 
 
-// Before version 4.12.0, the preferred syntax was different:
+// Before version 5.0, the syntax was different:
+import com.launchdarkly.client.*;
 import com.launchdarkly.client.consul.*;
 
 LDConfig deprecatedConfig = new Config.Builder()

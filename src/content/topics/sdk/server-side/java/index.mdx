@@ -20,14 +20,14 @@ Android application, read the [Android SDK reference](/sdk/client-side/android).
 
 <Callout intent="info">
   <CalloutTitle>Java compatibility</CalloutTitle>
-  <CalloutDescription>The LaunchDarkly Java SDK is compatible with Java 7 and higher.</CalloutDescription>
+  <CalloutDescription>Version 5.0 and higher of the LaunchDarkly Java SDK is compatible with Java 8 and higher. Prior to version 5.0, the LaunchDarkly Java SDK also supported Java 7.</CalloutDescription>
 </Callout> 
 
 ## Getting started
 
 Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Java application.
 
-The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/java-server-sdk/releases) to identify the latest version. In this example, it will use the latest published release of major version 4.x.
+The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/java-server-sdk/releases) to identify the latest version. In this example, it will use version 5.0.
 
 <CodeTabs
   defaultValue="java"
@@ -41,7 +41,7 @@ The first step is to install the LaunchDarkly SDK as a dependency in your applic
 <dependency>
   <groupId>com.launchdarkly</groupId>
   <artifactId>launchdarkly-java-server-sdk</artifactId>
-  <version>[4.0,5.0)</version>
+  <version>5.0</version>
 </dependency>
 ```
 
@@ -54,17 +54,21 @@ Next you should import the LaunchDarkly client in your application code.
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Java SDK versions 4.12.x and earlier', value: 'java-pre-5.0', },
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
-import com.launchdarkly.client.*;
+import com.launchdarkly.sdk.*;
+import com.launchdarkly.sdk.server.*;
+```
 
-// If you will be using JSON arrays or objects in feature flag values
-// or in custom user attributes, and you are using version 4.9.0 or
-// later of the SDK, add this import too:
-import com.launchdarkly.client.value.*;
+</CodeTabItem>
+<CodeTabItem value="java-pre-5.0">
+
+```java
+import com.launchdarkly.client.*;
 ```
 
 </CodeTabItem>
@@ -146,14 +150,34 @@ You can also pass custom parameters to the client by creating a custom configura
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Java SDK versions 4.12.x and earlier', value: 'java-pre-5.0', },
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
 LDConfig config = new LDConfig.Builder()
+  .http(
+    Components.httpConfiguration()
+      .connectTimeout(Duration.ofSeconds(3))
+      .socketTimeout(Duration.ofSeconds(3))
+  )
+  .events(
+    Components.sendEvents()
+      .flushInterval(Duration.ofSeconds(10))
+  )
+  .build();
+LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-pre-5.0">
+
+```java
+LDConfig config = new LDConfig.Builder()
   .connectTimeout(3)
   .socketTimeout(3)
+  .flushInterval(10)
   .build();
 LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
 ```
@@ -161,7 +185,9 @@ LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
 </CodeTabItem>
 </CodeTabs>
 
-Here, we've customized the client connect and socket timeout parameters. See the Javadoc for [LDConfig.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/client/LDConfig.Builder.html) for the complete list of configuration options for the client including proxy settings, timeouts, and more.
+Here, we've customized two properties for HTTP (the connect and socket timeouts), and one property for analytics events (the event flush interval). 
+
+To get a complete list of configuration options for the client, including proxy settings, timeouts, and streaming/polling options, read the Javadoc for [LDConfig.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.Builder.html). You can also read the [4.x version](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/4.12.0/com/launchdarkly/client/LDConfig.Builder.html)).
 
 ## Users
 
@@ -175,19 +201,6 @@ Feature flag targeting and rollouts are all determined by the _user_ you pass to
   ]
 }>
 <CodeTabItem value="java">
-
-```java
-LDUser user = new LDUser.Builder("aa0ceb")
-  .firstName("Ernestina")
-  .lastName("Evans")
-  .email("ernestina@example.com")
-  .custom("groups",
-    LDValue.buildArray().add("Google").add("Microsoft").build())
-  .build()
-```
-
-</CodeTabItem>
-<CodeTabItem value="Java SDK versions 4.3.x and earlier">
 
 ```java
 LDUser user = new LDUser.Builder("aa0ceb")
@@ -218,7 +231,7 @@ Let's walk through this snippet. The first argument to the builder is the user's
 
 All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
 
-Our Javadoc for [LDUser.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/client/LDUser.Builder.html) shows you all the attributes that LaunchDarkly supports by default. In addition to these, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
+Our Javadoc for [LDUser.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/LDUser.Builder.html) shows you all the attributes that LaunchDarkly supports by default. In addition to these, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
 
 <Callout intent="info">
 <CalloutTitle>A note on types</CalloutTitle>
@@ -246,7 +259,7 @@ You can also mark attributes as private when building the user object itself by 
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
-    { label: 'Java SDK versions 4.11.x and earlier', value: 'java-pre-4.12' },
+    { label: 'Java SDK versions 4.12.x and earlier', value: 'java-pre-5.0' },
   ]
 }>
 <CodeTabItem value="java">
@@ -262,13 +275,14 @@ LDConfig configWithAllAttributesPrivate = new LDConfig.Builder()
 LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
   .events(
     Components.sendEvents()
-      .privateAttributeNames("name", "email", "someCustomAttribute")
+      .privateAttributes(UserAttribute.NAME, UserAttribute.EMAIL,
+        UserAttribute.forName("someCustomAttribute"))
   )
   .build();
 ```
 
 </CodeTabItem>
-<CodeTabItem value="Java SDK versions 4.3.x and earlier">
+<CodeTabItem value="java-pre-5.0">
 
 ```java
 LDConfig configWithAllAttributesPrivate = new LDConfig.Builder()
@@ -379,7 +393,7 @@ ldClient.track("your-goal-key", user);
 </CodeTabItem>
 </CodeTabs>
 
-You can also attach custom JSON data to your event using an alternate version of `track`. This example sets the data to a JSON object, `{"price": 320}`, but it can be any value that can be represented in JSON; see [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/client/value/LDValue.html).
+You can also attach custom JSON data to your event using an alternate version of `track`. This example sets the data to a JSON object, `{"price": 320}`, but it can be any value that can be represented in JSON; see [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html).
 
 <CodeTabs
   defaultValue="java"
@@ -558,9 +572,21 @@ ldClient.close()
 
 ## Logging
 
-The Java SDK uses [SLF4J](https://www.slf4j.org/). All loggers are namespaced under `com.launchdarkly`. For an example configuration check out the [hello-java](https://github.com/launchdarkly/hello-java) project.
+The Java SDK uses [SLF4J](https://www.slf4j.org/). All loggers are namespaced under `com.launchdarkly`. For an example configuration check out the [hello-java](https://github.com/launchdarkly/hello-java) project. 
 
-Be aware of two considerations when enabling the DEBUG log level:
+You can filter by logger name. Here are available logger names, starting with version 5.0:
+
+* `com.launchdarkly.sdk.server.LDClient`: general messages that do not fall into any other categories
+* `com.launchdarkly.sdk.server.LDClient.DataSource`: messages related to how the SDK obtains feature flag data-- normally this means messages about the streaming connection to LaunchDarkly, but if you use polling mode or file data instead, those will be logged under this name too
+* `com.launchdarkly.sdk.server.LDClient.DataStore`: messages related to how feature flag data is stored-- for instance, database errors if you are using a database integration
+* `com.launchdarkly.sdk.server.LDClient.Evaluation`: messages related to feature flag evaluation
+* `com.launchdarkly.sdk.server.LDClient.Events`: messages related to analytics event processing
+
+In versions of the SDK before 5.0, logger names were not standardized and were sometimes the names of Java classes that are not part of the public API, but they consistently had a package prefix of either `com.launchdarkly.client.` or `com.launchdarkly.eventsource.`
+
+For an example SLF4J configuration, check out the [hello-java](https://github.com/launchdarkly/hello-java) project.
+
+Be aware of two considerations when enabling the `DEBUG` log level:
 
 1. Debug-level logs can be very verbose. It is not recommended that you turn on debug logging in high-volume environments.
 2. Potentially sensitive information is logged including LaunchDarkly users created by you in your usage of this SDK.
@@ -579,7 +605,6 @@ Note that the SDK's default jar—the one you get from Maven or Gradle if you do
 
 However, there is also a distribution that includes Gson and SLF4j as part of the SDK bundle. You can use this if you do not care about controlling the versions of those libraries separately. To do so, add the classifier "all":
 
-
 <CodeTabs
   defaultValue="java"
   values={[
@@ -593,12 +618,12 @@ However, there is also a distribution that includes Gson and SLF4j as part of th
 <dependency>
    <groupId>com.launchdarkly</groupId>
    <artifactId>launchdarkly-java-server-sdk</artifactId>
-   <version>4.6.5</version>
+   <version>5.0.0</version>
    <classifier>all</classifier>
 </dependency>
 
 // or in Gradle:
-"com.launchdarkly:launchdarkly-java-server-sdk:4.6.5:all"
+"com.launchdarkly:launchdarkly-java-server-sdk:5.0.0:all"
 ```
 
 </CodeTabItem>

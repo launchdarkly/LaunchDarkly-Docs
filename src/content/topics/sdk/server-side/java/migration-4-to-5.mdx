@@ -69,7 +69,7 @@ The basic areas of functionality are "data source" (polling, streaming, or file 
 
 If your code was already using the newer model, you should not need to change it except for changing the package names in your imports.
 
-### Undersatnding changes to data source methods
+### Understanding changes to data source methods
 
 For each data source type, there is a factory method whose name ends in `dataSource`. These methods give you a builder object with methods for whatever options are appropriate. Pass that object to `Config.Builder.dataSource()`.
 
@@ -402,6 +402,24 @@ The [Consul](https://github.com/launchdarkly/java-server-sdk-consul) and [Dynamo
 
 See [Data store](#data-store) above for the configuration syntax.
 
+## Understanding changes to logging
+
+The SDK still uses [SLF4J](https://www.slf4j.org/) as a logging framework, but the use of logger names has changed. In SLF4J, logger names can be used to configure different filtering rules for different kinds of messages, so if you have been using that feature you may need to adjust your configuration.
+
+Previously, most of the SDK's log output used the logger name `com.launchdarkly.client.LDClient`, but some of it used the names of other classes in the same package such as `com.launchdarkly.client.DefaultEventProcessor` (or another package, `com.launchdarkly.eventsource`). These class names were implementation details that were subject to change, so there was not a well-defined set of logger names.
+
+Starting in version 5.0, the SDK uses the following logger names:
+
+* `com.launchdarkly.sdk.server.LDClient`: general messages that do not fall into any other categories
+* `com.launchdarkly.sdk.server.LDClient.DataSource`: messages related to how the SDK obtains feature flag data-- normally this means messages about the streaming connection to LaunchDarkly, but if you use polling mode or file data instead, those will be logged under this name too
+* `com.launchdarkly.sdk.server.LDClient.DataStore`: messages related to how feature flag data is stored-- for instance, database errors if you are using a database integration
+* `com.launchdarkly.sdk.server.LDClient.Evaluation`: messages related to feature flag evaluation
+* `com.launchdarkly.sdk.server.LDClient.Events`: messages related to analytics event processing
+
+The use of log levels has also changed somewhat. Previously, many kinds of I/O errors-- for instance, a network failure when the SDK was trying to make a streaming connection to LaunchDarkly, or trying to send analytics events-- were logged at `ERROR` level. This could cause an unwanted amount of noise from monitoring systems, since such errors were often due to temporary problems that the SDK could recover from without intervention.
+
+Starting in version 5.0, if the SDK gets a network error that might interfere with receiving feature flag data from LaunchDarkly, it will log it at first at `WARN` level. Then it will continue retrying the connection as usual, and only if it remains unable to get a successful connection for a full minute (an interval that you can change with `LoggingConfigurationBuilder`), it will report the problem again at the more serious `ERROR` level.
+
 ## Using the Relay Proxy
 
 There are two ways you can configure the SDK to use the [LaunchDarkly Relay Proxy](/home/advanced/relay-proxy):
@@ -562,6 +580,13 @@ The interface for "data source" components that receive feature flag data, eithe
 
 To learn more, read the API documentation for the `PersistentDataStore` and `DataSource` interfaces. You may also want to review the source code for one of the LaunchDarkly database integrations, such as [Redis](http://github.com/launchdarkly/java-server-sdk-redis), to see how it changed from the previous major version.
 
+## Miscellaneous API changes
+
+Here are several changes to names and types that do not affect the basic functionality of the SDK, but were changed for consistency.
+
+* The `initialized()` method of `LDClient` was renamed to `isInitialized()`, for consistency with Java naming conventions for methods that return a boolean.
+* The `intVariation()` and `doubleVariation()` methods of `LDClient` previously used the nullable types `Integer` and `Double`. They have been changed to use `int` and `double`, since the point of these type-specific methods is to be able to conveniently treat the feature flag value as a numeric type without having to worry about whether it is a null value or some other type. The `boolVariation` method already used the non-nullable `boolean` type, so it has not changed.
+
 ## Understanding what was deprecated
 
 All types and methods that were marked as deprecated in the last 4.x release have been removed from the 5.0 release. If you were using these with a recent version previously, you should already have received deprecation warnings at compile time, with suggestions about their recommended replacements. 
@@ -576,11 +601,10 @@ The 5.0 release also includes new features as described in the release notes.
 
 These include:
 
-* You can tell the SDK to notify you whenever a feature flag's configuration has changed in any way, using `FlagChangeListener` and `LDClientInterface.registerFlagChangeListener()`.
-* Or, you can tell the SDK to notify you only if the value of a flag for some particular User has changed, using `FlagValueChangeListener` and `Components.flagValueMonitoringListener()`.
+* You can tell the SDK to notify you whenever a feature flag's configuration has changed, using `LDClient.getFlagTracker()`.
 * You can monitor the status of the SDK's connection to LaunchDarkly services with `LDClient.getDataSourceStatusProvider()`.
 * You can monitor the status of a persistent data store (for instance, to get caching statistics, or to be notified if the store's availability changes due to a database outage) with `LDClient.getDataStoreStatusProvider()`.
 * You can configure the SDK's use of different logging levels depending on the duration of a service outage with `LDConfig.Builder.logging()` and `LoggingConfigurationBuilder`.
 * The thread priority for SDK background tasks can be configured with `LDConfig.Builder.threadPriority()`.
 
-To learn more, read the API documentation for these classes and methods.
+To learn more, read the [API documentation](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0) for these classes and methods.
