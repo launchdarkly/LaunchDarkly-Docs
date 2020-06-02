@@ -1,0 +1,92 @@
+---
+path: '/integrations/appdynamics'
+title: 'AppDynamics'
+description: 'This topic explains how to use the LaunchDarkly AppDynamics integration. AppDynamics is an application performance management (APM) tool that allows engineers to monitor key measures of application and infrastructure health.'
+published: true
+---
+
+<Callout intent="info">
+  <CalloutTitle>This integration is in beta</CalloutTitle> <CalloutDescription>
+    Development work on this integration is ongoing. It may have unexpected behavior or unsupported features. Do not use this integration in production environments.
+  </CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to use the LaunchDarkly AppDynamics integration to view LaunchDarkly events in AppDynamics. [AppDynamics](https://www.appdynamics.com/) is an [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) tool. It allows customers to monitor the operational health of their application and infrastructure.
+
+<Callout intent="info">
+  <CalloutTitle>This integration is for AppDynamics APM SaaS customers</CalloutTitle> <CalloutDescription>
+    This integration is not configured to work with AppDynamic's End User Monitoring products or on-premise deployments of AppDynamics. 
+  </CalloutDescription>
+</Callout>
+
+## Prerequisites
+
+To configure the integration successfully, you will need to create an [API Client](https://docs.appdynamics.com/display/PRO45/API+Clients) with [Create Events permissions](https://docs.appdynamics.com/display/PRO45/Application+Permissions) correctly on your AppDynamics account.
+
+## Configuring LaunchDarkly to work with AppDynamics
+
+To configure LaunchDarkly to start sending events to AppDynamics:
+
+1. Navigate to the Integrations page and click to expand the "AppDynamics" card.
+![AppDynamics integration](../images/appdynamics-add-integration.png)
+
+2. Click **+ Integration**. The integration configuration sidebar appears.
+![The AppDynamics section of the Integrations
+page.](../images/appdynamics-integration-panel.png)
+
+3. Give the integration a human-readable **Name**.
+
+4. Click **Connect to AppDynamics** to auth in. At this point a popup window should open.
+![AppDynamics OAuth2 Popup](../images/appdynamics-oauth.png)
+
+5. Paste in your AppDynamics host URL. The format should resemble `https://example.saas.appdynamics.com`.
+
+6. Paste in your AppDynamics client ID. This will be the name of your newly created API client combined with your account name in the format `<apiClientName>@<accountName>`.
+
+7. Paste in the Client Secret you received when configured your [AppDynamics API client](https://docs.appdynamics.com/display/PRO45/API+Clients).
+
+8. Once you have successfully authenticated, return to the integrations page and input your AppDynamics account name in the appropriate field on the configuration panel.
+
+9. Input your AppDynamics application ID or application name. The application name can be found on the "Applications" tab within AppDynamics.
+
+10. Click 'Save AppDynamics Configuration' at the bottom of the configuration sidebar.
+
+That's it! Your AppDynamics application now receives events from LaunchDarkly.
+
+If you want to further modify the events that AppDynamics receives from LaunchDarkly,
+add custom policies to determine which events the integration should export.
+
+### Adding custom policies to the AppDynamics integration 
+
+By default, the AppDynamics integration sends production flag change events to
+AppDynamics. You can customize those events with the Policy editor, using the same
+language and construction as if you were creating a custom role.
+
+To learn more, read [Custom Roles](/home/account-security/custom-roles).
+
+You can customize the events LaunchDarkly sends to AppDynamics by using the policy
+editor in the AppDynamics configuration panel:
+
+![Policy editor](../images/appdynamics-policy-editor.png)
+
+## Accessing LaunchDarkly events in AppDynamics
+
+To view events, navigate to the "Events" tab within your application dashboard. From there, modify the default event filter so that you can see "Custom" events. All LaunchDarkly events are sent with a "Custom Event Type" of "LaunchDarkly" and the following properties can be used to further filter events in AppDynamics:
+
+Property Name | 	Property Value
+--- | --- 
+kind|	flag, project, environment, etc.
+flag_name	| the name of the flag - only sent with flag events
+flag_key | the flag's key - only sent with flag events
+project_name	| the resource's project name
+project_key	| the resource's project key
+environment_name |	the resource's environment name
+environment_key	| the resource's environment key
+
+![AppDynamics Custom Event Filter](../images/appdynamics-custom-event-filter.png)
+
+You should now be able to view LaunchDarkly events in AppDynamics.
+
+![View LaunchDarkly events in AppDynamics](../images/appdynamics-view-event.png)
