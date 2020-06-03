@@ -110,6 +110,7 @@ For that, you can use a much simpler format:
   defaultValue="json"
   values={[
     { label: 'JSON', value: 'json', },
+    { label: 'YAML', value: 'yaml', },
   ]
 }>
 
@@ -126,20 +127,9 @@ For that, you can use a much simpler format:
 ```
 
 </CodeTabItem>
-</CodeTabs>
-
-Or, in YAML:
-
-<CodeTabs
-  defaultValue="yaml"
-  values={[
-    { label: 'YAML', value: 'yaml', },
-  ]
-}>
-
 <CodeTabItem value="yaml">
 
-```json
+```yaml
 flagValues:
   my-string-flag-key: "value-1"
   my-boolean-flag-key: true
