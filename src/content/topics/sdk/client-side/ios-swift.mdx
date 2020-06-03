@@ -1,6 +1,6 @@
 ---
 path: '/sdk/client-side/ios-swift'
-title: 'iOS Swift SDK reference'
+title: 'iOS (Swift) SDK reference'
 description: 'This topic explains all of the methods available in the LaunchDarkly iOS Swift SDK, with detail about how they work.'
 published: true
 ---
@@ -38,7 +38,7 @@ If you're using [CocoaPods](https://cocoapods.org/), you can install the SDK by 
 ```swift
 use_frameworks!
 target 'YourTargetName' do
-  pod 'LaunchDarkly', '4.5.0'
+  pod 'LaunchDarkly', '4.6.0'
 end
 ```
 
@@ -73,7 +73,7 @@ If you're using [Carthage](https://github.com/Carthage/Carthage), you can instal
 <CodeTabItem value="swift">
 
 ```swift
-github "launchdarkly/ios-client" "4.5.0"
+github "launchdarkly/ios-client" "4.6.0"
 ```
 
 </CodeTabItem>
@@ -267,6 +267,8 @@ ldConfig.inlineUserInEvents = false
 ldConfig.debugMode = false
 /// The default setting for whether we request evaluation reasons for all flags.
 ldConfig.evaluationReasons = false
+/// The default setting for the maximum number of locally cached users. Set to -1 to cache an unlimited number of users.
+ldConfig.maxCachedUsers = 5
 
 ```
 
