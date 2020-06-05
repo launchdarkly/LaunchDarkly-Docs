@@ -1,12 +1,78 @@
 ---
 path: '/integrations/new-relic'
-title: 'New Relic (deprecated)'
-description: 'This topic explains how to use the New Relic integration to annotate New Relic transactions with feature flag information. Use this data to correlate feature flag variations with changes in application performance.'
+title: 'New Relic'
+description: 'This topic explains how to set up the New Relic integration to view LaunchDarkly events in New Relic.'
 published: true
 ---
 
+<Callout intent="info">
+  <CalloutTitle>This integration is only available for New Relic Insights Pro accounts</CalloutTitle> <CalloutDescription>
+    This integration only works with a New Relic Insights Pro subscription. Check your subscription details on your New Relic account billing page.
+  </CalloutDescription>
+</Callout>
+
 ## Overview
 
+This topic explains how to use the LaunchDarkly New Relic integration to view LaunchDarkly events in New Relic. [New Relic](https://www.newrelic.com/) is an [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) tool that allows customers to monitor the operational health of their application and infrastructure.
+
+## Notice of deprecation and updates
+
+This integration has been substantially updated as of June 2020. We recommend using the most recent integration when possible.
+
+Previously, LaunchDarkly offered a New Relic integration that we later deprecated. We no longer support the New Relic integration from before June 2020, but because the integration is available in our SDKs, we will continue to provide documentation for it until that version of the SDKs reaches its end-of-life date. 
+
+If you are using an outdated version of the integration, documentation for that version is available [at the end of this topic](#previous-new-relic-integration-deprecated). 
+
+## Prerequisites
+
+To configure the integration, you must create an API key on your New Relic account. 
+
+To learn more, read [New Relic's documentation](https://docs.newrelic.com/docs/insights/insights-data-sources/custom-data/introduction-event-api#register).
+
+## Configuring LaunchDarkly to work with New Relic
+
+To configure LaunchDarkly to send events to New Relic:
+
+1. Navigate to the Integrations page and find the "New Relic" card.
+![New Relic integration](../images/new-relic-add-integration.png)
+
+2. Click **+ Integration**. The integration configuration sidebar appears.
+![The New Relic section of the Integrations page.](../images/new-relic-integration-panel.png)
+
+3. Give the integration a human-readable **Name**.
+
+4. Paste in your [**New Relic account ID**](https://docs.newrelic.com/docs/accounts/install-new-relic/account-setup/account-id). This can be found in the URL of your New Relic account right after `/accounts/`.
+
+5. Paste in your [**New Relic API key**](https://docs.newrelic.com/docs/insights/insights-data-sources/custom-data/introduction-event-api#register).
+
+6. Click **Save New Relic Configuration**.
+
+### Adding custom policies to the New Relic integration 
+
+By default, the New Relic integration sends production flag change events to
+New Relic. You can customize those events with the policy editor using the same
+language and construction as if you were creating a custom role.
+
+To learn more, read [Custom Roles](/home/account-security/custom-roles).
+
+You can customize the events LaunchDarkly sends to New Relic by using the policy
+editor in the New Relic configuration panel:
+
+![Policy editor](../images/new-relic-policy-editor.png)
+
+## Accessing LaunchDarkly events in New Relic
+
+To view LaunchDarkly events in New Relic Insights, navigate to your Insights homepage and type in the query `SELECT * FROM LaunchDarkly`. 
+
+This query shows all LaunchDarkly-generated events generated in the last hour. You can customize the timeframe to display events from a different period if you choose.
+
+![LaunchDarkly in New Relic Insights](../images/new-relic-view-events.png)
+
+To see more detail, scroll to the right or click the `{}` tab to view a JSON list of all queried events.
+
+![LaunchDarkly Events in New Relic Insights - JSON Display](../images/new-relic-view-events-json.png)
+
+## Previous New Relic integration (deprecated)
 <Callout intent="alert">
   <CalloutTitle>Deprecation notice</CalloutTitle>
   <CalloutDescription>
@@ -20,7 +86,7 @@ published: true
 
 This topic explains how to use the New Relic integration to annotate New Relic transactions with feature flag information. You can use this data to correlate feature flag variations with changes in application performance or error rates.
 
-## Adding the New Relic integration
+### Adding the New Relic integration
 
 LaunchDarkly SDKs that support New Relic will automatically detect whether you have New Relic installed without any additional configuration steps. If LaunchDarkly detects New Relic,
 LaunchDarkly adds a [custom attribute](https://docs.newrelic.com/docs/insights/new-relic-insights/decorating-events/insights-custom-attributes) for every feature flag request call made within a New Relic transaction trace.
