@@ -9,12 +9,12 @@
         "svg": "compass",
         "items": [
           {
-            "label": "Your team and LaunchDarkly",
-            "path": "/home/getting-started/your-team"
-          },
-          {
             "label": "Creating a feature flag",
             "path": "/home/getting-started/feature-flags"
+          },
+          {
+            "label": "Your team and LaunchDarkly",
+            "path": "/home/getting-started/your-team"
           }
         ]
       },
