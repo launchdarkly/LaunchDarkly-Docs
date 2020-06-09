@@ -293,6 +293,8 @@ export default HooksDemo;
 
 All user-related functionality provided by the JavaScript SDK is equally accessible in the React SDK. Refer to the [users](/sdk/client-side/javascript#users), [private user attributes](/sdk/client-side/javascript#private-user-attributes), and [anonymous users](/sdk/client-side/javascript#anonymous-users) sections of the JavaScript SDK reference guide for more information.
 
+Unlike the JavaScript SDK, where a user object is required for initialization, the React SDK does not require a user object. If one is not specified, the React SDK will proceed with an anonymous user by default.
+
 ## Flag keys
 
 LaunchDarkly primarily identifies feature flags by a key which must only contain alphanumeric characters, dots (`.`), underscores (`_`), and dashes (`-`). These keys are used across all of LaunchDarkly's APIs as well as in the SDKs to identify flags.
