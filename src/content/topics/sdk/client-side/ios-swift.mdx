@@ -126,9 +126,16 @@ let user = LDUser(key: "test-user")
 
 LDClient.shared.start(config: config, user: user)
 
-// If you need feature flags to load before continuing use the 
-// startCompleteWhenFlagsReceived method with a completion
+// If you need feature flags to load before continuing, use the 
+// startCompleteWhenFlagsReceived method with a completion.
 LDClient.shared.startCompleteWhenFlagsReceived(config: config, user: user) {
+  NSLog("Flags ready!")
+}
+
+// Add the startWaitSeconds parameter if you want to limit the 
+// maximum time to wait for flags to be received before calling the completion closure.
+// This parameter is only available in versions 4.7.0 and later.
+LDClient.shared.startCompleteWhenFlagsReceived(config: config, user: user, startWaitSeconds: 5) {
   NSLog("Flags ready!")
 }
 ```
