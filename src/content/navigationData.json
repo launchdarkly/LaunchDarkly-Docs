@@ -317,7 +317,13 @@
       },
       {
         "label": "New Relic",
-        "path": "/integrations/new-relic"
+        "path": "/integrations/new-relic",
+        "items": [
+          {
+            "label": "New Relic (legacy)",
+            "path": "/integrations/new-relic/new-relic-legacy"
+          }
+        ]
       },
       {
         "label": "OAuth applications",

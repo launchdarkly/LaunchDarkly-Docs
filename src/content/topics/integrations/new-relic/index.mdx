@@ -15,14 +15,6 @@ published: true
 
 This topic explains how to use the LaunchDarkly New Relic integration to view LaunchDarkly events in New Relic. [New Relic](https://www.newrelic.com/) is an [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) tool that allows customers to monitor the operational health of their application and infrastructure.
 
-## Notice of deprecation and updates
-
-This integration has been substantially updated as of June 2020. We recommend using the most recent integration when possible.
-
-Previously, LaunchDarkly offered a New Relic integration that we later deprecated. We no longer support the New Relic integration from before June 2020, but because the integration is available in our SDKs, we will continue to provide documentation for it until that version of the SDKs reaches its end-of-life date. 
-
-If you are using an outdated version of the integration, documentation for that version is available [at the end of this topic](#previous-new-relic-integration-deprecated). 
-
 ## Prerequisites
 
 To configure the integration, you must create an API key on your New Relic account. 
@@ -71,26 +63,3 @@ This query shows all LaunchDarkly-generated events generated in the last hour. Y
 To see more detail, scroll to the right or click the `{}` tab to view a JSON list of all queried events.
 
 ![LaunchDarkly Events in New Relic Insights - JSON Display](../images/new-relic-view-events-json.png)
-
-## Previous New Relic integration (deprecated)
-<Callout intent="alert">
-  <CalloutTitle>Deprecation notice</CalloutTitle>
-  <CalloutDescription>
-    
-    We have deprecated this integration. You can use it with the Java SDK in versions before 5.0. Support for this integration was removed in the 5.0 release of the Java SDK.<br/><br/> 
-    
-    To learn more about the Java SDK, read <a href="/sdk/server-side/java">Java SDK reference</a>.
-
-  </CalloutDescription>
-</Callout>
-
-This topic explains how to use the New Relic integration to annotate New Relic transactions with feature flag information. You can use this data to correlate feature flag variations with changes in application performance or error rates.
-
-### Adding the New Relic integration
-
-LaunchDarkly SDKs that support New Relic will automatically detect whether you have New Relic installed without any additional configuration steps. If LaunchDarkly detects New Relic,
-LaunchDarkly adds a [custom attribute](https://docs.newrelic.com/docs/insights/new-relic-insights/decorating-events/insights-custom-attributes) for every feature flag request call made within a New Relic transaction trace.
-
-![In this transaction, a feature flag with key "map.save.header" was requested, and the variation returned was "true".](../images/new-relic-custom-attribute.png)
-
-You can see custom attributes for particular transactions on your New Relic dashboard, or use [NRQL](https://docs.newrelic.com/docs/insights/new-relic-insights/using-new-relic-query-language/nrql-reference) to explore how feature flags impact performance across many transactions.
