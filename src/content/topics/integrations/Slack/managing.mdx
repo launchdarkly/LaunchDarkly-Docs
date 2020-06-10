@@ -1,13 +1,13 @@
 ---
 path: '/integrations/slack/managing'
-title: 'Viewing, monitoring, and subscribing to flags'
-description: 'This topic explains how to view and filter flags with the LaunchDarkly Slack app.'
+title: 'Viewing, monitoring, and subscribing to notifications'
+description: 'This topic explains how to view and filter flags and resources with the LaunchDarkly Slack app.'
 published: true
 ---
 
 ## Overview
 
-This topic explains how to view and filter flags with the LaunchDarkly Slack app.
+This topic explains how to view and filter flags and resources with the LaunchDarkly Slack app.
 
 <Callout intent="info">
   <CalloutTitle>You must invite the LaunchDarkly Slack app to private Slack channels</CalloutTitle>
@@ -20,11 +20,11 @@ You do not need to manually invite the LaunchDarkly bot user to public channels.
   </CalloutDescription>
 </Callout> 
 
-## Filtering for feature flags with the menu
+## Filtering with the menu
 
 You can filter flags to see a list of flags that match the criteria that you enter.
 
-To filter flags:
+To subscribe:
 
 1. Type `/launchdarkly subscribe` in your Slack client's text bar and press **Enter**.
 2. The Filter Flags menu appears.
@@ -33,7 +33,7 @@ To filter flags:
 5. Subscribe to any flags by selecting "Add flag to channel" from the dropdown.
 6. Subscribe to all the flags from this Filter by clicking the "Add filter to channel" button.
 
-You can use the four types of filters in any combination to view different flags. If you click **Filter** without specifying any of the fields, all flags will display.
+You can use the four types of filters in any combination to view different flags. If you click **Filter** without specifying any of the fields, all flags and resources will display.
 
 The table below explains the different filtering criteria:
 
@@ -90,19 +90,19 @@ The table below explains the different filtering criteria:
   </TableBody>
 </Table>
 
-## Filtering for feature flags with in-line commands
+## Filtering for resources with in-line commands
 
-You can also use in-line commands to filter flags in Slack.
+You can also use in-line commands to filter flags and resources in Slack.
 
 **Note**: All in-line commands start with `/launchdarkly` and typing `/launchdarkly` or `/ld` will bring up a help menu listing the commands.
 
-To filter feature flags with in-line commands:
+To filter with in-line commands:
 
 1. Type `/launchdarkly subscribe` but append filtering criteria.
 2. Specify the filtering criteria with either a single dash (`-`) and the first letter of the criteria, or a double dash (`--`) and the criteria name and an equal sign.
 3. Press **Enter.** The results of the filter display.
 4. Subscribe to any flags by selecting "Add flag to channel" from the dropdown.
-5. Subscribe to all the flags from this Filter by clicking the "Add filter to channel" button.
+5. Subscribe to all the resources from this Filter by clicking the "Add filter to channel" button.
 
 Examples of both types of entries:
 
@@ -112,7 +112,7 @@ Examples of both types of entries:
 - `-s` or `--status=`
 - `-f` or `--flag_key=`
 
-**Note**: `/launchdarkly subscribe -p mobile -e test -s active` would retrieve the same flags as `/launchdarkly subscribe --project=mobile --environment=test --status=active`
+**Note**: `/launchdarkly subscribe -p mobile -e test -s active` would retrieve the same results as `/launchdarkly subscribe --project=mobile --environment=test --status=active`
 
 ## Viewing feature flag information
 
@@ -193,14 +193,14 @@ the project is `My-Project`, the filter does not return any results.
   </CalloutDescription>
 </Callout> 
 
-## Filter flag results
+## Filter results
 
-When you filter flags, the results appear in your Slack channel or DM. You can use the filter results to perform different actions on the flag.
+When you filter resources, the results appear in your Slack channel or DM. You can use the filter results to perform different actions on the flag.
 
 ![An example set of filtered flags.](../../images/slack-flag-filtered-list.png) 
 
 
-Flags matching the filter criteria appear in this screen.
+Flags and resources matching the filter criteria appear in this screen.
 
 Here are some of the actions you can perform on a flag in this list:
 
@@ -210,8 +210,8 @@ Here are some of the actions you can perform on a flag in this list:
 At the bottom of the filter results, there are three buttons:
 
 - **Next** takes you to another page of filter results, if available.
-- **Add filter to Channel** adds the filter criteria to be added to the channel. This automatically adds flags that match that criteria for this filter to the channel. A notification appears in the channel every time the status of one of those flags changes.
-- **Adjust Filter** opens the Filter Flags screen where you can adjust the filtering criteria.
+- **Add filter to Channel** adds the filter criteria to be added to the channel. This automatically adds flags and resources that match that criteria for this filter to the channel. A notification appears in the channel every time the status of one of the results changes.
+- **Adjust Filter** opens the Filter screen where you can adjust the filtering criteria.
 
 ## Listing flags in a channel
 
@@ -224,7 +224,7 @@ Use `/launchdarkly flags` to view and manage flags associated with the current c
 
 ## Listing filters in a channel
 
-When a filter is applied to the channel, any sets of flags that match the filter criteria automatically send notifications to that channel.
+When a filter is applied to the channel, any sets of resources that match the filter criteria automatically send notifications to that channel.
 
 Use `/launchdarkly filters` to view and manage filters associated with the current channel.
 
