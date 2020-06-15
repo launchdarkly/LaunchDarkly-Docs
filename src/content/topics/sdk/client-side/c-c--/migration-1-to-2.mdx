@@ -1,0 +1,204 @@
+---
+path: '/sdk/client-side/c-c--/migration-1-to-2'
+title: 'C/C++ SDK 1.x to 2.0 migration guide'
+description: 'This topic explains the API changes made in theC/C++client SDK 2 release and how to migrate to that version.'
+published: true
+---
+
+## Overview
+
+This topic explains how to adapt code that currently uses a 1.x version of the [C/C++ client-side SDK](/sdk/client-side/c-c--) to use version 2.0.
+
+To learn more about updating to the latest 2.x version, visit the [SDK's Github repository](https://github.com/launchdarkly/c-client-sdk/releases).
+
+## Build system changes
+
+The C/C++ client-side SDK previously used `make` on POSIX, and `nmake` on Windows. We have transitioned to the cross platform `cmake` build system, similar to the C/C++ server-side SDK.
+
+We recommend that you use the prebuilt releases if they exist for your platform available on the [Github releases page](https://github.com/launchdarkly/c-client-sdk/releases).
+
+You can produce a simple build on Linux or OSX by using the following command:
+
+<CodeTabs
+  defaultValue="2.0"
+  values={[
+    { label: '2.0 syntax', value: '2.0', },
+    { label: '1.x syntax', value: '1.x', },
+  ]
+}>
+
+<CodeTabItem value="2.0">
+
+```bash
+mkdir build && cd build
+cmake ..
+make
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="1.x">
+
+```bash
+make
+```
+
+</CodeTabItem>
+
+</CodeTabs>
+
+For more advanced `cmake` usage, or if you're using another platform, read this [cmake guide](https://preshing.com/20170511/how-to-build-a-cmake-based-project/). The SDK is exported as the `ldclientapi` target.
+
+The repository organization of source files should not be considered stable. If you wish to build your own artifacts, and use them outside of a cmake project you should `cmake install` to your directory of choice which will copy the required headers and binary.
+
+## Header and typedef changes
+
+In version 1.x, the SDK required you to import `uthash.h`, and `ldapi.h`. Now, similarly to the C/C++ server-side SDK, you should import the SDK with the following command:
+
+<CodeTabs
+  defaultValue="2.0"
+  values={[
+    { label: '2.0 syntax', value: '2.0', },
+    { label: '1.x syntax', value: '1.x', },
+  ]
+}>
+
+<CodeTabItem value="2.0">
+
+```c
+#include <launchdarkly/api.h>
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="1.x">
+
+```c
+#include "ldapi.h"
+#include "uthash.h"
+```
+
+</CodeTabItem>
+
+</CodeTabs>
+
+The types `LDClient`, `LDConfig`, and `LDUser` are no longer typedefs. They require the `struct` prefix.
+
+<CodeTabs
+  defaultValue="2.0"
+  values={[
+    { label: '2.0 syntax', value: '2.0', },
+    { label: '1.x syntax', value: '1.x', },
+  ]
+}>
+
+<CodeTabItem value="2.0">
+
+```c
+struct LDClient *client;
+struct LDUser *user;
+struct LDConfig *config;
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="1.x">
+
+```c
+LDClient *client;
+LDUser *user;
+LDConfig *config;
+```
+
+</CodeTabItem>
+
+</CodeTabs>
+
+In version 1.x of the SDK, when you compiled it with C++, `LDClient` would be defined as a class instead of a C struct. We removed this system in version 2.0, and now `LDClient` is always a C style struct. 
+
+If you prefer a C++ interface, we added a dedicated `LDClientCPP` class that shares substantially the same API as you would have used with the 1.x C++ `LDClient`.
+
+The entry point for the C++ interface is `launchdarkly/api.hpp` and you must link with the `ldclientapicpp` target instead of `ldclientapi`. As is standard, you can use the standard C interface in a C++ project.
+
+## Logging changes
+
+We have removed the logging interface from the 1.x versions, which was specific to the client-side SDK. C/C++ client- and server-side SDKs now use the same interface. 
+
+For example, to configure the SDK to use the default included logger:
+
+<CodeTabs
+  defaultValue="2.0"
+  values={[
+    { label: '2.0 syntax', value: '2.0', },
+    { label: '1.x syntax', value: '1.x', },
+  ]
+}>
+
+<CodeTabItem value="2.0">
+
+```c
+LDConfigureGlobalLogger(LD_LOG_INFO, LDBasicLogger);
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="1.x">
+
+```c
+LDSetLogFunction(LD_LOG_INFO, yourLogger);
+```
+
+</CodeTabItem>
+
+</CodeTabs>
+
+## JSON representation changes
+
+The C/C++ client-side SDK 1.x used a JSON representation utilizing the `uthash.h` library. We removed this old representation completely and now use the C/C++ server-side SDK JSON interface instead. Every function relating to `LDNode` has been modified to utilize `struct LDJSON` instead. This includes `LDJSONVariation`, and custom user attributes. 
+
+For example, to create a basic array, use:
+
+<CodeTabs
+  defaultValue="2.0"
+  values={[
+    { label: '2.0 syntax', value: '2.0', },
+    { label: '1.x syntax', value: '1.x', },
+  ]
+}>
+
+<CodeTabItem value="2.0">
+
+```c
+struct LDJSON *names, *tmp;
+
+names = LDNewArray();
+
+tmp = LDNewText("alice");
+LDArrayPush(names, tmp);
+
+tmp = LDNewText("bob");
+LDArrayPush(names, tmp);
+
+LDJSONFree(names);
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="1.x">
+
+```c
+LDNode *names;
+
+names = LDNodeCreateArray();
+
+LDNodeAppendString(&names, "alice");
+LDNodeAppendString(&names, "bob");
+
+LDNodeFree(names);
+```
+
+</CodeTabItem>
+
+</CodeTabs>
+
+For complete documentation on manipulating JSON, read our [API docs on Github](https://launchdarkly.github.io/c-client-sdk/json_8h.html).

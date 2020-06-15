@@ -493,7 +493,13 @@
           },
           {
             "label": "C/C++ SDK reference",
-            "path": "/sdk/client-side/c-c--"
+            "path": "/sdk/client-side/c-c--",
+            "items": [
+              {
+                "label": "C/C++ SDK 1.x to 2.0 migration guide",
+                "path": "/sdk/client-side/c-c--/migration-1-to-2"
+              }
+            ]
           },
           {
             "label": "Electron SDK reference",
