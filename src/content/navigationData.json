@@ -317,7 +317,13 @@
       },
       {
         "label": "New Relic",
-        "path": "/integrations/new-relic"
+        "path": "/integrations/new-relic",
+        "items": [
+          {
+            "label": "New Relic (legacy)",
+            "path": "/integrations/new-relic/new-relic-legacy"
+          }
+        ]
       },
       {
         "label": "OAuth applications",
@@ -606,21 +612,6 @@
     "path": "/guides",
     "items": [
       {
-        "label": "Tutorials",
-        "path": "/guides/tutorials",
-        "svg": "atom",
-        "items": [
-          {
-            "label": "Your first flag",
-            "path": "/guides/tutorials/first-flag"
-          },
-          {
-            "label": "Flag rules and targeting",
-            "path": "/guides/tutorials/rules-and-targeting"
-          }
-        ]
-      },
-      {
         "label": "Best practices",
         "path": "/guides/best-practices",
         "svg": "compass",
@@ -636,6 +627,21 @@
           {
             "label": "LaunchDarkly integrations",
             "path": "/guides/best-practices/integrations"
+          }
+        ]
+      },
+      {
+        "label": "Tutorials",
+        "path": "/guides/tutorials",
+        "svg": "atom",
+        "items": [
+          {
+            "label": "Your first flag",
+            "path": "/guides/tutorials/first-flag"
+          },
+          {
+            "label": "Flag rules and targeting",
+            "path": "/guides/tutorials/rules-and-targeting"
           }
         ]
       }
