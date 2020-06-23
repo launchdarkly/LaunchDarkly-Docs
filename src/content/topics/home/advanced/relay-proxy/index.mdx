@@ -85,6 +85,10 @@ If you have deployed your application to multiple regions, consider running one 
 
 ### Caching guidelines
 
-We do not recommend using in-memory caching for the Relay Proxy in a production environment.
+We do not recommend relying solely on Relay Proxy's in-memory caching in a production environment. Instead, we recommend that you cache flag data in a persistent feature store.
 
-If you use in-memory caching, the cache repopulates on initial startup, because it emptied during the previous shutdown. This can cause performance degradation or lag as the cache repopulates.
+To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store) and [Persistent storage](https://github.com/launchdarkly/ld-relay#persistent-storage).
+
+Whether or not you utilize a persistent feature store impacts how the Relay Proxy handles inbound feature flag requests on initialization, before it establishes a connection to LaunchDarkly. 
+
+If you use a persistent feature store, Relay Proxy uses previously known-good values as stored in the persistent feature store. Without a persistent feature store, however, Relay Proxy doesn't know anything about any feature flags yet. SDKs use default flag values until the Relay Proxy establishes a connection to LaunchDarkly.
