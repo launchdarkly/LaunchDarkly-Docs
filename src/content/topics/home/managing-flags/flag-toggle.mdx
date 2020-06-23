@@ -60,7 +60,9 @@ To turn a flag off:
 
 ![The Targeting tab with the flag turned off.](../../images/flag-targeting-toggle-off.png)
 
-If you don't specify an explicit **off** variation, LaunchDarkly serves the fallback value for the flag, which you specified in your code's `variation` calls. This value is indicated at the bottom of the Targeting tab.
+If you don't specify an explicit **off** variation, LaunchDarkly serves the fallback value for the flag. You can specify the fallback value in your code's `variation` calls. This is also the value that LaunchDarkly serves if your application is unable to connect to LaunchDarkly's servers.
+
+This value is indicated at the bottom of the Targeting tab.
 
 ![The fallback value at the bottom of the Targeting tab.](../../images/flag-default-value.png) 
 
@@ -70,8 +72,7 @@ If you don't specify an explicit **off** variation, LaunchDarkly serves the fall
   <CalloutDescription>
 
 You can't schedule a flag for a particular date, but you can use targeting rules to control what it affects and
-when. For example, you can serve `false` to deprecate a feature after a date of your choosing. To learn more
-about targeting a flag to appear before or after a date, read [Targeting users](/home/managing-flags/targeting-users).
+when. For example, you can serve `false` to deprecate a feature after a date of your choosing, or you can target a specific user or segment to be removed from the flag's targeting settings. To learn more, read [Targeting users](/home/managing-flags/targeting-users).
 
   </CalloutDescription>
 </Callout> 
