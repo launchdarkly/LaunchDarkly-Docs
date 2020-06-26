@@ -77,7 +77,6 @@
     "gatsby-plugin-s3": "^0.3.2",
     "gatsby-plugin-typescript": "^2.1.19",
     "gatsby-theme-style-guide": "^0.3.1",
-    "husky": "^3.1.0",
     "jest": "^24.9.0",
     "jest-emotion": "^10.0.26",
     "onchange": "6.1.0",
@@ -118,10 +117,5 @@
   },
   "bugs": {
     "url": "https://github.com/launchdarkly/git-gatsby/issues"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn prettier && yarn lint && yarn tsc"
-    }
   }
 }

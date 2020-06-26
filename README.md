@@ -15,13 +15,13 @@ yarn && yarn start
 
 Then navigate to [localhost:8000](http://localhost:8000)
 
-## 🌗 Staging
+## 🌗 Staging (internal LaunchDarkly use only)
 
 The staging url is [docs-stg.launchdarkly.com](https://docs-stg.launchdarkly.com).
 
 Staging is automatically refreshed on push to master. See [Build & Deploy](#-build--deploy).
 
-## 🚀 Build & Deploy
+## 🚀 Build & Deploy (internal LaunchDarkly use only)
 
 Github action automatically builds and deploys to staging on push to master.
 
