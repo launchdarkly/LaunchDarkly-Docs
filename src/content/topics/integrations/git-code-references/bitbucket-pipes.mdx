@@ -16,10 +16,10 @@ You can use the [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-co
 To set up Bitbucket Pipes, you have the following prerequisite:
 
 - A Bitbucket Pipelines configuration file. To create one, navigate to the Pipelines section of your Bitbucket repository.
-- A personal API access token with `writer` permissions. To learn more, read [Personal API access tokens](/home/account-security/api-access-tokens).
+- An API access token with `writer` permissions. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
 
 <Callout intent="info">
-<CalloutTitle>Personal API tokens can also use custom roles</CalloutTitle>   
+<CalloutTitle>API tokens can also use custom roles</CalloutTitle>   
 
 <CalloutDescription>
 
@@ -35,7 +35,7 @@ To set up the Bitbucket Pipes configuration:
 1. Create a new Pipeline configuration in your Bitbucket repository.
 2. Configure the Pipeline to run on `push` using the `default` configuration. Include the following variables:
 
-- `LD_ACCESS_TOKEN`: This secured variable should be your personal API access token.
+- `LD_ACCESS_TOKEN`: This secured variable should be your API access token.
 - `LD_PROJ_KEY`: This should be your LaunchDarkly project key.
 
 Here's an example of a minimal Pipeline configuration:
@@ -89,7 +89,7 @@ The [code reference pipe](https://bitbucket.org/launchdarkly/ld-find-code-refs-p
       </TableCell>
       <TableCell>
         Required.
-        <br />A LaunchDarkly personal access token with writer-level access, or access to the <code>
+        <br />A LaunchDarkly access token with writer-level access, or access to the <code>
           code-references
         </code> custom role resource.
         <br />

@@ -140,10 +140,9 @@ To learn more, read [Managing teams](/home/account-security/managing-your-team).
   </TableBody>
 </Table>
 
-### Tokens actions
+### Personal access token actions
 
 `token` is a child resources of **members**. A code sample is below:
-
 <CodeTabs
   defaultValue="json"
   values={[
@@ -160,7 +159,114 @@ member/*:token/*
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [Personal API access tokens](/home/account-security/api-access-tokens).
+To learn more, read [API access tokens](/home/account-security/api-access-tokens).
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createAccessToken</code>
+      </TableCell>
+      <TableCell>Create a personal access token</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccessTokenPolicy</code>
+      </TableCell>
+      <TableCell>Change the policy filter of a personal access token</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccessTokenName</code>
+      </TableCell>
+      <TableCell>Change the name of a personal access token</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccessTokenDescription</code>
+      </TableCell>
+      <TableCell>Change the description of a personal access token</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteAccessToken</code>
+      </TableCell>
+      <TableCell>Delete a personal access token</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>resetAccessToken</code>
+      </TableCell>
+      <TableCell>Reset a personal access token's secret key</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+
+### Service access token actions
+
+`service-token` is a **top-level resource**. A code sample is below:
+ 
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+service-token/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [API access tokens](/home/account-security/api-access-tokens).
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createAccessToken</code>
+      </TableCell>
+      <TableCell>Create a service access token</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccessTokenName</code>
+      </TableCell>
+      <TableCell>Change the name of a service access token</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccessTokenDescription</code>
+      </TableCell>
+      <TableCell>Change the description of a service access token</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteAccessToken</code>
+      </TableCell>
+      <TableCell>Delete a service access token</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>resetAccessToken</code>
+      </TableCell>
+      <TableCell>Reset a service access token's secret key</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
 
 ### Role actions
 

@@ -152,7 +152,7 @@
             "path": "/home/account-security/mfa"
           },
           {
-            "label": "Personal API access tokens",
+            "label": "API access tokens",
             "path": "/home/account-security/api-access-tokens"
           },
           {
