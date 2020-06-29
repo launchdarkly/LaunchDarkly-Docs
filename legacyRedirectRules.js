@@ -300,28 +300,32 @@ module.exports = [
     toPath: '/integrations/webhooks',
   },
   {
+    fromPath: '/integrations/git-code-references',
+    toPath: '/integrations/code-references',
+  },
+  {
     fromPath: '/docs/git-code-references',
-    toPath: '/integrations/git-code-references',
+    toPath: '/integrations/code-references',
   },
   {
     fromPath: '/docs/bitbucket-pipes-coderefs',
-    toPath: '/integrations/git-code-references/bitbucket-pipes',
+    toPath: '/integrations/code-references/bitbucket-pipes',
   },
   {
     fromPath: '/docs/circleci-orbs',
-    toPath: '/integrations/git-code-references/circleci-orbs',
+    toPath: '/integrations/code-references/circleci-orbs',
   },
   {
     fromPath: '/docs/github-actions',
-    toPath: '/integrations/git-code-references/github-actions',
+    toPath: '/integrations/code-references/github-actions',
   },
   {
     fromPath: '/docs/gitlab-ci',
-    toPath: '/integrations/git-code-references/gitlab-ci',
+    toPath: '/integrations/code-references/gitlab-ci',
   },
   {
     fromPath: '/docs/custom-configuration-via-cli',
-    toPath: '/integrations/git-code-references/custom-config',
+    toPath: '/integrations/code-references/custom-config',
   },
   {
     fromPath: '/docs/data-export',

@@ -304,7 +304,7 @@ However, keys in this format are slightly inconvenient to access in JavaScript a
 Automatically camel-casing flag keys poses some problems, though:
 
 1. It is possible to induce a key collision if there are multiple LaunchDarkly flag keys which resolve to the same camel-cased key. For example, `dev-flag-test` and `dev.flag.test` would be considered unique keys on LaunchDarkly yet the React SDK would consider them to have the same camel-cased keys.
-2. Our [Git code references](/integrations/git-code-references) tool expects your source code to reference the exact key, not a camel-cased equivalent, so the tool does not support detecting references of keys that were automatically camel-cased.
+2. Our [Code references](/integrations/code-references) tool expects your source code to reference the exact key, not a camel-cased equivalent, so the tool does not support detecting references of keys that were automatically camel-cased.
 3. As the camel-casing functionality is implemented in the React SDK instead of in the underlying JavaScript SDK, the underlying `ldClient` object and functionality provided by the JavaScript SDK reflect flag keys in their original format. Only React-specific contexts such as your injected props are camel-cased.
 
 To disable the SDK's automatic camel-casing feature, you can provide `asyncWithLDProvider` or `withLDProvider` with the `reactOptions.useCamelCaseFlagKeys` property as shown in the following example. This is supported in versions 2.13.0 and later of the React SDK.

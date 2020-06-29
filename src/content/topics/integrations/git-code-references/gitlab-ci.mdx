@@ -1,5 +1,5 @@
 ---
-path: '/integrations/git-code-references/gitlab-ci'
+path: '/integrations/code-references/gitlab-ci'
 title: 'GitLab CI'
 description: 'This topic explains how to set up and configure the Gitlab CI to use with LaunchDarkly. You can use the ld-find-code-refs utility with Gitlab CI to automatically populate code references in LaunchDarkly.'
 published: true
@@ -44,11 +44,11 @@ Here's how to set up the GitLab CI:
 ```yaml
 find-launchdarkly-code-refs:
   stage: deploy
-  image: 
+  image:
     name: launchdarkly/ld-find-code-refs:1.4.0
     entrypoint: [""]
   script:
-    - ld-find-code-refs 
+    - ld-find-code-refs
        -accessToken $LD_ACCESS_TOKEN
        -projKey $LD_PROJECT_KEY
        -dir $CI_PROJECT_DIR
@@ -65,7 +65,7 @@ find-launchdarkly-code-refs:
 
 ## How the script works
 
-When executed, this script downloads and runs the `ld-find-code-refs` docker image. 
+When executed, this script downloads and runs the `ld-find-code-refs` docker image.
 
 This script runs the docker image with previously-set variables, as well as GitLab-specific configurations.
 
@@ -101,11 +101,11 @@ deploy1:
 
 find-launchdarkly-code-refs:
   stage: deploy
-  image: 
+  image:
     name: launchdarkly/ld-find-code-refs:1.4.0
     entrypoint: [""]
   script:
-    - ld-find-code-refs 
+    - ld-find-code-refs
        -accessToken $LD_ACCESS_TOKEN
        -projKey $LD_PROJECT_KEY
        -dir $CI_PROJECT_DIR
@@ -122,7 +122,7 @@ find-launchdarkly-code-refs:
 
 When the jobs run in the pipeline, they display like this:
 
-![A screenshot of the jobs running.](../../images/gitlab-ci-jobs.png) 
+![A screenshot of the jobs running.](../../images/gitlab-ci-jobs.png)
 
 
 ## Additional configuration options

@@ -276,6 +276,70 @@
     "path": "/integrations",
     "items": [
       {
+        "label": "Code references",
+        "path": "/integrations/code-references",
+        "items": [
+          {
+            "label": "Bitbucket Pipes",
+            "path": "/integrations/code-references/bitbucket-pipes"
+          },
+          {
+            "label": "CircleCI Orbs",
+            "path": "/integrations/code-references/circleci-orbs"
+          },
+          {
+            "label": "GitHub Actions",
+            "path": "/integrations/code-references/github-actions"
+          },
+          {
+            "label": "GitLab CI",
+            "path": "/integrations/code-references/gitlab-ci"
+          },
+          {
+            "label": "Custom configuration with the CLI",
+            "path": "/integrations/code-references/custom-config"
+          }
+        ]
+      },
+      {
+        "label": "Data Export",
+        "path": "/integrations/data-export",
+        "items": [
+          {
+            "label": "Google Cloud Pub/Sub",
+            "path": "/integrations/data-export/google-pubsub"
+          },
+          {
+            "label": "Kinesis",
+            "path": "/integrations/data-export/kinesis"
+          },
+          {
+            "label": "mParticle",
+            "path": "/integrations/data-export/mparticle",
+            "items": [
+              {
+                "label": "mParticle schema reference",
+                "path": "/integrations/data-export/mparticle/mparticle-schema-reference"
+              }
+            ]
+          },
+          {
+            "label": "Segment",
+            "path": "/integrations/data-export/segment",
+            "items": [
+              {
+                "label": "Segment schema reference",
+                "path": "/integrations/data-export/segment/segment-schema-reference"
+              }
+            ]
+          },
+          {
+            "label": "Data export schema reference",
+            "path": "/integrations/data-export/schema-reference"
+          }
+        ]
+      },
+      {
         "label": "AppDynamics",
         "path": "/integrations/appdynamics"
       },
@@ -378,70 +442,6 @@
       {
         "label": "Webhooks",
         "path": "/integrations/webhooks"
-      },
-      {
-        "label": "Git code references",
-        "path": "/integrations/git-code-references",
-        "items": [
-          {
-            "label": "Bitbucket Pipes",
-            "path": "/integrations/git-code-references/bitbucket-pipes"
-          },
-          {
-            "label": "CircleCI Orbs",
-            "path": "/integrations/git-code-references/circleci-orbs"
-          },
-          {
-            "label": "GitHub Actions",
-            "path": "/integrations/git-code-references/github-actions"
-          },
-          {
-            "label": "GitLab CI",
-            "path": "/integrations/git-code-references/gitlab-ci"
-          },
-          {
-            "label": "Custom configuration with the CLI",
-            "path": "/integrations/git-code-references/custom-config"
-          }
-        ]
-      },
-      {
-        "label": "Data Export",
-        "path": "/integrations/data-export",
-        "items": [
-          {
-            "label": "Google Cloud Pub/Sub",
-            "path": "/integrations/data-export/google-pubsub"
-          },
-          {
-            "label": "Kinesis",
-            "path": "/integrations/data-export/kinesis"
-          },
-          {
-            "label": "mParticle",
-            "path": "/integrations/data-export/mparticle",
-            "items": [
-              {
-                "label": "mParticle schema reference",
-                "path": "/integrations/data-export/mparticle/mparticle-schema-reference"
-              }
-            ]
-          },
-          {
-            "label": "Segment",
-            "path": "/integrations/data-export/segment",
-            "items": [
-              {
-                "label": "Segment schema reference",
-                "path": "/integrations/data-export/segment/segment-schema-reference"
-              }
-            ]
-          },
-          {
-            "label": "Data export schema reference",
-            "path": "/integrations/data-export/schema-reference"
-          }
-        ]
       }
     ]
   },

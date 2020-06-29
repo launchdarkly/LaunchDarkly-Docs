@@ -1,17 +1,17 @@
 ---
-path: '/integrations/git-code-references'
-title: 'Git code references'
-description: 'This topic explains how to use Git code references in LaunchDarkly to find and manage references to your feature flags. The Git code references feature lets you find source code references to your feature flags within LaunchDarkly.'
+path: '/integrations/code-references'
+title: 'Code references'
+description: 'This topic explains how to use Code references in LaunchDarkly to find and manage references to your feature flags. The Code references feature lets you find source code references to your feature flags within LaunchDarkly.'
 published: true
 ---
 
 ## Overview
 
-This topic explains how to use Git code references in LaunchDarkly to find and manage references to your feature flags.
+This topic explains how to use Code references in LaunchDarkly to find and manage references to your feature flags.
 
-The Git code references feature lets you find source code references to your feature flags within LaunchDarkly. This makes it easy to determine which projects reference your feature flags, and simplifies removal of technical debt.
+The Code references feature lets you find source code references to your feature flags within LaunchDarkly. This makes it easy to determine which projects reference your feature flags, and simplifies removal of technical debt.
 
-We've open-sourced a utility called [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) that scans your Git repositories and pushes code reference information to LaunchDarkly. You can integrate this utility into your CI / CD process, or take advantage of other trigger mechanisms like [GitHub Actions](/integrations/git-code-references/github-actions), `cron` jobs, or Lambda functions triggered by a commit webhook.
+We've open-sourced a utility called [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) that scans your Git repositories and pushes code reference information to LaunchDarkly. You can integrate this utility into your CI / CD process, or take advantage of other trigger mechanisms like [GitHub Actions](/integrations/code-references/github-actions), `cron` jobs, or Lambda functions triggered by a commit webhook.
 
 ## Integrating ld-find-code-refs with your toolchain
 
@@ -21,22 +21,22 @@ Our approach makes it possible to push references to LaunchDarkly whether you're
 
 We support most common trigger mechanisms and CI/CD providers, including:
 
-- [Bitbucket Pipelines](/integrations/git-code-references/bitbucket-pipes)
+- [Bitbucket Pipelines](/integrations/code-references/bitbucket-pipes)
 
-- [CircleCI Orbs](/integrations/git-code-references/circleci-orbs) 
+- [CircleCI Orbs](/integrations/code-references/circleci-orbs) 
 
-- [GitHub Actions](/integrations/git-code-references/github-actions) 
+- [GitHub Actions](/integrations/code-references/github-actions) 
 
-- [GitLab CI](/integrations/git-code-references/gitlab-ci) 
+- [GitLab CI](/integrations/code-references/gitlab-ci) 
 
-- [Custom configuration with the CLI](/integrations/git-code-references/custom-config) 
+- [Custom configuration with the CLI](/integrations/code-references/custom-config) 
 
 
 You can also invoke the [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) utility from the command line. Run this utility in any custom workflow, such as a bash script or cron job.
 
 ## Prerequisites
 
-To set up Git code references in LaunchDarkly, you must have:
+To set up Code references in LaunchDarkly, you must have:
 
 - A personal API access token with writer-level access or higher. Create a Personal API access token in the [Access Tokens](https://app.launchdarkly.com/settings/tokens) page. To learn more, read [Personal API access tokens](/home/account-security/api-access-tokens).
 - You must allow [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) to run whenever you commit to your git repository.
