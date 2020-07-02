@@ -74,7 +74,7 @@ import com.launchdarkly.client.*;
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of `LDClient`. You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+Once the SDK is installed and imported, you'll want to create a single, shared instance of [`LDClient`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html). You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
 
 <CodeTabs
   defaultValue="java"
@@ -124,7 +124,7 @@ else {
 </CodeTabItem>
 </CodeTabs>
 
-Lastly, when your application is about to terminate, shut down `ldClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+Lastly, when your application is about to terminate, shut down `ldClient` with [`close()`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#close--). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
 
 <CodeTabs
   defaultValue="java"
@@ -250,10 +250,8 @@ You can optionally configure the Java SDK to treat some or all user attributes a
 
 In the Java SDK there are two ways to define private attributes for the **entire** LaunchDarkly client:
 
-- When creating the `LDConfig` object, you can call the `allAttributesPrivate` method, which takes in a boolean parameter. If `true`, all user attributes (except the key) for _all users_ are removed before the user is sent to LaunchDarkly.
-- When creating the `LDConfig` object, you can call the `privateAttributeNames` method, which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this list, it will be removed before the user is sent to LaunchDarkly.
-
-You can also mark attributes as private when building the user object itself by calling the equivalent “private” user builder method. For example:
+- When creating the `LDConfig` object, you can call the [`allAttributesPrivate`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#allAttributesPrivate-boolean-) method, which takes in a boolean parameter. If `true`, all user attributes (except the key) for _all users_ are removed before the user is sent to LaunchDarkly.
+- When creating the `LDConfig` object, you can call the [`privateAttributes`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#privateAttributes-com.launchdarkly.sdk.UserAttribute...-) method, which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this list, it will be removed before the user is sent to LaunchDarkly.
 
 <CodeTabs
   defaultValue="java"
@@ -345,7 +343,7 @@ Anonymous users work just like regular users, except that they won't appear on y
 
 ## Variation
 
-The `variation` method determines which variation of a feature flag a user receives. In Java, there is a `variation` method for each type (e.g. `boolVariation`, `stringVariation`):
+The `variation` methods determine which variation of a feature flag a user receives. In Java, there is a `variation` method for each type: [`boolVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#boolVariation-java.lang.String-com.launchdarkly.sdk.LDUser-boolean-), [`intVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#intVariation-java.lang.String-com.launchdarkly.sdk.LDUser-int-), [`doubleVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#doubleVariation-java.lang.String-com.launchdarkly.sdk.LDUser-double-), [`stringVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#stringVariation-java.lang.String-com.launchdarkly.sdk.LDUser-java.lang.String-) (and [`jsonValueVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#jsonValueVariation-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-), which can be of any JSON type).
 
 <CodeTabs
   defaultValue="java"
@@ -362,7 +360,7 @@ boolean value = ldClient.boolVariation("your.feature.key", user, false);
 </CodeTabItem>
 </CodeTabs>
 
-`variation` calls take the feature flag key, an `LDUser`, and a default value.
+The `variation` methods take the feature flag key, an [`LDUser`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/LDUser.html), and a default value.
 
 The default value will only be returned if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
 
@@ -370,13 +368,13 @@ The `variation` call will automatically create a user in LaunchDarkly if a user 
 
 ## VariationDetail
 
-The `variationDetail` methods (`boolVariationDetail`, etc.) work the same as `variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
+The `variationDetail` methods ([`boolVariationDetail`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail-java.lang.String-com.launchdarkly.sdk.LDUser-boolean-), etc.) work the same as `variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
 
 To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 
 ## Track
 
-The `track` method allows you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests. Here's a simple example:
+The [`track`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#track-java.lang.String-com.launchdarkly.sdk.LDUser-) method allows you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests. Here's a simple example:
 
 <CodeTabs
   defaultValue="java"
@@ -393,7 +391,7 @@ ldClient.track("your-goal-key", user);
 </CodeTabItem>
 </CodeTabs>
 
-You can also attach custom JSON data to your event using an alternate version of `track`. This example sets the data to a JSON object, `{"price": 320}`, but it can be any value that can be represented in JSON; see [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html).
+You can also attach custom JSON data to your event using an alternate version of `track`, [`trackData`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackData-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-). This example sets the data to a JSON object, `{"price": 320}`, but it can be any value that can be represented in JSON; see [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html).
 
 <CodeTabs
   defaultValue="java"
@@ -406,15 +404,7 @@ You can also attach custom JSON data to your event using an alternate version of
 
 ```java
 LDValue data = LDValue.buildObject().put("price", 320).build();
-ldClient.trackData("Completed purchase", user, data);
-```
-
-</CodeTabItem>
-<CodeTabItem value="Java SDK versions 4.3.x and earlier">
-
-```java
-LDValue data = LDValue.buildObject().put("price", 320).build();
-ldClient.trackData("Completed purchase", user, data);
+ldClient.trackData("completed-purchase", user, data);
 ```
 
 </CodeTabItem>
@@ -427,7 +417,25 @@ ldClient.trackData("Completed purchase", user, data);
 
 JsonObject data = new JsonObject();
 data.add("price", 320);
-ldClient.track("Completed purchase", user, data);
+ldClient.track("completed-purchase", user, data);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Or, if you are using [experimentation](/home/experimentation), you can specify a numeric metric with [`trackMetric`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackMetric-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-double-):
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+double metricValue = 2.5;
+ldClient.trackMetric("page-load-time", user, LDValue.ofNull(), metricValue);
 ```
 
 </CodeTabItem>
@@ -435,7 +443,7 @@ ldClient.track("Completed purchase", user, data);
 
 ## Identify
 
-The `identify` method creates or updates users in LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `identify`. The `variation` call will automatically create users on the dashboard for you. `identify` can be useful if you want to pre-populate your dashboard before launching any features.
+The [`identify`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#identify-com.launchdarkly.sdk.LDUser-) method creates or updates users in LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `identify`. The `variation` call will automatically create users on the dashboard for you. `Identify` can be useful if you want to pre-populate your dashboard before launching any features.
 
 <CodeTabs
   defaultValue="java"
@@ -458,12 +466,12 @@ ldClient.identify(user);
 <CalloutTitle>Creating users</CalloutTitle>
 <CalloutDescription>
 
-Unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
+Unlike `variation` and `identify` calls, `allFlagsState` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
 
 </CalloutDescription>
 </Callout>
 
-The `allFlagsState` captures the state of all feature flags with regard to a specific user. This includes their values as well as other metadata.
+The [`allFlagsState`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#allFlagsState-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.server.FlagsStateOption...-) method captures the state of all feature flags with regard to a specific user. This includes their values as well as other metadata.
 
 This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
 
@@ -486,7 +494,7 @@ FeatureFlagsState state = ldClient.allFlagsState(user);
 
 ## Secure mode hash
 
-The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+The [`secureModeHash`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#secureModeHash-com.launchdarkly.sdk.LDUser-) method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
 
 <CodeTabs
   defaultValue="java"
@@ -505,7 +513,7 @@ ldClient.secureModeHash(user);
 
 ## Flush
 
-Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `flush` to process events immediately.
+Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call [`flush`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#flush--) to process events immediately.
 
 <CodeTabs
   defaultValue="java"
@@ -522,11 +530,11 @@ ldClient.flush();
 </CodeTabItem>
 </CodeTabs>
 
-The flush interval is configurable. If you need to change the interval, you can do so via `LDConfig.Builder`.
+The flush interval is configurable. If you need to change the interval, you can do so via `LDConfig.Builder` and [`Components.sendEvents()`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html).
 
 ## Offline mode
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when running on premise. You can do this by setting `offline` mode in the client's `Configuration`.
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when running on premise. You can do this by setting [`offline`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.Builder.html#offline-boolean-) mode in the client's `LDConfig`.
 
 <CodeTabs
   defaultValue="java"
@@ -553,7 +561,7 @@ ldClient.boolVariation("any.feature.flag", user, false)
 
 ## Close
 
-Close safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you should not have to call close.
+[`Close`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#close--) safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you should not have to call `close`.
 
 <CodeTabs
   defaultValue="java"
