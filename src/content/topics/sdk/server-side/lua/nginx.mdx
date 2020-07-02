@@ -1,0 +1,153 @@
+---
+path: '/sdk/server-side/lua/nginx'
+title: 'Using the Lua SDK in NGINX'
+description: 'This topic explains how to use the LaunchDarkly Lua server-side SDK with NGINX'
+published: true
+---
+
+# Overview
+
+This guide explains how to use our [Lua server-side SDK](https://github.com/launchdarkly/lua-server-sdk) with the [NGINX OpenResty framework](https://openresty.org).
+
+OpenResty extends NGINX with [LuaJIT](https://luajit.org/), enabling complex control of [NGINX functionality](https://openresty-reference.readthedocs.io/en/latest/Lua_Nginx_API/). The OpenResty framework has substantial [commercial adoption](https://openresty.com/en/#mosaic-section).
+
+Find a basic Dockerized app in our GitHub repository at [hello-nginx](https://github.com/launchdarkly/hello-nginx).
+
+# Prerequisites
+
+To complete this guide, you must have the following prerequisites:
+
+* Basic working knowledge of the LaunchDarkly [Lua server-side SDK](/sdk/server-side/lua)
+* Basic working knowledge of the LaunchDarkly [C/C++ server-side SDK](/sdk/server-side/c-c--)
+
+The C server-side SDK is required because the Lua server-side SDK is implemented via foreign function interface.
+
+# Preparing the Lua server-side SDK
+
+Make the source of the Lua SDK accessible to OpenRESTY. You can control imports with the `lua_package_path` directive.
+
+For example:
+
+<CodeTabs
+  defaultValue="nginx"
+  values={[
+    { label: 'Example', value: 'nginx', },
+  ]
+}>
+<CodeTabItem value="nginx">
+
+```nginx
+http {
+    lua_package_path ";;/usr/local/openresty/nginx/scripts/?.lua;";
+    ...
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+# Preparing the C/C++ server-side SDK
+
+Make the source of the C/C++ server-side SDK accessible to the dynamic linker. The most convenient way to do this is to install the binary system-wide at `/usr/lib/libldserverapi.so`.
+
+<Callout intent="alert">
+<CalloutTitle>Configuring OpenSSL with OpenResty</CalloutTitle>
+<CalloutDescription>OpenResty handles OpenSSL in specific ways. You may need to build the SDK from scratch instead of using our release artifacts in order to make OpenSSL work correctly.</CalloutDescription>
+</Callout>
+
+# Ensuring correct initialization
+
+The most important part of effective SDK usage is managing the lifetime of clients correctly. Because NGINX utilizes [process based concurrency](https://stackoverflow.com/questions/4315292/concurrency-processes-vs-threads), multiple clients initiate. If you accidentally initiate a client per request the application will be substantially slower, as the SDK has to download a fresh ruleset from LaunchDarkly.
+
+Initialize each NGINX worker process exactly once for ideal operations. You can do this with the `init_worker_by_lua_file` directive. This directive executes a script when a process is freshly spawned. Client initialization should reside in this script. In the example below, this file is called `shared.lua`.
+
+Here is an example of initialization logic:
+
+<CodeTabs
+  defaultValue="lua"
+  values={[
+    { label: 'Example', value: 'lua', },
+  ]
+}>
+<CodeTabItem value="lua">
+
+```lua
+local ld = require("launchdarkly-server-sdk")
+local os = require("os")
+
+local config = {
+    key = os.getenv("LD_SDK_KEY")
+}
+
+return ld.clientInit(config, 1000)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Later we can use the result of this initialization process in other directives.
+
+<CodeTabs
+  defaultValue="lua"
+  values={[
+    { label: 'Example', value: 'lua', },
+  ]
+}>
+<CodeTabItem value="lua">
+
+```lua
+local ld     = require("launchdarkly-server-sdk")
+local client = require("shared")
+local os     = require("os")
+
+local user = ld.makeUser({
+    key = "abc"
+})
+
+if client.boolVariation(user, "YOUR_FLAG_KEY", false) then
+    ngx.say("<p>feature launched</p>")
+else
+    ngx.say("<p>feature not launched</p>")
+end
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+# Example: Feature flagged reverse proxy
+
+This [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy) example demonstrates more complex interaction between multiple NGINX directives. You can use a reverse proxy to route traffic to multiple applications.
+
+The example follows:
+
+<CodeTabs
+  defaultValue="nginx"
+  values={[
+    { label: 'Example', value: 'nginx', },
+  ]
+}>
+<CodeTabItem value="nginx">
+
+```nginx
+location / {
+    set $proxy_host "";
+
+    rewrite_by_lua_block {
+        local ld     = require("launchdarkly-server-sdk")
+        local client = require("shared")
+
+        local user = ld.makeUser({
+            key = "abc"
+        })
+
+        ngx.var.proxy_host = client.stringVariation(user, "YOUR_FLAG_KEY", "10.0.0.0")
+    }
+
+    proxy_pass                       https://$proxy_host$uri;
+    proxy_set_header Host            $proxy_host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+}
+```
+
+</CodeTabItem>
+</CodeTabs>

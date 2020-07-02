@@ -591,7 +591,13 @@
           },
           {
             "label": "Lua SDK reference",
-            "path": "/sdk/server-side/lua"
+            "path": "/sdk/server-side/lua",
+            "items": [
+              {
+                "label": "Using the Lua SDK in NGINX",
+                "path": "/sdk/server-side/lua/nginx"
+              }
+            ]
           },
           {
             "label": "Node.js SDK reference",
