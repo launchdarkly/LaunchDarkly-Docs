@@ -208,7 +208,7 @@ ldclient.on('ready', function() {
 
 
 The SDK does not subscribe to streaming real-time updates automatically when it is initialized. As a side effect,
-subscribing to the SDK's **change** event by calling **.on('change')** will cause the SDK to open a streaming
+subscribing to the SDK's **change** event by calling **.on('change').** will cause the SDK to open a streaming
 connection to LaunchDarkly. This is the only way to receive realtime updates.
 
 

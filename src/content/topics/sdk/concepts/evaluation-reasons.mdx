@@ -21,8 +21,7 @@ This method returns three pieces of information:
 - The variation index, which is a zero-based integer indicating which variation was selected. For example, if the flag's possible variations are `A`, `B`, and `C`, in that order, and the current variation is `C`, the variation index would be 2. This value is useful for tabulation, although in some cases, it may be absent. To learn more, read [Error conditions](#error-conditions).
 - A `reason` object, which contains information about why that variation was selected. This data structure is described below.
 
-An example call in our Go SDK is depicted below:
-
+An example is depicted below for some of LaunchDarkly's SDKs:
 
 <CodeTabs
   defaultValue="go"
@@ -38,7 +37,7 @@ An example call in our Go SDK is depicted below:
     { label: 'C# (Xamarin)', value: 'xamarin', },
     { label: 'Android', value: 'android', },
     { label: 'iOS (Swift)', value: 'swift', },
-    { label: 'React Native', value: 'react', },
+    { label: 'React Native', value: 'react-native', },
   ]
 }>
 
@@ -51,6 +50,8 @@ value, detail, err := client.BoolVariationDetail("flag-key", myUser, false)
 index := detail.VariationIndex   // may be nil
 reason := detail.Reason          // will always be present
 ```
+
+*To learn more, read [`EvaluationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v4#EvaluationDetail), [`BoolVariationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v4#LDClient.BoolVariationDetail).*
 
 </CodeTabItem>
 <CodeTabItem value="java">
@@ -78,6 +79,8 @@ Integer index = detail.getVariationIndex();   // may be null
 EvaluationReason reason = detail.getReason(); // will always be present
 ```
 
+*To learn more, read [`EvaluationDetail`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/EvaluationDetail.html), [`boolVariationDetail`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail-java.lang.String-com.launchdarkly.sdk.LDUser-boolean-).*
+
 </CodeTabItem>
 <CodeTabItem value="csharp">
 
@@ -91,6 +94,8 @@ int? index = detail.VariationIndex;       // may be null
 EvaluationReason reason = detail.Reason;  // will always be present
 ```
 
+*To learn more, read [`EvaluationDetail`](http://launchdarkly.github.io/dotnet-server-sdk/html/T_LaunchDarkly_Client_EvaluationDetail_1.htm), [`BoolVariationDetail`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_ILdClient_BoolVariationDetail.htm).*
+
 </CodeTabItem>
 <CodeTabItem value="ruby">
 
@@ -100,6 +105,8 @@ value = detail.value
 index = detail.variation_index  # may be nil
 reason = detail.reason          # will always be present
 ```
+
+*To learn more, read [`EvaluationDetail`](https://www.rubydoc.info/gems/launchdarkly-server-sdk/LaunchDarkly/EvaluationDetail), [`variation_detail`](https://www.rubydoc.info/gems/launchdarkly-server-sdk/LaunchDarkly/LDClient#variation_detail-instance_method).*
 
 </CodeTabItem>
 <CodeTabItem value="py">
@@ -111,6 +118,8 @@ index = detail.variation_index  # may be None
 reason = detail.reason          # will always be present
 ```
 
+*To learn more, read [`EvaluationDetail`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.flag.EvaluationDetail), [`variation_detail`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.client.LDClient.variation_detail).*
+
 </CodeTabItem>
 <CodeTabItem value="node">
 
@@ -121,6 +130,8 @@ var value = detail.value;
 var index = detail.variationIndex;  // may be null
 var reason = detail.reason;         // will always be present
 ```
+
+*To learn more, read [`LDEvaluationDetail`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldevaluationdetail.html), [`variationDetail`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldclient.html#variationdetail).*
 
 </CodeTabItem>
 <CodeTabItem value="js">
@@ -136,6 +147,8 @@ var index = detail.variationIndex;  // may be null
 var reason = detail.reason;         // will always be present
 ```
 
+*To learn more, read [`LDEvaluationDetail`](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldevaluationdetail.html), [`variationDetail`](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldclient.html#variationdetail).*
+
 </CodeTabItem>
 <CodeTabItem value="php">
 
@@ -147,6 +160,8 @@ $value = $detail->getValue();
 $index = $detail->getVariationIndex();  // may be null
 $reason = $detail->getReason();         // will always be present
 ```
+
+*To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-EvaluationDetail.html), [`variationDetail`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method_variationDetail).*
 
 </CodeTabItem>
 <CodeTabItem value="xamarin">
@@ -164,6 +179,8 @@ int? index = detail.VariationIndex;       // may be null
 EvaluationReason reason = detail.Reason;  // will always be present
 ```
 
+*To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/xamarin-client-sdk/html/T_LaunchDarkly_Client_EvaluationDetail_1.htm), [`BoolVariationDetail`](https://launchdarkly.github.io/xamarin-client-sdk/html/M_LaunchDarkly_Xamarin_ILdClient_BoolVariationDetail.htm).*
+
 </CodeTabItem>
 <CodeTabItem value="android">
 
@@ -176,6 +193,8 @@ boolean value = detail.getValue();
 Integer index = detail.getVariationIndex();   // may be null
 EvaluationReason reason = detail.getReason(); // will always be present
 ```
+
+*To learn more, read [`EvaluationDetail`](https://javadoc.io/static/com.launchdarkly/launchdarkly-android-client-sdk/2.12.0/com/launchdarkly/android/EvaluationDetail.html), [`boolVariationDetail`](https://javadoc.io/static/com.launchdarkly/launchdarkly-android-client-sdk/2.12.0/com/launchdarkly/android/LDClient.html#boolVariationDetail-java.lang.String-java.lang.Boolean-).*
 
 </CodeTabItem>
 <CodeTabItem value="swift">
@@ -190,7 +209,7 @@ Dictionary<String, Any>? reason = detail.reason; // may be null
 ```
 
 </CodeTabItem>
-<CodeTabItem value="react">
+<CodeTabItem value="react-native">
 
 ```js
 const detail =
@@ -200,6 +219,8 @@ const value = detail.value;
 const index = detail.variationIndex;   // may be null
 const reason = detail.reason; // may be null
 ```
+
+*To learn more, read [`LDEvaluationDetail`](https://launchdarkly.github.io/react-native-client-sdk/index.html#ldevaluationdetail), [`boolVariationDetail`](https://launchdarkly.github.io/react-native-client-sdk/classes/_launchdarkly_react_native_client_sdk_.ldclient.html#boolvariationdetail).*
 
 </CodeTabItem>
 </CodeTabs>
@@ -279,8 +300,6 @@ These values are:
 
 Here is an example of how you could access the details of a reason object in some of LaunchDarkly's SDKs:
 
-
-
 <CodeTabs
   defaultValue="go"
   values={[
@@ -318,11 +337,12 @@ func PrintReason(reason ldclient.EvaluationReason) {
 }
 ```
 
+*To learn more, read [`EvaluationReason`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v4#EvaluationReason).*
+
 </CodeTabItem>
 <CodeTabItem value="java">
 
 ```java
-
 void printReason(EvaluationReason reason) {
   switch (reason.getKind()) {
     case OFF:
@@ -352,6 +372,8 @@ void printReason(EvaluationReason reason) {
   System.out.println(reason.toString());
 }
 ```
+
+*To learn more, read [`EvaluationReason`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/EvaluationReason.html).*
 
 </CodeTabItem>
 <CodeTabItem value="csharp">
@@ -388,6 +410,8 @@ void PrintReason(EvaluationReason reason)
 }
 ```
 
+*To learn more, read [`EvaluationReason`](http://launchdarkly.github.io/dotnet-server-sdk/html/T_LaunchDarkly_Client_EvaluationReason.htm).*
+
 </CodeTabItem>
 <CodeTabItem value="ruby">
 
@@ -410,6 +434,8 @@ def print_reason(reason)
 end
 ```
 
+*To learn more, read [`EvaluationDetail.reason`](https://www.rubydoc.info/gems/launchdarkly-server-sdk/LaunchDarkly/EvaluationDetail#reason-instance_method).*
+
 </CodeTabItem>
 <CodeTabItem value="py">
 
@@ -429,6 +455,8 @@ def print_reason(reason):
   elif kind == "ERROR":
     print "error: %s" % reason["errorKind"]
 ```
+
+*To learn more, read [`EvaluationDetail.reason`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.flag.EvaluationDetail.reason).*
 
 </CodeTabItem>
 <CodeTabItem value="node">
@@ -457,6 +485,8 @@ function printReason(reason) {
   }
 }
 ```
+
+*To learn more, read [`LDEvaluationReason`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldevaluationreason.html).*
 
 </CodeTabItem>
 <CodeTabItem value="php">
@@ -488,6 +518,8 @@ function printReason($reason) {
   echo($reason);
 }
 ```
+
+*To learn more, read [`EvaluationReason`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-EvaluationReason.html).*
 
 </CodeTabItem>
 <CodeTabItem value="android">
@@ -524,6 +556,8 @@ void printReason(EvaluationReason reason) {
   Timber.d(reason.toString());
 }
 ```
+
+*To learn more, read [`EvaluationReason`](https://javadoc.io/static/com.launchdarkly/launchdarkly-android-client-sdk/2.12.0/com/launchdarkly/android/EvaluationReason.html).*
 
 </CodeTabItem>
 </CodeTabs>
