@@ -631,7 +631,11 @@
             "path": "/guides/best-practices/deployment-strategies"
           },
           {
-            "label": "LaunchDarkly integrations",
+            "label": "Using feature flags to mitigate risk in infrastructure migrations",
+            "path": "/guides/best-practices/infrastructure-migration"
+          },
+          {
+            "label": "Using LaunchDarkly integrations",
             "path": "/guides/best-practices/integrations"
           }
         ]

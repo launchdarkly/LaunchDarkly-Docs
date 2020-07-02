@@ -1,0 +1,161 @@
+---
+path: '/guides/best-practices/infrastructure-migration'
+title: 'Using feature flags to mitigate risk in infrastructure migrations'
+description: 'This guide explains how you can use feature flags to mitigate risks associated with infrastructure migrations.'
+published: true
+---
+
+# Overview
+
+This guide explains how you can use feature flags to mitigate risks associated migrating infrastructure components, like databases or other services, from one provider to another.
+
+Migration projects are common in software development. Every software team at some point migrates one infrastructure component to another. You may perform a migration to improve the scalability and performance of a database on a growing app, improve your caching layer, or transition from an in-house service to a cloud-based solution.
+
+Infrastructure migrations often come with an ample amount of risk. For example, moving from one database to another requires careful planning and execution to maintain data integrity. These type of projects require a lot of work, but it doesn’t need to be risky. You can use feature flags to manage the transition from one infrastructure component to another. 
+
+Using feature flags to facilitate migrations limits or eliminates downtime, allowing you to perform the migration seamlessly. The best part is that if something goes wrong, or you're not getting the results you want, disabling the migration is as fast as toggling the flag off. You can revert a migration with little to no consequence to your end users.
+
+# Prerequisites
+
+This technical guide explores a database migration strategy. To use it successfully, you should understand:
+
+* How applications use a database to read and write data
+* How to perform [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations on databases
+
+# Migrating between databases with feature flags
+
+The example below focuses on a database migration, but you can use a similar strategy for other infrastructure  migrations as well.
+
+For our example, let's start with a data model that is never updated, where events are written and later read, but never changed. Later in the guide, we'll discuss how to handle the more complicated data model with ongoing event updates.
+
+In the next sections, we refer to two databases, `db1` and `db2`. `db1` is the original database from which you will migrate. `db2` is the destination database to which you will migrate your data. It receives data from `db1`.
+
+![Migrating databases with feature flags](../images/database-migration.jpg)
+
+# Preparing your DAO
+
+You read and write events in `db1` with Data Access Object (or [DAO](https://en.wikipedia.org/wiki/Data_access_object)) code.
+
+First, you must write a new DAO that uses the same interface as `db1`, but can also read and write to `db2`. If there are differences in the way you need to query the data in the new data store, you must address those requirements now.
+
+# Feature flagging your reads and writes
+
+Now, you have two implementations of your DAO interface, one backed by `db1` and the other by `db2`.
+
+Use a set of four feature flags to control reading and writing to each database independently (referred to below as `events-db1-write`, `events-db2-write`, `events-db1-read`, and `events-db2-read`).
+
+For example, the function below will save an event to the approriate database depending on the value of our feature flags (`events-db1-write` and `events-db2-write`):
+
+<CodeTabs
+  defaultValue="code"
+  values={[
+    { label: 'Saving to the data store', value: 'code', },
+  ]
+}>
+
+<CodeTabItem value="code">
+
+```go
+func storeEvent(evt Event, account ld.User) {
+  if ldclient.BoolVariation('events-db1-write', account, true) {
+   DB1EventsDao.createEvent(evt)
+  }
+  if ldclient.BoolVariation('events-db2-write', account, true) {
+   DB2EventsDao.createEvent(evt)
+  }
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<Callout intent="info">
+  <CalloutDescription>
+    The <code>ldclient.BoolVariation()</code> function retreives the feature flag value from LaunchDarkly and accepts 3 parameters:
+    feature flag name, user account object, and default flag value
+  </CalloutDescription>
+</Callout>
+
+If you follow the code above precisely, you can save the same event in both databases. This is deliberate. It lets us write events to the new data store while maintaining the integrity of the old store.
+
+If we need to cancel the migration or rollback from `db2` to `db1`, we can do so with confidence because both databases have all of the events stored.
+
+The code that reads the events is more complicated. Here, our strategy is to read from both data stores at the same time, compare the results, then return the results from `db1`. If the results are different between the data stores, then we log it.
+
+<CodeTabs
+  defaultValue="code"
+  values={[
+    { label: 'Reading from the data store', value: 'code', },
+  ]
+}>
+
+<CodeTabItem value="code">
+
+```go
+func findEventById(id string, account ld.User) Event {
+  // Check both 'read' flags
+  shouldReadDB1 := ldclient.BoolVariation('events-db1-read', account, true)
+  shouldReadDB2 := ldclient.BoolVariation('events-db2-read', account, true)
+  if shouldReadDB1 && shouldReadDB2 { // compare results
+    DB1Evt := DB1EventsDao.findEventById(id)
+    DB2Evt := DB2EventsDao.findEventById(id)
+    // In this example, we are just performing a simple deep-equality check.
+    // In some more complex cases, you might want to perform some other
+    // integrity check to compare the two results, and ensure they
+    // are as you expect.
+    if !reflect.DeepEqual(DB1Evt, DB2Evt) {
+      logger.Error.Printf(
+        "db1 and db2 events differ: db1: %+v, db2: %+v",
+        DB1Evt,
+        DB2Evt)
+    }
+    return DB1Evt
+  } else if shouldReadDB2 { // read from just db2
+    return DB2EventsDao.findEventById(id)
+  } else { // read from just db1
+    return DB1EventsDao.findEventById(id)
+  }
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+This implementation has a bias toward the incumbent data store, which in this example is `db1`. It returns the value read from `db1` when it reads from both stores, and it will also read from `db1` any time the `db2` flag is `false`.
+
+# Rolling it out
+
+Now that we’ve wrapped our data access in feature flags, we can plan the rollout.
+
+You can leave the read flag (`events-db2-read`) turned off for everyone, and progressively roll out the write flag (`events-db2-write`) to your userbase. Watch performance metrics and error logs. If things perform as expected and you've verified the data is written correctly in `db2`, roll the flag out to more users, until all events are being written to both databases.
+
+When you are happy with the write performance and confirmed that the data in `db2` is correct, you can plan to migrate the missing data that's not in `db1`. This data was written before the `events-db2-write` flag was turned on. You can do this as a one-time copy with a script, ignoring any duplicate entries that came in after you enabled writes to `db2`. Make sure to do a final check on the resulting data in `db2`.
+
+<Callout intent="alert">
+  <CalloutTitle>
+    How do you handle a data model that can be updated?
+  </CalloutTitle>
+  <CalloutDescription>
+    Our example up until this point assumed a data model that doesn't get updated (only created). The write strategy for a mutable data model is a bit more complicated. In this case, you may want to consider adding a <code>lastUpdate</code> property to your data store so that you can decide if your copy script will need to update the data in <code>db2</code>.
+  </CalloutDescription>
+</Callout>
+
+After your data is copied to `db2`, you can start turning on reads to the new data store. Turn on reads for a small segment of your users and monitor the performance metrics and error logs. Specifically, look for a “db1 and db2 events differ” message. That message does not indicate that something is wrong in production. Even if you see that message, it hasn’t affected any users. They are still using the data from your old data store. If you see that error message, you can fix any issues without impacting your users and move forward.
+
+<LearnMore>
+  <LearnMoreLink to="/home/managing-flags/targeting-users#percentage-rollouts">Percentage rollouts</LearnMoreLink>
+</LearnMore>
+
+Once you're comfortable with the performance metrics and error counts you're seeing with reads and writes, you can now turn off the read and write flags for `db1`, remove all references to all four flags in your code, and you are left with just `db2`.
+
+![A migration strategy](../images/database-migration-using-ff.jpg)
+
+# Conclusion
+
+The technique described in this guide is only one strategy for a fairly simple server-side based system. There are cases where this strategy may not be enough.
+
+For example, your target data store may need to have a different schema, forcing your DAO to read and write that data differently. This is a likely scenario if you're moving from a document database to a relational database. In this case, your new DAO may require changes to the application that will also need to be flagged.
+
+Additionally, if you have corresponding mobile and desktop apps that need updated code to access the new data store, you must plan those migrations as well, since client-side apps are often not version-consistent across userbases. This may require shipping new versions of your mobile and desktop apps and waiting for your users to slowly upgrade to the new versions before attempting the migration.
+
+There's no one-size-fits-all strategy for infrastructure migrations. This guide explores only one strategy that can serve as a foundation to build on. Using feature flags for migration projects will increase your confidence, limit the risks, and allow you to make infrastructure migrations happen seamlessly.
