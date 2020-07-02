@@ -1,0 +1,637 @@
+---
+path: '/sdk/server-side/go/migration-4-to-5'
+title: 'Go SDK 4.x to 5.0 migration guide'
+description: 'This topic explains the API changes made in the Go SDK 5.0 release and how to migrate to that version.'
+published: true
+---
+
+<Callout intent="info">
+  <CalloutTitle>This migration guide is for a pre-release version of the Go SDK</CalloutTitle>
+  <CalloutDescription>
+
+Go SDK 5.0 is not yet generally available. This topic describes the `v5.0.0-beta.1` pre-release version. This is a living document that may change if there are additional modifications to the SDK before the final release.
+
+  </CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to adapt code that currently uses a 4.x version of the [Go server-side SDK](/sdk/server-side/go) to use version 5.0 or later.
+
+Before you migrate to 5.0, update to the latest 4.x version. Some of the changes that are mandatory in 5.0 were originally added in a 4.x version and made optional. 
+
+If you update to the latest 4.x version, deprecation warnings appear in areas of your code that need to be changed for 5.0. You can update them at your own pace while still using 4.x, rather than migrating everything simultaneously.
+
+To learn more about updating to the latest 4.x version, visit the [SDK's GitHub repository](https://github.com/launchdarkly/go-server-sdk/releases).
+
+## Identifying supported Go versions for the 5.0 SDK
+
+The minimum Go version for LaunchDarkly SDK 5.0 is 1.13. 
+
+LaunchDarkly no longer supports lower Go versions, as stated in our [End of Life policy](https://launchdarkly.com/policies/end-of-life-policy/).
+
+## Using Go modules
+
+[Modules](https://github.com/golang/go/wiki/Modules) are supported in all modern versions of Go, and are now the standard way to write Go code. However, not all Go users use Go modules.
+
+To support as many users as possible, we designed the 5.x SDK for use with or without modules. It has a `go.mod` file so it will be recognized as a module, but if you use an older dependency management system like `dep` or `govendor`, the 5.x SDK will still work. 
+
+This is why we have continued to use the [`gopkg.in`](https://labix.org/gopkg.in) redirection service for the SDK's import paths. Go modules with major versions greater than 1 must normally have an import path suffix like `/v5`, which would not work with `dep` and `govendor`. Paths that use `gopkg.in` are exempt from that rule.
+
+<Callout intent="alert">
+<CalloutTitle>Plan to migrate to Go modules</CalloutTitle>
+<CalloutDescription>Starting with the next major version, 6.0.0, you will only be able to use the Go SDK from module-based code.</CalloutDescription>
+</Callout>
+
+As described below, the SDK is now made up of multiple repositories. If you do not use modules and you have pinned your dependency versions, when you update the SDK to a new version you should also update any other `github.com/launchdarkly` or `gopkg.in/launchdarkly` dependencies that were previously pinned. This is not required if you use modules, since the SDK can specify its own preferred dependency versions.
+
+## Using updated package names
+
+The package structure of the SDK has changed. Some packages have been added in the main repository, and other packages are now in related repositories.
+
+There were two reasons for this. First, the main package `go-server-sdk.v4` was cluttered with many things that are not necessary for normal usage of the SDK. Moving things out of this package produced a clearer basic API.
+
+Second, there are some internal parts of the Go SDK code that are also used by other LaunchDarkly components, such as the [Relay Proxy](https://docs.launchdarkly.com/home/advanced/relay-proxy). The fact that those implementation details were visible within the main SDK package meant that they could not be changed in any backward-incompatible way without releasing a new major version of the SDK, even though application code was unlikely to be using them. 
+
+This was potentially confusing for developers, and required LaunchDarkly to maintain support for many obsolete types and methods.
+
+The full package schema is now as follows:
+
+* [`gopkg.in/launchdarkly/go-sdk-server.v5`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5)
+  * Main package: types that are specific to server-side SDK usage, such as [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config), [`LDClient`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient), and [`FeatureFlagsState`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#FeatureFlagsState).
+  * [`/interfaces`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces): types like [`DataStore`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#DataStore) that are only used if you are writing a [custom component](#implementing-custom-components), as well as interfaces for advanced features like [`FlagTracker`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#FlagTracker).
+  * [`/ldcomponents`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents): configuration builders for specific areas of SDK functionality, such as configuring streaming options or logging options. See [Understanding changes to SDK configuration](#understanding-changes-to-sdk-configuration).
+  * [`/ldconsul`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldconsul), [`/lddynamodb`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/lddynamodb), [`/ldredis`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldredis), [`ldfiledata`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldfiledata): add-ons such as database integrations which already existed in the 4.x SDK, but have somewhat different configuration syntax now. Note that `ldredis` was formerly called `redis`.
+
+* [`gopkg.in/launchdarkly/go-sdk-common.v2`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2)
+  * [`/ldlog`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldlog): the SDK's logging abstraction (formerly in `go-server-sdk.v4/ldlog`).
+  * [`/ldreason`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldreason): the [`EvaluationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldreason#EvaluationDetail) and [`EvaluationReason`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldreason#EvaluationReason) types (formerly in `go-server-sdk.v4`).
+  * [`/lduser`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser): [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User), [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder), and related methods (formerly in `go-server-sdk.v4`).
+  * [`/ldvalue`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue): the universal JSON value type [`Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value), and related types like [`OptionalString`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#OptionalString).
+
+* `gopkg.in/launchdarkly/go-sdk-events.v1`, `gopkg.in/launchdarkly/go-server-sdk-evaluation.v1`: these packages are not used directly by application code.
+
+## Understanding changes to SDK configuration
+
+Previously, the [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config) struct had fields for all of the SDK's configuration options. An empty `Config{}` struct was not a valid configuration. Applications had to first copy from `ld.DefaultConfig` and then make any desired changes.
+
+Now, most of the properties are grouped into areas of functionality, each of which has its own builder class that is only available if you are using that functionality. The `Config` struct has a much smaller number of fields, since most of its options are contained within one of the builders. 
+
+For example, if you use streaming mode, there are options you can set to control streaming mode, and if you use polling mode, you use a different builder that does not have the streaming options. Similarly, if you have disabled analytics events, the event-related options are not accessible.
+
+`ld.DefaultConfig` no longer exists. An empty `Config{}` is now a valid configuration, with the same default behavior that was previously provided by `ld.DefaultConfig`.
+
+The basic areas of functionality are "data source" (polling, streaming, or file data), "data store" (memory or database), events, logging, and networking.
+
+### Understanding changes to data source methods
+
+The data source is the mechanism that the SDK uses to receive feature flag updates. Typically this is a streaming connection, but you can also configure the SDK to use polling or other sources.
+
+For each data source type, there is a factory method whose name ends in `DataSource`. These methods give you a builder object with methods for whatever options are appropriate. Store that object in [`Config.DataSource`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config.DataSource).
+
+<CodeTabs
+  defaultValue="sdk4"
+  values={[
+    { label: '4.x syntax', value: 'sdk4', },
+    { label: '5.0 syntax', value: 'sdk5', },
+  ]
+}>
+<CodeTabItem value="sdk4">
+
+```go
+config := ld.DefaultConfig
+
+// 4.x model: setting custom options for streaming mode
+config.Stream = true
+config.StreamInitialReconnectDelay = 500 * time.Millisecond
+
+// 4.x model: specifying polling mode and setting custom polling options
+config.Stream = false
+config.PollInterval = 60 * time.Second
+```
+</CodeTabItem>
+<CodeTabItem value="sdk5">
+
+```go
+var config ld.Config
+
+// 5.0 model: setting custom options for streaming mode
+config.DataSource = ldcomponents.StreamingDataSource().
+    InitialReconnectDelay(500 * time.Millisecond)
+
+// 5.0 model: specifying polling mode and setting custom polling options
+config.DataSource = ldcomponents.PollingDataSource().
+    PollInterval(60 * time.Second)
+```
+</CodeTabItem>
+</CodeTabs>
+
+Streaming mode is the default. Unlike the earlier model, it is no longer possible to construct a meaningless configuration such as "use streaming mode, but set the polling interval to 1 minute" or "disable events, but set the flush interval to 10 seconds."
+
+Another data source option is the file-based data source. To learn more, read the API documentation for `ldfiledata.DataSource()`.
+
+### Understanding changes to the data store
+
+As before, the default data store is a simple in-memory cache.
+
+If you want to use a persistent datastore database integration, you must call a `DataStore` factory method for that integration. This gives you a builder object with whatever options are appropriate for that database. Next, pass the object to [`ldcomponents.PersistentDataStore()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#PersistentDataStore), a wrapper that provides caching options that are not specific to any one database but are built into the SDK. Put this into [`Config.DataStore`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config.DataStore).
+
+In the 4.x API, the constructors for these integrations took a variable number of arguments representing the various options you could use. For example, `packagename.NewFeatureStore(packagename.OptionA(value), packagename.OptionB(value))`.
+
+The 5.0 API uses a more concise builder pattern instead, with one builder method for each option. For example, `packagename.DataStore().OptionA(value).OptionB(value)`.
+
+To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
+
+The following examples use the Redis integration.
+
+<CodeTabs
+  defaultValue="sdk4"
+  values={[
+    { label: '4.x syntax', value: 'sdk4', },
+    { label: '5.0 syntax', value: 'sdk5', },
+  ]
+}>
+<CodeTabItem value="sdk4">
+
+```go
+config := ld.DefaultConfig
+
+// 4.x model: use Redis, set custom Redis URI and key prefix, set cache TTL to 45 seconds
+config.FeatureStoreFactory = redis.NewRedisFeatureStoreWithDefaults(
+    ldredis.URI("redis://my-redis-host"),
+    ldredis.Prefix("my-key-prefix"),
+    ldredis.CacheTTL(45 * time.Second))
+```
+</CodeTabItem>
+<CodeTabItem value="sdk5">
+
+```go
+var config ld.Config
+
+// 5.0 model: use Redis, set custom Redis URI and key prefix, set cache TTL to 45 seconds
+config.DataStore = ldcomponents.PersistentDataStore(
+    ldredis.DataStore().
+        URI("redis://my-redis-host").
+        Prefix("my-key-prefix"),
+).CacheSeconds(45)
+```
+</CodeTabItem>
+</CodeTabs>
+
+### Understanding changes to events
+
+Analytics events are enabled by default. To customize their behavior, call [`ldcomponents.SendEvents()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#SendEvents) to get a builder object with event-related options, and then put that object in [`Config.Events`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config.Events).
+
+To completely disable events, set [`Config.Events`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config.Events) to [`ldcomponents.NoEvents()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#NoEvents).
+
+<CodeTabs
+  defaultValue="sdk4"
+  values={[
+    { label: '4.x syntax', value: 'sdk4', },
+    { label: '5.0 syntax', value: 'sdk5', },
+  ]
+}>
+<CodeTabItem value="sdk4">
+
+```go
+config := ld.DefaultConfig
+
+// 4.x model: disabling events
+config.SendEvents = false
+
+// 4.x model: customizing event behavior
+config.Capacity = 20000
+config.FlushInterval = 10 * time.Second
+config.PrivateAttributeNames = []string{
+    "email",
+    "name",
+    "myCustomAttribute",
+}
+```
+</CodeTabItem>
+<CodeTabItem value="sdk5">
+
+```go
+var config ld.Config
+
+// 5.0 model: disabling events
+config.Events: ldcomponents.NoEvents()
+
+// 5.0 model: customizing event behavior
+config.Events = ldcomponents.SendEvents().
+    Capacity(20000).
+    FlushInterval(10 * time.Second).
+    PrivateAttributeNames(
+        lduser.EmailAttribute,
+        lduser.NameAttribute,
+        lduser.UserAttribute("myCustomAttribute"),
+    )
+```
+</CodeTabItem>
+</CodeTabs>
+
+You can no longer construct a meaningless configuration like "disable events, but set the flush interval to 10 seconds."
+
+### Understanding changes to logging configuration
+
+The SDK still uses the [`ldlog`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldlog) logging API, although that package is now in `gopkg.in/launchdarkly/go-sdk-common.v2` rather than `gopkg.in/launchdarkly/go-server-sdk.v4`.
+
+However, for basic logging configuration, such as specifying the minimum log level or disabling logging, you no longer need to interact directly with the `ldlog.Loggers` type. Instead, there is a new [`Logging`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config.Logging) property in `Config` which you can set to either [`ldcomponents.NoLogging()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#NoLogging) or to a configuration builder that you get from [`ldcomponents.Logging()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#Logging).
+
+<CodeTabs
+  defaultValue="sdk4"
+  values={[
+    { label: '4.x syntax', value: 'sdk4', },
+    { label: '5.0 syntax', value: 'sdk5', },
+  ]
+}>
+<CodeTabItem value="sdk4">
+
+```go
+config := ld.DefaultConfig
+
+// 4.x model: disabling logging
+config.Loggers = ldlog.NewDisabledLoggers()
+
+// 4.x model: setting log level to Warn
+config.Loggers.SetMinLevel(ldlog.Warn)
+
+// 4.x model: specifying that evaluation errors should be logged
+config.LogEvaluationErrors = true
+```
+</CodeTabItem>
+<CodeTabItem value="sdk5">
+
+```go
+var config ld.Config
+
+// 5.0 model: disabling logging
+config.Logging = ldcomponents.NoLogging()
+
+// 5.0 model: setting log level to Warn
+config.Logging = ldcomponents.Logging().MinLevel(ldlog.Warn)
+
+// 5.0 model: specifying that evaluation errors should be logged
+config.Logging = ldcomponents.Logging().LogEvaluationErrors(true)
+```
+</CodeTabItem>
+</CodeTabs>
+
+### Understanding changes to networking configuration
+
+Options in this category affect how the SDK communicates with LaunchDarkly over HTTP/HTTPS, including connection timeout, proxy servers, and more. If you need to customize these, call [`ldcomponents.HTTPConfiguration()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#HTTPConfiguration) to get a builder object, configure this builder, and then put that object in [`Config.HTTP`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config.HTTP).
+
+<CodeTabs
+  defaultValue="sdk4"
+  values={[
+    { label: '4.x syntax', value: 'sdk4', },
+    { label: '5.0 syntax', value: 'sdk5', },
+  ]
+}>
+<CodeTabItem value="sdk4">
+
+```go
+config := ld.DefaultConfig
+
+// 4.x model: setting socket connection timeout
+config.Timeout = 3 * time.Second
+
+// 4.x model: specifying a secure HTTPS proxy with a custom CA certificate
+config.HTTPClientFactory = ld.NewHTTPClientFactory(
+    ldhttp.ProxyOption(proxyURL),
+    ldhttp.CACertOption("mycert.crt"),
+)
+```
+</CodeTabItem>
+<CodeTabItem value="sdk5">
+
+```go
+var config ld.Config
+
+// 5.0 model: setting socket connection timeout
+config.HTTP = ldcomponents.HTTPConfiguration().
+    ConnectTimeout(3 * time.Second)
+
+// 5.0 model: specifying a secure HTTPS proxy with a custom CA certificate
+config.HTTP = ldcomponents.HTTPConfiguration().
+    ProxyURL(proxyURL).
+    CACertFile("mycert.crt")
+```
+</CodeTabItem>
+</CodeTabs>
+
+## Using the user builder
+
+Before [Go SDK 4.16](https://github.com/launchdarkly/go-server-sdk/releases/tag/4.16.0), the way to define user properties was to set the fields of the `User` struct directly. Since the fields had pointer types, this was somewhat inconvenient. Also, the mutability of the `User` struct and the `Custom` map inside it could cause [concurrency problems](https://launchdarkly.com/blog/avoid-concurrency-pitfalls-with-the-launchdarkly-sdks/).
+
+Version 4.16 added the `UserBuilder` type as a safer and more convenient way to define user properties. As of version 5.0, this is the only way, if you need to use the full set of properties. The `NewUser` and `NewAnonymousUser` constructors still exist for simple users. The `User` struct no longer has any exported fields and cannot be modified by application code after it is built. It now has getter methods like `GetName()` if you need to inspect existing property values.
+
+The 5.0 [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User) and [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder) types, and the [`NewUser()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#NewUser), [`NewAnonymousUser()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#NewAnonymousUser), and [`NewUserBuilder()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#NewUserBuilder) functions, are now in `gopkg.in/launchdarkly/go-sdk-common.v2/lduser` instead of `gopkg.in/launchdarkly/go-server-sdk.v4`.
+
+<CodeTabs
+  defaultValue="sdk400"
+  values={[
+    { label: 'before 4.16', value: 'sdk400', },
+    { label: '4.16+ syntax', value: 'sdk416', },
+    { label: '5.0 syntax', value: 'sdk500', },
+  ]
+}>
+<CodeTabItem value="sdk400">
+
+```go
+// before 4.16: create a simple user with just a key
+user := ld.NewUser("key")
+
+// before 4.16: set email and country
+user := ld.NewUser("key")
+email := "test@example.com"
+country := "us"
+user.Email = &email
+user.Country = &country
+
+// before 4.16: set custom attribute "team" to "admin"
+user := ld.NewUser("key")
+custom := make(map[string]interface{})
+custom["team"] = "admin"
+```
+</CodeTabItem>
+<CodeTabItem value="sdk416">
+
+```go
+// 4.16+: create a simple user with just a key
+user := ld.NewUser("key")
+
+// 4.16+: set email and country
+user := ld.NewUserBuilder("key").
+    Email("test@example.com").
+    Country("us").
+    Build()
+
+// 4.16+: set custom attribute "team" to "admin"
+user := ld.NewUserBuilder("key").
+    Custom("team", ldvalue.String("admin")).
+    Build()
+```
+</CodeTabItem>
+<CodeTabItem value="sdk500">
+
+```go
+// 5.0: create a simple user with just a key
+user := lduser.NewUser("key")
+
+// 5.0: set email and country
+user := lduser.NewUserBuilder("key").
+    Email("test@example.com").
+    Country("us").
+    Build()
+
+// 5.0: set custom attribute "team" to "admin"
+user := lduser.NewUserBuilder("key").
+    Custom("team", ldvalue.String("admin")).
+    Build()
+```
+</CodeTabItem>
+</CodeTabs>
+
+## Using the Value type for JSON values
+
+Before [Go SDK 4.16](https://github.com/launchdarkly/go-server-sdk/releases/tag/4.16.0), if you wanted to describe a value that could be of any valid JSON type, you would use Go's universal value type `interface{}`.
+
+For example, `LDClient.JsonVariation()` returned that type, and also took a default value parameter of that type. 
+
+However, there were two problems with `interface{}`: 
+
+1. It could represent any type at all, even ones that are not valid in a LaunchDarkly feature flag, and
+2. JSON arrays and objects were represented as slices and maps, which are mutable and can cause [concurrency problems](https://launchdarkly.com/blog/avoid-concurrency-pitfalls-with-the-launchdarkly-sdks/).
+
+Version 4.16 added the immutable class `ldvalue.Value` as a replacement for `interface{}`, along with a `LDClient.JSONVariation()` method that uses `LDValue`, and `UserBuilder` methods for setting user attributes of any JSON type. 
+
+As of version 5.0, these are the only options. `interface{}` is no longer used in the public API.
+
+The [`Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value) type for the 5.0 SDK is now in `gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue` instead of `gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue`.
+
+<CodeTabs
+  defaultValue="sdk400"
+  values={[
+    { label: 'before 4.16', value: 'sdk400', },
+    { label: '4.16+ syntax', value: 'sdk416', },
+    { label: '5.0 syntax', value: 'sdk500', },
+  ]
+}>
+<CodeTabItem value="sdk400">
+
+```go
+// before 4.16: get a JSON flag variation whose default value is "default",
+// and check if the result is a string or a number
+result, _ := client.JsonVariation(flagKey, user, "default")
+if s, ok := result.(string); ok {
+    DoSomethingWithString(s)
+} else if n, ok := result.(float64); ok {
+    DoSomethingWithNumberAsInt(int(n))
+}
+
+// before 4.16: set a user's custom attribute "teams" to an
+// array of ["admin", "foosball"]
+user := ld.NewUser("key")
+custom := make(map[string]interface{})
+custom["team"] = []interface{}{"admin", "foosball"}
+```
+</CodeTabItem>
+<CodeTabItem value="sdk416">
+
+```go
+// 4.16+: get a JSON flag variation whose default value is "default",
+// and check if the result is a string or a number
+result, _ := client.JSONVariation(flagKey, user, ldvalue.String("default"))
+if result.Type() == ldvalue.StringType {
+    DoSomethingWithString(result.StringValue())
+} else if result.Type() == ldvalue.NumberType {
+    DoSomethingWIthNumberAsInt(result.IntValue())
+}
+
+// 4.16+: set a user's custom attribute "teams" to an
+// array of ["admin", "foosball"]
+user := ld.NewUserBuilder("key").
+    Custom("teams", ldvalue.ArrayBuild().
+        Add(ldvalue.String("admin")).Add(ldvalue.String("foosball")).Build()).
+    Build()
+```
+</CodeTabItem>
+<CodeTabItem value="sdk500">
+
+```go
+// 5.0: get a JSON flag variation whose default value is "default",
+// and check if the result is a string or a number
+result, _ := client.JSONVariation(flagKey, user, ldvalue.String("default"))
+if result.Type() == ldvalue.StringType {
+    DoSomethingWithString(result.StringValue())
+} else if result.Type() == ldvalue.NumberType {
+    DoSomethingWIthNumberAsInt(result.IntValue())
+}
+
+// 5.0: set a user's custom attribute "teams" to an
+// array of ["admin", "foosball"]
+user := lduser.NewUserBuilder("key").
+    Custom("teams", ldvalue.ArrayBuild().
+        Add(ldvalue.String("admin")).Add(ldvalue.String("foosball")).Build()).
+    Build()
+```
+</CodeTabItem>
+</CodeTabs>
+
+## Understanding changes to EvaluationDetail and EvaluationReason
+
+The [`EvaluationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldreason#EvaluationDetail) and [`EvaluationReason`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldreason#EvaluationReason) types were formerly in `gopkg.in/launchdarkly/go-server-sdk.v4` and are now in `gopkg.in/launchdarkly/go-sdk-common.v2/ldreason`. 
+
+We have modified them in two ways:
+
+1. `EvaluationReason` is now a struct rather than an interface. Instead of casting it to another type such as `EvaluationReasonRuleMatch` to get specific properties, it provides getter methods for those properties.
+2. The `VariationIndex` property of `EvaluationDetail` is now an `int`, not `*int`. In cases where it previously would have been `nil`, it is now `-1`.
+
+<CodeTabs
+  defaultValue="sdk4"
+  values={[
+    { label: '4.x syntax', value: 'sdk4', },
+    { label: '5.0 syntax', value: 'sdk5', },
+  ]
+}>
+<CodeTabItem value="sdk4">
+
+```java
+value, detail, _ := client.BoolVariationDetail(flagKey, user, false)
+
+// 4.x model: check if the variation index is 0
+if detail.VariationIndex != nil && *detail.VariationIndex == 0 {
+    log.Printf("it is variation zero")
+}
+
+// 4.x model: check if the reason is "prerequisite failed"
+if pf, ok := detail.Reason.(ld.EvaluationReasonPrerequisiteFailed); ok {
+    log.Printf("the prerequisite %s failed", pf.PrerequisiteKey)
+}
+```
+</CodeTabItem>
+<CodeTabItem value="sdk5">
+
+```java
+value, detail, _ := client.BoolVariationDetail(flagKey, user, false)
+
+// 5.x model: check if the variation index is 0
+if detail.VariationIndex == 0 {
+    log.Printf("it is variation zero")
+}
+
+// 5.x model: check if the reason is "prerequisite failed"
+if detail.Reason.GetKind() == ldreason.EvalReasonPrerequisiteFailed {
+    log.Printf("the prerequisite %s failed", detail.Reason.GetPrerequisiteKey())
+}
+```
+</CodeTabItem>
+</CodeTabs>
+
+## Understanding changes to add-on integration packages
+
+The Consul, DynamoDB, and Redis integrations are still included in the SDK. However, the name of the package for the Redis integration is now [`ldredis`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldredis) instead of `redis`. This is consistent with the other two, which are [`ldconsul`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldconsul) and [`lddynamodb`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/lddynamodb).
+
+The configuration syntax has changed. To learn more about configuration details, read [Understanding changes to the data store](#understanding-changes-to-the-data-store).
+
+## Using the Relay Proxy
+
+There are two ways you can configure the SDK to use the [LaunchDarkly Relay Proxy](/home/advanced/relay-proxy).
+
+You can use it in: 
+
+* **proxy mode**, connecting to it via HTTP/HTTPS just as if it were the LaunchDarkly service
+* **daemon mode**, receiving flag data only through a database. 
+
+The syntax for configuring these has changed in version 5.0.
+
+<CodeTabs
+  defaultValue="sdk4"
+  values={[
+    { label: '4.x syntax', value: 'sdk4', },
+    { label: '5.0 syntax', value: 'sdk5', },
+  ]
+}>
+<CodeTabItem value="sdk4">
+
+```java
+config := ld.DefaultConfig
+relayURI := "http://my-relay-host:8000"
+
+// 4.x model: proxy mode with streaming
+config.BaseURI = relayURI
+config.StreamURI = relayURI
+config.EventsURI = relayURI // if you want to proxy events
+
+// 4.x model: proxy mode with polling
+config.Stream = false
+config.BaseURI = relayURI
+config.EventsURI = relayURI // if you want to proxy events
+
+// 4.x model: daemon mode with a Redis database
+config.UseLdd = true
+config.FeatureStoreFactory = redis.NewRedisFeatureStoreWithDefaults(
+    ldredis.URI("redis://my-redis-host"),
+    ldredis.Prefix("my-key-prefix"))
+```
+</CodeTabItem>
+<CodeTabItem value="sdk5">
+
+```go
+var config ld.Config
+relayURI := "http://my-relay-host:8000"
+
+// 5.0 model: proxy mode with streaming
+config.DataSource = ldcomponents.StreamingDataSource().BaseURI(relayURI)
+config.Events = ldcomponents.SendEvents().BaseURI(relayURI) // if you want to proxy events
+
+// 5.0 model: proxy mode with polling
+config.DataSource = ldcomponents.PollingDataSource().BaseURI(relayURI)
+config.Events = ldcomponents.SendEvents().BaseURI(relayURI) // if you want to proxy events
+
+// 5.0 model: daemon mode with a Redis database
+config.DataSource = ExternalUpdatesOnly()
+config.DataStore = ldcomponents.PersistentDataStore(
+    ldredis.DataStore().
+        URI("redis://my-redis-host").
+        Prefix("my-key-prefix"))
+```
+</CodeTabItem>
+
+</CodeTabs>
+
+## Implementing custom components
+
+Most applications use either the default in-memory storage or one of the [database integrations](/sdk/concepts/feature-store) provided by LaunchDarkly (Consul, DynamoDB, Redis), but the data store interface (formerly called "feature store") has always been public so developers can write their own integrations.
+
+Starting in Go SDK 5.0, this model has been changed to make it easier to implement database integrations. The basic concepts are the same. The SDK defines its own "data kinds", such as feature flags and user segments. The data store must provide a way to add and update items of any of these kinds without knowing anything about their properties except the key and version. 
+
+The main changes are:
+
+* Caching is now handled by the SDK, not by the store implementation. Now you only need to implement the lower-level operations of adding or updating data.
+* The SDK serializes and deserializes the data, so the store operates only on strings.
+* Data structures have been simplified to avoid the use of maps.
+
+The interface for "data source" components that receive feature flag data, either from LaunchDarkly or from some other source, such as a file, has also changed slightly to use the new data store model.
+
+To learn more, read the API documentation for the [`interfaces.DataStore`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#DataStore), [`interfaces.PersistentDataStore`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#PersistentDataStore), and [`interfaces.DataSource`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#DataSource) interfaces. You may also want to review the SDK's source code for one of the LaunchDarkly database integrations, such as the [`ldredis`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldredis) package, to see how it changed from the previous major version.
+
+## Understanding what was deprecated
+
+All types and methods that were marked as deprecated in the last 4.x release have been removed from the 5.0 release. 
+
+If you were using these with a recent version previously, you should already have received deprecation warnings at compile time, with suggestions about how to replace them. 
+
+## Understanding new functionality
+
+The 5.0 release also includes new features as described in the release notes. 
+
+These include:
+
+* You can tell the SDK to notify you whenever a feature flag's configuration has changed, using [`LDClient.GetFlagTracker()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetFlagTracker).
+* You can monitor the status of the SDK's connection to LaunchDarkly services with [`LDClient.GetDataSourceStatusProvider()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetDataSourceStatusProvider).
+* You can monitor the status of a persistent data store (for instance, to get caching statistics, or to be notified if the store's availability changes due to a database outage) with [`LDClient.GetDataStoreStatusProvider()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetDataStoreStatusProvider).
+* You can configure the SDK's use of different logging levels depending on the duration of a service outage with [`LDConfig.Logging`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDConfig.Logging) and [`ldcomponents.LoggingConfigurationBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#LoggingConfigurationBuilder).
+
+To learn more, read the API documentation for these classes and methods.

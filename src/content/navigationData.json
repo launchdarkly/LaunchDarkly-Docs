@@ -573,7 +573,13 @@
           },
           {
             "label": "Go SDK reference",
-            "path": "/sdk/server-side/go"
+            "path": "/sdk/server-side/go",
+            "items": [
+              {
+                "label": "Go SDK 4.x to 5.0 migration guide",
+                "path": "/sdk/server-side/go/migration-4-to-5"
+              }
+            ]
           },
           {
             "label": "Haskell SDK reference",
