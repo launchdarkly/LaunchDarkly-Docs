@@ -204,46 +204,47 @@ curl -X REPORT localhost:8030/sdk/eval/user -H "Authorization: YOUR_SDK_KEY" -H 
 
 ## Using the Relay Proxy in different modes
 
-After you set up the Relay Proxy, you can use it in either **proxy** mode or **daemon** mode. Set a mode for the Relay Proxy by configuring your SDK.
+After you set up the Relay Proxy, you can configure your SDKs to run in either **proxy** mode or **daemon** mode.
 
-Client-side and mobile SDKs should only use the Relay Proxy in proxy mode. Server-side SDKs can use it in either mode. In daemon mode, the SDK connects directly to the Relay Proxy's datastore, which is not supported for client-side SDKs.
+Client-side and mobile SDKs should only use the Relay Proxy in proxy mode. Server-side SDKs can use it in either mode. In daemon mode, the SDK connects directly to the Relay Proxy's datastore. This is not a supported behavior for client-side SDKs.
+
+The Relay Proxy's two modes are not mutually exclusive. If you have configured multiple services to use Relay Proxy, some of these services can operate in proxy mode while others are in daemon mode. If this is your use case, we recommend configuring your Relay Proxy to follow the best practices listed in each of the following subsections.
 
 ### Using proxy mode
 
-Proxy mode is the most common use case for the LaunchDarkly proxy. The Relay Proxy is set to proxy mode by default.
+Proxy mode is the most common use case for connecting to the Relay Proxy. LaunchDarkly SDKs are configured to run in proxy mode by default.
 
-In this mode, several Relay Proxy instances exist in a high-availability configuration behind a load balancer. Relay Proxy nodes do not need to communicate with each other. There is no master node or cluster.
+In proxy mode, several Relay Proxy instances should exist in a high-availability configuration behind a load balancer. Relay Proxy nodes do not need to communicate with each other. There is no master node or cluster.
 
-You can scale the Relay Proxy horizontally by deploying more nodes behind the load balancer. Do not use a single node in proxy mode.
+You can scale the Relay Proxy horizontally by deploying more nodes behind the load balancer. Do not use a single node when your SDKs are in proxy mode.
 
-![The Relay Proxy arranged in proxy mode.](../../../images/relayproxy-proxy-mode.png)
+![SDKs configured to use the Relay Proxy while in proxy mode.](../../../images/relayproxy-proxy-mode.png)
 
 ### Using daemon mode
 
-Optionally, you can configure LaunchDarkly SDKs to communicate directly with the Redis store. We recommend this configuration when you're using LaunchDarkly with PHP.
+Optionally, you can configure LaunchDarkly SDKs to communicate directly with Relay Proxy's persistent data store. We recommend this configuration when you're using LaunchDarkly with PHP.
 
-To set the Relay Proxy to daemon mode:
+There is no need to put a load balancer in front of the Relay Proxy when your SDKs are configured to run in daemon mode. 
+
+To enable daemon mode:
 
 1. Configure your SDK to use a persistent data store. The SDK and the Relay Proxy must use the same data store.
-   To learn more about setting up a persistent data store, read [Using a persistent feature store](/sdk/concepts/feature-store).
-2. Configure your SDK to use "LDD mode". To do so, set the `UseLdd` SDK configuration property to `true`. The name of this property is often `UseLdd`, but can vary between SDKs. To learn more about customizing SDK configuration, read the documentation for your SDK.
+2. Configure your SDK to use run in daemon mode.
+
+To learn more about setting up a persistent data store for use in daemon mode, read [Using a persistent feature store without connecting to LaunchDarkly](/sdk/concepts/feature-store#using-a-persistent-feature-store-without-connecting-to-launchdarkly).
 
 <Callout intent="info">
-  <CalloutTitle>Restoring the Relay Proxy to proxy mode</CalloutTitle>
+  <CalloutTitle>Restoring your SDK to proxy mode</CalloutTitle>
   <CalloutDescription>
 
-If you have set your Relay Proxy to daemon mode and wish to restore proxy mode, set the `UseLdd` SDK configuration
-property to `false`. In some SDKs, the configuration property you must change is not named `UseLdd`, but that name
-is the most common. To learn more about customizing SDK configuration, read the documentation for your SDK.
+If you have set your SDK to daemon mode and wish to restore proxy mode, you can do that by removing the configuration that enabled daemon mode. By default, LaunchDarkly SDKs run in proxy mode, so removing the additional configuration returns the SDK to proxy mode. To learn more about customizing SDK configuration, read the documentation for your SDK. 
 
   </CalloutDescription>
 </Callout> 
 
-In daemon mode, there is no need to put a load balancer in front of the Relay Proxy. Enable a monitoring service, such as Datadog, when you are using the Relay Proxy in daemon mode. 
+We recommend that you use a monitoring service, such as Datadog, when your SDKs are configured to run in daemon mode. Because the Relay Proxy's data store communicates directly with the SDKs when the proxy is in in daemon mode, an external monitoring service can provide information about problems that might otherwise be lost during an outage.
 
-Because the data store communicates directly with the SDKs when the proxy is in in daemon mode, in the event of an outage an external monitoring service provides information about problems that might otherwise be lost.
-
-![The Relay Proxy arranged in daemon mode.](../../../images/relayproxy-daemon-mode.png) 
+![SDKs configured to use the Relay Proxy while in daemon mode.](../../../images/relayproxy-daemon-mode.png) 
 
 
 ## Securing connections to and from the Relay Proxy
