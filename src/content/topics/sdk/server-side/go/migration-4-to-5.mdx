@@ -9,7 +9,7 @@ published: true
   <CalloutTitle>This migration guide is for a pre-release version of the Go SDK</CalloutTitle>
   <CalloutDescription>
 
-Go SDK 5.0 is not yet generally available. This topic describes the `v5.0.0-beta.1` pre-release version. This is a living document that may change if there are additional modifications to the SDK before the final release.
+Go SDK 5.0 is not yet generally available. This topic describes the `v5.0.0-beta.3` pre-release version. This is a living document that may change if there are additional modifications to the SDK before the final release.
 
   </CalloutDescription>
 </Callout>
@@ -60,8 +60,7 @@ The full package schema is now as follows:
 * [`gopkg.in/launchdarkly/go-sdk-server.v5`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5)
   * Main package: types that are specific to server-side SDK usage, such as [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config), [`LDClient`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient), and [`FeatureFlagsState`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#FeatureFlagsState).
   * [`/interfaces`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces): types like [`DataStore`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#DataStore) that are only used if you are writing a [custom component](#implementing-custom-components), as well as interfaces for advanced features like [`FlagTracker`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#FlagTracker).
-  * [`/ldcomponents`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents): configuration builders for specific areas of SDK functionality, such as configuring streaming options or logging options. See [Understanding changes to SDK configuration](#understanding-changes-to-sdk-configuration).
-  * [`/ldconsul`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldconsul), [`/lddynamodb`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/lddynamodb), [`/ldredis`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldredis), [`ldfiledata`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldfiledata): add-ons such as database integrations which already existed in the 4.x SDK, but have somewhat different configuration syntax now. Note that `ldredis` was formerly called `redis`.
+  * [`/ldcomponents`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents): configuration builders for specific areas of SDK functionality, such as configuring streaming options or logging options. To learn more, read [Understanding changes to SDK configuration](#understanding-changes-to-sdk-configuration).
 
 * [`gopkg.in/launchdarkly/go-sdk-common.v2`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2)
   * [`/ldlog`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldlog): the SDK's logging abstraction (formerly in `go-server-sdk.v4/ldlog`).
@@ -70,6 +69,8 @@ The full package schema is now as follows:
   * [`/ldvalue`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue): the universal JSON value type [`Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value), and related types like [`OptionalString`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#OptionalString).
 
 * `gopkg.in/launchdarkly/go-sdk-events.v1`, `gopkg.in/launchdarkly/go-server-sdk-evaluation.v1`: these packages are not used directly by application code.
+
+The `redis`, `ldconsul`, and `lddynamodb` packages are now in separate repositories. To learn more, read [Understanding changes to the data store](#understanding-changes-to-the-data-store).
 
 ## Understanding changes to SDK configuration
 
@@ -99,6 +100,10 @@ For each data source type, there is a factory method whose name ends in `DataSou
 <CodeTabItem value="sdk4">
 
 ```go
+import (
+  ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
 config := ld.DefaultConfig
 
 // 4.x model: setting custom options for streaming mode
@@ -113,6 +118,11 @@ config.PollInterval = 60 * time.Second
 <CodeTabItem value="sdk5">
 
 ```go
+import (
+  ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+  "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+)
+
 var config ld.Config
 
 // 5.0 model: setting custom options for streaming mode
@@ -140,6 +150,8 @@ In the 4.x API, the constructors for these integrations took a variable number o
 
 The 5.0 API uses a more concise builder pattern instead, with one builder method for each option. For example, `packagename.DataStore().OptionA(value).OptionB(value)`.
 
+Also, the integrations for Redis, DynamoDB, and Consul are no longer bundled in the main SDK project. To learn more, read [Understanding changes to add-on integration packages](#understanding-changes-to-add-on-integration-packages).
+
 To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
 
 The following examples use the Redis integration.
@@ -154,6 +166,11 @@ The following examples use the Redis integration.
 <CodeTabItem value="sdk4">
 
 ```go
+import (
+  ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+  ldredis "gopkg.in/launchdarkly/go-server-sdk.v4/redis"
+)
+
 config := ld.DefaultConfig
 
 // 4.x model: use Redis, set custom Redis URI and key prefix, set cache TTL to 45 seconds
@@ -166,6 +183,12 @@ config.FeatureStoreFactory = redis.NewRedisFeatureStoreWithDefaults(
 <CodeTabItem value="sdk5">
 
 ```go
+import (
+  ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+  "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+  ldredis "github.com/launchdarkly/go-server-sdk-redis"
+)
+
 var config ld.Config
 
 // 5.0 model: use Redis, set custom Redis URI and key prefix, set cache TTL to 45 seconds
@@ -194,6 +217,10 @@ To completely disable events, set [`Config.Events`](https://pkg.go.dev/gopkg.in/
 <CodeTabItem value="sdk4">
 
 ```go
+import (
+  ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
 config := ld.DefaultConfig
 
 // 4.x model: disabling events
@@ -212,6 +239,12 @@ config.PrivateAttributeNames = []string{
 <CodeTabItem value="sdk5">
 
 ```go
+import (
+  "gopkg.in/launchdarkly/go-sdk-common.v2/lduser"
+  ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+  "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+)
+
 var config ld.Config
 
 // 5.0 model: disabling events
@@ -248,6 +281,11 @@ However, for basic logging configuration, such as specifying the minimum log lev
 <CodeTabItem value="sdk4">
 
 ```go
+import (
+  ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+  "gopkg.in/launchdarkly/go-server-sdk.v4/ldlog"
+)
+
 config := ld.DefaultConfig
 
 // 4.x model: disabling logging
@@ -263,6 +301,12 @@ config.LogEvaluationErrors = true
 <CodeTabItem value="sdk5">
 
 ```go
+import (
+  "gopkg.in/launchdarkly/go-sdk-common.v2/ldlog"
+  ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+  "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+)
+
 var config ld.Config
 
 // 5.0 model: disabling logging
@@ -291,6 +335,11 @@ Options in this category affect how the SDK communicates with LaunchDarkly over 
 <CodeTabItem value="sdk4">
 
 ```go
+import (
+  ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+  "gopkg.in/launchdarkly/go-server-sdk.v4/ldhttp"
+)
+
 config := ld.DefaultConfig
 
 // 4.x model: setting socket connection timeout
@@ -306,6 +355,11 @@ config.HTTPClientFactory = ld.NewHTTPClientFactory(
 <CodeTabItem value="sdk5">
 
 ```go
+import (
+  ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+  "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+)
+
 var config ld.Config
 
 // 5.0 model: setting socket connection timeout
@@ -339,6 +393,10 @@ The 5.0 [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduse
 <CodeTabItem value="sdk400">
 
 ```go
+import (
+  ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
 // before 4.16: create a simple user with just a key
 user := ld.NewUser("key")
 
@@ -358,6 +416,11 @@ custom["team"] = "admin"
 <CodeTabItem value="sdk416">
 
 ```go
+import (
+  "gopkg.in/launchdarkly/go-server-sdk.v1/ldvalue"
+  ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
 // 4.16+: create a simple user with just a key
 user := ld.NewUser("key")
 
@@ -376,6 +439,11 @@ user := ld.NewUserBuilder("key").
 <CodeTabItem value="sdk500">
 
 ```go
+import (
+  "gopkg.in/launchdarkly/go-sdk-common.v2/lduser"
+  "gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue"
+)
+
 // 5.0: create a simple user with just a key
 user := lduser.NewUser("key")
 
@@ -421,6 +489,10 @@ The [`Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#
 <CodeTabItem value="sdk400">
 
 ```go
+import (
+  ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
 // before 4.16: get a JSON flag variation whose default value is "default",
 // and check if the result is a string or a number
 result, _ := client.JsonVariation(flagKey, user, "default")
@@ -440,6 +512,11 @@ custom["team"] = []interface{}{"admin", "foosball"}
 <CodeTabItem value="sdk416">
 
 ```go
+import (
+  "gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue"
+  ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
 // 4.16+: get a JSON flag variation whose default value is "default",
 // and check if the result is a string or a number
 result, _ := client.JSONVariation(flagKey, user, ldvalue.String("default"))
@@ -460,6 +537,11 @@ user := ld.NewUserBuilder("key").
 <CodeTabItem value="sdk500">
 
 ```go
+import (
+  "gopkg.in/launchdarkly/go-sdk-common.v2/lduser"
+  "gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue"
+)
+
 // 5.0: get a JSON flag variation whose default value is "default",
 // and check if the result is a string or a number
 result, _ := client.JSONVariation(flagKey, user, ldvalue.String("default"))
@@ -497,7 +579,11 @@ We have modified them in two ways:
 }>
 <CodeTabItem value="sdk4">
 
-```java
+```go
+import (
+  ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
 value, detail, _ := client.BoolVariationDetail(flagKey, user, false)
 
 // 4.x model: check if the variation index is 0
@@ -513,7 +599,11 @@ if pf, ok := detail.Reason.(ld.EvaluationReasonPrerequisiteFailed); ok {
 </CodeTabItem>
 <CodeTabItem value="sdk5">
 
-```java
+```go
+import (
+  "gopkg.in/launchdarkly/go-sdk-common.v2/ldreason"
+)
+
 value, detail, _ := client.BoolVariationDetail(flagKey, user, false)
 
 // 5.x model: check if the variation index is 0
@@ -531,9 +621,11 @@ if detail.Reason.GetKind() == ldreason.EvalReasonPrerequisiteFailed {
 
 ## Understanding changes to add-on integration packages
 
-The Consul, DynamoDB, and Redis integrations are still included in the SDK. However, the name of the package for the Redis integration is now [`ldredis`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldredis) instead of `redis`. This is consistent with the other two, which are [`ldconsul`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldconsul) and [`lddynamodb`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/lddynamodb).
+The Consul, DynamoDB, and Redis integrations are no longer bundled in the main SDK project. Instead, they are maintained in separate repositories: [`github.com/launchdarkly/go-server-sdk-redis`](github.com/launchdarkly/go-server-sdk-redis), [`github.com/launchdarkly/go-server-sdk-dynamodb`](github.com/launchdarkly/go-server-sdk-dynamodb), and [`github.com/launchdarkly/ldconsul`](github.com/launchdarkly/go-server-sdk-consul).
 
-The configuration syntax has changed. To learn more about configuration details, read [Understanding changes to the data store](#understanding-changes-to-the-data-store).
+The new import paths for those packages are the same as the repository locations: `github.com/launchdarkly/go-server-sdk-redis`, etc.
+
+Also, the configuration syntax has changed. To learn more about configuration details, read [Understanding changes to the data store](#understanding-changes-to-the-data-store).
 
 ## Using the Relay Proxy
 
@@ -555,7 +647,12 @@ The syntax for configuring these has changed in version 5.0.
 }>
 <CodeTabItem value="sdk4">
 
-```java
+```go
+import (
+  ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+  ldredis "gopkg.in/launchdarkly/go-server-sdk.v4/redis"
+)
+
 config := ld.DefaultConfig
 relayURI := "http://my-relay-host:8000"
 
@@ -571,7 +668,7 @@ config.EventsURI = relayURI // if you want to proxy events
 
 // 4.x model: daemon mode with a Redis database
 config.UseLdd = true
-config.FeatureStoreFactory = redis.NewRedisFeatureStoreWithDefaults(
+config.FeatureStoreFactory = ldredis.NewRedisFeatureStoreWithDefaults(
     ldredis.URI("redis://my-redis-host"),
     ldredis.Prefix("my-key-prefix"))
 ```
@@ -579,6 +676,12 @@ config.FeatureStoreFactory = redis.NewRedisFeatureStoreWithDefaults(
 <CodeTabItem value="sdk5">
 
 ```go
+import (
+  ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+  "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+  ldredis "github.com/launchdarkly/go-server-sdk-redis"
+)
+
 var config ld.Config
 relayURI := "http://my-relay-host:8000"
 
