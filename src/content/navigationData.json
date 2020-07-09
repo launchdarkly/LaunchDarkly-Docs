@@ -247,6 +247,10 @@
               {
                 "label": "Monitoring the Relay Proxy",
                 "path": "/home/advanced/relay-proxy/monitoring"
+              },
+              {
+                "label": "Testing Relay Proxy performance",
+                "path": "/home/advanced/relay-proxy/performance"
               }
             ]
           },
