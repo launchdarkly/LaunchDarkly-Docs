@@ -48,6 +48,7 @@ An example configuration is below:
     { label: 'PHP', value: 'php', },
     { label: 'C', value: 'c', },
     { label: 'Haskell', value: 'haskell', },
+    { label: 'Lua', value: 'lua', },
   ]
 }>
 
@@ -180,6 +181,20 @@ main = do
 ```
 
 </CodeTabItem>
+<CodeTabItem value="lua">
+
+```lua
+local l = require("launchdarkly-server-sdk")
+
+local backend = makeYourBackendInterface()
+
+local c = l.clientInit({
+    key                 = "your_sdk_key",
+    featureStoreBackend = backend
+)}
+```
+
+</CodeTabItem>
 </CodeTabs>
 
 If there are multiple instances of your application configured in this way with the same database, the same data gets written to the database multiple times, because each instance receives feature flags from LaunchDarkly.
@@ -206,6 +221,7 @@ Since the Relay Proxy is also known as the *L*aunch*D*arkly *D*aemon, some versi
     { label: 'PHP', value: 'php', },
     { label: 'C', value: 'c', },
     { label: 'Haskell', value: 'haskell', },
+    { label: 'Lua', value: 'lua', },
   ]
 }>
 
@@ -352,6 +368,21 @@ main = do
 ```
 
 </CodeTabItem>
+<CodeTabItem value="lua">
+
+```lua
+local l = require("launchdarkly-server-sdk")
+
+local backend = makeYourBackendInterface()
+
+local c = l.clientInit({
+    key                 = "your_sdk_key",
+    featureStoreBackend = backend,
+    useLDD              = true
+)}
+```
+
+</CodeTabItem>
 </CodeTabs>
 
 ## Using Redis
@@ -378,6 +409,7 @@ In the following examples, the Redis feature store is set to use a host address 
     { label: 'PHP', value: 'php', },
     { label: 'C', value: 'c', },
     { label: 'Haskell', value: 'haskell', },
+    { label: 'Lua', value: 'lua', },
   ]
 }>
 
@@ -565,7 +597,25 @@ main = do
 ```
 
 </CodeTabItem>
+<CodeTabItem value="lua">
 
+```lua
+local l = require("launchdarkly-server-sdk")
+local r = require("launchdarkly-server-sdk-redis")
+
+local backend = r.makeStore({
+    host   = "my-redis",
+    port   = 6379,
+    prefix = "my-key-prefix"
+})
+
+local c = l.clientInit({
+    key                 = "your_sdk_key",
+    featureStoreBackend = backend
+)}
+```
+
+</CodeTabItem>
 </CodeTabs>
 
 ### Platform-specific notes
