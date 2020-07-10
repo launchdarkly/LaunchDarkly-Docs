@@ -14,17 +14,27 @@ Access to this feature is currently limited to customers who signed up for the [
 </CalloutDescription>
 </Callout>
 
-# Overview
+## Overview
 
 With Feature Workflows, you can elevate your use of feature flags by creating complex workflows within LaunchDarkly. Workflows map to how your teams build, ship, and control software. You can also define custom release strategies that seamlessly integrate LaunchDarkly with your organization’s existing tools and processes, so every team can benefit from better feature management.
 
 Feature workflows start with three powerful building blocks: **scheduling**, **approvals**, and **metric checks**. 
 
-# Scheduling flag changes
+<Callout intent="info">
+<CalloutTitle>Feature Workflows are available in the LaunchDarkly API</CalloutTitle>
+<CalloutDescription>
 
-Scheduling flag changes allows you to define and schedule your changes to your flag’s targeting rules for future points in time. While this sounds simple, it unlocks the potential to create a progressive delivery strategy by scheduling the incremental steps to release your feature to 100% of your user base.
+All of LaunchDarkly's features are supported by API endpoints. To learn more about the API and supported endpoints for Feature Workflows, read the [API documentation](https://apidocs.launchdarkly.com/reference?showHidden=7f3f4#introduction).
+
+</CalloutDescription>
+</Callout>
+
+## Scheduling flag changes
+
+Scheduling flag changes allows you to define and schedule changes to your flag’s targeting rules for future points in time. While this sounds simple, it unlocks the potential to create a progressive delivery strategy by scheduling the incremental steps to release your feature to 100% of your user base.
 
 For example, you may want to schedule the feature to turn on for internal testing two days from today, then enable it for your ‘beta’ customer segment four days later, and finally start an automated rollout from 0% to 100% over the following five days. Now you can define this feature workflow ahead of time and be confident that it will take effect at the specified date and time.
+
 
 ## Benefits of scheduling flag changes
 
