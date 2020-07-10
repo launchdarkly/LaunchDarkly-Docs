@@ -632,6 +632,17 @@ local c = l.clientInit({
 
 ## Using DynamoDB
 
+<Callout intent="alert">
+  <CalloutTitle>Data size limit in DynamoDB</CalloutTitle>
+  <CalloutDescription>
+
+DynamoDB [does not support](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html#limits-items) storing values greater than 400KB (or slightly less, since that number includes the size of the column metadata). Therefore, using DynamoDB as a persistent feature store will not work if the JSON representation of any feature flag or user segment exceeds that size.
+
+To see the JSON representations of all flags and segments, query https://app.launchdarkly.com/sdk/latest-all with your SDK key in the `Authorization` header.
+
+  </CalloutDescription>
+</Callout>
+
 All of the current versions of the server-side SDKs except C support DynamoDB (see "Platform-specific notes" below). DynamoDB is a particularly useful solution if you are running code in AWS Lambda, since it can be accessed from Lambda without needing access to any VPC resource.
 
 In your application code, the only required parameter is the table name, although you can also specify any other options supported by AWS; by default, the DynamoDB driver will expect to get your AWS credentials and region from environment variables or local configuration files, as described in the AWS SDK documentation.
@@ -793,6 +804,17 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 - **Ruby**: This integration is part of the main SDK distribution as of version 5.1.1, but you must also install the gem `aws-sdk-dynamodb`.
 
 ## Using Consul
+
+<Callout intent="alert">
+  <CalloutTitle>Data size limit in Consul</CalloutTitle>
+  <CalloutDescription>
+
+Consul [does not support](https://www.consul.io/docs/faq#q-what-is-the-per-key-value-size-limitation-for-consul-s-key-value-store) storing values greater than 512KB. Therefore, using Consul as a persistent feature store will not work if the JSON representation of any feature flag or user segment exceeds that size.
+
+To see the JSON representations of all flags and segments, query https://app.launchdarkly.com/sdk/latest-all with your SDK key in the `Authorization` header.
+
+  </CalloutDescription>
+</Callout>
 
 All of the current versions of the server-side SDKs except C support Consul (see "Platform-specific notes" below).
 
