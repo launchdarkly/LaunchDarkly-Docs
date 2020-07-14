@@ -655,6 +655,10 @@
             "path": "/guides/best-practices/integrations"
           },
           {
+            "label": "Using LaunchDarkly in serverless functions",
+            "path": "/guides/best-practices/serverless"
+          },
+          {
             "label": "Managing flags with Terraform",
             "path": "/guides/best-practices/terraform"
           }
