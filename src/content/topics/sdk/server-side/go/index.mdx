@@ -205,7 +205,7 @@ user := ld.User{
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this snippet. The most attribute is the user's key. In this case we've used the strings `"user1-key"` and `"user2-key"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+Let's walk through this snippet. The most common attribute is the user's key. In this case we've used the strings `"user1-key"` and `"user2-key"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 All of the other attributes (like `FirstName`, `Email`, and the `Custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes. The documentation for [`User`](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#User) and [`UserBuilder`](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#UserBuilder) shows all of the available attributes.
 
@@ -222,7 +222,7 @@ If you enter a custom value on our dashboard that looks like a number or a boole
 </CalloutDescription>
 </Callout>
 
-Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available instantly on our dashboard.
+Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, and account plans. Anything you pass to us becomes available instantly on our dashboard.
 
 ## Private user attributes
 
