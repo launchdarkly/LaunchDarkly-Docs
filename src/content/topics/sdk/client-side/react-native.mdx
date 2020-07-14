@@ -9,7 +9,7 @@ published: true
   <CalloutTitle>SDK Version Compatibility</CalloutTitle>
 <CalloutDescription>
 
-The latest version of the SDK is compatible with Xcode 11.4 and React Native 0.62. For compatibility with earlier React Native versions, please refer to older SDK versions.
+The latest version of the SDK is compatible with Xcode 11.4 and React Native 0.63. For compatibility with earlier React Native versions, please refer to older SDK versions.
 
 </CalloutDescription>
 </Callout>
@@ -64,7 +64,7 @@ You will need a `Podfile` in your `ios/` directory. Once you've written your `Po
 <CodeTabItem value="js">
 
 ```js
-platform :ios, '9.0'
+platform :ios, '10.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 target 'YOUR_MODULE_NAME' do
@@ -92,7 +92,7 @@ target 'YOUR_MODULE_NAME' do
   pod 'React-jsi', :path => '../node_modules/react-native/ReactCommon/jsi'
   pod 'React-jsiexecutor', :path => '../node_modules/react-native/ReactCommon/jsiexecutor'
   pod 'React-jsinspector', :path => '../node_modules/react-native/ReactCommon/jsinspector'
-  pod 'ReactCommon/callinvoker', :path => "../node_modules/react-native/ReactCommon"
+  pod 'React-callinvoker', :path => "../node_modules/react-native/ReactCommon/callinvoker"
   pod 'ReactCommon/turbomodule/core', :path => "../node_modules/react-native/ReactCommon"
   pod 'Yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
 
