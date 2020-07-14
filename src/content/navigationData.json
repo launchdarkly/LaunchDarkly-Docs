@@ -653,6 +653,10 @@
           {
             "label": "Using LaunchDarkly integrations",
             "path": "/guides/best-practices/integrations"
+          },
+          {
+            "label": "Managing flags with Terraform",
+            "path": "/guides/best-practices/terraform"
           }
         ]
       },
