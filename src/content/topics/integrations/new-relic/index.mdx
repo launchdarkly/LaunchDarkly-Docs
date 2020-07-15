@@ -6,8 +6,11 @@ published: true
 ---
 
 <Callout intent="info">
-  <CalloutTitle>This integration is only available for New Relic Insights Pro accounts</CalloutTitle> <CalloutDescription>
-    This integration only works with a New Relic Insights Pro subscription. Check your subscription details on your New Relic account billing page.
+  <CalloutTitle>
+    This integration is only available for New Relic APM Pro accounts
+  </CalloutTitle>
+  <CalloutDescription>
+    This integration only works with a New Relic APM Pro subscription. Check your subscription details on your New Relic account billing page.
   </CalloutDescription>
 </Callout>
 
@@ -15,13 +18,13 @@ published: true
 
 This topic explains how to use the LaunchDarkly New Relic integration to view LaunchDarkly events in New Relic. [New Relic](https://www.newrelic.com/) is an [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) tool that allows customers to monitor the operational health of their application and infrastructure.
 
+LaunchDarkly integrates with New Relic's APM product. LaunchDarkly sends feature flag change events to New Relic as deployment events. These events appear as new deployments in the [APM console's Deployments page](https://docs.newrelic.com/docs/apm/applications-menu/events/deployments-page-view-impact-your-app-users#dep_procedures).
+
 ## Prerequisites
 
-To configure the integration, you must create an API key on your New Relic account. 
+To configure the integration, you must [create a REST API key](https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#rest-api-key) on your New Relic account.
 
-To learn more, read [New Relic's documentation](https://docs.newrelic.com/docs/insights/insights-data-sources/custom-data/introduction-event-api#register).
-
-## Configuring LaunchDarkly to work with New Relic
+## Configuring LaunchDarkly to send flag change events to New Relic APM
 
 To configure LaunchDarkly to send events to New Relic:
 
@@ -33,17 +36,16 @@ To configure LaunchDarkly to send events to New Relic:
 
 3. Give the integration a human-readable **Name**.
 
-4. Paste in your [**New Relic account ID**](https://docs.newrelic.com/docs/accounts/install-new-relic/account-setup/account-id). This can be found in the URL of your New Relic account right after `/accounts/`.
+4. Paste in your [**New Relic REST API key**](https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#rest-api-key).
 
-5. Paste in your [**New Relic API key**](https://docs.newrelic.com/docs/insights/insights-data-sources/custom-data/introduction-event-api#register).
+5. Paste in your [**New Relic account ID**](https://docs.newrelic.com/docs/accounts/install-new-relic/account-setup/account-id). This can be found in the URL of your New Relic account right after `/accounts/`.
 
 6. Click **Save New Relic Configuration**.
 
-### Adding custom policies to the New Relic integration 
+### Adding custom policies to the New Relic integration
 
 By default, the New Relic integration sends production flag change events to
-New Relic. You can customize those events with the policy editor using the same
-language and construction as if you were creating a custom role.
+New Relic. You can customize those events with the policy editor using the same language and construction as if you were creating a custom role.
 
 To learn more, read [Custom Roles](/home/account-security/custom-roles).
 
@@ -54,12 +56,14 @@ editor in the New Relic configuration panel:
 
 ## Accessing LaunchDarkly events in New Relic
 
-To view LaunchDarkly events in New Relic Insights, navigate to your Insights homepage and type in the query `SELECT * FROM LaunchDarkly`. 
+To view LaunchDarkly events in New Relic APM, navigate to your application's APM dashboard, then select the "Events > Deployments" link on the sidebar.
 
-This query shows all LaunchDarkly-generated events generated in the last hour. You can customize the timeframe to display events from a different period if you choose.
+Any flag change events in your production environment (default policy) will create a new deployment event. You will be able to see the impact of that flag change within this deployment page.
 
-![LaunchDarkly in New Relic Insights](../images/new-relic-view-events.png)
+![New Relic APM > Deployments](../images/new-relic-view-events.png)
 
-To see more detail, scroll to the right or click the `{}` tab to view a JSON list of all queried events.
+## Demo
 
-![LaunchDarkly Events in New Relic Insights - JSON Display](../images/new-relic-view-events-json.png)
+To see a full demo of this integration in action, check out the following video:
+
+<iframe width="100%" height="410" src="https://www.youtube.com/embed/j2meAZRiW_c?cc_load_policy=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="margin-bottom:24px"></iframe>
