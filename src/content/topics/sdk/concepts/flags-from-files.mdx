@@ -152,7 +152,7 @@ The examples below show how to configure the client to use two data files called
   values={[
     { label: 'Go', value: 'go', },
     { label: 'Java', value: 'java', },
-    { label: '.NET', value: 'csharp', },
+    { label: '.NET', value: 'dotnet', },
     { label: 'Ruby', value: 'ruby', },
     { label: 'Python', value: 'py', },
     { label: 'Node.js', value: 'js', },
@@ -214,8 +214,10 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = new LDClient("sdk key", config);
 ```
 
+*To learn more, read [`FileData`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/integrations/FileData.html).*
+
 </CodeTabItem>
-<CodeTabItem value="csharp">
+<CodeTabItem value="dotnet">
 
 ```csharp
 using LaunchDarkly.Client;
@@ -230,10 +232,12 @@ var config = Configuration.Default("sdk key")
     .WithEventProcessorFactory(Components.NullEventProcessor);
 
 var client = new LDClient(config);
-
-// Note that in the .NET SDK, if you want to use YAML files instead of JSON
-// you must provide a YAML parser; see FileDataSourceFactory.WithParser.
 ```
+
+*To learn more, read [`FileComponents`](http://launchdarkly.github.io/dotnet-server-sdk/html/T_LaunchDarkly_Client_Files_FileComponents.htm).*
+
+*Note that in the .NET SDK, if you want to use YAML files instead of JSON you must [provide a YAML parser](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_Files_FileDataSourceFactory_WithParser.htm).*
+
 </CodeTabItem>
 <CodeTabItem value="ruby">
 
@@ -316,6 +320,6 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 </CodeTabItem>
 </CodeTabs>
 
-Note that if you do not want your code to connect to LaunchDarkly at all, you will normally want to prevent the SDK from trying to send analytics events, so the option for disabling events is also included in these examples. Also, since there will be no LaunchDarkly connection, you do not have to use a valid SDK key; the SDK key parameter is still required but can be any string.
+If you do not want your code to connect to LaunchDarkly at all, you will normally want to prevent the SDK from trying to send analytics events, so the option for disabling events is also included in these examples. Also, since there will be no LaunchDarkly connection, you do not have to use a valid SDK key; the SDK key parameter is still required but can be any string.
 
 If any of the specified files is missing or invalid, the SDK does not use any of the file data and logs an error message instead.

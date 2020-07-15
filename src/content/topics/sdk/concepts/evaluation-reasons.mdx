@@ -28,7 +28,7 @@ An example is depicted below for some of LaunchDarkly's SDKs:
   values={[
     { label: 'Go', value: 'go', },
     { label: 'Java', value: 'java', },
-    { label: 'C# (.NET)', value: 'csharp', },
+    { label: 'C# (.NET)', value: 'dotnet', },
     { label: 'Ruby', value: 'ruby', },
     { label: 'Python', value: 'py', },
     { label: 'Node.js', value: 'node', },
@@ -82,7 +82,7 @@ EvaluationReason reason = detail.getReason(); // will always be present
 *To learn more, read [`EvaluationDetail`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/EvaluationDetail.html), [`boolVariationDetail`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail-java.lang.String-com.launchdarkly.sdk.LDUser-boolean-).*
 
 </CodeTabItem>
-<CodeTabItem value="csharp">
+<CodeTabItem value="dotnet">
 
 ```csharp
 EvaluationDetail<bool> detail =
@@ -305,7 +305,7 @@ Here is an example of how you could access the details of a reason object in som
   values={[
     { label: 'Go', value: 'go', },
     { label: 'Java', value: 'java', },
-    { label: 'C# (.NET or Xamarin)', value: 'csharp', },
+    { label: 'C# (.NET or Xamarin)', value: 'dotnet', },
     { label: 'Ruby', value: 'ruby', },
     { label: 'Python', value: 'py', },
     { label: 'Node.js or JS', value: 'node', },
@@ -376,7 +376,7 @@ void printReason(EvaluationReason reason) {
 *To learn more, read [`EvaluationReason`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/EvaluationReason.html).*
 
 </CodeTabItem>
-<CodeTabItem value="csharp">
+<CodeTabItem value="dotnet">
 
 ```csharp
 void PrintReason(EvaluationReason reason)

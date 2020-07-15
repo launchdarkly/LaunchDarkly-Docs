@@ -41,7 +41,7 @@ An example configuration is below:
   values={[
     { label: 'Go', value: 'go', },
     { label: 'Java', value: 'java', },
-    { label: '.NET', value: 'csharp', },
+    { label: '.NET', value: 'dotnet', },
     { label: 'Ruby', value: 'ruby', },
     { label: 'Python', value: 'py', },
     { label: 'Node.js', value: 'node', },
@@ -90,17 +90,23 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
+*To learn more, read [`Components.persistentDataStore`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/Components.html#persistentDataStore-com.launchdarkly.sdk.server.interfaces.PersistentDataStoreFactory-).*
+
 </CodeTabItem>
-<CodeTabItem value="csharp">
+<CodeTabItem value="dotnet">
 
 ```csharp
 using LaunchDarkly.Client;
 
 var store = createSomeKindOfFeatureStore();
-var config = Configuration.Default(sdkKey)
-    .WithFeatureStoreFactory(store);
+var config = Configuration.Builder(sdkKey)
+    .FeatureStoreFactory(store)
+    .Build();
 var client = new LDClient(config);
 ```
+
+*To learn more, read [`IConfigurationBuilder.FeatureStoreFactory`](https://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_IConfigurationBuilder_FeatureStoreFactory.htm).*
+
 </CodeTabItem>
 <CodeTabItem value="ruby">
 
@@ -214,7 +220,7 @@ Since the Relay Proxy is also known as the *L*aunch*D*arkly *D*aemon, some versi
   values={[
     { label: 'Go', value: 'go', },
     { label: 'Java', value: 'java', },
-    { label: '.NET', value: 'csharp', },
+    { label: '.NET', value: 'dotnet', },
     { label: 'Ruby', value: 'ruby', },
     { label: 'Python', value: 'py', },
     { label: 'Node.js', value: 'node', },
@@ -264,8 +270,10 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
+*To learn more, read [`Components.externalUpdatesOnly`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/Components.html#externalUpdatesOnly--m).*
+
 </CodeTabItem>
-<CodeTabItem value="csharp">
+<CodeTabItem value="dotnet">
 
 ```csharp
 using LaunchDarkly.Client;
@@ -276,6 +284,8 @@ var config = Configuration.Default(sdkKey)
     .WithUseLdd(true);  // <-- the extra option
 var client = new LDClient(config);
 ```
+
+*To learn more, read [`IConfigurationBuilder.UseLdd`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_IConfigurationBuilder_UseLdd.htm).*
 
 </CodeTabItem>
 <CodeTabItem value="ruby">
@@ -402,7 +412,7 @@ In the following examples, the Redis feature store is set to use a host address 
   values={[
     { label: 'Go', value: 'go', },
     { label: 'Java', value: 'java', },
-    { label: '.NET', value: 'csharp', },
+    { label: '.NET', value: 'dotnet', },
     { label: 'Ruby', value: 'ruby', },
     { label: 'Python', value: 'py', },
     { label: 'Node.js', value: 'node', },
@@ -461,8 +471,10 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
+*To learn more, read [`java-server-sdk-redis`](https://github.com/launchdarkly/java-server-sdk-redis).*
+
 </CodeTabItem>
-<CodeTabItem value="csharp">
+<CodeTabItem value="dotnet">
 
 ```csharp
 using LaunchDarkly.Client;
@@ -477,6 +489,8 @@ var config = Configuration.Default(sdkKey)
     .WithFeatureStoreFactory(store);
 var client = new LDClient(config);
 ```
+
+*To learn more, read [`dotnet-server-sdk-redis`](https://github.com/launchdarkly/dotnet-server-sdk-redis).*
 
 </CodeTabItem>
 <CodeTabItem value="ruby">
@@ -658,7 +672,7 @@ In the following examples, the DynamoDB feature store is set to use a table call
   values={[
     { label: 'Go', value: 'go', },
     { label: 'Java', value: 'java', },
-    { label: '.NET', value: 'csharp', },
+    { label: '.NET', value: 'dotnet', },
     { label: 'Ruby', value: 'ruby', },
     { label: 'Python', value: 'py', },
     { label: 'Node.js', value: 'node', },
@@ -710,8 +724,10 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
+*To learn more, read [`java-server-sdk-dynamodb`](https://github.com/launchdarkly/java-server-sdk-dynamodb).*
+
 </CodeTabItem>
-<CodeTabItem value="csharp">
+<CodeTabItem value="dotnet">
 
 ```csharp
 using LaunchDarkly.Client;
@@ -724,6 +740,8 @@ var config = Configuration.Default(sdkKey)
     .WithFeatureStoreFactory(store);
 var client = new LDClient(config);
 ```
+
+*To learn more, read [`dotnet-server-sdk-dynamodb`](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb).*
 
 </CodeTabItem>
 <CodeTabItem value="ruby">
@@ -826,7 +844,7 @@ In the following examples, the Consul feature store is set to use a host address
   values={[
     { label: 'Go', value: 'go', },
     { label: 'Java', value: 'java', },
-    { label: '.NET', value: 'csharp', },
+    { label: '.NET', value: 'dotnet', },
     { label: 'Ruby', value: 'ruby', },
     { label: 'Python', value: 'py', },
     { label: 'Node.js', value: 'node', },
@@ -884,8 +902,10 @@ LDConfig deprecatedConfig = new Config.Builder()
   .build();
 ```
 
+*To learn more, read [`java-server-sdk-consul`](https://github.com/launchdarkly/java-server-sdk-consul).*
+
 </CodeTabItem>
-<CodeTabItem value="csharp">
+<CodeTabItem value="dotnet">
 
 ```csharp
 using LaunchDarkly.Client;
@@ -899,6 +919,8 @@ var config = Configuration.Default(sdkKey)
     .WithFeatureStoreFactory(store);
 var client = new LDClient(config);
 ```
+
+*To learn more, read [`dotnet-server-sdk-consul`](https://github.com/launchdarkly/dotnet-server-sdk-consul).*
 
 </CodeTabItem>
 <CodeTabItem value="ruby">

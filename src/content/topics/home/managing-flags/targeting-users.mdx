@@ -371,24 +371,46 @@ Let's turn a feature on for a group of external beta testers. First, we need to 
 <CodeTabs
   defaultValue="java"
   values={[
+    { label: 'Go', value: 'go', },
     { label: 'Java', value: 'java', },
+    { label: '.NET', value: 'dotnet', },
     { label: 'Python', value: 'py', },
     { label: 'Ruby', value: 'ruby', },
-    { label: 'Go', value: 'go', },
     { label: 'Node.js', value: 'js', },
     { label: 'PHP', value: 'php', },
   ]
 }>
 
+<CodeTabItem value="go">
+
+```go
+var custom = make(map[string]interface{}) 
+
+custom["groups"] = "beta_testers"
+user = User {
+    Key: "foo@example.com",
+    Custom: custom,
+}
+```
+
+</CodeTabItem>
+
 <CodeTabItem value="java">
 
 ```java
 LDUser user = new LDUser.Builder("foo@example.com") 
+  .custom("groups", "beta_testers") 
+  .build();
+```
 
-        .custom("groups", "beta_testers") 
+</CodeTabItem>
 
-        .build() 
+<CodeTabItem value="dotnet">
 
+```csharp
+var user = User.Builder("foo@example.com") 
+    .Custom("groups", "beta_testers") 
+    .Build();
 ```
 
 </CodeTabItem>
@@ -410,20 +432,6 @@ user = {
 
 ```ruby
 user = {:key => "foo@example.com", :custom => {:groups => "beta_testers"}}
-```
-
-</CodeTabItem>
-
-<CodeTabItem value="go">
-
-```go
-var custom = make(map[string]interface{}) 
-
-custom["groups"] = "beta_testers"
-user = User {
-    Key: "foo@example.com",
-    Custom: custom,
-}
 ```
 
 </CodeTabItem>
