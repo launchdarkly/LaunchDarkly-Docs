@@ -71,8 +71,8 @@ Splunk Configuration**.
 That's it! Splunk now receives events from LaunchDarkly.
 
 If you want to further modify the events that Splunk receives from LaunchDarkly,
-add custom policies to determine which events the integration should export. If after 
-following these steps, you still are not able to locate LaunchDarkly events, see the 
+add custom policies to determine which events the integration should export. If after
+following these steps, you still are not able to locate LaunchDarkly events, see the
 [Troubleshooting](#troubleshooting) section for further guidance.
 
 ### Adding custom policies to the Splunk integration
@@ -111,7 +111,7 @@ sourcetype="<NAME-OF-HTTP-EVENT-COLLECTOR>"
 ![LaunchDarkly events in Splunk](../images/launchdarkly-in-splunk.png)
 
 After LaunchDarkly events start appearing in Splunk, you can create event
-annotations in your charts in order to show LaunchDarkly events in context. 
+annotations in your charts in order to show LaunchDarkly events in context.
 
 To
 learn more, read [Splunk's
@@ -122,7 +122,7 @@ charts](../images/ld-events-in-context-in-splunk.png)
 
 ### Troubleshooting
 
-If you configure the LaunchDarkly integration and do not see events in Splunk, recreate the LaunchDarkly request with a `curl`. 
+If you configure the LaunchDarkly integration and do not see events in Splunk, recreate the LaunchDarkly request with a `curl`.
 
 Use this command to recreate the request:
 
@@ -143,21 +143,27 @@ curl -k \
 </CodeTabItem>
 </CodeTabs>
 
-* Splunk Enterprise URLs format: `<protocol>://<host>:<port>/<endpoint>`. 
-* Self-service Splunk Cloud URLs format: `<protocol>://input-<host>:<port>/<endpoint>`. 
-* Managed Splunk Cloud URLs format: `<protocol>://http-inputs-<host>:<port>/<endpoint>`. 
+* Splunk Enterprise URLs format: `<protocol>://<host>:<port>/<endpoint>`.
+* Self-service Splunk Cloud URLs format: `<protocol>://input-<host>:<port>/<endpoint>`.
+* Managed Splunk Cloud URLs format: `<protocol>://http-inputs-<host>:<port>/<endpoint>`.
 
 To learn more,
 [read Splunk's documentation](https://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHTTPEventCollector#Send_data_to_HTTP_Event_Collector).
 
-In Splunk, confirm that your **HEC Global Settings** as and your specific 
+In Splunk, confirm that your **HEC Global Settings** as and your specific
 HEC are set to 'Enabled' and that the **Default Index** type on your toekn is 'main'.
 
-To search within Splunk for LaunchDarkly events using 
-`sourcetype="launchdarkly"`, set a custom sourcetype on your HEC token. 
+To search within Splunk for LaunchDarkly events using
+`sourcetype="launchdarkly"`, set a custom sourcetype on your HEC token.
 
 Set the **Source Type** as `launchdarkly`, set **Index** to `main` and set **Status** to `Enabled`.
 
 An example token is below:
 
 ![Example HEC configuration.](../images/splunk-hec-config.png)
+
+## Demonstration video
+
+This video presents a demonstration of the integration. To read along, enable YouTube's closed captioning feature on the video.
+
+<iframe width="100%" height="410" src="https://www.youtube.com/embed/Xob-rSN_oDU?cc_load_policy=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

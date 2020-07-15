@@ -9,7 +9,7 @@ published: true
 
 This topic explains how to use the LaunchDarkly LogDNA integration. [LogDNA](https://www.logdna.com/) is a log management and analysis tool. It allows customers to aggregate and view all server logs in a single place.
 
-LogDNA can provide insights into a service's activity. It aggregates application logs, system logs, and more into a common platform so engineers can see all of their services' activity in a single place. 
+LogDNA can provide insights into a service's activity. It aggregates application logs, system logs, and more into a common platform so engineers can see all of their services' activity in a single place.
 
 The LaunchDarkly LogDNA integration sends and aggregates LaunchDarkly audit log events in LogDNA.
 
@@ -25,7 +25,7 @@ To configure the LogDNA integration, you must have a **LogDNA ingestion key**. G
 
 Here's how to configure the LogDNA integration:
 
-1. Navigate to the [Integrations](https://app.launchdarkly.com/default/integrations) page. 
+1. Navigate to the [Integrations](https://app.launchdarkly.com/default/integrations) page.
 2. Click to expand the LogDNA card.
 3. Click **+ Integration**.
 
@@ -37,13 +37,13 @@ Here's how to configure the LogDNA integration:
 7. (Optional) Configure a custom **Policy** to control which information LaunchDarkly sends to LogDNA. To learn more, read [Advanced configuration](#advanced-configuration).
 8. Click **Save LogDNA Configuration**.
 
-When you configure the integration correctly, LaunchDarkly sends change data to LogDNA. 
+When you configure the integration correctly, LaunchDarkly sends change data to LogDNA.
 
-By default, this data is limited to *flag* activity only. You can expand it to other kinds of data, such as project and environment changes. 
+By default, this data is limited to *flag* activity only. You can expand it to other kinds of data, such as project and environment changes.
 
 ## Advanced configuration
 
-The _Policy_ configuration field lets you control which kinds of events LaunchDarkly sends to LogDNA. 
+The _Policy_ configuration field lets you control which kinds of events LaunchDarkly sends to LogDNA.
 
 The default policy value restricts it to flag changes in production environments:
 
@@ -101,3 +101,9 @@ You can include LaunchDarkly events in your view by selecting the `launchdarkly`
 LaunchDarkly events also include metadata by which you can filter.
 
 For example, to only view log statements corresponding to the `demo-flag` flag, search for the query string `meta.flag_key:demo-flag`.
+
+## Demonstration video
+
+This video presents a demonstration of the integration. To read along, enable YouTube's closed captioning feature on the video.
+
+<iframe width="100%" height="410" src="https://www.youtube.com/embed/2tIYHO0yxeI?cc_load_policy=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
