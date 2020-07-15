@@ -8,13 +8,25 @@ published: true
 This reference guide documents all of the methods available in our .NET SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [.NET SDK GitHub repository](https://github.com/launchdarkly/dotnet-server-sdk). The online [API docs](https://launchdarkly.github.io/dotnet-server-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-dotnet) using this SDK.
 
 <Callout intent="info">
+  <CalloutTitle>For use in server-side applications only</CalloutTitle>
+  <CalloutDescription>
+
+  This SDK is intended for use in *multi-user* .NET server applications. If you have a .NET application and are looking to set up LaunchDarkly in a mobile, desktop, or embedded application, head to our [Xamarin SDK reference](/sdk/client-side/xamarin).
+
+  To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+
+  </CalloutDescription>
+</Callout> 
+
+## Getting started
+
+<Callout intent="info">
   <CalloutTitle>Requirements</CalloutTitle>
   <CalloutDescription>
     The .NET SDK requires version 4.5 or later of the .NET framework or .NETCoreApp 1.0 or later.
   </CalloutDescription>
 </Callout> 
 
-## Getting started
 
 Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your .NET application.
 

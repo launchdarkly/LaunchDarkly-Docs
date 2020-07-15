@@ -9,13 +9,15 @@ This reference guide documents basic usage of our C client-side SDK, and explain
 
 The C / C++ SDK supports Windows and POSIX environments (Linux, OSX, BSD). The networking library `libcurl` is a universal dependency.
 
-<Callout intent="alert">
-  <CalloutTitle>For use in desktop / embedded client applications</CalloutTitle>
-<CalloutDescription>
+<Callout intent="info">
+  <CalloutTitle>For use in desktop and embedded client applications only</CalloutTitle>
+  <CalloutDescription>
 
-The LaunchDarkly C / C++ SDK is designed primarily for use in *single user* desktop and embedded applications. It follows the client-side LaunchDarkly model for single-user contexts (much like our mobile or JavaScript SDKs). A network call must be made to change user contexts, so changing users should be infrequent. It is not intended for use in multi-user systems such as web servers. Learn more about our [client-side and server-side SDKs](/sdk/concepts/client-side-server-side). For using LaunchDarkly in C / C++ server-side applications, refer to our [C / C++ server-side SDK](/sdk/server-side/c-c--).
+  This SDK is intended for use in *single-user* desktop and embedded applications. If you have a C / C++ application and are looking to set up LaunchDarkly on the server-side, head to our [C / C++ server-side SDK reference](/sdk/server-side/c-c--).
 
-</CalloutDescription>
+  To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+
+  </CalloutDescription>
 </Callout>
 
 ## Getting started
