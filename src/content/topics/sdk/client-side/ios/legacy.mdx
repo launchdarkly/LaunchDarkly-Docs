@@ -1,18 +1,18 @@
 ---
-path: '/sdk/client-side/ios-objective-c'
-title: 'iOS (Objective-C) SDK reference'
-description: 'This topic explains all of the methods available in the LaunchDarkly iOS Objective-C SDK, with detail about how they work.'
+path: '/sdk/client-side/ios/legacy'
+title: 'Legacy iOS SDK reference'
+description: 'This topic explains all of the methods available in legacy versions of the LaunchDarkly iOS SDK, with detail about how they work.'
 published: true
 ---
 
 <Callout intent="alert">
-  <CalloutTitle>iOS Client SDK for Objective-C</CalloutTitle>
+  <CalloutTitle>iOS SDK versions 3.x and earlier</CalloutTitle>
 <CalloutDescription>
 
+This documentation is for the LaunchDarkly SDK for iOS versions 3.0.1 and earlier. Versions 3.x and earlier are written in Objective-C. Versions 4.0.0 and
+later are written in [Swift](/sdk/client-side/ios).
 
-This documentation is for the LaunchDarkly SDK for Objective-C iOS versions 3.0.1 and earlier. Versions 4.0.0 and
-later support [Swift](/sdk/client-side/ios-swift).
-
+Per our [End of Life policy](https://launchdarkly.com/policies/end-of-life-policy/), versions of the Objective-C based SDK are no longer supported. This reference guide remains available for customers who have yet to upgrade to the Swift-based SDK.
 
 </CalloutDescription>
 </Callout>
@@ -28,14 +28,14 @@ The first step is to install the LaunchDarkly SDK as a dependency in your applic
 If you're using [CocoaPods](https://cocoapods.org/), you can install the SDK by adding the following to your `Podfile`. Refer to the [SDK releases page](https://github.com/launchdarkly/ios-client-sdk/releases) to identify the latest version. Note that versions starting with 4.0.0 support Swift instead of Objective-C.
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="ruby"
   values={[
-    { label: 'CocoaPods', value: 'c', },
+    { label: 'Podfile', value: 'ruby', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="ruby">
 
-```c
+```ruby
 target 'TargetName' do
     platform :ios, '8.0'
     pod 'LaunchDarkly', '3.0.4'
@@ -45,42 +45,22 @@ end
 </CodeTabItem>
 </CodeTabs>
 
-Then, run `pod install` from the project directory that contains the podfile:
-
-
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'Objective-C', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
-
-```c
-pod install
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 If you're using [Carthage](https://github.com/Carthage/Carthage), you can install the SDK by specifying it in your `Cartfile`. Again, refer to the [SDK releases page](https://github.com/launchdarkly/ios-client-sdk/releases) to identify the latest version.
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Carthage', value: 'c', },
+    { label: 'Carthage', value: 'objc', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 github "launchdarkly/ios-client" "3.0.4"
 ```
 
 </CodeTabItem>
 </CodeTabs>
-
-Then run `carthage update` to build the framework. Optionally, specify the `--platform` option to build only the frameworks that support your platform(s). Drag the built `Darkly.framework` from your platform's Carthage/Build folder into your Xcode project. Follow the instructions at [Getting Started](https://github.com/Carthage/Carthage#getting-started) to finish the setup. Your app may not build until you add the run script phase to `copy-frameworks` to your target(s).
 
 Refer to the [SDK readme](https://github.com/launchdarkly/ios-client-sdk/blob/master/README.md) for instructions on installing the SDK without CocoaPods or Carthage.
 
@@ -88,14 +68,14 @@ Next you should import the LaunchDarkly client in your application code.
 
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 #import "Darkly.h"
 ```
 
@@ -105,15 +85,15 @@ Next you should import the LaunchDarkly client in your application code.
 Once the SDK is installed and imported, you'll want to create a single, shared instance of `LDClient`. You should specify your **mobile key** here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
     { label: 'Swift', value: 'swift', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
 
 LDUserBuilder *user = [[LDUserBuilder alloc] init];
@@ -151,14 +131,14 @@ Be sure to use a mobile key from your [Environments](https://app.launchdarkly.co
 Using `LDClient`, you can check which variation a particular user should receive for a given feature flag.
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 BOOL showFeature = [[LDClient sharedInstance] boolVariation:@"YOUR_FLAG_KEY" fallback:NO];
 if (showFeature) {
     NSLog(@"Showing feature for %@", user.key);
@@ -173,14 +153,14 @@ if (showFeature) {
 Lastly, when your application is about to terminate, shut down `LDClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 // In iOS, you would shut down the client like this:
 [[LDClient sharedInstance] stopClient];
 ```
@@ -193,15 +173,15 @@ Lastly, when your application is about to terminate, shut down `LDClient`. This 
 You can also pass other custom parameters to the client in the configuration object:
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
     { label: 'Swift', value: 'swift', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 config.connectionTimeout = [NSNumber numberWithInt:10];
 config.flushInterval = [NSNumber numberWithInt:10];
 ...
@@ -239,15 +219,15 @@ By default, the LaunchDarkly client will need network access to `*.launchdarkly.
 Feature flag targeting and rollouts are all determined by the *user* you pass to your client. In our iOS SDK, we use a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern) to make it easy to construct users. Here's an example:
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
     { label: 'Swift', value: 'swift', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 LDUserBuilder *user = [[LDUserBuilder alloc] init];
 
 user.key = @"aa0ceb";
@@ -306,15 +286,15 @@ You can also mark attributes as private when building the user object itself by 
 
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
     { label: 'Swift', value: 'swift', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 LDUserBuilder *user = [[LDUserBuilder alloc] init];
 
 user.key = @"aa0ceb";
@@ -341,15 +321,15 @@ user.privateAttributes = ["email"];
 You can also distinguish logged-in users from anonymous users in the SDK, as follows:
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
     { label: 'Swift', value: 'swift', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 LDUserBuilder *user = [[LDUserBuilder alloc] init];
 
 user.key = @"aa0ceb";
@@ -378,15 +358,15 @@ Anonymous users work just like regular users, except that they won't appear on y
 The `variation` method determines whether a flag is enabled or not for a specific user. In iOS, there is  a `variation` method for each type (e.g. `boolVariation`, `stringVariation`):
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
     { label: 'Swift', value: 'swift', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 [[LDClient sharedInstance] boolVariation:@"your.feature.key" fallback:FALSE];
 ```
 
@@ -423,15 +403,15 @@ You can use the `userDidUpdate` delegate method to be notified when the feature 
 The `track` method allows you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests. You can also attach custom JSON data to your event by passing an extra `NSDictionary` parameter to `track`. Here's a simple example:
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
     { label: 'Swift', value: 'swift', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
  [[LDClient sharedInstance] track:@"your-goal-key" data:dict];
 ```
 
@@ -451,15 +431,15 @@ LDClient.sharedInstance().track("Signed up", data: dict)
 In some situations, you might want to stop making remote calls to LaunchDarkly and switch to fallback values for your feature flags.  `offline` lets you do this easily.
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
     { label: 'Swift', value: 'swift', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 [[LDClient sharedInstance] offline];
 [[LDClient sharedInstance] boolVariation:@"your.feature.key" fallback:FALSE]; // will always return the fallback value (FALSE) 
 
@@ -496,15 +476,15 @@ If a user's device is in airplane/flight mode or if they are not connected to a 
 Internally, the LaunchDarkly SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `flush` to process events immediately.
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
     { label: 'Swift', value: 'swift', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 [[LDClient sharedInstance] flush];
 ```
 
@@ -532,15 +512,15 @@ To perform real-time updates in your app, your base class will need to conform t
 If more than one class relies on LaunchDarkly’s feature flags, we recommend you post a notification in this method, in a manner similar to the following:
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
     { label: 'Swift', value: 'swift', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 - (void)userDidUpdate{
     [[NSNotificationCenter defaultCenter] postNotificationName:@"userUpdatedNotification" object:nil];
 }
@@ -576,15 +556,15 @@ When the app is backgrounded, the iOS SDK does not receive real-time events. How
 To allow background fetch for flags in your app, just add the following code in your `AppDelegate`:
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
     { label: 'Swift', value: 'swift', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 -(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
     [[NSNotificationCenter defaultCenter] postNotificationName:kLDBackgroundFetchInitiated object:nil];
 }
@@ -611,15 +591,15 @@ If your app is used by multiple users on a single device, then you will want to 
 You can use the `updateUser` method to switch user contexts:
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
     { label: 'Swift', value: 'swift', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 LDUserBuilder *user = [[LDUserBuilder alloc] init];
 user.key = @"aa0ceb";
 [[LDClient sharedInstance] updateUser:user];
@@ -646,15 +626,15 @@ LaunchDarkly's iOS SDK supports having multiple `LDClient` instances tied to sep
 All `LDClient` instances will evaluate against the same `LDUser`. The mobile keys for additional environments are specified, along with identifying names, in a dictionary passed to your `LDConfig` object.
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
     { label: 'Swift', value: 'swift', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
 NSDictionary *otherMobileKeys = [[NSDictionary alloc] initWithObjectsAndKeys:@"PLATFORM_MOBILE_KEY", @"platform", nil];
 [config setSecondaryMobileKeys:otherMobileKeys];
@@ -685,15 +665,15 @@ LDClient.sharedInstance().start(config, with: user)
 To access the secondary mobile key instances, use the `environmentForMobileKeyNamed` method on `LDClient`. This method takes the identifier name assigned to your environment key in the secondaryMobileKeys dictionary and returns the associated `LDClient` instance.
 
 <CodeTabs
-  defaultValue="c"
+  defaultValue="objc"
   values={[
-    { label: 'Objective-C', value: 'c', },
+    { label: 'Objective-C', value: 'objc', },
     { label: 'Swift', value: 'swift', },
   ]
 }>
-<CodeTabItem value="c">
+<CodeTabItem value="objc">
 
-```c
+```objectivec
 LDClient *coreInstance = [[LDClient sharedInstance] environmentForMobileKeyNamed:@"platform"];
 [coreInstance boolVariation:@"platform-bool-flag" fallback:FALSE];
 ```

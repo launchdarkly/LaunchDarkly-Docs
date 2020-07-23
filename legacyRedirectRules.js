@@ -477,11 +477,19 @@ module.exports = [
   },
   {
     fromPath: '/docs/ios-objc-sdk-reference',
-    toPath: '/sdk/client-side/ios-objective-c',
+    toPath: '/sdk/client-side/ios/legacy',
+  },
+  {
+    fromPath: '/sdk/client-side/ios-objective-c',
+    toPath: '/sdk/client-side/ios/legacy',
   },
   {
     fromPath: '/docs/ios-sdk-reference',
-    toPath: '/sdk/client-side/ios-swift',
+    toPath: '/sdk/client-side/ios',
+  },
+  {
+    fromPath: '/sdk/client-side/ios-swift',
+    toPath: '/sdk/client-side/ios',
   },
   {
     fromPath: '/docs/js-sdk-reference',

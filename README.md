@@ -23,7 +23,7 @@ Staging is automatically refreshed on push to master. See [Build & Deploy](#-bui
 
 ## 🚀 Build & Deploy (internal LaunchDarkly use only)
 
-Github action automatically builds and deploys to staging on push to master.
+GitHub action automatically builds and deploys to staging on push to master.
 
 If you want to manually deploy your own branch to staging, do this:
 

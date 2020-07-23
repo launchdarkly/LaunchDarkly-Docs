@@ -200,10 +200,10 @@ EvaluationReason reason = detail.getReason(); // will always be present
 <CodeTabItem value="swift">
 
 ```swift
-let EvaluationDetail<Bool> detail =
+let LDEvaluationDetail<Bool> detail =
   client.variationDetail("flag-key", false);
 
-bool value = detail.value;
+Bool value = detail.value;
 Int? index = detail.variationIndex;   // may be null
 Dictionary<String, Any>? reason = detail.reason; // may be null
 ```

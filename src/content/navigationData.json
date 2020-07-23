@@ -510,12 +510,18 @@
             "path": "/sdk/client-side/electron"
           },
           {
-            "label": "iOS (Objective-C) SDK reference",
-            "path": "/sdk/client-side/ios-objective-c"
-          },
-          {
-            "label": "iOS (Swift) SDK reference",
-            "path": "/sdk/client-side/ios-swift"
+            "label": "iOS SDK reference",
+            "path": "/sdk/client-side/ios",
+            "items": [
+              {
+                "label": "iOS SDK 4.x to 5.0 migration guide",
+                "path": "/sdk/client-side/ios/migration-4-to-5"
+              },
+              {
+                "label": "Legacy iOS SDK reference",
+                "path": "/sdk/client-side/ios/legacy"
+              }
+            ]
           },
           {
             "label": "JavaScript SDK reference",
