@@ -10,6 +10,7 @@ const ignore = [
   'https://github.com',
   'https://stream.launchdarkly.',
   'https://events.launchdarkly.',
+  'https://app.launchdarkly.',
   'https://console.aws.',
   'https://mockbin.org',
   'https://glitch.com',
