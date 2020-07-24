@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx, Card } from 'theme-ui'
 import { Helmet } from 'react-helmet'
-
 import { Fragment, FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
@@ -21,6 +20,7 @@ import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
 import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
 import Link from './link'
 import Icon from './icon'
+import { useBrowserMetrics } from '../hooks/useBrowserMetrics'
 
 const components = {
   h1: H1,
@@ -109,6 +109,8 @@ const Layout: FunctionComponent<LayoutProps> = ({
     },
   },
 }) => {
+  useBrowserMetrics()
+
   return (
     <Fragment>
       <Reset />

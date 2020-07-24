@@ -5,6 +5,7 @@
   "version": "1.0.0",
   "author": "Yus Ng",
   "dependencies": {
+    "@datadog/browser-logs": "1.12.10",
     "@mdx-js/mdx": "^1.5.5",
     "@theme-ui/components": "^0.3.1",
     "@theme-ui/prism": "^0.3.0",
@@ -43,7 +44,8 @@
     "react-instantsearch-dom": "^6.1.0",
     "remark-slug": "^5.1.2",
     "slug": "^1.1.0",
-    "theme-ui": "^0.3.1"
+    "theme-ui": "^0.3.1",
+    "web-vitals": "0.2.3"
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "4.1.1",

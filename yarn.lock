@@ -946,6 +946,21 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
+"@datadog/browser-core@1.12.10":
+  version "1.12.10"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-core/-/browser-core-1.12.10.tgz#920390383f4db85beb19f7db43e95eeeadb3bc52"
+  integrity sha512-buVtp7F/tf/Nm8VYANPRMCKaVlTN6asRvoSgNlyvrIJnErPVzkQelrRG3vwzrr5/5/7ScLd7E6j+UPsNfxyS8Q==
+  dependencies:
+    tslib "1.10.0"
+
+"@datadog/browser-logs@1.12.10":
+  version "1.12.10"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-logs/-/browser-logs-1.12.10.tgz#f6fb728b3c439a0769c15d90c91e83af8bd675ed"
+  integrity sha512-67lm9xzmDwJ1i+Yw7wGDWf9g+WG1+IurpM6uO0piftbuhMKD3g+cw9mVc+Qjnc/zUyHkywTJfqmum3ALrDq1qQ==
+  dependencies:
+    "@datadog/browser-core" "1.12.10"
+    tslib "1.10.0"
+
 "@emotion/cache@^10.0.27":
   version "10.0.29"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-10.0.29.tgz#87e7e64f412c060102d589fe7c6dc042e6f9d1e0"
@@ -16547,6 +16562,11 @@ ts-pnp@^1.1.6:
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==
 
+tslib@1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
+  integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
+
 tslib@^1.10.0, tslib@^1.6.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
@@ -17298,6 +17318,11 @@ web-namespaces@^1.0.0, web-namespaces@^1.1.2:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/web-namespaces/-/web-namespaces-1.1.4.tgz#bc98a3de60dadd7faefc403d1076d529f5e030ec"
   integrity sha512-wYxSGajtmoP4WxfejAPIr4l0fVh+jeMXZb08wNc0tMg6xsfZXj3cECqIK0G7ZAqUq0PP8WlMDtaOGVBTAWztNw==
+
+web-vitals@0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/web-vitals/-/web-vitals-0.2.3.tgz#950adea6da9e3cfd3ee2ffe868c7126a6d87b2d1"
+  integrity sha512-6idlbUoL38El+QS320Qz6h4QSZLaWw3CHiJWBtQDmFGs72ro+fnukfavTxTdQSlsaoaBuNL/0bqlIhfdtlrx4A==
 
 webidl-conversions@^4.0.2:
   version "4.0.2"
