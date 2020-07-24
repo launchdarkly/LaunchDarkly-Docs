@@ -146,8 +146,7 @@ const plugins = [
   {
     resolve: 'gatsby-plugin-launchdarkly',
     options: {
-      clientSideID:
-        process.env.GATSBY_ACTIVE_ENV === 'production' ? '5e44ab7d09107307fa78bd08' : '5e44ab7d09107307fa78bd09',
+      clientSideID: process.env.LAUNCHDARKLY_CLIENT_SIDE_ID,
       options: {
         bootstrap: 'localstorage',
       },
