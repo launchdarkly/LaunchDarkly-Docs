@@ -610,8 +610,12 @@
             "path": "/sdk/server-side/lua",
             "items": [
               {
-                "label": "Using the Lua SDK in NGINX",
+                "label": "Using the Lua SDK with NGINX",
                 "path": "/sdk/server-side/lua/nginx"
+              },
+              {
+                "label": "Using the Lua SDK with HAProxy",
+                "path": "/sdk/server-side/lua/haproxy"
               }
             ]
           },
