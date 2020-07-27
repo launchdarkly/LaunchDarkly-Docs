@@ -35,7 +35,7 @@ To get started, include the library:
 <CodeTabItem value="lua">
 
 ```lua
-local ld = require("launchdarkly-server-sdk")
+local ld = require("launchdarkly_server_sdk")
 ```
 
 </CodeTabItem>
@@ -86,7 +86,7 @@ Using `client`, you can check which variation a particular user should receive f
 <CodeTabItem value="lua">
 
 ```lua
-if client.boolVariation(user, YOUR_FEATURE_KEY, false) then
+if client:boolVariation(user, YOUR_FEATURE_KEY, false) then
     print "feature is enabled"
 else
     print "feature is disabled"
@@ -175,7 +175,7 @@ The `variation` family of functions determine whether a flag is enabled or not f
 <CodeTabItem value="lua">
 
 ```lua
-local value = client.boolVariation(user, "YOUR_FEATURE_KEY", false)
+local value = client:boolVariation(user, "YOUR_FEATURE_KEY", false)
 ```
 
 </CodeTabItem>
@@ -200,7 +200,7 @@ To learn more about the nature of the "reason" data, read [Evaluation reasons](/
 <CodeTabItem value="lua">
 
 ```lua
-local details = client.boolVariationDetail(client, user, "your.feature.key", false);
+local details = client:boolVariationDetail(client, user, "your.feature.key", false);
 
 /* inspect details here */
 if details.reason == "FLAG_NOT_FOUND" then
@@ -237,7 +237,7 @@ This method can be useful for passing feature flags to your front-end. In partic
 <CodeTabItem value="lua">
 
 ```lua
-local allFlags = client.allFlags(user)
+local allFlags = client:allFlags(user)
 ```
 
 </CodeTabItem>
@@ -256,7 +256,7 @@ Internally, the LaunchDarkly SDK keeps an event buffer for analytics events. The
 <CodeTabItem value="lua">
 
 ```lua
-client.flush()
+client:flush()
 ```
 
 </CodeTabItem>
@@ -279,7 +279,7 @@ Here's a simple example:
 <CodeTabItem value="lua">
 
 ```lua
-client.track("your-goal-key", user);
+client:track("your-goal-key", user);
 ```
 
 </CodeTabItem>
@@ -296,7 +296,7 @@ You can also attach an object containing arbitrary data to your event:
 <CodeTabItem value="lua">
 
 ```lua
-client.track("your-goal-key", user, { price = 320 } );
+client:track("your-goal-key", user, { price = 320 } );
 ```
 
 </CodeTabItem>
@@ -315,7 +315,7 @@ The `identify` method creates or updates users on LaunchDarkly, making them avai
 <CodeTabItem value="lua">
 
 ```lua
-client.identify(user)
+client:identify(user)
 ```
 
 </CodeTabItem>
@@ -323,4 +323,4 @@ client.identify(user)
 
 ## Database integrations
 
-The module `launchdarkly-server-sdk-redis` allows feature flag data to be cached with Redis. To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
+The module `launchdarkly_server_sdk_redis` allows feature flag data to be cached with Redis. To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
