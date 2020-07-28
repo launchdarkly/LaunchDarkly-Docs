@@ -55,7 +55,7 @@ function sendCustomMeasureLogsToDatadog(metric: Metric, thresholdsConfig: Metric
 
 function initDatadogLogs(thresholdsConfig: MetricThresholdsConfig) {
   datadogLogs.init({
-    clientToken: process.env.DATADOG_CLIENT_TOKEN,
+    clientToken: process.env.GATSBY_DATADOG_CLIENT_TOKEN,
     datacenter: Datacenter.US,
     service: 'docs',
     env: process.env.GATSBY_ACTIVE_ENV,
