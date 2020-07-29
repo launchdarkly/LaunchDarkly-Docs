@@ -34,6 +34,7 @@
     "gatsby-source-filesystem": "^2.1.38",
     "gatsby-transformer-json": "^2.2.20",
     "gatsby-transformer-sharp": "^2.3.5",
+    "husky": "^4.2.5",
     "lodash.noop": "^3.0.1",
     "pluralize": "^8.0.0",
     "prism-react-renderer": "^1.0.2",

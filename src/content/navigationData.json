@@ -310,6 +310,10 @@
         "path": "/integrations/data-export",
         "items": [
           {
+            "label": "Azure Event Hubs",
+            "path": "/integrations/data-export/event-hub"
+          },
+          {
             "label": "Google Cloud Pub/Sub",
             "path": "/integrations/data-export/google-pubsub"
           },

@@ -22,7 +22,7 @@ Find this information in the [Google Cloud Pub/Sub topic list](https://console.c
 ![After picking the topic, you can find the projectId and topicId.](../../images/google-pubsub-projid-testid-callout.png) 
 
 
-## Granting Publish Access to LaunchDarkly
+## Granting publish access to LaunchDarkly
 
 After you identify the Pub/Sub topic you wish to publish to, you must grant LaunchDarkly's Google Cloud Service Account publish access to that topic.
 
@@ -39,7 +39,7 @@ If you configured your account correctly, our Service Account email appears as a
 ![Verify you see the LaunchDarkly Service account email as a Pub/Sub Publisher.](../../images/google-pubsub-publisher-callout.png) 
 
 
-## Connecting the Pub/Sub Topic to LaunchDarkly
+## Connecting the Pub/Sub topic to LaunchDarkly
 
 The final step is to connect your topic to LaunchDarkly.
 
@@ -54,7 +54,7 @@ The final step is to connect your topic to LaunchDarkly.
 
 ![Add the projectId and topicId as noted from Google Cloud. Choose an appropriate name and environment.](../../images/google-pubsub-create-destination.png)
 
-## Testing the Google Cloud Pub/Sub Destination
+## Testing the Google Cloud Pub/Sub destination
 
 After you've saved the destination, send a test event to confirm that the destination is configured properly.
 
@@ -79,6 +79,3 @@ To delete a destination:
 1. Navigate to the **Integrations** screen.
 2. Find the destination you wish to delete and click **Edit**. The "Create a destination" screen opens.
 3. Click **Delete Destination**.
-
-![The Delete destination section.](../../images/google-pubsub-delete.png) 
-
