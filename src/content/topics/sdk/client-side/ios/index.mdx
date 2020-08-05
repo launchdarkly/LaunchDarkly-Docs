@@ -18,7 +18,7 @@ SDK versions 4.0.0 and later are written in Swift. These versions are compatible
 </CalloutDescription>
 </Callout>
 
-This reference guide documents all of the methods available in our iOS SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [iOS SDK GitHub repository](https://github.com/launchdarkly/ios-client-sdk/tree/v4). Additionally you can clone and run sample applications using this SDK with [iOS](https://github.com/launchdarkly/hello-ios-swift), [macOS](https://github.com/launchdarkly/hello-macos), and [tvOS](https://github.com/launchdarkly/hello-tvos).
+This reference guide documents all of the methods available in our iOS SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, view the source on the [iOS SDK GitHub repository](https://github.com/launchdarkly/ios-client-sdk/tree/v5) or the generated [API docs](https://launchdarkly.github.io/ios-client-sdk/). Additionally you can clone and run sample applications using this SDK with [iOS](https://github.com/launchdarkly/hello-ios-swift), [macOS](https://github.com/launchdarkly/hello-macos), and [tvOS](https://github.com/launchdarkly/hello-tvos).
 
 ## Getting started
 
@@ -49,7 +49,7 @@ Including the SDK as a dependency in a `Package.swift` file would look like this
 ```swift
 //...
     dependencies: [
-        .package(url: "https://github.com/launchdarkly/ios-client-sdk.git", .upToNextMinor("5.0.0")),
+        .package(url: "https://github.com/launchdarkly/ios-client-sdk.git", .upToNextMinor("5.1.0")),
     ],
     targets: [
         .target(
@@ -79,7 +79,7 @@ If you're using [CocoaPods](https://cocoapods.org/), you can install the SDK by 
 ```ruby
 use_frameworks!
 target 'YourTargetName' do
-  pod 'LaunchDarkly', ~> '5.0'
+  pod 'LaunchDarkly', ~> '5.1'
 end
 ```
 
@@ -101,7 +101,7 @@ If you're using [Carthage](https://github.com/Carthage/Carthage), you can instal
 <CodeTabItem value="swift">
 
 ```swift
-github "launchdarkly/ios-client" ~> 5.0
+github "launchdarkly/ios-client" ~> 5.1
 ```
 
 </CodeTabItem>
@@ -377,6 +377,8 @@ ldConfig.wrapperName = nil
 ldConfig.wrapperVersion = nil
 /// Configures a mapping of names to additional mobile SDK keys for additional client instances to be initialized.
 ldConfig.setSecondaryMobileKeys([:])
+/// Additional headers that should be added to all HTTP requests from SDK components to LaunchDarkly services.
+ldConfig.additionalHeaders = [:]
 ```
 
 </CodeTabItem>
@@ -439,6 +441,8 @@ ldConfig.wrapperName = nil;
 ldConfig.wrapperVersion = nil;
 /// Configures a mapping of names to additional mobile SDK keys for additional client instances to be initialized.
 [ldConfig setSecondaryMobileKeys:@{} error:&err];
+/// Additional headers that should be added to all HTTP requests from SDK components to LaunchDarkly services.
+ldConfig.additionalHeaders = [:]
 ```
 
 </CodeTabItem>
