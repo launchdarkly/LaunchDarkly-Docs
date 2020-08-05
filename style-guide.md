@@ -55,6 +55,17 @@ LaunchDarkly's docs use a hybrid of markdown and React components. A list of the
 
 An explanation of how and where we use some of the custom components is provided below.
 
+### Callouts
+
+LaunchDarkly uses four types of callouts in the docs. Of these four, we use "warning" and "success" callouts the least often.
+
+Here is information about the callouts:
+
+* Info callouts are blue and provide useful context or information in a targeted way.
+* Alert callouts are yellow and provide lightweight warnings or advisories about behavior or unexpected consequences.
+* Warning callouts are red and provide information about severe consequences a user could experience by misconfiguring or misunderstanding part of the app.
+* Success callouts are green and provide positive messages about success indicators, improvements, or other types of positive messaging. These are our most rarely-used type of callout.
+
 ### Headings
 
 Headings start at h2 (##). The only h1 entry in a page is the topic title, which is specified in the frontmatter. h1 entries do not appear in the sidebar navigation on the right side of the page.
@@ -81,26 +92,9 @@ When linking to other items of technical documentation, including in the docs si
 To learn more, read [Topic title](link-to-topic).
 ```
 
-### Tables
+### Lists
 
-Tables provide a gathering mechanism for collections of items with definitions or further details. We don't use tables except for lists of more than three items that need supplemental references to make sense. Tables are great for reference documentation, such as docs for custom roles or API endpoints.
-
-Do not use markdown tables in LaunchDarkly docs. They format poorly in code editors and are hard to maintain. Use our custom table component instead. It's very similar to an HTML table.
-
-When you create a table, give the columns headers so people know what they're reading. 
-
-For example: 'Resource Name / Description' or 'Endpoint / Actions'.
-
-### Callouts
-
-LaunchDarkly uses four types of callouts in the docs. Of these four, we use "warning" and "success" callouts the least often.
-
-Here is information about the callouts:
-
-* Info callouts are blue and provide useful context or information in a targeted way.
-* Alert callouts are yellow and provide lightweight warnings or advisories about behavior or unexpected consequences.
-* Warning callouts are red and provide information about severe consequences a user could experience by misconfiguring or misunderstanding part of the app.
-* Success callouts are green and provide positive messages about success indicators, improvements, or other types of positive messaging. These are our most rarely-used type of callout.
+Lists are quick references that either describe steps or collections of three or more items. Use numbered steps if the reader must perform actions in a specific order to accomplish a task. Bulleted lists are for collections of items.
 
 ### Screenshots, graphics, and videos
 
@@ -123,6 +117,16 @@ If you want to add a video clip to your docs, we suggest uploading it to YouTube
 Do not include personally identifiable information in your video. 
 
 You must include closed captioning (subtitles) on the video. Please only upload videos with audio in English, since we don't have the resources to verify that non-English speech matches the contents of the subtitles.
+
+### Tables
+
+Tables provide a gathering mechanism for collections of items with definitions or further details. We don't use tables except for lists of more than three items that need supplemental references to make sense. Tables are great for reference documentation, such as docs for custom roles or API endpoints.
+
+Do not use markdown tables in LaunchDarkly docs. They format poorly in code editors and are hard to maintain. Use our custom table component instead. It's very similar to an HTML table.
+
+When you create a table, give the columns headers so people know what they're reading. 
+
+For example: 'Resource Name / Description' or 'Endpoint / Actions'.
 
 ## Topic template
 
@@ -180,10 +184,6 @@ Example:
 
 1. Log in to LaunchDarkly.
 1. Click **Account Settings**. The Account Settings page opens.
-
-### Lists
-
-Lists are quick references that either describe steps or collections of three or more items. Use numbered steps if the reader must perform actions in a specific order to accomplish a task. Bulleted lists are for collections of items.
 
 ### Conclusion
 
