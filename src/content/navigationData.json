@@ -669,6 +669,10 @@
             "path": "/guides/best-practices/integrations"
           },
           {
+            "label": "Using Experimentation",
+            "path": "/guides/best-practices/experimentation"
+          },
+          {
             "label": "Using LaunchDarkly in serverless functions",
             "path": "/guides/best-practices/serverless"
           },
@@ -690,6 +694,10 @@
           {
             "label": "Flag rules and targeting",
             "path": "/guides/tutorials/rules-and-targeting"
+          },
+          {
+            "label": "Experimenting with feature flags",
+            "path": "/guides/tutorials/experimentation"
           }
         ]
       }
