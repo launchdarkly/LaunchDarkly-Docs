@@ -36,7 +36,7 @@ To set up the Bitbucket Pipes configuration:
 2. Configure the Pipeline to run on `push` using the `default` configuration. Include the following variables:
 
 - `LD_ACCESS_TOKEN`: This secured variable should be your API access token.
-- `LD_PROJ_KEY`: This should be your LaunchDarkly project key.
+- `LD_PROJ_KEY`: This should be your LaunchDarkly project key. Find it in **Account settings > Projects**.
 
 Here's an example of a minimal Pipeline configuration:
 
@@ -59,7 +59,7 @@ pipelines:
   default:
     - step:
         script:
-          - pipe: launchdarkly/ld-find-code-refs-pipe:1.4.0
+          - pipe: launchdarkly/ld-find-code-refs-pipe:2.0.0
             environment:
               LD_ACCESS_TOKEN: $LD_ACCESS_TOKEN
               LD_PROJ_KEY: $LD_PROJ_KEY
@@ -102,20 +102,7 @@ The [code reference pipe](https://bitbucket.org/launchdarkly/ld-find-code-refs-p
       </TableCell>
       <TableCell>
         Required.
-        <br />A LaunchDarkly project key. The flag parser searches this project for code references in this project.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>LD_EXCLUDE</code>
-      </TableCell>
-      <TableCell>
-        Optional.
-        <br />
-        A regular expression (PCRE) defining the files, file types, and directories which the flag finder should
-        exclude.
-        <br />
-        Examples: <code>vendor/</code>, <code>vendor/.*</code>, <code>.*\.css</code>
+        <br />A LaunchDarkly project key. Find it in **Account settings > Projects**.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -158,30 +145,22 @@ The [code reference pipe](https://bitbucket.org/launchdarkly/ld-find-code-refs-p
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>LD_DELIMETERS</code>
-      </TableCell>
-      <TableCell>
-        Optional.
-        <br />
-        Specifies additional delimiters used to match flag keys. Must be a non-control ASCII character.
-        <br />
-        If more than one character is provided in delimiters, each character will be treated as a separate delimiter.
-        Will only match flag keys with surrounded by any of the specified delimeters. This option may also be specified
-        multiple times for multiple delimiters.
-        <br />
-        By default, only flags delimited by single-quotes, double-quotes, and backticks will be matched.
-        <br />
-        Default: <code>[" ' `]</code>.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
         <code>LD_IGNORE_SERVICE_ERRORS</code>
       </TableCell>
       <TableCell>
         Optional.
         <br />
-        If enabled, the scanner will terminate with exit code 0 when the LaunchDarkly API is unreachable or returns an unexpected response. Defaults to <code>false</code>
+        If enabled, the scanner terminates with exit code 0 when the LaunchDarkly API is unreachable or returns an unexpected response. Defaults to <code>false</code>.
+      </TableCell>
+    </TableRow>
+        <TableRow>
+      <TableCell>
+        <code>LD_LOOKBACK</code>
+      </TableCell>
+      <TableCell>
+        Optional.
+        <br />
+        Sets the number of Git commits to search in history for whether a feature flag was removed from code. Set this to 0 to disable it. Setting this option to a high value will increase search time. Defaults to <code>10</code>.
       </TableCell>
     </TableRow>
   </TableBody>

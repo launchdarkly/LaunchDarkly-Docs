@@ -49,7 +49,7 @@ To set up the LaunchDarkly orb in CircleCI:
 version: 2.1
 
 orbs:
-  launchdarkly: launchdarkly/ld-find-code-refs@1.4.0
+  launchdarkly: launchdarkly/ld-find-code-refs@2.0.0
 
 workflows:
   main:
@@ -65,4 +65,8 @@ workflows:
 
 ## Additional configuration options
 
-You can learn more about configuration options in CircleCI's documentation. To learn more, read [Explore Orbs / launchdarkly/ld-find-code-refs](https://ld.click/CircleCIOrbs).
+There are more configuration options for the Code references orb. To learn more, read [Explore Orbs / launchdarkly/ld-find-code-refs](https://ld.click/CircleCIOrbs).
+
+Skip searching files and directories with an [`.ldignore`](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#ignoring-files-and-directories) file.
+
+Use the [`.launchdarkly/config.yaml`](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#advanced-yaml-configuration) file for advanced configuration, such as configuring custom delimiters and aliases for your flag keys.

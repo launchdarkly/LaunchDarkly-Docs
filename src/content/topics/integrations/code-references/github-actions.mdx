@@ -24,8 +24,9 @@ To set up:
 3. Paste in your access token to the field that appears and click **Save secret**.
 
 4. Return to your GitHub repository to create a new Actions workflow.
- * **If you already have a `action.yml` file**: Copy and paste the `launchDarklyCodeReferences` job declaration below into the jobs section in your `action.yml` file.
- * **If you don't already have a workflow file:** Create a new file titled `action.yml` in the `.github/workflows` directory of your repository. Paste the following code in the **Edit file** section:
+
+- **If you already have an `action.yml` file**: Copy and paste the `launchDarklyCodeReferences` job declaration below into the jobs section in your `action.yml` file.
+- **If you don't already have a workflow file:** Create a new file titled `action.yml` in the `.github/workflows` directory of your repository. Paste the following code in the **Edit file** section:
 
 <CodeTabs
  defaultValue="yaml"
@@ -43,13 +44,15 @@ jobs:
     name: LaunchDarkly Code References
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: LaunchDarkly Code References
-      uses: launchdarkly/find-code-references@v5
-      with:
-        githubToken: ${{ secrets.GITHUB_TOKEN }}
-        accessToken: ${{ secrets.LD_ACCESS_TOKEN }}
-        projKey: YOUR_PROJECT_KEY
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 11 # This value must be set if the lookback configuration option is not disabled for find-code-references. Read more: https://github.com/launchdarkly/ld-find-code-refs#searching-for-unused-flags-extinctions
+      - name: LaunchDarkly Code References
+        uses: launchdarkly/find-code-references@v7
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          accessToken: ${{ secrets.LD_ACCESS_TOKEN }}
+          projKey: YOUR_PROJECT_KEY
 ```
 
 </CodeTabItem>
@@ -59,12 +62,12 @@ jobs:
   <CalloutTitle>Best practices for configuring an Actions file</CalloutTitle>
   <CalloutDescription>
 
-We strongly recommend that you update the second `uses` attribute value to reference the latest tag in the
+We strongly recommend that you update the second `uses` attribute value to reference the most recent tag in the
 [launchdarkly/find-code-references](https://github.com/launchdarkly/find-code-references) repository. This pins your
-workflow to a particular version of the launchdarkly/find-code-references action.
+workflow to a particular version of the `launchdarkly/find-code-references` action.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 5. Commit this file under a new branch and submit as a PR to your code reviewers to be merged into your master branch.
 
@@ -78,17 +81,21 @@ workflow to a particular version of the launchdarkly/find-code-references action
 
 As shown in the example above, the workflow should run on the `push` event and contain an action provided by the [launchdarkly/find-code-references](https://github.com/launchdarkly/find-code-references) repository.
 
-Include both the `LD_ACCESS_TOKEN` as a secret and a new environment variable containing your LaunchDarkly project key.
+Include both the `LD_ACCESS_TOKEN` as a secret and a new environment variable containing your LaunchDarkly project key. Find the project key in **Account Settings > Projects** in the LaunchDarkly dashboard.
 
 ## Troubleshooting
 
-Once your workflow is created, the best way to confirm that the workflow is executing correctly is to create a new pull request with the workflow file and verify that the newly created action succeeds.
+After you create the workflow, you can confirm that it's working correctly by creating a new pull request with the workflow file and verifying that the newly created action succeeds.
 
 If the action fails, there may be a problem with your configuration. To investigate, review the action's logs to view any error messages.
 
 ## Additional configuration options
 
 You can configure `ld-find-code-refs` with additional [inputs](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepswith) to enable more functionality.
+
+In addition to inputs, you can skip searching files and directories using a [`.ldignore`](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#ignoring-files-and-directories) file.
+
+You can also use the [`.launchdarkly/config.yaml`](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#advanced-yaml-configuration) file for advanced configuration options, such as configuring custom delimiters and aliases for your flag keys.
 
 <Table>
   <TableHeader>
@@ -102,8 +109,7 @@ You can configure `ld-find-code-refs` with additional [inputs](https://help.gith
         <code>accessToken</code>
       </TableCell>
       <TableCell>
-        A LaunchDarkly access token with writer-level access, or access to the{' '}
-        <code>code-reference-repository</code> custom role resource. Supply this as a GitHub repository secret.
+        A LaunchDarkly access token with writer-level access, or access to the <code>code-reference-repository</code> custom role resource. Supply this as a GitHub repository secret.
       </TableCell>
       <TableCell>Yes</TableCell>
     </TableRow>
@@ -112,21 +118,9 @@ You can configure `ld-find-code-refs` with additional [inputs](https://help.gith
         <code>projKey</code>
       </TableCell>
       <TableCell>
-        A LaunchDarkly project key. The flag finder searches this project for code references in this project.
+        A LaunchDarkly project key. Found under Account Settings -> Projects in the LaunchDarkly dashboard.
       </TableCell>
       <TableCell>Yes</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>exclude</code>
-      </TableCell>
-      <TableCell>
-        A regular expression (PCRE) defining the files and directories which the flag finder should exclude. Partial
-        matches are allowed.
-        <br />
-        Examples: <code>vendor/</code>, <code>vendor/.*</code>
-      </TableCell>
-      <TableCell>No</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -165,61 +159,24 @@ You can configure `ld-find-code-refs` with additional [inputs](https://help.gith
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>delimiters</code>
+        <code>ignoreServiceErrors</code>
       </TableCell>
       <TableCell>
-        Specifies additional delimiters used to match flag keys. Must be a non-control ASCII character. If you provide
-        more than one character in delimiters, each character is treated as a separate delimiter. This only matches flag
-        keys surrounded by any of the specified delimeters.
-        <br />
-        You can also specify this option multiple times for multiple delimiters. By default, only flags delimited by
-        single-quotes, double-quotes, and backticks are matched.
-        <br />
-        Default: <code>[" ' `]</code>
+        If enabled, the scanner will terminate with exit code 0 when the LaunchDarkly API is unreachable or returns an
+        unexpected response. Defaults to <code>false</code>.
       </TableCell>
       <TableCell>No</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>ignoreServiceErrors</code>
+        <code>lookback</code>
       </TableCell>
       <TableCell>
-        Optional.
-        <br />
-        If enabled, the scanner will terminate with exit code 0 when the LaunchDarkly API is unreachable or returns an unexpected response. Defaults to <code>false</code>
+        Sets the number of Git commits to search in history for whether a feature flag was removed from code. May be set
+        to 0 to disabled this feature. Setting this option to a high value will increase search time. Defaults to{' '}
+        <code>10</code>.
       </TableCell>
+      <TableCell>No</TableCell>
     </TableRow>
   </TableBody>
 </Table>
-
-Here's an example of a workflow configured to exclude the vendor directory and send 1 line of context above and below each code reference for each flag in the `default` project:
-
-<CodeTabs
- defaultValue="yaml"
- values={[
-   { label: 'YAML', value: 'yaml', },
- ]
-}>
-<CodeTabItem value="yaml">
-
-```yaml
-on: push
-name: Example Workflow
-jobs:
-  launchDarklyCodeReferences:
-    name: LaunchDarkly Code References
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: LaunchDarkly Code References
-      uses: launchdarkly/find-code-references@v3
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        LD_ACCESS_TOKEN: ${{ secrets.LD_ACCESS_TOKEN }}
-        LD_PROJ_KEY: YOUR_PROJECT_KEY
-        LD_EXCLUDE: "vendor/"
-        LD_CONTEXT_LINES: "1"
-```
-
-</CodeTabItem>
-</CodeTabs>

@@ -26,7 +26,9 @@ Here's how to set up the GitLab CI:
 1. Navigate to your GitLab project's CI / CD settings by clicking through **Your project** > **Settings** > **CI/CD**.
 2. Expand **Variables**.
 3. Create a variable called `LD_ACCESS_TOKEN`. Use the same value as your LaunchDarkly access token. Click the toggle to set the variable to **Masked**.
-4. Create a variable called `LD_PROJECT_KEY`. Use your LaunchDarkly project's key as the value. To learn more about setting variables, read [GitLab's documentation](https://docs.gitlab.com/ee/ci/variables/#creating-a-custom-environment-variable).
+4. Create a variable called `LD_PROJECT_KEY`. Use your LaunchDarkly project's key as the value. Find the project key in **Account Settings > Projects**. 
+
+To learn more about setting variables, read [GitLab's documentation](https://docs.gitlab.com/ee/ci/variables/#creating-a-custom-environment-variable).
 
 ![The GitLab Variables screen with masked "LD_ACCESS_TOKEN" and "LD_PROJECT_KEY" created.](../../images/gitlab-ci-env-variables.png)
 
@@ -45,19 +47,19 @@ Here's how to set up the GitLab CI:
 find-launchdarkly-code-refs:
   stage: deploy
   image:
-    name: launchdarkly/ld-find-code-refs:1.4.0
+    name: launchdarkly/ld-find-code-refs:2.0.0
     entrypoint: [""]
   script:
     - ld-find-code-refs
-       -accessToken $LD_ACCESS_TOKEN
-       -projKey $LD_PROJECT_KEY
-       -dir $CI_PROJECT_DIR
-       -repoName $CI_PROJECT_NAME
-       -repoUrl $CI_PROJECT_URL
-       -branch $CI_COMMIT_REF_NAME
-       -updateSequenceId $CI_PIPELINE_IID
-       -commitUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/commit/${sha}
-       -hunkUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/blob/${sha}/${filePath}#L${lineNumber}
+       --accessToken $LD_ACCESS_TOKEN
+       --projKey $LD_PROJECT_KEY
+       --dir $CI_PROJECT_DIR
+       --repoName $CI_PROJECT_NAME
+       --repoUrl $CI_PROJECT_URL
+       --branch $CI_COMMIT_REF_NAME
+       --updateSequenceId $CI_PIPELINE_IID
+       --commitUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/commit/"\${sha}"
+       --hunkUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/blob/"\${sha}/\${filePath}#L\${lineNumber}"
 ```
 
 </CodeTabItem>
@@ -102,19 +104,19 @@ deploy1:
 find-launchdarkly-code-refs:
   stage: deploy
   image:
-    name: launchdarkly/ld-find-code-refs:1.4.0
+    name: launchdarkly/ld-find-code-refs:2.0.0
     entrypoint: [""]
   script:
     - ld-find-code-refs
-       -accessToken $LD_ACCESS_TOKEN
-       -projKey $LD_PROJECT_KEY
-       -dir $CI_PROJECT_DIR
-       -repoName $CI_PROJECT_NAME
-       -repoUrl $CI_PROJECT_URL
-       -branch $CI_COMMIT_REF_NAME
-       -updateSequenceId $CI_PIPELINE_IID
-       -commitUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/commit/${sha}
-       -hunkUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/blob/${sha}/${filePath}#L${lineNumber}
+       --accessToken $LD_ACCESS_TOKEN
+       --projKey $LD_PROJECT_KEY
+       --dir $CI_PROJECT_DIR
+       --repoName $CI_PROJECT_NAME
+       --repoUrl $CI_PROJECT_URL
+       --branch $CI_COMMIT_REF_NAME
+       --updateSequenceId $CI_PIPELINE_IID
+       --commitUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/commit/"\${sha}"
+       --hunkUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/blob/"\${sha}/\${filePath}#L\${lineNumber}"
 ```
 
 </CodeTabItem>
@@ -129,4 +131,8 @@ When the jobs run in the pipeline, they display like this:
 
 There are more configuration options for `ld-find-code-refs`.
 
-To learn more, read [Optional arguments](https://github.com/launchdarkly/ld-find-code-refs#optional-arguments).
+You can exclude files and directories from searches with an [`.ldignore`](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#ignoring-files-and-directories) file.
+
+You can use the [`.launchdarkly/config.yaml`](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#advanced-yaml-configuration) file for advanced configuration, such as configuring custom delimiters and aliases for your flag keys.
+
+To learn more, read the [configuration documentation](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md).
