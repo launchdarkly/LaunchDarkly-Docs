@@ -5,7 +5,7 @@ description: 'This topic explains how to use the C and C++ client-side SDK.'
 published: true
 ---
 
-This reference guide documents basic usage of our C client-side SDK, and explains in detail how features work. If you want to dig even deeper, our SDKs are open source. To learn more, read [C SDK GitHub repository](https://github.com/launchdarkly/c-client-sdk). The complete API reference is available [here](https://github.com/launchdarkly/c-client-sdk). Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-c-client) using this SDK.
+This reference guide documents basic usage of our C / C++ client-side SDK, and explains in detail how features work. If you want to dig even deeper, our SDKs are open source. To learn more, read [C/C++ SDK GitHub repository](https://github.com/launchdarkly/c-client-sdk). The complete API reference is available [here](https://github.com/launchdarkly/c-client-sdk). Additionally you can clone and run a [sample C application](https://github.com/launchdarkly/hello-c-client) or a [sample C++ application](https://github.com/launchdarkly/hello-cpp-client) using this SDK.
 
 The C / C++ SDK supports Windows and POSIX environments (Linux, OSX, BSD). The networking library `libcurl` is a universal dependency.
 
@@ -27,18 +27,29 @@ Building on top of our [Getting Started guide](/home/getting-started) guide, the
 The C/C++ SDK has no installation steps. To get started, clone [the GitHub repository](https://github.com/launchdarkly/c-client-sdk) or download a release archive from the [GitHub Releases](https://github.com/launchdarkly/c-client-sdk/releases) page. This project utilizes `cmake` for cross platform builds.
 The build system expects `libpthread` (if on POSIX), and `libcurl` are installed on the system. The cmake configuration exports the target `ldclientapi`. If you are not utilizing cmake in your own project, and you cannot use our artifacts, you should `cmake install` the SDK to a directory of your choice. This will copy the required headers, and binaries equivalent to our release bundles.
 
+The C++ wrapper is not included in the release binaries and needs to be built separately.
+Copy the [header](https://github.com/launchdarkly/c-client-sdk/blob/master/cpp/include/launchdarkly/api.hpp) and [source](https://github.com/launchdarkly/c-client-sdk/blob/master/cpp/api.cpp) file and add them to your own build system.
+
 Once ready, your first step should be to include the LaunchDarkly SDK headers.
 
 <CodeTabs
   defaultValue="c"
   values={[
-    { label: 'Example', value: 'c', },
+    { label: 'C', value: 'c' },
+    { label: 'C++', value: 'cpp' }
   ]
 }>
 <CodeTabItem value="c">
 
 ```c
 #include <launchdarkly/api.h>
+```
+
+</CodeTabItem>
+<CodeTabItem value="cpp">
+
+```c
+#include <launchdarkly/api.hpp>
 ```
 
 </CodeTabItem>
@@ -49,9 +60,11 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 <CodeTabs
   defaultValue="c"
   values={[
-    { label: 'Example', value: 'c', },
+    { label: 'C', value: 'c' },
+    { label: 'C++', value: 'cpp' }
   ]
 }>
+
 <CodeTabItem value="c">
 
 ```c
@@ -59,6 +72,17 @@ unsigned int maxwaitmilliseconds = 10 * 1000;
 struct LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
 struct LDUser *user = LDUserNew("YOUR_USER_KEY");
 struct LDClient *client = LDClientInit(config, user, maxwaitmilliseconds);
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="cpp">
+
+```cpp
+unsigned int maxwaitmilliseconds = 10 * 1000;
+struct LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
+struct LDUser *user = LDUserNew("YOUR_USER_KEY");
+LDClientCPP *client = LDClientCPP::Init(config, user, maxwaitmilliseconds);
 ```
 
 </CodeTabItem>
@@ -102,13 +126,22 @@ Alternatively, you can conditionally gate your `LDClient` usage if the client is
 <CodeTabs
   defaultValue="c"
   values={[
-    { label: 'Example', value: 'c', },
+    { label: 'C', value: 'c' },
+    { label: 'C++', value: 'cpp' }
   ]
 }>
 <CodeTabItem value="c">
 
 ```c
 bool initialized = LDClientIsInitialized(client);
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="cpp">
+
+```cpp
+bool initialized = client->isInitialized();
 ```
 
 </CodeTabItem>
@@ -119,13 +152,28 @@ Using `client`, you can check which variation a particular user should receive f
 <CodeTabs
   defaultValue="c"
   values={[
-    { label: 'Example', value: 'c', },
+    { label: 'C', value: 'c' },
+    { label: 'C++', value: 'cpp' }
   ]
 }>
 <CodeTabItem value="c">
 
 ```c
 bool show_feature = LDBoolVariation(client, "YOUR_FLAG_KEY", false);
+if (show_feature) {
+    // application code to show the feature
+} else {
+    // the code to run if the feature is off
+}
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="cpp">
+
+```cpp
+bool show_feature = client->boolVariation("YOUR_FLAG_KEY", false);
+
 if (show_feature) {
     // application code to show the feature
 } else {
@@ -358,13 +406,22 @@ To fully uninitialize the C SDK resources you must use close. The operation will
 <CodeTabs
   defaultValue="c"
   values={[
-    { label: 'Example', value: 'c', },
+    { label: 'C', value: 'c' },
+    { label: 'C++', value: 'cpp' },
   ]
 }>
 <CodeTabItem value="c">
 
 ```c
 LDClientClose(client);
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="cpp">
+
+```cpp
+client->close();
 ```
 
 </CodeTabItem>
