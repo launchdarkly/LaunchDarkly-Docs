@@ -1,0 +1,45 @@
+---
+path: '/home/experimentation/segment'
+title: 'Sending Segment events to experiments'
+description: 'This topic explains how to configure your existing Segment account to send events to LaunchDarkly experiments so you can measure results immediately.'
+published: true
+---
+
+## Overview
+
+This topic explains how to configure your existing Segment account to send events to LaunchDarkly experiments.
+
+This lets you use Segment events as custom metric events in LaunchDarkly experiments, so you can measure results immediately, without any instrumentation, code, or delays. 
+
+After you connect LaunchDarkly and Segment, you can use the name of the existing Segment event when you create a custom metric to include it in your experiment immediately.
+
+![A LaunchDarkly experiment custom metric with a unique name.](../../images/experiment-segment-event.png)
+
+## Setting up the Segment experimentation integration
+
+To set up the integration, you must have access to your Segment and LaunchDarkly accounts. You will need them both to connect them to each other.
+
+### Generating a LaunchDarkly API Key
+
+1. Log in to LaunchDarkly and click into the **Account Settings** page.
+2. Click into the **Authorization** tab.
+3. Create and copy the client-side ID from the default project. This enables all experiments running in LaunchDarkly to receive Segment track events.
+
+### Connecting Segment to LaunchDarkly
+
+1. Navigate to the Segment app's **Destinations** page.
+2. Click **Add Destination.**
+3. Find the LaunchDarkly app in the Destinations Catalog and click **Configure LaunchDarkly**.
+4. Choose which **Source** in Segment should send data to the LaunchDarkly destination and click **Confirm Source**.
+5. Paste in client-side ID from the previous procedure into the "API Key" field.
+
+## How the integration works
+
+After you connect Segment and LaunchDarkly, events from the source you choose can appear as custom metric events in LaunchDarkly experiments. This process fails if LaunchDarkly fails to recognize events Segment sends to it as experimentation events. You must configure your Segment events correctly in order for them to appear in experiments.
+
+To register events from Segment in a LaunchDarkly experiment, you must meet the following critera:
+
+* The name of the Segment event is identical to the name of the custom metric in your LaunchDarkly experiment. When the Segment event and LaunchDarkly metric have identical names, events from Segment will appear as events in the LaunchDarkly experiment with which the metric is associated.
+* The LaunchDarkly metric must be attached to a flag and the experiment must be recording.
+
+You can associate the track event as a custom event at the time you set up a new metric. To learn more about track events, read [Segment's documentation](https://segment.com/academy/collecting-data/the-anatomy-of-a-track-call/).
