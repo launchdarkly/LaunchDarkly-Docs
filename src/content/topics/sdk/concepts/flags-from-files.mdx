@@ -227,9 +227,10 @@ var fileSource = FileComponents.FileDataSource()
     .WithFilePaths("file1.json", "file2.json")
     .WithAutoUpdate(true);
 
-var config = Configuration.Default("sdk key")
-    .WithUpdateProcessorFactory(fileSource)
-    .WithEventProcessorFactory(Components.NullEventProcessor);
+var config = Configuration.Builder("sdk key")
+    .UpdateProcessorFactory(fileSource)
+    .EventProcessorFactory(Components.NullEventProcessor)
+    .Build();
 
 var client = new LDClient(config);
 ```
