@@ -677,12 +677,12 @@
             "path": "/guides/best-practices/infrastructure-migration"
           },
           {
-            "label": "Using LaunchDarkly integrations",
-            "path": "/guides/best-practices/integrations"
-          },
-          {
             "label": "Using Experimentation",
             "path": "/guides/best-practices/experimentation"
+          },
+          {
+            "label": "Using LaunchDarkly integrations",
+            "path": "/guides/best-practices/integrations"
           },
           {
             "label": "Using LaunchDarkly in serverless functions",
@@ -696,7 +696,7 @@
         "svg": "atom",
         "items": [
           {
-            "label": "Your first flag",
+            "label": "Creating your first flag",
             "path": "/guides/tutorials/first-flag"
           },
           {
