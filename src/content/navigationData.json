@@ -665,6 +665,14 @@
             "path": "/guides/best-practices/deployment-strategies"
           },
           {
+            "label": "Managing flags with Terraform",
+            "path": "/guides/best-practices/terraform"
+          },
+          {
+            "label": "Reducing technical debt from feature flags",
+            "path": "/guides/best-practices/technical-debt"
+          },
+          {
             "label": "Using feature flags to mitigate risk in infrastructure migrations",
             "path": "/guides/best-practices/infrastructure-migration"
           },
@@ -679,10 +687,6 @@
           {
             "label": "Using LaunchDarkly in serverless functions",
             "path": "/guides/best-practices/serverless"
-          },
-          {
-            "label": "Managing flags with Terraform",
-            "path": "/guides/best-practices/terraform"
           }
         ]
       },
