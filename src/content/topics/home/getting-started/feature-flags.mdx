@@ -51,28 +51,27 @@ and "DevOps", and then use these tags to determine who has read or write access 
   </CalloutDescription>
 </Callout> 
 
-7. Choose an option in the **Flag variations** dropdown. To learn more, read [Flag variations](/home/managing-flags/flag-variations).
-8. (Optional) Specify details for your **Variation**. To learn more, read [Flag variations](/home/managing-flags/flag-variations).
-9. (Optional) Change the **default variations** for the flag's on and off states. To learn more about default variations, read [Setting default variations](#setting-default-variations).
-10. (Optional) Select the **This is a permanent flag** checkbox.
-11. (Optional) Select the **Make this flag available to client-side SDKs** checkbox. If you choose this option, the flag will be pushed out to client-side SDKs.
-
-<Callout intent="info">
-  <CalloutTitle>Flags are not available on the client-side by default</CalloutTitle>
-  <CalloutDescription>
-
-If you're using a client-side SDK, you must make each flag you wish to appear on the frontend available to the
-client. Making flags available on the client side may have security implications you should consider. To learn more,
-read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
-
-  </CalloutDescription>
-</Callout> 
-
-11. Click **Save Flag**. 
+7. (Optional) In the "Client-side SDK flag availability" section, check the **SDKs using Mobile Key** and/or **SDKs using client-side ID** boxes to designate which SDKs the flag should be available to. To learn more, read [Making flags available to client-side and mobile SDKs](#making-flags-available-to-client-side-and-mobile-sdks).
+8. Choose an option in the **Flag variations** dropdown. To learn more, read [Flag variations](/home/managing-flags/flag-variations).
+9. (Optional) Specify details for your **Variation**. To learn more, read [Flag variations](/home/managing-flags/flag-variations).
+10. (Optional) Change the **default variations** for the flag's on and off states. To learn more about default variations, read [Setting default variations](#setting-default-variations).
+11. (Optional) Select the **This is a permanent flag** checkbox.
+12. (Optional) Select the **Make this flag available to client-side SDKs** checkbox. If you choose this option, the flag will be pushed out to client-side SDKs.
+13. Click **Save Flag**. 
 
 ![The Create a feature flag screen.](../../images/flag-create.png) 
 
 That's it! You just created a feature flag. You can see it in the dashboard.
+
+### Making flags available to client-side and mobile SDKs
+
+When you create a flag, you can choose to expose the flag to SDKs which use client-side ID, SDKs which use mobile keys, or both. By default, flags are only available to server-side SDKs. If you're using a client-side SDK, you must make each flag you wish to appear on the frontend available to the client.
+
+![The "Client-side SDK availability" section of the flag creation screen.](../../images/flag-create-sdk.png)
+
+Making flags available to client-side SDKs, specifically to SDKs for mobile devices, may have security implications you should consider. SDKs for mobile devices use mobile SDK keys, which are readily available to mobile apps. A leaked mobile SDK key allows a backdoor around JavaScript's SecureMode, which can allow the holder to find out the value of every flag for any user even without knowing the SDK key that is used to hash the user key in Secure Mode.
+
+To learn more, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
 ## Configuring the same flag in different environments
 
