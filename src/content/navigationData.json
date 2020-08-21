@@ -665,6 +665,10 @@
             "path": "/guides/best-practices/deployment-strategies"
           },
           {
+            "label": "Feature flag hierarchy",
+            "path": "/guides/best-practices/flag-hierarchy"
+          },
+          {
             "label": "Improving flag usage in code",
             "path": "/guides/best-practices/improving-code"
           },
