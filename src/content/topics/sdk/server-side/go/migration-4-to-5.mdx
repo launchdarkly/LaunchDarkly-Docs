@@ -186,7 +186,7 @@ config.FeatureStoreFactory = redis.NewRedisFeatureStoreWithDefaults(
 import (
   ld "gopkg.in/launchdarkly/go-server-sdk.v5"
   "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
-  ldredis "github.com/launchdarkly/go-server-sdk-redis"
+  ldredis "github.com/launchdarkly/go-server-sdk-redis-redigo"
 )
 
 var config ld.Config
@@ -621,9 +621,9 @@ if detail.Reason.GetKind() == ldreason.EvalReasonPrerequisiteFailed {
 
 ## Understanding changes to add-on integration packages
 
-The Consul, DynamoDB, and Redis integrations are no longer bundled in the main SDK project. Instead, they are maintained in separate repositories: [`github.com/launchdarkly/go-server-sdk-redis`](https://github.com/launchdarkly/go-server-sdk-redis), [`github.com/launchdarkly/go-server-sdk-dynamodb`](https://github.com/launchdarkly/go-server-sdk-dynamodb), and [`github.com/launchdarkly/ldconsul`](https://github.com/launchdarkly/go-server-sdk-consul).
+The Consul, DynamoDB, and Redis integrations are no longer bundled in the main SDK project. Instead, they are maintained in separate repositories: [`github.com/launchdarkly/go-server-sdk-redis-redigo`](https://github.com/launchdarkly/go-server-sdk-redis-redigo), [`github.com/launchdarkly/go-server-sdk-dynamodb`](https://github.com/launchdarkly/go-server-sdk-dynamodb), and [`github.com/launchdarkly/ldconsul`](https://github.com/launchdarkly/go-server-sdk-consul).
 
-The new import paths for those packages are the same as the repository locations: `github.com/launchdarkly/go-server-sdk-redis`, etc.
+The new import paths for those packages are the same as the repository locations: `github.com/launchdarkly/go-server-sdk-redis-redigo`, etc.
 
 Also, the configuration syntax has changed. To learn more about configuration details, read [Understanding changes to the data store](#understanding-changes-to-the-data-store).
 
@@ -679,7 +679,7 @@ config.FeatureStoreFactory = ldredis.NewRedisFeatureStoreWithDefaults(
 import (
   ld "gopkg.in/launchdarkly/go-server-sdk.v5"
   "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
-  ldredis "github.com/launchdarkly/go-server-sdk-redis"
+  ldredis "github.com/launchdarkly/go-server-sdk-redis-redigo"
 )
 
 var config ld.Config
