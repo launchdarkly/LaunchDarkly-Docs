@@ -9,7 +9,9 @@ published: true
 <CalloutTitle>This feature is not yet generally available</CalloutTitle>
 <CalloutDescription>
 
-Access to this feature is currently limited to customers who signed up for the [Early Access Program (EAP)](https://docs.google.com/forms/d/e/1FAIpQLScJ5qCC_RZTW9pPSXVZk9HaKzpltNAeoQb2t6gh7dLicwQWQQ/viewform). LaunchDarkly will continuously launch incremental improvements and more functionality as part of the EAP.
+Access to this feature is currently limited to customers who signed up for the [Early Access Program (EAP)](https://docs.google.com/forms/d/e/1FAIpQLScJ5qCC_RZTW9pPSXVZk9HaKzpltNAeoQb2t6gh7dLicwQWQQ/viewform). 
+
+LaunchDarkly launches incremental improvements and more functionality as part of the EAP.
 
 </CalloutDescription>
 </Callout>
@@ -20,6 +22,21 @@ With Feature Workflows, you can elevate your use of feature flags by creating co
 
 Feature workflows start with three powerful building blocks: **scheduling**, **approvals**, and **metric checks**. 
 
+![A graphic representing the three core capabilities of Feature Workflows.](../../images/workflows-core-capabilities.png)
+
+## Scheduling flag changes
+
+Scheduling flag changes allows you to define and schedule changes to your flag’s targeting rules for future points in time. While this sounds simple, it unlocks the potential to create a progressive delivery strategy by scheduling the incremental steps to release your feature to 100% of your user base.
+
+For example, you may want to schedule the feature to turn on for internal testing two days from today, then enable it for your ‘beta’ customer segment four days later, and finally start an automated rollout from 0% to 100% over the following five days. Now you can define this feature workflow ahead of time and be confident that it will take effect at the specified date and time.
+
+## Benefits of scheduling flag changes
+
+1. **Timing an early launch**: LaunchDarkly users no longer need to set reminders or wake up early to turn a flag ON. Scheduling your flag to turn on on a specified date/time allows you to plan your release and let LaunchDarkly do the rest.
+2. **Progressive rollouts**: Using this functionality, you can schedule your flag to roll out to 20% of your user base tomorrow, 35% the day after, 50% the day after that, and increase that percentage until it reaches 100%. This only requires creating a set of scheduled changes to your flag once and lets you slowly release features and ensure they’re performing the way you hoped they would.
+3. **Changes to user access**: You can now schedule rules that target certain users and segments to be added to or removed from your flag’s targeting to better manage user access.
+4. **Flag hygiene**: You can schedule your flag’s targeting rules to clean up once your flag has been rolled out to 100% of your users, to practice better flag hygiene and more easily understand the flag's configuration. 
+
 <Callout intent="info">
 <CalloutTitle>Feature Workflows are available in the LaunchDarkly API</CalloutTitle>
 <CalloutDescription>
@@ -29,44 +46,26 @@ All of LaunchDarkly's features are supported by API endpoints. To learn more abo
 </CalloutDescription>
 </Callout>
 
-## Scheduling flag changes
+## Creating scheduled flag changes
 
-Scheduling flag changes allows you to define and schedule changes to your flag’s targeting rules for future points in time. While this sounds simple, it unlocks the potential to create a progressive delivery strategy by scheduling the incremental steps to release your feature to 100% of your user base.
-
-For example, you may want to schedule the feature to turn on for internal testing two days from today, then enable it for your ‘beta’ customer segment four days later, and finally start an automated rollout from 0% to 100% over the following five days. Now you can define this feature workflow ahead of time and be confident that it will take effect at the specified date and time.
-
-
-## Benefits of scheduling flag changes
-
-1. **Timing an early launch**: LaunchDarkly users no longer need to set reminders or wake up early to turn a flag ON. Scheduling your flag to turn on on a specified date/time allows you to plan your release and let LaunchDarkly do the rest.
-2. **Progressive rollouts**: Using this functionality, you can schedule your flag to roll out to 20% of your user base tomorrow, 35% the day after, 50% the day after that, and increase that percentage until it reaches 100%. This only requires creating a set of scheduled changes to your flag once and lets you slowly release features and ensure they’re performing the way you hoped they would.
-3. **Changes to user access**: You can now schedule rules that target certain users and segments to be added to or removed from your flag’s targeting to better manage user access.
-4. **Flag hygiene**: You can schedule your flag’s targeting rules to clean up once your flag has been rolled out to 100% of your users, to practice better flag hygiene and more easily understand the flag's configuration. 
-
-## Scheduling flag changes
-
-<Callout intent="alert">
-<CalloutTitle>You can only schedule some flag actions</CalloutTitle>
-<CalloutDescription>
-
-Currently, the only supported flag actions that can be scheduled are:  
-
-* Enabling/disabling Targeting, 
-* updating the Default rule, and 
-* updating the OFF variation. 
-
-The **Schedule Changes** option only appears if your flag targeting changes include at least one of these actions. If you try to schedule flag actions for which scheduling isn’t supported yet, the unsupported actions will not take effect. Only the supported changes will be scheduled. 
-
-</CalloutDescription>
-</Callout>
-
-To schedule flag changes:
+To schedule a set of flag changes:
 
 1. Navigate to the flag dashboard and select the flag for which you want to schedule targeting changes. The flag's Targeting tab appears.
 2. Make the changes you want to the flag’s targeting.
 3. Click the dropdown next to the **Save changes** button and select **Schedule Changes**.
 
 ![The Schedule Changes button below the Save Changes button.](../../images/workflows-schedule-changes.png)
+
+<Callout intent="alert">
+<CalloutTitle>You must sign up for Scheduled Flag Changes in the EAP</CalloutTitle>
+<CalloutDescription>
+
+If you don’t see the **Schedule Changes** option, it is probably because you need access to the feature as part of the Early Access Program. 
+
+[Sign up now.](htts://launchdarkly.com/eap)
+
+</CalloutDescription>
+</Callout>
 
 4. In the "Schedule change for" section, click on **Select a date** to expand a calendar view.
 
@@ -78,8 +77,8 @@ To schedule flag changes:
 
 ![A GIF of the flag scheduling workflow.](../../images/workflows-change-create.gif)
 
-7. Enter a comment and the environment name.
-8. Click **Schedule Changes**. Your changes have now been scheduled. 
+8. Enter a comment and the environment name.
+9. Click **Schedule Changes**. Your changes have now been scheduled. 
 
 You can schedule multiple changes for a single flag for different dates and times.
 
@@ -106,10 +105,10 @@ To update a scheduled flag change:
 
 ![A GIF of the change editing worklow.](../../images/workflows-edit-changes.gif)
 
-3. A modal appears with the list of scheduled flag changes. 
-4. You can change the schedule by changing the date or time for these changes. Alternatively, you can click **Edit** to make updates and click **Done** when complete.
-5. Type in a comment and the environment name.
-6. Hit **Update Change** to save your updates to the scheduled change.
+4. A modal appears with the list of scheduled flag changes. 
+5. You can change the schedule by changing the date or time for these changes. Alternatively, you can click **Edit** to make updates and click **Done** when complete.
+6. Type in a comment and the environment name.
+7. Hit **Update Change** to save your updates to the scheduled change.
 
 ## Deleting scheduled flag changes
 
@@ -122,8 +121,12 @@ To delete a scheduled flag change:
 
 ## Feedback
 
-As part of LaunchDarkly’s Early Access Program, we’re actively looking for customer feedback and input to help us improve this product experience for all our users. If you have questions or feedback, please email karishma@launchdarkly.com. 
+As part of LaunchDarkly’s Early Access Program, we’re actively looking for customer feedback and input to help us improve this product experience for all our users. 
+
+If you have questions or feedback, please email karishma@launchdarkly.com. 
 
 ## Coming soon
 
-In the coming weeks, we plan to add support for scheduling other flag actions such as individual user targets and rules, so stay tuned!
+Our team continues to work on and build the other components of Feature Workflows, specifically **Approvals** and **Health Checks**. 
+
+If you’re interested in providing input for any of these features, email us at feedback@launchdarkly.com
