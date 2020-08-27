@@ -180,7 +180,9 @@ Map = #{
     avatar => <<"ratavA">>,
     name => <<"foobar">>,
     anonymous => false,
-    <<"custom-key">> => <<"custom-value">>
+    custom => #{
+        <<"custom-key">> => <<"custom-value">>
+    }
 },
 User = ldclient_user:new_from_map(Map)
 ```
