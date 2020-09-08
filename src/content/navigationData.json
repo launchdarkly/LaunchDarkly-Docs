@@ -365,7 +365,13 @@
       },
       {
         "label": "Datadog",
-        "path": "/integrations/datadog"
+        "path": "/integrations/datadog",
+        "items": [
+          {
+            "label": "Using flag triggers with Datadog",
+            "path": "/integrations/datadog/triggers"
+          }
+        ]
       },
       {
         "label": "Dynatrace",
@@ -376,8 +382,18 @@
         "path": "/integrations/elastic-stack"
       },
       {
+        "label": "Flag triggers",
+        "path": "/integrations/triggers"
+      },
+      {
         "label": "Honeycomb",
-        "path": "/integrations/honeycomb"
+        "path": "/integrations/honeycomb",
+        "items": [
+          {
+            "label": "Using flag triggers with Honeycomb",
+            "path": "/integrations/honeycomb/triggers"
+          }
+        ]
       },
       {
         "label": "Jira",

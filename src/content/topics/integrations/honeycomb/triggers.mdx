@@ -1,0 +1,74 @@
+---
+path: '/integrations/honeycomb/triggers'
+title: 'Using flag triggers with Honeycomb'
+description: 'This topic explains how to use LaunchDarkly''s triggers feature with Honeycomb.'
+published: true
+---
+
+## Overview
+
+<Callout intent="info">
+<CalloutTitle>Flag triggers is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Triggers is only available for customers on a LaunchDarkly Enterprise plan. To enable this feature on your account, [contact Sales](mailto:sales@launchdarkly.com).
+
+</CalloutDescription>
+</Callout>
+
+This topic explains how to use LaunchDarkly's triggers feature with Honeycomb. For example, you can create an alert in Honeycomb that uses a trigger to toggle a flag on or off if a performance metric drops below a certain threshold.
+
+To learn more about how Honeycomb uses triggers, read [Honeycomb's documentation](https://docs.honeycomb.io/working-with-your-data/triggers/).
+
+## Prerequisites
+
+In order to complete this topic, you must meet the following prerequisites.
+
+* You must have a feature flag with a trigger. 
+* You must have access to the trigger's URL, which you copied and saved during the trigger creation process. To learn more, read [Triggers](/integrations/triggers).
+* You must have an existing [Honeycomb](https://www.honeycomb.io/) account. 
+
+## Connecting a flag trigger to Honeycomb
+
+<Callout intent="alert">
+<CalloutTitle>Honeycomb triggers and LaunchDarkly triggers are two different terms</CalloutTitle>
+<CalloutDescription>
+
+Honeycomb uses similar nomenclature to LaunchDarkly when discribing actions controlled by webhooks and third-party tools. However, a trigger in Honeycomb is not synonymous as a trigger in LaunchDarkly. 
+
+In this topic, we distinguish between the two triggers with the labels "Honeycomb trigger" and "LaunchDarkly trigger."
+
+</CalloutDescription>
+</Callout>
+
+To connect a LaunchDarkly trigger to your Honeycomb account, you must peform two actions:
+
+1. Create an integration in Honeycomb that includes your LaunchDarkly trigger, and
+2. Make a Honeycomb trigger based on configuration you specify that uses the LaunchDarkly trigger to perform flag actions.
+
+### Creating an integration in Honeycomb
+
+1. Log into Honeycomb.
+2. Click your username, and then click **Team settings**.
+3. Click into the **Integrations** tab.
+4. In the "Trigger Recipients" section, click **Add integration**.
+5. In the "Provider" section, choose "Webhook" as the type of integration you want to configure.
+6. Give your webhook a human-readable **Name**.
+7. Paste the LaunchDarkly trigger URL into the **Webhook URL** field.
+8. Enter any text into the **Shared secret** field.
+9. Click **Add.**
+
+### Associating the integration with an alert
+
+Now you must associate the integration you created with a Honeycomb trigger.
+
+1. Navigate to the query you want to connect to a LaunchDarkly trigger.
+2. Click the **three-dot** overflow menu. A dropdown appears.
+4. Click **Make Trigger**.
+5. Give your trigger a human-readable **Name**.
+6. Make any configuration you need until you get to the "Recipients" section. 
+7. In the "Recipients" section, click **Add Recipient** and choose **Webhook -- [Your webhook's name]** from the dropdown.
+8. Confirm this is what you want and click **Add**.
+9. Click **Create trigger**. 
+
+Now alerts in your Honeycomb account will trigger feature flags in LaunchDarkly.
