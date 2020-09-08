@@ -16523,6 +16523,11 @@ tr46@^1.0.1:
   dependencies:
     punycode "^2.1.0"
 
+trackjs@3.7.4:
+  version "3.7.4"
+  resolved "https://registry.yarnpkg.com/trackjs/-/trackjs-3.7.4.tgz#480b9dd22a633b594be671f699f005bdd00af1e7"
+  integrity sha512-rcpAd78wdS0+FUgnmMxQkWBytD3OZetZTCSyLwUBltDN2BkLY4A7e9rUd48vhSJLqXB+fETHpIkQt5bXXfVa5Q==
+
 tree-kill@^1.2.0:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/tree-kill/-/tree-kill-1.2.2.tgz#4ca09a9092c88b73a7cdc5e8a01b507b0790a0cc"

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const { queries } = require('./src/utils/algolia')
 
 // These are useful to debug build issues
