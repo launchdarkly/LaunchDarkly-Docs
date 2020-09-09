@@ -21,13 +21,6 @@ const plugins = [
     },
   },
   {
-    resolve: 'gatsby-source-filesystem',
-    options: {
-      name: 'mdx-images',
-      path: `${__dirname}/src/content/images`,
-    },
-  },
-  {
     resolve: 'gatsby-plugin-mdx',
     options: {
       remarkPlugins: [require('remark-slug')],
@@ -96,6 +89,16 @@ const plugins = [
     options: {
       path: `${__dirname}/src/content/topics`,
       name: 'mdx',
+      // Omit all mdx but getting-started, managing-flags, managing-users in fast dev mode
+      ignore: process.env.DEV_FAST === 'true' && [
+        '**/guides',
+        '**/integrations',
+        '**/sdk',
+        '**/home/account-security',
+        '**/home/advanced',
+        '**/home/experimentation',
+        '**/home/metrics-and-insights',
+      ],
     },
   },
   {
@@ -152,6 +155,17 @@ const plugins = [
     },
   },
 ]
+
+// Omit mdx images in fast dev mode
+if (process.env.DEV_FAST !== 'true') {
+  plugins.push({
+    resolve: 'gatsby-source-filesystem',
+    options: {
+      name: 'mdx-images',
+      path: `${__dirname}/src/content/images`,
+    },
+  })
+}
 
 // Only build algolia indexes in staging and production
 if (process.env.GATSBY_ACTIVE_ENV === 'staging' || process.env.GATSBY_ACTIVE_ENV === 'production') {

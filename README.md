@@ -15,29 +15,29 @@ In practical terms, we will likely merge your PR within 5 business days of submi
 
 ### Planning your docs contribution
 
-Some larger PRs require back-and-forth iteration before they're ready to get published. If you're a partner or other party planning a large docs contribution to coincide with a feature release, buffer your time to accommodate for some discussion or review before your docs go live. 
+Some larger PRs require back-and-forth iteration before they're ready to get published. If you're a partner or other party planning a large docs contribution to coincide with a feature release, buffer your time to accommodate for some discussion or review before your docs go live.
 
 If you have a docs concern or contribution that you need addressed urgently, email docs@launchdarkly.com.
 
-We'll do our best to merge your PR as soon as we can, but we're a small team serving a large community. Thank you in advance for your patience. 
+We'll do our best to merge your PR as soon as we can, but we're a small team serving a large community. Thank you in advance for your patience.
 
-## Resources for contributors 
+## Resources for contributors
 
 You can make your contribution to the docs more likely to be accepted early by following our style guide and using our custom components.
 
 If you want to write a good PR, here are some resources to get you started:
 
-* [The LaunchDarkly documentation style guide](style-guide.md)
-* [The LaunchDarkly documentation contributor's guide](contributors-guide.md)
-* [Information about our custom components](components.md)
+- [The LaunchDarkly documentation style guide](style-guide.md)
+- [The LaunchDarkly documentation contributor's guide](contributors-guide.md)
+- [Information about our custom components](components.md)
 
 ## 🚴 Running the docs site locally
 
-Our site runs with [Gatsby](https://www.gatsbyjs.org/), [NPM](https://www.npmjs.com/), and [Yarn](https://classic.yarnpkg.com/en/). To run the site on your local machine, you may have to install some packages and dependendies. 
+Our site runs with [Gatsby](https://www.gatsbyjs.org/), [NPM](https://www.npmjs.com/), and [Yarn](https://classic.yarnpkg.com/en/). To run the site on your local machine, you may have to install some packages and dependendies.
 
 Here's how to start:
 
-1. Clone the repo locally. 
+1. Clone the repo locally.
 2. Navigate to it in your terminal.
 3. Run the following command:
 
@@ -45,7 +45,15 @@ Here's how to start:
 yarn && yarn start
 ```
 
-The site will build. Monitor the progress in your terminal, and when the build completes, navigate to [localhost:8000](http://localhost:8000). 
+The site will build. Monitor the progress in your terminal, and when the build completes, navigate to [localhost:8000](http://localhost:8000).
+
+You can also run in a `fast` development mode which omits all mdx images and most mdx content except for getting-started, managin-flags and managing-users:
+
+```shell
+yarn && yarn dev-fast
+```
+
+This cuts the gatsby build time to just < 7 seconds as opposed to > 1minute.
 
 ## 👥 Adding new topics and editing existing topics from within the repo
 
@@ -71,7 +79,7 @@ If you still encounter issues, perform a clean-all to delete all possible caches
 yarn clean-all
 ```
 
-## (Internal LaunchDarkly use only) 🌗 Accessing the staging site 
+## (Internal LaunchDarkly use only) 🌗 Accessing the staging site
 
 The staging url is [docs-stg.launchdarkly.com](https://docs-stg.launchdarkly.com).
 
