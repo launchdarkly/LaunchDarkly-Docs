@@ -86,6 +86,7 @@ interface LayoutProps {
       toc: TOC
       timeToRead: number
       fields: {
+        isLandingPage: boolean
         lastModifiedTime: string
       }
       frontmatter: {
@@ -103,7 +104,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
       body,
       toc,
       timeToRead,
-      fields: { lastModifiedTime },
+      fields: { isLandingPage, lastModifiedTime },
       frontmatter: { title, description },
       fileAbsolutePath,
     },
@@ -132,9 +133,11 @@ const Layout: FunctionComponent<LayoutProps> = ({
             <MDXRenderer>{body}</MDXRenderer>
           </MDXProvider>
         </main>
-        <aside sx={{ gridArea: 'aside', pt: 4, display: ['none', 'none', 'block'], width: '18rem' }}>
-          <TableOfContents toc={toc} sx={{ position: 'sticky', top: 2 }} />
-        </aside>
+        {!isLandingPage && (
+          <aside sx={{ gridArea: 'aside', pt: 4, display: ['none', 'none', 'block'], width: '18rem' }}>
+            <TableOfContents toc={toc} sx={{ position: 'sticky', top: 2 }} />
+          </aside>
+        )}
         <footer sx={{ gridArea: 'footer', height: '7rem' }}></footer>
       </div>
     </Fragment>
@@ -151,6 +154,7 @@ export const pageQuery = graphql`
       toc: tableOfContents(maxDepth: 2)
       timeToRead
       fields {
+        isLandingPage
         lastModifiedTime(formatString: "MMM DD, YYYY")
       }
       frontmatter {

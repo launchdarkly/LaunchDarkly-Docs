@@ -30,6 +30,12 @@ exports.onCreateNode = async ({ node, actions }) => {
       node,
       value: lastModifiedTime,
     })
+
+    createNodeField({
+      name: 'isLandingPage',
+      node,
+      value: !!node.frontmatter.isLandingPage,
+    })
   }
 }
 
