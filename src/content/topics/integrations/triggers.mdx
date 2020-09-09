@@ -22,15 +22,15 @@ This topic explains how to use LaunchDarkly's flag triggers feature, which lets 
 
 A trigger lets you initiate flag changes remotely using a unique webhook URL. Triggers integrate with your existing tools to let you enable or disable flags when you hit specific operational health thresholds or receive certain alerts. A flag can have multiple triggers attached to multiple tools or alerts.
 
-Triggers work by creating unique URLs to connect feature flags to third-party tools. When these URLs are accessed by a HTTP POST request, they toggle the flag **On** or **Off**. Each action has one URL associated with it, so you can use triggers to connect as many actions as you need to a flag.
+Triggers work by creating unique URLs to connect feature flags to third-party tools. When the third-party tool generates a specific alert, the trigger sets the flag's targeting to **On** or **Off**. 
 
-When the third-party tool generates an alert that is connected to a trigger, the trigger sets the flag's targeting to **On** or **Off**, depending on which action is associated with the trigger. Each URL controls one action, and the URLs are distinct from each other, so hitting the same URL multiple times does not toggle the flag on and off repeatedly. Subsequent requests to the flag's **On** URL will not change the flag's state after the initial contact turns the flag **On.**
+Each URL controls one action, and the URLs are distinct from each other. Subsequent requests to the flag's **On** URL will not change the flag's state after the initial contact turns the flag **On.**
 
 <Callout intent="info">
 <CalloutTitle>Triggers are environment-specific</CalloutTitle>
 <CalloutDescription>
 
-Triggers are unique to a each flag within a given environment. This means that you can add multiple tools and multiple triggers to every flag, but if you wish to use the same trigger in multiple environments, you must create a new trigger for each flag in each environment as flags do not share URLs across environments.
+Triggers are unique to each flag within a given environment. This means that you can add multiple tools and multiple triggers to every flag, but if you wish to use the same trigger in multiple environments, you must create a new trigger for each flag in each environment as flags do not share URLs across environments.
 
 </CalloutDescription>
 </Callout>
@@ -60,13 +60,16 @@ To learn more, read [Custom roles](/home/account-security/custom-roles).
 
 ## Integrations that use flag triggers
 
-Triggers are available on the following tools:
+Triggers are available on the following tools. Read each tool's documentation to learn how to set up triggers for them.
+
+The tools are:
 
 * [Datadog](integrations/datadog/triggers)
 * [Honeycomb](/integrations/honeycomb/triggers)
-* [Generic triggers](#creating-a-new-trigger)
 
-Generic triggers can connect to anything that fires a webhook. If it accepts an inbound connection from a webhook, you can use it to turn a flag on or off. For example, if your company has an in-house monitoring application, you can use a generic trigger to turn flags on or off directly from your application.
+LaunchDarkly also supports generic triggers that you can use with other tools. To learn more, read [Creating a new trigger](#creating-a-new-trigger).
+
+Generic triggers can connect to anything that fires a webhook. If a tool or service accepts an inbound connection from a webhook, you can use that service to turn a flag on or off. For example, if your company has an in-house monitoring application, you can use a generic trigger to turn flags on or off directly from your application.
 
 Generic triggers work without any request body, but  if you want to enhance the flag's audit log with more information, you can add different attributes. Any combination of properties will return information, and every attribute is optional. 
 
