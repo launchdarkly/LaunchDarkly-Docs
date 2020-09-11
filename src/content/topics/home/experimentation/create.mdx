@@ -9,11 +9,17 @@ published: true
 
 This topic explains how to set up and configure an experiment in LaunchDarkly. It introduces the concepts of metrics, explains different metric types, and explains how metrics interact with feature flags to create experiments.
 
-In LaunchDarkly, the combination of metrics and flags is an experiment. Experiments let you measure the effect of flags on users by mapping them to the metrics your team cares about.
+In LaunchDarkly, the combination of metrics and flags is an experiment. Experiments let you measure the effect of flags on users by mapping them to the metrics your team cares about. 
 
-When a user performs a metric-tracked action in your application after they encounter a feature flag, the experiment that flag informs logs an event.
+You can create an experiment from a flag's Experiments tab or from the Experiments dashboard. To learn more, read [Creating experiments](#creating-experiments).
+
+## How experiments work
+
+When a user performs a metric-tracked action in your application after they encounter a feature flag, the experiment logs an event.
 
 For example, an experiment might show that users are more likely to convert by clicking "Checkout" when the Checkout button is a certain color. The metric you would track to measure that is when they click on the Checkout button. It would be connected to a flag serving four variations, each of which is a different color for the button.
+
+## Creating experiments
 
 It takes three steps to create an experiment. You must:
 
@@ -21,8 +27,13 @@ It takes three steps to create an experiment. You must:
 2. [Connect the metric to feature flags](#connecting-metrics-to-feature-flags), and
 3. [Start recording your experiment](#starting-your-experiment) 
 
+You can reuse existing metrics by connecting them to multiple flags, which allows you to compare how this metric fares across numerous flags. Similarly, a single flag can have more than one metric connected to it, which allows you to see how this flag performs against various measurements.
 
-After you create an experiment, you can reuse its components to create new experiments. You can reuse existing metrics by connecting them to multiple flags simultaneously, which allows you to run experiments measuring the impact of those flags on the same metric. Similarly, a single flag can have multiple metrics connected to it, which allows you to run many experiments.
+Find all the experiments in your environment by clicking **Experiments** in the sidebar menu.
+
+![The Experiments dashboard.](../../images/experiment-dashboard.png)
+
+After you set up your first metric and flag, you can create new experiments by clicking the **+ Experiment** button.
 
 ## Creating metrics
 
@@ -79,7 +90,7 @@ The following table explains different actions you can track with a metric:
   </CalloutDescription>
 </Callout> 
 
-## Creating click metrics
+### Creating click metrics
 
 Click metrics track how often a user interacts with an element of your product's UI.
 
@@ -178,7 +189,7 @@ To create a click metric:
 10. (Optional) Click Add Additional URL to track behavior on more than one URL.
 11. Click Save Metric.
 
-## Creating pageview metrics
+### Creating pageview metrics
 
 Pageview metrics track how often users see an element on a page hosted at a specific URL.
 
@@ -195,7 +206,7 @@ To create a pageview metric:
 4. (Optional) Click **Add Additional URL** to track behavior on more than one URL.
 5. Click **Save Metric**.
 
-## Creating custom conversion metrics
+### Creating custom conversion metrics
 
 Custom conversion metrics require you to create an event name and insert it into your application to track conversions for any event in your code. To add a custom conversion metric in LaunchDarkly, you must identify it with a code snippet embedded in your app.
 
@@ -235,7 +246,7 @@ To create a custom conversion metric:
 ![The "Event information" section of the "Create a new metric" screen with a conversion metric configured.](../../../images/metrics-event-information.png) 
 
 
-## Creating numeric metrics
+### Creating numeric metrics
 
 Alternatively, you can use **numeric metrics** to track the changes in a value against a baseline value. Unlike conversion metrics, which track whether or not an event occurred, numeric metrics let you measure changes in value against a baseline flag variation you choose.
 
@@ -311,7 +322,34 @@ After you've created a metric, you can connect it to one or more feature flags. 
 
 You can connect multiple metrics to one flag to run multiple experiments about that same flag. Alternatively, you can connect the same metric to multiple flags, which saves you from having to create identical metrics for multiple flags.
 
-To connect a metric to a flag:
+There are two ways to connect metrics to feature flags:
+
+* From the Experiments dashboard, and
+* From a flag's Experiments tab.
+
+### Creating an experiment from the Experiments dashboard
+
+To connect a metric to a flag from the Experiments dashboard:
+
+1. Navigate to the Experiments dashboard.
+2. Click **+ Experiment**.
+
+![The Experiments dashboard with the "+ Experiment" button called out.](../../images/experiment-dashboard-new-callout.png)
+
+3. Choose a flag from the "Select flag" dropdown. 
+4. (Optional) If the flag doesn't have a baseline variation, choose one from the "Select baseline" dropdown.
+5. Choose a metric from the "Connect metric" dropdown.
+6. Click **Save Experiment Settings**.
+
+Your new experiment appears on the dashboard. 
+
+You're not done yet! After you create an experiment, you have to start it in every environment where you want it to run.
+
+To learn more, read [Starting your experiment](#starting-your-experiment).
+
+### Creating an experiment from a flag's Experiments tab
+
+To connect a metric to a flag from the flag's Experiments tab:
 
 1. Navigate to the flag's Experiments tab.
 2. If the flag does not have other running experiments, click **Create an Experiment.** If it already has running experiments, click **Manage Experiments**. The "Update experiment settings for all environments" screen appears.
@@ -326,6 +364,8 @@ To connect a metric to a flag:
 
 
 You're not done yet! After you create an experiment, you have to start it in every environment where you want it to run.
+
+To learn more, read [Starting your experiment](#starting-your-experiment).
 
 ## Starting your experiment
 
