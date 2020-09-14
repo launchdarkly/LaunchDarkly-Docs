@@ -11,7 +11,7 @@ export default {
   // https://zellwk.com/blog/media-query-units/
   breakpoints: ['48rem', '76rem', '88rem', '102rem'],
   sizes: ['.75rem', '1rem', '1.25rem', '1.5rem', '2rem', '4rem', '8rem', '16rem'],
-  fontSizes: ['0.5rem', '0.625rem', '0.75rem', '0.875rem', '1rem', '1.25rem', '1.5rem', '1.75rem', '2.25rem'],
+  fontSizes: ['0.5rem', '0.625rem', '0.75rem', '0.875rem', '1rem', '1.125rem', '1.375rem', '1.75rem', '2.25rem'],
   colors: {
     primaryDark: '#087F5B',
     primarySafe: '#0CA678',

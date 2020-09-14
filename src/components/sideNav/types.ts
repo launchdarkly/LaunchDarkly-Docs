@@ -1,7 +1,10 @@
+import { IconName } from '../icon'
+
 export interface SideNavItem {
   label: string
+  shortLabel?: string
   path: string
-  svg?: string
+  svg?: IconName
   flagKey?: string
-  items: Array<SideNavItem>
+  items?: Array<SideNavItem>
 }

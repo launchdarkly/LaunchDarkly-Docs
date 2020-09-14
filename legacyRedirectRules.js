@@ -1,11 +1,7 @@
 module.exports = [
   {
     fromPath: '/',
-    toPath: '/home/getting-started',
-  },
-  {
-    fromPath: '/home',
-    toPath: '/home/getting-started',
+    toPath: '/home',
   },
   {
     fromPath: '/docs',

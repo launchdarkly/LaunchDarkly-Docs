@@ -21,6 +21,7 @@ import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
 import Link from './link'
 import Icon from './icon'
 import { useBrowserMetrics } from '../hooks/useBrowserMetrics'
+import Homepage from './home/landingPage'
 
 const components = {
   h1: H1,
@@ -48,6 +49,7 @@ const components = {
   Link,
   CodeTabs,
   CodeTabItem,
+  Homepage,
   Icon,
   code: Code,
   pre: Pre,
@@ -128,6 +130,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
             title={title}
             timeToRead={timeToRead}
             lastModifiedDateFormatted={lastModifiedTime}
+            isLandingPage={isLandingPage}
           />
           <MDXProvider components={components}>
             <MDXRenderer>{body}</MDXRenderer>

@@ -10,6 +10,7 @@ type MdxHeaderProps = {
   title: string
   timeToRead: number
   lastModifiedDateFormatted: string
+  isLandingPage: boolean
 }
 
 const MdxHeader: FunctionComponent<MdxHeaderProps> = ({
@@ -17,15 +18,18 @@ const MdxHeader: FunctionComponent<MdxHeaderProps> = ({
   title,
   timeToRead,
   lastModifiedDateFormatted,
+  isLandingPage,
 }) => {
   return (
     <Fragment>
-      <Flex sx={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <Breadcrumbs />
-        <EditOnGithubLink fileAbsolutePath={fileAbsolutePath} />
-      </Flex>
+      {!isLandingPage && (
+        <Flex sx={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <Breadcrumbs />
+          <EditOnGithubLink fileAbsolutePath={fileAbsolutePath} />
+        </Flex>
+      )}
       <Styled.h1>{title}</Styled.h1>
-      <Metadata timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedDateFormatted} />
+      {!isLandingPage && <Metadata timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedDateFormatted} />}
     </Fragment>
   )
 }

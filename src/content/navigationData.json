@@ -521,7 +521,9 @@
           },
           {
             "label": "C/C++ SDK reference",
+            "shortLabel": "C/C++",
             "path": "/sdk/client-side/c-c--",
+            "svg": "c",
             "items": [
               {
                 "label": "C/C++ SDK 1.x to 2.0 migration guide",
@@ -563,7 +565,8 @@
           },
           {
             "label": "Node.js SDK reference",
-            "path": "/sdk/client-side/node-js"
+            "path": "/sdk/client-side/node-js",
+            "svg": "nodejs"
           },
           {
             "label": "React SDK reference",
@@ -577,7 +580,9 @@
           },
           {
             "label": "React Native SDK reference",
-            "path": "/sdk/client-side/react-native"
+            "shortLabel": "React Native",
+            "path": "/sdk/client-side/react-native",
+            "svg": "react-native"
           },
           {
             "label": "Roku SDK reference",
@@ -595,11 +600,13 @@
         "items": [
           {
             "label": ".NET SDK reference",
-            "path": "/sdk/server-side/dotnet"
+            "path": "/sdk/server-side/dotnet",
+            "svg": "dotnet"
           },
           {
             "label": "C/C++ SDK reference",
-            "path": "/sdk/server-side/c-c--"
+            "path": "/sdk/server-side/c-c--",
+            "svg": "c"
           },
           {
             "label": "Erlang SDK reference",
@@ -608,6 +615,7 @@
           {
             "label": "Go SDK reference",
             "path": "/sdk/server-side/go",
+            "svg": "golang",
             "items": [
               {
                 "label": "Go SDK 4.x to 5.0 migration guide",
@@ -645,7 +653,8 @@
           },
           {
             "label": "Node.js SDK reference",
-            "path": "/sdk/server-side/node-js"
+            "path": "/sdk/server-side/node-js",
+            "svg": "nodejs"
           },
           {
             "label": "PHP SDK reference",
