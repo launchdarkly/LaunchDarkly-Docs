@@ -598,6 +598,15 @@ The default value will only be returned if an error is encountered—for example
 
 The `variationDetail` method allows you to evaluate a feature flag (using the same parameters as you would for `variation`) and receive more information about how the value was calculated.
 
+<Callout intent="alert">
+  <CalloutTitle>Don't forget</CalloutTitle>
+<CalloutDescription>
+You must enable `evaluationReasons` option when intializing the LaunchDarkly client or the `reason` object returned by this method will always be null.
+  
+To learn more, read [Customizing your client](#customizing-your-client).
+</CalloutDescription>
+</Callout>
+
 The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the user was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error.
 
 You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
