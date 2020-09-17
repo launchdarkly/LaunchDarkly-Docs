@@ -8,7 +8,7 @@ const LandingPage = () => (
   <div sx={{ lineHeight: 'spaced' }}>
     <section sx={{ pb: 6 }}>
       <h4 sx={{ fontSize: 5, maxWidth: '60rem' }}>
-        Learn how LaunchDarkly empowers all teams to manage and control their software. Prefer to learn by doing?{' '}
+        Learn how LaunchDarkly empowers all teams to deliver and control their software. Prefer to learn by doing?{' '}
         <Link to="https://launchdarkly.com/start-trial/" sx={{ textDecoration: 'none' }}>
           Start a trial.
         </Link>
