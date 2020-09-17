@@ -44,6 +44,10 @@
             "path": "/home/managing-flags/flag-archive-delete"
           },
           {
+            "label": "Feature Workflows",
+            "path": "/home/managing-flags/feature-workflows"
+          },
+          {
             "label": "Projects",
             "path": "/home/managing-flags/projects"
           },
