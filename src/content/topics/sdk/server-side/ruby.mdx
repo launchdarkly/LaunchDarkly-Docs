@@ -8,7 +8,7 @@ published: true
 This reference guide documents all of the methods available in our Ruby SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Ruby SDK GitHub repository](https://github.com/launchdarkly/ruby-server-sdk). The online [Ruby API docs](https://www.rubydoc.info/gems/launchdarkly-server-sdk) contain the programmatic definitions of every class and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-ruby) using this SDK.
 
 <Callout intent="alert">
-  <CalloutTitle>RubyGem</CalloutTitle>
+  <CalloutTitle>RubyGems</CalloutTitle>
   <CalloutDescription>
 
 Due to a bug in recent versions of RubyGems, versions 2.4.x (of RubyGems, not of Ruby) are not compatible with the LaunchDarkly Ruby SDK.
@@ -78,7 +78,7 @@ ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY")
   <CalloutTitle>LDClient must be a singleton</CalloutTitle>
   <CalloutDescription>
 
-It's important to make this a singleton. The client instance maintains internal state that allows us to Íserve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
+It's important to make this a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
 
   </CalloutDescription>
 </Callout> 
