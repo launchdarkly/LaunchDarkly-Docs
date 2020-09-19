@@ -47,11 +47,15 @@ An example is depicted below for some of LaunchDarkly's SDKs:
 value, detail, err := client.BoolVariationDetail("flag-key", myUser, false)
 // or StringVariationDetail for a string-valued flag, etc.
 
-index := detail.VariationIndex   // may be nil
-reason := detail.Reason          // will always be present
+index := detail.VariationIndex
+reason := detail.Reason
+
+// In Go SDK 5.0 and higher, detail.VariationIndex uses the type ldvalue.OptionalInt, which
+// allows an "undefined" state if evaluation failed. In earlier Go SDK versions, it is an
+// *int which is nil if evaluation failed.
 ```
 
-*To learn more, read [`EvaluationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v4#EvaluationDetail), [`BoolVariationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v4#LDClient.BoolVariationDetail).*
+*To learn more, read [`EvaluationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldreason#EvaluationDetail), [`BoolVariationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.BoolVariationDetail).*
 
 </CodeTabItem>
 <CodeTabItem value="java">
@@ -317,27 +321,35 @@ Here is an example of how you could access the details of a reason object in som
 <CodeTabItem value="go">
 
 ```go
-func PrintReason(reason ldclient.EvaluationReason) {
-  switch r := reason.(type) {
-  case EvaluationReasonOff:
+import (
+    "gopkg.in/launchdarkly/go-sdk-common.v2/ldreason"
+)
+
+func PrintReason(reason ldreason.EvaluationReason) {
+  switch reason.GetKind() {
+  case ldreason.EvalReasonOff:
     fmt.Println("it's off")
-  case EvaluationReasonFallthrough:
+  case ldreason.EvalReasonFallthrough:
     fmt.Println("fell through")
-  case EvaluationReasonTargetMatch:
+  case ldreason.EvalReasonTargetMatch:
     fmt.Println("targeted")
-  case EvaluationReasonRuleMatch:
-    fmt.Printf("matched rule %d/%s\n", r.RuleIndex, r.RuleID)
-  case EvaluationReasonPrerequisiteFailed:
-    fmt.Printf("prereq failed: %s\n", r.PrerequisiteKey)
-  case EvaluationReasonError:
-    fmt.Printf("error: %s\n", r.ErrorKind)
+  case ldreason.EvalReasonRuleMatch:
+    fmt.Printf("matched rule %d/%s\n", r.GetRuleIndex(), r.GetRuleID())
+  case ldreason.EvalReasonPrerequisiteFailed:
+    fmt.Printf("prereq failed: %s\n", r.GetPrerequisiteKey())
+  case ldreason.EvalReasonError:
+    fmt.Printf("error: %s\n", r.GetErrorKind())
   }
   // or, if all you want is a simple descriptive string:
   fmt.Println(reason)
 }
+
+// The example above is for Go SDK 5.0 and higher. In earlier versions, the
+// EvaluationReason could be one of several types, such as EvaluationReasonOff,
+// so you would need a switch statement with .(type).
 ```
 
-*To learn more, read [`EvaluationReason`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v4#EvaluationReason).*
+*To learn more, read [`EvaluationReason`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldreason#EvaluationReason).*
 
 </CodeTabItem>
 <CodeTabItem value="java">

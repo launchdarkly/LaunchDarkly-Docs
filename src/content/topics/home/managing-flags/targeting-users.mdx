@@ -369,7 +369,7 @@ When you've finished setting up the conditions for your rule, you can decide whe
 Let's turn a feature on for a group of external beta testers. First, we need to ensure that our backend sends a custom attribute called `groups` that identifies users that should be in the `beta_testers` group:
 
 <CodeTabs
-  defaultValue="java"
+  defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
     { label: 'Java', value: 'java', },
@@ -384,14 +384,30 @@ Let's turn a feature on for a group of external beta testers. First, we need to 
 <CodeTabItem value="go">
 
 ```go
-var custom = make(map[string]interface{}) 
+// Go SDK 5.0 and above
+import (
+    "gopkg.in/launchdarkly/go-sdk-common.v2/lduser"
+    "gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue"
+)
+user := lduser.NewUserBuilder("foo@example.com").
+    Custom("groups", ldvalue.String("beta_testers"))
 
+// Go SDK 4.16-4.17
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+    "gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue"
+)
+user := ld.NewUserBuilder("foo@example.com").
+    Custom("groups", ldvalue.String("beta_testers"))
+
+// Go SDK 4.15 and earlier
+custom := make(map[string]interface{}) 
 custom["groups"] = "beta_testers"
-user = User {
-    Key: "foo@example.com",
-    Custom: custom,
-}
+user := ld.NewUser("foo@example.com")
+user.Custom = &custom
 ```
+
+*To learn more, read [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder), [`ldvalue`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue).*
 
 </CodeTabItem>
 
@@ -451,7 +467,7 @@ var user = {
 
 <CodeTabItem value="php">
 
-```java
+```php
 $user = new LDUser("foo@example.com", null, null, null, ["groups" => "beta_testers"]);
 ```
 
