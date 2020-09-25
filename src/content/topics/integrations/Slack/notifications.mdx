@@ -7,9 +7,9 @@ published: true
 
 ## Overview
 
-This topic explains how to subscribe to flag notifications in Slack channels.
+This topic explains how to subscribe to flag notifications in Slack channels. You can receive notifications for when flags are created, updating, deleted, or ready for removal.
 
-It can be useful to let an entire channel know when a flag changes. You can subscribe Slack channels to notifications from individual flags or the entire set of flags associated with a filter as described in the previous topic.
+It can be useful to let an entire channel know when a flag changes or is ready to remove. You can subscribe Slack channels to notifications from individual flags or the entire set of flags associated with a filter as described in the previous topic.
 
 For more information about filter-based notifications, read [Managing flags with the Slack app](/integrations/slack/managing).
 
@@ -55,6 +55,24 @@ To add a flag to a channel:
 
 
 ![A notification that a flag subscribed to the channel has had a status change.](../../images/slack-flag-change.png) 
+
+## Receiving alerts when flags are ready to remove 
+
+In the slack app, you can subscribe to notifications when it’s time to remove flags from code. Removing from code is a necessary step before archiving flags.
+
+Read about [deleting and archiving flags](https://docs.launchdarkly.com/home/managing-flags/flag-archive-delete) to learn how to keep your codebase clean. The Slack app makes it easy to receive notifications once flags are ready to remove.
+
+You will get served a “ready to remove” notification when any flags that you subscribe to become “inactive” or “launched” in status code.
+
+To set up a ready to remove flag alert:
+
+1. Open the channel where you want to get notifcations on flags that are ready to remove.
+2. Type `/launchdarkly susbcribe`and press **Enter**. The filter modal appears.
+3. Filter on the flag, project, environment, or tags where you want to be notified when flags have become "inactive" or "launched".
+4. Select "Ready for removal" from the Actions dropdown, which lets you only be notified on flags that are ready to remove and archive.
+5. Click **Filter**
+6. Click **Add flag to Channel** in the dropdown menu next to the flag you wish to subscribe to, or, click **Add filter to channel** if you want all of the results to show notifications.
+7. You'll see a notification that your selections, along with the Action "ready for removal" has been added to the channel.
 
 
 ## Removing flag notifications from a channel
