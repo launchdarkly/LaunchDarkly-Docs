@@ -5,49 +5,65 @@ description: 'This topic explains all of the methods available in the server-sid
 published: true
 ---
 
-This reference guide documents all of the methods available in our Go SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Go SDK GitHub repository](https://github.com/launchdarkly/go-server-sdk). The online [Go API docs](https://godoc.org/github.com/launchdarkly/go-server-sdk) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-go) using this SDK.
+This reference guide documents all of the methods available in our Go SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Go SDK GitHub repository](https://github.com/launchdarkly/go-server-sdk). The online [Go API docs](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-go) using this SDK.
+
+<Callout intent="info">
+  <CalloutTitle>Go version compatibility</CalloutTitle>
+  <CalloutDescription>Version 5.0 and higher of the LaunchDarkly Go SDK is compatible with Go 1.14 and higher.</CalloutDescription>
+</Callout> 
 
 ## Getting started
 
 Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your Go application.
 
-The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/go-server-sdk/releases) to identify the latest major version.
+The first step is to install the LaunchDarkly SDK as a dependency in your application. How you do this depends on what dependency management system you are using:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'shell', value: 'go', },
-  ]
-}>
-<CodeTabItem value="go">
+* For the standard [Go modules](https://github.com/golang/go/wiki/Modules) system, you can simply import the SDK packages in your code and `go build` will automatically download them. The SDK and its dependencies are modules.
+* If you are using `dep`, import the SDK packages in your code and run `dep ensure`.
+* Or you can use the `go get` command (for instance, `go get gopkg.in/launchdarkly/go-server-sdk.v5`).
 
-```go
-go get gopkg.in/launchdarkly/go-server-sdk.v4
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Next you should import the LaunchDarkly client in your application code.
+There are several packages that you can import, depending on which features you are using. You will usually need the following:
 
 <CodeTabs
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.17.x and earlier', value: 'go-pre-5.0', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
-import ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+import (
+    // go-sdk-common.v2/lduser defines LaunchDarkly's model for user properties
+    "gopkg.in/launchdarkly/go-sdk-common.v2/lduser"
+
+    // go-server-sdk.v5 is the main SDK package - here we are aliasing it to "ld"
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+
+    // go-server-sdk.v5/ldcomponents is for advanced configuration options
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
+
+```go
+import (
+    // go-server-sdk.v4 is the main SDK package - here we are aliasing it to "ld"
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of the LaunchDarkly client. You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+It is usually a good practice to pin your dependencies to a specific version. Refer to the [SDK releases page](https://github.com/launchdarkly/go-server-sdk/releases) to identify the latest version. Whenever you update your version of `go-server-sdk`, you should also update `go-sdk-common`.
 
-We'll assume you've imported the LaunchDarkly SDK package as `ld`:
+Once the SDK is installed and imported, you'll want to create a single, shared instance of the LaunchDarkly client ([`LDClient`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient)). You must specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+
+We'll assume you've imported the LaunchDarkly SDK package as `ld`, as shown above.
 
 <CodeTabs
   defaultValue="go"
@@ -64,7 +80,7 @@ ldClient, _ := ld.MakeClient("YOUR_SDK_KEY", 5 * time.Second)
 </CodeTabItem>
 </CodeTabs>
 
-The timeout parameter (the second argument to `MakeClient`) can be used to block initialization until the client has been bootstrapped.
+The second argument to `MakeClient` is a timeout parameter: in this case, you are telling the SDK that it can spend up to 5 seconds attempting to connect to LaunchDarkly services before returning to your application. See [`MakeClient`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#MakeClient) for more details about what the timeout means and what happens if initialization fails.
 
 <Callout intent="info">
 <CalloutTitle>Best practices for error handling</CalloutTitle>
@@ -84,19 +100,43 @@ It's important to make this a singleton. The client instance maintains internal 
   </CalloutDescription>
 </Callout> 
 
-Using `ldClient`, you can check which variation a particular user should receive for a given feature flag.
+Using the `LDClient` methods, you can check which variation a particular user should receive for a given feature flag. See [Variation](#variation) and [VariationDetail](#VariationDetail) below for more details. See [Users](#users) for more about how user properties are specified-- in this example, there is a user key that consists of an email address.
 
 <CodeTabs
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.17.x and earlier', value: 'go-pre-5.0', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
-key := "user@test.com"
-showFeature, _ := ldClient.BoolVariation("your.flag.key", ld.NewUser(key), false)
+import (
+    "gopkg.in/launchdarkly/go-sdk-common.v2/lduser"
+)
+
+flagKey := "some-flag-key"
+user := lduser.NewUser("some-user-key")
+showFeature, _ := ldClient.BoolVariation(flagKey, user, false)
+if showFeature {
+    // application code to show the feature
+} else {
+    // the code to run if the feature is off 
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
+flagKey := "some-flag-key"
+user := ld.NewUser("some-user-key")
+showFeature, _ := ldClient.BoolVariation(flagKey, user, false)
 if showFeature {
     // application code to show the feature
 } else {
@@ -107,7 +147,7 @@ if showFeature {
 </CodeTabItem>
 </CodeTabs>
 
-Lastly, when your application is about to terminate, shut down `ldClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+Lastly, when your application is about to terminate, shut down the `LDClient` with [`Close()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Close). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
 
 <CodeTabs
   defaultValue="go"
@@ -127,41 +167,93 @@ ldClient.Close()
 
 ## Customizing your client
 
-You can also pass custom parameters to the client by creating a custom configuration object. It's easiest to create one by starting with the `DefaultConfig` and assigning to the fields you need to customize:
+You can also pass custom parameters to the client by creating a custom configuration object.
 
 <CodeTabs
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.17.x and earlier', value: 'go-pre-5.0', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+)
+
+var config ld.Config
+
+config.Events = ldcomponents.SendEvents().FlushInterval(10 * time.Second)
+
+ldClient := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
+// Prior to version 5.0, to start with default values you must copy DefaultConfig:
 config := ld.DefaultConfig
+
 config.FlushInterval = 10 * time.Second
+
 ldClient := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-Here, we've customized the client flush interval parameter. For a complete list of configuration options for the client, read [Go docs](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#Config).
+Here, we've customized the event flush interval parameter. For more about the configuration options, see [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config).
 
 ## Users
 
-Feature flag targeting and rollouts are all determined by the *user* you pass to your `Variation` calls. The Go SDK defines a `User` struct to make this easy. Here's an example:
+Feature flag targeting and rollouts are all determined by the *user* you pass to your `Variation` calls. The Go SDK defines a [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User) struct and a [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder) to make this easy. Here's an example:
 
 <CodeTabs
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.16.x-4.17.x', value: 'go-pre-5.0', },
     { label: 'Go SDK versions 4.15.x and earlier', value: 'go-pre-4.16', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
+import (
+    "gopkg.in/launchdarkly/go-sdk-common.v2/lduser"
+    "gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue"  // for custom attributes - see below
+)
+
+// User with only a key
+user1 := lduser.NewUser("user1-key")
+
+// User with a key plus other attributes
+user2 := lduser.NewUserBuilder("user2-key").
+    FirstName("Ernestina").
+    LastName("Events").
+    Email("ernestina@example.com").
+    Custom("groups", ldvalue.ArrayOf(
+        ldvalue.String("Google"), ldvalue.String("Microsoft"))).
+    Build()
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
+
+```go
+import (
+    "gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue"  // for custom attributes - see below
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
 // User with only a key
 user1 := ld.NewUser("user1-key")
 
@@ -170,22 +262,24 @@ user2 := ld.NewUserBuilder("user2-key").
     FirstName("Ernestina").
     LastName("Events").
     Email("ernestina@example.com").
-    Custom("Ernestina", ldvalue.ArrayOf(
-      ldvalue.String("Google"), ldvalue.String("Microsoft"))).
+    Custom("groups", ldvalue.ArrayOf(
+        ldvalue.String("Google"), ldvalue.String("Microsoft"))).
     Build()
-
-// Note that ldvalue comes from this import:
-//   gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue
 ```
 
 </CodeTabItem>
 <CodeTabItem value="go-pre-4.16">
 
 ```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
 // User with only a key
 user1 := ld.NewUser("user1-key")
 
 // User with a key plus other attributes
+// UserBuilder does not exist prior to 4.16, so set the fields directly
 key := "user2-key"
 firstName := "Ernestina"
 lastName := "Evans"
@@ -207,7 +301,7 @@ user := ld.User{
 
 Let's walk through this snippet. The most common attribute is the user's key. In this case we've used the strings `"user1-key"` and `"user2-key"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
-All of the other attributes (like `FirstName`, `Email`, and the `Custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes. The documentation for [`User`](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#User) and [`UserBuilder`](https://godoc.org/gopkg.in/launchdarkly/go-server-sdk.v4#UserBuilder) shows all of the available attributes.
+All of the other attributes (like `FirstName`, `Email`, and the `Custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes. The documentation for [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User) and [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder) shows all of the available attributes.
 
 <Callout intent="info">
 <CalloutTitle>A note on types</CalloutTitle>
@@ -215,7 +309,7 @@ All of the other attributes (like `FirstName`, `Email`, and the `Custom` attribu
 
 Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or arrays or maps containing any of type of value supported by JSON. 
 
-In SDK versions 4.16.0 and later, these types are all represented by the [`ldvalue.Value`](https://godoc.org/gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue#Value) type; earlier versions use the catch-all Go type `interface{}`.
+In SDK versions 4.16.0 and later, these types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value) type; earlier versions use the catch-all Go type `interface{}`.
 
 If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The Go SDK is strongly typed, so be aware of this distinction.
 
@@ -230,8 +324,53 @@ You can optionally configure the Go SDK to treat some or all user attributes as 
 
 In the Go SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- In the LaunchDarkly configuration, you can set `AllAttributesPrivate` to true. If this is enabled, all user attributes (except the key) for all users are removed before the user is sent to LaunchDarkly.
-- In the LaunchDarkly configuration object, you can define a list of `PrivateAttributeNames`. If any user has a custom or built-in attribute named in this list, it will be removed before the user is sent to LaunchDarkly.
+- You can set the configuration option `AllAttributesPrivate` to true. If this is enabled, all user attributes (except the key) for all users are removed before the user is sent to LaunchDarkly.
+- You can set the configuration option `PrivateAttributeNames` to a list of attribute names. If any user has a custom or built-in attribute named in this list, it will be removed before the user is sent to LaunchDarkly.
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.17.x and earlier', value: 'go-pre-5.0', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+)
+
+var config ld.Config
+
+// Make all attributes private for all users
+config.Events = ldcomponents.SendEvents().AllAttributesPrivate(true)
+
+// Or, make just the name and email attributes private for all users
+config.Events = ldcomponents.SendEvents().
+    PrivateAttributeNames(lduser.NameAttribute, lduser.EmailAttribute)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
+config := ld.DefaultConfig
+
+// Make all attributes private for all users
+config.AllAttributesPrivate = true
+
+// Or, make just the name and email attributes private for all users
+config.PrivateAttributeNames = []string{"name", "email"}
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 You can also define a set of private attributes on the user object itself. In this example, `Email` is private for this user (in addition to any private attributes that were specified globally):
 
@@ -239,18 +378,36 @@ You can also define a set of private attributes on the user object itself. In th
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.16.x-4.17.x', value: 'go-pre-5.0', },
     { label: 'Go SDK versions 4.15.x and earlier', value: 'go-pre-4.16', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
+import (
+    "gopkg.in/launchdarkly/go-sdk-common.v2/lduser"
+)
+
+user := lduser.NewUserBuilder("user-key").
+    FirstName("Ernestina").
+    LastName("Events").
+    Email("ernestina@example.com").AsPrivateAttribute().
+    Build()
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
 user := ld.NewUserBuilder("user-key").
     FirstName("Ernestina").
     LastName("Events").
     Email("ernestina@example.com").AsPrivateAttribute().
-    Custom("Ernestina", ldvalue.ArrayOf(
-      ldvalue.String("Google"), ldvalue.String("Microsoft"))).
     Build()
 ```
 
@@ -258,13 +415,14 @@ user := ld.NewUserBuilder("user-key").
 <CodeTabItem value="go-pre-4.16">
 
 ```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
 key := "user-key"
 firstName := "Ernestina"
 lastName := "Evans"
 email := "ernestina@example.com"
-custom := map[string]interface{} {
-    "groups": []string{"Google", "Microsoft"},
-}
 privateAttributeNames := []string{"email"}
 
 user := ld.User{
@@ -272,7 +430,6 @@ user := ld.User{
     FirstName: &firstName,
     LastName: &lastName,
     Email: &email,
-    Custom: &custom,
     PrivateAttributes: privateAttributeNames,
 }
 ```
@@ -288,12 +445,35 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.16.x-4.17.x', value: 'go-pre-5.0', },
     { label: 'Go SDK versions 4.15.x and earlier', value: 'go-pre-4.16', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
+import (
+    "gopkg.in/launchdarkly/go-sdk-common.v2/lduser"
+)
+
+// Anonymous user with only a key
+user1 := lduser.NewAnonymousUser("user1-key")
+
+// Anonymous user with a key plus other attributes
+user2 := lduser.NewUserBuilder("user2-key").
+    Anonymous(true).
+    Country("US").
+    Build()
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
 // Anonymous user with only a key
 user1 := ld.NewAnonymousUser("user1-key")
 
@@ -308,16 +488,17 @@ user2 := ld.NewUserBuilder("user2-key").
 <CodeTabItem value="go-pre-4.16">
 
 ```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
 // Anonymous user with only a key
 user1 := ld.NewAnonymousUser("user1-key")
 
 // Anonymous user with a key plus other attributes
-key := "user2-key"
-anonymous := true
-user2 := ld.User{
-    Key: &key,
-    Anonymous: &anonymous,
-}
+country := "US"
+user2 := ld.NewAnonymousUser("user2-key")
+user2.Country = &country
 ```
 
 </CodeTabItem>
@@ -328,7 +509,8 @@ You will still need to generate a unique key for anonymous users. Session IDs or
 Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
 
 ## Variation
-The `Variation` method determines whether a flag is enabled or not for a specific user.  In Go, there is a `Variation` method for each type (e.g. `BoolVariation`, `StringVariation`):
+
+The `Variation` methods determine whether a flag is enabled or not for a specific user. In Go, there is a `Variation` method for each type: [`BoolVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.BoolVariation), [`IntVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.IntVariation), [`Float64Variation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Float64Variation), [`StringVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.StringVariation) (and [`JSONVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.JSONVariation), which can be any JSON type):
 
 <CodeTabs
   defaultValue="go"
@@ -339,27 +521,31 @@ The `Variation` method determines whether a flag is enabled or not for a specifi
 <CodeTabItem value="go">
 
 ```go
-shouldShow, _ := ldClient.BoolVariation("your.feature.key", user, false)
+result, _ := ldClient.BoolVariation("your.feature.key", user, false)
+
+// result is now true or false depending on the setting of this boolean feature flag
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-`Variation` calls take the feature flag key, a `User`, and a default value.
+`Variation` methods take the feature flag key, a `User`, and a default value.
 
-The default value will only be returned if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+The default value will only be returned if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified. In the example above the default value is `false`.
 
-The `Variation` call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at Identify).
+The `Variation` call generates analytics events to tell LaunchDarkly about the flag evaluation and the user properties, so the user will be created in LaunchDarkly if a user with that key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at `Identify`).
 
 ## VariationDetail
 
-The `VariationDetail` methods (`BoolVariationDetail`, etc.) work the same as `Variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
+The `VariationDetail` methods ([`BoolVariationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.BoolVariationDetail), etc.) work the same as `Variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
 
 To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 
 ## Track
 
-The `Track` methods allow you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests. Here's a simple example:
+The `Track` methods allow you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests.
+
+Here's a simple example, using [`TrackEvent`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.TrackEvent) to send an event called `completed-purchase` (which might correspond to a goal with the same key). Note that some of the methods have different names in earlier versions of the SDK.
 
 <CodeTabs
   defaultValue="go"
@@ -371,33 +557,50 @@ The `Track` methods allow you to record actions your users take on your site. Th
 <CodeTabItem value="go">
 
 ```go
-ldClient.TrackEvent("your-goal-key", user)
+ldClient.TrackEvent("completed-purchase", user)
 ```
 
 </CodeTabItem>
 <CodeTabItem value="go-pre-4.16">
 
 ```go
-ldClient.Track("your-goal-key", user)
+ldClient.Track("completed-purchase", user, nil)
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-You can also attach custom data to your event by passing an extra parameter to `Track`:
+You can also attach custom data to your event by calling [`TrackData`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.TrackData), which takes an extra parameter:
 
 <CodeTabs
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.16.x-4.17.x', value: 'go-pre-5.0', },
     { label: 'Go SDK versions 4.15.x and earlier', value: 'go-pre-4.16', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
+import (
+    "gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue"
+)
+
 data := ldvalue.BuildObject().Set("price", ldvalue.Int(320)).Build()
-ldClient.TrackData("Completed purchase", user, data)
+ldClient.TrackData("completed-purchase", user, data)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
+
+```go
+import (
+    "gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue"
+)
+
+data := ldvalue.BuildObject().Set("price", ldvalue.Int(320)).Build()
+ldClient.TrackData("completed-purchase", user, data)
 ```
 
 </CodeTabItem>
@@ -405,7 +608,55 @@ ldClient.TrackData("Completed purchase", user, data)
 
 ```go
 data := map[string]interface{}{"price": 320}
-ldClient.Track("Completed purchase", user, data)
+ldClient.Track("completed-purchase", user, data) // TrackData was added in 4.16
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Or, if you are using experimentation, you can specify a numeric metric with [`TrackMetric`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.TrackMetric):
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.16.x-4.17.x', value: 'go-pre-5.0', },
+    { label: 'Go SDK versions 4.15.x and earlier', value: 'go-pre-4.16', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+import (
+    "gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue"
+)
+
+metricValue := 2.5
+noOtherData := ldvalue.Null()
+ldClient.TrackMetric("page-load-time", user, metricValue, noOtherData)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
+
+```go
+import (
+    "gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue"
+)
+
+metricValue := 2.5
+noOtherData := ldvalue.Null()
+ldClient.TrackMetric("page-load-time", user, metricValue, noOtherData)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-4.16">
+
+```go
+metricValue := 2.5
+ldClient.TrackMetric("page-load-time", user, nil, metricValue)
+
+// This method did not exist prior to Go SDK 4.11.
 ```
 
 </CodeTabItem>
@@ -413,7 +664,7 @@ ldClient.Track("Completed purchase", user, data)
 
 ## Identify
 
-The `Identify` method creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `Identify`. Calling `Variation` automatically creates users on the dashboard for you. `Identify` can be useful if you want to pre-populate your dashboard before launching any features.
+The [`Identify`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Identify) method creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `Identify`. Calling the `Variation` methods automatically creates users on the dashboard for you. `Identify` can be useful if you want to pre-populate your dashboard before launching any features.
 
 <CodeTabs
   defaultValue="go"
@@ -435,47 +686,39 @@ ldClient.Identify(user)
 <Callout intent="alert">
   <CalloutTitle>Creating users</CalloutTitle>
   <CalloutDescription>
-    Note that unlike variation and identify calls, AllFlagsState does not send events to LaunchDarkly. Thus, users are
-    not created or updated in the LaunchDarkly dashboard.",
+    Note that unlike `Variation` and `Identify` calls, `AllFlagsState` does not send events to LaunchDarkly. Thus, users are
+    not created or updated in the LaunchDarkly dashboard.
   </CalloutDescription>
 </Callout> 
 
-The `AllFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
+The [`AllFlagsState`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.AllFlagsState) method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
 This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
 
+In this example, an extra `ClientSideOnly` option is specified so that only the feature flags designated for client-side use will be included in the result.
+
 <CodeTabs
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.17.x and earlier', value: 'go-pre-5.0', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
-state := ldClient.AllFlagsState(user)
+import (
+    "gopkg.in/launchdarkly/go-server-sdk.v5/interfaces/flagstate"
+)
+
+state := ldClient.AllFlagsState(user, flagstate.OptionClientSideOnly())
 ```
 
 </CodeTabItem>
-</CodeTabs>
-
-## Logging
-
-The Go SDK uses Go's built in [log](https://golang.org/pkg/log/). All loggers are namespaced under `[LaunchDarkly]`. A custom logger may be passed to the SDK by the configurable `Logger` property:
-
-
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go', value: 'go', },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeTabItem value="go-pre-5.0">
 
 ```go
-config := ld.DefaultConfig
-config.Logger = myLogger
-ldClient := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
+state := ldClient.AllFlagsState(user, ld.ClientSideOnly)
 ```
 
 </CodeTabItem>
@@ -483,7 +726,7 @@ ldClient := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 
 ## Secure mode hash
 
-The `SecureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+The [`SecureModeHash`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.SecureModeHash) method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
 
 <CodeTabs
   defaultValue="go"
@@ -501,7 +744,8 @@ ldClient.SecureModeHash(user)
 </CodeTabs>
 
 ## Flush
-Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK on the command line), you may want to manually call `flush` to process events immediately.
+
+Internally, the LaunchDarkly SDK keeps an event buffer for the analytics events that are produced by calling the `...Variation` or `...VariationDetail` methods, the `Track...` methods, or `Identify`. These are flushed periodically in a background thread. In some situations, you may want to manually call [`Flush`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Flush) to process events immediately.
 
 <CodeTabs
   defaultValue="go"
@@ -522,19 +766,32 @@ The flush interval is configurable. If you need to change the interval, you can 
 
 ## Offline mode
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when running on premise. You can do this by setting `Offline` mode in the client's `Configuration`.
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when running on premise. You can do this by setting `Offline` mode in the client's [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config).
 
 <CodeTabs
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.17.x and earlier', value: 'go-pre-5.0', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
+var config ld.Config
+config.Offline = true
+
+ldClient, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
+ldClient.BoolVariation("any.feature.flag", user, false) // will always return the default value (false)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
+
+```go
 config := ld.DefaultConfig
 config.Offline = true
+
 ldClient, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 ldClient.BoolVariation("any.feature.flag", user, false) // will always return the default value (false)
 ```
@@ -544,26 +801,90 @@ ldClient.BoolVariation("any.feature.flag", user, false) // will always return th
 
 ## Logging
 
-The Go SDK uses Go's built-in [log](https://golang.org/pkg/log) package. All loggers are namespaced under `[LaunchDarkly]`. A custom logger may be passed to the SDK by the configurable `Logger` property:
+The Go SDK uses a logging abstraction that can write to a [`log.Logger`](https://pkg.go.dev/log#Logger) (or anything with a compatible interface), but adds a system of log levels (Debug, Info, Warn, and Error) similar to logging frameworks on other platforms. By default, all levels of messages are enabled except Debug. You can tell the SDK to enable more or fewer levels, to send the output to a different destination, or to disable logging.
 
 <CodeTabs
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.12.x-4.17.x', value: 'go-pre-5.0', },
+    { label: 'Go SDK versions 4.11.x and earlier', value: 'go-pre-4.12', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
+import (
+    "log"
+    "os"
+    ldlog "gopkg.in/launchdarkly/go-sdk-common.v2"
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+)
+
+var config ld.Config
+
+// Send output to a file, and change minimum level to Warn (so Debug and Info are disabled)
+file, _ := os.Create("app.log")
+config.Logging = ldcomponents.Logging().
+    BaseLogger(log.New(file, "", log.LstdFlags)).
+    MinLevel(ldlog.Warn)
+
+// Or, disable logging
+config.Logging = ldcomponents.NoLogging()
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
+
+```go
+
+import (
+    "log"
+    "os"
+    ldlog "gopkg.in/launchdarkly/go-sdk-common.v2"
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
 config := ld.DefaultConfig
-config.Logger = myLogger
-ldClient, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
+
+// Send output to a file, and change minimum level to Warn (so Debug and Info are disabled)
+file, _ := os.Create("app.log")
+config.Loggers.SetBaseLogger(log.New(file, "", log.LstdFlags))
+config.Loggers.SetMinLevel(ldlog.Warn)
+
+// Or, disable logging
+config.Loggers = ldlog.NewDisabledLoggers()
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-4.12">
+
+```go
+
+import (
+    "io/ioutil"
+    "log"
+    "os"
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
+config := ld.DefaultConfig
+
+// The SDK did not support log levels prior to 4.12.
+
+// Send output to a file
+file, _ := os.Create("app.log")
+config.Logger = log.New(file, "", log.LstdFlags)
+
+// Or, disable logging
+config.Logger = log.new(ioutil.Discard, "", 0)
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-Be aware of two considerations when enabling the DEBUG log level:
+Be aware of two considerations if you enable the Debug log level:
 
 1. Debug-level logs can be very verbose. It is not recommended that you turn on debug logging in high-volume environments.
 2. Potentially sensitive information is logged including LaunchDarkly users created by you in your usage of this SDK.
@@ -574,7 +895,7 @@ The Go SDK can use Redis, Consul, or DynamoDB as a persistent store of feature f
 
 ## HTTPS Proxy
 
-Go's standard HTTP library provides a built-in HTTPS proxy. If the HTTPS_PROXY environment variable is present then the SDK will proxy all network requests through the URL provided.
+Go's standard HTTP library provides a built-in HTTPS proxy. If the `HTTPS_PROXY` environment variable is present then the SDK will proxy all network requests through the URL provided.
 
 <CodeTabs
   defaultValue="linux"
@@ -605,19 +926,38 @@ You can also specify a proxy programmatically through the SDK configuration:
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.x and earlier', value: 'go-pre-5.0', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
-import "gopkg.in/launchdarkly/go-server-sdk.v4/ldhttp"
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+)
+
+var config ld.Config
+config.HTTP = ldcomponents.HTTPConfiguration().
+    ProxyURL("https://web-proxy.domain.com:8080")
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+    "gopkg.in/launchdarkly/go-server-sdk.v4/ldhttp"
+)
+
+proxyURL, _ := url.Parse("https://web-proxy.domain.com:8080")
 
 config := ld.DefaultConfig
 config.HTTPClientFactory = ldhttp.NewHTTPClientFactory(
-    ldhttp.ProxyURL("https://web-proxy.domain.com:8080"))
+    ldhttp.ProxyURL(*proxyURL))
 
 // This is supported only in SDK versions 4.14.0 and higher.
-
 ```
 
 </CodeTabItem>

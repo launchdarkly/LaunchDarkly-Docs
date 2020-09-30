@@ -5,15 +5,6 @@ description: 'This topic explains the API changes made in the Go SDK 5.0 release
 published: true
 ---
 
-<Callout intent="info">
-  <CalloutTitle>This migration guide is for a pre-release version of the Go SDK</CalloutTitle>
-  <CalloutDescription>
-
-Go SDK 5.0 is not yet generally available. This topic describes the `v5.0.0-beta.3` pre-release version. This is a living document that may change if there are additional modifications to the SDK before the final release.
-
-  </CalloutDescription>
-</Callout>
-
 ## Overview
 
 This topic explains how to adapt code that currently uses a 4.x version of the [Go server-side SDK](/sdk/server-side/go) to use version 5.0 or later.
@@ -26,7 +17,7 @@ To learn more about updating to the latest 4.x version, visit the [SDK's GitHub 
 
 ## Identifying supported Go versions for the 5.0 SDK
 
-The minimum Go version for LaunchDarkly SDK 5.0 is 1.13. 
+The minimum Go version for LaunchDarkly SDK 5.0 is 1.14. 
 
 LaunchDarkly no longer supports lower Go versions, as stated in our [End of Life policy](https://launchdarkly.com/policies/end-of-life-policy/).
 
@@ -568,7 +559,7 @@ The [`EvaluationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.
 We have modified them in two ways:
 
 1. `EvaluationReason` is now a struct rather than an interface. Instead of casting it to another type such as `EvaluationReasonRuleMatch` to get specific properties, it provides getter methods for those properties.
-2. The `VariationIndex` property of `EvaluationDetail` is now an `int`, not `*int`. In cases where it previously would have been `nil`, it is now `-1`.
+2. The `VariationIndex` property of `EvaluationDetail` was previously a pointer of type `*int`, which would be `nil` if evaluation failed. This was unsafe due to mutability and the potential for nil pointer panics. It now uses the immutable type [`ldvalue.OptionalInt`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#OptionalInt) instead, which allows an "undefined" value to be represented without using pointers.
 
 <CodeTabs
   defaultValue="sdk4"
@@ -607,7 +598,7 @@ import (
 value, detail, _ := client.BoolVariationDetail(flagKey, user, false)
 
 // 5.x model: check if the variation index is 0
-if detail.VariationIndex == 0 {
+if detail.VariationIndex.IsDefined() && detail.VariationIndex.IntValue() == 0 {
     log.Printf("it is variation zero")
 }
 
@@ -618,6 +609,14 @@ if detail.Reason.GetKind() == ldreason.EvalReasonPrerequisiteFailed {
 ```
 </CodeTabItem>
 </CodeTabs>
+
+## Understanding changes to AllFlagsState
+
+The [`AllFlagsState`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.AllFlagsState) method of `LDClient`, which returns a snapshot of flag values and metadata, has been changed as follows:
+
+* The type that it returns was previously called `FeatureFlagsState` and was in the main SDK package. It is now called [`AllFlags`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces/flagstate#AllFlags) and is in the new package `go-server-sdk.v5/interfaces/flagstate`. Moving it out of the main package helps to streamline the API, and also allows it to be referenced from the interfaces in the `interfaces` package without causing an import cycle.
+* The getter methods of `AllFlags` are slightly different than the methods of the earlier `FeatureFlagsState`, although most applications will not need to use these. There is also a [builder](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces/flagstate#AllFlagsBuilder) for constructing instances of it in test code.
+* The optional parameters that can be used to change the behavior of `AllFlagsState` are now in the [`flagstate`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces/flagstate) package, and have been renamed to `OptionClientSideOnly`, `OptionDetailsOnlyForTrackedFlags`, and `OptionWithReasons`.
 
 ## Understanding changes to add-on integration packages
 
@@ -735,6 +734,8 @@ These include:
 * You can tell the SDK to notify you whenever a feature flag's configuration has changed, using [`LDClient.GetFlagTracker()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetFlagTracker).
 * You can monitor the status of the SDK's connection to LaunchDarkly services with [`LDClient.GetDataSourceStatusProvider()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetDataSourceStatusProvider).
 * You can monitor the status of a persistent data store (for instance, to get caching statistics, or to be notified if the store's availability changes due to a database outage) with [`LDClient.GetDataStoreStatusProvider()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetDataStoreStatusProvider).
+* You can disable analytics events temporarily for specific flag evaluation calls with [`LDClient.WithEventsDisabled()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.WithEventsDisabled).
 * You can configure the SDK's use of different logging levels depending on the duration of a service outage with [`LDConfig.Logging`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDConfig.Logging) and [`ldcomponents.LoggingConfigurationBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#LoggingConfigurationBuilder).
+* For test code, you can use the new [`ldtestdata`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/testhelpers/ldtestdata) package to set flag values or rules programmatically, as an alternative to using `ldfiledata`.
 
 To learn more, read the API documentation for these classes and methods.

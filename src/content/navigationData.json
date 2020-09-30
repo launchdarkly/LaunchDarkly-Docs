@@ -427,7 +427,13 @@
       },
       {
         "label": "SignalFx",
-        "path": "/integrations/signalfx"
+        "path": "/integrations/signalfx",
+        "items": [
+          {
+            "label": "Using flag triggers with SignalFx",
+            "path": "/integrations/signalfx/triggers"
+          }
+        ]
       },
       {
         "label": "Slack",

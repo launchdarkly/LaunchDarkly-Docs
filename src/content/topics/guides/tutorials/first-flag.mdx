@@ -10,12 +10,12 @@ published: true
 
 This guide explains how to create your first flag in LaunchDarkly and use
 it to control how that feature is released to users. Feature management starts with flags. Feature flags wrap your code and give you
-the ability to release your feature in a safe and controlled way. 
+the ability to release your feature in a safe and controlled way.
 
 In this guide, you will use Glitch to complete the process of creating a flag in LaunchDarkly,
 including configuring your environment and SDKs, and creating the flag itself.
 
-You will: 
+You will:
 - Clone a sample web app
 - Add the LaunchDarkly SDK to the web app
 - Create and use your first LaunchDarkly feature flag
@@ -42,7 +42,7 @@ Read this section to understand the way we use some terms in this guide.
 The basic unit of work in LaunchDarkly is a **feature flag**, often referred to as a **flag**. Flags exist inside LaunchDarkly **environments**, and can exist across multiple environments. All the environments in your LaunchDarkly instance are referred to as your LaunchDarkly **project**. A project can contain multiple environments.
 
 Typically, most software projects have a test, staging, and production environment. In LaunchDarkly, you can define any environment structure that suits your
-team’s needs. 
+team’s needs.
 
 For example, your mobile team might need an `android test`,
 `android prod`, `ios test`, and `ios prod` environment in the "Mobile apps" project.
@@ -54,7 +54,7 @@ To learn more, read [Projects](/home/managing-flags/projects) and [Environments]
 The LaunchDarkly SDK is the primary tool you use to manage feature
 flags in your application code. The SDK is responsible for making the connection
 to LaunchDarkly and giving your app access to the flags defined in your
-environment. 
+environment.
 
 After you implement the client SDK in your application code, your code can fetch a flag from LaunchDarkly and evaluate it locally to get the flag’s value
 for a given user or context.
@@ -65,10 +65,10 @@ LaunchDarkly's SDK comes in a variety of client-side, server-side, and mobile
 implementations for different languages. This guide uses the Python SDK for our server-side code.
 
 There are several differences between the server and client-side SDKs. Client-side SDKs are designed to run on a single-user
-desktop, embedded application, client-side web application, or on mobile devices. 
+desktop, embedded application, client-side web application, or on mobile devices.
 
 Server-side SDKs are designed for multi-user systems and services running on
-a corporate network or in the cloud. Because they are designed to exist in more secure environments, and not rely on mobile data to make connections to LaunchDarkly, server-side SDKs retrieve the entire set of flag rules and evaluate the flag values for each user or context within the SDK's runtime. 
+a corporate network or in the cloud. Because they are designed to exist in more secure environments, and not rely on mobile data to make connections to LaunchDarkly, server-side SDKs retrieve the entire set of flag rules and evaluate the flag values for each user or context within the SDK's runtime.
 
 Client-side SDKs receive the evaluated value of a flag for the user on the chosen application directly from LaunchDarkly. We assume that client-side SDKs are on devices that may be shared or less secure, so LaunchDarkly never transmits flag rules to client-side SDKs.
 
@@ -103,7 +103,7 @@ else
 </CodeTabItem>
 </CodeTabs>
 
-The `ld_client` has a few methods that allow your code to decide which variation of a feature to show. 
+The `ld_client` has a few methods that allow your code to decide which variation of a feature to show.
 
 An example of a variation method is depicted below:
 
@@ -142,7 +142,7 @@ exist or the user doesn't have a key specified, LaunchDarkly returns the default
 # Exercise: Using the LaunchDarkly SDK
 
 In this exercise, we'll implement a pricing page on a mock online store. You will introduce a new pricing tier, wrap the code for it in a feature flag, and
-release it to users by enabling the flag. 
+release it to users by enabling the flag.
 
 This exercise uses a Python-based web application we provide and runs on [Glitch](https://glitch.com/about), an online tool for creating web apps.
 
@@ -154,14 +154,7 @@ You must remix the Glitch project embedded below to create an editable copy of t
 
 [Click this link](https://glitch.com/edit/#!/remix/ld-space-camp-0) to remix the app, or follow the instructions below.
 
-<div class="glitch-embed-wrap" style="height: 420px; width: 100%;margin-bottom:24px">
-  <iframe
-    src="https://glitch.com/embed/#!/embed/ld-space-camp-0?path=README.md&previewSize=0&attributionHidden=true"
-    title="ld-space-camp-0 on Glitch"
-    allow="geolocation; microphone; camera; midi; vr; encrypted-media"
-    style="height: 100%; width: 100%; border: 0;"
-  ></iframe>
-</div>
+<iframe src="https://glitch.com/embed/#!/embed/ld-space-camp-0?path=README.md&previewSize=0&attributionHidden=true" title="ld-space-camp-0 on Glitch" allow="geolocation; microphone; camera; midi; vr; encrypted-media" width="100%" height="420px"></iframe>
 
 1. Click the fullscreen button in the bottom right-hand corner of the Glitch app embedded above.
 app. The app opens in a separate tab.
@@ -174,7 +167,7 @@ app. The app opens in a separate tab.
 
 ### Switching between the code and app views in Glitch
 
-In the Glitch app, you have the option to see the live app in production, or the code for the app. 
+In the Glitch app, you have the option to see the live app in production, or the code for the app.
 
 To switch between them:
 
@@ -183,26 +176,26 @@ To switch between them:
 
 ![The "Show" menu in Glitch.](glitch-show-menu.png)
 
-3. Confirm that you can switch between the code and the app view. 
+3. Confirm that you can switch between the code and the app view.
 
 ## Setting up your LaunchDarkly project and environment
 
 You must set up a LaunchDarkly project and environment where your flags will live. Create a new project or use an existing one in your account.
 
-To create a new project: 
+To create a new project:
 
-1. Navigate to the [Account settings](https://app.launchdarkly.com/settings/projects) page. 
+1. Navigate to the [Account settings](https://app.launchdarkly.com/settings/projects) page.
 2. Click **+ Project**.
-3. Give your project a human-readable **Name**. In the example below, our project is called `Test`. 
+3. Give your project a human-readable **Name**. In the example below, our project is called `Test`.
 4. Click **Save**.
-5. In the **Account Settings** page, click to copy the new project's SDK key to your clipboard.  
+5. In the **Account Settings** page, click to copy the new project's SDK key to your clipboard.
 
 ![The Account Settings page in LaunchDarkly with environment SDK keys called out.](../../../images/space-camp-projects.png)
 
 ## Configuring the LaunchDarkly SDK key in your app
 
 Glitch lets you store environment variables, such as secrets or config variables, that your app can read from memory. This is a more secure practice than
-hard-coding these directly into your code. 
+hard-coding these directly into your code.
 
 To learn more about environment variables in Glitch, read [Glitch's documentation](https://glitch.com/help/env/).
 
@@ -259,9 +252,7 @@ To verify a successful installation, open the the log console in Glitch:
 
 If you configured the Python SDK correctly, you will see a message indicating that `launchdarkly-server-sdk` was installed.
 
-<iframe
-src="https://drive.google.com/file/d/1VVmHqHSDnNBXkZgd2jIXx1Hq9B7eAFgA/preview"
-width="100%" height="410" style="margin-bottom:24px" allowfullscreen></iframe>
+<iframe src="https://drive.google.com/file/d/1VVmHqHSDnNBXkZgd2jIXx1Hq9B7eAFgA/preview" width="100%" height="410" allowfullscreen></iframe>
 
 ## Initializing the LaunchDarkly client
 
@@ -303,8 +294,8 @@ import ldclient
 ...
 # Paste your SDK key inside the `.env` file. Don't paste it
 # here or you'll expose your SDK key to anyone who opens
-# this app. Instead, use the environment variable to 
-# reference the SDK key, as shown in the example below: 
+# this app. Instead, use the environment variable to
+# reference the SDK key, as shown in the example below:
 ldclient.set_sdk_key(os.getenv('LD_SDK_KEY'))
 
 # We will use this client from now on:
@@ -329,11 +320,9 @@ Here's how to create the new flag:
 5. Leave the flag variation set to **Boolean**.
 6. Save the new flag.
 
-<iframe
-src="https://drive.google.com/file/d/1AWHYtS_Fzdm1nBu7zKRWx6js8QAUEB9n/preview"
-width="100%" height="360" style="margin-bottom:24px" allowfullscreen></iframe>
+<iframe src="https://drive.google.com/file/d/1AWHYtS_Fzdm1nBu7zKRWx6js8QAUEB9n/preview" width="100%" height="360" allowfullscreen></iframe>
 
-The flag's targeting state is set to `off` by default. You can turn it on after implementing the code to use it. 
+The flag's targeting state is set to `off` by default. You can turn it on after implementing the code to use it.
 
 The new flag is pictured below:
 
@@ -393,7 +382,7 @@ It uses the following HTML:
 </CodeTabItem>
 </CodeTabs>
 
-This HTML is also available in your Glitch app, in **views/** > `tier_3.html`. 
+This HTML is also available in your Glitch app, in **views/** > `tier_3.html`.
 
 ## Wrapping the pricing page code in a flag
 
@@ -457,7 +446,7 @@ def pricing():
 </CodeTabItem>
 </CodeTabs>
 
-The controller passes the evaluated flag value to the template named `is_tier_3_enabled`. 
+The controller passes the evaluated flag value to the template named `is_tier_3_enabled`.
 
 Now update the `pricing.html` template to determine if the new pricing tier should be displayed.
 
@@ -498,7 +487,7 @@ The updated template should look like this:
 </CodeTabItem>
 </CodeTabs>
 
-After you've implemented the changes above, refresh the browser with your Glitch app in it. 
+After you've implemented the changes above, refresh the browser with your Glitch app in it.
 
 Verify that the new tier is not enabled. The pricing page should not show the new pricing option yet.
 
@@ -508,15 +497,13 @@ Now that you've wrapped your feature in a flag, it's time to turn your feature o
 
 To do this, return to the LaunchDarkly app.
 
-1. Navigate to the `pricing-tier-3` flag. 
+1. Navigate to the `pricing-tier-3` flag.
 2. Click the Targeting toggle to toggle the flag to *on*.
 3. Enter a comment.
 4. Click **Turn on**.
 5. Refresh the browser with your Glitch app in it again to verify that the new pricing tier is available.
 
-<iframe
-src="https://drive.google.com/file/d/1FIO9zuSGNVCHWWwq4dJsgZEZnTQezjq5/preview"
-width="100%" height="413" allowfullscreen></iframe>
+<iframe src="https://drive.google.com/file/d/1FIO9zuSGNVCHWWwq4dJsgZEZnTQezjq5/preview" width="100%" height="413" allowfullscreen></iframe>
 <br/>
 <br/>
 

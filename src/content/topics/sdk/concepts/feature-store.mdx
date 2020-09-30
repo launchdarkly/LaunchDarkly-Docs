@@ -55,13 +55,32 @@ An example configuration is below:
 <CodeTabItem value="go">
 
 ```go
-import ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+    examplepackage "github.com/launchdarkly/go-server-sdk-some-example-database"
+)
 
-factory, err := examplepackage.NewExampleFeatureStoreFactory(storeOptions)
+var config ld.Config
+config.DataStore = ldcomponents.PersistentDataStore(
+    examplepackage.DataStore().SomeStoreOptions(),
+)
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+
+
+// Before version 5.0, the syntax was different:
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+    examplepackage "gopkg.in/launchdarkly/go-server-sdk.v4/some-example-database"
+)
+
+factory, err := examplepackage.NewExampleFeatureStoreFactory(someStoreOptions)
 config := ld.DefaultConfig
 config.FeatureStoreFactory = factory
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
+
+*To learn more, read [`PersistentDataStore`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#PersistentDataStore).*
 
 </CodeTabItem>
 <CodeTabItem value="java">
@@ -81,7 +100,6 @@ LDClient client = new LDClient(sdkKey, config);
 
 
 // Before version 5.0, the syntax was different:
-
 import com.launchdarkly.client.*;
 import com.launchdarkly.client.integrations.*;
 
@@ -234,14 +252,34 @@ Since the Relay Proxy is also known as the *L*aunch*D*arkly *D*aemon, some versi
 <CodeTabItem value="go">
 
 ```go
-import ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+    examplepackage "github.com/launchdarkly/go-server-sdk-some-example-database"
+)
 
-factory, err := examplepackage.NewExampleFeatureStoreFactory(storeOptions)
+var config ld.Config
+config.DataStore = ldcomponents.PersistentDataStore(
+    examplepackage.DataStore().SomeStoreOptions(),
+)
+config.DataSource = ldcomponents.ExternalUpdatesOnly()  // <-- the extra option
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+
+
+// Before version 5.0, the syntax was different:
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+    examplepackage "gopkg.in/launchdarkly/go-server-sdk.v4/some-example-database"
+)
+
+factory, err := examplepackage.NewExampleFeatureStoreFactory(someStoreOptions)
 config := ld.DefaultConfig
 config.FeatureStoreFactory = factory
 config.UseLdd = true  // <-- the extra option
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
+
+*To learn more, read [`ExternalUpdatesOnly`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#ExternalUpdatesOnly).*
 
 </CodeTabItem>
 <CodeTabItem value="java">
@@ -262,6 +300,7 @@ LDClient client = new LDClient(sdkKey, config);
 
 
 // Before version 5.0, the syntax was different:
+
 import com.launchdarkly.client.*;
 
 LDConfig config = new LDConfig.Builder()
@@ -427,6 +466,22 @@ In the following examples, the Redis feature store is set to use a host address 
 
 ```go
 import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+    ldredis "github.com/launchdarkly/go-server-sdk-redis"
+)
+
+var config ld.Config
+config.DataStore = ldcomponents.PersistentDataStore(
+    ldredis.DataStore().
+        HostAndPort("my-redis", 6379).
+        Prefix("my-key-prefix"),
+).CacheSeconds(30)
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+
+
+// Before version 5.0, the syntax was different:
+import (
     ld "gopkg.in/launchdarkly/go-server-sdk.v4"
     ldredis "gopkg.in/launchdarkly/go-server-sdk.v4/redis"
 )
@@ -435,11 +490,12 @@ factory, err := ldredis.NewRedisFeatureStoreWithDefaults(
     ldredis.HostAndPort("my-redis", 6379),
     ldredis.Prefix("my-key-prefix"),
     ldredis.CacheTTL(30 * time.Second))
-
 config := ld.DefaultConfig
 config.FeatureStoreFactory = factory
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
+
+*To learn more, read [`go-server-sdk-redis`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk-redis).*
 
 </CodeTabItem>
 <CodeTabItem value="java">
@@ -636,7 +692,7 @@ local c = l.clientInit({
 
 - **C**: This integration is part of the main SDK distribution.
 - **Haskell** You must install an additional package named `launchdarkly-server-sdk-redis`.
-- **Go**: This integration is part of the main SDK distribution.
+- **Go**: This integration is in [`github.com/launchdarkly/go-server-sdk-redis`](https://github.com/launchdarkly/go-server-sdk-redis) for 5.0.0 or higher of the SDK. In earlier SDK versions, it is in the main SDK distribution as the subpackage `redis`.
 - **Java**: In Java SDK 5.0 and later, you must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-redis-store`](https://github.com/launchdarkly/java-server-sdk-redis). In Java SDK 4.x and earlier, this integration is part of the main SDK distribution.
 - **.NET**: You must install an additional package named [`LaunchDarkly.ServerSdk.Redis`](https://github.com/launchdarkly/dotnet-server-sdk-redis).
 - **Node.js**: This integration is part of the main SDK distribution.
@@ -684,6 +740,20 @@ In the following examples, the DynamoDB feature store is set to use a table call
 
 ```go
 import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+    lddynamodb "github.com/launchdarkly/go-server-sdk-dynamodb"
+)
+
+var config ld.Config
+config.DataStore = ldcomponents.PersistentDataStore(
+    lddynamodb.DataStore("my-table"),
+).CacheSeconds(30)
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+
+
+// Before version 5.0, the syntax was different:
+import (
     ld "gopkg.in/launchdarkly/go-server-sdk.v4"
     "gopkg.in/launchdarkly/go-server-sdk.v4/lddynamodb"
 )
@@ -694,6 +764,8 @@ config := ld.DefaultConfig
 config.FeatureStoreFactory = factory
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
+
+*To learn more, read [`go-server-sdk-dynamodb`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk-dynamodb).*
 
 </CodeTabItem>
 <CodeTabItem value="java">
@@ -813,7 +885,7 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 
 - **C**: Currently there is no DynamoDB integration for the C server-side SDK.
 - **Haskell**: Currently there is no DynamoDB integration for the Haskell server-side SDK.
-- **Go**: This integration is part of the main SDK distribution as of version 4.5.1.
+- **Go**: This integration is in [`github.com/launchdarkly/go-server-sdk-dynamodb`](https://github.com/launchdarkly/go-server-sdk-redis) for version 5.0.0 or higher of the SDK. In versions 4.5.1 and higher, but below 5.0.0, it is in the main SDK distribution as the subpackage `lddynamodb`.
 - **Java**: You must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-dynamodb-store`](https://github.com/launchdarkly/java-server-sdk-dynamodb). You must also add `software.amazon.awssdk.dynamodb` if your application does not already use the AWS SDK.
 - **.NET**: You must install the additional package [`LaunchDarkly.ServerSdk.DynamoDB`](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb).
 - **Node.js**: You must install the additional package [`launchdarkly-node-server-sdk`](https://github.com/launchdarkly/node-server-sdk-dynamodb). Also, as of the 2.0.0 release of that package, the `aws-sdk` package that it uses is _not_ automatically loaded as a transitive dependency; this saves space when running in AWS Lambda, where `aws-sdk` is built in. If you are not running in Lambda, you must separately install `aws-sdk`.
@@ -856,6 +928,22 @@ In the following examples, the Consul feature store is set to use a host address
 
 ```go
 import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+    ldconsul "github.com/launchdarkly/go-server-sdk-consul"
+)
+
+var config ld.Config
+config.DataStore = ldcomponents.PersistentDataStore(
+    ldconsul.DataStore().
+        Address("http://my-consul:8100").
+        Prefix("my-key-prefix"),
+).CacheSeconds(30)
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+
+
+// Before version 5.0, the syntax was different:
+import (
     ld "gopkg.in/launchdarkly/go-server-sdk.v4"
     "gopkg.in/launchdarkly/go-server-sdk.v4/ldconsul"
 )
@@ -864,11 +952,12 @@ factory, err := ldconsul.NewConsulFeatureStoreFactory(
     ldconsul.Address("http://my-consul:8100"),
     ldconsul.Prefix("my-key-prefix"),
     ldconsul.CacheTTL(30 * time.Second))
-
 config := ld.DefaultConfig
 config.FeatureStoreFactory = factory
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
+
+*To learn more, read [`go-server-sdk-consul`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk-consul).*
 
 </CodeTabItem>
 <CodeTabItem value="java">
@@ -1000,7 +1089,7 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 
 - **C**: Currently there is no Consul integration for the C server-side SDK.
 - **Haskell**: Currently there is no Consul integration for the Haskell server-side SDK.
-- **Go**: This integration is part of the main SDK distribution as of version 4.5.0.
+- **Go**: This integration is in [`github.com/launchdarkly/go-server-sdk-consul`](https://github.com/launchdarkly/go-server-sdk-consul) for version 5.0.0 or higher of the SDK. In versions 4.5.0 and higher, but below 5.0.0, it is in the main SDK distribution as the subpackage `ldconsul`.
 - **Java**: You must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-consul-store`](https://github.com/launchdarkly/java-server-sdk-consul).
 - **.NET**: You must install the additional package [`LaunchDarkly.ServerSdk.Consul`](https://github.com/launchdarkly/dotnet-server-sdk-consul).
 - **Node.js**: You must install the additional package [`launchdarkly-node-server-consul`](https://github.com/launchdarkly/node-server-sdk-consul).
