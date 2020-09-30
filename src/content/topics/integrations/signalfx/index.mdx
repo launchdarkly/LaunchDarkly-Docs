@@ -15,9 +15,20 @@ SignalFx can detect and alert engineers when their applications are trending in 
 
 With clear data markers representing feature flag changes, SignalFx users can more easily correlate their feature flag rollouts with changes in operational health.
 
+<Callout intent="primary">
+<CalloutTitle>This integration supports triggers</CalloutTitle>
+<CalloutDescription>
+
+You can use LaunchDarkly's triggers feature with SignalFx to automatically perform actions on feature flags.
+
+To learn more, read [Using triggers with SignalFx](/integrations/signalfx/triggers).
+
+</CalloutDescription>
+</Callout>
+
 ## Prerequisites
 
-To configure the SignalFx integration, you must have the following prerequisites:
+To configure the SignalFx integration to send LaunchDarkly data to SignalFx, you must have the following prerequisites:
 
 * **SignalFx access token**: This token authenticates your LaunchDarkly account to send data to your SignalFx account. To learn more about about working with SignalFx access tokens, read [SignalFx's documentation](https://docs.signalfx.com/en/latest/admin-guide/tokens.html#working-with-access-tokens).
 * **SignalFx realm**: The realm identifies the self-contained deployment of SignalFx that hosts your organization. Find the name of your organization's realm on your SignalFx profile page.

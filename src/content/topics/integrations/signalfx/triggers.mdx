@@ -1,0 +1,55 @@
+---
+path: '/integrations/signalfx/triggers'
+title: 'Using flag triggers with SignalFx'
+description: 'This topic explains how to use LaunchDarkly''s trigger feature with SignalFx.'
+published: true
+---
+
+## Overview
+
+<Callout intent="info">
+<CalloutTitle>Flag triggers is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Triggers is only available for customers on a LaunchDarkly Enterprise plan. To enable this feature on your account, [contact Sales](mailto:sales@launchdarkly.com).
+
+</CalloutDescription>
+</Callout>
+
+This topic explains how to use LaunchDarkly's trigger feature with SignalFx. For example, you can create an alert in SignalFx that toggles a flag on or off if a performance metric drops below a certain threshold.
+
+## Prerequisites
+
+In order to complete this topic, you must meet the following prerequisites:
+
+* You must have a feature flag with a trigger. 
+* You must have access to the trigger's URL. To learn more about accessing trigger URLs, read [Understanding flag triggers' security](/integrations/triggers#understanding-flag-triggers-security).
+* You must have an existing [SignalFx](https://www.signalfx.com/) account. 
+
+## Connecting a flag trigger to SignalFx
+
+Connecting a LaunchDarkly trigger to SignalFx takes two steps. 
+
+You must: 
+
+1. Create a webhook in SignalFx with your trigger URL, and
+2. Connect that webhook to a SignalFx Detector.
+
+### Setting up a webhook in SignalFx
+
+To configure a webhook to be triggered by Detector events and changes:
+
+1. Log in to SignalFx.
+2. Go to the Integrations tab and Select the "Webhook" integration. 
+3. Click on **New Integration**.
+4. Enter a human-readable name in the **Name** field and paste the trigger URL into the **URL** field.
+5. Click **Save**.
+
+### Adding the webhook to a Detector as a recipient
+
+To configure a recipient on a SignalFx Detector:
+
+1. Create or select the Detector you want associated with the trigger in the Alerts tab. To learn more about Detectors and how to configure them, read [SignalFx's documentation](https://docs.signalfx.com/en/latest/detect-alert/index.html).
+2. From the Detector configuration popup, click on **Alert recipients**.
+3. Click on **Add Recipient**, select **Webhook...** from the dropdown, and then choose the webhook you created.
+4. Click **Activate Alert Rule** to activate your alert.
