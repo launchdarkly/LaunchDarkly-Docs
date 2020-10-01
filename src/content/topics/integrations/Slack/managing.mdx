@@ -44,7 +44,23 @@ The table below explains the different filtering criteria:
     <TableHeadCell>Description</TableHeadCell>
   </TableHeader>
   <TableBody>
+     <TableRow>
+      <TableCell>Project / Environment</TableCell>
+      <TableCell>
+        Optional.
+        <br />
+        Filter by project, environment, or a combination of both.
+      </TableCell>
+    </TableRow>
     <TableRow>
+      <TableCell>Flag key</TableCell>
+      <TableCell>
+        Optional.
+        <br />
+        Enter a flag key, which can begin or end with a wildcard *.
+      </TableCell>
+    </TableRow>
+  <TableRow>
       <TableCell>Status</TableCell>
       <TableCell>
         Optional.
@@ -64,28 +80,32 @@ The table below explains the different filtering criteria:
         New
       </TableCell>
     </TableRow>
-    <TableRow>
-      <TableCell>Project / Environment</TableCell>
+       <TableRow>
+      <TableCell>Action</TableCell>
       <TableCell>
         Optional.
         <br />
-        Filter by project, environment, or a combination of both.
+        Filter by action. Available actions are:
+        <br />
+        Any
+        <br />
+        Created
+        <br />
+        Updated
+        <br />
+        Deleted
+        <br />
+        Ready for removal
+        <br />
+        New
       </TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Tag</TableCell>
+      <TableCell>Flag tag</TableCell>
       <TableCell>
         Optional.
         <br />
-        Filter by a list of all tags that exist in LaunchDarkly.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>Flag Key</TableCell>
-      <TableCell>
-        Optional.
-        <br />
-        Enter a flag key, which can begin or end with a wildcard *.
+        Filter by a list of all flag tags. Does not include other types of tags, such as segment tags.
       </TableCell>
     </TableRow>
   </TableBody>
