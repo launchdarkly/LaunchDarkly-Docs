@@ -18,7 +18,7 @@ Feature Workflows is only available to customers on Enterprise plans. To learn m
 
 With Feature Workflows, you can elevate your use of feature flags by creating complex workflows within LaunchDarkly. Workflows map to how your teams build, ship, and control software. You can also define custom release strategies that seamlessly integrate LaunchDarkly with your organization’s existing tools and processes, so every team can benefit from better feature management.
 
-Feature workflows start with three powerful building blocks: **scheduling**, **approvals**, and **flag triggers**. 
+Feature workflows start with three powerful building blocks: **Scheduling**, **Approvals**, and **Flag triggers**. 
 
 ![A graphic representing the three core capabilities of Feature Workflows.](../../images/workflows-core-capabilities.png)
 
@@ -31,15 +31,15 @@ For example, you may want to schedule the feature to turn on for internal testin
 ## Benefits of scheduling flag changes
 
 1. **Timing an early launch**: LaunchDarkly users no longer need to set reminders or wake up early to turn a flag ON. Scheduling your flag to turn on on a specified date/time allows you to plan your release and let LaunchDarkly do the rest.
-2. **Progressive rollouts**: Using this functionality, you can schedule your flag to roll out to 20% of your user base tomorrow, 35% the day after, 50% the day after that, and increase that percentage until it reaches 100%. This only requires creating a set of scheduled changes to your flag once and lets you slowly release features and ensure they’re performing the way you hoped they would.
-3. **Changes to user access**: You can now schedule rules that target certain users and segments to be added to or removed from your flag’s targeting to better manage user access.
+2. **Progressive feature rollouts**: Using this functionality, you can schedule your flag to roll out to 20% of your user base tomorrow, 35% the day after, 50% the day after that, and increase that percentage until it reaches 100%. This only requires creating a set of scheduled changes to your flag once and lets you slowly release features and ensure they’re performing the way you hoped they would.
+3. **Temporary user access**: You can now schedule rules that target certain users and segments to be added to or removed from your flag’s targeting to better manage user access.
 4. **Flag hygiene**: You can schedule your flag’s targeting rules to clean up once your flag has been rolled out to 100% of your users, to practice better flag hygiene and more easily understand the flag's configuration. 
 
 <Callout intent="info">
 <CalloutTitle>Feature Workflows are available in the LaunchDarkly API</CalloutTitle>
 <CalloutDescription>
 
-All of LaunchDarkly's features are supported by API endpoints. To learn more about the API and supported endpoints for Feature Workflows, read the [API documentation](https://apidocs.launchdarkly.com/reference?showHidden=7f3f4#scheduled-changes-overview).
+All of LaunchDarkly's features are supported by API endpoints. To learn more about the API and supported endpoints for Feature Workflows, read the [API documentation](https://apidocs.launchdarkly.com/reference#scheduled-changes-overview).
 
 </CalloutDescription>
 </Callout>
@@ -53,17 +53,6 @@ To schedule a set of flag changes:
 3. Click the dropdown next to the **Save changes** button and select **Schedule Changes**.
 
 ![The Schedule Changes button below the Save Changes button.](../../images/workflows-schedule-changes.png)
-
-<Callout intent="alert">
-<CalloutTitle>You must sign up for Scheduled Flag Changes in the EAP</CalloutTitle>
-<CalloutDescription>
-
-If you don’t see the **Schedule Changes** option, it is probably because you need access to the feature as part of the Early Access Program. 
-
-[Sign up now.](https://launchdarkly.com/eap)
-
-</CalloutDescription>
-</Callout>
 
 4. In the "Schedule change for" section, click on **Select a date** to expand a calendar view.
 
@@ -79,6 +68,10 @@ If you don’t see the **Schedule Changes** option, it is probably because you n
 9. Click **Schedule Changes**. Your changes have now been scheduled. 
 
 You can schedule multiple changes for a single flag for different dates and times.
+
+For example, you can implement a progressive rollout strategy by scheduling multiple sequential changes to targeting rules. 
+
+![A flag with multiple changes scheduled.](../../images/workflows-upcoming-changes.png)
 
 ## Viewing scheduled flag changes
 
@@ -117,14 +110,51 @@ To delete a scheduled flag change:
 
 ![The Edit and Delete options for a scheduled workflow.](../../images/workflows-delete-change.png)
 
+## Managing conflicts with scheduled changes
+
+It’s possible that as you schedule a change to about flag, another user introduces a breaking change, or a conflict. 
+
+Conflicts occur for two reasons:
+* Another user updated the flag’s targeting that invalidates one or more of your scheduled changes
+* Another user scheduled a set of conflicting changes to be executed before your changes
+
+LaunchDarkly warns users in the UI when they save or schedule changes to the flag that introduce conflicts with other pending scheduled changes.
+
+![A notification showing a conflicting scheduled change.](../../images/workflows-conflict.png)
+
+Despite this warning, a user could decide to save their conflicting changes anyway. 
+
+If this happens, LaunchDarkly sends an email notification to the user whose changes now conflict. That user's changes will not take effect at the time and date they scheduled. 
+
+### Resolving conflicts in scheduled changes
+
+If your scheduled changes conflict with other changes, you receive an email notification.
+
+![The email notification users with conflicting changes receive.](../../images/workflows-email.png)
+
+You can resolve the conflict and ensure your scheduled changes don’t fail in one of two ways.
+
+1. **Choose one of the two conflicting changes and delete the other.** For example, you may have scheduled 3 targeting rules to be updated and someone deletes 1 of those rules, which causes a conflict. If this happens, you can update your scheduled changes to delete the scheduled changes to that rule. This ensures that the conflict is resolved and the remaining rules are updating successfully.
+2. **Update the conflicting changes so they no longer conflict.** You can update your changes or the new scheduled changes to resolve the conflict and ensure both scheduled changes execute successfully.  
+
+## Scheduling changes that match current flags
+
+You can schedule a change that matches the current state of the flag. To do this, stage placeholder changes and then edit the actions when you schedule them.
+
+Here is an example showing how you can schedule your flag to turn `off` for an hour, and then turn back `on`.
+
+1. Turn flag targeting `off`.
+2. Click into the **Save Changes** dropdown and choose **Schedule changes**.
+3. Click **Edit**.
+4. Turn the flag to `on`.
+5. Click **Done** and schedule the change.
+
+![A GIF of the workflow.](../../images/workflows-off.gif)
+
+This workaround lets you schedule changes to your flag that are not different from the flag's current state. This is useful to help schedule changes that restore the flag’s state after an interval. 
+
 ## Feedback
-
-As part of LaunchDarkly’s Early Access Program, we’re actively looking for customer feedback and input to help us improve this product experience for all our users. 
-
-If you have questions or feedback, please email karishma@launchdarkly.com. 
-
-## Coming soon
 
 Our team continues to work on and build the other components of Feature Workflows, specifically **Approvals** and **Flag Triggers**. 
 
-If you’re interested in providing input for any of these features, email us at feedback@launchdarkly.com
+As part of the [Early Access Program](https://docs.google.com/forms/d/e/1FAIpQLScJ5qCC_RZTW9pPSXVZk9HaKzpltNAeoQb2t6gh7dLicwQWQQ/viewform), we're actively looking for feedback. If you’re interested in providing input for any of these features, email us at feedback@launchdarkly.com
