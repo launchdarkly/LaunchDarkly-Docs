@@ -716,6 +716,10 @@
             "path": "/guides/best-practices/technical-debt"
           },
           {
+            "label": "Using feature flags on static sites",
+            "path": "/guides/best-practices/using-feature-flags-on-static-sites"
+          },
+          {
             "label": "Using feature flags to mitigate risk in infrastructure migrations",
             "path": "/guides/best-practices/infrastructure-migration"
           },

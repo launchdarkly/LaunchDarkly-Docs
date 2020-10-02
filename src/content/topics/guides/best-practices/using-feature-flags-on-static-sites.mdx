@@ -1,0 +1,577 @@
+---
+path: '/guides/best-practices/using-feature-flags-on-static-sites'
+title: 'Using feature flags on static sites'
+description: 'This guide explores some best practices for feature flagging static websites.'
+published: true
+---
+
+## Overview
+
+This guide explores some best practices for using feature flags on static websites.
+
+In this guide, you will:
+
+- Learn how the JavaScript SDK works on client-side applications
+- Learn best practices for managing client-side flags on a static website
+
+## Prerequisites
+
+To complete this guide, you must have the following prerequisites:
+
+- A basic understanding of feature flags. To learn more read [Getting started](/home/getting-started).
+- Know how to make a flag available to client-side SDKs. To learn more, read [Making flags available to client-side and mobile SDKs](/home/getting-started/feature-flags#making-flags-available-to-client-side-and-mobile-sdks).
+- A basic understanding of how to use the LaunchDarkly JavaScript SDK. To learn more, read [JavaScript SDK reference](/sdk/client-side/javascript).
+- Access to a LaunchDarkly account with permission to create flags.
+
+### Concepts
+
+This guide relies on the following concepts:
+
+### Static websites 
+
+Static websites are a set of one or more webpages served from a web server or content delivery network (CDN). We call them "static" sites because their pages are not generated dynamically. Static sites change when a new version is published, either with a content management system or with a new deployment.
+
+### Content management system (CMS)
+
+You can use a CMS to manage the creation, management, and publishing workflow of a website. There are many different CMS' like [Contentful](https://www.contentful.com/) and [Prismic](https://prismic.io/).
+
+### Content delivery network (CDN)
+
+A CDN is a geographically distributed group of servers that work together to deliver internet content quickly. A CDN lets you transfer the assets necessary for loading internet content, including HTML pages, JavaScript files, stylesheets, images, and videos. 
+
+Some of the more popular CDNs are [AWS CloudFront](https://aws.amazon.com/cloudfront/) and [Cloudflare](https://cloudflare.com).
+
+### Single page application (SPA)
+
+A SPA is a website that does not perform a page reload when you use different aspects of it. 
+
+Popular SPAs include Gmail, Google Maps, Facebook, Twitter, and many others web applications intended for use by the general public.
+
+### Module bundlers
+
+Module bundlers are tools developers use to bundle JavaScript modules into a single JavaScript file that can be executed in the browser. 
+
+The most well-known bundlers are [Webpack](https://webpack.js.org/) and [Rollup](https://rollupjs.org/).
+
+### Static site generators 
+
+Static site generators are tools that let you build and manage a static site. Static site generators are not CMS'.  You can use a static site generator to define the structure, templates, and build process of a static site. 
+
+Some static site generators include [Gatsby](https://www.gatsbyjs.com/) and [Next.js](https://nextjs.org/).
+
+## Characteristics of static sites
+
+A basic static site is the one that is truly static. Each webpage exists as a static file that lives on a filesystem and served up by a traditional web server like Apache or Nginx. You can also serve these files from a CDN. 
+
+Typically, a content management system creates and manages these static sites. The CMS is responsible for publishing the actual pages to a web server.
+
+![Traditional static website topology.](../../../images/classic-static-site.png)
+
+
+Static websites may have some dynamic content. While the file that produced the webpage itself may be static, the webpage could contain JavaScript that produces dynamic content and allows for dynamic interactions when rendered in a browser. 
+
+This distinction is important. Most of today's websites contain JavaScript even if they render like static sites. The most common JavaScript in these types of websites is used for tracking analytics.
+
+Another characteristic of these types of static sites is how users navigate them. In the example above, a user may land on the homepage (`/index.html`), then click on a link to the "about" page (`/about/index.html`). That action instructs the browser to make an HTTP request for the `/about/index.html` page causing it to be loaded into the browser as an entirely new page.
+
+### Understanding the difference between static sites and single page applications
+
+In a SPA, there is one or a limited number of static pages that comprise an entire website or web application. All user interactions in that site are managed by JavaScript. 
+
+For example, when a user clicks on a link within a SPA, JavaScript code on the page intercepts the request and performs the action intended by the developer rather than telling the browser to load the URL associated with that link.
+
+![Single page application interaction.](../../../images/single-page-app.png)
+
+
+SPAs retrieve additional data they need throughout their lifecycle without reloading the page.
+
+SPA sites aren't necessarily static HTML pages. Some are dynamically generated by an application server. For the purpose of this guide, we consider these two types of SPAs mostly the same because the feature flagging strategies you can use to manage them are similar.
+
+## Enhancing static sites with feature flags
+
+With LaunchDarkly, web developers can use feature flags on a static site to gain the following capabilities:
+
+* Expose a site feature to a targeted set of users, rather than to all.
+* Release a feature independently of when the feature's code is deployed.
+* Release a feature on a specific schedule.
+* Perform an A/B/n test on a feature before releasing it to all users.
+
+Feature flags can give developers more control over the features they create.
+
+## Best practices for using feature flags with static sites
+
+[LaunchDarkly's SDKs](/sdk) can operate on a server or on a client. Static sites must use the [LaunchDarkly client-side JavaScript SDK](https://docs.launchdarkly.com/sdk/client-side/javascript). 
+
+Code referencing feature flags on your static site will fail if a user has JavaScript turned off on their browser.
+
+If your site is built with React or uses the Gatsby web framework, you can use the corresponding library for easier integration:
+
+- **The React SDK** is specifically for use on React-based web applications. This SDK uses the JavaScript SDK, but is built to make it easy to integrate into a React codebase. To learn more, read [React SDK](/sdk/client-side/react).
+- **The Gatsby plugin** is a small plugin for the popular Gatsby framework. This plugin utilizes the React SDK, but makes it easy to use LaunchDarkly inside of a Gatsby codebase. To learn more, read [Gatsby plugin](/sdk/client-side/react/gatsby).
+
+In this guide, we focus on the JavaScript SDK because the core concepts and best practices described here are generic. They apply to the other client-side SDKs.
+
+The LaunchDarkly SDK exposes the LaunchDarkly client. This client is used to interact with the LaunchDarkly service and provides access to feature flags in your application's control flow.
+
+## Loading the SDK and LaunchDarkly client
+
+Most web apps have lots of JavaScript to load and initialize during the page load. Loading the LaunchDarkly SDK and initializing the client at the most optimal time during the loading sequence is important. 
+
+In most cases, we recommend loading and initializing the SDK as early as possible, especially if you have features that rely on flag values to be available during the initial page render.
+
+There are a few options available when loading the SDK:
+
+- **Load from a CDN with a `<script>` tag**: This is the simplest and most traditional way especially if you're not using a module bundler like [Webpack](https://webpack.js.org/) or [Rollup](https://rollupjs.org/). To learn more, read [Script tag](/sdk/client-side/javascript#script-tag).
+- **Use a module bundler**: Bundling along with [code splitting](https://webpack.js.org/guides/code-splitting/) to split up your JavaScripts into smaller bundles and only load the bundles needed for the corresponding page. An advantage to code splitting is that it lets you load script bundles in parallel.
+
+Generally, you will want to load the SDK as early as possible on the page. The earlier the SDK is loaded, the earlier your code can initialize the LaunchDarkly client. Similarly to initializing the SDK, the timing and method with which you initialize the client can impact an end user's experience of your site.
+
+To initialize the client, you must first define a user.
+
+For example:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Initializing the LaunchDarkly client', value: 'js', },
+  ]
+}>
+
+<CodeTabItem value="js">
+
+```js
+const user = {
+  "key": "aa0ceb"
+};
+const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The only required property of the user is the `key`. The client requires a `user`, but your web app does not actually need to have a signed-in user. 
+
+The `user` property is a unique property that LaunchDarkly uses to keep track of the flag values for that unique key.
+
+If your user is anonymous, use the `anonymous` property:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Initializing with an anonymous user', value: 'js', },
+  ]
+}>
+
+<CodeTabItem value="js">
+
+```js
+const user = {"anonymous": true};
+const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+By omitting the `key` property and adding the `anonymous` property, the LaunchDarkly client auto-generates a unique identifier for the anonymous user, and this identifier remains constant across browser sessions. 
+
+To learn more, read [Anonymous users](/sdk/client-side/javascript#anonymous-users).
+
+The client initialization connects to LaunchDarkly's servers and fetches the initial flag values for the user. This initialization cycle can take around 100-200ms and can delay your initial page render by at least that much. You could render the page before you have the flag values available, however, your users may experience parts of the page changing as the flag values load. 
+
+To learn more, read [Initializing the client](/sdk/client-side/javascript#initializing-the-client).
+
+## Bootstrapping the client 
+
+"Bootstrapping" refers to hydrating the LaunchDarkly client with an initial set of feature flag values that is immediately available during client initialization.
+
+There are two methods of bootstrapping the client:
+
+* Using the browser's localStorage, and
+* By sending HTML with flag information to the server 
+
+### Using localStorage
+
+If you use localStore, the client can initialize itself without an additional delay from fetching the flags from the LaunchDarkly servers.
+
+While truly static sites don't have the flag values available before the JavaScript on the page starts executing, the LaunchDarkly client can cache the initial set of flag values retrieved from the server. 
+
+This technique uses the browser's localStorage:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Bootstrapping with localStorage', value: 'js', },
+  ]
+}>
+
+<CodeTabItem value="js">
+
+```js
+const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
+  bootstrap: 'localStorage'
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+In this example, the client stores the latest flag settings in localStorage. On subsequent page loads, it fetches the most recently cached flag values from localStorage and emits the `ready` event immediately.
+
+The client still initializes and connects to LaunchDarkly's service to fetch the most recent flag values, but is no longer dependent on those values to reach its `ready` state. The localStorage cache updates when new values arrive.
+
+There is a limitation to this approach. On the user's initial visit to your site, localStorage is empty. The user can observe the site's default behavior before the behavior that is controlled by a feature flag loads. This may delay parts of your site loading and reflect poorly on your site's perceived performance.
+
+Subsequent visits to that page will utilize the values in localStorage. Flag changes that happen while the user is on the page automatically update the localStorage cache, keeping it in sync with the server. If the user is not on the page when the flag change happens, the flag value in localStorage may go out of sync with the server. The next time this user visits that page, they could experience a flicker because of the client using the previous flag value from localStorage.
+
+If you bootstrap using localStorage, it's important to choose effective defaults for your flag values to limit rendering delays.
+
+On SPA sites, this may not be a problem. Users will likely only load a site once per browser session. In this case, [subscribe to flag changes](#releasing-features-to-your-clients-in-real-time) to trigger the appropriate behavior in your app in real-time.
+
+### Bootstrapping from the server
+
+While bootstrapping from localStorage is a must on a purely static site, you can also bootstrap from your server. 
+
+In this model, the HTML page your server sends to the browser contains the feature flags your site needs during the initial render. Your site then bootstraps the LaunchDarkly client with those flags.
+
+Here's an example of how to bootstrap from a server:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Bootstrapping from a server', value: 'js', },
+  ]
+}>
+
+<CodeTabItem value="js">
+
+```js
+// If your server passes values to your frontend on pageload,
+// you can call your server-side SDK's allFlagsState function (naming varies per SDK)
+// on pageload and pass the results as a parameter to your
+// front-end initialization code.
+function onPageLoad(flags) {
+  ...
+
+  var ldclient = LDClient.initialize(
+    'YOUR_CLIENT_SIDE_ID',
+    user,
+    options = {
+      bootstrap: flags
+    }
+  );
+
+  ...
+}
+
+...
+
+<script>
+// Elsewhere on the page, this is injected by the server
+onPageLoad({
+  // flag values for user
+  'foo': true,
+  'bar': 'foo',
+});
+<script>
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+All LaunchDarkly server-side SDKs can evaluate all flags on a user's behalf. These flags can then be combined with the HTML response. 
+
+To learn more, read [Bootstrapping the client](/sdk/client-side/javascript#bootstrapping).
+
+## Timing when your site renders
+
+You can delay rendering your site until the feature flags are available. For example, you redesign your site and use a feature flag to control the rollout. Your old design may appear briefly on initial render.
+
+Here's [a simple demonstration](https://feature-flagging-static-sites.netlify.app/) of this scenario:
+
+<div style="height:450px; width: 100%;margin-bottom:20px">
+  <iframe
+    src="https://feature-flagging-static-sites.netlify.app/"
+    style="height: 100%; width: 100%; border:1px solid #ccc;border-radius:5px">
+  </iframe>
+</div>
+
+The examples above showcase several strategies you can apply to reduce the risk of your page flickering after the feature flags are loaded.
+
+In most cases, [using localStorage](#using-localstorage), might be enough for most sites. Depending on how complex your site is or whether your page is generated or rendered on the server, you may be able to take advantage of [bootstrapping from the server](#bootstrapping-from-the-server). But if that's not possible, choosing to delay rendering is undoubtedly an option but could reflect poorly on your site's perceived performance.
+
+## Releasing features in realtime
+
+When your app initializes the LaunchDarkly client, the LaunchDarkly servers will send the full set of evaluated flags values to the browser. The browser will store the flags either in memory or localStorage.
+
+If a flag changes after the page renders, the LaunchDarkly client is not notified of the change. If the site is a SPA, you might want the site to react to the flag change and re-render any affected components or interaction logic in the page in realtime.
+
+To enable this, subscribe to flag changes in your app:
+
+<CodeTabs
+  defaultValue="1"
+  values={[
+    { label: 'Subscribe to all flag changes', value: '1', },
+    { label: 'Subscribe to a specific flag', value: '2', },
+  ]
+}>
+
+<CodeTabItem value="1">
+
+```js
+ldclient.on('change', function(flags) {
+  console.log('flags changed:', flags);
+  // add your feature behavior here...
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="2">
+
+```js
+ldclient.on('change:YOUR_FLAG_KEY', function(value, previous) {
+  console.log('YOUR_FLAG_KEY changed:', value, '(' + previous + ')');
+  // add your feature behavior here...
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Use this technique to release features to your clients in real-time.
+
+To learn more, read [Subscribing to feature flag changes](/sdk/client-side/javascript/#subscribing-to-feature-flag-changes).
+
+## Using React
+
+[React](https://reactjs.org/) is a very popular JavaScript UI library. LaunchDarkly has a [React SDK](https://docs.launchdarkly.com/sdk/client-side/react) that lets developers use LaunchDarkly in their React app. One of the helpers the React SDK provides is called [`asyncWithLDProvider`](https://docs.launchdarkly.com/sdk/client-side/react#asyncwithldprovider). It ensures that the flags are available to your React components when they render.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Initializing LaunchDarkly React SDK', value: 'js', },
+  ]
+}>
+
+<CodeTabItem value="js">
+
+```js
+import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
+
+(async () => {
+  const LDProvider = await asyncWithLDProvider({
+    clientSideID: 'your-client-side-id',
+    user: {
+      "key": "aa0ceb",
+      "name": "Grace Hopper",
+      "email": "gracehopper@example.com"
+    },
+    options: {
+			"bootstrap": "localstorage",
+    }
+  });
+
+  render(
+    <LDProvider>
+      <YourApp />
+    </LDProvider>,
+    document.getElementById('reactDiv'),
+  );
+})();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Use this provider so your app does not flicker due to the client's initialization delay. However, the page may render more slowly while the initial flag values are retrieved. You can alleviate this by using the bootstrapping techniques described above.
+
+The `asyncWithLDProvider` automatically subscribes to changes to flags in your environment. If a flag value changes, any component in the React tree using that flag re-renders automatically.
+
+After the flags load, you can access those flags from any component in your app:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Accessing the LaunchDarkly client from React components using hooks', value: 'js', },
+  ]
+}>
+
+<CodeTabItem value="js">
+
+```js
+
+import React from 'react';
+import { useFlags, useLDClient } from 'launchdarkly-react-client-sdk';
+
+const HooksDemo = () => {
+  const { devTestFlag } = useFlags();
+  const ldClient = useLDClient();
+
+  const onLoginSuccessful = () => ldClient.identify({ key: 'aa0ceb' });
+
+  return (
+    <div>{devTestFlag ? 'Flag on' : 'Flag off'}</div>
+  );
+};
+
+export default HooksDemo;
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+This example uses [React hooks](https://reactjs.org/docs/hooks-intro.html). If you are using a version of React without hooks support, you can use the higher-order component [`withLDConsumer`](https://docs.launchdarkly.com/sdk/client-side/react#withldconsumer) instead:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Accessing the LaunchDarkly client using a higher-order component', value: 'js', },
+  ]
+}>
+
+<CodeTabItem value="js">
+
+```js
+import { withLDConsumer } from 'launchdarkly-react-client-sdk';
+
+const Home = ({ flags, ldClient /*, ...otherProps */ }) => {
+  // You can call any of the methods from the JavaScript SDK
+  // ldClient.identify({...})
+
+  return flags.devTestFlag ? <div>Flag on</div> : <div>Flag off</div>;
+};
+
+export default withLDConsumer()(Home);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [React SDK](/sdk/client-side/react).
+
+## Using static site generators
+
+Lots of static site generators are available today that make it easier to build and manage a static site. Some popular ones are [Gatsby](https://www.gatsbyjs.com/) and [Next.js](https://nextjs.org/), but there are [many, many more](https://www.staticgen.com/). 
+
+LaunchDarkly has a [plugin for Gatsby](https://www.gatsbyjs.com/plugins/gatsby-plugin-launchdarkly/?=launchdarkly) that wraps the LaunchDarkly React SDK and makes it easier to use inside a Gatsby based site.
+
+Using the LaunchDarkly Gatsby plugin is very similar to the React SDK. The only thing that differs is how you configure the client. 
+
+From `gatsby-config.js`:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'LaunchDarkly Gatsby plugin configuration', value: 'js', },
+  ]
+}>
+
+<CodeTabItem value="js">
+
+```js
+// gatsby-config.js
+...
+  plugins: [
+    ...
+    {
+      resolve: 'gatsby-plugin-launchdarkly',
+      options: {
+        clientSideID: '<your-launchdarkly-project-client-side-id>',
+        options: {
+          // any LaunchDarkly options you may want to implement
+          bootstrap: 'localstorage', // caches flag values in localstorage
+        },
+      },
+    },
+    ...
+  ]
+...
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+After it's configured, you can access all of the methods of the React SDK through `gatsby-launchdarkly-plugin`:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'How to import the LaunchDarkly SDK', value: 'js', },
+  ]
+}>
+
+<CodeTabItem value="js">
+
+```js
+// gatsby-plugin-launchdarkly exposes launchdarkly-react-client-sdk
+import { useFlags, useLDClient } from 'gatsby-plugin-launchdarkly';
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+This plugin assumes that the user viewing your site is anonymous. In this case, the LaunchDarkly SDK tracks your client so it remembers what variation of the flag the client received. This behavior happens automatically.
+
+If you have a signed-in user, you may want LaunchDarkly to know that in order to target that user with a feature. 
+
+You can do this by accessing the `ldclient` object directly:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Example with signed-in user', value: 'js', },
+  ]
+}>
+
+<CodeTabItem value="js">
+
+```js
+import React from 'react';
+import { useFlags, useLDClient } from 'gatsby-plugin-launchdarkly';
+
+const HooksDemo = () => {
+  const { someNewFeature } = useFlags();
+  const ldClient = useLDClient();
+
+  // Calling `identify` will cause the flags to be re-evaluated for the new
+  // user that's logged in. Changes in flag values will stream in and could
+  // cause your component to re-render.
+  const onLoginSuccessful = (user) => ldClient.identify({
+    key: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    anonymous: false,
+  });
+
+  return (
+    <div>{someNewFeature ? 'Flag on' : 'Flag off'}</div>
+  );
+};
+
+export default HooksDemo;
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [Gatsby plugin](https://www.gatsbyjs.com/plugins/gatsby-plugin-launchdarkly/?=launchdarkly).
+
+## Conclusion
+
+This guide shows you strategies for implementing feature flags on static sites.
+
+These strategies include:
+
+- Load and initialize the SDK as fast as possible before the initial page render (or in parallel, assuming you don't need the flag values right away).
+- Efficiently bootstrap the LaunchDarkly client with the initial flag values. 
+- Host your site from a CDN.  A CDN will bring your site closer to the user and hopefully improve your site's perceived performance.
+
+<Callout intent="primary">
+  <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+  <CalloutDescription>
+
+Your 30-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in quick start guide. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+  </CalloutDescription>
+</Callout>
