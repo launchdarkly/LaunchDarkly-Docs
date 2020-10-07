@@ -249,6 +249,10 @@
             "path": "/home/advanced/relay-proxy",
             "items": [
               {
+                "label": "Automatic configuration",
+                "path": "/home/advanced/relay-proxy/automatic-configuration"
+              },
+              {
                 "label": "Using the Relay Proxy",
                 "path": "/home/advanced/relay-proxy/using"
               },
