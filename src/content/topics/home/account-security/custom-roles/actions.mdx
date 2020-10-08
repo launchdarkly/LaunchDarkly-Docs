@@ -940,69 +940,6 @@ To learn more, read [Integrations](/integrations).
   </TableBody>
 </Table>
 
-### Relay Proxy automatic configuration actions
-
-`relay-proxy-config` is a top-level resource for which you can allow or deny certain actions. 
-
-Here is an example:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
-
-```json
-relay-proxy-config/*
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [Automatic configuration](/home/advanced/relay-proxy/automatic-configuration).
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Action</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>createRelayAutoConfiguration</code>
-      </TableCell>
-      <TableCell>Create a Relay Proxy with automatic configuration enabled</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateRelayAutoConfigurationName</code>
-      </TableCell>
-      <TableCell>Change the Relay Proxy with automatic configuration's name</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateRelayAutoConfigurationPolicy</code>
-      </TableCell>
-      <TableCell>Change the policies associated with the Relay Proxy with automatic configuration</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>deleteRelayAutoConfiguration</code>
-      </TableCell>
-      <TableCell>Delete the Relay Proxy with automatic configuration enabled</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>resetRelayAutoConfiguration</code>
-      </TableCell>
-      <TableCell>Resets the configuration of the Relay Proxy with automatic configuration enabled</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
 ### Destinations actions
 
 `destination` is a child of **both a project and environments**.
