@@ -416,6 +416,10 @@
         "path": "/integrations/new-relic",
         "items": [
           {
+            "label": "Using flag triggers with New Relic",
+            "path": "/integrations/new-relic/triggers"
+          },
+          {
             "label": "New Relic (legacy)",
             "path": "/integrations/new-relic/new-relic-legacy"
           }
