@@ -720,6 +720,10 @@
             "path": "/guides/best-practices/technical-debt"
           },
           {
+            "label": "Using entitlements to manage user experience",
+            "path": "/guides/best-practices/entitlements"
+          },
+          {
             "label": "Using feature flags on static sites",
             "path": "/guides/best-practices/using-feature-flags-on-static-sites"
           },
