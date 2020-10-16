@@ -383,7 +383,13 @@
       },
       {
         "label": "Dynatrace",
-        "path": "/integrations/dynatrace"
+        "path": "/integrations/dynatrace",
+        "items": [
+          {
+            "label": "Using flag triggers with Dynatrace",
+            "path": "/integrations/dynatrace/triggers"
+          }
+        ]
       },
       {
         "label": "Elastic (ELK) Stack",
