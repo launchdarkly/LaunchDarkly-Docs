@@ -23,6 +23,7 @@ const pageQuery = `{
         published
       }
       excerpt(pruneLength: 5000)
+      tableOfContents(maxDepth: 2)
     }
   }
   
@@ -44,11 +45,26 @@ const pageQuery = `{
 }`
 
 // Intentionally exclude root topics from search. These are compared against absolute file paths.
-const excludedPages = ['/integrations/index.mdx', '/sdk/index.mdx', '/components.mdx']
+const excludedPages = [
+  '/home/index.mdx',
+  '/integrations/index.mdx',
+  '/sdk/index.mdx',
+  '/guides/index.mdx',
+  '/components.mdx',
+]
+const excludedHeadings = [
+  'getting started',
+  'overview',
+  'prerequistites',
+  'concepts',
+  'conclusion',
+  'troubleshooting',
+  'related content',
+]
 
 const flatten = (mdx, rootTopics, secondLevelTopics) => {
   const result = []
-  mdx.forEach(({ id, fileAbsolutePath, frontmatter, excerpt }) => {
+  mdx.forEach(({ id, fileAbsolutePath, frontmatter, excerpt, tableOfContents }) => {
     const included = frontmatter.published && !excludedPages.find(p => fileAbsolutePath.includes(p))
 
     if (included) {
@@ -69,6 +85,8 @@ const flatten = (mdx, rootTopics, secondLevelTopics) => {
           displayCategoryLabel = displayCategory.label
         }
       }
+
+      // page index
       result.push({
         objectID: id,
         title,
@@ -76,7 +94,26 @@ const flatten = (mdx, rootTopics, secondLevelTopics) => {
         description,
         excerpt,
         displayCategory: displayCategoryLabel,
+        titleType: 'h1',
       })
+
+      if (tableOfContents.items) {
+        tableOfContents.items.forEach(({ url: anchor, title: heading }) => {
+          const include = !excludedHeadings.find(h => heading.toLowerCase() === h)
+          if (include) {
+            // create an index for each heading
+            result.push({
+              objectID: `${id}_${anchor}`,
+              title: heading,
+              path: `${path}${anchor}`,
+              description,
+              excerpt,
+              displayCategory: displayCategoryLabel,
+              titleType: 'h2',
+            })
+          }
+        })
+      }
     } else {
       console.log(`Excluding ${fileAbsolutePath}`)
     }
@@ -85,7 +122,12 @@ const flatten = (mdx, rootTopics, secondLevelTopics) => {
   return result
 }
 
-const settings = { attributesToSnippet: ['excerpt:40'] }
+const settings = {
+  attributesToSnippet: ['excerpt:40'],
+  customRanking: ['asc(titleType)'],
+  attributeForDistinct: 'description',
+  distinct: true,
+}
 const queries = [
   {
     query: pageQuery,
