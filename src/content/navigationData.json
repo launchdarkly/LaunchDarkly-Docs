@@ -95,6 +95,10 @@
             "path": "/home/managing-users/user-attributes"
           },
           {
+            "label": "Building synced segments",
+            "path": "/home/managing-users/synced-segments"
+          },
+          {
             "label": "Building user segments",
             "path": "/home/managing-users/segments"
           },
