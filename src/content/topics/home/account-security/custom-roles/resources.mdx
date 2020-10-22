@@ -1,30 +1,21 @@
 ---
 path: '/home/account-security/custom-roles/resources'
-title: 'Resources in custom roles'
+title: 'Using resources'
 description: 'This topic explains how custom roles use resources to create policies in LaunchDarkly.'
 published: true
 ---
 
 ## Overview
 
-This topic explains how custom roles use resources.
+This topic explains how to specify different resources to use with custom roles.
 
-Almost everything in LaunchDarkly is a resource, including:
-
-- Projects
-- Feature flags
-- Environments
-- Metrics
-- Custom roles
-
-When you change a feature flag's rollout rules, or rename an environment, you are accessing a particular resource.
+To learn more about how resources are structured within custom role policies, read [Custom role concepts](/home/account-security/custom-roles/concepts).  
 
 ## Understanding the resource specifier syntax
 
-LaunchDarkly uses a resource specifier syntax to name resources or collections of resources. This is a precise but flexible categorizing taxonomy that allows you to name any resource in a way that accurately reflects the information structures your organization uses.
+LaunchDarkly uses a resource specifier syntax to name resources or collections of resources. This is a precise, flexible taxonomy that lets you identify and control any resource in your LaunchDarkly project.
 
-The pattern looks like this:
-
+The pattern to specify a resource looks like this:
 
 <CodeTabs
   defaultValue="text"
@@ -42,8 +33,7 @@ resource-type/name;tag1,tag2
 </CodeTabItem>
 </CodeTabs>
 
-
-The example above shows two tags separated by a comma. Tags are also optional. If you don't need to use any tags, you can omit the semicolon (`;`) and all content following.
+The example above shows two tags separated by a comma. Tags are optional. If you don't need to use any tags, you can omit the semicolon (`;`) and all content following.
 
 In the example below, we create a resource that names all of the projects in an account:
 
@@ -69,8 +59,7 @@ proj/*
   <CalloutTitle>Syntax supports wildcards</CalloutTitle>
   <CalloutDescription>
 
-The resource syntax accepts globs, so you can name collections of resources with `*`. You can also name a specific
-project by ID.
+The resource syntax accepts globs and wildcards, so you can name collections of resources with `*`. You can also name a specific project by its ID.
 
   </CalloutDescription>
 </Callout> 
@@ -94,7 +83,7 @@ proj/default
 </CodeTabItem>
 </CodeTabs>
 
-You can name sets of resources all the way down to the tag level.
+You can name sets of resources down to the tag level.
 
 In the example below, we name all projects with the `mobile` tag.
 
@@ -118,9 +107,9 @@ proj/*;mobile
 
 ## Scoping resources
 
-The term scoping refers to granting or restricting permissions and access to a resource based on relationships the resource has. Resources can be scoped within parent resources.
+The term "scoping" refers to identifying resources in relation to other resources and the hieriarchy of permissions that connects them. 
 
-For example, metrics are scoped within a project, and feature flags are scoped within a project and environment.
+Resources can be scoped within parent resources. For example, metrics are scoped within a project, and feature flags are scoped within a project and environment.
 
 Name scoped resources by using the resource syntax structure depicted below.
 
@@ -161,12 +150,9 @@ proj/*:env/*:flag/*
 </CodeTabItem>
 </CodeTabs>
 
-In the example above, `proj/*:`indicates that all named projects will be included in the list of results. `env/*:` indicates that all environments will be included in the list of results. `flag/*:` indicates that all flags will be included in the list of results.
-
-Because of the range of resources referenced in this example, we can say it has very broad scope.
+In the example above, `proj/*:`includes all named projects in the list of results. `env/*:` includes all environments in the list of results. `flag/*:` includes all flags in the list of results. This example will return very broad results because of how comprehensive its permissions are.
 
 For a more refined example, we could name all feature flags whose keys start with `ops_`:
-
 
 <CodeTabs
   defaultValue="text"
@@ -185,6 +171,8 @@ proj/*:env/*:flag/ops_*
 </CodeTabs>
 
 ## Understanding resource types and scopes
+
+Here is a reference list of all the supported resources in LaunchDarkly, and their scopes:
 
 <Table>
   <TableHeader>

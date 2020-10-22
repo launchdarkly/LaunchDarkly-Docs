@@ -1,32 +1,25 @@
 ---
 path: '/home/account-security/custom-roles/actions'
-title: 'Actions in custom roles'
+title: 'Using actions'
 description: 'This topic explains how to use actions to write policies for custom roles. These actions are scoped by resource type.'
 published: true
 ---
 
 ## Overview
 
-This topic explains how to use actions to write policies for custom roles. These actions are scoped by resource type.
+This topic explains how to use actions in custom roles policies and gives a table with all supported actions and details about them.
 
-To learn more about policies in custom roles, read:
+Actions represent changes you can make to resources, such as `createFlag`, `deleteFlag`, `updateName`, and more. 
 
-- [Policies in custom roles](/home/account-security/custom-roles/policies) 
-
-- [Example policies](/home/account-security/custom-roles/example-policies) 
-
-
-Each resource has a set of actions associated with it that represent changes that you can make to that resource. For example, feature flags have actions like `createFlag`, `deleteFlag`, `updateName`, and more.
-
-Action names generally begin with `create`, `update`, or `delete`.
-
-To learn more about resources, read [Resources in custom roles](/home/account-security/custom-roles/resources).
-
-You can specify actions in bulk using glob syntax. For example, you can describe all modifications to feature flags with the action specifier `update*`.
+To learn more about how actions work within custom role policies, read [Custom role concepts](/home/account-security/custom-roles/concepts#actions).  
 
 ## Actions reference
 
-### Account actions
+These are all the actions you can take, sorted by each resource type. 
+
+You can specify actions in bulk using glob syntax and wildcards. For example, you can describe all modifications to feature flags with the action specifier `update*`.
+
+## Account actions
 
 <Table>
   <TableHeader>
@@ -48,6 +41,18 @@ You can specify actions in bulk using glob syntax. For example, you can describe
     </TableRow>
     <TableRow>
       <TableCell>
+        <code>updateBillingContact</code>
+      </TableCell>
+      <TableCell>Update the billng contact for the account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteSubscription</code>
+      </TableCell>
+      <TableCell>Cancel the account plan.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
         <code>updatePaymentCard</code>
       </TableCell>
       <TableCell>Change the credit card for the account.</TableCell>
@@ -56,14 +61,14 @@ You can specify actions in bulk using glob syntax. For example, you can describe
       <TableCell>
         <code>updateRequireMfa</code>
       </TableCell>
-      <TableCell>Change whether multi-factor authentication (MFA) is required for all users on the account</TableCell>
+      <TableCell>Change whether multi-factor authentication (MFA) is required for all users on the account.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateAccountToken</code>
       </TableCell>
       <TableCell>
-        Modify account tokens (for the{' '}
+        Reset account tokens (for the{' '}
         <a href="https://apidocs.launchdarkly.com/reference#authentication">LaunchDarkly REST API</a>).
       </TableCell>
     </TableRow>
@@ -78,26 +83,74 @@ You can specify actions in bulk using glob syntax. For example, you can describe
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateSessionRefresh</code>
+        <code>createSamlConfig</code>
       </TableCell>
-      <TableCell>Change the time a user session will remain active before the user has to re-authenticate</TableCell>
+      <TableCell>Create a new SAML configuration for the account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteSamlConfig</code>
+      </TableCell>
+      <TableCell>Delete the SAML configuration for the account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateSamlEnabled</code>
+      </TableCell>
+      <TableCell>Enable or disable SAML SSO for the account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateSamlX509Certificate</code>
+      </TableCell>
+      <TableCell>Update the SAML X509 certificate for the account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateSamlSsoUrl</code>
+      </TableCell>
+      <TableCell>Update the SAML SSO URL for the account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateSamlRequireSso</code>
+      </TableCell>
+      <TableCell>Change whether SSO must be used for authentication.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>createScimConfig</code>
+      </TableCell>
+      <TableCell>Create a new SCIM configuration for the account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteScimConfig</code>
+      </TableCell>
+      <TableCell>Delete the SCIM configuration for the account.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateSessionDuration</code>
       </TableCell>
-      <TableCell>Change whether sessions are refreshed automatically</TableCell>
+      <TableCell>Change the duration of sessions.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateSessionRefresh</code>
+      </TableCell>
+      <TableCell>Change whether sessions are refreshed automatically.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>revokeSessions</code>
       </TableCell>
-      <TableCell>Revoke all user sessions (logs out all users)</TableCell>
+      <TableCell>Revoke sessions issued before a specified date.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
 
-### Members actions
+## Members actions
 
 `member` is a top-level action. A code sample is below:
 
@@ -117,7 +170,7 @@ member/*
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [Managing teams](/home/account-security/managing-your-team).
+To learn more, read [Managing your team](/home/account-security/managing-your-team).
 
 <Table>
   <TableHeader>
@@ -129,18 +182,42 @@ To learn more, read [Managing teams](/home/account-security/managing-your-team).
       <TableCell>
         <code>createMember</code>
       </TableCell>
-      <TableCell>Add a new team member to an account</TableCell>
+      <TableCell>Add a new team member to an account.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateRole</code>
       </TableCell>
-      <TableCell>Update a team member's built-in roles (reader, writer, or admin)</TableCell>
+      <TableCell>Update a team member's built-in roles (reader, writer, or admin).</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateCustomRole</code>
+      </TableCell>
+      <TableCell>Update a team member's custom roles.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteMember</code>
+      </TableCell>
+      <TableCell>Remove a team member from an account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>sendMfaRequest</code>
+      </TableCell>
+      <TableCell>Send a team member a request to enable MFA.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>sendMfaRecoveryCode</code>
+      </TableCell>
+      <TableCell>Send a team member their MFA recovery code.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
 
-### Personal access token actions
+## Personal access token actions
 
 `token` is a child resources of **members**. A code sample is below:
 <CodeTabs
@@ -207,7 +284,7 @@ To learn more, read [API access tokens](/home/account-security/api-access-tokens
 </Table>
 
 
-### Service access token actions
+## Service access token actions
 
 `service-token` is a **top-level resource**. A code sample is below:
  
@@ -239,36 +316,36 @@ To learn more, read [API access tokens](/home/account-security/api-access-tokens
       <TableCell>
         <code>createAccessToken</code>
       </TableCell>
-      <TableCell>Create a service access token</TableCell>
+      <TableCell>Create a service access token.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateAccessTokenName</code>
       </TableCell>
-      <TableCell>Change the name of a service access token</TableCell>
+      <TableCell>Change the name of a service access token.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateAccessTokenDescription</code>
       </TableCell>
-      <TableCell>Change the description of a service access token</TableCell>
+      <TableCell>Change the description of a service access token.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteAccessToken</code>
       </TableCell>
-      <TableCell>Delete a service access token</TableCell>
+      <TableCell>Delete a service access token.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>resetAccessToken</code>
       </TableCell>
-      <TableCell>Reset a service access token's secret key</TableCell>
+      <TableCell>Reset a service access token's secret key.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
 
-### Role actions
+## Role actions
 
 `role` is a **top-level resource**. A code sample is below:
 
@@ -300,25 +377,31 @@ To learn more, read [Custom roles](/home/account-security/custom-roles).
       <TableCell>
         <code>createRole</code>
       </TableCell>
-      <TableCell>Create new custom roles</TableCell>
+      <TableCell>Create new custom roles.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updatePolicy</code>
       </TableCell>
-      <TableCell>Update a custom role's policy</TableCell>
+      <TableCell>Update a custom role's policy.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateName</code>
       </TableCell>
-      <TableCell>Update a custom role's name</TableCell>
+      <TableCell>Update a custom role's name.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateDescription</code>
+      </TableCell>
+      <TableCell>Update a custom role's description.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteRole</code>
       </TableCell>
-      <TableCell>Delete a custom role</TableCell>
+      <TableCell>Delete a custom role.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -331,7 +414,7 @@ To learn more, read [Custom roles](/home/account-security/custom-roles).
   </TableBody>
 </Table>
 
-### Project actions
+## Project actions
 
 `proj` is a **top-level resource**.
 
@@ -363,31 +446,37 @@ To learn more, read [Projects](/home/managing-flags/projects).
       <TableCell>
         <code>createProject</code>
       </TableCell>
-      <TableCell>Create a new project</TableCell>
+      <TableCell>Create a new project.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteProject</code>
       </TableCell>
-      <TableCell>Delete a project</TableCell>
+      <TableCell>Delete a project.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateProjectName</code>
       </TableCell>
-      <TableCell>Rename a project</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateIncludeInSnippetByDefault</code>
-      </TableCell>
-      <TableCell>Make new flags available to the client-side (JavaScript) SDK by default</TableCell>
+      <TableCell>Rename a project.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateTags</code>
       </TableCell>
-      <TableCell>Update tags associated with a project</TableCell>
+      <TableCell>Update tags associated with a project.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateIncludeInSnippetByDefault</code>
+      </TableCell>
+      <TableCell>Make new flags available to the client-side (JavaScript) SDK by default.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateDefaultClientSideAvailability</code>
+      </TableCell>
+      <TableCell>Change whether new feature flags are made available to client-side SDKs.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -395,15 +484,26 @@ To learn more, read [Projects](/home/managing-flags/projects).
       </TableCell>
       <TableCell>
         View a project. If set to <code>deny</code>, anyone impacted by this policy can neither view nor modify a
-        project. To learn more, read <a href="/home/account-security/custom-roles/private-projects">Configuring private projects with custom roles</a>.
+        project.
       </TableCell>
     </TableRow>
   </TableBody>
 </Table>
 
-### Environments actions
+<Callout intent="info">
+  <CalloutTitle>More information about the viewProject action</CalloutTitle>
+  <CalloutDescription>
 
-`env` is a child resources of **projects**. A code sample is below:
+The `deny` effect for your `resource` in the `viewProject` action hides the projects you specify from the member. The `allow` effect for the same resource and action pairing doesn't do anything since your team member can already see the project.
+
+To learn more, read <a href="/home/account-security/custom-roles/private-projects">Configuring private projects with custom roles</a>
+
+  </CalloutDescription>
+</Callout> 
+
+## Environments actions
+
+`env` is a child resource of **projects**. A code sample is below:
 <CodeTabs
   defaultValue="json"
   values={[
@@ -432,72 +532,78 @@ To learn more, read [Environments](/home/managing-flags/environments).
       <TableCell>
         <code>createEnvironment</code>
       </TableCell>
-      <TableCell>Create new environments</TableCell>
+      <TableCell>Create new environments.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteEnvironment</code>
       </TableCell>
-      <TableCell>Delete an existing environment</TableCell>
+      <TableCell>Delete an existing environment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateName</code>
       </TableCell>
-      <TableCell>Change the name of an environment</TableCell>
+      <TableCell>Change the name of an environment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateColor</code>
       </TableCell>
-      <TableCell>Change the color swatch for an environment</TableCell>
+      <TableCell>Change the color swatch for an environment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateTtl</code>
       </TableCell>
-      <TableCell>Change the TTL for an environment</TableCell>
+      <TableCell>Change the TTL for an environment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateApiKey</code>
       </TableCell>
-      <TableCell>Reset the API key for an environment</TableCell>
+      <TableCell>Reset the API key for an environment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateMobileKey</code>
       </TableCell>
-      <TableCell>Reset the mobile key for an environment</TableCell>
+      <TableCell>Reset the mobile key for an environment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateSecureMode</code>
       </TableCell>
-      <TableCell>Turn secure mode on or off for an environment</TableCell>
+      <TableCell>Turn secure mode on or off for an environment.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateDefaultTrackEvents</code>
+      </TableCell>
+      <TableCell>Turn on sending detailed information for new flags by default.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateTags</code>
       </TableCell>
-      <TableCell>Update tags associated with an environment</TableCell>
+      <TableCell>Update tags associated with an environment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateRequireComments</code>
       </TableCell>
-      <TableCell>Require comments for changes to flags and segments</TableCell>
+      <TableCell>Require comments for changes to flags and segments.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateConfirmChanges</code>
       </TableCell>
-      <TableCell>Require environment confirmation for changes to flags and segments</TableCell>
+      <TableCell>Require environment confirmation for changes to flags and segments.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
 
-### Metrics actions
+## Metrics actions
 
 <Callout intent="info">
   <CalloutTitle>The name of this action has changed</CalloutTitle>
@@ -539,54 +645,84 @@ To learn more, read [Experimentation introduction](/home/experimentation).
       <TableCell>
         <code>createMetric</code>
       </TableCell>
-      <TableCell>Create metrics</TableCell>
+      <TableCell>Create metrics.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteMetric</code>
       </TableCell>
-      <TableCell>Delete metrics</TableCell>
+      <TableCell>Delete metrics.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateKey</code>
+        <code>updateEventKey</code>
       </TableCell>
-      <TableCell>Update keys for custom metrics</TableCell>
+      <TableCell>Change the event key for a custom metric.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateName</code>
       </TableCell>
-      <TableCell>Update metrics names</TableCell>
+      <TableCell>Update metric's names.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateDescription</code>
       </TableCell>
-      <TableCell>Update metrics descriptions</TableCell>
+      <TableCell>Update metric's descriptions.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateUrls</code>
       </TableCell>
-      <TableCell>Update the URLs for a click or page view metric</TableCell>
+      <TableCell>Update the URLs for a click or page view metric.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateSelector</code>
       </TableCell>
-      <TableCell>Update the CSS selector for a click metric</TableCell>
+      <TableCell>Update the CSS selector for a click metric.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateOptimizelyMetrics</code>
+        <code>updateOn</code>
       </TableCell>
-      <TableCell>Update Optimizely metrics</TableCell>
+      <TableCell>Mark a metric as active or inactive.</TableCell>
+    </TableRow>
+      <TableRow>
+      <TableCell>
+        <code>updateTags</code>
+      </TableCell>
+      <TableCell>Change the tags associated with a metric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateNumeric</code>
+      </TableCell>
+      <TableCell>Mark a custom metric as numeric or non-numeric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateNumericUnit</code>
+      </TableCell>
+      <TableCell>Update the unit displayed in results for a numeric custom metric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateNumericSuccess</code>
+      </TableCell>
+      <TableCell>Update the success criteria for a numeric custom metric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateMaintainer</code>
+      </TableCell>
+      <TableCell>Change the metric's maintainer.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
 
-### Feature flags actions
+## Feature flags actions
 
 `flag` is a child of **both a project and environments**. A code sample is below:
 
@@ -671,6 +807,12 @@ To learn more, read [Creating a feature flag](/home/getting-started/feature-flag
     </TableRow>
     <TableRow>
       <TableCell>
+        <code>updateClientSideFlagAvailability</code>
+      </TableCell>
+      <TableCell>Change whether the feature flag is available to client-side SDKs.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
         <code>updateTemporary</code>
       </TableCell>
       <TableCell>Marks a flag temporary or permanent. Impacts all environments in a project.</TableCell>
@@ -691,7 +833,7 @@ To learn more, read [Creating a feature flag](/home/getting-started/feature-flag
       <TableCell>
         <code>updateTargets</code>
       </TableCell>
-      <TableCell>Update individual user targeting.</TableCell>
+      <TableCell>Update individual user targeting rules.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -725,6 +867,12 @@ To learn more, read [Creating a feature flag](/home/getting-started/feature-flag
     </TableRow>
     <TableRow>
       <TableCell>
+        <code>updateFlagDefaultVariations</code>
+      </TableCell>
+      <TableCell>Change the default flag variations used by newly created environments for a feature flag.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
         <code>updateAttachedMetrics</code>
       </TableCell>
       <TableCell>Update metrics connected to a flag (start or pause an experiment).</TableCell>
@@ -737,15 +885,117 @@ To learn more, read [Creating a feature flag](/home/getting-started/feature-flag
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateVariations</code>
+        <code>createExperiment</code>
       </TableCell>
-      <TableCell>Update percentage rollout variations</TableCell>
+      <TableCell>Create an experiment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateFlagDefaultVariations</code>
+        <code>deleteExperiment</code>
       </TableCell>
-      <TableCell>Change the default flag variations new environments.</TableCell>
+      <TableCell>Delete an experiment.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteExperimentResults</code>
+      </TableCell>
+      <TableCell>Delete experiment results.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateExperimentActive</code>
+      </TableCell>
+      <TableCell>Start or stop an experiment in an environment.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateExperimentBaseline</code>
+      </TableCell>
+      <TableCell>Change a flag's baseline variation for experiments.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAttachedGoals</code>
+      </TableCell>
+      <TableCell>Start or stop an A/B testing experiment.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteFlagAttachedGoalResults</code>
+      </TableCell>
+      <TableCell>Reset the experiment results for a flag in a given environment.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>copyFlagConfigFrom</code>
+      </TableCell>
+      <TableCell>Copy settings from a feature flag.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>copyFlagConfigTo</code>
+      </TableCell>
+      <TableCell>Copy settings to a feature flag.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFlagSalt</code>
+      </TableCell>
+      <TableCell>Update a feature flag's salt.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTrackEvents</code>
+      </TableCell>
+      <TableCell>Change whether to send detailed event information for a flag in a given environment.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFlagFallthroughTrackEvents</code>
+      </TableCell>
+      <TableCell>Change whether to send detailed event information for a flag in a given environment when the fallthrough variation was selected.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateGlobalArchived</code>
+      </TableCell>
+      <TableCell>Change whether a flag is archived.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateExpiringRules</code>
+      </TableCell>
+      <TableCell>Change a flag's expiring custom targeting rules.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateExpiringTargets</code>
+      </TableCell>
+      <TableCell>Change a flag's expiring individual user targeting rules.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFeatureWorkflows</code>
+      </TableCell>
+      <TableCell>Change a flag's feature workflows.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateScheduledChanges</code>
+      </TableCell>
+      <TableCell>Change the scheduled updates on a feature flag.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTriggers</code>
+      </TableCell>
+      <TableCell>Manage trigger configurations.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>viewFlagStatus</code>
+      </TableCell>
+      <TableCell>View a flag's status in an environment.</TableCell>
     </TableRow>
         <TableRow>
       <TableCell>
@@ -758,7 +1008,7 @@ To learn more, read [Creating a feature flag](/home/getting-started/feature-flag
   </TableBody>
 </Table>
 
-### Segments actions
+## Segments actions
 
 `segment` is a child of **both a project and environments**. A code sample is below:
 
@@ -780,7 +1030,104 @@ proj/*:env/*:segment/*
 
 To learn more, read [Building user segments](/home/managing-users/segments).
 
-### Webhooks actions
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createSegment</code>
+      </TableCell>
+      <TableCell>
+        Create new segments.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteSegment</code>
+      </TableCell>
+      <TableCell>
+        Delete segments.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateName</code>
+      </TableCell>
+      <TableCell>
+        Rename a segment.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateDescription</code>
+      </TableCell>
+      <TableCell>
+        Update a segment's description.
+      </TableCell>
+    </TableRow>
+     <TableRow>
+      <TableCell>
+        <code>updateTags</code>
+      </TableCell>
+      <TableCell>
+        Change the tags associated with a segment.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateIncluded</code>
+      </TableCell>
+      <TableCell>
+        Change a segment's included users.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateExcluded</code>
+      </TableCell>
+      <TableCell>
+        Change a segment's excluded users.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateRules</code>
+      </TableCell>
+      <TableCell>
+        Change a segment's custom targeting rules.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateExpiringRules</code>
+      </TableCell>
+      <TableCell>
+        Change a segment's expiring custom targeting rules.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateExpiringTargets</code>
+      </TableCell>
+      <TableCell>
+        Change a segment's expiring individual user targeting rules.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateScheduledChanges</code>
+      </TableCell>
+      <TableCell>
+        Change the scheduled updates on a segment.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+## Webhooks actions
 
 `webhook` is a **top-level resource**. A code sample is below:
 
@@ -834,6 +1181,14 @@ To learn more, read [Webhooks](/integrations/webhooks).
     </TableRow>
     <TableRow>
       <TableCell>
+        <code>updateUrl</code>
+      </TableCell>
+      <TableCell>
+        Change the URL for a webhook.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
         <code>updateSecret</code>
       </TableCell>
       <TableCell>
@@ -856,18 +1211,10 @@ To learn more, read [Webhooks](/integrations/webhooks).
         Enable and disabled existing webhooks.
       </TableCell>
     </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTags</code>
-      </TableCell>
-      <TableCell>
-        Modify webhook resource tabs.
-      </TableCell>
-    </TableRow>
   </TableBody>
 </Table>
 
-### Integrations actions
+## Integrations actions
 
 Most third-party integrations use a shared set of custom role actions.
 
@@ -940,7 +1287,7 @@ To learn more, read [Integrations](/integrations).
   </TableBody>
 </Table>
 
-### Relay Proxy automatic configuration actions
+## Relay Proxy automatic configuration actions
 
 `relay-proxy-config` is a top-level resource for which you can allow or deny certain actions. 
 
@@ -1025,7 +1372,56 @@ proj/*:env/*:destination/*
 
 To learn more, read [Data Export](/integrations/data-export).
 
-### Code references actions
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createDestination</code>
+      </TableCell>
+      <TableCell>
+        Create a new data export destination.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteDestination</code>
+      </TableCell>
+      <TableCell>
+        Delete a data export destination.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateConfiguration</code>
+      </TableCell>
+      <TableCell>
+        Change a data export destination.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateOn</code>
+      </TableCell>
+      <TableCell>
+        Flip the on/off status of a data export destination.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateName</code>
+      </TableCell>
+      <TableCell>
+        Rename a data export destination.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+## Code references actions
 
 `code-reference-repository` is a **top-level resource**. A code sample is below:
 
@@ -1047,6 +1443,63 @@ code-reference-repository/*
 
 To learn more, read [Code references](/integrations/code-references).
 
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createCodeRefsRepository</code>
+      </TableCell>
+      <TableCell>
+        Connect a Git repository.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateCodeRefsRepositoryName</code>
+      </TableCell>
+      <TableCell>
+        Update a Git repository connection name.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateCodeRefsRepositoryConfiguration</code>
+      </TableCell>
+      <TableCell>
+        Update a Git repository connection configuration.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>UpdateCodeRefsRepositoryOn</code>
+      </TableCell>
+      <TableCell>
+        Flip the on/off status of a Git repository connection.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateCodeRefsRepositoryBranches</code>
+      </TableCell>
+      <TableCell>
+        Update the stored branch data for a Git repository connection.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteCodeRefsRepository</code>
+      </TableCell>
+      <TableCell>
+        Delete a Git repository connection.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
 <Callout intent="alert">
   <CalloutTitle>Optimizely API Tokens</CalloutTitle>
   <CalloutDescription>
@@ -1057,7 +1510,7 @@ For customers with A/B testing, a special resource `integration/optimizely` in c
   </CalloutDescription>
 </Callout> 
 
-### Users actions
+## Users actions
 
 `user` is a child of **both a project and environments**. A code sample is below:
 
@@ -1078,3 +1531,21 @@ proj/*:env/*:user/*
 </CodeTabs>
 
 To learn more, read [The user dashboard](/home/managing-users/users-dashboard).
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>deleteUser</code>
+      </TableCell>
+      <TableCell>
+        Delete a user.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
