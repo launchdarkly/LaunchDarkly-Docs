@@ -95,6 +95,10 @@
             "path": "/home/managing-users/user-attributes"
           },
           {
+            "label": "Building synced segments",
+            "path": "/home/managing-users/synced-segments"
+          },
+          {
             "label": "Building user segments",
             "path": "/home/managing-users/segments"
           },
@@ -122,27 +126,31 @@
             "path": "/home/account-security/custom-roles",
             "items": [
               {
-                "label": "Configuring custom roles",
-                "path": "/home/account-security/custom-roles/configure"
+                "label": "Custom role concepts",
+                "path": "/home/account-security/custom-roles/concepts"
               },
               {
-                "label": "Resources in custom roles",
-                "path": "/home/account-security/custom-roles/resources"
+                "label": "Creating custom roles and policies",
+                "path": "/home/account-security/custom-roles/create"
               },
               {
-                "label": "Tags in custom roles",
-                "path": "/home/account-security/custom-roles/tags"
-              },
-              {
-                "label": "Actions in custom roles",
+                "label": "Using actions",
                 "path": "/home/account-security/custom-roles/actions"
               },
               {
-                "label": "Policies in custom roles",
+                "label": "Using resources",
+                "path": "/home/account-security/custom-roles/resources"
+              },
+              {
+                "label": "Using policies",
                 "path": "/home/account-security/custom-roles/policies"
               },
               {
-                "label": "Example policies",
+                "label": "Using tags",
+                "path": "/home/account-security/custom-roles/tags"
+              },
+              {
+                "label": "Example policies and templates",
                 "path": "/home/account-security/custom-roles/example-policies"
               },
               {

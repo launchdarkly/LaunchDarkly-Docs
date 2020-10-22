@@ -71,7 +71,7 @@ If the SDK you're using loses the connection with LaunchDarkly, your feature fla
 
 By default, an SDK initializes with an empty state. When the SDK first initializes, it opens a streaming connection to LaunchDarkly. The response from LaunchDarkly contains the SDKs' current state, which your SDK uses to make any necessary changes to feature flag. After the initial update, the SDK keeps a streaming connection open to LaunchDarkly. If you make a change in the LaunchDarkly dashboard or with the REST API, LaunchDarkly sends these changes to all connected SDKs automatically.
 
-If the SDK ever loses connectivity to LaunchDarkly, it continues to try to establish a streaming connection until it succeeds. If you evaluate a flag before the SDK receives its initial state, or you try to fetch a flag which otherwise doesn't exist, then the SDK returns a fallback value you can specify in the flag's settings.
+If the SDK ever loses connectivity to LaunchDarkly, it continues to try to establish a streaming connection until it succeeds. If you evaluate a flag before the SDK receives its initial state, or you try to fetch a flag which otherwise doesn't exist, then the SDK returns a fallback value which you can specify in your flag evaluation code.
 
 All SDKs provide synchronous and asynchronous ways of waiting for the SDKs state to initialize.
 
