@@ -631,14 +631,14 @@ The `identify` call will load any saved flag values for the new user and immedia
 
 ## Real-Time Updates
 
-LaunchDarkly manages all flags for a user context in real-time by polling flags based on a real-time event stream. When a flag is modified from the LaunchDarkly dashboard, the flag values for the current user will update almost immediately. The default SDK configuration has been found to be the best combination of low latency updates and minimal battery drain:
+The SDK maintains what variations a user should receive locally im cache. when evaluating flags, the SDK evaluates them based on what it has cached locally. To keep the local cache in sync with your flag configurations in LaunchDarkly the SDK uses both a streaming strategy and a polling strategy. The SDK is highly configurable, but the default SDK configuration has been found to be the best combination of low latency updates, minimal data usage, and minimal battery drain. Here is the default behavior:
 
-1. When the app is foregrounded a [Server-Sent Events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection is made to LaunchDarkly. This streaming connection stays open as long as your app is in the foreground and is connected to the internet.
-2. When the app is backgrounded, the stream connection is terminated and the SDK will poll (with caching) for flag updates every hour (configurable).
-4. When the app is foregrounded, we reconnect to the stream which sends the latest flag values.
-5. In either the foreground or background, we don't try to update unless your device has internet connectivity.
+1. When the app is foregrounded a [Server-Sent Events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection is opened to LaunchDarkly. The initial payload from the streaming connection contains the variations your user receives. This streaming connection stays open and idles unless there are updates. This requires minimal data and battery to maintain. The streaming connection stays open as long as your app is in the foreground and is connected to the internet.
+2. When the app is backgrounded, the stream connection terminates. The SDK polls for flag updates every hour (or another interval you configure) to stay in sync. This strategy has higher latency, but optimizes battery and data usage.
+4. When the app is foregrounded, the SDK reconnects to the stream which sends the latest flag values.
+5. When streaming, the SDK actively monitors the network availability. It avoids requests when the network is unavailable, and reconnects when the network becomes available again. When polling, the SDK checks for network connectivity at the current polling interval, only making the request if the check succeeds. When it reconnects, it automatically syncs its local cache with LaunchDarkly.
 
-This configuration means that you will get near real-time updates for your feature flag values when the app is in the foreground. See the "customizing your client" section above for information on how to change your configuration.
+This configuration means that you will get near real-time updates for your feature flag values when the app is in the foreground, and maximum efficiency when backgrounded. See the "customizing your client" section above for information on how to change your configuration.
 
 To perform real-time updates in your app, your app will need to register listeners to be notified of changes to a flag's value when it is updated:
 
