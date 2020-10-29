@@ -38,6 +38,7 @@ An example is depicted below for some of LaunchDarkly's SDKs:
     { label: 'Android', value: 'android', },
     { label: 'iOS (Swift)', value: 'swift', },
     { label: 'React Native', value: 'react-native', },
+    { label: 'Flutter', value: 'dart', },
   ]
 }>
 
@@ -198,7 +199,7 @@ Integer index = detail.getVariationIndex();   // may be null
 EvaluationReason reason = detail.getReason(); // will always be present
 ```
 
-*To learn more, read [`EvaluationDetail`](https://javadoc.io/static/com.launchdarkly/launchdarkly-android-client-sdk/2.12.0/com/launchdarkly/android/EvaluationDetail.html), [`boolVariationDetail`](https://javadoc.io/static/com.launchdarkly/launchdarkly-android-client-sdk/2.12.0/com/launchdarkly/android/LDClient.html#boolVariationDetail-java.lang.String-java.lang.Boolean-).*
+*To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/android/EvaluationDetail.html), [`boolVariationDetail`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/android/LDClient.html#boolVariationDetail-java.lang.String-java.lang.Boolean-).*
 
 </CodeTabItem>
 <CodeTabItem value="swift">
@@ -225,6 +226,21 @@ const reason = detail.reason; // may be null
 ```
 
 *To learn more, read [`LDEvaluationDetail`](https://launchdarkly.github.io/react-native-client-sdk/index.html#ldevaluationdetail), [`boolVariationDetail`](https://launchdarkly.github.io/react-native-client-sdk/classes/_launchdarkly_react_native_client_sdk_.ldclient.html#boolvariationdetail).*
+
+</CodeTabItem>
+<CodeTabItem value="dart">
+
+```dart
+LDEvaluationDetail<bool> detail =
+  await LDClient.boolVariationDetail("flag-key", false);
+  // or stringVariationDetail for a string-valued flag, etc.
+
+bool value = detail.value;
+int index = detail.variationIndex;
+LDEvaluationReason reason = detail.reason;
+```
+
+*To learn more, read [LDEvaluationDetail`](https://launchdarkly.github.io/flutter-client-skd/launchdarkly_flutter_client_sdk/LDEvaluationDetail-class.html), [`boolVariationDetail`](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDClient/boolVariationDetail.html).*
 
 </CodeTabItem>
 </CodeTabs>
@@ -315,6 +331,7 @@ Here is an example of how you could access the details of a reason object in som
     { label: 'Node.js or JS', value: 'node', },
     { label: 'PHP', value: 'php', },
     { label: 'Android', value: 'android', },
+    { label: 'Flutter', value: 'dart', },
   ]
 }>
 
@@ -570,6 +587,38 @@ void printReason(EvaluationReason reason) {
 ```
 
 *To learn more, read [`EvaluationReason`](https://javadoc.io/static/com.launchdarkly/launchdarkly-android-client-sdk/2.12.0/com/launchdarkly/android/EvaluationReason.html).*
+
+</CodeTabItem>
+<CodeTabItem value="dart">
+
+```dart
+void printReason(LDEvaluationReason reason) {
+  switch (reason.kind) {
+    case LDKind.OFF:
+      print("it's off");
+      break;
+    case LDKind.FALLTHROUGH:
+      print('fell through');
+      break;
+    case LDKind.TARGET_MATCH:
+      print('targeted');
+      break;
+    case LDKind.RULE_MATCH:
+      print('matched rule: ${reason.ruleIndex} ${reason.ruleId}');
+      break;
+    case LDKind.PREREQUISITE_FAILED:
+      print('prereq failed: ${reason.prerequisiteKey}');
+      break;
+    case LDKind.ERROR:
+      print('error: ${reason.errorKind}');
+      break;
+    default: // LDKind.UNKNOWN
+      print('unknown service kind');
+  }
+}
+```
+
+*To learn more, read [`LDEvaluationReason`](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDEvaluationDetail-class.html).*
 
 </CodeTabItem>
 </CodeTabs>

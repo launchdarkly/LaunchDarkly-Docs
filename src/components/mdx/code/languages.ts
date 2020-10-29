@@ -13,7 +13,9 @@ export type LanguageName =
   | 'php'
   | 'c'
   | 'cpp'
+  | 'dart'
   | 'json'
+  | 'yaml'
   | 'text'
 
 export const languageDisplay: { [key in LanguageName]: string } = {
@@ -31,6 +33,8 @@ export const languageDisplay: { [key in LanguageName]: string } = {
   python: 'Python',
   objectivec: 'iOS Objective-C',
   swift: 'iOS Swift',
+  dart: 'Dart',
   json: 'JSON',
+  yaml: 'YAML',
   text: 'Text',
 }

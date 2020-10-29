@@ -568,6 +568,10 @@
             "path": "/sdk/client-side/electron"
           },
           {
+            "label": "Flutter SDK reference",
+            "path": "/sdk/client-side/flutter"
+          },
+          {
             "label": "iOS SDK reference",
             "path": "/sdk/client-side/ios",
             "items": [
