@@ -22,7 +22,7 @@ The C / C++ SDK supports Windows and POSIX environments (Linux, OSX, BSD). The n
 
 ## Getting started
 
-Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your C application.
+Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your C application.
 
 The C/C++ SDK has no installation steps. To get started, clone [the GitHub repository](https://github.com/launchdarkly/c-client-sdk) or download a release archive from the [GitHub Releases](https://github.com/launchdarkly/c-client-sdk/releases) page. This project utilizes `cmake` for cross platform builds.
 The build system expects `libpthread` (if on POSIX), and `libcurl` are installed on the system. The cmake configuration exports the target `ldclientapi`. If you are not utilizing cmake in your own project, and you cannot use our artifacts, you should `cmake install` the SDK to a directory of your choice. This will copy the required headers, and binaries equivalent to our release bundles.

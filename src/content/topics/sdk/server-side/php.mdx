@@ -14,7 +14,7 @@ This reference guide documents all of the methods available in our PHP SDK, and 
 
 ## Getting started
 
-Building on top of our [Getting Started guide](/home/getting-started) guide, the following steps will get you started with using the LaunchDarkly SDK in your PHP application.
+Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your PHP application.
 
 The first step is to install [Composer](https://getcomposer.org/) and the LaunchDarkly SDK as a dependency in your application. Refer to the [SDK releases page](https://github.com/launchdarkly/php-server-sdk/releases) to identify the latest version if you want to depend on a specific version.
 
@@ -94,7 +94,7 @@ if ($client->variation("your.flag.key", $user)) {
 
 That's all!
 
-You may remember from our [Getting Started guide](/home/getting-started) guide that users should be sure to shut down the LaunchDarkly client on application termination. This step does not exist in PHP because the PHP SDK does not maintain long-lived network connections nor an event queue.
+You may remember from our [Getting Started guide](/home/getting-started) that users should be sure to shut down the LaunchDarkly client on application termination. This step does not exist in PHP because the PHP SDK does not maintain long-lived network connections nor an event queue.
 
 ## Fetching Flags
 
