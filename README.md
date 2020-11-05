@@ -33,7 +33,7 @@ If you want to write a good PR, here are some resources to get you started:
 
 ## 🚴 Running the docs site locally
 
-Our site runs with [Gatsby](https://www.gatsbyjs.org/), [NPM](https://www.npmjs.com/), and [Yarn](https://classic.yarnpkg.com/en/). To run the site on your local machine, you may have to install some packages and dependendies.
+Our site runs with [Gatsby](https://www.gatsbyjs.org/), [NPM](https://www.npmjs.com/), and [Yarn](https://classic.yarnpkg.com/en/). To run the site on your local machine, you may have to install some packages and dependencies.
 
 Here's how to start:
 
@@ -47,7 +47,7 @@ yarn && yarn start
 
 The site will build. Monitor the progress in your terminal, and when the build completes, navigate to [localhost:8000](http://localhost:8000).
 
-You can also run in a `fast` development mode which omits all mdx images and most mdx content except for getting-started, managin-flags and managing-users:
+You can also run in a `fast` development mode which omits all mdx images and most mdx content except for getting-started, managing-flags and managing-users:
 
 ```shell
 yarn && yarn dev-fast
