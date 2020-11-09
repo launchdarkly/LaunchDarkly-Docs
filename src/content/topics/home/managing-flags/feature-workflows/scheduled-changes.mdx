@@ -1,28 +1,22 @@
 ---
-path: '/home/managing-flags/feature-workflows'
-title: 'Feature Workflows'
-description: '.'
+path: '/home/managing-flags/feature-workflows/scheduled-changes'
+title: 'Scheduled flag changes'
+description: 'This topic explains how to schedule flag changes to take effect at a date in the future.'
 published: true
 ---
 
 <Callout intent="info">
-<CalloutTitle>Feature Workflows is an Enterprise feature</CalloutTitle>
+<CalloutTitle>Scheduled flag changes is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-Feature Workflows is only available to customers on Enterprise plans. To learn more about our plans, [read about our pricing](https://launchdarkly.com/pricing). To upgrade your account to an Enterprise plan, [contact our Sales team](mailto:sales@launchdarkly.com).
+This feature is only available to customers on Enterprise plans. To learn more about our plans, [read about our pricing](https://launchdarkly.com/pricing). To upgrade your account to an Enterprise plan, [contact our Sales team](mailto:sales@launchdarkly.com).
 
 </CalloutDescription>
 </Callout>
 
 ## Overview
 
-With Feature Workflows, you can elevate your use of feature flags by creating complex workflows within LaunchDarkly. Workflows map to how your teams build, ship, and control software. You can also define custom release strategies that seamlessly integrate LaunchDarkly with your organization’s existing tools and processes, so every team can benefit from better feature management.
-
-Feature workflows start with three powerful building blocks: **Scheduling**, **Approvals**, and **Flag triggers**. 
-
-![A graphic representing the three core capabilities of Feature Workflows.](../../images/workflows-core-capabilities.png)
-
-## Scheduling flag changes
+This topic explains how to schedule flag changes to take effect at a date in the future.
 
 Scheduling flag changes allows you to define and schedule changes to your flag’s targeting rules for future points in time. While this sounds simple, it unlocks the potential to create a progressive delivery strategy by scheduling the incremental steps to release your feature to 100% of your user base.
 
@@ -151,10 +145,4 @@ Here is an example showing how you can schedule your flag to turn `off` for an h
 
 ![A GIF of the workflow.](../../images/workflows-off.gif)
 
-This workaround lets you schedule changes to your flag that are not different from the flag's current state. This is useful to help schedule changes that restore the flag’s state after an interval. 
-
-## Feedback
-
-Our team continues to work on and build the other components of Feature Workflows, specifically **Approvals** and **Flag Triggers**. 
-
-As part of the [Early Access Program](https://docs.google.com/forms/d/e/1FAIpQLScJ5qCC_RZTW9pPSXVZk9HaKzpltNAeoQb2t6gh7dLicwQWQQ/viewform), we're actively looking for feedback. If you’re interested in providing input for any of these features, email us at feedback@launchdarkly.com
+This workaround lets you schedule changes to your flag that are not different from the flag's current state. This is useful to help schedule changes that restore the flag’s state after an interval.
