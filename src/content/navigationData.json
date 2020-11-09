@@ -44,8 +44,18 @@
             "path": "/home/managing-flags/flag-archive-delete"
           },
           {
-            "label": "Feature Workflows",
-            "path": "/home/managing-flags/feature-workflows"
+            "label": "Feature workflows",
+            "path": "/home/managing-flags/feature-workflows",
+            "items": [
+              {
+                "label": "Approval workflows",
+                "path": "/home/managing-flags/feature-workflows/approvals"
+              },
+              {
+                "label": "Scheduled flag changes",
+                "path": "/home/managing-flags/feature-workflows/scheduled-changes"
+              }
+            ]
           },
           {
             "label": "Projects",
