@@ -1,5 +1,5 @@
 ---
-path: '/home/advanced/relay-proxy/automatic-configuration'
+path: '/home/advanced/relay-proxy-enterprise/automatic-configuration'
 title: 'Automatic configuration'
 description: 'This topic explains how to set up the Relay Proxy''s automatic configuration feature. This feature is for customers on Enterprise plans.'
 published: true
@@ -13,7 +13,7 @@ This topic explains how to set up the Relay Proxy's automatic configuration feat
 <CalloutTitle>This is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-The LaunchDarkly Relay Proxy automatic configuration feature is only available for customers on an Enterprise plan. To enable it on your plan, contact [Sales](mailto:sales@launchdarkly.com).
+The Relay Proxy automatic configuration feature is only available for customers on an Enterprise plan. To enable it on your plan, [contact Sales](mailto:sales@launchdarkly.com).
 
 </CalloutDescription>
 </Callout>
@@ -45,7 +45,7 @@ Enabling automatic configuration is a two-step process. These steps appear in de
 
 You must:
 
-1. Create a LaunchDarkly Relay Proxy configuration in the [Relay Proxy section](https://app.launchdarkly.com/settings/relay) of the Account Settings page and save its unique key.
+1. Create a Relay Proxy configuration in the [Relay Proxy section](https://app.launchdarkly.com/settings/relay) of the **Account Settings** page and save its unique key.
 2. Configure your Relay Proxy instance to use the unique key from the prior step. You may do so either as a property in your Relay Proxy configuration file or as an environment variable.
 
 <Callout intent="alert">
@@ -78,12 +78,10 @@ Here's how to create a Relay Proxy configuration in the LaunchDarkly UI:
 
 Next you must specify the key in a Relay Proxy configuration file so it includes the configuration you created.
 
-1. Open your Relay Proxy configuration file.
-2. Configure your Relay Proxy to use your new key.
- * If configured with a configuration file, specify the Relay Proxy key in an `AutoConfig` section as the `key` property.
- * If configured with environment variables, specify the Relay Proxy key with the `AUTO_CONFIG_KEY` environment variable.
-3. Save your configuration file.
-4. Start the Relay Proxy. 
+1. Configure your Relay Proxy to use your new key.
+ * If you configured the Relay Proxy with a configuration file, specify the Relay Proxy key in an `AutoConfig` section as the `key` property and save.
+ * If configured the Relay Proxy with environment variables, specify the Relay Proxy key with the `AUTO_CONFIG_KEY` environment variable.
+2. Start the Relay Proxy. 
 
 From now on, the Relay Proxy will respond automatically to the project and environment state changes you specified.
 

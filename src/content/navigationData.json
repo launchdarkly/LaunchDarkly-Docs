@@ -263,13 +263,9 @@
         "svg": "atom",
         "items": [
           {
-            "label": "The LaunchDarkly Relay Proxy",
+            "label": "The Relay Proxy",
             "path": "/home/advanced/relay-proxy",
             "items": [
-              {
-                "label": "Automatic configuration",
-                "path": "/home/advanced/relay-proxy/automatic-configuration"
-              },
               {
                 "label": "Using the Relay Proxy",
                 "path": "/home/advanced/relay-proxy/using"
@@ -281,6 +277,20 @@
               {
                 "label": "Testing Relay Proxy performance",
                 "path": "/home/advanced/relay-proxy/performance"
+              }
+            ]
+          },
+          {
+            "label": "Relay Proxy Enterprise",
+            "path": "/home/advanced/relay-proxy-enterprise",
+            "items": [
+              {
+                "label": "Automatic configuration",
+                "path": "/home/advanced/relay-proxy-enterprise/automatic-configuration"
+              },
+              {
+                "label": "Offline mode",
+                "path": "/home/advanced/relay-proxy-enterprise/offline"
               }
             ]
           },

@@ -1,4 +1,16 @@
 module.exports = [
+  // Redirects within the git-gatsby docs site
+
+  {
+    fromPath: '/home/advanced/relay-proxy/automatic-configuration',
+    toPath: '/home/advanced/relay-proxy-enterprise/automatic-configuration',
+  },
+  {
+    fromPath: '/home/advanced/relay-proxy/offline',
+    toPath: '/home/advanced/relay-proxy-enterprise/offline',
+  },
+
+  // Redirects from the readme-hosted docs site
   {
     fromPath: '/',
     toPath: '/home',

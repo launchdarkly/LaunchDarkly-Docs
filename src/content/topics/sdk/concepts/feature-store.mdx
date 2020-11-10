@@ -229,7 +229,7 @@ This is harmless, but it is inefficient, so you may want to use a persistent fea
 
 This is similar to the previous configuration, except that the SDK does not connect to LaunchDarkly at all. Instead, it relies on some other process which _does_ have a LaunchDarkly connection to write the latest flag data to the database, where the SDK will then read it.
 
-The other process could be the LaunchDarkly Relay Proxy, or any other application that creates a SDK client with the same persistent store. To learn more about the Relay Proxy, read [The LaunchDarkly Relay Proxy](/home/advanced/relay-proxy).
+The other process could be the Relay Proxy, or any other application that creates a SDK client with the same persistent store. To learn more about the Relay Proxy, read [The Relay Proxy](/home/advanced/relay-proxy).
 
 Since the Relay Proxy is also known as the *L*aunch*D*arkly *D*aemon, some versions of the SDKs refer to this mode as "LDD mode." Creating the client is the same as above in terms of specifying the persistent store, but you must also add an option to make the SDK _not_ connect to LaunchDarkly.
 

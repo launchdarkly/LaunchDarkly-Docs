@@ -350,7 +350,7 @@ The client constructor takes a configuration object as an optional parameter. In
         <code>bool</code>
       </TableCell>
       <TableCell>
-        Whether you are using the LaunchDarkly relay proxy in daemon mode. In this configuration, the client will not
+        Whether you are using the Relay proxy in daemon mode. In this configuration, the client will not
         use a streaming connection to listen for updates, but instead will get feature state from a Redis instance. The
         stream <code>poll_interval</code> options will be ignored if this option is set to true.
       </TableCell>
@@ -732,7 +732,7 @@ ld_client.variation("any.feature.flag", user, false) # will always return the de
 
 ## Proxy configuration
 
-The Ruby SDK uses the standard Ruby mechanism for specifying an HTTP/HTTPS proxy: set the environment variable `HTTPS_PROXY` or `HTTP_PROXY` to the URL of the proxy server. All LaunchDarkly services use HTTPS, so `HTTPS_PROXY` is the variable to set unless you are configuring the SDK to use a custom service URL that is not secure, such as a LaunchDarkly Relay Proxy instance within your private network.
+The Ruby SDK uses the standard Ruby mechanism for specifying an HTTP/HTTPS proxy: set the environment variable `HTTPS_PROXY` or `HTTP_PROXY` to the URL of the proxy server. All LaunchDarkly services use HTTPS, so `HTTPS_PROXY` is the variable to set unless you are configuring the SDK to use a custom service URL that is not secure, such as a Relay Proxy instance within your private network.
 
 ## Close
 
