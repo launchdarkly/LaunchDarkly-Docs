@@ -102,14 +102,13 @@ The inline policy editor is an advanced editor you can use to specify precise in
 
 To learn more about the advanced editor, read [Writing policies in the advanced editor](/home/account-security/custom-roles/policies#writing-policies-in-the-advanced-editor).
 
-## Updating the Relay Proxy in offline mode
+## Updating flag rules in offline mode
 
-After you configure the Relay Proxy to run in offline mode, you do not need to connect to a network to update it. If your flag rules change, you can update the Relay Proxy by re-downloading the flag rules file and updating it in your Relay Proxy configuration.
+After you configure the Relay Proxy to run in offline mode, you do not need to connect to a network to update flag rules. If your flag rules change, you can update the Relay Proxy by re-downloading the flag rules file and updating it on your filesystem.
 
 To update the Relay Proxy in offline mode:
 
 1. Make a request to `https://sdk.launchdarkly.com/relay/latest-all` to generate a file containing all your flag rules.
-2. Copy that file to your local host.
-3. Open the Relay Proxy configuration file and configure it to read the file you saved.
+2. Replace the existing file on the Relay Proxy's filesystem with the newly-generated file. The Relay Proxy will detect that the file has changed and will reload it.
 
 That's it! The Relay Proxy automatically updates when it detects changes to your flag rules.
