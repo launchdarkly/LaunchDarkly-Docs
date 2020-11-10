@@ -1,5 +1,5 @@
 ---
-path: '/home/account-security/custom-roles/actions'
+path: 'home/account-security/custom-roles/actions'
 title: 'Using actions'
 description: 'This topic explains how to use actions to write policies for custom roles. These actions are scoped by resource type.'
 published: true
@@ -997,12 +997,52 @@ To learn more, read [Creating a feature flag](/home/getting-started/feature-flag
       </TableCell>
       <TableCell>View a flag's status in an environment.</TableCell>
     </TableRow>
-        <TableRow>
+    <TableRow>
       <TableCell>
         <code>updateTriggers</code>
       </TableCell>
       <TableCell>
       Create a new trigger, edit existing flag triggers, or delete an existing trigger.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>createApprovalRequest</code>
+      </TableCell>
+      <TableCell>
+      Create a change request for a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateApprovalRequest</code>
+      </TableCell>
+      <TableCell>
+      Update an existing change request for a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteApprovalRequest</code>
+      </TableCell>
+      <TableCell>
+      Delete a change request for a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>reviewApprovalRequest</code>
+      </TableCell>
+      <TableCell>
+      Review a change request for a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>applyApprovalRequest</code>
+      </TableCell>
+      <TableCell>
+      Apply an approved change request for a flag.
       </TableCell>
     </TableRow>
   </TableBody>
