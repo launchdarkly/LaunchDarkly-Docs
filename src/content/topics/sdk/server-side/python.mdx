@@ -45,6 +45,23 @@ import ldclient
 </CodeTabItem>
 </CodeTabs>
 
+Additionally, you will need to pass a `Config` object to the `ldclient.set_config` method to instantiate your client instance. You can import the `Config` object with this line:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+from ldclient.config import Config
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 Once the SDK is installed and imported, you'll want to create a single, shared instance of `ldclient`. The `get()` function enforces the singleton pattern; you should only have one instance of the client in your application. You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
 
 <CodeTabs
@@ -56,7 +73,9 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 <CodeTabItem value="py">
 
 ```py
-ldclient.set_sdk_key("YOUR_SDK_KEY")
+sdk_key="YOUR_SDK_KEY"
+
+ldclient.set_config(Config(sdk_key))
 ld_client = ldclient.get()
 ```
 
