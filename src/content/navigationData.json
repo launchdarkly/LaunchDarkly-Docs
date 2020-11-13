@@ -758,6 +758,10 @@
             "path": "/guides/best-practices/terraform"
           },
           {
+            "label": "Minimizing LaunchDarkly's access to user data",
+            "path": "/guides/best-practices/user-data"
+          },
+          {
             "label": "Reducing technical debt from feature flags",
             "path": "/guides/best-practices/technical-debt"
           },

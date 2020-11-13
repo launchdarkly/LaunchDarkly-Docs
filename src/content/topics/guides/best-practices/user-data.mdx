@@ -1,0 +1,105 @@
+---
+path: '/guides/best-practices/user-data'
+title: 'Minimizing LaunchDarkly''s access to user data'
+description: 'This guide explains different options to configure your product''s relationship with LaunchDarkly to minimize when your users'' data is transmitted to our servers.'
+published: true
+---
+
+## Overview
+
+Depending on your organization's security and privacy requirements, you may need to restrict what user data you send to LaunchDarkly. This guide helps you understand what user data LaunchDarkly can access, how you can restrict or eliminate that access, and what features we provide to help you minimize access.
+
+If you're an existing or potential customer of LaunchDarkly with questions about how we handle sensitive or third-party data, this guide is for you.
+
+## What is user data?
+
+User data is information about your customers or users that your product sends to LaunchDarkly. This is different from information about your team members, who are authorized users of your LaunchDarkly account.
+
+User data can include Personally Identifiable Information (PII), including names, email addresses, or other unique identifiers. User data can be business-critical information and can present significant risk if exposed to unauthorized parties.
+
+To learn more about users, read [The Users dashboard](/home/managing-users/users-dashboard).
+
+## How LaunchDarkly recieves user data
+
+You configure the LaunchDarkly SDK to collect and transmit attributes about users to LaunchDarkly for the purpose of flag targeting. 
+
+When you evaluate a feature flag in your SDK, the evaluation includes a `user` key associated with an object. The object is the user data. It can include various key-value pairs that contain information about your users.
+
+To learn more about the built-in attributes LaunchDarkly suggests you collect, read [Built-in attributes](/home/managing-flags/targeting-users#built-in-attributes) and [Setting user attributes](/home/managing-users/user-attributes).
+
+## Considering data requirements
+
+Every company has different types of data they collect and use for various purposes. Consider whether data is advantageous for your business to collect, and if any data exposes you to unwanted risk. For data that presents a risk, understand your requirements for handling that data. If you are collecting data, examine the methods you use to store it, and how long you want to keep it.
+
+When you pass user data through LaunchDarkly, consider whether the users affected are protected by regional laws that restrict which data you can transmit or we can see. You may wish to default to a more restrictive set of data transmitted and stored than is required by your home country in order to comply with relevant international laws.
+
+Depending on the requirements of your organization, you may want to limit or completely restrict the user data you send to LaunchDarkly.
+
+## How the LaunchDarkly SDK you use affects user data
+
+LaunchDarkly's SDKs have different constraints that affect user data. Specifically, client-side SDKs differ from server-side SDKs in the following ways:
+
+- You must enable each flags that you want client-side SDK to be able to access using the "Make this flag available to client-side SDKs" setting. To learn more, read [Client-side ID](/sdk/concepts/client-side-server-side#client-side-id).
+
+- By default, client-side SDKs aren't authenticated. Because of this, one user could use another user's account to evaluate flags not meant for them. To authenticate user data, you can enable the SDK's **secure mode**, which requires you to pass a server generated hash in your user data. To learn more, read [Secure mode](/sdk/client-side/javascript#secure-mode).
+
+- Client-side SDKs send user data in the URL as a `GET` query parameter. If you are concerned about that data being stored in logs or by intermediary proxies, you can use the [`useReport`](/sdk/client-side/javascript#users) setting to use the HTTP `REPORT` verb. This sends the user data in the request body, rather than in the header.
+
+To learn more, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+
+## LaunchDarkly member roles
+
+Every team member in your LaunchDarkly project can see user and flag information, including targeting data. Team members with `writer` or `owner / admin` roles can configure flag settings, including targeting flags by PII like user email addresses. Consider if your organization needs to restrict which team members can control access to user data.
+
+The exception to this is if a team member is assigned a custom role with the `viewProject` action set to `deny`. The `viewProject` action controls a role holder's access to an entire project by preventing or granting them viewing rights to the project. Viewing rights are required for any other permissions in a project to take effect, so restricting viewing rights effectively removes all access to the project.
+
+You can give a team member custom permissions to view and modify user data by assigning them a custom role.
+
+To learn more, read [Custom roles](/home/account-security/custom-roles).
+
+## Features to minimize user data sent to LaunchDarkly
+
+<Callout intent="alert">
+  <CalloutTitle>Increased privacy comes with tradeoffs</CalloutTitle>
+  <CalloutDescription>
+    Further hardening the privacy of your LaunchDarkly projects may require some LaunchDarkly features to stop working or cause performance degradation. To learn more, read [Impacted features](#impacted-features).
+  </CalloutDescription>
+</Callout>
+
+Here are some additional configuration options you can use to increase user privacy in LaunchDarkly. Using these features can impact certain features in the LaunchDarkly UI.
+
+### Private user attributes
+
+You can use LaunchDarkly's private attribute settings to restrict the user data your service sends to LaunchDarkly while still using that data for flag targeting. You can make all attributes private, choose specific attributes to make private, or make attributes private for specific users.
+
+To learn more, read [Creating private user attributes](/home/managing-users/user-attributes#creating-private-user-attributes).
+
+### Anonymous users
+
+Anonymous users do not register as users in your [Users dashboard](/home/managing-users/users-dashboard), and so the usual data LaunchDarkly collects on a user isn't available for an anonymous user. You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user attributes instead. You can force all users to register in LaunchDarkly as anonymous users by setting the anonymous user bit in your SDK to `true` when you construct the LaunchDarkly User object from the domain user object.
+
+ To learn more, read [Anonymous users](/home/managing-users/anonymous-users).
+
+### Impacted features
+
+If you use anonymous users or private user attributes, the [Users dashboard](/home/managing-users/users-dashboard) won't populate with a complete list of users who access LaunchDarkly, and autocomplete for private attributes won't function in LaunchDarkly.
+
+## User-inititated data minimization
+
+When your product uses LaunchDarkly JavaScript SDKs, users can minimize the data that they send to LaunchDarkly by configuring their browser to prevent sendiing analytics data. 
+
+This works because the JavaScipt SDK sends data to the feature flag API (app.launchdarkly.com), the streaming API (stream.launchdarkly.com), and the analytics API (events.launchdarkly.com). Users can block the analytics API to reduce the amount of data they provide to LaunchDarkly, but the feature flag API and analytics API are necessary for LaunchDarkly to work.
+
+### Do Not Track (DNT)
+
+Modern web browsers have Do Not Track (DNT) options that request websites, apps, and services not harvest user data. 
+
+Individual users can enable DNT in their browsers. LaunchDarkly complies with DNT requests and does not send analytics data when a browser has DNT enabled.
+
+### Ad blockers
+
+If users configure ad blockers in their browsers, they can prevent analytics information from being transmitted to LaunchDarkly. However, because ad blockers are third-party products, LaunchDarkly cannot control how they implement their restrictions. 
+
+If you use an ad blocker, some feature flags may not work because the ad blocker incorrectly blocks access to app.launchdarkly.com or stream.launchdarkly.com when it should only be blocking outbound connections to events.launchdarkly.com. 
+
+Although ad blockers often block LaunchDarkly analytics data, LaunchDarkly analytics data is not used for ad targeting or tracking. To learn more, read our [Privacy Policy](https://launchdarkly.com/policies/privacy/).
