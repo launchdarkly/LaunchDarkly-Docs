@@ -764,6 +764,80 @@ ldClient.Flush();
 
 The flush interval is configurable. If you need to change the interval, you can do so by making a custom client configuration
 
+## Subscribing to feature flag changes
+
+<Callout intent="info">
+  <CalloutTitle>This feature is not available in all SDKs or versions</CalloutTitle>
+  <CalloutDescription>
+    The Go SDK only supports subscribing to feature flag changes in versions 5.0.0 and higher. Currently, most other server-side LaunchDarkly SDKs do not support this feature. All of the client-side SDKs do support this feature.
+  </CalloutDescription>
+</Callout> 
+
+The SDK provides a channel-based mechanism to notify you when flag configurations change. The [`LDClient.GetFlagTracker()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetFlagTracker) method returns an interface for this mechanism called [`FlagTracker`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#FlagTracker).
+
+Calling `GetFlagTracker().AddFlagChangeListener()` provides a channel that receives a [`FlagChangeEvent`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#FlagChangeEvent) whenever there is a change in any feature flag's configuration, or in anything else that could indirectly affect the flag value, such as a prerequisite flag or a user segment that the flag uses. The event data consists only of the flag key. It does not contain a flag value, because in server-side SDKs, flags only have values when they are evaluated for a specific set of user properties.
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+import (
+    "log"
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+)
+
+func logWheneverAnyFlagChanges(client *ld.LDClient) {
+    updateCh := client.GetFlagTracker().AddFlagChangeListener()
+    go func() {
+        for event := range updateCh {
+            log.Printf("Flag %q has changed", event.Key)
+        }
+    }()
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To listen for changes in flag values for a specific flag key and user, use `GetFlagTracker().AddFlagValueChangeListener()`, which provides [`FlagValueChangeEvent`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#FlagValueChangeEvent)s. This is equivalent to re-evaluating the flag for that user whenever `AddFlagChangeListener()` reports a change in that flag. Because flag values can have different data types, the value is reported using the general type [`ldvalue.Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value).
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+import (
+    "log"
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-sdk-common.v2/lduser"
+    "gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue"
+)
+
+func logWheneverOneFlagChangesForOneUser(client *ld.LDClient, flagKey string, user lduser.User) {
+    updateCh := client.GetFlagTracker().AddFlagValueChangeListener(flagKey, user, ldvalue.Null())
+    go func() {
+        for event := range updateCh {
+            log.Printf("Flag %q for user %q has changed from %s to %s", event.Key,
+                user.GetKey(), event.OldValue, event.NewValue)
+        }
+    }()
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+With both of these methods, it is the caller's responsibility to consume values from the channel. Allowing values to accumulate in the channel can cause an SDK goroutine to be blocked.
+
 ## Offline mode
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when running on premise. You can do this by setting `Offline` mode in the client's [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config).

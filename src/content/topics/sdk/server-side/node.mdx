@@ -614,13 +614,62 @@ ldClient.track("your-goal-key", user);
 </CodeTabItem>
 </CodeTabs>
 
+## Identify
+
+The `identify` method creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `identify`. The `variation` call automatically creates users on the dashboard for you. `identify` can be useful if you want to pre-populate your dashboard before launching any features.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.identify(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## All flags
+
+<Callout intent="alert">
+  <CalloutTitle>Creating user</CalloutTitle>
+  <CalloutDescription>
+    Unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Instead, users are
+    not created or updated in the LaunchDarkly dashboard and your flags' last requested date is not updated.
+  </CalloutDescription>
+</Callout> 
+
+The `allFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
+
+This method can be useful for passing feature flags to your front-end. In particular, you can use it to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.allFlagsState(user, (err, flagsState) => {
+  // this object can be converted to JSON or can be queried for flag values
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 ## Subscribing to feature flag changes
 
 <Callout intent="info">
-  <CalloutTitle>This feature is not available on other server-side SDKs</CalloutTitle>
+  <CalloutTitle>This feature is not available in all SDKs</CalloutTitle>
   <CalloutDescription>
-    You cannot subscribe to feature flag changes with other server-side SDKs. Only the Node.js SDK supports this feature
-    from the server side. All client-side SDKs support this feature.
+    Most of LaunchDarkly's server-side SDKs do not support subscribing to feature flag changes. All of the client-side SDKs do support this feature.
   </CalloutDescription>
 </Callout> 
 
@@ -656,56 +705,6 @@ ldClient.on('update', (param) => {
 
 ldClient.on('update:EXAMPLE_FLAG_KEY', () => {
   console.log('the EXAMPLE_FLAG_KEY flag was changed');
-});
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Identify
-
-The `identify` method creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `identify`. The `variation` call will automatically create users on the dashboard for you. `identify` can be useful if you want to pre-populate your dashboard before launching any features.
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Node.js', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-ldClient.identify(user);
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## All flags
-
-<Callout intent="alert">
-  <CalloutTitle>Creating user</CalloutTitle>
-  <CalloutDescription>
-    Note that unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Thus, users are
-    not created or updated in the LaunchDarkly dashboard and your flags' last requested date will not be updated.
-  </CalloutDescription>
-</Callout> 
-
-The `allFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
-
-This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Node.js', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-ldClient.allFlagsState(user, (err, flagsState) => {
-  // this object can be converted to JSON or can be queried for flag values
 });
 ```
 
