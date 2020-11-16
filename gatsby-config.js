@@ -150,7 +150,6 @@ const plugins = [
     options: {
       clientSideID: process.env.LAUNCHDARKLY_CLIENT_SIDE_ID,
       options: {
-        baseURL: 'https://clientsdk.launchdarkly.com',
         bootstrap: 'localstorage',
       },
     },
