@@ -26,7 +26,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '13.x'
-      - run: echo ::set-env name=PR_NUMBER::$(echo "$GITHUB_REF" | awk -F / '{str = sprintf("%s", $3)} END {print str}')
+      # extract the pr number using shell commands and then use github environment files to save it for other steps
+      - run: echo "PR_NUMBER=$(echo "$GITHUB_REF" | awk -F / '{str = sprintf("%s", $3)} END {print str}')" >> $GITHUB_ENV
       - run: yarn
       - run: yarn build-staging
         env:
