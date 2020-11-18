@@ -1,0 +1,378 @@
+---
+path: '/sdk/server-side/apex'
+title: 'Apex SDK reference'
+description: 'This topic explains features available in the server-side Apex SDK, with details about how they work.'
+published: true
+---
+
+<Callout intent="info">
+  <CalloutTitle>This SDK is in beta</CalloutTitle>
+  <CalloutDescription>
+
+The Apex SDK is currently in beta and undergoing active development. Elements of this SDK may change without notice. Do not use this SDK in production environments.
+
+  </CalloutDescription>
+</Callout>
+
+## Overview
+
+This reference guide documents the features available in our Apex SDK, and explains how these features work. If you want to dig even deeper, our SDKs are open source. To learn more, view the source on [GitHub](https://github.com/launchdarkly/apex-server-sdk) or the [API documentation](https://github.com/launchdarkly/apex-server-sdk/blob/master/doc.md). Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-apex-server) that uses this SDK.
+
+## Getting started
+
+Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your Salesforce Apex application.
+
+The first step is deploying the SDK to Salesforce:
+    
+<CodeTabs
+  defaultValue="bash"
+  values={[
+    { label: 'Bash', value: 'bash', },
+  ]
+}>
+<CodeTabItem value="bash">
+
+```bash
+git clone https://github.com/launchdarkly/apex-server-sdk.git
+cd apex-server-sdk
+sfdx force:source:deploy --targetusername='YOUR TARGET ORG' --sourcepath='force-app'
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Initialize the client as follows:
+
+<CodeTabs
+  defaultValue="defaultConfig"
+  values={[
+    { label: 'Default Config', value: 'defaultConfig', },
+    { label: 'Custom Config', value: 'customConfig', },
+  ]
+}>
+<CodeTabItem value="defaultConfig">
+
+```java
+LDClient client = new LDClient();
+```
+
+</CodeTabItem>
+<CodeTabItem value="customConfig">
+
+```java
+LDConfig config = new LDConfig.Builder()
+    .setAllAttributesPrivate(true)
+    .build();
+
+LDClient client = new LDClient(config);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Using `client`, you can check which variation a particular user should receive for a given feature flag.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Apex', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDUser user = new LDUser.Builder('abc').build();
+
+if (client.boolVariation(user, 'your.flag.key', false)) {
+    System.debug('feature is on');
+} else {
+    System.debug('feature is off');
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+After the SDK is deployed to Salesforce, start the bridge, and you can begin evaluating flags. The bridge must be running in order to receive flag updates and publish events to LaunchDarkly.
+
+## LaunchDarkly Salesforce bridge
+
+The Apex server-side SDK is architected differently than our other SDKs. In most of our SDKs, the SDK downloads feature configurations and sends events by itself. The Apex SDK is different because it uses an external bridging application to connect LaunchDarkly and Salesforce.
+
+Because the SDK uses a bridge to handle state management, there is no initialization delay required to download flags. Additionally, the lack of state inside the SDK means that initializing multiple instances of the SDK is not problematic.
+
+The Apex SDK exposes two HTTP endpoints that the bridge uses: `/store` and `/event`. The bridge pushes flag updates to Salesforce through one endpoint, and pulls events from Salesforce with the other.
+
+The bridge is a Go application configured with environment variables. The bridge needs authorization for both LaunchDarkly and Salesforce.
+
+To build the bridge from source install Go 1.14 or higher. To install Go, read [Go's documentation](https://golang.org/doc/install). Build and run the bridge like this:
+
+<CodeTabs
+  defaultValue="bash"
+  values={[
+    { label: 'Bash', value: 'bash', },
+  ]
+}>
+<CodeTabItem value="bash">
+
+```bash
+cd bridge && go build .
+
+export LD_SDK_KEY='Your LaunchDarkly SDK key'
+export SALESFORCE_URL='Your Salesforce Apex REST URL'
+export OAUTH_ID='Your Salesforce OAuth Id'
+export OAUTH_SECRET='Your Salesforce OAuth secret'
+export OAUTH_USERNAME='Your Salesforce username'
+export OAUTH_PASSWORD='Your Salesforce password + security token'
+
+./bridge
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The logs indicate if the bridge is running. If it fails, the logs show the errors that occurred. You must deploy the SDK to Salesforce before you run the bridge.
+
+## Customizing your client
+
+You can also pass other custom parameters to the client with the configuration object:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Apex', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDConfig config = new LDConfig.Builder()
+    .setAllAttributesPrivate(true)
+    .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Here, we've customized the client to redact all user attributes in events.
+
+To learn more about the configuration options available for this SDK, read the [API documentation](https://github.com/launchdarkly/apex-server-sdk/blob/master/doc.md#class-ldconfigbuilder).
+
+## Users
+
+Feature flag targeting and rollouts are all determined by the user you pass to your `variation` calls.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Apex', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDUser user = new LDUser.Builder('aa0ceb')
+    .setFirstName('Ernestina')
+    .setLastName('Evans')
+    .setEmail('ernestina@example.com')
+    .setCustom(new LDValueObject.Builder()
+        .set('groups', new LDValueArray.Builder()
+            .add(LDValue.of('Google'))
+            .add(LDValue.of('Microsoft'))
+            .build()
+        )
+        .build()
+    )
+    .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Let's go through this snippet. The most important attribute is the user key. In this case we've used the hash "aa0ceb". *The user key is the only mandatory user attribute.* The key should uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+
+All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
+
+In addition to built-in attributes like names and e-mail addresses, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
+
+Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, and account plans. Anything you pass to us becomes available instantly on our dashboard.
+
+## Variation
+
+The `variation` family of methods determine the flag value for a specific user. In Apex, there is a `variation` method for each type (e.g. `boolVariation`, `stringVariation`, etc).
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Apex', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+Boolean value = client.boolVariation(user, 'your.feature.key', false);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The functions take an `LDUser`, feature flag key, and a default value.
+
+The default value only returns if an error occurs. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+## Evaluation details
+
+By passing an `LDClient.EvaluationDetail` object to a variation call you can programmatically inspect the reason for a particular evaluation. For more information about the nature of the "reason" data, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Apex', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDClient.EvaluationDetail details = new LDClient.EvaluationDetail();
+
+Boolean value = client.boolVariation(user, 'your.feature.key', false, details);
+
+/* inspect details here */
+if (details.getReason().getKind() == EvaluationReason.Kind.OFF) {
+    /* ... */
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## AllFlags
+
+The `allFlags` method produces a map of feature flag keys to their values for a specific user. This does not send any evaluation events to LaunchDarkly.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Apex', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+Map<String, LDValue> values = client.allFlags(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Track
+
+The `track` method allows you to record actions your users take in your application. In LaunchDarkly, you can tie these events to goals in A/B tests. You can also attach custom JSON data to your event by passing an `LDValue` parameter to `track`, or a custom metric value by passing a `Double`.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Apex', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+client.track(user, 'your-goal-key', 52.3, LDValue.of('my value'));
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Identify
+
+The `identify` method creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `identify`. The `variation` call automatically creates users on the dashboard for you. `identify` can be useful if you want to pre-populate your dashboard before launching any features.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Apex', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+client.identify(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Anonymous users
+
+You can also distinguish logged-in users from anonymous users in the SDK, as follows:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Apex', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDUser user = new LDUser.Builder('abc123')
+    .setAnonymous(true)
+    .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+
+Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
+
+## Private user attributes
+
+Optionally, you can configure the Apex SDK to treat some or all user attributes as [private user attributes](/home/managing-users/user-attributes#creating-private-user-attributes). You can use private user attributes for targeting, but they are redacted from the user data sent back to LaunchDarkly.
+
+In the Apex SDK there are two ways to define private attributes for the LaunchDarkly client:
+
+- When creating the `LDConfig` object, you can use `setAllAttributesPrivate(true)`. When you do this, all user attributes (except the key) for the user are redacted before the user is sent to LaunchDarkly.
+
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Apex', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDConfig config = new LDConfig.Builder()
+    .setAllAttributesPrivate(true)
+    .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+* You can also define private attribute names on a per-user basis. For example:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Apex', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+Set<String> privateAttributes = new Set<String>();
+privateAttributes.add('firstName');
+
+LDUser user = new LDUser.Builder('aa0ceb')
+    .setFirstName('alice')
+    .setPrivateAttributeNames(privateAttributes)
+    .build();
+```
+
+</CodeTabItem>
+</CodeTabs>

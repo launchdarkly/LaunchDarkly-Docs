@@ -660,6 +660,11 @@
             "svg": "dotnet"
           },
           {
+            "label": "Apex SDK reference",
+            "path": "/sdk/server-side/apex",
+            "svg": "apex"
+          },
+          {
             "label": "C/C++ SDK reference",
             "path": "/sdk/server-side/c-c--",
             "svg": "c"
