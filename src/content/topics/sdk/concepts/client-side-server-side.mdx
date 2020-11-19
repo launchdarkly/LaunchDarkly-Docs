@@ -140,19 +140,19 @@ LaunchDarkly enforces that each of the SDK types use the appropriate key as desc
 
 Configure server-side SDKs to use the SDK key. This key grants server-side SDKs read-only access to all flag data associated with the provided key's environment. With this key, server-side SDKs can download the entire flag ruleset for all flags in the environment.
 
-The SDK key is sensitive by nature and should be kept a secret. If an SDK key is exposed, you can reset it on the **Account Settings** page.
+The SDK key is considered confidential and should be kept a secret. If an SDK key is exposed, you can reset it on the **Account Settings** page.
 
 ### Mobile key
 
 Configure mobile SDKs (plus other client-side SDKs not written in JavaScript) to use the mobile key. This key grants these SDKs evaluation rights to all flags associated with the provided key's environment. Unlike client-side IDs, mobile keys have access to evaluate all flags for the associated environment.
 
-The mobile key is sensitive by nature and should be kept a secret. If a mobile key is exposed, you can reset it on the **Account Settings** page.
+The mobile key is not considered confidential and does not need to be kept a secret.
 
 ### Client-side ID
 
 Configure JavaScript-based client-side SDKs to use the client-side ID. This ID grants these SDKs access to evaluate any flags, as long as the flag is associated with the provided key's environment and has the "Make this flag available to client-side SDKs" option enabled. Because you must manually connect every flag to a client-side SDK, you can restrict which flags are accessible by the client-side ID.
 
-The client-side ID is public and does not need to be kept a secret.
+The client-side ID is not considered confidential and does not need to be kept a secret.
 
 <Callout intent="info">
   <CalloutTitle>Making flags available to client-side SDKs</CalloutTitle>
