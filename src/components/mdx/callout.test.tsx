@@ -8,9 +8,9 @@ describe('callout', () => {
       <Callout intent="primary">
         <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
         <CalloutDescription>
-          You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target
-          them with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically
-          after they encounter feature flags.
+          You do not have to send users to LaunchDarkly in advance. <a href="example.com">Check out this page</a>. You
+          can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard
+          automatically after they encounter feature flags.
         </CalloutDescription>
       </Callout>,
     )

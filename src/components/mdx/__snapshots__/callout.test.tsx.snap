@@ -64,7 +64,7 @@ exports[`callout renders 1`] = `
         >
           You do not have to send users to LaunchDarkly in advance. 
           <a
-            href=""
+            href="example.com"
           >
             Check out this page
           </a>

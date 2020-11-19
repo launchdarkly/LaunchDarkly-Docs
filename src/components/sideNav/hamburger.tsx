@@ -3,8 +3,23 @@ import { jsx } from 'theme-ui'
 import { graphql, useStaticQuery } from 'gatsby'
 import { useState, useEffect, useRef, Fragment } from 'react'
 import { enableBodyScroll, disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+import { SystemStyleObject } from '@styled-system/css'
 import TreeNode from './treeNode'
 import Icon from '../icon'
+
+const stripButtonStyles: SystemStyleObject = {
+  fontFamily: 'inherit',
+  fontSize: 'inherit',
+  lineHeight: 'inherit',
+  margin: 0,
+  border: 0,
+  padding: 0,
+  outline: 'inherit',
+  background: 'none',
+  color: 'inherit',
+  overflow: 'visible',
+  cursor: 'pointer',
+}
 
 const Hamburger = () => {
   const {
@@ -86,9 +101,10 @@ const Hamburger = () => {
           }}
         >
           <div sx={{ visibility: 'hidden', cursor: 'pointer' }}>EXPAND ALL</div>
-          <div onClick={onClickMenu} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-            CLOSE <Icon name="window-close" variant="close" />
-          </div>
+          <button onClick={onClickMenu} sx={{ display: 'flex', alignItems: 'center', ...stripButtonStyles }}>
+            <span>CLOSE</span>
+            <Icon name="window-close" variant="close" />
+          </button>
         </div>
         <div sx={{ mb: 9 }}>
           <TreeNode nodes={navigationData} maxDepth={3} />
