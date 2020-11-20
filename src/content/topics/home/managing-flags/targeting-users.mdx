@@ -546,6 +546,6 @@ Rules can be re-ordered by clicking on the left edge of a rule and dragging it u
 
 ## User storage
 
-The LaunchDarkly dashboard user page shows only cached user information. The user data is evicted after 30-days if a user has not been seen by LaunchDarkly for more than 30 days. The rational behind this is that the system should be regularly calling variations on users which would cause them to appear in the dashboard through normal usage.
+The Users page shows only cached user information. User data is deleted after 30 days if a user has not been seen by LaunchDarkly for more than 30 days. The rationale behind this is that the system should be regularly calling variations on users which would cause them to appear in the dashboard through normal usage.
 
 If the variations are being called less frequently than 30 days, the best solution would be to manually identify all of the users that you wish to be kept in the dashboard every 30 days.
