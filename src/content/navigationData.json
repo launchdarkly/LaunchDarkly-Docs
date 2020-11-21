@@ -560,10 +560,6 @@
           {
             "label": "Flag evaluation rules in server-side SDKs",
             "path": "/sdk/concepts/flag-evaluation-rules"
-          },
-          {
-            "label": "Apple App Store data collection policy",
-            "path": "/sdk/concepts/apple-app-store"
           }
         ]
       },
