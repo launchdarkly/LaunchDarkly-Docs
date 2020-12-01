@@ -309,7 +309,7 @@ ldClient.close()
 
 ## Client Configuration Options
 
-Here are all the client configuration options being set to their default values:
+You can also pass other custom parameters to the client with the configuration object:
 
 <CodeTabs
   defaultValue="swift"
@@ -322,63 +322,8 @@ Here are all the client configuration options being set to their default values:
 
 ```swift
 var ldConfig = LDConfig(mobileKey: "YOUR_MOBILE_KEY")
-/// The URL used for making polling requests, not normally specified.
-ldConfig.baseUrl = URL(string: "https://app.launchdarkly.com")!
-/// The URL for making event reports, not normally specified.
-ldConfig.eventsUrl = URL(string: "https://mobile.launchdarkly.com")!
-/// The URL for connecting to the flag stream, not normally specified.
-ldConfig.streamUrl = URL(string: "https://clientstream.launchdarkly.com")!
-/// The maximum number of events the LDClient will queue locally before dropping events.
-ldConfig.eventCapacity = 100
-/// The maximium time to wait for a connection before considering it failed.
 ldConfig.connectionTimeout = 10.0
-/// The interval between sending currently queue events to LaunchDarkly.
 ldConfig.eventFlushInterval = 30.0
-/// When the SDK is not configured for streaming, the interval between poll requests to retrieve flags.
-ldConfig.flagPollingInterval = 300.0
-/// When the SDK is in the background, the interval between poll requests to retrieve flags.
-ldConfig.backgroundFlagPollingInterval = 3600.0
-/// The method for retrieving flags when in the foreground, either .streaming (recommended) or .polling.
-ldConfig.streamingMode = LDStreamingMode.streaming
-/// Whether the SDK will poll for the latest flag values when in the background.
-ldConfig.enableBackgroundUpdates = false
-/// Whether `LDClient.start` will put the SDK into an online state. If `false`, the SDK will not connect to LaunchDarkly until
-/// it is set online.
-ldConfig.startOnline = true
-/// If `true`, no user attributes (other than the user key) will have their values be recorded in events sent to LaunchDarkly.
-ldConfig.allUserAttributesPrivate = false
-/// If set, the included user attibutes will not have their values recorded in events sent to LaunchDarkly.
-ldConfig.privateUserAttributes = nil
-/// When `true`, requests to LaunchDarkly that include the user in order to retrieve flag values (flag poll & stream requests)
-/// will use the HTTP `REPORT` verb, with the user in the body of the request. The default behavior is to URL encode the user
-/// in a `GET` request.
-ldConfig.useReport = false
-/// When `true`, the full user will be included in all events. This should not normally be used due to avoid sending redundant
-/// data to LaunchDarkly. By default the full user will be sent whenever the user context is changed and in debug events when
-/// debugging is enabled in the LaunchDarkly dashboard.
-ldConfig.inlineUserInEvents = false
-/// Whether the SDK will log messages when built in a debug configuration.
-ldConfig.isDebugMode = false
-/// When `true` the SDK will request the additional flag value data required to provide explanations when calling
-/// `variationDetail` methods.
-ldConfig.evaluationReasons = false
-/// The maximum number of users that the SDK will cache flag values for locally. Set to -1 to cache an unlimited number of
-/// users.
-ldConfig.maxCachedUsers = 5
-/// When set to `true` the SDK will not report any diagnostic information to LaunchDarkly.
-ldConfig.diagnosticOptOut = false
-/// Configures the interval at which the SDK will report basic diagnostic stats to LaunchDarkly.
-ldConfig.diagnosticRecordingInterval = 900.0
-/// Not normally used by applications, wrapper name allows wrapper libraries records an identifying name via an additional
-/// header on requests to LaunchDarkly.
-ldConfig.wrapperName = nil
-/// If both `wrapperName` and this field are set, this field will be combined with the name in the header for wrapper
-/// identification.
-ldConfig.wrapperVersion = nil
-/// Configures a mapping of names to additional mobile SDK keys for additional client instances to be initialized.
-ldConfig.setSecondaryMobileKeys([:])
-/// Additional headers that should be added to all HTTP requests from SDK components to LaunchDarkly services.
-ldConfig.additionalHeaders = [:]
 ```
 
 </CodeTabItem>
@@ -386,71 +331,18 @@ ldConfig.additionalHeaders = [:]
 
 ```objectivec
 LDConfig *ldConfig = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
-/// The URL used for making polling requests, not normally specified.
-ldConfig.baseUrl = [[NSURL alloc] initWithString:@"https://app.launchdarkly.com"];
-/// The URL for making event reports, not normally specified.
-ldConfig.eventsUrl = [[NSURL alloc] initWithString:@"https://mobile.launchdarkly.com"];
-/// The URL for connecting to the flag stream, not normally specified.
-ldConfig.streamUrl = [[NSURL alloc] initWithString:@"https://clientstream.launchdarkly.com"];
-/// The maximum number of events the LDClient will queue locally before dropping events.
-ldConfig.eventCapacity = 100;
-/// The maximium time to wait for a connection before considering it failed.
 ldConfig.connectionTimeout = 10.0;
-/// The interval between sending currently queue events to LaunchDarkly.
 ldConfig.eventFlushInterval = 30.0;
-/// When the SDK is not configured for streaming, the interval between poll requests to retrieve flags.
-ldConfig.flagPollingInterval = 300.0;
-/// When the SDK is in the background, the interval between poll requests to retrieve flags.
-ldConfig.backgroundFlagPollingInterval = 3600.0;
-/// Whether to use streaming to retrieve flags when the SDK is in the foreground.
-ldConfig.streamingMode = YES;
-/// Whether the SDK will poll for the latest flag values when in the background.
-ldConfig.enableBackgroundUpdates = false;
-/// Whether `LDClient.start` will put the SDK into an online state. If `false`, the SDK will not connect to LaunchDarkly until
-/// it is set online.
-ldConfig.startOnline = YES;
-/// If `true`, no user attributes (other than the user key) will have their values be recorded in events sent to LaunchDarkly.
-ldConfig.allUserAttributesPrivate = NO;
-/// If set, the included user attibutes will not have their values recorded in events sent to LaunchDarkly.
-ldConfig.privateUserAttributes = nil;
-/// When `true`, requests to LaunchDarkly that include the user in order to retrieve flag values (flag poll & stream requests)
-/// will use the HTTP `REPORT` verb, with the user in the body of the request. The default behavior is to URL encode the user
-/// in a `GET` request.
-ldConfig.useReport = NO;
-/// When `true`, the full user will be included in all events. This should not normally be used due to avoid sending redundant
-/// data to LaunchDarkly. By default the full user will be sent whenever the user context is changed and in debug events when
-/// debugging is enabled in the LaunchDarkly dashboard.
-ldConfig.inlineUserInEvents = NO;
-/// Whether the SDK will log messages when built in a debug configuration.
-ldConfig.debugMode = NO;
-/// When `true` the SDK will request the additional flag value data required to provide explanations when calling
-/// `variationDetail` methods.
-ldConfig.evaluationReasons = NO;
-/// The maximum number of users that the SDK will cache flag values for locally. Set to -1 to cache an unlimited number of
-/// users.
-ldConfig.maxCachedUsers = 5;
-/// When set to `true` the SDK will not report any diagnostic information to LaunchDarkly.
-ldConfig.diagnosticOptOut = NO;
-/// Configures the interval at which the SDK will report basic diagnostic stats to LaunchDarkly.
-ldConfig.diagnosticRecordingInterval = 900.0;
-/// Not normally used by applications, wrapper name allows wrapper libraries records an identifying name via an additional
-/// header on requests to LaunchDarkly.
-ldConfig.wrapperName = nil;
-/// If both `wrapperName` and this field are set, this field will be combined with the name in the header for wrapper
-/// identification.
-ldConfig.wrapperVersion = nil;
-/// Configures a mapping of names to additional mobile SDK keys for additional client instances to be initialized.
-[ldConfig setSecondaryMobileKeys:@{} error:&err];
-/// Additional headers that should be added to all HTTP requests from SDK components to LaunchDarkly services.
-ldConfig.additionalHeaders = [:]
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
+Here, we've customized the client connection timeout and event flush interval parameters. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ios-client-sdk/Structs/LDConfig.html).
+
 ## User Configuration Options
 
-Here is a complete user configuration object utilizing all available fields:
+You can also pass optional properties to the user object:
 
 <CodeTabs
   defaultValue="swift"
@@ -462,36 +354,9 @@ Here is a complete user configuration object utilizing all available fields:
 <CodeTabItem value="swift">
 
 ```swift
-/// `key` is a string that uniquely identifies the user. If the client app does not define a key, the SDK assigns an identifier associated with the anonymous user. The key cannot be made private.
 var user = LDUser(key: "YOUR_USER_KEY")
-///Client app defined name for the user. (Default: nil)
-user.name: String?
-///Client app defined first name for the user. (Default: nil)
-user.firstName: String?
-///Client app defined last name for the user. (Default: nil)
-user.lastName: String?
-///Client app defined country for the user. (Default: nil)
-user.country: String?
-///Client app defined ipAddress for the user. (Default: nil)
-user.ipAddress: String?
-///Client app defined email address for the user. (Default: nil)
-user.email: String?
-///Client app defined avatar for the user. (Default: nil)
-user.avatar: String?
-///Client app defined dictionary for the user. The client app may declare top level dictionary items as private. If the client app defines custom as private, the SDK considers the dictionary private except for device & operatingSystem (which cannot be made private). See `privateAttributes` for details. (Default: nil)
-user.custom: [String: Any]?
-///Client app defined isAnonymous for the user. If the client app does not define isAnonymous, the SDK uses the `key` to set this attribute. isAnonymous cannot be made private. (Default: false)
-user.isAnonymous: Bool
-///Client app defined device for the user. The SDK determines the device automatically, however the client app can override the value. The SDK inserts the device into the `custom` dictionary. The device cannot be made private. (Default: the system identified device)
-user.device: String?
-///Client app defined operatingSystem for the user. The SDK determines the operatingSystem automatically, however the client app can override the value. The SDK inserts the operatingSystem into the `custom` dictionary. The operatingSystem cannot be made private. (Default: the system identified operating system)
-user.operatingSystem: String?
-/**
-Client app defined privateAttributes for the user.
-The SDK does not include private attribute values in analytics events, but private attribute names are sent.
-This attribute is ignored if `LDConfig.allUserAttributesPrivate` is true. Combined with `LDConfig.privateUserAttributes`. (Default: nil)
-*/
-user.privateAttributes: [String]?
+user.name = "Human Person"
+user.email = "human@example.com"
 
 ```
 
@@ -499,14 +364,15 @@ user.privateAttributes: [String]?
 <CodeTabItem value="objc">
 
 ```objectivec
-LDUser *user = [[LDUser alloc] initWithKey:@"human@example.com"];
-user.firstName = @"Human";
-user.lastName = @"Person";
-user.custom = @{@"groups": @[@"beta_testers"]};
+LDUser *user = [[LDUser alloc] initWithKey:@"YOUR_USER_KEY"];
+user.name = @"Human Person";
+user.email = @"human@example.com";
 ```
 
 </CodeTabItem>
 </CodeTabs>
+
+Here, we've added the user's full name and email address. To learn more about the specific user properties that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ios-client-sdk/Structs/LDUser.html).
 
 ## Private User Attributes
 

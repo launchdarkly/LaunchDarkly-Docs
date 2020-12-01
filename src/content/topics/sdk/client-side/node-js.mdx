@@ -179,7 +179,7 @@ const ldClient = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 </CodeTabItem>
 </CodeTabs>
 
-For a full guide to the available configuration options, see `LDOptions` in the [TypeScript reference](https://launchdarkly.github.io/node-client-sdk/).
+For a full guide to the available configuration options, read `LDOptions` in the [TypeScript reference](https://launchdarkly.github.io/node-client-sdk/interfaces/_launchdarkly_node_client_sdk_.ldoptions.html).
 
 ## Users
 
@@ -552,7 +552,9 @@ ldClient.flush().then(() => {
 
 ## Logging
 
-By default, the SDK uses the `winston` package. There are four logging levels: `debug`, `info`, `warn`, and `error`; by default, `debug` and `info` messages are hidden. To learn more, read the [TypeScript definitions](https://github.com/launchdarkly/js-sdk-common/blob/master/typings.d.ts) for `LDLogger`, `LDOptions`, and `createConsoleLogger` for more details.
+By default, the SDK uses the `winston` package. There are four logging levels: `debug`, `info`, `warn`, and `error`. By default, `debug` and `info` messages are hidden. 
+
+To learn more, read the [TypeScript definitions](https://github.com/launchdarkly/js-sdk-common/blob/master/typings.d.ts) for `LDLogger`, `LDOptions`, and `createConsoleLogger` for more details.
 
 A custom logger may be passed to the SDK by the configurable logger property. Note that Winston's syntax for instantiating and configuring loggers changed between versions 2.x and 3.x. Be sure to declare a dependency on a specific Winston version if you run into errors using the transitive dependency.
 

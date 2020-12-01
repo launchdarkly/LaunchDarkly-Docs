@@ -122,6 +122,8 @@ client.waitForInitialization().then(function() {
 
 If you try to evaluate feature flags before the client is ready, it will behave as it would if no flags existed (i.e. `variation` will return a default value).
 
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/electron-client-sdk/interfaces/_launchdarkly_electron_client_sdk_.ldoptions.html).
+
 ## Bootstrapping
 
 The `bootstrap` property in the client options allows you to speed up the startup process by providing an initial set of flag values.
