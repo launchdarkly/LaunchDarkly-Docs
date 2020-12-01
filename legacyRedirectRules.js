@@ -133,7 +133,7 @@ module.exports = [
   },
   {
     fromPath: '/docs/configuring-custom-roles',
-    toPath: '/home/account-security/custom-roles/configure',
+    toPath: '/home/account-security/custom-roles/create',
   },
   {
     fromPath: '/docs/resources-in-custom-roles',
