@@ -53,7 +53,7 @@ Here's how to create a Relay Proxy configuration in the LaunchDarkly UI:
 2. Click **+ Configuration**. The Relay Proxy configuration screen appears.
 3. Give the Relay Proxy a human-readable **Name**.
 4. Choose a **Rule** from the dropdown. This rule determines what content the Relay Proxy receives.
- *  **All projects and environments** sends changes about all projects and environments to the Relay Proxy.
+ * **All projects and environments** sends changes about all projects and environments to the Relay Proxy.
  * **Inline policy** allows you to specify which projects and environments you can track events for. To learn more, read [Writing an inline policy](#writing-an-inline-policy).
 
 ![The Relay Proxy configuration screen with dropdown displayed.](../../images/relay-proxy-config-dropdown.png)
@@ -71,7 +71,7 @@ To get your flag rules and make them accessible to the Relay Proxy:
 
 An example curl is below:
 
-  <CodeTabs
+<CodeTabs
   defaultValue="curl"
   values={[
     { label: 'Example curl', value: 'curl', },
@@ -90,8 +90,33 @@ curl https://sdk.launchdarkly.com/relay/latest-all \
 
 2. Copy that file to your local host.
 3. The next step varies depending on whether you're using a configuration file or environment variables:
- * If you're using a **configuration file**, configure it to read the file you saved in step 2. In the file, specify an `OfflineMode` section with the `fileDataSource` key and a value of the file's path. Save the file.
- * If you're using **environment variables**, specify the file as `FILE_DATA_SOURCE`.
+ * If you're using a **configuration file**, configure it to read the file you saved in step 2. In the file, specify an `OfflineMode` section with the `fileDataSource` key and a value of the file's path.
+ * If you're using **environment variables**, specify the file with the `FILE_DATA_SOURCE` environment variable.
+  <CodeTabs
+    defaultValue="file"
+    values={[
+      { label: 'Configuration file', value: 'file', },
+      { label: 'Environment variables', value: 'env-var', },
+    ]
+  }>
+  <CodeTabItem value="file">
+
+  ```bash
+[OfflineMode]
+   fileDataSource = "/path/to/file.tar.gz"
+  ```
+
+  </CodeTabItem>
+  <CodeTabItem value="env-var">
+
+  ```bash
+docker run --name ld-relay           \
+   -e FILE_DATA_SOURCE="/path/to/file.tar.gz" \
+   launchdarkly/ld-relay
+  ```
+
+  </CodeTabItem>
+  </CodeTabs>
 4. Start the Relay Proxy. 
 
 From now on, the Relay Proxy will serve flag values based on the contents of the file you downloaded, not by contacting LaunchDarkly for updates.

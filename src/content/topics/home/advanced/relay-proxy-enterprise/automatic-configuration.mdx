@@ -66,7 +66,7 @@ Here's how to create a Relay Proxy configuration in the LaunchDarkly UI:
 2. Click **+ Configuration**. The Relay Proxy configuration screen appears.
 3. Give the Relay Proxy a human-readable **Name**.
 4. Choose a **Rule** from the dropdown. This rule determines what content the Relay Proxy receives.
- *  **All projects and environments** sends changes about all projects and environments to the Relay Proxy.
+ * **All projects and environments** sends changes about all projects and environments to the Relay Proxy.
  * **Inline policy** allows you to specify which projects and environments you can track events for. To learn more, read [Writing an inline policy](#writing-an-inline-policy).
 
 ![The Relay Proxy configuration screen with dropdown displayed.](../../images/relay-proxy-config-dropdown.png)
@@ -79,9 +79,34 @@ Here's how to create a Relay Proxy configuration in the LaunchDarkly UI:
 Next you must specify the key in a Relay Proxy configuration file so it includes the configuration you created.
 
 1. Configure your Relay Proxy to use your new key.
- * If you configured the Relay Proxy with a configuration file, specify the Relay Proxy key in an `AutoConfig` section as the `key` property and save.
+ * If you configured the Relay Proxy with a configuration file, specify the Relay Proxy key in an `AutoConfig` section as the `key` property.
  * If configured the Relay Proxy with environment variables, specify the Relay Proxy key with the `AUTO_CONFIG_KEY` environment variable.
-2. Start the Relay Proxy. 
+  <CodeTabs
+    defaultValue="file"
+    values={[
+      { label: 'Configuration file', value: 'file', },
+      { label: 'Environment variables', value: 'env-var', },
+    ]
+  }>
+  <CodeTabItem value="file">
+
+  ```bash
+[AutoConfig]
+   key = "rel-EXAMPLE-RELAY-PROXY-CONFIGURATION-KEY"
+  ```
+
+  </CodeTabItem>
+  <CodeTabItem value="env-var">
+
+  ```bash
+docker run --name ld-relay           \
+   -e AUTO_CONFIG_KEY="rel-EXAMPLE-RELAY-PROXY-CONFIGURATION-KEY" \
+   launchdarkly/ld-relay
+  ```
+
+  </CodeTabItem>
+  </CodeTabs>
+2. Start the Relay Proxy.
 
 From now on, the Relay Proxy will respond automatically to the project and environment state changes you specified.
 

@@ -267,6 +267,10 @@
             "path": "/home/advanced/relay-proxy",
             "items": [
               {
+                "label": "Deploying the Relay Proxy",
+                "path": "/home/advanced/relay-proxy/deploying"
+              },
+              {
                 "label": "Using the Relay Proxy",
                 "path": "/home/advanced/relay-proxy/using"
               },
