@@ -444,6 +444,17 @@ The available options are slightly different in each language, but you can alway
 - A prefix string to add to all keys used by the store, to avoid collisions in case the database is also being used for some other purpose
 - The length of time that recently read or updated data should be cached in memory
 
+<Callout intent="alert">
+  <CalloutTitle>Supported Redis configurations</CalloutTitle>
+  <CalloutDescription>
+
+The LaunchDarkly SDKs use third-party open-source libraries to connect to Redis. Not all of these have the same level of support for advanced Redis configurations. Specifically, most of the SDKs and the [Relay Proxy](https://docs.launchdarkly.com/home/advanced/relay-proxy) do not support connecting to a Redis cluster or using Redis Sentinel for service discovery.
+
+For more details, read the documentation for the individual SDKs (or their Redis integration add-on libraries, for SDKs that do not have this integration built in).
+
+  </CalloutDescription>
+</Callout>
+
 In the following examples, the Redis feature store is set to use a host address of `my-redis:6379`, a prefix string of `"my-key-prefix"`, and a cache TTL of 30 seconds.
 
 <CodeTabs
