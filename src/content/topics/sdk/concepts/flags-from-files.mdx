@@ -164,6 +164,24 @@ The examples below show how to configure the client to use two data files called
 
 ```go
 import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldfiledata"
+    "gopkg.in/launchdarkly/go-server-sdk.v4/ldfilewatch"
+)
+
+var config ld.Config
+config.DataSource = ldfiledata.DataSource().
+    FilePaths("file1.json", "file2.json").
+    UseReloader(ldfilewatch.WatchFiles)
+config.Events = ldcomponents.NoEvents()
+
+client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
+
+
+// Prior to version 5.0, use this syntax:
+
+import (
     ld "gopkg.in/launchdarkly/go-server-sdk.v4"
     "gopkg.in/launchdarkly/go-server-sdk.v4/ldfiledata"
     "gopkg.in/launchdarkly/go-server-sdk.v4/ldfilewatch"
