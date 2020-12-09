@@ -41,7 +41,7 @@ In the screenshot below, we see which users are seeing the `true` variation of t
 
 You can remove a user from a flag's targeting list by clicking the user's name. 
 
-1. Naviate to the flag's **Targeting** tab.
+1. Navigate to the flag's **Targeting** tab.
 2. In the "Target individual users" section, find the name of the user you wish to remove.
 3. Click the **X** next to their name to remove them.
 
@@ -146,18 +146,17 @@ LaunchDarkly supports the following operators:
       <TableCell>date comparisons</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>
-        user is included or excluded by the targeting rules for the named segments. Read more about [Building user
-        segments](/home/managing-users/segments)
-      </TableCell>
-      <TableCell>segment names</TableCell>
       <TableCell>user is in segment, user is not in segment</TableCell>
+      <TableCell>segment names</TableCell>
+      <TableCell>
+        user is included or excluded by the targeting rules for the named segments. Read more about <a href="/home/managing-users/segments">Building user segments</a>.
+      </TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>string</TableCell>
       <TableCell>semantic version is one of (=), is not one of (!=), greater than (&gt;), less than (&lt;), greater than or equal to (&gt;=), less than or equal to (&lt;=)</TableCell>
+      <TableCell>string</TableCell>
       <TableCell>
-        [Semantic version](https://semver.org/) comparison. Valid string attributes must follow the semantic versioning
+        <a href="https://semver.org/">Semantic version</a> comparison. Valid string attributes must follow the semantic versioning
         specification, though we allow the PATCH version to be omitted (so that, e.g. `2.0` is considered a valid
         semantic version).
       </TableCell>
