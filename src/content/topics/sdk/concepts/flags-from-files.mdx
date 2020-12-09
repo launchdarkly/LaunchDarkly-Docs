@@ -207,9 +207,11 @@ import com.launchdarkly.sdk.server.integrations.*;
 
 LDConfig config = new LDConfig.Builder()
   .dataSource(
-    FileData.dataSource().filePaths("file1.json", "file2.json").autoUpdate(true)
+    FileData.dataSource()
+      .filePaths("file1.json", "file2.json")
+      .autoUpdate(true)
   )
-  .sendEvents(false)
+  .events(Components.noEvents())
   .build();
 
 LDClient client = new LDClient("sdk key", config);
