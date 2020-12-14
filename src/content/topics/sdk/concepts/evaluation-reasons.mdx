@@ -672,8 +672,9 @@ When there is an error, the reason object also has an `errorKind` property which
         <code>WRONG_TYPE</code>
       </TableCell>
       <TableCell>
-        An unexpected error stopped flag evaluation. This could happen if you are using a persistent feature store and
-        the database stops working. When this happens, the SDK always prints the specific error to the log.
+        The application code requested the flag value with a different data type than it actually is. For example, the
+        code asked for a boolean when the flag type is actually a string. This can only happen in strongly typed
+        languages, such as Go, Java, and C#.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -681,9 +682,8 @@ When there is an error, the reason object also has an `errorKind` property which
         <code>EXCEPTION</code>
       </TableCell>
       <TableCell>
-        The application code requested the flag value with a different data type than it actually is. For example, the
-        code asked for a boolean when the flag type is actually a string. This can only happen in strongly typed
-        languages, such as Go, Java, and C#.
+        An unexpected error stopped flag evaluation. This could happen if you are using a persistent feature store and
+        the database stops working. When this happens, the SDK always prints the specific error to the log.
       </TableCell>
     </TableRow>
   </TableBody>
