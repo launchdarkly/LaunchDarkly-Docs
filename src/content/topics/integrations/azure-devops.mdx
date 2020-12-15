@@ -31,19 +31,23 @@ relevant to your Azure DevOps projects. To learn more, read [Custom roles](/home
 
 ## Connecting to LaunchDarkly
 
-The extension is available on the [Azure DevOps Marketplace](https://marketplace.visualstudio.com/items?itemName=launchdarkly.launchdarkly-extension).
+The extension is available on the [Azure DevOps Marketplace](https://marketplace.visualstudio.com/items?itemName=launchdarkly.launchdarkly-extension). Before you add the extension to any of your Azure DevOps projects, you must first add it to your Azure DevOps organization. 
 
-To set up the integration, you must add the LaunchDarkly service endpoint to your Azure DevOps project so the extension can connect to your LaunchDarkly account.
+If your organization has not installed the extension, click **Get it free** on the Marketplace listing.
+
+Then, add the LaunchDarkly extension to your Azure DevOps project so the extension can connect to your LaunchDarkly account.
 
 To set up the extension:
 
-1. Navigate to your Azure DevOps project dashboard.
-2. Navigate to **Settings** > **Services**.
-3. Enter a **Connection name**.
+1. Navigate to your Azure DevOps project dashboard. Click **Project Settings**.
+2. Navigate to **Pipelines** > **Service Connections**.
+3. Click **Create service connection** and select **LaunchDarkly**.
 4. Enter your LaunchDarkly API **Access token**.
-5. Click **Save**.
+5. Enter a **Service connection name**.
+6. (Optional) Enter a **Description**.
+7. Click **Save**.
 
-![The Azure DevOps "Add new LaunchDarkly Connection screen".](../images/azuredevops-add-connection.png) 
+![The Azure DevOps "New LaunchDarkly service connection" screen.](../images/azuredevops-add-connection.png) 
 
 
 ## Creating the rollout task
@@ -113,4 +117,3 @@ When you release to an environment, the rollout task updates any flag you linked
 This also updates the LaunchDarkly section on your release page. It shows all the feature flags affected by this release.
 
 ![The LaunchDarkly section of the release page.](../images/azuredevops-ld-release-page.png) 
-
