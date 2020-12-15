@@ -1,0 +1,42 @@
+---
+path: '/home/managing-flags/feature-workflows/environment-approvals'
+title: 'Configuring approvals by environment'
+description: '.'
+published: true
+---
+
+## Overview
+
+This topic explain how to customize who can approve a request.
+
+For example, you can prevent a proposed change from being applied if any reviewer declines an approval request for the Production environment, but allow anyone, including the person making the approval request to approve and apply a proposed change in the QA environment.
+
+You can customize how approval requests are managed and enforced by making changes in the **Approval settings** menu. 
+
+In this menu, you can customize who can approve a request and how many approvals are required before a requestor can apply a change. These settings can be useful when you want to use approval requests to track the changes you make to a flag, but don't want to delay applying those changes based on who has approved them.
+
+To configure approvals by environment:
+
+1. Navigate to **Account settings** and click into the **Projects** tab.
+2. Find the environment you wish to modify.
+3. Click the **three-dot** overflow menu and choose **Approval settings** from the dropdown. The **Approval settings** menu appears.
+
+![An environment's overflow menu, with the "Approval settings" option called out.](../../images/approvals-environment-overflow-callout.png)
+
+<Callout intent="alert">
+<CalloutTitle>Not all configuration options are available yet</CalloutTitle>
+<CalloutDescription>
+
+In the **Approval settings** menu, there are some configuration options that are not yet available. These features are under active development.
+
+</CalloutDescription>
+</Callout>
+
+In the **Approval settings** menu, you can configure the following fields:
+
+* **Requestors can review their own request**: Select this checkbox to allow anyone who makes an approval request to approve or decline that request. This allows someone who makes an approval request to apply their own change.
+* **Enable "Apply Changes" even if any reviewers have declined a request.**: 
+  * **Yes**: (Default setting) Select this option to allow the person who made the approval request to approve and apply the change as long as at least one person has approved their approval request.
+  * **No**: Select this option to prevent the requested change from being applied if any reviewer has declined their approval request. 
+
+![The "Approval settings" menu.](../../images/approvals-approval-settings.png)

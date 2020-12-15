@@ -48,8 +48,12 @@
             "path": "/home/managing-flags/feature-workflows",
             "items": [
               {
-                "label": "Approval workflows",
+                "label": "Approvals",
                 "path": "/home/managing-flags/feature-workflows/approvals"
+              },
+              {
+                "label": "Configuring approvals by environment",
+                "path": "/home/managing-flags/feature-workflows/environment-approvals"
               },
               {
                 "label": "Scheduled flag changes",

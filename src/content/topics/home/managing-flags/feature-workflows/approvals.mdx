@@ -1,36 +1,28 @@
 ---
 path: '/home/managing-flags/feature-workflows/approvals'
-title: 'Approval workflows'
-description: 'This topic explains how to use approval workflows to request review for changes and review pending changes to flags.'
+title: 'Approvals'
+description: 'This topic explains how to use approvals to request review for changes and review pending changes to flags.'
 published: true
 ---
 
 <Callout intent="info">
-<CalloutTitle>Approval workflows are available for LaunchDarkly's Early Access Program</CalloutTitle>
+<CalloutTitle>Approvals is an Enterprise and Pro feature</CalloutTitle>
 <CalloutDescription>
 
-This feature is only available to members of LaunchDarkly's Early Access Program (EAP). Curious about approval workflows? [Sign up for the EAP](http://launchdarkly.com/eap).
+This feature is only available to customers with an Enterprise or a Pro plan. If you're interested in learning
+more about our plans, contact [sales@launchdarkly.com](mailto:sales@launchdarkly.com).
 
 </CalloutDescription>
 </Callout>
 
 ## Overview
 
-This topic explains how to use approval workflows to request review for changes you plan to make to a flag. It also explains how to review a change request when you are asked to.
+This topic explains how to use LaunchDarkly's approvals feature to request review for changes you plan to make to a flag. It also explains how to review an approval request when you are asked to.
+
+Approvals allow more people to have input on planned changes to a flag. These review-style approvals mimic common code review workflows, such as PR reviews in GitHub. They're a fast, convenient way for more members of your team to contribute to changes to your feature flags, and for you to gain confidence in the changes you're about to make.
 
 <Callout intent="info">
-<CalloutTitle>Approval workflows are available in the LaunchDarkly API</CalloutTitle>
-<CalloutDescription>
-
-If you prefer, you can configure approval workflows with the LaunchDarkly API, rather than through the platform's UI. To learn more, read [the API docs](https://apidocs.launchdarkly.com/reference?showHidden=7f3f4#change-request-overview).
-
-</CalloutDescription>
-</Callout>
-
-Approval workflows allow more people to have input on planned changes to a flag. These review-style approvals mimic common code review workflows, such as PR reviews in GitHub. They're a fast, convenient way for more members of your team to contribute to changes to your feature flags, and for you to gain confidence in the changes you're about to make.
-
-<Callout intent="info">
-<CalloutTitle>Reviewing a change request does not make or prevent flag changes</CalloutTitle>
+<CalloutTitle>Reviewing an approval request does not make or prevent flag changes</CalloutTitle>
 <CalloutDescription>
 
 Approving flag changes does not make them take effect automatically. An approval is a signal of mutual agreement on a planned flag change. A team member must enable the flag changes, or wait for a scheduled change to take effect, regardless of whether or not the change is approved. Similarly, declining a flag change does not prevent the change from taking effect.
@@ -38,7 +30,7 @@ Approving flag changes does not make them take effect automatically. An approval
 </CalloutDescription>
 </Callout>
 
-## Understanding approval workflows
+## Understanding approvals
 
 When a team member plans a flag change, they have the option to request approval for that change from anyone in their LaunchDarkly project. 
 
@@ -49,27 +41,27 @@ Anyone with a `writer`, `owner / admin`, or custom role can approve a flag chang
 From that email, a requested approver can access a summary page of the flag changes and approve or decline the changes proposed.
 
 <Callout intent="info">
-<CalloutTitle>You can configure specialized approval workflows with custom roles</CalloutTitle>
+<CalloutTitle>Use custom roles to refine approval permissions</CalloutTitle>
 <CalloutDescription>
 
-You can configure a custom role policy to allow or deny specific actions on change requests. For example, you can deny any role from changing a flag in the Production environment without an approval from a team member with the `owner / admin` role.
+You can configure a custom role policy to allow or deny specific actions on approval requests. For example, you can deny any role from changing a flag in the Production environment without an approval from a team member with the `owner / admin` role.
 
 To learn more about custom roles actions for this feature, read [Using actions](/home/account-security/custom-roles/actions).
 
 </CalloutDescription>
 </Callout>
 
-## Requesting approval on a flag change
+## Requesting approval for a flag change
 
 You can request approval on changes to a flag's targeting at any point after creation. 
 
 ![A GIF showing the interactions of requesting approval on changes.](../../images/approvals-requesting-approval.gif)
 
-You cannot review your own requests, but you can delete them from the "Change request" screen that is created after you request others' approval.
+You can delete your own requests from the "Approval request" screen that is created after you request others' approval.
 
-To learn more, read [Deleting a change request](#deleting-a-change-request).
+To learn more, read [Deleting an approval request](#deleting-a-change-request).
 
-![The "Change request" screen.](../../images/approvals-approval-screen.png)
+![The "Approval request" screen.](../../images/approvals-approval-screen.png)
 
 The only people you can request approval from are other members of your LaunchDarkly project. You can request approval from anyone in your project, with a maximum of 10 people.
 
@@ -87,16 +79,17 @@ Here's how:
 4. Enter a **Description** to add context that helps your reviewers understand the changes you made.
 5. (Optional) If necessary, you can edit your flag changes by clicking the **Edit** button.
 6. Choose one or more reviewers from the **Select reviewers to be notified** dropdown.
-7. Leave a **Comment** about your request.
-8. Click **Request approval**.
+7. Click **Request approval**.
 
 The people you chose from the dropdown each receive an email asking them to approve your flag changes. The flag's **Targeting** page also updates with an icon to indicate that there are pending changes waiting for review.
 
+If your environment is configured to allow this, you can also approve or decline your own requests.
+
 ![The "Pending changes" icon on the flag's Targeting tab.](../../images/workflows-pending-changes-callout.png)
 
-## Reviewing flag change requests
+## Reviewing flag approval requests
 
-If someone requests your approval on a flag change, you will receive an email. From that email, you can click through to the "Change request" screen and review the request.
+If someone requests your approval on a flag change, you  receive an email. From that email, you can click through to the "Approval request" screen and review the request.
 
 To approve or decline a change:
 
@@ -104,9 +97,9 @@ To approve or decline a change:
 
 ![The email notification from LaunchDarkly.](../../images/approvals-email.png)
 
-2. In the email body, click **Review request**. A new tab with LaunchDarkly's "Change request" screen appears.
+2. In the email body, click **Review request**. A new tab with LaunchDarkly's "Approval request" screen appears.
 
-![The "Change request" screen.](../../images/approvals-approval-screen.png)
+![The "Approval request" screen.](../../images/approvals-approval-screen.png)
 
 3. Review the flag changes and choose the "Approve changes" or "Decline changes" radio button.
 4. Click **Submit**. The "Review history" section updates to indicate that you reviewed the change request.
@@ -116,22 +109,33 @@ To approve or decline a change:
 
   ![The confirmation screen.](../../images/approvals-applying-changes.png)
 
-  b. If you approve a change request but choose not to apply it, the original requester, or any team member with a writer, owner / admin, or custom role can apply the  changes you approved.
+  b. If you approve an approval request but choose not to apply it, the original requester, or any team member with a writer, owner / admin, or custom role can apply the  changes you approved.
 
-In addition to using the link in the email to access the "Change request" screen, you can see pending flag changes and approval requests on the "Pending changes" screen. 
+<Callout intent="info">
+<CalloutTitle>Anyone with access can leave a comment.</CalloutTitle>
+<CalloutDescription>
+
+Anyone with access to the approval request page can comment on an approval request. 
+
+The only time someone with access cannot comment on an approval request is after the request has been applied. Applying an approval request freezes the approval request page to preserve the state it was in when the change was applied.
+
+</CalloutDescription>
+</Callout>
+
+In addition to using the link in the email to access the "Approval request" screen, you can see pending flag changes and approval requests on the "Pending changes" screen. 
 
 To access this screen, click the icon on the flag's **Targeting** page.
 
 ![The "Pending changes" icon on the flag's Targeting tab.](../../images/workflows-pending-changes-callout.png)
 
-## Deleting a change request
+## Deleting an approval request
 
 You may delete a request for changes to a flag while it's pending review. You can do this in two ways: from the 
-"Pending changes" screen or from the change request page.
+"Pending changes" screen or from the approval request page.
 
-### Deleting a change request from the "Pending changes" screen
+### Deleting an approval request from the "Pending changes" screen
 
-To delete change requests from a flag's "Pending changes" screen:
+To delete approval requests from a flag's "Pending changes" screen:
 
 1. Navigate to the flag's **Targeting** page and click the **Pending Changes** icon. The "Pending Changes" screen appears. 
 2. Find the change you wish to delete and click the three-dot **overflow menu**. Additional options appear.
@@ -141,14 +145,14 @@ To delete change requests from a flag's "Pending changes" screen:
 
 ![A GIF showing the interactions of deleting a change from the "Pending Changes" screen.](../../images/approvals-delete-from-pending-changes.gif)
 
-### Deleting a change request from its page
+### Deleting an approval request from its page
 
-To delete a change request from the request's page:
+To delete an approval request from the request's page:
 
 1. Navigate to the flag's **Targeting** page and click the **Pending Changes** icon. The "Pending Changes" screen appears. 
-2. Click **View**. The "Change request" screen appears.
+2. Click **View**. The "Approval request" screen appears.
 3. Click **Delete Request**. A confirmation screen appears.
 4. Type the flag's name or key to confirm. 
 5. Click **Delete Request**. The request is deleted.
 
-![The "Change request" screen.](../../images/approvals-approval-screen.png)
+![The "Approval request" screen.](../../images/approvals-approval-screen.png)
