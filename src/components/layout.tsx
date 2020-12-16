@@ -5,6 +5,7 @@ import { Fragment, FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from '@mdx-js/react'
+import { useFlags } from 'gatsby-plugin-launchdarkly'
 import Reset from './resetStyles'
 import MdxHeader from './mdx/mdxHeader'
 import { TableOfContents, TOC } from './tableOfContents'
@@ -114,12 +115,21 @@ const Layout: FunctionComponent<LayoutProps> = ({
 }) => {
   useBrowserMetrics()
 
+  const { enableUserWayAccessibilityWidget } = useFlags()
+
   return (
     <Fragment>
       <Reset />
       <Helmet defer={false}>
         <title>{title}</title>
         <meta name="description" content={description} />
+        {enableUserWayAccessibilityWidget && (
+          <script defer>
+            {
+              '(function(d){var s = d.createElement("script");s.setAttribute("data-account", "8Vh97O4fZ4");s.setAttribute("src", "https://cdn.userway.org/widget.js");(d.body || d.head).appendChild(s);})(document)'
+            }
+          </script>
+        )}
       </Helmet>
       <div sx={rootGridStyles}>
         <Header />
