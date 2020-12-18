@@ -26,6 +26,7 @@ dashboard](/home/managing-users/users-dashboard).
   </CalloutDescription>
 </Callout> 
 
+
 ## Building your team on LaunchDarkly
 
 <Callout intent="alert">
@@ -38,15 +39,29 @@ roles](#understanding-user-roles).
   </CalloutDescription>
 </Callout> 
 
-Use the **Team** tab to invite new team members to LaunchDarkly, remove old team members, or manage access controls for team members by setting roles.
+Use the **Team** tab to invite new team members to LaunchDarkly, remove old team members, or manage access controls for team members by setting roles. You can also use this dashboard to see when members last accessed LaunchDarkly.
 
 To access the Team dashboard:
 
 1. Navigate to the the [Account Settings](https://app.launchdarkly.com/settings) page.
 2. Click into the [Team](https://app.launchdarkly.com/settings#/team) tab.
-3. Enter an email address for someone you wish to invite to LaunchDarkly and click **Send Invitation** or click **Edit** next to an existing user to modify their information.
+
+Available actions:
+
+* To invite new team members to LaunchDarkly, enter their email address and click **Send Invitation** 
+* To delete team members or manage their access controls, click **Edit** next to an existing user to modify their information.
+* To view and export team members in a csv file, click **Export CSV**. The file will export with your filters and sorting applied.
 
 ![The Team tab.](../../../images/settings-team.png) 
+
+
+
+## Exporting members
+
+You can export a csv file of LaunchDarkly members on the **Team** tab. To access the list:
+
+1. Enable 
+
 
 
 ## Understanding member roles
@@ -130,6 +145,8 @@ To learn more, read [Multi-factor authentication](/home/account-security/mfa).
 Sometimes when you invite a user to LaunchDarkly, you get an error saying the email address is already in use.
 
 This can happen when a person has already used their email address to create a trial account in LaunchDarkly. Ask the person to delete their trial account and add them to your LaunchDarkly organization again, or tell people in your organization to delete their trials before you roll out LaunchDarkly organization-wide.
+
+
 
 ## Using aliased email addresses in LaunchDarkly
 
