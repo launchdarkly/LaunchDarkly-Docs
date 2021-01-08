@@ -5,7 +5,7 @@ description: 'This topic explains all of the methods available in the server-sid
 published: true
 ---
 
-This reference guide documents all of the methods available in our Ruby SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Ruby SDK GitHub repository](https://github.com/launchdarkly/ruby-server-sdk). The online [Ruby API docs](https://www.rubydoc.info/gems/launchdarkly-server-sdk) contain the programmatic definitions of every class and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-ruby) using this SDK.
+This reference guide documents all of the methods available in our Ruby SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Ruby SDK GitHub repository](https://github.com/launchdarkly/ruby-server-sdk). The online [Ruby API docs](https://launchdarkly.github.io/ruby-server-sdk/) contain the programmatic definitions of every class and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-ruby) using this SDK.
 
 <Callout intent="alert">
   <CalloutTitle>RubyGems</CalloutTitle>
@@ -241,7 +241,7 @@ ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
 
 The client constructor takes a configuration object as an optional parameter. In this example, we've set the connection timeout to LaunchDarkly to 1 second, and the read timeout to 2 seconds. 
 
-To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://www.rubydoc.info/gems/launchdarkly-server-sdk/LaunchDarkly/Config).
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Config).
 
 ## Users
 
@@ -574,4 +574,4 @@ Be aware of two considerations when enabling the DEBUG log level:
 
 Feature flag data can be kept in a persistent store using Redis, DynamoDB, or Consul. These adapters are implemented in the `LaunchDarkly::Integrations::Redis`, `LaunchDarkly::Integrations::DynamoDB`, and `LaunchDarkly::Integrations::Consul` modules; to use them, call the `new_feature_store` method in the module, and put the returned object in the `feature_store` property of your client configuration.
 
-To learn more, read the [API documentation](https://www.rubydoc.info/gems/launchdarkly-server-sdk/LaunchDarkly/Integrations) and ["Using a persistent feature store"](/sdk/concepts/feature-store).
+To learn more, read the [API documentation](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Integrations) and ["Using a persistent feature store"](/sdk/concepts/feature-store).
