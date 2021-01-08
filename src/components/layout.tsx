@@ -120,7 +120,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
   return (
     <Fragment>
       <Reset />
-      <Helmet defer={false}>
+      <Helmet defer={false} htmlAttributes={{ lang: 'en' }}>
         <title>{title}</title>
         <meta name="description" content={description} />
         {enableUserWayAccessibilityWidget && (
