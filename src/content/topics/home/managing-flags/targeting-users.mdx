@@ -548,3 +548,27 @@ Rules can be re-ordered by clicking on the left edge of a rule and dragging it u
 The Users page shows only cached user information. User data is deleted after 30 days if a user has not been seen by LaunchDarkly for more than 30 days. The rationale behind this is that the system should be regularly calling variations on users which would cause them to appear in the dashboard through normal usage.
 
 If the variations are being called less frequently than 30 days, the best solution would be to manually identify all of the users that you wish to be kept in the dashboard every 30 days.
+
+## Converting a rule into a segment
+
+You may require complex targeting rules to successfully perform feature launches. 
+You can convert a targeting rule into a reusable segment from the flag's Targeting page.
+
+![The "Convert to segment" modal.](../../images/segment-convert-to-segment-modal.png) 
+
+To convert a rule to a segment:
+
+1. Navigate to the flag's **Targeting** page. 
+2. In the user targeting section or the rule matching section, click the **three-dot** menu of the rule you wish to convert. The overflow menu appears.
+3. Click **Convert to segment**. The "Convert to segment" window appears.
+
+![A flag rule, with the "Convert to segment" option called out.](../../images/segment-convert-to-segment-users.png) 
+
+4. Give your segment a human-readable **Name**.
+5. (Optional) Add a **Description**.
+6. (Optional) Choose any **Tags** from the dropdown menu.
+7. Click **Save segment**. A confirmation appears indicating that you've created a new segment.
+
+After you click "Convert to segment", targeted users are cleared. A new segment rule targeting the newly created segment `test-12345` appears at the top of the list of targeting rules. 
+
+![The targeting section, with the new segment called out.](../../images/segment-convert-to-segment-creation.png) 
