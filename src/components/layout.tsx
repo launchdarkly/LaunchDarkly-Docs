@@ -21,7 +21,6 @@ import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
 import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
 import Link from './link'
 import Icon from './icon'
-import { useBrowserMetrics } from '../hooks/useBrowserMetrics'
 import Homepage from './home/landingPage'
 
 const components = {
@@ -113,8 +112,6 @@ const Layout: FunctionComponent<LayoutProps> = ({
     },
   },
 }) => {
-  useBrowserMetrics()
-
   const { enableUserWayAccessibilityWidget } = useFlags()
 
   return (

@@ -968,6 +968,13 @@
   dependencies:
     tslib "1.10.0"
 
+"@datadog/browser-core@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-core/-/browser-core-2.2.0.tgz#dee2f6d8ad42af0ddcbb07e13b7ae78789a64ed1"
+  integrity sha512-50ZGXw0d1kGmG0vgM8zXdohQ0j4Udpnpp2UtIBNW7X+Sr9KDafo95RwyMB1p/x5i9lte5K8KC90ysajlLQq6GA==
+  dependencies:
+    tslib "^1.10.0"
+
 "@datadog/browser-logs@1.12.10":
   version "1.12.10"
   resolved "https://registry.yarnpkg.com/@datadog/browser-logs/-/browser-logs-1.12.10.tgz#f6fb728b3c439a0769c15d90c91e83af8bd675ed"
@@ -975,6 +982,23 @@
   dependencies:
     "@datadog/browser-core" "1.12.10"
     tslib "1.10.0"
+
+"@datadog/browser-rum-core@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-rum-core/-/browser-rum-core-2.2.0.tgz#dbc4fcb5f6015c9e5ae184eb1f572dfb4ab68224"
+  integrity sha512-rBiZn4JdwSCU7K3iRPNwecWZIpegsJIbCrJVpTea2gmsQmPeRFEVUvkNDJw4JTj4I6j3WzL0kTEVNfz1sN+NuQ==
+  dependencies:
+    "@datadog/browser-core" "2.2.0"
+    tslib "^1.10.0"
+
+"@datadog/browser-rum@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-rum/-/browser-rum-2.2.0.tgz#ffa533c4149c4e9e97b0d087c1011bcd32893b34"
+  integrity sha512-lVm8rjpmped4d+wb03OLcT75hrNtsCdeeougnRSKe6DLzkCk01q3bOdNN+wtre2/QAI+2NAszj6XvCQJtjEItQ==
+  dependencies:
+    "@datadog/browser-core" "2.2.0"
+    "@datadog/browser-rum-core" "2.2.0"
+    tslib "^1.10.0"
 
 "@emotion/cache@^10.0.27":
   version "10.0.29"
