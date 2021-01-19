@@ -117,16 +117,16 @@ All navigation data are stored in [src/content/navigationData.json](https://gith
 This is flattened at build time to autogenerate two files `rootTopics.json` and `secondLevelTopics.json`. The
 flattened data are queryable via graphql and allows us to render the side nav more efficiently.
 
-### Hiding nav item behind a feature flag
+### Hiding nav items behind feature flags
 
-Using the [gatsby-plugin-launchdarkly](https://github.com/launchdarkly-labs/gatsby-plugin-launchdarkly), you can hide nav items behind a feature flag. All you need to do is add the `flagKey` property to the nav item you'd like controlled by a flag in `navigationData.json`:
+You can use the [gatsby-plugin-launchdarkly](https://github.com/launchdarkly-labs/gatsby-plugin-launchdarkly), to hide nav items behind a feature flag. To do this, add the `flagKey` property to the nav item you want to control with a flag in `navigationData.json`. Use the came case version of the flag key, as shown below:
 
 ```json
 ...
   {
     "label": "Your flag controlled nav item",
     "path": "/home/getting-started/hiding-your-nav-behind-a-flag",
-    "flagKey": "my-hidden-nav"
+    "flagKey": "myHiddenNav"
   },
 ...
 ```

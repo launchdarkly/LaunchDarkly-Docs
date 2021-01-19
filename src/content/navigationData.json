@@ -476,6 +476,11 @@
         "path": "/integrations/oauth"
       },
       {
+        "label": "Salesforce",
+        "path": "/integrations/salesforce",
+        "flagKey": "salesforceNav"
+      },
+      {
         "label": "SignalFx",
         "path": "/integrations/signalfx",
         "items": [
