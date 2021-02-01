@@ -16,7 +16,9 @@ Anonymous users are identical to regular users, but they are not stored in your 
   <CalloutDescription>
 
 You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user
-attributes instead. To learn more, read [Private user attributes](/home/managing-users/user-attributes).
+attributes instead.<br/> <br/>
+
+To learn more, read [Private user attributes](/home/managing-users/user-attributes).
 
   </CalloutDescription>
 </Callout> 
@@ -63,3 +65,32 @@ You can replace some of the unique IDs in the examples above with anonymous user
 
 You can remove users you don't need anymore with the LaunchDarkly API, or by clicking the **Delete** button on their user card. To learn more, read [Removing a user](/home/managing-users/users-dashboard#removing-a-user).
 
+## Associating anonymous users with logged in users
+
+<Callout intent="info">
+<CalloutTitle>This feature may not be available yet in your SDK</CalloutTitle>
+<CalloutDescription>
+
+This section explains <code>alias</code> events, which are an optional feature in LaunchDarkly SDKs. This feature is being rolled out to LaunchDarkly SDKs in order of SDK adoption, with more frequently used SDKs being updated first. If you cannot find documentation for <code>alias</code> events in your SDK documentation, check back periodically until the feature is added. You can also [contact Support](https://support.launchdarkly.com/hc/en-us).
+
+</CalloutDescription>
+</Callout>
+
+In some cases, one person can be represented by multiple users in LaunchDarkly. If LaunchDarkly registers a person as an anonymous user, and that person later logs in to the application, LaunchDarkly will register them again as a logged-in user. This one person is now represented by two unique user keys. 
+
+You can associate these two user keys by configuring your SDK to send `alias` events. Alias events connect two user keys and register them as one event-sending entity. 
+
+If you use Data Export or Experimentation, `alias` events are useful because they make the data represented in destinations and experiment results easier to understand. Instead of seeing multiple users that represent the same person, you see an `alias` event that aggregates the user objects representing that person as one event.
+
+To learn more about configuring your SDK to send `alias` events, read [your SDK's documentation](/sdk/).
+
+<Callout intent="alert">
+<CalloutTitle>mParticle events require additional configuration</CalloutTitle>
+<CalloutDescription>
+
+If you use mParticle as a Data Export destination, you must configure it to receive <code>alias</code> events in the LaunchDarkly UI. mParticle requires this additional configuration step to register events correctly.<br/><br/>
+
+To learn more, read [mParticle](/integrations/data-export/mparticle).
+
+</CalloutDescription>
+</Callout>
