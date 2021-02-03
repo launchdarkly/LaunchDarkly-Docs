@@ -29,7 +29,7 @@ If you want to write a good PR, here are some resources to get you started:
 
 - [The LaunchDarkly documentation style guide](style-guide.md)
 - [The LaunchDarkly documentation contributor's guide](contributors-guide.md)
-- [Information about our custom components](components.md)
+- [Information about our custom components](/src/content/topics/components.mdx)
 
 ## 🚴 Running the docs site locally
 
