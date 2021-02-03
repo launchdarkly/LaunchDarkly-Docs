@@ -30,13 +30,14 @@ type SdkLinksProps = {
   heading: string
 }
 const SdkLinks: FunctionComponent<SdkLinksProps> = ({ heading, sideNavItems }) => {
+  const numAcross = sideNavItems.length < 6 ? sideNavItems.length : 5
   return (
     <li>
       <h4 sx={{ fontSize: 4, lineHeight: 'medium', mb: 2 }}>{heading}</h4>
       <div
         sx={{
           display: 'grid',
-          gridTemplateColumns: ['repeat(2, 1fr)', 'repeat(3, 1fr)', 'repeat(5, 1fr)'],
+          gridTemplateColumns: ['repeat(2, 1fr)', 'repeat(3, 1fr)', `repeat(${numAcross}, 1fr)`],
           rowGap: 3,
           fontSize: 4,
           color: '#646F7A',

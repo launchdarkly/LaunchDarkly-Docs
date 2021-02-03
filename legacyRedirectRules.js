@@ -521,7 +521,11 @@ module.exports = [
   },
   {
     fromPath: '/docs/react-native-sdk-reference',
-    toPath: '/sdk/client-side/react-native',
+    toPath: '/sdk/client-side/react/react-native',
+  },
+  {
+    fromPath: '/sdk/client-side/react-native',
+    toPath: '/sdk/client-side/react/react-native',
   },
   {
     fromPath: '/docs/roku-sdk-reference',

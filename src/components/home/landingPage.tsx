@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 import Link from '../link'
-import ExploreSdks from './sdks/exploreSdks'
+import { ExploreSdks } from './sdks/exploreSdks'
 import QuickLinks from './quickLinks'
 
 const LandingPage = () => (

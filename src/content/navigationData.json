@@ -646,16 +646,18 @@
             "path": "/sdk/client-side/react",
             "items": [
               {
+                "label": "React Web",
+                "path": "/sdk/client-side/react/react-web"
+              },
+              {
+                "label": "React Native",
+                "path": "/sdk/client-side/react/react-native"
+              },
+              {
                 "label": "Gatsby plugin",
                 "path": "/sdk/client-side/react/gatsby"
               }
             ]
-          },
-          {
-            "label": "React Native SDK reference",
-            "shortLabel": "React Native",
-            "path": "/sdk/client-side/react-native",
-            "svg": "react-native"
           },
           {
             "label": "Roku SDK reference",

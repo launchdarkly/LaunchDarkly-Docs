@@ -53,6 +53,7 @@ export type IconName =
   | 'arrow-right'
   | 'arrow-up'
   | 'pencil'
+  | 'gatsby'
 
 export type IconProps = {
   name: IconName

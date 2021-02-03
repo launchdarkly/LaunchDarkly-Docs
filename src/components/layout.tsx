@@ -22,6 +22,10 @@ import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
 import Link from './link'
 import Icon from './icon'
 import Homepage from './home/landingPage'
+import { AllSdks } from './home/sdks/exploreSdks'
+import ClientSideSdks from './home/sdks/clientSideSdks'
+import ServerSideSdks from './home/sdks/serverSideSdks'
+import ReactSdks from './home/sdks/reactSdks'
 
 const components = {
   h1: H1,
@@ -50,6 +54,10 @@ const components = {
   CodeTabs,
   CodeTabItem,
   Homepage,
+  AllSdks,
+  ClientSideSdks,
+  ServerSideSdks,
+  ReactSdks,
   Icon,
   code: Code,
   pre: Pre,
