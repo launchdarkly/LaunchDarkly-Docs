@@ -9,7 +9,7 @@ published: true
 
 Release's LaunchDarkly integration allows you to have a pristine, isolated LaunchDarkly Environment to use for testing. One of the difficulties you may have when utilizing feature flags is dealing with multiple environments. You can try and share your feature flag environments with multiple staging or pre-production environments, but much like sharing a database between multiple environments is dangerous and can cause testing and reliability issues, so can sharing feature flag environments.
 
-We solve this by creating a new LaunchDarkly environment each time you deploy a new Release Environment, while also storing the SDK, Mobile, and Client keys into environment variables that are accessible to your application. Both creation and deletion of LaunchDarkly environments are handled by Release, while only requiring a very small amount of configuration.
+We solve this by creating a new LaunchDarkly Environment each time you deploy a new Release Environment, while also storing the SDK, Mobile, and Client keys into environment variables that are accessible to your application. Both creation and deletion of LaunchDarkly Environments are handled by Release, while only requiring a very small amount of configuration.
 
 ## Setup the Integration
 
@@ -25,28 +25,28 @@ Each field in the setup form is required, and all but one have defaults you can 
 
 * **Project Key**: This is the key for the project you want your environments created under. The default value is _default_ , as LaunchDarkly always has a project with key _default_.
 * **Access Token**: This is the token for the account you would like us to create environments under in LaunchDarkly. You can create or find the access token you would like to use in LaunchDarkly, under **Account Settings** -&gt; **Authorization**. All access tokens start with **api-**.
-* **Environment Variables**: The last three form elements define the names of the environment variables where Release will store the appropriate API keys from LaunchDarkly. You may change them to anything you like. You will most likely need the LaunchDarkly access token to setup your sdk client for choosing variations of flags in your application.  Upon setting up the environment in LaunchDarkly, Release will store the various api keys values in these environment variables. This will allow you container access to the various API keys you need. They are stored as encrypted K8s secrets.
+* **Environment Variables**: The last three form elements define the names of the environment variables where Release stores the appropriate API keys from LaunchDarkly. You may change them to anything you like. You most likely need the LaunchDarkly access token to setup your sdk client for choosing variations of flags in your application.  Upon setting up the environment in LaunchDarkly, Release stores the various api keys values in these environment variables. This will allow your container access to the various API keys you need. They are stored as encrypted K8s secrets.
 
 ![LaunchDarkly Configuration](../../images/release-setup-ld-integration.png)
 
-Once you have saved it, Release will attempt to use your **Access Token** to connect to your LaunchDarkly account. If that works, you're done. The integration is ready to go! If not, you'll see errors and can correct any mistakes you have made.
+Once you have saved it, Release attempts to use your **Access Token** to connect to your LaunchDarkly account. If that works, you're done. The integration is ready to go! If not, you'll see errors and can correct any mistakes you have made.
 
 ## Utilizing the LaunchDarkly Integration
 
 The integration consists of two parts, both of which are automated and handled by Release.
 
-* **Pre-Deployment Step:** The LaunchDarkly integration will add a task to each of your deployments to create the feature flag environment.
-* **Pre-Delete Step:** When you delete an environment, a step will be injected that cleans up by deleting the environment in LaunchDarkly.
+* **Pre-Deployment Step:** The LaunchDarkly integration adds a task to each of your deployments to create the feature flag environment.
+* **Pre-Delete Step:** When you delete an environment, a step is injected that cleans up by deleting the environment in LaunchDarkly.
 
 ![Ephemeral Environment Creation Workflow](../../images/release-ld-integration-workflow.png)
 
 ### Pre-Deployment Step
 
-The Pre-Deployment step is for when you first deploy a space or deploy a new configuration. But, it will only create the environment in LaunchDarkly the very first time it runs.
+The Pre-Deployment step is for when you first deploy a space or deploy a new configuration. But, it only creates the environment in LaunchDarkly the very first time it runs.
 
 ![Environment &apos;ted422c&apos; was created in LaunchDarkly](../../images/release-pre-deployment-step.png)
 
-Upon successful creation, the environment variables you specified during setup will be populated and exposed to your containers via K8s secrets.
+Upon successful creation, the environment variables you specified during setup are populated and exposed to your containers via K8s secrets.
 
 ![LaunchDarkly Specific Envs as K8s secrets](../../images/release-ld-envs.png)
 
@@ -54,11 +54,11 @@ You can then use these environment variables in your code to access your feature
 
 ### Pre-Delete Step
 
-The Pre-Delete step is invoked anytime a Release Environment is removed, whether that be manually through the UI or upon merge/closure of a pull request. The LaunchDarkly integration will remove the corresponding LaunchDarkly environment automatically upon removal of the Release Environment.
+The Pre-Delete step is invoked anytime a Release Environment is removed, whether that be manually through the UI or upon merge/closure of a pull request. The LaunchDarkly integration removes the corresponding LaunchDarkly environment automatically upon removal of the Release Environment.
 
 ## Example: Setting up LaunchDarkly SDK Client in Rails
 
-In order to utilize LaunchDarkly in your application you will need to do two things:
+In order to utilize LaunchDarkly in your application you need to do two things:
 
 * Authorize against LaunchDarkly with your access token
 * Configure the LD SDK client using the specific api key for your environment
@@ -91,7 +91,7 @@ Rails.configuration.ld_client =
   LaunchDarkly::LDClient.new(ENV['LAUNCHDARKLY_ENV_SPECIFIC_SDK_KEY'])
 ```
 
-This will authenticate with LaunchDarkly using the access token you entered during setup and set your sdk client using the sdk api key from the particular environment that was setup on your behalf. 
+This authenticates with LaunchDarkly using the access token you entered during setup and set your sdk client using the sdk api key from the particular environment that was setup on your behalf. 
 
 `test_flag = Rails.configuration.ld_client.variation("test-flag", {key: "user@test.com"}, false)`
 
