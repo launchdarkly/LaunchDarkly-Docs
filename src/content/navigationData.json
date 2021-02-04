@@ -476,6 +476,10 @@
         "path": "/integrations/oauth"
       },
       {
+        "label": "Release",
+        "path": "/integrations/release"
+      },
+      {
         "label": "SignalFx",
         "path": "/integrations/signalfx",
         "items": [
