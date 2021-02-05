@@ -169,7 +169,7 @@ if (process.env.DEV_FAST !== 'true') {
 }
 
 // Only build algolia indexes in staging and production
-if (process.env.GATSBY_ACTIVE_ENV === 'staging' || process.env.GATSBY_ACTIVE_ENV === 'production') {
+if (process.env.GATSBY_ACTIVE_ENV === 'release' || process.env.GATSBY_ACTIVE_ENV === 'staging' || process.env.GATSBY_ACTIVE_ENV === 'production') {
   plugins.push({
     resolve: 'gatsby-plugin-algolia',
     options: {
