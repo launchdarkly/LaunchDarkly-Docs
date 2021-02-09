@@ -342,6 +342,27 @@ You will still need to generate a unique key for anonymous users. Session IDs or
 
 Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
 
+## Aliased users
+
+There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person would be identified by two different users as denoted by different user keys.
+
+The SDK can associate these two LaunchDarkly users by sending an alias event. You can manually tell the SDK to send an alias event with the `alias` method.
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', },
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+ld_client.alias(new_user, previous_user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 ## Variation
 
 The `variation` method determines which variation of a feature flag a user receives.
