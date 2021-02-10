@@ -451,7 +451,7 @@ Anonymous users work just like regular users, except that they won't appear on y
 
 ## Variation
 
-The variation method determines whether a flag is enabled or not for a specific user. In the V4 SDK, there is a single variation method for all types using Swift, however Objective-C requires type specific methods:
+The variation method determines whether a flag is enabled or not for a specific user. There is a single variation method for all types using Swift, however Objective-C requires type specific methods:
 
 <CodeTabs
   defaultValue="swift"
@@ -710,7 +710,7 @@ LDUser *newUser = [[LDUser alloc] initWithKey:@"NEW_USER_KEY"];
 
 LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream. When a flag is modified from the LaunchDarkly dashboard, the flag values for the current user updates almost immediately.
 
-To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is listened to by the V4 SDK. Whenever an event is performed on the dashboard, the V4 SDK is notified of the updated flag settings in real-time.
+To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is listened to by the SDK. Whenever an event is performed on the dashboard, the SDK is notified of the updated flag settings in real-time.
 
 The SDK provides methods for listening to a single flag, all the flags, or a lack of change to any flags. `observeFlagsUnchanged` is called when the SDK successfully receives an update or comes back online but no flags have changed. If the value of the flag changes, the method executes the handler, passing in the `changedFlag` containing the old and new flag values, and old and new flag value source. The SDK retains only weak references to the owner, which allows the client app to freely destroy owners without issues. Client apps should use a capture list specifying `[weak self]` inside handlers to avoid retain cycles causing a memory leak. The SDK executes handlers on the main thread. `LDChangedFlag` does not know the type of `oldValue` or `newValue`. The client app should cast the value into the type needed.
 <Callout intent="alert">
@@ -776,7 +776,7 @@ __weak typeof(self) weakSelf = self;
 
 ## Background fetch
 
-When the app is backgrounded, the V4 SDK does not receive real-time events. However, there is support for a background fetch to update flag values opportunistically, according to iOS standard defaults.
+When the app is backgrounded, the SDK does not receive real-time events. However, there is support for a background fetch to update flag values opportunistically, according to iOS standard defaults.
 
 To change the  background fetch interval for flags in your app, just add the following code in your `LDConfig`:
 
