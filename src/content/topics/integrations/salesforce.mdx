@@ -7,124 +7,143 @@ published: true
 
 ## Overview
 
-This topic explains how to set up and use the LaunchDarkly Salesforce integration.
-
 <Callout intent="info">
 <CalloutTitle>This integration is in beta</CalloutTitle>
 <CalloutDescription>
 
-Development work on this integration is ongoing. It may have unexpected behavior or unsupported features.
+Development work on this integration is ongoing. It may have unexpected behavior or unsupported features. 
+
+The LaunchDarkly Salesforce integration gives you and your team members a read-only view of your feature flags. You can see the flag variations LaunchDarkly serves to your customers without leaving Salesforce. This is useful for customer success and support teams working with customers to debug issues or access new features.
 
 </CalloutDescription>
 </Callout>
+
+This topic explains how to set up and use the LaunchDarkly Salesforce integration.
 
 <Callout intent="info">
-<CalloutTitle>Enterprise feature</CalloutTitle>
+<CalloutTitle>The Salesforce integration is an enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-The integration documented in this section is only available for customers on an Enterprise plan. To upgrade your plan, [contact Sales](mailto:sales@launchdarkly.com).
+The integration documented in this topic is only available for customers on an Enterprise plan. To upgrade your plan, [contact Sales](mailto:sales@launchdarkly.com).
 
 </CalloutDescription>
 </Callout>
 
-The LaunchDarkly Salesforce integration gives you and your team members a read-only view into the feature flag variations LaunchDarkly is serving to your customers, without leaving Salesforce. This is useful for customer success and support teams working with customers to debug issues and unlock new features.
-
-![Salesforce Case Page with the LaunchDarkly integration enabled.](../images/salesforce/installation-complete.png)
+![The Salesforce Case Page with the LaunchDarkly integration enabled.](../images/salesforce-installation-complete.png)
 
 ## Prerequisites
 
 In order to install and configure the LaunchDarkly Salesforce integration, you must have the following prerequisites:
 
-* You have a LaunchDarkly Enterprise plan
-* Your Salesforce role allows you to install appExchange applications and configure connected apps, custom metadata, and page layouts
+* A LaunchDarkly Enterprise plan
+* Integration seats from the Salesforce AppExchange that allow you to use the integration
+* A Salesforce role that allows you to install AppExchange applications and configure connected apps, custom metadata, and page layouts
 
 ## Setting up the LaunchDarkly Salesforce integration
 
+<Callout intent="info">
+<CalloutTitle>Open LaunchDarkly and Salesforce</CalloutTitle>
+<CalloutDescription>
+
+Setting up this integration will require you to switch between the LaunchDarkly platform UI and your Salesforce account UI multiple times. It will be most convenient for you if you open each platform in a different browser tab so you can switch between them easily.
+
+</CalloutDescription>
+</Callout>
+
+First, you must allow users in your Salesforce account to access the LaunchDarkly Salesforce app.
+
 <!-- TODO: update link once we are published -->
-1. Install the LaunchDarkly Salesforce integration from the [Salesforce AppExchange](https://appexchange.salesforce.com).
-
+1. Install the LaunchDarkly Salesforce app from the [Salesforce AppExchange](https://appexchange.salesforce.com).
 2. In Salesforce, click **Setup** and type **Connected Apps** in the **Quick Find** search box on the top left corner of the screen.
+3. Choose **Manage Connected Apps**.
+4. Find the LaunchDarkly connected apps record and click **Edit**.
+5. In the **OAuth Policies** section, change the **Permitted Users** dropdown to **Admin approved users are pre-authorized**.
+6. Acknowledge the confirmation that appears.
 
-3. Select **Manage Connected Apps**.
+![Changing the permitted users selection.](../images/salesforce-oauth-policies.png)
 
-4. Click **Edit** next to the **LaunchDarkly** connected apps record.
+7. Click **OK** and **Save**.
+8. From the **Manage Connected** screen, click **LaunchDarkly**.
+9. Scroll to the **Profiles** section and click **Manage Profiles**.
+10. Choose the user profiles you wish to grant access to the LaunchDarkly Salesforce app.
+11. Click **Save**.
 
-5. In the **OAuth Policies** section, change the **Permitted Users** dropdown to **Admin approved users are pre-authorized** and acknowledge the confirmation that appears.
+![The "Application Profile Assignment" screen, configured for two example profiles.](../images/salesforce-profile-assignment.png)
 
-![Changing the Permitted Users Selection](../images/salesforce/oauth-policies.png)
+This allows Salesforce users to access the LaunchDarkly Salesforce app.
 
-6. Click **OK** and the click **Save**.
+## Connecting LaunchDarkly to Salesforce
 
-7. From the **Manage Connected Screen** click **LaunchDarkly**, scroll down to the **Profiles** section and click the **Manage Profiles** button.
+Next, you must configure the LaunchDarkly component to bring your flag data into the Salesforce "Record" page. 
 
-8. Select the user profiles you wish to grant access to the LaunchDarkly Salesforce app and click **Save**
+1. Return to the Salesforce setup dashboard and in the **Quick Find** search box, type **Custom metadata**.
+2. Choose **Custom Metadata Types** from the **Custom Code** section.
+3. Click **Manage Records** on the **LaunchDarkly Settings** row.
+4. Click the **New** button on the **LaunchDarkly Settings** page.
 
-![The Application Profile Assignment screen, configured for two example profiles.](../images/salesforce/profile-assignment.png)
+![The LaunchDarkly Settings page with the "New" button called out.](../images/salesforce-new-button-callout.png)
 
-9. Return to the Salesforce setup dashboard, type **Custom Metadata** in the **Quick Find** search box on the top left corner of the screen.
+5. In LaunchDarkly, create a new service token with a `reader` role. To learn more, read [Service tokens](/home/account-security/api-access-tokens#service-tokens).
+6. Return to the Salesforce custom metadata form and create a new **LaunchDarkly Settings** custom metadata record with a **Label** and **LaunchDarkly Settings Name** of "Default" and the **Service Token** from step 13, above.
 
-10. Select **Custom Metadata Types** from the **Custom Code** section.
+![The LaunchDarkly Settings creation form, configured with a sample service token.](../images/salesforce-launchdarkly-settings.png)
 
-11. Click **Manage Records** on the **LaunchDarkly Settings** row.
+7. Navigate to a record page for the object type you wish to embed the LaunchDarkly Salesforce app. Example object types include "Account" and "Case."
+8. Click the **gear icon** and choose **Edit Page**.
 
-12. Click the **New** button on the **LaunchDarkly Settings** page.
+![The gear icon menu with "Edit page" selected.](../images/salesforce-edit-page.png)
 
-![The LaunchDarkly Settings page with the "New" button called out.](../images/salesforce/new-button-callout.png)
+9. Search for **LaunchDarkly** on the **Components** section of the screen and drag the **LaunchDarkly** component onto the page layout. We recommend placing the component in a new tab, but you can place the component anywhere that works best for your team.
 
-13. In LaunchDarkly, create a new service token with a `reader` role. To learn more, read [Service tokens](/home/account-security/api-access-tokens#service-tokens).
+10. Configure out the following fields:
 
-14. Return to Salesforce custom metadata form and create a new **LaunchDarkly Settings** custom metadata record with a **Label** and **LaunchDarkly Settings Name** of "Default" and the **Service Token** from step 13, above.
+    * **Project key**: The key of the LaunchDarkly project you wish to associate with the component.
+    * **Environment key**: The key of the LaunchDarkly environment you wish to associate with the component.
+    * **Tag**: (Optional) The feature flag tag filter you wish to associate with the component. If omitted, all of the project's feature flags are included in the component.
+    * **User key field**: The Salesforce API field name of the record field that maps to LaunchDarkly feature flag evaluation user keys. This can be a built-in field, such as `AccountId` or a custom field such as `LaunchDarkly_ID__c`.
 
-![The LaunchDarkly Settings creation form, configured with a sample service token.](../images/salesforce/launchdarkly-settings.png)
+![The LaunchDarkly component on the Lightning App Builder page, configured with sample settings.](../images/salesforce-component-settings.png)
 
-15. Navigate to a record page for the object type (i.e. Account, Case) you wish to embed the LaunchDarkly Salesforce integration.
-
-16. Click the **gear icon** in the upper right corner and select **Edit Page**.
-
-![The gear icon menu with "Edit page" selected.](../images/salesforce/edit-page.png)
-
-17. Search for **LaunchDarkly** on the **Components** section of the screen and drag the **LaunchDarkly** component onto the page layout. We recommend placing the component in a new tab, but you can place the component anywhere that works best for your team.
-
-18. Fill out the following fields:
-
-    * **Project key** - The key of the LaunchDarkly project you wish to associate with the component.
-    * **Environment key** - The key of the LaunchDarkly environment you wish to associate with the component.
-    * **Tag** (optional) - The feature flag tag filter you wish to associate with the component. If omitted, all of the project's feature flags will be included in the component.
-    * **User key field** - The Salesforce API field name of the record field that maps to LaunchDarkly feature flag evaluation user keys. This can be a built in field, such as `AccountId` or a custom field such as `LaunchDarkly_ID__c`.
-
-![The LaunchDarkly component on the Lightning App Builder page, configured with sample settings.](../images/salesforce/component-settings.png)
-
-19. Navigate back to the sample record page to confirm that the LaunchDarkly integration is visible on the record page.
+11. Navigate back to the sample record page and confirm that the LaunchDarkly integration is visible on the record page.
 
 ## Using the LaunchDarkly Salesforce integration
 
- To get the best experience from the integration, we recommend configuring the **Tag** field in step 18 to a tag in LaunchDarkly that has been applied to around 15 or fewer feature flags. In some cases it may be easier to set the **Tag** field to a new tag like `salesforce` or `customer-facing` and selectively add that tag to the feature flags of your choice in the LaunchDarkly dashboard. Be sure to notify your team members of how this tag is being used so they can selectivity tag any relevant flags. 
+To get the best experience from the integration, we recommend configuring the **Tag** field to a tag in LaunchDarkly that has been applied to 15 or fewer feature flags. In some cases, it may be easier to set the **Tag** field to a new tag like `salesforce` or `customer-facing` and selectively add that tag to the feature flags of your choice in the LaunchDarkly dashboard. 
+
+Be sure to notify your team members of how this tag is being used so they can accurately tag any relevant flags. 
  
- To learn more about adding tags to feature flags, read [Other flag settings](home/managing-flags/flag-settings).
+To learn more about adding tags to feature flags, read [Other flag settings](home/managing-flags/flag-settings).
 
 ## Troubleshooting
 
 ### There is a ⚠️ icon at the bottom of the integration
 
-![The LaunchDarkly Salesforce integration with a warning icon visible.](../images/salesforce/integration-with-warning-icon-visible.png)
+![The LaunchDarkly Salesforce integration with a warning icon visible.](../images/salesforce-integration-with-warning-icon-visible.png)
 
-The ⚠️ icon at the bottom of the integration next to the **User**, means LaunchDarkly has not observed any flag evaluations for this user in the past 30 days. Unless the user is new or inactive, this could be a sign that the **User key field** in step 18 above has been misconfigured. The **User key field** should mapped to a field on the Salesforce record page that represents the **Key** used to evaluate feature flags. If you are unsure what the **Key** field should look like, visit the [Users dashboard](home/managing-users/users-dashboard) and inspect the **Key** column.
+The ⚠️ icon at the bottom of the integration next to the **User**, means LaunchDarkly has not observed any flag evaluations for this user in the past 30 days. 
+
+Unless the user is new or inactive, this could be a sign that you have misconfigured the **User key field**. The **User key field** should be mapped to a field on the Salesforce record page that represents the **Key** used to evaluate feature flags. 
+
+If you are unsure what the **Key** field should look like, visit the Users dashboard in LaunchDarkly and inspect the **Key** column. To learn more, read [The Users dashboard](home/managing-users/users-dashboard).
 
 ![The Users dashboard](../images/users.png)
 
 ### Cannot load flag data for user because 'Field' is empty.
 
-![The LaunchDarkly Salesforce integration displaying the "cannot load flag data" error message.](../images/salesforce/cannot-load-flag-data-error.png)
+![The LaunchDarkly Salesforce integration displaying the "cannot load flag data" error message.](../images/salesforce-cannot-load-flag-data-error.png)
 
-This message means the current record page does not have anything set in the **User key field** set in step 18. above. If you do not wish to see this message on records that do not have the **User key field** filled out, consider configuring a component visibility rule on the Salesforce Lightning App builder page. To learn more, read [Dynamic lightning pages](https://help.salesforce.com/articleView?id=lightning_page_components_visibility.htm).
+This message means the current record page does not have anything set in the **User key field**. 
+
+If you do not wish to see this message on records that do not have the **User key field** filled out, consider configuring a component visibility rule on the Salesforce Lightning App builder page. To learn more, read [Dynamic lightning pages](https://help.salesforce.com/articleView?id=lightning_page_components_visibility.htm) in Salesforce's documentation.
 
 ### No such column 'User key field' exists on entity 'Record'.
 
-![The LaunchDarkly Salesforce integration displaying the "no such column" error message.](../images/salesforce/no-such-column-error.png)
+![The LaunchDarkly Salesforce integration displaying the "no such column" error message.](../images/salesforce-no-such-column-error.png)
 
-This message means the **User key field** specified in step 18 above does not exist on the record page. To see all available API fields do the following:
-1. Click the **Gear icon** on the top right corner of the page and click **Setup**
+This message means the **User key field** does not exist on the record page. 
 
-2. Click on the **Object Manager** tab and click the record of interest (i.e. Account, Case).
+To see all available API fields:
 
-3. Click **Fields & Relationships**. The **User key field** in step 18 can be configured to anything in the **Field Name** column of this page.
+1. In Salesforce, click the **Gear icon** and click **Setup**.
+2. Click into the **Object Manager** tab and click the record you wish to view.
+3. Click **Fields & Relationships**. You can configured the **User key field** to anything in the **Field Name** column of this page.
