@@ -776,7 +776,9 @@ You can record custom events using the `track` function. In LaunchDarkly, you ca
 
 To learn more, read [Experimentation](/home/experimentation).
 
-Call track with the event name to record custom conversion metrics. The second argument is optional.
+Call track with the event name to record custom conversion metrics. 
+
+The second argument is optional and useful for observational analytics with the use of LaunchDarkly's Data Export feature. Lastly, with Data Export, the second argument is used to give additional context without saving the data to the LaunchDarkly user context.
 
 <CodeTabs
   defaultValue="js"
