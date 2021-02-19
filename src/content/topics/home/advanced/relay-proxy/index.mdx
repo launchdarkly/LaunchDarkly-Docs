@@ -39,7 +39,7 @@ Those scenarios are:
 
 PHP's shared-nothing architecture prevents LaunchDarkly from re-using the streaming API connection across requests.
 
-You can use PHP without the Relay Proxy, but we strongly recommend using the proxy in **daemon mode** if you are using PHP in a high-throughput setting. This makes the Relay Proxy receive feature flag updates.
+You can use PHP without the Relay Proxy, but we strongly recommend using the Proxy in **daemon mode** if you are using PHP in a high-throughput setting. This makes the Relay Proxy receive feature flag updates.
 
 To learn more, read [Using the proxy in different modes](/home/advanced/relay-proxy/using#using-the-proxy-in-different-modes).
 
@@ -84,6 +84,8 @@ If you choose to use the Relay Proxy, position it effectively within your networ
 For example, do not put the Relay Proxy inside a firewall if you intend to connect it to any client-side apps.
 
 If you have deployed your application to multiple regions, consider running one or more Relay Proxy instances in each of those regions in close proximity to your application. This limits latency between your application and the Relay Proxy.
+
+If you have security requirements, such as enforcing the use of a particular authentication scheme, place the Relay Proxy behind a general purpose proxy so traffic from LaunchDarkly SDKs flows through the general purpose proxy before it reaches the Relay Proxy. The Relay Proxy does not replicate the functionality of a general purpose proxy. Do not use it as a replacement for a general purpose proxy.
 
 ### Caching guidelines
 
