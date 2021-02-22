@@ -15,13 +15,22 @@ The Release integration prevents these issues by creating a new LaunchDarkly env
 
 ## Setting up the integration
 
-In order to setup the integration, first navigate to **Manage Accounts** and select your account. Once you are there, select **Integrations**. You will see **LaunchDarkly** under Available Integrations. Click **Setup** to setup the integration.
+To set up the integration:
 
-![Select Manage Accounts](../../images/release-select-manage-accounts.png)
+1. Log in to your Release account.
+2. Navigate to **Manage Accounts** 
+ 
+ ![Select "Manage Accounts"](../../images/release-select-manage-accounts.png)
 
-![Click on the Account name to manage the account](../../images/release-select-account-to-manage.png)
+3. Choose your account. 
 
-![Click &apos;Setup&apos; for LaunchDarkly](../../images/release-manage-integrations.png)
+ ![Click on the account name.](../../images/release-select-account-to-manage.png)
+
+4. Choose **Integrations** and find "LaunchDarkly" in the "Available Integrations" section. 
+5. Click **Setup** to set up the integration. The set up form appears.
+
+ ![Click &apos;Setup&apos; for LaunchDarkly](../../images/release-manage-integrations.png)
+
 
 Each field in the setup form is required, and all but one have defaults you can use.
 
@@ -98,4 +107,3 @@ This authenticates with LaunchDarkly using the access token you entered during s
 `test_flag = Rails.configuration.ld_client.variation("test-flag", {key: "user@test.com"}, false)`
 
 Now you can use retrieve variants for feature flags exactly how you would had you entered the API key manually, but with more security and the flexibility you need in each testing environment.  
-
