@@ -88,22 +88,32 @@ This example is based on this [LaunchDarkly Getting Started Guide](https://docs.
 
 Create a file in `config/initializers/launchdarkly_client.rb`
 
-```ruby
-##retrieve access token from system ENVS or
-##local envs courtesy of dotenv
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', }
+  ]
+}>
+
+    <CodeTabItem value="ruby">
+
+    ```ruby
+##Retrieve the access token from system ENVS or
+##local envs with dotenv
+
 access_token = ENV['LAUNCHDARKLY_ACCESS_TOKEN']
 
-##SETUP auth using access token
+##Set up authorization using access token
+
 LaunchDarklyApi.configure do |config|
   config.api_key['Authorization'] = access_token
   config.debugging = true
 end
 
-##set ld_client to use the api key for the specific environment
+## Set ld_client to use the API key for the specific environment
+
 Rails.configuration.ld_client = 
   LaunchDarkly::LDClient.new(ENV['LAUNCHDARKLY_ENV_SPECIFIC_SDK_KEY'])
-```
-
 This authenticates with LaunchDarkly using the access token you entered during setup and sets your SDK client using the SDK API key from the environment that was set up on your behalf.```
 
 `test_flag = Rails.configuration.ld_client.variation("test-flag", {key: "user@test.com"}, false)`
