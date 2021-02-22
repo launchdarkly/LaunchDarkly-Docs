@@ -676,7 +676,13 @@
           {
             "label": ".NET SDK reference",
             "path": "/sdk/server-side/dotnet",
-            "svg": "dotnet"
+            "svg": "dotnet",
+            "items": [
+              {
+                "label": ".NET SDK 5.x to 6.0 migration guide",
+                "path": "/sdk/server-side/dotnet/migration-5-to-6"
+              }
+            ]
           },
           {
             "label": "Apex SDK reference",
