@@ -67,7 +67,7 @@ You can use these environment variables in your code to access your feature flag
 
 ### Using the Pre-Delete step
 
-The Pre-Delete step is invoked anytime a Release Environment is removed, whether that be manually through the UI or upon merge/closure of a pull request. The LaunchDarkly integration removes the corresponding LaunchDarkly environment automatically upon removal of the Release Environment.
+The Pre-Delete step is invoked anytime a Release environment is removed, either manually through the UI or after a pull request is merged or closed. The integration removes the corresponding LaunchDarkly environment automatically when the Release environment is removed.
 
 ## Example: Setting up LaunchDarkly SDK Client in Rails
 
