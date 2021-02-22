@@ -104,7 +104,7 @@ Rails.configuration.ld_client =
   LaunchDarkly::LDClient.new(ENV['LAUNCHDARKLY_ENV_SPECIFIC_SDK_KEY'])
 ```
 
-This authenticates with LaunchDarkly using the access token you entered during setup and set your sdk client using the sdk api key from the particular environment that was setup on your behalf. 
+This authenticates with LaunchDarkly using the access token you entered during setup and sets your SDK client using the SDK API key from the environment that was set up on your behalf.```
 
 `test_flag = Rails.configuration.ld_client.variation("test-flag", {key: "user@test.com"}, false)`
 
