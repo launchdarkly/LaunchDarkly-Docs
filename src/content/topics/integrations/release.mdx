@@ -36,9 +36,9 @@ Every field in the set up form is required, and all but one have defaults you ca
 
 Here are descriptions of the fields in the set up form:
 
-* **Project Key**: This is the key for the project you want your environments created under. The default value is _default_ , as LaunchDarkly always has a project with key _default_.
-* **Access Token**: This is the token for the account you would like us to create environments under in LaunchDarkly. You can create or find the access token you would like to use in LaunchDarkly, under **Account Settings** -&gt; **Authorization**. All access tokens start with **api-**.
-* **Environment Variables**: The last three form elements define the names of the environment variables where Release stores the appropriate API keys from LaunchDarkly. You may change them to anything you like. You most likely need the LaunchDarkly access token to setup your sdk client for choosing variations of flags in your application.  Upon setting up the environment in LaunchDarkly, Release stores the various api keys values in these environment variables. This will allow your container access to the various API keys you need. They are stored as encrypted K8s secrets.
+* **Project Key**: This is the key for the project where you wish to create environments. The default value is _default_ , because LaunchDarkly always has a project with key _default_.
+* **Access Token**: This is the token for the account you would like Release to create environments under in LaunchDarkly. You can create or find the access token you want to use in LaunchDarkly in the **Authorization** tab of the **Account Settings** page. All access tokens start with **api-**.
+* **Environment Variables**: The last three form elements define the names of the environment variables where Release stores the relevant API keys from LaunchDarkly. You can change them to anything you like. You may need the LaunchDarkly access token to set up your SDK client to choose flag variations in your application. After you set up the environment in LaunchDarkly, Release stores the various API keys values in these environment variables. This gives your container access to the API keys you need. They are stored as encrypted Kubernetes secrets.
 
 ![LaunchDarkly Configuration](../../images/release-setup-ld-integration.png)
 
