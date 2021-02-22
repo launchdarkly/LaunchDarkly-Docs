@@ -48,8 +48,8 @@ Once you have saved it, Release attempts to use your **Access Token** to connect
 
 The integration consists of two parts, both of which are automated and handled by Release.
 
-* **Pre-Deployment Step:** The LaunchDarkly integration adds a task to each of your deployments to create the feature flag environment.
-* **Pre-Delete Step:** When you delete an environment, a step is injected that cleans up by deleting the environment in LaunchDarkly.
+* **[Pre-Deployment step](#using-the-pre---deployment-step):** In this step, the integration adds a task to each of your deployments to create the feature flag environment.
+* **[Pre-Delete step](#using-the-pre---delete-step):** When you delete an environment, this step deletes the environment in LaunchDarkly.
 
 ![Ephemeral Environment Creation Workflow](../../images/release-ld-integration-workflow.png)
 
