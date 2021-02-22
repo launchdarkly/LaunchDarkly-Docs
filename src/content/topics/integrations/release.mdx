@@ -40,7 +40,7 @@ Here are descriptions of the fields in the set up form:
 * **Access Token**: This is the token for the account you would like Release to create environments under in LaunchDarkly. You can create or find the access token you want to use in LaunchDarkly in the **Authorization** tab of the **Account Settings** page. All access tokens start with **api-**.
 * **Environment Variables**: The last three form elements define the names of the environment variables where Release stores the relevant API keys from LaunchDarkly. You can change them to anything you like. You may need the LaunchDarkly access token to set up your SDK client to choose flag variations in your application. After you set up the environment in LaunchDarkly, Release stores the various API keys values in these environment variables. This gives your container access to the API keys you need. They are stored as encrypted Kubernetes secrets.
 
-![LaunchDarkly Configuration](../../images/release-setup-ld-integration.png)
+![An example LaunchDarkly configuration.](../../images/release-setup-ld-integration.png)
 
 After you save the configuration, Release attempts to use your **Access Token** to connect to your LaunchDarkly account. If that works, you're done. The integration is ready to go. If not, errors appear for you to troubleshoot.
 
