@@ -1,17 +1,19 @@
 ---
 path: '/integrations/release'
 title: 'Release'
-description: 'This topic explains how to use the LaunchDarkly integration on the Release Platorm.  Release is the easiest way to implement kubernetes in your cloud and create Ephemeral Environments (production like environments) on pull-requests or for QA, sales environments, etc...'
+description: 'This topic explains how to use the LaunchDarkly integration on Release. Release is the easiest way to implement kubernetes in your cloud and create production-like environments on pull requests or for QA, sales environments, and more.'
 published: true
 ---
 
 ## Overview 
 
-Release's LaunchDarkly integration allows you to have a pristine, isolated LaunchDarkly Environment to use for testing. One of the difficulties you may have when utilizing feature flags is dealing with multiple environments. You can try and share your feature flag environments with multiple staging or pre-production environments, but much like sharing a database between multiple environments is dangerous and can cause testing and reliability issues, so can sharing feature flag environments.
+This topic explains how to use the LaunchDarkly Release integration. Release is the easiest way to implement Kubernetes in your cloud and create production-like environments on pull requests or for QA, sales environments, and more.
 
-We solve this by creating a new LaunchDarkly Environment each time you deploy a new Release Environment, while also storing the SDK, Mobile, and Client keys into environment variables that are accessible to your application. Both creation and deletion of LaunchDarkly Environments are handled by Release, while only requiring a very small amount of configuration.
+Release's LaunchDarkly integration lets you have an isolated LaunchDarkly environment to use for testing. One of the difficulties you may have when utilizing feature flags is dealing with multiple environments. You can try to share your feature flag environments with multiple staging or pre-production environments, but that can cause testing and reliability issues, similar to the risks of sharing a database between multiple environments.
 
-## Setup the Integration
+The Release integration prevents these issues by creating a new LaunchDarkly environment every time you deploy a new Release environment. It also stores the SDK keys, mobile keys, and client IDs as environment variables that your application can access. Release handles both creation and deletion of LaunchDarkly environments, while requiring minimal configuration.
+
+## Setting up the integration
 
 In order to setup the integration, first navigate to **Manage Accounts** and select your account. Once you are there, select **Integrations**. You will see **LaunchDarkly** under Available Integrations. Click **Setup** to setup the integration.
 
@@ -95,5 +97,5 @@ This authenticates with LaunchDarkly using the access token you entered during s
 
 `test_flag = Rails.configuration.ld_client.variation("test-flag", {key: "user@test.com"}, false)`
 
-Now you can use retrieve variants for feature flags exactly how you would had you hard coded the api key, but it's more secure and gives you the flexibility you need in each environment for testing!  
+Now you can use retrieve variants for feature flags exactly how you would had you entered the API key manually, but with more security and the flexibility you need in each testing environment.  
 
