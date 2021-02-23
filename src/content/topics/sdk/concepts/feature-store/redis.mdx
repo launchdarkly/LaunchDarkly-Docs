@@ -1,0 +1,295 @@
+---
+path: '/sdk/concepts/feature-store/redis'
+title: 'Using Redis as a persistent feature store'
+description: 'This topic explains how to use the SDK Redis integration as a persistent feature store.'
+published: true
+---
+
+Many of our server-side SDKs support Redis. To learn more, read "Platform-specific notes" below.
+
+The available options are slightly different in each language, but you can always specify the following:
+
+- The Redis host address (defaults to `localhost:6379`)
+- A prefix string to add to all keys used by the store, to avoid collisions in case the database is also being used for some other purpose
+- The length of time that recently read or updated data should be cached in memory
+
+<Callout intent="alert">
+  <CalloutTitle>Supported Redis configurations</CalloutTitle>
+  <CalloutDescription>
+
+The LaunchDarkly SDKs use third-party open-source libraries to connect to Redis. Not all of these have the same level of support for advanced Redis configurations. Specifically, most of the SDKs and the [Relay Proxy](https://docs.launchdarkly.com/home/advanced/relay-proxy) do not support connecting to a Redis cluster or using Redis Sentinel for service discovery.
+
+To learn more, read the documentation for the individual SDKs (or their Redis integration add-on libraries, for SDKs that do not have this integration built in).
+
+  </CalloutDescription>
+</Callout>
+
+In the following examples, the Redis feature store is set to use a host address of `my-redis:6379`, a prefix string of `"my-key-prefix"`, and a cache TTL of 30 seconds.
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+    { label: 'Java', value: 'java', },
+    { label: '.NET', value: 'dotnet', },
+    { label: 'Ruby', value: 'ruby', },
+    { label: 'Python', value: 'py', },
+    { label: 'Node.js', value: 'node', },
+    { label: 'PHP', value: 'php', },
+    { label: 'C', value: 'c', },
+    { label: 'Haskell', value: 'haskell', },
+    { label: 'Lua', value: 'lua', },
+    { label: 'Erlang', value: 'erlang', },
+  ]
+}>
+
+<CodeTabItem value="go">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+    ldredis "github.com/launchdarkly/go-server-sdk-redis"
+)
+
+var config ld.Config
+config.DataStore = ldcomponents.PersistentDataStore(
+    ldredis.DataStore().
+        HostAndPort("my-redis", 6379).
+        Prefix("my-key-prefix"),
+).CacheSeconds(30)
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+
+
+// Before version 5.0, the syntax was different:
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+    ldredis "gopkg.in/launchdarkly/go-server-sdk.v4/redis"
+)
+
+factory, err := ldredis.NewRedisFeatureStoreWithDefaults(
+    ldredis.HostAndPort("my-redis", 6379),
+    ldredis.Prefix("my-key-prefix"),
+    ldredis.CacheTTL(30 * time.Second))
+config := ld.DefaultConfig
+config.FeatureStoreFactory = factory
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+```
+
+*To learn more, read [`go-server-sdk-redis`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk-redis).*
+
+</CodeTabItem>
+<CodeTabItem value="java">
+
+```java
+import com.launchdarkly.sdk.server.*;
+import com.launchdarkly.sdk.server.integrations.*;
+
+LDConfig config = new LDConfig.Builder()
+  .dataStore(
+    Components.persistentDataStore(
+      Redis.dataStore().uri(URI.create("redis://my-redis:6379"))
+        .prefix("my-key-prefix")
+    ).cacheSeconds(30)
+  )
+  .build();
+LDClient client = new LDClient(sdkKey, config);
+
+
+// Before version 5.0, the syntax was different:
+import com.launchdarkly.client.*;
+
+LDConfig config = new LDConfig.Builder()
+  .featureStoreFactory(
+    Components.redisFeatureStore(URI.create("redis://my-redis:6379"))
+      .prefix("my-key-prefix")
+      .cacheTime(30, TimeUnit.SECONDS)
+  )
+  .build();
+```
+
+*To learn more, read [`java-server-sdk-redis`](https://github.com/launchdarkly/java-server-sdk-redis).*
+
+</CodeTabItem>
+<CodeTabItem value="dotnet">
+
+```csharp
+using LaunchDarkly.Client;
+using LaunchDarkly.Client.Redis;
+
+var store = RedisComponents.RedisFeatureStore()
+    .WithRedisHostAndPort("my-redis", 6379)
+    .WithPrefix("my-key-prefix")
+    .WithCacheExpiration(TimeSpan.FromSeconds(30));
+
+var config = Configuration.Default(sdkKey)
+    .WithFeatureStoreFactory(store);
+var client = new LDClient(config);
+```
+
+*To learn more, read [`dotnet-server-sdk-redis`](https://github.com/launchdarkly/dotnet-server-sdk-redis).*
+
+</CodeTabItem>
+<CodeTabItem value="ruby">
+
+```ruby
+require 'ldclient-rb'
+
+store = LaunchDarkly::Integrations::Redis.new_feature_store(
+  redis_url: 'redis://my-redis:6379',
+  prefix: 'my-key-prefix',
+  expiration: 30
+)
+
+# Prior to version 5.5.0, use "LaunchDarkly::RedisFeatureStore.new" instead
+# of "LaunchDarkly::Integrations::Redis.new_feature_store"
+
+config = LaunchDarkly::Config.new(
+  feature_store: store
+)
+client = LaunchDarkly::Client.new(sdk_key, config)
+```
+
+</CodeTabItem>
+<CodeTabItem value="py">
+
+```python
+import ldclient
+from ldclient.config import Config
+from ldclient.feature_store import CacheConfig
+from ldclient.integrations import Redis
+
+store = Redis.new_feature_store(url='redis://my-redis:6379',
+    prefix='my-key-prefix', caching=CacheConfig(expiration=30))
+
+# Prior to version 6.7.0, use this syntax:
+# store = RedisFeatureStore(url='redis://my-redis:6379', prefix='my-key-prefix',
+#     expiration=30)
+
+config = Config(feature_store=store)
+ldclient.set_config(config)
+```
+
+</CodeTabItem>
+<CodeTabItem value="node">
+
+```js
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
+
+const redisOpts = {
+  url: 'redis://my-redis:6379'
+};
+const store = LaunchDarkly.RedisFeatureStore(redisOpts, 30, 'my-key-prefix');
+
+const config = {
+  featureStore: store
+};
+const client = LaunchDarkly.init(sdkKey, config);
+```
+
+</CodeTabItem>
+<CodeTabItem value="php">
+
+```php
+/*
+There is no parameter for the cache TTL. The PHP SDK does not cache
+  data from Redis, since in PHP the entire in-memory application state is
+  normally discarded after each request.
+*/
+$fr = LaunchDarkly\Integrations\Redis::featureRequester([
+    'redis_host' => 'my-redis',
+    'redis_port' => 6379,
+    'redis_prefix' => 'my-key-prefix'
+]);
+$client = new LaunchDarkly\LDClient("your_sdk_key", [
+    'feature_requester' => $fr
+]);
+
+// Prior to version 3.5.0, use this syntax:
+// $client = new LaunchDarkly\LDClient("your_sdk_key", [
+//     'feature_requester_class' => 'LaunchDarkly\LDDFeatureRequester',
+//     'redis_host' => 'my-redis',
+//     'redis_port' => 6379,
+//     'redis_prefix' => 'my-key-prefix'
+// ]);
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="c">
+
+```c
+#include <launchdarkly/api.h>
+#include <launchdarkly/store/redis.h>
+
+struct LDConfig *config = LDConfigNew("my-key");
+struct LDRedisConfig *redisConfig = LDRedisConfigNew();
+struct LDStoreInterface *store = LDStoreInterfaceRedisNew(redisConfig);
+
+LDConfigSetFeatureStoreBackend(config, store);
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="haskell">
+
+```haskell
+import qualified Database.Redis as               R
+import           LaunchDarkly.Server
+import           LaunchDarkly.Server.Store.Redis
+
+main = do
+    con <- R.checkedConnect R.defaultConnectInfo { R.connectHost = "my-redis:6379" }
+    backend <- makeRedisStore $ redisConfigSetNamespace "my-key-prefix" $ makeRedisStoreConfig con
+
+    let config = configSetStoreBackend backend $ makeConfig "your_sdk_key"
+
+    client <- makeClient config
+```
+
+</CodeTabItem>
+<CodeTabItem value="lua">
+
+```lua
+local l = require("launchdarkly_server_sdk")
+local r = require("launchdarkly_server_sdk_redis")
+
+local backend = r.makeStore({
+    host   = "my-redis",
+    port   = 6379,
+    prefix = "my-key-prefix"
+})
+
+local c = l.clientInit({
+    key                 = "your_sdk_key",
+    featureStoreBackend = backend
+)}
+```
+
+</CodeTabItem>
+<CodeTabItem value="erlang">
+
+```erlang
+LdOptions = #{
+  redis_host     => "redis",
+  redis_port     => "6379",
+  redis_prefix   => "default",
+  feature_store  => ldclient_storage_redis
+},
+ldclient:start_instance("your_sdk_key", LdOptions),
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Platform-specific notes
+
+- **C**: This integration is part of the main SDK distribution.
+- **Haskell** You must install an additional package named `launchdarkly-server-sdk-redis`.
+- **Go**: This integration is in [`github.com/launchdarkly/go-server-sdk-redis`](https://github.com/launchdarkly/go-server-sdk-redis) for 5.0.0 or higher of the SDK. In earlier SDK versions, it is in the main SDK distribution as the subpackage `redis`.
+- **Java**: In Java SDK 5.0 and later, you must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-redis-store`](https://github.com/launchdarkly/java-server-sdk-redis). In Java SDK 4.x and earlier, this integration is part of the main SDK distribution.
+- **.NET**: You must install an additional package named [`LaunchDarkly.ServerSdk.Redis`](https://github.com/launchdarkly/dotnet-server-sdk-redis).
+- **Node.js**: This integration is part of the main SDK distribution.
+- **PHP**: This integration is part of the main SDK distribution, but you must also must install the package `predis/predis`.
+- **Python**: This integration is part of the main SDK distribution, but you must also install the package `redis`.
+- **Ruby**: This integration is part of the main SDK distribution, but you must also install the gems `redis` and `connection_pool`.

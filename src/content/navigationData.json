@@ -560,7 +560,21 @@
           },
           {
             "label": "Using a persistent feature store",
-            "path": "/sdk/concepts/feature-store"
+            "path": "/sdk/concepts/feature-store",
+            "items": [
+              {
+                "label": "Consul",
+                "path": "/sdk/concepts/feature-store/consul"
+              },
+              {
+                "label": "DynamoDB",
+                "path": "/sdk/concepts/feature-store/dynamodb"
+              },
+              {
+                "label": "Redis",
+                "path": "/sdk/concepts/feature-store/redis"
+              }
+            ]
           },
           {
             "label": "SDK versioning policy",
