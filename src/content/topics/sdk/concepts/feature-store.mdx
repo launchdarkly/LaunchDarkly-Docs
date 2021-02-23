@@ -49,6 +49,7 @@ An example configuration is below:
     { label: 'C', value: 'c', },
     { label: 'Haskell', value: 'haskell', },
     { label: 'Lua', value: 'lua', },
+    { label: 'Erlang', value: 'erlang', },
   ]
 }>
 
@@ -219,6 +220,16 @@ local c = l.clientInit({
 ```
 
 </CodeTabItem>
+<CodeTabItem value="erlang">
+
+```erlang
+LdOptions = #{
+  feature_store => some_kind_of_feature_store
+},
+ldclient:start_instance("your_sdk_key", LdOptions),
+```
+
+</CodeTabItem>
 </CodeTabs>
 
 If there are multiple instances of your application configured in this way with the same database, the same data gets written to the database multiple times, because each instance receives feature flags from LaunchDarkly.
@@ -246,6 +257,7 @@ Since the Relay Proxy is also known as the *L*aunch*D*arkly *D*aemon, some versi
     { label: 'C', value: 'c', },
     { label: 'Haskell', value: 'haskell', },
     { label: 'Lua', value: 'lua', },
+    { label: 'Erlang', value: 'erlang', },
   ]
 }>
 
@@ -432,6 +444,17 @@ local c = l.clientInit({
 ```
 
 </CodeTabItem>
+<CodeTabItem value="erlang">
+
+```erlang
+LdOptions = #{
+  feature_store => some_kind_of_feature_store,
+  use_ldd => true
+},
+ldclient:start_instance("your_sdk_key", LdOptions),
+```
+
+</CodeTabItem>
 </CodeTabs>
 
 ## Using Redis
@@ -470,6 +493,7 @@ In the following examples, the Redis feature store is set to use a host address 
     { label: 'C', value: 'c', },
     { label: 'Haskell', value: 'haskell', },
     { label: 'Lua', value: 'lua', },
+    { label: 'Erlang', value: 'erlang', },
   ]
 }>
 
@@ -694,6 +718,19 @@ local c = l.clientInit({
     key                 = "your_sdk_key",
     featureStoreBackend = backend
 )}
+```
+
+</CodeTabItem>
+<CodeTabItem value="erlang">
+
+```erlang
+LdOptions = #{
+  redis_host     => "redis",
+  redis_port     => "6379",
+  redis_prefix   => "default",
+  feature_store  => ldclient_storage_redis
+},
+ldclient:start_instance("your_sdk_key", LdOptions),
 ```
 
 </CodeTabItem>
