@@ -100,6 +100,7 @@ This feature is supported on the following versions of our SDKs (and later versi
 
 As you think about creating experiments for your features, keep these best practices in mind:
 
+- **If a user in your experiment has multiple user keys in LaunchDarkly, use `alias` events.** For example, if a user might access your experiment from both a logged in and logged out state, each state will generate its own user key. Use `alias` events to associate the two user keys, which prevents one user from generating duplicate events. To learn more, read [Associating anonymous users with logged in users](/home/managing-users/anonymous-users#associating-anonymous-users-with-logged-in-users).
 - **Use feature flags on every new feature you develop.** This is a best practice, but it especially helps when you're running experiments in LaunchDarkly. By flagging every feature, you can quickly turn any aspect of your product into an experiment.
 - **Consider experiments from day one.** Create hypotheses in the planning stage of feature development, so you and your team are ready to run experiments as soon as your feature launches.
 - **Define what you're measuring.** Align with your team on which tangible metrics you're optimizing for, and what results constitute success.
