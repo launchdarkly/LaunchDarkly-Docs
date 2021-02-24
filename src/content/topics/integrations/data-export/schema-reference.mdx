@@ -327,16 +327,17 @@ An example custom event is pictured below:
 
 ## Alias events
 
-Alias events are produced when the client application calls an SDK method called
-`Alias`. They are also emitted automatically by clientside SDKs when a user
-identifies as a new user after previously identifying as an anonymous user.
+Alias events are produced when the client application calls the `Alias` SDK
+method. They are also emitted automatically by clientside SDKs when an anonymous user
+identifies as a non-anonymous user.
 
 <Callout intent="alert">
-<CalloutTitle>mParticle schema differences</CalloutTitle>
+<CalloutTitle>mParticle and Segment schema differences</CalloutTitle>
 
 <CalloutDescription>
 
-Alias events are not sent to mParticle destinations
+To read about how alias events function in mParticle and Segment destinations,
+see their respective schema references.
 
 </CalloutDescription>
 </Callout>
