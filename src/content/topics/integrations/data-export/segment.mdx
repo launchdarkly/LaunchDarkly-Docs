@@ -83,13 +83,13 @@ LaunchDarkly sends events in the following formats:
   "messageId": "c2f7a2d1-0a1b-456f-8e9a-16756e7a6db5",
   "originalTimestamp": "2019-09-13T21:20:18.114Z",
   "properties": {
-    "default": "true",
+    "project": "5744c12345c9900708000001",
     "environment": "5d4b12345d2a2806bd2cc6eb",
     "eventId": "5d7c12345a51a0006e16ae5",
+    "default": "true",
     "flagVersion": 42,
     "key": "EXAMPLE-FLAG-KEY",
     "prereqOf": "EXAMPLE-PARENT-FLAG",
-    "project": "5744c12345c9900708000001",
     "reasonKind": "FALLTHROUGH",
     "value": "EXAMPLE-FLAG-VALUE",
     "version": 1
@@ -122,10 +122,10 @@ LaunchDarkly sends events in the following formats:
   "messageId": "18925338-0a1b-4521-a36a-c8e9839e4593",
   "originalTimestamp": "2019-09-13T21:21:43.114Z",
   "properties": {
+    "project": "5744c98765c9900708000001",
     "environment": "5d4b12345d2a2806bd2cc6eb",
     "eventId": "5d7c123a86f26000065862da",
     "key": "EXAMPLE-FLAG-KEY",
-    "project": "5744c98765c9900708000001",
     "selector": "btn",
     "url": "http://example.com",
     "version": 1
@@ -157,10 +157,10 @@ LaunchDarkly sends events in the following formats:
   "messageId": "d747a382-0a1b-41d5-b9a6-7ae9b93925bc",
   "originalTimestamp": "2019-09-13T21:21:58.114Z",
   "properties": {
+    "project": "5744c12345c9900708000001",
     "environment": "5d4b12345d2a2806bd2cc6eb",
     "eventId": "5d7c123452db400061b14dd",
     "key": "EXAMPLE-EVENT-KEY",
-    "project": "5744c12345c9900708000001",
     "version": 1
   },
   "receivedAt": "2019-09-13T21:22:00.673Z",
@@ -189,10 +189,10 @@ LaunchDarkly sends events in the following formats:
   "messageId": "8c235148-0a1b-4428-a4de-00b90adf2833",
   "originalTimestamp": "2019-09-13T21:19:43.114Z",
   "properties": {
+    "project": "5744c123459900708000001",
     "environment": "5d123454d2a2806bd2cc6eb",
     "eventId": "5d7c12345db400061b14c1",
     "key": "EXAMPLE-FLAG-KEY",
-    "project": "5744c123459900708000001",
     "url": "http://example.com",
     "version": 1
   },
@@ -201,6 +201,33 @@ LaunchDarkly sends events in the following formats:
   "timestamp": "2019-09-13T21:19:43.154Z",
   "type": "page",
   "userId": "EXAMPLE-USER-ID",
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<CodeTabs
+  defaultValue="alias-event"
+  values={[
+    { label: 'Alias event', value: 'alias-event', },
+  ]
+}>
+<CodeTabItem value="alias-event">
+
+```json
+{
+  "integrations": {},
+  "messageId": "8c235148-0a1b-4428-a4de-00b90adf2833",
+  "originalTimestamp": "2019-09-13T21:19:43.114Z",
+  "project": "5744c123459900708000001",
+  "environment": "5d123454d2a2806bd2cc6eb",
+  "previousId": "prev-user-key",
+  "userId": "new-user-key",
+  "receivedAt": "2019-09-13T21:19:45.371Z",
+  "sentAt": "2019-09-13T21:19:45.331Z",
+  "timestamp": "2019-09-13T21:19:43.154Z",
+  "type": "alias",
 }
 ```
 

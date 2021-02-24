@@ -160,7 +160,6 @@ This lets you restrict access to only one project without having to explicitly d
 
 This policy allows using only these actions in the `production-1` environment: 
 
-* `createFlag`
 * `updateFlagVariations`
 * `updateTags`
 
@@ -190,7 +189,7 @@ This means they can take all other actions in any other non-production environme
   },
   {
     "resources": ["proj/project-1:env/production-1:flag/*"],
-    "notActions": ["createFlag", "updateFlagVariations", "updateTags"],
+    "notActions": ["updateFlagVariations", "updateTags"],
     "effect": "deny"
   }
 ]
