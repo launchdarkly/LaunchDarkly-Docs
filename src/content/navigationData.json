@@ -476,6 +476,11 @@
         "path": "/integrations/oauth"
       },
       {
+
+        "label": "Release",
+        "path": "/integrations/release"
+      },
+      {
         "label": "Salesforce",
         "path": "/integrations/salesforce",
         "flagKey": "salesforceNav"

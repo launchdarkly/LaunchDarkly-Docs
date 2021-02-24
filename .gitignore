@@ -81,3 +81,5 @@ cypress/videos
 cypress.env.json
 
 package-lock.json
+
+*.code-workspace

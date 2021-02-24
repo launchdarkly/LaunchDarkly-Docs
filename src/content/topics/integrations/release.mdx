@@ -1,0 +1,74 @@
+---
+path: '/integrations/release'
+title: 'Release'
+description: 'This topic explains how to use the LaunchDarkly integration on Release. Release is the easiest way to implement kubernetes in your cloud and create production-like environments on pull requests or for QA, sales environments, and more.'
+published: true
+---
+
+## Overview 
+
+This topic explains how to use the LaunchDarkly Release integration. Release is the easiest way to implement Kubernetes in your cloud and create production-like environments on pull requests or for QA, sales environments, and more.
+
+Release's LaunchDarkly integration lets you have an isolated LaunchDarkly environment to use for testing. One of the difficulties you may have when utilizing feature flags is dealing with multiple environments. You can try to share your feature flag environments with multiple staging or pre-production environments, but that can cause testing and reliability issues, similar to the risks of sharing a database between multiple environments.
+
+The Release integration prevents these issues by creating a new LaunchDarkly environment every time you deploy a new Release environment. It also stores the SDK keys, mobile keys, and client IDs as environment variables that your application can access. Release handles both creation and deletion of LaunchDarkly environments, while requiring minimal configuration.
+
+## Setting up the integration
+
+To set up the integration:
+
+1. Log in to your Release account.
+2. Navigate to **Manage Accounts** 
+ 
+ ![Select "Manage Accounts"](../../images/release-select-manage-accounts.png)
+
+3. Choose your account. 
+
+ ![Click on the account name.](../../images/release-select-account-to-manage.png)
+
+4. Choose **Integrations** and find "LaunchDarkly" in the "Available Integrations" section. 
+5. Click **Setup** to set up the integration. The set up form appears.
+
+ ![Click &apos;Setup&apos; for LaunchDarkly](../../images/release-manage-integrations.png)
+
+
+Every field in the set up form is required, and all but one have defaults you can use. 
+
+Here are descriptions of the fields in the set up form:
+
+* **Project Key**: This is the key for the project where you wish to create environments. The default value is _default_ , because LaunchDarkly always has a project with key _default_.
+* **Access Token**: This is the token for the account you would like Release to create environments under in LaunchDarkly. You can create or find the access token you want to use in LaunchDarkly in the **Authorization** tab of the **Account Settings** page. All access tokens start with **api-**.
+* **Environment Variables**: The last three form elements define the names of the environment variables where Release stores the relevant API keys from LaunchDarkly. You can change them to anything you like. You may need the LaunchDarkly access token to set up your SDK client to choose flag variations in your application. After you set up the environment in LaunchDarkly, Release stores the various API keys values in these environment variables. This gives your container access to the API keys you need. They are stored as encrypted Kubernetes secrets.
+
+![An example LaunchDarkly configuration.](../../images/release-setup-ld-integration.png)
+
+After you save the configuration, Release attempts to use your **Access Token** to connect to your LaunchDarkly account. If that works, you're done. The integration is ready to go. If not, errors appear for you to troubleshoot.
+
+## Using LaunchDarkly with the Release integration
+
+The integration consists of two parts, both of which are automated and handled by Release.
+
+* **[Pre-Deployment step](#using-the-pre---deployment-step):** In this step, the integration adds a task to each of your deployments to create the feature flag environment.
+* **[Pre-Delete step](#using-the-pre---delete-step):** When you delete an environment, this step deletes the environment in LaunchDarkly.
+
+![The ephemeral environment creation workflow](../../images/release-ld-integration-workflow.png)
+
+### Using the Pre-Deployment step
+
+The Pre-Deployment step is for when you first deploy a space or deploy a new configuration. It only creates the environment in LaunchDarkly the first time it runs.
+
+![Environment &apos;ted422c&apos; was created in LaunchDarkly.](../../images/release-pre-deployment-step.png)
+
+After a successful creation, the environment variables you specified during set up populate and are exposed to your containers with Kubernetes secrets.
+
+![LaunchDarkly-specific environments as Kubernetes secrets.](../../images/release-ld-envs.png)
+
+You can use these environment variables in your code to access your feature flags. 
+
+### Using the Pre-Delete step
+
+The Pre-Delete step is invoked anytime a Release environment is removed, either manually through the UI or after a pull request is merged or closed. The integration removes the corresponding LaunchDarkly environment automatically when the Release environment is removed.
+
+## Conclusion
+
+Now that you have successfully installed the integration the environment variables you defined are available to your app.  How you access them depends on the framework or language you are using.  If you aren't using environment variables to interact with LaunchDarkly presently, you will need to modify your code to do so.  If you would like to see examples of using the environment variables in various frameworks take a look at the Release documentation on this topic [here](https://docs.releaseapp.io/integrations/integrations-overview/launchdarkly-integration#examples).
