@@ -60,7 +60,7 @@ The list below explains what each column means:
 - **Variation**: Which flag variation's data is shown in the row
 - **Conversions / unique visitors**: How many unique visitors take action based on the variation they see, relative to the total number of users who views the page. For click experiments, this means the denominator is the number of views matching the URL specified in the click metric UI.
 - **Conversion rate**: The percentage of users who take action based on the variation they see, relative to the total number of unique visitors who encounter the flag variation.
-- **Total evaluations**: The number of times this flag variation has been evaluated.
+- **Total events**: The number of times the metric connected to this flag variation has been evaluated. The **total events** column only updates when the metric associated with the flag variation registers an event. This is **not** the total number of times the flag variation has ever been evaluated. 
 - **Average**: The average numeric value this flag variation returns.
 - **Confidence interval**: A range of values between which the actual value for the conversion rate likely falls. A smaller confidence interval equates a more confident prediction. For example, a confidence interval of 11%-13% is more reliable than a confidence interval of 10%-30%.
 - **Change**: The difference, in positive or negative values, the flag variation has from the baseline variation. Baseline flag variations say **Baseline** rather than showing a value.

@@ -15,6 +15,7 @@ const ignore = [
   'https://mockbin.org',
   'https://glitch.com',
   'https://app.logdna.com',
+  'https://help.sleuth.io',
 ]
 
 describe('Verify links', () => {

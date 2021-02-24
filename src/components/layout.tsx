@@ -5,6 +5,7 @@ import { Fragment, FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from '@mdx-js/react'
+import { useFlags } from 'gatsby-plugin-launchdarkly'
 import Reset from './resetStyles'
 import MdxHeader from './mdx/mdxHeader'
 import { TableOfContents, TOC } from './tableOfContents'
@@ -20,8 +21,11 @@ import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
 import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
 import Link from './link'
 import Icon from './icon'
-import { useBrowserMetrics } from '../hooks/useBrowserMetrics'
 import Homepage from './home/landingPage'
+import { AllSdks } from './home/sdks/exploreSdks'
+import ClientSideSdks from './home/sdks/clientSideSdks'
+import ServerSideSdks from './home/sdks/serverSideSdks'
+import ReactSdks from './home/sdks/reactSdks'
 
 const components = {
   h1: H1,
@@ -50,6 +54,10 @@ const components = {
   CodeTabs,
   CodeTabItem,
   Homepage,
+  AllSdks,
+  ClientSideSdks,
+  ServerSideSdks,
+  ReactSdks,
   Icon,
   code: Code,
   pre: Pre,
@@ -112,14 +120,21 @@ const Layout: FunctionComponent<LayoutProps> = ({
     },
   },
 }) => {
-  useBrowserMetrics()
+  const { enableUserWayAccessibilityWidget } = useFlags()
 
   return (
     <Fragment>
       <Reset />
-      <Helmet defer={false}>
+      <Helmet defer={false} htmlAttributes={{ lang: 'en' }}>
         <title>{title}</title>
         <meta name="description" content={description} />
+        {enableUserWayAccessibilityWidget && (
+          <script defer>
+            {
+              '(function(d){var s = d.createElement("script");s.setAttribute("data-account", "8Vh97O4fZ4");s.setAttribute("src", "https://cdn.userway.org/widget.js");(d.body || d.head).appendChild(s);})(document)'
+            }
+          </script>
+        )}
       </Helmet>
       <div sx={rootGridStyles}>
         <Header />

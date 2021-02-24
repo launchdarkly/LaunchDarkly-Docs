@@ -7,48 +7,65 @@ published: true
 
 ## Overview
 
-This topic explains how to use the LaunchDarkly VSCode extension to interact with feature flags from within VSCode.
+This topic explains how to use the LaunchDarkly VSCode extension to interact with feature flags from within Visual Studio Code (VSCode).
 
 With the extension, you'll get the ability to:
 
 - See a tooltip with feature flag details when you hover over a feature flag key in your source code
 - Autocomplete feature flag keys
-- Open feature flags in LaunchDarkly (Default keybinding: ctrl+alt+g/⌘+alt+g) 
+- Open feature flags in LaunchDarkly (Default keybinding: `ctrl+alt+g`/`⌘+alt+g`)
+- View a list of feature flags and their settings in the explorer view
+- Update a flag's on/off state, fallthrough value, and off variation
+- Enable codelens for flags in your source code
 
+![The LaunchDarkly VSCode extension](../images/vscode-overview.png)
+
+![Treeview right click options](../images/vscode-treeview-right-click.png)
 
 ## Installing the VSCode extension
 
-To install the VSCode extension, visit the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=launchdarkly.launchdarkly).
+To install the VSCode extension, visit the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=LaunchDarklyOfficial.launchdarkly).
 
-## Extension settings
+## Configuration
 
-On installation of the LaunchDarkly extension, VSCode prompts you to configure the extension, including selecting a LaunchDarkly project and environment for your workspace. 
+To configure the VSCode extension, you must have a valid access token.
 
-To reconfigure the extension, run the "LaunchDarkly: Configure" command from the command pallete. 
+You can create a new access token on the [Authorization page](https://app.launchdarkly.com/settings/authorization). The access token must have sufficient permissions to support the extension's functionality. 
 
-To learn about additional settings, read the extension's [GitHub repository](https://github.com/launchdarkly/ld-vscode/blob/master/README.md#installation-and-configuration).
-
-*Note: If you use quick suggestions to autocomplete words, LaunchDarkly autocomplete functionality requires the `editor.quickSuggestions.strings` setting to be enabled. Otherwise, you'll need to press Ctrl+Space (default binding) to see your flag key suggestions.
-
-Here's an example configuration with quick suggestions enabled:
+The following is an example policy which allows reader access to all projects and writer access to the minimal set of fields the extension is able to update:
 
 <CodeTabs
   defaultValue="json"
   values={[
-    { label: 'Example', value: 'json', },
+    { label: 'Example inline policy', value: 'json', },
   ]
 }>
+
 <CodeTabItem value="json">
 
 ```json
-{
-  "editor.quickSuggestions": {
-    "other": true,
-    "comments": false,
-    "strings": true
+[
+  {
+    "resources": ["proj/*"],
+    "actions": ["viewProject"],
+    "effect": "allow"
   },
-}
+  {
+    "resources": ["proj/*:env/*:flag/*"],
+    "actions": ["updateOn", "updateFallthrough", "updateOffVariation"],
+    "effect": "allow"
+  }
+]
 ```
 
 </CodeTabItem>
 </CodeTabs>
+
+After you install the LaunchDarkly extension, VSCode prompts you to configure it:
+
+1. Provide an **access token** for your LaunchDarkly account. This access token must have sufficient permission as described above.
+2. Select your corresponding **LaunchDarkly project**.
+3. Select your corresponding **LaunchDarkly environment**.
+4. Select whether you want the extension to work with all VSCode workspaces or just the current workspace.
+
+You can reconfigure the extension at any time by running the "LaunchDarkly: Configure" command from the command palette (`ctrl+shift+p`/`⌘+shift+p`).

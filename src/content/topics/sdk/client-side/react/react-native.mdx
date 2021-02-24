@@ -1,5 +1,5 @@
 ---
-path: '/sdk/client-side/react-native'
+path: '/sdk/client-side/react/react-native'
 title: 'React Native SDK reference'
 description: 'This topic explains all of the methods available in the client-side React Native, with detail about how they work.'
 published: true
@@ -141,13 +141,7 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 
 ```js
 let client = new LDClient();
-
-let clientConfig =
-  { "mobileKey": "YOUR_MOBILE_KEY",
-    "stream": true,
-    "offline": false
-  };
-
+let clientConfig = { "mobileKey": "YOUR_MOBILE_KEY" };
 let userConfig = { "key": "user_key" };
 
 await client.configure(clientConfig, userConfig);
@@ -186,16 +180,7 @@ Never embed a server-side SDK key into a mobile application.
 
 ## Client Configuration Options
 
-<Callout intent="info">
-  <CalloutTitle>Default Values</CalloutTitle>
-<CalloutDescription>
-
-This complete config object shows all possible config options in their default form. Do not change the default unless you are required to.
-
-</CalloutDescription>
-</Callout>
-
-Here is a complete client configuration object utilizing all available fields:
+You can also pass custom parameters to the client by creating a custom configuration object:
 
 <CodeTabs
   defaultValue="js"
@@ -206,27 +191,17 @@ Here is a complete client configuration object utilizing all available fields:
 <CodeTabItem value="js">
 
 ```js
-let clientConfig =
+let clientConfig = 
   { "mobileKey": "YOUR_MOBILE_KEY",
-    "baseUri": "https://app.launchdarkly.com",
-    "streamUri": "https://clientstream.launchdarkly.com",
-    "eventsUri": "https://mobile.launchdarkly.com",
-    "eventsCapacity": 200,
-    "eventsFlushIntervalMillis": 5000,
-    "connectionTimeoutMillis": 3000,
-    "pollingIntervalMillis": 4000,
-    "backgroundPollingIntervalMillis": 6000,
-    "useReport": false,
-    "stream": true,
-    "disableBackgroundUpdating": false,
-    "offline": false,
-    "debugMode": true,
-    "evaluationReasons": false
+    "connectionTimeoutMillis": 3000 
   };
+await client.configure(clientConfig, userConfig);
 ```
 
 </CodeTabItem>
 </CodeTabs>
+
+The `clientConfig` object can include a variety of options. `mobileKey` is a required property, but all other properties are optional. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/react-native-client-sdk/index.html#ldclientconfig).
 
 ## User Configuration Options
 

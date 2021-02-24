@@ -212,7 +212,32 @@ client.identify(newUser).then(function(newFlags) {
 </CodeTabItem>
 </CodeTabs>
 
-Note that the client always has \_one* current user. The client-side SDKs are not designed for evaluating flags for different users at the same time.
+Note that the client always has *one* current user. The client-side SDKs are not designed for evaluating flags for different users at the same time.
+
+## Aliased users
+
+There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person would be identified by two different users as denoted by different user keys.
+
+The SDK can associate these two LaunchDarkly users by sending an alias event.
+
+The SDK automatically sends an alias event when `identify` is called with a known user if the previous user was anonymous. You can disable this behavior if necessary. To learn more, read [Customizing your client](#customizing-your-client).
+
+You can manually tell the SDK to send an alias event with the `alias` function.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+client.alias(newUser, previousUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ## Analytics events
 

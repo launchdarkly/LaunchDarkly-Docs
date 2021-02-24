@@ -1,0 +1,207 @@
+---
+path: '/sdk/concepts/feature-store/consul'
+title: 'Using Consul as a persistent feature store'
+description: 'This topic explains how to use the SDK Consul integration as a persistent feature store.'
+published: true
+---
+
+<Callout intent="alert">
+  <CalloutTitle>Data size limit in Consul</CalloutTitle>
+  <CalloutDescription>
+
+Consul does not support storing values greater than 512KB. Using Consul as a persistent feature store does not work if the JSON representation of any feature flag or user segment exceeds that size. To learn more about these limitations, read [Consul's documentation](https://www.consul.io/docs/faq#q-what-is-the-per-key-value-size-limitation-for-consul-s-key-value-store).
+
+To see the JSON representations of all flags and segments, query <code>https://app.launchdarkly.com/sdk/latest-all</code> with your SDK key in the `Authorization` header.
+
+  </CalloutDescription>
+</Callout>
+
+Many of our server-side SDKs support Consul. To learn more, read "Platform-specific notes" below.
+
+In the following examples, the Consul feature store is set to use a host address of `my-consul:8100`, a prefix string of `"my-key-prefix"`, and a cache TTL of 30 seconds.
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+    { label: 'Java', value: 'java', },
+    { label: '.NET', value: 'dotnet', },
+    { label: 'Ruby', value: 'ruby', },
+    { label: 'Python', value: 'py', },
+    { label: 'Node.js', value: 'node', },
+    { label: 'PHP', value: 'php', },
+  ]
+}>
+
+<CodeTabItem value="go">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+    ldconsul "github.com/launchdarkly/go-server-sdk-consul"
+)
+
+var config ld.Config
+config.DataStore = ldcomponents.PersistentDataStore(
+    ldconsul.DataStore().
+        Address("http://my-consul:8100").
+        Prefix("my-key-prefix"),
+).CacheSeconds(30)
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+
+
+// Before version 5.0, the syntax was different:
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+    "gopkg.in/launchdarkly/go-server-sdk.v4/ldconsul"
+)
+
+factory, err := ldconsul.NewConsulFeatureStoreFactory(
+    ldconsul.Address("http://my-consul:8100"),
+    ldconsul.Prefix("my-key-prefix"),
+    ldconsul.CacheTTL(30 * time.Second))
+config := ld.DefaultConfig
+config.FeatureStoreFactory = factory
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+```
+
+*To learn more, read [`go-server-sdk-consul`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk-consul).*
+
+</CodeTabItem>
+<CodeTabItem value="java">
+
+```java
+import com.launchdarkly.sdk.server.*;
+import com.launchdarkly.sdk.server.integrations.*;
+
+LDConfig config = new LDConfig.Builder()
+  .dataStore(
+    Components.persistentDataStore(
+      Consul.dataStore().url(URL.create("http://my-consul:8100"))
+        .prefix("my-key-prefix")
+    ).cacheSeconds(30)
+  )
+  .build();
+LDClient client = new LDClient(sdkKey, config);
+
+
+// Before version 5.0, the syntax was different:
+import com.launchdarkly.client.*;
+import com.launchdarkly.client.consul.*;
+
+LDConfig deprecatedConfig = new Config.Builder()
+  .featureStoreFactory(
+    ConsulComponents.consulFeatureStore()
+      .url(URL.create("http://my-consul:8100"))
+      .prefix("my-key-prefix")
+      .caching(FeatureStoreCacheConfig.enabled().withTtlSeconds(30))
+  )
+  .build();
+```
+
+*To learn more, read [`java-server-sdk-consul`](https://github.com/launchdarkly/java-server-sdk-consul).*
+
+</CodeTabItem>
+<CodeTabItem value="dotnet">
+
+```csharp
+using LaunchDarkly.Client;
+using LaunchDarkly.Client.Consul;
+
+var store = ConsulComponents.ConsulFeatureStore()
+    .WithAddress(new Uri("http://my-consul:8100"))
+    .WithCaching(FeatureStoreCacheConfig.Enabled.WithTtlSeconds(30));
+
+var config = Configuration.Default(sdkKey)
+    .WithFeatureStoreFactory(store);
+var client = new LDClient(config);
+```
+
+*To learn more, read [`dotnet-server-sdk-consul`](https://github.com/launchdarkly/dotnet-server-sdk-consul).*
+
+</CodeTabItem>
+<CodeTabItem value="ruby">
+
+```ruby
+require 'ldclient-rb'
+
+store = LaunchDarkly::Integrations::Consul.new_feature_store(
+  { url: 'http://my-consul:8100', prefix: 'my-key-prefix', expiration: 30 })
+
+config = LaunchDarkly::Config.new(
+  feature_store: store
+)
+client = LaunchDarkly::Client.new(sdk_key, config)
+```
+
+</CodeTabItem>
+<CodeTabItem value="py">
+
+```python
+import ldclient
+from ldclient.config import Config
+from ldclient.feature_store import CacheConfig
+from ldclient.integrations import Consul
+
+store = Consul.new_feature_store(host='my-consul', port=8100,
+    prefix='my-key-prefix', caching=CacheConfig(expiration=30))
+
+config = Config(feature_store=store)
+ldclient.set_config(config)
+```
+
+</CodeTabItem>
+<CodeTabItem value="node">
+
+```js
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
+const ConsulFeatureStore = require('launchdarkly-node-server-sdk-consul');
+
+const store = ConsulFeatureStore({
+  consulOptions: {
+    host: 'my-consul',
+    port:  8100
+  },
+  prefix: 'my-key-prefix',
+  cacheTTL: 30
+});
+
+const config = {
+  featureStore: store
+};
+const client = LaunchDarkly.init(sdkKey, config);
+```
+
+</CodeTabItem>
+<CodeTabItem value="php">
+
+```php
+/*
+  There is no parameter for the cache TTL; the PHP SDK does not cache
+  data from Consul, because in PHP the entire in-memory application state is
+  normally discarded after each request.
+*/
+$fr = LaunchDarkly\Integrations\Consul::featureRequester([
+    'consul_uri' => 'http://my-consul:8100',
+    'consul_prefix' => 'my-key-prefix'
+]);
+$client = new LaunchDarkly\LDClient("your_sdk_key", [
+    'feature_requester' => $fr
+]);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Platform-specific notes
+
+- **C**: There is no Consul integration for the C server-side SDK.
+- **Haskell**: Currently there is no Consul integration for the Haskell server-side SDK.
+- **Go**: This integration is in [`github.com/launchdarkly/go-server-sdk-consul`](https://github.com/launchdarkly/go-server-sdk-consul) for version 5.0.0 or higher of the SDK. In versions 4.5.0 and higher, but below 5.0.0, it is in the main SDK distribution as the subpackage `ldconsul`.
+- **Java**: You must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-consul-store`](https://github.com/launchdarkly/java-server-sdk-consul).
+- **.NET**: You must install the additional package [`LaunchDarkly.ServerSdk.Consul`](https://github.com/launchdarkly/dotnet-server-sdk-consul).
+- **Node.js**: You must install the additional package [`launchdarkly-node-server-consul`](https://github.com/launchdarkly/node-server-sdk-consul).
+- **PHP**: This integration is part of the main SDK distribution as of version 3.5.0, but you must also install the package `aws/sensiolabs/consul-php-sdk`.
+- **Python**: This integration is part of the main SDK distribution as of version 6.8.1, but you must also install the package `python-consul`. Python 3.3 and 3.4 are not supported.
+- **Ruby**: This integration is part of the main SDK distribution as of version 5.1.1, but you must also install the gem `diplomat`.

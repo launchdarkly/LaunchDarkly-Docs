@@ -6,6 +6,7 @@
   "author": "Yus Ng",
   "dependencies": {
     "@datadog/browser-logs": "1.12.10",
+    "@datadog/browser-rum": "2.2.0",
     "@mdx-js/mdx": "^1.5.5",
     "@theme-ui/components": "^0.3.1",
     "@theme-ui/prism": "^0.3.0",
@@ -38,7 +39,7 @@
     "lodash.noop": "^3.0.1",
     "pluralize": "^8.0.0",
     "prism-react-renderer": "^1.0.2",
-    "prismjs": "^1.18.0",
+    "prismjs": "^1.21.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet-async": "^1.0.4",

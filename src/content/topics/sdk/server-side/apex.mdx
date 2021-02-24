@@ -197,6 +197,27 @@ In addition to built-in attributes like names and e-mail addresses, you can pass
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, and account plans. Anything you pass to us becomes available instantly on our dashboard.
 
+## Aliased users
+
+There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person would be identified by two different users as denoted by different user keys.
+
+The SDK can associate these two LaunchDarkly users by sending an alias event. You can manually tell the SDK to send an alias event with the `alias` method.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Apex', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+client.alias(newUser, previousUser)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 ## Variation
 
 The `variation` family of methods determine the flag value for a specific user. In Apex, there is a `variation` method for each type (e.g. `boolVariation`, `stringVariation`, etc).

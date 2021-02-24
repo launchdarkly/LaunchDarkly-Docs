@@ -121,7 +121,7 @@ These limits include:
 
 - We do not scan code references for flags with keys that have less than 3 characters.
 - We store up to 10000 files with code references per repository. LaunchDarkly ignores additional files.
-- We allow up to 500 characters is allowed per line of source code stored. LaunchDarkly truncates additional files.
+- We allow up to 500 characters per line of source code stored. LaunchDarkly truncates additional characters.
 - We allow up to 25000 code references per file. LaunchDarkly ignores additional references.
 
 If you've encountered any of these limits, or are noticing a large number of false positives being detected by `ld-find-code-refs`, we'd recommend configuring an `.ldignore` file in your repository with rules matching the files and directories you'd like to exclude.

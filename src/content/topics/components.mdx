@@ -297,3 +297,38 @@ There are four different types of callouts:
 
 </CodeTabItem>
 </CodeTabs>
+
+## Tables
+
+Markdown tables are hard to read in text editors and easy to break. We built our own table component to use instead. It's much like an HTML table. When content in a table cell is left-justified, and bracketed by empty lines, you can use HTML tags in it.
+
+```
+<Table>
+  <TableHeader>
+    <TableHeadCell>Name of column 1</TableHeadCell>
+    <TableHeadCell>Name of column 2</TableHeadCell>
+  </TableHeader>
+  <TableBody>  
+    <TableRow>
+      <TableCell>Column 1 Cell 1</TableCell>
+      <TableCell>Column 1 Cell 2</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+      
+Column 2 Cell 1 <a href="example.com">with a link in it</a>.
+
+      </TableCell>
+      <TableCell>Column 2 Cell 2</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+## Images
+
+The docs site supports PNGs and GIFs. Just use Markdown images:
+
+```
+![Here is helpful alt text. Always use this--it's kind to folks with accessibility requirements.](path/to/image.png)
+```

@@ -476,8 +476,14 @@
         "path": "/integrations/oauth"
       },
       {
+
         "label": "Release",
         "path": "/integrations/release"
+      },
+      {
+        "label": "Salesforce",
+        "path": "/integrations/salesforce",
+        "flagKey": "salesforceNav"
       },
       {
         "label": "SignalFx",
@@ -559,7 +565,21 @@
           },
           {
             "label": "Using a persistent feature store",
-            "path": "/sdk/concepts/feature-store"
+            "path": "/sdk/concepts/feature-store",
+            "items": [
+              {
+                "label": "Consul",
+                "path": "/sdk/concepts/feature-store/consul"
+              },
+              {
+                "label": "DynamoDB",
+                "path": "/sdk/concepts/feature-store/dynamodb"
+              },
+              {
+                "label": "Redis",
+                "path": "/sdk/concepts/feature-store/redis"
+              }
+            ]
           },
           {
             "label": "SDK versioning policy",
@@ -645,16 +665,18 @@
             "path": "/sdk/client-side/react",
             "items": [
               {
+                "label": "React Web",
+                "path": "/sdk/client-side/react/react-web"
+              },
+              {
+                "label": "React Native",
+                "path": "/sdk/client-side/react/react-native"
+              },
+              {
                 "label": "Gatsby plugin",
                 "path": "/sdk/client-side/react/gatsby"
               }
             ]
-          },
-          {
-            "label": "React Native SDK reference",
-            "shortLabel": "React Native",
-            "path": "/sdk/client-side/react-native",
-            "svg": "react-native"
           },
           {
             "label": "Roku SDK reference",
@@ -673,7 +695,13 @@
           {
             "label": ".NET SDK reference",
             "path": "/sdk/server-side/dotnet",
-            "svg": "dotnet"
+            "svg": "dotnet",
+            "items": [
+              {
+                "label": ".NET SDK 5.x to 6.0 migration guide",
+                "path": "/sdk/server-side/dotnet/migration-5-to-6"
+              }
+            ]
           },
           {
             "label": "Apex SDK reference",
