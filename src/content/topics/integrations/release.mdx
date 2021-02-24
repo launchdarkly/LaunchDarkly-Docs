@@ -71,51 +71,50 @@ The Pre-Delete step is invoked anytime a Release environment is removed, either 
 
 ## Example: Setting up the LaunchDarkly SDK client in Rails
 
-To use LaunchDarkly in your application, you must do two things:
+ In this example we will configure the LaunchDarkly SDK client with the specific API key for your environment.
 
-* Authorize against LaunchDarkly with your access token
-* Configure the LaunchDarkly SDK client with the specific API key for your environment
-
-This example is based on the [Ruby SDK reference](/sdk/server-side/ruby). It also uses the [dotenv gem](https://github.com/bkeepers/dotenv) to put in default values when you run it locally.
-
+This example is based on the [Ruby SDK reference](/sdk/server-side/ruby). 
 
 <Callout intent="info">
-<CalloutTitle>Use the API key for your LaunchDarkly environment.</CalloutTitle>
   <CalloutDescription>
-    When you run this example locally, configure the LAUNCHDARKLY_ENV_SPECIFIC_SDK_KEY with the API key for the LaunchDarkly development environment.
+  When running locally you can use the 'dotenv gem' (https://github.com/bkeepers/dotenv) to set your LaunchDarkly environment variables to test values.
   </CalloutDescription>
 </Callout>
 
-Create a file in `config/initializers/launchdarkly_client.rb`
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', }
-  ]
-}>
+* Install the Ruby SDK GEM - https://github.com/launchdarkly/ruby-server-sdk
+* Create a file in `config/initializers/launchdarkly_client.rb`
+* Copy the code below into `config/initializers/launchdarkly_client.rb`
 
-    <CodeTabItem value="ruby">
+```ruby
+=begin
 
-    ```ruby
-##Retrieve the access token from system ENVS or
-##local envs with dotenv
+  #Uncomment this section if you would like to use the 'launchdarkly_api' gem (https://github.com/launchdarkly/api-client-ruby)
+  #This is NOT the gem for using the Ruby LaunchDarkly SDK (https://github.com/launchdarkly/ruby-server-sdk)
+  #Most people do not need to utilize the LaunchDarkly Rest API defined here : (https://apidocs.launchdarkly.com/reference), but
+  #instead just want to use the SDK to interact with the feature flags in their specific environment.
+  #If you would like to utilize the LaunchDarkly Rest Api make sure to install the gem besides uncommenting these lines.
 
 access_token = ENV['LAUNCHDARKLY_ACCESS_TOKEN']
-
-##Set up authorization using access token
 
 LaunchDarklyApi.configure do |config|
   config.api_key['Authorization'] = access_token
   config.debugging = true
 end
 
-## Set ld_client to use the API key for the specific environment
+=end
 
+##In order to utilize the LaunchDarkly Ruby SDK, you will need the specific SDK key
+##In this example I'm setting up 'ld_client' under the Rails.configuration so it's accessible anywhere
+##in your Rails Project
 Rails.configuration.ld_client = 
   LaunchDarkly::LDClient.new(ENV['LAUNCHDARKLY_ENV_SPECIFIC_SDK_KEY'])
-This authenticates with LaunchDarkly using the access token you entered during setup and sets your SDK client using the SDK API key from the environment that was set up on your behalf.```
+```
 
-`test_flag = Rails.configuration.ld_client.variation("test-flag", {key: "user@test.com"}, false)`
+### Example of using the ld_client you defined above in your Rails application
 
-Now you can use retrieve variants for feature flags exactly how you would had you entered the API key manually, but with more security and the flexibility you need in each testing environment.  
+```ruby
+test_flag = Rails.configuration.ld_client.variation("test-flag", {key: "user@test.com"}, false)
+```
+
+**That's all there is to it!  Now you can start using your feature flags or if this is an existing app, everything related to querying and getting the current values of your flags should work in any environment.**
