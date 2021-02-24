@@ -306,6 +306,31 @@ LDUserSetAnonymous(user, true);
 
 Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
 
+## Aliased users
+
+There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person would be identified by two different users as denoted by different user keys.
+
+The SDK can associate these two LaunchDarkly users by sending an alias event.
+
+The SDK automatically sends an alias event when `LDClientIdentify` is called with a known user if the previous user was anonymous. You can disable this behavior if necessary. To learn more, read [Customizing your client](#customizing-your-client).
+
+You can manually tell the SDK to send an alias event with the `LDClientAlias` function.
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'Example', value: 'c', },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+LDClientAlias(client, newUser, previousUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 ## Track
 
 The track method allows you to record custom events in your application with LaunchDarkly:
@@ -376,7 +401,7 @@ The flush interval is configurable. If you need to change the interval, you can 
 
 If your app is used by multiple users on a single device, you may want to change users and have separate flag settings for each user. To achieve this, the SDK supports switching between different user contexts.
 
-You can use the `identify` method to switch user contexts:
+You can use the `LDClientIdentify` method to switch user contexts:
 
 <CodeTabs
   defaultValue="c"

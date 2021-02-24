@@ -15,9 +15,10 @@ Data Export exposes five different kinds of events:
 - Index events
 - Identify events
 - Custom events
+- Alias events
 - Summary events. To export summary events, contact [LaunchDarkly Support](https://support.launchdarkly.com/).
 
-Some data export destinations have different event formatting schema. If you use mParticle or Segment as your event destination, we have specific documentation for their event schema. 
+Some data export destinations have different event formatting schema. If you use mParticle or Segment as your event destination, we have specific documentation for their event schema.
 
 * [mParticle schema reference](/integrations/data-export/mparticle/mparticle-schema-reference)
 * [Segment schema reference](/integrations/data-export/segment/segment-schema-reference)
@@ -42,7 +43,7 @@ These events are described in more detail below.
     <TableRow>
       <TableCell>index</TableCell>
       <TableCell>
-        This event type details about a user used in feature evaluation for a particular user key. This event kind is
+        This event type contains details about a user used in feature evaluation for a particular user key. This event kind is
         not available for Segment or mParticle destinations. To export index events,
         contact <a href="https://support.launchdarkly.com">LaunchDarkly Support</a>.
       </TableCell>
@@ -61,6 +62,13 @@ These events are described in more detail below.
       </TableCell>
     </TableRow>
     <TableRow>
+      <TableCell>alias</TableCell>
+      <TableCell>
+        This event includes information necessary to correlate a user known by two
+        different user keys, for example an anonymous user key and a logged-in key
+      </TableCell>
+    </TableRow>
+    <TableRow>
       <TableCell>summary</TableCell>
       <TableCell>
         This event describes a roll-up of individual feature evaluations over an interval. To export summary events,
@@ -76,7 +84,7 @@ These events are described in more detail below.
 The `index` and `identify` event kinds are **not available** for Segment and mParticle destinations.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## SDK Versioning for Events
 
@@ -87,7 +95,7 @@ Older SDKs will also send `user` attributes as an object inside `feature` events
 The minimum SDK version numbers for SDKs support the new `summary` and `index` events and limit the sending of "feature" events are listed below:
 
 - .NET: **4.0.0**
-- Go: **4.0.0** (aka v4) 
+- Go: **4.0.0** (aka v4)
 
 - Java: **4.0.0**
 - Node: **5.0.0**
@@ -102,7 +110,7 @@ The minimum SDK version numbers for SDKs support the new `summary` and `index` e
 To see "feature" events, in addition to index, identify, and custom events, for a feature flag using recent SDKs, select “Send detailed event information for this flag” in the Settings menu for a feature flag or environment. By default, LaunchDarkly does not export summary events. To export summary events, contact <a href="https://support.launchdarkly.com">LaunchDarkly Support</a>.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Understanding event type structures
 
@@ -152,6 +160,7 @@ An example feature event is pictured below:
 ```json
  {
     "kind": "feature",
+    "contextKind": "anonymousUser",
     "userKey": "feature@test.com",
     "creationDate": 1462220944000,
     "key": "my.feature.key",
@@ -171,6 +180,7 @@ An example feature event is pictured below:
 </CodeTabs>
 
 - `kind`: The kind for a feature event is `feature`. A feature event will only be generated if the `trackEvents` attribute of the flag is set to `true`. This is also controlled by settings in the UI.
+- `contextKind`: The kind of context which generated an event. This will only be "anonymousUser" for events generated on behalf of an anonymous user or the reserved word "user" for events generated on behalf of a non-anonymous user
 - `userKey`: The key of the user object used in a feature flag evaluation. Details for the `user` object used in a feature flag evaluation as reported by the "feature" event are transmitted periodically with a separate `index` event.
 - `creationDate` When the feature flag was requested at Unix epoch time in milliseconds.
 - `key`: The key of the feature flag requested.
@@ -235,7 +245,7 @@ An example `index` event is pictured below:
       not created for every flag evaluation. If the same user (as defined by their key) is seen multiple times in
       succession, multiple index events will not be sent.
     </CalloutDescription>
-  </Callout> 
+  </Callout>
 
 ## Identify events
 
@@ -282,7 +292,7 @@ Custom events are produced when the client application calls an SDK method calle
 <CalloutTitle>mParticle and Segment schema differences</CalloutTitle>
 
 <CalloutDescription>
-  
+
 The `data` event kind is **not available** for mParticle or Segment events.
 
 </CalloutDescription>
@@ -309,6 +319,47 @@ An example custom event is pictured below:
   "data": {
     "custom": "value"
   }
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Alias events
+
+Alias events are produced when the client application calls the `Alias` SDK
+method. They are also emitted automatically by clientside SDKs when an anonymous user
+identifies as a non-anonymous user.
+
+<Callout intent="alert">
+<CalloutTitle>mParticle and Segment schema differences</CalloutTitle>
+
+<CalloutDescription>
+
+To read about how alias events function in mParticle and Segment destinations,
+see their respective schema references.
+
+</CalloutDescription>
+</Callout>
+
+An example alias event is pictured below:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Alias event example', value: 'json', },
+  ]
+}>
+<CodeTabItem value="json">
+
+```json
+{
+  "kind": "alias",
+  "creationDate": 1600376029000,
+  "key": "logged-in-user",
+  "contextKind": "user",
+  "previousKey": "logged-out-user",
+  "previousContextKind": "anonymousUser"
 }
 ```
 

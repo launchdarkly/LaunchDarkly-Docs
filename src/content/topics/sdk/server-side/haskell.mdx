@@ -208,6 +208,27 @@ user' = userSetPrivateAttributeNames (fromList ["email"]) user
 </CodeTabItem>
 </CodeTabs>
 
+## Aliased users
+
+There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person would be identified by two different users as denoted by different user keys.
+
+The SDK can associate these two LaunchDarkly users by sending an alias event. You can manually tell the SDK to send an alias event with the `alias` function.
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', },
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+alias client newUser previousUser
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 ## Variation
 
 The `variation` family of functions determine whether a flag is enabled or not for a specific user.

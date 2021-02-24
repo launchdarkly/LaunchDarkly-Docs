@@ -109,15 +109,25 @@ ld_client.close()
 You can also pass custom parameters to the client by creating a custom configuration object:
 
 <CodeTabs
-  defaultValue="py"
+  defaultValue="sdk7"
   values={[
-    { label: 'Python', value: 'py', },
+    { label: 'Python', value: 'sdk7', },
+    { label: 'Python SDK versions 6.12.x and earlier', value: 'sdk6', },
   ]
 }>
-<CodeTabItem value="py">
+<CodeTabItem value="sdk7">
 
 ```py
-ldclient.set_config(Config(sdk_key='YOUR_SDK_KEY', connect_timeout=5))
+config = Config(sdk_key='YOUR_SDK_KEY', http=HTTPConfig(connect_timeout=5))
+ldclient.set_config(config)
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk6">
+
+```py
+config = Config(sdk_key='YOUR_SDK_KEY', connect_timeout=5)
+ldclient.set_config(config)
 ```
 
 </CodeTabItem>
@@ -386,8 +396,7 @@ In some situations, you might want avoid remote calls to LaunchDarkly and fall b
 
 ```py
 # Initialization:
-ldclient.set_config(Config(offline = True))
-ldclient.set_sdk_key("YOUR_SDK_KEY")
+ldclient.set_config(Config("YOUR_SDK_KEY", offline=True))
 ldclient.get().variation("any.feature.flag", user, False) # will always return the default value (false)
 
 ```

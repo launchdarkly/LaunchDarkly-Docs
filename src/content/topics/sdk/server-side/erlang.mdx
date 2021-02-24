@@ -5,21 +5,12 @@ description: 'This topic explains all of the methods available in the server-sid
 published: true 
 ---
 
-<Callout intent="info">
-  <CalloutTitle>This SDK is in beta</CalloutTitle>
-  <CalloutDescription>
-
-The SDK is currently in beta. We make SDKs generally available after rigorous testing and iteration. If you use a beta SDK in a production environment, you may experience unpredicted behavior or behavior that changes later.
-
-  </CalloutDescription>
-</Callout>
-
 ## Overview
 
 
 This topic explains the basics of the LaunchDarkly Erlang server-side SDK and how it works. 
 
-To learn more, visit our [Erlang SDK GitHub repository](https://github.com/launchdarkly/erlang-server-sdk/). In addition to that, you can clone and run sample applications using this SDK with [Erlang](https://github.com/launchdarkly/hello-erlang/), [Elixir](https://github.com/launchdarkly/hello-elixir), and the [Phoenix framework](https://github.com/launchdarkly/hello-phoenix).
+To learn more, visit our [Erlang SDK GitHub repository](https://github.com/launchdarkly/erlang-server-sdk/). The online [API docs](https://hexdocs.pm/launchdarkly_server_sdk/) contain the programmatic definitions of every type and method. Additionally, you can clone and run sample applications using this SDK with [Erlang](https://github.com/launchdarkly/hello-erlang/), [Elixir](https://github.com/launchdarkly/hello-elixir), and the [Phoenix framework](https://github.com/launchdarkly/hello-phoenix).
 
 ## Getting started
 
@@ -37,7 +28,7 @@ First, you'll need to download the dependency using [Rebar](https://www.rebar3.o
 
 ```
 {deps, [
-  {launchdarkly_server_sdk, "1.0.0-beta4"}
+  {ldclient, "1.0.0", {pkg, launchdarkly_server_sdk}}
 ]}.
 ```
 
@@ -78,7 +69,7 @@ If you're using Elixir you can download the dependency using [Mix](https://elixi
 ```
 defp deps do
   [
-    {:ldclient, "~> 1.0.0-beta4", hex: :launchdarkly_server_sdk}
+    {:ldclient, "~> 1.0.0", hex: :launchdarkly_server_sdk}
   ]
 end
 ```
@@ -91,7 +82,7 @@ After you install the SDK dependency, create an instance of the SDK.
 <Callout intent="info">
   <CalloutTitle>Use a single instance</CalloutTitle>
   <CalloutDescription>
-    The Erlang SDK supports starting multiple instances, but you probably only need one instance.
+    While the Erlang SDK supports starting multiple instances, most use cases only need a single instance. Consider using multiple instances only if you need to simultaneously access more than one environment. Do not start an instance every time you need to make a variation or other SDK call.
   </CalloutDescription>
 </Callout>
 
@@ -222,7 +213,7 @@ User = ldclient_user:new_from_map(Map)
 </CodeTabItem>
 </CodeTabs>
 
-You still must generate a unique key for anonymous users. We recommend using Session IDs or UUIDs.
+You must still generate a unique key for anonymous users. We recommend using Session IDs or UUIDs.
 
 Anonymous users are similar to regular users, but they have the following limitations:
 
@@ -347,7 +338,7 @@ ldclient:track(<<"YOUR-METRIC-KEY">>, #{key => <<"aa0ceb">>}, #{data => <<"examp
 </CodeTabItem>
 </CodeTabs>
 
-You can also attach a JSON object containing arbitrary data to your event, or a custom metric value using the `track_with_metric` function.
+You can also attach a JSON object containing arbitrary data to your event, or a custom metric value using the `track_metric` function.
 
 <CodeTabs
   defaultValue="erlang"
@@ -358,7 +349,7 @@ You can also attach a JSON object containing arbitrary data to your event, or a 
 <CodeTabItem value="erlang">
 
 ```
-ldclient:track_with_metric(<<"YOUR-METRIC-KEY">>, #{key => <<"aa0ceb">>}, #{data => <<"example">>}, 0.5)
+ldclient:track_metric(<<"YOUR-METRIC-KEY">>, #{key => <<"aa0ceb">>}, #{data => <<"example">>}, 0.5)
 ```
 
 </CodeTabItem>
@@ -389,7 +380,7 @@ ldclient:identify(#{key => <<"aa0ceb">>})
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to your feature flags' default values. 
 
-For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when the software runs on premise.
+For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when the software runs on-premise.
 
 You can do this by setting offline mode in the config map with the `offline` key.
 
@@ -436,3 +427,9 @@ ldclient:stop_instance(my_instance)
 
 </CodeTabItem>
 </CodeTabs>
+
+## Database integrations
+
+The Erlang SDK can use Redis as a persistent store of feature flag configurations.
+
+To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).

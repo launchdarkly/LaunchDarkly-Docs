@@ -28,7 +28,7 @@ const Header = () => {
         }}
       >
         <span sx={{ gridArea: 'brand', display: ['none', 'flex'], alignItems: 'center', ml: [4, 6] }}>
-          <Link to="/">
+          <Link to="/" aria-label="Go to the LaunchDarkly documentation homepage">
             <Icon name="launchdarkly-logo" variant="header" sx={{ height: [null, 3] }} />
           </Link>
         </span>

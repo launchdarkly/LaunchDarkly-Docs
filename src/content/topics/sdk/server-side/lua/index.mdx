@@ -153,6 +153,27 @@ Custom attributes are one of the most powerful features of LaunchDarkly. They le
 
 To learn more about configuration options, read the [API docs](https://launchdarkly.github.io/lua-server-sdk/index.html#makeUser).
 
+## Aliased users
+
+There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person would be identified by two different users as denoted by different user keys.
+
+The SDK can associate these two LaunchDarkly users by sending an alias event. You can manually tell the SDK to send an alias event with the `alias` method.
+
+<CodeTabs
+  defaultValue="lua"
+  values={[
+    { label: 'Lua', value: 'lua', },
+  ]
+}>
+<CodeTabItem value="lua">
+
+```lua
+client:alias(newUser, previousUser)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 ## Variations
 
 The `variation` family of functions determine whether a flag is enabled or not for a specific user. In lua, there is a `variation` function for each type (e.g. `boolVariation`, `stringVariation`, etc).

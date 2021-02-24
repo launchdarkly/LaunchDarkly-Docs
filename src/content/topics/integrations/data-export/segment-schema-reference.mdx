@@ -7,16 +7,20 @@ published: true
 
 ## Overview
 
-This topic explains the different event kinds for Segment Data Export destinations. The JSON schemas for Segment are formatted differently than LaunchDarkly's. The `index`, `identify`, and `summary` event types are **not available** in Segment data export destinations, and other events are exported with different labels. 
+This topic explains the different event kinds for Segment Data Export destinations. The JSON schemas for Segment are formatted differently than LaunchDarkly's. The `index`, `identify`, and `summary` event types are **not available** in Segment data export destinations, and other events are exported with different labels.
 
 To learn more about the Segment destination, read [Segment's documentation](https://docs.Segment.com/).
 
-There are four different event kinds Segment uses. They are:
+There are five different event kinds exported to Segment. They are:
 
-* [Feature events](#feature-events): This event appears when a feature flag is evaluated.
-* [Click events](#click-events): This event appears when a user clicks on a CSS selector for which they have configured a metric in an experiment.
-* [Page view events](#page-view-events): This event appears when a user loads a page associated with an experiment metrics.
-* [Custom events](#custom-events): The LaunchDarkly SDK sends a custom event.
+* [Feature events](#feature-events): This event is emitted when a feature flag is evaluated.
+* [Click events](#click-events): This event is emitted when a user clicks on a CSS selector for which they have configured a metric in an experiment.
+* [Page view events](#page-view-events): This event is emitted when a user loads a page associated with an experiment metrics.
+* [Custom events](#custom-events): This event is emitted when LaunchDarkly SDK sends a custom event.
+* [Alias events](#alias-events): This event is emitted when the LaunchDarkly
+SDK calls the `Alias` method or automatically in clientside SDKs when an
+anonymous user identifies as a non-anonyous user. Read more about Alias events
+on [Segment's alias spec](https://segment.com/docs/connections/spec/alias/)
 
 ### Additional properties
 
@@ -66,10 +70,10 @@ Segment events include additional information about different LaunchDarkly prope
     <TableRow>
       <TableCell><code>reasonKind</code></TableCell>
       <TableCell>
-      
+
 The evaluation reason for the flag. <br/>
 To learn more, read <a href="/sdk/concepts/evaluation-reasons">Evaluation reasons</a>.
-      
+
       </TableCell>
     </TableRow>
     <TableRow>
@@ -130,3 +134,28 @@ To learn more, read <a href="/sdk/concepts/evaluation-reasons">Evaluation reason
 ## Custom events
 
 There are no properties for custom events other than the properties listed in [Additional properties](#additional-properties).
+
+## Alias events
+
+The alias event schema is defined by [Segment's
+spec](https://segment.com/docs/connections/spec/alias/). The following indicates
+LaunchDarkly's usage of the schema.
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Property name</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell><code>PreviousId</code></TableCell>
+      <TableCell>The previous key as defined by the <a
+      href="sdk/concepts/contributors-guide#alias-events">SDK Alias method</a>.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>UserId</code></TableCell>
+      <TableCell>The key as defined by the <a
+      href="sdk/concepts/contributors-guide#alias-events">SDK Alias method</a>.</TableCell>
+    </TableRow>
+   </TableBody>
+</Table>
