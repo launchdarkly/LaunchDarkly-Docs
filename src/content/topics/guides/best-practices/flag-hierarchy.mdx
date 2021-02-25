@@ -40,14 +40,14 @@ deliver a unified user experience. Different teams may rely on the same flags, u
 
 ## Understanding how flag hierarchy impacts deployment and release
 
-Feature flags are control points we use to change how software acts after it's deployed. You can think of the ability to feature flag as a tool, and the ways feature flags get implemented as patterns. Feature flags are tools that we implement in specific patterns with the objective of achieving a business goal, like controlling who can access a certain feature or testing UI changs on a website. 
+Feature flags are control points we use to change how software acts after it's deployed. You can think of the ability to feature flag as a tool, and the ways feature flags get implemented as patterns. Feature flags are tools that we implement in specific patterns with the objective of achieving a business goal, like controlling who can access a certain feature or testing UI changs on a website.
 
 LaunchDarkly's feature flagging capabilities reflect the complex ecosystems in which they exist. You can use nested or dependent flags to do exactly what you want in a given system.
 
 There are three main use cases for flags with dependencies:
 
 - [Feature bundling](#feature-bundling)
-- [Flag prerequisites](#flag-prerequisites)
+- [Prerequisite flags](#prerequisite-flags)
 - [Decommissioning](#decomissioning)
 
 It’s useful to remember that deployment is the process of getting code onto the
@@ -60,7 +60,7 @@ you are never surprised by which features are active.
 
 You can think of feature flags in different ways based on their relationships to each other. It might be helpful to use the mental model of the [Keystone Pattern] (https://martinfowler.com/bliki/KeystoneInterface.html), where one flag is a keystone or required prerequisite that supports and enables other flags to do their jobs. Another pattern is "version gating", where a feature is only available if the user is on a certain version of the software. In version gating, the prerequisite is checking the software version number.
 
-### Prerequisite, or "keystone," flags
+### Prerequisite flags
 
 Prerequisite flags are flags that must be enabled in order for other flags to work. These are the "keystone" flags.
 
@@ -72,7 +72,7 @@ Prerequisite flags may control large UI elements which contain multiple componen
 
 Controlling these sub-elements with flags does not change the prerequisite flag behavior. All flag conditions and rules are evaluated, and if there is any condition that would prevent the flagged code from executing, that will stop execution. In other words, even if a flagged piece of code would execute according to 9 of its 10 rules, the tenth would prevent execution. That safety-first behavior would be reversed if the flag default was to serve the code on, and the flag rules existed to turn it off.
 
-For example, a flag named "New search bar" enables a new search bar on a new page in your app. Access to that page is required for a user to see the new search bar, and is controlled by the "New page" flag. In this example, the "New page" flag is a prerequisite of the "New search bar" flag. 
+For example, a flag named "New search bar" enables a new search bar on a new page in your app. Access to that page is required for a user to see the new search bar, and is controlled by the "New page" flag. In this example, the "New page" flag is a prerequisite of the "New search bar" flag.
 
 Prerequisite flag settings can vary by environment, so you could have the prerequisite and dependent flags all on in a test environment, but not in production. The production prerequisite flag might be secured by role-based access control (RBAC), so it could only be enabled by a small subset of your organization.
 To learn more, read [Custom roles](/home/account-security/custom-roles).
@@ -123,9 +123,9 @@ Adding conditions or dependencies to the flag changes the code to something more
 <CodeTabItem value="code">
 
 ```
-`IF` _Prerequisite-Flag is `true` 
+`IF` _Prerequisite-Flag is `true`
 
-`AND` FeatureX-Flag is `true` 
+`AND` FeatureX-Flag is `true`
 
 `THEN` show Feature X
 
@@ -135,7 +135,7 @@ Adding conditions or dependencies to the flag changes the code to something more
 </CodeTabItem>
 </CodeTabs>
 
-This adds a layer of evaluation to every feature controlled by a dependent flag, so you have more power to make sure flags only execute in the conditions you want. 
+This adds a layer of evaluation to every feature controlled by a dependent flag, so you have more power to make sure flags only execute in the conditions you want.
 
 Each of the following use cases describes the business value of certain types of flag hierarchy behaviors. In practical execution, each of them relies on a code structure of `if/and/else` statements like the ones given above.
 
@@ -144,12 +144,12 @@ Here are use cases for hierarchical flag relationships:
 ### Feature bundling
 
 Feature bundling is when many features or subfeatures are controlled by a single
-prerequisite flag. This pattern allows many teams to contribute to a major release without accidentally exposing parts of the code before the entire release is ready. 
+prerequisite flag. This pattern allows many teams to contribute to a major release without accidentally exposing parts of the code before the entire release is ready.
 
 For example, a LaunchDarkly customer did a major rebranding across multiple products, including fonts,
 graphics, CSS, and naming. Each of the changes in that list was a feature that had its own flag. All of those flags were dependent on one prerequisite flag called "Rebranding."
 
-Teams could test that their own flags were working correctly in a test environment that had the "Rebranding" flag set to `true`. When everything was ready, the CEO flipped the "Rebranding" flag live in production while on stage at a major conference. 
+Teams could test that their own flags were working correctly in a test environment that had the "Rebranding" flag set to `true`. When everything was ready, the CEO flipped the "Rebranding" flag live in production while on stage at a major conference.
 
 Since all the resources already existed at the destinations, when the "Rebranding" flag switched to `true`, the new branding appeared to everyone simultaneously, worldwide.
 
@@ -207,7 +207,7 @@ although they are not strictly required.
 
 For many flags, especially those that are bundling many features or
 decommissioning software, it may make sense to restrict which team members can change the flag
-state based on their role. 
+state based on their role.
 
 For example, you may set RBAC so that developers can add
 and remove dependent flags or change their state, but only release managers can
@@ -218,7 +218,7 @@ To learn more, read [Custom roles](/home/account-security/custom-roles).
 ## Conclusion
 
 In this guide, we have covered some of the use cases and
-considerations for using feature flags in a hierarchy. 
+considerations for using feature flags in a hierarchy.
 
 If you would like to practice these concepts by creating flags, read our guide on [Rules and
 targeting](/guides/tutorials/rules-and-targeting).
@@ -233,4 +233,3 @@ Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 
   </CalloutDescription>
 </Callout>
-
