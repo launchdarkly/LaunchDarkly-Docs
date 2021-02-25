@@ -195,3 +195,17 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 - **PHP**: This integration is part of the main SDK distribution as of version 3.5.0, but you must also install the package `aws/aws-sdk-php`.
 - **Python**: This integration is part of the main SDK distribution as of version 6.7.0, but you must also install the package `boto3`.
 - **Ruby**: This integration is part of the main SDK distribution as of version 5.1.1, but you must also install the gem `aws-sdk-dynamodb`.
+
+## How the SDKs store data in DynamoDB
+
+The DynamoDB integrations for all LaunchDarkly server-side SDKs use the same conventions, so that SDK instances and Relay Proxy instances sharing a single DynamoDB table can interoperate correctly. 
+
+The storage schema is as follows:
+
+- For each data item that the SDK can store, such as a feature flag, there is a single DynamoDB data item, with the following attributes:
+    - `namespace`: a string value that denotes the type of data, such as `features` and `segments`. Or, if you have specified a prefix string, the `namespace` is set to `PREFIX:TYPE` where `PREFIX` is your configured prefix and `TYPE` is the type of data.
+    - `key`: the unique key of the item (such as the flag key for a feature flag).
+    - `version`: a number that the SDK uses to keep track of updates.
+    - `item`: a serialized representation of the data item, in a format that is determined by the SDK.
+- An additional item with a `namespace` of `$inited` (or `PREFIX:$inited`) is created when the SDK has stored a full set of feature flag data. This allows a new SDK instance to check whether there is already a valid data set that was stored earlier.
+- If you have specified a prefix string, the SDK never adds, modifies, or removes any items in the DynamoDB table that do not have a `namespace` starting with `PREFIX:`, so it is safe to share a DynamoDB table that is also being used for other purposes.

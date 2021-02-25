@@ -192,7 +192,7 @@ const client = LaunchDarkly.init(sdkKey, config);
 
 ```php
 /*
-There is no parameter for the cache TTL. The PHP SDK does not cache
+  There is no parameter for the cache TTL. The PHP SDK does not cache
   data from Redis, since in PHP the entire in-memory application state is
   normally discarded after each request.
 */
@@ -293,3 +293,13 @@ ldclient:start_instance("your_sdk_key", LdOptions),
 - **PHP**: This integration is part of the main SDK distribution, but you must also must install the package `predis/predis`.
 - **Python**: This integration is part of the main SDK distribution, but you must also install the package `redis`.
 - **Ruby**: This integration is part of the main SDK distribution, but you must also install the gems `redis` and `connection_pool`.
+
+## How the SDKs store data in Redis
+
+The Redis integrations for all LaunchDarkly server-side SDKs use the same conventions, so that SDK instances and Relay Proxy instances sharing a single Redis store can interoperate correctly. The storage schema is as follows:
+
+- There is always a "prefix" string that provides a namespace for the overall data set. If you do not specify a prefix in your configuration, it is `launchdarkly`.
+- For each type of data that the SDK can store, there is a hash whose key is `PREFIX:TYPE`. `PREFIX` is the configured prefix string. `TYPE` denotes the type of data such as `features` and `segments`.
+- Within each hash, there is one field per data item; for instance, the hash `PREFIX:features` has one field per feature flag. The field name is the unique key of the item (such as the flag key for a feature flag) and the value is a serialized representation of that item, in a format that is determined by the SDK.
+- An additional key, `PREFIX:$inited`, is created with an arbitrary value when the SDK stores a full set of feature flag data. This allows a new SDK instance to check whether there is already a valid data set that was stored earlier.
+- The SDK may use additional keys starting with the `PREFIX` string, so you should not assume that the `TYPE` values mentioned above and `$inited` are the only possible keys. But the SDK never adds, modifies, or removes any keys in Redis other than ones starting with the `PREFIX`, so it is safe to share a Redis instance that is also being used for other purposes.

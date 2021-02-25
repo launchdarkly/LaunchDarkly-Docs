@@ -205,3 +205,14 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 - **PHP**: This integration is part of the main SDK distribution as of version 3.5.0, but you must also install the package `aws/sensiolabs/consul-php-sdk`.
 - **Python**: This integration is part of the main SDK distribution as of version 6.8.1, but you must also install the package `python-consul`. Python 3.3 and 3.4 are not supported.
 - **Ruby**: This integration is part of the main SDK distribution as of version 5.1.1, but you must also install the gem `diplomat`.
+
+## How the SDKs store data in Consul
+
+The Consul integrations for all LaunchDarkly server-side SDKs use the same conventions, so that SDK instances and Relay Proxy instances sharing a single Consul store can interoperate correctly. 
+
+The storage schema is as follows:
+
+- There is always a "prefix" string that provides a namespace for the overall data set. If you do not specify a prefix in your configuration, it is `launchdarkly`.
+- For each data item that the SDK can store, such as a feature flag, there is a Consul key-value pair where the key is `PREFIX/TYPE/KEY`. `PREFIX` is the configured prefix string. `TYPE` denotes the type of data such as `features` and `segments`. `KEY` is the unique key of the item. For example, a `KEY` could be the flag key for a feature flag. The value is a serialized representation of that item, in a format that is determined by the SDK.
+- An additional key, `PREFIX/$inited`, is created with an arbitrary value when the SDK stores a full set of feature flag data. This allows a new SDK instance to check whether there is already a valid data set that was stored earlier.
+- The SDK may use additional keys starting with the `PREFIX` string, so you should not assume that the `TYPE` values mentioned above and `$inited` are the only possible keys. But the SDK never adds, modifies, or removes any keys in Consul other than ones starting with the `PREFIX`, so it is safe to share a Consul instance that is also being used for other purposes.
