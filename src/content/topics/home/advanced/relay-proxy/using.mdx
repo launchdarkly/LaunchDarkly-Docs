@@ -13,26 +13,13 @@ To learn more about deploying the Relay Proxy, read [Deploying the Relay Proxy](
 
 ## Configuring an SDK to use the Relay Proxy
 
-You must set certain values in your SDK's configuration to connect to the Relay Proxy. Precise steps to set the configuration values depend on your particular SDK.
+You must set three values in your SDK's configuration to connect to your Relay Proxy. Precise steps to set the configuration values depend on your particular SDKs.
 
-The values you may replace are:
+The values you must replace are:
 
 - `baseUrl`: Defaults to `launchdarkly.com`.
 - `streamUrl`: Defaults to `stream.launchdarkly.com` for server-side SDKS and `clientstream.launchdarkly.com` for client-side and mobile SDKs.
 - `eventsUrl`: Defaults to `events.launchdarkly.com`.
-
-<Callout intent="alert">
-<CalloutTitle>You do not need to set all three properties to configure an SDK</CalloutTitle>
-<CalloutDescription>
-
-Each SDK requires a different property or set of properties during configuration. Depending on which SDK you use, you may need to set different properties.<br/><br/>
-
-You do not need to set all the properties listed above to successfully configure an SDK, but all SDKs require a streaming connection. Precise implementation details to establish a connection vary depending on which SDK you use.<br/><br/>
-
-To learn more, read [your SDK's documentation](sdk#available-sdks).
-
-</CalloutDescription>
-</Callout>
 
 The SDK uses these values to determine where to request flag updates. Change all three values to point to the Relay Proxy URL instead of directly to LaunchDarkly's services.
 
@@ -49,7 +36,7 @@ After you have configured it, follow the procedure below to validate your Relay 
        proxy is configured incorrectly. These messages can appear when an SDK key cannot be validated or when there is a
        connection issue to LaunchDarkly.
      </CalloutDescription>
-   </Callout>
+   </Callout> 
 
 2. To confirm the proxy is configured correctly, test it by evaluating a feature flag.
 3. In the LaunchDarkly UI, change the value of a feature flag so you will see a different variation in production.
@@ -94,7 +81,7 @@ You can scale the Relay Proxy horizontally by deploying more nodes behind the lo
 
 Optionally, you can configure LaunchDarkly SDKs to communicate directly with Relay Proxy's persistent data store. We recommend this configuration when you're using LaunchDarkly with PHP.
 
-There is no need to put a load balancer in front of the Relay Proxy when your SDKs are configured to run in daemon mode.
+There is no need to put a load balancer in front of the Relay Proxy when your SDKs are configured to run in daemon mode. 
 
 To enable daemon mode:
 
@@ -107,14 +94,14 @@ To learn more about setting up a persistent data store for use in daemon mode, r
   <CalloutTitle>Restoring your SDK to proxy mode</CalloutTitle>
   <CalloutDescription>
 
-If you have set your SDK to daemon mode and wish to restore proxy mode, you can do that by removing the configuration that enabled daemon mode. By default, LaunchDarkly SDKs run in proxy mode, so removing the additional configuration returns the SDK to proxy mode. To learn more about customizing SDK configuration, read the documentation for your SDK.
+If you have set your SDK to daemon mode and wish to restore proxy mode, you can do that by removing the configuration that enabled daemon mode. By default, LaunchDarkly SDKs run in proxy mode, so removing the additional configuration returns the SDK to proxy mode. To learn more about customizing SDK configuration, read the documentation for your SDK. 
 
   </CalloutDescription>
-</Callout>
+</Callout> 
 
 We recommend that you use a monitoring service, such as Datadog, when your SDKs are configured to run in daemon mode. Because the Relay Proxy's data store communicates directly with the SDKs when the proxy is in in daemon mode, an external monitoring service can provide information about problems that might otherwise be lost during an outage.
 
-![SDKs configured to use the Relay Proxy while in daemon mode.](../../../images/relayproxy-daemon-mode.png)
+![SDKs configured to use the Relay Proxy while in daemon mode.](../../../images/relayproxy-daemon-mode.png) 
 
 
 ## Securing connections to and from the Relay Proxy
