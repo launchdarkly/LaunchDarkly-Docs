@@ -449,6 +449,38 @@ You must generate a unique key for anonymous users. Session IDs or UUIDs work be
 
 Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
 
+## Aliased Users
+
+There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person would be identified by two different users as denoted by different user keys.
+
+The SDK can associate these two LaunchDarkly users by sending an alias event.
+
+The SDK automatically sends an alias event when `identify` is called with a known user if the previous user was anonymous. You can disable this behavior if necessary. To learn more, read [Client configuration options](#client-configuration-options).
+
+You can manually tell the SDK to send an alias event with the `alias` function.
+
+<CodeTabs
+  defaultValue="swift"
+  values={[
+    { label: 'Swift', value: 'swift', },
+    { label: 'Objective-C', value: 'objc', },
+  ]
+}>
+<CodeTabItem value="swift">
+
+```swift
+LDClient.get()!.alias(context: newUser, previousContext: previousUser)
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+[[LDClient get] alias:newUser previousContext:previousUser];
+```
+</CodeTabItem>
+</CodeTabs>
+
 ## Variation
 
 The variation method determines whether a flag is enabled or not for a specific user. There is a single variation method for all types using Swift, however Objective-C requires type specific methods:
