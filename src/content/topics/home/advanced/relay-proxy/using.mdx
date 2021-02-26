@@ -21,19 +21,6 @@ The values you may replace are:
 - `streamUrl`: Defaults to `stream.launchdarkly.com` for server-side SDKS and `clientstream.launchdarkly.com` for client-side and mobile SDKs.
 - `eventsUrl`: Defaults to `events.launchdarkly.com`.
 
-<Callout intent="alert">
-<CalloutTitle>You do not need to set all three properties to configure an SDK</CalloutTitle>
-<CalloutDescription>
-
-Each SDK requires a different property or set of properties during configuration. Depending on which SDK you use, you may need to set different properties.<br/><br/>
-
-You do not need to set all the properties listed above to successfully configure an SDK, but all SDKs require a streaming connection. Precise implementation details to establish a connection vary depending on which SDK you use.<br/><br/>
-
-To learn more, read [your SDK's documentation](sdk#available-sdks).
-
-</CalloutDescription>
-</Callout>
-
 The SDK uses these values to determine where to request flag updates. Change all three values to point to the Relay Proxy URL instead of directly to LaunchDarkly's services.
 
 ## Validating your Relay Proxy configuration
