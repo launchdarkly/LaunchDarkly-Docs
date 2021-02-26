@@ -27,19 +27,19 @@ rules payload is large. To learn more about targeting many users, read [Targetin
 attributes](#targeting-rules-based-on-user-attributes).
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 If your application is already sending data back to LaunchDarkly, you can search for users by name, email address, or user key. These strings are case sensitive. Hover over the user row to see more attributes for that user.
 
 If you need to target a user that LaunchDarkly doesn't know about, you can enter their key manually. These users display in yellow until they encounter a feature flag.
 
-In the screenshot below, we see which users are seeing the `true` variation of the "Show new dashboard" flag. That flag is targeted to them. This means that these users will see the new dashboard when they access it.
+In the screenshot below, we see which users are seeing the first variation of a flag. That flag is targeted to them. This means that these users will see that flag variation when they access the flag.
 
-![A flag with users targeted.](../../images/flag-targeting-users-seeing-true.png) 
+![A flag with users targeted.](../../images/flag-targeting-users-var1.png)
 
 ### Removing targeted users
 
-You can remove a user from a flag's targeting list by clicking the user's name. 
+You can remove a user from a flag's targeting list by clicking the user's name.
 
 1. Navigate to the flag's **Targeting** tab.
 2. In the "Target individual users" section, find the name of the user you wish to remove.
@@ -56,7 +56,7 @@ You can remove a user from a flag's targeting list by clicking the user's name.
 Scheduling removal dates are only available to customers on our Enterprise or Pro plans. To learn more about upgrading your plan, [contact Support](http://support.launchdarkly.com) or your LaunchDarkly account representative.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 You can schedule a removal date and time for each individual user who is targeted by a flag. By doing this, you can specify a future date and time after which the user will no longer be targeted for the specific flag. You can do this for existing users, or when you create a new user.
 
@@ -96,7 +96,7 @@ For example, let's define a rule that serves `true` to all users whose e-mail ad
 
 To write this rule, we specify the attribute as `email`, the operator as `ends with`, and the user value as `gmail.com`. Remember to click **Save Changes** to apply the rule.
 
-![A user targeting rule.](../../images/users-targeting-rules.png) 
+![A user targeting rule.](../../images/users-targeting-rules.png)
 
 
 ### Operators
@@ -171,7 +171,7 @@ LaunchDarkly supports the following operators:
 LaunchDarkly does not have a built in way to schedule a flag for a particular date, but you can achieve this with targeting rules. For example, you may want to serve true to show your feature, but only after November 19th, 2018.
 
 </CalloutDescription>
-</Callout> 
+</Callout>
 
 ### Date comparisons
 
@@ -184,7 +184,7 @@ about UNIX date formatting, or convert a date and time to UNIX milliseconds read
 Millis](https://currentmillis.com/).
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 <Callout intent="info">
   <CalloutTitle>Required SDK versions for semantic versions</CalloutTitle>
   <CalloutDescription>
@@ -209,7 +209,7 @@ No updates are required for Android, iOS, or
 JavaScript.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ### Built-in attributes
 
@@ -302,7 +302,7 @@ LaunchDarkly includes some useful built-in attributes for users. All of them are
     While we provide all of these fields for you to fill in, the SDK does not automatically collect any information. If
     you want to target your users based on any of these attributes you must supply their values.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ### Anonymous users
 
@@ -333,7 +333,7 @@ continue to use to use the unique identifier stored in the cookie as the users "
 to do rollouts based on the "uniqueId" custom attribute.
 
 </CalloutDescription>
-</Callout> 
+</Callout>
 <Callout intent="info">
   <CalloutTitle>Secondary attribute</CalloutTitle>
   <CalloutDescription>
@@ -341,7 +341,7 @@ to do rollouts based on the "uniqueId" custom attribute.
     it is included in your user object. Unlike other attributes, you cannot use the secondary attribute in targeting
     rules.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Targeting users based on custom attributes
 
@@ -353,9 +353,9 @@ LaunchDarkly allows you to target users based on arbitrary custom attributes, wh
     Setting a custom attribute with the same key as one of the built-in attributes will cause the attribute to be
     ignored during feature flag evaluation. For mobile SDKs, the custom attributes 'os' and 'device' are automatically
     included with os and device data. You can override this by specifying them as custom attributes in your user object
-    and setting your own values. 
+    and setting your own values.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 You can add multiple conditions to a rule. Users must meet all the conditions in a rule to match the rule. If any of the conditions are not met, the user will not match the rule.
 
@@ -400,7 +400,7 @@ user := ld.NewUserBuilder("foo@example.com").
     Custom("groups", ldvalue.String("beta_testers"))
 
 // Go SDK 4.15 and earlier
-custom := make(map[string]interface{}) 
+custom := make(map[string]interface{})
 custom["groups"] = "beta_testers"
 user := ld.NewUser("foo@example.com")
 user.Custom = &custom
@@ -413,8 +413,8 @@ user.Custom = &custom
 <CodeTabItem value="java">
 
 ```java
-LDUser user = new LDUser.Builder("foo@example.com") 
-  .custom("groups", "beta_testers") 
+LDUser user = new LDUser.Builder("foo@example.com")
+  .custom("groups", "beta_testers")
   .build();
 ```
 
@@ -423,8 +423,8 @@ LDUser user = new LDUser.Builder("foo@example.com")
 <CodeTabItem value="dotnet">
 
 ```csharp
-var user = User.Builder("foo@example.com") 
-    .Custom("groups", "beta_testers") 
+var user = User.Builder("foo@example.com")
+    .Custom("groups", "beta_testers")
     .Build();
 ```
 
@@ -481,7 +481,7 @@ That's it! Any users in the `beta_testers` group will see the new dashboard feat
 
 If you want to do a percentage rollout, select "percentage rollout" from the dropdown and allocate users accordingly.
 
-![The percentage rollout screen.](../../images/rules-percentage-rollout.png) 
+![The percentage rollout screen.](../../images/rules-percentage-rollout.png)
 
 
 In this example, 25% of our `beta_testers` will see the new dashboard feature.
@@ -502,13 +502,13 @@ For any user where the value of the custom attribute is a number with a fraction
 other type besides string and number, the bucketing result is undefined.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Default rule: targeting remaining users
 
 LaunchDarkly defines a final default rollout rule for any users that don't match any of the previous sections on the page. As with other rules, you can choose to serve a specific variation, or apply a percentage rollout to any remaining users.
 
-![A percentage rollout, set to 50%.](../../images/rules-percentage-fifty.png) 
+![A percentage rollout, set to 50%.](../../images/rules-percentage-fifty.png)
 
 
 Now, 50% of all users who have not been targeted by any other rules will receive `true`.
@@ -519,7 +519,7 @@ Now, 50% of all users who have not been targeted by any other rules will receive
     If you do not want to target users based on user key or any custom attributes, you can simply use the default rule
     to control the flag's rollout for all users.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Setting the Off variation
 
@@ -533,12 +533,12 @@ The Targeting tab evaluates rules top-down. Imagine a highway with exits along t
 
 If a user matches multiple rules, the first matching rule applies.
 
-![A tree diagram showing rule matching behavior.](../../images/flag-targeting-diagram.png) 
+![A tree diagram showing rule matching behavior.](../../images/flag-targeting-diagram.png)
 
 
 Here, we have two custom rules. Rules are evaluated top down, so in this example, the first rule (`email` ends with `gmail.com` and `country` is one of `USA` or `Canada`) is evaluated before the second rule (`groups` is one of `beta_testers`). If a user matched both rules, the first rule would take priority.
 
-![Two custom rules targeted at user groups.](../../images/users-targeting-multiple-groups.png) 
+![Two custom rules targeted at user groups.](../../images/users-targeting-multiple-groups.png)
 
 
 Rules can be re-ordered by clicking on the left edge of a rule and dragging it up or down.
@@ -551,24 +551,24 @@ If the variations are being called less frequently than 30 days, the best soluti
 
 ## Converting a rule into a segment
 
-You may require complex targeting rules to successfully perform feature launches. 
+You may require complex targeting rules to successfully perform feature launches.
 You can convert a targeting rule into a reusable segment from the flag's Targeting page.
 
-![The "Convert to segment" modal.](../../images/segment-convert-to-segment-modal.png) 
+![The "Convert to segment" modal.](../../images/segment-convert-to-segment-modal.png)
 
 To convert a rule to a segment:
 
-1. Navigate to the flag's **Targeting** page. 
+1. Navigate to the flag's **Targeting** page.
 2. In the user targeting section or the rule matching section, click the **three-dot** menu of the rule you wish to convert. The overflow menu appears.
 3. Click **Convert to segment**. The "Convert to segment" window appears.
 
-![A flag rule, with the "Convert to segment" option called out.](../../images/segment-convert-to-segment-users.png) 
+![A flag rule, with the "Convert to segment" option called out.](../../images/segment-convert-to-segment-users.png)
 
 4. Give your segment a human-readable **Name**.
 5. (Optional) Add a **Description**.
 6. (Optional) Choose any **Tags** from the dropdown menu.
 7. Click **Save segment**. A confirmation appears indicating that you've created a new segment.
 
-After you click "Convert to segment", targeted users are cleared. A new segment rule targeting the newly created segment `test-12345` appears at the top of the list of targeting rules. 
+After you click "Convert to segment", targeted users are cleared. A new segment rule targeting the newly created segment `test-12345` appears at the top of the list of targeting rules.
 
-![The targeting section, with the new segment called out.](../../images/segment-convert-to-segment-creation.png) 
+![The targeting section, with the new segment called out.](../../images/segment-convert-to-segment-creation.png)
