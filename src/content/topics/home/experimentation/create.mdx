@@ -9,7 +9,7 @@ published: true
 
 This topic explains how to set up and configure an experiment in LaunchDarkly. It introduces the concepts of metrics, explains different metric types, and explains how metrics interact with feature flags to create experiments.
 
-In LaunchDarkly, the combination of metrics and flags is an experiment. Experiments let you measure the effect of flags on users by mapping them to the metrics your team cares about. 
+In LaunchDarkly, the combination of metrics and flags is an experiment. Experiments let you measure the effect of flags on users by mapping them to the metrics your team cares about.
 
 You can create an experiment from a flag's Experiments tab or from the Experiments dashboard. To learn more, read [Creating experiments](#creating-experiments).
 
@@ -21,11 +21,12 @@ For example, an experiment might show that users are more likely to convert by c
 
 ## Creating experiments
 
-It takes three steps to create an experiment. You must:
+It takes four steps to create an experiment. You must:
 
 1. [Create a metric](#creating-metrics), or choose an existing metric
-2. [Connect the metric to feature flags](#connecting-metrics-to-feature-flags), and
-3. [Start recording your experiment](#starting-your-experiment) 
+2. [Connect the metric to feature flags](#connecting-metrics-to-feature-flags)
+3. [Start recording the metric](#starting-your-experiment), and
+4. [Turn on the feature flags](/home/managing-flags/flag-toggle)
 
 You can reuse existing metrics by connecting them to multiple flags, which allows you to compare how this metric fares across numerous flags. Similarly, a single flag can have more than one metric connected to it, which allows you to see how this flag performs against various measurements.
 
@@ -88,7 +89,7 @@ The following table explains different actions you can track with a metric:
     You must be using the Javascript or React SDK to use click and pageview metrics. If you do not have the Javascript
     or React SDK and would like to track clicks or pageviews, use a custom conversion metric.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ### Creating click metrics
 
@@ -102,13 +103,13 @@ You can even monitor clicks on the button across different URLs by telling the m
 <CalloutTitle>What's a CSS selector?</CalloutTitle>
 <CalloutDescription>
 
-CSS selectors designate specific areas of your product UI, like buttons or images, that your users can interact with. 
+CSS selectors designate specific areas of your product UI, like buttons or images, that your users can interact with.
 
-For example, some CSS selectors include: 
+For example, some CSS selectors include:
 
-* `#example-element-id`, 
+* `#example-element-id`,
 
-* `.example-classname`, 
+* `.example-classname`,
 
 * `button.example-button`, or `.example-button, .example-button-alt`.
 
@@ -243,7 +244,7 @@ To create a custom conversion metric:
 4. Enter a human-readable **Event name**. This is the event name you will reference in your code snippet when you insert the metric information into your app.
 5. Click **Save Metric**.
 
-![The "Event information" section of the "Create a new metric" screen with a conversion metric configured.](../../../images/metrics-event-information.png) 
+![The "Event information" section of the "Create a new metric" screen with a conversion metric configured.](../../../images/metrics-event-information.png)
 
 
 ### Creating numeric metrics
@@ -286,12 +287,12 @@ Often, the information you should put in your code includes the event key, user 
 <Callout intent="info">
   <CalloutTitle>Can't see numeric metrics options?</CalloutTitle>
   <CalloutDescription>
-    
+
   If you can't see the feature described below, your SDKs may be out of date. To solve this problem, update your SDKs
   to the latest version, and contact Support to enable numeric metrics.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 To create a numeric metric:
 
@@ -301,7 +302,7 @@ To create a numeric metric:
 4. Choose a **Success criteria** from the dropdown.
 5. Click **Save Metric**.
 
-![The "Event information" section of the "Create a new metric" screen with a numeric metric configured.](../../../images/metrics-event-information-numeric.png) 
+![The "Event information" section of the "Create a new metric" screen with a numeric metric configured.](../../../images/metrics-event-information-numeric.png)
 
 
 <Callout intent="info">
@@ -314,7 +315,7 @@ infrastructure changes, you might want a success criteria that is lower than the
 variation shows the original page load time and you want to measure decreases in page load time.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Connecting metrics to feature flags
 
@@ -336,12 +337,12 @@ To connect a metric to a flag from the Experiments dashboard:
 
 ![The Experiments dashboard with the "+ Experiment" button called out.](../../images/experiment-dashboard-new-callout.png)
 
-3. Choose a flag from the "Select flag" dropdown. 
+3. Choose a flag from the "Select flag" dropdown.
 4. (Optional) If the flag doesn't have a baseline variation, choose one from the "Select baseline" dropdown.
 5. Choose a metric from the "Connect metric" dropdown.
 6. Click **Save Experiment Settings**.
 
-Your new experiment appears on the dashboard. 
+Your new experiment appears on the dashboard.
 
 You're not done yet! After you create an experiment, you have to start it in every environment where you want it to run.
 
@@ -360,7 +361,7 @@ To connect a metric to a flag from the flag's Experiments tab:
 4. Choose a **Baseline** from the dropdown.
 5. Click **Save Experiment Settings**. The new experiment appears in the flag's Experiments tab.
 
-![The "Update experiment settings for all environments" screen, configured to connect a metric to a flag.](../../../images/experiment-settings-metrics.png) 
+![The "Update experiment settings for all environments" screen, configured to connect a metric to a flag.](../../../images/experiment-settings-metrics.png)
 
 
 You're not done yet! After you create an experiment, you have to start it in every environment where you want it to run.
@@ -383,4 +384,4 @@ environments, you must click **Start Recording** for each environment individual
 experiment in Staging to gather data internally before turning it on in Production to gather customer data.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
