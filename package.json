@@ -39,7 +39,7 @@
     "lodash.noop": "^3.0.1",
     "pluralize": "^8.0.0",
     "prism-react-renderer": "^1.0.2",
-    "prismjs": "^1.21.0",
+    "prismjs": "^1.23.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet-async": "^1.0.4",
