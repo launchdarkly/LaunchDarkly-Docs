@@ -51,13 +51,14 @@ With each example, we'll discuss why Terraform was suited to that scenario. We'l
 These are the practices we recommend to avoid conflicts that can arise when some of your flags are managed through Terraform and others are managed through the LaunchDarkly dashboard:
 
 * Tag everything Terraform manages with a `managed-by-terraform` tag.
-* Use custom roles to enforce that resources and properties managed by Terraform can not be manipulated by the LaunchDarkly UI. For example, putting most team members in a role that does not have write access to the resources managed by Terraform.
-* For more complex patterns, add another tag such as `allow-ui-toggle`, to make it so rules are read-only but the toggle state is changeable.
+* Use custom roles to enforce that resources and properties managed by Terraform can not be manipulated by the LaunchDarkly UI. For example, putting most team members in a role that does not have write access to the resources managed by Terraform. 
+* Avoid, unless necessary, using Terraform to make changes to flag targeting rules or flag variations. The benefit of managing these actions in the UI is the ability to use LaunchDarkly's comment, audit log, scheduling, flag trigger, and approval workflow features.
 * Have clear policies on what is:
   * Managed exclusively by Terraform.
   * Provisioned by Terraform, then managed from the UI.
   * Provisioned and managed by the LaunchDarkly UI, but not Terraform
 * Use methods such as prefixes, tags, and descriptions to ensure that anyone looking at the UI has enough context to understand what they see.
+* For more complex patterns, add another tag such as `allow-ui-toggle`, to make it so rules are read-only but the toggle state is changeable.
 * Document all your practices and make the documentation widely accessible from both LaunchDarkly and Terraform.
 
 ## Example 1: Using Terraform for automation
