@@ -52,7 +52,7 @@ These are the practices we recommend to avoid conflicts that can arise when some
 
 * Tag everything Terraform manages with a `managed-by-terraform` tag.
 * Use custom roles to enforce that resources and properties managed by Terraform can not be manipulated by the LaunchDarkly UI. For example, putting most team members in a role that does not have write access to the resources managed by Terraform. 
-* Avoid, unless necessary, using Terraform to make changes to flag targeting rules or flag variations. The benefit of managing these actions in the UI is the ability to use LaunchDarkly's comment, audit log, scheduling, flag trigger, and approval workflow features.
+* Do not use Terraform to make changes to flag targeting rules or flag variations unless absolutely necessary. Managing these actions in the LaunchDarkly UI lets you use LaunchDarkly's comment, audit log, scheduling, flag trigger, and approval workflow features.
 * Have clear policies on what is:
   * Managed exclusively by Terraform.
   * Provisioned by Terraform, then managed from the UI.
