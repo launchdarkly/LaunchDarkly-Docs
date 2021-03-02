@@ -159,8 +159,8 @@ If you use Terraform Cloud to perform Continuous Integration or Continuous Deplo
 
 Now that the flag’s core configuration is controlled through Terraform, you can ensure that it’s not modified by other means, such as through the LaunchDarkly UI by setting up some custom roles in LaunchDarkly.
 
-1.  Create a dedicated “terraform” user account in LaunchDarkly, which Terraform Cloud can use to perform all LaunchDarkly actions. This ensures that Terraform actions aren’t dependent on an individual team member’s LaunchDarkly account. Instead, this account which belongs to the entire team.
-2.  Assign all the other team member accounts a new custom role that can’t modify certain attributes of Terraform-controlled resources. You can specify which resources those are by using a tag.
+1.  Create a dedicated “terraform” user account in LaunchDarkly, which Terraform Cloud can use to perform all LaunchDarkly actions. This ensures that Terraform actions aren’t dependent on an individual team member’s LaunchDarkly account. Instead, this account belongs to the entire team. If you are on an Enterprise plan, we recommend you use a service token instead of a user account. To learn more, read [Service tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens#service-tokens).
+3.  Assign all the other team member accounts a new custom role that can’t modify certain attributes of Terraform-controlled resources. You can specify which resources those are by using a tag.
 
 To learn more about custom roles, read [Custom Roles](/home/account-security/custom-roles).
 
