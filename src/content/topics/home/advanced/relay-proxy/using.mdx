@@ -17,11 +17,24 @@ You must set certain values in your SDK's configuration to connect to the Relay 
 
 The values you may replace are:
 
-- `baseUrl`: Defaults to `launchdarkly.com`.
-- `streamUrl`: Defaults to `stream.launchdarkly.com` for server-side SDKS and `clientstream.launchdarkly.com` for client-side and mobile SDKs.
-- `eventsUrl`: Defaults to `events.launchdarkly.com`.
+- The base URL for the polling service: defaults to `https://app.launchdarkly.com`, `https://sdk.launchdarkly.com`, or `https://clientsdk.launchdarkly.com`, depending on which SDK you use.
+- The base URL for the streaming service: defaults to `https://stream.launchdarkly.com` for server-side SDKs and `https://clientstream.launchdarkly.com` for client-side and mobile SDKs.
+- The base URL for the events service: defaults to `https://events.launchdarkly.com`
 
-The SDK uses these values to determine where to request flag updates. Change all three values to point to the Relay Proxy URL instead of directly to LaunchDarkly's services.
+The SDK uses these values to determine where to request flag updates. Change the values to point to the Relay Proxy URL instead of directly to LaunchDarkly's services.
+
+<Callout intent="alert">
+<CalloutTitle>You do not need to set all three properties to configure an SDK</CalloutTitle>
+<CalloutDescription>
+
+Each SDK requires a different property or set of properties during configuration. Depending on which SDK you use and how you configure it, you may need to set different properties.<br/><br/>
+
+You do not need to set all the properties listed above to successfully configure an SDK. Precise implementation details to establish a connection vary depending on which SDK you use.<br/><br/>
+
+To learn more, read [your SDK's documentation](sdk#available-sdks).
+
+</CalloutDescription>
+</Callout>
 
 ## Validating your Relay Proxy configuration
 
