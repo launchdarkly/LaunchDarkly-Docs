@@ -18,7 +18,7 @@ about our pricing](https://launchdarkly.com/pricing/). If you want to add Experi
 [contact Sales](https://launchdarkly.com/contact-sales/).
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## What is experimentation?
 
@@ -28,7 +28,7 @@ By connecting metrics you create to flags in your LaunchDarkly environment, you 
 
 Monitor existing experiments from the **Experimentation** dashboard, accessible in the sidebar menu.
 
-![Flags + Metrics = Experiments](../../images/experiment-splash-image.png) 
+![Flags + Metrics = Experiments](../../images/experiment-splash-image.png)
 
 ## Why should I use experimentation?
 
@@ -40,7 +40,7 @@ If an experiment tells you a flag has positive impact, you can roll that flag ou
 
 Experimentation can do all of these things and more:
 
-- A/B/n testing (Multivariate testing) 
+- A/B/n testing (Multivariate testing)
 - Chart-based visualizations of your experiment results
 - Pause and resume experiments so you have granular control over when data is recorded
 - Display confidence intervals with results so you decide which variation you can trust to have the most impact
@@ -52,13 +52,13 @@ Experiments track the impact of different flag variations against a baseline var
 
 After a flag variation has reached statistical significance, LaunchDarkly declares a "winning" flag variation for your experiment. A winning variation is the variation with the most positive deviation from the baseline. You may have multiple winning variations, depending on what you're trying to measure.
 
-After you decide which flag variation has the impact you want, you can seamlessly roll that variation out to 100% of your users with LaunchDarkly's percentage rollouts feature. To learn more about percentage rollouts, read [Targeting users](/home/managing-flags/targeting-users).
+After you decide which flag variation has the impact you want, you can seamlessly roll that variation out to 100% of your users with LaunchDarkly's percentage rollouts feature. To learn more about percentage rollouts, read [Targeting users](/home/flags/targeting-users).
 
 If you're satisfied with the results, you can pause an experiment after it declares a winning variation, or you can let it run indefinitely to continue gathering data.
 
-To learn more about using experiments, read [Managing experiments](/home/experimentation/managing).
+To learn more about using experiments, read [Managing experiments](/home/experimentation).
 
-![An active experiment.](../../images/experiment-chart.png) 
+![An active experiment.](../../images/experiment-chart.png)
 
 
 <Callout intent="info">
@@ -100,7 +100,7 @@ This feature is supported on the following versions of our SDKs (and later versi
 
 As you think about creating experiments for your features, keep these best practices in mind:
 
-- **If a user in your experiment has multiple user keys in LaunchDarkly, use `alias` events.** For example, if a user might access your experiment from both a logged in and logged out state, each state will generate its own user key. Use `alias` events to associate the two user keys, which prevents one user from generating duplicate events. To learn more, read [Associating anonymous users with logged in users](/home/managing-users/anonymous-users#associating-anonymous-users-with-logged-in-users).
+- **If a user in your experiment has multiple user keys in LaunchDarkly, use `alias` events.** For example, if a user might access your experiment from both a logged in and logged out state, each state will generate its own user key. Use `alias` events to associate the two user keys, which prevents one user from generating duplicate events. To learn more, read [Associating anonymous users with logged in users](/home/users/anonymous-users#associating-anonymous-users-with-logged-in-users).
 - **Use feature flags on every new feature you develop.** This is a best practice, but it especially helps when you're running experiments in LaunchDarkly. By flagging every feature, you can quickly turn any aspect of your product into an experiment.
 - **Consider experiments from day one.** Create hypotheses in the planning stage of feature development, so you and your team are ready to run experiments as soon as your feature launches.
 - **Define what you're measuring.** Align with your team on which tangible metrics you're optimizing for, and what results constitute success.
@@ -119,9 +119,9 @@ Experiment events are charged on a per-event basis. Consider this when you're di
 You can minimize the cost of experimentation by only running experiments on selected user groups.
 The number of experiments per flag (i.e. having multiple metrics connected to a single flag), the user engagement with that flag, and the target groups included in the experiment can all affect the volume of events LaunchDarkly sends.
 
-Experimentation includes a built-in feature that lets you refine the users included in an experiment based on the flag's targeting rules. To learn more, read [Controlling experiment populations](/home/experimentation/managing/populations).
+Experimentation includes a built-in feature that lets you refine the users included in an experiment based on the flag's targeting rules. To learn more, read [Controlling experiment populations](/home/experimentation/populations).
 
-You may be billed twice for some events if you're also using LaunchDarkly's Data Export features. To learn more, read [Data Export](/integrations/data-export).
+You may be billed twice for some events if you're also using LaunchDarkly's Data Export features. To learn more, read [Data Export](/home/data-export).
 
 <Callout intent="info">
   <CalloutTitle>We want your feedback!</CalloutTitle>
@@ -131,14 +131,11 @@ We're actively soliciting feedback and input on Experimentation. If you try it o
 we're eager to hear from you. Send us an email at [feedback@launchdarkly.com](mailto:feedback@launchdarkly.com).
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Related content
 
 Here are the topics in this category:
 
 - [Creating experiments](/home/experimentation/create)
-- [Managing experiments](/home/experimentation/managing)
-- [The experiment lifecycle](/home/experimentation/managing/lifecycle)
-- [Interpreting experiment data](/home/experimentation/managing/interpreting)
-- [Controlling experiment populations](/home/experimentation/managing/populations)
+- [Managing experiments](/home/experimentation)

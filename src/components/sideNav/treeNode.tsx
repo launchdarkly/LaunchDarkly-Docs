@@ -1,23 +1,13 @@
 /** @jsx jsx */
-import { jsx, useThemeUI, Flex, Link as ThemeUILink } from 'theme-ui'
-import { FunctionComponent, useState } from 'react'
+import { LDFlagSet } from 'launchdarkly-js-client-sdk'
+import { LinkGetProps } from '@reach/router'
+import { jsx, useThemeUI, Flex, Link as ThemeUILink, SxStyleProp } from 'theme-ui'
+import { ComponentProps, FunctionComponent, useEffect, useState } from 'react'
 import { Link as GatsbyLink } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
-import { globalHistory } from '@reach/router'
 import { SideNavItem } from './types'
 import isExternalLink from '../../utils/isExternalLink'
 import Icon, { IconName } from '../icon'
-
-type TreeNodeProps = {
-  nodes: Array<SideNavItem>
-  maxDepth?: number
-  depth?: number
-}
-
-enum ExpandCollapseEnum {
-  Collapsed,
-  Expanded,
-}
 
 const defaultLabelStyles = {
   color: 'grayBlack',
@@ -42,26 +32,177 @@ const maxDepthLabelStyles = {
   lineHeight: 'small',
 }
 
-const defaultListItemStyles = { mt: 4, ml: 5 }
-const rootListItemStyles = { mt: 5, mr: 2, ml: 6 }
+const groupStyles: SxStyleProp = {
+  mt: 7,
+  '&:first-of-type': {
+    mt: 6,
+  },
+}
+
+const groupHeaderStyles: SxStyleProp = {
+  mb: 4,
+  mr: 2,
+  ml: 6,
+  fontSize: 2,
+  fontWeight: 'bold',
+  textTransform: 'uppercase',
+  color: 'graySafe',
+}
+
+const defaultListItemStyles: SxStyleProp = { mt: 4, ml: 5 }
+
+const rootListItemStyles: SxStyleProp = { mb: 4, mr: 2, ml: 6 }
+
+type TreeNodeProps = {
+  nodes: Array<SideNavItem>
+  maxDepth?: number
+  depth?: number
+  currentPath: string
+}
+
+enum ExpandCollapseEnum {
+  Collapsed,
+  Expanded,
+}
+
+function isLeafNode(node: SideNavItem) {
+  return (node.items?.length ?? 0) === 0
+}
+
+// Determine whether a node is active or not based given a URL path
+function isActiveNodeOrAncestor(pathname: string, node: SideNavItem): boolean {
+  // This is the active node itself
+  if (node.path === pathname) {
+    return true
+  }
+
+  const items = node.items
+
+  // If this is not the active node and it has not children
+  if (!items || items.length === 0) {
+    return false
+  }
+
+  // Active descendant
+  return items.some(descendant => isActiveNodeOrAncestor(pathname, descendant))
+}
+
+const groupLabels: Readonly<Record<string, string>> = {
+  'feature-flags': 'feature flags',
+  'platform-config': 'platform configuration',
+  'additional-features': 'additional features',
+}
+
+function GroupHeader(props: ComponentProps<'div'>) {
+  return <div {...props} sx={groupHeaderStyles} />
+}
+
+function Node({
+  node,
+  itemStyles,
+  labelStyles,
+  flags,
+  depth,
+  maxDepth,
+  currentPath,
+  isLeaf,
+  isPristine,
+  isCollapsed,
+  setIsPristine,
+  setActiveLinkStyles,
+  onExpandCollapse,
+  onFirstExpand,
+}: {
+  node: SideNavItem
+  itemStyles: SxStyleProp
+  labelStyles: SxStyleProp
+  flags: LDFlagSet
+  depth: number
+  maxDepth: number
+  currentPath: string
+  isLeaf: boolean
+  isPristine: boolean
+  isCollapsed: boolean
+  setIsPristine(isPristine: boolean): void
+  setActiveLinkStyles(props: LinkGetProps): {}
+  onExpandCollapse(node: SideNavItem): void
+  onFirstExpand(node: SideNavItem): void
+}) {
+  const { label, path, svg, flagKey, items } = node
+  const showItem = flagKey ? flags[flagKey] : true
+  const isActive = isActiveNodeOrAncestor(currentPath, node)
+
+  useEffect(() => {
+    if (isPristine && isActive && isCollapsed) {
+      setIsPristine(false)
+      onFirstExpand(node)
+    }
+  }, [node, isPristine, isActive, isCollapsed, onFirstExpand, setIsPristine])
+
+  const handleExpandCollapse = () => {
+    onExpandCollapse(node)
+  }
+
+  return showItem ? (
+    <li sx={itemStyles}>
+      {isExternalLink(path) ? (
+        <ThemeUILink href={path} sx={labelStyles} target="_blank" rel="noopener noreferrer">
+          {label}
+          {svg && <Icon name={svg as IconName} height="0.8rem" fill="grayDark" ml={1} />}
+        </ThemeUILink>
+      ) : (
+        <Flex>
+          <GatsbyLink getProps={setActiveLinkStyles} sx={labelStyles} to={path} onClick={handleExpandCollapse}>
+            <Flex sx={{ alignItems: 'center' }}>
+              {svg && <Icon name={svg as IconName} height="1rem" fill="grayDark" mr={2} />}
+              {label}
+            </Flex>
+          </GatsbyLink>
+          {!isLeaf && (
+            <Icon
+              name={isCollapsed ? 'arrow-right' : 'arrow-down'}
+              onClick={handleExpandCollapse}
+              variant="sideNav"
+              fill="grayBase"
+              ml={2}
+            />
+          )}
+        </Flex>
+      )}
+      {isLeaf || isCollapsed ? null : (
+        <TreeNode currentPath={currentPath} nodes={items} depth={depth + 1} maxDepth={maxDepth} />
+      )}
+    </li>
+  ) : null
+}
 
 // Hamburger maxDepth is 3 since root topics are displayed.
 // Desktop sideNav maxDepth is 2 since root topics are displayed in the top nav.
-const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, maxDepth = 2, depth = 0 }) => {
+const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, currentPath, maxDepth = 2, depth = 0 }) => {
+  const flags = useFlags()
+  const { theme } = useThemeUI()
+
   const isRootNode = depth === 0
   const isMaxDepth = depth === maxDepth
-
-  const flags = useFlags()
 
   // Detect if this tree node has ever been expanded/collapsed
   const [isPristine, setIsPristine] = useState(true)
 
   // use local state to manage expand/collapse states on menu item clicks
-  const initialState: ExpandCollapseEnum[] = nodes.map(() => ExpandCollapseEnum.Collapsed)
+  const initialState: Record<string, ExpandCollapseEnum> = nodes.reduce(
+    (state, node) => ({ ...state, [node.path]: ExpandCollapseEnum.Collapsed }),
+    {},
+  )
+
   const [expandCollapseStates, setState] = useState(initialState)
 
-  const { theme } = useThemeUI()
-  const setActiveStyles = ({ isCurrent, isPartiallyCurrent }: { isCurrent: boolean; isPartiallyCurrent: boolean }) => {
+  const setActiveLinkStyles = ({
+    isCurrent,
+    isPartiallyCurrent,
+  }: {
+    isCurrent: boolean
+    isPartiallyCurrent: boolean
+  }) => {
     if (isCurrent) {
       return { style: { color: theme.colors.primarySafe, fontWeight: theme.fontWeights.bold } }
     } else if (isPartiallyCurrent) {
@@ -71,74 +212,79 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, maxDepth = 2, depth
     return null
   }
 
-  const onExpandCollapse = (isLeafNode: boolean, index: number) => {
-    if (!isLeafNode) {
-      setState(prevState => {
-        const clone = [...prevState]
-        clone[index] =
-          clone[index] === ExpandCollapseEnum.Collapsed ? ExpandCollapseEnum.Expanded : ExpandCollapseEnum.Collapsed
-        return clone
-      })
+  const onExpandCollapse = (node: SideNavItem) => {
+    if (!isLeafNode(node)) {
+      setState(prevState => ({
+        ...prevState,
+        [node.path]:
+          prevState[node.path] === ExpandCollapseEnum.Collapsed
+            ? ExpandCollapseEnum.Expanded
+            : ExpandCollapseEnum.Collapsed,
+      }))
     }
   }
 
+  const onFirstExpand = (node: SideNavItem) => {
+    setState(prevState => ({ ...prevState, [node.path]: ExpandCollapseEnum.Expanded }))
+  }
+
+  const groupedNodes = Object.entries(
+    nodes.reduce(
+      (map, node) => ({ ...map, [node.group || 'ungrouped']: [...(map[node.group || 'ungrouped'] || []), node] }),
+      {} as { [key: string]: SideNavItem[] },
+    ),
+  )
+
+  const hasGroupedNodes = groupedNodes.some(group => group[0] !== 'ungrouped')
+
   return (
     <ul sx={{ fontWeight: 'body' }}>
-      {nodes.map((node, index) => {
-        const { label, path, svg, flagKey, items } = node
-        const nodeChildrenCount = items?.length ?? 0
-        const isLeafNode = nodeChildrenCount === 0
-        const partiallyActive = globalHistory.location.pathname.includes(path)
-        const listItemStyles = isRootNode ? rootListItemStyles : defaultListItemStyles
-        const labelStyles = isMaxDepth ? maxDepthLabelStyles : defaultLabelStyles
-
-        if (isPristine && partiallyActive && expandCollapseStates[index] === ExpandCollapseEnum.Collapsed) {
-          setIsPristine(false)
-          setState(prevState => {
-            const clone = [...prevState]
-            clone[index] = ExpandCollapseEnum.Expanded
-            return clone
-          })
-        }
-        const expandedCollapsed = expandCollapseStates[index]
-        const showItem = flagKey ? flags[flagKey] : true
-        return showItem ? (
-          <li key={`${label}-${index}`} sx={listItemStyles}>
-            {isExternalLink(path) ? (
-              <ThemeUILink href={path} sx={labelStyles} target="_blank" rel="noopener noreferrer">
-                {label}
-                {svg && <Icon name={svg as IconName} height="0.8rem" fill="grayDark" ml={1} />}
-              </ThemeUILink>
-            ) : (
-              <Flex>
-                <GatsbyLink
-                  getProps={setActiveStyles}
-                  sx={labelStyles}
-                  to={path}
-                  onClick={() => onExpandCollapse(isLeafNode, index)}
-                >
-                  <Flex sx={{ alignItems: 'center' }}>
-                    {svg && <Icon name={svg as IconName} height="1rem" fill="grayDark" mr={2} />}
-                    {label}
-                  </Flex>
-                </GatsbyLink>
-                {!isLeafNode && (
-                  <Icon
-                    name={expandedCollapsed === ExpandCollapseEnum.Collapsed ? 'arrow-right' : 'arrow-down'}
-                    onClick={() => onExpandCollapse(isLeafNode, index)}
-                    variant="sideNav"
-                    fill="grayBase"
-                    ml={2}
+      {hasGroupedNodes
+        ? groupedNodes.map(([groupId, items]) => (
+            <div key={groupId} sx={groupStyles}>
+              {groupId !== 'ungrouped' && <GroupHeader>{groupLabels[groupId]}</GroupHeader>}
+              <div>
+                {items.map(node => (
+                  <Node
+                    key={node.path}
+                    node={node}
+                    flags={flags}
+                    depth={depth}
+                    maxDepth={maxDepth}
+                    currentPath={currentPath}
+                    itemStyles={isRootNode ? rootListItemStyles : defaultListItemStyles}
+                    labelStyles={isMaxDepth ? maxDepthLabelStyles : defaultLabelStyles}
+                    isLeaf={isLeafNode(node)}
+                    isPristine={isPristine}
+                    isCollapsed={expandCollapseStates[node.path] === ExpandCollapseEnum.Collapsed}
+                    setIsPristine={setIsPristine}
+                    setActiveLinkStyles={setActiveLinkStyles}
+                    onExpandCollapse={onExpandCollapse}
+                    onFirstExpand={onFirstExpand}
                   />
-                )}
-              </Flex>
-            )}
-            {isLeafNode || expandedCollapsed === ExpandCollapseEnum.Collapsed ? null : (
-              <TreeNode nodes={items} depth={depth + 1} maxDepth={maxDepth} />
-            )}
-          </li>
-        ) : null
-      })}
+                ))}
+              </div>
+            </div>
+          ))
+        : nodes.map(node => (
+            <Node
+              key={node.path}
+              node={node}
+              flags={flags}
+              depth={depth}
+              maxDepth={maxDepth}
+              currentPath={currentPath}
+              itemStyles={isRootNode ? rootListItemStyles : defaultListItemStyles}
+              labelStyles={isMaxDepth ? maxDepthLabelStyles : defaultLabelStyles}
+              isLeaf={isLeafNode(node)}
+              isPristine={isPristine}
+              isCollapsed={expandCollapseStates[node.path] === ExpandCollapseEnum.Collapsed}
+              setIsPristine={setIsPristine}
+              setActiveLinkStyles={setActiveLinkStyles}
+              onExpandCollapse={onExpandCollapse}
+              onFirstExpand={onFirstExpand}
+            />
+          ))}
     </ul>
   )
 }

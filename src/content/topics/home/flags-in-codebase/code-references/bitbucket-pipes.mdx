@@ -1,0 +1,167 @@
+---
+path: '/home/code/bitbucket'
+title: 'Bitbucket Pipes'
+description: 'This topic explains how to use the ld-find-code-refs utility with Bitbucket Pipes to create code references in LaunchDarkly.'
+published: true
+---
+
+## Overview
+
+This topic explains how to use the `ld-find-code-refs` utility with Bitbucket Pipes to create code references in LaunchDarkly.
+
+You can use the [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) utility with [Bitbucket Pipelines](https://bitbucket.org/product/features/pipelines) to automatically populate code references in LaunchDarkly. To do this, you must create a Pipes configuration using LaunchDarkly's [code reference pipe](https://bitbucket.org/launchdarkly/ld-find-code-refs-pipe).
+
+## Prerequisites
+
+To set up Bitbucket Pipes, you have the following prerequisite:
+
+- A Bitbucket Pipelines configuration file. To create one, navigate to the Pipelines section of your Bitbucket repository.
+- An API access token with `writer` permissions. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
+
+<Callout intent="info">
+<CalloutTitle>API tokens can also use custom roles</CalloutTitle>
+
+<CalloutDescription>
+
+Alternatively, you can give the access token access to a custom role with the `code-reference-repository` resource specifier. To learn more, read [Custom roles](/home/team/custom-roles).
+
+</CalloutDescription>
+</Callout>
+
+## Setting up the Pipes configuration
+
+To set up the Bitbucket Pipes configuration:
+
+1. Create a new Pipeline configuration in your Bitbucket repository.
+2. Configure the Pipeline to run on `push` using the `default` configuration. Include the following variables:
+
+- `LD_ACCESS_TOKEN`: This secured variable should be your API access token.
+- `LD_PROJ_KEY`: This should be your LaunchDarkly project key. Find it in **Account settings > Projects**.
+
+Here's an example of a minimal Pipeline configuration:
+
+![An example Pipeline configuration.](../../images/bitbucket-config.png)
+
+
+You can copy and paste the following code into a blank Pipelines configuration if you have set the `LD_PROJ_KEY` and `LD_ACCESS_TOKEN` environment variables as repository variables:
+
+<CodeTabs
+  defaultValue="yaml"
+  values={[
+    { label: 'YAML', value: 'yaml', },
+  ]
+}>
+
+<CodeTabItem value="yaml">
+
+```yaml
+pipelines:
+  default:
+    - step:
+        script:
+          - pipe: launchdarkly/ld-find-code-refs-pipe:2.1.0
+            environment:
+              LD_ACCESS_TOKEN: $LD_ACCESS_TOKEN
+              LD_PROJ_KEY: $LD_PROJ_KEY
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more about repository variables, read [Atlassian's documentation](https://confluence.atlassian.com/bitbucket/variables-in-pipelines-794502608.html).
+
+2. Confirm that the pipeline is working by creating a new pull request with the workflow file and visiting the Pipelines page on your repository's webpage. If your pipeline fails, there may be a problem with your configuration. To investigate, check the pipeline's logs to view any error messages.
+
+## Pipeline configuration
+
+The [code reference pipe](https://bitbucket.org/launchdarkly/ld-find-code-refs-pipe) may be configured with additional environment variables to enable more functionality.
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Variable</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>LD_ACCESS_TOKEN</code>
+      </TableCell>
+      <TableCell>
+        Required.
+        <br />A LaunchDarkly access token with writer-level access, or access to the <code>
+          code-references
+        </code> custom role resource.
+        <br />
+        Supply this as a secured environment variable.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>LD_PROJ_KEY</code>
+      </TableCell>
+      <TableCell>
+        Required.
+        <br />A LaunchDarkly project key. Find it in **Account settings > Projects**.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>LD_CONTEXT_LINES</code>
+      </TableCell>
+      <TableCell>
+        Optional.
+        <br />
+        The number of context lines above and below a code reference for the flag parser to send to LaunchDarkly.
+        <br />
+        If &lt; 0, no source code is sent to LaunchDarkly.
+        <br />
+        If 0, only the lines containing flag references are sent.
+        <br />
+        If &gt; 0, sends that number of context lines above and below the flag reference.
+        <br />A maximum of 5 context lines may be provided. Defaults to 2.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>LD_BASE_URI</code>
+      </TableCell>
+      <TableCell>
+        Optional.
+        <br />
+        Set the base URL of the LaunchDarkly server for this configuration. Defaults to{' '}
+        <code>https://app.launchdarkly.com</code>.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>LD_DEBUG</code>
+      </TableCell>
+      <TableCell>
+        Optional.
+        <br />
+        Enables verbose default logging. Defaults to <code>false</code>.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>LD_IGNORE_SERVICE_ERRORS</code>
+      </TableCell>
+      <TableCell>
+        Optional.
+        <br />
+        If enabled, the scanner terminates with exit code 0 when the LaunchDarkly API is unreachable or returns an unexpected response. Defaults to <code>false</code>.
+      </TableCell>
+    </TableRow>
+        <TableRow>
+      <TableCell>
+        <code>LD_LOOKBACK</code>
+      </TableCell>
+      <TableCell>
+        Optional.
+        <br />
+        Sets the number of Git commits to search in history for whether a feature flag was removed from code. Set this to 0 to disable it. Setting this option to a high value will increase search time. Defaults to <code>10</code>.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>

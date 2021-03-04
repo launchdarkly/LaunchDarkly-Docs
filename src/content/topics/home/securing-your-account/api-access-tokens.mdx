@@ -1,0 +1,151 @@
+---
+path: '/home/account-security/api-access-tokens'
+title: 'API access tokens'
+description: 'This topic explains how to use API access tokens to authenticate with the LaunchDarkly REST API.'
+published: true
+---
+
+## Overview
+
+This topic explains how to use API access tokens to authenticate with the [LaunchDarkly REST API](https://apidocs.launchdarkly.com), as well as constraints and suggestions for implementing them.
+
+<Callout intent="info">
+  <CalloutTitle>API access tokens are private</CalloutTitle>
+  <CalloutDescription>
+    Only you can see the secret values of tokens you create; other team members cannot see them. Administrators can delete your tokens,
+    but cannot see their values.
+  </CalloutDescription>
+</Callout>
+
+## Scoping personal API access tokens
+
+You can scope your API tokens to restrict the set of operations they can perform. For example, you can build an integration that only has read access to the REST API.
+
+The available scoping options are:
+
+- **Built-in roles**: Gives a token the same permissions as a `reader`, `writer`, or `admin`.
+- **[Custom roles](/home/team/custom-roles)**: Gives a token the same permissions as one of your team's existing custom roles. This option is only available if your LaunchDarkly plan includes custom roles.
+- **In-line custom roles**: Gives a token a custom set of permissions in-line, rather than specifying it as an existing custom role. This option is only available if your LaunchDarkly plan includes custom roles.
+
+<Callout intent="warning">
+  <CalloutTitle>Never share an API access token</CalloutTitle>
+  <CalloutDescription>
+    API access tokens are secrets. If you share your access token with others, they may be able to use it to
+    impersonate you, or perform actions with it that could later be attributed to you or your integration erroneously.
+  </CalloutDescription>
+</Callout>
+
+## Understanding access token permissions
+
+<Callout intent="info">
+  <CalloutTitle>Personal API access tokens and the principle of least privilege</CalloutTitle>
+  <CalloutDescription>
+
+As a best practice, we recommend giving your tokens the smallest scope required for your integration. For example,
+if your integration is not designed to modify your **Production** environment, use a custom role or inline policy to
+restrict access appropriately.
+
+  </CalloutDescription>
+</Callout>
+
+<Callout intent="warning">
+
+  <CalloutTitle>Using custom roles in access tokens</CalloutTitle>
+  <CalloutDescription>
+
+If you use custom roles to scope your access tokens, note that modifying the permissions of the custom roles will also modify the permissions of related tokens.
+
+  </CalloutDescription>
+</Callout>
+
+There are two types of tokens you can create in LaunchDarkly. You can create a personal token, which is linked to a user's account, or a service token, which is independent of the account that created it.
+
+The different token types respond differently when their creators' permissions change. Because of this, you may want to use different types of tokens for different things.
+
+### Personal tokens
+
+You can configure a personal access token to have the same permissions that you do, or more restrictive permissions. Your personal tokens can never do more than you can in LaunchDarkly.
+
+If your own permissions are ever reduced, personal tokens you have created have reduced scope as well. For example, if you are a Writer and create a Writer token, but then are downgraded to a Reader, your Writer token is also downgraded. After your permissions change, that token behaves like a Reader token.
+
+If a team member with personal access tokens is removed from your LaunchDarkly team, their personal tokens are deactivated.
+
+Use a personal token when you want to access the LaunchDarkly API for your temporary or personal use.
+
+### Service tokens
+
+<Callout intent="info">
+  <CalloutTitle>Only available on Enterprise plans</CalloutTitle>
+  <CalloutDescription>
+
+Service tokens are only available on Enterprise plans. If you're on a Starter or Pro LaunchDarkly plan, you can only create personal access tokens. The service token creation checkbox is greyed out.
+
+To learn about upgrading to an Enterprise plan, [contact Support](https://support.launchdarkly.com).
+
+  </CalloutDescription>
+</Callout>
+
+Unlike personal tokens, service tokens are not tied to your LaunchDarkly profile. You can assign an existing role to a service token, or create a custom role for it to use, but like personal access tokens, you can never give a service token more permissions than you have.
+
+You can also configure service tokens to have up to the same permissions you do, but those permissions are **fixed**. Even if your permissions change, the service token's permissions stay the same.
+
+Use a service token to create long-term integrations with the LaunchDarkly API.
+
+## Creating API access tokens
+
+You can create an API access token from the **Account settings** page.
+
+By default, the tokens you create on the **Account settings** page are personal tokens. You can choose to create a service token instead during the token creation workflow.
+
+<Callout intent="alert">
+  <CalloutTitle>Save new tokens immediately</CalloutTitle>
+  <CalloutDescription>
+    Your API access token is visible one time, immediately after you create it. If you leave or refresh the page where the token is displayed, it will be obscured and no longer visible. You must copy and store new access tokens somewhere secure before you leave the creation page, or you will lost access to the token.
+  </CalloutDescription>
+</Callout>
+
+![The Access tokens page with an obscured access token called out.](../../images/settings-access-tokens-obscured-callout.png)
+
+To create an access token:
+
+1. Navigate to the **Account settings** page.
+2. Click into the **Authorization** tab.
+3. Click **+ token**. The **Create an access token** screen appears.
+
+![The Create an access token screen.](../../images/settings-access-tokens.png)
+
+4. Give your token a human-readable **Name**.
+5. Assign a **Role** to the token by choosing one from the dropdown.
+6. (Optional) Select the "This is a service token" checkbox if you wish to create a service token. This feature is only available to customers on Enterprise plans.
+
+![The create an access token screen with the service token checkbox called out.](../../images/settings-access-tokens-service-checkbox-callout.png)
+
+7. Click **Save Token**. The new token appears in the **Authorization** page.
+8. Copy and save the token somewhere secure. After you leave this page, the token will be obscured.
+
+![A new access token with a reminder to copy and store it displayed.](../../images/settings-access-tokens-notification.png)
+
+After you create a token, you can **Clone** or **Delete** it from the "Access tokens" screen.
+
+* **Clone**: Clones the access token. This allows you to create multiple access tokens with the same set of permissions, rather than having to fill out each token's information in the "Create an access token" screen.
+* **Delete**: Deletes the access token. If you delete a token, API calls made with that token return `401 Unauthorized` status codes.
+
+![A new access token with the Clone and Delete buttons called out.](../../images/settings-access-tokens-clone-delete-callout.png)
+
+You can also manage existing tokens from the **Authorizations** tab. From that tab, you can reset the secret values of your tokens, or delete them. You may also adjust the scope of your personal tokens.
+<Callout intent="alert">
+  <CalloutTitle>Rotate your tokens regularly</CalloutTitle>
+  <CalloutDescription>
+    As a best practice, we recommend rotating your tokens regularly to prevent tokens from becoming outdated, such as
+    when team members leave. If you remove a team member from your account, their personal API access tokens become
+    invalid. We recommend updating integrations to use new access tokens before removing team members.
+  </CalloutDescription>
+</Callout>
+
+## Restricting who can create and manage API access tokens
+
+By default, all team members can create access tokens limited to their existing permissions. Team members with `reader` level permissions can only create tokens with `reader` permissions, whereas admins and owners can create tokens with any permission level.
+
+You can restrict team members from creating or managing access tokens with custom roles.
+
+To learn more, read [Actions in custom roles](/home/team/role-actions).

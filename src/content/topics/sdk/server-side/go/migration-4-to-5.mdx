@@ -42,7 +42,7 @@ The package structure of the SDK has changed. Some packages have been added in t
 
 There were two reasons for this. First, the main package `go-server-sdk.v4` was cluttered with many things that are not necessary for normal usage of the SDK. Moving things out of this package produced a clearer basic API.
 
-Second, there are some internal parts of the Go SDK code that are also used by other LaunchDarkly components, such as the [Relay Proxy](https://docs.launchdarkly.com/home/advanced/relay-proxy). The fact that those implementation details were visible within the main SDK package meant that they could not be changed in any backward-incompatible way without releasing a new major version of the SDK, even though application code was unlikely to be using them. 
+Second, there are some internal parts of the Go SDK code that are also used by other LaunchDarkly components, such as the [Relay Proxy](/home/relay-proxy). The fact that those implementation details were visible within the main SDK package meant that they could not be changed in any backward-incompatible way without releasing a new major version of the SDK, even though application code was unlikely to be using them. 
 
 This was potentially confusing for developers, and required LaunchDarkly to maintain support for many obsolete types and methods.
 
@@ -628,7 +628,7 @@ Also, the configuration syntax has changed. To learn more about configuration de
 
 ## Using the Relay Proxy
 
-There are two ways you can configure the SDK to use the [Relay Proxy](/home/advanced/relay-proxy).
+There are two ways you can configure the SDK to use the [Relay Proxy](/home/relay-proxy).
 
 You can use it in: 
 

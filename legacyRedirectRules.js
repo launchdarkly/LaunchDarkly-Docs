@@ -2,12 +2,304 @@ module.exports = [
   // Redirects within the git-gatsby docs site
 
   {
+    fromPath: '/home/advanced/api-access-tokens',
+    toPath: '/home/account-security/api-access-tokens',
+  },
+  {
+    fromPath: '/integrations/triggers',
+    toPath: '/home/feature-workflows/triggers',
+  },
+  {
+    fromPath: '/integrations/webhooks',
+    toPath: '/home/connecting/webhooks',
+  },
+  {
     fromPath: '/home/advanced/relay-proxy/automatic-configuration',
     toPath: '/home/advanced/relay-proxy-enterprise/automatic-configuration',
   },
   {
     fromPath: '/home/advanced/relay-proxy/offline',
     toPath: '/home/advanced/relay-proxy-enterprise/offline',
+  },
+  {
+    fromPath: '/home/managing-flags',
+    toPath: '/home/flags',
+  },
+  {
+    fromPath: '/home/managing-flags/dashboard',
+    toPath: '/home/organize/dashboard',
+  },
+  {
+    fromPath: '/home/managing-flags/flag-toggle',
+    toPath: '/home/getting-started/toggle',
+  },
+  {
+    fromPath: '/home/managing-flags/flag-compare-copy',
+    toPath: '/home/organize/flag-compare-copy',
+  },
+  {
+    fromPath: '/home/managing-flags/flag-variations',
+    toPath: '/home/flags/variations',
+  },
+  {
+    fromPath: '/home/managing-flags/flag-archive-delete',
+    toPath: '/home/code/flag-archive',
+  },
+  {
+    fromPath: '/home/managing-flags/feature-workflows',
+    toPath: '/home/feature-workflows',
+  },
+  {
+    fromPath: '/home/managing-flags/feature-workflows/approvals',
+    toPath: '/home/feature-workflows/approvals',
+  },
+  {
+    fromPath: '/home/managing-flags/feature-workflows/environment-approvals',
+    toPath: '/home/feature-workflows/environment-approvals',
+  },
+  {
+    fromPath: '/home/managing-flags/feature-workflows/scheduled-changes',
+    toPath: '/home/feature-workflows/scheduled-changes',
+  },
+  {
+    fromPath: '/home/managing-flags/projects',
+    toPath: '/home/organize/projects',
+  },
+  {
+    fromPath: '/home/managing-flags/environments',
+    toPath: '/home/organize/environments',
+  },
+  {
+    fromPath: '/home/managing-flags/targeting-users',
+    toPath: '/home/flags/targeting-users',
+  },
+  {
+    fromPath: '/home/managing-flags/bulk-user-targeting',
+    toPath: '/home/flags/bulk-targeting',
+  },
+  {
+    fromPath: '/home/managing-flags/flag-settings',
+    toPath: '/home/flags/settings',
+  },
+  {
+    fromPath: '/home/managing-flags/flag-prerequisites',
+    toPath: '/home/flags/prerequisites',
+  },
+  {
+    fromPath: '/home/managing-flags/audit-log-history',
+    toPath: '/home/flags/audit-log-history',
+  },
+  {
+    fromPath: '/home/managing-flags/debugger',
+    toPath: '/home/flags/debugger',
+  },
+  {
+    fromPath: '/home/managing-users',
+    toPath: '/home/users',
+  },
+  {
+    fromPath: '/home/managing-users/users-dashboard',
+    toPath: '/home/users/users-dashboard',
+  },
+  {
+    fromPath: '/home/managing-users/user-attributes',
+    toPath: '/home/users/attributes',
+  },
+  {
+    fromPath: '/home/account-security/managing-your-team',
+    toPath: '/home/team/managing',
+  },
+  {
+    fromPath: '/home/account-security/account-owners',
+    toPath: '/home/team/account-owners',
+  },
+  {
+    fromPath: '/home/account-security/custom-roles',
+    toPath: '/home/team/custom-roles',
+  },
+  {
+    fromPath: '/home/account-security/custom-roles/concepts',
+    toPath: '/home/team/role-concepts',
+  },
+  {
+    fromPath: '/home/account-security/custom-roles/create',
+    toPath: '/home/team/role-create',
+  },
+  {
+    fromPath: '/home/account-security/custom-roles/actions',
+    toPath: '/home/team/role-actions',
+  },
+  {
+    fromPath: '/home/account-security/custom-roles/resources',
+    toPath: '/home/team/role-resources',
+  },
+  {
+    fromPath: '/home/account-security/custom-roles/policies',
+    toPath: '/home/team/role-policies',
+  },
+  {
+    fromPath: '/home/account-security/custom-roles/tags',
+    toPath: '/home/team/role-tags',
+  },
+  {
+    fromPath: '/home/account-security/custom-roles/example-policies',
+    toPath: '/home/team/example-policies',
+  },
+  {
+    fromPath: '/home/account-security/custom-roles/private-projects',
+    toPath: '/home/organize/private-projects',
+  },
+  {
+    fromPath: '/home/account-security/managing-sessions',
+    toPath: '/home/account-security/sessions',
+  },
+  {
+    fromPath: '/home/account-security/sso/okta',
+    toPath: '/home/account-security/okta',
+  },
+  {
+    fromPath: '/home/account-security/sso/onelogin',
+    toPath: '/home/account-security/onelogin',
+  },
+  {
+    fromPath: '/home/account-security/sso/google-apps',
+    toPath: '/home/account-security/google',
+  },
+  {
+    fromPath: '/home/account-security/sso/adfs',
+    toPath: '/home/account-security/adfs',
+  },
+  {
+    fromPath: '/home/account-security/sso/azure',
+    toPath: '/home/account-security/azure',
+  },
+  {
+    fromPath: '/home/metrics-and-insights',
+    toPath: '/home/billing',
+  },
+  {
+    fromPath: '/home/metrics-insights/flag-insights',
+    toPath: '/home/flags/insights',
+  },
+  {
+    fromPath: '/home/experimentation/managing/lifecycle',
+    toPath: '/home/experimentation/lifecycle',
+  },
+  {
+    fromPath: '/home/experimentation/managing/interpreting',
+    toPath: '/home/experimentation/interpreting',
+  },
+  {
+    fromPath: '/home/experimentation/managing/populations',
+    toPath: '/home/experimentation/populations',
+  },
+  {
+    fromPath: '/home/experimentation/managing/segment',
+    toPath: '/home/experimentation/segment',
+  },
+  {
+    fromPath: '/home/advanced/relay-proxy',
+    toPath: '/home/relay-proxy',
+  },
+  {
+    fromPath: '/home/advanced/relay-proxy/deploying',
+    toPath: '/home/relay-proxy/deploying',
+  },
+  {
+    fromPath: '/home/advanced/relay-proxy/using',
+    toPath: '/home/relay-proxy/using',
+  },
+  {
+    fromPath: '/home/advanced/relay-proxy/monitoring',
+    toPath: '/home/relay-proxy/monitoring',
+  },
+  {
+    fromPath: '/home/advanced/relay-proxy/performance',
+    toPath: '/home/relay-proxy/performance',
+  },
+  {
+    fromPath: '/home/advanced/relay-proxy-enterprise',
+    toPath: '/home/relay-proxy/enterprise',
+  },
+  {
+    fromPath: '/home/advanced/relay-proxy-enterprise/automatic-configuration',
+    toPath: '/home/relay-proxy/automatic-configuration',
+  },
+  {
+    fromPath: '/home/advanced/relay-proxy-enterprise/offline',
+    toPath: '/home/relay-proxy/offline',
+  },
+  {
+    fromPath: '/home/advanced/custom-properties',
+    toPath: '/home/connecting/custom-properties',
+  },
+  {
+    fromPath: '/integrations/oauth',
+    toPath: '/home/connecting/oauth',
+  },
+  {
+    fromPath: '/integrations/data-export/',
+    toPath: '/home/data-export',
+  },
+  {
+    fromPath: '/integrations/data-export/event-hub',
+    toPath: '/home/data-export/event-hub',
+  },
+  {
+    fromPath: '/integrations/data-export/google-pubsub',
+    toPath: '/home/data-export/google-pubsub',
+  },
+  {
+    fromPath: '/integrations/data-export',
+    toPath: '/home/data-export',
+  },
+  {
+    fromPath: '/integrations/data-export/kinesis',
+    toPath: '/home/data-export/kinesis',
+  },
+  {
+    fromPath: '/integrations/data-export/mparticle/mparticle-schema-reference',
+    toPath: '/home/data-export/mparticle-schema-reference',
+  },
+  {
+    fromPath: '/integrations/data-export/mparticle',
+    toPath: '/home/data-export/mparticle',
+  },
+  {
+    fromPath: '/integrations/data-export/schema-reference',
+    toPath: '/home/data-export/schema-reference',
+  },
+  {
+    fromPath: '/integrations/segment/segment-schema-reference',
+    toPath: '/home/data-export/segment-schema-reference',
+  },
+  {
+    fromPath: '/integrations/data-export/segment',
+    toPath: '/home/data-export/segment',
+  },
+  {
+    fromPath: '/integrations/code-references',
+    toPath: '/home/code/code-references',
+  },
+  {
+    fromPath: '/integrations/code-references/gitlab-ci',
+    toPath: '/home/code/gitlab',
+  },
+  {
+    fromPath: '/integrations/code-references/github-actions',
+    toPath: '/home/code/github-actions',
+  },
+  {
+    fromPath: '/integrations/code-references/custom-config',
+    toPath: '/home/code/custom-config',
+  },
+  {
+    fromPath: '/integrations/code-references/circleci-orbs',
+    toPath: '/home/code/circleci',
+  },
+  {
+    fromPath: '/integrations/code-references/bitbucket-pipes',
+    toPath: '/home/code/bitbucket',
   },
 
   // Redirects from the readme-hosted docs site
@@ -109,15 +401,15 @@ module.exports = [
   },
   {
     fromPath: '/docs/segmenting-users',
-    toPath: '/home/managing-users/segments',
+    toPath: '/home/users/segments',
   },
   {
     fromPath: '/home/managing-users/user-segments',
-    toPath: '/home/managing-users/segments',
+    toPath: '/home/users/segments',
   },
   {
     fromPath: '/docs/anonymous-users',
-    toPath: '/home/managing-users/anonymous-users',
+    toPath: '/home/users/anonymous-users',
   },
   {
     fromPath: '/docs/security-index',
@@ -197,11 +489,11 @@ module.exports = [
   },
   {
     fromPath: '/docs/insights-index',
-    toPath: '/home/metrics-insights',
+    toPath: '/home/flags/insights',
   },
   {
     fromPath: '/docs/usage-metrics',
-    toPath: '/home/metrics-insights/usage-metrics',
+    toPath: '/home/billing/usage-metrics',
   },
   {
     fromPath: '/docs/flag-insights',
@@ -305,7 +597,7 @@ module.exports = [
   },
   {
     fromPath: '/docs/webhooks',
-    toPath: '/integrations/webhooks',
+    toPath: '/home/connecting/webhooks',
   },
   {
     fromPath: '/integrations/git-code-references',

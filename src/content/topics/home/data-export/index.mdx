@@ -1,0 +1,145 @@
+---
+path: '/home/data-export'
+title: 'Data Export'
+description: 'This topic explains how to use LaunchDarkly''s Data Export feature to export and store flag, user, and experimentation event data. Data Export provides a real-time export of raw analytics data, including feature flag requests, analytics events, custom events, experimentation events, and more.'
+published: true
+---
+
+<Callout intent="info">
+  <CalloutTitle>Data Export is an add-on feature for Enterprise plans</CalloutTitle>
+  <CalloutDescription>
+
+Data Export is only available to customers on our Enterprise plans. To learn more about our plans, [read about our
+pricing](https://launchdarkly.com/pricing/). If you want to add Data Export to an existing plan, [contact our Sales
+team](https://launchdarkly.com/contact-sales/).
+
+  </CalloutDescription>
+</Callout> 
+
+## Overview
+
+This topic explains how to use LaunchDarkly's Data Export feature to export and store flag, user, and experimentation event data.
+
+Data Export provides a real-time export of raw analytics data, including feature flag requests, analytics events, custom events, experimentation events, and more. By exporting your data to a location of your choice, you can use your own data warehouse and tools to analyze event data.
+
+![A diagram of Data Export with supported destinations.](../images/data-export.png) 
+
+## How it works
+
+Data Export works by sending data to one of our supported **destinations**. A destination is an external service which can receive and store the data.
+
+We support the following export destinations:
+
+- [Azure EventHub](/home/data-export/event-hub)
+- [Google Cloud Pub/Sub](/home/data-export/google-pubsub) 
+- [Kinesis](/home/data-export/kinesis) 
+- [mParticle](/home/data-export/mparticle) 
+- [Segment](/home/data-export/segment) 
+
+To learn more about event formatting, read [Schema reference](/home/data-export/schema-reference).
+
+Some data export destinations have different event formatting schema. If you use mParticle or Segment as your event destination, we have specific documentation for their event schema. 
+
+* [mParticle schema reference](/home/data-export/mparticle-schema-reference)
+* [Segment schema reference](/home/data-export/segment-schema-reference)
+
+<Callout intent="info">
+<CalloutTitle>Data Export requires certain SDK versions</CalloutTitle>
+<CalloutDescription>
+
+This feature is supported on the following versions of our SDKs (and later versions, if applicable): 
+ 
+* Go: 4.11.0
+* Java: 4.8.0
+* Node (server-side): 5.9.0
+* Node (client-side): 1.1.0
+* PHP: 3.6.0
+* Python: 6.10.0
+* Ruby: 5.6.0
+* .NET: 5.8.0
+* JavaScript: 2.14.0
+* Xamarin: 1.1.0
+* Android: 2.9.0
+* Electron: 1.2.0
+
+</CalloutDescription>
+</Callout>
+
+## Exporting event data for flags and environments
+
+After you create a data export destination, you can send data for individual flags or for all the flags in an environment to it.
+
+### Exporting flag event data
+
+To export data from a specific flag to a destination:
+
+1. Navigate to the dashboard.
+2. Click the name of the flag you wish to export data from. The flag menu appears.
+3. Click **Settings**.
+4. Select the **Send detailed event information for this flag** checkbox.
+5. Click **Save Changes**.
+
+![The flag's Settings page, with the data export checkbox called out.](../images/data-export-detailed-event-info-callout.png) 
+
+
+### Exporting environment event data
+
+When you export event data from an environment, LaunchDarkly exports all data from every new flag you create after you enable data export. It does not send event data from flags created before you enabled data export.
+
+To export data from an environment to a destination:
+
+1. Navigate to the dashboard.
+2. Click **Account settings**.
+3. Find the environment you wish to export data from.
+4. Click **Edit.** The "Edit production environment" screen appears.
+5. Select the **Send detailed event information for new flags** checkbox.
+6. Click **Save Environment**.
+
+![The Edit production environment screen, with the data export checkbox called out.](../images/data-export-env-detailed-event-info-callout.png) 
+
+
+## Customizing which data LaunchDarkly exports
+
+You can control which users send event data to destinations by choosing a group of users affected by certain flag targeting rules. To learn more, read [Controlling experiment populations](/home/experimentation/populations).
+
+<Callout intent="alert">
+  <CalloutTitle>Enabling data export population targeting</CalloutTitle>
+<CalloutDescription>
+
+If you can't see this feature, your SDKs may be out of date. To solve this problem:
+
+1. Update your SDKs to the latest version.
+2. Contact [support@launchdarkly.com](mailto:support@launchdarkly.com) to enable the feature.
+
+</CalloutDescription>
+
+</Callout>
+
+To customize which users send event data to data export destinations:
+
+1. Identify which flag you wish to export events from.
+2. Navigate to the flag's **Settings** page.
+3. Click **N of N targeting rules** i
+n the "Exporting events from" line. The "Configure event settings" screen appears.
+
+
+![The flag's Settings tab with the targeting rules link called out.](../images/flag-settings-data-export-targeting-rules-callout.png) 
+
+
+4. Click the **Custom selection** radio box to modify the users whose events are exported. When you click **Custom selectio
+n**, you can choose which targeting rules you wish to include or exclude in data exports.
+5. Select the checkboxes of rules you wish to include in the experiment. This refines the population of users whose events are exported.
+
+![The "Configure event settings" screen](../images/experiments-rules-custom-selection.png) 
+
+
+6. Click **Save Changes**. A confirmation dialog appears.
+7. Type the name or key of the environment in the text box and click **Confirm**.
+
+## Delivery guarantees
+
+After your application has successfully sent an event to our servers, we will send the event to your configured destinations at least once.
+
+An event is sent to your destinations exactly once, with some exceptions. In the event of a hardware failure or networking issue, we may send events multiple times.
+
+Additionally, if your configured destination does not acknowledge receipt of the event, we will retry sending the message 5 times over a 30 minute period.

@@ -1,0 +1,83 @@
+---
+path: '/home/code/flag-status'
+title: 'Flag statuses'
+description: 'This topic explains what the different flag statuses are.'
+published: true
+---
+
+## Overview
+
+This topic explains what the different flag statuses are, and how to view them in the LaunchDarkly UI.
+
+## Using the flag status indicator
+
+The flag status indicator lets you see when a flag is active or inactive. It's important to understand flag statuses so you know which flags are safe to remove from your code.
+
+Every feature flag has a status that reflects the state of a flag in each environment.
+
+For example, if the flag is listed as "Active" in your Production environment, LaunchDarkly is currently receiving requests for that flag using your Production SDK key.
+
+![The flag status indicator](../../images/flag-status-indicators-callout.png)
+
+
+The various flag statuses are explained below:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Status type</TableHeadCell>
+    <TableHeadCell>Name</TableHeadCell>
+    <TableHeadCell>Definition</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+<TableCell>
+
+![](../../images/flag-status-indicator-new.png)
+
+</TableCell>
+      <TableCell>New</TableCell>
+      <TableCell>This flag is new and has not been requested yet.</TableCell>
+    </TableRow>
+    <TableRow>
+<TableCell>
+
+![](../../images/flag-status-indicator-active.png)
+
+</TableCell>
+        <TableCell>Active</TableCell>
+        <TableCell>LaunchDarkly is receiving requests for this flag.</TableCell>
+    </TableRow>
+    <TableRow>
+<TableCell>
+
+![](../../images/flag-status-indicator-launched.png)
+
+</TableCell>
+      <TableCell>Launched</TableCell>
+<TableCell>
+
+All users have been receiving one variation of this flag for 7 days.<br/>
+
+The launched icon appears when a flag has been rolled out to users, even if all users are seeing the same variation of the flag, including the off variation.<br/>
+
+You may be able to remove this flag from your code.
+
+</TableCell>
+    </TableRow>
+    <TableRow>
+<TableCell>
+
+![](../../images/flag-status-indicator-inactive.png)
+
+</TableCell>
+      <TableCell>Inactive</TableCell>
+<TableCell>
+
+This flag has not been requested for 7 days.<br/>
+
+You may be able to remove this flag from your code.
+
+</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>

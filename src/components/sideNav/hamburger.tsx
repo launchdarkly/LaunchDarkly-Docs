@@ -4,6 +4,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 import { useState, useEffect, useRef, Fragment } from 'react'
 import { enableBodyScroll, disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { SystemStyleObject } from '@styled-system/css'
+import { globalHistory } from '@reach/router'
 import TreeNode from './treeNode'
 import Icon from '../icon'
 
@@ -23,9 +24,14 @@ const stripButtonStyles: SystemStyleObject = {
 
 const Hamburger = () => {
   const {
+    site: { pathPrefix },
     allNavigationDataJson: { nodes: navigationData },
   } = useStaticQuery(graphql`
     query {
+      site {
+        pathPrefix
+      }
+
       allNavigationDataJson {
         nodes {
           label
@@ -107,7 +113,15 @@ const Hamburger = () => {
           </button>
         </div>
         <div sx={{ mb: 9 }}>
-          <TreeNode nodes={navigationData} maxDepth={3} />
+          <TreeNode
+            currentPath={
+              pathPrefix !== ''
+                ? globalHistory.location.pathname.replace(pathPrefix, '')
+                : globalHistory.location.pathname
+            }
+            nodes={navigationData}
+            maxDepth={3}
+          />
         </div>
         <div
           key="footer"

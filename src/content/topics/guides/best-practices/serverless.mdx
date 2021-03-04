@@ -9,7 +9,7 @@ published: true
 
 This guide provides best practice advice for using LaunchDarkly with Function-as-a-Service (FaaS), or serverless, platforms, such as AWS Lambda. While most uses of serverless architecture require no extra configuration, some apps may benefit from additional configuration to ensure consistent high performance.
 
-In this article, we’ll start with the assertion that you have already chosen to use serverless functions in your application architecture. 
+In this article, we’ll start with the assertion that you have already chosen to use serverless functions in your application architecture.
 
 ## Concepts
 
@@ -27,20 +27,20 @@ FaaS services are serverless computing services that allow customers to develop,
 
 FaaS platforms are popular because they let developers code in the languages they know while vastly reducing the effort required to create and manage production infrastructure.
 
-If you're considering using LaunchDarkly in a serverless or containerised app, the LaunchDarkly SDK in its default configuration will have no significant performance impact in a serverless environment. 
+If you're considering using LaunchDarkly in a serverless or containerised app, the LaunchDarkly SDK in its default configuration will have no significant performance impact in a serverless environment.
 
 However, if your app is sensitive to initialization performance, consider configuring the LaunchDarkly SDK to use a persistent local flag store. A local flag store can increase initialization speed.
 
 ### How the SDKs balance performance
 
-Each LaunchDarkly SDK is designed to have minimal impact on application performance. In its default configuration, its impact occurs almost entirely in the app's initialization phase. 
+Each LaunchDarkly SDK is designed to have minimal impact on application performance. In its default configuration, its impact occurs almost entirely in the app's initialization phase.
 
 Here's how the SDK interacts with your app:
 
-1. While the app starts, the SDK connects to LaunchDarkly and downloads the project's flags to an in-memory store. This network connection is held open while the app runs so that flag updates are received immediately. 
-2. Once the app has finished initializing, the in-memory flag store is used for flag evaluation functions such as `variation`. These functions run instantly, with no need to wait for network I/O. 
+1. While the app starts, the SDK connects to LaunchDarkly and downloads the project's flags to an in-memory store. This network connection is held open while the app runs so that flag updates are received immediately.
+2. Once the app has finished initializing, the in-memory flag store is used for flag evaluation functions such as `variation`. These functions run instantly, with no need to wait for network I/O.
 
-Most apps are architected with the expectation that initialization takes a miniscule amount of the app's total runtime. Apps with serverless or containerized architectures may have different expectations. 
+Most apps are architected with the expectation that initialization takes a miniscule amount of the app's total runtime. Apps with serverless or containerized architectures may have different expectations.
 
 During normal operation with relatively consistent load, the underlying platform uses long-lived runtime instances, or [Execution Contexts](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-context.html) for each function or container. As in most other app architectures, the initialization time has insignificant impact on performance.
 
@@ -77,14 +77,14 @@ exports.handler = (event, context, callback) => {
 }
 ```
 
-This approach may take longer for the runtime to initialize, but after initialization the requests handled by that runtime instance will suffer no performance hit. 
+This approach may take longer for the runtime to initialize, but after initialization the requests handled by that runtime instance will suffer no performance hit.
 
 This approach should function for the majority of serverless applications.
 
 ### Option 2: Use a persistent feature store
 
-If your app often sees high levels of concurrency or sensitivity to cold starts, you may need to reduce the initialization time that LaunchDarkly takes. 
-You can do this by setting up a persistent feature store to serve flag values locally. 
+If your app often sees high levels of concurrency or sensitivity to cold starts, you may need to reduce the initialization time that LaunchDarkly takes.
+You can do this by setting up a persistent feature store to serve flag values locally.
 
 In this configuration, the LaunchDarkly SDK no longer downloads the project's entire flag set for later evaluation. Instead, it connects to the configured feature store at initialization time, then queries the feature store for each flag evaluation call.
 
@@ -98,11 +98,11 @@ The example below is a five-step process to configure a feature store.
   4. You can create a LaunchDarkly webhook to send flag changes to the API Gateway URL.
   5. You can configure the LaunchDarkly SDK to read flags from the persistent flag store.
 
-Most LaunchDarkly server-side SDKs can use a Redis database for persistent feature storage. AWS ElastiCache is compatible with Redis, and we use it as an example here, but other services will work as well. 
+Most LaunchDarkly server-side SDKs can use a Redis database for persistent feature storage. AWS ElastiCache is compatible with Redis, and we use it as an example here, but other services will work as well.
 
 An ElastiCache cluster composed of three small nodes should be sufficient for all but the largest LaunchDarkly projects.
 
-This dedicated AWS Lambda function, built on the NodeJS runtime, connects to the LaunchDarkly network and updates the ElastiCache feature store. 
+This dedicated AWS Lambda function, built on the NodeJS runtime, connects to the LaunchDarkly network and updates the ElastiCache feature store.
 
 We configure it using the `RedisFeatureStore` method. The AWS Lambda function built on the NodeJS runtime could like this:
 
@@ -130,17 +130,17 @@ exports.handler = (event, context, callback) => {
 }
 ```
 
-In this example, we initialize the LaunchDarkly SDK inside the handler. By initializing the SDK in this way, we update the ElastiCache store with the latest flag state. The webhook lets this function know that an updated state is available. 
+In this example, we initialize the LaunchDarkly SDK inside the handler. By initializing the SDK in this way, we update the ElastiCache store with the latest flag state. The webhook lets this function know that an updated state is available.
 
 After the store update function has been created, it needs a URL so it can be triggered by an HTTPS call. To provide this URL, create an [API Gateway endpoint](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-as-simple-proxy-for-lambda.html).
 
-Now that both the feature store and the store update function are ready, add a webhook to the LaunchDarkly Project. To learn more, read [Webhooks](/integrations/webhooks).
+Now that both the feature store and the store update function are ready, add a webhook to the LaunchDarkly Project. To learn more, read [Webhooks](/home/connecting/webhooks).
 
 After you set up the webhook, every configuration change made to the LaunchDarkly project's flags triggers an update in the cloud-hosted feature store.
 
 ![Creation of a LaunchDarkly webhook which will send flag updates to a Lambda function](../../lambda-webhook.png)
 
-Finally, with the persistent feature store active and continuously updated, you can configure the app to use the feature store instead of connecting to LaunchDarkly's servers.  
+Finally, with the persistent feature store active and continuously updated, you can configure the app to use the feature store instead of connecting to LaunchDarkly's servers.
 
 To learn more, read [Using a persistent feature store without connecting to LaunchDarkly](/sdk/concepts/feature-store#using-a-persistent-feature-store-without-connecting-to-launchdarkly).
 

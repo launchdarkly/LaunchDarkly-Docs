@@ -1,0 +1,153 @@
+---
+path: '/home/code/flag-archive'
+title: 'Archiving and deleting flags'
+description: 'This topic explains how to archive flags you no longer need, or delete flags that are archived. Archiving a flag retires it from LaunchDarkly without deleting it. You can restore an archived flag, or delete it after you determine that it will no longer be needed in your project.'
+published: true
+---
+
+## Overview
+
+This topic explains how to archive flags you no longer need, or delete flags that are archived.
+
+When a flag is no longer being served to users, and it is not a prerequisite of other flags, it may be time to archive it. Archiving a flag retires it from LaunchDarkly without deleting it. You can restore an archived flag if you need it, or find it to reference its configuration later.
+
+LaunchDarkly will not let you archive a flag that is a prerequisite of other flags. Flags are good candidates for archival when they are serving only one variation in the environment you choose and have not been requested in the last 7 days.
+
+You can delete an archived flag after you determine that it will no longer be needed in your project.
+
+## Archiving flags
+
+To archive a flag:
+
+1. Navigate to the flag dashboard.
+2. Find the flag you wish to archive and click **Archive**. The "Archive this flag?" screen appears. If the flag has dependencies, you cannot archive it. To learn how to resolve flag dependencies, read [Resolving dependencies](#resolving-dependencies).
+
+![A flag that cannot be archived due to dependencies.](../../images/flag-cannot-archive.png) 
+
+
+3. Choose the environments your team or customers depend on to confirm you can archive the flag from those environments without unintended consequences. Verify that the flag is not in use by reviewing its states in the flag archive fields.
+
+<Callout intent="alert">
+  <CalloutTitle>Archiving a flag removes it from every environment in your project</CalloutTitle>
+  <CalloutDescription>
+    All flags exist in every environment for a project, but often only a few environments matter for your teams'
+    production processes. Archiving a flag will remove it from every environment in the project. Be absolutely certain
+    you can archive a flag without any unintended impact.
+  </CalloutDescription>
+</Callout> 
+
+![A flag with no dependencies that prevent it from being archived.](../../images/flag-can-archive.png) 
+
+
+4. Type the flag's name in the "Archive flag" text box.
+5. Click **Archive**.
+
+The flag is archived and removed from the flag dashboard. You can find it in the archived flag list. To learn more, read [Viewing and restoring archived flags](#viewing-and-restoring-archived-flags).
+
+<Callout intent="info">
+  <CalloutTitle>Archived flags serve their coded values if requested</CalloutTitle>
+  <CalloutDescription>
+    If users request a flag after you archive it, the flag value that returns is the value you defined in code.
+  </CalloutDescription>
+</Callout> 
+
+Archived flags are indicated with a grey and white striped background.
+
+![An archived flag.](../../images/flag-archived.png) 
+
+
+You can also archive a flag from the flag's Settings page.
+
+![The archive option on a flag's Settings page.](../../images/flag-settings-archive.png)
+
+## Resolving dependencies
+
+You cannot archive flags that are prerequisites of other flags. If you attempt to archive a prerequisite flag, the "Archive this flag?" screen prevents you from doing so.
+
+![The "Archive this flag?" screen with dependencies that block it from being archived.](../../images/flag-cannot-archive.png) 
+
+
+If the flag is a prerequisite of other flags, you cannot archive it. You must remove the flag as a prerequisite before you can archive it.
+
+Other dependencies will not stop you from archiving a flag, but we recommend resolving all dependencies before you archive a flag.
+
+These dependencies are:
+
+- The flag is serving multiple variations
+- The flag has been requested in the last 7 days
+
+![A flag with dependencies that do not block it from being archived.](../../images/flag-archive-mixed-dependencies.png) 
+
+
+## Viewing and restoring archived flags
+
+Archived flags are visible from the flag dashboard. Click the three-dot button to see an option to view them.
+
+![The "View archived flags" option.](../../images/flag-compare-archive-menu.png) 
+
+
+Archived flags appear on their own dashboard, which is indicated with grey and white stripes.
+
+![The "Archived feature flags" screen.](../../images/flag-archived.png) 
+
+
+To restore an archived flag:
+
+1. Navigate to the "Archived feature flags" screen and find the flag you wish to restore.
+2. Click **Restore**. The "Restore this flag?" screen appears.
+
+![An archived flag with the "Restore" button called out.](../../images/flag-archive-restore-callout.png) 
+
+
+3. Confirm that the flag state is such that restoring the flag will have no unexpected consequences.
+
+<Callout intent="info">
+  <CalloutTitle>Restoring a flag means it will be evaluated again</CalloutTitle>
+  <CalloutDescription>
+    When you restore an archived flag, it returns to evaluation just like any other flag. This is why it is important to
+    confirm that the flag will have no unexpected impact after you restore it.
+  </CalloutDescription>
+</Callout> 
+
+4. Type the flag's name in the "Restore flag" text box.
+5. Click **Restore**. The flag appears in the flag dashboard.
+
+![The "Restore this flag?" screen.](../../images/flag-archive-restore-confirm.png) 
+
+
+You can also restore an archived flag from the flag's Settings page.
+
+![The "Restore flag" section of the flag's Settings page.](../../images/flag-settings-restore.png) 
+
+
+## Deleting archived flags
+
+After you archive a flag, you can delete it if you no longer need it.
+
+If you delete a flag, its rules will be deleted. Should it be requested again, the flag value defined in code will be returned for all users. Remove any references to the feature flag from your application code before you delete it.
+
+<Callout intent="alert">
+  <CalloutTitle>Deleted flags are gone forever</CalloutTitle>
+  <CalloutDescription>
+    If you delete a flag, you cannot restore it. Be absolutely certain you do not need a flag anymore before you delete
+    it.
+  </CalloutDescription>
+</Callout> 
+
+To delete an archived flag:
+
+1. Click on the **edit menu** button (three vertical dots) next to the **Flag +** button.
+2. Click on the **View archived flags** dropdown. The "Archived feature flags" screen appears.
+
+![The Edit menu with the **View archived flags** option selected.](../../images/flag-compare-archive-menu.png)
+
+3. Find the flag you wish to delete.
+4. Click **Delete**. The "Delete this flag?" screen appears.
+
+![The "Archived feature flags" screen with the Delete button called out.](../../images/flag-archive-restore-callout.png) 
+
+
+5. Type the flag's name in the checkbox to confirm.
+6. Click **Delete**.
+
+The flag is deleted permanently.

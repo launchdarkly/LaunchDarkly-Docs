@@ -9,7 +9,7 @@ published: true
 
 This topic explains how to use LaunchDarkly to determine why a user receives a given flag variation. It can be useful to have this information when you're diagnosing problems or doing analysis of the impact of different flags.
 
-You can access this information programmatically from your SDK or from Data Export events. To learn more about Data Export, read [Data Export](/integrations/data-export).
+You can access this information programmatically from your SDK or from Data Export events. To learn more about Data Export, read [Data Export](/home/data-export).
 
 ## Accessing flag variation information programmatically
 
@@ -693,7 +693,7 @@ When there is an error, the reason object also has an `errorKind` property which
 
 Calling any of the `variation detail` methods not only make extra information available to your code, it also causes the SDK to include it in analytics events. You can see this information if you use the event debugger or Data Export.
 
-To learn more, read [Data Export](/integrations/data-export).
+To learn more, read [Data Export](/home/data-export).
 
 The JSON representation of the reason data will be included in the feature evaluation event as an extra property called `reason`.
 

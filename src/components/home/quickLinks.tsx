@@ -53,8 +53,8 @@ const QuickLinks = () => (
         blurp="New to LaunchDarkly? Get started in minutes."
         navItems={[
           { path: '/home/getting-started/', label: 'Getting started' },
-          { path: '/home/getting-started/your-team', label: 'Your team and LaunchDarkly' },
-          { path: '/home/getting-started/feature-flags', label: 'Creating a feature flag' },
+          { path: '/home/getting-started/your-team', label: 'Joining a team' },
+          { path: '/home/getting-started/feature-flags', label: 'Your first feature flag' },
         ]}
       />
       <QuickLink
@@ -68,7 +68,7 @@ const QuickLinks = () => (
       />
       <QuickLink
         iconName="puzzle-variation"
-        heading="Integrations"
+        heading="Connect to your toolchain"
         blurp="Make LaunchDarkly a seamless part of your workflow."
         navItems={[
           { path: '/integrations/webhooks', label: 'Webhooks' },

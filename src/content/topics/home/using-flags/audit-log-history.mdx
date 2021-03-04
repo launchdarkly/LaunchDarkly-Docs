@@ -1,0 +1,69 @@
+---
+path: '/home/flags/audit-log-history'
+title: 'The audit log and history tabs'
+description: 'This topic explains how to use the audit log and history tabs to track changes made in LaunchDarkly. The Audit Log is a running tally of changes made to feature flags in a given environment.'
+published: true
+---
+
+## Overview
+
+This topic explains how to use the audit log and history tabs to track changes made in LaunchDarkly.
+
+## Using the audit log
+
+The **Audit Log** is a running tally of changes made to feature flags in a given environment. Access it from the sidebar.
+
+The audit log always shows changes to feature flags in one environment. To see the changes for other environments, use the environment switcher at the top of your sidebar.
+
+![The audit log.](../../images/audit-log.png)
+
+
+Click the **Details** button to see more information about each change, including representations of the JSON patch operation for the change and a diff from the old and new JSON, if available.
+
+![The audit log details screen.](../../images/audit-log-flag-details.png)
+
+
+## Using the history tabs
+
+The UI also contains **History** tabs on the account and flag settings pages. These contain a record of the changes made in LaunchDarkly to those resources.
+
+You can filter the history tabs by timestamps or search terms. Only some of the properties in an entry are searchable.
+
+The following resources are searchable:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Resource Name</TableHeadCell>
+    <TableHeadCell>Searchable Properties</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Member</TableCell>
+      <TableCell>Display name, Full name, First name, Last name, Email</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>User</TableCell>
+      <TableCell>Unique Key, Display name, Full name, First name, Last name, Email</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Webhooks</TableCell>
+      <TableCell>Action, Resource name</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Environment, Role, Goal, Project, Flag, & Feature</TableCell>
+      <TableCell>Resource name</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+You can also build integrations on top of our audit log using the Audit Log REST API. To learn more, read [Audit log overview](https://apidocs.launchdarkly.com/reference#audit-log-overview).
+
+<Callout intent="info">
+  <CalloutTitle>Additional integration options</CalloutTitle>
+  <CalloutDescription>
+
+You can also receive audit log notifications by creating [webhooks](/home/connecting/webhooks), or setting up
+[Slack](/integrations/slack) notifications.
+
+  </CalloutDescription>
+</Callout>

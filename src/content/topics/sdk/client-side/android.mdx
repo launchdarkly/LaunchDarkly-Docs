@@ -283,7 +283,7 @@ Custom attributes are one of the most powerful features of LaunchDarkly. They le
 
 ## Private user attributes
 
-You can optionally configure the Android SDK to treat some or all user attributes as [private user attributes](/home/managing-users/user-attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Android SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Android SDK you can define private attributes for the **entire** LaunchDarkly client. When creating the `LDConfig` object, you can call the `setPrivateAttributeNames` method, which which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this set, it will be removed before the user is sent to LaunchDarkly.
 

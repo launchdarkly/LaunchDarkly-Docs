@@ -30,7 +30,7 @@ This guide relies on the following concepts:
 
 LaunchDarkly is built to support multiple environments for different use cases or groups in your organization. These examples assume that you have separate environments for coding or testing and production. If that’s not the way you work, build in extra checks to make sure you don’t accidentally expose something in production before you are prepared.
 
-To learn more about how LaunchDarkly manages different environments, read [Environments](/home/managing-flags/environments).
+To learn more about how LaunchDarkly manages different environments, read [Environments](/home/organize/environments).
 
 ### Using LaunchDarkly to focus on your product, not on different teams
 
@@ -75,7 +75,7 @@ Controlling these sub-elements with flags does not change the prerequisite flag 
 For example, a flag named "New search bar" enables a new search bar on a new page in your app. Access to that page is required for a user to see the new search bar, and is controlled by the "New page" flag. In this example, the "New page" flag is a prerequisite of the "New search bar" flag.
 
 Prerequisite flag settings can vary by environment, so you could have the prerequisite and dependent flags all on in a test environment, but not in production. The production prerequisite flag might be secured by role-based access control (RBAC), so it could only be enabled by a small subset of your organization.
-To learn more, read [Custom roles](/home/account-security/custom-roles).
+To learn more, read [Custom roles](/home/team/custom-roles).
 
 ### Dependent flags
 
@@ -213,7 +213,7 @@ For example, you may set RBAC so that developers can add
 and remove dependent flags or change their state, but only release managers can
 change the state of prequisite flags.
 
-To learn more, read [Custom roles](/home/account-security/custom-roles).
+To learn more, read [Custom roles](/home/team/custom-roles).
 
 ## Conclusion
 

@@ -1,0 +1,161 @@
+---
+path: '/home/data-export/segment-schema-reference'
+title: 'Segment schema reference'
+description: 'This topic explains the different event kinds for Segment Data Export destinations.'
+published: true
+---
+
+## Overview
+
+This topic explains the different event kinds for Segment Data Export destinations. The JSON schemas for Segment are formatted differently than LaunchDarkly's. The `index`, `identify`, and `summary` event types are **not available** in Segment data export destinations, and other events are exported with different labels.
+
+To learn more about the Segment destination, read [Segment's documentation](https://docs.Segment.com/).
+
+There are five different event kinds exported to Segment. They are:
+
+* [Feature events](#feature-events): This event is emitted when a feature flag is evaluated.
+* [Click events](#click-events): This event is emitted when a user clicks on a CSS selector for which they have configured a metric in an experiment.
+* [Page view events](#page-view-events): This event is emitted when a user loads a page associated with an experiment metrics.
+* [Custom events](#custom-events): This event is emitted when LaunchDarkly SDK sends a custom event.
+* [Alias events](#alias-events): This event is emitted when the LaunchDarkly
+SDK calls the `Alias` method or automatically in clientside SDKs when an
+anonymous user identifies as a non-anonyous user. Read more about Alias events
+on [Segment's alias spec](https://segment.com/docs/connections/spec/alias/)
+
+### Additional properties
+
+Segment events include additional information about different LaunchDarkly properties. These properties are included in all event types. These properties are:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Property name</TableHeadCell>
+    <TableHeadCell>Property details</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell><code>event</code></TableCell>
+      <TableCell>The event type.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>environment</code></TableCell>
+      <TableCell>The LaunchDarkly environment ID corresponding to event.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>project</code></TableCell>
+      <TableCell>The LaunchDarkly project ID corresponding to the event.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>key</code></TableCell>
+      <TableCell>The flag key corresponding to the event. In the case of experimentation events, this will be the metric key for the experiment.</TableCell>
+    </TableRow>
+   </TableBody>
+</Table>
+
+## Feature events
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Property name</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell><code>value</code></TableCell>
+      <TableCell>The value of the evaluated flag.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>flagVersion</code></TableCell>
+      <TableCell>The version of the evaluated flag.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>reasonKind</code></TableCell>
+      <TableCell>
+
+The evaluation reason for the flag. <br/>
+To learn more, read <a href="/sdk/concepts/evaluation-reasons">Evaluation reasons</a>.
+
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>value</code></TableCell>
+      <TableCell>Set to another flag’s key if this flag evaluation was only performed in order to determine whether the prerequisite values were met for the indicated flag. <br/> To learn more, read <a href="/home/flags/prerequisites">Flag prerequisites</a>.
+</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>default</code></TableCell>
+      <TableCell>Indicates whether the flag value was the result of the default variation being evaluated.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>variation</code></TableCell>
+      <TableCell>The variation of the flag requested. Flag variation values are stored in an array. This value corresponds to the index of the variation the array. Boolean flags show as <code>0</code> or <code>1</code> for <code>true</code> and <code>false</code>, and other flag types are numbered starting with <code>0</code> for their different variations.</TableCell>
+    </TableRow>
+        <TableRow>
+      <TableCell><code>variationName</code></TableCell>
+      <TableCell>The evaluated variation's name, if it exists. If the evaluated variation doesn't have a name, this field doesn't appear.</TableCell>
+    </TableRow>
+   </TableBody>
+</Table>
+
+
+## Click events
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Property name</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell><code>url</code></TableCell>
+      <TableCell>The URL from which a user triggered a flag evaluation.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>selector</code></TableCell>
+      <TableCell>The CSS selector corresponding to the click event.</TableCell>
+    </TableRow>
+   </TableBody>
+</Table>
+
+## Page view events
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Property name</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell><code>url</code></TableCell>
+      <TableCell>The URL from which a user triggered a flag evaluation.</TableCell>
+    </TableRow>
+   </TableBody>
+</Table>
+
+## Custom events
+
+There are no properties for custom events other than the properties listed in [Additional properties](#additional-properties).
+
+## Alias events
+
+The alias event schema is defined by [Segment's
+spec](https://segment.com/docs/connections/spec/alias/). The following indicates
+LaunchDarkly's usage of the schema.
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Property name</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell><code>PreviousId</code></TableCell>
+      <TableCell>The previous key as defined by the <a
+      href="sdk/concepts/contributors-guide#alias-events">SDK Alias method</a>.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>UserId</code></TableCell>
+      <TableCell>The key as defined by the <a
+      href="sdk/concepts/contributors-guide#alias-events">SDK Alias method</a>.</TableCell>
+    </TableRow>
+   </TableBody>
+</Table>

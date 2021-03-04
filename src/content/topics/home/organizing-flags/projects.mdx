@@ -1,0 +1,71 @@
+---
+path: '/home/organize/projects'
+title: 'Projects'
+description: 'This topic explains what projects are in LaunchDarkly. Projects let you manage multiple different business objectives from one LaunchDarkly account. You can use them to manage different priorities, teams, and tasks across your organization.'
+published: true
+---
+
+## Overview
+
+This topic explains what projects are in LaunchDarkly, and how you can use them to manage different priorities, teams, and tasks across your organization.
+
+## Understanding projects
+
+Projects let you manage multiple different business objectives from one LaunchDarkly account. For example, you can create one project called _Mobile App_ and another project called _Web App_. Every project has its own unique set of environments and feature flags.
+
+Environments are organizational units contained within a project. To learn more, read [Environments](/home/organize/environments).
+
+Set up a project to serve one set of end users. Sorting your flags into related chunks of functionality based on their impact on end users helps you logically organize related flags.
+
+A common pattern is to map each project in your LaunchDarkly instance to a specific product your company makes. For example, a mobile application, web app, and backend services that are presented to the user as one product might all fit in one project since they likely will share most flags.
+
+
+<Callout intent="info">
+  <CalloutTitle>Creating private projects</CalloutTitle>
+  <CalloutDescription>
+
+You can restrict who has access to a project with LaunchDarkly's custom roles feature. To learn more, read
+[Configuring private projects with custom roles](/home/organize/private-projects).
+
+  </CalloutDescription>
+</Callout> 
+
+![A visual representation of two projects, "Web App" and "Mobile App," each of which have multiple environments.](../../images/projects-two-app-types.png) 
+
+
+Your LaunchDarkly account supports an unlimited number of projects, environments, flags, and server-side Monthly Active Users (MAU). If you are on a **legacy Starter plan**, your account may be limited to two projects and two environments. Contact our Support team at support@launchdarkly.com to remove those restrictions.
+
+## Creating new projects
+
+When you first create your LaunchDarkly account, you will start with a _Default_ project, and all team members in your account will have access to every project within your account by default. Your current project is visible in the top of the sidebar.  You must always have at least one project.
+
+1. Navigate to the **Account Settings** page.
+2. Click **New Project**. The "Create a project" screen appears.
+
+![The Account settings page with the New Project button called out.](../../images/settings-projects-new.png) 
+
+
+3. Give your project a human-readable **Name**.
+4. (Optional) Give your project a unique **Key**. This field populates automatically based on your name, but you can change it now if you wish.
+
+<Callout intent="alert">
+  <CalloutTitle>Project keys are permanent after you save them</CalloutTitle>
+  <CalloutDescription>
+    After you save the project key, you cannot modify it. You can change a project's name, however, whenever you want.
+  </CalloutDescription>
+</Callout> 
+
+5. (Optional) Assign **tags** to your project.
+6. (Optional) Check the **Make new flags available to client-side SDKs by default** checkbox to make all flags created in this environment available on the client side. To learn more, read [Other flag settings](/home/flags/settings).
+7. Click **Save Project**. The new project appears in the Account Settings page.
+
+![The Create a project screen.](../../images/settings-projects-create.png) 
+
+
+## Projects and environments
+
+You can create multiple environments within each project. All projects must have at least one environment.
+
+Environments allow you to manage your feature flags throughout your entire development lifecycle, from local development through production. Typical environments within a project could be Production, QA, Staging, or individual environments.
+
+To learn more, read [Environments](/home/organize/environments).

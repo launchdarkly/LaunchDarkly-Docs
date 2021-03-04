@@ -14,7 +14,7 @@ This topic explains how LaunchDarkly's Jira integration allows you to link your 
   <CalloutDescription>
     The LaunchDarkly Jira integration is only for Jira Cloud product offerings. It does not work in Jira Server.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@ You can also give the access token a custom role allowing it to control webhooks
 
 An example custom role configuration appears below:
 
-![An access token's custom role configuration in the LaunchDarkly UI.](../images/jira-create-access-token.png) 
+![An access token's custom role configuration in the LaunchDarkly UI.](../images/jira-create-access-token.png)
 
 
 Now that you've created an access token, use it to configure the Jira integration for your LaunchDarkly account.
@@ -69,28 +69,28 @@ To create a new flag with Jira issues:
 1. Navigate to your Jira issue's feature flag panel.
 2. Click **Add feature flag** select the **Create feature flag** option. The LaunchDarkly flag creation page opens.
 
-![The Create feature flag option.](../images/jira-create-feature-flag.png) 
+![The Create feature flag option.](../images/jira-create-feature-flag.png)
 
 
 3. In the feature flag creation page, the Jira issue is pre-populated.
 
-![The feature flag creation page.](../images/jira-new-feature-flag.png) 
+![The feature flag creation page.](../images/jira-new-feature-flag.png)
 
 
 ## Connecting an existing feature flag to a Jira issue from LaunchDarkly
 
-If you have already created a feature flag for your Jira issue, you can add a Jira issue to your existing flag by creating a [custom property](/home/advanced/custom-properties) for your flag.
+If you have already created a feature flag for your Jira issue, you can add a Jira issue to your existing flag by creating a [custom property](/home/connecting/custom-properties) for your flag.
 
 1. Navigate to the flag's **Settings** page.
 2. Name the custom property `Jira issues`.
 
-![The flag's Settings page, configured with a `Jira issues` custom property.](../images/jira-custom-properties-dropdown.png) 
+![The flag's Settings page, configured with a `Jira issues` custom property.](../images/jira-custom-properties-dropdown.png)
 
 
 3. Enter a list of Jira issue keys as the property value. You can list multiple issues if applicable.
 4. Click **Save Changes**.
 
-![The Jira issues custom properties field.](../images/jira-custom-properties-issues.png) 
+![The Jira issues custom properties field.](../images/jira-custom-properties-issues.png)
 
 
 <Callout intent="alert">
@@ -99,4 +99,4 @@ If you have already created a feature flag for your Jira issue, you can add a Ji
     Your Jira issue must exist before you associate it with your feature flag. If you accidentally added a Jira issue to
     your flag, delete the custom property, create your Jira issue, and try again.
   </CalloutDescription>
-</Callout> 
+</Callout>

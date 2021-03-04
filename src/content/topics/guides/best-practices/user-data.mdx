@@ -17,7 +17,7 @@ User data is information about your customers or users that your product sends t
 
 User data can include Personally Identifiable Information (PII), including names, email addresses, or other unique identifiers. User data can be business-critical information and can present significant risk if exposed to unauthorized parties.
 
-To learn more about users, read [The Users dashboard](/home/managing-users/users-dashboard).
+To learn more about users, read [The Users dashboard](/home/users/users-dashboard).
 
 ## How LaunchDarkly recieves user data
 
@@ -25,7 +25,7 @@ You configure the LaunchDarkly SDK to collect and transmit attributes about user
 
 When you evaluate a feature flag in your SDK, the evaluation includes a `user` key associated with an object. The object is the user data. It can include various key-value pairs that contain information about your users.
 
-To learn more about the built-in attributes LaunchDarkly suggests you collect, read [Built-in attributes](/home/managing-flags/targeting-users#built-in-attributes) and [Setting user attributes](/home/managing-users/user-attributes).
+To learn more about the built-in attributes LaunchDarkly suggests you collect, read [Built-in attributes](/home/flags/targeting-users#built-in-attributes) and [Setting user attributes](/home/users/attributes).
 
 ## Considering data requirements
 
@@ -55,7 +55,7 @@ The exception to this is if a team member is assigned a custom role with the `vi
 
 You can give a team member custom permissions to view and modify user data by assigning them a custom role.
 
-To learn more, read [Custom roles](/home/account-security/custom-roles).
+To learn more, read [Custom roles](/home/team/custom-roles).
 
 ## Features to minimize user data sent to LaunchDarkly
 
@@ -72,17 +72,17 @@ Here are some additional configuration options you can use to increase user priv
 
 You can use LaunchDarkly's private attribute settings to restrict the user data your service sends to LaunchDarkly while still using that data for flag targeting. You can make all attributes private, choose specific attributes to make private, or make attributes private for specific users.
 
-To learn more, read [Creating private user attributes](/home/managing-users/user-attributes#creating-private-user-attributes).
+To learn more, read [Creating private user attributes](/home/users/attributes#creating-private-user-attributes).
 
 ### Anonymous users
 
-Anonymous users do not register as users in your [Users dashboard](/home/managing-users/users-dashboard), and so the usual data LaunchDarkly collects on a user isn't available for an anonymous user. You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user attributes instead. You can force all users to register in LaunchDarkly as anonymous users by setting the anonymous user bit in your SDK to `true` when you construct the LaunchDarkly User object from the domain user object.
+Anonymous users do not register as users in your [Users dashboard](/home/users/users-dashboard), and so the usual data LaunchDarkly collects on a user isn't available for an anonymous user. You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user attributes instead. You can force all users to register in LaunchDarkly as anonymous users by setting the anonymous user bit in your SDK to `true` when you construct the LaunchDarkly User object from the domain user object.
 
- To learn more, read [Anonymous users](/home/managing-users/anonymous-users).
+ To learn more, read [Anonymous users](/home/users/anonymous-users).
 
 ### Impacted features
 
-If you use anonymous users or private user attributes, the [Users dashboard](/home/managing-users/users-dashboard) won't populate with a complete list of users who access LaunchDarkly, and autocomplete for private attributes won't function in LaunchDarkly.
+If you use anonymous users or private user attributes, the [Users dashboard](/home/users/users-dashboard) won't populate with a complete list of users who access LaunchDarkly, and autocomplete for private attributes won't function in LaunchDarkly.
 
 ## User-initiated data minimization
 

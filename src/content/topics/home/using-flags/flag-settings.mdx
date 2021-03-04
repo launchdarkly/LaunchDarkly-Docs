@@ -1,0 +1,109 @@
+---
+path: '/home/flags/settings'
+title: 'Other flag settings'
+description: 'This topic explains how to edit your feature flags in the flag''s Settings tab. A feature flag''s Settings tab lets you change flag settings, including the name and description of the flag.'
+published: true
+---
+
+## Overview
+
+This topic explains how to make other changes to your feature flags in the flag's **Settings** tab.
+
+A feature flag's Settings tab lets you change flag settings, including the name and description of the flag.
+
+![A flag's settings tab.](../../images/flag-settings.png) 
+
+
+The fields in the Settings tab do the following things:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Field Name</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Maintainer</TableCell>
+      <TableCell>
+        The flag maintainer is the team member who's primarily responsible for the flag. By default, the Maintainer is
+        set to the member who created the flag, but you can assign any member of your team as the maintainer for a
+        particular flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Name</TableCell>
+      <TableCell>The feature flag's name. You can change it here.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Description</TableCell>
+      <TableCell>The feature flag's description. You can change it here.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Tags</TableCell>
+      <TableCell>
+        Tags are labels that help you categorize flags. They're especially helpful for managing flag permissions with
+        custom roles. For example, you can tag flags with <code>marketing</code> flags or <code>devOps</code> tags, and
+        then use these tags to determine who has read or write access for the flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>(Checkbox) This is a permanent flag</TableCell>
+      <TableCell>
+        You can mark flags permanent if they're intended to exist in your codebase long-term (for example, a flag that enables a site-wide maintenance mode). LaunchDarkly does not prompt you to remove permanent flags, even if one variation has been rolled out to all of your users. In addition, when someone attempts to remove a permanent flag, they receive a warning about the flag's permanent status.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>(Checkbox) SDKs using Mobile key</TableCell>
+      <TableCell>
+        You must make feature flags available to mobile SDKs before frontend calls can use them. 
+      
+        Make this flag available to mobile SDKs by default by checking this box.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>(Checkbox) SDKs using Client-side ID</TableCell>
+      <TableCell>
+        You must make feature flags available to the client-side SDK before frontend calls can use them. 
+      
+        Make this flag available to the client-side SDK by default by checking this box.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Add custom property</TableCell>
+      <TableCell>
+      You can use custom properties to connect indidivual flags to some LaunchDarkly integrations. Click this button and choose an integration from the dropdown.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+<Callout intent="info">
+  <CalloutTitle>Flag keys are permanent</CalloutTitle>
+  <CalloutDescription>
+    In addition to the descriptors, every flag has a unique key which you set during flag creation. 
+    
+    Be thoughtful when you create a new flag key. You cannot change it after you save the flag.
+  </CalloutDescription>
+</Callout> 
+
+## Sending detailed event information
+
+<Callout intent="info">
+  <CalloutTitle>Detailed events require Data Export</CalloutTitle>
+  <CalloutDescription>
+
+This setting is only visible to customers using Data Export. Data Export is only available to customers on our
+enterprise plans. If you're interested in learning more about our enterprise plans, contact
+[sales@launchdarkly.com](https://launchdarkly.com/contact-sales/?Subject=Data%20Export).
+
+  </CalloutDescription>
+</Callout> 
+
+Flag evaluation events are summarized by default to minimize data use.
+
+If you use Data Export, you can enable it to send detailed event data for a given flag. Unlike other flag settings on this page, you can adjust this setting for each environment in the project.
+
+To learn more, read [Data Export](/home/data-export).
+
+![The "Send detailed event information for this flag" field.](../../images/env-settings-event-info.png) 
+

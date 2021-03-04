@@ -172,7 +172,7 @@ To completely disable events, set [`LDConfig.Builder.events()`](http://launchdar
 
 If you use private user attributes and are configuring private attributes for the entire SDK rather than for individual users, there is a new syntax based on the new [`UserAttribute`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/UserAttribute.html) class. This ensures that built-in attributes are not misspelled and helps to distinguish these parameters from other kinds of string parameters.
 
-To learn more, read [Creating private user attributes](/home/managing-users/user-attributes#creating-private-user-attributes).
+To learn more, read [Creating private user attributes](/home/users/attributes#creating-private-user-attributes).
 
 <CodeTabs
   defaultValue="sdk4"
@@ -413,7 +413,7 @@ Starting in version 5.0, if the SDK gets a network error that might interfere wi
 
 ## Using the Relay Proxy
 
-There are two ways you can configure the SDK to use the [Relay Proxy](/home/advanced/relay-proxy):
+There are two ways you can configure the SDK to use the [Relay Proxy](/home/relay-proxy):
 
 * proxy mode, connecting to it via HTTP/HTTPS just as if it were the LaunchDarkly service
 * daemon mode, receiving flag data only through a database. 

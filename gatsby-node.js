@@ -2,6 +2,7 @@ const { execSync } = require('child_process')
 const path = require('path')
 const slug = require('slug')
 const legacyRedirectRules = require('./legacyRedirectRules')
+const getFinalDestination = require('./getFinalDestination')
 
 // This generates URL-safe slugs.
 slug.defaults.mode = 'rfc3986'
@@ -43,17 +44,19 @@ exports.onCreateNode = async ({ node, actions }) => {
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createRedirect, createPage } = actions
 
-  legacyRedirectRules.forEach(({ fromPath, toPath }) => {
+  const redirectMap = legacyRedirectRules.reduce((map, r) => ({ ...map, [r.fromPath]: r.toPath }), {})
+
+  legacyRedirectRules.forEach(({ fromPath }) => {
     createRedirect({
       fromPath,
-      toPath,
+      toPath: getFinalDestination(redirectMap, fromPath),
       isPermanent: true,
       redirectInBrowser: true,
     })
     if (fromPath.startsWith('/docs')) {
       createRedirect({
         fromPath: '/v2.0' + fromPath,
-        toPath,
+        toPath: getFinalDestination(redirectMap, fromPath),
         isPermanent: true,
         redirectInBrowser: true,
       })

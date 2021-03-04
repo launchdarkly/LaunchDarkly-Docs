@@ -1,0 +1,35 @@
+---
+path: '/home/connecting/api'
+title: 'The LaunchDarkly API'
+description: 'This topic explains how to access LaunchDarkly''s API documentation.'
+published: true
+---
+
+## Overview
+
+This topic explains how to authenticate to the LaunchDarkly API and access LaunchDarkly's API documentation.
+
+Every LaunchDarkly feature begins as an API endpoint. You can use the LaunchDarkly API to perform any action that's available in the LaunchDarkly product itself.
+
+LaunchDarkly APIs let you:
+
+* Automatically toggle feature flags
+* Build custom integrations
+* Export raw data to destinations outside of LaunchDarkly
+
+## Prerequisites
+
+To access the API, you must have the following prerequisites:
+
+* A personal API access token, which you can generate in LaunchDarkly's **Account settings** menu. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
+* An identifying key, mobile key, or client-side ID for your SDK. Your specific requirements are determined by which SDKs you use.
+
+## Accessing the LaunchDarkly API
+
+Adding an `Authorization` header with your access token to your requests allows you to authenticate to the LaunchDarkly API.
+
+We recommend accessing the API via a request header, but you can also perform API calls from the browser when you're logged in to LaunchDarkly. To learn more, read the Authentication section of the [API documentation](https://apidocs.launchdarkly.com/reference#authentication).
+
+## Accessing the API documentation
+
+To learn more about our APIs, read the [API documentation](https://apidocs.launchdarkly.com/).

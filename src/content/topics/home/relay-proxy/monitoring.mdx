@@ -1,0 +1,46 @@
+---
+path: '/home/relay-proxy/monitoring'
+title: 'Monitoring the Relay Proxy'
+description: 'This topic explains best practices for monitoring the Relay Proxy as it runs, as well as information about exporting metrics and other data.'
+published: true
+---
+
+## Overview
+
+This topic explains best practices for monitoring the Relay Proxy as it runs, as well as information about exporting metrics and other data.
+
+## Using the Relay Proxy's status resource
+
+The Relay Proxy exposes a status resource containing details about its health.
+
+To learn more about the status resource, read the information in our [GitHub repository](https://github.com/launchdarkly/ld-relay/blob/v6/docs/endpoints.md#status-health-check).
+
+## Monitoring the Relay Proxy's performance
+
+When the Relay Proxy is running, you can monitor performance by tracking the following statistics:
+
+- Overall memory utilization
+- CPU utilization
+- Number of requests coming into the Relay Proxy
+
+These numbers help you understand how frequently the proxy is used and how resource-intensive it is. To learn more about synthetic benchmarking, read [Testing Relay Proxy performance](/home/relay-proxy/performance).
+
+### Monitoring the proxy with a data store
+
+If you have connected the Relay Proxy to a data store, you should also monitor the capacity of the data store and how many hits or misses occur during data lookups. If there are a lot of misses and/or the data store is nearing capacity, it may be overflowing during high-traffic periods and need more capacity.
+
+To learn more about monitoring your datastore, read the documentation from your datastore provider.
+
+## Exporting metrics and traces
+
+You can configure the Relay Proxy to export statistics, requests received, and route traces to Datadog, Stackdriver, and Prometheus by using the OpenCensus protocol.
+
+<Callout intent="alert">
+  <CalloutTitle>You cannot export metrics and traces about the Relay Proxy from LaunchDarkly</CalloutTitle>
+  <CalloutDescription>
+    You can only export Relay Proxy-related metrics with the OpenCensus protocol. The core LaunchDarkly app and API do
+    not export data in this way.
+  </CalloutDescription>
+</Callout>
+
+To learn more about configuring the Relay Proxy to export metrics and traces, read the instructions in our [GitHub repository](https://github.com/launchdarkly/ld-relay#exporting-metrics-and-traces).

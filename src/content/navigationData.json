@@ -4,186 +4,238 @@
     "path": "/home",
     "items": [
       {
+        "group":"feature-flags",
         "label": "Getting started",
         "path": "/home/getting-started",
         "svg": "compass",
         "items": [
           {
-            "label": "Creating a feature flag",
+            "label": "Your first feature flag",
             "path": "/home/getting-started/feature-flags"
           },
           {
-            "label": "Your team and LaunchDarkly",
+            "label": "Turning flags on and off",
+            "path": "/home/getting-started/toggle"
+          },
+          {
+            "label": "Joining a team",
             "path": "/home/getting-started/your-team"
           }
         ]
       },
       {
-        "label": "Managing flags",
-        "path": "/home/managing-flags",
-        "svg": "toggles-multiple-solid",
+        "group":"feature-flags",
+        "label": "Using feature flags",
+        "path": "/home/flags",
+        "svg": "toggle-switch",
         "items": [
           {
-            "label": "The dashboard",
-            "path": "/home/managing-flags/dashboard"
-          },
-          {
-            "label": "Toggling flags on and off",
-            "path": "/home/managing-flags/flag-toggle"
-          },
-          {
-            "label": "Compare and copy flag settings",
-            "path": "/home/managing-flags/flag-compare-copy"
-          },
-          {
-            "label": "Managing flag variations",
-            "path": "/home/managing-flags/flag-variations"
-          },
-          {
-            "label": "Archiving and deleting flags",
-            "path": "/home/managing-flags/flag-archive-delete"
-          },
-          {
-            "label": "Feature workflows",
-            "path": "/home/managing-flags/feature-workflows",
-            "items": [
-              {
-                "label": "Approvals",
-                "path": "/home/managing-flags/feature-workflows/approvals"
-              },
-              {
-                "label": "Configuring approvals by environment",
-                "path": "/home/managing-flags/feature-workflows/environment-approvals"
-              },
-              {
-                "label": "Scheduled flag changes",
-                "path": "/home/managing-flags/feature-workflows/scheduled-changes"
-              }
-            ]
-          },
-          {
-            "label": "Projects",
-            "path": "/home/managing-flags/projects"
-          },
-          {
-            "label": "Environments",
-            "path": "/home/managing-flags/environments"
-          },
-          {
-            "label": "Targeting users",
-            "path": "/home/managing-flags/targeting-users"
+            "label": "Targeting users with flags",
+            "path": "/home/flags/targeting-users"
           },
           {
             "label": "Bulk user targeting",
-            "path": "/home/managing-flags/bulk-user-targeting"
+            "path": "/home/flags/bulk-targeting"
           },
           {
-            "label": "Other flag settings",
-            "path": "/home/managing-flags/flag-settings"
-          },
-          {
-            "label": "Flag prerequisites",
-            "path": "/home/managing-flags/flag-prerequisites"
+            "label": "Creating flag variations",
+            "path": "/home/flags/variations"
           },
           {
             "label": "The audit log and history tabs",
-            "path": "/home/managing-flags/audit-log-history"
+            "path": "/home/flags/audit-log-history"
+          },
+          {
+            "label": "The flag Insights graph",
+            "path": "/home/flags/insights"
+          },
+          {
+            "label": "Flag prerequisites",
+            "path": "/home/flags/prerequisites"
+          },
+          {
+            "label": "Other flag settings",
+            "path": "/home/flags/settings"
           },
           {
             "label": "The debugger",
-            "path": "/home/managing-flags/debugger"
+            "path": "/home/flags/debugger"
           }
         ]
       },
       {
-        "label": "Managing users",
-        "path": "/home/managing-users",
-        "svg": "people",
+        "group":"feature-flags",
+        "label": "Organizing your flags",
+        "path": "/home/organize",
+        "svg": "toggles-multiple-solid",
         "items": [
           {
-            "label": "The Users dashboard",
-            "path": "/home/managing-users/users-dashboard"
+            "label": "The Flags dashboard",
+            "path": "/home/organize/dashboard"
           },
           {
-            "label": "Setting user attributes",
-            "path": "/home/managing-users/user-attributes"
-          },
-          {
-            "label": "Building synced segments",
-            "path": "/home/managing-users/synced-segments"
-          },
-          {
-            "label": "Building user segments",
-            "path": "/home/managing-users/segments"
-          },
-          {
-            "label": "Anonymous users",
-            "path": "/home/managing-users/anonymous-users"
-          }
-        ]
-      },
-      {
-        "label": "Account security",
-        "path": "/home/account-security",
-        "svg": "security",
-        "items": [
-          {
-            "label": "Managing your team",
-            "path": "/home/account-security/managing-your-team"
-          },
-          {
-            "label": "Changing account owners",
-            "path": "/home/account-security/account-owners"
-          },
-          {
-            "label": "Custom roles",
-            "path": "/home/account-security/custom-roles",
+            "label": "Projects",
+            "path": "/home/organize/projects",
             "items": [
               {
-                "label": "Custom role concepts",
-                "path": "/home/account-security/custom-roles/concepts"
-              },
-              {
-                "label": "Creating custom roles and policies",
-                "path": "/home/account-security/custom-roles/create"
-              },
-              {
-                "label": "Using actions",
-                "path": "/home/account-security/custom-roles/actions"
-              },
-              {
-                "label": "Using resources",
-                "path": "/home/account-security/custom-roles/resources"
-              },
-              {
-                "label": "Using policies",
-                "path": "/home/account-security/custom-roles/policies"
-              },
-              {
-                "label": "Using tags",
-                "path": "/home/account-security/custom-roles/tags"
-              },
-              {
-                "label": "Example policies and templates",
-                "path": "/home/account-security/custom-roles/example-policies"
-              },
-              {
                 "label": "Creating private projects",
-                "path": "/home/account-security/custom-roles/private-projects"
+                "path": "/home/organize/private-projects"
               }
             ]
           },
+          {
+            "label": "Environments",
+            "path": "/home/organize/environments",
+            "items": [
+              {
+                "label": "Copying flag settings across environments",
+                "path": "/home/organize/flag-compare-copy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "group":"feature-flags",
+        "label": "Flags in your codebase",
+        "path": "/home/code",
+        "svg": "life-cycle",
+        "items": [
+          {
+            "label": "Flag statuses",
+            "path": "/home/code/flag-status"
+          },
+          {
+            "label": "Code references",
+            "path": "/home/code/code-references",
+            "items": [
+              {
+                "label": "Bitbucket Pipes",
+                "path": "/home/code/bitbucket"
+              },
+              {
+                "label": "CircleCI Orbs",
+                "path": "/home/code/circleci"
+              },
+              {
+                "label": "GitHub Actions",
+                "path": "/home/code/github-actions"
+              },
+              {
+                "label": "GitLab CI",
+                "path": "/home/code/gitlab"
+              },
+              {
+                "label": "Custom configuration with the CLI",
+                "path": "/home/code/custom-config"
+              }
+            ]
+          },
+          {
+            "label": "Archiving and deleting flags",
+            "path": "/home/code/flag-archive"
+          }
+        ]
+      },
+      {
+        "group":"feature-flags",
+        "label": "Users and user segments",
+        "path": "/home/users",
+        "svg": "chart-pie",
+        "items": [
+          {
+            "label": "The Users dashboard",
+            "path": "/home/users/users-dashboard"
+          },
+          {
+            "label": "Setting user attributes",
+            "path": "/home/users/attributes"
+          },
+          {
+            "label": "Building synced segments",
+            "path": "/home/users/synced-segments"
+          },
+          {
+            "label": "Building user segments",
+            "path": "/home/users/segments"
+          },
+          {
+            "label": "Anonymous users",
+            "path": "/home/users/anonymous-users"
+          }
+        ]
+      },
+      {
+        "group":"platform-config",
+        "label": "Managing your team",
+        "path": "/home/team",
+        "svg": "people",
+        "items": [
+          {
+            "label": "Teams and team members",
+            "path": "/home/team/managing"
+          },
+          {
+            "label": "LaunchDarkly's built-in roles",
+            "path": "/home/team/built-in-roles"
+          },
+          {
+            "label": "Changing account owners",
+            "path": "/home/team/account-owners"
+          },
+          {
+            "label": "Custom roles",
+            "path": "/home/team/custom-roles",
+            "items": [
+              {
+                "label": "Custom role concepts",
+                "path": "/home/team/role-concepts"
+              },
+              {
+                "label": "Creating custom roles and policies",
+                "path": "/home/team/role-create"
+              },
+              {
+                "label": "Using actions",
+                "path": "/home/team/role-actions"
+              },
+              {
+                "label": "Using resources",
+                "path": "/home/team/role-resources"
+              },
+              {
+                "label": "Using policies",
+                "path": "/home/team/role-policies"
+              },
+              {
+                "label": "Using tags",
+                "path": "/home/team/role-tags"
+              },
+              {
+                "label": "Example policies and templates",
+                "path": "/home/team/example-policies"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "group":"platform-config",
+        "label": "Securing your account",
+        "path": "/home/account-security",
+        "svg": "security",
+        "items": [
           {
             "label": "Multi-factor authentication",
             "path": "/home/account-security/mfa"
           },
           {
             "label": "API access tokens",
-            "path": "/home/account-security/api-access-tokens"
+            "path": "/home/advanced/api-access-tokens"
           },
           {
             "label": "Managing sessions",
-            "path": "/home/account-security/managing-sessions"
+            "path": "/home/account-security/sessions"
           },
           {
             "label": "Single sign-on",
@@ -191,44 +243,82 @@
             "items": [
               {
                 "label": "Okta",
-                "path": "/home/account-security/sso/okta"
+                "path": "/home/account-security/okta"
               },
               {
                 "label": "OneLogin",
-                "path": "/home/account-security/sso/onelogin"
+                "path": "/home/account-security/onelogin"
               },
               {
                 "label": "Google Apps",
-                "path": "/home/account-security/sso/google-apps"
+                "path": "/home/account-security/google"
               },
               {
                 "label": "ADFS",
-                "path": "/home/account-security/sso/adfs"
+                "path": "/home/account-security/adfs"
               },
               {
                 "label": "Azure",
-                "path": "/home/account-security/sso/azure"
+                "path": "/home/account-security/azure"
               }
             ]
           }
         ]
       },
       {
-        "label": "Metrics and insights",
-        "path": "/home/metrics-insights",
-        "svg": "bullseye-arrow",
+        "group":"platform-config",
+        "label": "Connecting apps and services to LaunchDarkly",
+        "path": "/home/connecting",
+        "svg": "arrow-left-right-bold",
         "items": [
           {
-            "label": "Account usage metrics",
-            "path": "/home/metrics-insights/usage-metrics"
+            "label": "Custom properties",
+            "path": "/home/connecting/custom-properties"
           },
           {
-            "label": "The flag Insights graph",
-            "path": "/home/metrics-insights/flag-insights"
+            "label": "OAuth applications",
+            "path": "/home/connecting/oauth"
+          },
+          {
+            "label": "The LaunchDarkly API",
+            "path": "/home/connecting/api"
+          },
+          {
+            "label": "Webhooks",
+            "path": "/home/connecting/webhooks"
           }
         ]
       },
       {
+        "group":"platform-config",
+        "label": "Billing and usage",
+        "path": "/home/billing",
+        "svg": "card-text",
+        "items": [
+          {
+            "label": "Account usage metrics",
+            "path": "/home/billing/usage-metrics"
+          }
+        ]
+      },
+      {
+        "group":"platform-config",
+        "label": "Advanced",
+        "path": "/home/advanced",
+        "svg": "atom",
+        "items": [
+          {
+            "label": "Public IP list",
+            "path": "/home/advanced/public-ip-list"
+          },
+          {
+            "label": "LaunchDarkly in China",
+            "path": "/home/advanced/china"
+          }
+        ]
+      },
+      {
+        "group":"additional-features",
         "label": "Experimentation",
         "path": "/home/experimentation",
         "svg": "chart-areaspline",
@@ -243,15 +333,15 @@
             "items": [
               {
                 "label": "The experiment lifecycle",
-                "path": "/home/experimentation/managing/lifecycle"
+                "path": "/home/experimentation/lifecycle"
               },
               {
                 "label": "Interpreting experiment data",
-                "path": "/home/experimentation/managing/interpreting"
+                "path": "/home/experimentation/interpreting"
               },
               {
                 "label": "Controlling experiment populations",
-                "path": "/home/experimentation/managing/populations"
+                "path": "/home/experimentation/populations"
               },
               {
                 "label": "Sending Segment events to experiments",
@@ -262,57 +352,108 @@
         ]
       },
       {
-        "label": "Advanced",
-        "path": "/home/advanced",
-        "svg": "atom",
+        "group":"additional-features",
+        "label": "Feature Workflows",
+        "path": "/home/feature-workflows",
+        "svg": "merge",
         "items": [
           {
-            "label": "The Relay Proxy",
-            "path": "/home/advanced/relay-proxy",
+            "label": "Approval workflows",
+            "path": "/home/feature-workflows/approvals"
+          },
+          {
+            "label": "Configuring approvals by environment",
+            "path": "/home/feature-workflows/environment-approvals"
+          },
+          {
+            "label": "Scheduled flag changes",
+            "path": "/home/feature-workflows/scheduled-changes"
+          },
+          {
+            "label": "Flag triggers",
+            "path": "/home/feature-workflows/triggers"
+          }
+        ]
+      },
+      {
+        "group":"additional-features",
+        "label": "Data Export",
+        "path": "/home/data-export",
+        "svg": "database-export",
+        "items": [
+          {
+            "label": "Azure Event Hubs",
+            "path": "/home/data-export/event-hub"
+          },
+          {
+            "label": "Google Cloud Pub/Sub",
+            "path": "/home/data-export/google-pubsub"
+          },
+          {
+            "label": "Kinesis",
+            "path": "/home/data-export/kinesis"
+          },
+          {
+            "label": "mParticle",
+            "path": "/home/data-export/mparticle",
             "items": [
               {
-                "label": "Deploying the Relay Proxy",
-                "path": "/home/advanced/relay-proxy/deploying"
-              },
-              {
-                "label": "Using the Relay Proxy",
-                "path": "/home/advanced/relay-proxy/using"
-              },
-              {
-                "label": "Monitoring the Relay Proxy",
-                "path": "/home/advanced/relay-proxy/monitoring"
-              },
-              {
-                "label": "Testing Relay Proxy performance",
-                "path": "/home/advanced/relay-proxy/performance"
+                "label": "mParticle schema reference",
+                "path": "/home/data-export/mparticle-schema-reference"
               }
             ]
           },
           {
+            "label": "Segment",
+            "path": "/home/data-export/segment",
+            "items": [
+              {
+                "label": "Segment schema reference",
+                "path": "/home/data-export/segment-schema-reference"
+              }
+            ]
+          },
+          {
+            "label": "Data export schema reference",
+            "path": "/home/data-export/schema-reference"
+          }
+        ]
+      },
+      {
+        "group":"additional-features",
+        "label": "The Relay Proxy",
+        "path": "/home/relay-proxy",
+        "svg": "relay-proxy",
+        "items": [
+          {
             "label": "Relay Proxy Enterprise",
-            "path": "/home/advanced/relay-proxy-enterprise",
+            "path": "/home/relay-proxy/enterprise",
             "items": [
               {
                 "label": "Automatic configuration",
-                "path": "/home/advanced/relay-proxy-enterprise/automatic-configuration"
+                "path": "/home/relay-proxy/automatic-configuration"
               },
               {
                 "label": "Offline mode",
-                "path": "/home/advanced/relay-proxy-enterprise/offline"
+                "path": "/home/relay-proxy/offline"
               }
             ]
           },
           {
-            "label": "Custom properties",
-            "path": "/home/advanced/custom-properties"
+            "label": "Deploying the Relay Proxy",
+            "path": "/home/relay-proxy/deploying"
           },
           {
-            "label": "Public IP list",
-            "path": "/home/advanced/public-ip-list"
+            "label": "Using the Relay Proxy",
+            "path": "/home/relay-proxy/using"
           },
           {
-            "label": "LaunchDarkly in China",
-            "path": "/home/advanced/china"
+            "label": "Monitoring the Relay Proxy",
+            "path": "/home/relay-proxy/monitoring"
+          },
+          {
+            "label": "Testing Relay Proxy performance",
+            "path": "/home/relay-proxy/performance"
           }
         ]
       },
@@ -328,70 +469,44 @@
     "path": "/integrations",
     "items": [
       {
-        "label": "Code references",
-        "path": "/integrations/code-references",
-        "items": [
-          {
-            "label": "Bitbucket Pipes",
-            "path": "/integrations/code-references/bitbucket-pipes"
-          },
-          {
-            "label": "CircleCI Orbs",
-            "path": "/integrations/code-references/circleci-orbs"
-          },
-          {
-            "label": "GitHub Actions",
-            "path": "/integrations/code-references/github-actions"
-          },
-          {
-            "label": "GitLab CI",
-            "path": "/integrations/code-references/gitlab-ci"
-          },
-          {
-            "label": "Custom configuration with the CLI",
-            "path": "/integrations/code-references/custom-config"
-          }
-        ]
-      },
-      {
         "label": "Data Export",
-        "path": "/integrations/data-export",
+        "path": "/home/data-export",
         "items": [
           {
             "label": "Azure Event Hubs",
-            "path": "/integrations/data-export/event-hub"
+            "path": "/home/data-export/event-hub"
           },
           {
             "label": "Google Cloud Pub/Sub",
-            "path": "/integrations/data-export/google-pubsub"
+            "path": "/home/data-export/google-pubsub"
           },
           {
             "label": "Kinesis",
-            "path": "/integrations/data-export/kinesis"
+            "path": "/home/data-export/kinesis"
           },
           {
             "label": "mParticle",
-            "path": "/integrations/data-export/mparticle",
+            "path": "/home/data-export/mparticle",
             "items": [
               {
                 "label": "mParticle schema reference",
-                "path": "/integrations/data-export/mparticle/mparticle-schema-reference"
+                "path": "/home/data-export/mparticle-schema-reference"
               }
             ]
           },
           {
             "label": "Segment",
-            "path": "/integrations/data-export/segment",
+            "path": "/home/data-export/segment",
             "items": [
               {
                 "label": "Segment schema reference",
-                "path": "/integrations/data-export/segment/segment-schema-reference"
+                "path": "/home/data-export/segment-schema-reference"
               }
             ]
           },
           {
             "label": "Data export schema reference",
-            "path": "/integrations/data-export/schema-reference"
+            "path": "/home/data-export/schema-reference"
           }
         ]
       },
@@ -432,10 +547,6 @@
         "path": "/integrations/elastic-stack"
       },
       {
-        "label": "Flag triggers",
-        "path": "/integrations/triggers"
-      },
-      {
         "label": "Honeycomb",
         "path": "/integrations/honeycomb",
         "items": [
@@ -472,11 +583,6 @@
         ]
       },
       {
-        "label": "OAuth applications",
-        "path": "/integrations/oauth"
-      },
-      {
-
         "label": "Release",
         "path": "/integrations/release"
       },
@@ -536,10 +642,6 @@
       {
         "label": "Visual Studio Code",
         "path": "/integrations/vscode"
-      },
-      {
-        "label": "Webhooks",
-        "path": "/integrations/webhooks"
       }
     ]
   },

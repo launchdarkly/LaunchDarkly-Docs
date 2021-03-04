@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 import { graphql, useStaticQuery } from 'gatsby'
+import { globalHistory } from '@reach/router'
 import TreeNode from './treeNode'
 import { findRootTopic } from '../../utils/navigationDataUtils'
 
@@ -22,6 +23,7 @@ const DesktopSideNav = () => {
             path
             svg
             flagKey
+            group
             items {
               path
               label
@@ -65,7 +67,12 @@ const DesktopSideNav = () => {
         pt: 4,
       }}
     >
-      <TreeNode nodes={currentNode.items} />
+      <TreeNode
+        currentPath={
+          pathPrefix !== '' ? globalHistory.location.pathname.replace(pathPrefix, '') : globalHistory.location.pathname
+        }
+        nodes={currentNode.items}
+      />
     </nav>
   )
 }

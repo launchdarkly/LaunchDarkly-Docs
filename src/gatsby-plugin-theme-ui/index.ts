@@ -52,7 +52,7 @@ export default {
     body: 400,
     medium: 500,
     heading: 500,
-    bold: 500,
+    bold: 600,
   },
   lineHeights: {
     fixed: '1',

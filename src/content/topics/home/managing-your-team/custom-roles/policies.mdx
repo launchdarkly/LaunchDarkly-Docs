@@ -1,0 +1,204 @@
+---
+path: '/home/team/role-policies'
+title: 'Using policies'
+description: 'This topic explains policies in custom roles. Policies combine resources and actions into a set of statements that define what users can or cannot do.'
+published: true
+---
+
+## Overview
+
+This topic explains how policies work in custom roles. 
+
+Policies combine resources and actions into a set of statements that define what users can or cannot do in LaunchDarkly. 
+
+To learn more, read [Custom role concepts](/home/team/role-concepts).
+
+To learn how to create a policy, read [Creating custom roles and policies](/home/team/role-create).
+
+## Understanding policies
+
+Policies are represented as JSON arrays.
+
+Each element in the array is a statement represented as a JSON object with three attributes:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Attribute name</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>effect</code>
+      </TableCell>
+      <TableCell><code>allow</code> or <code>deny</code>.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>resources / notResources</code>
+      </TableCell>
+      <TableCell>
+        A list of resource specifiers defining the resources to which the statement applies or does not apply.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>actions / notActions</code>
+      </TableCell>
+      <TableCell>
+        A list of action specifiers defining the actions to which the statement applies or does not apply.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+<Callout intent="info">
+  <CalloutTitle>Inverse resource and action sets</CalloutTitle>
+  <CalloutDescription>
+
+You can only create a statement using `notActions` or `notResources` in the advanced editor.
+
+To learn more about the advanced editor, read [Writing policies in the advanced
+editor](#writing-policies-in-the-advanced-editor).
+
+  </CalloutDescription>
+</Callout> 
+
+The example policy below denies access to a project, identified by it's product key. It also allows all actions on a specific flag in all projects and environments. 
+
+Here's an example policy: 
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Policy', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "notResources": ["proj/project-key"],
+    "actions": ["viewProject"],
+    "effect": "deny"
+  },
+  {
+    "resources": ["proj/*:env/*:flag/flag-name"],
+    "actions": ["*"],
+    "effect": "allow"
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<Callout intent="info">
+<CalloutTitle>Custom policies support wildcards</CalloutTitle>
+<CalloutDescription>
+
+You can use the asterisk (*) as a wildcard character to indicate that all resources or actions should be matched.
+
+In the example above, wildcard characters indicate that the role can perform any action on a particular flag in any project or environment.
+
+</CalloutDescription>
+</Callout>
+
+For a more detailed explanation of the policy above, read [Granting all actions to just one flag while showing only one project](/home/team/role-policies#granting-all-actions-to-just-one-flag-while-showing-only-one-project). 
+
+Here's an example statement:
+
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Statement', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+  {
+    "effect": "deny",
+    "resources": ["proj/*:env/production:flag/*"],
+    "actions": ["*"]
+  }
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+If the environment ID `production` represents the account's Production environment, this statement denies the user from modifying any feature flags in production. 
+
+You can also name an "inverse" set of resources by using `notResources` in a statement. This statement explicitly allows all actions to feature flags across all environments _except_ the production environment.
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'notResources statement', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+  {
+    "effect": "allow",
+    "notResources": ["proj/*:env/production:flag/*"],
+    "actions": ["*"]
+  }
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Policy algorithm
+
+The algorithm for determining whether access is allowed or denied by a policy is as follows:
+
+- If any statement in the policy explicitly denies access to a resource and action, access is denied.
+- If a statement in the policy explicitly allows access to a resource and action, and no statement denies access, access is allowed.
+- Any resource or action **not** specifically included in a policy is denied by default.
+
+This means that statement order does not matter.
+
+You can assign multiple custom roles to one member, and each custom role has its own policy. If you assign multiple roles to a member, be aware that if any of those custom roles allow access to a resource, then access is allowed regardless of if other roles deny that access. Adding roles to a user can only increase that user's access.
+
+## Writing policies in the advanced editor
+
+The LaunchDarkly UI has a structured series of fields you can use to create policies.
+
+To learn more about creating policies in LaunchDarkly, read [Configuring custom roles](/home/team).
+
+If you want to write a policy by hand, however, you can use the advanced editor.
+
+To access the advanced editor:
+
+1. Navigate to **Account Settings**.
+2. Click into the **Roles** tab.
+3. Click **New Role**. The "Create a role" screen appears.
+4. Click **Advanced editor**. The advanced editor opens.
+
+![The advanced editor.](../../../../images/settings-roles-advanced-editor.png) 
+
+
+<Callout intent="alert">
+  <CalloutTitle>Resources are case-sensitive</CalloutTitle>
+  <CalloutDescription>
+
+When constructing your policy by hand with the advanced editor, make sure to use the resource key, which is case
+sensitive. If the Production environment of your default project has the key `production` then
+`proj/default:env/Production` will not allow actions to be taken in your default project's production
+environment.
+
+  </CalloutDescription>
+</Callout> 
+
+## Finding resource IDs
+
+You can find resource IDs with the resource finder, which can be accessed with the “resource finder” link in either the simple or advanced editor, or using the keyboard shortcut `⌘` + `.` (Mac) or `ctl` + `.` (Windows). All of your environments, members, feature flags, metrics, and roles will be available.
+
+![The "Find a resource ID" screen.](../../../../images/settings-roles-resource-id.png) 

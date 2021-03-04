@@ -18,7 +18,7 @@ Triggers is only available for customers on a LaunchDarkly Enterprise plan. To e
 
 This topic explains how to use LaunchDarkly's trigger feature with Datadog. For example, you can create an alert in Datadog that toggles a flag on or off if a performance metric drops below a certain threshold.
 
-We recommend using flag triggers for Datadog alerts only, not recovery alerts. If you connect a trigger to recovery alerts, the trigger activates on recovery as well as on alert. 
+We recommend using flag triggers for Datadog alerts only, not recovery alerts. If you connect a trigger to recovery alerts, the trigger activates on recovery as well as on alert.
 
 To learn more about configuring your webhook without recovery alerts, read [Connecting the webhook to a Datadog event](#connecting-the-webhook-to-a-datadog-event).
 
@@ -27,22 +27,22 @@ To learn more about configuring your webhook without recovery alerts, read [Conn
 
 In order to complete this topic, you must meet the following prerequisites.
 
-* You must have a feature flag with a trigger. To learn more about creating triggers, read [Creating a new flag trigger](/integrations/triggers#creating-a-new-flag-trigger).
-* You must have access to the trigger's URL, which you copied and saved during the trigger creation process. To learn more, read [Understanding flag triggers' security](/integrations/triggers#understanding-flag-triggers-security).
-* You must have an existing [Datadog](https://www.datadoghq.com/) account. 
+* You must have a feature flag with a trigger. To learn more about creating triggers, read [Creating a new flag trigger](/home/feature-workflows/triggers#creating-a-new-flag-trigger).
+* You must have access to the trigger's URL, which you copied and saved during the trigger creation process. To learn more, read [Understanding flag triggers' security](/home/feature-workflows/triggers#understanding-flag-triggers-security).
+* You must have an existing [Datadog](https://www.datadoghq.com/) account.
 
 ## Connecting a flag trigger to Datadog
 
-Connecting a LaunchDarkly trigger to Datadog takes two steps. 
+Connecting a LaunchDarkly trigger to Datadog takes two steps.
 
 You must:
 
 1. Create a webhook in Datadog that includes a custom JSON template with your trigger URL, and
-2. Connect that webhook to a Datadog alert. 
+2. Connect that webhook to a Datadog alert.
 
 ### Setting up a JSON template in Datadog
 
-First you must configure a JSON template to use the LaunchDarkly trigger. 
+First you must configure a JSON template to use the LaunchDarkly trigger.
 
 To configure the template:
 
@@ -91,7 +91,7 @@ After you create the webhook in Datadog, you must connect it to an event in orde
 1. Navigate to **Monitors**.
 2. Choose the **Alert** you wish to connect to the trigger and add the webhook you created earlier to that alert.
 
- If you don't want Datadog to trigger when the alert recovers, wrap the webhook in the following template expression: 
+ If you don't want Datadog to trigger when the alert recovers, wrap the webhook in the following template expression:
 
  <CodeTabs
   defaultValue="json"
@@ -119,12 +119,12 @@ After you create a trigger in Datadog, you can verify that it has connected to L
 
 To test the trigger:
 1. Navigate to Datadog and find the metric alert to which you added the webhook.
-2. Click **Test Notifications** at the bottom of the page. 
+2. Click **Test Notifications** at the bottom of the page.
 3. Select any single notification and click **Run Test**. This sends a test event to LaunchDarkly.
-4. Navigate back to the flag's **Settings** page in LaunchDarkly. 
+4. Navigate back to the flag's **Settings** page in LaunchDarkly.
 5. Click the **three-dot** dropdown menu on your LaunchDarkly trigger to confirm that the execution count has incremented. Sending a test notification does not trigger the flag action, so don't worry that you might toggle a flag by testing the configuration.
 
-Your configuration details may vary based on your requirements. 
+Your configuration details may vary based on your requirements.
 
 To learn more about how Datadog handles webhooks, read [Datadog's documentation](https://docs.datadoghq.com/integrations/webhooks/).
 

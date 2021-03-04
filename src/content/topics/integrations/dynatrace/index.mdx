@@ -11,7 +11,7 @@ This topic explains how to use the LaunchDarkly Dynatrace integration. [Dynatrac
 
 ![A Dynatrace events graph, showing LaunchDarkly flag change events.](../images/dynatrace-dashboard.png)
 
-The integration only sends `flag` actions to Dynatrace. To learn more, read [Feature flag actions](/home/account-security/custom-roles/actions#feature-flags-actions).
+The integration only sends `flag` actions to Dynatrace. To learn more, read [Feature flag actions](/home/team/role-actions#feature-flags-actions).
 
 <Callout intent="primary">
 <CalloutTitle>This integration supports triggers</CalloutTitle>
@@ -81,7 +81,7 @@ proj/*:env/production:flag/*
 </CodeTabItem>
 </CodeTabs>
 
-To learn more about the Resource configuration fields, read [Resources in custom roles](/home/account-security/custom-roles/resources).
+To learn more about the Resource configuration fields, read [Resources in custom roles](/home/team/role-resources).
 
 You may want to override the default policy for various reasons, including restricting how the integration sees and exports events. Using the policy editor, you can restrict the integration to: 
 
@@ -111,7 +111,7 @@ The policy above makes it so that the only events the integrations sends to Dyna
 
 If you need to restrict or allow a more complex set of resources than you can specify in a single policy, you might want to add multiple Dynatrace integrations and configure each one to a specific task. Each integration can have its own separate policy configuration.
 
-To learn more about using the policy editor, read [Policies in custom roles](/home/account-security/custom-roles/policies).
+To learn more about using the policy editor, read [Policies in custom roles](/home/team/role-policies).
 
 ## Associating flags with Dynatrace tags
 

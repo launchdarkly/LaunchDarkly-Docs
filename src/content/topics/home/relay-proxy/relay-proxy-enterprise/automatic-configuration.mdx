@@ -1,0 +1,117 @@
+---
+path: '/home/relay-proxy/automatic-configuration'
+title: 'Automatic configuration'
+description: 'This topic explains how to set up the Relay Proxy''s automatic configuration feature. This feature is for customers on Enterprise plans.'
+published: true
+---
+
+## Overview
+
+This topic explains how to set up the Relay Proxy's automatic configuration feature. 
+
+<Callout intent="info">
+<CalloutTitle>This is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+The Relay Proxy automatic configuration feature is only available for customers on an Enterprise plan. To enable it on your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+With automatic configuration, the Relay Proxy automatically detects and supports new connections to updated or new environments whenever changes occur that impact LaunchDarkly SDK keys, mobile keys, or client-side IDs. 
+
+## Benefits of automatic configuration
+
+In a standard Relay Proxy, without automatic configuration, whenever you add or make changes to environments and projects in LaunchDarkly, you must manually update configuration files and restart the Relay Proxy to reflect the changes. 
+
+With automatic configuration enabled, you no longer need to manually update the Relay Proxy's configuration files after you make configuration changes, nor do you need to restart the Relay Proxy for changes to take effect.
+
+Additionally, you can use a page in the LaunchDarkly UI to configure your Relay Proxy with the automatic configuration feature. A standard Relay Proxy requires all environments to be defined individually, and you cannot configure it through the LaunchDarkly UI.
+
+If you enable automatic configuration, your Relay Proxy automatically detects and reacts to events like:
+
+* SDK key rotation
+* Mobile key rotation
+* Environment state changes, like new environment creation, name and tag updates, and environment deletion
+* Project state changes, like new project creation, name and tag updates, and project deletion
+
+This prevents you from needing to restart your Relay Proxy instances and potentially cause downtime while applying changes. These changes have no impact on your Relay Proxy's performance.
+
+With automatic configuration enabled, you only need to restart the Relay Proxy to upgrade it.
+
+## Enabling automatic configuration
+
+Enabling automatic configuration is a two-step process. These steps appear in detail below. 
+
+You must:
+
+1. Create a Relay Proxy configuration in the [Relay Proxy section](https://app.launchdarkly.com/settings/relay) of the **Account Settings** page and save its unique key.
+2. Configure your Relay Proxy instance to use the unique key from the prior step. You may do so either as a property in your Relay Proxy configuration file or as an environment variable.
+
+<Callout intent="alert">
+<CalloutTitle>Save the Relay Proxy's unique key</CalloutTitle>
+<CalloutDescription>
+
+When you create a new Relay Proxy, LaunchDarkly assigns a unique key to it. You must save the key immediately after you create the Relay Proxy, because the key is only viewable on creation. 
+
+</CalloutDescription>
+</Callout>
+
+Here's how to create a Relay Proxy configuration in the LaunchDarkly UI:
+
+1. Navigate to the **Account Settings** page and click into the [**Relay Proxy** tab](https://app.launchdarkly.com/settings/relay).
+
+![The Relay Proxy tab on the Account Settings page.](../../images/account-settings-relay-proxy.png)
+
+2. Click **+ Configuration**. The Relay Proxy configuration screen appears.
+3. Give the Relay Proxy a human-readable **Name**.
+4. Choose a **Rule** from the dropdown. This rule determines what content the Relay Proxy receives.
+ * **All projects and environments** sends changes about all projects and environments to the Relay Proxy.
+ * **Inline policy** allows you to specify which projects and environments you can track events for. To learn more, read [Writing an inline policy](#writing-an-inline-policy).
+
+![The Relay Proxy configuration screen with dropdown displayed.](../../images/relay-proxy-config-dropdown.png)
+
+5. Click **Save Configuration**. The Relay Proxy appears on the Relay Proxy tab of the Account Settings page with its key visible.
+6. Copy and save the key somewhere secure.
+
+![The Relay Proxy screen with a newly created Relay Proxy. The key is displayed.](../../images/relay-proxy-key-displayed.png)
+
+Next you must specify the key in a Relay Proxy configuration file so it includes the configuration you created.
+
+1. Configure your Relay Proxy to use your new key.
+ * If you configured the Relay Proxy with a configuration file, specify the Relay Proxy key in an `AutoConfig` section as the `key` property.
+ * If configured the Relay Proxy with environment variables, specify the Relay Proxy key with the `AUTO_CONFIG_KEY` environment variable.
+  <CodeTabs
+    defaultValue="file"
+    values={[
+      { label: 'Configuration file', value: 'file', },
+      { label: 'Environment variables', value: 'env-var', },
+    ]
+  }>
+  <CodeTabItem value="file">
+
+  ```bash
+[AutoConfig]
+   key = "rel-EXAMPLE-RELAY-PROXY-CONFIGURATION-KEY"
+  ```
+
+  </CodeTabItem>
+  <CodeTabItem value="env-var">
+
+  ```bash
+docker run --name ld-relay           \
+   -e AUTO_CONFIG_KEY="rel-EXAMPLE-RELAY-PROXY-CONFIGURATION-KEY" \
+   launchdarkly/ld-relay
+  ```
+
+  </CodeTabItem>
+  </CodeTabs>
+2. Start the Relay Proxy.
+
+From now on, the Relay Proxy will respond automatically to the project and environment state changes you specified.
+
+## Writing an inline policy
+
+The inline policy editor is an advanced editor you can use to specify precise instructions on what environments and projects the Relay Proxy should include or exclude. You can write policies for it by hand to get exactly the outcomes you want.
+
+To learn more about the advanced editor, read [Writing policies in the advanced editor](/home/team/role-policies#writing-policies-in-the-advanced-editor).

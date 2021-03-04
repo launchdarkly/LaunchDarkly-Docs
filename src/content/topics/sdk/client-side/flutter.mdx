@@ -199,7 +199,7 @@ Custom attributes are one of the most powerful features of LaunchDarkly. They le
 
 ## Private user attributes
 
-Optionally, you can configure the Flutter SDK to treat some or all user attributes as [private user attributes](/home/managing-users/user-attributes#creating-private-user-attributes). You can use private user attributes for targeting purposes. They are removed from the user data sent back to LaunchDarkly.
+Optionally, you can configure the Flutter SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). You can use private user attributes for targeting purposes. They are removed from the user data sent back to LaunchDarkly.
 
 In the Flutter SDK, you can define private attributes for the **entire** LaunchDarkly client. When you create the `LDConfig` object, you can call the `setPrivateAttributeNames` method, which which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this set, it will be removed before the user is sent to LaunchDarkly.
 

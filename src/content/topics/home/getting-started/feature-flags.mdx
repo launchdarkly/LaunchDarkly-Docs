@@ -1,6 +1,6 @@
 ---
 path: '/home/getting-started/feature-flags'
-title: 'Creating a feature flag'
+title: 'Your first feature flag'
 description: 'This topic explains how to create feature flags in LaunchDarkly.'
 published: true
 ---
@@ -26,7 +26,7 @@ endpoint. To learn more, read our [REST API Documentation](https://apidocs.launc
 
 You can create and modify feature flags from the dashboard.
 
-To learn more about the dashboard, read [The dashboard](/home/managing-flags/dashboard).
+To learn more about the dashboard, read [The dashboard](/home/organize/dashboard).
 
 To create a feature flag:
 
@@ -46,14 +46,14 @@ To create a feature flag:
 
 Tags are useful for managing flag permissions using custom roles. For example, you can tag a flag as "Marketing"
 and "DevOps", and then use these tags to determine who has read or write access for the flag. To learn more, read
-[Custom roles](/home/account-security/custom-roles).
+[Custom roles](/home/team/custom-roles).
 
   </CalloutDescription>
 </Callout> 
 
 7. (Optional) In the "Client-side SDK flag availability" section, check the **SDKs using Mobile Key** and/or **SDKs using client-side ID** boxes to designate which SDKs the flag should be available to. To learn more, read [Making flags available to client-side and mobile SDKs](#making-flags-available-to-client-side-and-mobile-sdks).
-8. Choose an option in the **Flag variations** dropdown. To learn more, read [Flag variations](/home/managing-flags/flag-variations).
-9. (Optional) Specify details for your **Variation**. To learn more, read [Flag variations](/home/managing-flags/flag-variations).
+8. Choose an option in the **Flag variations** dropdown. To learn more, read [Flag variations](/home/flags/variations).
+9. (Optional) Specify details for your **Variation**. To learn more, read [Flag variations](/home/flags/variations).
 10. (Optional) Change the **default variations** for the flag's on and off states. To learn more about default variations, read [Setting default variations](#setting-default-variations).
 11. (Optional) Select the **This is a permanent flag** checkbox.
 12. (Optional) Select the **Make this flag available to client-side SDKs** checkbox. If you choose this option, the flag will be pushed out to client-side SDKs.
@@ -83,9 +83,9 @@ All environments within a project have the same set of feature flags. When you c
 
 Flag scoping refers to the parts of LaunchDarkly where a flag is available or used. If a flag is scoped at the
 project level, it is available to all environments within the project, because projects contain environments. To
-learn more about projects, read [Projects](/home/managing-flags/projects).
+learn more about projects, read [Projects](/home/organize/projects).
 
-To learn more about environments, read [Environments](/home/managing-flags/environments).
+To learn more about environments, read [Environments](/home/organize/environments).
 
   </CalloutDescription>
 </Callout> 
@@ -115,7 +115,7 @@ To configure a flag in a different environment:
 
 When you create a feature flag, some of its variations are designated as *default* variations. You can accept the defaults or change them. When you do this and click **Save Flag**, the flag is created across all environments in your project with these variations set as its `on` and `off` values. 
 
-To learn more about default flag variations, read [Changing default flag variations](/home/managing-flags/flag-variations#changing-default-flag-variations).
+To learn more about default flag variations, read [Changing default flag variations](/home/flags/variations#changing-default-flag-variations).
 
 ![The default variation options on the flag creation screen.](../../images/flag-create-default-variations.png)
 
@@ -148,7 +148,7 @@ To clone a flag:
 
 Tags are useful for managing flag permissions using custom roles. For example, you can tag a flag as "Marketing"
 and "DevOps", and then use these tags to determine who has read or write access for the flag. To learn more, read
-[Custom roles](/home/account-security/custom-roles).
+[Custom roles](/home/team/custom-roles).
 
   </CalloutDescription>
 </Callout> 

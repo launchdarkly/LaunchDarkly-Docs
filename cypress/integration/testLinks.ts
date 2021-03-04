@@ -16,6 +16,8 @@ const ignore = [
   'https://glitch.com',
   'https://app.logdna.com',
   'https://help.sleuth.io',
+  'https://cocoapods.org',
+  'https://www.makeuseof.com/tag/md5-hash-stuff-means-technology-explained/',
 ]
 
 describe('Verify links', () => {

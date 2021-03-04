@@ -143,7 +143,7 @@ When you are happy with the write performance and confirmed that the data in `db
 After your data is copied to `db2`, you can start turning on reads to the new data store. Turn on reads for a small segment of your users and monitor the performance metrics and error logs. Specifically, look for a “db1 and db2 events differ” message. That message does not indicate that something is wrong in production. Even if you see that message, it hasn’t affected any users. They are still using the data from your old data store. If you see that error message, you can fix any issues without impacting your users and move forward.
 
 <LearnMore>
-  <LearnMoreLink to="/home/managing-flags/targeting-users#percentage-rollouts">Percentage rollouts</LearnMoreLink>
+  <LearnMoreLink to="/home/flags/targeting-users#percentage-rollouts">Percentage rollouts</LearnMoreLink>
 </LearnMore>
 
 Once you're comfortable with the performance metrics and error counts you're seeing with reads and writes, you can now turn off the read and write flags for `db1`, remove all references to all four flags in your code, and you are left with just `db2`.
