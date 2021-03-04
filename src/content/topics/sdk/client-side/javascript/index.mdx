@@ -417,7 +417,15 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 // an anonymous user you can specify the "anonymous" property and
 // omit the "key" property. In doing so, the LaunchDarkly client
 // will auto-generate a unique identifier for this user, and the
-// identifier will remain constant across browser sessions.
+// identifier will be saved in local storage and used in the 
+// future to remain constant across browser sessions.
+
+// If you do not specify a unique key for each anonymous user, 
+// and the user has saving to local storage disabled, LaunchDarkly
+// will create a new user for each request. The number of real 
+// users who have saving to local storage disabled is likely small
+// but bots and crawlers almost always do not utilize local storage. 
+// One user/bot with local storage disabled can can drastically inflate your MAU count.
 var user = {"anonymous": true};
 
 // If you are using earlier SDK versions, you will need to specify
