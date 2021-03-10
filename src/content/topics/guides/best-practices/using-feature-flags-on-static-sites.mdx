@@ -27,7 +27,7 @@ To complete this guide, you must have the following prerequisites:
 
 This guide relies on the following concepts:
 
-### Static websites 
+### Static websites
 
 Static websites are a set of one or more webpages served from a web server or content delivery network (CDN). We call them "static" sites because their pages are not generated dynamically. Static sites change when a new version is published, either with a content management system or with a new deployment.
 
@@ -37,38 +37,38 @@ You can use a CMS to manage the creation, management, and publishing workflow of
 
 ### Content delivery network (CDN)
 
-A CDN is a geographically distributed group of servers that work together to deliver internet content quickly. A CDN lets you transfer the assets necessary for loading internet content, including HTML pages, JavaScript files, stylesheets, images, and videos. 
+A CDN is a geographically distributed group of servers that work together to deliver internet content quickly. A CDN lets you transfer the assets necessary for loading internet content, including HTML pages, JavaScript files, stylesheets, images, and videos.
 
 Some of the more popular CDNs are [AWS CloudFront](https://aws.amazon.com/cloudfront/) and [Cloudflare](https://cloudflare.com).
 
 ### Single page application (SPA)
 
-A SPA is a website that does not perform a page reload when you use different aspects of it. 
+A SPA is a website that does not perform a page reload when you use different aspects of it.
 
 Popular SPAs include Gmail, Google Maps, Facebook, Twitter, and many others web applications intended for use by the general public.
 
 ### Module bundlers
 
-Module bundlers are tools developers use to bundle JavaScript modules into a single JavaScript file that can be executed in the browser. 
+Module bundlers are tools developers use to bundle JavaScript modules into a single JavaScript file that can be executed in the browser.
 
 The most well-known bundlers are [Webpack](https://webpack.js.org/) and [Rollup](https://rollupjs.org/).
 
-### Static site generators 
+### Static site generators
 
-Static site generators are tools that let you build and manage a static site. Static site generators are not CMS'.  You can use a static site generator to define the structure, templates, and build process of a static site. 
+Static site generators are tools that let you build and manage a static site. Static site generators are not CMS'.  You can use a static site generator to define the structure, templates, and build process of a static site.
 
 Some static site generators include [Gatsby](https://www.gatsbyjs.com/) and [Next.js](https://nextjs.org/).
 
 ## Characteristics of static sites
 
-A basic static site is the one that is truly static. Each webpage exists as a static file that lives on a filesystem and served up by a traditional web server like Apache or Nginx. You can also serve these files from a CDN. 
+A basic static site is the one that is truly static. Each webpage exists as a static file that lives on a filesystem and served up by a traditional web server like Apache or Nginx. You can also serve these files from a CDN.
 
 Typically, a content management system creates and manages these static sites. The CMS is responsible for publishing the actual pages to a web server.
 
 ![Traditional static website topology.](../../../images/classic-static-site.png)
 
 
-Static websites may have some dynamic content. While the file that produced the webpage itself may be static, the webpage could contain JavaScript that produces dynamic content and allows for dynamic interactions when rendered in a browser. 
+Static websites may have some dynamic content. While the file that produced the webpage itself may be static, the webpage could contain JavaScript that produces dynamic content and allows for dynamic interactions when rendered in a browser.
 
 This distinction is important. Most of today's websites contain JavaScript even if they render like static sites. The most common JavaScript in these types of websites is used for tracking analytics.
 
@@ -76,7 +76,7 @@ Another characteristic of these types of static sites is how users navigate them
 
 ### Understanding the difference between static sites and single page applications
 
-In a SPA, there is one or a limited number of static pages that comprise an entire website or web application. All user interactions in that site are managed by JavaScript. 
+In a SPA, there is one or a limited number of static pages that comprise an entire website or web application. All user interactions in that site are managed by JavaScript.
 
 For example, when a user clicks on a link within a SPA, JavaScript code on the page intercepts the request and performs the action intended by the developer rather than telling the browser to load the URL associated with that link.
 
@@ -100,7 +100,7 @@ Feature flags can give developers more control over the features they create.
 
 ## Best practices for using feature flags with static sites
 
-[LaunchDarkly's SDKs](/sdk) can operate on a server or on a client. Static sites must use the [LaunchDarkly client-side JavaScript SDK](https://docs.launchdarkly.com/sdk/client-side/javascript). 
+[LaunchDarkly's SDKs](/sdk) can operate on a server or on a client. Static sites must use the [LaunchDarkly client-side JavaScript SDK](https://docs.launchdarkly.com/sdk/client-side/javascript).
 
 Code referencing feature flags on your static site will fail if a user has JavaScript turned off on their browser.
 
@@ -115,7 +115,7 @@ The LaunchDarkly SDK exposes the LaunchDarkly client. This client is used to int
 
 ## Loading the SDK and LaunchDarkly client
 
-Most web apps have lots of JavaScript to load and initialize during the page load. Loading the LaunchDarkly SDK and initializing the client at the most optimal time during the loading sequence is important. 
+Most web apps have lots of JavaScript to load and initialize during the page load. Loading the LaunchDarkly SDK and initializing the client at the most optimal time during the loading sequence is important.
 
 In most cases, we recommend loading and initializing the SDK as early as possible, especially if you have features that rely on flag values to be available during the initial page render.
 
@@ -149,7 +149,7 @@ const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
 </CodeTabItem>
 </CodeTabs>
 
-The only required property of the user is the `key`. The client requires a `user`, but your web app does not actually need to have a signed-in user. 
+The only required property of the user is the `key`. The client requires a `user`, but your web app does not actually need to have a signed-in user.
 
 The `user` property is a unique property that LaunchDarkly uses to keep track of the flag values for that unique key.
 
@@ -172,28 +172,28 @@ const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
 </CodeTabItem>
 </CodeTabs>
 
-By omitting the `key` property and adding the `anonymous` property, the LaunchDarkly client auto-generates a unique identifier for the anonymous user, and this identifier remains constant across browser sessions. 
+By omitting the `key` property and adding the `anonymous` property, the LaunchDarkly client auto-generates a unique identifier for the anonymous user, and this identifier remains constant across browser sessions.
 
 To learn more, read [Anonymous users](/sdk/client-side/javascript#anonymous-users).
 
-The client initialization connects to LaunchDarkly's servers and fetches the initial flag values for the user. This initialization cycle can take around 100-200ms and can delay your initial page render by at least that much. You could render the page before you have the flag values available, however, your users may experience parts of the page changing as the flag values load. 
+The client initialization connects to LaunchDarkly's servers and fetches the initial flag values for the user. This initialization cycle can take around 100-200ms and can delay your initial page render by at least that much. You could render the page before you have the flag values available, however, your users may experience parts of the page changing as the flag values load.
 
 To learn more, read [Initializing the client](/sdk/client-side/javascript#initializing-the-client).
 
-## Bootstrapping the client 
+## Bootstrapping the client
 
 "Bootstrapping" refers to hydrating the LaunchDarkly client with an initial set of feature flag values that is immediately available during client initialization.
 
 There are two methods of bootstrapping the client:
 
 * Using the browser's localStorage, and
-* By sending HTML with flag information to the server 
+* By sending HTML with flag information to the server
 
 ### Using localStorage
 
 If you use localStore, the client can initialize itself without an additional delay from fetching the flags from the LaunchDarkly servers.
 
-While truly static sites don't have the flag values available before the JavaScript on the page starts executing, the LaunchDarkly client can cache the initial set of flag values retrieved from the server. 
+While truly static sites don't have the flag values available before the JavaScript on the page starts executing, the LaunchDarkly client can cache the initial set of flag values retrieved from the server.
 
 This technique uses the browser's localStorage:
 
@@ -229,7 +229,7 @@ On SPA sites, this may not be a problem. Users will likely only load a site once
 
 ### Bootstrapping from the server
 
-While bootstrapping from localStorage is a must on a purely static site, you can also bootstrap from your server. 
+While bootstrapping from localStorage is a must on a purely static site, you can also bootstrap from your server.
 
 In this model, the HTML page your server sends to the browser contains the feature flags your site needs during the initial render. Your site then bootstraps the LaunchDarkly client with those flags.
 
@@ -245,7 +245,7 @@ Here's an example of how to bootstrap from a server:
 <CodeTabItem value="js">
 
 ```js
-// If your server passes values to your frontend on pageload,
+// If your server passes values to your front end on pageload,
 // you can call your server-side SDK's allFlagsState function (naming varies per SDK)
 // on pageload and pass the results as a parameter to your
 // front-end initialization code.
@@ -278,7 +278,7 @@ onPageLoad({
 </CodeTabItem>
 </CodeTabs>
 
-All LaunchDarkly server-side SDKs can evaluate all flags on a user's behalf. These flags can then be combined with the HTML response. 
+All LaunchDarkly server-side SDKs can evaluate all flags on a user's behalf. These flags can then be combined with the HTML response.
 
 To learn more, read [Bootstrapping the client](/sdk/client-side/javascript#bootstrapping).
 
@@ -450,11 +450,11 @@ To learn more, read [React SDK](/sdk/client-side/react).
 
 ## Using static site generators
 
-Lots of static site generators are available today that make it easier to build and manage a static site. Some popular ones are [Gatsby](https://www.gatsbyjs.com/) and [Next.js](https://nextjs.org/), but there are [many, many more](https://www.staticgen.com/). 
+Lots of static site generators are available today that make it easier to build and manage a static site. Some popular ones are [Gatsby](https://www.gatsbyjs.com/) and [Next.js](https://nextjs.org/), but there are [many, many more](https://www.staticgen.com/).
 
 LaunchDarkly has a [plugin for Gatsby](https://www.gatsbyjs.com/plugins/gatsby-plugin-launchdarkly/?=launchdarkly) that wraps the LaunchDarkly React SDK and makes it easier to use inside a Gatsby based site.
 
-Using the LaunchDarkly Gatsby plugin is very similar to the React SDK. The only thing that differs is how you configure the client. 
+Using the LaunchDarkly Gatsby plugin is very similar to the React SDK. The only thing that differs is how you configure the client.
 
 From `gatsby-config.js`:
 
@@ -511,7 +511,7 @@ import { useFlags, useLDClient } from 'gatsby-plugin-launchdarkly';
 
 This plugin assumes that the user viewing your site is anonymous. In this case, the LaunchDarkly SDK tracks your client so it remembers what variation of the flag the client received. This behavior happens automatically.
 
-If you have a signed-in user, you may want LaunchDarkly to know that in order to target that user with a feature. 
+If you have a signed-in user, you may want LaunchDarkly to know that in order to target that user with a feature.
 
 You can do this by accessing the `ldclient` object directly:
 
@@ -562,7 +562,7 @@ This guide shows you strategies for implementing feature flags on static sites.
 These strategies include:
 
 - Load and initialize the SDK as fast as possible before the initial page render (or in parallel, assuming you don't need the flag values right away).
-- Efficiently bootstrap the LaunchDarkly client with the initial flag values. 
+- Efficiently bootstrap the LaunchDarkly client with the initial flag values.
 - Host your site from a CDN.  A CDN will bring your site closer to the user and hopefully improve your site's perceived performance.
 
 <Callout intent="primary">

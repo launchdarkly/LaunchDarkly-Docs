@@ -18,11 +18,11 @@ You can use code in tandem with your feature flags to maintain and improve the r
 The practices we offer in this guide are subjective. What may be a best practice for one team may not work as well for another. Review the recommendations in this guide and consider carefully if they will help your team before you implement them.
 
 </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Concepts
 
-In order to use this guide effectively, you should understand these concepts: 
+In order to use this guide effectively, you should understand these concepts:
 
 ### Improving flag hygiene
 
@@ -36,19 +36,19 @@ To learn more about flag hygiene, read [Reducing technical debt from feature fla
 
 Engineering teams maintain their own standards for when a task or project can be considered "done". For example, a team may consider the code for a task to be incomplete until it has automated tests.
 
-You can maintain flag hygiene by ensuring that the temporary flags created for a task or project are no longer referenced by any code and are archived after they're no longer in use. Adding this as a requirement to your team's definition of done may help streamline your codebase, because only the flags you're actively using will be present in it. 
+You can maintain flag hygiene by ensuring that the temporary flags created for a task or project are no longer referenced by any code and are archived after they're no longer in use. Adding this as a requirement to your team's definition of done may help streamline your codebase, because only the flags you're actively using will be present in it.
 
 Code standards are easier to maintain with automated checks, such as those performed by a continuous integration (CI) system. You can even automate some flag hygiene checks.
 
 ## Using code references to track flag hygiene
 
-LaunchDarkly's [code references](/home/code/code-references) feature keeps track of the places in your code where each flag appears. It's particularly useful when you need to clean up old flags. 
+LaunchDarkly's [code references](/home/code/code-references) feature keeps track of the places in your code where each flag appears. It's particularly useful when you need to clean up old flags.
 
-Ensure that the code references for your project are up to date by integrating the [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) tool with your code pipeline. 
+Ensure that the code references for your project are up to date by integrating the [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) tool with your code pipeline.
 
 To learn more, read [Code references](/home/code/code-references).
 
-![The code references tab for a feature flag.](flag-code-references.png) 
+![The code references tab for a feature flag.](flag-code-references.png)
 
 ## Refactoring flagged code to reduce merge conflicts
 
@@ -60,14 +60,14 @@ To reduce the chance of conflicts, refactor both the flag logic and the code for
 <CalloutTitle>The examples below do not use a real coding language</CalloutTitle>
 <CalloutDescription>
 
-The examples below use an approximation of a real coding language to illustrate the concepts they express. The language is based on JavaScript, but is not JavaScript. 
+The examples below use an approximation of a real coding language to illustrate the concepts they express. The language is based on JavaScript, but is not JavaScript.
 
-Do not use reproduce these code samples in a production environment. They will not work. 
+Do not use reproduce these code samples in a production environment. They will not work.
 
 </CalloutDescription>
 </Callout>
 
-Here's an example to demonstrate this factoring tactic. The example code is taken from a fictional app which has a search feature which queries a backend search engine. In the existing code, the function `getSearchResults` does the work of sending the search query to the backend, checking for errors and fetching the results. 
+Here's an example to demonstrate this factoring tactic. The example code is taken from a fictional app which has a search feature which queries a back-end search engine. In the existing code, the function `getSearchResults` does the work of sending the search query to the back end, checking for errors and fetching the results.
 
 Here is an example:
 
@@ -76,7 +76,7 @@ function getSearchResults(query, user) {
   // 1. parse the query so engine can use it
   // ... query parsing logic goes here...
 
-  // 2. send the search query to the backend search engine
+  // 2. send the search query to the back-end search engine
   engineURL = SEARCH_ENGINE_URL + '/search';
   response = sendRequest(engineURL, parsedQuery);
 
@@ -93,9 +93,9 @@ function getSearchResults(query, user) {
 }
 ```
 
-The app's engineering team is preparing to migrate to a new, improved search engine. To prepare for the migration, the team has created the flag `use-new-search-engine` to tell the app which search backend to use. The code needs to include code for querying both the old and the new search engines. 
+The app's engineering team is preparing to migrate to a new, improved search engine. To prepare for the migration, the team has created the flag `use-new-search-engine` to tell the app which search back-end to use. The code needs to include code for querying both the old and the new search engines.
 
-Inserting the flag logic in the middle of `getSearchResults` would make it even more complicated than it is already. Instead, they extract the relevant code and move it to new functions. They take the code which sends the query to the search engine (section 2 in the code above) and also code which processes errors and results (sections 3 and 4), because the new engine returns errors and results in a different format. 
+Inserting the flag logic in the middle of `getSearchResults` would make it even more complicated than it is already. Instead, they extract the relevant code and move it to new functions. They take the code which sends the query to the search engine (section 2 in the code above) and also code which processes errors and results (sections 3 and 4), because the new engine returns errors and results in a different format.
 
 The team moves these lines of code, along with code for the new search engine and code to check the flag, into their own functions:
 
@@ -106,7 +106,7 @@ function getSearchResults(query, user) {
   // 1. parse the query so engine can use it
   // ... query parsing logic goes here...
 
-  // 2. send the search query to the backend search engine
+  // 2. send the search query to the back-end search engine
   response = executeSearch(parsedQuery, user);
   return response;
 }
@@ -154,7 +154,7 @@ function queryNewEngine(query, user) {
 
 The migration is expected to last a few weeks. Because the new feature is wrapped in a feature flag, the team can integrate the new search engine code before it's been fully tested and optimized. Now, they can spend time improving the code with real production data. Because the new and old search engine code is separated into different functions, they can make those improvements without changing shared code. In addition, it's easier to add unit tests for the new code since they can call it directly without needing to create mock flag states.
 
-When it's time to retire the old search engine and archive the feature flag, the cleanup is minimal and less likely to cause merge conflicts. 
+When it's time to retire the old search engine and archive the feature flag, the cleanup is minimal and less likely to cause merge conflicts.
 
 The cleanup steps are:
 
@@ -183,11 +183,11 @@ Here are some guidelines you can follow to make sure you write high-quality code
 
 ### Avoid passing flag state in a call interface
 
-When you use a feature flag to change the behavior of a component, perform the flag evaluation _inside_ the component. 
+When you use a feature flag to change the behavior of a component, perform the flag evaluation _inside_ the component.
 
 It can be tempting to add a dedicated parameter to the call interface and send the flag state from the outside. However, changing the component's interface means that all the component's callers have to be changed too, and then changed again once the flag is removed.
 
-Consider the `executeSearch` function we used as an example earlier. It calls `ldclient.variation` to evaluate the flag from within its own implementation. 
+Consider the `executeSearch` function we used as an example earlier. It calls `ldclient.variation` to evaluate the flag from within its own implementation.
 
 If we moved that call out to `getSearchResults` and sent the flag value to `executeSearch` as an argument, the abbreviated code would look like this:
 
@@ -196,7 +196,7 @@ function getSearchResults(query, user) {
   // 1. parse the query so engine can use it
   // ... query parsing logic goes here...
 
-  // 2. send the search query to the backend search engine
+  // 2. send the search query to the back-end search engine
   //    with the feature flag value
   useNewEngine = ldclient.variation("use-new-search-engine", user, false);
   response = executeSearch(parsedQuery, user, useNewEngine);
@@ -221,33 +221,33 @@ In this example, the changed interface only had one caller. When changing functi
 
 The more frequently that your code is executed, the more likely it is that your code will be in the middle of executing when a vital flag is changed. If your code is constructed in a way that expects flag state to stay consistent between the start and end of a code path, it can cause problems that are particularly hard to debug.
 
-One way to avoid this problem is to use LaunchDarkly's custom roles feature to restrict who can access the flag. 
+One way to avoid this problem is to use LaunchDarkly's custom roles feature to restrict who can access the flag.
 
 To learn more, read [Custom roles](/home/team/custom-roles).
 
 This can make it harder to change a flag, which can be good in some cases, but it also increases the friction in your development workflow. Instead of making change more difficult, it's better to improve the robustness of your code.
 
-The following example uses a service that sends batches of data through a processing pipeline. Each batch must go through three processing steps: normalization, relabeling, and storage. 
+The following example uses a service that sends batches of data through a processing pipeline. Each batch must go through three processing steps: normalization, relabeling, and storage.
 
 A dedicated service performs each of these steps. The storage step is always the last, but the normalization and relabeling can happen in either order. Each service is responsible for sending the data batch to the next service.
 
-There are two possible orders in which the processing steps can be performed. The order is chosen using a feature flag called `process-order` which has variations `normalize-first` and `relabel-first`. 
+There are two possible orders in which the processing steps can be performed. The order is chosen using a feature flag called `process-order` which has variations `normalize-first` and `relabel-first`.
 
 The `normalize-first` order is:
 
 1. Normalization
 2. Relabeling
-3. Storage 
+3. Storage
 
 The `relabel-first` order looks like this:
 
-1. Relabeling 
-2. Normalization 
+1. Relabeling
+2. Normalization
 3. Storage
 
 Each service is responsible for sending its output to the next step.
 
-It's tempting to have each service evaluate the `process-order` flag after it's processed and use this to decide the next step. However, if the flag is flipped in the middle of processing, this could cause problems. 
+It's tempting to have each service evaluate the `process-order` flag after it's processed and use this to decide the next step. However, if the flag is flipped in the middle of processing, this could cause problems.
 
 If the flag is set to `normalize-first`, the batch starts at the normalization service. Before that service finishes processing, someone flips the flag to enable the `relabel-first` process. When the normalization service finishes processing, it'll evaluate the `process-order` flag and use the `relabel-first` ordering, in which the normalization step is followed by storage. This data batch should be sent to the relabeling service since it hasn't been relabeled, but it will be sent to storage instead.
 

@@ -7,7 +7,7 @@ published: true
 
 ## Overview
 
-This topic explains how to create feature flags in LaunchDarkly. You can use feature flags in any aspect of your application, from the customer-facing UI to the backend. 
+This topic explains how to create feature flags in LaunchDarkly. You can use feature flags in any aspect of your application, from the customer-facing UI to the back end.
 
 In the LaunchDarkly UI, you can create a new flag, clone and modify an existing flag to create new ones, and set default variations for flags.
 
@@ -20,7 +20,7 @@ LaunchDarkly is an API-first product, so everything you can do in the LaunchDark
 endpoint. To learn more, read our [REST API Documentation](https://apidocs.launchdarkly.com/).
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Creating a feature flag
 
@@ -33,7 +33,7 @@ To create a feature flag:
 1. Log into LaunchDarkly. The dashboard appears.
 2. Click **New**. The "Create a feature flag" screen appears.
 
-![The dashboard, with the New button called out.](../../images/flag-new-callout.png) 
+![The dashboard, with the New button called out.](../../images/flag-new-callout.png)
 
 3. Enter a unique, human-readable **Name**.
 4. Enter a unique flag **Key**. You'll use this key to reference the flag in your code. A suggested key auto-populates from the name you enter, but you can customize it if you wish.
@@ -49,7 +49,7 @@ and "DevOps", and then use these tags to determine who has read or write access 
 [Custom roles](/home/team/custom-roles).
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 7. (Optional) In the "Client-side SDK flag availability" section, check the **SDKs using Mobile Key** and/or **SDKs using client-side ID** boxes to designate which SDKs the flag should be available to. To learn more, read [Making flags available to client-side and mobile SDKs](#making-flags-available-to-client-side-and-mobile-sdks).
 8. Choose an option in the **Flag variations** dropdown. To learn more, read [Flag variations](/home/flags/variations).
@@ -57,15 +57,15 @@ and "DevOps", and then use these tags to determine who has read or write access 
 10. (Optional) Change the **default variations** for the flag's on and off states. To learn more about default variations, read [Setting default variations](#setting-default-variations).
 11. (Optional) Select the **This is a permanent flag** checkbox.
 12. (Optional) Select the **Make this flag available to client-side SDKs** checkbox. If you choose this option, the flag will be pushed out to client-side SDKs.
-13. Click **Save Flag**. 
+13. Click **Save Flag**.
 
-![The Create a feature flag screen.](../../images/flag-create.png) 
+![The Create a feature flag screen.](../../images/flag-create.png)
 
 That's it! You just created a feature flag. You can see it in the dashboard.
 
 ### Making flags available to client-side and mobile SDKs
 
-When you create a flag, you can choose to expose the flag to SDKs which use client-side ID, SDKs which use mobile keys, or both. By default, flags are only available to server-side SDKs. If you're using a client-side SDK, you must make each flag you wish to appear on the frontend available to the client.
+When you create a flag, you can choose to expose the flag to SDKs which use client-side ID, SDKs which use mobile keys, or both. By default, flags are only available to server-side SDKs. If you're using a client-side SDK, you must make each flag you wish to appear on the front end available to the client.
 
 ![The "Client-side SDK availability" section of the flag creation screen.](../../images/flag-create-sdk.png)
 
@@ -88,7 +88,7 @@ learn more about projects, read [Projects](/home/organize/projects).
 To learn more about environments, read [Environments](/home/organize/environments).
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 Flag configuration settings are specific to each environment. The changes you make in one environment do not apply to the same flag in any other environment. If you want to, you can configure the same flag in a unique way for every environment you have.
 
@@ -97,7 +97,7 @@ To configure a flag in a different environment:
 1. Navigate to the dashboard.
 2. Click the **environment name** in the top left corner. The Switch environment menu appears.
 
-![The Switch environment menu.](../../images/env-switcher.png) 
+![The Switch environment menu.](../../images/env-switcher.png)
 
 3. Search for the environment you wish to switch to and click on it, or choose it from the list. The dashboard for the new environment appears.
 
@@ -107,13 +107,13 @@ To configure a flag in a different environment:
     You know you're in a different environment because the name displayed in the top left corner changes when you select
     that environment from the list.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 4. Find the flag you wish to modify and make whatever changes you like.
 
 ## Setting default variations
 
-When you create a feature flag, some of its variations are designated as *default* variations. You can accept the defaults or change them. When you do this and click **Save Flag**, the flag is created across all environments in your project with these variations set as its `on` and `off` values. 
+When you create a feature flag, some of its variations are designated as *default* variations. You can accept the defaults or change them. When you do this and click **Save Flag**, the flag is created across all environments in your project with these variations set as its `on` and `off` values.
 
 To learn more about default flag variations, read [Changing default flag variations](/home/flags/variations#changing-default-flag-variations).
 
@@ -121,21 +121,21 @@ To learn more about default flag variations, read [Changing default flag variati
 
 ## Cloning flags
 
-You can also create new flags by cloning existing flags. Instead of creating an entirely new flag with complicated configuration, you can clone and modify an existing flag with similar configuration. 
+You can also create new flags by cloning existing flags. Instead of creating an entirely new flag with complicated configuration, you can clone and modify an existing flag with similar configuration.
 
-When you clone a flag, LaunchDarkly makes a new flag and copies the original flag's targeting configuration for all environments, including default variations  and whether the flag is toggled on or off. 
+When you clone a flag, LaunchDarkly makes a new flag and copies the original flag's targeting configuration for all environments, including default variations  and whether the flag is toggled on or off.
 
-To clone a flag: 
+To clone a flag:
 
 1. Navigate to the dashboard.
 2. Find the flag you wish to clone and click its name. The flag detail page opens.
 
-![A flag on the dashboard.](../../images/dashboard-flag.png) 
+![A flag on the dashboard.](../../images/dashboard-flag.png)
 
 3. Click into the flag's **Settings** tab. The flag Settings menu opens.
 4. Click **Clone This Flag**. The "Clone feature flag" screen appears.
 
-![The Clone This Flag button.](../../images/flag-clone.png) 
+![The Clone This Flag button.](../../images/flag-clone.png)
 
 5. Enter a unique, human-readable **Name**.
 6. Enter a unique flag **Key**. You'll use this key to reference the flag in your code. A suggested key auto-populates from the name you enter, but you can customize it if you wish.
@@ -151,11 +151,11 @@ and "DevOps", and then use these tags to determine who has read or write access 
 [Custom roles](/home/team/custom-roles).
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 9. Click **Save Flag.** You are taken to the new flag's details page.
 
-![The flag cloning configuration screen.](../../images/flag-clone-details.png) 
+![The flag cloning configuration screen.](../../images/flag-clone-details.png)
 
 
 The new flag also appears in the dashboard, where you can search for it or access it any time.

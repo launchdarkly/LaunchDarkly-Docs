@@ -2,13 +2,13 @@
 path: '/sdk/server-side/erlang'
 title: 'Erlang SDK reference'
 description: 'This topic explains all of the methods available in the server-side Erlang SDK, with detail about how they work.'
-published: true 
+published: true
 ---
 
 ## Overview
 
 
-This topic explains the basics of the LaunchDarkly Erlang server-side SDK and how it works. 
+This topic explains the basics of the LaunchDarkly Erlang server-side SDK and how it works.
 
 To learn more, visit our [Erlang SDK GitHub repository](https://github.com/launchdarkly/erlang-server-sdk/). The online [API docs](https://hexdocs.pm/launchdarkly_server_sdk/) contain the programmatic definitions of every type and method. Additionally, you can clone and run sample applications using this SDK with [Erlang](https://github.com/launchdarkly/hello-erlang/), [Elixir](https://github.com/launchdarkly/hello-elixir), and the [Phoenix framework](https://github.com/launchdarkly/hello-phoenix).
 
@@ -16,7 +16,7 @@ To learn more, visit our [Erlang SDK GitHub repository](https://github.com/launc
 
 Follow the steps below to get started using the LaunchDarkly SDK in your Erlang application.
 
-First, you'll need to download the dependency using [Rebar](https://www.rebar3.org/). 
+First, you'll need to download the dependency using [Rebar](https://www.rebar3.org/).
 
 <CodeTabs
   defaultValue="erlang"
@@ -190,7 +190,7 @@ All of the other attributes, like `FirstName`, `Email`, and the custom attribute
 In addition to built-in attributes like names and email addresses, you can pass any of your own user data as key-value pairs in the map, like the `CustomKey` in the example above. Custom attributes are one of LaunchDarkly's most powerful features. They let you target users according to any data that you want to send, including organizations, groups, and account plans. Anything you pass to us becomes available instantly on our dashboard.
 
 
-## Anonymous users 
+## Anonymous users
 
 <CodeTabs
   defaultValue="erlang"
@@ -217,11 +217,11 @@ You must still generate a unique key for anonymous users. We recommend using Ses
 
 Anonymous users are similar to regular users, but they have the following limitations:
 
-* they don't appear on your Users dashboard in LaunchDarkly, 
-* they don't appear in search results on your Feature Flags page, and 
+* they don't appear on your Users dashboard in LaunchDarkly,
+* they don't appear in search results on your Feature Flags page, and
 * you can't search or autocomplete by anonymous user keys.
 
-## Private user attributes 
+## Private user attributes
 
 You can configure the Erlang SDK to treat some or all user attributes as private user attributes. You can use private user attributes to target users without sending data associated with that user back to LaunchDarkly.
 
@@ -254,7 +254,7 @@ ldclient:start_instance("YOUR_SDK_KEY", my_instance, #{private_attributes => [em
 
 The `variation` function determines whether a flag is enabled or not for a specific user.
 
-The functions take a flag key, user, default value and an instance tag. The instance tag is optional. The default variation only returns if an error occurs. 
+The functions take a flag key, user, default value and an instance tag. The instance tag is optional. The default variation only returns if an error occurs.
 
 For example, if the feature flag key doesn't exist or the user doesn't have a key specified, the user sees the default variation value.
 
@@ -273,7 +273,7 @@ Flag = ldclient:variation(<<"my-bool-key">>, #{key => <<"aa0ceb">>,}, false, my_
 </CodeTabItem>
 </CodeTabs>
 
-## VariationDetail 
+## VariationDetail
 
 The `variation_detail` function is similar to the variation function, but also returns an explanation of the evaluation that you can inspect programatically.
 
@@ -298,7 +298,7 @@ Flag = ldclient:variation_detail(<<"my-bool-key">>, #{key => <<"aa0ceb">>}, fals
 
 The `all_flags_state` function captures the state of all feature flag keys as evaluated for a specific user. This includes their values and other metadata.
 
-This method is useful when you're passing feature flags to the frontend. Specifically, you can use it to provide bootstrap flag settings for our JavaScript SDK.
+This method is useful when you're passing feature flags to the front end. Specifically, you can use it to provide bootstrap flag settings for our JavaScript SDK.
 
 To learn more, read the [JavaScript SDK reference](/sdk/client-side/javascript).
 
@@ -317,7 +317,7 @@ ldclient:all_flags_state(#{key => <<"aa0ceb">>})
 </CodeTabItem>
 </CodeTabs>
 
-## Track 
+## Track
 
 The `track` function lets you record actions your users take on your site, so you can record events that take place on your server. In LaunchDarkly, you can tie these events to metrics in experiments.
 
@@ -355,7 +355,7 @@ ldclient:track_metric(<<"YOUR-METRIC-KEY">>, #{key => <<"aa0ceb">>}, #{data => <
 </CodeTabItem>
 </CodeTabs>
 
-## Identify 
+## Identify
 
 The `identify` function creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard.
 
@@ -378,7 +378,7 @@ ldclient:identify(#{key => <<"aa0ceb">>})
 
 ## Offline mode
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to your feature flags' default values. 
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to your feature flags' default values.
 
 For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when the software runs on-premise.
 

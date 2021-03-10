@@ -28,16 +28,16 @@ For SceneGraph usage add a `LaunchDarklyTask` node to your scene and then:
 
 ```brightscript
 REM get a reference to to task
-launchDarklyNode = m.top.findNode("my-node-name") 
+launchDarklyNode = m.top.findNode("my-node-name")
 
 REM create configuration
-config = LaunchDarklyConfig("MY_MOBILE_KEY", launchDarklyNode) 
+config = LaunchDarklyConfig("MY_MOBILE_KEY", launchDarklyNode)
 
 REM create a user
-user = LaunchDarklyUser("user-key") 
+user = LaunchDarklyUser("user-key")
 
 REM initialize the client
-LaunchDarklySGInit(config, user) 
+LaunchDarklySGInit(config, user)
 
 ```
 
@@ -56,10 +56,10 @@ For each SceneGraph component you want to use the SDK in you need to initialize 
 
 ```brightscript
 REM create the scenegraph communication wrapper
-launchDarkly = LaunchDarklySG(launchDarklyNode) 
+launchDarkly = LaunchDarklySG(launchDarklyNode)
 
 REM use the client
-value = launchDarkly.boolVariation("MY_FLAG_KEY", false) 
+value = launchDarkly.boolVariation("MY_FLAG_KEY", false)
 
 ```
 
@@ -78,24 +78,24 @@ Creating a client outside of the SceneGraph API is similar. In the legacy API yo
 
 ```brightscript
 REM get a reference to the task
-launchDarklyNode = m.top.findNode("MY_NODE_NAME") 
+launchDarklyNode = m.top.findNode("MY_NODE_NAME")
 
 REM create configuration
-config = LaunchDarklyConfig("MY_MOBILE_KEY", launchDarklyNode) 
+config = LaunchDarklyConfig("MY_MOBILE_KEY", launchDarklyNode)
 
 REM create a user
-user = LaunchDarklyUser("user-key") 
+user = LaunchDarklyUser("user-key")
 
 
 REM create message port
-messagePort = createObject("roMessagePort") 
+messagePort = createObject("roMessagePort")
 
 REM initialize the client
-launchDarkly = LaunchDarkly(config, user, messagePort) 
+launchDarkly = LaunchDarkly(config, user, messagePort)
 
 
 REM use the client
-value = launchDarkly.boolVariation("MY_FLAG_KEY", false) 
+value = launchDarkly.boolVariation("MY_FLAG_KEY", false)
 
 ```
 
@@ -113,10 +113,10 @@ If not using the SceneGraph you need to poll events to drive the client in your 
 <CodeTabItem value="brightscript">
 
 ```brightscript
-while (true) 
+while (true)
 
     REM do not wait forever or timers will break
-    msg = wait(3000, messagePort) 
+    msg = wait(3000, messagePort)
 
 
     if launchDarkly.handleMessage(msg) then
@@ -144,16 +144,16 @@ The `*variation` methods determine which variation of a feature flag a user rece
 
 ```brightscript
 REM typed variations
-myInt = launchDarkly.intVariation("MY_FLAG_KEY", 123) 
+myInt = launchDarkly.intVariation("MY_FLAG_KEY", 123)
 
-myBool = launchDarkly.boolVariation("MY_FLAG_KEY", false) 
+myBool = launchDarkly.boolVariation("MY_FLAG_KEY", false)
 
-myString = launchDarkly.stringVariation("MY_FLAG_KEY", "hello world!") 
+myString = launchDarkly.stringVariation("MY_FLAG_KEY", "hello world!")
 
-myObjectOrArray = launchDarkly.jsonVariation("MY_FLAG_KEY", {"value": 123}) 
+myObjectOrArray = launchDarkly.jsonVariation("MY_FLAG_KEY", {"value": 123})
 
 REM generic variation
-myValue = launchDarkly.variation("MY_FLAG_KEY", false) 
+myValue = launchDarkly.variation("MY_FLAG_KEY", false)
 
 ```
 
@@ -176,7 +176,7 @@ For each variation type there is also an associated version that returns the rea
 <CodeTabItem value="brightscript">
 
 ```brightscript
-details = launchDarkly.intVariationDetail("MY_FLAG_KEY", 123) 
+details = launchDarkly.intVariationDetail("MY_FLAG_KEY", 123)
 
 ```
 
@@ -199,10 +199,10 @@ You can create a client configuration object with:
 
 ```brightscript
 REM for a legacy Roku application
-config = LaunchDarklyConfig("YOUR_MOBILE_KEY") 
+config = LaunchDarklyConfig("YOUR_MOBILE_KEY")
 
 REM for a SceneGraph Roku Application
-config = LaunchDarklyConfig("YOUR_MOBILE_KEY", CLIENT_SCENEGRAPH_NODE) 
+config = LaunchDarklyConfig("YOUR_MOBILE_KEY", CLIENT_SCENEGRAPH_NODE)
 
 ```
 
@@ -220,28 +220,28 @@ We support the following configuration options for both SceneGraph and non Scene
 <CodeTabItem value="brightscript">
 
 ```brightscript
-config.setAppURI(String) 
+config.setAppURI(String)
 
-config.setEventsURI(String) 
+config.setEventsURI(String)
 
-config.setStreamURI(String) 
-
-
-config.setPollingIntervalSeconds(Integer) 
-
-config.setOffline(Boolean) 
+config.setStreamURI(String)
 
 
-config.addPrivateAttribute(String) 
+config.setPollingIntervalSeconds(Integer)
 
-config.setAllAttributesPrivate(Boolean) 
+config.setOffline(Boolean)
 
 
-config.setEventsCapacity(Integer) 
+config.addPrivateAttribute(String)
 
-config.setEventsFlushIntervalSeconds(Integer) 
+config.setAllAttributesPrivate(Boolean)
 
-config.setStreaming(Boolean) 
+
+config.setEventsCapacity(Integer)
+
+config.setEventsFlushIntervalSeconds(Integer)
+
+config.setStreaming(Boolean)
 
 ```
 
@@ -263,7 +263,7 @@ You can configure the SDK log level. For example to set the level to `info`:
 <CodeTabItem value="brightscript">
 
 ```brightscript
-config.setLogLevel(LaunchDarklyLogLevels().info) 
+config.setLogLevel(LaunchDarklyLogLevels().info)
 
 ```
 
@@ -291,7 +291,7 @@ LaunchDarklyLogLevels().none
 </CodeTabItem>
 </CodeTabs>
 
-A custom logging backend can be provided. This will be different depending on if you are using the SceneGraph API or the Legacy API.
+A custom logging back end can be provided. This will be different depending on if you are using the SceneGraph API or the Legacy API.
 
 ### Legacy API Custom Logger
 
@@ -306,14 +306,14 @@ A custom logging backend can be provided. This will be different depending on if
 ```brightscript
 function CustomLogger() as Object
     return {
-        log: function(level as Integer, message as String) 
+        log: function(level as Integer, message as String)
 
             print level message
         end function
     }
 end function
 
-config.setLogger(CustomLogger()) 
+config.setLogger(CustomLogger())
 
 ```
 
@@ -357,24 +357,24 @@ config.setLogger(CustomLogger())
 ```brightscript
 REM /components/CustomLogger.brs
 
-function init() 
+function init()
 
-    m.messagePort = createObject("roMessagePort") 
+    m.messagePort = createObject("roMessagePort")
 
 
-    m.top.observeField("log", m.messagePort) 
+    m.top.observeField("log", m.messagePort)
 
 end function
 
 function mainThread() as Void
-    while (true) 
+    while (true)
 
-        msg = wait(0, m.messagePort) 
+        msg = wait(0, m.messagePort)
 
 
         if type(msg) = "roSGNodeEvent" then
             if field = "log" then
-                value = msg.getData() 
+                value = msg.getData()
 
                 print value.level value.message
             end if
@@ -397,7 +397,7 @@ To use the logger create the SceneGraph logger node and then:
 <CodeTabItem value="brightscript">
 
 ```brightscript
-config.setLoggerNode(myLoggerNode) 
+config.setLoggerNode(myLoggerNode)
 
 ```
 
@@ -417,7 +417,7 @@ You can create a user object with:
 <CodeTabItem value="brightscript">
 
 ```brightscript
-user = LaunchDarklyUser("my-user-key") 
+user = LaunchDarklyUser("my-user-key")
 
 ```
 
@@ -435,17 +435,17 @@ User objects can be customized with:
 <CodeTabItem value="brightscript">
 
 ```brightscript
-user.setFirstName(String) 
+user.setFirstName(String)
 
-user.setLastName(String) 
+user.setLastName(String)
 
-user.setEmail(String) 
+user.setEmail(String)
 
-user.setName(String) 
+user.setName(String)
 
-user.setAvatar(String) 
+user.setAvatar(String)
 
-user.setCustom(AssociativeArray) 
+user.setCustom(AssociativeArray)
 
 ```
 
@@ -463,7 +463,7 @@ A user can be marked as [anonymous](/home/users/anonymous-users) with:
 <CodeTabItem value="brightscript">
 
 ```brightscript
-user.setAnonymous(Boolean) 
+user.setAnonymous(Boolean)
 
 ```
 
@@ -481,7 +481,7 @@ Users can have specific fields marked as private with:
 <CodeTabItem value="brightscript">
 
 ```brightscript
-user.addPrivateAttribute(String) 
+user.addPrivateAttribute(String)
 
 ```
 
@@ -502,13 +502,13 @@ The track method allows you to record custom events in your application with Lau
 
 ```brightscript
 REM without optional data
-launchDarkly.track("YOUR_EVENT_KEY") 
+launchDarkly.track("YOUR_EVENT_KEY")
 
 REM with optional data
-launchDarkly.track("YOUR_EVENT_KEY", {"customField": 123}) 
+launchDarkly.track("YOUR_EVENT_KEY", {"customField": 123})
 
 REM with optional numeric metric
-launchDarkly.track("YOUR_EVENT_KEY", invalid, 52.3) 
+launchDarkly.track("YOUR_EVENT_KEY", invalid, 52.3)
 
 ```
 
@@ -528,7 +528,7 @@ Internally, the LaunchDarkly SDK keeps an event buffer for analytics events. The
 <CodeTabItem value="brightscript">
 
 ```brightscript
-launchDarkly.flush() 
+launchDarkly.flush()
 
 ```
 
@@ -548,9 +548,9 @@ If your app is used by multiple users on a single device, you may want to change
 <CodeTabItem value="brightscript">
 
 ```brightscript
-user = LaunchDarklyUser("abc") 
+user = LaunchDarklyUser("abc")
 
-launchDarkly.identify(user) 
+launchDarkly.identify(user)
 
 ```
 
@@ -572,7 +572,7 @@ You can get an associative array of `flagKey` -> `flagValue` for all flags from 
 <CodeTabItem value="brightscript">
 
 ```brightscript
-allFlags = launchDarkly.allFlags() 
+allFlags = launchDarkly.allFlags()
 
 ```
 

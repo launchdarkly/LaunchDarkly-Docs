@@ -172,7 +172,7 @@ var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
 Out of the box, initializing the client will make a remote request to LaunchDarkly, so it may take 100 milliseconds
 or more before the ready event is emitted. If you require feature flag values before rendering the page,
 we recommend bootstrapping the client. To learn more, read [Bootstrapping](#bootstrapping). If the client is bootstrapped, it will emit the ready event immediately.
-  
+
 </CalloutDescription>
 </Callout>
 
@@ -220,7 +220,7 @@ connection to LaunchDarkly. This is the only way to receive realtime updates.
 <CalloutDescription>
 
 
-Feature flags must be marked available to the client-side SDK (see your feature flag's settings page) 
+Feature flags must be marked available to the client-side SDK. Configure this option on your feature flag's Settings page.
 
 before they can be used in `variation` calls on the front-end. If you request a feature flag that is not available,
 you'll receive the default value for that flag. If you always want flags marked as available to the client-side
@@ -608,7 +608,7 @@ The map will contain null values for any flags that would return the fallback va
 
 Bootstrapping refers to providing the LaunchDarkly client object with an initial, immediately available set of feature flag values so that on page load `variation` can be called with no delay.
 
-The preferred approach to bootstrapping is to populate the bootstrap values (a map of flag keys to flag values) from your back-end using one of LaunchDarkly's server-side SDKs. All of the server-side SDKs have a function to evaluate flags on behalf of a specified user. It is named along the lines of "allFlagsState" -- although, the exact name varies depending on the back-end technology's conventions (for example, camel-case versus snake-case). This function can provide the initial set of bootstrap values to your front-end.
+The preferred approach to bootstrapping is to populate the bootstrap values (a map of flag keys to flag values) from your back end using one of LaunchDarkly's server-side SDKs. All of the server-side SDKs have a function to evaluate flags on behalf of a specified user. It is named along the lines of "allFlagsState" -- although, the exact name varies depending on the back-end technology's conventions (for example, camel-case versus snake-case). This function can provide the initial set of bootstrap values to your front-end.
 
 Below are two examples of how to bootstrap flags into the JavaScript client.
 
@@ -622,9 +622,9 @@ Below are two examples of how to bootstrap flags into the JavaScript client.
 <CodeTabItem value="param">
 
 ```js
-// If your back-end passes values to your front-end on pageload,
-// you can call your server-side SDK's allFlagsState function 
-// on pageload and pass the results as a parameter to your 
+// If your back end passes values to your front end on pageload,
+// you can call your server-side SDK's allFlagsState function
+// on pageload and pass the results as a parameter to your
 // front-end initialization code.
 function onPageLoad(flags) {
   ...
@@ -645,9 +645,9 @@ function onPageLoad(flags) {
 <CodeTabItem value="ruby">
 
 ```js
-// If your back-end can be invoked dynamically, such as in Ruby 
-// with a template directory, you can inline the function 
-// invocation. Note that we are requesting only the client-side 
+// If your back end can be invoked dynamically, such as in Ruby
+// with a template directory, you can inline the function
+// invocation. Note that we are requesting only the client-side
 // flags to be returned.
 var ldclient = LDClient.initialize(
   'YOUR_CLIENT_SIDE_ID',
@@ -655,7 +655,7 @@ var ldclient = LDClient.initialize(
   options = {
     // Load values from a Ruby template directive
     bootstrap: {{
-      ldclient.all_flags_state(user, {client_side_only: true}) 
+      ldclient.all_flags_state(user, {client_side_only: true})
     }}
   }
 );
@@ -802,7 +802,7 @@ You can record custom events using the `track` function. In LaunchDarkly, you ca
 
 To learn more, read [Experimentation](/home/experimentation).
 
-Call track with the event name to record custom conversion metrics. 
+Call track with the event name to record custom conversion metrics.
 
 The second argument is optional. It assists with observational analytics for Data Export destinations. With Data Export, the second argument gives additional context without saving the data to the LaunchDarkly user.
 
