@@ -78,9 +78,9 @@ This section explains <code>alias</code> events, which are an optional feature i
 
 In some cases, one person can be represented by multiple users in LaunchDarkly. If LaunchDarkly registers a person as an anonymous user, and that person later logs in to the application, LaunchDarkly will register them again as a logged-in user. This one person is now represented by two unique user keys. 
 
-You can associate these two user keys by configuring your SDK to send `alias` events. Alias events connect two user keys and register them as one event-sending entity. 
+You can associate these two user keys by configuring your SDK to send `alias` events. `Alias` events connect two user keys and register them as one event-sending entity. 
 
-If you use Data Export or Experimentation, `alias` events are useful because they make the data represented in destinations and experiment results easier to understand. Instead of seeing multiple users that represent the same person, you see an `alias` event that aggregates the user objects representing that person as one event.
+If you use Data Export or Experimentation, `alias` events are useful because they make the data represented in destinations and experiment results easier to understand. `Alias` events enable data export destinations to correlate the two user keys referring to the same underlying user. They also enable experiments to recognize when impressions and conversions occurred for a user, even if the user key changed between the two events.
 
 To learn more about configuring your SDK to send `alias` events, read [your SDK's documentation](/sdk/).
 
