@@ -6,7 +6,7 @@ published: true
 ---
 
 <Callout intent="alert">
-  <CalloutTitle>SDK Version Compatibility</CalloutTitle>
+  <CalloutTitle>SDK version compatibility</CalloutTitle>
 <CalloutDescription>
 
 The latest version of the SDK is compatible with Xcode 11.4 and React Native 0.63. For compatibility with earlier React Native versions, please refer to older SDK versions.
@@ -21,7 +21,7 @@ To learn more about the specific configuration options that are available in thi
 ## Getting Started
 
 <Callout intent="warning">
-  <CalloutTitle>Expo Usage</CalloutTitle>
+  <CalloutTitle>Expo usage</CalloutTitle>
 <CalloutDescription>
 
 The LaunchDarkly React Native Client SDK does not work with Expo because the SDK uses native modules. Please consider using [ExpoKit](https://docs.expo.io/expokit/expokit/).
@@ -168,7 +168,7 @@ client.close();
 </CodeTabs>
 
 <Callout intent="info">
-  <CalloutTitle>Mobile Keys</CalloutTitle>
+  <CalloutTitle>Mobile keys</CalloutTitle>
 <CalloutDescription>
 
 Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page.
@@ -191,9 +191,9 @@ You can also pass custom parameters to the client by creating a custom configura
 <CodeTabItem value="js">
 
 ```js
-let clientConfig = 
+let clientConfig =
   { "mobileKey": "YOUR_MOBILE_KEY",
-    "connectionTimeoutMillis": 3000 
+    "connectionTimeoutMillis": 3000
   };
 await client.configure(clientConfig, userConfig);
 ```
@@ -264,12 +264,19 @@ Variation calls take the feature flag key and a fallback value.
 
 The fallback value will only be returned if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
 
-The variation call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at `identify`).
+The variation call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of their initial use, but if you choose to do so, you can use the `identify` method to do so.
 
 <Callout intent="info">
   <CalloutTitle>Handling flag values on initial application launch</CalloutTitle>
  <CalloutDescription>
-When LDClient is initialized for the first time at app launch, users will receive feature flag fallback values until an initial connection to LaunchDarkly is completed for the first time. Take a look at the section above on various ways to initialize the client.</CalloutDescription>
+When LDClient is initialized for the first time at app launch, users receive feature flag fallback values until an initial connection to LaunchDarkly is completed for the first time. Read the section above for various ways to initialize the client.</CalloutDescription>
+</Callout>
+
+<Callout intent="alert">
+  <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
+  <CalloutDescription>
+You must make feature flags available to client-side SDKs before the flags can be evaluated. If you evaluate a feature flag that is not available, you will receive the default value for that flag. If you want a project's flags to be made available to this SDK by default, check the **SDKs using Mobile Key** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+  </CalloutDescription>
 </Callout>
 
 ## VariationDetail
@@ -286,7 +293,7 @@ For more information, see [Evaluation reasons](/sdk/concepts/evaluation-reasons)
 ## All Flags
 
 <Callout intent="alert">
-  <CalloutTitle>Creating Users</CalloutTitle>
+  <CalloutTitle>Creating users</CalloutTitle>
 <CalloutDescription>
 
 Unlike `variation` and `identify` calls, `allFlags` does not send events to LaunchDarkly. When you use `allFlags`, users are not created or updated in the LaunchDarkly dashboard.
@@ -367,7 +374,7 @@ let onlineResult = client.setOnline(); //true or false
 </CodeTabs>
 
 <Callout intent="info">
-  <CalloutTitle>Lack of Network Connectivity</CalloutTitle>
+  <CalloutTitle>Lack of network connectivity</CalloutTitle>
 <CalloutDescription>
 
 If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory. If there are no previously stored flag settings, then the fallback values will be used.

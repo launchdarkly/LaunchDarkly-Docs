@@ -74,7 +74,7 @@ yarn add launchdarkly-react-client-sdk
 
 After you install the dependency, initialize the React SDK. To do this, you need your environment's client-side ID, which is available in [LaunchDarkly's **Account Settings** page](https://app.launchdarkly.com/settings#/projects). Client-side IDs are not secret. You can expose them in your client-side code with no risk.
 
-You can initialize the React SDK in two ways. The first is using the `asyncWithLDProvider` function. The second is using the `withLDProvider` function. 
+You can initialize the React SDK in two ways. The first is using the `asyncWithLDProvider` function. The second is using the `withLDProvider` function.
 
 Both rely on React's `Context` API to make it easy for you to access your flags from any level of your component hierarchy. Both functions accept a [`ProviderConfig`](/sdk/client-side/react#configuring-the-react-sdk) object used to configure the React SDK. For more information about these functions, continue reading.
 
@@ -350,6 +350,13 @@ export default withLDProvider({
 </CodeTabs>
 
 With this configuration option in place, you would now access your `dev-flag-test` flag using bracket notation. For example, `flag['dev-flag-test']`.
+
+<Callout intent="alert">
+  <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
+  <CalloutDescription>
+You must make feature flags available to client-side SDKs before the flags can be evaluated. If you evaluate a feature flag that is not available, you will receive the default value for that flag. If you want a project's flags to be made available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+  </CalloutDescription>
+</Callout>
 
 ## Example app
 
