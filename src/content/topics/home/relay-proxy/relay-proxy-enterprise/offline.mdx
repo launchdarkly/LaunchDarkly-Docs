@@ -22,9 +22,16 @@ Relay Proxy automatic configuration is available to customers on an Enterprise p
 
 Enabling offline mode on the Relay Proxy lets you run the Relay Proxy without ever connecting it to LaunchDarkly. Instead of retreiving flag and segment values from LaunchDarkly's servers, the Relay Proxy gets them from files located on your local host or filesystem.
 
-This allows you to run the Relay Proxy in a highly secure system, such as a FedRAMP-compliant system, because the Relay Proxy does not ever send or receive data from anywhere other than the local filesystem.
+This allows you to run the Relay Proxy in a highly secure system, such as a FedRAMP-compliant system. By using offline mode, you can secure the Relay Proxy away from any external touchpoints.
 
-By using offline mode, you can secure the Relay Proxy away from any external touchpoints.
+<Callout intent="alert">
+<CalloutTitle>Offline mode does not send events to LaunchDarkly</CalloutTitle>
+<CalloutDescription>
+
+When the Relay Proxy is in offline mode, it does not send events to LaunchDarkly, and event-driven app features do not indicate new activity. For example, flag statuses and insights do not update to reflect evaluations from an offline Relay Proxy.
+
+</CalloutDescription>
+</Callout>
 
 ## Enabling offline mode
 
