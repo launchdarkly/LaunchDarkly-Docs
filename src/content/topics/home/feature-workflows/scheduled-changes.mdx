@@ -5,11 +5,11 @@ description: 'This topic explains how to schedule flag changes to take effect at
 published: true
 ---
 
-<Callout intent="info">
+<Callout intent="primary">
 <CalloutTitle>Scheduled flag changes is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-This feature is only available to customers on Enterprise plans. To learn more about our plans, [read about our pricing](https://launchdarkly.com/pricing). To upgrade your account to an Enterprise plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+Scheduled flag changes is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
@@ -26,7 +26,7 @@ For example, you may want to schedule the feature to turn on for internal testin
 <CalloutTitle>You can configure scheduled flag change permissions with custom roles</CalloutTitle>
 <CalloutDescription>
 
-You can create a custom role policy to allow or deny it to make scheduled flag changes. 
+You can create a custom role policy to allow or deny it to make scheduled flag changes.
 
 To learn more about custom roles actions for this feature, read [Using actions](/home/team/role-actions).
 
@@ -38,7 +38,7 @@ To learn more about custom roles actions for this feature, read [Using actions](
 1. **Timing an early launch**: LaunchDarkly users no longer need to set reminders or wake up early to turn a flag ON. Scheduling your flag to turn on on a specified date/time allows you to plan your release and let LaunchDarkly do the rest.
 2. **Progressive feature rollouts**: Using this functionality, you can schedule your flag to roll out to 20% of your user base tomorrow, 35% the day after, 50% the day after that, and increase that percentage until it reaches 100%. This only requires creating a set of scheduled changes to your flag once and lets you slowly release features and ensure they’re performing the way you hoped they would.
 3. **Temporary user access**: You can now schedule rules that target certain users and segments to be added to or removed from your flag’s targeting to better manage user access.
-4. **Flag hygiene**: You can schedule your flag’s targeting rules to clean up once your flag has been rolled out to 100% of your users, to practice better flag hygiene and more easily understand the flag's configuration. 
+4. **Flag hygiene**: You can schedule your flag’s targeting rules to clean up once your flag has been rolled out to 100% of your users, to practice better flag hygiene and more easily understand the flag's configuration.
 
 <Callout intent="info">
 <CalloutTitle>Feature Workflows are available in the LaunchDarkly API</CalloutTitle>
@@ -63,18 +63,18 @@ To schedule a set of flag changes:
 
 ![The change scheduling calendar.](../../images/workflows-calendar.png)
 
-5. Set a date and time for when you want the changes to execute. 
+5. Set a date and time for when you want the changes to execute.
 6. Click **Apply**.
 7. Review and confirm the changes displayed in the modal. If you need to make changes, click **Edit**, change what you need, and then click **Done**.
 
 ![A GIF of the flag scheduling workflow.](../../images/workflows-change-create.gif)
 
 8. Enter a comment and the environment name.
-9. Click **Schedule Changes**. Your changes have now been scheduled. 
+9. Click **Schedule Changes**. Your changes have now been scheduled.
 
 You can schedule multiple changes for a single flag for different dates and times.
 
-For example, you can implement a progressive rollout strategy by scheduling multiple sequential changes to targeting rules. 
+For example, you can implement a progressive rollout strategy by scheduling multiple sequential changes to targeting rules.
 
 ![A flag with multiple changes scheduled.](../../images/workflows-upcoming-changes.png)
 
@@ -96,12 +96,12 @@ To view all the scheduled changes for a flag:
 To update a scheduled flag change:
 
 1. Follow the steps in [Viewing scheduled flag changes](#viewing-scheduled-flag-changes) to open the list of pending scheduled changes for the flag.
-2. Find the scheduled change you wish to update. 
+2. Find the scheduled change you wish to update.
 3. Click on the menu in the upper right and choose **Edit**.
 
 ![A GIF of the change editing worklow.](../../images/workflows-edit-changes.gif)
 
-4. A modal appears with the list of scheduled flag changes. 
+4. A modal appears with the list of scheduled flag changes.
 5. You can change the schedule by changing the date or time for these changes. Alternatively, you can click **Edit** to make updates and click **Done** when complete.
 6. Type in a comment and the environment name.
 7. Hit **Update Change** to save your updates to the scheduled change.
@@ -117,7 +117,7 @@ To delete a scheduled flag change:
 
 ## Managing conflicts with scheduled changes
 
-It’s possible that as you schedule a change to about flag, another user introduces a breaking change, or a conflict. 
+It’s possible that as you schedule a change to about flag, another user introduces a breaking change, or a conflict.
 
 Conflicts occur for two reasons:
 * Another user updated the flag’s targeting that invalidates one or more of your scheduled changes
@@ -127,9 +127,9 @@ LaunchDarkly warns users in the UI when they save or schedule changes to the fla
 
 ![A notification showing a conflicting scheduled change.](../../images/workflows-conflict.png)
 
-Despite this warning, a user could decide to save their conflicting changes anyway. 
+Despite this warning, a user could decide to save their conflicting changes anyway.
 
-If this happens, LaunchDarkly sends an email notification to the user whose changes now conflict. That user's changes will not take effect at the time and date they scheduled. 
+If this happens, LaunchDarkly sends an email notification to the user whose changes now conflict. That user's changes will not take effect at the time and date they scheduled.
 
 ### Resolving conflicts in scheduled changes
 
@@ -140,7 +140,7 @@ If your scheduled changes conflict with other changes, you receive an email noti
 You can resolve the conflict and ensure your scheduled changes don’t fail in one of two ways.
 
 1. **Choose one of the two conflicting changes and delete the other.** For example, you may have scheduled 3 targeting rules to be updated and someone deletes 1 of those rules, which causes a conflict. If this happens, you can update your scheduled changes to delete the scheduled changes to that rule. This ensures that the conflict is resolved and the remaining rules are updating successfully.
-2. **Update the conflicting changes so they no longer conflict.** You can update your changes or the new scheduled changes to resolve the conflict and ensure both scheduled changes execute successfully.  
+2. **Update the conflicting changes so they no longer conflict.** You can update your changes or the new scheduled changes to resolve the conflict and ensure both scheduled changes execute successfully.
 
 ## Scheduling changes that match current flags
 

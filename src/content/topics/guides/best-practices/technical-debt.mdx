@@ -9,18 +9,18 @@ published: true
 
 This guide provides ways to reduce and eliminate technical debt
 related to feature flags using LaunchDarkly. Like all debt, technical debt
-accumulates over time, but you can mitigate that debt over time if you put effective processes in place before you need them. 
+accumulates over time, but you can mitigate that debt over time if you put effective processes in place before you need them.
 
 In this guide, we'll explore:
 
-- The challenge of technical debt 
-- The lifecycle of a flag 
-- Naming conventions 
+- The challenge of technical debt
+- The lifecycle of a flag
+- Naming conventions
 - Using tags
 - Code references
-- Archiving and deleting flags 
+- Archiving and deleting flags
 
-Just like feature flags should be a core engineering practice, so should a strategy to address technical debt. 
+Just like feature flags should be a core engineering practice, so should a strategy to address technical debt.
 
 ## Prerequisites
 
@@ -33,11 +33,11 @@ To complete this guide, you must have the following prerequisites:
 
 You should understand these concepts before you read this guide:
 
-### Technical debt 
+### Technical debt
 
 Technical debt is a concept in software development that describes the implied cost of rework required in the future because of short-term, limited solutions. It is often caused by choosing a fast, limited solution now instead of using a better approach that would take longer. A common reason for this is that necessary work must be delayed to meet a deliverable or a deadline.
 
-As this debt accumulates, it is harder to maintain the system and code, which can impact the speed of development and efficiency of your codebase in the future. 
+As this debt accumulates, it is harder to maintain the system and code, which can impact the speed of development and efficiency of your codebase in the future.
 
 One way technical debt can accumulate is when you fail to maintain your feature flags.
 
@@ -45,14 +45,14 @@ One way technical debt can accumulate is when you fail to maintain your feature 
 
 The software delivery lifecycle (SDLC) is a process followed for a software
 project. The process describes how to develop, maintain, and modify software.
-The stages of the software delivery cycle are: 
+The stages of the software delivery cycle are:
 
 - Planning
 - Analysis
 - Design
 - Implementation
 - Testing and integration
-- Maintenance 
+- Maintenance
 
 ### Permanent and temporary flags
 
@@ -64,30 +64,30 @@ interoperability testing.
 Permanent flags provide control for an extended time after the release of a
 feature. They will potentially exist for the life of a feature.  Permanent flags
 include flags for entitlements, load shedding, custom-branding, or
-accessibility. 
+accessibility.
 
 ## Challenges of technical debt
 
-Every feature should have a flag, but if you don't regularly archive flags, 
-you can accumulate a lot of debt. 
+Every feature should have a flag, but if you don't regularly archive flags,
+you can accumulate a lot of debt.
 
 Cluttered code is harder to maintain and test. Unnecessary code remains
 because nobody remembers why it existed, and there is a fear that things will
-break if it is removed. Failure to remove flags leads to cluttered code. 
+break if it is removed. Failure to remove flags leads to cluttered code.
 
 Not only do you want to remove the references to the flag in your code, but you
-also don’t want to send evaluation settings for flags you don’t need. When you use 
+also don’t want to send evaluation settings for flags you don’t need. When you use
 features like Data Export to track the impact of your rollouts, your database
 may be overwhelmed with unnecessary event data. You don't want to transfer and
-store data on flags that should have been archived six months ago. 
- 
+store data on flags that should have been archived six months ago.
+
 Failure to remove flags clutters your LaunchDarkly dashboard, as well as your
 code. You can’t quickly find the flag you need to toggle. This may seem like a
 minor inconvenience, but if you need to quickly toggle a flag off, having to
 scroll through hundreds of flags adds time. But cluttered code and dashboards
-aren’t the only challenges. 
+aren’t the only challenges.
 
-You also run the risk of an old flag evaluating to a state that is invalid or 
+You also run the risk of an old flag evaluating to a state that is invalid or
 undesirable.  When you’re rolling out a new change such as an updated
 UI, it is common to keep the default version to the current UI  until you have
 confidence in the new one. Once 100% of users have the new UI, the flag has
@@ -95,68 +95,68 @@ reached the end of its lifecycle and should be archived. Failure to do this runs
 the risk of falling back to the undesired old UI if a flag gets turned off or an
 SDK failure results in using the fallback value.  Speaking of fallback
 values, test the fallback values of permanent flags periodically, to ensure they
-are up to date and delivering valid states. 
+are up to date and delivering valid states.
 
 ## Understanding the flag's lifecycle
 
 The LaunchDarkly dashboard provides the status of every flag and when it was
-last evaluated. Statuses include: 
+last evaluated. Statuses include:
 
-- **New/Never Requested**: This flag has not yet been evaluated. This status most commonly appears for newly created flags. 
-- **Active**: LaunchDarkly is currently receiving requests for the flag using your production SDK. 
+- **New/Never Requested**: This flag has not yet been evaluated. This status most commonly appears for newly created flags.
+- **Active**: LaunchDarkly is currently receiving requests for the flag using your production SDK.
 - **Launched**: All users have been receiving one variation of the flag for seven days or more.
-- **Inactive**: The flag has not been requested for seven days or more. 
+- **Inactive**: The flag has not been requested for seven days or more.
 
 To learn more about flag statuses, read [The dashboard](/home/organize/dashboard).
 
-Do not archive flags solely because of their status. For example, consider this flag: 
+Do not archive flags solely because of their status. For example, consider this flag:
 
 ![A one-year-old-flag with status of 'never requested'](../../../tech-debt-never-requested.png)
 
 This flag’s status is **“Never requested,”** but it was added over a year ago. Maybe
 it was created on accident, maybe the feature never shipped, perhaps it shipped
-with a different flag. Whatever the reason, no one is using the flag. You can archive it. 
+with a different flag. Whatever the reason, no one is using the flag. You can archive it.
 
-If you don't archive flags that no one is using, they can become a form of technical debt. 
+If you don't archive flags that no one is using, they can become a form of technical debt.
 
-## Eliminating flag debt 
+## Eliminating flag debt
 
 Here are some processes you can follow to reduce or eliminate flag debt in your organization:
 
-### Creating organization-wide naming conventions 
+### Creating organization-wide naming conventions
 
-A shared naming convention for your organization's flags is an effective way to eliminate debt. Flags should have understandable, intuitive names. 
+A shared naming convention for your organization's flags is an effective way to eliminate debt. Flags should have understandable, intuitive names.
 
 For example, when the developer that created flag `FF123_dont_delete_this_72` leaves the company, the person who takes over their work cannot necessarily tell what that flag is supposed to do. The name of that flag is too obscure to easily determine if the flag is important or not, and taking time to find the flag references in the codebase, determine the results of its variations, and calculate the impact of archiving the flag all seem less urgent than other work.
 
 If flags do not have human-readable names, they can become technical debt.
 
-### Writing useful descriptions 
+### Writing useful descriptions
 
 Use descriptions to add more context to the flag. Unlike flag names, you can update descriptions. They can include detailed
 information, such as the date the flag was last reviewed, the purpose of the
-flag, and more. 
+flag, and more.
 
 Descriptions are fast ways to help other team members learn what a flag does and what its impact is.
 
-### Archiving and deleting flags 
+### Archiving and deleting flags
 
 LaunchDarkly provides the option to archive or delete a flag. The LaunchDarkly SDKs consider archived flags “gone.” When you archive a flag as opposed to deleting it, the flag's history remains in your LaunchDarkly project. If you delete it, all references to the flag, including the history, are deleted from LaunchDarkly.
- 
+
 Our flag archive workflow lets you confidently remove flags and help you reduce
 technical debt. When you select a flag to archive, the panel walks you through
-the archiving process. 
+the archiving process.
 
 To learn more, read [Archiving and deleting flags](home/managing-flags/flag-archive-delete).
 
 If you do decide after archiving a flag to delete it, you may choose to restrict
 who can delete flags via custom roles.
 
-<Callout intent="info">
-  <CalloutTitle>Custom roles is an enterprise feature</CalloutTitle>
+<Callout intent="primary">
+  <CalloutTitle>Custom roles is an Enterprise feature</CalloutTitle>
   <CalloutDescription>
 
-Configuring custom roles requires an enterprise plan. To learn more about upgrading your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+Custom roles are available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
   </CalloutDescription>
 </Callout>
@@ -165,18 +165,18 @@ Configuring custom roles requires an enterprise plan. To learn more about upgrad
 
 Schedule regular review cycles on a monthly or quarterly basis to
 identify flags to archive.
- 
-During a review cycle, search for flags with **Launched** and **Inactive** statuses. 
+
+During a review cycle, search for flags with **Launched** and **Inactive** statuses.
 Both of these status types indicate flags that may be candidates for removal.
- 
-You may also want to filter for flags `maintained by me` to reduce the results to flags you own. 
+
+You may also want to filter for flags `maintained by me` to reduce the results to flags you own.
 
 !['Flags maintained by me'](../../../maintained-by-me.png)
- 
+
 For temporary flags, filter your flags by status:
 
 1. Navigate to the feature flags dashboard and click **Filter**.
-2. Choose **Status** from the “Add a filter to refine your search” dropdown. 
+2. Choose **Status** from the “Add a filter to refine your search” dropdown.
 
 !['Filter by status'](../../../filter-by-status.png)
 
@@ -199,18 +199,18 @@ When you create or edit a flag, you can indicate whether or not the flag is perm
 
 You can also filter flags based on whether they are temporary or permanent. This can help you find flags to archive.
 
-When you conduct a flag review, confirm the **This is a permanent flag** checkbox is selected for every permanent flag. 
+When you conduct a flag review, confirm the **This is a permanent flag** checkbox is selected for every permanent flag.
 
 To learn more, read [Flag settings](/home/flags/settings).
 
-### Using effective tagging conventions 
+### Using effective tagging conventions
 
 Tags are strings you can attach to any flag within LaunchDarkly. They help you
 group resources together.
 
 You can control the spread of technical debt with tags by including a tag with a
 sprint designation or deploy date.  When you conduct your regularly scheduled
-reviews, you can search for specific sprints or deploy dates. 
+reviews, you can search for specific sprints or deploy dates.
 
 <Callout intent="info">
   <CalloutTitle>Note</CalloutTitle>
@@ -221,14 +221,14 @@ Tags are case sensitive searching for Permanent and permanent will yield differe
   </CalloutDescription>
 </Callout>
 
-### Including flags in your workflow's definition of "done" 
+### Including flags in your workflow's definition of "done"
 
 Each company and even each team within an organization may have their own
 standards for what constitutes "done" on  a task or project. Done indicates the
 project can be removed from the list of current tasks. For example, a team may
 consider the code for a task to be incomplete until it has automated tests.
 
-Done means different things for different teams, a feature may be done when it rolls out to 100% of users, or when it roles out to a specific set of users. Your definition of done should include archiving temporary flags. A feature is done when the flag is archived. 
+Done means different things for different teams, a feature may be done when it rolls out to 100% of users, or when it roles out to a specific set of users. Your definition of done should include archiving temporary flags. A feature is done when the flag is archived.
 
 If the flag you use for a release will convert to a permanent flag, the definition of done should be when the setting on the flag changes to indicate it is permanent. You can make archiving flags part of each sprint or project end. Using this method, you do the work to archive or delete the flag when the context is fresh.
 
@@ -236,14 +236,14 @@ To learn more about integrating flag archiving behavior into your feature develo
 
 ### Using code references to find and remove references to flags
 
-Archiving a flag removes it from the flag dashboard and your app's users no longer encounter it. 
+Archiving a flag removes it from the flag dashboard and your app's users no longer encounter it.
 
 Before you do this, you need to remove the flag from your
 codebase. Code references let you quickly find where in your source code feature
 flags are referenced. This simplifies the process of finding code to remove in
 projects and files.
 
-To access code references: 
+To access code references:
 1. Navigate to the flag dashboard and find the flag you wish to remove.
 2. Click the flag's name to open the flag dashboard.
 3. Click into the "Code references" tab.
@@ -252,12 +252,12 @@ To access code references:
 
 To learn more, read [Code references](/home/code/code-references).
 
-## Conclusion 
+## Conclusion
 
-In this guide, you learned about: 
-- Challenges of technical debt 
+In this guide, you learned about:
+- Challenges of technical debt
 - The flag lifecycle
-- Processes and features within LaunchDarkly to help control flag debt 
+- Processes and features within LaunchDarkly to help control flag debt
 
 
 <Callout intent="primary">
@@ -270,4 +270,3 @@ Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 
   </CalloutDescription>
 </Callout>
-

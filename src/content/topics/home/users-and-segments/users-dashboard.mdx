@@ -13,39 +13,39 @@ The Users dashboard gives you a summary view of how each user sees all of the fe
 
 ## Understanding the Users dashboard
 
-The Users dashboard populates automatically when users encounter a feature flag and are evaluated by a LaunchDarkly SDK. The data on the User dashboard is populated from the user data you send in `variation` calls, as well as data from `identify` calls. 
+The Users dashboard populates automatically when users encounter a feature flag and are evaluated by a LaunchDarkly SDK. The data on the User dashboard is populated from the user data you send in `variation` calls, as well as data from `identify` calls.
 
 <Callout intent="alert">
   <CalloutTitle>You cannot add users manually</CalloutTitle>
   <CalloutDescription>
- 
+
 You cannot create users in the Users dashboard. The Users dashboard is not a database, and exists to serve users that have already been evaluated by a LaunchDarkly SDK. Evaluation always happens with the SDK locally on the machine.
 
 </CalloutDescription>
-</Callout> 
+</Callout>
 
 From the Users dashboard, you can filter users by name, key, or e-mail address.
 
-![The Users dashboard.](../../images/users.png) 
+![The Users dashboard.](../../images/users.png)
 
 Users live in the dashboard for 30 days from creation. If a user does not evaluate a feature flag within 30 days, they age out of the system and their information no longer appears in the Users dashboard. Those users can reappear on the dashboard when they evaluate a feature flag, provided your account has not reached the maximum number of users.
 
-All accounts are limited to 100,000,000 users. If you hit the 100,000,000 users cap, new users won't appear in the Users dashboard until stale users age out of the 30-day user cache. Users that evaluate a feature flag w/in 30 days of initial population don't age out of the system. If you stop creating a bunch of users at once, 30 days later those stale users are gone. 
+All accounts are limited to 100,000,000 users. If you hit the 100,000,000 users cap, new users won't appear in the Users dashboard until stale users age out of the 30-day user cache. Users that evaluate a feature flag w/in 30 days of initial population don't age out of the system. If you stop creating a bunch of users at once, 30 days later those stale users are gone.
 
 To learn more about how the Users dashboard is populated, and how you might exceed the 100,000,000 user limit, read [Anonymous users](/home/users/anonymous-users).
 
 <Callout intent="info">
   <CalloutTitle>Do you need more users?</CalloutTitle>
   <CalloutDescription>
- 
+
 You can add more users to your LaunchDarkly account if you need to. Your bill will not go up if you add more users to your LaunchDarkly account.<br/><br/>
 
 To add more users, contact [Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 
 </CalloutDescription>
-</Callout> 
+</Callout>
 
-## Modifying feature flags for a user 
+## Modifying feature flags for a user
 
 Click a user to manage the feature flags that apply to them and see a full list of their attributes.
 
@@ -54,24 +54,24 @@ To modify a feature flag the user sees:
 1. Navigate to the **Users** dashboard.
 2. Click the user you wish to modify. Their user page appears, with their unique **Attributes** on the left and their **Flag settings** on the right.
 
-![A user's Flag Settings card on the Users dashboard.](../../images/users-targeting-is-one-of.png) 
+![A user's Flag Settings card on the Users dashboard.](../../images/users-targeting-is-one-of.png)
 
 3. Click the dropdown next to the flag you wish to modify to change which variation the user receives.
 4. To remove the custom variation setting, click the **X** next to the flag.
 5. Click **Save Settings** to save your changes.
 
-![The Flag settings screen with different flag variations called out.](../../images/users-details-targeting-callout.png) 
+![The Flag settings screen with different flag variations called out.](../../images/users-details-targeting-callout.png)
 
 ## Scheduling removal dates for user targeting
 
-<Callout intent="info">
-  <CalloutTitle>This feature requires an Enterprise or Pro plan</CalloutTitle>
+<Callout intent="primary">
+  <CalloutTitle>Scheduling user removal dates is a Pro and Enterprise feature</CalloutTitle>
   <CalloutDescription>
 
-Scheduling removal dates are only available to customers on our Enterprise or Pro plans. To learn more about upgrading your plan, [contact Support](http://support.launchdarkly.com) or your LaunchDarkly account representative.
+Scheduling user removal dates is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-  </CalloutDescription>
-</Callout> 
+   </CalloutDescription>
+</Callout>
 
 You can also specify a date and time when a user should be removed from a flag's targeting settings. When this date and time arrives, LaunchDarkly removes the user from the flag's targeting automatically.
 
@@ -95,13 +95,13 @@ When you schedule a user to be removed from a flag, a **clock icon** appears nex
 
 To learn more about targeting users for specific dates, read [Scheduling expiration dates for user targeting](/home/flags/targeting-users#scheduling-removal-dates-for-user-targeting).
 
-## Removing a user 
+## Removing a user
 
-You can delete individual users from the dashboard by opening their page and clicking the **Delete** button. 
+You can delete individual users from the dashboard by opening their page and clicking the **Delete** button.
 
-Deleting users from the dashboard does not decrease your Monthly Active User (MAU) count. 
+Deleting users from the dashboard does not decrease your Monthly Active User (MAU) count.
 
-![A user's screen with the Delete button called out.](../../images/users-delete-callout.png) 
+![A user's screen with the Delete button called out.](../../images/users-delete-callout.png)
 
 <Callout intent="alert">
   <CalloutTitle>Exceeding your Monthly Active Users limit</CalloutTitle>
@@ -112,6 +112,6 @@ all user information for users beyond your MAU. For more information about MAU, 
 metrics](/home/billing/usage-metrics).
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 You can also use the LaunchDarkly API to delete users. To learn more, read the [API docs](https://apidocs.launchdarkly.com/reference#delete-user).

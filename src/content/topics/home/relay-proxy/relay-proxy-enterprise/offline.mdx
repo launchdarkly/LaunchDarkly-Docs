@@ -7,13 +7,13 @@ published: true
 
 ## Overview
 
-This topic explains how to enable offline mode for the Relay Proxy. 
+This topic explains how to enable offline mode for the Relay Proxy.
 
-<Callout intent="info">
-<CalloutTitle>This is an Enterprise feature</CalloutTitle>
+<Callout intent="primary">
+<CalloutTitle>Relay Proxy automatic configuration is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-The Relay Proxy automatic configuration feature is only available for customers on an Enterprise plan. To enable it on your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+Relay Proxy automatic configuration is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
@@ -22,13 +22,13 @@ The Relay Proxy automatic configuration feature is only available for customers 
 
 Enabling offline mode on the Relay Proxy lets you run the Relay Proxy without ever connecting it to LaunchDarkly. Instead of retreiving flag and segment values from LaunchDarkly's servers, the Relay Proxy gets them from files located on your local host or filesystem.
 
-This allows you to run the Relay Proxy in a highly secure system, such as a FedRAMP-compliant system, because the Relay Proxy does not ever send or receive data from anywhere other than the local filesystem. 
+This allows you to run the Relay Proxy in a highly secure system, such as a FedRAMP-compliant system, because the Relay Proxy does not ever send or receive data from anywhere other than the local filesystem.
 
 By using offline mode, you can secure the Relay Proxy away from any external touchpoints.
 
-## Enabling offline mode 
+## Enabling offline mode
 
-Enabling offline mode is a two-step process. These steps appear in detail below. 
+Enabling offline mode is a two-step process. These steps appear in detail below.
 
 You must:
 
@@ -39,7 +39,7 @@ You must:
 <CalloutTitle>Save the Relay Proxy's unique key</CalloutTitle>
 <CalloutDescription>
 
-When you create a new Relay Proxy, LaunchDarkly assigns a unique key to it. You must save the key immediately after you create the Relay Proxy, because the key is only viewable on creation. 
+When you create a new Relay Proxy, LaunchDarkly assigns a unique key to it. You must save the key immediately after you create the Relay Proxy, because the key is only viewable on creation.
 
 </CalloutDescription>
 </Callout>
@@ -65,7 +65,7 @@ Here's how to create a Relay Proxy configuration in the LaunchDarkly UI:
 
 Next, you must download all your flag rules and segments locally and tell the Relay Proxy where to find them. You do this by associating the file containing your flag rules with the Relay Proxy in a configuration file or with an environment variable.
 
-To get your flag rules and make them accessible to the Relay Proxy: 
+To get your flag rules and make them accessible to the Relay Proxy:
 
 1. Send a `curl` to `/relay/latest-all`. This generates a file containing all your flag rules.
 
@@ -117,7 +117,7 @@ docker run --name ld-relay           \
 
   </CodeTabItem>
   </CodeTabs>
-4. Start the Relay Proxy. 
+4. Start the Relay Proxy.
 
 From now on, the Relay Proxy will serve flag values based on the contents of the file you downloaded, not by contacting LaunchDarkly for updates.
 

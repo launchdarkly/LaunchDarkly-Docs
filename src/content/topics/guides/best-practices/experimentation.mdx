@@ -8,7 +8,7 @@ published: true
 
 ## Overview
 
-This guide explains how LaunchDarkly performs experimentation and gives you strategies to design an effective experiment. 
+This guide explains how LaunchDarkly performs experimentation and gives you strategies to design an effective experiment.
 
 Everything we do to our digital properties should be purposeful and provide value to the businesses we support and the people who use our software. How do we know that the decisions we make are valuable?
 
@@ -28,11 +28,11 @@ To complete this guide, you must have the following prerequisites:
 * A basic understanding of your business's needs or Key Performance Indicators (KPIs)
 * A basic understanding of metrics and how LaunchDarkly uses them
 
-<Callout>
+<Callout intent="primary">
 <CalloutTitle>Experimentation is an add-on feature</CalloutTitle>
 <CalloutDescription>
 
-To enable experimentation in your account, contact  your LaunchDarkly account manager or email sales@launchdarkly.com.
+Experimentation is available as an add-on for customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To add Experimientation to your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
@@ -51,15 +51,15 @@ In LaunchDarkly, experiments can:
 
 - validate new ideas by testing multiple variations of a feature,
 - determine your user base's appetite for a feature before you build it out,
-- gather performance data for a feature, service, or API 
-- increase the adoption of a product, 
+- gather performance data for a feature, service, or API
+- increase the adoption of a product,
 - drive revenue and conversion rate, and more.
 
 You can turn any feature flag into an experiment by connecting it to a metric you want to track. Because you can wrap any part of your technology stack or product in a feature flag, you can use experiments to test for much more than the efficacy of UI changes.
 
 ### Hypothesis
 
-A hypothesis is a provable statement that can be answered by an experiment. A well-constructed hypothesis has both a positive and negative result defined. 
+A hypothesis is a provable statement that can be answered by an experiment. A well-constructed hypothesis has both a positive and negative result defined.
 
 For example, you may hypothesize that changing the button position to the top-right corner will increase click-through by at least 2%, and leaving the button in its current position will not cause any changes in click-through.
 
@@ -67,7 +67,7 @@ To learn more about writing effective hypotheses, read [Formulating a hypothesis
 
 ## Types of experiments
 
-Experiments can test many types of hypothesis. 
+Experiments can test many types of hypothesis.
 
 Here are some examples:
 
@@ -98,7 +98,7 @@ It is critical to plan out and document experiments before you run them. Experim
 
 ### Creating an experiment roadmap
 
-There are many tools to help you manage an experiment's roadmap. Jira, Trello, Asana, and Excel or Google Sheets are all great candidates for storing and logging information on experiments. 
+There are many tools to help you manage an experiment's roadmap. Jira, Trello, Asana, and Excel or Google Sheets are all great candidates for storing and logging information on experiments.
 
 Your roadmap should contain information on the following:
 
@@ -106,18 +106,18 @@ Your roadmap should contain information on the following:
 * Experiment name
 * Experiment description
 * Audience target. This is information on the ideal target audience and the logic you use to identify them.
-* Theme 
+* Theme
 * Variations. This is how many flag variations this experiment uses, and what percentage of traffic each is assigned.
 * Location
 * Sample size. This is how much traffic you need before you can check your results and determine an outcome.
-* Duration. This is how long your experiment runs. This number is based on sample size. 
+* Duration. This is how long your experiment runs. This number is based on sample size.
 * Go-live date. This is the date your experiment starts.
-* Status. Keep track of whether your experiment is still being drafted, is running, is being analyzed after collecting data, or is complete. 
+* Status. Keep track of whether your experiment is still being drafted, is running, is being analyzed after collecting data, or is complete.
 * Priority
 
 ### Generating ideas
 
-When you plan your experiment, it can be helpful to identify it as a brief, simple explanation of what we are trying to prove and why. You may also want to explain where the rationale behind this experiment originates. References to any user research, prior bugs, or feature requests provide context to what you are trying to achieve. 
+When you plan your experiment, it can be helpful to identify it as a brief, simple explanation of what we are trying to prove and why. You may also want to explain where the rationale behind this experiment originates. References to any user research, prior bugs, or feature requests provide context to what you are trying to achieve.
 
 Here are some example questions you can answer with an experiment:
 
@@ -136,7 +136,7 @@ need to run multiple experiments to answer numerous questions about a feature.
 
 Here are two example hypotheses:
 
-- We believe that by rewriting our results page in React, we will reduce page load time and increase utilization by X%. 
+- We believe that by rewriting our results page in React, we will reduce page load time and increase utilization by X%.
 - We belive that by adding a chatbot to the second page of our account registration workflow, we will decrease incomplete signups by 15% and have a minimum 1% increase in signup completion.
 
 Ensuring that your hypothesis is robust and as discrete as possible is essential to get useful data from your experiment. An imprecise hypothesis can allow more subjective interpretation of the results.
@@ -182,13 +182,13 @@ To learn more about how LaunchDarkly displays experiment data, read [Interpretin
 
 ## Setting experiment metrics
 
-A good experiment requires well-defined metrics. 
+A good experiment requires well-defined metrics.
 
 Use these best practices to determine if your metrics meet your needs:
 
 ### Deciding which metrics to use
 
-Identifying the right metrics is imperative to getting accurate results from your experiments. 
+Identifying the right metrics is imperative to getting accurate results from your experiments.
 
 Choosing metrics that correctly measure the effect of a change on your users or codebase can be difficult. Where possible, choose metrics that are a direct result of the changes you are making, rather than those that might be influenced by other factors.
 
@@ -196,7 +196,7 @@ For example, if you know your business' Key Performance Indicators (KPIs), you m
 
 ### Choosing how many metrics to use
 
-With LaunchDarkly experiments, you can add as many metrics to an experiment as you need. More useful metrics means a higher likelihood of discovering something insightful. 
+With LaunchDarkly experiments, you can add as many metrics to an experiment as you need. More useful metrics means a higher likelihood of discovering something insightful.
 
 We recommend between four and seven metrics per experiment. With a properly designed experiment, you should be able to make an initial judgment of that many metrics' success quickly. More metrics provide better barometers for success, but as the quantity of measures increases, so does the complexity of making a decision.
 
@@ -204,17 +204,17 @@ To learn more about setting metrics for experiments in LaunchDarkly, read [Creat
 
 ## After the experiment completes
 
-One of the advantages of SDK-based experimentation is that your engineering team can almost immediately roll out your successful experiments to the appropriate audiences. 
+One of the advantages of SDK-based experimentation is that your engineering team can almost immediately roll out your successful experiments to the appropriate audiences.
 
 After your experiment acheives statistical
-significance, analyze the results to identify anomalies or inconsistencies. Verify that all cohorts received a similar number of evaluations, or your results may be biased. 
+significance, analyze the results to identify anomalies or inconsistencies. Verify that all cohorts received a similar number of evaluations, or your results may be biased.
 
-Be prepared to change the flag variations that drive an experiment in order to measure different data. Iterations of an experiment build on the value you have generated or allow you to pivot and investigate further. 
+Be prepared to change the flag variations that drive an experiment in order to measure different data. Iterations of an experiment build on the value you have generated or allow you to pivot and investigate further.
 
 ## Conclusion
 
 In this guide you have learned some of the key concepts of experimentation and
-how to design an experiment using feature flags. 
+how to design an experiment using feature flags.
 
 To complete an exercise in which you create an experiment and assess its results, read [Experimenting with feature flags](/guides/tutorials/experimentation).
 

@@ -9,20 +9,16 @@ published: true
 
 This topic explains what Single Sign-On (SSO) features are available in LaunchDarkly and how to configure your environment for SSO.
 
-<Callout intent="info">
-  <CalloutTitle>Only available to enterprise customers</CalloutTitle>
+<Callout intent="primary">
+  <CalloutTitle>Single sign-on and user provisioning are Enterprise features</CalloutTitle>
   <CalloutDescription>
 
-Single sign-on and user provisioning are only available to customers on our enterprise plans. If you're interested
-in learning more about our enterprise plans, contact
-[sales@launchdarkly.com](https://launchdarkly.com/contact-sales/?Subject=Single+sign-on). SSO allows your team to authenticate
-with LaunchDarkly using the same identity provider (IdP) you use for your other internal and external services.
-LaunchDarkly implements SSO with the SAML 2.0 protocol.
+Single sign-on and user provisioning are available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/). 
 
   </CalloutDescription>
 </Callout>
 
-Administrators can use SSO with their IdP to manage access rights in LaunchDarkly. After SSO is enabled, administrators can also enable System for Cross-domain Identity Management (SCIM) provisioning through their IdP.
+SSO allows your team to authenticate with LaunchDarkly using the same identity provider (IdP) you use for your other internal and external services. LaunchDarkly implements SSO with the SAML 2.0 protocol. Administrators can use SSO with their IdP to manage access rights in LaunchDarkly. After SSO is enabled, administrators can also enable System for Cross-domain Identity Management (SCIM) provisioning through their IdP.
 
 ## Setting up SSO in LaunchDarkly
 
@@ -378,4 +374,3 @@ To disconnect SCIM:
 3. Click **Disconnect SCIM**.
 
 ![The Disconnect SCIM option.](../../../images/settings-security-scim-disconnect.png)
-

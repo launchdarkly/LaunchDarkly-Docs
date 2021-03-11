@@ -5,12 +5,11 @@ description: 'This topic explains how to use approvals to request review for cha
 published: true
 ---
 
-<Callout intent="info">
-<CalloutTitle>Approvals is an Enterprise and Pro feature</CalloutTitle>
+<Callout intent="primary">
+<CalloutTitle>Approvals is a Pro and Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-This feature is only available to customers with an Enterprise or a Pro plan. If you're interested in learning
-more about our plans, contact [sales@launchdarkly.com](https://launchdarkly.com/contact-sales/).
+Approvals is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
@@ -34,7 +33,7 @@ Approving flag changes does not make them take effect automatically. An approval
 
 ## Understanding approvals
 
-When a team member plans a flag change, they have the option to request approval for that change from anyone in their LaunchDarkly project. 
+When a team member plans a flag change, they have the option to request approval for that change from anyone in their LaunchDarkly project.
 
 Anyone with a `writer`, `owner / admin`, or custom role can approve a flag change, regardless of whether or not their review has been requested. Team members who the requester chooses receive an email notifying them that their review has been requested.
 
@@ -44,7 +43,7 @@ From that email, a requested approver can access a summary page of the flag chan
 
 ## Requesting approval for a flag change
 
-You can request approval on changes to a flag's targeting at any point after creation. 
+You can request approval on changes to a flag's targeting at any point after creation.
 
 ![A GIF showing the interactions of requesting approval on changes.](../../images/approvals-requesting-approval.gif)
 
@@ -58,7 +57,7 @@ The only people you can request approval from are other members of your LaunchDa
 
 Here's how:
 
-1. Make the changes you wish to make to any flag. 
+1. Make the changes you wish to make to any flag.
 2. Click the **dropdown icon** in the **Save Changes** button. The additional actions menu opens.
 
 ![The flag targeting screen with the additional actions menu expanded.](../../images/approvals-request-dropdown.png)
@@ -95,7 +94,7 @@ To approve or decline a change:
 3. Review the flag changes and choose the "Approve changes" or "Decline changes" radio button.
 4. Click **Submit**. The "Review history" section updates to indicate that you reviewed the change request.
 5. (Optional) You can apply the proposed changes immediately after approving the change by clicking **Apply Changes**.
-  
+
   a. If you choose to apply the flag changes, you will be asked to confirm your choice. Verify that you want to make the changes and click **Save Changes**.
 
   ![The confirmation screen.](../../images/approvals-applying-changes.png)
@@ -106,14 +105,14 @@ To approve or decline a change:
 <CalloutTitle>Anyone with access can leave a comment.</CalloutTitle>
 <CalloutDescription>
 
-Anyone with access to the approval request page can comment on an approval request. 
+Anyone with access to the approval request page can comment on an approval request.
 
 The only time someone with access cannot comment on an approval request is after the request has been applied. Applying an approval request freezes the approval request page to preserve the state it was in when the change was applied.
 
 </CalloutDescription>
 </Callout>
 
-In addition to using the link in the email to access the "Approval request" screen, you can see pending flag changes and approval requests on the "Pending changes" screen. 
+In addition to using the link in the email to access the "Approval request" screen, you can see pending flag changes and approval requests on the "Pending changes" screen.
 
 To access this screen, click the icon on the flag's **Targeting** page.
 
@@ -121,17 +120,17 @@ To access this screen, click the icon on the flag's **Targeting** page.
 
 ## Deleting an approval request
 
-You may delete a request for changes to a flag while it's pending review. You can do this in two ways: from the 
+You may delete a request for changes to a flag while it's pending review. You can do this in two ways: from the
 "Pending changes" screen or from the approval request page.
 
 ### Deleting an approval request from the "Pending changes" screen
 
 To delete approval requests from a flag's "Pending changes" screen:
 
-1. Navigate to the flag's **Targeting** page and click the **Pending Changes** icon. The "Pending Changes" screen appears. 
+1. Navigate to the flag's **Targeting** page and click the **Pending Changes** icon. The "Pending Changes" screen appears.
 2. Find the change you wish to delete and click the three-dot **overflow menu**. Additional options appear.
 3. Choose **Delete**. A confirmation screen appears.
-4. Type the flag's name or key to confirm. 
+4. Type the flag's name or key to confirm.
 5. Click **Delete**. The request is deleted.
 
 ![A GIF showing the interactions of deleting a change from the "Pending Changes" screen.](../../images/approvals-delete-from-pending-changes.gif)
@@ -140,10 +139,10 @@ To delete approval requests from a flag's "Pending changes" screen:
 
 To delete an approval request from the request's page:
 
-1. Navigate to the flag's **Targeting** page and click the **Pending Changes** icon. The "Pending Changes" screen appears. 
+1. Navigate to the flag's **Targeting** page and click the **Pending Changes** icon. The "Pending Changes" screen appears.
 2. Click **View**. The "Approval request" screen appears.
 3. Click **Delete Request**. A confirmation screen appears.
-4. Type the flag's name or key to confirm. 
+4. Type the flag's name or key to confirm.
 5. Click **Delete Request**. The request is deleted.
 
 ![The "Approval request" screen.](../../images/approvals-approval-screen.png)
