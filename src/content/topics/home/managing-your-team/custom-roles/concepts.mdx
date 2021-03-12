@@ -11,10 +11,10 @@ This topic is an overview of concepts that are important to creating custom role
 
 To write your own custom role, you'll need to understand four key concepts:
 
-* Resources
-* Actions
-* Policies
-* Tags
+* [Resources](#resources)
+* [Actions](#actions)
+* [Policies](#policies)
+* [Tags](#tags)
 
 <Callout intent="alert">
 <CalloutTitle>The advanced editor is powerful</CalloutTitle>
@@ -27,7 +27,7 @@ You can cause large permissions changes to sensitive or confidential resources i
 
 ## Resources
 
-When you write a custom role, you specify **resources** that the role can or cannot access. 
+When you write a custom role, you specify **resources** that the role can or cannot access.
 
 Almost everything in LaunchDarkly is a resource, including:
 
@@ -39,11 +39,11 @@ Almost everything in LaunchDarkly is a resource, including:
 
 This graphic shows how resources relate to each other:
 
-![Resource organization diagram](../../../../images/resource-organization.png) 
+![Resource organization diagram](../../../../images/resource-organization.png)
 
 ### Understanding permissions for accessing resources
 
-The default permission level of any team member in LaunchDarkly is the built-in `reader` role. This is the role that is assigned to new team members by default, and is the most limited set of permissions a LaunchDarkly user can have. 
+The default permission level of any team member in LaunchDarkly is the built-in `reader` role. This is the role that is assigned to new team members by default, and is the most limited set of permissions a LaunchDarkly user can have.
 
 To give a team member the ability to modify resources in LaunchDarkly, you must assign them a different role: `Writer`, `Owner / Admin`, or a custom role.
 
@@ -59,7 +59,7 @@ To learn more about specific actions, read [Using actions](/home/team/role-actio
 
 The default state of a new custom role is to `deny` every possible action. In most cases, you must explicitly allow each action you wish the role recipient to be able to do.
 
-The one exception is how custom roles use the `viewProject` action. The ability to view and change resources is configured at the `project` resource level with the `viewProject` action. 
+The one exception is how custom roles use the `viewProject` action. The ability to view and change resources is configured at the `project` resource level with the `viewProject` action.
 
 You do not need to allow a custom role holder to see projects in your LaunchDarkly account. You can deny them viewing access to any project, but by default all roles can view all projects as soon as they are created.
 
@@ -73,12 +73,12 @@ Policies combine resources and actions into a set of statements that define what
 
 You use LaunchDarkly's advanced editor to build custom roles by writing combinations of resources and actions the role is allowed to or forbidden from taking on them.
 
-Policies are represented as JSON arrays. They require you to use project and environment keys, not names. 
+Policies are represented as JSON arrays. They require you to use project and environment keys, not names.
 
 Each element in the array is a statement represented as a JSON object with three attributes:
 
 * `resources` / `notResources`
-* `effect` 
+* `effect`
 * `actions` / `notActions`
 
 The example below shows a policy that allows the role recipient to perform all actions on a flag called `exampleFlag`:
@@ -93,13 +93,13 @@ The example below shows a policy that allows the role recipient to perform all a
 <CodeTabItem value="json">
 
 ```json
-[ 
+[
   {
     "effect": "allow",
     "resources": ["proj/*:env/*:flag/exampleFlag"],
     "actions": ["*"]
   }
-]  
+]
 ```
 
 </CodeTabItem>

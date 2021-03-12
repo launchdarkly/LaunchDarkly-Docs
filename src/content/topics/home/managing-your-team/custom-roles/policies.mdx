@@ -7,9 +7,9 @@ published: true
 
 ## Overview
 
-This topic explains how policies work in custom roles. 
+This topic explains how policies work in custom roles.
 
-Policies combine resources and actions into a set of statements that define what users can or cannot do in LaunchDarkly. 
+Policies combine resources and actions into a set of statements that define what users can or cannot do in LaunchDarkly.
 
 To learn more, read [Custom role concepts](/home/team/role-concepts).
 
@@ -62,11 +62,11 @@ To learn more about the advanced editor, read [Writing policies in the advanced
 editor](#writing-policies-in-the-advanced-editor).
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
-The example policy below denies access to a project, identified by it's product key. It also allows all actions on a specific flag in all projects and environments. 
+The example policy below denies access to a project, identified by its product key. It also allows all actions on a specific flag in all projects and environments.
 
-Here's an example policy: 
+Here's an example policy:
 
 <CodeTabs
   defaultValue="json"
@@ -106,7 +106,7 @@ In the example above, wildcard characters indicate that the role can perform any
 </CalloutDescription>
 </Callout>
 
-For a more detailed explanation of the policy above, read [Granting all actions to just one flag while showing only one project](/home/team/role-policies#granting-all-actions-to-just-one-flag-while-showing-only-one-project). 
+For a more detailed explanation of the policy above, read [Granting all actions to just one flag while showing only one project](/home/team/role-policies#granting-all-actions-to-just-one-flag-while-showing-only-one-project).
 
 Here's an example statement:
 
@@ -131,7 +131,7 @@ Here's an example statement:
 </CodeTabItem>
 </CodeTabs>
 
-If the environment ID `production` represents the account's Production environment, this statement denies the user from modifying any feature flags in production. 
+If the environment ID `production` represents the account's Production environment, this statement denies the user from modifying any feature flags in production.
 
 You can also name an "inverse" set of resources by using `notResources` in a statement. This statement explicitly allows all actions to feature flags across all environments _except_ the production environment.
 
@@ -161,11 +161,24 @@ The algorithm for determining whether access is allowed or denied by a policy is
 
 - If any statement in the policy explicitly denies access to a resource and action, access is denied.
 - If a statement in the policy explicitly allows access to a resource and action, and no statement denies access, access is allowed.
-- Any resource or action **not** specifically included in a policy is denied by default.
+- Any resource or action not specifically included in a policy is denied by default except the `ViewProjects` action and the ability to create tokens.
 
-This means that statement order does not matter.
+<Callout intent="info">
+<CalloutTitle>All roles can view all projects by default</CalloutTitle>
+<CalloutDescription>
 
-You can assign multiple custom roles to one member, and each custom role has its own policy. If you assign multiple roles to a member, be aware that if any of those custom roles allow access to a resource, then access is allowed regardless of if other roles deny that access. Adding roles to a user can only increase that user's access.
+The ability to view and change resources is configured at the `project` resource level with the `viewProject` action. All custom role recipients can see all projects in your LaunchDarkly instance unless specifically denied.<br/><br/>
+
+Custom role recipients can also create access tokens that are limited to their existing permissions. For example, team members with `reader` level permissions can only create tokens with `reader` permissions, whereas admins and owners can create tokens with any permission level.<br/><br/>
+
+To learn  more, read [Understanding the minimum required actions for a role](/home/team/role-concepts#Understanding-the-minimum-required-actions-for-a-role).
+
+</CalloutDescription>
+</Callout>
+
+
+
+Statement order does not matter. You can assign multiple custom roles to one member, and each custom role has its own policy. If you assign multiple roles to a member, be aware that if any of those custom roles allow access to a resource, then access is allowed regardless of if other roles deny that access. Adding roles to a user can only increase that user's access.
 
 ## Writing policies in the advanced editor
 
@@ -182,7 +195,7 @@ To access the advanced editor:
 3. Click **New Role**. The "Create a role" screen appears.
 4. Click **Advanced editor**. The advanced editor opens.
 
-![The advanced editor.](../../../../images/settings-roles-advanced-editor.png) 
+![The advanced editor.](../../../../images/settings-roles-advanced-editor.png)
 
 
 <Callout intent="alert">
@@ -195,10 +208,10 @@ sensitive. If the Production environment of your default project has the key `pr
 environment.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Finding resource IDs
 
 You can find resource IDs with the resource finder, which can be accessed with the “resource finder” link in either the simple or advanced editor, or using the keyboard shortcut `⌘` + `.` (Mac) or `ctl` + `.` (Windows). All of your environments, members, feature flags, metrics, and roles will be available.
 
-![The "Find a resource ID" screen.](../../../../images/settings-roles-resource-id.png) 
+![The "Find a resource ID" screen.](../../../../images/settings-roles-resource-id.png)
