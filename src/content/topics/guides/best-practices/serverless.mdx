@@ -118,7 +118,7 @@ exports.handler = (event, context, callback) => {
         var store = new LaunchDarkly.RedisFeatureStore(redisConfig));
 
         var ldConfig = {
-            feature_store: store
+            featureStore: store
         };
         var ldClient = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY, ldConfig);
 
@@ -156,8 +156,8 @@ var redisConfig = {
 var store = new LaunchDarkly.RedisFeatureStore(redisConfig);
 
 var ldConfig = {
-    feature_store: store,
-    use_ldd: true
+    featureStore: store,
+    useLdd: true
 };
 
 var ldClient = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY, {ldConfig});
