@@ -44,7 +44,7 @@ The keys that exist in only one project (3k in each project, which adds up to 6k
 
 Your agreement with LaunchDarkly includes a limit of MAUs. We understand that a company's user base can grow unexpectedly over time. We never stop or throttle service if you exceed your MAU, nor do we bill you for MAU overages. All users in your environment will continue to evaluate feature flags correctly, regardless of your MAU.
 
-We do, however, limit the amount of user information that saves in your dashboard. When you exceed your MAU, new users and changes to existing users, such as new attributes, do not appear in the dashboard. 
+When you exceed your MAU, new users and changes to existing users, such as new attributes, do not appear in the dashboard. The user information on the dashboard has a Time to Live (TTL) of 30 days. No users receive updates while you are over your MAU limit, so all of your users become stale after 30 days and will be removed until you are back under your contracted MAU limit.
 
 If you have configured LaunchDarkly to use anonymous users, that can impact your MAU as well. To learn more, read [Understanding how anonymous users contribute to MAU](/home/users/anonymous-users#understanding-how-anonymous-users-contribute-to-mau).
 
