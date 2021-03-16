@@ -473,12 +473,15 @@ If you want to do a percentage rollout, select "percentage rollout" from the dro
 
 ![The percentage rollout screen.](../../images/rules-percentage-rollout.png)
 
+In this example, 25% of the `beta_testers` group see the new dashboard feature.
 
-In this example, 25% of our `beta_testers` will see the new dashboard feature.
+### Percentage rollout logic
 
-## Percentage rollout logic
+When you set up a percentage rollout, the variation a user receives is determined by the user's key. The percentage rollout logic generates a hash from the user's key or attribute, the user's secondary attribute (if provided), the flag's key, and a hidden salt attribute stored in the flag.
 
-When you set up a percentage rollout, the variation a user receives is determined by the user's key. When a percentage rollout is evaluated, it generates a hash from the user's key (or the user attribute selected in the advanced section), the user's secondary attribute (if provided), the flag's key, and a hidden salt attribute stored in the flag. The SDK then uses this hash to generate a percentage value for that user. That value, compared to the value set for the percentage rollout value, determines which variation a user receives.
+The SDK uses this hash to generate a percentage value for that user. That value, compared to the value set for the percentage rollout value, determines which variation a user receives. The hash has partitions from 1 to 100,000. When you assign flag variations, the hash assigns values from 1 to 100,000 to users in each partition, in order. For example, when you assign 50% to variation A, LaunchDarkly serves variation A to hash partitions from 1 to 50,000.
+
+A common use case for percentage rollouts is to increment the percentage of users targeted by a flag over time until 100% of the users see one variation of a flag. When you change the percentage allocation of users to flag variations, those users are reassigned different flag variations based on their partition's position in the 1 to 100,000 hash list. For example, if you change the percentage of users seeing variation A from 50% to 70%, partitions 50,001 to 70,000 would be added to the set of partitions already seeing variation A.
 
 <Callout intent="info">
   <CalloutTitle>Advanced Targeting: Percentage rollouts bucketed by attribute</CalloutTitle>
