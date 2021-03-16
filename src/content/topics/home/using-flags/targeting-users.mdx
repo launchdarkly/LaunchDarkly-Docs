@@ -89,15 +89,14 @@ In addition to targeting individual users, LaunchDarkly lets you target segments
 Each rule has three parts:
 
 - an **attribute**, which defines the scope of the flag's impact, such as only impacting an email address
-- an **operator**, which sets differentiating characteristics of the attribute, such as limiting the attribute to emails that end with a certain extension
-- a **user value**, which identifies a user or resource by a value you specify, such as `gmail.com`.
+- an **operator**, which sets differentiating characteristics of the attribute, such as limiting the attribute to emails that end with certain extensions. If a rule specifies multiple values for the operator to track, the operator iterates over the array.
+- a **user value**, which identifies a user or resource by a value you specify, such as `@gmail.com`.
 
-For example, let's define a rule that serves `true` to all users whose e-mail address ends with `gmail.com`.
+Here is an example of a rule that serves `true` to all users whose e-mail address ends with `@gmail.com`.
 
-To write this rule, we specify the attribute as `email`, the operator as `ends with`, and the user value as `gmail.com`. Remember to click **Save Changes** to apply the rule.
+To write this rule, specify the attribute as `email`, the operator as `ends with`, and the user value as `gmail.com`. Click **Save Changes** to apply the rule.
 
 ![A user targeting rule.](../../images/users-targeting-rules.png)
-
 
 ### Operators
 
