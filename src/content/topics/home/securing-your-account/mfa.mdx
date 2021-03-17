@@ -9,7 +9,7 @@ published: true
 
 This topic explains how to set up and use multi-factor authentication to improve the security of your LaunchDarkly account.
 
-## Understanding multi-factor authentication
+## Understanding multi-factor authentication (MFA)
 
 Multi-factor authentication (MFA) requires you to use a second verification step in addition to your password to log in to a service, app, or website.
 
@@ -19,17 +19,29 @@ Administrators can also require all newly invited team members on the team to en
 
 We strongly recommend that all LaunchDarkly users enable MFA for their account, and that administrators enforce MFA for their entire team.
 
+![The Enable MFA section of a user profile.](../../images/mfa.png)
+
 ## Setting up MFA
 
-Before you begin, you'll need to install a compatible authenticator application on your mobile device. We recommend [Google Authenticator](https://support.google.com/accounts/answer/1066447?hl=en), but any TOTP authenticator application should work well.
+Before you begin, install a compatible authenticator application on your mobile device. We recommend [Google Authenticator](https://support.google.com/accounts/answer/1066447?hl=en), but any TOTP authenticator application should work well.
 
 To enable MFA for your account:
 
 1. Navigate to your [User Profile](https://app.launchdarkly.com/settings/profile) page.
 2. Click **Enable MFA**. A dialog with a QR code appears on your screen.
-3. Launch the authenticator application on your mobile device and hold the camera up to your screen to scan the code. When the QR code scans, a six digit code appears on your mobile device.
-4. Enter the six digit code from your authenticator application in the text box in LaunchDarkly.
+
+![The Enable MFA screen, with an obscured QR code.](../../images/mfa-qr.png)
+
+3. Launch the authenticator application on your mobile device and hold the camera up to your screen to scan the code. When the QR code scans, a six-digit code appears on your mobile device.
+4. Enter the six-digit code from your authenticator application in the text box in LaunchDarkly.
+
+![The Enable MFA screen, with an obscured six digit code called out.](../../images/mfa-qr-callout.png)
+
 5. Click "Continue". A confirmation screen with recovery codes appears.
+
+![The success screen, with obscured recovery codes displayed.](../../images/mfa-recovery-codes.png)
+
+6. Click **Complete**.
 
 If you lose access to the mobile device with your MFA settings, you can use one of these recovery codes to access your account and reset your MFA settings.
 
