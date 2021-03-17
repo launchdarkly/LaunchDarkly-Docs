@@ -125,9 +125,12 @@ const Layout: FunctionComponent<LayoutProps> = ({
   return (
     <Fragment>
       <Reset />
-      <Helmet defer={false} htmlAttributes={{ lang: 'en' }}>
-        <title>{title}</title>
-        <meta name="description" content={description} />
+      <Helmet
+        defer={false}
+        htmlAttributes={{ lang: 'en' }}
+        title={title}
+        meta={[{ name: 'description', content: description }]}
+      >
         {enableUserWayAccessibilityWidget && (
           <script defer>
             {

@@ -47,7 +47,7 @@ const plugins = [
       basePath: '/design-system',
     },
   },
-  'gatsby-plugin-react-helmet-async',
+  'gatsby-plugin-react-helmet',
   'gatsby-plugin-typescript',
   'gatsby-transformer-json',
   {
