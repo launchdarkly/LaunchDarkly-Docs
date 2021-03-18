@@ -557,6 +557,10 @@
         ]
       },
       {
+        "label": "IntelliJ",
+        "path": "/integrations/intellij"
+      },
+      {
         "label": "Jira",
         "path": "/integrations/jira"
       },
