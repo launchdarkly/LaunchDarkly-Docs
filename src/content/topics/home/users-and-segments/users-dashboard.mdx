@@ -24,13 +24,13 @@ You cannot create users in the Users dashboard. The Users dashboard is not a dat
 </CalloutDescription>
 </Callout>
 
-From the Users dashboard, you can filter users by name, key, or e-mail address.
+From the Users dashboard, you can filter users by standard or custom attributes.
 
 ![The Users dashboard.](../../images/users.png)
 
 Users live in the dashboard for 30 days from creation. If a user does not evaluate a feature flag within 30 days, they age out of the system and their information no longer appears in the Users dashboard. Those users can reappear on the dashboard when they evaluate a feature flag, provided your account has not reached the maximum number of users.
 
-All accounts are limited to 100,000,000 users. If you hit the 100,000,000 users cap, new users won't appear in the Users dashboard until stale users age out of the 30-day user cache. Users that evaluate a feature flag w/in 30 days of initial population don't age out of the system. If you stop creating a bunch of users at once, 30 days later those stale users are gone.
+All accounts are limited to 100,000,000 users. If you hit the 100,000,000 users limit, new users don't appear in the Users dashboard until stale users age out of the 30-day user cache. Users that evaluate a feature flag within 30 days of initial population don't age out of the system. If you stop creating large amounts of users at once, 30 days later those stale users are removed.
 
 To learn more about how the Users dashboard is populated, and how you might exceed the 100,000,000 user limit, read [Anonymous users](/home/users/anonymous-users).
 
@@ -44,6 +44,16 @@ To add more users, contact [Support](https://support.launchdarkly.com/hc/en-us/r
 
 </CalloutDescription>
 </Callout>
+
+### Customizing the Users dashboard
+
+You can customize which attributes appear on the Users dashboard. To start, click the **Attributes** button.
+
+![The Users dashboard with the "Attributes" button called out.](../../images/users-attributes-callout.png)
+
+The "Attributes" menu lets you choose standard or custom attributes to appear on the Users dashboard. After you choose specific attributes, that view persists when you visit the Users dashboard in the future.
+
+![The "Attributes" menu with some options selected.](../../images/users-attributes-menu.png)
 
 ## Modifying feature flags for a user
 
@@ -70,7 +80,7 @@ To modify a feature flag the user sees:
 
 Scheduling user removal dates is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-   </CalloutDescription>
+  </CalloutDescription>
 </Callout>
 
 You can also specify a date and time when a user should be removed from a flag's targeting settings. When this date and time arrives, LaunchDarkly removes the user from the flag's targeting automatically.
@@ -97,7 +107,7 @@ To learn more about targeting users for specific dates, read [Scheduling expirat
 
 ## Removing a user
 
-You can delete individual users from the dashboard by opening their page and clicking the **Delete** button.
+You can delete individual users from the dashboard, or by opening their page and clicking the **Delete** button.
 
 Deleting users from the dashboard does not decrease your Monthly Active User (MAU) count.
 
