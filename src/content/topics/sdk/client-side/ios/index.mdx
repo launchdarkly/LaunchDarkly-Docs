@@ -447,7 +447,11 @@ LDUser *user = [LDUser new];
 
 You must generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
 
-Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
+We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+
+Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. This keeps anonymous users from polluting your Users page. 
+
+You can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. If you use the same user key for every anonymous user, you also can't use percentage rollouts or experimentation with anonymous users.
 
 ## Aliased Users
 
@@ -683,7 +687,7 @@ Internally, the LaunchDarkly SDK keeps an event buffer for `track` calls. These 
 <CodeTabItem value="swift">
 
 ```swift
-LDClient.get()!.flush() 
+LDClient.get()!.flush()
 
 ```
 
@@ -822,7 +826,7 @@ To change the  background fetch interval for flags in your app, just add the fol
 <CodeTabItem value="swift">
 
 ```swift
-var ldConfig = LDConfig(mobileKey: "MY_MOBILE_KEY") 
+var ldConfig = LDConfig(mobileKey: "MY_MOBILE_KEY")
 ldConfig.backgroundFlagPollingInterval = 3600
 ```
 

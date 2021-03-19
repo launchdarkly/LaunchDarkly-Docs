@@ -171,7 +171,7 @@ LdClient ldClient = LdClient.Init(config, user);
 </CodeTabItem>
 </CodeTabs>
 
-Here, we've customized the event queue flush frequency. 
+Here, we've customized the event queue flush frequency.
 
 You can customize `Configuration.Builder`. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/xamarin-client-sdk/html/T_LaunchDarkly_Xamarin_Configuration.htm)
 
@@ -269,9 +269,11 @@ LDUser user = User.Builder("aa0ceb")
 
 You will still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
 
-Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
+We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
 
-In Android or iOS, you can also allow the SDK to create a key for an anonymous user based on a unique device identifier (as defined by the [DeviceInfo](https://github.com/jamesmontemagno/DeviceInfoPlugin) Xamarin plugin); it will do so if you set the key to null and also set the anonymous flag:
+Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This keeps anonymous users from polluting your Users page.
+
+In Android or iOS, you can also allow the SDK to create a key for an anonymous user based on a unique device identifier as defined by the [DeviceInfo](https://github.com/jamesmontemagno/DeviceInfoPlugin) Xamarin plugin. It will do so if you set the key to null and set the anonymous flag:
 
 
 <CodeTabs
@@ -479,7 +481,7 @@ Be aware of two considerations when enabling the DEBUG log level:
 
 LaunchDarkly manages all flags for a user context in real-time by updating the flag cached based on a real-time event stream. When a flag is modified from the LaunchDarkly dashboard, the flag values for the current user will update almost immediately. The default SDK configuration has been found to be the best combination of low latency updates and minimal battery drain:
 
-1. When the app is foregrounded, a [Server-sent events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection is made to LaunchDarkly. This streaming connection stays open as long as your app is in the foreground and is connected to the internet. 
+1. When the app is foregrounded, a [Server-sent events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection is made to LaunchDarkly. This streaming connection stays open as long as your app is in the foreground and is connected to the internet.
 
 2. When the app is backgrounded, the stream connection is terminated and the SDK will poll (with caching) for flag updates every 3 minutes.
 
