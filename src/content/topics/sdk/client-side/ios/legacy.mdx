@@ -23,7 +23,7 @@ This reference guide documents all of the methods available in our iOS SDK, and 
 
 Building on top of our [Getting Started guide](/home/getting-started), the following steps help you use the LaunchDarkly SDK in your iOS application.
 
-The first step is to install the LaunchDarkly SDK as a dependency in your application. LaunchDarkly supports multiple methods for installing the SDK in your application. 
+The first step is to install the LaunchDarkly SDK as a dependency in your application. LaunchDarkly supports multiple methods for installing the SDK in your application.
 
 If you're using [CocoaPods](https://cocoapods.org/), you can install the SDK by adding the following to your `Podfile`. Refer to the [SDK releases page](https://github.com/launchdarkly/ios-client-sdk/releases) to identify the latest version. Note that versions starting with 4.0.0 support Swift instead of Objective-C.
 
@@ -106,13 +106,13 @@ user.key = @"aa0ceb";
 <CodeTabItem value="swift">
 
 ```swift
-let config = LDConfig.init(mobileKey: "YOUR_MOBILE_KEY") 
+let config = LDConfig.init(mobileKey: "YOUR_MOBILE_KEY")
 
-let user = LDUserBuilder() 
+let user = LDUserBuilder()
 
 user.key = "aa0ceb"
 
-LDClient.sharedInstance().start(config, with: user) 
+LDClient.sharedInstance().start(config, with: user)
 
 ```
 
@@ -256,15 +256,15 @@ user.customArray("groups", value: groups)
 
 Let's walk through this snippet. The first argument to the builder is the user's key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
-All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes. 
+All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
 
-In addition to built-in attributes like names and e-mail addresses, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above. 
+In addition to built-in attributes like names and e-mail addresses, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
 
 <Callout intent="info">
   <CalloutTitle>A note on types</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. 
+Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers.
 
 If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The iOS SDK is strongly typed, so keep this distinction in mind.
 
@@ -340,7 +340,7 @@ user.isAnonymous = TRUE;
 <CodeTabItem value="swift">
 
 ```swift
-let user = LDUserBuilder() 
+let user = LDUserBuilder()
 
 user.key = "aa0ceb"
 user.isAnonymous = true
@@ -374,7 +374,7 @@ The `variation` method determines whether a flag is enabled or not for a specifi
 <CodeTabItem value="swift">
 
 ```swift
-LDClient.sharedInstance().boolVariation("your.feature.key", fallback: false) 
+LDClient.sharedInstance().boolVariation("your.feature.key", fallback: false)
 
 ```
 
@@ -391,7 +391,7 @@ The `variation` call will automatically create a user in LaunchDarkly if a user 
   <CalloutTitle>Handling flag values on initial app launch</CalloutTitle>
 <CalloutDescription>
 
-When `LDClient` is initialized for the first time at app launch, users will receive the feature flag fallback values until polling is completed for the first time. 
+When `LDClient` is initialized for the first time at app launch, users will receive the feature flag fallback values until polling is completed for the first time.
 
 You can use the `userDidUpdate` delegate method to be notified when the feature flag values have been polled and are ready to use. To learn more, read [Realtime UI Updates](#real-time-updates). Once the flags have been polled for the first time, the SDK will always use the latest stored flag values thereafter.
 
@@ -419,7 +419,7 @@ The `track` method allows you to record actions your users take on your site. Th
 <CodeTabItem value="swift">
 
 ```swift
-LDClient.sharedInstance().track("Signed up", data: dict) 
+LDClient.sharedInstance().track("Signed up", data: dict)
 
 ```
 
@@ -441,7 +441,7 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 ```objectivec
 [[LDClient sharedInstance] offline];
-[[LDClient sharedInstance] boolVariation:@"your.feature.key" fallback:FALSE]; // will always return the fallback value (FALSE) 
+[[LDClient sharedInstance] boolVariation:@"your.feature.key" fallback:FALSE]; // will always return the fallback value (FALSE)
 
 ```
 
@@ -449,11 +449,11 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 <CodeTabItem value="swift">
 
 ```swift
-LDClient.sharedInstance().offline() 
+LDClient.sharedInstance().offline()
 
-LDClient.sharedInstance().stopClient() 
+LDClient.sharedInstance().stopClient()
 
-LDClient.sharedInstance().boolVariation("your.feature.key", fallback: false) // will always return the fallback value (FALSE) 
+LDClient.sharedInstance().boolVariation("your.feature.key", fallback: false) // will always return the fallback value (FALSE)
 
 ```
 
@@ -492,7 +492,7 @@ Internally, the LaunchDarkly SDK keeps an event buffer for `track` calls. These 
 <CodeTabItem value="swift">
 
 ```swift
-LDClient.sharedInstance().flush() 
+LDClient.sharedInstance().flush()
 
 ```
 
@@ -551,9 +551,9 @@ Make sure to use `variation` methods to get new flag values instead of any local
 
 ## Background fetch
 
-When the app is backgrounded, the iOS SDK does not receive real-time events. However, there is support for a background fetch to update flag values opportunistically, according to iOS standard defaults.
+When the app is backgrounded, the SDK does not receive real-time events. However, MacOS supports background fetch which updates flag values opportunistically, according to iOS standard defaults. iOS does not support background fetch.
 
-To allow background fetch for flags in your app, just add the following code in your `AppDelegate`:
+To allow background fetch for flags in your app, add the following code in your `AppDelegate`:
 
 <CodeTabs
   defaultValue="objc"
@@ -641,7 +641,7 @@ NSDictionary *otherMobileKeys = [[NSDictionary alloc] initWithObjectsAndKeys:@"P
 
 LDUserBuilder *user = [[LDUserBuilder alloc] init];
 user.key = @\"aa0ceb\";
-  
+
 [[LDClient sharedInstance] start:config withUserBuilder:user];
 ```
 
