@@ -11,13 +11,13 @@ This topic explains how to understand the billing and usage metrics visualized i
 
 ## Understanding how LaunchDarkly calculates Monthly Active Users (MAU)
 
-LaunchDarkly calculates client-side MAUs as unique keys that evaluate any flag from a client SDK. The amount of these keys is designated per account. We count unique user keys that are evaluated by a flag, so even if a single user account evaluates flags from multiple device types or over multiple sessions, we count that user as one MAU over the 30-day period. 
+LaunchDarkly calculates client-side MAUs as unique keys that evaluate any flag from a client SDK. The amount of these keys is designated per account. We count unique user keys that are evaluated by a flag, so even if a single user account evaluates flags from multiple device types or over multiple sessions, we count that user as one MAU over the 30-day period.
 
 You can see this data visualized in **Account Settings** > **Usage**.
 
-LaunchDarkly usage charts also show you the number of unique keys per Project and per Environment. You are billed on the total number of unique user keys across your entire account. The Monthly Active Users chart shows the total number of unique keys over the previous 30-day rolling period.
+LaunchDarkly usage charts also show you the number of unique keys per Project and per Environment. Your usage is based on the total number of unique user keys across your entire account. The Monthly Active Users chart shows the total number of unique keys over the previous 30-day rolling period.
 
-![The Usage dashboard screen.](../../images/settings-usage.png) 
+![The Usage dashboard screen.](../../images/settings-usage.png)
 
 Project MAU and account MAU are not always the same number. MAU charts count unique users for a specific Project or Environment. Users can be active in multiple projects or environments, contributing to the unique user counts in each context.
 
@@ -25,7 +25,7 @@ Project MAU and account MAU are not always the same number. MAU charts count uni
 * The client tab can show all the unique client MAUs from each named project, *or*
 * The client tab can show all the unique client MAUs from each named environment
 
-For example, LaunchDarkly may be seeing 10K unique user keys for Project A and 10K for Project B, but if there is any overlap in the user base your account may be serving 13k unique user keys. 
+For example, LaunchDarkly may be seeing 10K unique user keys for Project A and 10K for Project B, but if there is any overlap in the user base your account may be serving 13k unique user keys.
 
 A detailed breakdown of the user key allocation follows:
 
@@ -40,19 +40,19 @@ The keys that exist in only one project (3k in each project, which adds up to 6k
 
 ![A Venn diagram depicting how different sets of users can overlap.](../../images/usage-metrics-venn-diagram.png)
 
-### Understanding MAU limits
+### Understanding client-side MAU limits
 
-Your agreement with LaunchDarkly includes a limit of MAUs. We understand that a company's user base can grow unexpectedly over time. We never stop or throttle service if you exceed your MAU, nor do we bill you for MAU overages. All users in your environment will continue to evaluate feature flags correctly, regardless of your MAU.
+Your LaunchDarkly plan includes a client-side MAU limit. We understand that a company's user base can grow unexpectedly over time. We never stop or throttle service if you exceed your MAU limit, nor do we bill you for MAU overages. All users in your environment will continue to evaluate feature flags correctly, regardless of your MAU.
 
-When you exceed your MAU, new users and changes to existing users, such as new attributes, do not appear in the dashboard. The user information on the dashboard has a Time to Live (TTL) of 30 days. No users receive updates while you are over your MAU limit, so all of your users become stale after 30 days and will be removed until you are back under your contracted MAU limit.
+If you exceed your client-side MAU limit, new users and changes to existing users, such as new attributes, do not appear in the dashboard. The user information on the dashboard has a Time to Live (TTL) of 30 days. No users receive updates while you are over your MAU limit, so all of your users become stale after 30 days and will be removed until you are back under your contracted MAU limit.
 
 If you have configured LaunchDarkly to use anonymous users, that can impact your MAU as well. To learn more, read [Understanding how anonymous users contribute to MAU](/home/users/anonymous-users#understanding-how-anonymous-users-contribute-to-mau).
 
 ## Understanding billing metrics
 
-Billing metrics are located under **Account Settings** > **Billing**. These billing metrics show how many client and server-side monthly active users (MAUs) you’re tracking in LaunchDarkly, the number of projects and environments you have set up, and the number of seats you’re using under your plan. You can easily see your usage, and adjust your plan as you need to accommodate your application’s or organization’s growth.
+Billing metrics are located under **Account Settings** > **Billing**. These billing metrics show how many client-side MAUs you’re tracking in LaunchDarkly, the number of projects and environments you have set up, and the number of seats you’re using under your plan. You can easily see your usage, and adjust your plan as you need to accommodate your application’s or organization’s growth.
 
-![The Billing screen.](../../images/settings-billing.png) 
+![The Billing screen.](../../images/settings-billing.png)
 
 ## Understanding usage metrics
 
