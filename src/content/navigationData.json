@@ -231,7 +231,7 @@
           },
           {
             "label": "API access tokens",
-            "path": "/home/advanced/api-access-tokens"
+            "path": "/home/account-security/api-access-tokens"
           },
           {
             "label": "Managing sessions",
