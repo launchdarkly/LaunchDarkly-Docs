@@ -431,7 +431,7 @@ A new syntax for configuring these was added in version 4.12.0, and in version 5
 
 ```java
 // 4.x model: proxy mode with streaming
-URI relayUri = URI.create()"http://my-relay-host:8000");
+URI relayUri = URI.create("http://my-relay-host:8000");
 LDConfig config = new LDConfig.Builder()
   .baseUri(relayUri)
   .streamUri(relayUri)
@@ -439,7 +439,7 @@ LDConfig config = new LDConfig.Builder()
   .build();
 
 // 4.x model: proxy mode with polling
-URI relayUri = URI.create()"http://my-relay-host:8000");
+URI relayUri = URI.create("http://my-relay-host:8000");
 LDConfig config = new LDConfig.Builder()
   .stream(false)
   .baseUri(relayUri)
@@ -460,14 +460,14 @@ LDConfig config = new LDConfig.Builder()
 
 ```java
 // 5.0 model: proxy mode with streaming
-URI relayUri = URI.create()"http://my-relay-host:8000");
+URI relayUri = URI.create("http://my-relay-host:8000");
 LDConfig config = new LDConfig.Builder()
   .dataSource(Components.streamingDataSource().baseUri(relayUri))
   .events(Components.sendEvents().baseUri(relayUri)) // if you want to proxy events
   .build();
 
 // 5.0 model: proxy mode with polling
-URI relayUri = URI.create()"http://my-relay-host:8000");
+URI relayUri = URI.create("http://my-relay-host:8000");
 LDConfig config = new LDConfig.Builder()
   .dataSource(Components.pollingDataSource().baseUri(relayUri))
   .events(Components.sendEvents().baseUri(relayUri)) // if you want to proxy events
