@@ -115,7 +115,7 @@ You have successfully connected Okta and LaunchDarkly
 
 ## Assigning custom roles in Okta
 
-You can assign custom roles that you created in LaunchDarkly to users through the Okta UI. Follow the procedure below to learn how.
+You can assign custom roles that you created in LaunchDarkly to users through the Okta UI.
 
 <Callout intent="info">
   <CalloutTitle>If you use Okta to manage users, you cannot change back to LaunchDarkly.</CalloutTitle>
@@ -138,7 +138,7 @@ To learn more about user attributes, read [Setting user attributes](/home/users/
   </CalloutDescription>
 </Callout>
 
-Follow this procedure to assign custom roles to groups:
+To assign custom roles to groups:
 
 1. Navigate to the LaunchDarkly application's **General Settings** page.
 2. Navigate to the **Assignments** tab.
@@ -161,14 +161,20 @@ Users** in step 3.
 ![The "Assign LaunchDarkly to Groups" screen.](../../../../images/okta-assign-ld-to-groups.png)
 
 
-5. In the "LaunchDarkly Custom Roles" field, click **Add Another** to open a text box.
-6. Enter the key for the custom role you wish to assign to this group. This connects one role to the selected group.
+5. Enter the key for the custom role you wish to assign to this group. This connects one role to the selected group.
+
+<Callout intent="alert">
+  <CalloutTitle>You cannot assign roles and custom roles at the same time</CalloutTitle>
+  <CalloutDescription>
+    You can assign either a role or a custom role in this step, but not both. If you enter values in both the R ole and customRole fields, Okta ignores the customRole field.
+  </CalloutDescription>
+</Callout>
+
+6. Add more custom roles by entering additional keys in the customRole field seperated by commas, with no spaces.
 
 ![The "Add Another Role" screen.](../../../../images/okta-ld-custom-roles.png)
 
-
-7. Add more custom roles to this group by clicking **Add Another** and repeating step 6.
-8. Click **Save and Go Back**.
+7. Click **Save and Go Back**.
 
 ## Adding custom roles to new users
 

@@ -21,15 +21,7 @@ By default, all of the attributes in your user objects are sent to LaunchDarkly.
 
 Access user pages from the Users dashboard. To learn more, read [The Users dashboard](/home/users/users-dashboard).
 
-![A user's page.](../../images/users-details.png) 
-
-## Creating private user attributes 
-
-You may not want to send all attributes back to LaunchDarkly. The security or data protection requirements of your organization may require you to limit what customer or user data is transmitted from your service to a third-party platform like LaunchDarkly. 
-
-For example, you may want to target customers by their personally identifying information (PII), such as their email address, without sending the email address to LaunchDarkly.
-
-LaunchDarkly's **private user attributes** feature lets you choose which attributes get sent back to LaunchDarkly without sacrificing the ability to target user segments. This lets you create targeting rules and segments based on the attributes without having to send sensitive data back to LaunchDarkly. 
+![A user's page.](../../images/users-details.png)
 
 <Callout intent="alert">
   <CalloutTitle>The SDK does not use the attributes on the Users dashboard to evaluate flags</CalloutTitle>
@@ -38,9 +30,17 @@ LaunchDarkly's **private user attributes** feature lets you choose which attribu
     dashboard, and user attributes are not synchronized across SDK instances. You must provide all applicable user
     attributes for your targeting rules to apply correctly.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
-Configure private attribute settings in your SDK.
+## Creating private user attributes
+
+You may not want to send all attributes back to LaunchDarkly. The security or data protection requirements of your organization may require you to limit what customer or user data is transmitted from your service to a third-party platform like LaunchDarkly.
+
+For example, you may want to target customers by their personally identifying information (PII), such as their email address, without sending the email address to LaunchDarkly.
+
+LaunchDarkly's **private user attributes** feature lets you choose which attributes get sent back to LaunchDarkly without sacrificing the ability to target user segments. This lets you create targeting rules and segments based on the attributes without having to send sensitive data back to LaunchDarkly.
+
+### Configuring private attribute settings in your SDK
 
 There are three different ways to configure private attributes:
 
@@ -59,7 +59,7 @@ To learn more about setting these configuration options, read your SDK's documen
     calculate flag settings for your users. The Users page indicates when it is unable to calculate flag settings
     because of private attributes. LaunchDarkly cannot perform autocomplete attributes you have made private.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Setting custom user attributes
 
