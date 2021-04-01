@@ -9,14 +9,14 @@ published: true
   <CalloutTitle>SDK version compatibility</CalloutTitle>
 <CalloutDescription>
 
-The latest version of the SDK is compatible with Xcode 11.4 and React Native 0.63. For compatibility with earlier React Native versions, please refer to older SDK versions.
+The latest version of the SDK is compatible with Xcode 12 and React Native 0.63. If you need support for earlier versions of React Native, refer to older versions of the SDK.
 
 </CalloutDescription>
 </Callout>
 
 This reference guide documents all of the methods available in our React Native SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [React Native SDK GitHub repository](https://github.com/launchdarkly/react-native-client-sdk). The online [API docs](https://launchdarkly.github.io/react-native-client-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-react-native) using this SDK.
 
-To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/react-native-client-sdk/index.html#ldclientconfig).
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/react-native-client-sdk/index.html#ldconfig).
 
 ## Getting Started
 
@@ -50,7 +50,7 @@ pod install
 </CodeTabItem>
 </CodeTabs>
 
-You will need a `Podfile` in your `ios/` directory. Once you've written your `Podfile`, run `pod install` in the `ios/` directory. This SDK currently requires Xcode 10.2.1 (it is compatible with Xcode 10.3) and is compiled against Swift 5.
+You must have a `Podfile` in your `ios/` directory. After you write the `Podfile`, run `pod install` in the `ios/` directory. This SDK requires Xcode 12 and compiles against Swift 5.
 
 <Callout intent="info">
   <CalloutTitle><code>use_frameworks!</code> and undefined symbols errors</CalloutTitle>
@@ -103,7 +103,7 @@ target 'YOUR_MODULE_NAME' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   #launchdarkly-react-native-client-sdk dependencies
-  pod 'LaunchDarkly', '4.5.0'
+  pod 'LaunchDarkly', '5.4.0'
 
   use_native_modules!
 end
@@ -141,10 +141,10 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 
 ```js
 let client = new LDClient();
-let clientConfig = { "mobileKey": "YOUR_MOBILE_KEY" };
-let userConfig = { "key": "user_key" };
+let config = { "mobileKey": "YOUR_MOBILE_KEY" };
+let user = { "key": "user_key" };
 
-await client.configure(clientConfig, userConfig);
+await client.configure(config, user);
 ```
 
 </CodeTabItem>
@@ -191,17 +191,17 @@ You can also pass custom parameters to the client by creating a custom configura
 <CodeTabItem value="js">
 
 ```js
-let clientConfig =
+let config =
   { "mobileKey": "YOUR_MOBILE_KEY",
     "connectionTimeoutMillis": 3000
   };
-await client.configure(clientConfig, userConfig);
+await client.configure(config, user);
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-The `clientConfig` object can include a variety of options. `mobileKey` is a required property, but all other properties are optional. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/react-native-client-sdk/index.html#ldclientconfig).
+The `config` object can include a variety of options. `mobileKey` is a required property, but all other properties are optional. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/react-native-client-sdk/index.html#ldconfig).
 
 ## User Configuration Options
 
@@ -216,7 +216,7 @@ Here is a complete user configuration object utilizing all available fields:
 <CodeTabItem value="js">
 
 ```js
-let userConfig =
+let user =
   { key: '2fbfa269b78e24c8e967f482b89c939b',
     name: 'grace_hopper',
     firstName: 'Grace',
@@ -225,6 +225,8 @@ let userConfig =
     anonymous: false,
     privateAttributeNames: ['name'],
     country: 'USA',
+    avatar: 'avatar',
+    ip: '192.0.2.1',
     custom: {'groups': 'users'}
   };
 ```
@@ -264,16 +266,16 @@ let jsonResult = await client.jsonVariation('MY_JSON_FLAG_KEY', {});
 </CodeTabItem>
 </CodeTabs>
 
-Variation calls take the feature flag key and a fallback value.
+Variation calls take the feature flag key and a default value.
 
-The fallback value will only be returned if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
 
 The variation call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of their initial use, but if you choose to do so, you can use the `identify` method to do so.
 
 <Callout intent="info">
   <CalloutTitle>Handling flag values on initial application launch</CalloutTitle>
  <CalloutDescription>
-When LDClient is initialized for the first time at app launch, users receive feature flag fallback values until an initial connection to LaunchDarkly is completed for the first time. Read the section above for various ways to initialize the client.</CalloutDescription>
+When `LDClient` initializes for the first time at app launch, users receive feature flag default values until a connection to LaunchDarkly completes for the first time. Read the section above for various ways to initialize the client.</CalloutDescription>
 </Callout>
 
 <Callout intent="alert">
@@ -381,7 +383,7 @@ let onlineResult = client.setOnline(); //true or false
   <CalloutTitle>Lack of network connectivity</CalloutTitle>
 <CalloutDescription>
 
-If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory. If there are no previously stored flag settings, then the fallback values will be used.
+If a user's device is not connected to a network, such as when the device is in airplane mode, the SDK uses the latest stored flag settings in memory. If there are no previously stored flag settings, the SDK uses the default values.
 
 </CalloutDescription>
 </Callout>
@@ -482,7 +484,7 @@ this.setState({listeners: newListeners});
 The React Native SDK defaults to the background fetch behavior for the platform it's running on.
 
 ## Monitoring SDK Status
-The React Native SDK exposes some of its internal status through the Connection Status API to allow your application to monitor the SDK's status. This is provided primarily as a mechanism for the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date. Please see the documentation for iOS or Android Connection Status for detailed explanation of the information available on that platform.
+The React Native SDK exposes some of its internal status through the Connection Status API to allow your application to monitor the SDK's status. This is provided primarily as a mechanism for the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
 
 <CodeTabs
   defaultValue="js"
@@ -493,12 +495,16 @@ The React Native SDK exposes some of its internal status through the Connection 
 <CodeTabItem value="js">
 
 ```js
-let connectionInformation = client.getConnectionInformation();
-console.log("Connection Information: " + connectionInformation);
+const connectionMode = await client.getConnectionMode();
+const lastSuccessfulConnection = await client.getLastSuccessfulConnection();
+const lastFailedConnection = await client.getLastFailedConnection();
+const lastFailureReason = await client.getLastFailure();
 ```
 
 </CodeTabItem>
 </CodeTabs>
+
+To learn more about the return types, read the API documentation about [`LDConnectionMode`](https://launchdarkly.github.io/react-native-client-sdk/enums/_launchdarkly_react_native_client_sdk_.ldconnectionmode.html) and [`LDFailureReason`](https://launchdarkly.github.io/react-native-client-sdk/enums/_launchdarkly_react_native_client_sdk_.ldfailurereason.html).
 
 ## Data collection
 
