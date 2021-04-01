@@ -13,27 +13,21 @@ This topic explains how to use a flag's **Variations** tab to create and edit yo
 
 ## Understanding flag types
 
-LaunchDarkly supports different flag types.
+LaunchDarkly supports different flag types:
 
 - **Boolean flags** have two settings: `true` or `false`.
 - **Multivariate flags** have multiple settings that let you define different variations.
 
-To learn more about creating different types of flags, read [Creating a feature flag](/home/getting-started/feature-flags).
+To learn more about creating flags, read [Creating a feature flag](/home/getting-started/feature-flags).
 
 ## Managing flag variations
 
-In the Variations tab, you can add, edit, or delete variations of existing flags.
+In the Variations tab, you can add, edit, or delete variations of existing flags:
 
-Boolean flags don't use variations, because they can be set to only `true` or `false`. Multivariate flags, however, can be configured in many ways to create custom experiences or reactions.
+- **Boolean flags**: you can edit the name and description for the `true` and `false` variations, and change the default variations for new environments.
+- **Multivariate flags**: you can edit any variation’s value, name, and description. You can also add and delete variations for a multivariate flag. To learn more, read [Understanding multivariate flags](#understanding-multivariate-flags).
 
-Here are the flag modifications you can do in the flag's Variations tab:
-
-- **Boolean flags**: you can edit each variation’s name and description, and change the default variations for new environments.
-- **Multivariate flags**: you can edit any variation’s value, name, and description. You can also add and delete variations for a multivariate flag.
-
-Multivariate flags let you use one flag to serve multiple variations of a feature simultaneously. Flag settings include strings, numbers, JSON objects, or JSON arrays. You can use these for A/B/n testing.
-
-![The Variations tab with different flag variations displayed.](../../images/flag-variations-multivariate.png)
+![The Variations tab with multivariate flag variations displayed.](../../images/flag-variations-multivariate.png)
 
 When you add, edit, or delete a feature flag's variations, the change impacts environments within the project.
 
@@ -52,6 +46,28 @@ When you delete a variation, custom rules that return that variation are also de
 
 </CalloutDescription>
 </Callout>
+
+## Understanding multivariate flags
+
+Multivariate flags let you use one flag to serve multiple variations of a feature simultaneously. There is no limit to the number of variations you can add to a multivariate flag, making it useful for complex use cases and to manage two or more variations of a feature. For example, a multivariate flag that serves strings as variations can be used to enable different customer checkout types, serving a percentage rollout of those types to users.
+
+Multivariate flag variation options include:
+
+- String
+- Number
+- JSON object
+- JSON array
+
+
+![A multivariate flag percentage rollout.](../../images/flag-variations-multivariate-rollout.png)
+
+You can use custom rules to refine a rollout even more. In this example, the first rule serves two-click checkout to all users whose country is `USA`. The second rule targets users whose email ends with `example.com` and serves one-click checkout to 10%, two-click checkout to 10%, and the original checkout flow to 80% of those users. All users who are not targeted in the custom rules are served the Default rule. 
+
+To learn more about targeting rules, read [Targeting rules based on user attributes](/home/flags/targeting-users#targeting-rules-based-on-user-attributes).
+
+![A multivariate flag with custom rules.](../../images/flag-variations-multivariate-targeting.png)
+
+You can also use multivariate flags to perform A/B/n testing with LaunchDarkly's Experimentation feature. To learn more, read [Creating Experiments](/home/experimentation/create).
 
 ## Changing default flag variations
 
