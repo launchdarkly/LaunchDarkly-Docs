@@ -216,37 +216,42 @@ To evaluate whether a user is in a segment:
 - If the user's key is in the segment's `included` list, the result is `true`
 - If the user's key is in the segment's `excluded` list, the result is `false`
 - If neither, then iterate over the segment's rules to determine if any match
-  - Iterate over the segment rule's clauses
-    - Evaluate if the clause matches the user
-    - If any clause doesn't match, the rule doesn't match and move on to the next rule
-  - If the segment rule's weight is `null`, the rule matches and the result is `true`
-  - Get the segment rule's `bucketBy` value; if not set, use `key`
-  - Compute the bucket for the user using the segment rule's bucketing key and the segment's salt; otherwise, follow the same logic as for rollouts
-  - If the user's bucket is less than the segment rule's weight divided by 100,000, the rule matches and the result is `true`; otherwise, the rule doesn't match and move on to the next rule
+     - Iterate over the segment rule's clauses
+          - Evaluate if the clause matches the user
+          - If any clause doesn't match, the rule doesn't match and move on to the next rule
+     - If the segment rule's weight is `null`, the rule matches and the result is `true`
+     - Get the segment rule's `bucketBy` value; if not set, use `key`
+     - Compute the variation bucket for the user using the segment rule's bucketing key and the segment's salt; otherwise, follow the same logic as for rollouts
+     - If the user's variation bucket is less than the segment rule's weight divided by 100,000, the rule matches and the result is `true`; otherwise, the rule doesn't match and move on to the next rule
 - If the user's key wasn't in the included and excluded lists, and none of the rules matched, the result is `false`
-
-Finally, remember to return the potentially negated (depending on clause's `negate` property) result from above.
+- Return the potentially negated (depending on clause's `negate` property) result from above.
 
 ## Rollouts
 
-Rules may be associated with rollouts. Rollouts provide flexibility to bucket users. They are defined as a tuple of a list of weighted variations and a name of the attribute by which to bucket the user. The weighted variations are defined as a tuple of variation index and a non-negative integer between 0 and 100,000 acting as that variation's weight.
+You can associate rules with rollouts, which provides flexibility when you assign users to variation buckets.
 
-To bucket the given user and calculate the final variation:
+Rules are defined as: 
 
-- Get the user's attribute name from the rollout (to bucket the user by), if not set use the user's key
-- Get the user's attribute value
-- Get the user's optional secondary identifier
-- Compute the bucket for user
+* a subset of a list of **weighted variations**, and 
+* a name of the attribute by which to assign the user to a variation bucket. 
 
-  - Concatenate the flag's key, the flag's salt, the user's attribute value and the secondary identifier (if any), joined by "." character
-  - Take the first characters of the sha1 of the above
-  - Convert the resulting base 16 integer to a base 10 integer
-  - Divide the resulting base 10 integer by `0xFFFFFFFFFFFFFFF` (`1152921504606846975`)
-  - The result of this division is the user's bucket number
+**Weighted variations** are a subset of the variation index and a non-negative integer between 0 and 100,000 acting as that variation's weight.
 
-- Iterate over the rollout's weighted variations
-  - Starting at 0, keep adding the weighted variation's weight divided by 100,000 to the sum
-  - As soon as user's bucket is less than the above sum, return the weighted variation's variation index
+To assign a user to a variation bucket and calculate the final variation:
+
+1. Get the user's attribute name from the rollout to assign the user. If this is not set, use the user's key.
+1. Get the user's attribute value.
+1. Get the user's optional secondary identifier.
+1. Compute the variation bucket for user.
+     1. Concatenate the flag's key, the flag's salt, the user's attribute value and the secondary identifier (if any), joined by "." character.
+     1. Take the first 15 characters of the SHA1 of the above.
+     1. Convert the resulting base 16 integer to a base 10 integer.
+     1. Divide the resulting base 10 integer by `0xFFFFFFFFFFFFFFF` (`1152921504606846975`).
+  The result of this division is the user's variation bucket number.
+
+1. Iterate over the rollout's weighted variations.
+     1. Starting at 0, keep adding the weighted variation's weight divided by 100,000 to the sum.
+     1. When a user's variation bucket is less than the above sum, return the weighted variation's variation index.
 
 ## Fallthrough
 
