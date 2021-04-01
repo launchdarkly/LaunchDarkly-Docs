@@ -38,8 +38,8 @@ To complete this guide, you must have the following prerequisites:
 * An active LaunchDarkly account with the ability to create a flag.
 * Basic knowledge of the Python and Javascript programming languages. You need these to complete the exercises in this guide.
 * "Do not track" must be disabled in your browser for the experiment's click events to work. To confirm that "Do not track" is disabled, visit [AllAboutDNT.com](https://allaboutdnt.com).
-* You should be familiar with the concept of experimentation for software products, and know what results you want to determine. To learn more, read [Introduction to experimentation](/guides/best-practices/experimentation).
-* You must have Experimentation enabled in your LaunchDarkly account. To enable experimentation, contact your LaunchDarkly account manager or email sales@launchdarkly.com.
+* You should be familiar with the concept of experimentation for software products, and know what results you want to determine. To learn more, read [Designing experiments in LaunchDarkly](/guides/best-practices/experimentation).
+* You must have Experimentation enabled in your LaunchDarkly account. To enable Experimentation, contact your LaunchDarkly account manager or email sales@launchdarkly.com.
 * Access to [Glitch](https://glitch.com/about).
 
 <LearnMore>
@@ -81,21 +81,21 @@ To begin, remix the Glitch project to create an editable copy of the app. Use th
 The LaunchDarkly Python SDK and client-side JavaScript SDK are installed in this app already. You must add your project's SDK key, which we'll do in the next section.
 
 You can re-use the project and environment you created in [Getting started with your first
-flag](/guides/tutorials/first-flag), or create a new one. 
+flag](/guides/tutorials/first-flag), or create a new one.
 
 ![Project and environments](../../../images/space-camp-projects.png)
 
 ### Configuring the SDK key and client ID
 
 Glitch lets you store environment variables, such as secrets or config variables, that your app can read from memory. This is a more secure practice than
-hard-coding these directly into your code. 
+hard-coding these directly into your code.
 
 ![.env file](../../../images/dot-env-experimentation.png)
 
 1. Find a file called `.env` in the Glitch sidebar.
-2. Copy the **SDK key** from the **Test** environment by clicking on the key. 
+2. Copy the **SDK key** from the **Test** environment by clicking on the key.
 3. Assign the **SDK key** to the environment variable called `LD_SDK_KEY`.
-4. Copy the **Client-side ID** from the **Test** environment. 
+4. Copy the **Client-side ID** from the **Test** environment.
 5. Assign the **Client-side ID** to the environment variable called `LD_SDK_KEY`.
 
 <CodeTabs defaultValue="env" values={[{ label: '.env', value: 'env', }]}>
@@ -122,7 +122,7 @@ A 25% discount means a student would pay 75% of the original cost of the trip. T
 
 Our application stores numbers like this in an array. We will use a multivariate flag's
 value to calculate the discount. To do this, we multiply the values in the
-array by a constant .25 for 75% off, .5 for 50% off, and .75 for 25% off. 
+array by a constant .25 for 75% off, .5 for 50% off, and .75 for 25% off.
 
 Each of those values corresponds to one variation of a feature flag. When we run an experiment, we compare how each variation of a flag produces different behavior in our users.
 
@@ -136,13 +136,13 @@ First, create a new flag in LaunchDarkly.
 5. Click into the **Tags** dropdown and enter “experiment”. This creates a tag that lets you filter flags based on which flags have experiments running.
 6. Under "Flag variations", choose **Number**.
 7. Enter a name and value for the variations as given below:
-  * Variation 1 value: .25 
+  * Variation 1 value: .25
   * Variation 1 name: 75% off
-  * Variation 2 value: .5 
+  * Variation 2 value: .5
   * Variation 2 name: 50% off
   * Variation 3 value: .75
   * Variation 3 name: 25% off
-  * Variation 4 value: 1 
+  * Variation 4 value: 1
   * Variation 4 name: No discount
 8. Click the 'Make this flag available to client-side SDKs' checkbox.
 9. Save your new flag.
@@ -152,7 +152,7 @@ First, create a new flag in LaunchDarkly.
 ### Targeting users
 
 A successful experiment requires two or more segments to test against. How you segment your users
-will vary based on your business. 
+will vary based on your business.
 
 Here are some possible ways to segment users:
 
@@ -180,7 +180,7 @@ Now you must update your app to display discounted pricing if a user logs in wit
 To update your app:
 
 1. Navigate to your Glitch app.
-2. Find the `server.py` file in the sidebar and click to open it. 
+2. Find the `server.py` file in the sidebar and click to open it.
 3. Add or change the pricing array code. Comments in the file indicate where to add the code.
 
 <CodeTabs defaultValue="py" values={[{ label: 'Multivariate flag with discount', value: 'py', }]}>
@@ -218,7 +218,7 @@ targeting rules work.
 ### Creating a click metric
 
 Metrics let you measure user behaviors affected by your flag. The three types of
-metrics are click, pageview, and custom metrics. 
+metrics are click, pageview, and custom metrics.
 
 To learn more about metrics in experiments, read [Creating experiments](/home/experimentation/create).
 
@@ -270,7 +270,7 @@ For this exercise, we will simulate traffic to your application.
 1. Wait for the simulation to complete and to view the results in LaunchDarkly.
 
 <Callout intent="info">
-  <CalloutTitle>You may have to wait for experimentation results</CalloutTitle>
+  <CalloutTitle>You may have to wait for Experimentation results</CalloutTitle>
   <CalloutDescription>
     Data can take up to 10 minutes to appear in LaunchDarkly after your
     experiment starts.

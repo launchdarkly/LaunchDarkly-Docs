@@ -240,9 +240,9 @@ In addition to built-in attributes like names and e-mail addresses, you can pass
 
 Private attributes allow you to specify keys you do not want to be sent to the LaunchDarkly servers. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly. When this user is sent back to LaunchDarkly, the `name` attribute will be removed.
 
-The `anonymous` key allows you to distinguish logged out or unregistered users while still using LaunchDarkly. Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. This keeps anonymous users from polluting your Users page. 
+The `anonymous` key allows you to distinguish logged out or unregistered users while still using LaunchDarkly. Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. This keeps anonymous users from polluting your Users page.
 
-You can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. If you use the same user key for every anonymous user, you also can't use percentage rollouts or experimentation with anonymous users.
+You can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. If you use the same user key for every anonymous user, you also can't use percentage rollouts or Experimentation with anonymous users.
 
 We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
 

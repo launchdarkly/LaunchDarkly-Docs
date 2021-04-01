@@ -21,7 +21,7 @@ Android application, read the [Android SDK reference](/sdk/client-side/android).
 <Callout intent="info">
   <CalloutTitle>Java compatibility</CalloutTitle>
   <CalloutDescription>Version 5.0 and higher of the LaunchDarkly Java SDK is compatible with Java 8 and higher. Prior to version 5.0, the LaunchDarkly Java SDK also supported Java 7.</CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Getting started
 
@@ -189,7 +189,7 @@ LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
 </CodeTabItem>
 </CodeTabs>
 
-Here, we've customized two properties for HTTP (the connect and socket timeouts), and one property for analytics events (the event flush interval). 
+Here, we've customized two properties for HTTP (the connect and socket timeouts), and one property for analytics events (the event flush interval).
 
 To get a complete list of configuration options for the client, including proxy settings, timeouts, and streaming/polling options, read the Javadoc for [LDConfig.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.Builder.html). You can also read the [4.x version](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/4.12.0/com/launchdarkly/client/LDConfig.Builder.html).
 
@@ -427,7 +427,7 @@ ldClient.track("completed-purchase", user, data);
 </CodeTabItem>
 </CodeTabs>
 
-Or, if you are using [experimentation](/home/experimentation), you can specify a numeric metric with [`trackMetric`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackMetric-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-double-):
+Or, if you are using [Experimentation](/home/experimentation), you can specify a numeric metric with [`trackMetric`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackMetric-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-double-):
 
 <CodeTabs
   defaultValue="java"
@@ -524,7 +524,7 @@ The flush interval is configurable. If you need to change the interval, you can 
   <CalloutDescription>
     The Java SDK only supports subscribing to feature flag changes in versions 5.0.0 and higher. Currently, most other server-side LaunchDarkly SDKs do not support this feature. All of the client-side SDKs do support this feature.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 The SDK provides a listener-based mechanism to notify you when flag configurations change. The [`LDClient.getFlagTracker()`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#getFlagTracker--) method returns an interface for this mechanism, [`FlagTracker`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html).
 
@@ -640,7 +640,7 @@ ldClient.close()
 
 ## Logging
 
-The Java SDK uses [SLF4J](https://www.slf4j.org/). All loggers are namespaced under `com.launchdarkly`. For an example configuration check out the [hello-java](https://github.com/launchdarkly/hello-java) project. 
+The Java SDK uses [SLF4J](https://www.slf4j.org/). All loggers are namespaced under `com.launchdarkly`. For an example configuration check out the [hello-java](https://github.com/launchdarkly/hello-java) project.
 
 You can filter by logger name. Here are available logger names, starting with version 5.0:
 
@@ -701,8 +701,8 @@ However, there is also a distribution that includes Gson and SLF4j as part of th
   <CalloutTitle>Potential network connectivity issues caused by DNS caching</CalloutTitle>
   <CalloutDescription>
 
-There is a potential problem for any Java application that communicates with a web service, if that service uses a load-balancing framework. LaunchDarkly is such a service. The issue is that if a service starts to use a different set of IP addresses, a Java application could continue trying to use an old IP address, causing connection attempts to fail. In most environments, this is unlikely to be a problem because IP addresses are not cached for very long. 
-    
+There is a potential problem for any Java application that communicates with a web service, if that service uses a load-balancing framework. LaunchDarkly is such a service. The issue is that if a service starts to use a different set of IP addresses, a Java application could continue trying to use an old IP address, causing connection attempts to fail. In most environments, this is unlikely to be a problem because IP addresses are not cached for very long.
+
 However, Java has special behavior if the runtime environment has a [security manager](https://docs.oracle.com/javase/tutorial/essential/environment/security.html): in that case, it caches IP addresses indefinitely and will never update them until the application is restarted. If you are running in an environment that has a security manager—or if you're not sure whether that is the case—we recommend that you set the cache duration (TTL) explicitly. [This page](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-jvm-ttl.html) describes two ways to do so.
 
   </CalloutDescription>

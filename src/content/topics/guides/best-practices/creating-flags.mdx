@@ -11,7 +11,7 @@ This guide explains the best practices for creating feature flags in LaunchDarkl
 
 The purpose of this guide is to help your team create flags that fit their current and future needs the first time, rather than needing to revise flag behaviors later. The better-defined the flag is, the easier it is to create. Effective flags help your team move faster.
 
-Best practices around feature flags are still evolving. The suggestions below are not firm rules for how to use feature flags. They're best practices and advice. 
+Best practices around feature flags are still evolving. The suggestions below are not firm rules for how to use feature flags. They're best practices and advice.
 
 # Concepts
 
@@ -43,18 +43,18 @@ You may also consider:
 * How will you name and describe the flag?
 * Is the flag temporary, or long-lived?
 * What are the flag's default values?
-  
+
 Most flags are responsible for one of the following use cases:
 
 ## Managing code releases
 
-Flags can wrap code for a new feature or improved  feature. Unless something goes wrong, you will end up enabling the feature for all users. The flag provides more control over the release. 
+Flags can wrap code for a new feature or improved  feature. Unless something goes wrong, you will end up enabling the feature for all users. The flag provides more control over the release.
 
 The flag's variations are almost always `true` or `false` booleans that represent whether the new code is enabled. After you roll the feature out and verify the new code is stable and working for all users, you can delete this flag.
 
 ## Conducting experiments
 
-A flag associated with an experiment is similar to a flag that controls a release, in that it wraps code for a feature that will have impact on your users. But instead of just `true` or `false`, the flag may be multivariate so that the experiment can test multiple values. 
+A flag associated with an experiment is similar to a flag that controls a release, in that it wraps code for a feature that will have impact on your users. But instead of just `true` or `false`, the flag may be multivariate so that the experiment can test multiple values.
 
 Use these flags with analytics to compare user or system behavior between two or more flag variations.
 
@@ -76,7 +76,7 @@ A flag only needs to do one thing. Consider if your flag could actually be two f
 
 You can also create flags with dependencies on each other. Flags can depend other flags being true or false, or on the features controlled by different flags.
 
-If you find yourself in a situation where you have two related flags, ask yourself if one flag should be a prerequisite for the other. 
+If you find yourself in a situation where you have two related flags, ask yourself if one flag should be a prerequisite for the other.
 
 For example, do you want your new flag to show a variation only if the “New login screen” flag is on?
 
@@ -92,7 +92,7 @@ The answer to this question often depends on the flag category:
 
 # Setting flag identifiers
 
-Flags have two identifiers: 
+Flags have two identifiers:
 
 * The **name**. Flag names only appear on the LaunchDarkly dashboard, above the flag's description and near other useful details about the flag.
 * The **key**. This is how your flag is represented in LaunchDarkly's code. Keys are the only identifier used in code, and that code usually has no other details about the flag.
@@ -123,9 +123,9 @@ Some useful facts about a flag are:
 
 ## Writing an effective flag description
 
-Write short flag descriptions. They should be no longer than a sentence or two. 
+Write short flag descriptions. They should be no longer than a sentence or two.
 
-Don't repeat any information already present in the flag's name. Instead, focus on other things you want your teammates to know about this flag, such as: 
+Don't repeat any information already present in the flag's name. Instead, focus on other things you want your teammates to know about this flag, such as:
 
 * What enabling targeting will do
 * What side effects it may cause
@@ -138,7 +138,7 @@ The LaunchDarkly dashboard has controls for filtering and sorting flags by diffe
 
 Tags are useful for grouping flags by particular details. For example, if there's a set of long-lived flags that are specifically intended for operational use, you can tag them with `operational`. If you have flags that have special targeting for users in Belgium, you can tag them `belgium`.
 
-You can also use tags to control which team members can modify flags. 
+You can also use tags to control which team members can modify flags.
 
 To learn more, read [Custom roles](/home/team/custom-roles).
 
@@ -148,15 +148,15 @@ Try to re-use existing tags as much as possible. This streamlines the dashboard 
 
 Most flags have boolean variations. Their values are either `true` or `false`. You can use flags that evaluate different values, like strings or numbers, when you need to do more complex operations. You can add more variations to a flag at any time.
 
-For example, you may have a flag controlling whether the user is charged sales tax for a purchase. If they're charged, the tax is 7%. If not, it's zero. 
+For example, you may have a flag controlling whether the user is charged sales tax for a purchase. If they're charged, the tax is 7%. If not, it's zero.
 
-You could make this a boolean flag that determines whether or not tax is applied by assigning the tax to `true` or `false` states. However, there is an opportunity to add more complexity later if you assign the flag variations to numbers: `7` and `0`. 
+You could make this a boolean flag that determines whether or not tax is applied by assigning the tax to `true` or `false` states. However, there is an opportunity to add more complexity later if you assign the flag variations to numbers: `7` and `0`.
 
 If you do this and the tax rate then changes, you can update the tax percentage charged by the app without changing code. Alternatively, you could make more variations of the same flag that address other tax rates used in different regions, and use targeting rules to automatically return the user's correct tax rate.
 
 ## Understanding the flag's default variation
 
-Your default variation is the starting state of the flag. 
+Your default variation is the starting state of the flag.
 
 For most flags, the default variation for a feature is `off`.
 
@@ -164,9 +164,9 @@ In some cases, like when you want to deprecate a feature, you can set the defaul
 
 ## Setting client-side visibility
 
-LaunchDarkly SDKs are divided into two types: 
+LaunchDarkly SDKs are divided into two types:
 
-* client-side, and  
+* client-side, and
 * server-side
 
 Client-side SDKs evaluate flags differently than server-side SDKs, because we build those SDKs under the assumption that they may connect to and serve insecure or public devices. It is important to understand the security impact of making flags available on the client side.

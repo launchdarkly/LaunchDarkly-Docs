@@ -10,7 +10,7 @@ This reference guide documents all of the methods available in our Go SDK, and e
 <Callout intent="info">
   <CalloutTitle>Go version compatibility</CalloutTitle>
   <CalloutDescription>Version 5.0 and higher of the LaunchDarkly Go SDK is compatible with Go 1.14 and higher.</CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Getting started
 
@@ -98,7 +98,7 @@ The second return type in these code samples ( `_` ) represents an error in case
 It's important to make this a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 Using the `LDClient` methods, you can check which variation a particular user should receive for a given feature flag. See [Variation](#variation) and [VariationDetail](#VariationDetail) below for more details. See [Users](#users) for more about how user properties are specified-- in this example, there is a user key that consists of an email address.
 
@@ -122,7 +122,7 @@ showFeature, _ := ldClient.BoolVariation(flagKey, user, false)
 if showFeature {
     // application code to show the feature
 } else {
-    // the code to run if the feature is off 
+    // the code to run if the feature is off
 }
 ```
 
@@ -140,7 +140,7 @@ showFeature, _ := ldClient.BoolVariation(flagKey, user, false)
 if showFeature {
     // application code to show the feature
 } else {
-    // the code to run if the feature is off 
+    // the code to run if the feature is off
 }
 ```
 
@@ -307,7 +307,7 @@ All of the other attributes (like `FirstName`, `Email`, and the `Custom` attribu
 <CalloutTitle>A note on types</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or arrays or maps containing any of type of value supported by JSON. 
+Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or arrays or maps containing any of type of value supported by JSON.
 
 In SDK versions 4.16.0 and later, these types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value) type; earlier versions use the catch-all Go type `interface{}`.
 
@@ -635,7 +635,7 @@ ldClient.Track("completed-purchase", user, data) // TrackData was added in 4.16
 </CodeTabItem>
 </CodeTabs>
 
-Or, if you are using experimentation, you can specify a numeric metric with [`TrackMetric`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.TrackMetric):
+Or, if you are using Experimentation, you can specify a numeric metric with [`TrackMetric`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.TrackMetric):
 
 <CodeTabs
   defaultValue="go"
@@ -710,7 +710,7 @@ ldClient.Identify(user)
     Note that unlike `Variation` and `Identify` calls, `AllFlagsState` does not send events to LaunchDarkly. Thus, users are
     not created or updated in the LaunchDarkly dashboard.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 The [`AllFlagsState`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.AllFlagsState) method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
@@ -792,7 +792,7 @@ The flush interval is configurable. If you need to change the interval, you can 
   <CalloutDescription>
     The Go SDK only supports subscribing to feature flag changes in versions 5.0.0 and higher. Currently, most other server-side LaunchDarkly SDKs do not support this feature. All of the client-side SDKs do support this feature.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 The SDK provides a channel-based mechanism to notify you when flag configurations change. The [`LDClient.GetFlagTracker()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetFlagTracker) method returns an interface for this mechanism called [`FlagTracker`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#FlagTracker).
 
