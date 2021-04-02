@@ -9,7 +9,7 @@ published: true
 
 This topic explains how to specify different resources to use with custom roles.
 
-To learn more about how resources are structured within custom role policies, read [Custom role concepts](/home/team/role-concepts).  
+To learn more about how resources are structured within custom role policies, read [Custom role concepts](/home/team/role-concepts).
 
 ## Understanding the resource specifier syntax
 
@@ -62,7 +62,7 @@ proj/*
 The resource syntax accepts globs and wildcards, so you can name collections of resources with `*`. You can also name a specific project by its ID.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 In the example below, we name a project by the `default` ID.
 
@@ -107,7 +107,7 @@ proj/*;mobile
 
 ## Scoping resources
 
-The term "scoping" refers to identifying resources in relation to other resources and the hieriarchy of permissions that connects them. 
+The term "scoping" refers to identifying resources in relation to other resources and the hieriarchy of permissions that connects them.
 
 Resources can be scoped within parent resources. For example, metrics are scoped within a project, and feature flags are scoped within a project and environment.
 
@@ -151,6 +151,15 @@ proj/*:env/*:flag/*
 </CodeTabs>
 
 In the example above, `proj/*:`includes all named projects in the list of results. `env/*:` includes all environments in the list of results. `flag/*:` includes all flags in the list of results. This example will return very broad results because of how comprehensive its permissions are.
+
+<Callout intent="info">
+  <CalloutTitle>Resource types do not share permissions</CalloutTitle>
+  <CalloutDescription>
+
+  User permissions are specific to each resource type, and different types do not share or inherit permissions. For example, if you set user permissions for a project with the ID `default` using `proj/default`, the user does not have the same permissions for the project's environments unless you also set user permissions for `proj/default:env/*`.
+
+  </CalloutDescription>
+</Callout>
 
 For a more refined example, we could name all feature flags whose keys start with `ops_`:
 
