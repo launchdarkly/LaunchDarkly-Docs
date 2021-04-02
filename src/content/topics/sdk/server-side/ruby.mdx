@@ -14,7 +14,7 @@ This reference guide documents all of the methods available in our Ruby SDK, and
 Due to a bug in recent versions of RubyGems, versions 2.4.x (of RubyGems, not of Ruby) are not compatible with the LaunchDarkly Ruby SDK.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Getting started
 
@@ -39,7 +39,7 @@ gem install launchdarkly-server-sdk
 </CodeTabItem>
 </CodeTabs>
 
-Next you should import the LaunchDarkly client in your application code. (This step may not be necessary if you are using a framework that automatically loads all dependencies, as Rails does.) 
+Next you should import the LaunchDarkly client in your application code. (This step may not be necessary if you are using a framework that automatically loads all dependencies, as Rails does.)
 
 
 <CodeTabs
@@ -81,7 +81,7 @@ ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY")
 It's important to make this a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 Using `ld_client`, you can check which variation a particular user should receive for a given feature flag.
 
@@ -239,7 +239,7 @@ ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
 </CodeTabItem>
 </CodeTabs>
 
-The client constructor takes a configuration object as an optional parameter. In this example, we've set the connection timeout to LaunchDarkly to 1 second, and the read timeout to 2 seconds. 
+The client constructor takes a configuration object as an optional parameter. In this example, we've set the connection timeout to LaunchDarkly to 1 second, and the read timeout to 2 seconds.
 
 To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Config).
 
@@ -267,7 +267,7 @@ In addition to built-in attributes, you can pass us any of your own user data by
   <CalloutDescription>
 
 All user attribute keys (both built-in and custom attributes) must be symbols and not strings.
-  
+
   </CalloutDescription>
 </Callout>
 
@@ -278,7 +278,7 @@ All user attribute keys (both built-in and custom attributes) must be symbols an
 Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available instantly on our dashboard.
 
@@ -392,7 +392,7 @@ The `variation` call will automatically create a user in LaunchDarkly if a user 
 
 The `variation_detail` method allows you to evaluate a feature flag (using the same parameters as you would for `variation`) and receive more information about how the value was calculated.
 
-The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the user was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
+The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the user was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically; you can also view it with Data Export, if you are capturing detailed analytics events for this flag.
 
 To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 
@@ -459,7 +459,7 @@ ld_client.identify(user)
 Unlike variation and identify calls, `all_flags_state` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 The `all_flags_state` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 

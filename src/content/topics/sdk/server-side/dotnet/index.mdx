@@ -16,7 +16,7 @@ This reference guide documents all of the methods available in our .NET SDK, and
   To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Getting started
 
@@ -25,7 +25,7 @@ This reference guide documents all of the methods available in our .NET SDK, and
   <CalloutDescription>
     The .NET SDK requires version 4.5 or later of the .NET framework or .NETCoreApp 1.0 or later.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 
 Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your .NET application.
@@ -92,7 +92,7 @@ LdClient ldClient = new LdClient("YOUR_SDK_KEY");
 It's important to make this a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 Using `ldClient`, you can check which variation a particular user should receive for a given feature flag.
 
@@ -108,7 +108,7 @@ Using `ldClient`, you can check which variation a particular user should receive
 User user = User.WithKey(username);
 bool showFeature = ldClient.BoolVariation("your.feature.key", user, false);
 if (showFeature) {
-    // application code to show the feature 
+    // application code to show the feature
 }
 else {
     // the code to run if the feature is off
@@ -196,7 +196,7 @@ In addition to the built-in attributes defined in the `User` class, you can pass
 Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, arrays, or objects (a.k.a. dictionaries)—the same types supported by JSON. For representing the complex types—arrays and objects—the SDK uses the [`LdValue`](http://launchdarkly.github.io/dotnet-server-sdk/html/T_LaunchDarkly_Client_LdValue.htm) type. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The .NET SDK is strongly typed, so be aware of this distinction.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available instantly on our dashboard.
 
@@ -280,7 +280,7 @@ The `Variation` call will automatically create a user in LaunchDarkly if a user 
 
 ## VariationDetail
 
-The `VariationDetail` methods ([`BoolVariationDetail`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_BoolVariationDetail.htm), etc.) work the same as the `Variation` methods, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
+The `VariationDetail` methods ([`BoolVariationDetail`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_BoolVariationDetail.htm), etc.) work the same as the `Variation` methods, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with Data Export, if you are capturing detailed analytics events for this flag.
 
 To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 
@@ -348,7 +348,7 @@ Note that unlike `Variation` and `Identify` calls, `AllFlagsState` does not send
 are not created or updated in the LaunchDarkly dashboard.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 The [`AllFlagsState`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_AllFlagsState.htm) method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
@@ -469,7 +469,7 @@ To learn more, read [Using a persistent feature store](/sdk/concepts/feature-sto
 
 ## Transport Layer Security (TLS) and other networking issues
 
-.NET applications running on older operating systems are prone to use older, less secure versions of TLS. It is possible to increase your application's security using AppContext switches. 
+.NET applications running on older operating systems are prone to use older, less secure versions of TLS. It is possible to increase your application's security using AppContext switches.
 
 To learn more, [read Microsoft's documentation](https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls#configuring-security-via-appcontext-switches-for-net-framework-46-or-later-versions).
 
@@ -484,4 +484,4 @@ failures that always resolve in two minutes, you may wish to change this setting
 [here](https://docs.microsoft.com/en-us/dotnet/api/system.NET.servicepointmanager.dnsrefreshtimeout?view=netframework-4.7.2).
 
   </CalloutDescription>
-</Callout> 
+</Callout>

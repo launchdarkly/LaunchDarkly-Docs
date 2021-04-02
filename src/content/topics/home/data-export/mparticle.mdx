@@ -1,13 +1,13 @@
 ---
 path: '/home/data-export/mparticle'
 title: 'mParticle'
-description: 'This topic explains how to create and test an mParticle destination for data export.'
+description: 'This topic explains how to create and test an mParticle destination for Data Export.'
 published: true
 ---
 
 ## Overview
 
-This topic explains how to create and test an mParticle destination for data export.
+This topic explains how to create and test an mParticle destination for Data Export.
 
 mParticle is a customer data platform that allows you to aggregate your analytics and create customer cohorts.
 
@@ -20,19 +20,19 @@ To set up an mParticle destination in LaunchDarkly, you will need:
 
 The key and secret are available in your mParticle account. Copy and save both strings. You'll need them to connect mParticle to LaunchDarkly.
 
-![The mParticle API keys screen.](../../images/mparticle-api-keys.png) 
+![The mParticle API keys screen.](../../images/mparticle-api-keys.png)
 
 
 ## Creating the mParticle destination in LaunchDarkly
 
-You can use the LaunchDarkly UI to create and modify destinations for data export.
+You can use the LaunchDarkly UI to create and modify destinations for Data Export.
 
 To create an mParticle destination in LaunchDarkly:
 
 1. Navigate to the **Integrations** screen.
 2. Click on the mParticle icon or, if this is not your first destination, click the **Add Destination** button. The "Create a destination" screen appears.
 
-![The Integrations screen.](../../images/mparticle-add-destination.png) 
+![The Integrations screen.](../../images/mparticle-add-destination.png)
 
 
 3. (Optional) Enter a **Name** for the destination.
@@ -43,12 +43,12 @@ To create an mParticle destination in LaunchDarkly:
        You cannot change an environment after you create the destination. If you wish to export event data from a
        different environment, you must set up another destination.
      </CalloutDescription>
-   </Callout> 
+   </Callout>
 5. Select an **mParticle Environment**.
 6. Enter your mParticle **Server to Server Key** in the **API key** field.
 7. Enter your mParticle **Server to Server Secret** in the **API secret** field.
 
-![The Create a destination screen.](../../images/mparticle-destination-create.png) 
+![The Create a destination screen.](../../images/mparticle-destination-create.png)
 
 
 8. Select a **User identifier** type from the dropdown. Choose from the following options:
@@ -59,16 +59,16 @@ To create an mParticle destination in LaunchDarkly:
 - twitter
 - google
 
-![The User identifier dropdown.](../../images/mparticle-user-id.png) 
+![The User identifier dropdown.](../../images/mparticle-user-id.png)
 
 
 <Callout intent="info">
 <CalloutTitle>Choose the correct user identifier for your events</CalloutTitle>
 <CalloutDescription>
 
-The user identifier you choose must match an identity you chose to identify users in the mParticle ecosystem. Every event LaunchDarkly exports has a user key specified by the SDK. 
+The user identifier you choose must match an identity you chose to identify users in the mParticle ecosystem. Every event LaunchDarkly exports has a user key specified by the SDK.
 
-The user identifier should correspond to the mParticle user identity your SDK user key represents. For example, if your user key represents an email address, you should choose `email` as the user identifier. 
+The user identifier should correspond to the mParticle user identity your SDK user key represents. For example, if your user key represents an email address, you should choose `email` as the user identifier.
 
 To learn more about exported events, read [Schema reference](/home/data-export/schema-reference).
 
@@ -92,7 +92,7 @@ The mParticle destination appears in the "Your data export destinations" section
 
 ## Testing an mParticle destination
 
-After you create an mParticle destination for data export, you can confirm that it's working correctly in the "Create a destination screen."
+After you create an mParticle destination for Data Export, you can confirm that it's working correctly in the "Create a destination screen."
 
 To test the mParticle destination:
 
@@ -101,7 +101,7 @@ To test the mParticle destination:
 3. Set the **mParticle environment** to `development`. This allows the test event to appear in the events stream on the mParticle dashboard.
 4. Click **Send Event** in the "Send a test event" section.
 
-![The Send a test event section.](../../images/mparticle-test-event.png) 
+![The Send a test event section.](../../images/mparticle-test-event.png)
 
 
 5. Verify the event appears on the mParticle events live stream.
@@ -248,15 +248,15 @@ LaunchDarkly sends events in the following formats:
 </CodeTabItem>
 </CodeTabs>
 
-## Enabling data export for flags and environments
+## Enabling Data Export for flags and environments
 
-After you create a data export destination, you must start sending flag or environment event data to it. You can enable data export for individual flags, or for all the flags in an environment.
+After you create a Data Export destination, you must start sending flag or environment event data to it. You can enable Data Export for individual flags, or for all the flags in an environment.
 
 To learn more about exporting event data from flags and environments, read [Data Export](/home/data-export#exporting-event-data-for-flags-and-environments).
 
 ## Deleting an mParticle destination
 
-You can delete a data export destination from the **Integrations** screen.
+You can delete a Data Export destination from the **Integrations** screen.
 
 To delete a destination:
 
@@ -264,4 +264,4 @@ To delete a destination:
 2. Find the destination you wish to delete and click **Edit**. The "Create a destination" screen opens.
 3. Click **Delete Destination**.
 
-![The Delete destination section.](../../images/mparticle-destination-delete.png) 
+![The Delete destination section.](../../images/mparticle-destination-delete.png)

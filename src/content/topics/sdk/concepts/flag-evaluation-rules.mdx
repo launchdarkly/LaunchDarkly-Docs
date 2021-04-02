@@ -26,7 +26,7 @@ The result of the evaluation is:
 
 Note that variation values are often referenced by their _index_. For example, if a flag has two variations - `true` and `false` - `true` will be variation index 0, and `false` will be variation index 1.
 
-As a side effect of the evaluation, the SDKs send events back to LaunchDarkly to report that the evaluation has occurred. The data sent back for each evaluation (including prerequisites) follows the schema described in the [schema reference guide for data export](/home/data-export/schema-reference).
+As a side effect of the evaluation, the SDKs send events back to LaunchDarkly to report that the evaluation has occurred. The data sent back for each evaluation (including prerequisites) follows the schema described in the [schema reference guide for Data Export](/home/data-export/schema-reference).
 
 ## Preliminary checks
 
@@ -230,10 +230,10 @@ To evaluate whether a user is in a segment:
 
 You can associate rules with rollouts, which provides flexibility when you assign users to variation buckets.
 
-Rules are defined as: 
+Rules are defined as:
 
-* a subset of a list of **weighted variations**, and 
-* a name of the attribute by which to assign the user to a variation bucket. 
+* a subset of a list of **weighted variations**, and
+* a name of the attribute by which to assign the user to a variation bucket.
 
 **Weighted variations** are a subset of the variation index and a non-negative integer between 0 and 100,000 acting as that variation's weight.
 

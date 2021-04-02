@@ -10,7 +10,7 @@ This reference guide documents all of the methods available in our PHP SDK, and 
 <Callout intent="info">
   <CalloutTitle>Requirements</CalloutTitle>
   <CalloutDescription>PHP 5.5 or higher.</CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Getting started
 
@@ -100,9 +100,9 @@ You may remember from our [Getting Started guide](/home/getting-started) that us
 
 There are two distinct methods of integrating LaunchDarkly in a PHP environment.
 
-- [Guzzle Cache Middleware](https://github.com/Kevinrob/guzzle-cache-middleware) to request and cache HTTP responses in an in-memory array (default) 
+- [Guzzle Cache Middleware](https://github.com/Kevinrob/guzzle-cache-middleware) to request and cache HTTP responses in an in-memory array (default)
 
-- [ld-relay](https://github.com/launchdarkly/ld-relay) to retrieve and store flags in Redis (recommended) 
+- [ld-relay](https://github.com/launchdarkly/ld-relay) to retrieve and store flags in Redis (recommended)
 
 
 We strongly suggest using the ld-relay. Per-flag caching mode (Guzzle) is only intended for low-throughput environments.
@@ -195,7 +195,7 @@ PHP's *shared-nothing* architecture means that the out-of-the-box in-memory HTTP
 feature flags across requests. In production, we strongly recommend the ld-relay for PHP.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Customizing your client
 
@@ -222,7 +222,7 @@ We've set the client connect timeout to 3 seconds in addition to providing a cus
 <CalloutTitle>Sending events in PHP</CalloutTitle>
 <CalloutDescription>
 
-The LaunchDarkly SDK sends data back to our server to record events from Track and Variation calls. On our other platforms, this data is sent asynchronously, so that it adds no latency to serving web pages. PHP's  *shared-nothing* architecture makes this a bit difficult. 
+The LaunchDarkly SDK sends data back to our server to record events from Track and Variation calls. On our other platforms, this data is sent asynchronously, so that it adds no latency to serving web pages. PHP's  *shared-nothing* architecture makes this a bit difficult.
 
 By default, LaunchDarkly forks an external process that executes `curl` to send this data. In practice we've found that this is the most reliable way to send data without introducing latency to page load times. If your server does not have `curl` installed, or has other restrictions that make it impossible to invoke `curl` as an external process, you may need to implement a custom `EventProcessor` to send events to LaunchDarkly.
 
@@ -272,7 +272,7 @@ In addition to these, you can pass us any of your own user data by passing `cust
     value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The PHP SDK is strongly
     typed, so be aware of this distinction.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available instantly on our dashboard.
 
@@ -296,8 +296,8 @@ You can also mark attributes as private when building the user object itself by 
 <CodeTabItem value="php">
 
 ```php
-$user = (new LDUserBuilder('aa0ceb')) 
-    ->privateEmail('test@example.com') 
+$user = (new LDUserBuilder('aa0ceb'))
+    ->privateEmail('test@example.com')
     ->build();
 ```
 
@@ -358,7 +358,7 @@ The `variation` call will automatically create a user in LaunchDarkly if a user 
 
 The `variationDetail` method allows you to evaluate a feature flag (using the same parameters as you would for `variation`) and receive more information about how the value was calculated.
 
-The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the user was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
+The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the user was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically; you can also view it with Data Export, if you are capturing detailed analytics events for this flag.
 
 To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 
@@ -425,7 +425,7 @@ $client->identify(user);
 Unlike variation and identify calls, `allFlagsState` does not send events to LaunchDarkly. Users are not created or updated in the LaunchDarkly dashboard.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 The `allFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
@@ -478,7 +478,7 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 ```php
 $client = new LaunchDarkly\LDClient("YOUR_SDK_KEY", array("offline" => true));
-$client->variation("any.feature.flag", user, false); // will always return the default value (false) 
+$client->variation("any.feature.flag", user, false); // will always return the default value (false)
 ```
 
 </CodeTabItem>

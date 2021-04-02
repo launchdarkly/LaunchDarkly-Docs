@@ -36,7 +36,7 @@ We support the following export destinations:
 
 To learn more about event formatting, read [Schema reference](/home/data-export/schema-reference).
 
-Some data export destinations have different event formatting schema. If you use mParticle or Segment as your event destination, we have specific documentation for their event schema.
+Some Data Export destinations have different event formatting schema. If you use mParticle or Segment as your event destination, we have specific documentation for their event schema.
 
 * [mParticle schema reference](/home/data-export/mparticle-schema-reference)
 * [Segment schema reference](/home/data-export/segment-schema-reference)
@@ -65,7 +65,7 @@ This feature is supported on the following versions of our SDKs (and later versi
 
 ## Exporting event data for flags and environments
 
-After you create a data export destination, you can send data for individual flags or for all the flags in an environment to it.
+After you create a Data Export destination, you can send data for individual flags or for all the flags in an environment to it.
 
 ### Exporting flag event data
 
@@ -77,12 +77,12 @@ To export data from a specific flag to a destination:
 4. Select the **Send detailed event information for this flag** checkbox.
 5. Click **Save Changes**.
 
-![The flag's Settings page, with the data export checkbox called out.](../images/data-export-detailed-event-info-callout.png)
+![The flag's Settings page, with the Data Export checkbox called out.](../images/data-export-detailed-event-info-callout.png)
 
 
 ### Exporting environment event data
 
-When you export event data from an environment, LaunchDarkly exports all data from every new flag you create after you enable data export. It does not send event data from flags created before you enabled data export.
+When you export event data from an environment, LaunchDarkly exports all data from every new flag you create after you enable Data Export. It does not send event data from flags created before you enabled Data Export.
 
 To export data from an environment to a destination:
 
@@ -93,7 +93,7 @@ To export data from an environment to a destination:
 5. Select the **Send detailed event information for new flags** checkbox.
 6. Click **Save Environment**.
 
-![The Edit production environment screen, with the data export checkbox called out.](../images/data-export-env-detailed-event-info-callout.png)
+![The Edit production environment screen, with the Data Export checkbox called out.](../images/data-export-env-detailed-event-info-callout.png)
 
 
 ## Customizing which data LaunchDarkly exports
@@ -101,7 +101,7 @@ To export data from an environment to a destination:
 You can control which users send event data to destinations by choosing a group of users affected by certain flag targeting rules. To learn more, read [Controlling experiment populations](/home/experimentation/populations).
 
 <Callout intent="alert">
-  <CalloutTitle>Enabling data export population targeting</CalloutTitle>
+  <CalloutTitle>Enabling Data Export population targeting</CalloutTitle>
 <CalloutDescription>
 
 If you can't see this feature, your SDKs may be out of date. To solve this problem:
@@ -113,7 +113,7 @@ If you can't see this feature, your SDKs may be out of date. To solve this probl
 
 </Callout>
 
-To customize which users send event data to data export destinations:
+To customize which users send event data to Data Export destinations:
 
 1. Identify which flag you wish to export events from.
 2. Navigate to the flag's **Settings** page.

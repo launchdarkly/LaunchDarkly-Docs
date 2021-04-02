@@ -372,7 +372,7 @@ The `variation` call will automatically create a user in LaunchDarkly if a user 
 
 ## VariationDetail
 
-The `variationDetail` methods ([`boolVariationDetail`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail-java.lang.String-com.launchdarkly.sdk.LDUser-boolean-), etc.) work the same as `variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
+The `variationDetail` methods ([`boolVariationDetail`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail-java.lang.String-com.launchdarkly.sdk.LDUser-boolean-), etc.) work the same as `variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with Data Export, if you are capturing detailed analytics events for this flag.
 
 To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 

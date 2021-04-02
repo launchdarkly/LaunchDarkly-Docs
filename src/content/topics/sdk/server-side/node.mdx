@@ -16,7 +16,7 @@ This reference guide documents all of the methods available in our Node.js SDK, 
   To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 ## Getting started
 
@@ -83,7 +83,7 @@ ldClient = LaunchDarkly.init("YOUR_SDK_KEY");
     serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with
     every request.**
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 The client will emit a `ready` event when it has been initialized and can serve feature flags.
 
@@ -223,7 +223,7 @@ In addition to built-in attributes, you can pass us any of your own user data by
     be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom
     value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, and account plans. Anything you pass to us becomes available instantly on our dashboard.
 
@@ -340,7 +340,7 @@ The `variation` call will automatically create a user in LaunchDarkly if a user 
 
 The `variationDetail` method allows you to evaluate a feature flag (using the same parameters as you would for `variation`) and receive more information about how the value was calculated.
 
-The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the user was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically; you can also view it with data export, if you are capturing detailed analytics events for this flag.
+The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the user was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically; you can also view it with Data Export, if you are capturing detailed analytics events for this flag.
 
 To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 
@@ -390,7 +390,7 @@ ldClient.identify(user);
     Unlike variation and identify calls, allFlagsState does not send events to LaunchDarkly. Instead, users are
     not created or updated in the LaunchDarkly dashboard and your flags' last requested date is not updated.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 The `allFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
@@ -420,16 +420,16 @@ ldClient.allFlagsState(user, (err, flagsState) => {
   <CalloutDescription>
     Most of LaunchDarkly's server-side SDKs do not support subscribing to feature flag changes. All of the client-side SDKs do support this feature.
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 The SDK provides an event-based mechanism to notify you when flag configurations change.
 
 For example, imagine you have a feature flag named `EXAMPLE_FLAG_KEY`. If the SDK detects a change in `EXAMPLE_FLAG_KEY`'s configuration, or in anything else that could indirectly affect the flag value, such as a prerequisite flag or a user segment that `EXAMPLE_FLAG_KEY` uses, it emits two events.
 
-These events are: 
+These events are:
 
-* `"update"` and 
-* `"update:EXAMPLE_FLAG_KEY"`. 
+* `"update"` and
+* `"update:EXAMPLE_FLAG_KEY"`.
 
 You can listen for `"update:EXAMPLE_FLAG_KEY"` if you only want to know about updates affecting that flag specifically, or `"update"` if you want to know about all updates.
 
@@ -515,7 +515,7 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 ```js
 var config = {"offline": true};
 ldClient = LaunchDarkly.init("YOUR_SDK_KEY", config);
-ldClient.variation("any.feature.flag", user, false, cb) // cb will always be invoked with the default value (false) 
+ldClient.variation("any.feature.flag", user, false, cb) // cb will always be invoked with the default value (false)
 
 ```
 
@@ -547,7 +547,7 @@ ldClient.close();
 
 The Node.js SDK uses [Winston](https://github.com/winstonjs/winston) by default. All loggers are namespaced under `[LaunchDarkly]`.
 
-You can pass a custom logger to the SDK with the configurable `logger` property. To learn more about the logger's requirements and methods, read [LDLogger](http://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldlogger.html). 
+You can pass a custom logger to the SDK with the configurable `logger` property. To learn more about the logger's requirements and methods, read [LDLogger](http://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldlogger.html).
 
 Winston's syntax for instantiating and configuring loggers changed between versions 2.x and 3.x. Be sure to declare a dependency on a specific Winston version if you run into errors using the transitive dependency.
 
@@ -564,7 +564,7 @@ Winston's syntax for instantiating and configuring loggers changed between versi
 logger = new winston.Logger({
   level: "debug",
   transports: [
-    new winston.transports.Console() 
+    new winston.transports.Console()
   ]
 });
 ldClient = LaunchDarkly.init("YOUR_SDK_KEY", {"logger": logger});
@@ -577,7 +577,7 @@ ldClient = LaunchDarkly.init("YOUR_SDK_KEY", {"logger": logger});
 logger = winston.createLogger({
   level: 'debug',
   transports: [
-    new winston.transports.Console() 
+    new winston.transports.Console()
 
   ]
 });

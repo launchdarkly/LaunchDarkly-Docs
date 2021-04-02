@@ -11,7 +11,7 @@ This topic explains how to configure and use the Azure Event Hubs Data Export de
 
 ## Prerequisites
 
-In order to use the Azure Event Hubs Data Export destination, you must meet the following prerequisites: 
+In order to use the Azure Event Hubs Data Export destination, you must meet the following prerequisites:
 
 * You must create a Shared Access Signature Policy in your Azure Event Hubs account at the Event Hub or the Namespace level
 * You must copy the key from this policy. To do this, read [Creating a policy and key in Azure Event Hub](#creating-a-policy-and-key-in-azure-event-hub).
@@ -28,7 +28,7 @@ Here's how to configure a new policy:
 2. Choose the **Namespace** where you want LaunchDarkly to export events.
 3. Choose an Event Hub to which you wish to export events.
 4. Click into **Shared Access Policies** and click **Add**. The policy creation screen appears.
-5. Create a new policy with the **Send** permission enabled. 
+5. Create a new policy with the **Send** permission enabled.
 
 ![A new policy with the Send permission enabled, configured in Azure Event Hub](../../images/azure-eventhub-add-policy.png)
 
@@ -55,7 +55,7 @@ To connect the destination to LaunchDarkly:
 8. Enter the **Share Access Signature Key**.
 9. Click **Save Destination**.
 
-This connects your Azure Event Hub to your LaunchDarkly environment. To send events from specific flags or environments to Event Hub, you must enable data export for each flag or environment individually.
+This connects your Azure Event Hub to your LaunchDarkly environment. To send events from specific flags or environments to Event Hub, you must enable Data Export for each flag or environment individually.
 
 ## Testing the Azure Event Hubs destination
 
@@ -83,4 +83,3 @@ To delete a destination:
 1. Navigate to the **Integrations** screen.
 2. Find the destination you wish to delete and click **Edit**. The "Edit destination" screen opens.
 3. Click **Delete Destination**.
-
