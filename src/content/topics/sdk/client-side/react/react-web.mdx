@@ -14,7 +14,7 @@ If you want to add LaunchDarkly to your React Native codebase, use the React Nat
 </CalloutDescription>
 </Callout>
 
-This reference guide documents all of the methods available in our client-side React SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source — head to the [React SDK code](https://github.com/launchdarkly/react-client-sdk) in our JavaScript SDK GitHub repository. The online [API docs](https://launchdarkly.github.io/react-client-sdk/) contain the programmatic definitions of every type and method. You can also clone and run a [sample application](/sdk/client-side/react#example-app) using this SDK.
+This reference guide documents all of the methods available in our client-side React SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source — head to the [React SDK code](https://github.com/launchdarkly/react-client-sdk) in our JavaScript SDK GitHub repository. The online [API docs](https://launchdarkly.github.io/react-client-sdk/) contain the programmatic definitions of every type and method. You can also clone and run a [sample application](#example-app) using this SDK.
 
 If you want to use LaunchDarkly in a Gatsby application, we have a [Gatsby plugin](/sdk/client-side/react/gatsby).
 
@@ -76,7 +76,7 @@ After you install the dependency, initialize the React SDK. To do this, you need
 
 You can initialize the React SDK in two ways. The first is using the `asyncWithLDProvider` function. The second is using the `withLDProvider` function.
 
-Both rely on React's `Context` API to make it easy for you to access your flags from any level of your component hierarchy. Both functions accept a [`ProviderConfig`](/sdk/client-side/react#configuring-the-react-sdk) object used to configure the React SDK. For more information about these functions, continue reading.
+Both rely on React's `Context` API to make it easy for you to access your flags from any level of your component hierarchy. Both functions accept a [`ProviderConfig`](#configuring-the-react-sdk) object used to configure the React SDK. For more information about these functions, continue reading.
 
 ## `asyncWithLDProvider`
 
@@ -126,7 +126,7 @@ After initialization is complete, your flags and the ldClient become available a
 Because the `asyncWithLDProvider` function is asynchronous, the rendering of your React app is
 delayed until initialization is completed. This can take up to 200
 milliseconds, but often completes sooner. Alternatively, you can use the
-[`withLDProvider`](/sdk/client-side/react#withldprovider) function if you prefer
+[`withLDProvider`](#withldprovider) function if you prefer
 to render your app first and then process flag updates after rendering is complete.
 
 
@@ -216,7 +216,7 @@ The [`ProviderConfig`](https://launchdarkly.github.io/react-client-sdk/interface
 
 - `options`: LaunchDarkly JavaScript SDK initialization [options](/sdk/client-side/javascript#customizing-your-client). This property is optional.
 
-- `reactOptions`: This property is specific to the React SDK. You can use this option to [disable automatic camel casing](/sdk/client-side/react#flag-keys) of flag keys when using the React SDK. This property is optional.
+- `reactOptions`: This property is specific to the React SDK. You can use this option to [disable automatic camel casing](#flag-keys) of flag keys when using the React SDK. This property is optional.
 
 - `deferInitialization`: This property allows SDK initialization to be deferred until the `user` property is defined.
 
