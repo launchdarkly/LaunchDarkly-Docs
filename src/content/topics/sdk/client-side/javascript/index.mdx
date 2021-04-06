@@ -606,11 +606,11 @@ The map will contain null values for any flags that would return the fallback va
 
 ## Bootstrapping
 
-Bootstrapping refers to providing the LaunchDarkly client object with an initial, immediately available set of feature flag values so that on page load `variation` can be called with no delay.
+Bootstrapping provides the LaunchDarkly client object an initial, immediately available set of feature flag values that calls `variation` on page load with no delay. We recommend using one of LaunchDarkly's server-side SDKs to populate a map of flag keys to flag values, called bootstrap values, from your back end.
 
-The preferred approach to bootstrapping is to populate the bootstrap values (a map of flag keys to flag values) from your back end using one of LaunchDarkly's server-side SDKs. All of the server-side SDKs have a function to evaluate flags on behalf of a specified user. It is named along the lines of "allFlagsState" -- although, the exact name varies depending on the back-end technology's conventions (for example, camel-case versus snake-case). This function can provide the initial set of bootstrap values to your front-end.
+All of the server-side SDKs have a function to evaluate flags on behalf of a specified user. This function provides the initial set of bootstrap values to your front end. The function is called some variation of "allFlagsState". The exact name varies depending on the back-end technology's naming conventions, such as camel-case or snake-case. 
 
-Below are two examples of how to bootstrap flags into the JavaScript client.
+Below are two examples of how to bootstrap flags into the JavaScript client:
 
 <CodeTabs
   defaultValue="param"
