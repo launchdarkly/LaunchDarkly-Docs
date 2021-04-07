@@ -13,12 +13,12 @@ A LaunchDarkly app is available in Okta. You can connect LaunchDarkly and Okta t
 
 ## Prerequisites
 
-To use Okta with LaunchDarkly, you must complete the following prerequisites:
+To use Okta with LaunchDarkly, you must meet the following prerequisites:
 
-- Administrator privileges in LaunchDarkly
-- Administrator privileges in Okta
-- Follow Okta's documentation to [Enable Single Sign-On with SAML](https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-LaunchDarkly.html)
-
+- You must have Administrator privileges in LaunchDarkly
+- You must have Administrator privileges in Okta
+- You must have followed Okta's documentation to [Enable Single Sign-On with SAML](https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-LaunchDarkly.html)
+- You must have your Assertion consumer service URL and Entity ID from LaunchDarkly's SAML configuration page
 - You must have access to the email addresses of the users you wish to configure
 
 ## Using Okta to manage LaunchDarkly users with SCIM
@@ -103,6 +103,9 @@ Next, you must configure Okta to recognize email addresses as the usernames for 
 
 1. Navigate to the LaunchDarkly app in Okta.
 2. Click the **Sign On** tab. The Settings page opens.
+3. Click the **Edit** button in the top right corner of the Settings window.
+4. Scroll to the bottom of the settings page and enter your Assertion consumer service URL.
+5. Enter your Entity ID.
 3. Use the dropdown to set the Application username format to **Email**.
 
     ![The Credentials Details screen, with username format set to "Email."](../../../../images/okta-username-format.png)
