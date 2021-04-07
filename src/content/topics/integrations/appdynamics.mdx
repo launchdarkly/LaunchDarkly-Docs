@@ -17,7 +17,7 @@ This topic explains how to use the LaunchDarkly AppDynamics integration to view 
 
 <Callout intent="info">
   <CalloutTitle>This integration is for AppDynamics APM SaaS customers</CalloutTitle> <CalloutDescription>
-    This integration is not configured to work with AppDynamic's End User Monitoring products or on-premise deployments of AppDynamics. 
+    This integration is not configured to work with AppDynamic's End User Monitoring products or on-premise deployments of AppDynamics.
   </CalloutDescription>
 </Callout>
 
@@ -29,45 +29,39 @@ To configure the integration successfully, you will need to create an [API Clien
 
 To configure LaunchDarkly to start sending events to AppDynamics:
 
-1. Navigate to the Integrations page and click to expand the "AppDynamics" card.
+1. Navigate to the Integrations page and expand the "AppDynamics" card.
+
 ![AppDynamics integration](../images/appdynamics-add-integration.png)
 
 2. Click **+ Integration**. The integration configuration sidebar appears.
-![The AppDynamics section of the Integrations
-page.](../images/appdynamics-integration-panel.png)
+
+![The AppDynamics section of the Integrations page.](../images/appdynamics-integration-panel.png)
 
 3. Give the integration a human-readable **Name**.
 
-4. Click **Connect to AppDynamics** to auth in. At this point a popup window should open.
+4. Click **Connect to AppDynamics** to authenticate in. A popup window opens.
+
 ![AppDynamics OAuth2 Popup](../images/appdynamics-oauth.png)
 
-5. Paste in your AppDynamics host URL. The format should resemble `https://example.saas.appdynamics.com`.
+5. Enter your AppDynamics host URL. The format should resemble `https://example.saas.appdynamics.com`.
 
-6. Paste in your AppDynamics client ID. This will be the name of your newly created API client combined with your account name in the format `<apiClientName>@<accountName>`.
+6. Enter your AppDynamics client ID. Your client ID is the name of your newly created API client combined with your account name in the format `<apiClientName>@<accountName>`.
 
-7. Paste in the Client Secret you received when configured your [AppDynamics API client](https://docs.appdynamics.com/display/latest).
+7. Enter the Client Secret you received when you configured your [AppDynamics API client](https://docs.appdynamics.com/display/latest).
 
-8. Once you have successfully authenticated, return to the integrations page and input your AppDynamics account name in the appropriate field on the configuration panel.
+8. Once you have successfully authenticated, return to the integrations page and enter your AppDynamics account name in the appropriate field on the configuration panel.
 
 9. Input your AppDynamics application ID or application name. The application name can be found on the "Applications" tab within AppDynamics.
 
 10. Click 'Save AppDynamics Configuration' at the bottom of the configuration sidebar.
 
-That's it! Your AppDynamics application now receives events from LaunchDarkly.
+Your AppDynamics application now receives events from LaunchDarkly.
 
-If you want to further modify the events that AppDynamics receives from LaunchDarkly,
-add custom policies to determine which events the integration should export.
+To further modify the events that AppDynamics receives from LaunchDarkly, add custom policies to determine which events the integration should export.
 
-### Adding custom policies to the AppDynamics integration 
+### Adding custom policies to the AppDynamics integration
 
-By default, the AppDynamics integration sends production flag change events to
-AppDynamics. You can customize those events with the Policy editor, using the same
-language and construction as if you were creating a custom role.
-
-To learn more, read [Custom roles](/home/team/custom-roles).
-
-You can customize the events LaunchDarkly sends to AppDynamics by using the policy
-editor in the AppDynamics configuration panel:
+LaunchDarkly sends all flag change events in the production environment to AppDynamics by default. To customize the events LaunchDarkly sends to AppDynamics, use the policy editor in the integration panel. To learn more about creating a policy, read [Example policies and templates](/home/team/example-policies).
 
 ![Policy editor](../images/appdynamics-policy-editor.png)
 
@@ -75,18 +69,60 @@ editor in the AppDynamics configuration panel:
 
 To view events, navigate to the "Events" tab within your application dashboard. From there, modify the default event filter so that you can see "Custom" events. All LaunchDarkly events are sent with a "Custom Event Type" of "LaunchDarkly" and the following properties can be used to further filter events in AppDynamics:
 
-Property Name | 	Property Value
---- | --- 
-kind|	flag, project, environment, etc.
-flag_name	| the name of the flag - only sent with flag events
-flag_key | the flag's key - only sent with flag events
-project_name	| the resource's project name
-project_key	| the resource's project key
-environment_name |	the resource's environment name
-environment_key	| the resource's environment key
+<Table>
+  <TableHeader>
+    <TableHeadCell>Property Name</TableHeadCell>
+    <TableHeadCell>Property Value</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>kind</code>
+      </TableCell>
+      <TableCell>Flag, project, environment, etc.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>flag_name</code>
+      </TableCell>
+      <TableCell>The name of the flag. Sent only with flag events.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>flag_key</code>
+      </TableCell>
+      <TableCell>The flag's key. Sent only with flag events.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>project_name</code>
+      </TableCell>
+      <TableCell>The resource's project name.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>project_key</code>
+      </TableCell>
+      <TableCell>The resource's project key.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>environment_name</code>
+      </TableCell>
+      <TableCell>The resource's environment name.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>environment_key</code>
+      </TableCell>
+      <TableCell>The resource's environment key.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
 
 ![AppDynamics Custom Event Filter](../images/appdynamics-custom-event-filter.png)
 
-You should now be able to view LaunchDarkly events in AppDynamics.
+You can now view LaunchDarkly events in AppDynamics.
 
 ![View LaunchDarkly events in AppDynamics](../images/appdynamics-view-event.png)

@@ -41,7 +41,7 @@ You can use the auto-generated secret, or supply your own when creating or editi
 
 ## Adding a policy filter
 
-By default, a webhook without a policy filter will receive a payload for any change in LaunchDarkly (across any project, environment, goal, feature flag, etc.). You can optionally specify a policy (using the same syntax as our [Custom roles](/home/team/custom-roles) feature to filter the events sent to your webhook.
+LaunchDarkly sends all flag change events in the production environment to a webhook by default. To customize the events LaunchDarkly sends to a webhook, use the policy editor in the webhook creation panel. To learn more about creating a policy, read [Example policies and templates](/home/team/example-policies).
 
 For example, to receive an event only when a change is made to one of your production feature flags, add the following policy to your webhook:
 
