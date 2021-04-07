@@ -14,19 +14,17 @@ If you want to add LaunchDarkly to your React Native codebase, use the React Nat
 </CalloutDescription>
 </Callout>
 
-This reference guide documents all of the methods available in our client-side React SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source — head to the [React SDK code](https://github.com/launchdarkly/react-client-sdk) in our JavaScript SDK GitHub repository. The online [API docs](https://launchdarkly.github.io/react-client-sdk/) contain the programmatic definitions of every type and method. You can also clone and run a [sample application](#example-app) using this SDK.
+This reference guide documents the methods available in our client-side React SDK, and explains in detail how these methods work. To learn more about our open-source SDK, read [React SDK code](https://github.com/launchdarkly/react-client-sdk) in our JavaScript SDK GitHub repository. The online [API docs](https://launchdarkly.github.io/react-client-sdk/) contain the programmatic definitions of every type and method. You can also clone and run a [sample application](/sdk/client-side/react#example-app) using this SDK.
 
-If you want to use LaunchDarkly in a Gatsby application, we have a [Gatsby plugin](/sdk/client-side/react/gatsby).
+
+You can use LaunchDarkly in a Gatsby application with our [Gatsby plugin](/sdk/client-side/react/gatsby).
 
 <Callout intent="info">
   <CalloutTitle>The React SDK is based on the JavaScript SDK</CalloutTitle>
 <CalloutDescription>
 
 
-The React SDK builds on top of LaunchDarkly's JavaScript SDK to provide a better integration for use in React
-applications. As a result, much of the JavaScript SDK functionality is also available for the React SDK to use. For
-a complete client-side JavaScript SDK reference, read
-[JavaScript SDK reference](/sdk/client-side/javascript).
+The React SDK builds on LaunchDarkly's JavaScript SDK to provide a better integration for use in React applications. As a result, much of the JavaScript SDK functionality is also available for the React SDK to use. For a complete client-side JavaScript SDK reference, read [JavaScript SDK reference](/sdk/client-side/javascript).
 
 
 </CalloutDescription>
@@ -36,8 +34,7 @@ a complete client-side JavaScript SDK reference, read
 <CalloutDescription>
 
 
-This SDK uses the Context API, which requires React version 16.3.0 or later. You must use a newer
-version if you wish to use the Hooks API as well. To learn more, read [Hooks](#hooks).
+This SDK uses the Context API, which requires React version 16.3.0 or later. You must use a newer version if you wish to use the Hooks API as well. To learn more, read [Hooks](#hooks).
 
 
 </CalloutDescription>
@@ -47,7 +44,11 @@ version if you wish to use the Hooks API as well. To learn more, read [Hooks](#h
 
 Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your React code.
 
-You can use either `npm` or `yarn` to install the React SDK:
+To install the React SDK, you need your LaunchDarkly environment's client-side ID, which is available in LaunchDarkly's [**Account Settings**](https://app.launchdarkly.com/settings#/projects). Client-side IDs are not secret. You can expose them in your client-side code with no risk.
+
+To begin using the LaunchDarkly SDK in your React code:
+
+1. Use either `npm` or `yarn` to install the React SDK:
 
 <CodeTabs
   defaultValue="js"
@@ -72,11 +73,12 @@ yarn add launchdarkly-react-client-sdk
 </CodeTabItem>
 </CodeTabs>
 
-After you install the dependency, initialize the React SDK. To do this, you need your environment's client-side ID, which is available in [LaunchDarkly's **Account Settings** page](https://app.launchdarkly.com/settings#/projects). Client-side IDs are not secret. You can expose them in your client-side code with no risk.
+2. After you install the dependency, initialize the React SDK. You can initialize the React SDK in one of two ways:
 
-You can initialize the React SDK in two ways. The first is using the `asyncWithLDProvider` function. The second is using the `withLDProvider` function.
+- Using the `asyncWithLDProvider` function
+- Using the `withLDProvider` function
 
-Both rely on React's `Context` API to make it easy for you to access your flags from any level of your component hierarchy. Both functions accept a [`ProviderConfig`](#configuring-the-react-sdk) object used to configure the React SDK. For more information about these functions, continue reading.
+Both rely on React's `Context` API which lets you access your flags from any level of your component hierarchy. Both functions accept a [`ProviderConfig`](/sdk/client-side/react#configuring-the-react-sdk) object used to configure the React SDK.
 
 ## `asyncWithLDProvider`
 
@@ -123,11 +125,7 @@ After initialization is complete, your flags and the ldClient become available a
 <CalloutDescription>
 
 
-Because the `asyncWithLDProvider` function is asynchronous, the rendering of your React app is
-delayed until initialization is completed. This can take up to 200
-milliseconds, but often completes sooner. Alternatively, you can use the
-[`withLDProvider`](#withldprovider) function if you prefer
-to render your app first and then process flag updates after rendering is complete.
+Because the `asyncWithLDProvider` function is asynchronous, the rendering of your React app is delayed until initialization is completed. This can take up to 200 milliseconds, but often completes sooner. Alternatively, you can use the [`withLDProvider`](/sdk/client-side/react#withldprovider) function if you prefer to render your app first and then process flag updates after rendering is complete.
 
 
 </CalloutDescription>
@@ -176,7 +174,7 @@ Customize your client from the `options` field. To learn more, read the [JavaScr
 
 The React SDK automatically subscribes to flag change events. This is different from the JavaScript SDK, where customers need to opt in to event listening. To learn more, read [JavaScript SDK reference](/sdk/client-side/javascript#subscribing-to-feature-flag-changes).
 
-Consequently, in the React SDK, streaming mode is enabled by default. To disable streaming mode, specify a `streaming: false` attribute in your `options` object.
+In the React SDK streaming mode is enabled by default. To disable streaming mode, specify a `streaming: false` attribute in your `options` object.
 
 ## `withLDConsumer`
 
@@ -216,17 +214,17 @@ The [`ProviderConfig`](https://launchdarkly.github.io/react-client-sdk/interface
 
 - `options`: LaunchDarkly JavaScript SDK initialization [options](/sdk/client-side/javascript#customizing-your-client). This property is optional.
 
-- `reactOptions`: This property is specific to the React SDK. You can use this option to [disable automatic camel casing](#flag-keys) of flag keys when using the React SDK. This property is optional.
+- `reactOptions`: This property is specific to the React SDK. You can use this option to [disable automatically changing flag keys to camel-case](#flag-keys) when using the React SDK. This property is optional.
 
 - `deferInitialization`: This property allows SDK initialization to be deferred until the `user` property is defined.
 
   By deferring SDK initialization, you defer all steps which take place as part of SDK initialization, including reading flag values from local storage and sending the SDK's `ready` event.
 
-  The one exception to this rule is that the SDK continues to load bootstrapped flag values as long as the bootstrapped values are provided as a map of flag keys and values. As mentioned above, if indicated that the SDK should bootstrap flags from local storage, this will not happen until the SDK initializes.
+  The exception to this rule is that the SDK continues to load bootstrapped flag values as long as the bootstrapped values are provided as a map of flag keys and values. If you indicate that the SDK should bootstrap flags from local storage, this does not happen until the SDK initializes.
 
-- `flags`: If specified, the React SDK will only subscribe for updates to these flags. When this property is unspecified, the React SDK subscribes to all flags. This property is optional.
+- `flags`: If specified, the React SDK subscribes to updates for only these flags. When this property is unspecified, the React SDK subscribes to all flags. This property is optional.
 
-  Specify the `flags` property as a map of flag keys and values. The flag keys must be in their original form (as known to LaunchDarkly) rather than in their camel-cased form. Each flag's value is passed along to the resulting JS SDK [`variation`](/sdk/client-side/javascript#variation) invocation and used as the flag's default value in the case of an error.
+  Specify the `flags` property as a map of flag keys and values. The flag keys must be in their original form as known to LaunchDarkly rather than in camel-case form. Each flag's value is passed along to the resulting JS SDK [`variation`](/sdk/client-side/javascript#variation) invocation and used as the flag's default value in the case of an error.
 
 The following is an example `ProviderConfig` object including each of the above properties:
 
@@ -313,21 +311,21 @@ export default HooksDemo;
 
 All user-related functionality provided by the JavaScript SDK is equally accessible in the React SDK. To learn more, read the [users](/sdk/client-side/javascript#users), [private user attributes](/sdk/client-side/javascript#private-user-attributes), and [anonymous users](/sdk/client-side/javascript#anonymous-users) sections of the JavaScript SDK reference guide.
 
-Unlike the JavaScript SDK, the React SDK does not require a user object for initialization. If one is not specified, the React SDK will proceed with an anonymous user by default.
+Unlike the JavaScript SDK, the React SDK does not require a user object for initialization. If one is not specified, the React SDK proceeds with an anonymous user by default.
 
 ## Flag keys
 
-LaunchDarkly primarily identifies feature flags by a key which must only contain alphanumeric characters, dots (`.`), underscores (`_`), and dashes (`-`). These keys are used across all of LaunchDarkly's APIs as well as in the SDKs to identify flags.
+LaunchDarkly primarily identifies feature flags by a key which must contain only alphanumeric characters, dots (`.`), underscores (`_`), and dashes (`-`). These keys are used across all of LaunchDarkly's APIs as well as in the SDKs to identify flags.
 
-However, keys in this format are slightly inconvenient to access in JavaScript and React as they cannot be accessed with the dot notation. As a result, the React SDK automatically camel-cases all flag keys. A flag with key `dev-flag-test` is accessible as `flags.devFlagTest`.
+However, JavaScript and React cannot access keys with a dot notation, so the React SDK automatically changes all flag keys to camel case. A flag with key `dev-flag-test` is accessible as `flags.devFlagTest`.
 
-Automatically camel-casing flag keys poses some problems, though:
+Automatically changing flag keys to camel case poses some problems:
 
-1. It is possible to induce a key collision if there are multiple LaunchDarkly flag keys which resolve to the same camel-cased key. For example, `dev-flag-test` and `dev.flag.test` would be considered unique keys on LaunchDarkly, but the React SDK would consider them to have the same camel-cased keys.
-2. LaunchDarkly's [code references](/integrations/code-references) tool expects your source code to reference the exact key, not a camel-cased equivalent, so the tool does not support detecting references of keys that were automatically camel-cased.
-3. As the camel-casing functionality is implemented in the React SDK instead of in the underlying JavaScript SDK, the underlying `ldClient` object and functionality provided by the JavaScript SDK reflect flag keys in their original format. Only React-specific contexts such as your injected props are camel-cased.
+1. It is possible to induce a key collision if there are multiple LaunchDarkly flag keys which resolve to the same camel-case key. For example, `dev-flag-test` and `dev.flag.test` are unique keys in LaunchDarkly, but the React SDK changes them to the same camel-case key.
+2. LaunchDarkly's [code references](/integrations/code-references) tool expects your source code to reference the exact key, not a camel-case equivalent. The tool does not detect keys that were automatically changed to camel case.
+3. Because the camel-case functionality is implemented in the React SDK instead of in the underlying JavaScript SDK, the underlying `ldClient` object and functionality provided by the JavaScript SDK reflect flag keys in their original format. Only React-specific contexts such as your injected props use camel case.
 
-To disable the SDK's automatic camel-casing feature, you can provide `asyncWithLDProvider` or `withLDProvider` with the `reactOptions.useCamelCaseFlagKeys` property as shown in the following example. This is supported in versions 2.13.0 and later of the React SDK.
+To disable the SDK's automatic camel-case feature, provide `asyncWithLDProvider` or `withLDProvider` with the `reactOptions.useCamelCaseFlagKeys` property as shown in the following example. This is supported in versions 2.13.0 and later of the React SDK.
 
 <CodeTabs
   defaultValue="js"
@@ -354,7 +352,7 @@ With this configuration option in place, you would now access your `dev-flag-tes
 <Callout intent="alert">
   <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
   <CalloutDescription>
-You must make feature flags available to client-side SDKs before the flags can be evaluated. If you evaluate a feature flag that is not available, you will receive the default value for that flag. If you want a project's flags to be made available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+You must make feature flags available to client-side SDKs before the flags can be evaluated. If you evaluate a feature flag that is not available, you receive the default value for that flag. If you want a project's flags to be made available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
   </CalloutDescription>
 </Callout>
 
