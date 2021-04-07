@@ -9,13 +9,15 @@ published: true
 
 This topic explains how custom roles use tags.
 
-To learn more about how tags work within custom role policies, read [Custom role concepts](/home/team/role-concepts).  
+To learn more about how tags work within custom role policies, read [Custom role concepts](/home/team/role-concepts).
 
 ## Adding tags to resources
 
-You can add tags to resources in LaunchDarkly with the UI or API. To learn more, read [Other flag settings](/home/flags/settings).
+You can add tags to resources in LaunchDarkly with the UI or API. Tag names can include only letters, numbers, periods `.`, underscores `_`, and dashes `-`.
 
-## Using tags in custom role policies 
+To learn more, read [Other flag settings](/home/flags/settings).
+
+## Using tags in custom role policies
 
 In the LaunchDarkly UI, you can only specify tags in custom roles from the advanced editor.
 
@@ -42,7 +44,7 @@ For example, the below statement allows a user with this role to perform all act
 
 You can also separate multiple tags for a resource with statements to create an "or" condition.
 
-In the example below, two statements your member access to flags tagged `tag1` **or** `tag2`. 
+In the example below, two statements your member access to flags tagged `tag1` **or** `tag2`.
 
 <CodeTabs
   defaultValue="json"
