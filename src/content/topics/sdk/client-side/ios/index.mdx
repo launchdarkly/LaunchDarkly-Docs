@@ -445,7 +445,7 @@ LDUser *user = [LDUser new];
 </CodeTabItem>
 </CodeTabs>
 
-You must generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+All users must have a key. If you do not provide a key, the SDK automatically uses [`identifierForVendor`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) if available. If not, the SDK creates and persistently stores a UUID in the device's storage. The SDK uses the stored UUID as the key for any users created without one. If you are providing the key, Session IDs or UUIDs work best for this.
 
 We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
 
