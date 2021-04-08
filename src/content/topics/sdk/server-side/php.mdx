@@ -222,9 +222,11 @@ We've set the client connect timeout to 3 seconds in addition to providing a cus
 <CalloutTitle>Sending events in PHP</CalloutTitle>
 <CalloutDescription>
 
-The LaunchDarkly SDK sends data back to our server to record events from Track and Variation calls. On our other platforms, this data is sent asynchronously, so that it adds no latency to serving web pages. PHP's  *shared-nothing* architecture makes this a bit difficult.
+The LaunchDarkly SDK sends data back to our server to record events from Track and Variation calls. On our other platforms, this data is sent asynchronously, so that it adds no latency to serving web pages. PHP's *shared-nothing* architecture makes this difficult.
 
-By default, LaunchDarkly forks an external process that executes `curl` to send this data. In practice we've found that this is the most reliable way to send data without introducing latency to page load times. If your server does not have `curl` installed, or has other restrictions that make it impossible to invoke `curl` as an external process, you may need to implement a custom `EventProcessor` to send events to LaunchDarkly.
+By default, LaunchDarkly forks an external process that executes `curl` to send this data. This is the most reliable way to send data without introducing latency to page load times. To use this method you must have the `curl` SSL certificate installed. To learn more, read [SSL Certificate Verification](https://curl.se/docs/sslcerts.html).
+
+If your server does not have `curl` installed, or has other restrictions that make it impossible to invoke `curl` as an external process, you may need to implement a custom `EventProcessor` to send events to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
