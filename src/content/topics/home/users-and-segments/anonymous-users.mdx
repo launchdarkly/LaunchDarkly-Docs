@@ -30,7 +30,7 @@ Anonymous users contribute to MAU. LaunchDarkly can track anonymous users in two
 * By unique key, or
 * Without unique keys
 
-If you specify a unique key for each anonymous user, LaunchDarkly tracks those users by session. If you do *not* specify a unique key for each anonymous user, LaunchDarkly may create a new user for each request and device type. This can inflate your MAU count.
+If you specify a unique key for each anonymous user, LaunchDarkly tracks those users by session. If you do *not* specify a unique key for each anonymous user, and the user has saving to local storage disabled, LaunchDarkly will create a new user for each request. The number of real users who have disabled saving to local storage is likely small, but bots and crawlers almost never utilize local storage. One user and/or bot with local storage disabled can drastically inflate your MAU count.
 
 To learn more about MAU, read [Account usage metrics](/home/billing/usage-metrics).
 
