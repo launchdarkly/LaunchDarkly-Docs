@@ -124,10 +124,10 @@ version. To give more control over SDK updates unpkg is now suggested, and the v
 <CodeTabItem value="js">
 
 ```bash
-<!-- The snippet shown here will automatically update to the
+<!-- The snippet shown here automatically updates to the
      newest release that has a major version of 2. A minor
      version can be specified by including it in the url. -->
-<script crossorigin="anonymous" src="https://unpkg.com/launchdarkly-js-client-sdk@2"></script>
+<script crossorigin="us" src="https://unpkg.com/launchdarkly-js-client-sdk@2"></script>
 
 ```
 
@@ -412,8 +412,15 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 // Starting with version 2.10.0 of the JavaScript SDK, to create
 // an anonymous user you can specify the "anonymous" property and
 // omit the "key" property. In doing so, the LaunchDarkly client
-// will auto-generate a unique identifier for this user, and the
-// identifier will remain constant across browser sessions.
+// auto-generates a unique identifier for this user, and the
+// identifier is saved in local storage. This identifier ensures that subsequent browser sessions are consistent.
+
+// If you do not specify a unique key for each anonymous user, 
+// and the user has disabled local storage in their browser, LaunchDarkly
+// will create a new user for each request. The number of people 
+// who have disabled local storage in their browsers is likely small
+// but bots and crawlers almost never utilize local storage. 
+// but bots and crawlers almost never utilize local storage. 
 var user = {"anonymous": true};
 
 // If you are using earlier SDK versions, you will need to specify
