@@ -124,6 +124,18 @@ You can also use the [`.launchdarkly/config.yaml`](https://github.com/launchdark
     </TableRow>
     <TableRow>
       <TableCell>
+        <code>repoName</code>
+      </TableCell>
+      <TableCell>
+        Sets the repository name for this project. This is useful if you have a single monorepo
+        containing multiple YAML configurations each mapping to its own <code>projKey</code>. Each YAML configuration
+        must have a unique <code>LD_PROJ_KEY</code> and <code>LD_REPO_NAME</code> combination so it displays correctly in the LaunchDarkly
+        dashboard. Defaults to the current Github repository.
+      </TableCell>
+      <TableCell>No</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
         <code>contextLines</code>
       </TableCell>
       <TableCell>
