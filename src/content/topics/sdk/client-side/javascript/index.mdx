@@ -255,14 +255,10 @@ To learn more about the specific configuration options that are available in thi
   <CalloutTitle>Personally-identifying user keys</CalloutTitle>
 <CalloutDescription>
 
+If the `key` attribute you rely on in your user JSON contains personally identifiable information, enable
+the `useReport` option by [customizing your client](#customizing-your-client).
 
-If the `key` attribute you rely on in your user JSON contains personally identifiable information, you should enable
-the `useReport` option by [customizing your
-client](/sdk/client-side/javascript#customizing-your-client) . By default, flag settings are
-fetched by sending the user JSON as a JSON base64 URL-encoded path parameter. When `useReport` is enabled, flag
-settings will be fetched by sending the user JSON in the body of a REPORT request instead, thereby hiding that
-information from request logs.
-
+By default, flag settings are fetched by sending the user JSON as base64-encoded using a URL-safe algorithm. When `useReport` is enabled, flag settings will be fetched by sending the user JSON in the body of a REPORT request instead, thereby hiding that information from request logs.
 
 </CalloutDescription>
 </Callout>
@@ -415,12 +411,12 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 // auto-generates a unique identifier for this user, and the
 // identifier is saved in local storage. This identifier ensures that subsequent browser sessions are consistent.
 
-// If you do not specify a unique key for each anonymous user, 
+// If you do not specify a unique key for each anonymous user,
 // and the user has disabled local storage in their browser, LaunchDarkly
-// will create a new user for each request. The number of people 
+// will create a new user for each request. The number of people
 // who have disabled local storage in their browsers is likely small
-// but bots and crawlers almost never utilize local storage. 
-// but bots and crawlers almost never utilize local storage. 
+// but bots and crawlers almost never utilize local storage.
+// but bots and crawlers almost never utilize local storage.
 var user = {"anonymous": true};
 
 // If you are using earlier SDK versions, you will need to specify
@@ -615,7 +611,7 @@ The map will contain null values for any flags that would return the fallback va
 
 Bootstrapping provides the LaunchDarkly client object an initial, immediately available set of feature flag values that calls `variation` on page load with no delay. We recommend using one of LaunchDarkly's server-side SDKs to populate a map of flag keys to flag values, called bootstrap values, from your back end.
 
-All of the server-side SDKs have a function to evaluate flags on behalf of a specified user. This function provides the initial set of bootstrap values to your front end. The function is called some variation of "allFlagsState". The exact name varies depending on the back-end technology's naming conventions, such as camel-case or snake-case. 
+All of the server-side SDKs have a function to evaluate flags on behalf of a specified user. This function provides the initial set of bootstrap values to your front end. The function is called some variation of "allFlagsState". The exact name varies depending on the back-end technology's naming conventions, such as camel-case or snake-case.
 
 Below are two examples of how to bootstrap flags into the JavaScript client:
 

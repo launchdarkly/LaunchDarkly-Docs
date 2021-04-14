@@ -21,7 +21,7 @@ There are three main components to a LaunchDarkly SDK implementation:
 
 ## Receiving feature flag updates
 
-LaunchDarkly's SDKs store all feature flags in memory. SDKs typically receive flag updates asynchronously through our streaming protocol (as is the default case in most SDKs). While LaunchDarkly's various SDKs typically support the same two mechanisms for receiving feature flag updates, their implementation details vary. 
+LaunchDarkly's SDKs store all feature flags in memory. SDKs typically receive flag updates asynchronously through our streaming protocol (as is the default case in most SDKs). While LaunchDarkly's various SDKs typically support the same two mechanisms for receiving feature flag updates, their implementation details vary.
 
 The SDKs can use either of the following mechanisms to populate a feature flag store, which is a thread-safe, in-memory map from feature flag keys to feature flag JSON. Evaluating a feature flag is a very lightweight and inexpensive effort and requires no per-evaluation requests to LaunchDarkly's servers. Server-side SDKs can read flags from the in-memory store and evaluate them using the evaluation algorithm, and client-side SDKs can retrieve pre-evaluated flag values from the in-memory store. To learn more, read [Evaluating feature flags](#evaluating-feature-flags).
 
@@ -43,9 +43,9 @@ This section corresponds to a subset of LaunchDarkly's client-side SDKs. To lear
 
 Flag updates are triggered when you make changes on your LaunchDarkly dashboard, and arrive by one of two mechanisms:
 
-1. **Through LaunchDarkly's streaming API**: These SDKs can subscribe to our streaming API at `https://clientstream.launchdarkly.com/eval/<clientSideId>/<user>`. The `clientSideId` variable should be replaced with the LaunchDarkly environment's client-side ID. The `user` variable should be replaced with the base64 URL-encoded version of the user's JSON object. Our streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events).
+1. **Through LaunchDarkly's streaming API**: These SDKs can subscribe to our streaming API at `https://clientstream.launchdarkly.com/eval/<clientSideId>/<user>`. The `clientSideId` variable should be replaced with the LaunchDarkly environment's client-side ID. The `user` variable should be replaced with the base64-encoded, URL-safe version of the user's JSON object. Our streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events).
 
-2. **By polling LaunchDarkly's evaluation API**: These SDKs can poll `https://clientsdk.launchdarkly.com/sdk/evalx/<clientSideId>/users/<user>`. The `clientSideId` variable should be replaced with the LaunchDarkly environment's client-side ID. The `user` variable should be replaced with the base64 URL-encoded version of the user's JSON object. Ideally, the SDK implementor should periodically poll this resource. We recommend making one call every thirty seconds; at a minimum, you **must** throttle the implementation to make **at most** one call per second. This resource may return caching headers. Use [ETags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This is a common use case, so remember to account for it.
+2. **By polling LaunchDarkly's evaluation API**: These SDKs can poll `https://clientsdk.launchdarkly.com/sdk/evalx/<clientSideId>/users/<user>`. The `clientSideId` variable should be replaced with the LaunchDarkly environment's client-side ID. The `user` variable should be replaced with the base64-encoded, URL-safe version of the user's JSON object. Ideally, the SDK implementor should periodically poll this resource. We recommend making one call every thirty seconds; at a minimum, you **must** throttle the implementation to make **at most** one call per second. This resource may return caching headers. Use [ETags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This is a common use case, so remember to account for it.
 
 ### Receiving flag updates in SDKs using the mobile key
 
@@ -53,9 +53,9 @@ This section corresponds to a subset of LaunchDarkly's client-side SDKs. To lear
 
 Flag updates are triggered when you make changes on your LaunchDarkly dashboard, and arrive by one of two mechanisms:
 
-1. **Through LaunchDarkly's streaming API**: These SDKs can subscribe to our streaming API at `https://clientstream.launchdarkly.com/meval/<user>`. This call must include an `Authorization` header with the value `${mobile_key}`, where `${mobile_key}` is the mobile key the client application passes to the LaunchDarkly client configuration. The `user` variable should be replaced with the base64 URL-encoded version of the user's JSON object. Our streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events).
+1. **Through LaunchDarkly's streaming API**: These SDKs can subscribe to our streaming API at `https://clientstream.launchdarkly.com/meval/<user>`. This call must include an `Authorization` header with the value `${mobile_key}`, where `${mobile_key}` is the mobile key the client application passes to the LaunchDarkly client configuration. The `user` variable should be replaced with the base64-encoded, URL-safe version of the user's JSON object. Our streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events).
 
-2. **By polling LaunchDarkly's evaluation API**: These SDKs can poll `https://clientsdk.launchdarkly.com/sdk/evalx/users/<user>`. This call must include an `Authorization` header with value `${mobile_key}`, where `${mobile_key}` is the mobile key the client application passed to the LaunchDarkly client configuration. The `user` variable should be replaced with the base64 URL-encoded version of the user's JSON object. Ideally, the SDK implementor should periodically poll this resource. We recommend making one call every thirty seconds; at a minimum, you **must** throttle the implementation to make **at most** one call per second. This resource may return caching headers. Use [ETags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This is a common use case, so remember to account for it.
+2. **By polling LaunchDarkly's evaluation API**: These SDKs can poll `https://clientsdk.launchdarkly.com/sdk/evalx/users/<user>`. This call must include an `Authorization` header with value `${mobile_key}`, where `${mobile_key}` is the mobile key the client application passed to the LaunchDarkly client configuration. The `user` variable should be replaced with the base64-encoded, URL-safe version of the user's JSON object. Ideally, the SDK implementor should periodically poll this resource. We recommend making one call every thirty seconds; at a minimum, you **must** throttle the implementation to make **at most** one call per second. This resource may return caching headers. Use [ETags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This is a common use case, so remember to account for it.
 
 ## Evaluating feature flags
 
@@ -69,13 +69,13 @@ Our [Go SDK](https://github.com/launchdarkly/go-server-sdk/blob/v5/ldclient.go) 
 
 ### Flag evaluation in client-side SDKs
 
-As described in [Flag evaluations](/sdk/concepts/client-side-server-side#flag-evaluations), client-side SDKs do not evaluate flags on their own. LaunchDarkly's services are responsible for evaluating flag rules. 
+As described in [Flag evaluations](/sdk/concepts/client-side-server-side#flag-evaluations), client-side SDKs do not evaluate flags on their own. LaunchDarkly's services are responsible for evaluating flag rules.
 
 To implement the `variation` method in a client-side SDK, return the last-known evaluated value from the store for the specified flag key.
 
 ## Recording events
 
-The SDKs send eight kinds of events: 
+The SDKs send eight kinds of events:
 
 * feature and debug events that identify which feature flags are being evaluated,
 * index and identify events which push user data to LaunchDarkly,
@@ -117,7 +117,7 @@ Feature events have the following shape:
 </CodeTabItem>
 </CodeTabs>
 
-The `kind` should always be `"feature"`. A feature event should only by generated if the `trackEvents` attribute of the flag is sent. The `prereqOf` attribute should be set to a flag key if this flag evaluation was only performed in order to determine whether the prerequisite values were met for the indicated flag. 
+The `kind` should always be `"feature"`. A feature event should only by generated if the `trackEvents` attribute of the flag is sent. The `prereqOf` attribute should be set to a flag key if this flag evaluation was only performed in order to determine whether the prerequisite values were met for the indicated flag.
 
 The optional `contextKind` attribute should be either `"user"` or `"anonymousUser"` depending on the corresponding user's `anonymous` property. If omitted, the context kind will be interpreted as `"user"`.
 
@@ -247,7 +247,7 @@ The `kind` for an alias event is `"alias"`. The `key` and `previousKey` attribut
 
 ### Custom events
 
-Custom events are produced when the client application calls an SDK method called `track`. 
+Custom events are produced when the client application calls an SDK method called `track`.
 
 Custom events have the following shape:
 
