@@ -322,8 +322,9 @@ However, JavaScript and React cannot access keys with a dot notation, so the Rea
 Automatically changing flag keys to camel case poses some problems:
 
 1. It is possible to induce a key collision if there are multiple LaunchDarkly flag keys which resolve to the same camel-case key. For example, `dev-flag-test` and `dev.flag.test` are unique keys in LaunchDarkly, but the React SDK changes them to the same camel-case key.
-2. LaunchDarkly's [code references](/integrations/code-references) tool expects your source code to reference the exact key, not a camel-case equivalent. The tool does not detect keys that were automatically changed to camel case.
-3. Because the camel-case functionality is implemented in the React SDK instead of in the underlying JavaScript SDK, the underlying `ldClient` object and functionality provided by the JavaScript SDK reflect flag keys in their original format. Only React-specific contexts such as your injected props use camel case.
+2. If a flag key contains three or more capital letters in a row, the SDK automatically converts all letters between the first and last capital letter to lower case. For example, the SDK converts a flag with the key `devQAFlagTest` to `devQaFlagTest`. If you use `devQAFlagTest` with the `useFlags()` hook, the SDK does not find the flag.
+3. LaunchDarkly's [code references](/integrations/code-references) tool expects your source code to reference the exact key, not a camel-case equivalent. The tool does not detect keys that were automatically changed to camel case.
+4. Because the camel-case functionality is implemented in the React SDK instead of in the underlying JavaScript SDK, the underlying `ldClient` object and functionality provided by the JavaScript SDK reflect flag keys in their original format. Only React-specific contexts such as your injected props use camel case.
 
 To disable the SDK's automatic camel-case feature, provide `asyncWithLDProvider` or `withLDProvider` with the `reactOptions.useCamelCaseFlagKeys` property as shown in the following example. This is supported in versions 2.13.0 and later of the React SDK.
 
