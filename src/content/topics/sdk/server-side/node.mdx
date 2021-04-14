@@ -460,6 +460,15 @@ ldClient.on('update:EXAMPLE_FLAG_KEY', () => {
 </CodeTabItem>
 </CodeTabs>
 
+The full list of events the SDK emits is:
+
+- `error`: This contains an error describing an abnormal condition that the client detects, such as a network error
+- `ready`: This is sent only once, when the client successfully connects to LaunchDarkly
+- `failed`: This is sent only once, if the client fails to connect to LaunchDarkly
+- `update`: This is sent when the client receives a change to a feature flag
+- `update:EXAMPLE_FLAG_KEY`: This is sent when the client receives a change to a feature flag with a specific key
+
+
 ## Secure mode hash
 
 The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
