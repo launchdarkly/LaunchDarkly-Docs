@@ -409,7 +409,8 @@ You can also distinguish logged-in users from anonymous users in the SDK, as fol
 // an anonymous user you can specify the "anonymous" property and
 // omit the "key" property. In doing so, the LaunchDarkly client
 // auto-generates a unique identifier for this user, and the
-// identifier is saved in local storage. This identifier ensures that subsequent browser sessions are consistent.
+// identifier is saved in local storage. This identifier ensures that
+// subsequent browser sessions are consistent.
 
 // If you do not specify a unique key for each anonymous user,
 // and the user has disabled local storage in their browser, LaunchDarkly
@@ -824,7 +825,7 @@ ldclient.track("your-event-name", { customProperty: someValue });
 </CodeTabItem>
 </CodeTabs>
 
-For numeric metrics, include a numeric value (`float` or `int` are accepted) as a third argument in the call.
+For numeric metrics, include a numeric value as a third argument in the call.
 
 <CodeTabs
   defaultValue="js"
