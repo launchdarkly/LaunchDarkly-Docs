@@ -7,9 +7,14 @@ published: true
 
 ## Overview
 
-This topic explains the algorithm used to evaluate a feature flag. This document is intended to be used by developers contributing or building server-side SDKs for LaunchDarkly. For client-side SDKs, flag evaluation is handled by LaunchDarkly and there is no need to implement this algorithm. To learn more about the different types of SDK, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+This topic explains the algorithm used to evaluate a feature flag. This document is intended to be used by developers contributing or building server-side SDKs for LaunchDarkly. Client-side and server-side evaluate feature flags differently:
 
-LaunchDarkly's server-side SDKs evaluate flags for specific users. The arguments needed to evaluate a flag are the _flag key_, _user_, and the _default variation value_.
+- Server-side SDKs evaluate feature flags internally using embedded evaluation rules
+- Client-side SDKs evaluate feature flags by contacting LaunchDarkly, which runs the following evaluation rules on the back end
+
+To learn more about the different types of SDKs, read [Flag evaluations](/sdk/concepts/client-side-server-side#flag-evaluations).
+
+SDKs evaluate flags for specific users. The arguments needed to evaluate a flag are the _flag key_, _user_, and the _default variation value_.
 
 Evaluating a flag for a specific user involves the following steps:
 
