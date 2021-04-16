@@ -48,9 +48,9 @@ into your proguard file.
 </CalloutDescription>
 </Callout>
 
-Once the SDK is installed, you'll want to create a single, shared instance of `LDClient`. You should specify your _mobile key_ here so that your application will be authorized to connect to LaunchDarkly and retrieve flag values for your application and environment.
+Once the SDK is installed, create a single, shared instance of `LDClient`. Specify your mobile key here so that your application is authorized to connect to LaunchDarkly and retrieve flag values for your application and environment.
 
-The following example shows the simplest way to create the client. It will block for up to 5 seconds until the latest feature flags have been retrieved from LaunchDarkly.
+The following example shows the simplest way to create the client. It will block for up to five seconds until the latest feature flags are retrieved from LaunchDarkly.
 
 <CodeTabs
   defaultValue="java"
@@ -97,12 +97,12 @@ val ldClient: LDClient = LDClient.init(application, ldConfig, user, 5)
 <CalloutDescription>
 
 
-Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into an embedded or desktop application.
+Use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into an embedded or desktop application.
 
 </CalloutDescription>
 </Callout>
 
-However, calling blocking code from the main thread in an Android app is not considered a best practice. The preferred method is shown below. It will allow you to use the client immediately. Flags from the previous launch of the app are stored on the device and retrieved for immediate use. The client will still connect in the background and continually update itself with the latest flags.
+However, calling blocking code from the main thread in an Android app is not a best practice. The preferred method is shown below. It allows you to use the client immediately. Flags from the previous launch of the app are stored on the device and retrieved for immediate use. The client still connects in the background and continually updates itself with the latest flags.
 
 <CodeTabs
   defaultValue="java"
@@ -128,7 +128,7 @@ val ldClient: LDClient = LDClient.init(application, ldConfig, user, 0)
 </CodeTabItem>
 </CodeTabs>
 
-Using `ldClient`, you can check which variation a particular user should receive for a given feature flag.
+Using `ldClient`, you can check which variation a particular user receives for a given feature flag.
 
 <CodeTabs
   defaultValue="java"
@@ -166,7 +166,7 @@ else {
 </CodeTabItem>
 </CodeTabs>
 
-Lastly, when your application is about to terminate, shut down `ldClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+When your application is about to terminate, shut down `ldClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. This is something you only need to do once.
 
 <CodeTabs
   defaultValue="java"
@@ -226,10 +226,10 @@ val ldConfig: LDConfig = LDConfig.Builder()
 </CodeTabItem>
 </CodeTabs>
 
-Here, we've customized the client connect and flush interval parameters. For the full set of config options check out the [Javadoc](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/android/LDConfig.Builder.html).
+Here, we've customized the client connect and flush interval parameters. For the full set of config options read the [Javadoc](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/android/LDConfig.Builder.html).
 
 ## Users
-Feature flag targeting and rollouts are all determined by the *user* you pass to your client. In our Android SDK, we use a [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to make it easy to construct users. Here's an example:
+Feature flag targeting and rollouts are determined by the user you pass to your client. The Android SDK uses a [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to make it easy to construct users. Here's an example:
 
 <CodeTabs
   defaultValue="java"
@@ -264,9 +264,9 @@ val user: LDUser = LDUser.Builder("aa0ceb")
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this snippet. The first argument to the builder is the user's key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+The first argument to the builder is the user's key. This example uses the hash `"aa0ceb"`. The user key is the only mandatory user attribute. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
-All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
+The `os` and `device` attributes are automatically determined by the SDK and inserted into the user object. All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on your dashboard, meaning that you can start segmenting and targeting users with these attributes.
 
 In addition to built-in attributes like names and e-mail addresses, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
 
@@ -279,7 +279,7 @@ Most of our built-in attributes (like names and e-mail addresses) expect string 
 </CalloutDescription>
 </Callout>
 
-Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, and account plans. Anything you pass to us becomes available instantly on our dashboard.
+Custom attributes let you target users according to any data that you send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to LaunchDarkly becomes available on your dashboard.
 
 ## Private user attributes
 
