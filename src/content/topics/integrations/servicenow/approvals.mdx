@@ -1,0 +1,55 @@
+---
+path: '/integrations/servicenow/approvals'
+title: 'Requesting approval'
+description: 'This topic explains how to request ServiceNow approvals using LaunchDarkly.'
+published: true
+---
+
+## Overview
+
+This topic explains how to use the ServiceNow approvals integration to request approvals for LaunchDarkly changes in ServiceNow.
+
+<Callout intent="info">
+<CalloutTitle>Approvals are an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+This feature is only available for customers on a LaunchDarkly Enterprise plan. To enable approvals on your account, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Prerequisites
+
+In order to complete this topic, you must meet the following prerequisites.
+
+- You must have an existing ServiceNow account.
+- You must have completed both parts of the setup for this integration. To learn more, read [Setting up the ServiceNow approvals integrations](/integrations/servicenow/setting-up).
+
+## Requesting approval for flag changes in ServiceNow
+
+To request approval for flag changes in ServiceNow, you must request approval for the change in LaunchDarkly and then view it in ServiceNow.
+
+To request approval in LaunchDarkly:
+
+1. In LaunchDarkly, navigate to the feature flag that you wish to change and make your needed changes to the flag targeting or status.
+2. Click the dropdown arrow to the right of the **Save Changes** button.
+3. Select **Request Approval**. A modal appears.
+4. Enter the description and any scheduling details, if desired.
+5. Click **Request Approval**. This creates a change request with state "New" in your ServiceNow instance.
+
+![An approval request modal with the ServiceNow approvals integration configured.](../../images/servicenow-create-approval-request-modal.png)
+
+To access the change request in ServiceNow:
+
+1. In LaunchDarkly, click the checkmark button on the right side of the flag Targeting tab.
+2. Click "View" on the request, then select "Review in ServiceNow" from the expanded approval request page view.
+
+![The approval request page in LaunchDarkly with the ServiceNow approvals integration configured.](../../images/servicenow-approval-request.png)
+
+![A sample ServiceNow change request populated with LaunchDarkly approval request details.](../../images/servicenow-change-request.png)
+
+3. The approvers for feature flag changes recieve a notification.
+
+When your ServiceNow approval conditions are met and the change request has been moved into the "Implemented" state, you may apply the flag changes within LaunchDarkly by clicking the **Apply Changes** button in the pending changes screen. Your ServiceNow change request state changes to "Review."
+
+If your change request changes to "Canceled," LaunchDarkly assumes the approval request has been denied. Similarly, if the approval request is deleted in LaunchDarkly, the ServiceNow change request state changes to "Canceled."

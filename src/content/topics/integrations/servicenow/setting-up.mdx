@@ -1,0 +1,151 @@
+---
+path: '/integrations/servicenow/setting-up'
+title: 'Setting up the ServiceNow integration'
+description: 'This topic explains how to configure the ServiceNow approvals integration.'
+published: true
+---
+
+## Overview
+
+This topic explains how to configure the LaunchDarkly ServiceNow integration for flag approvals.
+
+<Callout intent="info">
+<CalloutTitle>Approvals are an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+This feature is only available for customers on a LaunchDarkly Enterprise plan. To enable approvals on your account, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Prerequisites
+
+In order to complete this topic, you must meet the following prerequisites:
+
+- You must have a LaunchDarkly account with a role that allows the `integration/createIntegration` role.
+- You must have an existing ServiceNow account with the **admin** role.
+- You must have a ServiceNow Client ID and secret for an OAuth API endpoint for external clients. To learn how to create these, read [ServiceNow's documentation](https://docs.servicenow.com/bundle/paris-platform-administration/page/administer/security/task/t_CreateEndpointforExternalClients.html).
+
+## Setting up the ServiceNow integration in LaunchDarkly
+
+To use the ServiceNow integration to perform flag approvals, you must first establish an OAuth connection between your LaunchDarkly and ServiceNow accounts. After you create the connection, you can either:
+
+* [Configure automatic approvals](#creating-a-launchdarkly-workflow-in-servicenow-for-automatic-approvals) or
+* [Configure manual approvals](#creating-a-launchdarkly-workflow-in-servicenow-for-manual-approvals) approvals.
+
+To establish an OAuth connection:
+
+1. Log in to ServiceNow.
+2. Complete ServiceNow's instructions for [creating an endpoint for external clients](https://docs.servicenow.com/bundle/paris-platform-administration/page/administer/security/task/t_CreateEndpointforExternalClients.html).
+3. Navigate to the LaunchDarkly Integrations page and find the ServiceNow card.
+4. Click **+ Integration**. The integration menu appears.
+5. Click **Connect to ServiceNow**. An OAuth provider registration modal appears.
+6. Copy the **Redirect URL** to your clipboard.
+
+![LaunchDarkly's ServiceNow OAuth provider registration form.](../../images/servicenow-register-oauth-launchdarkly.png)
+
+7. In ServiceNow, follow the directions to [create an endpoint for external clients](https://docs.servicenow.com/bundle/paris-platform-administration/page/administer/security/task/t_CreateEndpointforExternalClients.html
+8. Set the **Redirect URL** to the redirect URL saved to your clipboard in the previous step. Ensure you are following the directions for your ServiceNow version.
+
+![The ServiceNow external client endpoint registration form with the Redirect URL configured.](../../images/servicenow-register-oauth-provider.png)
+
+9. In LaunchDarkly's **OAuth provider registration** modal, enter your ServiceNow subdomain. For example, if your ServiceNow instance is hosted at 'https://launchdarkly.service-now.com', your subdomain is 'launchdarkly'.
+10. Enter the **Client ID** and **Client Secret** for the client you created in step 5.
+11. Click **Register OAuth Provider**.
+12. Click **Allow**. ServiceNow may prompt you to log in to your ServiceNow account at this step.
+
+Your LaunchDarkly and ServiceNow accounts are now connected. Next, you must enable the ServiceNow approvals integration for your LaunchDarkly environment.
+
+## Configuring a LaunchDarkly environment to use ServiceNow for approvals
+
+By default, LaunchDarkly's approvals request feature only creates approval requests in LaunchDarkly. You can change this behavior so LaunchDarkly creates change requests in ServiceNow. To do this, you must update your chosen environment's approval settings.
+
+Here's how:
+
+1. In LaunchDarkly, navigate to the **Account settings** page.
+2. Click the three-dot **overflow menu** on the environment you wish to configure.
+3. Select **Approval settings**. A sidebar appears.
+4. Change the **Approval system** from **LaunchDarkly** to **ServiceNow**.
+5. Select the ServiceNow standard change template you wish to utilize for all proposed changes in this environment. All change requests created by LaunchDarkly will include relevant details for the  **Short description**, **Justification**, and **Requested by** fields. We recommend choosing a template with all other change request fields pre-populated.
+6. Click **Save Settings**.
+
+![LaunchDarkly environment approval settings with ServiceNow configured.](../../images/servicenow-environment-approval-settings.png)
+
+## Creating a LaunchDarkly workflow in ServiceNow for manual approvals
+
+You can create your workflow using either of the two methods ServiceNow offers to create new workflows:
+
+* [Flow Designer](https://docs.servicenow.com/bundle/london-servicenow-platform/page/administer/flow-designer/concept/flow-designer.html) and
+* [Workflow Editor](https://docs.servicenow.com/bundle/paris-servicenow-platform/page/administer/workflow/reference/workflow-editor.html).
+
+The screenshots below are from the Flow Designer, but you can create a workflow the same triggers, actions, and conditions using the Worfklow Editor if you prefer.
+
+To create a LaunchDarkly approvals workflow in ServiceNow:
+
+1. Create a new [Workflow Trigger](https://docs.servicenow.com/bundle/istanbul-security-management/page/product/security-operations-common/task/create-workflow-triggers.html) for record "Created" on the "Change Request [change_request]" table.
+2. Set two conditions on your trigger: "State" `is` "New" and "Standard Change Template version > Template > Name" `is` "LaunchDarkly template".
+
+![A configured Workflow Trigger in the ServiceNow Flow Designer.](../../images/servicenow-workflow-trigger.png)
+
+3. Add a new "Ask For Approval" Action on your Trigger Change Request Record and set the approval rules.
+
+![A ServiceNow "Ask For Approval" action configuration.](../../images/servicenow-manual-approval.png)
+
+4. Add an `if` condition that requires Approval State `is` "Approved".
+
+![A ServiceNow if condition configured for change request approvals.](../../images/servicenow-manual-approval-if.png)
+
+5. Add two "Update Change Request Record" Actions as extensions of the `if` condition.
+ * Set the first Action to "Update Record" with "State" "Scheduled" on the latest version of the triggering Change Request Record.
+ * Set the second Action to "Update Record" with "State" "Implemented" on the latest version of the triggering Change Request Record.
+
+<Callout intent="alert">
+<CalloutTitle>You must use two update actions</CalloutTitle>
+<CalloutDescription>
+
+ServiceNow requires change request records to move through states in a certain order, so you must create two separate actions that move the record State first to "Scheduled" and then to "Implemented". The record must end in the "Implemented" state for LaunchDarkly to process the approval.
+
+</CalloutDescription>
+</Callout>
+
+![A ServiceNow update change request record action that moves the "State" to "Scheduled".](../../images/servicenow-if-update-1.png)
+
+8. As an extension of the `else` condition, add an "Update Change Request Record" Action that moves the "State" to "Canceled". LaunchDarkly uses this state to determine that the approval request has been rejected.
+
+![A ServiceNow update change request record action that moves the "State" to "Canceled".](../../images/servicenow-else-update.png)
+
+You can now request manual approvals in ServiceNow for flag changes in LaunchDarkly.
+
+![A complete ServiceNow workflow for LaunchDarkly manual flag approvals.](../../images/servicenow-completed-manual-flow.png)
+
+## Creating a LaunchDarkly workflow in ServiceNow for automatic approvals
+
+Automatic approval workflows create a correlating ServiceNow Change Request for any LaunchDarkly flag changes. Automatic approvals are for record-keeping only and no actual approval is requested. Automatic approval workflows resemble manual approval workflows but without the approval Action.
+
+To create an automatic approval workflow:
+
+1. Create a new [Workflow Trigger](https://docs.servicenow.com/bundle/istanbul-security-management/page/product/security-operations-common/task/create-workflow-triggers.html) for record "Created" on the "Change Request [change_request]" table.
+2. Set two conditions on your trigger:
+ * "State" `is` "New"
+ * "Standard Change Template version > Template > Name" `is` "LaunchDarkly auto-approve template"
+
+![A Workflow Trigger in the ServiceNow Flow Designer.](../../images/servicenow-workflow-trigger.png)
+
+3. Add two "Update Change Request Record" Actions as extensions of the `if` condition.
+4. On the first Action, set the Action to "Update Record" on the latest version of the triggering Change Request Record. Set "State" to "Scheduled.""
+5. On the second Action, set the Action to "Update Record" on the latest version of the triggering Change Request Record. Set "State" to "Implemented."
+
+<Callout intent="info">
+<CalloutTitle>You must use two update actions</CalloutTitle>
+<CalloutDescription>
+
+ServiceNow requires change request records to move through states in a certain order, so you must create two separate actions that move the record State first to "Scheduled" and then to "Implemented." The record must end in the "Implemented" state for LaunchDarkly to be able to process the record.
+
+</CalloutDescription>
+</Callout>
+
+![A ServiceNow update change request record action that moves the "State" to "Implemented".](../../images/servicenow-if-update-2.png)
+
+You can now track your LaunchDarkly flag changes in ServiceNow.
+
+![A completed ServiceNow workflow for LaunchDarkly "automatic" approvals.](../../images/servicenow-automatic-approvals.png)

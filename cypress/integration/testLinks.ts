@@ -16,6 +16,7 @@ const ignore = [
   'https://glitch.com',
   'https://app.logdna.com',
   'https://help.sleuth.io',
+  'https://launchdarkly.service-now.com',
   'https://cocoapods.org',
   'https://www.makeuseof.com/tag/md5-hash-stuff-means-technology-explained/',
 ]

@@ -4,7 +4,7 @@
     "path": "/home",
     "items": [
       {
-        "group":"feature-flags",
+        "group": "feature-flags",
         "label": "Getting started",
         "path": "/home/getting-started",
         "svg": "compass",
@@ -24,7 +24,7 @@
         ]
       },
       {
-        "group":"feature-flags",
+        "group": "feature-flags",
         "label": "Using feature flags",
         "path": "/home/flags",
         "svg": "toggle-switch",
@@ -64,7 +64,7 @@
         ]
       },
       {
-        "group":"feature-flags",
+        "group": "feature-flags",
         "label": "Organizing your flags",
         "path": "/home/organize",
         "svg": "toggles-multiple-solid",
@@ -96,7 +96,7 @@
         ]
       },
       {
-        "group":"feature-flags",
+        "group": "feature-flags",
         "label": "Flags in your codebase",
         "path": "/home/code",
         "svg": "life-cycle",
@@ -138,7 +138,7 @@
         ]
       },
       {
-        "group":"feature-flags",
+        "group": "feature-flags",
         "label": "Users and user segments",
         "path": "/home/users",
         "svg": "chart-pie",
@@ -166,7 +166,7 @@
         ]
       },
       {
-        "group":"platform-config",
+        "group": "platform-config",
         "label": "Managing your team",
         "path": "/home/team",
         "svg": "people",
@@ -220,7 +220,7 @@
         ]
       },
       {
-        "group":"platform-config",
+        "group": "platform-config",
         "label": "Securing your account",
         "path": "/home/account-security",
         "svg": "security",
@@ -266,7 +266,7 @@
         ]
       },
       {
-        "group":"platform-config",
+        "group": "platform-config",
         "label": "Connecting apps and services to LaunchDarkly",
         "path": "/home/connecting",
         "svg": "arrow-left-right-bold",
@@ -290,7 +290,7 @@
         ]
       },
       {
-        "group":"platform-config",
+        "group": "platform-config",
         "label": "Billing and usage",
         "path": "/home/billing",
         "svg": "card-text",
@@ -302,7 +302,7 @@
         ]
       },
       {
-        "group":"platform-config",
+        "group": "platform-config",
         "label": "Advanced",
         "path": "/home/advanced",
         "svg": "atom",
@@ -318,7 +318,7 @@
         ]
       },
       {
-        "group":"additional-features",
+        "group": "additional-features",
         "label": "Experimentation",
         "path": "/home/experimentation",
         "svg": "chart-areaspline",
@@ -352,7 +352,7 @@
         ]
       },
       {
-        "group":"additional-features",
+        "group": "additional-features",
         "label": "Feature Workflows",
         "path": "/home/feature-workflows",
         "svg": "merge",
@@ -376,7 +376,7 @@
         ]
       },
       {
-        "group":"additional-features",
+        "group": "additional-features",
         "label": "Data Export",
         "path": "/home/data-export",
         "svg": "database-export",
@@ -420,7 +420,7 @@
         ]
       },
       {
-        "group":"additional-features",
+        "group": "additional-features",
         "label": "The Relay Proxy",
         "path": "/home/relay-proxy",
         "svg": "relay-proxy",
@@ -594,6 +594,20 @@
         "label": "Salesforce",
         "path": "/integrations/salesforce",
         "flagKey": "salesforceNav"
+      },
+      {
+        "label": "ServiceNow",
+        "path": "/integrations/servicenow",
+        "items": [
+          {
+            "label": "Setting up the ServiceNow approvals integration",
+            "path": "/integrations/servicenow/setting-up"
+          },
+          {
+            "label": "Requesting approval",
+            "path": "/integrations/servicenow/approvals"
+          }
+        ]
       },
       {
         "label": "SignalFx",
