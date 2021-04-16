@@ -20,7 +20,7 @@ This topic explains how to use LaunchDarkly's approvals feature to request revie
 
 You can customize an environment's approval settings in the **Projects** tab of the **Account settings** page. To learn more, read [Configuring approvals by environment](/home/managing-flags/feature-workflows/environment-approvals).
 
-Approvals allow more people to have input on planned changes to a flag. These review-style approvals mimic common code review workflows, such as PR reviews in GitHub. They're a fast, convenient way for more members of your team to contribute to changes to your feature flags, and for you to gain confidence in the changes you're about to make.
+Approvals let more people have input on planned changes to a flag. These review-style approvals mimic common code review workflows, such as PR reviews in GitHub.
 
 <Callout intent="info">
 <CalloutTitle>Reviewing an approval request does not make or prevent flag changes</CalloutTitle>
@@ -43,7 +43,16 @@ From that email, a requested approver can access a summary page of the flag chan
 
 ## Requesting approval for a flag change
 
-You can request approval on changes to a flag's targeting at any point after creation.
+You can request approval on changes to a flag's targeting at any point after creation. 
+
+<Callout intent="info">
+<CalloutTitle>Your environment may require approvals</CalloutTitle>
+<CalloutDescription>
+
+If your environment requires approvals, **Request approval** is the default option. To learn more, read [Configuring approvals by environment](/home/feature-workflows/environment-approvals).
+
+</CalloutDescription>
+</Callout>
 
 ![A GIF showing the interactions of requesting approval on changes.](../../images/approvals-requesting-approval.gif)
 
@@ -60,15 +69,15 @@ Here's how:
 1. Make the changes you wish to make to any flag.
 2. Click the **dropdown icon** in the **Save Changes** button. The additional actions menu opens.
 
-![The flag targeting screen with the additional actions menu expanded.](../../images/approvals-request-dropdown.png)
+    ![The flag targeting screen with the additional actions menu expanded.](../../images/approvals-request-dropdown.png)
 
-3. Click **Request approval**. The approval request screen appears.
+3. Click **Request approval**. The approval request screen appears. Users on an Enterprise plan also see the Schedule option.
 
-![The request approval screen.](../../images/approvals-request.png)
+    ![The request approval screen.](../../images/approvals-request.png)
 
 4. Enter a **Description** to add context that helps your reviewers understand the changes you made.
 5. (Optional) If necessary, you can edit your flag changes by clicking the **Edit** button.
-6. Choose one or more reviewers from the **Select reviewers to be notified** dropdown.
+6. Choose one or more reviewers from the **Reviewers** dropdown.
 7. Click **Request approval**.
 
 The people you chose from the dropdown each receive an email asking them to approve your flag changes. The flag's **Targeting** page also updates with an icon to indicate that there are pending changes waiting for review.
@@ -120,8 +129,10 @@ To access this screen, click the icon on the flag's **Targeting** page.
 
 ## Deleting an approval request
 
-You may delete a request for changes to a flag while it's pending review. You can do this in two ways: from the
-"Pending changes" screen or from the approval request page.
+You may delete a request for changes to a flag while it's pending review. You can do this in two ways:
+
+* from the "Pending changes" screen, or
+* from the approval request page.
 
 ### Deleting an approval request from the "Pending changes" screen
 

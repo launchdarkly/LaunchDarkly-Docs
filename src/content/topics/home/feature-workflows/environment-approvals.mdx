@@ -5,6 +5,15 @@ description: 'This topic explains how to customize who can approve a request for
 published: true
 ---
 
+  <Callout intent="primary">
+  <CalloutTitle>Approvals is a Pro and Enterprise feature</CalloutTitle>
+  <CalloutDescription>
+
+  Approvals is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+  </CalloutDescription>
+  </Callout>
+
 ## Overview
 
 This topic explains how to customize how approval requests work for each environment in your LaunchDarkly project. You can also require approvals on flag-level changes in any environment.
@@ -13,7 +22,7 @@ For example, you can prevent a proposed change from being applied if any reviewe
 
 ## Configuring approval settings
 
-You can customize how approval requests are managed and enforced by making changes in the **Approval settings** menu. 
+You can customize how approval requests are managed and enforced by making changes in the **Approval settings** menu.
 
 In this menu, you can customize who can approve a request and how many approvals are required before a requestor can apply a change. These settings can be useful when you want to use approval requests to track the changes you make to a flag, but don't want to delay applying those changes based on who has approved them.
 
@@ -39,24 +48,17 @@ In the **Approval settings** menu, there are some configuration options that are
 
 In the **Approval settings** menu, you can configure the following fields:
 
-* **Require approvals for this environment**: This feature is only available for members of LaunchDarkly's Early Access Program (EAP). To learn more, read [Requiring approvals in an environment](#requiring-approvals-in-an-environment).
+* **Approval System**: Select to manage approvals either within LaunchDarkly or with a third-party tool.
+* **Require approvals for this environment**: Select this checkbox to require flag targeting changes in this environment.
 * **Requesters can review their own request**: Select this checkbox to allow anyone who makes an approval request to approve or decline that request. This allows someone who makes an approval request to apply their own change.
-* **Enable "Apply Changes" even if any reviewers have declined a request**: 
+* **Allow modifying and deleting pending changes without approval**: Select this checkbox to stop creating approval requests when a team member deletes or modifies a pending change. 
+* **Enable "Apply Changes" even if any reviewers have declined a request**:
   * **Yes**: (Default setting) Select this option to allow the person who made the approval request to approve and apply the change as long as at least one person has approved their approval request.
-  * **No**: Select this option to prevent the requested change from being applied if any reviewer has declined their approval request. 
+  * **No**: Select this option to prevent the requested change from being applied if any reviewer has declined their approval request.
 
 ![The "Approval settings" menu.](../../images/approvals-approval-settings.png)
 
 ## Requiring approvals in an environment
-
-<Callout intent="info">
-  <CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
-  <CalloutDescription>
-
-You can only require approvals on environment-level changes if you are a member of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://docs.google.com/forms/d/e/1FAIpQLScJ5qCC_RZTW9pPSXVZk9HaKzpltNAeoQb2t6gh7dLicwQWQQ/viewform).
-
-  </CalloutDescription>
-</Callout> 
 
 You can require any change made to a flag in this environment to go through an approval process. This creates a workflow where any environment-specific flag change must have a reviewer's approval before it can be implemented.
 
@@ -66,55 +68,41 @@ To require approvals on flag changes:
 2. Find the environment you wish to modify.
 3. Click the **three-dot** overflow menu and choose **Approval settings** from the dropdown. The **Approval settings** menu appears.
 
- ![An environment's overflow menu, with the "Approval settings" option called out.](../../images/approvals-environment-overflow-callout.png) 
-
+    ![An environment's overflow menu, with the "Approval settings" option called out.](../../images/approvals-environment-overflow-callout.png)
 4. Select the **Require approvals for this environment** checkbox.
 
-![The "Approval settings" menu with the "Require approvals for this environment" checkbox called out.](../../images/approvals-settings-require-callout.png)
+    ![The "Approval settings" menu with the "Require approvals for this environment" checkbox called out.](../../images/approvals-settings-require-callout.png)
 
 5. Make any other configuration changes you wish.
 6. Click **Save Settings**.
 
 ### Understanding how required approvals work
 
-When you select the **Require approvals for this environment** checkbox in the "Approval settings" menu, it requires any flag targeting change to receive an approval before implementation. 
+When you select the **Require approvals for this environment** checkbox in the "Approval settings" menu, it requires any flag targeting change to receive an approval before implementation.
 
 If you enable this feature, the following behaviors change:
-* When you toggle a flag on or off from the Flags dashboard, the "Request approvals" screen appears. 
+* When you toggle a flag on or off from the Flags dashboard, the "Request approvals" screen appears.
 * After any change to flag configuration on the flag's Targeting page, the **Save Changes** button changes to **Request Approval**. When you click it, the "Request approvals" screen appears.
 * On the Users page, when you change flag targeting for a user, the **Save changes** button changes to **Request Approval**. When you click it, the "Request approvals" screen appears.
 
 For all three of these changes, the flag state does not change until a reviewer approves and applies the change.
 
 <Callout intent="alert">
-  <CalloutTitle>Required approvals only apply to environment-level changes</CalloutTitle>
+  <CalloutTitle>Required approvals apply only to environment-level changes</CalloutTitle>
   <CalloutDescription>
 
 Approval workflows only impact flag targeting settings within an environment. When you select the **Require approvals for this environment** checkbox, project-level flag changes are not included.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
 The following actions do **not** trigger an approval request:
 
 * Changes to the flag's name
 * Changes to the flag's maintainer
 * Changes to the flag's description
-* Changes to the flag's tags 
+* Changes to the flag's tags
 * Changes to the flag's variations
-* Creating a flag 
-* Archiving the flag
-* Deleting the flag
-
-<Callout intent="alert">
-  <CalloutTitle>Temporary limitation: Requiring approvals disables scheduled flag changes and removal dates</CalloutTitle>
-  <CalloutDescription>
-
-Because each flag change must be approved by a reviewer, requiring approvals in an environment disables the ability to schedule flag targeting changes and removal dates for users. <br/><br/>
-
-This limitation only exists while required approvals is under development, and will be removed when the feature becomes generally available.<br/><br/>
-
-To learn more about these features, read [Scheduled flag changes](/home/managing-flags/feature-workflows/scheduled-changes) and [Scheduling removal dates for user targeting](/home/managing-flags/targeting-users#scheduling-removal-dates-for-user-targeting).
-
-  </CalloutDescription>
-</Callout> 
+* Creating a flag
+* Archiving a flag
+* Deleting a flag

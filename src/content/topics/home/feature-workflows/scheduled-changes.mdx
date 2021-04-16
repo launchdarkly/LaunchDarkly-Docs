@@ -9,7 +9,8 @@ published: true
 <CalloutTitle>Scheduled flag changes is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-Scheduled flag changes is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+ Scheduled flag changes is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
 
 </CalloutDescription>
 </Callout>
@@ -18,9 +19,9 @@ Scheduled flag changes is available to customers on an Enterprise plan. To learn
 
 This topic explains how to schedule flag changes to take effect at a date in the future.
 
-Scheduling flag changes allows you to define and schedule changes to your flag’s targeting rules for future points in time. While this sounds simple, it unlocks the potential to create a progressive delivery strategy by scheduling the incremental steps to release your feature to 100% of your user base.
+Scheduling flag changes allows you to define and schedule changes to your flag’s targeting rules for future points in time. Scheduled changes allow you to to create a progressive delivery strategy by scheduling the incremental steps to release your feature to 100% of your user base.
 
-For example, you may want to schedule the feature to turn on for internal testing two days from today, then enable it for your ‘beta’ customer segment four days later, and finally start an automated rollout from 0% to 100% over the following five days. Now you can define this feature workflow ahead of time and be confident that it will take effect at the specified date and time.
+For example, you can schedule a feature to turn on for internal testing two days from today, then enable it for your ‘beta’ customer segment four days later, and finally start an automated rollout increasing to 100% over the following five days.
 
 <Callout intent="info">
 <CalloutTitle>You can configure scheduled flag change permissions with custom roles</CalloutTitle>
@@ -35,10 +36,10 @@ To learn more about custom roles actions for this feature, read [Using actions](
 
 ## Benefits of scheduling flag changes
 
-1. **Timing an early launch**: LaunchDarkly users no longer need to set reminders or wake up early to turn a flag ON. Scheduling your flag to turn on on a specified date/time allows you to plan your release and let LaunchDarkly do the rest.
-2. **Progressive feature rollouts**: Using this functionality, you can schedule your flag to roll out to 20% of your user base tomorrow, 35% the day after, 50% the day after that, and increase that percentage until it reaches 100%. This only requires creating a set of scheduled changes to your flag once and lets you slowly release features and ensure they’re performing the way you hoped they would.
-3. **Temporary user access**: You can now schedule rules that target certain users and segments to be added to or removed from your flag’s targeting to better manage user access.
-4. **Flag hygiene**: You can schedule your flag’s targeting rules to clean up once your flag has been rolled out to 100% of your users, to practice better flag hygiene and more easily understand the flag's configuration.
+1. **Timing an early launch**: Scheduling your flag to turn on or off on a specified date/time allows you to plan your release without having to manually make changes at desired release times.
+2. **Progressive feature rollouts**: This functionality allows you to create a set of scheduled changes to your flag once, and LaunchDarkly slowly release the feature for you. For example, you can schedule your flag to roll out to 20% of your user base tomorrow, 35% the day after, 50% the day after that, and increase that percentage until it reaches 100%.
+3. **Temporary user access**: You can schedule rules that target certain users and segments to be added to or removed from your flag’s targeting to better manage user access.
+4. **Flag hygiene**: You can schedule your flag’s targeting rules to clean up once your flag has been rolled out to 100% of your users.
 
 <Callout intent="info">
 <CalloutTitle>Feature Workflows are available in the LaunchDarkly API</CalloutTitle>
@@ -69,14 +70,23 @@ To schedule a set of flag changes:
 
 ![A GIF of the flag scheduling workflow.](../../images/workflows-change-create.gif)
 
-8. Enter a comment and the environment name.
-9. Click **Schedule Changes**. Your changes have now been scheduled.
+8. If your environment requires approvals for flag changes, enter a description and choose one or more reviewers.
+9. Enter a comment and the environment name.
+10. Click **Schedule Changes**. Your changes have now been scheduled.
 
 You can schedule multiple changes for a single flag for different dates and times.
 
 For example, you can implement a progressive rollout strategy by scheduling multiple sequential changes to targeting rules.
 
 ![A flag with multiple changes scheduled.](../../images/workflows-upcoming-changes.png)
+
+You cannot use scheduled flag changes to schedule user removal dates because of potential date and time conflicts between the scheduled flag and the scheduled user removal. To learn more about scheduling, read [Scheduling user removal from segments](/home/users/segments#scheduling-user-removal-from-segments).
+
+### Creating scheduled flag changes that require approvals
+
+Enterprise customers can require approvals for scheduled flag changes. If approvals are required, the change is marked "Pending Review" in the pending change drawer.
+
+If there are conflicts between changed flags and requested changes, approved and applied changes take precedence over pending or requested changes. To learn more, read [Managing conflicts with scheduled changes](#managing-conflicts-with-scheduled-changes).
 
 ## Viewing scheduled flag changes
 

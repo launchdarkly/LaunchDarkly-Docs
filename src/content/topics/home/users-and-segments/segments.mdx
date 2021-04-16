@@ -93,12 +93,12 @@ To customize a segment:
 ## Scheduling user removal from segments
 
 <Callout intent="primary">
-  <CalloutTitle>Scheduling user removal dates is a Pro and Enterprise feature</CalloutTitle>
+  <CalloutTitle>Scheduling removal dates is a Pro and Enterprise feature</CalloutTitle>
   <CalloutDescription>
 
-Scheduling user removal dates is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+Scheduling removal dates are available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-   </CalloutDescription>
+  </CalloutDescription>
 </Callout>
 
 You can schedule a date and time on which a user is removed from a segment.
@@ -119,8 +119,20 @@ To set a targeting removal date:
 ![The removal scheduling calendar.](../../images/segments-schedule-calendar.png)
 
 4. Set a date and time for the user to be removed from the segment.
-5. Click **Apply**.
-6. The user is now scheduled for removal from the segment on the date and time you specified.
+5. Click **Apply**. 
+* If approvals are not required, the user is now scheduled for removal on the date and time you specified.
+* If approvals are required for scheduled removal dates, click the **Request Approval** button in the upper right. 
+
+The Request Approval screen appears.
+
+![The request approval screen.](../../images/approvals-request-schedule-removal.png)
+
+6. Enter a **Description** to add context that helps your reviewers understand the changes you made.
+7. (Optional) If necessary, you can edit your flag changes by clicking the **Edit** button.
+8. Choose one or more reviewers from the **Reviewers** dropdown.
+9. Click **Request approval**.
+
+The people you chose from the dropdown each receive an email asking them to approve your flag changes. The flag's **Targeting** page also updates with an icon to indicate that there are pending changes waiting for review.
 
 Additionally, when you add a user to a segment, you can schedule them for removal later by clicking **Add + Schedule Removal**.
 
