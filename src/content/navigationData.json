@@ -460,7 +460,13 @@
       {
         "label": "Changelog",
         "path": "/home/changelog",
-        "svg": "timeline-text"
+        "svg": "timeline-text",
+        "items": [
+          {
+            "label": "Changelog archive",
+            "path": "/home/changelog/archive"
+          }
+        ]
       }
     ]
   },
