@@ -8,7 +8,8 @@
     "module": "commonjs",
     "target": "ES2019",
     "jsx": "react",
-    "lib": ["dom", "es2015", "esnext"]
+    "lib": ["dom", "es2015", "esnext"],
+    "skipLibCheck": true
   },
   "include": ["./src/**/*"],
   "exclude": [".cache", ".github", "assets", "dist", "node_modules", "public", "cypress"]
