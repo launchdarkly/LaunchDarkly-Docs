@@ -27,27 +27,29 @@ To learn more, read [Private user attributes](/home/managing-users/user-attribut
 
 Anonymous users contribute to MAU. LaunchDarkly can track anonymous users in two different ways:
 
-* By unique key, or
-* Without unique keys
+* With a shared key
+* By unique keys
 
-If you specify a unique key for each anonymous user, LaunchDarkly tracks those users by session. If you do *not* specify a unique key for each anonymous user, and the user has saving to local storage disabled, LaunchDarkly will create a new user for each request. The number of real users who have disabled saving to local storage is likely small, but bots and crawlers almost never utilize local storage. One user and/or bot with local storage disabled can drastically inflate your MAU count.
+If you specify a unique key for each anonymous user, LaunchDarkly tracks those users by session. If you do *not* specify a unique key for each anonymous user, and the user has saving to local storage disabled, LaunchDarkly creates a new user for each request. The number of real users who have disabled saving to local storage is likely small, but bots and crawlers almost never utilize local storage. One user and/or bot with local storage disabled can drastically inflate your MAU count.
 
 To learn more about MAU, read [Account usage metrics](/home/billing/usage-metrics).
 
-## Best practices for using unique keys
+## Tracking anonymous users with a shared key
 
-Sometimes it is useful to generate a unique key for anonymous users. We recommend using unique keys for the following reasons:
+You do not always need to uniquely identify your anonymous users. Instead, you can use a shared key. You can still target users by their attributes, but you cannot target specific user segments unless they have unique keys.
+
+Using a shared user key for all anonymous users instead of unique keys helps reduce your cMAU usage.
+
+To learn more about user limits, read [Understanding the Users dashboard](/home/users/users-dashboard#understanding-the-users-dashboard).
+
+## Tracking anonymous users with unique keys
+
+Sometimes it is useful to generate unique keys for anonymous users. We recommend using unique keys for the following reasons:
 
 - You are targeting users individually by key
 - You are using Experimentation to run A/B/n tests
 - You are using the Analytics Data Stream
 - You are conducting percentage rollouts
-
-You do not need to uniquely identify your anonymous users. Instead, you can use a shared key for them. If you do this, you can still target users by their attributes, but you will not be able to target specific user segments unless they have unique keys.
-
-Using anonymous users instead of unique keys may help prevent you from hitting your maximum user count.
-
-To learn more about user limits, read [Understanding the Users dashboard](/home/users/users-dashboard#understanding-the-users-dashboard).
 
 ### Understanding how unique keys contribute to user count
 
@@ -61,7 +63,7 @@ Here are some examples of ways you may be creating unique user IDs:
 * Server-to-server communication where there are no human operators, just software components interacting.
 * If you use LaunchDarkly to configure log levels or tracing, you may use a different type of ID, like a timestamp. LaunchDarkly classifies each of those IDs as unique IDs.
 
-You can replace some of the unique IDs in the examples above with anonymous users. This will decrease your maximum user count, but keep in mind that anonymous users do not appear on the Users dashboard. Assess the components interacting with LaunchDarkly and feature flags to determine which require unique IDs, user IDs, or both, or can be classified as anonymous users.
+You can replace some of the unique IDs in the examples above with anonymous users. This decreases your maximum user count, but keep in mind that anonymous users do not appear on the Users dashboard. Assess the components interacting with LaunchDarkly and feature flags to determine which require unique IDs, user IDs, or both, or can be classified as anonymous users.
 
 You can remove users you don't need anymore with the LaunchDarkly API, or by clicking the **Delete** button on their user card. To learn more, read [Removing a user](/home/users/users-dashboard#removing-a-user).
 
@@ -76,7 +78,7 @@ This section explains <code>alias</code> events, which are an optional feature i
 </CalloutDescription>
 </Callout>
 
-In some cases, one person can be represented by multiple users in LaunchDarkly. If LaunchDarkly registers a person as an anonymous user, and that person later logs in to the application, LaunchDarkly will register them again as a logged-in user. This one person is now represented by two unique user keys.
+In some cases, one person can be represented by multiple users in LaunchDarkly. If LaunchDarkly registers a person as an anonymous user, and that person later logs in to the application, LaunchDarkly registers them again as a logged-in user. This one person is now represented by two unique user keys.
 
 You can associate these two user keys by configuring your SDK to send `alias` events. `Alias` events connect two user keys and register them as one event-sending entity.
 

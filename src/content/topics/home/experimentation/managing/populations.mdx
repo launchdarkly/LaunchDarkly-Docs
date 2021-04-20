@@ -81,3 +81,16 @@ to Experimentation results or Data Export streams. To learn more, read [Targetin
 
   </CalloutDescription>
 </Callout>
+
+## Changing targeting rules during an experiment
+
+If you update a feature flag's targeting rules while an experiment is running, a user who previously saw one variation may then see a different variation. Data for that user is recorded twice, because LaunchDarkly deduplicates user data only at the variation level, not the flag level. To prevent the experiment from recording user data twice, restart it after you make any changes to a flag's targeting rules. This clears all existing data from the experiment.
+
+To restart the experiment:
+
+1. Find the feature flag associated with your experiment.
+2. Click on the flag's **Experiments** tab.
+3. Click on the three-dot overflow menu in the relevant experiment.
+4. Click **Reset data**.
+
+The data from the experiment is now cleared.
