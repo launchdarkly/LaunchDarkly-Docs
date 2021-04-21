@@ -136,32 +136,34 @@ Each of these keys grants different access levels to LaunchDarkly's APIs.
 
 LaunchDarkly enforces that each of the SDK types use the appropriate key as described below. Requests made with one of the other two keys will be rejected. To identify which keys are used by each specific SDK, read [Language support](#language-support).
 
-### SDK key
-
-Configure server-side SDKs to use the SDK key. This key grants server-side SDKs read-only access to all flag data associated with the provided key's environment. With this key, server-side SDKs can download the entire flag ruleset for all flags in the environment.
-
-The SDK key is considered confidential and should be kept a secret. If an SDK key is exposed, you can reset it from the project's Edit environment page under **Account Settings**. To learn more, read [Resetting an environment's SDK key](/home/organize/environments#resetting-an-environments-sdk-key).
-
-### Mobile key
-
-Configure mobile SDKs (plus other client-side SDKs not written in JavaScript) to use the mobile key. This key grants these SDKs evaluation rights to all flags associated with the provided key's environment. Unlike client-side IDs, mobile keys have access to evaluate all flags for the associated environment.
-
-The mobile key is not considered confidential and does not need to be kept a secret.
-
-### Client-side ID
-
-Configure JavaScript-based client-side SDKs to use the client-side ID. This ID grants these SDKs access to evaluate any flags, as long as the flag is associated with the provided key's environment and has the "Make this flag available to client-side SDKs" option enabled. Because you must manually connect every flag to a client-side SDK, you can restrict which flags are accessible by the client-side ID.
-
-The client-side ID is not considered confidential and does not need to be kept a secret.
-
 <Callout intent="info">
   <CalloutTitle>Making flags available to client-side SDKs</CalloutTitle>
   <CalloutDescription>
 
-Find the "Make this flag available to client-side SDKs" option on a flag's **Settings** tab.
+Find the "Client-side SDK availability" section on a flag's **Settings** tab.
 
   </CalloutDescription>
 </Callout>
+
+### SDK key
+
+Configure server-side SDKs to use the SDK key. This key grants server-side SDKs read-only access to all flag data associated with the provided key's environment. With this key, server-side SDKs can download the entire flag ruleset for all flags in the environment.
+
+The SDK key is considered confidential and should be kept a secret. If an SDK key is exposed, you can reset it from the **Account Settings** page by clicking on **Projects**, clicking the three-dot menu next to your environment, selecting **Edit environment**, and clicking **Reset SDK key**. To learn more, read [Resetting an environment's SDK key](/home/organize/environments#resetting-an-environments-sdk-key).
+
+### Mobile key
+
+Configure mobile SDKs, and other non-JavaScript client-side SDKs, to use the mobile key. The mobile key grants these SDKs access to evaluate any flag that is associated with the key's environment, and that you have enabled for client-side SDK availability by checking the flag's "SDKs using mobile key" checkbox. 
+
+Because you must manually connect flags to a client-side SDK, you can restrict which flags are accessible by the client-side ID.
+
+The mobile key is not considered confidential and does not need to be kept a secret. However, if you wish to reset a mobile key, you can do so from the **Account Settings** page by clicking on **Projects**, clicking the three-dot menu next to your environment, selecting **Edit environment**, and clicking **Reset Mobile key**.
+
+### Client-side ID
+
+Configure JavaScript-based client-side SDKs to use the client-side ID. This ID grants these SDKs access to evaluate any flags, as long as the flag is associated with the provided ID's environment and has been enabled for client-side SDK availability with the "SDKs using client-side ID" option. Because you must manually connect flags to a client-side SDK, you can restrict which flags are accessible by the client-side ID.
+
+The client-side ID is not considered confidential and does not need to be kept a secret.
 
 ## Language support
 
