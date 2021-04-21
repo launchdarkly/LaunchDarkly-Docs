@@ -25,7 +25,7 @@ Some Data Export destinations have different event formatting schema. If you use
 
 These events are described in more detail below.
 
-## Event Kinds
+## Event kinds
 
 <Table>
   <TableHeader>
@@ -86,22 +86,11 @@ The `index` and `identify` event kinds are **not available** for Segment and mPa
   </CalloutDescription>
 </Callout>
 
-## SDK Versioning for Events
+## SDK versioning for events
 
 Older SDKs always send `feature` events regardless of whether detailed tracking is enabled for that flag. The `summary` and `index` events described below are also only generated only by newer SDKs.
 
 Older SDKs will also send `user` attributes as an object inside `feature` events instead of just providing a "userKey" that can reference user data sent in a prior `index` event.
-
-The minimum SDK version numbers for SDKs support the new `summary` and `index` events and limit the sending of "feature" events are listed below:
-
-- .NET: **4.0.0**
-- Go: **4.0.0** (aka v4)
-
-- Java: **4.0.0**
-- Node: **5.0.0**
-- PHP: **4.0.0**
-- Python: **6.0.0**
-- Ruby: **4.0.0**
 
 <Callout intent="info">
   <CalloutTitle>Enabling detailed analytics events</CalloutTitle>
