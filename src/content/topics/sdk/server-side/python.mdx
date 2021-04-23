@@ -162,7 +162,7 @@ user = {
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this snippet. The most important attribute is the user key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+Let's walk through this snippet. The most important attribute is the user key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
 
@@ -172,7 +172,7 @@ Besides the `key`, LaunchDarkly supports the following attributes at the "top le
 - `firstName`: Must be a string. If you provide a first name, you can search for users on the Users page by name.
 - `lastName`: Must be a string. If you provide a last name, you can search for users on the Users page by name.
 - `country`: Must be a string representing the country associated with the user.
-- `email`: Must be a string representing the user's e-mail address. If an `avatar` URL is not provided, we'll use [Gravatar](http://en.gravatar.com/) to try to display an avatar for the user on the Users page.
+- `email`: Must be a string representing the user's email address. If an `avatar` URL is not provided, we'll use [Gravatar](http://en.gravatar.com/) to try to display an avatar for the user on the Users page.
 - `avatar`: Must be an absolute URL to an avatar image for the user.
 - `name`: Must be a string. You can search for users on the User page by name
 - `anonymous`: Must be a boolean. See the section below on anonymous users for more details.
@@ -182,7 +182,7 @@ In addition to built-in attributes, you can pass us any of your own user data by
 <Callout intent="info">
   <CalloutTitle>A note on types</CalloutTitle>
   <CalloutDescription>
-    Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attribute values can
+    Most of our built-in attributes (like names and email addresses) expect string values. Custom attribute values can
     be strings, booleans (like True or False), numbers, or lists of strings, booleans or numbers. If you enter a custom
     value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
   </CalloutDescription>

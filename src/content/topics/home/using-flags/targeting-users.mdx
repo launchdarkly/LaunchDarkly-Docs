@@ -102,7 +102,7 @@ Each rule has three parts:
 - an **operator**, which sets differentiating characteristics of the attribute, such as limiting the attribute to emails that end with certain extensions. If a rule specifies multiple values for the operator to track, the operator iterates over the array.
 - a **user value**, which identifies a user or resource by a value you specify, such as `@gmail.com`.
 
-Here is an example of a rule that serves `true` to all users whose e-mail address ends with `@gmail.com`.
+Here is an example of a rule that serves `true` to all users whose email address ends with `@gmail.com`.
 
 To write this rule, specify the attribute as `email`, the operator as `ends with`, and the user value as `gmail.com`. Click **Save Changes** to apply the rule.
 
@@ -357,7 +357,7 @@ LaunchDarkly allows you to target users based on arbitrary custom attributes, wh
 
 You can add multiple conditions to a rule. Users must meet all the conditions in a rule to match the rule. If any of the conditions are not met, the user will not match the rule.
 
-Here, we've created a custom rule with two conditions. This rule serves `true` to all users whose e-mail address ends with `gmail.com` and whose country is either `USA` or `CANADA`.
+Here, we've created a custom rule with two conditions. This rule serves `true` to all users whose email address ends with `gmail.com` and whose country is either `USA` or `CANADA`.
 
 ![A rule serving "true" to users affected by two conditions.](../../images/users-targeting-multiple-rules.png)
 

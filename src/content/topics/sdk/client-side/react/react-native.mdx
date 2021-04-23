@@ -234,11 +234,11 @@ let user =
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this code. The first key in the object is the user's key. In this case we've used the value `2fbfa269b78e24c8e967f482b89c939b`. The user key is the only mandatory user attribute. The key should also uniquely identify each user. You can use any value such as a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+Let's walk through this code. The first key in the object is the user's key. In this case we've used the value `2fbfa269b78e24c8e967f482b89c939b`. The user key is the only mandatory user attribute. The key should also uniquely identify each user. You can use any value such as a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 All of the other keys (like firstName, email, and the custom attributes) are optional. The attributes you specify will automatically appear on the LaunchDarkly application dashboard, meaning that you can start segmenting and targeting users with these attributes.
 
-In addition to built-in attributes like names and e-mail addresses, you can pass us any of your own user data by passing custom attributes, like the groups attribute in the example above. Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available instantly on your dashboard.
+In addition to built-in attributes like names and email addresses, you can pass us any of your own user data by passing custom attributes, like the groups attribute in the example above. Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available instantly on your dashboard.
 
 Private attributes allow you to specify keys you do not want to be sent to the LaunchDarkly servers. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly. When this user is sent back to LaunchDarkly, the `name` attribute will be removed.
 

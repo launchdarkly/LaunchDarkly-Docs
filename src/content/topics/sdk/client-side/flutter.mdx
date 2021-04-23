@@ -180,17 +180,17 @@ LDUser user = LDUserBuilder('aa0ceb')
 </CodeTabItem>
 </CodeTabs>
 
-The first argument to the builder is the user's key. In this case, we've used the hash `'aa0ceb'`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+The first argument to the builder is the user's key. In this case, we've used the hash `'aa0ceb'`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
 
-In addition to built-in attributes like names and e-mail addresses, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
+In addition to built-in attributes like names and email addresses, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
 
 <Callout intent="info">
 <CalloutTitle>A note on types</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. Custom attribute values in the Flutter SDK use the LDValue class to support the various underlying types for the values. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The Flutter SDK is strongly typed, so be aware of this distinction.
+Most of our built-in attributes (like names and email addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. Custom attribute values in the Flutter SDK use the LDValue class to support the various underlying types for the values. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The Flutter SDK is strongly typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
