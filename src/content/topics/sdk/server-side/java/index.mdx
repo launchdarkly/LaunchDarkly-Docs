@@ -343,7 +343,28 @@ LDUser user = new LDUser.Builder("aa0ceb")
 
 You will still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this. Each unique user key registers a user in our system, so capture and reuse your anonymous user's key between requests.
 
-Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
+Anonymous users work like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This keeps anonymous users from polluting your Users page.
+
+## Aliased users
+
+There are situations in which multiple LaunchDarkly users represent one person. For example, a person might be represented by an anonymous user before they log in to an application for the first time, and a different user after they log in. That one person is then identified by two different users as denoted by different user keys.
+
+The SDK can associate these two LaunchDarkly users by sending an alias event. You can manually tell the SDK to send an alias event with the `alias` function.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+ldClient.alias(newUser, previousUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ## Variation
 
