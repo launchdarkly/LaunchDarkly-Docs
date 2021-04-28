@@ -24,6 +24,7 @@ This SDK does two things:
 - Sends click, pageview, and custom events from your front-end for A/B tests and analytics.
 
 ## Browser support
+
 The LaunchDarkly client-side JavaScript SDK can be used in all major browsers. However, not all browsers have built-in support for the standard APIs that it uses. Those APIs are Promise, EventSource, and querySelectorAll; Promise is always required, the other two are optional depending on which SDK features you use.
 
 The standard solution for ensuring that you will get the same functionality even in browsers that do not have native support for these features is to use [polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill). For a detailed description, and links to information about which browsers may require this, read [JS SDK requirements and polyfills](/sdk/client-side/javascript/requirements-polyfills).
@@ -32,16 +33,18 @@ The standard solution for ensuring that you will get the same functionality even
 
 Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your JavaScript code.
 
-The first step is to install the LaunchDarkly SDK as a dependency. There are two ways to install our JavaScript SDK: as an `npm`, `yarn` or `bower` module, or as a JavaScript snippet served from LaunchDarkly's CDN.
+The first step is to make the LaunchDarkly SDK available as a dependency. There are two ways to make our JavaScript SDK available: as a module with a package manager, or with a `script` tag.
 
-In most cases, it should be as simple as running one of the following in your project:
+### Package manager
+
+In most cases, making the LaunchDarkly SDK available to your application or site should be as simple as running one of the following in your project:
 
 <CodeTabs
   defaultValue="npm"
   values={[
-    { label: 'Installing with npm', value: 'npm', },
-    { label: 'Installing with yarn', value: 'yarn', },
-    { label: 'Installing with bower', value: 'bower', },
+    { label: 'npm', value: 'npm', },
+    { label: 'yarn', value: 'yarn', },
+    { label: 'bower', value: 'bower', },
   ]
 }>
 <CodeTabItem value="npm">
@@ -61,11 +64,8 @@ yarn add launchdarkly-js-client-sdk
 <CodeTabItem value="bower">
 
 ```bash
-# LaunchDarkly's minified JS snippet is served from unpkg
+# LaunchDarkly's JS SDK script is copied from unpkg in this example
 bower install https://unpkg.com/launchdarkly-js-client-sdk@2
-# To restrict to a specific minor version include it in the url version
-bower install https://unpkg.com/launchdarkly-js-client-sdk@2.10
-# For more see https://unpkg.com/
 ```
 
 </CodeTabItem>
@@ -94,40 +94,55 @@ import * as LDClient from "launchdarkly-js-client-sdk";
 
 Note that in earlier versions of the SDK, the package was named `ldclient-js` instead of `launchdarkly-js-client-sdk`.
 
-### Script Tag
+### Script tag
 
-To load our JavaScript SDK as a script tag, include the following in the `<head>` tag of your site on any pages where you need feature flags or want to track A/B testing goals:
+To load our JavaScript SDK as a script tag, include one of the following in the `<head>` tag of your site on any pages where you need feature flags or want to track A/B testing goals.
 
-<Callout intent="info">
-  <CalloutTitle>Unpkg and versions</CalloutTitle>
-<CalloutDescription>
-
-
-Integrating with the LaunchDarkly JavaScript SDK as a script tag is only intended for development environments and
-getting started with using LaunchDarkly. It is not intended to be used in production environments as this introduces
-a critical dependency on a third-party service, [unpkg](https://unpkg.com/). Previously it was suggested to use the
-JS SDK hosted on LaunchDarkly's servers in script tags. This URL would point to the most recently released SDK
-version. To give more control over SDK updates unpkg is now suggested, and the version hosted at
-&quot;https://app.launchdarkly.com/snippet/ldclient.min.js&quot; is frozen at release 2.10.1.
-
-
-</CalloutDescription>
-</Callout>
-
+Note that script tags with sources from unpkg and jsdelivr are not intended to be used on production environments as these introduce a critical dependency on a third-party service. The unpkg and jsdelivr scripts are intended to be used only for ease of development and getting started. In production environments, it is highly recommended that the LaunchDarkly SDK is self-hosted alongside your other JavaScript resources.
 
 <CodeTabs
-  defaultValue="js"
+  defaultValue="unpkg"
   values={[
-    { label: 'Loading as a snippet', value: 'js', },
+    { label: 'Loading from unpkg', value: 'unpkg', },
+    { label: 'Loading from jsdelivr', value: 'jsdelivr', },
+    { label: 'Loading from a self-hosted script', value: 'self', },
   ]
 }>
-<CodeTabItem value="js">
+<CodeTabItem value="unpkg">
 
 ```bash
-<!-- The snippet shown here automatically updates to the
+<!-- The script tag shown here automatically updates to the
      newest release that has a major version of 2. A minor
-     version can be specified by including it in the url. -->
-<script crossorigin="us" src="https://unpkg.com/launchdarkly-js-client-sdk@2"></script>
+     version can be specified by including it in the url.
+     See https://unpkg.com for additional examples and information.
+     
+     This method is not recommended for production use. -->
+<script crossorigin="anonymous" src="https://unpkg.com/launchdarkly-js-client-sdk@2"></script>
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="jsdelivr">
+
+```bash
+<!-- The script tag shown here automatically updates to the
+     newest release that has a major version of 2. A minor
+     version can be specified by including it in the url.
+     See https://jsdelivr.com for additional examples and information.
+     
+     This method is not recommended for production use. -->
+<script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/launchdarkly-js-client-sdk@2"></script>
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="self">
+
+```bash
+<!-- The script tag shown here references a self-hosted script
+     which is deployed alongside other JavaScript resources in your 
+     application. This method is recommended for production use. -->
+<script src="path/to/ldclient.min.js"></script>
 
 ```
 
@@ -136,7 +151,7 @@ version. To give more control over SDK updates unpkg is now suggested, and the v
 
 ## Initializing the Client
 
-Once the dependency is installed, you'll want to initialize the LaunchDarkly client. To create a client instance, you need your environment's client-side ID (available on your [account settings page](https://app.launchdarkly.com/settings#/projects)). Client-side IDs are not secret; you can expose them in your client-side code without risk.
+Once the SDK dependency is available, you'll want to initialize the LaunchDarkly client. To create a client instance, you need your environment's client-side ID (available on your [account settings page](https://app.launchdarkly.com/settings#/projects)). Client-side IDs are not secret; you can expose them in your client-side code without risk.
 
 In practice, you will probably want to templatize your client-side ID, so that you can use the same initialization code when you switch between development, QA, and production environments.
 
