@@ -96,8 +96,9 @@ Additionally, when you add a user to a flag, you can schedule them for removal l
 
 In addition to targeting individual users, LaunchDarkly lets you target segments of users by constructing rules.
 
-Each rule has three parts:
+Each rule has four parts:
 
+- a **description**, which names the rule
 - an **attribute**, which defines the scope of the flag's impact, such as only impacting an email address
 - an **operator**, which sets differentiating characteristics of the attribute, such as limiting the attribute to emails that end with certain extensions. If a rule specifies multiple values for the operator to track, the operator iterates over the array.
 - a **user value**, which identifies a user or resource by a value you specify, such as `@gmail.com`.
