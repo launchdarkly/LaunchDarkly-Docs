@@ -35,15 +35,17 @@ Approving flag changes does not make them take effect automatically. An approval
 
 When a team member plans a flag change, they have the option to request approval for that change from anyone in their LaunchDarkly project.
 
-Anyone with a `writer`, `owner / admin`, or custom role can approve a flag change, regardless of whether or not their review has been requested. Team members who the requester chooses receive an email notifying them that their review has been requested.
+Anyone with a `writer`, `owner / admin`, or custom role can approve a flag change, regardless of whether or not their review has been requested. Team members who the requester chooses receive an email notifying them that their review has been requested, and, if applicable, a notification in the LaunchDarkly Slack app.
 
 ![The email notification from LaunchDarkly.](../../images/approvals-email.png)
 
 From that email, a requested approver can access a summary page of the flag changes and approve or decline the changes proposed.
 
+To learn more about the Slack app, read [Slack](/integrations/slack).
+
 ## Requesting approval for a flag change
 
-You can request approval on changes to a flag's targeting at any point after creation. 
+You can request approval on changes to a flag's targeting at any point after creation.
 
 <Callout intent="info">
 <CalloutTitle>Your environment may require approvals</CalloutTitle>
@@ -80,7 +82,7 @@ Here's how:
 6. Choose one or more reviewers from the **Reviewers** dropdown.
 7. Click **Request approval**.
 
-The people you chose from the dropdown each receive an email asking them to approve your flag changes. The flag's **Targeting** page also updates with an icon to indicate that there are pending changes waiting for review.
+The people you chose from the dropdown each receive an email and, if applicable, a Slack notification, asking them to approve your flag changes. The flag's **Targeting** page also updates with an icon to indicate that there are pending changes waiting for review.
 
 If your environment is configured to allow this, you can also approve or decline your own requests.
 
