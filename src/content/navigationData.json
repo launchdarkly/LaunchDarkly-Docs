@@ -984,6 +984,11 @@
             "path": "/guides/tutorials/experimentation"
           }
         ]
+      },
+      {
+        "label": "LaunchDarkly blog",
+        "path": "/guides/blog",
+        "svg": "documents"
       }
     ]
   },
