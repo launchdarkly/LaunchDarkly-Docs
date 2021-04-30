@@ -678,6 +678,10 @@
         "path": "/sdk/concepts",
         "items": [
           {
+            "label": "Getting started",
+            "path": "/sdk/concepts/getting-started"
+          },
+          {
             "label": "Client-side and server-side SDKs",
             "path": "/sdk/concepts/client-side-server-side"
           },
