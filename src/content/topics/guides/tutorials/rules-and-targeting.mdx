@@ -469,15 +469,15 @@ def pricing():
     ## Fetch the user's email address. If they aren't logged in,
     ## the stored value will be None.
     email = session.get("email")
-    # Since this page doesn't require a logged-in user,
-    # tell LD that this is an anonymous user for now.
-    # The key is arbitrary and can be anything you want.
-    # Here, we wanted to be clear that this was an anonymous
-    # user, so we used "anon" as the value.
-    user = {
-      "key": "anon",
-      "anonymous": True
-    }
+    if (email):
+      user = user_object_from_email(email)
+    else:
+      ## Since the user isn't logged in,
+      ## let's tell LD that this is an anonymous user.
+      user = {
+        "key": "anon",
+        "anonymous": True
+      }
     is_tier_3_enabled = ld_client.variation('pricing-tier-3', user, False)
     return render_template(
       'pricing.html', 
