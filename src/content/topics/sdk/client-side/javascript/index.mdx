@@ -115,7 +115,7 @@ Note that script tags with sources from unpkg and jsdelivr are not intended to b
      newest release that has a major version of 2. A minor
      version can be specified by including it in the url.
      See https://unpkg.com for additional examples and information.
-     
+
      This method is not recommended for production use. -->
 <script crossorigin="anonymous" src="https://unpkg.com/launchdarkly-js-client-sdk@2"></script>
 
@@ -129,7 +129,7 @@ Note that script tags with sources from unpkg and jsdelivr are not intended to b
      newest release that has a major version of 2. A minor
      version can be specified by including it in the url.
      See https://jsdelivr.com for additional examples and information.
-     
+
      This method is not recommended for production use. -->
 <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/launchdarkly-js-client-sdk@2"></script>
 
@@ -140,7 +140,7 @@ Note that script tags with sources from unpkg and jsdelivr are not intended to b
 
 ```bash
 <!-- The script tag shown here references a self-hosted script
-     which is deployed alongside other JavaScript resources in your 
+     which is deployed alongside other JavaScript resources in your
      application. This method is recommended for production use. -->
 <script src="path/to/ldclient.min.js"></script>
 
@@ -627,7 +627,7 @@ The map will contain null values for any flags that would return the fallback va
 
 Bootstrapping provides the LaunchDarkly client object an initial, immediately available set of feature flag values that calls `variation` on page load with no delay. We recommend using one of LaunchDarkly's server-side SDKs to populate a map of flag keys to flag values, called bootstrap values, from your back end.
 
-All of the server-side SDKs have a function to evaluate flags on behalf of a specified user. This function provides the initial set of bootstrap values to your front end. The function is called some variation of "allFlagsState". The exact name varies depending on the back-end technology's naming conventions, such as camel-case or snake-case.
+All of the server-side SDKs have a function to evaluate flags on behalf of a specified user. This function provides the initial set of bootstrap values to your front end. The function is called some variation of "allFlagsState". The exact name varies depending on the back-end technology's naming conventions, such as using camel case or snake case.
 
 Below are two examples of how to bootstrap flags into the JavaScript client:
 
