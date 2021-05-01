@@ -262,6 +262,10 @@
                 "path": "/home/account-security/azure"
               }
             ]
+          },
+          {
+            "label": "Resetting your password",
+            "path": "/home/account-security/reset-password"
           }
         ]
       },
