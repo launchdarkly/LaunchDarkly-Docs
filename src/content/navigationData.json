@@ -298,6 +298,10 @@
           {
             "label": "Account usage metrics",
             "path": "/home/billing/usage-metrics"
+          },
+          {
+            "label": "Your Billing tab",
+            "path": "/home/billing/billing-tab"
           }
         ]
       },
