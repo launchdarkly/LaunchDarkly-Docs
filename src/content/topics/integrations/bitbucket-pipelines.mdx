@@ -5,6 +5,15 @@ description: 'This topic explains how to create and enable feature flags using B
 published: true
 ---
 
+<Callout intent="primary">
+  <CalloutTitle>The Bitbucket Pipelines integration is a Pro and Enterprise feature</CalloutTitle>
+  <CalloutDescription>
+
+The Bitbucket Pipelines integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+  </CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic explains how to create and enable feature flags using Bitbucket Pipelines.
@@ -20,7 +29,7 @@ We provide two scripts you can add to your pipelines:
 
 To use the LaunchDarkly Bitbucket Pipelines integration, you must meet the following prerequisites:
 
-- [A Bitbucket account](https://bitbucket.org/account/signup/) 
+- [A Bitbucket account](https://bitbucket.org/account/signup/)
 
 - [Bitbucket Pipelines](https://bitbucket.org/product/features/pipelines) installed on your Bitbucket account
 - A GitHub account
@@ -37,7 +46,7 @@ To set up your Bitbucket Pipeline with LaunchDarkly:
    _ `LAUNCHDARKLY_ACCESS_TOKEN`: Copy your API access token from the [Authorizations tab](https://app.launchdarkly.com/settings#/tokens).
    _ `LAUNCHDARKLY_PROJECT_KEY`: Copy your project key from your [LaunchDarkly Projects tab](https://app.launchdarkly.com/settings#/projects).
 
-![The Account Settings screen with the Access Tokens tab selected.](../../images/settings-access-tokens.png) 
+![The Account Settings screen with the Access Tokens tab selected.](../../images/settings-access-tokens.png)
 
 
 <Callout intent="alert">
@@ -48,9 +57,9 @@ Be careful to use the LaunchDarkly **project key** in the Bitbucket Pipelines se
 screenshot below calls out both the project and environment keys.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 
-![The Projects screen with the project key and environment keys called out.](../../images/settings-projects-keys-callout.png) 
+![The Projects screen with the project key and environment keys called out.](../../images/settings-projects-keys-callout.png)
 
 
 4. Add an `ld-flags.conf` file to your repository and declare flags in it.
