@@ -885,10 +885,6 @@
             "path": "/sdk/server-side/lua",
             "items": [
               {
-                "label": "Using the Lua SDK with NGINX",
-                "path": "/sdk/server-side/lua/nginx"
-              },
-              {
                 "label": "Using the Lua SDK with HAProxy",
                 "path": "/sdk/server-side/lua/haproxy"
               }
@@ -994,6 +990,10 @@
           {
             "label": "Experimenting with feature flags",
             "path": "/guides/tutorials/experimentation"
+          },
+          {
+            "label": "Using the Lua SDK with NGINX",
+            "path": "/guides/tutorials/nginx"
           }
         ]
       },

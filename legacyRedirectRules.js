@@ -827,4 +827,8 @@ module.exports = [
     fromPath: '/docs/xamarin-sdk-reference',
     toPath: '/sdk/client-side/xamarin',
   },
+  {
+    fromPath: '/sdk/server-side/lua/nginx',
+    toPath: '/guides/tutorials/nginx',
+  },
 ]
