@@ -38,6 +38,8 @@ To learn more about MAU, read [Account usage metrics](/home/billing/usage-metric
 
 You do not always need to uniquely identify your anonymous users. Instead, you can use a shared key. You can still target users by their attributes, but you cannot target specific user segments unless they have unique keys.
 
+If you are targeting anonymous users in percentage rollouts, you may want to assign variations by an attribute other than the shared key. Otherwise, all anonymous users are served the same variation. To learn more about variation assignments by attribute, read [Percentage rollout logic](/home/flags/targeting-users#percentage-rollout-logic).
+
 Using a shared user key for all anonymous users instead of unique keys helps reduce your client-side MAU usage.
 
 To learn more about user limits, read [Understanding the Users dashboard](/home/users/users-dashboard#understanding-the-users-dashboard).
