@@ -53,6 +53,12 @@ You can specify actions in bulk using glob syntax and wildcards. For example, yo
     </TableRow>
     <TableRow>
       <TableCell>
+        <code>getPaymentCard</code>
+      </TableCell>
+      <TableCell>Get the credit card for the account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
         <code>updatePaymentCard</code>
       </TableCell>
       <TableCell>Change the credit card for the account.</TableCell>
@@ -147,7 +153,26 @@ You can specify actions in bulk using glob syntax and wildcards. For example, yo
       </TableCell>
       <TableCell>Revoke sessions issued before a specified date.</TableCell>
     </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteAccount</code>
+      </TableCell>
+      <TableCell>Delete the account.</TableCell>
+    </TableRow>
   </TableBody>
+</Table>
+
+## Account ownership actions
+
+<Table>
+<TableBody>
+<TableRow>
+  <TableCell>
+    <code>updateAccountOwner</code>
+  </TableCell>
+  <TableCell>Update the account owner.</TableCell>
+</TableRow>
+</TableBody>
 </Table>
 
 ## Members actions
@@ -985,13 +1010,7 @@ To learn more, read [Creating a feature flag](/home/getting-started/feature-flag
       </TableCell>
       <TableCell>Change the scheduled updates on a feature flag.</TableCell>
     </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTriggers</code>
-      </TableCell>
-      <TableCell>Manage trigger configurations.</TableCell>
-    </TableRow>
-    <TableRow>
+<TableRow>
       <TableCell>
         <code>updateTriggers</code>
       </TableCell>
@@ -1037,6 +1056,14 @@ To learn more, read [Creating a feature flag](/home/getting-started/feature-flag
       </TableCell>
       <TableCell>
       Apply an approved approval request for a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>viewFlagStatus</code>
+      </TableCell>
+      <TableCell>
+      View a flag's status in an environment.
       </TableCell>
     </TableRow>
   </TableBody>
@@ -1245,6 +1272,22 @@ To learn more, read [Webhooks](/home/connecting/webhooks).
         Enable and disabled existing webhooks.
       </TableCell>
     </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTags</code>
+      </TableCell>
+      <TableCell>
+        Modify webhook tags.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateQuery</code>
+      </TableCell>
+      <TableCell>
+        Modify webhook query.
+      </TableCell>
+    </TableRow>
   </TableBody>
 </Table>
 
@@ -1318,6 +1361,14 @@ To learn more, read [Integrations](/integrations).
         Enable and disabled existing third-party integrations.
       </TableCell>
     </TableRow>
+    <TableRow>
+     <TableCell>
+       <code>validateConnection</code>
+     </TableCell>
+     <TableCell>
+       Validate the third-party connection.
+     </TableCell>
+   </TableRow>
   </TableBody>
 </Table>
 
@@ -1384,7 +1435,7 @@ To learn more, read [Automatic configuration](/home/relay-proxy/automatic-config
   </TableBody>
 </Table>
 
-### Destinations actions
+## Destinations actions
 
 `destination` is a child of **both a project and environments**.
 
