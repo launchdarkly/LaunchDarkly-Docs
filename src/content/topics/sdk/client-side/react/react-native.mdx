@@ -171,9 +171,7 @@ client.close();
   <CalloutTitle>Mobile keys</CalloutTitle>
 <CalloutDescription>
 
-Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page.
-
-Never embed a server-side SDK key into a mobile application.
+Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into a mobile application.
 
 </CalloutDescription>
 </Callout>
@@ -275,13 +273,18 @@ The variation call will automatically create a user in LaunchDarkly if a user wi
 <Callout intent="info">
   <CalloutTitle>Handling flag values on initial application launch</CalloutTitle>
  <CalloutDescription>
-When `LDClient` initializes for the first time at app launch, users receive feature flag default values until a connection to LaunchDarkly completes for the first time. Read the section above for various ways to initialize the client.</CalloutDescription>
+
+ When `LDClient` initializes for the first time at app launch, users receive feature flag default values until a connection to LaunchDarkly completes for the first time. Read the section above for various ways to initialize the client.
+
+ </CalloutDescription>
 </Callout>
 
 <Callout intent="alert">
   <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
   <CalloutDescription>
-You must make feature flags available to client-side SDKs before the flags can be evaluated. If you evaluate a feature flag that is not available, you will receive the default value for that flag. If you want a project's flags to be made available to this SDK by default, check the **SDKs using Mobile Key** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+
+  You must make feature flags available to client-side SDKs before the flags can be evaluated. If you evaluate a feature flag that is not available, you will receive the default value for that flag. If you want a project's flags to be made available to this SDK by default, check the **SDKs using Mobile Key** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+
   </CalloutDescription>
 </Callout>
 
@@ -300,11 +303,11 @@ For more information, see [Evaluation reasons](/sdk/concepts/evaluation-reasons)
 
 <Callout intent="alert">
   <CalloutTitle>Creating users</CalloutTitle>
-<CalloutDescription>
+  <CalloutDescription>
 
-Unlike `variation` and `identify` calls, `allFlags` does not send events to LaunchDarkly. When you use `allFlags`, users are not created or updated in the LaunchDarkly dashboard.
+  Unlike `variation` and `identify` calls, `allFlags` does not send events to LaunchDarkly. When you use `allFlags`, users are not created or updated in the LaunchDarkly dashboard.
 
-</CalloutDescription>
+  </CalloutDescription>
 </Callout>
 
 The `allFlags` method returns an object containing flag keys and values. You may also register a listener that will fire when any flag in your environment changes.

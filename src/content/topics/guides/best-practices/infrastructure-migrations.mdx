@@ -11,7 +11,7 @@ This guide explains how you can use feature flags to mitigate risks associated m
 
 Migration projects are common in software development. Every software team at some point migrates one infrastructure component to another. You may perform a migration to improve the scalability and performance of a database on a growing app, improve your caching layer, or transition from an in-house service to a cloud-based solution.
 
-Infrastructure migrations often come with an ample amount of risk. For example, moving from one database to another requires careful planning and execution to maintain data integrity. These type of projects require a lot of work, but it doesn’t need to be risky. You can use feature flags to manage the transition from one infrastructure component to another. 
+Infrastructure migrations often come with an ample amount of risk. For example, moving from one database to another requires careful planning and execution to maintain data integrity. These type of projects require a lot of work, but it doesn’t need to be risky. You can use feature flags to manage the transition from one infrastructure component to another.
 
 Using feature flags to facilitate migrations limits or eliminates downtime, allowing you to perform the migration seamlessly. The best part is that if something goes wrong, or you're not getting the results you want, disabling the migration is as fast as toggling the flag off. You can revert a migration with little to no consequence to your end users.
 
@@ -70,10 +70,12 @@ func storeEvent(evt Event, account ld.User) {
 </CodeTabs>
 
 <Callout intent="info">
+<CalloutTitle>This function accepts three parameters</CalloutTitle>
   <CalloutDescription>
-    The <code>ldclient.BoolVariation()</code> function retreives the feature flag value from LaunchDarkly and accepts 3 parameters:
-    feature flag name, user account object, and default flag value
-  </CalloutDescription>
+
+The `ldclient.BoolVariation()` function retrieves the feature flag value from LaunchDarkly and accepts 3 parameters: feature flag name, user account object, and default flag value.
+
+</CalloutDescription>
 </Callout>
 
 If you follow the code above precisely, you can save the same event in both databases. This is deliberate. It lets us write events to the new data store while maintaining the integrity of the old store.

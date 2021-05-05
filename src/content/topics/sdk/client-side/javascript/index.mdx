@@ -610,16 +610,12 @@ ldclient.on('change:YOUR_FLAG_KEY', function(value, previous) {
   <CalloutTitle>Creating users</CalloutTitle>
 <CalloutDescription>
 
-
-Note that the allFlags method in the JavaScript SDK functions differently than our other SDKs. **This method will
-send analytics events to LaunchDarkly as if you'd called variation for every feature flag.** You can disable this
-behavior by initializing the SDK with `sendEventsOnlyForVariation` set to `true`
-
+  Note that the allFlags method in the JavaScript SDK functions differently than our other SDKs. This method will send analytics events to LaunchDarkly as if you'd called variation for every feature flag. You can disable this behavior by initializing the SDK with `sendEventsOnlyForVariation` set to `true`.
 
 </CalloutDescription>
 </Callout>
 
-The `allFlags` method will return a key / value map of all your feature flags.
+The `allFlags` method will return a key/value map of all your feature flags.
 
 The map will contain null values for any flags that would return the fallback value (the second argument that you normally pass to variation).
 

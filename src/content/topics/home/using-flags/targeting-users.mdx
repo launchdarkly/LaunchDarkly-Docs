@@ -347,12 +347,11 @@ to do rollouts based on the "uniqueId" custom attribute.
 LaunchDarkly allows you to target users based on arbitrary custom attributes, which means you can control who sees features based on any criteria that you send to us.
 
 <Callout intent="alert">
-  <CalloutTitle>Custom attributes and built-in attributes</CalloutTitle>
-  <CalloutDescription>
-    Setting a custom attribute with the same key as one of the built-in attributes will cause the attribute to be
-    ignored during feature flag evaluation. For mobile SDKs, the custom attributes 'os' and 'device' are automatically
-    included with os and device data. You can override this by specifying them as custom attributes in your user object
-    and setting your own values.
+<CalloutTitle>Custom attributes and built-in attributes</CalloutTitle>
+<CalloutDescription>
+
+Setting a custom attribute with the same key as one of the built-in attributes will cause the attribute to be ignored during feature flag evaluation. For mobile SDKs, the custom attributes `os` and `device` are automatically included with os and device data. You can override this by specifying them as custom attributes in your user object and setting your own values.
+    
   </CalloutDescription>
 </Callout>
 
