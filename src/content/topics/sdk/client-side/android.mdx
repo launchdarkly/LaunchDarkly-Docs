@@ -445,7 +445,18 @@ When `LDClient` is initialized for the first time at app launch, users will rece
 Since V2.7.0</CalloutDescription>
 </Callout>
 
-The `variationDetail` methods (`boolVariationDetail`, etc.) work the same as `variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with Data Export, if you are capturing detailed analytics events for this flag.
+The `variationDetail` methods (`boolVariationDetail`, etc.) work the same as `variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule).
+
+<Callout intent="alert">
+<CalloutTitle>You must enable the evaluationReasons option</CalloutTitle>
+<CalloutDescription>
+
+You must enable the `evaluationReasons` option when you initialize the LaunchDarkly client. If you do not do this, the `reason` object returned by this method is always null. To learn more, read [Customizing your client](#customizing-your-client).
+
+</CalloutDescription>
+</Callout>
+
+You can examine the "reason" data programmatically; you can also view it with Data Export, if you are capturing detailed analytics events for this flag.
 
 To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 

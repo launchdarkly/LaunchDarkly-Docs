@@ -511,9 +511,9 @@ The default value will only be returned if an error is encountered—for example
 The `variationDetail` method allows you to evaluate a feature flag (using the same parameters as you would for `variation`) and receive more information about how the value was calculated.
 
 <Callout intent="alert">
-  <CalloutTitle>You must enable the evaluationReasons option</CalloutTitle>
+  <CalloutTitle>You must enable the `evaluationReasons` option</CalloutTitle>
 <CalloutDescription>
-You must enable the `evaluationReasons` option when you initialize the LaunchDarkly client. If you do not do this, the `reason` object returned by this method will always be null.
+You must enable the `evaluationReasons` option when you initialize the LaunchDarkly client. If you do not do this, the `reason` object returned by this method is always null.
 
 To learn more, read [Customizing your client](#customizing-your-client).
 </CalloutDescription>
