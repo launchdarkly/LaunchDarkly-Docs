@@ -471,7 +471,7 @@ The LaunchDarkly SDK is compatible with uWSGI. However, in uWSGI environments, t
 
 ## Logging
 
-The Python SDK uses Python's built-in [logging library](https://docs.python.org/2/library/logging.html). All loggers are namespaced under `ldclient.util`. For an example configuration check out the [hello-python](https://github.com/launchdarkly/hello-python) project.
+The Python SDK uses Python's built-in [logging library](https://docs.python.org/2/library/logging.html). Configure the logger `ldclient.util` as you would any standard Python logger.
 
 Be aware of two considerations when enabling the DEBUG log level:
 
