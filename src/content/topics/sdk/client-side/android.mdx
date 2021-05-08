@@ -9,7 +9,7 @@ published: true
 <CalloutTitle>Supported Android SDK Versions</CalloutTitle>
 <CalloutDescription>
 
-This library is compatible with Android SDK versions 16 and up (4.1 Jelly Bean).
+This library is compatible with Android SDK versions 21 and up (5.0 Lollipop)
 
 </CalloutDescription>
 </Callout>
@@ -31,11 +31,13 @@ To get started, declare a dependency on the LaunchDarkly Android SDK.
 <CodeTabItem value="java">
 
 ```java
-implementation 'com.launchdarkly:launchdarkly-android-client-sdk:2.14.1'
+implementation 'com.launchdarkly:launchdarkly-android-client-sdk:3.0.0'
 ```
 
 </CodeTabItem>
 </CodeTabs>
+
+The SDK uses [AndroidX from Jetpack](https://developer.android.com/jetpack/androidx). For projects not currently using AndroidX, a migration guide is available [here](https://developer.android.com/jetpack/androidx/migrate).
 
 <Callout intent="info">
   <CalloutTitle>ProGuard / R8</CalloutTitle>
@@ -47,6 +49,33 @@ into your proguard file.
 
 </CalloutDescription>
 </Callout>
+
+Next, import the LaunchDarkly client in your application code.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+import com.launchdarkly.sdk.*;
+import com.launchdarkly.sdk.android.*;
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+import com.launchdarkly.sdk.*
+import com.launchdarkly.sdk.android.*
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 Once the SDK is installed, create a single, shared instance of `LDClient`. Specify your mobile key here so that your application is authorized to connect to LaunchDarkly and retrieve flag values for your application and environment.
 
@@ -63,7 +92,7 @@ The following example shows the simplest way to create the client. It will block
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
-    .setMobileKey("YOUR_MOBILE_KEY")
+    .mobileKey("YOUR_MOBILE_KEY")
     .build();
 
 LDUser user = new LDUser.Builder("user key")
@@ -79,7 +108,7 @@ LDClient ldClient = LDClient.init(this.getApplication(), ldConfig, user, 5);
 
 ```kotlin
 val ldConfig: LDConfig = LDConfig.Builder()
-    .setMobileKey("YOUR_MOBILE_KEY")
+    .mobileKey("YOUR_MOBILE_KEY")
     .build()
 
 val user: LDUser = LDUser.Builder("user key")
@@ -206,9 +235,9 @@ You can also pass other custom parameters to the client with the configuration o
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
-    .setMobileKey("YOUR_MOBILE_KEY")
-    .setConnectionTimeoutMillis(5000)
-    .setEventsFlushIntervalMillis(5000)
+    .mobileKey("YOUR_MOBILE_KEY")
+    .connectionTimeoutMillis(5000)
+    .eventsFlushIntervalMillis(5000)
     .build();
 ```
 
@@ -217,9 +246,9 @@ LDConfig ldConfig = new LDConfig.Builder()
 
 ```kotlin
 val ldConfig: LDConfig = LDConfig.Builder()
-    .setMobileKey("YOUR_MOBILE_KEY")
-    .setConnectionTimeoutMillis(5000)
-    .setEventsFlushIntervalMillis(5000)
+    .mobileKey("YOUR_MOBILE_KEY")
+    .connectionTimeoutMillis(5000)
+    .eventsFlushIntervalMillis(5000)
     .build()
 ```
 
@@ -297,12 +326,11 @@ In the Android SDK you can define private attributes for the **entire** LaunchDa
 <CodeTabItem value="java">
 
 ```java
-HashSet<String> privateAttributes = new HashSet<>();
-privateAttributes.add("name");  // built-in attribute
-privateAttributes.add("group"); // custom attribute
-
 LDConfig ldConfig = new LDConfig.Builder()
-    .setPrivateAttributeNames(privateAttributes)
+    .privateAttributes(
+        UserAttribute.NAME,            // built-in attribute
+        UserAttribute.forName("group") // custom attribute
+    )
     .build();
 ```
 
@@ -310,12 +338,11 @@ LDConfig ldConfig = new LDConfig.Builder()
 <CodeTabItem value="kotlin">
 
 ```kotlin
-val privateAttributes: HashSet<String> = HashSet()
-privateAttributes.add("name")  // built-in attribute
-privateAttributes.add("group") // custom attribute
-
 val ldConfig: LDConfig = LDConfig.Builder()
-    .setPrivateAttributeNames(privateAttributes)
+    .privateAttributes(
+        UserAttribute.NAME,            // build-in attribute
+        UserAttribute.forName("group") // custom attribute
+    )
     .build()
 ```
 
@@ -388,16 +415,47 @@ val user: LDUser = LDUser.Builder("user key")
 </CodeTabItem>
 </CodeTabs>
 
-You can leave the key parameter in the Builder null or make it an empty string and the client will automatically set it to a LaunchDarkly-specific device-unique string that is consistent between app restarts and device reboots.
-
-We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+You can leave the key parameter in the Builder null or make it an empty string and the client will automatically set it to a LaunchDarkly-specific device-unique string that is consistent between app restarts and device reboots. In this case, the user will also be marked as anonymous.
 
 Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. This keeps anonymous users from polluting your Users page.
 
-You can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. If you use the same user key for every anonymous user, you also can't use percentage rollouts or Experimentation with anonymous users.
+You can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys.
+
+## Aliased users
+
+There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person would be identified by two different users as denoted by different user keys.
+
+The SDK can associate these two LaunchDarkly users by sending an alias event.
+
+The SDK automatically sends an alias event when `identify` is called with a known user if the previous user was anonymous. You can disable this behavior if necessary. To learn more, read [Customizing your client](#customizing-your-client).
+
+You can manually tell the SDK to send an alias event with the `alias` function.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+ldClient.alias(newUser, previousUser);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+ldClient.alias(newUser, previousUser)
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ## Variation
-The `variation` method determines whether a flag is enabled or not for a specific user. In Android, there is  a `variation` method for each type (e.g. `boolVariation`, `stringVariation`):
+The `variation` method determines whether a flag is enabled or not for a specific user. In Android, there is a `variation` method for each type (e.g. `boolVariation`, `stringVariation`):
 
 <CodeTabs
   defaultValue="java"
@@ -425,8 +483,6 @@ val variationResult: Boolean = ldClient.boolVariation(flagKey, false)
 `variation` calls take the feature flag key and a fallback value.
 
 The fallback value will only be returned if an error is encountered. For example, the fallback value is served if the feature flag key doesn't exist or the user doesn't have a key specified.
-
-The `variation` call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at `identify`).
 
 <Callout intent="info">
 <CalloutTitle>Handling flag values on initial application launch</CalloutTitle>
@@ -466,7 +522,7 @@ To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 <CalloutTitle>Creating users</CalloutTitle>
 <CalloutDescription>
 
-Note that unlike variation and identify calls, allFlags does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
+Unlike calling the variation methods or `identify`, `allFlags` does not send events to LaunchDarkly. Retrieving a flag value using `allFlags` will not be recorded as an evaluation for flag evaluation metrics.
 
 </CalloutDescription>
 </Callout>
@@ -484,14 +540,14 @@ The `allFlags` method produces a map of feature flag keys to their values for a 
 <CodeTabItem value="java">
 
 ```java
-ldClient.allFlags();
+Map<String, LDValue> flagValues = ldClient.allFlags();
 ```
 
 </CodeTabItem>
 <CodeTabItem value="kotlin">
 
 ```kotlin
-ldClient.allFlags()
+val flagValues: Map<String, LDValue> = ldClient.allFlags()
 ```
 
 </CodeTabItem>
@@ -499,7 +555,7 @@ ldClient.allFlags()
 
 ## Track
 
-The `track` method allows you to record actions your users take in your application. In LaunchDarkly, you can tie these events to goals in A/B tests. You can also attach custom JSON data to your event by passing an extra `JsonElement` parameter to `track`. Here's a simple example:
+The `track` method allows you to record actions your users take in your application. Using LaunchDarkly's [experimentation add-on](/home/experimentation), the dashboard allows creating metrics for the recorded actions and running experiments to gauge how metrics change depending on flag values. Here's a simple example:
 
 <CodeTabs
   defaultValue="java"
@@ -511,18 +567,71 @@ The `track` method allows you to record actions your users take in your applicat
 <CodeTabItem value="java">
 
 ```java
-ldClient.track("your-goal-key", data);
+ldClient.track("conversion-event-name");
 ```
 
 </CodeTabItem>
 <CodeTabItem value="kotlin">
 
 ```kotlin
-ldClient.track("your-goal-key", data)
+ldClient.track("conversion-event-name")
 ```
 
 </CodeTabItem>
 </CodeTabs>
+
+You can also attach data to your event by calling `trackData` which should be given an `LDValue` parameter. This example sets the data to a JSON array, `["data", "export"]`, but it can be any value that can be represented in JSON; see [`LDValue`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/LDValue.html). This data is not shown in the dashboard, but is included in supported data export destinations. To learn more, read the [Data Export documentation](/home/data-export).
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+ldClient.trackData("your-event-key", LDValue.buildArray().add("data").add("export").build());
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+ldClient.trackData("your-event-key", LDValue.buildArray().add("data").add("export").build())
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+If you are using [Experimentation](/home/experimentation), you can specify a numeric value with `trackMetric` to be used with a numeric metric.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+double metricValue = 2.5;
+ldClient.trackData("numeric-event-name", LDValue.ofNull(), metricValue);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val metricValue: Double = 2.5
+ldClient.trackData("numeric-event-name", LDValue.ofNull(), metricValue)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 
 ## Offline mode
 In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags.  `offline` mode lets you do this easily.
@@ -538,8 +647,8 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
-    .setMobileKey("YOUR_MOBILE_KEY")
-    .setOffline(true)
+    .mobileKey("YOUR_MOBILE_KEY")
+    .offline(true)
     .build();
 
 LDClient ldClient = LDClient.init(this.getApplication(), ldConfig, user);
@@ -553,8 +662,8 @@ ldClient.setOffline();
 
 ```kotlin
 val ldConfig: LDConfig = LDConfig.Builder()
-    .setMobileKey("YOUR_MOBILE_KEY")
-    .setOffline(true)
+    .mobileKey("YOUR_MOBILE_KEY")
+    .offline(true)
     .build()
 
 val ldClient: LDClient = LDClient.init(application, ldConfig, user);
@@ -576,7 +685,7 @@ If a user's device is in airplane/flight mode or if they are not connected to a 
 </Callout>
 
 ## Flush
-Internally, the LaunchDarkly SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a simulator), you may want to manually call `flush` to request any queued events to be sent immediately. Note that this call is still non-blocking, so it will return before the events are actually sent.
+Internally, the LaunchDarkly SDK keeps a buffer for events, such as the automatically generated events when evaluating flags or switching user contexts, as well explicit events created by calling `alias` or `track`. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a simulator), you may want to manually call `flush` to request any queued events to be sent immediately. Note that this call is still non-blocking, so it will return before the events are actually sent.
 
 <CodeTabs
   defaultValue="java"
@@ -605,7 +714,7 @@ The flush interval is configurable. If you need to change the interval, you can 
 
 ## Changing the User Context
 
-If your app is used by multiple users on a single device, you may want to change users and have separate flag settings for each user. To achieve this, the SDK will store the last 5 user contexts on a single device, with support for switching between different user contexts.
+If your app is used by multiple users on a single device, you may want to change users and have separate flag settings for each user. To achieve this, the SDK will store the last 5 user contexts on a single device (configurable with `LDConfig`), with support for switching between different user contexts.
 
 You can use the `identify` method to switch user contexts:
 
@@ -806,8 +915,8 @@ otherKeys.put("platform", "PLATFORM_MOBILE_KEY");
 otherKeys.put("core", "CORE_MOBILE_KEY");
 
 LDConfig ldConfig = new LDConfig.Builder()
-    .setMobileKey("MOBILE_KEY")
-    .setSecondaryMobileKeys(otherKeys)
+    .mobileKey("MOBILE_KEY")
+    .secondaryMobileKeys(otherKeys)
     .build();
 
 LDUser user = new LDUser.Builder("user key")
@@ -826,8 +935,8 @@ otherKeys.put("platform", "PLATFORM_MOBILE_KEY")
 otherKeys.put("core", "CORE_MOBILE_KEY")
 
 val ldConfig: LDConfig = LDConfig.Builder()
-    .setMobileKey("MOBILE_KEY")
-    .setSecondaryMobileKeys(otherKeys)
+    .mobileKey("MOBILE_KEY")
+    .secondaryMobileKeys(otherKeys)
     .build()
 
 val user: LDUser = LDUser.Builder("user key")
