@@ -743,7 +743,14 @@
         "items": [
           {
             "label": "Android SDK reference",
-            "path": "/sdk/client-side/android"
+            "path": "/sdk/client-side/android",
+            "items": [
+              {
+                "label": "Android SDK 2.x to 3.0 migration guide",
+                "path": "/sdk/client-side/android/migration-2-to-3"
+              }
+            ]
+
           },
           {
             "label": "C/C++ SDK reference",
