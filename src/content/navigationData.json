@@ -976,7 +976,7 @@
             "path": "/guides/best-practices/integrations"
           },
           {
-            "label": "Using LaunchDarkly in serverless functions",
+            "label": "Using LaunchDarkly in serverless environments",
             "path": "/guides/best-practices/serverless"
           }
         ]

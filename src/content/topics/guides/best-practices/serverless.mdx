@@ -1,15 +1,17 @@
 ---
 path: '/guides/best-practices/serverless'
-title: 'Using LaunchDarkly in serverless functions'
-description: 'This guide provides best practice advice for using LaunchDarkly with Function-as-a-Service (also known as serverless) platformas, such as AWS Lambda.'
+title: 'Using LaunchDarkly in serverless environments'
+description: 'This guide provides best practice advice for using LaunchDarkly in serverless and short-lived environments.'
 published: true
 ---
 
 ## Overview
 
-This guide provides best practice advice for using LaunchDarkly with Function-as-a-Service (FaaS), or serverless, platforms, such as AWS Lambda. While most uses of serverless architecture require no extra configuration, some apps may benefit from additional configuration to ensure consistent high performance.
+This guide provides best practice advice for using LaunchDarkly in serverless and short-lived environments. While most uses of serverless architecture require no extra configuration, some apps may benefit from additional configuration to ensure consistent high performance.
 
-In this article, we’ll start with the assertion that you have already chosen to use serverless functions in your application architecture.
+In most cases, the best way to use LaunchDarkly in serverless and short-lived environments is with the Relay Proxy hosted on a long-lived server. To learn how to configure the Relay Proxy in your environment, read [The Relay Proxy](/home/relay-proxy).
+
+If you are working in a strictly serverless environment and cannot use the Relay Proxy, an alternative option is described here. This guide assumes that you have already chosen to use serverless functions in your application architecture.
 
 ## Concepts
 
@@ -17,7 +19,7 @@ To use this guide effectively, you should understand the following concepts:
 
 ### Serverless
 
-Serverless computing is a cloud computing model where cloud provider runs the server and dynamically manages the allocation of machine resources.
+Serverless computing is a cloud computing model where a cloud provider runs the server and dynamically manages the allocation of machine resources.
 
 ### Function-as-a-Service (FaaS)
 
@@ -25,9 +27,9 @@ FaaS services are serverless computing services that allow customers to develop,
 
 ## Using LaunchDarkly in a serverless infrastructure
 
-FaaS platforms are popular because they let developers code in the languages they know while vastly reducing the effort required to create and manage production infrastructure.
+FaaS platforms let developers code in the languages they know while reducing the effort required to create and manage production infrastructure.
 
-If you're considering using LaunchDarkly in a serverless or containerised app, the LaunchDarkly SDK in its default configuration will have no significant performance impact in a serverless environment.
+If you're considering using LaunchDarkly in a serverless or containerized app, the LaunchDarkly SDK in its default configuration has no significant performance impact in a serverless environment.
 
 However, if your app is sensitive to initialization performance, consider configuring the LaunchDarkly SDK to use a persistent local flag store. A local flag store can increase initialization speed.
 
@@ -38,9 +40,9 @@ Each LaunchDarkly SDK is designed to have minimal impact on application performa
 Here's how the SDK interacts with your app:
 
 1. While the app starts, the SDK connects to LaunchDarkly and downloads the project's flags to an in-memory store. This network connection is held open while the app runs so that flag updates are received immediately.
-2. Once the app has finished initializing, the in-memory flag store is used for flag evaluation functions such as `variation`. These functions run instantly, with no need to wait for network I/O.
+2. Once the app has finished initializing, the in-memory flag store is used for flag evaluation functions such as `variation`. These functions run instantly, with no need to wait for network input/output (I/O).
 
-Most apps are architected with the expectation that initialization takes a miniscule amount of the app's total runtime. Apps with serverless or containerized architectures may have different expectations.
+Most apps are architected with the expectation that initialization takes a small amount of the app's total runtime. Apps with serverless or containerized architectures may have different expectations.
 
 During normal operation with relatively consistent load, the underlying platform uses long-lived runtime instances, or [Execution Contexts](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-context.html) for each function or container. As in most other app architectures, the initialization time has insignificant impact on performance.
 
@@ -130,7 +132,18 @@ exports.handler = (event, context, callback) => {
 }
 ```
 
-In this example, we initialize the LaunchDarkly SDK inside the handler. By initializing the SDK in this way, we update the ElastiCache store with the latest flag state. The webhook lets this function know that an updated state is available.
+In this example, we initialize the LaunchDarkly SDK inside the handler.
+
+<Callout intent="alert">
+  <CalloutTitle>Initializing the SDK inside the handler should be done only if necessary</CalloutTitle>
+  <CalloutDescription>
+
+  Initializing the LaunchDarkly SDK inside the handler is not best practice, and should be done only if strictly necessary.
+
+  </CalloutDescription>
+</Callout>
+
+By initializing the SDK in this way, we update the ElastiCache store with the latest flag state. The webhook lets this function know that an updated state is available.
 
 After the store update function has been created, it needs a URL so it can be triggered by an HTTPS call. To provide this URL, create an [API Gateway endpoint](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-as-simple-proxy-for-lambda.html).
 
