@@ -5,6 +5,15 @@ description: 'This topic explains how to use code references in LaunchDarkly to 
 published: true
 ---
 
+<Callout intent="primary">
+<CalloutTitle>Code references is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Code references is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+  </CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic explains how to use code references in LaunchDarkly to find and manage references to your feature flags.
@@ -132,6 +141,6 @@ To learn more about `.ldignore` files, read the [`ld-find-code-refs` documentati
 
 The code references feature scans your source code for occurrences of your flag keys. This process requires your source code to reference flag keys exactly as they appear in LaunchDarkly.
 
-However, by default, the React SDK camel-cases all flag keys for easier access with dot notation. To use the code references feature in conjunction with the React SDK, configure `ld-find-code-refs` to generate camel-case aliases for the flag keys, or configure the React SDK to disable this camel-casing feature. To learn more, read [Flag keys transposed to common casing conventions](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/ALIASES.md#flag-keys-transposed-to-common-casing-conventions).
+However, by default, the React SDK changes all flag keys to camel-case for easier access with dot notation. To use the code references feature in conjunction with the React SDK, configure `ld-find-code-refs` to generate camel-case aliases for the flag keys, or configure the React SDK to disable this camel-casing feature. To learn more, read [Flag keys transposed to common casing conventions](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/ALIASES.md#flag-keys-transposed-to-common-casing-conventions).
 
 To learn more, read [Flag keys](/sdk/client-side/react#flag-keys) in the React SDK documentation.

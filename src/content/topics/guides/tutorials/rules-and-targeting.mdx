@@ -23,7 +23,7 @@ This guide covers:
 # Prerequisites
 
 To complete this guide, you must have the following prerequisites:
-  
+
 * An active LaunchDarkly account with the ability to create a flag.
 * Basic knowledge of the Python programming language. You use Python in the exercises in this guide.
 * Access to [Glitch](https://glitch.com/about).
@@ -40,9 +40,18 @@ In order to use this guide, you should understand the following concepts:
 
 ## User context
 
-The user context is everything LaunchDarkly knows about a targeted endpoint. LaunchDarkly refers to all objects targeted by a flag as `users`. Not all users are human beings. A user might be a server, an IP address, or any other object that can be addressed. 
+The user context is everything LaunchDarkly knows about a targeted endpoint. LaunchDarkly refers to all objects targeted by a flag as `users`. Not all users are human beings. A user might be a server, an IP address, or any other object that can be addressed.
 
-The user context is composed of different attributes. An attribute is anything identifier applies to an endpoint or user context. 
+The user context is composed of different attributes. An attribute is any identifier applied to an endpoint or user context.
+
+<Callout intent="primary">
+  <CalloutTitle>Targeting users by attribute is a Pro and Enterprise feature</CalloutTitle>
+  <CalloutDescription>
+
+Targeting users by attribute is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+  </CalloutDescription>
+</Callout>
 
 Possible attributes include, but are not limited to:
 * User ID
@@ -110,7 +119,7 @@ When a user encounters a flag, their attributes are sent to LaunchDarkly. This m
 
 ## Flag variations
 
-A flag variation is whatever action the flag enables that is not the flag's default behavior. Some flags are boolean, and only have `true` and `false` variations. Other flags have many more variations. 
+A flag variation is whatever action the flag enables that is not the flag's default behavior. Some flags are boolean, and only have `true` and `false` variations. Other flags have many more variations.
 
 ## Rule evaluation
 
@@ -118,9 +127,9 @@ Rule evaluation occurs when a LaunchDarkly client determines whether or not to s
 
 LaunchDarkly uses rule evaluation when it checks the rule against the user context of a particular destination. For example, LaunchDarkly could determine yes or no in response to the rule “Is this user in the 10% who get the new feature variation?"
 
-Flags can have multiple rules. If multiple rules exist, LaunchDarkly evaluates them top to bottom based on the how the rules are configured in the flag's dashboard. You can drag and drop rules to change the evaluation order. 
+Flags can have multiple rules. If multiple rules exist, LaunchDarkly evaluates them top to bottom based on the how the rules are configured in the flag's dashboard. You can drag and drop rules to change the evaluation order.
 
-Most people write rules that have `AND` or `ONLY IF` statements, to refine the targeting. 
+Most people write rules that have `AND` or `ONLY IF` statements, to refine the targeting.
 
 For example:
 
@@ -130,15 +139,15 @@ For example:
 
 In that case, even if a user is in the `test_group`, they won’t see `flag variation 1` unless their version has been updated recently. If someone is on a new version but is not in the `test_group`, they also won’t see it. In this example, it doesn’t matter what order the rules are evaluated in.
 
-## Flag targeting 
+## Flag targeting
 
-In feature management, targeting is the ability to make a flag's different variations appear to different users, "targeting" users with specific versions of the flag. Each flag can have targeting rules that specify which users should receive which variations. 
+In feature management, targeting is the ability to make a flag's different variations appear to different users, "targeting" users with specific versions of the flag. Each flag can have targeting rules that specify which users should receive which variations.
 
 In LaunchDarkly, none of the targeting rules need to live in application code. They're all configured using the LaunchDarkly dashboard. Only the user needs to be implemented in your code. This prevents sensitive information from being transmitted with feature flag data.
 
 ## Identifying users
 
-LaunchDarkly uses the user object's `key` attribute as the identifier for the user. This identifier can be any string of characters. It doesn't need to be in a particular format. 
+LaunchDarkly uses the user object's `key` attribute as the identifier for the user. This identifier can be any string of characters. It doesn't need to be in a particular format.
 
 Be thoughtful about how you construct user identifiers in your app. The most important considerations are:
 
@@ -196,7 +205,7 @@ app. The app opens in a separate tab.
 
 ### Switching between the code and app views in Glitch
 
-In the Glitch app, you have the option to see the live app in production, or the code for the app. 
+In the Glitch app, you have the option to see the live app in production, or the code for the app.
 
 To switch between them:
 
@@ -205,7 +214,7 @@ To switch between them:
 
 ![The "Show" menu in Glitch.](glitch-show-menu.png)
 
-3. Confirm that you can switch between the code and the app view. 
+3. Confirm that you can switch between the code and the app view.
 
 ## Finding the LaunchDarkly SDK key in your project
 
@@ -267,9 +276,9 @@ In [Your first flag](/guides/tutorials/first-flag), you learned about the `varia
 - The user object
 - The default value
 
-The user object in the example app code has two attributes: `key` and `anonymous`. Because the `variation()` call is always made with the same user `key`, LaunchDarkly assumes that there's only one user of this app, who never changes. 
+The user object in the example app code has two attributes: `key` and `anonymous`. Because the `variation()` call is always made with the same user `key`, LaunchDarkly assumes that there's only one user of this app, who never changes.
 
-In the code for the Space Camp app, the user object is in the file named `server.py`, inside the `pricing()` function. 
+In the code for the Space Camp app, the user object is in the file named `server.py`, inside the `pricing()` function.
 
 In the example below, the `anonymous` attribute set to `True`. When this happens, LaunchDarkly won't record any of this user's other attributes or list this user on the Users dashboard.
 
@@ -319,13 +328,13 @@ The email address you just logged in with was registered as a user in LaunchDark
 
 ## Creating a user key with a hashed email address
 
-The Space Camp app uses email addresses as user IDs. Providing the user's email addresses as the `key` in our user object means that LaunchDarkly stores that email address. We do not recommend this approach for production environments. 
+The Space Camp app uses email addresses as user IDs. Providing the user's email addresses as the `key` in our user object means that LaunchDarkly stores that email address. We do not recommend this approach for production environments.
 
 For purposes of this guide exercise, there is no other unique, consistent identifier for users, because this exercise collects very limited user data.
 
 To protect the email addresses, you can use the common programming technique known as **hashing**. When you hash something, you apply an algorithm to obscure the true value of the email address by translating letters and numbers in it into other characters. This process is almost impossible to reverse, so email addresses you store using this method are protected.
 
-Python includes several popular hashing algorithms in its standard library. Use the SHA256 algorithm to convert the user's email address into a meaningless but unique hash which can be used as the user `key`. 
+Python includes several popular hashing algorithms in its standard library. Use the SHA256 algorithm to convert the user's email address into a meaningless but unique hash which can be used as the user `key`.
 
 To hash the email address:
 
@@ -374,7 +383,7 @@ def user_object_from_email(email):
 </CodeTabItem>
 </CodeTabs>
 
-3. Navigate to `pricing()` and find the user object. 
+3. Navigate to `pricing()` and find the user object.
 
 <CodeTabs
   defaultValue="py"
@@ -469,19 +478,19 @@ def pricing():
     ## Fetch the user's email address. If they aren't logged in,
     ## the stored value will be None.
     email = session.get("email")
-    # Since this page doesn't require a logged-in user,
-    # tell LD that this is an anonymous user for now.
-    # The key is arbitrary and can be anything you want.
-    # Here, we wanted to be clear that this was an anonymous
-    # user, so we used "anon" as the value.
-    user = {
-      "key": "anon",
-      "anonymous": True
-    }
+    if (email):
+      user = user_object_from_email(email)
+    else:
+      ## Since the user isn't logged in,
+      ## let's tell LD that this is an anonymous user.
+      user = {
+        "key": "anon",
+        "anonymous": True
+      }
     is_tier_3_enabled = ld_client.variation('pricing-tier-3', user, False)
     return render_template(
-      'pricing.html', 
-      is_tier_3_enabled=is_tier_3_enabled, 
+      'pricing.html',
+      is_tier_3_enabled=is_tier_3_enabled,
       email=email,
       key=user['key']
     )
@@ -493,8 +502,8 @@ def pricing():
 To verify everything is working correctly, use this procedure to check your work:
 
 1. Navigate to Glitch's left sidebar and click into the `views` folder.
-2. Open `avatar.html`. This is the template for the clickable avatar and its drop-down menu. 
-3. Find the two lines that show the user's email in the menu: 
+2. Open `avatar.html`. This is the template for the clickable avatar and its drop-down menu.
+3. Find the two lines that show the user's email in the menu:
 
 <CodeTabs
   defaultValue="html"
@@ -541,7 +550,7 @@ To verify everything is working correctly, use this procedure to check your work
 
 ## Adding more users to LaunchDarkly
 
-After you verify you've configured a user correctly, log in to the Glitch app a few times using different email addresses. 
+After you verify you've configured a user correctly, log in to the Glitch app a few times using different email addresses.
 
 You can use random values for the email address, such as `test1@email.com`. When you log in, refresh the page to view the front page of the app.
 
@@ -565,22 +574,22 @@ You'll probably see that there are not many users yet. As you continue this guid
 
 # Configuring a percentage rollout
 
-A percentage rollout is when you choose a percentage of users to see each variation of your flag. You can increase or decrease these percentages over time. 
+A percentage rollout is when you choose a percentage of users to see each variation of your flag. You can increase or decrease these percentages over time.
 
 To learn more, read [Targeting users](/home/flags/targeting-users).
 
 To turn on a percentage rollout for the `Pricing Tier 3` flag:
 
 1. Navigate to LaunchDarkly.
-2. In the **Feature Flag** list, click **Pricing Tier 3**. The flag's **Targeting** page appears. 
+2. In the **Feature Flag** list, click **Pricing Tier 3**. The flag's **Targeting** page appears.
 3. Find the **Default rule**, which is the flag variation that appears when targeting is enabled. In this case, it is set to `true`.
 
 ![The flag's Default rule selector.](flag-default-rule.png)
 
 2. Click the dropdown.
-  You'll see the choice of three different options:  
-  - `true`  
-  - `false`  
+  You'll see the choice of three different options:
+  - `true`
+  - `false`
   - `a percentage rollout`
 
 3. Choose the percentage rollout. A slider will appear above the variations:
@@ -592,9 +601,9 @@ To turn on a percentage rollout for the `Pricing Tier 3` flag:
 6. Confirm that the flag's **Targeting** toggle is set to **on**.
 7. Click **Save Changes**.
 8. Log in to the Space Camp app as a few different users. Keep track of which email addresses you use as you log in and log out.
-9. When the third pricing tier appears, you know the user you logged in as is part of the 30% of users targeted by the **Pricing Tier 3** flag. 
+9. When the third pricing tier appears, you know the user you logged in as is part of the 30% of users targeted by the **Pricing Tier 3** flag.
 10. Log out and log back in again as that same user. The third pricing tier appears every time that user logs in, because LaunchDarkly can now identify individual users. That user will always see the third tier until the flag's targeting changes.
-11. When you find a user who doesn't see the third tier, save their email address. 
+11. When you find a user who doesn't see the third tier, save their email address.
 
 Now you've seen flag targeting in action. Let's move on to verifying that the flag is working as you intended.
 
@@ -608,8 +617,8 @@ You can confirm that the **Pricing Tier 3** flag is appearing for 30% of users. 
 
 2. Choose **Last 60 minutes** to zoom in on recent activity.
 
- This graph shows all the times this flag has been evaluated in the last hour. It also shows the variations that were shown to users. 
- 
+ This graph shows all the times this flag has been evaluated in the last hour. It also shows the variations that were shown to users.
+
  As you've changed how the flag is targeted, the data changes with it. Since you changed the flag's targeting to a percentage rollout, you should see that roughly a third of flag evaluations have been `true`, while the rest have been `false`.
 
 <Callout intent="alert">
@@ -631,17 +640,17 @@ In [Configuring a percentage rollout](#configuring-a-percentage-rollout), you sa
 Do this through the Users dashboard:
 
 1. Log in to your Glitch app with the email address of the user who did **not** see the **Pricing Tier 3** flag.
-2. Click on the avatar icon in the top-right of the page. The 10-character hashed user `key` is displayed. Copy this key and save it. 
+2. Click on the avatar icon in the top-right of the page. The 10-character hashed user `key` is displayed. Copy this key and save it.
 3. Navigate to LaunchDarkly and click into the **Users** dashboard.
 4. Find the user `key` you saved in the list of users and click on it. The user's menu appears.
 5. Change the flag setting for the **Pricing Tier 3** flag from `false` to `true`.
-6. A targeting circle appears next to the selector. This indicates that are adding analysis explicit targeting rule for this user. 
+6. A targeting circle appears next to the selector. This indicates that are adding analysis explicit targeting rule for this user.
 7. Click the green **Save Changes** button.
 
 ![The flag settings for the user, after choosing the flag variation.](users-flag-settings.png)
 
-7. Click the **Pricing Tier 3** link to go straight to the flag's **Targeting** page. The **Target individual users** section has expanded. 
- 
+7. Click the **Pricing Tier 3** link to go straight to the flag's **Targeting** page. The **Target individual users** section has expanded.
+
  This section specifies the individual users who should always see a particular flag variation. In the `true` section, you see the key for the user whose setting you just changed:
 
 ![The "Target individual users" section of the flag's "Targeting" page.](flag-targeting-individual-user.png)
@@ -654,7 +663,7 @@ Targeting individual users can take a long time if you wish to add entire groups
 
 Let's pretend that you only want to show the option for tier 3 pricing to users whose email addresses begin with the letter `A`. The **Pricing Tier 3** flag should evaluate to `true` only for those users.
 
-To evaluate flags based on specific user criteria, you must create a targeting rule. You can create a rule about any user attribute. 
+To evaluate flags based on specific user criteria, you must create a targeting rule. You can create a rule about any user attribute.
 
 However, in our current example, we can't use a rule to look at the first letter of the user's email address. Only the hashed version of the email is stored, which looks nothing like the real email address.
 
@@ -714,7 +723,7 @@ return {
 
 ![The rule form, configured for the rule we specified.](flag-rule-filled.png)
 
-12. Click the fourth field and choose the `true` variation. Now when the rule matches a user object, the `true` variation appears. 
+12. Click the fourth field and choose the `true` variation. Now when the rule matches a user object, the `true` variation appears.
 13. In the **Default Rule** section, choose `false`. This ensures that only users who match our rules receive a `true` evaluation.
 
 ![Set the default rule to `false`.](flag-default-rule-false.png)
@@ -739,12 +748,12 @@ There are three different ways to mark attributes private:
 
 In this guide we won't mark all attributes private, because we may want to use non-private attributes later.
 
-This leaves two options to create a private attribute: 
+This leaves two options to create a private attribute:
 
-* when `ldclient` is configured, or 
-* when the user object is created. 
+* when `ldclient` is configured, or
+* when the user object is created.
 
-To ensure that the `email` attribute is never accidentally uploaded, change the `ldclient` configuration to mark that attribute as private. 
+To ensure that the `email` attribute is never accidentally uploaded, change the `ldclient` configuration to mark that attribute as private.
 
 1. Navigate to your Glitch app.
 2. Open `server.py`.
@@ -768,7 +777,7 @@ ldclient.set_sdk_key(os.getenv('LD_SDK_KEY')) ## Set your SDK key in .env
 </CodeTabs>
 
 
-4. In the `user_object_from_email()` function, delete the `custom` attributes section from the user object. 
+4. In the `user_object_from_email()` function, delete the `custom` attributes section from the user object.
 5. In its place, add a single `email` attribute:
 
 <CodeTabs
@@ -797,7 +806,7 @@ Now change the existing targeting rule in the LaunchDarkly dashboard:
 3. Find the section titled **Target users who match these rules**:
 4. Change the value in the first field from `firstLetter` to `email`.
 5. Change the operator selector from `is one of` to `starts with`. You don't need to change the third field, because we're still looking for an `A` or `a`.
-6. Click **Save Changes**. 
+6. Click **Save Changes**.
 
 At the end, the rule should look like this:
 

@@ -5,6 +5,15 @@ description: 'This topic explains how to use the LaunchDarkly Dynatrace integrat
 published: true
 ---
 
+<Callout intent="primary">
+  <CalloutTitle>The Dynatrace integration is a Pro and Enterprise feature</CalloutTitle>
+  <CalloutDescription>
+
+The Dynatrace integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+  </CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic explains how to use the LaunchDarkly Dynatrace integration. [Dynatrace](https://dynatrace.com/) is an infrastructure monitoring platform that offers [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) and automated problem remediation. The LaunchDarkly Dynatrace integration makes it easier to diagnose problems by sending flag change events to Dynatrace. Dynatrace can display those events alongside performance graphs, making it easier for Dynatrace users to correlate feature rollouts to changes in operational health.
@@ -46,15 +55,15 @@ When you create the token, confirm that the _"Access problem and event feed, met
 
 ## Configuring the Dynatrace integration
 
-Here's how to add and configure the Dynatrace integration: 
+Here's how to add and configure the Dynatrace integration:
 
-1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) and find the Dynatrace card. 
+1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) and find the Dynatrace card.
 2. Click to expand the card, then click **+ Integration**. The integration configuration screen appears.
 
 ![The Dynatrace card, showing the "+ Integration" button.](../images/dynatrace-card-expanded.png)
 
 3. (Optional) Type a human-readable **Name**.
-4. Paste in your **Dynatrace API token**. 
+4. Paste in your **Dynatrace API token**.
 5. Enter the URL of your Dynatrace service in the **Dynatrace URL** field. Do not include a slash at the end.
 6. Select the Dynatrace entity type you want to associate with LaunchDarkly events.
 7. If this is all the configuration you need to do, click **Save Dynatrace Configuration**.
@@ -83,13 +92,13 @@ proj/*:env/production:flag/*
 
 To learn more about the Resource configuration fields, read [Resources in custom roles](/home/team/role-resources).
 
-You may want to override the default policy for various reasons, including restricting how the integration sees and exports events. Using the policy editor, you can restrict the integration to: 
+You may want to override the default policy for various reasons, including restricting how the integration sees and exports events. Using the policy editor, you can restrict the integration to:
 
 * a specific set of LaunchDarkly projects/environments
 * a specific set of flags
-* a specific set of actions 
+* a specific set of actions
 
-For example, to restrict the policy to a single project called `cool-app`, set the policy configuration's Resource field to the following Resource specifier: 
+For example, to restrict the policy to a single project called `cool-app`, set the policy configuration's Resource field to the following Resource specifier:
 
 <CodeTabs
   defaultValue="json"

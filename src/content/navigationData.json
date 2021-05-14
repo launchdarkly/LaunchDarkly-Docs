@@ -262,6 +262,10 @@
                 "path": "/home/account-security/azure"
               }
             ]
+          },
+          {
+            "label": "Resetting your password",
+            "path": "/home/account-security/reset-password"
           }
         ]
       },
@@ -298,6 +302,10 @@
           {
             "label": "Account usage metrics",
             "path": "/home/billing/usage-metrics"
+          },
+          {
+            "label": "Your Billing tab",
+            "path": "/home/billing/billing-tab"
           }
         ]
       },
@@ -678,6 +686,10 @@
         "path": "/sdk/concepts",
         "items": [
           {
+            "label": "Getting started",
+            "path": "/sdk/concepts/getting-started"
+          },
+          {
             "label": "Client-side and server-side SDKs",
             "path": "/sdk/concepts/client-side-server-side"
           },
@@ -731,7 +743,14 @@
         "items": [
           {
             "label": "Android SDK reference",
-            "path": "/sdk/client-side/android"
+            "path": "/sdk/client-side/android",
+            "items": [
+              {
+                "label": "Android SDK 2.x to 3.0 migration guide",
+                "path": "/sdk/client-side/android/migration-2-to-3"
+              }
+            ]
+
           },
           {
             "label": "C/C++ SDK reference",
@@ -873,10 +892,6 @@
             "path": "/sdk/server-side/lua",
             "items": [
               {
-                "label": "Using the Lua SDK with NGINX",
-                "path": "/sdk/server-side/lua/nginx"
-              },
-              {
                 "label": "Using the Lua SDK with HAProxy",
                 "path": "/sdk/server-side/lua/haproxy"
               }
@@ -961,7 +976,7 @@
             "path": "/guides/best-practices/integrations"
           },
           {
-            "label": "Using LaunchDarkly in serverless functions",
+            "label": "Using LaunchDarkly in serverless environments",
             "path": "/guides/best-practices/serverless"
           }
         ]
@@ -982,8 +997,17 @@
           {
             "label": "Experimenting with feature flags",
             "path": "/guides/tutorials/experimentation"
+          },
+          {
+            "label": "Using the Lua SDK with NGINX",
+            "path": "/guides/tutorials/nginx"
           }
         ]
+      },
+      {
+        "label": "LaunchDarkly blog",
+        "path": "/guides/blog",
+        "svg": "documents"
       }
     ]
   },

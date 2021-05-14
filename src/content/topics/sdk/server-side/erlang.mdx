@@ -376,6 +376,27 @@ ldclient:identify(#{key => <<"aa0ceb">>})
 </CodeTabItem>
 </CodeTabs>
 
+## Aliased users
+
+There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person would be identified by two different users as denoted by different user keys.
+
+The SDK can associate these two LaunchDarkly users by sending an alias event. You can manually tell the SDK to send an alias event with the `alias` function.
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', },
+  ]
+}>
+<CodeTabItem value="erlang">
+
+```
+ldclient:alias(NewUser, User).
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 ## Offline mode
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to your feature flags' default values.
