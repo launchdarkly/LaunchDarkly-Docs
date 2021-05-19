@@ -353,7 +353,7 @@ module.exports = [
   },
   {
     fromPath: '/docs/flag-archive-delete',
-    toPath: '/home/managing-flags/flag-archive-delete',
+    toPath: '/home/code/flag-archive',
   },
   {
     fromPath: '/docs/projects',
