@@ -483,10 +483,45 @@ this.setState({listeners: newListeners});
 </CodeTabItem>
 </CodeTabs>
 
-## Background Fetch
+## Background fetch
 The React Native SDK defaults to the background fetch behavior for the platform it's running on.
 
-## Monitoring SDK Status
+## Multiple environments
+
+LaunchDarkly's React Native SDK supports having multiple internal `LDClient` instances tied to separate mobile keys. This allows evaluating flags from multiple environments.
+
+All `LDClient` instances evaluate against the same `LDUser`. The environment names and their corresponding mobile keys are specified in a `secondaryMobileKeys` map passed to your `LDConfig` object.
+
+You do not need to manage `LDClient` instances. Instead, access an instance by passing the environment name to a method that supports multiple environments.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+let config = {
+  mobileKey: 'YOUR_MOBILE_KEY',
+  secondaryMobileKeys: {
+    'platform': 'PLATFORM_MOBILE_KEY', 
+    'core': 'CORE_MOBILE_KEY'
+  },
+};
+
+let user = {key: 'minimal_user'};
+
+await client.configure(config, user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To use functionality with a secondary environment, provide the name of desired secondary environment as the `environment` parameter value to many `LDClient` methods. Some `LDClient` methods do not have an optional `environment` parameter because they act across all environments. To learn more, read our [`LDClient` API documentation](https://launchdarkly.github.io/react-native-client-sdk/classes/_launchdarkly_react_native_client_sdk_.ldclient.html).
+
+## Monitoring SDK status
 The React Native SDK exposes some of its internal status through the Connection Status API to allow your application to monitor the SDK's status. This is provided primarily as a mechanism for the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
 
 <CodeTabs
