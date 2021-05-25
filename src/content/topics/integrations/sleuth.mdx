@@ -6,17 +6,26 @@ published: true
 ---
 
 <Callout intent="primary">
-  <CalloutTitle>The Sleuth integration is a Pro and Enterprise feature</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>The Sleuth integration is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
 
 The Sleuth integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Overview
 
 This topic explains how to use the LaunchDarkly Sleuth integration.
+
+<Callout intent="info">
+<CalloutTitle>The Sleuth integration is managed by Sleuth</CalloutTitle>
+<CalloutDescription>
+
+The Sleuth integration was built by and is managed by Sleuth. For questions about the integration or for technical support, [contact Sleuth](https://www.sleuth.io/).
+
+</CalloutDescription>
+</Callout>
 
 The LaunchDarkly Sleuth integration tracks feature flags as a source of change in your DevOps tools. Sleuth captures the full state of your LaunchDarkly feature flags at deployment time. This helps you keep track of the affected code deploys, what environment the change occurred in, who changed the flag, and flag descriptions and values before and after code deploys.
 
@@ -30,11 +39,13 @@ To connect Sleuth to LaunchDarkly, you must meet the following prerequisites:
 The integration is initiated from your Sleuth account. After you connect it, you do not need to take further action. There are no Sleuth settings or preferences to configure in LaunchDarkly.
 
 <Callout intent="alert">
-  <CalloutTitle>Make sure your role in LaunchDarkly allows you to modify integrations</CalloutTitle>
-     <CalloutDescription>
-       If you get a notification that the integration is connected, but cannot access deploy data in Sleuth, confirm that your LaunchDarkly role allows you to enable external apps. If you are a Reader, or have a custom role that restricts these permissions, the integration may not work.
-     </CalloutDescription>
-   </Callout>
+<CalloutTitle>Make sure your role in LaunchDarkly allows you to modify integrations</CalloutTitle>
+<CalloutDescription>
+
+If you get a notification that the integration is connected, but cannot access deploy data in Sleuth, confirm that your LaunchDarkly role allows you to enable external apps. If you are a Reader, or have a custom role that restricts these permissions, the integration may not work.
+
+</CalloutDescription>
+</Callout>
 
 ## Setting up the Sleuth integration
 
@@ -46,11 +57,13 @@ To connect the Sleuth integration with LaunchDarkly:
 4. Click **Authorize**. This allows Sleuth to read and modify your LaunchDarkly data.
 
 <Callout intent="info">
-  <CalloutTitle>You must authorize Sleuth for the integration to work</CalloutTitle>
-     <CalloutDescription>
-      If you click <strong>Deny</strong>, the integration cannot access your flag data.
-     </CalloutDescription>
-   </Callout>
+<CalloutTitle>You must authorize Sleuth for the integration to work</CalloutTitle>
+<CalloutDescription>
+
+If you click **Deny**, the integration cannot access your flag data.
+
+</CalloutDescription>
+</Callout>
 
 ![The LaunchDarkly authorization dialog.](../images/sleuth-ld-integration-auth-dialog.png)
 
@@ -76,7 +89,7 @@ To select a LaunchDarkly project and environment to track:
 4. Give the integration a **Name**.
 5. Click **Create**.
 
-After the connection is established, the Sleuth trend graph appears. Use this graph to monitor how your feature flags impact your code over time. You're set&mdash;now sit back and let Sleuth track your code over time.
+After the connection is established, the Sleuth trend graph appears. This graph monitors how your feature flags impact your code over time.
 
 ![The Sleuth trend graph.](../images/sleuth-ld-integration-trendgraph.png)
 
@@ -108,7 +121,7 @@ This removes the LaunchDarkly integration.
 
 With the Slack integration in Sleuth, you can notify your entire team, or just the commit author or PR initiator, of a code change. This includes feature flag changes.
 
-To learn more, read <a href="https://help.sleuth.io/integrations-1/chat-ops/slack">Sleuth's documentation</a>.
+To learn more, read [Sleuth's documentation](https://help.sleuth.io/integrations-1/slack).
 
 The Sleuth Slack integration works independently from the LaunchDarkly Slack integration. If you use both, you may see notifications from both Sleuth and LaunchDarkly about flag activity.
 
