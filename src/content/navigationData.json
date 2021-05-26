@@ -740,6 +740,10 @@
         "svg": "life-cycle",
         "items": [
           {
+            "label": "Aliasing users",
+            "path": "/sdk/features/aliasing-users"
+          },
+          {
             "label": "Bootstrapping",
             "path": "/sdk/features/bootstrapping"
           },

@@ -1,0 +1,307 @@
+---
+path: '/sdk/features/aliasing-users'
+title: 'Aliasing users'
+description: 'This topic explains how to alias the users of various LaunchDarkly SDKs, both client- and server-side.'
+published: true
+---
+
+## Overview
+
+This topic explains how to alias the users of various LaunchDarkly SDKs. This feature is available for both client-side and server-side SDKs, although its behavior differs between client-side and server-side SDKs.
+
+
+## Aliased users
+
+There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person is identified by two different users as denoted by different user keys. Our SDKs can associate these two LaunchDarkly users by sending an alias event.
+
+All LaunchDarkly SDKs offer the ability to manually send an alias event. Additionally, client-side SDKs automatically send an alias event when identifying a known user if the previous user was anonymous. You can disable this behavior if necessary. To learn more, read [Configuration](/sdk/features/config).
+
+Details about each SDK's configuration are available in the SDK-specific sections below.
+
+* [Client-side SDKs](#client-side-sdks)
+* [Server-side SDKs](#server-side-sdks)
+
+## Client-side SDKs
+
+This feature is available in the following client-side SDKs:
+
+* [C/C++ (client-side)](#cc-client-side)
+* [Electron](#electron)
+* [iOS](#ios)
+* [JavaScript](#javascript)
+* [Node.js](#nodejs-client-side)
+* [React](#javascript): The React SDK relies on the JavaScript SDK for user-related functionality.
+
+### C/C++ (client-side)
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'C', value: 'c', },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+LDClientAlias(client, newUser, previousUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Electron
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+client.alias(newUser, previousUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### iOS
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="swift"
+  values={[
+    { label: 'Swift', value: 'swift', },
+    { label: 'Objective-C', value: 'objc', },
+  ]
+}>
+<CodeTabItem value="swift">
+
+```swift
+LDClient.get()!.alias(context: newUser, previousContext: previousUser)
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+[[LDClient get] alias:newUser previousContext:previousUser];
+```
+</CodeTabItem>
+</CodeTabs>
+
+### JavaScript
+
+Both `alias` parameters must have `key` attributes. If the LaunchDarkly client auto-generated a unique identifier for one of your users, you can access the user's complete object with the `getUser` method.
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var previousUser = ldclient.getUser();
+ldclient.alias(newUser, previousUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Node.js (client-side)
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.alias(newUser, previousUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### React
+
+All user-related functionality provided by the [JavaScript SDK](#javascript) is also available in the React SDK.
+
+## Server-side SDKs
+
+This feature is available in the following server-side SDKs:
+
+* [Apex](#apex)
+* [C/C++ (server side)](#cc-server-side)
+* [Go](#go)
+* [Haskell](#haskell)
+* [Lua](#lua)
+* [Node.js (server side)](#nodejs-server-side)
+* [Python](#python)
+* [Ruby](#ruby)
+
+### Apex
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Apex', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+client.alias(newUser, previousUser)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### C/C++ (server-side)
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'Example', value: 'c', },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+LDClientAlias(client, newUser, previousUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Go
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+ldClient.Alias(newUser, previousUser)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Haskell
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', },
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+alias client newUser previousUser
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Lua
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="lua"
+  values={[
+    { label: 'Lua', value: 'lua', },
+  ]
+}>
+<CodeTabItem value="lua">
+
+```lua
+client:alias(newUser, previousUser)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Node.js
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.alias(newUser, previousUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Python
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+ldclient.get().alias(new_user, previous_user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Ruby
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', },
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+ld_client.alias(new_user, previous_user)
+```
+
+</CodeTabItem>
+</CodeTabs>
