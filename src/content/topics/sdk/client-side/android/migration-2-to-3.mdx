@@ -156,9 +156,7 @@ val ldConfig: LDConfig = LDConfig.Builder()
     )
     .pollUri(Uri.parse("https://base.custom_domain.com"))
     .eventsUri(Uri.parse("https://events.custom_domain.com"))
-    .headerTransform(headers -> {
-        headers.put("Proxy-Authorization", "OTHER_AUTH")
-    })
+    .headerTransform({ it.put("Proxy-Authorization", "OTHER_AUTH") })
     .build()
 ```
 
