@@ -5,7 +5,7 @@ description: 'This topic explains all of the methods available in the client-sid
 published: true
 ---
 
-This reference guide documents all of the methods available in our Xamarin SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Xamarin SDK GitHub repository](https://github.com/launchdarkly/xamarin-client-sdk). Additionally you can clone and run sample applications using this SDK with [Xamarin](https://github.com/launchdarkly/hello-xamarin), and [Xamarin.Forms](https://github.com/launchdarkly/hello-xamarin-forms). The [online API docs](https://launchdarkly.github.io/xamarin-client-sdk/) contain the programmatic definitions of every type, property, and method.
+This reference guide documents all of the methods available in the Xamarin SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Xamarin SDK GitHub repository](https://github.com/launchdarkly/xamarin-client-sdk). Additionally you can clone and run sample applications using this SDK with [Xamarin](https://github.com/launchdarkly/hello-xamarin), and [Xamarin.Forms](https://github.com/launchdarkly/hello-xamarin-forms). The [online API docs](https://launchdarkly.github.io/xamarin-client-sdk/) contain the programmatic definitions of every type, property, and method.
 
 <Callout intent="info">
   <CalloutTitle>For use in mobile, desktop, and embedded client applications only</CalloutTitle>
@@ -148,307 +148,9 @@ else {
 </CodeTabItem>
 </CodeTabs>
 
-## Customizing your client
-
-You can also pass custom parameters to the client by creating a custom configuration object:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-Configuration config = LaunchDarkly.Client.Configuration
-    .Builder("YOUR_SDK_KEY")
-    .EventFlushInterval(TimeSpan.FromSeconds(2))
-    .Build();
-LdClient ldClient = LdClient.Init(config, user);
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Here, we've customized the event queue flush frequency.
-
-You can customize `Configuration.Builder`. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/xamarin-client-sdk/html/T_LaunchDarkly_Xamarin_Configuration.htm)
-
-## Users
-
-Feature flag targeting and rollouts are all determined by the *user* you pass to your `Identify` call. In our Xamarin SDK, you can construct a simple `User` that only has a key by calling `User.WithKey`, or use `User.Builder` which allows setting all properties. Here's an example:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-LDUser user = User.Builder("aa0ceb")
-    .FirstName("Ernestina")
-    .LastName("Evans")
-    .Email("ernestina@example.com")
-    .Custom("group", "admins")
-    .Build();
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Let's walk through this snippet. The argument to `Builder` is the user's key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes (set by calls to `FirstName`, `LastName`, `Email`, and `Custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
-
-In addition to the built-in attributes defined in the `User` class, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
-
-<Callout intent="info">
-  <CalloutTitle>A note on types</CalloutTitle>
-<CalloutDescription>
-
-Most of our built-in attributes (like names and email addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or arbitrary JSON values. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The Xamarin SDK is strongly typed, so be aware of this distinction.
-
-</CalloutDescription>
-</Callout>
-
-Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available instantly on our dashboard.
-
-## Private user attributes
-
-You can optionally configure the Xamarin SDK to treat some or all user attributes as [private user attributes](/home/users/attributes) . Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
-
-In the Xamarin SDK there are two ways to define private attributes for the entire LaunchDarkly client:
-
-- When creating the LaunchDarkly `Configuration` object, you can call the `AllAttributesPrivate` method, which takes in a boolean parameter. If `true`, all user attributes (except the key) for _all users_ are removed before the user is sent to LaunchDarkly.
-- When creating the LaunchDarkly `Configuration` object, you can call the `PrivateAttributeName` method, which takes in an attribute name (string) as a parameter and adds it to an internally managed list of private attributes. This method may be called multiple times to mark additional attributes as private. If any user has a custom or built-in attribute named in the private attributes list, it will be removed before the user is sent to LaunchDarkly.
-
-You can also mark attributes as private when building the user object itself by calling `AsPrivateAttribute()` immediately after setting the attribute. For example:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-var user = User.Builder("aa0ceb")
-    .Email("test@example.com").AsPrivateAttribute()
-    .Build();
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-When this user is sent back to LaunchDarkly, the `email` attribute will be omitted.
-
-## Anonymous users
-
-You can also distinguish logged-in users from anonymous users in the SDK, as follows:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-LDUser user = User.Builder("aa0ceb")
-    .Anonymous(true)
-    .Build();
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-You will still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
-
-We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
-
-Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This keeps anonymous users from polluting your Users page.
-
-In Android or iOS, you can also allow the SDK to create a key for an anonymous user based on a unique device identifier as defined by the [DeviceInfo](https://github.com/jamesmontemagno/DeviceInfoPlugin) Xamarin plugin. It will do so if you set the key to null and set the anonymous flag:
-
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-LDUser user = User.Builder((string)null).Anonymous(true).Build();
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Variation
-The `Variation` method determines whether a flag is enabled or not for a specific user.   In Xamarin, there is  a `variation` method for each type (e.g. `BoolVariation`, `StringVariation`):
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-ldClient.BoolVariation("your.feature.key", false);
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-`variation` calls take the feature flag key and a default value.
-
-The default value will only be returned if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
-
-## VariationDetail
-
-The `VariationDetail` methods (`BoolVariationDetail`, etc.) work the same as `Variation`, but also provide additional "reason" information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the "reason" data programmatically; you can also view it with Data Export, if you are capturing detailed analytics events for this flag. To enable this feature, you must call `WithEvaluationReasons(true)` on your `Configuration`.
-
-To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
-
-## Track
-
-The `Track` method allows you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests. Here's a simple example:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-ldClient.Track("your-goal-key");
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-You can also attach custom data to your event by passing an extra parameter to `Track` (using the `LdValue` class to represent any value that can be encoded in JSON):
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-ldClient.Track("Completed purchase", LdValue.Of("sku132"));
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## All Flags
-
-<Callout intent="alert">
-<CalloutTitle>Different behavior between calls</CalloutTitle>
-<CalloutDescription>
-
-Unlike `Variation` and `Identify` calls, `AllFlags` does not send events to LaunchDarkly. Users from `AllFlags` calls are not created or updated in the LaunchDarkly dashboard.
-
-</CalloutDescription>
-</Callout>
-
-The `AllFlags` method produces a map of feature flag keys to their values for the current user.
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-ldClient.AllFlags();
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Fallback value and offline mode
-
-The default (fallback) values are defined in your code. The default value will only be returned if an error is encountered or if LaunchDarkly is unreachable.
-
-In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when running on premise. You can do this by setting offline mode in the client's Config. When the client is in offline mode, no network requests will be made, so it is suitable for unit-testing.
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-Configuration config = Configuration.Builder("SDK_KEY")
-    .Offline(true)
-    .Build();
-LdClient client = LdClient.Init(config);
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Flush
-Internally, the LaunchDarkly SDK keeps an event buffer for `Track` and `Identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `Flush` to process events immediately.
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-ldClient.Flush();
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-The flush interval is configurable. If you need to change the interval, you can do so via the `Configuration` class.
-
-## Dispose
-
-Dispose safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you should not have to call dispose.
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-ldClient.Dispose();
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## Using the Relay Proxy
 
-You can configure the Xamarin SDK to connect to the [Relay proxy](https://github.com/launchdarkly/ld-relay) as follows:
+You can configure the Xamarin SDK to connect to the [Relay Proxy](https://github.com/launchdarkly/ld-relay) as follows:
 
 <CodeTabs
   defaultValue="csharp"
@@ -468,50 +170,22 @@ LdClient ldClient = LdClient.Init(config);
 </CodeTabItem>
 </CodeTabs>
 
-## Logging
-
-The Xamarin SDK uses the `Common.Logging` framework. For an example configuration check out the [Common.Logging readme](https://github.com/net-commons/common-logging#2-register-and-configure-commonlogging).
-
-Be aware of two considerations when enabling the DEBUG log level:
-
-1. Debug-level logs can be very verbose. It is not recommended that you turn on debug logging in high-volume environments.
-2. Potentially sensitive information is logged including LaunchDarkly users created by you in your usage of this SDK.
-
-## Real-Time Updates
-
-LaunchDarkly manages all flags for a user context in real-time by updating the flag cached based on a real-time event stream. When a flag is modified from the LaunchDarkly dashboard, the flag values for the current user will update almost immediately. The default SDK configuration has been found to be the best combination of low latency updates and minimal battery drain:
-
-1. When the app is foregrounded, a [Server-sent events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection is made to LaunchDarkly. This streaming connection stays open as long as your app is in the foreground and is connected to the internet.
-
-2. When the app is backgrounded, the stream connection is terminated and the SDK will poll (with caching) for flag updates every 3 minutes.
-
-3. When the app is foregrounded, we reconnect to the stream and fetch the latest flags.
-
-4. In either the foreground or background, we don't try to update unless your device has internet connectivity.
-
-This configuration means that you will get near real-time updates for your feature flag values when the app is in the foreground. See the "customizing your client" section above for information on how to change your configuration.
-
-To perform real-time updates in your app, your app will need to register listeners for updates from the streaming/polling connection for each flag you'd like to watch:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-ldClient.FlagChanged += (sender, eventArgs) => {
-    if (eventArgs.Key == "key-for-flag-i-am-watching") {
-        DoSomethingWithNewFlagValue(eventArgs.NewBoolValue);
-    }
-};
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## Data collection
 
 To learn more about data collection within this SDK and implications on submissions to the Apple App Store, read [Apple App Store data collection policy](/sdk/concepts/apple-app-store).
+
+## Supported features
+
+This SDK supports the following features:
+
+* [Getting all flags](/sdk/features/all-flags#xamarin)
+* [Client configuration](/sdk/features/config#xamarin)
+* [Evaluating flag variations](/sdk/features/variation#xamarin)
+* [Flag evaluation reasons](/sdk/features/variationdetail#xamarin)
+* [Flushing SDK events](/sdk/features/flush#xamarin)
+* [Logging](/sdk/features/logging#xamarin)
+* [Offline mode](/sdk/features/offline-mode#xamarin)
+* [Shutting down an SDK](/sdk/features/shutdown#xamarin)
+* [Subscribing to flag changes](/sdk/features/flag-changes#xamarin)
+* [Sending custom events](/sdk/features/track#xamarin)
+* [User configuration](/sdk/features/user-config#xamarin)

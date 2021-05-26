@@ -1,0 +1,585 @@
+---
+path: '/sdk/features/identify'
+title: 'Identifying and changing users'
+description: 'This topic explains how to use the identify feature in LaunchDarkly SDKs.'
+published: true
+---
+
+## Overview
+
+This topic explains how to use the identify feature in LaunchDarkly SDKs. Identify is available for both client-side and server-side SDKs.
+
+## Using identify to change users
+
+Identify's behavior differs between client-side and server-side SDKs.
+
+Client-side SDKs are configured to operate for one user at a time, identified or anonymous. In these SDKs, the identify feature allows customers to change the user context, such as if a user logs in or changes their user settings. Identifying users will cause LaunchDarkly to index them.
+
+Server-side SDKs operate for multiple users concurrently. Unlike in client-side SDKs, server-side SDKs do not have a notion of "changing the user context" because users are directly passed to client method invocations for actions such as evaluating flag variations. In server-side SDKs, the only impact of identifying users is that they are indexed in the LaunchDarkly service. However, in most applications this is not needed because users are automatically indexed when used for flag evaluation.
+
+To learn more about the differences in how SDKs identify and use user contexts, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+
+Details about each SDK's identify feature are available in the SDK-specific sections below.
+
+* [Client-side SDKs](#client-side-sdks)
+* [Server-side SDKs](#server-side-sdks)
+
+## Client-side SDKs
+
+This feature is available in the following client-side SDKs:
+
+* [Android](#android)
+* [C/C++ (client-side)](#cc-client-side)
+* [Electron](#electron)
+* [Flutter](#flutter)
+* [iOS](#ios)
+* [JavaScript](#javascript)
+* [Node.js (client-side)](#nodejs-client-side)
+* [React Native](#react-native)
+* [Roku](#roku)
+
+### Android
+
+If multiple users use your app on a single device, you may want to change users and have separate flag settings for each one. To do this, the SDK stores the last five user contexts on a single device, with support for switching between different user contexts. You can use the `identify` method to switch user contexts. `identify` loads any saved flag values for the new user and immediately triggers an update of the latest flags from LaunchDarkly.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDUser updatedUser = new LDUser.Builder(user)
+    .email("fake2@example.com")
+    .build();
+
+ldClient.identify(updatedUser);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val updatedUser: LDUser = LDUser.Builder(user)
+    .email("fake2@example.com")
+    .build()
+
+ldClient.identify(updatedUser)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The `identify` call loads any saved flag values for the new user and immediately triggers an update of the latest flags from LaunchDarkly.
+
+`identify` returns a [Future](https://developer.android.com/reference/java/util/concurrent/Future) to indicate completion. If you want to be sure subsequent code is using the latest values from the server, you can wait for the Future using `get`.
+
+### C/C++ (client-side)
+
+If your app is used by multiple users on a single device, you may want to change users and have separate flag settings for each user. To achieve this, the SDK supports switching between different user contexts.
+
+You can use the `LDClientIdentify` method to switch user contexts:
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'Example', value: 'c', },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+LDClientIdentify(client, newUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The 'identify' call will load any saved flag values for the new user and immediately trigger an update of the latest flags from LaunchDarkly. Since this method re-fetches flag settings for the new user, it should not be called at high frequency. The intended use case for switching user contexts is the login/logout flow.
+
+### Electron
+
+The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user. The client always has one current user, because client-side SDKs are not designed for evaluating flags for different users at the same time.
+
+For example, on a sign-in page in a single-page app, you can initialize the client with an anonymous user. But when the user logs in, they should see the correct feature flag settings for their account.
+
+If you provide a callback function, it is called with a map of flag keys and values after the flag values for the new user are available. After that point, `variation()` uses the new values. You can also use a Promise for the same purpose.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var newUser = { key: 'someone-else', name: 'John' };
+
+client.identify(newUser, function(newFlags) {
+  console.log('value of flag for this user is: ' + newFlags["YOUR_FEATURE_KEY"]);
+  console.log('this should be the same: ' + client.variation("YOUR_FEATURE_KEY"));
+});
+
+// or:
+client.identify(newUser).then(function(newFlags) {
+  // as above
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Flutter
+
+If multiple users use your app on a single device, you may want to change users and have separate flag settings for each one. To do this, the SDK stores the last five user contexts on a single device, with support for switching between different user contexts. You can use the `identify` method to switch user contexts. `identify` loads any saved flag values for the new user and immediately triggers an update of the latest flags from LaunchDarkly.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="dart"
+  values={[
+    { label: 'Dart', value: 'dart', },
+  ]
+}>
+<CodeTabItem value="dart">
+
+```dart
+LDUser updatedUser = LDUserBuilder('user key')
+    .email('fake2@example.com')
+    .build();
+
+await LDClient.identify(updatedUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### iOS
+
+If multiple users use your app on a single device, you may want to change users and have separate flag settings for each one. To do this, the SDK stores the last five user contexts on a single device, with support for switching between different user contexts. You can use the `identify` method to switch user contexts.
+
+When a new user is identified, the SDK temporarily goes offline while reconnecting on behalf of the new user. Upon successfully reconnecting, the SDK comes back online and calls the optional completion if one was provided.
+
+If the client app does not identify an LDUser, LDClient creates an anonymous default user, which can affect which feature flags LaunchDarkly delivers to the LDClient. Client apps should follow the [Apple Privacy Policy](https://apple.com/legal/privacy) when collecting user information.
+
+`identify` loads any saved flag values for the new user and immediately triggers an update of the latest flags from LaunchDarkly.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="swift"
+  values={[
+    { label: 'Swift', value: 'swift', },
+    { label: 'Objective-C', value: 'objc', },
+  ]
+}>
+<CodeTabItem value="swift">
+
+```swift
+let newUser = LDUser(key: "NEW_USER_KEY")
+LDClient.get()!.identify(user: newUser)
+
+// identify can also be called with a completion
+LDClient.get()!.identify(user: newUser) {
+    // Flags have been retrieved for the new user
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+LDUser *newUser = [[LDUser alloc] initWithKey:@"NEW_USER_KEY"];
+[[LDClient get] identifyWithUser:newUser];
+
+// identify can also be called with a completion
+[[LDClient get] identifyWithUser:newUser completion:^() {
+    // Flags have been retrieved for the new user
+}];
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### JavaScript
+
+The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user. The client always has one current user, because client-side SDKs are not designed for evaluating flags for different users at the same time.
+
+For example, on a sign-in page in a single-page app, you can initialize the client with an anonymous user. But when the user logs in, they should see the correct feature flag settings for their account.
+
+If you provide a callback function, it is called with a map of flag keys and values after the flag values for the new user are available. After that point, `variation()` uses the new values. You can also use a Promise for the same purpose.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldclient.identify(newUser, hash, function() {
+  console.log("New user's flags available");
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<Callout intent="alert">
+<CalloutTitle>You must use a hash parameter while in secure mode</CalloutTitle>
+<CalloutDescription>
+
+The hash parameter is the hash for the new user, assuming that the user's key has changed. The hash parameter is only required in secure mode. If secure mode is not enabled, pass in `null` for the hash.
+
+</CalloutDescription>
+</Callout>
+
+### Node.js (client-side)
+
+You may want to change the user context dynamically and receive the new set of feature flags for that user or generate events for the new user. To do this, you can call the `identify` function. You can also pass a callback that is called when the new flags are in effect.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.identify(newUser, () => {
+  console.log("New user's flags available");
+});
+
+// or, with a Promise:
+ldClient.identify(newUser).then(() => {
+  console.log("New user's flags available");
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### React Native
+
+If multiple users use your app on a single device, you may want to change users and have separate flag settings for each one. To do this, the SDK stores the last five user contexts on a single device, with support for switching between different user contexts. You can use the `identify` method to switch user contexts. `identify` loads any saved flag values for the new user and immediately triggers an update of the latest flags from LaunchDarkly.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+let user = {'key': 'minimal_user'};
+await client.identify(user); //promise resolves to nil/null
+Alert.alert('identify', 'success');
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Roku
+
+If multiple users use your app on a single device, you may want to change users and have separate flag settings for each one. To do this, the SDK stores the last five user contexts on a single device, with support for switching between different user contexts. You can use the `identify` method to switch user contexts. `identify` loads any saved flag values for the new user and immediately triggers an update of the latest flags from LaunchDarkly. Because this method re-fetches flag settings for the new user, do not call it frequently.
+
+To do this:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+user = LaunchDarklyUser("abc")
+
+launchDarkly.identify(user)
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Server-side SDKs
+
+This feature is available in the following server-side SDKs:
+* [.NET](#net)
+* [Apex](#apex)
+* [C/C++ (server side)](#cc-server-side)
+* [Erlang](#erlang)
+* [Go](#go)
+* [Haskell](#haskell)
+* [Java](#java)
+* [Lua](#lua)
+* [Node.js (server side)](#nodejs-server-side)
+* [PHP](#php)
+* [Python](#python)
+* [Ruby](#ruby)
+### .NET
+
+[`Identify`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_Identify.htm) creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+
+In most cases, you do not need to call `Identify`. The `Variation` methods automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: '.NET', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+ldClient.Identify(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Apex
+
+`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+
+In most cases, you do not need to call `Identify`. The `Variation` methods automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Apex', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+client.identify(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### C/C++ (server-side)
+
+`LDClientIdentify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+
+In most cases, you do not need to call `LDClientIdentify`. The `variation` call automatically creates users on the dashboard for you. `LDClientIdentify` is useful if you want to pre-populate your dashboard before you launchd any features.
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'Example', value: 'c', },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+LDClientIdentify(client, user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Erlang
+
+`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+
+In most cases, you do not need to call `Identify`. The `Variation` methods automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', },
+  ]
+}>
+<CodeTabItem value="erlang">
+
+```
+ldclient:identify(#{key => <<"aa0ceb">>})
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Go
+
+[`Identify`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Identify) creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+
+In most cases, you do not need to call `Identify`. The `Variation` method automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+ldClient.Identify(user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Haskell
+
+In most cases, you do not need to call `Identify`. The `Variation` method automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', },
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+identify client user
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Java
+
+[`Identify`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#identify-com.launchdarkly.sdk.LDUser-) creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+
+In most cases, you do not need to call `Identify`. The `Variation` method automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+ldClient.identify(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Lua
+
+`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+
+In most cases, you do not need to call `Identify`. The `Variation` call automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+
+<CodeTabs
+  defaultValue="lua"
+  values={[
+    { label: 'Lua', value: 'lua', },
+  ]
+}>
+<CodeTabItem value="lua">
+
+```lua
+client:identify(user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Node.js (server-side)
+
+`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+
+In most cases, you do not need to call `Identify`. The `Variation` call automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.identify(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### PHP
+
+`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+
+In most cases, you do not need to call `Identify`. The `Variation` call automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', },
+  ]
+}>
+<CodeTabItem value="php">
+
+```php
+$client->identify(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Python
+
+`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+
+In most cases, you do not need to call `Identify`. The `Variation` call automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+ldclient.get().identify(user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Ruby
+
+`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+
+In most cases, you do not need to call `Identify`. The `Variation` call automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', },
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+ld_client.identify(user)
+```
+
+</CodeTabItem>
+</CodeTabs>

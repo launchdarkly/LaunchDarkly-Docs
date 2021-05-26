@@ -67,7 +67,7 @@ require('package-name-of-polyfill');
 You only need to use one of these methods—CDN or package manager—not both.
 
 ## Promise
-The SDK relies heavily on JavaScript Promises. [Browsers that do not support Promise](https://caniuse.com/#search=Promise) include Internet Explorer and older versions of Microsoft Edge. If you need to support these browsers, you will need to install a polyfill for Promise, such as [es6-promise.](https://github.com/stefanpenner/es6-promise) 
+The SDK relies heavily on JavaScript Promises. [Browsers that do not support Promise](https://caniuse.com/#search=Promise) include Internet Explorer and older versions of Microsoft Edge. If you need to support these browsers, you will need to install a polyfill for Promise, such as [es6-promise.](https://github.com/stefanpenner/es6-promise)
 
 
 <CodeTabs
@@ -108,7 +108,7 @@ require('es6-promise/auto');
 
 The SDK uses [`EventSource`](https://developer.mozilla.org/en-US/docs/Web/API/EventSource) to provide a live streaming connection to LaunchDarkly, if you have enabled streaming (by using the `streaming` property or the `setStreaming` method, or by subscribing to `change` events). **If you never enable streaming, you do not need `EventSource`.**
 
-It is widely available in browsers, [except for Internet Explorer and Microsoft Edge](https://caniuse.com/#search=EventSource). If you wish to support these, and you need streaming support, you can install a polyfill such as [event-source-polyfill](https://github.com/Yaffle/EventSource).
+It is widely available in browsers, [except for Internet Explorer and Microsoft Edge](https://caniuse.com/#search=EventSource). If you want to support these, and you need streaming support, you can install a polyfill such as [event-source-polyfill](https://github.com/Yaffle/EventSource).
 
 <CodeTabs
   defaultValue="html"
@@ -145,12 +145,12 @@ require('event-source-polyfill');
 </CodeTabs>
 
 
-## Document.querySelectorAll() 
+## Document.querySelectorAll()
 
 
 The SDK uses `querySelectorAll` to support click events for A/B testing. **If you never use click goals, you do not need `querySelectorAll`.**
 
-It is widely available in browsers, [except in old versions of Internet Explorer](https://caniuse.com/#feat=queryselector). If you wish to support these, and you need A/B testing support, you can install a polyfill such as [polyfill-queryselector](https://github.com/cobbdb/polyfill-queryselector).
+It is widely available in browsers, [except in old versions of Internet Explorer](https://caniuse.com/#feat=queryselector). If you want to support these, and you need A/B testing support, you can install a polyfill such as [polyfill-queryselector](https://github.com/cobbdb/polyfill-queryselector).
 
 <CodeTabs
   defaultValue="html"
@@ -180,7 +180,7 @@ npm install polyfill-queryselector@1.0.2
 
 ```js
 // loading polyfill as a package
-require('polyfill-queryselector') 
+require('polyfill-queryselector')
 
 ```
 

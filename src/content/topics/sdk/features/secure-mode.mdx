@@ -1,0 +1,173 @@
+---
+path: '/sdk/features/secure-mode'
+title: 'Secure mode'
+description: 'This topic explains how to generate a secure mode hash for various server-side SDKs.'
+published: true
+---
+
+## Overview
+
+This topic explains how to generate a secure mode hash for various server-side SDKs.
+
+## Using secure mode hashes
+
+A secure mode hash lets the JavaScript SDK connect to a server-side SDK in secure mode.
+
+Each SDK uses a unique method to create the hash.
+
+This feature is available in the following SDKs:
+
+* [.NET](#net)
+* [Go](#go)
+* [Java](#java)
+* [Node.js (server-side)](#nodejs-server-side)
+* [PHP](#php)
+* [Python](#python)
+* [Ruby](#ruby)
+
+### .NET
+
+The [`SecureModeHash`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_SecureModeHash.htm) method computes an HMAC signature of a user signed with the client's SDK key. If you use our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+
+Here is the method:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+var hash = ldClient.SecureModeHash(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Go
+
+The [`SecureModeHash`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.SecureModeHash) method computes an HMAC signature of a user signed with the client's SDK key. If you use our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+
+Here is the method:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+ldClient.SecureModeHash(user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Java
+
+The [`secureModeHash`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#secureModeHash-com.launchdarkly.sdk.LDUser-) method computes an HMAC signature of a user signed with the client's SDK key. If you use our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+
+Here is the method:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+ldClient.secureModeHash(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Node.js (server-side)
+
+The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you use our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+
+Here is the method:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.secureModeHash(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### PHP
+
+The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you use our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+
+Here is the method:
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', },
+  ]
+}>
+<CodeTabItem value="php">
+
+```php
+$client->secureModeHash(user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Python
+
+The `SecureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you use our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+
+Here is the method:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+hash = ldclient.get().secure_mode_hash(user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Ruby
+
+The `secure_mode_hash` method computes an HMAC signature of a user signed with the client's SDK key. If you use our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+
+Here is the method:
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', },
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+ld_client.secure_mode_hash(user)
+```
+
+</CodeTabItem>
+</CodeTabs>

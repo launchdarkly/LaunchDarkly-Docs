@@ -1,0 +1,461 @@
+---
+path: '/sdk/features/flush'
+title: 'Flushing SDK events'
+description: 'This topic explains how to use the flush feature. Flush is available on both server-side and client-side SDKs.'
+published: true
+---
+
+## Overview
+
+This topic explains how to use the flush feature. `Flush` is available on both server-side and client-side SDKs.
+
+## Using flush
+
+Flush tells the client to send all of an SDK's pending analytics events to LaunchDarkly as soon as possible. Flushing is asynchronous, so this method returns before it is complete.
+
+Details about each SDK's configuration are available in the SDK-specific sections below.
+
+* [Client-side SDKs](#client-side-sdks)
+* [Server-side SDKs](#server-side-sdks)
+
+## Client-side SDKs
+
+This feature is available in the following client-side SDKs:
+
+* [Android](#android)
+* [C/C++ (client-side)](#cc-client-side)
+* [Flutter](#flutter)
+* [iOS](#ios)
+* [JavaScript](#javascript)
+* [Node.js (clientside)](#nodejs-client-side)
+* [React Native](#react-native)
+* [Roku](#roku)
+* [Xamarin](#xamarin)
+
+### Android
+
+The Android SDK keeps an internal event buffer for analytics calls. These are flushed periodically in a background thread. You can configure the flush interval if needed.
+
+In some situations, such as when you test out the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+ldClient.flush();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+ldClient.flush()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The flush interval is configurable.
+
+### C/C++ (client-side)
+
+The LaunchDarkly SDK keeps an internal event buffer for analytics events. These are flushed periodically in a background thread. In some situations, for example, if you're testing out the SDK in a simulator, you may want to manually call flush to process events immediately.
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'Example', value: 'c', },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+LDClientFlush(client);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The flush interval is configurable. If you need to change the interval, you can do so via the configuration.
+
+### Flutter
+
+Internally, the Flutter SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. You can configure the flush interval if needed.
+
+In some situations, such as when you test out the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
+
+<CodeTabs
+  defaultValue="dart"
+  values={[
+    { label: 'Dart', value: 'dart', },
+  ]
+}>
+<CodeTabItem value="dart">
+
+```dart
+await LDClient.flush();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### iOS
+
+Internally, the iOS SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. You can configure the flush interval if needed.
+
+In some situations, such as when you test out the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
+
+<CodeTabs
+  defaultValue="swift"
+  values={[
+    { label: 'Swift', value: 'swift', },
+    { label: 'Objective-C', value: 'objc', },
+  ]
+}>
+<CodeTabItem value="swift">
+
+```swift
+LDClient.get()!.flush()
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+[[LDClient get] flush];
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### JavaScript
+
+Internally, the JavaScript SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. You can configure the flush interval if needed.
+
+In some situations, such as when you test out the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
+
+This method is asynchronous. You can pass a callback or wait for the returned `Promise` to determine when all events have been flushed.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldclient.flush();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+### Node.js (client-side)
+
+Internally, the LaunchDarkly SDK keeps an analytics event buffer. These events are flushed periodically. In some situations, you may want to manually call `flush` to process events immediately.
+
+This method is asynchronous. You can pass a callback or wait for the returned `Promise` to determine when all events have been flushed.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.flush();
+
+// or, with a callback:
+ldClient.flush(() => {
+  console.log('flush complete');
+});
+
+// or, with a Promise:
+ldClient.flush().then(() => {
+  console.log('flush complete');
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### React Native
+
+Internally, the React Native SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. You can configure the flush interval if needed.
+
+In some situations, such as when you test out the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+client.flush();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Roku
+
+Internally, the Roku SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. You can configure the flush interval if needed.
+
+In some situations, such as when you test out the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+launchDarkly.flush()
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Xamarin
+
+Internally, the Xamarin SDK keeps an event buffer for `Track` and `Identify` calls. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a REPL, you may want to manually call `Flush` to process events immediately.
+
+The flush interval is configurable. If you need to change the interval, you can do so with the `Configuration` class.
+
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+ldClient.Flush();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Server-side SDKs
+
+This feature is available in the following server-side SDKs:
+
+* [.NET](#net)
+* [C/C++ (server-side)](#cc-server-side)
+* [Go](#go)
+* [Haskell](#haskell)
+* [Java](#java)
+* [Lua](#lua)
+* [Node.js (server-side)](#nodejs-server-side)
+* [Python](#python)
+* [Ruby](#ruby)
+
+### .NET
+
+Internally, the LaunchDarkly SDK keeps an event buffer for events generated by evaluations, or by `Track` or `Identify` calls. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a REPL, you may want to manually call [`Flush`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_Flush.htm) to process events immediately.
+
+The flush interval is configurable. If you need to change the interval, you can do so with the `Configuration` class.
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+ldClient.Flush();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### C/C++ (server-side)
+
+The LaunchDarkly SDK keeps an internal event buffer for analytics events. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a simulator, you may want to manually call flush to process events immediately.
+
+This function will not block, but instead initiate a flush operation in the background. The flush interval is configurable. If you need to change the interval, you can do so with the configuration.
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'Example', value: 'c', },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+LDClientFlush(client);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Go
+
+Internally, the LaunchDarkly SDK keeps an event buffer for the analytics events that are produced by calling the `...Variation` or `...VariationDetail` methods, the `Track...` methods, or `Identify`. These are flushed periodically in a background thread. In some situations, you may want to manually call [`Flush`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Flush) to process events immediately.
+
+The flush interval is configurable. If you need to change the interval, you can do so by making a custom client configuration.
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+ldClient.Flush();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Haskell
+
+The LaunchDarkly SDK keeps an internal event buffer for analytics events. These events are flushed periodically in a background thread. In some situations, such as if you're testing the SDK in a simulator, you may want to manually call flush to process events immediately.
+
+This function will not block, but instead initiate a flush operation in the background. The flush interval is configurable. If you need to change the interval, you can do so with the configuration.
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', },
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+flushEvents client
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Java
+
+Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a REPL, you may want to manually call [`flush`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#flush--) to process events immediately.
+
+The flush interval is configurable. If you need to change the interval, you can do so with `LDConfig.Builder` and [`Components.sendEvents()`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html).
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+ldClient.flush();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Lua
+
+The LaunchDarkly SDK keeps an internal event buffer for analytics events. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a simulator, you may want to manually call flush to process events immediately.
+
+This function will not block, but instead initiate a flush operation in the background. The flush interval is configurable. If you need to change the interval, you can do so via the configuration.
+
+<CodeTabs
+  defaultValue="lua"
+  values={[
+    { label: 'Lua', value: 'lua', },
+  ]
+}>
+<CodeTabItem value="lua">
+
+```lua
+client:flush()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Node.js (server-side)
+
+Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a REPL, you may want to manually call `flush` to process events immediately.
+
+The flush interval is configurable. If you need to change the interval, you can do so when configuring your client instance.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.flush();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Python
+
+Internally, the LaunchDarkly SDK keeps an event buffer for `variation`, `track`, and `identify` calls. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a REPL, you may want to manually call `flush` to process events immediately. Otherwise Python may close before flushing the event buffer and your user changes and tracks will not be lost.
+
+The flush interval is configurable. If you need to change the interval, you can do so when you configure your client instance.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+ldclient.get().flush()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Ruby
+
+Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a REPL, you may want to manually call `flush` to process events immediately.
+
+The flush interval is configurable. If you need to change the interval, you can do so you configure your client instance.
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', },
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+ld_client.flush
+```
+
+</CodeTabItem>
+</CodeTabs>

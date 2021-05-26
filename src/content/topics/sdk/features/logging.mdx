@@ -1,0 +1,567 @@
+---
+path: '/sdk/features/logging'
+title: 'Logging configuration'
+description: 'This topic explains how to configure the logging feature. Logging is available for both client-side and server-side SDKs.'
+published: true
+---
+
+## Overview
+
+This topic explains how to configure the logging feature. Logging is available for both client-side and server-side SDKs.
+
+## Configuring logging
+
+LaunchDarkly SDKs rely on built-in logging packages and libraries to track events. Depending on which language you use, you can configure logging behavior to be highly or minimally verbose.
+
+* [Client-side SDKs](#client-side-sdks)
+* [Server-side SDKs](#server-side-sdks)
+
+## Client-side SDKs
+
+This feature is available in the following client-side SDKs:
+
+* [Electron](#electron)
+* [Node.js (client-side)](#nodejs-client-side)
+* [Roku](#roku)
+* [Xamarin](#xamarin)
+
+### Electron
+
+By default, the SDK uses the [`winston`](https://www.npmjs.com/package/winston) package. There are four logging levels: `debug`, `info`, `warn`, and `error`; by default, `debug` and `info` messages are hidden.
+
+To change the logging configuration, you can set `LDOptions.logger` to either another Winston instance or any object that implements the `LDLogger` interface. The `createConsoleLogger` function creates a minimal logger.
+
+### Node.js (client-side)
+
+By default, the SDK uses the [`winston`](https://www.npmjs.com/package/winston) package. There are four logging levels: `debug`, `info`, `warn`, and `error`; by default, `debug` and `info` messages are hidden.
+
+To learn more, read the [TypeScript definitions](https://github.com/launchdarkly/js-sdk-common/blob/master/typings.d.ts) for `LDLogger`, `LDOptions`, and `createConsoleLogger`.
+
+You can pass a custom logger to the SDK by the configurable logger property. Winston's syntax for instantiating and configuring loggers changed between versions 2.x and 3.x. If using the transitive dependency generates errors, declare a dependency on a specific Winston version.
+
+<CodeTabs
+   defaultValue="js"
+   values={[
+     { label: 'Winston 2.x', value: 'js', },
+     { label: 'Winston 3.x', value: 'winston-2', },
+   ]
+}>
+<CodeTabItem value="js">
+
+```js
+const logger =
+  new winston.Logger({
+    level: "debug",
+    transports: [
+      new winston.transports.Console()
+
+    ]
+  }
+);
+
+const user = {
+  key: "aa0ceb"
+};
+
+const ldClient = LaunchDarkly.initialize(
+  'YOUR_CLIENT_SIDE_ID',
+  user,
+  {"logger": logger}
+);
+```
+
+</CodeTabItem>
+<CodeTabItem value="winston-2">
+
+```js
+const logger =
+  winston.createLogger({
+    level: 'debug',
+    transports: [
+      new winston.transports.Console()
+
+    ]
+  }
+);
+
+const user = {
+  key: "aa0ceb"
+};
+
+const ldClient = LaunchDarkly.initialize(
+  'YOUR_CLIENT_SIDE_ID',
+  user,
+  {"logger": logger}
+);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Roku
+
+The Roku SDK's logging feature is configurable. You can set different log levels, or use a custom logging back end with one of the two supported custom loggers.
+
+Those loggers are:
+
+* [Legacy API custom logger for the Roku SDK](#legacy-api-custom-logger-for-the-roku-sdk)
+* [SceneGraph API custom logger for the Roku SDK](#scenegraph-api-custom-logger-for-the-roku-sdk)
+
+### Log levels in the Roku SDK
+
+You can configure the SDK log level. For example, to set the level to `info`:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+config.setLogLevel(LaunchDarklyLogLevels().info)
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The SDK supports the following Levels:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+LaunchDarklyLogLevels().error
+LaunchDarklyLogLevels().warn
+LaunchDarklyLogLevels().info
+LaunchDarklyLogLevels().debug
+LaunchDarklyLogLevels().none
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Legacy API custom logger for the Roku SDK
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+function CustomLogger() as Object
+    return {
+        log: function(level as Integer, message as String)
+
+            print level message
+        end function
+    }
+end function
+
+config.setLogger(CustomLogger())
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### SceneGraph API custom logger for the Roku SDK
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'XML', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```xml
+<!-- /components/CustomLogger.xml -->
+
+<component name="CustomLogger" extends="Task">
+    <interface>
+        <field id="log" type="assocarray" alwaysNotify="true"/>
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/CustomLogger.brs"/>
+</component>
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+REM /components/CustomLogger.brs
+
+function init()
+
+    m.messagePort = createObject("roMessagePort")
+
+
+    m.top.observeField("log", m.messagePort)
+
+end function
+
+function mainThread() as Void
+    while (true)
+
+        msg = wait(0, m.messagePort)
+
+
+        if type(msg) = "roSGNodeEvent" then
+            if field = "log" then
+                value = msg.getData()
+
+                print value.level value.message
+            end if
+        end if
+    end while
+end function
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To use the logger, create the SceneGraph logger node, and then:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+config.setLoggerNode(myLoggerNode)
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Xamarin
+
+The Xamarin SDK uses the `Common.Logging` framework. For an example configuration, read the [Common.Logging README](https://github.com/net-commons/common-logging#2-register-and-configure-commonlogging).
+
+Be aware of two considerations before you enable the DEBUG log level:
+
+1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
+2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+
+## Server-side SDKs
+
+This feature is available in the following server-side SDKs:
+
+* [.NET](#net)
+* [C/C++ (server-side)](#cc-server-side)
+* [Go](#go)
+* [Java](#java)
+* [Node.js (server-side)](#nodejs-server-side)
+* [PHP](#php)
+* [Python](#python)
+* [Ruby](#ruby)
+
+### .NET
+
+The .NET SDK uses the `Common.Logging` framework. For an example configuration, read the [Common.Logging README](https://github.com/net-commons/common-logging#2-register-and-configure-commonlogging).
+
+Be aware of two considerations before you enable the DEBUG log level:
+
+1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
+2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+
+### C/C++ (server-side)
+
+By default, there is no log output, but we provide a default logger you can enable. The SDK does not lock on any logging. Ensure that your implementation is thread safe.
+
+Whether you use a custom logger or the default one, you must call `LDConfigureGlobalLogger` before the client is initialized. You cannot modify logging while the client is running.
+
+If you use the defeault logger, you can configure how verbose it should be.
+
+For example, setting it to `LD_LOG_TRACE` produces the most verbose output, which may be useful in troubleshooting.
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'Example', value: 'c', },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+LDConfigureGlobalLogger(LD_LOG_TRACE, LDBasicLogger);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You can also use your own custom log function:
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'Example', value: 'c', },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+static void
+myCustomLogger(const LDLogLevel level, const char *const text)
+{
+    printf("[%s] %s\n", LDLogLevelToString(level), text);
+}
+
+LDConfigureGlobalLogger(LD_LOG_TRACE, myCustomLogger);
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Go
+
+The Go SDK uses a logging abstraction that can write to a [`log.Logger`](https://pkg.go.dev/log#Logger) or anything with a compatible interface. This adds a system of log levels similar to logging frameworks on other platforms. There are four logging levels: `Debug`, `Info`, `Warn`, and `Error`.
+
+By default, all levels of messages are enabled except `Debug`. You can tell the SDK to enable more or fewer levels, to send the output to a different destination, or to disable logging.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.12.x-4.17.x', value: 'go-pre-5.0', },
+    { label: 'Go SDK versions 4.11.x and earlier', value: 'go-pre-4.12', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+import (
+    "log"
+    "os"
+    ldlog "gopkg.in/launchdarkly/go-sdk-common.v2"
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+)
+
+var config ld.Config
+
+// Send output to a file, and change minimum level to Warn (Debug and Info are disabled)
+file, _ := os.Create("app.log")
+config.Logging = ldcomponents.Logging().
+    BaseLogger(log.New(file, "", log.LstdFlags)).
+    MinLevel(ldlog.Warn)
+
+// Or, disable logging
+config.Logging = ldcomponents.NoLogging()
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
+
+```go
+
+import (
+    "log"
+    "os"
+    ldlog "gopkg.in/launchdarkly/go-sdk-common.v2"
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
+config := ld.DefaultConfig
+
+// Send output to a file, and change minimum level to Warn (Debug and Info are disabled)
+file, _ := os.Create("app.log")
+config.Loggers.SetBaseLogger(log.New(file, "", log.LstdFlags))
+config.Loggers.SetMinLevel(ldlog.Warn)
+
+// Or, disable logging
+config.Loggers = ldlog.NewDisabledLoggers()
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-4.12">
+
+```go
+
+import (
+    "io/ioutil"
+    "log"
+    "os"
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+)
+
+config := ld.DefaultConfig
+
+// The SDK did not support log levels prior to 4.12.
+
+// Send output to a file
+file, _ := os.Create("app.log")
+config.Logger = log.New(file, "", log.LstdFlags)
+
+// Or, disable logging
+config.Logger = log.new(ioutil.Discard, "", 0)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Be aware of two considerations if you enable the `Debug` log level:
+
+1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
+2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+
+### Java
+
+The Java SDK uses [SLF4J](https://www.slf4j.org/). All loggers are namespaced under `com.launchdarkly`. For an example configuration, visit [hello-java](https://github.com/launchdarkly/hello-java).
+
+You can filter by logger name. Here are available logger names, starting with version 5.0:
+
+* `com.launchdarkly.sdk.server.LDClient`: This is for general messages that do not fall into any other categories.
+* `com.launchdarkly.sdk.server.LDClient.DataSource`: This is for messages related to how the SDK obtains feature flag data. Usually, this means messages about the streaming connection to LaunchDarkly, but if you use polling mode or file data instead, the SDK logs those messages under this name.
+* `com.launchdarkly.sdk.server.LDClient.DataStore`: This is for messages related to how feature flag data is stored. For example, database errors appear here if you are using a database integration.
+* `com.launchdarkly.sdk.server.LDClient.Evaluation`: This is for messages related to feature flag evaluation.
+* `com.launchdarkly.sdk.server.LDClient.Events`: This is for messages related to analytics event processing.
+
+In versions of the SDK before 5.0, logger names were not standardized and were sometimes the names of Java classes that are not part of the public API, but they consistently had a package prefix of either `com.launchdarkly.client.` or `com.launchdarkly.eventsource.`
+
+For an example SLF4J configuration, visit [hello-java](https://github.com/launchdarkly/hello-java).
+
+Be aware of two considerations when enabling the `DEBUG` log level:
+
+1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
+2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+
+### Node.js (server-side)
+
+By default, the SDK uses the [`winston`](https://www.npmjs.com/package/winston) package. All loggers are namespaced under `[LaunchDarkly]`.
+
+Be aware of two considerations when enabling the DEBUG log level:
+
+1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
+2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+
+You can pass a custom logger to the SDK with the configurable `logger` property. To learn more about the logger's requirements and methods, read [LDLogger](http://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldlogger.html).
+
+Winston's syntax for instantiating and configuring loggers changed between versions 2.x and 3.x. If the transitive dependency generates errors, declare a dependency on a specific Winston version.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Winston 2.x', value: 'js', },
+    { label: 'Winston 3.x', value: 'js2', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+logger = new winston.Logger({
+  level: "debug",
+  transports: [
+    new winston.transports.Console()
+  ]
+});
+ldClient = LaunchDarkly.init("YOUR_SDK_KEY", {"logger": logger});
+```
+
+</CodeTabItem>
+<CodeTabItem value="js2">
+
+```js
+logger = winston.createLogger({
+  level: 'debug',
+  transports: [
+    new winston.transports.Console()
+
+  ]
+});
+ldClient = LaunchDarkly.init("YOUR_SDK_KEY", {"logger": logger});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### PHP
+
+The PHP SDK uses [Monolog](https://github.com/Seldaek/monolog). All loggers are namespaced under `LaunchDarkly`.
+
+Be aware of two considerations when enabling the DEBUG log level:
+
+1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
+2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+
+You can pass a custom logger to the SDK by using the configurable `logger` property:
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', },
+  ]
+}>
+<CodeTabItem value="php">
+
+```php
+$client = new LaunchDarkly\LDClient("YOUR_SDK_KEY", array("logger" => new Logger("LaunchDarkly", [new ErrorLogHandler(0, Logger::DEBUG)])));
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Python
+
+The Python SDK uses Python's built-in [logging library](https://docs.python.org/2/library/logging.html). All loggers are namespaced under `ldclient.util`. For an example configuration, visit [hello-python](https://github.com/launchdarkly/hello-python).
+
+Be aware of two considerations when enabling the DEBUG log level:
+
+1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
+2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+
+### Ruby
+
+The Ruby SDK uses Ruby's built-in [Logger class](https://ruby-doc.org/stdlib-2.4.0/libdoc/logger/rdoc/Logger.html). All loggers are namespaced under `[LDClient]`.
+
+Be aware of two considerations when enabling the DEBUG log level:
+
+1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
+2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+
+You can pass a custom logger to the SDK by using the configurable `logger` property:
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', },
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+log = ::Logger.new($stdout)
+log.level = ::Logger::DEBUG
+config = LaunchDarkly::Config.new({logger: log})
+client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
+```
+
+</CodeTabItem>
+</CodeTabs>

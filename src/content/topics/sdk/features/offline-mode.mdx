@@ -1,0 +1,474 @@
+---
+path: '/sdk/features/offline-mode'
+title: 'Offline mode'
+description: 'This topic explains how to set an SDK to offline mode.'
+published: true
+---
+
+## Overview
+
+This topic explains how to set an SDK to offline mode.
+
+## Understanding offline mode
+
+Offline mode closes an SDK's connection to LaunchDarkly and switches to a feature flag's last known values.
+
+Details about each SDK's configuration are available in the SDK-specific sections below.
+
+* [Client-side SDKs](#client-side-sdks)
+* [Server-side SDKs](#server-side-sdks)
+
+## Client-side SDKs
+
+This feature is available in the following client-side SDKs:
+
+* [Android](#android)
+* [Flutter](#flutter)
+* [iOS](#ios)
+* [React Native](#react-native)
+* [Xamarin](#xamarin)
+
+### Android
+
+In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags. `offline` mode lets you do this easily.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDConfig ldConfig = new LDConfig.Builder()
+    .setMobileKey("YOUR_MOBILE_KEY")
+    .setOffline(true)
+    .build();
+
+LDClient ldClient = LDClient.init(this.getApplication(), ldConfig, user);
+
+// Or to switch an already-instantiated client to offline mode:
+ldClient.setOffline();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val ldConfig: LDConfig = LDConfig.Builder()
+    .setMobileKey("YOUR_MOBILE_KEY")
+    .setOffline(true)
+    .build()
+
+val ldClient: LDClient = LDClient.init(application, ldConfig, user);
+
+// Or to switch an already-instantiated client to offline mode:
+ldClient.setOffline()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<Callout intent="info">
+<CalloutTitle>Airplane/Flight Mode</CalloutTitle>
+<CalloutDescription>
+
+If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory. If there are no previously stored flag settings, then the fallback values will be used.
+
+</CalloutDescription>
+</Callout>
+
+### Flutter
+
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached values for your feature flags for future evaluations. `offline` mode lets you do this easily.
+
+<CodeTabs
+  defaultValue="dart"
+  values={[
+    { label: 'Dart', value: 'dart', },
+  ]
+}>
+<CodeTabItem value="dart">
+
+```dart
+LDConfig ldConfig = LDConfigBuilder('YOUR_MOBILE_KEY')
+    .setOffline(true)
+    .build();
+
+await LDClient.start(ldConfig, user);
+
+// Or to switch an already-instantiated client to offline mode:
+await LDClient.setOnline(false);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<Callout intent="info">
+<CalloutTitle>Airplane/Flight Mode</CalloutTitle>
+<CalloutDescription>
+
+If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory. If there are no previously stored flag settings, then the fallback values will be used.
+
+</CalloutDescription>
+</Callout>
+
+### iOS
+
+In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags. Offline mode lets you do this easily.
+
+The SDK protects itself from multiple rapid calls to `setOnline(true)` by enforcing an increasing delay (called _throttling_) each time `setOnline(true)` is called within a short time. The first time, the call proceeds normally. For each subsequent call, the delay is enforced, and if waiting, increased to a maximum delay. When the delay has elapsed, the `setOnline(true)` proceeds, assuming that the client app has not called `setOnline(false)` during the delay. Therefore, a call to `setOnline(true)` may not immediately result in the LDClient going online.
+
+Client app developers should consider this situation abnormal, and take steps to prevent the client app from making multiple rapid `setOnline(true)` calls. Calls to `setOnline(false)` are not throttled. Calls to `start(config: user: completion:)`, and setting the `config` or `user` can also call `setOnline(true)` under certain conditions. After the delay, the SDK resets and the client app can make a subsequent call to `setOnline(true)` without being throttled.
+
+Client apps can set a completion closure called when the setOnline call completes. For unthrottled `setOnline(true)` and all `setOnline(false)` calls, the SDK calls the closure immediately on completion of this method. For throttled `setOnline(true)` calls, the SDK calls the closure after the throttling delay at the completion of the `setOnline` method.
+
+The SDK does not go online if the client has not been started, or the `mobileKey` is empty. For macOS, the SDK does not go online in the background unless `enableBackgroundUpdates` is true.
+
+Use `isOnline` to get the online/offline state.
+
+<CodeTabs
+  defaultValue="swift"
+  values={[
+    { label: 'Swift', value: 'swift', },
+    { label: 'Objective-C', value: 'objc', },
+  ]
+}>
+<CodeTabItem value="swift">
+
+```swift
+LDClient.get()!.setOnline(false)
+LDClient.get()!.setOnline(true) {
+    // Client is online
+}
+let connectionStatus = LDClient.get()!.isOnline
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+[[LDClient get] setOnline:NO];
+[[LDClient get] setOnline:YES completion:^() {
+    // Client is online
+}];
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<Callout intent="info">
+  <CalloutTitle>Lack of network connectivity</CalloutTitle>
+<CalloutDescription>
+
+If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly uses the latest stored flag settings in memory. If there are no previously stored flag settings, then the default values are used.
+
+</CalloutDescription>
+</Callout>
+
+### React Native
+
+In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags. Offline mode lets you do this easily.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+let offlineResult = client.setOffline(); //true or false
+let offlineStatus = client.isOffline(); //true or false
+let onlineResult = client.setOnline(); //true or false
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<Callout intent="info">
+  <CalloutTitle>Lack of network connectivity</CalloutTitle>
+<CalloutDescription>
+
+If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory. If there are no previously stored flag settings, then the fallback values will be used.
+
+</CalloutDescription>
+</Callout>
+
+### Xamarin
+
+The default (fallback) values are defined in your code. The default value only returns if an error is encountered or if LaunchDarkly is unreachable.
+
+In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. You can do this by setting offline mode in the client's Config. When the client is in offline mode, no network requests will be made, so it is suitable for unit-testing.
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+Configuration config = Configuration.Builder("SDK_KEY")
+    .Offline(true)
+    .Build();
+LdClient client = LdClient.Init(config);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Server-side SDKs
+
+This feature is available in the following server-side SDKs:
+
+* [.NET](#net)
+* [C/C++ (server-side)](#cc-server-side)
+* [Erlang](#erlang)
+* [Go](#go)
+* [Haskell](#haskell)
+* [Java](#java)
+* [Node.js (server-side)](#nodejs-server-side)
+* [PHP](#php)
+* [Python](#python)
+* [Ruby](#ruby)
+
+### .NET
+
+The default (fallback) values are defined in your code. The default value only returns if an error is encountered or if LaunchDarkly is unreachable.
+
+In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. You can do this by setting offline mode in the client's Config. When the client is in offline mode, no network requests will be made, so it is suitable for unit-testing.
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: '.NET', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+Configuration config = Configuration.Builder("SDK_KEY")
+    .Offline(true)
+    .Build();
+LdClient client = new LdClient(config);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### C/C++ (server-side)
+
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise.
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'Example', value: 'c', },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+LDConfigSetOffline(config, true);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Erlang
+
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to your feature flags' default values.
+
+For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when the software runs on-premises.
+
+You can do this by setting offline mode in the config map with the `offline` key.
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', },
+  ]
+}>
+<CodeTabItem value="erlang">
+
+```
+ldclient:start_instance("YOUR_SDK_KEY", #{offline => true})
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Go
+
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. You can do this by setting `Offline` mode in the client's [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config).
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.17.x and earlier', value: 'go-pre-5.0', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+var config ld.Config
+config.Offline = true
+
+ldClient, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
+ldClient.BoolVariation("any.feature.flag", user, false) // will always return the default value (false)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
+
+```go
+config := ld.DefaultConfig
+config.Offline = true
+
+ldClient, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
+ldClient.BoolVariation("any.feature.flag", user, false) // will always return the default value (false)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Haskell
+
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. You can do this by setting offline mode in the config object with `configSetOffline`.
+
+For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise.
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', },
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+config' = configSetOffline True config
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Java
+
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. You can do this by setting [`offline`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.Builder.html#offline-boolean-) mode in the client's `LDConfig`.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDConfig config = new LDConfig.Builder()
+  .offline(true)
+  .build();
+LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
+ldClient.boolVariation("any.feature.flag", user, false)
+
+// This call to ldClient.boolVariation always
+// returns the default value (false)
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Node.js (server-side)
+
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. You can do this by setting `offline` mode in the client's `config` object.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var config = {"offline": true};
+ldClient = LaunchDarkly.init("YOUR_SDK_KEY", config);
+ldClient.variation("any.feature.flag", user, false, cb) // cb will always be invoked with the default value (false)
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Note that the default value you set in the variation method will be returned in offline mode, this does not refer to the default rule set in your flag configuration.
+
+### PHP
+
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. `setOffline` lets you do this easily.
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', },
+  ]
+}>
+<CodeTabItem value="php">
+
+```php
+$client = new LaunchDarkly\LDClient("YOUR_SDK_KEY", array("offline" => true));
+$client->variation("any.feature.flag", user, false); // will always return the default value (false)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Python
+
+In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. You can do this by setting `offline` mode in the client's `Config`.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+# Initialization:
+ldclient.set_config(Config("YOUR_SDK_KEY", offline=True))
+ldclient.get().variation("any.feature.flag", user, False) # will always return the default value (false)
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Ruby
+
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. Offline mode lets you do this easily.
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', },
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+config = LaunchDarkly::Config.new({offline: true})
+ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
+ld_client.variation("any.feature.flag", user, false) # will always return the default value (false)
+```
+
+</CodeTabItem>
+</CodeTabs>

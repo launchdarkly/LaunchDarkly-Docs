@@ -684,6 +684,7 @@
       {
         "label": "SDK concepts",
         "path": "/sdk/concepts",
+        "svg": "atom",
         "items": [
           {
             "label": "Getting started",
@@ -696,10 +697,6 @@
           {
             "label": "Evaluation reasons",
             "path": "/sdk/concepts/evaluation-reasons"
-          },
-          {
-            "label": "Reading flags from a file",
-            "path": "/sdk/concepts/flags-from-files"
           },
           {
             "label": "Using a persistent feature store",
@@ -738,8 +735,84 @@
         ]
       },
       {
+        "label": "SDK features",
+        "path": "/sdk/features",
+        "svg": "life-cycle",
+        "items": [
+          {
+            "label": "Bootstrapping",
+            "path": "/sdk/features/bootstrapping"
+          },
+          {
+            "label": "Configuration",
+            "path": "/sdk/features/config"
+          },
+          {
+            "label": "Evaluating flag variations",
+            "path": "/sdk/features/variation"
+          },
+          {
+            "label": "Flag evaluation reasons",
+            "path": "/sdk/features/variationdetail"
+          },
+          {
+            "label": "Flushing SDK events",
+            "path": "/sdk/features/flush"
+          },
+          {
+            "label": "Getting all flags",
+            "path": "/sdk/features/all-flags"
+          },
+          {
+            "label": "Identifying and changing users",
+            "path": "/sdk/features/identify"
+          },
+          {
+            "label": "Logging",
+            "path": "/sdk/features/logging"
+          },
+          {
+            "label": "Monitoring SDK status",
+            "path": "/sdk/features/monitoring"
+          },
+          {
+            "label": "Offline mode",
+            "path": "/sdk/features/offline-mode"
+          },
+          {
+            "label": "Persistent feature store",
+            "path": "/sdk/features/database-integrations"
+          },
+          {
+            "label": "Reading flags from a file",
+            "path": "/sdk/features/flags-from-files"
+          },
+          {
+            "label": "Secure mode",
+            "path": "/sdk/features/secure-mode"
+          },
+          {
+            "label": "Sending custom events",
+            "path": "/sdk/features/track"
+          },
+          {
+            "label": "Shutting down an SDK",
+            "path": "/sdk/features/shutdown"
+          },
+          {
+            "label": "Subscribing to flag changes",
+            "path": "/sdk/features/flag-changes"
+          },
+          {
+            "label": "User configuration",
+            "path": "/sdk/features/user-config"
+          }
+        ]
+      },
+      {
         "label": "Client-side SDKs",
         "path": "/sdk/client-side",
+        "svg": "toggles-multiple-solid",
         "items": [
           {
             "label": "Android SDK reference",
@@ -836,6 +909,7 @@
       {
         "label": "Server-side SDKs",
         "path": "/sdk/server-side",
+        "svg": "database-export",
         "items": [
           {
             "label": ".NET SDK reference",

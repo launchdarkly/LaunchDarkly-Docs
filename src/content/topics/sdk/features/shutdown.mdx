@@ -1,0 +1,253 @@
+---
+path: '/sdk/features/shutdown'
+title: 'Shutting down an SDK'
+description: 'This topic explains how to safely shut down different LaunchDarkly SDKs.'
+published: true
+---
+
+## Overview
+
+This topic explains how to safely shut down different LaunchDarkly SDKs. This feature is available for both client-side and server-side SDKs.
+
+## Shutting down an SDK
+
+LaunchDarkly SDKs use language-specific methods to shut down their instances safely. In most applications, you do not have to manually shut down an SDK.
+
+Details about each SDK's configuration are available in the SDK-specific sections below.
+
+* [Client-side SDKs](#client-side-sdks)
+* [Server-side SDKs](#server-side-sdks)
+
+## Client-side SDKs
+
+This feature is available in the following client-side SDKs:
+
+* [C/C++ (client-side)](#cc-client-side)
+* [Xamarin](#xamarin)
+
+### C/C++ (client-side)
+
+To fully uninitialize the C/C++ SDK resources, you must use `close`. The operation blocks until all resources are free. It is not safe to use any API methods after this process is initiated.
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'C', value: 'c' },
+    { label: 'C++', value: 'cpp' }
+  ]
+}>
+
+<CodeTabItem value="c">
+
+```c
+LDClientClose(client);
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="cpp">
+
+```cpp
+client->close();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Xamarin
+
+`Dispose` safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `dispose`.
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+ldClient.Dispose();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Server-side SDKs
+
+This feature is available in the following server-side SDKs:
+
+* [.NET](#net)
+* [C/C++ (server-side)](#cc-server-side)
+* [Erlang](#erlang)
+* [Haskell](#haskell)
+* [Java](#java)
+* [Node.js (server-side)](#nodejs-server-side)
+* [Python](#python)
+* [Ruby](#ruby)
+
+### .NET
+
+[`Dispose`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_Dispose.htm) safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `dispose`.
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+ldClient.Dispose();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### C/C++ (server-side)
+
+`LDClientClose` uninitializes the resources the C/C++ SDK uses. The operation blocks until all resources are free. It is not safe to use any API methods after this process is initiated.
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'Example', value: 'c', },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+LDClientClose(client);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Erlang
+
+`stop_instance()`, `stop_instance(Tag)`, and `stop_all_instance()` all safely shut down client instances and releases the resources associated with them.
+
+In most long-running applications, you will not have to call these functions. You can use them to ensure all events have been flushed synchronously before closing your application.
+
+Do not evaluate flags after any of these functions have been initiated.
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', },
+  ]
+}>
+<CodeTabItem value="erlang">
+
+```
+ldclient:stop_all_instances()
+
+% Stops the default instance
+ldclient:stop_instance()
+
+% Stops a named instance
+ldclient:stop_instance(my_instance)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Haskell
+
+`close` safely shuts down the client instance and releases all resources associated with the client.
+
+In most long-running applications, you do not have to call `close`, but you can use it to ensure all events have been flushed synchronously before closing your application.
+
+You should not evaluate flags after `close` has been initiated.
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', },
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+close client
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Java
+
+[`Close`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#close--) safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `close`.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+ldClient.close()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Node.js (server-side)
+
+`Close` safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `close`.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.close();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Python
+
+`Close` safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `close`.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+ldclient.get().close()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Ruby
+
+`Close` safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `close`.
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', },
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+ld_client.close
+```
+
+</CodeTabItem>
+</CodeTabs>

@@ -13,12 +13,10 @@ This documentation is for the latest version of the LaunchDarkly SDK for iOS.
 
 SDK versions 4.0.0 and later are written in Swift. These versions are compatible with applications written in either Swift or Objective-C. See inline code samples throughout the documentation for use with either language.
 
-[Earlier versions](/sdk/client-side/ios/legacy) of this SDK were written in Objective-C.
-
 </CalloutDescription>
 </Callout>
 
-This reference guide documents all of the methods available in our iOS SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, view the source on the [iOS SDK GitHub repository](https://github.com/launchdarkly/ios-client-sdk/tree/v5) or the generated [API docs](https://launchdarkly.github.io/ios-client-sdk/). Additionally you can clone and run sample applications using this SDK with [iOS](https://github.com/launchdarkly/hello-ios-swift), [macOS](https://github.com/launchdarkly/hello-macos), and [tvOS](https://github.com/launchdarkly/hello-tvos).
+This reference guide documents all of the methods available in the iOS SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, view the source on the [iOS SDK GitHub repository](https://github.com/launchdarkly/ios-client-sdk/tree/v5) or the generated [API docs](https://launchdarkly.github.io/ios-client-sdk/). Additionally you can clone and run sample applications using this SDK with [iOS](https://github.com/launchdarkly/hello-ios-swift), [macOS](https://github.com/launchdarkly/hello-macos), and [tvOS](https://github.com/launchdarkly/hello-tvos).
 
 ## Getting started
 
@@ -32,7 +30,7 @@ The first step is to install the LaunchDarkly SDK as a dependency in your applic
 ---
 <br/>
 
-If you're using the [Swift Package Manager](https://swift.org/package-manager/), you can install the SDK through Xcode or include it as a dependency in your `Package.swift` file.
+If you use the [Swift Package Manager](https://swift.org/package-manager/), you can install the SDK through Xcode or include it as a dependency in your `Package.swift` file.
 
 To add a package dependency to your Xcode project, select `File > Swift Packages > Add Package Dependency` and enter the [iOS SDK repository URL](https://github.com/launchdarkly/ios-client-sdk) clone URL, then select your desired version constraints.
 
@@ -66,7 +64,7 @@ Including the SDK as a dependency in a `Package.swift` file would look like this
 ---
 <br/>
 
-If you're using [CocoaPods](https://cocoapods.org/), you can install the SDK by adding the following to your `Podfile`. Refer to the [SDK releases page](https://github.com/launchdarkly/ios-client-sdk/releases) to identify the latest version.
+If you use [CocoaPods](https://cocoapods.org/), you can install the SDK by adding the following to your `Podfile`. Refer to the [SDK releases page](https://github.com/launchdarkly/ios-client-sdk/releases) to identify the latest version.
 
 <CodeTabs
   defaultValue="ruby"
@@ -90,7 +88,7 @@ end
 ---
 <br/>
 
-If you're using [Carthage](https://github.com/Carthage/Carthage), you can install the SDK by specifying it in your `Cartfile`. Again, refer to the [SDK releases page](https://github.com/launchdarkly/ios-client-sdk/releases) to identify the latest version.
+If you use [Carthage](https://github.com/Carthage/Carthage), you can install the SDK by specifying it in your `Cartfile`. Again, refer to the [SDK releases page](https://github.com/launchdarkly/ios-client-sdk/releases) to identify the latest version.
 
 <CodeTabs
   defaultValue="swift"
@@ -107,7 +105,7 @@ github "launchdarkly/ios-client" ~> 5.4
 </CodeTabItem>
 </CodeTabs>
 
-#### Manually
+#### Installing the SDK manually
 ---
 <br/>
 
@@ -146,7 +144,7 @@ import LaunchDarkly
 </CodeTabItem>
 </CodeTabs>
 
-#### Initializing
+#### Initializing the SDK
 ---
 <br/>
 
@@ -307,511 +305,6 @@ ldClient.close()
 </CodeTabItem>
 </CodeTabs>
 
-## Client Configuration Options
-
-You can also pass other custom parameters to the client with the configuration object:
-
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
-
-```swift
-var ldConfig = LDConfig(mobileKey: "YOUR_MOBILE_KEY")
-ldConfig.connectionTimeout = 10.0
-ldConfig.eventFlushInterval = 30.0
-```
-
-</CodeTabItem>
-<CodeTabItem value="objc">
-
-```objectivec
-LDConfig *ldConfig = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
-ldConfig.connectionTimeout = 10.0;
-ldConfig.eventFlushInterval = 30.0;
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Here, we've customized the client connection timeout and event flush interval parameters. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ios-client-sdk/Structs/LDConfig.html).
-
-## User Configuration Options
-
-You can also pass optional properties to the user object:
-
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
-
-```swift
-var user = LDUser(key: "YOUR_USER_KEY")
-user.name = "Human Person"
-user.email = "human@example.com"
-
-```
-
-</CodeTabItem>
-<CodeTabItem value="objc">
-
-```objectivec
-LDUser *user = [[LDUser alloc] initWithKey:@"YOUR_USER_KEY"];
-user.name = @"Human Person";
-user.email = @"human@example.com";
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Here, we've added the user's full name and email address.
-
-The `operatingSystem` and `device` attributes are automatically determined by the SDK and inserted into the user object. To learn more about the specific user properties that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ios-client-sdk/Structs/LDUser.html).
-
-## Private User Attributes
-
-You can optionally configure the iOS SDK to treat some or all user attributes as private user attributes. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
-
-In the iOS SDK there are two ways to define private attributes for the entire LaunchDarkly client:
-
-- When creating the LDConfig object, you can set the allUserAttributesPrivate attribute to true.
-- When creating the LDConfig object, you can set the privateUserAttributes attribute to a list of user attribute names, such as ["name", "email"]. If any user has a custom or built-in attribute named in this list, it is removed before the user is sent to LaunchDarkly.
-
-You can also mark attributes as private on a particular `LDUser` instance, for example:
-
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
-
-```swift
-var user = LDUser(key: "USER_KEY", name: "USER_NAME")
-user.privateAttributes = ["name"]
-```
-
-</CodeTabItem>
-<CodeTabItem value="objc">
-
-```objectivec
-LDUser *user = [[LDUser alloc] initWithKey:@"USER_KEY" name:@"USER_NAME"];
-user.privateAttributes = @[@"name"];
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Anonymous Users
-
-You can also declare a `LDUser` to be an anonymous, not logged-in user:
-
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
-
-```swift
-var user = LDUser(key: "USER_KEY")
-user.isAnonymous = true
-
-// OR have the SDK use a device persistent key, this sets `isAnonymous` by default.
-let user = LDUser()
-```
-
-</CodeTabItem>
-<CodeTabItem value="objc">
-
-```objectivec
-LDUser *user = [[LDUser alloc] initWithKey:@"USER_KEY"];
-user.isAnonymous = YES;
-
-// OR have the SDK use a device persistent key, this sets `isAnonymous` by default.
-LDUser *user = [LDUser new];
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-All users must have a key. If you do not provide a key, the SDK automatically uses [`identifierForVendor`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) if available. If not, the SDK creates and persistently stores a UUID in the device's storage. The SDK uses the stored UUID as the key for any users created without one. If you are providing the key, Session IDs or UUIDs work best for this.
-
-We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
-
-Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. This keeps anonymous users from polluting your Users page.
-
-You can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. If you use the same user key for every anonymous user, you also can't use percentage rollouts or Experimentation with anonymous users.
-
-## Aliased Users
-
-There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person would be identified by two different users as denoted by different user keys.
-
-The SDK can associate these two LaunchDarkly users by sending an alias event.
-
-The SDK automatically sends an alias event when `identify` is called with a known user if the previous user was anonymous. You can disable this behavior if necessary. To learn more, read [Client configuration options](#client-configuration-options).
-
-You can manually tell the SDK to send an alias event with the `alias` function.
-
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
-
-```swift
-LDClient.get()!.alias(context: newUser, previousContext: previousUser)
-```
-
-</CodeTabItem>
-<CodeTabItem value="objc">
-
-```objectivec
-[[LDClient get] alias:newUser previousContext:previousUser];
-```
-</CodeTabItem>
-</CodeTabs>
-
-## Variation
-
-The variation method determines whether a flag is enabled or not for a specific user. There is a single variation method for all types using Swift, however Objective-C requires type specific methods:
-
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
-
-```swift
-let boolFlagValue = LDClient.get()!.variation(forKey: "bool-flag-key", defaultValue: false)
-let dictionaryFlagValue = LDClient.get()!.variation(forKey: "dictionary-flag-key", defaultValue: ["a": 1, "b": 2] as [String: Any])
-```
-
-</CodeTabItem>
-<CodeTabItem value="objc">
-
-```objectivec
-BOOL boolFlagValue = [[LDClient get] boolVariationForKey:@"bool-flag-key" defaultValue:NO];
-NSDictionary* dictionaryFlagValue = [[LDClient get] dictionaryVariationForKey:@"dictionary-flag-key" defaultValue:@{@"a": @1, @"b": @2}];
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-The `variation` method returns the variation for the given feature flag. If the flag does not exist, cannot be cast to the correct return type, or the LDClient is not started, the method returns the default value. Use this method when the default value is a non-Optional type. See `variation` with the Optional return value when the default value can be nil. A *variation* is a specific flag value. For example a boolean feature flag has 2 variations, *true* and *false*. You can create feature flags with more than 2 variations using other feature flag types. See `LDFlagValue` for the available types. The LDClient must be started in order to return feature flag values. If the LDClient is not started, it always returns the default value. The LDClient must be online to keep the feature flag values up-to-date.
-
-When online, the LDClient has two modes for maintaining feature flag values: *streaming* and *polling*. The client app requests the mode by setting the `config.streamingMode`, see `LDConfig` for details.
-
-In streaming mode, the LDClient opens a long-running connection to LaunchDarkly's streaming server (called _clientstream_). When a flag value changes on the server, the clientstream notifies the SDK to update the value. Streaming mode is not available on watchOS. On iOS and tvOS, the client app must be running in the foreground to connect to clientstream. On macOS the client app may run in either foreground or background to connect to clientstream. If streaming mode is not available, the SDK reverts to polling mode.
-
-In polling mode, the LDClient requests feature flags from LaunchDarkly's app server at regular intervals defined in the LDConfig. When a flag value changes on the server, the LDClient learns of the change the next time the SDK requests feature flags.
-
-When offline, LDClient closes the clientstream connection and no longer requests feature flags. The LDClient returns feature flag values (assuming the LDClient was started), which may not match the values set on the LaunchDarkly server.
-
-A call to `variation` records events reported later. Recorded events allow clients to analyze usage and assist in debugging issues.
-
-<Callout intent="info">
-  <CalloutTitle>Handling flag values on initial application launch</CalloutTitle>
-<CalloutDescription>
-
-When LDClient is initialized for the first time at app launch, users receive feature flag default values until an initial connection to LaunchDarkly is completed for the first time. Take a look at the section above on various ways to initialize the client.
-
-</CalloutDescription>
-</Callout>
-
-## VariationDetail
-
-The `variationDetail` methods work the same as `variation`, but also provide additional `reason` information about how a flag value was calculated (for instance, if the user matched a specific rule). You can examine the `reason` data programmatically; you can also view it with Data Export, if you are capturing detailed analytics events for this flag.
-
-To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
-
-## All Flags
-
-<Callout intent="alert">
-  <CalloutTitle>Creating Users</CalloutTitle>
-<CalloutDescription>
-
-Unlike `variation` and `identify` calls, `allFlags` does not send events to LaunchDarkly.
-
-</CalloutDescription>
-</Callout>
-
-Returns a dictionary with the flag keys and their values. If the LDClient is not started, returns nil. The dictionary does not contain feature flags from the server with null values. LDClient does not provide any source or change information, only flag keys and flag values. The client app should convert the feature flag value into the desired type.
-
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
-
-```swift
-let allFlags = LDClient.get()!.allFlags
-```
-
-</CodeTabItem>
-<CodeTabItem value="objc">
-
-```objectivec
-NSDictionary* allFlags = [LDClient get].allFlags;
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Tracking Events
-
-Adds a custom event to the LDClient event store. A client app can set a tracking event to allow client customized data analysis. Once an app has called `track`, the app cannot remove the event from the event store. LDClient periodically transmits events to LaunchDarkly based on the frequency set in `LDConfig.eventFlushInterval`. The LDClient must be started and online.
-
-Once the SDK's event store is full, the SDK discards new events until the event store is cleared when reporting events to LaunchDarkly. Configure the size of the event store using `LDConfig.eventCapacity`. The first parameter `key` is the key for the event. The SDK does nothing with the key, which can be any string the client app sends. The second parameter `data` is the data for the event and is optional. The SDK does nothing with the data, which can be any valid JSON item the client app sends. The method throws an `LDInvalidArgumentError` if the data is not a valid JSON item.
-
-<Callout intent="info">
-  <CalloutTitle>Experimentation metric values</CalloutTitle>
-<CalloutDescription>
-This has been available since v4.3.0.</CalloutDescription>
-</Callout>
-
-You can now optionally add a `metricValue` parameter of type `Double` to `track` in Swift or as a required paramter to the overloaded `track` method in Objective-C.
-
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
-
-```swift
-try {
-    let data = ["some-custom-key": "some-custom-value", "another-custom-key": 7] as [String: Any]
-    try LDClient.get()!.track(key: "MY_TRACK_EVENT_NAME", data: data)
-} catch is LDInvalidArgumentError {
-    // Do something with the error
-} catch {}
-
-```
-
-</CodeTabItem>
-<CodeTabItem value="objc">
-
-```objectivec
-NSError* err = nil;
-[[LDClient get] trackWithKey:@"MY_TRACK_EVENT_NAME" data:@{@"some-custom-key": @"some-custom-value", @"another-custom-key": @7} error: &err];
-if (err != nil) {
-    // Do something with the error
-}
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Offline Mode
-
-In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags. Offline mode lets you do this easily. The SDK protects itself from multiple rapid calls to `setOnline(true)` by enforcing an increasing delay (called _throttling_) each time `setOnline(true)` is called within a short time. The first time, the call proceeds normally. For each subsequent call the delay is enforced, and if waiting, increased to a maximum delay. When the delay has elapsed, the `setOnline(true)` proceeds, assuming that the client app has not called `setOnline(false)` during the delay. Therefore a call to `setOnline(true)` may not immediately result in the LDClient going online. Client app developers should consider this situation abnormal, and take steps to prevent the client app from making multiple rapid `setOnline(true)` calls. Calls to `setOnline(false)` are not throttled. Note that calls to `start(config: user: completion:)`, and setting the `config` or `user` can also call `setOnline(true)` under certain conditions. After the delay, the SDK resets and the client app can make a subsequent call to `setOnline(true)` without being throttled.
-
-Client apps can set a completion closure called when the setOnline call completes. For unthrottled `setOnline(true)` and all `setOnline(false)` calls, the SDK calls the closure immediately on completion of this method. For throttled `setOnline(true)` calls, the SDK calls the closure after the throttling delay at the completion of the `setOnline` method.
-
-The SDK does not go online if the client has not been started, or the `mobileKey` is empty. For macOS, the SDK does not go online in the background unless `enableBackgroundUpdates` is true.
-
-Use `isOnline` to get the online/offline state.
-
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
-
-```swift
-LDClient.get()!.setOnline(false)
-LDClient.get()!.setOnline(true) {
-    // Client is online
-}
-let connectionStatus = LDClient.get()!.isOnline
-```
-
-</CodeTabItem>
-<CodeTabItem value="objc">
-
-```objectivec
-[[LDClient get] setOnline:NO];
-[[LDClient get] setOnline:YES completion:^() {
-    // Client is online
-}];
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-<Callout intent="info">
-  <CalloutTitle>Lack of network connectivity</CalloutTitle>
-<CalloutDescription>
-
-If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly uses the latest stored flag settings in memory. If there are no previously stored flag settings, then the default values are used.
-
-</CalloutDescription>
-</Callout>
-
-## Reporting Events
-
-Internally, the LaunchDarkly SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a simulator), you may want to manually call `flush` to process events immediately.
-
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
-
-```swift
-LDClient.get()!.flush()
-
-```
-
-</CodeTabItem>
-<CodeTabItem value="objc">
-
-```objectivec
-[[LDClient get] flush];
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Changing the user context
-
-If your app is used by multiple users on a single device, you may want to change users and have separate flag settings for each user. To achieve this, the SDK stores the last 5 user contexts on a single device, with support for switching between different user contexts. When a new user is set, the LDClient goes offline and sets the new user. If the client was online when the new user was set, it goes online again, subject to a throttling delay if in force. To change both the `config` and `user`, set the LDClient offline, set both properties, then set the LDClient online. Setting `user` is now deprecated, please use the `identify` method instead. This method allows you to set a completion and you no longer need to manually set LDClient online. Client apps should follow the [Apple Privacy Policy](https://apple.com/legal/privacy) when collecting user information. If the client app does not create a LDUser, LDClient creates an anonymous default user, which can affect the feature flags delivered to the LDClient.
-
-You can use the `identify` method to switch user contexts:
-
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
-
-```swift
-let newUser = LDUser(key: "NEW_USER_KEY")
-LDClient.get()!.identify(user: newUser)
-
-// identify can also be called with a completion
-LDClient.get()!.identify(user: newUser) {
-    // Flags have been retrieved for the new user
-}
-```
-
-</CodeTabItem>
-<CodeTabItem value="objc">
-
-```objectivec
-LDUser *newUser = [[LDUser alloc] initWithKey:@"NEW_USER_KEY"];
-[[LDClient get] identifyWithUser:newUser];
-
-// identify can also be called with a completion
-[[LDClient get] identifyWithUser:newUser completion:^() {
-    // Flags have been retrieved for the new user
-}];
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Real-time updates
-
-LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream. When a flag is modified from the LaunchDarkly dashboard, the flag values for the current user updates almost immediately.
-
-To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is listened to by the SDK. Whenever an event is performed on the dashboard, the SDK is notified of the updated flag settings in real-time.
-
-The SDK provides methods for listening to a single flag, all the flags, or a lack of change to any flags. `observeFlagsUnchanged` is called when the SDK successfully receives an update or comes back online but no flags have changed. If the value of the flag changes, the method executes the handler, passing in the `changedFlag` containing the old and new flag values, and old and new flag value source. The SDK retains only weak references to the owner, which allows the client app to freely destroy owners without issues. Client apps should use a capture list specifying `[weak self]` inside handlers to avoid retain cycles causing a memory leak. The SDK executes handlers on the main thread. `LDChangedFlag` does not know the type of `oldValue` or `newValue`. The client app should cast the value into the type needed.
-<Callout intent="alert">
-  <CalloutTitle>LDObserverOwner Lifecycle</CalloutTitle>
-  <CalloutDescription>
-
-The lifetime of the `LDObserverOwner` must extend for at least as long as you wish to receive flag change notifications.
-
-  </CalloutDescription>
-</Callout>
-
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
-
-```swift
-let flagKey = "MY_OBSERVE_FLAG_KEY"
-let flagObserverOwner = flagKey as LDObserverOwner
-
-let ldClient = LDClient.get()!
-
-ldClient.observe(keys: [flagKey], owner: flagObserverOwner, handler: { changedFlags in
-    if changedFlags[flagKey] != nil {
-        // Your code here
-    }
-})
-
-ldClient.stopObserving(owner: flagObserverOwner)
-
-ldClient.observeFlagsUnchanged(owner: self) {
-    ldClient.stopObserving(owner: self as LDObserverOwner)
-}
-
-ldClient.observeAll(owner: self) {_ in
-    ldClient.stopObserving(owner: self as LDObserverOwner)
-}
-```
-
-</CodeTabItem>
-<CodeTabItem value="objc">
-
-```objectivec
-__weak typeof(self) weakSelf = self;
-[[LDClient ldClient] observeKeys:self.flagKeys owner:self handler:^(NSDictionary<NSString *,LDChangedFlag *> * _Nonnull changedFlags) {
-    __strong typeof(weakSelf) strongSelf = weakSelf;
-    for (NSString* flagKey in changedFlags.allKeys) {
-        //Your code here
-    }
-}];
-[[LDClient ldClient] observeFlagsUnchangedWithOwner:self handler:^{
-    __strong typeof(weakSelf) strongSelf = weakSelf;
-    //Your code here
-}];
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## Background fetch
 
 When the app is backgrounded, the SDK does not receive real-time events. However, MacOS supports background fetch which updates flag values opportunistically, according to iOS standard defaults. iOS does not support background fetch.
@@ -838,104 +331,6 @@ ldConfig.backgroundFlagPollingInterval = 3600
 ```objectivec
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
 config.backgroundFlagPollingInterval = 3600
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Monitoring SDK Status
-
-The iOS SDK exposes some of its internal status through the Connection Status API to allow your application to monitor the SDK's status. This is provided primarily as a mechanism for the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
-
-The SDK has four connectivity states dependent on its configuration, application foreground state, network connectivity, as well as calls explicitly setting the client offline or online. A summary of these states is given below.
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Connection Mode</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>streaming</code>
-      </TableCell>
-      <TableCell>The SDK has an active streaming connection.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>polling</code>
-      </TableCell>
-      <TableCell>The SDK has an active polling connection.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>offline</code>
-      </TableCell>
-      <TableCell>The SDK is set offline or has no network connection.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>establishingStreamingConnection</code>
-      </TableCell>
-      <TableCell>The SDK is attempting to connect to LaunchDarkly by streaming.</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-The SDK also internally stores a timestamp of the most recent successful and failed connections to LaunchDarkly, as well as information related to the most recent failed connection. `lastKnownFlagValidity` is nil if either no connection has ever been successfully made or if the SDK has an active streaming connection. It has a value if it is in polling mode and at least one poll has completed successfully, or 2) if in streaming mode whenever the streaming connection closes. The `LDClient.shared` method `getConnectionInformation()` returns a structure allowing retrieval of these fields.
-
-The `ConnectionInformation` class can return four different values for `lastFailureReason`. A summary of these values is given below.
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>lastFailureReason value</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>none</code>
-      </TableCell>
-      <TableCell>This returns when no error has been recorded.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>unknownError</code>
-      </TableCell>
-      <TableCell>This returns when there is an internal error in the stream request.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>unauthorized</code>
-      </TableCell>
-      <TableCell>This returns when an incorrect mobile key is provided.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>httpError</code>
-      </TableCell>
-      <TableCell>This returns when an error with an HTTP error code is present.</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-You can listen to changes in `ConnectionInformation.ConnectionMode` in a similar manner to flag observers. Here is an example of the new API.
-
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-  ]
-}>
-<CodeTabItem value="swift">
-
-```swift
-// Get current connection information
-let connectionInformation = LDClient.get()!.getConnectionInformation()
-// Setting a connection mode update observer
-LDClient.get()!.observeCurrentConnectionMode(owner: self) { [weak self] connectionMode in
-    // do something after ConnectionMode was updated.
-}
 ```
 
 </CodeTabItem>
@@ -1043,3 +438,19 @@ Track calls, listeners, and flag evaluation are all tied to the client instance 
 ## Data collection
 
 To learn more about data collection within this SDK and implications on submissions to the Apple App Store, read [Apple App Store data collection policy](/sdk/concepts/apple-app-store).
+
+## Supported features
+
+This SDK supports the following features:
+
+* [Getting all flags](/sdk/features/all-flags#ios)
+* [Client configuration](/sdk/features/config#ios)
+* [Evaluating flag variations](/sdk/features/variation#ios)
+* [Flag evaluation reasons](/sdk/features/variationdetail#ios)
+* [Flushing SDK events](/sdk/features/flush#ios)
+* [Identify](/sdk/features/identify#ios)
+* [Monitoring SDK status](/sdk/features/monitoring#ios)
+* [Offline mode](/sdk/features/offline-mode#ios)
+* [Subscribing to flag changes](/sdk/features/flag-changes#ios)
+* [Sending custom events](/sdk/features/track#ios)
+* [User configuration](/sdk/features/user-config#ios)

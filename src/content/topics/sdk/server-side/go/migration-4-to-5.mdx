@@ -9,7 +9,7 @@ published: true
 
 This topic explains how to adapt code that currently uses a 4.x version of the [Go server-side SDK](/sdk/server-side/go) to use version 5.0 or later.
 
-Before you migrate to 5.0, update to the latest 4.x version. Some of the changes that are mandatory in 5.0 were originally added in a 4.x version and made optional. 
+Before you migrate to 5.0, update to the latest 4.x version. Some of the changes that are mandatory in 5.0 were originally added in a 4.x version and made optional.
 
 If you update to the latest 4.x version, deprecation warnings appear in areas of your code that need to be changed for 5.0. You can update them at your own pace while still using 4.x, rather than migrating everything simultaneously.
 
@@ -17,15 +17,15 @@ To learn more about updating to the latest 4.x version, visit the [SDK's GitHub 
 
 ## Identifying supported Go versions for the 5.0 SDK
 
-The minimum Go version for LaunchDarkly SDK 5.0 is 1.14. 
+The minimum Go version for LaunchDarkly SDK 5.0 is 1.14.
 
-LaunchDarkly no longer supports lower Go versions, as stated in our [End of Life policy](https://launchdarkly.com/policies/end-of-life-policy/).
+LaunchDarkly no longer supports lower Go versions, as stated in the [End of Life policy](https://launchdarkly.com/policies/end-of-life-policy/).
 
 ## Using Go modules
 
 [Modules](https://github.com/golang/go/wiki/Modules) are supported in all modern versions of Go, and are now the standard way to write Go code. However, not all Go users use Go modules.
 
-To support as many users as possible, we designed the 5.x SDK for use with or without modules. It has a `go.mod` file so it will be recognized as a module, but if you use an older dependency management system like `dep` or `govendor`, the 5.x SDK will still work. 
+To support as many users as possible, we designed the 5.x SDK for use with or without modules. It has a `go.mod` file so it will be recognized as a module, but if you use an older dependency management system like `dep` or `govendor`, the 5.x SDK will still work.
 
 This is why we have continued to use the [`gopkg.in`](https://labix.org/gopkg.in) redirection service for the SDK's import paths. Go modules with major versions greater than 1 must normally have an import path suffix like `/v5`, which would not work with `dep` and `govendor`. Paths that use `gopkg.in` are exempt from that rule.
 
@@ -42,7 +42,7 @@ The package structure of the SDK has changed. Some packages have been added in t
 
 There were two reasons for this. First, the main package `go-server-sdk.v4` was cluttered with many things that are not necessary for normal usage of the SDK. Moving things out of this package produced a clearer basic API.
 
-Second, there are some internal parts of the Go SDK code that are also used by other LaunchDarkly components, such as the [Relay Proxy](/home/relay-proxy). The fact that those implementation details were visible within the main SDK package meant that they could not be changed in any backward-incompatible way without releasing a new major version of the SDK, even though application code was unlikely to be using them. 
+Second, there are some internal parts of the Go SDK code that are also used by other LaunchDarkly components, such as the [Relay Proxy](/home/relay-proxy). The fact that those implementation details were visible within the main SDK package meant that they could not be changed in any backward-incompatible way without releasing a new major version of the SDK, even though application code was unlikely to be using them.
 
 This was potentially confusing for developers, and required LaunchDarkly to maintain support for many obsolete types and methods.
 
@@ -67,7 +67,7 @@ The `redis`, `ldconsul`, and `lddynamodb` packages are now in separate repositor
 
 Previously, the [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config) struct had fields for all of the SDK's configuration options. An empty `Config{}` struct was not a valid configuration. Applications had to first copy from `ld.DefaultConfig` and then make any desired changes.
 
-Now, most of the properties are grouped into areas of functionality, each of which has its own builder class that is only available if you are using that functionality. The `Config` struct has a much smaller number of fields, since most of its options are contained within one of the builders. 
+Now, most of the properties are grouped into areas of functionality, each of which has its own builder class that is only available if you are using that functionality. The `Config` struct has a much smaller number of fields, since most of its options are contained within one of the builders.
 
 For example, if you use streaming mode, there are options you can set to control streaming mode, and if you use polling mode, you use a different builder that does not have the streaming options. Similarly, if you have disabled analytics events, the event-related options are not accessible.
 
@@ -456,14 +456,14 @@ user := lduser.NewUserBuilder("key").
 
 Before [Go SDK 4.16](https://github.com/launchdarkly/go-server-sdk/releases/tag/4.16.0), if you wanted to describe a value that could be of any valid JSON type, you would use Go's universal value type `interface{}`.
 
-For example, `LDClient.JsonVariation()` returned that type, and also took a default value parameter of that type. 
+For example, `LDClient.JsonVariation()` returned that type, and also took a default value parameter of that type.
 
-However, there were two problems with `interface{}`: 
+However, there were two problems with `interface{}`:
 
 1. It could represent any type at all, even ones that are not valid in a LaunchDarkly feature flag, and
 2. JSON arrays and objects were represented as slices and maps, which are mutable and can cause [concurrency problems](https://launchdarkly.com/blog/avoid-concurrency-pitfalls-with-the-launchdarkly-sdks/).
 
-Version 4.16 added the immutable class `ldvalue.Value` as a replacement for `interface{}`, along with a `LDClient.JSONVariation()` method that uses `LDValue`, and `UserBuilder` methods for setting user attributes of any JSON type. 
+Version 4.16 added the immutable class `ldvalue.Value` as a replacement for `interface{}`, along with a `LDClient.JSONVariation()` method that uses `LDValue`, and `UserBuilder` methods for setting user attributes of any JSON type.
 
 As of version 5.0, these are the only options. `interface{}` is no longer used in the public API.
 
@@ -554,7 +554,7 @@ user := lduser.NewUserBuilder("key").
 
 ## Understanding changes to EvaluationDetail and EvaluationReason
 
-The [`EvaluationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldreason#EvaluationDetail) and [`EvaluationReason`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldreason#EvaluationReason) types were formerly in `gopkg.in/launchdarkly/go-server-sdk.v4` and are now in `gopkg.in/launchdarkly/go-sdk-common.v2/ldreason`. 
+The [`EvaluationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldreason#EvaluationDetail) and [`EvaluationReason`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldreason#EvaluationReason) types were formerly in `gopkg.in/launchdarkly/go-server-sdk.v4` and are now in `gopkg.in/launchdarkly/go-sdk-common.v2/ldreason`.
 
 We have modified them in two ways:
 
@@ -630,10 +630,10 @@ Also, the configuration syntax has changed. To learn more about configuration de
 
 There are two ways you can configure the SDK to use the [Relay Proxy](/home/relay-proxy).
 
-You can use it in: 
+You can use it in:
 
 * **proxy mode**, connecting to it via HTTP/HTTPS just as if it were the LaunchDarkly service
-* **daemon mode**, receiving flag data only through a database. 
+* **daemon mode**, receiving flag data only through a database.
 
 The syntax for configuring these has changed in version 5.0.
 
@@ -707,7 +707,7 @@ config.DataStore = ldcomponents.PersistentDataStore(
 
 Most applications use either the default in-memory storage or one of the [database integrations](/sdk/concepts/feature-store) provided by LaunchDarkly (Consul, DynamoDB, Redis), but the data store interface (formerly called "feature store") has always been public so developers can write their own integrations.
 
-Starting in Go SDK 5.0, this model has been changed to make it easier to implement database integrations. The basic concepts are the same. The SDK defines its own "data kinds", such as feature flags and user segments. The data store must provide a way to add and update items of any of these kinds without knowing anything about their properties except the key and version. 
+Starting in Go SDK 5.0, this model has been changed to make it easier to implement database integrations. The basic concepts are the same. The SDK defines its own "data kinds", such as feature flags and user segments. The data store must provide a way to add and update items of any of these kinds without knowing anything about their properties except the key and version.
 
 The main changes are:
 
@@ -721,13 +721,13 @@ To learn more, read the API documentation for the [`interfaces.DataStore`](https
 
 ## Understanding what was deprecated
 
-All types and methods that were marked as deprecated in the last 4.x release have been removed from the 5.0 release. 
+All types and methods that were marked as deprecated in the last 4.x release have been removed from the 5.0 release.
 
-If you were using these with a recent version previously, you should already have received deprecation warnings at compile time, with suggestions about how to replace them. 
+If you were using these with a recent version previously, you should already have received deprecation warnings at compile time, with suggestions about how to replace them.
 
 ## Understanding new functionality
 
-The 5.0 release also includes new features as described in the release notes. 
+The 5.0 release also includes new features as described in the release notes.
 
 These include:
 

@@ -1,0 +1,67 @@
+---
+path: '/sdk/features/database-integrations'
+title: 'Persistent feature store'
+description: 'This topic explains which external databases each server-side SDK can use to store flag data.'
+published: true
+---
+
+## Overview
+
+This topic explains which external databases each server-side SDK can use to store flag data.
+
+## Using external databases as feature stores
+
+By default, LaunchDarkly's server-side SDKs connect to LaunchDarkly and receive feature flag data, store the flags in local memory, and update them when prompted to by LaunchDarkly. The collection of last known flag data is the called the "feature store."
+
+To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
+
+Alternatively, you can configure an external database to act as a feature store. Unless otherwise indicated, the SDKs in this topic can use any of these three caching options to hold their flag data:
+
+* [Consul](/sdk/concepts/feature-store/consul)
+* [DynamoDB](/sdk/concepts/feature-store/dynamodb)
+* [Redis](/sdk/concepts/feature-store/redis)
+
+This feature is available in the following server-side SDKs:
+
+* [.NET](#net)
+* [C/C++ (server-side)](#cc-server-side)
+* [Erlang](#erlang)
+* Go
+* Java
+* [Lua](#lua)
+* Node
+* Python
+* [Ruby](#ruby)
+
+Some SDKs have specific limitations or implementation details affecting which caching options they support. To learn more about specific implementation details, click the SDK's name in the list above.
+
+### .NET
+
+You can keep feature flag data in a persistent store with Redis, DynamoDB, or Consul.
+
+Documentation for the .NET SDK's caching options is available for the following services:
+
+* [Consul](https://github.com/launchdarkly/dotnet-server-sdk-consul).
+* [DynamoDB](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb)
+* [Redis](https://github.com/launchdarkly/dotnet-server-sdk-redis)
+
+
+### C/C++ (server-side)
+
+The C/C++ SDK can only use Redis as a persistent store of feature flag configurations.
+
+### Erlang
+
+The Erlang SDK can only use Redis as a persistent store of feature flag configurations.
+
+### Lua
+
+The module `launchdarkly_server_sdk_redis` allows feature flag data to be cached with Redis. To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
+
+### Ruby
+
+You can keep feature flag data in a persistent store with Redis, DynamoDB, or Consul.
+
+These adapters are implemented in the `LaunchDarkly::Integrations::Redis`, `LaunchDarkly::Integrations::DynamoDB`, and `LaunchDarkly::Integrations::Consul` modules. To use them, call the `new_feature_store` method in the module, and put the returned object in the `feature_store` property of your client configuration.
+
+To learn more, read the [API documentation](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Integrations).

@@ -1,0 +1,201 @@
+---
+path: '/sdk/features/bootstrapping'
+title: 'Bootstrapping'
+description: 'This topic explains how the bootstrap feature works in the LaunchDarkly SDKs that support it.'
+published: true
+---
+
+## Overview
+
+This topic explains how the bootstrap feature works in the LaunchDarkly SDKs that support it.
+
+## Understanding the bootstrap feature
+
+Bootstrapping lets you decrease startup times for client-side SDKs by providing them with an intial set of flag values. The SDK serves these values to the user while it initializes, before it has established a connection to LaunchDarkly. The SDK makes an initial call to LaunchDarkly to check for updated flag values, but this happens in the background. The user experiences no inconsistency in which flag variations they see.
+
+This feature is available in the following client-side SDKs:
+
+* [Electron](#electron)
+* [JavaScript](#javascript)
+* [Node.js](#nodejs-client-side)
+* [React](#react)
+
+### Electron
+
+The `bootstrap` property in the client options lets you speed up the startup process by providing an initial set of flag values.
+
+If you set `bootstrap` to an object, the client treats it as a map of flag keys to flag values. These values can be whatever you want, although in the browser environment there is a [special mechanism](#javascript) that is commonly used. The client immediately starts out in a ready state using these values. It still makes an initial request to LaunchDarkly to get the actual latest values, but that happens in the background.
+
+If you set `bootstrap` to the string `"localstorage"`, the client tries to get flag values from persistent storage, using a unique key that is based on the user properties. In Electron, persistent storage consists of files in the [`userData`](https://electronjs.org/docs/) directory. If the client finds flag values stored for this user, it uses them and starts up immediately in a ready state, but also makes a background request to LaunchDarkly to get the latest values and stores them as soon as it receives them.
+
+### JavaScript
+
+Bootstrapping refers to providing the LaunchDarkly client object with an initial, immediately available set of feature flag values so that on page load `variation` can be called with no delay.
+
+The preferred approach to bootstrapping is to populate a map of flag keys to flag values, called bootstrap values, from your back end using one of LaunchDarkly's server-side SDKs. All of the server-side SDKs have a function to evaluate flags on behalf of a specified user. This function provides the initial set of bootstrap values to your front end. The function is called some variation of "allFlagsState". The exact name varies depending on the back-end technology's naming conventions, such as camel-case or snake-case.
+
+Below are two examples of how to bootstrap flags into the JavaScript client.
+
+<CodeTabs
+  defaultValue="param"
+  values={[
+    { label: 'Flags passed on pageload', value: 'param', },
+    { label: 'Flags acquired from a Ruby template directive', value: 'ruby', },
+  ]
+}>
+<CodeTabItem value="param">
+
+```js
+// If your back end passes values to your front end on pageload,
+// you can call your server-side SDK's allFlagsState function
+// on pageload and pass the results as a parameter to your
+// front-end initialization code.
+function onPageLoad(flags) {
+  ...
+
+  var ldclient = LDClient.initialize(
+    'YOUR_CLIENT_SIDE_ID',
+    user,
+    options = {
+      bootstrap: flags
+    }
+  );
+
+  ...
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby">
+
+```js
+// If your back end can be invoked dynamically, such as in Ruby
+// with a template directory, you can inline the function
+// invocation. We are requesting only the client-side
+// flags to be returned.
+var ldclient = LDClient.initialize(
+  'YOUR_CLIENT_SIDE_ID',
+  user,
+  options = {
+    // Load values from a Ruby template directive
+    bootstrap: {{
+      ldclient.all_flags_state(user, {client_side_only: true})
+    }}
+  }
+);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+If you bootstrap from the server-side, feature flags are ready immediately, and clients always receive the latest feature flag values. For a demonstration of server-side bootstrapping, visit this [GitHub repository](https://github.com/launchdarkly/hello-bootstrap).
+
+Alternatively, you can bootstrap feature flags from local storage:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
+  bootstrap: 'localStorage'
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+When it uses local storage, the client stores the latest flag settings there. On page load, it uses the previous settings and the 'ready' event is emitted immediately. This means that on page load, the user may see cached flag values until the next page load.
+
+You can still subscribe to flag changes If you use local storage.
+
+### Node.js (client-side)
+
+You can use bootstrapping on the Node.js SDK with values provided by LaunchDarkly-enabled code on the back end.
+
+You can use it to set the feature flags to any values you want:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const ldClient = LaunchDarkly.initialize(
+  'YOUR_CLIENT_SIDE_ID',
+  user,
+  {
+    bootstrap: {
+      flagKey1: flagValue1,
+      flagKey2: flagValue2
+    }
+  }
+);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+A more useful mode in a client-side Node application is to bootstrap from locally cached values. In this mode, if no values have been cached yet, the SDK obtains flags from LaunchDarkly and then caches them in persistent storage. The next time you start, the cached flags are immediately available, and the SDK also contacts LaunchDarkly in the background to obtain updated values.
+
+To activate this mode, use the special string `"localstorage"`:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const ldClient = LaunchDarkly.initialize(
+  'YOUR_CLIENT_SIDE_ID',
+  user,
+  {
+    bootstrap: 'localStorage'
+  }
+);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### React
+
+You can use the optional `flags` property to bootstrap the React SDK.
+
+If `flags` is specified, the React SDK only subscribes for updates to these flags. When this property is unspecified, the React SDK subscribes to all flags. This property is optional.
+
+Specify the `flags` property as a map of flag keys and values. The flag keys must be in their original form (as known to LaunchDarkly) rather than in their camel-cased form. Each flag's value is passed along to the resulting JS SDK [`variation`](/sdk/features/variation) invocation and used as the flag's default value in the case of an error.
+
+Here is an example:
+
+<CodeTabs
+defaultValue="js"
+values={[
+  { label: 'JavaScript', value: 'js', },
+]
+}>
+<CodeTabItem value="js">
+
+```js
+{
+  flags: {
+    "my-bool-flag": true,
+    "my-int-flag": 5
+  }
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [React SDK reference](/sdk/client-side/react/react-web).

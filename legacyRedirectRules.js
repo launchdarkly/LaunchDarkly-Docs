@@ -1,6 +1,9 @@
 module.exports = [
   // Redirects within the git-gatsby docs site
-
+  {
+    fromPath: '/sdk/concepts/flags-from-files',
+    toPath: '/sdk/features/flags-from-files',
+  },
   {
     fromPath: '/home/advanced/api-access-tokens',
     toPath: '/home/account-security/api-access-tokens',

@@ -1,0 +1,727 @@
+---
+path: '/sdk/features/flag-changes'
+title: 'Subscribing to flag changes'
+description: 'This topic explains how to configure each SDK to receive changes in flag state from LaunchDarkly.'
+published: true
+---
+
+## Overview
+
+This topic explains how to configure each SDK to receive changes in flag state from LaunchDarkly. This feature is available for both client-side and server-side SDKs.
+
+## Receiving flag changes
+
+You can configure client-side and server-side SDKs to receive updated flag values when they change. Client-side SDKs use a streaming and/or a polling connection to receive updates with low latency, minimal data usage, and minimal battery drain. Server-side SDKs use a listener-based mechanism to notify you when flag values change.
+
+* [Client-side SDKs](#client-side-sdks)
+* [Server-side SDKs](#server-side-sdks)
+
+## Client-side SDKs
+
+This feature is available in the following client-side SDKs:
+
+* [Android](#android)
+* [C/C++ (client-side)](#cc-client-side)
+* [Electron](#electron)
+* [Flutter](#flutter)
+* [iOS](#ios)
+* [JavaScript](#javascript)
+* [Node.js (client-side)](#nodejs-client-side)
+* [React Native](#react-native)
+* [Xamarin](#xamarin)
+
+### Android
+
+The SDK maintains what variations a user should receive locally in its cache and evaluates flags based on that cache. The SDK uses both a streaming strategy and a polling strategy to keep the local cache in sync with your flag configurations in LaunchDarkly.
+
+The SDK is highly configurable, but the default configuration has low latency updates, minimal data usage, and minimal battery drain.
+
+Here is the default behavior:
+
+1. When the app is foregrounded, the SDK opens a [Server-Sent Events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection to LaunchDarkly. The initial payload from the streaming connection contains the variations your user receives. This streaming connection stays open and idles unless there are updates. This requires minimal data and battery power to maintain. The streaming connection stays open as long as your app is in the foreground and is connected to the internet.
+2. When the app is backgrounded, the stream connection terminates. The SDK polls for flag updates every hour to stay in sync. This strategy has higher latency, but optimizes battery and data usage.
+3. When the app is foregrounded again, the SDK reconnects to the stream which sends the latest flag values.
+4. When streaming, the SDK actively monitors network availability. It avoids requests when the network is unavailable, and reconnects when the network becomes available again. When polling, the SDK checks for network connectivity at the current polling interval, only making the request if the check succeeds. When it reconnects, it automatically syncs its local cache with LaunchDarkly.
+
+This configuration means that you get near real-time updates for your feature flag values when the app is in the foreground, and maximum device and SDK efficiency when backgrounded.
+
+You can configure these settings if needed. To learn more, read [Client configuration](/sdk/features/config#android)
+
+To perform real-time updates in your app, it must register listeners to be notified when a flag's value changes.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+String flagKey = "yourFlagKey";
+
+FeatureFlagChangeListener listener = new FeatureFlagChangeListener() {
+    @Override
+    public void onFeatureFlagChange(String flagKey) {
+        boolean newValue = LDClient.get().boolVariation(flagKey, false);
+    }
+};
+
+LDClient.get().registerFeatureFlagListener(flagKey, listener);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val flagKey = "yourFlagKey"
+
+val listener = FeatureFlagChangeListener {
+    val newValue = LDClient.get().boolVariation(flagKey, false)
+}
+
+LDClient.get().registerFeatureFlagListener(flagKey, listener)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The flag key passed to `onFeatureFlagChange` is the key of the updated flag, which lets a single listener be registered for multiple flags.
+
+You can also disable listeners by unregistering them:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDClient.get().unregisterFeatureFlagListener(flagKey, listener);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+LDClient.get().unregisterFeatureFlagListener(flagKey, listener)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+---
+
+<Callout intent="info">
+<CalloutTitle>Availability</CalloutTitle>
+<CalloutDescription>
+
+These calls have been available since v2.8.0:
+
+* `LDAllFlagsListener`
+* `LDClient.registerAllFlagsListener`
+* `LDClient.unregisterAllFlagsListener`
+
+</CalloutDescription>
+</Callout>
+
+Additionally, we provide an update listener interface for when you want to be notified when the flag cache is updated. The application provides a class implementing `LDAllFlagsListener` which provides the SDK with the method `onChange`. Whenever the SDK's flag cache is updated, it calls the `onChange` method with a list of flag keys for flags that were updated during the update to the flag cache. If no flag values changed, this list is empty.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDAllFlagsListener listener = new LDAllFlagsListener() {
+    @Override
+    public void onChange(List<String> flagKeys) {
+        // Get new values for flagKeys or other operations
+    }
+};
+
+// register all flags listener
+LDClient.get().registerAllFlagsListener(listener);
+// when done with all flags listener it should be unregistered
+LDClient.get().unregisterAllFlagsListener(listener);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val listener = LDAllFlagsListener {
+    // Get new values for flag keys (from implicit "it" list variable) or other operations
+}
+
+// register all flags listener
+LDClient.get().registerAllFlagsListener(listener)
+// when done with all flags listener it should be unregistered
+LDClient.get().unregisterAllFlagsListener(listener)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### C/C++ (client-side)
+
+To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is listened to by the C SDK. Whenever an event is performed on the dashboard, the C SDK is notified of the updated flag settings in real-time.
+
+### Electron
+
+By default, the client requests feature flag values only once per user, once at startup time, and then each time you call `identify()`. You can also use a persistent connection to receive flag updates whenever they occur.
+
+Setting `streaming` to `true` in the client options, or calling `client.setStreaming(true)`, turns on this behavior. LaunchDarkly will push new values to the SDK, which will update the current feature flag state in the background, ensuring that `variation()` will always return the latest values.
+
+If you want to be notified when a flag has changed, you can use an event listener for a specific flag:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+client.on('change:YOUR_FEATURE_KEY', function(newValue, oldValue) {
+  console.log('The flag was ' + oldValue + ' and now it is ' + newValue);
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Or, you can listen for all feature flag changes:
+
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+client.on('change', function(allFlagChanges)) {
+  Object.keys(allFlagChanges).forEach(function(key) {
+    console.log('Flag ' + key + ' is now ' + allFlagChanges[key]);
+  });
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Subscribing to `change` events will automatically turn on streaming mode too, unless you have explicitly set `streaming` to `false`.
+
+### Flutter
+
+The SDK maintains what variations a user should receive locally in cache. The SDK evaluates flags based on what it has cached locally. To keep the local cache in sync with your flag configurations in LaunchDarkly, the SDK maintains a streaming connection to the service when in the foreground. This allows near instantaneous flag update delivery to your application.
+
+Your application can register listeners to be notified immediately when the SDK receives updated flag values.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="dart"
+  values={[
+    { label: 'Dart', value: 'dart', },
+  ]
+}>
+<CodeTabItem value="dart">
+
+```dart
+LDFlagUpdatedCallback listener = (String flagKey) {
+  LDClient.boolVariation(flagKey, false).then((bool val) {
+      print('${flagKey}: ${val}');
+  });
+};
+
+await LDClient.registerFeatureFlagListener('yourFlagKey', listener);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The flag key passed to your `LDFlagUpdatedCallback` is the key of the updated flag, which allows a single listener to be registered for multiple flags.
+
+You can also disable listeners by unregistering them:
+
+<CodeTabs
+  defaultValue="dart"
+  values={[
+    { label: 'Dart', value: 'dart', },
+  ]
+}>
+<CodeTabItem value="dart">
+
+```dart
+await LDClient.unregisterFeatureFlagListener(flagKey, listener);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Additionally, we provide a listener interface if you want to be notified any time the flag cache is updated. The application provides a callback that is activated whenever the SDK receives new flag data from the service. It calls with a list of flag keys that were updated. If no flag values changed, this list is empty.
+
+<CodeTabs
+  defaultValue="dart"
+  values={[
+    { label: 'Dart', value: 'dart', },
+  ]
+}>
+<CodeTabItem value="dart">
+
+```dart
+LDFlagsReceivedCallback listener = (List<String> flagKeys) {
+  print(flagKeys.toString());
+};
+
+await LDClient.registerFlagsReceivedListener(listener);
+await LDClient.unregisterFlagsReceivedListener(listener);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### iOS
+
+LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream. When a flag is modified from the LaunchDarkly dashboard, the flag values for the current user updates almost immediately.
+
+To accomplish real-time updates, LaunchDarkly broadcasts an event stream that the SDK listens to. The SDK is notified of updated flag settings in real-time whenever an event registers on the dashboard.
+
+The SDK provides methods for listening to a single flag, all flags, or no change to any flag. `observeFlagsUnchanged` is called when the SDK successfully receives an update or comes back online but no flags have changed. If the value of the flag changes, the method executes the handler. It passes in the `changedFlag` containing the old and new flag values, and old and new flag value source.
+
+The SDK retains only weak references to the owner, which lets the client app freely destroy owners without issues. Client apps should use a capture list specifying `[weak self]` inside handlers to avoid retain cycles causing a memory leak.
+
+The SDK executes handlers on the main thread. `LDChangedFlag` does not know the type of `oldValue` or `newValue`. The client app should cast the value into the type needed.
+
+<Callout intent="alert">
+  <CalloutTitle>LDObserverOwner Lifecycle</CalloutTitle>
+  <CalloutDescription>
+
+The lifetime of the `LDObserverOwner` must extend for at least as long as you want to receive flag change notifications.
+
+  </CalloutDescription>
+</Callout>
+
+<CodeTabs
+  defaultValue="swift"
+  values={[
+    { label: 'Swift', value: 'swift', },
+    { label: 'Objective-C', value: 'objc', },
+  ]
+}>
+<CodeTabItem value="swift">
+
+```swift
+let flagKey = "MY_OBSERVE_FLAG_KEY"
+let flagObserverOwner = flagKey as LDObserverOwner
+
+let ldClient = LDClient.get()!
+
+ldClient.observe(keys: [flagKey], owner: flagObserverOwner, handler: { changedFlags in
+    if changedFlags[flagKey] != nil {
+        // Your code here
+    }
+})
+
+ldClient.stopObserving(owner: flagObserverOwner)
+
+ldClient.observeFlagsUnchanged(owner: self) {
+    ldClient.stopObserving(owner: self as LDObserverOwner)
+}
+
+ldClient.observeAll(owner: self) {_ in
+    ldClient.stopObserving(owner: self as LDObserverOwner)
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+__weak typeof(self) weakSelf = self;
+[[LDClient ldClient] observeKeys:self.flagKeys owner:self handler:^(NSDictionary<NSString *,LDChangedFlag *> * _Nonnull changedFlags) {
+    __strong typeof(weakSelf) strongSelf = weakSelf;
+    for (NSString* flagKey in changedFlags.allKeys) {
+        //Your code here
+    }
+}];
+[[LDClient ldClient] observeFlagsUnchangedWithOwner:self handler:^{
+    __strong typeof(weakSelf) strongSelf = weakSelf;
+    //Your code here
+}];
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### JavaScript
+
+The client uses an event emitter pattern which allows you to subscribe to feature flag changes in real time. To subscribe to all feature flag changes, listen for the change event.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldclient.on('change', function(settings) {
+  console.log('flags changed:', settings);
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The `settings` object contains a map of updated feature flag keys and values. The map only contains the keys to flags that have changed. You can also subscribe to specific flags.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldclient.on('change:YOUR_FLAG_KEY', function(value, previous) {
+  console.log('YOUR_FLAG_KEY changed:', value, '(' + previous + ')');
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Node.js (client-side)
+
+The client uses an event emitter pattern which allows you to subscribe to feature flag changes in real time. To subscribe to all feature flag changes, listen for the change event.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.on('change', allChanges => {
+  console.log('flags changed:', JSON.stringify(allChanges));
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+The `allChanges` object contains a map of updated feature flag keys and values. The map only contains the keys to flags that have changed. You can also subscribe to specific flags.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.on('change:YOUR_FLAG_KEY', (value, previous) => {
+  console.log('YOUR_FLAG_KEY changed:', value, '(was ' + previous + ')');
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### React Native
+
+LaunchDarkly manages all flags for a user context by updating flags based on a real-time event stream. When a flag is modified from the LaunchDarkly dashboard, the flag values for the current user update almost immediately.
+
+To perform real-time updates, LaunchDarkly broadcasts an event stream that the React Native SDK listens to.
+
+To perform real-time updates in your app, your app must register listeners for each flag you want to watch.
+
+Here's how:
+
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+if (this.state.listeners.hasOwnProperty(key)) {
+  return;
+}
+let listener = value => Alert.alert('Listener Callback', value);
+client.registerFeatureFlagListener('MY_LISTEN_FLAG_KEY', listener);
+this.setState({listeners: {...this.state.listeners, ...{['MY_LISTEN_FLAG_KEY']: listener}}});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You can also disable listeners by unregistering them:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+this.state.ldClient.unregisterFeatureFlagListener('MY_LISTEN_FLAG_KEY', this.state.listeners['MY_LISTEN_FLAG_KEY']);
+let {['MY_LISTEN_FLAG_KEY']: omit, ...newListeners} = this.state.listeners;
+this.setState({listeners: newListeners});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Xamarin
+
+LaunchDarkly manages all flags for a user context by updating the flag cached based on a real-time event stream. When a flag is modified from the LaunchDarkly dashboard, the flag values for the current user update almost immediately.
+
+The default SDK configuration has been found to be the best combination of low latency updates and minimal battery drain:
+
+1. When the app is foregrounded, a [Server-sent events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection is made to LaunchDarkly. This streaming connection stays open as long as your app is in the foreground and is connected to the internet.
+2. When the app is backgrounded, the stream connection is terminated and the SDK will poll with caching for flag updates every three minutes.
+3. When the app is foregrounded, the SDK reconnects to the stream and fetches the latest flags.
+4. In either the foreground or background, the SDK doesn't try to update unless the device has internet connectivity.
+
+This configuration means that the device gets near real-time updates for feature flag values when the app is in the foreground. You can configure these settings if needed. To learn more, read [Client configuration](/sdk/features/config#xamarin)
+
+To perform real-time updates in the app, it must register listeners for updates from the streaming/polling connection for each flag you want to watch.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+ldClient.FlagChanged += (sender, eventArgs) => {
+    if (eventArgs.Key == "key-for-flag-i-am-watching") {
+        DoSomethingWithNewFlagValue(eventArgs.NewBoolValue);
+    }
+};
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Server-side SDKs
+
+This feature is available in the following server-side SDKs:
+
+* [Go](#go)
+* [Java](#java)
+* [Node.js (server-side)](#node-server-side)
+
+### Go
+
+<Callout intent="info">
+  <CalloutTitle>This feature is not available in all SDKs or versions</CalloutTitle>
+  <CalloutDescription>
+    The Go SDK only supports Subscribing to flag changes in versions 5.0.0 and higher. Most other server-side LaunchDarkly SDKs do not support this feature. All of the client-side SDKs do support this feature.
+  </CalloutDescription>
+</Callout>
+
+The Go SDK provides a channel-based mechanism to notify you when flag configurations change. The [`LDClient.GetFlagTracker()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetFlagTracker) method returns an interface for this mechanism called [`FlagTracker`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#FlagTracker).
+
+Calling `GetFlagTracker().AddFlagChangeListener()` provides a channel that receives a [`FlagChangeEvent`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#FlagChangeEvent) whenever there is a change in any feature flag's configuration. These changes include anything that could indirectly affect the flag value, such as a prerequisite flag or a user segment that the flag uses.
+
+The event data consists only of the flag key. It does not contain a flag value, because in server-side SDKs, flags only have values when they are evaluated for a specific set of user properties.
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+import (
+    "log"
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+)
+
+func logWheneverAnyFlagChanges(client *ld.LDClient) {
+    updateCh := client.GetFlagTracker().AddFlagChangeListener()
+    go func() {
+        for event := range updateCh {
+            log.Printf("Flag %q has changed", event.Key)
+        }
+    }()
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To listen for changes in flag values for a specific flag key and user, use `GetFlagTracker().AddFlagValueChangeListener()`, which provides [`FlagValueChangeEvent`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#FlagValueChangeEvent)s. This is equivalent to re-evaluating the flag for that user whenever `AddFlagChangeListener()` reports a change in that flag. Because flag values can have different data types, the value is reported using the general type [`ldvalue.Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value).
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+import (
+    "log"
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-sdk-common.v2/lduser"
+    "gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue"
+)
+
+func logWheneverOneFlagChangesForOneUser(client *ld.LDClient, flagKey string, user lduser.User) {
+    updateCh := client.GetFlagTracker().AddFlagValueChangeListener(flagKey, user, ldvalue.Null())
+    go func() {
+        for event := range updateCh {
+            log.Printf("Flag %q for user %q has changed from %s to %s", event.Key,
+                user.GetKey(), event.OldValue, event.NewValue)
+        }
+    }()
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+With both of these methods, it is the caller's responsibility to consume values from the channel. Letting values accumulate in the channel can cause an SDK goroutine to be blocked.
+
+### Java
+
+<Callout intent="info">
+  <CalloutTitle>This feature is not available in all SDK versions</CalloutTitle>
+  <CalloutDescription>
+    The Java SDK only supports Subscribing to flag changes in versions 5.0.0 and higher.
+  </CalloutDescription>
+</Callout>
+
+The SDK provides a listener-based mechanism to notify you when flag configurations change. The [`LDClient.getFlagTracker()`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#getFlagTracker--) method returns an interface for this mechanism, [`FlagTracker`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html).
+
+Calling [`getFlagTracker().addFlagChangeListener`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html#addFlagChangeListener-com.launchdarkly.sdk.server.interfaces.FlagChangeListener-) calls your listener with a [`FlagChangeEvent`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagChangeEvent.html) whenever there is a change in any feature flag's configuration, or in anything else that could indirectly affect the flag value, such as a prerequisite flag or a user segment that the flag uses.
+
+The event data consists only of the flag key. It does not contain a flag value, because in server-side SDKs, there is no such thing as a flag value except when it is evaluated for a specific set of user properties.
+
+The listener method is called from a worker thread.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+void logWheneverAnyFlagChanges(LDClient client) {
+    client.getFlagTracker().addFlagChangeListener(event -> {
+        System.out.printf("Flag \"%s\" has changed\n", event.getKey());
+    });
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To listen for changes in flag values for a specific flag key and user, use [`getFlagTracker().addFlagValueChangeListener`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html#addFlagValueChangeListener-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.server.interfaces.FlagValueChangeListener-), which provides [`FlagValueChangeEvent`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagValueChangeEvent.html)s. This is equivalent to re-evaluating the flag for that user whenever `addFlagChangeListener()` reports a change in that flag. Because flag values can have different data types, the value is reported using the general type [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html).
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+void logWheneverOneFlagChangesForOneUser(LDClient client, string flagKey, LDUser user) {
+    client.getFlagTracker().addFlagValueChangeListener(flagKey, user, event -> {
+        System.out.printf("Flag \"%s\" for user \"%s\" has changed from %s to %s\n", event.getKey(),
+            user.getKey(), event.getOldValue(), event.getNewValue());
+    });
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Node.js (server-side)
+
+The SDK provides an event-based mechanism to notify you when flag configurations change.
+
+For example, imagine you have a feature flag named `EXAMPLE_FLAG_KEY`. If the SDK detects a change in `EXAMPLE_FLAG_KEY`'s configuration, or in anything else that could indirectly affect the flag value, such as a prerequisite flag or a user segment that `EXAMPLE_FLAG_KEY` uses, it emits two events.
+
+These events are:
+
+* `"update"` and
+* `"update:EXAMPLE_FLAG_KEY"`
+
+You can listen for `"update:EXAMPLE_FLAG_KEY"` if you only want to know about updates affecting that flag specifically, or `"update"` if you want to be notified about all updates.
+
+For both of these event types, an extra parameter is sent to event listeners. This object has the single property `key`, with its value set to the flag key. If you listened for the general `"update"` event, this lets you see which flag changed.
+
+The event parameter does not contain the flag value. In server-side SDKs, there is no such thing as a flag value except when it is evaluated for a specific set of user properties.
+
+To find out what the effect, if any, of the configuration change was, call `variation()` after receiving an update event.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.on('update', (param) => {
+  console.log('a flag was changed: ' + param.key);
+});
+
+ldClient.on('update:EXAMPLE_FLAG_KEY', () => {
+  console.log('the EXAMPLE_FLAG_KEY flag was changed');
+});
+```
+
+</CodeTabItem>
+</CodeTabs>

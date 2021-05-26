@@ -1,0 +1,628 @@
+---
+path: '/sdk/features/variation'
+title: 'Variation configuration'
+description: 'This topic explains how to use the variation feature to serve different feature flag variations to users.'
+published: true
+---
+
+## Overview
+
+This topic explains how to use the `variation` feature to serve different feature flag variations to users.
+
+This feature is available for both client-side and server-side SDKs.
+
+## Configuring variations
+
+Feature flag variations determine what a user sees when they encounter a feature flag. Every flag has at least two variations, one for when the flag is off, and one for when it's on. To learn more, read [Creating flag variations](/home/flags/variations).
+
+Flags also have fallback variations. The fallback variation only returns if an error occurs. For example, LaunchDarkly serves the fallback variation if the feature flag key doesn't exist, or the user doesn't have a key specified.
+
+The `variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already. You do not need to create users manually, but if you want to, you can use `identify`. To learn more, read [Identify](/sdk/features/identify).
+
+Details about each SDK's configuration are available in the SDK-specific sections below.
+
+* [Client-side SDKs](#client-side-sdks)
+* [Server-side SDKs](#server-side-sdks)
+
+## Client-side SDKs
+
+This feature is available in the following client-side SDKs:
+
+* [Android](#android)
+* [Electron](#electron)
+* [Flutter](#flutter)
+* [iOS](#ios)
+* [JavaScript](#javascript)
+* [Node.js (client-side)](#nodejs-client-side)
+* [React Native](#react-native)
+* [Roku](#roku)
+* [Xamarin](#xamarin)
+
+### Android
+
+The `variation` method determines whether or not a flag is enabled for a specific user. `variation` calls take the feature flag key and a fallback value. When `LDClient` is initialized for the first time at app launch, users receive the feature flag fallback values until an initial connection to LaunchDarkly completes.
+
+In Android, there is  a `variation` method for each type, such as `boolVariation` or `stringVariation`.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+boolean variationResult = ldClient.boolVariation(flagKey, false);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val variationResult: Boolean = ldClient.boolVariation(flagKey, false)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Electron
+
+To evaluate any feature flag for the current user, call `variation`:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var showFeature = client.variation("YOUR_FEATURE_KEY", false);
+
+if (showFeature)  {
+  // feature flag is  on
+} else {
+  // feature flag is off
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The return value of `variation` is always either one of the variations you defined for your flag in the LaunchDarkly dashboard, or the default value. The default value is the second parameter to `variation`. It is what the client uses if it's not possible to evaluate the flag. For example, the default value returns if the flag key does not exist, or if something about the definition of the flag is invalid.
+
+You can also fetch all flags for the current user.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var flags = client.allFlags();
+var showFeature = flags['YOUR_FEATURE_KEY'];
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+This returns a key-value map of all your feature flags. It contains `null` values for any flags that could not be evaluated.
+
+Both of these methods are synchronous. The client always has the last known flag values in memory, so retrieving them does not involve any input/output (I/O).
+
+### Flutter
+
+The `variation` methods determine the flag value for the current user. `variation` calls take the feature flag key and a fallback value. When `LDClient` is initialized for the first time at app launch, users receive the feature flag fallback values until an initial connection to LaunchDarkly completes.
+
+In Flutter, there is  a `variation` method for each type, such as `boolVariation` or `stringVariation`.
+
+For example:
+
+<CodeTabs
+  defaultValue="dart"
+  values={[
+    { label: 'Dart', value: 'dart', },
+  ]
+}>
+<CodeTabItem value="dart">
+
+```dart
+bool variationResult = await LDClient.boolVariation(flagKey, false);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### iOS
+
+The `variation` method returns the variation for the given feature flag. If the flag does not exist, cannot be cast to the correct return type, or the LDClient is not started, the method returns the default value. Use this method when the default value is a non-`Optional` type. `LDFlagValue` shows you all available types.
+
+The LDClient must be started in order to return feature flag values. If the LDClient is not started, it always returns the default value. The LDClient must be online to keep the feature flag values up-to-date. When online, the LDClient has two modes for maintaining feature flag values: *streaming* and *polling*. The client app requests the mode by setting the `config.streamingMode`. Read `LDConfig` for details.
+
+In streaming mode, the LDClient opens a long-running connection to LaunchDarkly's streaming server (called _clientstream_). When a flag value changes on the server, the clientstream notifies the SDK to update the value. Streaming mode is not available on watchOS. On iOS and tvOS, the client app must be running in the foreground to connect to clientstream. On macOS the client app may run in either foreground or background to connect to clientstream. If streaming mode is not available, the SDK reverts to polling mode.
+
+In polling mode, the LDClient requests feature flags from LaunchDarkly's app server at regular intervals defined in the LDConfig. When a flag value changes on the server, the LDClient learns of the change the next time the SDK requests feature flags.
+
+When offline, LDClient closes the clientstream connection and no longer requests feature flags. The LDClient returns feature flag values, assuming the LDClient was started, which may not match the values set on the LaunchDarkly server.
+
+A call to `variation` records events reported later. Recorded events allow clients to analyze usage and assist in debugging issues. There is a single variation method for all types using Swift, but Objective-C requires type specific methods.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="swift"
+  values={[
+    { label: 'Swift', value: 'swift', },
+    { label: 'Objective-C', value: 'objc', },
+  ]
+}>
+<CodeTabItem value="swift">
+
+```swift
+let boolFlagValue = LDClient.get()!.variation(forKey: "bool-flag-key", defaultValue: false)
+let dictionaryFlagValue = LDClient.get()!.variation(forKey: "dictionary-flag-key", defaultValue: ["a": 1, "b": 2] as [String: Any])
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+BOOL boolFlagValue = [[LDClient get] boolVariationForKey:@"bool-flag-key" defaultValue:NO];
+NSDictionary* dictionaryFlagValue = [[LDClient get] dictionaryVariationForKey:@"dictionary-flag-key" defaultValue:@{@"a": @1, @"b": @2}];
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### JavaScript
+
+The `variation` method determines which variation of a feature flag a user receives. `variation` calls take the feature flag key and a default value.
+
+The default value is only be returned if an error is encountered, such as when the feature flag key doesn't exist or the user doesn't have a key specified.
+
+Here is an example of the `variation` method:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldclient.variation("your.feature.key", false);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Node.js (client-side)
+
+The `variation` method determines which variation of a feature flag a user receives.
+
+`variation` calls take the feature flag key and a default value. The default value only returns if an error is encountered, such as if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const value = ldClient.variation("your.feature.key", false);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### React Native
+
+The variation method determines whether a flag is enabled or not for a specific user. In React Native, there is a variation method for each type, such as `boolVariation` or ` stringVariation`.
+
+Variation calls take the feature flag key and a fallback value. When LDClient is initialized for the first time at app launch, users receive feature flag fallback values until an initial connection to LaunchDarkly is completed for the first time.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+let jsonResult = await client.jsonVariation('MY_JSON_FLAG_KEY', {});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Roku
+
+The `*variation` methods determine which variation of a feature flag a user receives.
+
+`*variation` calls take a feature flag key and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+REM typed variations
+myInt = launchDarkly.intVariation("MY_FLAG_KEY", 123)
+
+myBool = launchDarkly.boolVariation("MY_FLAG_KEY", false)
+
+myString = launchDarkly.stringVariation("MY_FLAG_KEY", "hello world!")
+
+myObjectOrArray = launchDarkly.jsonVariation("MY_FLAG_KEY", {"value": 123})
+
+REM generic variation
+myValue = launchDarkly.variation("MY_FLAG_KEY", false)
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Xamarin
+
+The `Variation` method determines whether a flag is enabled or not for a specific user. In Xamarin, there is  a `variation` method for each type, such as `BoolVariation` or `StringVariation`.
+
+`variation` calls take the feature flag key and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+ldClient.BoolVariation("your.feature.key", false);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Server-side SDKs
+
+This feature is available in the following server-side SDKs:
+
+* [.NET](#net)
+* [Apex](#apex)
+* [C/C++ (server-side)](#cc-server-side)
+* [Erlang](#erlang)
+* [Go](#go)
+* [Haskell](#haskell)
+* [Java](#java)
+* [Lua](#lua)
+* [Node.js (server-side)](#nodejs-server-side)
+* [PHP](#php)
+* [Python](#python)
+* [Ruby](#ruby)
+
+### .NET
+
+The `Variation` methods determine whether a flag is enabled or not for a specific user. In .NET, there is  a `Variation` method for each type, such as [`BoolVariation`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_BoolVariation.htm) and [`StringVariation`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_StringVariation.htm).
+
+`Variation` calls take the feature flag key, a [`User`](http://launchdarkly.github.io/dotnet-server-sdk/html/T_LaunchDarkly_Client_User.htm), and a default value. The `Variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: '.NET', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+var value = ldClient.BoolVariation("your.feature.key", user, false);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Apex
+
+The `variation` family of methods determine the flag value for a specific user. In Apex, there is a `variation` method for each type, such as `boolVariation` or `stringVariation`.
+
+The functions take an `LDUser`, feature flag key, and a default value. The default value only returns if an error occurs. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Apex', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+Boolean value = client.boolVariation(user, 'your.feature.key', false);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### C/C++ (server-side)
+
+The `variation` family of functions determine whether a flag is enabled or not for a specific user. In C, there is a `variation` function for each type, such as `LDBoolVariation` or `LDStringVariation`.
+
+The functions take an `LDClient`, `LDUser`, feature flag key, default value, and optional `LDDetails` struct for an evaluation explanation (see below). The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'Example', value: 'c', },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+bool value = LDBoolVariation(client, user, "your.feature.key", false, NULL);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Erlang
+
+The `variation` function determines whether a flag is enabled or not for a specific user.
+
+The functions take a flag key, user, default value and an instance tag. The instance tag is optional. The default variation only returns if an error occurs.
+
+For example, if the feature flag key doesn't exist or the user doesn't have a key specified, the user sees the default variation value.
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', },
+  ]
+}>
+<CodeTabItem value="erlang">
+
+```
+Flag = ldclient:variation(<<"my-bool-key">>, #{key => <<"aa0ceb">>,}, false, my_instance)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Go
+
+The `Variation` methods determine whether a flag is enabled or not for a specific user. In Go, there is a `Variation` method for each type: [`BoolVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.BoolVariation), [`IntVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.IntVariation), [`Float64Variation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Float64Variation), [`StringVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.StringVariation) and [`JSONVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.JSONVariation), which can be any JSON type.
+
+`Variation` methods take the feature flag key, a `User`, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified. In the example above the default value is `false`.
+
+The `Variation` call generates analytics events to tell LaunchDarkly about the flag evaluation and the user properties, so the user will be created in LaunchDarkly if a user with that key doesn't exist already.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+result, _ := ldClient.BoolVariation("your.feature.key", user, false)
+
+// result is now true or false depending on the setting of this boolean feature flag
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Haskell
+
+The `variation` family of functions determine whether a flag is enabled or not for a specific user.
+
+The functions take a `Client`, `User`, feature flag key, and a default value. The default value only returns if an error occurs. For example, if the feature flag key doesn't exist or the user doesn't have a key specified, the default value is returned.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', },
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+myBoolVariation <- boolVariation client user "YOUR_FEATURE_KEY" False
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Java
+
+The `variation` methods determine which variation of a feature flag a user receives. In Java, there is a `variation` method for each type: [`boolVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#boolVariation-java.lang.String-com.launchdarkly.sdk.LDUser-boolean-), [`intVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#intVariation-java.lang.String-com.launchdarkly.sdk.LDUser-int-), [`doubleVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#doubleVariation-java.lang.String-com.launchdarkly.sdk.LDUser-double-), [`stringVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#stringVariation-java.lang.String-com.launchdarkly.sdk.LDUser-java.lang.String-) and [`jsonValueVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#jsonValueVariation-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-), which can be of any JSON type.
+
+The `variation` methods take the feature flag key, an [`LDUser`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/LDUser.html), and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+The `variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+boolean value = ldClient.boolVariation("your.feature.key", user, false);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Lua
+
+The `variation` family of functions determine whether a flag is enabled or not for a specific user. In Lua, there is a `variation` function for each type, such as `boolVariation` or  `stringVariation`.
+
+The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+To learn more about configuration options, read the [API docs](https://launchdarkly.github.io/lua-server-sdk/index.html).
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="lua"
+  values={[
+    { label: 'Lua', value: 'lua', },
+  ]
+}>
+<CodeTabItem value="lua">
+
+```lua
+local value = client:boolVariation(user, "YOUR_FEATURE_KEY", false)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Node.js (server-side)
+
+The `variation` method determines which variation of a feature flag a user receives.
+
+`variation` calls take the feature flag key, an `LDUser`, and a default value. The default value only returns in offline mode or if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+The `variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldClient.variation("your.feature.key", user, false,
+  (err, show_feature) => {
+    if (show_feature) {
+      // application code to show the feature
+    }
+    else {
+      // the code to run if the feature is off
+    }
+  });
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### PHP
+
+The `variation` method determines which variation of a feature flag a user receives.
+
+`variation` calls take the feature flag key, an `LDUser`, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+The `variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', },
+  ]
+}>
+<CodeTabItem value="php">
+
+```php
+$value = $client->variation($key, $user, false);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Python
+
+The `variation` method determines which variation of a feature flag a user receives.
+
+`variation` calls take the feature flag key, an `LDUser`, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+The `variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+show_feature = ldclient.get().variation("your.feature.key", user, False)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Ruby
+
+The `variation` method determines which variation of a feature flag a user receives.
+
+`variation` calls take the feature flag key, a user, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+The `variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', },
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+value = ld_client.variation("your.feature.key", user, false)
+```
+
+</CodeTabItem>
+</CodeTabs>

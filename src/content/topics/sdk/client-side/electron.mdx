@@ -9,13 +9,45 @@ This reference guide documents the LaunchDarkly SDK for the [Electron](https://e
 
 If you want to dig even deeper, our SDKs are open source. To learn more, read [Electron SDK GitHub repository](https://github.com/launchdarkly/electron-client-sdk). It also makes use of code from the [JavaScript SDK repository](https://github.com/launchdarkly/js-client-sdk). The [online API docs](https://launchdarkly.github.io/electron-client-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-electron) using this SDK.
 
-## Why use this instead of the Node SDK?
+## Why use this instead of the Node.js SDK?
 
-Since Electron is based on Node.js, it is possible to run the [LaunchDarkly Node SDK](/sdk/client-side/node-js) in it. However, this is strongly discouraged, as the Node SDK is meant for server-side use—not for applications that are distributed to users. There are several reasons why this distinction matters:
+Since Electron is based on Node.js, it is possible to run the [LaunchDarkly Node SDK](/sdk/client-side/node-js) in it. However, this is strongly discouraged because the Node.js SDK is meant for server-side use, not for applications that are distributed to users. There are several reasons why this distinction matters:
 
 - The server-side SDKs include an SDK key that can download the entire definition (including rollout rules and individual user targets) of all of your feature flags. If you embed this SDK key in an application, any user who looks inside the application can then access all of your feature flag definitions—which may include sensitive data such as other users' email addresses. The client-side and mobile SDKs use different credentials that do not allow this.
 - The server-side SDKs do in fact download your entire flag data using this key, since they have to be able to evaluate flags quickly for any user. That can be quite a large amount of data. The client-side and mobile SDKs, which normally evaluate flags for just one user at a time, use a much more efficient protocol where they request only the active variation for each flag for that specific user.
 - The Electron SDK also includes features that are specific to Electron, such as the ability to access main-process flags from the front end as described below.
+
+### Server-side Node SDK compatibility
+
+For developers who were using the server-side Node.js in Electron before the Electron SDK was available, there are differences between the APIs that can be inconvenient. For instance, in the server-side Node SDK, `variation()` is an asynchronous call that takes a callback, whereas in the client-side SDKs it is synchronous.
+
+To make this transition easier, the LaunchDarkly Electron SDK provides an optional wrapper that emulates the Node.js SDK. When creating the main-process client, after calling `initializeInMain`, pass the client object to `createNodeSdkAdapter`. The resulting object uses the Node-style API.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var realClient = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options);
+
+var wrappedClient = LDElectron.createNodeSdkAdapter(realClient);
+
+wrappedClient.waitForInitialization().then(function() {
+  wrappedClient.variation(flagKey, user, defaultValue, function(err, result) {
+    console.log('flag value is ' + result);
+  });
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The underlying implementation is still the client-side SDK, which has a single-current-user model. Therefore, when you call `client.variation(flagKey, user, defaultValue)` it is really calling `client.identify(user)` first, obtaining flag values for that user, and then evaluating the flag. This performs poorly if you attempt to evaluate flags for a variety of different users in rapid succession.
+
 
 ## Known issues in this release
 
@@ -39,7 +71,7 @@ You can install the SDK into your Electron project using `npm`:
 ```bash
 npm install --save launchdarkly-electron-client-sdk
 
-# Note, in earlier versions, the package name was ldclient-electron
+# In earlier versions, the package name was ldclient-electron
 ```
 
 </CodeTabItem>
@@ -47,9 +79,9 @@ npm install --save launchdarkly-electron-client-sdk
 
 ## Initializing the client
 
-Every Electron application consists of a _main process_, which is essentially a Node.js application, and some number of _renderer processes_, each of which is a Chromium web browser with its own window. These processes have their own independent JavaScript engines and data spaces, although there are ways to communicate between them.
+Every Electron application consists of a _main process_, which is similar to a Node.js application, and some number of _renderer processes_, each of which is a Chromium web browser with its own window. These processes have their own independent JavaScript engines and data spaces, although there are ways to communicate between them.
 
-The LaunchDarkly Electron SDK is designed to make it easy to use LaunchDarkly feature flags from within any of these processes. In the normal use case, there is an SDK client running in the main process; the renderer processes can then create client instances that are in effect mirrors of the main one.
+The LaunchDarkly Electron SDK is designed to use LaunchDarkly feature flags from within any of these processes. In the normal use case, there is an SDK client running in the main process; the renderer processes can then create client instances that are in effect mirrors of the main one.
 
 To set up the main process client, you need the client-side ID for your LaunchDarkly environment, an object containing user properties (although you can change the user later), and optional configuration properties.
 
@@ -120,230 +152,18 @@ client.waitForInitialization().then(function() {
 </CodeTabItem>
 </CodeTabs>
 
-If you try to evaluate feature flags before the client is ready, it will behave as it would if no flags existed (i.e. `variation` will return a default value).
+If you try to evaluate feature flags before the client is ready, it will behave as it would if no flags existed (for example,`variation` returns a default value).
 
 To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/electron-client-sdk/interfaces/_launchdarkly_electron_client_sdk_.ldoptions.html).
 
-## Bootstrapping
-
-The `bootstrap` property in the client options allows you to speed up the startup process by providing an initial set of flag values.
-
-If you set `bootstrap` to an object, the client will treat it as a map of flag keys to flag values. These values can be whatever you want (although in the browser environment, there is a [special mechanism](/sdk/client-side/javascript#bootstrapping) that is commonly used). The client will immediately start out in a ready state using these values. It will still make an initial request to LaunchDarkly to get the actual latest values, but that will happen in the background.
-
-If you set `bootstrap` to the string `"localstorage"`, the client will try to get flag values from persistent storage, using a unique key that is based on the user properties. In Electron, persistent storage consists of files in the [`userData`](https://www.electronjs.org/docs) directory. If the client finds flag values stored for this user, it uses them and starts up immediately in a ready state—but also makes a background request to LaunchDarkly to get the latest values, and stores them as soon as it receives them.
-
-## Feature flags
-
-To evaluate any feature flag for the current user, call `variation`:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-var showFeature = client.variation("YOUR_FEATURE_KEY", false);
-
-if (showFeature)  {
-  // feature flag is  on
-} else {
-  // feature flag is off
-}
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-The return value of `variation` will always be either one of the variations you defined for your flag in the LaunchDarkly dashboard, or the default value. The default value is the second parameter to `variation` (in this case `false`) and it is what the client will use if it's not possible to evaluate the flag (for instance, if the flag key does not exist, or if something about the definition of the flag is invalid).
-
-You can also fetch all flags for the current user:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-var flags = client.allFlags();
-var showFeature = flags['YOUR_FEATURE_KEY'];
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-This returns a key-value map of all your feature flags. It will contain `null` values for any flags that could not be evaluated.
-
-Note that both of these methods are synchronous. The client always has the last known flag values in memory, so retrieving them does not involve any I/O.
-
-## Changing users
-
-The `identify()` method tells the client to change the current user, and obtain the feature flag values for the new user. For example, on a sign-in page in a single-page app, you may initialize the client with an anonymous user; when the user logs in, you'd want the feature flag settings for the authenticated user.
-
-If you provide a callback function, it will be called (with a map of flag keys and values) once the flag values for the new user are available; after that point, `variation()` will be using the new values. You can also use a Promise for the same purpose.
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-var newUser = { key: 'someone-else', name: 'John' };
-
-client.identify(newUser, function(newFlags) {
-  console.log('value of flag for this user is: ' + newFlags["YOUR_FEATURE_KEY"]);
-  console.log('this should be the same: ' + client.variation("YOUR_FEATURE_KEY"));
-});
-
-// or:
-client.identify(newUser).then(function(newFlags) {
-  // as above
-});
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Note that the client always has *one* current user. The client-side SDKs are not designed for evaluating flags for different users at the same time.
-
-## Aliased users
-
-There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person would be identified by two different users as denoted by different user keys.
-
-The SDK can associate these two LaunchDarkly users by sending an alias event.
-
-The SDK automatically sends an alias event when `identify` is called with a known user if the previous user was anonymous. You can disable this behavior if necessary. To learn more, read [Customizing your client](#customizing-your-client).
-
-You can manually tell the SDK to send an alias event with the `alias` function.
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-client.alias(newUser, previousUser);
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Analytics events
-
-Evaluating flags, either with `variation()` or with `allFlags()`, produces analytics events which you can observe on your LaunchDarkly Debugger page. Specifying a user with `identify()` (and also the initial user specified in the client constructor) also produces an analytics event, which is how LaunchDarkly receives your user data.
-
-You can also explicitly send an event with any data you like using the `track` function:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-client.track('my-custom-event-key', { customProperty: someValue });
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-You can completely disable event sending by setting `sendEvents` to `false` in the client options, but be aware that this means you will not have user data on your LaunchDarkly dashboard.
-
-## Receiving live updates
-
-By default, the client requests feature flag values only once per user (i.e. once at startup time, and then each time you call `identify()`). You can also use a persistent connection to receive flag updates whenever they occur.
-
-Setting `streaming` to `true` in the client options, or calling `client.setStreaming(true)`, turns on this behavior. LaunchDarkly will push new values to the SDK, which will update the current feature flag state in the background, ensuring that `variation()` will always return the latest values.
-
-If you want to be notified when a flag has changed, you can use an event listener for a specific flag:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-client.on('change:YOUR_FEATURE_KEY', function(newValue, oldValue) {
-  console.log('The flag was ' + oldValue + ' and now it is ' + newValue);
-});
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Or, you can listen for all feature flag changes:
-
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-client.on('change', function(allFlagChanges)) {
-  Object.keys(allFlagChanges).forEach(function(key) {
-    console.log('Flag ' + key + ' is now ' + allFlagChanges[key]);
-  });
-});
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Subscribing to `change` events will automatically turn on streaming mode too, unless you have explicitly set `streaming` to `false`.
-
-## Logging
-
-By default, the SDK uses the [`winston`](https://www.npmjs.com/package/winston) package. There are four logging levels: `debug`, `info`, `warn`, and `error`; by default, `debug` and `info` messages are hidden.
-
-To change the logging configuration, you can set `LDOptions.logger` to either another Winston instance or any object that implements the `LDLogger` interface. The `createConsoleLogger` function is a simple way to create a minimal logger.
-
-## Server-side Node SDK compatibility
-
-For developers who were using the server-side Node.js in Electron before the Electron SDK was available, there are differences between the APIs that can be inconvenient. For instance, in the server-side Node SDK, `variation()` is an asynchronous call that takes a callback, whereas in the client-side SDKs it is synchronous.
-
-To make this transition easier, the LaunchDarkly Electron SDK provides an optional wrapper that emulates the Node SDK. When creating the main-process client, after calling `initializeInMain`, pass the client object to `createNodeSdkAdapter`. The resulting object will use the Node-style API.
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-var realClient = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options);
-
-var wrappedClient = LDElectron.createNodeSdkAdapter(realClient);
-
-wrappedClient.waitForInitialization().then(function() {
-  wrappedClient.variation(flagKey, user, defaultValue, function(err, result) {
-    console.log('flag value is ' + result);
-  });
-});
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Keep in mind that the underlying implementation is still the client-side SDK, which has a single-current-user model. Therefore, when you call `client.variation(flagKey, user, defaultValue)` it is really calling `client.identify(user)` first, obtaining flag values for that user, and then evaluating the flag. This will perform poorly if you attempt to evaluate flags for a variety of different users in rapid succession.
+## Supported features
+
+This SDK supports the following features:
+
+* [Bootstrapping](/sdk/features/bootstrapping#electron)
+* [Evaluating flag variations](/sdk/features/variation#electron)
+* [Identify](/sdk/features/identify#electron)
+* [Logging](/sdk/features/logging#electron)
+* [Monitoring SDK status](/sdk/features/monitoring#electron)
+* [Subscribing to flag changes](/sdk/features/flag-changes#electron)
+* [User configuration](/sdk/features/user-config#electron)

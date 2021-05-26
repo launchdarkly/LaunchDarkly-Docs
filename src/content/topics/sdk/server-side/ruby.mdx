@@ -5,7 +5,7 @@ description: 'This topic explains all of the methods available in the server-sid
 published: true
 ---
 
-This reference guide documents all of the methods available in our Ruby SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Ruby SDK GitHub repository](https://github.com/launchdarkly/ruby-server-sdk). The online [Ruby API docs](https://launchdarkly.github.io/ruby-server-sdk/) contain the programmatic definitions of every class and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-ruby) using this SDK.
+This reference guide documents all of the methods available in the Ruby SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Ruby SDK GitHub repository](https://github.com/launchdarkly/ruby-server-sdk). The online [Ruby API docs](https://launchdarkly.github.io/ruby-server-sdk/) contain the programmatic definitions of every class and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-ruby) using this SDK.
 
 <Callout intent="alert">
   <CalloutTitle>RubyGems</CalloutTitle>
@@ -179,7 +179,7 @@ end
 </CodeTabItem>
 </CodeTabs>
 
-If you're using the [Puma](https://github.com/puma/puma) web server, we recommend initializing the client in `on_worker_boot`, as well as initializing in the Rails app:
+If you use the [Puma](https://github.com/puma/puma) web server, we recommend initializing the client in `on_worker_boot`, as well as initializing in the Rails app:
 
 <CodeTabs
   defaultValue="ruby"
@@ -198,7 +198,7 @@ end
 </CodeTabItem>
 </CodeTabs>
 
-If you're using the [Passenger](https://www.phusionpassenger.com/library/indepth/ruby/spawn_methods/#smart-spawning-hooks) web server, we recommend initializing the client in `config.ru`, or from any code called while loading `config.ru`:
+If you use the [Passenger](https://www.phusionpassenger.com/library/indepth/ruby/spawn_methods/#smart-spawning-hooks) web server, we recommend initializing the client in `config.ru`, or from any code called while loading `config.ru`:
 
 <CodeTabs
   defaultValue="ruby"
@@ -219,380 +219,23 @@ end
 </CodeTabItem>
 </CodeTabs>
 
-## Customizing your client
-
-You can also customize the behavior of the client by creating a custom configuration object:
-
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
-
-```ruby
-config = LaunchDarkly::Config.new({connect_timeout: 1, read_timeout: 1})
-ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-The client constructor takes a configuration object as an optional parameter. In this example, we've set the connection timeout to LaunchDarkly to 1 second, and the read timeout to 2 seconds.
-
-To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Config).
-
-## Users
-
-Let's walk through this snippet. The most important attribute is the user key. In this case, we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes (like `firstName`, `email`, and the `custom` attributes) are optional. The attributes you specify will automatically appear on our dashboard, meaning that you can start segmenting and targeting users with these attributes.
-
-Besides the `key`, LaunchDarkly supports the following attributes at the "top level". Remember, all of these are optional:
-
-- `ip`: Must be an IP address.
-- `firstName`: Must be a string. If you provide a first name, you can search for users on the Users page by name.
-- `lastName`: Must be a string. If you provide a last name, you can search for users on the Users page by name.
-- `country`: Must be a string representing the country associated with the user.
-- `email`: Must be a string representing the user's email address. If an `avatar` URL is not provided, we'll use [Gravatar](http://en.gravatar.com/) to try to display an avatar for the user on the Users page.
-- `avatar`: Must be an absolute URL to an avatar image for the user.
-- `name`: Must be a string. You can search for users on the User page by name
-- `anonymous`: Must be a boolean. See the section below on anonymous users for more details.
-
-In addition to built-in attributes, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
-
-<Callout intent="info">
-  <CalloutTitle>A note on attribute keys</CalloutTitle>
-  <CalloutDescription>
-
-All user attribute keys (both built-in and custom attributes) must be symbols and not strings.
-
-  </CalloutDescription>
-</Callout>
-
-<Callout intent="info">
-  <CalloutTitle>A note on types</CalloutTitle>
-  <CalloutDescription>
-
-Most of our built-in attributes (like names and email addresses) expect string values. Custom attribute values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way.
-
-  </CalloutDescription>
-</Callout>
-
-Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available instantly on our dashboard.
-
-## Private User Attributes
-
-You can optionally configure the Ruby SDK to treat some or all user attributes as [Private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
-
-In the Ruby SDK there are two ways to define private attributes for the entire LaunchDarkly client:
-
-- In the LaunchDarkly `config`, you can set `all_attributes_private` to true. If this is enabled, all user attributes (except the key) for all users are removed before the user is sent to LaunchDarkly.
-- In the LaunchDarkly config object, you can define a list of `private_attribute_names`. If any user has a custom or built-in attribute named in this list, it will be removed before the user is sent to LaunchDarkly.
-
-You can also define a set of `privateAttributeNames` on the user object itself. For example:
-
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
-
-```ruby
-user = {
-  key: "aa0ceb",
-  firstName: "Ernestina",
-  lastName: "Evans",
-  email: "ernestina@example.com",
-  custom: {
-    groups: ["Google", "Microsoft"]
-  },
-  privateAttributeNames: ['email']
-}
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-When this user is sent back to LaunchDarkly, the `email` attribute will be removed.
-
-## Anonymous users
-
-You can also distinguish logged-in users from anonymous users in the SDK, as follows:
-
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
-
-```ruby
-user = { key: "aa0ceb", anonymous: true }
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-You will still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
-
-Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
-
-## Aliased users
-
-There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person would be identified by two different users as denoted by different user keys.
-
-The SDK can associate these two LaunchDarkly users by sending an alias event. You can manually tell the SDK to send an alias event with the `alias` method.
-
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
-
-```ruby
-ld_client.alias(new_user, previous_user)
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Variation
-
-The `variation` method determines which variation of a feature flag a user receives.
-
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
-
-```ruby
-value = ld_client.variation("your.feature.key", user, false)
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-`variation` calls take the feature flag key, a user, and a default value.
-
-The default value will only be returned if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
-
-The `variation` call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at Identify).
-
-## VariationDetail
-
-The `variation_detail` method allows you to evaluate a feature flag (using the same parameters as you would for `variation`) and receive more information about how the value was calculated.
-
-The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the user was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically; you can also view it with Data Export, if you are capturing detailed analytics events for this flag.
-
-To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
-
-## Track
-
-The `track` method allows you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests. Here's a simple example:
-
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
-
-```ruby
-ld_client.track("your-goal-key", user)
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-You can also attach an extra hash containing arbitrary data to your event:
-
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
-
-```ruby
-ld_client.track("Completed purchase", user, {price: 320})
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Identify
-The `identify` method creates or updates users on LaunchDarkly, making them available for targeting and autocomplete on the dashboard. In most cases, you won't need to call `identify`. The `variation` call will automatically create users on the dashboard for you. `identify` can be useful if you want to pre-populate your dashboard before launching any features.
-
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
-
-```ruby
-ld_client.identify(user)
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## All flags
-
-<Callout intent="alert">
-  <CalloutTitle>Creating users</CalloutTitle>
-  <CalloutDescription>
-
-Unlike variation and identify calls, `all_flags_state` does not send events to LaunchDarkly. Thus, users are not created or updated in the LaunchDarkly dashboard.
-
-  </CalloutDescription>
-</Callout>
-
-The `all_flags_state` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
-
-This method can be useful for passing feature flags to your front-end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
-
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
-
-```ruby
-state = ld_client.all_flags_state(user)
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Secure mode hash
-
-The `secure_mode_hash` method computes an HMAC signature of a user signed with the client's SDK key. If you're using our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
-
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
-
-```ruby
-ld_client.secure_mode_hash(user)
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Flush
-
-Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `flush` to process events immediately.
-
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
-
-```ruby
-ld_client.flush
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-The flush interval is configurable. If you need to change the interval, you can do so when configuring your client instance.
-
-## Offline mode
-
-In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on premise, it might make sense to fall back to defaults when running on premise. Offline mode lets you do this easily.
-
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
-
-```ruby
-config = LaunchDarkly::Config.new({offline: true})
-ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
-ld_client.variation("any.feature.flag", user, false) # will always return the default value (false)
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## Proxy configuration
 
 The Ruby SDK uses the standard Ruby mechanism for specifying an HTTP/HTTPS proxy: set the environment variable `HTTPS_PROXY` or `HTTP_PROXY` to the URL of the proxy server. All LaunchDarkly services use HTTPS, so `HTTPS_PROXY` is the variable to set unless you are configuring the SDK to use a custom service URL that is not secure, such as a Relay Proxy instance within your private network.
 
-## Close
+## Supported features
 
-Close safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you should not have to call close.
+This SDK supports the following features:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
-
-```ruby
-ld_client.close
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Logging
-
-The Ruby SDK uses Ruby's built-in [Logger class](https://ruby-doc.org/stdlib-2.4.0/libdoc/logger/rdoc/Logger.html). All loggers are namespaced under `[LDClient]`. A custom logger may be passed to the SDK by the configurable `logger` property:
-
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
-
-```ruby
-log = ::Logger.new($stdout)
-log.level = ::Logger::DEBUG
-config = LaunchDarkly::Config.new({logger: log})
-client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Be aware of two considerations when enabling the DEBUG log level:
-
-1. Debug-level logs can be very verbose. It is not recommended that you turn on debug logging in high-volume environments.
-2. Potentially sensitive information is logged including LaunchDarkly users created by you in your usage of this SDK.
-
-## Database integrations
-
-Feature flag data can be kept in a persistent store using Redis, DynamoDB, or Consul. These adapters are implemented in the `LaunchDarkly::Integrations::Redis`, `LaunchDarkly::Integrations::DynamoDB`, and `LaunchDarkly::Integrations::Consul` modules; to use them, call the `new_feature_store` method in the module, and put the returned object in the `feature_store` property of your client configuration.
-
-To learn more, read the [API documentation](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Integrations) and ["Using a persistent feature store"](/sdk/concepts/feature-store).
+* [Getting all flags](/sdk/features/all-flags#ruby)
+* [Client configuration](/sdk/features/config#ruby)
+* [Evaluating flag variations](/sdk/features/variation#ruby)
+* [Flag evaluation reasons](/sdk/features/variationdetail#ruby)
+* [Flushing SDK events](/sdk/features/flush#ruby)
+* [Identify](/sdk/features/identify#ruby)
+* [Logging](/sdk/features/logging#ruby)
+* [Offline mode](/sdk/features/offline-mode#ruby)
+* [Persistent feature store](/sdk/features/database-integrations#ruby)
+* [Secure mode hash](/sdk/features/secure-mode#ruby)
+* [Shutting down an SDK](/sdk/features/shutdown#ruby)
+* [Sending custom events](/sdk/features/track#ruby)
