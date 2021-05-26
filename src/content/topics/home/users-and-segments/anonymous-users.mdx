@@ -75,7 +75,7 @@ You can remove users you don't need anymore with the LaunchDarkly API, or by cli
 <CalloutTitle>This feature may not be available yet in your SDK</CalloutTitle>
 <CalloutDescription>
 
-This section explains <code>alias</code> events, which are an optional feature in LaunchDarkly SDKs. This feature is being rolled out to LaunchDarkly SDKs in order of SDK adoption, with more frequently used SDKs being updated first. If you cannot find documentation for <code>alias</code> events in your SDK documentation, check back periodically until the feature is added. You can also [contact Support](https://support.launchdarkly.com/hc/en-us).
+This section explains aliasing users, which is an optional feature in LaunchDarkly SDKs. This feature is being rolled out to LaunchDarkly SDKs in order of SDK adoption, with more frequently used SDKs being updated first. If you cannot find documentation for your SDK about <code>alias</code> events on the [Aliasing users](/sdk/features/aliasing-users) page, check back periodically until the feature is added. You can also [contact Support](https://support.launchdarkly.com/hc/en-us).
 
 </CalloutDescription>
 </Callout>
@@ -86,7 +86,7 @@ You can associate these two user keys by configuring your SDK to send `alias` ev
 
 If you use Data Export or Experimentation, `alias` events are useful because they make the data represented in destinations and experiment results easier to understand. `Alias` events enable Data Export destinations to correlate the two user keys referring to the same underlying user. They also enable experiments to recognize when impressions and conversions occurred for a user, even if the user key changed between the two events.
 
-To learn more about configuring your SDK to send `alias` events, read [your SDK's documentation](/sdk/).
+To learn more about configuring your SDK to send `alias` events, read [Aliasing users](/sdk/features/aliasing-users).
 
 <Callout intent="alert">
 <CalloutTitle>mParticle events require additional configuration</CalloutTitle>
