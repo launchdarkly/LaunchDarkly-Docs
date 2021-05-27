@@ -10,12 +10,12 @@ published: true
 This topic explains how to configure the LaunchDarkly ServiceNow integration for flag approvals.
 
 <Callout intent="info">
-<CalloutTitle>Approvals are an Enterprise feature</CalloutTitle>
-<CalloutDescription>
+  <CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
+  <CalloutDescription>
 
-This feature is only available for customers on a LaunchDarkly Enterprise plan. To enable approvals on your account, [contact Sales](https://launchdarkly.com/contact-sales/).
+The LaunchDarkly ServiceNow integration is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://docs.google.com/forms/d/e/1FAIpQLScJ5qCC_RZTW9pPSXVZk9HaKzpltNAeoQb2t6gh7dLicwQWQQ/viewform).
 
-</CalloutDescription>
+  </CalloutDescription>
 </Callout>
 
 ## Prerequisites
@@ -44,12 +44,12 @@ To establish an OAuth connection:
 
 ![LaunchDarkly's ServiceNow OAuth provider registration form.](../../images/servicenow-register-oauth-launchdarkly.png)
 
-7. In ServiceNow, follow the directions to [create an endpoint for external clients](https://docs.servicenow.com/bundle/paris-platform-administration/page/administer/security/task/t_CreateEndpointforExternalClients.html
+7. In ServiceNow, follow the directions to [create an endpoint for external clients](https://docs.servicenow.com/bundle/paris-platform-administration/page/administer/security/task/t_CreateEndpointforExternalClients.html).
 8. Set the **Redirect URL** to the redirect URL saved to your clipboard in the previous step. Ensure you are following the directions for your ServiceNow version.
 
 ![The ServiceNow external client endpoint registration form with the Redirect URL configured.](../../images/servicenow-register-oauth-provider.png)
 
-9. In LaunchDarkly's **OAuth provider registration** modal, enter your ServiceNow subdomain. For example, if your ServiceNow instance is hosted at 'https://launchdarkly.service-now.com', your subdomain is 'launchdarkly'.
+9. In LaunchDarkly's **OAuth provider registration** modal, enter your ServiceNow host URL. For example, if your ServiceNow instance is hosted at `https://launchdarkly.service-now.com`, enter `https://launchdarkly.service-now.com`.
 10. Enter the **Client ID** and **Client Secret** for the client you created in step 5.
 11. Click **Register OAuth Provider**.
 12. Click **Allow**. ServiceNow may prompt you to log in to your ServiceNow account at this step.
