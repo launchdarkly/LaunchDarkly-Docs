@@ -752,7 +752,7 @@
             "path": "/sdk/features/config"
           },
           {
-            "label": "Evaluating flag variations",
+            "label": "Evaluating flags",
             "path": "/sdk/features/variation"
           },
           {
@@ -760,7 +760,7 @@
             "path": "/sdk/features/variationdetail"
           },
           {
-            "label": "Flushing SDK events",
+            "label": "Flushing events",
             "path": "/sdk/features/flush"
           },
           {
@@ -772,7 +772,7 @@
             "path": "/sdk/features/identify"
           },
           {
-            "label": "Logging",
+            "label": "Logging configuration",
             "path": "/sdk/features/logging"
           },
           {
@@ -800,7 +800,7 @@
             "path": "/sdk/features/track"
           },
           {
-            "label": "Shutting down an SDK",
+            "label": "Shutting down",
             "path": "/sdk/features/shutdown"
           },
           {

@@ -1,15 +1,13 @@
 ---
 path: '/sdk/features/variation'
-title: 'Variation configuration'
-description: 'This topic explains how to use the variation feature to serve different feature flag variations to users.'
+title: 'Evaluating flags'
+description: 'This topic explains how to use the flag evaluation feature to serve different feature flag variations to users.'
 published: true
 ---
 
 ## Overview
 
-This topic explains how to use the `variation` feature to serve different feature flag variations to users.
-
-This feature is available for both client-side and server-side SDKs.
+This topic explains how to use the flag evaluation feature to serve different feature flag variations to users. This feature is available for all of our SDKs.
 
 ## Configuring variations
 
@@ -17,7 +15,7 @@ Feature flag variations determine what a user sees when they encounter a feature
 
 Flags also have fallback variations. The fallback variation only returns if an error occurs. For example, LaunchDarkly serves the fallback variation if the feature flag key doesn't exist, or the user doesn't have a key specified.
 
-The `variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already. You do not need to create users manually, but if you want to, you can use `identify`. To learn more, read [Identify](/sdk/features/identify).
+The flag evaluation feature automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already. You do not need to create users manually, but if you want to, you can use the identify feature. To learn more, read [Identifying and changing users](/sdk/features/identify).
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 
@@ -26,9 +24,10 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 ## Client-side SDKs
 
-This feature is available in the following client-side SDKs:
+This feature is available for all of our client-side SDKs:
 
 * [Android](#android)
+* [C/C++ (client-side)](#cc-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -64,6 +63,47 @@ boolean variationResult = ldClient.boolVariation(flagKey, false);
 
 ```kotlin
 val variationResult: Boolean = ldClient.boolVariation(flagKey, false)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### C/C++ (client-side)
+
+The variation methods determine whether or not a flag is enabled for a specific user. The variation method signatures take the feature flag key and a fallback value. When the client is initialized for the first time, users receive the feature flag fallback values until an initial connection to LaunchDarkly completes.
+
+There are variation methods for each type, such as `LDBoolVariation ` / `boolVariation` or `LDStringVariation` / `stringVariation`.
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'C', value: 'c' },
+    { label: 'C++', value: 'cpp' }
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+bool show_feature = LDBoolVariation(client, "YOUR_FLAG_KEY", false);
+if (show_feature) {
+    // application code to show the feature
+} else {
+    // the code to run if the feature is off
+}
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="cpp">
+
+```cpp
+bool show_feature = client->boolVariation("YOUR_FLAG_KEY", false);
+
+if (show_feature) {
+    // application code to show the feature
+} else {
+    // the code to run if the feature is off
+}
 ```
 
 </CodeTabItem>
@@ -312,7 +352,7 @@ ldClient.BoolVariation("your.feature.key", false);
 
 ## Server-side SDKs
 
-This feature is available in the following server-side SDKs:
+This feature is available for all of our server-side SDKs:
 
 * [.NET](#net)
 * [Apex](#apex)

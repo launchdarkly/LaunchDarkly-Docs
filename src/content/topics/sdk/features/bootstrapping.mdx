@@ -1,17 +1,17 @@
 ---
 path: '/sdk/features/bootstrapping'
 title: 'Bootstrapping'
-description: 'This topic explains how the bootstrap feature works in the LaunchDarkly SDKs that support it.'
+description: 'This topic explains how the bootstrapping feature works in the LaunchDarkly SDKs that support it.'
 published: true
 ---
 
 ## Overview
 
-This topic explains how the bootstrap feature works in the LaunchDarkly SDKs that support it.
+This topic explains how the bootstrapping feature works in the LaunchDarkly SDKs that support it.
 
-## Understanding the bootstrap feature
+## Understanding the bootstrapping feature
 
-Bootstrapping lets you decrease startup times for client-side SDKs by providing them with an intial set of flag values. The SDK serves these values to the user while it initializes, before it has established a connection to LaunchDarkly. The SDK makes an initial call to LaunchDarkly to check for updated flag values, but this happens in the background. The user experiences no inconsistency in which flag variations they see.
+The bootstrapping feature lets you decrease startup times for client-side SDKs by providing them with an intial set of flag values. The SDK serves these values to the user while it initializes, before it has established a connection to LaunchDarkly. The SDK makes an initial call to LaunchDarkly to check for updated flag values, but this happens in the background. The user experiences no inconsistency in which flag variations they see.
 
 This feature is available in the following client-side SDKs:
 

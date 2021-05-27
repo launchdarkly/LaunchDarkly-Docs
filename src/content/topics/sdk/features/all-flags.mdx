@@ -7,17 +7,17 @@ published: true
 
 ## Overview
 
-This topic explains how the `allFlags` feature works in the LaunchDarkly SDKs that support it. All flags is available for both client-side and server-side SDKs.
+This topic explains how the all flags feature works in the LaunchDarkly SDKs that support it. The all flags feature is available for both client-side and server-side SDKs.
 
 ## Understanding the all flags feature
 
-All flags returns the state of all feature flags targeted to a user. This includes the flag values, and, for server-side SDKs, metadata for use on the front end.
+The all flags feature returns the state of all feature flags targeted to a user. This includes the flag values, and, for server-side SDKs, metadata for use on the front end.
 
-All flags does not create users in your LaunchDarkly account. Unlike `variation` and `identify`, `allFlags` does not send events that would create a user to LaunchDarkly.
+The all flags feature does not create users in your LaunchDarkly account. Unlike `variation` and `identify`, the all flags feature does not send events that would create a user to LaunchDarkly.
 
-For client-side SDKs, all flags may return a null value in cases where a flag's fallback variation would be served to the user.
+For client-side SDKs, The all flags feature may return a null value in cases where a flag's fallback variation would be served to the user.
 
-For server-side SDKs, you can use all flags to pass feature flags to your front end. In particular, you can use it to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript). To learn more about bootstrapping from a client-side SDK, read [Bootstrapping](/sdk/features/bootstrapping).
+For server-side SDKs, you can use the all flags feature to pass feature flags to your front end. In particular, you can use it to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript). To learn more about bootstrapping from a client-side SDK, read [Bootstrapping](/sdk/features/bootstrapping).
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 

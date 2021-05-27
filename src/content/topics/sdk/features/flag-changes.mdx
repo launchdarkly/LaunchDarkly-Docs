@@ -45,7 +45,7 @@ Here is the default behavior:
 
 This configuration means that you get near real-time updates for your feature flag values when the app is in the foreground, and maximum device and SDK efficiency when backgrounded.
 
-You can configure these settings if needed. To learn more, read [Client configuration](/sdk/features/config#android)
+You can configure these settings if needed. To learn more, read [Configuration](/sdk/features/config#android)
 
 To perform real-time updates in your app, it must register listeners to be notified when a flag's value changes.
 
@@ -517,7 +517,7 @@ The default SDK configuration has been found to be the best combination of low l
 3. When the app is foregrounded, the SDK reconnects to the stream and fetches the latest flags.
 4. In either the foreground or background, the SDK doesn't try to update unless the device has internet connectivity.
 
-This configuration means that the device gets near real-time updates for feature flag values when the app is in the foreground. You can configure these settings if needed. To learn more, read [Client configuration](/sdk/features/config#xamarin)
+This configuration means that the device gets near real-time updates for feature flag values when the app is in the foreground. You can configure these settings if needed. To learn more, read [Configuration](/sdk/features/config#xamarin)
 
 To perform real-time updates in the app, it must register listeners for updates from the streaming/polling connection for each flag you want to watch.
 

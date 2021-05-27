@@ -1,17 +1,19 @@
 ---
 path: '/sdk/features/flush'
-title: 'Flushing SDK events'
-description: 'This topic explains how to use the flush feature. Flush is available on both server-side and client-side SDKs.'
+title: 'Flushing events'
+description: 'This topic explains how to use the flush feature. The flush feature is available on both server-side and client-side SDKs.'
 published: true
 ---
 
 ## Overview
 
-This topic explains how to use the flush feature. `Flush` is available on both server-side and client-side SDKs.
+This topic explains how to use the flush feature. The flush feature is available on both server-side and client-side SDKs.
 
-## Using flush
+## Using the flush feature
 
-Flush tells the client to send all of an SDK's pending analytics events to LaunchDarkly as soon as possible. Flushing is asynchronous, so this method returns before it is complete.
+The flush feature tells the client to send all of an SDK's pending analytics events to LaunchDarkly as soon as possible. Flushing is asynchronous, so this method returns before it is complete.
+
+Most customers do not need to use the flush feature because SDKs automatically flush their pending analytics events on a periodic frequency.
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 

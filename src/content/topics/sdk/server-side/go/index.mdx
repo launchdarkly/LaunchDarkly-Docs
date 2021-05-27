@@ -100,7 +100,7 @@ It's important to make this a singleton. The client instance maintains internal 
   </CalloutDescription>
 </Callout>
 
-Using the `LDClient` methods, you can check which variation a particular user should receive for a given feature flag. See [Evaluating flag variations](#variation) and [Flag evaluation reasons](#VariationDetail) below for more details. See [Users](#users) for more about how user properties are specified-- in this example, there is a user key that consists of an email address.
+Using the `LDClient` methods, you can check which variation a particular user should receive for a given feature flag. See [Evaluating flags](/sdk/features/variation) and [Flag evaluation reasons](/sdk/features/variationdetail) for more details. See [User configuration](/sdk/features/user-config) for more about how user properties are specified-- in this example, there is a user key that consists of an email address.
 
 <CodeTabs
   defaultValue="go"
@@ -240,15 +240,15 @@ config.HTTPClientFactory = ldhttp.NewHTTPClientFactory(
 This SDK supports the following features:
 
 * [Aliasing users](/sdk/features/aliasing-users#go)
-* [Getting all flags](/sdk/features/all-flags#go)
-* [Client configuration](/sdk/features/config#go)
-* [Database integrations](/sdk/features/database-integrations)
-* [Evaluating flag variations](/sdk/features/variation#go)
+* [Configuration](/sdk/features/config#go)
+* [Evaluating flags](/sdk/features/variation#go)
 * [Flag evaluation reasons](/sdk/features/variationdetail#go)
-* [Flushing SDK events](/sdk/features/flush#go)
-* [Identify](/sdk/features/identify#go)
-* [Logging](/sdk/features/logging#go)
+* [Flushing events](/sdk/features/flush#go)
+* [Getting all flags](/sdk/features/all-flags#go)
+* [Identifying and changing users](/sdk/features/identify#go)
+* [Logging configuration](/sdk/features/logging#go)
 * [Offline mode](/sdk/features/offline-mode#go)
-* [Secure mode hash](/sdk/features/secure-mode#go)
-* [Subscribing to flag changes](/sdk/features/flag-changes#go)
+* [Persistent feature store](/sdk/features/database-integrations)
+* [Secure mode](/sdk/features/secure-mode#go)
 * [Sending custom events](/sdk/features/track#go)
+* [Subscribing to flag changes](/sdk/features/flag-changes#go)
