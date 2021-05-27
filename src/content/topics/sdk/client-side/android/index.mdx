@@ -349,37 +349,6 @@ coreInstance.close()
 
 Track calls, listeners, and flag evaluation are all tied to the client instance they are evaluated against.
 
-## Troubleshooting
-
-The Android SDK makes heavy use of the Timber logging. Include Timber in your application to enable debug output or production logging. An example is shown below to enable debug output when the application is built with a debug configuration.
-
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
-
-```java
-if (BuildConfig.DEBUG) {
-    Timber.plant(new Timber.DebugTree());
-}
-```
-
-</CodeTabItem>
-<CodeTabItem value="kotlin">
-
-```kotlin
-if (BuildConfig.DEBUG) {
-    Timber.plant(Timber.DebugTree())
-}
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## Data collection
 
 To learn more about data collection within this SDK and implications on submissions to the Apple App Store, read [Apple App Store data collection policy](/sdk/concepts/apple-app-store).
@@ -388,12 +357,14 @@ To learn more about data collection within this SDK and implications on submissi
 
 This SDK supports the following features:
 
+
 * [Configuration](/sdk/features/config#android)
 * [Evaluating flags](/sdk/features/variation#android)
 * [Flag evaluation reasons](/sdk/features/variationdetail#android)
 * [Flushing events](/sdk/features/flush#android)
 * [Getting all flags](/sdk/features/all-flags#android)
 * [Identifying and changing users](/sdk/features/identify#android)
+* [Logging configuration](/sdk/features/logging#android)
 * [Monitoring SDK status](/sdk/features/monitoring#android)
 * [Offline mode](/sdk/features/offline-mode#android)
 * [Sending custom events](/sdk/features/track#android)

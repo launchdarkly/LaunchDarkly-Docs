@@ -20,10 +20,42 @@ LaunchDarkly SDKs rely on built-in logging packages and libraries to track event
 
 This feature is available in the following client-side SDKs:
 
+* [Android](#android)
 * [Electron](#electron)
 * [Node.js (client-side)](#nodejs-client-side)
 * [Roku](#roku)
 * [Xamarin](#xamarin)
+
+### Android
+
+The Android SDK makes heavy use of Timber logging. Include Timber in your application to enable debug output or production logging. An example is shown below to enable debug output when the application is built with a debug configuration.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+if (BuildConfig.DEBUG) {
+    Timber.plant(new Timber.DebugTree());
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+if (BuildConfig.DEBUG) {
+    Timber.plant(Timber.DebugTree())
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ### Electron
 
