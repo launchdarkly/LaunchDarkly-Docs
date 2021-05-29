@@ -5,7 +5,7 @@ description: 'This topic explains how to use the LaunchDarkly Lua server-side SD
 published: true
 ---
 
-# Overview
+## Overview
 
 This guide explains how to use our [Lua server-side SDK](https://github.com/launchdarkly/lua-server-sdk) with [HAProxy](https://www.haproxy.org/). You can use HAProxy with LaunchDarkly to implement dynamic rate limiting, access controls, rollout, and many other features at the edge of your application architecture.
 
@@ -13,7 +13,7 @@ You can extend HAProxy with [Lua 5.3](https://www.lua.org/manual/5.3/), enabling
 
 Find a basic Dockerized app in the GitHub repository at [hello-haproxy](https://github.com/launchdarkly/hello-haproxy).
 
-# Prerequisites
+## Prerequisites
 
 To complete this guide, you must have the following prerequisites:
 
@@ -22,11 +22,11 @@ To complete this guide, you must have the following prerequisites:
 
 The C server-side SDK is required because the Lua server-side SDK is implemented as a wrapper around the C server-side SDK.
 
-# Preparing the C/C++ server-side SDK
+## Preparing the C/C++ server-side SDK
 
 Make the binary of the C/C++ server-side SDK accessible to the dynamic linker. The most convenient way to do this is to install the binary system-wide at `/usr/lib/libldserverapi.so`.
 
-# Ensuring correct initialization
+## Ensuring correct initialization
 
 The most important part of effective SDK usage is managing the lifetime of clients correctly. When HAProxy utilizes [process based concurrency](https://stackoverflow.com/questions/4315292/concurrency-processes-vs-threads), multiple clients initiate. If you accidentally initiate a client per request, the application is substantially slower because the SDK has to download a fresh ruleset from LaunchDarkly.
 

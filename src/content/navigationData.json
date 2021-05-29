@@ -691,12 +691,24 @@
             "path": "/sdk/concepts/getting-started"
           },
           {
+            "label": "Apple App Store data collection policy",
+            "path": "/sdk/concepts/apple-app-store"
+          },
+          {
             "label": "Client-side and server-side SDKs",
             "path": "/sdk/concepts/client-side-server-side"
           },
           {
+            "label": "Contributor's guide",
+            "path": "/sdk/concepts/contributors-guide"
+          },
+          {
             "label": "Evaluation reasons",
             "path": "/sdk/concepts/evaluation-reasons"
+          },
+          {
+            "label": "Flag evaluation rules in server-side SDKs",
+            "path": "/sdk/concepts/flag-evaluation-rules"
           },
           {
             "label": "Using a persistent feature store",
@@ -717,20 +729,8 @@
             ]
           },
           {
-            "label": "SDK versioning policy",
+            "label": "Versioning policy",
             "path": "/sdk/concepts/versioning"
-          },
-          {
-            "label": "SDK contributor's guide",
-            "path": "/sdk/concepts/contributors-guide"
-          },
-          {
-            "label": "Flag evaluation rules in server-side SDKs",
-            "path": "/sdk/concepts/flag-evaluation-rules"
-          },
-          {
-            "label": "Apple App Store data collection policy",
-            "path": "/sdk/concepts/apple-app-store"
           }
         ]
       },

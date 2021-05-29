@@ -21,7 +21,7 @@ To learn more about users, read [The Users dashboard](/home/users/users-dashboar
 
 ## How LaunchDarkly recieves user data
 
-You configure the LaunchDarkly SDK to collect and transmit attributes about users to LaunchDarkly for the purpose of flag targeting. 
+You configure the LaunchDarkly SDK to collect and transmit attributes about users to LaunchDarkly for the purpose of flag targeting.
 
 When you evaluate a feature flag in your SDK, the evaluation includes a `user` key associated with an object. The object is the user data. It can include various key-value pairs that contain information about your users.
 
@@ -37,7 +37,7 @@ Depending on the requirements of your organization, you may want to limit or com
 
 ## How the LaunchDarkly SDK you use affects user data
 
-LaunchDarkly's SDKs have different constraints that affect user data. Specifically, client-side SDKs differ from server-side SDKs in the following ways:
+LaunchDarkly SDKs have different constraints that affect user data. Specifically, client-side SDKs differ from server-side SDKs in the following ways:
 
 - You must enable each flags that you want client-side SDK to be able to access using the "Make this flag available to client-side SDKs" setting. To learn more, read [Client-side ID](/sdk/concepts/client-side-server-side#client-side-id).
 
@@ -86,20 +86,20 @@ If you use anonymous users or private user attributes, the [Users dashboard](/ho
 
 ## User-initiated data minimization
 
-When your product uses LaunchDarkly JavaScript SDKs, users can minimize the data that they send to LaunchDarkly by configuring their browser to prevent sendiing analytics data. 
+When your product uses LaunchDarkly JavaScript SDKs, users can minimize the data that they send to LaunchDarkly by configuring their browser to prevent sendiing analytics data.
 
 This works because the JavaScipt SDK sends data to the feature flag API (app.launchdarkly.com), the streaming API (stream.launchdarkly.com), and the analytics API (events.launchdarkly.com). Users can block the analytics API to reduce the amount of data they provide to LaunchDarkly, but the feature flag API and analytics API are necessary for LaunchDarkly to work.
 
 ### Do Not Track (DNT)
 
-Modern web browsers have Do Not Track (DNT) options that request websites, apps, and services not harvest user data. 
+Modern web browsers have Do Not Track (DNT) options that request websites, apps, and services not harvest user data.
 
 Individual users can enable DNT in their browsers. LaunchDarkly complies with DNT requests and does not send analytics data when a browser has DNT enabled.
 
 ### Ad blockers
 
-If users configure ad blockers in their browsers, they can prevent analytics information from being transmitted to LaunchDarkly. However, because ad blockers are third-party products, LaunchDarkly cannot control how they implement their restrictions. 
+If users configure ad blockers in their browsers, they can prevent analytics information from being transmitted to LaunchDarkly. However, because ad blockers are third-party products, LaunchDarkly cannot control how they implement their restrictions.
 
-If you use an ad blocker, some feature flags may not work because the ad blocker incorrectly blocks access to app.launchdarkly.com or stream.launchdarkly.com when it should only be blocking outbound connections to events.launchdarkly.com. 
+If you use an ad blocker, some feature flags may not work because the ad blocker incorrectly blocks access to app.launchdarkly.com or stream.launchdarkly.com when it should only be blocking outbound connections to events.launchdarkly.com.
 
 Although ad blockers often block LaunchDarkly analytics data, LaunchDarkly analytics data is not used for ad targeting or tracking. To learn more, read our [Privacy Policy](https://launchdarkly.com/policies/privacy/).

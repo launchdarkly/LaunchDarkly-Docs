@@ -1,6 +1,6 @@
 ---
 path: '/sdk/concepts/contributors-guide'
-title: "SDK contributor's guide"
+title: "Contributor's guide"
 description: 'This topic explains how LaunchDarkly SDKs work. It is intended to help anyone create or contribute to a LaunchDarkly SDK. Our SDKs are all open source, and we encourage pull requests and other contributions from the community.'
 published: true
 ---
@@ -21,7 +21,7 @@ There are three main components to a LaunchDarkly SDK implementation:
 
 ## Receiving feature flag updates
 
-LaunchDarkly's SDKs store all feature flags in memory. SDKs typically receive flag updates asynchronously through our streaming protocol (as is the default case in most SDKs). While LaunchDarkly's various SDKs typically support the same two mechanisms for receiving feature flag updates, their implementation details vary.
+LaunchDarkly SDKs store all feature flags in memory. SDKs typically receive flag updates asynchronously through our streaming protocol (as is the default case in most SDKs). While LaunchDarkly's various SDKs typically support the same two mechanisms for receiving feature flag updates, their implementation details vary.
 
 The SDKs can use either of the following mechanisms to populate a feature flag store, which is a thread-safe, in-memory map from feature flag keys to feature flag JSON. Evaluating a feature flag is a very lightweight and inexpensive effort and requires no per-evaluation requests to LaunchDarkly's servers. Server-side SDKs can read flags from the in-memory store and evaluate them using the evaluation algorithm, and client-side SDKs can retrieve pre-evaluated flag values from the in-memory store. To learn more, read [Evaluating feature flags](#evaluating-feature-flags).
 
@@ -438,7 +438,7 @@ The call to `/api/events/bulk` should contain a JSON list of events.
 
 ### Diagnostic events
 
-Diagnostic events are optional events which report on the SDK's configuration and operational behavior. These events are strictly for use by LaunchDarkly's internal teams and are intended to provide insights into how SDKs are operating in the field. Diagnostic events are not used for any customer-facing features nor is the resulting data accessible to customers. Support for diagnostic events varies across LaunchDarkly's SDKs.
+Diagnostic events are optional events which report on the SDK's configuration and operational behavior. These events are strictly for use by LaunchDarkly's internal teams and are intended to provide insights into how SDKs are operating in the field. Diagnostic events are not used for any customer-facing features nor is the resulting data accessible to customers. Support for diagnostic events varies across LaunchDarkly SDKs.
 
 Diagnostic events have two variants:
 
