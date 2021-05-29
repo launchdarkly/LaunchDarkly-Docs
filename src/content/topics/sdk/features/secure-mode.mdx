@@ -1,21 +1,25 @@
 ---
 path: '/sdk/features/secure-mode'
 title: 'Secure mode'
-description: 'This topic explains how to generate a secure mode hash for various server-side SDKs.'
+description: 'This topic explains how to use the secure mode feature for safely evaluating feature flags in your web browser.'
 published: true
 ---
 
 ## Overview
 
-This topic explains how to generate a secure mode hash for various server-side SDKs.
+This topic explains how to use the secure mode feature for safely evaluating feature flags in your web browser.
 
-## Using secure mode hashes
+## Using secure mode
 
-A secure mode hash lets the JavaScript SDK connect to a server-side SDK in secure mode.
+Secure mode ensures that users' feature flag evaluations are kept private in web browser environments, and that one user cannot inspect the variations for another user. Secure mode works by having you configure your JavaScript SDK to include a server-generated HMAC SHA256 hash of your user key, signed with the SDK key for your environment.
 
-Each SDK uses a unique method to create the hash.
+Each of our server-side SDKs includes a method to compute the secure mode hash for a user. You can pass this to your front-end code with the mechanism of your choice, such as bootstrapping or as a template variable.
 
-This feature is available in the following SDKs:
+You can enable secure mode for each environment on your [account settings](https://app.launchdarkly.com/settings/projects) page.
+
+## Generating a secure mode hash
+
+You can use the following server-side SDKs to generate a secure mode hash:
 
 * [.NET](#net)
 * [Go](#go)
@@ -27,7 +31,7 @@ This feature is available in the following SDKs:
 
 ### .NET
 
-The [`SecureModeHash`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_SecureModeHash.htm) method computes an HMAC signature of a user signed with the client's SDK key. If you use our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+The [`SecureModeHash`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_SecureModeHash.htm) method computes an HMAC signature of a user signed with the client's SDK key.
 
 Here is the method:
 
@@ -48,7 +52,7 @@ var hash = ldClient.SecureModeHash(user);
 
 ### Go
 
-The [`SecureModeHash`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.SecureModeHash) method computes an HMAC signature of a user signed with the client's SDK key. If you use our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+The [`SecureModeHash`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.SecureModeHash) method computes an HMAC signature of a user signed with the client's SDK key.
 
 Here is the method:
 
@@ -69,7 +73,7 @@ ldClient.SecureModeHash(user)
 
 ### Java
 
-The [`secureModeHash`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#secureModeHash-com.launchdarkly.sdk.LDUser-) method computes an HMAC signature of a user signed with the client's SDK key. If you use our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+The [`secureModeHash`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#secureModeHash-com.launchdarkly.sdk.LDUser-) method computes an HMAC signature of a user signed with the client's SDK key.
 
 Here is the method:
 
@@ -90,7 +94,7 @@ ldClient.secureModeHash(user);
 
 ### Node.js (server-side)
 
-The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you use our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key.
 
 Here is the method:
 
@@ -111,7 +115,7 @@ ldClient.secureModeHash(user);
 
 ### PHP
 
-The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you use our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key.
 
 Here is the method:
 
@@ -132,7 +136,7 @@ $client->secureModeHash(user);
 
 ### Python
 
-The `SecureModeHash` method computes an HMAC signature of a user signed with the client's SDK key. If you use our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+The `SecureModeHash` method computes an HMAC signature of a user signed with the client's SDK key.
 
 Here is the method:
 
@@ -153,7 +157,7 @@ hash = ldclient.get().secure_mode_hash(user)
 
 ### Ruby
 
-The `secure_mode_hash` method computes an HMAC signature of a user signed with the client's SDK key. If you use our [JavaScript SDK](/sdk/client-side/javascript) for client-side flags, this method generates the signature you need for secure mode.
+The `secure_mode_hash` method computes an HMAC signature of a user signed with the client's SDK key.
 
 Here is the method:
 
@@ -167,6 +171,53 @@ Here is the method:
 
 ```ruby
 ld_client.secure_mode_hash(user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Computing the hash manually
+
+Alternatively, you can compute the hash yourself.
+
+To compute the hash yourself, locate the SDK key for your environment on your account settings page. Then, compute an HMAC SHA256 hash of your user key, using your SDK key as a secret.
+
+Here's an example that uses Node.js:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var crypto = require('crypto');
+var hmac = crypto.createHmac('sha256', 'YOUR_SDK_KEY');
+hmac.update('YOUR_USER_KEY');
+hash = hmac.digest('hex');
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Configuring secure mode in the JavaScript client-side SDK
+
+You should send the computed secure mode hash for your user as the [`hash` attribute](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldoptions.html#hash) in the `LDOptions` object during client initialization:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
+  hash: "SERVER_GENERATED_HASH"
+});
 ```
 
 </CodeTabItem>

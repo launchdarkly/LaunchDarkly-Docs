@@ -26,6 +26,7 @@ This feature is available in the following client-side SDKs:
 * [C/C++ (client-side)](#cc-client-side)
 * [Flutter](#flutter)
 * [iOS](#ios)
+* [JavaScript](#javascript)
 * [Node.js (client-side)](#nodejs-client-side)
 * [React Native](#react-native)
 * [Roku](#roku)
@@ -140,6 +141,65 @@ if (err != nil) {
 
 </CodeTabItem>
 </CodeTabs>
+
+### JavaScript
+
+You can record custom events using the `track` function. In LaunchDarkly, you can connect these events to metrics in experiments. To learn more, read [Experimentation](/home/experimentation).
+
+Call `track` with the event name to record custom conversion metrics.
+
+The second argument is optional. It assists with observational analytics for Data Export destinations. With Data Export, the second argument gives additional context without saving the data to the LaunchDarkly user.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldclient.track("your-event-name", { customProperty: someValue });
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+For numeric metrics, include a numeric value as a third argument in the call.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldclient.track("your-event-name", null, 5);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+#### Tracking click and pageview events in JavaScript
+---
+<br/>
+
+If you've defined click or pageview goals in LaunchDarkly, they'll be sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or pageview goals.
+
+To learn more about click and pageview goals, read [Experimentation](/home/experimentation).
+
+<Callout intent="info">
+  <CalloutTitle>Single-page apps</CalloutTitle>
+<CalloutDescription>
+
+The SDK automatically handles URL changes (made by the HTML5 history API or by changing the URL hash fragment), and
+will trigger pageview and click events correctly.
+
+</CalloutDescription>
+</Callout>
+
 
 ### Node.js (client-side)
 

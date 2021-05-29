@@ -218,9 +218,7 @@ ldclient.on('ready', function() {
 <CalloutDescription>
 
 
-The SDK does not subscribe to streaming real-time updates automatically when it is initialized. As a side effect,
-subscribing to the SDK's **change** event by calling **.on('change').** will cause the SDK to open a streaming
-connection to LaunchDarkly. This is the only way to receive realtime updates.
+The SDK does not subscribe to streaming real-time updates automatically when it is initialized. As a side effect, subscribing to the SDK's **change** event by calling **.on('change').** will cause the SDK to open a streaming connection to LaunchDarkly. This is the only way to receive realtime updates.
 
 
 </CalloutDescription>
@@ -238,130 +236,6 @@ in your [project settings](https://app.launchdarkly.com/settings#/projects).
 </CalloutDescription>
 </Callout>
 
-## Secure mode
-
-Secure mode ensures that feature flag settings for a user are kept private, and that one user cannot inspect the settings for another user. Secure mode works by having you include a server-generated HMAC SHA256 hash of your user key, signed with the SDK key for your environment.
-
-You can enable secure mode for each environment on your [account settings](https://app.launchdarkly.com/settings#/projects) page.
-
-You should send the computed hash for your user in the options array during client initialization:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
-  hash: "SERVER_GENERATED_HASH"
-});
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Each of our server-side SDKs includes a method to compute the secure mode hash for a user. You can pass this to your front-end code in a template. For example:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
-  hash: {{ ldclient.secure_mode_hash(user) }} // this is a template directive, and the ldclient instance here is your server-side SDK client
-});
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To compute the hash yourself, locate the SDK key for your environment on your account settings page. Then, compute an HMAC SHA256 hash of your user key, using your SDK key as a secret.
-
-Here's an example that uses Node.js:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-var crypto = require('crypto');
-var hmac = crypto.createHmac('sha256', 'YOUR_SDK_KEY');
-hmac.update('YOUR_USER_KEY');
-hash = hmac.digest('hex');
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-## Tracking click and pageview events
-
-If you've defined click or pageview goals in LaunchDarkly, they'll be sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or pageview goals.
-
-To learn more about click and pageview goals, read [Experimentation](/home/experimentation).
-
-<Callout intent="info">
-  <CalloutTitle>Single-page apps</CalloutTitle>
-<CalloutDescription>
-
-The SDK automatically handles URL changes (made by the HTML5 history API or by changing the URL hash fragment), and
-will trigger pageview and click events correctly.
-
-</CalloutDescription>
-</Callout>
-
-## Tracking custom events
-
-You can record custom events using the `track` function. In LaunchDarkly, you can connect these events to metrics in experiments.
-
-To learn more, read [Experimentation](/home/experimentation).
-
-Call track with the event name to record custom conversion metrics.
-
-The second argument is optional. It assists with observational analytics for Data Export destinations. With Data Export, the second argument gives additional context without saving the data to the LaunchDarkly user.
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-ldclient.track("your-event-name", { customProperty: someValue });
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-For numeric metrics, include a numeric value as a third argument in the call.
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-ldclient.track("your-event-name", null, 5);
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## Supported features
 
 This SDK supports the following features:
@@ -374,5 +248,7 @@ This SDK supports the following features:
 * [Flushing events](/sdk/features/flush#javascript)
 * [Getting all flags](/sdk/features/all-flags#javascript)
 * [Identifying and changing users](/sdk/features/identify#javascript)
+* [Secure mode](/sdk/features/secure-mode#configuring-secure-mode-in-the-javascript-client-side-sdk)
+* [Sending custom events](/sdk/features/track#javascript)
 * [Subscribing to flag changes](/sdk/features/flag-changes#javascript)
 * [User configuration](/sdk/features/user-config#javascript)
