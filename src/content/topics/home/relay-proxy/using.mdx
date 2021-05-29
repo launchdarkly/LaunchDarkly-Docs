@@ -1,13 +1,13 @@
 ---
 path: '/home/relay-proxy/using'
 title: 'Using the Relay Proxy'
-description: 'This topic explains how to set up and use the Relay Proxy. It explains the proxy''s two modes and how to perform flag evaluations with the Relay Proxy.'
+description: 'This topic explains how to set up and use the Relay Proxy. It explains the Relay Proxy''s two modes and how to perform flag evaluations with the Relay Proxy.'
 published: true
 ---
 
 ## Overview
 
-This topic explains how to use the Relay Proxy. It also explains the proxy's two modes and gives detail on how to perform flag evaluations with the Relay Proxy.
+This topic explains how to use the Relay Proxy. It also explains the Relay Proxy's two modes and gives detail on how to perform flag evaluations with the Relay Proxy.
 
 To learn more about deploying the Relay Proxy, read [Deploying the Relay Proxy](/home/relay-proxy/deploying).
 
@@ -40,7 +40,7 @@ To learn more, read [your SDK's documentation](/sdk).
 
 After you have configured it, follow the procedure below to validate your Relay Proxy configuration:
 
-1. Start your SDK. If the SDK connects successfully, the proxy is working.
+1. Start your SDK. If the SDK connects successfully, the Relay Proxy is working.
 
    <Callout intent="alert">
      <CalloutTitle>Look for connection or environment-related errors</CalloutTitle>
@@ -51,7 +51,7 @@ After you have configured it, follow the procedure below to validate your Relay 
      </CalloutDescription>
    </Callout>
 
-2. To confirm the proxy is configured correctly, test it by evaluating a feature flag.
+2. To confirm the Relay Proxy is configured correctly, test it by evaluating a feature flag.
 3. In the LaunchDarkly UI, change the value of a feature flag so you will see a different variation in production.
 4. Verify in your application that the flag value has changed.
 
@@ -112,7 +112,7 @@ If you have set your SDK to daemon mode and wish to restore proxy mode, you can 
   </CalloutDescription>
 </Callout>
 
-We recommend that you use a monitoring service, such as Datadog, when your SDKs are configured to run in daemon mode. Because the Relay Proxy's data store communicates directly with the SDKs when the proxy is in in daemon mode, an external monitoring service can provide information about problems that might otherwise be lost during an outage.
+We recommend that you use a monitoring service, such as Datadog, when your SDKs are configured to run in daemon mode. Because the Relay Proxy's data store communicates directly with the SDKs when the Relay Proxy is in in daemon mode, an external monitoring service can provide information about problems that might otherwise be lost during an outage.
 
 ![SDKs configured to use the Relay Proxy while in daemon mode.](../../../images/relayproxy-daemon-mode.png)
 

@@ -92,18 +92,24 @@ if ($client->variation("your.flag.key", $user)) {
 </CodeTabItem>
 </CodeTabs>
 
-That's all!
-
-You may remember from our [Getting Started guide](/home/getting-started) that users should be sure to shut down the LaunchDarkly client on application termination. This step does not exist in PHP because the PHP SDK does not maintain long-lived network connections nor an event queue.
+In our [Getting Started guide](/home/getting-started) we recommend that users shut down the LaunchDarkly client on application termination. This step does not exist in PHP because the PHP SDK does not maintain long-lived network connections nor an event queue.
 
 ## Fetching flags
 
-There are two distinct methods of integrating LaunchDarkly in a PHP environment.
+There are two distinct methods of integrating LaunchDarkly in a PHP environment:
 
-- [Guzzle Cache Middleware](https://github.com/Kevinrob/guzzle-cache-middleware) to request and cache HTTP responses in an in-memory array (default)
-- [ld-relay](https://github.com/launchdarkly/ld-relay) to retrieve and store flags in Redis (recommended)
+- [The Relay Proxy](/home/relay-proxy) retrieves and store flags in Redis (recommended)
+- [Guzzle Cache Middleware](https://github.com/Kevinrob/guzzle-cache-middleware) requests and caches HTTP responses in an in-memory array (default)
 
-We strongly suggest using the ld-relay. Per-flag caching mode (Guzzle) is only intended for low-throughput environments.
+We strongly suggest using the Relay Proxy. Per-flag caching mode using Guzzle is only intended for low-throughput environments.
+
+## Using the Relay Proxy
+
+PHP's shared-nothing architecture prevents LaunchDarkly from re-using the streaming API connection across requests.
+
+You can use PHP without the Relay Proxy, but we strongly recommend using the Relay Proxy in **daemon mode** if you are using PHP in a high-throughput setting. This makes the Relay Proxy receive feature flag updates.
+
+To learn more, read [Using the Relay Proxy in different modes](/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
 
 ## Using Guzzle
 
@@ -145,55 +151,6 @@ $client = new LaunchDarkly\LDClient("YOUR_SDK_KEY", array("cache" => $cacheStora
 
 </CodeTabItem>
 </CodeTabs>
-
-## Using LD-Relay
-
-Setup [ld-relay](https://github.com/launchdarkly/ld-relay) in [daemon-mode](https://github.com/launchdarkly/ld-relay#redis-storage-and-daemon-mode) with Redis
-
-Require Predis as a dependency:
-
-
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-  ]
-}>
-<CodeTabItem value="php">
-
-```php
-php composer.phar require "predis/predis:1.0.*"
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Create the LDClient with the Redis feature requester as an option:
-
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-  ]
-}>
-<CodeTabItem value="php">
-
-```php
-$client = new LaunchDarkly\LDClient("your_sdk_key", ['feature_requester_class' => 'LaunchDarkly\LDDFeatureRequester', 'redis_host' => 'your.redis.host', 'redis_port' => 6379]);
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-<Callout intent="warning">
-  <CalloutTitle>Caching and PHP</CalloutTitle>
-  <CalloutDescription>
-
-PHP's *shared-nothing* architecture means that the out-of-the-box in-memory HTTP cache used by our SDK won't cache
-feature flags across requests. In production, we strongly recommend the ld-relay for PHP.
-
-  </CalloutDescription>
-</Callout>
 
 ## Supported features
 
