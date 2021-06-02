@@ -24,6 +24,7 @@ This feature is available in the following client-side SDKs:
 
 * [Android](#android)
 * [C/C++ (client-side)](#cc-client-side)
+* [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
 * [JavaScript](#javascript)
@@ -61,6 +62,48 @@ ldClient.track("your-goal-key", data)
 </CodeTabItem>
 </CodeTabs>
 
+### C/C++ (client-side)
+
+The track method allows you to record custom events in your application with LaunchDarkly:
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'Example', value: 'c', },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+LDClientTrack(client, "YOUR_EVENT_KEY");
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Electron
+
+Evaluating flags, either with `variation()` or with `allFlags()`, produces analytics events which you can observe on your LaunchDarkly Debugger page. The initial user you specify in the client constructor, as well as any user you specify with `identify()`, produces an analytics event which is how LaunchDarkly receives your user data.
+
+You can also explicitly send an event with any data you like using the `track` function:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+client.track('my-custom-event-key', { customProperty: someValue });
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You can completely disable event sending by setting `sendEvents` to `false` in the client options, but be aware that this means you will not have user data on your LaunchDarkly dashboard.
+
 ### Flutter
 
 The `track` method lets you record actions your users take in your you do application. You can have also attach custom JSON data to your event by passing an extra `LDValue` parameter to `track`.
@@ -77,25 +120,6 @@ Here's how:
 
 ```dart
 await LDClient.track('your-goal-key', data: LDValue.objectBuilder().addBool("clicked-button", true).build());
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-### C/C++ (client-side)
-
-The track method allows you to record custom events in your application with LaunchDarkly:
-
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'Example', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
-
-```c
-LDClientTrack(client, "YOUR_EVENT_KEY");
 ```
 
 </CodeTabItem>
@@ -200,6 +224,39 @@ will trigger pageview and click events correctly.
 </CalloutDescription>
 </Callout>
 
+#### Analytics in JavaScript
+---
+
+Evaluating flags, either with `variation()` or with `allFlags()`, produces analytics events which you can observe on your LaunchDarkly Debugger page. The initial user you specify in the client constructor, as well as any user you specify with `identify()`, produces an analytics event which is how LaunchDarkly receives your user data.
+
+You can also explicitly send an event with any data you like using the `track` function. The second argument is optional.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+ldclient.track("your-event-name", { customProperty: someValue });
+```
+</CodeTabItem>
+</CodeTabs>
+
+If you [define click or pageview metrics](https://app.clubhouse.io/home/experimentation) in LaunchDarkly, they are sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or pageview goals. The SDK will generate pageview events correctly regardless of how the URL is changed, such as by the HTML5 history API, by changing the URL hash fragment, etc.
+
+You can completely disable event sending by setting `sendEvents` to `false` in the client options, but this means you will not have user data on your LaunchDarkly dashboard.
+
+<Callout intent="info">
+<CalloutTitle>Do Not Track and ad blocking software</CalloutTitle>
+<CalloutDescription>
+
+The JavaScript SDK respects the [Do Not Track events](https://www.eff.org/issues/do-not-track) header. If an end-user has Do Not Track enabled in their browser, the SDK does not send analytics events for flag evaluations or goals to events.launchdarkly.com. In addition, ad blocking software may block analytics events from being sent. This does not impact feature flag evaluations.
+
+</CalloutDescription>
+</Callout>
 
 ### Node.js (client-side)
 
