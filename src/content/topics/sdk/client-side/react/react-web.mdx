@@ -211,7 +211,7 @@ The [`ProviderConfig`](https://launchdarkly.github.io/react-client-sdk/interface
 
 - `clientSideID`: This is your project and environment specific client-side ID. This property is mandatory.
 
-- `user`: A LaunchDarkly [user](/sdk/features/user-config) object. This property is optional.
+- `user`: A LaunchDarkly [user](/sdk/features/user-config) object. This property is optional unless you are initializing in secure mode, in which case it is mandatory.
 
 - `options`: LaunchDarkly JavaScript SDK initialization [options](/sdk/features/config). This property is optional.
 
