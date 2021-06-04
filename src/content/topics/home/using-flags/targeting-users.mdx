@@ -244,7 +244,7 @@ LaunchDarkly includes some useful built-in attributes for users. All of them are
         <code>ip</code>
       </TableCell>
       <TableCell>"10.10.10.10"</TableCell>
-      <TableCell></TableCell>
+      <TableCell>This attribute must be an IP address.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -265,7 +265,7 @@ LaunchDarkly includes some useful built-in attributes for users. All of them are
         <code>avatar</code>
       </TableCell>
       <TableCell>"http://example.com/avatar.png"</TableCell>
-      <TableCell></TableCell>
+      <TableCell>This attribute must be an absolute URL to an avatar image for the user.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -293,10 +293,11 @@ LaunchDarkly includes some useful built-in attributes for users. All of them are
         <code>anonymous</code>
       </TableCell>
       <TableCell>"true"</TableCell>
-      <TableCell>This is a Boolean value.</TableCell>
+      <TableCell>This is a Boolean value. This attribute prevents the user from appearing on the dashboard. Setting <code>anonymous</code> to <code>false</code> is not the same as omitting it. If you have a flag rule that checks for <code>anonymous</code> being <code>false</code>, the rule will not match users for whom you did not set a value, because null attributes will never match a flag rule. </TableCell>
     </TableRow>
   </TableBody>
 </Table>
+
 <Callout intent="info">
   <CalloutTitle>We do not provide built-in attributes</CalloutTitle>
   <CalloutDescription>
@@ -307,10 +308,10 @@ LaunchDarkly includes some useful built-in attributes for users. All of them are
 
 ### Anonymous users
 
-Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You
+Anonymous users work just like regular users, except that they don't appear on your Users page in LaunchDarkly. You
 also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user
-keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page! Note that anonymous
-users will still count toward your monthly active user limit.
+keys. This is keeps anonymous users from polluting your Users page. Anonymous
+users still count toward your monthly active user limit.
 
 You still must generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
 
@@ -351,11 +352,11 @@ LaunchDarkly allows you to target users based on arbitrary custom attributes, wh
 <CalloutDescription>
 
 Setting a custom attribute with the same key as one of the built-in attributes will cause the attribute to be ignored during feature flag evaluation. For mobile SDKs, the custom attributes `os` and `device` are automatically included with os and device data. You can override this by specifying them as custom attributes in your user object and setting your own values.
-    
+
   </CalloutDescription>
 </Callout>
 
-You can add multiple conditions to a rule. Users must meet all the conditions in a rule to match the rule. If any of the conditions are not met, the user will not match the rule.
+You can add multiple conditions to a rule. Users must meet all the conditions in a rule to match the rule. If any of the conditions are not met, the user will not match the rule. If a custom attribute has an array value, LaunchDarkly treats it as multiple values and allows any of the values within the array to match a rule.
 
 Here, we've created a custom rule with two conditions. This rule serves `true` to all users whose email address ends with `gmail.com` and whose country is either `USA` or `CANADA`.
 
@@ -473,7 +474,7 @@ $user = new LDUser("foo@example.com", null, null, null, ["groups" => "beta_teste
 
 On the Targeting tab, we add a new rule, set the attribute name to `groups`, the operator to `is one of`and enter `beta_testers`, the name of our group of beta testers.
 
-That's it! Any users in the `beta_testers` group will see the new dashboard feature. We've also kept the feature on for our internal tester Ernesto, since there's still an Include rule for him.
+Any users in the `beta_testers` group will see the new dashboard feature. We've also kept the feature on for our internal tester Ernesto, since there's still an Include rule for him.
 
 ## Percentage rollouts
 

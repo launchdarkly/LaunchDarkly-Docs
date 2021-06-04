@@ -65,7 +65,9 @@ To learn more about setting these configuration options, read your SDK's documen
 
 A user object is constructed of the user's key, standard attributes, and custom attributes.
 
-Custom attributes contain any other user data that you would like to use to conditionally target your users. Custom attributes are provided in the users object. Here is an example user object which contains custom user attributes:
+Custom attributes contain any other user data that you would like to use to conditionally target your users. You can provide custom attributes in the user object. The value of a custom attribute can be of any type that's allowed in JSON, including boolean, number, string, array, and object.
+
+Here is an example user object which contains custom user attributes:
 
 <CodeTabs
   defaultValue="json"
@@ -91,52 +93,4 @@ Custom attributes contain any other user data that you would like to use to cond
 </CodeTabItem>
 </CodeTabs>
 
-The user's key is not optional, but the following standard attributes are all optional:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Attribute</TableHeadCell>
-    <TableHeadCell>Requirements</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>email</TableCell>
-      <TableCell>Must be a string.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>firstName</TableCell>
-      <TableCell>Must be a string.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>lastName</TableCell>
-      <TableCell>Must be a string.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>name</TableCell>
-      <TableCell>Must be a string.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>avatar</TableCell>
-      <TableCell>Must be an absolute URL to an avatar image for the user.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>ip</TableCell>
-      <TableCell>Must be an IP address.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>country</TableCell>
-      <TableCell>Must be a string.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>anonymous</TableCell>
-      <TableCell>
-        Must be a boolean. This attribute prevents the user's other attributes from being transmitted to the events
-        endpoint, and prevents the user from showing up on the dashboard.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell></TableCell>
-      <TableCell></TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
+All built-in attributes are optional except for `key`. To see a full list of built-in attributes, read [Built-in attributes](/home/flags/targeting-users#built-in-attributes).
