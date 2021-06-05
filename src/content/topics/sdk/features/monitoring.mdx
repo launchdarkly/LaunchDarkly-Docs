@@ -13,6 +13,8 @@ This topic explains how various client-side SDKs monitor the connection to Launc
 
 Some SDKs expose some of their internal statuses through the Connection Status API to allow your application to monitor the SDK's status. This is provided primarily as a mechanism for the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
 
+## Client-side SDKs
+
 This feature is available in the following client-side SDKs:
 
 * [Android](#android)
@@ -29,7 +31,7 @@ This feature is available in the following client-side SDKs:
 This feature is available in the Android SDK's versions 2.8.0 and later.</CalloutDescription>
 </Callout>
 
-The Android SDK exposes some of its internal status through new APIs to let your application monitor it. This allows the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
+The Android SDK exposes some of its internal status through APIs to let your application monitor it. This allows the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
 
 The SDK has seven connectivity states dependent on its configuration, application foreground state, network connectivity, and calls explicitly setting the client offline or online.
 
@@ -448,7 +450,7 @@ Subscribing to `change` events automatically turns on streaming mode as well, un
 
 ### Flutter
 
-The Flutter SDK exposes some of its internal status through new APIs to let your application monitor it. This allows the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
+The Flutter SDK exposes some of its internal status through APIs to let your application monitor it. This allows the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
 
 
 The SDK also stores a timestamp of the most recent successful and failed connections to LaunchDarkly, as well as information related to the most recent failed connection. The `LDClient` method `getConnectionInformation()` returns a structure that lets you retrieve these fields.
@@ -560,7 +562,7 @@ This table describes the values:
 
 You can listen to changes in `ConnectionInformation.ConnectionMode` in a similar manner to flag observers.
 
-Here is an example of the new API:
+Here is an example of the API:
 
 <CodeTabs
   defaultValue="swift"
@@ -584,7 +586,7 @@ LDClient.get()!.observeCurrentConnectionMode(owner: self) { [weak self] connecti
 
 ### React Native
 
-The iOS SDK exposes some of its internal status through the Connection Status API to let your application monitor it. This allows the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
+The React Native SDK exposes some of its internal status through the Connection Status API to allow your application to monitor the SDK's status. This is provided primarily as a mechanism for the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
 
 <CodeTabs
   defaultValue="js"
@@ -595,9 +597,169 @@ The iOS SDK exposes some of its internal status through the Connection Status AP
 <CodeTabItem value="js">
 
 ```js
-let connectionInformation = client.getConnectionInformation();
-console.log("Connection Information: " + connectionInformation);
+const connectionMode = await client.getConnectionMode();
+const lastSuccessfulConnection = await client.getLastSuccessfulConnection();
+const lastFailedConnection = await client.getLastFailedConnection();
+const lastFailureReason = await client.getLastFailure();
 ```
 
 </CodeTabItem>
 </CodeTabs>
+
+To learn more about the return types, read the API documentation about [`LDConnectionMode`](https://launchdarkly.github.io/react-native-client-sdk/interfaces/_launchdarkly_react_native_client_sdk_.ldconnectionmode.html) and [`LDFailureReason`](https://launchdarkly.github.io/react-native-client-sdk/interfaces/_launchdarkly_react_native_client_sdk_.ldfailurereason.html).
+
+## Server-side SDKs
+
+The following server-side SDKs provide two kinds of SDK status monitoring:
+
+* Data source status
+* Data store status
+
+Data source status is the status of the SDK's communication with LaunchDarkly to get feature flag data. If the streaming connection to LaunchDarkly is interrupted, or, in polling mode, if a polling request fails, the SDK might not be able to receive flag updates. The data source status will indicate this, providing an overall state such as "valid" or "interrupted" and information about the last error that occurred, if any.
+
+Data store status is the status of a database, such as Redis or DynamoDB, if the SDK has been configured to use one. If the SDK tries to read from or write to a database and encounters an error, the data store status will indicate this.
+
+This feature is available in the following server-side SDKs:
+
+* [Go](#go)
+* [Java](#java)
+
+### Go
+
+To check the data source status:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+
+<CodeTabItem value="go">
+
+```go
+dataSourceStatus := client.GetDataSourceStatusProvider().GetStatus()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To check the data store status:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+
+<CodeTabItem value="go">
+
+```go
+dataStoreStatus := client.GetDataStoreStatusProvider().GetStatus()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Alternatively, you can monitor a channel that provides a new status value whenever the status changes:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+
+<CodeTabItem value="go">
+
+```go
+dataSourceStatusChannel := client.GetDataSourceStatusProvider().AddStatusListener()
+go func() {
+    for status := range dataSourceStatusChannel {
+        fmt.Println("new status is: ", status)
+    }
+}()
+
+dataStoreStatusChannel := client.GetDataStoreStatusProvider().AddStatusListener()
+go func() {
+    for status := range dataStoreStatusChannel {
+        fmt.Println("new status is: ", status)
+    }
+}()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`GetDataSourceStatusProvider`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetDataSourceStatusProvider) and [`GetDataStoreStatusProvider`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetDataStoreStatusProvider).
+
+### Java
+
+To check the data source status:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+
+<CodeTabItem value="java">
+
+```java
+DataSourceStatusProvider.Status dataSourceStatus =
+    client.getDataSourceStatusProvider().getStatus()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To check the data store status:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+
+<CodeTabItem value="java">
+
+```java
+DataStoreStatusProvider.Status dataStoreStatus =
+    client.getDataStoreStatusProvider().getStatus()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Alternatively, you can register an event listener that receives a new status value whenever the status changes:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+
+<CodeTabItem value="java">
+
+```java
+client.getDataSourceStatusProvider().addStatusListener(
+    status -> {
+        System.out.println("new status is: " + status);
+    }
+);
+
+client.getDataStoreStatusProvider().addStatusListener(
+    status -> {
+        System.out.println("new status is: " + status);
+    }
+);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`DataSourceStatusProvider`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/interfaces/DataSourceStatusProvider.html) and [`DataStoreStatusProvider`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/interfaces/DataStoreStatusProvider.html).
