@@ -11,57 +11,680 @@ This topic explains which external databases each server-side SDK can use to sto
 
 ## Using external databases as feature stores
 
-By default, LaunchDarkly's server-side SDKs connect to LaunchDarkly and receive feature flag data, store the flags in local memory, and update them when prompted to by LaunchDarkly. The collection of last known flag data is the called the "feature store."
+By default, LaunchDarkly's server-side SDKs connect to LaunchDarkly and receive feature flag data, store the flags in local memory, and update them when prompted to by LaunchDarkly. This collection of last known flag data is cached in the "feature store."
 
 To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
 
-Alternatively, you can configure an external database to act as a feature store. Unless otherwise indicated, the SDKs in this topic can use any of these three caching options to hold their flag data:
+Alternatively, you can configure an external database to act as a feature store. The SDKs in this topic can use one or more of these three caching options to hold their flag data:
 
 * [Consul](/sdk/concepts/feature-store/consul)
 * [DynamoDB](/sdk/concepts/feature-store/dynamodb)
 * [Redis](/sdk/concepts/feature-store/redis)
+
+Whichever database you use, there are two ways to use it:
+
+- Exactly like the default configuration, except substituting a database for the in-memory store, or
+- Using _only_ the database as a source of flag data, without connecting to LaunchDarkly.
+
+### Using a persistent feature store while still connecting to LaunchDarkly
+
+In this configuration, the SDK receives feature flag data from LaunchDarkly and puts it in the feature store. The only difference is that the store is in a database.
+
+When flags are evaluated, the SDK checks the database to get the latest flag state, usually with some form of in-memory caching to improve performance.
+
+The main reason to do this is to accelerate flag updates when your application has to restart, and after restarting, it takes longer to establish a connection to LaunchDarkly than you want. If you have a persistent feature store that has already been populated, the SDK can still evaluate flags using the last known flag state from the store until newer data is available from LaunchDarkly.
+
+To set up this configuration, most people create some kind of object for the specific type of database and put it in the client configuration's feature store property. In PHP, this property is called the "feature requester".
+
+If there are multiple instances of your application configured in this way with the same database, the same data gets written to the database multiple times, because each instance receives feature flags from LaunchDarkly. This is harmless, but it is inefficient, so you may want to use a persistent feature store without connecting to LaunchDarkly, as described below.
+
+### Using a persistent feature store without connecting to LaunchDarkly
+
+This is similar to the previous configuration, except that the SDK does not connect to LaunchDarkly at all. Instead, it relies on some other process which _does_ have a LaunchDarkly connection to write the latest flag data to the database, where the SDK will then read it.
+
+The other process could be the Relay Proxy, or any other application that creates a SDK client with the same persistent store. To learn more about the Relay Proxy, read [The Relay Proxy](/home/relay-proxy).
+
+Since the Relay Proxy is also known as the LaunchDarkly Daemon, some versions of the SDKs refer to this mode as "LDD mode." Creating the client is the same as above in terms of specifying the persistent store, but you must also add an option to make the SDK _not_ connect to LaunchDarkly.
+
+## Server-side SDKs
 
 This feature is available in the following server-side SDKs:
 
 * [.NET](#net)
 * [C/C++ (server-side)](#cc-server-side)
 * [Erlang](#erlang)
-* Go
-* Java
+* [Go](#go)
+* [Haskell](#haskell)
+* [Java](#java)
 * [Lua](#lua)
-* Node.js (server-side)
-* Python
+* [Node.js (server-side)](#nodejs-server-side)
+* [PHP](#php)
+* [Python](#python)
 * [Ruby](#ruby)
-
-Some SDKs have specific limitations or implementation details affecting which caching options they support. To learn more about specific implementation details, click the SDK's name in the list above.
 
 ### .NET
 
-You can keep feature flag data in a persistent store with Redis, DynamoDB, or Consul.
+The .NET SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+
+To use a persistent feature store while connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', }
+  ]
+}>
+
+<CodeTabItem value="dotnet">
+
+```csharp
+using LaunchDarkly.Client;
+
+var store = createSomeKindOfFeatureStore();
+var config = Configuration.Builder(sdkKey)
+    .FeatureStoreFactory(store)
+    .Build();
+var client = new LDClient(config);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`IConfigurationBuilder.FeatureStoreFactory`](https://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_IConfigurationBuilder_FeatureStoreFactory.htm).
+
+To use a persistent feature store without connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', }
+  ]
+}>
+
+<CodeTabItem value="dotnet">
+
+```csharp
+using LaunchDarkly.Client;
+
+var store = createSomeKindOfFeatureStore();
+var config = Configuration.Default(sdkKey)
+    .WithFeatureStoreFactory(store)
+    .WithUseLdd(true);  // <-- the extra option
+var client = new LDClient(config);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`IConfigurationBuilder.UseLdd`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_IConfigurationBuilder_UseLdd.htm).
 
 Documentation for the .NET SDK's caching options is available for the following services:
 
-* [Consul](https://github.com/launchdarkly/dotnet-server-sdk-consul).
+* [Consul](https://github.com/launchdarkly/dotnet-server-sdk-consul)
 * [DynamoDB](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb)
 * [Redis](https://github.com/launchdarkly/dotnet-server-sdk-redis)
 
-
 ### C/C++ (server-side)
 
-The C/C++ SDK can only use Redis as a persistent store of feature flag configurations.
+The C/C++ SDK can only use [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+
+To use a persistent feature store while connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'C', value: 'c', }
+  ]
+}>
+
+<CodeTabItem value="c">
+
+```c
+#include <launchdarkly/api.h>
+
+struct LDConfig *config = LDConfigNew("my-key");
+
+struct LDStoreInterface *store = ConstructYourFeatureStoreInterface();
+
+LDConfigSetFeatureStoreBackend(config, store);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To use a persistent feature store without connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'C', value: 'c', }
+  ]
+}>
+
+<CodeTabItem value="c">
+
+```c
+#include <launchdarkly/api.h>
+
+struct LDConfig *config = LDConfigNew("my-key");
+
+struct LDStoreInterface *store = ConstructYourFeatureStoreInterface();
+
+LDConfigSetFeatureStoreBackend(config, store);
+LDConfigSetUseLDD(config, true);  // <-- the extra option
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ### Erlang
 
-The Erlang SDK can only use Redis as a persistent store of feature flag configurations.
+The Erlang SDK can only use [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+
+### Go
+
+The Go SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+
+To use a persistent feature store while connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', }
+  ]
+}>
+
+<CodeTabItem value="go">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+    examplepackage "github.com/launchdarkly/go-server-sdk-some-example-database"
+)
+
+var config ld.Config
+config.DataStore = ldcomponents.PersistentDataStore(
+    examplepackage.DataStore().SomeStoreOptions(),
+)
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+
+
+// Before version 5.0, the syntax was different:
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+    examplepackage "gopkg.in/launchdarkly/go-server-sdk.v4/some-example-database"
+)
+
+factory, err := examplepackage.NewExampleFeatureStoreFactory(someStoreOptions)
+config := ld.DefaultConfig
+config.FeatureStoreFactory = factory
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`PersistentDataStore`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#PersistentDataStore).
+
+To use a persistent feature store without connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+
+<CodeTabItem value="go">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+    examplepackage "github.com/launchdarkly/go-server-sdk-some-example-database"
+)
+
+var config ld.Config
+config.DataStore = ldcomponents.PersistentDataStore(
+    examplepackage.DataStore().SomeStoreOptions(),
+)
+config.DataSource = ldcomponents.ExternalUpdatesOnly()  // <-- the extra option
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+
+
+// Before version 5.0, the syntax was different:
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+    examplepackage "gopkg.in/launchdarkly/go-server-sdk.v4/some-example-database"
+)
+
+factory, err := examplepackage.NewExampleFeatureStoreFactory(someStoreOptions)
+config := ld.DefaultConfig
+config.FeatureStoreFactory = factory
+config.UseLdd = true  // <-- the extra option
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`ExternalUpdatesOnly`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#ExternalUpdatesOnly).
+
+### Haskell
+
+The Haskell SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+
+To use a persistent feature store while connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', }
+  ]
+}>
+
+
+<CodeTabItem value="haskell">
+
+```haskell
+import LaunchDarkly.Server
+
+main = do
+    backend <- makeYourBackendInterface
+
+    let config = configSetStoreBackend backend $ makeConfig "your_sdk_key"
+
+    client <- makeClient config
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To use a persistent feature store without connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', }
+  ]
+}>
+
+<CodeTabItem value="haskell">
+
+```haskell
+import LaunchDarkly.Server
+
+main = do
+    backend <- makeYourBackendInterface
+
+    let config = configSetUseLdd True $ configSetStoreBackend backend $ makeConfig "your_sdk_key"
+
+    client <- makeClient config
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Java
+
+The Java SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+
+To use a persistent feature store while connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', }
+  ]
+}>
+
+<CodeTabItem value="java">
+
+```java
+import com.launchdarkly.sdk.server.*;
+import com.launchdarkly.sdk.server.integrations.*;
+
+LDConfig config = new LDConfig.Builder()
+  .dataStore(
+    Components.persistentDataStore(
+      SomeDatabaseName.dataStore(storeOptions)
+    )
+  )
+  .build();
+LDClient client = new LDClient(sdkKey, config);
+
+
+// Before version 5.0, the syntax was different:
+import com.launchdarkly.client.*;
+import com.launchdarkly.client.integrations.*;
+
+LDConfig config = new LDConfig.Builder()
+  .featureStoreFactory(new SomeFeatureStoreBuilder(storeOptions))
+  .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`Components.persistentDataStore`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/Components.html#persistentDataStore-com.launchdarkly.sdk.server.interfaces.PersistentDataStoreFactory-).
+
+To use a persistent feature store without connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+
+<CodeTabItem value="java">
+
+```java
+import com.launchdarkly.sdk.server.*;
+import com.launchdarkly.sdk.server.integrations.*;
+
+LDConfig config = new LDConfig.Builder()
+  .dataStore(
+    Components.persistentDataStore(
+      SomeDatabaseName.dataStore(storeOptions)
+    )
+  )
+  .dataSource(Components.externalUpdatesOnly())  // <-- the extra option
+  .build();
+LDClient client = new LDClient(sdkKey, config);
+
+
+// Before version 5.0, the syntax was different:
+
+import com.launchdarkly.client.*;
+
+LDConfig config = new LDConfig.Builder()
+  .featureStoreFactory(new SomeFeatureStoreBuilder(storeOptions))
+  .useLdd(true)
+  .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`Components.externalUpdatesOnly`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/Components.html#externalUpdatesOnly--m).
 
 ### Lua
 
-The module `launchdarkly_server_sdk_redis` allows feature flag data to be cached with Redis. To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
+The module `launchdarkly_server_sdk_redis` allows feature flag data to be cached with Redis. To learn more, read [Redis](/sdk/concepts/feature-store/redis).
+
+To use a persistent feature store while connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="lua"
+  values={[
+    { label: 'Lua', value: 'lua', }
+  ]
+}>
+
+<CodeTabItem value="lua">
+
+```lua
+local l = require("launchdarkly_server_sdk")
+
+local backend = makeYourBackendInterface()
+
+local c = l.clientInit({
+    key                 = "your_sdk_key",
+    featureStoreBackend = backend
+)}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To use a persistent feature store without connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="lua"
+  values={[
+    { label: 'Lua', value: 'lua', }
+  ]
+}>
+
+<CodeTabItem value="lua">
+
+```lua
+local l = require("launchdarkly_server_sdk")
+
+local backend = makeYourBackendInterface()
+
+local c = l.clientInit({
+    key                 = "your_sdk_key",
+    featureStoreBackend = backend,
+    useLDD              = true
+)}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Node.js (server-side)
+
+The Node.js SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+
+To use a persistent feature store while connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="node"
+  values={[
+    { label: 'Node.js', value: 'node', }
+  ]
+}>
+
+<CodeTabItem value="node">
+
+```js
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
+
+const store = SomeKindOfFeatureStore(storeOptions);
+const config = {
+  featureStore: store
+};
+const client = LaunchDarkly.init(sdkKey, config);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To use a persistent feature store without connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="node"
+  values={[
+    { label: 'Node.js', value: 'node', }
+  ]
+}>
+
+<CodeTabItem value="node">
+
+```js
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
+
+const store = SomeKindOfFeatureStore(storeOptions);
+const config = {
+  featureStore: store,
+  useLdd: true  // the extra option
+};
+const client = LaunchDarkly.init(sdkKey, config);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### PHP
+
+The PHP SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+
+To use a persistent feature store while connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', }
+  ]
+}>
+
+
+<CodeTabItem value="php">
+
+```php
+$client = new LaunchDarkly\LDClient("your_sdk_key", [
+    'feature_requester' => LaunchDarkly\Integrations\Redis::featureRequester()
+]);
+
+// Prior to version 3.5.0, use this syntax:
+// $client = new LaunchDarkly\LDClient("your_sdk_key", [
+//     'feature_requester_class' => 'LaunchDarkly\SomeKindOfFeatureRequester'
+// ]);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To use a persistent feature store without connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', }
+  ]
+}>
+
+<CodeTabItem value="php">
+
+```php
+/*
+  In PHP, there is no difference between this and the previous example, because
+  the PHP SDK can only either get flags from LaunchDarkly *or* get them from a
+  database, not both
+*/
+$client = new LaunchDarkly\LDClient("your_sdk_key", [
+    'feature_requester' => LaunchDarkly\Integrations\Redis::featureRequester()
+]);
+
+// Prior to version 3.5.0, use this syntax:
+// $client = new LaunchDarkly\LDClient("your_sdk_key", [
+//     'feature_requester_class' => 'LaunchDarkly\SomeKindOfFeatureRequester'
+// ]);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Python
+
+The Python SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+
+To use a persistent feature store while connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', }
+  ]
+}>
+
+
+<CodeTabItem value="py">
+
+```python
+import ldclient
+from ldclient.config import Config
+
+store = SomeKindOfFeatureStore(store_options)
+config = Config(feature_store=store)
+ldclient.set_config(config)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Using a persistent feature store without connecting to LaunchDarkly
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', }
+  ]
+}>
+
+<CodeTabItem value="py">
+
+```python
+import ldclient
+from ldclient.config import Config
+
+store = SomeKindOfFeatureStore(store_options)
+config = Config(
+  feature_store=store,
+  use_ldd=True  # <-- the extra option
+)
+ldclient.set_config(config)
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ### Ruby
 
-You can keep feature flag data in a persistent store with Redis, DynamoDB, or Consul.
+The Ruby SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
 
 These adapters are implemented in the `LaunchDarkly::Integrations::Redis`, `LaunchDarkly::Integrations::DynamoDB`, and `LaunchDarkly::Integrations::Consul` modules. To use them, call the `new_feature_store` method in the module, and put the returned object in the `feature_store` property of your client configuration.
+
+To use a persistent feature store while connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', }
+  ]
+}>
+
+<CodeTabItem value="ruby">
+
+```ruby
+require 'ldclient-rb'
+
+store = SomeKindOfFeatureStore.new(storeOptions)
+config = LaunchDarkly::Config.new(
+  feature_store: store
+)
+client = LaunchDarkly::Client.new(sdk_key, config)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To use a persistent feature store without connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', }
+  ]
+}>
+
+<CodeTabItem value="ruby">
+
+```ruby
+require 'ldclient-rb'
+
+store = SomeKindOfFeatureStore.new(storeOptions)
+config = LaunchDarkly::Config.new(
+  feature_store: store,
+  use_ldd: true  # <-- the extra option
+)
+client = LaunchDarkly::Client.new(sdk_key, config)
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 To learn more, read the [API documentation](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Integrations).

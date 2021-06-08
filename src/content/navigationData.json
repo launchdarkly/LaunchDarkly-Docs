@@ -711,7 +711,7 @@
             "path": "/sdk/concepts/flag-evaluation-rules"
           },
           {
-            "label": "Using a persistent feature store",
+            "label": "Persistent feature store",
             "path": "/sdk/concepts/feature-store",
             "items": [
               {

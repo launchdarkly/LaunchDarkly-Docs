@@ -82,7 +82,7 @@ The screenshots below are from the Flow Designer, but you can create a workflow 
 
 To create a LaunchDarkly approvals workflow in ServiceNow:
 
-1. Create a new [Workflow Trigger](https://docs.servicenow.com/bundle/istanbul-security-management/page/product/security-operations-common/task/create-workflow-triggers.html) for record "Created" on the "Change Request [change_request]" table.
+1. Create a new [Workflow Trigger](https://docs.servicenow.com/bundle/quebec-security-management/page/product/security-operations-common/task/create-workflow-triggers.html) for record "Created" on the "Change Request [change_request]" table.
 2. Set two conditions on your trigger: "State" `is` "New" and "Standard Change Template version > Template > Name" `is` "LaunchDarkly template".
 
 ![A configured Workflow Trigger in the ServiceNow Flow Designer.](../../images/servicenow-workflow-trigger.png)
@@ -124,7 +124,7 @@ Automatic approval workflows create a correlating ServiceNow Change Request for 
 
 To create an automatic approval workflow:
 
-1. Create a new [Workflow Trigger](https://docs.servicenow.com/bundle/istanbul-security-management/page/product/security-operations-common/task/create-workflow-triggers.html) for record "Created" on the "Change Request [change_request]" table.
+1. Create a new [Workflow Trigger](https://docs.servicenow.com/bundle/quebec-security-management/page/product/security-operations-common/task/create-workflow-triggers.html) for record "Created" on the "Change Request [change_request]" table.
 2. Set two conditions on your trigger:
  * "State" `is` "New"
  * "Standard Change Template version > Template > Name" `is` "LaunchDarkly auto-approve template"
