@@ -20,6 +20,8 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 ## Client-side SDKs
 
+If a user's device is not connected to a network, such as when the device is in airplane mode, the SDK uses the latest stored flag settings in memory. If there are no previously stored flag settings, the SDK uses the default values.
+
 This feature is available in the following client-side SDKs:
 
 * [Android](#android)
@@ -71,15 +73,6 @@ ldClient.setOffline()
 </CodeTabItem>
 </CodeTabs>
 
-<Callout intent="info">
-<CalloutTitle>Airplane/Flight Mode</CalloutTitle>
-<CalloutDescription>
-
-If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory. If there are no previously stored flag settings, then the fallback values will be used.
-
-</CalloutDescription>
-</Callout>
-
 ### Flutter
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached values for your feature flags for future evaluations. `offline` mode lets you do this easily.
@@ -105,15 +98,6 @@ await LDClient.setOnline(false);
 
 </CodeTabItem>
 </CodeTabs>
-
-<Callout intent="info">
-<CalloutTitle>Airplane/Flight Mode</CalloutTitle>
-<CalloutDescription>
-
-If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory. If there are no previously stored flag settings, then the fallback values will be used.
-
-</CalloutDescription>
-</Callout>
 
 ### iOS
 
@@ -159,15 +143,6 @@ let connectionStatus = LDClient.get()!.isOnline
 </CodeTabItem>
 </CodeTabs>
 
-<Callout intent="info">
-  <CalloutTitle>Lack of network connectivity</CalloutTitle>
-<CalloutDescription>
-
-If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly uses the latest stored flag settings in memory. If there are no previously stored flag settings, then the default values are used.
-
-</CalloutDescription>
-</Callout>
-
 ### React Native
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags. Offline mode lets you do this easily.
@@ -188,15 +163,6 @@ let onlineResult = client.setOnline(); //true or false
 
 </CodeTabItem>
 </CodeTabs>
-
-<Callout intent="info">
-  <CalloutTitle>Lack of network connectivity</CalloutTitle>
-<CalloutDescription>
-
-If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in memory. If there are no previously stored flag settings, then the fallback values will be used.
-
-</CalloutDescription>
-</Callout>
 
 ### Xamarin
 
