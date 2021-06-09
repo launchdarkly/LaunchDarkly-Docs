@@ -152,6 +152,7 @@ const plugins = [
       options: {
         baseUrl: 'https://sdk.ld.catamorphic.com',
         streamUrl: 'https://stream.ld.catamorphic.com',
+        eventsUrl: 'https://events.ld.catamorphic.com',
         bootstrap: 'localstorage',
       },
     },
