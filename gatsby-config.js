@@ -150,7 +150,8 @@ const plugins = [
     options: {
       clientSideID: process.env.LAUNCHDARKLY_CLIENT_SIDE_ID,
       options: {
-        baseUrl: 'https://clientsdk.launchdarkly.com',
+        baseUrl: 'https://sdk.ld.catamorphic.com',
+        streamUrl: 'https://stream.ld.catamorphic.com',
         bootstrap: 'localstorage',
       },
     },
