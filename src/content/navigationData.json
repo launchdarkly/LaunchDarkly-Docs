@@ -684,7 +684,7 @@
       {
         "label": "SDK concepts",
         "path": "/sdk/concepts",
-        "svg": "atom",
+        "svg": "puzzle-variation",
         "items": [
           {
             "label": "Getting started",
@@ -816,7 +816,7 @@
       {
         "label": "Client-side SDKs",
         "path": "/sdk/client-side",
-        "svg": "toggles-multiple-solid",
+        "svg": "user",
         "items": [
           {
             "label": "Android SDK reference",
