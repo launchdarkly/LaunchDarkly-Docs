@@ -92,24 +92,32 @@ To build the Relay Proxy from source:
 1. Install Go 1.14 or higher. To install Go, read [Go's documentation](https://golang.org/doc/install).
 2. Build and install the Relay Proxy binary.
 
-Use this command to build and install the binary:
+The command to build and install the binary depends on what Go version you are using:
 
  <CodeTabs
-   defaultValue="relay"
+   defaultValue="go1.16"
    values={[
-     { label: 'Build and install the Relay Proxy', value: 'relay', },
+     { label: 'Go 1.16', value: 'go1.16', },
+     { label: 'Go 1.15 or 1.14', value: 'go1.15-1.14', },
    ]
  }>
- <CodeTabItem value="relay">
+ <CodeTabItem value="go1.16">
 
  ```bash
- go get -u github.com/launchdarkly/ld-relay
+ go install github.com/launchdarkly/ld-relay/v6@latest
+ ```
+
+ </CodeTabItem>
+ <CodeTabItem value="go1.15-1.14">
+
+ ```bash
+ GO111MODULE=on go get github.com/launchdarkly/ld-relay/v6@latest
  ```
 
  </CodeTabItem>
  </CodeTabs>
 
-The command will take a while to finish. To see more information about its progress, add the `-v` option: `go get -u -v github.com/launchdarkly/ld-relay`
+The command will take a while to finish. To see more information about its progress, change `go install` or `go get` to `go install -v` or `go get -v`.
 
 When the command has finished, the executable binary `ld-relay` will be in `$GOPATH/bin`. You can move it to any other location.
 
