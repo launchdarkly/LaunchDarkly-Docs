@@ -546,16 +546,87 @@ ldClient.FlagChanged += (sender, eventArgs) => {
 
 This feature is available in the following server-side SDKs:
 
+* [.NET](#net)
 * [Go](#go)
 * [Java](#java)
 * [Node.js (server-side)](#nodejs-server-side)
+
+### .NET
+
+<Callout intent="info">
+  <CalloutTitle>This feature is not available in all SDK versions</CalloutTitle>
+  <CalloutDescription>
+    The .NET SDK only supports subscribing to flag changes in versions 6.0.0 and higher.
+  </CalloutDescription>
+</Callout>
+
+The SDK provides an event-based mechanism to notify you when flag configurations change. [`LDClient.FlagTracker`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_FlagTracker) returns an interface for this mechanism, [`IFlagTracker`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.IFlagTracker.html).
+
+Any event handler that you add to the [`IFlagTracker.FlagChanged`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.IFlagTracker.html#LaunchDarkly_Sdk_Server_Interfaces_IFlagTracker_FlagChanged) event will be called with a [`FlagChangeEvent`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.FlagChangeEvent.html) whenever there is a change in any feature flag's configuration, or in anything else that could indirectly affect the flag value, such as a prerequisite flag or a user segment that the flag uses.
+
+The event data consists only of the flag key. It does not contain a flag value, because in server-side SDKs, there is no such thing as a flag value except when it is evaluated for a specific set of user properties.
+
+The listener method is called synchronously from a background task.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+<CodeTabItem value="dotnet">
+
+```csharp
+void LogWheneverAnyFlagChanges(LdClient client) {
+    client.FlagTracker.FlagChanged += (sender, event) =>
+    {
+        Console.WriteLine("Flag \"{0}\" has changed", event.Key);
+    };
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To listen for changes in flag values for a specific flag key and user, use [`IFlagTracker.FlagValueChangeHandler()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.IFlagTracker.html#LaunchDarkly_Sdk_Server_Interfaces_IFlagTracker_FlagValueChangeHandler_). It calls your code with a [`FlagValueChangeEvent`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.FlagValueChangeEvent.html). This is equivalent to re-evaluating the flag for that user whenever there is a change in that flag. Because flag values can have different data types, the value is reported using the general type [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html).
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+<CodeTabItem value="dotnet">
+
+```csharp
+void LogWheneverOneFlagChangesForOneUser(LdClient client, string flagKey, User user) {
+    client.FlagTracker.FlagChanged += client.FlagTracker.FlagValueChangeHandler(
+        flagKey,
+        user,
+        (sender, event) =>
+        {
+            Console.WriteLine(
+                "Flag \"{0}\" for user \"{1}\" has changed from {2} to {3}",
+                flagKey,
+                user.Key,
+                event.OldValue,
+                event.NewValue
+            );
+        });
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ### Go
 
 <Callout intent="info">
   <CalloutTitle>This feature is not available in all SDKs or versions</CalloutTitle>
   <CalloutDescription>
-    The Go SDK only supports Subscribing to flag changes in versions 5.0.0 and higher. Most other server-side LaunchDarkly SDKs do not support this feature. All of the client-side SDKs do support this feature.
+    The Go SDK only supports subscribing to flag changes in versions 5.0.0 and higher.
   </CalloutDescription>
 </Callout>
 
@@ -631,7 +702,7 @@ With both of these methods, it is the caller's responsibility to consume values 
 <Callout intent="info">
   <CalloutTitle>This feature is not available in all SDK versions</CalloutTitle>
   <CalloutDescription>
-    The Java SDK only supports Subscribing to flag changes in versions 5.0.0 and higher.
+    The Java SDK only supports subscribing to flag changes in versions 5.0.0 and higher.
   </CalloutDescription>
 </Callout>
 

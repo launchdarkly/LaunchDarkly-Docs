@@ -1133,7 +1133,9 @@ Here are the configuration options for user entities in server-side SDKs:
 
 ### .NET
 
-Feature flag targeting and rollouts  are determined by the *user* you pass to your `variation` calls. In the .NET SDK, the [`User`](http://launchdarkly.github.io/dotnet-server-sdk/html/T_LaunchDarkly_Client_User.htm) class has a [`WithKey`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_User_WithKey.htm) method for creating a simple user with only a key, and a [`Builder`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_User_Builder_1.htm) method for building a user with other properties. Here's an example:
+Feature flag targeting and rollouts are determined by the *user* you pass to your `variation` calls. In the .NET SDK, the [`User`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.User.html) class has a `WithKey` method for creating a simple user with only a key, and a `Builder` method for building a user with other properties. Here's an example:
+
+Here's an example:
 
 <CodeTabs
   defaultValue="csharp"
@@ -1165,7 +1167,7 @@ In addition to the built-in attributes defined in the `User` class, you can pass
   <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
   <CalloutDescription>
 
-Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or objects. The SDK uses the [`LdValue`](http://launchdarkly.github.io/dotnet-server-sdk/html/T_LaunchDarkly_Client_LdValue.htm) type to represent arrays and objects. If you enter a custom value that looks like a number or a boolean, it is interpreted that way. The .NET SDK is strongly typed, so be aware of this distinction.
+Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or objects. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. If you enter a custom value that looks like a number or a boolean, it is interpreted that way. The .NET SDK is strongly typed, so be aware of this distinction.
 
   </CalloutDescription>
 </Callout>
@@ -1178,10 +1180,10 @@ You can optionally configure the .NET SDK to treat some or all user attributes a
 
 In the .NET SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- When creating the LaunchDarkly `Configuration` object, you can call the [`AllAttributesPrivate`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_IConfigurationBuilder_AllAttributesPrivate.htm) method, which takes in a boolean parameter. If `true`, all user attributes except the key for all users are removed before the SDK sends the user to LaunchDarkly.
-- When creating the LaunchDarkly `Configuration` object, you can call the [`PrivateAttribute`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_IConfigurationBuilder_PrivateAttribute.htm) method, which takes in a string attribute nameas a parameter and adds it to an internally managed list of private attributes. This method may be called multiple times to mark additional attributes as private. If any user has a custom or built-in attribute named in the private attributes list, it are removed before the SDK sends the user to LaunchDarkly.
+- When creating the LaunchDarkly `Configuration` object, you can configure [`Events`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html#LaunchDarkly_Sdk_Server_ConfigurationBuilder_Events_) `Events` with [`AllAttributesPrivate`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.EventProcessorBuilder.html#LaunchDarkly_Sdk_Server_Integrations_EventProcessorBuilder_AllAttributesPrivate_), which takes in a boolean parameter. If `true`, all user attributes except the key for all users are removed before the user is sent to LaunchDarkly.
+- Or, you can can configure `Events` with [`PrivateAttributes`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.EventProcessorBuilder.html#LaunchDarkly_Sdk_Server_Integrations_EventProcessorBuilder_PrivateAttributes_), which takes in a list of specific `UserAttribute` names. If any user has a custom or built-in attribute named in the private attributes list, it will be removed before the SDK sends the user to LaunchDarkly.
 
-You can also mark attributes as private when building the user object by calling [`AsPrivateAttribute()`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_IUserBuilderCanMakeAttributePrivate_AsPrivateAttribute.htm) after setting the attribute on the user builder. For example:
+You can also mark attributes as private when building the user object by calling [`AsPrivateAttribute()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.IUserBuilderCanMakeAttributePrivate.html#LaunchDarkly_Sdk_IUserBuilderCanMakeAttributePrivate_AsPrivateAttribute_) after setting the attribute on the user builder. For example:
 
 <CodeTabs
   defaultValue="csharp"
@@ -1215,9 +1217,9 @@ You can distinguish logged-in users from anonymous users in the SDK, as follows:
 <CodeTabItem value="csharp">
 
 ```csharp
- LDUser user = User.Builder("aa0ceb")
-      .Anonymous(true)
-      .Build();
+var user = User.Builder("aa0ceb")
+    .Anonymous(true)
+    .Build();
 ```
 
 </CodeTabItem>

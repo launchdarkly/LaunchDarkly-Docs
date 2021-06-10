@@ -106,6 +106,21 @@ LDConfig deprecatedConfig = new Config.Builder()
 <CodeTabItem value="dotnet">
 
 ```csharp
+using LaunchDarkly.Sdk.Server;
+using LaunchDarkly.Sdk.Server.Integrations;
+
+var config = Configuration.Builder(sdkKey)
+    .DataStore(
+        Components.PersistentDataStore(
+            Consul.DataStore().Address("http://my-consul:8100")
+        ).CacheSeconds(30)
+    )
+    .Build();
+var client = new LDClient(config);
+
+
+// Before version 6.0, the syntax was different:
+
 using LaunchDarkly.Client;
 using LaunchDarkly.Client.Consul;
 

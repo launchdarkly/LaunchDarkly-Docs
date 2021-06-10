@@ -336,21 +336,34 @@ This feature is available for the following server-side SDKs:
 
 This code sample shows you how to pass custom parameters to the client by creating a custom configuration object.
 
-For a complete list of configuration options for the client, including proxy settings, timeouts, and streaming/polling options, read the SDK's API documentation for [`IConfigurationBuilder`](http://launchdarkly.github.io/dotnet-server-sdk/html/T_LaunchDarkly_Client_IConfigurationBuilder.htm).
+For a complete list of configuration options for the client, including proxy settings, timeouts, and streaming/polling options, read the SDK's API documentation for [`ConfigurationBuilder`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html).
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: '.NET', value: 'csharp', }
+    { label: '.NET', value: 'dotnet', },
+    { label: '.NET SDK versions 5.14.x and earlier', value: 'dotnet5', },
   ]
 }>
-<CodeTabItem value="csharp">
+<CodeTabItem value="dotnet">
 
 ```csharp
-Configuration config = LaunchDarkly.Client.Configuration.Builder("YOUR_SDK_KEY")
+var config = Configuration.Builder("YOUR_SDK_KEY")
+    .Events(
+        Components.SendEvents().FlushInterval(TimeSpan.FromSeconds(2))
+    )
+    .Build();
+var ldClient = new LdClient(config);
+```
+
+</CodeTabItem>
+<CodeTabItem value="dotnet5">
+
+```csharp
+var config = Configuration.Builder("YOUR_SDK_KEY")
     .EventFlushInterval(TimeSpan.FromSeconds(2))
     .Build();
-LdClient ldClient = new LdClient(config);
+var ldClient = new LdClient(config);
 ```
 
 </CodeTabItem>

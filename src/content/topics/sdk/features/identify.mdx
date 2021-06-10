@@ -337,7 +337,7 @@ This feature is available in the following server-side SDKs:
 
 ### .NET
 
-[`Identify`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_Identify.htm) creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+[`Identify`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Identify_) creates or updates users on LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
 
 In most cases, you do not need to call `Identify`. The `Variation` methods automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
 

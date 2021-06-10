@@ -285,7 +285,7 @@ This feature is available in the following server-side SDKs:
 
 ### .NET
 
-The `VariationDetail` methods, such as [`BoolVariationDetail`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_BoolVariationDetail.htm), work the same as the `Variation` methods, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the user was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The `VariationDetail` methods, such as [`BoolVariationDetail`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_BoolVariationDetail_), work the same as the `Variation` methods, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the user was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
@@ -310,7 +310,7 @@ EvaluationReason reason = detail.Reason;
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`EvaluationDetail`](http://launchdarkly.github.io/dotnet-server-sdk/html/T_LaunchDarkly_Client_EvaluationDetail_1.htm) and [`BoolVariationDetail`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_ILdClient_BoolVariationDetail.htm).
+To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.EvaluationDetail-1.html), [`BoolVariationDetail`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_BoolVariationDetail_).
 
 ### Apex
 

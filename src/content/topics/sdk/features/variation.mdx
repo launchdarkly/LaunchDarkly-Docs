@@ -369,9 +369,9 @@ This feature is available for all of our server-side SDKs:
 
 ### .NET
 
-The `Variation` methods determine whether a flag is enabled or not for a specific user. In .NET, there is  a `Variation` method for each type, such as [`BoolVariation`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_BoolVariation.htm) and [`StringVariation`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_StringVariation.htm).
+The `Variation` methods determine whether a flag is enabled or not for a specific user. In .NET, there is  a `Variation` method for each type, such as [`BoolVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_BoolVariation_) and [`StringVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_StringVariation_).
 
-`Variation` calls take the feature flag key, a [`User`](http://launchdarkly.github.io/dotnet-server-sdk/html/T_LaunchDarkly_Client_User.htm), and a default value. The `Variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already.
+`Variation` calls take the feature flag key, a [`User`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.User.html), and a default value. The `Variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already.
 
 Here's an example:
 

@@ -69,13 +69,30 @@ The .NET SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/s
 To use a persistent feature store while connecting to LaunchDarkly:
 
 <CodeTabs
-  defaultValue="dotnet"
+  defaultValue="dotnet6"
   values={[
-    { label: '.NET', value: 'dotnet', }
+    { label: '.NET', value: 'dotnet6', },
+    { label: '.NET SDK versions 5.14.x and earlier', value: 'dotnet5', },
   ]
 }>
 
-<CodeTabItem value="dotnet">
+<CodeTabItem value="dotnet6">
+
+```csharp
+using LaunchDarkly.Sdk.Server;
+using LaunchDarkly.Sdk.Server.Integrations;
+
+var config = Configuration.Builder(sdkKey)
+    .DataStore(
+        Components.PersistentDataStore(
+            SomeDatabaseName.DataStore()
+        )
+    )
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="dotnet5">
 
 ```csharp
 using LaunchDarkly.Client;
@@ -84,24 +101,41 @@ var store = createSomeKindOfFeatureStore();
 var config = Configuration.Builder(sdkKey)
     .FeatureStoreFactory(store)
     .Build();
-var client = new LDClient(config);
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`IConfigurationBuilder.FeatureStoreFactory`](https://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_IConfigurationBuilder_FeatureStoreFactory.htm).
+To learn more, read [`ConfigurationBuilder.DataStore`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html#DataStore).
 
 To use a persistent feature store without connecting to LaunchDarkly:
 
 <CodeTabs
-  defaultValue="dotnet"
+  defaultValue="dotnet6"
   values={[
-    { label: '.NET', value: 'dotnet', }
+    { label: '.NET', value: 'dotnet6', },
+    { label: '.NET SDK versions 5.14.x and earlier', value: 'dotnet5', },
   ]
 }>
 
-<CodeTabItem value="dotnet">
+<CodeTabItem value="dotnet6">
+
+```csharp
+using LaunchDarkly.Sdk.Server;
+using LaunchDarkly.Sdk.Server.Integrations;
+
+var config = Configuration.Builder(sdkKey)
+    .DataStore(
+        Components.PersistentDataStore(
+            SomeDatabaseName.DataStore()
+        )
+    )
+    .DataSource(Components.ExternalUpdatesOnly)
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="dotnet5">
 
 ```csharp
 using LaunchDarkly.Client;
@@ -109,16 +143,16 @@ using LaunchDarkly.Client;
 var store = createSomeKindOfFeatureStore();
 var config = Configuration.Default(sdkKey)
     .WithFeatureStoreFactory(store)
-    .WithUseLdd(true);  // <-- the extra option
+    .WithUseLdd(true);
 var client = new LDClient(config);
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`IConfigurationBuilder.UseLdd`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_IConfigurationBuilder_UseLdd.htm).
+To learn more, read [`Components.ExternalUpdatesOnly`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Components.html#LaunchDarkly_Sdk_Server_Components_ExternalUpdatesOnly).
 
-Documentation for the .NET SDK's caching options is available for the following services:
+The individual .NET database integration packages and their documentation can be found here:
 
 * [Consul](https://github.com/launchdarkly/dotnet-server-sdk-consul)
 * [DynamoDB](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb)

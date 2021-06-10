@@ -5,15 +5,6 @@ description: 'This topic explains the API changes made in the .NET SDK 6 release
 published: true
 ---
 
-<Callout intent="info">
-  <CalloutTitle>This migration guide is for a prerelease version of the .NET SDK</CalloutTitle>
-  <CalloutDescription>
-
-.NET SDK 6.0 is not yet generally available. This topic describes the `6.0.0-beta.1` prerelease version. This is a living document that may change if we make additional modifications to the SDK before the final release.
-
-  </CalloutDescription>
-</Callout>
-
 ## Overview
 
 This topic explains how to adapt code that currently uses a 5.x version of the [.NET server-side SDK](/sdk/server-side/dotnet) to use version 6.0 or later.
@@ -313,7 +304,9 @@ Previously, the SDK used the [`Common.Logging`](https://github.com/net-commons/c
 
 Starting in version 6.0, the SDK no longer has a built-in dependency on `Common.Logging` or on any other third-party logging framework. Instead it uses a new package, [`LaunchDarkly.Logging`](https://github.com/launchdarkly/dotnet-logging).
 
-The new package provides some basic built-in logging implementations suitable for simple applications, such as logging to the console. Here is an example of configuring the .NET SDK to send log output to the console, and to enable only log messages of `Warn` level or higher.
+The new package provides some basic built-in logging implementations suitable for simple applications, such as logging to the console.
+
+Here is an example of configuring the .NET SDK to send log output to the console, and to enable only log messages of `Warn` level or higher:
 
 <CodeTabs
   values={[
@@ -324,9 +317,9 @@ The new package provides some basic built-in logging implementations suitable fo
 
 ```csharp
 using LaunchDarkly.Logging;
-using LaunchDarkly.Server.Sdk;
+using LaunchDarkly.Sdk.Server;
 
-var config =  Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("my-sdk-key")
     .Logging(Logs.ToConsole.Level(LogLevel.Warn))
     .Build();
 ```
@@ -334,7 +327,7 @@ var config =  Configuration.Builder("my-sdk-key")
 </CodeTabItem>
 </CodeTabs>
 
-It also has an adapter system for connecting it to other logging frameworks. If you are using .NET Core, there is a built-in adapter that sends log output to the .NET Core logging framework (`Microsoft.Extensions.Logging`):
+It also has an adapter system for connecting it to other logging frameworks. If you use .NET Core, there is a built-in adapter that sends log output to the .NET Core logging framework (`Microsoft.Extensions.Logging`):
 
 <CodeTabs
   values={[
@@ -550,7 +543,7 @@ To learn more, read the API documentation for the `IPersistentDataStore` and `ID
 
 Here are several changes to names and types that do not affect the basic functionality of the SDK, but were changed for consistency.
 
-* The `Initialized()` method of `LDClient` is now a read-only property, `Initialized`, instead of a method.
+* The `Initialized()` method of `LdClient` is now a read-only property, `Initialized`, instead of a method.
 * The `IConfigurationBuilder` interface has been replaced by the concrete class `ConfigurationBuilder`.
 * The `ILdClient` interface is now in `LaunchDarkly.Sdk.Server.Interfaces` instead of the main namespace.
 
@@ -564,9 +557,9 @@ The 6.0 release also includes new features as described in the release notes.
 
 These include:
 
-* You can tell the SDK to notify you whenever a feature flag's configuration has changed, using `LdClient.FlagTracker`.
-* You can monitor the status of the SDK's connection to LaunchDarkly services with `LDClient.DataSourceStatusProvider`.
-* You can monitor the status of a persistent data store (for instance, to get caching statistics, or to be notified if the store's availability changes due to a database outage) with `LDClient.DataStoreStatusProvider`.
+* You can tell the SDK to notify you whenever a feature flag's configuration has changed with `LdClient.FlagTracker`. See [Subscribing to flag changes](/sdk/features/flag-changes#net).
+* You can monitor the status of the SDK's connection to LaunchDarkly services with `LdClient.DataSourceStatusProvider`.
+* You can monitor the status of a persistent data store (for instance, to get caching statistics, or to be notified if the store's availability changes due to a database outage) with `LdClient.DataStoreStatusProvider`.
 * You can configure the SDK's use of different logging levels depending on the duration of a service outage with `ConfigurationBuilder.Logging` and `LoggingConfigurationBuilder`.
 
 To learn more, read the API documentation for these classes and methods.

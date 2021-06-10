@@ -621,8 +621,81 @@ Data store status is the status of a database, such as Redis or DynamoDB, if the
 
 This feature is available in the following server-side SDKs:
 
+* [.NET](#net)
 * [Go](#go)
 * [Java](#java)
+
+### .NET
+
+<Callout intent="info">
+  <CalloutTitle>Supported versions</CalloutTitle>
+<CalloutDescription>
+This feature is available in the .NET SDK's versions 6.0.0 and later.</CalloutDescription>
+</Callout>
+
+To check the data source status:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+
+<CodeTabItem value="dotnet">
+
+```csharp
+var dataSourceStatus = client.DataSourceStatusProvider.Status;
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To check the data store status:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+
+<CodeTabItem value="dotnet">
+
+```csharp
+var dataStoreStatus = client.DataStoreStatusProvider.Status;
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Alternatively, you can register an event handler that will receive a new status value whenever the status changes.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+
+<CodeTabItem value="dotnet">
+
+```dotnet
+client.DataSourceStatusProvider.StatusChanged +=
+    (sender, status) -> {
+        Console.WriteLine("new status is: {0}", status);
+    };
+
+client.DataStoreStatusProvider.StatusChanged +=
+    (sender, status) -> {
+        Console.WriteLine("new status is: {0}", status);
+    };
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ### Go
 

@@ -145,6 +145,7 @@ All user-related functionality provided by the [JavaScript SDK](#javascript) is 
 
 This feature is available in the following server-side SDKs:
 
+* [.NET](#net)
 * [Apex](#apex)
 * [C/C++ (server side)](#cc-server-side)
 * [Go](#go)
@@ -153,6 +154,25 @@ This feature is available in the following server-side SDKs:
 * [Node.js (server side)](#nodejs-server-side)
 * [Python](#python)
 * [Ruby](#ruby)
+
+### .NET
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+<CodeTabItem value="dotnet">
+
+```csharp
+client.Alias(newUser, previousUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ### Apex
 

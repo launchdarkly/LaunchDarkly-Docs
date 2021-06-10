@@ -23,10 +23,13 @@ This reference guide documents all of the methods available in the .NET SDK, and
 <Callout intent="info">
   <CalloutTitle>Requirements</CalloutTitle>
   <CalloutDescription>
-    The .NET SDK requires version 4.5 or later of the .NET framework or .NETCoreApp 1.0 or later.
+
+  Version 6.0 and higher of the LaunchDarkly .NET SDK is compatible with .NET 5.0+, .NET Framework 4.5.2+, or .NET Core 2.1+.
+
+  Prior to version 6.0, the LaunchDarkly .NET SDK also supported .NET Framework 4.5.0 and .NET Core 1.0.
+
   </CalloutDescription>
 </Callout>
-
 
 Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your .NET application.
 
@@ -42,33 +45,41 @@ The first step is to install the LaunchDarkly SDK as a dependency in your applic
 
 ```bash
 Install-Package LaunchDarkly.ServerSdk
-
-# Note that in earlier versions, the package name was LaunchDarkly.Client
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-Next you should import the LaunchDarkly client in your application code.
+Next, import the LaunchDarkly SDK's namespace(s) in your application code. The namespace is not the same as the package name.
 
 <CodeTabs
-  defaultValue="csharp"
+  defaultValue="sdk6"
   values={[
-    { label: '.NET', value: 'csharp', },
+    { label: '.NET', value: 'sdk6', },
+    { label: '.NET SDK versions 5.14.x and earlier', value: 'sdk5', },
   ]
 }>
-<CodeTabItem value="csharp">
+<CodeTabItem value="sdk6">
+
+```csharp
+using LaunchDarkly.Sdk;
+using LaunchDarkly.Sdk.Server;
+
+// LaunchDarkly.Sdk defines general types like User, which are also used in the Xamarin SDK.
+// LaunchDarkly.Sdk.Server defines the LdClient and Configuration types for the server-side .NET SDK.
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk5">
 
 ```csharp
 using LaunchDarkly.Client;
-
-// Note that this namespace is no longer the same as the package name
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of [`LdClient`](http://launchdarkly.github.io/dotnet-server-sdk/html/T_LaunchDarkly_Client_LdClient.htm). You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+Once the SDK is installed and imported, you'll want to create a single, shared instance of [`LdClient`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html). You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
 
 <CodeTabs
   defaultValue="csharp"
@@ -86,10 +97,12 @@ LdClient ldClient = new LdClient("YOUR_SDK_KEY");
 </CodeTabs>
 
 <Callout intent="alert">
-  <CalloutTitle>LDClient must be a singleton</CalloutTitle>
+  <CalloutTitle>LdClient should be a singleton</CalloutTitle>
   <CalloutDescription>
 
-It's important to make this a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. Be sure that you're not instantiating a new client with every request.
+In the standard use case where there is only one SDK key, it's important to make the `LdClient` a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
+
+If you need to use more than one SDK key, the SDK allows you to create more than one `LdClient` instance. This is an uncommon requirement, but one the SDK supports.
 
   </CalloutDescription>
 </Callout>
@@ -118,7 +131,7 @@ else {
 </CodeTabItem>
 </CodeTabs>
 
-Lastly, when your application is about to terminate, shut down `ldClient` with [`Dispose()`](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_LdClient_Dispose.htm). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+Lastly, when your application is about to terminate, shut down `ldClient` with [`Dispose()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Dispose_). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
 
 <CodeTabs
   defaultValue="csharp"
@@ -148,9 +161,8 @@ To learn more, [read Microsoft's documentation](https://docs.microsoft.com/en-us
 
 LaunchDarkly servers operate in a load-balancing framework which may cause their IP addresses to change. This could
 result in the SDK failing to connect to LaunchDarkly if an old IP address is still in your system's DNS cache. In
-.NET, the DNS cache retains IP addresses for two minutes by default. If you are noticing intermittent connection
-failures that always resolve in two minutes, you may want to change this setting to a lower value as described
-[here](https://docs.microsoft.com/en-us/dotnet/api/system.NET.servicepointmanager.dnsrefreshtimeout?view=netframework-4.7.2).
+.NET, the DNS cache retains IP addresses for two minutes by default. If you notice intermittent connection
+failures that always resolve in two minutes, you may want to change this setting to a lower value as described in [Microsoft's documentation](https://docs.microsoft.com/en-us/dotnet/api/system.NET.servicepointmanager.dnsrefreshtimeout?view=netframework-4.7.2).
 
   </CalloutDescription>
 </Callout>
@@ -159,6 +171,7 @@ failures that always resolve in two minutes, you may want to change this setting
 
 This SDK supports the following features:
 
+* [Aliasing users](/sdk/features/aliasing-users#net)
 * [Configuration](/sdk/features/config#net)
 * [Evaluating flags](/sdk/features/variation#net)
 * [Flag evaluation reasons](/sdk/features/variationdetail#net)
@@ -166,8 +179,10 @@ This SDK supports the following features:
 * [Getting all flags](/sdk/features/all-flags#net)
 * [Identifying and changing users](/sdk/features/identify#net)
 * [Logging configuration](/sdk/features/logging#net)
+* [Monitoring SDK status](/sdk/features/monitoring#net)
 * [Offline mode](/sdk/features/offline-mode#net)
 * [Persistent feature store](/sdk/features/database-integrations#net)
 * [Secure mode](/sdk/features/secure-mode#net)
 * [Sending custom events](/sdk/features/track#net)
 * [Shutting down](/sdk/features/shutdown#net)
+* [Subscribing to flag changes](/sdk/features/flag-changes#net)

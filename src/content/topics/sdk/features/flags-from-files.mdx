@@ -173,6 +173,23 @@ This feature is available in the following server-side SDKs:
 <CodeTabItem value="dotnet">
 
 ```csharp
+using LaunchDarkly.Sdk.Server;
+using LaunchDarkly.Sdk.Server.Integrations;
+
+var config = Configuration.Builder("sdk key")
+    .DataSource(
+        FileData.DataSource()
+            .FilePaths("file1.json", "file2.json")
+            .AutoUpdate(true)
+    )
+    .Events(Components.NoEvents())
+    .Build()
+
+var client = new LDClient(config);
+
+
+// Prior to version 6.0, use this syntax:
+
 using LaunchDarkly.Client;
 using LaunchDarkly.Client.Files;
 
@@ -187,10 +204,9 @@ var config = Configuration.Builder("sdk key")
 
 var client = new LDClient(config);
 ```
+*To learn more, read [`FileData`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.FileData.html).*
 
-*To learn more, read [`FileComponents`](http://launchdarkly.github.io/dotnet-server-sdk/html/T_LaunchDarkly_Client_Files_FileComponents.htm).*
-
-*If you want to use YAML instead of JSON, you must [provide a YAML parser](http://launchdarkly.github.io/dotnet-server-sdk/html/M_LaunchDarkly_Client_Files_FileDataSourceFactory_WithParser.htm).*
+*If you want to use YAML instead of JSON, you must [provide a YAML parser](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.FileDataSourceBuilder.html#LaunchDarkly_Sdk_Server_Integrations_FileDataSourceBuilder_Parser_).*
 
 </CodeTabItem>
 </CodeTabs>

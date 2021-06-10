@@ -398,7 +398,9 @@ This feature is available in the following server-side SDKs:
 
 ### .NET
 
-The [`Track`](http://launchdarkly.github.io/dotnet-server-sdk/html/Overload_LaunchDarkly_Client_LdClient_Track.htm) method lets you record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests. Here's how:
+The [`Track`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Track_) method lets you record actions users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests.
+
+Here's an example:
 
 <CodeTabs
   defaultValue="csharp"
@@ -415,7 +417,9 @@ ldClient.Track("your-goal-key", user);
 </CodeTabItem>
 </CodeTabs>
 
-You can also attach custom data to your event by passing an extra parameter to `Track`, using the [`LdValue`](http://launchdarkly.github.io/dotnet-server-sdk/html/T_LaunchDarkly_Client_LdValue.htm) type which can contain any kind of data supported by JSON:
+You can also attach custom data to your event by passing an extra parameter to `Track`. To do this, use the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type, which can contain any kind of data supported by JSON. You can also pass another parameter for a custom metric value.
+
+Here's an example:
 
 <CodeTabs
   defaultValue="csharp"
@@ -426,7 +430,10 @@ You can also attach custom data to your event by passing an extra parameter to `
 <CodeTabItem value="csharp">
 
 ```csharp
-ldClient.Track("Completed purchase", user, LdValue.Of("sku132"));
+ldClient.Track("completed-purchase", user, LdValue.Of("sku132"));
+
+var metricValue = 0.5;
+ldClient.Track("your-metric-key", user, LdValue.Of("example"), metricValue);
 ```
 
 </CodeTabItem>

@@ -314,12 +314,72 @@ This feature is available in the following server-side SDKs:
 
 ### .NET
 
-The .NET SDK uses the `Common.Logging` framework. For an example configuration, read the [Common.Logging README](https://github.com/net-commons/common-logging#2-register-and-configure-commonlogging).
-
-Be aware of two considerations before you enable the DEBUG log level:
+The .NET SDK has four logging levels: `Debug`, `Info`, `Warn`, and `Error`. By default, the lowest enabled level is `Info`, so `Debug` messages are hidden. Be aware of two considerations if you enable the `Debug` level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+
+The .NET SDK sends log output to `Console.Error` by default. The [`ConfigurationBuilder.Logging`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html#LaunchDarkly_Sdk_Server_ConfigurationBuilder_Logging_) method and the [`LaunchDarkly.Logging`](https://launchdarkly.github.io/dotnet-logging/) API allow you to change the output destination and log level. 
+
+Here is an example:
+
+<CodeTabs
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+<CodeTabItem value="dotnet">
+
+```csharp
+using LaunchDarkly.Logging;
+using LaunchDarkly.Sdk.Server;
+
+var config = Configuration.Builder("my-sdk-key")
+    .Logging(
+      Components.Logging(Logs.ToWriter(Console.Out)).Level(LogLevel.Debug)
+    )
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The destination could be another logging framework, such as the .NET Core `Microsoft.Extensions.Logging` API in this example:
+
+<CodeTabs
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+<CodeTabItem value="dotnet">
+
+```csharp
+using LaunchDarkly.Logging;
+using LaunchDarkly.Sdk.Server;
+
+var config = Configuration.Builder("my-sdk-key")
+    .Logging(Logs.CoreLogging)
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more about logging configuration and adapters for other logging frameworks, read the documentation for [`LaunchDarkly.Logging`](https://launchdarkly.github.io/dotnet-logging/).
+
+All log messages from the SDK are tagged with a logger name, indicating the category of messages. If you use a logging framework like `Microsoft.Extensions.Logging` or NLog, you can use these names to filter the output:
+
+* `LaunchDarkly.Sdk`: general messages about the operation of the SDK client.
+* `LaunchDarkly.Sdk.DataSource`: messages about how the SDK client receives feature flag data, such as if the connection to LaunchDarkly has been interrupted.
+* `LaunchDarkly.Sdk.DataStore` (or more specific names like `LaunchDarkly.Sdk.DataStore.Redis`): messages about how the SDK client stores feature flag data, such as if you are using a database integration.
+* `LaunchDarkly.Sdk.Evaluation`: messages about unusual conditions during feature flag evaluation, such as if a feature flag could not be evaluated because its configuration is invalid.
+* `LaunchDarkly.Sdk.Events`: messages about analytics events, such as if event data could not be sent to LaunchDarkly due to a network problem.
+
+Before version 6.0, the .NET SDK had different logging behavior:
+
+* The mechanism for specifying a log destination was the [`Common.Logging`](https://github.com/net-commons/common-logging#2-register-and-configure-commonlogging) framework.
+* If you did not specifically configure a log destination using `Common.Logging`, logging was disabled by default.
+* The main logger name was `LaunchDarkly.Client.LdClient`.
 
 ### C/C++ (server-side)
 
