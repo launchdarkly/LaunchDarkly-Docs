@@ -529,7 +529,7 @@
         "path": "/integrations/appdynamics"
       },
       {
-        "label": "Azure DevOps (formerly VSTS)",
+        "label": "Azure DevOps",
         "path": "/integrations/azure-devops"
       },
       {
