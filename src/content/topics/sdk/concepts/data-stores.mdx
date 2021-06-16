@@ -1,6 +1,6 @@
 ---
-path: '/sdk/concepts/feature-store'
-title: 'Persistent feature store'
+path: '/sdk/concepts/data-stores'
+title: 'Persistent data stores'
 description: 'This topic explains what a persistent feature store is and how a persistent feature store can keep flag data.'
 published: true
 ---
@@ -15,7 +15,7 @@ In their default configuration, LaunchDarkly's server-side SDKs:
 - store the flags in memory
 - update the in-memory state if LaunchDarkly sends updates
 
-Flag evaluations always refer to the last known state in memory. This collection of last known flag data is cached in the "feature store."
+Flag evaluations always refer to the last known state in memory. This collection of last known flag data is cached in the "feature store" or "data store."
 
 Alternatively, you can use a database for the feature store. Most of the server-side SDKs support Redis, DynamoDB, and Consul for this purpose.
 
@@ -34,7 +34,7 @@ The main reason to do this is to accelerate flag updates when your application h
 
 To set up this configuration, most people create some kind of object for the specific type of database and put it in the client configuration's feature store property. For example, in PHP, this property is called the "feature requester".
 
-To see code samples for specific SDKs, read [Persistent feature store](/sdk/features/database-integrations).
+To see code samples for specific SDKs, read [Storing data](/sdk/features/storing-data).
 
 If there are multiple instances of your application configured in this way with the same database, the same data gets written to the database multiple times, because each instance receives feature flags from LaunchDarkly. This is harmless but inefficient, so you may want to use a persistent feature store without connecting to LaunchDarkly, as described below.
 
@@ -46,12 +46,4 @@ The other process could be the Relay Proxy, or any other application that create
 
 Since the Relay Proxy is also known as the LaunchDarkly Daemon, some versions of the SDKs refer to this mode as "LDD mode." Creating the client is the same as above in terms of specifying the persistent store, but you must also add an option to make the SDK _not_ connect to LaunchDarkly.
 
-To see code samples for specific SDKs, read [Persistent feature store](/sdk/features/database-integrations).
-
-## Details for specific databases
-
-See the subpages within this section:
-
-* [Using Consul](/sdk/concepts/feature-store/consul)
-* [Using DynamoDB](/sdk/concepts/feature-store/dynamodb)
-* [Using Redis](/sdk/concepts/feature-store/redis)
+To see code samples for specific SDKs, read [Storing data](/sdk/features/storing-data).

@@ -132,7 +132,7 @@ The default data store is a simple in-memory cache. This is the same as earlier 
 
 If you want to use a persistent data store such as a database integration, you must call a `DataStore` factory method for that integration. This gives you a builder object with whatever options are appropriate for that database. Next, pass the object to `Components.PersistentDataStore`, a wrapper that provides caching options that are not specific to any one database but are built into the SDK. Put this into `ConfigurationBuilder.DataStore`.
 
-To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
+To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
 The following examples use the [Redis integration](https://github.com/launchdarkly/dotnet-server-redis).
 
@@ -525,7 +525,7 @@ Alternately, if you would rather not install this extra package, you can use `La
 
 ## Implementing custom components
 
-Most applications use either the default in-memory storage or one of the [database integrations](/sdk/concepts/feature-store) LaunchDarkly provides (Consul, DynamoDB, Redis), but the data store interface (formerly called "feature store") has always been public so developers can write their own integrations.
+Most applications use either the default in-memory storage or one of the [database integrations](/sdk/concepts/data-stores) LaunchDarkly provides (Consul, DynamoDB, Redis), but the data store interface (formerly called "feature store") has always been public so developers can write their own integrations.
 
 Starting in .NET SDK 6.0, this model has been changed to make it easier to implement database integrations. The basic concepts are the same: the SDK defines its own "data kinds", such as feature flags and user segments. The data store must provide a way to add and update items of any of these kinds, without knowing anything about their properties except the key and version.
 

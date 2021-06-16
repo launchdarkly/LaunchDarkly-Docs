@@ -143,7 +143,7 @@ The 5.0 API uses a more concise builder pattern instead, with one builder method
 
 Also, the integrations for Redis, DynamoDB, and Consul are no longer bundled in the main SDK project. To learn more, read [Understanding changes to add-on integration packages](#understanding-changes-to-add-on-integration-packages).
 
-To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
+To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
 The following examples use the Redis integration.
 
@@ -705,7 +705,7 @@ config.DataStore = ldcomponents.PersistentDataStore(
 
 ## Implementing custom components
 
-Most applications use either the default in-memory storage or one of the [database integrations](/sdk/concepts/feature-store) provided by LaunchDarkly (Consul, DynamoDB, Redis), but the data store interface (formerly called "feature store") has always been public so developers can write their own integrations.
+Most applications use either the default in-memory storage or one of the [database integrations](/sdk/concepts/data-stores) provided by LaunchDarkly (Consul, DynamoDB, Redis), but the data store interface (formerly called "feature store") has always been public so developers can write their own integrations.
 
 Starting in Go SDK 5.0, this model has been changed to make it easier to implement database integrations. The basic concepts are the same. The SDK defines its own "data kinds", such as feature flags and user segments. The data store must provide a way to add and update items of any of these kinds without knowing anything about their properties except the key and version.
 

@@ -704,7 +704,7 @@ module.exports = [
   },
   {
     fromPath: '/home/advanced/feature-store',
-    toPath: '/sdk/concepts/feature-store',
+    toPath: '/sdk/concepts/data-stores',
   },
   {
     fromPath: '/docs/getting-started-with-launchdarkly-sdks',
@@ -833,5 +833,25 @@ module.exports = [
   {
     fromPath: '/sdk/server-side/lua/nginx',
     toPath: '/guides/tutorials/nginx',
+  },
+  {
+    fromPath: '/sdk/concepts/feature-store',
+    toPath: '/sdk/concepts/data-stores',
+  },
+  {
+    fromPath: '/sdk/concepts/feature-store/consul',
+    toPath: '/sdk/features/storing-data/consul',
+  },
+  {
+    fromPath: '/sdk/concepts/feature-store/redis',
+    toPath: '/sdk/features/storing-data/redis',
+  },
+  {
+    fromPath: '/sdk/concepts/feature-store/dynamodb',
+    toPath: '/sdk/features/storing-data/dynamodb',
+  },
+  {
+    fromPath: '/sdk/features/database-integrations',
+    toPath: '/sdk/features/storing-data',
   },
 ]

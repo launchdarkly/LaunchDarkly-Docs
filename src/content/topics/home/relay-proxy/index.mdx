@@ -55,7 +55,7 @@ On an appropriately configured host, each Relay Proxy can handle tens of thousan
 
 If you use a persistent feature store and you have a large number of servers connected to LaunchDarkly, each server attempts to update the data store when a flag update occurs. This behavior is safe, but inefficient.
 
-To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
+To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
 Deploy the Relay Proxy in **daemon mode** and set your LaunchDarkly SDKs to daemon mode. By doing this, you can delegate flag updates to a small number of Relay Proxy instances and reduce the number of redundant update calls to your data store.
 
@@ -91,7 +91,7 @@ If you have security requirements, such as enforcing the use of a particular aut
 
 We do not recommend relying solely on the Relay Proxy's in-memory caching in a production environment. Instead, we recommend that you cache flag data in a persistent feature store.
 
-To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store) and [Persistent storage](https://github.com/launchdarkly/ld-relay#persistent-storage).
+To learn more, read [Persistent data stores](/sdk/concepts/data-stores) and [Persistent storage](https://github.com/launchdarkly/ld-relay#persistent-storage).
 
 Whether or not you utilize a persistent feature store impacts how the Relay Proxy handles inbound feature flag requests on initialization, before it establishes a connection to LaunchDarkly.
 

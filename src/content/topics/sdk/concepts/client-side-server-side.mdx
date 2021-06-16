@@ -74,7 +74,7 @@ By default, our SDKs store transmitted data in in-memory caches. If you don't wa
 
 **Client-side** and **mobile SDKs** may have platform-specific storage mechanisms and can alternatively use our relay proxy.
 
-To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
+To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
 ### Multi-environment support
 
@@ -153,7 +153,7 @@ The SDK key is considered confidential and should be kept a secret. If an SDK ke
 
 ### Mobile key
 
-Configure mobile SDKs, and other non-JavaScript client-side SDKs, to use the mobile key. The mobile key grants these SDKs access to evaluate any flag that is associated with the key's environment, and that you have enabled for client-side SDK availability by checking the flag's "SDKs using mobile key" checkbox. 
+Configure mobile SDKs, and other non-JavaScript client-side SDKs, to use the mobile key. The mobile key grants these SDKs access to evaluate any flag that is associated with the key's environment, and that you have enabled for client-side SDK availability by checking the flag's "SDKs using mobile key" checkbox.
 
 Because you must manually connect flags to a client-side SDK, you can restrict which flags are accessible by the client-side ID.
 

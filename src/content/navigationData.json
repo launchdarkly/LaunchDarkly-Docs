@@ -711,22 +711,8 @@
             "path": "/sdk/concepts/flag-evaluation-rules"
           },
           {
-            "label": "Persistent feature store",
-            "path": "/sdk/concepts/feature-store",
-            "items": [
-              {
-                "label": "Consul",
-                "path": "/sdk/concepts/feature-store/consul"
-              },
-              {
-                "label": "DynamoDB",
-                "path": "/sdk/concepts/feature-store/dynamodb"
-              },
-              {
-                "label": "Redis",
-                "path": "/sdk/concepts/feature-store/redis"
-              }
-            ]
+            "label": "Persistent data stores",
+            "path": "/sdk/concepts/data-stores"
           },
           {
             "label": "Versioning policy",
@@ -787,11 +773,7 @@
             "label": "Offline mode",
             "path": "/sdk/features/offline-mode"
           },
-          {
-            "label": "Persistent feature store",
-            "path": "/sdk/features/database-integrations"
-          },
-          {
+                    {
             "label": "Reading flags from a file",
             "path": "/sdk/features/flags-from-files"
           },
@@ -806,6 +788,24 @@
           {
             "label": "Shutting down",
             "path": "/sdk/features/shutdown"
+          },
+          {
+            "label": "Storing data",
+            "path": "/sdk/features/storing-data",
+            "items": [
+              {
+                "label": "Consul",
+                "path": "/sdk/features/storing-data/consul"
+              },
+              {
+                "label": "DynamoDB",
+                "path": "/sdk/features/storing-data/dynamodb"
+              },
+              {
+                "label": "Redis",
+                "path": "/sdk/features/storing-data/redis"
+              }
+            ]
           },
           {
             "label": "Subscribing to flag changes",

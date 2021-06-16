@@ -1,6 +1,6 @@
 ---
-path: '/sdk/features/database-integrations'
-title: 'Persistent feature store'
+path: '/sdk/features/storing-data'
+title: 'Storing data'
 description: 'This topic explains which external databases each server-side SDK can use to store flag data.'
 published: true
 ---
@@ -11,15 +11,15 @@ This topic explains which external databases each server-side SDK can use to sto
 
 ## Using external databases as feature stores
 
-By default, LaunchDarkly's server-side SDKs connect to LaunchDarkly and receive feature flag data, store the flags in local memory, and update them when prompted to by LaunchDarkly. This collection of last known flag data is cached in the "feature store."
+By default, LaunchDarkly's server-side SDKs connect to LaunchDarkly and receive feature flag data, store the flags in local memory, and update them when prompted to by LaunchDarkly. This collection of last known flag data is cached in the "feature store" or "data store."
 
-To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
+To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
 Alternatively, you can configure an external database to act as a feature store. The SDKs in this topic can use one or more of these three caching options to hold their flag data:
 
-* [Consul](/sdk/concepts/feature-store/consul)
-* [DynamoDB](/sdk/concepts/feature-store/dynamodb)
-* [Redis](/sdk/concepts/feature-store/redis)
+* [Consul](/sdk/features/storing-data/consul)
+* [DynamoDB](/sdk/features/storing-data/dynamodb)
+* [Redis](/sdk/features/storing-data/redis)
 
 Whichever database you use, there are two ways to use it:
 
@@ -64,7 +64,7 @@ This feature is available in the following server-side SDKs:
 
 ### .NET
 
-The .NET SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+The .NET SDK can use [Consul](/sdk/features/storing-data/consul#net), [DynamoDB](/sdk/features/storing-data/dynamodb#net), or [Redis](/sdk/features/storing-data/redis#net) to hold flag data.
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
@@ -152,15 +152,9 @@ var client = new LDClient(config);
 
 To learn more, read [`Components.ExternalUpdatesOnly`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Components.html#LaunchDarkly_Sdk_Server_Components_ExternalUpdatesOnly).
 
-The individual .NET database integration packages and their documentation can be found here:
-
-* [Consul](https://github.com/launchdarkly/dotnet-server-sdk-consul)
-* [DynamoDB](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb)
-* [Redis](https://github.com/launchdarkly/dotnet-server-sdk-redis)
-
 ### C/C++ (server-side)
 
-The C/C++ SDK can only use [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+The C/C++ SDK can use [Redis](/sdk/features/storing-data/redis#cc-server-side) to hold flag data.
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
@@ -213,11 +207,11 @@ LDConfigSetUseLDD(config, true);  // <-- the extra option
 
 ### Erlang
 
-The Erlang SDK can only use [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+The Erlang SDK can use [Redis](/sdk/features/storing-data/redis#erlang) to hold flag data.
 
 ### Go
 
-The Go SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+The Go SDK can use [Consul](/sdk/features/storing-data/consul#go), [DynamoDB](/sdk/features/storing-data/dynamodb#go), or [Redis](/sdk/features/storing-data/redis#go) to hold flag data.
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
@@ -307,7 +301,7 @@ To learn more, read [`ExternalUpdatesOnly`](https://pkg.go.dev/gopkg.in/launchda
 
 ### Haskell
 
-The Haskell SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+The Haskell SDK can use [Redis](/sdk/features/storing-data/redis#haskell) to hold flag data.
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
@@ -362,7 +356,7 @@ main = do
 
 ### Java
 
-The Java SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+The Java SDK can use [Consul](/sdk/features/storing-data/consul#java), [DynamoDB](/sdk/features/storing-data/dynamodb#java), or [Redis](/sdk/features/storing-data/redis#java) to hold flag data.
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
@@ -446,7 +440,7 @@ To learn more, read [`Components.externalUpdatesOnly`](https://javadoc.io/static
 
 ### Lua
 
-The module `launchdarkly_server_sdk_redis` allows feature flag data to be cached with Redis. To learn more, read [Redis](/sdk/concepts/feature-store/redis).
+The module `launchdarkly_server_sdk_redis` allows feature flag data to be cached with Redis. To learn more, read [Redis](/sdk/features/storing-data/redis#lua).
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
@@ -501,7 +495,7 @@ local c = l.clientInit({
 
 ### Node.js (server-side)
 
-The Node.js SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+The Node.js SDK can use [Consul](/sdk/features/storing-data/consul#nodejs), [DynamoDB](/sdk/features/storing-data/dynamodb#nodejs-server-side), or [Redis](/sdk/features/storing-data/redis#nodejs-server-side) to hold flag data.
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
@@ -554,7 +548,7 @@ const client = LaunchDarkly.init(sdkKey, config);
 
 ### PHP
 
-The PHP SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+The PHP SDK can use [Consul](/sdk/features/storing-data/consul), [DynamoDB](/sdk/features/storing-data/dynamodb), or [Redis](/sdk/features/storing-data/redis) to hold flag data.
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
@@ -614,7 +608,7 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 
 ### Python
 
-The Python SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+The Python SDK can use [Consul](/sdk/features/storing-data/consul), [DynamoDB](/sdk/features/storing-data/dynamodb), or [Redis](/sdk/features/storing-data/redis) to hold flag data.
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
@@ -668,7 +662,7 @@ ldclient.set_config(config)
 
 ### Ruby
 
-The Ruby SDK can use [Consul](/sdk/concepts/feature-store/consul), [DynamoDB](/sdk/concepts/feature-store/dynamodb), or [Redis](/sdk/concepts/feature-store/redis) to hold flag data.
+The Ruby SDK can use [Consul](/sdk/features/storing-data/consul), [DynamoDB](/sdk/features/storing-data/dynamodb), or [Redis](/sdk/features/storing-data/redis) to hold flag data.
 
 These adapters are implemented in the `LaunchDarkly::Integrations::Redis`, `LaunchDarkly::Integrations::DynamoDB`, and `LaunchDarkly::Integrations::Consul` modules. To use them, call the `new_feature_store` method in the module, and put the returned object in the `feature_store` property of your client configuration.
 

@@ -121,7 +121,7 @@ As before, the default data store is a simple in-memory cache.
 
 If you want to use a persistent datastore database integration, you must call a `dataStore` factory method for that integration. This gives you a builder object with whatever options are appropriate for that database. Next, pass the object to [`Components.persistentDataStore()`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/Components.html#persistentDataStore-com.launchdarkly.sdk.server.interfaces.PersistentDataStoreFactory-), a wrapper that provides caching options that are not specific to any one database but are built into the SDK. Put this into [`LDConfig.Builder.dataStore()`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.Builder.html#dataStore-com.launchdarkly.sdk.server.interfaces.DataStoreFactory-).
 
-To learn more, read [Using a persistent feature store](/sdk/concepts/feature-store).
+To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
 The following examples use the Redis integration.
 
@@ -557,7 +557,7 @@ As before, if you want to force the SDK to use the same versions of these depend
 
 ## Implementing custom components
 
-Most applications use either the default in-memory storage or one of the [database integrations](/sdk/concepts/feature-store) provided by LaunchDarkly (Consul, DynamoDB, Redis), but the data store interface (formerly called "feature store") has always been public so developers can write their own integrations.
+Most applications use either the default in-memory storage or one of the [database integrations](/sdk/concepts/data-stores) provided by LaunchDarkly (Consul, DynamoDB, Redis), but the data store interface (formerly called "feature store") has always been public so developers can write their own integrations.
 
 Starting in Java SDK 5.0, this model has been changed to make it easier to implement database integrations. The basic concepts are the same: the SDK defines its own "data kinds", such as feature flags and user segments. The data store must provide a way to add and update items of any of these kinds, without knowing anything about their properties except the key and version.
 

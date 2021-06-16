@@ -1,0 +1,305 @@
+---
+path: '/sdk/features/storing-data/dynamodb'
+title: 'Using DynamoDB as a persistent feature store'
+description: 'This topic explains how to use the SDK DynamoDB integration as a persistent feature store.'
+published: true
+---
+
+## Overview
+
+This topic explains how to use the SDK DynamoDB integration as a persistent feature store.
+
+<Callout intent="alert">
+<CalloutTitle>Data size limit in DynamoDB</CalloutTitle>
+<CalloutDescription>
+
+DynamoDB [does not support](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html#limits-items) storing values greater than 400KB (or slightly less, since that number includes the size of the column metadata). Therefore, using DynamoDB as a persistent feature store does not work if the JSON representation of any feature flag or user segment exceeds that size.
+
+To see the JSON representations of all flags and segments, query https://app.launchdarkly.com/sdk/latest-all with your SDK key in the `Authorization` header.
+
+</CalloutDescription>
+</Callout>
+
+Many of our server-side SDKs support DynamoDB. DynamoDB is a particularly useful solution if you are running code in AWS Lambda, since it can be accessed from Lambda without needing access to any VPC resource.
+
+In your application code, the only required parameter is the table name, although you can also specify any other options supported by AWS. By default, the DynamoDB driver expects to get your AWS credentials and region from environment variables or local configuration files, as described in the AWS SDK documentation.
+
+The table must already exist before your application starts. It must have a partition key called `"namespace"`, and a sort key called `"key"`. The SDK does not create the table automatically because it would not know what values to use for other properties such as permissions and throughput.
+
+DynamoDB imposes a limit of 400KB on the total size of any database item. In this implementation, each feature flag or user segment is a single item, so the feature store is not able to persist any flag or segment whose JSON representation is larger than that limit.
+
+## How the SDKs store data in DynamoDB
+
+The DynamoDB integrations for all LaunchDarkly server-side SDKs use the same conventions, so that SDK instances and Relay Proxy instances sharing a single DynamoDB table can interoperate correctly.
+
+The storage schema is as follows:
+
+- For each data item that the SDK can store, such as a feature flag, there is a single DynamoDB data item, with the following attributes:
+    - `namespace`: a string value that denotes the type of data, such as `features` and `segments`. Or, if you have specified a prefix string, the `namespace` is set to `PREFIX:TYPE` where `PREFIX` is your configured prefix and `TYPE` is the type of data.
+    - `key`: the unique key of the item (such as the flag key for a feature flag).
+    - `version`: a number that the SDK uses to keep track of updates.
+    - `item`: a serialized representation of the data item, in a format that is determined by the SDK.
+- An additional item with a `namespace` of `$inited` or `PREFIX:$inited` is created when the SDK has stored a full set of feature flag data. This allows a new SDK instance to check whether there is already a valid data set that was stored earlier.
+- If you have specified a prefix string, the SDK never adds, modifies, or removes any items in the DynamoDB table that do not have a `namespace` starting with `PREFIX:`, so it is safe to share a DynamoDB table that is also being used for other purposes.
+
+## Server-side SDKs
+
+In the following examples, the DynamoDB feature store is set to use a table called `"my-table"` and a cache TTL of 30 seconds. The DynamoDB feature store does support using a key prefix, as shown in the Redis examples, but it is uncommon for one DynamoDB table to be shared by multiple applications.
+
+This feature is available in the following server-side SDKs:
+
+* [.NET](#net)
+* [Go](#go)
+* [Java](#java)
+* [Node.js (server-side)](#nodejs-server-side)
+* [PHP](#php)
+* [Python](#python)
+* [Ruby](#ruby)
+
+### .NET
+
+If using the .NET SDK, you must install the additional package [`LaunchDarkly.ServerSdk.DynamoDB`](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb).
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+
+<CodeTabItem value="dotnet">
+
+```csharp
+using LaunchDarkly.Sdk.Server;
+using LaunchDarkly.Sdk.Server.Integrations;
+var config = Configuration.Builder(sdkKey)
+    .DataStore(
+        Components.PersistentDataStore(
+            DynamoDB.DataStore("my-table")
+        ).CacheSeconds(30)
+    )
+    .Build();
+var client = new LDClient(config);
+
+
+// Before version 6.0, the syntax was different:
+
+using LaunchDarkly.Client;
+using LaunchDarkly.Client.DynamoDB;
+
+var store = DynamoDBComponents.DynamoDBFeatureStore("my-table")
+    .WithCaching(FeatureStoreCacheConfig.Enabled.WithTtlSeconds(30));
+
+var config = Configuration.Default(sdkKey)
+    .WithFeatureStoreFactory(store);
+var client = new LDClient(config);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`dotnet-server-sdk-dynamodb`](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb).
+
+### Go
+
+The Go integration is in [`github.com/launchdarkly/go-server-sdk-dynamodb`](https://github.com/launchdarkly/go-server-sdk-redis) for version 5.0.0 or higher of the SDK. In versions 4.5.1 and higher, but below 5.0.0, it is in the main SDK distribution as the subpackage `lddynamodb`.
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+   ]
+}>
+
+<CodeTabItem value="go">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+    lddynamodb "github.com/launchdarkly/go-server-sdk-dynamodb"
+)
+
+var config ld.Config
+config.DataStore = ldcomponents.PersistentDataStore(
+    lddynamodb.DataStore("my-table"),
+).CacheSeconds(30)
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+
+
+// Before version 5.0, the syntax was different:
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+    "gopkg.in/launchdarkly/go-server-sdk.v4/lddynamodb"
+)
+
+factory, err := lddynamodb.NewDynamoDBFeatureStoreFactory("my-table",
+    lddynamodb.CacheTTL(30 * time.Second))
+config := ld.DefaultConfig
+config.FeatureStoreFactory = factory
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`go-server-sdk-dynamodb`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk-dynamodb).
+
+### Java
+
+If using the Java SDK, you must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-dynamodb-store`](https://github.com/launchdarkly/java-server-sdk-dynamodb). You must also add `software.amazon.awssdk.dynamodb` if your application does not already use the AWS SDK.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+
+<CodeTabItem value="java">
+
+```java
+import com.launchdarkly.sdk.server.*;
+import com.launchdarkly.sdk.server.integrations.*;
+
+LDConfig config = new LDConfig.Builder()
+  .dataStore(
+    Components.persistentDataStore(
+      DynamoDb.dataStore("my-table")
+    ).cacheSeconds(30)
+  )
+  .build();
+LDClient client = new LDClient(sdkKey, config);
+
+
+// Before version 5.0, the syntax was different:
+import com.launchdarkly.client.*;
+import com.launchdarkly.client.dynamodb.*;
+
+LDConfig config = new LDConfig.Builder()
+  .featureStoreFactory(
+    DynamoDbComponents.dynamoDbFeatureStore("my-table")
+      .caching(FeatureStoreCacheConfig.enabled().withTtlSeconds(30));
+  )
+  .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`java-server-sdk-dynamodb`](https://github.com/launchdarkly/java-server-sdk-dynamodb).
+
+### Node.js (server-side)
+
+If using the Node.js SDK, you must install the additional package [`launchdarkly-node-server-sdk`](https://github.com/launchdarkly/node-server-sdk-dynamodb). As of the 2.0.0 release of that package, the `aws-sdk` package that it uses is _not_ automatically loaded as a transitive dependency. This saves space when running in AWS Lambda, where `aws-sdk` is built in. If you are not running in Lambda, you must separately install `aws-sdk`.
+
+<CodeTabs
+  defaultValue="node"
+  values={[
+    { label: 'Node.js', value: 'node', },
+  ]
+}>
+
+<CodeTabItem value="node">
+
+```js
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
+const DynamoDBFeatureStore = require('launchdarkly-node-server-sdk-dynamodb');
+
+const store = DynamoDBFeatureStore('my-table', { cacheTTL: 30 });
+
+const config = {
+  featureStore: store
+};
+const client = LaunchDarkly.init(sdkKey, config);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### PHP
+
+The PHP integration is part of the main SDK distribution as of version 3.5.0, but you must also install the package `aws/aws-sdk-php`.
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', },
+  ]
+}>
+
+<CodeTabItem value="php">
+
+```php
+/*
+  Note that there is no parameter for the cache TTL; the PHP SDK does not cache
+  data from DynamoDB, since in PHP the entire in-memory application state is
+  normally discarded after each request.
+*/
+$fr = LaunchDarkly\Integrations\DynamoDb::featureRequester([
+    'dynamodb_table' => 'my-table'
+]);
+$client = new LaunchDarkly\LDClient("your_sdk_key", [
+    'feature_requester' => $fr
+]);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Python
+
+The Python integration is part of the main SDK distribution as of version 6.7.0, but you must also install the package `boto3`.
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+
+<CodeTabItem value="py">
+
+```py
+import ldclient
+from ldclient.config import Config
+from ldclient.feature_store import CacheConfig
+from ldclient.integrations import DynamoDB
+
+store = DynamoDB.new_feature_store('my_table',
+    caching=CacheConfig(expiration=30))
+
+config = Config(feature_store=store)
+ldclient.set_config(config)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Ruby
+
+The Ruby integration is part of the main SDK distribution as of version 5.1.1, but you must also install the gem `aws-sdk-dynamodb`.
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', },
+  ]
+}>
+
+<CodeTabItem value="ruby">
+
+```ruby
+require 'ldclient-rb'
+
+store = LaunchDarkly::Integrations::DynamoDB.new_feature_store('my-table',
+  { expiration: 30 })
+
+config = LaunchDarkly::Config.new(
+  feature_store: store
+)
+client = LaunchDarkly::Client.new(sdk_key, config)
+```
+
+</CodeTabItem>
+</CodeTabs>
