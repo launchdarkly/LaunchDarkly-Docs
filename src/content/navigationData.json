@@ -487,197 +487,184 @@
     "path": "/integrations",
     "items": [
       {
-        "label": "Data Export",
-        "path": "/home/data-export",
+        "label": "APM tools",
+        "path": "/integrations/app-performance",
         "items": [
           {
-            "label": "Azure Event Hubs",
-            "path": "/home/data-export/event-hub"
+            "label": "AppDynamics",
+            "path": "/integrations/appdynamics"
           },
           {
-            "label": "Google Cloud Pub/Sub",
-            "path": "/home/data-export/google-pubsub"
-          },
-          {
-            "label": "Kinesis",
-            "path": "/home/data-export/kinesis"
-          },
-          {
-            "label": "mParticle",
-            "path": "/home/data-export/mparticle",
+            "label": "Datadog",
+            "path": "/integrations/datadog",
             "items": [
               {
-                "label": "mParticle schema reference",
-                "path": "/home/data-export/mparticle-schema-reference"
+                "label": "Using flag triggers with Datadog",
+                "path": "/integrations/datadog/triggers"
               }
             ]
           },
           {
-            "label": "Segment",
-            "path": "/home/data-export/segment",
+            "label": "Dynatrace",
+            "path": "/integrations/dynatrace",
             "items": [
               {
-                "label": "Segment schema reference",
-                "path": "/home/data-export/segment-schema-reference"
+                "label": "Using flag triggers with Dynatrace",
+                "path": "/integrations/dynatrace/triggers"
               }
             ]
           },
           {
-            "label": "Data export schema reference",
-            "path": "/home/data-export/schema-reference"
-          }
-        ]
-      },
-      {
-        "label": "AppDynamics",
-        "path": "/integrations/appdynamics"
-      },
-      {
-        "label": "Azure DevOps",
-        "path": "/integrations/azure-devops"
-      },
-      {
-        "label": "Bitbucket Pipelines",
-        "path": "/integrations/bitbucket-pipelines"
-      },
-      {
-        "label": "Datadog",
-        "path": "/integrations/datadog",
-        "items": [
-          {
-            "label": "Using flag triggers with Datadog",
-            "path": "/integrations/datadog/triggers"
-          }
-        ]
-      },
-      {
-        "label": "Dynatrace",
-        "path": "/integrations/dynatrace",
-        "items": [
-          {
-            "label": "Using flag triggers with Dynatrace",
-            "path": "/integrations/dynatrace/triggers"
-          }
-        ]
-      },
-      {
-        "label": "Elastic (ELK) Stack",
-        "path": "/integrations/elastic-stack"
-      },
-      {
-        "label": "Honeycomb",
-        "path": "/integrations/honeycomb",
-        "items": [
-          {
-            "label": "Using flag triggers with Honeycomb",
-            "path": "/integrations/honeycomb/triggers"
-          }
-        ]
-      },
-      {
-        "label": "IntelliJ",
-        "path": "/integrations/intellij"
-      },
-      {
-        "label": "Jira",
-        "path": "/integrations/jira"
-      },
-      {
-        "label": "LogDNA",
-        "path": "/integrations/logdna"
-      },
-      {
-        "label": "Microsoft Teams",
-        "path": "/integrations/microsoft-teams"
-      },
-      {
-        "label": "New Relic",
-        "path": "/integrations/new-relic",
-        "items": [
-          {
-            "label": "Using flag triggers with New Relic",
-            "path": "/integrations/new-relic/triggers"
+            "label": "Elastic (ELK) Stack",
+            "path": "/integrations/elastic-stack"
           },
           {
-            "label": "New Relic (legacy)",
-            "path": "/integrations/new-relic/new-relic-legacy"
+            "label": "Honeycomb",
+            "path": "/integrations/honeycomb",
+            "items": [
+              {
+                "label": "Using flag triggers with Honeycomb",
+                "path": "/integrations/honeycomb/triggers"
+              }
+            ]
+          },
+          {
+            "label": "New Relic",
+            "path": "/integrations/new-relic",
+            "items": [
+              {
+                "label": "Using flag triggers with New Relic",
+                "path": "/integrations/new-relic/triggers"
+              },
+              {
+                "label": "New Relic (legacy)",
+                "path": "/integrations/new-relic/new-relic-legacy"
+              }
+            ]
+          },
+          {
+            "label": "SignalFx",
+            "path": "/integrations/signalfx",
+            "items": [
+              {
+                "label": "Using flag triggers with SignalFx",
+                "path": "/integrations/signalfx/triggers"
+              }
+            ]
+          },
+          {
+            "label": "Splunk",
+            "path": "/integrations/splunk"
           }
         ]
       },
       {
-        "label": "Release",
-        "path": "/integrations/release"
-      },
-      {
-        "label": "Salesforce",
-        "path": "/integrations/salesforce",
-        "flagKey": "salesforceNav"
-      },
-      {
-        "label": "ServiceNow",
-        "path": "/integrations/servicenow",
+        "label": "Collaboration tools",
+        "path": "/integrations/collaboration",
         "items": [
           {
-            "label": "Setting up the ServiceNow approvals integration",
-            "path": "/integrations/servicenow/setting-up"
+            "label": "Microsoft Teams",
+            "path": "/integrations/microsoft-teams"
           },
           {
-            "label": "Requesting approval",
-            "path": "/integrations/servicenow/approvals"
+            "label": "Slack",
+            "path": "/integrations/slack",
+            "items": [
+              {
+                "label": "Setting up Slack accounts and permissions",
+                "path": "/integrations/slack/setting-up"
+              },
+              {
+                "label": "Viewing, monitoring and subscribing to flags",
+                "path": "/integrations/slack/managing"
+              },
+              {
+                "label": "Subscribing to notifications",
+                "path": "/integrations/slack/notifications"
+              },
+              {
+                "label": "Turning targeting on and off",
+                "path": "/integrations/slack/toggle"
+              },
+              {
+                "label": "Webhook integration",
+                "path": "/integrations/slack/webhooks"
+              }
+            ]
           }
         ]
       },
       {
-        "label": "SignalFx",
-        "path": "/integrations/signalfx",
+        "label": "IDE connectors",
+        "path": "/integrations/ide",
         "items": [
           {
-            "label": "Using flag triggers with SignalFx",
-            "path": "/integrations/signalfx/triggers"
+            "label": "IntelliJ",
+            "path": "/integrations/intellij"
+          },
+          {
+            "label": "Visual Studio Code",
+            "path": "/integrations/vscode"
           }
         ]
       },
       {
-        "label": "Slack",
-        "path": "/integrations/slack",
+        "label": "Workflow management tools",
+        "path": "/integrations/workflow",
         "items": [
           {
-            "label": "Setting up Slack accounts and permissions",
-            "path": "/integrations/slack/setting-up"
+            "label": "Jira",
+            "path": "/integrations/jira"
           },
           {
-            "label": "Viewing, monitoring and subscribing to flags",
-            "path": "/integrations/slack/managing"
+            "label": "ServiceNow",
+            "path": "/integrations/servicenow",
+            "items": [
+              {
+                "label": "Setting up the ServiceNow approvals integration",
+                "path": "/integrations/servicenow/setting-up"
+              },
+              {
+                "label": "Requesting approval",
+                "path": "/integrations/servicenow/approvals"
+              }
+            ]
           },
           {
-            "label": "Subscribing to notifications",
-            "path": "/integrations/slack/notifications"
-          },
-          {
-            "label": "Turning targeting on and off",
-            "path": "/integrations/slack/toggle"
-          },
-          {
-            "label": "Webhook integration",
-            "path": "/integrations/slack/webhooks"
+            "label": "Sleuth",
+            "path": "/integrations/sleuth"
           }
         ]
       },
       {
-        "label": "Sleuth",
-        "path": "/integrations/sleuth"
-      },
-      {
-        "label": "Splunk",
-        "path": "/integrations/splunk"
-      },
-      {
-        "label": "Terraform",
-        "path": "/integrations/terraform"
-      },
-      {
-        "label": "Visual Studio Code",
-        "path": "/integrations/vscode"
+        "label": "More integrations",
+        "path": "/integrations/more",
+        "items": [
+          {
+            "label": "Azure DevOps (formerly VSTS)",
+            "path": "/integrations/azure-devops"
+          },
+          {
+            "label": "Bitbucket Pipelines",
+            "path": "/integrations/bitbucket-pipelines"
+          },
+          {
+            "label": "LogDNA",
+            "path": "/integrations/logdna"
+          },
+          {
+            "label": "OAuth applications",
+            "path": "/home/connecting/oauth"
+          },
+          {
+            "label": "Release",
+            "path": "/integrations/release"
+          },
+          {
+            "label": "Terraform",
+            "path": "/integrations/terraform"
+          }
+        ]
       }
     ]
   },
@@ -835,7 +822,6 @@
                 "path": "/sdk/client-side/android/migration-2-to-3"
               }
             ]
-
           },
           {
             "label": "C/C++ SDK reference",
