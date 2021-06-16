@@ -220,135 +220,6 @@ ldClient.close()
 </CodeTabItem>
 </CodeTabs>
 
-## Multiple environments
-
-<Callout intent="info">
-  <CalloutTitle>Availablility</CalloutTitle>
-<CalloutDescription>
-This has been available since version 2.6.0.</CalloutDescription>
-</Callout>
-
-LaunchDarkly's Android SDK supports having multiple LDClient instances tied to separate mobile keys. This allows evaluating flags from multiple environments.
-
-All LDClient instances will evaluate against the same LDUser. The mobile keys for additional environments are specified, along with identifying names, in a map passed to your LDConfig object.
-
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
-
-```java
-Map<String, String> otherKeys = new HashMap<String, String>();
-otherKeys.put("platform", "PLATFORM_MOBILE_KEY");
-otherKeys.put("core", "CORE_MOBILE_KEY");
-
-LDConfig ldConfig = new LDConfig.Builder()
-    .mobileKey("MOBILE_KEY")
-    .secondaryMobileKeys(otherKeys)
-    .build();
-
-LDUser user = new LDUser.Builder("user key")
-    .email("fake@example.com")
-    .build();
-
-LDClient.init(this.getApplication(), ldConfig, user);
-```
-
-</CodeTabItem>
-<CodeTabItem value="kotlin">
-
-```kotlin
-val otherKeys: Map<String, String> = HashMap()
-otherKeys.put("platform", "PLATFORM_MOBILE_KEY")
-otherKeys.put("core", "CORE_MOBILE_KEY")
-
-val ldConfig: LDConfig = LDConfig.Builder()
-    .mobileKey("MOBILE_KEY")
-    .secondaryMobileKeys(otherKeys)
-    .build()
-
-val user: LDUser = LDUser.Builder("user key")
-    .email("fake@example.com")
-    .build()
-
-LDClient.init(application, ldConfig, user)
-```
-
-</CodeTabItem>
-</CodeTabs>
-
- To access the secondary mobile key instances, use the `getForMobileKey` method on LDClient. This method takes the identifier name assigned to your environment key in the `secondaryMobileKeys` map and returns the associated LDClient instance.
-
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
-
-```java
-LDClient coreInstance = LDClient.getForMobileKey("core");
-coreInstance.boolVariation("core-flag", false);
-```
-
-</CodeTabItem>
-<CodeTabItem value="kotlin">
-
-```kotlin
-val coreInstance: LDClient = LDClient.getForMobileKey("core")
-coreInstance.boolVariation("core-flag", false)
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-As all the client instances use the same LDUser object, some calls will affect all instances.
-
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
-
-```java
-LDClient coreInstance = LDClient.getForMobileKey("core");
-
-// Calls affect all LDClient Instances
-coreInstance.identify(/*User Object*/);
-coreInstance.flush();
-coreInstance.setOffline();
-coreInstance.setOnline();
-coreInstance.close();
-```
-
-</CodeTabItem>
-<CodeTabItem value="kotlin">
-
-```kotlin
-val coreInstance: LDClient = LDClient.getForMobileKey("core")
-
-// Calls affect all LDClient Instances
-coreInstance.identify(/*User Object*/)
-coreInstance.flush()
-coreInstance.setOffline()
-coreInstance.setOnline()
-coreInstance.close()
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Track calls, listeners, and flag evaluation are all tied to the client instance they are evaluated against.
-
 ## Data collection
 
 To learn more about data collection within this SDK and implications on submissions to the Apple App Store, read [Apple App Store data collection policy](/sdk/concepts/apple-app-store).
@@ -356,7 +227,6 @@ To learn more about data collection within this SDK and implications on submissi
 ## Supported features
 
 This SDK supports the following features:
-
 
 * [Configuration](/sdk/features/config#android)
 * [Evaluating flags](/sdk/features/variation#android)
@@ -366,6 +236,7 @@ This SDK supports the following features:
 * [Identifying and changing users](/sdk/features/identify#android)
 * [Logging configuration](/sdk/features/logging#android)
 * [Monitoring SDK status](/sdk/features/monitoring#android)
+* [Multiple environments](/sdk/features/multiple-environments#android)
 * [Offline mode](/sdk/features/offline-mode#android)
 * [Sending custom events](/sdk/features/track#android)
 * [Subscribing to flag changes](/sdk/features/flag-changes#android)

@@ -780,6 +780,10 @@
             "path": "/sdk/features/monitoring"
           },
           {
+            "label": "Multiple environments",
+            "path": "/sdk/features/multiple-environments"
+          },
+          {
             "label": "Offline mode",
             "path": "/sdk/features/offline-mode"
           },

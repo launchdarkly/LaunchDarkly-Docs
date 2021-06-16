@@ -1,0 +1,269 @@
+---
+path: '/sdk/features/multiple-environments'
+title: 'Multiple environments'
+description: 'This topic explains how to support multiple environments in LaunchDarkly mobile SDKs.'
+published: true
+---
+
+## Overview
+
+This topic explains how to support multiple environments in LaunchDarkly mobile SDKs.
+
+## Client-side SDKs
+
+Some LaunchDarkly client-side SDKs support having multiple `LDClient` instances tied to separate mobile keys. This allows the SDK to evaluate flags from multiple environments.
+
+This feature is available in the following client-side SDKs:
+
+* [Android](#android)
+* [iOS](#ios)
+* [React Native](#react-native)
+
+### Android
+
+All `LDClient` instances evaluate against the same `LDUser`. The mobile keys for additional environments are specified, along with identifying names, in a map passed to your `LDConfig` object.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+Map<String, String> otherKeys = new HashMap<String, String>();
+otherKeys.put("platform", "PLATFORM_MOBILE_KEY");
+otherKeys.put("core", "CORE_MOBILE_KEY");
+
+LDConfig ldConfig = new LDConfig.Builder()
+    .mobileKey("MOBILE_KEY")
+    .secondaryMobileKeys(otherKeys)
+    .build();
+
+LDUser user = new LDUser.Builder("user key")
+    .email("fake@example.com")
+    .build();
+
+LDClient.init(this.getApplication(), ldConfig, user);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val otherKeys: Map<String, String> = HashMap()
+otherKeys.put("platform", "PLATFORM_MOBILE_KEY")
+otherKeys.put("core", "CORE_MOBILE_KEY")
+
+val ldConfig: LDConfig = LDConfig.Builder()
+    .mobileKey("MOBILE_KEY")
+    .secondaryMobileKeys(otherKeys)
+    .build()
+
+val user: LDUser = LDUser.Builder("user key")
+    .email("fake@example.com")
+    .build()
+
+LDClient.init(application, ldConfig, user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+ To access the secondary mobile key instances, use the `getForMobileKey` method on LDClient. This method takes the identifier name assigned to your environment key in the `secondaryMobileKeys` map and returns the associated LDClient instance.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDClient coreInstance = LDClient.getForMobileKey("core");
+coreInstance.boolVariation("core-flag", false);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val coreInstance: LDClient = LDClient.getForMobileKey("core")
+coreInstance.boolVariation("core-flag", false)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+As all the client instances use the same LDUser object, some calls affect all instances.
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDClient coreInstance = LDClient.getForMobileKey("core");
+
+// Calls affect all LDClient Instances
+coreInstance.identify(/*User Object*/);
+coreInstance.flush();
+coreInstance.setOffline();
+coreInstance.setOnline();
+coreInstance.close();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val coreInstance: LDClient = LDClient.getForMobileKey("core")
+
+// Calls affect all LDClient Instances
+coreInstance.identify(/*User Object*/)
+coreInstance.flush()
+coreInstance.setOffline()
+coreInstance.setOnline()
+coreInstance.close()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Track calls, listeners, and flag evaluation are all tied to the client instance they are evaluated against.
+
+### iOS
+
+All `LDClient` instances evaluate against the same `LDUser`. The mobile keys for additional environments are specified, along with identifying names, in a map passed to your `LDConfig` object.
+
+<CodeTabs
+  defaultValue="swift"
+  values={[
+    { label: 'Swift', value: 'swift', },
+    { label: 'Objective-C', value: 'objc', },
+  ]
+}>
+<CodeTabItem value="swift">
+
+```swift
+let user = LDUser(key: "YOUR_USER_KEY")
+var config = LDConfig(mobileKey: "PRIMARY_MOBILE_KEY")
+// Note that the SDK throws error strings if you add duplicate keys or put the primary key or name in secondaryMobileKeys.
+try! config.setSecondaryMobileKeys(["platform": "PLATFORM_MOBILE_KEY", "core": "CORE_MOBILE_KEY"])
+LDClient.start(config: config, user: user)
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+LDUser *user = [[LDUser alloc] initWithKey:@"YOUR_USER_KEY"];
+LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"MOBILE_KEY"];
+NSDictionary *otherMobileKeys = @{@"platform": @"PLATFORM_MOBILE_KEY", @"core": @"CORE_MOBILE_KEY"};
+NSError *err = nil;
+[config setSecondaryMobileKeys:otherMobileKeys error:&err]
+[LDClient startWithConfiguration:config user:user];
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To access the secondary mobile key instances, use the `LDClient.get` static method, passing the indentifier assigned to your environment key in the `secondaryMobileKeys` map.
+
+<CodeTabs
+  defaultValue="swift"
+  values={[
+    { label: 'Swift', value: 'swift', },
+    { label: 'Objective-C', value: 'objc', },
+  ]
+}>
+<CodeTabItem value="swift">
+
+```swift
+var coreInstance = LDClient.get(environment: "core")
+let coreFlagValue = coreInstance?.variation(forKey: "CORE_FLAG_KEY", defaultValue: false)
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+LDClient *coreInstance = [LDClient getEnvironment:@"core"];
+let coreFlagValue = [coreInstance boolVariationForKey:@"CORE_FLAG_KEY" defaultValue:NO];
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+As all the client instances use the same `LDUser` object, some SDK functionality affects all instances.
+
+<CodeTabs
+  defaultValue="swift"
+  values={[
+    { label: 'Swift', value: 'swift', },
+    { label: 'Objective-C', value: 'objc', },
+  ]
+}>
+<CodeTabItem value="swift">
+
+```swift
+coreInstance.identify(/*User Object*/)
+coreInstance.flush()
+coreInstance.setOnline(true)
+coreInstance.close()
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+[coreInstance identifyWithUser:/*User Object*/];
+[coreInstance flush];
+[coreInstance setOnline:true];
+[coreInstance close];
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Track calls, listeners, and flag evaluation are all tied to the client instance they are evaluated against.
+
+### React Native
+
+All `LDClient` instances evaluate against the same `LDUser`. The environment names and their corresponding mobile keys are specified in a `secondaryMobileKeys` map passed to your `LDConfig` object.
+
+You do not need to manage `LDClient` instances. Instead, access an instance by passing the environment name to a method that supports multiple environments.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+let config = {
+  mobileKey: 'YOUR_MOBILE_KEY',
+  secondaryMobileKeys: {
+    'platform': 'PLATFORM_MOBILE_KEY',
+    'core': 'CORE_MOBILE_KEY'
+  },
+};
+let user = {key: 'minimal_user'};
+await client.configure(config, user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To use functionality with a secondary environment, provide the name of desired secondary environment as the `environment` parameter value to many `LDClient` methods. Some `LDClient` methods do not have an optional `environment` parameter because they act across all environments. To learn more, read [`LDClient`](https://launchdarkly.github.io/react-native-client-sdk/classes/_launchdarkly_react_native_client_sdk_.ldclient.html).
