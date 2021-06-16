@@ -10,6 +10,10 @@
         "svg": "compass",
         "items": [
           {
+            "label": "Setting up an SDK",
+            "path": "/home/getting-started/setting-up"
+          },
+          {
             "label": "Your first feature flag",
             "path": "/home/getting-started/feature-flags"
           },

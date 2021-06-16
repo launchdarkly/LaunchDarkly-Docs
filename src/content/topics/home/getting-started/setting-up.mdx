@@ -1,0 +1,60 @@
+---
+path: '/home/getting-started/setting-up'
+title: 'Setting up an SDK'
+description: 'This topic explains how to set up an SDK to begin using LaunchDarkly.'
+published: true
+---
+
+This topic explains how to set up an SDK to begin using LaunchDarkly.
+
+## Setting up an SDK
+
+The steps to integrate your application with LaunchDarkly are similar across all SDKs. We provide a variety of client-side, server-side, and mobile SDKs to choose from. To learn more about choosing an SDK, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+
+We auto-generate documentation for most our SDKs in Github Pages. The URL convention is `https://launchdarkly.github.io/<SDK-NAME>`. Some SDKs share functionality, which is reflected in their documentation. For example, our Node and Javascript SDK have a common library found at [JS SDK Common](https://launchdarkly.github.io/js-sdk-common/).
+
+To set up LaunchDarkly:
+
+1. **Install the LaunchDarkly SDK in your application using your project's dependency manager.** This lets your application access the LaunchDarkly SDK.
+2. **Import the LaunchDarkly client in your application code.** This client is the primary way your application uses the SDK and communicates with LaunchDarkly.
+3. **Configure the LaunchDarkly client with the appropriate key for your environment and create the client.** Your SDK key, client-side ID, and mobile key uniquely identify your project and environment, and they authorize your application to connect to LaunchDarkly.
+4. **Set which feature flag variation a user will see.** Every feature flag is uniquely identified by a feature flag key. Use the key to associate flag variations with different users.
+
+<Callout intent="info">
+<CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
+<CalloutDescription>
+
+You don't have to send users to LaunchDarkly in advance. You can target them with feature flags before they appear on your Users dashboard. Users appear in the dashboard automatically after they encounter feature flags.
+
+</CalloutDescription>
+</Callout>
+
+5. **Shut down the LaunchDarkly client when your application is about to terminate.** The client releases the resources it is using and sends pending analytics events to LaunchDarkly. If your application quits without this shutdown step, you may not see requests and users on the dashboard, because they are derived from analytics events. **You need to shut down the application manually only one time**.
+
+### Editor support
+
+SDK documentation appears in your editor if the editor supports surfacing doc comments. LaunchDarkly offers further integrations for [VSCode](https://docs.launchdarkly.com/integrations/vscode#installing-the-vscode-extension) or [IntelliJ(beta)](https://docs.launchdarkly.com/integrations/intellij).
+
+These integrations have extended functionality based on Code References aliases. If your team uses aliases to find all flag usage throughout your code base, you will also have hover documentation wherever those aliases appear.
+
+## Flag evaluations are always available
+
+If the SDK you use loses the connection with LaunchDarkly, your feature flags will still work. The SDK relies on its stored state to evaluate flags.
+
+By default, an SDK initializes with an empty state. When the SDK first initializes, it opens a streaming connection to LaunchDarkly. The response from LaunchDarkly contains the SDK's current state, which your SDK uses to make any necessary changes to feature flags. After the initial update, the SDK keeps a streaming connection open to LaunchDarkly. If you make a change in the LaunchDarkly dashboard or with the REST API, LaunchDarkly sends these changes to all connected SDKs automatically.
+
+If the SDK ever loses connectivity to LaunchDarkly, it continues to try to establish a streaming connection until it succeeds. If you evaluate a flag before the SDK receives its initial state, or you try to fetch a flag which otherwise doesn't exist, then the SDK returns a default value which you can specify in your flag evaluation code.
+
+All SDKs provide synchronous and asynchronous ways of waiting for the SDK's state to initialize.
+
+## Next steps
+
+After you have set up an SDK, you can manage features on your dashboard. To learn more, read [The flags dashboard](/home/organize/dashboard).
+
+When you're ready to test your integration, use the debugger to get a real-time view of your feature flag requests as they're received. To learn more, read [The debugger](/home/flags/debugger).
+
+ As you begin using feature flags, here are some useful features you can use without re-deploying your application:
+
+* [Targeting users with flags](/home/flags/targeting-users)
+* [Percentage rollouts](/home/flags/targeting-users#percentage-rollouts)
+* [Experimentation](/home/experimentation)

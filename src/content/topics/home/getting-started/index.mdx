@@ -1,56 +1,43 @@
 ---
 path: '/home/getting-started'
 title: 'Getting started'
-description: 'A high-level introduction of LaunchDarkly. Start here to start using feature flags!'
+description: 'This category contains a high-level introduction to LaunchDarkly.'
 published: true
 isLandingPage: true
 ---
 
 Welcome to LaunchDarkly! We're excited to partner with you as you use feature flags to make high-impact changes with minimal risk and maximum control.
 
-It only takes a few minutes to get started with LaunchDarkly and control your first feature flag.
+## Getting started with LaunchDarkly
 
-## Integrating with LaunchDarkly
+To get started with LaunchDarkly, you must first create or join a team. To learn more about LaunchDarkly teams, read [Joining a team](https://docs.launchdarkly.com/home/getting-started/your-team).
 
-The steps to integrate your application with LaunchDarkly are common across all SDKs. We provide a variety of client, server, and mobile SDKs for you to use. To learn more about our SDK offerings, read [Choosing an SDK](#choosing-an-sdk).
+### Using the dashboard
 
-To set up LaunchDarkly:
+After you have joined a team, you will have have access to the LaunchDarkly dashboard. To learn how to create a feature flag, read [Your first feature flag](/home/getting-started/feature-flags).
 
-1. **Install the LaunchDarkly SDK in your application using your project's dependency manager.** This lets your application access the LaunchDarkly SDK.
-2. **Import the LaunchDarkly client in your application code.** This client is the primary way your application uses the SDK and communicates with LaunchDarkly.
-3. **Configure the LaunchDarkly client with the appropriate key for your environment and create the client.** Your SDK key, Client-side ID, and Mobile key uniquely identify your project and environment, and they authorize your application to connect to LaunchDarkly.
-4. **Set which feature flag variation a user will see.** Every feature flag is uniquely identified by a feature flag key. Use the key to associate flag variations with different users.
-   <Callout intent="info">
-     <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
-     <CalloutDescription>
-       You don't have to send users to LaunchDarkly in advance. You can target them with feature flags before they have LaunchDarkly
-       accounts of their own. Users appear in the dashboard automatically after they encounter feature flags.
-     </CalloutDescription>
-   </Callout>
-5. **Shut down the LaunchDarkly client when your application is about to terminate.** The client releases the resources it is using and sends pending analytics events to LaunchDarkly. If your application quits without this shutdown step, you may not see requests and users on the dashboard, because they are derived from analytics events. **You only need to shut down the application manually once**.
+Here are some additional resources for learning how to use the dashboard:
 
-## Choosing an SDK
+* [LaunchDarkly in less than 5 minutes](https://fast.wistia.net/embed/channel/mli3h9o3nh?wchannelid=mli3h9o3nh&wmediaid=j627spzhzn): A high-level video overview of LaunchDarkly.
+* [Quickstart guide](https://app.launchdarkly.com/quickstart): The in-app LaunchDarkly quickstart.
+* [Your first feature flag](https://docs.launchdarkly.com/home/getting-started/feature-flags): Creating a feature flag tutorial.
+* [Creating your first flag](https://docs.launchdarkly.com/guides/tutorials/first-flag): An in-depth guide to creating a feature flag.
+* Video about targeting users based on user metadata: [video overview](https://fast.wistia.net/embed/channel/mli3h9o3nh?wchannelid=mli3h9o3nh&wmediaid=c9x1gyt42d)
+* [Flag rules and targeting](https://docs.launchdarkly.com/guides/tutorials/rules-and-targeting): A guide explaining how to target users with flag variations.
+* [LaunchDarkly onboarding](https://launchdarkly.com/onboarding): A series of videos covering a variety of getting started topics.
 
-We have a variety of client-side, server-side, and mobile SDKs to choose from.
+## Setting up your SDK
 
-To learn more about the different types of SDKs, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
-
-Explore the following SDK reference guides for specific details about how to use LaunchDarkly with your tech stack.
-
-<AllSdks />
-
-## Flag evaluations are always available
-
-If the SDK you're using loses the connection with LaunchDarkly, your feature flags will still work. The SDK relies on its stored state to evaluate flags.
-
-By default, an SDK initializes with an empty state. When the SDK first initializes, it opens a streaming connection to LaunchDarkly. The response from LaunchDarkly contains the SDKs' current state, which your SDK uses to make any necessary changes to feature flag. After the initial update, the SDK keeps a streaming connection open to LaunchDarkly. If you make a change in the LaunchDarkly dashboard or with the REST API, LaunchDarkly sends these changes to all connected SDKs automatically.
-
-If the SDK ever loses connectivity to LaunchDarkly, it continues to try to establish a streaming connection until it succeeds. If you evaluate a flag before the SDK receives its initial state, or you try to fetch a flag which otherwise doesn't exist, then the SDK returns a fallback value which you can specify in your flag evaluation code.
-
-All SDKs provide synchronous and asynchronous ways of waiting for the SDKs state to initialize.
+In addition to Dashboard access, you must set up a LaunchDarkly SDK to integrate LaunchDarkly with your code. To learn more, read [Setting up an SDK](/home/getting-started/setting-up). For information about how to choose an SDK, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
 ## Next steps
 
-That's it! Now you can manage features on your dashboard. Read on to see how to [target users](/home/flags/targeting-users) or do [controlled rollouts](/home/flags/targeting-users#percentage-rollouts) and [A/B/n experiments](/home/experimentation) without re-deploying your application!
+After you join a team, set up your SDK, and begin using feature flags, you may want to ask some questions to learn about your team’s implementation:
 
-Once you're ready to test your integration, head over to the [debugger](/home/flags/debugger) to get a real-time view of your feature flag requests as they're received.
+* Do we use both *temporary* and *permanent* flags in our code base?
+* What naming conventions and styles are used for our different resources such as flags, segments, projects, and environments?
+* How do we manage flag cleanup?
+* Is there a standardized rollout strategy for new features?
+* What LaunchDarkly role am I assigned and what does that mean?
+
+To learn more about making these determinations, read [Best practices](https://docs.launchdarkly.com/guides#best-practices).
