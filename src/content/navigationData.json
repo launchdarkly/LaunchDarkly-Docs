@@ -74,7 +74,7 @@
         "svg": "toggles-multiple-solid",
         "items": [
           {
-            "label": "The Flags dashboard",
+            "label": "The flags dashboard",
             "path": "/home/organize/dashboard"
           },
           {
