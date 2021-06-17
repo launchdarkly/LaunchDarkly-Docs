@@ -547,52 +547,43 @@ Be aware of two considerations when enabling the `DEBUG` log level:
 
 ### Node.js (server-side)
 
-By default, the SDK uses the [`winston`](https://www.npmjs.com/package/winston) package. All loggers are namespaced under `[LaunchDarkly]`.
+The Node.js SDK offers several choices for logging.
 
-Be aware of two considerations when enabling the DEBUG log level:
+In the default configuration, the SDK sends output to the console and enables all log levels except `debug`.
 
-1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
-2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+Versions 5.x and earlier of the SDK used the [`winston`](https://www.npmjs.com/package/winston) logging package for the default configuration. Versions 6.0 and later do not have a dependency on `winston`. Instead, they write directly to the console by default.
 
-You can pass a custom logger to the SDK with the configurable `logger` property. To learn more about the logger's requirements and methods, read [LDLogger](http://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldlogger.html).
+For full control over logging behavior, you can set the [`logger`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldoptions.html#logger) option to an object that implements the `LDLogger` interface. To learn more about the logger's requirements and methods, read [LDLogger](http://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldlogger.html). The `winston` package is compatible with this interface, so if you are already using a `winston` logger, you can pass it directly to the SDK.
 
-Winston's syntax for instantiating and configuring loggers changed between versions 2.x and 3.x. If the transitive dependency generates errors, declare a dependency on a specific Winston version.
+You can use [`basicLogger`](https://launchdarkly.github.io/node-server-sdk/index.html#basicLogger) for simpler control over logging behavior. Versions 5.x and earlier of the SDK do not support `basicLogger`.
+
+This example shows how to use `basicLogger` to enable debug-level logging in your SDK configuration:
 
 <CodeTabs
-  defaultValue="js"
+  defaultValue="node"
   values={[
-    { label: 'Winston 2.x', value: 'js', },
-    { label: 'Winston 3.x', value: 'js2', },
+    { label: 'Node.js', value: 'node', },
   ]
 }>
-<CodeTabItem value="js">
+<CodeTabItem value="node">
 
-```js
-logger = new winston.Logger({
-  level: "debug",
-  transports: [
-    new winston.transports.Console()
-  ]
-});
-ldClient = LaunchDarkly.init("YOUR_SDK_KEY", {"logger": logger});
-```
+```javascript
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
 
-</CodeTabItem>
-<CodeTabItem value="js2">
-
-```js
-logger = winston.createLogger({
-  level: 'debug',
-  transports: [
-    new winston.transports.Console()
-
-  ]
-});
-ldClient = LaunchDarkly.init("YOUR_SDK_KEY", {"logger": logger});
+const config = {
+  logger: LaunchDarkly.basicLogger({
+    level: 'debug',
+  }),
+};
 ```
 
 </CodeTabItem>
 </CodeTabs>
+
+Be aware of two considerations when enabling debug-level logging:
+
+1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
+2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
 
 ### PHP
 

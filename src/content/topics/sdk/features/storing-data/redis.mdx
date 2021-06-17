@@ -311,16 +311,35 @@ local c = l.clientInit({
 
 ### Node.js (server-side)
 
-The Node.js integration is part of the main SDK distribution.
+In version 6.0.0 and higher of the Node.js SDK, you must install the additional package [`launchdarkly-node-server-sdk-redis`](https://github.com/launchdarkly/node-server-sdk-redis). In Node.js SDK 5.x and earlier, this integration is part of the main SDK distribution.
 
 <CodeTabs
-  defaultValue="node"
+  defaultValue="nodesdk6"
   values={[
-    { label: 'Node.js', value: 'node', },
+    { label: 'Node.js', value: 'nodesdk6', },
+    { label: 'Node.js SDK versions 5.x and earlier', value: 'nodesdk5', },
   ]
 }>
 
-<CodeTabItem value="node">
+<CodeTabItem value="nodesdk6">
+
+```js
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
+const RedisFeatureStore = require('launchdarkly-node-server-sdk-redis');
+
+const redisOpts = {
+  url: 'redis://my-redis:6379'
+};
+const store = RedisFeatureStore(redisOpts, 30, 'my-key-prefix');
+
+const config = {
+  featureStore: store
+};
+const client = LaunchDarkly.init(sdkKey, config);
+```
+
+</CodeTabItem>
+<CodeTabItem value="nodesdk5">
 
 ```js
 const LaunchDarkly = require('launchdarkly-node-server-sdk');
