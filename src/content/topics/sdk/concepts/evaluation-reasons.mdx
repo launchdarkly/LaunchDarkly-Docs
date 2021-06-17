@@ -96,6 +96,8 @@ These values are:
   </TableBody>
 </Table>
 
+`inExperiment` is an optional attribute on the reason object.  If this is true, it indicates the event is to be included in experimentation analysis.  If `inExperiment` is false, LaunchDarkly does not include this attribute in the reason object.  This is only true for certain SDKs and flags using experiment allocation.
+
 Here is an example of how you could access the details of a reason object in some of LaunchDarkly's SDKs:
 
 <CodeTabs
@@ -497,7 +499,8 @@ For instance, a debug event might look like this:
   "value": true,
   "default": false,
   "reason": {
-    "kind": "TARGET_MATCH"
+    "kind": "TARGET_MATCH",
+    "inExperiment": true
   }
 }
 ```

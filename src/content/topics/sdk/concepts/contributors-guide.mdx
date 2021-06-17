@@ -117,7 +117,12 @@ Feature events have the following shape:
 </CodeTabItem>
 </CodeTabs>
 
-The `kind` should always be `"feature"`. A feature event should only by generated if the `trackEvents` attribute of the flag is sent. The `prereqOf` attribute should be set to a flag key if this flag evaluation was only performed in order to determine whether the prerequisite values were met for the indicated flag.
+The `kind` attribute should always be `"feature"`. A feature event should only be generated in one of these scenarios:
+   - the `trackEvents` or `trackEventsFallthrough` attribute on the flag configuration is sent
+   - the `trackEvents` attribute on a targeting rule is sent
+   - the targeting rule or fallthrough has a rollout of kind `"experiment"` and the variation associated with the event is included in the tracked variations for that rollout
+
+The `prereqOf` attribute should be set to a flag key if this flag evaluation was only performed in order to determine whether the prerequisite values were met for the indicated flag.
 
 The optional `contextKind` attribute should be either `"user"` or `"anonymousUser"` depending on the corresponding user's `anonymous` property. If omitted, the context kind will be interpreted as `"user"`.
 
