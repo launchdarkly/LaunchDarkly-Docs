@@ -9,7 +9,11 @@ published: true
 
 This topic explains which external databases each server-side SDK can use to store flag data.
 
-## Using external databases as feature stores
+By default, all our SDKs work with an in-memory feature store. This feature store requires no additional configuration. However, data in in-memory feature stores are not persistent. This means when you restart your application, your SDK reloads the entire store's contents.
+
+Persistent feature stores solve this problem by persisting their data so that they can be used across application restarts.
+
+## Using external databases as persistent feature stores
 
 By default, LaunchDarkly's server-side SDKs connect to LaunchDarkly and receive feature flag data, store the flags in local memory, and update them when prompted to by LaunchDarkly. This collection of last known flag data is cached in the "feature store" or "data store."
 
