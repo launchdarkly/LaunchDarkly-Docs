@@ -245,7 +245,7 @@ ldclient.track("your-event-name", { customProperty: someValue });
 </CodeTabItem>
 </CodeTabs>
 
-If you [define click or pageview metrics](https://app.clubhouse.io/home/experimentation) in LaunchDarkly, they are sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or pageview goals. The SDK will generate pageview events correctly regardless of how the URL is changed, such as by the HTML5 history API, by changing the URL hash fragment, etc.
+If you [define click or pageview metrics](/home/experimentation) in LaunchDarkly, they are sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or pageview goals. The SDK will generate pageview events correctly regardless of how the URL is changed, such as by the HTML5 history API, by changing the URL hash fragment, etc.
 
 You can completely disable event sending by setting `sendEvents` to `false` in the client options, but this means you will not have user data on your LaunchDarkly dashboard.
 
