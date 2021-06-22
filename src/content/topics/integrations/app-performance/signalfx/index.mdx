@@ -1,125 +1,29 @@
 ---
 path: '/integrations/signalfx'
 title: 'SignalFx'
-description: 'This topic explains how to use the LaunchDarkly SignalFx integration. SignalFx is an application performance management (APM) tool that can detect and alert engineers when their applications are trending in an unstable direction.'
+description: 'This topic explains the LaunchDarkly SignalFx integrations available, including events and triggers.'
 published: true
 ---
 
 <Callout intent="primary">
-  <CalloutTitle>The SignalFX integration is a Pro and Enterprise feature</CalloutTitle>
-  <CalloutDescription>
-
-The SignalFX integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
-
-  </CalloutDescription>
-</Callout>
-
-## Overview
-
-This topic explains how to use the LaunchDarkly SignalFx integration. [SignalFx](https://www.signalfx.com/) is an [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) tool. It allows customers to monitor the operational health of their application and infrastructure.
-
-SignalFx can detect and alert engineers when their applications are trending in an unstable direction. In doing so, these engineers will likely want to identify what changed and caused the application to become unstable. One potential cause could be the toggling of a feature flag. The LaunchDarkly SignalFx integration works to streamline this use case by exposing flag change data to SignalFx.
-
-![The SignalFx UI with a LaunchDarkly event.](../../images/signalfx-marker-1.png)
-
-With clear data markers representing feature flag changes, SignalFx users can more easily correlate their feature flag rollouts with changes in operational health.
-
-<Callout intent="primary">
-<CalloutTitle>This integration supports triggers</CalloutTitle>
+<CalloutTitle>SignalFx integrations are Pro and Enterprise features</CalloutTitle>
 <CalloutDescription>
 
-You can use LaunchDarkly's triggers feature with SignalFx to automatically perform actions on feature flags.
-
-To learn more, read [Using triggers with SignalFx](/integrations/signalfx/triggers).
+SignalFx integrations are available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
 
-## Prerequisites
+## Overview
 
-To configure the SignalFx integration to send LaunchDarkly data to SignalFx, you must have the following prerequisites:
+This topic explains the LaunchDarkly SignalFx integrations available, including events and triggers.
 
-* **SignalFx access token**: This token authenticates your LaunchDarkly account to send data to your SignalFx account. To learn more about about working with SignalFx access tokens, read [SignalFx's documentation](https://docs.signalfx.com/en/latest/admin-guide/tokens.html#working-with-access-tokens).
-* **SignalFx realm**: The realm identifies the self-contained deployment of SignalFx that hosts your organization. Find the name of your organization's realm on your SignalFx profile page.
+[SignalFx](https://www.signalfx.com/) is an [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) tool. It allows customers to monitor the operational health of their application and infrastructure.
 
-## Configuring the SignalFx integration
+## Events
 
-Here's how to configure the SignalFx integration:
+The LaunchDarkly SignalFx events integration exposes flag change data to SignalFx, which can detect and alert engineers when their applications are trending in an unstable direction. To learn how to set up this integration, read [Using the SignalFx events integration](/integrations/signalfx/events).
 
-1. Navigate to the <Link to="https://app.launchdarkly.com/default/integrations">LaunchDarkly integrations</Link> page.
-2. Click to expand the SignalFx card.
-3. Click **+ Integration**.
+## Triggers
 
-![The LaunchDarkly SignalFx integration configuration screen.](../../images/signalfx-ld-config.png)
-
-4. (Optional) Enter a human-readable **Name**.
-5. Paste in your **SignalFx Access Token**.
-6. Paste in your **SignalFx Realm**.
-7. (Optional) Configure a custom policy to control which flag information LaunchDarkly sends to SignalFx. To learn more about this option, read [Advanced configuration](#advanced-configuration).
-8. Click **Save SignalFx Configuration**.
-
-When you configure the integration correctly, LaunchDarkly sends flag change data to SignalFx.
-
-## Advanced configuration
-
-The _Policy_ configuration field allows you to control which kinds of LaunchDarkly events are sent to SignalFx. The default policy value restricts it to flag changes in production environments:
-
-<CodeTabs
-  defaultValue="txt"
-  values={[
-    { label: 'Policy example', value: 'txt', },
-  ]
-}>
-
-<CodeTabItem value="txt">
-
-```txt
-proj/*:env/production:flag/*
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Reasons to override the default policy include wanting to restrict the integration to:
-
-- a specific combination of LaunchDarkly projects/environments
-- a specific action (or set of actions)
-
-
-For example, setting the policy configuration to the following will restrict LaunchDarkly such that only changes from the `web-app` project's production environment are sent to SignalFx:
-
-<CodeTabs
-  defaultValue="txt"
-  values={[
-    { label: 'Policy example', value: 'txt', },
-  ]
-}>
-
-<CodeTabItem value="txt">
-
-```txt
-proj/web-app:env/production:flag/*
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more about setting custom policies, read [Policies in custom roles](/home/team/role-policies).
-
-## Using the integration
-
-After you configure the integration, SignalFx charts are annotated with LaunchDarkly flag changes.
-
-To do this:
-
-1. Log into your SignalFx account.
-2. On the "Plot Editor" panel, click **Add Metric or Event**.
-2. Select **LaunchDarkly flag changed**.
-3. (Optional) Add a filter if you wish to filter by a specific LaunchDarkly attribute such as project or environment.
-4. Click **Save** to save your chart changes.
-
-SignalFx's "Chart Options" tab also lets you view LaunchDarkly events as small marks or lines. Click on the annotations in your chart to see additional details.
-
-To learn more, read [SignalFx's documentation](https://docs.signalfx.com/en/latest/charts/chart-options-tab.html#event-lines).
-
-![The SignalFx UI with LaunchDarkly event details.](../../images/signalfx-marker-2.png)
+ LaunchDarkly supports using flag triggers with SignalFx. For example, you can create an alert in SignalFx that toggles a flag on or off if a performance metric drops below a certain threshold. To learn how, read [Using flag triggers with SignalFx](/integrations/signalfx/triggers).

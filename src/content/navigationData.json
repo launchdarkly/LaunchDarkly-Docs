@@ -499,6 +499,10 @@
             "path": "/integrations/datadog",
             "items": [
               {
+                "label": "Using the Datadog events integration",
+                "path": "/integrations/datadog/events"
+              },
+              {
                 "label": "Using flag triggers with Datadog",
                 "path": "/integrations/datadog/triggers"
               }
@@ -508,6 +512,10 @@
             "label": "Dynatrace",
             "path": "/integrations/dynatrace",
             "items": [
+              {
+                "label": "Using the Dynatrace events integration",
+                "path": "/integrations/dynatrace/events"
+              },
               {
                 "label": "Using flag triggers with Dynatrace",
                 "path": "/integrations/dynatrace/triggers"
@@ -523,6 +531,10 @@
             "path": "/integrations/honeycomb",
             "items": [
               {
+                "label": "Using the Honeycomb events integration",
+                "path": "/integrations/honeycomb/events"
+              },
+              {
                 "label": "Using flag triggers with Honeycomb",
                 "path": "/integrations/honeycomb/triggers"
               }
@@ -532,6 +544,10 @@
             "label": "New Relic",
             "path": "/integrations/new-relic",
             "items": [
+              {
+                "label": "Using the New Relic events integration",
+                "path": "/integrations/new-relic/events"
+              },
               {
                 "label": "Using flag triggers with New Relic",
                 "path": "/integrations/new-relic/triggers"
@@ -546,6 +562,10 @@
             "label": "SignalFx",
             "path": "/integrations/signalfx",
             "items": [
+              {
+                "label": "Using the SignalFx events integration",
+                "path": "/integrations/signalfx/events"
+              },
               {
                 "label": "Using flag triggers with SignalFx",
                 "path": "/integrations/signalfx/triggers"

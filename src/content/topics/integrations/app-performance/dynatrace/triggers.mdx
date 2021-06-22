@@ -5,8 +5,6 @@ description: 'This topic explains how to use LaunchDarkly''s triggers feature wi
 published: true
 ---
 
-## Overview
-
 <Callout intent="primary">
 <CalloutTitle>Flag triggers is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
@@ -15,6 +13,8 @@ Flag triggers is available to customers on an Enterprise plan. To learn more, [r
 
 </CalloutDescription>
 </Callout>
+
+## Overview
 
 This topic explains how to use LaunchDarkly's triggers feature with Dynatrace. For example, you can create an alert in Dynatrace that uses a LaunchDarkly trigger to toggle a flag on or off when a predefined or custom Dynatrace event has been triggered.
 
@@ -97,4 +97,4 @@ LaunchDarkly uses the payload `title` and `url` fields to create the main body o
 5. Return to the LaunchDarkly flag settings page and check that the test notification has been received by clicking on the three-dot menu on your LaunchDarkly trigger and confirming that the execution count has incremented.
 6. Return to Dynatrace and click **Save**.
 
-That's it! Your new Dynatrace webhook will now trigger flag changes based on the action you specified in LaunchDarkly.
+Your new Dynatrace webhook will now trigger flag changes based on the action you specified in LaunchDarkly.

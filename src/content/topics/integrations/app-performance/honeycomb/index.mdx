@@ -1,157 +1,30 @@
 ---
 path: '/integrations/honeycomb'
 title: 'Honeycomb'
-description: 'This topic explains how to use the LaunchDarkly Honeycomb integration. Honeycomb is a tool for viewing and interrogating your production systems.'
+description: 'This topic explains the LaunchDarkly Honeycomb integrations available, including events and triggers.'
 published: true
 ---
 
 <Callout intent="primary">
-  <CalloutTitle>The Honeycomb integration is a Pro and Enterprise feature</CalloutTitle>
-  <CalloutDescription>
-
-The Honeycomb integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
-
-  </CalloutDescription>
-</Callout>
-
-## Overview
-
-This topic explains how to use the LaunchDarkly Honeycomb integration. [Honeycomb](https://honeycomb.io/) is an infrastructure monitoring platform that
-offers [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) and
-automated problem remediation.
-
-The LaunchDarkly Honeycomb integration helps you diagnose problems by sending flag events to Honeycomb. Honeycomb displays those events alongside performance graphs so you can correlate feature rollouts with changes in operational health.
-
-![A Honeycomb events graph showing LaunchDarkly flag change
-events, with a flag event called out.](../images/honeycomb-query.png)
-
-<Callout intent="info">
- <CalloutTitle>The integration only sends flag actions to Honeycomb</CalloutTitle>
- <CalloutDescription>
-
- Only flag action events appear in Honeycomb after you configure the integration. Other event types do not appear.<br/><br/>
-
-To learn more, read
-[Feature flag actions](/home/team/role-actions#feature-flags-actions).
-
- </CalloutDescription>
-</Callout>
-
-<Callout intent="primary">
-<CalloutTitle>This integration supports triggers</CalloutTitle>
+<CalloutTitle>Honeycomb integrations are Pro and Enterprise features</CalloutTitle>
 <CalloutDescription>
 
-You can use LaunchDarkly's triggers feature with Honeycomb to automatically perform actions on feature flags.
-
-To learn more, read [Using triggers with Honeycomb](/integrations/honeycomb/triggers).
+Honeycomb integrations are available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
 
-To send flag change events to Honeycomb:
+## Overview
 
-1. [Create a Honeycomb API key](#creating-a-honeycomb-api-key).
-2. [Add the Honeycomb integration in LaunchDarkly](#adding-and-configuring-the-honeycomb-integration).
-3. (Optional) [Configure the integration's policy](#configuring-integration-policies) to allow or restrict specific projects and environments.
+This topic explains the LaunchDarkly Honeycomb integrations available, including events and triggers.
 
-## Prerequisites
+[Honeycomb](https://honeycomb.io/) is an infrastructure monitoring platform that offers [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) and
+automated problem remediation.
 
-To use the LaunchDarkly Honeycomb integration successfully, you must meet the
-following prerequisites:
+## Events
 
-* You must have an API key from your Honeycomb account. To learn more,
-  read [Creating a Honeycomb API key](#creating-a-honeycomb-api-key).
+The LaunchDarkly Honeycomb events integration helps you diagnose problems by sending flag events to Honeycomb. Honeycomb displays those events alongside performance graphs so you can correlate feature rollouts with changes in operational health. To learn how, read [Using the Honeycomb events integration](/integrations/honeycomb/events).
 
-## Creating a Honeycomb API key
+## Triggers
 
-The Honeycomb API key authenticates the LaunchDarkly integration so it can
-submit events to your Honeycomb account. The LaunchDarkly integration uses
-Honeycomb's Marker API.
-
-To learn more about Honeycomb's  Marker API, read
-[Honeycomb's documentation](https://docs.honeycomb.io/api/markers/).
-
-When you create the API key, confirm that the key has access to create
-"markers". This is the only access scope the LaunchDarkly integration needs.
-
-## Add the Honeycomb integration
-
-Here's how to add the Honeycomb integration:
-
-1. Navigate to the [Integrations
-   page](https://app.launchdarkly.com/default/integrations) and find the
-   Honeycomb card.
-2. Click to expand the card, then click **+ Integration**. The integration
-   configuration screen appears.
-
-![The Honeycomb card, showing the "+ Integration"
-button.](../images/honeycomb-card.png)
-
-3. (Optional) Type a human-readable **Name**.
-4. Enter the **Honeycomb dataset name** you would like flag markers to be
-   associated with.
-5. Paste in your **Honeycomb API key**.
-6. Click **Save Honeycomb Configuration**.
-
-This is all you need to do to add the Honeycomb integration, but you can further configure the integration to alter which events LaunchDarkly sends to Honeycomb.
-
-### Configuring integration policies
-
-The "Policy" field in the integration configuration screen lets you control which LaunchDarkly events LaunchDarkly sends to Honeycomb.
-
-The Resource specifier in the default policy value allows Production environments across all projects to send events:
-
-<CodeTabs
-  defaultValue="json" values={[
-    { label: 'Example', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
-
-```text
-proj/*:env/production:flag/*
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [Resources in custom
-roles](/home/team/role-resources).
-
-You can use the policy editor to restrict the integration to:
-
-* a specific set of LaunchDarkly projects/environments * a specific set of flags
-* a specific set of actions
-
-For example, to restrict the policy to a single project called `cool-app`, set
-the policy configuration's `resource` field to the following resource specifier:
-
-<CodeTabs
-  defaultValue="json" values={[
-    { label: 'Example', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
-
-```text
-proj/cool-app:env/production:flag/*
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-The policy above makes the integration only send flag events from the `cool-app` project's Production environment to Honeycomb.
-
-If you need to restrict or allow a more complex set of resources than you can
-specify in a single policy, you can add multiple Honeycomb
-integrations and configure each one to a specific task. Each integration can
-have its own separate policy configuration.
-
-To learn more about using the policy editor, read [Policies in custom
-roles](/home/team/role-policies).
-
-## Demonstration video
-
-This video presents a demonstration of the integration. To read along, enable YouTube's closed captioning feature on the video.
-
-<iframe width="100%" height="410" src="https://www.youtube.com/embed/_fsXnrP-WaY?cc_load_policy=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+LaunchDarkly supports using flag triggers with Honeycomb. Flag triggers can be used to automate flag behavior. For example, you can create an alert in Honeycomb that uses a trigger to toggle a flag on or off if a performance metric drops below a certain threshold. To learn how, read [Using flag triggers with Honeycomb](/integrations/honeycomb/triggers).

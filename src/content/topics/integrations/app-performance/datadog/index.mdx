@@ -1,167 +1,29 @@
 ---
 path: '/integrations/datadog'
 title: 'Datadog'
-description: 'This topic explains how to configure and use the LaunchDarkly Datadog integration to set up Datadog Events to receive activity from LaunchDarkly.'
+description: 'This topic explains the LaunchDarkly Datadog integrations available, including events and triggers.'
 published: true
 ---
 
 <Callout intent="primary">
-  <CalloutTitle>The Datadog integration is a Pro and Enterprise feature</CalloutTitle>
-  <CalloutDescription>
-
-The Datadog integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
-
-  </CalloutDescription>
-</Callout>
-
-## Overview
-
-This topic explains how to configure and use the LaunchDarkly Datadog integration.
-
-The Datadog integration lets you set up [Datadog Events](https://docs.datadoghq.com/api/?lang=bash#events) to receive any activity from LaunchDarkly. When something changes, such as a feature flag updates or a new team member is added to LaunchDarkly, LaunchDarkly sends an event to Datadog. Use this integration to correlate and understand how changes to your features in LaunchDarkly impact your app and infrastructure metrics.
-
-<Callout intent="primary">
-<CalloutTitle>This integration supports triggers</CalloutTitle>
+<CalloutTitle>Datadog integrations are Pro and Enterprise features</CalloutTitle>
 <CalloutDescription>
 
-You can use LaunchDarkly's triggers feature with Datadog to automatically perform actions on feature flags. To learn more, read [Using triggers with Datadog](/integrations/datadog/triggers).
+Datadog integrations are available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
 
-## Prerequisites
+## Overview
 
-To connect Datadog to LaunchDarkly, you need an API key from Datadog.
+This topic explains the LaunchDarkly Datadog integrations available, including events and triggers.
 
-To generate an API key:
+[Datadog](https://www.datadoghq.com/) is a infrastructure & application monitoring service that offers [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) and analytics.
 
-1. Log into Datadog and navigate to the [APIs tab](https://app.datadoghq.com/account/settings#api) in the "Integrations" section.
+## Events
 
-![The Datadog UI with the APIs tab selected.](../images/datadog-api-tab.png)
+The Datadog events integration lets you set up [Datadog Events](https://docs.datadoghq.com/api/?lang=bash#events) to receive activity from LaunchDarkly. When something changes, such as a feature flag updates or a new team member is added, LaunchDarkly can send an event to Datadog. To learn how, read [Using the Datadog events integration](/integrations/datadog/events).
 
+## Triggers
 
-2. Click **New API key** in the "API keys" section. A new API key appears in the UI.
-
-![The Datadog UI with the "Create API key" button called out.](../images/datadog-create-api-key-callout.png)
-
-
-3. Hover over the bar in the "Key" column to see the API key. Copy the key and save it somewhere secure. You need it to set up the Datadog integration in LaunchDarkly.
-
-## Setting up the Datadog integration
-
-After you create an API key in Datadog, you can set up the integration in LaunchDarkly.
-
-To set up the Datadog integration:
-
-1. Navigate to the Integrations page and click **Datadog**.
-2. Click **+ Integration**. The "Create Datadog configuration" screen appears.
-3. (Optional) Give your integration a human-readable **Name**.
-4. Enter the Datadog API key into the **API key** field. You created this key in the [Prerequisites](#prerequisites) section.
-5. (Optional) Enter a Datadog host URL.
-6. (Optional) Add a policy statement or set a policy with the Advanced editor. To learn more, read [Filtering the events you send to Datadog](#filtering-the-events-you-send-to-datadog).
-
-
-![The Create Datadog configuration screen.](../images/datadog-config.png)
-
-
-7. After reading the Integration Terms and Conditions, check the **I have read and agree to the Integration Terms and Conditions** checkbox.
-8. Click **Save Configuration**. The new integration appears in the "Your APM integrations" section of the Integrations page. It is switched **on** by default.
-
-![A Datadog integration in the Your APM integrations section.](../images/datadog-integration.png)
-
-
-After you set up the Datadog integration, events from LaunchDarkly appear in your Datadog dashboard.
-
-<Callout intent="info">
-  <CalloutTitle>Events may not appear immediately</CalloutTitle>
-  <CalloutDescription>
-    It may take time for changes made in LaunchDarkly to propagate and appear in the Datadog events dashboard depending
-    on Datadog's polling intervals.
-  </CalloutDescription>
-</Callout>
-
-## Filtering the events you send to Datadog
-
-By default, LaunchDarkly sends events to Datadog for changes made to any project, environment, feature flag, and more. If you have a more limited use case for using the integration, or you wish to restrict which data you send to Datadog, you can filter which events LaunchDarkly sends.
-
-To filter events, write a policy using the same syntax as our custom roles feature to filter the events sent to Datadog.
-
-For more information about writing policies, read [Policies in custom roles](/home/team/role-policies).
-
-For example, if you only want to receive an event when a change is made to one of the feature flags in your testing environment, you can add the following policy to your events stream:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example Datadog policy', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
-
-```json
-[
-  {
-    "effect": "allow",
-    "resources": [
-      "proj/*:env/your-test-environment:flag/*"
-    ],
-    "actions": [
-      "*"
-    ]
-	}
-]
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To add a custom filter:
-
-1. Navigate to the Integrations page and scroll to the "Your APM integrations" section.
-2. Find the integration you wish to modify and click **Edit**. The "Create a Datadog configuration" screen appears.
-
-![The Your APM integrations section with the Edit button called out.](../images/datadog-integration-edit-callout.png)
-
-3. Click **Advanced editor**. The Advanced editor opens.
-4. Enter your custom policy.
-
-![he Create a Datadog configuration screen with the Advanced editor open and a policy inside it.](../images/datadog-custom-policy.png)
-
-
-5. Click **Save Datadog Configuration**.
-6. Verify that LaunchDarkly is sending a customized set of events by viewing the events in your Datadog dashboard.
-
-## Disabling the Datadog integration
-
-If you wish to disable the Datadog integration, there are two methods to do so:
-
-- **Disable the integration** to pause the flow of events to Datadog, but leaves the connection between Datadog and LaunchDarkly intact.
-- **Delete the integration** to cease all event export and break the connection between Datadog and LaunchDarkly.
-
-To temporarily disable the Datadog integration:
-
-1. Navigate to the Integrations page and scroll to the "Your APM integrations" section.
-2. Find the Datadog integration you wish to disable.
-
-![A Datadog integration in the Your APM integrations section.](../images/datadog-integration.png)
-
-
-3. Click the toggle to turn the integration **off**.
-
-![The integration toggle set to Off.](../images/datadog-integration-toggle-off.png)
-
-To permanently delete the Datadog integration:
-
-1. Navigate to the Integrations page and scroll to the "Your APM integrations" section.
-2. Find the integration you wish to modify and click **Edit**. The "Create a Datadog configuration" screen appears.
-3. Click **Delete** in the "Delete Datadog configuration" section. A confirmation screen appears.
-4. Click **Delete** to confirm.
-
-![The Delete Datadog configuration section.](../images/datadog-delete.png)
-
-## Demonstration video
-
-This video presents a demonstration of the integration. To read along, enable YouTube's closed captioning feature on the video.
-
-<iframe width="100%" height="410" src="https://www.youtube.com/embed/De247BG6gHQ?cc_load_policy=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+LaunchDarkly supports using flag triggers with Datadog. Flag triggers can be used to automate flag behavior. For example, you can create an alert in Datadog that toggles a flag on or off if a performance metric drops below a certain threshold. To learn how, read [Using flag triggers with Datadog](/integrations/datadog/triggers).
