@@ -97,6 +97,68 @@ yarn deploy
 
 This builds Gatsby and upload the artifacts to the staging s3 bucket.
 
+## (Internal LaunchDarkly use only) Flagging changes
+
+We use flags in Catfood under the Docs project. There are three environments: Development, Test and Production 
+corresponding to local dev, staging and prod respectively.
+
+### Flagging content changes
+
+You can flag mdx changes with the `Feature` component defined at `src/components/mdx/feature.tsx`. In your mdx file,
+nest your React or HTML elements under the `<Feature>` component like so: 
+
+```jsx
+<Feature flagKey="camelCasedFlagKey">
+<Callout intent="primary">
+  <CalloutTitle>Synced segments is an Enterprise feature</CalloutTitle>
+  <CalloutDescription>
+
+Content to be flagged
+
+  </CalloutDescription>
+</Callout>
+</Feature>
+```
+
+The `flagKey` prop is the camelCased version of your flag key since we are using the React SDK here which uses 
+camelCased keys by default.
+
+There is also an optional `showWhenVariation` prop. This is used to control what flag value will show 
+your content. For example, the EAP callout below will be displayed when the `syncedSegments` flag is `false`.
+This is useful to help us hide old content when rolling out new ones. The `showWhenVariation` prop defaults to `true`.
+
+```jsx
+<Feature flagKey="syncedSegments" showWhenVariation={false}>
+<Callout intent="info">
+  <CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
+  <CalloutDescription>
+
+Synced segments are only available to members of LaunchDarkly's Early Access Program...
+
+  </CalloutDescription>
+</Callout> 
+</Feature>
+```
+
+**GOTCHA**: Indentation matters! This is a known issue with mdx and nested elements. Make sure children
+elements directly under `<Feature>` are left-aligned like the above example.
+
+### Flagging navigation items
+
+You can use the [gatsby-plugin-launchdarkly](https://github.com/launchdarkly-labs/gatsby-plugin-launchdarkly), to hide 
+nav items behind a feature flag. To do this, add the `flagKey` property to the nav item you want to control with a flag 
+in `navigationData.json`. Use the camel case version of the flag key, as shown below:
+
+```json
+...
+  {
+    "label": "Your flag controlled nav item",
+    "path": "/home/getting-started/hiding-your-nav-behind-a-flag",
+    "flagKey": "myHiddenNav"
+  },
+...
+```
+
 ## Running tests
 
 To run our integration tests locally, make sure the dev server is running via `yarn start`, and
@@ -117,19 +179,7 @@ All navigation data are stored in [src/content/navigationData.json](https://gith
 This is flattened at build time to autogenerate two files `rootTopics.json` and `secondLevelTopics.json`. The
 flattened data are queryable via graphql and allows us to render the side nav more efficiently.
 
-### Hiding nav items behind feature flags
-
-You can use the [gatsby-plugin-launchdarkly](https://github.com/launchdarkly-labs/gatsby-plugin-launchdarkly), to hide nav items behind a feature flag. To do this, add the `flagKey` property to the nav item you want to control with a flag in `navigationData.json`. Use the came case version of the flag key, as shown below:
-
-```json
-...
-  {
-    "label": "Your flag controlled nav item",
-    "path": "/home/getting-started/hiding-your-nav-behind-a-flag",
-    "flagKey": "myHiddenNav"
-  },
-...
-```
+You can also flag navigation items. To learn more, please refer the section [Flagging navigation items](#flagging-navigation-items).
 
 ## 🔍 Algolia search
 

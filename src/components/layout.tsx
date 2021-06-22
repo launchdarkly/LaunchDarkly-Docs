@@ -15,6 +15,7 @@ import Figure from './mdx/figure'
 import Pre from './mdx/pre'
 import DesktopSideNav from './sideNav/desktopSideNav'
 import { CodeTabs, CodeTabItem, Code } from './mdx/code'
+import Feature from './mdx/feature'
 import Metadata from './mdx/metadata'
 import Table, { TableHeader, TableHeadCell, TableBody, TableRow, TableCell } from './mdx/table'
 import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
@@ -61,6 +62,7 @@ const components = {
   Icon,
   code: Code,
   pre: Pre,
+  Feature,
 }
 
 const rootGridStyles = {
