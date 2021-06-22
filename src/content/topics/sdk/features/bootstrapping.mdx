@@ -174,7 +174,7 @@ You can use the optional `flags` property to bootstrap the React SDK.
 
 If `flags` is specified, the React SDK only subscribes for updates to these flags. When this property is unspecified, the React SDK subscribes to all flags. This property is optional.
 
-Specify the `flags` property as a map of flag keys and values. The flag keys must be in their original form (as known to LaunchDarkly) rather than in their camel-cased form. Each flag's value is passed along to the resulting JS SDK [`variation`](/sdk/features/variation) invocation and used as the flag's default value in the case of an error.
+Specify the `flags` property as a map of flag keys and values. The flag keys must be in their original form (as known to LaunchDarkly) rather than in their camel-cased form. Each flag's value is passed along to the resulting JS SDK [`variation`](/sdk/features/evaluating) invocation and used as the flag's default value in the case of an error.
 
 Here is an example:
 

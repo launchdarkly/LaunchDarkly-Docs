@@ -750,11 +750,11 @@
           },
           {
             "label": "Evaluating flags",
-            "path": "/sdk/features/variation"
+            "path": "/sdk/features/evaluating"
           },
           {
             "label": "Flag evaluation reasons",
-            "path": "/sdk/features/variationdetail"
+            "path": "/sdk/features/evaluation-reasons"
           },
           {
             "label": "Flushing events",
@@ -794,7 +794,7 @@
           },
           {
             "label": "Sending custom events",
-            "path": "/sdk/features/track"
+            "path": "/sdk/features/events"
           },
           {
             "label": "Shutting down",

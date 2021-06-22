@@ -854,4 +854,16 @@ module.exports = [
     fromPath: '/sdk/features/database-integrations',
     toPath: '/sdk/features/storing-data',
   },
+  {
+    fromPath: '/sdk/features/variation',
+    toPath: '/sdk/features/evaluating',
+  },
+  {
+    fromPath: '/sdk/features/variationdetail',
+    toPath: '/sdk/features/evaluation-reasons',
+  },
+  {
+    fromPath: '/sdk/features/track',
+    toPath: '/sdk/features/events',
+  },
 ]
