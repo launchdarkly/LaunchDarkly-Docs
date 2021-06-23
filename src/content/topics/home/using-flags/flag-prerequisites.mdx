@@ -6,12 +6,12 @@ published: true
 ---
 
 <Callout intent="primary">
-  <CalloutTitle>Flag prerequisites is an Enterprise feature</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Flag prerequisites is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
 
 Flag prerequisites is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Overview
@@ -31,20 +31,24 @@ Manage prerequisites in the feature flag's Targeting tab:
 
 In the screenshot above, the "Alternative sort order" flag is a prerequisite of the "API Migration" flag. To meet a prerequisite, the prerequisite flag must be **On**, and the user must receive the variation you specify.
 
+<Callout intent="info">
+<CalloutTitle>Prerequisite flags must be on</CalloutTitle>
+<CalloutDescription>
+
+To meet a prerequisite, the prerequisite flag must be **On**. LaunchDarkly considers the prerequisite unfulfilled if the prerequisite flag is off, regardless of the value being served.
+
+</CalloutDescription>
+</Callout>
+
 In this example, if a user receives the `false` variation of the "Alternative sort order" flag, they cannot write to the API. The "API Migration" flag receives the default when targeting is off, because the prerequisites are not met.
 
-<Callout intent="info">
-  <CalloutTitle>Don't worry about circular dependencies</CalloutTitle>
-  <CalloutDescription>
-    LaunchDarkly automatically prevents you from saving changes that would introduce circular dependencies between
-    prerequisites. For example, you cannot make Flag A a prerequisite of Flag B and also make Flag B a prerequisite of
-    Flag A.
-  </CalloutDescription>
-</Callout>
+LaunchDarkly automatically prevents you from saving changes that would introduce circular dependencies between prerequisites. For example, you cannot make Flag A a prerequisite of Flag B and also make Flag B a prerequisite of Flag A.
+
 <Callout intent="alert">
-  <CalloutTitle>Deleting flags with prerequisites</CalloutTitle>
-  <CalloutDescription>
-    You cannot remove a flag that is a prerequisite for other flags. You must remove the dependency before you can
-    delete the prerequisite flag.
-  </CalloutDescription>
+<CalloutTitle>Deleting flags with prerequisites</CalloutTitle>
+<CalloutDescription>
+
+You cannot remove a flag that is a prerequisite for other flags. You must remove the dependency before you can delete the prerequisite flag.
+
+</CalloutDescription>
 </Callout>
