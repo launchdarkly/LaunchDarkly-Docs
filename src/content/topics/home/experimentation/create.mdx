@@ -119,7 +119,7 @@ For example, some CSS selectors include:
 To create a click metric:
 
 1. Navigate to the Metrics screen.
-2. Click **New**. The "Create a new metric" screen appears.
+2. Click **+ Metric**. The "Create a new metric" screen appears.
 3. Enter a human-readable Name for the metric.
 4. (Optional) Enter a Description.
 5. (Optional) Type or choose from available Tags.
@@ -306,15 +306,12 @@ To create a numeric metric:
 
 
 <Callout intent="info">
-  <CalloutTitle>Choosing success criteria for numeric metrics</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Choosing success criteria for numeric metrics</CalloutTitle>
+<CalloutDescription>
 
-When you designate a success criteria, you can choose **Lower than baseline** or **Higher than baseline** depending
-on what you want to track. For example, if you're trying to track page load time to measure the impact of your
-infrastructure changes, you might want a success criteria that is lower than the baseline if your baseline flag
-variation shows the original page load time and you want to measure decreases in page load time.
+When you designate a success criteria, you can choose **Lower than baseline** or **Higher than baseline** depending on what you want to track. For example, if you're trying to track page load time to measure the impact of your infrastructure changes, you might want a success criteria that is lower than the baseline if your baseline flag variation shows the original page load time and you want to measure decreases in page load time.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Connecting metrics to feature flags
@@ -340,11 +337,12 @@ To connect a metric to a flag from the Experiments dashboard:
 3. Choose a flag from the "Select flag" dropdown.
 4. (Optional) If the flag doesn't have a baseline variation, choose one from the "Select baseline" dropdown.
 5. Choose a metric from the "Connect metric" dropdown.
-6. Click **Save Experiment Settings**.
+6. Choose a baseline variation from the "Select baseline" dropdown.
+7. Click **Create Experiment**.
 
 Your new experiment appears on the dashboard.
 
-You're not done yet! After you create an experiment, you have to start it in every environment where you want it to run.
+After you create an experiment, you must start it in every environment where you want it to run.
 
 To learn more, read [Starting your experiment](#starting-your-experiment).
 
@@ -352,19 +350,19 @@ To learn more, read [Starting your experiment](#starting-your-experiment).
 
 To connect a metric to a flag from the flag's Experiments tab:
 
-1. Navigate to the flag's Experiments tab.
-2. If the flag does not have other running experiments, click **Create an Experiment.** If it already has running experiments, click **Manage Experiments**. The "Update experiment settings for all environments" screen appears.
+1. Navigate to the flag's Experimentation tab.
+2. If the flag does not have other running experiments, click **Create an Experiment.** If it already has running experiments, click **Manage Metrics**. The "Experiment Setup" screen appears.
 
-![A flag's Experiments tab with the Manage Experiments button called out.](../../../images/flag-experiment-manage-callout.png)
+![A flag's Experiments tab with the Manage metrics button called out.](../../../images/flag-experiment-manage-callout.png)
 
 3. Enter a metric name or choose a metric from the **Add new metric** dropdown. The metric you choose appears in the table below.
-4. Choose a **Baseline** from the dropdown.
+4. Choose a baseline from the **Baseline** dropdown.
 5. Click **Save Experiment Settings**. The new experiment appears in the flag's Experiments tab.
 
-![The "Update experiment settings for all environments" screen, configured to connect a metric to a flag.](../../../images/experiment-settings-metrics.png)
+![The "Experiment Setup" screen, configured to connect a metric to a flag.](../../../images/experiment-settings-metrics.png)
 
 
-You're not done yet! After you create an experiment, you have to start it in every environment where you want it to run.
+After you create an experiment, you must start it in every environment where you want it to run.
 
 To learn more, read [Starting your experiment](#starting-your-experiment).
 
@@ -375,13 +373,10 @@ After you've connected a metric to a flag, you can start your experiment wheneve
 To learn more about starting and pausing recording for experiments, read [The experiment lifecycle](/home/experimentation/lifecycle).
 
 <Callout intent="info">
-  <CalloutTitle>Experiment settings are environment-specific</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Experiment settings are environment-specific</CalloutTitle>
+<CalloutDescription>
 
-When you create an experiment, it appears in every environment in your project. However, the **Start Recording**
-button only impacts the experiment in one environment at a time. If you want to run the experiment in multiple
-environments, you must click **Start Recording** for each environment individually. For example, you might run an
-experiment in Staging to gather data internally before turning it on in Production to gather customer data.
+When you create an experiment, it appears in every environment in your project. However, the **Start Recording** button only impacts the experiment in one environment at a time. If you want to run the experiment in multiple environments, you must click **Start Recording** for each environment individually. For example, you might run an experiment in Staging to gather data internally before turning it on in Production to gather customer data.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
