@@ -370,7 +370,7 @@
         "svg": "merge",
         "items": [
           {
-            "label": "Approval workflows",
+            "label": "Approvals",
             "path": "/home/feature-workflows/approvals"
           },
           {
