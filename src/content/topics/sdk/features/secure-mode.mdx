@@ -7,15 +7,26 @@ published: true
 
 ## Overview
 
-This topic explains how to use the secure mode feature for safely evaluating feature flags in your web browser.
+This topic explains how to use the secure mode feature to safely evaluate feature flags in your web browser.
 
 ## Using secure mode
 
-Secure mode ensures that users' feature flag evaluations are kept private in web browser environments, and that one user cannot inspect the variations for another user. Secure mode works by having you configure your JavaScript SDK to include a server-generated HMAC SHA256 hash of your user key, signed with the SDK key for your environment.
+Secure mode ensures that users' feature flag evaluations are kept private in web browser environments, and that one user cannot inspect the variations for another user. On an insecure device, a malicious user could use a user key to identify what flag values a user receives by analyzing the results of multiple flag evaluations. Secure mode prevents you from doing an evaluation for a user key that hasn't been signed on the back end.
+
+Secure mode works by having you configure your JavaScript SDK to include a server-generated HMAC SHA256 hash of your user key. This hash is signed with the SDK key for your environment.
 
 Each of our server-side SDKs includes a method to compute the secure mode hash for a user. You can pass this to your front-end code with the mechanism of your choice, such as bootstrapping or as a template variable.
 
-You can enable secure mode for each environment on your [account settings](https://app.launchdarkly.com/settings/projects) page.
+You can enable secure mode for each environment in your LaunchDarkly account's [Account Settings](https://app.launchdarkly.com/settings/projects). Secure mode is an environment-wide setting. Enabling it requires every request coming from a client-side SDK to contact the back end to evaluate flag variations.
+
+<Callout intent="info">
+<CalloutTitle>Enable secure mode during initial setup</CalloutTitle>
+<CalloutDescription>
+
+You can enable secure mode at any time when you use LaunchDarkly SDKs. As a best practice, we recommend that you enable secure mode during initial SDK configuration, because late-stage changes to your SDK configuration may have negative interactions with other settings.
+
+</CalloutDescription>
+</Callout>
 
 ## Generating a secure mode hash
 
