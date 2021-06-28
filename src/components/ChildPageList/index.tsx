@@ -8,12 +8,15 @@ interface Props {
   path: string
   omit?: string
   append?: NavItem[]
+  unsorted: boolean
 }
 
 const caseInsensitiveAlphabeticalComparison = (a: NavItem, b: NavItem): number =>
   a.label.toLowerCase() > b.label.toLowerCase() ? 1 : b.label.toLowerCase() > a.label.toLowerCase() ? -1 : 0
 
-const ChildPageList: FC<Props> = ({ path, omit = '', append = [] }) => {
+const identityComparison = (_a: NavItem, _b: NavItem): number => 0
+
+const ChildPageList: FC<Props> = ({ path, omit = '', append = [], unsorted = false }) => {
   const { theme } = useThemeUI()
   const items = useNavItemChildren(path)
   const pathsToOmit = omit.split(',')
@@ -23,7 +26,7 @@ const ChildPageList: FC<Props> = ({ path, omit = '', append = [] }) => {
       {items
         .filter(({ path }) => !pathsToOmit.includes(path))
         .concat(...append)
-        .sort(caseInsensitiveAlphabeticalComparison)
+        .sort(unsorted ? identityComparison : caseInsensitiveAlphabeticalComparison)
         .map(({ path, label }) => (
           <li sx={theme.styles.li} key={path}>
             <Link sx={theme.styles.a} to={path}>

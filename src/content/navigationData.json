@@ -246,24 +246,24 @@
             "path": "/home/account-security/sso",
             "items": [
               {
-                "label": "Okta",
-                "path": "/home/account-security/okta"
-              },
-              {
-                "label": "OneLogin",
-                "path": "/home/account-security/onelogin"
-              },
-              {
-                "label": "Google Apps",
-                "path": "/home/account-security/google"
-              },
-              {
                 "label": "ADFS",
                 "path": "/home/account-security/adfs"
               },
               {
                 "label": "Azure",
                 "path": "/home/account-security/azure"
+              },
+              {
+                "label": "Google Apps",
+                "path": "/home/account-security/google"
+              },
+              {
+                "label": "Okta",
+                "path": "/home/account-security/okta"
+              },
+              {
+                "label": "OneLogin",
+                "path": "/home/account-security/onelogin"
               }
             ]
           },
@@ -661,7 +661,7 @@
         "path": "/integrations/more",
         "items": [
           {
-            "label": "Azure DevOps (formerly VSTS)",
+            "label": "Azure DevOps",
             "path": "/integrations/azure-devops"
           },
           {
@@ -671,10 +671,6 @@
           {
             "label": "LogDNA",
             "path": "/integrations/logdna"
-          },
-          {
-            "label": "OAuth applications",
-            "path": "/home/connecting/oauth"
           },
           {
             "label": "Release",
