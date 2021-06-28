@@ -27,6 +27,7 @@ import { AllSdks } from './home/sdks/exploreSdks'
 import ClientSideSdks from './home/sdks/clientSideSdks'
 import ServerSideSdks from './home/sdks/serverSideSdks'
 import ReactSdks from './home/sdks/reactSdks'
+import ChildPageList from './ChildPageList'
 
 const components = {
   h1: H1,
@@ -62,6 +63,7 @@ const components = {
   Icon,
   code: Code,
   pre: Pre,
+  ChildPageList,
   Feature,
 }
 
