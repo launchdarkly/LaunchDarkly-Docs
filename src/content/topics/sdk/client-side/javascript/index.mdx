@@ -237,10 +237,10 @@ in your [project settings](https://app.launchdarkly.com/settings#/projects).
 </Callout>
 
 <Callout intent="alert">
-  <CalloutTitle>Do Not Track and Events</CalloutTitle>
+  <CalloutTitle>Do Not Track and ad blocking software</CalloutTitle>
 <CalloutDescription>
 
-The JavaScript SDK respects the Do Not Track setting when running in a browser. If a user has this setting enabled, then events will not be posted to LaunchDarkly. This affects both feature flag Insights and the ability to see the events in the Debugger.<br/><br/>
+The JavaScript SDK respects the [Do Not Track events](https://www.eff.org/issues/do-not-track) header. If an end-user has Do Not Track enabled in their browser, the SDK does not send analytics events for flag evaluations or goals to events.launchdarkly.com. In addition, ad-blocking software may block analytics events from being sent. This does not impact feature flag evaluations.
 
 </CalloutDescription>
 </Callout>
