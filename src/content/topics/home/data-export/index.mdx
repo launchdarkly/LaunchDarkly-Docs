@@ -6,12 +6,12 @@ published: true
 ---
 
 <Callout intent="primary">
-  <CalloutTitle>Data Export is an add-on feature</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Data Export is an add-on feature</CalloutTitle>
+<CalloutDescription>
 
 Data Export is available as an add-on for customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To add Data Export to your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Overview
@@ -49,7 +49,7 @@ To export data from a specific flag to a destination:
 2. Click the name of the flag you wish to export data from. The flag menu appears.
 3. Click **Settings**.
 4. Select the **Send detailed event information for this flag** checkbox.
-5. Click **Save Changes**.
+5. Click **Save Changes**:
 
 ![The flag's Settings page, with the Data Export checkbox called out.](../images/data-export-detailed-event-info-callout.png)
 
@@ -65,7 +65,7 @@ To export data from an environment to a destination:
 3. Find the environment you wish to export data from.
 4. Click **Edit.** The "Edit production environment" screen appears.
 5. Select the **Send detailed event information for new flags** checkbox.
-6. Click **Save Environment**.
+6. Click **Save Environment**:
 
 ![The Edit production environment screen, with the Data Export checkbox called out.](../images/data-export-env-detailed-event-info-callout.png)
 
@@ -75,7 +75,7 @@ To export data from an environment to a destination:
 You can control which users send event data to destinations by choosing a group of users affected by certain flag targeting rules. To learn more, read [Controlling experiment populations](/home/experimentation/populations).
 
 <Callout intent="alert">
-  <CalloutTitle>Enabling Data Export population targeting</CalloutTitle>
+<CalloutTitle>Enabling Data Export population targeting</CalloutTitle>
 <CalloutDescription>
 
 If you can't see this feature, your SDKs may be out of date. To solve this problem:
@@ -84,7 +84,6 @@ If you can't see this feature, your SDKs may be out of date. To solve this probl
 2. Contact [support@launchdarkly.com](mailto:support@launchdarkly.com) to enable the feature.
 
 </CalloutDescription>
-
 </Callout>
 
 To customize which users send event data to Data Export destinations:
@@ -92,15 +91,14 @@ To customize which users send event data to Data Export destinations:
 1. Identify which flag you wish to export events from.
 2. Navigate to the flag's **Settings** page.
 3. Click **N of N targeting rules** i
-n the "Exporting events from" line. The "Configure event settings" screen appears.
-
+n the "Exporting events from" line. The "Configure event settings" screen appears:
 
 ![The flag's Settings tab with the targeting rules link called out.](../images/flag-settings-data-export-targeting-rules-callout.png)
 
 
 4. Click the **Custom selection** radio box to modify the users whose events are exported. When you click **Custom selectio
 n**, you can choose which targeting rules you wish to include or exclude in data exports.
-5. Select the checkboxes of rules you wish to include in the experiment. This refines the population of users whose events are exported.
+5. Select the checkboxes of rules you wish to include in the experiment. This refines the population of users whose events are exported:
 
 ![The "Configure event settings" screen](../images/experiments-rules-custom-selection.png)
 
@@ -114,4 +112,4 @@ After your application has successfully sent an event to our servers, we will se
 
 An event is sent to your destinations exactly once, with some exceptions. In the event of a hardware failure or networking issue, we may send events multiple times.
 
-Additionally, if your configured destination does not acknowledge receipt of the event, we will retry sending the message 5 times over a 30 minute period.
+Additionally, if your configured destination does not acknowledge receipt of the event, we will retry sending the message five times over a 30 minute period.

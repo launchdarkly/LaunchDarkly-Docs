@@ -35,15 +35,15 @@ Static websites are a set of one or more webpages served from a web server or co
 
 You can use a CMS to manage the creation, management, and publishing workflow of a website. There are many different CMS' like [Contentful](https://www.contentful.com/) and [Prismic](https://prismic.io/).
 
-### Content delivery network (CDN)
+### Content delivery network
 
-A CDN is a geographically distributed group of servers that work together to deliver internet content quickly. A CDN lets you transfer the assets necessary for loading internet content, including HTML pages, JavaScript files, stylesheets, images, and videos.
+A content delivery network (CDN) is a geographically distributed group of servers that work together to deliver internet content quickly. A CDN lets you transfer the assets necessary for loading internet content, including HTML pages, JavaScript files, stylesheets, images, and videos.
 
 Some of the more popular CDNs are [AWS CloudFront](https://aws.amazon.com/cloudfront/) and [Cloudflare](https://cloudflare.com).
 
-### Single page application (SPA)
+### Single page application
 
-A SPA is a website that does not perform a page reload when you use different aspects of it.
+A single page application (SPA) is a website that does not perform a page reload when you use different aspects of it.
 
 Popular SPAs include Gmail, Google Maps, Facebook, Twitter, and many others web applications intended for use by the general public.
 
@@ -65,8 +65,9 @@ A basic static site is the one that is truly static. Each webpage exists as a st
 
 Typically, a content management system creates and manages these static sites. The CMS is responsible for publishing the actual pages to a web server.
 
-![Traditional static website topology.](../../../images/classic-static-site.png)
+Here is a diagram showing the topology of a sample static website:
 
+![Traditional static website topology.](../../../images/classic-static-site.png)
 
 Static websites may have some dynamic content. While the file that produced the webpage itself may be static, the webpage could contain JavaScript that produces dynamic content and allows for dynamic interactions when rendered in a browser.
 
@@ -79,6 +80,8 @@ Another characteristic of these types of static sites is how users navigate them
 In a SPA, there is one or a limited number of static pages that comprise an entire website or web application. All user interactions in that site are managed by JavaScript.
 
 For example, when a user clicks on a link within a SPA, JavaScript code on the page intercepts the request and performs the action intended by the developer rather than telling the browser to load the URL associated with that link.
+
+Here is a diagram showing a sample single page application interaction:
 
 ![Single page application interaction.](../../../images/single-page-app.png)
 
@@ -344,6 +347,8 @@ To learn more, read [Subscribing to flag changes](/sdk/client-side/javascript/#s
 ## Using React
 
 [React](https://reactjs.org/) is a very popular JavaScript UI library. LaunchDarkly has a [React SDK](https://docs.launchdarkly.com/sdk/client-side/react) that lets developers use LaunchDarkly in their React app. One of the helpers the React SDK provides is called [`asyncWithLDProvider`](https://docs.launchdarkly.com/sdk/client-side/react#asyncwithldprovider). It ensures that the flags are available to your React components when they render.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="js"

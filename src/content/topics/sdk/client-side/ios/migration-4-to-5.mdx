@@ -7,13 +7,13 @@ published: true
 
 ## Overview
 
-This topic explains how to adapt code that currently uses a 4.x version of the [iOS client-side SDK](/sdk/client-side/ios) to use version 5.0 or later. 
+This topic explains how to adapt code that currently uses a 4.x version of the [iOS client-side SDK](/sdk/client-side/ios) to use version 5.0 or later.
 
 Sections in this topic address different changes and updates between versions 4.x and 5.0 of the SDK.
 
 ## Deployment target changes
 
-The minimum platform targets have changed.
+The minimum platform targets have changed. Here are the targets:
 
 <Table>
   <TableHeader>
@@ -59,7 +59,9 @@ For these cases the `DarklyEventSource` framework products should be removed fro
 
 In 4.x versions of the iOS SDK a single shared `LDClient` instance was exposed by the static `LDClient.shared` property. This instance was initially unstarted, and configured with a default `LDConfig` and `LDUser`. It would then be reconfigured and started by the application by calling `start` or `startCompleteWhenFlagsReceived` on the shared instance.
 
-In the 5.0 release of the iOS SDK, the `LDClient.shared` property was removed, and `start` is now a static method of the `LDClient` class. To initialize the shared instance(s), `start` is called with the desired SDK configuration and optionally a `LDUser`. After `start` returns, it is safe to retrieve the primary instance with the new `LDClient.get()` static method, or a secondary environment with the `LDClient.getForMobileKey()` static method. See the following code samples for an example.
+In the 5.0 release of the iOS SDK, the `LDClient.shared` property was removed, and `start` is now a static method of the `LDClient` class. To initialize the shared instance(s), `start` is called with the desired SDK configuration and optionally a `LDUser`. After `start` returns, it is safe to retrieve the primary instance with the new `LDClient.get()` static method, or a secondary environment with the `LDClient.getForMobileKey()` static method.
+
+Here is an an example of the `start` method:
 
 <CodeTabs
   defaultValue="sdk4-swift"
@@ -123,7 +125,9 @@ The iOS SDK always operates in the context of a specific user. The SDK supports 
 
 In 4.x versions of the iOS SDK the active user could be changed by setting the `user` property of the shared `LDClient` instance. In version 4.2.0 of the SDK, this setter was deprecated in favor of the `identify(user: completion:)` method which has an optional completion indicating when flags have been received for the new user context.
 
-In the 5.0 release, the setter for the `user` property has been removed. If your application had already migrated to `identify`, additional changes are not required as the behavior has not changed. If your application still uses the `user` property to update the active user context, see the following code samples for an example of migrating to the `identify` method.
+In the 5.0 release, the setter for the `user` property has been removed. If your application had already migrated to `identify`, additional changes are not required as the behavior has not changed. If your application still uses the `user` property to update the active user context, you need to migrate to the `identify` method.
+
+Here is an example of migrating to the `identify` method:
 
 <CodeTabs
   defaultValue="sdk4-swift"
@@ -178,7 +182,9 @@ Read more about [changing the user context](/sdk/client-side/ios#changing-the-us
 
 ## Evaluating flags
 
-Due to a change of the parameter naming, all variation calls that specify the `fallback` parameter will need to be updated to use the `defaultValue` parameter name instead. This renaming was introduced to distinguish these application default values from the fallback values specified in the flag configuration done in the LaunchDarkly dashboard. The following code sample shows an example.
+Due to a change of the parameter naming, all variation calls that specify the `fallback` parameter will need to be updated to use the `defaultValue` parameter name instead. This renaming was introduced to distinguish these application default values from the fallback values specified in the flag configuration done in the LaunchDarkly dashboard.
+
+Here is an an example using the new parameter name:
 
 <CodeTabs
   defaultValue="sdk4-swift"
@@ -224,6 +230,8 @@ If your application uses the `variationDetail` methods, and referenced the name 
 For Swift, the type has been renamed from `EvaluationDetail` to `LDEvaluationDetail` to keep with the prefixed naming convention the rest of the SDK API uses.
 
 In the Objective-C interface the returned type is not generic, so there is a separate class for each type. In 5.0 these have Objective-C names specified to be `LD<T>EvaluationDetail` where `<T>` is the type of the flag value, rather than the Swift implementation class names which were following the pattern `ObjC<T>EvaluationDetail`. If you were using the binding classes in a Swift context they were also renamed from `ObjC<T>EvaluationDetail` to `Objc<T>EvaluationDetail` to match the capitalization of other Objective-C wrapper classes.
+
+Here is an example using the new naming method:
 
 <CodeTabs
   defaultValue="sdk4-swift"
@@ -279,6 +287,8 @@ The Objective-C bindings similiarly no longer include the `oldValueSource` and `
 ## Recording custom events
 
 If your application uses `trackEvent` to record custom events, it is necessary to rename usages to `track`. Additionally, the type of `Error` that `track` throws when the given `data` parameter is not JSON convertable has been changed from `JSONSerialization.JSONError.invalidJsonObject` to `LDInvalidArgumentError`.
+
+Here is an example using the new names:
 
 <CodeTabs
   defaultValue="sdk4-swift"
@@ -343,6 +353,8 @@ Additionally, `LDClient.reportEvents()` has been renamed to `LDClient.flush()`. 
 
 Under normal use it is not necessary to explicitly shut down the SDK. If your application was previously shutting down the SDK with `LDClient.stop()`, this method has been renamed to `LDClient.close()` for consistency with other SDKs.
 
+To shut down the SDK:
+
 <CodeTabs
   defaultValue="sdk4-swift"
   values={[
@@ -384,7 +396,7 @@ LDClient.get()!.close()
 
 ## Removing exposed implementation details
 
-The following were removed from the publically exposed surface of the SDK. These were implementation details that were not intended to be public.
+The following were removed from the publically exposed surface of the SDK. These were implementation details that were not intended to be public:
 
 * `isEqual` extension to `Array`.
 * `==` and `!=` extension to `Optional<[String: Any]>` (note that this was not declared as `Equatable` conformance).

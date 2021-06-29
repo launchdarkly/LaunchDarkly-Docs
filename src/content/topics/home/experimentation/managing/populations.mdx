@@ -25,13 +25,11 @@ You may want to refine your experiment population for any of the following reaso
 
 <Callout intent="info">
 <CalloutTitle>Can't see the "Configure event settings" options?</CalloutTitle>
-
 <CalloutDescription>
 
 If you can't see the feature described below, your SDKs may be out of date. To solve this problem:
 
 1. Update your SDKs to the latest version.
-
 2. Contact support@launchdarkly.com to enable the feature.
 
 </CalloutDescription>
@@ -42,26 +40,25 @@ If you can't see the feature described below, your SDKs may be out of date. To s
 You can refine your user base into a specific experiment population by following the procedure below.
 
 <Callout intent="info">
-  <CalloutTitle>Customizing events for Data Export</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Customizing events for Data Export</CalloutTitle>
+<CalloutDescription>
 
-You can also configure which user data LaunchDarkly sends to Data Export destinations in this menu. [Customizing
-which data LaunchDarkly exports](/home/data-export#customizing-which-data-launchdarkly-exports).
+To learn how to configure which user data LaunchDarkly sends to Data Export destinations, read [Customizing which data LaunchDarkly exports](/home/data-export#customizing-which-data-launchdarkly-exports).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 To customize your experiment population:
 
 1. Identify which flag is associated with the experiment you wish to modify.
 2. Navigate to that flag's **Settings** tab.
-3. Click **N of N targeting rules** in the "Exporting events from" line. The "Configure event settings" screen opens.
+3. Click **N of N targeting rules** in the "Exporting events from" line. The "Configure event settings" screen opens:
 
 ![A flag's Settings page with the targeting rules link called out.](../../../images/flag-settings-experiments-targeting-rules-callout.png)
 
 
 4. Click the **Custom selection** radio box to modify the users who can see an experiment. When you click **Custom selection**, you can choose which targeting rules you wish to include or exclude from an experiment. If you use controlled populations and choose **Custom selection**, the experiment excludes all users who return a `PREREQUISITE_FAILED` evaluation reason. To learn more about flag prerequisites, read [Prerequisite checks](https://docs.launchdarkly.com/sdk/concepts/flag-evaluation-rules#prerequisite-checks).
-5. Select the checkboxes of rules you wish to include in the experiment. This refines the experiment's population down to the group you choose.
+5. Select the checkboxes of rules you wish to include in the experiment. This refines the experiment's population down to the group you choose:
 
 ![The "Configure event settings" menu with some targeting rules selected.](../../../images/experiments-rules-custom-selection.png)
 
@@ -72,14 +69,12 @@ To customize your experiment population:
 The modified list of users you created is now the experiment's population.
 
 <Callout intent="info">
-  <CalloutTitle>Experiment populations do not affect flag targeting rules</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Experiment populations do not affect flag targeting rules</CalloutTitle>
+<CalloutDescription>
 
-You can customize your experiment's population at will without your flag targeting rules changing. Flag targeting
-controls which variation of a flag a user sees. An experiment's population determines which of your users contribute
-to Experimentation results or Data Export streams. To learn more, read [Targeting users](/home/flags/targeting-users).
+You can customize your experiment's population at will without your flag targeting rules changing. Flag targeting controls which variation of a flag a user sees. An experiment's population determines which of your users contribute to Experimentation results or Data Export streams. To learn more, read [Targeting users](/home/flags/targeting-users).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Changing targeting rules during an experiment

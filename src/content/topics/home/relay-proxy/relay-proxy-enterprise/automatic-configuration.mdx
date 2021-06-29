@@ -59,7 +59,7 @@ When you create a new Relay Proxy, LaunchDarkly assigns a unique key to it. You 
 
 Here's how to create a Relay Proxy configuration in the LaunchDarkly UI:
 
-1. Navigate to the **Account Settings** page and click into the [**Relay Proxy** tab](https://app.launchdarkly.com/settings/relay).
+1. Navigate to the **Account Settings** page and click into the [**Relay Proxy** tab](https://app.launchdarkly.com/settings/relay):
 
 ![The Relay Proxy tab on the Account Settings page.](../../images/account-settings-relay-proxy.png)
 
@@ -67,12 +67,12 @@ Here's how to create a Relay Proxy configuration in the LaunchDarkly UI:
 3. Give the Relay Proxy a human-readable **Name**.
 4. Choose a **Rule** from the dropdown. This rule determines what content the Relay Proxy receives.
  * **All projects and environments** sends changes about all projects and environments to the Relay Proxy.
- * **Inline policy** allows you to specify which projects and environments you can track events for. To learn more, read [Writing an inline policy](#writing-an-inline-policy).
+ * **Inline policy** allows you to specify which projects and environments you can track events for. To learn more, read [Writing an inline policy](#writing-an-inline-policy):
 
 ![The Relay Proxy configuration screen with dropdown displayed.](../../images/relay-proxy-config-dropdown.png)
 
 5. Click **Save Configuration**. The Relay Proxy appears on the Relay Proxy tab of the Account Settings page with its key visible.
-6. Copy and save the key somewhere secure.
+6. Copy and save the key somewhere secure:
 
 ![The Relay Proxy screen with a newly created Relay Proxy. The key is displayed.](../../images/relay-proxy-key-displayed.png)
 
@@ -80,7 +80,8 @@ Next you must specify the key in a Relay Proxy configuration file so it includes
 
 1. Configure your Relay Proxy to use your new key.
  * If you configured the Relay Proxy with a configuration file, specify the Relay Proxy key in an `AutoConfig` section as the `key` property.
- * If configured the Relay Proxy with environment variables, specify the Relay Proxy key with the `AUTO_CONFIG_KEY` environment variable.
+ * If configured the Relay Proxy with environment variables, specify the Relay Proxy key with the `AUTO_CONFIG_KEY` environment variable. Here's how:
+
   <CodeTabs
     defaultValue="file"
     values={[
@@ -106,6 +107,7 @@ docker run --name ld-relay           \
 
   </CodeTabItem>
   </CodeTabs>
+  
 2. Start the Relay Proxy.
 
 From now on, the Relay Proxy will respond automatically to the project and environment state changes you specified.

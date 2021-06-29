@@ -24,7 +24,7 @@ To complete this guide, you must have the following prerequisites:
 
 ## Concepts
 
-This guide relies on the following concepts:
+This guide relies on the following concepts.
 
 ### Using multiple environments in LaunchDarkly
 
@@ -65,6 +65,7 @@ You can think of feature flags in different ways based on their relationships to
 Prerequisite flags are flags that must be enabled in order for other flags to work. These are the "keystone" flags.
 
 Prerequisite flags may control large UI elements which contain multiple components such as:
+
 - dependent flags
 - access control restrictions or allowances
 - traffic operations tools
@@ -83,9 +84,11 @@ Dependent flags are flags that represent a feature or subfeature within a larger
 
 In the example above, the "New search bar" flag is a dependent of the "New page" flag because it depends on the "New page" flag being enabled for the feature it controls to work.
 
-You can set prerequisite flags in the "Prerequisite" section of the dependent flag's Targeting tab.
+You can set prerequisite flags in the "Prerequisites" section of the dependent flag's Targeting tab.
 
-![A flag's Targeting tab with the prerequisite menu expanded.](../../images/guide-hierarchy-prereq.png)
+Here is an image of the Prerequisites section:
+
+![A flag's Targeting tab with the prerequisites menu expanded.](../../images/guide-hierarchy-prereq.png)
 
 ## Understanding flag structure and dependencies
 
@@ -180,7 +183,9 @@ is paying you to maintain it. In that case, the state of the flag would be
 
 If want to create a flag that is a prerequisite of other flags, you can do this by setting that flag as a prerequisite in each dependent flag's Targeting tab.
 
-![Example: Student Discount Pricing is dependent on Pricing Tier 3](../images/flag-deps.png)
+Here is an image of the Prerequisites section:
+
+![In this example Student Discount Pricing is dependent on Pricing Tier 3](../images/flag-deps.png)
 
 Now you can use the prerequisite flag to make sure that all of the changes you make
 for a bundle are not visible in production, but turn it on for your test or
@@ -195,6 +200,8 @@ blocking it.
 
 Flag rules are evaluated top-to-bottom, as shown in the flag's dashboard.
 You can drag and drop flag rules to change the order of evaluation. *Prerequisites always apply before flag rules.*
+
+Here is an image of a flag with a prerequisite and multiple rules:
 
 ![A flag with a prerequisite and multiple rules.](../images/flag-deps2.png)
 
@@ -224,12 +231,12 @@ If you would like to practice these concepts by creating flags, read our guide o
 targeting](/guides/tutorials/rules-and-targeting).
 
 <Callout intent="primary">
-  <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
 
 Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in quick start guide. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
 
 Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>

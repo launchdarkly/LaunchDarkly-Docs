@@ -53,15 +53,15 @@ Each element in the array is a statement represented as a JSON object with three
 </Table>
 
 <Callout intent="info">
-  <CalloutTitle>Inverse resource and action sets</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Inverse resource and action sets</CalloutTitle>
+<CalloutDescription>
 
 You can only create a statement using `notActions` or `notResources` in the advanced editor.
 
 To learn more about the advanced editor, read [Writing policies in the advanced
 editor](#writing-policies-in-the-advanced-editor).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 The example policy below denies access to a project, identified by its product key. It also allows all actions on a specific flag in all projects and environments.
@@ -110,7 +110,6 @@ For a more detailed explanation of the policy above, read [Granting all actions 
 
 Here's an example statement:
 
-
 <CodeTabs
   defaultValue="json"
   values={[
@@ -134,6 +133,8 @@ Here's an example statement:
 If the environment ID `production` represents the account's Production environment, this statement denies the user from modifying any feature flags in production.
 
 You can also name an "inverse" set of resources by using `notResources` in a statement. This statement explicitly allows all actions to feature flags across all environments _except_ the production environment.
+
+Here's how:
 
 <CodeTabs
   defaultValue="json"
@@ -176,8 +177,6 @@ To learn  more, read [Understanding the minimum required actions for a role](/ho
 </CalloutDescription>
 </Callout>
 
-
-
 Statement order does not matter. You can assign multiple custom roles to one member, and each custom role has its own policy. If you assign multiple roles to a member, be aware that if any of those custom roles allow access to a resource, then access is allowed regardless of if other roles deny that access. Adding roles to a user can only increase that user's access.
 
 ## Writing policies in the advanced editor
@@ -193,25 +192,24 @@ To access the advanced editor:
 1. Navigate to **Account Settings**.
 2. Click into the **Roles** tab.
 3. Click **New Role**. The "Create a role" screen appears.
-4. Click **Advanced editor**. The advanced editor opens.
+4. Click **Advanced editor**. The advanced editor opens:
 
 ![The advanced editor.](../../../../images/settings-roles-advanced-editor.png)
 
 
 <Callout intent="alert">
-  <CalloutTitle>Resources are case-sensitive</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Resources are case-sensitive</CalloutTitle>
+<CalloutDescription>
 
-When constructing your policy by hand with the advanced editor, make sure to use the resource key, which is case
-sensitive. If the Production environment of your default project has the key `production` then
-`proj/default:env/Production` will not allow actions to be taken in your default project's production
-environment.
+When constructing your policy by hand with the advanced editor, make sure to use the resource key, which is case sensitive. If the Production environment of your default project has the key `production` then `proj/default:env/Production` will not allow actions to be taken in your default project's production environment.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Finding resource IDs
 
 You can find resource IDs with the resource finder, which can be accessed with the “resource finder” link in either the simple or advanced editor, or using the keyboard shortcut `⌘` + `.` (Mac) or `ctl` + `.` (Windows). All of your environments, members, feature flags, metrics, and roles will be available.
+
+Here is a screenshot of the "Find a resource ID" screen:
 
 ![The "Find a resource ID" screen.](../../../../images/settings-roles-resource-id.png)

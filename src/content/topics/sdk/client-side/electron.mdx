@@ -23,6 +23,8 @@ For developers who were using the server-side Node.js in Electron before the Ele
 
 To make this transition easier, the LaunchDarkly Electron SDK provides an optional wrapper that emulates the Node.js SDK. When creating the main-process client, after calling `initializeInMain`, pass the client object to `createNodeSdkAdapter`. The resulting object uses the Node-style API.
 
+Here's how to create the wrapper:
+
 <CodeTabs
   defaultValue="js"
   values={[
@@ -50,6 +52,8 @@ The underlying implementation is still the client-side SDK, which has a single-c
 
 
 ## Known issues in this release
+
+Known issues include:
 
 - If you are using the normal pattern of configuring your LaunchDarkly client in the main process, and then using `initializeInRenderer()` to get a mirror of the client in a renderer process, the client instance in the renderer process will not allow you to call `identify()` to change the current user. The current user can only be set in the main process. This may or may not change in future versions.
 - When the main process receives new feature flag values from LaunchDarkly, they should be sent to the renderer processes automatically; however, there was one report of this not working, i.e. the renderer process continued to have the old flag values. Please let us know if you see any such problems.
@@ -85,6 +89,8 @@ The LaunchDarkly Electron SDK is designed to use LaunchDarkly feature flags from
 
 To set up the main process client, you need the client-side ID for your LaunchDarkly environment, an object containing user properties (although you can change the user later), and optional configuration properties.
 
+To initialize the client:
+
 <CodeTabs
   defaultValue="js"
   values={[
@@ -106,7 +112,6 @@ const client = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options)
 
 In a renderer process, to create a client object that uses the same feature flag data, you only need to do this:
 
-
 <CodeTabs
   defaultValue="js"
   values={[
@@ -127,7 +132,6 @@ const client = LDElectron.initializeInRenderer();
 This gives you an object with the same interface—so you can evaluate feature flags, listen for flag change events, etc., in exactly the same way in the main process and the renderer process. However, only the main-process client is actually communicating with LaunchDarkly; the renderer-process clients are just delegating to the main one. This means that the overhead per application window is minimal (although it is still a good idea to retain a single client instance per window, rather than creating them ad-hoc when you need to evaluate a flag).
 
 Both types of client are initialized asynchronously, so if you want to determine when the client is ready to evaluate feature flags, use the `ready` event or `waitForInitialization()`:
-
 
 <CodeTabs
   defaultValue="js"

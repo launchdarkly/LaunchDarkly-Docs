@@ -8,8 +8,12 @@ published: true
 This reference guide documents all of the methods available in the PHP SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [PHP SDK repository](https://github.com/launchdarkly/php-server-sdk) on GitHub. The online [API docs](https://launchdarkly.github.io/php-server-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-php) using this SDK.
 
 <Callout intent="info">
-  <CalloutTitle>Requirements</CalloutTitle>
-  <CalloutDescription>PHP 5.5 or higher.</CalloutDescription>
+<CalloutTitle>Requirements</CalloutTitle>
+<CalloutDescription>
+
+PHP 5.5 or higher.
+
+</CalloutDescription>
 </Callout>
 
 ## Getting started
@@ -17,6 +21,8 @@ This reference guide documents all of the methods available in the PHP SDK, and 
 Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your PHP application.
 
 The first step is to install [Composer](https://getcomposer.org/) and the LaunchDarkly SDK as a dependency in your application. Refer to the [SDK releases page](https://github.com/launchdarkly/php-server-sdk/releases) to identify the latest version if you want to depend on a specific version.
+
+To install Composer:
 
 <CodeTabs
   defaultValue="php"
@@ -35,7 +41,7 @@ php composer.phar require launchdarkly/server-sdk
 </CodeTabItem>
 </CodeTabs>
 
-Then require Composer's autoloader.
+Then require Composer's autoloader:
 
 <CodeTabs
   defaultValue="php"
@@ -54,6 +60,8 @@ require 'vendor/autoload.php';
 
 Once the SDK is installed, you'll want to create a single, shared instance of [`LDClient`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html). You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
 
+To create a single instance:
+
 <CodeTabs
   defaultValue="php"
   values={[
@@ -69,7 +77,7 @@ $client = new LaunchDarkly\LDClient("YOUR_SDK_KEY");
 </CodeTabItem>
 </CodeTabs>
 
-Using `$client`, you can check which variation a particular user should receive for a given feature flag.
+Using `$client`, you can check which variation a particular user should receive for a given feature flag:
 
 <CodeTabs
   defaultValue="php"
@@ -135,7 +143,7 @@ It will then be used as the default way of fetching flags.
 
 With Guzzle, you could persist your cache somewhere other than the default in-memory store, like Memcached or Redis.
 
-You could then specify your cache when initializing the client with the cache option.
+You could then specify your cache when initializing the client with the cache option:
 
 <CodeTabs
   defaultValue="php"

@@ -26,7 +26,7 @@ The Flutter SDK supports Android API 16+ and iOS 10.0+.
 
 Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your Flutter mobile application.
 
-To get started, declare a dependency on the LaunchDarkly Flutter SDK.
+To get started, declare a dependency on the LaunchDarkly Flutter SDK:
 
 <CodeTabs
   defaultValue="yaml"
@@ -43,7 +43,7 @@ To get started, declare a dependency on the LaunchDarkly Flutter SDK.
 </CodeTabItem>
 </CodeTabs>
 
-Then, import the package in your application code.
+Then, import the package in your application code:
 
 <CodeTabs
   defaultValue="dart"
@@ -62,7 +62,7 @@ import 'package:launchdarkly_flutter_client_sdk/launchdarkly_flutter_client_sdk.
 
 After you install the SDK, initialize the single shared instance of `LDClient`. Specify your _mobile key_ here. This authorizes your application to connect to LaunchDarkly and retrieve flag values for your application and environment.
 
-The following example shows the simplest way to create the client.
+The following example shows the simplest way to create the client:
 
 <CodeTabs
   defaultValue="dart"
@@ -93,7 +93,7 @@ Always use a mobile key from your [Environments](https://app.launchdarkly.com/se
 </CalloutDescription>
 </Callout>
 
-Using `LDClient`, you can check which variation a particular user should receive for a given feature flag.
+Using `LDClient`, you can check which variation a particular user should receive for a given feature flag:
 
 <CodeTabs
   defaultValue="dart"
@@ -117,6 +117,8 @@ else {
 </CodeTabs>
 
 Optionally, if your application will no longer use the client, it may permanently shut down the client with `close`. This is not generally required, but is provided to clear any resources associated with the SDK and cleanly shut down.
+
+Here's how:
 
 <CodeTabs
   defaultValue="dart"

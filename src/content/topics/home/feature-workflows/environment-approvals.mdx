@@ -30,7 +30,7 @@ To configure approvals by environment:
 
 1. Navigate to **Account settings** and click into the **Projects** tab.
 2. Find the environment you wish to modify.
-3. Click the **three-dot** overflow menu and choose **Approval settings** from the dropdown. The **Approval settings** menu appears.
+3. Click the **three-dot** overflow menu and choose **Approval settings** from the dropdown. The **Approval settings** menu appears:
 
 ![An environment's overflow menu, with the "Approval settings" option called out.](../../images/approvals-environment-overflow-callout.png)
 
@@ -54,7 +54,7 @@ In the **Approval settings** menu, you can configure the following fields:
 * **Allow modifying and deleting pending changes without approval**: Select this checkbox to stop creating approval requests when a team member deletes or modifies a pending change.
 * **Enable "Apply Changes" even if any reviewers have declined a request**:
   * **Yes**: (Default setting) Select this option to allow the person who made the approval request to approve and apply the change as long as at least one person has approved their approval request.
-  * **No**: Select this option to prevent the requested change from being applied if any reviewer has declined their approval request.
+  * **No**: Select this option to prevent the requested change from being applied if any reviewer has declined their approval request:
 
 ![The "Approval settings" menu.](../../images/approvals-approval-settings.png)
 
@@ -66,10 +66,10 @@ To require approvals on flag changes:
 
 1. Navigate to **Account settings** and click into the **Projects** tab.
 2. Find the environment you wish to modify.
-3. Click the **three-dot** overflow menu and choose **Approval settings** from the dropdown. The **Approval settings** menu appears.
+3. Click the **three-dot** overflow menu and choose **Approval settings** from the dropdown. The **Approval settings** menu appears:
 
     ![An environment's overflow menu, with the "Approval settings" option called out.](../../images/approvals-environment-overflow-callout.png)
-4. Select the **Require approvals for this environment** checkbox.
+4. Select the **Require approvals for this environment** checkbox:
 
     ![The "Approval settings" menu with the "Require approvals for this environment" checkbox called out.](../../images/approvals-settings-require-callout.png)
 
@@ -88,12 +88,12 @@ If you enable this feature, the following behaviors change:
 For all three of these changes, the flag state does not change until a reviewer approves and applies the change.
 
 <Callout intent="alert">
-  <CalloutTitle>Required approvals apply only to environment-level changes</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Required approvals apply only to environment-level changes</CalloutTitle>
+<CalloutDescription>
 
 Approval workflows only impact flag targeting settings within an environment. When you select the **Require approvals for this environment** checkbox, project-level flag changes are not included.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 The following actions do **not** trigger an approval request:

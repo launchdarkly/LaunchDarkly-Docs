@@ -21,6 +21,8 @@ You can specify actions in bulk using glob syntax and wildcards. For example, yo
 
 ## Account actions
 
+This table explains available account actions:
+
 <Table>
   <TableHeader>
     <TableHeadCell>Action</TableHeadCell>
@@ -164,6 +166,8 @@ You can specify actions in bulk using glob syntax and wildcards. For example, yo
 
 ## Account ownership actions
 
+This table explains available account ownership actions:
+
 <Table>
 <TableBody>
 <TableRow>
@@ -196,6 +200,8 @@ member/*
 </CodeTabs>
 
 To learn more, read [Managing your team](/home/team/managing).
+
+This table explains available members actions:
 
 <Table>
   <TableHeader>
@@ -262,6 +268,8 @@ member/*:token/*
 </CodeTabs>
 
 To learn more, read [API access tokens](/home/account-security/api-access-tokens).
+
+This table explains available personal access token actions:
 
 <Table>
   <TableHeader>
@@ -331,6 +339,8 @@ service-token/*
 
 To learn more, read [API access tokens](/home/account-security/api-access-tokens).
 
+This table explains available service access token actions:
+
 <Table>
   <TableHeader>
     <TableHeadCell>Action</TableHeadCell>
@@ -391,6 +401,8 @@ role/*
 </CodeTabs>
 
 To learn more, read [Custom roles](/home/team/custom-roles).
+
+This table explains available role actions:
 
 <Table>
   <TableHeader>
@@ -461,6 +473,8 @@ proj/*
 
 To learn more, read [Projects](/home/organize/projects).
 
+This table explains available project actions:
+
 <Table>
   <TableHeader>
     <TableHeadCell>Action</TableHeadCell>
@@ -516,19 +530,20 @@ To learn more, read [Projects](/home/organize/projects).
 </Table>
 
 <Callout intent="info">
-  <CalloutTitle>More information about the viewProject action</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>More information about the viewProject action</CalloutTitle>
+<CalloutDescription>
 
 The `deny` effect for your `resource` in the `viewProject` action hides the projects you specify from the member. The `allow` effect for the same resource and action pairing doesn't do anything since your team member can already see the project.
 
 To learn more, read <a href="/home/organize/private-projects">Configuring private projects with custom roles</a>
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Environments actions
 
 `env` is a child resource of **projects**. A code sample is below:
+
 <CodeTabs
   defaultValue="json"
   values={[
@@ -546,6 +561,8 @@ proj/*:env/*
 </CodeTabs>
 
 To learn more, read [Environments](/home/organize/environments).
+
+This table explains available environments actions:
 
 <Table>
   <TableHeader>
@@ -631,13 +648,12 @@ To learn more, read [Environments](/home/organize/environments).
 ## Metrics actions
 
 <Callout intent="info">
-  <CalloutTitle>The name of this action has changed</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>The name of this action has changed</CalloutTitle>
+<CalloutDescription>
 
-Goals have been redesigned as metrics and associated with our Experimentation add-on. You do not need to update your
-actions to use `metric`, however. If you are using goals actions, they will still work.
+Goals have been redesigned as metrics and associated with our Experimentation add-on. You do not need to update your actions to use `metric`, however. If you are using goals actions, they will still work.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 `metric` is a child resource of **projects**. A code sample is below:
@@ -659,6 +675,8 @@ proj/*:metric/*
 </CodeTabs>
 
 To learn more, read [Experimentation introduction](/home/experimentation).
+
+This table explains available metric actions:
 
 <Table>
   <TableHeader>
@@ -768,6 +786,8 @@ proj/*:env/*:flag/*
 </CodeTabs>
 
 To learn more, read [Creating a feature flag](/home/getting-started/feature-flags).
+
+This table explains available feature flag actions:
 
 <Table>
   <TableHeader>
@@ -1091,6 +1111,8 @@ proj/*:env/*:segment/*
 
 To learn more, read [Building user segments](/home/users/segments).
 
+This table explains available segments actions:
+
 <Table>
   <TableHeader>
     <TableHeadCell>Action</TableHeadCell>
@@ -1210,6 +1232,8 @@ webhook/*
 
 To learn more, read [Webhooks](/home/connecting/webhooks).
 
+This table explains available webhooks actions:
+
 <Table>
   <TableHeader>
     <TableHeadCell>Action</TableHeadCell>
@@ -1315,6 +1339,8 @@ integration/*
 
 To learn more, read [Integrations](/integrations).
 
+This table explains available integrations actions:
+
 <Table>
   <TableHeader>
     <TableHeadCell>Action</TableHeadCell>
@@ -1396,6 +1422,8 @@ relay-proxy-config/*
 
 To learn more, read [Automatic configuration](/home/relay-proxy/automatic-configuration).
 
+This table explains available Relay Proxy automatic configuration actions:
+
 <Table>
   <TableHeader>
     <TableHeadCell>Action</TableHeadCell>
@@ -1456,6 +1484,8 @@ proj/*:env/*:destination/*
 </CodeTabs>
 
 To learn more, read [Data Export](/home/data-export).
+
+This table explains available destinations actions:
 
 <Table>
   <TableHeader>
@@ -1527,6 +1557,8 @@ code-reference-repository/*
 </CodeTabs>
 
 To learn more, read [Code references](/home/code/code-references).
+
+This table explains available code references actions:
 
 <Table>
   <TableHeader>
@@ -1616,6 +1648,8 @@ proj/*:env/*:user/*
 </CodeTabs>
 
 To learn more, read [The user dashboard](/home/users/users-dashboard).
+
+This table explains available users actions:
 
 <Table>
   <TableHeader>

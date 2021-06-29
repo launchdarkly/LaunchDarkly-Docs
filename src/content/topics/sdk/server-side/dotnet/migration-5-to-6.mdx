@@ -75,6 +75,8 @@ If your code already uses the newer model, you may only need to change the packa
 
 For each data source type, there is a factory method whose name ends in `DataSource`. These methods give you a builder object with methods for whatever options are appropriate. Pass that object to `ConfigurationBuilder.DataSource`.
 
+Here is an example:
+
 <CodeTabs
   defaultValue="sdk5"
   values={[
@@ -134,7 +136,7 @@ If you want to use a persistent data store such as a database integration, you m
 
 To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
-The following examples use the [Redis integration](https://github.com/launchdarkly/dotnet-server-redis).
+The following examples use the [Redis integration](https://github.com/launchdarkly/dotnet-server-redis):
 
 <CodeTabs
   defaultValue="sdk5"
@@ -185,6 +187,8 @@ To completely disable events, set `ConfigurationBuilder.Events` to `Components.N
 If you use private user attributes and are configuring private attributes for the entire SDK rather than for individual users, there is a new syntax based on the new `UserAttribute` type. This ensures that built-in attributes are not misspelled and helps to distinguish these parameters from other kinds of string parameters.
 
 To learn more, read [Creating private user attributes](/home/managing-users/user-attributes#creating-private-user-attributes).
+
+Here is an example:
 
 <CodeTabs
   defaultValue="sdk5"
@@ -241,6 +245,8 @@ It is no longer possible to construct a meaningless configuration like "disable 
 Options in this category affect how the SDK communicates with LaunchDarkly over HTTP/HTTPS, including connection timeout, proxy servers, and more. If you need to customize these, call `Components.HttpConfiguration()` to get a builder object, configure this builder, and then pass it to `ConfigurationBuilder.Http`.
 
 Some of the methods have changed slightly in terms of the type or number of parameters, and there is also a new method for specifying an HTTP proxy in your code rather than from an environment variable. More details are available in `HttpConfigurationBuilder`.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="sdk5"
@@ -387,6 +393,8 @@ There are two ways you can configure the SDK to use the [Relay Proxy](/home/adva
 * daemon mode, receiving flag data only through a database.
 
 In version 5.14.0, we added a new configuration syntax. Starting in version 6.0, the new syntax is the only way to configure these.
+
+Here's how:
 
 <CodeTabs
   defaultValue="sdk5"

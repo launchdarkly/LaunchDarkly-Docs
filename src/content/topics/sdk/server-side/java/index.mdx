@@ -8,26 +8,30 @@ published: true
 This reference guide documents all of the methods available in the Java SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Java SDK GitHub repository](https://github.com/launchdarkly/java-server-sdk) or our [Javadocs](http://launchdarkly.github.io/java-server-sdk/). Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-java) using this SDK and an example of running it in another JRE-based language such as [Scala](https://github.com/launchdarkly/hello-scala).
 
 <Callout intent="alert">
-  <CalloutTitle>Android support</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Android support</CalloutTitle>
+<CalloutDescription>
 
-The Java SDK is intended for use in server environments only, and should not be used in mobile devices. Learn more
-about our [client-side and server-side SDKs](/sdk/concepts/client-side-server-side). If you want to use LaunchDarkly in an
-Android application, read the [Android SDK reference](/sdk/client-side/android).
+The Java SDK is intended for use in server environments only, and should not be used in mobile devices. Learn more about our [client-side and server-side SDKs](/sdk/concepts/client-side-server-side). If you want to use LaunchDarkly in an Android application, read the [Android SDK reference](/sdk/client-side/android).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 <Callout intent="info">
-  <CalloutTitle>Java compatibility</CalloutTitle>
-  <CalloutDescription>Version 5.0 and higher of the LaunchDarkly Java SDK is compatible with Java 8 and higher. Prior to version 5.0, the LaunchDarkly Java SDK also supported Java 7.</CalloutDescription>
+<CalloutTitle>Java compatibility</CalloutTitle>
+<CalloutDescription>
+
+Version 5.0 and higher of the LaunchDarkly Java SDK is compatible with Java 8 and higher. Prior to version 5.0, the LaunchDarkly Java SDK also supported Java 7.
+
+</CalloutDescription>
 </Callout>
 
 ## Getting started
 
 Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your Java application.
 
-The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/java-server-sdk/releases) to identify the latest version. In this example, it uses version 5.3.0.
+The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/java-server-sdk/releases) to identify the latest version.
+
+In this example, it uses version 5.3.0:
 
 <CodeTabs
   defaultValue="java"
@@ -80,6 +84,8 @@ import com.launchdarkly.client.*;
 
 Once the SDK is installed and imported, you'll want to create a single, shared instance of [`LDClient`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html). You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
 
+Here's how:
+
 <CodeTabs
   defaultValue="java"
   values={[
@@ -104,7 +110,7 @@ It's important to make this a singleton. Internally, the client instance maintai
 </CalloutDescription>
 </Callout>
 
-Using `ldClient`, you can check which variation a particular user should receive for a given feature flag.
+Using `ldClient`, you can check which variation a particular user should receive for a given feature flag:
 
 <CodeTabs
   defaultValue="java"
@@ -129,6 +135,8 @@ else {
 </CodeTabs>
 
 Lastly, when your application is about to terminate, shut down `ldClient` with [`close()`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#close--). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+
+Here's how:
 
 <CodeTabs
   defaultValue="java"
@@ -187,7 +195,7 @@ There is a potential problem for any Java application that communicates with a w
 
 However, Java has special behavior if the runtime environment has a [security manager](https://docs.oracle.com/javase/tutorial/essential/environment/security.html): in that case, it caches IP addresses indefinitely and will never update them until the application is restarted. If you are running in an environment that has a security manager—or if you're not sure whether that is the case—we recommend that you set the cache duration (TTL) explicitly. [This page](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-jvm-ttl.html) describes two ways to do so.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Supported features

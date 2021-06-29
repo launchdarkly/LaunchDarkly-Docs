@@ -162,6 +162,8 @@ The `variationDetail` method lets you evaluate a feature flag with the same para
 
 The variation detail returns in an object that contains both the result value and a "reason" object which tells you more information about the flag evaluation. For example, you can find out if the user was individually targeted for the flag or was matched by one of the flag's rules. It also indicates if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
+Here is an example:
+
 <CodeTabs
   defaultValue="js"
   values={[
@@ -214,7 +216,9 @@ To learn more, read [`LDEvaluationDetail`](https://launchdarkly.github.io/react-
 
 ### Roku
 
-For each variation type there is also an associated version that returns the reason a particular value was returned. For example:
+For each variation type there is also an associated version that returns the reason a particular value was returned.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="brightscript"
@@ -316,6 +320,8 @@ To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/dotnet-s
 
 By passing an `LDClient.EvaluationDetail` object to a variation call you can programmatically inspect the reason for a particular evaluation.
 
+Here is an example:
+
 <CodeTabs
   defaultValue="java"
   values={[
@@ -341,6 +347,8 @@ if (details.getReason().getKind() == EvaluationReason.Kind.OFF) {
 ### C/C++ (server-side)
 
 By passing an `LDDetails` struct to a variation call you can programmatically inspect the reason for a particular evaluation.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="c"
@@ -370,6 +378,8 @@ To learn more about the `LDDetails` structure, inspect `ldvariations.h`.
 ### Erlang
 
 The `variation_detail` function is similar to the variation function, but also returns an explanation of the evaluation that you can inspect programatically.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="erlang"
@@ -421,6 +431,8 @@ To learn more, read [`EvaluationDetail`](https://pkg.go.dev/gopkg.in/launchdarkl
 ### Haskell
 
 The `variationDetail` functions are similar to the `variation` functions, but they also return an explanation of the evaluation that is programmatically inspectable.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="haskell"
@@ -485,7 +497,7 @@ To learn more, read [`EvaluationDetail`](https://javadoc.io/static/com.launchdar
 
 ### Lua
 
-By using the `*Detail` family of variation calls you can programmatically inspect the reason for a particular evaluation.
+By using the `*Detail` family of variation calls you can programmatically inspect the reason for a particular evaluation:
 
 <CodeTabs
   defaultValue="lua"

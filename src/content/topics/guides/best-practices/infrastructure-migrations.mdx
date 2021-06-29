@@ -30,6 +30,8 @@ For our example, let's start with a data model that is never updated, where even
 
 In the next sections, we refer to two databases, `db1` and `db2`. `db1` is the original database from which you will migrate. `db2` is the destination database to which you will migrate your data. It receives data from `db1`.
 
+Here is a diagram representing migrating databases with feature flags:
+
 ![Migrating databases with feature flags](../images/database-migration.jpg)
 
 # Preparing your DAO
@@ -71,7 +73,7 @@ func storeEvent(evt Event, account ld.User) {
 
 <Callout intent="info">
 <CalloutTitle>This function accepts three parameters</CalloutTitle>
-  <CalloutDescription>
+<CalloutDescription>
 
 The `ldclient.BoolVariation()` function retrieves the feature flag value from LaunchDarkly and accepts 3 parameters: feature flag name, user account object, and default flag value.
 
@@ -83,6 +85,8 @@ If you follow the code above precisely, you can save the same event in both data
 If we need to cancel the migration or rollback from `db2` to `db1`, we can do so with confidence because both databases have all of the events stored.
 
 The code that reads the events is more complicated. Here, our strategy is to read from both data stores at the same time, compare the results, then return the results from `db1`. If the results are different between the data stores, then we log it.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="code"
@@ -134,12 +138,12 @@ You can leave the read flag (`events-db2-read`) turned off for everyone, and pro
 When you are happy with the write performance and confirmed that the data in `db2` is correct, you can plan to migrate the missing data that's not in `db1`. This data was written before the `events-db2-write` flag was turned on. You can do this as a one-time copy with a script, ignoring any duplicate entries that came in after you enabled writes to `db2`. Make sure to do a final check on the resulting data in `db2`.
 
 <Callout intent="alert">
-  <CalloutTitle>
-    How do you handle a data model that can be updated?
-  </CalloutTitle>
-  <CalloutDescription>
-    Our example up until this point assumed a data model that doesn't get updated (only created). The write strategy for a mutable data model is a bit more complicated. In this case, you may want to consider adding a <code>lastUpdate</code> property to your data store so that you can decide if your copy script will need to update the data in <code>db2</code>.
-  </CalloutDescription>
+<CalloutTitle>How do you handle a data model that can be updated?</CalloutTitle>
+<CalloutDescription>
+
+Our example up until this point assumed a data model that doesn't get updated (only created). The write strategy for a mutable data model is a bit more complicated. In this case, you may want to consider adding a <code>lastUpdate</code> property to your data store so that you can decide if your copy script will need to update the data in <code>db2</code>.
+
+</CalloutDescription>
 </Callout>
 
 After your data is copied to `db2`, you can start turning on reads to the new data store. Turn on reads for a small segment of your users and monitor the performance metrics and error logs. Specifically, look for a “db1 and db2 events differ” message. That message does not indicate that something is wrong in production. Even if you see that message, it hasn’t affected any users. They are still using the data from your old data store. If you see that error message, you can fix any issues without impacting your users and move forward.
@@ -149,6 +153,8 @@ After your data is copied to `db2`, you can start turning on reads to the new da
 </LearnMore>
 
 Once you're comfortable with the performance metrics and error counts you're seeing with reads and writes, you can now turn off the read and write flags for `db1`, remove all references to all four flags in your code, and you are left with just `db2`.
+
+Here is a diagram representing an example migration strategy:
 
 ![A migration strategy](../images/database-migration-using-ff.jpg)
 

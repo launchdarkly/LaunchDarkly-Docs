@@ -11,7 +11,7 @@ published: true
 
 Code references is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Overview
@@ -35,14 +35,12 @@ Here's how to set up the GitLab CI:
 1. Navigate to your GitLab project's CI / CD settings by clicking through **Your project** > **Settings** > **CI/CD**.
 2. Expand **Variables**.
 3. Create a variable called `LD_ACCESS_TOKEN`. Use the same value as your LaunchDarkly access token. Click the toggle to set the variable to **Masked**.
-4. Create a variable called `LD_PROJECT_KEY`. Use your LaunchDarkly project's key as the value. Find the project key in **Account Settings > Projects**.
-
-To learn more about setting variables, read [GitLab's documentation](https://docs.gitlab.com/ee/ci/variables/#creating-a-custom-environment-variable).
+4. Create a variable called `LD_PROJECT_KEY`. Use your LaunchDarkly project's key as the value. Find the project key in **Account Settings > Projects**. To learn more about setting variables, read [GitLab's documentation](https://docs.gitlab.com/ee/ci/variables/#creating-a-custom-environment-variable).
 
 ![The GitLab Variables screen with masked "LD_ACCESS_TOKEN" and "LD_PROJECT_KEY" created.](../../images/gitlab-ci-env-variables.png)
 
 5. Open your `.gitlab-ci.yml` file. This file defines your project's CI/CD pipeline. To learn more about getting started with GitLab CI, read [GitLab's documentation](https://docs.gitlab.com/ee/ci/#getting-started).
-6. Copy and paste the following into `.gitlab-ci.yml`. No changes to the script are needed if your pipeline runs on Alpine Linux. If `apk` is unavailable in your environment then you'll need to modify the first three steps to use a different package manager.
+6. Copy and paste the following into `.gitlab-ci.yml`. No changes to the script are needed if your pipeline runs on Alpine Linux. If `apk` is unavailable in your environment then you'll need to modify the first three steps to use a different package manager:
 
 <CodeTabs
  defaultValue="yaml"
@@ -82,7 +80,7 @@ This script runs the docker image with previously-set variables, as well as GitL
 
 The `find-launchdarkly-code-refs` script runs in GitLab's `deploy` phase. As written, `find-launchdarkly-code-refs` runs concurrent to other scripts in the `deploy` stage. We positioned the script this way so problems running `ld-find-code-refs` won't block the deployment pipeline.
 
-In the example `.gitlab-ci.yml` below, the `find-launchdarkly-code-refs` script runs as a part of a project's pipeline.
+In the example `.gitlab-ci.yml` below, the `find-launchdarkly-code-refs` script runs as a part of a project's pipeline:
 
 <CodeTabs
  defaultValue="yaml"

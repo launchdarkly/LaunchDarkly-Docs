@@ -20,23 +20,21 @@ This reference guide documents all of the methods available in the client-side R
 You can use LaunchDarkly in a Gatsby application with our [Gatsby plugin](/sdk/client-side/react/gatsby).
 
 <Callout intent="info">
-  <CalloutTitle>The React SDK is based on the JavaScript SDK</CalloutTitle>
+<CalloutTitle>The React SDK is based on the JavaScript SDK</CalloutTitle>
 <CalloutDescription>
-
 
 The React SDK builds on LaunchDarkly's JavaScript SDK to provide a better integration for use in React applications. As a result, much of the JavaScript SDK functionality is also available for the React SDK to use. For a complete client-side JavaScript SDK reference, read [JavaScript SDK reference](/sdk/client-side/javascript).
 
 
 </CalloutDescription>
 </Callout>
-<Callout intent="alert">
-  <CalloutTitle>This SDK requires React 16.3.0 or later</CalloutTitle>
-<CalloutDescription>
 
+<Callout intent="alert">
+<CalloutTitle>This SDK requires React 16.3.0 or later</CalloutTitle>
+<CalloutDescription>
 
 This SDK uses the Context API, which requires React version 16.3.0 or later. You must use a newer
 version if you want to use the Hooks API as well. To learn more, read [Hooks](#hooks).
-
 
 </CalloutDescription>
 </Callout>
@@ -81,9 +79,11 @@ yarn add launchdarkly-react-client-sdk
 
 Both rely on React's `Context` API which lets you access your flags from any level of your component hierarchy. Both functions accept a [`ProviderConfig`](/sdk/client-side/react#configuring-the-react-sdk) object used to configure the React SDK.
 
-## `asyncWithLDProvider`
+## Initializing `asyncWithLDProvider`
 
 The `asyncWithLDProvider` function initializes the React SDK and returns a provider which is a React component. It is an async function.
+
+Here's how to initialize `asyncWithLDProvider`:
 
 <CodeTabs
   defaultValue="js"
@@ -122,22 +122,19 @@ import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
 After initialization is complete, your flags and the ldClient become available at the start of your React app lifecycle. This ensures your app does not flicker due to flag changes at startup time.
 
 <Callout intent="alert">
-  <CalloutTitle>Rendering may be delayed</CalloutTitle>
+<CalloutTitle>Rendering may be delayed</CalloutTitle>
 <CalloutDescription>
-
 
 Because the `asyncWithLDProvider` function is asynchronous, the rendering of your React app is delayed until initialization is completed. This can take up to 200 milliseconds, but often completes sooner. Alternatively, you can use the [`withLDProvider`](/sdk/client-side/react#withldprovider) function if you prefer to render your app first and then process flag updates after rendering is complete.
 
-
 </CalloutDescription>
 </Callout>
+
 <Callout intent="alert">
-  <CalloutTitle>This function requires React 16.8.0 or later</CalloutTitle>
+<CalloutTitle>This function requires React 16.8.0 or later</CalloutTitle>
 <CalloutDescription>
 
-
 The `asyncWithLDProvider` function uses the Hooks API, which requires React version 16.8.0 or later.
-
 
 </CalloutDescription>
 </Callout>
@@ -181,6 +178,8 @@ In the React SDK streaming mode is enabled by default. To disable streaming mode
 
 The return value of `withLDConsumer` is a wrapper function that takes your component and returns a React component injected with `flags` & `ldClient` as props.
 
+Here's how:
+
 <CodeTabs
   defaultValue="js"
   values={[
@@ -208,6 +207,8 @@ export default withLDConsumer()(Home);
 ## Configuring the React SDK
 
 The [`ProviderConfig`](https://launchdarkly.github.io/react-client-sdk/interfaces/providerconfig.html) object configures the React SDK. The only mandatory property is the client-side ID. All other properties are optional.
+
+These are the properties:
 
 - `clientSideID`: This is your project and environment specific client-side ID. This property is mandatory.
 
@@ -267,7 +268,7 @@ values={[
 The React SDK offers two custom hooks which you can use as an alternative to `withLDConsumer`: `useFlags` and `useLDClient`.
 
 <Callout intent="alert">
-  <CalloutTitle>These functions require React 16.8.0 or later</CalloutTitle>
+<CalloutTitle>These functions require React 16.8.0 or later</CalloutTitle>
 <CalloutDescription>
 
 `useFlags` and `useLDClient` use the Hooks API, which requires React version 16.8.0 or later.
@@ -278,6 +279,8 @@ The React SDK offers two custom hooks which you can use as an alternative to `wi
 `useFlags` is a custom hook which returns all feature flags. It uses the useContext primitive to access the LaunchDarkly context set up by `asyncWithLDProvider` or `withLDProvider`. You still must use the `asyncWithLDProvider` or the `withLDProvider` higher-order component at the root of your application to initialize the React SDK and populate the context with `LDClient` and your flags.
 
 `useLDClient` is the second custom hook which returns the underlying LaunchDarkly JavaScript SDK client object. Like the `useFlags` custom hook, `useLDClient` also uses the useContext primitive to access the LaunchDarkly context set up by `asyncWithLDProvider` or `withLDProvider`. You still must use the `asyncWithLDProvider` or the `withLDProvider` higher-order component to initialize the React SDK to use this custom hook.
+
+Here is an example of a custom hook:
 
 <CodeTabs
   defaultValue="js"
@@ -325,6 +328,8 @@ To disable the SDK's automatic camel-case feature, provide `asyncWithLDProvider`
 
 If the automatic camel-case feature is enabled and you want to use LaunchDarkly's code references tool, you can configure [alias](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/ALIASES.md#configuring-aliases) support to find camel-cased flags. To do so, use the value `camelCase` for the alias settings.
 
+Here's how to configure alias:
+
 <CodeTabs
   defaultValue="js"
   values={[
@@ -348,14 +353,14 @@ export default withLDProvider({
 With this configuration option in place, you would now access your `dev-flag-test` flag using bracket notation. For example, `flag['dev-flag-test']`.
 
 <Callout intent="alert">
-  <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
+<CalloutDescription>
 
-  You must make feature flags available to client-side SDKs before the flags can be evaluated. If you evaluate a feature flag that is not available, you receive the default value for that flag. If you want a project's flags to be made available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+You must make feature flags available to client-side SDKs before the flags can be evaluated. If you evaluate a feature flag that is not available, you receive the default value for that flag. If you want a project's flags to be made available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Example app
 
-Check the [example](https://github.com/launchdarkly/react-client-sdk/tree/master/examples/hoc) for a fully working single page app with React and react-router. You must enter your `clientSideId` in the [client root app file](https://github.com/launchdarkly/react-client-sdk/blob/master/examples/hoc/src/universal/app.js) and create a flag with key `dev-test-flag` in your dashboard before running the example.
+Run this [example](https://github.com/launchdarkly/react-client-sdk/tree/master/examples/hoc) for a fully working single page app with React and react-router. You must enter your `clientSideId` in the [client root app file](https://github.com/launchdarkly/react-client-sdk/blob/master/examples/hoc/src/universal/app.js) and create a flag with key `dev-test-flag` in your dashboard before running the example.

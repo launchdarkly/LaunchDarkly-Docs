@@ -15,7 +15,7 @@ To learn more, visit our [Erlang SDK GitHub repository](https://github.com/launc
 
 Follow the steps below to get started using the LaunchDarkly SDK in your Erlang application.
 
-First, you'll need to download the dependency using [Rebar](https://www.rebar3.org/).
+First, you'll need to download the dependency using [Rebar](https://www.rebar3.org/):
 
 <CodeTabs
   defaultValue="erlang"
@@ -34,7 +34,7 @@ First, you'll need to download the dependency using [Rebar](https://www.rebar3.o
 </CodeTabItem>
 </CodeTabs>
 
-And then add it to your `app.src` file.
+Then add it to your `app.src` file:
 
 <CodeTabs
   defaultValue="erlang"
@@ -55,7 +55,7 @@ And then add it to your `app.src` file.
 </CodeTabItem>
 </CodeTabs>
 
-If you use Elixir you can download the dependency using [Mix](https://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html).
+If you use Elixir you can download the dependency using [Mix](https://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html):
 
 <CodeTabs
   defaultValue="elixir"
@@ -79,10 +79,14 @@ end
 After you install the SDK dependency, create an instance of the SDK.
 
 <Callout intent="info">
-  <CalloutTitle>Use a single instance</CalloutTitle>
-  <CalloutDescription>
-    While the Erlang SDK supports starting multiple instances, most use cases only need a single instance. Consider using multiple instances only if you need to simultaneously access more than one environment. Do not start an instance every time you need to make a variation or other SDK call.
-  </CalloutDescription>
+<CalloutTitle>Use a single instance</CalloutTitle>
+<CalloutDescription>
+
+While the Erlang SDK supports starting multiple instances, most use cases only need a single instance. Consider using multiple instances only if you need to simultaneously access more than one environment. Do not start an instance every time you need to make a variation or other SDK call.
+
+Here is an example:
+
+</CalloutDescription>
 </Callout>
 
 <CodeTabs
@@ -104,7 +108,7 @@ ldclient:start_instance("YOUR_SDK_KEY", my_instance)
 </CodeTabItem>
 </CodeTabs>
 
-Now you can check which flag variation a specific user should receive.
+Now you can check which flag variation a specific user should receive:
 
 <CodeTabs
   defaultValue="erlang"

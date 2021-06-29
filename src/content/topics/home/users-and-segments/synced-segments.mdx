@@ -22,13 +22,13 @@ This topic explains how to create user segments that sync with an Amplitude coho
 
 <Feature flagKey="syncedSegments" showWhenVariation={false}>
 <Callout intent="info">
-  <CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
 
 Synced segments are only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://docs.google.com/forms/d/e/1FAIpQLScJ5qCC_RZTW9pPSXVZk9HaKzpltNAeoQb2t6gh7dLicwQWQQ/viewform).
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 </Feature>
 
 ## Prerequisites
@@ -46,8 +46,8 @@ In order to set up a synced segment, you must meet the following prerequisites:
 
 <Feature flagKey="syncedSegments" showWhenVariation={false}>
 <Callout intent="info">
-  <CalloutTitle>Synced segments are not available for server-side SDKs or the Relay Proxy</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Synced segments are not available for server-side SDKs or the Relay Proxy</CalloutTitle>
+<CalloutDescription>
 
  Synced segments are not supported on server-side SDKs or the Relay Proxy.
 
@@ -97,6 +97,8 @@ To do this, first [add LaunchDarkly as a destination](#adding-launchdarkly-as-a-
 
 ## Sync cohort to LaunchDarkly
 
+To connect a cohort to LaunchDarkly:
+
 1. Navigate to the cohort you wish to connect to LaunchDarkly.
 2. Click **Sync to...** This opens a new tab with a modal.
 
@@ -117,6 +119,8 @@ To do this, first [add LaunchDarkly as a destination](#adding-launchdarkly-as-a-
 ## Synced segments in LaunchDarkly
 
 You can view your synced Amplitude cohort as a segment in LaunchDarkly. It appears in the **Segments** tab with the Amplitude logo in its name.
+
+Here is an image of the Segments dashboard:
 
 ![The Segments dashboard with the Amplitude-driven segment called out.](../../images/segments-amplitude-dashboard-callout.png)
 

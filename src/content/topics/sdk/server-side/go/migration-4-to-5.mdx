@@ -31,7 +31,11 @@ This is why we have continued to use the [`gopkg.in`](https://labix.org/gopkg.in
 
 <Callout intent="alert">
 <CalloutTitle>Plan to migrate to Go modules</CalloutTitle>
-<CalloutDescription>Starting with the next major version, 6.0.0, you will only be able to use the Go SDK from module-based code.</CalloutDescription>
+<CalloutDescription>
+
+Starting with the next major version, 6.0.0, you will only be able to use the Go SDK from module-based code.
+
+</CalloutDescription>
 </Callout>
 
 As described below, the SDK is now made up of multiple repositories. If you do not use modules and you have pinned your dependency versions, when you update the SDK to a new version you should also update any other `github.com/launchdarkly` or `gopkg.in/launchdarkly` dependencies that were previously pinned. This is not required if you use modules, since the SDK can specify its own preferred dependency versions.
@@ -80,6 +84,8 @@ The basic areas of functionality are "data source" (polling, streaming, or file 
 The data source is the mechanism that the SDK uses to receive feature flag updates. Typically this is a streaming connection, but you can also configure the SDK to use polling or other sources.
 
 For each data source type, there is a factory method whose name ends in `DataSource`. These methods give you a builder object with methods for whatever options are appropriate. Store that object in [`Config.DataSource`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config.DataSource).
+
+Here is an example:
 
 <CodeTabs
   defaultValue="sdk4"
@@ -145,7 +151,7 @@ Also, the integrations for Redis, DynamoDB, and Consul are no longer bundled in 
 
 To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
-The following examples use the Redis integration.
+The following examples use the Redis integration:
 
 <CodeTabs
   defaultValue="sdk4"
@@ -197,6 +203,8 @@ config.DataStore = ldcomponents.PersistentDataStore(
 Analytics events are enabled by default. To customize their behavior, call [`ldcomponents.SendEvents()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#SendEvents) to get a builder object with event-related options, and then put that object in [`Config.Events`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config.Events).
 
 To completely disable events, set [`Config.Events`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config.Events) to [`ldcomponents.NoEvents()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#NoEvents).
+
+Here's how:
 
 <CodeTabs
   defaultValue="sdk4"
@@ -262,6 +270,8 @@ The SDK still uses the [`ldlog`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk
 
 However, for basic logging configuration, such as specifying the minimum log level or disabling logging, you no longer need to interact directly with the `ldlog.Loggers` type. Instead, there is a new [`Logging`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config.Logging) property in `Config` which you can set to either [`ldcomponents.NoLogging()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#NoLogging) or to a configuration builder that you get from [`ldcomponents.Logging()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#Logging).
 
+Here is an example:
+
 <CodeTabs
   defaultValue="sdk4"
   values={[
@@ -315,6 +325,8 @@ config.Logging = ldcomponents.Logging().LogEvaluationErrors(true)
 ### Understanding changes to networking configuration
 
 Options in this category affect how the SDK communicates with LaunchDarkly over HTTP/HTTPS, including connection timeout, proxy servers, and more. If you need to customize these, call [`ldcomponents.HTTPConfiguration()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#HTTPConfiguration) to get a builder object, configure this builder, and then put that object in [`Config.HTTP`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config.HTTP).
+
+Here's how:
 
 <CodeTabs
   defaultValue="sdk4"
@@ -372,6 +384,8 @@ Before [Go SDK 4.16](https://github.com/launchdarkly/go-server-sdk/releases/tag/
 Version 4.16 added the `UserBuilder` type as a safer and more convenient way to define user properties. As of version 5.0, this is the only way, if you need to use the full set of properties. The `NewUser` and `NewAnonymousUser` constructors still exist for simple users. The `User` struct no longer has any exported fields and cannot be modified by application code after it is built. It now has getter methods like `GetName()` if you need to inspect existing property values.
 
 The 5.0 [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User) and [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder) types, and the [`NewUser()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#NewUser), [`NewAnonymousUser()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#NewAnonymousUser), and [`NewUserBuilder()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#NewUserBuilder) functions, are now in `gopkg.in/launchdarkly/go-sdk-common.v2/lduser` instead of `gopkg.in/launchdarkly/go-server-sdk.v4`.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="sdk400"
@@ -469,6 +483,8 @@ As of version 5.0, these are the only options. `interface{}` is no longer used i
 
 The [`Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value) type for the 5.0 SDK is now in `gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue` instead of `gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue`.
 
+Here is an example:
+
 <CodeTabs
   defaultValue="sdk400"
   values={[
@@ -561,6 +577,8 @@ We have modified them in two ways:
 1. `EvaluationReason` is now a struct rather than an interface. Instead of casting it to another type such as `EvaluationReasonRuleMatch` to get specific properties, it provides getter methods for those properties.
 2. The `VariationIndex` property of `EvaluationDetail` was previously a pointer of type `*int`, which would be `nil` if evaluation failed. This was unsafe due to mutability and the potential for nil pointer panics. It now uses the immutable type [`ldvalue.OptionalInt`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#OptionalInt) instead, which allows an "undefined" value to be represented without using pointers.
 
+Here is an example:
+
 <CodeTabs
   defaultValue="sdk4"
   values={[
@@ -635,7 +653,7 @@ You can use it in:
 * **proxy mode**, connecting to it via HTTP/HTTPS just as if it were the LaunchDarkly service
 * **daemon mode**, receiving flag data only through a database.
 
-The syntax for configuring these has changed in version 5.0.
+The syntax for configuring these has changed in version 5.0:
 
 <CodeTabs
   defaultValue="sdk4"

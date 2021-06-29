@@ -15,6 +15,8 @@ For all of these features, there are two ways you can provide the polyfill scrip
 
 One is to load it directly from a CDN that hosts the package, with a `<script>` tag within the `<head>` element of your page. Note that you must put the `<script>` tag for the polyfill _before_ any scripts that make use of the LaunchDarkly SDK.
 
+Here is how to load it directly from a CDN:
+
 <CodeTabs
   defaultValue="html"
   values={[
@@ -67,8 +69,10 @@ require('package-name-of-polyfill');
 You only need to use one of these methods—CDN or package manager—not both.
 
 ## Promise
+
 The SDK relies heavily on JavaScript Promises. [Browsers that do not support Promise](https://caniuse.com/#search=Promise) include Internet Explorer and older versions of Microsoft Edge. If you need to support these browsers, you will need to install a polyfill for Promise, such as [es6-promise.](https://github.com/stefanpenner/es6-promise)
 
+To install a polyfill for Promise:
 
 <CodeTabs
   defaultValue="html"
@@ -110,6 +114,8 @@ The SDK uses [`EventSource`](https://developer.mozilla.org/en-US/docs/Web/API/Ev
 
 It is widely available in browsers, [except for Internet Explorer and Microsoft Edge](https://caniuse.com/#search=EventSource). If you want to support these, and you need streaming support, you can install a polyfill such as [event-source-polyfill](https://github.com/Yaffle/EventSource).
 
+To install a polyfill:
+
 <CodeTabs
   defaultValue="html"
   values={[
@@ -147,10 +153,11 @@ require('event-source-polyfill');
 
 ## Document.querySelectorAll()
 
-
 The SDK uses `querySelectorAll` to support click events for A/B testing. **If you never use click goals, you do not need `querySelectorAll`.**
 
 It is widely available in browsers, [except in old versions of Internet Explorer](https://caniuse.com/#feat=queryselector). If you want to support these, and you need A/B testing support, you can install a polyfill such as [polyfill-queryselector](https://github.com/cobbdb/polyfill-queryselector).
+
+To install a polyfill:
 
 <CodeTabs
   defaultValue="html"

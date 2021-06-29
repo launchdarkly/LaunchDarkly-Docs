@@ -15,8 +15,7 @@ Building on top of our [Getting Started guide](/home/getting-started), the follo
 
 We provide releases on [GitHub](https://github.com/launchdarkly/roku-client-sdk/releases). Download the latest release and extract the provided files into your source tree. You may need to rename the paths inside `LaunchDarklyTask.xml` depending on your project structure.
 
-For SceneGraph usage add a `LaunchDarklyTask` node to your scene and then:
-
+For SceneGraph usage add a `LaunchDarklyTask` node to your scene and then: <--And then what? What's happening in this code sample? TKTK
 
 <CodeTabs
   defaultValue="brightscript"
@@ -46,6 +45,8 @@ LaunchDarklySGInit(config, user)
 
 For each SceneGraph component you want to use the SDK in you need to initialize an interface to talk to the SceneGraph. This interface provides all the expected client functionality such as evaluation.
 
+Here's how:
+
 <CodeTabs
   defaultValue="brightscript"
   values={[
@@ -67,6 +68,8 @@ value = launchDarkly.boolVariation("MY_FLAG_KEY", false)
 </CodeTabs>
 
 Creating a client outside of the SceneGraph API is similar. In the legacy API you do not need `LaunchDarklySGInit` or the `LaunchDarklySG` functions.
+
+Here's how:
 
 <CodeTabs
   defaultValue="brightscript"
@@ -102,7 +105,7 @@ value = launchDarkly.boolVariation("MY_FLAG_KEY", false)
 </CodeTabItem>
 </CodeTabs>
 
-If not using the SceneGraph you need to poll events to drive the client in your standard event loop.
+If not using the SceneGraph you need to poll events to drive the client in your standard event loop:
 
 <CodeTabs
   defaultValue="brightscript"

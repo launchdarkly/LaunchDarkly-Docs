@@ -22,14 +22,14 @@ To use the C/C++ SDK, you must have the following prerequisites:
 * (POSIX environments) `libpthread`
 
 <Callout intent="info">
-  <CalloutTitle>Use this SDK only in desktop and embedded client applications</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Use this SDK only in desktop and embedded client applications</CalloutTitle>
+<CalloutDescription>
 
-  This SDK is intended for use in *single-user* desktop and embedded applications. If you have a C/C++ application and want to set up LaunchDarkly on the server-side, read the [C/C++ server-side SDK reference](/sdk/server-side/c-c--).
+This SDK is intended for use in *single-user* desktop and embedded applications. If you have a C/C++ application and want to set up LaunchDarkly on the server-side, read the [C/C++ server-side SDK reference](/sdk/server-side/c-c--).
 
-  To learn more about LaunchDarkly's different SDK types, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+To learn more about LaunchDarkly's different SDK types, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Configuring the SDK
@@ -71,7 +71,7 @@ Here's how to install the SDK:
 </CodeTabs>
 
 5. Create a single shared instance of `LDClient`.
-6. Specify your *mobile key* to authorize your application to connect to LaunchDarkly for the associated project and environment.
+6. Specify your *mobile key* to authorize your application to connect to LaunchDarkly for the associated project and environment:
 
 <CodeTabs
   defaultValue="c"
@@ -105,7 +105,7 @@ LDClientCPP *client = LDClientCPP::Init(config, user, maxwaitmilliseconds);
 </CodeTabs>
 
 <Callout intent="alert">
-  <CalloutTitle>Use a mobile key, not a server-side SDK key.</CalloutTitle>
+<CalloutTitle>Use a mobile key, not a server-side SDK key.</CalloutTitle>
 <CalloutDescription>
 
 Only use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into an embedded or desktop application. To learn more, read [Keys](/sdk/concepts/client-side-server-side#keys).
@@ -143,7 +143,7 @@ LDSetClientStatusCallback(initCallback);
 </CodeTabItem>
 </CodeTabs>
 
-2. Use `client` to check which variation a specific user should receive for a certain feature flag.
+2. Use `client` to check which variation a specific user should receive for a certain feature flag:
 
 <CodeTabs
   defaultValue="c"

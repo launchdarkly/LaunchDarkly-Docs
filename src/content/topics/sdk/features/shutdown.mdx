@@ -29,6 +29,8 @@ This feature is available in the following client-side SDKs:
 
 To fully uninitialize the C/C++ SDK resources, you must use `close`. The operation blocks until all resources are free. It is not safe to use any API methods after this process is initiated.
 
+To shut down:
+
 <CodeTabs
   defaultValue="c"
   values={[
@@ -57,6 +59,8 @@ client->close();
 ### Xamarin
 
 `Dispose` safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `dispose`.
+
+To shut down:
 
 <CodeTabs
   defaultValue="csharp"
@@ -90,6 +94,8 @@ This feature is available in the following server-side SDKs:
 
 [`Dispose`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Dispose_) safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `Dispose`.
 
+To shut down:
+
 <CodeTabs
   defaultValue="csharp"
   values={[
@@ -108,6 +114,8 @@ ldClient.Dispose();
 ### C/C++ (server-side)
 
 `LDClientClose` uninitializes the resources the C/C++ SDK uses. The operation blocks until all resources are free. It is not safe to use any API methods after this process is initiated.
+
+To shut down:
 
 <CodeTabs
   defaultValue="c"
@@ -131,6 +139,8 @@ LDClientClose(client);
 In most long-running applications, you will not have to call these functions. You can use them to ensure all events have been flushed synchronously before closing your application.
 
 Do not evaluate flags after any of these functions have been initiated.
+
+To shut down:
 
 <CodeTabs
   defaultValue="erlang"
@@ -161,6 +171,8 @@ In most long-running applications, you do not have to call `close`, but you can 
 
 You should not evaluate flags after `close` has been initiated.
 
+To shut down:
+
 <CodeTabs
   defaultValue="haskell"
   values={[
@@ -179,6 +191,8 @@ close client
 ### Java
 
 [`Close`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#close--) safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `close`.
+
+To shut down:
 
 <CodeTabs
   defaultValue="java"
@@ -199,6 +213,8 @@ ldClient.close()
 
 `Close` safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `close`.
 
+To shut down:
+
 <CodeTabs
   defaultValue="js"
   values={[
@@ -217,6 +233,8 @@ ldClient.close();
 ### Python
 
 `Close` safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `close`.
+
+To shut down:
 
 <CodeTabs
   defaultValue="py"

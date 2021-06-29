@@ -13,6 +13,8 @@ Building on top of our [Getting Started guide](/home/getting-started), the follo
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/python-server-sdk/releases) to identify the latest version if you want to depend on a specific version.
 
+Here's how:
+
 <CodeTabs
   defaultValue="py"
   values={[
@@ -28,7 +30,7 @@ pip install launchdarkly-server-sdk
 </CodeTabItem>
 </CodeTabs>
 
-Next you should import the LaunchDarkly client in your application code.
+Next you should import the LaunchDarkly client in your application code:
 
 <CodeTabs
   defaultValue="py"
@@ -48,6 +50,8 @@ from ldclient.config import Config
 
 Once the SDK is installed and imported, you'll want to create a single, shared instance of `ldclient`. The `get()` function enforces the singleton pattern; you should only have one instance of the client in your application. You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
 
+To create a single instance:
+
 <CodeTabs
   defaultValue="py"
   values={[
@@ -64,7 +68,7 @@ ld_client = ldclient.get()
 </CodeTabItem>
 </CodeTabs>
 
-Using `ld_client`, you can check which variation a particular user should receive for a given feature flag.
+Using `ld_client`, you can check which variation a particular user should receive for a given feature flag:
 
 <CodeTabs
   defaultValue="py"
@@ -87,6 +91,8 @@ else:
 </CodeTabs>
 
 Lastly, when your application is about to terminate, shut down `ld_client`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+
+Here's how:
 
 <CodeTabs
   defaultValue="py"

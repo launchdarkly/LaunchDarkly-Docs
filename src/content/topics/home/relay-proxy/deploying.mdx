@@ -13,8 +13,8 @@ This topic explains how to deploy and start the Relay Proxy.
 
 You can deploy the Relay Proxy in one of three ways. In order from most common to least common uses, the methods are:
 
-* starting the Relay Proxy from a Docker image, 
-* starting the Relay Proxy after downloading a release binary, or 
+* starting the Relay Proxy from a Docker image,
+* starting the Relay Proxy after downloading a release binary, or
 * starting the Relay Proxy after building it from source.
 
 ### Starting the Relay Proxy from a Docker image
@@ -42,14 +42,14 @@ To deploy the Relay Proxy with Docker:
 
 2. Use `docker run` to run the Relay Proxy from your Docker container while specifying your configuration details.
 
-  The simplest way to specify the configuration is with environment variables, using the `-e` option of `docker run`. An example configuration that uses environment variables appears below.
-  
-  For examples and a full list of allowable variables, read the documentation in the GitHub repository on [Using with Docker](https://github.com/launchdarkly/ld-relay/blob/v6/docs/docker.md) and [Configuration](https://github.com/launchdarkly/ld-relay/blob/v6/docs/configuration.md).
+The simplest way to specify the configuration is with environment variables, using the `-e` option of `docker run`. An example configuration that uses environment variables appears below.
 
-In the following example, the Relay Proxy is configured to have two LaunchDarkly environments. 
+For examples and a full list of allowable variables, read the documentation in the GitHub repository on [Using with Docker](https://github.com/launchdarkly/ld-relay/blob/v6/docs/docker.md) and [Configuration](https://github.com/launchdarkly/ld-relay/blob/v6/docs/configuration.md).
 
-For the first environment, the SDK key is `staging-sdk-key`, and the environment name (for the purposes of logging) is `Staging`. For the second environment, the SDK key is `prod-sdk-key`, and the environment name is `Production`. 
-  
+In the following example, the Relay Proxy is configured to have two LaunchDarkly environments.
+
+For the first environment, the SDK key is `staging-sdk-key`, and the environment name (for the purposes of logging) is `Staging`. For the second environment, the SDK key is `prod-sdk-key`, and the environment name is `Production`.
+
 In this example, the Relay Proxy is configured to listen on port 5000.
 
 The example configuration follows:
@@ -121,7 +121,7 @@ The command will take a while to finish. To see more information about its progr
 
 When the command has finished, the executable binary `ld-relay` will be in `$GOPATH/bin`. You can move it to any other location.
 
-When you execute the binary, you must tell the Relay Proxy about your desired configuration. You can do this either with a configuration file or environment variables. 
+When you execute the binary, you must tell the Relay Proxy about your desired configuration. You can do this either with a configuration file or environment variables.
 
 ### Using a configuration file
 
@@ -168,7 +168,7 @@ To use a configuration file:
 
   To learn more about the supported configuration options, visit the [Relay Proxy GitHub repository](https://github.com/launchdarkly/ld-relay/blob/v6/docs/configuration.md).
 
-2. Run the Relay Proxy binary while passing an argument to identify your configuration file's location. The following example assumes that the configuration file is in your current directory and named `ld-relay.conf`, and that the `ld-relay` binary is in `$GOPATH/bin`. 
+2. Run the Relay Proxy binary while passing an argument to identify your configuration file's location. The following example assumes that the configuration file is in your current directory and named `ld-relay.conf`, and that the `ld-relay` binary is in `$GOPATH/bin`.
 
 Run the following code:
 
@@ -194,7 +194,7 @@ The other way to configure your Relay Proxy is with environment variables. This 
 
 To use environment variables:
 
-1. Confirm that all of your Relay Proxy configuration values are specified with the appropriate environment variables. 
+1. Confirm that all of your Relay Proxy configuration values are specified with the appropriate environment variables.
 
   For example, to specify the SDK key for an environment named `MyEnvName`:
 

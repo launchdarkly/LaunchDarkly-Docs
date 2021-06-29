@@ -15,6 +15,8 @@ Follow the steps below to get started using the LaunchDarkly SDK in your Haskell
 
 The root module of the SDK `LaunchDarkly.Server` re-exports the entire project. That's all that you need to start.
 
+Here is an example:
+
 <CodeTabs
   defaultValue="haskell"
   values={[
@@ -30,9 +32,9 @@ import LaunchDarkly.Server
 </CodeTabItem>
 </CodeTabs>
 
-After you import and install the SDK, create a single shared instance of `Client`.
+After you import and install the SDK, create a single shared instance of `Client`. Specify your SDK key to authorize your application to connect to LaunchDarkly for a particular environment.
 
-Specify your SDK key here to authorize your application to connect to LaunchDarkly for a particular environment.
+Here's how:
 
 <CodeTabs
   defaultValue="haskell"
@@ -59,7 +61,7 @@ Make `client` a singleton. The client instance maintains an internal state that 
 </CalloutDescription>
 </Callout>
 
-Using `client`, you can check which variation a particular user should receive for a given feature flag.
+Using `client`, you can check which variation a particular user should receive for a given feature flag:
 
 <CodeTabs
   defaultValue="haskell"

@@ -16,17 +16,19 @@ The debugger gives you real-time insight into the events your application is sen
 The debugger shows you a real-time stream of events arriving in LaunchDarkly from your app. When you first open the debugger, it connects to the event stream to show live events as they appear. Establishing the connection can take up to 30 seconds. In high-volume environments, you may see sampled events, rather than 100% of events.
 
 <Callout intent="info">
-  <CalloutTitle>The debugger must be visible to work</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>The debugger must be visible to work</CalloutTitle>
+<CalloutDescription>
 
 The debugger does not display events when it is not the active tab in your browser. Leave it open and visible to see events as they occur. If you need to click around in your app to generate events, open the app in a second window.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Flag events
 
 The debugger displays evaluation counts and variation breakdowns for each flag evaluated since you opened the debugger. Click on a flag or select it from the dropdown to access individual event information.
+
+Here is an image of the debugger:
 
 ![The debugger.](../../images/debugger-flag-events.png)
 
@@ -38,7 +40,9 @@ This will temporarily enables detailed events for that flag, which appear as the
 <Callout intent="alert">
 <CalloutTitle>Older SDK versions send detailed events for every evaluation</CalloutTitle>
 <CalloutDescription>
+
 The minimum required version for each platform SDK to use summary events is:
+
 - .NET: 5.0.0
 - Go: 4.0.0
 - Java: 4.0.0
@@ -48,7 +52,8 @@ The minimum required version for each platform SDK to use summary events is:
 - JavaScript: 2.0.0
 - Android: 2.4.0
 - iOS: 2.13.0
-- PHP: The PHP SDK does not itself support summary events. However, when PHP is used with LD Relay, the LD Relay event forwarding mode has the ability to turn the events received from the PHP SDK into summary events. This requires that you are using PHP SDK version 3.1.0 or higher. LD Relay: If you are using LD Relay with PHP you will need to upgrade LD Relay to version 4.0.0 or higher. Other SDKs do not require an LD Relay update to use summary events.
+- PHP: The PHP SDK does not itself support summary events. However, when PHP is used with LD Relay, the LD Relay event forwarding mode has the ability to turn the events received from the PHP SDK into summary events. This requires that you are using PHP SDK version 3.1.0 or higher. If you are using LD Relay with PHP you will need to upgrade LD Relay to version 4.0.0 or higher. Other SDKs do not require an LD Relay update to use summary events.
+
 </CalloutDescription>
 </Callout>
 
@@ -62,6 +67,8 @@ There are three types of user events:
 
 Click on a user to see individual event information.
 
+Here is an image of user events in the debugger:
+
 ![The debugger, showing user events.](../../images/debugger-user-events.png)
 
 
@@ -69,10 +76,12 @@ Click on a user to see individual event information.
 
 Experimentation events only display for customers who have Experimentation enabled. To learn more, read [Experimentation](/home/experimentation).
 
+Here is an image of the Experimentation events tab:
+
 ![The Experimentation events tab.](../../images/debugger-experimentation-events.png)
 
 
-There are three types of experiment events.
+There are three types of experiment events:
 
 - **Click** events
 - **Page view** events

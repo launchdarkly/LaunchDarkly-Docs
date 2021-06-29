@@ -20,7 +20,7 @@ This reference guide documents all of the methods available in the Android SDK, 
 
 Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your Android application.
 
-To get started, declare a dependency on the LaunchDarkly Android SDK.
+To get started, declare a dependency on the LaunchDarkly Android SDK:
 
 <CodeTabs
   defaultValue="java"
@@ -40,17 +40,15 @@ implementation 'com.launchdarkly:launchdarkly-android-client-sdk:3.0.0'
 The SDK uses [AndroidX from Jetpack](https://developer.android.com/jetpack/androidx). For projects not currently using AndroidX, a migration guide is available [here](https://developer.android.com/jetpack/androidx/migrate).
 
 <Callout intent="info">
-  <CalloutTitle>ProGuard / R8</CalloutTitle>
+<CalloutTitle>ProGuard / R8</CalloutTitle>
 <CalloutDescription>
 
-
-If you use ProGuard or R8, the configuration for the Android SDK should be automatically included from the `aar` artifact. If this is not the case for your build, include the Proguard configuration lines from [consumer-proguard-rules.pro](https://github.com/launchdarkly/android-client-sdk/blob/master/launchdarkly-android-client-sdk/consumer-proguard-rules.pro)
-into your proguard file.
+If you use ProGuard or R8, the configuration for the Android SDK should be automatically included from the `aar` artifact. If this is not the case for your build, include the Proguard configuration lines from [consumer-proguard-rules.pro](https://github.com/launchdarkly/android-client-sdk/blob/master/launchdarkly-android-client-sdk/consumer-proguard-rules.pro) into your proguard file.
 
 </CalloutDescription>
 </Callout>
 
-Next, import the LaunchDarkly client in your application code.
+Next, import the LaunchDarkly client in your application code:
 
 <CodeTabs
   defaultValue="java"
@@ -80,6 +78,8 @@ import com.launchdarkly.sdk.android.*
 Once the SDK is installed, create a single, shared instance of `LDClient`. Specify your mobile key here so that your application is authorized to connect to LaunchDarkly and retrieve flag values for your application and environment.
 
 The following example shows the simplest way to create the client. It will block for up to five seconds until the latest feature flags are retrieved from LaunchDarkly.
+
+Here is how to create the client:
 
 <CodeTabs
   defaultValue="java"
@@ -122,9 +122,8 @@ val ldClient: LDClient = LDClient.init(application, ldConfig, user, 5)
 </CodeTabs>
 
 <Callout intent="info">
-  <CalloutTitle>Use a mobile key</CalloutTitle>
+<CalloutTitle>Use a mobile key</CalloutTitle>
 <CalloutDescription>
-
 
 Use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into an embedded or desktop application.
 
@@ -132,6 +131,8 @@ Use a mobile key from your [Environments](https://app.launchdarkly.com/settings#
 </Callout>
 
 However, calling blocking code from the main thread in an Android app is not a best practice. The preferred method is shown below. It allows you to use the client immediately. Flags from the previous launch of the app are stored on the device and retrieved for immediate use. The client still connects in the background and continually updates itself with the latest flags.
+
+Here is the preferred method:
 
 <CodeTabs
   defaultValue="java"
@@ -157,7 +158,7 @@ val ldClient: LDClient = LDClient.init(application, ldConfig, user, 0)
 </CodeTabItem>
 </CodeTabs>
 
-Using `ldClient`, you can check which variation a particular user receives for a given feature flag.
+Using `ldClient`, you can check which variation a particular user receives for a given feature flag:
 
 <CodeTabs
   defaultValue="java"
@@ -196,6 +197,8 @@ else {
 </CodeTabs>
 
 When your application is about to terminate, shut down `ldClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. This is something you only need to do once.
+
+To shut down the client:
 
 <CodeTabs
   defaultValue="java"

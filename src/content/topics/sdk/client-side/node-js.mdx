@@ -8,22 +8,25 @@ published: true
 This reference guide documents all of the methods available in the client-side Node.js SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Client-Side Node.js SDK GitHub repository](https://github.com/launchdarkly/node-client-sdk). The online [API docs](https://launchdarkly.github.io/node-client-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-node-client) using this SDK.
 
 <Callout intent="info">
-  <CalloutTitle>For use in desktop or Node-enabled device applications only</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>For use in desktop or Node-enabled device applications only</CalloutTitle>
+<CalloutDescription>
 
-  This SDK is intended for use in *single-user* desktop or Node-enabled device applications. If you have a Node.js application and are looking to set up LaunchDarkly on the server-side, head to our [Node.js SDK reference](/sdk/server-side/node-js). If you are using Electron, there is an [Electron SDK](/sdk/client-side/electron) more specifically designed for that environment.
+This SDK is intended for use in *single-user* desktop or Node-enabled device applications. If you have a Node.js application and are looking to set up LaunchDarkly on the server-side, head to our [Node.js SDK reference](/sdk/server-side/node-js). If you are using Electron, there is an [Electron SDK](/sdk/client-side/electron) more specifically designed for that environment.
 
-  To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 This SDK is closely related to the [browser JavaScript SDK](/sdk/client-side/javascript) and has almost exactly the same API, but does not have any browser-specific functionality, and adds several features specific to Node.
 
 ## Getting started
+
 Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your Node.js code.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager.
+
+Here's how:
 
 <CodeTabs
   defaultValue="npm"
@@ -48,7 +51,7 @@ yarn add launchdarkly-node-client-sdk
 </CodeTabItem>
 </CodeTabs>
 
-Next you should import the LaunchDarkly client in your application code.
+Next, import the LaunchDarkly client in your application code:
 
 <CodeTabs
   defaultValue="js"
@@ -90,7 +93,9 @@ const ldClient = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user);
 </CodeTabItem>
 </CodeTabs>
 
-The client will emit a `ready` event when it has been initialized (you can also use the `waitForInitialization()` method, which returns a Promise). Once it has been initialized, you can safely call `variation` to access your feature flags. (Note that the `ready` event is only emitted once, when the client first initializes. In a production application, your calls to `ldClient.variation` would normally not be inside of this event handler.)
+The client will emit a `ready` event when it has been initialized. You can also use the `waitForInitialization()` method, which returns a Promise. Once it has been initialized, you can safely call `variation` to access your feature flags. The `ready` event is only emitted once, when the client first initializes. In a production application, your calls to `ldClient.variation` would normally not be inside of this event handler.
+
+To emit a `ready` event:
 
 <CodeTabs
   defaultValue="js"
@@ -118,7 +123,7 @@ ldClient.on('ready', () => {
 </CodeTabs>
 
 <Callout intent="info">
-  <CalloutTitle>Streaming updates</CalloutTitle>
+<CalloutTitle>Streaming updates</CalloutTitle>
 <CalloutDescription>
 
 The SDK does not subscribe to streaming real-time updates automatically when it is initialized. Setting the `streaming` option to `true` in the client configuration causes the SDK to open a streaming connection to LaunchDarkly and receive live feature flag updates. You can also specify an event handler with `ldClient.on('change')` to be notified immediately when a flag changes.
@@ -127,7 +132,7 @@ The SDK does not subscribe to streaming real-time updates automatically when it 
 </Callout>
 
 <Callout intent="alert">
-  <CalloutTitle>Making feature flags available to the client-side SDK</CalloutTitle>
+<CalloutTitle>Making feature flags available to the client-side SDK</CalloutTitle>
 <CalloutDescription>
 
 Feature flags must be marked available to the client-side SDK (see your feature flag's settings page) before they can be used in `variation` calls on the front-end. If you request a feature flag that is not available, you'll receive the default value for that flag. If you always want flags marked as available to the client-side SDK by default, you can check the "Make new flags available to the client-side (JavaScript) SDK by default" in your [project settings](https://app.launchdarkly.com/settings#/projects).
@@ -136,6 +141,8 @@ Feature flags must be marked available to the client-side SDK (see your feature 
 </Callout>
 
 Lastly, when your application is about to terminate, shut down `ldClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+
+Here's how:
 
 <CodeTabs
   defaultValue="js"

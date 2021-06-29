@@ -6,7 +6,7 @@ published: true
 ---
 
 <Callout intent="alert">
-  <CalloutTitle>Swift and Objective-C compatibility</CalloutTitle>
+<CalloutTitle>Swift and Objective-C compatibility</CalloutTitle>
 <CalloutDescription>
 
 This documentation is for the latest version of the LaunchDarkly SDK for iOS.
@@ -34,7 +34,7 @@ If you use the [Swift Package Manager](https://swift.org/package-manager/), you 
 
 To add a package dependency to your Xcode project, select `File > Swift Packages > Add Package Dependency` and enter the [iOS SDK repository URL](https://github.com/launchdarkly/ios-client-sdk) clone URL, then select your desired version constraints.
 
-Including the SDK as a dependency in a `Package.swift` file would look like this:
+Including the SDK as a dependency in a `Package.swift` file looks like this:
 
 <CodeTabs
   defaultValue="swift"
@@ -66,6 +66,8 @@ Including the SDK as a dependency in a `Package.swift` file would look like this
 
 If you use [CocoaPods](https://cocoapods.org/), you can install the SDK by adding the following to your `Podfile`. Refer to the [SDK releases page](https://github.com/launchdarkly/ios-client-sdk/releases) to identify the latest version.
 
+Here is the code to add to your `Podfile`:
+
 <CodeTabs
   defaultValue="ruby"
   values={[
@@ -89,6 +91,8 @@ end
 <br/>
 
 If you use [Carthage](https://github.com/Carthage/Carthage), you can install the SDK by specifying it in your `Cartfile`. Again, refer to the [SDK releases page](https://github.com/launchdarkly/ios-client-sdk/releases) to identify the latest version.
+
+Here is the code to include in your `Cartfile`:
 
 <CodeTabs
   defaultValue="swift"
@@ -119,7 +123,7 @@ This is a brief overview of using the SDK, see the detailed sections below for m
 ---
 <br/>
 
-First import the LaunchDarkly client in your application code.
+First import the LaunchDarkly client in your application code:
 
 <CodeTabs
   defaultValue="swift"
@@ -151,13 +155,15 @@ import LaunchDarkly
 Now that the SDK is imported, it can be configured and initialized. You should specify your *mobile key* when configuring the SDK so that your application will be authorized to connect to LaunchDarkly, retrieve flags for your environment, and report events.
 
 <Callout intent="alert">
-  <CalloutTitle>Mobile Keys</CalloutTitle>
+<CalloutTitle>Mobile Keys</CalloutTitle>
 <CalloutDescription>
 
-Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into a mobile application.
+Use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into a mobile application.
 
 </CalloutDescription>
 </Callout>
+
+Here is how to specify your *mobile key*:
 
 <CodeTabs
   defaultValue="swift"
@@ -211,7 +217,7 @@ LDUser *user = [[LDUser alloc] initWithKey:@"test-user"];
 ---
 <br/>
 
-After calling `start`, the `LDClient` instance can be retrieved with the static method `LDClient.get()`.
+After calling `start`, the `LDClient` instance can be retrieved with the static method `LDClient.get()`:
 
 <CodeTabs
   defaultValue="swift"
@@ -240,7 +246,7 @@ LDClient *ldClient = [LDClient get];
 ---
 <br/>
 
-Using the `LDClient` instance, you can check which variation the configured user should receive for a given feature flag.
+Using the `LDClient` instance, you can check which variation the configured user should receive for a given feature flag:
 
 <CodeTabs
   defaultValue="swift"
@@ -281,6 +287,8 @@ if (showFeature) {
 <br/>
 
 Lastly, when your application is about to terminate, shut down the `LDClient` instance. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do one time**.
+
+Here is how to shut down the `LDClient` instance:
 
 <CodeTabs
   defaultValue="swift"

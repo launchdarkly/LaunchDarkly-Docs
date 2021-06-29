@@ -11,7 +11,7 @@ published: true
 
 Single sign-on is available to customers on an Enterprise plan. It is available to customers on Starter and Pro plans as an add-on. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Overview
@@ -19,12 +19,12 @@ Single sign-on is available to customers on an Enterprise plan. It is available 
 This topic explains what Single Sign-On (SSO) features are available in LaunchDarkly and how to configure your environment for SSO.
 
 <Callout intent="primary">
-  <CalloutTitle>Single sign-on and user provisioning are Enterprise features</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Single sign-on and user provisioning are Enterprise features</CalloutTitle>
+<CalloutDescription>
 
 Single sign-on and user provisioning are available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 SSO allows your team to authenticate with LaunchDarkly using the same identity provider (IdP) you use for your other internal and external services. LaunchDarkly implements SSO with the SAML 2.0 protocol. Administrators can use SSO with their IdP to manage access rights in LaunchDarkly. After SSO is enabled, administrators can also enable System for Cross-domain Identity Management (SCIM) provisioning through their IdP.
@@ -33,19 +33,23 @@ SSO allows your team to authenticate with LaunchDarkly using the same identity p
 
 If you're a LaunchDarkly administrator or account owner, you can configure LaunchDarkly to use your IdP for team member authentication.
 
+To do this:
+
 1. Log in to LaunchDarkly as an administrator or account owner.
-2. Navigate to the [Security tab](https://app.launchdarkly.com/settings/security) on the Account Settings page.
+2. Navigate to the [Security tab](https://app.launchdarkly.com/settings/security) on the Account Settings page:
 
 ![The Team Management section of the Security tab.](../../../images/settings-security-enable-sso.png)
 
 
-3. Click **Configure SAML**. The SAML configuration screen appears, pre-populated with information you need to set up LaunchDarkly as a SAML application with your identity provider.
+3. Click **Configure SAML**. The SAML configuration screen appears, pre-populated with information you need to set up LaunchDarkly as a SAML application with your identity provider:
 
 ![The SAML configuration screen.](../../../images/settings-security-saml-config.png)
 
 You cannot complete SAML configuration without configuration details from your IdP.
 
 ## Configuring an External IdP
+
+This table lists our External IdP providers:
 
 <Table>
   <TableHeader>
@@ -241,20 +245,24 @@ LaunchDarkly automatically creates accounts for new team members who sign in thr
 You can configure your identity provider to send the following attributes when the team member is signing into LaunchDarkly. Each attribute is optional and can also be managed from LaunchDarkly. Attribute names should be specified using "basic" format.
 
 <Callout intent="info">
-  <CalloutTitle>First-time users must sign into LaunchDarkly through your IdP</CalloutTitle>
-  <CalloutDescription>
-    New team members will not be able to sign in from LaunchDarkly's login screen until they have accessed LaunchDarkly through your IdP at least once.
-  </CalloutDescription>
+<CalloutTitle>First-time users must sign into LaunchDarkly through your IdP</CalloutTitle>
+<CalloutDescription>
+
+New team members will not be able to sign in from LaunchDarkly's login screen until they have accessed LaunchDarkly through your IdP at least once.
+
+</CalloutDescription>
 </Callout>
 
 
 ## NameID field formatting
 
 <Callout intent="alert">
-  <CalloutTitle>Only use email addresses in the NameID field</CalloutTitle>
-  <CalloutDescription>
-    LaunchDarkly only supports the use of email addresses in the NameID field. Do not use other types of identifying strings.
-  </CalloutDescription>
+<CalloutTitle>Only use email addresses in the NameID field</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly only supports the use of email addresses in the NameID field. Do not use other types of identifying strings.
+
+</CalloutDescription>
 </Callout>
 
 See below for an example of what your SSO provider should be providing LaunchDarkly:
@@ -263,7 +271,7 @@ See below for an example of what your SSO provider should be providing LaunchDar
 
 ## Custom attributes
 
-These attributes are available for both SSO provisioning and SCIM provisioning.
+These attributes are available for both SSO provisioning and SCIM provisioning:
 
 <Table>
   <TableHeader>
@@ -307,7 +315,7 @@ To use SSO in test-drive mode:
 
 1. Log into LaunchDarkly as an administrator.
 2. Navigate to the Team Management screen.
-3. Click **Simulate SSO**. This performs the same authentication request flow that occurs for LaunchDarkly-initiated SSO logins.
+3. Click **Simulate SSO**. This performs the same authentication request flow that occurs for LaunchDarkly-initiated SSO logins:
 
 ![The test-drive enablement option.](../../../images/settings-security-sso-test-drive.png)
 
@@ -321,7 +329,7 @@ To enable SSO:
 1. Log in to LaunchDarkly as an administrator or account owner.
 2. Navigate to the [Security tab](https://app.launchdarkly.com/settings/security) on the Account Settings page.
 3. Click **Enable SSO**. A confirmation screen appears.
-4. Click **Enable**.
+4. Click **Enable**:
 
 ![The enable SSO confirmation screen.](../../../images/settings-security-enable-sso-confirm.png)
 
@@ -341,7 +349,7 @@ To disable SSO:
 1. Log in to LaunchDarkly as an administrator or account owner.
 2. Navigate to the [Security tab](https://app.launchdarkly.com/settings/security) on the Account Settings page.
 3. Click **Disable SSO**. A confirmation screen appears.
-4. Click **Disable**.
+4. Click **Disable**:
 
 ![The disable SSO confirmation screen.](../../../images/settings-security-sso-disable.png)
 
@@ -349,10 +357,12 @@ To disable SSO:
 ## Enabling SCIM Provisioning
 
 <Callout>
-  <CalloutTitle>SSO is required</CalloutTitle>
-  <CalloutDescription>
-    You must be a LaunchDarkly administrator and have SSO enabled to complete the following procedure.
-  </CalloutDescription>
+<CalloutTitle>SSO is required</CalloutTitle>
+<CalloutDescription>
+
+You must be a LaunchDarkly administrator and have SSO enabled to complete the following procedure.
+
+</CalloutDescription>
 </Callout>
 
 If you have enabled SSO, you can enable SCIM provisioning as well. SCIM facilitates _user provisioning_, which means your IdP can use it to create update, and deactivate members in LaunchDarkly.
@@ -369,6 +379,6 @@ To disconnect SCIM:
 
 1. Log into LaunchDarkly as an administrator.
 2. Navigate to the Team Management screen.
-3. Click **Disconnect SCIM**.
+3. Click **Disconnect SCIM**:
 
 ![The Disconnect SCIM option.](../../../images/settings-security-scim-disconnect.png)

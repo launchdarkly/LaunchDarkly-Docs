@@ -34,6 +34,8 @@ This feature is available in the following client-side SDKs:
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags. `offline` mode lets you do this easily.
 
+Here's how:
+
 <CodeTabs
   defaultValue="java"
   values={[
@@ -77,6 +79,8 @@ ldClient.setOffline()
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached values for your feature flags for future evaluations. `offline` mode lets you do this easily.
 
+Here's how:
+
 <CodeTabs
   defaultValue="dart"
   values={[
@@ -113,6 +117,8 @@ The SDK does not go online if the client has not been started, or the `mobileKey
 
 Use `isOnline` to get the online/offline state.
 
+Here is an example:
+
 <CodeTabs
   defaultValue="swift"
   values={[
@@ -147,6 +153,8 @@ let connectionStatus = LDClient.get()!.isOnline
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags. Offline mode lets you do this easily.
 
+Here's how:
+
 <CodeTabs
   defaultValue="js"
   values={[
@@ -168,7 +176,9 @@ let onlineResult = client.setOnline(); //true or false
 
 The default (fallback) values are defined in your code. The default value only returns if an error is encountered or if LaunchDarkly is unreachable.
 
-In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. You can do this by setting offline mode in the client's Config. When the client is in offline mode, no network requests will be made, so it is suitable for unit-testing.
+In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. You can do this by setting offline mode in the client's Config. When the client is in offline mode, no network requests will be made, so it is suitable for unit-testing.
+
+Here's how:
 
 <CodeTabs
   defaultValue="csharp"
@@ -207,7 +217,9 @@ This feature is available in the following server-side SDKs:
 
 The default (fallback) values are defined in your code. The default value only returns if an error is encountered or if LaunchDarkly is unreachable.
 
-In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. You can do this by setting offline mode in the client's Config. When the client is in offline mode, no network requests will be made, so it is suitable for unit-testing.
+In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. You can do this by setting offline mode in the client's Config. When the client is in offline mode, no network requests will be made, so it is suitable for unit-testing.
+
+Here's how:
 
 <CodeTabs
   defaultValue="csharp"
@@ -229,7 +241,9 @@ LdClient client = new LdClient(config);
 
 ### C/C++ (server-side)
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise.
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises.
+
+Here's how:
 
 <CodeTabs
   defaultValue="c"
@@ -254,6 +268,8 @@ For example, if your software is both cloud-hosted and distributed to customers 
 
 You can do this by setting offline mode in the config map with the `offline` key.
 
+Here's how:
+
 <CodeTabs
   defaultValue="erlang"
   values={[
@@ -271,7 +287,9 @@ ldclient:start_instance("YOUR_SDK_KEY", #{offline => true})
 
 ### Go
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. You can do this by setting `Offline` mode in the client's [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config).
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. You can do this by setting `Offline` mode in the client's [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config).
+
+Here's how:
 
 <CodeTabs
   defaultValue="go"
@@ -308,7 +326,9 @@ ldClient.BoolVariation("any.feature.flag", user, false) // will always return th
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. You can do this by setting offline mode in the config object with `configSetOffline`.
 
-For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise.
+For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises.
+
+Here's how:
 
 <CodeTabs
   defaultValue="haskell"
@@ -327,7 +347,9 @@ config' = configSetOffline True config
 
 ### Java
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. You can do this by setting [`offline`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.Builder.html#offline-boolean-) mode in the client's `LDConfig`.
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. You can do this by setting [`offline`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.Builder.html#offline-boolean-) mode in the client's `LDConfig`.
+
+Here's how:
 
 <CodeTabs
   defaultValue="java"
@@ -354,7 +376,9 @@ ldClient.boolVariation("any.feature.flag", user, false)
 
 ### Node.js (server-side)
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. You can do this by setting `offline` mode in the client's `config` object.
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. You can do this by setting `offline` mode in the client's `config` object.
+
+Here's how:
 
 <CodeTabs
   defaultValue="js"
@@ -378,7 +402,9 @@ Note that the default value you set in the variation method will be returned in 
 
 ### PHP
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. `setOffline` lets you do this easily.
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. `setOffline` lets you do this easily.
+
+Here's how:
 
 <CodeTabs
   defaultValue="php"
@@ -398,7 +424,9 @@ $client->variation("any.feature.flag", user, false); // will always return the d
 
 ### Python
 
-In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. You can do this by setting `offline` mode in the client's `Config`.
+In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. You can do this by setting `offline` mode in the client's `Config`.
+
+Here's how:
 
 <CodeTabs
   defaultValue="py"
@@ -420,7 +448,9 @@ ldclient.get().variation("any.feature.flag", user, False) # will always return t
 
 ### Ruby
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premise, it might make sense to fall back to defaults when running on-premise. Offline mode lets you do this easily.
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. Offline mode lets you do this easily.
+
+Here's how:
 
 <CodeTabs
   defaultValue="ruby"

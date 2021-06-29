@@ -54,7 +54,11 @@ If your app has higher performance needs and is more likely to receive sudden tr
 
 <Callout intent="info">
 <CalloutTitle>The examples below are service-agnostic</CalloutTitle>
-<CalloutDescription>Both of the examples below use AWS Lambda, but you can use this approach for other FaaS platforms as well.</CalloutDescription>
+<CalloutDescription>
+
+Both of the examples below use AWS Lambda, but you can use this approach for other FaaS platforms as well.
+
+</CalloutDescription>
 </Callout>
 
 ### Option 1: Use the SDK as normal
@@ -92,7 +96,7 @@ In this configuration, the LaunchDarkly SDK no longer downloads the project's en
 
 To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
-The example below is a five-step process to configure a feature store.
+The example below is a five-step process to configure a feature store:
 
   1. You can use a cloud-local storage service to act as a flag store.
   2. You can use a dedicated AWS Lambda function to update the flag store when a flag configuration changes.
@@ -151,6 +155,8 @@ Now that both the feature store and the store update function are ready, add a w
 
 After you set up the webhook, every configuration change made to the LaunchDarkly project's flags triggers an update in the cloud-hosted feature store.
 
+Here is an image of the Create a webhook screen:
+
 ![Creation of a LaunchDarkly webhook which will send flag updates to a Lambda function](../../lambda-webhook.png)
 
 Finally, with the persistent feature store active and continuously updated, you can configure the app to use the feature store instead of connecting to LaunchDarkly's servers.
@@ -158,6 +164,8 @@ Finally, with the persistent feature store active and continuously updated, you 
 To learn more, read [Using a persistent feature store without connecting to LaunchDarkly](/sdk/concepts/data-stores#using-a-persistent-feature-store-without-connecting-to-launchdarkly).
 
 The app code retains the same structure as the example in Option 1 above, but with additional configuration to point at the feature store and enable LDD mode.
+
+Here is an example:
 
 ```javascript
 var LaunchDarkly = require('launchdarkly-node-server-sdk');
@@ -190,12 +198,12 @@ In most cases, LaunchDarkly works in serverless environments without additional 
 If you have more questions or need further assistance, get in touch by [contacting Support](https://support.launchdarkly.com/hc/en-us).
 
 <Callout intent="primary">
-  <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
 
 Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in quick start guide. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
 
 Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>

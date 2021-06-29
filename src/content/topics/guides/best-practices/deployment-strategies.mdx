@@ -29,24 +29,23 @@ To learn more about segments, read [Building user segments](/home/users/segments
 
 # Concepts
 
-You should understand these concepts before you read this guide:
+You should understand the follwing concepts before you read this guide.
 
 ## Deployment and release
 
-It’s easy to use deployment and release interchangeably, but in a feature-flagging or continuous-delivery environment, they have distinct
-meanings. It’s useful to understand the differences between them so you can
+It’s easy to use deployment and release interchangeably, but in a feature-flagging or continuous-delivery environment, they have distinct meanings. It’s useful to understand the differences between them so you can
 understand the following patterns more clearly.
 
 * **Deployment** is the process of putting executable code in its final destination.
 
- This might be on a server, a client, or any other place the code will run.
+This might be on a server, a client, or any other place the code will run.
 
- Deployment is usually controlled by a technical team, a release manager, or an
+Deployment is usually controlled by a technical team, a release manager, or an
 automated process.
-* **Release** is the moment when users get access to new code or features in order to serve a business objective.   
+* **Release** is the moment when users get access to new code or features in order to serve a business objective.
 
- Releases can involve many instances of deployment, and may or may not affect all users of your product. 
- 
+ Releases can involve many instances of deployment, and may or may not affect all users of your product.
+
  Releases are often run by product or marketing teams.
 
 Using feature flags to deploy code without releasing it publicly is the original meaning of the phrase “dark launching.” When you do a dark launch, your new code or feature is present in your codebase, but not available to everyone.
@@ -58,7 +57,7 @@ To learn more about different use cases for feature flags, read [Creating flags]
 
 # Deployment and release patterns
 
-The following patterns are some of the ways we've seen people do deployment and release. 
+The following patterns are some of the ways we've seen people do deployment and release.
 
 Depending on your business needs, you may want to adopt some of these practices:
 
@@ -72,11 +71,11 @@ example, release to internal users first, and then beta users, and then to all u
 In a ring deployment, the release pattern mirrors the deployment pattern, which mitigates against the deployment itself causing a large unforeseen problem.
 
 Jez Humble introduced the concept of a ring deployment in his book [_Continuous
-Delivery_](https://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912). 
+Delivery_](https://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912).
 
 ## Percentage-based releases
 
-In a percentage rollout, the deployment has already occurred and the release occurs incrementally based on a percentage. The new feature rolls out to 10% of users, then 25%, then 50%, until all users receive the new feature. 
+In a percentage rollout, the deployment has already occurred and the release occurs incrementally based on a percentage. The new feature rolls out to 10% of users, then 25%, then 50%, until all users receive the new feature.
 
 In LaunchDarkly, the users who get the new feature in a percentage rollout are randomly selected. After they get the new feature, they retain access to it as long as there is a way to identify them. This kind of sorting is best when your users must log in to use your product, or have accepted cookies.
 
@@ -92,18 +91,18 @@ To learn more, read [Percentage rollouts](/home/flags/targeting-users#percentage
 
 ## Canary releases
 
-A canary release lets you test whether a feature release will have positive impact without affecting your whole userbase. Only a small number of your users see the new feature you release, and you can target by user or segment to determine who those users are. 
+A canary release lets you test whether a feature release will have positive impact without affecting your whole userbase. Only a small number of your users see the new feature you release, and you can target by user or segment to determine who those users are.
 
 Ensure that the small group in your canary release is representative of your overall users. For example, a canary release that only goes out to people with the latest phones may miss problems that occur on older versions of a phone's operating system.
 
-You can use a canary release to test both user acceptance and capacity management. If you roll out a new feature to a group and realize that it consumes too many resources, you can turn the feature off and refactor the product without having stressed your infrastructure or caused a bad user experience. 
+You can use a canary release to test both user acceptance and capacity management. If you roll out a new feature to a group and realize that it consumes too many resources, you can turn the feature off and refactor the product without having stressed your infrastructure or caused a bad user experience.
 
 ## Targeted releases
 
-It may make business sense to target a release based on some identifier or segment other than percentages. 
+It may make business sense to target a release based on some identifier or segment other than percentages.
 
 For example, a food delivery service could roll out a new
-feature or set of related features to one medium-size city to test how it works for multiple types of users who must all interact. 
+feature or set of related features to one medium-size city to test how it works for multiple types of users who must all interact.
 
 If that service makes a change that affects restaurants, drivers, and consumers, all of those users should receive the change simultaneously, since they all perform functions that relate to each other. If the city-wide rollout produces good results, the service can release it to the rest of their user base with confidence.
 
@@ -111,9 +110,9 @@ If that service makes a change that affects restaurants, drivers, and consumers,
 
 You might want a flag that affects user permissions or access to be permanent. These flags affect what users can do in your platform, or their **entitlements**.
 
-You can use an entitlement release to add a feature that is only intended for a portion of your users. 
+You can use an entitlement release to add a feature that is only intended for a portion of your users.
 
-For example, if you had a premium service, you could configure the release so that the feature was only available to people who had paid a membership fee. 
+For example, if you had a premium service, you could configure the release so that the feature was only available to people who had paid a membership fee.
 
 You can combine entitlement releases with percentage-based releases or canary releases, but when the release is done, only some users will have access to to the feature.
 
@@ -156,13 +155,12 @@ the new behavior.
 The advantage of writing this code at the same time as the flag code is that the logic will be current for you, instead of you needing to reconstruct or remember the things you were thinking at the time you wrote the feature.
 
 <Callout intent="primary">
-  <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
 
 Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in quick start guide. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
 
 Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
-

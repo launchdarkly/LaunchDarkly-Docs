@@ -11,7 +11,7 @@ published: true
 
 Code references is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Overview
@@ -26,12 +26,11 @@ To complete this procedure, you must have the following prerequisites:
 
 ## Setting up GitHub Actions
 
-To set up:
+To set up GitHub Actions:
 
 1. Log into GitHub and navigate to your repo.
 2. Navigate to **Settings** > **Secrets** and click **Add a new secret**.
 3. Paste in your access token to the field that appears and click **Save secret**.
-
 4. Return to your GitHub repository to create a new Actions workflow.
 
 - **If you already have an `action.yml` file**: Copy and paste the `launchDarklyCodeReferences` job declaration below into the jobs section in your `action.yml` file.
@@ -68,24 +67,23 @@ jobs:
 </CodeTabs>
 
 <Callout intent="info">
-  <CalloutTitle>Best practices for configuring an Actions file</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Best practices for configuring an Actions file</CalloutTitle>
+<CalloutDescription>
 
-We strongly recommend that you update the second `uses` attribute value to reference the most recent tag in the
-[launchdarkly/find-code-references](https://github.com/launchdarkly/find-code-references) repository. This pins your
-workflow to a particular version of the `launchdarkly/find-code-references` action.
+We strongly recommend that you update the second `uses` attribute value to reference the most recent tag in the [launchdarkly/find-code-references](https://github.com/launchdarkly/find-code-references) repository. This pins your workflow to a particular version of the `launchdarkly/find-code-references` action.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 5. Commit this file under a new branch and submit as a PR to your code reviewers to be merged into your master branch.
 
 <Callout intent="info">
-  <CalloutTitle>Code references are not blocked by PR approval</CalloutTitle>
-  <CalloutDescription>
-    You do not need to have this branch merged into the master branch for code references to appear in the LaunchDarkly
-    UI; code references will appear for this newly created branch.
-  </CalloutDescription>
+<CalloutTitle>Code references are not blocked by PR approval</CalloutTitle>
+<CalloutDescription>
+
+You do not need to have this branch merged into the master branch for code references to appear in the LaunchDarkly user interface (UI). Code references will appear for this newly created branch.
+
+</CalloutDescription>
 </Callout>
 
 As shown in the example above, the workflow should run on the `push` event and contain an action provided by the [launchdarkly/find-code-references](https://github.com/launchdarkly/find-code-references) repository.
@@ -105,6 +103,8 @@ You can configure `ld-find-code-refs` with additional [inputs](https://help.gith
 In addition to inputs, you can skip searching files and directories using a [`.ldignore`](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#ignoring-files-and-directories) file.
 
 You can also use the [`.launchdarkly/config.yaml`](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#advanced-yaml-configuration) file for advanced configuration options, such as configuring custom delimiters and aliases for your flag keys.
+
+This table explains the configuration variables:
 
 <Table>
   <TableHeader>

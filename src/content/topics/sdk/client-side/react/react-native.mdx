@@ -6,7 +6,7 @@ published: true
 ---
 
 <Callout intent="alert">
-  <CalloutTitle>SDK version compatibility</CalloutTitle>
+<CalloutTitle>SDK version compatibility</CalloutTitle>
 <CalloutDescription>
 
 The latest version of the SDK is compatible with Xcode 12 and React Native 0.64. If you need support for earlier versions of React Native, refer to older versions of the SDK.
@@ -21,10 +21,10 @@ To learn more about the specific configuration options that are available in thi
 ## Getting Started
 
 <Callout intent="warning">
-  <CalloutTitle>Expo usage</CalloutTitle>
+<CalloutTitle>Expo usage</CalloutTitle>
 <CalloutDescription>
 
-The LaunchDarkly React Native Client SDK does not work with Expo because the SDK uses native modules. Please consider using [ExpoKit](https://docs.expo.io/expokit/expokit/).
+The LaunchDarkly React Native Client SDK does not work with Expo because the SDK uses native modules. Consider using [ExpoKit](https://docs.expo.io/expokit/expokit/).
 
 </CalloutDescription>
 </Callout>
@@ -32,6 +32,8 @@ The LaunchDarkly React Native Client SDK does not work with Expo because the SDK
 Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your React Native code.
 
 The first step is to install the LaunchDarkly SDK as a dependency. Add the LaunchDarkly npm dependency to your project and link it to your React Native project.
+
+To add the LaunchDarkly npm dependency:
 
 <CodeTabs
   defaultValue="js"
@@ -53,9 +55,15 @@ pod install
 You must have a `Podfile` in your `ios/` directory. After you write the `Podfile`, run `pod install` in the `ios/` directory. This SDK requires Xcode 12 and compiles against Swift 5.
 
 <Callout intent="info">
-  <CalloutTitle><code>use_frameworks!</code> and undefined symbols errors</CalloutTitle>
-  <CalloutDescription>As of v2.1.0 <code>use_frameworks!</code> is not necessary in the Podfile. If you encounter an undefined symbols error when building without <code>use_frameworks!</code> in your <code>Podfile</code> you will need to create a new empty Swift file and accept the prompt to create a matching Objective-C bridging header. If you are building for multiple platforms, add those as targets for the bridging header. If you're still having trouble resolving the undefined symbols error, clean and rebuild and try again.</CalloutDescription>
+<CalloutTitle><code>use_frameworks!</code> and undefined symbols errors</CalloutTitle>
+<CalloutDescription>
+
+As of v2.1.0 <code>use_frameworks!</code> is not necessary in the Podfile. If you encounter an undefined symbols error when building without <code>use_frameworks!</code> in your <code>Podfile</code> you will need to create a new empty Swift file and accept the prompt to create a matching Objective-C bridging header. If you are building for multiple platforms, add those as targets for the bridging header. If you're still having trouble resolving the undefined symbols error, clean and rebuild and try again.
+
+</CalloutDescription>
 </Callout>
+
+Here is an example:
 
 <CodeTabs
   defaultValue="js"
@@ -129,7 +137,9 @@ import LDClient from 'launchdarkly-react-native-client-sdk';
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of LDClient, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key (available on your [account settings page](https://app.launchdarkly.com/settings#/projects)). Mobile keys are not secret. You can expose them in your client-side code with no risk.
+Once the SDK is installed and imported, you'll want to create a single, shared instance of `LDClient`, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key (available on your [account settings page](https://app.launchdarkly.com/settings#/projects)). Mobile keys are not secret. You can expose them in your client-side code with no risk.
+
+To create a shared insteance of `LDClient`:
 
 <CodeTabs
   defaultValue="js"
@@ -150,7 +160,9 @@ await client.configure(config, user);
 </CodeTabItem>
 </CodeTabs>
 
-Lastly, when your application is about to terminate, shut down LDClient. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. This is something you only need to do once.
+Lastly, when your application is about to terminate, shut down `LDClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. This is something you only need to do once.
+
+To shut down `LDClient`:
 
 <CodeTabs
   defaultValue="js"

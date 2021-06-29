@@ -18,7 +18,7 @@ Data Export exposes five different kinds of events:
 - Alias events
 - Summary events. To export summary events, contact [LaunchDarkly Support](https://support.launchdarkly.com/).
 
-Some Data Export destinations have different event formatting schema. If you use mParticle or Segment as your event destination, we have specific documentation for their event schema.
+Some Data Export destinations have different event formatting schema. If you use mParticle or Segment as your event destination, we have specific documentation for their event schema:
 
 * [mParticle schema reference](/home/data-export/mparticle-schema-reference)
 * [Segment schema reference](/home/data-export/segment-schema-reference)
@@ -26,6 +26,8 @@ Some Data Export destinations have different event formatting schema. If you use
 These events are described in more detail below.
 
 ## Event kinds
+
+This table lists events kinds:
 
 <Table>
   <TableHeader>
@@ -93,12 +95,12 @@ Older SDKs always send `feature` events regardless of whether detailed tracking 
 Older SDKs will also send `user` attributes as an object inside `feature` events instead of just providing a "userKey" that can reference user data sent in a prior `index` event.
 
 <Callout intent="info">
-  <CalloutTitle>Enabling detailed analytics events</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Enabling detailed analytics events</CalloutTitle>
+<CalloutDescription>
 
 To see "feature" events, in addition to index, identify, and custom events, for a feature flag using recent SDKs, select “Send detailed event information for this flag” in the Settings menu for a feature flag or environment. By default, LaunchDarkly does not export summary events. To export summary events, contact <a href="https://support.launchdarkly.com">LaunchDarkly Support</a>.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Understanding event type structures
@@ -136,7 +138,7 @@ All events have the following top level structure:
 
 `Feature` events represent individual flag evaluations and are considered "full fidelity" events.
 
-An example feature event is pictured below:
+Hereis an example feature event:
 
 <CodeTabs
   defaultValue="json"
@@ -168,13 +170,14 @@ An example feature event is pictured below:
 </CodeTabItem>
 </CodeTabs>
 
+Here is a list of feature event properties:
+
 - `kind`: The kind for a feature event is `feature`. A feature event will only be generated if the `trackEvents` attribute of the flag is set to `true`. This is also controlled by settings in the UI.
 - `contextKind`: The kind of context which generated an event. This will only be "anonymousUser" for events generated on behalf of an anonymous user or the reserved word "user" for events generated on behalf of a non-anonymous user
 - `userKey`: The key of the user object used in a feature flag evaluation. Details for the `user` object used in a feature flag evaluation as reported by the "feature" event are transmitted periodically with a separate `index` event.
 - `creationDate` When the feature flag was requested at Unix epoch time in milliseconds.
 - `key`: The key of the feature flag requested.
 - `variation`: The variation of the flag requested. Flag variation values are stored in an array. This value corresponds to the index of the variation the array. Boolean flags show as `0` or `1` for `true` and `false`, and other flag types are numbered starting with `0` for their different variations.
-
 - `variationName`: The evaluated variation's name, if it exists. If the evaluated variation doesn't have a name, this field doesn't appear.
 - `value`: The value of the feature flag returned by feature flag evaluation.
 - `default`: (Optional) This value is set to `true` if feature flag evaluation failed, in which case the value returned was the default value passed to `variation`. If the default field is omitted, it is assumed to be `false`.
@@ -195,7 +198,7 @@ By default, we do not export index events. To export index events, contact [Laun
 
 Index events are sent periodically to describe the attributes of users referenced by the "userKey" in `feature` events.
 
-An example `index` event is pictured below:
+An example `index` event is shown below:
 
 <CodeTabs
   defaultValue="json"
@@ -224,6 +227,8 @@ An example `index` event is pictured below:
 </CodeTabItem>
 </CodeTabs>
 
+Here is a list of index event properties:
+
 - `kind`: The kind of an index event is `index`.
 - `user`: The same schema as `user` objects for feature flag evaluation.
 - `creationDate`: The time this user was recorded at Unix epoch time in milliseconds.
@@ -240,7 +245,7 @@ An example `index` event is pictured below:
 
 Identify events are produced when the client application calls the `identify` SDK method. Identify events have a similar structure to "index" events.
 
-An example `identify` event is pictured below:
+An example `identify` event is shown below:
 
 <CodeTabs
   defaultValue="json"
@@ -269,6 +274,8 @@ An example `identify` event is pictured below:
 </CodeTabItem>
 </CodeTabs>
 
+Here is a list of identify event properties:
+
 - `kind`: The kind of an identify event is `identify`.
 - `user`: The same schema as `user` objects for feature flag evaluation.
 - `creationDate`: The time this user was recorded at Unix epoch time in milliseconds.
@@ -287,7 +294,7 @@ The `data` event kind is **not available** for mParticle or Segment events.
 </CalloutDescription>
 </Callout>
 
-An example custom event is pictured below:
+An example custom event is shown below:
 
 <CodeTabs
   defaultValue="json"
@@ -331,7 +338,7 @@ see their respective schema references.
 </CalloutDescription>
 </Callout>
 
-An example alias event is pictured below:
+An example alias event is shown below:
 
 <CodeTabs
   defaultValue="json"
@@ -368,7 +375,7 @@ By default, we do not export summary events. To export summary events, contact [
 
 Summary events are sent periodically by SDKs to describe a set of feature evaluations. Summary events include all feature evaluations, regardless of whether `trackEvents` field was set for individual flags.
 
-An example summary event is pictured below:
+An example summary event is shown below:
 
 <CodeTabs
   defaultValue="json"

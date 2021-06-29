@@ -53,7 +53,7 @@ When you create a new Relay Proxy, LaunchDarkly assigns a unique key to it. You 
 
 Here's how to create a Relay Proxy configuration in the LaunchDarkly UI:
 
-1. Navigate to the **Account Settings** page and click into the [**Relay Proxy** tab](https://app.launchdarkly.com/settings/relay).
+1. Navigate to the **Account Settings** page and click into the [**Relay Proxy** tab](https://app.launchdarkly.com/settings/relay):
 
 ![The Relay Proxy tab on the Account Settings page.](../../images/account-settings-relay-proxy.png)
 
@@ -66,7 +66,7 @@ Here's how to create a Relay Proxy configuration in the LaunchDarkly UI:
 ![The Relay Proxy configuration screen with dropdown displayed.](../../images/relay-proxy-config-dropdown.png)
 
 5. Click **Save Configuration**. The Relay Proxy appears on the Relay Proxy tab of the Account Settings page with its key visible.
-6. Copy and save the key somewhere secure.
+6. Copy and save the key somewhere secure:
 
 ![The Relay Proxy screen with a newly created Relay Proxy. The key is displayed.](../../images/relay-proxy-key-displayed.png)
 
@@ -143,4 +143,4 @@ To update the Relay Proxy in offline mode:
 1. Make a request to `https://sdk.launchdarkly.com/relay/latest-all` to generate a file containing all your flag rules.
 2. Replace the existing file on the Relay Proxy's filesystem with the newly-generated file. The Relay Proxy will detect that the file has changed and will reload it.
 
-That's it! The Relay Proxy automatically updates when it detects changes to your flag rules.
+The Relay Proxy automatically updates when it detects changes to your flag rules.

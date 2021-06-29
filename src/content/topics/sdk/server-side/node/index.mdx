@@ -8,14 +8,14 @@ published: true
 This reference guide documents all of the methods available in the Node.js SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Node.js SDK repository](https://github.com/launchdarkly/node-server-sdk) on GitHub. The online [API docs](https://launchdarkly.github.io/node-server-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run sample applications using this SDK with [vanilla JavaScript](https://github.com/launchdarkly/hello-node-server), [TypeScript](https://github.com/launchdarkly/hello-node-typescript), and [server-side bootstrapping](https://github.com/launchdarkly/hello-bootstrap).
 
 <Callout intent="info">
-  <CalloutTitle>For use in server-side applications only</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>For use in server-side applications only</CalloutTitle>
+<CalloutDescription>
 
-  This SDK is intended for use in *multi-user* Node.js server applications. If you're looking to set up LaunchDarkly in JavaScript in a browser environment, read [JavaScript SDK](/sdk/client-side/javascript). If you're creating a *client-side* Node application, read [Node SDK](/sdk/client-side/node-js). Alternatively if you're creating a desktop application in Electron, read [Electron SDK](/sdk/client-side/electron).
+This SDK is intended for use in *multi-user* Node.js server applications. If you're looking to set up LaunchDarkly in JavaScript in a browser environment, read [JavaScript SDK](/sdk/client-side/javascript). If you're creating a *client-side* Node application, read [Node SDK](/sdk/client-side/node-js). Alternatively if you're creating a desktop application in Electron, read [Electron SDK](/sdk/client-side/electron).
 
-  To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Getting started
@@ -23,6 +23,8 @@ This reference guide documents all of the methods available in the Node.js SDK, 
 Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your Node.js application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager.
+
+Here's how:
 
 <CodeTabs
   defaultValue="js"
@@ -41,7 +43,7 @@ npm install launchdarkly-node-server-sdk --save
 </CodeTabItem>
 </CodeTabs>
 
-Next you should import the LaunchDarkly client in your application code.
+Next you should import the LaunchDarkly client in your application code:
 
 <CodeTabs
   defaultValue="js"
@@ -60,6 +62,7 @@ const LaunchDarkly = require('launchdarkly-node-server-sdk');
 
 Once the SDK is installed and imported, you'll want to create a single, shared instance of the LaunchDarkly client. You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
 
+Here's how:
 
 <CodeTabs
   defaultValue="js"
@@ -77,17 +80,19 @@ ldClient = LaunchDarkly.init("YOUR_SDK_KEY");
 </CodeTabs>
 
 <Callout intent="alert">
-  <CalloutTitle>LDClient must be a singleton</CalloutTitle>
-  <CalloutDescription>
-    It's important to make this a singleton. The client instance maintains internal state that allows us to
-    serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with
-    every request.**
-  </CalloutDescription>
+<CalloutTitle>LDClient must be a singleton</CalloutTitle>
+<CalloutDescription>
+
+It's important to make this a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with  every request.**
+
+</CalloutDescription>
 </Callout>
 
 The client will emit a `ready` event when it has been initialized and can serve feature flags.
 
 Using `ldClient`, you can check which variation a particular user should receive for a given feature flag. Note that the `ready` event is _only_ emitted once - when the client first initializes. In a production application you should place your `ldClient.variation` code so that it is invoked as desired.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="js"
@@ -114,6 +119,8 @@ ldClient.once("ready", () => {
 </CodeTabs>
 
 Lastly, when your application is about to terminate, shut down `ldClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+
+Here's how:
 
 <CodeTabs
   defaultValue="js"
@@ -153,6 +160,8 @@ ldClient.once("ready", () => {
 ## Promises and async
 
 All asynchronous SDK methods which accept a callback also return a `Promise`. This means that if your application uses promises to manage asynchronous operations, interacting with the SDK should be convenient. Since the `async/await` syntax is based on Promises, these methods will also work with `await`.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="js"

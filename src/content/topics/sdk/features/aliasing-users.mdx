@@ -9,14 +9,13 @@ published: true
 
 This topic explains how to alias the users of various LaunchDarkly SDKs. This feature is available for both client-side and server-side SDKs, although its behavior differs between client-side and server-side SDKs.
 
-
 ## Aliased users
 
 There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person is identified by two different users as denoted by different user keys. Our SDKs can associate these two LaunchDarkly users by sending an alias event.
 
 All LaunchDarkly SDKs offer the ability to manually send an alias event. Additionally, client-side SDKs automatically send an alias event when identifying a known user if the previous user was anonymous. You can disable this behavior if necessary. To learn more, read [Configuration](/sdk/features/config).
 
-Details about each SDK's configuration are available in the SDK-specific sections below.
+Details about each SDK's configuration are available in the SDK-specific sections below:
 
 * [Client-side SDKs](#client-side-sdks)
 * [Server-side SDKs](#server-side-sdks)

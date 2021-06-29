@@ -17,23 +17,24 @@ To add a LaunchDarkly SAML application to OneLogin:
 
 1. Log in to OneLogin.
 2. Navigate to **Applications**.
-3. Click the **Add App** button.
+3. Click the **Add App** button:
 
 ![The Administration screen of OneLogin.](../../../../images/onelogin-add-app.png)
 
 
 4. Search for `LaunchDarkly`. The pre-configured app templates for LaunchDarkly appear.
-5. Choose the `SAML 2.0, provisioning` version of the LaunchDarkly app.
+5. Choose the `SAML 2.0, provisioning` version of the LaunchDarkly app:
 
 ![The LaunchDarkly search results.](../../../../images/onelogin-find-app.png)
 
 
 <Callout intent="alert">
-  <CalloutTitle>SAML 2.0 is required</CalloutTitle>
-  <CalloutDescription>
-    Choose the SAML 2.0, provisioning app from the list of LaunchDarkly apps. If you choose another app, it will not
-    work.
-  </CalloutDescription>
+<CalloutTitle>SAML 2.0 is required</CalloutTitle>
+<CalloutDescription>
+
+Choose the SAML 2.0, provisioning app from the list of LaunchDarkly apps. If you choose another app, it will not work.
+
+</CalloutDescription>
 </Callout>
 
 ## Configuring LaunchDarkly's Security Settings
@@ -45,7 +46,7 @@ To configure LaunchDarkly's security settings for SAML:
 1. Open LaunchDarkly's [Security page](https://app.launchdarkly.com/settings/security).
 2. Click **Edit SAML Configuration**. The **Edit your SAML configuration** screen opens.
 3. Enter configuration information from OneLogin in the appropriate fields.
-4. Copy the **Assertion customer service URL** to a secure place. You need it in order to configure OneLogin.
+4. Copy the **Assertion customer service URL** to a secure place. You need it in order to configure OneLogin:
 
 ![The SAML configuration screen.](../../../../images/onelogin-edit-saml-config.png)
 
@@ -59,36 +60,34 @@ In the SSO section of your LaunchDarkly application in OneLogin, you'll find the
 3. Choose the LaunchDarkly app from the list of apps.
 4. Navigate to the **SSO** section of your LaunchDarkly OneLogin application.
 5. Copy **OneLogin's SAML 2.0 Endpoint (HTTP)** value to a secure place.
-6. Open LaunchDarkly in a separate tab. You need information from OneLogin to finish configuration.
+6. Open LaunchDarkly in a separate tab. You need information from OneLogin to finish configuration:
 
 ![The SSO section of LaunchDarkly.](../../../../images/onelogin-enable-saml.png)
 
 
 ## Configuring the LaunchDarkly App in OneLogin
 
-In this procedure, you will connect LaunchDarkly to OneLogin.
+To connect LaunchDarkly to OneLogin:
 
 1. Log in to OneLogin.
 2. Navigate to the **Configuration** section.
-3. Enter the assertion customer service URL you saved from the previous procedure in the **Consumer URL** field.
+3. Enter the assertion customer service URL you saved from the previous procedure in the **Consumer URL** field:
 
 ![The OneLogin Configuration screen.](../../../../images/onelogin-configuration-tab.png)
 
-
-This connects LaunchDarkly to OneLogin.
 
 ## Adding Users and Setting Roles in OneLogin
 
 Now that you have the LaunchDarkly application configured in OneLogin, all that remains is to add user access to the LaunchDarkly app.
 
-Now that you have the LaunchDarkly application configured in OneLogin, all that remains is to add user access to the LaunchDarkly app.
+To do this:
 
 1. Log in to OneLogin.
 2. Navigate to the **User** directory.
 3. Click on the profile of the user you would like to add to LaunchDarkly.
 4. Click on that user's **Applications** section.
 5. Click the **+** in the top right corner.
-6. Choose **LaunchDarkly** from the list. The Edit Login menu opens.
+6. Choose **LaunchDarkly** from the list. The Edit Login menu opens:
 
 ![The Applications section.](../../../../images/onelogin-test-user.png)
 
@@ -107,13 +106,12 @@ Now that you have the LaunchDarkly application configured in OneLogin, all that 
 9. (Optional) If you are using a custom role, enter the custom role key in the **customRole** field. If a user has multiple custom roles, add them by entering the role keys for each role, separated by commas.
 
 <Callout intent="alert">
-  <CalloutTitle>Enter All of a User's Roles</CalloutTitle>
-  <CalloutDescription>
-    When you are configuring a user, you must enter the complete list of the user's roles, including the roles already
-    present in LaunchDarkly. This list overrides what is in LaunchDarkly. It does not append to an existing list in
-    LaunchDarkly. If you make any changes to the user's name or roles within OneLogin, they update the next time the
-    user accesses LaunchDarkly through the OneLogin portal.
-  </CalloutDescription>
+<CalloutTitle>Enter All of a User's Roles</CalloutTitle>
+<CalloutDescription>
+
+When you are configuring a user, you must enter the complete list of the user's roles, including the roles already present in LaunchDarkly. This list overrides what is in LaunchDarkly. It does not append to an existing list in LaunchDarkly. If you make any changes to the user's name or roles within OneLogin, they update the next time the user accesses LaunchDarkly through the OneLogin portal.
+
+</CalloutDescription>
 </Callout>
 
 10. Click **Save**.
@@ -127,32 +125,35 @@ If this is a new user who has never accessed LaunchDarkly before, an account wil
 You can also configure OneLogin to provision users with LaunchDarkly's SCIM API.
 
 <Callout intent="alert">
-  <CalloutTitle>Administrator Permissions and SSO are Required</CalloutTitle>
-  <CalloutDescription>
-    You must be a LaunchDarkly administrator or account owner to complete this procedure. In addition, you must have
-    already enabled SSO by following the procedure above.
-  </CalloutDescription>
+<CalloutTitle>Administrator Permissions and SSO are Required</CalloutTitle>
+<CalloutDescription>
+
+You must be a LaunchDarkly administrator or account owner to complete this procedure. In addition, you must have already enabled SSO by following the procedure above.
+
+</CalloutDescription>
 </Callout>
+
+To configure OneLogin to provision users:
 
 1. Log in to OneLogin.
 2. Access the LaunchDarkly app.
-3. Click **Configuration**.
+3. Click **Configuration**:
 
 ![The Configuration tab.](../../../../images/onelogin-configuration-tab.png)
 
 
 4. Click **Authenticate** in the **API Connection** section. The LaunchDarkly OAuth workflow begins.
 5. Click the **LaunchDarkly (SCIM Test)** link. The LaunchDarkly OAuth authorization appears.
-6. Click **Authorize** to allow OneLogin to manage your users.
+6. Click **Authorize** to allow OneLogin to manage your users:
 
 ![The LaunchDarkly OAuth permissions screen.](../../../../images/onelogin-ld-authorization.png)
 
 
 7. In OneLogin, navigate to the **Provisioning** tab.
 8. Confirm that the **Enable Provisioning** box is checked in the **Workflow** section.
-9. Click **Save**.
+9. Click **Save**:
 
 ![The Provisioning screen.](../../../../images/onelogin-provisioning-tab.png)
 
 
-That's it! You have successfully connected OneLogin with LaunchDarkly.
+You have now successfully connected OneLogin with LaunchDarkly.

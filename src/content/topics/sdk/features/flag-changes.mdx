@@ -133,6 +133,8 @@ These calls have been available since v2.8.0:
 
 Additionally, we provide an update listener interface for when you want to be notified when the flag cache is updated. The application provides a class implementing `LDAllFlagsListener` which provides the SDK with the method `onChange`. Whenever the SDK's flag cache is updated, it calls the `onChange` method with a list of flag keys for flags that were updated during the update to the flag cache. If no flag values changed, this list is empty.
 
+Here is an example:
+
 <CodeTabs
   defaultValue="java"
   values={[
@@ -309,13 +311,15 @@ The SDK retains only weak references to the owner, which lets the client app fre
 The SDK executes handlers on the main thread. `LDChangedFlag` does not know the type of `oldValue` or `newValue`. The client app should cast the value into the type needed.
 
 <Callout intent="alert">
-  <CalloutTitle>LDObserverOwner Lifecycle</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>LDObserverOwner Lifecycle</CalloutTitle>
+<CalloutDescription>
 
 The lifetime of the `LDObserverOwner` must extend for at least as long as you want to receive flag change notifications.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
+
+To configure the client:
 
 <CodeTabs
   defaultValue="swift"
@@ -466,7 +470,6 @@ To perform real-time updates in your app, your app must register listeners for e
 
 Here's how:
 
-
 <CodeTabs
   defaultValue="js"
   values={[
@@ -554,10 +557,12 @@ This feature is available in the following server-side SDKs:
 ### .NET
 
 <Callout intent="info">
-  <CalloutTitle>This feature is not available in all SDK versions</CalloutTitle>
-  <CalloutDescription>
-    The .NET SDK only supports subscribing to flag changes in versions 6.0.0 and higher.
-  </CalloutDescription>
+<CalloutTitle>This feature is not available in all SDK versions</CalloutTitle>
+<CalloutDescription>
+
+The .NET SDK only supports subscribing to flag changes in versions 6.0.0 and higher.
+
+</CalloutDescription>
 </Callout>
 
 The SDK provides an event-based mechanism to notify you when flag configurations change. [`LDClient.FlagTracker`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_FlagTracker) returns an interface for this mechanism, [`IFlagTracker`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.IFlagTracker.html).
@@ -700,10 +705,12 @@ With both of these methods, it is the caller's responsibility to consume values 
 ### Java
 
 <Callout intent="info">
-  <CalloutTitle>This feature is not available in all SDK versions</CalloutTitle>
-  <CalloutDescription>
-    The Java SDK only supports subscribing to flag changes in versions 5.0.0 and higher.
-  </CalloutDescription>
+<CalloutTitle>This feature is not available in all SDK versions</CalloutTitle>
+<CalloutDescription>
+
+The Java SDK only supports subscribing to flag changes in versions 5.0.0 and higher.
+
+</CalloutDescription>
 </Callout>
 
 The SDK provides a listener-based mechanism to notify you when flag configurations change. The [`LDClient.getFlagTracker()`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#getFlagTracker--) method returns an interface for this mechanism, [`FlagTracker`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html).
@@ -775,6 +782,8 @@ For both of these event types, an extra parameter is sent to event listeners. Th
 The event parameter does not contain the flag value. In server-side SDKs, there is no such thing as a flag value except when it is evaluated for a specific set of user properties.
 
 To find out what the effect, if any, of the configuration change was, call `variation()` after receiving an update event.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="js"

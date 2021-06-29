@@ -12,11 +12,12 @@ This topic explains how to configure SSO integration between a self-hosted Activ
 ADFS is a service provided by Microsoft as a standard role for Windows Server. It provides a web login using existing Active Directory credentials.
 
 <Callout intent="info">
-  <CalloutTitle>Troubleshooting ADFS-based SSO</CalloutTitle>
-  <CalloutDescription>
-    If you need information about ADFS errors during configuration, troubleshoot it by accessing the ADFS logs in the
-    Windows Event Viewer.
-  </CalloutDescription>
+<CalloutTitle>Troubleshooting ADFS-based SSO</CalloutTitle>
+<CalloutDescription>
+
+If you need information about ADFS errors during configuration, troubleshoot it by accessing the ADFS logs in the Windows Event Viewer.
+
+</CalloutDescription>
 </Callout>
 
 ## Prerequisites
@@ -29,7 +30,7 @@ To give your team access to LaunchDarkly through ADFS, you need the following co
 - A Microsoft Server instance with ADFS installed and configured.
 
 <Callout intent="alert">
-  <CalloutTitle>Setting up ADFS</CalloutTitle>
+<CalloutTitle>Setting up ADFS</CalloutTitle>
 <CalloutDescription>
 
 This topic will not tell you how to set up ADFS. To learn more about setting up ADFS, read [Microsoft's documentation](https://docs.microsoft.com/en-us/previous-versions/dynamicscrm-2016/deployment-administrators-guide/)
@@ -40,6 +41,8 @@ This topic will not tell you how to set up ADFS. To learn more about setting up 
 ## Set Up LaunchDarkly
 
 For more information on configuring LaunchDarkly's SSO, read [Single sign-on](/home/account-security/sso).
+
+Here is a table explaning LauchDarkly fields:
 
 <Table>
   <TableHeader>
@@ -70,17 +73,17 @@ For more information on configuring LaunchDarkly's SSO, read [Single sign-on](/h
 ## Set Up Relaying Party Trust
 
 1. Log into ADFS Management tool.
-2. Click **Add Relying Party Trust...** to open the Add Relying Party Trust Wizard.
+2. Click **Add Relying Party Trust...** to open the Add Relying Party Trust Wizard:
 
 ![The Add Relying Party Trust field is called out.](../../../../images/adfs-add-party-trust.png)
 
 
-3. Click **Start** to begin. Keep the default value, which is **Claims aware**.
+3. Click **Start** to begin. Keep the default value, which is **Claims aware**:
 
 ![The Welcome screen for the setup wizard.](../../../../images/adfs-wizard-claims-aware.png)
 
 
-4. Choose **Enter data about the relying party manually** and click **Next**.
+4. Choose **Enter data about the relying party manually** and click **Next**:
 
 ![The Select Data Source screen.](../../../../images/adfs-qizard-enter-data-manually.png)
 
@@ -95,22 +98,25 @@ For more information on configuring LaunchDarkly's SSO, read [Single sign-on](/h
 
 After you have successfully completed this procedure, a new LaunchDarkly trust will appear in the ADFS Management tool.
 
-## Set Up Claim issuance Policy
+## Set up Claim issuance Policy
+
+To set up a Claim issuance Policy:
 
 1. Log into the ADFS Management tool
 2. Select the **LaunchDarkly Trust**
 3. Click **Edit Claim Issuance Policy...** in the dropdown. The **Edit Claim Issuance Policy** window opens.
 4. Click **Add Rule**.
-5. Set **Claim rule template** to **Transform an Incoming Claim** and click **Next**.
+5. Set **Claim rule template** to **Transform an Incoming Claim** and click **Next**:
 
 ![The Select Rule Template screen.](../../../../images/adfs-select-rule-template.png)
 
 <Callout intent="alert">
-  <CalloutTitle>Configure the User's UPN Correctly</CalloutTitle>
-  <CalloutDescription>
-    In the following example, we use the user's UPN as their name ID. As a best practice, we recommend setting the
-    user's UPN to their email address instead.
-  </CalloutDescription>
+<CalloutTitle>Configure the User's UPN Correctly</CalloutTitle>
+<CalloutDescription>
+
+In the following example, we use the user's UPN as their name ID. As a best practice, we recommend setting the user's UPN to their email address instead. <---Why? Can we change to example to match best practice? TKTK
+
+</CalloutDescription>
 </Callout>
 
 6. Set the following options:

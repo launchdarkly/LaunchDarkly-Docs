@@ -24,7 +24,7 @@ To create a webhook:
 5. If you want the webhook to be signed, check the **Sign this webhook** checkbox. To learn more, read [Signing webooks](#signing-webhooks).
 6. Add a policy if you want to select and filter the events sent to the webhook. To learn more, read [Adding a policy filter](#adding-a-policy-filter).
 7. After reading the Terms and Conditions, check the **I have read and agree to the Integration Terms and Conditions** checkbox.
-8. Click **Save Settings**.
+8. Click **Save Settings**:
 
 ![The webhook configuration screen.](../../images/integrations-webhooks-create.png)
 
@@ -33,6 +33,8 @@ To create a webhook:
 When creating a webhook, you can define an optional secret. If defined, the webhook `POST` request will include an `X-LD-Signature` header, whose value will contain an HMAC SHA256 hex digest of the webhook payload, using the secret as the key.
 
 Compute the signature of the payload using the same shared secret in your code to verify that the webhook was triggered by LaunchDarkly.
+
+Here is an image of the webhook configuration screen:
 
 ![The webhook configuration screen, configured with a secret.](../images/integrations-webhook-sign.png)
 
@@ -68,6 +70,8 @@ For example, to receive an event only when a change is made to one of your produ
 </CodeTabItem>
 </CodeTabs>
 
+Here is an image of the webhook configuration screen, configured with a policy:
+
 ![The webhook configuration screen, configured with a policy.](../../images/integrations-slack-webhook-create-with-policy.png)
 
 
@@ -76,11 +80,12 @@ For example, to receive an event only when a change is made to one of your produ
 The webhook payload format is identical to the entry format for the [audit log](/home/flags/audit-log-history). Read our [REST API Documentation](https://apidocs.launchdarkly.com/reference#webhooks-overview) for an example payload.
 
 <Callout intent="info">
-  <CalloutTitle>Webhook delivery order</CalloutTitle>
-  <CalloutDescription>
-    Note that webhooks may not be delivered in chronological order. We recommend using the payload's "date" field as a
-    timestamp to reorder webhooks as they are received.
-  </CalloutDescription>
+<CalloutTitle>Webhook delivery order</CalloutTitle>
+<CalloutDescription>
+
+Note that webhooks may not be delivered in chronological order. We recommend using the payload's "date" field as a timestamp to reorder webhooks as they are received.
+
+</CalloutDescription>
 </Callout>
 
 ## Retries

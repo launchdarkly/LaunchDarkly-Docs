@@ -8,14 +8,14 @@ published: true
 This reference guide documents basic usage of our C server-side SDK, and explains in detail how its functions work. If you want to dig even deeper, our SDKs are open source. To learn more, read [C/C++ SDK GitHub repository](https://github.com/launchdarkly/c-server-sdk). The online [API docs](https://launchdarkly.github.io/c-server-sdk) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-c-server) using this SDK.
 
 <Callout intent="info">
-  <CalloutTitle>For use in server-side applications only</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>For use in server-side applications only</CalloutTitle>
+<CalloutDescription>
 
-  This SDK is intended for use in *multi-user* C/C++ server applications. If you have a C/C++ application and are looking to set up LaunchDarkly in a desktop or embedded application, head to our [C/C++ client-side SDK reference](/sdk/client-side/c-c--).
+This SDK is intended for use in *multi-user* C/C++ server applications. If you have a C/C++ application and are looking to set up LaunchDarkly in a desktop or embedded application, head to our [C/C++ client-side SDK reference](/sdk/client-side/c-c--).
 
-  To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Getting started
@@ -43,6 +43,8 @@ Once ready, your first step should be to include the LaunchDarkly SDK headers:
 
 Configure logging, and call the global initialization function. These functions must be called before any other operations are performed. LaunchDarkly provides a predefined convenience logger.
 
+Here's how:
+
 <CodeTabs
   defaultValue="c"
   values={[
@@ -63,6 +65,8 @@ Once the SDK is installed and imported, you'll want to create a single, shared i
 
 Calling `LDClientInit` will initiate a remote call to the LaunchDarkly service to fetch feature flags. This call will block up to the time defined by `maxwaitmilliseconds`. If you request a feature flag before the client has completed initialization, you will receive the default flag value.
 
+Here is an example:
+
 <CodeTabs
   defaultValue="c"
   values={[
@@ -82,17 +86,16 @@ struct LDClient *client = LDClientInit(config, maxwaitmilliseconds);
 </CodeTabs>
 
 <Callout intent="alert">
-  <CalloutTitle>LDClient must be a singleton</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>LDClient must be a singleton</CalloutTitle>
+<CalloutDescription>
 
-It's important to make this a singleton. The client instance maintains internal state that allows us to
-serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with
-every request.**
+It's important to make LDClient a singleton. The client instance maintains internal state that allows us to
+serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
-Using `client`, you can check which variation a particular user should receive for a given feature flag.
+Using `client`, you can check which variation a particular user should receive for a given feature flag:
 
 <CodeTabs
   defaultValue="c"
@@ -134,6 +137,8 @@ if (LDClientIsInitialized(client)) {
 </CodeTabs>
 
 Lastly, when your application is about to terminate, shut down `client`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+
+Here's how:
 
 <CodeTabs
   defaultValue="c"

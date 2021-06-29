@@ -43,9 +43,7 @@ This section explains how to create an IAM policy to support the Kinesis Data Ex
 If you create a new Kinesis stream, write down or save the following information:
 
 * Region
-
 * Stream name
-
 * Stream ARN
 
 You will need this information when you configure your export.
@@ -53,10 +51,12 @@ You will need this information when you configure your export.
 </CalloutDescription>
 </Callout>
 
+To create an IAM policy:
+
 1. Sign in to the [Identity and Access Management (IAM) console](https://console.aws.amazon.com/iam/).
 2. Follow [Amazon's documentation](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html) to create an IAM policy that allows LaunchDarkly to write to your Kinesis Stream.
 3. Select the **Create Policy from JSON** option.
-4. Use the following template policy to configure the Policy Document field.
+4. Use the following template policy to configure the Policy Document field:
 
 
 <CodeTabs
@@ -101,12 +101,12 @@ You will need this information when you configure your export.
 
 This section explains how to create a cross-account IAM role for LaunchDarkly to assume so it can access the policy.
 
-This section explains how to create a cross-account IAM role for LaunchDarkly to assume so it can access the policy.
+To create a cross-account IAM role:
 
 1. Log into AWS and [access the IAM section](https://console.aws.amazon.com/iamhome#/roles$new?step=type&roleType=crossAccount).
-2. In the Account ID section, enter `554582317989` as shown in the image below. This allows LaunchDarkly to assume the role.
+2. In the Account ID section, enter `554582317989` as shown in the image below. This allows LaunchDarkly to assume the role:
 
-![Create a role in AWS IAM for LaunchDarkly to assume.](../../images/kinesis-create-role.png)
+![The Account ID section of the Create a role screen.](../../images/kinesis-create-role.png)
 
 
 3. Add the policy you created earlier to this role. Write down or save the _role ARN_.
@@ -130,10 +130,12 @@ Trust our role by following a procedure in [Amazon's documentation](https://docs
 
 With the _region_, _stream name_ and _role ARN_ from earlier in the procedure, you can now create the Kinesis destination within LaunchDarkly.
 
-1. Navigate to the [integrations page](https://app.launchdarkly.com/default/integrations).
-2. Click on the Kinesis icon or, if this is not your first destination, click the **Add Destination** drop down.
+To create the Kinesis destination:
 
-![Add a Kinesis destination by clicking on the Kinesis icon if this is your first destination or by using the add destination drop down.](../../images/kinesis-add.png)
+1. Navigate to the [integrations page](https://app.launchdarkly.com/default/integrations).
+2. Click on the Kinesis icon or, if this is not your first destination, click the **Add Destination** drop down:
+
+![The add destination screen.](../../images/kinesis-add.png)
 
 
 3. Enter a **Name** for the destination.
@@ -144,7 +146,7 @@ With the _region_, _stream name_ and _role ARN_ from earlier in the procedure, y
 - ROle address
 - AWS Kinesis stream name
 
-6. Click **Save**.
+6. Click **Save**:
 
 ![A Kinesis destination with AWS information, a name and environment selected.](../../images/kinesis-create.png)
 
@@ -155,7 +157,7 @@ After you've saved the destination, send a test event to confirm that the destin
 
 1. In the _Send a test event_ section, click **Send Event**.
 
-![Send a test event after saving the destination.](../../images/kinesis-test-event.png)
+![The Send a test event screen.](../../images/kinesis-test-event.png)
 
 
 2. If you have configured the destination correctly, an event is logged in the Kinesis destination.
@@ -190,6 +192,6 @@ To delete a destination:
 
 1. Navigate to the **Integrations** screen.
 2. Find the destination you wish to delete and click **Edit**. The "Create a destination" screen opens.
-3. Click **Delete Destination**.
+3. Click **Delete Destination**:
 
 ![The Delete destination section.](../../images/kinesis-delete.png)

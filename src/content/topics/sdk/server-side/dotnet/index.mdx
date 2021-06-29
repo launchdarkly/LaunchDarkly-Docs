@@ -8,32 +8,34 @@ published: true
 This reference guide documents all of the methods available in the .NET SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [.NET SDK GitHub repository](https://github.com/launchdarkly/dotnet-server-sdk). The online [API docs](https://launchdarkly.github.io/dotnet-server-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-dotnet) using this SDK.
 
 <Callout intent="info">
-  <CalloutTitle>For use in server-side applications only</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>For use in server-side applications only</CalloutTitle>
+<CalloutDescription>
 
-  This SDK is intended for use in *multi-user* .NET server applications. If you have a .NET application and are looking to set up LaunchDarkly in a mobile, desktop, or embedded application, head to our [Xamarin SDK reference](/sdk/client-side/xamarin).
+This SDK is intended for use in *multi-user* .NET server applications. If you have a .NET application and are looking to set up LaunchDarkly in a mobile, desktop, or embedded application, head to our [Xamarin SDK reference](/sdk/client-side/xamarin).
 
-  To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Getting started
 
 <Callout intent="info">
-  <CalloutTitle>Requirements</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Requirements</CalloutTitle>
+<CalloutDescription>
 
-  Version 6.0 and higher of the LaunchDarkly .NET SDK is compatible with .NET 5.0+, .NET Framework 4.5.2+, or .NET Core 2.1+.
+Version 6.0 and higher of the LaunchDarkly .NET SDK is compatible with .NET 5.0+, .NET Framework 4.5.2+, or .NET Core 2.1+.
 
-  Prior to version 6.0, the LaunchDarkly .NET SDK also supported .NET Framework 4.5.0 and .NET Core 1.0.
+Prior to version 6.0, the LaunchDarkly .NET SDK also supported .NET Framework 4.5.0 and .NET Core 1.0.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your .NET application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager.
+
+Here's how:
 
 <CodeTabs
   defaultValue="shell"
@@ -50,7 +52,7 @@ Install-Package LaunchDarkly.ServerSdk
 </CodeTabItem>
 </CodeTabs>
 
-Next, import the LaunchDarkly SDK's namespace(s) in your application code. The namespace is not the same as the package name.
+Next, import the LaunchDarkly SDK's namespace(s) in your application code. The namespace is not the same as the package name:
 
 <CodeTabs
   defaultValue="sdk6"
@@ -79,7 +81,9 @@ using LaunchDarkly.Client;
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of [`LdClient`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html). You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+Once the SDK is installed and imported, create a single, shared instance of [`LdClient`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html). You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+
+To create a single instance:
 
 <CodeTabs
   defaultValue="csharp"
@@ -97,17 +101,17 @@ LdClient ldClient = new LdClient("YOUR_SDK_KEY");
 </CodeTabs>
 
 <Callout intent="alert">
-  <CalloutTitle>LdClient should be a singleton</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>LdClient should be a singleton</CalloutTitle>
+<CalloutDescription>
 
 In the standard use case where there is only one SDK key, it's important to make the `LdClient` a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
 
 If you need to use more than one SDK key, the SDK allows you to create more than one `LdClient` instance. This is an uncommon requirement, but one the SDK supports.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
-Using `ldClient`, you can check which variation a particular user should receive for a given feature flag.
+Using `ldClient`, you can check which variation a particular user should receive for a given feature flag. Here's how:
 
 <CodeTabs
   defaultValue="csharp"
@@ -131,7 +135,9 @@ else {
 </CodeTabItem>
 </CodeTabs>
 
-Lastly, when your application is about to terminate, shut down `ldClient` with [`Dispose()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Dispose_). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+When your application is about to terminate, shut down `ldClient` with [`Dispose()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Dispose_). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+
+Here's how:
 
 <CodeTabs
   defaultValue="csharp"
@@ -156,15 +162,12 @@ ldClient.Dispose();
 To learn more, [read Microsoft's documentation](https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls#configuring-security-via-appcontext-switches-for-net-framework-46-or-later-versions).
 
 <Callout intent="alert">
-  <CalloutTitle>Potential network connectivity issues caused by DNS caching</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Potential network connectivity issues caused by DNS caching</CalloutTitle>
+<CalloutDescription>
 
-LaunchDarkly servers operate in a load-balancing framework which may cause their IP addresses to change. This could
-result in the SDK failing to connect to LaunchDarkly if an old IP address is still in your system's DNS cache. In
-.NET, the DNS cache retains IP addresses for two minutes by default. If you notice intermittent connection
-failures that always resolve in two minutes, you may want to change this setting to a lower value as described in [Microsoft's documentation](https://docs.microsoft.com/en-us/dotnet/api/system.NET.servicepointmanager.dnsrefreshtimeout?view=netframework-4.7.2).
+LaunchDarkly servers operate in a load-balancing framework which may cause their IP addresses to change. This could result in the SDK failing to connect to LaunchDarkly if an old IP address is still in your system's DNS cache. In .NET, the DNS cache retains IP addresses for two minutes by default. If you notice intermittent connection failures that always resolve in two minutes, you may want to change this setting to a lower value as described in [Microsoft's documentation](https://docs.microsoft.com/en-us/dotnet/api/system.NET.servicepointmanager.dnsrefreshtimeout?view=netframework-4.7.2).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Supported features

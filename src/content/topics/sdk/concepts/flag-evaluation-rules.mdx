@@ -7,7 +7,9 @@ published: true
 
 ## Overview
 
-This topic explains the algorithm used to evaluate a feature flag. This document is intended to be used by developers contributing or building server-side SDKs for LaunchDarkly. Client-side and server-side evaluate feature flags differently:
+This topic explains the algorithm used to evaluate a feature flag. This document is intended to be used by developers contributing or building server-side SDKs for LaunchDarkly.
+
+Client-side and server-side evaluate feature flags differently:
 
 - Server-side SDKs evaluate feature flags internally using embedded evaluation rules
 - Client-side SDKs evaluate feature flags by contacting LaunchDarkly, which runs the following evaluation rules on the back end
@@ -29,7 +31,7 @@ The result of the evaluation is:
 1. The evaluated variation value
 2. The evaluation reason for returning that variation
 
-Note that variation values are often referenced by their _index_. For example, if a flag has two variations - `true` and `false` - `true` will be variation index 0, and `false` will be variation index 1.
+Variation values are often referenced by their _index_. For example, if a flag has two variations - `true` and `false` - `true` will be variation index 0, and `false` will be variation index 1.
 
 As a side effect of the evaluation, the SDKs send events back to LaunchDarkly to report that the evaluation has occurred. The data sent back for each evaluation (including prerequisites) follows the schema described in the [schema reference guide for Data Export](/home/data-export/schema-reference).
 
@@ -92,6 +94,8 @@ Evaluating a clause is a matter of taking the value of the given user attribute 
 If the user attribute value is an array (or list), then the comparison is performed for each of those attribute values, against each of the clause values. In this case, a single user attribute value match to a single clause value is enough to satisfy the clause.
 
 ### Operators
+
+This table explains operators and their arguments and conditions:
 
 <Table>
   <TableHeader>

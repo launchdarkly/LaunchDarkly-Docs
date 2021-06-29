@@ -30,6 +30,8 @@ This feature is available in the following client-side SDKs:
 
 The Android SDK makes heavy use of Timber logging. Include Timber in your application to enable debug output or production logging. An example is shown below to enable debug output when the application is built with a debug configuration.
 
+Here's how:
+
 <CodeTabs
   defaultValue="java"
   values={[
@@ -70,6 +72,8 @@ By default, the SDK uses the [`winston`](https://www.npmjs.com/package/winston) 
 To learn more, read the [TypeScript definitions](https://github.com/launchdarkly/js-sdk-common/blob/master/typings.d.ts) for `LDLogger`, `LDOptions`, and `createConsoleLogger`.
 
 You can pass a custom logger to the SDK by the configurable logger property. Winston's syntax for instantiating and configuring loggers changed between versions 2.x and 3.x. If using the transitive dependency generates errors, declare a dependency on a specific Winston version.
+
+Here's how:
 
 <CodeTabs
    defaultValue="js"
@@ -209,6 +213,8 @@ config.setLogger(CustomLogger())
 
 ### SceneGraph API custom logger for the Roku SDK
 
+Here is an example of the SceneGraph API custom logger:
+
 <CodeTabs
   defaultValue="brightscript"
   values={[
@@ -319,7 +325,7 @@ The .NET SDK has four logging levels: `Debug`, `Info`, `Warn`, and `Error`. By d
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
 
-The .NET SDK sends log output to `Console.Error` by default. The [`ConfigurationBuilder.Logging`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html#LaunchDarkly_Sdk_Server_ConfigurationBuilder_Logging_) method and the [`LaunchDarkly.Logging`](https://launchdarkly.github.io/dotnet-logging/) API allow you to change the output destination and log level. 
+The .NET SDK sends log output to `Console.Error` by default. The [`ConfigurationBuilder.Logging`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html#LaunchDarkly_Sdk_Server_ConfigurationBuilder_Logging_) method and the [`LaunchDarkly.Logging`](https://launchdarkly.github.io/dotnet-logging/) API allow you to change the output destination and log level.
 
 Here is an example:
 
@@ -390,6 +396,8 @@ Whether you use a custom logger or the default one, you must call `LDConfigureGl
 If you use the defeault logger, you can configure how verbose it should be.
 
 For example, setting it to `LD_LOG_TRACE` produces the most verbose output, which may be useful in troubleshooting.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="c"
@@ -558,6 +566,8 @@ For full control over logging behavior, you can set the [`logger`](https://launc
 You can use [`basicLogger`](https://launchdarkly.github.io/node-server-sdk/index.html#basicLogger) for simpler control over logging behavior. Versions 5.x and earlier of the SDK do not support `basicLogger`.
 
 This example shows how to use `basicLogger` to enable debug-level logging in your SDK configuration:
+
+Here's how:
 
 <CodeTabs
   defaultValue="node"

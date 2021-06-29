@@ -9,7 +9,7 @@ published: true
 
 This guide explains how to use Terraform to manage your LaunchDarkly resources, which can simplify change control for your team.
 
-Complexity is unavoidable in modern software development. The variety of cloud services you can use to support your software make simple projects into complicated ones. 
+Complexity is unavoidable in modern software development. The variety of cloud services you can use to support your software make simple projects into complicated ones.
 
 These services solve many problems, but they also add others: how are you going to provision and manage all these different resources? What if you need to make a change across a hundred storage buckets? What if you have multiple team members all trying to make changes, and suddenly one of them needs to roll a change back?
 
@@ -21,7 +21,7 @@ You should understand these concepts before you read this guide:
 
 ### Infrastructure as code
 
-Insfrastructure as code is a type of infrastructure management that uses similar processes to those used for code. You declare and manage infrastructure resources, such as servers, databases, and networks, with text files in a version-controlled source repository. When the repository is deploys, tools interpret these text files and perform whatever infrastructural changes are necessary. 
+Insfrastructure as code is a type of infrastructure management that uses similar processes to those used for code. You declare and manage infrastructure resources, such as servers, databases, and networks, with text files in a version-controlled source repository. When the repository is deploys, tools interpret these text files and perform whatever infrastructural changes are necessary.
 
 These processes mean that infrastructure changes are created, reviewed and audited in a similar manner to code changes. Additionally, you can track infrastructure changes in sync with code changes.
 
@@ -32,7 +32,9 @@ A popular open source tool created by Hashicorp. You can use Terraform to implem
 <Callout intent="info">
 <CalloutTitle>This integration is not for new Terraform users.</CalloutTitle>
 <CalloutDescription>
+
 Terraform is a complex tool. This guide is intended for people who are already using Terraform in their toolchain.
+
 </CalloutDescription>
 </Callout>
 
@@ -51,7 +53,7 @@ With each example, we'll discuss why Terraform was suited to that scenario. We'l
 These are the practices we recommend to avoid conflicts that can arise when some of your flags are managed through Terraform and others are managed through the LaunchDarkly dashboard:
 
 * Tag everything Terraform manages with a `managed-by-terraform` tag.
-* Use custom roles to enforce that resources and properties managed by Terraform can not be manipulated by the LaunchDarkly UI. For example, putting most team members in a role that does not have write access to the resources managed by Terraform. 
+* Use custom roles to enforce that resources and properties managed by Terraform can not be manipulated by the LaunchDarkly UI. For example, putting most team members in a role that does not have write access to the resources managed by Terraform.
 * Do not use Terraform to make changes to flag targeting rules or flag variations unless absolutely necessary. Managing these actions in the LaunchDarkly UI lets you use LaunchDarkly's comment, audit log, scheduling, flag trigger, and approval workflow features.
 * Have clear policies on what is:
   * Managed exclusively by Terraform.
@@ -77,7 +79,7 @@ locals {
 }
 ```
 
-This is followed by a collection of [resource blocks](https://www.terraform.io/docs/configuration/resources.html), each one representing a different component of the instance. 
+This is followed by a collection of [resource blocks](https://www.terraform.io/docs/configuration/resources.html), each one representing a different component of the instance.
 
 In this example, the resources we care about are the [LaunchDarkly environments](https://docs.launchdarkly.com/docs/environments). Environments have to be part of a [LaunchDarkly project](https://docs.launchdarkly.com/docs/projects), so this configuration creates that first, using the [launchdarkly_project](https://www.terraform.io/docs/providers/launchdarkly/r/project.html) resource:
 
@@ -105,7 +107,7 @@ In the example above, each environment is given a unique name that includes the 
 
 ## Example 2: Managing and protecting flags without changing their state
 
-If some flags are especially important, it makes sense to manage them through the same workflow as the code that relies on them. This is the "infrastructure as code" approach. 
+If some flags are especially important, it makes sense to manage them through the same workflow as the code that relies on them. This is the "infrastructure as code" approach.
 
 This example features:
 
@@ -113,9 +115,11 @@ This example features:
 *   Automated validation of the Terraform syntax and actions by Terraform Cloud
 *   Prevention of flag change through other methods and interfaces
 
-The code in this example adds a flag for a new product feature. The feature's name is "FeatureX", and the product is "MyProduct". The new flag's name is "Show FeatureX". 
+The code in this example adds a flag for a new product feature. The feature's name is "FeatureX", and the product is "MyProduct". The new flag's name is "Show FeatureX".
 
 The code also specifies the flag maintainer by referencing a given team member. The flag is tagged `managed-by-terraform`, indicating to team members that they should not modify the core flag configuration in other ways.
+
+Here is an example:
 
 ```hcl
 resource "launchdarkly_project" "myproduct" {
@@ -151,7 +155,7 @@ The code above defines the base flag configuration, but not its per-environment 
 <CalloutTitle>You can use Terraform Cloud to perform automated reviews</CalloutTitle>
 <CalloutDescription>
 
-If you use Terraform Cloud to perform Continuous Integration or Continuous Deployment (CI/CD) tasks for your Terraform code, you can implement it here to check all new pull requests for Terraform changes. If Terraform Cloud finds any changes, they will then run through the `terraform plan` command. 
+If you use Terraform Cloud to perform Continuous Integration or Continuous Deployment (CI/CD) tasks for your Terraform code, you can implement it here to check all new pull requests for Terraform changes. If Terraform Cloud finds any changes, they will then run through the `terraform plan` command.
 
 </CalloutDescription>
 </Callout>
@@ -167,17 +171,17 @@ To learn more about custom roles, read [Custom roles](/home/team/custom-roles).
 
 ## Conclusion
 
-Terraform provides a centralized change control process for infrastructure, helping a team to work together more effectively and with fewer errors. 
+Terraform provides a centralized change control process for infrastructure, helping a team to work together more effectively and with fewer errors.
 
 Your feature flags are a vital part of application infrastructure and should be treated as such. The [LaunchDarkly Provider for Terraform](https://www.terraform.io/docs/providers/launchdarkly/index.html) brings your LaunchDarkly resources in line with the rest of your infrastructure control processes.
 
 <Callout intent="primary">
-  <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
 
 Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in quick start guide. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
 
 Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>

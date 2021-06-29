@@ -35,17 +35,18 @@ local ld = require("launchdarkly_server_sdk")
 Once the SDK is installed and imported, you'll want to create a single, shared instance of the client. Specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
 
 <Callout intent="alert">
-  <CalloutTitle>LDClient should be a singleton</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>LDClient should be a singleton</CalloutTitle>
+<CalloutDescription>
 
 It's important to make this a singleton. The client instance maintains internal state that allows us to
-serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with
-every request.**
+serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 Calling `clientInit` initiates a remote call to the LaunchDarkly service to fetch feature flags. This call blocks up to the time defined by `maxwaitmilliseconds`. If you request a feature flag before the client has completed initialization, you receive the default flag value.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="lua"
@@ -66,7 +67,7 @@ local client = ld.clientInit(config, 1000)
 </CodeTabItem>
 </CodeTabs>
 
-Using `client`, you can check which variation a particular user should receive for a given feature flag.
+Using `client`, you can check which variation a particular user should receive for a given feature flag:
 
 <CodeTabs
   defaultValue="lua"

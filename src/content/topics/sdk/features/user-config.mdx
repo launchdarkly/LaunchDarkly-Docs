@@ -41,7 +41,9 @@ Here are the configuration options for user entities in client-side SDKs.
 
 ### Android
 
-Feature flag targeting and rollouts are determined by the user you pass to your client. In the Android SDK, we use a [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to construct users. Here's an example:
+Feature flag targeting and rollouts are determined by the user you pass to your client. In the Android SDK, we use a [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to construct users.
+
+Here's an example:
 
 <CodeTabs
   defaultValue="java"
@@ -98,6 +100,8 @@ Custom attributes let you target users according to any data that you send to La
 You can optionally configure the Android SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Android SDK you can define private attributes for the entire LaunchDarkly client. When creating the `LDConfig` object, call the `setPrivateAttributeNames` method, which which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this set, it is removed before the SDK sends the user to LaunchDarkly.
+
+Here's how to configure private user attributes:
 
 <CodeTabs
   defaultValue="java"
@@ -417,7 +421,7 @@ We recommend using the same user key for every initialization and then replacing
 
 ### iOS
 
-You can also pass optional properties to the user object:
+You can pass optional properties to the user object in iOS:
 
 <CodeTabs
   defaultValue="swift"
@@ -527,24 +531,17 @@ We recommend using the same user key for every initialization and then replacing
 ### JavaScript
 
 <Callout intent="alert">
-  <CalloutTitle>Personally-identifying user keys</CalloutTitle>
+<CalloutTitle>Personally-identifying user keys</CalloutTitle>
 <CalloutDescription>
 
-
-If the `key` attribute you rely on in your user JSON contains personally identifiable information, you should enable
-the `useReport` option by [customizing your
-client](/sdk/client-side/javascript#customizing-your-client) . By default, flag settings are
-fetched by sending the user JSON as a JSON base64 URL-encoded path parameter. When `useReport` is enabled, flag
-settings will be fetched by sending the user JSON in the body of a REPORT request instead, thereby hiding that
-information from request logs.
-
+If the `key` attribute you rely on in your user JSON contains personally identifiable information, you should enable the `useReport` option by [customizing your fetched by sending the user JSON as a JSON base64 URL-encoded path parameter. When `useReport` is enabled, flag settings will be fetched by sending the user JSON in the body of a REPORT request instead, thereby hiding that information from request logs.
 
 </CalloutDescription>
 </Callout>
 
-Let's walk through the user JSON in more detail. The most important attribute is the user key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+Let's walk through the user JSON. The most important attribute is the user key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
-Here's a more complete example of a user:
+Here's an example of a user:
 
 <CodeTabs
   defaultValue="js"
@@ -585,7 +582,7 @@ Besides the `key`, LaunchDarkly supports the following attributes at the "top le
 In addition to built-in attributes, you can pass any of your own user data using `custom` attributes, like the `groups` attribute in the example above.
 
 <Callout intent="info">
-  <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
 Most built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans, or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it is interpreted that way.
@@ -657,14 +654,10 @@ var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
 In the example above, only the user's key and their name will be sent back to LaunchDarkly.
 
 <Callout intent="alert">
-  <CalloutTitle>Parameters for JS SDK &lt; 2.0</CalloutTitle>
+<CalloutTitle>Parameters for JS SDK &lt; 2.0</CalloutTitle>
 <CalloutDescription>
 
-
-SDK versions earlier than 2.0 use snake case rather than camel case in the options object. `private_attribute_names`
-and `all_attributes_private` are the parameter names that should be used. `privateAttributeNames` is still valid
-when specified in the user object.
-
+SDK versions earlier than 2.0 use snake case rather than camel case in the options object. `private_attribute_names` and `all_attributes_private` are the parameter names that should be used. `privateAttributeNames` is still valid when specified in the user object.
 
 </CalloutDescription>
 </Callout>
@@ -709,7 +702,7 @@ We recommend using the same user key for every initialization and then replacing
 ### Node.js (client-side)
 
 <Callout intent="alert">
-  <CalloutTitle>Personally-identifying user keys</CalloutTitle>
+<CalloutTitle>Personally-identifying user keys</CalloutTitle>
 <CalloutDescription>
 
 By default, when the SDK requests feature flags from LaunchDarkly, it makes an HTTP GET request with the user properties encoded in the URL. If you do not want user keys or other properties to be in request URLs, enable the `useReport` option in your client configuration. User data is sent in the body of an HTTP REPORT request instead.
@@ -717,9 +710,9 @@ By default, when the SDK requests feature flags from LaunchDarkly, it makes an H
 </CalloutDescription>
 </Callout>
 
-Let's walk through the user JSON in more detail. The most important attribute is the user key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+Let's walk through the user JSON. The most important attribute is the user key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
-Here's a more complete example of a user:
+Here's an example of a user:
 
 <CodeTabs
   defaultValue="js"
@@ -760,7 +753,7 @@ Besides the `key`, LaunchDarkly supports the following attributes at the "top le
 In addition to built-in attributes, you can pass any of your own user data using `custom` attributes, like the `groups` attribute in the example above.
 
 <Callout intent="info">
-  <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
 Most of our built-in attributes, like names and e-mail addresses, expect string values. Custom attribute values can be strings, booleans like true or false, numbers, or lists of strings, booleans or numbers. If you enter a custom value that looks like a number or a boolean, it is interpreted that way.
@@ -1003,7 +996,9 @@ user.setAnonymous(Boolean)
 
 ### Xamarin
 
-Feature flag targeting and rollouts  are determined by the *user* you pass to your `Identify` call. In the Xamarin SDK, you can construct a simple `User` that only has a key by calling `User.WithKey`, or use `User.Builder` which allows setting all properties. Here's an example:
+Feature flag targeting and rollouts  are determined by the *user* you pass to your `Identify` call. In the Xamarin SDK, you can construct a simple `User` that only has a key by calling `User.WithKey`, or use `User.Builder` which allows setting all properties.
+
+Here's an example:
 
 <CodeTabs
   defaultValue="csharp"
@@ -1051,7 +1046,9 @@ In the Xamarin SDK there are two ways to define private attributes for the entir
 - When creating the LaunchDarkly `Configuration` object, you can call the `AllAttributesPrivate` method, which takes in a boolean parameter. If `true`, all user attributes except the key for all users are removed before the SDK sends the user to LaunchDarkly.
 - When creating the LaunchDarkly `Configuration` object, you can call the `PrivateAttributeName` method, which takes in a string attribute nameas a parameter and adds it to an internally managed list of private attributes. This method may be called multiple times to mark additional attributes as private. If any user has a custom or built-in attribute named in the private attributes list, it are removed before the SDK sends the user to LaunchDarkly.
 
-You can also mark attributes as private when building the user object by calling `AsPrivateAttribute()` immediately after setting the attribute. For example:
+You can also mark attributes as private when building the user object by calling `AsPrivateAttribute()` immediately after setting the attribute.
+
+For example:
 
 <CodeTabs
   defaultValue="csharp"
@@ -1164,12 +1161,12 @@ All of the other attributes (set by calls to `FirstName`, `LastName`, `Email`, a
 In addition to the built-in attributes defined in the `User` class, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
 
 <Callout intent="info">
-  <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutDescription>
 
 Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or objects. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. If you enter a custom value that looks like a number or a boolean, it is interpreted that way. The .NET SDK is strongly typed, so be aware of this distinction.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to us becomes available on your dashboard.
@@ -1183,7 +1180,9 @@ In the .NET SDK there are two ways to define private attributes for the entire L
 - When creating the LaunchDarkly `Configuration` object, you can configure [`Events`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html#LaunchDarkly_Sdk_Server_ConfigurationBuilder_Events_) `Events` with [`AllAttributesPrivate`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.EventProcessorBuilder.html#LaunchDarkly_Sdk_Server_Integrations_EventProcessorBuilder_AllAttributesPrivate_), which takes in a boolean parameter. If `true`, all user attributes except the key for all users are removed before the user is sent to LaunchDarkly.
 - Or, you can can configure `Events` with [`PrivateAttributes`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.EventProcessorBuilder.html#LaunchDarkly_Sdk_Server_Integrations_EventProcessorBuilder_PrivateAttributes_), which takes in a list of specific `UserAttribute` names. If any user has a custom or built-in attribute named in the private attributes list, it will be removed before the SDK sends the user to LaunchDarkly.
 
-You can also mark attributes as private when building the user object by calling [`AsPrivateAttribute()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.IUserBuilderCanMakeAttributePrivate.html#LaunchDarkly_Sdk_IUserBuilderCanMakeAttributePrivate_AsPrivateAttribute_) after setting the attribute on the user builder. For example:
+You can also mark attributes as private when building the user object by calling [`AsPrivateAttribute()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.IUserBuilderCanMakeAttributePrivate.html#LaunchDarkly_Sdk_IUserBuilderCanMakeAttributePrivate_AsPrivateAttribute_) after setting the attribute on the user builder.
+
+For example:
 
 <CodeTabs
   defaultValue="csharp"
@@ -1297,6 +1296,7 @@ In the Apex SDK there are two ways to define private attributes for the LaunchDa
 
 - When creating the `LDConfig` object, you can use `setAllAttributesPrivate(true)`. When you do this, all user attributes (except the key) for the user are redacted before the SDK sends the user to LaunchDarkly.
 
+Here's how:
 
 <CodeTabs
   defaultValue="java"
@@ -1340,7 +1340,7 @@ LDUser user = new LDUser.Builder('aa0ceb')
 
 ### C/C++ (server-side)
 
-Feature flag targeting and rollouts  are determined by the user you pass to your `variation` calls.
+Feature flag targeting and rollouts  are determined by the user you pass to your `variation` calls:
 
 <CodeTabs
   defaultValue="c"
@@ -1404,6 +1404,7 @@ In the C/C++ SDK there are three ways to define private attributes for the Launc
 
 - When creating the `LDConfig` object, you can use `LDConfigSetAllAttributesPrivate`. When you do this, all user attributes (except the key) for the user are removed before the SDK sends the user to LaunchDarkly.
 
+For example:
 
 <CodeTabs
   defaultValue="c"
@@ -1522,6 +1523,8 @@ In addition to built-in attributes like names and email addresses, you can pass 
 
 #### Anonymous users in the Erlang SDK
 
+Here's how to create anonymous users in the Erlang SDK:
+
 <CodeTabs
   defaultValue="erlang"
   values={[
@@ -1554,10 +1557,15 @@ To learn more about private user attributes, read [Setting user attributes](/hom
 When you create the Options map, use the `private_attributes` key to set private user attributes. When you do this, the SDK does not send the user attributes you specify to LaunchDarkly.
 
 <Callout>
-    <CalloutTitle>The SDK always sends the user key</CalloutTitle>
-    <CalloutDescription>The user key is not optional. You cannot set it as a private user attribute.
+<CalloutTitle>The SDK always sends the user key</CalloutTitle>
+<CalloutDescription>
+
+The user key is not optional. You cannot set it as a private user attribute.
+
 </CalloutDescription>
 </Callout>
+
+Here's how to set user attributes as private:
 
 <CodeTabs
   defaultValue="erlang"
@@ -1576,7 +1584,9 @@ ldclient:start_instance("YOUR_SDK_KEY", my_instance, #{private_attributes => [em
 
 ### Go
 
-Feature flag targeting and rollouts are determined by the user you pass to your `Variation` calls. The Go SDK defines a [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User) struct and a [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder) to make this easy. Here's an example:
+Feature flag targeting and rollouts are determined by the user you pass to your `Variation` calls. The Go SDK defines a [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User) struct and a [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder) to make this easy.
+
+Here's an example:
 
 <CodeTabs
   defaultValue="go"
@@ -1688,6 +1698,8 @@ In the Go SDK there are two ways to define private attributes for the entire Lau
 
 - You can set the configuration option `AllAttributesPrivate` to true. If this is enabled, all user attributes (except the key) for all users are removed before the SDK sends the user to LaunchDarkly.
 - You can set the configuration option `PrivateAttributeNames` to a list of attribute names. If any user has a custom or built-in attribute named in this list, it are removed before the SDK sends the user to LaunchDarkly.
+
+Here's how to to define private attributes:
 
 <CodeTabs
   defaultValue="go"
@@ -1870,7 +1882,7 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 ### Haskell
 
-Feature flag targeting and rollouts are determined by the user you pass to your variation calls.
+Feature flag targeting and rollouts are determined by the user you pass to your variation calls:
 
 <CodeTabs
   defaultValue="haskell"
@@ -1915,6 +1927,8 @@ To learn more about private user attributes, read [Setting user attributes](/hom
 
 When you create the `Config` object, use `configSetAllAttributesPrivate` to set all user attributes as private. When you do this, all user attributes (except the key) are removed before the SDK sends the user to LaunchDarkly.
 
+Here's how:
+
 <CodeTabs
   defaultValue="haskell"
   values={[
@@ -1931,6 +1945,8 @@ config' = configSetAllAttributesPrivate True config
 </CodeTabs>
 
 When you create the `Config` object, you can list specific private attributes with `configSetPrivateAttributeNames`. If any user has a custom or built-in attribute named in this list, it is removed before the SDK sends the user to LaunchDarkly.
+
+Here's an example:
 
 <CodeTabs
   defaultValue="haskell"
@@ -2055,6 +2071,8 @@ In the Java SDK there are two ways to define private attributes for the entire L
 - When creating the `LDConfig` object, you can call the [`allAttributesPrivate`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#allAttributesPrivate-boolean-) method, which takes in a boolean parameter. If `true`, all user attributes except the key for all users are removed before the SDK sends the user to LaunchDarkly.
 - When creating the `LDConfig` object, you can call the [`privateAttributes`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#privateAttributes-com.launchdarkly.sdk.UserAttribute...-) method, which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this list, it are removed before the SDK sends the user to LaunchDarkly.
 
+Here's how to define private attributes:
+
 <CodeTabs
   defaultValue="java"
   values={[
@@ -2143,7 +2161,7 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 ### Lua
 
-Feature flag targeting and rollouts  are determined by the user you pass to your `variation` calls.
+Feature flag targeting and rollouts  are determined by the user you pass to your `variation` calls:
 
 <CodeTabs
   defaultValue="lua"
@@ -2223,10 +2241,12 @@ Besides the `key`, LaunchDarkly supports the following attributes at the "top le
 In addition to built-in attributes, you can pass any of your own user data using `custom` attributes, like the `groups` attribute in the example above.
 
 <Callout intent="info">
-  <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
-  <CalloutDescription>
-    Built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans, or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it is interpreted that way.
-  </CalloutDescription>
+<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutDescription>
+
+Built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans, or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it is interpreted that way.
+
+</CalloutDescription>
 </Callout>
 
 Custom attributes let you target users according to any data that you send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to LaunchDarkly becomes available on your dashboard.
@@ -2321,13 +2341,12 @@ Besides the `key`, LaunchDarkly supports the following attributes at the "top le
 In addition to these, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
 
 <Callout intent="info">
-  <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
-  <CalloutDescription>
-    Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can
-    be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom
-    value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The PHP SDK is strongly
-    typed, so be aware of this distinction.
-  </CalloutDescription>
+<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutDescription>
+
+Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The PHP SDK is strongly typed, so be aware of this distinction.
+
+</CalloutDescription>
 </Callout>
 
 Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to us becomes available on your dashboard.
@@ -2341,7 +2360,9 @@ In the PHP SDK there are two ways to define private attributes for the entire La
 *In the LaunchDarkly `config`, you can set `allAttributesPrivate` to `true`. If this is enabled, all user attributes (except the key) for all users are removed before the SDK sends the user to LaunchDarkly.
 *In the LaunchDarkly `config` object, you can define a list of `privateAttributeNames`. If any user has a custom or built-in attribute named in this list, it are removed before the SDK sends the user to LaunchDarkly.
 
-You can also mark attributes as private when building the user object by calling the equivalent "private" [`LDUserBuilder`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDUserBuilder.html) method. For example:
+You can also mark attributes as private when building the user object by calling the equivalent "private" [`LDUserBuilder`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDUserBuilder.html) method.
+
+For example:
 
 <CodeTabs
   defaultValue="php"
@@ -2385,7 +2406,9 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 ### Python
 
-Feature flag targeting and rollouts  are determined by the user you pass to your `Variation` calls. In the Python SDK, users are simply dictionaries. Here's an example:
+Feature flag targeting and rollouts  are determined by the user you pass to your `Variation` calls. In the Python SDK, users are simply dictionaries.
+
+Here's an example:
 
 <CodeTabs
   defaultValue="py"
@@ -2509,21 +2532,21 @@ Besides the `key`, LaunchDarkly supports the following attributes at the "top le
 In addition to built-in attributes, you can pass any of your own user data using `custom` attributes, like the `groups` attribute in the example above.
 
 <Callout intent="info">
-  <CalloutTitle>A note on attribute keys</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>User attribute keys must be symbols</CalloutTitle>
+<CalloutDescription>
 
-All user attribute keys (both built-in and custom attributes) must be symbols and not strings.
+All user attribute keys, for both built-in and custom attributes, must be symbols and not strings.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 <Callout intent="info">
-  <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutDescription>
 
-Most of our built-in attributes, like names and e-mail addresses, expect string values. Custom attribute values can be strings, booleans like true or false, numbers, or lists of strings, booleans or numbers. If you enter a custom value that looks like a number or a boolean, it is interpreted that way.
+Most of LaunchDarkly's built-in attributes, like names and e-mail addresses, expect string values. Custom attribute values can be strings, booleans like true or false, numbers, or lists of strings, booleans or numbers. If you enter a custom value that looks like a number or a boolean, it is interpreted that way.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to us becomes available on your dashboard.

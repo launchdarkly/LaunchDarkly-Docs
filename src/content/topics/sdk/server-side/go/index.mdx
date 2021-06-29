@@ -8,8 +8,12 @@ published: true
 This reference guide documents all of the methods available in the Go SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Go SDK GitHub repository](https://github.com/launchdarkly/go-server-sdk). The online [Go API docs](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-go) using this SDK.
 
 <Callout intent="info">
-  <CalloutTitle>Go version compatibility</CalloutTitle>
-  <CalloutDescription>Version 5.0 and higher of the LaunchDarkly Go SDK is compatible with Go 1.14 and higher.</CalloutDescription>
+<CalloutTitle>Go version compatibility</CalloutTitle>
+<CalloutDescription>
+
+Version 5.0 and higher of the LaunchDarkly Go SDK is compatible with Go 1.14 and higher.
+
+</CalloutDescription>
 </Callout>
 
 ## Getting started
@@ -97,7 +101,7 @@ The second return type in these code samples ( `_` ) represents an error in case
 
 It's important to make this a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 Using the `LDClient` methods, you can check which variation a particular user should receive for a given feature flag. See [Evaluating flags](/sdk/features/evaluating) and [Flag evaluation reasons](/sdk/features/evaluation-reasons) for more details. See [User configuration](/sdk/features/user-config) for more about how user properties are specified-- in this example, there is a user key that consists of an email address.
@@ -147,7 +151,9 @@ if showFeature {
 </CodeTabItem>
 </CodeTabs>
 
-Lastly, when your application is about to terminate, shut down the `LDClient` with [`Close()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Close). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+When your application is about to terminate, shut down the `LDClient` with [`Close()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Close). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="go"
@@ -168,6 +174,8 @@ ldClient.Close()
 ## HTTPS Proxy
 
 Go's standard HTTP library provides a built-in HTTPS proxy. If the `HTTPS_PROXY` environment variable is present then the SDK will proxy all network requests through the URL provided.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="linux"

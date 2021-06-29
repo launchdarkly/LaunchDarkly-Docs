@@ -11,11 +11,9 @@ This topic explains how to run feature flags from a file when you're using a ser
 
 <Callout intent="alert">
 <CalloutTitle>Do not use file-based flag values in production environments</CalloutTitle>
-
 <CalloutDescription>
 
- Always configure production environments to receive flag updates from LaunchDarkly. Only use file-based flags in
- testing and pre-production environments. We do not support using flags from files in a production environment.
+ Always configure production environments to receive flag updates from LaunchDarkly. Only use file-based flags in testing and pre-production environments. We do not support using flags from files in a production environment.
 
  If you use flags from files in a production environment, you need to propagate flag changes to the file whenever one of your flags is updated in the LaunchDarkly UI.
 
@@ -37,11 +35,13 @@ They contain up to three properties:
 - `segments`: These are user segment definitions. You only use this property if you have feature flags that use segments.
 
 <Callout intent="alert">
-    <CalloutTitle>YAML files have limitations</CalloutTitle>
-    <CalloutDescription>
-      In some of the SDKs, YAML support requires an additional dependency. YAML is not available in PHP.
-    </CalloutDescription>
-  </Callout>
+<CalloutTitle>YAML files have limitations</CalloutTitle>
+<CalloutDescription>
+
+In some of the SDKs, YAML support requires an additional dependency. YAML is not available in PHP.
+
+</CalloutDescription>
+</Callout>
 
 The format of the data in `flags` and `segments` is defined by the LaunchDarkly application and is subject to change. Rather than trying to construct these objects yourself, it's simpler to request existing flags directly from the LaunchDarkly server in JSON format and use this output as the starting point for your file.
 
@@ -164,6 +164,8 @@ This feature is available in the following server-side SDKs:
 
 ### .NET
 
+To configure the client:
+
 <CodeTabs
   defaultValue="dotnet"
   values={[
@@ -263,6 +265,8 @@ client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
 
 ### Java
 
+To configure the client:
+
 <CodeTabs
   defaultValue="java"
   values={[
@@ -311,6 +315,8 @@ LDClient client = new LDClient("sdk key", config);
 
 ### Node.js (server-side)
 
+To configure the client:
+
 <CodeTabs
   defaultValue="js"
   values={[
@@ -339,6 +345,8 @@ const client = LaunchDarkly.init(sdkKey, config);
 
 
 ### Python
+
+To configure the client:
 
 <CodeTabs
   defaultValue="py"
@@ -374,6 +382,8 @@ client = ldclient.get()
 
 ### PHP
 
+To configure the client:
+
 <CodeTabs
   defaultValue="php"
   values={[
@@ -401,6 +411,8 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 </CodeTabs>
 
 ### Ruby
+
+To configure the client:
 
 <CodeTabs
   defaultValue="ruby"

@@ -6,7 +6,7 @@ published: true
 ---
 
 <Callout intent="alert">
-  <CalloutTitle>iOS SDK versions 3.x and earlier</CalloutTitle>
+<CalloutTitle>iOS SDK versions 3.x and earlier</CalloutTitle>
 <CalloutDescription>
 
 This documentation is for the LaunchDarkly SDK for iOS versions 3.0.1 and earlier. Versions 3.x and earlier are written in Objective-C. Versions 4.0.0 and
@@ -26,6 +26,8 @@ Building on top of our [Getting Started guide](/home/getting-started), the follo
 The first step is to install the LaunchDarkly SDK as a dependency in your application. LaunchDarkly supports multiple methods for installing the SDK in your application.
 
 If you're using [CocoaPods](https://cocoapods.org/), you can install the SDK by adding the following to your `Podfile`. Refer to the [SDK releases page](https://github.com/launchdarkly/ios-client-sdk/releases) to identify the latest version. Note that versions starting with 4.0.0 support Swift instead of Objective-C.
+
+Here is the code to add to your `Podfile`:
 
 <CodeTabs
   defaultValue="ruby"
@@ -47,6 +49,8 @@ end
 
 If you're using [Carthage](https://github.com/Carthage/Carthage), you can install the SDK by specifying it in your `Cartfile`. Again, refer to the [SDK releases page](https://github.com/launchdarkly/ios-client-sdk/releases) to identify the latest version.
 
+Here is the code to include in your `Cartfile`:
+
 <CodeTabs
   defaultValue="objc"
   values={[
@@ -64,8 +68,7 @@ github "launchdarkly/ios-client" "3.0.4"
 
 Refer to the [SDK readme](https://github.com/launchdarkly/ios-client-sdk/blob/master/README.md) for instructions on installing the SDK without CocoaPods or Carthage.
 
-Next you should import the LaunchDarkly client in your application code.
-
+Next you should import the LaunchDarkly client in your application code:
 
 <CodeTabs
   defaultValue="objc"
@@ -82,7 +85,9 @@ Next you should import the LaunchDarkly client in your application code.
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of `LDClient`. You should specify your **mobile key** here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+Once the SDK is installed and imported, create a single, shared instance of `LDClient`. Specify your **mobile key** here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+
+To specify your **mobile key**:
 
 <CodeTabs
   defaultValue="objc"
@@ -123,12 +128,12 @@ LDClient.sharedInstance().start(config, with: user)
 <CalloutTitle>Mobile keys</CalloutTitle>
 <CalloutDescription>
 
-Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into a mobile application.
+Use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into a mobile application.
 
 </CalloutDescription>
 </Callout>
 
-Using `LDClient`, you can check which variation a particular user should receive for a given feature flag.
+Using `LDClient`, you can check which variation a particular user should receive for a given feature flag:
 
 <CodeTabs
   defaultValue="objc"
@@ -151,6 +156,8 @@ if (showFeature) {
 </CodeTabs>
 
 Lastly, when your application is about to terminate, shut down `LDClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+
+To shut down `LDClient`:
 
 <CodeTabs
   defaultValue="objc"
@@ -206,7 +213,7 @@ LDClient.sharedInstance().start(config, with: user)
 Here, we've customized the client connect and flush interval parameters.
 
 <Callout intent="info">
-  <CalloutTitle>Network access</CalloutTitle>
+<CalloutTitle>Network access</CalloutTitle>
 <CalloutDescription>
 
 By default, the LaunchDarkly client will need network access to `*.launchdarkly.com` using `https`.
@@ -216,7 +223,9 @@ By default, the LaunchDarkly client will need network access to `*.launchdarkly.
 
 ## Users
 
-Feature flag targeting and rollouts are all determined by the *user* you pass to your client. In our iOS SDK, we use a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern) to make it easy to construct users. Here's an example:
+Feature flag targeting and rollouts are all determined by the *user* you pass to your client. In our iOS SDK, we use a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern) to make it easy to construct users.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="objc"
@@ -261,17 +270,17 @@ All of the other attributes (like `firstName`, `email`, and the `custom` attribu
 In addition to built-in attributes like names and email addresses, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
 
 <Callout intent="info">
-  <CalloutTitle>A note on types</CalloutTitle>
+<CalloutTitle>The iOS SDK is strongly typed</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes (like names and email addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers.
+Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers.
 
 If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The iOS SDK is strongly typed, so keep this distinction in mind.
 
 </CalloutDescription>
 </Callout>
 
-Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available instantly on our dashboard.
+Custom attributes let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available on your dashboard.
 
 ## Private user attributes
 
@@ -282,8 +291,9 @@ In the iOS SDK there are two ways to define private attributes for the *entire* 
 * When creating the `LDConfig` object, you can set the `allUserAttributesPrivate` attribute to `YES`
 * When creating the `LDConfig` object, you can set the `privateUserAttributes` attribute to a list of user attribute names, such as `@[@"name", @"email"]`;. If any user has a custom or built-in attribute named in this list, it will be removed before the user is sent to LaunchDarkly.
 
-You can also mark attributes as private when building the user object itself by calling the equivalent “private” user builder method. For example:
+You can also mark attributes as private when building the user object itself by calling the equivalent “private” user builder method.
 
+For example:
 
 <CodeTabs
   defaultValue="objc"
@@ -349,13 +359,15 @@ user.isAnonymous = true
 </CodeTabItem>
 </CodeTabs>
 
-You will still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
 
-Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is actually a good thing, because it keeps anonymous users from polluting your Users page!
+Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This keeps anonymous users from polluting your Users page.
 
 ## Variation
 
-The `variation` method determines whether a flag is enabled or not for a specific user. In iOS, there is  a `variation` method for each type (e.g. `boolVariation`, `stringVariation`):
+The `variation` method determines whether a flag is enabled or not for a specific user. In iOS, there is  a `variation` method for each type (e.g. `boolVariation`, `stringVariation`).
+
+Here is an example:
 
 <CodeTabs
   defaultValue="objc"
@@ -388,7 +400,7 @@ The fallback value will only be returned if an error is encountered. For example
 The `variation` call will automatically create a user in LaunchDarkly if a user with that user key doesn't exist already. There's no need to create users ahead of time (but if you do need to, take a look at Identify).
 
 <Callout intent="info">
-  <CalloutTitle>Handling flag values on initial app launch</CalloutTitle>
+<CalloutTitle>Handling flag values on initial app launch</CalloutTitle>
 <CalloutDescription>
 
 When `LDClient` is initialized for the first time at app launch, users will receive the feature flag fallback values until polling is completed for the first time.
@@ -400,7 +412,9 @@ You can use the `userDidUpdate` delegate method to be notified when the feature 
 
 ## Track
 
-The `track` method allows you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests. You can also attach custom JSON data to your event by passing an extra `NSDictionary` parameter to `track`. Here's a simple example:
+The `track` method allows you to record actions your users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests. You can also attach custom JSON data to your event by passing an extra `NSDictionary` parameter to `track`.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="objc"
@@ -429,6 +443,8 @@ LDClient.sharedInstance().track("Signed up", data: dict)
 ## Offline mode
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and switch to fallback values for your feature flags.  `offline` lets you do this easily.
+
+Here is an example:
 
 <CodeTabs
   defaultValue="objc"
@@ -463,17 +479,19 @@ LDClient.sharedInstance().boolVariation("your.feature.key", fallback: false) // 
 You can bring LaunchDarkly back online by calling `online`.
 
 <Callout intent="info">
-  <CalloutTitle>Airplane/Flight Mode</CalloutTitle>
+<CalloutTitle>Airplane/Flight Mode</CalloutTitle>
 <CalloutDescription>
 
-If a user's device is in airplane/flight mode or if they are not connected to a network, LaunchDarkly will use the latest stored flag settings in CoreData. If there are no previously stored flag settings, then the fallback values will be used.
+If a user's device is not connected to a network, such as in airplane/flight mode, LaunchDarkly uses the latest stored flag settings in CoreData. If there are no previously stored flag settings, then the fallback values are used.
 
 </CalloutDescription>
 </Callout>
 
 ## Flush
 
-Internally, the LaunchDarkly SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. In some situations (for example, if you're testing out the SDK in a REPL), you may want to manually call `flush` to process events immediately.
+Internally, the LaunchDarkly SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a REPL, you may want to manually call `flush` to process events immediately.
+
+Here is how to manually call `flush`:
 
 <CodeTabs
   defaultValue="objc"
@@ -509,7 +527,7 @@ To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is
 
 To perform real-time updates in your app, your base class will need to conform to the `ClientDelegate` protocol. When your flag configurations change, either the `userDidUpdate` or the `userUnchanged` method of the protocol is called. Additionally, the `featureFlagDidUpdate` method of the protocol is called (with the specific flag key) when a flag value is changed.
 
-If more than one class relies on LaunchDarkly’s feature flags, we recommend you post a notification in this method, in a manner similar to the following:
+If more than one class relies on LaunchDarkly’s feature flags, we recommend you post a notification in this method:
 
 <CodeTabs
   defaultValue="objc"
@@ -541,10 +559,10 @@ func userDidUpdate() {
 After this, you can add a notification observer to any class that needs to update the app based on the flag values. This observer will point to a selector which can then update your app accordingly.
 
 <Callout intent="info">
-  <CalloutTitle>Variation methods</CalloutTitle>
+<CalloutTitle>Variation methods</CalloutTitle>
 <CalloutDescription>
 
-Make sure to use `variation` methods to get new flag values instead of any locally stored variables.
+Use `variation` methods to get new flag values instead of any locally stored variables.
 
 </CalloutDescription>
 </Callout>
@@ -625,6 +643,8 @@ LaunchDarkly's iOS SDK supports having multiple `LDClient` instances tied to sep
 
 All `LDClient` instances will evaluate against the same `LDUser`. The mobile keys for additional environments are specified, along with identifying names, in a dictionary passed to your `LDConfig` object.
 
+Here is how to tie multiple `LDClient` instances to separate mobile keys:
+
 <CodeTabs
   defaultValue="objc"
   values={[
@@ -663,6 +683,8 @@ LDClient.sharedInstance().start(config, with: user)
 </CodeTabs>
 
 To access the secondary mobile key instances, use the `environmentForMobileKeyNamed` method on `LDClient`. This method takes the identifier name assigned to your environment key in the secondaryMobileKeys dictionary and returns the associated `LDClient` instance.
+
+To use the `environmentForMobileKeyNamed` method:
 
 <CodeTabs
   defaultValue="objc"

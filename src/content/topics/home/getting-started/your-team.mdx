@@ -20,10 +20,10 @@ You cannot sign up for LaunchDarkly as a user who is not associated with a compa
 
 ## Bringing your team to LaunchDarkly
 
-If you want to get your team started with LaunchDarkly, you have a few different options for how to add team members to your organization.
+If you want to get your team started with LaunchDarkly, you have a few different options for how to add team members to your organization:
 
 - You can invite [individual team members](#adding-individual-team-members)
-- You can import team members from [an IDP or trial](#adding-members-who-signed-up-for-a-trial) 
+- You can import team members from [an IDP or trial](#adding-members-who-signed-up-for-a-trial)
 - Team members on a LaunchDarkly trial can join from there
 
 <Callout intent="info">
@@ -46,11 +46,12 @@ After prospective members receive the invitation, they follow the sign up instru
 ## Adding members who signed up for a trial
 
 <Callout intent="warning">
-  <CalloutTitle>Invitations fail when your email address is in use by a trial account</CalloutTitle>
-  <CalloutDescription>
-    If your email address is associated with a trial account, you must de-associate it or delete the trial account
-    before you can receive an invitation email from your team.
-  </CalloutDescription>
+<CalloutTitle>Invitations fail when your email address is in use by a trial account</CalloutTitle>
+<CalloutDescription>
+
+If your email address is associated with a trial account, you must de-associate it or delete the trial account  before you can receive an invitation email from your team.
+
+</CalloutDescription>
 </Callout>
 
 A LaunchDarkly account can only have one email address associated with it, and one email address cannot be used for multiple LaunchDarkly accounts. If you used your preferred email address to sign up for a trial, you must de-associate it from the trial account before you can join your team's LaunchDarkly account, using one of two methods:
@@ -68,6 +69,8 @@ To change the email address associated with your trial account:
 4. Click **Update my info**.
 
 You can now accept an invitation from your team owner using the email address previously associated with the trial account.
+
+Here is a screenshot of the Profile tab under Account settings:
 
 ![The Profile tab with an email address filled in.](../../images/account-settings-profile.png)
 
@@ -87,7 +90,7 @@ You can now accept an invitation from your team owner using the email address pr
 
 ## Understanding LaunchDarkly's user entity types
 
-In LaunchDarkly, it is important to distinguish between **team members** and **users**.
+In LaunchDarkly, it is important to distinguish between **team members** and **users**. Here is a table explaning the difference:
 
 <Table>
   <TableHeader>
@@ -98,19 +101,13 @@ In LaunchDarkly, it is important to distinguish between **team members** and **u
     <TableRow>
       <TableCell>"Team members," or "members"</TableCell>
       <TableCell>
-        These are people who have been invited to join a LaunchDarkly account to create and manage feature flags. They
-        can log into a company's LaunchDarkly account and view the dashboard. They may be employees of a company that
-        uses LaunchDarkly, people with an @your-company.com email address, or people or entities associated with your
-        identity provider (IdP).
+        These are people who have been invited to join a LaunchDarkly account to create and manage feature flags. They can log into a company's LaunchDarkly account and view the dashboard. They may be employees of a company that uses LaunchDarkly, people with an @your-company.com email address, or people or entities associated with your identity provider (IdP).
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>"Users"</TableCell>
       <TableCell>
-        These are people or entities who trigger flag evaluations. This can cause them to appear in the Users dashboard
-        in LaunchDarkly, but they cannot log into the team's LaunchDarkly account or see or modify their own or other
-        user's data. They may be customers of a team using LaunchDarkly, consumers of an app or website that uses
-        feature flags, or other entities that can cause flag evaluations to occur.
+        These are people or entities who trigger flag evaluations. This can cause them to appear in the Users dashboard in LaunchDarkly, but they cannot log into the team's LaunchDarkly account or see or modify their own or other user's data. They may be customers of a team using LaunchDarkly, consumers of an app or website that uses feature flags, or other entities that can cause flag evaluations to occur.
       </TableCell>
     </TableRow>
   </TableBody>

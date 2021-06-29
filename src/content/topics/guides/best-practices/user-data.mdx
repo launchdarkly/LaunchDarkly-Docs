@@ -60,10 +60,12 @@ To learn more, read [Custom roles](/home/team/custom-roles).
 ## Features to minimize user data sent to LaunchDarkly
 
 <Callout intent="alert">
-  <CalloutTitle>Increased privacy comes with tradeoffs</CalloutTitle>
-  <CalloutDescription>
-    Further hardening the privacy of your LaunchDarkly projects may require some LaunchDarkly features to stop working or cause performance degradation.
-  </CalloutDescription>
+<CalloutTitle>Increased privacy comes with tradeoffs</CalloutTitle>
+<CalloutDescription>
+
+Further hardening the privacy of your LaunchDarkly projects may require some LaunchDarkly features to stop working or cause performance degradation.
+
+</CalloutDescription>
 </Callout>
 
 Here are some additional configuration options you can use to increase user privacy in LaunchDarkly. Using these features can impact certain features in the LaunchDarkly UI.
@@ -78,7 +80,7 @@ To learn more, read [Creating private user attributes](/home/users/attributes#cr
 
 Anonymous users do not register as users in your [Users dashboard](/home/users/users-dashboard), and so the usual data LaunchDarkly collects on a user isn't available for an anonymous user. You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user attributes instead. You can force all users to register in LaunchDarkly as anonymous users by setting the anonymous user bit in your SDK to `true` when you construct the LaunchDarkly User object from the domain user object.
 
- To learn more, read [Anonymous users](/home/users/anonymous-users).
+To learn more, read [Anonymous users](/home/users/anonymous-users).
 
 ### Impacted features
 
@@ -90,7 +92,7 @@ When your product uses LaunchDarkly JavaScript SDKs, users can minimize the data
 
 This works because the JavaScipt SDK sends data to the feature flag API (app.launchdarkly.com), the streaming API (stream.launchdarkly.com), and the analytics API (events.launchdarkly.com). Users can block the analytics API to reduce the amount of data they provide to LaunchDarkly, but the feature flag API and analytics API are necessary for LaunchDarkly to work.
 
-### Do Not Track (DNT)
+### Do Not Track
 
 Modern web browsers have Do Not Track (DNT) options that request websites, apps, and services not harvest user data.
 

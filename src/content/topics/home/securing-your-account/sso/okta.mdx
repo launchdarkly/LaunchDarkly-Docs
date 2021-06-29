@@ -24,23 +24,21 @@ To use Okta with LaunchDarkly, you must meet the following prerequisites:
 ## Using Okta to manage LaunchDarkly users with SCIM
 
 <Callout intent="primary">
-  <CalloutTitle>SCIM-based user provisioning is an Enterprise feature</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>SCIM-based user provisioning is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
 
 User provisioning with SCIM is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 <Callout intent="alert">
-  <CalloutTitle>I have more than one SCIM connection!</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>If you have more than one SCIM connection</CalloutTitle>
+<CalloutDescription>
 
-If you get an error during configuration that you cannot add an additional SCIM connection, go to the **Security**
-tab in LaunchDarkly's **Account Settings** and click **Disconnect SCIM.** This allows you to connect Okta's
-SCIM-based protocols to LaunchDarkly.
+If you get an error during configuration that you cannot add an additional SCIM connection, go to the **Security** tab in LaunchDarkly's **Account Settings** and click **Disconnect SCIM.** This allows you to connect Okta's SCIM-based protocols to LaunchDarkly.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 To get started, navigate to the Okta Administrator Dashboard to add an application and search for LaunchDarkly.
@@ -51,7 +49,7 @@ To authorize Okta to manage your LaunchDarkly users:
 
 1. Log in to Okta as an administrator.
 2. Navigate to **Applications** and click \*_Add Application_.\*
-3. In the search bar, type "LaunchDarkly". The LaunchDarkly app appears in the search results.
+3. In the search bar, type "LaunchDarkly". The LaunchDarkly app appears in the search results:
 
 ![The Add Application screen with search results populating.](../../../../images/okta-ld-app.png)
 
@@ -66,9 +64,11 @@ You just activated the LaunchDarkly app in Okta.
 
 This procedure tells you how to connect the LaunchDarkly app and Okta by using SCIM. This allows you to provision, manage, and deprovision LaunchDarkly users in Okta.
 
+To grant Okta permission to manage users:
+
 1. Navigate to the LaunchDarkly app in Okta.
 2. Click the **Provisioning** tab. The Integration page opens.
-3. Click **Configure API Integration**.
+3. Click **Configure API Integration**:
 
     ![The Integration page with the API integration button called out.](../../../../images/okta-configure-api-integration.png)
 
@@ -91,22 +91,22 @@ Okta is now connected to LaunchDarkly.
 Next, you must configure Okta to recognize email addresses as the usernames for individual users.
 
 <Callout intent="info">
-  <CalloutTitle>How LaunchDarkly and Okta use email addresses</CalloutTitle>
-  <CalloutDescription>
-    LaunchDarkly stores emails in lowercase, and does not differentiate between usernames and email addresses. You may
-    use one email address with one LaunchDarkly account at a time. Okta uses email addresses as SCIM usernames. If you
-    change a username or email address in Okta or LaunchDarkly after configuration, the corresponding value also
-    changes. Only use lowercase letters to configure email addresses. Email addresses including uppercase letters cause
-    an error.
-  </CalloutDescription>
+<CalloutTitle>How LaunchDarkly and Okta use email addresses</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly stores emails in lowercase, and does not differentiate between usernames and email addresses. You may use one email address with one LaunchDarkly account at a time. Okta uses email addresses as SCIM usernames. If you change a username or email address in Okta or LaunchDarkly after configuration, the corresponding value also changes. Only use lowercase letters to configure email addresses. Email addresses including uppercase letters cause an error.
+
+</CalloutDescription>
 </Callout>
+
+To configure Okta to recognize email addresses as usernames:
 
 1. Navigate to the LaunchDarkly app in Okta.
 2. Click the **Sign On** tab. The Settings page opens.
 3. Click the **Edit** button in the top right corner of the Settings window.
 4. Scroll to the bottom of the settings page and enter your Assertion consumer service URL.
 5. Enter your Entity ID.
-3. Use the dropdown to set the Application username format to **Email**.
+3. Use the dropdown to set the Application username format to **Email**:
 
     ![The Credentials Details screen, with username format set to "Email."](../../../../images/okta-username-format.png)
 
@@ -119,11 +119,12 @@ You have successfully connected Okta and LaunchDarkly
 You can assign custom roles that you created in LaunchDarkly to users through the Okta UI.
 
 <Callout intent="info">
-  <CalloutTitle>If you use Okta to manage users, you cannot change back to LaunchDarkly.</CalloutTitle>
-  <CalloutDescription>
-    SCIM setup takes precedence over LaunchDarkly's configuration options. If you begin to manage users and their role
-    assignment in Okta, you must continue managing them in Okta for additional changes to take effect.
-  </CalloutDescription>
+<CalloutTitle>If you use Okta to manage users, you cannot change back to LaunchDarkly.</CalloutTitle>
+<CalloutDescription>
+
+SCIM setup takes precedence over LaunchDarkly's configuration options. If you begin to manage users and their role assignment in Okta, you must continue managing them in Okta for additional changes to take effect.
+
+</CalloutDescription>
 </Callout>
 
 Use Okta's Group Assignment feature to set up custom roles for a LaunchDarkly user or group. The roles you set up in Okta are passed to LaunchDarkly as user attributes.
@@ -131,47 +132,49 @@ Use Okta's Group Assignment feature to set up custom roles for a LaunchDarkly us
 To learn more about user attributes, read [Setting user attributes](/home/users/attributes).
 
 <Callout intent="alert">
-  <CalloutTitle>Users with multiple roles have permissions combining them</CalloutTitle>
-  <CalloutDescription>
-    If a user has multiple Okta groups representing different roles, they are assigned permissions for all of their
-    roles. For example, if a user is in both a Marketing role and a more permissive Engineering role, they can use the
-    permissions granted by the Engineering role.
-  </CalloutDescription>
+<CalloutTitle>Users with multiple roles have permissions combining them</CalloutTitle>
+<CalloutDescription>
+
+If a user has multiple Okta groups representing different roles, they are assigned permissions for all of their roles. For example, if a user is in both a Marketing role and a more permissive Engineering role, they can use the permissions granted by the Engineering role.
+
+</CalloutDescription>
 </Callout>
 
 To assign custom roles to groups:
 
 1. Navigate to the LaunchDarkly application's **General Settings** page.
 2. Navigate to the **Assignments** tab.
-3. In the **Assign** dropdown, choose **Assign to Groups**.
+3. In the **Assign** dropdown, choose **Assign to Groups**:
+
+![The "Assign" dropdown.](../../../../images/okta-assignments-assign-dropdown.png)
 
 <Callout intent="info">
-  <CalloutTitle>Assigning custom roles to one user</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Assigning custom roles to one user</CalloutTitle>
+<CalloutDescription>
 
 You can also specify custom roles for individual users by performing this procedure after choosing **Assign to
 Users** in step 3.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
-![The "Assign" dropdown.](../../../../images/okta-assignments-assign-dropdown.png)
-
-4. Find the groups you want to assign custom roles to and click **Assign**.
+4. Find the groups you want to assign custom roles to and click **Assign**:
 
     ![The "Assign LaunchDarkly to Groups" screen.](../../../../images/okta-assign-ld-to-groups.png)
 
 
 5. Enter the key for the custom role you wish to assign to this group. This connects one role to the selected group.
 
-    <Callout intent="alert">
-      <CalloutTitle>You cannot assign roles and custom roles at the same time</CalloutTitle>
-      <CalloutDescription>
-        You can assign either a role or a custom role in this step, but not both. If you enter values in both the Role and customRole fields, Okta ignores the customRole field.
-      </CalloutDescription>
-    </Callout>
+<Callout intent="alert">
+<CalloutTitle>You cannot assign roles and custom roles at the same time</CalloutTitle>
+<CalloutDescription>
 
-6. Add more custom roles by entering additional keys in the customRole field seperated by commas, with no spaces.
+You can assign either a role or a custom role in this step, but not both. If you enter values in both the Role and customRole fields, Okta ignores the customRole field.
+
+</CalloutDescription>
+</Callout>
+
+6. Add more custom roles by entering additional keys in the customRole field seperated by commas, with no spaces:
 
     ![The "Add Another Role" screen.](../../../../images/okta-ld-custom-roles.png)
 
@@ -185,9 +188,10 @@ If you have custom roles already configured in Okta, you can set up custom roles
 
 
 <Callout intent="info">
-  <CalloutTitle>Removing existing roles</CalloutTitle>
-  <CalloutDescription>
-    SAML ignores empty fields if used in user roles or custom roles. If you want to clear all existing roles for a user,
-    enter an empty string "" into the field.
-  </CalloutDescription>
+<CalloutTitle>Removing existing roles</CalloutTitle>
+<CalloutDescription>
+
+SAML ignores empty fields if used in user roles or custom roles. If you want to clear all existing roles for a user, enter an empty string "" into the field.
+
+</CalloutDescription>
 </Callout>

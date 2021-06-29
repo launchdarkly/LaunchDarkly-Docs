@@ -40,8 +40,8 @@ repository, [java-sdk-common](https://github.com/launchdarkly/java-sdk-common).
 To learn more about the differences between SDKs, read [Client-side and server-side
 SDKs](/sdk/concepts/client-side-server-side).
 
-
 The full package schema is as follows:
+
 * [`com.launchdarkly.sdk`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/package-summary.html)
   * Provides: [`LDUser`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/LDUser.html), [`LDUser.Builder`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/LDUser.Builder.html), [`LDValue`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/LDValue.html), [`EvaluationDetail`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/EvaluationDetail.html), [`EvaluationReason`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/EvaluationReason.html)
 
@@ -51,12 +51,12 @@ The full package schema is as follows:
 * [`com.launchdarkly.sdk.android`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/package-summary.html)
   * Provides: [`LDClient`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClient.html), [`LDConfig`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDConfig.html), [`LaunchDarklyException`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LaunchDarklyException.html), [`LDFailure`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDFailure.html), [`LDInvalidResponseCodeFailure`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDInvalidResponseCodeFailure.html)
 
-
 ## Updating the configuration
 
 The `set` prefix has been removed from all the configuration methods of `LDConfig.Builder`, and
-should be removed from your configuration calls. Additionally, certain configuration options have
-changed.
+should be removed from your configuration calls.
+
+Additionally, certain configuration options have changed:
 
 * If your application used `setPrivateAttributeNames(Set<String>)` to configure globally private
   user attributes, it needs to be updated to use
@@ -76,7 +76,7 @@ changed.
   provided `LDHeaderUpdater` is called to update the headers used on each request to the
   LaunchDarkly service, allowing the headers to differ between requests.
 
-The following example shows all of these changes.
+The following example shows all of these changes:
 
 <CodeTabs
   defaultValue="sdk2-java"
@@ -163,21 +163,21 @@ val ldConfig: LDConfig = LDConfig.Builder()
 </CodeTabItem>
 </CodeTabs>
 
-
 ## Understanding changes to building users
 
 Certain `LDUser.Builder` methods have changed in 3.0 compared to 2.x versions of the Android
-SDK. These changes are primarily to the methods for configuring custom attributes for the user. In
-2.x, configuring array values for attributes could be done using the following builder methods:
+SDK. These changes are primarily to the methods for configuring custom attributes for the user.
+
+In 2.x, configuring array values for attributes could be done using the following builder methods:
 
 * `customString(String, List<String>)`
 * `privateCustomString(String, List<String>)`
 * `customNumber(String, List<Number>)`
 * `privateCustomNumber(String, List<Number>)`
 
-These builder methods have been removed in favor of new overrides for `custom` and `privateCustom`
-that allow setting an `LDValue` as the attribute value to allow more flexibility in the attribute
-values, such as mixed-type arrays. See the following code samples for an example migration.
+These builder methods have been removed in favor of new overrides for `custom` and `privateCustom` that allow setting an `LDValue` as the attribute value to allow more flexibility in the attribute values, such as mixed-type arrays.
+
+Here is an example migration:
 
 <CodeTabs
   defaultValue="sdk2-java"
@@ -230,24 +230,15 @@ val user: LDUser = LDUser.Builder("userKey")
 </CodeTabItem>
 </CodeTabs>
 
-Additionally, the `custom` and `privateCustom` overrides that took the nullable types `Boolean` and
-`Number` as the attribute value have been removed, which avoids potential
-`NullPointerExceptions`. There are new overrides for setting `boolean`, `int`, and `double`
-attribute values as replacements for the previous overrides.
+Additionally, the `custom` and `privateCustom` overrides that took the nullable types `Boolean` and `Number` as the attribute value have been removed, which avoids potential `NullPointerExceptions`. There are new overrides for setting `boolean`, `int`, and `double` attribute values as replacements for the previous overrides.
 
-Finally, there are changes to the `countryCode` built-in user attribute. In 2.x this attribute was
-treated specially. If set as a `String`, the SDK attempted to look up the country, matching it to an
-ISO-3166-1 alpha-2, alpha-3 code, or a country name, and set the country to the resultant IOS-3166-1
-alpha-2 code only if the lookup was successful. This behavior has been removed in the 3.0 release,
-and the SDK now treats this field as a normal `String`.
-
+Finally, there are changes to the `countryCode` built-in user attribute. In 2.x this attribute was treated specially. If set as a `String`, the SDK attempted to look up the country, matching it to an ISO-3166-1 alpha-2, alpha-3 code, or a country name, and set the country to the resultant IOS-3166-1 alpha-2 code only if the lookup was successful. This behavior has been removed in the 3.0 release, and the SDK now treats this field as a normal `String`.
 
 ## Understanding changes to the variation methods
 
-In the 3.0 release of the SDK, `jsonVariation` has been renamed to `jsonValueVariation` for
-consistency with other SDKs. Rather than using `Gson`'s `JsonElement` type for the
-application provided default value and the resultant value, `jsonValueVariation` uses the new
-`LDValue` type.
+In the 3.0 release of the SDK, `jsonVariation` has been renamed to `jsonValueVariation` for consistency with other SDKs. Rather than using `Gson`'s `JsonElement` type for the application provided default value and the resultant value, `jsonValueVariation` uses the new `LDValue` type.
+
+Here is an example using the new `LDValue` type:
 
 <CodeTabs
   defaultValue="sdk2-java"
@@ -288,31 +279,17 @@ val result: LDValue = ldClient.jsonValueVariation("flagKey", LDValue.buildArray(
 </CodeTabItem>
 </CodeTabs>
 
-Additionally, a behavioral change has been made to the `stringVariation` and `stringVariationDetail`
-methods. Before the 3.0 release of the Android SDK, these methods were lenient in handling the type
-mismatch when the value for the requested flag key was a complex type of a JSON array or object. In
-this case the SDK returned a serialized representation of the flag value. For consistency with how
-the other variation methods behave when the flag value does not match the type expected by the
-variation call, the resultant flag value is the provided default value in this case.
+Additionally, a behavioral change has been made to the `stringVariation` and `stringVariationDetail` methods. Before the 3.0 release of the Android SDK, these methods were lenient in handling the type mismatch when the value for the requested flag key was a complex type of a JSON array or object. In this case the SDK returned a serialized representation of the flag value. For consistency with how the other variation methods behave when the flag value does not match the type expected by the variation call, the resultant flag value is the provided default value in this case.
 
-Finally, the `boolVariation`, `boolVariationDetail`, `intVariation`, and `intVariationDetail`
-methods no longer take the nullable object types `Boolean` and `Integer` as application default
-values. Instead they require primitive `boolean` and `int` values as the provided application
-default values.
-
+Finally, the `boolVariation`, `boolVariationDetail`, `intVariation`, and `intVariationDetail` methods no longer take the nullable object types `Boolean` and `Integer` as application default values. Instead they require primitive `boolean` and `int` values as the provided application default values.
 
 ## Understanding changes to retrieving all flag values
 
-The `allFlags` method has been changed to take advantage of the `LDValue` type rather than using
-untyped objects. In 2.x versions of the SDK, the values in the returned `Map` would be one of
-`Boolean`, `Float`, or `String`. All flags with numeric values would be included as `Float`, array
-and object flag values would be serialized to a `String`, and malformed flags missing a value would
-be omitted.
+The `allFlags` method has been changed to take advantage of the `LDValue` type rather than using untyped objects. In 2.x versions of the SDK, the values in the returned `Map` would be one of `Boolean`, `Float`, or `String`. All flags with numeric values would be included as `Float`, array and object flag values would be serialized to a `String`, and malformed flags missing a value would be omitted.
 
-In the 3.0 release, the values in the returned `Map` are `LDValue`s wrapping the flag value and
-maintaining complex types. Malformed flags that are missing a value are now included as an
-`LDValue.ofNull()` object. The resultant values are equivilent to calling `jsonValueVariation` for
-each flag with `LDValue.ofNull()` as the application default value.
+In the 3.0 release, the values in the returned `Map` are `LDValue`s wrapping the flag value and maintaining complex types. Malformed flags that are missing a value are now included as an `LDValue.ofNull()` object. The resultant values are equivilent to calling `jsonValueVariation` for each flag with `LDValue.ofNull()` as the application default value.
+
+Here is an example of retrieving all flag values:
 
 <CodeTabs
   defaultValue="sdk2-java"
@@ -398,10 +375,7 @@ for (flag in flagValues.entries) {
 
 ## Track methods
 
-The overloads for the SDK `track` method have been split into separate methods for clarity, and
-`JsonElement` arguments have been replaced with `LDValue` arguments to avoid `Gson` types in the
-API. If your application was providing a metric value to `track`, use `trackMetric` instead. If your
-application was providing a `JsonElement`, use `trackData` with an `LDValue` instead.
+The overloads for the SDK `track` method have been split into separate methods for clarity, and `JsonElement` arguments have been replaced with `LDValue` arguments to avoid `Gson` types in the API. If your application was providing a metric value to `track`, use `trackMetric` instead. If your application was providing a `JsonElement`, use `trackData` with an `LDValue` instead.
 
 Here is an example of these changes:
 
@@ -455,32 +429,21 @@ ldClient.trackMetric("bothEvent", LDValue.of("tag"), 3.5)
 
 ## Converting objects to or from JSON data
 
-You might want to convert LaunchDarkly SDK classes such as `LDUser` or `LDValue` into JSON if you
-are sending them to your backend service. Less commonly, you might want to convert them from
-JSON. The SDK provides ways to do both.
+You might want to convert LaunchDarkly SDK classes such as `LDUser` or `LDValue` into JSON if you are sending them to your backend service. Less commonly, you might want to convert them from JSON. The SDK provides ways to do both.
 
-First, you can use the serialize and deserialize methods in
-[`com.launchdarkly.sdk.json.JsonSerialization`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/json/JsonSerialization.html)
-to quickly convert these types to or from JSON strings.
+First, you can use the serialize and deserialize methods in [`com.launchdarkly.sdk.json.JsonSerialization`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/json/JsonSerialization.html) to quickly convert these types to or from JSON strings.
 
-Second, if you prefer to use the popular [Gson](https://github.com/google/gson) or
-[Jackson](https://github.com/FasterXML/jackson) JSON frameworks for Java, continue reading.
+Second, if you prefer to use the popular [Gson](https://github.com/google/gson) or [Jackson](https://github.com/FasterXML/jackson) JSON frameworks for Java, continue reading.
 
 ### Gson
 
-Previously, classes from Gson were exposed in the SDK's public API, so `gson` had to be a regular
-dependency on your application classpath. This has changed so that even though Gson is used
-internally by the SDK, it is a private copy that does not interact with outside code.
+Previously, classes from Gson were exposed in the SDK's public API, so `gson` had to be a regular dependency on your application classpath. This has changed so that even though Gson is used internally by the SDK, it is a private copy that does not interact with outside code.
 
-However, this also means that if you want to convert LaunchDarkly SDK objects such as `LDUser` or
-`LDValue` to or from JSON—for instance, to send them to your backend service—and you are using Gson,
-you can't simply call `Gson.toJson()` or `Gson.fromJson()` and get correct results. The Gson in your
-application does not automatically recognize the Gson annotations and custom serializers that are
-contained in the SDK.
+However, this also means that if you want to convert LaunchDarkly SDK objects such as `LDUser` or `LDValue` to or from JSON—for instance, to send them to your backend service—and you are using Gson, you can't simply call `Gson.toJson()` or `Gson.fromJson()` and get correct results. The Gson in your application does not automatically recognize the Gson annotations and custom serializers that are contained in the SDK.
 
 To make this work correctly, you must add an extra step to the setup of your Gson instance.
 
-Here is an example:
+Here is an example including the extra step:
 
 <CodeTabs
   defaultValue="sdk3-java"
@@ -517,17 +480,13 @@ val gson: Gson = GsonBuilder()
 </CodeTabItem>
 </CodeTabs>
 
-If you have registered
-[`LDGson.typeAdapters()`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/json/LDGson.html#typeAdapters--)
-in the Gson instance you're using, `toJson()` and `fromJson()` works as expected with LaunchDarkly
-types.
+If you have registered [`LDGson.typeAdapters()`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/json/LDGson.html#typeAdapters--) in the Gson instance you're using, `toJson()` and `fromJson()` works as expected with LaunchDarkly types.
 
 ### Jackson
 
-Previously, it was not possible to convert LaunchDarkly SDK classes to or from JSON using
-Jackson. This is now possible if you configure your Jackson `ObjectMapper` with
-[`LDJackson.module()`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/json/LDJackson.html#module--)
-as follows:
+Previously, it was not possible to convert LaunchDarkly SDK classes to or from JSON using Jackson. This is now possible if you configure your Jackson `ObjectMapper` with [`LDJackson.module()`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/json/LDJackson.html#module--).
+
+Here is how to configure your Jackson `ObjectMapper` with `LDJackson.module()`:
 
 <CodeTabs
   defaultValue="sdk3-java"

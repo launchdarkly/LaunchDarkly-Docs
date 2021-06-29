@@ -13,13 +13,13 @@ This topic explains how the all flags feature works in the LaunchDarkly SDKs tha
 
 The all flags feature returns the state of all feature flags targeted to a user. This includes the flag values, and, for server-side SDKs, metadata for use on the front end.
 
-In most of the client- and server-side SDKs, getting all flags does not create users or other analytic events in your LaunchDarkly account. Unlike evaluating individual flags or identifying users, getting all flags usually does not send events that create a user within LaunchDarkly or populate the "Insights" for a flag. 
+In most of the client- and server-side SDKs, getting all flags does not create users or other analytic events in your LaunchDarkly account. Unlike evaluating individual flags or identifying users, getting all flags usually does not send events that create a user within LaunchDarkly or populate the "Insights" for a flag.
 
 For client-side SDKs, The all flags feature may return a null value in cases where a flag's fallback variation would be served to the user.
 
 For server-side SDKs, you can use the all flags feature to pass feature flags to your front end. In particular, you can use it to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript). To learn more about bootstrapping from a client-side SDK, read [Bootstrapping](/sdk/features/bootstrapping).
 
-Details about each SDK's configuration are available in the SDK-specific sections below.
+Details about each SDK's configuration are available in the SDK-specific sections below:
 
 * [Client-side SDKs](#client-side-sdks)
 * [Server-side SDKs](#server-side-sdks)
@@ -41,7 +41,7 @@ This feature is available in the following client-side SDKs:
 
 ### Android
 
-The `allFlags` method produces a map of feature flag keys to their values for a specific user.
+The `allFlags` method produces a map of feature flag keys to their values for a specific user:
 
 <CodeTabs
   defaultValue="java"
@@ -68,7 +68,7 @@ ldClient.allFlags()
 
 ### Flutter
 
-The `allFlags` method produces a map of feature flag keys to their values for a specific user.
+The `allFlags` method produces a map of feature flag keys to their values for a specific user:
 
 <CodeTabs
   defaultValue="dart"
@@ -90,6 +90,8 @@ Map<String, LDValue> flagValues = await LDClient.allFlags();
 All flags returns a dictionary with the flag keys and their values. If the `LDClient` is not started, it returns `nil`.
 
 The dictionary does not contain feature flags from the server with null values. `LDClient` does not provide any source or change information, only flag keys and flag values. The client app should convert the feature flag value into the desired type.
+
+To use the all flags feature:
 
 <CodeTabs
   defaultValue="swift"
@@ -134,6 +136,8 @@ Unlike most of our SDKs, our Node.js (client-side) SDK's `allFlags` method sends
 ### React Native
 
 The `allFlags` method returns an object containing flag keys and values. You can also register a listener that fires when any flag in your environment changes.
+
+To use the all flags feature:
 
 <CodeTabs
   defaultValue="js"
@@ -180,7 +184,7 @@ allFlags = launchDarkly.allFlags()
 
 ### Xamarin
 
-The `AllFlags` method produces a map of feature flag keys to their values for the current user.
+The `AllFlags` method produces a map of feature flag keys to their values for the current user:
 
 <CodeTabs
   defaultValue="csharp"
@@ -220,6 +224,8 @@ This feature is available in the following server-side SDKs:
 
 The [`AllFlagsState`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_AllFlagsState_) method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
+To use the all flags feature:
+
 <CodeTabs
   defaultValue="csharp"
   values={[
@@ -238,6 +244,8 @@ var state = ldClient.AllFlagsState(user);
 ### Apex
 
 The `allFlags` method produces a map of feature flag keys to their values for a specific user. This does not send any evaluation events to LaunchDarkly.
+
+To use the all flags feature:
 
 <CodeTabs
   defaultValue="java"
@@ -260,6 +268,8 @@ The `LDAllFlags` function captures the state of all feature flag keys with regar
 
 This method can be useful for passing feature flags to your front end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
 
+To use the all flags feature:
+
 <CodeTabs
   defaultValue="c"
   values={[
@@ -278,6 +288,8 @@ struct LDJSON *allFlags = LDAllFlags(client, user);
 ### Erlang
 
 The `all_flags_state` function captures the state of all feature flag keys as evaluated for a specific user. This includes their values and other metadata.
+
+To use the all flags feature:
 
 <CodeTabs
   defaultValue="erlang"
@@ -299,6 +311,8 @@ ldclient:all_flags_state(#{key => <<"aa0ceb">>})
 The [`AllFlagsState`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.AllFlagsState) method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
 In this example, the extra `ClientSideOnly` option is specified so that only the feature flags designated for client-side use are included in the result.
+
+To use the all flags feature:
 
 <CodeTabs
   defaultValue="go"
@@ -331,6 +345,8 @@ state := ldClient.AllFlagsState(user, ld.ClientSideOnly)
 
 The `allFlags` function captures the state of all feature flag keys as evaluated for a specific user. This includes their values, as well as other metadata.
 
+To use the all flags feature:
+
 <CodeTabs
   defaultValue="haskell"
   values={[
@@ -352,6 +368,7 @@ The [`allFlagsState`](http://launchdarkly.github.io/java-server-sdk/com/launchda
 
 This method can be useful for passing feature flags to your front end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
 
+To use the all flags feature:
 
 <CodeTabs
   defaultValue="java"
@@ -372,6 +389,8 @@ FeatureFlagsState state = ldClient.allFlagsState(user);
 
 The `allFlags` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
+To use the all flags feature:
+
 <CodeTabs
   defaultValue="lua"
   values={[
@@ -390,6 +409,8 @@ local allFlags = client:allFlags(user)
 ### Node.js (server-side)
 
 The `allFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
+
+To use the all flags feature:
 
 <CodeTabs
   defaultValue="js"
@@ -414,6 +435,8 @@ The `allFlagsState` method captures the state of all feature flag keys with rega
 
 This method can be useful for passing feature flags to your front end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
 
+To use the all flags feature:
+
 <CodeTabs
   defaultValue="php"
   values={[
@@ -435,6 +458,8 @@ The `all_flags_state` method captures the state of all feature flag keys with re
 
 This method can be useful for passing feature flags to your front end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
 
+To use the all flags feature:
+
 <CodeTabs
   defaultValue="py"
   values={[
@@ -455,6 +480,8 @@ state = ldclient.get().all_flags_state(user)
 The `all_flags_state` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 
 This method can be useful for passing feature flags to your front end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
+
+To use the all flags feature:
 
 <CodeTabs
   defaultValue="ruby"

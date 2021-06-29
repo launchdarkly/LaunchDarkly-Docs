@@ -128,6 +128,8 @@ The optional `contextKind` attribute should be either `"user"` or `"anonymousUse
 
 The debug event is a variant on the feature event, with two differences. It has `kind` set to `"debug"` and it inlines the `user` value. It is only sent if the `debugEventsUntilDate` attribute is set for a feature flag and indicates a Unix timestamp (in milliseconds) that has not yet elapsed. Debug events are not controlled by the `trackEvents` field.
 
+Here is an example a debug event:
+
 <CodeTabs
   defaultValue="json"
   values={[
@@ -166,6 +168,8 @@ The debug event is a variant on the feature event, with two differences. It has 
 
 The details of the `user` object used in a feature flag evaluation as reported by the feature event are transmitted periodically from a separate index event. It is expected that the SDK will only send index events when user attributes have changed.
 
+Here is an example of an index event:
+
 <CodeTabs
   defaultValue="json"
   values={[
@@ -198,6 +202,7 @@ The `kind` for an index event is `"index"`. The value of `user` is the same as d
 
 Identify events are produced when the client application calls an SDK method called `identify`. Identify events have an identical structure to index events, except the `kind` is set to `identify`:
 
+Here is an example of an identify event:
 
 <CodeTabs
   defaultValue="json"
@@ -290,6 +295,8 @@ The optional `contextKind` attribute should be either `"user"` or `"anonymousUse
 
 The SDK is expected to send summary events for every flush interval describing all of the feature evaluations that occurred during that interval. Summary events include all feature evaluations, regardless of whether the `trackEvents` field was set for individual flags.
 
+Here is an example of a summary event:
+
 <CodeTabs
   defaultValue="json"
   values={[
@@ -345,7 +352,9 @@ The SDK is expected to send summary events for every flush interval describing a
 </CodeTabItem>
 </CodeTabs>
 
-The summary event represents a set of feature flag evaluations occurring during an interval defined by `startDate` and `endDate`, broken out by feature flag. For each feature flag, the following data should be provided:
+The summary event represents a set of feature flag evaluations occurring during an interval defined by `startDate` and `endDate`, broken out by feature flag.
+
+For each feature flag, the following data should be provided:
 
 <Table>
   <TableHeader>

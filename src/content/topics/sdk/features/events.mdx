@@ -174,6 +174,8 @@ Call `track` with the event name to record custom conversion metrics.
 
 The second argument is optional. It assists with observational analytics for Data Export destinations. With Data Export, the second argument gives additional context without saving the data to the LaunchDarkly user.
 
+To call `track`:
+
 <CodeTabs
   defaultValue="js"
   values={[
@@ -189,7 +191,7 @@ ldclient.track("your-event-name", { customProperty: someValue });
 </CodeTabItem>
 </CodeTabs>
 
-For numeric metrics, include a numeric value as a third argument in the call.
+For numeric metrics, include a numeric value as a third argument in the call:
 
 <CodeTabs
   defaultValue="js"
@@ -215,11 +217,10 @@ If you've defined click or pageview goals in LaunchDarkly, they'll be sent autom
 To learn more about click and pageview goals, read [Experimentation](/home/experimentation).
 
 <Callout intent="info">
-  <CalloutTitle>Single-page apps</CalloutTitle>
+<CalloutTitle>Single-page apps</CalloutTitle>
 <CalloutDescription>
 
-The SDK automatically handles URL changes (made by the HTML5 history API or by changing the URL hash fragment), and
-will trigger pageview and click events correctly.
+The SDK automatically handles URL changes made by the HTML5 history API or by changing the URL hash fragment, and will trigger pageview and click events correctly.
 
 </CalloutDescription>
 </Callout>
@@ -229,7 +230,7 @@ will trigger pageview and click events correctly.
 
 Evaluating flags, either with `variation()` or with `allFlags()`, produces analytics events which you can observe on your LaunchDarkly Debugger page. The initial user you specify in the client constructor, as well as any user you specify with `identify()`, produces an analytics event which is how LaunchDarkly receives your user data.
 
-You can also explicitly send an event with any data you like using the `track` function. The second argument is optional.
+You can also explicitly send an event with any data you like using the `track` function. The second argument is optional. For example:
 
 <CodeTabs
   defaultValue="js"
@@ -285,14 +286,14 @@ ldClient.track("something-happened-with-custom-data", { someData: 2 });
 
 The `track` method lets you record actions your users take in your app. You can also attach custom JSON data to your event by passing an extra parameter to `track`.
 
-Here's how:
-
 <Callout intent="info">
-  <CalloutTitle>Availability</CalloutTitle>
-  <CalloutDescription>Since v2.1.0</CalloutDescription>
+<CalloutTitle>Availability</CalloutTitle>
+<CalloutDescription>Since v2.1.0</CalloutDescription>
 </Callout>
 
 Optionally, you can add a `metricValue` parameter to the `track` method if you are using the latest version of Experimentation.
+
+Here's how:
 
 <CodeTabs
   defaultValue="js"

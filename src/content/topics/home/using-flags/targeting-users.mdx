@@ -18,15 +18,12 @@ While the Targeting tab uses the language of targeted "users", a user can be any
 The "Target individual users" section of the targeting tab allows you to assign individual users to a particular flag variation.
 
 <Callout intent="info">
-  <CalloutTitle>Only target small numbers of users individually</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Only target small numbers of users individually</CalloutTitle>
+<CalloutDescription>
 
-We recommend using individual user targeting for very small numbers of individual users. Targeting more than 10,000
-users individually may cause performance degradation, because the SDK takes longer to initialize when the targeting
-rules payload is large. To learn more about targeting many users, read [Targeting rules based on user
-attributes](#targeting-rules-based-on-user-attributes).
+We recommend using individual user targeting for very small numbers of individual users. Targeting more than 10,000 users individually may cause performance degradation, because the SDK takes longer to initialize when the targeting rules payload is large. To learn more about targeting many users, read [Targeting rules based on user attributes](#targeting-rules-based-on-user-attributes).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 If your application is already sending data back to LaunchDarkly, you can search for users by name, email address, or user key. These strings are case sensitive. Hover over the user row to see more attributes for that user.
@@ -39,23 +36,23 @@ In the screenshot below, we see which users are seeing the first variation of a 
 
 ### Removing targeted users
 
-You can remove a user from a flag's targeting list by clicking the user's name.
+You can remove a user from a flag's targeting list by clicking the user's name. To do this:
 
 1. Navigate to the flag's **Targeting** tab.
 2. In the "Target individual users" section, find the name of the user you wish to remove.
-3. Click the **X** next to their name to remove them.
+3. Click the **X** next to their name to remove them:
 
 ![A user in the flag's targeting section, with the X to remove called out.](../../images/flag-targeting-remove-user-callout.png)
 
 ## Scheduling removal dates for user targeting
 
 <Callout intent="primary">
-  <CalloutTitle>Scheduling removal dates is a Pro and Enterprise feature</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Scheduling removal dates is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
 
 Scheduling removal dates is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 You can schedule a removal date and time for each individual user who is targeted by a flag. By doing this, you can specify a future date and time after which the user will no longer be targeted for the specific flag. You can do this for existing users, or when you create a new user.
@@ -69,15 +66,14 @@ To set a targeting removal date:
 
 1. Navigate to the flag dashboard and select the flag for which you want to configure a removal date. The flag's **Targeting** tab appears.
 2. In the "Target individual users" section, click the name of the user for which you wish to set a removal date.
-3. In the "Remove user on" section, click to expand a calendar view.
+3. In the "Remove user on" section, click to expand a calendar view:
 
 ![The removal scheduling calendar.](../../images/flag-targeting-user-expire-calendar.png)
 
 4. Set a date and time for the user to be removed from the flag.
 5. Click **Apply**.
 * If approvals are not required, the user is now scheduled for removal on the date and time you specified.
-* If approvals are required for scheduled removal dates, click the **Request Approval** button in the upper right.
- The Request Approval screen appears.
+* If approvals are required for scheduled removal dates, click the **Request Approval** button in the upper right. The Request Approval screen appears:
 
 ![The request approval screen.](../../images/approvals-request-schedule-removal.png)
 
@@ -89,6 +85,8 @@ To set a targeting removal date:
 The people you chose from the dropdown each receive an email asking them to approve your flag changes. The flag's **Targeting** page also updates with an icon to indicate that there are pending changes waiting for review.
 
 Additionally, when you add a user to a flag, you can schedule them for removal later by clicking **Add + Schedule Removal**.
+
+Here is an image of the user targeting field:
 
 ![The user targeting field with the "Add + Schedule Removal" option called out.](../../images/flag-targeting-user-add-schedule-callout.png)
 
@@ -106,6 +104,8 @@ Each rule has four parts:
 Here is an example of a rule that serves `true` to all users whose email address ends with `@gmail.com`.
 
 To write this rule, specify the attribute as `email`, the operator as `ends with`, and the user value as `gmail.com`. Click **Save Changes** to apply the rule.
+
+Here is an image of a user targeting rule:
 
 ![A user targeting rule.](../../images/users-targeting-rules.png)
 
@@ -177,18 +177,18 @@ LaunchDarkly supports the following operators:
 ### Date comparisons
 
 <Callout intent="alert">
-  <CalloutTitle>Dates require UNIX formatting</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Dates require UNIX formatting</CalloutTitle>
+<CalloutDescription>
 
 Dates specified in the `user` object should be formatted in UNIX milliseconds (UNIX epoch * 1000). To learn more
-about UNIX date formatting, or convert a date and time to UNIX milliseconds read [Current
-Millis](https://currentmillis.com/).
+about UNIX date formatting, or convert a date and time to UNIX milliseconds read [Current Millis](https://currentmillis.com/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
+
 <Callout intent="info">
-  <CalloutTitle>Required SDK versions for semantic versions</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Required SDK versions for semantic versions</CalloutTitle>
+<CalloutDescription>
 
 Older versions of our server SDKs do not support semantic version operators. Minimum SDK versions are:
 
@@ -308,20 +308,15 @@ LaunchDarkly includes some useful built-in attributes for users. All of them are
 
 ### Anonymous users
 
-Anonymous users work just like regular users, except that they don't appear on your Users page in LaunchDarkly. You
-also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user
-keys. This is keeps anonymous users from polluting your Users page. Anonymous
-users still count toward your monthly active user limit.
+Anonymous users work just like regular users, except that they don't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is keeps anonymous users from polluting your Users page. Anonymous users still count toward your monthly active user limit.
 
 You still must generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
 
 <Callout intent="primary">
-  <CalloutTitle>Maintaining experience across anonymous and logged-in states</CalloutTitle>
+<CalloutTitle>Maintaining experience across anonymous and logged-in states</CalloutTitle>
 <CalloutDescription>
 
-To associate pre-login (anonymous) behaviors with post-login (known) behaviors to get a singular view of a user
-flow, you should use a custom attribute, and the advanced option for percentage rollouts that allows you to rollout
-based on a different attribute. The steps to make this happen are as follows:
+To associate pre-login (anonymous) behaviors with post-login (known) behaviors to get a singular view of a user flow, you should use a custom attribute, and the advanced option for percentage rollouts that allows you to rollout based on a different attribute. The steps to make this happen are as follows:
 
 * store a unique identifier for the anonymous user into a cookie. A session ID or UUID works well.
 
@@ -336,11 +331,14 @@ to do rollouts based on the "uniqueId" custom attribute.
 
 </CalloutDescription>
 </Callout>
+
 <Callout intent="info">
-  <CalloutTitle>Secondary attribute</CalloutTitle>
-  <CalloutDescription>
-    The secondary attribute is a special attribute. The SDKs incorporate this attribute into the variation bucket assignment hash automatically when it is included in your user object. Unlike other attributes, you cannot use the secondary attribute in targeting rules.
-  </CalloutDescription>
+<CalloutTitle>Secondary attribute</CalloutTitle>
+<CalloutDescription>
+
+The secondary attribute is a special attribute. The SDKs incorporate this attribute into the variation bucket assignment hash automatically when it is included in your user object. Unlike other attributes, you cannot use the secondary attribute in targeting rules.
+
+</CalloutDescription>
 </Callout>
 
 ## Targeting users based on custom attributes
@@ -353,12 +351,14 @@ LaunchDarkly allows you to target users based on arbitrary custom attributes, wh
 
 Setting a custom attribute with the same key as one of the built-in attributes will cause the attribute to be ignored during feature flag evaluation. For mobile SDKs, the custom attributes `os` and `device` are automatically included with os and device data. You can override this by specifying them as custom attributes in your user object and setting your own values.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 You can add multiple conditions to a rule. Users must meet all the conditions in a rule to match the rule. If any of the conditions are not met, the user will not match the rule. If a custom attribute has an array value, LaunchDarkly treats it as multiple values and allows any of the values within the array to match a rule.
 
 Here, we've created a custom rule with two conditions. This rule serves `true` to all users whose email address ends with `gmail.com` and whose country is either `USA` or `CANADA`.
+
+Here is an image of a rule with conditions:
 
 ![A rule serving "true" to users affected by two conditions.](../../images/users-targeting-multiple-rules.png)
 
@@ -480,6 +480,8 @@ Any users in the `beta_testers` group will see the new dashboard feature. We've 
 
 If you want to do a percentage rollout, select "percentage rollout" from the dropdown and allocate users accordingly.
 
+Here is an image of the percentage rollout screen:
+
 ![The percentage rollout screen.](../../images/rules-percentage-rollout.png)
 
 In this example, 25% of the `beta_testers` group see the new dashboard feature.
@@ -495,17 +497,19 @@ A common use case for percentage rollouts is to increment the percentage of user
 To learn more about rollouts and variation assignments, read [Rollouts](/sdk/concepts/flag-evaluation-rules#rollouts).
 
 <Callout intent="info">
-  <CalloutTitle>Advanced Targeting: Percentage rollout variation assignment by attribute</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Advanced Targeting: Percentage rollout variation assignment by attribute</CalloutTitle>
+<CalloutDescription>
 
 In the "Advanced" area of the percentage rollout menu, you can assign variation buckets to users based on any attribute sent to LaunchDarkly. For example, you can roll out a feature to 20% of `companies`, whereby users will be assigned to a variation bucket based on the value of their `company` attribute. This ensures that LaunchDarkly treats all users with matching attribute-value pairs the same. If you choose a custom attribute for this purpose, it should have either string values or integer numeric values. For users with a custom attribute number that includes a fraction or has a value type besides `string` or `number`, the variation bucket assignment is undefined.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Default rule: targeting remaining users
 
 LaunchDarkly defines a final default rollout rule for any users that don't match any of the previous sections on the page. As with other rules, you can choose to serve a specific variation, or apply a percentage rollout to any remaining users.
+
+Here is an image of the percentage rollout screen:
 
 ![A percentage rollout, set to 50%.](../../images/rules-percentage-fifty.png)
 
@@ -513,16 +517,17 @@ LaunchDarkly defines a final default rollout rule for any users that don't match
 Now, 50% of all users who have not been targeted by any other rules will receive `true`.
 
 <Callout intent="info">
-  <CalloutTitle>Conducting a Simple Rollout</CalloutTitle>
-  <CalloutDescription>
-    If you do not want to target users based on user key or any custom attributes, you can simply use the default rule
-    to control the flag's rollout for all users.
-  </CalloutDescription>
+<CalloutTitle>Conducting a Simple Rollout</CalloutTitle>
+<CalloutDescription>
+
+If you do not want to target users based on user key or any custom attributes, you can simply use the default rule to control the flag's rollout for all users.
+
+</CalloutDescription>
 </Callout>
 
 ## Setting the Off variation
 
-When the kill switch is turned off, LaunchDarkly will serve the 'off' variation for your feature flag. For boolean flags, the off variation is set to `false` by default. For multivariate flags, you select one of your custom variations. You can customize the 'off' variation for both boolean and multivariate flags in the Targeting tab.
+When the toggle is turned off, LaunchDarkly will serve the 'off' variation for your feature flag. For boolean flags, the off variation is set to `false` by default. For multivariate flags, you select one of your custom variations. You can customize the 'off' variation for both boolean and multivariate flags in the Targeting tab.
 
 If you do not specify an 'off' variation, then LaunchDarkly will return the Fallback variation defined in your code.
 
@@ -532,10 +537,14 @@ The Targeting tab evaluates rules top-down. Imagine a highway with exits along t
 
 If a user matches multiple rules, the first matching rule applies.
 
+Here is a diagram representing rule matching behavior:
+
 ![A tree diagram showing rule matching behavior.](../../images/flag-targeting-diagram.png)
 
 
 Here, we have two custom rules. Rules are evaluated top down, so in this example, the first rule (`email` ends with `gmail.com` and `country` is one of `USA` or `Canada`) is evaluated before the second rule (`groups` is one of `beta_testers`). If a user matched both rules, the first rule would take priority.
+
+Here is an image of two targeting rules:
 
 ![Two custom rules targeted at user groups.](../../images/users-targeting-multiple-groups.png)
 
@@ -550,8 +559,9 @@ If the variations are being called less frequently than 30 days, the best soluti
 
 ## Converting a rule into a segment
 
-You may require complex targeting rules to successfully perform feature launches.
-You can convert a targeting rule into a reusable segment from the flag's Targeting page.
+You may require complex targeting rules to successfully perform feature launches. You can convert a targeting rule into a reusable segment from the flag's Targeting page.
+
+Here is an image of the "Convert individual user targets to segment" modal:
 
 ![The "Convert to segment" modal.](../../images/segment-convert-to-segment-modal.png)
 
@@ -559,7 +569,7 @@ To convert a rule to a segment:
 
 1. Navigate to the flag's **Targeting** page.
 2. In the user targeting section or the rule matching section, click the **three-dot** menu of the rule you wish to convert. The overflow menu appears.
-3. Click **Convert to segment**. The "Convert to segment" window appears.
+3. Click **Convert to segment**. The "Convert to segment" window appears:
 
 ![A flag rule, with the "Convert to segment" option called out.](../../images/segment-convert-to-segment-users.png)
 
@@ -569,5 +579,7 @@ To convert a rule to a segment:
 7. Click **Save segment**. A confirmation appears indicating that you've created a new segment.
 
 After you click "Convert to segment", targeted users are cleared. A new segment rule targeting the newly created segment `test-12345` appears at the top of the list of targeting rules.
+
+Here is an image of the targeting section:
 
 ![The targeting section, with the new segment called out.](../../images/segment-convert-to-segment-creation.png)

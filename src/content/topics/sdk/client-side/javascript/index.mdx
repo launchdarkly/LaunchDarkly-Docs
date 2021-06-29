@@ -8,24 +8,22 @@ published: true
 This reference guide documents all of the methods available in the client-side JavaScript SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [JavaScript SDK GitHub repository](https://github.com/launchdarkly/js-client-sdk). The online [API docs](https://launchdarkly.github.io/js-client-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-js) using this SDK.
 
 <Callout intent="alert">
-  <CalloutTitle>For client-side JavaScript only</CalloutTitle>
+<CalloutTitle>For client-side JavaScript only</CalloutTitle>
 <CalloutDescription>
 
-
-Our JavaScript SDK is intended for client-side (browser) feature flags **only**. If you have a Node.js application
-and are looking to set up LaunchDarkly on the server-side, head to our [Node.js SDK reference](/sdk/client-side/node-js).
-
+Our JavaScript SDK is intended for client-side (browser) feature flags **only**. If you have a Node.js application and are looking to set up LaunchDarkly on the server-side, read [Node.js SDK reference](/sdk/client-side/node-js).
 
 </CalloutDescription>
 </Callout>
 
 This SDK does two things:
+
 - Makes feature flags available to your client-side (front-end) JavaScript code.
 - Sends click, pageview, and custom events from your front-end for A/B tests and analytics.
 
 ## Browser support
 
-The LaunchDarkly client-side JavaScript SDK can be used in all major browsers. However, not all browsers have built-in support for the standard APIs that it uses. Those APIs are Promise, EventSource, and querySelectorAll; Promise is always required, the other two are optional depending on which SDK features you use.
+The LaunchDarkly client-side JavaScript SDK can be used in all major browsers. However, not all browsers have built-in support for the standard APIs that it uses. Those APIs are Promise, EventSource, and querySelectorAll. Promise is always required, but the other two are optional depending on which SDK features you use.
 
 The standard solution for ensuring that you will get the same functionality even in browsers that do not have native support for these features is to use [polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill). For a detailed description, and links to information about which browsers may require this, read [JS SDK requirements and polyfills](/sdk/client-side/javascript/requirements-polyfills).
 
@@ -37,7 +35,7 @@ The first step is to make the LaunchDarkly SDK available as a dependency. There 
 
 ### Package manager
 
-In most cases, making the LaunchDarkly SDK available to your application or site should be as simple as running one of the following in your project:
+In most cases, making the LaunchDarkly SDK available to your application or site requires running one of the following in your project:
 
 <CodeTabs
   defaultValue="npm"
@@ -71,7 +69,9 @@ bower install https://unpkg.com/launchdarkly-js-client-sdk@2
 </CodeTabItem>
 </CodeTabs>
 
-If you are using a package manager, and then combining dependencies with your code using a tool such as Webpack, there are various ways to import the LaunchDarkly SDK into your code. Here are two examples in commonly used frameworks:
+If you are using a package manager, and combining dependencies with your code using a tool such as Webpack, there are various ways to import the LaunchDarkly SDK into your code.
+
+Here are two examples in commonly used frameworks:
 
 <CodeTabs
   defaultValue="js"
@@ -99,6 +99,8 @@ In earlier versions of the SDK, the package was named `ldclient-js` instead of `
 To load our JavaScript SDK as a script tag, include one of the following in the `<head>` tag of your site on any pages where you need feature flags or want to track A/B testing goals.
 
 Note that script tags with sources from unpkg and jsdelivr are not intended to be used on production environments as these introduce a critical dependency on a third-party service. The unpkg and jsdelivr scripts are intended to be used only for ease of development and getting started. In production environments, it is highly recommended that the LaunchDarkly SDK is self-hosted alongside your other JavaScript resources.
+
+Here is an example of code to include in the `<head>` tag of your site:
 
 <CodeTabs
   defaultValue="unpkg"
@@ -157,7 +159,7 @@ In practice, you should templatize your client-side ID so that you can use the s
 
 Feature flag targeting and rollouts are determined by the _user_ viewing the page. You must pass a user context to the SDK during initialization before requesting any feature flags with `variation`. Failure to pass a valid user context to the SDK during initialization will result in a 400 error.
 
-Here's a basic example showing how to initialize the client:
+Here is an example showing how to initialize the client:
 
 <CodeTabs
   defaultValue="js"
@@ -187,7 +189,7 @@ Out of the box, initializing the client will make a remote request to LaunchDark
 </CalloutDescription>
 </Callout>
 
-The client will emit a `ready` event when it has been initialized. Once it has been initialized, you can safely call `variation` to access your feature flags:
+The client emits a `ready` event when it has been initialized. Once it has been initialized, you can safely call `variation` to access your feature flags:
 
 <CodeTabs
   defaultValue="js"
@@ -214,18 +216,16 @@ ldclient.on('ready', function() {
 </CodeTabs>
 
 <Callout intent="info">
-  <CalloutTitle>Streaming Updates</CalloutTitle>
+<CalloutTitle>Streaming Updates</CalloutTitle>
 <CalloutDescription>
 
-
 The SDK does not subscribe to streaming real-time updates automatically when it is initialized. As a side effect, subscribing to the SDK's **change** event by calling **.on('change').** will cause the SDK to open a streaming connection to LaunchDarkly. This is the only way to receive realtime updates.
-
 
 </CalloutDescription>
 </Callout>
 
 <Callout intent="alert">
-  <CalloutTitle>Making feature flags available to the client-side SDK</CalloutTitle>
+<CalloutTitle>Making feature flags available to the client-side SDK</CalloutTitle>
 <CalloutDescription>
 
 Feature flags must be marked available to the client-side SDK before they can be used in `variation` calls on the front-end. Configure this option on your feature flag's Settings page.<br/><br/>

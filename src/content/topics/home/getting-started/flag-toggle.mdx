@@ -12,24 +12,27 @@ This topic explains how to enable and disable flags in the LaunchDarkly platform
 One-click control of flag behavior is critical to nimble feature management. With LaunchDarkly, you can turn a flag on or off right from the dashboard.
 
 <Callout intent="info">
-  <CalloutTitle>The flag toggle button is a kill switch for any feature</CalloutTitle>
-  <CalloutDescription>
-    The flag button lets you turn off a feature that's misbehaving without needing to touch any code or re-deploy your
-    application. Wrap the entire feature in a feature flag to control or revoke its rollout seamlessly.
-  </CalloutDescription>
-</Callout> 
+<CalloutTitle>The flag toggle button is a kill switch for any feature</CalloutTitle>
+<CalloutDescription>
 
-![The dashboard with two flag toggles called out.](../../images/flag-toggle.png) 
+The flag button lets you turn off a feature that's misbehaving without needing to touch any code or re-deploy your application. Wrap the entire feature in a feature flag to control or revoke its rollout seamlessly.
+
+</CalloutDescription>
+</Callout>
+
+Here is a screenshot of the dashbaord:
+
+![The dashboard with two flag toggles called out.](../../images/flag-toggle.png)
 
 
 <Callout intent="info">
-  <CalloutTitle>Use the toggle in a flag's Targeting tab</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Use the toggle in a flag's Targeting tab</CalloutTitle>
+<CalloutDescription>
 
-  You can also turn a flag on or off from the flag's Targeting tab. To learn more about flag targeting, read [Targeting users](/home/flags/targeting-users).
+You can also turn a flag on or off from the flag's Targeting tab. To learn more about flag targeting, read [Targeting users](/home/flags/targeting-users).
 
-  </CalloutDescription>
-</Callout> 
+</CalloutDescription>
+</Callout>
 
 Flag behavior can do a lot more than just turning features on or off. Continue reading to learn more.
 
@@ -40,9 +43,9 @@ When you create a new flag, it is turned **off** by default. You can turn the fl
 To turn a flag on:
 
 1. Navigate to the dashboard or the **Targeting** tab in the flag detail page.
-2. Click the flag toggle. The toggle turns green and displays the word **on**.
+2. Click the flag toggle. The toggle turns green and displays the word **on**:
 
-![The flag toggle in the Targeting tab.](../../images/flag-targeting-toggle.png) 
+![The flag toggle in the Targeting tab.](../../images/flag-targeting-toggle.png)
 
 
 To learn more about creating flags, read [Creating a feature flag](/home/getting-started/feature-flags).
@@ -56,23 +59,22 @@ In the Targeting tab, you can set an **off** variation for both boolean and mult
 To turn a flag off:
 
 1. Navigate to the dashboard or the **Targeting** tab in the flag detail page.
-2. Set the kill switch to **off**.
+2. Set the toggle to **off**:
 
 ![The Targeting tab with the flag turned off.](../../images/flag-targeting-toggle-off.png)
 
 If you don't specify an explicit **off** variation, LaunchDarkly serves the fallback value for the flag. You can specify the fallback value in your code's `variation` calls. This is also the value that LaunchDarkly serves if your application is unable to connect to LaunchDarkly's servers.
 
-This value is indicated at the bottom of the Targeting tab.
+This value is indicated at the bottom of the Targeting tab:
 
-![The fallback value at the bottom of the Targeting tab.](../../images/flag-default-value.png) 
+![The fallback value at the bottom of the Targeting tab.](../../images/flag-default-value.png)
 
 
 <Callout intent="info">
-  <CalloutTitle>Planning feature flags for future events</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Planning feature flags for future events</CalloutTitle>
+<CalloutDescription>
 
-You can't schedule a flag for a particular date, but you can use targeting rules to control what it affects and
-when. For example, you can serve `false` to deprecate a feature after a date of your choosing, or you can target a specific user or segment to be removed from the flag's targeting settings. To learn more, read [Targeting users](/home/flags/targeting-users).
+You can schedule a flag for a particular date using scheduled flag changes, or you can use targeting rules to control what it affects and when. For example, you can serve `false` to deprecate a feature after a date of your choosing, or you can target a specific user or segment to be removed from the flag's targeting settings. To learn more, read [Targeting users](/home/flags/targeting-users).
 
-  </CalloutDescription>
-</Callout> 
+</CalloutDescription>
+</Callout>

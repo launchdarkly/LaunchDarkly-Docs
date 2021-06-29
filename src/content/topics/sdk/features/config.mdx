@@ -15,7 +15,7 @@ You can use the configuration feature to configure certain aspects of your SDK, 
 
 You can disable the publication of events, but we strongly recommend against it. Many features such as targeting rules, flag statuses, and the Users dashboard depend on regularly receiving analytic events.
 
-Details about each SDK's configuration are available in the SDK-specific sections below.
+Details about each SDK's configuration are available in the SDK-specific sections below:
 
 * [Client-side SDKs](#client-side-sdks)
 * [Server-side SDKs](#server-side-sdks)
@@ -36,7 +36,7 @@ This feature is available in the following client-side SDKs:
 
 ### Android
 
-This code sample shows you how to configure the client connect and flush interval parameters. To learn more about the specific configuration options that are available in this SDK, read the [Javadoc](https://launchdarkly.github.io/android-client-sdk/).
+This code sample shows you how to configure the client connect and flush interval parameters:
 
 <CodeTabs
   defaultValue="java"
@@ -69,9 +69,11 @@ val ldConfig: LDConfig = LDConfig.Builder()
 </CodeTabItem>
 </CodeTabs>
 
+To learn more about the specific configuration options that are available in this SDK, read the [Javadoc](https://launchdarkly.github.io/android-client-sdk/).
+
 ### C/C++ (client-side)
 
-This code sample shows you how to configure the event queue capacity and flush interval parameters. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/c-client-sdk/config_8h.html).
+This code sample shows you how to configure the event queue capacity and flush interval parameters:
 
 <CodeTabs
   defaultValue="c"
@@ -90,9 +92,11 @@ LDConfigSetEventsFlushIntervalMillis(config, 30000);
 </CodeTabItem>
 </CodeTabs>
 
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/c-client-sdk/config_8h.html).
+
 ### Flutter
 
-This code sample shows you how to configure the client connect and flush interval parameters. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDConfigBuilder-class.html).
+This code sample shows you how to configure the client connect and flush interval parameters:
 
 <CodeTabs
   defaultValue="dart"
@@ -112,9 +116,11 @@ LDConfig ldConfig = LDConfigBuilder('YOUR_MOBILE_KEY')
 </CodeTabItem>
 </CodeTabs>
 
+ To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDConfigBuilder-class.html).
+
 ### iOS
 
-This code sample shows you how to configure the client connection timeout and event flush interval parameters. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ios-client-sdk/Structs/LDConfig.html).
+This code sample shows you how to configure the client connection timeout and event flush interval parameters:
 
 <CodeTabs
   defaultValue="objc"
@@ -143,9 +149,11 @@ ldConfig.eventFlushInterval = 30.0
 </CodeTabItem>
 </CodeTabs>
 
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ios-client-sdk/Structs/LDConfig.html).
+
 ### JavaScript
 
-This code sample shows you how to create a custom configuration object to pass custom parameters to the client. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldoptions.html).
+This code sample shows you how to create a custom configuration object to pass custom parameters to the client:
 
 <CodeTabs
   defaultValue="js"
@@ -176,9 +184,11 @@ const ldClient = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 </CodeTabItem>
 </CodeTabs>
 
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldoptions.html).
+
 ### Node.js (client-side)
 
-This code sample shows you how to create a custom configuration object to pass custom parameters to the client. For a full guide to the available configuration options, read `LDOptions` in the [TypeScript reference](https://launchdarkly.github.io/node-client-sdk/interfaces/_launchdarkly_node_client_sdk_.ldoptions.html).
+This code sample shows you how to create a custom configuration object to pass custom parameters to the client:
 
 <CodeTabs defaultValue="js"
   values={[
@@ -199,13 +209,15 @@ const ldClient = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 </CodeTabItem>
 </CodeTabs>
 
+For a full guide to the available configuration options, read `LDOptions` in the [TypeScript reference](https://launchdarkly.github.io/node-client-sdk/interfaces/_launchdarkly_node_client_sdk_.ldoptions.html).
+
 ### React Native
 
 This code sample shows you how to create a custom configuration object to pass custom parameters to the client.
 
 The `config` object can include a variety of options. `mobileKey` is a required property, but all other properties are optional.
 
-To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/react-native-client-sdk/index.html#ldconfig).
+Here is an example:
 
 <CodeTabs
   defaultValue="js"
@@ -225,9 +237,11 @@ await client.configure(config, user);
 </CodeTabItem>
 </CodeTabs>
 
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/react-native-client-sdk/index.html#ldconfig).
+
 ### Roku
 
-This code sample shows you how to create a configuration object.
+This code sample shows you how to create a configuration object:
 
 <CodeTabs
   defaultValue="brightscript"
@@ -292,9 +306,7 @@ config.setStreaming(Boolean)
 
 This code sample shows you how to create a custom configuration object to pass custom parameters to the client. With it, we've configured the event queue flush frequency.
 
-You can configure `Configuration.Builder`.
-
-To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/xamarin-client-sdk/html/T_LaunchDarkly_Xamarin_Configuration.htm).
+You can configure `Configuration.Builder`:
 
 <CodeTabs
   defaultValue="csharp"
@@ -315,6 +327,8 @@ LdClient ldClient = LdClient.Init(config, user);
 </CodeTabItem>
 </CodeTabs>
 
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/xamarin-client-sdk/html/T_LaunchDarkly_Xamarin_Configuration.htm).
+
 ## Server-side SDKs
 
 This feature is available for the following server-side SDKs:
@@ -334,9 +348,7 @@ This feature is available for the following server-side SDKs:
 
 ### .NET
 
-This code sample shows you how to pass custom parameters to the client by creating a custom configuration object.
-
-For a complete list of configuration options for the client, including proxy settings, timeouts, and streaming/polling options, read the SDK's API documentation for [`ConfigurationBuilder`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html).
+This code sample shows you how to pass custom parameters to the client by creating a custom configuration object:
 
 <CodeTabs
   defaultValue="dotnet"
@@ -369,9 +381,11 @@ var ldClient = new LdClient(config);
 </CodeTabItem>
 </CodeTabs>
 
+For a complete list of configuration options for the client, including proxy settings, timeouts, and streaming/polling options, read the SDK's API documentation for [`ConfigurationBuilder`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html).
+
 ### Apex
 
-This code sample shows you how to configure the client to redact all user attributes in events. To learn more about the configuration options available for this SDK, read the [SDK's API docs](https://github.com/launchdarkly/apex-server-sdk/blob/master/doc.md#class-ldconfigbuilder).
+This code sample shows you how to configure the client to redact all user attributes in events:
 
 <CodeTabs
   defaultValue="java"
@@ -399,9 +413,9 @@ LDConfigSetEventsFlushInterval(config, 30000);
 </CodeTabItem>
 </CodeTabs>
 
-### C/C++ (server-side)
+ To learn more about the configuration options available for this SDK, read the [SDK's API docs](https://github.com/launchdarkly/apex-server-sdk/blob/master/doc.md#class-ldconfigbuilder).
 
-This code sample shows you how to configure the event queue capacity and flush interval parameters.
+### C/C++ (server-side)
 
 <Callout intent="alert">
 <CalloutTitle>Finish setting up your configuration client before you call `LDClientInit`</CalloutTitle>
@@ -412,7 +426,7 @@ You must finish setting up your configuration object before you call `LDClientIn
 </CalloutDescription>
 </Callout>
 
-For a complete list of configuration options, read the [SDK's API docs](https://launchdarkly.github.io/c-server-sdk/config_8h.html).
+This code sample shows you how to configure the event queue capacity and flush interval parameters:
 
 <CodeTabs
   defaultValue="c"
@@ -431,9 +445,13 @@ LDConfigSetEventsFlushInterval(config, 30000);
 </CodeTabItem>
 </CodeTabs>
 
+For a complete list of configuration options, read the [SDK's API docs](https://launchdarkly.github.io/c-server-sdk/config_8h.html).
+
 ### Erlang
 
 This code sample shows you how to pass custom parameters when the client starts with the `Options` map parameter. The code in this example turns off streaming, so the SDK connects to LaunchDarkly through polling.
+
+To pass custom parameters
 
 <CodeTabs
   defaultValue="erlang"
@@ -456,7 +474,9 @@ ldclient:start_instance("YOUR_SDK_KEY", my_instance, #{stream => false})
 
 ### Go
 
-This code sample shows you how to pass custom parameters to the client by creating a custom configuration object. The code in this sample configures the event flush interval parameter. To learn more about the configuration options, read [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config).
+This code sample shows you how to pass custom parameters to the client by creating a custom configuration object. The code in this sample configures the event flush interval parameter.
+
+To pass custom parameters:
 
 <CodeTabs
   defaultValue="go"
@@ -499,11 +519,13 @@ ldClient := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 </CodeTabItem>
 </CodeTabs>
 
+To learn more about the configuration options, read [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config).
+
 ### Haskell
 
 This code sample shows you how to pass custom parameters to the client by creating a custom configuration object. This example configures the event queue capacity and flush interval parameters.
 
-To learn more about the specific user properties that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/haskell-server-sdk/LaunchDarkly-Server-Config.html).
+To pass custom parameters:
 
 <CodeTabs
   defaultValue="haskell"
@@ -529,13 +551,15 @@ config = (makeConfig "YOUR_SDK_KEY")
 </CodeTabItem>
 </CodeTabs>
 
+To learn more about the specific user properties that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/haskell-server-sdk/LaunchDarkly-Server-Config.html).
+
 ### Java
 
 This code sample shows you how to pass custom parameters to the client by creating a custom configuration object.
 
 In this example, we've configured two properties for HTTP (the connect and socket timeouts), and one property for analytics events (the event flush interval).
 
-For a complete list of configuration options for the client, including proxy settings, timeouts, and streaming/polling options, read the Javadoc for [LDConfig.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.Builder.html). You can also read the [4.x version](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/4.12.0/com/launchdarkly/client/LDConfig.Builder.html).
+To pass custom parameters:
 
 <CodeTabs
   defaultValue="java"
@@ -576,11 +600,11 @@ LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
 </CodeTabItem>
 </CodeTabs>
 
+For a complete list of configuration options for the client, including proxy settings, timeouts, and streaming/polling options, read the Javadoc for [LDConfig.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.Builder.html). You can also read the [4.x version](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/4.12.0/com/launchdarkly/client/LDConfig.Builder.html).
+
 ### Lua
 
 This code sample shows you how to pass custom parameters to the client by creating a custom configuration object.
-
-Here, we've configured the event queue capacity and flush interval parameters.
 
 <Callout intent="alert">
 <CalloutTitle>Finish setting up your configuration client before you call `LDClientInit`</CalloutTitle>
@@ -591,7 +615,7 @@ You must finish setting up your configuration object before you call `LDClientIn
 </CalloutDescription>
 </Callout>
 
-To learn more about configuration options, read the [SDK's API docs](https://launchdarkly.github.io/lua-server-sdk/modules/launchdarkly-server-sdk.html#makeClient).
+Here, we've configured the event queue capacity and flush interval parameters:
 
 <CodeTabs
   defaultValue="lua"
@@ -614,9 +638,11 @@ local client = ld.clientInit(config, 1000)
 </CodeTabItem>
 </CodeTabs>
 
+To learn more about configuration options, read the [SDK's API docs](https://launchdarkly.github.io/lua-server-sdk/modules/launchdarkly-server-sdk.html#makeClient).
+
 ### Node.js (server-side)
 
-This code sample shows you how to pass custom parameters to the client by creating a custom configuration object. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldoptions.html).
+This code sample shows you how to pass custom parameters to the client by creating a custom configuration object:
 
 <CodeTabs
   defaultValue="js"
@@ -634,13 +660,13 @@ ldClient = LaunchDarkly.init("YOUR_SDK_KEY", config);
 </CodeTabItem>
 </CodeTabs>
 
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldoptions.html).
+
 ### PHP
 
-This code sampel uses the `cache` option, which passes as an array to the client constructor. There are a few additional options you can set in this array.
+This code sample uses the `cache` option, which passes as an array to the client constructor. There are a few additional options you can set in this array.
 
 We've set the client connect timeout to three seconds in addition to providing a custom cache storage provider.
-
-For a complete list of customizable parameters, read the documentation for the [LDClient constructor](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method___construct).
 
 <Callout intent="alert">
 <CalloutTitle>Sending events in PHP</CalloutTitle>
@@ -652,6 +678,8 @@ By default, LaunchDarkly forks an external process that executes `curl` to send 
 
 </CalloutDescription>
 </Callout>
+
+Here is an example:
 
 <CodeTabs
   defaultValue="php"
@@ -668,11 +696,11 @@ $client = new LaunchDarkly\LDClient("YOUR_SDK_KEY", array("cache" => $cacheStora
 </CodeTabItem>
 </CodeTabs>
 
+For a complete list of customizable parameters, read the documentation for the [LDClient constructor](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method___construct).
+
 ### Python
 
-This code sample shows you how to pass custom parameters to the client by creating a custom configuration object.
-
-The `Config` type lets you specify a variety of options. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#module-ldclient.config).
+This code sample shows you how to pass custom parameters to the client by creating a custom configuration object:
 
 <CodeTabs
   defaultValue="sdk7"
@@ -699,13 +727,15 @@ ldclient.set_config(config)
 </CodeTabItem>
 </CodeTabs>
 
+The `Config` type lets you specify a variety of options. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#module-ldclient.config).
+
 ### Ruby
 
 This code sample shows you how to configure the behavior of the client by creating a custom configuration object.
 
 The client constructor takes a configuration object as an optional parameter. In this example, we've set the connection timeout to LaunchDarkly to one second, and the read timeout to two seconds.
 
-To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Config).
+To create a custom configuration object:
 
 <CodeTabs
   defaultValue="ruby"
@@ -722,3 +752,5 @@ ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
 
 </CodeTabItem>
 </CodeTabs>
+
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Config).

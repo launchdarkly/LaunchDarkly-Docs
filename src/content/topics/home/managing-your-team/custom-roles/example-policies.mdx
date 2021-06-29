@@ -12,13 +12,13 @@ This topic shows some examples of different types of policies you can implement 
 It also provides two templates you can copy and modify for your own custom roles. One template is for a reader role, and one is for a writer role.
 
 <Callout intent="info">
-  <CalloutTitle>Creating private projects with custom roles</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Creating private projects with custom roles</CalloutTitle>
+<CalloutDescription>
 
 Use the `viewProject` action to allow or deny viewing and editing access to projects. To learn more, read
 [Configuring private projects with custom roles](/home/organize/private-projects).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Example: Granting access to specific environments and flags
@@ -26,6 +26,8 @@ Use the `viewProject` action to allow or deny viewing and editing access to proj
 This example policy allows members of the QA team to administer environments that are tagged `qa_*`, and also to manage flags in environments tagged `qa_*`.
 
 To manage flags in environments tagged `qa_*`, you must specify the flag-level resource you want to control. Limiting `resources` to `"proj/*:env/*;qa_*"` lets you manage the environment itself.
+
+To do this:
 
 <CodeTabs
   defaultValue="json"
@@ -68,6 +70,7 @@ Policies require you to use project and environment keys, not names. If you use 
 </CalloutDescription>
 </Callout>
 
+Here's how to do this:
 
 <CodeTabs
   defaultValue="json"
@@ -98,6 +101,7 @@ The policy below allows all actions to be done to a single specified flag, `flag
 
 For a complete list of flag actions, read the [Feature flag actions list](/home/team/role-actions#feature-flags-actions).
 
+Here's how to do this:
 
 <CodeTabs
   defaultValue="json"
@@ -124,6 +128,8 @@ For a complete list of flag actions, read the [Feature flag actions list](/home/
 ## Example: Granting all actions to just one flag while showing only one project
 
 The policy below restricts access to a project a flag is in, while still allowing you to perform actions on that flag. In this example, the flag is called `flag-1`.
+
+Here's how to do this:
 
 <CodeTabs
   defaultValue="json"
@@ -165,6 +171,7 @@ This policy allows using only these actions in the `production-1` environment:
 
 This means they can take all other actions in any other non-production environment.
 
+Here's how to do this:
 
 <CodeTabs
   defaultValue="json"
@@ -206,6 +213,7 @@ In this example, we deny all actions to all projects, but allow specific flag ac
 
 When you restrict all actions this comprehensively, you must add each action for flags, segments, and metrics explicitly.
 
+Here's how to do this:
 
 <CodeTabs
   defaultValue="json"
@@ -245,7 +253,7 @@ When you restrict all actions this comprehensively, you must add each action for
 
 ## Template: Built-in reader role replication
 
-Copy this reader role and make any modifications to it to suit your needs.
+Copy this reader role and make any modifications to it to suit your needs:
 
 <CodeTabs
   defaultValue="json"
@@ -339,6 +347,8 @@ Copy this reader role and make any modifications to it to suit your needs.
 Because permissions are set to `deny` by default, you must explicitly allow actions for the writer role. The code snippet below is a replication of LaunchDarkly's built-in writer role. You can copy it and make adjustments as needed.
 
 If you compare the code snippet below to the [reader role replication](/home/team/example-policies#built-in-reader-role-replication), you'll find that every resource level is addressed except for `member/*`, `member/*:token/*`, `role/*`, and `acct`. By default, those resources are already set to `deny`, so you don't have to specifically `deny` them again.
+
+Here's a template:
 
 <CodeTabs
   defaultValue="json"

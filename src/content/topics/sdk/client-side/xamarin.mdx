@@ -8,14 +8,14 @@ published: true
 This reference guide documents all of the methods available in the Xamarin SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Xamarin SDK GitHub repository](https://github.com/launchdarkly/xamarin-client-sdk). Additionally you can clone and run sample applications using this SDK with [Xamarin](https://github.com/launchdarkly/hello-xamarin), and [Xamarin.Forms](https://github.com/launchdarkly/hello-xamarin-forms). The [online API docs](https://launchdarkly.github.io/xamarin-client-sdk/) contain the programmatic definitions of every type, property, and method.
 
 <Callout intent="info">
-  <CalloutTitle>For use in mobile, desktop, and embedded client applications only</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>For use in mobile, desktop, and embedded client applications only</CalloutTitle>
+<CalloutDescription>
 
-  This SDK is intended for use in *single-user* mobile, desktop, and embedded applications. If you have a .NET application and are looking to set up LaunchDarkly on the server-side, head to our [.NET SDK reference](/sdk/server-side/dotnet).
+This SDK is intended for use in *single-user* mobile, desktop, and embedded applications. If you have a .NET application and are looking to set up LaunchDarkly on the server-side, head to our [.NET SDK reference](/sdk/server-side/dotnet).
 
-  To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Getting started
@@ -23,7 +23,7 @@ This reference guide documents all of the methods available in the Xamarin SDK, 
 Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your Xamarin application.
 
 <Callout intent="info">
-  <CalloutTitle>Requirements</CalloutTitle>
+<CalloutTitle>Requirements</CalloutTitle>
 <CalloutDescription>
 
 The Xamarin SDK natively supports Android (version 7.1 or higher) or iOS (version 10 or higher); it can also be used on any other platform that supports .NET Standard (version 1.6 or higher), although the .NET Standard version lacks some mobile-specific features such as detecting network connectivity. Previous beta releases of the SDK used the Xamarin.Essentials library, but it no longer has the dependency.
@@ -31,6 +31,7 @@ The Xamarin SDK natively supports Android (version 7.1 or higher) or iOS (versio
 </CalloutDescription>
 </Callout>
 
+To start using the Xamarin SDK:
 
 <CodeTabs
   defaultValue="csharp"
@@ -47,7 +48,7 @@ Install-Package LaunchDarkly.XamarinSdk
 </CodeTabItem>
 </CodeTabs>
 
-Next you should import the LaunchDarkly packages in your application code.
+Next, import the LaunchDarkly packages in your application code:
 
 <CodeTabs
   defaultValue="csharp"
@@ -65,12 +66,12 @@ using LaunchDarkly.Xamarin;
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed, you'll want to create a single, shared instance of `LDClient`.
-
-Once the dependency is installed, you'll want to initialize the LaunchDarkly client. You'll want to create a single, shared instance of `LdClient`. To create a client instance, you need your environment's mobile key (available on your [account settings page](https://app.launchdarkly.com/settings#/projects)). Never embed a server-side SDK key into a mobile application.
+After the dependency is installed, initialize the LaunchDarkly client. Create a single, shared instance of `LdClient`. To create a client instance, you need your environment's mobile key (available on your [account settings page](https://app.launchdarkly.com/settings#/projects)). Never embed a server-side SDK key into a mobile application.
 
 The following example shows the simplest way to create the client. It will block for up to
-1. seconds until the latest feature flags have been retrieved from LaunchDarkly.
+one second until the latest feature flags have been retrieved from LaunchDarkly.
+
+Here's how:
 
 <CodeTabs
   defaultValue="csharp"
@@ -89,7 +90,7 @@ ldClient = LdClient.Init("MY_MOBILE_KEY", user, timeSpan);
 </CodeTabItem>
 </CodeTabs>
 
-However, calling blocking code from the main thread in an Android app is not considered a best practice. The preferred method (loading the client asynchronously) is shown below.
+However, calling blocking code from the main thread in an Android app is not considered a best practice. The preferred method, loading the client asynchronously, is shown here:
 
 <CodeTabs
   defaultValue="csharp"
@@ -108,16 +109,16 @@ ldClient = await LdClient.InitAsync("MY_MOBILE_KEY", user);
 </CodeTabs>
 
 <Callout intent="alert">
-  <CalloutTitle>LdClient must be a singleton</CalloutTitle>
+<CalloutTitle>LdClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make this a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
+It's important to make LdClient a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
 
 </CalloutDescription>
 </Callout>
 
 <Callout intent="alert">
-  <CalloutTitle>Android requires AccessNetworkState permission</CalloutTitle>
+<CalloutTitle>Android requires AccessNetworkState permission</CalloutTitle>
 <CalloutDescription>
 
 For Android, the `AccessNetworkState` permission is required and must be configured in the Android project. To learn more, read the [Xamarin docs](https://docs.microsoft.com/en-us/xamarin/essentials/connectivity?context=xamarin%2Fios&tabs=android) about how to implement this requirement.
@@ -125,7 +126,7 @@ For Android, the `AccessNetworkState` permission is required and must be configu
 </CalloutDescription>
 </Callout>
 
-Using `ldClient`, you can check which variation a particular user should receive for a given feature flag.
+Using `ldClient`, you can check which variation a particular user should receive for a given feature flag. Here's how:
 
 <CodeTabs
   defaultValue="csharp"

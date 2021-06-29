@@ -8,12 +8,12 @@ published: true
 This reference guide documents all of the methods available in the Ruby SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [Ruby SDK GitHub repository](https://github.com/launchdarkly/ruby-server-sdk). The online [Ruby API docs](https://launchdarkly.github.io/ruby-server-sdk/) contain the programmatic definitions of every class and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-ruby) using this SDK.
 
 <Callout intent="alert">
-  <CalloutTitle>RubyGems</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>RubyGems</CalloutTitle>
+<CalloutDescription>
 
 Due to a bug in recent versions of RubyGems, versions 2.4.x (of RubyGems, not of Ruby) are not compatible with the LaunchDarkly Ruby SDK.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Getting started
@@ -39,8 +39,9 @@ gem install launchdarkly-server-sdk
 </CodeTabItem>
 </CodeTabs>
 
-Next you should import the LaunchDarkly client in your application code. (This step may not be necessary if you are using a framework that automatically loads all dependencies, as Rails does.)
+Next you should import the LaunchDarkly client in your application code. This step may not be necessary if you are using a framework that automatically loads all dependencies, as Rails does.
 
+Here's how:
 
 <CodeTabs
   defaultValue="ruby"
@@ -57,7 +58,9 @@ require 'ldclient-rb'
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of `LDClient`. You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+Once the SDK is installed and imported, create a single, shared instance of `LDClient`. You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+
+Here's how:
 
 <CodeTabs
   defaultValue="ruby"
@@ -75,12 +78,12 @@ ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY")
 </CodeTabs>
 
 <Callout intent="alert">
-  <CalloutTitle>LDClient must be a singleton</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>LDClient must be a singleton</CalloutTitle>
+<CalloutDescription>
 
 It's important to make this a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 Using `ld_client`, you can check which variation a particular user should receive for a given feature flag.
@@ -105,6 +108,8 @@ else
 </CodeTabs>
 
 Lastly, when your application is about to terminate, shut down `ld_client`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+
+Here's how:
 
 <CodeTabs
   defaultValue="ruby"

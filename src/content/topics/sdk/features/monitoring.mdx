@@ -26,9 +26,12 @@ This feature is available in the following client-side SDKs:
 ### Android
 
 <Callout intent="info">
-  <CalloutTitle>Supported versions</CalloutTitle>
+<CalloutTitle>Supported versions</CalloutTitle>
 <CalloutDescription>
-This feature is available in the Android SDK's versions 2.8.0 and later.</CalloutDescription>
+
+This feature is available in the Android SDK's versions 2.8.0 and later.
+
+</CalloutDescription>
 </Callout>
 
 The Android SDK exposes some of its internal status through APIs to let your application monitor it. This allows the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
@@ -307,7 +310,7 @@ if (ldFailure != null) {
 A callback-based interface is also provided to allow notifying the application when the `ConnectionMode` changes, as well as whenever the `LDFailure` in `ConnectionStatus` changes. The application must provide a class instance implementing `LDStatusListener` to the SDK client instance method `registerStatusListener` to register the listeners with the SDK.
 
 <Callout intent="alert">
-  <CalloutTitle>Listener weak reference</CalloutTitle>
+<CalloutTitle>Listener weak reference</CalloutTitle>
 <CalloutDescription>
 
 The SDK maintains only a weak reference to the registered `LDStatusListener`, so the application maintains a reference for as long as the application desires the listener to be available. This helps prevent creating a long-term reference to an Activity by creating a static internal class instance for use as a listener. By using a weak reference to the listener, the Activity can still be garbage collected normally, even if it maintains a registered `LDStatusListener`. We recommend unregistering the listener when it's finished.
@@ -451,7 +454,6 @@ Subscribing to `change` events automatically turns on streaming mode as well, un
 ### Flutter
 
 The Flutter SDK exposes some of its internal status through APIs to let your application monitor it. This allows the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
-
 
 The SDK also stores a timestamp of the most recent successful and failed connections to LaunchDarkly, as well as information related to the most recent failed connection. The `LDClient` method `getConnectionInformation()` returns a structure that lets you retrieve these fields.
 
@@ -628,9 +630,12 @@ This feature is available in the following server-side SDKs:
 ### .NET
 
 <Callout intent="info">
-  <CalloutTitle>Supported versions</CalloutTitle>
+<CalloutTitle>Supported versions</CalloutTitle>
 <CalloutDescription>
-This feature is available in the .NET SDK's versions 6.0.0 and later.</CalloutDescription>
+
+This feature is available in the .NET SDK's versions 6.0.0 and later.
+
+</CalloutDescription>
 </Callout>
 
 To check the data source status:
