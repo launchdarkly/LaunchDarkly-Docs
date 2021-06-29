@@ -175,7 +175,7 @@ Here is a list of feature event properties:
 - `kind`: The kind for a feature event is `feature`. A feature event will only be generated if the `trackEvents` attribute of the flag is set to `true`. This is also controlled by settings in the UI.
 - `contextKind`: The kind of context which generated an event. This will only be "anonymousUser" for events generated on behalf of an anonymous user or the reserved word "user" for events generated on behalf of a non-anonymous user
 - `userKey`: The key of the user object used in a feature flag evaluation. Details for the `user` object used in a feature flag evaluation as reported by the "feature" event are transmitted periodically with a separate `index` event.
-- `creationDate` When the feature flag was requested at Unix epoch time in milliseconds.
+- `creationDate` When the feature flag was requested at UNIX epoch time in milliseconds.
 - `key`: The key of the feature flag requested.
 - `variation`: The variation of the flag requested. Flag variation values are stored in an array. This value corresponds to the index of the variation the array. Boolean flags show as `0` or `1` for `true` and `false`, and other flag types are numbered starting with `0` for their different variations.
 - `variationName`: The evaluated variation's name, if it exists. If the evaluated variation doesn't have a name, this field doesn't appear.
@@ -231,7 +231,7 @@ Here is a list of index event properties:
 
 - `kind`: The kind of an index event is `index`.
 - `user`: The same schema as `user` objects for feature flag evaluation.
-- `creationDate`: The time this user was recorded at Unix epoch time in milliseconds.
+- `creationDate`: The time this user was recorded at UNIX epoch time in milliseconds.
   <Callout intent="info">
     <CalloutTitle>SDKs determine when index events are sent</CalloutTitle>
     <CalloutDescription>
@@ -278,7 +278,7 @@ Here is a list of identify event properties:
 
 - `kind`: The kind of an identify event is `identify`.
 - `user`: The same schema as `user` objects for feature flag evaluation.
-- `creationDate`: The time this user was recorded at Unix epoch time in milliseconds.
+- `creationDate`: The time this user was recorded at UNIX epoch time in milliseconds.
 
 ## Custom events
 
@@ -450,14 +450,14 @@ Each feature flag includes the following details:
     <TableRow>
       <TableCell>startDate</TableCell>
       <TableCell>
-        The timestamp of the first feature flag evaluation included in this packet. This value is a UNIX Epoch time in
+        The timestamp of the first feature flag evaluation included in this packet. This value is a UNIX epoch time in
         milliseconds.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>endDate</TableCell>
       <TableCell>
-        The timestamp of the last feature flag evaluation included in this packet. This value is a UNIX Epoch time in
+        The timestamp of the last feature flag evaluation included in this packet. This value is a UNIX epoch time in
         milliseconds.
       </TableCell>
     </TableRow>

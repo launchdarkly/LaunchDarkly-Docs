@@ -126,7 +126,7 @@ The `prereqOf` attribute should be set to a flag key if this flag evaluation was
 
 The optional `contextKind` attribute should be either `"user"` or `"anonymousUser"` depending on the corresponding user's `anonymous` property. If omitted, the context kind will be interpreted as `"user"`.
 
-The debug event is a variant on the feature event, with two differences. It has `kind` set to `"debug"` and it inlines the `user` value. It is only sent if the `debugEventsUntilDate` attribute is set for a feature flag and indicates a Unix timestamp (in milliseconds) that has not yet elapsed. Debug events are not controlled by the `trackEvents` field.
+The debug event is a variant on the feature event, with two differences. It has `kind` set to `"debug"` and it inlines the `user` value. It is only sent if the `debugEventsUntilDate` attribute is set for a feature flag and indicates a UNIX epoch timestamp in milliseconds that has not yet elapsed. Debug events are not controlled by the `trackEvents` field.
 
 Here is an example a debug event:
 
@@ -162,7 +162,7 @@ Here is an example a debug event:
 </CodeTabItem>
 </CodeTabs>
 
-​The `user` has the same schema as `user` objects for feature flag evaluation. The `creationDate` is the time the feature flag was requested as Unix epoch time in milliseconds. The `key` is the key of the feature flag requested. The `value` is the value of the feature flag returned by feature flag evaluation. Finally, the `default` field, which is optional, should be set to `true` if feature flag evaluation failed and the value returned was the default value passed to `variation`. If the default field is omitted, it is assumed to be `false`.
+​The `user` has the same schema as `user` objects for feature flag evaluation. The `creationDate` is the time the feature flag was requested as UNIX epoch time in milliseconds. The `key` is the key of the feature flag requested. The `value` is the value of the feature flag returned by feature flag evaluation. Finally, the `default` field, which is optional, should be set to `true` if feature flag evaluation failed and the value returned was the default value passed to `variation`. If the default field is omitted, it is assumed to be `false`.
 
 ### Index and identify events
 
@@ -253,7 +253,7 @@ Alias events have the following shape:
 </CodeTabItem>
 </CodeTabs>
 
-The `kind` for an alias event is `"alias"`. The `key` and `previousKey` attributes are the users' keys. The `contextKind` and `previousContextKind` define the kind of previous and new user; valid values are `"user"` and `"anonymousUser"`. The `creationDate` is the time the alias event was generatedas Unix epoch time in milliseconds.
+The `kind` for an alias event is `"alias"`. The `key` and `previousKey` attributes are the users' keys. The `contextKind` and `previousContextKind` define the kind of previous and new user; valid values are `"user"` and `"anonymousUser"`. The `creationDate` is the time the alias event was generatedas UNIX epoch time in milliseconds.
 
 ### Custom events
 
@@ -375,7 +375,7 @@ For each feature flag, the following data should be provided:
         <code>startDate</code>
       </TableCell>
       <TableCell>
-        The timestamp of the first feature flag evaluation included in this packet. This value is a Unix Epoch time in
+        The timestamp of the first feature flag evaluation included in this packet. This value is a UNIX epoch time in
         milliseconds.
       </TableCell>
     </TableRow>
@@ -384,7 +384,7 @@ For each feature flag, the following data should be provided:
         <code>endDate</code>
       </TableCell>
       <TableCell>
-        The timestamp of the last feature flag evaluation included in this packet. This value is a Unix Epoch time in
+        The timestamp of the last feature flag evaluation included in this packet. This value is a UNIX epoch time in
         milliseconds.
       </TableCell>
     </TableRow>
@@ -476,7 +476,7 @@ The technical details of how to implement diagnostic events in a LaunchDarkly SD
 11. Use best practices with respect to error handling. Be extremely defensive and assume anything can fail. For `variation` calls, use a top-level catch-all error handler that returns the default value if any exceptions / unexpected errors occur. Log when the default value is returned because of an exception or unexpected error.
 12. The SDK should be thread-safe. SDKs should not be expected to have to introduce locking around API calls for thread-safety. Furthermore, the LDClient instance itself should be a thread-safe singleton— clients should be expected to instantiate one LDClient for the lifetime of their application.
 13. All SDK calls to the LaunchDarkly REST API with an entity body should have the `Content-Type` header set to `application/json`.
-14. All timestamps should be sent as Unix time in milliseconds. Event timestamps should reflect (as nearly as possible) the time that the event was created, not the time that the event was sent.
+14. All timestamps should be sent as UNIX time in milliseconds. Event timestamps should reflect as nearly as possible the time that the event was created, not the time that the event was sent.
 15. The HTTP client used in the SDK should have reasonable timeouts set by default. If supported by the client library, separate connection and read timeouts should be specified. A reasonable but conservative set of default values is 1 second for connection timeouts and 2 seconds for read timeouts.
 
 ## Common pitfalls
