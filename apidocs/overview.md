@@ -364,7 +364,9 @@ This specification is generated from the [ld-openapi repository on GitHub](https
 
 You can use this specification to generate client libraries to interact with our REST API in your language of choice. 
 
-Our client libraries, in addition to community-supported clients, are available on [GitHub](https://github.com/topics/launchdarkly-api).
+# Client libraries
+
+Our client libraries, in addition to community-supported clients, are available on [GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories).
 
 # Method Overriding
 
