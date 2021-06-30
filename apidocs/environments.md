@@ -1,0 +1,1 @@
+Environments allow you to maintain separate rollout rules in different contexts--  from local development to QA, staging, and production. With the LaunchDarkly Environments API, you can programmatically create, delete, and update environments.
