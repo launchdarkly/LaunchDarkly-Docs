@@ -27,6 +27,15 @@ The LaunchDarkly client-side JavaScript SDK can be used in all major browsers. H
 
 The standard solution for ensuring that you will get the same functionality even in browsers that do not have native support for these features is to use [polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill). For a detailed description, and links to information about which browsers may require this, read [JS SDK requirements and polyfills](/sdk/client-side/javascript/requirements-polyfills).
 
+<Callout intent="alert">
+<CalloutTitle>Do Not Track and ad blocking software</CalloutTitle>
+<CalloutDescription>
+
+The JavaScript SDK respects the [Do Not Track events](https://www.eff.org/issues/do-not-track) header. If an end-user has Do Not Track enabled in their browser, the SDK does not send analytics events for flag evaluations or goals to events.launchdarkly.com. In addition, ad-blocking software may block analytics events from being sent. This does not impact feature flag evaluations.
+
+</CalloutDescription>
+</Callout>
+
 ## Getting started
 
 Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your JavaScript code.
@@ -232,15 +241,6 @@ Feature flags must be marked available to the client-side SDK before they can be
 
 If you request a feature flag that is not available, you'll receive the default value for that flag. If you always want flags marked as available to the client-side SDK by default, you can check the "Make new flags available to the client-side (JavaScript) SDK by default"
 in your [project settings](https://app.launchdarkly.com/settings#/projects).
-
-</CalloutDescription>
-</Callout>
-
-<Callout intent="alert">
-  <CalloutTitle>Do Not Track and ad blocking software</CalloutTitle>
-<CalloutDescription>
-
-The JavaScript SDK respects the [Do Not Track events](https://www.eff.org/issues/do-not-track) header. If an end-user has Do Not Track enabled in their browser, the SDK does not send analytics events for flag evaluations or goals to events.launchdarkly.com. In addition, ad-blocking software may block analytics events from being sent. This does not impact feature flag evaluations.
 
 </CalloutDescription>
 </Callout>
