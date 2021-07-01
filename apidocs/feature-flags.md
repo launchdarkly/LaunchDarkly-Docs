@@ -1,12 +1,12 @@
 ## Anatomy of a feature flag
 
-The feature flag API allows you to control percentage rollouts, target specific users, or even hit the 'kill' switch for a feature programmatically. By looking at the representation of a feature flag, we can see how to do any of these tasks.
+The feature flag API allows you to control percentage rollouts, target specific users, or even toggle off a feature programmatically. By looking at the representation of a feature flag, we can see how to do any of these tasks.
 
 ## Sample feature flag representation
 
 Every feature flag has a set of top-level attributes, as well as an `environments` map containing the flag rollout and targeting rules specific to each environment. Top-level attributes include things like the flag's name, description, tags, and creation date.
 
-For reference, here's a complete feature flag representation. We'll be breaking this down and explaining each attribute in detail.
+For reference, here's a complete feature flag representation. We will break this down and explain each attribute in detail.
 
 ```json
 {
@@ -166,7 +166,7 @@ For reference, here's a complete feature flag representation. We'll be breaking 
 
 ## Top-level attributes
 
-Most of the top-level attributes have a straightforward interpretation. For example, to change the name of a feature, simply [update the feature flag](doc:update-feature-flag) with the `name` attribute set to the new name:
+Most of the top-level attributes have a straightforward interpretation. For example, to change the name of a feature, [update the feature flag](doc:update-feature-flag) with the `name` attribute set to the new name:
 
 ```json
 [
@@ -174,11 +174,11 @@ Most of the top-level attributes have a straightforward interpretation. For exam
 ]
 ```
 
-The `variations` array is worth calling out. This array represents the different variation values that a feature flag has. For a boolean flag, there are two variations-- `true` and `false`. Multivariate flags will have more variation values, and those values could be any JSON type (numbers, strings, objects, or arrays). In targeting rules, the variations are referred to by their index into this array. This will be clearer below when we look at some specific examples.
+The `variations` array represents the different variation values that a feature flag has. For a boolean flag, there are two variations: `true` and `false`. Multivariate flags have more variation values, and those values could be any JSON type: numbers, strings, objects, or arrays. In targeting rules, the variations are referred to by their index into this array. Below are some specific examples.
 
 ## Per-environment configurations
 
-Each entry in the `environments` map contains a JSON object that represents the environment-specific flag configuration data that you see on the [Targeting](http://docs.launchdarkly.com/v2.0/docs/targeting-users) tab of your Manage Feature page. For example, to toggle the kill switch for a feature flag in your production environment, use the following JSON patch operation:
+Each entry in the `environments` map contains a JSON object that represents the environment-specific flag configuration data that you see on the [Targeting](https://docs.launchdarkly.com/home/flags/targeting-users) tab of your Manage Feature page. For example, to toggle off a feature flag in your production environment, use the following JSON patch operation:
 
 ```json
 [
@@ -209,20 +209,20 @@ The `targets` array in the per-environment configuration data represents the ind
 }
 ```
 
-This `targets` array here means that user `foo@example.com` should receive the first variation listed in the `variations` array (recall that the variations are stored at the top level of the flag JSON in an array, and the per-environment configuration rules point to indexes into this array). If this is a boolean flag, that means that `foo@example.com` is receiving the `true` variation.
+This `targets` array here means that user `foo@example.com` receives the first variation listed in the `variations` array. Recall that the variations are stored at the top level of the flag JSON in an array, and the per-environment configuration rules point to indexes into this array. If this is a boolean flag, `foo@example.com` is receiving the `true` variation.
 
 ## Targeting rules
 
-The `rules` array corresponds to the custom targeting rules section of the Targeting tab. This is where you can express complex rules on attributes with conditions and operators. For example, a rule like "roll the `true` variation out to 80% of users whose e-mail address ends with `gmail.com` would be expressed here.
+The `rules` array corresponds to the custom targeting rules section of the Targeting tab. This is where you can express complex rules on attributes with conditions and operators. For example, a rule like "roll out the `true` variation to 80% of users whose email address ends with `gmail.com` could be expressed here.
 
 ## The fallthrough rule
 
-The `fallthrough` object is a special rule that contains no conditions-- it is the rollout strategy that is applied when none of the individual or custom targeting rules match.
+The `fallthrough` object is a special rule that contains no conditions. It is the rollout strategy that is applied when none of the individual or custom targeting rules match.
 
 ## The off variation
 
-The off variation represents the variation to serve if the feature flag is killed (the `on` attribute is `false`). For boolean flags, this is usually `false`. For multivariate flags, set the off variation to whatever variation represents the control or baseline behavior for your application. If you don't set the off variation, LaunchDarkly will serve the fallback value defined in your code.
+The off variation represents the variation to serve if the feature flag is turned off, meaning the `on` attribute is `false`. For boolean flags, this is usually `false`. For multivariate flags, set the off variation to whatever variation represents the control or baseline behavior for your application. If you don't set the off variation, LaunchDarkly will serve the fallback value defined in your code.
 
 ## Percentage rollouts
 
-The `weight` attribute defines the percentage rollout for each variation. Weights range from 0 (0% rollout) to 100000 (a 100% rollout). The weights are scaled by a factor of 1000 so that fractions of a percent can be represented without using floating point-- so a weight of `50000` means that 50% of users (that don't otherwise match any `targets`, see above) will see that variation. The sum of weights across all variations should be 100%.
+The `weight` attribute defines the percentage rollout for each variation. Weights range from 0 (a 0% rollout) to 100000 (a 100% rollout). The weights are scaled by a factor of 1000 so that fractions of a percent can be represented without using floating-point. For example, a weight of `50000` means that 50% of users that don't otherwise match any `targets` will see that variation. The sum of weights across all variations should be 100%.
