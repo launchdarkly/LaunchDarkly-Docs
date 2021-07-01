@@ -213,6 +213,51 @@ LDConfigSetUseLDD(config, true);  // <-- the extra option
 
 The Erlang SDK can use [Redis](/sdk/features/storing-data/redis#erlang) to hold flag data.
 
+To use a persistent feature store while connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', }
+  ]
+}>
+
+<CodeTabItem value="erlang">
+
+```erlang
+LdOptions = #{
+  feature_store => your_feature_store
+},
+ldclient:start_instance("your_sdk_key", LdOptions).
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To use a persistent feature store without connecting to LaunchDarkly:
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', },
+  ]
+}>
+
+<CodeTabItem value="erlang">
+
+```erlang
+LdOptions = #{
+  use_ldd       => true,
+  feature_store => your_feature_store
+},
+ldclient:start_instance("your_sdk_key", LdOptions).
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`ldclient_config`](https://hexdocs.pm/launchdarkly_server_sdk/ldclient_config.html).
+
 ### Go
 
 The Go SDK can use [Consul](/sdk/features/storing-data/consul#go), [DynamoDB](/sdk/features/storing-data/dynamodb#go), or [Redis](/sdk/features/storing-data/redis#go) to hold flag data.
