@@ -6,7 +6,7 @@ The feature flag API allows you to control percentage rollouts, target specific 
 
 Every feature flag has a set of top-level attributes, as well as an `environments` map containing the flag rollout and targeting rules specific to each environment. Top-level attributes include things like the flag's name, description, tags, and creation date.
 
-For reference, here's a complete feature flag representation. We will break this down and explain each attribute in detail.
+For reference, here's a complete feature flag representation. Below we break this down and explain each attribute in detail.
 
 ```json
 {
