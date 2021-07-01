@@ -2,7 +2,7 @@
 
 All REST API resources are authenticated with [personal access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens) or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [Account settings](https://app.launchdarkly.com/settings/tokens) page. 
 
-LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs,  mobile SDKs, and client-side JavaScript SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations (fetching feature flag settings).
+LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs, mobile SDKs, and client-side JavaScript SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations (fetching feature flag settings).
 
 | Auth mechanism | Allowed resources | Use cases |
 | -------------- | ----------------- | --------- |
@@ -88,7 +88,7 @@ Paginated collections include `first`, `last`, `next`, and `prev` links containi
 
 # Updates
 
-Resources that accept partial updates use the `PATCH` verb, and support the [JSON Patch](http://tools.ietf.org/html/rfc6902) format. Some resources also support the  [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) format. In addition, some resources support optional comments that can be submitted with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.
+Resources that accept partial updates use the `PATCH` verb, and support the [JSON Patch](http://tools.ietf.org/html/rfc6902) format. Some resources also support the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) format. In addition, some resources support optional comments that can be submitted with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.
 
 ## Updates via JSON Patch
 
@@ -291,7 +291,7 @@ The API always returns errors in a common format. Here's an example:
 }
 ```
 
-The general class of error is indicated by the `code`. The `message` is a human-readable explanation of what went wrong. The `id` is a unique identifier-- use it when you're working with LaunchDarkly support to debug a problem with a specific API call.
+The general class of error is indicated by the `code`. The `message` is a human-readable explanation of what went wrong. The `id` is a unique identifier. Use it when you're working with LaunchDarkly support to debug a problem with a specific API call.
 
 ## HTTP Status - Error Response Codes
 
@@ -305,7 +305,7 @@ The general class of error is indicated by the `code`. The `message` is a human-
 
 # CORS
 
-The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin.  If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise, a wildcard is returned: `Access-Control-Allow-Origin: *`.  For more information on CORS, see the [CORS W3C Recommendation](http://www.w3.org/TR/cors). Example CORS headers might look like:
+The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise, a wildcard is returned: `Access-Control-Allow-Origin: *`. For more information on CORS, see the [CORS W3C Recommendation](http://www.w3.org/TR/cors). Example CORS headers might look like:
 
 ```http
 Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, Authorization
