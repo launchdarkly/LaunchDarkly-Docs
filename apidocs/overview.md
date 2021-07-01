@@ -358,8 +358,6 @@ We also employ IP-based rate limiting on some API routes. If you hit an IP-based
 
 We have a [complete OpenAPI (Swagger) specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.
 
-This specification is generated from the [ld-openapi repository on GitHub](https://github.com/launchdarkly/ld-openapi). 
-
 You can use this specification to generate client libraries to interact with our REST API in your language of choice. 
 
 # Client libraries
