@@ -1,6 +1,6 @@
 # Authentication
 
-All REST API resources are authenticated with [personal access tokens](https://docs.launchdarkly.com/v2.0/docs/api-access-tokens) or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [Account settings](https://app.launchdarkly.com/settings/tokens) page. 
+All REST API resources are authenticated with [personal access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens) or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [Account settings](https://app.launchdarkly.com/settings/tokens) page. 
 
 LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs,  mobile SDKs, and client-side JavaScript SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations (fetching feature flag settings).
 
@@ -13,8 +13,8 @@ LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used b
 
 <blockquote>
     <h3><span>❗️</span>Keep your access tokens and SDK keys private</h3>
-    <p>Access tokens should *never* be exposed in untrusted contexts. Never put an access token in client-side JavaScript, or embed it in a mobile application (LaunchDarkly has special mobile keys that you can embed in mobile apps). If you accidentally expose an access token or SDK key, you can reset it from your [Account Settings](https://app.launchdarkly.com/settings#/tokens) page.</p>
-    <p>The client-side ID is safe to embed in untrusted contexts-- it's designed for use in client-side JavaScript.</p>
+    <p>Access tokens should *never* be exposed in untrusted contexts. Never put an access token in client-side JavaScript, or embed it in a mobile application. LaunchDarkly has special mobile keys that you can embed in mobile apps. If you accidentally expose an access token or SDK key, you can reset it from your [Account Settings](https://app.launchdarkly.com/settings#/tokens) page.</p>
+    <p>The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.</p>
 </blockquote>
 
 ## Via request header
@@ -27,34 +27,34 @@ Manage personal access tokens from the [Account Settings](https://app.launchdark
 
 For testing purposes, you can make API calls directly from your web browser. If you're logged in to the application, the API will use your existing session to authenticate calls.
 
-If you have a [role](http://docs.launchdarkly.com/v2.0/docs/teams) other than Admin, or have a [custom role](http://docs.launchdarkly.com/v2.0/docs/custom-roles) defined, you may not have permission to perform some API calls.  You'll receive a `401` response code in that case.
+If you have a [role](https://docs.launchdarkly.com/home/team/built-in-roles) other than Admin, or have a [custom role](https://docs.launchdarkly.com/home/team/custom-roles) defined, you may not have permission to perform some API calls. You will receive a `401` response code in that case.
 
 <blockquote>
     <h3><span>❗️</span>Modifying the Origin header causes an error</h3>
     <p>We validate that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is `https://app.launchdarkly.com`.</p>
-    <p>If the Origin header does not match what's expected, we return an error. This error can prevent the LaunchDarkly app from working correctly. </p>
+    <p>If the Origin header does not match what's expected, LaunchDarkly returns an error. This error can prevent the LaunchDarkly app from working correctly. </p>
     <p>Any browser extension that intentionally changes the Origin header can cause this problem. For example, the `Allow-Control-Allow-Origin: *` Chrome extension changes the Origin header to http://evil.com and causes the app to fail.</p>
     <p>To prevent this error, do not modify your Origin header.</p>
-    <p>We do not require origin matching when authenticating with an Access Token, so this issue does not affect normal API usage.</p>
+    <p>LaunchDarkly does not require origin matching when authenticating with an Access Token, so this issue does not affect normal API usage.</p>
 </blockquote>
 
 # Representations
 
-All resources expect and return JSON response bodies. Error responses will also send a JSON body-- see [Errors](doc:errors) for a more detailed description of the error format used by the API. 
+All resources expect and return JSON response bodies. Error responses will also send a JSON body. Read [Errors](doc:errors) for a more detailed description of the error format used by the API. 
 
-In practice this means that you'll always get a response with a `Content-Type` header set to `application/json`.
+In practice this means that you always get a response with a `Content-Type` header set to `application/json`.
 
 In addition, request bodies for `PUT`, `POST`, `REPORT` and `PATCH` requests must be encoded as JSON with a `Content-Type` header set to `application/json`.
 
 ## Summary and detailed representations
 
-When you fetch a list of resources, the response will only include the most important attributes of each resource. This is a *summary representation* of the resource. When you fetch an individual resource (for example, a single feature flag), you'll receive a *detailed representation* containing all of the attributes of the resource.
+When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a *summary representation* of the resource. When you fetch an individual resource (for example, a single feature flag), you receive a *detailed representation* containing all of the attributes of the resource.
 
-The best way to find a detailed representation is to follow links-- every summary representation includes a link to its detailed representation.
+The best way to find a detailed representation is to follow links. Every summary representation includes a link to its detailed representation.
 
 ## Links and addressability
 
-The best way to navigate the API is by following links-- these are attributes in representations that link to other resources. The API always uses the same format for links:
+The best way to navigate the API is by following links. These are attributes in representations that link to other resources. The API always uses the same format for links:
 
 * Links to other resources within the API are encapsulated in a `_links` object.
 * If the resource has a corresponding link to HTML content on the site, it is stored in a special `_site` link.
@@ -80,9 +80,9 @@ Each link has two attributes: an href (the URL) and a type (the content type). F
 }
 ```
 
-From this, we can navigate to the parent collection of features by following the `parent` link, or navigate to the site page for the feature by following the `_site` link.
+From this, you can navigate to the parent collection of features by following the `parent` link, or navigate to the site page for the feature by following the `_site` link.
 
-Collections are always represented as a JSON object with an `items` attribute containing an array of representations. Like all other representations, collections will have `_links` defined at the top level.
+Collections are always represented as a JSON object with an `items` attribute containing an array of representations. Like all other representations, collections have `_links` defined at the top level.
 
 Paginated collections include `first`, `last`, `next`, and `prev` links containing a URL with the respective set of elements in the collection.
 
@@ -92,7 +92,7 @@ Resources that accept partial updates use the `PATCH` verb, and support the [JSO
 
 ## Updates via JSON Patch
 
-[JSON Patch](http://tools.ietf.org/html/rfc6902)  is a way to specify the modifications to perform on a resource. For example, in this feature flag representation:
+[JSON Patch](http://tools.ietf.org/html/rfc6902) is a way to specify the modifications to perform on a resource. For example, in this feature flag representation:
 
 ```json
 {
@@ -138,7 +138,7 @@ JSON Merge Patch is less expressive than JSON Patch but in many cases, it is sim
 
 ## Updates with comments
 
-You can submit optional comments with `PATCH` changes. Currently, the [Update feature flag](doc:update-feature-flag) resource supports comments.
+You can submit optional comments with `PATCH` changes. The [Update feature flag](doc:update-feature-flag) resource supports comments.
 
 To submit a comment along with a JSON Patch document, use the following format:
 
@@ -210,7 +210,7 @@ For example, in this feature flag configuration in environment Production:
 }
 ```
 
-You can add a date you want a user to be removed from the feature flag's user targets. For example,  “remove user 1461797806429-33-861961230 from the user target for variation 0 on the Alternate sort order flag in the production environment on Wed Jul 08 2020 at 15:27:41 pm”. This is done using the following:
+You can add a date you want a user to be removed from the feature flag's user targets. For example, “remove user 1461797806429-33-861961230 from the user target for variation 0 on the Alternate sort order flag in the production environment on Wed Jul 08 2020 at 15:27:41 pm”. This is done using the following:
 
 ```json
 {
@@ -251,7 +251,7 @@ Here is another example. In this feature flag configuration:
 }
 ```
 
-You can change the feature flag's description with the following patch document as a set of executable instructions. For example, “add user X to targets for variation Y and remove user A from targets for variation B for test flag”.
+You can change the feature flag's description with the following patch document as a set of executable instructions. For example, “add user X to targets for variation Y and remove user A from targets for variation B for test flag”:
 
 ```json
 {
@@ -297,15 +297,15 @@ The general class of error is indicated by the `code`. The `message` is a human-
 
 | Code | Definition | Desc. | Possible Solution |
 | ---- | ---------- | ----- | ----------------- |
-| 400  | Bad Request | A request that fails may return this HTTP response code | Ensure JSON syntax in request body is correct. |
-| 401  | Unauthorized | User doesn't have permission to an API call | Ensure your SDK key is good. |
+| 400  | Bad Request | A request that fails may return this HTTP response code. | Ensure JSON syntax in request body is correct. |
+| 401  | Unauthorized | User doesn't have permission to an API call. | Ensure your SDK key is good. |
 | 403  | Forbidden | User does not have permission for operation. | Ensure that the user or access token has proper permissions set. |
 | 409  | Conflict | The API request could not be completed because it conflicted with a concurrent API request. | Retry your request. |
-| 429  | Too many requests | See [Rate limiting](ref:rate-limiting) | Wait and try again later. |
+| 429  | Too many requests | See [Rate limiting](ref:rate-limiting). | Wait and try again later. |
 
 # CORS
 
-The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin.  If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise, a wildcard will be returned: `Access-Control-Allow-Origin: *`.  For more information on CORS, see the [CORS W3C Recommendation](http://www.w3.org/TR/cors).  Example CORS headers might look like:
+The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin.  If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise, a wildcard is returned: `Access-Control-Allow-Origin: *`.  For more information on CORS, see the [CORS W3C Recommendation](http://www.w3.org/TR/cors). Example CORS headers might look like:
 
 ```http
 Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, Authorization
@@ -314,7 +314,7 @@ Access-Control-Allow-Origin: *
 Access-Control-Max-Age: 300
 ```
 
-You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](doc:authentication). If you’re using session auth, you should set the `withCredentials` property for your `xhr` request to `true`. Remember-- you should never expose your access tokens to untrusted users.
+You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](doc:authentication). If you’re using session auth, you should set the `withCredentials` property for your `xhr` request to `true`. You should never expose your access tokens to untrusted users.
 
 # Rate limiting
 
@@ -322,20 +322,20 @@ We use several rate limiting strategies to ensure the availability of our APIs. 
 
 <blockquote>
     <h3><span>❗️</span>Rate limiting and SDKs</h3>
-    <p>Our SDKs are never rate limited. Our SDKs do not use the API endpoints defined here-- we use a different set of approaches (streaming / server-sent events as well as a global CDN) to ensure availability to the routes used by our SDKs.</p>
-    <p>The client-side ID is safe to embed in untrusted contexts-- it's designed for use in client-side JavaScript.</p>
+    <p>Our SDKs are never rate limited. Our SDKs do not use the API endpoints defined here. We use a different set of approaches, including streaming/server-sent events and a global CDN, to ensure availability to the routes used by our SDKs.</p>
+    <p>The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.</p>
 </blockquote>
 
 ## Global rate limits
 
-Authenticated requests are subject to a global limit-- this is the maximum number of calls that can be made to the API per ten seconds. All personal access tokens on the account share this limit, so exceeding the limit with one access token will impact other tokens. Calls that are subject to global rate limits will return the headers below:
+Authenticated requests are subject to a global limit. This is the maximum number of calls that can be made to the API per ten seconds. All personal access tokens on the account share this limit, so exceeding the limit with one access token will impact other tokens. Calls that are subject to global rate limits will return the headers below:
 
 | Header name | Description |
 | ----------- | ----------- |
 | `X-Ratelimit-Global-Remaining` | The maximum number of requests the account is permitted to make per ten seconds. |
 | `X-Ratelimit-Reset` | The time at which the current rate limit window resets in epoch milliseconds. |
 
-We do not publicly document the specific number of calls that can be made globally. This limit may change, and we encourage clients to program against the specification (relying on the two headers defined above) rather than hardcoding to the current limit.
+We do not publicly document the specific number of calls that can be made globally. This limit may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limit.
 
 ## Route-level rate limits
 
@@ -348,13 +348,13 @@ Some authenticated routes have custom rate limits. These also reset every ten se
 
 A *route* represents a specific URL pattern and verb. For example, the [Delete environment](doc:delete-environment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route. 
 
-We do not publicly document the specific number of calls that can be made to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification (relying on the two headers defined above) rather than hardcoding to the current limits.
+We do not publicly document the specific number of calls that can be made to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limits.
 
 ## IP-based rate limiting
 
 We also employ IP-based rate limiting on some API routes. If you hit an IP-based rate limit, your API response will include a `Retry-After` header indicating how long to wait before re-trying the call. Clients must wait at least `Retry-After` seconds before making additional calls to our API, and should employ jitter and backoff strategies to avoid triggering rate limits again.
 
-# Open API (Swagger)
+# OpenAPI (Swagger)
 
 We have a complete Open API (Swagger) specification for our API hosted here:
 
@@ -366,7 +366,7 @@ You can use this specification to generate client libraries to interact with our
 
 # Client libraries
 
-Our client libraries, in addition to community-supported clients, are available on [GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories).
+We auto-generate multiple client libraries based on our OpenAPI specification. To learn more, visit [GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories).
 
 # Method Overriding
 
@@ -410,13 +410,13 @@ See new versions in the [Changelog](ref:changelog).
 
 ## Setting the API version per request
 
-You can set the API version on a specific request by sending an `LD-API-Version` header, as shown in the example below
+You can set the API version on a specific request by sending an `LD-API-Version` header, as shown in the example below:
 
 ```
 LD-API-Version: 20191212
 ```
 
-The header value is the version number of the API version you'd like to request. The number for each version corresponds to the date the version was released; in the example above the version `20191212` corresponds to December 12, 2019. 
+The header value is the version number of the API version you'd like to request. The number for each version corresponds to the date the version was released. In the example above the version `20191212` corresponds to December 12, 2019. 
 
 ## Setting the API version per access token
 
@@ -434,5 +434,5 @@ If you would like to upgrade your integration to use a new API version, you can 
 
 <blockquote>
     <h3><span>🚧</span>API Path Versioning</h3>
-    <p>In the past, we've used path-based API versioning (e.g. versioning resources by adding `v2` to endpoint URLs). We don't foresee the need to do this again, but reserve the right to do so if we find the need to make major revisions to the API.</p>
+    <p>In the past, we've used path-based API versioning. For example, versioning resources by adding `v2` to endpoint URLs. We don't foresee the need to do this again, but may do so if we need to make major revisions to the API.</p>
 </blockquote>
