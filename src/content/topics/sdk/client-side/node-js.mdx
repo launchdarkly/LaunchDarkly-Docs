@@ -140,27 +140,7 @@ Feature flags must be marked available to the client-side SDK (see your feature 
 </CalloutDescription>
 </Callout>
 
-Lastly, when your application is about to terminate, shut down `ldClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
-
-Here's how:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-ldClient.close(() => {
-  console.log('Client has been closed');
-  process.exit(0);
-});
-```
-
-</CodeTabItem>
-</CodeTabs>
+Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#nodejs-client-side).
 
 ## Supported features
 
@@ -176,5 +156,6 @@ This SDK supports the following features:
 * [Identifying and changing users](/sdk/features/identify#nodejs-client-side)
 * [Logging configuration](/sdk/features/logging#nodejs-client-side)
 * [Sending custom events](/sdk/features/events#nodejs-client-side)
+* [Shutting down](/sdk/features/shutdown#nodejs-client-side)
 * [Subscribing to flag changes](/sdk/features/flag-changes#nodejs-client-side)
 * [User configuration](/sdk/features/user-config#nodejs-client-side)

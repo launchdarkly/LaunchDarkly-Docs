@@ -116,24 +116,7 @@ else {
 </CodeTabItem>
 </CodeTabs>
 
-Optionally, if your application will no longer use the client, it may permanently shut down the client with `close`. This is not generally required, but is provided to clear any resources associated with the SDK and cleanly shut down.
-
-Here's how:
-
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
-
-```dart
-await LDClient.close();
-```
-
-</CodeTabItem>
-</CodeTabs>
+Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#flutter).
 
 ## Data collection
 
@@ -152,5 +135,6 @@ This SDK supports the following features:
 * [Monitoring SDK status](/sdk/features/monitoring#flutter)
 * [Offline mode](/sdk/features/offline-mode#flutter)
 * [Sending custom events](/sdk/features/events#flutter)
+* [Shutting down](/sdk/features/shutdown#flutter)
 * [Subscribing to flag changes](/sdk/features/flag-changes#flutter)
 * [User configuration](/sdk/features/user-config#flutter)

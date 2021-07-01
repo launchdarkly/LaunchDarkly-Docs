@@ -158,6 +158,8 @@ client.waitForInitialization().then(function() {
 
 If you try to evaluate feature flags before the client is ready, it will behave as it would if no flags existed (for example,`variation` returns a default value).
 
+Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#electron).
+
 To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/electron-client-sdk/interfaces/_launchdarkly_electron_client_sdk_.ldoptions.html).
 
 ## Supported features
@@ -171,5 +173,6 @@ This SDK supports the following features:
 * [Logging configuration](/sdk/features/logging#electron)
 * [Monitoring SDK status](/sdk/features/monitoring#electron)
 * [Sending custom events](/sdk/features/events#electron)
+* [Shutting down](/sdk/features/shutdown#electron)
 * [Subscribing to flag changes](/sdk/features/flag-changes#electron)
 * [User configuration](/sdk/features/user-config#electron)

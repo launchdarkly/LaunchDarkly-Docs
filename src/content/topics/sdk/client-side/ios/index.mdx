@@ -282,37 +282,6 @@ if (showFeature) {
 </CodeTabItem>
 </CodeTabs>
 
-#### Terminating the client instance
----
-<br/>
-
-Lastly, when your application is about to terminate, shut down the `LDClient` instance. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do one time**.
-
-Here is how to shut down the `LDClient` instance:
-
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
-
-```swift
-ldClient.close()
-```
-
-</CodeTabItem>
-<CodeTabItem value="objc">
-
-```objectivec
-[ldClient close];
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## Background fetch
 
 When the app is backgrounded, the SDK does not receive real-time events. However, MacOS supports background fetch which updates flag values opportunistically, according to iOS standard defaults. iOS does not support background fetch.
@@ -344,6 +313,8 @@ config.backgroundFlagPollingInterval = 3600
 </CodeTabItem>
 </CodeTabs>
 
+Lastly, down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#ios).
+
 ## Data collection
 
 To learn more about data collection within this SDK and implications on submissions to the Apple App Store, read [Apple App Store data collection policy](/sdk/concepts/apple-app-store).
@@ -363,5 +334,6 @@ This SDK supports the following features:
 * [Multiple environments](/sdk/features/multiple-environments#ios)
 * [Offline mode](/sdk/features/offline-mode#ios)
 * [Sending custom events](/sdk/features/events#ios)
+* [Shutting down](/sdk/features/shutdown#ios)
 * [Subscribing to flag changes](/sdk/features/flag-changes#ios)
 * [User configuration](/sdk/features/user-config#ios)

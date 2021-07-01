@@ -11,7 +11,11 @@ This topic explains how to safely shut down different LaunchDarkly SDKs. This fe
 
 ## Shutting down an SDK
 
-LaunchDarkly SDKs use language-specific methods to shut down their instances safely. In most applications, you do not have to manually shut down an SDK.
+LaunchDarkly SDKs provide language-specific methods to shut down their instances safely. In most applications, you do not have to manually shut down an SDK.
+
+When your application is about to terminate, shut down the LaunchDarkly client. This ensures that the client releases any resources it is using, and that it delivers any pending analytics to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events.
+
+Do not attempt to use the LaunchDarkly client after it has shut down, as doing so may result in defined behavior. Shut down the client at a point in your application's lifecycle where the client is no longer needed.
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 
@@ -22,8 +26,42 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 This feature is available in the following client-side SDKs:
 
+* [Android](#android)
 * [C/C++ (client-side)](#cc-client-side)
+* [Electron](#electron)
+* [Flutter](#flutter)
+* [iOS](#ios)
+* [JavaScript](#javascript)
+* [Node.js (client-side)](#nodejs-client-side)
+* [React Native](#react-native)
 * [Xamarin](#xamarin)
+
+### Android
+
+To shut down:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+ldClient.close();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+ldClient.close()
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ### C/C++ (client-side)
 
@@ -51,6 +89,130 @@ LDClientClose(client);
 
 ```cpp
 client->close();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Electron
+
+To shut down:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+await client.close();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Flutter
+
+Optionally, if your application will no longer use the client, it may permanently shut down the client with `close`. This is not generally required, but is provided to clear any resources associated with the SDK and cleanly shut down.
+
+To shut down:
+
+<CodeTabs
+  defaultValue="dart"
+  values={[
+    { label: 'Dart', value: 'dart', },
+  ]
+}>
+<CodeTabItem value="dart">
+
+```dart
+await LDClient.close();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### iOS
+
+To shut down:
+
+<CodeTabs
+  defaultValue="swift"
+  values={[
+    { label: 'Swift', value: 'swift', },
+    { label: 'Objective-C', value: 'objc', },
+  ]
+}>
+<CodeTabItem value="swift">
+
+```swift
+ldClient.close()
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+[ldClient close];
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### JavaScript
+
+To shut down the JavaScript SDK:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+await ldclient.close();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Node.js (client-side)
+
+To shut down:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+await ldClient.close();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### React Native
+
+To shut down:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+await client.close();
 ```
 
 </CodeTabItem>
@@ -84,6 +246,7 @@ This feature is available in the following server-side SDKs:
 * [.NET](#net)
 * [C/C++ (server-side)](#cc-server-side)
 * [Erlang](#erlang)
+* [Go](#go)
 * [Haskell](#haskell)
 * [Java](#java)
 * [Node.js (server-side)](#nodejs-server-side)
@@ -150,7 +313,7 @@ To shut down:
 }>
 <CodeTabItem value="erlang">
 
-```
+```erlang
 ldclient:stop_all_instances()
 
 % Stops the default instance
@@ -158,6 +321,25 @@ ldclient:stop_instance()
 
 % Stops a named instance
 ldclient:stop_instance(my_instance)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Go
+
+To shut down:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+ldClient.Close()
 ```
 
 </CodeTabItem>
@@ -254,6 +436,8 @@ ldclient.get().close()
 ### Ruby
 
 `Close` safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `close`.
+
+To shut down:
 
 <CodeTabs
   defaultValue="ruby"

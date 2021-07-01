@@ -160,27 +160,9 @@ await client.configure(config, user);
 </CodeTabItem>
 </CodeTabs>
 
-Lastly, when your application is about to terminate, shut down `LDClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. This is something you only need to do once.
-
-To shut down `LDClient`:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-client.close();
-```
-
-</CodeTabItem>
-</CodeTabs>
 
 <Callout intent="info">
-  <CalloutTitle>Mobile keys</CalloutTitle>
+<CalloutTitle>Mobile keys</CalloutTitle>
 <CalloutDescription>
 
 Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into a mobile application.
@@ -191,6 +173,8 @@ Be sure to use a mobile key from your [Environments](https://app.launchdarkly.co
 ## Background fetch
 
 The React Native SDK defaults to the background fetch behavior for the platform it's running on.
+
+Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#react-native).
 
 ## Data collection
 
@@ -209,5 +193,6 @@ This SDK supports the following features:
 * [Monitoring SDK status](/sdk/features/monitoring#react-native)
 * [Offline mode](/sdk/features/offline-mode#react-native)
 * [Sending custom events](/sdk/features/events#react-native)
+* [Shutting down](/sdk/features/shutdown#react-native)
 * [Subscribing to flag changes](/sdk/features/flag-changes#react-native)
 * [User configuration](/sdk/features/user-config#react-native)
