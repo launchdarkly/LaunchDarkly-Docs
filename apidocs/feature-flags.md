@@ -166,7 +166,7 @@ For reference, here's a complete feature flag representation. We will break this
 
 ## Top-level attributes
 
-Most of the top-level attributes have a straightforward interpretation. For example, to change the name of a feature, [update the feature flag](doc:update-feature-flag) with the `name` attribute set to the new name:
+Most of the top-level attributes have a straightforward interpretation. For example, to change the name of a feature, [update the feature flag](#operation/patchFeatureFlag) with the `name` attribute set to the new name:
 
 ```json
 [

@@ -40,7 +40,7 @@ If you have a [role](https://docs.launchdarkly.com/home/team/built-in-roles) oth
 
 # Representations
 
-All resources expect and return JSON response bodies. Error responses will also send a JSON body. Read [Errors](doc:errors) for a more detailed description of the error format used by the API. 
+All resources expect and return JSON response bodies. Error responses will also send a JSON body. Read [Errors](#section/Errors) for a more detailed description of the error format used by the API. 
 
 In practice this means that you always get a response with a `Content-Type` header set to `application/json`.
 
@@ -126,7 +126,7 @@ Attributes that aren't editable, like a resource's `_links`, have names that sta
 
 ## Updates via JSON Merge Patch
 
-The API also supports the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) format, as well as the [Update feature flag](doc:update-feature-flag) resource. 
+The API also supports the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) format, as well as the [Update feature flag](#operation/patchFeatureFlag) resource. 
 
 JSON Merge Patch is less expressive than JSON Patch but in many cases, it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:
 
@@ -138,7 +138,7 @@ JSON Merge Patch is less expressive than JSON Patch but in many cases, it is sim
 
 ## Updates with comments
 
-You can submit optional comments with `PATCH` changes. The [Update feature flag](doc:update-feature-flag) resource supports comments.
+You can submit optional comments with `PATCH` changes. The [Update feature flag](#operation/patchFeatureFlag) resource supports comments.
 
 To submit a comment along with a JSON Patch document, use the following format:
 
@@ -314,7 +314,7 @@ Access-Control-Allow-Origin: *
 Access-Control-Max-Age: 300
 ```
 
-You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](doc:authentication). If you’re using session auth, you should set the `withCredentials` property for your `xhr` request to `true`. You should never expose your access tokens to untrusted users.
+You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](#section/Authentication). If you’re using session auth, you should set the `withCredentials` property for your `xhr` request to `true`. You should never expose your access tokens to untrusted users.
 
 # Rate limiting
 
@@ -346,7 +346,7 @@ Some authenticated routes have custom rate limits. These also reset every ten se
 | `X-Ratelimit-Route-Remaining` | The maximum number of requests to the current route the account is permitted to make per ten seconds. |
 | `X-Ratelimit-Reset` | The time at which the current rate limit window resets in epoch milliseconds. |
 
-A *route* represents a specific URL pattern and verb. For example, the [Delete environment](doc:delete-environment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route. 
+A *route* represents a specific URL pattern and verb. For example, the [Delete environment](#operation/deleteEnvironment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route. 
 
 We do not publicly document the specific number of calls that can be made to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limits.
 
