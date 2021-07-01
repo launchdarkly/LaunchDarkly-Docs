@@ -6,7 +6,7 @@ LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used b
 
 | Auth mechanism | Allowed resources | Use cases |
 | -------------- | ----------------- | --------- |
-| [Personal access tokens](https://docs.launchdarkly.com/v2.0/docs/api-access-tokens) | Can be customized on a per-token basis | Building scripts, custom integrations, data export |
+| [Personal access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens) | Can be customized on a per-token basis | Building scripts, custom integrations, data export |
 | SDK keys | Can only access read-only SDK-specific resources and the firehose, restricted to a single environment | Server-side SDKs, Firehose API |
 | Mobile keys | Can only access read-only mobile SDK-specific resources, restricted to a single environment | Mobile SDKs |
 | Client-side ID | Single environment, only flags marked available to client-side | Client-side JavaScript |
