@@ -2,28 +2,27 @@
 
 exports[`mdx metadata renders correctly 1`] = `
 <DocumentFragment>
-  .emotion-2 {
+  .emotion-0 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
   margin-bottom: 128px;
 }
 
 <div
-    class="emotion-2"
+    class="emotion-0"
   >
     <h5
-      class="emotion-0"
+      class="emotion-1"
     >
       Read time: 10 minutes
     </h5>
     <h5
-      class="emotion-0"
+      class="emotion-1"
     >
       Last edited: Nov 12 1999
     </h5>

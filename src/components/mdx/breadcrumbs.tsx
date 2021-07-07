@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from 'theme-ui'
+import { jsx, Themed } from 'theme-ui'
 import { graphql, useStaticQuery, Link } from 'gatsby'
 import { globalHistory } from '@reach/router'
 import { SideNavItem } from '../sideNav/types'
@@ -58,7 +58,7 @@ const Breadcrumbs = () => {
 
   return (
     <div sx={{ display: 'flex', justifyContent: 'space-between' }}>
-      <Styled.h4 sx={{ mb: [3, 4], fontSize: 3 }}>
+      <Themed.h4 sx={{ mb: [3, 4], fontSize: 3 }}>
         {breadcrumbItems.map(({ label, path }, index) => {
           const lastItem = index === breadcrumbItems.length - 1
           return lastItem ? (
@@ -81,7 +81,7 @@ const Breadcrumbs = () => {
             </Link>
           )
         })}
-      </Styled.h4>
+      </Themed.h4>
     </div>
   )
 }

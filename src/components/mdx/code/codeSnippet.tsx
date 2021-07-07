@@ -1,7 +1,7 @@
 /** @jsx jsx */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useState, useCallback } from 'react'
-import { jsx, Styled, Box, Button } from 'theme-ui'
+import { jsx, Themed, Box, Button } from 'theme-ui'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import Prism from 'prismjs'
 import 'prismjs/components/prism-go'
@@ -63,7 +63,7 @@ export function CodeSnippet({ children, className: languageClassName, ...props }
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <Fragment>
-            <Styled.pre
+            <Themed.pre
               className={className}
               style={style}
               sx={{ position: 'relative', paddingLeft: 6, '& > div:last-child': { mb: 6 } }}
@@ -96,7 +96,7 @@ export function CodeSnippet({ children, className: languageClassName, ...props }
                   </div>
                 )
               })}
-            </Styled.pre>
+            </Themed.pre>
           </Fragment>
         )}
       </Highlight>

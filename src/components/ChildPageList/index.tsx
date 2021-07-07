@@ -1,8 +1,9 @@
 /** @jsx jsx */
-import { jsx, useThemeUI } from 'theme-ui'
+import { jsx } from 'theme-ui'
 import { FC } from 'react'
 import { Link } from 'gatsby'
 import useNavItemChildren, { NavItem } from './useNavItemChildren'
+import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
 
 interface Props {
   path: string
@@ -17,7 +18,7 @@ const caseInsensitiveAlphabeticalComparison = (a: NavItem, b: NavItem): number =
 const identityComparison = (_a: NavItem, _b: NavItem): number => 0
 
 const ChildPageList: FC<Props> = ({ path, omit = '', append = [], unsorted = false }) => {
-  const { theme } = useThemeUI()
+  const { theme } = useGitGatsbyTheme()
   const items = useNavItemChildren(path)
   const pathsToOmit = omit.split(',')
 

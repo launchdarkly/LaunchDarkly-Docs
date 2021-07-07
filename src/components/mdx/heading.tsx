@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled, IntrinsicSxElements } from 'theme-ui'
+import { jsx, Themed, IntrinsicSxElements } from 'theme-ui'
 import React from 'react'
 import Icon from '../icon'
 
@@ -12,7 +12,7 @@ type HeadingProps = { id: string }
 
 function createHeading(tag: HeadingTag) {
   const Heading: React.FunctionComponent<HeadingProps> = props => {
-    const Tag = Styled[tag]
+    const Tag = Themed[tag]
 
     return (
       <Tag

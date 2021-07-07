@@ -1,6 +1,6 @@
 import algoliasearch from 'algoliasearch/lite'
 import { Hit } from 'react-instantsearch-core'
-import { QueryParameters } from 'algoliasearch'
+import { QueryParameters } from '@algolia/transporter'
 
 interface AlgoliaSearchRequest {
   indexName: string

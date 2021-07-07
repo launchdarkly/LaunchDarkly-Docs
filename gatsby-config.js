@@ -53,7 +53,7 @@ const plugins = [
   {
     resolve: 'gatsby-plugin-sitemap',
     options: {
-      exclude: ['/systemLayout/', '/components', '/design-system'],
+      excludes: ['/systemLayout/', '/components', '/design-system'],
     },
   },
   {
@@ -82,23 +82,6 @@ const plugins = [
     options: {
       name: 'images',
       path: `${__dirname}/assets/images`,
-    },
-  },
-  {
-    resolve: 'gatsby-source-filesystem',
-    options: {
-      path: `${__dirname}/src/content/topics`,
-      name: 'mdx',
-      // Omit all mdx but getting-started, managing-flags, managing-users in fast dev mode
-      ignore: process.env.DEV_FAST === 'true' && [
-        '**/guides',
-        '**/integrations',
-        '**/sdk',
-        '**/home/account-security',
-        '**/home/advanced',
-        '**/home/experimentation',
-        '**/home/metrics-and-insights',
-      ],
     },
   },
   {
@@ -161,11 +144,38 @@ const plugins = [
 
 // Omit mdx images in fast dev mode
 if (process.env.DEV_FAST !== 'true') {
+  plugins.push(
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'mdx-images',
+        path: `${__dirname}/src/content/images`,
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/src/content/topics`,
+        name: 'mdx',
+      },
+    },
+  )
+} else {
   plugins.push({
     resolve: 'gatsby-source-filesystem',
     options: {
-      name: 'mdx-images',
-      path: `${__dirname}/src/content/images`,
+      path: `${__dirname}/src/content/topics`,
+      name: 'mdx',
+      // Omit all mdx but getting-started, managing-flags, managing-users in fast dev mode
+      ignore: [
+        '**/guides',
+        '**/integrations',
+        '**/sdk',
+        '**/home/account-security',
+        '**/home/advanced',
+        '**/home/experimentation',
+        '**/home/metrics-and-insights',
+      ],
     },
   })
 }

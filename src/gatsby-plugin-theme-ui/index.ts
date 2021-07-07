@@ -1,8 +1,8 @@
-// This sucks, but it's not clear if it is possible and how to be able to
-// use the type of the theme object from functions that require the theme
-// itself, like boxShadow.
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export default {
+import { Theme, get } from 'theme-ui'
+
+const makeTheme = <T extends Theme>(t: T) => t
+
+const theme = makeTheme({
   // Adds styles defined in theme.styles.root to the <body> element along with color and background-color
   // https://theme-ui.com/theming/#configuration-flags
   useBodyStyles: false,
@@ -101,12 +101,12 @@ export default {
         bg: 'transparent',
         '&:hover': {
           color: 'grayDark',
-          boxShadow: (theme: any) => `inset 0px -2px 0px ${theme.colors.primaryBase}`,
+          boxShadow: (theme: Theme) => `inset 0px -2px 0px ${theme.colors.primaryBase}`,
         },
       },
-      languageActive: (theme: any) => ({
-        ...theme.buttons.code.language,
-        ...theme.buttons.code.language['&:hover'],
+      languageActive: (theme: Theme) => ({
+        ...get(theme, 'buttons.code.language'),
+        ...get(theme, 'buttons.code.language["&:hover"]'),
       }),
       copy: {
         padding: 1,
@@ -134,7 +134,7 @@ export default {
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayMed}`,
+      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.grayMed}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
@@ -148,7 +148,7 @@ export default {
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayMed}`,
+      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.grayMed}`,
       paddingX: [3, 5],
       paddingY: [2, 4],
       lineHeight: 'regular',
@@ -161,7 +161,7 @@ export default {
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayMed}`,
+      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.grayMed}`,
       maxWidth: '100%',
       my: [4, 5],
     },
@@ -171,7 +171,7 @@ export default {
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) => `0 2px 4px ${theme.colors.grayMed}`,
+      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.grayMed}`,
       paddingX: 5,
       paddingY: 4,
       lineHeight: 'regular',
@@ -183,7 +183,7 @@ export default {
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) => `inset 6px 0 0 ${theme.colors.infoBase}, 0 2px 4px ${theme.colors.grayMed}`,
+      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.infoBase}, 0 2px 4px ${theme.colors.grayMed}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
@@ -196,7 +196,7 @@ export default {
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) => `inset 6px 0 0 ${theme.colors.warnBase}, 0 2px 4px ${theme.colors.grayMed}`,
+      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.warnBase}, 0 2px 4px ${theme.colors.grayMed}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
@@ -209,7 +209,7 @@ export default {
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) => `inset 6px 0 0 ${theme.colors.alertBase}, 0 2px 4px ${theme.colors.grayMed}`,
+      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.alertBase}, 0 2px 4px ${theme.colors.grayMed}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
@@ -222,7 +222,7 @@ export default {
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'grayMed',
-      boxShadow: (theme: any) => `inset 6px 0 0 ${theme.colors.primaryBase}, 0 2px 4px ${theme.colors.grayMed}`,
+      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.primaryBase}, 0 2px 4px ${theme.colors.grayMed}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
@@ -379,7 +379,7 @@ export default {
       fontSize: 4,
       lineHeight: 'regular',
       marginBottom: 5,
-      '& figcaption': (theme: any) => ({
+      '& figcaption': (theme: Theme) => ({
         ...theme.styles.figcaption,
       }),
     },
@@ -453,4 +453,8 @@ export default {
       borderBottomStyle: 'solid',
     },
   },
-}
+})
+
+export default theme
+
+export type GitGatsbyTheme = typeof theme
