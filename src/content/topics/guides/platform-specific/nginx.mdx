@@ -1,11 +1,11 @@
 ---
-path: '/guides/tutorials/nginx'
+path: '/guides/platform-specific/nginx'
 title: 'Using the Lua SDK with NGINX'
 description: 'This topic explains how to use the LaunchDarkly Lua server-side SDK with NGINX'
 published: true
 ---
 
-# Overview
+## Overview
 
 This guide explains how to use our [Lua server-side SDK](https://github.com/launchdarkly/lua-server-sdk) with the [NGINX OpenResty framework](https://openresty.org).
 
@@ -13,7 +13,7 @@ OpenResty extends NGINX with [LuaJIT](https://luajit.org/), enabling complex con
 
 Find a basic Dockerized app in the GitHub repository at [hello-nginx](https://github.com/launchdarkly/hello-nginx).
 
-# Prerequisites
+## Prerequisites
 
 To complete this guide, you must have the following prerequisites:
 
@@ -22,7 +22,7 @@ To complete this guide, you must have the following prerequisites:
 
 The C server-side SDK is required because the Lua server-side SDK is implemented via foreign function interface.
 
-# Preparing the Lua server-side SDK
+## Preparing the Lua server-side SDK
 
 Make the source of the Lua SDK accessible to OpenRESTY. You can control imports with the `lua_package_path` directive.
 
@@ -46,7 +46,7 @@ http {
 </CodeTabItem>
 </CodeTabs>
 
-# Preparing the C/C++ server-side SDK
+## Preparing the C/C++ server-side SDK
 
 Make the source of the C/C++ server-side SDK accessible to the dynamic linker. The most convenient way to do this is to install the binary system-wide at `/usr/lib/libldserverapi.so`.
 
@@ -59,7 +59,7 @@ OpenResty handles OpenSSL in specific ways. You may need to build the SDK from s
 </CalloutDescription>
 </Callout>
 
-# Ensuring correct initialization
+## Ensuring correct initialization
 
 The most important part of effective SDK usage is managing the lifetime of clients correctly. Because NGINX utilizes [process based concurrency](https://stackoverflow.com/questions/4315292/concurrency-processes-vs-threads), multiple clients initiate. If you accidentally initiate a client per request the application will be substantially slower, as the SDK has to download a fresh ruleset from LaunchDarkly.
 
@@ -118,7 +118,7 @@ end
 </CodeTabItem>
 </CodeTabs>
 
-# Example: Feature flagged reverse proxy
+## Example: Feature flagged reverse proxy
 
 This [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy) example demonstrates more complex interaction between multiple NGINX directives. You can use a reverse proxy to route traffic to multiple applications.
 

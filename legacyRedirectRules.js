@@ -832,7 +832,7 @@ module.exports = [
   },
   {
     fromPath: '/sdk/server-side/lua/nginx',
-    toPath: '/guides/tutorials/nginx',
+    toPath: '/guides/platform-specific/nginx',
   },
   {
     fromPath: '/sdk/concepts/feature-store',
@@ -865,5 +865,21 @@ module.exports = [
   {
     fromPath: '/sdk/features/track',
     toPath: '/sdk/features/events',
+  },
+  {
+    fromPath: '/sdk/server-side/lua/haproxy',
+    toPath: '/guides/platform-specific/haproxy',
+  },
+  {
+    fromPath: '/guides/tutorials/nginx',
+    toPath: '/guides/platform-specific/nginx',
+  },
+  {
+    fromPath: '/guides/best-practices/terraform',
+    toPath: '/guides/platform-specific/terraform',
+  },
+  {
+    fromPath: '/guides/best-practices/using-feature-flags-on-static-sites',
+    toPath: '/guides/platform-specific/static-sites',
   },
 ]

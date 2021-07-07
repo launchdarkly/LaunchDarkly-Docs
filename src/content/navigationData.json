@@ -977,13 +977,7 @@
           },
           {
             "label": "Lua SDK reference",
-            "path": "/sdk/server-side/lua",
-            "items": [
-              {
-                "label": "Using the Lua SDK with HAProxy",
-                "path": "/sdk/server-side/lua/haproxy"
-              }
-            ]
+            "path": "/sdk/server-side/lua"
           },
           {
             "label": "Node.js SDK reference",
@@ -1038,10 +1032,6 @@
             "path": "/guides/best-practices/improving-code"
           },
           {
-            "label": "Managing flags with Terraform",
-            "path": "/guides/best-practices/terraform"
-          },
-          {
             "label": "Minimizing LaunchDarkly's access to user data",
             "path": "/guides/best-practices/user-data"
           },
@@ -1052,10 +1042,6 @@
           {
             "label": "Using entitlements to manage user experience",
             "path": "/guides/best-practices/entitlements"
-          },
-          {
-            "label": "Using feature flags on static sites",
-            "path": "/guides/best-practices/using-feature-flags-on-static-sites"
           },
           {
             "label": "Using feature flags to mitigate risk in infrastructure migrations",
@@ -1091,10 +1077,29 @@
           {
             "label": "Experimenting with feature flags",
             "path": "/guides/tutorials/experimentation"
+          }
+        ]
+      },
+      {
+        "label": "Platform-specific guides",
+        "path": "/guides/platform-specific",
+        "svg": "bullseye-arrow",
+        "items": [
+          {
+            "label": "Managing flags with Terraform",
+            "path": "/guides/platform-specific/terraform"
+          },
+          {
+            "label": "Using feature flags on static sites with JavaScript",
+            "path": "/guides/platform-specific/static-sites"
+          },
+          {
+            "label": "Using the Lua SDK with HAProxy",
+            "path": "/guides/platform-specific/haproxy"
           },
           {
             "label": "Using the Lua SDK with NGINX",
-            "path": "/guides/tutorials/nginx"
+            "path": "/guides/platform-specific/nginx"
           }
         ]
       },
