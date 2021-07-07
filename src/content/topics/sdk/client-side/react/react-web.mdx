@@ -280,36 +280,7 @@ The React SDK offers two custom hooks which you can use as an alternative to `wi
 
 `useLDClient` is the second custom hook which returns the underlying LaunchDarkly JavaScript SDK client object. Like the `useFlags` custom hook, `useLDClient` also uses the useContext primitive to access the LaunchDarkly context set up by `asyncWithLDProvider` or `withLDProvider`. You still must use the `asyncWithLDProvider` or the `withLDProvider` higher-order component to initialize the React SDK to use this custom hook.
 
-Here is an example of a custom hook:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-import React from 'react';
-import { useFlags, useLDClient } from 'launchdarkly-react-client-sdk';
-
-const HooksDemo = () => {
-  const { devTestFlag } = useFlags();
-  const ldClient = useLDClient();
-
-  const onLoginSuccessful = () => ldClient.identify({ key: 'aa0ceb' });
-
-  return (
-    <div>{devTestFlag ? 'Flag on' : 'Flag off'}</div>
-  );
-};
-
-export default HooksDemo;
-```
-
-</CodeTabItem>
-</CodeTabs>
+For an example of how to use a custom hook, read [HooksDemo](https://github.com/launchdarkly/react-client-sdk/blob/master/examples/hoc/src/universal/hooksDemo.js).
 
 ## Flag keys
 
