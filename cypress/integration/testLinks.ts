@@ -36,7 +36,7 @@ describe('Verify links', () => {
 
             const included = !ignore.find(prefix => href.startsWith(prefix))
             if (included) {
-              cy.request(`${href}`).then(resp => {
+              cy.request({ url: href, retryOnStatusCodeFailure: true }).then(resp => {
                 expect(resp.status).to.eq(200)
               })
             }
