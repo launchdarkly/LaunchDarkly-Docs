@@ -7,18 +7,6 @@ const getFinalDestination = require('./getFinalDestination')
 // This generates URL-safe slugs.
 slug.defaults.mode = 'rfc3986'
 
-// The remark-mdx package references the node fs package which does not exist
-// on the browser so it fails during the gatsby build. This is required to
-// polyfill the fs package.
-// https://github.com/gatsbyjs/gatsby/issues/564
-exports.onCreateWebpackConfig = ({ actions }) => {
-  actions.setWebpackConfig({
-    node: {
-      fs: 'empty',
-    },
-  })
-}
-
 exports.onCreateNode = async ({ node, actions }) => {
   const { createNodeField } = actions
 

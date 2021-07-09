@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { jsx, Card } from 'theme-ui'
+import { jsx, Card, ThemeProvider } from 'theme-ui'
 import { Helmet } from 'react-helmet'
-import { Fragment, FunctionComponent } from 'react'
+import { FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from '@mdx-js/react'
@@ -67,6 +67,8 @@ const components = {
   Feature,
 }
 
+const theme = {}
+
 const rootGridStyles = {
   letterSpacing: '0.0125rem',
   color: 'grayBlack',
@@ -125,9 +127,8 @@ const Layout: FunctionComponent<LayoutProps> = ({
   },
 }) => {
   const { enableUserWayAccessibilityWidget } = useFlags()
-
   return (
-    <Fragment>
+    <ThemeProvider theme={theme}>
       <Reset />
       <Helmet
         defer={false}
@@ -146,6 +147,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
       <div sx={rootGridStyles}>
         <Header />
         <DesktopSideNav />
+
         <main sx={{ gridArea: 'main', px: [5, 7, 8], pt: '2.75rem' }}>
           <MdxHeader
             fileAbsolutePath={fileAbsolutePath}
@@ -160,12 +162,12 @@ const Layout: FunctionComponent<LayoutProps> = ({
         </main>
         {!isLandingPage && (
           <aside sx={{ gridArea: 'aside', pt: 4, display: ['none', 'none', 'block'], width: '18rem' }}>
-            <TableOfContents toc={toc} sx={{ position: 'sticky', top: 2 }} />
+            <TableOfContents toc={toc} />
           </aside>
         )}
         <footer sx={{ gridArea: 'footer', height: '7rem' }}></footer>
       </div>
-    </Fragment>
+    </ThemeProvider>
   )
 }
 

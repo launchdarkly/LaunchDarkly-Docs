@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled, Link } from 'theme-ui'
+import { jsx, Themed, Link } from 'theme-ui'
 
 type TOCItem = {
   url: string
@@ -15,7 +15,7 @@ export type TableOfContentsProps = {
   toc: TOC
 }
 
-export function TableOfContents({ toc, ...props }: TableOfContentsProps) {
+export function TableOfContents({ toc }: TableOfContentsProps) {
   const tocItems = toc.items
 
   if (!tocItems) {
@@ -24,8 +24,8 @@ export function TableOfContents({ toc, ...props }: TableOfContentsProps) {
   }
 
   return (
-    <div {...props}>
-      <Styled.h5
+    <div sx={{ position: 'sticky', top: 2 }}>
+      <Themed.h5
         sx={{
           borderBottomStyle: 'dotted',
           borderBottomWidth: 1,
@@ -37,7 +37,7 @@ export function TableOfContents({ toc, ...props }: TableOfContentsProps) {
         }}
       >
         On this page
-      </Styled.h5>
+      </Themed.h5>
       <ul>
         {tocItems.map(({ url, title }) => (
           <li

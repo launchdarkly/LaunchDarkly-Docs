@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import { Fragment, FunctionComponent } from 'react'
+import { jsx, ThemeProvider } from 'theme-ui'
+import { FunctionComponent } from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from '@mdx-js/react'
@@ -32,20 +32,22 @@ interface LayoutProps {
   }
 }
 
+const theme = {}
+
 const Layout: FunctionComponent<LayoutProps> = ({
   data: {
     mdx: { body },
   },
 }) => {
   return (
-    <Fragment>
+    <ThemeProvider theme={theme}>
       <Reset />
       <main sx={{ width: '40rem', margin: '0 auto', my: 6 }}>
         <MDXProvider components={components}>
           <MDXRenderer>{body}</MDXRenderer>
         </MDXProvider>
       </main>
-    </Fragment>
+    </ThemeProvider>
   )
 }
 

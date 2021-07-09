@@ -1,14 +1,13 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { jsx, ThemeUICSSObject } from 'theme-ui'
 import { graphql, useStaticQuery } from 'gatsby'
 import { useState, useEffect, useRef, Fragment } from 'react'
 import { enableBodyScroll, disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
-import { SystemStyleObject } from '@styled-system/css'
 import { globalHistory } from '@reach/router'
 import TreeNode from './treeNode'
 import Icon from '../icon'
 
-const stripButtonStyles: SystemStyleObject = {
+const stripButtonStyles: ThemeUICSSObject = {
   fontFamily: 'inherit',
   fontSize: 'inherit',
   lineHeight: 'inherit',
@@ -73,6 +72,8 @@ const Hamburger = () => {
   const onClickMenu = () => {
     setShow(prev => !prev)
   }
+  const stripConfig: ThemeUICSSObject = { display: 'flex', alignItems: 'center' }
+
   return (
     <Fragment>
       <Icon name="menu" variant="sideNav" onClick={onClickMenu} />
@@ -107,7 +108,7 @@ const Hamburger = () => {
           }}
         >
           <div sx={{ visibility: 'hidden', cursor: 'pointer' }}>EXPAND ALL</div>
-          <button onClick={onClickMenu} sx={{ display: 'flex', alignItems: 'center', ...stripButtonStyles }}>
+          <button onClick={onClickMenu} sx={{ ...stripConfig, ...stripButtonStyles }}>
             <span>CLOSE</span>
             <Icon name="window-close" variant="close" />
           </button>

@@ -8,10 +8,11 @@ import { algoliaIndex } from '../../utils/envUtils'
 import Icon from '../icon'
 
 type SearchInputProps = {
+  currentRefinement: string
   refine(input: string): void
 }
 
-const SearchInput: FunctionComponent<SearchInputProps> = ({ refine, ...rest }) => {
+const SearchInput: FunctionComponent<SearchInputProps> = ({ currentRefinement, refine }) => {
   const inputRef = useRef(null)
   const onClearSearch = () => {
     inputRef.current.value = ''
@@ -46,7 +47,7 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({ refine, ...rest }) =
             fontSize: 4,
             '::placeholder': { fontSize: [4, 3, 4] },
           }}
-          {...rest}
+          value={currentRefinement}
         />
         {inputRef.current?.value && (
           <Icon name="window-close" variant="close" onClick={onClearSearch} sx={{ cursor: 'pointer' }} />

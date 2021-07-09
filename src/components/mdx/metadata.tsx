@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from 'theme-ui'
+import { jsx, Themed } from 'theme-ui'
 import { FunctionComponent } from 'react'
 import pluralize from 'pluralize'
 
@@ -16,10 +16,10 @@ const Metadata: FunctionComponent<MetadataProps> = ({ timeToRead, lastModifiedDa
         mb: 6,
       }}
     >
-      <Styled.h5>
+      <Themed.h5>
         Read time: {timeToRead} {pluralize('minute', timeToRead)}
-      </Styled.h5>
-      <Styled.h5>Last edited: {lastModifiedDateFormatted}</Styled.h5>
+      </Themed.h5>
+      <Themed.h5>Last edited: {lastModifiedDateFormatted}</Themed.h5>
     </div>
   )
 }

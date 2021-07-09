@@ -1,13 +1,14 @@
 /** @jsx jsx */
 import { LDFlagSet } from 'launchdarkly-js-client-sdk'
 import { LinkGetProps } from '@reach/router'
-import { jsx, useThemeUI, Flex, Link as ThemeUILink, SxStyleProp } from 'theme-ui'
+import { jsx, Flex, Link as ThemeUILink, ThemeUIStyleObject } from 'theme-ui'
 import { ComponentProps, FunctionComponent, useEffect, useState } from 'react'
 import { Link as GatsbyLink } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { SideNavItem } from './types'
 import isExternalLink from '../../utils/isExternalLink'
 import Icon, { IconName } from '../icon'
+import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
 
 const defaultLabelStyles = {
   color: 'grayBlack',
@@ -32,14 +33,14 @@ const maxDepthLabelStyles = {
   lineHeight: 'small',
 }
 
-const groupStyles: SxStyleProp = {
+const groupStyles: ThemeUIStyleObject = {
   mt: 7,
   '&:first-of-type': {
     mt: 6,
   },
 }
 
-const groupHeaderStyles: SxStyleProp = {
+const groupHeaderStyles: ThemeUIStyleObject = {
   mb: 4,
   mr: 2,
   ml: 6,
@@ -49,9 +50,9 @@ const groupHeaderStyles: SxStyleProp = {
   color: 'graySafe',
 }
 
-const defaultListItemStyles: SxStyleProp = { mt: 4, ml: 5 }
+const defaultListItemStyles: ThemeUIStyleObject = { mt: 4, ml: 5 }
 
-const rootListItemStyles: SxStyleProp = { mb: 4, mr: 2, ml: 6 }
+const rootListItemStyles: ThemeUIStyleObject = { mb: 4, mr: 2, ml: 6 }
 
 type TreeNodeProps = {
   nodes: Array<SideNavItem>
@@ -114,8 +115,8 @@ function Node({
   onFirstExpand,
 }: {
   node: SideNavItem
-  itemStyles: SxStyleProp
-  labelStyles: SxStyleProp
+  itemStyles: ThemeUIStyleObject
+  labelStyles: ThemeUIStyleObject
   flags: LDFlagSet
   depth: number
   maxDepth: number
@@ -180,7 +181,7 @@ function Node({
 // Desktop sideNav maxDepth is 2 since root topics are displayed in the top nav.
 const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, currentPath, maxDepth = 2, depth = 0 }) => {
   const flags = useFlags()
-  const { theme } = useThemeUI()
+  const { theme } = useGitGatsbyTheme()
 
   const isRootNode = depth === 0
   const isMaxDepth = depth === maxDepth

@@ -76,28 +76,29 @@ This allows Salesforce users to access the LaunchDarkly Salesforce app.
 
 Next, you must configure the LaunchDarkly component to bring your flag data into the Salesforce "Record" page.
 
-1. Return to the Salesforce setup dashboard and in the **Quick Find** search box, type **Custom metadata**.
-2. Choose **Custom Metadata Types** from the **Custom Code** section.
-3. Click **Manage Records** on the **LaunchDarkly Settings** row.
-4. Click the **New** button on the **LaunchDarkly Settings** page.
+1. In LaunchDarkly, create a new service token with a reader role. To learn more, read [Service tokens](/home/account-security/api-access-tokens#service-tokens).
+2. In Salesforce, click the **nine dots in a square** icon to open the app launcher.
+3. Search for and select **LaunchDarkly settings**.
 
-![The LaunchDarkly Settings page with the "New" button called out.](../images/salesforce-new-button-callout.png)
+![The search bar in the App Launcher.](../images/salesforce-search-launchdarkly-settings.png)
 
-5. In LaunchDarkly, create a new service token with a `reader` role. To learn more, read [Service tokens](/home/account-security/api-access-tokens#service-tokens).
-6. Return to the Salesforce custom metadata form and create a new **LaunchDarkly Settings** custom metadata record with a **Label** and **LaunchDarkly Settings Name** of "Default", the **Protected Component** field checked, and the **Service Token** from step 13, above.
+4. Click **Edit**. A text field appears.
+5. Enter your LaunchDarkly service token in the text field and click **Save**.
 
-![The LaunchDarkly Settings creation form, configured with a sample service token.](../images/salesforce-launchdarkly-settings.png)
 
-7. Navigate to a record page for the object type you wish to embed the LaunchDarkly Salesforce app. Example object types include "Account" and "Case."
-8. Navigate out of **Setup** by clicking the **nine dots in a square** icon on top-left and then selecting **Service**.
-9. Click **Case** and create a new case, or select an existing case to view.
-10. Click the **gear icon** and choose **Edit Page**.
+![A service token entered into the LaunchDarkly settings tab.](../images/salesforce-launchdarkly-settings.png)
+
+
+6. Navigate to a record page for the object type you wish to embed the LaunchDarkly Salesforce app. Example object types include "Account" and "Case."
+7. Click the **nine dots in a square** icon and choose **Service**.
+8. Click **Case** and create a new case, or select an existing case to view.
+9. Click the **gear icon** and choose **Edit Page**.
 
 ![The gear icon menu with "Edit page" selected.](../images/salesforce-edit-page.png)
 
-11. Search for **LaunchDarkly** on the **Components** section of the screen and drag the **LaunchDarkly** component onto the page layout. We recommend placing the component in a new tab, but you can place the component anywhere that works best for your team.
+10. Search for **LaunchDarkly** on the **Components** section of the screen and drag the **LaunchDarkly** component onto the page layout. We recommend placing the component in a new tab, but you can place the component anywhere that works best for your team.
 
-12. Configure out the following fields:
+11. Configure the following fields:
 
     * **Project key**: The key of the LaunchDarkly project you wish to associate with the component.
     * **Environment key**: The key of the LaunchDarkly environment you wish to associate with the component.
@@ -106,7 +107,7 @@ Next, you must configure the LaunchDarkly component to bring your flag data into
 
 ![The LaunchDarkly component on the Lightning App Builder page, configured with sample settings.](../images/salesforce-component-settings.png)
 
-13. Navigate back to the sample record page and confirm that the LaunchDarkly integration is visible on the record page.
+12. Navigate back to the sample record page and confirm that the LaunchDarkly integration is visible on the record page.
 
 ## Using the LaunchDarkly Salesforce integration
 

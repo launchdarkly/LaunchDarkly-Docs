@@ -2,7 +2,7 @@ module.exports = {
   rootDir: 'src',
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
-  snapshotSerializers: ['jest-emotion'],
+  snapshotSerializers: ['@emotion/jest/enzyme-serializer'],
   setupFiles: ['../jest.setup.js'],
   testURL: 'http://localhost',
   globals: {

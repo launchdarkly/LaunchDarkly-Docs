@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled, Flex } from 'theme-ui'
+import { jsx, Themed, Flex } from 'theme-ui'
 import { Fragment, FunctionComponent } from 'react'
 import Breadcrumbs from './breadcrumbs'
 import Metadata from './metadata'
@@ -28,7 +28,7 @@ const MdxHeader: FunctionComponent<MdxHeaderProps> = ({
           <EditOnGithubLink fileAbsolutePath={fileAbsolutePath} />
         </Flex>
       )}
-      <Styled.h1>{title}</Styled.h1>
+      <Themed.h1>{title}</Themed.h1>
       {!isLandingPage && <Metadata timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedDateFormatted} />}
     </Fragment>
   )

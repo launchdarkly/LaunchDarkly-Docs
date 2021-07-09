@@ -1,14 +1,15 @@
 /** @jsx jsx */
-import { jsx, useThemeUI, Box } from 'theme-ui'
+import { jsx, Box } from 'theme-ui'
 import { FunctionComponent } from 'react'
 import pluralize from 'pluralize'
+import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
 
 interface ResultCountProps {
   count: number
 }
 
 const ResultCount: FunctionComponent<ResultCountProps> = ({ count }) => {
-  const { theme } = useThemeUI()
+  const { theme } = useGitGatsbyTheme()
   return (
     <Box
       mx={5}

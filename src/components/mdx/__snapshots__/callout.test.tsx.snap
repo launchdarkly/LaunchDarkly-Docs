@@ -2,13 +2,13 @@
 
 exports[`callout renders 1`] = `
 <DocumentFragment>
-  .emotion-2 {
+  .emotion-0 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
 }
 
-.emotion-3 {
+.emotion-1 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -18,7 +18,7 @@ exports[`callout renders 1`] = `
   display: flex;
 }
 
-.emotion-0 {
+.emotion-3 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -28,7 +28,7 @@ exports[`callout renders 1`] = `
   line-height: regular;
 }
 
-.emotion-1 {
+.emotion-4 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -38,7 +38,7 @@ exports[`callout renders 1`] = `
   overflow-wrap: break-word;
 }
 
-.emotion-1 p {
+.emotion-4 p {
   font-size: 20px;
   line-height: spaced;
   margin-bottom: 4px;
@@ -46,21 +46,21 @@ exports[`callout renders 1`] = `
 }
 
 <div
-    class="emotion-2"
+    class="emotion-0"
   >
     <div
-      class="emotion-3"
+      class="emotion-1"
     >
       <div
-        class="emotion-2"
+        class="emotion-0"
       >
-        <div
-          class="emotion-0"
+        <span
+          class="emotion-3"
         >
           Adding users to LaunchDarkly
-        </div>
-        <div
-          class="emotion-1"
+        </span>
+        <span
+          class="emotion-4"
         >
           You do not have to send users to LaunchDarkly in advance. 
           <a
@@ -69,7 +69,7 @@ exports[`callout renders 1`] = `
             Check out this page
           </a>
           . You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they encounter feature flags.
-        </div>
+        </span>
       </div>
       <div>
         Icon: checkbox-marked-circle

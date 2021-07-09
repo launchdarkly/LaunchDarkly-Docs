@@ -5,9 +5,10 @@ import { Link as GatsbyLink, GatsbyLinkProps, useStaticQuery, graphql } from 'ga
 import isExternalLink from '../utils/isExternalLink'
 
 type ForwardRef<T, P> = React.ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>
-const ThemedGatsbyLink: ForwardRef<HTMLAnchorElement, LinkProps & GatsbyLinkProps<{}>> = ThemeUILink
+type CombinedLinkProps = Omit<LinkProps & GatsbyLinkProps<unknown>, 'defaultValue' | 'aria-relevant'>
+const ThemedGatsbyLink: ForwardRef<HTMLAnchorElement, CombinedLinkProps> = ThemeUILink
 
-const Link: FunctionComponent<LinkProps & GatsbyLinkProps<{}>> = ({ to, href, ...props }) => {
+const Link: FunctionComponent<CombinedLinkProps> = ({ to, href, ...props }) => {
   const {
     site: { pathPrefix },
   } = useStaticQuery(graphql`

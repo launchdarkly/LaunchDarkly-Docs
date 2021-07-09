@@ -1,16 +1,17 @@
 /** @jsx jsx */
-import { jsx, useThemeUI, Link as ThemUILink } from 'theme-ui'
+import { jsx, Link as ThemUILink } from 'theme-ui'
 import { graphql, useStaticQuery, Link as GatsbyLink } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { SideNavItem } from './sideNav/types'
 import isExternalLink from '../utils/isExternalLink'
 import Icon, { IconName } from './icon'
+import useGitGatsbyTheme from '../hooks/useGitGatsbyTheme'
 
 const variant = 'links.topNav'
 
 const TopNav = () => {
   const flags = useFlags()
-  const { theme } = useThemeUI()
+  const { theme } = useGitGatsbyTheme()
   const {
     allNavigationDataJson: { nodes: navigationData },
   } = useStaticQuery(graphql`
