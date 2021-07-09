@@ -24,9 +24,9 @@ Approvals let more people have input on planned changes to a flag. These review-
 
 ## Understanding approvals
 
-When a team member plans a flag change, they have the option to request approval for that change from anyone in their LaunchDarkly project.
+When a team member plans a flag change, they may request approvals for that change. Some environments may require approvals before the team member can implement a change.
 
-Anyone with a `writer`, `owner / admin`, or custom role can approve a flag change, regardless of whether or not their review has been requested. Team members who the requester chooses receive an email notifying them that their review has been requested, and, if applicable, a notification in the LaunchDarkly Slack app.
+Anyone in their LaunchDarkly project with a `writer`, `owner / admin`, or custom role can approve a flag change, regardless of whether or not their review has been requested. Team members who the requester chooses receive an email notifying them that their review has been requested, and, if applicable, a notification in the LaunchDarkly Slack app.
 
 Here is an image of the approvals email notification from LaunchDarkly:
 
@@ -46,7 +46,7 @@ You can delete your own approval requests. To learn more, read [Deleting an appr
 
 ![The approval request.](../../images/approvals-approval-screen.png)
 
-The only people you can request approval from are other members of your LaunchDarkly project. You can request approval from anyone in your project, with a maximum of 10 people.
+The only people you can request approval from are other members of your LaunchDarkly project. You can request approval from anyone in your project with approval permissions, up to a maximum of ten people.
 
 Here's how:
 
@@ -64,7 +64,7 @@ If your environment requires approvals, **Request approval** is the default opti
 </CalloutDescription>
 </Callout>
 
-3. Click **Request approval**. The approval request screen appears. Users on an Enterprise plan also see the Schedule option.
+3. Click **Request approval**. The approval request screen appears. Members on an Enterprise plan also see the Schedule option.
 
     ![The request approval screen.](../../images/approvals-request.png)
 
@@ -73,7 +73,9 @@ If your environment requires approvals, **Request approval** is the default opti
 6. Choose one or more reviewers from the **Reviewers** dropdown.
 7. Click **Request approval**. The approval request appears.
 
-The people you chose from the dropdown each receive an email and, if applicable, a Slack notification, asking them to approve your flag changes. The flag's **Targeting** page also updates with an icon to indicate that there are pending changes waiting for review.
+The Reviewers dropdown automatically excludes members with a Reader role, since Readers cannot approve requests. The people you chose from the dropdown each receive an email and, if applicable, a Slack notification, asking them to approve your flag changes.
+
+The flag's **Targeting** page also updates with an icon to indicate that there are pending changes waiting for review.
 
 ![The "Pending changes" icon on the flag's Targeting tab.](../../images/workflows-pending-changes-callout.png)
 
