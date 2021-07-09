@@ -94,7 +94,7 @@ Here is a diagram showing how SDKs can be configured to use the Relay Proxy in p
 
 ### Using daemon mode
 
-Optionally, you can configure LaunchDarkly SDKs to communicate directly with Relay Proxy's persistent data store. We recommend this configuration when you're using LaunchDarkly with PHP.
+Optionally, you can configure LaunchDarkly SDKs to communicate directly with Relay Proxy's persistent data store. We recommend this configuration when you're using LaunchDarkly with PHP or in a serverless environment.
 
 There is no need to put a load balancer in front of the Relay Proxy when your SDKs are configured to run in daemon mode.
 
@@ -103,7 +103,7 @@ To enable daemon mode:
 1. Configure your SDK to use a persistent data store. The SDK and the Relay Proxy must use the same data store.
 2. Configure your SDK to use run in daemon mode.
 
-To learn more about setting up a persistent data store for use in daemon mode, read [Using a persistent feature store without connecting to LaunchDarkly](/sdk/concepts/data-stores#using-a-persistent-feature-store-without-connecting-to-launchdarkly).
+If you use LaunchDarkly in a serverless environment, we recommend using DynamoDB as a persistent feature store. In this scenario, the Relay Proxy’s purpose is to keep the feature store updated. To learn more about setting up a persistent feature store for use in daemon mode, read [Using a persistent feature store without connecting to LaunchDarkly](/sdk/concepts/data-stores#using-a-persistent-feature-store-without-connecting-to-launchdarkly). For a tutorial that demonstrates a persistent store set up in a serverless environment, read [Use a persistent feature store](/guides/best-practices/serverless#option-2-use-a-persistent-feature-store).
 
 <Callout intent="info">
 <CalloutTitle>Restoring your SDK to proxy mode</CalloutTitle>
