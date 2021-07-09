@@ -39,7 +39,7 @@ Depending on the requirements of your organization, you may want to limit or com
 
 LaunchDarkly SDKs have different constraints that affect user data. Specifically, client-side SDKs differ from server-side SDKs in the following ways:
 
-- You must make available each flag that you want client-side SDKs to be able to access. To do this, enable the "Make this flag available to client-side SDKs" setting in the flag's configuration. To learn more, read [Client-side ID](/sdk/concepts/client-side-server-side#client-side-id).
+- You must make available each flag that you want client-side or mobile SDKs to be able to access. To do this, select the checkboxes in the "Client-side SDK availability" section of the flag's configuration. To learn more, read [Client-side ID](/sdk/concepts/client-side-server-side#client-side-id).
 
 - By default, client-side SDKs aren't authenticated. Because of this, one user could use another user's account to evaluate flags not meant for them. To authenticate user data, you can enable the SDK's **secure mode**, which requires you to pass a server generated hash in your user data. To learn more, read [Secure mode](/sdk/client-side/javascript#secure-mode).
 
@@ -73,8 +73,7 @@ Here are some additional configuration options you can use to increase user priv
 ### Use REPORT in the JavaScript SDK
 
 You can configure a client-side SDK to use the REPORT HTTP verb instead of GET. In this
-model, although the user object is sent back to LaunchDarkly as binary data in the request
-body, it is not stored anywhere and does not appear in request logs.
+model, the REPORT verb forces user objects to be sent as request bodies instead of as path parameters. Path parameters are frequently logged and easy for proxies to observe, but request bodies are typically not logged or stored.
 
 In addition, LaunchDarkly uses end-to-end encryption and all communication
 occurs over HTTPS. Unless a malicious third party breaks TLS encryption, a man in the middle attack is impossible.
@@ -97,8 +96,8 @@ Here is an example where the `useReport` parameter is enabled:
 ```js
 var ldclient = LDClient.initialize(‘5baa7d07a3050e21323b735d’,
 user, options = {
-allAttributesPrivate: true,
-useReport: true
+  allAttributesPrivate: true,
+  useReport: true
 });
 ```
 
@@ -121,8 +120,8 @@ REPORT -H ‘Origin: null’ -H ‘X-LaunchDarkly-User-Agent: JSClient/2.9.4’ 
 ‘User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OSX 10_13_6) AppleWebKit/537.36
 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36’ -H ‘Content-Type:
 application/json’ --data-binary
-‘{"firstName":"ExampleFirstName","lastName":"ExampleLastName","key":"email@example.com","custom":
-{"groups":"example_group_name"}}’ --compressed
+  ‘{"firstName":"ExampleFirstName","lastName":"ExampleLastName","key":"email@example.com","custom":
+  {"groups":"example_group_name"}}’ --compressed
 ```
 
 </CodeTabItem>
@@ -152,9 +151,9 @@ Here is an example configuration for the client:
 ```js
 var ldclient = LDClient.initialize(‘5baa7d07a3050e21323b735d’,
 user, options = {
-allAttributesPrivate: true,
-baseUrl: "RELAY-PROXY-INSTANCE-URL",
-streamUrl: "RELAY-PROXY-INSTANCE-URL"
+  allAttributesPrivate: true,
+  baseUrl: "RELAY-PROXY-INSTANCE-URL",
+  streamUrl: "RELAY-PROXY-INSTANCE-URL"
 });
 ```
 
