@@ -92,7 +92,7 @@
             "path": "/home/organize/environments",
             "items": [
               {
-                "label": "Copying flag settings across environments",
+                "label": "Comparing and copying flag settings across environments",
                 "path": "/home/organize/flag-compare-copy"
               }
             ]
@@ -138,6 +138,10 @@
           {
             "label": "Archiving and deleting flags",
             "path": "/home/code/flag-archive"
+          },
+          {
+            "label": "Viewing flags across environments",
+            "path": "/home/code/flag-overview"
           }
         ]
       },
