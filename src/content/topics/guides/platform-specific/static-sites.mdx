@@ -177,7 +177,7 @@ const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
 
 By omitting the `key` property and adding the `anonymous` property, the LaunchDarkly client auto-generates a unique identifier for the anonymous user, and this identifier remains constant across browser sessions.
 
-To learn more, read [Anonymous users](/sdk/client-side/javascript#anonymous-users).
+To learn more, read [Anonymous users](/home/users/anonymous-users).
 
 The client initialization connects to LaunchDarkly's servers and fetches the initial flag values for the user. This initialization cycle can take around 100-200ms and can delay your initial page render by at least that much. You could render the page before you have the flag values available, however, your users may experience parts of the page changing as the flag values load.
 
@@ -228,7 +228,7 @@ Subsequent visits to that page will utilize the values in localStorage. Flag cha
 
 If you bootstrap using localStorage, it's important to choose effective defaults for your flag values to limit rendering delays.
 
-On SPA sites, this may not be a problem. Users will likely only load a site once per browser session. In this case, [subscribe to flag changes](#releasing-features-to-your-clients-in-real-time) to trigger the appropriate behavior in your app in real-time.
+On SPA sites, this may not be a problem. Users will likely only load a site once per browser session. In this case, [subscribe to flag changes](#releasing-features-in-realtime) to trigger the appropriate behavior in your app in real-time.
 
 ### Bootstrapping from the server
 
@@ -283,7 +283,7 @@ onPageLoad({
 
 All LaunchDarkly server-side SDKs can evaluate all flags on a user's behalf. These flags can then be combined with the HTML response.
 
-To learn more, read [Bootstrapping the client](/sdk/client-side/javascript#bootstrapping).
+To learn more, read [Bootstrapping the client](/sdk/features/bootstrapping#javascript).
 
 ## Timing when your site renders
 
@@ -342,11 +342,11 @@ ldclient.on('change:YOUR_FLAG_KEY', function(value, previous) {
 
 Use this technique to release features to your clients in real-time.
 
-To learn more, read [Subscribing to flag changes](/sdk/client-side/javascript/#subscribing-to-feature-flag-changes).
+To learn more, read [Subscribing to flag changes](/sdk/features/flag-changes#javascript).
 
 ## Using React
 
-[React](https://reactjs.org/) is a very popular JavaScript UI library. LaunchDarkly has a [React SDK](https://docs.launchdarkly.com/sdk/client-side/react) that lets developers use LaunchDarkly in their React app. One of the helpers the React SDK provides is called [`asyncWithLDProvider`](https://docs.launchdarkly.com/sdk/client-side/react#asyncwithldprovider). It ensures that the flags are available to your React components when they render.
+[React](https://reactjs.org/) is a very popular JavaScript UI library. LaunchDarkly has a [React SDK](/sdk/client-side/react) that lets developers use LaunchDarkly in their React app. One of the helpers the React SDK provides is called [`asyncWithLDProvider`](/sdk/client-side/react/react-web#initializing-asyncwithldprovider). It ensures that the flags are available to your React components when they render.
 
 Here is an example:
 

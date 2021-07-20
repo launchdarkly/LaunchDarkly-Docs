@@ -23,26 +23,52 @@ const ignore = [
 
 describe('Verify links', () => {
   flattenedNavigationData.forEach(({ label, allItems }) => {
-    allItems.forEach(path => {
-      it(`${label}: ${path}`, () => {
-        if (isExternalLink(path)) {
-          cy.request(path).then(resp => {
-            expect(resp.status).to.eq(200)
-          })
-        } else {
-          cy.visit(path)
-          cy.get('main a').each($a => {
-            const href = $a.prop('href')
+    allItems
+      .filter(path => path !== '/home/changelog/archive')
+      .forEach(path => {
+        it(`${label}: ${path}`, () => {
+          if (isExternalLink(path)) {
+            return cy
+              .request({ url: path, retryOnStatusCodeFailure: true })
+              .then(resp => expect(resp.status).to.eq(200))
+          }
 
-            const included = !ignore.find(prefix => href.startsWith(prefix))
-            if (included) {
-              cy.request({ url: href, retryOnStatusCodeFailure: true }).then(resp => {
-                expect(resp.status).to.eq(200)
-              })
-            }
-          })
-        }
+          cy.visit(path)
+          const referencesToTest: { [pageUrl: string]: string[] } = {}
+          // omitting the links that are built into each heading
+          cy.get('main :not(h2):not(h3) > a', { timeout: 8000 })
+            .each($a => {
+              const href: string = $a.prop('href')
+              if (ignore.some(prefix => href.startsWith(prefix))) {
+                // skip anything from the above ignore list
+                return
+              }
+
+              const baseUrl = Cypress.config().baseUrl ?? ''
+              const [pageUrl, reference] = href.split('#')
+              if (!reference || !href.startsWith(baseUrl)) {
+                // if there is no #reference or it's an external link, just test that it exists
+                return cy
+                  .request({ url: href, retryOnStatusCodeFailure: true })
+                  .then(resp => expect(resp.status).to.eq(200))
+              }
+
+              // add internal links with a #reference to a set to be tested in the next step
+              const relativePageUrl = pageUrl.substring(baseUrl.length)
+              if (!referencesToTest[relativePageUrl]) {
+                referencesToTest[relativePageUrl] = [reference]
+              } else if (!referencesToTest[relativePageUrl].includes(reference)) {
+                referencesToTest[relativePageUrl].push(reference)
+              }
+            })
+            .then(() =>
+              // visit linked pages and verify their references
+              Object.keys(referencesToTest).forEach(pageUrl => {
+                cy.visit(pageUrl).withFailMessage(msg => `Could not verify reference on ${pageUrl}: ${msg}`)
+                referencesToTest[pageUrl].forEach(reference => cy.get(`#${reference}`))
+              }),
+            )
+        })
       })
-    })
   })
 })

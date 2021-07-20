@@ -14,7 +14,7 @@ If you want to add LaunchDarkly to your React Native codebase, use the React Nat
 </CalloutDescription>
 </Callout>
 
-This reference guide documents all of the methods available in the client-side React SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source — head to the [React SDK code](https://github.com/launchdarkly/react-client-sdk) in the JavaScript SDK GitHub repository. The online [API docs](https://launchdarkly.github.io/react-client-sdk/) contain the programmatic definitions of every type and method. You can also clone and run a [sample application](/sdk/client-side/react#example-app) using this SDK.
+This reference guide documents all of the methods available in the client-side React SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source — head to the [React SDK code](https://github.com/launchdarkly/react-client-sdk) in the JavaScript SDK GitHub repository. The online [API docs](https://launchdarkly.github.io/react-client-sdk/) contain the programmatic definitions of every type and method. You can also clone and run a [sample application](/sdk/client-side/react/react-web#example-app) using this SDK.
 
 
 You can use LaunchDarkly in a Gatsby application with our [Gatsby plugin](/sdk/client-side/react/gatsby).
@@ -77,7 +77,7 @@ yarn add launchdarkly-react-client-sdk
 - Using the `asyncWithLDProvider` function
 - Using the `withLDProvider` function
 
-Both rely on React's `Context` API which lets you access your flags from any level of your component hierarchy. Both functions accept a [`ProviderConfig`](/sdk/client-side/react#configuring-the-react-sdk) object used to configure the React SDK.
+Both rely on React's `Context` API which lets you access your flags from any level of your component hierarchy. Both functions accept a [`ProviderConfig`](#configuring-the-react-sdk) object used to configure the React SDK.
 
 ## Initializing `asyncWithLDProvider`
 
@@ -125,7 +125,7 @@ After initialization is complete, your flags and the ldClient become available a
 <CalloutTitle>Rendering may be delayed</CalloutTitle>
 <CalloutDescription>
 
-Because the `asyncWithLDProvider` function is asynchronous, the rendering of your React app is delayed until initialization is completed. This can take up to 200 milliseconds, but often completes sooner. Alternatively, you can use the [`withLDProvider`](/sdk/client-side/react#withldprovider) function if you prefer to render your app first and then process flag updates after rendering is complete.
+Because the `asyncWithLDProvider` function is asynchronous, the rendering of your React app is delayed until initialization is completed. This can take up to 200 milliseconds, but often completes sooner. Alternatively, you can use the [`withLDProvider`](#withldprovider) function if you prefer to render your app first and then process flag updates after rendering is complete.
 
 </CalloutDescription>
 </Callout>
@@ -168,9 +168,9 @@ export default withLDProvider({
 </CodeTabItem>
 </CodeTabs>
 
-Customize your client from the `options` field. To learn more, read the [JavaScript SDK reference](/sdk/client-side/javascript#customizing-your-client).
+Customize your client from the `options` field. To learn more, read the [JavaScript SDK reference](/sdk/features/config#javascript).
 
-The React SDK automatically subscribes to flag change events. This is different from the JavaScript SDK, where customers need to opt in to event listening. To learn more, read [JavaScript SDK reference](/sdk/client-side/javascript#subscribing-to-feature-flag-changes).
+The React SDK automatically subscribes to flag change events. This is different from the JavaScript SDK, where customers need to opt in to event listening. To learn more, read [Subscribing to flag changes](/sdk/features/flag-changes#javascript).
 
 In the React SDK streaming mode is enabled by default. To disable streaming mode, specify a `streaming: false` attribute in your `options` object.
 
@@ -216,7 +216,7 @@ These are the properties:
 
 - `options`: LaunchDarkly JavaScript SDK initialization [options](/sdk/features/config). This property is optional.
 
-- `reactOptions`: This property is specific to the React SDK. You can use this option to [disable automatic camel casing](/sdk/client-side/react#flag-keys) of flag keys when using the React SDK. This property is optional.
+- `reactOptions`: This property is specific to the React SDK. You can use this option to [disable automatic camel casing](#flag-keys) of flag keys when using the React SDK. This property is optional.
 
 - `deferInitialization`: This property allows SDK initialization to be deferred until the `user` property is defined.
 

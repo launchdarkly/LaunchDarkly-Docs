@@ -346,7 +346,7 @@ Copy this reader role and make any modifications to it to suit your needs:
 
 Because permissions are set to `deny` by default, you must explicitly allow actions for the writer role. The code snippet below is a replication of LaunchDarkly's built-in writer role. You can copy it and make adjustments as needed.
 
-If you compare the code snippet below to the [reader role replication](/home/team/example-policies#built-in-reader-role-replication), you'll find that every resource level is addressed except for `member/*`, `member/*:token/*`, `role/*`, and `acct`. By default, those resources are already set to `deny`, so you don't have to specifically `deny` them again.
+If you compare the code snippet below to the [reader role replication](#template-built-in-reader-role-replication), you'll find that every resource level is addressed except for `member/*`, `member/*:token/*`, `role/*`, and `acct`. By default, those resources are already set to `deny`, so you don't have to specifically `deny` them again.
 
 Here's a template:
 
