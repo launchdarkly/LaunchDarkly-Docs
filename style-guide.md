@@ -1,8 +1,8 @@
 # The LaunchDarkly documentation style guide
 
-Thank you for your contributions to the LaunchDarkly-Docs repo! 
+Thank you for your contributions to the LaunchDarkly-Docs repo!
 
-This topic explains some best practices for writing docs for the LaunchDarkly documentation website. 
+This topic explains some best practices for writing docs for the LaunchDarkly documentation website.
 
 If you want to learn how to install and run the site locally on your machine, read the [README](readme.md). For information about adding your own content to the site in compliance with our technical architecture, read the [contributor's guide](contributors-guide.md).
 
@@ -20,7 +20,7 @@ Here are some guidelines to get you started:
 
 ## Voice and tone
 
-The LaunchDarkly documentation voice is kind, direct, and helpful. 
+The LaunchDarkly documentation voice is kind, direct, and helpful.
 
 * KIND: Don't talk down to the reader. Do not use words like "simple," "basic," or "easy" to describe the reader's experience using your feature; instead, write with the understanding that what may be easy for one reader can simultaneously be challenging for another. For more information about this, read [A note on inclusivity](#a-note-on-inclusivity).
 * DIRECT: Use the active voice where possible. For example, when describing product behavior, say the SDK initializes and connects to LaunchDarkly, not the SDK is initialized and connected to LaunchDarkly.
@@ -34,20 +34,20 @@ It is a best practice to write documentation that reflects the full diversity of
 
 If you write an example that references humans, use names and pronouns from multiple genders.
 
-Do not use idioms, euphemisms, or ableist or hierarchical language in the docs. Some of these terms are figurative and hard to translate for users who speak English as a secondary language ("shoot the moon," "break new ground"), and many of them have discriminatory backgrounds ("whitelist/blacklist," "rule of thumb"). 
+Do not use idioms, euphemisms, or ableist or hierarchical language in the docs. Some of these terms are figurative and hard to translate for users who speak English as a secondary language ("shoot the moon," "break new ground"), and many of them have discriminatory backgrounds ("whitelist/blacklist," "rule of thumb").
 
 Do not make assumptions about the abilities or bodies of your users. Common euphemisms to explain behaviors can make assumptions about capabilities that do not apply to everyone using your docs.
 
-For example, do not use verbs like "see" to refer to consuming and comprehending information ("reading"); docs users who use screenreaders may not be able to see the docs, but they can certainly read them, so that's a better verb to use. 
+For example, do not use verbs like "see" to refer to consuming and comprehending information ("reading"); docs users who use screenreaders may not be able to see the docs, but they can certainly read them, so that's a better verb to use.
 
-Similarly, a "hands-on" exercise might not be "hands-on" for a user with a mobility issue or assitive device. Instead, you could say "interactive."
+Similarly, a "hands-on" exercise might not be "hands-on" for a user with a mobility issue or assistive device. Instead, you could say "interactive."
 
 
 ## Topic and component best practices
 
 This section explains mandatory and optional sections for docs topics and best practices for using them in the LaunchDarkly style.
 
-LaunchDarkly's docs respect markdown formatting. You can use hashes for headers, braket-paren links, exclamation points to indicate images, and asterisks to emphasize text like in regular markdown. 
+LaunchDarkly's docs respect markdown formatting. You can use hashes for headers, braket-paren links, exclamation points to indicate images, and asterisks to emphasize text like in regular markdown.
 
 ## LaunchDarkly's custom components
 
@@ -100,21 +100,21 @@ Lists are quick references that either describe steps or collections of three or
 
 Use screenshots sparingly. They're expensive to maintain. If you're a LaunchDarkly partner contributing documentation for your product or service, you are responsible for contributing updated screenshots for your service when needed.
 
-You can add screenshots as .PNGs or .GIFs. For a screenshot to render in the docs correctly, you must reference the `/images/` directory in the filepath and end the screenshot name with the file type (.png or .gif). 
+You can add screenshots as .PNGs or .GIFs. For a screenshot to render in the docs correctly, you must reference the `/images/` directory in the filepath and end the screenshot name with the file type (.png or .gif).
 
 We do not have a minimum or maximum size guideline to follow, but in general you should capture as little of the screen as possible to keep your screenshot useful. Please avoid full-screen screenshots, but if you must include them you probably also want to include a callout indicating which part of the screen the reader should focus on.
 
-If you capture identifying information in a screenshot, like an email address or API key, obsure it with a blurring tool. Most image editing apps have a blur or pixelate function.
+If you capture identifying information in a screenshot, like an email address or API key, obscure it with a blurring tool. Most image editing apps have a blur or pixelate function.
 
-Alt text is required for all graphics and screenshots. To add alt text to your screenshot, type a description of the screenshot in the brackets section of the markdown image tag: 
+Alt text is required for all graphics and screenshots. To add alt text to your screenshot, type a description of the screenshot in the brackets section of the markdown image tag:
 
 ```
 ![The alt text goes between these brackets.](screenshot-filepath.png)
 ```
 
-If you want to add a video clip to your docs, we suggest uploading it to YouTube and embedding the YouTube file in the topic. We do not have capability to host video content on the site. 
+If you want to add a video clip to your docs, we suggest uploading it to YouTube and embedding the YouTube file in the topic. We do not have capability to host video content on the site.
 
-Do not include personally identifiable information in your video. 
+Do not include personally identifiable information in your video.
 
 You must include closed captioning (subtitles) on the video. Please only upload videos with audio in English, since we don't have the resources to verify that non-English speech matches the contents of the subtitles.
 
@@ -124,7 +124,7 @@ Tables provide a gathering mechanism for collections of items with definitions o
 
 Do not use markdown tables in LaunchDarkly docs. They format poorly in code editors and are hard to maintain. Use our custom table component instead. It's very similar to an HTML table.
 
-When you create a table, give the columns headers so people know what they're reading. 
+When you create a table, give the columns headers so people know what they're reading.
 
 For example: 'Resource Name / Description' or 'Endpoint / Actions'.
 
@@ -138,15 +138,15 @@ To learn about writing and formatting the frontmatter correctly, read the [contr
 
 ### Overview
 
-Every docs topic should begin with a section titled "Overview." 
+Every docs topic should begin with a section titled "Overview."
 
-The Overview section gives a high-level summary of the contents of the topic itself. This helps readers who are encountering the page for the first time determine whether or not the topic will address their questions or teach them what they need to know. 
+The Overview section gives a high-level summary of the contents of the topic itself. This helps readers who are encountering the page for the first time determine whether or not the topic will address their questions or teach them what they need to know.
 
 The information in the Overview is usually truncated for the `description` metadata entry, which generates the search results for your page.
 
 ### Prerequisites
 
-Prerequisite sections are optional except in Guides. 
+Prerequisite sections are optional except in Guides.
 
 If you're about to explain a very technical procedure or the topic you're writing is a continuation of a longer process, you might want to include a list of prerequisites.
 
@@ -171,7 +171,7 @@ You can summarize concepts in brief in the overview, if that works better--but k
 
 ### Procedures
 
-Procedures tell a reader how to complete a task by defining the start state, the end state, and the process to get from one to another. 
+Procedures tell a reader how to complete a task by defining the start state, the end state, and the process to get from one to another.
 
 Writing useful procedures is a skill it takes time to cultivate, but here are some best practices:
 
@@ -187,7 +187,7 @@ Example:
 
 ### Conclusion
 
-This section is optional, and not commonly used in product documentation. 
+This section is optional, and not commonly used in product documentation.
 
 In Guides, you might use a Conclusion section to explain what was covered in the Guide and what readers might know how to do now that they did not understand before.
 

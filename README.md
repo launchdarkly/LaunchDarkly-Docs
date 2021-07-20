@@ -9,9 +9,9 @@
 
 ## The LaunchDarkly docs service level agreement
 
-All PRs to the `LaunchDarkly-Docs` repo will be addressed within 5 business days, often sooner. 'Addressed' does not necessarily mean 'merged' or 'accepted;' it means that a member of the LaunchDarkly docs team will acknowledge your PR within that timeframe.
+All PRs to the `LaunchDarkly-Docs` repo will be addressed within five business days, often sooner. "Addressed" does not necessarily mean "merged" or "accepted." It means that a member of the LaunchDarkly docs team will acknowledge your PR within that timeframe.
 
-In practical terms, we will likely merge your PR within 5 business days of submission.
+In practical terms, we will likely merge your PR within five business days of submission.
 
 ### Planning your docs contribution
 
@@ -53,7 +53,7 @@ You can also run in a `fast` development mode which omits all mdx images and mos
 yarn && yarn dev-fast
 ```
 
-This cuts the gatsby build time to just < 7 seconds as opposed to > 1minute.
+This cuts the gatsby build time to just < 7 seconds as opposed to > 1 minute.
 
 ## 👥 Adding new topics and editing existing topics from within the repo
 
@@ -79,6 +79,14 @@ If you still encounter issues, perform a clean-all to delete all possible caches
 yarn clean-all
 ```
 
+## (Internal LaunchDarkly use only) Accessing the repo and docs tools
+
+If you're a new LaunchDarkly technical writer or other contributor accessing the repo for the first time, you must complete the following setup steps to access and make changes to git-gatsby.
+
+1. Request access to the [Dev repo](https://github.com/launchdarkly/dev).
+2. Follow steps 1-9 under [New computer setup](https://launchdarkly.atlassian.net/wiki/spaces/ENG/pages/15237262/New+Computer+Setup).
+3. Request admin access to git-gatsby and [LaunchDarkly-Docs](https://github.com/launchdarkly/LaunchDarkly-Docs). To learn more more about how the repos relate to each other, read [Syncing content between git-gatsby and LaunchDarkly-Docs](https://launchdarkly.atlassian.net/wiki/spaces/ENG/pages/467009739/LaunchDarkly+Docs+How-to+Guide#Syncing-content-between-git-gatsby-and-LaunchDarkly-Docs).
+
 ## (Internal LaunchDarkly use only) 🌗 Accessing the staging site
 
 The staging url is [docs-stg.launchdarkly.com](https://docs-stg.launchdarkly.com).
@@ -99,13 +107,12 @@ This builds Gatsby and upload the artifacts to the staging s3 bucket.
 
 ## (Internal LaunchDarkly use only) Flagging changes
 
-We use flags in Catfood under the Docs project. There are three environments: Development, Test and Production 
+We use flags in Catfood under the Docs project. There are three environments: Development, Test and Production
 corresponding to local dev, staging and prod respectively.
 
 ### Flagging content changes
 
-You can flag mdx changes with the `Feature` component defined at `src/components/mdx/feature.tsx`. In your mdx file,
-nest your React or HTML elements under the `<Feature>` component like so: 
+You can flag mdx changes with the `Feature` component defined at `src/components/mdx/feature.tsx`. In your mdx file, nest your React or HTML elements under the `<Feature>` component like so:
 
 ```jsx
 <Feature flagKey="camelCasedFlagKey">
@@ -120,10 +127,10 @@ Content to be flagged
 </Feature>
 ```
 
-The `flagKey` prop is the camelCased version of your flag key since we are using the React SDK here which uses 
+The `flagKey` prop is the camelCased version of your flag key since we are using the React SDK here which uses
 camelCased keys by default.
 
-There is also an optional `showWhenVariation` prop. This is used to control what flag value will show 
+There is also an optional `showWhenVariation` prop. This is used to control what flag value will show
 your content. For example, the EAP callout below will be displayed when the `syncedSegments` flag is `false`.
 This is useful to help us hide old content when rolling out new ones. The `showWhenVariation` prop defaults to `true`.
 
@@ -136,7 +143,7 @@ This is useful to help us hide old content when rolling out new ones. The `showW
 Synced segments are only available to members of LaunchDarkly's Early Access Program...
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 </Feature>
 ```
 
@@ -145,8 +152,8 @@ elements directly under `<Feature>` are left-aligned like the above example.
 
 ### Flagging navigation items
 
-You can use the [gatsby-plugin-launchdarkly](https://github.com/launchdarkly-labs/gatsby-plugin-launchdarkly), to hide 
-nav items behind a feature flag. To do this, add the `flagKey` property to the nav item you want to control with a flag 
+You can use the [gatsby-plugin-launchdarkly](https://github.com/launchdarkly-labs/gatsby-plugin-launchdarkly), to hide
+nav items behind a feature flag. To do this, add the `flagKey` property to the nav item you want to control with a flag
 in `navigationData.json`. Use the camel case version of the flag key, as shown below:
 
 ```json
