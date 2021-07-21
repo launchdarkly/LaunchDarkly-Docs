@@ -73,6 +73,15 @@ Policies combine resources and actions into a set of statements that define what
 
 You use LaunchDarkly's advanced editor to build custom roles by writing combinations of resources and actions the role is allowed to or forbidden from taking on them.
 
+<Callout intent="alert">
+<CalloutTitle>Permissions are cumulative</CalloutTitle>
+<CalloutDescription>
+
+When a team or account member has two or more custom roles with conflicting permission levels, the more permissive level of access is applied. For example, if a team has one custom role that allows access to a resource, and a member of that team has another custom role that restricts access to a resource, the member is allowed access.
+
+</CalloutDescription>
+</Callout>
+
 Policies are represented as JSON arrays. They require you to use project and environment keys, not names.
 
 Each element in the array is a statement represented as a JSON object with three attributes:

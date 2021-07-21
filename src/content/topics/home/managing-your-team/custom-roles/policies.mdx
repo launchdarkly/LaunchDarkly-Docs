@@ -161,8 +161,9 @@ Here's how:
 The algorithm for determining whether access is allowed or denied by a policy is as follows:
 
 - If any statement in the policy explicitly denies access to a resource and action, access is denied.
-- If a statement in the policy explicitly allows access to a resource and action, and no statement denies access, access is allowed.
-- Any resource or action not specifically included in a policy is denied by default except the `ViewProjects` action and the ability to create tokens.
+- If a statement in the policy explicitly allows access to a resource and action, and no statement denies access, access is allowed
+- If two policies have conflicting permission levels, the more permissive level of access is applied
+- Any resource or action not specifically included in a policy is denied by default except the `ViewProjects` action and the ability to create tokens
 
 <Callout intent="info">
 <CalloutTitle>All roles can view all projects by default</CalloutTitle>
@@ -177,7 +178,9 @@ To learn  more, read [Understanding the minimum required actions for a role](/ho
 </CalloutDescription>
 </Callout>
 
-Statement order does not matter. You can assign multiple custom roles to one member, and each custom role has its own policy. If you assign multiple roles to a member, be aware that if any of those custom roles allow access to a resource, then access is allowed regardless of if other roles deny that access. Adding roles to a user can only increase that user's access.
+Statement order does not matter. You can assign multiple custom roles to one member, and each custom role has its own policy.
+
+Permissions are cumulative. If you assign multiple custom roles to a member, and one of those custom roles allow access to a resource, then access is allowed even if other roles deny that access. Adding roles to a user can only increase that user's access.
 
 ## Writing policies in the advanced editor
 
