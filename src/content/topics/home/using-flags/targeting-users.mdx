@@ -319,13 +319,10 @@ You still must generate a unique key for anonymous users. Session IDs or UUIDs w
 To associate pre-login (anonymous) behaviors with post-login (known) behaviors to get a singular view of a user flow, you should use a custom attribute, and the advanced option for percentage rollouts that allows you to rollout based on a different attribute. The steps to make this happen are as follows:
 
 * store a unique identifier for the anonymous user into a cookie. A session ID or UUID works well.
-
 * until the user logs in, use this unique identifier as both the user's key, and a custom attribute. The custom
 attribute could be named anything, but for this example it is named "uniqueId".
-
 * while the user is logged in, set the users key to their real (primary) user key, but
 continue to use to use the unique identifier stored in the cookie as the users "uniqueId" custom attribute.
-
 * for all flags (or at least those that may effect logged out users), use the advanced option for all percentage rollouts
 to do rollouts based on the "uniqueId" custom attribute.
 
@@ -485,6 +482,15 @@ Here is an image of the percentage rollout screen:
 ![The percentage rollout screen.](../../images/rules-percentage-rollout.png)
 
 In this example, 25% of the `beta_testers` group see the new dashboard feature.
+
+<Callout intent="info">
+<CalloutTitle>Experiment allocation</CalloutTitle>
+<CalloutDescription>
+
+If you're using Experimentation, experiment allocation allows you more flexibility when selecting your experiment population and ensures accurate experiment results. To learn how to enable and use experiment allocation, read [Allocating experiment traffic](/home/experimentation/allocation).
+
+</CalloutDescription>
+</Callout>
 
 ### Percentage rollout logic
 

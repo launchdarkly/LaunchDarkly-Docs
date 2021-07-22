@@ -1,0 +1,246 @@
+---
+path: '/home/experimentation/allocation'
+title: 'Allocating experiment traffic'
+description: 'This topic explains how to include users in an experiment using experiment allocation.'
+published: true
+---
+
+<Callout intent="info">
+<CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+Experiment allocation is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://docs.google.com/forms/d/e/1FAIpQLScJ5qCC_RZTW9pPSXVZk9HaKzpltNAeoQb2t6gh7dLicwQWQQ/viewform).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to include users in an experiment using experiment allocation.
+
+## Prerequisites
+
+To use experiment allocation, you must have the following prerequisites:
+
+1. You must be using the listed version number or higher for the following SDKs. If your SDK is listed as "not supported," then you cannot use experiment allocation.
+
+Client-side SDKs:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>SDK</TableHeadCell>
+    <TableHeadCell>Version</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Android</TableCell>
+      <TableCell>Not supported</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>C/C++</TableCell>
+      <TableCell>All versions</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Electron</TableCell>
+      <TableCell>All versions</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Flutter</TableCell>
+      <TableCell>Not supported</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>iOS</TableCell>
+      <TableCell>All versions</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>JavaScript</TableCell>
+      <TableCell>All versions</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Node.js</TableCell>
+      <TableCell>All versions</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>React Web</TableCell>
+      <TableCell>All versions</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>React Native</TableCell>
+      <TableCell>Not supported</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Roku</TableCell>
+      <TableCell>All versions</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Xamarin</TableCell>
+      <TableCell>Not supported</TableCell>
+  </TableRow>
+</TableBody>
+</Table>
+
+Server-side SDKs:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>SDK</TableHeadCell>
+    <TableHeadCell>Version</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>.NET</TableCell>
+    <TableCell>6.1.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Apex</TableCell>
+    <TableCell>1.1.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>C/C++</TableCell>
+    <TableCell>2.4.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Erlang</TableCell>
+    <TableCell>Not supported</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Go</TableCell>
+    <TableCell>5.4.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Haskell</TableCell>
+    <TableCell>2.2.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Java</TableCell>
+    <TableCell>5.5.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Lua</TableCell>
+    <TableCell>2.4.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Node.js</TableCell>
+    <TableCell>6.1.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>PHP</TableCell>
+    <TableCell>3.9.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Python</TableCell>
+    <TableCell>7.2.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Ruby</TableCell>
+    <TableCell>6.2.0</TableCell>
+  </TableRow>
+</TableBody>
+</Table>
+
+2. If you use the LaunchDarkly Relay Proxy, it must be at least version 6.3.0.
+3. You must email support@launchdarkly.com to have experimentation allocation enabled on your account.
+
+<Callout intent="alert">
+<CalloutTitle>Outdated SDKs return invalid experiment results</CalloutTitle>
+<CalloutDescription>
+
+You must request that we enable experiment allocation so that we can confirm that you use SDK and Relay Proxy versions that support this feature. If your SDK and Relay Proxy versions are outdated, users will see different flag variations across various SDK, rendering your experimentation results invalid.
+
+</CalloutDescription>
+</Callout>
+
+Enabling experiment allocation does not affect any experiments you are currently running. Your experiments will continue to record results for the same audience until you pause the experiment.
+
+Once experiment allocation is enabled, all new or paused experiments will require an experiment allocation before you can begin recording.
+
+## Using experiment allocation
+
+To use experiment allocation:
+1. Navigate to the **Targeting** tab of the feature flag you want to add an experiment to.
+2. Click on the graph icon next to the rule you want to run an experiment on, and select “Run an experiment on this rule.”
+
+![The experiment dropdown with the "Run an experiment" option called out.](../../../images/experiment-run-experiment-callout.png)
+
+3. Enter the percentage of traffic you want to include in the experiment.
+4. Select which variation you want LaunchDarkly to serve to the remaining population.
+5. (Optional) To disable traffic variation reassignment, click **Advanced**, then check the **Keep users assigned to initial variation** checkbox. We strongly recommend leaving this box **unchecked**. To learn more, read [Using variation reassignment](#using-variation-reassignment).
+
+![The experiment allocation screen.](../../../images/experiment-allocation.png)
+
+## Benefits of using experiment allocation
+
+Experiment allocation gives you more flexibility when selecting your experiment population and ensures accurate experiment results. Only users that you elect to be part of the experiment will be analyzed for those results, which allows you to control billing costs.
+
+When making changes to ramp up or ramp down users in your variations, LaunchDarkly properly randomizes users and provides the configuration and guidance to prevent carryover bias.
+
+## Using variation reassignment
+
+Experiments are subject to day-of-week or hour-of-day effects. For example, a user’s behavior on a website is often different depending on if they are visiting on a Saturday or a Monday. This can cause problems in properly computing experiment results if you use traffic from two different time frames when you increased the percent of traffic going to various users.
+
+For example, say you allocated 6% of your traffic to your experiment and it included traffic from weekdays only, and later when you increase your allocated traffic to 30%, it also included traffic from weekends. Because you had more traffic on weekends, the data would overrepresent that traffic and you would get a biased result. You can avoid this by allowing "variation reassignment."
+
+Here is an example of experiment allocation using variation reassignment:
+
+First, you add an experiment to a flag with three variations: A, B, and C. You roll out the three variations to 6% of the users, while the remainder receives variation A.
+
+An example starting traffic allocation appears below:
+
+![Experiment allocation at 6%](../../../images/experiment-allocation-six-percent.png)
+
+The traffic on the right is receiving variation A, but is not part of the experiment nor its analysis.
+
+Next, you ramp up your experiment to 30% of traffic.
+
+Here is an example of the modified allocation:
+
+![Experiment allocation at 30%](../../../images/experiment-allocation-thirty-percent.png)
+
+The traffic that was receiving variations A, B, and C, is now reverted back to A, and new traffic is used for the 30% allocated to the experiment.
+
+Finally, you roll out variations A and B to 50% of traffic each. In this case, the entire population is reallocated randomly. For example, 0%-1% partition will not have the exact same set of users as the previous 0%-1% partition.
+
+Here is an example image:
+
+![Experiment allocation at 50%](../../../images/experiment-allocation-fifty-percent.png)
+
+This new random assignment prevents carryover bias by ensuring that users from previous variations are evenly distributed between variations A and B.
+
+### Understanding when to use variation reassignment
+
+It may seem counterintuitive to allow the experiment to reassign users to different variations, especially if you are used to the way rollouts work in LaunchDarkly outside of experimentation. However, allowing reassignment has advantages, provided the change you are experimenting on is not disruptive to users. In practice, this is the case for many experiments. A common example is "user-day experiments", which run for only one day at a time.
+
+For experiments where users should not leave the variation they're initially allocated to, such as significant navigation menu changes or large user interface (UI) changes, you can disable variation reassignment. However, keeping users in the same variations incurs additional risk. To learn more, read [Disabling variation reassignment](#disabling-variation-reassignment).
+
+Using fresh traffic and freeing the previous ramp’s traffic prevents carry-over effects and ensures you don't run out of traffic for your experiment.
+
+## Disabling variation reassignment
+
+<Callout intent="alert">
+<CalloutTitle>We do not recommend this option for the majority of use cases</CalloutTitle>
+<CalloutDescription>
+
+Allowing variation reassignment should be the default for your experiments. If you are unsure if you need to allow or disallow variation reassignment, we suggest you allow variation reassignment.
+
+</CalloutDescription>
+</Callout>
+
+You should only rarely prevent users from switching variations during an experiment by disabling variation reassignment. You may want to disable variation reassignment for substantial changes, such as major navigation menu or UI changes. You can disable variation reassignment by checking the **Keep users assigned to initial variation** checkbox in the **advanced** menu.
+
+Here is an example of running an experiment with variation reassignment disabled:
+
+You add an experiment to a flag with three variations: A, B, and C. You roll out the three variations to 6% of the users, while the remainder receives variation A.
+
+Here is an example starting traffic allocation:
+
+![Experiment allocation at 6%](../../../images/experiment-allocation-six-percent.png)
+
+The traffic on the right is receiving variation A, but is not part of the experiment nor its analysis.
+
+Next, you increase the experiment to 30% of traffic.
+
+Here is an example experiment with increased traffic:
+
+![Experiment allocation at 30%](../../../images/experiment-allocation-thirty-percent-no-reshuffle.png)
+
+We suggest you reset your experiment results when you increase traffic to avoid time-varying effects.

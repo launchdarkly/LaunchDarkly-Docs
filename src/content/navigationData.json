@@ -356,6 +356,10 @@
                 "path": "/home/experimentation/interpreting"
               },
               {
+                "label": "Allocating experiment traffic",
+                "path": "/home/experimentation/allocation"
+              },
+              {
                 "label": "Controlling experiment populations",
                 "path": "/home/experimentation/populations"
               },
