@@ -113,6 +113,44 @@ The following screenshot shows code references without context lines:
 
 ![Code references with no context lines.](../images/flag-code-references-no-context.png)
 
+## Finding flag aliases
+
+Aliases help you find indirect references to feature flags, such as flag keys stored in variables or in wrapped SDK code. 
+
+Here's how to find references to `firstFeatureFlag` throughout your code base:
+
+<CodeTabs
+  defaultValue="json" values={[
+    { label: 'Example flag variable', value: 'json', },
+  ]
+}>
+<CodeTabItem value="json">
+
+```text
+var firstFeatureFlag = 'first-flag-key'
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<CodeTabs
+  defaultValue="json" values={[
+    { label: 'coderefs.yaml', value: 'json', },
+  ]
+}>
+<CodeTabItem value="json">
+
+```yaml
+aliases:
+  - type: camelcase
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+This identifies all references to `firstFeatureFlag` in your code base.
+
+To learn more about aliases, read the [aliases documentation](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/ALIASES.md).
 
 ## Limitations
 

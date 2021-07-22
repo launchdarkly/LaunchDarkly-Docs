@@ -23,7 +23,7 @@ With the extension, you'll get the ability to:
 - See a tooltip with feature flag details when you hover over a feature flag key in your source code
 - Autocomplete feature flag keys
 - Open feature flags in LaunchDarkly (Default keybinding: `ctrl+alt+g`/`⌘+alt+g`)
-- View a list of feature flags and their settings in the explorer view
+- View a list of feature flags and their settings in the Explorer view
 - Update a flag's on/off state, fallthrough value, and off variation
 - Enable codelens for flags in your source code
 
@@ -78,3 +78,9 @@ After you install the LaunchDarkly extension, VSCode prompts you to configure it
 4. Select whether you want the extension to work with all VSCode workspaces or just the current workspace.
 
 You can reconfigure the extension at any time by running the "LaunchDarkly: Configure" command from the command palette (`ctrl+shift+p`/`⌘+shift+p`).
+
+## Code references in the VSCode extension
+
+The LaunchDarkly VSCode extension supports code references. If you use code references, configuring aliases makes the informational hover card available wherever an alias appears in your code. Aliases appear under the flag entry in the Explorer view. To learn more, read [Finding flag aliases](/home/code/code-references#finding-flag-aliases).
+
+Flag searches across the workspace also include flag references.
