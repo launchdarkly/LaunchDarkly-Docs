@@ -40,7 +40,7 @@ export default {
       {
         node: {
           path: '/home',
-          label: 'Home',
+          label: '/home',
           items: [
             {
               path: '/home/code',

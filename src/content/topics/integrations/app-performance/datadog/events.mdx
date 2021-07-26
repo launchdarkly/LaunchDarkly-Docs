@@ -18,7 +18,7 @@ The Datadog events integration is available to customers on a Pro or Enterprise 
 
 This topic explains how to configure and use the LaunchDarkly Datadog events integration.
 
-The Datadog integration lets you set up [Datadog Events](https://docs.datadoghq.com/api/?lang=bash#events) to receive any activity from LaunchDarkly. When something changes, such as a feature flag updates or a new team member is added to LaunchDarkly, LaunchDarkly sends an event to Datadog. Use this integration to correlate and understand how changes to your features in LaunchDarkly impact your app and infrastructure metrics.
+The Datadog integration lets you set up [Datadog Events](https://docs.datadoghq.com/api/?lang=bash#events) to receive any activity from LaunchDarkly. When something changes, such as a feature flag updates or a new account member is added to LaunchDarkly, LaunchDarkly sends an event to Datadog. Use this integration to correlate and understand how changes to your features in LaunchDarkly impact your app and infrastructure metrics.
 
 <Callout intent="primary">
 <CalloutTitle>This integration supports triggers</CalloutTitle>
@@ -87,7 +87,7 @@ By default, LaunchDarkly sends events to Datadog for changes made to any project
 
 To filter events, write a policy using the same syntax as our custom roles feature to filter the events sent to Datadog.
 
-For more information about writing policies, read [Policies in custom roles](/home/team/role-policies).
+For more information about writing policies, read [Policies in custom roles](/home/members/role-policies).
 
 For example, if you only want to receive an event when a change is made to one of the feature flags in your testing environment, you can add the following policy to your events stream:
 

@@ -9,10 +9,10 @@ published: true
 
 This topic explains how to use custom roles to create private projects or restrict access to projects. It gives examples of both how to restrict access to one project, effectively creating a private project for members you choose, and to grant access only to one or some projects.
 
-This topic uses the `viewProject` action to restrict and grant access to projects. To learn more about this action, read [Using actions](/home/team/role-actions).
+This topic uses the `viewProject` action to restrict and grant access to projects. To learn more about this action, read [Using actions](/home/members/role-actions).
 
 <Callout intent="info">
-<CalloutTitle>Team members can't modify what they can't see</CalloutTitle>
+<CalloutTitle>Account members can't modify what they can't see</CalloutTitle>
 <CalloutDescription>
 
 Viewing access is required to modify a resource, so if a member cannot view a resource, they also cannot modify it in any way. You can use the policies below to control who can access and modify the feature flags or other child resources in a project.
@@ -24,7 +24,7 @@ Viewing access is required to modify a resource, so if a member cannot view a re
 
 This example policy forbids viewing access to a project called `project-1`.
 
-This policy is useful for restricting access to a project to only those team members who are working on it.
+This policy is useful for restricting access to a project to only those account members who are working on it.
 
 The following code sample restricts view and edit access to a project:
 

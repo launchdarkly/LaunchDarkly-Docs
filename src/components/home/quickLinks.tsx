@@ -53,7 +53,7 @@ const QuickLinks = () => (
         blurp="New to LaunchDarkly? Get started in minutes."
         navItems={[
           { path: '/home/getting-started/', label: 'Getting started' },
-          { path: '/home/getting-started/your-team', label: 'Joining a team' },
+          { path: '/home/getting-started/your-account', label: 'Joining an account' },
           { path: '/home/getting-started/setting-up', label: 'Setting up an SDK' },
           { path: '/home/getting-started/feature-flags', label: 'Your first feature flag' },
         ]}

@@ -1,5 +1,5 @@
 ---
-path: '/home/team/role-actions'
+path: '/home/members/role-actions'
 title: 'Using actions'
 description: 'This topic explains how to use actions to write policies for custom roles. These actions are scoped by resource type.'
 published: true
@@ -11,7 +11,7 @@ This topic explains how to use actions in custom roles policies and gives a tabl
 
 Actions represent changes you can make to resources, such as `createFlag`, `deleteFlag`, `updateName`, and more.
 
-To learn more about how actions work within custom role policies, read [Custom role concepts](/home/team/role-concepts#actions).
+To learn more about how actions work within custom role policies, read [Custom role concepts](/home/members/role-concepts#actions).
 
 ## Actions reference
 
@@ -199,7 +199,7 @@ member/*
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [Managing your team](/home/team/managing).
+To learn more, read [Managing your account members](/home/members/managing).
 
 This table explains available members actions:
 
@@ -213,37 +213,37 @@ This table explains available members actions:
       <TableCell>
         <code>createMember</code>
       </TableCell>
-      <TableCell>Add a new team member to an account.</TableCell>
+      <TableCell>Add a new account member to an account.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateRole</code>
       </TableCell>
-      <TableCell>Update a team member's built-in roles (reader, writer, or admin).</TableCell>
+      <TableCell>Update an account member's built-in roles (reader, writer, or admin).</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateCustomRole</code>
       </TableCell>
-      <TableCell>Update a team member's custom roles.</TableCell>
+      <TableCell>Update an account member's custom roles.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteMember</code>
       </TableCell>
-      <TableCell>Remove a team member from an account.</TableCell>
+      <TableCell>Remove an account member from an account.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>sendMfaRequest</code>
       </TableCell>
-      <TableCell>Send a team member a request to enable MFA.</TableCell>
+      <TableCell>Send an account member a request to enable MFA.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>sendMfaRecoveryCode</code>
       </TableCell>
-      <TableCell>Send a team member their MFA recovery code.</TableCell>
+      <TableCell>Send an account member their MFA recovery code.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -400,7 +400,7 @@ role/*
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [Custom roles](/home/team/custom-roles).
+To learn more, read [Custom roles](/home/members/custom-roles).
 
 This table explains available role actions:
 
@@ -445,7 +445,7 @@ This table explains available role actions:
         <code>updateMembers</code>
       </TableCell>
       <TableCell>
-        Add or remove users from a custom role (equivalent to <code>updateCustomRole</code> on team members).
+        Add or remove users from a custom role (equivalent to <code>updateCustomRole</code> on account members).
       </TableCell>
     </TableRow>
   </TableBody>
@@ -533,7 +533,7 @@ This table explains available project actions:
 <CalloutTitle>More information about the viewProject action</CalloutTitle>
 <CalloutDescription>
 
-The `deny` effect for your `resource` in the `viewProject` action hides the projects you specify from the member. The `allow` effect for the same resource and action pairing doesn't do anything since your team member can already see the project.
+The `deny` effect for your `resource` in the `viewProject` action hides the projects you specify from the member. The `allow` effect for the same resource and action pairing doesn't do anything since your account member can already see the project.
 
 To learn more, read <a href="/home/organize/private-projects">Configuring private projects with custom roles</a>
 

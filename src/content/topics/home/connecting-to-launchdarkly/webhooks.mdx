@@ -9,7 +9,7 @@ published: true
 
 This topic explains how to create and use webhooks in LaunchDarkly.
 
-LaunchDarkly's webhooks allow you to build your own integrations that subscribe to changes in LaunchDarkly. When something changes, like when a feature flag is updated, or when a team member is invited to LaunchDarkly, LaunchDarkly sends an HTTP POST payload to the webhook's configured URL.
+LaunchDarkly's webhooks allow you to build your own integrations that subscribe to changes in LaunchDarkly. When something changes, like when a feature flag is updated, or when an account member is invited to LaunchDarkly, LaunchDarkly sends an HTTP POST payload to the webhook's configured URL.
 
 Use webhooks to update external issue trackers, update support tickets, notify customers of new feature rollouts, and more.
 
@@ -43,7 +43,7 @@ You can use the auto-generated secret, or supply your own when creating or editi
 
 ## Adding a policy filter
 
-LaunchDarkly sends all flag change events in the production environment to a webhook by default. To customize the events LaunchDarkly sends to a webhook, use the policy editor in the webhook creation panel. To learn more about creating a policy, read [Example policies and templates](/home/team/example-policies).
+LaunchDarkly sends all flag change events in the production environment to a webhook by default. To customize the events LaunchDarkly sends to a webhook, use the policy editor in the webhook creation panel. To learn more about creating a policy, read [Example policies and templates](/home/members/example-policies).
 
 For example, to receive an event only when a change is made to one of your production feature flags, add the following policy to your webhook:
 

@@ -11,7 +11,7 @@ This guide explains how to use Terraform to manage your LaunchDarkly resources, 
 
 Complexity is unavoidable in modern software development. The variety of cloud services you can use to support your software make simple projects into complicated ones.
 
-These services solve many problems, but they also add others: how are you going to provision and manage all these different resources? What if you need to make a change across a hundred storage buckets? What if you have multiple team members all trying to make changes, and suddenly one of them needs to roll a change back?
+These services solve many problems, but they also add others: how are you going to provision and manage all these different resources? What if you need to make a change across a hundred storage buckets? What if you have multiple account members all trying to make changes, and suddenly one of them needs to roll a change back?
 
 Terraform can work together with LaunchDarkly to address all of these problems. The [LaunchDarkly Provider for Terraform](https://www.terraform.io/docs/providers/launchdarkly/index.html) can automate the creation and maintenance of most kinds of LaunchDarkly resources such as flags, projects, and environments.
 
@@ -44,7 +44,7 @@ Hashicorp Configuration Language (HCL) is the infrastructure description syntax 
 
 ## Choosing an approach based on your use case
 
-This guide shows multiple examples of you can use Terraform to create and manage LaunchDarkly resources. These examples do not mean that those kinds of resources are best managed with Terraform in all cases. Think carefully before you use Terraform in these ways, as conflicts may occur if a team member tries to modify Terraform-managed resources through the LaunchDarkly dashboard.
+This guide shows multiple examples of you can use Terraform to create and manage LaunchDarkly resources. These examples do not mean that those kinds of resources are best managed with Terraform in all cases. Think carefully before you use Terraform in these ways, as conflicts may occur if an account member tries to modify Terraform-managed resources through the LaunchDarkly dashboard.
 
 With each example, we'll discuss why Terraform was suited to that scenario. We'll also discuss the additional measures you should take to avoid the conflicts mentioned above.
 
@@ -53,7 +53,7 @@ With each example, we'll discuss why Terraform was suited to that scenario. We'l
 These are the practices we recommend to avoid conflicts that can arise when some of your flags are managed through Terraform and others are managed through the LaunchDarkly dashboard:
 
 * Tag everything Terraform manages with a `managed-by-terraform` tag.
-* Use custom roles to enforce that resources and properties managed by Terraform can not be manipulated by the LaunchDarkly UI. For example, putting most team members in a role that does not have write access to the resources managed by Terraform.
+* Use custom roles to enforce that resources and properties managed by Terraform can not be manipulated by the LaunchDarkly UI. For example, putting most account members in a role that does not have write access to the resources managed by Terraform.
 * Do not use Terraform to make changes to flag targeting rules or flag variations unless absolutely necessary. Managing these actions in the LaunchDarkly UI lets you use LaunchDarkly's comment, audit log, scheduling, flag trigger, and approval workflow features.
 * Have clear policies on what is:
   * Managed exclusively by Terraform.
@@ -117,7 +117,7 @@ This example features:
 
 The code in this example adds a flag for a new product feature. The feature's name is "FeatureX", and the product is "MyProduct". The new flag's name is "Show FeatureX".
 
-The code also specifies the flag maintainer by referencing a given team member. The flag is tagged `managed-by-terraform`, indicating to team members that they should not modify the core flag configuration in other ways.
+The code also specifies the flag maintainer by referencing a given account member. The flag is tagged `managed-by-terraform`, indicating to account members that they should not modify the core flag configuration in other ways.
 
 Here is an example:
 
@@ -149,7 +149,7 @@ resource "launchdarkly_feature_flag" "show-featurex" {
 }
 ```
 
-The code above defines the base flag configuration, but not its per-environment states, such as targeting or evaluation rules. Those are managed using a different resource: [launchdarkly_feature_flag_environment](https://www.terraform.io/docs/providers/launchdarkly/r/feature_flag_environment.html). This resource is **deliberately excluded** from the code because it allows team members to edit per-environment states in the LaunchDarkly dashboard without their changes being overwritten by updates to the Terraform configuration.
+The code above defines the base flag configuration, but not its per-environment states, such as targeting or evaluation rules. Those are managed using a different resource: [launchdarkly_feature_flag_environment](https://www.terraform.io/docs/providers/launchdarkly/r/feature_flag_environment.html). This resource is **deliberately excluded** from the code because it allows account members to edit per-environment states in the LaunchDarkly dashboard without their changes being overwritten by updates to the Terraform configuration.
 
 <Callout intent="info">
 <CalloutTitle>You can use Terraform Cloud to perform automated reviews</CalloutTitle>
@@ -164,10 +164,10 @@ If you use Terraform Cloud to perform Continuous Integration or Continuous Deplo
 
 Now that the flag’s core configuration is controlled through Terraform, you can ensure that it’s not modified by other means, such as through the LaunchDarkly UI by setting up some custom roles in LaunchDarkly.
 
-1.  Create a dedicated “terraform” user account in LaunchDarkly, which Terraform Cloud can use to perform all LaunchDarkly actions. This ensures that Terraform actions aren’t dependent on an individual team member’s LaunchDarkly account. Instead, this account belongs to the entire team. If you are on an Enterprise plan, we recommend you use a service token instead of a user account. To learn more, read [Service tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens#service-tokens).
-3.  Assign all the other team member accounts a new custom role that can’t modify certain attributes of Terraform-controlled resources. You can specify which resources those are by using a tag.
+1.  Create a dedicated “terraform” user account in LaunchDarkly, which Terraform Cloud can use to perform all LaunchDarkly actions. This ensures that Terraform actions aren’t dependent on an individual account member’s LaunchDarkly account. Instead, this account belongs to the entire team. If you are on an Enterprise plan, we recommend you use a service token instead of a user account. To learn more, read [Service tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens#service-tokens).
+3.  Assign all the other account member accounts a new custom role that can’t modify certain attributes of Terraform-controlled resources. You can specify which resources those are by using a tag.
 
-To learn more about custom roles, read [Custom roles](/home/team/custom-roles).
+To learn more about custom roles, read [Custom roles](/home/members/custom-roles).
 
 ## Conclusion
 

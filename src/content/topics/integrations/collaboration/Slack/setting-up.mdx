@@ -81,7 +81,7 @@ The first item happens for each individual user. The second item only happens on
 
 Members with the `reader` role in LaunchDarkly do not have the ability to create webhooks. If the first person to authorize the LaunchDarkly Slack app is a reader, this can cause a problem, because that user cannot create the necessary webhook.
 
-To learn more about member permissions, read [Understanding Member Roles](/home/team/managing#understanding-member-roles).
+To learn more about member permissions, read [Understanding Member Roles](/home/members/managing#understanding-member-roles).
 
 ![The Slack app, with limited permissions.](../../images/slack-ld-reader-authorization.png)
 
@@ -91,4 +91,4 @@ If a `reader` initially authorizes the Slack app, an error appears. When this ha
 ![The Slack app, displaying a webhook error.](../../images/slack-ld-failed-subscribe.png)
 
 
-To remedy this situation, the `reader`-level member should ask a team member with write permission to authorize the Slack app to communicate with LaunchDarkly. After the `writer`-level user authorizes the app, the webhook is created. All subsequent team members to authorize the Slack app will be able to subscribe to notifications.
+To remedy this situation, the `reader`-level member should ask an account member with write permission to authorize the Slack app to communicate with LaunchDarkly. After the `writer`-level user authorizes the app, the webhook is created. All subsequent account members to authorize the Slack app will be able to subscribe to notifications.

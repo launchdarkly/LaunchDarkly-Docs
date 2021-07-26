@@ -1,5 +1,5 @@
 ---
-path: '/home/team/role-create'
+path: '/home/members/role-create'
 title: 'Creating custom roles and policies'
 description: 'This topic explains how to create and implement custom roles in LaunchDarkly. Create a custom role and apply it to one or more members in your team.'
 published: true
@@ -15,14 +15,14 @@ This topic explains how to create and implement custom roles and policies in Lau
 
 If you need to use custom roles to address a scenario not covered in the documentation, you can write your own policies with the advanced editor.
 
-To learn more, read [Writing policies in the advanced editor](/home/team/role-policies#writing-policies-in-the-advanced-editor).
+To learn more, read [Writing policies in the advanced editor](/home/members/role-policies#writing-policies-in-the-advanced-editor).
 
 </CalloutDescription>
 </Callout>
 
 ## Creating a custom role
 
-Before you can give a team member custom permissions in LaunchDarkly, you must create a custom role to assign to them.
+Before you can give an account member custom permissions in LaunchDarkly, you must create a custom role to assign to them.
 
 To create a custom role:
 
@@ -48,7 +48,7 @@ Policies are sets of actions a custom role is allowed or not allowed to take. Yo
 Advanced users can write custom policies of their own with the Aadvanced editor.
 
 To learn more about writing your own
-policies, read [Using policies](/home/team/role-policies).
+policies, read [Using policies](/home/members/role-policies).
 
 </CalloutDescription>
 </Callout>
@@ -67,7 +67,7 @@ Many common LaunchDarkly items are resources, including flags, metrics, and more
 
 Click **Resource finder** to choose projects, feature flags, environments, metrics, and roles to add to your policy.
 
-To learn more, read [Finding resource IDs](/home/team/role-policies#finding-resource-ids).
+To learn more, read [Finding resource IDs](/home/members/role-policies#finding-resource-ids).
 
 </CalloutDescription>
 </Callout>
@@ -82,15 +82,15 @@ To learn more, read [Finding resource IDs](/home/team/role-policies#finding-reso
 
 ![A custom policy.](../../../../images/settings-roles-policy.png)
 
-## Giving a team member a custom role
+## Giving an account member a custom role
 
 After you have created a custom role and policies for it, you must give that role to all members to whom you wish it to apply.
 
 To give a member a custom role:
 
 1. Navigate to **Account Settings**.
-2. Click into the **Team** tab and find the team member you wish to give a custom role.
-3. Click **Edit** beside that team member's name. The member's Settings page opens:
+2. Click into the **Team** tab and find the account member you wish to give a custom role.
+3. Click **Edit** beside that account member's name. The member's Settings page opens:
 
 ![The member's Settings page.](../../../../images/settings-team-member-edit.png)
 
@@ -112,20 +112,20 @@ To give a member a custom role:
 
 You must add a custom role to one member at a time. You may not apply a role to multiple members simultaneously.
 
-For example, if you wish to add a role for the QA team, you must find each QA team member and add the role to each member individually.
+For example, if you wish to add a role for the QA team, you must find each QA account member and add the role to each member individually.
 
 </CalloutDescription>
 </Callout>
 
-## Removing a team member's custom role
+## Removing an account member's custom role
 
-If a team member changes function or needs their permissions modified, you can remove a custom role from them at any time.
+If an account member changes function or needs their permissions modified, you can remove a custom role from them at any time.
 
 To remove a custom role from a member:
 
 1. Navigate to **Account Settings**.
-2. Click into the **Team** tab and find the team member you wish to remove a custom role from.
-3. Click **Edit** beside that team member's name. The member's Settings page opens.
+2. Click into the **Team** tab and find the account member you wish to remove a custom role from.
+3. Click **Edit** beside that account member's name. The member's Settings page opens.
 4. Deselect the checkboxes for the roles you wish to remove from the member.
 5. (Optional) If you wish to return the member to a standard role, choose **Reader**, **Writer**, or **Admin / Owner** from the **Role** dropdown:
 

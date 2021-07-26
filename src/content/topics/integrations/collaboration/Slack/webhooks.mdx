@@ -7,7 +7,7 @@ published: true
 
 ## Overview
 
-This topic explains how to use the Slack webhook integration to set up [Slack Incoming Webhooks](https://api.slack.com/incoming-webhooks) to receive any activities in LaunchDarkly. When something is changed (e.g. when a feature flag is updated, when a new team member is invited to LaunchDarkly, and more) we'll send an incoming webhook to Slack.
+This topic explains how to use the Slack webhook integration to set up [Slack Incoming Webhooks](https://api.slack.com/incoming-webhooks) to receive any activities in LaunchDarkly. When something is changed (e.g. when a feature flag is updated, when a new account member is invited to LaunchDarkly, and more) we'll send an incoming webhook to Slack.
 
 <Callout intent="info">
   <CalloutTitle>New Slack app is now available</CalloutTitle>
@@ -32,7 +32,7 @@ Copy the Webhook URL, and in LaunchDarkly, navigate to the [Integrations page](h
 
 ## Adding a policy filter
 
-LaunchDarkly sends all flag change events in the production environment to a webhook by default. To customize the events LaunchDarkly sends to your Slack room, use the policy editor in the webhook creation panel. To learn more about creating a policy, read [Example policies and templates](/home/team/example-policies).
+LaunchDarkly sends all flag change events in the production environment to a webhook by default. To customize the events LaunchDarkly sends to your Slack room, use the policy editor in the webhook creation panel. To learn more about creating a policy, read [Example policies and templates](/home/members/example-policies).
 
 For example, if you want to receive an event only when a change is made to one of your production feature flags, you can add the following policy to your room notification:
 
