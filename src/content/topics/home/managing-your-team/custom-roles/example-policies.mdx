@@ -421,3 +421,152 @@ Here's a template:
 
 </CodeTabItem>
 </CodeTabs>
+
+## Template: Built-in admin role replication
+
+Because permissions are set to `deny` by default, you must explicitly allow actions for the admin role. The code snippet below is a replication of LaunchDarkly's built-in admin role. You can copy it and make adjustments as needed.
+
+Here's a template:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Admin role', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+    {
+        "resources": [
+            "proj/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "proj/:env/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "proj/:metric/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "member/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "member/:token/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "role/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "proj/:env/:flag/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "integration/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "proj/:env/:segment/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "webhook/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "proj/:env/:user/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "code-reference-repository/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "proj/:env/:destination/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "acct"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
