@@ -242,10 +242,6 @@
             "path": "/home/account-security/api-access-tokens"
           },
           {
-            "label": "Managing sessions",
-            "path": "/home/account-security/sessions"
-          },
-          {
             "label": "Single sign-on",
             "path": "/home/account-security/sso",
             "items": [
@@ -270,6 +266,14 @@
                 "path": "/home/account-security/onelogin"
               }
             ]
+          },
+          {
+            "label": "Managing sessions",
+            "path": "/home/account-security/sessions"
+          },
+          {
+            "label": "Enabling enhanced support",
+            "path": "/home/account-security/enhanced-support"
           },
           {
             "label": "Resetting your password",
