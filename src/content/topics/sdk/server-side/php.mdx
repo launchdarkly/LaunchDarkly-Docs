@@ -121,7 +121,9 @@ To learn more, read [Using the Relay Proxy in different modes](/home/relay-proxy
 
 ## Using Guzzle
 
-Require Guzzle as a dependency:
+For the latest major version of the PHP SDK, use open-ended dependencies. For older versions, refer to your version's composer.json file.
+
+To require Guzzle as a dependency: 
 
 <CodeTabs
   defaultValue="php"
@@ -132,16 +134,14 @@ Require Guzzle as a dependency:
 <CodeTabItem value="php">
 
 ```php
-php composer.phar require "guzzlehttp/guzzle:6.2.1"
-php composer.phar require "kevinrob/guzzle-cache-middleware:1.4.1"
+php composer.phar require "guzzlehttp/guzzle:^6.3.0"
+php composer.phar require "kevinrob/guzzle-cache-middleware:^1.4.0"
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-It will then be used as the default way of fetching flags.
-
-With Guzzle, you could persist your cache somewhere other than the default in-memory store, like Memcached or Redis.
+Guzzle is then used to fetch flags. You can persist your cache somewhere other than the default in-memory store, like Memcached or Redis.
 
 You could then specify your cache when initializing the client with the cache option:
 
