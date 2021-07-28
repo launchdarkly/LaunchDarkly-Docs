@@ -28,7 +28,7 @@ The prerequisites for Big Segments apply to syncing segments. To learn more, rea
 In order to sync segments, you must meet the following prerequisites:
 
 - You must have an Amplitude account with the LaunchDarkly integration enabled. Contact your Amplitude Customer Success Manager to enable the LaunchDarkly integration.
-- You must have a LaunchDarkly access token with write access for the project you want to connect to Amplitude.
+- You must have a LaunchDarkly access token with write access for the project you want to connect to Amplitude. To learn more, read [Configuring your access token](#configuring-your-access-token).
 - You must have a LaunchDarkly client-side ID for the environment you want to connect to Amplitude.
 - If you are using server-side SDKs, or client-side SDKs with the Relay Proxy, there are additional prerequisites. To learn more, read [Using Big Segments](/home/users/big-segments#using-big-segments).
 
@@ -48,7 +48,36 @@ To configure a Big Segment that syncs with an Amplitude cohort, you must choose 
 
 To do this, first [add LaunchDarkly as a destination](#adding-launchdarkly-as-a-destination) and then [sync the cohort](#sync-cohort-to-launchdarkly) to the LaunchDarkly destination.
 
-## Adding LaunchDarkly as a destination
+### Configuring your access token
+
+To add LaunchDarkly as a destination in Amplitude, you need an access token from your LaunchDarkly project. To learn how to create an access token, read [Creating API access tokens](/home/account-security/api-access-tokens#creating-api-access-tokens).
+
+Your access token must have either a `writer` or custom role:
+
+![An access token with the Writer role called out.](../../images/create-access-token.png)
+
+If your access token has a custom role, it must have the actions `createSegment` and `updateIncluded` to sync a segment from Amplitude.
+
+Below is an example of the permissions needed for your custom role:
+
+```js
+[
+  {
+    "resources": [
+      "proj/*:env/*:segment/*"
+    ],
+    "actions": [
+      "createSegment",
+      "updateIncluded"
+    ],
+    "effect": "allow"
+  }
+]
+```
+
+To learn more, read [Custom roles](https://docs.launchdarkly.com/home/members/custom-roles) and [Segments actions](https://docs.launchdarkly.com/home/members/role-actions#segments-actions).
+
+### Adding LaunchDarkly as a destination
 
 1. Log in to Amplitude and navigate to Sources & Destinations.
 
@@ -62,7 +91,7 @@ To do this, first [add LaunchDarkly as a destination](#adding-launchdarkly-as-a-
 
 ![Permission error in Amplitude](../../images/segment-amplitude-permission-error.png)
 
-  If you don't see LaunchDarkly on the destinations list, contact your Amplitude Customer Success Manager to enable the LaunchDarkly integration.
+If you don't see LaunchDarkly on the destinations list, contact your Amplitude Customer Success Manager to enable the LaunchDarkly integration.
 
 ![The Add Destination list with LaunchDarkly called out.](../../images/segments-amplitude-launchdarkly-destination.png)
 
@@ -74,7 +103,7 @@ To do this, first [add LaunchDarkly as a destination](#adding-launchdarkly-as-a-
 
 ![The Destinations tab with LaunchDarkly called out.](../../images/segments-amplitude-connected-destination.png)
 
-## Sync cohort to LaunchDarkly
+### Sync cohort to LaunchDarkly
 
 To connect a cohort to LaunchDarkly:
 
