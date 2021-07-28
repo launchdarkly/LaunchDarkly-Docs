@@ -31,29 +31,10 @@ The Relay Proxy was developed to address specific scenarios, and it works best w
 
 Those scenarios are:
 
-### You use PHP
-
-PHP's shared-nothing architecture prevents LaunchDarkly from re-using the streaming API connection across requests.
-
-You can use PHP without the Relay Proxy, but we strongly recommend using the Relay Proxy in **daemon mode** if you are using PHP in a high-throughput setting. This makes the Relay Proxy receive feature flag updates.
-
-To learn more, read [Using the Relay Proxy in different modes](/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
-
-### You want to reduce outbound connections to LaunchDarkly
-
-A large number of servers, such as thousands or tens of thousands, can present too many outbound persistent connections to LaunchDarkly's streaming API for a proxy or firewall to realistically handle.
-
-Use the Relay Proxy in **proxy mode** so your servers can connect directly to hosts in your own datacenter, instead of connecting directly to LaunchDarkly's streaming API.
-
-On an appropriately configured host, each Relay Proxy can handle tens of thousands of concurrent connections. This dramatically reduces the number of outbound connections to the LaunchDarkly streaming API.
-
-### You want to reduce redundant database traffic
-
-If you use a persistent feature store and you have a large number of servers connected to LaunchDarkly, each server attempts to update the data store when a flag update occurs. This behavior is safe, but inefficient.
-
-To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
-
-Deploy the Relay Proxy in **daemon mode** and set your LaunchDarkly SDKs to daemon mode. By doing this, you can delegate flag updates to a small number of Relay Proxy instances and reduce the number of redundant update calls to your data store.
+- **You use PHP**: PHP's shared-nothing architecture prevents LaunchDarkly from re-using the streaming API connection across requests. You can use PHP without the Relay Proxy, but we strongly recommend using the Relay Proxy in **daemon mode** if you are using PHP in a high-throughput setting. This makes the Relay Proxy receive feature flag updates. To learn more, read [Using the Relay Proxy in different modes](/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
+- **You want to reduce outbound connections to LaunchDarkly**: A large number of servers, such as thousands or tens of thousands, can present too many outbound persistent connections to LaunchDarkly's streaming API for a proxy or firewall to realistically handle. Use the Relay Proxy in **proxy mode** so your servers can connect directly to hosts in your own datacenter, instead of connecting directly to LaunchDarkly's streaming API. On an appropriately configured host, each Relay Proxy can handle tens of thousands of concurrent connections. This dramatically reduces the number of outbound connections to the LaunchDarkly streaming API.
+- ** You want to reduce redundant database traffic**: If you use a persistent data store and you have a large number of servers connected to LaunchDarkly, each server attempts to update the data store when a flag update occurs. This behavior is safe, but inefficient. Deploy the Relay Proxy in **daemon mode** and set your LaunchDarkly SDKs to daemon mode. By doing this, you can delegate flag updates to a small number of Relay Proxy instances and reduce the number of redundant update calls to your data store. To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
+- **You want to use Big Segments or sync segments from Amplitude with server-side SDKs**: If you want to use Big Segments or sync segments from Amplitude with server-side SDKs, you must use the Relay Proxy. To learn more,read [Big Segments](/home/users/big-segments) and [Syncing segments from Amplitude cohorts](/home/users/synced-segments).
 
 ## Best practices for using the Relay Proxy
 

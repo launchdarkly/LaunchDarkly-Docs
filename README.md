@@ -117,7 +117,7 @@ You can flag mdx changes with the `Feature` component defined at `src/components
 ```jsx
 <Feature flagKey="camelCasedFlagKey">
 <Callout intent="primary">
-  <CalloutTitle>Synced segments is an Enterprise feature</CalloutTitle>
+  <CalloutTitle>Syncing segments is an Enterprise feature</CalloutTitle>
   <CalloutDescription>
 
 Content to be flagged
@@ -140,7 +140,7 @@ This is useful to help us hide old content when rolling out new ones. The `showW
   <CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
   <CalloutDescription>
 
-Synced segments are only available to members of LaunchDarkly's Early Access Program...
+Syncing segments from Amplitude cohorts is only available to members of LaunchDarkly's Early Access Program...
 
   </CalloutDescription>
 </Callout>

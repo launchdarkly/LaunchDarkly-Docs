@@ -160,12 +160,18 @@
             "path": "/home/users/attributes"
           },
           {
-            "label": "Building synced segments",
-            "path": "/home/users/synced-segments"
-          },
-          {
             "label": "Building user segments",
             "path": "/home/users/segments"
+          },
+          {
+            "label": "Big Segments",
+            "path": "/home/users/big-segments",
+            "items": [
+              {
+                "label": "Syncing segments from Amplitude cohorts",
+                "path": "/home/users/synced-segments"
+              }
+            ]
           },
           {
             "label": "Anonymous users",
@@ -763,6 +769,10 @@
           {
             "label": "Aliasing users",
             "path": "/sdk/features/aliasing-users"
+          },
+          {
+            "label": "Big Segments",
+            "path": "/sdk/features/big-segments"
           },
           {
             "label": "Bootstrapping",
