@@ -191,12 +191,12 @@ If a feature event was generated through a "variation detail" method, the event 
 <CalloutTitle>Enabling index event exports</CalloutTitle>
 <CalloutDescription>
 
-By default, we do not export index events. To export index events, contact [LaunchDarkly Support](https://support.launchdarkly.com/).
+By default, LaunchDarkly does not export index events. To export index events, contact [LaunchDarkly Support](https://support.launchdarkly.com/).
 
 </CalloutDescription>
 </Callout>
 
-Index events are sent periodically to describe the attributes of users referenced by the "userKey" in `feature` events.
+Server-side SDKs send index events periodically to describe the attributes of users referenced by the "userKey" in `feature` events.
 
 An example `index` event is shown below:
 
@@ -232,14 +232,17 @@ Here is a list of index event properties:
 - `kind`: The kind of an index event is `index`.
 - `user`: The same schema as `user` objects for feature flag evaluation.
 - `creationDate`: The time this user was recorded at UNIX epoch time in milliseconds.
-  <Callout intent="info">
-    <CalloutTitle>SDKs determine when index events are sent</CalloutTitle>
-    <CalloutDescription>
-      The SDKs have internal logic that determines whether it is necessary to send an "index" event. Index events are
-      not created for every flag evaluation. If the same user (as defined by their key) is seen multiple times in
-      succession, multiple index events will not be sent.
-    </CalloutDescription>
-  </Callout>
+
+<Callout intent="info">
+<CalloutTitle>Server-side SDKs determine when to send index events</CalloutTitle>
+<CalloutDescription>
+
+Server-side SDKs have internal logic that determine whether it is necessary to send an index event. Index events are not created for every flag evaluation. If the SDKs identify the same user multiple times in succession, the SDK does not send multiple index events. The SDK identifies users based in the users' keys.
+
+</CalloutDescription>
+</Callout>
+
+Client-side SDKs do not send index events. Instead, Client-side SDKs send identify events when the SDK initalizes, which include all of the user properties.
 
 ## Identify events
 
