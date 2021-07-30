@@ -31,9 +31,9 @@ If you have a [role](https://docs.launchdarkly.com/home/team/built-in-roles) oth
 
 <blockquote>
     <h3><span>❗️</span>Modifying the Origin header causes an error</h3>
-    <p>We validate that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is <code>https://app.launchdarkly.com</code>.</p>
+    <p>We validate that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is `https://app.launchdarkly.com`.</p>
     <p>If the Origin header does not match what's expected, LaunchDarkly returns an error. This error can prevent the LaunchDarkly app from working correctly. </p>
-    <p>Any browser extension that intentionally changes the Origin header can cause this problem. For example, the <code>Allow-Control-Allow-Origin: *</code> Chrome extension changes the Origin header to http://evil.com and causes the app to fail.</p>
+    <p>Any browser extension that intentionally changes the Origin header can cause this problem. For example, the `Allow-Control-Allow-Origin: *` Chrome extension changes the Origin header to http://evil.com and causes the app to fail.</p>
     <p>To prevent this error, do not modify your Origin header.</p>
     <p>LaunchDarkly does not require origin matching when authenticating with an Access Token, so this issue does not affect normal API usage.</p>
 </blockquote>
@@ -430,5 +430,5 @@ If you would like to upgrade your integration to use a new API version, you can 
 
 <blockquote>
     <h3><span>🚧</span>API Path Versioning</h3>
-    <p>In the past, we've used path-based API versioning. For example, versioning resources by adding <code>v2</code> to endpoint URLs. We don't foresee the need to do this again, but may do so if we need to make major revisions to the API.</p>
+    <p>In the past, we've used path-based API versioning. For example, versioning resources by adding `v2` to endpoint URLs. We don't foresee the need to do this again, but may do so if we need to make major revisions to the API.</p>
 </blockquote>
