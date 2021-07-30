@@ -1,6 +1,6 @@
 <blockquote>
     <h3><span>📘</span>Data Export is an add-on feature</h3>
-    <p>Data Export is available as an add-on for customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).</p>
+    <p>Data Export is available as an add-on for customers on an Enterprise plan. To learn more, <a href="https://launchdarkly.com/pricing/">read about our pricing</a>. To upgrade your plan, <a href="https://launchdarkly.com/contact-sales/">contact Sales</a>.</p>
 </blockquote>
 
 Data Export provides a real-time export of raw analytics data, including feature flag requests, analytics events, custom events, and more. 
