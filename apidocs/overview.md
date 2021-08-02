@@ -126,7 +126,7 @@ Attributes that aren't editable, like a resource's `_links`, have names that sta
 
 ## Updates via JSON Merge Patch
 
-The API also supports the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) format, as well as the [Update feature flag](#operation/patchFeatureFlag) resource. 
+The API also supports the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) format, as well as the [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) resource. 
 
 JSON Merge Patch is less expressive than JSON Patch but in many cases, it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:
 
@@ -138,7 +138,7 @@ JSON Merge Patch is less expressive than JSON Patch but in many cases, it is sim
 
 ## Updates with comments
 
-You can submit optional comments with `PATCH` changes. The [Update feature flag](#operation/patchFeatureFlag) resource supports comments.
+You can submit optional comments with `PATCH` changes. The [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) resource supports comments.
 
 To submit a comment along with a JSON Patch document, use the following format:
 
@@ -301,7 +301,7 @@ The general class of error is indicated by the `code`. The `message` is a human-
 | 401  | Unauthorized | User doesn't have permission to an API call. | Ensure your SDK key is good. |
 | 403  | Forbidden | User does not have permission for operation. | Ensure that the user or access token has proper permissions set. |
 | 409  | Conflict | The API request could not be completed because it conflicted with a concurrent API request. | Retry your request. |
-| 429  | Too many requests | See [Rate limiting](ref:rate-limiting). | Wait and try again later. |
+| 429  | Too many requests | See [Rate limiting](/#section/Rate-limiting). | Wait and try again later. |
 
 # CORS
 
@@ -346,7 +346,7 @@ Some authenticated routes have custom rate limits. These also reset every ten se
 | `X-Ratelimit-Route-Remaining` | The maximum number of requests to the current route the account is permitted to make per ten seconds. |
 | `X-Ratelimit-Reset` | The time at which the current rate limit window resets in epoch milliseconds. |
 
-A *route* represents a specific URL pattern and verb. For example, the [Delete environment](#operation/deleteEnvironment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route. 
+A *route* represents a specific URL pattern and verb. For example, the [Delete environment](/tag/Environments#operation/deleteEnvironment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route. 
 
 We do not publicly document the specific number of calls that can be made to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limits.
 
@@ -383,7 +383,7 @@ We try to promote resources into general availability as quickly as possible. Th
 We mark beta resources with a "Beta" callout in our documentation, pictured below:
 <blockquote>
     <h3><span>📘</span>Beta</h3>
-    <p>**This feature is in beta.** You must include a specific header to use it.\n\nTo learn more, read [Beta resources](ref:beta-resources).</p>
+    <p><b>This feature is in beta.</b> You must include a specific header to use it.</br></br>To learn more, read <a href="/#section/Beta-resources">Beta resources</a>.</p>
 </blockquote>
 
 ## Using beta resources
