@@ -40,7 +40,7 @@ deliver a unified user experience. Different teams may rely on the same flags, u
 
 ## Understanding how flag hierarchy impacts deployment and release
 
-Feature flags are control points we use to change how software acts after it's deployed. You can think of the ability to feature flag as a tool, and the ways feature flags get implemented as patterns. Feature flags are tools that we implement in specific patterns with the objective of achieving a business goal, like controlling who can access a certain feature or testing UI changs on a website.
+Feature flags are control points we use to change how software acts after it's deployed. You can think of the ability to feature flag as a tool, and the ways feature flags get implemented as patterns. Feature flags are tools that we implement in specific patterns with the objective of achieving a business goal, like controlling who can access a certain feature or testing UI changes on a website.
 
 LaunchDarkly's feature flagging capabilities reflect the complex ecosystems in which they exist. You can use nested or dependent flags to do exactly what you want in a given system.
 
@@ -58,7 +58,7 @@ you are never surprised by which features are active.
 
 ## Understanding flag relationships
 
-You can think of feature flags in different ways based on their relationships to each other. It might be helpful to use the mental model of the [Keystone Pattern] (https://martinfowler.com/bliki/KeystoneInterface.html), where one flag is a keystone or required prerequisite that supports and enables other flags to do their jobs. Another pattern is "version gating", where a feature is only available if the user is on a certain version of the software. In version gating, the prerequisite is checking the software version number.
+You can think of feature flags in different ways based on their relationships to each other. It might be helpful to use the mental model of the [Keystone Pattern](https://martinfowler.com/bliki/KeystoneInterface.html), where one flag is a keystone or required prerequisite that supports and enables other flags to do their jobs. Another pattern is "version gating", where a feature is only available if the user is on a certain version of the software. In version gating, the prerequisite is checking the software version number.
 
 ### Prerequisite flags
 
