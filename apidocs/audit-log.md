@@ -1,1 +1,0 @@
-The audit log contains a record of all the changes made to any resource in the system. You can filter the audit log by timestamps, or use a custom policy to select which entries to receive.

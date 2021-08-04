@@ -1,3 +1,0 @@
-The Team Members API allows you to invite new members to a team by making a POST request to /api/v2/members.  When you invite a new member to a team, an invitation will be sent to the email you have provided.  Members with "admin" or "owner" roles may create new members, as well as anyone with a "createMember" permission for "member/*".
-
-Any member may request the complete list of team members with a GET to /api/v2/members.
