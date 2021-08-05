@@ -137,7 +137,7 @@ import LDClient from 'launchdarkly-react-native-client-sdk';
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of `LDClient`, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key (available on your [account settings page](https://app.launchdarkly.com/settings#/projects)). Mobile keys are not secret. You can expose them in your client-side code with no risk.
+Once the SDK is installed and imported, create a single, shared instance of `LDClient`, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key, available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a client-side ID. Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application. 
 
 To create a shared insteance of `LDClient`:
 
@@ -160,12 +160,11 @@ await client.configure(config, user);
 </CodeTabItem>
 </CodeTabs>
 
-
-<Callout intent="info">
-<CalloutTitle>Mobile keys</CalloutTitle>
+<Callout intent="alert">
+<CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
 <CalloutDescription>
 
-Be sure to use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into a mobile application.
+You must make feature flags available to client-side SDKs before the flags can be evaluated. If you evaluate a feature flag that is not available, you receive the default value for that flag. If you want a project's flags to be made available to this SDK by default, check the **SDKs using Mobile key** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
 
 </CalloutDescription>
 </Callout>
