@@ -99,13 +99,17 @@ If you don't see LaunchDarkly on the destinations list, contact your Amplitude C
 
 ![A permission error message in Amplitude.](../../images/segment-amplitude-permission-error.png)
 
-4. Enter a destination name and add the access token and client-side ID for your LaunchDarkly project and environment. Select a matching user property in Amplitude to map to LaunchDarkly's User Key. This will most likely be your Amplitude user ID but it depends on your [Amplitude configuration](https://help.amplitude.com/hc/en-us/articles/206404628-Step-2-Identifying-your-users):
+4. Enter a destination name and add the access token and client-side ID for your LaunchDarkly project and environment.
+
+5. Select a matching user property in Amplitude to map to LaunchDarkly's User Key. This will most likely be your Amplitude user ID but it depends on your [Amplitude configuration](https://help.amplitude.com/hc/en-us/articles/206404628-Step-2-Identifying-your-users):
 
 ![The Connect to LaunchDarkly screen.](../../images/segments-amplitude-configure-destination.png)
 
-5. Click save.
+Users in Amplitude must have a value in the field you map to the LaunchDarkly User Key to be included in a LaunchDarkly segment.
 
-6. Verify that LaunchDarkly shows as "Connected":
+6. Click save.
+
+7. Verify that LaunchDarkly shows as "Connected":
 
 ![The Cohort Destinations screen.](../../images/segments-amplitude-connected-destination.png)
 
@@ -138,14 +142,33 @@ To connect a cohort to LaunchDarkly:
 
 When the sync finishes Amplitude sends you an email and LaunchDarkly appears in the list of Destinations connected to that cohort.
 
+### Checking for missing user IDs
+
+<Callout intent="info">
+<CalloutTitle>Users missing a user ID in Amplitude are not included in the segment</CalloutTitle>
+<CalloutDescription>
+
+Users in Amplitude must have a value in the field you map to the LaunchDarkly User Key, typically the user ID, to be included in a LaunchDarkly segment. Any Amplitude users missing a value in the mapped field are not included in the LaunchDarkly segment. To learn how to view the users in a segment synced with Amplitude, read [Viewing synced Amplitude cohorts in LaunchDarkly](/home/users/synced-segments#viewing-synced-amplitude-cohorts-in-launchdarkly).
+
+</CalloutDescription>
+</Callout>
+
+To check for users in your Amplitude cohort missing user IDs, you can download a CSV file with user ID information. Here's how:
+
+1. While viewing your cohort in Amplitude, click on the export CSV button:
+
+![The Amplitude top menu with the export CSV button called out.](../../images/segment-amplitude-export-csv.png)
+
+2. Open the file. The second column is `user_id`. If you mapped `user_id` to the LaunchDarkly User Key, any user without a value in this column is not included in the LaunchDarkly segment.
+
 ## Viewing synced Amplitude cohorts in LaunchDarkly
 
-You can view your synced Amplitude cohort as a segment in LaunchDarkly. It appears in the Segments tab with the Amplitude logo in its name.
-
-Here is an image of the Segments dashboard:
+You can view your synced Amplitude cohort as a segment in LaunchDarkly. It appears in the Segments tab with the Amplitude logo in its name:
 
 ![The Segments dashboard with the Amplitude-driven segment called out.](../../images/segments-amplitude-dashboard-callout.png)
 
-Click into that segment to see details about its targeting. You can't edit rules for a Big Segment synced with an Amplitude cohort because they are managed by Amplitude.
+Click into that segment to see details about its targeting:
 
 ![The synced segment's details screen.](../../images/segments-amplitude-sync-in-ld.png)
+
+You can't edit rules for a Big Segment synced with an Amplitude cohort because they are managed by Amplitude.
