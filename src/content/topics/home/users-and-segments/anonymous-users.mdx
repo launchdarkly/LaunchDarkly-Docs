@@ -9,7 +9,9 @@ published: true
 
 This topic explains what anonymous users are, how their information is handled in LaunchDarkly, and how they contribute to your Monthly Active Users (MAU) count.
 
-Anonymous users are identical to regular users, but they are not stored in your dashboard. You can designate any user as an anonymous user. One of the primary reasons that users are sent anonymously is to avoid unauthenticated users diluting the useful data in the user dashboard.
+The most common reason to designate anonymous users is to prevent unauthenticated users from diluting useful data in the Users dashboard. Anonymous users work just like regular users, except that they don't appear on your Users page in LaunchDarkly. You can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. Anonymous users still count toward your MAU limit.
+
+You can designate any user as an anonymous user. If you don't want anonymous users to count toward your MAU, you can assign all anonymous users the same shared user key. If you don't specify a key attribute, the SDK generates a random user key for them.
 
 <Callout intent="info">
 <CalloutTitle>Ensuring user privacy</CalloutTitle>

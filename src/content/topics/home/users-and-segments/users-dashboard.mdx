@@ -13,7 +13,7 @@ The Users dashboard gives you a summary view of how each user sees all of the fe
 
 ## Understanding the Users dashboard
 
-The Users dashboard populates automatically when users encounter a feature flag and are evaluated by a LaunchDarkly SDK. The data on the User dashboard is populated from the user data you send in `variation` calls, as well as data from `identify` calls.
+The Users dashboard populates automatically when users encounter a feature flag and are evaluated by a LaunchDarkly SDK. The data on the User dashboard is populated from the user data you send in `variation` calls, as well as data from `identify` calls. To learn more about users and user attributes, read [Understanding user attributes](/home/users/attributes#understanding-user-attributes).
 
 <Callout intent="alert">
 <CalloutTitle>You cannot add users manually</CalloutTitle>
@@ -32,13 +32,17 @@ Here is an screenshot of the Users dashboard:
 
 ![The Users dashboard.](../../images/users.png)
 
-Users live in the dashboard for 30 days from creation. If a user does not evaluate a feature flag within 30 days, they age out of the system and their information no longer appears in the Users dashboard. Those users can reappear on the dashboard when they evaluate a feature flag, provided your account has not reached the maximum number of users.
-
-All accounts are limited to 100,000,000 users. If you hit the 100,000,000 users limit, new users don't appear in the Users dashboard until stale users age out of the 30-day user cache. Users that evaluate a feature flag within 30 days of initial population don't age out of the system. If you stop creating large amounts of users at once, 30 days later those stale users are removed.
-
 You can sort the list to identify the oldest or most recent users in your LaunchDarkly account. By default, the most recently active users appear first. Click the toggle arrow to sort the **Last Seen** column to sort the dashboard by least recently active users.
 
 To learn more about how the Users dashboard is populated, and how you might exceed the 100,000,000 user limit, read [Anonymous users](/home/users/anonymous-users).
+
+## User storage
+
+The Users page shows only cached user information. Users live in the dashboard for 30 days from creation. If a user does not evaluate a feature flag within 30 days, they age out of the system and their information no longer appears in the Users dashboard. Those users reappear on the dashboard when they evaluate a feature flag again, provided your account has not reached the maximum number of users. 
+
+If you want to keep users on the dashboard that are calling variations less frequently than every 30 days, you can manually call identify for all of the users that you wish to retain. To learn how to do this in your SDK, read [Identifying and changing users](/sdk/features/identify).
+
+All accounts are limited to 100,000,000 users. If you reach the 100,000,000 users limit, new users don't appear in the Users dashboard until stale users age out of the 30-day user cache. Users that evaluate a feature flag within 30 days of initial population don't age out of the system. If you stop creating large amounts of users at once, 30 days later those stale users are removed.
 
 <Callout intent="info">
 <CalloutTitle>Do you need more users?</CalloutTitle>
