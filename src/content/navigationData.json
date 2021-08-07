@@ -1030,7 +1030,13 @@
           },
           {
             "label": "PHP SDK reference",
-            "path": "/sdk/server-side/php"
+            "path": "/sdk/server-side/php",
+            "items": [
+              {
+                "label": "PHP SDK 3.x to 4.0 migration guide",
+                "path": "/sdk/server-side/php/migration-3-to-4"
+              }
+            ]
           },
           {
             "label": "Python SDK reference",

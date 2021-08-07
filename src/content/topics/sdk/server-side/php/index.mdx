@@ -11,7 +11,9 @@ This reference guide documents all of the methods available in the PHP SDK, and 
 <CalloutTitle>Requirements</CalloutTitle>
 <CalloutDescription>
 
-PHP 5.5 or higher.
+Version 4.0 or higher of the SDK requires PHP 7.3 or higher.
+
+For older versions of PHP, use version 3.x of the SDK.
 
 </CalloutDescription>
 </Callout>
@@ -106,8 +108,8 @@ In our [Getting Started guide](/home/getting-started) we recommend that users sh
 
 There are two distinct methods of integrating LaunchDarkly in a PHP environment:
 
-- [The Relay Proxy](/home/relay-proxy) retrieves and store flags in Redis (recommended)
-- [Guzzle Cache Middleware](https://github.com/Kevinrob/guzzle-cache-middleware) requests and caches HTTP responses in an in-memory array (default)
+- [The Relay Proxy](/home/relay-proxy) retrieves and store flags in [Redis](/sdk/features/storing-data/redis), [DynamoDB](/sdk/features/storing-data/dynamodb), or [Consul](/sdk/features/storing-data/consul). This is the recommended method.
+- [Guzzle Cache Middleware](https://github.com/Kevinrob/guzzle-cache-middleware) requests and caches HTTP responses in an in-memory array. This is the default method.
 
 We strongly suggest using the Relay Proxy. Per-flag caching mode using Guzzle is only intended for low-throughput environments.
 
@@ -173,4 +175,5 @@ This SDK supports the following features:
 * [Offline mode](/sdk/features/offline-mode#php)
 * [Secure mode](/sdk/features/secure-mode#php)
 * [Sending custom events](/sdk/features/events#php)
+* [Storing data](/sdk/features/storing-data#nodejs-server-side)
 * [User configuration](/sdk/features/user-config#php)
