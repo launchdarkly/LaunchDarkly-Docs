@@ -703,8 +703,16 @@
             "path": "/integrations/bitbucket-pipelines"
           },
           {
+            "label": "Heap",
+            "path": "/integrations/heap"
+          },
+          {
             "label": "LogDNA",
             "path": "/integrations/logdna"
+          },
+          {
+            "label": "Pendo",
+            "path": "/integrations/pendo"
           },
           {
             "label": "Release",
