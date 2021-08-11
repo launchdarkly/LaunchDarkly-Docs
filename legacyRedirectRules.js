@@ -1,59 +1,9 @@
 module.exports = [
-  // Redirects from renaming "teams" category to "members"
-  {
-    fromPath: '/home/team/role-actions',
-    toPath: '/home/members/role-actions',
-  },
-  {
-    fromPath: '/home/team/role-policies',
-    toPath: '/home/members/role-policies',
-  },
-  {
-    fromPath: '/home/team/role-tags',
-    toPath: '/home/members/role-tags',
-  },
-  {
-    fromPath: '/home/team/role-resources',
-    toPath: '/home/members/role-resources',
-  },
-  {
-    fromPath: '/home/team/example-policies',
-    toPath: '/home/members/example-policies',
-  },
-  {
-    fromPath: '/home/team/role-create',
-    toPath: '/home/members/role-create',
-  },
-  {
-    fromPath: '/home/team/role-concepts',
-    toPath: '/home/members/role-concepts',
-  },
-  {
-    fromPath: '/home/team/custom-roles',
-    toPath: '/home/members/custom-roles',
-  },
-  {
-    fromPath: '/home/team/account-owners',
-    toPath: '/home/members/account-owners',
-  },
-  {
-    fromPath: '/home/team/built-in-roles',
-    toPath: '/home/members/built-in-roles',
-  },
-  {
-    fromPath: '/home/team/managing',
-    toPath: '/home/members/managing',
-  },
-  {
-    fromPath: '/home/team/',
-    toPath: '/home/members',
-  },
-  {
-    fromPath: '/home/getting-started/your-team',
-    toPath: '/home/getting-started/your-account',
-  },
-
   // Redirects within the git-gatsby docs site
+  {
+    fromPath: '/guides/tutorials/first-flag',
+    toPath: '/guides/tutorials/sdk-flag',
+  },
   {
     fromPath: '/sdk/concepts/flags-from-files',
     toPath: '/sdk/features/flags-from-files',
@@ -357,6 +307,60 @@ module.exports = [
   {
     fromPath: '/integrations/code-references/bitbucket-pipes',
     toPath: '/home/code/bitbucket',
+  },
+
+  // Redirects from renaming "teams" category to "members"
+  {
+    fromPath: '/home/team/role-actions',
+    toPath: '/home/members/role-actions',
+  },
+  {
+    fromPath: '/home/team/role-policies',
+    toPath: '/home/members/role-policies',
+  },
+  {
+    fromPath: '/home/team/role-tags',
+    toPath: '/home/members/role-tags',
+  },
+  {
+    fromPath: '/home/team/role-resources',
+    toPath: '/home/members/role-resources',
+  },
+  {
+    fromPath: '/home/team/example-policies',
+    toPath: '/home/members/example-policies',
+  },
+  {
+    fromPath: '/home/team/role-create',
+    toPath: '/home/members/role-create',
+  },
+  {
+    fromPath: '/home/team/role-concepts',
+    toPath: '/home/members/role-concepts',
+  },
+  {
+    fromPath: '/home/team/custom-roles',
+    toPath: '/home/members/custom-roles',
+  },
+  {
+    fromPath: '/home/team/account-owners',
+    toPath: '/home/members/account-owners',
+  },
+  {
+    fromPath: '/home/team/built-in-roles',
+    toPath: '/home/members/built-in-roles',
+  },
+  {
+    fromPath: '/home/team/managing',
+    toPath: '/home/members/managing',
+  },
+  {
+    fromPath: '/home/team/',
+    toPath: '/home/members',
+  },
+  {
+    fromPath: '/home/getting-started/your-team',
+    toPath: '/home/getting-started/your-account',
   },
 
   // Redirects from the readme-hosted docs site

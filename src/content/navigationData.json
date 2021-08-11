@@ -1111,8 +1111,8 @@
         "svg": "atom",
         "items": [
           {
-            "label": "Creating your first flag",
-            "path": "/guides/tutorials/first-flag"
+            "label": "Configuring an SDK and creating a flag",
+            "path": "/guides/tutorials/sdk-flag"
           },
           {
             "label": "Flag rules and targeting",

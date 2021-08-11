@@ -1,6 +1,6 @@
 ---
-path: '/guides/tutorials/first-flag'
-title: 'Creating your first flag'
+path: '/guides/tutorials/sdk-flag'
+title: 'Configuring an SDK and creating a flag'
 description: 'This guide explains how to create your first flag in LaunchDarkly and use
 it to control how a feature is released to users.'
 published: true
@@ -8,8 +8,9 @@ published: true
 
 # Overview
 
-This guide explains how to create your first flag in LaunchDarkly and use
-it to control how that feature is released to users. Feature management starts with flags. Feature flags wrap your code and give you
+This guide explains how to set up an SDK and create a flag in LaunchDarkly. The exercise in this guide shows you how to use a flag to control how that feature is released to users.
+
+Feature management starts with flags. Feature flags wrap your code and give you
 the ability to release your feature in a safe and controlled way.
 
 In this guide, you will use Glitch to complete the process of creating a flag in LaunchDarkly,
@@ -30,9 +31,7 @@ To complete this guide, you must have the following prerequisites:
 * Basic knowledge of the Python and Javascript programming languages. You need these to complete the exercises in this guide.
 * Access to [Glitch](https://glitch.com/about).
 
-<LearnMore>
-  <LearnMoreLink to="https://glitch.com/create">How to use Glitch</LearnMoreLink>
-</LearnMore>
+To learn more, read [How to use Glitch](https://glitch.com/create).
 
 # Concepts
 
@@ -131,12 +130,9 @@ your users so you can target specific users with your new feature.
 The third property, `default-variation`, is the value that the flag defaults to if `ldclient` encounters an error. For example, if the feature flag key doesn't
 exist or the user doesn't have a key specified, LaunchDarkly returns the default flag variation.
 
-<LearnMore>
-  <LearnMoreLink to="/home/flags/variations">Variations</LearnMoreLink>
-  <LearnMoreLink to="/docs/targeting-users">Targeting users</LearnMoreLink>
-</LearnMore>
+To learn more, read [Targeting users](/docs/targeting-users) and [Variations](/home/flags/variations).
 
-# Exercise: Using the LaunchDarkly SDK
+## Exercise: Using the LaunchDarkly SDK
 
 In this exercise, we'll implement a pricing page on a mock online store. You will introduce a new pricing tier, wrap the code for it in a feature flag, and release it to users by enabling the flag.
 
@@ -146,7 +142,7 @@ Here is an image of the Glitch app:
 
 ![Space Camp pricing page](../../../space-camp-pricing-page-0.png)
 
-## Remixing the lab app
+### Remixing the lab app
 
 You must remix the Glitch project embedded below to create an editable copy of the Python web app. **Remixing** is Glitch's term for cloning a project. This creates an editable copy of the Python web app we use for this exercise.
 
@@ -178,7 +174,7 @@ To switch between them:
 
 3. Confirm that you can switch between the code and the app view.
 
-## Setting up your LaunchDarkly project and environment
+### Setting up your LaunchDarkly project and environment
 
 You must set up a LaunchDarkly project and environment where your flags will live. Create a new project or use an existing one in your account.
 
@@ -192,7 +188,7 @@ To create a new project:
 
 ![The Account Settings page in LaunchDarkly with environment SDK keys called out.](../../../images/space-camp-projects.png)
 
-## Configuring the LaunchDarkly SDK key in your app
+### Configuring the LaunchDarkly SDK key in your app
 
 Glitch lets you store environment variables, such as secrets or config variables, that your app can read from memory. This is a more secure practice than hard-coding these directly into your code.
 
@@ -222,7 +218,7 @@ LD_SDK_KEY=<PASTE-YOUR-SDK-KEY-HERE>
 
 ![The .env file in Glitch.](../../../images/dot-env.png)
 
-## Installing the Python SDK in your code
+### Installing the Python SDK in your code
 
 Now you must install the LaunchDarkly Python SDK in your Python code. To do this, add the LaunchDarkly Python SDK as a dependency to the Python app by adding the following line to the `requirements` file.
 
@@ -257,7 +253,7 @@ If you configured the Python SDK correctly, you will see a message indicating th
 
 <iframe src="https://drive.google.com/file/d/1VVmHqHSDnNBXkZgd2jIXx1Hq9B7eAFgA/preview" width="100%" height="410" allowfullscreen></iframe>
 
-## Initializing the LaunchDarkly client
+### Initializing the LaunchDarkly client
 
 After you install the SDK, you can import the LaunchDarkly client into your code and initialize it.
 
@@ -310,7 +306,7 @@ ld_client = ldclient.get()
 
 You've initialized the `ldclient`. Next, use the client to wrap your app's new pricing tier inside a flag.
 
-## Creating a new flag
+### Creating a new flag
 
 Before you add code to the pricing page, create a new flag in your project. Name the flag `pricing-tier-3`.
 
@@ -333,7 +329,7 @@ The new flag is pictured below:
 
 ![The pricing-tier-3 flag](../../images/pricing-tier-3-flag.png)
 
-## Adding a new pricing tier
+### Adding a new pricing tier
 
 You're now ready to add the new pricing tier to the pricing page. To do this, you'll add the HTML for the new page to your app, but only after wrapping it in a feature flag so only intended users can see it.
 
@@ -389,7 +385,7 @@ It uses the following HTML:
 
 This HTML is also available in your Glitch app, in **views/** > `tier_3.html`.
 
-## Wrapping the pricing page code in a flag
+### Wrapping the pricing page code in a flag
 
 Now you wrap the HTML for the new pricing page in a flag. This prevents anyone who is not targeted by the flag from seeing the new pricing page.
 
@@ -496,7 +492,7 @@ After you've implemented the changes above, refresh the browser with your Glitch
 
 Verify that the new tier is not enabled. The pricing page should not show the new pricing option yet.
 
-## Turning your feature on
+### Turning your feature on
 
 Now that you've wrapped your feature in a flag, it's time to turn your feature on. This will make the new pricing option appear in your app.
 
@@ -514,7 +510,7 @@ Here is a video showing how to turn on your feature:
 <br/>
 <br/>
 
-# Conclusion
+## Conclusion
 
 In this tutorial, you learned to:
 
