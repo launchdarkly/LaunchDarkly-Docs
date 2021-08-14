@@ -220,14 +220,14 @@ After calling `start`, the `LDClient` instance can be retrieved with the static 
 <CodeTabItem value="swift">
 
 ```swift
-let ldClient = LDClient.get()!
+let client = LDClient.get()!
 ```
 
 </CodeTabItem>
 <CodeTabItem value="objc">
 
 ```objectivec
-LDClient *ldClient = [LDClient get];
+LDClient *client = [LDClient get];
 ```
 
 </CodeTabItem>
@@ -257,7 +257,7 @@ Using the `LDClient` instance, you can check which variation the configured user
 <CodeTabItem value="swift">
 
 ```swift
-let showFeature = ldClient.variation(forKey: "flag-key", defaultValue: false)
+let showFeature = client.variation(forKey: "flag-key", defaultValue: false)
 
 if showFeature {
   // application code to show the feature
@@ -270,7 +270,7 @@ else {
 <CodeTabItem value="objc">
 
 ```objectivec
-BOOL showFeature = [ldClient boolVariationForKey:@"flag-key" defaultValue:NO];
+BOOL showFeature = [client boolVariationForKey:@"flag-key" defaultValue:NO];
 if (showFeature) {
     // application code to show the feature
 } else {

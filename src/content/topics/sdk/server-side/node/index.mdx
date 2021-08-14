@@ -73,7 +73,7 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
-ldClient = LaunchDarkly.init("YOUR_SDK_KEY");
+client = LaunchDarkly.init("YOUR_SDK_KEY");
 ```
 
 </CodeTabItem>
@@ -90,7 +90,7 @@ It's important to make this a singleton. The client instance maintains internal 
 
 The client will emit a `ready` event when it has been initialized and can serve feature flags.
 
-Using `ldClient`, you can check which variation a particular user should receive for a given feature flag. Note that the `ready` event is _only_ emitted once - when the client first initializes. In a production application you should place your `ldClient.variation` code so that it is invoked as desired.
+Using `client`, you can check which variation a particular user should receive for a given feature flag. Note that the `ready` event is _only_ emitted once - when the client first initializes. In a production application you should place your `client.variation` code so that it is invoked as desired.
 
 Here is an example:
 
@@ -103,8 +103,8 @@ Here is an example:
 <CodeTabItem value="js">
 
 ```js
-ldClient.once("ready", () => {
-  ldClient.variation("your.flag.key", {"key": "user@test.com"}, false,
+client.once("ready", () => {
+  client.variation("your.flag.key", {"key": "user@test.com"}, false,
     (err, showFeature) => {
       if (showFeature) {
         // application code to show the feature
@@ -118,7 +118,7 @@ ldClient.once("ready", () => {
 </CodeTabItem>
 </CodeTabs>
 
-Lastly, when your application is about to terminate, shut down `ldClient`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+Lastly, when your application is about to terminate, shut down `client`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
 
 Here's how:
 
@@ -139,8 +139,8 @@ Here's how:
 // Again, in a real application, this step is something you would only do when the application is
 // about to quit, not after every call to variation().
 
-ldClient.once("ready", () => {
-  ldClient.variation("your.flag.key", {"key": "user@test.com"}, false,
+client.once("ready", () => {
+  client.variation("your.flag.key", {"key": "user@test.com"}, false,
     (err, showFeature) => {
       if (showFeature) {
         // application code to show the feature
@@ -149,7 +149,7 @@ ldClient.once("ready", () => {
       }
 
       // ADDED: shut down the client, since we're about to quit
-      ldClient.close();
+      client.close();
     });
 });
 ```
@@ -173,12 +173,12 @@ Here is an example:
 
 ```js
 // Using the .then() method to add a continuation handler for a Promise
-ldClient.variation("any.feature.flag", user, false).then((value) => {
+client.variation("any.feature.flag", user, false).then((value) => {
   // application code
 });
 
 // Using "await" instead, within an async function
-var value = await ldClient.variation("any.feature.flag", user, false);
+var value = await client.variation("any.feature.flag", user, false);
 ```
 
 </CodeTabItem>
@@ -196,7 +196,7 @@ There is also an alternative to the `ready` event:
 
 ```js
 // Using .then() and .catch() to add success and error handlers to a Promise
-ldClient.waitForInitialization().then((client) => {
+client.waitForInitialization().then((client) => {
   // initialization complete
 }).catch((err) => {
   // initialization failed
@@ -204,7 +204,7 @@ ldClient.waitForInitialization().then((client) => {
 
 // Using "await" instead, within an async function
 try {
-  await ldClient.waitForInitialization();
+  await client.waitForInitialization();
   // initialization complete
 } catch (err) {
   // initialization failed

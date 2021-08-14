@@ -784,7 +784,7 @@ const user = {
   email: "gracehopper@example.com"
 };
 
-const ldClient = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
+const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
   allAttributesPrivate: true
 });
 ```
@@ -814,7 +814,7 @@ const user = {
   privateAttributeNames: ["email"]
 };
 
-const ldClient = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
+const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
   privateAttributeNames: ["email"]
 });
 ```

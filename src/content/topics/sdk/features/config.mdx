@@ -164,21 +164,9 @@ This code sample shows you how to create a custom configuration object to pass c
 <CodeTabItem value="js">
 
 ```js
-var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
+var client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
   allAttributesPrivate: true
 });
-```
-
-</CodeTabItem>
-<CodeTabItem value="js">
-
-```js
-const options = {
-  flushInterval: 10000,
-  allAttributesPrivate: true
-};
-
-const ldClient = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>
@@ -203,7 +191,7 @@ const options = {
   allAttributesPrivate: true
 };
 
-const ldClient = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>
@@ -321,7 +309,7 @@ Configuration config = LaunchDarkly.Client.Configuration
     .Builder("YOUR_SDK_KEY")
     .EventFlushInterval(TimeSpan.FromSeconds(2))
     .Build();
-LdClient ldClient = LdClient.Init(config, user);
+LdClient client = LdClient.Init(config, user);
 ```
 
 </CodeTabItem>
@@ -365,7 +353,7 @@ var config = Configuration.Builder("YOUR_SDK_KEY")
         Components.SendEvents().FlushInterval(TimeSpan.FromSeconds(2))
     )
     .Build();
-var ldClient = new LdClient(config);
+var client = new LdClient(config);
 ```
 
 </CodeTabItem>
@@ -375,7 +363,7 @@ var ldClient = new LdClient(config);
 var config = Configuration.Builder("YOUR_SDK_KEY")
     .EventFlushInterval(TimeSpan.FromSeconds(2))
     .Build();
-var ldClient = new LdClient(config);
+var client = new LdClient(config);
 ```
 
 </CodeTabItem>
@@ -497,7 +485,7 @@ var config ld.Config
 
 config.Events = ldcomponents.SendEvents().FlushInterval(10 * time.Second)
 
-ldClient := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
+client := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 ```
 
 </CodeTabItem>
@@ -513,7 +501,7 @@ config := ld.DefaultConfig
 
 config.FlushInterval = 10 * time.Second
 
-ldClient := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
+client := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 ```
 
 </CodeTabItem>
@@ -582,7 +570,7 @@ LDConfig config = new LDConfig.Builder()
       .flushInterval(Duration.ofSeconds(10))
   )
   .build();
-LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
+LDClient client = new LDClient("YOUR_SDK_KEY", config);
 ```
 
 </CodeTabItem>
@@ -594,7 +582,7 @@ LDConfig config = new LDConfig.Builder()
   .socketTimeout(3)
   .flushInterval(10)
   .build();
-LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
+LDClient client = new LDClient("YOUR_SDK_KEY", config);
 ```
 
 </CodeTabItem>
@@ -654,7 +642,7 @@ This code sample shows you how to pass custom parameters to the client by creati
 
 ```js
 var config = {"timeout": 3};
-ldClient = LaunchDarkly.init("YOUR_SDK_KEY", config);
+client = LaunchDarkly.init("YOUR_SDK_KEY", config);
 ```
 
 </CodeTabItem>
@@ -747,7 +735,7 @@ To create a custom configuration object:
 
 ```ruby
 config = LaunchDarkly::Config.new({connect_timeout: 1, read_timeout: 1})
-ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
+client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
 ```
 
 </CodeTabItem>

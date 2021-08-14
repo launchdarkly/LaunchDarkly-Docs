@@ -87,13 +87,13 @@ const user = {
   key: "aa0ceb"
 };
 
-const ldClient = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user);
+const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user);
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-The client will emit a `ready` event when it has been initialized. You can also use the `waitForInitialization()` method, which returns a Promise. Once it has been initialized, you can safely call `variation` to access your feature flags. The `ready` event is only emitted once, when the client first initializes. In a production application, your calls to `ldClient.variation` would normally not be inside of this event handler.
+The client will emit a `ready` event when it has been initialized. You can also use the `waitForInitialization()` method, which returns a Promise. Once it has been initialized, you can safely call `variation` to access your feature flags. The `ready` event is only emitted once, when the client first initializes. In a production application, your calls to `client.variation` would normally not be inside of this event handler.
 
 To emit a `ready` event:
 
@@ -106,10 +106,10 @@ To emit a `ready` event:
 <CodeTabItem value="js">
 
 ```js
-ldClient.on('ready', () => {
+client.on('ready', () => {
   console.log("It's now safe to request feature flags");
 
-  const showFeature = ldClient.variation("YOUR_FEATURE_KEY", false);
+  const showFeature = client.variation("YOUR_FEATURE_KEY", false);
 
   if (showFeature) {
     ...
@@ -126,7 +126,7 @@ ldClient.on('ready', () => {
 <CalloutTitle>Streaming updates</CalloutTitle>
 <CalloutDescription>
 
-The SDK does not subscribe to streaming real-time updates automatically when it is initialized. Setting the `streaming` option to `true` in the client configuration causes the SDK to open a streaming connection to LaunchDarkly and receive live feature flag updates. You can also specify an event handler with `ldClient.on('change')` to be notified immediately when a flag changes.
+The SDK does not subscribe to streaming real-time updates automatically when it is initialized. Setting the `streaming` option to `true` in the client configuration causes the SDK to open a streaming connection to LaunchDarkly and receive live feature flag updates. You can also specify an event handler with `client.on('change')` to be notified immediately when a flag changes.
 
 </CalloutDescription>
 </Callout>

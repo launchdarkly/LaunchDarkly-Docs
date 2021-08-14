@@ -53,14 +53,14 @@ The `allFlags` method produces a map of feature flag keys to their values for a 
 <CodeTabItem value="java">
 
 ```java
-ldClient.allFlags();
+client.allFlags();
 ```
 
 </CodeTabItem>
 <CodeTabItem value="kotlin">
 
 ```kotlin
-ldClient.allFlags()
+client.allFlags()
 ```
 
 </CodeTabItem>
@@ -195,7 +195,7 @@ The `AllFlags` method produces a map of feature flag keys to their values for th
 <CodeTabItem value="csharp">
 
 ```csharp
-ldClient.AllFlags();
+client.AllFlags();
 ```
 
 </CodeTabItem>
@@ -235,7 +235,7 @@ To use the all flags feature:
 <CodeTabItem value="csharp">
 
 ```csharp
-var state = ldClient.AllFlagsState(user);
+var state = client.AllFlagsState(user);
 ```
 
 </CodeTabItem>
@@ -328,14 +328,14 @@ import (
     "gopkg.in/launchdarkly/go-server-sdk.v5/interfaces/flagstate"
 )
 
-state := ldClient.AllFlagsState(user, flagstate.OptionClientSideOnly())
+state := client.AllFlagsState(user, flagstate.OptionClientSideOnly())
 ```
 
 </CodeTabItem>
 <CodeTabItem value="go-pre-5.0">
 
 ```go
-state := ldClient.AllFlagsState(user, ld.ClientSideOnly)
+state := client.AllFlagsState(user, ld.ClientSideOnly)
 ```
 
 </CodeTabItem>
@@ -379,7 +379,7 @@ To use the all flags feature:
 <CodeTabItem value="java">
 
 ```java
-FeatureFlagsState state = ldClient.allFlagsState(user);
+FeatureFlagsState state = client.allFlagsState(user);
 ```
 
 </CodeTabItem>
@@ -421,7 +421,7 @@ To use the all flags feature:
 <CodeTabItem value="js">
 
 ```js
-ldClient.allFlagsState(user, (err, flagsState) => {
+client.allFlagsState(user, (err, flagsState) => {
   // this object can be converted to JSON or can be queried for flag values
 });
 ```
@@ -492,7 +492,7 @@ To use the all flags feature:
 <CodeTabItem value="ruby">
 
 ```ruby
-state = ld_client.all_flags_state(user)
+state = client.all_flags_state(user)
 ```
 
 </CodeTabItem>

@@ -95,7 +95,7 @@ Here's how:
 <CodeTabItem value="java">
 
 ```java
-LDClient ldClient = new LDClient("YOUR_SDK_KEY");
+LDClient client = new LDClient("YOUR_SDK_KEY");
 ```
 
 </CodeTabItem>
@@ -110,7 +110,7 @@ It's important to make this a singleton. Internally, the client instance maintai
 </CalloutDescription>
 </Callout>
 
-Using `ldClient`, you can check which variation a particular user should receive for a given feature flag:
+Using `client`, you can check which variation a particular user should receive for a given feature flag:
 
 <CodeTabs
   defaultValue="java"
@@ -122,7 +122,7 @@ Using `ldClient`, you can check which variation a particular user should receive
 
 ```java
 LDUser user = new LDUser("user@test.com");
-boolean showFeature = ldClient.boolVariation("your.feature.key", user, false);
+boolean showFeature = client.boolVariation("your.feature.key", user, false);
 if (showFeature) {
   // application code to show the feature
 }
@@ -134,7 +134,7 @@ else {
 </CodeTabItem>
 </CodeTabs>
 
-Lastly, when your application is about to terminate, shut down `ldClient` with [`close()`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#close--). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+Lastly, when your application is about to terminate, shut down `client` with [`close()`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#close--). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
 
 Here's how:
 
@@ -148,7 +148,7 @@ Here's how:
 
 ```java
 // shut down the client, since we're about to quit
-ldClient.close();
+client.close();
 ```
 
 </CodeTabItem>
@@ -206,7 +206,7 @@ This SDK supports the following features:
 
 * [Configuration](/sdk/features/config#java)
 * [Evaluating flags](/sdk/features/evaluating#java)
-* [Flag evaluation reasons](/sdk/features/variationdetail#java)
+* [Flag evaluation reasons](/sdk/features/evaluation-reasons#java)
 * [Flushing events](/sdk/features/flush#java)
 * [Getting all flags](/sdk/features/all-flags#java)
 * [Identifying and changing users](/sdk/features/identify#java)

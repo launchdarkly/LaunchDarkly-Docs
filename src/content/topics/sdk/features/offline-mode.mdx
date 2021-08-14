@@ -51,25 +51,25 @@ LDConfig ldConfig = new LDConfig.Builder()
     .setOffline(true)
     .build();
 
-LDClient ldClient = LDClient.init(this.getApplication(), ldConfig, user);
+LDClient client = LDClient.init(this.getApplication(), ldConfig, user);
 
 // Or to switch an already-instantiated client to offline mode:
-ldClient.setOffline();
+client.setOffline();
 ```
 
 </CodeTabItem>
 <CodeTabItem value="kotlin">
 
 ```kotlin
-val ldConfig: LDConfig = LDConfig.Builder()
+val config: LDConfig = LDConfig.Builder()
     .setMobileKey("YOUR_MOBILE_KEY")
     .setOffline(true)
     .build()
 
-val ldClient: LDClient = LDClient.init(application, ldConfig, user);
+val client: LDClient = LDClient.init(application, ldConfig, user);
 
 // Or to switch an already-instantiated client to offline mode:
-ldClient.setOffline()
+client.setOffline()
 ```
 
 </CodeTabItem>
@@ -304,8 +304,8 @@ Here's how:
 var config ld.Config
 config.Offline = true
 
-ldClient, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
-ldClient.BoolVariation("any.feature.flag", user, false) // will always return the default value (false)
+client, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
+client.BoolVariation("any.feature.flag", user, false) // will always return the default value (false)
 ```
 
 </CodeTabItem>
@@ -315,8 +315,8 @@ ldClient.BoolVariation("any.feature.flag", user, false) // will always return th
 config := ld.DefaultConfig
 config.Offline = true
 
-ldClient, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
-ldClient.BoolVariation("any.feature.flag", user, false) // will always return the default value (false)
+client, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
+client.BoolVariation("any.feature.flag", user, false) // will always return the default value (false)
 ```
 
 </CodeTabItem>
@@ -363,10 +363,10 @@ Here's how:
 LDConfig config = new LDConfig.Builder()
   .offline(true)
   .build();
-LDClient ldClient = new LDClient("YOUR_SDK_KEY", config);
-ldClient.boolVariation("any.feature.flag", user, false)
+LDClient client = new LDClient("YOUR_SDK_KEY", config);
+client.boolVariation("any.feature.flag", user, false)
 
-// This call to ldClient.boolVariation always
+// This call to client.boolVariation always
 // returns the default value (false)
 
 ```
@@ -390,8 +390,8 @@ Here's how:
 
 ```js
 var config = {"offline": true};
-ldClient = LaunchDarkly.init("YOUR_SDK_KEY", config);
-ldClient.variation("any.feature.flag", user, false, cb) // cb will always be invoked with the default value (false)
+client = LaunchDarkly.init("YOUR_SDK_KEY", config);
+client.variation("any.feature.flag", user, false, cb) // cb will always be invoked with the default value (false)
 
 ```
 
@@ -462,8 +462,8 @@ Here's how:
 
 ```ruby
 config = LaunchDarkly::Config.new({offline: true})
-ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
-ld_client.variation("any.feature.flag", user, false) # will always return the default value (false)
+client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
+client.variation("any.feature.flag", user, false) # will always return the default value (false)
 ```
 
 </CodeTabItem>

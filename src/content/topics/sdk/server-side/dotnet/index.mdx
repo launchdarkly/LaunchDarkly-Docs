@@ -94,7 +94,7 @@ To create a single instance:
 <CodeTabItem value="csharp">
 
 ```csharp
-LdClient ldClient = new LdClient("YOUR_SDK_KEY");
+LdClient client = new LdClient("YOUR_SDK_KEY");
 ```
 
 </CodeTabItem>
@@ -111,7 +111,7 @@ If you need to use more than one SDK key, the SDK allows you to create more than
 </CalloutDescription>
 </Callout>
 
-Using `ldClient`, you can check which variation a particular user should receive for a given feature flag. Here's how:
+Using `client`, you can check which variation a particular user should receive for a given feature flag. Here's how:
 
 <CodeTabs
   defaultValue="csharp"
@@ -123,7 +123,7 @@ Using `ldClient`, you can check which variation a particular user should receive
 
 ```csharp
 User user = User.WithKey(username);
-bool showFeature = ldClient.BoolVariation("your.feature.key", user, false);
+bool showFeature = client.BoolVariation("your.feature.key", user, false);
 if (showFeature) {
     // application code to show the feature
 }
@@ -135,7 +135,7 @@ else {
 </CodeTabItem>
 </CodeTabs>
 
-When your application is about to terminate, shut down `ldClient` with [`Dispose()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Dispose_). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+When your application is about to terminate, shut down `client` with [`Dispose()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Dispose_). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
 
 Here's how:
 
@@ -149,7 +149,7 @@ Here's how:
 
 ```csharp
 // shut down the client, since we're about to quit
-ldClient.Dispose();
+client.Dispose();
 ```
 
 </CodeTabItem>

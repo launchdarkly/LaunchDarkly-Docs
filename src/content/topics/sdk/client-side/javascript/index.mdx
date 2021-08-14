@@ -182,7 +182,7 @@ Here is an example showing how to initialize the client:
 var user = {
   "key": "aa0ceb"
 };
-var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
+var client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
 ```
 
 </CodeTabItem>
@@ -209,9 +209,9 @@ The client emits a `ready` event when it has been initialized. Once it has been 
 <CodeTabItem value="js">
 
 ```js
-ldclient.on('ready', function() {
+client.on('ready', function() {
   console.log("It's now safe to request feature flags");
-  var showFeature = ldclient.variation("YOUR_FEATURE_KEY", false);
+  var showFeature = client.variation("YOUR_FEATURE_KEY", false);
 
   if (showFeature) {
    	...

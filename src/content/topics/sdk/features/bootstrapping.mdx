@@ -53,7 +53,7 @@ Below are two examples of how to bootstrap flags into the JavaScript client:
 function onPageLoad(flags) {
   ...
 
-  var ldclient = LDClient.initialize(
+  var client = LDClient.initialize(
     'YOUR_CLIENT_SIDE_ID',
     user,
     options = {
@@ -79,7 +79,7 @@ var ldclient = LDClient.initialize(
   options = {
     // Load values from a Ruby template directive
     bootstrap: {{
-      ldclient.all_flags_state(user, {client_side_only: true})
+      client.all_flags_state(user, {client_side_only: true})
     }}
   }
 );
@@ -128,7 +128,7 @@ You can use it to set the feature flags to any values you want:
 <CodeTabItem value="js">
 
 ```js
-const ldClient = LaunchDarkly.initialize(
+const client = LaunchDarkly.initialize(
   'YOUR_CLIENT_SIDE_ID',
   user,
   {
@@ -156,7 +156,7 @@ To activate this mode, use the special string `"localstorage"`:
 <CodeTabItem value="js">
 
 ```js
-const ldClient = LaunchDarkly.initialize(
+const client = LaunchDarkly.initialize(
   'YOUR_CLIENT_SIDE_ID',
   user,
   {

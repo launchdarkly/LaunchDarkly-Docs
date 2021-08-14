@@ -83,7 +83,7 @@ Here's how:
 ```csharp
 var user = User.WithKey(user_key);
 var timeSpan = TimeSpan.FromSeconds(10);
-ldClient = LdClient.Init("MY_MOBILE_KEY", user, timeSpan);
+client = LdClient.Init("MY_MOBILE_KEY", user, timeSpan);
 ```
 
 </CodeTabItem>
@@ -101,7 +101,7 @@ However, calling blocking code from the main thread in an Android app is not con
 
 ```csharp
 User user = User.WithKey(user_key);
-ldClient = await LdClient.InitAsync("MY_MOBILE_KEY", user);
+client = await LdClient.InitAsync("MY_MOBILE_KEY", user);
 ```
 
 </CodeTabItem>
@@ -125,7 +125,7 @@ For Android, the `AccessNetworkState` permission is required and must be configu
 </CalloutDescription>
 </Callout>
 
-Using `ldClient`, you can check which variation a particular user should receive for a given feature flag. Here's how:
+Using `client`, you can check which variation a particular user should receive for a given feature flag. Here's how:
 
 <CodeTabs
   defaultValue="csharp"
@@ -136,7 +136,7 @@ Using `ldClient`, you can check which variation a particular user should receive
 <CodeTabItem value="csharp">
 
 ```csharp
-bool showFeature = ldClient.BoolVariation("your.feature.key", false);
+bool showFeature = client.BoolVariation("your.feature.key", false);
 if (showFeature) {
     // application code to show the feature
 }
@@ -173,7 +173,7 @@ You can configure the Xamarin SDK to connect to the [Relay Proxy](https://github
 Configuration config = Configuration.Builder("YOUR_SDK_KEY")
     .StreamUri(new URI("YOUR_RELAY_URI"))
     .Build();
-LdClient ldClient = LdClient.Init(config);
+LdClient client = LdClient.Init(config);
 ```
 
 </CodeTabItem>

@@ -99,7 +99,7 @@ LDUser user = new LDUser.Builder("user key")
     .email("fake@example.com")
     .build();
 
-LDClient ldClient = LDClient.init(this.getApplication(), ldConfig, user, 5);
+LDClient client = LDClient.init(this.getApplication(), ldConfig, user, 5);
 ```
 
 </CodeTabItem>
@@ -115,7 +115,7 @@ val user: LDUser = LDUser.Builder("user key")
     .email("fake@example.com")
     .build()
 
-val ldClient: LDClient = LDClient.init(application, ldConfig, user, 5)
+val client: LDClient = LDClient.init(application, ldConfig, user, 5)
 ```
 
 </CodeTabItem>
@@ -144,7 +144,7 @@ Here is the preferred method:
 <CodeTabItem value="java">
 
 ```java
-LDClient ldClient = LDClient.init(this.getApplication(), ldConfig, user, 0);
+LDClient client = LDClient.init(this.getApplication(), ldConfig, user, 0);
 ```
 
 </CodeTabItem>
@@ -152,13 +152,13 @@ LDClient ldClient = LDClient.init(this.getApplication(), ldConfig, user, 0);
 <CodeTabItem value="kotlin">
 
 ```kotlin
-val ldClient: LDClient = LDClient.init(application, ldConfig, user, 0)
+val client: LDClient = LDClient.init(application, ldConfig, user, 0)
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-Using `ldClient`, you can check which variation a particular user receives for a given feature flag:
+Using `client`, you can check which variation a particular user receives for a given feature flag:
 
 <CodeTabs
   defaultValue="java"
@@ -170,7 +170,7 @@ Using `ldClient`, you can check which variation a particular user receives for a
 <CodeTabItem value="java">
 
 ```java
-boolean showFeature = ldClient.boolVariation(flagKey, true);
+boolean showFeature = client.boolVariation(flagKey, true);
 if (showFeature) {
     // application code to show the feature
 }
@@ -184,7 +184,7 @@ else {
 <CodeTabItem value="kotlin">
 
 ```kotlin
-val showFeature: Boolean = ldClient.boolVariation(flagKey, true)
+val showFeature: Boolean = client.boolVariation(flagKey, true)
 if (showFeature) {
     // application code to show the feature
 }

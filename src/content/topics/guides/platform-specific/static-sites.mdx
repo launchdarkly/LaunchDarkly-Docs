@@ -409,9 +409,9 @@ import { useFlags, useLDClient } from 'launchdarkly-react-client-sdk';
 
 const HooksDemo = () => {
   const { devTestFlag } = useFlags();
-  const ldClient = useLDClient();
+  const client = useLDClient();
 
-  const onLoginSuccessful = () => ldClient.identify({ key: 'aa0ceb' });
+  const onLoginSuccessful = () => client.identify({ key: 'aa0ceb' });
 
   return (
     <div>{devTestFlag ? 'Flag on' : 'Flag off'}</div>
@@ -438,9 +438,9 @@ This example uses [React hooks](https://reactjs.org/docs/hooks-intro.html). If y
 ```js
 import { withLDConsumer } from 'launchdarkly-react-client-sdk';
 
-const Home = ({ flags, ldClient /*, ...otherProps */ }) => {
+const Home = ({ flags, client /*, ...otherProps */ }) => {
   // You can call any of the methods from the JavaScript SDK
-  // ldClient.identify({...})
+  // client.identify({...})
 
   return flags.devTestFlag ? <div>Flag on</div> : <div>Flag off</div>;
 };
@@ -518,7 +518,7 @@ This plugin assumes that the user viewing your site is anonymous. In this case, 
 
 If you have a signed-in user, you may want LaunchDarkly to know that in order to target that user with a feature.
 
-You can do this by accessing the `ldclient` object directly:
+You can do this by accessing the `client` object directly:
 
 <CodeTabs
   defaultValue="js"
@@ -535,12 +535,12 @@ import { useFlags, useLDClient } from 'gatsby-plugin-launchdarkly';
 
 const HooksDemo = () => {
   const { someNewFeature } = useFlags();
-  const ldClient = useLDClient();
+  const client = useLDClient();
 
   // Calling `identify` will cause the flags to be re-evaluated for the new
   // user that's logged in. Changes in flag values will stream in and could
   // cause your component to re-render.
-  const onLoginSuccessful = (user) => ldClient.identify({
+  const onLoginSuccessful = (user) => client.identify({
     key: user.id,
     firstName: user.firstName,
     lastName: user.lastName,
