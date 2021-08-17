@@ -94,33 +94,9 @@ Here is an example where the `useReport` parameter is enabled:
 <CodeTabItem value="js">
 
 ```js
-var client = LDClient.initialize(‘5baa7d07a3050e21323b735d’,
-user, options = {
+var client = LDClient.initialize(‘EXAMPLE-ENVIRONMENT-ID’, user, options = {
   useReport: true
 });
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Here is an example client-side request that uses REPORT:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Curl', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-‘https://app.launchdarkly.com/sdk/evalx/5baa7d07a3050e21323b735d/user‘ -X
-REPORT -H ‘Origin: null’ -H ‘X-LaunchDarkly-User-Agent: JSClient/2.9.4’ -H
-‘User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OSX 10_13_6) AppleWebKit/537.36
-(KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36’ -H ‘Content-Type:
-application/json’ --data-binary
-  ‘{"firstName":"ExampleFirstName","lastName":"ExampleLastName","key":"email@example.com","custom":
-  {"groups":"example_group_name"}}’ --compressed
 ```
 
 </CodeTabItem>
