@@ -78,7 +78,7 @@ model, the REPORT verb forces user objects to be sent as request bodies instead 
 In addition, LaunchDarkly uses end-to-end encryption and all communication
 occurs over HTTPS. Unless a malicious third party breaks TLS encryption, a man in the middle attack is impossible.
 
-When an SDK uses REPORT, the SDK operates in polling mode. The SDK connects
+When the JavaScript SDK uses the REPORT verb, the SDK operates in polling mode. The SDK connects
 to the stream when it initializes and receives pings from the stream to keep the connection live. Whenever a ping occurs, the SDK connects to LaunchDarkly using the same REPORT request and performs an evaluation to get the most recent flag values for that user.
 
 Using REPORT requires an additional configuration change when the JavaScript SDK initializes.
