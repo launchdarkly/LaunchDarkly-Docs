@@ -81,7 +81,7 @@ occurs over HTTPS. Unless a malicious third party breaks TLS encryption, a man i
 When the JavaScript SDK uses the REPORT verb, the SDK operates in polling mode. The SDK connects
 to the stream when it initializes and receives pings from the stream to keep the connection live. Whenever a ping occurs, the SDK connects to LaunchDarkly using the same REPORT request and performs an evaluation to get the most recent flag values for that user.
 
-Using REPORT requires an additional configuration change when the JavaScript SDK initializes.
+Using the REPORT HTTP verb requires an additional option when configuring the JavaScript SDK.
 
 Here is an example where the `useReport` parameter is enabled:
 
