@@ -20,7 +20,7 @@ This topic explains how to use the LaunchDarkly Dynatrace events integration. Th
 
 ![A Dynatrace events graph, showing LaunchDarkly flag change events.](../images/dynatrace-dashboard.png)
 
-The integration only sends `flag` actions to Dynatrace. To learn more, read [Feature flag actions](/home/team/role-actions#feature-flags-actions).
+The integration only sends `flag` actions to Dynatrace. To learn more, read [Feature flag actions](/home/members/role-actions#feature-flags-actions).
 
 <Callout intent="primary">
 <CalloutTitle>This integration supports triggers</CalloutTitle>
@@ -36,7 +36,7 @@ To learn more, read [Using triggers with Dynatrace](/integrations/dynatrace/trig
 To send flag change events to Dynatrace:
 
 1. [Create a Dynatrace API token](#creating-a-dynatrace-api-token)
-2. [Configure the Dynatrace integration](#adding-and-configuring-the-dynatrace-integration)
+2. [Configure the Dynatrace integration](#configuring-the-dynatrace-integration)
 3. (Optional) [Configure the integration's policy to allow or restrict specific projects and environments](#configuring-integration-policies)
 4. [Associate flags with Dynatrace tags](#associating-flags-with-dynatrace-tags)
 
@@ -63,12 +63,20 @@ Here's how to add and configure the Dynatrace integration:
 ![The Dynatrace card, showing the "+ Integration" button.](../images/dynatrace-card-expanded.png)
 
 3. (Optional) Type a human-readable **Name**.
-4. Paste in your **Dynatrace API token**.
+4. Enter your Dynatrace API token.
 5. Enter the URL of your Dynatrace service in the **Dynatrace URL** field. Do not include a slash at the end.
-6. Select the Dynatrace entity type you want to associate with LaunchDarkly events.
-7. If this is all the configuration you need to do, click **Save Dynatrace Configuration**.
+6. Select the entity type of the Dynatrace entities you want to send LaunchDarkly events to. To learn more, read [About entity types](#about-entity-types).
+7. Click **Save Dynatrace Configuration**.
 
 If you want to configure the Dynatrace integration to alter which events LaunchDarkly sends to Dynatrace, read [Configuring integration policies](#configuring-integration-policies). If not, continue to [Associating flags with Dynatrace tags](#associating-flags-with-dynatrace-tags).
+
+### About entity types
+
+Dynatrace uses specific entity types for applications within it. For example, if Dynatrace is monitoring your software application and flag change events appear on that Dynatrace's timeline, the application has an entity type such as `SERVICE`, `APPLICATION`, or `PROCESS_GROUP_INSTANCE`.
+
+To find the application entity type, navigate to the Dynatrace page for the entity and examine the URL. It contains the entity type in capital letters. In this example, the entity type is `PROCESS_GROUP_INSTANCE`:
+
+![A Dynatrace URL with the entity type called out.](../../images/dynatrace-url-app-type-callout.png)
 
 ### Configuring integration policies
 
@@ -90,7 +98,7 @@ proj/*:env/production:flag/*
 </CodeTabItem>
 </CodeTabs>
 
-To learn more about the Resource configuration fields, read [Resources in custom roles](/home/team/role-resources).
+To learn more about the Resource configuration fields, read [Resources in custom roles](/home/members/role-resources).
 
 You may want to override the default policy for various reasons, including restricting how the integration sees and exports events. Using the policy editor, you can restrict the integration to:
 
@@ -120,7 +128,7 @@ The policy above makes it so that the only events the integrations sends to Dyna
 
 If you need to restrict or allow a more complex set of resources than you can specify in a single policy, you might want to add multiple Dynatrace integrations and configure each one to a specific task. Each integration can have its own separate policy configuration.
 
-To learn more about using the policy editor, read [Policies in custom roles](/home/team/role-policies).
+To learn more about using the policy editor, read [Policies in custom roles](/home/members/role-policies).
 
 ## Associating flags with Dynatrace tags
 
@@ -153,4 +161,30 @@ To associate a flag with one or more applications using Dynatrace tags:
 
 7. Click **Save with Comment** button to save the custom property.
 
-Now events from your feature flags will appear in Dynatrace.
+Now events from your feature flags appear in Dynatrace.
+
+## Troubleshooting
+
+After you configure the LaunchDarkly integration, flag changes appear as events on the Dynatrace event timelines for your applications, or whatever entities you selected.
+
+If an event doesn't appear on Dynatrace after you've changed a flag, you can try the following techniques:
+
+### Wait, then reload the Dynatrace page
+
+Dynatrace can take up to three minutes to register inbound events.
+
+In addition, the **Events** timeline on a Dynatrace page may be frozen to a particular time range, and won't automatically update. Reload the page to update the timeline range.
+
+### Verify that the Dynatrace entities have recently registered traffic or other agent-sourced data
+
+Dynatrace's API only provides access to entities, such as applications, which have recently registered data from Dynatrace Agents. Entities without recent data may be visible in the Dynatrace user interface, but may be unable to register flag changes or other kinds of events.
+
+Verify that Dynatrace OneAgent is running and monitoring the entity, and that the entity is displaying recent traffic data on its Dynatrace page.
+
+### Verify the custom properties of the flag that changed
+
+The LaunchDarkly Dynatrace integration only sends change events for a flag if that flag has a tag association in its custom properties. To learn more, read [Associating flags with Dynatrace tags](#associating-flags-with-dynatrace-tags).
+
+### Ensure that the integration is configured to use the correct entity type
+
+To learn more, read the step about Dynatrace entity types in [Configuring the Dynatrace integration](#configuring-the-dynatrace-integration).

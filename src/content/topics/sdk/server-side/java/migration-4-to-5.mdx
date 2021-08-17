@@ -45,7 +45,7 @@ The full package schema is as follows:
   * Provides: [`Components`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/Components.html), [`LDClient`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html), [`LDConfig`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.html), [`FeatureFlagsState`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/FeatureFlagsState.html)
 
 * [`com.launchdarkly.sdk.server.interfaces`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/interfaces/package-summary.html)
-  * Provides: types like `DataStore` (formerly `FeatureStore`) and `Event` that are only used if you are writing a [custom component](#custom-component-implementations). These were formerly in `com.launchdarkly.client`, so moving them makes the API much less cluttered.
+  * Provides: types like `DataStore` (formerly `FeatureStore`) and `Event` that are only used if you are writing a [custom component](#implementing-custom-components). These were formerly in `com.launchdarkly.client`, so moving them makes the API much less cluttered.
 
 * [`com.launchdarkly.sdk.server.integrations`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/package-summary.html)
   * Provides: the same types that used to be in `com.launchdarkly.client.integrations` (added in [4.12.0](https://github.com/launchdarkly/java-server-sdk/releases/tag/4.12.0)).
@@ -399,7 +399,7 @@ The Redis integration is no longer part of the main SDK distribution. It is now 
 
 The [Consul](https://github.com/launchdarkly/java-server-sdk-consul) and [DynamoDB](https://github.com/launchdarkly/java-server-sdk-dynamodb) integrations were already in separate packages, but they have new major versions that are compatible with Java SDK 5.0.
 
-See [Data store](#data-store) above for the configuration syntax.
+See [Data store](#understanding-changes-to-the-data-store) above for the configuration syntax.
 
 ## Understanding changes to logging
 

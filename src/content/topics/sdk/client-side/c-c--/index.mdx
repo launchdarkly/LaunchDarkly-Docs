@@ -104,16 +104,18 @@ LDClientCPP *client = LDClientCPP::Init(config, user, maxwaitmilliseconds);
 </CodeTabItem>
 </CodeTabs>
 
+Your environment's mobile key is available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a mobile key. Never embed a server-side SDK key into a mobile application.
+
+### Fetching flag configuration
+
 <Callout intent="alert">
-<CalloutTitle>Use a mobile key, not a server-side SDK key.</CalloutTitle>
+<CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
 <CalloutDescription>
 
-Only use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into an embedded or desktop application. To learn more, read [Keys](/sdk/concepts/client-side-server-side#keys).
+You must make feature flags available to client-side SDKs before the flags can be evaluated. If you evaluate a feature flag that is not available, you receive the default value for that flag. If you want a project's flags to be made available to this SDK by default, check the **SDKs using Mobile key** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
 
 </CalloutDescription>
 </Callout>
-
-### Fetching flag configuration
 
 Here's how to verify the SDK is configured correctly by fetching flag configuration data from LaunchDarkly:
 
@@ -191,7 +193,6 @@ This SDK supports the following features:
 * [Evaluating flags](/sdk/features/evaluating#cc-client-side)
 * [Flushing events](/sdk/features/flush#cc-client-side)
 * [Identifying and changing users](/sdk/features/identify#cc-client-side)
-* [Offline mode](/sdk/features/offline-mode#cc-client-side)
 * [Sending custom events](/sdk/features/events#cc-client-side)
 * [Shutting down](/sdk/features/shutdown#cc-client-side)
 * [Subscribing to flag changes](/sdk/features/flag-changes#cc-client-side)

@@ -1,0 +1,572 @@
+---
+path: '/home/members/example-policies'
+title: 'Example policies and templates'
+description: 'This topic shows some examples of different types of policies you can implement with custom roles.'
+published: true
+---
+
+## Overview
+
+This topic shows some examples of different types of policies you can implement with custom roles and policy filters.
+
+It also provides two templates you can copy and modify for your own custom roles. One template is for a reader role, and one is for a writer role.
+
+<Callout intent="info">
+<CalloutTitle>Creating private projects with custom roles</CalloutTitle>
+<CalloutDescription>
+
+Use the `viewProject` action to allow or deny viewing and editing access to projects. To learn more, read
+[Configuring private projects with custom roles](/home/organize/private-projects).
+
+</CalloutDescription>
+</Callout>
+
+## Example: Granting access to specific environments and flags
+
+This example policy allows members of the QA team to administer environments that are tagged `qa_*`, and also to manage flags in environments tagged `qa_*`.
+
+To manage flags in environments tagged `qa_*`, you must specify the flag-level resource you want to control. Limiting `resources` to `"proj/*:env/*;qa_*"` lets you manage the environment itself.
+
+To do this:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'QA team policy', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "effect": "allow",
+    "resources": ["proj/*:env/*;qa_*"],
+    "actions": ["*"]
+  },
+  {
+    "effect": "allow",
+    "resources": ["proj/*:env/*;qa_*:/flag/*"],
+    "actions": ["*"]
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+## Example: Granting access to kill switch features, but not flag rollout or targeting rules
+
+This example policy allows members of the Ops team to toggle on or off any flags in the production environment. They may not change percentage rollouts or targeting rules, or manage any environments or projects.
+
+<Callout intent="info">
+<CalloutTitle>Do not use display names for projects and environments in policies</CalloutTitle>
+<CalloutDescription>
+
+Policies require you to use project and environment keys, not names. If you use their names, the policies will not affect anything.
+
+</CalloutDescription>
+</Callout>
+
+Here's how to do this:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Ops team', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "effect": "allow",
+    "resources": ["proj/*:env/production:flag/*"],
+    "actions": ["updateOn"]
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+## Example: Granting all actions to just one flag
+
+The policy below allows all actions to be done to a single specified flag, `flag-1`.
+
+For a complete list of flag actions, read the [Feature flag actions list](/home/members/role-actions#feature-flags-actions).
+
+Here's how to do this:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'One flag', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "resources": ["proj/*:env/*:flag/flag-1"],
+    "actions": ["*"],
+    "effect": "allow"
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Example: Granting all actions to just one flag while showing only one project
+
+The policy below restricts access to a project a flag is in, while still allowing you to perform actions on that flag. In this example, the flag is called `flag-1`.
+
+Here's how to do this:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'One flag', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "notResources": ["proj/project-1"],
+    "actions": ["viewProject"],
+    "effect": "deny"
+  },
+  {
+    "resources": ["proj/*:env/*:flag/flag-1"],
+    "actions": ["*"],
+    "effect": "allow"
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+In the example above, we use `notResources` to allow role recipients to view and modify `project-1` exclusively. We do this by specifying which projects the user cannot view, with one exception.
+
+This lets you restrict access to only one project without having to explicitly deny access to every project except that one.
+
+## Example: Restricting actions within production environments
+
+This policy allows using only these actions in the `production-1` environment:
+
+* `updateFlagVariations`
+* `updateTags`
+
+This means they can take all other actions in any other non-production environment.
+
+Here's how to do this:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Non-prod environments', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "notResources": ["proj/project-1"],
+    "actions": ["viewProject"],
+    "effect": "deny"
+  },
+    {
+    "resources": ["proj/project-1:env/*:flag/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["proj/project-1:env/production-1:flag/*"],
+    "notActions": ["updateFlagVariations", "updateTags"],
+    "effect": "deny"
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The second statement in the code snippet above allows all actions in all environments and to all flags in the project named `project-1`. You must specifically allow access, or the roles default to the reader role.
+
+## Example: Allowing access to flags, metrics, and segments in one project
+
+In this example, we deny all actions to all projects, but allow specific flag actions in one project, all segment actions in all projects, and all metric actions in all projects.
+
+When you restrict all actions this comprehensively, you must add each action for flags, segments, and metrics explicitly.
+
+Here's how to do this:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Flags, metrics, and segments', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+    {
+    "resources": ["proj/*"],
+    "actions": ["*"],
+    "effect": "deny"
+  },
+  {
+    "resources": ["proj/project-1:env/*:flag/*"],
+    "notActions": ["createFlag", "updateTargets", "updateRules", "createExperiment", "deleteExperiment", "updateScheduledChanges"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["proj/*:env/*:segment/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["proj/*:metric/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+]
+```
+</CodeTabItem>
+</CodeTabs>
+
+## Template: Built-in reader role replication
+
+Copy this reader role and make any modifications to it to suit your needs:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Policy', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "resources": ["proj/*"],
+    "actions": ["*"],
+    "effect": "deny"
+  },
+  {
+    "resources": ["proj/*:env/*"],
+    "actions": ["*"],
+    "effect": "deny"
+  },
+  {
+    "resources": ["proj/*:metric/*"],
+    "actions": ["*"],
+    "effect": "deny"
+  },
+  {
+      "resources": ["proj/*:env/*:flag/*"],
+      "actions": ["*"],
+      "effect": "deny"
+  },
+  {
+      "resources": ["proj/*:env/*:segment/*"],
+      "actions": ["*"],
+      "effect": "deny"
+  },
+  {
+      "resources": ["proj/*:env/*:destination/*"],
+      "actions": ["*"],
+      "effect": "deny"
+  },
+  {
+      "resources": ["proj/*:env/*:user/*"],
+      "actions": ["*"],
+      "effect": "deny"
+  },
+  {
+    "resources": ["member/*"],
+    "actions": ["*"],
+    "effect": "deny"
+  },
+  {
+    "resources": ["member/*:token/*"],
+    "actions": ["*"],
+    "effect": "deny"
+  },
+  {
+    "resources": ["role/*"],
+    "actions": ["*"],
+    "effect": "deny"
+  },
+  {
+    "resources": ["integration/*"],
+    "actions": ["*"],
+    "effect": "deny"
+  },
+  {
+    "resources": ["webhook/*"],
+    "actions": ["*"],
+    "effect": "deny"
+  },
+  {
+    "resources": ["code-reference-repository/*"],
+    "actions": ["*"],
+    "effect": "deny"
+  },
+  {
+    "resources": ["acct"],
+    "actions": ["*"],
+    "effect": "deny"
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Template: Built-in writer role replication
+
+Because permissions are set to `deny` by default, you must explicitly allow actions for the writer role. The code snippet below is a replication of LaunchDarkly's built-in writer role. You can copy it and make adjustments as needed.
+
+If you compare the code snippet below to the [reader role replication](#template-built-in-reader-role-replication), you'll find that every resource level is addressed except for `member/*`, `member/*:token/*`, `role/*`, and `acct`. By default, those resources are already set to `deny`, so you don't have to specifically `deny` them again.
+
+Here's a template:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Writer role', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "resources": ["proj/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["proj/*:env/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["proj/*:metric/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["proj/*:env/*:flag/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["proj/*:env/*:segment/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["proj/*:env/*:destination/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["proj/*:env/*:user/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["member/*:token/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["integration/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["webhook/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["code-reference-repository/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Template: Built-in admin role replication
+
+Because permissions are set to `deny` by default, you must explicitly allow actions for the admin role. The code snippet below is a replication of LaunchDarkly's built-in admin role. You can copy it and make adjustments as needed.
+
+Here's a template:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Admin role', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+    {
+        "resources": [
+            "proj/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "proj/:env/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "proj/:metric/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "member/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "member/:token/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "role/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "proj/:env/:flag/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "integration/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "proj/:env/:segment/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "webhook/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "proj/:env/:user/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "code-reference-repository/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "proj/:env/:destination/"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    },
+    {
+        "resources": [
+            "acct"
+        ],
+        "actions": [
+            ""
+        ],
+        "effect": "allow"
+    }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>

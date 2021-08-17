@@ -1,0 +1,137 @@
+---
+path: '/home/members/role-concepts'
+title: 'Custom role concepts'
+description: 'This topic explains core concepts that will help you use custom roles.'
+published: true
+---
+
+## Overview
+
+This topic is an overview of concepts that are important to creating custom roles. You can create powerful custom roles by using LaunchDarkly's built-in advanced editor.
+
+To write your own custom role, you'll need to understand four key concepts:
+
+* [Resources](#resources)
+* [Actions](#actions)
+* [Policies](#policies)
+* [Tags](#tags)
+
+<Callout intent="alert">
+<CalloutTitle>The advanced editor is powerful</CalloutTitle>
+<CalloutDescription>
+
+You can cause large permissions changes to sensitive or confidential resources if you use the advanced editor without understanding permissions and resource types in LaunchDarkly. It is critically important that you read all the documentation in the "Custom roles" section thoroughly before you use the advanced editor to create or modify any custom roles.
+
+</CalloutDescription>
+</Callout>
+
+## Resources
+
+When you write a custom role, you specify **resources** that the role can or cannot access.
+
+Almost everything in LaunchDarkly is a resource, including:
+
+- Projects
+- Feature flags
+- Environments
+- Metrics
+- Custom roles
+
+This graphic shows how resources relate to each other:
+
+![Resource organization diagram](../../../../images/resource-organization.png)
+
+### Understanding permissions for accessing resources
+
+The default permission level of any account member in LaunchDarkly is the built-in `reader` role. This is the role that is assigned to new account members by default, and is the most limited set of permissions a LaunchDarkly user can have.
+
+To give an account member the ability to modify resources in LaunchDarkly, you must assign them a different role: `Writer`, `Owner / Admin`, or a custom role.
+
+To learn more about specific resources, read [Using resources](/home/members/role-resources).
+
+## Actions
+
+Each resource has a set of actions associated with it. By granting a custom role resource-specific actions, you allow or forbid users with that custom role to do things to that resource. For example, you can allow a custom role the ability to delete a project.
+
+To learn more about specific actions, read [Using actions](/home/members/role-actions).
+
+### Understanding the minimum required actions for a role
+
+The default state of a new custom role is to `deny` every possible action. In most cases, you must explicitly allow each action you wish the role recipient to be able to do.
+
+The one exception is how custom roles use the `viewProject` action. The ability to view and change resources is configured at the `project` resource level with the `viewProject` action.
+
+You do not need to allow a custom role holder to see projects in your LaunchDarkly account. You can deny them viewing access to any project, but by default all roles can view all projects as soon as they are created.
+
+To learn more about configuring the `viewProject` action, read [Creating private projects with custom roles](/home/organize/private-projects).
+
+Viewing permissions are not the same as permissions that let a user modify the things they can see. Being able to view a project does not mean a role recipient can take action on that project. A role recipient cannot take any actions on the project unless you explicitly permit them.
+
+## Policies
+
+Policies combine resources and actions into a set of statements that define what users can or cannot do in LaunchDarkly.
+
+You use LaunchDarkly's advanced editor to build custom roles by writing combinations of resources and actions the role is allowed to or forbidden from taking on them.
+
+<Callout intent="alert">
+<CalloutTitle>Permissions are cumulative</CalloutTitle>
+<CalloutDescription>
+
+When a team or account member has two or more custom roles with conflicting permission levels, the more permissive level of access is applied. For example, if a team has one custom role that allows access to a resource, and a member of that team has another custom role that restricts access to a resource, the member is allowed access.
+
+</CalloutDescription>
+</Callout>
+
+Policies are represented as JSON arrays. They require you to use project and environment keys, not names.
+
+Each element in the array is a statement represented as a JSON object with three attributes:
+
+* `resources` / `notResources`
+* `effect`
+* `actions` / `notActions`
+
+The example below shows a policy that allows the role recipient to perform all actions on a flag called `exampleFlag`:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Policy', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "effect": "allow",
+    "resources": ["proj/*:env/*:flag/exampleFlag"],
+    "actions": ["*"]
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more about specific policies, read [Using policies](/home/members/role-policies).
+
+## Tags
+
+Tags are simple strings that you can attach to any resource in LaunchDarkly. Tags do not allow or deny role recipients to do anything, but they are useful for grouping resources into a set that you can name in a resource specifier.
+
+For example, you can create a `dev` tag for your environments and use it in a policy to specify custom rules that only apply to development environments.
+
+Tag names can include only letters, numbers, periods `.`, underscores `_`, and dashes `-`.
+
+The following resources support tags:
+
+- projects
+- environments
+- segments
+- flags
+- metrics
+
+Other resources like webhooks and integrations do not support tags.
+
+To learn more about specific tags, read [Using tags](/home/members/role-tags).

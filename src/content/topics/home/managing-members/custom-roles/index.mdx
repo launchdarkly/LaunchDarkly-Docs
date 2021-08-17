@@ -1,0 +1,72 @@
+---
+path: '/home/members/custom-roles'
+title: 'Custom roles'
+description: 'This topic explains what custom roles are and how to create them. Custom roles give access control to everything in LaunchDarkly, from feature flags to metrics, environments, and teams. Enforce access policies that meet your exact workflow needs.'
+published: true
+---
+
+<Callout intent="primary">
+<CalloutTitle>Custom roles is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Custom roles is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains what custom roles are and how to create them.
+
+Custom roles give you precise access control to everything in LaunchDarkly, including feature flags, projects, environments, metrics, and teams, so you can enforce access policies that meet your exact workflow needs.
+
+With custom roles, you can:
+
+- Lock your production environment down to a small set of trusted users,
+- Allow account members to control feature flags on projects or environments that are designated for their team only,
+- Allow different permissions at the flag level, such as between experiment flags and operational flags, and
+- Create private projects that only the account members you select can see. To learn more, read [Creating private projects with custom roles](/home/organize/private-projects).
+
+Our custom role system is inspired by [AWS Identity and Access Management (IAM)](https://aws.amazon.com/iam/). If you're familiar with IAM, there are some similarities.
+
+## Understanding LaunchDarkly's built-in roles
+
+LaunchDarkly's role-based permission system provides global access control levels for account members based on a set of built-in roles. Every LaunchDarkly project has these roles, whether they use custom roles or not.
+
+The three built-in roles are:
+
+- **Reader**: The view-only role, who can see many details about your LaunchDarkly account but cannot modify any of its content.
+- **Writer**: This role can create, update, and delete most entities in LaunchDarkly, but cannot invite members, manage permission, or manage other orgnization-level settings like billing and security.
+- **Admin / Owner**: The role with the largest set of permissions. It can do everything readers and writers can do, and also create new account members and designate a new admin.
+
+To learn more about what each of these roles can do, read [Understanding member roles](/home/members/managing#understanding-member-roles).
+
+Every account member must have at least one of these three roles or a custom role. If you need to, you can also assign account members multiple roles to give them the exact set of permissions they need.
+
+An account member's initial role is set when they're invited to LaunchDarkly. If not otherwise specified, new account members are assigned the reader role. An account member with the ability to do so must adjust a reader's role to give them more advanced permissions.
+
+The one exception to this is the first account member, the person who created your LaunchDarkly account. This role is granted admin permissions automatically, because they are required to configure your account completely and add more account members.
+
+## Configuring custom role scopes
+
+Custom roles are extremely precise in their scope and targeting. For example, you can define a custom role to allow the recipent of that role to take all actions on only one flag in a project, and also not allow that role recipient to see any other projects.
+
+This level of precision also means you must specifically allow or deny actions for every resource you want the role recipient to be able to take. If you do not specify an action for a resource, that action is set to deny by default.
+
+One method of creating a custom role is to start with with a policy that matches permissions for a reader or writer, and modify it.
+
+For templates that match these permission levels, read [Example policies](/home/members/example-policies).
+
+## Using custom roles
+
+Implementing custom roles is a three-step process.
+
+To implement a custom role:
+
+1. Create a custom role,
+2. Create a policy for that custom role, and
+3. Assign the role to the account member or resource who needs it.
+
+The process for doing each of these actions is described in the "Custom roles" section of the documentation, which you are currently reading. Read each topic in this section to learn more about custom roles.
+
+We strongly recommend familiarizing yourself with the concepts that power custom roles first. To learn more, read [Custom role concepts](/home/members/role-concepts).

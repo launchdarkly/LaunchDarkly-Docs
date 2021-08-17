@@ -252,28 +252,28 @@ Here is an example using the new `LDValue` type:
 <CodeTabItem value="sdk2-java">
 
 ```java
-JsonElement result = ldClient.jsonVariation("flagKey", new JsonArray());
+JsonElement result = client.jsonVariation("flagKey", new JsonArray());
 ```
 
 </CodeTabItem>
 <CodeTabItem value="sdk3-java">
 
 ```java
-LDValue result = ldClient.jsonValueVariation("flagKey", LDValue.buildArray().build());
+LDValue result = client.jsonValueVariation("flagKey", LDValue.buildArray().build());
 ```
 
 </CodeTabItem>
 <CodeTabItem value="sdk2-kotlin">
 
 ```kotlin
-val result: JsonElement = ldClient.jsonVariation("flagKey", JsonArray())
+val result: JsonElement = client.jsonVariation("flagKey", JsonArray())
 ```
 
 </CodeTabItem>
 <CodeTabItem value="sdk3-kotlin">
 
 ```kotlin
-val result: LDValue = ldClient.jsonValueVariation("flagKey", LDValue.buildArray().build())
+val result: LDValue = client.jsonValueVariation("flagKey", LDValue.buildArray().build())
 ```
 
 </CodeTabItem>
@@ -303,7 +303,7 @@ Here is an example of retrieving all flag values:
 <CodeTabItem value="sdk2-java">
 
 ```java
-Map<String, ?> flagValues = ldClient.allFlags();
+Map<String, ?> flagValues = client.allFlags();
 for (Map.Entry<String, ?> flag : flagValues.entrySet()) {
     if (flag.getValue() instanceOf Boolean) {
         // Do something with boolean flag
@@ -319,7 +319,7 @@ for (Map.Entry<String, ?> flag : flagValues.entrySet()) {
 <CodeTabItem value="sdk3-java">
 
 ```java
-Map<String, LDValue> flagValues = ldClient.allFlags();
+Map<String, LDValue> flagValues = client.allFlags();
 for (Map.Entry<String, LDValue> flag : flagValues.entrySet()) {
     switch (flag.getValue().getType()) {
         case LDValueType.NULL: // Do something with flag missing value
@@ -342,7 +342,7 @@ for (Map.Entry<String, LDValue> flag : flagValues.entrySet()) {
 <CodeTabItem value="sdk2-kotlin">
 
 ```kotlin
-val flagValues: Map<String, ?> = ldClient.allFlags()
+val flagValues: Map<String, ?> = client.allFlags()
 for (flag in flagValues.entries) {
     when (flag.value) {
         is Boolean -> { } // Do something with boolean flag
@@ -356,7 +356,7 @@ for (flag in flagValues.entries) {
 <CodeTabItem value="sdk3-kotlin">
 
 ```kotlin
-val flagValues: Map<String, ?> = ldClient.allFlags()
+val flagValues: Map<String, ?> = client.allFlags()
 for (flag in flagValues.entries) {
     when (flag.value.type) {
         LDValueType.NULL -> { } // Do something with flag missing value
@@ -391,36 +391,36 @@ Here is an example of these changes:
 <CodeTabItem value="sdk2-java">
 
 ```java
-ldClient.track("dataEvent", new JsonPrimitive(4));
-ldClient.track("metricEvent", null, 5.5);
-ldClient.track("bothEvent", new JsonPrimitive("tag"), 3.5);
+client.track("dataEvent", new JsonPrimitive(4));
+client.track("metricEvent", null, 5.5);
+client.track("bothEvent", new JsonPrimitive("tag"), 3.5);
 ```
 
 </CodeTabItem>
 <CodeTabItem value="sdk3-java">
 
 ```java
-ldClient.trackData("dataEvent", LDValue.of(4));
-ldClient.trackMetric("metricEvent", LDValue.ofNull(), 5.5);
-ldClient.trackMetric("bothEvent", LDValue.of("tag"), 3.5);
+client.trackData("dataEvent", LDValue.of(4));
+client.trackMetric("metricEvent", LDValue.ofNull(), 5.5);
+client.trackMetric("bothEvent", LDValue.of("tag"), 3.5);
 ```
 
 </CodeTabItem>
 <CodeTabItem value="sdk2-kotlin">
 
 ```kotlin
-ldClient.track("dataEvent", JsonPrimitive(4))
-ldClient.track("metricEvent", null, 5.5)
-ldClient.track("bothEvent", JsonPrimitive("tag"), 3.5)
+client.track("dataEvent", JsonPrimitive(4))
+client.track("metricEvent", null, 5.5)
+client.track("bothEvent", JsonPrimitive("tag"), 3.5)
 ```
 
 </CodeTabItem>
 <CodeTabItem value="sdk3-kotlin">
 
 ```kotlin
-ldClient.trackData("dataEvent", LDValue.of(4))
-ldClient.trackMetric("metricEvent", LDValue.ofNull(), 5.5)
-ldClient.trackMetric("bothEvent", LDValue.of("tag"), 3.5)
+client.trackData("dataEvent", LDValue.of(4))
+client.trackMetric("metricEvent", LDValue.ofNull(), 5.5)
+client.trackMetric("bothEvent", LDValue.of("tag"), 3.5)
 ```
 
 </CodeTabItem>

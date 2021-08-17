@@ -334,22 +334,22 @@ To configure the client:
 let flagKey = "MY_OBSERVE_FLAG_KEY"
 let flagObserverOwner = flagKey as LDObserverOwner
 
-let ldClient = LDClient.get()!
+let client = LDClient.get()!
 
-ldClient.observe(keys: [flagKey], owner: flagObserverOwner, handler: { changedFlags in
+client.observe(keys: [flagKey], owner: flagObserverOwner, handler: { changedFlags in
     if changedFlags[flagKey] != nil {
         // Your code here
     }
 })
 
-ldClient.stopObserving(owner: flagObserverOwner)
+client.stopObserving(owner: flagObserverOwner)
 
-ldClient.observeFlagsUnchanged(owner: self) {
-    ldClient.stopObserving(owner: self as LDObserverOwner)
+client.observeFlagsUnchanged(owner: self) {
+    client.stopObserving(owner: self as LDObserverOwner)
 }
 
-ldClient.observeAll(owner: self) {_ in
-    ldClient.stopObserving(owner: self as LDObserverOwner)
+client.observeAll(owner: self) {_ in
+    client.stopObserving(owner: self as LDObserverOwner)
 }
 ```
 
@@ -358,13 +358,13 @@ ldClient.observeAll(owner: self) {_ in
 
 ```objectivec
 __weak typeof(self) weakSelf = self;
-[[LDClient ldClient] observeKeys:self.flagKeys owner:self handler:^(NSDictionary<NSString *,LDChangedFlag *> * _Nonnull changedFlags) {
+[[LDClient client] observeKeys:self.flagKeys owner:self handler:^(NSDictionary<NSString *,LDChangedFlag *> * _Nonnull changedFlags) {
     __strong typeof(weakSelf) strongSelf = weakSelf;
     for (NSString* flagKey in changedFlags.allKeys) {
         //Your code here
     }
 }];
-[[LDClient ldClient] observeFlagsUnchangedWithOwner:self handler:^{
+[[LDClient client] observeFlagsUnchangedWithOwner:self handler:^{
     __strong typeof(weakSelf) strongSelf = weakSelf;
     //Your code here
 }];
@@ -388,7 +388,7 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
-ldclient.on('change', function(settings) {
+client.on('change', function(settings) {
   console.log('flags changed:', settings);
 });
 ```
@@ -432,13 +432,14 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
-ldClient.on('change', allChanges => {
+client.on('change', allChanges => {
   console.log('flags changed:', JSON.stringify(allChanges));
 });
 ```
 
 </CodeTabItem>
 </CodeTabs>
+
 The `allChanges` object contains a map of updated feature flag keys and values. The map only contains the keys to flags that have changed. You can also subscribe to specific flags.
 
 Here's how:
@@ -452,7 +453,7 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
-ldClient.on('change:YOUR_FLAG_KEY', (value, previous) => {
+client.on('change:YOUR_FLAG_KEY', (value, previous) => {
   console.log('YOUR_FLAG_KEY changed:', value, '(was ' + previous + ')');
 });
 ```
@@ -501,7 +502,7 @@ You can also disable listeners by unregistering them:
 <CodeTabItem value="js">
 
 ```js
-this.state.ldClient.unregisterFeatureFlagListener('MY_LISTEN_FLAG_KEY', this.state.listeners['MY_LISTEN_FLAG_KEY']);
+this.state.client.unregisterFeatureFlagListener('MY_LISTEN_FLAG_KEY', this.state.listeners['MY_LISTEN_FLAG_KEY']);
 let {['MY_LISTEN_FLAG_KEY']: omit, ...newListeners} = this.state.listeners;
 this.setState({listeners: newListeners});
 ```
@@ -535,7 +536,7 @@ Here's how:
 <CodeTabItem value="csharp">
 
 ```csharp
-ldClient.FlagChanged += (sender, eventArgs) => {
+client.FlagChanged += (sender, eventArgs) => {
     if (eventArgs.Key == "key-for-flag-i-am-watching") {
         DoSomethingWithNewFlagValue(eventArgs.NewBoolValue);
     }
@@ -629,10 +630,12 @@ void LogWheneverOneFlagChangesForOneUser(LdClient client, string flagKey, User u
 ### Go
 
 <Callout intent="info">
-  <CalloutTitle>This feature is not available in all SDKs or versions</CalloutTitle>
-  <CalloutDescription>
-    The Go SDK only supports subscribing to flag changes in versions 5.0.0 and higher.
-  </CalloutDescription>
+<CalloutTitle>This feature is not available in all SDKs or versions</CalloutTitle>
+<CalloutDescription>
+
+The Go SDK only supports subscribing to flag changes in versions 5.0.0 and higher.
+
+</CalloutDescription>
 </Callout>
 
 The Go SDK provides a channel-based mechanism to notify you when flag configurations change. The [`LDClient.GetFlagTracker()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetFlagTracker) method returns an interface for this mechanism called [`FlagTracker`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#FlagTracker).
@@ -794,11 +797,11 @@ Here is an example:
 <CodeTabItem value="js">
 
 ```js
-ldClient.on('update', (param) => {
+client.on('update', (param) => {
   console.log('a flag was changed: ' + param.key);
 });
 
-ldClient.on('update:EXAMPLE_FLAG_KEY', () => {
+client.on('update:EXAMPLE_FLAG_KEY', () => {
   console.log('the EXAMPLE_FLAG_KEY flag was changed');
 });
 ```

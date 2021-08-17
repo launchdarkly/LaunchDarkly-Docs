@@ -9,6 +9,8 @@ published: true
 
 This topic explains how to create feature flags in LaunchDarkly. You can use feature flags in any aspect of your application, from the customer-facing UI to the back end.
 
+The procedures in this topic assume that you have already configured a LaunchDarkly SDK and are ready to use the LaunchDarkly UI. For an example tutorial of how to configure a LaunchDarkly SDK, read [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag).
+
 In the LaunchDarkly UI, you can create a new flag, clone and modify an existing flag to create new ones, and set default variations for flags.
 
 <Callout intent="info">
@@ -30,20 +32,20 @@ To learn more about the dashboard, read [The dashboard](/home/organize/dashboard
 To create a feature flag:
 
 1. Log into LaunchDarkly. The dashboard appears.
-2. Click **New**. The "Create a feature flag" screen appears:
+2. Click **+ Flag**. The "Create a feature flag" screen appears:
 
 ![The dashboard, with the New button called out.](../../images/flag-new-callout.png)
 
 3. Enter a unique, human-readable **Name**.
 4. Enter a unique flag **Key**. You'll use this key to reference the flag in your code. A suggested key auto-populates from the name you enter, but you can customize it if you wish.
-5. (Optional) Enter a **Description** of the flag. A brief, human-readable description helps your team members understand what the flag is for.
+5. (Optional) Enter a **Description** of the flag. A brief, human-readable description helps your account members understand what the flag is for.
 6. (Optional) Click into the **Tags** dropdown and choose one or more tags for your flag.
 
 <Callout intent="info">
 <CalloutTitle>Tags let you sort flags into groups</CalloutTitle>
 <CalloutDescription>
 
-Tags are useful for managing flag permissions using custom roles. For example, you can tag a flag as "Marketing" and "DevOps", and then use these tags to determine who has read or write access for the flag. To learn more, read [Custom roles](/home/team/custom-roles).
+Tags are useful for managing flag permissions using custom roles. For example, you can tag a flag as "Marketing" and "DevOps", and then use these tags to determine who has read or write access for the flag. To learn more, read [Custom roles](/home/members/custom-roles).
 
 </CalloutDescription>
 </Callout>
@@ -51,14 +53,14 @@ Tags are useful for managing flag permissions using custom roles. For example, y
 7. (Optional) In the "Client-side SDK flag availability" section, check the **SDKs using Mobile Key** and/or **SDKs using client-side ID** boxes to designate which SDKs the flag should be available to. To learn more, read [Making flags available to client-side and mobile SDKs](#making-flags-available-to-client-side-and-mobile-sdks).
 8. Choose an option in the **Flag variations** dropdown. To learn more, read [Flag variations](/home/flags/variations).
 9. (Optional) Specify details for your **Variation**. To learn more, read [Managing flag variations](/home/flags/variations/#managing-flag-variations).
-10. (Optional) Change the **default variations** for the flag's on and off states. To learn more about default variations, read [Setting default variations](#setting-default-variations).
+10. (Optional) Change the **default variations** for the flag's on and off states. To learn more, read [Setting default variations](#setting-default-variations).
 11. (Optional) Select the **This is a permanent flag** checkbox.
-12. (Optional) Select the **SDKs using mobile key** and/or **SDKs using Client-side ID** checkboxes. If you choose this option, the flag will be pushed out to the type of SDKs you selected. You must make available each flag that you want client-side or mobile SDKs to be able to access.
-13. Click **Save Flag**:
+12. (Optional) Select the **Make this flag available to client-side SDKs** checkbox. If you choose this option, the flag will be pushed out to client-side SDKs.
+13. Click **Save Flag**.
 
-![The Create a feature flag screen.](../../images/flag-create.png)
+![The "Create a feature" flag screen.](../../images/flag-create.png)
 
-You just created a feature flag. You can see it in the dashboard.
+You just created a feature flag. It appears in the dashboard.
 
 ### Making flags available to client-side and mobile SDKs
 
@@ -68,7 +70,12 @@ Here is an image of the "Client-side SDK availability" section:
 
 ![The "Client-side SDK availability" section of the flag creation screen.](../../images/flag-create-sdk.png)
 
-Making flags available to client-side SDKs, specifically to SDKs for mobile devices, may have security implications you should consider. SDKs for mobile devices use mobile SDK keys, which are readily available to mobile apps. A leaked mobile SDK key allows a backdoor around JavaScript's SecureMode, which can allow the holder to find out the value of every flag for any user even without knowing the SDK key that is used to hash the user key in Secure Mode.
+<Callout intent="alert">
+<CalloutTitle>Security implications of making flags available to mobile SDKs</CalloutTitle>
+<CalloutDescription>
+SDKs for mobile devices use mobile SDK keys, which are readily available to mobile apps. A leaked mobile SDK key allows the holder to circumvent JavaScript's Secure Mode. This can give the holder access to the value of every flag for any user, even without knowing the SDK key that hashes the user key in Secure Mode.
+</CalloutDescription>
+</Callout>
 
 To learn more, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
@@ -122,7 +129,7 @@ Here is a screenshot of flag creation screen:
 ## Cloning flags
 
 <Callout intent="primary">
-<CalloutTitle>Cloning flags is a pro and Enterprise feature</CalloutTitle>
+<CalloutTitle>Cloning flags is a Pro and Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
 Cloning flags is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
@@ -148,14 +155,14 @@ To clone a flag:
 
 5. Enter a unique, human-readable **Name**.
 6. Enter a unique flag **Key**. You'll use this key to reference the flag in your code. A suggested key auto-populates from the name you enter, but you can customize it if you wish.
-7. (Optional) Enter a **Description** of the flag. A brief, human-readable description helps your team members understand what the flag is for.
+7. (Optional) Enter a **Description** of the flag. A brief, human-readable description helps your account members understand what the flag is for.
 8. (Optional) Click into the **Tags** dropdown and choose one or more tags for your flag.
 
 <Callout intent="info">
 <CalloutTitle>Tags sort flags into groups</CalloutTitle>
 <CalloutDescription>
 
-Tags are useful for managing flag permissions using custom roles. For example, you can tag a flag as "Marketing" and "DevOps", and then use these tags to determine who has read or write access for the flag. To learn more, read [Custom roles](/home/team/custom-roles).
+Tags are useful for managing flag permissions using custom roles. For example, you can tag a flag as "Marketing" and "DevOps", and then use these tags to determine who has read or write access for the flag. To learn more, read [Custom roles](/home/members/custom-roles).
 
 </CalloutDescription>
 </Callout>

@@ -534,7 +534,7 @@ We recommend using the same user key for every initialization and then replacing
 <CalloutTitle>Personally-identifying user keys</CalloutTitle>
 <CalloutDescription>
 
-If the `key` attribute you rely on in your user JSON contains personally identifiable information, you should enable the `useReport` option by [customizing your fetched by sending the user JSON as a JSON base64 URL-encoded path parameter. When `useReport` is enabled, flag settings will be fetched by sending the user JSON in the body of a REPORT request instead, thereby hiding that information from request logs.
+If the `key` attribute you rely on in your user JSON contains personally identifiable information, you should enable the `useReport` option by sending the user JSON as a JSON base64 URL-encoded path parameter. When `useReport` is enabled, flag settings will be fetched by sending the user JSON in the body of a REPORT request instead, thereby hiding that information from request logs.
 
 </CalloutDescription>
 </Callout>
@@ -784,7 +784,7 @@ const user = {
   email: "gracehopper@example.com"
 };
 
-const ldClient = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
+const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
   allAttributesPrivate: true
 });
 ```
@@ -814,7 +814,7 @@ const user = {
   privateAttributeNames: ["email"]
 };
 
-const ldClient = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
+const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
   privateAttributeNames: ["email"]
 });
 ```
@@ -900,7 +900,7 @@ Private attributes allow you to specify keys you do not want to send to the Laun
 
 #### Anonymous user attributes in the React Native SDK
 
-The `anonymous` key lets you distinguish logged out or unregistered users while still using LaunchDarkly. Anonymous users work just like regular users, except that they do not appear on your Users page in LaunchDarkly. This keeps anonymous users from polluting your Users page.
+The `anonymous` key lets you distinguish logged out or unregistered users while still using LaunchDarkly. Anonymous users work just like regular users, except that they do not appear on your Users page in LaunchDarkly. This prevents unauthenticated users from diluting useful data on the User dashboard.
 
 You can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. If you use the same user key for every anonymous user, you also can't use percentage rollouts or Experimentation with anonymous users.
 
@@ -2196,9 +2196,9 @@ Custom attributes let you target users according to any data that you send to La
 
 To learn more about configuration options, read the [API docs](https://launchdarkly.github.io/lua-server-sdk/index.html#makeUser).
 
-### Node.js
+### Node.js (server-side)
 
-Feature flag targeting and rollouts  are determined by the user you pass to your `variation` calls. In the Node.JS SDK, users are JSON objects. Here's an example:
+Feature flag targeting and rollouts are determined by the user you pass to your `variation` calls. In the Node.JS SDK, users are JSON objects. Here's an example:
 
 <CodeTabs
   defaultValue="js"

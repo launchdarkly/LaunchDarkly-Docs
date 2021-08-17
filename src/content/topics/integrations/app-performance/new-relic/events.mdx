@@ -27,11 +27,11 @@ This integration only works with a New Relic One Pro subscription. Check your su
 
 This topic explains how to use the LaunchDarkly New Relic One integration to view LaunchDarkly events in New Relic.
 
-LaunchDarkly integrates with New Relic One. LaunchDarkly sends feature flag change events to New Relic as deployment events. These events appear as new deployments in the [One console's APM Event log](https://docs.newrelic.com/docs/apm/applications-menu/events/deployments-page-view-impact-your-app-users#dep_procedures).
+LaunchDarkly integrates with New Relic One. LaunchDarkly sends feature flag change events to New Relic as deployment events. These events appear as new deployments in the [One console's APM Event log](https://docs.newrelic.com/docs/apm/apm-ui-pages/events/deployments-page-view-impact-your-app-users/).
 
 ## Prerequisites
 
-To configure the integration, you must [create a REST API key](https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#rest-api-key) on your New Relic One account.
+To configure the integration, you must [create a REST API key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/) on your New Relic One account.
 
 ## Configuring LaunchDarkly to send flag change events to New Relic One
 
@@ -45,15 +45,15 @@ To configure LaunchDarkly to send events to New Relic:
 
 3. Give the integration a human-readable **Name**.
 
-4. Paste in your [**New Relic REST API key**](https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#rest-api-key).
+4. Paste in your [**New Relic REST API key**](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/).
 
-5. Paste in your [**New Relic application ID**](https://docs.newrelic.com/docs/accounts/install-new-relic/account-setup/app-id-other-product-ids#ui).
+5. Paste in your [**New Relic application ID**](https://docs.newrelic.com/docs/apis/rest-api-v2/get-started/get-app-other-ids-new-relic-one/).
 
 6. Click **Save New Relic Configuration**.
 
 ### Adding custom policies to the New Relic integration
 
-LaunchDarkly sends all flag change events in the production environment to New Relic by default. To customize the events LaunchDarkly sends to New Relic, use the policy editor in the configuration panel. To learn more about creating a policy, read [Example policies and templates](/home/team/example-policies).
+LaunchDarkly sends all flag change events in the production environment to New Relic by default. To customize the events LaunchDarkly sends to New Relic, use the policy editor in the configuration panel. To learn more about creating a policy, read [Example policies and templates](/home/members/example-policies).
 
 ![Policy editor](../images/new-relic-policy-editor.png)
 

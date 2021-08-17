@@ -58,7 +58,7 @@ LDUser updatedUser = new LDUser.Builder(user)
     .email("fake2@example.com")
     .build();
 
-ldClient.identify(updatedUser);
+client.identify(updatedUser);
 ```
 
 </CodeTabItem>
@@ -69,7 +69,7 @@ val updatedUser: LDUser = LDUser.Builder(user)
     .email("fake2@example.com")
     .build()
 
-ldClient.identify(updatedUser)
+client.identify(updatedUser)
 ```
 
 </CodeTabItem>
@@ -228,7 +228,7 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
-ldclient.identify(newUser, hash, function() {
+client.identify(newUser, hash, function() {
   console.log("New user's flags available");
 });
 ```
@@ -258,12 +258,12 @@ You may want to change the user context dynamically and receive the new set of f
 <CodeTabItem value="js">
 
 ```js
-ldClient.identify(newUser, () => {
+client.identify(newUser, () => {
   console.log("New user's flags available");
 });
 
 // or, with a Promise:
-ldClient.identify(newUser).then(() => {
+client.identify(newUser).then(() => {
   console.log("New user's flags available");
 });
 ```
@@ -352,7 +352,7 @@ To use `identify`:
 <CodeTabItem value="csharp">
 
 ```csharp
-ldClient.Identify(user);
+client.Identify(user);
 ```
 
 </CodeTabItem>
@@ -444,7 +444,7 @@ To use `identify`:
 <CodeTabItem value="go">
 
 ```go
-ldClient.Identify(user)
+client.Identify(user)
 ```
 
 </CodeTabItem>
@@ -488,7 +488,7 @@ To use `identify`:
 <CodeTabItem value="java">
 
 ```java
-ldClient.identify(user);
+client.identify(user);
 ```
 
 </CodeTabItem>
@@ -534,7 +534,7 @@ To use `identify`:
 <CodeTabItem value="js">
 
 ```js
-ldClient.identify(user);
+client.identify(user);
 ```
 
 </CodeTabItem>
@@ -603,7 +603,7 @@ To use `identify`:
 <CodeTabItem value="ruby">
 
 ```ruby
-ld_client.identify(user)
+client.identify(user)
 ```
 
 </CodeTabItem>

@@ -219,7 +219,11 @@ const client = LaunchDarkly.init(sdkKey, config);
 
 ### PHP
 
-The PHP integration is part of the main SDK distribution as of version 3.5.0, but you must also install the package `aws/aws-sdk-php`.
+In version 4.0 and higher of the PHP SDK, you must add the package `launchdarkly/server-sdk-dynamodb` to your application's Composer dependencies to use the DynamoDB integration.
+
+In versions 3.x and earlier, the DynamoDB integration is built into the main SDK package, but you must add a package dependency for `aws/aws-sdk-php`.
+
+To use the DynamoDB integration:
 
 <CodeTabs
   defaultValue="php"
@@ -231,11 +235,6 @@ The PHP integration is part of the main SDK distribution as of version 3.5.0, bu
 <CodeTabItem value="php">
 
 ```php
-/*
-  Note that there is no parameter for the cache TTL; the PHP SDK does not cache
-  data from DynamoDB, since in PHP the entire in-memory application state is
-  normally discarded after each request.
-*/
 $fr = LaunchDarkly\Integrations\DynamoDb::featureRequester([
     'dynamodb_table' => 'my-table'
 ]);
@@ -246,6 +245,8 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 
 </CodeTabItem>
 </CodeTabs>
+
+To learn more, read [`php-server-sdk-redis-dynamodb`](https://github.com/launchdarkly/php-server-sdk-redis-dynamodb).
 
 ### Python
 

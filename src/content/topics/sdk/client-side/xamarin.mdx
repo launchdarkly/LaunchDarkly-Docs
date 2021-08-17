@@ -66,10 +66,9 @@ using LaunchDarkly.Xamarin;
 </CodeTabItem>
 </CodeTabs>
 
-After the dependency is installed, initialize the LaunchDarkly client. Create a single, shared instance of `LdClient`. To create a client instance, you need your environment's mobile key (available on your [account settings page](https://app.launchdarkly.com/settings#/projects)). Never embed a server-side SDK key into a mobile application.
+After the dependency is installed, initialize the LaunchDarkly client. Create a single, shared instance of `LdClient`. This authorizes your application to connect to LaunchDarkly and retrieve flag values for your application and environment. To create a client instance, you need your environment's mobile key, available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a mobile key. Never embed a server-side SDK key into a mobile application.
 
-The following example shows the simplest way to create the client. It will block for up to
-one second until the latest feature flags have been retrieved from LaunchDarkly.
+The following example shows the simplest way to create the client. It will block for up to one second until the latest feature flags have been retrieved from LaunchDarkly.
 
 Here's how:
 
@@ -84,7 +83,7 @@ Here's how:
 ```csharp
 var user = User.WithKey(user_key);
 var timeSpan = TimeSpan.FromSeconds(10);
-ldClient = LdClient.Init("MY_MOBILE_KEY", user, timeSpan);
+client = LdClient.Init("MY_MOBILE_KEY", user, timeSpan);
 ```
 
 </CodeTabItem>
@@ -102,7 +101,7 @@ However, calling blocking code from the main thread in an Android app is not con
 
 ```csharp
 User user = User.WithKey(user_key);
-ldClient = await LdClient.InitAsync("MY_MOBILE_KEY", user);
+client = await LdClient.InitAsync("MY_MOBILE_KEY", user);
 ```
 
 </CodeTabItem>
@@ -126,7 +125,7 @@ For Android, the `AccessNetworkState` permission is required and must be configu
 </CalloutDescription>
 </Callout>
 
-Using `ldClient`, you can check which variation a particular user should receive for a given feature flag. Here's how:
+Using `client`, you can check which variation a particular user should receive for a given feature flag. Here's how:
 
 <CodeTabs
   defaultValue="csharp"
@@ -137,7 +136,7 @@ Using `ldClient`, you can check which variation a particular user should receive
 <CodeTabItem value="csharp">
 
 ```csharp
-bool showFeature = ldClient.BoolVariation("your.feature.key", false);
+bool showFeature = client.BoolVariation("your.feature.key", false);
 if (showFeature) {
     // application code to show the feature
 }
@@ -148,6 +147,15 @@ else {
 
 </CodeTabItem>
 </CodeTabs>
+
+<Callout intent="alert">
+<CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
+<CalloutDescription>
+
+You must make feature flags available to client-side SDKs before the flags can be evaluated. If you evaluate a feature flag that is not available, you receive the default value for that flag. If you want a project's flags to be made available to this SDK by default, check the **SDKs using Mobile key** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+
+</CalloutDescription>
+</Callout>
 
 ## Using the Relay Proxy
 
@@ -165,7 +173,7 @@ You can configure the Xamarin SDK to connect to the [Relay Proxy](https://github
 Configuration config = Configuration.Builder("YOUR_SDK_KEY")
     .StreamUri(new URI("YOUR_RELAY_URI"))
     .Build();
-LdClient ldClient = LdClient.Init(config);
+LdClient client = LdClient.Init(config);
 ```
 
 </CodeTabItem>

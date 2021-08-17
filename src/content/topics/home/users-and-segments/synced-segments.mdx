@@ -1,129 +1,174 @@
 ---
 path: '/home/users/synced-segments'
-title: 'Building synced segments'
+title: 'Syncing segments from Amplitude cohorts'
 description: 'This topic explains how to create user segments that sync with an Amplitude cohort.'
 published: true
 ---
 
-<Feature flagKey="syncedSegments">
 <Callout intent="primary">
-  <CalloutTitle>Synced segments is an Enterprise feature</CalloutTitle>
+  <CalloutTitle>Syncing segments is an Enterprise feature</CalloutTitle>
   <CalloutDescription>
 
-Synced segments is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+Syncing segments from Amplitude cohorts is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
   </CalloutDescription>
 </Callout>
-</Feature>
 
 ## Overview
 
-This topic explains how to create user segments that sync with an Amplitude cohort. Synced segments let you import audiences from Amplitude to LaunchDarkly to more efficiently target and deliver feature flags.
+This topic explains how to create Big Segments that sync with an Amplitude cohort. Syncing segments let you import audiences from Amplitude to LaunchDarkly to more efficiently target and deliver feature flags.
 
-<Feature flagKey="syncedSegments" showWhenVariation={false}>
-<Callout intent="info">
-<CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
-<CalloutDescription>
+The benefits of syncing segments with Amplitude is the automatic syncing between Amplitude and LaunchDarkly.
+This lets you concentrate more on deploying features and less on managing users between platforms.
 
-Synced segments are only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://docs.google.com/forms/d/e/1FAIpQLScJ5qCC_RZTW9pPSXVZk9HaKzpltNAeoQb2t6gh7dLicwQWQQ/viewform).
-
-  </CalloutDescription>
-</Callout>
-</Feature>
+The prerequisites for Big Segments apply to syncing segments. To learn more, read [Using Big Segments](/home/users/big-segments#using-big-segments).
 
 ## Prerequisites
 
-In order to set up a synced segment, you must meet the following prerequisites:
+In order to sync segments, you must meet the following prerequisites:
 
-<ul>
-  <li>You must have an Amplitude account with the LaunchDarkly feature enabled</li>
-  <li>You must have a LaunchDarkly access token with write access for the project you want to connect to Amplitude</li>
-  <li>You must have a LaunchDarkly client-side ID for the environment you want to connect to Amplitude</li>
-  <Feature flagKey="syncedSegments">
-    <li>If you are using server-side SDKs, you must have <a href="/home/relay-proxy">the Relay Proxy</a> set up</li>
-  </Feature>
-</ul>
+- You must have an Amplitude account with the LaunchDarkly integration enabled. Contact your Amplitude Customer Success Manager to enable the LaunchDarkly integration.
+- You must have a LaunchDarkly access token with write access for the project you want to connect to Amplitude. To learn more, read [Configuring your access token](#configuring-your-access-token).
+- You must have a LaunchDarkly client-side ID for the environment you want to connect to Amplitude.
+- If you are using server-side SDKs, or client-side SDKs with the Relay Proxy, there are additional prerequisites. To learn more, read [Using Big Segments](/home/users/big-segments#using-big-segments).
 
-<Feature flagKey="syncedSegments" showWhenVariation={false}>
-<Callout intent="info">
-<CalloutTitle>Synced segments are not available for server-side SDKs or the Relay Proxy</CalloutTitle>
-<CalloutDescription>
+## Understanding syncing segments
 
- Synced segments are not supported on server-side SDKs or the Relay Proxy.
+By syncing segments, you can connect a new or existing Amplitude cohort to LaunchDarkly. LaunchDarkly interprets this cohort as a user segment, which makes it convenient for you to target flags to specific user groups or demographics.
 
- Support for Server-side SDKs and the Relay Proxy is in development, but not yet available as part of the Early Access Program. If a server-side SDK or the Relay Proxy evaluates a synced segment, the segment’s target list appears empty in the LaunchDarkly UI.
+In the past, the only option to import a user segment from a third-party tool was to manually upload a CSV file or configure users through the LaunchDarkly API.
 
-  </CalloutDescription>
-</Callout>
-</Feature>
+You can configure segments to sync automatically in LaunchDarkly at regular intervals, which keeps them current with the existing cohort. We recommend setting up your segment to sync every hour. The process for doing this is documented below.
 
-## Understanding how synced segments work
+By syncing segments, you can deliver flags to the right user groups precisely and on time.
 
-With synced segments, you can connect a new or existing Amplitude cohort to LaunchDarkly. LaunchDarkly interprets this cohort as a user segment, which makes it convenient for you to target flags to specific user groups or demographics.
+## Creating a Big Segment that syncs with Amplitude
 
-In the past, the only option to import a user segment from a third-party tool was to manually upload a CSV file or configure users through the LaunchDarkly API. This manual process was a frequent source of errors. Imported segments needed to be updated manually every time the cohort or user group from the third-party tool changed, which meant that they were frequently out of sync with the real-time population of the cohort.
-
-You can configure synced segments to update automatically in LaunchDarkly at regular intervals, which keeps them current with the existing cohort. We recommend setting up your segment to sync every hour. The process for doing this is documented below.
-
-With synced segments, you can be certain that you're delivering flags to the right user groups precisely and right on time.
-
-## Creating a synced segment
-
-To configure synced segments, you must choose a cohort in Amplitude and tell it to send data to LaunchDarkly. When you do this correctly, the cohort appears as a user segment in LaunchDarkly.
+To configure a Big Segment that syncs with an Amplitude cohort, you must choose a cohort in Amplitude and tell it to send data to LaunchDarkly. When you do this correctly, the cohort appears as a user segment in LaunchDarkly.
 
 To do this, first [add LaunchDarkly as a destination](#adding-launchdarkly-as-a-destination) and then [sync the cohort](#sync-cohort-to-launchdarkly) to the LaunchDarkly destination.
 
-## Adding LaunchDarkly as a destination
+### Configuring your access token
 
-1. Log in to Amplitude and navigate to Sources & Destinations.
+To add LaunchDarkly as a destination in Amplitude, you need an access token from your LaunchDarkly project. To learn how to create an access token, read [Creating API access tokens](/home/account-security/api-access-tokens#creating-api-access-tokens).
 
-![The Amplitude dashboard with the "Sources & Destinations" button called out.](../../images/segments-amplitude-sources-destinations.png)
+Your access token must have either a `writer` or custom role:
 
-2. Navigate to the **Destinations** tab and click **Add Destination**.
+![An access token with the Writer role called out.](../../images/create-access-token.png)
 
-![The Destinations tab with the "Add Destination" button called out.](../../images/segments-amplitude-add-destination.png)
+If your access token has a custom role, it must have the actions `createSegment` and `updateIncluded` to sync a segment from Amplitude.
 
-3. Select the LaunchDarkly Destination. If you don't see LaunchDarkly, you may have to contact Amplitude support to enable the LaunchDarkly feature.
+Below is an example of the permissions needed for your custom role:
+
+```js
+[
+  {
+    "resources": [
+      "proj/*:env/*:segment/*"
+    ],
+    "actions": [
+      "createSegment",
+      "updateIncluded"
+    ],
+    "effect": "allow"
+  }
+]
+```
+
+To learn more, read [Custom roles](https://docs.launchdarkly.com/home/members/custom-roles) and [Segments actions](https://docs.launchdarkly.com/home/members/role-actions#segments-actions).
+
+### Adding LaunchDarkly as a destination
+
+To create a destination in Amplitude, you must have Admin or Manager credentials.
+
+To add LaunchDarkly as a destination:
+
+1. Log in to Amplitude and navigate to Data Destinations:
+
+![The Amplitude dashboard with the "Data Destinations" button called out.](../../images/segments-amplitude-data-destinations.png)
+
+2. Scroll to the "Add More Destinations" section and click **View All Destinations**:
+
+![The Add More Destinations section with the "View All Destinations" button called out.](../../images/segments-amplitude-view-all-destinations.png)
+
+3. Select the LaunchDarkly Destination:
 
 ![The Add Destination list with LaunchDarkly called out.](../../images/segments-amplitude-launchdarkly-destination.png)
 
-4. Enter a destination name and add the **access token** and **client-side ID** for your LaunchDarkly project and environment. Select a matching user property in Amplitude to map to LaunchDarkly's User Key. This will most likely be your Amplitude user ID but it depends on your [Amplitude configuration](https://help.amplitude.com/hc/en-us/articles/206404628-Step-2-Identifying-your-users). Click save.
+If you don't see LaunchDarkly on the destinations list, contact your Amplitude Customer Success Manager to enable the LaunchDarkly integration. If you do not have Admin or Manager credentials Amplitude displays an error message:
+
+![A permission error message in Amplitude.](../../images/segment-amplitude-permission-error.png)
+
+4. Enter a destination name and add the access token and client-side ID for your LaunchDarkly project and environment.
+
+5. Select a matching user property in Amplitude to map to LaunchDarkly's User Key. This will most likely be your Amplitude user ID but it depends on your [Amplitude configuration](https://help.amplitude.com/hc/en-us/articles/206404628-Step-2-Identifying-your-users):
 
 ![The Connect to LaunchDarkly screen.](../../images/segments-amplitude-configure-destination.png)
 
-5. Verify that LaunchDarkly shows as **Connected**.
+Users in Amplitude must have a value in the field you map to the LaunchDarkly User Key to be included in a LaunchDarkly segment.
 
-![The Destinations tab with LaunchDarkly called out.](../../images/segments-amplitude-connected-destination.png)
+6. Click save.
 
-## Sync cohort to LaunchDarkly
+7. Verify that LaunchDarkly shows as "Connected":
+
+![The Cohort Destinations screen.](../../images/segments-amplitude-connected-destination.png)
+
+LaunchDarkly is now an Amplitude data destination.
+
+### Sync cohort to LaunchDarkly
 
 To connect a cohort to LaunchDarkly:
 
 1. Navigate to the cohort you wish to connect to LaunchDarkly.
-2. Click **Sync to...** This opens a new tab with a modal.
+2. Click **Sync to...** to open a new tab with a modal:
 
 ![The SuccessCohort screen with the "Sync to..." button called out.](../../images/segments-amplitude-sync.png)
 
-3. Select **Experiment** then **LaunchDarkly** then **next**. If you don't see the LaunchDarkly destination, make sure you have [added LaunchDarkly as a destination](#adding-launchdarkly-as-a-destination). This takes you to the destination configuration screen.
+3. Select **Experiment** then **LaunchDarkly**. If you don't see the LaunchDarkly destination, make sure you have [added LaunchDarkly as a destination](#adding-launchdarkly-as-a-destination):
 
 ![The "Select Sync Type" screen.](../../images/segments-amplitude-select-sync-type.png)
 
-4. Select your **LaunchDarkly destination** and set the scheduled sync frequency to **hourly**. Click **Sync**.
+4. Click **next**. The destination configuration screen appears.
+
+5. Select your **LaunchDarkly destination** and set the scheduled sync frequency. An hourly sync frequency ensures your segments are kept up to date with your Amplitude cohorts. A one-time sync exports the cohort into a Big Segment once:
 
 ![The Amplitude destination configuration screen.](../../images/segments-amplitude-destination-config.png)
 
-5. The sync process begins and might take a few minutes to complete. When it finishes, LaunchDarkly appears in the list of Destinations connected to that cohort.
+6. Click **Sync**.
+
+7. The sync process begins and might take a few minutes to complete:
 
 ![The Amplitude cohort destinations screen.](../../images/segments-amplitude-cohort-destinations.png)
 
-## Synced segments in LaunchDarkly
+When the sync finishes Amplitude sends you an email and LaunchDarkly appears in the list of Destinations connected to that cohort.
 
-You can view your synced Amplitude cohort as a segment in LaunchDarkly. It appears in the **Segments** tab with the Amplitude logo in its name.
+### Checking for missing user IDs
 
-Here is an image of the Segments dashboard:
+<Callout intent="info">
+<CalloutTitle>Users missing a user ID in Amplitude are not included in the segment</CalloutTitle>
+<CalloutDescription>
+
+Users in Amplitude must have a value in the field you map to the LaunchDarkly User Key, typically the user ID, to be included in a LaunchDarkly segment. Any Amplitude users missing a value in the mapped field are not included in the LaunchDarkly segment. To learn how to view the users in a segment synced with Amplitude, read [Viewing synced Amplitude cohorts in LaunchDarkly](/home/users/synced-segments#viewing-synced-amplitude-cohorts-in-launchdarkly).
+
+</CalloutDescription>
+</Callout>
+
+To check for users in your Amplitude cohort missing user IDs, you can download a CSV file with user ID information. Here's how:
+
+1. While viewing your cohort in Amplitude, click on the export CSV button:
+
+![The Amplitude top menu with the export CSV button called out.](../../images/segment-amplitude-export-csv.png)
+
+2. Open the file. The second column is `user_id`. If you mapped `user_id` to the LaunchDarkly User Key, any user without a value in this column is not included in the LaunchDarkly segment.
+
+## Viewing synced Amplitude cohorts in LaunchDarkly
+
+You can view your synced Amplitude cohort as a segment in LaunchDarkly. It appears in the Segments tab with the Amplitude logo in its name:
 
 ![The Segments dashboard with the Amplitude-driven segment called out.](../../images/segments-amplitude-dashboard-callout.png)
 
-If you click into that segment, you can see details about its targeting.
+Click into that segment to see details about its targeting:
 
 ![The synced segment's details screen.](../../images/segments-amplitude-sync-in-ld.png)
+
+You can't edit rules for a Big Segment synced with an Amplitude cohort because they are managed by Amplitude.

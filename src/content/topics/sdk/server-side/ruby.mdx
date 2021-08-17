@@ -71,7 +71,7 @@ Here's how:
 <CodeTabItem value="ruby">
 
 ```ruby
-ld_client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY")
+client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY")
 ```
 
 </CodeTabItem>
@@ -86,7 +86,7 @@ It's important to make this a singleton. The client instance maintains internal 
 </CalloutDescription>
 </Callout>
 
-Using `ld_client`, you can check which variation a particular user should receive for a given feature flag.
+Using `client`, you can check which variation a particular user should receive for a given feature flag.
 
 <CodeTabs
   defaultValue="ruby"
@@ -97,7 +97,7 @@ Using `ld_client`, you can check which variation a particular user should receiv
 <CodeTabItem value="ruby">
 
 ```ruby
-show_feature = ld_client.variation("your.flag.key", {key: "user@test.com"}, false)
+show_feature = client.variation("your.flag.key", {key: "user@test.com"}, false)
 if show_feature
   # application code to show the feature
 else
@@ -107,7 +107,7 @@ else
 </CodeTabItem>
 </CodeTabs>
 
-Lastly, when your application is about to terminate, shut down `ld_client`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
+Lastly, when your application is about to terminate, shut down `client`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
 
 Here's how:
 
@@ -121,7 +121,7 @@ Here's how:
 
 ```ruby
 # shut down the client, since we're about to quit
-ld_client.close
+client.close
 ```
 
 </CodeTabItem>
@@ -140,7 +140,7 @@ To use LaunchDarkly in a Rails application, initialize the client in `config/ini
 <CodeTabItem value="ruby">
 
 ```ruby
-Rails.configuration.ld_client = LaunchDarkly::LDClient.new("your_sdk_key")
+Rails.configuration.client = LaunchDarkly::LDClient.new("your_sdk_key")
 ```
 
 </CodeTabItem>
@@ -158,7 +158,7 @@ To use LaunchDarkly with the Rails application preloader [Spring](https://github
 
 ```ruby
 Spring.after_fork do
-  Rails.configuration.ld_client = LaunchDarkly::LDClient.new('SDK KEY')
+  Rails.configuration.client = LaunchDarkly::LDClient.new('SDK KEY')
 end
 ```
 
@@ -177,7 +177,7 @@ Similarly, with [Unicorn](https://bogomips.org/unicorn/), you'll need to specify
 
 ```ruby
 after_fork do |server,worker|
-  Rails.configuration.ld_client = LaunchDarkly::LDClient.new('SDK KEY')
+  Rails.configuration.client = LaunchDarkly::LDClient.new('SDK KEY')
 end
 ```
 
@@ -196,7 +196,7 @@ If you use the [Puma](https://github.com/puma/puma) web server, we recommend ini
 
 ```ruby
 on_worker_boot do
-  Rails.configuration.ld_client = LaunchDarkly::LDClient.new('SDK KEY')
+  Rails.configuration.client = LaunchDarkly::LDClient.new('SDK KEY')
 end
 ```
 
@@ -216,7 +216,7 @@ If you use the [Passenger](https://www.phusionpassenger.com/library/indepth/ruby
 ```ruby
 if defined?(PhusionPassenger)
   PhusionPassenger.on_event(:starting_worker_process) do |forked|
-    Rails.configuration.ld_client = LaunchDarkly::LDClient.new('SDK KEY')
+    Rails.configuration.client = LaunchDarkly::LDClient.new('SDK KEY')
   end
 end
 ```
@@ -247,3 +247,4 @@ This SDK supports the following features:
 * [Sending custom events](/sdk/features/events#ruby)
 * [Shutting down](/sdk/features/shutdown#ruby)
 * [Storing data](/sdk/features/storing-data#ruby)
+* [User configuration](/sdk/features/user-config#ruby)

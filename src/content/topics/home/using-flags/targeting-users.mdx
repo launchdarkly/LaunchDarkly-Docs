@@ -167,170 +167,67 @@ LaunchDarkly supports the following operators:
       <TableCell>string</TableCell>
       <TableCell>
         <a href="https://semver.org/">Semantic version</a> comparison. Valid string attributes must follow the semantic versioning
-        specification, though we allow the PATCH version to be omitted (so that, e.g. `2.0` is considered a valid
-        semantic version).
+        specification, though LaunchDarkly allows you to omit the PATCH version. For example, `2.0` is a valid semantic version.
       </TableCell>
     </TableRow>
   </TableBody>
 </Table>
+
+Server-side SDKs must be the following minimum version or higher to support sematic versioning:
+
+- .NET: 3.6.1
+- Apex: all versions
+- C/C++: all versions
+- Erlang: all versions
+- Go: v3
+- Java: 2.6.0
+- Haskell: all versions
+- Lua: all versions
+- Node.js: all versions
+- PHP: 2.5.0
+- Node: 3.4.0
+- Python: 4.3.0
+- Ruby: 2.5.0
+
+No updates are required for client-side SDKs.
 
 ### Date comparisons
 
-<Callout intent="alert">
-<CalloutTitle>Dates require UNIX formatting</CalloutTitle>
-<CalloutDescription>
-
-Dates specified in the `user` object should be formatted in UNIX milliseconds (UNIX epoch * 1000). To learn more
-about UNIX date formatting, or convert a date and time to UNIX milliseconds read [Current Millis](https://currentmillis.com/).
-
-</CalloutDescription>
-</Callout>
-
-<Callout intent="info">
-<CalloutTitle>Required SDK versions for semantic versions</CalloutTitle>
-<CalloutDescription>
-
-Older versions of our server SDKs do not support semantic version operators. Minimum SDK versions are:
-
-Go: v3
-
-Node: 3.4.0
-
-Python: 4.3.0
-
-Ruby: 2.5.0
-
-.NET: 3.6.1
-
-Java: 2.6.0
-
-PHP: 2.5.0
-
-No updates are required for Android, iOS, or
-JavaScript.
-
-  </CalloutDescription>
-</Callout>
+Dates specified in the `user` object must be formatted in UNIX milliseconds: UNIX epoch * 1000. To learn more about UNIX date formatting, or convert a date and time to UNIX milliseconds read [Current Millis](https://currentmillis.com/).
 
 ### Built-in attributes
 
-LaunchDarkly includes some useful built-in attributes for users. All of them are strings with the exception of anonymous:
+LaunchDarkly includes built-in attributes for users. Here are some examples of common user attributes:
 
-<Table>
-  <TableHeader>
-    <TableHeadCell>Attribute Key</TableHeadCell>
-    <TableHeadCell>Attribute Example Value</TableHeadCell>
-    <TableHeadCell>Note</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>key</code>
-      </TableCell>
-      <TableCell>"1f2e2d3a"</TableCell>
-      <TableCell>Required for evaluation. This should be unique for each user.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>secondary</code>
-      </TableCell>
-      <TableCell>"2398127"</TableCell>
-      <TableCell>
-        If provided, this attribute is used with a user's key to generate a variation in percentage rollouts.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>ip</code>
-      </TableCell>
-      <TableCell>"10.10.10.10"</TableCell>
-      <TableCell>This attribute must be an IP address.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>email</code>
-      </TableCell>
-      <TableCell>"user@example.com"</TableCell>
-      <TableCell></TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>name</code>
-      </TableCell>
-      <TableCell>"Jill Jones"</TableCell>
-      <TableCell></TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>avatar</code>
-      </TableCell>
-      <TableCell>"http://example.com/avatar.png"</TableCell>
-      <TableCell>This attribute must be an absolute URL to an avatar image for the user.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>firstName</code>
-      </TableCell>
-      <TableCell>"Jill"</TableCell>
-      <TableCell></TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>lastName</code>
-      </TableCell>
-      <TableCell>"Jones"</TableCell>
-      <TableCell></TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>country</code>
-      </TableCell>
-      <TableCell>"Uganda"</TableCell>
-      <TableCell></TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>anonymous</code>
-      </TableCell>
-      <TableCell>"true"</TableCell>
-      <TableCell>This is a Boolean value. This attribute prevents the user from appearing on the dashboard. Setting <code>anonymous</code> to <code>false</code> is not the same as omitting it. If you have a flag rule that checks for <code>anonymous</code> being <code>false</code>, the rule will not match users for whom you did not set a value, because null attributes will never match a flag rule. </TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
+- `key`
+- `firstName`
+- `lastName`
+- `email`
+- `avatar`
+
+The user key is the only mandatory user attribute. The JavaScript and React Web SDKs automatically generate a random key for you if you do not provide one.
+
+All other user attributes are optional. For a full list of built-in user attributes, read [Understanding user attributes](/home/users/attributes#understanding-user-attributes).
 
 <Callout intent="info">
-  <CalloutTitle>We do not provide built-in attributes</CalloutTitle>
-  <CalloutDescription>
-    While we provide all of these fields for you to fill in, the SDK does not automatically collect any information. If
-    you want to target your users based on any of these attributes you must supply their values.
-  </CalloutDescription>
-</Callout>
-
-### Anonymous users
-
-Anonymous users work just like regular users, except that they don't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This is keeps anonymous users from polluting your Users page. Anonymous users still count toward your monthly active user limit.
-
-You still must generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
-
-<Callout intent="primary">
-<CalloutTitle>Maintaining experience across anonymous and logged-in states</CalloutTitle>
+<CalloutTitle>LaunchDarkly does not automatically populate built-in attributes</CalloutTitle>
 <CalloutDescription>
 
-To associate pre-login (anonymous) behaviors with post-login (known) behaviors to get a singular view of a user flow, you should use a custom attribute, and the advanced option for percentage rollouts that allows you to rollout based on a different attribute. The steps to make this happen are as follows:
-
-* store a unique identifier for the anonymous user into a cookie. A session ID or UUID works well.
-
-* until the user logs in, use this unique identifier as both the user's key, and a custom attribute. The custom
-attribute could be named anything, but for this example it is named "uniqueId".
-
-* while the user is logged in, set the users key to their real (primary) user key, but
-continue to use to use the unique identifier stored in the cookie as the users "uniqueId" custom attribute.
-
-* for all flags (or at least those that may effect logged out users), use the advanced option for all percentage rollouts
-to do rollouts based on the "uniqueId" custom attribute.
+While LaunchDarkly provides built-in attribute fields for you to fill in, the SDK does not automatically collect any information. The exceptions to this are the `os` and `device` attributes used by mobile SDKs. If you want to target your users based on any other built-in attributes, you must supply their values.
 
 </CalloutDescription>
 </Callout>
+
+### Maintaining user experience across anonymous and logged-in states
+
+To associate pre-login (anonymous) behaviors with post-login (known) behaviors to get a singular view of a user flow, you should use a custom attribute and the advanced option for percentage rollouts that allows you to rollout based on a different attribute. The steps to make this happen are as follows:
+
+* Store a unique identifier for the anonymous user into a cookie. A session ID or UUID works well.
+* Use this unique identifier as both the user's key and a custom attribute until the user logs in. The custom attribute can be named anything, but for this example it is named "uniqueId".
+* While the user is logged in, set the user's key to their real (primary) user key, but continue to use to use the unique identifier stored in the cookie as the users "uniqueId" custom attribute.
+* For all flags, or for those that may affect logged out users, use the advanced option for all percentage rollouts to do rollouts based on the "uniqueId" custom attribute.
+
+To learn more about anonymous users, read [Anonymous users](/home/users/anonymous-users).
 
 <Callout intent="info">
 <CalloutTitle>Secondary attribute</CalloutTitle>
@@ -356,7 +253,7 @@ Setting a custom attribute with the same key as one of the built-in attributes w
 
 You can add multiple conditions to a rule. Users must meet all the conditions in a rule to match the rule. If any of the conditions are not met, the user will not match the rule. If a custom attribute has an array value, LaunchDarkly treats it as multiple values and allows any of the values within the array to match a rule.
 
-Here, we've created a custom rule with two conditions. This rule serves `true` to all users whose email address ends with `gmail.com` and whose country is either `USA` or `CANADA`.
+Here, we've created a custom rule with two conditions. This rule serves `true` to all users whose `lead` attribute contains `true` and whose `account` attribute does not start with `trial`.
 
 Here is an image of a rule with conditions:
 
@@ -486,6 +383,15 @@ Here is an image of the percentage rollout screen:
 
 In this example, 25% of the `beta_testers` group see the new dashboard feature.
 
+<Callout intent="info">
+<CalloutTitle>Experiment allocation</CalloutTitle>
+<CalloutDescription>
+
+If you're using Experimentation, experiment allocation allows you more flexibility when selecting your experiment population and ensures accurate experiment results. To learn how to enable and use experiment allocation, read [Allocating experiment traffic](/home/experimentation/allocation).
+
+</CalloutDescription>
+</Callout>
+
 ### Percentage rollout logic
 
 When you set up a percentage rollout, the variation a user receives is determined by the user's key. The percentage rollout logic generates a hash from the user's key or attribute, the user's secondary attribute (if provided), the flag's key, and a hidden salt attribute stored in the flag.
@@ -550,12 +456,6 @@ Here is an image of two targeting rules:
 
 
 Rules can be re-ordered by clicking on the left edge of a rule and dragging it up or down.
-
-## User storage
-
-The Users page shows only cached user information. User data is deleted after 30 days if a user has not been seen by LaunchDarkly for more than 30 days. The rationale behind this is that the system should be regularly calling variations on users which would cause them to appear in the dashboard through normal usage.
-
-If the variations are being called less frequently than 30 days, the best solution would be to manually identify all of the users that you wish to be kept in the dashboard every 30 days.
 
 ## Converting a rule into a segment
 

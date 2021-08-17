@@ -360,7 +360,55 @@ const client = LaunchDarkly.init(sdkKey, config);
 
 ### PHP
 
-The PHP integration is part of the main SDK distribution, but you must also must install the package `predis/predis`.
+There are two Redis integrations for the PHP SDK. One uses the [Predis](https://github.com/predis/predis) package, which can be used in any PHP environment. The other uses the more efficient [`phpredis`](https://github.com/phpredis/phpredis) extension, which must be installed in PHP itself.
+
+In version 4.0 and higher of the PHP SDK, you must add a package to your application's Composer dependencies to use one of these two integrations:
+
+* For the Predis integration, add `launchdarkly/server-sdk-redis-predis`.
+* For the `phpredis` integration, add `launchdarkly/server-sdk-redis-phpredis`.
+
+In versions 3.x and earlier, the Redis integrations are built into the main SDK package, but you must add a package dependency for `predis/predis` if you are using Predis.
+
+To use the Predis integration:
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK 3.4.x and earlier', value: 'php34', },
+  ]
+}>
+
+<CodeTabItem value="php">
+
+```php
+$fr = LaunchDarkly\Integrations\Redis::featureRequester([
+    'redis_host' => 'my-redis',
+    'redis_port' => 6379,
+    'redis_prefix' => 'my-key-prefix'
+]);
+$client = new LaunchDarkly\LDClient("your_sdk_key", [
+    'feature_requester' => $fr
+]);
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="php34">
+
+```php
+$client = new LaunchDarkly\LDClient("your_sdk_key", [
+    'feature_requester_class' => 'LaunchDarkly\LDDFeatureRequester',
+    'redis_host' => 'my-redis',
+    'redis_port' => 6379,
+    'redis_prefix' => 'my-key-prefix'
+]);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To use the `phpredis` integration:
 
 <CodeTabs
   defaultValue="php"
@@ -372,12 +420,7 @@ The PHP integration is part of the main SDK distribution, but you must also must
 <CodeTabItem value="php">
 
 ```php
-/*
-  There is no parameter for the cache TTL. The PHP SDK does not cache
-  data from Redis, since in PHP the entire in-memory application state is
-  normally discarded after each request.
-*/
-$fr = LaunchDarkly\Integrations\Redis::featureRequester([
+$fr = LaunchDarkly\Integrations\PHPRedis::featureRequester([
     'redis_host' => 'my-redis',
     'redis_port' => 6379,
     'redis_prefix' => 'my-key-prefix'
@@ -385,18 +428,12 @@ $fr = LaunchDarkly\Integrations\Redis::featureRequester([
 $client = new LaunchDarkly\LDClient("your_sdk_key", [
     'feature_requester' => $fr
 ]);
-
-// Prior to version 3.5.0, use this syntax:
-// $client = new LaunchDarkly\LDClient("your_sdk_key", [
-//     'feature_requester_class' => 'LaunchDarkly\LDDFeatureRequester',
-//     'redis_host' => 'my-redis',
-//     'redis_port' => 6379,
-//     'redis_prefix' => 'my-key-prefix'
-// ]);
 ```
 
 </CodeTabItem>
 </CodeTabs>
+
+To learn more, read [`php-server-sdk-redis-predis`](https://github.com/launchdarkly/php-server-sdk-redis-predis) or [`php-server-sdk-redis-phpredis`](https://github.com/launchdarkly/php-server-sdk-redis-phpredis).
 
 ### Python
 

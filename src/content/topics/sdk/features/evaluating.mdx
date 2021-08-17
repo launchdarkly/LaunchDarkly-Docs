@@ -55,14 +55,14 @@ Here is an example:
 <CodeTabItem value="java">
 
 ```java
-boolean variationResult = ldClient.boolVariation(flagKey, false);
+boolean variationResult = client.boolVariation(flagKey, false);
 ```
 
 </CodeTabItem>
 <CodeTabItem value="kotlin">
 
 ```kotlin
-val variationResult: Boolean = ldClient.boolVariation(flagKey, false)
+val variationResult: Boolean = client.boolVariation(flagKey, false)
 ```
 
 </CodeTabItem>
@@ -243,7 +243,7 @@ Here is an example of the `variation` method:
 <CodeTabItem value="js">
 
 ```js
-ldclient.variation("your.feature.key", false);
+client.variation("your.feature.key", false);
 ```
 
 </CodeTabItem>
@@ -266,7 +266,7 @@ Here is an example:
 <CodeTabItem value="js">
 
 ```js
-const value = ldClient.variation("your.feature.key", false);
+const value = client.variation("your.feature.key", false);
 ```
 
 </CodeTabItem>
@@ -346,7 +346,7 @@ Here is an example:
 <CodeTabItem value="csharp">
 
 ```csharp
-ldClient.BoolVariation("your.feature.key", false);
+client.BoolVariation("your.feature.key", false);
 ```
 
 </CodeTabItem>
@@ -386,7 +386,7 @@ Here is an example:
 <CodeTabItem value="csharp">
 
 ```csharp
-var value = ldClient.BoolVariation("your.feature.key", user, false);
+var value = client.BoolVariation("your.feature.key", user, false);
 ```
 
 </CodeTabItem>
@@ -480,7 +480,7 @@ Here is an example:
 <CodeTabItem value="go">
 
 ```go
-result, _ := ldClient.BoolVariation("your.feature.key", user, false)
+result, _ := client.BoolVariation("your.feature.key", user, false)
 
 // result is now true or false depending on the setting of this boolean feature flag
 ```
@@ -530,7 +530,7 @@ Here is an example:
 <CodeTabItem value="java">
 
 ```java
-boolean value = ldClient.boolVariation("your.feature.key", user, false);
+boolean value = client.boolVariation("your.feature.key", user, false);
 ```
 
 </CodeTabItem>
@@ -580,7 +580,7 @@ Here is an example:
 <CodeTabItem value="js">
 
 ```js
-ldClient.variation("your.feature.key", user, false,
+client.variation("your.feature.key", user, false,
   (err, show_feature) => {
     if (show_feature) {
       // application code to show the feature
@@ -663,7 +663,7 @@ Here is an example:
 <CodeTabItem value="ruby">
 
 ```ruby
-value = ld_client.variation("your.feature.key", user, false)
+value = client.variation("your.feature.key", user, false)
 ```
 
 </CodeTabItem>

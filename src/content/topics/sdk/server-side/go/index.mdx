@@ -78,7 +78,7 @@ We'll assume you've imported the LaunchDarkly SDK package as `ld`, as shown abov
 <CodeTabItem value="go">
 
 ```go
-ldClient, _ := ld.MakeClient("YOUR_SDK_KEY", 5 * time.Second)
+client, _ := ld.MakeClient("YOUR_SDK_KEY", 5 * time.Second)
 ```
 
 </CodeTabItem>
@@ -122,7 +122,7 @@ import (
 
 flagKey := "some-flag-key"
 user := lduser.NewUser("some-user-key")
-showFeature, _ := ldClient.BoolVariation(flagKey, user, false)
+showFeature, _ := client.BoolVariation(flagKey, user, false)
 if showFeature {
     // application code to show the feature
 } else {
@@ -140,7 +140,7 @@ import (
 
 flagKey := "some-flag-key"
 user := ld.NewUser("some-user-key")
-showFeature, _ := ldClient.BoolVariation(flagKey, user, false)
+showFeature, _ := client.BoolVariation(flagKey, user, false)
 if showFeature {
     // application code to show the feature
 } else {
@@ -165,7 +165,7 @@ Here is an example:
 
 ```go
 // shut down the client, since we're about to quit
-ldClient.Close()
+client.Close()
 ```
 
 </CodeTabItem>
@@ -250,6 +250,7 @@ Lastly, shut down the client when your application terminates. To learn more, re
 This SDK supports the following features:
 
 * [Aliasing users](/sdk/features/aliasing-users#go)
+* [Big Segments](/sdk/features/big-segments#go)
 * [Configuration](/sdk/features/config#go)
 * [Evaluating flags](/sdk/features/evaluating#go)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#go)
@@ -264,3 +265,4 @@ This SDK supports the following features:
 * [Shutting down](/sdk/features/shutdown#go)
 * [Storing data](/sdk/features/storing-data#go)
 * [Subscribing to flag changes](/sdk/features/flag-changes#go)
+* [User configuration](/sdk/features/user-config#go)

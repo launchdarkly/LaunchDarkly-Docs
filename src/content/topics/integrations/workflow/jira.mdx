@@ -6,12 +6,12 @@ published: true
 ---
 
 <Callout intent="primary">
-  <CalloutTitle>The Jira integration is a Pro and Enterprise feature</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>The Jira integration is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
 
 The Jira integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Overview
@@ -19,10 +19,12 @@ The Jira integration is available to customers on a Pro or Enterprise plan. To l
 This topic explains how LaunchDarkly's Jira integration allows you to link your feature flags to your team's Jira issues. When a feature flag is turned on, off, or has its targeting rules update, its associated Jira issue pages display the flag's current status.
 
 <Callout intent="info">
-  <CalloutTitle>This integration is for Jira Cloud only</CalloutTitle>
-  <CalloutDescription>
-    The LaunchDarkly Jira integration is only for Jira Cloud product offerings. It does not work in Jira Server.
-  </CalloutDescription>
+<CalloutTitle>This integration is for Jira Cloud only</CalloutTitle>
+<CalloutDescription>
+
+The LaunchDarkly Jira integration is only for Jira Cloud product offerings. It does not work in Jira Server.
+
+</CalloutDescription>
 </Callout>
 
 ## Prerequisites
@@ -48,12 +50,14 @@ Now that you've created an access token, use it to configure the Jira integratio
 ![The Jira configuration screen.](../images/jira-configure-ld-integration.png)
 
 <Callout intent="alert">
-  <CalloutTitle>Environment selection</CalloutTitle>
-  <CalloutDescription>
-    If selected environments are reconfigured after issues have already been associated with flags, the existing
-    connections display the environments they were historically connected to until the next time that flag is updated.
-    New flag connections display the flag configuration for the updated environment.
-  </CalloutDescription>
+<CalloutTitle>Environment selection</CalloutTitle>
+<CalloutDescription>
+
+If selected environments are reconfigured after issues have already been associated with flags, the existing connections display the environments they were historically connected to until the next time that flag is updated.
+
+New flag connections display the flag configuration for the updated environment.
+
+</CalloutDescription>
 </Callout>
 
 After you have set up the LaunchDarkly for Jira app is set up, a "Releases" panel appears when you view issues on the "Active sprints" board.
@@ -63,8 +67,8 @@ If no flags are associated with an existing Jira issue, you can add one with a b
 Now that the Jira app is configured, you can connect feature flags to Jira issues.
 
 <Callout intent="info">
-  <CalloutTitle>Enable the release panel</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Enable the release panel</CalloutTitle>
+<CalloutDescription>
 
 The Jira issue view, which contains the release panel, is a per-user setting. If it is off, the release panel does not appear. To learn more, read [Jira's documentation](https://support.atlassian.com/jira-work-management/docs/what-is-the-new-jira-issue-view/).
 
@@ -103,9 +107,10 @@ If you have already created a feature flag for your Jira issue, you can add a Ji
 
 
 <Callout intent="alert">
-  <CalloutTitle>Adding issues to an existing flag</CalloutTitle>
-  <CalloutDescription>
-    Your Jira issue must exist before you associate it with your feature flag. If you accidentally added a Jira issue to
-    your flag, delete the custom property, create your Jira issue, and try again.
-  </CalloutDescription>
+<CalloutTitle>Adding issues to an existing flag</CalloutTitle>
+<CalloutDescription>
+
+Your Jira issue must exist before you associate it with your feature flag. If you accidentally added a Jira issue to your flag, delete the custom property, create your Jira issue, and try again.
+
+</CalloutDescription>
 </Callout>

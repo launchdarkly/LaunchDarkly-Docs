@@ -22,8 +22,8 @@
             "path": "/home/getting-started/toggle"
           },
           {
-            "label": "Joining a team",
-            "path": "/home/getting-started/your-team"
+            "label": "Joining an account",
+            "path": "/home/getting-started/your-account"
           }
         ]
       },
@@ -92,7 +92,7 @@
             "path": "/home/organize/environments",
             "items": [
               {
-                "label": "Copying flag settings across environments",
+                "label": "Comparing and copying flag settings across environments",
                 "path": "/home/organize/flag-compare-copy"
               }
             ]
@@ -138,6 +138,10 @@
           {
             "label": "Archiving and deleting flags",
             "path": "/home/code/flag-archive"
+          },
+          {
+            "label": "Viewing flags across environments",
+            "path": "/home/code/flag-overview"
           }
         ]
       },
@@ -156,12 +160,18 @@
             "path": "/home/users/attributes"
           },
           {
-            "label": "Building synced segments",
-            "path": "/home/users/synced-segments"
-          },
-          {
             "label": "Building user segments",
             "path": "/home/users/segments"
+          },
+          {
+            "label": "Big Segments",
+            "path": "/home/users/big-segments",
+            "items": [
+              {
+                "label": "Syncing segments from Amplitude cohorts",
+                "path": "/home/users/synced-segments"
+              }
+            ]
           },
           {
             "label": "Anonymous users",
@@ -171,53 +181,53 @@
       },
       {
         "group": "platform-config",
-        "label": "Managing your team",
-        "path": "/home/team",
-        "svg": "people",
+        "label": "Managing your account members",
+        "path": "/home/members",
+        "svg": "puzzle-variation",
         "items": [
           {
-            "label": "Teams and team members",
-            "path": "/home/team/managing"
+            "label": "LaunchDarkly account members",
+            "path": "/home/members/managing"
           },
           {
             "label": "LaunchDarkly's built-in roles",
-            "path": "/home/team/built-in-roles"
+            "path": "/home/members/built-in-roles"
           },
           {
             "label": "Changing account owners",
-            "path": "/home/team/account-owners"
+            "path": "/home/members/account-owners"
           },
           {
             "label": "Custom roles",
-            "path": "/home/team/custom-roles",
+            "path": "/home/members/custom-roles",
             "items": [
               {
                 "label": "Custom role concepts",
-                "path": "/home/team/role-concepts"
+                "path": "/home/members/role-concepts"
               },
               {
                 "label": "Creating custom roles and policies",
-                "path": "/home/team/role-create"
+                "path": "/home/members/role-create"
               },
               {
                 "label": "Using actions",
-                "path": "/home/team/role-actions"
+                "path": "/home/members/role-actions"
               },
               {
                 "label": "Using resources",
-                "path": "/home/team/role-resources"
+                "path": "/home/members/role-resources"
               },
               {
                 "label": "Using policies",
-                "path": "/home/team/role-policies"
+                "path": "/home/members/role-policies"
               },
               {
                 "label": "Using tags",
-                "path": "/home/team/role-tags"
+                "path": "/home/members/role-tags"
               },
               {
                 "label": "Example policies and templates",
-                "path": "/home/team/example-policies"
+                "path": "/home/members/example-policies"
               }
             ]
           }
@@ -236,10 +246,6 @@
           {
             "label": "API access tokens",
             "path": "/home/account-security/api-access-tokens"
-          },
-          {
-            "label": "Managing sessions",
-            "path": "/home/account-security/sessions"
           },
           {
             "label": "Single sign-on",
@@ -266,6 +272,14 @@
                 "path": "/home/account-security/onelogin"
               }
             ]
+          },
+          {
+            "label": "Managing sessions",
+            "path": "/home/account-security/sessions"
+          },
+          {
+            "label": "Enabling enhanced support",
+            "path": "/home/account-security/enhanced-support"
           },
           {
             "label": "Resetting your password",
@@ -352,6 +366,10 @@
                 "path": "/home/experimentation/interpreting"
               },
               {
+                "label": "Allocating experiment traffic",
+                "path": "/home/experimentation/allocation"
+              },
+              {
                 "label": "Controlling experiment populations",
                 "path": "/home/experimentation/populations"
               },
@@ -385,6 +403,22 @@
             "label": "Flag triggers",
             "path": "/home/feature-workflows/triggers"
           }
+        ]
+      },
+      {
+        "group": "additional-features",
+        "label": "Teams",
+        "path": "/home/teams",
+        "svg": "people",
+        "items": [
+        {
+          "label": "Creating a team",
+          "path": "/home/teams/creating"
+        },
+        {
+          "label": "Managing teams",
+          "path": "/home/teams/managing"
+        }
         ]
       },
       {
@@ -669,8 +703,16 @@
             "path": "/integrations/bitbucket-pipelines"
           },
           {
+            "label": "Heap",
+            "path": "/integrations/heap"
+          },
+          {
             "label": "LogDNA",
             "path": "/integrations/logdna"
+          },
+          {
+            "label": "Pendo",
+            "path": "/integrations/pendo"
           },
           {
             "label": "Release",
@@ -735,6 +777,10 @@
           {
             "label": "Aliasing users",
             "path": "/sdk/features/aliasing-users"
+          },
+          {
+            "label": "Big Segments",
+            "path": "/sdk/features/big-segments"
           },
           {
             "label": "Bootstrapping",
@@ -992,7 +1038,13 @@
           },
           {
             "label": "PHP SDK reference",
-            "path": "/sdk/server-side/php"
+            "path": "/sdk/server-side/php",
+            "items": [
+              {
+                "label": "PHP SDK 3.x to 4.0 migration guide",
+                "path": "/sdk/server-side/php/migration-3-to-4"
+              }
+            ]
           },
           {
             "label": "Python SDK reference",
@@ -1067,8 +1119,8 @@
         "svg": "atom",
         "items": [
           {
-            "label": "Creating your first flag",
-            "path": "/guides/tutorials/first-flag"
+            "label": "Configuring an SDK and creating a flag",
+            "path": "/guides/tutorials/sdk-flag"
           },
           {
             "label": "Flag rules and targeting",

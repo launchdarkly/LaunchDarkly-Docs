@@ -14,6 +14,12 @@ function createHeading(tag: HeadingTag) {
   const Heading: React.FunctionComponent<HeadingProps> = props => {
     const Tag = Themed[tag]
 
+    const copyLinkToClipboard = () => {
+      const location = new URL(window.location.href)
+      location.hash = props.id
+      navigator.clipboard.writeText(location.href)
+    }
+
     return (
       <Tag
         {...props}
@@ -31,6 +37,7 @@ function createHeading(tag: HeadingTag) {
       >
         <a
           href={`#${props.id}`}
+          onClick={copyLinkToClipboard}
           sx={{
             paddingRight: 2,
             marginLeft: -6,

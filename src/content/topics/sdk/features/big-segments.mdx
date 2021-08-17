@@ -1,0 +1,232 @@
+---
+path: '/sdk/features/big-segments'
+title: 'Big Segments'
+description: 'This topic explains how the Big Segments feature works in the LaunchDarkly SDKs that support it.'
+published: true
+---
+
+<Callout intent="primary">
+  <CalloutTitle>Big Segments is an Enterprise feature</CalloutTitle>
+  <CalloutDescription>
+
+Big Segments is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+  </CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how the Big Segments feature works in the LaunchDarkly SDKs that support it.
+
+Big Segments are a type of user segment that can contain an arbitrarily large number of users. To learn more, read [Big Segments](/home/users/big-segments).
+
+## Using Big Segments
+
+Client-side SDKs support Big Segments by default, so no additional SDK configuration is required. However, if you use the Relay Proxy with client-side SDKs, then the Relay Proxy must be configured to use persistent storage.
+
+You must configure server-side SDKs to use the Relay Proxy to get Big Segments data from the Relay Proxy persistent storage.
+
+To learn more, read [Configuring the Relay Proxy for Big Segments](/home/relay-proxy/using#configuring-the-relay-proxy-for-big-segments).
+
+Details about each server-side SDK's Big Segments feature are available in the SDK-specific sections below.
+
+## Server-side SDKs
+
+Server-side SDK configuration for Big Segments is comprised of two parts:
+
+1. **The specific database options to get Big Segments data**: for example, which database to use, and any other parameters supported by the SDK to configure that database. These are the same database options you specify when configuring server-side SDKs to use external databases as persistent feature stores. For example, key prefix or DynamoDB table name. To learn more about these database options, read [Storing data](/sdk/features/storing-data).
+
+<Callout intent="alert">
+<CalloutTitle>Only certain types of database integration supports Big Segments</CalloutTitle>
+<CalloutDescription>
+
+Only the Redis and DynamoDB integrations support Big Segments.
+
+</CalloutDescription>
+</Callout>
+
+2. **The general options for the SDK's Big Segments behavior**: the table below lists all the general options
+available. They are all optional and valid for all server-side SDKs and can be used for any supported database
+integration.
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Config option</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        user cache size
+      </TableCell>
+      <TableCell>
+        The maximum number of users whose Big Segments status the SDK can cache. A user's Big Segments status includes all of the Big Segments the user is a part of. A higher value means that the SDK queries the database for recently-referenced users' Big Segments statuses less often. If not specified, the default value is 1000.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        user cache time
+      </TableCell>
+      <TableCell>
+        The maximum length of time that the SDK caches the Big Segments status for a user. If you do not specify a value, the default is five seconds.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        status poll interval
+      </TableCell>
+      <TableCell>
+        The interval at which the SDK polls the Big Segments store to make sure it is available and to determine how long ago it was updated. If not specified, the default value is five seconds.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        stale after
+      </TableCell>
+      <TableCell>
+        The maximum length of time between updates of Big Segments data before the SDK considers the data out of date. If you do not specify a value, the default is two minutes.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+In all the server-side SDK code examples below, the configuration is set as follows:
+
+* using a Redis server at `my-redis:6379`
+* with a key prefix of `my-key-prefix`
+* user cache size: 2000
+* user cache time: 30 seconds
+
+This feature is available in the listed versions and later of the following server-side SDKs:
+
+* [.NET](#net): 6.2.0
+* [Go](#go): 5.5.0
+* [Node.js](#nodejs-server-side): 6.2.0
+
+### .NET
+
+Big Segments is available in version 6.2.0 and later:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: '.NET', value: 'csharp', },
+  ]
+  }>
+  <CodeTabItem value="csharp">
+
+```csharp
+using LaunchDarkly.Sdk.Server;
+using LaunchDarkly.Sdk.Server.Integrations;
+var config = Configuration.Builder("my-sdk-key")
+    .BigSegments(
+        Components.BigSegments(
+            Redis.DataStore()
+                .HostAndPort("my-redis", 6379)
+                .Prefix("my-key-prefix")
+        )
+        .UserCacheSize(2000)
+        .UserCacheTime(TimeSpan.FromSeconds(30))
+    )
+    .Build();
+var client = new LDClient(config);
+```
+
+  </CodeTabItem>
+</CodeTabs>
+
+To learn more about the available Big Segments configuration options, read [`BigSegmentsConfigurationBuilder`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.BigSegmentsConfigurationBuilder.html).
+
+### Go
+
+Big Segments is available in version 5.5.0 and later:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+  }>
+  <CodeTabItem value="go">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+    ldredis "github.com/launchdarkly/go-server-sdk-redis"
+)
+
+var config ld.Config
+config.BigSegments = ldcomponents.BigSegments(
+    ldredis.DataStore().
+        HostAndPort("my-redis", 6379).
+        Prefix("my-key-prefix"),
+    ).
+    UserCacheSize(2000).
+    UserCacheTime(time.Second * 30)
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+```
+
+  </CodeTabItem>
+</CodeTabs>
+
+To learn more about the available Big Segments configuration options, read [`BigSegmentsConfigurationBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#BigSegmentsConfigurationBuilder).
+
+### Node.js (server-side)
+
+Big Segments is available in version 6.2.0 and later:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js (JavaScript)', value: 'js', },
+    { label: 'Node.js (TypeScript)', value: 'ts', },
+  ]
+  }>
+  <CodeTabItem value="js">
+
+```js
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
+const { RedisBigSegmentStore } = require('launchdarkly-node-server-sdk-redis');
+
+const store = RedisBigSegmentStore({
+  redisOpts: { url: 'redis://my-redis:6379' },
+  prefix: 'my-key-prefix'
+});
+
+const config = {
+  bigSegments: {
+    store: store,
+    userCacheSize: 2000,
+    userCacheTime: 30
+  }
+};
+const client = LaunchDarkly.init(sdkKey, config);
+```
+
+  </CodeTabItem>
+  <CodeTabItem value="ts">
+
+```js
+import * as LaunchDarkly from 'launchdarkly-node-server-sdk';
+import { RedisBigSegmentStore } from 'launchdarkly-node-server-sdk-redis';
+
+const store = RedisBigSegmentStore({
+  redisOpts: { url: 'redis://my-redis:6379' },
+  prefix: 'my-key-prefix'
+});
+
+const config = {
+  bigSegments: {
+    store: store,
+    userCacheSize: 2000,
+    userCacheTime: 30
+  }
+};
+const client = LaunchDarkly.init(sdkKey, config);
+```
+
+  </CodeTabItem>
+</CodeTabs>
+
+To learn more about the available Big Segments configuration options, read [`LDBigSegmentsOptions`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldbigsegmentsoptions.html).

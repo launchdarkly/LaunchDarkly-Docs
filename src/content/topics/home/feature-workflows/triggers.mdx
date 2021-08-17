@@ -48,11 +48,11 @@ An unguessable URL is functionally similar to an access token in that it does no
 
 When you create a new trigger, its URL only displays once and prompts you to copy it locally. After the initial display, URLs are obscured so future viewers of the flag's Settings tab cannot see them.
 
-If you lose a trigger's URL, you can reset it from the trigger's **three-dot** overflow menu. To learn more, read [Managing existing triggers](#managing-existing-triggers).
+If you lose a trigger's URL, you can reset it from the trigger's **three-dot** overflow menu. To learn more, read [Managing existing flag triggers](#managing-existing-flag-triggers).
 
-Additionally, not all LaunchDarkly team members can interact with triggers. Team members must have the `Writer` role to modify existing triggers or create new ones.
+Additionally, not all LaunchDarkly account members can interact with triggers. Account members must have the `Writer` role to modify existing triggers or create new ones.
 
-If you use custom roles to manage your team, every team member who needs to manage triggers must be able to use the `updateTriggers` action. To learn more, read [Custom roles](/home/team/custom-roles).
+If you use custom roles to manage your team, every account member who needs to manage triggers must be able to use the `updateTriggers` action. To learn more, read [Custom roles](/home/members/custom-roles).
 
 ## Integrations that use flag triggers
 
@@ -66,7 +66,7 @@ The tools are:
 * [New Relic](/integrations/new-relic/triggers)
 * [SignalFx](/integrations/signalfx/triggers)
 
-LaunchDarkly also supports generic triggers that you can use with other tools. To learn more, read [Creating a new trigger](#creating-a-new-trigger).
+LaunchDarkly also supports generic triggers that you can use with other tools. To learn more, read [Creating a new flag trigger](#creating-a-new-flag-trigger).
 
 Generic triggers can connect to anything that fires a webhook. If a tool or service accepts an inbound connection from a webhook, you can use that service to turn a flag on or off. For example, if your company has an in-house monitoring application, you can use a generic trigger to turn flags on or off directly from your application.
 

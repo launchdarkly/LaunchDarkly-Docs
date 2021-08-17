@@ -96,7 +96,12 @@ These values are:
   </TableBody>
 </Table>
 
-`inExperiment` is an optional attribute on the reason object.  If this is true, it indicates the event is to be included in experimentation analysis.  If `inExperiment` is false, LaunchDarkly does not include this attribute in the reason object.  This is only true for certain SDKs and flags using experiment allocation.
+`inExperiment` is an optional attribute on the reason object. For SDKs that support experiment allocation and flags using experiment allocation:
+
+- If `inExperiment` is true, LaunchDarkly includes the event in experimentation analysis
+- If `inExperiment` is false, LaunchDarkly does not include this attribute in the reason object
+
+For a list of SDKs that support experiment allocation, read [Allocating experiment traffic](/home/experimentation/allocation).
 
 Here is an example of how you could access the details of a reason object in some of LaunchDarkly's SDKs:
 

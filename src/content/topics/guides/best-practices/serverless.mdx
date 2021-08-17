@@ -69,8 +69,8 @@ Here is a code sample that shows how to evaluate a feature flag with the NodeJS 
 
 ```javascript
 var LaunchDarkly = require('launchdarkly-node-server-sdk');
-var ldClient = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY);
-var ready = ldClient.waitUntilReady();
+var client = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY);
+var ready = client.waitUntilReady();
 
 exports.handler = (event, context, callback) => {
 
@@ -126,10 +126,10 @@ exports.handler = (event, context, callback) => {
         var ldConfig = {
             featureStore: store
         };
-        var ldClient = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY, ldConfig);
+        var client = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY, ldConfig);
 
-        ldClient.once('ready', () => {
-            ldClient.close();
+        client.once('ready', () => {
+            client.close();
             callback(null, 'store updated');
         });
     }, 2000); // initialize after some delay to ensure that LD caches have been purged
@@ -181,7 +181,7 @@ var ldConfig = {
     useLdd: true
 };
 
-var ldClient = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY, {ldConfig});
+var client = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY, {ldConfig});
 
 exports.handler = (event, context, callback) => {
     /*

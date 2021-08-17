@@ -1,3 +1,0 @@
-Segments allow you to create targeting rules and lists of users that can be shared by one or more feature flags in an environment. Creating a segment is a lot like creating a flag. You can include individual users from a segment. You can also create targeting rules, same as those for flags, that include or exclude users based on attributes your application has provided about those users. Finally, you can explicitly exclude users that would otherwise be included by those rules.
-
-The segments API allows you to list, create, modify, and delete segments programmatically.

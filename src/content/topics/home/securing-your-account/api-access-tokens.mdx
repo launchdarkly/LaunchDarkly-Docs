@@ -13,7 +13,7 @@ This topic explains how to use API access tokens to authenticate with the [Launc
 <CalloutTitle>API access tokens are private</CalloutTitle>
 <CalloutDescription>
 
-Only you can see the secret values of tokens you create; other team members cannot see them. Administrators can delete your tokens, but cannot see their values.
+Only you can see the secret values of tokens you create. Other account members cannot see them. Administrators can delete your tokens, but cannot see their values.
 
 </CalloutDescription>
 </Callout>
@@ -25,7 +25,7 @@ You can scope your API tokens to restrict the set of operations they can perform
 The available scoping options are:
 
 - **Built-in roles**: Gives a token the same permissions as a `reader`, `writer`, or `admin`.
-- **[Custom roles](/home/team/custom-roles)**: Gives a token the same permissions as one of your team's existing custom roles. This option is only available if your LaunchDarkly plan includes custom roles.
+- **[Custom roles](/home/members/custom-roles)**: Gives a token the same permissions as one of your team's existing custom roles. This option is only available if your LaunchDarkly plan includes custom roles.
 - **In-line custom roles**: Gives a token a custom set of permissions in-line, rather than specifying it as an existing custom role. This option is only available if your LaunchDarkly plan includes custom roles.
 
 <Callout intent="warning">
@@ -67,7 +67,7 @@ You can configure a personal access token to have the same permissions that you 
 
 If your own permissions are ever reduced, personal tokens you have created have reduced scope as well. For example, if you are a Writer and create a Writer token, but then are downgraded to a Reader, your Writer token is also downgraded. After your permissions change, that token behaves like a Reader token.
 
-If a team member with personal access tokens is removed from your LaunchDarkly team, their personal tokens are deactivated.
+If an account member with personal access tokens is removed from your LaunchDarkly team, their personal tokens are deactivated.
 
 Use a personal token when you want to access the LaunchDarkly API for your temporary or personal use.
 
@@ -77,7 +77,7 @@ Use a personal token when you want to access the LaunchDarkly API for your tempo
 <CalloutTitle>Service tokens are an Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-Service tokens are available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+Service tokens are available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
@@ -141,15 +141,15 @@ You can also manage existing tokens from the **Authorizations** tab. From that t
 <CalloutTitle>Rotate your tokens regularly</CalloutTitle>
 <CalloutDescription>
 
-As a best practice, we recommend rotating your tokens regularly to prevent tokens from becoming outdated, such as when team members leave. If you remove a team member from your account, their personal API access tokens become invalid. We recommend updating integrations to use new access tokens before removing team members.
+As a best practice, we recommend rotating your tokens regularly to prevent tokens from becoming outdated, such as when account members leave. If you remove an account member from your account, their personal API access tokens become invalid. We recommend updating integrations to use new access tokens before removing account members.
 
 </CalloutDescription>
 </Callout>
 
 ## Restricting who can create and manage API access tokens
 
-By default, all team members can create access tokens limited to their existing permissions. Team members with `reader` level permissions can only create tokens with `reader` permissions, whereas admins and owners can create tokens with any permission level.
+By default, all account members can create access tokens limited to their existing permissions. Account members with `reader` level permissions can only create tokens with `reader` permissions, whereas admins and owners can create tokens with any permission level.
 
-You can restrict team members from creating or managing access tokens with custom roles.
+You can restrict account members from creating or managing access tokens with custom roles.
 
-To learn more, read [Actions in custom roles](/home/team/role-actions).
+To learn more, read [Actions in custom roles](/home/members/role-actions).

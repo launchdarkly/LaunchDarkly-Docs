@@ -152,18 +152,9 @@ import LaunchDarkly
 ---
 <br/>
 
-Now that the SDK is imported, it can be configured and initialized. You should specify your *mobile key* when configuring the SDK so that your application will be authorized to connect to LaunchDarkly, retrieve flags for your environment, and report events.
+Now that the SDK is imported, configure and initialize it. Specify your *mobile key* when configuring the SDK so that your application is authorized to connect to LaunchDarkly, retrieve flags for your environment, and report events. Your mobile key is available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a mobile key. Never embed a server-side SDK key into a mobile application.
 
-<Callout intent="alert">
-<CalloutTitle>Mobile Keys</CalloutTitle>
-<CalloutDescription>
-
-Use a mobile key from your [Environments](https://app.launchdarkly.com/settings#/environments) page. Never embed a server-side SDK key into a mobile application.
-
-</CalloutDescription>
-</Callout>
-
-Here is how to specify your *mobile key*:
+Here is how to specify your mobile key:
 
 <CodeTabs
   defaultValue="swift"
@@ -229,14 +220,14 @@ After calling `start`, the `LDClient` instance can be retrieved with the static 
 <CodeTabItem value="swift">
 
 ```swift
-let ldClient = LDClient.get()!
+let client = LDClient.get()!
 ```
 
 </CodeTabItem>
 <CodeTabItem value="objc">
 
 ```objectivec
-LDClient *ldClient = [LDClient get];
+LDClient *client = [LDClient get];
 ```
 
 </CodeTabItem>
@@ -245,6 +236,14 @@ LDClient *ldClient = [LDClient get];
 #### Getting the variation to serve the configured user
 ---
 <br/>
+<Callout intent="alert">
+<CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
+<CalloutDescription>
+
+You must make feature flags available to client-side SDKs before the flags can be evaluated. If you evaluate a feature flag that is not available, you receive the default value for that flag. If you want a project's flags to be made available to this SDK by default, check the **SDKs using Mobile key** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+
+</CalloutDescription>
+</Callout>
 
 Using the `LDClient` instance, you can check which variation the configured user should receive for a given feature flag:
 
@@ -258,7 +257,7 @@ Using the `LDClient` instance, you can check which variation the configured user
 <CodeTabItem value="swift">
 
 ```swift
-let showFeature = ldClient.variation(forKey: "flag-key", defaultValue: false)
+let showFeature = client.variation(forKey: "flag-key", defaultValue: false)
 
 if showFeature {
   // application code to show the feature
@@ -271,7 +270,7 @@ else {
 <CodeTabItem value="objc">
 
 ```objectivec
-BOOL showFeature = [ldClient boolVariationForKey:@"flag-key" defaultValue:NO];
+BOOL showFeature = [client boolVariationForKey:@"flag-key" defaultValue:NO];
 if (showFeature) {
     // application code to show the feature
 } else {

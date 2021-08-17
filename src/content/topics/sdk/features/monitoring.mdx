@@ -121,8 +121,8 @@ The SDK also internally stores a timestamp of the most recent successful and fai
 <CodeTabItem value="java">
 
 ```java
-LDClient ldClient = LDClient.get();
-ConnectionInformation connectionInfo = ldClient.getConnectionInformation();
+LDClient client = LDClient.get();
+ConnectionInformation connectionInfo = client.getConnectionInformation();
 // One of the seven modes described above
 ConnectionInformation.ConnectionMode connectionMode =
   connectionInfo.getConnectionMode();
@@ -140,8 +140,8 @@ LDFailure ldFailure = connectionInfo.getLastFailure();
 <CodeTabItem value="kotlin">
 
 ```kotlin
-val ldClient: LDClient = LDClient.get()
-val connectionInfo: ConnectionInformation = ldClient.connectionInformation
+val client: LDClient = LDClient.get()
+val connectionInfo: ConnectionInformation = client.connectionInformation
 // One of the seven modes described above
 val connectionMode: ConnectionInformation.ConnectionMode =
     connectionInfo.connectionMode
@@ -222,8 +222,8 @@ Here is an example:
 <CodeTabItem value="java">
 
 ```java
-LDClient ldClient = LDClient.get();
-ConnectionInformation connectionInfo = ldClient.getConnectionInformation();
+LDClient client = LDClient.get();
+ConnectionInformation connectionInfo = client.getConnectionInformation();
 LDFailure ldFailure = connectionInfo.getLastFailure();
 if (ldFailure != null) {
     Timber.d("Received failure with message %s", ldFailure.getMessage());
@@ -266,8 +266,8 @@ if (ldFailure != null) {
 <CodeTabItem value="kotlin">
 
 ```kotlin
-val ldClient: LDClient = LDClient.get()
-val connectionInfo: ConnectionInformation = ldClient.connectionInformation
+val client: LDClient = LDClient.get()
+val connectionInfo: ConnectionInformation = client.connectionInformation
 val ldFailure: LDFailure? = connectionInfo.lastFailure
 if (ldFailure != null) {
     Timber.d("Received failure with message %s", ldFailure.message)
@@ -331,7 +331,7 @@ Here is a brief example:
 
 ```java
 class MainActivity extends Activity {
-    private LDClient ldClient;
+    private LDClient client;
     private LDStatusListener ldStatusListener;
 
     @Override
@@ -351,14 +351,14 @@ class MainActivity extends Activity {
             }
         };
 
-        ldClient = LDClient.get();
-        ldClient.registerStatusListener(ldStatusListener);
+        client = LDClient.get();
+        client.registerStatusListener(ldStatusListener);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ldClient.unregisterStatusListener(ldStatusListener);
+        client.unregisterStatusListener(ldStatusListener);
     }
 }
 ```
@@ -368,7 +368,7 @@ class MainActivity extends Activity {
 
 ```kotlin
 class MainActivity : Activity() {
-    private var ldClient: LDClient? = null
+    private var client: LDClient? = null
     private var ldStatusListener: LDStatusListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -385,13 +385,13 @@ class MainActivity : Activity() {
             }
         }
 
-        ldClient = LDClient.get()
-        ldClient.registerStatusListener(ldStatusListener)
+        client = LDClient.get()
+        client.registerStatusListener(ldStatusListener)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        ldClient?.unregisterStatusListener(ldStatusListener)
+        client?.unregisterStatusListener(ldStatusListener)
     }
 }
 ```

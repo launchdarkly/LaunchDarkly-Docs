@@ -544,7 +544,7 @@ local c = l.clientInit({
 
 ### Node.js (server-side)
 
-The Node.js SDK can use [Consul](/sdk/features/storing-data/consul#nodejs), [DynamoDB](/sdk/features/storing-data/dynamodb#nodejs-server-side), or [Redis](/sdk/features/storing-data/redis#nodejs-server-side) to hold flag data.
+The Node.js SDK can use [Consul](/sdk/features/storing-data/consul#nodejs-server-side), [DynamoDB](/sdk/features/storing-data/dynamodb#nodejs-server-side), or [Redis](/sdk/features/storing-data/redis#nodejs-server-side) to hold flag data.
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
@@ -597,63 +597,43 @@ const client = LaunchDarkly.init(sdkKey, config);
 
 ### PHP
 
-The PHP SDK can use [Consul](/sdk/features/storing-data/consul), [DynamoDB](/sdk/features/storing-data/dynamodb), or [Redis](/sdk/features/storing-data/redis) to hold flag data.
+The PHP SDK can use [Consul](/sdk/features/storing-data/consul), [DynamoDB](/sdk/features/storing-data/dynamodb), or [Redis](/sdk/features/storing-data/redis) to get flag data.
 
-To use a persistent feature store while connecting to LaunchDarkly:
+Unlike other server-side SDKs, the PHP SDK cannot connect to LaunchDarkly while using a database as a backing store. It can only read from a database that has been populated by the [Relay Proxy](/home/relay-proxy), or by another application that uses a server-side LaunchDarkly SDK. To learn more, read [Using daemon mode](/home/relay-proxy/using#using-daemon-mode).
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', }
-  ]
-}>
+Another difference from other SDKs is that the PHP SDK does not have an in-memory cache for database queries. This is because in PHP, the entire in-memory application state is normally discarded after each request. Therefore, in code examples for PHP you will not see a cache TTL parameter.
 
-
-<CodeTabItem value="php">
-
-```php
-$client = new LaunchDarkly\LDClient("your_sdk_key", [
-    'feature_requester' => LaunchDarkly\Integrations\Redis::featureRequester()
-]);
-
-// Prior to version 3.5.0, use this syntax:
-// $client = new LaunchDarkly\LDClient("your_sdk_key", [
-//     'feature_requester_class' => 'LaunchDarkly\SomeKindOfFeatureRequester'
-// ]);
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To use a persistent feature store without connecting to LaunchDarkly:
+To read from a persistent feature store without connecting to LaunchDarkly:
 
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', }
+    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK 3.4.x and earlier', value: 'php34', },
   ]
 }>
 
 <CodeTabItem value="php">
 
 ```php
-/*
-  In PHP, there is no difference between this and the previous example, because
-  the PHP SDK can only either get flags from LaunchDarkly *or* get them from a
-  database, not both
-*/
 $client = new LaunchDarkly\LDClient("your_sdk_key", [
-    'feature_requester' => LaunchDarkly\Integrations\Redis::featureRequester()
+    'feature_requester' => LaunchDarkly\Integrations\NameOfDatabase::featureRequester()
 ]);
+```
 
-// Prior to version 3.5.0, use this syntax:
-// $client = new LaunchDarkly\LDClient("your_sdk_key", [
-//     'feature_requester_class' => 'LaunchDarkly\SomeKindOfFeatureRequester'
-// ]);
+</CodeTabItem>
+<CodeTabItem value="php34">
+
+```php
+$client = new LaunchDarkly\LDClient("your_sdk_key", [
+    'feature_requester_class' => 'LaunchDarkly\NameOfDatabaseFeatureRequester'
+]);
 ```
 
 </CodeTabItem>
 </CodeTabs>
+
+Prior to version 4.0, the database integrations were included in the main PHP SDK package. Starting in version 4.0, they are in separate packages.
 
 ### Python
 

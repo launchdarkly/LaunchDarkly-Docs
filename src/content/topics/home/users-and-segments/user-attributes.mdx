@@ -9,11 +9,115 @@ published: true
 
 This topic explains what user attributes are, how they impact what you see in LaunchDarkly, how to configure them, and how LaunchDarkly uses them to calculate and display flag settings for users.
 
-## Understanding users
+## Understanding user attributes
 
 Users are people, services, machines, or other resources that encounter feature flags in your app. Any identifier that uniquely corresponds to a target can be designated as a user.
 
-A more precise way to refer to one user is as a _user object_.
+A more precise way to refer to one user is as a _user object_. A user object is a collection of a user's built-in and custom user attributes, identified by a user key.
+
+LaunchDarkly provides built-in attribute fields for you to fill in, but the SDK does not automatically collect any information. The exceptions to this are the `os` and `device` attributes used by mobile SDKs. If you want to target your users based on any other built-in attributes, you must supply their values.
+
+All built-in user attributes are strings with the exception of `anonymous`:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Attribute Key</TableHeadCell>
+    <TableHeadCell>Attribute Example Value</TableHeadCell>
+    <TableHeadCell>Note</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>key</code>
+      </TableCell>
+      <TableCell>"1f2e2d3a"</TableCell>
+      <TableCell>Required for evaluation. This should be unique for each user.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>secondary</code>
+      </TableCell>
+      <TableCell>"2398127"</TableCell>
+      <TableCell>
+        If provided, this attribute is used with a user's `key` to generate a variation in percentage rollouts.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>ip</code>
+      </TableCell>
+      <TableCell>"10.10.10.10"</TableCell>
+      <TableCell>This attribute should be a valid IP address.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>email</code>
+      </TableCell>
+      <TableCell>"user@example.com"</TableCell>
+      <TableCell></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>name</code>
+      </TableCell>
+      <TableCell>"Jill Jones"</TableCell>
+      <TableCell></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>avatar</code>
+      </TableCell>
+      <TableCell>"http://example.com/avatar.png"</TableCell>
+      <TableCell>This attribute must be an absolute URL to an avatar image for the user. The avatar appears on the Users page.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>firstName</code>
+      </TableCell>
+      <TableCell>"Jill"</TableCell>
+      <TableCell></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>lastName</code>
+      </TableCell>
+      <TableCell>"Jones"</TableCell>
+      <TableCell></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>country</code>
+      </TableCell>
+      <TableCell>"Uganda"</TableCell>
+      <TableCell></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>anonymous</code>
+      </TableCell>
+      <TableCell>"true"</TableCell>
+      <TableCell>This can be a Boolean or string value. This attribute prevents the user from appearing on the dashboard. If the anonymous attribute is set to _any_ value other than boolean `false` or null, LaunchDarkly treats the as user anonymous.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>os</code>
+      </TableCell>
+      <TableCell>"ios"</TableCell>
+      <TableCell>This attribute is available only in mobile SDKs. The mobile SDK automatically provides a value for the attribute.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>device</code>
+      </TableCell>
+      <TableCell>"tktk"</TableCell>
+      <TableCell>This attribute is available only in mobile SDKs. The mobile SDK automatically provides a value for the attribute.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+The user key is the only mandatory user attribute. All other user attributes are optional.
+
+You can view a user's attributes by clicking on the individual user from the [Users dashboard](https://app.launchdarkly.com/users).
 
 ## Viewing and managing users
 
@@ -62,8 +166,6 @@ If a feature flag contains targeting rules that reference private attributes, th
 </Callout>
 
 ## Setting custom user attributes
-
-A user object is constructed of the user's key, standard attributes, and custom attributes.
 
 Custom attributes contain any other user data that you would like to use to conditionally target your users. You can provide custom attributes in the user object. The value of a custom attribute can be of any type that's allowed in JSON, including boolean, number, string, array, and object.
 

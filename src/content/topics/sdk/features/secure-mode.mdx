@@ -55,7 +55,7 @@ Here is the method:
 <CodeTabItem value="csharp">
 
 ```csharp
-var hash = ldClient.SecureModeHash(user);
+var hash = client.SecureModeHash(user);
 ```
 
 </CodeTabItem>
@@ -76,7 +76,7 @@ Here is the method:
 <CodeTabItem value="go">
 
 ```go
-ldClient.SecureModeHash(user)
+client.SecureModeHash(user)
 ```
 
 </CodeTabItem>
@@ -97,7 +97,7 @@ Here is the method:
 <CodeTabItem value="java">
 
 ```java
-ldClient.secureModeHash(user);
+client.secureModeHash(user);
 ```
 
 </CodeTabItem>
@@ -118,7 +118,7 @@ Here is the method:
 <CodeTabItem value="js">
 
 ```js
-ldClient.secureModeHash(user);
+client.secureModeHash(user);
 ```
 
 </CodeTabItem>
@@ -181,7 +181,7 @@ Here is the method:
 <CodeTabItem value="ruby">
 
 ```ruby
-ld_client.secure_mode_hash(user)
+client.secure_mode_hash(user)
 ```
 
 </CodeTabItem>
@@ -226,10 +226,11 @@ You should send the computed secure mode hash for your user as the [`hash` attri
 <CodeTabItem value="js">
 
 ```js
-var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
+var client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
   hash: "SERVER_GENERATED_HASH"
 });
 ```
+
 
 </CodeTabItem>
 </CodeTabs>

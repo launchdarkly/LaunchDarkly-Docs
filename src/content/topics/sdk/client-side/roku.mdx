@@ -15,7 +15,11 @@ Building on top of our [Getting Started guide](/home/getting-started), the follo
 
 We provide releases on [GitHub](https://github.com/launchdarkly/roku-client-sdk/releases). Download the latest release and extract the provided files into your source tree. You may need to rename the paths inside `LaunchDarklyTask.xml` depending on your project structure.
 
-For SceneGraph usage add a `LaunchDarklyTask` node to your scene and then: <--And then what? What's happening in this code sample? TKTK
+For SceneGraph usage add a `LaunchDarklyTask` node to your scene.
+
+To create a client instance, you need your environment's mobile key, available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a mobile key. Never embed a server-side SDK key into a mobile application.
+
+Here's how:
 
 <CodeTabs
   defaultValue="brightscript"
@@ -66,6 +70,15 @@ value = launchDarkly.boolVariation("MY_FLAG_KEY", false)
 
 </CodeTabItem>
 </CodeTabs>
+
+<Callout intent="alert">
+<CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
+<CalloutDescription>
+
+You must make feature flags available to client-side SDKs before the flags can be evaluated. If you evaluate a feature flag that is not available, you receive the default value for that flag. If you want a project's flags to be made available to this SDK by default, check the **SDKs using Mobile key** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+
+</CalloutDescription>
+</Callout>
 
 Creating a client outside of the SceneGraph API is similar. In the legacy API you do not need `LaunchDarklySGInit` or the `LaunchDarklySG` functions.
 

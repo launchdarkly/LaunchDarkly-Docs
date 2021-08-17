@@ -111,7 +111,7 @@ To manually send an alias event:
 
 ```js
 var previousUser = ldclient.getUser();
-ldclient.alias(newUser, previousUser);
+client.alias(newUser, previousUser);
 ```
 
 </CodeTabItem>
@@ -130,7 +130,7 @@ To manually send an alias event:
 <CodeTabItem value="js">
 
 ```js
-ldClient.alias(newUser, previousUser);
+client.alias(newUser, previousUser);
 ```
 
 </CodeTabItem>
@@ -146,11 +146,11 @@ This feature is available in the following server-side SDKs:
 
 * [.NET](#net)
 * [Apex](#apex)
-* [C/C++ (server side)](#cc-server-side)
+* [C/C++ (server-side)](#cc-server-side)
 * [Go](#go)
 * [Haskell](#haskell)
 * [Lua](#lua)
-* [Node.js (server side)](#nodejs-server-side)
+* [Node.js (server-side)](#nodejs-server-side)
 * [Python](#python)
 * [Ruby](#ruby)
 
@@ -224,7 +224,7 @@ To manually send an alias event:
 <CodeTabItem value="go">
 
 ```go
-ldClient.Alias(newUser, previousUser)
+client.Alias(newUser, previousUser)
 ```
 
 </CodeTabItem>
@@ -268,7 +268,7 @@ client:alias(newUser, previousUser)
 </CodeTabItem>
 </CodeTabs>
 
-### Node.js
+### Node.js (server-side)
 
 To manually send an alias event:
 
@@ -281,7 +281,7 @@ To manually send an alias event:
 <CodeTabItem value="js">
 
 ```js
-ldClient.alias(newUser, previousUser);
+client.alias(newUser, previousUser);
 ```
 
 </CodeTabItem>
@@ -319,7 +319,7 @@ To manually send an alias event:
 <CodeTabItem value="ruby">
 
 ```ruby
-ld_client.alias(new_user, previous_user)
+client.alias(new_user, previous_user)
 ```
 
 </CodeTabItem>

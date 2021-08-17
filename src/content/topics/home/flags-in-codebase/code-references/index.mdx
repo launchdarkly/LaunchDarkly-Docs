@@ -28,6 +28,8 @@ We've designed this feature so that LaunchDarkly services do not need direct acc
 
 Our approach makes it possible to push references to LaunchDarkly whether you're using GitHub, GitHub Enterprise, Bitbucket, Bitbucket Enterprise, GitLab, Azure DevOps, or any other Git code hosting tool.
 
+If your workflow does not have a direct integration, we have an `ld-find-code-refs` [Docker container](https://hub.docker.com/r/launchdarkly/ld-find-code-refs) on Docker Hub.
+
 We offer built-in configurations for common trigger mechanisms and CI/CD providers, including:
 
 <ChildPageList path="/home/code/code-references" omit="/home/code/custom-config" />
@@ -36,9 +38,10 @@ You can also invoke the [`ld-find-code-refs`](https://github.com/launchdarkly/ld
 
 ## Prerequisites
 
-To set up code references in LaunchDarkly, you must have:
+To set up code references in LaunchDarkly, you must have the following prerequisites:
 
-- An API access token with writer-level access or higher. Create an API access token in the [Access Tokens](https://app.launchdarkly.com/settings/tokens) page. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
+- You must have an API access token with writer-level access or higher. Create an API access token in the [Access Tokens](https://app.launchdarkly.com/settings/tokens) page. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
+- You must have a custom role that allows all actions on code references.
 - You must allow [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) to run in environment that has access to your source code.
 
 <Callout intent="info">
@@ -46,7 +49,7 @@ To set up code references in LaunchDarkly, you must have:
 <CalloutDescription>
 
   Alternatively, you can give the access token access to a custom role with the `code-reference-repository` resource
-  specifier. To learn more, read [Custom roles](/home/team/custom-roles).
+  specifier. To learn more, read [Custom roles](/home/members/custom-roles).
 
 </CalloutDescription>
 </Callout>
@@ -112,6 +115,44 @@ The following screenshot shows code references without context lines:
 
 ![Code references with no context lines.](../images/flag-code-references-no-context.png)
 
+## Finding flag aliases
+
+Aliases help you find indirect references to feature flags, such as flag keys stored in variables or in wrapped SDK code. 
+
+Here's how to find references to `firstFeatureFlag` throughout your code base:
+
+<CodeTabs
+  defaultValue="json" values={[
+    { label: 'Example flag variable', value: 'json', },
+  ]
+}>
+<CodeTabItem value="json">
+
+```text
+var firstFeatureFlag = 'first-flag-key'
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<CodeTabs
+  defaultValue="json" values={[
+    { label: 'coderefs.yaml', value: 'json', },
+  ]
+}>
+<CodeTabItem value="json">
+
+```yaml
+aliases:
+  - type: camelcase
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+This identifies all references to `firstFeatureFlag` in your code base.
+
+To learn more about aliases, read the [aliases documentation](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/ALIASES.md).
 
 ## Limitations
 
@@ -134,4 +175,4 @@ The code references feature scans your source code for occurrences of your flag 
 
 However, by default, the React SDK changes all flag keys to camel-case for easier access with dot notation. To use the code references feature in conjunction with the React SDK, configure `ld-find-code-refs` to generate camel-case aliases for the flag keys, or configure the React SDK to disable this camel-casing feature. To learn more, read [Flag keys transposed to common casing conventions](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/ALIASES.md#flag-keys-transposed-to-common-casing-conventions).
 
-To learn more, read [Flag keys](/sdk/client-side/react#flag-keys) in the React SDK documentation.
+To learn more, read [Flag keys](/sdk/client-side/react/react-web#flag-keys) in the React SDK documentation.

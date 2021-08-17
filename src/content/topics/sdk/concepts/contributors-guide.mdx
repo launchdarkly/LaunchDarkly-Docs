@@ -122,7 +122,7 @@ The `kind` attribute should always be `"feature"`. A feature event should only b
    - the `trackEvents` attribute on a targeting rule is sent
    - the targeting rule or fallthrough has a rollout of kind `"experiment"` and the variation associated with the event is included in the tracked variations for that rollout
 
-The `prereqOf` attribute should be set to a flag key if this flag evaluation was only performed in order to determine whether the prerequisite values were met for the indicated flag.
+Evaluating flag prerequisites generates one additional feature event per evaluation. These feature events should have the `prereqOf` attribute set to the originating flag's key. The `prereqOf` attribute should only be set for flags which are evaluated to determine a prerequisite value.
 
 The optional `contextKind` attribute should be either `"user"` or `"anonymousUser"` depending on the corresponding user's `anonymous` property. If omitted, the context kind will be interpreted as `"user"`.
 
