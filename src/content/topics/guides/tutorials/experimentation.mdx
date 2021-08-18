@@ -84,7 +84,7 @@ You can re-use the project and environment you created in [Getting started with 
 
 Here is an image of where to find your SDK keys:
 
-![Project and environments](../../../images/space-camp-projects.png)
+![The Account Settings page in LaunchDarkly with environment SDK keys called out.](../../../images/space-camp-projects.png)
 
 ### Configuring the SDK key and client ID
 
@@ -140,8 +140,9 @@ To create a new flag:
 2. Name your flag "Student Discount Pricing" (omit the quotes around the phrase).
 4. Enter a description of the flag to help account members understand what the flag is for.
 5. Click into the **Tags** dropdown and enter “experiment”. This creates a tag that lets you filter flags based on which flags have experiments running.
-6. Under "Flag variations", choose **Number**.
-7. Enter a name and value for the variations as given below:
+6. Check the **SDKs using Client-side ID** checkbox.
+7. Under "Flag variations," choose **Number**.
+8. Enter a name and value for the variations as given below:
   * Variation 1 value: .25
   * Variation 1 name: 75% off
   * Variation 2 value: .5
@@ -150,10 +151,10 @@ To create a new flag:
   * Variation 3 name: 25% off
   * Variation 4 value: 1
   * Variation 4 name: No discount
-8. Click the 'Make this flag available to client-side SDKs' checkbox.
-9. Save your new flag.
 
-<iframe src="https://drive.google.com/file/d/1Oy65DBNWBjl48R7RGPaXt9wAvOI5TXOT/preview" width="100%" height="410" style="margin-bottom:24px" allowfullscreen></iframe>
+![The "Create a feature flag" screen for the Student Discount Pricing flag.](../../../space-camp-student-discount-flag.png)
+
+9. Save your new flag.
 
 ### Targeting users
 
@@ -179,7 +180,7 @@ To target users with a `.edu` email address:
 1. Select a percentage rollout. Enter percentage values for the four variations of your flag. The values must add up to 100%.
 1. Toggle flag targeting **on**:
 
-![Targeting rules configuration](../../../targeting-rules.png)
+![A flag's targeting rules configuration.](../../../targeting-rules.png)
 
 ### Adding the flag's code to the application
 
@@ -243,19 +244,22 @@ First, you must get the URL for your Glitch app. To find it:
 1. Copy the Live App URL.
 1. Save the URL somewhere where it is easy to access.
 
+<iframe src="https://drive.google.com/file/d/1m43dF6fDtwepQOmOshknJYT3y7US1hOp/preview" width="100%" height="410" style="margin-bottom:24px"></iframe>
+
 Here's how to create a click metric to track the discount which results in the highest number of packages purchased:
 
 1. Navigate to LaunchDarkly.
-1. Select **Metrics** from the sidebar menu.
+1. Select **Experiments** from the sidebar menu.
+1. Navigate to the **Metrics** tab.
 1. Click **+ Metric**. The "Create a new metric screen" appears.
 1. Name your metric "Student pricing tier".
 1. Enter a **Description** to indicate what the metric is tracking. For example, you could enter “Track price chosen by students”.
 1. Choose **Click** from the "Event kind" dropdown.
 1. Enter `a.btn` in the CSS selector in the "Click targets" field.
 1. In the "Target URL" field, choose **Substring Match**.
-1. Paste in the URL for your Glitch app, which you found and saved in the previous procedure.
+1. Paste in the URL for your Glitch app, which you found and saved in the previous procedure:
 
-<iframe src="https://drive.google.com/file/d/1m43dF6fDtwepQOmOshknJYT3y7US1hOp/preview" width="100%" height="410" style="margin-bottom:24px"></iframe>
+![The Create a new metric screen.](../../../space-camp-create-new-metric.png)
 
 ### Connecting the metric to the flag
 
@@ -263,15 +267,15 @@ You must connect the metric to the flag to create an experiment. To do this:
 
 1. Navigate to LaunchDarkly.
 1. Click on the `student-discount-pricing` flag. The flag's dashboard appears.
-1. Click into the flag's **Experiments** tab.
-1. Click **+ Create an Experiment**. The "Update experiment settings for all environments" menu appears.
+1. Click into the flag's **Experimentation** tab.
+1. Click **+ Create an Experiment**. The "Experiment setup" screen appears.
 1. Choose the metric you created from the "Add a new metric" dropdown.
 1. Select Variation 4, "No discount," as the baseline.
-1. Click **Save Experiment Settings**. You return to the flag's **Experiments** tab.
+1. Click **Save Experiment Settings**:
 
-You've created the experiment and it's ready to go. Now you have to start it.
+![The Experiment setup screen.](../../../space-camp-experiment-setup.png)
 
-<iframe src="https://drive.google.com/file/d/1xkmRnVqeLzCx4K-7ssEmLJBUQqfKFnsC/preview" width="100%" height="410" style="margin-bottom:24px"></iframe>
+You return to the flag's **Experiments** tab and the experiment is ready for you to start it.
 
 ### Starting your experiment
 
