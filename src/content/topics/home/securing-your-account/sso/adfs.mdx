@@ -110,19 +110,11 @@ To set up a Claim issuance Policy:
 
 ![The Select Rule Template screen.](../../../../images/adfs-select-rule-template.png)
 
-<Callout intent="alert">
-<CalloutTitle>Configure the User's UPN Correctly</CalloutTitle>
-<CalloutDescription>
-
-In the following example, we use the user's UPN as their name ID. As a best practice, we recommend setting the user's UPN to their email address instead. <---Why? Can we change to example to match best practice? TKTK
-
-</CalloutDescription>
-</Callout>
 
 6. Set the following options:
 
-- Claim rule name: Enter a human-readable name. In this example, we use `UPN to NameID`.
-- Incoming claim type: **UPN**
+- Claim rule name: Enter a human-readable name, such as `Email to NameID`.
+- Incoming claim type: **E-Mail Address**
 - Outgoing claim type: **Name ID**
 - Outgoing name ID format: **Email**
 
