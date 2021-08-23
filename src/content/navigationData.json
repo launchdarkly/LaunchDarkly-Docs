@@ -687,6 +687,10 @@
           {
             "label": "Sleuth",
             "path": "/integrations/sleuth"
+          },
+          {
+            "label": "Tray",
+            "path": "/integrations/tray"
           }
         ]
       },
