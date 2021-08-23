@@ -132,14 +132,13 @@ With the _region_, _stream name_ and _role ARN_ from earlier in the procedure, y
 
 To create the Kinesis destination:
 
-1. Navigate to the [integrations page](https://app.launchdarkly.com/default/integrations).
-2. Click on the Kinesis icon or, if this is not your first destination, click the **Add Destination** drop down:
+1. Navigate to the **[Integrations page](https://app.launchdarkly.com/default/integrations)** and find the Amazon Kinesis card.
 
 ![The add destination screen.](../../images/kinesis-add.png)
 
-
-3. Enter a **Name** for the destination.
-4. Choose an **Environment** from the drop-down list.
+2. Click **+ Integration.** The integration screen appears.
+3. (Optional) Enter a Name for the destination.
+4. Choose an environment from the **Environment** drop-down list.
 5. Enter the AWS data you saved earlier:
 
 - AWS Kinesis stream region
@@ -155,10 +154,10 @@ To create the Kinesis destination:
 
 After you've saved the destination, send a test event to confirm that the destination is configured properly.
 
-1. In the _Send a test event_ section, click **Send Event**.
+1. From the Integrations page, click the edit button on the Amazon Kinesis card. The Edit destination screen appears.
+2. In the Send a test event section, click **Send Event**:
 
 ![The Send a test event screen.](../../images/kinesis-test-event.png)
-
 
 2. If you have configured the destination correctly, an event is logged in the Kinesis destination.
 3. Identify a successful test event by searching for the user or flag key `LaunchDarklyDataExportTestEvent`. When this key appears in the destination, you know the test event arrived.
@@ -191,7 +190,7 @@ You can delete a Data Export destination from the **Integrations** screen.
 To delete a destination:
 
 1. Navigate to the **Integrations** screen.
-2. Find the destination you wish to delete and click **Edit**. The "Create a destination" screen opens.
+2. Find the destination you wish to delete and click **Edit**. The "Edit destination" screen opens.
 3. Click **Delete Destination**:
 
-![The Delete destination section.](../../images/kinesis-delete.png)
+![The Delete destination section.](../../images/destination-delete.png)
