@@ -106,7 +106,7 @@ const theme = makeTheme({
       },
       languageActive: (theme: Theme) => ({
         ...get(theme, 'buttons.code.language'),
-        ...get(theme, 'buttons.code.language["&:hover"]'),
+        ...get(theme, 'buttons.code.language.&:hover'),
       }),
       copy: {
         padding: 1,
