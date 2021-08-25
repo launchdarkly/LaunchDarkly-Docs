@@ -91,9 +91,14 @@ When executing the binary, you'll need to tell the Relay Proxy about your desire
 To build the Relay Proxy from source:
 
 1. Install Go 1.14 or higher. To install Go, read [Go's documentation](https://golang.org/doc/install).
-2. Build and install the Relay Proxy binary.
+2. Check out the source code from the default branch of the repository: https://github.com/launchdarkly/ld-relay
+3. In the directory where you checked out the code, run this command: `go build .`
 
-The command to build and install the binary depends on what Go version you are using:
+After you do this, the executable binary `ld-relay` appears in the directory.
+
+There is also a shortcut command that can replace the longer procedure above. The shortcut may fail depending on which Go version you use. If the shortcut fails, you can still use the longer procedure.
+
+Here are the different commands:
 
  <CodeTabs
    defaultValue="go1.16"
@@ -118,9 +123,7 @@ The command to build and install the binary depends on what Go version you are u
  </CodeTabItem>
  </CodeTabs>
 
-The command will take a while to finish. To see more information about its progress, change `go install` or `go get` to `go install -v` or `go get -v`.
-
-When the command has finished, the executable binary `ld-relay` will be in `$GOPATH/bin`. You can move it to any other location.
+After you enter the command, the executable binary `ld-relay` appears in `$GOPATH/bin`. You can move it to any other location.
 
 When you execute the binary, you must tell the Relay Proxy about your desired configuration. You can do this either with a configuration file or environment variables.
 
