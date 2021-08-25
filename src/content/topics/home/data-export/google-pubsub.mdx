@@ -30,7 +30,7 @@ To grant publish access:
 
 1. In your Google Cloud Console, navigate to the [Pub/Sub topic list](https://console.cloud.google.com/cloudpubsub/topicList).
 2. Select a topic by clicking the checkboxes to the left of each topic name. Once you choose a topic, _Permissions_ options appear.
-3. Paste LaunchDarkly’s Service Account email: `prod-event-recorder@firehose-publish.iam.gserviceaccount.com` into the **Add Members** field.
+3. Paste LaunchDarkly’s Service Account email: `prod-event-recorder@firehose-publish.iam.gserviceaccount.com` into the "Add Members" field.
 4. Click the **Select a Role** dropdown and choose "Pub/Sub Publisher".
 5. Click **Add**.
 
@@ -46,13 +46,13 @@ Here is an image of the Pub/Sub topic list:
 The final step is to connect your topic to LaunchDarkly. To do this:
 
 1. Log into LaunchDarkly.
-2. Click into the **[Integrations page](https://app.launchdarkly.com/default/integrations)**.
-3. Click on the Google Cloud Pub/Sub icon or, if this is not your first destination, click the **Add Destination** drop down.
-4. Enter a **Name** for the destination.
-5. Choose an **Environment** from the drop-down list.
-6. Enter the **Topic** ID.
-7. Enter the **Project** ID.
-8. Click **Save Destination**:
+2. Navigate to the **[Integrations page](https://app.launchdarkly.com/default/integrations)** and find the Google Cloud Pub/Sub card.
+3. Click **+ Integration.** The integration screen appears.
+4. (Optional) Enter a Name for the destination.
+5. Choose an environment from the **Environment** drop-down list.
+6. Enter the Topic ID.
+7. Enter the Project ID.
+8. Click **Save destination**:
 
 ![The Pub/Sub Create a destination screen.](../../images/google-pubsub-create-destination.png)
 
@@ -60,8 +60,9 @@ The final step is to connect your topic to LaunchDarkly. To do this:
 
 After you've saved the destination, send a test event to confirm that the destination is configured properly.
 
-1. In the Send a test event section, click **Send Event**.
-2. If you have configured the destination correctly, an event is logged in the Google Cloud Pub/Sub destination.
+1. From the Integrations page, click the edit button on the GoogleCloud Sub/Pub card. The Edit destination screen appears.
+2. In the Send a test event section, click **Send Event**.
+3. If you have configured the destination correctly, an event is logged in the Google Cloud Pub/Sub destination.
 
 ![The Send a test event screen.](../../images/google-pubsub-test-event.png)
 
@@ -80,4 +81,6 @@ To delete a destination:
 
 1. Navigate to the **Integrations** screen.
 2. Find the destination you wish to delete and click **Edit**. The "Create a destination" screen opens.
-3. Click **Delete Destination**.
+3. Click **Delete Destination**:
+
+![The Delete destination section.](../../images/destination-delete.png)
