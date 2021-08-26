@@ -9,25 +9,6 @@ published: true
 
 This topic explains how to build and manage user segments. User segments let you target groups of users by attribute.
 
-<Callout intent="alert">
-<CalloutTitle>This feature is only supported on newer versions of our server-side SDKs. All client-side SDKs automatically support segments.</CalloutTitle>
-<CalloutDescription>
-
-* Go: **v3**
-* Java: **3.0.1**
-* Node: **4.0**
-* PHP: **3.0.0**
-* Python: **5.0.1**
-* Ruby: **3.0.1**
-* .NET: **4.0.0**
-
-If you want to use user segments with the Relay Proxy, you must upgrade to the latest version
-**3.0.1** before upgrading your SDKs. To learn more, read [The Relay Proxy](/home/relay-proxy). You do
-not need to upgrade mobile (iOS and Android) and client-side Javascript SDKs to use this feature. If you don't see the **Segments** tab in your project, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new) to confirm that your SDKs are up-to-date. If they are, we can enable this feature for you.
-
-</CalloutDescription>
-</Callout>
-
 ## Understanding user segments
 
 User segments are lists of users that you can use to manage flag targeting behavior in bulk. You can include or exclude individual users from a segment based on user attributes. Use the **Segments** tab to create targeting rules and lists of users to manage flag targeting more efficiently.
