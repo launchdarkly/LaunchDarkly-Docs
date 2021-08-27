@@ -699,6 +699,10 @@
         "path": "/integrations/more",
         "items": [
           {
+            "label": "Ansible",
+            "path": "/integrations/ansible"
+          },
+          {
             "label": "Azure DevOps",
             "path": "/integrations/azure-devops"
           },
