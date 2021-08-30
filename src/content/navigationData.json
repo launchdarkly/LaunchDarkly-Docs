@@ -729,6 +729,10 @@
           {
             "label": "Terraform",
             "path": "/integrations/terraform"
+          },
+          {
+            "label": "Zendesk",
+            "path": "/integrations/zendesk"
           }
         ]
       }
