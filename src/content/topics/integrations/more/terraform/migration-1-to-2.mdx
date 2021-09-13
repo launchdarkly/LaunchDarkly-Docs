@@ -1,0 +1,104 @@
+---
+path: '/integrations/terraform/migration-1-to-2'
+title: 'Terraform provider v1.x to v2 migration guide'
+description: 'This topic explains the changes necessary to migrate from version 1.x to version 2.0 of the LaunchDarkly Terraform provider.'
+published: true
+---
+
+<Callout intent="primary">
+<CalloutTitle>The Terraform provider is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+The Terraform provider is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to migrate your LaunchDarkly Terraform resources from v1.x to v2.0.
+
+To learn more about v2.0, visit the [LaunchDarkly Terraform provider changelog](https://github.com/launchdarkly/terraform-provider-launchdarkly/blob/master/CHANGELOG.md).
+
+Here are the changes between versions 1 and 2 of the Terraform provider:
+
+- [Dropped support for Terraform 0.11 and below](#dropped-support-for-terraform-011-and-below)
+- [Removed deprecated attributes](#removed-deprecated-attributes)
+- [Standardized behavior of optional attributes](#standardized-behavior-of-optional-attributes)
+- [Updated recommendation for managing projects and environments](#updated-recommendation-for-managing-projects-and-environments)
+- [New required fields](#new-required-fields)
+- [Restructured default variations on `launchdarkly_feature_flag`](#restructured-default-variations-on-launchdarkly_feature_flag)
+- [Restructured `targets` block on `launchdarkly_feature_flag_environment`](#restructured-targets-block-on-launchdarkly_feature_flag_environment)
+
+## Dropped support for Terraform 0.11 and below
+
+The [deprecation of Terraform 0.11 is ongoing](https://www.hashicorp.com/blog/deprecating-terraform-0-11-support-in-terraform-providers). Version 2.0.0 of the LaunchDarkly Terraform provider only supports Terraform 0.12 and higher.
+
+## Removed deprecated attributes
+
+The following previously-deprecated attributes are no longer supported:
+
+- `targeting_enabled` on the `launchdarkly_feature_flag_environment` resource was removed in favor of `on`.
+- `user_targets` on the `launchdarkly_feature_flag_environment` resource was removed in favor of `targets`.
+- `flag_fallthrough` on the `launchdarkly_feature_flag_environment` resource has been removed in favor of  `fallthrough`. This field is required.
+- `enabled` on the `launchdarkly_webhooks` resource has been removed in favor of`on`.
+
+## Standardized behavior of optional attributes
+
+Except in a few special cases indicated in the [Terraform provider documentation](https://registry.terraform.io/providers/launchdarkly/launchdarkly/latest/docs), optional attributes revert to their `false` or `null` value when not explicitly set or when removed from a configuration.
+
+The following fields have been updated in line with this behavior with v2 of the provider:
+
+- `on` on the `launchdarkly_destination` resource defaults to `false`.
+- `include_in_snippet` on the `launchdarkly_project` resource defaults to `false`.
+- `secure_mode` on the `launchdarkly_environment` resource and in `environments` blocks on the `launchdarkly_project` resource defaults to `false`.
+- `default_track_events` on the `launchdarkly_environment` resource and in `environments` blocks on the `launchdarkly_project` resource defaults to `false`.
+- `require_comments` on the `launchdarkly_environment` resource and in `environments` blocks on the `launchdarkly_project` resource defaults to `false`.
+- `confirm_changes` on the `launchdarkly_environment` resource and in `environments` blocks on the `launchdarkly_project` resource defaults to `false`.
+- `default_ttl` on the `launchdarkly_environment` resource and in `environments` blocks on the `launchdarkly_project` resource defaults to `0`.
+- `on` on the `launchdarkly_feature_flag_environment` resource defaults to `false`. `on` was previously `targeting_enabled`.
+- Removing `rules` blocks on the `launchdarkly_feature_flag_environment` resource deletes the rule.
+- Removing `targets` blocks on the `launchdarkly_feature_flag_environment` resource deletes the targets configuration in question. `targets` was previously `user_targets`.
+- Removing `prerequisites` blocks on the `launchdarkly_feature_flag_environment` resource removes the prerequisite from the feature flag environment.
+- `track_events` on the `launchdarkly_feature_flag_environment` resource defaults to `false`.
+
+## Updated recommendation for managing projects and environments
+
+We no longer recommend you manage environments in Terraform as separate resources. We will continue to maintain the environment resource for the exception of environments in projects that are not managed using Terraform.
+
+Manage all environments in projects maintained by Terraform as `environments` config blocks on your `launchdarkly_project` resource. The `launchdarkly_project` resource now requires at least one environment be configured. The default `test` and `production` environments are not created unless you explicitly define them. Additionally, removing `environments` blocks from a `launchdarkly_project` resource configuration deletes that environment.
+
+## New required fields
+
+The following fields are now required:
+
+- `fallthrough` and `off_variation` on the `launchdarkly_feature_flag_environment` resource,
+- `on` on the `launchdarkly_webhooks` resource, and
+- `environments` on the `launchdarkly_project` resource.
+
+## Restructured default variations on launchdarkly_feature_flag
+
+The configuration of default variations on the `launchdarkly_feature_flag` resource has been restructured to match the shape of the HTTP response from the [LaunchDarkly API](https://apidocs.launchdarkly.com/reference#create-feature-flag).
+
+You can use an optional `defaults` block containing an `on_variation` and `off_variation` that evaluate to the index of the variation referenced.
+
+For example, for a simple boolean flag with a 0-index variation of `true` and a 1-index variation of `false`, define the defaults like this:
+
+```hcl
+resource "launchdarkly_feature_flag" "defaults_example" {
+    ...
+    defaults {
+        on_variation = 0
+        off_variation = 1
+    }
+}
+```
+For more information, read [Terraform's `launchdarkly_feature_flag` documentation](https://registry.terraform.io/providers/launchdarkly/launchdarkly/latest/docs/resources/feature_flag).
+
+## Restructured targets block on launchdarkly_feature_flag_environment 
+
+The way `targets` is configured on the `launchdarkly_feature_flag_environment` resource has been restructured. `targets ` was previously `user_targets`.
+
+You can define user targets block in an order corresponding to the variations they are meant to be applied to, including empty blocks for variations without specific user targets. Alternatively, you may also define a variation index which allows the user to list `targets` blocks in any order.
+
+For more information, read [Terraform's `feature_flag_environment` documentation](https://registry.terraform.io/providers/launchdarkly/launchdarkly/latest/docs/resources/feature_flag_environment).

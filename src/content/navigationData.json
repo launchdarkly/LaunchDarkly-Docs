@@ -411,14 +411,14 @@
         "path": "/home/teams",
         "svg": "people",
         "items": [
-        {
-          "label": "Creating a team",
-          "path": "/home/teams/creating"
-        },
-        {
-          "label": "Managing teams",
-          "path": "/home/teams/managing"
-        }
+          {
+            "label": "Creating a team",
+            "path": "/home/teams/creating"
+          },
+          {
+            "label": "Managing teams",
+            "path": "/home/teams/managing"
+          }
         ]
       },
       {
@@ -728,7 +728,13 @@
           },
           {
             "label": "Terraform",
-            "path": "/integrations/terraform"
+            "path": "/integrations/terraform",
+            "items": [
+              {
+                "label": "Terraform provider v1.x to v2.0 migration guide",
+                "path": "/integrations/terraform/migration-1-to-2"
+              }
+            ]
           },
           {
             "label": "Zendesk",
@@ -838,7 +844,7 @@
             "label": "Offline mode",
             "path": "/sdk/features/offline-mode"
           },
-                    {
+          {
             "label": "Reading flags from a file",
             "path": "/sdk/features/flags-from-files"
           },
