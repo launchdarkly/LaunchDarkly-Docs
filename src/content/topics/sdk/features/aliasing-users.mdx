@@ -24,12 +24,39 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 This feature is available in the following client-side SDKs:
 
+* [Android](#android)
 * [C/C++ (client-side)](#cc-client-side)
 * [Electron](#electron)
 * [iOS](#ios)
 * [JavaScript](#javascript)
 * [Node.js](#nodejs-client-side)
 * [React](#javascript): The React SDK relies on the JavaScript SDK for user-related functionality.
+
+### Android
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+client.alias(newUser, previousUser);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+client.alias(newUser, previousUser)
+```
+</CodeTabItem>
+</CodeTabs>
 
 ### C/C++ (client-side)
 
