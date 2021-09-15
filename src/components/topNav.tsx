@@ -5,13 +5,11 @@ import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { SideNavItem } from './sideNav/types'
 import isExternalLink from '../utils/isExternalLink'
 import Icon, { IconName } from './icon'
-import useGitGatsbyTheme from '../hooks/useGitGatsbyTheme'
 
 const variant = 'links.topNav'
 
 const TopNav = () => {
   const flags = useFlags()
-  const { theme } = useGitGatsbyTheme()
   const {
     allNavigationDataJson: { nodes: navigationData },
   } = useStaticQuery(graphql`
@@ -34,17 +32,18 @@ const TopNav = () => {
         fontWeight: 'bold',
         display: ['none', 'flex'],
         justifyContent: 'space-between',
+        alignItems: 'center',
         width: [null, 'auto', 'auto'],
         whiteSpace: 'nowrap',
+        height: '100%',
       }}
     >
       {navigationData.map((rootItem: SideNavItem) => {
         const { label, path, flagKey, svg } = rootItem
-        const capitalizedLabel = label.toUpperCase()
         const showItem = flagKey ? flags[flagKey] : true
 
         return showItem ? (
-          <li key={label} sx={{ display: 'inline', pr: [null, 5, 6] }}>
+          <li key={label} sx={{ display: 'flex', height: '100%', alignItems: 'center' }}>
             {isExternalLink(path) ? (
               <ThemUILink
                 href={path}
@@ -53,17 +52,23 @@ const TopNav = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {capitalizedLabel}
-                {svg && <Icon name={svg as IconName} height="1rem" fill="grayMed" ml={1} />}
+                {label}
+                {svg && <Icon name={svg as IconName} height="1rem" fill="grayscaleWhite" ml={1} />}
               </ThemUILink>
             ) : (
               <GatsbyLink
                 to={path}
                 sx={{ variant }}
                 partiallyActive={true}
-                activeStyle={{ color: theme.colors.primaryBase }}
+                activeStyle={{
+                  opacity: 1,
+                  borderStyle: 'solid',
+                  borderColor: 'primary',
+                  borderWidth: '0 0 3px 0',
+                  height: '100%',
+                }}
               >
-                {capitalizedLabel}
+                {label}
               </GatsbyLink>
             )}
           </li>

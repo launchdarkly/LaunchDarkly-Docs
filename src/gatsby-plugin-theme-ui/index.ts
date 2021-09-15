@@ -1,5 +1,33 @@
 import { Theme, get } from 'theme-ui'
 
+// These names should correspond to those you'll find referenced in figma designs
+// e.g. "Brand/Blue" or "Grayscale/Gray 700"
+// Doesn't include all 72 extended colors, but feel free to add them as you need them
+const ldColors = {
+  brandYellow: '#EBFF38',
+  brandBlue: '#405BFF',
+  brandPink: '#FF386B',
+  brandCyan: '#3DD6F5',
+  brandPurple: '#A34FDE',
+  systemGreen: '#00DA7B',
+  systemRed: '#E83B3B',
+  systemYellow: '#EEC340',
+  grayscaleWhite: '#FFFFFF',
+  grayscaleWhite100: '#F8F8F8',
+  grayscaleGray100: '#E6E6E6',
+  grayscaleGray200: '#D1D3D4',
+  grayscaleGray300: '#BCBEC0',
+  grayscaleGray400: '#A7A9AC',
+  grayscaleGray500: '#939598',
+  grayscaleGray600: '#6D6E71',
+  grayscaleGray700: '#58595B',
+  grayscaleGray800: '#414042',
+  grayscaleBlack100: '#282828',
+  grayscaleBlack200: '#212121',
+  grayscaleBlack300: '#191919',
+  grayscaleBlack: '#000000',
+}
+
 const makeTheme = <T extends Theme>(t: T) => t
 
 const theme = makeTheme({
@@ -13,31 +41,24 @@ const theme = makeTheme({
   sizes: ['.75rem', '1rem', '1.25rem', '1.5rem', '2rem', '4rem', '8rem', '16rem'],
   fontSizes: ['0.5rem', '0.625rem', '0.75rem', '0.875rem', '1rem', '1.125rem', '1.375rem', '1.75rem', '2.25rem'],
   colors: {
-    primaryDark: '#087F5B',
-    primarySafe: '#0CA678',
-    primaryBase: '#20C99F',
-    primaryWash: '#F3FDFB',
-    secondaryDark: '#0E1932',
-    infoDark: '#1864AB',
-    infoSafe: '#1C7ED6',
-    infoBase: '#339AF0',
-    infoWash: '#F1F9FF',
-    alertDark: '#D44512',
-    alertSafe: '#F76707',
-    alertBase: '#FF922B',
-    alertWash: '#FFF9F2',
-    warnDark: '#C92A2A',
-    warnSafe: '#F03E3E',
-    warnBase: '#FF6B6B',
-    warnWash: '#FFF5F5',
-    grayBlack: '#212529',
-    grayDark: '#434A51',
-    graySafe: '#646f7A',
-    grayBase: '#8A929C',
-    grayMed: '#CED4DA',
-    grayLight: '#F1F3F5',
-    grayWash: '#F8F9FA',
-    white: '#FFFFFF',
+    ...ldColors,
+    // Colors by function - use these when it's obvious what the purpose of the color is
+    text: ldColors.grayscaleGray700, // most text/icons
+    background: ldColors.grayscaleWhite, // page background
+    primary: ldColors.brandBlue, // primary buttons/links
+    secondary: ldColors.brandCyan, // secondary buttons/links
+    accent: ldColors.grayscaleBlack100, // header text, emphasised text/icons, contrasted backgrounds/borders
+    muted: ldColors.grayscaleWhite100, // faint backgrounds/borders to complement the background not contrast it
+    // Legacy colors - try not to use these directly anymore, some have been remapped for
+    // expediency, but we should remove them all eventually
+    primarySafe: ldColors.brandBlue,
+    grayBlack: ldColors.grayscaleBlack200,
+    graySafe: ldColors.grayscaleGray600,
+    grayBase: ldColors.grayscaleGray300,
+    grayMed: ldColors.grayscaleGray200,
+    grayLight: ldColors.grayscaleWhite100,
+    grayWash: ldColors.grayscaleWhite100,
+    white: ldColors.grayscaleWhite,
   },
   space: [0, '0.25rem', '0.5rem', '0.75rem', '1rem', '1.5rem', '2rem', '3rem', '3.5rem', '4rem', '8rem'],
   borderWidths: [0, '.0625rem', '.125rem', '.25rem', '.5rem', '1rem', '2rem'],
@@ -67,7 +88,7 @@ const theme = makeTheme({
     label: {
       fontSize: 3,
       lineHeight: 'small',
-      color: 'grayDark',
+      color: 'text',
       textDecoration: 'none',
       display: 'block',
       paddingBottom: 4,
@@ -100,8 +121,8 @@ const theme = makeTheme({
         cursor: 'pointer',
         bg: 'transparent',
         '&:hover': {
-          color: 'grayDark',
-          boxShadow: (theme: Theme) => `inset 0px -2px 0px ${theme.colors.primaryBase}`,
+          color: 'text',
+          boxShadow: (theme: Theme) => `inset 0px -2px 0px ${theme.colors.primary}`,
         },
       },
       languageActive: (theme: Theme) => ({
@@ -117,11 +138,11 @@ const theme = makeTheme({
         fontWeight: 'bold',
         lineHeight: 'small',
         borderRadius: 1,
-        color: 'grayDark',
+        color: 'text',
         cursor: 'pointer',
         bg: 'transparent',
         '&:hover': {
-          bg: 'grayMed',
+          bg: 'muted',
         },
       },
     },
@@ -129,12 +150,12 @@ const theme = makeTheme({
   cards: {
     code: {
       padding: 2,
-      bg: 'grayWash',
+      bg: 'muted',
       marginBottom: 4,
       borderRadius: 1,
       border: '1px solid',
-      borderColor: 'grayMed',
-      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.grayMed}`,
+      borderColor: 'muted',
+      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.muted}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
@@ -144,11 +165,11 @@ const theme = makeTheme({
     },
     table: {
       padding: 2,
-      bg: 'grayWash',
+      bg: 'muted',
       borderRadius: 1,
       border: '1px solid',
-      borderColor: 'grayMed',
-      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.grayMed}`,
+      borderColor: 'muted',
+      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.muted}`,
       paddingX: [3, 5],
       paddingY: [2, 4],
       lineHeight: 'regular',
@@ -160,18 +181,18 @@ const theme = makeTheme({
     image: {
       borderRadius: 1,
       border: '1px solid',
-      borderColor: 'grayMed',
-      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.grayMed}`,
+      borderColor: 'muted',
+      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.muted}`,
       maxWidth: '100%',
       my: [4, 5],
     },
     learnMore: {
       padding: 2,
-      bg: 'grayWash',
+      bg: 'muted',
       borderRadius: 1,
       border: '1px solid',
-      borderColor: 'grayMed',
-      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.grayMed}`,
+      borderColor: 'muted',
+      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.muted}`,
       paddingX: 5,
       paddingY: 4,
       lineHeight: 'regular',
@@ -179,11 +200,11 @@ const theme = makeTheme({
     },
     info: {
       padding: 2,
-      bg: 'grayWash',
+      bg: 'muted',
       borderRadius: 1,
       border: '1px solid',
-      borderColor: 'grayMed',
-      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.infoBase}, 0 2px 4px ${theme.colors.grayMed}`,
+      borderColor: 'muted',
+      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.secondary}, 0 2px 4px ${theme.colors.muted}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
@@ -192,11 +213,11 @@ const theme = makeTheme({
     },
     warning: {
       padding: 2,
-      bg: 'grayWash',
+      bg: 'muted',
       borderRadius: 1,
       border: '1px solid',
-      borderColor: 'grayMed',
-      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.warnBase}, 0 2px 4px ${theme.colors.grayMed}`,
+      borderColor: 'muted',
+      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.systemYellow}, 0 2px 4px ${theme.colors.muted}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
@@ -205,11 +226,11 @@ const theme = makeTheme({
     },
     alert: {
       padding: 2,
-      bg: 'grayWash',
+      bg: 'muted',
       borderRadius: 1,
       border: '1px solid',
-      borderColor: 'grayMed',
-      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.alertBase}, 0 2px 4px ${theme.colors.grayMed}`,
+      borderColor: 'muted',
+      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.systemRed}, 0 2px 4px ${theme.colors.muted}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
@@ -218,11 +239,11 @@ const theme = makeTheme({
     },
     primary: {
       padding: 2,
-      bg: 'grayWash',
+      bg: 'muted',
       borderRadius: 1,
       border: '1px solid',
-      borderColor: 'grayMed',
-      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.primaryBase}, 0 2px 4px ${theme.colors.grayMed}`,
+      borderColor: 'muted',
+      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.primary}, 0 2px 4px ${theme.colors.muted}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
@@ -241,7 +262,7 @@ const theme = makeTheme({
     search: {
       width: 2,
       height: 2,
-      fill: 'white',
+      fill: 'grayscaleWhite',
       m: 2,
     },
     learnMore: {
@@ -253,30 +274,30 @@ const theme = makeTheme({
       info: {
         width: 2,
         height: 2,
-        fill: 'infoSafe',
+        fill: 'secondary',
       },
       warning: {
         width: 2,
         height: 2,
-        fill: 'warnSafe',
+        fill: 'systemYellow',
       },
       alert: {
         width: 2,
         height: 2,
-        fill: 'alertSafe',
+        fill: 'systemRed',
       },
       primary: {
         width: 2,
         height: 2,
-        fill: 'primarySafe',
+        fill: 'primary',
       },
     },
     header: {
       height: 3,
       width: 'auto',
-      fill: 'white',
+      fill: 'grayscaleWhite',
     },
-    sideNav: { width: 3, height: 3, fill: 'white', cursor: 'pointer' },
+    sideNav: { width: 3, height: 3, fill: 'grayscaleWhite', cursor: 'pointer' },
     heading: {
       width: 3,
       height: 3,
@@ -286,24 +307,32 @@ const theme = makeTheme({
       width: 3,
       height: 3,
       p: 1,
-      fill: 'grayDark',
+      fill: 'grayscaleGray700',
     },
   },
   links: {
     topNav: {
-      color: 'grayMed',
+      color: 'grayscaleWhite',
+      borderColor: 'primary',
+      borderWidth: '0 0 3px 0',
+      opacity: 0.6,
+      height: '100%',
+      padding: '1.75rem 16px 0 16px',
       textDecoration: 'none',
       ':visited': {
-        color: 'grayMed',
+        color: 'grayscaleWhite',
       },
       ':active': {
-        color: 'primaryBase',
+        color: 'grayscaleWhite',
+        opacity: 1,
+        borderStyle: 'solid',
       },
       ':hover': {
-        color: 'primaryBase',
+        color: 'grayscaleWhite',
+        opacity: 1,
 
         '& svg': {
-          fill: 'primaryBase',
+          fill: 'grayscaleWhite',
         },
       },
     },
@@ -356,16 +385,16 @@ const theme = makeTheme({
       fontWeight: 'bold',
     },
     a: {
-      color: 'infoSafe',
+      color: 'primary',
       textDecoration: 'underline',
       ':hover': {
-        color: 'grayBlack',
+        color: 'accent',
       },
       ':visited': {
-        color: 'infoSafe',
+        color: 'primary',
       },
       ':active': {
-        color: 'grayBlack',
+        color: 'accent',
       },
     },
     figcaption: {

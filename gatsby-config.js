@@ -117,7 +117,7 @@ const plugins = [
       background_color: '#0E1932',
       theme_color: '#FFF',
       display: 'minimal-ui',
-      icon: 'assets/images/launchdarkly-logo.png', // This path is relative to the root of the site.
+      icon: 'assets/images/logo.png', // This path is relative to the root of the site.
     },
   },
   {

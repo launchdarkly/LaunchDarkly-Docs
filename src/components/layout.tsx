@@ -71,7 +71,7 @@ const theme = {}
 
 const rootGridStyles = {
   letterSpacing: '0.0125rem',
-  color: 'grayBlack',
+  color: 'text',
   height: '100vh',
   display: 'grid',
   gridTemplateColumns: ['100%', '19rem auto', '19rem 48rem auto'],

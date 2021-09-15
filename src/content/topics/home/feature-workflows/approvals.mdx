@@ -38,11 +38,7 @@ To learn more about the Slack app, read [Slack](/integrations/slack).
 
 ## Requesting approval for a flag change
 
-You can request approval on changes to a flag's targeting at any point after creation.
-
-![A GIF showing the interactions of requesting approval on changes.](../../images/approvals-requesting-approval.gif)
-
-You can delete your own approval requests. To learn more, read [Deleting an approval request](#deleting-an-approval-request).
+You can request approval on changes to a flag's targeting at any point after creation. You can also delete your own approval requests. To learn more, read [Deleting an approval request](#deleting-an-approval-request).
 
 ![The approval request.](../../images/approvals-approval-screen.png)
 
@@ -75,9 +71,9 @@ If your environment requires approvals, **Request approval** is the default opti
 
 The Reviewers dropdown automatically excludes members with a Reader role, since Readers cannot approve requests. The people you chose from the dropdown each receive an email and, if applicable, a Slack notification, asking them to approve your flag changes.
 
-The flag's **Targeting** page also updates with an icon to indicate that there are pending changes waiting for review.
+The flag's **Targeting** page also updates with a number next to the pending changes icon to indicate that there are pending changes waiting for review.
 
-![The "Pending changes" icon on the flag's Targeting tab.](../../images/workflows-pending-changes-callout.png)
+![The "Pending changes" icon on the flag's Targeting tab.](../../images/workflows-pending-changes-icon.png)
 
 ## Reviewing flag approval requests
 
@@ -100,7 +96,7 @@ To approve or decline a change:
   b. (Optional) Click into the dropdown and choose **Approve changes**. If you approve an approval request but do not apply it, the original requester, or any account member with a writer, owner / admin, or custom role can apply the  changes you approved.
 
 <Callout intent="info">
-<CalloutTitle>Anyone with role access can leave a comment.</CalloutTitle>
+<CalloutTitle>Anyone with role access can leave a comment</CalloutTitle>
 <CalloutDescription>
 
 The requestor, anyone with a writer, owner / admin role, or anyone with a custom role that can review approval requests can comment on an approval request.
@@ -114,7 +110,7 @@ In addition to using the link in the email to access the approval request, you c
 
 To access this screen, click the icon on the flag's **Targeting** page:
 
-![The "Pending changes" icon on the flag's Targeting tab.](../../images/workflows-pending-changes-callout.png)
+![The "Pending changes" icon on the flag's Targeting tab.](../../images/workflows-pending-changes-icon.png)
 
 ## Deleting an approval request
 
@@ -128,12 +124,13 @@ You may delete a request for changes to a flag at any point before the changes a
 To delete approval requests from a flag's "Pending changes" screen:
 
 1. Navigate to the flag's **Targeting** page and click the **Pending Changes** icon. The "Pending Changes" screen appears.
-2. Find the change you wish to delete and click the three-dot **overflow menu**. Additional options appear.
+2. Find the change you wish to delete and click the **overflow menu**. Additional options appear:
+
+![The Delete option in the the overflow menu.](../../images/workflows-pending-changes-overflow.png)
+
 3. Choose **Delete**. A confirmation screen appears.
 4. Type the flag's name or key to confirm.
-5. Click **Delete**. The request is deleted:
-
-![A GIF showing the interactions of deleting a change from the "Pending Changes" screen.](../../images/approvals-delete-from-pending-changes.gif)
+5. Click **Delete**. The request is deleted.
 
 ### Deleting an approval request from its page
 
@@ -141,9 +138,9 @@ To delete an approval request from the request's page:
 
 1. Navigate to the flag's **Targeting** page and click the **Pending Changes** icon. The "Pending Changes" screen appears.
 2. Click **View**. The approval request appears.
-3. Click the **three-dot** overflow menu. The menu expands.
+3. Click the **overflow menu**. The menu expands.
 3. Click **Delete request**. A confirmation screen appears.
 4. Type the flag's name or key to confirm.
-5. Click **Delete request**. The request is deleted.
+5. Click **Delete request**. The request is deleted:
 
-![The overflow menu expanded with the "Delete request" option selected.](../../images/approvals-delete-overflow.png)
+![The overflow menu expanded with the "Delete request" option.](../../images/approvals-delete-overflow.png)

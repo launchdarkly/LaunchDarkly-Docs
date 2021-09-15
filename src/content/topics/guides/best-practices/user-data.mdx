@@ -39,13 +39,13 @@ Depending on the requirements of your organization, you may want to limit or com
 
 LaunchDarkly SDKs have different constraints that affect user data. Specifically, client-side SDKs differ from server-side SDKs in the following ways:
 
-- You must enable each flags that you want client-side SDK to be able to access using the "Make this flag available to client-side SDKs" setting. To learn more, read [Client-side ID](/sdk/concepts/client-side-server-side#client-side-id).
+- You must make available each flag that you want client-side or mobile SDKs to be able to access. To do this, select the checkboxes in the "Client-side SDK availability" section of the flag's configuration. To learn more, read [Client-side ID](/sdk/concepts/client-side-server-side#client-side-id).
 
 - By default, client-side SDKs aren't authenticated. Because of this, one user could use another user's account to evaluate flags not meant for them. To authenticate user data, you can enable the SDK's **secure mode**, which requires you to pass a server generated hash in your user data. To learn more, read [Secure mode](/sdk/features/secure-mode#configuring-secure-mode-in-the-javascript-client-side-sdk).
 
 - Client-side SDKs send user data in the URL as a `GET` query parameter. If you are concerned about that data being stored in logs or by intermediary proxies, you can use the [`useReport`](/sdk/features/user-config#javascript) setting to use the HTTP `REPORT` verb. This sends the user data in the request body, rather than in the header.
 
-To learn more, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+To learn more, read [Use REPORT in the JavaScript SDK](#use-report-in-the-javascript-sdk).
 
 ## LaunchDarkly member roles
 
@@ -69,6 +69,96 @@ Further hardening the privacy of your LaunchDarkly projects may require some Lau
 </Callout>
 
 Here are some additional configuration options you can use to increase user privacy in LaunchDarkly. Using these features can impact certain features in the LaunchDarkly UI.
+
+### Use REPORT in the JavaScript SDK
+
+You can configure the JavaScript SDK to use the REPORT HTTP verb instead of GET. In this model, the REPORT verb forces user objects to be sent as request bodies instead of as path parameters. Path parameters are frequently logged and easy for proxies to observe, but request bodies are typically not logged or stored.
+
+In addition, LaunchDarkly uses end-to-end encryption and all communication occurs over HTTPS. Unless a malicious third party breaks TLS encryption, a man-in-the-middle attack is impossible.
+
+When the JavaScript SDK uses the REPORT verb, the SDK operates in polling mode. The SDK connects to the stream when it initializes and receives pings from the stream to keep the connection live. Whenever a ping occurs, the SDK connects to LaunchDarkly using the same REPORT request and performs an evaluation to get the most recent flag values for that user.
+
+Using the REPORT HTTP verb requires an additional option when configuring the JavaScript SDK.
+
+Here is an example where the `useReport` parameter is enabled:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var client = LDClient.initialize(‘EXAMPLE-ENVIRONMENT-ID’, user, options = {
+  useReport: true
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Evaluate flags against a Relay Proxy
+
+The LaunchDarkly Relay Proxy provides mobile and client-side evaluation endpoints. You can initialize a client-side SDK directly against the Relay Proxy instead of connecting to LaunchDarkly.
+
+![A diagram showing a Relay Proxy's position in LaunchDarkly's network architecture.](../../images/relay-proxy-diagram.png)
+
+The benefit of this approach is that the Relay Proxy runs within your own infrastructure, so no private data ever needs to leave the network. Additionally, the SDK functions in the same way that it would function in a standard environment, so you can still take advantage of LaunchDarkly's streaming API and real-time updates to flag changes.
+
+To learn more, read [The Relay Proxy](/home/relay-proxy).
+
+Here is an example configuration for the client:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var ldclient = LDClient.initialize(‘5baa7d07a3050e21323b735d’,
+user, options = {
+  allAttributesPrivate: true,
+  baseUrl: "RELAY-PROXY-INSTANCE-URL",
+  streamUrl: "RELAY-PROXY-INSTANCE-URL"
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Here is an example configuration for the Relay Proxy:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+[environment "production"]
+ prefix = "ld:support-service:production"
+ sdkKey = "YOUR-SDK-KEY"
+ envId = "YOUR-ENVIRONMENT-ID"
+ allowedOrigin = "YOUR-APPLICATION-URL"
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Bootstrap flag values against a server-side SDK
+
+Similar to using a Relay Proxy, you can get the initial payload for users from one of your own servers instead of reaching out to LaunchDarkly. This technique is referred to as bootstrapping. To learn more, read [Bootstrapping](/sdk/features/bootstrapping).
+
+In this model, the user-specific values are acquired from a server-side SDK instance while the JavaScript SDK initializes. The only downside to this approach is that you are not able to receive real-time updates to flag values, because connecting to the stream exposes the user object.
+
+The only way to get updates with this approach is to “poll” for changes against your own server or perform a full page refresh.
 
 ### Private user attributes
 
