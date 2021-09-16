@@ -400,7 +400,7 @@ The SDK uses this hash to generate a percentage value for that user. That value,
 
 A common use case for percentage rollouts is to increment the percentage of users targeted by a flag over time until 100% of the users see one variation of a flag. When you change the percentage allocation of users to flag variations, those users are reassigned different flag variations based on their partition's position in the 1 to 100,000 hash list. For example, if you change the percentage of users seeing variation A from 50% to 70%, partitions 50,001 to 70,000 would be added to the set of partitions already seeing variation A.
 
-To learn more about rollouts and variation assignments, read [Rollouts](/sdk/concepts/flag-evaluation-rules#rollouts).
+To learn more about rollouts and variation assignments, read [Rollouts](/sdk/concepts/flag-evaluation-rules#percentage-rollouts).
 
 <Callout intent="info">
 <CalloutTitle>Advanced Targeting: Percentage rollout variation assignment by attribute</CalloutTitle>
