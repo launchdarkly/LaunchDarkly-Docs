@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://docs.launchdarkly.com">
-    <img alt="LaunchDarkly" src="assets/images/logo.png" width="60" />
+    <img alt="LaunchDarkly" src="assets/icons/launchdarkly-icon.svg" width="60" />
   </a>
 </p>
 <h1 align="center">
