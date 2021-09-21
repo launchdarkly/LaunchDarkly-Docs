@@ -1156,6 +1156,10 @@
         "svg": "bullseye-arrow",
         "items": [
           {
+            "label": "Using flags with Next.js",
+            "path": "/guides/platform-specific/nextjs"
+          },
+          {
             "label": "Managing flags with Terraform",
             "path": "/guides/platform-specific/terraform"
           },
