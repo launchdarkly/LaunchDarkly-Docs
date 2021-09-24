@@ -27,6 +27,7 @@ This feature is available in the following client-side SDKs:
 * [Android](#android)
 * [C/C++ (client-side)](#cc-client-side)
 * [Electron](#electron)
+* [Flutter](#flutter)
 * [iOS](#ios)
 * [JavaScript](#javascript)
 * [Node.js](#nodejs-client-side)
@@ -91,6 +92,25 @@ To manually send an alias event:
 
 ```js
 client.alias(newUser, previousUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Flutter
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="dart"
+  values={[
+    { label: 'Dart', value: 'dart', },
+  ]
+}>
+<CodeTabItem value="dart">
+
+```dart
+await LDClient.alias(newUser, previousUser);
 ```
 
 </CodeTabItem>

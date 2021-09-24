@@ -470,11 +470,11 @@ LDConnectionInformation connectionInfo = await LDClient.getConnectionInformation
 // The current connection state
 LDConnectionState connectionState = connectionInfo.connectionState;
 // Most recent successful flag cache update
-DateTime lastSuccess = connectionInfo.lastSuccessfulConnection;
+DateTime? lastSuccess = connectionInfo.lastSuccessfulConnection;
 // Most recent unsuccessful flag cache update attempt
-DateTime lastfailure = connectionInfo.lastFailedConnection;
+DateTime? lastfailure = connectionInfo.lastFailedConnection;
 // Most recent failure or null
-LDFailure ldFailure = connectionInfo.lastFailure;
+LDFailure? ldFailure = connectionInfo.lastFailure;
 ```
 
 </CodeTabItem>
