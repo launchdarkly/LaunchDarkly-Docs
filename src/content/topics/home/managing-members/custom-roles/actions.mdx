@@ -248,6 +248,75 @@ This table explains available members actions:
   </TableBody>
 </Table>
 
+## Teams actions
+
+`team` is a top-level action. A code sample is below:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+team/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [Teams](/home/teams).
+
+This table explains available members actions:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createTeam</code>
+      </TableCell>
+      <TableCell>Create a new team.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteTeam</code>
+      </TableCell>
+      <TableCell>Delete a team.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTeamName</code>
+      </TableCell>
+      <TableCell>Rename a team.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTeamDescription</code>
+      </TableCell>
+      <TableCell>Update the description of a team.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTeamMembers</code>
+      </TableCell>
+      <TableCell>Add or remove members to or from a team.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTeamCustomRoles</code>
+      </TableCell>
+      <TableCell>Add or remove custom roles from a team.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
 ## Personal access token actions
 
 `token` is a child resources of **members**. A code sample is below:

@@ -27,9 +27,11 @@ Teams is available to customers on an Enterprise plan. To learn more, [read abou
 
 This topic explains how to manage teams and team members in LaunchDarkly and shows you how to use the Teams tab.
 
-## Adding a member to an existing team
+## Managing team members
 
-You can add members to a team when you create a team, or you can add members to existing teams. To learn more about creating teams, read [Creating a team](/home/teams/creating).
+If you have an `owner / admin` role or the required custom role permissions, you can add and remove team members from new and existing teams.
+
+### Adding a member to an existing team
 
 If you have an existing team and you want to add a member to it:
 
@@ -40,17 +42,7 @@ If you have an existing team and you want to add a member to it:
 5. Select the member to add to the team.
 6. Click the **Save team** button.
 
-## Viewing an individual member's teams
-
-Members of your organization can belong to multiple teams.
-
-To view the teams that a member is on:
-
-1. Navigate to [Members](https://app.launchdarkly.com/settings/members).
-2. Filter the list of members for the member you're looking for.
-3. Find the "Teams" column. The teams of which that member is a part are listed here. There may be additional teams in the overflow menu.
-
-## Removing a member from a team
+### Removing a member from a team
 
 You can remove a member from a team in two different ways. You can use the Team management page or the Members page.
 
@@ -63,7 +55,7 @@ To remove a member from the team management page:
 5. Click the **X** next to their name to remove them from the team.
 6. Click **Save Team**.
 
-To remove a member from the **Members** page:
+To use the **Members** page to remove a member from a team:
 
 1. Navigate to the [Members](https://app.launchdarkly.com/settings/members) page.
 2. Find the member in the list of team members.
@@ -71,6 +63,69 @@ To remove a member from the **Members** page:
 4. On the list of "Team membership and roles", find the team that you want to remove the member from.
 5. Click **Remove Member**.
 6. Click **Delete**.
+
+## Managing team maintainers
+
+If you have an `owner / admin` role or the required custom role permissions, you can add and remove team maintainers from new and existing teams.
+
+### Adding a team maintainer to an existing team
+
+You can add maintainers to a team when you create a team, or you can add maintainers to existing teams. To learn more about creating teams, read [Creating a team](/home/teams/creating).
+
+If you have an existing team and you want to add a maintainer to it:
+
+1. Navigate to [Account settings](https://app.launchdarkly.com/settings).
+2. Click into the [Teams](https://app.launchdarkly.com/settings/teams) tab.
+3. Click **Manage**. The "Manage" screen appears.
+4. Click into the "Team maintainers" list and type the name of the member you wish to be a team maintainer.
+5. Select the member to add them to the team maintainer list.
+6. Click the **Save team** button.
+
+### Removing a team maintainer from a team
+
+To remove a member from the team management page:
+
+1. Navigate to the [Account settings](https://app.launchdarkly.com/settings) page.
+2. Click into the [Teams](https://app.launchdarkly.com/settings/teams) tab and find the team that you want to remove the member from.
+3. Click **Manage**.
+4. Find the member in the list of team maintainers.
+5. Click the **X** next to their name to remove them from the team.
+6. Click **Save Team**.
+
+## Viewing an individual member's teams
+
+Members of your organization can belong to multiple teams.
+
+To view the teams that a member is on:
+
+1. Navigate to [Members](https://app.launchdarkly.com/settings/members).
+2. Filter the list of members for the member you're looking for.
+3. Find the "Teams" column. The teams of which that member is a part are listed here. There may be additional teams in the overflow menu.
+
+<Callout intent="info">
+  <CalloutTitle>Maintained teams do not necessarily appear in the "Teams" column</CalloutTitle>
+  <CalloutDescription>
+
+ Team maintainers are not members of the team, so the teams they maintain do not appear in the "Teams" column.
+
+  </CalloutDescription>
+</Callout>
+
+### Viewing an individual member's roles
+
+To view an individual member's roles from the Members page:
+1. Navigate to [Members](https://app.launchdarkly.com/settings/members).
+2. Filter the list of members for the member you're looking for.
+3. Click **Manage** / **Details** for the member you want to view.
+4. In the "Team membership and roles" section you can view:
+  * Any teams that they are a member of
+  * Any teams that they maintain
+  * Any custom roles granted to them through the teams that they are a member of
+  * If you have permission to remove members, you will also see a "Remove Member" button. This allows you to remove this member from the team.
+
+
+A team maintainer who is not also a team member cannot be removed while viewing their individual member "Access" screen. To learn how to remove a team maintainer, read [Removing a team maintainer from a team](#removing-a-team-maintainer-from-a-team).
+
 
 ## Deleting a team
 
