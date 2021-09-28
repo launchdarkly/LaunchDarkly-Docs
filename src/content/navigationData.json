@@ -741,6 +741,10 @@
             "path": "/integrations/zendesk"
           }
         ]
+      },
+      {
+        "label": "Building your own integrations",
+        "path": "/integrations/building-integrations"
       }
     ]
   },
