@@ -333,7 +333,7 @@ To disable SSO:
 ![The disable SSO confirmation screen.](../../../images/settings-security-sso-disable.png)
 
 
-## Enabling SCIM Provisioning
+## Enabling SCIM provisioning
 
 <Callout>
 <CalloutTitle>SSO is required</CalloutTitle>
@@ -349,6 +349,8 @@ If you have enabled SSO, you can enable SCIM provisioning as well. SCIM facilita
 Initiate the workflow that links your IdP with SCIM from your IdP. The workflow will lead to an authorization screen where you can authorize your IdP to manage your users.
 
 You may only have one SCIM provider linked to your IdP at once. If you need to change providers, disconnect the original provider by following the workflow below and enable a different one through your IdP.
+
+You cannot deactive an account member using SCIM deprovisioning if you added the member to your LaunchDarkly account before you enabled SCIM provisioning or SSO.
 
 ## Disconnecting SCIM
 
