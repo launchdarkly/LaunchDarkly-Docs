@@ -579,11 +579,11 @@
             "path": "/integrations/new-relic",
             "items": [
               {
-                "label": "Using the New Relic events integration",
+                "label": "Using the New Relic One events integration",
                 "path": "/integrations/new-relic/events"
               },
               {
-                "label": "Using flag triggers with New Relic",
+                "label": "Using flag triggers with New Relic One",
                 "path": "/integrations/new-relic/triggers"
               },
               {
@@ -1104,6 +1104,10 @@
           {
             "label": "Improving flag usage in code",
             "path": "/guides/best-practices/improving-code"
+          },
+          {
+            "label": "Integrations use cases",
+            "path": "/guides/best-practices/integrations-use-cases"
           },
           {
             "label": "Minimizing LaunchDarkly's access to user data",
