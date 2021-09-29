@@ -20,6 +20,7 @@ const ignore = [
   'https://cocoapods.org',
   'https://www.makeuseof.com/tag/md5-hash-stuff-means-technology-explained/',
   'https://help.amplitude.com',
+  'https://currentmillis.com',
 ]
 
 describe('Verify links', () => {
