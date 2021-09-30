@@ -31,6 +31,7 @@ In client-side SDKs, you must enable an evaluation reason configuration option f
 
 This feature is available in the following client-side SDKs:
 
+* [.NET (client-side)](#net-client-side)
 * [Android](#android)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -38,7 +39,36 @@ This feature is available in the following client-side SDKs:
 * [Node.js (client-side)](#nodejs-client-side)
 * [React Native](#react-native)
 * [Roku](#roku)
-* [Xamarin](#xamarin)
+
+### .NET (client-side)
+
+The `VariationDetail` methods, such as `BoolVariationDetail`, work the same as `Variation`, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the user was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'C#', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+
+EvaluationDetail<bool> detail =
+  client.BoolVariationDetail("flag-key", false);
+  // or StringVariationDetail for a string-valued flag, etc.
+
+bool value = detail.Value;
+int? index = detail.VariationIndex;
+EvaluationReason reason = detail.Reason;
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/dotnet-client-sdk/html/T_LaunchDarkly_Client_EvaluationDetail_1.htm) and [`BoolVariationDetail`](https://launchdarkly.github.io/dotnet-client-sdk/html/M_LaunchDarkly_Xamarin_ILdClient_BoolVariationDetail.htm).
 
 ### Android
 
@@ -238,43 +268,13 @@ details = launchDarkly.intVariationDetail("MY_FLAG_KEY", 123)
 
 These variation methods return an object containing the keys `value`, `reason`, and `variationIndex`. The `value` field is the result of the evaluation. The `reason` field is an object that explains why the result happened, for example details about a rule match. The reason object will always contain a `kind` field. Lastly the `variationIndex` field contains the ID of the particular value returned. This field may be null.
 
-### Xamarin
-
-The `VariationDetail` methods, such as `BoolVariationDetail`, work the same as `Variation`, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the user was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
-
-Here is an example:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C# (Xamarin)', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-
-EvaluationDetail<bool> detail =
-  client.BoolVariationDetail("flag-key", false);
-  // or StringVariationDetail for a string-valued flag, etc.
-
-bool value = detail.Value;
-int? index = detail.VariationIndex;
-EvaluationReason reason = detail.Reason;
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/dotnet-client-sdk/html/T_LaunchDarkly_Client_EvaluationDetail_1.htm) and [`BoolVariationDetail`](https://launchdarkly.github.io/dotnet-client-sdk/html/M_LaunchDarkly_Xamarin_ILdClient_BoolVariationDetail.htm).
-
 ## Server-side SDKs
 
 Unlike client-side SDKs, you do not need to enable an evaluation reason configuration option in server-side SDKs for this feature to work.
 
 This feature is available in the following server-side SDKs:
 
-* [.NET](#net)
+* [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
 * [Erlang](#erlang)
@@ -287,7 +287,7 @@ This feature is available in the following server-side SDKs:
 * [Python](#python)
 * [Ruby](#ruby)
 
-### .NET
+### .NET (server-side)
 
 The `VariationDetail` methods, such as [`BoolVariationDetail`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_BoolVariationDetail_), work the same as the `Variation` methods, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the user was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 

@@ -26,6 +26,7 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 This feature is available in the following client-side SDKs:
 
+* [.NET (client-side)](#net-client-side)
 * [Android](#android)
 * [C/C++ (client-side)](#cc-client-side)
 * [Electron](#electron)
@@ -34,7 +35,27 @@ This feature is available in the following client-side SDKs:
 * [JavaScript](#javascript)
 * [Node.js (client-side)](#nodejs-client-side)
 * [React Native](#react-native)
-* [Xamarin](#xamarin)
+
+### .NET (client-side)
+
+`Dispose` safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `Dispose`.
+
+To shut down:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'C#', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+client.Dispose();
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ### Android
 
@@ -218,32 +239,11 @@ await client.close();
 </CodeTabItem>
 </CodeTabs>
 
-### Xamarin
-
-`Dispose` safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `dispose`.
-
-To shut down:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Xamarin', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-client.Dispose();
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## Server-side SDKs
 
 This feature is available in the following server-side SDKs:
 
-* [.NET](#net)
+* [.NET (server-side)](#net-server-side)
 * [C/C++ (server-side)](#cc-server-side)
 * [Erlang](#erlang)
 * [Go](#go)
@@ -253,7 +253,7 @@ This feature is available in the following server-side SDKs:
 * [Python](#python)
 * [Ruby](#ruby)
 
-### .NET
+### .NET (server-side)
 
 [`Dispose`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Dispose_) safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `Dispose`.
 

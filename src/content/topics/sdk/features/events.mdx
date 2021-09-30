@@ -22,6 +22,7 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 This feature is available in the following client-side SDKs:
 
+* [.NET (client-side)](#net-client-side)
 * [Android](#android)
 * [C/C++ (client-side)](#cc-client-side)
 * [Electron](#electron)
@@ -31,7 +32,29 @@ This feature is available in the following client-side SDKs:
 * [Node.js (client-side)](#nodejs-client-side)
 * [React Native](#react-native)
 * [Roku](#roku)
-* [Xamarin](#xamarin)
+
+### .NET (client-side)
+
+The `Track` method lets you record actions your users take on your site. This lets you record events that take place on your server.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+client.Track("your-goal-key");
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You can also attach custom data to your event by passing an extra parameter to `Track`, using the `LdValue` class to represent any value that can be encoded in JSON. To learn how, read [`LdClient.Track`](https://launchdarkly.github.io/dotnet-client-sdk/html/M_LaunchDarkly_Xamarin_LdClient_Track_1.htm).
 
 ### Android
 
@@ -343,34 +366,11 @@ launchDarkly.track("YOUR_EVENT_KEY", invalid, 52.3)
 </CodeTabItem>
 </CodeTabs>
 
-### Xamarin
-
-The `track` method lets you record actions your users take on your site. This lets you record events that take place on your server.
-
-Here's how:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-client.Track("your-goal-key");
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-You can also attach custom data to your event by passing an extra parameter to `Track`, using the `LdValue` class to represent any value that can be encoded in JSON. To learn how, read [`LdClient.Track`](https://launchdarkly.github.io/dotnet-client-sdk/html/M_LaunchDarkly_Xamarin_LdClient_Track_1.htm).
-
 ## Server-side SDKs
 
 This feature is available in the following server-side SDKs:
 
-* [.NET](#net)
+* [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
 * [Erlang](#erlang)
@@ -383,7 +383,7 @@ This feature is available in the following server-side SDKs:
 * [Python](#python)
 * [Ruby](#ruby)
 
-### .NET
+### .NET (server-side)
 
 The [`Track`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Track_) method lets you record actions users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests.
 

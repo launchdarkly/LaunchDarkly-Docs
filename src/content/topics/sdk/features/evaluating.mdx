@@ -26,6 +26,7 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 This feature is available for all of our client-side SDKs:
 
+* [.NET (client-side)](#net-client-side)
 * [Android](#android)
 * [C/C++ (client-side)](#cc-client-side)
 * [Electron](#electron)
@@ -35,7 +36,29 @@ This feature is available for all of our client-side SDKs:
 * [Node.js (client-side)](#nodejs-client-side)
 * [React Native](#react-native)
 * [Roku](#roku)
-* [Xamarin](#xamarin)
+
+### .NET (client-side)
+
+The `Variation` method determines whether a flag is enabled or not for a specific user. In the client-side .NET SDK, there is  a `variation` method for each type, such as `BoolVariation` or `StringVariation`.
+
+`variation` calls take the feature flag key and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+client.BoolVariation("your.feature.key", false);
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ### Android
 
@@ -329,34 +352,11 @@ myValue = launchDarkly.variation("MY_FLAG_KEY", false)
 </CodeTabItem>
 </CodeTabs>
 
-### Xamarin
-
-The `Variation` method determines whether a flag is enabled or not for a specific user. In Xamarin, there is  a `variation` method for each type, such as `BoolVariation` or `StringVariation`.
-
-`variation` calls take the feature flag key and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
-
-Here is an example:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-client.BoolVariation("your.feature.key", false);
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## Server-side SDKs
 
 This feature is available for all of our server-side SDKs:
 
-* [.NET](#net)
+* [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
 * [Erlang](#erlang)
@@ -369,7 +369,7 @@ This feature is available for all of our server-side SDKs:
 * [Python](#python)
 * [Ruby](#ruby)
 
-### .NET
+### .NET (server-side)
 
 The `Variation` methods determine whether a flag is enabled or not for a specific user. In .NET, there is  a `Variation` method for each type, such as [`BoolVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_BoolVariation_) and [`StringVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_StringVariation_).
 

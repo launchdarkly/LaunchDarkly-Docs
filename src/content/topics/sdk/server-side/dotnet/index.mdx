@@ -1,6 +1,6 @@
 ---
 path: '/sdk/server-side/dotnet'
-title: '.NET SDK reference'
+title: '.NET SDK reference (server-side)'
 description: 'This topic explains all of the methods available in the server-side .NET SDK, with detail about how they work.'
 published: true
 ---
@@ -13,7 +13,7 @@ This reference guide documents all of the methods available in the .NET SDK, and
 <CalloutTitle>For use in server-side applications only</CalloutTitle>
 <CalloutDescription>
 
-This SDK is intended for use in *multi-user* .NET server applications. If you have a .NET application and are looking to set up LaunchDarkly in a mobile, desktop, or embedded application, head to our [Xamarin SDK reference](/sdk/client-side/xamarin).
+This SDK is intended for use in *multi-user* .NET server applications. If you have a .NET application and are looking to set up LaunchDarkly in a mobile, desktop, or embedded application, head to our [client-side .NET SDK reference](/sdk/client-side/dotnet).
 
 To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
@@ -69,7 +69,7 @@ Next, import the LaunchDarkly SDK's namespace(s) in your application code. The n
 using LaunchDarkly.Sdk;
 using LaunchDarkly.Sdk.Server;
 
-// LaunchDarkly.Sdk defines general types like User, which are also used in the Xamarin SDK.
+// LaunchDarkly.Sdk defines general types like User, which are also used in the client-side .NET SDK.
 // LaunchDarkly.Sdk.Server defines the LdClient and Configuration types for the server-side .NET SDK.
 ```
 
@@ -172,26 +172,26 @@ LaunchDarkly servers operate in a load-balancing framework which may cause their
 </CalloutDescription>
 </Callout>
 
-Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#net).
+Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#net-server-side).
 
 ## Supported features
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#net)
-* [Big Segments](/sdk/features/big-segments#net)
-* [Configuration](/sdk/features/config#net)
-* [Evaluating flags](/sdk/features/evaluating#net)
-* [Flag evaluation reasons](/sdk/features/evaluation-reasons#net)
-* [Flushing events](/sdk/features/flush#net)
-* [Getting all flags](/sdk/features/all-flags#net)
-* [Identifying and changing users](/sdk/features/identify#net)
-* [Logging configuration](/sdk/features/logging#net)
-* [Monitoring SDK status](/sdk/features/monitoring#net)
-* [Offline mode](/sdk/features/offline-mode#net)
-* [Secure mode](/sdk/features/secure-mode#net)
-* [Sending custom events](/sdk/features/events#net)
-* [Shutting down](/sdk/features/shutdown#net)
-* [Subscribing to flag changes](/sdk/features/flag-changes#net)
+* [Aliasing users](/sdk/features/aliasing-users#net-server-side)
+* [Big Segments](/sdk/features/big-segments#net-server-side)
+* [Configuration](/sdk/features/config#net-server-side)
+* [Evaluating flags](/sdk/features/evaluating#net-server-side)
+* [Flag evaluation reasons](/sdk/features/evaluation-reasons#net-server-side)
+* [Flushing events](/sdk/features/flush#net-server-side)
+* [Getting all flags](/sdk/features/all-flags#net-server-side)
+* [Identifying and changing users](/sdk/features/identify#net-server-side)
+* [Logging configuration](/sdk/features/logging#net-server-side)
+* [Monitoring SDK status](/sdk/features/monitoring#net-server-side)
+* [Offline mode](/sdk/features/offline-mode#net-server-side)
+* [Secure mode](/sdk/features/secure-mode#net-server-side)
+* [Sending custom events](/sdk/features/events#net-server-side)
+* [Shutting down](/sdk/features/shutdown#net-server-side)
+* [Subscribing to flag changes](/sdk/features/flag-changes#net-server-side)
 * [Storing data](/sdk/features/storing-data#net)
-* [User configuration](/sdk/features/user-config#net)
+* [User configuration](/sdk/features/user-config#net-server-side)

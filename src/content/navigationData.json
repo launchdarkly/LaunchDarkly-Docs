@@ -898,6 +898,10 @@
         "svg": "user",
         "items": [
           {
+            "label": ".NET SDK reference",
+            "path": "/sdk/client-side/dotnet"
+          },
+          {
             "label": "Android SDK reference",
             "path": "/sdk/client-side/android",
             "items": [
@@ -981,10 +985,6 @@
           {
             "label": "Roku SDK reference",
             "path": "/sdk/client-side/roku"
-          },
-          {
-            "label": "Xamarin SDK reference",
-            "path": "/sdk/client-side/xamarin"
           }
         ]
       },

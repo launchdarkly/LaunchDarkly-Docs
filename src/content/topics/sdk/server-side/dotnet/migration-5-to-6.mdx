@@ -22,7 +22,7 @@ The 6.x version of the SDK is compatible with the following .NET platform versio
 * .NET 5.0 and higher.
 * .NET Framework 4.5.2 and higher.
 * .NET Core 2.1 and higher.
-* Any other runtime that supports the .NET Standard 2.0 API. However, even though Xamarin is compatible with .NET Standard 2.0, this SDK is not intended to be used with Xamarin. Use the [Xamarin SDK](/sdk/client-side/xamarin) instead.
+* Any other runtime that supports the .NET Standard 2.0 API. However, even though Xamarin is compatible with .NET Standard 2.0, this SDK is not intended to be used with Xamarin. Use the [client-side .NET SDK](/sdk/client-side/dotnet) instead.
 
 LaunchDarkly no longer supports older .NET target frameworks, including .NET Standard 1.6, as is documented in the [End of Life policy](https://launchdarkly.com/policies/end-of-life-policy/).
 
@@ -39,7 +39,7 @@ The namespace convention has changed. Instead of `LaunchDarkly.Client`, the main
 
 Package names including the word "client" were confusing, because even though this library is a service client that makes requests to the LaunchDarkly service, we built it to use in a server-side context. Types that are specific to this server-side implementation are now in `LaunchDarkly.Sdk.Server`.
 
-The base `LaunchDarkly.Sdk` package contains types that are not specific to server-side .NET. They also exist in the Xamarin SDK. When you view the SDK source code, notice that the base `.Sdk` namespace is implemented in the [`dotnet-sdk-common`](https://github.com/launchdarkly/dotnet-sdk-common) repository rather than [`dotnet-server-sdk`](https://github.com/launchdarkly/dotnet-server-sdk).
+The base `LaunchDarkly.Sdk` package contains types that are not specific to server-side .NET. They also exist in the client-side .NET SDK. When you view the SDK source code, notice that the base `.Sdk` namespace is implemented in the [`dotnet-sdk-common`](https://github.com/launchdarkly/dotnet-sdk-common) repository rather than [`dotnet-server-sdk`](https://github.com/launchdarkly/dotnet-server-sdk).
 
 To learn more about the differences between SDKs, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
@@ -565,7 +565,7 @@ The 6.0 release also includes new features as described in the release notes.
 
 These include:
 
-* You can tell the SDK to notify you whenever a feature flag's configuration has changed with `LdClient.FlagTracker`. See [Subscribing to flag changes](/sdk/features/flag-changes#net).
+* You can tell the SDK to notify you whenever a feature flag's configuration has changed with `LdClient.FlagTracker`. See [Subscribing to flag changes](/sdk/features/flag-changes#net-server-side).
 * You can monitor the status of the SDK's connection to LaunchDarkly services with `LdClient.DataSourceStatusProvider`.
 * You can monitor the status of a persistent data store (for instance, to get caching statistics, or to be notified if the store's availability changes due to a database outage) with `LdClient.DataStoreStatusProvider`.
 * You can configure the SDK's use of different logging levels depending on the duration of a service outage with `ConfigurationBuilder.Logging` and `LoggingConfigurationBuilder`.
