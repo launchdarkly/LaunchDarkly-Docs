@@ -680,6 +680,7 @@ You can distinguish logged-in users from anonymous users in the SDK, as follows:
 // omit the "key" property. In doing so, the LaunchDarkly client
 // will auto-generate a unique identifier for this user, and the
 // identifier will remain constant across browser sessions.
+// (This approach does not work if you are using Secure Mode.)
 var user = {"anonymous": true};
 
 // If you are using earlier SDK versions, you need to specify
@@ -692,6 +693,13 @@ var user = {"anonymous": true};
 // We suggest storing the user's key in a cookie, otherwise you
 // might create a new user for each page request.
 var user2 = {"key":"aa0ceb", "anonymous": true};
+
+// If you are using Secure Mode, you will still need to supply
+// both a key and a hash for an anonymous user.
+var user3 = {"key":"aa0ceb", "anonymous": true};
+var client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user3, options = {
+  hash: "SERVER_GENERATED_HASH"
+});
 ```
 
 </CodeTabItem>
