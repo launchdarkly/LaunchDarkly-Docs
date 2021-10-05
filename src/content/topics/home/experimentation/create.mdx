@@ -79,8 +79,7 @@ The following table explains different actions you can track with a metric:
     <TableRow>
       <TableCell>Custom (numeric)</TableCell>
       <TableCell>
-        This event kind is required for numeric metrics. Tracks increases or decreases in numeric value against a
-        baseline you set. For example, how many items are in a user's cart when they check out of your online store.
+        This event kind is required for numeric metrics. Tracks increases or decreases in numeric value against a baseline you set. For example, how many items are in a user's cart when they check out of your online store.
       </TableCell>
     </TableRow>
   </TableBody>
@@ -142,47 +141,40 @@ To create a click metric:
     <TableRow>
       <TableCell>Simple match</TableCell>
       <TableCell>
-        This triggers an event when the user accesses a URL, or clicks on an element hosted at a URL, that matches the
-        string you enter in the Target URL field or a formulation of that URL that included appended parameters. If you
-        want events to record for URLs with substrings, specify each URL individually.
+        This sends an event when the user accesses a URL, or clicks on an element hosted at a URL, that matches the string you enter in the Target URL field or a formulation of that URL that included appended parameters. If you want events to record for URLs with substrings, specify each URL individually.
       </TableCell>
       <TableCell>You specify: <code>example.com</code>.<br />  Views or clicks at <code>example.com</code>, and <br />
-        <code>example.com#signin</code> trigger events.<br /> You specify: <code>example.com</code> and <br />
+        <code>example.com#signin</code> send events.<br /> You specify: <code>example.com</code> and <br />
         <code>example.com/login</code>.<br /> Views or clicks on <code>example.com</code> and <code>example.com/login</code>{' '}
-        trigger events.
+        send events.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Exact match</TableCell>
       <TableCell>
-        This triggers an event when the user accesses a URL, or clicks on an element hosted at a URL, that exactly
-        matches what you enter in the Target URL field. Identical base URLs with different substrings do not trigger
-        events.
+        This sends an event when the user accesses a URL, or clicks on an element hosted at a URL, that exactly matches what you enter in the Target URL field. Identical base URLs with different substrings do not send events.
       </TableCell>
       <TableCell>
-        You specify: <code>example.com</code>.<br /> Only views or clicks at <code>example.com</code> trigger events.<br /> Views and clicks at <code> www.example.com/signup
-        </code> and <br /><code>https://www.example.com</code> do not trigger events.
+        You specify: <code>example.com</code>.<br /> Only views or clicks at <code>example.com</code> send events.<br /> Views and clicks at <code> www.example.com/signup
+        </code> and <br /><code>https://www.example.com</code> do not send events.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Substring match</TableCell>
       <TableCell>
-        This triggers an event when the user accesses a URL, or clicks on an element hosted at a URL with a specific
-        string of text in it.
+        This sends an event when the user accesses a URL, or clicks on an element hosted at a URL with a specific string of text in it.
       </TableCell>
       <TableCell>
         You specify: <code>your-substring</code>
         <code>example.com/your-substring</code>, <code>home.com/username/your-substring/</code>, <code>
           launchdarkly.com/your-substring/settings
-        </code> Because all of these URLs contain <code>your-substring</code>, clicks on the CSS selectors you specify on each
-        page trigger events.
+        </code> Because all of these URLs contain <code>your-substring</code>, clicks on the CSS selectors you specify on each page send events.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Regular expression</TableCell>
       <TableCell>
-        This triggers an event based on a regex expression you specify. This lets you designate more precise locations
-        to trigger click and pageview events.
+        This sends an event based on a regex expression you specify. This lets you designate more precise locations to send click and pageview events.
       </TableCell>
       <TableCell>
         You specify: <code>example\.com\\/account\\/.*\\/billing</code> This matches any string between <code>account/</code> and <code>/billing</code>, such as <code>http://example.com/account/12345/billing</code>
@@ -261,7 +253,7 @@ For example, you can use numeric metrics to track:
 - The efficacy of various search algorithms
 - The number of items in a shopping cart at checkout
 
-To add a custom numeric metric in LaunchDarkly, you must identify it with a code snippet embedded in your app.
+To add a custom numeric metric in LaunchDarkly, you must identify it with a code snippet embedded in your app. Numeric metrics must send a metric event value for each unique user in an experiment for accurate experiment results.
 
 When you're ready to add a custom event, put this snippet in your code:
 
@@ -285,7 +277,16 @@ client.track("Example event name", user, null, numericValue);
 
 Like conversion metrics, numeric metrics also require you to create an event name and insert it into your application's code to track metric data. The area of your code you should put custom conversion metric information into, and the type of information you should include, varies based on which SDKs you use.
 
-Often, the information you should put in your code includes the event key, user object, data field, or numeric value fields. To learn more, read the documentation for your SDKs.
+<Callout intent="alert">
+<CalloutTitle>Numeric metrics must send an event for each unique user</CalloutTitle>
+<CalloutDescription>
+
+When you use numeric metrics, you must send a metric event value for each unique user in an experiment. If your unique user count and metric event value count are not the same, LaunchDarkly cannot accurately calculate the results for your experiment. When this happens, an alert appears on the Experimentation tab of the feature flags included in the experiment.
+
+</CalloutDescription>
+</Callout>
+
+Usually, the information you should put in your code includes the event key, user object, data field, or numeric value fields. To learn more, read [Sending custom events](/sdk/features/events).
 
 <Callout intent="info">
 <CalloutTitle>Can't see numeric metrics options?</CalloutTitle>
