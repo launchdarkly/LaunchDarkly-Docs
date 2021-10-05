@@ -7,7 +7,7 @@ published: true
 
 ## Overview
 
-This topic explains how to specify different resources to use with custom roles.
+This topic explains how to specify different resources to use with custom roles, integrations access, and Rely Proxy access.
 
 To learn more about how resources are structured within custom role policies, read [Custom role concepts](/home/members/role-concepts).
 
@@ -181,72 +181,119 @@ Here is a reference list of all the supported resources in LaunchDarkly, and the
 
 <Table>
   <TableHeader>
-    <TableHeadCell>Resource Type</TableHeadCell>
-    <TableHeadCell>Resource Scope</TableHeadCell>
+    <TableHeadCell>Resource type</TableHeadCell>
+    <TableHeadCell>Resource scope</TableHeadCell>
+    <TableHeadCell>Written expression</TableHeadCell>
   </TableHeader>
   <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>proj</code>
-      </TableCell>
-      <TableCell>
-        Top-level resource. Projects have no parent resource. Write it as <code>proj/*</code>.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>env</code>
-      </TableCell>
-      <TableCell>
-        A child resources of <code>projects</code>. Write it as <code>proj/*:env/*</code>.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>metric</code>
-      </TableCell>
-      <TableCell>
-        <code>metric</code> is a child resource of <code>projects</code>. Write it as <code>proj/*:metric/*</code>
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>member</code>
-      </TableCell>
-      <TableCell>
-        <code>member</code> is a top-level resource. Write it as <code>member/*</code>
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>service-token</code>
-      </TableCell>
-      <TableCell>
-        <code>service-token</code> is a top-level resource. Write it as <code>service-token/*</code>.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>token</code>
-      </TableCell>
-      <TableCell>
-        <code>token</code> is a child resource of <code>members</code>. Write it as <code>member/*:token/*</code>.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>role</code>
-      </TableCell>
-      <TableCell>
-        <code>role</code> is a top-level resource. Write it as <code>role/*</code>
-      </TableCell>
+  <TableRow>
+    <TableCell>
+      <code>acct</code>
+    </TableCell>
+    <TableCell>
+      <code>acct</code> is a unique resource specifier representing modifications to your account itself
+    </TableCell>
+    <TableCell>
+      <code>acct</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>member</code>
+    </TableCell>
+    <TableCell>
+      <code>member</code> is a top-level resource.
+    </TableCell>
+    <TableCell>
+      <code>member/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>team</code>
+    </TableCell>
+    <TableCell>
+      <code>team</code> is a top-level resource.
+    </TableCell>
+    <TableCell>
+      <code>team/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>token</code>
+    </TableCell>
+    <TableCell>
+      <code>token</code> is a child resource of <code>members</code>.
+    </TableCell>
+    <TableCell>
+      <code>member/*:token/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>service-token</code>
+    </TableCell>
+    <TableCell>
+      <code>service-token</code> is a top-level resource.
+    </TableCell>
+    <TableCell>
+      <code>service-token/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>role</code>
+    </TableCell>
+    <TableCell>
+      <code>role</code> is a top-level resource.
+    </TableCell>
+    <TableCell>
+      <code>role/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>proj</code>
+    </TableCell>
+    <TableCell>
+      Top-level resource. Projects have no parent resource.
+    </TableCell>
+    <TableCell>
+      <code>proj/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>env</code>
+    </TableCell>
+    <TableCell>
+      A child resources of <code>projects</code>.
+    </TableCell>
+    <TableCell>
+      <code>proj/*:env/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>metric</code>
+    </TableCell>
+    <TableCell>
+      <code>metric</code> is a child resource of <code>projects</code>.
+    </TableCell>
+    <TableCell>
+      <code>proj/*:metric/*</code>
+    </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>flag</code>
       </TableCell>
       <TableCell>
-        <code>flag</code> is a child of both a project and environments. Write it as <code>proj/*:env/*:flag/*</code>
+        <code>flag</code> is a child of both a project and environments.
+      </TableCell>
+      <TableCell>
+        <code>proj/*:env/*:flag/*</code>
       </TableCell>
     </TableRow>
     <TableRow>
@@ -254,24 +301,10 @@ Here is a reference list of all the supported resources in LaunchDarkly, and the
         <code>segment</code>
       </TableCell>
       <TableCell>
-        <code>segment</code> is a child of both a project and environments. Write it as{' '}
+        <code>segment</code> is a child of both a project and environments.
+      </TableCell>
+      <TableCell>
         <code>proj/*:env/*:segment/*</code>
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>integration</code>
-      </TableCell>
-      <TableCell>
-        <code>integration</code> is a top-level resource. Write it as <code>integration/*</code>
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>relay-proxy-config</code>
-      </TableCell>
-      <TableCell>
-        <code>relay-proxy-config</code> is a top-level resource. Write it as <code>relay-proxy-config/*</code>
       </TableCell>
     </TableRow>
     <TableRow>
@@ -279,24 +312,32 @@ Here is a reference list of all the supported resources in LaunchDarkly, and the
         <code>webhook</code>
       </TableCell>
       <TableCell>
-        <code>webhook</code> is a top-level resource. Write it as <code>webhook/*</code>
+        <code>webhook</code> is a top-level resource.
+      </TableCell>
+      <TableCell>
+        <code>webhook/*</code>
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>user</code>
+        <code>integration</code>
       </TableCell>
       <TableCell>
-        <code>user</code> is a child of both a project and environments. Write it as <code>proj/*:env/*:user/*</code>
+        <code>integration</code> is a top-level resource.
+      </TableCell>
+      <TableCell>
+        <code>integration/*</code>
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>code-reference-repository</code>
+        <code>relay-proxy-config</code>
       </TableCell>
       <TableCell>
-        <code>code-reference-repository</code> is a top-level resource. Write it as{' '}
-        <code>code-reference-repository/*</code>
+        <code>relay-proxy-config</code> is a top-level resource.
+      </TableCell>
+      <TableCell>
+        <code>relay-proxy-config/*</code>
       </TableCell>
     </TableRow>
     <TableRow>
@@ -304,18 +345,35 @@ Here is a reference list of all the supported resources in LaunchDarkly, and the
         <code>destination</code>
       </TableCell>
       <TableCell>
-        <code>destination</code> is a child of both a project and environments. Write it as{' '}
-        <code>proj/*:env/*:destination/*</code>.
+        <code>destination</code> is a child of both a project and environments.
+      </TableCell>
+      <TableCell>
+        <code>proj/*:env/*:destination/*</code>
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>acct</code>
+        <code>code-reference-repository</code>
       </TableCell>
       <TableCell>
-        <code>acct</code> is a unique resource specifier representing modifications to your account itself, such as
-        managing
+        <code>code-reference-repository</code> is a top-level resource.
+      </TableCell>
+      <TableCell>
+        <code>code-reference-repository/*</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>user</code>
+      </TableCell>
+      <TableCell>
+        <code>user</code> is a child of both a project and environments.
+      </TableCell>
+      <TableCell>
+        <code>proj/*:env/*:user/*</code>
       </TableCell>
     </TableRow>
   </TableBody>
 </Table>
+
+For a list of all actions available to each resource, read [Using actions](/home/members/role-actions).

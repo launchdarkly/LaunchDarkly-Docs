@@ -21,6 +21,24 @@ You can specify actions in bulk using glob syntax and wildcards. For example, yo
 
 ## Account actions
 
+`acct` is a **top-level resource**. A code sample is below:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+acct
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 This table explains available account actions:
 
 <Table>
@@ -179,9 +197,9 @@ This table explains available account ownership actions:
 </TableBody>
 </Table>
 
-## Members actions
+## Member actions
 
-`member` is a top-level action. A code sample is below:
+`member` is a **top-level resource**. A code sample is below:
 
 <CodeTabs
   defaultValue="json"
@@ -199,9 +217,9 @@ member/*
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [Managing your account members](/home/members/managing).
+To learn more, read [LaunchDarkly account members](/home/members/managing).
 
-This table explains available members actions:
+This table explains available member actions:
 
 <Table>
   <TableHeader>
@@ -248,9 +266,10 @@ This table explains available members actions:
   </TableBody>
 </Table>
 
-## Teams actions
 
-`team` is a top-level action. A code sample is below:
+## Team actions
+
+`team` is a **top-level resource**. A code sample is below:
 
 <CodeTabs
   defaultValue="json"
@@ -270,7 +289,7 @@ team/*
 
 To learn more, read [Teams](/home/teams).
 
-This table explains available members actions:
+This table explains available team actions:
 
 <Table>
   <TableHeader>
@@ -319,7 +338,8 @@ This table explains available members actions:
 
 ## Personal access token actions
 
-`token` is a child resources of **members**. A code sample is below:
+`token` is a child resource of **members**. A code sample is below:
+
 <CodeTabs
   defaultValue="json"
   values={[
@@ -350,37 +370,37 @@ This table explains available personal access token actions:
       <TableCell>
         <code>createAccessToken</code>
       </TableCell>
-      <TableCell>Create a personal access token</TableCell>
+      <TableCell>Create a personal access token.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateAccessTokenPolicy</code>
       </TableCell>
-      <TableCell>Change the policy filter of a personal access token</TableCell>
+      <TableCell>Change the policy filter of a personal access token.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateAccessTokenName</code>
       </TableCell>
-      <TableCell>Change the name of a personal access token</TableCell>
+      <TableCell>Change the name of a personal access token.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateAccessTokenDescription</code>
       </TableCell>
-      <TableCell>Change the description of a personal access token</TableCell>
+      <TableCell>Change the description of a personal access token.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteAccessToken</code>
       </TableCell>
-      <TableCell>Delete a personal access token</TableCell>
+      <TableCell>Delete a personal access token.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>resetAccessToken</code>
       </TableCell>
-      <TableCell>Reset a personal access token's secret key</TableCell>
+      <TableCell>Reset a personal access token's secret key.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -522,7 +542,7 @@ This table explains available role actions:
 
 ## Project actions
 
-`proj` is a **top-level resource**.
+`proj` is a **top-level resource**. A code sample is below:
 
 <CodeTabs
   defaultValue="json"
@@ -854,7 +874,7 @@ proj/*:env/*:flag/*
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [Creating a feature flag](/home/getting-started/feature-flags).
+To learn more, read [Your first feature flag](/home/getting-started/feature-flags).
 
 This table explains available feature flag actions:
 
@@ -971,7 +991,7 @@ This table explains available feature flag actions:
       <TableCell>
         <code>updateOffVariation</code>
       </TableCell>
-      <TableCell>Update the variation returned when flag toggle is set to `off`.</TableCell>
+      <TableCell>Update the variation returned when flag toggle is set to <code>off</code>.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -1461,7 +1481,7 @@ This table explains available integrations actions:
 
 ## Relay Proxy automatic configuration actions
 
-`relay-proxy-config` is a top-level resource for which you can allow or deny certain actions.
+`relay-proxy-config` is a **top-level resource** for which you can allow or deny certain actions.
 
 Here is an example:
 
@@ -1495,38 +1515,38 @@ This table explains available Relay Proxy automatic configuration actions:
       <TableCell>
         <code>createRelayAutoConfiguration</code>
       </TableCell>
-      <TableCell>Create a Relay Proxy with automatic configuration enabled</TableCell>
+      <TableCell>Create a Relay Proxy with automatic configuration enabled.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateRelayAutoConfigurationName</code>
       </TableCell>
-      <TableCell>Change the Relay Proxy with automatic configuration's name</TableCell>
+      <TableCell>Change the Relay Proxy with automatic configuration's name.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateRelayAutoConfigurationPolicy</code>
       </TableCell>
-      <TableCell>Change the policies associated with the Relay Proxy with automatic configuration</TableCell>
+      <TableCell>Change the policies associated with the Relay Proxy with automatic configuration.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteRelayAutoConfiguration</code>
       </TableCell>
-      <TableCell>Delete the Relay Proxy with automatic configuration enabled</TableCell>
+      <TableCell>Delete the Relay Proxy with automatic configuration enabled.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>resetRelayAutoConfiguration</code>
       </TableCell>
-      <TableCell>Resets the configuration of the Relay Proxy with automatic configuration enabled</TableCell>
+      <TableCell>Resets the configuration of the Relay Proxy with automatic configuration enabled.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
 
 ## Destinations actions
 
-`destination` is a child of **both a project and environments**.
+`destination` is a child of **both a project and environments**. A code sample is below:
 
 <CodeTabs
   defaultValue="json"
