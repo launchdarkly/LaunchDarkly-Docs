@@ -8,9 +8,13 @@ const LandingPage = () => (
   <div sx={{ lineHeight: 'spaced' }}>
     <section sx={{ pb: 6 }}>
       <h4 sx={{ fontSize: 5, maxWidth: '60rem' }}>
-        Learn how LaunchDarkly empowers all teams to deliver and control their software. Prefer to learn by doing?{' '}
+        This is the documentation site for the LaunchDarkly platform, SDKs, integrations, and more. Get help on our{' '}
+        <Link to="https://support.launchdarkly.com/hc/en-us" sx={{ textDecoration: 'none' }}>
+          Support page
+        </Link>
+        . Or if you learn better by doing,{' '}
         <Link to="https://launchdarkly.com/start-trial/" sx={{ textDecoration: 'none' }}>
-          Start a trial.
+          start a trial.
         </Link>
       </h4>
     </section>
