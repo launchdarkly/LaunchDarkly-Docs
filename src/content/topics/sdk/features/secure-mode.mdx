@@ -215,15 +215,16 @@ hash = hmac.digest('hex');
 
 ## Configuring secure mode in the JavaScript client-side SDK
 
-You should send the computed secure mode hash for your user as the [`hash` attribute](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldoptions.html#hash) in the `LDOptions` object during client initialization:
+You should send the computed secure mode hash for your user as the [`hash` attribute](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldoptions.html#hash) in the `LDOptions` object during client initialization and as the [`hash` parameter](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldclient.html#identify) if subsequently identifying new user contexts:
 
 <CodeTabs
-  defaultValue="js"
+  defaultValue="init"
   values={[
-    { label: 'JavaScript', value: 'js', },
+    { label: 'JavaScript initialization', value: 'init', },
+    { label: 'JavaScript identify', value: 'identify', },
   ]
 }>
-<CodeTabItem value="js">
+<CodeTabItem value="init">
 
 ```js
 var client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
@@ -231,6 +232,16 @@ var client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
 });
 ```
 
+</CodeTabItem>
+<CodeTabItem value="identify">
+
+```js
+client.identify(newUser, hash, function() {
+  console.log("New user's flags available");
+});
+```
 
 </CodeTabItem>
 </CodeTabs>
+
+To use secure mode, user objects must contain a predefined `key` attribute. Secure mode is not compatible with the SDK's ability to [automatically generate user keys for anonymous users](/sdk/features/user-config#anonymous-users-in-the-javascript-sdk) because the SDK needs a correctly calculated `hash` value.
