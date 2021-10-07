@@ -903,7 +903,8 @@
         "items": [
           {
             "label": ".NET SDK reference",
-            "path": "/sdk/client-side/dotnet"
+            "path": "/sdk/client-side/dotnet",
+            "svg": "dotnet"
           },
           {
             "label": "Android SDK reference",
