@@ -78,7 +78,7 @@ Flags may have rules. Rules offer more complex ways to match arbitrary user attr
 
 SDKs will iterate through flags' rules to find the first rule that matches the given user. If the matched rule has a variation index, return the corresponding variation, with the rule's ID and the `RULE_MATCH` evaluation reason. If, on the other hand, the rule has a rollout, follow the rollout logic to arrive at the variation and also return the corresponding variation, along with the rule ID and the `RULE_MATCH` evaluation reason.
 
-If there were no rules, or no rules matched the user, the evaluation algorithm proceeds with the fallthrough.
+If a targeting rule references any custom attributes with `null` values, then the flag skips that rule. If there were no rules, or no rules matched the user, the evaluation algorithm proceeds with the fallthrough.
 
 ## Clauses
 
