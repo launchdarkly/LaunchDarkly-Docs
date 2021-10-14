@@ -22,6 +22,7 @@ const ignore = [
   'https://help.amplitude.com',
   'https://currentmillis.com',
   'https://support.launchdarkly.com',
+  'https://support.pendo.io',
 ]
 
 describe('Verify links', () => {
