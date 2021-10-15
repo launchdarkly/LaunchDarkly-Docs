@@ -117,7 +117,7 @@ Here's how:
 
 ```dart
 LDConfig ldConfig = LDConfigBuilder('YOUR_MOBILE_KEY')
-    .setOffline(true)
+    .offline(true)
     .build();
 
 await LDClient.start(ldConfig, user);
