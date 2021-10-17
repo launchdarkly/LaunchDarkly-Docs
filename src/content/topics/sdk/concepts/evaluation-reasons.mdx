@@ -21,15 +21,15 @@ This method returns three pieces of information:
 - The variation index, which is a zero-based integer indicating which variation was selected. For example, if the flag's possible variations are `A`, `B`, and `C`, in that order, and the current variation is `C`, the variation index would be 2. This value is useful for tabulation, although in some cases, it may be absent. To learn more, read [Error conditions](#error-conditions).
 - A `reason` object, which contains information about why that variation was selected. This data structure is described below.
 
-To read SDK-specific configuration examples, read [Flag evaluation reasons](/sdk/features/evaluation-reasons).
+For SDK-specific configuration examples, read [Flag evaluation reasons](/sdk/features/evaluation-reasons).
 
 ## Understanding the reason data
 
-In strongly typed languages, the reason object is composed of specific classes. In other languages, it is a hash, such as a dictionary or object.
+In strongly-typed languages, the reason object is composed of specific classes. In other languages, it is a hash, such as a dictionary or object.
 
 The JSON representation is the same in every language, so we will describe the reason object here as if it were a JSON object.
 
-The reason object's only required property is `kind`. This describes the general reason that LaunchDarkly selected this variation. The possible values for `kind` are enums in the strongly typed languages and strings in other languages.
+The reason object's only required property is `kind`. This describes the general reason that LaunchDarkly selected this variation. The possible values for `kind` are enums in the strongly-typed languages and strings in other languages.
 
 These values are:
 
@@ -458,7 +458,7 @@ When there is an error, the reason object also has an `errorKind` property which
       </TableCell>
       <TableCell>
         The application code requested the flag value with a different data type than it actually is. For example, the
-        code asked for a boolean when the flag type is actually a string. This can only happen in strongly typed
+        code asked for a boolean when the flag type is actually a string. This can only happen in strongly-typed
         languages, such as Go, Java, and C#.
       </TableCell>
     </TableRow>

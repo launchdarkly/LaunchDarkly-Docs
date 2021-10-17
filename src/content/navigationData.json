@@ -782,6 +782,10 @@
             "path": "/sdk/concepts/flag-evaluation-rules"
           },
           {
+            "label": "Using flag types",
+            "path": "/sdk/concepts/flag-types"
+          },
+          {
             "label": "Persistent data stores",
             "path": "/sdk/concepts/data-stores"
           },
