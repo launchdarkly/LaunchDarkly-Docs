@@ -32,7 +32,9 @@ This feature is available in the following client-side SDKs:
 
 ### .NET (client-side)
 
-LaunchDarkly manages all flags for a user context by updating the flag cached based on a real-time event stream. When a flag is modified from the LaunchDarkly dashboard, the flag values for the current user update almost immediately.
+LaunchDarkly manages all flags for a user context by updating the flag cache based on a real-time event stream. When a flag is modified from the LaunchDarkly dashboard, the flag values for the current user update almost immediately.
+
+The SDK caches flag values in local storage after initializing with LaunchDarkly. If your app closes and then reopens without a connection to LaunchDarkly, the cached flag values are still available. After your app reinitializes with LaunchDarkly it receives any flag updates that occurred while disconnected.
 
 The default SDK configuration has been found to be the best combination of low latency updates and minimal battery drain:
 
@@ -41,7 +43,7 @@ The default SDK configuration has been found to be the best combination of low l
 3. When the app is foregrounded, the SDK reconnects to the stream and fetches the latest flags.
 4. In either the foreground or background, the SDK doesn't try to update unless the device has internet connectivity.
 
-This configuration means that the device gets near real-time updates for feature flag values when the app is in the foreground. You can configure these settings if needed. To learn more, read [Configuration](/sdk/features/config#net-client-side)
+This configuration means that the device gets near real-time updates for feature flag values when the app is in the foreground. You can configure these settings if needed. To learn more, read [Configuration](/sdk/features/config#net-client-side).
 
 To perform real-time updates in the app, it must register listeners for updates from the streaming/polling connection for each flag you want to watch.
 
