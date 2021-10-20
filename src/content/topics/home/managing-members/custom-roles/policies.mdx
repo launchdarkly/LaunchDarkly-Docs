@@ -1,19 +1,15 @@
 ---
 path: '/home/members/role-policies'
 title: 'Using policies'
-description: 'This topic explains policies in custom roles. Policies combine resources and actions into a set of statements that define what users can or cannot do.'
+description: 'This topic explains how to write policies for  custom roles, integrations access, and Rely Proxy access. Policies combine resources and actions into a set of statements that define what users can or cannot do in LaunchDarkly.'
 published: true
 ---
 
 ## Overview
 
-This topic explains how policies work in custom roles, integrations access, and Rely Proxy access.
+This topic explains how to write policies for  custom roles, integrations access, and Rely Proxy access.
 
-Policies combine resources and actions into a set of statements that define what users can or cannot do in LaunchDarkly.
-
-To learn more, read [Custom role concepts](/home/members/role-concepts).
-
-To learn how to create a policy, read [Creating custom roles and policies](/home/members/role-create).
+Policies combine resources and actions into a set of statements that define what users can or cannot do in LaunchDarkly. To learn more, read [Custom role concepts](/home/members/role-concepts).
 
 ## Understanding policies
 
@@ -76,6 +72,28 @@ For a full list of available resources, read [Using actions](/home/members/role-
 In these expressions `KEY` is the key of the project, environment, or flag. You can use the asterisk `*` as a wildcard character to indicate that all resources of that type should be matched. For example, `proj/*` indicates all projects within your account.
 
 The colon `:` within a policy indicates that the resource after the `:` resides within the resource before the `:`. For example, `proj/account-management:env/production` refers to the `production` environment within the `account-management` project only. To learn more, read [Understanding the resource specifier syntax](/home/members/role-resources#understanding-the-resource-specifier-syntax).
+
+### Writing policies in the advanced editor
+
+The LaunchDarkly UI has a structured series of fields you can use to create policies. If you want to write a policy by hand, however, you can use the advanced editor.
+
+To access the advanced editor:
+
+1. Navigate to **Account Settings**.
+2. Click into the **Roles** tab.
+3. Click **New Role**. The "Create a role" screen appears.
+4. Click **Advanced editor**. The advanced editor opens:
+
+![The advanced editor.](../../../../images/settings-roles-advanced-editor.png)
+
+<Callout intent="alert">
+<CalloutTitle>Resources are case-sensitive</CalloutTitle>
+<CalloutDescription>
+
+When constructing your policy by hand with the advanced editor, make sure to use the resource key, which is case sensitive. If the Production environment of your default project has the key `production` then `proj/default:env/Production` will not allow actions to be taken in your default project's production environment.
+
+</CalloutDescription>
+</Callout>
 
 The following example policy denies access to the `account-management` project. It also allows all actions on the `checkout-flow` flag in all projects and environments.
 
@@ -154,6 +172,8 @@ Here's how:
 </CodeTabItem>
 </CodeTabs>
 
+For more advanced policy examples, read [Example policies and templates](/home/members/example-policies).
+
 ## Policy algorithm
 
 The algorithm for determining whether access is allowed or denied by a policy is as follows:
@@ -179,38 +199,3 @@ To learn  more, read [Understanding the minimum required actions for a role](/ho
 Statement order does not matter. You can assign multiple custom roles to one member, and each custom role has its own policy.
 
 Permissions are cumulative. If you assign multiple custom roles to a member, and one of those custom roles allow access to a resource, then access is allowed even if other roles deny that access. Adding roles to a user can only increase that user's access.
-
-## Writing policies in the advanced editor
-
-The LaunchDarkly UI has a structured series of fields you can use to create policies.
-
-To learn more about creating policies in LaunchDarkly, read [Creating custom roles and policies](/home/members/role-create).
-
-If you want to write a policy by hand, however, you can use the advanced editor.
-
-To access the advanced editor:
-
-1. Navigate to **Account Settings**.
-2. Click into the **Roles** tab.
-3. Click **New Role**. The "Create a role" screen appears.
-4. Click **Advanced editor**. The advanced editor opens:
-
-![The advanced editor.](../../../../images/settings-roles-advanced-editor.png)
-
-
-<Callout intent="alert">
-<CalloutTitle>Resources are case-sensitive</CalloutTitle>
-<CalloutDescription>
-
-When constructing your policy by hand with the advanced editor, make sure to use the resource key, which is case sensitive. If the Production environment of your default project has the key `production` then `proj/default:env/Production` will not allow actions to be taken in your default project's production environment.
-
-</CalloutDescription>
-</Callout>
-
-## Finding resource IDs
-
-You can find resource IDs with the resource finder, which can be accessed with the “resource finder” link in either the simple or advanced editor, or using the keyboard shortcut `⌘` + `.` (Mac) or `ctl` + `.` (Windows). All of your environments, members, feature flags, metrics, and roles will be available.
-
-Here is a screenshot of the "Find a resource ID" screen:
-
-![The "Find a resource ID" screen.](../../../../images/settings-roles-resource-id.png)
