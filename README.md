@@ -180,6 +180,12 @@ To run them in headless mode,
 yarn cypress:ci
 ```
 
+To skip external link validation,
+
+```shell
+yarn cypress --env skip_external=true
+```
+
 ## 🔨 Navigation data
 
 All navigation data are stored in [src/content/navigationData.json](https://github.com/launchdarkly/git-gatsby/blob/master/src/content/navigationData.json).

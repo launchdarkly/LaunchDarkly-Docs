@@ -66,7 +66,7 @@ Server-side rendered pages will reflect any changes on the next request. If a us
 
 ### Triggering a rebuild
 
-You do not need to manually trigger a rebuild each time you make a flag change. Instead, you can use build hooks on your deployment platform to automate the process (for example, here's Netlify's [build hook documentation](https://docs.netlify.com/configure-builds/build-hooks/)) with a combination of [tags](https://docs.launchdarkly.com/home/members/role-tags) and [webhooks](https://docs.launchdarkly.com/home/connecting/webhooks) on LaunchDarkly.
+You do not need to manually trigger a rebuild each time you make a flag change. Instead, you can use build hooks on your deployment platform to automate the process (for example, here's Netlify's [build hook documentation](https://docs.netlify.com/configure-builds/build-hooks/)) with a combination of [tags](/home/members/role-tags) and [webhooks](/home/connecting/webhooks) on LaunchDarkly.
 
 Here's how:
 
@@ -365,7 +365,7 @@ env: {
 </CodeTabItem>
 </CodeTabs>
 
-There are two ways to initialize the React SDK so that it is available throughout your application. To learn more, read the [React documentation](/sdk/client-side/react/react-web#getting-started). The following examples uses the [`withLDProvider` method](https://docs.launchdarkly.com/sdk/client-side/react/react-web#withldprovider). To do this, you must have an  `_app.js` in the root of your `/pages` directory, if one does not yet exist.
+There are two ways to initialize the React SDK so that it is available throughout your application. To learn more, read the [React documentation](/sdk/client-side/react/react-web#getting-started). The following examples uses the [`withLDProvider` method](/sdk/client-side/react/react-web#withldprovider). To do this, you must have an  `_app.js` in the root of your `/pages` directory, if one does not yet exist.
 
 Rather than `export default` the `MyApp` function, wrap the application in a LaunchDarkly provider and return that.
 
