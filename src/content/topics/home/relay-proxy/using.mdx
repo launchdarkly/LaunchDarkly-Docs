@@ -112,6 +112,8 @@ Here is a diagram showing how SDKs can be configured to use the Relay Proxy in p
 
 ![SDKs configured to use the Relay Proxy while in proxy mode.](../../../images/relayproxy-proxy-mode.png)
 
+You should not use a persistent feature store between the Relay Proxy and your application in proxy mode.
+
 ### Using daemon mode
 
 Optionally, you can configure LaunchDarkly SDKs to communicate directly with Relay Proxy's persistent data store. We recommend this configuration when you're using LaunchDarkly with PHP or in a serverless environment.
