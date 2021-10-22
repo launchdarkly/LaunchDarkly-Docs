@@ -1173,7 +1173,7 @@
         "svg": "bullseye-arrow",
         "items": [
           {
-            "label": "Using flags with Next.js",
+            "label": "Using LaunchDarkly with Next.js",
             "path": "/guides/platform-specific/nextjs"
           },
           {
