@@ -26,7 +26,7 @@ It takes five steps to create an experiment. You must:
 1. [Create a metric](#creating-metrics), or choose an existing metric
 2. [Connect the metric to feature flags](#connecting-metrics-to-feature-flags)
 3. [Define the audience for the experiment](/home/experimentation/allocation)
-4. [Start recording the metric](#starting-your-experiment), and
+4. [Start recording the metric](#starting-your-experiment-iteration), and
 5. [Turn on the feature flags](/home/managing-flags/flag-toggle)
 
 You can reuse existing metrics by connecting them to multiple flags, which allows you to compare how this metric fares across numerous flags. Similarly, a single flag can have more than one metric connected to it, which allows you to see how this flag performs against various measurements.
@@ -37,7 +37,7 @@ Here is an image of the Experiments dashboard:
 
 ![The Experiments dashboard.](../../images/experiment-dashboard.png)
 
-After you set up your first metric and flag, you can create new experiments by clicking the **+ Experiment** button.
+After you set up your first metric and flag, you can create new experiments by clicking the **Create experiment** button.
 
 ## Creating metrics
 
@@ -122,7 +122,7 @@ For example, some CSS selectors include:
 To create a click metric:
 
 1. Navigate to the Metrics screen.
-2. Click **+ Metric**. The "Create a new metric" screen appears.
+2. Click **Create metric**. The "Create a new metric" screen appears.
 3. Enter a human-readable Name for the metric.
 4. (Optional) Enter a Description.
 5. (Optional) Type or choose from available Tags.
@@ -333,9 +333,9 @@ There are two ways to connect metrics to feature flags:
 To connect a metric to a flag from the Experiments dashboard:
 
 1. Navigate to the Experiments dashboard.
-2. Click **+ Experiment**:
+2. Click **Create experiment**:
 
-![The Experiments dashboard with the "+ Experiment" button called out.](../../images/experiment-dashboard-new-callout.png)
+![The Experiments dashboard with the "Create experiment" button called out.](../../images/experiment-dashboard-new-callout.png)
 
 3. Choose a flag from the "Select flag" dropdown.
 4. (Optional) If the flag doesn't have a baseline variation, choose one from the "Select baseline" dropdown.
@@ -345,9 +345,9 @@ To connect a metric to a flag from the Experiments dashboard:
 
 Your new experiment appears on the dashboard.
 
-After you create an experiment, you must start it in every environment where you want it to run.
+After you create an experiment, you must start a new iteration in every environment where you want it to run.
 
-To learn more, read [Starting your experiment](#starting-your-experiment).
+To learn more, read [Starting your experiment iteration](#starting-your-experiment-iteration).
 
 ### Creating an experiment from a flag's Experiments tab
 
@@ -365,21 +365,21 @@ To connect a metric to a flag from the flag's Experiments tab:
 ![The "Experiment Setup" screen, configured to connect a metric to a flag.](../../../images/experiment-settings-metrics.png)
 
 
-After you create an experiment, you must start it in every environment where you want it to run.
+After you create an experiment, you must start a new iteration in every environment where you want it to run.
 
-To learn more, read [Starting your experiment](#starting-your-experiment).
+## Starting your experiment iteration
 
-## Starting your experiment
+After you've connected a metric to a flag, you can start an experiment iteration whenever you want. Click the **Start recording** button in every environment where you want to record data.
 
-After you've connected a metric to a flag, you can start your experiment whenever you want. Click the **Start Recording** button in every environment where you want to record data.
+Experiment iterations allow you to record experiments in discrete blocks of time. To ensure accurate experiment results, when you make changes that impact an experiment’s audience or variations it is best practice to start a new iteration of the experiment.
 
-To learn more about starting and stopping recording for experiments, read [The experiment lifecycle](/home/experimentation/lifecycle).
+To learn more about starting and stopping experiment iterations, read [The experiment lifecycle](/home/experimentation/lifecycle).
 
 <Callout intent="info">
 <CalloutTitle>Experiment settings are environment-specific</CalloutTitle>
 <CalloutDescription>
 
-When you create an experiment, it appears in every environment in your project. However, the **Start Recording** button only impacts the experiment in one environment at a time. If you want to run the experiment in multiple environments, you must click **Start Recording** for each environment individually. For example, you might run an experiment in Staging to gather data internally before turning it on in Production to gather customer data.
+When you create an experiment, it appears in every environment in your project. However, the **Start recording** button only impacts the experiment in one environment at a time. If you want to start a new iteration of the experiment in multiple environments, you must click **Start recording** for each environment individually. For example, you might run an experiment in Staging to gather data internally before turning it on in Production to gather customer data.
 
 </CalloutDescription>
 </Callout>
