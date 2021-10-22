@@ -21,7 +21,7 @@ There are four different strategies for rendering content in a Next.js applicati
 
 The four strategies are:
 
-* **Pre-rendering (static site rendering, static site generation, or SSG)**: This content is rendered at build time before the application is deployed. This usually  happens as part of a CI/CD build process. For example, new code checked into your git repository triggers a build in Netlify or Vercel, two popular deployment options for Next.js sites. A [build hook](https://docs.netlify.com/configure-builds/build-hooks/), or deploy hook, can also trigger a new build. A common example is when you're using an external headless content management system so that changes to content are automatically re-rendered in the build.
+* **Pre-rendering (static site rendering, static site generation, or SSG)**: This content is rendered at build time before the application is deployed. This usually  happens as part of a CI/CD build process. For example, new code checked into your git repository triggers a build in Netlify or Vercel, two popular deployment options for Next.js sites. A [build hook](https://docs.netlify.com/configure-builds/build-hooks/) or [deploy hook](https://vercel.com/docs/concepts/git/deploy-hooks), can also trigger a new build. A common example is when you're using an external headless content management system so that changes to content are automatically re-rendered in the build.
 * **Server-side rendering (SSR)**: This is the traditional style of rendering a page. The content is generated on the server (Node.js in this case) for every single request and then sent to the browser for the initial page load.
 * **Client-side rendering**: Some content, such as user-specific data on a pre-rendered page, cannot be fully rendered before deployment. In these cases, you must use JavaScript to modify the rendered output in the browser. Similarly, you may not want to re-render the page server-side for every interaction. In these cases, you'd also update the page using client-side JavaScript.
 * **Deferred rendering**: This is functionally equivalent to pre-rendering except that the requested page isn't rendered during the initial build. Instead, it's rendered only when the first user requests it. For example, pre-rendering an e-commerce site with thousands of product pages could cause excessively long builds for little value, because many of those pages may get minimal traffic. Instead, you can defer rendering these pages until they are first requested. While the initial visitor may see a slight delay in loading the page, subsequent visitors will receive the page from the build cache.
@@ -66,11 +66,9 @@ First, when do you need a rebuild? You'll need to trigger a rebuild for:
 
 Server-side rendered pages will reflect any changes on the next request. If a user is already on the page, they must refresh it to see the impact of a flag change. Client-side rendered pages will immediately reflect any changes in the browser without any refresh.
 
-### Triggering a rebuild
+### Automating rebuilds
 
-You do not need to manually trigger a rebuild each time you make a flag change. Instead, you can use build hooks on your deployment platform to automate the process (for example, here's Netlify's [build hook documentation](https://docs.netlify.com/configure-builds/build-hooks/)) with a combination of [tags](/home/members/role-tags) and [webhooks](/home/connecting/webhooks) on LaunchDarkly.
-
-Here's how:
+You do not need to manually trigger a rebuild each time you make a flag change. Instead, you can use build hooks on your deployment platform to automate the process (for example, here's Netlify's [build hook documentation](https://docs.netlify.com/configure-builds/build-hooks/) or Vercel's [deploy hook documentation](https://vercel.com/docs/concepts/git/deploy-hooks)) with a combination of [tags](/home/members/role-tags) and [webhooks](/home/connecting/webhooks) on LaunchDarkly.
 
 First, you must add a tag. You can add this when you create a new feature flag that will need to trigger a rebuild. For example, you can name the tag `build-impact`. You can name yours whatever you like but it's best to keep it descriptive and consistent. Use the same tag for all flags that need to trigger a rebuild.
 
@@ -78,7 +76,9 @@ First, you must add a tag. You can add this when you create a new feature flag t
 
 You add the tag so that you can use it to filter only those flags that require a full site rebuild to trigger the webhook. This means that if a tag is only used in SSR or client-side rendering, it won't cause a rebuild. This prevents needless deploys and saves you money, because most deployment platforms ultimately charge for build minutes.
 
-Next, you must connect your tagged flag so it triggers a rebuild. This example shows how to connect LaunchDarkly to Netlify's build hooks, but most deployment platforms offer a similar type of feature.
+Next, you must connect your tagged flag so it triggers a rebuild. The following examples show how to connect LaunchDarkly to Netlify's build hooks and Vercel's deploy hooks, but most deployment platforms offer a similar type of feature.
+
+**Creating a build hook on Netlify**
 
 In the [Netlify admin dashboard](https://app.netlify.com):
 
@@ -92,12 +92,30 @@ In the [Netlify admin dashboard](https://app.netlify.com):
 ![Adding a build hook in Netlify](nextjs-build-hook.png)
 
 5. After you add the hook, a URL for the new hook appears. Copy the URL and save it.
-6. In LaunchDarkly, navigate to **Integrations** and go to the "Webhooks" section.
-7. Click **+ Integration** to add a new webhook.
+
+**Creating a deploy hook in Vercel**
+
+In the Vercel admin dashboard:
+
+1. Click on the site you would like to connect the webhook to.
+2. Navigate to **Settings** > **Git** > **Deploy Hooks**.
+3. Give the deploy hook a human-readable name and specify the git branch to use.
+
+  ![Adding a deploy hook in Vercel](nextjs-create-deploy-hook.png)
+
+4. Click **Create Hook**. After the deploy hook is created, copy the URL. You will need it to connect the deploy hook to LaunchDarkly.
+
+### Adding the build/deploy hook in LaunchDarkly
+
+This procedure requires a build hook from Netlify or a deploy hook from Vercel. You can use either type of hook interchangeably in this procedure.
+
+
+1. In LaunchDarkly, navigate to **Integrations** and go to the "Webhooks" section.
+2. Click **+ Integration** to add a new webhook.
 
 ![Finding the webhook integration](nextjs-integrations.png)
 
-8. Give your webhook a human-readable name, and then paste the URL of the build hook you just created in Netlify.
+3. Give your webhook a human-readable name, and then paste the URL of the build/deploy hook you just created in Netlify or Vercel.
 
 ![Adding a new webhook](nextjs-new-webhook.png)
 
@@ -107,7 +125,9 @@ To add a policy to the webhook:
 
 1. Navigate to the "Policy" section of the webhook and click **Advanced editor**. This lets us create a policy with very specific restrictions. The example code below says that this webhook has access to the environments (`env/*`) and flags (`flag/*`) tagged with `build-impact`.
 
-2. Paste this code into the advanced editor:
+2. Paste this code into the advanced editor. Change the project key from `brian-test` to your LaunchDarkly project key. You can get the project key in the LaunchDarkly dashboard under **Account settings** > **Projects**.
+
+Here is the code to paste and modify:
 
 <CodeTabs
   defaultValue="json"
@@ -136,13 +156,13 @@ To add a policy to the webhook:
 
 3. Click **Save changes**.
 
-To test this policy, create a flag and tag it with `build-impact`. Now change its value and then go to your Netlify dashboard. You should see a new build starting. Next, create a flag and do not tag it. Change its value and check your Netlify dashboard. Nothing will change.
+To test this policy, create a flag and tag it with `build-impact`. Now change its value and then go to your Netlify or Vercel dashboard. You should see a new build starting. Next, create a flag and do not tag it. Change its value and check your Netlify or Vercel dashboard. Nothing will change.
 
 ## Integrating LaunchDarkly's SDKs into Next.js
 
 Here are some examples of how to integrate the LaunchDarkly SDKs into Next.js applications. These examples show how to add flags into each of the different types of rendering scenarios: SSG, SSR, client-side rendering and ISR/DPR (also known as deferred rendering).
 
-The code shown in these examples is available on [GitHub](https://github.com/remotesynth/ld-nextjs-basics). You can also see the project running on [Netlify](https://agitated-goldstine-6a8d97.netlify.app/). The application uses the [DEV API](https://developers.forem.com/api) to populate some content.
+The code shown in these examples is available on [GitHub](https://github.com/remotesynth/ld-nextjs-basics). You can also see the project running on [Netlify](https://agitated-goldstine-6a8d97.netlify.app/) and [Vercel](https://ld-nextjs-basics.vercel.app/). The application uses the [DEV API](https://developers.forem.com/api) to populate some content.
 
 ### Creating a server-side component
 
@@ -199,6 +219,11 @@ For example, if you are deploying to Netlify:
 2. Click **Edit Variables**.
 3. Click **Add Variable**.
 4. Add the `LAUNCHDARKLY_SDK_KEY` variable.
+
+Alternatively, if you are deploying to Vercel:
+1. Open the site in Vercel's dashboard and go to **Settings** > **Environment Variables**.
+2. Give the variable a name and value and then choose the environments that you would like it to apply to.
+3. Click **Add**. This saves the environment variable.
 
 To get your LaunchDarkly SDK key, go to [Account Settings > Projects](https://app.launchdarkly.com/settings/projects). Choose your project and then copy the SDK key for the environment you wish to work with.
 
@@ -587,7 +612,7 @@ export async function getStaticPaths() {
 </CodeTabItem>
 </CodeTabs>
 
-This route functions for any valid path even if it is not one of the top five that were returned in `getStaticPaths()`. You can see this in action by going to the deployed [example site](https://agitated-goldstine-6a8d97.netlify.app/) and clicking one of the blog post links past the first five. The page will still render, though you may notice a slight delay compared to the first five.
+This route functions for any valid path even if it is not one of the top five that were returned in `getStaticPaths()`. You can see this in action by going to the deployed example sites on [Netlify](https://agitated-goldstine-6a8d97.netlify.app/) or [Vercel](https://ld-nextjs-basics.vercel.app/) and clicking one of the blog post links past the first five. The page will still render, though you may notice a slight delay compared to the first five.
 
 The key thing to remember when you think about integrating with LaunchDarkly is that, regardless of whether the page uses DPR or ISR, the only way to ensure that the flag changes the page is to trigger a rebuild. Otherwise, your users may see the incorrect version of the page until a new build is triggered with DPR or until the timeout has triggered a rebuild of the page with ISR.
 
