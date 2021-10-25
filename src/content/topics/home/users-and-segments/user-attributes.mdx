@@ -154,6 +154,8 @@ There are three different ways to configure private attributes:
 
 User `key`s cannot be marked private.
 
+If an attribute is marked as private and that user is listed in the `Users` dashboard, we will honor that in the future and continue to mark the attribute as being private even if you decide not to mark it as private in subsequent evaluations. To remedy this, you would need to delete the user from the dashboard and reevaluate the user with the non-private attributes.
+
 To learn more about setting these configuration options, read your SDK's documentation.
 
 <Callout intent="alert">
