@@ -1173,15 +1173,19 @@
         "svg": "bullseye-arrow",
         "items": [
           {
-            "label": "Using LaunchDarkly with Next.js",
-            "path": "/guides/platform-specific/nextjs"
-          },
-          {
             "label": "Managing flags with Terraform",
             "path": "/guides/platform-specific/terraform"
           },
           {
-            "label": "Using feature flags on static sites with JavaScript",
+            "label": "Using flags with AWS Lambda",
+            "path": "/guides/platform-specific/aws-lambda"
+          },
+          {
+            "label": "Using flags with Next.js",
+            "path": "/guides/platform-specific/nextjs"
+          },
+          {
+            "label": "Using flags on static sites with JavaScript",
             "path": "/guides/platform-specific/static-sites"
           },
           {

@@ -1,11 +1,13 @@
 ---
 path: '/guides/platform-specific/nextjs'
 title: 'Using LaunchDarkly with Next.js'
-description: 'This topic explains how to connect LaunchDarkly with Next.js on both the client and server side.'
+description: 'This guide explains how to connect LaunchDarkly with Next.js on both the client and server side.'
 published: true
 ---
 
 ## Overview
+
+This guide explains how to connect LaunchDarkly with Next.js on both the client and server side.
 
 Next.js is a React-based framework for full-stack JavaScript development. One of the most powerful aspects of Next.js is that it offers tools that let you render content at multiple junctures: at build time; on the server; or on the client. It even offers an option for deferred rendering that builds pages only when they are first requested.
 
@@ -72,7 +74,7 @@ You do not need to manually trigger a rebuild each time you make a flag change. 
 
 First, you must add a tag. You can add this when you create a new feature flag that will need to trigger a rebuild. For example, you can name the tag `build-impact`. You can name yours whatever you like but it's best to keep it descriptive and consistent. Use the same tag for all flags that need to trigger a rebuild.
 
-![Adding a tag to a feature flag](/images/nextjs-feature-flag-tag.png)
+![Adding a tag to a feature flag](../../images/nextjs-feature-flag-tag.png)
 
 You add the tag so that you can use it to filter only those flags that require a full site rebuild to trigger the webhook. This means that if a tag is only used in SSR or client-side rendering, it won't cause a rebuild. This prevents needless deploys and saves you money, because most deployment platforms ultimately charge for build minutes.
 
