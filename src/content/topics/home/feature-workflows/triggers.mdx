@@ -48,7 +48,7 @@ An unguessable URL is functionally similar to an access token in that it does no
 
 When you create a new trigger, its URL only displays once and prompts you to copy it locally. After the initial display, URLs are obscured so future viewers of the flag's Settings tab cannot see them.
 
-If you lose a trigger's URL, you can reset it from the trigger's **three-dot** overflow menu. To learn more, read [Managing existing flag triggers](#managing-existing-flag-triggers).
+If you lose a trigger's URL, you can reset it from the trigger's **overflow menu**. To learn more, read [Managing existing flag triggers](#managing-existing-flag-triggers).
 
 Additionally, not all LaunchDarkly account members can interact with triggers. Account members must have the `Writer` role to modify existing triggers or create new ones.
 
@@ -63,7 +63,7 @@ The tools are:
 * [Datadog](/integrations/datadog/triggers)
 * [Dynatrace](/integrations/dynatrace/triggers)
 * [Honeycomb](/integrations/honeycomb/triggers)
-* [New Relic](/integrations/new-relic/triggers)
+* [New Relic One](/integrations/new-relic/triggers)
 * [SignalFx](/integrations/signalfx/triggers)
 
 LaunchDarkly also supports generic triggers that you can use with other tools. To learn more, read [Creating a new flag trigger](#creating-a-new-flag-trigger).
@@ -121,10 +121,10 @@ You can modify existing triggers from the flag's Settings page. After you create
 To modify an existing trigger:
 
 1. Navigate to the feature flag for which you wish to create a trigger, and click into its **Settings** page.
-2. Find the trigger you wish to modify and click the **three-dot** menu. The trigger options appear:
+2. Find the trigger you wish to modify and click the **overflow** menu. The trigger options appear:
 
-![The three-dot menu, expanded.](../../images/triggers-overflow-menu.png)
+![The overflow menu, expanded.](../../images/triggers-overflow-menu.png)
 3. Choose the option you wish from the options dropdown:
- * **Disable trigger**: If you choose this option, the trigger configuration is saved but the trigger stops working. To re-enable the trigger, open the **three-dot** menu and choose **Enable trigger**.
+ * **Disable trigger**: If you choose this option, the trigger configuration is saved but the trigger stops working. To re-enable the trigger, open the **overflow** menu and choose **Enable trigger**.
  * **Reset trigger URL**: If you choose this option, LaunchDarkly generates a new URL for this trigger. Use this option if you lose a URL for an existing trigger. You must update any clients using this URL to use the new URL. Type the trigger's type and click **Reset** to confirm.
  * **Delete trigger**: If you choose this option, the trigger and its URL are deleted permanently. Type the trigger's type and click **Delete** to confirm.

@@ -157,7 +157,7 @@ After you set up the webhook, every configuration change made to the LaunchDarkl
 
 Here is an image of the Create a webhook screen:
 
-![Creation of a LaunchDarkly webhook which will send flag updates to a Lambda function](../../lambda-webhook.png)
+![Creation of a LaunchDarkly webhook which will send flag updates to a Lambda function.](../../lambda-webhook.png)
 
 Finally, with the persistent feature store active and continuously updated, you can configure the app to use the feature store instead of connecting to LaunchDarkly's servers.
 
@@ -190,6 +190,10 @@ exports.handler = (event, context, callback) => {
     callback();
 };
 ```
+
+## Sending analytics events to the Users dashboard
+
+The Users dashboard is populated with data from analytic events. You must call close in your SDK before shutting down to ensure the SDK sends analytic events and your dashboard displays user data. To learn how, read [Shutting down](/sdk/features/shutdown).
 
 ## Conclusion
 

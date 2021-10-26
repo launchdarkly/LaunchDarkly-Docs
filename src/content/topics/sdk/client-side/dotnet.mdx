@@ -1,0 +1,215 @@
+---
+path: '/sdk/client-side/dotnet'
+title: '.NET SDK reference (client-side)'
+description: 'This topic explains all of the methods available in the client-side .NET SDK, with detail about how they work.'
+published: true
+---
+
+## Overview
+
+This reference guide documents all of the methods available in the client-side .NET SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read the [client-side .NET SDK GitHub repository](https://github.com/launchdarkly/dotnet-client-sdk). Additionally you can clone and run sample applications using this SDK with [Xamarin](https://github.com/launchdarkly/hello-xamarin), and [Xamarin.Forms](https://github.com/launchdarkly/hello-xamarin-forms). The [online API docs](https://launchdarkly.github.io/dotnet-client-sdk/) contain the programmatic definitions of every type, property, and method.
+
+<Callout intent="info">
+<CalloutTitle>For use in mobile, desktop, and embedded client applications only</CalloutTitle>
+<CalloutDescription>
+
+This SDK is intended for use in *single-user* mobile, desktop, and embedded applications. If you have a .NET application and are looking to set up LaunchDarkly on the server-side, head to our [server-side .NET SDK reference](/sdk/server-side/dotnet).
+
+To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="info">
+<CalloutTitle>This SDK was previously named the Xamarin SDK</CalloutTitle>
+<CalloutDescription>
+
+Older versions of this SDK were named the LaunchDarkly Xamarin SDK, because Xamarin was the .NET-based platform for mobile devices. Because you can also use this SDK in desktop and embedded applications without Xamarin, we have renamed it.
+
+Older versions were published with the NuGet package name `LaunchDarkly.XamarinSdk`. In all future releases, the package name is `LaunchDarkly.ClientSdk` instead.
+
+</CalloutDescription>
+</Callout>
+
+## Getting started
+
+After you complete the [Getting Started process](/home/getting-started), follow these instructions to start using the LaunchDarkly SDK in your application.
+
+<Callout intent="info">
+<CalloutTitle>Requirements</CalloutTitle>
+<CalloutDescription>
+
+The client-side .NET SDK natively supports Android (version 7.1 or higher) or iOS (version 10 or higher); it can also be used on any other platform that supports .NET Standard (version 1.6 or higher), although the .NET Standard version lacks some mobile-specific features such as detecting network connectivity. Previous beta releases of the SDK used the Xamarin.Essentials library, but it no longer has the dependency.
+
+</CalloutDescription>
+</Callout>
+
+To start using the client-side .NET SDK:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+Install-Package LaunchDarkly.XamarinSdk
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Next, import the LaunchDarkly packages in your application code:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+using LaunchDarkly.Client;
+using LaunchDarkly.Xamarin;
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+After the dependency is installed, initialize the LaunchDarkly client. Create a single, shared instance of `LdClient`. This authorizes your application to connect to LaunchDarkly and retrieve flag values for your application and environment. To create a client instance, you need your environment's mobile key, available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a mobile key. Never embed a server-side SDK key into a mobile application.
+
+The following example shows the simplest way to create the client. It will block for up to one second until the latest feature flags have been retrieved from LaunchDarkly.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+var user = User.WithKey(user_key);
+var timeSpan = TimeSpan.FromSeconds(10);
+client = LdClient.Init("MY_MOBILE_KEY", user, timeSpan);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+However, calling blocking code from the main thread in an Android app is not considered a best practice. The preferred method, loading the client asynchronously, is shown here:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+User user = User.WithKey(user_key);
+client = await LdClient.InitAsync("MY_MOBILE_KEY", user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<Callout intent="alert">
+<CalloutTitle>LdClient must be a singleton</CalloutTitle>
+<CalloutDescription>
+
+It's important to make LdClient a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="alert">
+<CalloutTitle>Android requires AccessNetworkState permission</CalloutTitle>
+<CalloutDescription>
+
+For Android, the `AccessNetworkState` permission is required and must be configured in the Android project. To learn more, read the [Xamarin docs](https://docs.microsoft.com/en-us/xamarin/essentials/connectivity?context=xamarin%2Fios&tabs=android) about how to implement this requirement.
+
+</CalloutDescription>
+</Callout>
+
+Using `client`, you can check which variation a particular user should receive for a given feature flag. Here's how:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+bool showFeature = client.BoolVariation("your.feature.key", false);
+if (showFeature) {
+    // application code to show the feature
+}
+else {
+    // the code to run if the feature is off
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<Callout intent="alert">
+<CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
+<CalloutDescription>
+
+You must make feature flags available to client-side SDKs before the flags can be evaluated. If you evaluate a feature flag that is not available, you receive the default value for that flag. If you want a project's flags to be made available to this SDK by default, check the **SDKs using Mobile key** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+
+</CalloutDescription>
+</Callout>
+
+## Using the Relay Proxy
+
+You can configure the client-side .NET SDK to connect to the [Relay Proxy](https://github.com/launchdarkly/ld-relay) as follows:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+Configuration config = Configuration.Builder("YOUR_SDK_KEY")
+    .StreamUri(new URI("YOUR_RELAY_URI"))
+    .Build();
+LdClient client = LdClient.Init(config);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#net-client-side).
+
+## Data collection
+
+To learn more about data collection within this SDK and implications on submissions to the Apple App Store, read [Apple App Store data collection policy](/sdk/concepts/apple-app-store).
+
+## Supported features
+
+This SDK supports the following features:
+
+* [Configuration](/sdk/features/config#net-client-side)
+* [Evaluating flags](/sdk/features/evaluating#net-client-side)
+* [Flag evaluation reasons](/sdk/features/evaluation-reasons#net-client-side)
+* [Flushing events](/sdk/features/flush#net-client-side)
+* [Getting all flags](/sdk/features/all-flags#net-client-side)
+* [Logging configuration](/sdk/features/logging#net-client-side)
+* [Offline mode](/sdk/features/offline-mode#net-client-side)
+* [Sending custom events](/sdk/features/events#net-client-side)
+* [Shutting down](/sdk/features/shutdown#net-client-side)
+* [Subscribing to flag changes](/sdk/features/flag-changes#net-client-side)
+* [User configuration](/sdk/features/user-config#net-client-side)

@@ -13,7 +13,7 @@ The Users dashboard gives you a summary view of how each user sees all of the fe
 
 ## Understanding the Users dashboard
 
-The Users dashboard populates automatically when users encounter a feature flag and are evaluated by a LaunchDarkly SDK. The data on the User dashboard is populated from the user data you send in `variation` calls, as well as data from `identify` calls. To learn more about users and user attributes, read [Understanding user attributes](/home/users/attributes#understanding-user-attributes).
+The Users dashboard populates automatically when users encounter a feature flag and are evaluated by a LaunchDarkly SDK. The data on the Users dashboard is populated from the user data you send in `variation` calls, as well as data from `identify` calls. To learn more about users and user attributes, read [Understanding user attributes](/home/users/attributes#understanding-user-attributes).
 
 <Callout intent="alert">
 <CalloutTitle>You cannot add users manually</CalloutTitle>
@@ -38,7 +38,7 @@ To learn more about how the Users dashboard is populated, and how you might exce
 
 ## User storage
 
-The Users page shows only cached user information. Users live in the dashboard for 30 days from creation. If a user does not evaluate a feature flag within 30 days, they age out of the system and their information no longer appears in the Users dashboard. Those users reappear on the dashboard when they evaluate a feature flag again, provided your account has not reached the maximum number of users. 
+The Users page shows only cached user information. Users live in the dashboard for 30 days from creation. If a user does not evaluate a feature flag within 30 days, they age out of the system and their information no longer appears in the Users dashboard. Those users reappear on the dashboard when they evaluate a feature flag again, provided your account has not reached the maximum number of users.
 
 If you want to keep users on the dashboard that are calling variations less frequently than every 30 days, you can manually call identify for all of the users that you wish to retain. To learn how to do this in your SDK, read [Identifying and changing users](/sdk/features/identify).
 
@@ -108,7 +108,7 @@ To schedule a date for the user to be removed from the flag's targeting settings
 
 1. Navigate to the **Users** dashboard.
 2. Click the user you wish to modify. Their user page appears, with their unique **Attributes** on the left and their **Flag settings** on the right.
-3. Click the **three-dot** menu. The user editing menu appears.
+3. Click the **overflow** menu. The user editing menu appears.
 
 ![A user's entry with the "Remove user on" menu expanded.](../../images/users-flag-expiration-date.png)
 
@@ -141,4 +141,4 @@ metrics](/home/billing/usage-metrics).
 </CalloutDescription>
 </Callout>
 
-You can also use the LaunchDarkly API to delete users. To learn more, read the [API docs](https://apidocs.launchdarkly.com/reference#delete-user).
+You can also use the LaunchDarkly API to delete users. To learn more, read the [API docs](https://apidocs.launchdarkly.com/tag/Users#operation/deleteUser).

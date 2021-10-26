@@ -5,7 +5,9 @@ description: 'This topic explains all of the methods available in the server-sid
 published: true
 ---
 
-This reference guide documents all of the methods available in the PHP SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [PHP SDK repository](https://github.com/launchdarkly/php-server-sdk) on GitHub. The online [API docs](https://launchdarkly.github.io/php-server-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-php) using this SDK.
+## Overview
+
+This reference guide documents all of the methods available in the PHP SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read [PHP SDK repository](https://github.com/launchdarkly/php-server-sdk) on GitHub. The online [API docs](https://launchdarkly.github.io/php-server-sdk/) contain the programmatic definitions of every type and method. You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-php).
 
 <Callout intent="info">
 <CalloutTitle>Requirements</CalloutTitle>
@@ -20,7 +22,7 @@ For older versions of PHP, use version 3.x of the SDK.
 
 ## Getting started
 
-Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your PHP application.
+After you complete the [Getting Started process](/home/getting-started), follow these instructions to start using the LaunchDarkly SDK in your PHP application.
 
 The first step is to install [Composer](https://getcomposer.org/) and the LaunchDarkly SDK as a dependency in your application. Refer to the [SDK releases page](https://github.com/launchdarkly/php-server-sdk/releases) to identify the latest version if you want to depend on a specific version.
 
@@ -125,7 +127,7 @@ To learn more, read [Using the Relay Proxy in different modes](/home/relay-proxy
 
 For the latest major version of the PHP SDK, use open-ended dependencies. For older versions, refer to your version's composer.json file.
 
-To require Guzzle as a dependency: 
+To require Guzzle as a dependency:
 
 <CodeTabs
   defaultValue="php"
@@ -173,6 +175,7 @@ This SDK supports the following features:
 * [Identifying and changing users](/sdk/features/identify#php)
 * [Logging configuration](/sdk/features/logging#php)
 * [Offline mode](/sdk/features/offline-mode#php)
+* [Reading flags from a file](/sdk/features/flags-from-files#php)
 * [Secure mode](/sdk/features/secure-mode#php)
 * [Sending custom events](/sdk/features/events#php)
 * [Storing data](/sdk/features/storing-data#nodejs-server-side)

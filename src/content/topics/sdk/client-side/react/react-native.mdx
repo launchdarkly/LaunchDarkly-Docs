@@ -14,7 +14,9 @@ The latest version of the SDK is compatible with Xcode 12 and React Native 0.64.
 </CalloutDescription>
 </Callout>
 
-This reference guide documents all of the methods available in the React Native SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [React Native SDK GitHub repository](https://github.com/launchdarkly/react-native-client-sdk). The online [API docs](https://launchdarkly.github.io/react-native-client-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-react-native) using this SDK.
+## Overview
+
+This reference guide documents all of the methods available in the React Native SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read [React Native SDK GitHub repository](https://github.com/launchdarkly/react-native-client-sdk). The online [API docs](https://launchdarkly.github.io/react-native-client-sdk/) contain the programmatic definitions of every type and method. You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-react-native).
 
 To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/react-native-client-sdk/index.html#ldconfig).
 
@@ -24,12 +26,12 @@ To learn more about the specific configuration options that are available in thi
 <CalloutTitle>Expo usage</CalloutTitle>
 <CalloutDescription>
 
-The LaunchDarkly React Native Client SDK does not work with Expo because the SDK uses native modules. Consider using [ExpoKit](https://docs.expo.io/expokit/expokit/).
+The LaunchDarkly React Native client-side SDK is not compatible with the Expo managed workflow because the SDK uses native modules. Consider using the [bare workflow](https://docs.expo.dev/bare/exploring-bare-workflow/).
 
 </CalloutDescription>
 </Callout>
 
-Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your React Native code.
+After you complete the [Getting Started process](/home/getting-started), follow these instructions to start using the LaunchDarkly SDK in your React Native code.
 
 The first step is to install the LaunchDarkly SDK as a dependency. Add the LaunchDarkly npm dependency to your project and link it to your React Native project.
 
@@ -66,54 +68,29 @@ As of v2.1.0 <code>use_frameworks!</code> is not necessary in the Podfile. If yo
 Here is an example:
 
 <CodeTabs
-  defaultValue="js"
+  defaultValue="podfile"
   values={[
-    { label: 'JavaScript', value: 'js', },
+    { label: 'Podfile', value: 'podfile', },
   ]
 }>
-<CodeTabItem value="js">
+<CodeTabItem value="podfile">
 
-```js
+```ruby
 platform :ios, '10.0'
+require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 target 'YOUR_MODULE_NAME' do
-  # Pods for ReactNativeRestwrapper
-  pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
-  pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
-  pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
-  pod 'RCTTypeSafety', :path => "../node_modules/react-native/Libraries/TypeSafety"
-  pod 'React', :path => '../node_modules/react-native'
-  pod 'React-Core', :path => '../node_modules/react-native'
-  pod 'React-CoreModules', :path => '../node_modules/react-native/React/CoreModules'
-  pod 'React-Core/DevSupport', :path => '../node_modules/react-native'
-  pod 'React-RCTActionSheet', :path => '../node_modules/react-native/Libraries/ActionSheetIOS'
-  pod 'React-RCTAnimation', :path => '../node_modules/react-native/Libraries/NativeAnimation'
-  pod 'React-RCTBlob', :path => '../node_modules/react-native/Libraries/Blob'
-  pod 'React-RCTImage', :path => '../node_modules/react-native/Libraries/Image'
-  pod 'React-RCTLinking', :path => '../node_modules/react-native/Libraries/LinkingIOS'
-  pod 'React-RCTNetwork', :path => '../node_modules/react-native/Libraries/Network'
-  pod 'React-RCTSettings', :path => '../node_modules/react-native/Libraries/Settings'
-  pod 'React-RCTText', :path => '../node_modules/react-native/Libraries/Text'
-  pod 'React-RCTVibration', :path => '../node_modules/react-native/Libraries/Vibration'
-  pod 'React-Core/RCTWebSocket', :path => '../node_modules/react-native'
+  config = use_native_modules!
 
-  pod 'React-cxxreact', :path => '../node_modules/react-native/ReactCommon/cxxreact'
-  pod 'React-jsi', :path => '../node_modules/react-native/ReactCommon/jsi'
-  pod 'React-jsiexecutor', :path => '../node_modules/react-native/ReactCommon/jsiexecutor'
-  pod 'React-jsinspector', :path => '../node_modules/react-native/ReactCommon/jsinspector'
-  pod 'React-callinvoker', :path => "../node_modules/react-native/ReactCommon/callinvoker"
-  pod 'ReactCommon/turbomodule/core', :path => "../node_modules/react-native/ReactCommon"
-  pod 'Yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+  use_react_native!(
+    :path => config[:reactNativePath],
+    :hermes_enabled => false
+  )
 
-  pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
-  pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
-  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-
-  #launchdarkly-react-native-client-sdk dependencies
-  pod 'LaunchDarkly', '5.4.1'
-
-  use_native_modules!
+  post_install do |installer|
+    react_native_post_install(installer)
+  end
 end
 ```
 
@@ -137,7 +114,7 @@ import LDClient from 'launchdarkly-react-native-client-sdk';
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, create a single, shared instance of `LDClient`, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key, available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a client-side ID. Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application. 
+Once the SDK is installed and imported, create a single, shared instance of `LDClient`, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key, available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a client-side ID. Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
 
 To create a shared instance of `LDClient`:
 

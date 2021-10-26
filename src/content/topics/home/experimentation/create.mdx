@@ -26,7 +26,7 @@ It takes five steps to create an experiment. You must:
 1. [Create a metric](#creating-metrics), or choose an existing metric
 2. [Connect the metric to feature flags](#connecting-metrics-to-feature-flags)
 3. [Define the audience for the experiment](/home/experimentation/allocation)
-4. [Start recording the metric](#starting-your-experiment), and
+4. [Start recording the metric](#starting-your-experiment-iteration), and
 5. [Turn on the feature flags](/home/managing-flags/flag-toggle)
 
 You can reuse existing metrics by connecting them to multiple flags, which allows you to compare how this metric fares across numerous flags. Similarly, a single flag can have more than one metric connected to it, which allows you to see how this flag performs against various measurements.
@@ -37,7 +37,7 @@ Here is an image of the Experiments dashboard:
 
 ![The Experiments dashboard.](../../images/experiment-dashboard.png)
 
-After you set up your first metric and flag, you can create new experiments by clicking the **+ Experiment** button.
+After you set up your first metric and flag, you can create new experiments by clicking the **Create experiment** button.
 
 ## Creating metrics
 
@@ -79,19 +79,19 @@ The following table explains different actions you can track with a metric:
     <TableRow>
       <TableCell>Custom (numeric)</TableCell>
       <TableCell>
-        This event kind is required for numeric metrics. Tracks increases or decreases in numeric value against a
-        baseline you set. For example, how many items are in a user's cart when they check out of your online store.
+        This event kind is required for numeric metrics. Tracks increases or decreases in numeric value against a baseline you set. For example, how many items are in a user's cart when they check out of your online store.
       </TableCell>
     </TableRow>
   </TableBody>
 </Table>
 
 <Callout intent="info">
-  <CalloutTitle>We recommend the Javascript or React SDKs for some metrics</CalloutTitle>
-  <CalloutDescription>
-    You must be using the Javascript or React SDK to use click and pageview metrics. If you do not have the Javascript
-    or React SDK and would like to track clicks or pageviews, use a custom conversion metric.
-  </CalloutDescription>
+<CalloutTitle>We recommend the JavaScript or React SDKs for some metrics</CalloutTitle>
+<CalloutDescription>
+
+You must be using the JavaScript or React SDK to use click and pageview metrics. If you do not have the JavaScript or React SDK and would like to track clicks or pageviews, use a custom conversion metric.
+
+</CalloutDescription>
 </Callout>
 
 ### Creating click metrics
@@ -122,7 +122,7 @@ For example, some CSS selectors include:
 To create a click metric:
 
 1. Navigate to the Metrics screen.
-2. Click **+ Metric**. The "Create a new metric" screen appears.
+2. Click **Create metric**. The "Create a new metric" screen appears.
 3. Enter a human-readable Name for the metric.
 4. (Optional) Enter a Description.
 5. (Optional) Type or choose from available Tags.
@@ -141,47 +141,40 @@ To create a click metric:
     <TableRow>
       <TableCell>Simple match</TableCell>
       <TableCell>
-        This triggers an event when the user accesses a URL, or clicks on an element hosted at a URL, that matches the
-        string you enter in the Target URL field or a formulation of that URL that included appended parameters. If you
-        want events to record for URLs with substrings, specify each URL individually.
+        This sends an event when the user accesses a URL, or clicks on an element hosted at a URL, that matches the string you enter in the Target URL field or a formulation of that URL that included appended parameters. If you want events to record for URLs with substrings, specify each URL individually.
       </TableCell>
       <TableCell>You specify: <code>example.com</code>.<br />  Views or clicks at <code>example.com</code>, and <br />
-        <code>example.com#signin</code> trigger events.<br /> You specify: <code>example.com</code> and <br />
+        <code>example.com#signin</code> send events.<br /> You specify: <code>example.com</code> and <br />
         <code>example.com/login</code>.<br /> Views or clicks on <code>example.com</code> and <code>example.com/login</code>{' '}
-        trigger events.
+        send events.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Exact match</TableCell>
       <TableCell>
-        This triggers an event when the user accesses a URL, or clicks on an element hosted at a URL, that exactly
-        matches what you enter in the Target URL field. Identical base URLs with different substrings do not trigger
-        events.
+        This sends an event when the user accesses a URL, or clicks on an element hosted at a URL, that exactly matches what you enter in the Target URL field. Identical base URLs with different substrings do not send events.
       </TableCell>
       <TableCell>
-        You specify: <code>example.com</code>.<br /> Only views or clicks at <code>example.com</code> trigger events.<br /> Views and clicks at <code> www.example.com/signup
-        </code> and <br /><code>https://www.example.com</code> do not trigger events.
+        You specify: <code>example.com</code>.<br /> Only views or clicks at <code>example.com</code> send events.<br /> Views and clicks at <code> www.example.com/signup
+        </code> and <br /><code>https://www.example.com</code> do not send events.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Substring match</TableCell>
       <TableCell>
-        This triggers an event when the user accesses a URL, or clicks on an element hosted at a URL with a specific
-        string of text in it.
+        This sends an event when the user accesses a URL, or clicks on an element hosted at a URL with a specific string of text in it.
       </TableCell>
       <TableCell>
         You specify: <code>your-substring</code>
         <code>example.com/your-substring</code>, <code>home.com/username/your-substring/</code>, <code>
           launchdarkly.com/your-substring/settings
-        </code> Because all of these URLs contain <code>your-substring</code>, clicks on the CSS selectors you specify on each
-        page trigger events.
+        </code> Because all of these URLs contain <code>your-substring</code>, clicks on the CSS selectors you specify on each page send events.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Regular expression</TableCell>
       <TableCell>
-        This triggers an event based on a regex expression you specify. This lets you designate more precise locations
-        to trigger click and pageview events.
+        This sends an event based on a regex expression you specify. This lets you designate more precise locations to send click and pageview events.
       </TableCell>
       <TableCell>
         You specify: <code>example\.com\\/account\\/.*\\/billing</code> This matches any string between <code>account/</code> and <code>/billing</code>, such as <code>http://example.com/account/12345/billing</code>
@@ -260,7 +253,7 @@ For example, you can use numeric metrics to track:
 - The efficacy of various search algorithms
 - The number of items in a shopping cart at checkout
 
-To add a custom numeric metric in LaunchDarkly, you must identify it with a code snippet embedded in your app.
+To add a custom numeric metric in LaunchDarkly, you must identify it with a code snippet embedded in your app. Numeric metrics must send a metric event value for each unique user in an experiment for accurate experiment results.
 
 When you're ready to add a custom event, put this snippet in your code:
 
@@ -284,16 +277,24 @@ client.track("Example event name", user, null, numericValue);
 
 Like conversion metrics, numeric metrics also require you to create an event name and insert it into your application's code to track metric data. The area of your code you should put custom conversion metric information into, and the type of information you should include, varies based on which SDKs you use.
 
-Often, the information you should put in your code includes the event key, user object, data field, or numeric value fields. To learn more, read the documentation for your SDKs.
+<Callout intent="alert">
+<CalloutTitle>Numeric metrics must send an event for each unique user</CalloutTitle>
+<CalloutDescription>
+
+When you use numeric metrics, you must send a metric event value for each unique user in an experiment. If your unique user count and metric event value count are not the same, LaunchDarkly cannot accurately calculate the results for your experiment. When this happens, an alert appears on the Experimentation tab of the feature flags included in the experiment.
+
+</CalloutDescription>
+</Callout>
+
+Usually, the information you should put in your code includes the event key, user object, data field, or numeric value fields. To learn more, read [Sending custom events](/sdk/features/events).
 
 <Callout intent="info">
-  <CalloutTitle>Can't see numeric metrics options?</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Can't see numeric metrics options?</CalloutTitle>
+<CalloutDescription>
 
-  If you can't see the feature described below, your SDKs may be out of date. To solve this problem, update your SDKs
-  to the latest version, and contact Support to enable numeric metrics.
+If you can't see the feature described below, your SDKs may be out of date. To solve this problem, update your SDKs to the latest version, and contact Support to enable numeric metrics.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 To create a numeric metric:
@@ -332,9 +333,9 @@ There are two ways to connect metrics to feature flags:
 To connect a metric to a flag from the Experiments dashboard:
 
 1. Navigate to the Experiments dashboard.
-2. Click **+ Experiment**:
+2. Click **Create experiment**:
 
-![The Experiments dashboard with the "+ Experiment" button called out.](../../images/experiment-dashboard-new-callout.png)
+![The Experiments dashboard with the "Create experiment" button called out.](../../images/experiment-dashboard-new-callout.png)
 
 3. Choose a flag from the "Select flag" dropdown.
 4. (Optional) If the flag doesn't have a baseline variation, choose one from the "Select baseline" dropdown.
@@ -344,16 +345,16 @@ To connect a metric to a flag from the Experiments dashboard:
 
 Your new experiment appears on the dashboard.
 
-After you create an experiment, you must start it in every environment where you want it to run.
+After you create an experiment, you must start a new iteration in every environment where you want it to run.
 
-To learn more, read [Starting your experiment](#starting-your-experiment).
+To learn more, read [Starting your experiment iteration](#starting-your-experiment-iteration).
 
 ### Creating an experiment from a flag's Experiments tab
 
 To connect a metric to a flag from the flag's Experiments tab:
 
 1. Navigate to the flag's Experimentation tab.
-2. If the flag does not have other running experiments, click **Create an Experiment.** If it already has running experiments, click **Manage Metrics**. The "Experiment Setup" screen appears.
+2. If the flag does not have other running experiments, click **Create an Experiment.** If it already has running experiments, click **Manage metrics**. The "Experiment Setup" screen appears.
 
 ![A flag's Experiments tab with the Manage metrics button called out.](../../../images/flag-experiment-manage-callout.png)
 
@@ -364,21 +365,21 @@ To connect a metric to a flag from the flag's Experiments tab:
 ![The "Experiment Setup" screen, configured to connect a metric to a flag.](../../../images/experiment-settings-metrics.png)
 
 
-After you create an experiment, you must start it in every environment where you want it to run.
+After you create an experiment, you must start a new iteration in every environment where you want it to run.
 
-To learn more, read [Starting your experiment](#starting-your-experiment).
+## Starting your experiment iteration
 
-## Starting your experiment
+After you've connected a metric to a flag, you can start an experiment iteration whenever you want. Click the **Start recording** button in every environment where you want to record data.
 
-After you've connected a metric to a flag, you can start your experiment whenever you want. All you need to do is press the **Start Recording** button in every environment where you want to record data.
+Experiment iterations allow you to record experiments in discrete blocks of time. To ensure accurate experiment results, when you make changes that impact an experiment’s audience or variations it is best practice to start a new iteration of the experiment.
 
-To learn more about starting and pausing recording for experiments, read [The experiment lifecycle](/home/experimentation/lifecycle).
+To learn more about starting and stopping experiment iterations, read [The experiment lifecycle](/home/experimentation/lifecycle).
 
 <Callout intent="info">
 <CalloutTitle>Experiment settings are environment-specific</CalloutTitle>
 <CalloutDescription>
 
-When you create an experiment, it appears in every environment in your project. However, the **Start Recording** button only impacts the experiment in one environment at a time. If you want to run the experiment in multiple environments, you must click **Start Recording** for each environment individually. For example, you might run an experiment in Staging to gather data internally before turning it on in Production to gather customer data.
+When you create an experiment, it appears in every environment in your project. However, the **Start recording** button only impacts the experiment in one environment at a time. If you want to start a new iteration of the experiment in multiple environments, you must click **Start recording** for each environment individually. For example, you might run an experiment in Staging to gather data internally before turning it on in Production to gather customer data.
 
 </CalloutDescription>
 </Callout>

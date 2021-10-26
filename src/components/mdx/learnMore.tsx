@@ -13,10 +13,10 @@ export const LearnMoreLink: FunctionComponent<LearnMoreLinkProps> = ({ to, child
     <Link
       to={to}
       sx={{
-        color: 'infoSafe',
+        color: 'secondary',
         textDecoration: 'none',
         fontWeight: 'bold',
-        '&:visited': { color: 'infoSafe' },
+        '&:visited': { color: 'secondary' },
         '&:hover': { color: 'grayBlack' },
       }}
     >

@@ -10,7 +10,7 @@ If you want to learn how to install and run the site locally on your machine, re
 
 These guidelines are not exhaustive or prescriptive. Our docs team reviews every PR and edits it for content, style, and tone before approval. Please don't feel like you need to have a flawless PR in order to have it accepted.
 
-These are broad and non-exclusive guidelines for writing docs in the LaunchDarkly style. If you have questions about specific cases, look in our existing docs for reference or email sday@launchdarkly.com.
+These are broad and non-exclusive guidelines for writing docs in the LaunchDarkly style. If you have questions about specific cases, look in our existing docs for reference or email docs@launchdarkly.com.
 
 Here are some guidelines to get you started:
 

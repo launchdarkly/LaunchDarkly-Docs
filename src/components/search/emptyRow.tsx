@@ -7,9 +7,9 @@ interface EmptyRowProps {
 }
 const EmptyRow: FunctionComponent<EmptyRowProps> = ({ query }) => {
   return (
-    <Box p={6} color="grayDark" sx={{ fontSize: 5, overflowWrap: 'break-word' }}>
+    <Box p={6} color="text" sx={{ fontSize: 5, overflowWrap: 'break-word' }}>
       No results for{' '}
-      <span color="grayBlack" sx={{ lineHeight: 'medium' }}>
+      <span color="grayscaleBlack200" sx={{ lineHeight: 'medium' }}>
         &quot;{query}&quot;
       </span>
     </Box>

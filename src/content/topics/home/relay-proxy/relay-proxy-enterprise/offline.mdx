@@ -33,6 +33,8 @@ When the Relay Proxy is in offline mode, it does not send events to LaunchDarkly
 </CalloutDescription>
 </Callout>
 
+You should not use a persistent feature store between the Relay Proxy and your application in offline mode.
+
 ## Enabling offline mode
 
 Enabling offline mode is a two-step process. These steps appear in detail below.
@@ -57,15 +59,15 @@ Here's how to create a Relay Proxy configuration in the LaunchDarkly UI:
 
 ![The Relay Proxy tab on the Account Settings page.](../../images/account-settings-relay-proxy.png)
 
-2. Click **+ Configuration**. The Relay Proxy configuration screen appears.
+2. Click **Create configuration**. The Relay Proxy configuration screen appears.
 3. Give the Relay Proxy a human-readable **Name**.
 4. Choose a **Rule** from the dropdown. This rule determines what content the Relay Proxy receives.
  * **All projects and environments** sends changes about all projects and environments to the Relay Proxy.
- * **Inline policy** allows you to specify which projects and environments you can track events for. To learn more, read [Writing an inline policy](#writing-an-inline-policy).
+ * **Inline policy** allows you to specify which projects and environments you can track events for. To learn more, read [Writing an inline policy](/home/relay-proxy/automatic-configuration#writing-an-inline-policy).
 
 ![The Relay Proxy configuration screen with dropdown displayed.](../../images/relay-proxy-config-dropdown.png)
 
-5. Click **Save Configuration**. The Relay Proxy appears on the Relay Proxy tab of the Account Settings page with its key visible.
+5. Click **Save configuration**. The Relay Proxy appears on the Relay Proxy tab of the Account Settings page with its key visible.
 6. Copy and save the key somewhere secure:
 
 ![The Relay Proxy screen with a newly created Relay Proxy. The key is displayed.](../../images/relay-proxy-key-displayed.png)
@@ -127,12 +129,6 @@ docker run --name ld-relay           \
 4. Start the Relay Proxy.
 
 From now on, the Relay Proxy will serve flag values based on the contents of the file you downloaded, not by contacting LaunchDarkly for updates.
-
-### Writing an inline policy
-
-The inline policy editor is an advanced editor you can use to specify precise instructions on what environments and projects the Relay Proxy should include or exclude. You can write policies for it by hand to get exactly the outcomes you want.
-
-To learn more about the advanced editor, read [Writing policies in the advanced editor](/home/members/role-policies#writing-policies-in-the-advanced-editor).
 
 ## Updating flag rules in offline mode
 

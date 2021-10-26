@@ -22,17 +22,13 @@ This feature is available in the following client-side SDKs:
 
 ### Electron
 
-The `bootstrap` property in the client options lets you speed up the startup process by providing an initial set of flag values.
-
-If you set `bootstrap` to an object, the client treats it as a map of flag keys to flag values. These values can be whatever you want, although in the browser environment there is a [special mechanism](#javascript) that is commonly used. The client immediately starts out in a ready state using these values. It still makes an initial request to LaunchDarkly to get the actual latest values, but that happens in the background.
+The bootstrap feature in Electron works the same as in client-side Node.js SDK. To learn how to use it, read [Node.js (client-side)](#nodejs-client-side).
 
 If you set `bootstrap` to the string `"localstorage"`, the client tries to get flag values from persistent storage, using a unique key that is based on the user properties. In Electron, persistent storage consists of files in the [`userData`](https://electronjs.org/docs/) directory. If the client finds flag values stored for this user, it uses them and starts up immediately in a ready state, but also makes a background request to LaunchDarkly to get the latest values and stores them as soon as it receives them.
 
 ### JavaScript
 
-Bootstrapping refers to providing the LaunchDarkly client object with an initial, immediately available set of feature flag values so that on page load `variation` can be called with no delay.
-
-The preferred approach to bootstrapping is to populate a map of flag keys to flag values, called bootstrap values, from your back end using one of LaunchDarkly's server-side SDKs. All of the server-side SDKs have a function to evaluate flags on behalf of a specified user. This function provides the initial set of bootstrap values to your front end. The function is called some variation of "allFlagsState". The exact name varies depending on the back-end technology's naming conventions, such as camel-case or snake-case.
+We recommend populating bootstrap values with a JSON object containing flag metadata derived from calling the server-side SDK's "allFlagsState" method. All of the server-side SDKs have a function, called some variation of "allFlagsState," to evaluate flags on behalf of a specified user. This function provides the initial set of bootstrap values to your front end. The exact name varies depending on the back-end technology's naming conventions, such as camel-case or snake-case.
 
 Below are two examples of how to bootstrap flags into the JavaScript client:
 
@@ -174,7 +170,7 @@ You can use the optional `flags` property to bootstrap the React SDK.
 
 If `flags` is specified, the React SDK only subscribes for updates to these flags. When this property is unspecified, the React SDK subscribes to all flags. This property is optional.
 
-Specify the `flags` property as a map of flag keys and values. The flag keys must be in their original form (as known to LaunchDarkly) rather than in their camel-cased form. Each flag's value is passed along to the resulting JS SDK [`variation`](/sdk/features/evaluating) invocation and used as the flag's default value in the case of an error.
+Specify the `flags` property as a JSON object containing flag metadata derived from calling the server-side SDK's "allFlagsState" method. The flag keys must be in their original form, as known to LaunchDarkly, rather than in their camel-cased form. Each flag's value is passed along to the resulting JavaScript SDK [`variation`](/sdk/features/evaluating) invocation and used as the flag's default value in the case of an error.
 
 Here is an example:
 

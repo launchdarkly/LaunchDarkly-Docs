@@ -1,0 +1,129 @@
+---
+path: '/sdk/concepts/flag-types'
+title: 'Using flag types'
+description: 'This topic explains feature flag types and how different flag types affect flag evaluations in different LaunchDarkly SDKs.'
+published: true
+---
+
+## Overview
+
+This topic explains feature flag types and how different flag types affect flag evaluations in LaunchDarkly SDKs.
+
+## Understanding flag types
+
+LaunchDarkly supports two basic types of flags:
+- [Boolean flags](#using-boolean-flags) have two possible variations of `true` or `false`.
+- Multivariate flags allow you to customize the number and types of variations they return. Multivariate flag types include:
+    - [number](#using-number-flags)
+    - [string](#using-string-flags)
+    - [JSON](#using-json-object-and-array-flags)
+
+Imagine your organization wants to know if changing the color of your site's “Checkout” button increases customer purchases. You can use a boolean flag if you want to compare only two colors. If you have more colors to test, you can use multivariate flags to roll out several different colors of the button to different audiences, allowing you to determine the most effective color more quickly.
+
+When choosing a flag type, you should choose the same type as the value your code returns. Decoders and encoders in your app should not translate one data type to another. For example, if you define a property as boolean, the JSON string values `”true”` and `”false”` will not work. You can use only the boolean values `true` and `false`.
+
+You can use multivariate flags in experiments to test different versions of a feature. To learn more, read [Experimentation](/home/experimentation).
+
+### Naming your flags
+
+We recommend naming your flag after the behavior that the flag enables when on. For example, "Two-step checkout" or "Dark mode."
+
+When naming multivariate flags, we recommend you name the flag after the general task it performs to indicate a number of choices are available. For example, "Account API Rate Limit" or "Purchase Flow Experiment."
+
+## Using boolean flags
+
+Boolean flags can have only `true` or `false` variations. As a best practice, we recommend setting boolean flags to `true` when the flag is on and `false` when the flag is off.
+
+You can treat an optional boolean property as `false` if there is no property value present. You can write a false value as `false` or omit the property.
+
+## Using number flags
+
+Number flags can be either an integer or a floating-point type.
+
+Some strongly-typed SDKs use separate evaluation methods depending on whether a numeric value is an integer or a floating-point type. However, because the underlying type is "number" in either case, both integer and floating-point methods work on numeric flag values. To learn more about strongly-typed SDKs, read [Using strongly-typed SDKs](#using-strongly-typed-sdks).
+
+LaunchDarkly SDKs use double-precision floating-point numbers that have a limit of 16 significant, or non-0, digits. If you use a number over 16 significant digits, the SDK will not store or transmit the additional digits accurately. You can use 16 non-0 digits followed by any number of 0s, but non-0 digits will be either dropped or converted to 0s.
+
+For example:
+
+- LaunchDarkly SDKs store `1234567812345678` accurately
+- LaunchDarkly SDKs store `1234567812345678000000` accurately
+- LaunchDarkly SDKs store `1234567812345678999999` inaccurately as `1234567812345678000000` or `1234567812345678`
+
+Trailing zeroes are trimmed off of floating-point numbers. For example, number flags consider `10000`, `10000.00`, and `1e4` to be the same number.
+
+Most applications convert numbers to binary floating-point, which can cause rounding errors. This means fractional numbers may be imprecise. If you need to represent decimal fractional numbers exactly, you should use a string or an integer. For example, for currency values, use "10.23" instead of 10.23, or scale your numbers by a factor of 100 and use 1023.
+
+## Using string flags
+
+String flags have a limit of 32KB. Strings are UTF-8 encoded, so certain characters, like emojis and non-ASCII characters, take more than one byte each.
+
+You can use escape sequences in string flag values. For example, LaunchDarkly treats string values `ab\u0063` and `abc` as the same value.
+
+## Using JSON object and array flags
+
+In addition to booleans, numbers, and strings, flags can be objects or arrays. In the LaunchDarkly user interface (UI), object and array flags are called "JSON flags."
+
+You can treat an optional array or object property as empty if there is no property value present. You can write an empty array as `[]`, an empty object as `{}`, or omit the property completely.
+
+JSON object and array flags have a size limit of 32KB.
+
+## Using custom attributes
+
+Custom attributes follow the same patterns as LaunchDarkly flag types. The value of a custom attribute can be of any type that's allowed in JSON, including boolean, number, string, array, and object.
+
+Number custom attributes are subject to the same restrictions as number flags. For example, if you define a flag targeting rule where `myCustomAttribute` is one of `0.3`, users with an attribute value of `0.3` may not be correctly targeted because 0.3 can't be exactly represented in binary floating point.
+
+Like number flags, LaunchDarkly truncates custom attribute number values to the first 16 digits. If you define a flag targeting rule where `myCustomAttribute` is one of `1234567812345678999999`, LaunchDarkly will target users with an attribute value of `1234567812345678999998`, because both the flag rule and the user attribute value are truncated to `1234567812345678`.
+
+To learn more about custom attributes, read [Setting custom user attributes](/home/users/attributes#setting-custom-user-attributes).
+
+## Using strongly-typed SDKs
+
+Some of our SDK languages are strongly-typed. Strongly-typed languages have separate methods for evaluating different kinds of flag types.
+
+Our strongly-typed SDKs are:
+
+- [.NET (server-side)](/sdk/server-side/dotnet)
+- [Android](/sdk/client-side/android)
+- [Flutter](/sdk/client-side/flutter)
+- [Go](/sdk/server-side/go)
+- [iOS](/sdk/client-side/ios)
+- [Java](/sdk/server-side/java)
+- [PHP](/sdk/server-side/php)
+
+Strongly-typed SDKs must call the correct evaluation method for the flag type they use. For example, strongly-typed SDKs won't convert a boolean `true` to a string "true".
+
+If the evaluation method does not match the flag type, then the SDK will proceed as if the result is a variation index of "undefined". The evaluation reason will have a `kind` of `ERROR` and an `errorKind` of `WRONG_TYPE`.
+
+Other LaunchDarkly SDKs are not strongly-typed. They have just one `variation` method for all types of values.
+
+For information about how specific SDKs evaluate feature flags, read [Flag evaluation reasons](/sdk/features/evaluation-reasons).
+
+### Getting generic JSON values
+
+If you don't want to call a specific evaluation method for your flag type, most strongly-typed SDKs have a method for getting a flag value as a generic JSON value, regardless of whether the flag's value is a boolean, a number, a string, or JSON. In most situations, you do not need to get generic JSON values.
+
+In some cases, you may need to use them for:
+
+- writing general-purpose code that copies flag values to somewhere else
+- using flag variations to hold complex data structures
+
+For example, you may need to bundle unrelated properties, like text and color, with metadata, like your experiment name, to pass to a third-party system when using a flag in an experiment. Getting a generic JSON value allows you to keep this information together in one flag.
+
+To learn more about variation methods, read [Evaluating flags](/sdk/features/evaluating).
+
+## Using date/time and semantic version operators
+
+Date/time and semantic version operators have individual rules because JSON does not have specific types for them.
+
+### Representing date/time values
+
+LaunchDarkly uses two ways to represent a date/time value:
+
+- A number, not a numeric string, that is treated as a millisecond offset from the Unix epoch. For example, 1400967000000 is equivalent to 2014/05/24 15:30:00 PST.
+- A string in RFC-3339 format, with no more than nine digits of fractional seconds. For example: `2014-05-24T15:30:00.000-08:00`. To learn more about RFC-3339 format, read [Date and Time on the Internet: Timestamps](https://datatracker.ietf.org/doc/html/rfc3339).
+
+### Using semantic versions
+
+A value must be a string, not a numeric value, to be parsed as a semantic version. Semantic version syntax is defined by the Semantic Versioning 2.0.0 standard with the following addition: a string containing only two version components (”2.0”) is treated as if it had a suffix of .0 (”2.0.0”). To learn more, read [Semantic Versioning 2.0.0](https://semver.org/).

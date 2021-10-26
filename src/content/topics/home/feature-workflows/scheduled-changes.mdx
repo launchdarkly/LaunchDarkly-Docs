@@ -46,7 +46,7 @@ Benefits of scheduling flag changes include:
 <CalloutTitle>Feature Workflows are available in the LaunchDarkly API</CalloutTitle>
 <CalloutDescription>
 
-All of LaunchDarkly's features are supported by API endpoints. To learn more about the API and supported endpoints for Feature Workflows, read the [API documentation](https://apidocs.launchdarkly.com/reference#scheduled-changes-overview).
+All of LaunchDarkly's features are supported by API endpoints. To learn more about the API and supported endpoints for Feature Workflows, read the [API documentation](https://apidocs.launchdarkly.com/tag/Scheduled-changes).
 
 </CalloutDescription>
 </Callout>
@@ -69,7 +69,7 @@ To schedule a set of flag changes:
 6. Click **Apply**.
 7. Review and confirm the changes displayed in the modal. If you need to make changes, click **Edit**, change what you need, and then click **Done**:
 
-![A GIF of the flag scheduling workflow.](../../images/workflows-change-create.gif)
+![The Edit changes screen.](../../images/workflows-edit-changes.png)
 
 8. If your environment requires approvals for flag changes, enter a description and choose one or more reviewers.
 9. Enter a comment and the environment name.
@@ -81,7 +81,7 @@ For example, you can implement a progressive rollout strategy by scheduling mult
 
 Here is an image of a flag with multiple changes scheduled:
 
-![A flag with multiple changes scheduled.](../../images/workflows-upcoming-changes.png)
+![A flag with multiple changes scheduled.](../../images/workflows-pending-changes.png)
 
 If you use scheduled flag changes to schedule user removal dates, but an approver approves the request _after_ the scheduled date and time of the user removal, LaunchDarkly prevents you from applying the change. To learn more about scheduling, read [Scheduling user removal from segments](/home/users/segments#scheduling-user-removal-from-segments).
 
@@ -98,7 +98,7 @@ To view all the scheduled changes for a flag:
 1. Navigate to the flag dashboard and select the flag for which you want to view the scheduled changes. The flag's Targeting tab appears.
 2. The number of scheduled changes appear in the upper right corner:
 
-![The number of pending changes for a flag.](../../images/workflows-pending-changes-callout.png)
+![The number of pending changes for a flag.](../../images/workflows-pending-changes-icon.png)
 
 3. To view the complete list of changes, click on the clock icon. A drawer opens that displays all the pending changes that are scheduled for this flag. The changes are listed chronologically, with the earliest upcoming change listed first:
 
@@ -112,7 +112,7 @@ To update a scheduled flag change:
 2. Find the scheduled change you wish to update.
 3. Click on the menu in the upper right and choose **Edit**:
 
-![A GIF of the change editing worklow.](../../images/workflows-edit-changes.gif)
+![The Edit option on a pending change.](../../images/workflows-pending-changes-edit.png)
 
 4. A modal appears with the list of scheduled flag changes.
 5. You can change the schedule by changing the date or time for these changes. Alternatively, you can click **Edit** to make updates and click **Done** when complete.
@@ -126,7 +126,7 @@ To delete a scheduled flag change:
 1. Follow the steps in [Viewing scheduled flag changes](#viewing-scheduled-flag-changes) to open the list of pending scheduled changes for the flag.
 2. For the scheduled change you wish to delete, click on the menu to the top-right and click **Delete**:
 
-![The Edit and Delete options for a scheduled workflow.](../../images/workflows-delete-change.png)
+![The Edit and Delete options for a scheduled workflow.](../../images/workflows-pending-changes-edit.png)
 
 ## Managing conflicts with scheduled changes
 
@@ -167,10 +167,12 @@ Here is an example showing how you can schedule your flag to turn `off` for an h
 
 1. Turn flag targeting `off`.
 2. Click into the **Save Changes** dropdown and choose **Schedule changes**.
-3. Click **Edit**.
-4. Turn the flag to `on`.
-5. Click **Done** and schedule the change:
+3. Click **Edit**:
 
-![A GIF of the workflow.](../../images/workflows-off.gif)
+![The Save with comment screen with the Edit button called out.](../../images/workflows-save-with-comment-edit-callout.png)
+
+4. Turn the flag to `on`.
+5. Click **Done**. You return to the "Save with comment" screen.
+6. Click **Save with comment** to save the change.
 
 This workaround lets you schedule changes to your flag that are not different from the flag's current state. This is useful to help schedule changes that restore the flag’s state after an interval.

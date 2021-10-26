@@ -1,6 +1,6 @@
 ---
 path: '/integrations/new-relic/triggers'
-title: 'Using flag triggers with New Relic'
+title: 'Using flag triggers with New Relic One'
 description: 'This topic explains how to use LaunchDarkly''s trigger feature with New Relic One.'
 published: true
 ---
@@ -16,7 +16,7 @@ Flag triggers is available to customers on an Enterprise plan. To learn more, [r
 
 ## Overview
 
-This topic explains how to use LaunchDarkly's trigger feature with New Relic One. For example, you can create an policy in New Relic that uses a LaunchDarkly trigger to toggle a flag on or off if a performance metric drops below a certain threshold.
+This topic explains how to use LaunchDarkly's trigger feature with New Relic One. For example, you can create an policy in New Relic One that uses a LaunchDarkly trigger to toggle a flag on or off if a performance metric drops below a certain threshold.
 
 ## Prerequisites
 
@@ -28,12 +28,12 @@ In order to complete this topic, you must meet the following prerequisites:
 
 ## Connecting a flag trigger to New Relic One
 
-Connecting a LaunchDarkly trigger to New Relic takes two steps.
+Connecting a LaunchDarkly trigger to New Relic One takes two steps.
 
 You must:
 
-1. Create a webhook-type notification channel in New Relic with your trigger URL, and
-2. Connect that webhook to a New Relic policy.
+1. Create a webhook-type notification channel in New Relic One with your trigger URL, and
+2. Connect that webhook to a New Relic One policy.
 
 ### Setting up a JSON template in New Relic One
 
@@ -41,16 +41,16 @@ First you must configure a JSON template to use the LaunchDarkly trigger.
 
 To configure the template:
 
-1. Log in to New Relic.
+1. Log in to New Relic One.
 2. Navigate to **Alerts & AI** and look for the **Notification Channels** section in the sidebar.
 3. In the **Notification Channels** section, click **+ New Notification Channel**.
 4. Select **Webhook** as the channel type.
 5. Paste the LaunchDarkly trigger URL into the **Base URL** field.
 6. Click **Create Channel**.
 
-### Connecting the webhook to a New Relic policy
+### Connecting the webhook to a New Relic One policy
 
-After you create the webhook notification channel in New Relic, you must connect it to a policy in order for the LaunchDarkly trigger to perform actions on the flag.
+After you create the webhook notification channel in New Relic One, you must connect it to a policy in order for the LaunchDarkly trigger to perform actions on the flag.
 
 1. Under **Alerts & AI**, navigate to **Policies**.
 2. Select the policy you wish to connect to the trigger.
@@ -58,12 +58,12 @@ After you create the webhook notification channel in New Relic, you must connect
 
 ## Testing the trigger configuration
 
-After you create a trigger in New Relic, you can verify that it has connected to LaunchDarkly correctly.
+After you create a trigger in New Relic One, you can verify that it has connected to LaunchDarkly correctly.
 
 To test the trigger:
 1. Navigate to the configuration for the webhook notification channel you set up in New Relic One.
 2. Click **Send a test notification** at the bottom of the page. A popup with a response code appears.
 3. Navigate back to the flag's **Settings** page in LaunchDarkly.
-4. Click on the **three-dot** dropdown menu on your LaunchDarkly trigger to confirm that the execution count has incremented. Sending a test notification does not trigger the flag action, so don't worry that you might toggle a flag by testing the configuration.
+4. Click on the **overflow** dropdown menu on your LaunchDarkly trigger to confirm that the execution count has incremented. Sending a test notification does not trigger the flag action, so don't worry that you might toggle a flag by testing the configuration.
 
 That's it! When the conditions of your policy are met, your flag changes will now be performed.

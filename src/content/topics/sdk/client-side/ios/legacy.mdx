@@ -17,11 +17,11 @@ Per our [End of Life policy](https://launchdarkly.com/policies/end-of-life-polic
 </CalloutDescription>
 </Callout>
 
-This reference guide documents all of the methods available in our iOS SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [iOS SDK GitHub repository](https://github.com/launchdarkly/ios-client-sdk). Additionally you can clone and run sample applications using this SDK with [iOS](https://github.com/launchdarkly/hello-ios/tree/objective-c), [macOS](https://github.com/launchdarkly/hello-macos/tree/objective-c), and [tvOS](https://github.com/launchdarkly/hello-tvos/tree/objective-c).
+This reference guide documents all of the methods available in our iOS SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read [iOS SDK GitHub repository](https://github.com/launchdarkly/ios-client-sdk). Additionally you can clone and run sample applications using this SDK with [iOS](https://github.com/launchdarkly/hello-ios/tree/objective-c), [macOS](https://github.com/launchdarkly/hello-macos/tree/objective-c), and [tvOS](https://github.com/launchdarkly/hello-tvos/tree/objective-c).
 
 ## Getting started
 
-Building on top of our [Getting Started guide](/home/getting-started), the following steps help you use the LaunchDarkly SDK in your iOS application.
+After you complete the [Getting Started process](/home/getting-started), the following steps help you use the LaunchDarkly SDK in your iOS application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application. LaunchDarkly supports multiple methods for installing the SDK in your application.
 
@@ -270,12 +270,12 @@ All of the other attributes (like `firstName`, `email`, and the `custom` attribu
 In addition to built-in attributes like names and email addresses, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
 
 <Callout intent="info">
-<CalloutTitle>The iOS SDK is strongly typed</CalloutTitle>
+<CalloutTitle>The iOS SDK is strongly-typed</CalloutTitle>
 <CalloutDescription>
 
 Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers.
 
-If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The iOS SDK is strongly typed, so keep this distinction in mind.
+If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The iOS SDK is strongly-typed, so keep this distinction in mind.
 
 </CalloutDescription>
 </Callout>
@@ -361,7 +361,7 @@ user.isAnonymous = true
 
 You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
 
-Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This prevents unauthenticated users from diluting useful data on the User dashboard.
+Anonymous users work just like regular users, except that they won't appear on your Users page in LaunchDarkly. You also can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. This prevents unauthenticated users from diluting useful data on the Users dashboard.
 
 ## Variation
 

@@ -14,12 +14,8 @@ const SdkLink: FunctionComponent<SdkLinkProps> = ({ navItem }) => {
   const display = shortLabel ?? label.split(' ')[0]
   const svgIconName = svg ?? (display.toLowerCase() as IconName)
   return (
-    <Link
-      to={path}
-      p="2"
-      sx={{ '&:hover': { bg: 'grayLight', '& svg': { fill: 'primarySafe' } }, textDecoration: 'none' }}
-    >
-      <Icon name={svgIconName} height="2rem" fill="grayDark" />
+    <Link to={path} p="2" sx={{ '&:hover': { bg: 'muted', '& svg': { fill: 'primary' } }, textDecoration: 'none' }}>
+      <Icon name={svgIconName} height="2rem" fill="text" />
       <p sx={{ mt: 3 }}>{display}</p>
     </Link>
   )
@@ -40,7 +36,7 @@ const SdkLinks: FunctionComponent<SdkLinksProps> = ({ heading, sideNavItems }) =
           gridTemplateColumns: ['repeat(2, 1fr)', 'repeat(3, 1fr)', `repeat(${numAcross}, 1fr)`],
           rowGap: 3,
           fontSize: 4,
-          color: '#646F7A',
+          color: 'primary',
           textAlign: 'center',
         }}
       >

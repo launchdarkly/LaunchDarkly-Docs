@@ -1,17 +1,19 @@
 ---
 path: '/sdk/server-side/dotnet'
-title: '.NET SDK reference'
+title: '.NET SDK reference (server-side)'
 description: 'This topic explains all of the methods available in the server-side .NET SDK, with detail about how they work.'
 published: true
 ---
 
-This reference guide documents all of the methods available in the .NET SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [.NET SDK GitHub repository](https://github.com/launchdarkly/dotnet-server-sdk). The online [API docs](https://launchdarkly.github.io/dotnet-server-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-dotnet) using this SDK.
+## Overview
+
+This reference guide documents all of the methods available in the .NET SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read [.NET SDK GitHub repository](https://github.com/launchdarkly/dotnet-server-sdk). The online [API docs](https://launchdarkly.github.io/dotnet-server-sdk/) contain the programmatic definitions of every type and method. You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-dotnet).
 
 <Callout intent="info">
 <CalloutTitle>For use in server-side applications only</CalloutTitle>
 <CalloutDescription>
 
-This SDK is intended for use in *multi-user* .NET server applications. If you have a .NET application and are looking to set up LaunchDarkly in a mobile, desktop, or embedded application, head to our [Xamarin SDK reference](/sdk/client-side/xamarin).
+This SDK is intended for use in *multi-user* .NET server applications. If you have a .NET application and are looking to set up LaunchDarkly in a mobile, desktop, or embedded application, head to our [client-side .NET SDK reference](/sdk/client-side/dotnet).
 
 To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
@@ -31,7 +33,7 @@ Prior to version 6.0, the LaunchDarkly .NET SDK also supported .NET Framework 4.
 </CalloutDescription>
 </Callout>
 
-Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your .NET application.
+After you complete the [Getting Started process](/home/getting-started), follow these instructions to start using the LaunchDarkly SDK in your .NET application.
 
 The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager.
 
@@ -67,7 +69,7 @@ Next, import the LaunchDarkly SDK's namespace(s) in your application code. The n
 using LaunchDarkly.Sdk;
 using LaunchDarkly.Sdk.Server;
 
-// LaunchDarkly.Sdk defines general types like User, which are also used in the Xamarin SDK.
+// LaunchDarkly.Sdk defines general types like User, which are also used in the client-side .NET SDK.
 // LaunchDarkly.Sdk.Server defines the LdClient and Configuration types for the server-side .NET SDK.
 ```
 
@@ -170,26 +172,28 @@ LaunchDarkly servers operate in a load-balancing framework which may cause their
 </CalloutDescription>
 </Callout>
 
-Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#net).
+Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#net-server-side).
 
 ## Supported features
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#net)
-* [Big Segments](/sdk/features/big-segments#net)
-* [Configuration](/sdk/features/config#net)
-* [Evaluating flags](/sdk/features/evaluating#net)
-* [Flag evaluation reasons](/sdk/features/evaluation-reasons#net)
-* [Flushing events](/sdk/features/flush#net)
-* [Getting all flags](/sdk/features/all-flags#net)
-* [Identifying and changing users](/sdk/features/identify#net)
-* [Logging configuration](/sdk/features/logging#net)
-* [Monitoring SDK status](/sdk/features/monitoring#net)
-* [Offline mode](/sdk/features/offline-mode#net)
-* [Secure mode](/sdk/features/secure-mode#net)
-* [Sending custom events](/sdk/features/events#net)
-* [Shutting down](/sdk/features/shutdown#net)
-* [Subscribing to flag changes](/sdk/features/flag-changes#net)
-* [Storing data](/sdk/features/storing-data#net)
-* [User configuration](/sdk/features/user-config#net)
+* [Aliasing users](/sdk/features/aliasing-users#net-server-side)
+* [Big Segments](/sdk/features/big-segments#net-server-side)
+* [Configuration](/sdk/features/config#net-server-side)
+* [Evaluating flags](/sdk/features/evaluating#net-server-side)
+* [Flag evaluation reasons](/sdk/features/evaluation-reasons#net-server-side)
+* [Flushing events](/sdk/features/flush#net-server-side)
+* [Getting all flags](/sdk/features/all-flags#net-server-side)
+* [Identifying and changing users](/sdk/features/identify#net-server-side)
+* [Logging configuration](/sdk/features/logging#net-server-side)
+* [Monitoring SDK status](/sdk/features/monitoring#net-server-side)
+* [Offline mode](/sdk/features/offline-mode#net-server-side)
+* [Reading flags from a file](/sdk/features/flags-from-files#net-server-side)
+* [Secure mode](/sdk/features/secure-mode#net-server-side)
+* [Sending custom events](/sdk/features/events#net-server-side)
+* [Shutting down](/sdk/features/shutdown#net-server-side)
+* [Subscribing to flag changes](/sdk/features/flag-changes#net-server-side)
+* [Storing data](/sdk/features/storing-data#net-server-side)
+* [Test data sources](/sdk/features/test-data-sources#net-server-side)
+* [User configuration](/sdk/features/user-config#net-server-side)

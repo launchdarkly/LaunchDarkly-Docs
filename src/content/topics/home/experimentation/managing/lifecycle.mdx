@@ -1,48 +1,57 @@
 ---
 path: '/home/experimentation/lifecycle'
 title: 'The experiment lifecycle'
-description: 'This topic explains how to start recording data in an experiment and pause the experiment when you''re finished.'
+description: 'This topic explains how to start recording data in an experiment and stop the experiment when you''re finished.'
 published: true
 ---
 
 ## Overview
 
-This topic explains how to start recording data in an experiment and pause the experiment when you're finished.
+This topic explains how to start recording data in an experiment and stop the experiment when you're finished.
 
 ## Starting experiments
 
-Experiments do not start collecting data automatically. When you have a new experiment you're ready to run, you must press the **Start Recording** on the experiment itself.
+Experiments do not start collecting data automatically. When you have a new experiment iteration you're ready to run, you must press the **Start recording** on the experiment itself.
 
 Here is an image of the start recording screen:
 
-![An Experiment with the Start Recording button called out.](../../../images/experiment-start-recording-callout.png)
+![An Experiment with the Start recording button called out.](../../../images/experiment-start-recording-callout.png)
 
-The **Start Recording** button only applies to the experiment in that specific environment. If you wish to run the same experiment in multiple environments, you must press the **Start Recording** button on each experiment in each environment. This behavior prevents you from being billed for events you don't want to track.
+The **Start recording** button only starts a new iteration of the experiment in that specific environment. If you wish to run the same experiment in multiple environments, you must press the **Start recording** button on each experiment in each environment. This behavior prevents you from being billed for events you don't want to track.
 
 To learn more about creating an experiment, read [Creating experiments](/home/experimentation/create).
 
-After you start your experiment, you can check on it at any time in the flag's Experimentation tab. Experiment data appears in the Experiments page after a few minutes. You may have to refresh the page to fetch new data for your experiment.
+After you start your experiment iteration, you can check on it at any time in the flag's Experimentation tab. Experiment data appears in the Experiments page after a few minutes. You may have to refresh the page to fetch new data for your experiment.
 
-## Pausing experiments
+## Stopping experiments
 
-If you've discovered a winning variation, or decided to stop running the experiment for some other reason, you can stop collecting events by clicking **Pause experiment** on any running experiment.
+If you've discovered a winning variation, need to make changes to your experiment, or decided to stop running the experiment iteration for some other reason, you can stop collecting events by clicking **Stop recording this metric** on any running experiment.
 
-Here is an image of the pause recording option:
+Here is an image of the stop recording option:
 
-![An experiment's card with the Pause experiment button displayed.](../../../images/experiment-pause.png)
+![An experiment's card with the Stop recording button displayed.](../../../images/experiment-stop.png)
 
+![A confirmation modal for the Stop recording action.](../../../images/experiment-stop-modal.png)
 
-You can pause an experiment at any time. Just like the start button, the pause button only impacts one experiment in one environment. If you wish to stop collecting data from every instance of an experiment, you must pause each experiment in each environment individually.
+You can stop recording an experiment at any time. Just like the start button, the stop button only impacts one experiment in one environment. If you wish to stop collecting data from every instance of an experiment, you must stop each experiment in each environment individually.
 
-When you pause an experiment, LaunchDarkly stops collecting data about user behavior for that experiment. The data that was already collected for that experiment is still available, however, in the Experiments screen.
+When you stop recording an experiment, LaunchDarkly ends the iteration and stops collecting data about user behavior for that experiment. The data collected for that iteration is available on the experiment's card.
 
-Pausing an experiment is not the same as deleting an experiment. As a best practice, we recommend pausing experiments you're not using, rather than deleting them. This lets you retain the results and data the experiment has already collected.
+To view the data, choose the iteration from the iteration dropdown:
 
-If you want to start a paused experiment, click **Resume recording**. Resumed experiments begin collecting event data again and their charts update with new information.
+![An experiment's card with the iteration dropdown displayed.](../../../images/experiment-iteration.png)
 
-Here is an image of the resume recording option:
+Stopping an experiment is not the same as deleting an experiment. As a best practice, we recommend stopping experiments you're not using, rather than deleting them. This lets you retain the results and data the experiment has already collected.
 
-![An experiment's card with the Resume recording button displayed.](../../../images/experiment-resume.png)
+If you want to start a new iteration of an experiment, click **Start recording**. The experiment begins collecting event data again in a new iteration, and its chart updates with new information.
+
+Here is an image of the start recording option:
+
+![An experiment's card with the Start recording button displayed.](../../../images/experiment-start.png)
+
+Alternatively, you can start a new iteration of an experiment by choosing **Start new iteration** from the experiment's overflow menu:
+
+![The Experimentation edit menu with the Start new iteration option called out.](../../../images/experiment-menu-start-new-callout.png)
 
 ## Deleting experiments
 
@@ -52,7 +61,7 @@ You can delete an experiment permanently from the flag's Experiments page.
 <CalloutTitle>You cannot restore deleted experiment data</CalloutTitle>
 <CalloutDescription>
 
-Deleting an experiment means deleting all the event data collected for that experiment in every environment. We recommend pausing experiments whenever possible, rather than deleting them.
+Deleting an experiment means deleting all the event data collected for every iteration of that experiment in every environment. We recommend stopping experiments whenever possible, rather than deleting them.
 
 </CalloutDescription>
 </Callout>
@@ -60,7 +69,7 @@ Deleting an experiment means deleting all the event data collected for that expe
 To delete an experiment:
 
 1. Navigate to a flag's Experimentation tab and find the experiment you wish to delete.
-2. Click the **3-dot** menu icon. A dropdown menu appears.
+2. Click the overflow menu icon. A dropdown menu appears.
 3. Click **Remove metric from this experiment**.
 
-![The Experimentation edit menu.](../../../images/experiment-menu.png)
+![The Experimentation edit menu with the Remove metric from this experiment option called out.](../../../images/experiment-menu-remove-metric-callout.png)

@@ -11,7 +11,7 @@ This topic explains how to read an experiment's card in the flag's Experimentati
 
 ## Understanding experiments as they run
 
-When your experiments are running, you can view information about them on the Experimentation tab for the flags connected to them. The Experimentation tab displays all the experiments a flag is participating in, including both experiments that are currently recording and experiments that are paused.
+When your experiments are running, you can view information about them on the Experimentation tab for the flags connected to them. The Experimentation tab displays all the experiments a flag is participating in, including both experiments that are currently recording and experiments that are stopped.
 
 An experiment's card shows details about what data the experiment is collecting and what that data means. You can see information about the experiment, like its name and experiment type, in the header line.
 
@@ -22,15 +22,14 @@ Here is an image of an experiment's card:
 
 Here are some things you can do from an experiment's card:
 
-- Pause the experiment or resume recording. To learn more, read [The experiment lifecycle](/home/experimentation/lifecycle).
+- Stop the experiment or start a new iteration. To learn more, read [The experiment lifecycle](/home/experimentation/lifecycle).
 - Edit metrics connected to the experiment. Edit experiment metrics to start new experiments using this flag.
-- Reset the experiment data. This leaves the metric connected to the flag, but deletes all the data the experiment has collected so far. After the historical data is deleted, the experiment begins collecting new data.
-- Delete the experiment:
+- Remove the metric from the experiment:
 
-![The experiment card's 3-dot menu.](../../../images/experiment-menu.png)
+![The experiment card's overflow menu.](../../../images/experiment-menu.png)
 
 
-- Visualize experiment data over a set period of time. Click the **date menu** to change the time period of the data you see:
+- Visualize experiment data over a set period of time. Click the **iteration dropdown** to select an timeframe to see:
 
 ![An experiment's date menu, expanded.](../../../images/experiment-date-picker.png)
 
@@ -62,8 +61,8 @@ Not all columns appear for each experiment. Some are unique to numeric or conver
 The list below explains what each column means:
 
 - **Variation**: Which flag variation's data is shown in the row
-- **Conversions / unique visitors**: How many unique visitors take action based on the variation they see, relative to the total number of users who views the page. For click experiments, this means the denominator is the number of views matching the URL specified in the click metric UI.
-- **Conversion rate**: The percentage of users who take action based on the variation they see, relative to the total number of unique visitors who encounter the flag variation.
+- **Conversions / unique users**: How many unique users take action based on the variation they see, relative to the total number of users who views the page. For click experiments, this means the denominator is the number of views matching the URL specified in the click metric UI.
+- **Conversion rate**: The percentage of users who take action based on the variation they see, relative to the total number of unique users who encounter the flag variation.
 - **Total events**: The number of times the metric connected to this flag variation has been evaluated. The **total events** column only updates when the metric associated with the flag variation registers an event. This is **not** the total number of times the flag variation has ever been evaluated.
 - **Average**: The average numeric value this flag variation returns.
 - **Confidence interval**: A range of values between which the actual value for the conversion rate likely falls. A smaller confidence interval equates a more confident prediction. For example, a confidence interval of 11%-13% is more reliable than a confidence interval of 10%-30%.
@@ -72,9 +71,9 @@ The list below explains what each column means:
 
 ## Understanding conversions
 
-LaunchDarkly uses `variation` calls to correlate conversions and impressions within a 24-hour window. If there are more than 24 hours between the time of a `variation` call and a `track` call on a user key, then LaunchDarkly does not register them in the experiment.
+LaunchDarkly uses `variation` calls to correlate conversions and unique user impressions within a 24-hour window. If there are more than 24 hours between the time of a `variation` call and a `track` call on a user key, then LaunchDarkly does not register them in the experiment.
 
-If you want to correlate conversions and impressions that occur more than 24 hours apart, call `variation` again so LaunchDarkly registers them as part of the experiment.
+If you want to correlate conversions and unique user impressions that occur more than 24 hours apart, call `variation` again so LaunchDarkly registers them as part of the experiment.
 
 If a user sees multiple variations before a conversion, the conversion is attributed to the variation the user saw most recently.
 
@@ -99,7 +98,7 @@ After you determine a winning variation, you can roll the winning variation out 
 <CalloutTitle>Consider pausing an experiment after you choose a winning variation</CalloutTitle>
 <CalloutDescription>
 
-If you're done with an experiment and have rolled the winning variation to your user base, it might be a good time to pause your experiment. Experiments on a userbase that only sees one flag variation do not return useful results. Pausing an experiment retains all the data collected so far. To learn more, read [Managing experiments](/home/experimentation).
+If you're done with an experiment and have rolled the winning variation to your user base, it might be a good time to stop your experiment. Experiments on a userbase that only sees one flag variation do not return useful results. Stopping an experiment retains all the data collected so far. To learn more, read [Managing experiments](/home/experimentation).
 
 </CalloutDescription>
 </Callout>

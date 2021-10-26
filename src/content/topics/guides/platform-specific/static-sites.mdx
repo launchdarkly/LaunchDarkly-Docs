@@ -103,7 +103,7 @@ Feature flags can give developers more control over the features they create.
 
 ## Best practices for using feature flags with static sites
 
-[LaunchDarkly SDKs](/sdk) can operate on a server or on a client. Static sites must use the [LaunchDarkly client-side JavaScript SDK](https://docs.launchdarkly.com/sdk/client-side/javascript).
+[LaunchDarkly SDKs](/sdk) can operate on a server or on a client. Static sites must use the [LaunchDarkly client-side JavaScript SDK](/sdk/client-side/javascript).
 
 Code referencing feature flags on your static site will fail if a user has JavaScript turned off on their browser.
 
@@ -424,7 +424,7 @@ export default HooksDemo;
 </CodeTabItem>
 </CodeTabs>
 
-This example uses [React hooks](https://reactjs.org/docs/hooks-intro.html). If you are using a version of React without hooks support, you can use the higher-order component [`withLDConsumer`](https://docs.launchdarkly.com/sdk/client-side/react#withldconsumer) instead:
+This example uses [React hooks](https://reactjs.org/docs/hooks-intro.html). If you are using a version of React without hooks support, you can use the higher-order component [`withLDConsumer`](/sdk/client-side/react/react-web#withldconsumer) instead:
 
 <CodeTabs
   defaultValue="js"
@@ -571,12 +571,12 @@ These strategies include:
 - Host your site from a CDN.  A CDN will bring your site closer to the user and hopefully improve your site's perceived performance.
 
 <Callout intent="primary">
-  <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
 
 Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in quick start guide. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
 
 Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>

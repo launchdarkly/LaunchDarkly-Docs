@@ -28,6 +28,7 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 Here are the configuration options for user entities in client-side SDKs.
 
+* [.NET (client-side)](#net-client-side)
 * [Android](#android)
 * [C/C++ (client-side)](#cc-client-side)
 * [Flutter](#flutter)
@@ -37,7 +38,123 @@ Here are the configuration options for user entities in client-side SDKs.
 * [React](#javascript): The React SDK relies on the JavaScript SDK for user-related functionality.
 * [React Native](#react-native)
 * [Roku](#roku)
-* [Xamarin](#xamarin)
+
+### .NET (client-side)
+
+Feature flag targeting and rollouts are determined by the *user* you pass to your `Identify` call. In the client-side .NET SDK, you can construct a simple `User` that only has a key by calling `User.WithKey`, or use `User.Builder` which allows setting all properties.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+LDUser user = User.Builder("aa0ceb")
+    .FirstName("Ernestina")
+    .LastName("Evans")
+    .Email("ernestina@example.com")
+    .Custom("group", "admins")
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Let's walk through this snippet. The argument to `Builder` is the user's key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+
+All of the other attributes (set by calls to `FirstName`, `LastName`, `Email`, and `Custom` attributes) are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
+
+In addition to the built-in attributes defined in the `User` class, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
+
+<Callout intent="info">
+  <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutDescription>
+
+Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans, or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, the value is interpreted as one. The client-side .NET SDK is strongly-typed, so be aware of this distinction.
+
+</CalloutDescription>
+</Callout>
+
+Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to us becomes available on your dashboard.
+
+#### Private user attributes in the client-side .NET SDK
+
+You can optionally configure the client-side .NET SDK to treat some or all user attributes as [private user attributes](/home/users/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+
+In the client-side .NET SDK there are two ways to define private attributes for the entire LaunchDarkly client:
+
+- When creating the LaunchDarkly `Configuration` object, you can call the `AllAttributesPrivate` method, which takes in a boolean parameter. If `true`, all user attributes except the key for all users are removed before the SDK sends the user to LaunchDarkly.
+- When creating the LaunchDarkly `Configuration` object, you can call the `PrivateAttributeName` method, which takes in a string attribute nameas a parameter and adds it to an internally managed list of private attributes. This method may be called multiple times to mark additional attributes as private. If any user has a custom or built-in attribute named in the private attributes list, it are removed before the SDK sends the user to LaunchDarkly.
+
+You can also mark attributes as private when building the user object by calling `AsPrivateAttribute()` immediately after setting the attribute.
+
+For example:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+var user = User.Builder("aa0ceb")
+    .Email("test@example.com").AsPrivateAttribute()
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+When this user is sent back to LaunchDarkly, the `email` attribute is omitted.
+
+#### Anonymous users in the client-side .NET SDK
+
+You can distinguish logged-in users from anonymous users in the SDK, as follows:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+LDUser user = User.Builder("aa0ceb")
+    .Anonymous(true)
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+
+We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+
+In Android or iOS, you can also allow the SDK to create a key for an anonymous user based on a unique device identifier as defined by the [DeviceInfo](https://github.com/jamesmontemagno/DeviceInfoPlugin) Xamarin plugin. It will do so if you set the key to null and set the anonymous flag:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+LDUser user = User.Builder((string)null).Anonymous(true).Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ### Android
 
@@ -88,7 +205,7 @@ In addition to built-in attributes like names and email addresses, you can pass 
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes like names and email addresses expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans, or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, the value is interpreted as one. The Android SDK is strongly typed, so be aware of this distinction.
+Most of LaunchDarkly's built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans, or numbers. If you enter a custom value on the LaunchDarkly dashboard that looks like a number or a boolean, the value is interpreted as a number or a boolean. The Android SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
@@ -338,7 +455,7 @@ In addition to built-in attributes like names and email addresses, you can pass 
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes like names and e-mail addresses expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans or numbers. Custom attribute values in the Flutter SDK use the `LDValue` class to support the various underlying types for the values. If you enter a custom value on our dashboard that looks like a number or a boolean, it is interpreted that way. The Flutter SDK is strongly typed, so be aware of this distinction.
+Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans or numbers. Custom attribute values in the Flutter SDK use the `LDValue` class to support the various underlying types for the values. If you enter a custom value on our dashboard that looks like a number or a boolean, it is interpreted that way. The Flutter SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
@@ -900,7 +1017,7 @@ Private attributes allow you to specify keys you do not want to send to the Laun
 
 #### Anonymous user attributes in the React Native SDK
 
-The `anonymous` key lets you distinguish logged out or unregistered users while still using LaunchDarkly. Anonymous users work just like regular users, except that they do not appear on your Users page in LaunchDarkly. This prevents unauthenticated users from diluting useful data on the User dashboard.
+The `anonymous` key lets you distinguish logged out or unregistered users while still using LaunchDarkly. Anonymous users work just like regular users, except that they do not appear on your Users page in LaunchDarkly. This prevents unauthenticated users from diluting useful data on the Users dashboard.
 
 You can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. If you use the same user key for every anonymous user, you also can't use percentage rollouts or Experimentation with anonymous users.
 
@@ -994,129 +1111,11 @@ user.setAnonymous(Boolean)
 </CodeTabItem>
 </CodeTabs>
 
-### Xamarin
-
-Feature flag targeting and rollouts  are determined by the *user* you pass to your `Identify` call. In the Xamarin SDK, you can construct a simple `User` that only has a key by calling `User.WithKey`, or use `User.Builder` which allows setting all properties.
-
-Here's an example:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-LDUser user = User.Builder("aa0ceb")
-    .FirstName("Ernestina")
-    .LastName("Evans")
-    .Email("ernestina@example.com")
-    .Custom("group", "admins")
-    .Build();
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Let's walk through this snippet. The argument to `Builder` is the user's key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes (set by calls to `FirstName`, `LastName`, `Email`, and `Custom` attributes) are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-In addition to the built-in attributes defined in the `User` class, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
-
-<Callout intent="info">
-  <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
-<CalloutDescription>
-
-Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans, or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, the value is interpreted as one. The Xamarin SDK is strongly typed, so be aware of this distinction.
-
-</CalloutDescription>
-</Callout>
-
-Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to us becomes available on your dashboard.
-
-#### Private user attributes in the Xamarin SDK
-
-You can optionally configure the Xamarin SDK to treat some or all user attributes as [private user attributes](/home/users/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
-
-In the Xamarin SDK there are two ways to define private attributes for the entire LaunchDarkly client:
-
-- When creating the LaunchDarkly `Configuration` object, you can call the `AllAttributesPrivate` method, which takes in a boolean parameter. If `true`, all user attributes except the key for all users are removed before the SDK sends the user to LaunchDarkly.
-- When creating the LaunchDarkly `Configuration` object, you can call the `PrivateAttributeName` method, which takes in a string attribute nameas a parameter and adds it to an internally managed list of private attributes. This method may be called multiple times to mark additional attributes as private. If any user has a custom or built-in attribute named in the private attributes list, it are removed before the SDK sends the user to LaunchDarkly.
-
-You can also mark attributes as private when building the user object by calling `AsPrivateAttribute()` immediately after setting the attribute.
-
-For example:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-var user = User.Builder("aa0ceb")
-    .Email("test@example.com").AsPrivateAttribute()
-    .Build();
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-When this user is sent back to LaunchDarkly, the `email` attribute is omitted.
-
-#### Anonymous users in the Xamarin SDK
-
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-LDUser user = User.Builder("aa0ceb")
-    .Anonymous(true)
-    .Build();
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
-
-We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
-
-In Android or iOS, you can also allow the SDK to create a key for an anonymous user based on a unique device identifier as defined by the [DeviceInfo](https://github.com/jamesmontemagno/DeviceInfoPlugin) Xamarin plugin. It will do so if you set the key to null and set the anonymous flag:
-
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-LDUser user = User.Builder((string)null).Anonymous(true).Build();
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## Server-side SDKs
 
 Here are the configuration options for user entities in server-side SDKs:
 
-* [.NET](#net)
+* [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
 * [Erlang](#erlang)
@@ -1128,7 +1127,7 @@ Here are the configuration options for user entities in server-side SDKs:
 * [Python](#python)
 * [Ruby](#ruby)
 
-### .NET
+### .NET (server-side)
 
 Feature flag targeting and rollouts are determined by the *user* you pass to your `variation` calls. In the .NET SDK, the [`User`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.User.html) class has a `WithKey` method for creating a simple user with only a key, and a `Builder` method for building a user with other properties. Here's an example:
 
@@ -1164,7 +1163,7 @@ In addition to the built-in attributes defined in the `User` class, you can pass
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or objects. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. If you enter a custom value that looks like a number or a boolean, it is interpreted that way. The .NET SDK is strongly typed, so be aware of this distinction.
+Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or objects. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. If you enter a custom value that looks like a number or a boolean, it is interpreted that way. The .NET SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
@@ -1683,7 +1682,7 @@ Most of our built-in attributes (like names and e-mail addresses) expect string 
 
 In SDK versions 4.16.0 and later, these types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value) type; earlier versions use the catch-all Go type `interface{}`.
 
-If you enter a custom value that looks like a number or a boolean, it is interpreted that way. The Go SDK is strongly typed, so be aware of this distinction.
+If you enter a custom value that looks like a number or a boolean, it is interpreted that way. The Go SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
@@ -2055,7 +2054,7 @@ Our Javadoc for [LDUser.Builder](http://launchdarkly.github.io/java-server-sdk/c
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes, like names and e-mail addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans or numbers. If you enter a custom value that looks like a number or a boolean, it is interpreted that way. The Java SDK is strongly typed, so be aware of this distinction.
+Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans or numbers. If you enter a custom value that looks like a number or a boolean, it is interpreted that way. The Java SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
@@ -2344,7 +2343,7 @@ In addition to these, you can pass us any of your own user data by passing `cust
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The PHP SDK is strongly typed, so be aware of this distinction.
+Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The PHP SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>

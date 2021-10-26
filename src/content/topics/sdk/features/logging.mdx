@@ -20,11 +20,20 @@ LaunchDarkly SDKs rely on built-in logging packages and libraries to track event
 
 This feature is available in the following client-side SDKs:
 
+* [.NET (client-side)](#net-client-side)
 * [Android](#android)
 * [Electron](#electron)
 * [Node.js (client-side)](#nodejs-client-side)
 * [Roku](#roku)
-* [Xamarin](#xamarin)
+
+### .NET (client-side)
+
+The client-side .NET SDK uses the `Common.Logging` framework. For an example configuration, read the [Common.Logging README](https://github.com/net-commons/common-logging#2-register-and-configure-commonlogging).
+
+Be aware of two considerations before you enable the DEBUG log level:
+
+1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
+2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
 
 ### Android
 
@@ -296,20 +305,11 @@ config.setLoggerNode(myLoggerNode)
 </CodeTabItem>
 </CodeTabs>
 
-### Xamarin
-
-The Xamarin SDK uses the `Common.Logging` framework. For an example configuration, read the [Common.Logging README](https://github.com/net-commons/common-logging#2-register-and-configure-commonlogging).
-
-Be aware of two considerations before you enable the DEBUG log level:
-
-1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
-2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
-
 ## Server-side SDKs
 
 This feature is available in the following server-side SDKs:
 
-* [.NET](#net)
+* [.NET (server-side)](#net-server-side)
 * [C/C++ (server-side)](#cc-server-side)
 * [Go](#go)
 * [Java](#java)
@@ -318,7 +318,7 @@ This feature is available in the following server-side SDKs:
 * [Python](#python)
 * [Ruby](#ruby)
 
-### .NET
+### .NET (server-side)
 
 The .NET SDK has four logging levels: `Debug`, `Info`, `Warn`, and `Error`. By default, the lowest enabled level is `Info`, so `Debug` messages are hidden. Be aware of two considerations if you enable the `Debug` level:
 

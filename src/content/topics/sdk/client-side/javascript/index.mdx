@@ -1,11 +1,13 @@
 ---
 path: '/sdk/client-side/javascript'
 title: 'JavaScript SDK reference'
-description: 'This reference guide documents all of the methods available in the client-side JavaScript SDK, and explains in detail how these methods work. Additionally you can clone and run a sample application using this SDK.'
+description: 'This reference guide documents all of the methods available in the client-side JavaScript SDK, and explains in detail how these methods work. You can also try this SDK out by cloning and running a sample application using this SDK.'
 published: true
 ---
 
-This reference guide documents all of the methods available in the client-side JavaScript SDK, and explains in detail how these methods work. If you want to dig even deeper, our SDKs are open source. To learn more, read [JavaScript SDK GitHub repository](https://github.com/launchdarkly/js-client-sdk). The online [API docs](https://launchdarkly.github.io/js-client-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run a [sample application](https://github.com/launchdarkly/hello-js) using this SDK.
+## Overview
+
+This reference guide documents all of the methods available in the client-side JavaScript SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read [JavaScript SDK GitHub repository](https://github.com/launchdarkly/js-client-sdk). The online [API docs](https://launchdarkly.github.io/js-client-sdk/) contain the programmatic definitions of every type and method. You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-js).
 
 <Callout intent="alert">
 <CalloutTitle>For client-side JavaScript only</CalloutTitle>
@@ -38,7 +40,7 @@ The JavaScript SDK respects the [Do Not Track events](https://www.eff.org/issues
 
 ## Getting started
 
-Building on top of our [Getting Started guide](/home/getting-started), the following steps will get you started with using the LaunchDarkly SDK in your JavaScript code.
+After you complete the [Getting Started process](/home/getting-started), follow these instructions to start using the LaunchDarkly SDK in your JavaScript code.
 
 The first step is to make the LaunchDarkly SDK available as a dependency. There are two ways to make our JavaScript SDK available: as a module with a package manager, or with a `script` tag.
 
@@ -107,53 +109,52 @@ In earlier versions of the SDK, the package was named `ldclient-js` instead of `
 
 To load our JavaScript SDK as a script tag, include one of the following in the `<head>` tag of your site on any pages where you need feature flags or want to track A/B testing goals.
 
-Note that script tags with sources from unpkg and jsdelivr are not intended to be used on production environments as these introduce a critical dependency on a third-party service. The unpkg and jsdelivr scripts are intended to be used only for ease of development and getting started. In production environments, it is highly recommended that the LaunchDarkly SDK is self-hosted alongside your other JavaScript resources.
+<Callout intent="alert">
+<CalloutTitle>Do not use script tags from unpkg or jsDelivr in production</CalloutTitle>
+<CalloutDescription>
+
+ The `script` tag in the self-hosted example below references a script which is deployed alongside other JavaScript resources in your application. We recommend that you use this method in production.
+
+ Do not use script tags with sources from unpkg and jsDelivr in production environments. These introduce a critical dependency on a third-party service. The unpkg and jsDelivr scripts are intended to be used only for ease of development and getting started.
+
+ In production environments, we strongly recommend that the LaunchDarkly SDK is self-hosted alongside your other JavaScript resources.
+
+</CalloutDescription>
+</Callout>
 
 Here is an example of code to include in the `<head>` tag of your site:
 
 <CodeTabs
-  defaultValue="unpkg"
+  defaultValue="self"
   values={[
-    { label: 'Loading from unpkg', value: 'unpkg', },
-    { label: 'Loading from jsdelivr', value: 'jsdelivr', },
     { label: 'Loading from a self-hosted script', value: 'self', },
+    { label: 'Loading from unpkg', value: 'unpkg', },
+    { label: 'Loading from jsDelivr', value: 'jsDelivr', },
   ]
 }>
-<CodeTabItem value="unpkg">
-
-```bash
-<!-- The script tag shown here automatically updates to the
-     newest release that has a major version of 2. A minor
-     version can be specified by including it in the url.
-     See https://unpkg.com for additional examples and information.
-
-     This method is not recommended for production use. -->
-<script crossorigin="anonymous" src="https://unpkg.com/launchdarkly-js-client-sdk@2"></script>
-
-```
-
-</CodeTabItem>
-<CodeTabItem value="jsdelivr">
-
-```bash
-<!-- The script tag shown here automatically updates to the
-     newest release that has a major version of 2. A minor
-     version can be specified by including it in the url.
-     See https://jsdelivr.com for additional examples and information.
-
-     This method is not recommended for production use. -->
-<script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/launchdarkly-js-client-sdk@2"></script>
-
-```
-
-</CodeTabItem>
 <CodeTabItem value="self">
 
 ```bash
-<!-- The script tag shown here references a self-hosted script
-     which is deployed alongside other JavaScript resources in your
-     application. This method is recommended for production use. -->
+
 <script src="path/to/ldclient.min.js"></script>
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="unpkg">
+
+```bash
+
+<script crossorigin="anonymous" src="https://unpkg.com/launchdarkly-js-client-sdk@<EXAMPLE-VERSION>"></script>
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="jsDelivr">
+
+```bash
+
+<script crossorigin="anonymous" src="https://cdn.jsDelivr.net/npm/launchdarkly-js-client-sdk@<EXAMPLE-VERSION>"></script>
 
 ```
 

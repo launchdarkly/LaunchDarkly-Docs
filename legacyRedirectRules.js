@@ -881,12 +881,16 @@ module.exports = [
     toPath: '/sdk/client-side/react/react-native',
   },
   {
+    fromPath: '/sdk/client-side/xamarin',
+    toPath: '/sdk/client-side/dotnet',
+  },
+  {
     fromPath: '/docs/roku-sdk-reference',
     toPath: '/sdk/client-side/roku',
   },
   {
     fromPath: '/docs/xamarin-sdk-reference',
-    toPath: '/sdk/client-side/xamarin',
+    toPath: '/sdk/client-side/dotnet',
   },
   {
     fromPath: '/sdk/server-side/lua/nginx',

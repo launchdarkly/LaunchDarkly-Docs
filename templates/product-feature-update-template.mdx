@@ -1,0 +1,42 @@
+<!--
+
+This template is to help you updating an existing topic in LD's documentation. You might be adding a new section, expanding an existing section, or updating a screenshot. This is a less copy-and-pastable template than our other ones, so read through the section that applies to your updates and follow the prompts there.
+
+-->
+
+## Adding a new section
+
+To add a new section to an existing topic, denote it with a `##` or `###` header.
+
+Headers should usually start with gerunds ("-ing" verbs, like "Setting up," "Configuring," "Removing," or "Authorizing"). If you can't start a header with a verb, don't panic--this is a strong preference, but not a strict requirement.
+
+After the header, explain what you're documenting in a brief paragraph. At the very least, it should be a stem sentence ("Here is how to...:") that tells the reader what the procedure they're going to read will teach them to do.
+
+When you write the procedure, start every step with a verb. Include screenshots where necessary, but err on the side of fewer screenshots. When it comes to screenshots, less is more.
+
+Here's an example:
+
+  ## Setting up FEATURE NAME
+
+  Here is how to set up FEATURE NAME:
+
+  1. Start every step in a procedure with a verb.
+  2. Continue to start steps with verbs.
+
+  ![Here is an example alt-text caption explaining what the screenshot depicts.](../../images/UI-ELEMENT-BEHAVIOR.png)
+
+## Updating an existing section
+
+When you update existing docs, think about what's changed:
+
+* Do you need to update a procedure? Have the interactions, field names, or other **UI elements** changed?
+* Do you need to elaborate on what's new in the frontmatter? For example, is there a new use case that you should explain in the **Overview** section?
+* Do you need to remove anything? For example, callouts that mark a feature beta, EAP, or for certain pricing plan tiers?
+
+## Changing a screenshot
+
+Screenshots live in the /images/ directory. Screenshots should be either .PNGs or .GIFs.
+
+If you need to add a new screenshot, name it following this convention: `location-feature-behavior` and, if applicable, `callout`. Use `callout` to indicate you've marked up the file in some way, like highlighting a field. For example: `settings-sso-enable.png` or `settings-sso-enable-callout.png`.
+
+If you need to update an existing screenshot, keep the name the same and just replace the original screenshot file with the updated one. If you change the screenshot name, be sure to find and replace it everywhere in the site, or links to the old screenshot will break.

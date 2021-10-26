@@ -17,7 +17,7 @@ Secure mode works by having you configure your JavaScript SDK to include a serve
 
 Each of our server-side SDKs includes a method to compute the secure mode hash for a user. You can pass this to your front-end code with the mechanism of your choice, such as bootstrapping or as a template variable.
 
-You can enable secure mode for each environment in your LaunchDarkly account's [Account Settings](https://app.launchdarkly.com/settings/projects). Secure mode is an environment-wide setting. Enabling it requires every request coming from a client-side SDK to contact the back end to evaluate flag variations.
+You can enable secure mode for each environment in your LaunchDarkly account's [Account Settings](https://app.launchdarkly.com/settings/projects). Secure mode is an environment-wide setting. Enabling it requires every request coming from a client-side JavaScript SDK to contact the back end to evaluate flag variations. You can enable secure mode for your environment even if you're also using mobile SDKs that don't support it. Enabling secure mode does not cause those SDKs to fail.
 
 <Callout intent="info">
 <CalloutTitle>Enable secure mode during initial setup</CalloutTitle>
@@ -32,7 +32,7 @@ You can enable secure mode at any time when you use LaunchDarkly SDKs. As a best
 
 You can use the following server-side SDKs to generate a secure mode hash:
 
-* [.NET](#net)
+* [.NET (server-side)](#net-server-side)
 * [Go](#go)
 * [Java](#java)
 * [Node.js (server-side)](#nodejs-server-side)
@@ -40,7 +40,7 @@ You can use the following server-side SDKs to generate a secure mode hash:
 * [Python](#python)
 * [Ruby](#ruby)
 
-### .NET
+### .NET (server-side)
 
 The [`SecureModeHash`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_SecureModeHash_) method computes an HMAC signature of a user signed with the client's SDK key.
 
@@ -215,15 +215,16 @@ hash = hmac.digest('hex');
 
 ## Configuring secure mode in the JavaScript client-side SDK
 
-You should send the computed secure mode hash for your user as the [`hash` attribute](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldoptions.html#hash) in the `LDOptions` object during client initialization:
+You should send the computed secure mode hash for your user as the [`hash` attribute](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldoptions.html#hash) in the `LDOptions` object during client initialization and as the [`hash` parameter](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldclient.html#identify) if subsequently identifying new user contexts:
 
 <CodeTabs
-  defaultValue="js"
+  defaultValue="init"
   values={[
-    { label: 'JavaScript', value: 'js', },
+    { label: 'JavaScript initialization', value: 'init', },
+    { label: 'JavaScript identify', value: 'identify', },
   ]
 }>
-<CodeTabItem value="js">
+<CodeTabItem value="init">
 
 ```js
 var client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
@@ -231,6 +232,16 @@ var client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
 });
 ```
 
+</CodeTabItem>
+<CodeTabItem value="identify">
+
+```js
+client.identify(newUser, hash, function() {
+  console.log("New user's flags available");
+});
+```
 
 </CodeTabItem>
 </CodeTabs>
+
+To use secure mode, user objects must contain a predefined `key` attribute. Secure mode is not compatible with the SDK's ability to [automatically generate user keys for anonymous users](/sdk/features/user-config#anonymous-users-in-the-javascript-sdk) because the SDK needs a correctly calculated `hash` value.

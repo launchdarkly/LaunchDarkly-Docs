@@ -30,6 +30,7 @@ Before you implement this feature, read [Understanding the all flags feature](#u
 
 This feature is available in the following client-side SDKs:
 
+* [.NET (client-side)](#net-client-side)
 * [Android](#android)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -37,7 +38,25 @@ This feature is available in the following client-side SDKs:
 * [Node.js](#nodejs-client-side)
 * [React Native](#react-native)
 * [Roku](#roku)
-* [Xamarin](#xamarin)
+
+### .NET (client-side)
+
+The `AllFlags` method produces a map of feature flag keys to their values for the current user:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+client.AllFlags();
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ### Android
 
@@ -182,32 +201,13 @@ allFlags = launchDarkly.allFlags()
 </CodeTabItem>
 </CodeTabs>
 
-### Xamarin
-
-The `AllFlags` method produces a map of feature flag keys to their values for the current user:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-client.AllFlags();
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## Server-side SDKs
 
 Before you implement this feature, read [Understanding the all flags feature](#understanding-the-all-flags-feature).
 
 This feature is available in the following server-side SDKs:
 
-* [.NET](#net)
+* [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++](#cc-server-side)
 * [Erlang](#erlang)
@@ -220,7 +220,7 @@ This feature is available in the following server-side SDKs:
 * [Python](#python)
 * [Ruby](#ruby)
 
-### .NET
+### .NET (server-side)
 
 The [`AllFlagsState`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_AllFlagsState_) method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
 

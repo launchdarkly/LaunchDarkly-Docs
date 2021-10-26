@@ -1,0 +1,115 @@
+---
+path: '/integrations/zendesk'
+title: 'Zendesk'
+description: 'This topic explains how to set up and use the LaunchDarkly Zendesk integration.'
+published: true
+---
+
+<Callout intent="primary">
+<CalloutTitle>The Zendesk integration is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+The Zendesk integration is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="info">
+<CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+The Zendesk integration is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://docs.google.com/forms/d/e/1FAIpQLScJ5qCC_RZTW9pPSXVZk9HaKzpltNAeoQb2t6gh7dLicwQWQQ/viewform).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to set up and use the LaunchDarkly Zendesk integration.
+
+The LaunchDarkly Zendesk app gives you a read-only view of your feature flags. You can see the flag variations LaunchDarkly serves to your customers without leaving Zendesk. This is useful for customer success and support teams working with customers to debug issues or access new features.
+
+![The Zendesk ticket page with the LaunchDarkly integration enabled.](../images/zendesk-ticket-sidebar.png)
+
+## Prerequisites
+
+In order to install and configure the LaunchDarkly Zendesk integration, you must have the following prerequisites:
+
+* A LaunchDarkly Enterprise plan
+* A Zendesk account with "admin" role privileges
+
+## Setting up the LaunchDarkly Zendesk integration
+
+<Callout intent="info">
+<CalloutTitle>Open LaunchDarkly and Zendesk</CalloutTitle>
+<CalloutDescription>
+
+You need your LaunchDarkly project and environment keys to set up the app. Keep your LaunchDarkly account open in a separate browser tab during setup to easily access your keys.
+
+</CalloutDescription>
+</Callout>
+
+### Installing the LaunchDarkly application from Zendesk Marketplace
+
+1. Navigate to the Zendesk Marketplace.
+2. Search for the LaunchDarkly application. Click to the LaunchDarkly application page.
+3. Click **Install**. A popup appears.
+4. Select the Zendesk account you would like to install the LaunchDarkly integration to and click **Install**.
+
+### Configuring the user key field
+
+To display the specific flag variations served to a given Zendesk user, LaunchDarkly requires you to set the corresponding LaunchDarkly user key. This requires you to set a custom LaunchDarkly user key field on your Zendesk User.
+
+Alternatively, if you target feature flags based on organizations rather than individual users, you can set the LaunchDarkly user key as a custom Organization field in Zendesk.
+
+For more information, read the [Zendesk documentation on custom field types](https://support.zendesk.com/hc/en-us/articles/203661866-About-custom-field-types).
+
+To add a Zendesk custom User Field:
+
+1. Click the Admin gear icon in the left sidebar.
+2. Under Manage, select **User Fields**:
+
+![The Admin screen with the User Fields menu item out.](../images/zendesk-manage-user-fields-callout.png)
+
+3. Select the **Text** custom field type on the right and drag it to the active fields area. Alternatively, click the **+** beside the "Text" field type, then drag and drop the field into the order you would like it to appear in each User profile.
+4. Enter a Field title shown to agents and a Field key in the properties panel on the right. These can be anything you want, but they should be descriptive enough for your agents to recognize them as LaunchDarkly User Keys. Save the field key for the next section.
+5. Click **Create field**. The field now shows on all user profiles.
+
+To add a Zendesk custom Organization Field:
+
+1. Click the Admin gear icon in the left sidebar.
+2. Under Manage, select **Organization Fields**.
+3. Select the **Text** custom field type on the right and drag it to the active fields area. Alternatively, click the **+** beside the "Text" field type, then drag and drop the field into the order you would like it to appear in each Organization profile.
+4. Enter a Field title shown to agents and a Field key in the properties panel on the right. These can be anything you want, but they should be descriptive enough for your agents to recognize as  LaunchDarkly User Keys. Save the field key for the next section.
+5. Click **Create field**. The field now shows on all organization profiles.
+
+### Configuring your LaunchDarkly application
+
+1. From your Zendesk account, click on the Admin gear icon in the left sidebar.
+2. Under Apps, select **Manage**.
+3. Select the LaunchDarkly application:
+
+![The LaunchDarkly application configuration page in Zendesk, configured with sample settings.](../images/zendesk-app-configuration.png)
+
+4. Enter the LaunchDarkly project and environment keys that you want to see customers' flag variations for.
+5. Add any optional tags you would like to use to filter the feature flags displayed.
+6. If you added the LaunchDarkly user key as a custom Organization field, check the box next to "LaunchDarkly user key is an Organization field." Otherwise, leave it blank.
+7. Enter the field key you defined in step 4 of the previous section into the LaunchDarkly user key field.
+8. Select whether or not you would like to enable role or group restrictions.
+9. Under OAuth Authentication, click **Authorize with LaunchDarkly**. A new tab opens.
+10. Click **Authorize**. You are returned to the integration configuration page.
+11. Click **Update** to save your settings.
+
+## Troubleshooting
+
+Here are some errors you may encounter and suggested solutions:
+
+### There is a warning icon next to the Variation header
+
+The warning ⚠️ icon next to the "Variation" header on the flag table indicates that LaunchDarkly has not observed any flag evaluations for this user in the past 30 days.
+
+Unless the user is new or inactive, you may have entered an incorrect value in the **User key** field. You can find user keys on the LaunchDarkly Users dashboard in the **Key** column. To learn more, read [The Users dashboard](/home/managing-users/users-dashboard).
+
+### "Error: LaunchDarkly user key not found"
+
+This error indicates that the **User key field** has been incorrectly configured. Review the [Configuring the user key field](#configuring-the-user-key-field) section to ensure you have set it up correctly and that it is populated on the Zendesk User profile associated with the ticket you are viewing.

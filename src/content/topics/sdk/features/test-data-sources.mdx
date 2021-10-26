@@ -1,0 +1,268 @@
+---
+path: '/sdk/features/test-data-sources'
+title: 'Test data sources'
+description: 'This topic explains how to use the test data source feature for more control over your LaunchDarkly SDKs during testing.'
+published: true
+---
+
+## Overview
+
+This topic explains how to use the test data source feature for more control over your LaunchDarkly SDKs during testing.
+
+## Using test data sources
+
+LaunchDarkly SDKs must have a data source when they initialize. Usually, this data source is connected to LaunchDarkly. However, when you write unit tests, using a test data source can give you more control over your SDK.
+
+LaunchDarkly supports a test data source for server-side SDKs. The test data source allows you to mock the behavior of a LaunchDarkly SDK so it has predictable behavior when evaluating flags.
+
+<Callout intent="alert">
+<CalloutTitle>Use the test data source for testing only</CalloutTitle>
+<CalloutDescription>
+
+The test data source is intended strictly for testing purposes. It cannot be used in production.
+
+</CalloutDescription>
+</Callout>
+
+You can set a flag's initial state by calling the data source's `update` method before or after starting the client. When you start the client, it acts as if it has connected to LaunchDarkly and received all of the test data that you have configured. Subsequent calls to `update` behave as if LaunchDarkly sent an update over a streaming connection.
+
+You can modify targeting rules at any time, including when the SDK is already in use. This allows you to simulate a situation where a feature flag changes values. When you set a flag's state in the test data source, you can either set it to return a single variation for all users, or set up more complicated behavior similar to the ways you can configure a flag in the LaunchDarkly dashboard. This can be useful in testing application code that expects flags to be different for different users.
+
+Details about each SDK's configuration are available in the SDK-specific sections below.
+
+## Server-side SDKs
+
+This feature is available in the following server-side SDKs:
+
+* [.NET (server-side)](#net-server-side)
+* [Go](#go)
+* [Java](#java)
+
+### .NET (server-side)
+
+To configure the SDK to use a test data source:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+<CodeTabItem value="dotnet">
+
+```csharp
+using LaunchDarkly.Sdk.Server.Integrations;
+
+var td = TestData.DataSource();
+// You can set any initial flag states here with td.Update
+
+var config = Configuration.Builder("sdk-key")
+    .DataSource(td)
+    .Build();
+var client = new LdClient(config);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To set a flag to a specific value:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+<CodeTabItem value="dotnet">
+
+```csharp
+td.Update(td.Flag("flag-key-1").VariationForAllUsers(false);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There are other ways you can configure flag behavior using a test data source. Here is an example:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+<CodeTabItem value="dotnet">
+
+```csharp
+// This flag is true for the user key "some-user-key" and false for everyone else
+td.Update(td.Flag("flag-key-2")
+    .VariationForUser("some-user-key", true)
+    .FallthroughVariation(false));
+
+// This flag returns the string variation "green" for users who have the custom
+// attribute "admin" with a value of true, and "red" for everyone else.
+td.Update(td.Flag("flag-key-3")
+    .Variations(LdValue.Of("red"), LdValue.Of("green"))
+    .FallthroughVariation(0)
+    .IfMatch(UserAttribute.ForName("admin"), LdValue.Of(true))
+    .ThenReturn(1));
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [TestData](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.TestData.html).
+
+### Go
+
+To configure the SDK to use a test data source:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/testhelpers/ldtestdata"
+    "gopkg.in/launchdarkly/go-sdk-common.v2/lduser"
+    "gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue"
+)
+
+td := ldtestdata.DataSource()
+// You can set any initial flag states here with td.Update
+
+config := ld.Config{
+    DataSource: td,
+}
+client := ld.MakeCustomClient("sdk-key", config, 0)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To set a flag to a specific value:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+td.Update(td.Flag("flag-key-1").VariationForAllUsers(false))
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There are other ways you can configure flag behavior using a test data source. Here is an example:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+// This flag is true for the user key "some-user-key" and false for everyone else
+td.Update(td.Flag("flag-key-2").
+    VariationForUser("some-user-key", true).
+    FallthroughVariation(false));
+
+// This flag returns the string variation "green" for users who have the custom
+// attribute "admin" with a value of true, and "red" for everyone else.
+td.Update(td.Flag("flag-key-3").
+    Variations(ldvalue.String("red"), ldvalue.String("green")).
+    FallthroughVariationIndex(0).
+    IfMatch(lduser.UserAttribute("admin"), ldvalue.Bool(true)).
+    ThenReturnIndex(1));
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [ldtestdata](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/testhelpers/ldtestdata).
+
+### Java
+
+To configure the SDK to use a test data source:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+using com.launchdarkly.sdk.*;
+using com.launchdarkly.sdk.server.*;
+using com.launchdarkly.sdk.server.integrations.*;
+
+TestData td = TestData.dataSource();
+// You can set any initial flag states here with td.update
+
+LDConfig config = new LDConfig.Builder()
+    .dataSource(td)
+    .build();
+LDClient client = new LDClient(sdkKey, config);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To set a flag to a specific value:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+td.update(td.flag("flag-key-1").variationForAllUsers(false));
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There are other ways you can configure flag behavior using a test data source. Here is an example:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+// This flag is true for the user key "some-user-key" and false for everyone else
+td.update(td.flag("flag-key-2")
+    .variationForUser("some-user-key", true)
+    .fallthroughVariation(false));
+
+// This flag returns the string variation "green" for users who have the custom
+// attribute "admin" with a value of true, and "red" for everyone else.
+td.update(td.flag("flag-key-3")
+    .variations(LDValue.of("red"), LDValue.of("green"))
+    .fallthroughVariation(0)
+    .ifMatch(UserAttribute.forName("admin"), LDValue.of(true))
+    .thenReturn(1));
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [TestData](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/TestData.html).

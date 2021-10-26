@@ -19,18 +19,27 @@ const ignore = [
   'https://launchdarkly.service-now.com',
   'https://cocoapods.org',
   'https://www.makeuseof.com/tag/md5-hash-stuff-means-technology-explained/',
+  'https://help.amplitude.com',
+  'https://currentmillis.com',
+  'https://support.launchdarkly.com',
+  'https://support.pendo.io',
 ]
+
+const verifyUrlRequest = (url: string) =>
+  cy.request({ url: url, retryOnStatusCodeFailure: true }).then(resp => expect(resp.status).to.eq(200))
 
 describe('Verify links', () => {
   flattenedNavigationData.forEach(({ label, allItems }) => {
     allItems
       .filter(path => path !== '/home/changelog/archive')
       .forEach(path => {
+        const skipExternal = Cypress.env('skip_external') || false
+        if (skipExternal && isExternalLink(path)) {
+          return console.log(`skipping external link: ${path}`)
+        }
         it(`${label}: ${path}`, () => {
           if (isExternalLink(path)) {
-            return cy
-              .request({ url: path, retryOnStatusCodeFailure: true })
-              .then(resp => expect(resp.status).to.eq(200))
+            return verifyUrlRequest(path)
           }
 
           cy.visit(path)
@@ -46,11 +55,18 @@ describe('Verify links', () => {
 
               const baseUrl = Cypress.config().baseUrl ?? ''
               const [pageUrl, reference] = href.split('#')
-              if (!reference || !href.startsWith(baseUrl)) {
-                // if there is no #reference or it's an external link, just test that it exists
-                return cy
-                  .request({ url: href, retryOnStatusCodeFailure: true })
-                  .then(resp => expect(resp.status).to.eq(200))
+
+              // if there is no #reference or it's an external link, just test that it exists
+              if (!href.startsWith(baseUrl)) {
+                if (skipExternal) {
+                  return cy.log(`skipping external link validation: ${href}`)
+                }
+
+                return verifyUrlRequest(href)
+              }
+
+              if (!reference) {
+                return verifyUrlRequest(href)
               }
 
               // add internal links with a #reference to a set to be tested in the next step

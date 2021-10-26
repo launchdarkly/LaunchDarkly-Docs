@@ -154,15 +154,16 @@ If any of the specified files is missing or invalid, the SDK does not use any of
 
 This feature is available in the following server-side SDKs:
 
-* [.NET](#net)
+* [.NET (server-side)](#net-server-side)
+* [Erlang](#erlang)
 * [Go](#go)
 * [Java](#java)
-* [Node.js](#nodejs-server-side)
+* [Node.js (server-side)](#nodejs-server-side)
 * [Python](#python)
 * [PHP](#php)
 * [Ruby](#ruby)
 
-### .NET
+### .NET (server-side)
 
 To configure the client:
 
@@ -209,6 +210,36 @@ var client = new LDClient(config);
 *To learn more, read [`FileData`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.FileData.html).*
 
 *If you want to use YAML instead of JSON, you must [provide a YAML parser](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.FileDataSourceBuilder.html#LaunchDarkly_Sdk_Server_Integrations_FileDataSourceBuilder_Parser_).*
+
+</CodeTabItem>
+</CodeTabs>
+
+### Erlang
+
+To configure the client:
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', },
+  ]
+}>
+<CodeTabItem value="erlang">
+
+```erlang
+  ldclient:start_instance("sdk key", #{
+    file_datasource => true,
+    send_events => false,
+    file_paths => ["file1.json", "file2.yaml"],
+    feature_store => ldclient_storage_map,
+    file_auto_update => true,
+    file_poll_interval => 1000
+  })
+
+  %% In the Erlang SDK automatic reloading uses a polling mechanism.
+  %% The default interval is 1000ms, but you can control it with
+  %% the file_poll_interval configuration.
+```
 
 </CodeTabItem>
 </CodeTabs>

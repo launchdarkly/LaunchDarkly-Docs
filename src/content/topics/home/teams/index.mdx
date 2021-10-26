@@ -31,18 +31,37 @@ In these topics, you can learn how to create teams in LaunchDarkly, add and remo
 
 ## Understanding teams in LaunchDarkly
 
-Teams are groups of your organization's members. A LaunchDarkly account administrator can give specific permissions to teams that let them perform actions on different resources, such as projects or flags, in LaunchDarkly.
+Teams are groups of your organization's members. A LaunchDarkly account administrator can give specific permissions to teams with custom roles that let them perform actions on different resources, such as projects or flags. To learn more, read [Custom roles](/home/members/custom-roles).
 
 Large organizations often need to set up fine-grained access rules and give those permissions to specific groups of people. Assigning permissions to groups of people in an organization can help make consistent security or general workflow processes. In LaunchDarkly, teams are the mechanism for enterprise organizations to do that efficiently.
 
-A team is primarily made up of two collections of data:
+A team is primarily made up of three collections of data:
 * A list of the **members** of the larger organization who are on that team.
 * A list of the **permissions** that the team's members have.
+* A list of the **team maintainers** of the larger organization who manage the team.
 
 With teams you can:
 * Easily give new members in your organization a set of custom roles by adding them to an existing team.
 * Control environment permissions at the group level, rather than individually assigning an environment's access privileges to members.
 * Map permissions in LaunchDarkly to your organizational structure. For example, you can give mobile flag permissions to the mobile team and desktop flag permissions to the desktop team, or give all organization members access to the staging environment, but only people on a particular team permissions to control flags on production.
+
+## Team maintainers
+
+An account administrator or other team maintainers can assign team maintainers to assist in team management.
+
+Team maintainers can manage teams in various ways. 
+
+They can:
+* Update the name of the team
+* Update the description of the team
+* Add and remove members from the team
+* Add and remove other team maintainers from the team
+
+Team maintainers cannot:
+* Manage the custom roles for a team
+* Inherit permissions granted by a team's custom roles, unless they are also a member of that team
+
+Adding someone as a team maintainer does not automatically make them a member of that team.
 
 ## Understanding how team roles interact with individual member roles
 
@@ -50,13 +69,7 @@ Every organization using LaunchDarkly is made up of members. Members are people 
 
 Organizations use custom roles to gain more precise control over their feature flags, experiments, or LaunchDarkly administration. Custom roles are the granular permission scopes that an Admin can set up for their organization. An individual member may have a custom role. To learn more, read [Custom roles](/home/members/custom-roles).
 
-Because a member can only have either a built-in role or custom role(s) and teams receive their permissions from custom roles, if a member has a built-in role, that role is  overridden if a custom role is assigned to that member's team.
-
-This results in the following:
-* If a member has a built-in `reader` role individually assigned to them, they can only gain more access to their LaunchDarkly project from a custom role assigned to their team.
-* If a member has a built-in `writer` or `owner / admin` role individually assigned to them, they could potentially lose access due to a team-assigned custom role. If this occurs, a warning appears to notify the admin before they save a team configuration that may restrict access. If you want the member to retain their built-in `writer` or `owner / admin` rights, create a custom role with the same permissions as these built-in roles and assign that custom role to the member before you add them to the team. To learn more and find templates you can copy when creating custom roles, read [Example policies and templates](/home/members/example-policies).
-
-![A warning in the Teams menu about potential loss of access.](../../images/teams-admin-warning.png)
+If a member belongs to one or more teams, a member's role(s), which includes either a built-in role or custom role(s), will aggregate with the custom role(s) that are applied to their team(s). Note that adding a member with a built-in `owner / admin` role will not affect their permissions since those roles can perform all actions in LaunchDarkly.
 
 A team can have one or more custom roles assigned to it. In cases where a team's custom roles have conflicting permission levels, or a team's custom role has conflicting permission levels with the permissions assigned to a member of that team, the more permissive set of permissions will be applied. For example, if a team has one custom role that allows access to a resource, and a member of that team has another custom role that restricts access to a resource, the team member will be able to access that resource.
 

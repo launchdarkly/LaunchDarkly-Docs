@@ -1,15 +1,15 @@
 ---
 path: '/integrations/new-relic/events'
-title: 'Using the New Relic events integration'
+title: 'Using the New Relic One events integration'
 description: 'This topic explains how to configure and use the LaunchDarkly New Relic One events integration.'
 published: true
 ---
 
 <Callout intent="primary">
-<CalloutTitle>The New Relic events integration is a Pro and Enterprise feature</CalloutTitle>
+<CalloutTitle>The New Relic One events integration is a Pro and Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-The New Relic events integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+The New Relic One events integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
@@ -27,7 +27,7 @@ This integration only works with a New Relic One Pro subscription. Check your su
 
 This topic explains how to use the LaunchDarkly New Relic One integration to view LaunchDarkly events in New Relic.
 
-LaunchDarkly integrates with New Relic One. LaunchDarkly sends feature flag change events to New Relic as deployment events. These events appear as new deployments in the [One console's APM Event log](https://docs.newrelic.com/docs/apm/apm-ui-pages/events/deployments-page-view-impact-your-app-users/).
+LaunchDarkly integrates with New Relic One. LaunchDarkly sends feature flag change events to New Relic One as deployment events. These events appear as new deployments in the [One console's APM Event log](https://docs.newrelic.com/docs/apm/apm-ui-pages/events/deployments-page-view-impact-your-app-users/).
 
 ## Prerequisites
 
@@ -35,13 +35,15 @@ To configure the integration, you must [create a REST API key](https://docs.newr
 
 ## Configuring LaunchDarkly to send flag change events to New Relic One
 
-To configure LaunchDarkly to send events to New Relic:
+To configure LaunchDarkly to send events to New Relic One:
 
-1. Navigate to the Integrations page and find the "New Relic" card.
-![New Relic integration](../images/new-relic-add-integration.png)
+1. Navigate to the Integrations page and find the "New Relic One" card.
+
+![The New Relic One integration card.](../images/new-relic-add-integration.png)
 
 2. Click **+ Integration**. The integration configuration sidebar appears.
-![The New Relic section of the Integrations page.](../images/new-relic-integration-panel.png)
+
+![The Create New Relic One configuration screen.](../images/new-relic-integration-panel.png)
 
 3. Give the integration a human-readable **Name**.
 
@@ -49,13 +51,13 @@ To configure LaunchDarkly to send events to New Relic:
 
 5. Paste in your [**New Relic application ID**](https://docs.newrelic.com/docs/apis/rest-api-v2/get-started/get-app-other-ids-new-relic-one/).
 
-6. Click **Save New Relic Configuration**.
+6. Click **Save Configuration**.
 
-### Adding custom policies to the New Relic integration
+### Adding custom policies to the New Relic One integration
 
-LaunchDarkly sends all flag change events in the production environment to New Relic by default. To customize the events LaunchDarkly sends to New Relic, use the policy editor in the configuration panel. To learn more about creating a policy, read [Example policies and templates](/home/members/example-policies).
+LaunchDarkly sends all flag change events in the production environment to New Relic One by default. To customize the events LaunchDarkly sends to New Relic One, use the policy editor in the configuration panel. To learn more about creating a policy, read [Example policies and templates](/home/members/example-policies).
 
-![Policy editor](../images/new-relic-policy-editor.png)
+![The policy editor.](../images/new-relic-policy-editor.png)
 
 ## Accessing LaunchDarkly events in New Relic One
 

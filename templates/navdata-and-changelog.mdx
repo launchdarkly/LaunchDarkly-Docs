@@ -1,0 +1,48 @@
+## Updating navigationData.json
+
+Add a navigationData entry when you:
+* Publish a new topic you wish to appear in the left side navigation in the docs site.
+
+### Example navigationData.json entry
+
+```
+          {
+            "label": "Example topic title",
+            "path": "/example/filepath"
+          },
+```
+
+If your topic has sub-items, include them in a list:
+
+```
+          {
+            "label": "Example topic title",
+            "path": "/example/filepath",
+            "items": [
+                {
+                "label": "Example list item",
+                "path": "/example/filepath/list-item"
+                },
+                {
+                "label": "Example list item 2",
+                "path": "/example/filepath/list-item-2"
+                }
+            ]
+          },
+```
+
+## Updating the changelog
+
+Add a changelog entry when you:
+* Publish a new docs topic, including SDK docs and guides
+* Make a substantial addition to an existing topic (typo corrections aren't substantial, adding a new feature is)
+* Merge a public docs PR from the LaunchDarkly-Docs repo
+
+### Example changelog entry
+
+  <TableRow>
+    <TableCell>MM DAY, FULL YEAR of publication</TableCell>
+    <TableCell>Brief summary of what changed. This starts with a verb like "updated, published, corrected, fixed"</TableCell>
+    <TableCell><a href="/example/filepath">Title of updated or new topic</a></TableCell>
+    <TableCell><a href="/example/filepath">LD-DOCS PR #</a> or Not applicable.</TableCell>
+  </TableRow>

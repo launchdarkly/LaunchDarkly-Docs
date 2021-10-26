@@ -13,7 +13,7 @@ This topic explains how to alias the users of various LaunchDarkly SDKs. This fe
 
 There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person is identified by two different users as denoted by different user keys. Our SDKs can associate these two LaunchDarkly users by sending an alias event.
 
-All LaunchDarkly SDKs offer the ability to manually send an alias event. Additionally, client-side SDKs automatically send an alias event when identifying a known user if the previous user was anonymous. You can disable this behavior if necessary. To learn more, read [Configuration](/sdk/features/config).
+All LaunchDarkly SDKs offer the ability to manually send an alias event. Additionally, client-side SDKs automatically send an alias event when identifying a known user if the previous user was anonymous. To lean more, read [Associating anonymous users with logged in users](/home/users/anonymous-users#associating-anonymous-users-with-logged-in-users). You can disable this behavior if necessary. To learn how, read [Configuration](/sdk/features/config).
 
 Details about each SDK's configuration are available in the SDK-specific sections below:
 
@@ -24,12 +24,40 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 This feature is available in the following client-side SDKs:
 
+* [Android](#android)
 * [C/C++ (client-side)](#cc-client-side)
 * [Electron](#electron)
+* [Flutter](#flutter)
 * [iOS](#ios)
 * [JavaScript](#javascript)
 * [Node.js](#nodejs-client-side)
 * [React](#javascript): The React SDK relies on the JavaScript SDK for user-related functionality.
+
+### Android
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+client.alias(newUser, previousUser);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+client.alias(newUser, previousUser)
+```
+</CodeTabItem>
+</CodeTabs>
 
 ### C/C++ (client-side)
 
@@ -64,6 +92,25 @@ To manually send an alias event:
 
 ```js
 client.alias(newUser, previousUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Flutter
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="dart"
+  values={[
+    { label: 'Dart', value: 'dart', },
+  ]
+}>
+<CodeTabItem value="dart">
+
+```dart
+await LDClient.alias(newUser, previousUser);
 ```
 
 </CodeTabItem>
@@ -144,7 +191,7 @@ All user-related functionality provided by the [JavaScript SDK](#javascript) is 
 
 This feature is available in the following server-side SDKs:
 
-* [.NET](#net)
+* [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
 * [Go](#go)
@@ -154,7 +201,7 @@ This feature is available in the following server-side SDKs:
 * [Python](#python)
 * [Ruby](#ruby)
 
-### .NET
+### .NET (server-side)
 
 To manually send an alias event:
 

@@ -24,11 +24,37 @@ If a user's device is not connected to a network, such as when the device is in 
 
 This feature is available in the following client-side SDKs:
 
+* [.NET (client-side)](#net-client-side)
 * [Android](#android)
 * [Flutter](#flutter)
 * [iOS](#ios)
 * [React Native](#react-native)
-* [Xamarin](#xamarin)
+
+### .NET (client-side)
+
+The default (fallback) values are defined in your code. The default value only returns if an error is encountered or if LaunchDarkly is unreachable.
+
+In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. You can do this by setting offline mode in the client's Config. When the client is in offline mode, no network requests will be made, so it is suitable for unit-testing.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+Configuration config = Configuration.Builder("SDK_KEY")
+    .Offline(true)
+    .Build();
+LdClient client = LdClient.Init(config);
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ### Android
 
@@ -91,7 +117,7 @@ Here's how:
 
 ```dart
 LDConfig ldConfig = LDConfigBuilder('YOUR_MOBILE_KEY')
-    .setOffline(true)
+    .offline(true)
     .build();
 
 await LDClient.start(ldConfig, user);
@@ -172,37 +198,11 @@ let onlineResult = client.setOnline(); //true or false
 </CodeTabItem>
 </CodeTabs>
 
-### Xamarin
-
-The default (fallback) values are defined in your code. The default value only returns if an error is encountered or if LaunchDarkly is unreachable.
-
-In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. You can do this by setting offline mode in the client's Config. When the client is in offline mode, no network requests will be made, so it is suitable for unit-testing.
-
-Here's how:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'Example', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-Configuration config = Configuration.Builder("SDK_KEY")
-    .Offline(true)
-    .Build();
-LdClient client = LdClient.Init(config);
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## Server-side SDKs
 
 This feature is available in the following server-side SDKs:
 
-* [.NET](#net)
+* [.NET (server-side)](#net-server-side)
 * [C/C++ (server-side)](#cc-server-side)
 * [Erlang](#erlang)
 * [Go](#go)
@@ -213,7 +213,7 @@ This feature is available in the following server-side SDKs:
 * [Python](#python)
 * [Ruby](#ruby)
 
-### .NET
+### .NET (server-side)
 
 The default (fallback) values are defined in your code. The default value only returns if an error is encountered or if LaunchDarkly is unreachable.
 

@@ -14,8 +14,6 @@ Client-side and server-side evaluate feature flags differently:
 - Server-side SDKs evaluate feature flags internally using embedded evaluation rules
 - Client-side SDKs evaluate feature flags by contacting LaunchDarkly, which runs the following evaluation rules on the back end
 
-To learn more about the different types of SDKs, read [Flag evaluations](/sdk/concepts/client-side-server-side#flag-evaluations).
-
 SDKs evaluate flags for specific users. The arguments needed to evaluate a flag are the _flag key_, _user_, and the _default variation value_.
 
 Evaluating a flag for a specific user involves the following steps:
@@ -74,20 +72,20 @@ If there were no targets, or no targets matched the user, the evaluation algorit
 
 ## Targeting rule checks
 
-Flags may have rules. Rules offer more complex ways to match arbitrary user attributes and segments, and to execute controlled rollouts based on those criteria. A rule is defined as a tuple of the ID, collection of clauses, and either the variation index or a rollout plan (described in more detail below). For a rule to match, all rules' clauses must be satisfied.
+Flags may have rules. Rules offer more complex ways to match arbitrary user attributes and segments, and to execute controlled rollouts based on those criteria. A rule is defined as a tuple of the ID, collection of clauses, and either the variation index or a rollout plan, as described in more detail below. For a rule to match, all rules' clauses must be satisfied.
 
 SDKs will iterate through flags' rules to find the first rule that matches the given user. If the matched rule has a variation index, return the corresponding variation, with the rule's ID and the `RULE_MATCH` evaluation reason. If, on the other hand, the rule has a rollout, follow the rollout logic to arrive at the variation and also return the corresponding variation, along with the rule ID and the `RULE_MATCH` evaluation reason.
 
-If there were no rules, or no rules matched the user, the evaluation algorithm proceeds with the fallthrough.
+If a targeting rule references any custom attributes with `null` values, then the flag skips that rule. If there were no rules, or no rules matched the user, the evaluation algorithm proceeds with the fallthrough.
 
 ## Clauses
 
 Rules have clauses, all of which must be satisfied for a rule to match the user. Clauses are defined as a tuple of:
 
-- attribute: user attribute to consider for comparison
-- operator: comparison to perform (see below)
-- values: list of arbitrary values to compare to
-- negate: boolean, whether to negate the outcome of clause's comparison (note that in the LaunchDarkly UI, negated clauses are represented as separate negated operators)
+- attribute: user attribute to consider for comparison.
+- operator: comparison to perform. To learn more, read [Operators](#operators).
+- values: list of arbitrary values to compare to.
+- negate: boolean, whether to negate the outcome of clause's comparison. In the LaunchDarkly UI, negated clauses are represented as separate negated operators.
 
 Evaluating a clause is a matter of taking the value of the given user attribute and performing the given operator comparison against the given values, and then applying whether the outcome should be negated. If this produces a positive result, the clause has been satisfied.
 
@@ -237,9 +235,9 @@ To evaluate whether a user is in a segment:
 - If the user's key wasn't in the included and excluded lists, and none of the rules matched, the result is `false`
 - Return the potentially negated (depending on clause's `negate` property) result from above.
 
-## Rollouts
+## Percentage rollouts
 
-You can associate rules with rollouts, which provides flexibility when you assign users to variation buckets.
+You can associate rules with percentage rollouts, which provides flexibility when you assign users to variation buckets.
 
 Rules are defined as:
 

@@ -1,0 +1,29 @@
+name: Cypress external link validation
+on:
+  schedule:
+    # runs tests every day at 11am
+    - cron: '0 11 * * *'
+jobs:
+  cypress-daily-run:
+    runs-on: ubuntu-latest
+    name: Run cypress
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          build: yarn build-dev
+          start: yarn serve-dev
+          headless: true
+          wait-on: 'http://localhost:9000/home/getting-started'
+          wait-on-timeout: 5
+          env: skip_external=false
+      - name: Archive Cypress screenshots
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-screenshots
+          path: |
+            /home/runner/work/git-gatsby/git-gatsby/cypress/screenshots
+          retention-days: 5

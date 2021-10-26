@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="assets/images/launchdarkly-logo.png" width="60" />
+  <a href="https://docs.launchdarkly.com">
+    <img alt="LaunchDarkly" src="assets/icons/launchdarkly-icon.svg" width="60" />
   </a>
 </p>
 <h1 align="center">
@@ -178,6 +178,12 @@ To run them in headless mode,
 
 ```shell
 yarn cypress:ci
+```
+
+To skip external link validation,
+
+```shell
+yarn cypress --env skip_external=true
 ```
 
 ## 🔨 Navigation data

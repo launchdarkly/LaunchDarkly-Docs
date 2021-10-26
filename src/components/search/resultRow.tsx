@@ -12,7 +12,7 @@ interface ResultRowProps {
 
 const markStyles = {
   '& mark': {
-    backgroundColor: (theme: Theme) => theme.colors.primaryWash,
+    backgroundColor: (theme: Theme) => theme.colors.muted,
     borderBottom: (theme: Theme) => `0.1rem solid ${theme.colors.grayBase}`,
   },
 }

@@ -60,10 +60,8 @@ const DesktopSideNav = () => {
     <nav
       sx={{
         gridArea: 'sideNav',
-        bg: 'grayWash',
+        bg: theme => theme.colors.grayscaleGray100,
         display: ['none', 'block'],
-        borderRight: '1px solid',
-        borderColor: 'grayMed',
         pt: 4,
       }}
     >

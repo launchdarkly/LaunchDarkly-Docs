@@ -60,13 +60,13 @@ Here's how to add and configure the Dynatrace integration:
 1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) and find the Dynatrace card.
 2. Click to expand the card, then click **+ Integration**. The integration configuration screen appears.
 
-![The Dynatrace card, showing the "+ Integration" button.](../images/dynatrace-card-expanded.png)
+![The Dynatrace card, showing the "+ Integration" button.](../images/dynatrace-card.png)
 
 3. (Optional) Type a human-readable **Name**.
 4. Enter your Dynatrace API token.
 5. Enter the URL of your Dynatrace service in the **Dynatrace URL** field. Do not include a slash at the end.
 6. Select the entity type of the Dynatrace entities you want to send LaunchDarkly events to. To learn more, read [About entity types](#about-entity-types).
-7. Click **Save Dynatrace Configuration**.
+7. Click **Save Configuration**.
 
 If you want to configure the Dynatrace integration to alter which events LaunchDarkly sends to Dynatrace, read [Configuring integration policies](#configuring-integration-policies). If not, continue to [Associating flags with Dynatrace tags](#associating-flags-with-dynatrace-tags).
 
@@ -154,10 +154,10 @@ To associate a flag with one or more applications using Dynatrace tags:
 
 ![The Custom Properties section of a Flag page, shown empty.](../images/flag-settings-custom-properties-empty.png)
 
-4. In the "Select a property type..." dropdown, select **Dynatrace tags**.
-5. Enter the name of the tag you created in the "Values" field.
+4. Enter the name of the tag you created in the "Values" field.
+5. In the "Select a property type..." dropdown, select **Dynatrace tags**.
 
-![The Custom Properties section of a Flag page, shown complete with Dynatrace tag.](../images/dynatrace-custom-properties-complete.png)
+![The Custom Properties section of a Flag page, shown with a Dynatrace tag.](../images/dynatrace-custom-properties-complete.png)
 
 7. Click **Save with Comment** button to save the custom property.
 

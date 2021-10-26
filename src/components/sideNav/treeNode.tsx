@@ -11,7 +11,7 @@ import Icon, { IconName } from '../icon'
 import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
 
 const defaultLabelStyles = {
-  color: 'grayBlack',
+  color: 'text',
   fontSize: 4,
   display: 'flex',
   alignItems: 'center',
@@ -23,7 +23,7 @@ const defaultLabelStyles = {
     },
   },
   ':active': {
-    color: 'grayBlack',
+    color: 'text',
   },
   lineHeight: 'regular',
 }
@@ -149,13 +149,13 @@ function Node({
       {isExternalLink(path) ? (
         <ThemeUILink href={path} sx={labelStyles} target="_blank" rel="noopener noreferrer">
           {label}
-          {svg && <Icon name={svg as IconName} height="0.8rem" fill="grayDark" ml={1} />}
+          {svg && <Icon name={svg as IconName} height="0.8rem" fill="text" ml={1} />}
         </ThemeUILink>
       ) : (
         <Flex>
           <GatsbyLink getProps={setActiveLinkStyles} sx={labelStyles} to={path} onClick={handleExpandCollapse}>
             <Flex sx={{ alignItems: 'center' }}>
-              {svg && <Icon name={svg as IconName} height="1rem" fill="grayDark" mr={2} />}
+              {svg && <Icon name={svg as IconName} height="1rem" fill="text" mr={2} />}
               {label}
             </Flex>
           </GatsbyLink>

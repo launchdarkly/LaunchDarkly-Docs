@@ -13,9 +13,7 @@ This topic explains how to create and implement custom roles and policies in Lau
 <CalloutTitle>This topic only describes creating custom roles with the basic policy editor</CalloutTitle>
 <CalloutDescription>
 
-If you need to use custom roles to address a scenario not covered in the documentation, you can write your own policies with the advanced editor.
-
-To learn more, read [Writing policies in the advanced editor](/home/members/role-policies#writing-policies-in-the-advanced-editor).
+If you need to use custom roles to address a scenario not covered in the documentation, you can write your own policies with the advanced editor. For examples, read [Example policies and templates](/home/members/example-policies).
 
 </CalloutDescription>
 </Callout>
@@ -28,7 +26,7 @@ To create a custom role:
 
 1. Navigate to **Account Settings**.
 2. Click into the **Roles** tab.
-3. Click **New Role**. The "Create a role" screen appears.
+3. Click **Create Role**. The "Create a role" screen appears.
 4. Enter a human-readable **Name** for the role.
 5. Enter a **Key** for the role.
 6. (Optional) Enter a **Description** to explain what the role does.
@@ -45,7 +43,7 @@ Policies are sets of actions a custom role is allowed or not allowed to take. Yo
 <CalloutTitle>Write policies by hand in the advanced editor</CalloutTitle>
 <CalloutDescription>
 
-Advanced users can write custom policies of their own with the Aadvanced editor.
+Advanced users can write custom policies of their own with the Advanced editor.
 
 To learn more about writing your own
 policies, read [Using policies](/home/members/role-policies).
@@ -67,7 +65,7 @@ Many common LaunchDarkly items are resources, including flags, metrics, and more
 
 Click **Resource finder** to choose projects, feature flags, environments, metrics, and roles to add to your policy.
 
-To learn more, read [Finding resource IDs](/home/members/role-policies#finding-resource-ids).
+To learn more, read [Finding resource IDs](#finding-resource-ids).
 
 </CalloutDescription>
 </Callout>
@@ -82,6 +80,15 @@ To learn more, read [Finding resource IDs](/home/members/role-policies#finding-r
 
 ![A custom policy.](../../../../images/settings-roles-policy.png)
 
+### Finding resource IDs
+
+You can find resource IDs with the resource finder, which can be accessed with the “resource finder” link in either the simple or advanced editor, or using the keyboard shortcut `⌘` + `.` (Mac) or `ctl` + `.` (Windows). All of your environments, members, feature flags, metrics, and roles will be available.
+
+Here is a screenshot of the "Find a resource ID" screen:
+
+![The "Find a resource ID" screen.](../../../../images/settings-roles-resource-id.png)
+
+
 ## Giving an account member a custom role
 
 After you have created a custom role and policies for it, you must give that role to all members to whom you wish it to apply.
@@ -89,8 +96,8 @@ After you have created a custom role and policies for it, you must give that rol
 To give a member a custom role:
 
 1. Navigate to **Account Settings**.
-2. Click into the **Team** tab and find the account member you wish to give a custom role.
-3. Click **Edit** beside that account member's name. The member's Settings page opens:
+2. Click into the **Members** tab and find the account member you wish to give a custom role.
+3. Click **Manage** beside that account member's name. The member's Settings page opens:
 
 ![The member's Settings page.](../../../../images/settings-team-member-edit.png)
 
@@ -139,20 +146,20 @@ You can see details about a specific custom role. More information is available 
 
 Use the "Role policy details" screen to view detailed information about a custom role, including which projects and feature flags the role has permission to modify. You can also see each action the custom role can perform and what that action does.
 
-Here is a screemshot of the "Role policy details" screen:
+Here is a screenshot of the "Role policy details" screen:
 
 ![The "Role policy details" screen.](../../../../images/settings-roles-role-policy-details.png)
 
 To view details for custom roles from the **Roles** tab:
 
 1. Navigate to **Account Settings** and click into the **Roles** tab.
-2. Find the role with details you wish to view and click **Details**. The "Role policy details" screen appears:
+2. Find the role with details you wish to view and click **Details** or **Edit**. The "Role policy details" screen appears:
 
 ![A role's entry in the Roles tab with the Details button called out.](../../../../images/settings-roles-details-callout.png)
 
-To view details for custom roles in other parts of the LaunchDarkly UI, click a custom role's name to open the "Role policy details" screen:
+To view details for custom roles in other parts of the LaunchDarkly user interface (UI), click a custom role's name to open the "Role policy details" screen:
 
-![A member's entry in the Team tab with their custom roles called out.](../../../../images/settings-team-roles-callout.png)
+![A member's Access screen in the Members tab with a custom role called out.](../../../../images/settings-team-roles-callout.png)
 
 ## Editing existing custom roles
 

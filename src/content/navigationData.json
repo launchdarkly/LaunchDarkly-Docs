@@ -260,7 +260,7 @@
                 "path": "/home/account-security/azure"
               },
               {
-                "label": "Google Apps",
+                "label": "GSuite",
                 "path": "/home/account-security/google"
               },
               {
@@ -411,14 +411,14 @@
         "path": "/home/teams",
         "svg": "people",
         "items": [
-        {
-          "label": "Creating a team",
-          "path": "/home/teams/creating"
-        },
-        {
-          "label": "Managing teams",
-          "path": "/home/teams/managing"
-        }
+          {
+            "label": "Creating a team",
+            "path": "/home/teams/creating"
+          },
+          {
+            "label": "Managing teams",
+            "path": "/home/teams/managing"
+          }
         ]
       },
       {
@@ -579,11 +579,11 @@
             "path": "/integrations/new-relic",
             "items": [
               {
-                "label": "Using the New Relic events integration",
+                "label": "Using the New Relic One events integration",
                 "path": "/integrations/new-relic/events"
               },
               {
-                "label": "Using flag triggers with New Relic",
+                "label": "Using flag triggers with New Relic One",
                 "path": "/integrations/new-relic/triggers"
               },
               {
@@ -699,6 +699,10 @@
         "path": "/integrations/more",
         "items": [
           {
+            "label": "Ansible",
+            "path": "/integrations/ansible"
+          },
+          {
             "label": "Azure DevOps",
             "path": "/integrations/azure-devops"
           },
@@ -724,9 +728,23 @@
           },
           {
             "label": "Terraform",
-            "path": "/integrations/terraform"
+            "path": "/integrations/terraform",
+            "items": [
+              {
+                "label": "Terraform provider v1.x to v2.0 migration guide",
+                "path": "/integrations/terraform/migration-1-to-2"
+              }
+            ]
+          },
+          {
+            "label": "Zendesk",
+            "path": "/integrations/zendesk"
           }
         ]
+      },
+      {
+        "label": "Building your own integrations",
+        "path": "/integrations/building-integrations"
       }
     ]
   },
@@ -762,6 +780,10 @@
           {
             "label": "Flag evaluation rules in server-side SDKs",
             "path": "/sdk/concepts/flag-evaluation-rules"
+          },
+          {
+            "label": "Using flag types",
+            "path": "/sdk/concepts/flag-types"
           },
           {
             "label": "Persistent data stores",
@@ -830,7 +852,7 @@
             "label": "Offline mode",
             "path": "/sdk/features/offline-mode"
           },
-                    {
+          {
             "label": "Reading flags from a file",
             "path": "/sdk/features/flags-from-files"
           },
@@ -869,6 +891,10 @@
             "path": "/sdk/features/flag-changes"
           },
           {
+            "label": "Test data sources",
+            "path": "/sdk/features/test-data-sources"
+          },
+          {
             "label": "User configuration",
             "path": "/sdk/features/user-config"
           }
@@ -879,6 +905,11 @@
         "path": "/sdk/client-side",
         "svg": "user",
         "items": [
+          {
+            "label": ".NET SDK reference",
+            "path": "/sdk/client-side/dotnet",
+            "svg": "dotnet"
+          },
           {
             "label": "Android SDK reference",
             "path": "/sdk/client-side/android",
@@ -963,10 +994,6 @@
           {
             "label": "Roku SDK reference",
             "path": "/sdk/client-side/roku"
-          },
-          {
-            "label": "Xamarin SDK reference",
-            "path": "/sdk/client-side/xamarin"
           }
         ]
       },
@@ -1088,6 +1115,10 @@
             "path": "/guides/best-practices/improving-code"
           },
           {
+            "label": "Integrations use cases",
+            "path": "/guides/best-practices/integrations-use-cases"
+          },
+          {
             "label": "Minimizing LaunchDarkly's access to user data",
             "path": "/guides/best-practices/user-data"
           },
@@ -1146,7 +1177,15 @@
             "path": "/guides/platform-specific/terraform"
           },
           {
-            "label": "Using feature flags on static sites with JavaScript",
+            "label": "Using flags with AWS Lambda",
+            "path": "/guides/platform-specific/aws-lambda"
+          },
+          {
+            "label": "Using flags with Next.js",
+            "path": "/guides/platform-specific/nextjs"
+          },
+          {
+            "label": "Using flags on static sites with JavaScript",
             "path": "/guides/platform-specific/static-sites"
           },
           {

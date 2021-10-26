@@ -8,7 +8,7 @@ import Link from './link'
 
 const Header = () => {
   return (
-    <header sx={{ gridArea: 'header', bg: 'secondaryDark', color: 'white' }}>
+    <header sx={{ gridArea: 'header', bg: 'accent', color: 'grayscaleWhite' }}>
       <div
         sx={{
           display: 'grid',
@@ -28,8 +28,14 @@ const Header = () => {
         }}
       >
         <span sx={{ gridArea: 'brand', display: ['none', 'flex'], alignItems: 'center', ml: [4, 6] }}>
-          <Link to="/" aria-label="Go to the LaunchDarkly documentation homepage">
-            <Icon name="launchdarkly-logo" variant="header" sx={{ height: [null, 3] }} />
+          <Link
+            to="/"
+            aria-label="Go to the LaunchDarkly documentation homepage"
+            sx={{ display: 'flex', alignItems: 'center' }}
+          >
+            <Icon name="launchdarkly" variant="header" />
+            <Icon name="launchdarkly-icon" variant="header" sx={{ marginLeft: '6px' }} />
+            <Icon name="docs" variant="header" sx={{ height: [null, 0], marginLeft: '11px' }} />
           </Link>
         </span>
         <span
@@ -44,7 +50,7 @@ const Header = () => {
           <Link to="/" sx={{ height: 3, mx: 5, display: ['block', 'none'] }}>
             <Icon name="launchdarkly-icon" variant="header" />
           </Link>
-          <span sx={{ ml: [0, 9, '4.5rem'] }}>
+          <span sx={{ ml: [0, 9, '4.5rem'], height: '100%', display: 'flex', alignItems: 'center' }}>
             <TopNav />
           </span>
           <div

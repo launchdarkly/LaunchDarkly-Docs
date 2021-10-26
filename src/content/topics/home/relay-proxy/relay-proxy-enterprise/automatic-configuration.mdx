@@ -63,7 +63,7 @@ Here's how to create a Relay Proxy configuration in the LaunchDarkly UI:
 
 ![The Relay Proxy tab on the Account Settings page.](../../images/account-settings-relay-proxy.png)
 
-2. Click **+ Configuration**. The Relay Proxy configuration screen appears.
+2. Click **Create configuration**. The Relay Proxy configuration screen appears.
 3. Give the Relay Proxy a human-readable **Name**.
 4. Choose a **Rule** from the dropdown. This rule determines what content the Relay Proxy receives.
  * **All projects and environments** sends changes about all projects and environments to the Relay Proxy.
@@ -71,7 +71,7 @@ Here's how to create a Relay Proxy configuration in the LaunchDarkly UI:
 
 ![The Relay Proxy configuration screen with dropdown displayed.](../../images/relay-proxy-config-dropdown.png)
 
-5. Click **Save Configuration**. The Relay Proxy appears on the Relay Proxy tab of the Account Settings page with its key visible.
+5. Click **Save configuration**. The Relay Proxy appears on the Relay Proxy tab of the Account Settings page with its key visible.
 6. Copy and save the key somewhere secure:
 
 ![The Relay Proxy screen with a newly created Relay Proxy. The key is displayed.](../../images/relay-proxy-key-displayed.png)
@@ -114,6 +114,51 @@ From now on, the Relay Proxy will respond automatically to the project and envir
 
 ## Writing an inline policy
 
-The inline policy editor is an advanced editor you can use to specify precise instructions on what environments and projects the Relay Proxy should include or exclude. You can write policies for it by hand to get exactly the outcomes you want.
+You can use the inline policy editor to specify precise instructions on what environments and projects the Relay Proxy should include or exclude. You can write policies by hand to get exactly the outcomes you want.
 
-To learn more about the advanced editor, read [Writing policies in the advanced editor](/home/members/role-policies#writing-policies-in-the-advanced-editor).
+There are three ways to write an inline policy:
+
+- Simple editor
+- Resource finder
+- Advanced editor
+
+Each of these methods is described below.
+
+### Using the simple editor
+
+You can create simple, one-line policies using the simple editor. To learn learn more about policy syntax, read [Resource specifiers](/home/members/role-policies#resource-specifiers).
+
+To use the simple editor from the "Create a Relay Proxy configuration" screen:
+
+1. Choose "inline policy" from the **Rule** dropdown.
+2. Enter a policy in the "Choose resources for this policy statement" field. In this example, the Relay Proxy has access to all environments within the `default` project.
+
+![The simple policy editor.](images/relay-proxy-simple-editor.png)
+
+5. Click **Save configuration**.
+
+### Using the resource finder
+
+Here is how to create an inline policy using the resource finder from the "Create a Relay Proxy configuration" screen:
+
+1. Choose "inline policy" from the **Rule** dropdown.
+2. Click **Resource finder**. A "Find a resource" screen appears.
+
+![The Find a resource screen.](images/relay-proxy-find-a-resource.png)
+
+3. Search for the environment or project you want the Relay Proxy to have access to.
+4. Select the resource. The resource appears in the "Choose resources for this policy statement" field.
+5. Click **Save configuration**.
+
+### Using the advanced editor
+
+To write more complicated policies you can use the advanced editor. To learn how to write advanced policies, read [Understanding policies](/home/members/role-policies#understanding-policies).
+
+To use the advanced editor from the "Create a Relay Proxy configuration" screen:
+
+1. Choose "inline policy" from the **Rule** dropdown.
+2. Click **Advanced editor**. The advanced editor window opens.
+3. Enter your policy.
+5. Click **Save configuration**.
+
+![The advanced policy editor.](images/relay-proxy-advanced-editor.png)

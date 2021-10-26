@@ -28,7 +28,7 @@ You will:
 To complete this guide, you must have the following prerequisites:
 
 * An active LaunchDarkly account with the ability to create a flag.
-* Basic knowledge of the Python and Javascript programming languages. You need these to complete the exercises in this guide.
+* Basic knowledge of the Python and JavaScript programming languages. You need these to complete the exercises in this guide.
 * Access to [Glitch](https://glitch.com/about).
 
 To learn more, read [How to use Glitch](https://glitch.com/create).
@@ -184,7 +184,7 @@ To create a new project:
 2. Click **+ Project**.
 3. Give your project a human-readable **Name**. In the example below, our project is called `Test`.
 4. Click **Save**.
-5. In the **Account Settings** page, click to copy the new project's SDK key to your clipboard:
+5. In the **Account Settings** page on the **Projects** tab, click to copy the new project's SDK key to your clipboard:
 
 ![The Account Settings page in LaunchDarkly with environment SDK keys called out.](../../../images/space-camp-projects.png)
 
@@ -313,15 +313,17 @@ Before you add code to the pricing page, create a new flag in your project. Name
 Here's how to create the new flag:
 
 1. From the LaunchDarkly app, click **Feature flags**.
-2. Click **+ Flag**.
+2. Click **+ Flag**:
+
+![The new flag button on the flags dashboard.](../../images/flag-new-callout.png)
+
 3. Enter `pricing-tier-3` for the name.
 4. Optionally, add a description of the flag.
-5. Leave the flag variation set to **Boolean**.
+5. Leave the flag variation set to **Boolean**:
+
+![The new flag screen.](../../images/flag-create.png)
+
 6. Save the new flag.
-
-Here is a video showing how to create the new flag:
-
-<iframe src="https://drive.google.com/file/d/1AWHYtS_Fzdm1nBu7zKRWx6js8QAUEB9n/preview" width="100%" height="360" allowfullscreen></iframe>
 
 The flag's targeting state is set to `off` by default. You can turn it on after implementing the code to use it.
 
