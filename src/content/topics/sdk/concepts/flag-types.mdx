@@ -16,7 +16,7 @@ LaunchDarkly supports two basic types of flags:
 - Multivariate flags allow you to customize the number and types of variations they return. Multivariate flag types include:
     - [number](#using-number-flags)
     - [string](#using-string-flags)
-    - [JSON](#using-json-flags)
+    - [JSON](#using-json-object-and-array-flags)
 
 Imagine your organization wants to know if changing the color of your site's “Checkout” button increases customer purchases. You can use a boolean flag if you want to compare only two colors. If you have more colors to test, you can use multivariate flags to roll out several different colors of the button to different audiences, allowing you to determine the most effective color more quickly.
 
@@ -60,11 +60,23 @@ String flags have a limit of 32KB. Strings are UTF-8 encoded, so certain charact
 
 You can use escape sequences in string flag values. For example, LaunchDarkly treats string values `ab\u0063` and `abc` as the same value.
 
-## Using JSON flags
+## Using JSON object and array flags
 
-JSON flags can be objects or arrays. You can treat an optional array or object property as empty if there is no property value present. You can write an empty array as `[]`, an empty object as `{}`, or omit the property completely.
+In addition to booleans, numbers, and strings, flags can be objects or arrays. In the LaunchDarkly user interface (UI), object and array flags are called "JSON flags."
 
-JSON flags have a size limit of 32KB.
+You can treat an optional array or object property as empty if there is no property value present. You can write an empty array as `[]`, an empty object as `{}`, or omit the property completely.
+
+JSON object and array flags have a size limit of 32KB.
+
+## Using custom attributes
+
+Custom attributes follow the same patterns as LaunchDarkly flag types. The value of a custom attribute can be of any type that's allowed in JSON, including boolean, number, string, array, and object.
+
+Number custom attributes are subject to the same restrictions as number flags. For example, if you define a flag targeting rule where `myCustomAttribute` is one of `0.3`, users with an attribute value of `0.3` may not be correctly targeted because 0.3 can't be exactly represented in binary floating point.
+
+Like number flags, LaunchDarkly truncates custom attribute number values to the first 16 digits. If you define a flag targeting rule where `myCustomAttribute` is one of `1234567812345678999999`, LaunchDarkly will target users with an attribute value of `1234567812345678999998`, because both the flag rule and the user attribute value are truncated to `1234567812345678`.
+
+To learn more about custom attributes, read [Setting custom user attributes](/home/users/attributes#setting-custom-user-attributes).
 
 ## Using strongly-typed SDKs
 
