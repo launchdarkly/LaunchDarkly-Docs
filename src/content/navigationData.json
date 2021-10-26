@@ -537,6 +537,10 @@
                 "path": "/integrations/datadog/events"
               },
               {
+                "label": "Using the Datadog dashboard widget",
+                "path": "/integrations/datadog/dashboard-widget"
+              },
+              {
                 "label": "Using flag triggers with Datadog",
                 "path": "/integrations/datadog/triggers"
               }
