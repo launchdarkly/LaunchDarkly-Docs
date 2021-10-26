@@ -186,7 +186,7 @@ In the React SDK streaming mode is enabled by default. To disable streaming mode
 
 ## `withLDConsumer`
 
-The return value of `withLDConsumer` is a wrapper function that takes your component and returns a React component injected with `flags` & `client` as props.
+The return value of `withLDConsumer` is a wrapper function that takes your component and returns a React component injected with `flags` & `ldClient` as props.
 
 Here's how:
 
@@ -201,7 +201,7 @@ Here's how:
 ```js
 import { withLDConsumer } from 'launchdarkly-react-client-sdk';
 
-const Home = ({ flags, client /*, ...otherProps */ }) => {
+const Home = ({ flags, ldClient /*, ...otherProps */ }) => {
   // You can call any of the methods from the JavaScript SDK
   // client.identify({...})
 

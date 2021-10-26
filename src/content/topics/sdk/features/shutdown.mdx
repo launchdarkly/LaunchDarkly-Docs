@@ -15,7 +15,7 @@ LaunchDarkly SDKs provide language-specific methods to shut down their instances
 
 When your application is about to terminate, shut down the LaunchDarkly client. This ensures that the client releases any resources it is using, and that it delivers any pending analytics to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events.
 
-Do not attempt to use the LaunchDarkly client after it has shut down, as doing so may result in defined behavior. Shut down the client at a point in your application's lifecycle where the client is no longer needed.
+Do not attempt to use the LaunchDarkly client after it has shut down, as doing so may result in undefined behavior. Shut down the client at a point in your application's lifecycle where the client is no longer needed.
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 
