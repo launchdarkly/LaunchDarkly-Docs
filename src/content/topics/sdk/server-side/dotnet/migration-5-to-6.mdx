@@ -392,7 +392,7 @@ There are two ways you can configure the SDK to use the [Relay Proxy](/home/adva
 * proxy mode, connecting to it via HTTP/HTTPS as if it were the LaunchDarkly service.
 * daemon mode, receiving flag data only through a database.
 
-In version 5.14.0, we added a new configuration syntax. Starting in version 6.0, the new syntax is the only way to configure these.
+The configuration syntax for both proxy mode and daemon mode has changed in the 6.x SDK.
 
 Here's how:
 
@@ -400,29 +400,21 @@ Here's how:
   defaultValue="sdk5"
   values={[
     { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
+    { label: '6.3 and above', value: 'sdk6', },
   ]
 }>
 <CodeTabItem value="sdk5">
 
 ```csharp
-// 5.x model: proxy mode with streaming
+// proxy mode
 var relayUri = new Uri("http://my-relay-host:8000");
-var config =  Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("my-sdk-key")
     .StreamUri(relayUri)
     .EventsUri(relayUri) // if you want to proxy events
     .Build();
 
-// 5.x model: proxy mode with polling
-var relayUri = new Uri("http://my-relay-host:8000");
-var config =  Configuration.Builder("my-sdk-key")
-    .IsStreamingEnabled(false)
-    .BaseUri(relayUri)
-    .EventsUri(relayUri) // if you want to proxy events
-    .Build();
-
-// 5.x model: daemon mode with a Redis database
-var config =  Configuration.Builder("my-sdk-key")
+// daemon mode with a Redis database
+var config = Configuration.Builder("my-sdk-key")
     .FeatureStore(
         RedisComponents.RedisFeatureStore().WithUri(new Uri("redis://my-redis-host"))
     )
@@ -434,22 +426,14 @@ var config =  Configuration.Builder("my-sdk-key")
 <CodeTabItem value="sdk6">
 
 ```csharp
-// 6.0 model: proxy mode with streaming
+// proxy mode - this example requires version 6.3.0 or higher
 var relayUri = new Uri("http://my-relay-host:8000");
-var config =  Configuration.Builder("my-sdk-key")
-    .DataSource(Components.StreamingDataSource().BaseUri(relayUri))
-    .Events(Components.SendEvents().BaseUri(relayUri)) // if you want to proxy events
+var config = Configuration.Builder("my-sdk-key")
+    .ServiceEndpoints(Components.ServiceEndpoints().RelayProxy(relayUri))
     .Build();
 
-// 5.0 model: proxy mode with polling
-var relayUri = new Uri("http://my-relay-host:8000");
-var config =  Configuration.Builder("my-sdk-key")
-    .DataSource(Components.PollingDataSource().BaseUri(relayUri))
-    .Events(Components.SendEvents().BaseUri(relayUri)) // if you want to proxy events
-    .Build();
-
-// 5.0 model: daemon mode with a Redis database
-var config =  Configuration.Builder("my-sdk-key")
+// daemon mode with a Redis database
+var config = Configuration.Builder("my-sdk-key")
     .DataSource(Components.ExternalUpdatesOnly) // replaces "UseLdd"
     .DataStore(
         Components.PersistentDataStore(
