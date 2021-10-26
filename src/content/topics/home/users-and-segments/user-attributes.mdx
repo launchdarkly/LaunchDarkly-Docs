@@ -39,7 +39,7 @@ All built-in user attributes are strings with the exception of `anonymous`:
       </TableCell>
       <TableCell>"2398127"</TableCell>
       <TableCell>
-        If provided, this attribute is used with a user's `key` to generate a variation in percentage rollouts.
+        If provided, this attribute is used with a user's <code>key</code> to generate a variation in percentage rollouts.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -96,7 +96,7 @@ All built-in user attributes are strings with the exception of `anonymous`:
         <code>anonymous</code>
       </TableCell>
       <TableCell>"true"</TableCell>
-      <TableCell>This can be a Boolean or string value. This attribute prevents the user from appearing on the dashboard. If the anonymous attribute is set to _any_ value other than boolean `false` or null, LaunchDarkly treats the as user anonymous.</TableCell>
+      <TableCell>This can be a Boolean or string value. This attribute prevents the user from appearing on the dashboard. If the anonymous attribute is set to <em>any</em> value other than boolean <code>false</code> or null, LaunchDarkly treats the user as anonymous.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -194,5 +194,3 @@ Here is an example user object which contains custom user attributes:
 
 </CodeTabItem>
 </CodeTabs>
-
-All built-in attributes are optional except for `key`. To see a full list of built-in attributes, read [Built-in attributes](/home/flags/targeting-users#built-in-attributes).
