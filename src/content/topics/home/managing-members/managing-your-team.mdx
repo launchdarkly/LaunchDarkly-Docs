@@ -42,7 +42,7 @@ To access the Members dashboard:
 
 1. Navigate to the the [Account Settings](https://app.launchdarkly.com/settings) page.
 2. Click into the [Members](https://app.launchdarkly.com/settings/members) tab.
-3. Enter an email address for someone you wish to invite to LaunchDarkly and click **Invite Members** or click **Manage** next to an existing user to modify their information:
+3. Enter an email address for someone you wish to invite to LaunchDarkly and click **Invite Members** or click **Manage** next to an existing member to modify their information:
 
 ![The Members tab.](../../../images/settings-team.png)
 
@@ -57,13 +57,13 @@ In addition to a built-in role, you can give account members custom roles to mor
 
 For additional security, you can require multi-factor authentication (MFA) for your account. When MFA is enabled, account members won't be able to log in to LaunchDarkly without verifying their identity with a second method.
 
-We strongly recommend that all LaunchDarkly users enable MFA for their account, and that administrators enforce MFA for their entire team. In the event of a credential leak or device theft, MFA can prevent malicious third parties from accessing a LaunchDarkly account they should not be able to access.
+We strongly recommend that all LaunchDarkly members enable MFA for their individual accounts, and that administrators enforce MFA for their entire organization. In the event of a credential leak or device theft, MFA can prevent malicious third parties from accessing a LaunchDarkly account they should not be able to access.
 
 To learn more, read [Multi-factor authentication](/home/account-security/mfa).
 
-## Inviting users with trial accounts
+## Inviting members with trial accounts
 
-When you invite a user to LaunchDarkly, you may get an error message that says the email address is already in use. This can happen when a person already has a trial account with LaunchDarkly associated with that email address.
+When you invite a member to LaunchDarkly, you may get an error message that says the email address is already in use. This can happen when a person already has a trial account with LaunchDarkly associated with that email address.
 
 To fix this, ask the person to change the email adress associated with their trial account or delete their trial account, following the instructions under [Adding members who signed up for a trial](/home/getting-started/your-account#adding-members-who-signed-up-for-a-trial). After they change the email address or delete their trial account, add them to your LaunchDarkly organization again.
 
@@ -71,6 +71,16 @@ You can also tell people in your organization to delete their trials before you 
 
 ## Using aliased email addresses in LaunchDarkly
 
-Alternatively, if the user has a GSuite or Outlook 365 account, you can invite them to LaunchDarkly using an alias. An alias account is the email address of the person you wish to invite with a plus sign (`+`) and additional text string appended. `joe+launchdarkly@example.com` is an alias of `joe@example.com`.
+Alternatively, if the member has a GSuite or Outlook 365 account, you can invite them to LaunchDarkly using an alias. An alias account is the email address of the person you wish to invite with a plus sign (`+`) and additional text string appended. `joe+launchdarkly@example.com` is an alias of `joe@example.com`.
 
 For example, if the user object `alice@diner.com` already exists in LaunchDarkly, you can also invite `alice+newproject@diner.com` to your LaunchDarkly organization. Emails from both addresses are sent to `alice@diner.com`, but only `alice+newproject@diner.com` has access to your LaunchDarkly organization. This is also helpful when you need contractors to collaborate with you on projects.
+
+## Removing members from LaunchDarkly
+
+To remove a member from your account:
+
+1. Navigate to the the [Account Settings](https://app.launchdarkly.com/settings) page.
+2. Click into the [Members](https://app.launchdarkly.com/settings/members) tab.
+3. Find the member in the list of account members.
+4. Click **Manage**.
+5. Click **Delete member**.
