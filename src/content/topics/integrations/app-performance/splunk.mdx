@@ -23,7 +23,8 @@ use these events to create reports, charts, alerts and dashboards in Splunk.
 
 <Callout intent="info">
   <CalloutTitle>This integration is for Splunk Enterprise and Splunk Cloud
-  (self-service and managed)</CalloutTitle> <CalloutDescription>
+  (self-service and managed)</CalloutTitle>
+  <CalloutDescription>
     Based on which type of Splunk account you have, endpoint hostnames, ports,
     and paths may differ from what's depicted in this topic. We'll indicate
     these differences when they occur in the text below.
@@ -54,29 +55,31 @@ documentation](https://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHT
 
 To configure LaunchDarkly to start sending events to Splunk:
 
-1. Navigate to the Integrations page and find the "Splunk" card.
+1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) and find the Splunk card.
 
 ![The Splunk integration card.](../images/splunk-add-integration.png)
 
-2. Click **+ Integration**. The integration configuration screen appears.
+2. Click **Add integration**. The integration configuration screen appears.
 
-![The Splunk integration screen.](../images/splunk-integration-panel.png)
+![The Splunk integration configuration screen.](../images/splunk-integration-panel.png)
 
-3. Give the integration a human-readable **Name**.
+3. (Optional) Give the integration a human-readable **Name**.
 
 4. Paste the HTTP event collector URL into the **HTTP event collector base
 URL**. This URL varies based on which version of Splunk you have. To learn more
 about which URL format to use, read [Splunk's
 documentation](https://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHTTPEventCollector#Send_data_to_HTTP_Event_Collector).
 
-5. Paste your HEC token in the **Token** field. 4. If you're using Splunk Cloud,
-you will probably need to check the **Skip certificate verification** checkbox.
-Splunk Cloud instances are deployed with self-signed SSL certificates which
-prevents LaunchDarkly's integration service from reaching Splunk Cloud's HEC
+5. Paste your HEC token in the **Token** field.
+
+6. If you're using Splunk Cloud, you will probably need to check the **Skip certificate verification** checkbox. Splunk Cloud instances are deployed with self-signed SSL certificates which prevents LaunchDarkly's integration service from reaching Splunk Cloud's HEC
 service.
 
-6. If you do not need to further customize your Splunk integration, click **Save
-Splunk Configuration**.
+7. (Optional) Configure a custom policy to control which event information LaunchDarkly sends to Splunk. To learn more about this option, read [Adding custom policies to the Splunk integration](#adding-custom-policies-to-the-splunk-integration).
+
+8. After reading the Integration Terms and Conditions, check the **I have read and agree to the Integration Terms and Conditions** checkbox.
+
+9. Click **Save configuration**.
 
 That's it! Splunk now receives events from LaunchDarkly.
 

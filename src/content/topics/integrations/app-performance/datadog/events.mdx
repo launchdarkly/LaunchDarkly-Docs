@@ -53,19 +53,20 @@ After you create an API key in Datadog, you can set up the integration in Launch
 
 To set up the Datadog integration:
 
-1. Navigate to the Integrations page and click **Datadog**.
-2. Click **+ Integration**. The "Create Datadog configuration" screen appears.
+1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) and find the Datadog card.
+2. Click **Add integration**. The integration configuration screen appears.
 3. (Optional) Give your integration a human-readable **Name**.
-4. Enter the Datadog API key into the **API key** field. You created this key in the [Prerequisites](#prerequisites) section.
+4. Enter the Datadog API key into the **Datadog API key** field. You created this key in the [Prerequisites](#prerequisites) section.
 5. (Optional) Enter a Datadog host URL.
-6. (Optional) Add a policy statement or set a policy with the Advanced editor. To learn more, read [Filtering the events you send to Datadog](#filtering-the-events-you-send-to-datadog).
+6. (Optional) Configure a custom policy to control which events LaunchDarkly sends to Datadog. To learn more, read [Filtering the events you send to Datadog](#filtering-the-events-you-send-to-datadog).
 
 
-![The Create Datadog configuration screen.](../images/datadog-config.png)
+![The Datadog integration configuration screen.](../images/datadog-config.png)
 
 
 7. After reading the Integration Terms and Conditions, check the **I have read and agree to the Integration Terms and Conditions** checkbox.
-8. Click **Save Configuration**. The new integration appears on the Integrations page. It is switched **on** by default.
+
+8. Click **Save configuration**. The new integration appears on the Integrations page. It is switched **on** by default.
 
 ![A Datadog integration in the integrations section.](../images/datadog-integration.png)
 
@@ -119,18 +120,18 @@ For example, if you only want to receive an event when a change is made to one o
 
 To add a custom filter:
 
-1. Navigate to the Integrations page.
-2. Find the integration you wish to modify and click **Edit**. The "Create a Datadog configuration" screen appears.
+1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations).
+2. Find the integration you wish to modify and click **Edit integration configuration**. The "Edit Datadog configuration" screen appears.
 
 ![The Datadog configuration screen with the Edit integration configuration option called out.](../images/datadog-integration-edit-callout.png)
 
 3. Click **Advanced editor**. The Advanced editor opens.
 4. Enter your custom policy.
 
-![he Create a Datadog configuration screen with the Advanced editor open and a policy inside it.](../images/datadog-custom-policy.png)
+![The Create a Datadog configuration screen with the Advanced editor open and a policy inside it.](../images/datadog-custom-policy.png)
 
 
-5. Click **Save Configuration**.
+5. Click **Save configuration**.
 6. Verify that LaunchDarkly is sending a customized set of events by viewing the events in your Datadog dashboard.
 
 ## Disabling the Datadog integration
@@ -147,16 +148,16 @@ To temporarily disable the Datadog integration:
 
 ![A Datadog integration on the Integrations page.](../images/datadog-integration.png)
 
+3. Click the **Edit integration configuration** button. The "Edit Datadog configuration" screen appears.
 
-3. Click the edit button. The Edit integration screen appears.
+![The Datadog configuration screen with the Edit integration configuration option called out.](../images/datadog-integration-edit-callout.png)
+
 4. Toggle to turn the integration **off**.
-
-![The Datadog integration with the edit button called out.](../images/integration-edit-callout.png)
 
 To permanently delete the Datadog integration:
 
 1. Navigate to the Integrations page.
-2. Find the integration you wish to modify and click **Edit**. The "Create a Datadog configuration" screen appears.
+2. Find the integration you wish to modify and click **Edit integration configuration**. The "Edit Datadog configuration" screen appears.
 3. Click **Delete** in the "Delete Datadog configuration" section. A confirmation screen appears.
 4. Click **Delete** to confirm.
 
