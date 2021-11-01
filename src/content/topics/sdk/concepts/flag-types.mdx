@@ -70,7 +70,12 @@ JSON object and array flags have a size limit of 32KB.
 
 ## Using custom attributes
 
-Custom attributes follow the same patterns as LaunchDarkly flag types. The value of a custom attribute can be of any type that's allowed in JSON, including boolean, number, string, array, and object.
+Custom attributes follow the same patterns as LaunchDarkly flag types. The value of a custom attribute can be of the following types:
+
+* boolean
+* number
+* string
+* array
 
 Number custom attributes are subject to the same restrictions as number flags. For example, if you define a flag targeting rule where `myCustomAttribute` is one of `0.3`, users with an attribute value of `0.3` may not be correctly targeted because 0.3 can't be exactly represented in binary floating point.
 
