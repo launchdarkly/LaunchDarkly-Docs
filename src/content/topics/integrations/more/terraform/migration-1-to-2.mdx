@@ -68,6 +68,25 @@ We no longer recommend you manage environments in Terraform as separate resource
 
 Manage all environments in projects maintained by Terraform as `environments` config blocks on your `launchdarkly_project` resource. The `launchdarkly_project` resource now requires at least one environment be configured. The default `test` and `production` environments are not created unless you explicitly define them. Additionally, removing `environments` blocks from a `launchdarkly_project` resource configuration deletes that environment.
 
+### Importing project resources
+
+Because of a bug in the [2.0.0 release](https://github.com/launchdarkly/terraform-provider-launchdarkly/issues/67), slightly different logic applies for project imports in v2.0.1.
+
+When importing `launchdarkly_project` resources, all of the project's environments are saved to the Terraform state whether or not they are explicitly defined on the import configuration, and are updated with subsequent applies. This means that any environments not included in your import configuration are torn down with any subsequent apply. If you want to manage project properties with Terraform but not nested environments, you can use Terraform's [ignore changes](https://www.terraform.io/docs/language/meta-arguments/lifecycle.html#ignore_changes) lifecycle meta-argument.
+
+Here is an example of the meta-argument:
+
+```
+resource "launchdarkly_project" "example" {
+		lifecycle {
+			ignore_changes = [environments]
+		}
+		name = "testProject"
+		key = "example-project"
+		# environments not included on this configuration will not be affected by subsequent applies
+	}
+```
+
 ## New required fields
 
 The following fields are now required:
