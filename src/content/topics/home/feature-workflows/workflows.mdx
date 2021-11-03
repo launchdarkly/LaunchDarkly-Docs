@@ -28,11 +28,11 @@ This topic explains how to build, start, and view workflows in LaunchDarkly. A w
 
 ## Using workflows
 
-Workflows can automate some of the manual tasks required to manage a feature flag. These tasks often take place in stages. For example, a feature flag workflow might look like this:
+Workflows can automate some of the manual tasks required to manage a feature flag. These tasks often take place in stages. For example, a feature flag workflow that gradually releases a flag to more users might look like this:
 
-![A workflow depicting a progressive rollout over time.](../images/workflows-progressive-rollout.png)
+![A workflow that progressively rolls out a flag over time.](../images/workflows-progressive-rollout.png)
 
-Workflows support consistent release practices and let you automatically release a feature based on a plan that you build.
+Workflows support consistent release practices and let you automatically release a feature based on your release process.
 
 ### Prerequisites
 
@@ -43,7 +43,7 @@ To use workflows, you should understand the following features:
 
 ## Setting up a workflow
 
-Here is how to set up a workflow:
+To build a workflow:
 
 1. Navigate to the flag dashboard and select the flag you want to create a workflow for. The flag's Targeting tab appears.
 2. Click on the **Workflows** tab.
@@ -62,7 +62,7 @@ Here is how to set up a workflow:
   * **Set rollout**: Updates the percentage rollout on a targeting rule.
   * **Add segmenting rule**: Adds a segment of users to target.
 
-  ![A list of 4 flag actions that you can use while building a workflow.](../images/workflows-flag-actions.png)
+  ![The list of flag changes that you can use when creating a workflow.](../images/workflows-flag-actions.png)
 
 11. Add another approval and/or schedule condition step to create another stage of the workflow.
 12. After you have added all of your release steps to the workflow, click **Start workflow**.
@@ -71,9 +71,8 @@ LaunchDarkly now processes the workflow steps for you based on the timeline and 
 
 ## Viewing a workflow
 
-You can view the status of a workflow from the flag's Targeting tab.
-
 To view the status of a workflow:
+
 1. Navigate to the flags dashboard and select the flag with the workflow you want to view. The flag's Targeting tab appears.
 2. View active workflows listed at the top of the targeting page.
 
@@ -90,9 +89,12 @@ There may be cases where you need to delete a workflow. Deleting a workflow stop
 
 To delete a workflow:
 
-1. Navigate to the flags dashboard and select the flag you want to create a workflow for. The flag's Targeting tab appears.
-2. Click on the **Workflows** tab and then click the menu under “Actions.” Select Delete workflow.
+1. Navigate to the Flags dashboard.
+2. Click on the name of the flag you want to delete a workflow from. The flag's Targeting tab appears.
+3. Click on the **Workflows** tab.
+4. Click on the **overflow** menu next to the workflow you want to delete.
+5. Select **Delete workflow**.
 
-![Click the More Actions elipsis and then Delete workflow.](../images/workflows-delete-workflow.png)
+![The Delete workflow option under the overflow menu.](../images/workflows-delete-workflow.png)
 
 3. Enter the flag name or key to confirm the deletion.
