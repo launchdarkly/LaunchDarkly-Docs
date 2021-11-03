@@ -129,7 +129,7 @@ Rule evaluation occurs when a LaunchDarkly client determines whether or not to s
 
 LaunchDarkly uses rule evaluation when it checks the rule against the user context of a particular destination. For example, LaunchDarkly could determine yes or no in response to the rule “Is this user in the 10% who get the new feature variation?"
 
-Flags can have multiple rules. If multiple rules exist, LaunchDarkly evaluates them top to bottom based on the how the rules are configured in the flag's dashboard. You can drag and drop rules to change the evaluation order.
+Flags can have multiple rules. If multiple rules exist, LaunchDarkly evaluates them top to bottom based on how the rules are configured in the flag's dashboard. You can drag and drop rules to change the evaluation order.
 
 Most people write rules that have `AND` or `ONLY IF` statements, to refine the targeting.
 
@@ -233,10 +233,10 @@ During the exercises in the [Configuring an SDK and creating a flag](/guides/tut
 To retrieve the SDK key for your project:
 
 1. Navigate to the [Account settings](https://app.launchdarkly.com/settings/projects) page. It lists all the projects to which your LaunchDarkly user account has access.
-1. Find the project which you created for the <a href="/guides/tutorials/sdk-flag">Your first flag</a> guide.
-1. In the **Account Settings** page, click on the project's SDK key to copy it to your clipboard:
+1. Find the project which you created for the [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag) guide.
+1. In the **Account settings** page, click on the project's SDK key to copy it to your clipboard:
 
-![The Account Settings page in LaunchDarkly with environment SDK keys called out.](../../../images/space-camp-projects.png)
+![The Account settings page in LaunchDarkly with environment SDK keys called out.](../../../images/space-camp-projects.png)
 
 ## Configuring the LaunchDarkly SDK key in your app
 
@@ -273,8 +273,7 @@ To open the Targeting page:
 
 1. Navigate to your LaunchDarkly project.
 2. Find the **Pricing Tier 3** flag in your feature flag list.
-2. Click the flag name. The flag's Targeting page appears.
-3. Duplicate the flag's Targeting page in another browser tab or window.
+3. Click the flag name. The flag's Targeting page appears. Keep this page open to access it quickly.
 
 ## Finding the user object
 
@@ -290,7 +289,7 @@ The user object in the example app code has two attributes: `key` and `anonymous
 
 In the code for the Space Camp app, the user object is in the file named `server.py`, inside the `pricing()` function.
 
-In the example below, the `anonymous` attribute set to `True`. When this happens, LaunchDarkly won't record any of this user's other attributes or list this user on the Users dashboard.
+In the example below, the `anonymous` attribute is set to `True`. When this happens, LaunchDarkly won't record any of this user's other attributes or list this user on the Users dashboard.
 
 Here is an example:
 
@@ -342,11 +341,11 @@ The email address you just logged in with was registered as a user in LaunchDark
 
 ## Creating a user key with a hashed email address
 
-The Space Camp app uses email addresses as user IDs. Providing the user's email addresses as the `key` in our user object means that LaunchDarkly stores that email address. We do not recommend this approach for production environments.
+The Space Camp app uses email addresses as user IDs. Providing the user's email address as the `key` in our user object means that LaunchDarkly stores that email address. We do not recommend this approach for production environments.
 
 For purposes of this guide exercise, there is no other unique, consistent identifier for users, because this exercise collects very limited user data.
 
-To protect the email addresses, you can use the common programming technique known as **hashing**. When you hash something, you apply an algorithm to obscure the true value of the email address by translating letters and numbers in it into other characters. This process is almost impossible to reverse, so email addresses you store using this method are protected.
+To protect the email addresses, you can use the common programming technique known as **hashing**. When you hash something, you apply an algorithm to obscure its true value by translating letters and numbers in it into other characters. This process is almost impossible to reverse, so email addresses you store using this method are protected.
 
 Python includes several popular hashing algorithms in its standard library. Use the SHA256 algorithm to convert the user's email address into a meaningless but unique hash which can be used as the user `key`.
 
@@ -557,7 +556,7 @@ To verify everything is working correctly, use this procedure to check your work
 </CodeTabItem>
 </CodeTabs>
 
-5. Navigate to your Glitch app.
+5. Navigate to your Glitch app and log in.
 6. Click on the avatar in the top right corner. If everything is working correctly, you should see both the email and the hash:
 
 ![The avatar menu now includes the user key, which is the shortened hash of the user's email address.](space-camp-menu-with-hash.png)
@@ -614,7 +613,7 @@ To turn on a percentage rollout for the `Pricing Tier 3` flag:
 
 4. Set the `true` variation to 30%.
 5. Confirm that the flag's **Targeting** toggle is set to **on**.
-6. Click **Save Changes**.
+6. Click **Save changes**.
 7. Log in to the Space Camp app as a few different users. Keep track of which email addresses you use as you log in and log out.
 8. When the third pricing tier appears, you know the user you logged in as is part of the 30% of users targeted by the **Pricing Tier 3** flag.
 9. Log out and log back in again as that same user. The third pricing tier appears every time that user logs in, because LaunchDarkly can now identify individual users. That user will always see the third tier until the flag's targeting changes.
@@ -655,15 +654,15 @@ You can override the percentage rollout for any particular user, forcing them to
 
 In [Configuring a percentage rollout](#configuring-a-percentage-rollout), you saved the email address of a user who did not see the new pricing option in your Glitch app. You need that email address for this exercise, so find it now.
 
-Do this through the Users dashboard:
+To target an individual user through the Users dashboard:
 
 1. Log in to your Glitch app with the email address of the user who did **not** see the **Pricing Tier 3** flag.
 2. Click on the avatar icon in the top-right of the page. The 10-character hashed user `key` is displayed. Copy this key and save it.
 3. Navigate to LaunchDarkly and click into the **Users** dashboard.
 4. Find the user `key` you saved in the list of users and click on it. The user's menu appears.
 5. Change the flag setting for the **Pricing Tier 3** flag from `false` to `true`.
-6. A targeting circle appears next to the selector. This indicates that you are adding analysis explicit targeting rule for this user.
-7. Click the **Save Changes** button:
+6. A targeting circle appears next to the selector. This indicates that you are adding an explicit targeting rule for this user.
+7. Click the **Save changes** button:
 
 ![The flag settings for the user, after choosing the flag variation.](users-flag-settings.png)
 
@@ -725,7 +724,7 @@ return {
 
 ![The rules section of the Targeting page.](flag-rules-section.png)
 
-8. Click  **+ Add Rules**. A form for adding a rule appears:
+8. Click  **+ Add rules**. A form for adding a rule appears:
 
 ![The form for adding a new targeting rule.](flag-rule-form.png)
 
@@ -741,11 +740,11 @@ return {
 ![The rule form, configured for the rule we specified.](flag-rule-filled.png)
 
 13. Click the fifth field and choose the `true` variation. Now when the rule matches a user object, the `true` variation appears.
-14. In the **Default Rule** section, choose `false`. This ensures that only users who match our rules receive a `true` evaluation:
+14. In the **Default rule** section, choose `false`. This ensures that only users who match our rules receive a `true` evaluation:
 
 ![Set the default rule to `false`.](flag-default-rule-false.png)
 
-15. Click **Save Changes**.
+15. Click **Save changes**.
 
 You can test your new targeting rule by logging in to your Glitch app with email addresses starting with the letter `a`, and addresses that start with other letters.
 
@@ -772,7 +771,7 @@ This leaves two options to create a private attribute:
 
 To ensure that the `email` attribute is never accidentally uploaded, change the `ldclient` configuration to mark that attribute as private.
 
-To do this:
+To mark the `email` attribute as private:
 
 1. Navigate to your Glitch app.
 2. Open `server.py`.
@@ -825,7 +824,7 @@ Now change the existing targeting rule in the LaunchDarkly dashboard:
 3. Find the section titled **Target users who match these rules**:
 4. Change the value in the first field from `firstLetter` to `email`.
 5. Change the operator selector from `is one of` to `starts with`. You don't need to change the third field, because we're still looking for an `A` or `a`.
-6. Click **Save Changes**.
+6. Click **Save changes**.
 
 At the end, the rule should look like this:
 
