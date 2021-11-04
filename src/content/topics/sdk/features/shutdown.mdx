@@ -11,11 +11,11 @@ This topic explains how to safely shut down different LaunchDarkly SDKs. This fe
 
 ## Shutting down an SDK
 
-LaunchDarkly SDKs provide language-specific methods to shut down their instances safely. In most applications, you do not have to manually shut down an SDK.
+LaunchDarkly SDKs provide language-specific methods to shut down their instances safely.
 
-When your application is about to terminate, shut down the LaunchDarkly client. This ensures that the client releases any resources it is using, and that it delivers any pending analytics to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events.
+In most applications, you do not have to manually shut down an SDK. However, when your application is about to terminate, you should shut down the LaunchDarkly client. This ensures that the client releases any resources it is using, and that it delivers any pending analytics to LaunchDarkly. If your application terminates without this shutdown step, you may not see your flag evaluations and users on the dashboard, because they are derived from analytics events.
 
-Do not attempt to use the LaunchDarkly client after it has shut down, as doing so may result in undefined behavior. Shut down the client at a point in your application's lifecycle where the client is no longer needed.
+Do not attempt to evaluate flags or otherwise use the LaunchDarkly client after it has shut down, as doing so may result in undefined behavior. Shut down the client at a point in your application's lifecycle where the client is no longer needed.
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 
@@ -37,8 +37,6 @@ This feature is available in the following client-side SDKs:
 * [React Native](#react-native)
 
 ### .NET (client-side)
-
-`Dispose` safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `Dispose`.
 
 To shut down:
 
@@ -86,7 +84,7 @@ client.close()
 
 ### C/C++ (client-side)
 
-To fully uninitialize the C/C++ SDK resources, you must use `close`. The operation blocks until all resources are free. It is not safe to use any API methods after this process is initiated.
+To fully uninitialize the C/C++ SDK resources, you must use `close`. The operation blocks until all resources are free.
 
 To shut down:
 
@@ -136,8 +134,6 @@ await client.close();
 
 ### Flutter
 
-Optionally, if your application will no longer use the client, it may permanently shut down the client with `close`. This is not generally required, but is provided to clear any resources associated with the SDK and cleanly shut down.
-
 To shut down:
 
 <CodeTabs
@@ -184,7 +180,7 @@ client.close()
 
 ### JavaScript
 
-To shut down the JavaScript SDK:
+To shut down:
 
 <CodeTabs
   defaultValue="js"
@@ -255,7 +251,7 @@ This feature is available in the following server-side SDKs:
 
 ### .NET (server-side)
 
-[`Dispose`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Dispose_) safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `Dispose`.
+[`Dispose`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Dispose_) safely shuts down the client instance.
 
 To shut down:
 
@@ -276,7 +272,7 @@ client.Dispose();
 
 ### C/C++ (server-side)
 
-`LDClientClose` uninitializes the resources the C/C++ SDK uses. The operation blocks until all resources are free. It is not safe to use any API methods after this process is initiated.
+`LDClientClose` uninitializes the resources the C/C++ SDK uses. The operation blocks until all resources are free.
 
 To shut down:
 
@@ -297,11 +293,7 @@ LDClientClose(client);
 
 ### Erlang
 
-`stop_instance()`, `stop_instance(Tag)`, and `stop_all_instance()` all safely shut down client instances and releases the resources associated with them.
-
-In most long-running applications, you will not have to call these functions. You can use them to ensure all events have been flushed synchronously before closing your application.
-
-Do not evaluate flags after any of these functions have been initiated.
+`stop_instance()`, `stop_instance(Tag)`, and `stop_all_instances()` all safely shut down client instances and release the resources associated with them.
 
 To shut down:
 
@@ -347,12 +339,6 @@ client.Close()
 
 ### Haskell
 
-`close` safely shuts down the client instance and releases all resources associated with the client.
-
-In most long-running applications, you do not have to call `close`, but you can use it to ensure all events have been flushed synchronously before closing your application.
-
-You should not evaluate flags after `close` has been initiated.
-
 To shut down:
 
 <CodeTabs
@@ -372,7 +358,7 @@ close client
 
 ### Java
 
-[`Close`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#close--) safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `close`.
+[`Close`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#close--) safely shuts down the client instance and releases all resources associated with the client.
 
 To shut down:
 
@@ -393,8 +379,6 @@ client.close()
 
 ### Node.js (server-side)
 
-`Close` safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `close`.
-
 To shut down:
 
 <CodeTabs
@@ -414,8 +398,6 @@ client.close();
 
 ### Python
 
-`Close` safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `close`.
-
 To shut down:
 
 <CodeTabs
@@ -434,8 +416,6 @@ ldclient.get().close()
 </CodeTabs>
 
 ### Ruby
-
-`Close` safely shuts down the client instance and releases all resources associated with the client. In most long-running applications, you do not have to call `close`.
 
 To shut down:
 
