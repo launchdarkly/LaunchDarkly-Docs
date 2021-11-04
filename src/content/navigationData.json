@@ -1207,6 +1207,9 @@
           {
             "label": "Using the Lua SDK with NGINX",
             "path": "/guides/platform-specific/nginx"
+          },                    {
+            "label": "Using mobile SDKs",
+            "path": "/guides/platform-specific/mobile"
           }
         ]
       },
