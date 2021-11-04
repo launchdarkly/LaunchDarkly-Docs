@@ -24,7 +24,7 @@ This feature is available in the following client-side SDKs:
 
 The bootstrap feature in Electron works the same as in client-side Node.js SDK. To learn how to use it, read [Node.js (client-side)](#nodejs-client-side).
 
-If you set `bootstrap` to the string `"localstorage"`, the client tries to get flag values from persistent storage, using a unique key that is based on the user properties. In Electron, persistent storage consists of files in the [`userData`](https://electronjs.org/docs/) directory. If the client finds flag values stored for this user, it uses them and starts up immediately in a ready state, but also makes a background request to LaunchDarkly to get the latest values and stores them as soon as it receives them.
+If you set `bootstrap` to the string `"localStorage"`, the client tries to get flag values from persistent storage, using a unique key that is based on the user properties. In Electron, persistent storage consists of files in the [`userData`](https://electronjs.org/docs/) directory. If the client finds flag values stored for this user, it uses them and starts up immediately in a ready state, but also makes a background request to LaunchDarkly to get the latest values and stores them as soon as it receives them.
 
 ### JavaScript
 
@@ -141,7 +141,7 @@ const client = LaunchDarkly.initialize(
 
 A more useful mode in a client-side Node application is to bootstrap from locally cached values. In this mode, if no values have been cached yet, the SDK obtains flags from LaunchDarkly and then caches them in persistent storage. The next time you start, the cached flags are immediately available, and the SDK also contacts LaunchDarkly in the background to obtain updated values.
 
-To activate this mode, use the special string `"localstorage"`:
+To activate this mode, use the special string `"localStorage"`:
 
 <CodeTabs
   defaultValue="js"
