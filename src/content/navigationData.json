@@ -1181,8 +1181,16 @@
         "svg": "bullseye-arrow",
         "items": [
           {
+            "label": "Managing custom roles with SSO and SCIM",
+            "path": "/guides/platform-specific/custom-roles"
+          },
+          {
             "label": "Managing flags with Terraform",
             "path": "/guides/platform-specific/terraform"
+          },
+          {
+            "label": "Using flags on static sites with JavaScript",
+            "path": "/guides/platform-specific/static-sites"
           },
           {
             "label": "Using flags with AWS Lambda",
@@ -1191,10 +1199,6 @@
           {
             "label": "Using flags with Next.js",
             "path": "/guides/platform-specific/nextjs"
-          },
-          {
-            "label": "Using flags on static sites with JavaScript",
-            "path": "/guides/platform-specific/static-sites"
           },
           {
             "label": "Using the Lua SDK with HAProxy",
