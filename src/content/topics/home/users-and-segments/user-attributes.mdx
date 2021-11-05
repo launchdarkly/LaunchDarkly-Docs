@@ -154,6 +154,8 @@ There are three different ways to configure private attributes:
 
 User `key`s cannot be marked private.
 
+If you initially mark an attribute as private, LaunchDarkly will continue to treat the attribute as private in subsequent evaluations as long as the user is on the dashboard, even if you later remove the "private" designation from the attribute. If you no longer want LaunchDarkly to treat the attribute as private, remove the "private" designation, delete the user from the Users dashboard, and re-evaluate the user.
+
 To learn more about setting these configuration options, read your SDK's documentation.
 
 <Callout intent="alert">
