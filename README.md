@@ -89,7 +89,7 @@ If you're a new LaunchDarkly technical writer or other contributor accessing the
 
 ## (Internal LaunchDarkly use only) 🌗 Accessing the staging site
 
-The staging url is [docs-stg.launchdarkly.com](https://docs-stg.launchdarkly.com).
+When you open a docs PR, it creates a unique staging site. The URL for each site is linked in the PR page in the repo.
 
 Staging is automatically refreshed on push to master. See [Build & Deploy](#-build--deploy).
 
@@ -109,46 +109,6 @@ This builds Gatsby and upload the artifacts to the staging s3 bucket.
 
 We use flags in Catfood under the Docs project. There are three environments: Development, Test and Production
 corresponding to local dev, staging and prod respectively.
-
-### Flagging content changes
-
-You can flag mdx changes with the `Feature` component defined at `src/components/mdx/feature.tsx`. In your mdx file, nest your React or HTML elements under the `<Feature>` component like so:
-
-```jsx
-<Feature flagKey="camelCasedFlagKey">
-<Callout intent="primary">
-  <CalloutTitle>Syncing segments is an Enterprise feature</CalloutTitle>
-  <CalloutDescription>
-
-Content to be flagged
-
-  </CalloutDescription>
-</Callout>
-</Feature>
-```
-
-The `flagKey` prop is the camelCased version of your flag key since we are using the React SDK here which uses
-camelCased keys by default.
-
-There is also an optional `showWhenVariation` prop. This is used to control what flag value will show
-your content. For example, the EAP callout below will be displayed when the `syncedSegments` flag is `false`.
-This is useful to help us hide old content when rolling out new ones. The `showWhenVariation` prop defaults to `true`.
-
-```jsx
-<Feature flagKey="syncedSegments" showWhenVariation={false}>
-<Callout intent="info">
-  <CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
-  <CalloutDescription>
-
-Syncing segments from Amplitude cohorts is only available to members of LaunchDarkly's Early Access Program...
-
-  </CalloutDescription>
-</Callout>
-</Feature>
-```
-
-**GOTCHA**: Indentation matters! This is a known issue with mdx and nested elements. Make sure children
-elements directly under `<Feature>` are left-aligned like the above example.
 
 ### Flagging navigation items
 
