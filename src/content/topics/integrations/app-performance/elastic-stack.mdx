@@ -22,7 +22,7 @@ LaunchDarkly's Elastic Stack integration supports log aggregation and data and t
 
 For example, an engineer is alerted to an anomaly in their application's behavior. With the LaunchDarkly Elastic Stack integration sending data to their observability stack, they can easily correlate flag changes atop timeseries and see what changes happened just before the anomalous activity.
 
-![Elastic Time Series Visualization Builder with LaunchDarkly annotations](../../images/elastic-annotated-graph.png)
+![The Elastic Time Series Visualization Builder with LaunchDarkly annotations.](../../images/elastic-annotated-graph.png)
 
 Development teams could also build data visualizations around their LaunchDarkly audit log data to find out more about who interacts with or modifies their feature flags. You can even use Elasticsearch to find specific information in your logs.
 
@@ -40,23 +40,24 @@ To configure the Elastic integration, you must have the following prerequisites:
 
 Here's how to configure the Elastic Stack integration:
 
-1. Navigate to the <Link to="https://app.launchdarkly.com/default/integrations">LaunchDarkly integrations</Link> page.
-2. Click to expand the Elastic (ELK) Stack card.
-3. Click **+ integration**.
+1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) and expand the Elastic (ELK) Stack card.
+3. Click **Add integration**. The integration configuration screen appears.
 
 ![The LaunchDarkly Elastic (ELK) Stack integration configuration screen.](../../images/elastic-integration.png)
 
 4. (Optional) Enter a human-readable **Name**.
-5. Paste in the **Elasticsearch Endpoint URL**.
-6. Paste in the **Authentication Token**. This is the base64 encoding of `id` and `api_key`, joined by a colon.
-7. Enter or use the default value for the **Elasticsearch Index** to which you want to write your LaunchDarkly data.
-8. Click **Save Elastic (ELK) Stack Configuration**.
+5. Paste in the **Elasticsearch endpoint URL**.
+6. Paste in the **Authentication token**. This is the base64 encoding of `id` and `api_key`, joined by a colon.
+7. Enter or use the default value for the **Index** to which you want to write your LaunchDarkly data.
+8. (Optional) Configure a custom policy to control which information LaunchDarkly sends to your Elastic cluster. To learn more, read [Choosing what data to send](#choosing-what-data-to-send).
+9. After reading the Integration Terms and Conditions, check the **I have read and agree to the Integration Terms and Conditions** checkbox.
+10. Click **Save configuration**.
 
 After you configure the integration, LaunchDarkly sends flag, environment, and project data to your Elastic cluster.
 
 ## Choosing what data to send
 
-The _Policy_ configuration field allows you to control which kinds of LaunchDarkly events are sent to Elasticsearch. The default policy value restricts it to flag changes in production environments:
+The "Policy" configuration field allows you to control which kinds of LaunchDarkly events are sent to Elasticsearch. The default policy value restricts it to flag changes in production environments:
 
 <CodeTabs
   defaultValue="txt"
@@ -100,13 +101,13 @@ Alternatively, you use the integration to monitor not just flag changes, but all
 
 To send more data to Elasticsearch:
 
-1. Navigate to the LaunchDarkly [Integrations](https://app.launchdarkly.com/default/integrations) page.
-2. Click to **Edit** the Elastic (ELK) Stack card.
-3. If the current policy is already expanded, click **cancel** in the lower-right. Otherwise click **+ Add statement** under _Policy_.
+1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations).
+2. Find the integration you wish to modify and click **Edit integration configuration**. The "Edit Elastic (ELK) Stack configuration" screen appears.
+3. If the current policy is already expanded, click **cancel** in the lower-right. Otherwise click **+ Add statement** under "Policy".
 4. Enter a statement for the resources you would like to send to Elasticsearch. For example, `proj/*` will send all project data and `proj/*:env/*` will send all environment data from all projects.
 5.  Click **Update**.
-6. Repeat steps 2 and 3 for each additional category of data you'd like sent to Elasticsearch.
-6. When you've added all the policies you wish, click **Save Elastic (ELK) Stack Configuration**.
+6. Repeat steps 3 and 4 for each additional category of data you'd like to send to Elasticsearch.
+6. When you've added all the policies you wish, click **Save configuration**.
 
 To learn more about setting custom policies, read [Policies in custom roles](/home/members/role-policies).
 

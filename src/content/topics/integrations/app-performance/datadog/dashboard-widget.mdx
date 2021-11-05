@@ -1,0 +1,58 @@
+---
+path: '/integrations/datadog/dashboard-widget'
+title: 'Using the Datadog dashboard widget'
+description: 'This topic explains how to configure and use the LaunchDarkly Datadog dashboard widget.'
+published: true
+---
+
+<Callout intent="primary">
+<CalloutTitle>The Datadog dashboard widget is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+The Datadog dashboard widget is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+LaunchDarkly's [Datadog dashboard widget](https://app.datadoghq.com/account/settings#integrations/launchdarkly) lets you pin feature flags to your Datadog dashboards to monitor and toggle flags from within Datadog. This allows you to manage feature releases in individual environments while monitoring your application performance, without needing to switch between applications.
+
+You can use the widget to organize, monitor, and toggle your flags on and off. You can filter flags by attributes such as project, environment, or tags. Additionally, you can employ a [Datadog template variable](https://docs.datadoghq.com/dashboards/template_variables/) to ensure the contents update with the rest of your Datadog view.
+
+![The "Save with comment" modal for making flag changes within the Datadog dashboard widget.](../../images/datadog-dashboard-widget.png)
+
+The Datadog dashboard widget uses the same permissions set for an account member's Datadog and LaunchDarkly accounts. When using a shared dashboard, account members can view and edit flags based on their permissions within the LaunchDarkly app.
+
+You cannot toggle feature flags that require approval from within the widget. Instead, you can click on a flag name to open the flag details page within LaunchDarkly and toggle the flag from there.
+
+## Installing the Datadog widget
+
+To install the Datadog widget:
+
+1. In Datadog, navigate to the Integrations page.
+2. Search for LaunchDarkly or go directly to the [LaunchDarkly listing](https://app.datadoghq.com/account/settings#integrations/launchdarkly).
+3. Click **Install**.
+
+## Adding the widget to a dashboard
+
+To add the widget to your dashboard:
+
+1. In Datadog, navigate to an existing dashboard or create a new one.
+2. Click **Add Widgets**. The widget drawer opens.
+3. Search for **LaunchDarkly**.
+4. Click or drag the LaunchDarkly widget icon to your dashboard. The LaunchDarkly editor modal opens.
+5. Click **Connect**. A new window opens prompting you to authorize Datadog.
+6. Click **Authorize**. You are returned to Datadog.
+7. Configure the following widget options in the **LaunchDarkly editor**:
+
+    * **LaunchDarkly project**: The name of the LaunchDarkly project you wish to associate with the dashboard widget.
+    * **LaunchDarkly environment**: The name of the LaunchDarkly environment you wish to associate with the dashboard widget.
+    * **Environment template variable** (optional): A [Datadog template variable](https://docs.datadoghq.com/dashboards/template_variables/) that overrides the **LaunchDarkly environment** option.
+    * **LaunchDarkly tag filter**: An optional `+` separated list of tags used to filter the feature flags displayed in the widget. If multiple tags are included, only flags that match all included tags will appear. If omitted, all of the project's feature flags will appear.
+    * **Sort**: The order the flags are displayed in the widget. Defaults to **Newest**.
+8. (Optional) Enter a widget a title.
+
+![The LaunchDarkly editor configuration page in Datadog, configured with sample settings.](../../images/datadog-widget-configuration.png)
+
+9. Click **Save**.

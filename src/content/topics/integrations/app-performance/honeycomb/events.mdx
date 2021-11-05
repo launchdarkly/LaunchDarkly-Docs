@@ -73,19 +73,20 @@ Here's how to add the Honeycomb integration:
 
 1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) and find the Honeycomb card.
 
-![The Honeycomb card, showing the "+ Integration" button.](../images/honeycomb-card.png)
+![The Honeycomb card, showing the "Add integration" button.](../images/honeycomb-card.png)
 
-2. Click **+ Integration**. The integration configuration screen appears.
+2. Click **Add integration**. The integration configuration screen appears.
 3. (Optional) Type a human-readable **Name**.
 4. Enter the **Honeycomb dataset name** you would like flag markers to be associated with.
 5. Paste in your **Honeycomb API key**.
-6. Click **Save Configuration**.
+6. (Optional) Configure a custom policy to control which flag information LaunchDarkly sends to Honeycomb. To learn more, read [Configuring integration policies](#configuring-integration-policies).
+7. After reading the Integration Terms and Conditions, check the **I have read and agree to the Integration Terms and Conditions** checkbox.
+8. Click **Save configuration**.
 
-This is all you need to do to add the Honeycomb integration, but you can further configure the integration to alter which events LaunchDarkly sends to Honeycomb.
 
 ### Configuring integration policies
 
-The "Policy" field in the integration configuration screen lets you control which LaunchDarkly events LaunchDarkly sends to Honeycomb.
+The "Policy" field in the integration configuration screen lets you control which events LaunchDarkly sends to Honeycomb.
 
 The Resource specifier in the default policy value allows Production environments across all projects to send events:
 
@@ -108,7 +109,8 @@ roles](/home/members/role-resources).
 
 You can use the policy editor to restrict the integration to:
 
-* a specific set of LaunchDarkly projects/environments * a specific set of flags
+* a specific set of LaunchDarkly projects/environments
+* a specific set of flags
 * a specific set of actions
 
 For example, to restrict the policy to a single project called `cool-app`, set

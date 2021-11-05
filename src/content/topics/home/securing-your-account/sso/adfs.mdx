@@ -33,16 +33,15 @@ To give your team access to LaunchDarkly through ADFS, you need the following co
 <CalloutTitle>Setting up ADFS</CalloutTitle>
 <CalloutDescription>
 
-This topic will not tell you how to set up ADFS. To learn more about setting up ADFS, read [Microsoft's documentation](https://docs.microsoft.com/en-us/previous-versions/dynamicscrm-2016/deployment-administrators-guide/)
+This topic does not tell you how to set up ADFS. To learn how to set up ADFS, read [Microsoft's documentation](https://docs.microsoft.com/en-us/previous-versions/dynamicscrm-2016/deployment-administrators-guide/).
+
 
 </CalloutDescription>
 </Callout>
 
-## Set Up LaunchDarkly
+## Setting up LaunchDarkly fields
 
-For more information on configuring LaunchDarkly's SSO, read [Single sign-on](/home/account-security/sso).
-
-Here is a table explaning LauchDarkly fields:
+Here is a table explaning LaunchDarkly fields:
 
 <Table>
   <TableHeader>
@@ -70,59 +69,117 @@ Here is a table explaning LauchDarkly fields:
   </TableBody>
 </Table>
 
-## Set Up Relaying Party Trust
+For more information on configuring LaunchDarkly's SSO, read [Single sign-on](/home/account-security/sso).
 
-1. Log into ADFS Management tool.
-2. Click **Add Relying Party Trust...** to open the Add Relying Party Trust Wizard:
+## Adding Relying Party Trust
+
+To add Rely Party Trust:
+
+1. Log into the ADFS Management tool.
+2. Click **Add Relying Party Trust...**. The Add Relying Party Trust Wizard opens:
 
 ![The Add Relying Party Trust field is called out.](../../../../images/adfs-add-party-trust.png)
 
 
-3. Click **Start** to begin. Keep the default value, which is **Claims aware**:
+3. Click **Start**. Keep the default value, which is **Claims aware**:
 
 ![The Welcome screen for the setup wizard.](../../../../images/adfs-wizard-claims-aware.png)
 
 
-4. Choose **Enter data about the relying party manually** and click **Next**:
+4. Choose **Enter data about the relying party manually**:
 
 ![The Select Data Source screen.](../../../../images/adfs-qizard-enter-data-manually.png)
 
-5. Set the display name. You can enter any name you want and click **Next**.
-6. Click **Next** on the following screen. You do not need to choose a certificate.
-7. Select **Enable support for the SAML 2.0 WebSSO protocol**.
-8. Enter the **Assertion consumer service URL** from the SSO section of LaunchDarkly into the **Relying party SAML 2.0 SSO service URL** field and click **Next**.
-9. In the **Relying party trust identifier** field, enter `app.launchdarkly.com` and click **Add** and click **Next**.
-10. Click **Next**. You do not need to change any access control policies.
-11. Review your changes and click **Next**.
-12. If you are satisfied with the configuration, click **Close**.
+5. Click **Next**. The "Specify Display Name" screen opens.
+6. Set a display name of your choosing.
+7. Click **Next**. The "Configure Certificate" screen opens.
+8. You do not need to choose a certificate. Click **Next**.
+9. Select **Enable support for the SAML 2.0 WebSSO protocol**.
+10. Enter the **Assertion consumer service URL** from the SSO section of LaunchDarkly into the **Relying party SAML 2.0 SSO service URL** field.
+11. Click **Next**.
+12. In the **Relying party trust identifier** field, enter `app.launchdarkly.com`.
+13. Click **Add**.
+14. Click **Next**. The "Choose Access control Policy" screen opens.
+15. You do not need to change any access control policies. Click **Next**.
+16. Review your changes and click **Next**.
+17. If you are satisfied with the configuration, click **Close**.
 
 After you have successfully completed this procedure, a new LaunchDarkly trust will appear in the ADFS Management tool.
 
-## Set up Claim issuance Policy
+## Setting up Claim issuance Policies
 
-To set up a Claim issuance Policy:
+To set up a Claim Issuance Policy:
 
-1. Log into the ADFS Management tool
-2. Select the **LaunchDarkly Trust**
-3. Click **Edit Claim Issuance Policy...** in the dropdown. The **Edit Claim Issuance Policy** window opens.
+1. Log into the ADFS Management tool.
+2. Select the **LaunchDarkly Trust**.
+3. Click **Edit Claim Issuance Policy...** in the dropdown. The "Edit Claim Issuance Policy" window opens.
 4. Click **Add Rule**.
-5. Set **Claim rule template** to **Transform an Incoming Claim** and click **Next**:
+5. Set **Claim rule template** to **Transform an Incoming Claim**.
+6. Click **Next**:
 
 ![The Select Rule Template screen.](../../../../images/adfs-select-rule-template.png)
 
 
 6. Set the following options:
 
-- Claim rule name: Enter a human-readable name, such as `Email to NameID`.
+- Claim rule name: Enter a human-readable name, such as "Email to NameID".
 - Incoming claim type: **E-Mail Address**
 - Outgoing claim type: **Name ID**
 - Outgoing name ID format: **Email**
 
-7. Select **Pass through all claim values** and click **Finish**.
+7. Select **Pass through all claim values**.
+8. Click **Finish**.
 
-After you have successfully completed this procedure, ADFS will be configured with LaunchDarkly.
+ADFS is now configured with LaunchDarkly.
 
-## Test Drive and Enable
+For more information on claim rules, read Microsoft's [Create a Rule to Transform an Incoming Claim](https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/operations/create-a-rule-to-transform-an-incoming-claim).
+
+### Configuring custom roles
+
+You can map LaunchDarkly custom role attributes to ADFS using a Claim issuance Policy. To learn more about SSO provisioning for roles and custom roles, read [Custom attributes](/home/account-security/sso#custom-attributes).
+
+Before you can map map custom role attributes, you must get your ADFS groups. To learn how, read Microsoft's Microsoft's [Create a Rule to Send Claims Using a Custom Rule](https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/operations/create-a-rule-to-send-claims-using-a-custom-rule).
+
+Your rule will look something like this:
+
+![The edit rule window.](../../../../images/adfs-get-groups.png)
+
+To send claims using a custom rule:
+
+1. Log into the ADFS Management tool.
+2. Select **LaunchDarkly Trust**.
+3. Click **Edit Claim Issuance Policy...** in the dropdown. The "Edit Claim Issuance Policy" window opens.
+4. Click **Add Rule**.
+5. Set **Claim rule template** to **Send Claims using a custom rule**.
+6. Click **Next**.
+7. Enter a human-readable name, such as "Map groups to LD custom roles".
+8. In the Custom rule window, enter the following:
+
+<CodeTabs
+  defaultValue="adfs"
+  values={[
+    { label: 'ADFS', value: 'adfs', },
+  ]
+}>
+<CodeTabItem value="adfs">
+
+```
+ c:[Type == "http://temp/variable"]
+ => issue(Type = "customRole", Value = c.Value)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Here is an image of the custom rule:
+
+![A custom rule entered in the edit rule window.](../../../../images/adfs-map-groups-to-roles.png)
+
+9. Click **OK**.
+
+You can now assign ADFS members to custom role groups using the "Member of" tab within user properties.
+
+## Test drive and enable
 
 After you successfully complete the procedures in this topic, you can log in through ADFS when test drive is enabled. For more information about test drive, read [Test drive mode](/home/account-security/sso#test-drive-mode).
 

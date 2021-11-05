@@ -402,6 +402,10 @@
           {
             "label": "Flag triggers",
             "path": "/home/feature-workflows/triggers"
+          },
+          {
+            "label": "Workflows",
+            "path": "/home/feature-workflows/workflows"
           }
         ]
       },
@@ -535,6 +539,10 @@
               {
                 "label": "Using the Datadog events integration",
                 "path": "/integrations/datadog/events"
+              },
+              {
+                "label": "Using the Datadog dashboard widget",
+                "path": "/integrations/datadog/dashboard-widget"
               },
               {
                 "label": "Using flag triggers with Datadog",
@@ -1173,8 +1181,16 @@
         "svg": "bullseye-arrow",
         "items": [
           {
+            "label": "Managing custom roles with SSO and SCIM",
+            "path": "/guides/platform-specific/custom-roles"
+          },
+          {
             "label": "Managing flags with Terraform",
             "path": "/guides/platform-specific/terraform"
+          },
+          {
+            "label": "Using flags on static sites with JavaScript",
+            "path": "/guides/platform-specific/static-sites"
           },
           {
             "label": "Using flags with AWS Lambda",
@@ -1185,16 +1201,15 @@
             "path": "/guides/platform-specific/nextjs"
           },
           {
-            "label": "Using flags on static sites with JavaScript",
-            "path": "/guides/platform-specific/static-sites"
-          },
-          {
             "label": "Using the Lua SDK with HAProxy",
             "path": "/guides/platform-specific/haproxy"
           },
           {
             "label": "Using the Lua SDK with NGINX",
             "path": "/guides/platform-specific/nginx"
+          },                    {
+            "label": "Using mobile SDKs",
+            "path": "/guides/platform-specific/mobile"
           }
         ]
       },

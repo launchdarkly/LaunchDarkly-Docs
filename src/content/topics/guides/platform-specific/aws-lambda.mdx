@@ -176,7 +176,7 @@ After you download the function locally, install the [LaunchDarkly Node SDK](htt
     ```js
     exports.handler = async (event) => {
         let response = {
-            statusCode: 200,
+          statusCode: 200,
         };
         try {
             await client.waitForInitialization();
@@ -221,28 +221,28 @@ Now that you've created a flag, you can use it in your function. First, you'll a
 
 Replace the existing handler code with the code below:
 
-  <CodeTabs
-    defaultValue="js"
-    values={[
-        { label: 'JavaScript', value: 'js', }
-    ]
-    }>
-    <CodeTabItem value="js">
+<CodeTabs
+  defaultValue="js"
+  values={[
+      { label: 'JavaScript', value: 'js', }
+  ]
+  }>
+<CodeTabItem value="js">
 
-    ```js
-    exports.handler = async event => {
-        let response = {
+  ```js
+  exports.handler = async event => {
+      let response = {
         statusCode: 200,
-        }
-        await client.waitForInitialization()
-        let viewBetaSite = await client.variation('rebrand', { key: 'YOUR-EMAIL-ADDRESS-HERE#EXAMPLE.COM' }, false)
-        response.body = JSON.stringify(viewBetaSite)
-        return response
-    }
-    ```
+      }
+      await client.waitForInitialization()
+      let viewBetaSite = await client.variation('rebrand', { key: 'YOUR-EMAIL-ADDRESS-HERE@EXAMPLE.COM' }, false)
+      response.body = JSON.stringify(viewBetaSite)
+      return response
+  }
+  ```
 
-   </CodeTabItem>
-   </CodeTabs>
+</CodeTabItem>
+</CodeTabs>
 
 Open the AWS panel in VSCode. Right-click to upload. When the upload finishes, right-click the function and invoke it again. You do not need a payload.
 
@@ -391,7 +391,7 @@ You can also change which site you see, or test what the full rollout looks like
 
 That's it! You've successfully integrated LaunchDarkly into a Lambda function and then deployed that function to Lambda@Edge.
 
-#### Cleanup
+**Cleanup**
 
 If you'd like to clean up your AWS environment when you complete this guide, here's how:
 
