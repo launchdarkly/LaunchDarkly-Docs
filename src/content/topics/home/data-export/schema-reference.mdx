@@ -131,7 +131,7 @@ All events have the following top level structure:
 
 - `project`: The ID of the LaunchDarkly project associated with the event.
 - `environment`: The ID of the LaunchDarkly environment associated with the event.
-- `version`: Not currently in use (it is always `1`), but may be used in the future if event schemas change.
+- `version`: Not in use. The version is always `1`.
 - `event`: The event itself. It is an object with a structure described below, depending on the `kind` of event.
 
 ## Feature events
@@ -181,9 +181,9 @@ Here is a list of feature event properties:
 - `variationName`: The evaluated variation's name, if it exists. If the evaluated variation doesn't have a name, this field doesn't appear.
 - `value`: The value of the feature flag returned by feature flag evaluation.
 - `default`: (Optional) This value is set to `true` if feature flag evaluation failed, in which case the value returned was the default value passed to `variation`. If the default field is omitted, it is assumed to be `false`.
+- `version`: The version of the evaluated feature flag.
+- `reason`: (Optional) If a "variation detail" method generates a feature event, the event will have a `reason` property with the JSON representation of the [evaluation reason](/sdk/concepts/evaluation-reasons). Evaluations that were part of an experiment have the `inExperiment` attribute on the evaluation reason set to `true`.
 - `prereqOf`: attribute should be set to a flag key if this flag evaluation was only performed in order to determine whether the prerequisite values were met for the indicated flag.
-
-If a feature event was generated through a "variation detail" method, the event will have a `reason` property with the JSON representation of the [evaluation reason](/sdk/concepts/evaluation-reasons).
 
 ## Index events
 
