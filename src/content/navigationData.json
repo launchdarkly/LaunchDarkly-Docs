@@ -719,6 +719,10 @@
             "path": "/integrations/bitbucket-pipelines"
           },
           {
+            "label": "Cloudflare",
+            "path": "/integrations/cloudflare"
+          },
+          {
             "label": "Heap",
             "path": "/integrations/heap"
           },
@@ -1071,6 +1075,10 @@
               {
                 "label": "Node SDK 5.x to 6.0 migration guide",
                 "path": "/sdk/server-side/node-js/migration-5-to-6"
+              },
+              {
+                "label": "Cloudflare Edge SDK",
+                "path": "/sdk/server-side/node-js/cloudflare-edge-sdk"
               }
             ],
             "svg": "nodejs"
