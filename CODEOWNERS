@@ -7,7 +7,9 @@
 *.md @launchdarkly/docs-reviewers
 *.mdx @launchdarkly/docs-reviewers
 /assets/ @launchdarkly/docs-reviewers
-/src/content/sdkVersions.json @launchdarkly/sdk-owners
-/src/content/relayVersions.json @launchdarkly/sdk-owners
 /src/ @launchdarkly/docs-reviewers
 /templates/ @launchdarkly/docs-reviewers
+
+# EOL data
+/src/content/sdkVersions.json @launchdarkly/sdk-owners
+/src/content/relayVersions.json @launchdarkly/sdk-owners
