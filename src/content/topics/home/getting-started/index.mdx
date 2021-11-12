@@ -3,18 +3,38 @@ path: '/home/getting-started'
 title: 'Getting started'
 description: 'This category contains a high-level introduction to LaunchDarkly.'
 published: true
-isLandingPage: true
 ---
 
 Welcome to LaunchDarkly! We're excited to partner with you as you use feature flags to make high-impact changes with minimal risk and maximum control.
 
-## Getting started with LaunchDarkly
+From here, you can learn more about:
+
+* [Joining an account](#joining-an-account)
+* [Using the LaunchDarkly dashboard](#using-the-launchdarkly-dashboard)
+* [Getting started as a software developer](#getting-started-as-a-software-developer)
+* [Getting started as a product manager](#getting-started-as-a-product-manager)
+* [Getting started as a systems architect](#getting-started-as-a-systems-architect)
+* [Getting started as an account administrator](#getting-started-as-an-account-administrator)
+* [Additional resources](#additional-resources)
+
+## Joining an account
 
 To get started with LaunchDarkly, you must first create or join an account. To learn more about LaunchDarkly accounts, read [Joining an account](/home/getting-started/your-account).
 
-### Using the dashboard
+<Callout intent="primary">
+<CalloutTitle>Don't have an account? Start a trial.</CalloutTitle>
+<CalloutDescription>
 
-After you join an account, you have have access to the LaunchDarkly dashboard:
+Your 14-day trial begins as soon as you sign up. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>
+
+## Using the LaunchDarkly dashboard
+
+After you join an account, you have access to the LaunchDarkly dashboard:
 
 ![The LaunchDarkly dashboard.](../../images/launchdarkly-dashboard.png)
 
@@ -23,11 +43,11 @@ From the dashboard, you can navigate to LaunchDarkly's primary features in the l
 - [Feature flags](/home/flags): target flag variations to users and segments who use your product
 - [Users](/home/users): people, services, machines, and other resources that encounter feature flags in your product
 - [Segments](/home/users/segments): groups of users targeted by attribute
-- [Experiments](/home/experimentation): experiments measure the impact of features you roll out to your app or infrastructure
+- [Experiments](/home/experimentation): measure the impact of features you roll out to your app or infrastructure
 - [Debugger](/home/flags/debugger): real-time insight into the events your app is sending to LaunchDarkly
-- [Audit Log](/home/flags/audit-log-history): a running tally of changes made to feature flags
+- [Audit log](/home/flags/audit-log-history): a running tally of changes made to feature flags
 - [Integrations](/integrations): third-party integrations that let you configure the product to your specific needs
-- Account Settings: [manage members](/home/members), [projects](/home/organize/projects), [roles](/home/members/built-in-roles), [authorization](/home/account-security), and more
+- Account settings: manage [members](/home/members), [projects](/home/organize/projects), [roles](/home/members/built-in-roles), [authorization](/home/account-security), and more
 
 Additional help is available in the top toolbar:
 
@@ -35,7 +55,7 @@ Additional help is available in the top toolbar:
     - [Create a new flag](/home/getting-started/feature-flags)
     - [Switch environments](/home/organize/environments)
     - Search our help documentation
-    - Follow a tutorial to [install an SDK](https://app.launchdarkly.com/default/production/quickstart)
+    - Follow a tutorial to [install an SDK](https://app.launchdarkly.com/get-started/tutorial)
     - [Create a support ticket](https://support.launchdarkly.com/hc/en-us/requests/new)
     - Copy your [SDK key](/sdk/concepts/client-side-server-side#keys) for the current environment
     - Search for specific [flags](/home/flags), [segments](/home/users/segments), and [users](/home/users)
@@ -46,26 +66,80 @@ Additional help is available in the top toolbar:
     - Get help by [contacting us directly](https://support.launchdarkly.com/)
     - Read our documentation
     - Read about what's new
-    - Try our [Quickstart guide](https://app.launchdarkly.com/default/production/quickstart)
+    - [Get started](https://app.launchdarkly.com/get-started) by trying an interactive demo or following a tutorial to connect LaunchDarkly to your app
 - Account: click on your avatar to view your profile or sign out
 
-Here are some additional resources for learning how to use the dashboard:
+
+## Getting started as a software developer
+
+As a software developer, you're responsible for creating and implementing feature flags in code.
+
+First, you must set up a LaunchDarkly SDK to integrate LaunchDarkly with your code. To learn more, read [Setting up an SDK](/home/getting-started/setting-up). For information about how to choose an SDK, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side). After you've set up a LaunchDarkly SDK, you can [create your first feature flag](/home/getting-started/feature-flags).
+
+For a guided example of these steps, read [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag). This tutorial explains how to set up an SDK and create a flag in LaunchDarkly. If you'd prefer something even quicker, try the in-app [tutorial](https://app.launchdarkly.com/get-started/tutorial).
+
+Once you have a basic understanding of flags, you can work with others in your organization to determine how you want to target flag variations to users or segments. To learn more, read [Targeting users with flags](/home/flags/targeting-users).
+
+As you add more flags, you can start organizing your flags across different environments. To learn more, read [Organizing your flags](/home/organize). This is also a good time to start thinking about managing the lifecycle of each flag. To learn more, read [Flags in your codebase](/home/code).
+
+For more ideas on what comes next, read [Additional resources](#additional-resources).
+
+## Getting started as a product manager
+
+As a product manager or rollout manager, you are likely responsible for coordinating deployments and feature releases.
+
+<Callout intent="info">
+<CalloutTitle>Try an interactive demo</CalloutTitle>
+<CalloutDescription>
+
+If you haven't worked directly with feature flags before, LaunchDarkly has an example application you can play with. From the Guide menu, select [Get started](https://app.launchdarkly.com/get-started), and then choose **Try an interactive demo**.
+
+</CalloutDescription>
+</Callout>
+
+First, learn how to [turn feature flags on and off](/home/getting-started/toggle). Then, start thinking about how you'd like to [target flag variations to users or segments](/home/flags).
+
+As a product manager, you may also build and monitor experiments to understand the impact of features you roll out. Each experiment is a set of actions used to test a hypothesis. You can use feature flags to send flag variations to portions of your user base, and compare your users' different reactions. You can use this for A/B/n testing, acceptance testing, and stress testing. To learn more, read [Experimentation](/home/experimentation).
+
+For more ideas on what comes next, read [Additional resources](#additional-resources).
+
+
+## Getting started as a systems architect
+
+As a systems architect, you're responsible for designing services and processes for your organization's engineering team.
+
+Now that your engineering team is using LaunchDarkly, you can make LaunchDarkly a seamless part of your workflow. Integrations let you configure the product, receive LaunchDarkly events, or use triggers to perform actions on feature flags from third-party tools. For example, LaunchDarkly integrates with various application performance management (APM) tools, with collaboration tools like Slack, with IDE connectors, with workflow management tools, and with several other productivity and management applications. To learn more, read [Integrations](/integrations).
+
+To learn about common problems integrations can help solve, read [Integrations use cases](/guides/best-practices/integrations-use-cases). For best practices to help you succeed with LaunchDarkly on specific platforms, read our [platform-specific guides](/guides/platform-specific).
+
+For more ideas on what comes next, read [Additional resources](#additional-resources).
+
+## Getting started as an account administrator
+
+As an account administrator, you are likely responsible for managing account members, monitoring billing and usage, and facilitating any integrations.
+
+First, learn about how to [set up and manage account members](/home/members). Each member can have one of three built-in roles within LaunchDarkly: `reader`, `writer`, or `admin`. To learn more, read [LaunchDarkly's built-in roles](/home/members/built-in-roles). If you would like to set up more precise access control, you can configure custom roles for your members. To learn more, read [Custom roles](/home/members/custom-roles).
+
+Next, make sure you understand the options for securing your account, including how to precisely manage which account members can perform certain actions and how to enable multi-factor authentication and single sign-on in your LaunchDarkly account. To learn more, read [Securing your account](/home/account-security).
+
+If you are in a larger organization, you may also think about grouping your account members into [teams](/home/teams). Teams allow you to control permissions for groups of account members, rather than for individuals. Additionally, teams allow you to map permissions in LaunchDarkly to your organizational structure. For example, you can give mobile flag permissions to the mobile team and desktop flag permissions to the desktop team.
+
+Once your account is set up and your organization has started using feature flags, you can use LaunchDarkly's data visualization tools to [understand your monthly billing metrics](/home/billing).
+
+For more ideas on what comes next, read [Additional resources](#additional-resources).
+
+## Additional resources
+
+Here are some additional resources for learning how to get started with LaunchDarkly:
 
 * [LaunchDarkly in less than 5 minutes](https://fast.wistia.net/embed/channel/mli3h9o3nh?wchannelid=mli3h9o3nh&wmediaid=j627spzhzn): A high-level video overview of LaunchDarkly.
-* [Quickstart guide](https://app.launchdarkly.com/quickstart): The in-app LaunchDarkly quickstart.
-* [Your first feature flag](/home/getting-started/feature-flags): Creating a feature flag tutorial.
+* [Tutorial](https://app.launchdarkly.com/get-started/tutorial): The in-app LaunchDarkly tutorial.
 * [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag): An in-depth guide to configuring an SDK and creating a feature flag.
 * [Video overview](https://fast.wistia.net/embed/channel/mli3h9o3nh?wchannelid=mli3h9o3nh&wmediaid=c9x1gyt42d): A video about targeting users based on user metadata.
 * [Flag rules and targeting](/guides/tutorials/rules-and-targeting): A guide explaining how to target users with flag variations.
 * [LaunchDarkly onboarding](https://launchdarkly.com/onboarding): A series of videos covering a variety of getting started topics.
 
-## Setting up your SDK
-
-In addition to Dashboard access, you must set up a LaunchDarkly SDK to integrate LaunchDarkly with your code. To learn more, read [Setting up an SDK](/home/getting-started/setting-up). For information about how to choose an SDK, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
-
-## Next steps
-
-After you join a team, set up your SDK, and begin using feature flags, you may want to ask some questions to learn about your team’s implementation:
+After you join an account, set up your SDK, and begin using feature flags, you may want to ask some questions about your organization's implementation:
 
 * Do we use both *temporary* and *permanent* flags in our code base?
 * What naming conventions and styles are used for our different resources such as flags, segments, projects, and environments?

@@ -77,6 +77,8 @@ Custom attributes follow the same patterns as LaunchDarkly flag types. The value
 * string
 * array
 
+If you set the value of a custom attribute to a JSON object, it won't appear on your Users dashboard.
+
 Number custom attributes are subject to the same restrictions as number flags. For example, if you define a flag targeting rule where `myCustomAttribute` is one of `0.3`, users with an attribute value of `0.3` may not be correctly targeted because 0.3 can't be exactly represented in binary floating point.
 
 Like number flags, LaunchDarkly truncates custom attribute number values to the first 16 digits. If you define a flag targeting rule where `myCustomAttribute` is one of `1234567812345678999999`, LaunchDarkly will target users with an attribute value of `1234567812345678999998`, because both the flag rule and the user attribute value are truncated to `1234567812345678`.

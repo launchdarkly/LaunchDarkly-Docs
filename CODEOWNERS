@@ -7,5 +7,6 @@
 *.md @launchdarkly/docs-reviewers
 *.mdx @launchdarkly/docs-reviewers
 /assets/ @launchdarkly/docs-reviewers
+/src/content/*Versions.json @launchdarkly/sdk-owners
 /src/ @launchdarkly/docs-reviewers
 /templates/ @launchdarkly/docs-reviewers

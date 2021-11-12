@@ -2,6 +2,7 @@
 import { jsx, Themed, IntrinsicSxElements } from 'theme-ui'
 import React from 'react'
 import Icon from '../icon'
+import { copyToClipboard } from '../../utils/copyToClipboard'
 
 // This module defines custom heading components to be used in place
 // of the default HTML elements that Markdown compiles to.
@@ -17,7 +18,7 @@ function createHeading(tag: HeadingTag) {
     const copyLinkToClipboard = () => {
       const location = new URL(window.location.href)
       location.hash = props.id
-      navigator.clipboard.writeText(location.href)
+      copyToClipboard(location.href)
     }
 
     return (

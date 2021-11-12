@@ -365,6 +365,7 @@ This feature is available for all of our server-side SDKs:
 * [Java](#java)
 * [Lua](#lua)
 * [Node.js (server-side)](#nodejs-server-side)
+* [Node.js (Cloudflare)](#nodejs-cloudflare)
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
@@ -397,6 +398,17 @@ var value = client.BoolVariation("your.feature.key", user, false);
 The `variation` family of methods determine the flag value for a specific user. In Apex, there is a `variation` method for each type, such as `boolVariation` or `stringVariation`.
 
 The functions take an `LDUser`, feature flag key, and a default value. The default value only returns if an error occurs. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+
+<Callout intent="info">
+<CalloutTitle>Apex variation methods do not automatically add users to the dashboard</CalloutTitle>
+<CalloutDescription>
+
+Variation methods like `boolVariation` or `stringVariation` do not automatically generate index events due to limitations with the Apex platform. This means that the SDK does not automatically populate the users dashboard.
+
+We recommend calling `client.identify(user)` with each of your users to generate user indexing events and populate your users dashboard. To learn more, read [Identifying and changing users](/sdk/features/identify#apex).
+
+</CalloutDescription>
+</Callout>
 
 Here is an example:
 
@@ -593,6 +605,10 @@ client.variation("your.feature.key", user, false,
 
 </CodeTabItem>
 </CodeTabs>
+
+### Node.js (Cloudflare)
+
+This SDK uses the same code as the [Node.js server-side SDK](#nodejs-server-side).
 
 ### PHP
 

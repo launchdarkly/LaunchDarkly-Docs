@@ -11,13 +11,25 @@ This topic explains how to configure user objects in LaunchDarkly SDKs. These fe
 
 ## Configuring user objects
 
-Every LaunchDarkly SDK lets you configure user objects to return specific data to LaunchDarkly. Some SDKs let you designate anonymous users or configure users with private attributes.
+Every LaunchDarkly SDK lets you configure user objects to return specific data to LaunchDarkly. Any attributes you pass to LaunchDarkly become available on your dashboard.
 
-Anonymous users don't appear on your Users page in the LaunchDarkly dashboard. You can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. If you use the same user key for every anonymous user, you also can't use percentage rollouts or Experimentation with anonymous users.
+### Using built-in and custom attributes
+
+The user `key` is the only mandatory user attribute. All of the other built-in attributes, like `firstName` and `email`, are optional. For a list of all built-in user attributes LaunchDarkly supports, read [Understanding user attributes](/home/users/attributes#understanding-user-attributes).
+
+Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Custom attributes values can be booleans, numbers, strings, or arrays. If you set the value of a custom attribute to a JSON object, it won't appear on your Users dashboard. All custom attributes are optional. To learn more, read [Setting custom user attributes](/home/users/attributes#setting-custom-user-attributes).
+
+### Using private attributes
+
+Some SDKs let you configure users with private attributes. You can use private user attributes for targeting purposes, but these attributes are removed from user data sent back to LaunchDarkly.
+
+### Designating anonymous users
+
+Some SDKs let you designate anonymous users. Anonymous users don't appear on your Users page in the LaunchDarkly dashboard. You can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. If you use the same user key for every anonymous user, you also can't use percentage rollouts or Experimentation with anonymous users.
 
 In client-side SDKs, if you don't provide a user key or set it to null, and set `anonymous` to `true`, then the SDK generates a random user key for you.
 
-You can use private user attributes for targeting purposes, but these attributes are removed from user data sent back to LaunchDarkly.
+We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 
@@ -41,7 +53,7 @@ Here are the configuration options for user entities in client-side SDKs.
 
 ### .NET (client-side)
 
-Feature flag targeting and rollouts are determined by the *user* you pass to your `Identify` call. In the client-side .NET SDK, you can construct a simple `User` that only has a key by calling `User.WithKey`, or use `User.Builder` which allows setting all properties.
+Feature flag targeting and rollouts are determined by the user you pass to your `Identify` call. In the client-side .NET SDK, you can construct a simple `User` that only has a key by calling `User.WithKey`, or use `User.Builder` which allows setting all properties.
 
 Here's an example:
 
@@ -65,22 +77,16 @@ LDUser user = User.Builder("aa0ceb")
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this snippet. The argument to `Builder` is the user's key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes (set by calls to `FirstName`, `LastName`, `Email`, and `Custom` attributes) are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-In addition to the built-in attributes defined in the `User` class, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 <Callout intent="info">
-  <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans, or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, the value is interpreted as one. The client-side .NET SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way. The client-side .NET SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
-
-Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to us becomes available on your dashboard.
 
 #### Private user attributes in the client-side .NET SDK
 
@@ -195,22 +201,16 @@ val user: LDUser = LDUser.Builder("aa0ceb")
 </CodeTabItem>
 </CodeTabs>
 
-The first argument to the builder is the user's key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-In addition to built-in attributes like names and email addresses, you can pass any of your own user data using `custom` attributes, like the `groups` attribute in the example above.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 <Callout intent="info">
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of LaunchDarkly's built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans, or numbers. If you enter a custom value on the LaunchDarkly dashboard that looks like a number or a boolean, the value is interpreted as a number or a boolean. The Android SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way. The Android SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
-
-Custom attributes let you target users according to any data that you send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to LaunchDarkly becomes available on your dashboard.
 
 #### Private user attributes in the Android SDK
 
@@ -353,11 +353,7 @@ LDUserSetCustomAttributesJSON(user, attributes);
 </CodeTabItem>
 </CodeTabs>
 
-The first argument to the builder is the user's key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-In addition to built-in attributes like names and email addresses, you can pass any of your own user data using `custom` attributes.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 <Callout intent="info">
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
@@ -367,8 +363,6 @@ Most of our built-in attributes (like names and e-mail addresses) expect string 
 
 </CalloutDescription>
 </Callout>
-
-Custom attributes let you target users according to any data that you send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to LaunchDarkly becomes available on your dashboard.
 
 #### Private user attributes in the C/C++ SDK
 
@@ -445,22 +439,16 @@ LDUser user = LDUserBuilder('aa0ceb')
 </CodeTabItem>
 </CodeTabs>
 
-The first argument to the builder is the user's key. In this case, we've used the hash `'aa0ceb'`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-In addition to built-in attributes like names and email addresses, you can pass any of your own user data using `custom` attributes, like the `groups` attribute in the example above.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 <Callout intent="info">
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans or numbers. Custom attribute values in the Flutter SDK use the `LDValue` class to support the various underlying types for the values. If you enter a custom value on our dashboard that looks like a number or a boolean, it is interpreted that way. The Flutter SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. Custom attribute values in the Flutter SDK use the `LDValue` class to support the various underlying types for the values. If you enter a custom value on the dashboard that looks like a number or a boolean, it is interpreted that way. The Flutter SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
-
-Custom attributes let you target users according to any data that you send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to LaunchDarkly becomes available on your dashboard.
 
 #### Private user attributes in the Flutter SDK
 
@@ -608,7 +596,7 @@ user.privateAttributes = @[@"name"];
 
 #### Anonymous users in the iOS SDK
 
-You can also declare a `LDUser` to be an anonymous, not logged-in user:
+You can declare an `LDUser` to be an anonymous, not logged-in user:
 
 <CodeTabs
   defaultValue="swift"
@@ -656,7 +644,7 @@ If the `key` attribute you rely on in your user JSON contains personally identif
 </CalloutDescription>
 </Callout>
 
-Let's walk through the user JSON. The most important attribute is the user key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 Here's an example of a user:
 
@@ -683,31 +671,14 @@ var user = {
 </CodeTabItem>
 </CodeTabs>
 
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-Besides the `key`, LaunchDarkly supports the following attributes at the "top level". All of these are optional:
-
-- `ip`: Must be an IP address.
-- `firstName`: Must be a string. If you provide a first name, you can search for users on the Users page by name.
-- `lastName`: Must be a string. If you provide a last name, you can search for users on the Users page by name.
-- `country`: Must be a string representing the country associated with the user.
-- `email`: Must be a string representing the user's e-mail address. If an `avatar` URL is not provided, LaunchDarkly uses [Gravatar](http://en.gravatar.com/) to try to display an avatar for the user on the Users page.
-- `avatar`: Must be an absolute URL to an avatar image for the user.
-- `name`: Must be a string. You can search for users on the User page by name.
-- `anonymous`: Must be a boolean. See the section below on anonymous users for more details.
-
-In addition to built-in attributes, you can pass any of your own user data using `custom` attributes, like the `groups` attribute in the example above.
-
 <Callout intent="info">
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans, or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it is interpreted that way.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
 
 </CalloutDescription>
 </Callout>
-
-Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to us becomes available on your dashboard.
 
 #### Private user attributes in the JavaScript SDK
 
@@ -827,7 +798,7 @@ By default, when the SDK requests feature flags from LaunchDarkly, it makes an H
 </CalloutDescription>
 </Callout>
 
-Let's walk through the user JSON. The most important attribute is the user key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 Here's an example of a user:
 
@@ -854,31 +825,14 @@ const user = {
 </CodeTabItem>
 </CodeTabs>
 
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-Besides the `key`, LaunchDarkly supports the following attributes at the "top level". All of these are optional:
-
-- `ip`: Must be an IP address.
-- `firstName`: Must be a string. If you provide a first name, you can search for users on the Users page by name.
-- `lastName`: Must be a string. If you provide a last name, you can search for users on the Users page by name.
-- `country`: Must be a string representing the country associated with the user.
-- `email`: Must be a string representing the user's e-mail address. If an `avatar` URL is not provided, LaunchDarkly uses [Gravatar](http://en.gravatar.com/) to try to display an avatar for the user on the Users page.
-- `avatar`: Must be an absolute URL to an avatar image for the user.
-- `name`: Must be a string. You can search for users on the User page by name.
-- `anonymous`: Must be a boolean. See the section below on anonymous users for more details.
-
-In addition to built-in attributes, you can pass any of your own user data using `custom` attributes, like the `groups` attribute in the example above.
-
 <Callout intent="info">
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes, like names and e-mail addresses, expect string values. Custom attribute values can be strings, booleans like true or false, numbers, or lists of strings, booleans or numbers. If you enter a custom value that looks like a number or a boolean, it is interpreted that way.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attribute values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
 
 </CalloutDescription>
 </Callout>
-
-Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to us becomes available on your dashboard.
 
 #### Private user attributes in the Node.js SDK
 
@@ -1005,11 +959,7 @@ let user =
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this code. The first key in the object is the user's key. In this case we've used the value `2fbfa269b78e24c8e967f482b89c939b`. The user key is the only mandatory user attribute. The key should also uniquely identify each user. You can use any value such as a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other keys (like firstName, email, and the custom attributes) are optional. The attributes you specify will automatically appear on the LaunchDarkly application dashboard, meaning that you can start segmenting and targeting users with these attributes.
-
-In addition to built-in attributes like names and email addresses, you can pass any of your own user data using custom attributes, like the groups attribute in the example above. Custom attributes are one of the most powerful features of LaunchDarkly. They let you target users according to any data that you want to send to us, including organizations, groups, andaccount plans. Anything you pass to us becomes available instantly on your dashboard.
+The first attribute in the object is the user's key. In this case we've used the value `2fbfa269b78e24c8e967f482b89c939b`. The user key is the only mandatory user attribute. The key should also uniquely identify each user. You can use any value such as a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 #### Private user attributes in the React Native SDK
 
@@ -1018,8 +968,6 @@ Private attributes allow you to specify keys you do not want to send to the Laun
 #### Anonymous user attributes in the React Native SDK
 
 The `anonymous` key lets you distinguish logged out or unregistered users while still using LaunchDarkly. Anonymous users work just like regular users, except that they do not appear on your Users page in LaunchDarkly. This prevents unauthenticated users from diluting useful data on the Users dashboard.
-
-You can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. If you use the same user key for every anonymous user, you also can't use percentage rollouts or Experimentation with anonymous users.
 
 We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
 
@@ -1153,22 +1101,16 @@ LDUser user = User.Builder("aa0ceb")
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this snippet. The argument to `Builder` is the user's key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes (set by calls to `FirstName`, `LastName`, `Email`, and `Custom` attributes) are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-In addition to the built-in attributes defined in the `User` class, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 <Callout intent="info">
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or objects. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. If you enter a custom value that looks like a number or a boolean, it is interpreted that way. The .NET SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. If you enter a custom value that looks like a number or a boolean, the SDK interprets it that way. The .NET SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
-
-Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to us becomes available on your dashboard.
 
 #### Private user attributes in the .NET SDK
 
@@ -1256,13 +1198,7 @@ LDUser user = new LDUser.Builder('aa0ceb')
 </CodeTabItem>
 </CodeTabs>
 
-Let's go through this snippet. The most important attribute is the user key. In this case we've used the hash "aa0ceb". *The user key is the only mandatory user attribute.* The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-In addition to built-in attributes like names and email addresses, you can pass any of your own user data using `custom` attributes, like the `groups` attribute in the example above.
-
-Custom attributes let you target users according to any data that you send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to LaunchDarkly becomes available on your dashboard.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 #### Anonymous users in the Apex SDK
 
@@ -1370,13 +1306,7 @@ LDUserSetCustom(user, custom);
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this snippet. The most important attribute is the user key. In this case we've used the hash "aa0ceb". *The user key is the only mandatory user attribute.* The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-In addition to built-in attributes like names and email addresses, you can pass any of your own user data using `custom` attributes, like the `groups` attribute in the example above.
-
-Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to us becomes available on your dashboard.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 <CodeTabs
   defaultValue="c"
@@ -1507,18 +1437,7 @@ User = ldclient_user:new_from_map(Map)
 </CodeTabItem>
 </CodeTabs>
 
-<Callout>
-    <CalloutTitle>The user key is mandatory</CalloutTitle>
-    <CalloutDescription>
-
-The most important attribute in the example above is the user key. The user key should be unique to each user. In the example above, we used the binary `"aa0ceb"`. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-</CalloutDescription>
-</Callout>
-
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-In addition to built-in attributes like names and email addresses, you can pass any of your own user data as key-value pairs in the map, like the `CustomKey` in the example above. Custom attributes let you target users according to any data that you send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to LaunchDarkly becomes available on your dashboard.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 #### Anonymous users in the Erlang SDK
 
@@ -1672,22 +1591,16 @@ user := ld.User{
 
 The most common attribute is the user's key. In this case we used the strings `"user1-key"` and `"user2-key"`. The user key is the only mandatory user attribute. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away. The documentation for [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User) and [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder) shows all of the available attributes.
+The documentation for [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User) and [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder) shows all of the available attributes.
 
 <Callout intent="info">
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or arrays or maps containing any of type of value supported by JSON.
-
-In SDK versions 4.16.0 and later, these types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value) type; earlier versions use the catch-all Go type `interface{}`.
-
-If you enter a custom value that looks like a number or a boolean, it is interpreted that way. The Go SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. In SDK versions 4.16.0 and later, these types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value) type; earlier versions use the catch-all Go type `interface{}`. If you enter a custom value on the dashboard that looks like a number or a boolean, LaunchDarkly interprets it that way. The Go SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
-
-Custom attributes let you target users according to any data that you send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to LaunchDarkly becomes available on your dashboard.
 
 #### Private user attributes in the Go SDK
 
@@ -1745,7 +1658,7 @@ config.PrivateAttributeNames = []string{"name", "email"}
 </CodeTabItem>
 </CodeTabs>
 
-You can also define a set of private attributes on the user object itself. In this example, `Email` is private for this user (in addition to any private attributes that were specified globally):
+You can also define a set of private attributes on the user object itself. In this example, `Email` is private for this user in addition to any private attributes that were specified globally:
 
 <CodeTabs
   defaultValue="go"
@@ -1908,15 +1821,7 @@ user = (makeUser "aa0ceb")
 </CodeTabItem>
 </CodeTabs>
 
-The most important attribute in the example above is the user key. The user key is **mandatory**.
-
-In the example above, we used the hash `"aa0ceb"`.
-
-The user key should be unique to each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-In addition to built-in attributes like names and email addresses, you can pass any of your own user data as `custom` attributes, like the `groups` attribute in the example above. Custom attributes are one of LaunchDarkly's most powerful features. They let you target users according to any data that you want to send, including organizations, groups, and account plans. Anything you pass to us becomes available instantly on our dashboard.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 #### Private user attributes in the Haskell SDK
 
@@ -2044,22 +1949,18 @@ LDUser user = new LDUser.Builder("aa0ceb")
 </CodeTabItem>
 </CodeTabs>
 
-The first argument to the builder is the user's key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-Our Javadoc for [LDUser.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/LDUser.Builder.html) shows you all the attributes that LaunchDarkly supports by default. In addition to these, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
+Our Javadoc for [LDUser.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/LDUser.Builder.html) shows you all the attributes that LaunchDarkly supports by default.
 
 <Callout intent="info">
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans or numbers. If you enter a custom value that looks like a number or a boolean, it is interpreted that way. The Java SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way. The Java SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
-
-Custom attributes let you target users according to any data that you send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to LaunchDarkly becomes available on your dashboard.
 
 #### Private user attributes in the Java SDK
 
@@ -2185,13 +2086,7 @@ local user = ld.makeUser({
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this snippet. The most important attribute is the user key. In this case we've used the hash "aa0ceb". *The user key is the only mandatory user attribute.* The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-In addition to built-in attributes, you can pass any of your own user data using `custom` attributes, like the `groups` attribute in the example above.
-
-Custom attributes let you target users according to any data that you send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to LaunchDarkly becomes available on your dashboard.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 To learn more about configuration options, read the [API docs](https://launchdarkly.github.io/lua-server-sdk/index.html#makeUser).
 
@@ -2222,33 +2117,16 @@ var user = {
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this snippet. The most important attribute is the user key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-Besides the `key`, LaunchDarkly supports the following attributes at the "top level". All of these are optional:
-
-- `ip`: Must be an IP address.
-- `firstName`: Must be a string. If you provide a first name, you can search for users on the Users page by name.
-- `lastName`: Must be a string. If you provide a last name, you can search for users on the Users page by name.
-- `country`: Must be a string representing the country associated with the user.
-- `email`: Must be a string representing the user's e-mail address. If an `avatar` URL is not provided, LaunchDarkly uses [Gravatar](http://en.gravatar.com/) to try to display an avatar for the user on the Users page.
-- `avatar`: Must be an absolute URL to an avatar image for the user.
-- `name`: Must be a string. You can search for users on the User page by name.
-- `anonymous`: Must be a boolean. See the section below on anonymous users for more details.
-
-In addition to built-in attributes, you can pass any of your own user data using `custom` attributes, like the `groups` attribute in the example above.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 <Callout intent="info">
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans, or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it is interpreted that way.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
 
 </CalloutDescription>
 </Callout>
-
-Custom attributes let you target users according to any data that you send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to LaunchDarkly becomes available on your dashboard.
 
 #### Private user attributes in the Node.js SDK
 
@@ -2322,33 +2200,16 @@ $user = (new LDUserBuilder("aa0ceb"))->firstName("Ernestina")->lastName("Evans")
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this snippet. The first argument to [`LDUserBuilder`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDUserBuilder.html) is the user's key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-Besides the `key`, LaunchDarkly supports the following attributes at the "top level". All of these are optional:
-
-- `ip`: Must be an IP address.
-- `firstName`: Must be a string. If you provide a first name, you can search for users on the Users page by name.
-- `lastName`: Must be a string. If you provide a last name, you can search for users on the Users page by name.
-- `country`: Must be a string representing the country associated with the user.
-- `email`: Must be a string representing the user's e-mail address. If an `avatar` URL is not provided, LaunchDarkly uses [Gravatar](http://en.gravatar.com/) to try to display an avatar for the user on the Users page.
-- `avatar`: Must be an absolute URL to an avatar image for the user.
-- `name`: Must be a string. You can search for users on the User page by name.
-- `anonymous`: Must be a boolean. See the section below on anonymous users for more details.
-
-In addition to these, you can pass us any of your own user data by passing `custom` attributes, like the `groups` attribute in the example above.
+The first argument to [`LDUserBuilder`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDUserBuilder.html) is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 <Callout intent="info">
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans (like true or false), numbers, or lists of strings, booleans or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it'll be interpreted that way. The PHP SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way. The PHP SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
-
-Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to us becomes available on your dashboard.
 
 #### Private user attributes in the PHP SDK
 
@@ -2432,31 +2293,16 @@ user = {
 </CodeTabItem>
 </CodeTabs>
 
-Let's walk through this snippet. The most important attribute is the user key. In this case we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-Besides the `key`, LaunchDarkly supports the following attributes at the "top level". All of these are optional:
-
-- `ip`: Must be an IP address.
-- `firstName`: Must be a string. If you provide a first name, you can search for users on the Users page by name.
-- `lastName`: Must be a string. If you provide a last name, you can search for users on the Users page by name.
-- `country`: Must be a string representing the country associated with the user.
-- `email`: Must be a string representing the user's e-mail address. If an `avatar` URL is not provided, LaunchDarkly uses [Gravatar](http://en.gravatar.com/) to try to display an avatar for the user on the Users page.
-- `avatar`: Must be an absolute URL to an avatar image for the user.
-- `name`: Must be a string. You can search for users on the User page by name.
-- `anonymous`: Must be a boolean. See the section below on anonymous users for more details.
-
-In addition to built-in attributes, you can pass any of your own user data using `custom` attributes, like the `groups` attribute in the example above.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 <Callout intent="info">
-  <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
-  <CalloutDescription>
-    Built-in attributes, like names and email addresses, expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans, or numbers. If you enter a custom value on our dashboard that looks like a number or a boolean, it is interpreted that way.
-  </CalloutDescription>
-</Callout>
+<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutDescription>
 
-Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to us becomes available on your dashboard.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
+
+</CalloutDescription>
+</Callout>
 
 #### Private user attributes in the Python SDK
 
@@ -2513,22 +2359,7 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 ### Ruby
 
-Let's walk through this snippet. The most important attribute is the user key. In this case, we've used the hash `"aa0ceb"`. **The user key is the only mandatory user attribute**. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
-
-All of the other attributes, like `firstName`, `email`, and the custom attributes, are optional. The attributes you specify appear on your LaunchDarkly dashboard automatically, so you can start making user segments and targeting users with these attributes right away.
-
-Besides the `key`, LaunchDarkly supports the following attributes at the "top level". All of these are optional:
-
-- `ip`: Must be an IP address.
-- `firstName`: Must be a string. If you provide a first name, you can search for users on the Users page by name.
-- `lastName`: Must be a string. If you provide a last name, you can search for users on the Users page by name.
-- `country`: Must be a string representing the country associated with the user.
-- `email`: Must be a string representing the user's e-mail address. If an `avatar` URL is not provided, LaunchDarkly uses [Gravatar](http://en.gravatar.com/) to try to display an avatar for the user on the Users page.
-- `avatar`: Must be an absolute URL to an avatar image for the user.
-- `name`: Must be a string. You can search for users on the User page by name.
-- `anonymous`: Must be a boolean. See the section below on anonymous users for more details.
-
-In addition to built-in attributes, you can pass any of your own user data using `custom` attributes, like the `groups` attribute in the example above.
+The argument to `Builder` is the user's key. In this example the hash is `"aa0ceb"`. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 <Callout intent="info">
 <CalloutTitle>User attribute keys must be symbols</CalloutTitle>
@@ -2543,12 +2374,10 @@ All user attribute keys, for both built-in and custom attributes, must be symbol
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of LaunchDarkly's built-in attributes, like names and e-mail addresses, expect string values. Custom attribute values can be strings, booleans like true or false, numbers, or lists of strings, booleans or numbers. If you enter a custom value that looks like a number or a boolean, it is interpreted that way.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
 
 </CalloutDescription>
 </Callout>
-
-Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Anything you pass to us becomes available on your dashboard.
 
 #### Private user attributes in the Ruby SDK
 

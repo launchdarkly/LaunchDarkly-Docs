@@ -28,6 +28,7 @@ import ClientSideSdks from './home/sdks/clientSideSdks'
 import ServerSideSdks from './home/sdks/serverSideSdks'
 import ReactSdks from './home/sdks/reactSdks'
 import ChildPageList from './ChildPageList'
+import { SdksEndOfLife, RelayEndOfLife } from './endOfLife'
 
 const components = {
   h1: H1,
@@ -60,6 +61,8 @@ const components = {
   ClientSideSdks,
   ServerSideSdks,
   ReactSdks,
+  SdksEndOfLife,
+  RelayEndOfLife,
   Icon,
   code: Code,
   pre: Pre,

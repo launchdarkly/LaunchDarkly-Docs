@@ -47,7 +47,7 @@ export function CodeSnippet({ children, className: languageClassName, ...props }
     setShowCopied(true)
 
     setTimeout(() => setShowCopied(false), 2000)
-    copyToClipboard(children, { preserveFormatting: true })
+    copyToClipboard(children)
   }, [children])
 
   return (

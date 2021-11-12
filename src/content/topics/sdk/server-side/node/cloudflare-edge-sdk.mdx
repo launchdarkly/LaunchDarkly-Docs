@@ -1,0 +1,126 @@
+---
+path: '/sdk/server-side/node-js/cloudflare-edge-sdk'
+title: 'Cloudflare Edge SDK'
+description: 'This topic explains all of the methods available in the Cloudflare Edge SDK, with detail about how they work.'
+published: true
+---
+
+## Overview
+
+This reference guide documents all of the methods available in the Cloudflare Edge SDK, which is a wrapper around the LaunchDarkly Node.js SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read [Cloudflare Edge SDK repository](https://github.com/launchdarkly/cloudflare-edge-sdk) on GitHub. The online [API docs](https://launchdarkly.github.io/cloudflare-edge-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run sample applications using this SDK with [our sample application](https://github.com/launchdarkly/hello-cloudflare-react).
+
+<Callout intent="info">
+  <CalloutTitle>This SDK requires LaunchDarkly's Cloudflare integration</CalloutTitle>
+  <CalloutDescription>
+
+  Configure the Cloudflare integration to use this SDK successfully. To learn more, read [Cloudflare](/integrations/cloudflare).
+
+  </CalloutDescription>
+</Callout>
+
+## Getting started
+
+To install and configure the Cloudflare Edge SDK in an existing project:
+
+1. Install the [LaunchDarkly Cloudflare Edge SDK](https://github.com/launchdarkly/cloudflare-edge-sdk):
+
+<CodeTabs
+  defaultValue="bash"
+  values={[
+    { label: 'Console', value: 'bash', },
+  ]
+}>
+<CodeTabItem value="bash">
+
+```bash
+npm install launchdarkly-cloudflare-edge-sdk --save
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+2. Configure Wrangler to use webpack to bundle your worker:
+
+<CodeTabs
+  defaultValue="toml"
+  values={[
+    { label: 'wrangler.toml', value: 'toml', },
+  ]
+}>
+<CodeTabItem value="toml">
+
+```toml
+type = "webpack"
+webpack_config = "webpack.config.js"
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+3. Configure webpack:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'webpack.config.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+module.exports = {
+  entry: './index.js',
+  target: 'webworker',
+  node: {
+    fs: 'empty',
+    tls: 'empty',
+    net: 'empty',
+  },
+};
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+4. Initialize the client with the Cloudflare KV namespace and LaunchDarkly client-side ID in your Worker:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'index.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const { init } = require('launchdarkly-cloudflare-edge-sdk');
+
+let ldClient;
+
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event));
+});
+
+async function handleRequest(event) {
+  // client only needs to be initialized once, but may serve many requests
+  if (!ldClient) {
+    ldClient = init(MY_KV, 'YOUR_CLIENT_SIDE_ID');
+    await ldClient.waitForInitialization();
+  }
+
+  // ldClient may now be used for flag evaluation
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You can now evaluate individual flags or fetch all flags from the SDK.
+
+## Supported features
+
+This SDK supports the following features:
+
+* [Evaluating flags](/sdk/features/evaluating#nodejs-cloudflare)
+* [Flag evaluation reasons](/sdk/features/evaluation-reasons#nodejs-cloudflare)
+* [Getting all flags](/sdk/features/all-flags#nodejs-cloudflare)

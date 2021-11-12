@@ -362,7 +362,16 @@ client.Identify(user);
 
 `Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
 
-In most cases, you do not need to call `Identify`. The `Variation` methods automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+<Callout intent="info">
+<CalloutTitle>Apex variation methods do not automatically add users to the dashboard</CalloutTitle>
+<CalloutDescription>
+
+Variation methods like `boolVariation` or `stringVariation` do not automatically generate index events due to limitations with the Apex platform. This means that the SDK does not automatically populate the users dashboard.
+
+We recommend calling `client.identify(user)` with each of your users to generate user indexing events and populate your users dashboard.
+
+</CalloutDescription>
+</Callout>
 
 To use `identify`:
 
