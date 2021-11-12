@@ -1,0 +1,82 @@
+[
+    {
+      "name": "Relay Proxy",
+      "versions": [
+        {
+          "versionMajorMinor": "6.5",
+          "releaseYear": 2021,
+          "releaseMonthDay": "10-11"
+        },
+        {
+          "versionMajorMinor": "6.4",
+          "releaseYear": 2021,
+          "releaseMonthDay": "07-22"
+        },
+        {
+          "versionMajorMinor": "6.3",
+          "releaseYear": 2021,
+          "releaseMonthDay": "06-17"
+        },
+        {
+          "versionMajorMinor": "6.2",
+          "releaseYear": 2021,
+          "releaseMonthDay": "05-07"
+        },
+        {
+          "versionMajorMinor": "6.1",
+          "releaseYear": 2020,
+          "releaseMonthDay": "11-09"
+        },
+        {
+          "versionMajorMinor": "6.0",
+          "releaseYear": 2020,
+          "releaseMonthDay": "10-07"
+        },
+        {
+          "versionMajorMinor": "5.12",
+          "releaseYear": 2020,
+          "releaseMonthDay": "08-06"
+        },
+        {
+          "versionMajorMinor": "5.11",
+          "releaseYear": 2020,
+          "releaseMonthDay": "03-17"
+        },
+        {
+          "versionMajorMinor": "5.10",
+          "releaseYear": 2020,
+          "releaseMonthDay": "01-22"
+        },
+        {
+          "versionMajorMinor": "5.9",
+          "releaseYear": 2019,
+          "releaseMonthDay": "12-20"
+        },
+        {
+          "versionMajorMinor": "5.8",
+          "releaseYear": 2019,
+          "releaseMonthDay": "10-11"
+        },
+        {
+          "versionMajorMinor": "5.7",
+          "releaseYear": 2019,
+          "releaseMonthDay": "09-18"
+        },
+        {
+          "versionMajorMinor": "5.6",
+          "releaseYear": 2019,
+          "releaseMonthDay": "08-02"
+        },
+        {
+          "versionMajorMinor": "5.5",
+          "releaseYear": 2018,
+          "releaseMonthDay": "11-27"
+        },
+        {
+          "versionMajorMinor": "5.4",
+          "releaseYear": 2018,
+          "releaseMonthDay": "08-02"
+        }
+      ]
+    }
+  ]

@@ -504,6 +504,10 @@
           {
             "label": "Testing Relay Proxy performance",
             "path": "/home/relay-proxy/performance"
+          },
+          {
+            "label": "Versioning policy",
+            "path": "/home/relay-proxy/versioning"
           }
         ]
       },
