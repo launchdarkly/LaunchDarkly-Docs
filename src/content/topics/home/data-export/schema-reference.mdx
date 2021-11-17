@@ -173,7 +173,7 @@ Hereis an example feature event:
 Here is a list of feature event properties:
 
 - `kind`: The kind for a feature event is `feature`. A feature event will only be generated if the `trackEvents` attribute of the flag is set to `true`. This is also controlled by settings in the UI.
-- `contextKind`: The kind of context which generated an event. This will only be "anonymousUser" for events generated on behalf of an anonymous user or the reserved word "user" for events generated on behalf of a non-anonymous user
+- `contextKind`: The kind of context which generated an event. This will only be `"anonymousUser"` for events generated on behalf of an anonymous user. It is omitted for events generated on behalf of a non-anonymous user.
 - `userKey`: The key of the user object used in a feature flag evaluation. Details for the `user` object used in a feature flag evaluation as reported by the "feature" event are transmitted periodically with a separate `index` event.
 - `creationDate` When the feature flag was requested at UNIX epoch time in milliseconds.
 - `key`: The key of the feature flag requested.
