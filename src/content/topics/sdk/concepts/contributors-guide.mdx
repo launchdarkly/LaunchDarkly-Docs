@@ -43,9 +43,17 @@ This section corresponds to a subset of LaunchDarkly's client-side SDKs. To lear
 
 Flag updates are triggered when you make changes on your LaunchDarkly dashboard, and arrive by one of two mechanisms:
 
-1. **Through LaunchDarkly's streaming API**: These SDKs can subscribe to our streaming API at `https://clientstream.launchdarkly.com/eval/<clientSideId>/<user>`. The `clientSideId` variable should be replaced with the LaunchDarkly environment's client-side ID. The `user` variable should be replaced with the base64-encoded, URL-safe version of the user's JSON object. Our streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events).
+1. **Through LaunchDarkly's streaming API**: LaunchDarkly's streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events).
 
-2. **By polling LaunchDarkly's evaluation API**: These SDKs can poll `https://clientsdk.launchdarkly.com/sdk/evalx/<clientSideId>/users/<user>`. The `clientSideId` variable should be replaced with the LaunchDarkly environment's client-side ID. The `user` variable should be replaced with the base64-encoded, URL-safe version of the user's JSON object. Ideally, the SDK implementor should periodically poll this resource. We recommend making one call every thirty seconds; at a minimum, you **must** throttle the implementation to make **at most** one call per second. This resource may return caching headers. Use [ETags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This is a common use case, so remember to account for it.
+  There are two ways to use this method:
+  * **Using a `GET` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/eval/<clientSideId>/<user>`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Replace the `user` variable with the base64-encoded, URL-safe version of the user's JSON object.
+  * **Using a `REPORT` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/eval/<clientSideId>`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Not all HTTP clients support `REPORT` requests.
+
+2. **By polling LaunchDarkly's evaluation API**: The SDK implementor should periodically poll this resource. We recommend making one call every thirty seconds. At a minimum, you **must** throttle the implementation to make **at most** one call per second. This resource may return caching headers. Use [ETags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This is a common use case, so remember to account for it.
+
+  There are two ways to use this method:
+  * **Using a `GET` request**: poll `https://clientsdk.launchdarkly.com/sdk/evalx/<clientSideId>/users/<user>`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Replace the `user` variable with the base64-encoded, URL-safe version of the user's JSON object.
+  * **Using a `REPORT` request**: poll `https://clientsdk.launchdarkly.com/sdk/evalx/<clientSideId>/users`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Not all HTTP clients support `REPORT` requests.
 
 ### Receiving flag updates in SDKs using the mobile key
 
@@ -53,9 +61,17 @@ This section corresponds to a subset of LaunchDarkly's client-side SDKs. To lear
 
 Flag updates are triggered when you make changes on your LaunchDarkly dashboard, and arrive by one of two mechanisms:
 
-1. **Through LaunchDarkly's streaming API**: These SDKs can subscribe to our streaming API at `https://clientstream.launchdarkly.com/meval/<user>`. This call must include an `Authorization` header with the value `${mobile_key}`, where `${mobile_key}` is the mobile key the client application passes to the LaunchDarkly client configuration. The `user` variable should be replaced with the base64-encoded, URL-safe version of the user's JSON object. Our streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events).
+1. **Through LaunchDarkly's streaming API**: LaunchDarkly's streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events). This call must include an Authorization header with the value ${mobile_key}, where ${mobile_key} is the mobile key the client application passes to the LaunchDarkly client configuration.
 
-2. **By polling LaunchDarkly's evaluation API**: These SDKs can poll `https://clientsdk.launchdarkly.com/sdk/evalx/users/<user>`. This call must include an `Authorization` header with value `${mobile_key}`, where `${mobile_key}` is the mobile key the client application passed to the LaunchDarkly client configuration. The `user` variable should be replaced with the base64-encoded, URL-safe version of the user's JSON object. Ideally, the SDK implementor should periodically poll this resource. We recommend making one call every thirty seconds; at a minimum, you **must** throttle the implementation to make **at most** one call per second. This resource may return caching headers. Use [ETags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This is a common use case, so remember to account for it.
+  There are two ways to use this method:
+  * **Using a `GET` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/meval/<user>`. Replace the `user` variable with the base64-encoded, URL-safe version of the user's JSON object.
+  * **Using a `REPORT` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/meval`. Not all HTTP clients support `REPORT` requests.
+
+2. **By polling LaunchDarkly's evaluation API**: The SDK implementor should periodically poll this resource. We recommend making one call every thirty seconds. At a minimum, you **must** throttle the implementation to make **at most** one call per second. Use [ETags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This resource may return caching headers. This call must include an `Authorization` header with value `${mobile_key}`, where `${mobile_key}` is the mobile key the client application passed to the LaunchDarkly client configuration. 
+
+  There are two ways to use this method:
+  * **Using a `GET` request**: poll `hhttps://clientsdk.launchdarkly.com/msdk/evalx/users/<user>`. Replace the `user` variable with the base64-encoded, URL-safe version of the user's JSON object.
+  * **Using a `REPORT` request**: poll `https://clientsdk.launchdarkly.com/msdk/evalx/user`. Not all HTTP clients support `REPORT` requests.
 
 ## Evaluating feature flags
 
@@ -84,7 +100,7 @@ The SDKs send eight kinds of events:
 * summary events that summarize a series of feature events, and
 * diagnostic events that report on how the SDK is configured and operating.
 
-Events must be batched and sent to the LaunchDarkly server **asynchronously**. This is a requirement for all SDKs. Do this by creating a background job that runs every 30 seconds and makes a `POST` call to `/api/events/bulk`. This call must have a `Content-Type` header set to `application/json`, an `Authorization` header set to `api_key ${api_key}`, and must include a JSON body consisting of a list of events. On platforms with poor multithreading support, you may need to [get creative](https://segment.com/blog/how-to-make-async-requests-in-php/).
+SDKs must batch and send events to the LaunchDarkly server **asynchronously**. This is a requirement for all SDKs. Do this by creating a background job that runs every 30 seconds and makes a `POST` call to `/api/events/bulk`. This call must have a `Content-Type` header set to `application/json`, an `Authorization` header set to `api_key ${api_key}`, and must include a JSON body consisting of a list of events. On platforms with poor multithreading support, you may need to [get creative](https://segment.com/blog/how-to-make-async-requests-in-php/).
 
 The time between batch calls to the event API should be configurable. The SDK should have a configuration element for the maximum number of events to store between batch calls. If this capacity is exceeded before a batch call, events should be discarded and a warning logged.
 

@@ -1119,6 +1119,10 @@
         "svg": "compass",
         "items": [
           {
+            "label": "Building teams in LaunchDarkly",
+            "path": "/guides/best-practices/teams"
+          },
+          {
             "label": "Creating flags",
             "path": "/guides/best-practices/creating-flags"
           },

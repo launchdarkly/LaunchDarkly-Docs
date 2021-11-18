@@ -23,6 +23,7 @@ const ignore = [
   'https://currentmillis.com',
   'https://support.launchdarkly.com',
   'https://support.pendo.io',
+  'https://developers.cloudflare.com',
 ]
 
 const verifyUrlRequest = (url: string) =>

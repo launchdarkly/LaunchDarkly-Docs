@@ -333,8 +333,25 @@ This table explains available team actions:
       </TableCell>
       <TableCell>Add or remove custom roles from a team.</TableCell>
     </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>viewTeam</code>
+      </TableCell>
+      <TableCell> If set to deny, anyone impacted by this policy can neither view nor modify a team.</TableCell>
+    </TableRow> 
   </TableBody>
 </Table>
+
+<Callout intent="info">
+<CalloutTitle>More information about the viewTeam action</CalloutTitle>
+<CalloutDescription>
+
+The `deny` effect for your `resource` in the `viewTeam` action hides the teams you specify from the member. The `allow` effect for the same resource and action pairing doesn't do anything since your account member can already see the team.
+
+To learn more, read [Creating private teams](/guides/best-practices/teams#creating-private-teams).
+
+</CalloutDescription>
+</Callout>
 
 ## Personal access token actions
 
