@@ -181,7 +181,7 @@ The algorithm for determining whether access is allowed or denied by a policy is
 - If any statement in the policy explicitly denies access to a resource and action, access is denied.
 - If a statement in the policy explicitly allows access to a resource and action, and no statement denies access, access is allowed
 - If two policies have conflicting permission levels, the more permissive level of access is applied
-- Any resource or action not specifically included in a policy is denied by default except the `ViewProjects` action and the ability to create tokens
+- Any resource or action not specifically included in a policy is denied by default, except the `viewProject` action and the `createAccessToken` action
 
 <Callout intent="info">
 <CalloutTitle>All roles can view all projects by default</CalloutTitle>
