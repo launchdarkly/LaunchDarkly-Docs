@@ -110,7 +110,7 @@ An ElastiCache cluster composed of three small nodes should be sufficient for al
 
 This dedicated AWS Lambda function, built on the NodeJS runtime, connects to the LaunchDarkly network and updates the ElastiCache feature store.
 
-We configure it using the `RedisFeatureStore` method. The AWS Lambda function built on the NodeJS runtime could like this:
+We configure it using the `RedisFeatureStore` method. The AWS Lambda function built on the NodeJS runtime could look like this:
 
 ```javascript
 var LaunchDarkly = require('launchdarkly-node-server-sdk');
@@ -163,7 +163,7 @@ Finally, with the persistent feature store active and continuously updated, you 
 
 To learn more, read [Using a persistent feature store without connecting to LaunchDarkly](/sdk/concepts/data-stores#using-a-persistent-feature-store-without-connecting-to-launchdarkly).
 
-The app code retains the same structure as the example in Option 1 above, but with additional configuration to point at the feature store and enable LDD mode.
+The app code retains the same structure as the example in Option 1 above, but with additional configuration to point at the feature store and enable the Relay Proxy. Because the Relay Proxy is also known as the LaunchDarkly Daemon, some versions of the SDKs refer to this mode as "LDD mode."
 
 Here is an example:
 

@@ -18,7 +18,7 @@ In this guide, you will:
 
 To complete this guide, you must have the following prerequisites:
 
-- A basic understanding of feature flags. To learn more read [Getting started](/home/getting-started).
+- A basic understanding of feature flags. To learn more, read [Getting started](/home/getting-started).
 - Know how to make a flag available to client-side SDKs. To learn more, read [Making flags available to client-side and mobile SDKs](/home/getting-started/feature-flags#making-flags-available-to-client-side-and-mobile-sdks).
 - A basic understanding of how to use the LaunchDarkly JavaScript SDK. To learn more, read [JavaScript SDK reference](/sdk/client-side/javascript).
 - Access to a LaunchDarkly account with permission to create flags.
@@ -45,7 +45,7 @@ Some of the more popular CDNs are [AWS CloudFront](https://aws.amazon.com/cloudf
 
 A single page application (SPA) is a website that does not perform a page reload when you use different aspects of it.
 
-Popular SPAs include Gmail, Google Maps, Facebook, Twitter, and many others web applications intended for use by the general public.
+Popular SPAs include Gmail, Google Maps, Facebook, Twitter, and many other web applications intended for use by the general public.
 
 ### Module bundlers
 
@@ -61,7 +61,7 @@ Some static site generators include [Gatsby](https://www.gatsbyjs.com/) and [Nex
 
 ## Characteristics of static sites
 
-A basic static site is the one that is truly static. Each webpage exists as a static file that lives on a filesystem and served up by a traditional web server like Apache or Nginx. You can also serve these files from a CDN.
+A basic static site is the one that is truly static. Each webpage exists as a static file that lives on a filesystem and is served up by a traditional web server like Apache or Nginx. You can also serve these files from a CDN.
 
 Typically, a content management system creates and manages these static sites. The CMS is responsible for publishing the actual pages to a web server.
 
@@ -190,11 +190,11 @@ To learn more, read [Initializing the client](/sdk/client-side/javascript#initia
 There are two methods of bootstrapping the client:
 
 * Using the browser's localStorage, and
-* By sending HTML with flag information to the server
+* Sending HTML with flag information to the server
 
 ### Using localStorage
 
-If you use localStore, the client can initialize itself without an additional delay from fetching the flags from the LaunchDarkly servers.
+If you use localStorage, the client can initialize itself without an additional delay from fetching the flags from the LaunchDarkly servers.
 
 While truly static sites don't have the flag values available before the JavaScript on the page starts executing, the LaunchDarkly client can cache the initial set of flag values retrieved from the server.
 
@@ -300,7 +300,7 @@ Here's [a simple demonstration](https://feature-flagging-static-sites.netlify.ap
 
 The examples above showcase several strategies you can apply to reduce the risk of your page flickering after the feature flags are loaded.
 
-In most cases, [using localStorage](#using-localstorage), might be enough for most sites. Depending on how complex your site is or whether your page is generated or rendered on the server, you may be able to take advantage of [bootstrapping from the server](#bootstrapping-from-the-server). But if that's not possible, choosing to delay rendering is undoubtedly an option but could reflect poorly on your site's perceived performance.
+In most cases, [using localStorage](#using-localstorage) might be enough for most sites. Depending on how complex your site is or whether your page is generated or rendered on the server, you may be able to take advantage of [bootstrapping from the server](#bootstrapping-from-the-server). But if that's not possible, choosing to delay rendering is undoubtedly an option but could reflect poorly on your site's perceived performance.
 
 ## Releasing features in realtime
 

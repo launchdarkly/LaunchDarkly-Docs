@@ -23,7 +23,7 @@ To complete this guide, you must have the following prerequisites:
 * A LaunchDarkly account
 * A way to build and deploy a Lambda function
 
-The example below uses the [AWS Toolkit for Visual Studio Code](https://docs.aws.amazon.com/toolkit-for-visual-studio/latest/user-guide/setup.html), which makes it easy to download, upload and test our Lambda Function within Visual Studio Code (VS Code).
+The example below uses the [AWS Toolkit for Visual Studio Code](https://docs.aws.amazon.com/toolkit-for-visual-studio/latest/user-guide/setup.html), which makes it easy to download, upload, and test our Lambda Function within Visual Studio Code (VS Code).
 
 The source code for the example below is available [on GitHub](https://github.com/launchdarkly-labs/launchDarklyLambda).
 
@@ -35,7 +35,7 @@ In this example, you'll use LaunchDarkly to control the release. LaunchDarkly wi
 
 After you create a Lambda function, users will either be directed to the old site or the new site depending on which variation they are assigned to within LaunchDarkly. LaunchDarkly determines this by assigning each unique user according to a percentage rollout.
 
-To learn more about percentage rollouts, check [our documentation](https://docs.launchdarkly.com/home/flags/targeting-users#percentage-rollouts).
+To learn more about percentage rollouts, read [Percentage rollouts](https://docs.launchdarkly.com/home/flags/targeting-users#percentage-rollouts).
 
 ## Setting up AWS
 
@@ -77,7 +77,7 @@ A CloudFormation template is available in the [GitHub repository](https://github
 4. On the "Configure stack options" step, accept all the defaults and click **Next**.
 5. Review the details and click **Create stack**. Wait for creation to complete before you continue. This can take several minutes.
 6. When the S3 bucket is ready, search for "S3" in the AWS console and locate the bucket you created.
-7. Click **Upload** and then **Add folder**. From the [source repository](https://github.com/launchdarkly-labs/launchDarklyLambda), upload the `/site` folder containing the both the existing site's `index.html` and `logo.png` and a `/beta` folder containing the new site. Click "Upload" and, when the procedure completes, click "Close".
+7. Click **Upload** and then **Add folder**. From the [source repository](https://github.com/launchdarkly-labs/launchDarklyLambda), upload the `/site` folder containing both the existing site's `index.html` and `logo.png`, and a `/beta` folder containing the new site. Click "Upload" and, when the procedure completes, click "Close".
 8. Select the `site` directory in your bucket. From the Actions pull down select "Make public", click to confirm and then click "Close".
 
 ### Manually setting up an S3 bucket
@@ -86,7 +86,7 @@ First, you must set up the S3 bucket and put the web site resources into it.
 
 1. Search for "S3" in the AWS console and click **Create bucket**.
 2. Give the bucket a human-readable name, choose `US East` as the AWS Region, and disable the "block public access" option.
-3. Click **Upload** and then **Add folder**. From the [source repository](https://github.com/launchdarkly-labs/launchDarklyLambda), upload the `/site` folder containing the both the existing site's `index.html` and `logo.png` and a `/beta` folder containing the new site. Click "Upload" and, when the procedure completes, click "Close".
+3. Click **Upload** and then **Add folder**. From the [source repository](https://github.com/launchdarkly-labs/launchDarklyLambda), upload the `/site` folder containing both the existing site's `index.html` and `logo.png`, and a `/beta` folder containing the new site. Click "Upload" and, when the procedure completes, click "Close".
 4. Select the `site` directory in your bucket. From the Actions dropdown, select "Make public", click to confirm and click **Close**.
 5. Click on the "Properties" tab for the S3 bucket. Scroll all the way down to "Static website hosting". Click **Edit** and then choose "Enable". Specify `index.html` as your index document and **Save changes**.
 
@@ -256,9 +256,9 @@ You've successfully integrated and used a LaunchDarkly flag in a Lambda function
 
 You're using Lambda, and now you can add Lambda@Edge. Here's how to deploy your function there.
 
-A function running on Lambda@Edge receives a specific [event structure](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html). You can use this to specify a key for LaunchDarkly that will ensure that different users get different flag variations, but the same user always end up in the same group. For example, users 1 and 2 will each get variations A and B, respectively, regardless of how many times they load the website. User 2 will never get variation A and user 1 will never get variation B.
+A function running on Lambda@Edge receives a specific [event structure](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html). You can use this to specify a key for LaunchDarkly that will ensure that different users get different flag variations, but the same user always ends up in the same group. For example, users 1 and 2 will each get variations A and B, respectively, regardless of how many times they load the website. User 2 will never get variation A and user 1 will never get variation B.
 
-The code below gets the value of the flag and, if the value is `true`, redirects them to the beta site. Otherwise, if the value is `false`, it redirects them to the original site. A more complete solution would take into account the URI and query string that was requested and redirect them to the appropriate location on either the beta or main site, but this example is simpler than a real-life example.The code below gets the value of the flag and, if the value is `true`, redirects them to the beta site. Otherwise, if the value is `false`, it redirects them to the original site. A more complete solution would take into account the URI and query string that was requested and redirect them to the appropriate location on either the beta or main site, but this example is simpler than a real-life example.
+The code below gets the value of the flag and, if the value is `true`, redirects them to the beta site. Otherwise, if the value is `false`, it redirects them to the original site. A more complete solution would take into account the URI and query string that was requested and redirect them to the appropriate location on either the beta or main site, but this example is simpler than a real-life example. The code below gets the value of the flag and, if the value is `true`, redirects them to the beta site.
 
 First, update your function to use this event. You can use the user's IP address as the key. While the IP isn't unique to an individual, it is the only indentifying information we always have available for the user.
 

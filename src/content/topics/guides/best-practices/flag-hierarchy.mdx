@@ -64,6 +64,15 @@ You can think of feature flags in different ways based on their relationships to
 
 Prerequisite flags are flags that must be enabled in order for other flags to work. These are the "keystone" flags.
 
+<Callout intent="primary">
+<CalloutTitle>Adding prerequisites to flags is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Adding prerequisites to flags is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
 Prerequisite flags may control large UI elements which contain multiple components such as:
 
 - dependent flags
@@ -181,7 +190,7 @@ is paying you to maintain it. In that case, the state of the flag would be
 
 ### Configuring flag dependencies
 
-If want to create a flag that is a prerequisite of other flags, you can do this by setting that flag as a prerequisite in each dependent flag's Targeting tab.
+If you want to create a flag that is a prerequisite of other flags, you can do this by setting that flag as a prerequisite in each dependent flag's Targeting tab.
 
 Here is an image of the Prerequisites section:
 
