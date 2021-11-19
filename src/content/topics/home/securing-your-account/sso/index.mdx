@@ -18,15 +18,6 @@ Single sign-on is available to customers on an Enterprise plan. It is available 
 
 This topic explains what Single Sign-On (SSO) features are available in LaunchDarkly and how to configure your environment for SSO.
 
-<Callout intent="primary">
-<CalloutTitle>Single sign-on and user provisioning are Enterprise features</CalloutTitle>
-<CalloutDescription>
-
-Single sign-on and user provisioning are available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
-
-</CalloutDescription>
-</Callout>
-
 SSO allows your team to authenticate with LaunchDarkly using the same identity provider (IdP) you use for your other internal and external services. LaunchDarkly implements SSO with the SAML 2.0 protocol. Administrators can use SSO with their IdP to manage access rights in LaunchDarkly. After SSO is enabled, administrators can also enable System for Cross-domain Identity Management (SCIM) provisioning through their IdP.
 
 ## Setting up SSO in LaunchDarkly
@@ -194,14 +185,23 @@ To configure LaunchDarkly with an external IdP:
 
 ## User provisioning with SCIM
 
-We also have a SCIM API available to allow for user provisioning from IdPs. The SCIM API is only supported for the Oauth2 authorization type. Not all supported third-party providers support user provisioning through SCIM.
+<Callout intent="primary">
+<CalloutTitle>User provisioning with SCIM is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+SCIM is only available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+We also have a SCIM API available to allow for user provisioning from IdPs. The SCIM API is only supported for the OAuth2 authorization type. Not all supported third-party providers support user provisioning through SCIM.
 
 We have pre-built integrations with the following providers:
 
 * [Okta](/home/account-security/okta)
 * [OneLogin](/home/account-security/onelogin)
 
-You may also configure your provider manually with the following information:
+You may also configure your provider manually with the following information. Specific names for these fields may vary by IdP:
 
 - SCIM Base URI: `https://app.launchdarkly.com/trust/scim/v2`
 - Authorization method: `oauth2`
