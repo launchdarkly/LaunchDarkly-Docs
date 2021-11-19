@@ -78,7 +78,7 @@ yarn add launchdarkly-react-client-sdk
 - Using the `asyncWithLDProvider` function
 - Using the `withLDProvider` function
 
-Both rely on React's `Context` API which lets you access your flags from any level of your component hierarchy. Both functions accept a [`ProviderConfig`](#configuring-the-react-sdk) object used to configure the React SDK.
+Both rely on React's `Context` API which lets you access your flags from any level of your component hierarchy.
 
 <Callout intent="alert">
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
@@ -89,9 +89,12 @@ You must make feature flags available to client-side SDKs before the flags can b
 </CalloutDescription>
 </Callout>
 
-## Initializing `asyncWithLDProvider`
+## Initializing asyncWithLDProvider
 
 The `asyncWithLDProvider` function initializes the React SDK and returns a provider which is a React component. It is an async function.
+It accepts an `AsyncProviderConfig` object which is a subset of the `ProviderConfig` object.
+
+The difference between `AsyncProviderConfig` and `ProviderConfig` is that `AsyncProviderConfig` does not have the `deferInitialization` property, because `asyncWithLDProvider` cannot be deferred. You must initialize `asyncWithLDProvider` at the app entry point prior to rendering to ensure flags and the client are ready at the beginning of the app.
 
 Here's how to initialize `asyncWithLDProvider`:
 
@@ -151,7 +154,8 @@ The `asyncWithLDProvider` function uses the Hooks API, which requires React vers
 
 ## `withLDProvider`
 
-The `withLDProvider` function initializes the React SDK and wraps your root component in a `Context.Provider`:
+The `withLDProvider` function initializes the React SDK and wraps your root component in a `Context.Provider`. It accepts
+a [`ProviderConfig`](#configuring-the-react-sdk) object used to configure the React SDK:
 
 <CodeTabs
   defaultValue="js"
@@ -216,9 +220,11 @@ export default withLDConsumer()(Home);
 
 ## Configuring the React SDK
 
-The [`ProviderConfig`](https://launchdarkly.github.io/react-client-sdk/interfaces/providerconfig.html) object configures the React SDK. The only mandatory property is the client-side ID. All other properties are optional.
+The [`AsyncProviderConfig`](https://launchdarkly.github.io/react-client-sdk/interfaces/asyncproviderconfig.html) object
+provides configuration to the `asyncWithLDProvider` function and the [`ProviderConfig`](https://launchdarkly.github.io/react-client-sdk/interfaces/providerconfig.html) object provides configuration to the `withLDProvider` function.
 
-These are the properties:
+
+The only mandatory property is the client-side ID. All other properties are optional. These are the properties:
 
 - `clientSideID`: This is your project and environment specific client-side ID. This property is mandatory.
 
@@ -229,6 +235,8 @@ These are the properties:
 - `reactOptions`: This property is specific to the React SDK. You can use this option to [disable automatic camel casing](#flag-keys) of flag keys when using the React SDK. This property is optional.
 
 - `deferInitialization`: This property allows SDK initialization to be deferred until the `user` property is defined.
+
+`asyncWithLDProvider` does not support `deferInitialization`. You must initialize  `asyncWithLDProvider` at the app entry point prior to rendering to ensure flags and the client are ready at the beginning of your app.
 
   By deferring SDK initialization, you defer all steps which take place as part of SDK initialization, including reading flag values from local storage and sending the SDK's `ready` event.
 
@@ -336,3 +344,11 @@ With this configuration option in place, you would now access your `dev-flag-tes
 ## Example app
 
 Run this [example](https://github.com/launchdarkly/react-client-sdk/tree/master/examples/hoc) for a fully working single page app with React and react-router. You must enter your `clientSideId` in the [client root app file](https://github.com/launchdarkly/react-client-sdk/blob/master/examples/hoc/src/universal/app.js) and create a flag with key `dev-test-flag` in your dashboard before running the example.
+
+## Importing types
+
+In addition to its own bundled types, the React SDK uses types from `launchdarkly-js-client-sdk`. If you use Typescript
+and you need to use `launchdarkly-js-client-sdk` types, you can install the `launchdarkly-js-client-sdk` package as a
+dev dependency. You can then import the types you want directly from `launchdarkly-js-client-sdk`.
+
+ If you use eslint, the SDK requires that you add `launchdarkly-js-client-sdk` as a dev dependency. Otherwise, eslint will report a `no-extraneous-dependencies` error.
