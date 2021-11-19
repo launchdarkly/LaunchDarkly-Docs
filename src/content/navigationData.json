@@ -924,7 +924,13 @@
           {
             "label": ".NET SDK reference",
             "path": "/sdk/client-side/dotnet",
-            "svg": "dotnet"
+            "svg": "dotnet",
+            "items": [
+              {
+                "label": "Client-side .NET SDK 1.x to 2.0 migration guide",
+                "path": "/sdk/client-side/dotnet/migration-1-to-2"
+              }
+            ]
           },
           {
             "label": "Android SDK reference",

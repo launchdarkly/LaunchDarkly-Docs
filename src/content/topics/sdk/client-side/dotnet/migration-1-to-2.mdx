@@ -1,0 +1,572 @@
+---
+path: '/sdk/client-side/dotnet/migration-1-to-2'
+title: 'Client-side .NET SDK 1.x to 2.0 migration guide'
+description: 'This topic explains the API changes made in the client-side .NET SDK 2 release and how to migrate to that version.'
+published: true
+---
+
+<Callout intent="info">
+  <CalloutTitle>This migration guide is for a prerelease version of the client-side .NET SDK</CalloutTitle>
+  <CalloutDescription>
+
+Client-side .NET SDK 2.0 is not yet generally available. This topic describes the latest `2.0.0-rc.*` prerelease version. This is a living document that may change if we make additional modifications to the SDK before the final release.
+
+The API documentation for 2.0 will not be in GitHub Pages until the GA release, but documentation for any version is available in HTML form by downloading the "Documentation" archive from the [GitHub release](https://github.com/launchdarkly/dotnet-server-sdk/releases) for that version.
+
+  </CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to adapt code that currently uses a 1.x version of the [.NET client-side SDK](/sdk/server-side/dotnet) (previously called the Xamarin SDK) to use version 2.0 or later.
+
+Before you migrate to 2.0, update to the latest 1.x version. Some of the changes that are mandatory in 6.0 were originally added in a 1.x version and made optional to use.
+
+If you update to the latest 1.x version, deprecation warnings appear in areas of your code that need to be changed for 2.0. You can then update them while still using 1.x, rather than migrating everything simultaneously.
+
+To learn more about updating to the latest 1.x version, visit the [SDK's GitHub repository](https://github.com/launchdarkly/dotnet-client-sdk/releases).
+
+## Identifying .NET platforms for the 2.0 SDK
+
+The 2.x version of the SDK is compatible with the following .NET platform versions:
+
+* Xamarin Android.
+* Xamarin iOS.
+* Any runtime that supports the .NET Standard 2.0 API, including .NET 5.0 and higher, .NET Core 2.1 and higher, and .NET Framework 4.6.1 and higher.
+
+LaunchDarkly no longer supports older .NET target frameworks, including .NET Standard 1.6, as is documented in the [End of Life policy](https://launchdarkly.com/policies/end-of-life-policy/).
+
+The .NET build tools automatically load the most appropriate build of the SDK for whatever platform your application or library is targeted to.
+
+## Using updated namespaces
+
+The namespace convention has changed. Instead of `LaunchDarkly.Xamarin`, the main namespaces are now `LaunchDarkly.Sdk` and `LaunchDarkly.Sdk.Client`. Most of the class names have not changed, so you may be able to fix your `using` statements with a find and replace.
+
+The base `LaunchDarkly.Sdk` package contains types that are not specific to client-side .NET. They also exist in the server-side .NET SDK. When you view the SDK source code, notice that the base `.Sdk` namespace is implemented in the [`dotnet-sdk-common`](https://github.com/launchdarkly/dotnet-sdk-common) repository rather than [`dotnet-client-sdk`](https://github.com/launchdarkly/dotnet-client-sdk).
+
+To learn more about the differences between SDKs, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+
+The full namespace schema is as follows:
+
+* `Launchdarkly.Sdk`
+  * Provides: `User`, `IUserBuilder`, `LdValue`, `EvaluationDetail`, `EvaluationReason`
+
+* `Launchdarkly.Sdk.Json`
+  * Provides: new features related to [JSON serialization](#converting-objects-to-or-from-json-data).
+
+* `LaunchDarkly.Sdk.Client`
+  * Provides: `Components`, `Configuration`, `LdClient`
+
+* `LaunchDarkly.Sdk.Client.Interfaces`
+  * Provides: types like `IPersistentDataStore` that are only used if you are writing a custom component.
+  * It also provides interfaces like `IFlagTracker` that are available through `LdClient`, but are less commonly used.
+
+* `LaunchDarkly.Sdk.Client.Integrations`
+  * Provides: types for configuring how the SDK connects with LaunchDarkly or other external services.
+
+## Understanding changes to SDK configuration
+
+Instead of having many unrelated configuration properties, each with their own `ConfigurationBuilder` method, most of the properties are now grouped into areas of functionality, each of which has its own builder class that is only available if you are using that functionality. For instance, if you use streaming mode, there are options you can set to control streaming mode, and if you use polling mode, you use a different builder that does not have the streaming options. Similarly, if you have disabled analytics events, the event-related options are not accessible.
+
+The basic areas of functionality are "data source" (polling, streaming, or test data), "data store" (memory and persistent storage), events, logging, and networking. There is also a separate category for setting custom service URIs.
+
+If your code already uses the newer model, you may only need to change the package names in your imports.
+
+### Understanding changes to data source methods
+
+For each data source type, there is a factory method whose name ends in `DataSource`. These methods give you a builder object with methods for whatever options are appropriate. Pass that object to `ConfigurationBuilder.DataSource`.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="sdk1"
+  values={[
+    { label: '1.x syntax', value: 'sdk1', },
+    { label: '2.0 syntax', value: 'sdk2', },
+  ]
+}>
+<CodeTabItem value="sdk1">
+
+```csharp
+// 1.x model: setting custom options for streaming mode
+var config = Configuration.Builder("my-mobile-key")
+    .IsStreamingEnabled(true)
+    .ReconnectTime(TimeSpan.FromSeconds(2))
+    .Build();
+
+// 1.x model: specifying polling mode and setting custom polling options
+var config = Configuration.Builder("my-mobile-key")
+    .IsStreamingEnabled(false)
+    .PollingInterval(TimeSpan.FromSeconds(60))
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk2">
+
+```csharp
+// 2.0 model: setting custom options for streaming mode
+var config = Configuration.Builder("my-mobile-key")
+    .DataSource(
+        Components.StreamingDataSource()
+            .InitialReconnectDelay(TimeSpan.FromSeconds(2))
+    )
+    .Build();
+
+// 2.0 model: specifying polling mode and setting custom polling options
+var config = Configuration.Builder("my-mobile-key")
+    .DataSource(
+        Components.PollingDataSource()
+            .PollInterval(TimeSpan.FromSeconds(60))
+    )
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The default is to use streaming mode. Unlike the earlier model, you can no longer construct a meaningless configuration such as "use streaming mode, but set the polling interval to 1 minute" or "disable events, but set the flush interval to 10 seconds."
+
+Another data source option is the test data source. To learn more, read the API documentation for `Launchdarkly.Sdk.Client.Integrations.TestData`.
+
+### Understanding changes to the data store
+
+Unlike the server-side .NET SDK, the client-side .NET SDK does not have database integrations, but it does have the ability to customize other kinds of persistent storage. Persistent storage is how the SDK saves feature flag values when your application is not running, so that the next time the SDK is started, flag values may be available before connecting to LaunchDarkly.
+
+On Android and iOS, the default mechanism for persistent storage is the native preferences API. When using the .NET Standard version of the SDK, the default mechanism uses the file-based .NET IsolatedStorage API.
+
+Previously, the SDK would copy flag data to persistent storage for every user key that it had ever obtained flags for. Now, you can set a limit on this with `MaxCachedUsers`:
+
+<CodeTabs
+  defaultValue="sdk2"
+  values={[
+    { label: '2.0 syntax', value: 'sdk2', },
+  ]
+}>
+<CodeTabItem value="sdk2">
+
+```csharp
+// Keep flags for the most recent 2 users in persistent storage
+var config = Configuration.Builder("my-mobile-key")
+    .Persistence(
+        Components.Persistence().MaxCachedUsers(2)
+    )
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You can also turn off persistent storage entirely with `NoPersistence`:
+
+<CodeTabs
+  defaultValue="sdk2"
+  values={[
+    { label: '2.0 syntax', value: 'sdk2', },
+  ]
+}>
+<CodeTabItem value="sdk2">
+
+```csharp
+var config = Configuration.Builder("my-mobile-key")
+    .Persistence(Components.NoPersistence)
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+### Understanding changes to events
+
+Analytics events are enabled by default. To customize their behavior, call `Components.SendEvents()` to get a builder object with event-related options, and then pass that object to `ConfigurationBuilder.Events`.
+
+To completely disable events, set `ConfigurationBuilder.Events` to `Components.NoEvents`.
+
+If you use private user attributes and are configuring private attributes for the entire SDK rather than for individual users, there is a new syntax based on the new `UserAttribute` type. This ensures that built-in attributes are not misspelled and helps to distinguish these parameters from other kinds of string parameters.
+
+To learn more, read [Creating private user attributes](/home/managing-users/user-attributes#creating-private-user-attributes).
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="sdk1"
+  values={[
+    { label: '1.x syntax', value: 'sdk1', },
+    { label: '2.0 syntax', value: 'sdk2', },
+  ]
+}>
+<CodeTabItem value="sdk1">
+
+```csharp
+// 1.x model: disabling events
+var config = Configuration.Builder("my-mobile-key")
+    .SendEvents(false)
+    .Build();
+
+// 1.x model: customizing event behavior
+var config = Configuration.Builder("my-mobile-key")
+    .EventCapacity(20000)
+    .EventFlushInterval(TimeSpan.FromSeconds(10))
+    .PrivateAttribute("email")
+    .PrivateAttribute("myCustomAttribute")
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk2">
+
+```csharp
+// 2.0 model: disabling events
+var config = Configuration.Builder("my-mobile-key")
+    .Events(Components.NoEvents)
+    .Build();
+
+// 2.0 model: customizing event behavior
+var config = Configuration.Builder("my-mobile-key")
+    .Events(
+        Components.SendEvents()
+            .Capacity(20000)
+            .FlushInterval(TimeSpan.FromSeconds(10))
+            .PrivateAttributes(UserAttribute.Email,
+                UserAttribute.ForName("myCustomAttribute"))
+    )
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+It is no longer possible to construct a meaningless configuration like "disable events, but set the flush interval to 10 seconds."
+
+### Understanding changes to networking
+
+Options in this category affect how the SDK communicates with LaunchDarkly over HTTP/HTTPS, including connection timeout, proxy servers, and more. If you need to customize these, call `Components.HttpConfiguration()` to get a builder object, configure this builder, and then pass it to `ConfigurationBuilder.Http`.
+
+Some of the methods have changed slightly in terms of the type or number of parameters, and there is also a new method for specifying an HTTP proxy in your code rather than from an environment variable. More details are available in `HttpConfigurationBuilder`.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="sdk1"
+  values={[
+    { label: '1.x syntax', value: 'sdk1', },
+    { label: '2.0 syntax', value: 'sdk2', },
+  ]
+}>
+<CodeTabItem value="sdk1">
+
+```csharp
+// 1.x model: setting connection and read timeouts
+var config = Configuration.Builder("my-mobile-key")
+    .HttpClientTimeout(TimeSpan.FromSeconds(3))
+    .ReadTimeout(TimeSpan.FromSeconds(4))
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk2">
+
+```csharp
+// 2.0 model: setting connection and read timeouts
+var config = Configuration.Builder("my-mobile-key")
+    .Http(
+        Components.HttpConfiguration()
+            .ConnectTimeout(TimeSpan.FromSeconds(3))
+            .SocketTimeout(TimeSpan.FromSeconds(4))
+    )
+    .Build();
+
+// 2.0 model: specifying an HTTP proxy
+var config = Configuration.Builder("my-mobile-key")
+    .Http(
+        Components.HttpConfiguration()
+            .Proxy(new System.Net.WebProxy(new Uri("http://my-proxy:8080"))
+    )
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Understanding changes to custom URI configuration
+
+Most applications will never need to change the default LaunchDarkly service URIs. There are two main use cases for doing this: connecting to a [Relay Proxy](/home/relay-proxy) instance, or connecting to a private LaunchDarkly instance.
+
+Both of these are now configured with the `ServiceEndpoints` method of `ConfigurationBuilder`.
+
+When connecting to a Relay Proxy instance, previously you needed to set the Relay Proxy base URI in multiple places. Now, you only need to set it once:
+
+<CodeTabs
+  defaultValue="sdk1"
+  values={[
+    { label: '1.x syntax', value: 'sdk1', },
+    { label: '2.0 syntax', value: 'sdk2', },
+  ]
+}>
+<CodeTabItem value="sdk1">
+
+```csharp
+var config = Configuration.Builder("my-mobile-key")
+    .BaseUri(new Uri("http://my-relay-proxy:8080"))
+    .StreamUri(new Uri("http://my-relay-proxy:8080"))
+    .EventsUri(new Uri("http://my-relay-proxy:8080"))
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk2">
+
+```csharp
+var config = Configuration.Builder("my-mobile-key")
+    .ServiceEndpoints(
+        Components.ServiceEndpoints().RelayProxy("http://my-relay-proxy:8080")
+    )
+    .Build();
+```
+</CodeTabItem>
+</CodeTabs>
+
+When connecting to a private LaunchDarkly instance, you still need to specify separate URIs (using whatever values were provided to you by LaunchDarkly):
+
+<CodeTabs
+  defaultValue="sdk1"
+  values={[
+    { label: '1.x syntax', value: 'sdk1', },
+    { label: '2.0 syntax', value: 'sdk2', },
+  ]
+}>
+<CodeTabItem value="sdk1">
+
+```csharp
+var config = Configuration.Builder("my-mobile-key")
+    .BaseUri(new Uri("https://app.mycompany.launchdarkly.com"))
+    .StreamUri(new Uri("https://stream.mycompany.launchdarkly.com"))
+    .EventsUri(new Uri("https://events.mycompany.launchdarkly.com"))
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk2">
+
+```csharp
+var config = Configuration.Builder("my-mobile-key")
+    .ServiceEndpoints(
+        Components.ServiceEndpoints()
+            .Polling("https://app.mycompany.launchdarkly.com")
+            .Streaming("https://stream.mycompany.launchdarkly.com")
+            .Events("https://events.mycompany.launchdarkly.com")
+    )
+    .Build();
+```
+</CodeTabItem>
+</CodeTabs>
+
+All of the `ServiceEndpoints` setter methods allow you to specify the URI as either the `Uri` type or a string.
+
+## Understanding changes to EvaluationDetail and EvaluationReason
+
+The `EvaluationDetail` and `EvaluationReason` types, which were formerly in `LaunchDarkly.Client`, and are now in `LaunchDarkly.Sdk`, have been modified in the following ways:
+
+1. They are now `struct`s rather than `class`es.
+2. `EvaluationReason` is no longer a base class with subclasses like `EvaluationReason.Off` for different reasons. Instead, it is always the same `struct` type, and you can distinguish one reason from another by looking at its properties such as `Kind`.
+3. `EvaluationReason.RuleIndex` is now an optional `int?` rather than an `int`. If it is not applicable (because the reason is not a rule match), the value of this property is now `null`. Previously, the special value of `-1` was used to mean "not applicable".
+
+## Understanding changes to logging
+
+Previously, the SDK used the [`Common.Logging`](https://github.com/net-commons/common-logging) framework, which provides adapters to various popular loggers. But writing the LaunchDarkly packages against such a third-party API causes inconvenience for any developer using LaunchDarkly who prefers a different framework. Also, `Common.Logging` is a relatively heavyweight solution for projects that may only have simple logging requirements.
+
+Starting in version 2.0, the SDK no longer has a built-in dependency on `Common.Logging` or on any other third-party logging framework. Instead it uses a new package, [`LaunchDarkly.Logging`](https://github.com/launchdarkly/dotnet-logging).
+
+The new package provides some basic built-in logging implementations suitable for simple applications, such as logging to the console. If you do not specify an implementation, the SDK chooses a default one as follows:
+
+* On Android, it uses the native `Android.Util.Log` API.
+* On iOS, it uses the native `OSLog` API.
+* On other platforms, when using the .NET Standard version of the SDK, it uses console output.
+
+Here is an example of configuring the .NET SDK to send log output to the console, and to enable only log messages of `Warn` level or higher:
+
+<CodeTabs
+  values={[
+    { label: '2.0 syntax', value: 'sdk2', },
+  ]
+}>
+<CodeTabItem value="sdk2">
+
+```csharp
+using LaunchDarkly.Logging;
+using LaunchDarkly.Sdk.Client;
+
+var config = Configuration.Builder("my-mobile-key")
+    .Logging(Logs.ToConsole.Level(LogLevel.Warn))
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+It also has an adapter system for connecting it to other logging frameworks, or implementing your own integration. To learn more, read the [`LaunchDarkly.Logging`](https://launchdarkly.github.io/dotnet-logging) documentation.
+
+The SDK's use of logger names has also changed. Most logging frameworks allow you to use logger names to configure different filtering rules for different kinds of messages, so if you have been using that feature you may need to adjust your configuration.
+
+Previously, most of the SDK's log output used the logger name `LaunchDarkly.Xamarin.LdClient`, but some of it used the names of other classes. These class names were implementation details that were subject to change, so there was not a well-defined set of logger names.
+
+Starting in version 2.0, the SDK uses the following logger names:
+
+* `Launchdarkly.Sdk`: general messages that do not fall into any other categories
+* `Launchdarkly.Sdk.DataSource`: messages related to how the SDK obtains feature flag data-- normally this means messages about the streaming connection to LaunchDarkly, but if you use polling mode or file data instead, those will be logged under this name too
+* `Launchdarkly.Sdk.DataStore`: messages related to how feature flag data is stored-- for instance, database errors if you are using a database integration
+* `Launchdarkly.Sdk.Evaluation`: messages related to feature flag evaluation
+* `Launchdarkly.Sdk.Events`: messages related to analytics event processing
+
+The use of log levels has also changed. Previously, many kinds of I/O errors, such a network failure when the SDK was trying to make a streaming connection or sending events to LaunchDarkly, were logged at `Error` level. This could cause an unwanted amount of noise from monitoring systems, since such errors were often due to temporary problems that the SDK could recover from without intervention.
+
+Starting in version 2.0, if the SDK gets a network error that might interfere with receiving feature flag data from LaunchDarkly, it first logs it at the `Warn` level. It retries the connection as usual, and reports the problem again at the more serious `Error` level only if it remains unable to get a successful connection for a full minute. You can change that interval with `LoggingConfigurationBuilder`.
+
+## Using the Relay Proxy
+
+In version 2.0, there is a new syntax for configuring the SDK to connect to a Relay Proxy instance.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="sdk1"
+  values={[
+    { label: '1.x syntax', value: 'sdk1', },
+    { label: '2.0 syntax', value: 'sdk2', },
+  ]
+}>
+<CodeTabItem value="sdk1">
+
+```csharp
+// 1.x model: proxy mode with streaming
+var relayUri = new Uri("http://my-relay-host:8000");
+var config = Configuration.Builder("my-mobile-key")
+    .StreamUri(relayUri)
+    .EventsUri(relayUri) // if you want to proxy events
+    .Build();
+
+// 1.x model: proxy mode with polling
+var relayUri = new Uri("http://my-relay-host:8000");
+var config = Configuration.Builder("my-mobile-key")
+    .IsStreamingEnabled(false)
+    .BaseUri(relayUri)
+    .EventsUri(relayUri) // if you want to proxy events
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk2">
+
+```csharp
+// 2.0 model: proxy mode with streaming
+var relayUri = new Uri("http://my-relay-host:8000");
+var config = Configuration.Builder("my-mobile-key")
+    .DataSource(Components.StreamingDataSource().BaseUri(relayUri))
+    .Events(Components.SendEvents().BaseUri(relayUri)) // if you want to proxy events
+    .Build();
+
+// 2.0 model: proxy mode with polling
+var relayUri = new Uri("http://my-relay-host:8000");
+var config = Configuration.Builder("my-mobile-key")
+    .DataSource(Components.PollingDataSource().BaseUri(relayUri))
+    .Events(Components.SendEvents().BaseUri(relayUri)) // if you want to proxy events
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Converting objects to or from JSON data
+
+You might want to convert LaunchDarkly SDK classes such as `User`, `LdValue`, or `FeatureFlagsState` into JSON if you are passing them to front-end JavaScript code. Less commonly, you might want to convert them from JSON. The SDK provides ways to do both.
+
+First, you can use the serialize and deserialize methods in `LaunchDarkly.Sdk.Json.LdJsonSerialization` to quickly convert things to or from JSON strings.
+
+Second, the `System.Text.Json` API (available on all platforms except .NET Framework 4.5.x) will correctly convert these types.
+
+Third, if you prefer to use the popular [Newtonsoft Json.NET](https://www.newtonsoft.com/json) framework, see below.
+
+### Json.NET
+
+Previously, the SDK used [Json.NET](https://www.newtonsoft.com/json) for all of its JSON operations, and defined custom encodings for types like `FeatureFlagsState` using that framework's `JsonConverter` API. That meant that if you wanted to convert one of those types to JSON with Json.NET, it worked automatically.
+
+However, there were problems with having a Json.NET dependency in the SDK. There are many versions of the `Newtonsoft.Json` package, so there could be version conflicts if an application was using both the LaunchDarkly .NET SDK and a different version of Json.NET. Another problem was that Json.NET has some nonstandard behaviors, such as automatically converting strings to dates, and could be customized globally in ways that could interfere with the SDK. Also, using the standard reflection-based serialization/deserialization mechanism in Json.NET is less efficient than other approaches.
+
+Starting in version 2.0, the SDK no longer uses Json.NET. Instead, it uses the `System.Text.Json` API, except on platforms where that API is not available (.NET Framework 4.5.x), in which case it uses a custom implementation. This removes the potential for package version conflicts, and also is significantly more efficient in terms of memory usage when the SDK is encoding or decoding JSON.
+
+However, this means that if you want to convert LaunchDarkly SDK types such as `FeatureFlagsState` to JSON, you can't simply call `Newtonsoft.Json.JsonConvert.SerializeObject` and get correct results, because Json.NET does not know about the custom serializers for these types in the SDK.
+
+If you want to make Json.NET work correctly with these types, you must add the package `LaunchDarkly.CommonSdk.JsonNet`, and then create Json.NET's `JsonSerializerSettings` as follows:
+
+<CodeTabs
+  values={[
+    { label: '2.0 only', value: 'sdk2', },
+  ]
+}>
+<CodeTabItem value="sdk2">
+
+```csharp
+    var settings = new JsonSerializerSettings
+    {
+        Converters = new List<JsonConverter>
+        {
+            LaunchDarkly.Sdk.Json.LdJsonNet.Converter
+        }
+    };
+```
+</CodeTabItem>
+</CodeTabs>
+
+You can then use `settings` in any call to `JsonConvert.SerializeObject` or `JsonConvert.DeserializeObject`, or use it globally by modifying `JsonConvert.DefaultSettings`, and Json.NET will correctly handle the LaunchDarkly SDK types.
+
+Alternately, if you would rather not install this extra package, you can use `LaunchDarkly.Sdk.Json.LdJsonSerialization` and add an extra step to convert the JSON string to Json.NET's `JRaw` type:
+
+<CodeTabs
+  values={[
+    { label: '2.0 only', value: 'sdk2', },
+  ]
+}>
+<CodeTabItem value="sdk2">
+
+```csharp
+    struct ValuesBeingPassedToJavaScriptCode
+    {
+        [JsonProperty("user")]
+        public JRaw User;
+    }
+
+    ValuesBeingPassedToJavaScriptCode CreateValuesForJavaScript(User user)
+    {
+        var userJson = new JRaw(LdJsonSerialization.SerializeObject(user));
+        return new ValuesBeingPassedToJavaScriptCode { User = userJson };
+    }
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Miscellaneous API changes
+
+Here are several changes to names and types that do not affect the basic functionality of the SDK, but were changed for consistency.
+
+* The `Initialized()` method of `LdClient` is now a read-only property, `Initialized`, instead of a method.
+* The `IConfigurationBuilder` interface has been replaced by the concrete class `ConfigurationBuilder`.
+* The `ILdClient` interface is now in `LaunchDarkly.Sdk.Client.Interfaces` instead of the main namespace.
+* The `FlagChanged` event, for detecting feature flag changes, is now accessed through `LdClient.FlagTracker` (as it is in the server-side SDK) rather than being a property of `LdClient` itself.
+
+## Understanding what was deprecated
+
+All types and methods that were marked as deprecated/obsolete in the last 1.x release have been removed from the 2.0 release. If you were using these with a recent version previously, you should already have received deprecation warnings at compile time, with suggestions about their recommended replacements.
+
+## Understanding new functionality
+
+The 2.0 release also includes new features as described in the release notes.
+
+These include:
+
+* The SDK now supports aliasing users. See `LdClient.Alias` and `ConfigurationBuilder.AutoAliasingOptOut`.
+* `LdClient.DataSourceStatusProvider` allows you to monitor the status of the connection to LaunchDarkly.
+* The `Integrations.TestData` class provides a way to inject simulated feature flag data into the SDK for testing.
+
+To learn more, read the API documentation for these classes and methods.
