@@ -56,7 +56,7 @@ jobs:
           headless: true
           wait-on: 'http://localhost:9000/home/getting-started'
           wait-on-timeout: 5
-          env: skip_external=false
+          env: skip_external=true
       - name: Archive Cypress screenshots
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
