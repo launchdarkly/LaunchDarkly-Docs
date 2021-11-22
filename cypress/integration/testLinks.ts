@@ -81,8 +81,12 @@ describe('Verify links', () => {
             .then(() =>
               // visit linked pages and verify their references
               Object.keys(referencesToTest).forEach(pageUrl => {
-                cy.visit(pageUrl).withFailMessage(msg => `Could not verify reference on ${pageUrl}: ${msg}`)
-                referencesToTest[pageUrl].forEach(reference => cy.get(`#${reference}`))
+                cy.visit(pageUrl)
+                referencesToTest[pageUrl].forEach(reference =>
+                  cy.get(`#${reference}`).should($ref => {
+                    expect($ref, `Verify reference on ${pageUrl}`).to.exist
+                  }),
+                )
               }),
             )
         })
