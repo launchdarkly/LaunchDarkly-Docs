@@ -3,30 +3,6 @@ on:
     types: [assigned, opened, synchronize, reopened]
 
 jobs:
-  cypress-run:
-    runs-on: ubuntu-latest
-    name: Run cypress
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          build: yarn build-dev
-          start: yarn serve-dev
-          headless: true
-          wait-on: 'http://localhost:9000/home/getting-started'
-          wait-on-timeout: 5
-          env: skip_external=true
-      - name: Archive Cypress screenshots
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: cypress-screenshots
-          path: |
-            /home/runner/work/git-gatsby/git-gatsby/cypress/screenshots
-          retention-days: 5
-
   build-deploy:
     runs-on: ubuntu-latest
     name: Deploy to s3 staging
