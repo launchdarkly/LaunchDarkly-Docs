@@ -1,0 +1,4 @@
+{
+  "launchdarkly.baseUri": "https://app.ld.catamorphic.com",
+  "launchdarkly.project": "docs"
+}
