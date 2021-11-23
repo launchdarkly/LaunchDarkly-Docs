@@ -21,6 +21,20 @@ If you have a docs concern or contribution that you need addressed urgently, ema
 
 We'll do our best to merge your PR as soon as we can, but we're a small team serving a large community. Thank you in advance for your patience.
 
+## (Internal LaunchDarkly only) First-draft docs submission process
+
+Follow this process:
+
+1. File a ticket in the Documentation Shortcut project. Summarize the changes you need in the ticket body. You can assign it to your squad or the epic related to your feature, but make sure it’s in the Documentation project!
+
+2. Schedule a kickoff meeting with @Sarah Day (or invite her to the feature kickoff meeting). You can add other writers if you need to as well.
+
+3. **Two weeks before your feature launches**, PR your docs updates into git-gatsby. The docs-reviewers alias get added automatically, but you should also add other technical or product reviewers if you need.
+
+4. Now the docs team gets your docs ready to ship! Expect to go back and forth with them in revisions once or twice before everyone agrees the docs are ready.
+
+Learn more [in Confluence](https://launchdarkly.atlassian.net/wiki/spaces/ENG/pages/1972306124/Writing+first-draft+docs).
+
 ## Resources for contributors
 
 You can make your contribution to the docs more likely to be accepted early by following our style guide and using our custom components.
