@@ -17531,10 +17531,10 @@ tr46@~0.0.3:
   resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
   integrity sha1-gYT9NH2snNwYWZLzpmIuFLnZq2o=
 
-trackjs@^3.7.4:
-  version "3.9.2"
-  resolved "https://registry.yarnpkg.com/trackjs/-/trackjs-3.9.2.tgz#33e95c9c8149af33aec3de16d374ee60825d1b91"
-  integrity sha512-Yv4pff4EcY+pLDgJhstksU1vhfbrZZXEtTgmQ5iBqPTKLdUjKGHnptfa/fS8czmn/WtLssCjlToXPYik0X305w==
+trackjs@^3.10.1:
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/trackjs/-/trackjs-3.10.1.tgz#ff46240be2ee6518b68fdddff3f2423338314a57"
+  integrity sha512-VehGLBlBKsfSnycBogNza8IFU/TOQ8vxk0u8+0bynAoXoAz41QIZibB2kXy24wWT0EfYPMT8jFqXgYC9pMAAsA==
 
 tree-kill@^1.2.2:
   version "1.2.2"

@@ -29,6 +29,7 @@ jobs:
           GATSBY_DATADOG_CLIENT_TOKEN: ${{ secrets.PROD_DATADOG_CLIENT_TOKEN }}
           GATSBY_DATADOG_RUM_APPLICATION_ID: ${{ secrets.DATADOG_RUM_APPLICATION_ID }}
           GATSBY_DATADOG_RUM_CLIENT_TOKEN: ${{ secrets.DATADOG_RUM_CLIENT_TOKEN }}
+          GATSBY_TRACKJS_TOKEN: ${{ secrets.TRACKJS_TOKEN }}
           SEGMENT_KEY: 'RUtph5AIOikMUv9vQUVqHrb6G2pALs0T'
           AWS_S3_BUCKET: 'launchdarkly-docs-production'
           AWS_HOSTNAME: 'docs.launchdarkly.com'
