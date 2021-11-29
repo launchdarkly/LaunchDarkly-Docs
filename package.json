@@ -55,7 +55,7 @@
     "@cypress/webpack-preprocessor": "5.8.0",
     "@emotion/jest": "11.6.0",
     "@svgr/cli": "^4.3.3",
-    "@testing-library/react": "^12.0.0",
+    "@testing-library/react": "^12.1.2",
     "@types/body-scroll-lock": "^2.6.1",
     "@types/chai-string": "^1.4.2",
     "@types/jest": "^26.0.24",
