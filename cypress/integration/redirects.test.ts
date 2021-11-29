@@ -6,7 +6,7 @@ chai.use(require('chai-string'))
 
 const redirectMap = legacyRedirectRules.reduce((map, r) => ({ ...map, [r.fromPath]: r.toPath }), {})
 
-describe('Test legacy redirect rules', () => {
+describe('Test redirect rules', () => {
   legacyRedirectRules.forEach(({ fromPath }) => {
     const finalDestination = getFinalDestination(redirectMap, fromPath)
 
@@ -14,7 +14,7 @@ describe('Test legacy redirect rules', () => {
       // cypress will get an initial 404 from gatsby serve on staging
       // hence we ignore that initial 404 response
       cy.visit(fromPath, { failOnStatusCode: false })
-      cy.url().should('endWith', finalDestination)
+      cy.location('pathname').should('equal', finalDestination)
     })
   })
 })
