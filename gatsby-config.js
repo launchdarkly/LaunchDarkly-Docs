@@ -1,5 +1,8 @@
 const { queries } = require('./src/utils/algolia')
 
+const isStaging = process.env.GATSBY_ACTIVE_ENV === 'staging'
+const isProd = process.env.GATSBY_ACTIVE_ENV === 'production'
+
 // These are useful to debug build issues
 console.log(`
   GATSBY_ACTIVE_ENV=${process.env.GATSBY_ACTIVE_ENV}
@@ -181,7 +184,7 @@ if (process.env.DEV_FAST !== 'true') {
 }
 
 // Only build algolia indexes in staging and production
-if (process.env.GATSBY_ACTIVE_ENV === 'staging' || process.env.GATSBY_ACTIVE_ENV === 'production') {
+if (isStaging || isProd) {
   plugins.push({
     resolve: 'gatsby-plugin-algolia',
     options: {
@@ -189,6 +192,7 @@ if (process.env.GATSBY_ACTIVE_ENV === 'staging' || process.env.GATSBY_ACTIVE_ENV
       apiKey: process.env.ALGOLIA_ADMIN_KEY,
       queries,
       chunkSize: 10000, // default: 1000
+      continueOnFailure: process.env.GATSBY_ACTIVE_ENV === 'staging',
     },
   })
 }
@@ -197,7 +201,7 @@ if (process.env.GATSBY_ACTIVE_ENV === 'staging' || process.env.GATSBY_ACTIVE_ENV
 // pushing to s3 subfolders.
 // Staging deploy uses a github action called s3-sync-action to push to a subfolder
 // in the staging bucket
-if (process.env.GATSBY_ACTIVE_ENV === 'production') {
+if (isProd) {
   const gatsbyPluginS3 = {
     resolve: 'gatsby-plugin-s3',
     options: {
