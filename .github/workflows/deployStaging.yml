@@ -2,10 +2,19 @@ on:
   pull_request:
     types: [assigned, opened, synchronize, reopened]
 
+env:
+  PR_NUMBER: ${{ github.event.pull_request.number }}
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
     name: Deploy to s3 staging
+    environment: 
+      name: staging
+      url: http://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }}
+    concurrency: 
+      group: staging-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -31,12 +40,10 @@ jobs:
           key: ${{ runner.os }}-gatsby-build-${{ github.run_id }}
           restore-keys: |
             ${{ runner.os }}-gatsby-build-
-      - run: echo "PR_NUMBER=$(echo "$GITHUB_REF" | awk -F / '{str = sprintf("%s", $3)} END {print str}')" >> $GITHUB_ENV
       - run: yarn --prefer-offline --frozen-lockfile
       # extract the pr number using shell commands and then use github environment files to save it for other steps
       - run: yarn build-staging
         env:
-          PR_NUMBER: ${{ env.PR_NUMBER }}
           ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}

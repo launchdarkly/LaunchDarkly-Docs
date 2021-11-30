@@ -7,6 +7,9 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     name: Deploy to s3 production
+    environment: 
+      name: production
+      url: https://docs.launchdarkly.com/
     concurrency: prod_deploys
     steps:
       - uses: actions/checkout@v2
