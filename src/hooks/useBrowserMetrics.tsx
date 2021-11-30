@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Datacenter, datadogLogs } from '@datadog/browser-logs'
+import { datadogLogs } from '@datadog/browser-logs'
 import { getLCP, Metric } from 'web-vitals'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
 
@@ -56,7 +56,7 @@ function sendCustomMeasureLogsToDatadog(metric: Metric, thresholdsConfig: Metric
 function initDatadogLogs(thresholdsConfig: MetricThresholdsConfig) {
   datadogLogs.init({
     clientToken: process.env.GATSBY_DATADOG_CLIENT_TOKEN,
-    datacenter: Datacenter.US,
+    site: 'datadoghq.com',
     env: process.env.GATSBY_ACTIVE_ENV,
     forwardErrorsToLogs: true,
   })
