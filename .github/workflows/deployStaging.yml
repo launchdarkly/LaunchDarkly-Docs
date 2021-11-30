@@ -37,9 +37,9 @@ jobs:
           path: |
             public
             .cache
-          key: ${{ runner.os }}-gatsby-build-${{ github.run_id }}
+          key: ${{ runner.os }}-gatsby-build-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gatsby-build-
+            ${{ runner.os }}-gatsby-build-${{ hashFiles('**/yarn.lock') }}
       - run: yarn --prefer-offline --frozen-lockfile
       # extract the pr number using shell commands and then use github environment files to save it for other steps
       - run: yarn build-staging
