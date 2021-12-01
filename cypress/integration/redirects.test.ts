@@ -1,13 +1,13 @@
-import legacyRedirectRules from '../../legacyRedirectRules'
+import redirectRules from '../../redirectRules'
 import getFinalDestination from '../../getFinalDestination'
 
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 chai.use(require('chai-string'))
 
-const redirectMap = legacyRedirectRules.reduce((map, r) => ({ ...map, [r.fromPath]: r.toPath }), {})
+const redirectMap = redirectRules.reduce((map, r) => ({ ...map, [r.fromPath]: r.toPath }), {})
 
 describe('Test redirect rules', () => {
-  legacyRedirectRules.forEach(({ fromPath }) => {
+  redirectRules.forEach(({ fromPath }) => {
     const finalDestination = getFinalDestination(redirectMap, fromPath)
 
     it(`${fromPath} -> ${finalDestination}`, () => {
