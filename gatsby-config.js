@@ -192,40 +192,42 @@ if (isStaging || isProd) {
       apiKey: process.env.ALGOLIA_ADMIN_KEY,
       queries,
       chunkSize: 10000, // default: 1000
-      continueOnFailure: process.env.GATSBY_ACTIVE_ENV === 'staging',
+      continueOnFailure: isStaging,
     },
   })
 }
 
-// Only use gatsby-plugin-s3 when deploying to production because it does not support
-// pushing to s3 subfolders.
-// Staging deploy uses a github action called s3-sync-action to push to a subfolder
-// in the staging bucket
-if (isProd) {
+if (isProd || isStaging) {
   const gatsbyPluginS3 = {
     resolve: 'gatsby-plugin-s3',
     options: {
       bucketName: process.env.AWS_S3_BUCKET,
+      bucketPrefix: process.env.PR_NUMBER,
       protocol: 'https',
       hostname: process.env.AWS_HOSTNAME,
       generateRedirectObjectsForPermanentRedirects: true,
+      generateIndexPageForRedirect: isProd, // this is on by default, but should should be off in staging
       enableS3StaticWebsiteHosting: false,
     },
   }
   plugins.push(gatsbyPluginS3)
-} else {
-  // GOTCHA: On staging or dev, the client side redirect plugin auto-generates index.html files
+}
+
+if (!isProd) {
+  // GOTCHA: On dev and staging, the client side redirect plugin auto-generates index.html files
   // which acts as default pages which contains scripts to enforce redirects defined in
-  // gatsby-node.js. Production don't need this because gatsby-plugin-s3 does this for us
+  // gatsby-node.js. Production doesn't need this because gatsby-plugin-s3 does this for us
   // automatically
+  // Re:staging - the s3 plugin doesn't properly generate redirects when using bucketPrefix
+  // Track issue here: https://github.com/jariz/gatsby-plugin-s3/issues/24
   plugins.push('gatsby-plugin-client-side-redirect')
 }
 
+// Push pr branches to a subfolder in the staging bucket using the pr number as routes.
+// For example, a pr number 58 will be previewable on:
+// https://docs-stg.launchdarkly.com/58
 module.exports = {
-  // Push pr branches to a subfolder in the staging bucket using the pr number as routes.
-  // For example, a pr number 58 will be previewable on:
-  // https://docs.staging.launchdarkly.com/58
-  pathPrefix: process.env.GATSBY_ACTIVE_ENV === 'staging' ? `/${process.env.PR_NUMBER}` : '/',
+  pathPrefix: isStaging ? `/${process.env.PR_NUMBER}` : '/',
   siteMetadata: {
     title: 'LaunchDarkly Docs',
     description: 'LaunchDarkly documentation',
