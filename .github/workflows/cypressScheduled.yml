@@ -27,3 +27,11 @@ jobs:
           path: |
             /home/runner/work/git-gatsby/git-gatsby/cypress/screenshots
           retention-days: 5
+      - name: Notify slack
+        if: ${{ failure() }}
+        uses: Ilshidur/action-slack@2.1.0
+        env:
+          SLACK_USERNAME: Docs DeployBot
+          SLACK_WEBHOOK: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+        with:
+          args: ':warning::link: The daily external link tests failed. https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}'

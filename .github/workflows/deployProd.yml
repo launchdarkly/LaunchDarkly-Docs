@@ -73,8 +73,7 @@ jobs:
         if: ${{ failure() }}
         uses: Ilshidur/action-slack@2.1.0
         env:
-          SLACK_CHANNEL: docs
           SLACK_USERNAME: Docs DeployBot
           SLACK_WEBHOOK: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
         with:
-          args: ':rotating_light::rotating_light::rotating_light: The Cypress tests failed on deploy prod step. :rotating_light::rotating_light::rotating_light:'
+          args: ':rotating_light::rotating_light::rotating_light: The Cypress tests failed on deploy prod step. https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} :rotating_light::rotating_light::rotating_light:'
