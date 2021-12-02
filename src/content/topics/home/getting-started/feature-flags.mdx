@@ -63,16 +63,22 @@ You just created a feature flag. It appears in the dashboard.
 
 ### Making flags available to client-side and mobile SDKs
 
-When you create a flag, you can choose to expose the flag to SDKs which use client-side ID, SDKs which use mobile keys, or both. By default, flags are only available to server-side SDKs. If you're using a client-side SDK, you must make each flag you wish to appear on the front end available to the client.
+By default, flags are only available to server-side SDKs. When you create a flag, you can choose to expose the flag to SDKs which use client-side IDs, SDKs which use mobile keys, or both. If you're using a client-side or mobile SDK, you must expose your feature flags in order for the client-side or mobile SDKs to evaluate them.
 
 Here is an image of the "Client-side SDK availability" section:
 
 ![The "Client-side SDK availability" section of the flag creation screen.](../../images/flag-create-sdk.png)
 
+If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
+
+To make all of a project's flags available to client-side or mobile SDKs by default, check the **SDKs using Client-side ID** or **SDKs using Mobile key** checkboxes in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+
 <Callout intent="alert">
 <CalloutTitle>Security implications of making flags available to mobile SDKs</CalloutTitle>
 <CalloutDescription>
+
 SDKs for mobile devices use mobile SDK keys, which are readily available to mobile apps. A leaked mobile SDK key allows the holder to circumvent JavaScript's Secure Mode. This can give the holder access to the value of every flag for any user, even without knowing the SDK key that hashes the user key in Secure Mode.
+
 </CalloutDescription>
 </Callout>
 
