@@ -24,6 +24,9 @@ const pageQuery = `{
       }
       excerpt(pruneLength: 5000)
       tableOfContents(maxDepth: 2)
+      fields {
+        lastModifiedTime
+      }
     }
   }
   
@@ -64,11 +67,12 @@ const excludedHeadings = [
 
 const flatten = (mdx, rootTopics, secondLevelTopics) => {
   const result = []
-  mdx.forEach(({ id, fileAbsolutePath, frontmatter, excerpt, tableOfContents }) => {
+  mdx.forEach(({ id, fileAbsolutePath, frontmatter, excerpt, tableOfContents, fields }) => {
     const included = frontmatter.published && !excludedPages.find(p => fileAbsolutePath.includes(p))
 
     if (included) {
       const { title, path, description } = frontmatter
+      const modified = fields.lastModifiedTime
       const displayCategory = secondLevelTopics.find(t => !!t.allItems.find(i => i === path))
       let displayCategoryLabel
 
@@ -95,6 +99,7 @@ const flatten = (mdx, rootTopics, secondLevelTopics) => {
         excerpt,
         displayCategory: displayCategoryLabel,
         titleType: 'h1',
+        modified,
       })
 
       if (tableOfContents.items) {
@@ -110,6 +115,7 @@ const flatten = (mdx, rootTopics, secondLevelTopics) => {
               excerpt,
               displayCategory: displayCategoryLabel,
               titleType: 'h2',
+              modified,
             })
           }
         })

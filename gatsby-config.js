@@ -193,6 +193,7 @@ if (isStaging || isProd) {
       queries,
       chunkSize: 10000, // default: 1000
       continueOnFailure: isStaging,
+      enablePartialUpdates: true,
     },
   })
 }
