@@ -49,7 +49,7 @@
     "theme-ui": "0.12.1",
     "trackjs": "^3.10.1",
     "web-vitals": "^0.2.3",
-    "yarn": "^1.22.10"
+    "yarn": "^1.22.17"
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "5.8.0",
