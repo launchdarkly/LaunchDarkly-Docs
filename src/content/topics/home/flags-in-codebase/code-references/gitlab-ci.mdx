@@ -54,7 +54,7 @@ Here's how to set up the GitLab CI:
 find-launchdarkly-code-refs:
   stage: deploy
   image:
-    name: launchdarkly/ld-find-code-refs:2.1.0
+    name: launchdarkly/ld-find-code-refs:2.4.0
     entrypoint: [""]
   script:
     - ld-find-code-refs
@@ -111,7 +111,7 @@ deploy1:
 find-launchdarkly-code-refs:
   stage: deploy
   image:
-    name: launchdarkly/ld-find-code-refs:2.1.0
+    name: launchdarkly/ld-find-code-refs:2.4.0
     entrypoint: [""]
   script:
     - ld-find-code-refs
