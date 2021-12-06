@@ -58,7 +58,7 @@
     "@testing-library/react": "^12.1.2",
     "@types/body-scroll-lock": "^2.6.1",
     "@types/chai-string": "^1.4.2",
-    "@types/jest": "^26.0.24",
+    "@types/jest": "^27.0.3",
     "@types/lodash.noop": "^3.0.6",
     "@types/pluralize": "^0.0.29",
     "@types/prismjs": "^1.16.0",
