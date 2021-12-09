@@ -958,6 +958,11 @@
       "name": "React",
       "versions": [
         {
+          "versionMajorMinor": "2.24",
+          "releaseYear": 2021,
+          "releaseMonthDay": "12-09"
+        },
+        {
           "versionMajorMinor": "2.23",
           "releaseYear": 2021,
           "releaseMonthDay": "07-16"
