@@ -171,6 +171,7 @@ To configure the client:
   defaultValue="dotnet"
   values={[
     { label: '.NET', value: 'dotnet', },
+    { label: '.NET SDK 5.x and earlier', value: 'dotnet-pre-6.0', },
   ]
 }>
 <CodeTabItem value="dotnet">
@@ -189,10 +190,12 @@ var config = Configuration.Builder("sdk key")
     .Build()
 
 var client = new LDClient(config);
+```
 
+</CodeTabItem>
+<CodeTabItem value="dotnet-pre-6.0">
 
-// Prior to version 6.0, use this syntax:
-
+```csharp
 using LaunchDarkly.Client;
 using LaunchDarkly.Client.Files;
 
@@ -207,12 +210,13 @@ var config = Configuration.Builder("sdk key")
 
 var client = new LDClient(config);
 ```
-*To learn more, read [`FileData`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.FileData.html).*
-
-*If you want to use YAML instead of JSON, you must [provide a YAML parser](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.FileDataSourceBuilder.html#LaunchDarkly_Sdk_Server_Integrations_FileDataSourceBuilder_Parser_).*
 
 </CodeTabItem>
 </CodeTabs>
+
+If you want to use YAML instead of JSON, you must [provide a YAML parser](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.FileDataSourceBuilder.html#LaunchDarkly_Sdk_Server_Integrations_FileDataSourceBuilder_Parser_).
+
+To learn more, read [`FileData`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.FileData.html).
 
 ### Erlang
 
@@ -250,6 +254,7 @@ To configure the client:
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
+    { label: 'Go SDK 4.x and earlier', value: 'go-pre-5.0', },
   ]
 }>
 
@@ -270,10 +275,12 @@ config.DataSource = ldfiledata.DataSource().
 config.Events = ldcomponents.NoEvents()
 
 client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
+```
 
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
 
-// In versions earlier than 5.0, use this syntax:
-
+```go
 import (
     ld "gopkg.in/launchdarkly/go-server-sdk.v4"
     "gopkg.in/launchdarkly/go-server-sdk.v4/ldfiledata"
@@ -302,6 +309,7 @@ To configure the client:
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Java SDK 4.x and earlier', value: 'java-pre-5.0', },
   ]
 }>
 <CodeTabItem value="java">
@@ -320,10 +328,12 @@ LDConfig config = new LDConfig.Builder()
   .build();
 
 LDClient client = new LDClient("sdk key", config);
+```
 
+</CodeTabItem>
+<CodeTabItem value="java-pre-5.0">
 
-// In versions earlier than 5.0, use this syntax:
-
+```java
 import com.launchdarkly.client.*;
 import com.launchdarkly.client.files.*;
 
@@ -339,10 +349,10 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = new LDClient("sdk key", config);
 ```
 
-*To learn more, read [`FileData`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/integrations/FileData.html).*
-
 </CodeTabItem>
 </CodeTabs>
+
+To learn more, read [`FileData`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/FileData.html).
 
 ### Node.js (server-side)
 
@@ -374,6 +384,7 @@ const client = LaunchDarkly.init(sdkKey, config);
 </CodeTabItem>
 </CodeTabs>
 
+To learn more, read [`FileDataSource`](https://launchdarkly.github.io/node-server-sdk/index.html#filedatasource).
 
 ### Python
 
@@ -391,25 +402,24 @@ To configure the client:
 ```py
 import ldclient
 from ldclient.config import Config
-from ldclient.file_data_source import FileDataSource
+from ldclient.integrations import Files
 
-factory = FileDataSource.factory(paths=["file1.json", "file2.json"],
+data_source = Files.new_data_source(paths=["file1.json", "file2.json"],
     auto_update=True)
 
-config = Config(update_processor_class=factory, send_events=False)
+config = Config(update_processor=data_source, send_events=False)
 
 ldclient.set_config(config)
 ldclient.set_sdk_key("sdk key")
 client = ldclient.get()
-
-# In the Python SDK, if you want to use YAML files instead of JSON
-# you must install the "pyyaml" package. Also, automatic reloading uses an
-# inefficient file-polling mechanism. We recommend installing the "watchdog"
-# package.
 ```
 
 </CodeTabItem>
 </CodeTabs>
+
+In the Python SDK, if you want to use YAML files instead of JSON you must install the `pyyaml` package. Also, automatic reloading uses an inefficient file-polling mechanism. We recommend installing the `watchdog` package.
+
+To learn more, read [`Files`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-integrations.html#ldclient.integrations.Files).
 
 ### PHP
 
@@ -441,6 +451,8 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 </CodeTabItem>
 </CodeTabs>
 
+To learn more, read [`Files`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-Integrations-Files.html).
+
 ### Ruby
 
 To configure the client:
@@ -449,9 +461,29 @@ To configure the client:
   defaultValue="ruby"
   values={[
     { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK 6.2.x and earlier', value: 'ruby-pre-6.3', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+require 'ldclient-rb'
+
+data_source = LaunchDarkly::Integrations::FileData.data_source(
+  paths: [ "file1.json", "file2.json" ],
+  auto_update: true
+)
+
+config = LaunchDarkly::Config.new(
+  data_source: data_source,
+  send_events: false
+)
+
+client = LaunchDarkly::LDClient.new("sdk key", config)
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-pre-6.3">
 
 ```ruby
 require 'ldclient-rb'
@@ -466,11 +498,12 @@ config = LaunchDarkly::Config.new(
   send_events: false
 )
 
-client = LaunchDarkly::Client.new("sdk key", config)
-
-# In the Ruby SDK, automatic reloading uses an inefficient
-# file-polling mechanism unless you install the "listen" gem.
+client = LaunchDarkly::LDClient.new("sdk key", config)
 ```
 
 </CodeTabItem>
 </CodeTabs>
+
+In the Ruby SDK, automatic reloading uses an inefficient file-polling mechanism unless you install the `listen` gem.
+
+To learn more, read [`FileData`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Integrations/FileData.html).
