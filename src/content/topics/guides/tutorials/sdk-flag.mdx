@@ -72,7 +72,7 @@ To learn more, read [Understanding the different types of SDKs](/sdk/concepts/cl
 
 ### Using feature flags with variations
 
-With LaunchDarkly's feature flags, you can develop a feature, wrap it in a feature flag, and prevent users from accessing it until you want them to. When you wrap a feature in a feature flag, you're  gating access to the feature based on a condition you specify.
+With LaunchDarkly's feature flags, you can develop a feature, wrap it in a feature flag, and prevent users from accessing it until you want them to. When you wrap a feature in a feature flag, you're gating access to the feature based on a condition you specify.
 
 You can also specify multiple variations of a flag to produce different outcomes. For example, you could create three variations of the same flag, each of which shows a price page with a 10%, 15%, or 25% discount.
 
@@ -140,15 +140,17 @@ This exercise uses a Python-based web application we provide and runs on [Glitch
 
 Here is an image of the Glitch app:
 
-![The Space Camp pricing page, running in Glitch.](../../../space-camp-pricing-page-0.png)
+![The Starlight Travel pricing page, running in Glitch.](starlight-travel-pricing-page-0.png)
 
 ### Remixing the Glitch app
 
 You must remix the Glitch project embedded below to create an editable copy of the Python web app. **Remixing** is Glitch's term for cloning a project. This creates an editable copy of the Python web app we use for this exercise.
 
-To remix the app, select this [Glitch remix link](https://glitch.com/edit/#!/remix/ld-space-camp-0), or follow the instructions below.
+To remix the app, click this [Glitch remix link](https://glitch.com/edit/#!/remix/starlight-travel-0), or follow the instructions below.
 
-<iframe src="https://glitch.com/embed/#!/embed/ld-space-camp-0?path=README.md&previewSize=0&attributionHidden=true" title="ld-space-camp-0 on Glitch" allow="geolocation; microphone; camera; midi; vr; encrypted-media" width="100%" height="420px"></iframe>
+<iframe src="https://glitch.com/embed/#!/embed/starlight-travel-0?path=README.md&previewSize=0&attributionHidden=true" title="Starlight Travel by LaunchDarkly on Glitch" allow="geolocation; microphone; camera; midi; vr; encrypted-media" width="100%" height="420px"></iframe>
+<br/>
+<br/>
 
 To remix the app:
 
@@ -181,17 +183,17 @@ To create a new project:
 
 1. Navigate to the [Account settings](https://app.launchdarkly.com/settings/projects) page.
 2. Click **Create project**.
-3. Give your project a human-readable **Name**. In the example below, the project is called `Space Camp`.
+3. Give your project a human-readable **Name**. In the example below, the project is called `Starlight Travel`.
 4. Click **Save project**.
 5. In the **Account Settings** page on the **Projects** tab, click to copy the new project's SDK key to your clipboard:
 
-![The Account Settings page in LaunchDarkly with environment SDK keys called out.](../../../images/space-camp-projects.png)
+![The Account Settings page in LaunchDarkly with environment SDK keys called out.](starlight-travel-projects.png)
 
 ### Configuring the LaunchDarkly SDK key in your app
 
 Glitch lets you store environment variables, such as secrets or config variables, that your app can read from memory. This is a more secure practice than hard-coding these directly into your code.
 
-To learn more about environment variables in Glitch, read [Glitch's documentation](https://glitch.com/help/env/).
+To learn more about environment variables in Glitch, read [Glitch's documentation](https://help.glitch.com/kb/article/18-how-do-i-store-secrets-credentials-or-private-data/).
 
 To configure the LaunchDarkly SDK key in your app:
 
@@ -215,7 +217,7 @@ LD_SDK_KEY=<PASTE-YOUR-SDK-KEY-HERE>
 </CodeTabs>
 
 
-![The .env file in Glitch.](../../../images/dot-env.png)
+![The .env file in Glitch.](dot-env.png)
 
 ### Installing the Python SDK in your code
 
@@ -250,7 +252,7 @@ To verify a successful installation, open the the log console in Glitch:
 
 If you configured the Python SDK correctly, you will see a message indicating that `launchdarkly-server-sdk` was installed.
 
-<iframe src="https://drive.google.com/file/d/1VVmHqHSDnNBXkZgd2jIXx1Hq9B7eAFgA/preview" width="100%" height="410" allowfullscreen></iframe>
+<iframe src="https://drive.google.com/file/d/1bJsKHkuJYaNTYwlCX-qEg0llvFVoM6gt/preview" width="100%" height="410" allowfullscreen></iframe>
 
 ### Initializing the LaunchDarkly client
 
@@ -314,13 +316,13 @@ Here's how to create the new flag:
 1. From the LaunchDarkly app, click **Feature flags**.
 2. Click **Create flag**:
 
-![The Create flag button on the flags dashboard.](../../images/flag-new-callout.png)
+![The Create flag button on the flags dashboard.](flag-new-callout.png)
 
 3. Enter `pricing-tier-3` for the name.
 4. Optionally, add a description of the flag.
 5. Leave the flag variation set to **Boolean**:
 
-![The Create a feature flag screen.](../../images/flag-create.png)
+![The Create a feature flag screen.](flag-create.png)
 
 6. Save the new flag.
 
@@ -328,7 +330,7 @@ The flag's targeting state is set to `off` by default. You can turn it on after 
 
 The new flag is pictured below:
 
-![The pricing-tier-3 flag](../../images/pricing-tier-3-flag.png)
+![The pricing-tier-3 flag.](pricing-tier-3-flag.png)
 
 ### Adding a new pricing tier
 
@@ -336,7 +338,7 @@ You're now ready to add the new pricing tier to the pricing page. To do this, yo
 
 The updated pricing tier page is pictured below:
 
-![The new pricing tier.](../../../images/space-camp-pricing-page-1.png)
+![The new pricing tier.](starlight-travel-pricing-page-1.png)
 
 It uses the following HTML:
 
@@ -508,7 +510,7 @@ To turn your feature on:
 
 Here is a video showing how to turn on your feature:
 
-<iframe src="https://drive.google.com/file/d/1FIO9zuSGNVCHWWwq4dJsgZEZnTQezjq5/preview" width="100%" height="413" allowfullscreen></iframe>
+<iframe src="https://drive.google.com/file/d/1_j9hqCxuEc_gC5WpxwfV5wMCfyhu3iuP/preview" width="100%" height="413" allowfullscreen></iframe>
 <br/>
 <br/>
 
