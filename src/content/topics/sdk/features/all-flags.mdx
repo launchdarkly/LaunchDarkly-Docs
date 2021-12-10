@@ -143,6 +143,21 @@ The map contains null values for any flags that would return the fallback value.
 
 Unlike most of our SDKs, our JavaScript SDK's `allFlags` method sends analytic events to LaunchDarkly. If you do not want `allFlags` to generate any analytic events, you can turn this off with the [`sendEventsOnlyForVariation` configuration option](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldoptions.html#sendeventsonlyforvariation).
 
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+let allFlagsResult = client.allFlags();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 ### Node.js (client-side)
 
 The `allFlags` method returns a key/value map of all your feature flags.
@@ -151,6 +166,20 @@ The map contains null values for any flags that would return the fallback value.
 
 Unlike most of our SDKs, our Node.js (client-side) SDK's `allFlags` method sends analytic events to LaunchDarkly. If you do not want `allFlags` to generate any analytic events, you can turn this off with the [`sendEventsOnlyForVariation` configuration option](https://launchdarkly.github.io/node-client-sdk/interfaces/_launchdarkly_node_client_sdk_.ldoptions.html#sendeventsonlyforvariation).
 
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+let allFlagsResult = client.allFlags();
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ### React Native
 
