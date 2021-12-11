@@ -255,9 +255,9 @@ Setting a custom attribute with the same key as one of the built-in attributes w
 
 You can add multiple conditions to a rule. Users must meet all the conditions in a rule to match the rule. If any of the conditions are not met, the user will not match the rule. If a custom attribute has an array value, LaunchDarkly treats it as multiple values and allows any of the values within the array to match a rule.
 
-Here, we've created a custom rule with two conditions. This rule serves `true` to all users whose `lead` attribute contains `true` and whose `account` attribute does not start with `trial`.
+Here, we've created a custom rule with two conditions. This rule serves `true` to users who are not in the `Test Segment` and whose `Account` attribute does not start with `test`.
 
-Here is an image of a rule with conditions:
+Here is an image of the rule with conditions:
 
 ![A rule serving "true" to users affected by two conditions.](../../images/users-targeting-multiple-rules.png)
 
