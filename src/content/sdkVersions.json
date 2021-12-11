@@ -888,6 +888,11 @@
       "name": "Python",
       "versions": [
         {
+          "versionMajorMinor": "7.3",
+          "releaseYear": 2021,
+          "releaseMonthDay": "12-10"
+        },
+        {
           "versionMajorMinor": "7.2",
           "releaseYear": 2021,
           "releaseMonthDay": "06-17"
