@@ -58,6 +58,8 @@ client.AllFlags();
 </CodeTabItem>
 </CodeTabs>
 
+To learn more, read the [API documentation](https://launchdarkly.github.io/dotnet-client-sdk/html/M_LaunchDarkly_Xamarin_LdClient_AllFlags.htm).
+
 ### Android
 
 The `allFlags` method produces a map of feature flag keys to their values for a specific user:
@@ -85,6 +87,8 @@ client.allFlags()
 </CodeTabItem>
 </CodeTabs>
 
+To learn more, read the [API documentation](https://launchdarkly.github.io/android-client-sdk/).
+
 ### Flutter
 
 The `allFlags` method produces a map of feature flag keys to their values for a specific user:
@@ -103,6 +107,8 @@ Map<String, LDValue> flagValues = await LDClient.allFlags();
 
 </CodeTabItem>
 </CodeTabs>
+
+To learn more, read the [API documentation](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDClient/allFlags.html).
 
 ### iOS
 
@@ -135,6 +141,8 @@ NSDictionary* allFlags = [LDClient get].allFlags;
 </CodeTabItem>
 </CodeTabs>
 
+To learn more, read the [API documentation](https://launchdarkly.github.io/ios-client-sdk/Classes/LDClient.html#/s:12LaunchDarkly8LDClientC8allFlagsSDySSypGSgvp).
+
 ### JavaScript
 
 The `allFlags` method returns a key/value map of all your feature flags.
@@ -158,6 +166,8 @@ let allFlagsResult = client.allFlags();
 </CodeTabItem>
 </CodeTabs>
 
+To learn more, read the [API documentation](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldclient.html#allflags).
+
 ### Node.js (client-side)
 
 The `allFlags` method returns a key/value map of all your feature flags.
@@ -180,6 +190,8 @@ let allFlagsResult = client.allFlags();
 
 </CodeTabItem>
 </CodeTabs>
+
+To learn more, read the [API documentation](https://launchdarkly.github.io/node-client-sdk/interfaces/_launchdarkly_node_client_sdk_.ldclient.html#allflags).
 
 ### React Native
 
@@ -209,6 +221,8 @@ client.registerAllFlagsListener(listenerId, listener);
 
 </CodeTabItem>
 </CodeTabs>
+
+To learn more, read the [API documentation](https://launchdarkly.github.io/react-native-client-sdk/classes/_launchdarkly_react_native_client_sdk_.ldclient.html#allflags).
 
 ### Roku
 
@@ -271,6 +285,8 @@ var state = client.AllFlagsState(user);
 </CodeTabItem>
 </CodeTabs>
 
+To learn more, read the [API documentation](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_AllFlagsState_LaunchDarkly_Sdk_User_LaunchDarkly_Sdk_Server_FlagsStateOption___).
+
 ### Apex
 
 The `allFlags` method produces a map of feature flag keys to their values for a specific user. This does not send any evaluation events to LaunchDarkly.
@@ -291,6 +307,8 @@ Map<String, LDValue> values = client.allFlags(user);
 
 </CodeTabItem>
 </CodeTabs>
+
+To learn more, read the [API documentation](https://github.com/launchdarkly/apex-server-sdk/blob/master/doc.md#other-methods-1).
 
 ### C/C++ (server-side)
 
@@ -315,6 +333,8 @@ struct LDJSON *allFlags = LDAllFlags(client, user);
 </CodeTabItem>
 </CodeTabs>
 
+To learn more, read the [API documentation](https://launchdarkly.github.io/c-server-sdk/variations_8h.html#a51ba0df725bdcd4a005e6efe7bb4f944).
+
 ### Erlang
 
 The `all_flags_state` function captures the state of all feature flag keys as evaluated for a specific user. This includes their values and other metadata.
@@ -335,6 +355,8 @@ ldclient:all_flags_state(#{key => <<"aa0ceb">>})
 
 </CodeTabItem>
 </CodeTabs>
+
+To learn more, read the [API documentation](https://hexdocs.pm/launchdarkly_server_sdk/).
 
 ### Go
 
@@ -371,6 +393,8 @@ state := client.AllFlagsState(user, ld.ClientSideOnly)
 </CodeTabItem>
 </CodeTabs>
 
+To learn more, read the [API documentation](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.AllFlagsState).
+
 ### Haskell
 
 The `allFlags` function captures the state of all feature flag keys as evaluated for a specific user. This includes their values, as well as other metadata.
@@ -391,6 +415,8 @@ state = allFlags client user
 
 </CodeTabItem>
 </CodeTabs>
+
+To learn more, read the [API documentation](https://launchdarkly.github.io/haskell-server-sdk/LaunchDarkly-Server-Client.html#v:allFlags).
 
 ### Java
 
@@ -415,6 +441,8 @@ FeatureFlagsState state = client.allFlagsState(user);
 </CodeTabItem>
 </CodeTabs>
 
+To learn more, read the [API documentation](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/interfaces/LDClientInterface.html#allFlagsState(com.launchdarkly.sdk.LDUser,com.launchdarkly.sdk.server.FlagsStateOption...)).
+
 ### Lua
 
 The `allFlags` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
@@ -435,6 +463,8 @@ local allFlags = client:allFlags(user)
 
 </CodeTabItem>
 </CodeTabs>
+
+To learn more, read the [API documentation](https://launchdarkly.github.io/lua-server-sdk/modules/launchdarkly-server-sdk.html#allFlags).
 
 ### Node.js (server-side)
 
@@ -458,6 +488,8 @@ client.allFlagsState(user, (err, flagsState) => {
 
 </CodeTabItem>
 </CodeTabs>
+
+To learn more, read the [API documentation](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldclient.html#allflagsstate).
 
 ### Node.js (Cloudflare)
 
@@ -486,6 +518,8 @@ $state  = $client->allFlagsState($user);
 </CodeTabItem>
 </CodeTabs>
 
+To learn more, read the [API documentation](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method_allFlagsState).
+
 ### Python
 
 The `all_flags_state` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
@@ -509,6 +543,8 @@ state = ldclient.get().all_flags_state(user)
 </CodeTabItem>
 </CodeTabs>
 
+To learn more, read the [API documentation](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.client.LDClient.all_flags).
+
 ### Ruby
 
 The `all_flags_state` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
@@ -531,3 +567,5 @@ state = client.all_flags_state(user)
 
 </CodeTabItem>
 </CodeTabs>
+
+To learn more, read the [API documentation](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/LDClient.html#all_flags_state-instance_method).
