@@ -22,7 +22,7 @@ const pageQuery = `{
         description
         published
       }
-      excerpt(pruneLength: 5000)
+      excerpt(pruneLength: 30000)
       tableOfContents(maxDepth: 2)
       fields {
         lastModifiedTime
