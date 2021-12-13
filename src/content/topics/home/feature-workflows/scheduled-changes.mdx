@@ -61,7 +61,7 @@ To schedule a set of flag changes:
 
 ![The Schedule Changes button below the Save Changes button.](../../images/workflows-schedule-changes.png)
 
-4. In the "Schedule change for" section, click on **Select a date** to expand a calendar view:
+4. In the "Schedule" section, click on **Select a date** to expand a calendar view:
 
 ![The change scheduling calendar.](../../images/workflows-calendar.png)
 
@@ -158,21 +158,3 @@ You can resolve the conflict and ensure your scheduled changes don’t fail in o
 
 1. **Choose one of the two conflicting changes and delete the other.** For example, you may have scheduled 3 targeting rules to be updated and someone deletes 1 of those rules, which causes a conflict. If this happens, you can update your scheduled changes to delete the scheduled changes to that rule. This ensures that the conflict is resolved and the remaining rules are updating successfully.
 2. **Update the conflicting changes so they no longer conflict.** You can update your changes or the new scheduled changes to resolve the conflict and ensure both scheduled changes execute successfully.
-
-## Scheduling changes that match current flags
-
-You can schedule a change that matches the current state of the flag. To do this, stage placeholder changes and then edit the actions when you schedule them.
-
-Here is an example showing how you can schedule your flag to turn `off` for an hour, and then turn back `on`:
-
-1. Turn flag targeting `off`.
-2. Click into the **Save Changes** dropdown and choose **Schedule changes**.
-3. Click **Edit**:
-
-![The Save with comment screen with the Edit button called out.](../../images/workflows-save-with-comment-edit-callout.png)
-
-4. Turn the flag to `on`.
-5. Click **Done**. You return to the "Save with comment" screen.
-6. Click **Save with comment** to save the change.
-
-This workaround lets you schedule changes to your flag that are not different from the flag's current state. This is useful to help schedule changes that restore the flag’s state after an interval.

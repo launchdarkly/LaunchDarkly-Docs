@@ -31,7 +31,7 @@
     "gatsby-remark-copy-linked-files": "5.3.0",
     "gatsby-remark-images": "6.2.0",
     "gatsby-remark-relative-images": "^0.2.3",
-    "gatsby-source-filesystem": "4.2.0",
+    "gatsby-source-filesystem": "4.3.0",
     "gatsby-transformer-json": "4.2.0",
     "gatsby-transformer-sharp": "4.3.0",
     "husky": "^4.2.5",
@@ -54,7 +54,7 @@
   "devDependencies": {
     "@cypress/webpack-preprocessor": "5.8.0",
     "@emotion/jest": "11.6.0",
-    "@svgr/cli": "^6.0.0",
+    "@svgr/cli": "^6.1.2",
     "@testing-library/react": "^12.1.2",
     "@types/body-scroll-lock": "^3.1.0",
     "@types/chai-string": "^1.4.2",
@@ -87,8 +87,8 @@
     "jest": "26.6.3",
     "prettier": "^1.19.1",
     "ts-jest": "26.5.6",
-    "ts-loader": "6.2.1",
-    "ts-node": "^8.6.0",
+    "ts-loader": "8.0.10",
+    "ts-node": "^9.1.1",
     "typescript": "^4.3.5"
   },
   "keywords": [
