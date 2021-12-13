@@ -90,26 +90,6 @@ else:
 </CodeTabItem>
 </CodeTabs>
 
-Lastly, when your application is about to terminate, shut down `client`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
-
-Here's how:
-
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python', value: 'py', },
-  ]
-}>
-<CodeTabItem value="py">
-
-```py
-# shut down the client, since we're about to quit
-client.close()
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## Configuring uWSGI
 
 The LaunchDarkly SDK is compatible with uWSGI. However, in uWSGI environments, the SDK requires the `enable-threads` option to be set.
