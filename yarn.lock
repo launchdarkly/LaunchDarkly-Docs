@@ -2159,6 +2159,13 @@
   dependencies:
     tslib "^1.10.0"
 
+"@datadog/browser-core@3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-core/-/browser-core-3.9.0.tgz#9e1f74eba17cb22e139df614bf658d97df0b30f7"
+  integrity sha512-yGkkEv8DH2oH57ysBfgHUPTtTDmikkCQCDzs4YJfS89yRZhgUfx142AOnZ+khcKh6cMlxxyJNP8xxeR4oUmKsg==
+  dependencies:
+    tslib "^1.10.0"
+
 "@datadog/browser-logs@^3.8.0":
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/@datadog/browser-logs/-/browser-logs-3.8.0.tgz#14e136e4aa248873951eadea079b8d36c5239b8c"
@@ -2167,21 +2174,21 @@
     "@datadog/browser-core" "3.8.0"
     tslib "^1.10.0"
 
-"@datadog/browser-rum-core@3.8.0":
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/@datadog/browser-rum-core/-/browser-rum-core-3.8.0.tgz#58eda0c2a095b7fb2eaedf977d15b05124d91e2d"
-  integrity sha512-7mJ27+vlgjDfVWD1FCRpEirky9hDoacbQ7G4BPgKGfz38RUwWcjFwjV/pFmhhQnNwqI0fIaitO2KZz4U7VR3WA==
+"@datadog/browser-rum-core@3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-rum-core/-/browser-rum-core-3.9.0.tgz#086abc38852c734573980a654f449f3dd7e34af8"
+  integrity sha512-uhbtVPkFV71NXIkpfutYOWocicyv9nhnEJoXdTX6LEge2xCWwPiMeLqIaS68k+mG5RasCacAhBg7WlLUlrD+pw==
   dependencies:
-    "@datadog/browser-core" "3.8.0"
+    "@datadog/browser-core" "3.9.0"
     tslib "^1.10.0"
 
-"@datadog/browser-rum@^3.8.0":
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/@datadog/browser-rum/-/browser-rum-3.8.0.tgz#4b7485ed475d7104c4ebc34a5a9abc7c2abce0d1"
-  integrity sha512-ZJbkZU/rgUqF9FpYDgFSmpSTIb+v/9jIuaVHvkNmRWNG9vCwVDtTTur7uoliBFCQGvA3zlhPkEzOEQ6KJWm8yg==
+"@datadog/browser-rum@^3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-rum/-/browser-rum-3.9.0.tgz#87c7e9a3c1464a796e3c69eea65b1af5a7f88dd3"
+  integrity sha512-kZ1Elc25EUiml5OCe/VRgmwKqFirbTHI22u+tjGVOGV5NltlrrFb21ejB3BUjVjKTnoAx9k39yYPkWLnIp2rVA==
   dependencies:
-    "@datadog/browser-core" "3.8.0"
-    "@datadog/browser-rum-core" "3.8.0"
+    "@datadog/browser-core" "3.9.0"
+    "@datadog/browser-rum-core" "3.9.0"
     tslib "^1.10.0"
 
 "@emotion/babel-plugin@^11.3.0":
