@@ -1,7 +1,7 @@
 ---
 path: '/home/members/managing'
 title: 'LaunchDarkly account members'
-description: 'This topic introduces the concept of account members in LaunchDarkly and shows you how to use the Team dashboard. LaunchDarkly supports user object management with OAuth, SAML, and SCIM.'
+description: 'This topic introduces the concept of account members in LaunchDarkly and shows you how to use the Members dashboard. LaunchDarkly supports user object management with OAuth, SAML, and SCIM.'
 published: true
 ---
 
@@ -24,34 +24,44 @@ LaunchDarkly users are resources, including people, who encounter feature flags 
 </CalloutDescription>
 </Callout>
 
+Use the Members tab within the Account settings page to invite new account members to LaunchDarkly, remove old account members, or manage access controls for account members by setting roles.
+
+You can search for a specific member using the search bar. You can also filter members by team, role, or the last time a member took an action in your LaunchDarkly account using the filters at the top of the Members list:
+
+![The Members tab with filters applied.](/images/settings-members-filters.png)
+
+To learn more about teams in LaunchDarkly, read [Teams](/home/teams). To learn more about roles, read [Understanding member roles](#understanding-member-roles).
+
 ## Adding members to LaunchDarkly
 
 <Callout intent="info">
 <CalloutTitle>This is an Admin-only feature</CalloutTitle>
 <CalloutDescription>
 
-The Team dashboard is only accessible if you're a LaunchDarkly Admin. To learn more, read [Understanding member
-roles](#understanding-member-roles).
+The Members dashboard is only accessible if you're a LaunchDarkly Admin. To learn more, read [Understanding member roles](#understanding-member-roles).
 
 </CalloutDescription>
 </Callout>
 
-Use the **Member** tab to invite new account members to LaunchDarkly, remove old account members, or manage access controls for account members by setting roles.
-
-To access the Members dashboard:
+To add new members:
 
 1. Navigate to the the [Account Settings](https://app.launchdarkly.com/settings) page.
 2. Click into the [Members](https://app.launchdarkly.com/settings/members) tab.
-3. Enter an email address for someone you wish to invite to LaunchDarkly and click **Invite Members** or click **Manage** next to an existing member to modify their information:
+3. Click **Invite members**:
 
-![The Members tab.](../../../images/settings-team.png)
+![The Members tab with "Invite members" called out.](/images/settings-members-invite-callout.png)
 
+4. Enter one or more email addresses. If you are inviting multiple members, separate email addresses with a comma or new line.
+5. Choose an initial built-in role or custom role from the **Initial role** dropdown.
+5. Click **Invite members**.
+
+New members now receive an email inviting them to your LaunchDarkly account. You can resend the invitation or manage a member's roles and team membership by clicking on the **Manage** button next to a member's name in the Members list. 
 
 ## Understanding member roles
 
-You can assign different roles to LaunchDarkly members. There are three different built-in roles in LaunchDarkly. Every member of your LaunchDarkly team must have one of these roles. To learn more about these roles, read [LaunchDarkly's built-in roles](/home/members/built-in-roles).
+You can assign different roles to LaunchDarkly account members. There are three different built-in roles in LaunchDarkly: reader, writer, and admin. To learn more about these roles, read [LaunchDarkly's built-in roles](/home/members/built-in-roles).
 
-In addition to a built-in role, you can give account members custom roles to more tightly define the actions they can and can't take in your LaunchDarkly project. To learn more, read [Custom roles](/home/members/custom-roles).
+In addition to a built-in role, you can give account members custom roles to more tightly define the actions they can and can't take in your LaunchDarkly account. To learn more, read [Custom roles](/home/members/custom-roles).
 
 ## Enabling multi-factor authentication
 
@@ -65,7 +75,7 @@ To learn more, read [Multi-factor authentication](/home/account-security/mfa).
 
 When you invite a member to LaunchDarkly, you may get an error message that says the email address is already in use. This can happen when a person already has a trial account with LaunchDarkly associated with that email address.
 
-To fix this, ask the person to change the email adress associated with their trial account or delete their trial account, following the instructions under [Adding members who signed up for a trial](/home/getting-started/your-account#adding-members-who-signed-up-for-a-trial). After they change the email address or delete their trial account, add them to your LaunchDarkly organization again.
+To fix this, ask the person to change the email address associated with their trial account or delete their trial account, following the instructions under [Adding members who signed up for a trial](/home/getting-started/your-account#adding-members-who-signed-up-for-a-trial). After they change the email address or delete their trial account, add them to your LaunchDarkly organization again.
 
 You can also tell people in your organization to delete their trials before you roll out LaunchDarkly organization-wide.
 
