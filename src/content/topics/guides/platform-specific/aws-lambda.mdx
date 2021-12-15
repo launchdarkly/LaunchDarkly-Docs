@@ -90,7 +90,7 @@ First, you must set up the S3 bucket and put the web site resources into it.
 4. Select the `site` directory in your bucket. From the Actions dropdown, select "Make public", click to confirm and click **Close**.
 5. Click on the "Properties" tab for the S3 bucket. Scroll all the way down to "Static website hosting". Click **Edit** and then choose "Enable". Specify `index.html` as your index document and **Save changes**.
 
-![Setting up static web hosting in AWS.](../../images/aws-static-hosting.png)
+![Setting up static web hosting in AWS.](aws-static-hosting.png)
 
 After you complete these steps successfully, click the bucket URL to view the page. Append `/site` at the end of the URL to load the page. Copy and save this URL, because you will need it later.
 
@@ -102,7 +102,7 @@ Next, set up a CloudFront distribution. You will need this to deploy the functio
 2. For the "Origin domain," choose the S3 bucket we just created.
 3. Scroll down and click **Create distribution**.
 
-![Choosing the S3 bucket for our CloudFront distribution.](../../images/aws-cloudfront-distribution.png)
+![Choosing the S3 bucket for our CloudFront distribution.](aws-cloudfront-distribution.png)
 
 ## Creating a Lambda function connected to LaunchDarkly
 
@@ -112,7 +112,7 @@ Now you can create a Lambda function. You can use the AWS console to get started
 2. Click **Create function**.
 3. Choose "Author from Scratch". Name the function "launchDarklyExample" and choose the Node.js runtime, which is the default. You can also leave all the other options as the defaults. Click **Create function**.
 
-![Create a Lambda function from scratch.](../../images/aws-create-lambda.png)
+![Create a Lambda function from scratch.](aws-create-lambda.png)
 
 The function you created doesn't do anything yet. In order to modify the code, let's move to VS Code. This will allow us to install our npm dependencies and upload the files back to Lambda.
 
@@ -121,7 +121,7 @@ The function you created doesn't do anything yet. In order to modify the code, l
 3. Choose Lambda and find the "launchDarklyExample" you created.
 4. Right-click on the function and select "Download". When prompted, choose the current project folder.
 
-![Download the function in VS Code](../../images/aws-vscode-download.png)
+![Download the function in VS Code](aws-vscode-download.png)
 
 ### Installing and configuring the LaunchDarkly SDK
 
@@ -130,7 +130,7 @@ After you download the function locally, install the [LaunchDarkly Node SDK](htt
 1. Open the command line in the `launchDarklyExample` folder that contains the Lambda function.
 2. Run `npm install launchdarkly-node-server-sdk`.
 
- ![Installing the server-side Node SDK.](../../images/aws-vscode-terminal.png)
+ ![Installing the server-side Node SDK.](aws-vscode-terminal.png)
 
 3. Place the following code above the handler in `index.js`. Replace `sdk-my-sdk-key` with the SDK key from your LaunchDarkly environment. You can get this from **Account settings** in the LaunchDarkly dashboard.
 
@@ -195,7 +195,7 @@ After you download the function locally, install the [LaunchDarkly Node SDK](htt
 
 6. To test the function, right-click on the function again and choose "Invoke on AWS". We do not need to provide any payload, just click the "Invoke" button. The output panel should show a response `{"statusCode":200,"body":"\"Initialization successful\""}` showing that the SDK client properly initialized.
 
- ![Initialization was successful.](../../images/aws-invoke-initialize.png)
+ ![Initialization was successful.](aws-invoke-initialize.png)
 
 ### Creating a flag in LaunchDarkly
 
@@ -206,11 +206,11 @@ LaunchDarkly is now initialized, so you can set up flags to use in the function 
 3. Name the flag "rebrand". Deselect the checkbox calling for a mobile or client-side ID. The flag's variation type is set to "Boolean" by default. Don't change that setting. Variation 1 will be `true` and variation 2 will be `false`
 4. Click **Save flag**.
 
- ![Creating a flag in LaunchDarkly.](../../images/aws-create-flag.png)
+ ![Creating a flag in LaunchDarkly.](aws-create-flag.png)
 
 5. After you save the flag, scroll to the "Default rule" and choose "A percentage rollout". For the purposes of example, assign 50/50. In a real world scenario, you'd likely start with a smaller distribution in the first variation and increase that number over time.
 
- ![Setting a percentage rollout.](../../images/aws-percentage-rollout.png)
+ ![Setting a percentage rollout.](aws-percentage-rollout.png)
 
 6. Scroll up and click **Save**.
 7. Enable the flag and save again. If you don't turn targeting on, the percentage rollout will not run and you'll only get the default variation.
@@ -248,7 +248,7 @@ Open the AWS panel in VSCode. Right-click to upload. When the upload finishes, r
 
  You should receive a response similar to `{"statusCode":200,"body":"true"}`.
 
-   ![response from our AWS Lambda test](../../images/aws-invoke-flag.png)
+   ![response from our AWS Lambda test](aws-invoke-flag.png)
 
 You've successfully integrated and used a LaunchDarkly flag in a Lambda function. If you weren't deploying to Lambda@Edge, there would be no additional setup steps necessary. All you would need now would be to implement your code within the Lambda to respond to the value our flag returns.
 
@@ -341,7 +341,7 @@ You should get a response like:
 </CodeTabItem>
 </CodeTabs>
 
-![Invoking the Lambda with a sample payload.](../../images/aws-invoke-lambda-edge.png)
+![Invoking the Lambda with a sample payload.](aws-invoke-lambda-edge.png)
 
 Try changing the IP address in the payload and clicking invoke again. In most cases, you'll get a different response, because our rollout is split 50/50. If you see the original site variation again, you may need to change the IP more than once. Ultimately, the percentage percentage breakdown of sites that display will be 50/50, but that doesn't mean the value returned alternates between each request.
 
@@ -354,19 +354,19 @@ First, you must update the execution role of the function. Here's how:
 1. In the AWS console, search for "Lambda" and select your function.
 2. Go to the Configuration tab for the Lambda function, click **Permissions**, then under Execution role click **Edit**.
 
-![Changing the execution role.](../../images/aws-lambda-execution.png)
+![Changing the execution role.](aws-lambda-execution.png)
 
 3. In the "Existing Role" dropdown, select "service-role/lambdaEdge".
 4. Click **Save**.
 
-![Changing the service role to Lambda@Edge.](../../images/aws-lambda-service-role.png)
+![Changing the service role to Lambda@Edge.](aws-lambda-service-role.png)
 
 Now you can enable the trigger. Here's how:
 
 1. Open your Lambda Function and click **Add trigger**.
 2. In the "Select a trigger" dropdown, search for "CloudFront" and then click the button to **Deploy to Lambda@Edge**.
 
-   ![Adding a CloudFront trigger.](../../images/aws-lambda-add-trigger.png)
+   ![Adding a CloudFront trigger.](aws-lambda-add-trigger.png)
 
 3. When you configure the CloudFront trigger, change the CloudFront event to "Viewer request". This ensures that the Lambda will execute on every request before the cache is checked.
 
@@ -374,7 +374,7 @@ Now you can enable the trigger. Here's how:
 
 4. Accept the defaults for the remaining properties and click "Deploy". You may get asked to do this a second time. If you are, choose "Viewer request" both times.
 
-![The trigger is deployed.](../../images/aws-lambda-cloudfront-trigger.png)
+![The trigger is deployed.](aws-lambda-cloudfront-trigger.png)
 
 Finally, test to confirm this works. Here's how:
 

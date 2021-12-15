@@ -20,7 +20,7 @@ This topic explains how to use LaunchDarkly's Data Export feature to export and 
 
 Data Export provides a real-time export of raw analytics data, including feature flag requests, analytics events, custom events, Experimentation events, and more. By exporting your data to a location of your choice, you can use your own data warehouse and tools to analyze event data.
 
-![A diagram of Data Export with supported destinations.](../images/data-export.png)
+![A diagram of Data Export with supported destinations.](data-export.png)
 
 ## How it works
 
@@ -51,7 +51,7 @@ To export data from a specific flag to a destination:
 4. Select the **Send detailed event information for this flag** checkbox.
 5. Click **Save Changes**:
 
-![The flag's Settings page, with the Data Export checkbox called out.](../images/data-export-detailed-event-info-callout.png)
+![The flag's Settings page, with the Data Export checkbox called out.](data-export-detailed-event-info-callout.png)
 
 
 ### Exporting environment event data
@@ -67,7 +67,7 @@ To export data from an environment to a destination:
 5. Select the **Send detailed event information for new flags** checkbox.
 6. Click **Save Environment**:
 
-![The Edit production environment screen, with the Data Export checkbox called out.](../images/data-export-env-detailed-event-info-callout.png)
+![The Edit production environment screen, with the Data Export checkbox called out.](data-export-env-detailed-event-info-callout.png)
 
 
 ## Customizing which data LaunchDarkly exports
@@ -92,13 +92,13 @@ To customize which users send event data to Data Export destinations:
 2. Navigate to the flag's **Settings** page.
 3. Click **N of N targeting rules** in the "Exporting events from" line. The "Configure event settings" screen appears:
 
-![The flag's Settings tab with the targeting rules link called out.](../images/flag-settings-data-export-targeting-rules-callout.png)
+![The flag's Settings tab with the targeting rules link called out.](flag-settings-data-export-targeting-rules-callout.png)
 
 
 4. Click the **Custom selection** radio box to modify the users whose events are exported. When you click **Custom selection**, you can choose which targeting rules you wish to include or exclude in data exports.
 5. Select the checkboxes of rules you wish to include in the experiment. This refines the population of users whose events are exported:
 
-![The "Configure event settings" screen](../images/experiments-rules-custom-selection.png)
+![The "Configure event settings" screen](experiments-rules-custom-selection.png)
 
 
 6. Click **Save Changes**. A confirmation dialog appears.

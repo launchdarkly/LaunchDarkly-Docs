@@ -103,14 +103,14 @@ To create a trigger:
 1. Navigate to the feature flag for which you wish to create a trigger, and click into its **Settings** page.
 2. Find the "Triggers for [Environment Name]" section and click **Add trigger**. The "Create trigger" dialog box appears:
 
-![The "Create trigger" dialog box.](../../images/triggers-create.png)
+![The "Create trigger" dialog box.](triggers-create.png)
 
 3. Choose the tool you wish to use from the **Type** dropdown. You can also choose "Generic trigger" to create a trigger that is not associated with any specific tool.
 4. Choose an action you wish to perform with the trigger from the **Action** dropdown.
 5. Click **Save trigger**. A confirmation appears and the trigger appears in the flag's Settings page.
 6. Copy and save the unique trigger URL. You **must** do this now. After you leave this page, the trigger URL will be obscured and you will not be able to view it again:
 
-![A trigger with the URL obscured.](../../images/triggers-url-obscured.png)
+![A trigger with the URL obscured.](triggers-url-obscured.png)
 
 You just created a new trigger for your flag. You can create more triggers if necessary by clicking **Add trigger**.
 
@@ -123,7 +123,7 @@ To modify an existing trigger:
 1. Navigate to the feature flag for which you wish to create a trigger, and click into its **Settings** page.
 2. Find the trigger you wish to modify and click the **overflow** menu. The trigger options appear:
 
-![The overflow menu, expanded.](../../images/triggers-overflow-menu.png)
+![The overflow menu, expanded.](triggers-overflow-menu.png)
 3. Choose the option you wish from the options dropdown:
  * **Disable trigger**: If you choose this option, the trigger configuration is saved but the trigger stops working. To re-enable the trigger, open the **overflow** menu and choose **Enable trigger**.
  * **Reset trigger URL**: If you choose this option, LaunchDarkly generates a new URL for this trigger. Use this option if you lose a URL for an existing trigger. You must update any clients using this URL to use the new URL. Type the trigger's type and click **Reset** to confirm.

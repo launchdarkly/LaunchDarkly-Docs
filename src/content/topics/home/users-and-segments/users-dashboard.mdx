@@ -28,7 +28,7 @@ If a user's properties change within five minutes of their previous evaluation, 
 
 Here is an screenshot of the Users dashboard:
 
-![The Users dashboard.](../../images/users.png)
+![The Users dashboard.](users.png)
 
 From the Users dashboard, you can filter users by standard or custom attributes. You can also sort the list to identify the oldest or most recent users in your LaunchDarkly account. By default, the most recently active users appear first. Click the toggle arrow to sort the **Last Seen** column to sort the dashboard by least recently active users.
 
@@ -43,7 +43,7 @@ To filter users:
 1. Click the **Filter** button.
 2. Choose a standard or custom attribute to filter users by:
 
-![The filter menu with a custom attribute chosen.](../../images/users-filter.png)
+![The filter menu with a custom attribute chosen.](users-filter.png)
 
 3. Choose an attribute value from the dropdown.
 4. Click **Add**.
@@ -52,7 +52,7 @@ Only users with matching attribute values now display on the Users dashboard.
 
 To add additional attribute values to your filter, click on the attribute name and select the additional values from the dropdown. The dashboard displays only users that match all of the attribute values you selected:
 
-![The attribute menu with multiple values selected.](../../images/users-filter-clear.png)
+![The attribute menu with multiple values selected.](users-filter-clear.png)
 
 To remove a filter, click on the attribute name you want to stop filtering by and click **Clear filter**.
 
@@ -62,13 +62,13 @@ You can customize which attributes appear on the Users dashboard. To start, clic
 
 Here is a screenshot of the Attributes button on the Users dashboard:
 
-![The Users dashboard with the "Attributes" button called out.](../../images/users-attributes-callout.png)
+![The Users dashboard with the "Attributes" button called out.](users-attributes-callout.png)
 
 The "Attributes" menu lets you choose standard or custom attributes to appear on the Users dashboard. After you choose specific attributes, that view persists when you visit the Users dashboard in the future.
 
 Here is a screenshot of the "Attributes" menu:
 
-![The "Attributes" menu with some options selected.](../../images/users-attributes-menu.png)
+![The "Attributes" menu with some options selected.](users-attributes-menu.png)
 
 ## Modifying feature flags for a user
 
@@ -80,7 +80,7 @@ To modify a feature flag the user sees:
 2. Click the user you wish to modify. Their user page appears, with their unique **Attributes** on the left and their **Flag settings** on the right.
 3. Click the dropdown next to the flag you wish to modify to change which variation the user receives:
 
-    ![The Flag settings screen with different flag variations called out.](../../images/users-details-targeting-callout.png)
+    ![The Flag settings screen with different flag variations called out.](users-details-targeting-callout.png)
 
 4. To remove the custom variation setting, click the **X** next to the flag.
 5. Click **Save Settings** to save your changes.
@@ -113,7 +113,7 @@ You can also specify a date and time when a user should be removed from a flag's
 
 You can identify users who are scheduled to be removed from any flag's targeting settings by looking for the **clock icon** next to the flag's name.
 
-![The Users dashboard with a flag with removal scheduled called out.](../../images/users-clock-icon-callout.png)
+![The Users dashboard with a flag with removal scheduled called out.](users-clock-icon-callout.png)
 
 To schedule a date for the user to be removed from the flag's targeting settings:
 
@@ -121,7 +121,7 @@ To schedule a date for the user to be removed from the flag's targeting settings
 2. Click the user you wish to modify. Their user page appears, with their unique **Attributes** on the left and their **Flag settings** on the right.
 3. Click the **overflow** menu. The user editing menu appears.
 
-![A user's entry with the "Remove user on" menu expanded.](../../images/users-flag-expiration-date.png)
+![A user's entry with the "Remove user on" menu expanded.](users-flag-expiration-date.png)
 
 4. In the "Remove user on" section, click to expand a calendar view.
 4. Set a date and time for the user to be removed from that flag's targeting settings.
@@ -139,7 +139,7 @@ Deleting users from the dashboard does not decrease your Monthly Active User (MA
 
 Here is an image of a user screen:
 
-![A user's screen with the Delete button called out.](../../images/users-delete-callout.png)
+![A user's screen with the Delete button called out.](users-delete-callout.png)
 
 
 You can also use the LaunchDarkly API to delete users. To learn more, read the [API docs](https://apidocs.launchdarkly.com/tag/Users#operation/deleteUser).

@@ -101,7 +101,7 @@ var client = LDClient.initialize(‘EXAMPLE-ENVIRONMENT-ID’, user, options = {
 
 The LaunchDarkly Relay Proxy provides mobile and client-side evaluation endpoints. You can initialize a client-side SDK directly against the Relay Proxy instead of connecting to LaunchDarkly.
 
-![A diagram showing a Relay Proxy's position in LaunchDarkly's network architecture.](../../images/relay-proxy-diagram.png)
+![A diagram showing a Relay Proxy's position in LaunchDarkly's network architecture.](relay-proxy-diagram.png)
 
 The benefit of this approach is that the Relay Proxy runs within your own infrastructure, so no private data ever needs to leave the network. Additionally, the SDK functions in the same way that it would function in a standard environment, so you can still take advantage of LaunchDarkly's streaming API and real-time updates to flag changes.
 

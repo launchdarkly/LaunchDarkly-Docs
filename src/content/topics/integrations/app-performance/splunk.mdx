@@ -57,11 +57,11 @@ To configure LaunchDarkly to start sending events to Splunk:
 
 1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) and find the Splunk card.
 
-![The Splunk integration card.](../images/splunk-add-integration.png)
+![The Splunk integration card.](splunk-add-integration.png)
 
 2. Click **Add integration**. The integration configuration screen appears.
 
-![The Splunk integration configuration screen.](../images/splunk-integration-panel.png)
+![The Splunk integration configuration screen.](splunk-integration-panel.png)
 
 3. (Optional) Give the integration a human-readable **Name**.
 
@@ -99,7 +99,7 @@ To learn more, read [Custom Roles ](/home/team).
 You can customize the events LaunchDarkly sends to Splunk by using the policy
 editor in the Splunk configuration panel:
 
-![The policy editor.](../images/splunk-policy-editor.png)
+![The policy editor.](splunk-policy-editor.png)
 
 ## Accessing LaunchDarkly events in Splunk
 
@@ -121,7 +121,7 @@ sourcetype="<NAME-OF-HTTP-EVENT-COLLECTOR>"
 </CodeTabItem>
 </CodeTabs>
 
-![LaunchDarkly events in Splunk](../images/launchdarkly-in-splunk.png)
+![LaunchDarkly events in Splunk](launchdarkly-in-splunk.png)
 
 After LaunchDarkly events start appearing in Splunk, you can create event
 annotations in your charts in order to show LaunchDarkly events in context.
@@ -131,7 +131,7 @@ learn more, read [Splunk's
 documentation](https://docs.splunk.com/Documentation/Splunk/latest/Viz/ChartEventAnnotations).
 
 ![LaunchDarkly events as annotations in Splunk
-charts](../images/ld-events-in-context-in-splunk.png)
+charts](ld-events-in-context-in-splunk.png)
 
 ### Troubleshooting
 
@@ -173,7 +173,7 @@ Set the **Source Type** as `launchdarkly`, set **Index** to `main` and set **Sta
 
 An example token is below:
 
-![Example HEC configuration.](../images/splunk-hec-config.png)
+![Example HEC configuration.](splunk-hec-config.png)
 
 ## Demonstration video
 

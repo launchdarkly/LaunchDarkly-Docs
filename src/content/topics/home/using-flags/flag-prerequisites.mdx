@@ -24,7 +24,7 @@ Prerequisites allow you to control feature dependencies in LaunchDarkly. You can
 
 You can manage prerequisites in the feature flag's Targeting tab:
 
-![The flag's Targeting tab.](../../images/flag-targeting-prerequisite.png)
+![The flag's Targeting tab.](flag-targeting-prerequisite.png)
 
 
 In the example above, the "Pricing tier" flag is a prerequisite of the "Markdown List" flag. The "Markdown List" flag will not be evaluated for a user unless the "Pricing tier" flag is **On** and the user receives the `true` variation. If a user receives the `false` variation of the "Pricing tier" flag, LaunchDarkly does not consider the prerequisite met.

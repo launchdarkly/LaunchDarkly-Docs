@@ -18,7 +18,7 @@ The Dynatrace events integration is available to customers on a Pro or Enterpris
 
 This topic explains how to use the LaunchDarkly Dynatrace events integration. The LaunchDarkly Dynatrace events integration makes it easier to diagnose problems by sending flag change events to Dynatrace. Dynatrace can display those events alongside performance graphs, making it easier for Dynatrace users to correlate feature rollouts to changes in operational health.
 
-![A Dynatrace events graph, showing LaunchDarkly flag change events.](../images/dynatrace-dashboard.png)
+![A Dynatrace events graph, showing LaunchDarkly flag change events.](dynatrace-dashboard.png)
 
 The integration only sends `flag` actions to Dynatrace. To learn more, read [Feature flag actions](/home/members/role-actions#feature-flags-actions).
 
@@ -60,7 +60,7 @@ Here's how to add and configure the Dynatrace integration:
 1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) and expand the Dynatrace card.
 2. Click **Add integration**. The integration configuration screen appears.
 
-![The Dynatrace card, showing the "Add integration" button.](../images/dynatrace-card.png)
+![The Dynatrace card, showing the "Add integration" button.](dynatrace-card.png)
 
 3. (Optional) Give your integration a human-readable **Name**.
 4. Enter your Dynatrace API token.
@@ -76,7 +76,7 @@ Dynatrace uses specific entity types for applications within it. For example, if
 
 To find the application entity type, navigate to the Dynatrace page for the entity and examine the URL. It contains the entity type in capital letters. In this example, the entity type is `PROCESS_GROUP_INSTANCE`:
 
-![A Dynatrace URL with the entity type called out.](../../images/dynatrace-url-app-type-callout.png)
+![A Dynatrace URL with the entity type called out.](dynatrace-url-app-type-callout.png)
 
 ### Configuring integration policies
 
@@ -144,20 +144,20 @@ To associate a flag with one or more applications using Dynatrace tags:
 
 1. **In Dynatrace:** Create a new tag and add it to each of the applications which depend on the flag. To learn more about creating tags, read [Dynatrace's documentation](https://www.dynatrace.com/support/help/how-to-use-dynatrace/tags-and-metadata/setup/how-to-define-tags).
 
-![An application page in Dynatrace, with the "my-dynatrace-tag" added.](../images/dynatrace-add-tag.png)
+![An application page in Dynatrace, with the "my-dynatrace-tag" added.](dynatrace-add-tag.png)
 
 2. **In LaunchDarkly:** Go to the flag's Settings tab.
 
-![The available tabs on a flag page, with Settings highlighted.](../images/dynatrace-flag-tabs.png)
+![The available tabs on a flag page, with Settings highlighted.](dynatrace-flag-tabs.png)
 
 3. Scroll down to the "Custom properties" section and click **Add custom property**.
 
-![The Custom Properties section of a Flag page, shown empty.](../images/flag-settings-custom-properties-empty.png)
+![The Custom Properties section of a Flag page, shown empty.](flag-settings-custom-properties-empty.png)
 
 4. Enter the name of the tag you created in the "Values" field.
 5. In the "Select a property type..." dropdown, select **Dynatrace tags**.
 
-![The Custom Properties section of a Flag page, shown with a Dynatrace tag.](../images/dynatrace-custom-properties-complete.png)
+![The Custom Properties section of a Flag page, shown with a Dynatrace tag.](dynatrace-custom-properties-complete.png)
 
 7. Click **Save with comment** to save the custom property.
 
