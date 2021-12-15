@@ -122,6 +122,8 @@ To load our JavaScript SDK as a script tag, include one of the following in the 
 </CalloutDescription>
 </Callout>
 
+If you are working in a development environment, you can load the SDK from unpkg or jsDelivr using the example code below. Replace the `<EXAMPLE-VERSION>` with your desired version. To learn more, read [Releases](https://github.com/launchdarkly/js-client-sdk/releases) in the [JavaScript SDK GitHub repository](https://github.com/launchdarkly/js-client-sdk). We recommend pinning to an exact SDK version if you are using a third-party hosting service.
+
 Here is an example of code to include in the `<head>` tag of your site:
 
 <CodeTabs
@@ -134,8 +136,9 @@ Here is an example of code to include in the `<head>` tag of your site:
 }>
 <CodeTabItem value="self">
 
-```bash
+```html
 
+<!-- recommended for production environments -->
 <script src="path/to/ldclient.min.js"></script>
 
 ```
@@ -194,7 +197,7 @@ var client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
 <CalloutTitle>Initialization delay</CalloutTitle>
 <CalloutDescription>
 
-Out of the box, initializing the client will make a remote request to LaunchDarkly, so it may take 100 milliseconds or more before the ready event is emitted. If you require feature flag values before rendering the page,we recommend bootstrapping the client. To learn more, read [Bootstrapping](/sdk/features/bootstrapping#javascript). If the client is bootstrapped, it will emit the ready event immediately.
+Initializing the client makes a remote request to LaunchDarkly, so it may take 100 milliseconds or more before the ready event is emitted. If you require feature flag values before rendering the page, we recommend bootstrapping the client. To learn more, read [Bootstrapping](/sdk/features/bootstrapping#javascript). If the client is bootstrapped, it will emit the ready event immediately.
 
 </CalloutDescription>
 </Callout>
