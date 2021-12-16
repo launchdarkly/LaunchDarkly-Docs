@@ -19,7 +19,7 @@ You should understand the following concepts before you read this guide.
 
 ## Flag longevity
 
-You create a temporary flag when you know you can remove it after a feature is fully deployed or the flag is no longer needed. Temporary flag can include flags used for experimentation, rollout, testing, and feature releases.
+You create a temporary flag when you know you can remove it after a feature is fully deployed or the flag is no longer needed. Temporary flags can include flags used for experimentation, rollout, testing, and feature releases.
 
 Long-lived flags are a part of regular software operations and architecture. When you create a long-lived flag, you do not plan to remove it.
 
@@ -74,7 +74,7 @@ Keep the scope of a flag as small as possible. Both the code and the effects tri
 
 A flag only needs to do one thing. Consider if your flag could actually be two flags with smaller scope.
 
-You can also create flags with dependencies on each other. Flags can depend other flags being true or false, or on the features controlled by different flags.
+You can also create flags with dependencies on each other. Flags can depend on other flags being true or false, or on the features controlled by different flags.
 
 If you find yourself in a situation where you have two related flags, ask yourself if one flag should be a prerequisite for the other.
 

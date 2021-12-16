@@ -338,7 +338,7 @@ This table explains available team actions:
         <code>viewTeam</code>
       </TableCell>
       <TableCell> If set to deny, anyone impacted by this policy can neither view nor modify a team.</TableCell>
-    </TableRow> 
+    </TableRow>
   </TableBody>
 </Table>
 
@@ -387,7 +387,7 @@ This table explains available personal access token actions:
       <TableCell>
         <code>createAccessToken</code>
       </TableCell>
-      <TableCell>Create a personal access token.</TableCell>
+      <TableCell>Create a personal access token. All custom roles can take this action by default.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -457,7 +457,7 @@ This table explains available service access token actions:
       <TableCell>
         <code>createAccessToken</code>
       </TableCell>
-      <TableCell>Create a service access token.</TableCell>
+      <TableCell>Create a service access token. All custom roles can take this action by default.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -628,18 +628,17 @@ This table explains available project actions:
         <code>viewProject</code>
       </TableCell>
       <TableCell>
-        View a project. If set to <code>deny</code>, anyone impacted by this policy can neither view nor modify a
-        project.
+        View a project. All custom roles can take this action by default. If set to <code>deny</code>, anyone impacted by this policy can neither view nor modify a project.
       </TableCell>
     </TableRow>
   </TableBody>
 </Table>
 
 <Callout intent="info">
-<CalloutTitle>More information about the viewProject action</CalloutTitle>
+<CalloutTitle>More information about viewProject</CalloutTitle>
 <CalloutDescription>
 
-The `deny` effect for your `resource` in the `viewProject` action hides the projects you specify from the member. The `allow` effect for the same resource and action pairing doesn't do anything since your account member can already see the project.
+The `deny` effect in the `viewProject` action hides the projects you specify from the member. However, the `allow` effect for the same resource and action pairing doesn't do anything. Your LaunchDarkly member does not need explicit permission to view the project, because all custom roles can view all projects in a LaunchDarkly instance by default.
 
 To learn more, read <a href="/home/organize/private-projects">Configuring private projects with custom roles</a>
 

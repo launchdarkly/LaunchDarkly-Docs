@@ -102,6 +102,8 @@ This feature is available in the listed versions and later of the following serv
 * [.NET (server-side)](#net-server-side): 6.2.0
 * [Go](#go): 5.5.0
 * [Node.js (server-side)](#nodejs-server-side): 6.2.0
+* [Python](#python): 7.3.0
+* [Ruby](#ruby): 6.3.0
 
 ### .NET (server-side)
 
@@ -230,3 +232,67 @@ const client = LaunchDarkly.init(sdkKey, config);
 </CodeTabs>
 
 To learn more about the available Big Segments configuration options, read [`LDBigSegmentsOptions`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldbigsegmentsoptions.html).
+
+### Python
+
+Big Segments is available in version 7.3.0 and later:
+
+<CodeTabs
+  defaultValue="python"
+  values={[
+    { label: 'Python', value: 'python', }
+  ]
+  }>
+  <CodeTabItem value="python">
+
+```python
+from ldclient.config import Config, BigSegmentsConfig
+from ldclient.integrations import Redis
+
+store = Redis.new_big_segment_store(
+    url='redis://my-redis:6379',
+    prefix='my-key-prefix')
+
+config = Config(big_segments=BigSegmentsConfig(store=store))
+
+client = LaunchDarkly::LDClient.new(sdk_key, config)
+```
+
+  </CodeTabItem>
+</CodeTabs>
+
+To use either the Redis integration (as shown above) or the DynamoDB integration in the Ruby SDK, you must also install additional packages. To learn more, read [Storing data: Redis](/sdk/features/storing-data/redis#python) and [Storing data: DynamoDB](/sdk/features/storing-data/dynamodb#python).
+
+To learn more about the available Big Segments configuration options, read [`BigSegmentsConfig`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.config.BigSegmentsConfig).
+
+### Ruby
+
+Big Segments is available in version 6.3.0 and later:
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', }
+  ]
+  }>
+  <CodeTabItem value="ruby">
+
+```ruby
+store = LaunchDarkly::Integrations::Redis.new_big_segment_store(
+  redis_url: 'redis://my-redis:6379',
+  prefix: 'my-key-prefix'
+)
+
+config = LaunchDarkly::Config.new(
+  big_segments: LaunchDarkly::BigSegmentsConfig.new(store: store)
+)
+
+client = LaunchDarkly::LDClient.new(sdk_key, config)
+```
+
+  </CodeTabItem>
+</CodeTabs>
+
+To use either the Redis integration (as shown above) or the DynamoDB integration in the Ruby SDK, you must also install additional gems. To learn more, read [Storing data: Redis](/sdk/features/storing-data/redis#ruby) and [Storing data: DynamoDB](/sdk/features/storing-data/dynamodb#ruby).
+
+To learn more about the available Big Segments configuration options, read [`BigSegmentsConfig`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/BigSegmentsConfig.html).

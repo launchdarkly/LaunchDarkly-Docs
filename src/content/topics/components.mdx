@@ -9,17 +9,13 @@ This guide helps authors and developers unify implementation by providing you wi
 ### Table of Contents
 
 - Best practices & gotchas
-- **Components**
-- LearnMore
-- Callout
-- CodeTabs
-- CodeTabItem
-- Table
-- Image
-- **Tokens**
-- Typography
-- Spacing
-- Color
+- Components
+  - LearnMore
+  - Image
+  - Callout
+  - CodeTabs
+  - CodeTabItem
+  - Table
 
 # Best practices & gotchas
 
@@ -149,6 +145,9 @@ There are four different types of callouts:
 
 
 ## Image
+
+The docs site supports PNGs and GIFs. Just use Markdown images.
+
 ![Some caption](../images/data-export.png)
 
 
@@ -302,7 +301,7 @@ There are four different types of callouts:
 
 Markdown tables are hard to read in text editors and easy to break. We built our own table component to use instead. It's much like an HTML table. When content in a table cell is left-justified, and bracketed by empty lines, you can use HTML tags in it.
 
-```
+```jsx
 <Table>
   <TableHeader>
     <TableHeadCell>Name of column 1</TableHeadCell>
@@ -323,12 +322,4 @@ Column 2 Cell 1 <a href="example.com">with a link in it</a>.
     </TableRow>
   </TableBody>
 </Table>
-```
-
-## Images
-
-The docs site supports PNGs and GIFs. Just use Markdown images:
-
-```
-![Here is helpful alt text. Always use this--it's kind to folks with accessibility requirements.](path/to/image.png)
 ```

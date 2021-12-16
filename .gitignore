@@ -82,3 +82,6 @@ cypress.env.json
 package-lock.json
 
 *.code-workspace
+
+# Local file devs can add and have ignored
+.dev*

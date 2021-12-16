@@ -1,20 +1,20 @@
-import legacyRedirectRules from '../../legacyRedirectRules'
+import redirectRules from '../../redirectRules'
 import getFinalDestination from '../../getFinalDestination'
 
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 chai.use(require('chai-string'))
 
-const redirectMap = legacyRedirectRules.reduce((map, r) => ({ ...map, [r.fromPath]: r.toPath }), {})
+const redirectMap = redirectRules.reduce((map, r) => ({ ...map, [r.fromPath]: r.toPath }), {})
 
-describe('Test legacy redirect rules', () => {
-  legacyRedirectRules.forEach(({ fromPath }) => {
+describe('Test redirect rules', () => {
+  redirectRules.forEach(({ fromPath }) => {
     const finalDestination = getFinalDestination(redirectMap, fromPath)
 
     it(`${fromPath} -> ${finalDestination}`, () => {
       // cypress will get an initial 404 from gatsby serve on staging
       // hence we ignore that initial 404 response
       cy.visit(fromPath, { failOnStatusCode: false })
-      cy.url().should('endWith', finalDestination)
+      cy.location('pathname').should('equal', finalDestination)
     })
   })
 })

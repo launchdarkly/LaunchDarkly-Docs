@@ -37,6 +37,7 @@ This feature is available in the following server-side SDKs:
 * [.NET (server-side)](#net-server-side)
 * [Go](#go)
 * [Java](#java)
+* [Ruby](#ruby)
 
 ### .NET (server-side)
 
@@ -110,7 +111,7 @@ td.Update(td.Flag("flag-key-3")
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [TestData](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.TestData.html).
+To learn more, read [`TestData`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.TestData.html).
 
 ### Go
 
@@ -189,7 +190,7 @@ td.Update(td.Flag("flag-key-3").
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [ldtestdata](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/testhelpers/ldtestdata).
+To learn more, read [`ldtestdata`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/testhelpers/ldtestdata).
 
 ### Java
 
@@ -265,4 +266,75 @@ td.update(td.flag("flag-key-3")
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [TestData](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/TestData.html).
+To learn more, read [`TestData`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/TestData.html).
+
+### Ruby
+
+To configure the SDK to use a test data source:
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', },
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+require 'ldclient-rb'
+
+td = LaunchDarkly::Integrations::TestData.data_source
+# You can set any initial flag states here with td.update
+
+config = LaunchDarkly::Config.new(data_source = td)
+client = LaunchDarkly::LDClient.new(sdk_key, config)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To set a flag to a specific value:
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', },
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+td.update(td.flag("flag-key-1").variation_for_all_users(false))
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There are other ways you can configure flag behavior using a test data source. Here is an example:
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', },
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+# This flag is true for the user key "some-user-key" and false for everyone else
+td.update(td.flag("flag-key-2").
+    variation_for_user("some-user-key", true).
+    fallthrough_variation(false))
+
+# This flag returns the string variation "green" for users who have the custom
+# attribute "admin" with a value of true, and "red" for everyone else.
+td.update(td.flag("flag-key-3").
+    variations("red", "green").
+    fallthrough_variation(0).
+    if_match("admin", true).then_return(1))
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`TestData`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Integrations/TestData.html).

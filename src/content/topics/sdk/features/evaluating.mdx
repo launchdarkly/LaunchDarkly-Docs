@@ -15,7 +15,7 @@ Feature flag variations determine what a user sees when they encounter a feature
 
 Flags also have fallback variations. The fallback variation only returns if an error occurs. For example, LaunchDarkly serves the fallback variation if the feature flag key doesn't exist, or the user doesn't have a key specified.
 
-The flag evaluation feature automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already. You do not need to create users manually, but if you want to, you can use the identify feature. To learn more, read [Identifying and changing users](/sdk/features/identify).
+The flag evaluation feature adds a user to the Users dashboard if a user does not already exist. Feature flags evaluate against the user context provided to the SDK, which may be different from the data you see in the dashboard. You do not need to create users manually, but if you want to, you can use the `identify` feature. To learn more, read [Identifying and changing users](/sdk/features/identify).
 
 Details about each SDK's configuration are available in the SDK-specific sections below:
 
@@ -374,7 +374,7 @@ This feature is available for all of our server-side SDKs:
 
 The `Variation` methods determine whether a flag is enabled or not for a specific user. In .NET, there is  a `Variation` method for each type, such as [`BoolVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_BoolVariation_) and [`StringVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_StringVariation_).
 
-`Variation` calls take the feature flag key, a [`User`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.User.html), and a default value. The `Variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already.
+`Variation` calls take the feature flag key, a [`User`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.User.html), and a default value. The `Variation` call adds a user to the Users dashboard if a user with that key doesn't exist already.
 
 Here is an example:
 
@@ -479,7 +479,7 @@ The `Variation` methods determine whether a flag is enabled or not for a specifi
 
 `Variation` methods take the feature flag key, a `User`, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified. In the example above the default value is `false`.
 
-The `Variation` call generates analytics events to tell LaunchDarkly about the flag evaluation and the user properties, so the user will be created in LaunchDarkly if a user with that key doesn't exist already.
+The `Variation` call generates analytics events to tell LaunchDarkly about the flag evaluation and the user properties, so the user will be added to the Users dashboard if a user with that key doesn't exist already.
 
 Here is an example:
 
@@ -529,7 +529,7 @@ The `variation` methods determine which variation of a feature flag a user recei
 
 The `variation` methods take the feature flag key, an [`LDUser`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/LDUser.html), and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
 
-The `variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already.
+The `variation` call adds a user to the Users dashboard if a user with that key doesn't exist already.
 
 Here is an example:
 
@@ -579,7 +579,7 @@ The `variation` method determines which variation of a feature flag a user recei
 
 `variation` calls take the feature flag key, an `LDUser`, and a default value. The default value only returns in offline mode or if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
 
-The `variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already.
+The `variation` call adds a user to the Users dashboard if a user with that user key doesn't exist already.
 
 Here is an example:
 
@@ -616,7 +616,7 @@ The `variation` method determines which variation of a feature flag a user recei
 
 `variation` calls take the feature flag key, an `LDUser`, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
 
-The `variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already.
+The `variation` call adds a user to the Users dashboard if a user with that user key doesn't exist already.
 
 Here is an example:
 
@@ -641,7 +641,7 @@ The `variation` method determines which variation of a feature flag a user recei
 
 `variation` calls take the feature flag key, an `LDUser`, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
 
-The `variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already.
+The `variation` call adds a user to the Users dashboard if a user with that user key doesn't exist already.
 
 Here is an example:
 
@@ -666,7 +666,7 @@ The `variation` method determines which variation of a feature flag a user recei
 
 `variation` calls take the feature flag key, a user, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
 
-The `variation` call automatically creates a user in LaunchDarkly if a user with that user key doesn't exist already.
+The `variation` call adds a user to the Users dashboard if a user with that user key doesn't exist already.
 
 Here is an example:
 

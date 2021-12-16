@@ -21,16 +21,16 @@ You should understand these concepts before you read this guide:
 
 ### Infrastructure as code
 
-Infrastructure as code is a type of infrastructure management that uses similar processes to those used for code. You declare and manage infrastructure resources, such as servers, databases, and networks, with text files in a version-controlled source repository. When the repository is deploys, tools interpret these text files and perform whatever infrastructural changes are necessary.
+Infrastructure as code is a type of infrastructure management that uses similar processes to those used for code. You declare and manage infrastructure resources, such as servers, databases, and networks, with text files in a version-controlled source repository. When the repository is deployed, tools interpret these text files and perform whatever infrastructural changes are necessary.
 
-These processes mean that infrastructure changes are created, reviewed and audited in a similar manner to code changes. Additionally, you can track infrastructure changes in sync with code changes.
+These processes mean that infrastructure changes are created, reviewed, and audited in a similar manner to code changes. Additionally, you can track infrastructure changes in sync with code changes.
 
 ### Terraform
 
-A popular open source tool created by Hashicorp. You can use Terraform to implement an infrastructure as code workflow. Terraform is capable of managing many kinds of infrastructural resources and providers.
+Terraform is a popular open source tool created by Hashicorp. You can use Terraform to implement an infrastructure as code workflow. Terraform is capable of managing many kinds of infrastructural resources and providers.
 
 <Callout intent="info">
-<CalloutTitle>This integration is not for new Terraform users.</CalloutTitle>
+<CalloutTitle>This integration is not for new Terraform users</CalloutTitle>
 <CalloutDescription>
 
 Terraform is a complex tool. This guide is intended for people who are already using Terraform in their toolchain.
@@ -44,7 +44,7 @@ Hashicorp Configuration Language (HCL) is the infrastructure description syntax 
 
 ## Choosing an approach based on your use case
 
-This guide shows multiple examples of you can use Terraform to create and manage LaunchDarkly resources. These examples do not mean that those kinds of resources are best managed with Terraform in all cases. Think carefully before you use Terraform in these ways, as conflicts may occur if an account member tries to modify Terraform-managed resources through the LaunchDarkly dashboard.
+This guide shows multiple examples of how you can use Terraform to create and manage LaunchDarkly resources. These examples do not mean that those kinds of resources are best managed with Terraform in all cases. Think carefully before you use Terraform in these ways, as conflicts may occur if an account member tries to modify Terraform-managed resources through the LaunchDarkly dashboard.
 
 With each example, we'll discuss why Terraform was suited to that scenario. We'll also discuss the additional measures you should take to avoid the conflicts mentioned above.
 
@@ -53,12 +53,12 @@ With each example, we'll discuss why Terraform was suited to that scenario. We'l
 These are the practices we recommend to avoid conflicts that can arise when some of your flags are managed through Terraform and others are managed through the LaunchDarkly dashboard:
 
 * Tag everything Terraform manages with a `managed-by-terraform` tag.
-* Use custom roles to enforce that resources and properties managed by Terraform can not be manipulated by the LaunchDarkly UI. For example, putting most account members in a role that does not have write access to the resources managed by Terraform.
+* Use custom roles to enforce that resources and properties managed by Terraform can not be manipulated by the LaunchDarkly UI. For example, put most account members in a role that does not have write access to the resources managed by Terraform.
 * Do not use Terraform to make changes to flag targeting rules or flag variations unless absolutely necessary. Managing these actions in the LaunchDarkly UI lets you use LaunchDarkly's comment, audit log, scheduling, flag trigger, and approval workflow features.
 * Have clear policies on what is:
   * Managed exclusively by Terraform.
   * Provisioned by Terraform, then managed from the UI.
-  * Provisioned and managed by the LaunchDarkly UI, but not Terraform
+  * Provisioned and managed by the LaunchDarkly UI, but not Terraform.
 * Use methods such as prefixes, tags, and descriptions to ensure that anyone looking at the UI has enough context to understand what they see.
 * For more complex patterns, add another tag such as `allow-ui-toggle`, to make it so rules are read-only but the toggle state is changeable.
 * Document all your practices and make the documentation widely accessible from both LaunchDarkly and Terraform.
@@ -162,7 +162,7 @@ If you use Terraform Cloud to perform Continuous Integration or Continuous Deplo
 
 ### Protecting Terraform-defined flags
 
-Now that the flag’s core configuration is controlled through Terraform, you can ensure that it’s not modified by other means, such as through the LaunchDarkly UI by setting up some custom roles in LaunchDarkly.
+Now that the flag’s core configuration is controlled through Terraform, you can ensure that it’s not modified by other means, such as through the LaunchDarkly UI, by setting up some custom roles in LaunchDarkly.
 
 1.  Create a dedicated “terraform” user account in LaunchDarkly, which Terraform Cloud can use to perform all LaunchDarkly actions. This ensures that Terraform actions aren’t dependent on an individual account member’s LaunchDarkly account. Instead, this account belongs to the entire team. If you are on an Enterprise plan, we recommend you use a service token instead of a user account. To learn more, read [Service tokens](/home/account-security/api-access-tokens#service-tokens).
 3.  Assign all the other account member accounts a new custom role that can’t modify certain attributes of Terraform-controlled resources. You can specify which resources those are by using a tag.

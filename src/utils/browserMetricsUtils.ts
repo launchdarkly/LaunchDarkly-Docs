@@ -33,6 +33,7 @@ const sendLCPToDatadog = (metric: Metric) => {
 const logLCP = () => {
   datadogLogs.init({
     clientToken: process.env.GATSBY_DATADOG_CLIENT_TOKEN,
+    site: 'datadoghq.com',
     env: process.env.GATSBY_ACTIVE_ENV,
   })
   datadogLogs.addLoggerGlobalContext('service', 'docs')

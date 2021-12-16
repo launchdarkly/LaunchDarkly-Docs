@@ -115,7 +115,7 @@ There are also optional **standard** attributes that must conform to these requi
   </TableBody>
 </Table>
 
-With LaunchDarkly, you can create user objects with as many attributes as you need. The only required attribute is the `key` attribute, which holds the user identifer. If the LaunchDarkly rules engine sees two user objects with the same `key`, it assumes they represent the same user.
+With LaunchDarkly, you can create user objects with as many attributes as you need. The only required attribute is the `key` attribute, which holds the user identifier. If the LaunchDarkly rules engine sees two user objects with the same `key`, it assumes they represent the same user.
 
 When a user encounters a flag, their attributes are sent to LaunchDarkly. This makes the attributes available through the dashboard. All the user attributes are sent, with the exception of those that have been marked private.
 
@@ -163,7 +163,7 @@ Be thoughtful about how you construct user identifiers in your app. The most imp
 
 A person's email address is a common form of identifying information. It's a good identifier because it's unique to the individual, and consistent. Email addresses rarely change. However, malicious third parties can easily trace an email address back to the human being who owns it. This makes an email address sensitive information, because it could be abused by a bad actor. The same is true for a person's phone number or home address.
 
-Many countries, states and organizations have rules about handling PII. To ensure user privacy, don't store or use PII anywhere unless it's necessary.
+Many countries, states, and organizations have rules about handling PII. To ensure user privacy, don't store or use PII anywhere unless it's necessary.
 
 If you must create user attributes that contain PII, mark the attribute as private so that it's not uploaded to LaunchDarkly. We'll discuss private attributes later in this guide.
 
@@ -187,9 +187,11 @@ These exercises use a Python-based web application that we provide which runs on
 
 You must remix the Glitch project embedded below to create an editable copy of the Python web app. **Remixing** is Glitch's term for cloning a project. This creates an editable copy of the Python web app we use for this exercise.
 
-To remix the app, select this [Glitch remix link](https://glitch.com/edit/#!/remix/ld-space-camp-2), or follow the instructions below.
+To remix the app, click this [Glitch remix link](https://glitch.com/edit/#!/remix/starlight-travel-2), or follow the instructions below.
 
-<iframe src="https://glitch.com/embed/#!/embed/ld-space-camp-2?path=README.md&previewSize=0&attributionHidden=true" title="ld-space-camp-0 on Glitch" allow="geolocation; microphone; camera; midi; vr; encrypted-media" width="100%" height="420px"></iframe>
+<iframe src="https://glitch.com/embed/#!/embed/starlight-travel-2?path=README.md&previewSize=0&attributionHidden=true" title="Starlight Travel by LaunchDarkly on Glitch" allow="geolocation; microphone; camera; midi; vr; encrypted-media" width="100%" height="420px"></iframe>
+<br/>
+<br/>
 
 To remix the app:
 
@@ -221,7 +223,7 @@ To switch between them:
 <CalloutTitle>Issues when running the app next to the code</CalloutTitle>
 <CalloutDescription>
 
-Some users encounter issues when running the Glitch editor and app in the same window. These issues happen primarily when trying to use the app's "Log in" form. If the form isn't working, run the app in its own browser tab or window.
+Some learners encounter issues when running the Glitch editor and app in the same window. These issues happen primarily when trying to use the app's "Log in" form. If the form isn't working, run the app in its own browser tab or window.
 
 </CalloutDescription>
 </Callout>
@@ -232,11 +234,11 @@ During the exercises in the [Configuring an SDK and creating a flag](/guides/tut
 
 To retrieve the SDK key for your project:
 
-1. Navigate to the [Account settings](https://app.launchdarkly.com/settings/projects) page. It lists all the projects to which your LaunchDarkly user account has access.
+1. Navigate to the [Account settings](https://app.launchdarkly.com/settings/projects) page. It lists all the projects to which your LaunchDarkly account has access.
 1. Find the project which you created for the [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag) guide.
 1. In the **Account settings** page, click on the project's SDK key to copy it to your clipboard:
 
-![The Account settings page in LaunchDarkly with environment SDK keys called out.](../../../images/space-camp-projects.png)
+![The Account settings page in LaunchDarkly with environment SDK keys called out.](starlight-travel-projects.png)
 
 ## Configuring the LaunchDarkly SDK key in your app
 
@@ -260,7 +262,7 @@ LD_SDK_KEY=<PASTE-YOUR-SDK-KEY-HERE>
 </CodeTabs>
 
 
-![The .env file in Glitch.](../../../images/dot-env.png)
+![The .env file in Glitch.](dot-env.png)
 
 
 # Exercise: Targeting a flag
@@ -287,7 +289,7 @@ In [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag), you lea
 
 The user object in the example app code has two attributes: `key` and `anonymous`. Because the `variation()` call is always made with the same user `key`, LaunchDarkly assumes that there's only one user of this app, who never changes.
 
-In the code for the Space Camp app, the user object is in the file named `server.py`, inside the `pricing()` function.
+In the code for the Starlight Travel app, the user object is in the file named `server.py`, inside the `pricing()` function.
 
 In the example below, the `anonymous` attribute is set to `True`. When this happens, LaunchDarkly won't record any of this user's other attributes or list this user on the Users dashboard.
 
@@ -321,19 +323,19 @@ To learn more, read [Anonymous users](/home/users/anonymous-users).
 
 ## Logging in to the Glitch app
 
-We'll create a user in LaunchDarkly to reference for this exercise. To do this, log in to the Space Camp app with an email address.
+We'll create a user in LaunchDarkly to reference for this exercise. To do this, log in to the Starlight Travel app with an email address.
 
 To log in:
 
 1. Navigate to the app view of your Glitch app.
 2. Click the "Log in" link in the top right of the app's front page:
 
-![The "Log in" link at the top right of the Space Camp app's front page.](space-camp-log-in-corner.png)
+![The "Log in" link at the top right of the Starlight Travel app's front page.](starlight-travel-log-in-corner.png)
 
 3. Enter an email address in the email address field. Any email address works. You are redirected to the main page.
 4. Click the user avatar in the top right-hand corner. The log in menu appears.
 
-![The user avatar, with a menu expanded.](space-camp-log-in-menu.png)
+![The user avatar, with a menu expanded.](starlight-travel-log-in-menu.png)
 
 5.  Click **Log out**.
 
@@ -341,7 +343,7 @@ The email address you just logged in with was registered as a user in LaunchDark
 
 ## Creating a user key with a hashed email address
 
-The Space Camp app uses email addresses as user IDs. Providing the user's email address as the `key` in our user object means that LaunchDarkly stores that email address. We do not recommend this approach for production environments.
+The Starlight Travel app uses email addresses as user IDs. Providing the user's email address as the `key` in our user object means that LaunchDarkly stores that email address. We do not recommend this approach for production environments.
 
 For purposes of this guide exercise, there is no other unique, consistent identifier for users, because this exercise collects very limited user data.
 
@@ -559,7 +561,7 @@ To verify everything is working correctly, use this procedure to check your work
 5. Navigate to your Glitch app and log in.
 6. Click on the avatar in the top right corner. If everything is working correctly, you should see both the email and the hash:
 
-![The avatar menu now includes the user key, which is the shortened hash of the user's email address.](space-camp-menu-with-hash.png)
+![The avatar menu now includes the user key, which is the shortened hash of the user's email address.](starlight-travel-menu-with-hash.png)
 
 ## Adding more users to LaunchDarkly
 
@@ -614,7 +616,7 @@ To turn on a percentage rollout for the `Pricing Tier 3` flag:
 4. Set the `true` variation to 30%.
 5. Confirm that the flag's **Targeting** toggle is set to **on**.
 6. Click **Save changes**.
-7. Log in to the Space Camp app as a few different users. Keep track of which email addresses you use as you log in and log out.
+7. Log in to the Starlight Travel app as a few different users. Keep track of which email addresses you use as you log in and log out.
 8. When the third pricing tier appears, you know the user you logged in as is part of the 30% of users targeted by the **Pricing Tier 3** flag.
 9. Log out and log back in again as that same user. The third pricing tier appears every time that user logs in, because LaunchDarkly can now identify individual users. That user will always see the third tier until the flag's targeting changes.
 10. When you find a user who doesn't see the third tier, save their email address.
@@ -670,7 +672,7 @@ To target an individual user through the Users dashboard:
 
 ![The "Target individual users" section of the flag's "Targeting" page.](flag-targeting-individual-user.png)
 
-9. Log back into the Space Camp app as that user and refresh the page. The third pricing tier should now be visible.
+9. Log back into the Starlight Travel app as that user and refresh the page. The third pricing tier should now be visible.
 
 # Targeting users by attribute
 
@@ -688,7 +690,7 @@ There are several ways around this problem. You can use a **custom attribute** o
 
 You can create and add your own attributes to user objects. These are known as **custom attributes**. The values of these attributes can be numbers, strings, or even lists. Place these attributes within a sub-dictionary of your user object named `custom`.
 
-At this point, the user object only has one attrubute: `key`. Add another attribute to hold the first letter of the user's email address.
+At this point, the user object only has one attribute: `key`. Add another attribute to hold the first letter of the user's email address.
 
 To add this attribute:
 
@@ -717,19 +719,19 @@ return {
 </CodeTabItem>
 </CodeTabs>
 
-4. Log in to the Space Camp app a couple more times, so that you send examples of this new attribute to LaunchDarkly.
+4. Log in to the Starlight Travel app a couple more times, so that you send examples of this new attribute to LaunchDarkly.
 5. Navigate to LaunchDarkly.
 6. Find **Pricing Tier 3** and click into its targeting page.
 7. Find the section titled **Target users who match these rules**:
 
 ![The rules section of the Targeting page.](flag-rules-section.png)
 
-8. Click  **+ Add rules**. A form for adding a rule appears:
+8. Click **+ Add rules**. A form for adding a rule appears:
 
 ![The form for adding a new targeting rule.](flag-rule-form.png)
 
 9. (Optional) Name the rule in the first field.
-10. The second field in the form is where you choose the attribute to match. Click and scroll down to find `firstLetter.`
+10. The second field in the form is where you choose the attribute to match. Click and scroll down to find `firstLetter`.
 11. Click the third field and choose "is one of". For the targeting rule to succeed, the value of `firstLetter` must match one of the two options you just entered.
 12. In the fourth field, enter both the upper and lower case letter `A` as values. Here's how:
     - Click the fourth field to focus it.

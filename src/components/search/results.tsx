@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { withPrefix } from 'gatsby'
 import { jsx } from 'theme-ui'
 import { FunctionComponent, useEffect, useRef, useState } from 'react'
 import { navigate } from '@reach/router'
@@ -35,7 +36,7 @@ const Results: FunctionComponent<ResultsProps> = ({ searchState, searchResults }
 
   const onClickRow = (path: string) => {
     setShow(false)
-    navigate(path)
+    navigate(withPrefix(path))
   }
 
   return (

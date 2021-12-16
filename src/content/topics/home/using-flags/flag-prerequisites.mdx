@@ -1,7 +1,7 @@
 ---
 path: '/home/flags/prerequisites'
 title: 'Flag prerequisites'
-description: 'This topic explains how to use feature flag prerequisites to enable or disable features based on different states. Prerequisites allow you to control feature dependencies in LaunchDarkly. You can make flags depend on other flags being enabled to take effect themselves.'
+description: 'This topic explains how to use feature flag prerequisites to enable or disable features based on different states.'
 published: true
 ---
 
@@ -20,16 +20,14 @@ This topic explains how to use feature flag prerequisites to enable or disable f
 
 ## Understanding flag prerequisite relationships
 
-Prerequisites allow you to control feature dependencies in LaunchDarkly. You can make flags depend on other flags being enabled to take effect themselves, making them prerequisites to enable a feature.
+Prerequisites allow you to control feature dependencies in LaunchDarkly. You can make flags depend on other flags being enabled to take effect themselves, making them prerequisites to enable a feature. To meet a prerequisite, the prerequisite flag must be **On**, and the user must receive the variation you specify.
 
-For example, you have two flags that control read and write access to an API: "Alternate sort order" and "API Migration." If you do not have read access to the API, you cannot see it, so you cannot write to it. You can set up "Alternate sort order" as a prerequisite before "API Migration" is evaluated for a user by making sure "Alternate sort order" is **On** and the user is seeing the `true` variation.
-
-Manage prerequisites in the feature flag's Targeting tab:
+You can manage prerequisites in the feature flag's Targeting tab:
 
 ![The flag's Targeting tab.](../../images/flag-targeting-prerequisite.png)
 
 
-In the screenshot above, the "Alternative sort order" flag is a prerequisite of the "API Migration" flag. To meet a prerequisite, the prerequisite flag must be **On**, and the user must receive the variation you specify.
+In the example above, the "Pricing tier" flag is a prerequisite of the "Markdown List" flag. The "Markdown List" flag will not be evaluated for a user unless the "Pricing tier" flag is **On** and the user receives the `true` variation. If a user receives the `false` variation of the "Pricing tier" flag, LaunchDarkly does not consider the prerequisite met.
 
 <Callout intent="info">
 <CalloutTitle>Prerequisite flags must be on</CalloutTitle>
@@ -40,7 +38,7 @@ To meet a prerequisite, the prerequisite flag must be **On**. LaunchDarkly consi
 </CalloutDescription>
 </Callout>
 
-In this example, if a user receives the `false` variation of the "Alternative sort order" flag, they cannot write to the API. The "API Migration" flag receives the default when targeting is off, because the prerequisites are not met.
+Flags can be dependent on multiple prerequisite flags. If a dependent flag has multiple prerequisite flags, then all of the prerequisite flag requirements must be met for LaunchDarkly to evaluate the dependent flag for a user.
 
 LaunchDarkly automatically prevents you from saving changes that would introduce circular dependencies between prerequisites. For example, you cannot make Flag A a prerequisite of Flag B and also make Flag B a prerequisite of Flag A.
 
@@ -48,7 +46,7 @@ LaunchDarkly automatically prevents you from saving changes that would introduce
 <CalloutTitle>Deleting flags with prerequisites</CalloutTitle>
 <CalloutDescription>
 
-You cannot remove a flag that is a prerequisite for other flags. You must remove the dependency before you can delete the prerequisite flag.
+You cannot delete a flag that is a prerequisite for other flags. You must remove the dependency before you can delete the prerequisite flag.
 
 </CalloutDescription>
 </Callout>

@@ -11,6 +11,32 @@ This topic explains how to write policies for  custom roles, integrations access
 
 Policies combine resources and actions into a set of statements that define what users can or cannot do in LaunchDarkly. To learn more, read [Custom role concepts](/home/members/role-concepts).
 
+## Using the policy algorithm
+
+The algorithm for determining whether a policy allows or denies access is as follows:
+
+- If any statement in the policy explicitly denies access to a resource and action, access is denied. This statement overrides any other statement in the policy that allows access to the resource and action.
+- If a statement in the policy explicitly allows access to a resource and action, and no statement denies access, access is allowed.
+- If two policies have conflicting permission levels, the more permissive level of access is applied.
+- Any resource or action not specifically included in a policy is denied by default, except the `viewProject` action and the `createAccessToken` action.
+
+<Callout intent="info">
+<CalloutTitle>All roles can view all projects by default</CalloutTitle>
+<CalloutDescription>
+
+The ability to view and change resources is configured at the `project` resource level with the `viewProject` action. All custom role recipients can see all projects in your LaunchDarkly instance unless specifically denied.<br/><br/>
+
+Custom role recipients can also create access tokens that are limited to their existing permissions. For example, account members with `reader` level permissions can only create tokens with `reader` permissions, whereas admins and owners can create tokens with any permission level.<br/><br/>
+
+To learn  more, read [Understanding the minimum required actions for a role](/home/members/role-concepts#understanding-the-minimum-required-actions-for-a-role).
+
+</CalloutDescription>
+</Callout>
+
+Statement order does not matter. You can assign multiple custom roles to one member, and each custom role has its own policy.
+
+Permissions are cumulative. If you assign multiple custom roles to a member, and one of those custom roles allows access to a resource, then access is allowed even if other roles deny that access. Adding roles to a user can only increase that user's access.
+
 ## Understanding policies
 
 Policies are represented as JSON arrays.
@@ -173,29 +199,3 @@ Here's how:
 </CodeTabs>
 
 For more advanced policy examples, read [Example policies and templates](/home/members/example-policies).
-
-## Policy algorithm
-
-The algorithm for determining whether access is allowed or denied by a policy is as follows:
-
-- If any statement in the policy explicitly denies access to a resource and action, access is denied.
-- If a statement in the policy explicitly allows access to a resource and action, and no statement denies access, access is allowed
-- If two policies have conflicting permission levels, the more permissive level of access is applied
-- Any resource or action not specifically included in a policy is denied by default except the `ViewProjects` action and the ability to create tokens
-
-<Callout intent="info">
-<CalloutTitle>All roles can view all projects by default</CalloutTitle>
-<CalloutDescription>
-
-The ability to view and change resources is configured at the `project` resource level with the `viewProject` action. All custom role recipients can see all projects in your LaunchDarkly instance unless specifically denied.<br/><br/>
-
-Custom role recipients can also create access tokens that are limited to their existing permissions. For example, account members with `reader` level permissions can only create tokens with `reader` permissions, whereas admins and owners can create tokens with any permission level.<br/><br/>
-
-To learn  more, read [Understanding the minimum required actions for a role](/home/members/role-concepts#understanding-the-minimum-required-actions-for-a-role).
-
-</CalloutDescription>
-</Callout>
-
-Statement order does not matter. You can assign multiple custom roles to one member, and each custom role has its own policy.
-
-Permissions are cumulative. If you assign multiple custom roles to a member, and one of those custom roles allow access to a resource, then access is allowed even if other roles deny that access. Adding roles to a user can only increase that user's access.

@@ -23,7 +23,7 @@ In this guide, you will:
 
 The experiments in this guide are examples only. They are intended to teach you the basic principles and process of conducting an experiment in LaunchDarkly. Do not replicate this experiment in production and expect rigorously produced results.
 
-To complete an experiement that results in useful data, you should conduct more preparation than is outlined in this guide, including rigorous sampling practices.
+To complete an experiment that results in useful data, you should conduct more preparation than is outlined in this guide, including rigorous sampling practices.
 
 To learn more about how to create an effective experiment, read [Designing experiments in LaunchDarkly](/guides/best-practices/experimentation).
 
@@ -34,7 +34,7 @@ To learn more about how to create an effective experiment, read [Designing exper
 
 To complete this guide, you must have the following prerequisites:
 
-* You must have completed the exercises in [Rules and targeting](/guides/tutorials/rules-and-targeting). The exercises in this guide rely on concepts from that guide. To learn more about how LaunchDarkly's rules and targeting practices, read [Rules and targeting](/guides/tutorials/rules-and-targeting).
+* You must have completed the exercises in [Rules and targeting](/guides/tutorials/rules-and-targeting). The exercises in this guide rely on concepts from that guide.
 * An active LaunchDarkly account with the ability to create a flag.
 * Basic knowledge of the Python and JavaScript programming languages. You need these to complete the exercises in this guide.
 * "Do not track" must be disabled in your browser for the experiment's click events to work. To confirm that "Do not track" is disabled, visit [AllAboutDNT.com](https://allaboutdnt.com).
@@ -64,13 +64,13 @@ The app below begins where the previous guide left off:
 
 <div class="glitch-embed-wrap" style="height: 420px; width: 100%;margin-bottom:24px">
   <iframe
-    src="https://glitch.com/embed/#!/embed/ld-space-camp-4?path=README.md&previewSize=0&attributionHidden=true"
-    title="ld-space-camp-4 on Glitch"
+    src="https://glitch.com/embed/#!/embed/starlight-travel-4?path=README.md&previewSize=0&attributionHidden=true"
+    title="Starlight Travel by LaunchDarkly on Glitch"
     style="height: 100%; width: 100%; border: 0;"
   ></iframe>
 </div>
 
-To begin, remix the Glitch project to create an editable copy of the app. Use the embedded Glitch app above, or [click here to remix the app](https://glitch.com/edit/#!/remix/ld-space-camp-2).
+To begin, remix the Glitch project to create an editable copy of the app. Use the embedded Glitch app above, or [click here to remix the app](https://glitch.com/edit/#!/remix/starlight-travel-4).
 
 <LearnMore>
   <LearnMoreLink to="https://glitch.com/create">How to use Glitch</LearnMoreLink>
@@ -84,7 +84,7 @@ You can re-use the project and environment you created in [Getting started with 
 
 Here is an image of where to find your SDK keys:
 
-![The Account Settings page in LaunchDarkly with environment SDK keys called out.](../../../images/space-camp-projects.png)
+![The Account Settings page in LaunchDarkly with environment SDK keys called out.](starlight-travel-projects.png)
 
 ### Configuring the SDK key and client ID
 
@@ -92,7 +92,7 @@ Glitch lets you store environment variables, such as secrets or config variables
 
 Here is an image of a sample .env file:
 
-![An .env file](../../../images/dot-env-experimentation.png)
+![An .env file](dot-env-experimentation.png)
 
 To configure the SDK key and client ID:
 
@@ -100,7 +100,7 @@ To configure the SDK key and client ID:
 2. Copy the **SDK key** from the **Test** environment by clicking on the key.
 3. Assign the **SDK key** to the environment variable called `LD_SDK_KEY`.
 4. Copy the **Client-side ID** from the **Test** environment.
-5. Assign the **Client-side ID** to the environment variable called `LD_SDK_KEY`:
+5. Assign the **Client-side ID** to the environment variable called `LD_CLIENT_SIDE_ID`:
 
 <CodeTabs defaultValue="env" values={[{ label: '.env', value: 'env', }]}>
   <CodeTabItem value="env">
@@ -152,7 +152,7 @@ To create a new flag:
   * Variation 4 value: 1
   * Variation 4 name: No discount
 
-![The "Create a feature flag" screen for the Student Discount Pricing flag.](../../../space-camp-student-discount-flag.png)
+![The "Create a feature flag" screen for the Student Discount Pricing flag.](starlight-travel-student-discount-flag.png)
 
 9. Save your new flag.
 
@@ -210,15 +210,15 @@ targeting rules work.
 
 To confirm the rules work:
 
-1. From the Glitch editing window, click **View app**. The Space Camp app appears.
-1. Click **log-in**:
+1. From the Glitch editing window, click **View app**. The Starlight Travel app appears.
+1. Click **Log in**:
 
-![Space camp app login](../../../space-camp-login.png)
+![Starlight Travel app login.](starlight-travel-login.png)
 
 1. Enter a random email ending in .edu.
-1. A discounted price of $10,000, $25,000, or $100,000 should appear.
+1. A discounted price should appear.
 1. Log out.
-1. Log in again with a random email ending in .com
+1. Log in again with a random email ending in .com.
 1. Standard pricing should appear.
 
 <Callout intent="alert">
@@ -240,11 +240,10 @@ To learn more about metrics in experiments, read [Creating experiments](/home/ex
 First, you must get the URL for your Glitch app. To find it:
 
 1. From the Glitch console, click the **Share** button. A pop-up with a URL appears.
-1. Select **Live App** from the pop-up.
-1. Copy the Live App URL.
+1. Copy the **Live site** URL.
 1. Save the URL somewhere where it is easy to access.
 
-<iframe src="https://drive.google.com/file/d/1m43dF6fDtwepQOmOshknJYT3y7US1hOp/preview" width="100%" height="410" style="margin-bottom:24px"></iframe>
+![The Share project pop-up in Glitch.](starlight-travel-share-project.png)
 
 Here's how to create a click metric to track the discount which results in the highest number of packages purchased:
 
@@ -259,7 +258,7 @@ Here's how to create a click metric to track the discount which results in the h
 1. In the "Target URL" field, choose **Substring Match**.
 1. Paste in the URL for your Glitch app, which you found and saved in the previous procedure:
 
-![The Create a new metric screen.](../../../space-camp-create-new-metric.png)
+![The Create a new metric screen.](starlight-travel-create-new-metric.png)
 
 ### Connecting the metric to the flag
 
@@ -273,7 +272,7 @@ You must connect the metric to the flag to create an experiment. To do this:
 1. Select Variation 4, "No discount," as the baseline.
 1. Click **Save Experiment Settings**:
 
-![The Experiment setup screen.](../../../space-camp-experiment-setup.png)
+![The Experiment setup screen.](starlight-travel-experiment-setup.png)
 
 You return to the flag's **Experiments** tab and the experiment is ready for you to start it.
 
@@ -298,7 +297,7 @@ Data can take up to ten minutes to appear in LaunchDarkly after your experiment 
 
 After you press `!`, 100 .com email addresses and 100 .edu email addresses will try to access your app. None of the .com email addresses will receive a reduced price. The .edu addresses will randomly receive discounted prices. This information is reflected in the experiment's results.
 
-### Conclusion
+## Conclusion
 
 In this guide you:
 

@@ -41,7 +41,16 @@ The three built-in roles are:
 
 To learn more about what each of these roles can do, read [Understanding member roles](/home/members/managing#understanding-member-roles).
 
-Every account member must have at least one of these three roles or a custom role. If you need to, you can also assign account members multiple roles to give them the exact set of permissions they need.
+Every account member must have at least one of these three roles or a custom role. If you need to, you can also assign account members multiple roles to give them the exact set of permissions they need. If you apply one or more custom roles to a member, their built-in role is no longer applicable.
+
+<Callout intent="alert">
+<CalloutTitle>Viewing a member's most recent built-in role</CalloutTitle>
+<CalloutDescription>
+
+You can use the LaunchDarkly API to get member details, including the last built-in role the member had. You can use this information to determine what role would be restored if you removed the all custom roles from that member.
+
+</CalloutDescription>
+</Callout>
 
 An account member's initial role is set when they're invited to LaunchDarkly. If not otherwise specified, new account members are assigned the reader role. An account member with the ability to do so must adjust a reader's role to give them more advanced permissions.
 
@@ -49,7 +58,7 @@ The one exception to this is the first account member, the person who created yo
 
 ## Configuring custom role scopes
 
-Custom roles are extremely precise in their scope and targeting. For example, you can define a custom role to allow the recipent of that role to take all actions on only one flag in a project, and also not allow that role recipient to see any other projects.
+Custom roles are extremely precise in their scope and targeting. For example, you can define a custom role to allow the recipient of that role to take all actions on only one flag in a project, and also not allow that role recipient to see any other projects.
 
 This level of precision also means you must specifically allow or deny actions for every resource you want the role recipient to be able to take. If you do not specify an action for a resource, that action is set to deny by default.
 

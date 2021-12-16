@@ -153,26 +153,6 @@ if showFeature {
 </CodeTabItem>
 </CodeTabs>
 
-When your application is about to terminate, shut down the `LDClient` with [`Close()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Close). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
-
-Here is an example:
-
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go', value: 'go', },
-  ]
-}>
-<CodeTabItem value="go">
-
-```go
-// shut down the client, since we're about to quit
-client.Close()
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## HTTPS Proxy
 
 Go's standard HTTP library provides a built-in HTTPS proxy. If the `HTTPS_PROXY` environment variable is present then the SDK will proxy all network requests through the URL provided.

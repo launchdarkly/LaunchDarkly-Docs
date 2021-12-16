@@ -57,9 +57,11 @@ To learn more about specific actions, read [Using actions](/home/members/role-ac
 
 ### Understanding the minimum required actions for a role
 
-The default state of a new custom role is to `deny` every possible action. In most cases, you must explicitly allow each action you wish the role recipient to be able to do.
+In most cases, you must explicitly allow each action you wish the role recipient to be able to do. The default state of a new custom role is to `deny` every possible action, except two.
 
-The one exception is how custom roles use the `viewProject` action. The ability to view and change resources is configured at the `project` resource level with the `viewProject` action.
+The two exceptions are:
+- The `viewProject` action: The ability to view and change resources is configured at the `project` resource level with the `viewProject` action.
+- The `createAccessToken` action: The ability to create personal access tokens is configured at the `members` resource level with the `createAccessToken` action. The ability to create service access tokens is configured at the top resource level with the `createAccessToken` action.
 
 You do not need to allow a custom role holder to see projects in your LaunchDarkly account. You can deny them viewing access to any project, but by default all roles can view all projects as soon as they are created.
 

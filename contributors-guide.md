@@ -32,7 +32,7 @@ The content architecture in the `LaunchDarkly-Docs` repo is as follows:
  `/home/managing-flags/dashboard`
 * Screenshots are in `src/content/images/`.
 * The sidebar navigation is in NavigationData.js. 
-* Redirects are in legacyRedirectRules.js.
+* Redirects are in redirectRules.js.
 
 ## Writing frontmatter for docs topics
 

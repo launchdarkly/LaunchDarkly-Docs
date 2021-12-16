@@ -19,7 +19,7 @@ User data can include Personally Identifiable Information (PII), including names
 
 To learn more about users, read [The Users dashboard](/home/users/users-dashboard).
 
-## How LaunchDarkly recieves user data
+## How LaunchDarkly receives user data
 
 You configure the LaunchDarkly SDK to collect and transmit attributes about users to LaunchDarkly for the purpose of flag targeting.
 
@@ -43,13 +43,11 @@ LaunchDarkly SDKs have different constraints that affect user data. Specifically
 
 - By default, client-side SDKs aren't authenticated. Because of this, one user could use another user's account to evaluate flags not meant for them. To authenticate user data, you can enable the SDK's **secure mode**, which requires you to pass a server generated hash in your user data. To learn more, read [Secure mode](/sdk/features/secure-mode#configuring-secure-mode-in-the-javascript-client-side-sdk).
 
-- Client-side SDKs send user data in the URL as a `GET` query parameter. If you are concerned about that data being stored in logs or by intermediary proxies, you can use the [`useReport`](/sdk/features/user-config#javascript) setting to use the HTTP `REPORT` verb. This sends the user data in the request body, rather than in the header.
-
-To learn more, read [Use REPORT in the JavaScript SDK](#use-report-in-the-javascript-sdk).
+- Client-side SDKs send user data in the URL as a `GET` query parameter. If you are concerned about that data being stored in logs or by intermediary proxies, you can use the [`useReport`](/sdk/features/user-config#javascript) setting to use the HTTP `REPORT` verb. This sends the user data in the request body, rather than in the header. To learn more, read [Use REPORT in the JavaScript SDK](#use-report-in-the-javascript-sdk).
 
 ## LaunchDarkly member roles
 
-Every account member in your LaunchDarkly project can see user and flag information, including targeting data. account members with `writer` or `owner / admin` roles can configure flag settings, including targeting flags by PII like user email addresses. Consider if your organization needs to restrict which account members can control access to user data.
+Every account member in your LaunchDarkly project can see user and flag information, including targeting data. Account members with `writer` or `owner / admin` roles can configure flag settings, including targeting flags by PII like user email addresses. Consider if your organization needs to restrict which account members can control access to user data.
 
 The exception to this is if an account member is assigned a custom role with the `viewProject` action set to `deny`. The `viewProject` action controls a role holder's access to an entire project by preventing or granting them viewing rights to the project. Viewing rights are required for any other permissions in a project to take effect, so restricting viewing rights effectively removes all access to the project.
 

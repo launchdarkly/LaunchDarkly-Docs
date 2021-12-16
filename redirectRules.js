@@ -113,6 +113,10 @@ module.exports = [
     toPath: '/home/users/attributes',
   },
   {
+    fromPath: '/home/managing-users/anonymous-users',
+    toPath: '/home/users/anonymous-users',
+  },
+  {
     fromPath: '/home/account-security/managing-your-team',
     toPath: '/home/team/managing',
   },

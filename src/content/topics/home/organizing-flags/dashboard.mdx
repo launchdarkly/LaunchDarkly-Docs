@@ -1,24 +1,64 @@
 ---
 path: '/home/organize/dashboard'
 title: 'The flags dashboard'
-description: 'This topic explains how to use the dashboard, which shows your feature flags and gives you many options to create, modify, and manage them.'
+description: 'This topic explains how to use the flags dashboard, which shows your feature flags and gives you options to create, modify, and manage them.'
 published: true
 ---
 
 ## Overview
 
-This topic explains how to use the dashboard, the core interface of LaunchDarkly platform. The dashboard shows your feature flags and gives you many options to create, modify, and manage them.
+This topic explains how to use the flags dashboard, which shows your feature flags and gives you options to create, modify, and manage them.
 
 ## Viewing feature flags
 
-When you create a new feature flag, it appears on the dashboard in each of your environments. Similarly, deleting a feature flag removes it from all the environments in your project.
+All of your feature flags within a project appear on the dashboard. Creating a new flag adds it to the dashboard and all environments within your project, and archiving a feature flag removes it from the dashboard and all environments within your project.
 
-Here is an image of the "New" button on the Feature flags dashboard:
+Here is an image of the Feature flags dashboard:
 
-![The dashboard with the "New" button called out.](../../images/flag-new-callout.png)
+![The Feature flags dashboard.](../../images/flags-dashboard.png)
 
-To learn more, read [Creating a feature flag](/home/getting-started/feature-flags).
+To learn how to create a new flag, read [Creating a feature flag](/home/getting-started/feature-flags#creating-a-feature-flag). To learn how to archive a flag, read [Archiving flags](/home/code/flag-archive#archiving-flags).
 
-Use the search bar to find a flag by name, tag, key, or description. You can sort the list of visible flags to identify the oldest or most recent, or to view them in alphabetical order. By default, the most recently active flags appear first.
+Use the search bar to find a flag by name, tag, key, or description. You can sort the list of visible flags to identify the oldest or most recent, or to view them in alphabetical order. By default, the most recently created flags appear first.
 
-Click **Filter** to view groups of flags that share a particular attribute, such as a tag, a status, or an availability to a given SDK, or create a new feature flag by clicking **+ Flag**.
+## Filtering feature flags
+
+You can filter the list of flags on your dashboard to view only flags that share a particular attribute, such as a tag, a status, or an availability to an SDK type.
+
+To filter your flags:
+
+1. Click **Filter**.
+2. Choose an attribute from the dropdown.
+3. Choose a value to filter by from the second dropdown:
+
+![A filter applied to display only flags with a specified maintainer.](/images/flags-dashboard-filter.png)
+
+4. Click **Add**.
+
+Your dashboard now displays only the flags that match the filter you specified.
+
+To add additional attributes to your filter, repeat steps 1-4. The dashboard displays only flags that match all of the attributes you selected.
+
+To remove a filter, click on the attribute name you want to stop filtering by and click **Clear filter**. To remove multiple filters, click **Clear all**:
+
+![A list of filters applied to the flags dashboard.](/images/flags-dashboard-filter-list.png)
+
+## Saving dashboards
+
+You can save your dashboard filter configurations to return to later. 
+
+To save a dashboard:
+
+1. Apply your desired filters.
+2. Click **Save**.
+3. Enter a name for the dashboard:
+
+![The Save current dashboard screen.](/images/flags-dashboard-save.png)
+
+4. Click **Save dashboard**.
+
+To later load your saved dashboard, expand the **Save** menu and click on the dashboard you want to view:
+
+![The Saved dashboards menu.](/images/flags-dashboard-save-menu.png)
+
+Your dashboard now displays with the saved filters.

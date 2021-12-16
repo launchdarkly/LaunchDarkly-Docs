@@ -75,7 +75,7 @@ You can install the SDK into your Electron project using `npm`:
 <CodeTabItem value="js">
 
 ```bash
-npm install --save launchdarkly-electron-client-sdk
+npm install launchdarkly-electron-client-sdk
 
 # In earlier versions, the package name was ldclient-electron
 ```
@@ -137,7 +137,10 @@ This gives you an object with the same interface—so you can evaluate feature f
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
 <CalloutDescription>
 
-You must make feature flags available to client-side SDKs before the flags can be evaluated. If you evaluate a feature flag that is not available, you receive the default value for that flag. If you want a project's flags to be made available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+You must make feature flags available to client-side SDKs before the flags can be evaluated. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
+
+To make a flag available to this SDK, check the **SDKs using Client-side ID** checkbox during flag creation, or on the flag's **Settings** tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+
 </CalloutDescription>
 </Callout>
 

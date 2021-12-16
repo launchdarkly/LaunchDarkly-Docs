@@ -4,20 +4,21 @@ title: 'Workflows'
 description: 'This topic explains how to build, start, and view workflows in LaunchDarkly.'
 published: true
 ---
-<Callout intent="info">
-<CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
-<CalloutDescription>
-
-Workflows is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://docs.google.com/forms/d/e/1FAIpQLScJ5qCC_RZTW9pPSXVZk9HaKzpltNAeoQb2t6gh7dLicwQWQQ/viewform).
-
-</CalloutDescription>
-</Callout>
 
 <Callout intent="primary">
 <CalloutTitle>Workflows is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
 Workflows is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="alert">
+<CalloutTitle>Workflows is in beta</CalloutTitle>
+<CalloutDescription>
+
+Development work on workflows is ongoing. Elements of workflows may change without notice.
 
 </CalloutDescription>
 </Callout>
@@ -38,8 +39,8 @@ Workflows support consistent release practices and let you automatically release
 
 To use workflows, you should understand the following features:
 
-* [Approvals](https://docs.launchdarkly.com/home/feature-workflows/approvals)
-* [Scheduled flag changes](https://docs.launchdarkly.com/home/feature-workflows/scheduled-changes)
+* [Approvals](/home/feature-workflows/approvals)
+* [Scheduled flag changes](/home/feature-workflows/scheduled-changes)
 
 ## Setting up a workflow
 
@@ -56,14 +57,7 @@ To build a workflow:
 7. If you don't need to request approval, click **Schedule date and time**.
 8. Choose a date and time from the date picker.
 9. Click the **+** to add another step to your workflow.
-10. Choose a flag change:
-  * **Turn targeting ON or OFF**: Indicates whether the flag should use any targeting rules.
-  * **Set default variation**: Changes the default variation when targeting is on.
-  * **Set rollout**: Updates the percentage rollout on a targeting rule.
-  * **Add segmenting rule**: Adds a segment of users to target.
-
-  ![The list of flag changes that you can use when creating a workflow.](../images/workflows-flag-actions.png)
-
+10. Choose one or multiple flag changes you want to make.
 11. Add another approval and/or schedule condition step to create another stage of the workflow.
 12. After you have added all of your release steps to the workflow, click **Start workflow**.
 
@@ -71,7 +65,11 @@ LaunchDarkly now processes the workflow steps for you based on the timeline and 
 
 ## Viewing a workflow
 
-To view the status of a workflow:
+There are two ways to view active workflows for a feature flag. You can use the progress bar or view the workflows in a list.
+
+### Progress bar
+
+To view the status of a workflow on the Targeting page:
 
 1. Navigate to the flags dashboard and select the flag with the workflow you want to view. The flag's Targeting tab appears.
 2. View active workflows listed at the top of the targeting page.
@@ -82,6 +80,12 @@ To view the status of a workflow:
 
 ![Click on the bubbles of the progress bar to view more details about each change in the stage.](../images/workflows-progress-bar-details.png)
 
+### List view
+
+To view the list of active workflows on a feature flag:
+
+1. Navigate to the flags dashboard and select the flag with the workflow you want to view. The flag's Targeting tab appears.
+2. Click the **Workflows** tab to view a list of all active workflows.
 
 ## Deleting a workflow
 
@@ -89,8 +93,7 @@ There may be cases where you need to delete a workflow. Deleting a workflow stop
 
 To delete a workflow:
 
-1. Navigate to the Flags dashboard.
-2. Click on the name of the flag you want to delete a workflow from. The flag's Targeting tab appears.
+1. Navigate to the flags dashboard and select the flag with the workflow you want to view. The flag's Targeting tab appears.
 3. Click on the **Workflows** tab.
 4. Click on the **overflow** menu next to the workflow you want to delete.
 5. Select **Delete workflow**.
@@ -98,3 +101,7 @@ To delete a workflow:
 ![The Delete workflow option under the overflow menu.](../images/workflows-delete-workflow.png)
 
 3. Enter the flag name or key to confirm the deletion.
+
+## Understanding permissions in workflows
+
+A LaunchDarkly member must have permission to make flag changes to create workflows, because workflows inherit permissions from flags. To learn more about how to configure the right permissions for members, read [Resources](/home/members/role-resources).
