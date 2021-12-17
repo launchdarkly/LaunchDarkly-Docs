@@ -36,7 +36,7 @@ LaunchDarkly's role-based permission system provides global access control level
 The three built-in roles are:
 
 - **Reader**: The view-only role, who can see many details about your LaunchDarkly account but cannot modify any of its content.
-- **Writer**: This role can create, update, and delete most entities in LaunchDarkly, but cannot invite members, manage permission, or manage other orgnization-level settings like billing and security.
+- **Writer**: This role can create, update, and delete most entities in LaunchDarkly, but cannot invite members, manage permissions, or manage other organization-level settings like billing and security.
 - **Admin / Owner**: The role with the largest set of permissions. It can do everything readers and writers can do, and also create new account members and designate a new admin.
 
 To learn more about what each of these roles can do, read [Understanding member roles](/home/members/managing#understanding-member-roles).
@@ -47,7 +47,7 @@ Every account member must have at least one of these three roles or a custom rol
 <CalloutTitle>Viewing a member's most recent built-in role</CalloutTitle>
 <CalloutDescription>
 
-You can use the LaunchDarkly API to get member details, including the last built-in role the member had. You can use this information to determine what role would be restored if you removed the all custom roles from that member.
+You can use the LaunchDarkly API to get member details, including the last built-in role the member had. You can use this information to determine what role would be restored if you removed all the custom roles from that member.
 
 </CalloutDescription>
 </Callout>
@@ -62,7 +62,7 @@ Custom roles are extremely precise in their scope and targeting. For example, yo
 
 This level of precision also means you must specifically allow or deny actions for every resource you want the role recipient to be able to take. If you do not specify an action for a resource, that action is set to deny by default.
 
-One method of creating a custom role is to start with with a policy that matches permissions for a reader or writer, and modify it.
+One method of creating a custom role is to start with a policy that matches permissions for a reader or writer, and modify it.
 
 For templates that match these permission levels, read [Example policies](/home/members/example-policies).
 
