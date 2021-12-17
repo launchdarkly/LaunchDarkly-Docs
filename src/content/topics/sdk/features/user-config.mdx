@@ -1771,7 +1771,6 @@ Feature flag targeting and rollouts  are determined by the user you pass to your
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
-    { label: 'Java SDK versions 4.8.x and earlier', value: 'java-pre-4.9', },
   ]
 }>
 <CodeTabItem value="java">
@@ -1783,18 +1782,6 @@ LDUser user = new LDUser.Builder("aa0ceb")
   .email("ernestina@example.com")
   .custom("groups",
     LDValue.buildArray().add("Google").add("Microsoft").build())
-  .build()
-```
-
-</CodeTabItem>
-<CodeTabItem value="java-pre-4.9">
-
-```java
-LDUser user = new LDUser.Builder("aa0ceb")
-  .firstName("Ernestina")
-  .lastName("Evans")
-  .email("ernestina@example.com")
-  .customString("groups", Arrays.asList("Google", "Microsoft"))
   .build()
 ```
 
@@ -1829,7 +1816,6 @@ Here's how to define private attributes:
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
-    { label: 'Java SDK versions 4.12.x and earlier', value: 'java-pre-5.0' },
   ]
 }>
 <CodeTabItem value="java">
@@ -1848,19 +1834,6 @@ LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
       .privateAttributes(UserAttribute.NAME, UserAttribute.EMAIL,
         UserAttribute.forName("someCustomAttribute"))
   )
-  .build();
-```
-
-</CodeTabItem>
-<CodeTabItem value="java-pre-5.0">
-
-```java
-LDConfig configWithAllAttributesPrivate = new LDConfig.Builder()
-  .allAttributesPrivate(true)
-  .build();
-
-LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
-  .privateAttributeNames("name", "email", "someCustomAttribute")
   .build();
 ```
 

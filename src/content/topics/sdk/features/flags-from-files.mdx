@@ -309,7 +309,6 @@ To configure the client:
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
-    { label: 'Java SDK 4.x and earlier', value: 'java-pre-5.0', },
   ]
 }>
 <CodeTabItem value="java">
@@ -326,25 +325,6 @@ LDConfig config = new LDConfig.Builder()
   )
   .events(Components.noEvents())
   .build();
-
-LDClient client = new LDClient("sdk key", config);
-```
-
-</CodeTabItem>
-<CodeTabItem value="java-pre-5.0">
-
-```java
-import com.launchdarkly.client.*;
-import com.launchdarkly.client.files.*;
-
-FileDataSourceFactory fileSource = FileComponents.fileDataSource()
-    .filePaths("file1.json", "file2.json")
-    .autoUpdate(true);
-
-LDConfig config = new LDConfig.Builder()
-    .updateProcessorFactory(fileSource)
-    .sendEvents(false)
-    .build();
 
 LDClient client = new LDClient("sdk key", config);
 ```

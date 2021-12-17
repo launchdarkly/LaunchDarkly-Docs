@@ -478,17 +478,6 @@ EvaluationDetail<Boolean> detail =
 boolean value = detail.getValue();
 int index = detail.getVariationIndex();       // will be < 0 if evaluation failed
 EvaluationReason reason = detail.getReason();
-
-
-// Before version 5.0, this was slightly different:
-import com.launchdarkly.client.*;
-
-EvaluationDetail<Boolean> detail =
-  client.boolVariationDetail("flag-key", myUser, false);
-
-boolean value = detail.getValue();
-Integer index = detail.getVariationIndex();
-EvaluationReason reason = detail.getReason();
 ```
 
 </CodeTabItem>

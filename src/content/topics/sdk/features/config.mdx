@@ -536,7 +536,6 @@ To pass custom parameters:
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
-    { label: 'Java SDK versions 4.12.x and earlier', value: 'java-pre-5.0', }
   ]
 }>
 <CodeTabItem value="java">
@@ -552,18 +551,6 @@ LDConfig config = new LDConfig.Builder()
     Components.sendEvents()
       .flushInterval(Duration.ofSeconds(10))
   )
-  .build();
-LDClient client = new LDClient("YOUR_SDK_KEY", config);
-```
-
-</CodeTabItem>
-<CodeTabItem value="java-pre-5.0">
-
-```java
-LDConfig config = new LDConfig.Builder()
-  .connectTimeout(3)
-  .socketTimeout(3)
-  .flushInterval(10)
   .build();
 LDClient client = new LDClient("YOUR_SDK_KEY", config);
 ```

@@ -157,18 +157,6 @@ LDConfig config = new LDConfig.Builder()
   )
   .build();
 LDClient client = new LDClient(sdkKey, config);
-
-
-// Before version 5.0, the syntax was different:
-import com.launchdarkly.client.*;
-import com.launchdarkly.client.dynamodb.*;
-
-LDConfig config = new LDConfig.Builder()
-  .featureStoreFactory(
-    DynamoDbComponents.dynamoDbFeatureStore("my-table")
-      .caching(FeatureStoreCacheConfig.enabled().withTtlSeconds(30));
-  )
-  .build();
 ```
 
 </CodeTabItem>
