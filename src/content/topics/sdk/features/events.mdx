@@ -492,20 +492,12 @@ Here's how:
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.15.x and earlier', value: 'go-pre-4.16', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
 client.TrackEvent("completed-purchase", user)
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-4.16">
-
-```go
-client.Track("completed-purchase", user, nil)
 ```
 
 </CodeTabItem>

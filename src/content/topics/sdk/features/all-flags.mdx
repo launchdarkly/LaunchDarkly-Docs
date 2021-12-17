@@ -370,7 +370,6 @@ To use the all flags feature:
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.17.x and earlier', value: 'go-pre-5.0', },
   ]
 }>
 <CodeTabItem value="go">
@@ -381,13 +380,6 @@ import (
 )
 
 state := client.AllFlagsState(user, flagstate.OptionClientSideOnly())
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
-
-```go
-state := client.AllFlagsState(user, ld.ClientSideOnly)
 ```
 
 </CodeTabItem>

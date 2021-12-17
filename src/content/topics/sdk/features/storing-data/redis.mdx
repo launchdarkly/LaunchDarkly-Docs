@@ -182,21 +182,6 @@ config.DataStore = ldcomponents.PersistentDataStore(
         Prefix("my-key-prefix"),
 ).CacheSeconds(30)
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
-
-
-// Before version 5.0, the syntax was different:
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-    ldredis "gopkg.in/launchdarkly/go-server-sdk.v4/redis"
-)
-
-factory, err := ldredis.NewRedisFeatureStoreWithDefaults(
-    ldredis.HostAndPort("my-redis", 6379),
-    ldredis.Prefix("my-key-prefix"),
-    ldredis.CacheTTL(30 * time.Second))
-config := ld.DefaultConfig
-config.FeatureStoreFactory = factory
-client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
 </CodeTabItem>

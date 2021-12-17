@@ -295,24 +295,12 @@ Here's how:
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.17.x and earlier', value: 'go-pre-5.0', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
 var config ld.Config
-config.Offline = true
-
-client, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
-client.BoolVariation("any.feature.flag", user, false) // will always return the default value (false)
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
-
-```go
-config := ld.DefaultConfig
 config.Offline = true
 
 client, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)

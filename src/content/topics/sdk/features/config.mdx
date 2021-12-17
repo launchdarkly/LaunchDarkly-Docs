@@ -470,7 +470,6 @@ To pass custom parameters:
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.17.x and earlier', value: 'go-pre-5.0', }
   ]
 }>
 <CodeTabItem value="go">
@@ -484,22 +483,6 @@ import (
 var config ld.Config
 
 config.Events = ldcomponents.SendEvents().FlushInterval(10 * time.Second)
-
-client := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
-
-```go
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-)
-
-// Prior to version 5.0, to start with default values you must copy DefaultConfig:
-config := ld.DefaultConfig
-
-config.FlushInterval = 10 * time.Second
 
 client := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 ```

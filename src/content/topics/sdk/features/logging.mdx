@@ -450,8 +450,6 @@ Here's how:
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.12.x-4.17.x', value: 'go-pre-5.0', },
-    { label: 'Go SDK versions 4.11.x and earlier', value: 'go-pre-4.12', },
   ]
 }>
 <CodeTabItem value="go">
@@ -475,53 +473,6 @@ config.Logging = ldcomponents.Logging().
 
 // Or, disable logging
 config.Logging = ldcomponents.NoLogging()
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
-
-```go
-
-import (
-    "log"
-    "os"
-    ldlog "gopkg.in/launchdarkly/go-sdk-common.v2"
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-)
-
-config := ld.DefaultConfig
-
-// Send output to a file, and change minimum level to Warn (Debug and Info are disabled)
-file, _ := os.Create("app.log")
-config.Loggers.SetBaseLogger(log.New(file, "", log.LstdFlags))
-config.Loggers.SetMinLevel(ldlog.Warn)
-
-// Or, disable logging
-config.Loggers = ldlog.NewDisabledLoggers()
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-4.12">
-
-```go
-
-import (
-    "io/ioutil"
-    "log"
-    "os"
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-)
-
-config := ld.DefaultConfig
-
-// The SDK did not support log levels prior to 4.12.
-
-// Send output to a file
-file, _ := os.Create("app.log")
-config.Logger = log.New(file, "", log.LstdFlags)
-
-// Or, disable logging
-config.Logger = log.new(ioutil.Discard, "", 0)
 ```
 
 </CodeTabItem>

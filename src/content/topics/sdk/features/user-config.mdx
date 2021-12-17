@@ -1510,8 +1510,6 @@ Here's an example:
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.16.x-4.17.x', value: 'go-pre-5.0', },
-    { label: 'Go SDK versions 4.15.x and earlier', value: 'go-pre-4.16', },
   ]
 }>
 <CodeTabItem value="go">
@@ -1533,57 +1531,6 @@ user2 := lduser.NewUserBuilder("user2-key").
     Custom("groups", ldvalue.ArrayOf(
         ldvalue.String("Google"), ldvalue.String("Microsoft"))).
     Build()
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
-
-```go
-import (
-    "gopkg.in/launchdarkly/go-sdk-common.v1/ldvalue"  // for custom attributes - see below
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-)
-
-// User with only a key
-user1 := ld.NewUser("user1-key")
-
-// User with a key plus other attributes
-user2 := ld.NewUserBuilder("user2-key").
-    FirstName("Ernestina").
-    LastName("Events").
-    Email("ernestina@example.com").
-    Custom("groups", ldvalue.ArrayOf(
-        ldvalue.String("Google"), ldvalue.String("Microsoft"))).
-    Build()
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-4.16">
-
-```go
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-)
-
-// User with only a key
-user1 := ld.NewUser("user1-key")
-
-// User with a key plus other attributes
-// UserBuilder does not exist prior to 4.16, so set the fields directly
-key := "user2-key"
-firstName := "Ernestina"
-lastName := "Evans"
-email := "ernestina@example.com"
-custom := map[string]interface{} {
-    "groups": []string{"Google", "Microsoft"},
-}
-user := ld.User{
-    Key: &key,
-    FirstName: &firstName,
-    LastName: &lastName,
-    Email: &email,
-    Custom: &custom,
-}
 ```
 
 </CodeTabItem>
@@ -1617,7 +1564,6 @@ Here's how to to define private attributes:
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.17.x and earlier', value: 'go-pre-5.0', },
   ]
 }>
 <CodeTabItem value="go">
@@ -1639,23 +1585,6 @@ config.Events = ldcomponents.SendEvents().
 ```
 
 </CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
-
-```go
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-)
-
-config := ld.DefaultConfig
-
-// Make all attributes private for all users
-config.AllAttributesPrivate = true
-
-// Or, make just the name and email attributes private for all users
-config.PrivateAttributeNames = []string{"name", "email"}
-```
-
-</CodeTabItem>
 </CodeTabs>
 
 You can also define a set of private attributes on the user object itself. In this example, `Email` is private for this user in addition to any private attributes that were specified globally:
@@ -1664,8 +1593,6 @@ You can also define a set of private attributes on the user object itself. In th
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.16.x-4.17.x', value: 'go-pre-5.0', },
-    { label: 'Go SDK versions 4.15.x and earlier', value: 'go-pre-4.16', },
   ]
 }>
 <CodeTabItem value="go">
@@ -1683,44 +1610,6 @@ user := lduser.NewUserBuilder("user-key").
 ```
 
 </CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
-
-```go
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-)
-
-user := ld.NewUserBuilder("user-key").
-    FirstName("Ernestina").
-    LastName("Events").
-    Email("ernestina@example.com").AsPrivateAttribute().
-    Build()
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-4.16">
-
-```go
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-)
-
-key := "user-key"
-firstName := "Ernestina"
-lastName := "Evans"
-email := "ernestina@example.com"
-privateAttributeNames := []string{"email"}
-
-user := ld.User{
-    Key: &key,
-    FirstName: &firstName,
-    LastName: &lastName,
-    Email: &email,
-    PrivateAttributes: privateAttributeNames,
-}
-```
-
-</CodeTabItem>
 </CodeTabs>
 
 #### Anonymous users in the Go SDK
@@ -1731,8 +1620,6 @@ You can distinguish logged-in users from anonymous users in the SDK, as follows:
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.16.x-4.17.x', value: 'go-pre-5.0', },
-    { label: 'Go SDK versions 4.15.x and earlier', value: 'go-pre-4.16', },
   ]
 }>
 <CodeTabItem value="go">
@@ -1750,41 +1637,6 @@ user2 := lduser.NewUserBuilder("user2-key").
     Anonymous(true).
     Country("US").
     Build()
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
-
-```go
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-)
-
-// Anonymous user with only a key
-user1 := ld.NewAnonymousUser("user1-key")
-
-// Anonymous user with a key plus other attributes
-user2 := ld.NewUserBuilder("user2-key").
-    Anonymous(true)
-    Country("US").
-    Build()
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-4.16">
-
-```go
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-)
-
-// Anonymous user with only a key
-user1 := ld.NewAnonymousUser("user1-key")
-
-// Anonymous user with a key plus other attributes
-country := "US"
-user2 := ld.NewAnonymousUser("user2-key")
-user2.Country = &country
 ```
 
 </CodeTabItem>
