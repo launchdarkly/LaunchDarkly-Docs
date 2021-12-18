@@ -9,7 +9,3 @@
 /assets/ @launchdarkly/docs-reviewers
 /src/content/images @launchdarkly/docs-reviewers
 /templates/ @launchdarkly/docs-reviewers
-
-# EOL data
-/src/content/sdkVersions.json @launchdarkly/sdk-owners
-/src/content/relayVersions.json @launchdarkly/sdk-owners
