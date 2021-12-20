@@ -47,7 +47,6 @@
     "slug": "^5.1.0",
     "theme-ui": "^0.12.1",
     "trackjs": "^3.10.1",
-    "web-vitals": "^0.2.3",
     "yarn": "^1.22.17"
   },
   "devDependencies": {
