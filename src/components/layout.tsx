@@ -29,6 +29,7 @@ import ServerSideSdks from './home/sdks/serverSideSdks'
 import ReactSdks from './home/sdks/reactSdks'
 import ChildPageList from './ChildPageList'
 import { SdksEndOfLife, RelayEndOfLife } from './endOfLife'
+import Details from './mdx/details'
 
 const components = {
   h1: H1,
@@ -68,6 +69,7 @@ const components = {
   pre: Pre,
   ChildPageList,
   Feature,
+  Details,
 }
 
 const theme = {}

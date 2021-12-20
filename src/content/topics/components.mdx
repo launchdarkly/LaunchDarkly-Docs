@@ -8,16 +8,16 @@ This guide helps authors and developers unify implementation by providing you wi
 
 ### Table of Contents
 
-- Best practices & gotchas
-- Components
-  - LearnMore
-  - Image
-  - Callout
-  - CodeTabs
-  - CodeTabItem
-  - Table
+- [Best practices and gotchas](#best-practices-and-gotchas)
+- [Components](#components)
+  - [LearnMore](#learn-more)
+  - [Details](#details)
+  - [Image](#image)
+  - [Callout](#callout)
+  - [Code Samples](#code-samples)
+  - [Tables](#tables)
 
-# Best practices & gotchas
+# Best practices and gotchas
 
 Translating markdown and HTML components into human-usable formatting can be scary. Follow these best practices to have a better experience:
 
@@ -143,6 +143,63 @@ There are four different types of callouts:
 </CodeTabItem>
 </CodeTabs>
 
+## Details
+
+The docs site supports a details or "disclosure" component to expand/collapse information.
+
+<Details summary="Click to open more information">
+
+Here are some expanded details
+
+</Details>
+
+<CodeTabs
+  defaultValue=""
+  values={[
+    { label: 'Details', value: 'Details', },
+  ]
+}>
+
+<CodeTabItem value="Details">
+
+```jsx
+<Details summary="Click to open more information">
+
+Here are some expanded details
+
+</Details>
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Details may also be set to be open by default
+
+<Details open summary="Click to open more information">
+
+This details is open by default
+
+</Details>
+
+<CodeTabs
+  defaultValue=""
+  values={[
+    { label: 'Details', value: 'Details', },
+  ]
+}>
+
+<CodeTabItem value="Details">
+
+```jsx
+<Details open summary="Click to open more information">
+
+This details is open by default
+
+</Details>
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ## Image
 
@@ -301,6 +358,14 @@ The docs site supports PNGs and GIFs. Just use Markdown images. Put the images i
 
 Markdown tables are hard to read in text editors and easy to break. We built our own table component to use instead. It's much like an HTML table. When content in a table cell is left-justified, and bracketed by empty lines, you can use HTML tags in it.
 
+<CodeTabs
+  defaultValue="Table"
+  values={[
+    { label: 'Table', value: 'Table', },
+  ]
+}>
+<CodeTabItem value="Table">
+
 ```jsx
 <Table>
   <TableHeader>
@@ -323,3 +388,6 @@ Column 2 Cell 1 <a href="example.com">with a link in it</a>.
   </TableBody>
 </Table>
 ```
+
+</CodeTabItem>
+</CodeTabs>
