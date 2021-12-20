@@ -9461,10 +9461,10 @@ gatsby-theme-style-guide@0.12.1:
     "@theme-ui/style-guide" "0.12.1"
     theme-ui "0.12.1"
 
-gatsby-transformer-json@4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/gatsby-transformer-json/-/gatsby-transformer-json-4.2.0.tgz#52e494dcd67e2a4cc08459eb6b9b7d62b6692a4c"
-  integrity sha512-nv5eIPBmuAmsIKLWe+qwoNgKnU/G1zMleoh6+McR2fqzJEWeMjjWQGEdZ+QwVd9w0X25V//UR2VcD//O3Ct+VA==
+gatsby-transformer-json@4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/gatsby-transformer-json/-/gatsby-transformer-json-4.4.0.tgz#66270b0e5194fa2fd3476e156d55c5f5e44a6fe5"
+  integrity sha512-d5QdlPxxb1uZI+XoYnV2J0xWkYUTl3ZfSuWJ10OpM+er8ZpTxvcZQnEM+PBFlQgYiqHaaixtDZPeM8XP7jM+cQ==
   dependencies:
     "@babel/runtime" "^7.15.4"
     bluebird "^3.7.2"
