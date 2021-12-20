@@ -42,7 +42,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
-    "react-instantsearch-dom": "^6.17.0",
+    "react-instantsearch-dom": "^6.18.0",
     "remark-slug": "^6.1.0",
     "slug": "^5.1.0",
     "theme-ui": "^0.12.1",
