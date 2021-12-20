@@ -512,7 +512,7 @@ In the default configuration, the SDK sends output to the console and enables al
 
 Versions 5.x and earlier of the SDK used the [`winston`](https://www.npmjs.com/package/winston) logging package for the default configuration. Versions 6.0 and later do not have a dependency on `winston`. Instead, they write directly to the console by default.
 
-For full control over logging behavior, you can set the [`logger`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldoptions.html#logger) option to an object that implements the `LDLogger` interface. To learn more about the logger's requirements and methods, read [LDLogger](http://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldlogger.html). The `winston` package is compatible with this interface, so if you are already using a `winston` logger, you can pass it directly to the SDK.
+For full control over logging behavior, you can set the [`logger`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDOptions.html#logger) option to an object that implements the `LDLogger` interface. To learn more about the logger's requirements and methods, read [LDLogger](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDLogger.html). The `winston` package is compatible with this interface, so if you are already using a `winston` logger, you can pass it directly to the SDK.
 
 You can use [`basicLogger`](https://launchdarkly.github.io/node-server-sdk/index.html#basicLogger) for simpler control over logging behavior. Versions 5.x and earlier of the SDK do not support `basicLogger`.
 
