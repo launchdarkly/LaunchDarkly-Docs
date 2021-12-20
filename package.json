@@ -16,7 +16,7 @@
     "body-scroll-lock": "^2.6.4",
     "dotenv": "^10.0.0",
     "gatsby": "4.2.0",
-    "gatsby-plugin-catch-links": "4.2.0",
+    "gatsby-plugin-catch-links": "4.4.0",
     "gatsby-plugin-client-side-redirect": "^1.1.0",
     "gatsby-plugin-google-analytics": "4.3.0",
     "gatsby-plugin-launchdarkly": "^0.3.0",
