@@ -1,3 +1,4 @@
+name: Lint, type check, and test
 on: [push]
 
 jobs:
