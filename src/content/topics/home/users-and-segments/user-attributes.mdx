@@ -152,9 +152,13 @@ There are three different ways to configure private attributes:
 - You can mark specific attributes private by name globally in the `LdClient` configuration object.
 - You can mark specific attributes private by name for individual users when you construct `LDUser` objects.
 
-User `key`s cannot be marked private.
+User keys cannot be marked private.
 
 If you initially mark an attribute as private, LaunchDarkly will continue to treat the attribute as private in subsequent evaluations as long as the user is on the dashboard, even if you later remove the "private" designation from the attribute. If you no longer want LaunchDarkly to treat the attribute as private, remove the "private" designation, delete the user from the Users dashboard, and re-evaluate the user.
+
+The Users dashboard indicates private attributes with a lock icon:
+
+![The Users dashboard with a private attribute called out.](users-private-attribute-callout.png)
 
 To learn more about setting these configuration options, read your SDK's documentation.
 
