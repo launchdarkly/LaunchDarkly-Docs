@@ -114,7 +114,8 @@
     "tsc": "tsc",
     "lint": "eslint --ignore-path .gitignore . --ext ts,tsx,js,jsx",
     "cypress": "cypress open -C cypress.dev.json",
-    "cypress:ci": "cypress run -C cypress.dev.json"
+    "cypress:ci": "cypress run -C cypress.dev.json",
+    "lychee": "lychee --config .lychee.toml README.md src/content/topics/**/*.mdx src/content/topics/**/**/*.mdx src/content/topics/**/**/**/*.mdx src/content/topics/**/**/**/**/*.mdx"
   },
   "repository": {
     "type": "git",

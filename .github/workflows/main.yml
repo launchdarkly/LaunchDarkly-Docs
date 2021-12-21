@@ -64,3 +64,15 @@ jobs:
             ${{ runner.os }}-yarn-
       - run: yarn --prefer-offline --frozen-lockfile
       - run: yarn test
+  linkChecker:
+    name: "Check external links"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v1.2.0
+        with:
+          args: --no-progress --config .github/lychee.toml README.md src/content/topics/**/*.mdx src/content/topics/**/**/*.mdx src/content/topics/**/**/**/*.mdx src/content/topics/**/**/**/**/*.mdx
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
