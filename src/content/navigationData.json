@@ -322,6 +322,10 @@
             "path": "/home/billing/usage-metrics"
           },
           {
+            "label": "LaunchDarkly features and plans",
+            "path": "/home/billing/plans"
+          },
+          {
             "label": "Your Billing tab",
             "path": "/home/billing/billing-tab"
           }
