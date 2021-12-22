@@ -2,10 +2,11 @@
 import { jsx, Card, ThemeProvider } from 'theme-ui'
 import { Helmet } from 'react-helmet'
 import { FunctionComponent } from 'react'
-import { graphql } from 'gatsby'
+import { graphql, withPrefix } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from '@mdx-js/react'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
+import pluralize from 'pluralize'
 import Reset from './resetStyles'
 import MdxHeader from './mdx/mdxHeader'
 import { TableOfContents, TOC } from './tableOfContents'
@@ -103,6 +104,12 @@ const rootGridStyles = {
 
 interface LayoutProps {
   data: {
+    site: {
+      siteMetadata: {
+        title: string
+        siteUrl: string
+      }
+    }
     mdx: {
       body: string
       toc: TOC
@@ -110,10 +117,12 @@ interface LayoutProps {
       fields: {
         isLandingPage: boolean
         lastModifiedTime: string
+        modifiedDate: string
       }
       frontmatter: {
         title: string
         description: string
+        path: string
       }
       fileAbsolutePath: string
     }
@@ -122,12 +131,15 @@ interface LayoutProps {
 
 const Layout: FunctionComponent<LayoutProps> = ({
   data: {
+    site: {
+      siteMetadata: { title: siteTitle, siteUrl },
+    },
     mdx: {
       body,
       toc,
       timeToRead,
-      fields: { isLandingPage, lastModifiedTime },
-      frontmatter: { title, description },
+      fields: { isLandingPage, lastModifiedTime, modifiedDate },
+      frontmatter: { title, description, path },
       fileAbsolutePath,
     },
   },
@@ -140,7 +152,24 @@ const Layout: FunctionComponent<LayoutProps> = ({
         defer={false}
         htmlAttributes={{ lang: 'en' }}
         title={title}
-        meta={[{ name: 'description', content: description }]}
+        meta={[
+          { name: 'description', content: description },
+          // Open Graph
+          { name: 'og:site_name', content: siteTitle },
+          { name: 'og:url', content: `${siteUrl}${withPrefix(path)}` },
+          { name: 'og:title', content: title },
+          { name: 'og:description', content: description },
+          { name: 'og:type', content: 'article' },
+          { name: 'article:modified_time', content: lastModifiedTime },
+          // Twitter
+          { name: 'twitter:domain', content: `${siteUrl.replace('https://', '').replace('http://', '')}` },
+          { name: 'twitter:title', content: title },
+          { name: 'twitter:description', content: description },
+          { name: 'twitter:label1', content: 'Read time' },
+          { name: 'twitter:data1', content: `${timeToRead} ${pluralize('minute', timeToRead)} ` },
+          { name: 'twitter:label2', content: 'Last edited' },
+          { name: 'twitter:data2', content: `${modifiedDate}` },
+        ]}
       >
         {enableUserWayAccessibilityWidget && (
           <script defer>
@@ -159,7 +188,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
             fileAbsolutePath={fileAbsolutePath}
             title={title}
             timeToRead={timeToRead}
-            lastModifiedDateFormatted={lastModifiedTime}
+            lastModifiedDateFormatted={modifiedDate}
             isLandingPage={isLandingPage}
           />
           <MDXProvider components={components}>
@@ -179,20 +208,25 @@ const Layout: FunctionComponent<LayoutProps> = ({
 
 export const pageQuery = graphql`
   query Query($id: String) {
+    site {
+      siteMetadata {
+        title
+        siteUrl
+      }
+    }
     mdx(id: { eq: $id }, frontmatter: { published: { eq: true } }) {
       body
-      frontmatter {
-        title
-      }
       toc: tableOfContents(maxDepth: 2)
       timeToRead
       fields {
         isLandingPage
         lastModifiedTime(formatString: "MMM DD, YYYY")
+        modifiedDate: lastModifiedTime(formatString: "MMM DD, YYYY")
       }
       frontmatter {
         title
         description
+        path
       }
       fileAbsolutePath
     }
