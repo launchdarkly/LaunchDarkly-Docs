@@ -1,54 +1,82 @@
 ---
 path: '/home/members/built-in-roles'
 title: 'LaunchDarkly''s built-in roles'
-description: 'This topic explains the three built-in roles that come with every LaunchDarkly project.'
+description: 'This topic explains the built-in roles that come with every LaunchDarkly project.'
 published: true
 ---
 
 ## Overview
 
-This topic explains the three built-in roles that come with every LaunchDarkly project, and how they relate to each other.
+This topic explains the built-in roles that come with every LaunchDarkly project, and how they relate to each other.
 
 ## Understanding LaunchDarkly's built-in roles
 
-LaunchDarkly has three built-in roles: `reader`, `writer`, and `owner / admin`. Every new account member must be given one of these roles.
+Every LaunchDarkly account has three built-in roles: `reader`, `writer`, and `owner / admin`. Customers on an Enterprise plan also have a restricted `no access` role.
 
-Every account member must have at least either one of these three built-in roles or a custom role. If you need to, you can also assign account members multiple custom roles to give them the exact set of permissions they need.
+<Callout intent="info">
+<CalloutTitle>The no access role is for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
 
-A account member's initial role is set when they're invited to LaunchDarkly. If not otherwise specified, new account members are assigned the `reader` role. A account member with the ability to do so must adjust a reader's role to give them more advanced permissions.
+The `no access` role is limited to a subset of customers in LaunchDarkly's Early Access Program (EAP). If you want access to this feature, email product@launchdarkly.com.
 
-The one exception to this is the first account member, the person who created your LaunchDarkly account. This role is granted `owner` permissions automatically, because they are required to configure your account completely and add more account members. You can change the account owner when there is more than one account member in your LaunchDarkly project. To learn more, read [Changing account owners](/home/account-security/account-owners).
+</CalloutDescription>
+</Callout>
 
-The three built-in roles are explained in more detail in this table:
+The first account member who created your LaunchDarkly account is granted `owner` permissions automatically, because those permissions are required to configure your account and add more account members. You can change the account owner when there is more than one account member in your LaunchDarkly project. To learn more, read [Changing account owners](/home/account-security/account-owners).
+
+You must assign each additional account member at least one role. You can assign account members a built-in role or one or more custom roles to give them the exact set of permissions they need.
+
+You must set an account member's initial role when you invite them to LaunchDarkly. LaunchDarkly assigns new account members the `reader` role by default, unless you choose a different starting role. If an account member needs more advanced permissions, an account member with permissions to do so must adjust their role under the Members tab on the Account Settings page.
+
+The built-in roles are explained in more detail in this table:
 
 <Table>
   <TableHeader>
-      <TableHeadCell>Role</TableHeadCell>
-      <TableHeadCell>Description</TableHeadCell>
+    <TableHeadCell>Role</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
   </TableHeader>
   <TableBody>
     <TableRow>
       <TableCell>
-      <code>reader</code>
+        <code>reader</code>
       </TableCell>
       <TableCell>
-      Readers can see information in LaunchDarkly, but can't modify it. This role is perfect for members of your organization that need visibility into your feature flags, but shouldn’t be able to modify rollout rules or administer the system.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-      <code>writer</code>
-      </TableCell>
-      <TableCell>
-      Writers can make changes to LaunchDarkly that impact what the platform does. For example, they can modify feature flags, metrics, environments, projects, and more. They can’t add new account members to the account or manage your payment method or plans. This role is appropriate for account members who need the ability to configure how your organization's feature flags work.
+        Readers can see information in LaunchDarkly, but can't modify it. This role is for members of your
+        organization who need visibility into your feature flags, but shouldn’t be able to modify rollout rules or
+        administrative settings.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-      <code>admin</code> and <code>owner/admin</code>
+        <code>writer</code>
       </TableCell>
       <TableCell>
-      Admins can do anything in LaunchDarkly except modify which account member has the owner role. There can be multiple admins in a LaunchDarkly project.<br /><br />Owners can do anything Admins can do in LaunchDarkly, as well as reassign the owner role to another account member.
+        Writers can make changes to LaunchDarkly that impact what the platform does. For example, they can modify
+        feature flags, metrics, environments, projects, and more. They can’t add new account members to the account or manage your payment method or plans. This role for members who need the ability to configure your organization's feature flags.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>admin</code> and <code>owner/admin</code>
+      </TableCell>
+      <TableCell>
+        Admins can do anything in LaunchDarkly except modify which account member has the owner role. You can have
+        multiple admins in your LaunchDarkly account.
+        <br />
+        <br />
+        Owners can do anything Admins can do in LaunchDarkly, as well as reassign the owner role to another account member.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>no access</code>
+      </TableCell>
+      <TableCell>
+        The <code>no access</code> role prevents members from accessing any part of the LaunchDarkly
+        platform. This role is for members who shouldn't be able to see or modify anything until you give them access to specific areas of LaunchDarkly. 
+        <br />
+        <br />
+        Customers on an Enterprise plan with access to the teams feature can add members to teams to give them additional permissions. To learn more, read <a href="/home/teams">Teams</a>.
       </TableCell>
     </TableRow>
   </TableBody>
@@ -56,8 +84,8 @@ The three built-in roles are explained in more detail in this table:
 
 ## Understanding how built-in roles interact with custom roles
 
-You can give account members custom permissions by giving them custom roles. If you need more granular control over which users can do what, custom roles are for you. Custom roles let you define specific permissions for users or groups and apply them across your organization.
+You can give account members granular control to LaunchDarkly using custom roles. Custom roles let you define specific permissions for members or teams and apply them across your organization.
 
-This is useful if you have users with multiple jobs, such as someone who needs access to flags controlled by an engineering team and the support team, or product managers who also code.
+This is useful if you have members with multiple jobs, such as someone who needs access to flags controlled by an engineering team and the support team, or product managers who also code.
 
 To learn more, read [Custom roles](/home/members/custom-roles). To view the current roles for an account member, read [Viewing an individual member's roles](/home/members/custom-roles#viewing-an-individual-members-roles).

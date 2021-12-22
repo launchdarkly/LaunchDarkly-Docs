@@ -29,6 +29,7 @@ To do this:
 1. Log in to LaunchDarkly as an administrator or account owner.
 2. Navigate to the "SSO management" section of the [Security tab](https://app.launchdarkly.com/settings/security) on the Account Settings page:
 
+
 ![The "SSO management" section of the Security tab.](settings-security-enable-sso.png)
 
 
@@ -37,6 +38,19 @@ To do this:
 ![The SAML configuration screen.](settings-security-saml-config.png)
 
 You cannot complete SAML configuration without configuration details from your IdP.
+
+<Callout intent="info">
+<CalloutTitle>The initial SAML role setting is for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+Setting an initial SAML role to `no access` is limited to a subset of customers in LaunchDarkly's Early Access Program (EAP). If you want access to this feature, email product@launchdarkly.com.
+
+</CalloutDescription>
+</Callout>
+
+If you have not specified a role or custom role for new LaunchDarkly members through your IdP, LaunchDarkly sets the default role to `reader`. Certain EAP customers can change the default role to `no access`. To learn more, read [Understanding LaunchDarkly's built-in roles](/home/members/built-in-roles#understanding-launchdarklys-built-in-roles).
+
+![The default initial SAML role dropdown of the SAML configuration page.](default-initial-saml-role.png)
 
 ## Configuring an external IdP
 

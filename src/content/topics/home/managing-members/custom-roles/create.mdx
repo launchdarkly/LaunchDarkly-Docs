@@ -30,10 +30,31 @@ To create a custom role:
 4. Enter a human-readable **Name** for the role.
 5. Enter a **Key** for the role.
 6. (Optional) Enter a **Description** to explain what the role does.
-7. Create a policy in the "Policy" fields.
-8. Click **Save role**:
+7. (Optional) Uncheck the "By default, members can view all LaunchDarkly content" box for this role to start with no access.
+8. Create a policy in the "Policy" fields.
+9. Click **Save Role**:
+
 
 ![The "Create custom role" screen.](settings-roles-create.png)
+
+
+<Callout intent="info">
+<CalloutTitle>The base role setting is for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+Setting a custom role's base role to `no access` is limited to a subset of customers in LaunchDarkly's Early Access Program (EAP). If you want access to this feature, email product@launchdarkly.com.
+
+</CalloutDescription>
+</Callout>
+
+If you keep the "By default, members can view all LaunchDarkly content" box checked, the custom role starts with `reader` permissions. You can use the role's policy to remove view permissions or allow the ability to modify resources.
+
+If you uncheck the box, the custom role starts with `no access` permissions. You can use the role's policy to allow view permissions for specific projects or teams, or allow the ability to modify resources. However, if you give access to modify a resource without giving access to view the project the resource is in, the member still won't be able to see the resource.
+
+For example, suppose you create a custom role with this box unchecked but grant access to modify a flag. Members with the role will not have view access to the project in LaunchDarkly, so will not be able to edit the flag from the LaunchDarkly Dashboard. However, they will be able to make changes to the flag using the API.
+
+![The base role option checkbox in the "Create custom role" screen.](settings-roles-base-role-custom.png)
+
 
 ## Creating policies for custom roles
 
