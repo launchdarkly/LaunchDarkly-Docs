@@ -251,6 +251,19 @@ const theme = makeTheme({
       my: [4, 5],
     },
   },
+  figures: {
+    figure: {
+      mt: 4,
+      mb: 5,
+    },
+    figcaption: {
+      fontSize: 3,
+      fontStyle: 'italic',
+      pt: 2,
+      color: 'graySafe',
+      textAlign: 'center',
+    },
+  },
   images: {
     icon: {
       width: '1.25rem',
@@ -397,20 +410,10 @@ const theme = makeTheme({
         color: 'accent',
       },
     },
-    figcaption: {
-      fontSize: 3,
-      fontStyle: 'italic',
-      pt: 2,
-      color: 'graySafe',
-      textAlign: 'center',
-    },
     p: {
       fontSize: 4,
       lineHeight: 'regular',
       marginBottom: 5,
-      '& figcaption': (theme: Theme) => ({
-        ...theme.styles.figcaption,
-      }),
     },
     ol: {
       marginBottom: [5, 5, 5],

@@ -44,6 +44,7 @@
     "react-helmet": "^6.1.0",
     "react-instantsearch-dom": "^6.18.0",
     "remark-slug": "^6.1.0",
+    "remark-unwrap-images": "^2.1.0",
     "slug": "^5.1.0",
     "theme-ui": "^0.12.1",
     "trackjs": "^3.10.1",

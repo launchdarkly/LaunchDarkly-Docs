@@ -11,7 +11,7 @@ import MdxHeader from './mdx/mdxHeader'
 import { TableOfContents, TOC } from './tableOfContents'
 import Header from './header'
 import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
-import Figure from './mdx/figure'
+import Figure, { FigCaption } from './mdx/figure'
 import Pre from './mdx/pre'
 import DesktopSideNav from './sideNav/desktopSideNav'
 import { CodeTabs, CodeTabItem, Code } from './mdx/code'
@@ -40,6 +40,7 @@ const components = {
   h6: H6,
   a: Link,
   figure: Figure,
+  figcaption: FigCaption,
   Card,
   Metadata,
   Table,
