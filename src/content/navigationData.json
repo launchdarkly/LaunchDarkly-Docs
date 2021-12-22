@@ -1153,6 +1153,10 @@
             "path": "/guides/best-practices/integrations-use-cases"
           },
           {
+            "label": "Migrating your existing feature flag solution to LaunchDarkly",
+            "path": "/guides/best-practices/migrating-solutions"
+          },
+          {
             "label": "Minimizing LaunchDarkly's access to user data",
             "path": "/guides/best-practices/user-data"
           },
