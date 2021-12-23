@@ -151,13 +151,13 @@ To use experiment allocation:
 1. Navigate to the **Targeting** tab of the feature flag you want to add an experiment to.
 2. Click on the graph icon next to the rule you want to run an experiment on, and select “Run an experiment on this rule.”
 
-![The experiment dropdown with the "Run an experiment" option called out.](../../../images/experiment-run-experiment-callout.png)
+![The experiment dropdown with the "Run an experiment" option called out.](experiment-run-experiment-callout.png)
 
 3. Enter the percentage of traffic you want to include in the experiment.
 4. Select which variation you want LaunchDarkly to serve to the remaining population.
 5. (Optional) To disable traffic variation reassignment, click **Advanced**, then check the **Keep users assigned to initial variation** checkbox. We strongly recommend leaving this box **unchecked**. To learn more, read [Using variation reassignment](#using-variation-reassignment).
 
-![The experiment allocation screen.](../../../images/experiment-allocation.png)
+![The experiment allocation screen.](experiment-allocation.png)
 
 ## Benefits of using experiment allocation
 
@@ -177,7 +177,7 @@ First, you add an experiment to a flag with three variations: A, B, and C. You r
 
 An example starting traffic allocation appears below:
 
-![Experiment allocation at 6%](../../../images/experiment-allocation-six-percent.png)
+![Experiment allocation at 6%](experiment-allocation-six-percent.png)
 
 The traffic on the right is receiving variation A, but is not part of the experiment nor its analysis.
 
@@ -185,7 +185,7 @@ Next, you ramp up your experiment to 30% of traffic.
 
 Here is an example of the modified allocation:
 
-![Experiment allocation at 30%](../../../images/experiment-allocation-thirty-percent.png)
+![Experiment allocation at 30%](experiment-allocation-thirty-percent.png)
 
 The traffic that was receiving variations A, B, and C, is now reverted back to A, and new traffic is used for the 30% allocated to the experiment.
 
@@ -193,7 +193,7 @@ Finally, you roll out variations A and B to 50% of traffic each. In this case, t
 
 Here is an example image:
 
-![Experiment allocation at 50%](../../../images/experiment-allocation-fifty-percent.png)
+![Experiment allocation at 50%](experiment-allocation-fifty-percent.png)
 
 This new random assignment prevents carryover bias by ensuring that users from previous variations are evenly distributed between variations A and B.
 
@@ -224,7 +224,7 @@ You add an experiment to a flag with three variations: A, B, and C. You roll out
 
 Here is an example starting traffic allocation:
 
-![Experiment allocation at 6%](../../../images/experiment-allocation-six-percent.png)
+![Experiment allocation at 6%](experiment-allocation-six-percent.png)
 
 The traffic on the right is receiving variation A, but is not part of the experiment nor its analysis.
 
@@ -232,6 +232,6 @@ Next, you increase the experiment to 30% of traffic.
 
 Here is an example experiment with increased traffic:
 
-![Experiment allocation at 30%](../../../images/experiment-allocation-thirty-percent-no-reshuffle.png)
+![Experiment allocation at 30%](experiment-allocation-thirty-percent-no-reshuffle.png)
 
 We suggest you reset your experiment results when you increase traffic to avoid time-varying effects.

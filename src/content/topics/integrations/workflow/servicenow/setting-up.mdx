@@ -42,12 +42,12 @@ To establish an OAuth connection:
 5. Click **Connect to ServiceNow**. An OAuth provider registration modal appears.
 6. Copy the **Redirect URL** to your clipboard.
 
-![LaunchDarkly's ServiceNow OAuth provider registration form.](../../images/servicenow-register-oauth-launchdarkly.png)
+![LaunchDarkly's ServiceNow OAuth provider registration form.](servicenow-register-oauth-launchdarkly.png)
 
 7. In ServiceNow, follow the directions to [create an endpoint for external clients](https://docs.servicenow.com/bundle/paris-platform-administration/page/administer/security/task/t_CreateEndpointforExternalClients.html).
 8. Set the **Redirect URL** to the redirect URL saved to your clipboard in the previous step. Ensure you are following the directions for your ServiceNow version.
 
-![The ServiceNow external client endpoint registration form with the Redirect URL configured.](../../images/servicenow-register-oauth-provider.png)
+![The ServiceNow external client endpoint registration form with the Redirect URL configured.](servicenow-register-oauth-provider.png)
 
 9. In LaunchDarkly's **OAuth provider registration** modal, enter your ServiceNow host URL. For example, if your ServiceNow instance is hosted at `https://launchdarkly.service-now.com`, enter `https://launchdarkly.service-now.com`.
 10. Enter the **Client ID** and **Client Secret** for the client you created in step 5.
@@ -70,7 +70,7 @@ Here's how:
 6. (Optional) Fill in the **Detailed information column name** field with the name of the ServiceNow Change Request column you would like LaunchDarkly to populate with detailed approval request information. This field defaults to `justification` if no value is provided.
 7. Click **Save Settings**.
 
-![LaunchDarkly environment approval settings with ServiceNow configured.](../../images/servicenow-environment-approval-settings.png)
+![LaunchDarkly environment approval settings with ServiceNow configured.](servicenow-environment-approval-settings.png)
 
 ## Creating a LaunchDarkly workflow in ServiceNow for manual approvals
 
@@ -86,15 +86,15 @@ To create a LaunchDarkly approvals workflow in ServiceNow:
 1. Create a new [Workflow Trigger](https://docs.servicenow.com/bundle/quebec-security-management/page/product/security-operations-common/task/create-workflow-triggers.html) for record "Created" on the "Change Request [change_request]" table.
 2. Set two conditions on your trigger: "State" `is` "New" and "Standard Change Template version > Template > Name" `is` "LaunchDarkly template".
 
-![A configured Workflow Trigger in the ServiceNow Flow Designer.](../../images/servicenow-workflow-trigger.png)
+![A configured Workflow Trigger in the ServiceNow Flow Designer.](servicenow-workflow-trigger.png)
 
 3. Add a new "Ask For Approval" Action on your Trigger Change Request Record and set the approval rules.
 
-![A ServiceNow "Ask For Approval" action configuration.](../../images/servicenow-manual-approval.png)
+![A ServiceNow "Ask For Approval" action configuration.](servicenow-manual-approval.png)
 
 4. Add an `if` condition that requires Approval State `is` "Approved".
 
-![A ServiceNow if condition configured for change request approvals.](../../images/servicenow-manual-approval-if.png)
+![A ServiceNow if condition configured for change request approvals.](servicenow-manual-approval-if.png)
 
 5. Add two "Update Change Request Record" Actions as extensions of the `if` condition.
  * Set the first Action to "Update Record" with "State" "Scheduled" on the latest version of the triggering Change Request Record.
@@ -109,15 +109,15 @@ ServiceNow requires change request records to move through states in a certain o
 </CalloutDescription>
 </Callout>
 
-![A ServiceNow update change request record action that moves the "State" to "Scheduled".](../../images/servicenow-if-update-1.png)
+![A ServiceNow update change request record action that moves the "State" to "Scheduled".](servicenow-if-update-1.png)
 
 8. As an extension of the `else` condition, add an "Update Change Request Record" Action that moves the "State" to "Canceled". LaunchDarkly uses this state to determine that the approval request has been rejected.
 
-![A ServiceNow update change request record action that moves the "State" to "Canceled".](../../images/servicenow-else-update.png)
+![A ServiceNow update change request record action that moves the "State" to "Canceled".](servicenow-else-update.png)
 
 You can now request manual approvals in ServiceNow for flag changes in LaunchDarkly.
 
-![A complete ServiceNow workflow for LaunchDarkly manual flag approvals.](../../images/servicenow-completed-manual-flow.png)
+![A complete ServiceNow workflow for LaunchDarkly manual flag approvals.](servicenow-completed-manual-flow.png)
 
 ## Creating a LaunchDarkly workflow in ServiceNow for automatic approvals
 
@@ -130,7 +130,7 @@ To create an automatic approval workflow:
  * "State" `is` "New"
  * "Standard Change Template version > Template > Name" `is` "LaunchDarkly auto-approve template"
 
-![A Workflow Trigger in the ServiceNow Flow Designer.](../../images/servicenow-workflow-trigger.png)
+![A Workflow Trigger in the ServiceNow Flow Designer.](servicenow-workflow-trigger.png)
 
 3. Add two "Update Change Request Record" Actions as extensions of the `if` condition.
 4. On the first Action, set the Action to "Update Record" on the latest version of the triggering Change Request Record. Set "State" to "Scheduled.""
@@ -145,8 +145,8 @@ ServiceNow requires change request records to move through states in a certain o
 </CalloutDescription>
 </Callout>
 
-![A ServiceNow update change request record action that moves the "State" to "Implemented".](../../images/servicenow-if-update-2.png)
+![A ServiceNow update change request record action that moves the "State" to "Implemented".](servicenow-if-update-2.png)
 
 You can now track your LaunchDarkly flag changes in ServiceNow.
 
-![A completed ServiceNow workflow for LaunchDarkly "automatic" approvals.](../../images/servicenow-automatic-approvals.png)
+![A completed ServiceNow workflow for LaunchDarkly "automatic" approvals.](servicenow-automatic-approvals.png)

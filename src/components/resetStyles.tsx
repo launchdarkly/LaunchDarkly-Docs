@@ -17,6 +17,7 @@ const ResetStyles = () => {
         dd,
         blockquote,
         figure,
+        figcaption,
         fieldset,
         legend,
         textarea,

@@ -10,17 +10,17 @@ published: true
 This topic explains how to join LaunchDarkly as a new account member.
 
 <Callout intent="alert">
-<CalloutTitle>LaunchDarkly is for groups and teams</CalloutTitle>
+<CalloutTitle>LaunchDarkly is for groups and organizations</CalloutTitle>
 <CalloutDescription>
 
-You cannot sign up for LaunchDarkly as a user who is not associated with a company's team account. Instead, an admin or account owner from your team must send you an invitation email. If you want to sign up for LaunchDarkly as an individual, you can sign up for a [free 14-day trial](https://launchdarkly.com/start-trial/).
+You cannot sign up for LaunchDarkly as a user who is not associated with an organization's account. Instead, an admin or account owner from your organization must send you an invitation email. If you want to sign up for LaunchDarkly as an individual, you can sign up for a [free 14-day trial](https://launchdarkly.com/start-trial/).
 
 </CalloutDescription>
 </Callout>
 
-## Bringing your team to LaunchDarkly
+## Inviting other members to LaunchDarkly
 
-If you want to get your team started with LaunchDarkly, you have a few different options for how to add account members to your organization:
+If you want to invite other members of your organization to LaunchDarkly, you have a few different options:
 
 - You can invite [individual account members](#adding-individual-account-members)
 - You can import account members from [an IDP or trial](#adding-members-who-signed-up-for-a-trial)
@@ -37,9 +37,9 @@ LaunchDarkly supports the System for Cross-domain Identity Management (SCIM) API
 
 ## Adding individual account members
 
-If your team already has a LaunchDarkly account, an account member with invite privileges (typically an owner or admin) must send individual members email invitations to join the team.
+If your organization already has a LaunchDarkly account, an account member with invite privileges, typically an owner or admin, must send individual members email invitations to join the account.
 
-After prospective members receive the invitation, they follow the sign up instructions to join your team's account.
+After prospective members receive the invitation, they follow the sign up instructions to join your organization's account.
 
 ## Adding members who signed up for a trial
 
@@ -47,12 +47,12 @@ After prospective members receive the invitation, they follow the sign up instru
 <CalloutTitle>Invitations fail when your email address is in use by a trial account</CalloutTitle>
 <CalloutDescription>
 
-If your email address is associated with a trial account, you must de-associate it or delete the trial account  before you can receive an invitation email from your team.
+If your email address is associated with a trial account, you must de-associate it or delete the trial account before you can receive an invitation email from your organization.
 
 </CalloutDescription>
 </Callout>
 
-A LaunchDarkly account can only have one email address associated with it, and one email address cannot be used for multiple LaunchDarkly accounts. If you used your preferred email address to sign up for a trial, you must de-associate it from the trial account before you can join your team's LaunchDarkly account, using one of two methods:
+A LaunchDarkly account can only have one email address associated with it, and one email address cannot be used for multiple LaunchDarkly accounts. If you used your preferred email address to sign up for a trial, you must de-associate it from the trial account before you can join your organization's LaunchDarkly account, using one of two methods:
 
 - Changing your trial account email address
 - Deleting your trial account
@@ -67,11 +67,11 @@ To change the email address associated with your trial account:
 4. Click **Update my info**.
 5. Enter your original login email address and password.
 
-You can now accept an invitation from your team owner using the email address previously associated with the trial account.
+You can now accept an invitation from your organization owner using the email address previously associated with the trial account.
 
 Here is a screenshot of the Profile tab under Account settings:
 
-![The Profile tab with an email address filled in.](../../images/account-settings-profile.png)
+![The Profile tab with an email address filled in.](account-settings-profile.png)
 
 ### Deleting your trial account
 
@@ -85,7 +85,7 @@ To delete your trial account:
 6. Click **Delete account** again. A prompt appears.
 7. Type `yes` in the prompt to confirm.
 
-You can now accept an invitation from your team owner using the email address previously associated with the trial account.
+You can now accept an invitation from your organization owner using the email address previously associated with the trial account.
 
 ## Understanding LaunchDarkly's user entity types
 
@@ -106,7 +106,7 @@ In LaunchDarkly, it is important to distinguish between **account members** and 
     <TableRow>
       <TableCell>"Users"</TableCell>
       <TableCell>
-        These are people or entities who trigger flag evaluations. This can cause them to appear in the Users dashboard in LaunchDarkly, but they cannot log into the team's LaunchDarkly account or see or modify their own or other user's data. They may be customers of a team using LaunchDarkly, consumers of an app or website that uses feature flags, or other entities that can cause flag evaluations to occur.
+        These are people or entities who trigger flag evaluations. This can cause them to appear in the Users dashboard in LaunchDarkly, but they cannot log into the organization's LaunchDarkly account or see or modify their own or other user's data. They may be customers of a company using LaunchDarkly, consumers of an app or website that uses feature flags, or other entities that can cause flag evaluations to occur.
       </TableCell>
     </TableRow>
   </TableBody>

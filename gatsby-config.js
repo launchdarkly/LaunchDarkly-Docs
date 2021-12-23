@@ -26,7 +26,7 @@ const plugins = [
   {
     resolve: 'gatsby-plugin-mdx',
     options: {
-      remarkPlugins: [require('remark-slug')],
+      remarkPlugins: [require('remark-slug'), require('remark-unwrap-images')],
       gatsbyRemarkPlugins: [
         {
           resolve: 'gatsby-remark-relative-images',
@@ -193,7 +193,7 @@ if (isStaging || isProd) {
       queries,
       chunkSize: 10000, // default: 1000
       continueOnFailure: isStaging,
-      // enablePartialUpdates: true,
+      enablePartialUpdates: true,
     },
   })
 }

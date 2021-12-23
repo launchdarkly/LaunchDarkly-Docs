@@ -470,7 +470,6 @@ To pass custom parameters:
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.17.x and earlier', value: 'go-pre-5.0', }
   ]
 }>
 <CodeTabItem value="go">
@@ -484,22 +483,6 @@ import (
 var config ld.Config
 
 config.Events = ldcomponents.SendEvents().FlushInterval(10 * time.Second)
-
-client := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
-
-```go
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-)
-
-// Prior to version 5.0, to start with default values you must copy DefaultConfig:
-config := ld.DefaultConfig
-
-config.FlushInterval = 10 * time.Second
 
 client := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
 ```
@@ -553,7 +536,6 @@ To pass custom parameters:
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
-    { label: 'Java SDK versions 4.12.x and earlier', value: 'java-pre-5.0', }
   ]
 }>
 <CodeTabItem value="java">
@@ -569,18 +551,6 @@ LDConfig config = new LDConfig.Builder()
     Components.sendEvents()
       .flushInterval(Duration.ofSeconds(10))
   )
-  .build();
-LDClient client = new LDClient("YOUR_SDK_KEY", config);
-```
-
-</CodeTabItem>
-<CodeTabItem value="java-pre-5.0">
-
-```java
-LDConfig config = new LDConfig.Builder()
-  .connectTimeout(3)
-  .socketTimeout(3)
-  .flushInterval(10)
   .build();
 LDClient client = new LDClient("YOUR_SDK_KEY", config);
 ```
@@ -648,7 +618,7 @@ client = LaunchDarkly.init("YOUR_SDK_KEY", config);
 </CodeTabItem>
 </CodeTabs>
 
-To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldoptions.html).
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDOptions.html).
 
 ### PHP
 

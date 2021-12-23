@@ -65,7 +65,7 @@ To set up the extension:
 6. (Optional) Enter a **Description**.
 7. Click **Save**.
 
-![The Azure DevOps "New LaunchDarkly service connection" screen.](../images/azuredevops-add-connection.png)
+![The Azure DevOps "New LaunchDarkly service connection" screen.](azuredevops-add-connection.png)
 
 
 ## Creating the rollout task
@@ -85,14 +85,14 @@ To find the rollout task:
 2. Click into the **Deploy** tab.
 3. Choose **LaunchDarkly Rollout**.
 
-![The LaunchDarkly Rollout task in Azure DevOps.](../images/azuredevops-ld-rollout.png)
+![The LaunchDarkly Rollout task in Azure DevOps.](azuredevops-ld-rollout.png)
 
 
 4. Choose the **Account** to update. This menu contains the service endpoints you configured in [Connecting to LaunchDarkly](#connecting-to-launchdarkly).
 5. Set a percentage **Rollout** to apply to your feature flags.
 6. Choose the **Flag state**. This controls whether the flag is on or off on release.
 
-![The task rollout settings.](../images/azuredevops-controlled-rollout.png)
+![The task rollout settings.](azuredevops-controlled-rollout.png)
 
 
 In this example, any feature flags associated with the release are set to be rolled out to 10% of your users in the LaunchDarkly environment you select.
@@ -110,7 +110,7 @@ To configure authentication, define some custom variables to pass between Azure 
 3. Enter the **launchdarkly-project-name**. This is the project name of the Azure DevOps project.
 4. Enter the **launchdarkly-pat**. This is for the Azure DevOps personal access token that the integration will use to reach out to the Azure DevOps API.
 
-![The v3 variable configuration.](../images/azuredevops-variables.png)
+![The v3 variable configuration.](azuredevops-variables.png)
 
 
 ### Pre-v3 versions of the Azure DevOps integration
@@ -127,11 +127,11 @@ To configure authentication, define some custom variables to pass between Azure 
 
 View the feature flags associated with an item from the **Work items** page.
 
-![The LaunchDarkly work items page.](../images/azuredevops-ld-work-items.png)
+![The LaunchDarkly work items page.](azuredevops-ld-work-items.png)
 
 
 When you release to an environment, the rollout task updates any flag you linked with a work item.
 
 This also updates the LaunchDarkly section on your release page. It shows all the feature flags affected by this release.
 
-![The LaunchDarkly section of the release page.](../images/azuredevops-ld-release-page.png)
+![The LaunchDarkly section of the release page.](azuredevops-ld-release-page.png)

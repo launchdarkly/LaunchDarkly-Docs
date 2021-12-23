@@ -13,7 +13,7 @@ To learn more about how tags work within custom role policies, read [Custom role
 
 ## Adding tags to resources
 
-You can add tags to resources in LaunchDarkly with the UI or API. Tag names can include only letters, numbers, periods `.`, underscores `_`, and dashes `-`.
+You can add tags to resources in LaunchDarkly with the user interface (UI) or API. Tag names can include only letters, numbers, periods `.`, underscores `_`, and dashes `-`.
 
 To learn more, read [Other flag settings](/home/flags/settings).
 
@@ -21,7 +21,7 @@ To learn more, read [Other flag settings](/home/flags/settings).
 
 In the LaunchDarkly UI, you can only specify tags in custom roles from the advanced editor.
 
-For example, the below statement allows a user with this role to perform all actions at the flag level for flags tagged `tag1` and `tag2`:
+For example, the below statement allows a member with this role to perform all actions at the flag level for flags tagged `tag1` *and* `tag2`:
 
 <CodeTabs
   defaultValue="json"
@@ -44,7 +44,8 @@ For example, the below statement allows a user with this role to perform all act
 
 You can also separate multiple tags for a resource with statements to create an "or" condition.
 
-In the example below, two statements your member access to flags tagged `tag1` **or** `tag2`:
+In the example below, the two statements allow member access to flags tagged either `tag1` *or* `tag2`:
+
 
 <CodeTabs
   defaultValue="json"
@@ -63,6 +64,33 @@ In the example below, two statements your member access to flags tagged `tag1` *
 },
 {
     "resources": ["proj/*:env/*:flag/*;tag2"],
+    "actions": ["*"],
+    "effect": "allow"
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The following example gives a member access to all flags *except* those tagged either `tag1` or `tag2`:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Statements', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+{
+    "notResources": ["proj/*:env/*:flag/*;tag1"],
+    "actions": ["*"],
+    "effect": "allow"
+},
+{
+    "notResources": ["proj/*:env/*:flag/*;tag2"],
     "actions": ["*"],
     "effect": "allow"
 }
