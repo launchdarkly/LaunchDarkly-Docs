@@ -8,8 +8,12 @@ export default function Figure(props: any) {
       {...props}
       sx={{
         img: { variant: 'cards.image' },
-        my: 4,
+        variant: 'figures.figure',
       }}
     />
   )
+}
+
+export function FigCaption(props: any) {
+  return <figcaption {...props} sx={{ variant: 'figures.figcaption' }} />
 }

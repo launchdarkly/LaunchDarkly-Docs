@@ -114,21 +114,6 @@ config.DataStore = ldcomponents.PersistentDataStore(
         Prefix("my-key-prefix"),
 ).CacheSeconds(30)
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
-
-
-// Before version 5.0, the syntax was different:
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-    "gopkg.in/launchdarkly/go-server-sdk.v4/ldconsul"
-)
-
-factory, err := ldconsul.NewConsulFeatureStoreFactory(
-    ldconsul.Address("http://my-consul:8100"),
-    ldconsul.Prefix("my-key-prefix"),
-    ldconsul.CacheTTL(30 * time.Second))
-config := ld.DefaultConfig
-config.FeatureStoreFactory = factory
-client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
 </CodeTabItem>
@@ -162,20 +147,6 @@ LDConfig config = new LDConfig.Builder()
   )
   .build();
 LDClient client = new LDClient(sdkKey, config);
-
-
-// Before version 5.0, the syntax was different:
-import com.launchdarkly.client.*;
-import com.launchdarkly.client.consul.*;
-
-LDConfig deprecatedConfig = new Config.Builder()
-  .featureStoreFactory(
-    ConsulComponents.consulFeatureStore()
-      .url(URL.create("http://my-consul:8100"))
-      .prefix("my-key-prefix")
-      .caching(FeatureStoreCacheConfig.enabled().withTtlSeconds(30))
-  )
-  .build();
 ```
 
 </CodeTabItem>

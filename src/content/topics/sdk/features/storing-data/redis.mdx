@@ -182,21 +182,6 @@ config.DataStore = ldcomponents.PersistentDataStore(
         Prefix("my-key-prefix"),
 ).CacheSeconds(30)
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
-
-
-// Before version 5.0, the syntax was different:
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-    ldredis "gopkg.in/launchdarkly/go-server-sdk.v4/redis"
-)
-
-factory, err := ldredis.NewRedisFeatureStoreWithDefaults(
-    ldredis.HostAndPort("my-redis", 6379),
-    ldredis.Prefix("my-key-prefix"),
-    ldredis.CacheTTL(30 * time.Second))
-config := ld.DefaultConfig
-config.FeatureStoreFactory = factory
-client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
 </CodeTabItem>
@@ -236,7 +221,7 @@ main = do
 
 ### Java
 
-In the Java SDK 5.0 and later, you must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-redis-store`](https://github.com/launchdarkly/java-server-sdk-redis). In Java SDK 4.x and earlier, this integration is part of the main SDK distribution.
+You must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-redis-store`](https://github.com/launchdarkly/java-server-sdk-redis).
 
 <CodeTabs
   defaultValue="java"
@@ -260,18 +245,6 @@ LDConfig config = new LDConfig.Builder()
   )
   .build();
 LDClient client = new LDClient(sdkKey, config);
-
-
-// Before version 5.0, the syntax was different:
-import com.launchdarkly.client.*;
-
-LDConfig config = new LDConfig.Builder()
-  .featureStoreFactory(
-    Components.redisFeatureStore(URI.create("redis://my-redis:6379"))
-      .prefix("my-key-prefix")
-      .cacheTime(30, TimeUnit.SECONDS)
-  )
-  .build();
 ```
 
 </CodeTabItem>

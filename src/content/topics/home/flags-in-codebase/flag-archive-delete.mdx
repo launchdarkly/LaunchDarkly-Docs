@@ -23,13 +23,13 @@ To archive a flag:
 2. Find the flag you wish to archive and click the overflow menu.
 3. Click **Archive**. The "Archive this flag?" screen appears. If the flag has dependencies, you cannot archive it:
 
-![A flag that cannot be archived due to dependencies.](../../images/flag-cannot-archive.png)
+![A flag that cannot be archived due to dependencies.](flag-cannot-archive.png)
 
 To learn how to resolve flag dependencies, read [Resolving dependencies](#resolving-dependencies).
 
 3. Choose the environments your team or customers depend on to confirm you can archive the flag from those environments without unintended consequences. Verify that the flag is not in use by reviewing its states in the flag archive fields:
 
-![A flag with no dependencies that prevent it from being archived.](../../images/flag-can-archive.png)
+![A flag with no dependencies that prevent it from being archived.](flag-can-archive.png)
 
 <Callout intent="alert">
 <CalloutTitle>Archiving a flag removes it from every environment in your project</CalloutTitle>
@@ -56,12 +56,12 @@ If users request a flag after you archive it, the flag value that returns is the
 
 Archived flags are indicated with a grey and white striped background:
 
-![An archived flag.](../../images/flag-archived.png)
+![An archived flag.](flag-archived.png)
 
 
 You can also archive a flag from the flag's Settings page:
 
-![The archive option on a flag's Settings page.](../../images/flag-settings-archive.png)
+![The archive option on a flag's Settings page.](flag-settings-archive.png)
 
 ## Resolving dependencies
 
@@ -69,7 +69,7 @@ You cannot archive flags that are prerequisites of other flags. If you attempt t
 
 Here is a screenshot of the "Archive this flag?" screen:
 
-![The "Archive this flag?" screen with dependencies that block it from being archived.](../../images/flag-cannot-archive.png)
+![The "Archive this flag?" screen with dependencies that block it from being archived.](flag-cannot-archive.png)
 
 If the flag is a prerequisite of other flags, you cannot archive it. You must remove the flag as a prerequisite before you can archive it.
 
@@ -82,18 +82,18 @@ These dependencies are:
 
 Here is a screenshot of the "Archive this flag?" screen:
 
-![A flag with dependencies that do not block it from being archived.](../../images/flag-archive-mixed-dependencies.png)
+![A flag with dependencies that do not block it from being archived.](flag-archive-mixed-dependencies.png)
 
 ## Viewing and restoring archived flags
 
 Archived flags are visible from the flag dashboard. Click the overflow button to see an option to view them:
 
-![The "View archived flags" option.](../../images/flag-compare-archive-menu.png)
+![The "View archived flags" option.](flag-compare-archive-menu.png)
 
 
 Archived flags appear on their own dashboard, which is indicated with grey and white stripes:
 
-![The "Archived feature flags" screen.](../../images/flag-archived.png)
+![The "Archived feature flags" screen.](flag-archived.png)
 
 
 To restore an archived flag:
@@ -101,7 +101,7 @@ To restore an archived flag:
 1. Navigate to the "Archived feature flags" screen and find the flag you wish to restore.
 2. Click **Restore**. The "Restore this flag?" screen appears:
 
-![An archived flag with the "Restore" button called out.](../../images/flag-archive-restore-callout.png)
+![An archived flag with the "Restore" button called out.](flag-archive-restore-callout.png)
 
 
 3. Confirm that the flag state is such that restoring the flag will have no unexpected consequences.
@@ -118,12 +118,12 @@ When you restore an archived flag, it returns to evaluation just like any other 
 4. Type the flag's name in the "Restore flag" text box.
 5. Click **Restore**. The flag appears in the flag dashboard:
 
-![The "Restore this flag?" screen.](../../images/flag-archive-restore-confirm.png)
+![The "Restore this flag?" screen.](flag-archive-restore-confirm.png)
 
 
 You can also restore an archived flag from the flag's Settings page:
 
-![The "Restore flag" section of the flag's Settings page.](../../images/flag-settings-restore.png)
+![The "Restore flag" section of the flag's Settings page.](flag-settings-restore.png)
 
 
 ## Deleting archived flags
@@ -146,12 +146,12 @@ To delete an archived flag:
 1. Click on the **edit menu** button (three horizontal lines) next to the **+ Flag** button.
 2. Click on the **View archived flags** dropdown. The "Archived feature flags" screen appears:
 
-![The Edit menu with the **View archived flags** option selected.](../../images/flag-compare-archive-menu.png)
+![The Edit menu with the **View archived flags** option selected.](flag-compare-archive-menu.png)
 
 3. Find the flag you wish to delete.
 4. Click **Delete**. The "Delete this flag?" screen appears:
 
-![The "Archived feature flags" screen with the Delete button called out.](../../images/flag-archive-restore-callout.png)
+![The "Archived feature flags" screen with the Delete button called out.](flag-archive-restore-callout.png)
 
 
 5. Type the flag's name in the checkbox to confirm.

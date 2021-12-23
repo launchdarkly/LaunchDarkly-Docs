@@ -1,0 +1,66 @@
+###
+### Display
+###
+# Verbose program output
+verbose = true
+
+# Show progress
+progress = false
+
+###
+### Exclusions
+###
+# Exclude URLs from checking (supports regex)
+exclude = [
+  'https://sdk.launchdarkly.',
+  'https://stream.launchdarkly.',
+  'https://events.launchdarkly.',
+  'https://clientstream.launchdarkly.',
+  'https://clientsdk.launchdarkly.',
+  'https://app.launchdarkly.',
+  'https://console.aws.',
+  'https://mockbin.org',
+  'https://glitch.com',
+  'https://app.logdna.com',
+  'https://help.sleuth.io',
+  'https://launchdarkly.service-now.com',
+  'https://cocoapods.org',
+  'https://www.makeuseof.com/tag/md5-hash-stuff-means-technology-explained/',
+  'https://help.amplitude.com',
+  'https://currentmillis.com',
+  'https://support.launchdarkly.com',
+  'https://support.pendo.io',
+  'https://developers.cloudflare.com',
+  # specific example links
+  '^https://launchdarkly.github.io/$',
+  # ignore git clone links
+  'https://github.com/.+/.+.git',
+  # links used in examples
+  '.*domain.com',
+  'https://base.custom_domain',
+  'https://events.custom_domain',
+  '.*your-domain.*',
+  'http://example.*',
+  'https://example.*',
+  'http://temp/variable',
+  'http://my-consul:8100*',
+  'http://my-relay-host.*',
+  'http://my-relay-proxy.*',
+  'http://my-proxy.*',
+  'http://web-proxy.*',
+  '(.)+proxy_host(.)+',
+  'https://gitlab.com/\$%7BCI_PROJECT_PATH%7D/.*',
+  'https://yourlinkhere.com',
+  'https://.*.mycompany.launchdarkly.com',
+  'https://unpkg.com',
+  'https://cdn.jsdelivr.net',
+  'https://launchdarklydemostack1-s3bucketforwebsitecontent-jffmp2434grq.s3.amazonaws.com/site/',
+  # Repeated 404s on these links - [Issue opened](https://github.com/lycheeverse/lychee/issues/431)
+  'https://github.com/marketplace/actions/launchdarkly-code-references',
+  'https://github.com/features/actions',
+]
+
+# Exclude all private IPs from checking
+# Equivalent to setting `exclude_private`, `exclude_link_local`, and `exclude_loopback` to true
+exclude_all_private = true
+exclude_mail = true

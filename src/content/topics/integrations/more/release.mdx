@@ -42,16 +42,16 @@ To set up the integration:
 1. Log in to your Release account.
 2. Navigate to **Manage Accounts**.
 
-![The Accounts menu with "Manage Accounts" selected.](../../images/release-select-manage-accounts.png)
+![The Accounts menu with "Manage Accounts" selected.](release-select-manage-accounts.png)
 
 3. Choose your account.
 
-![A list of available accounts.](../../images/release-select-account-to-manage.png)
+![A list of available accounts.](release-select-account-to-manage.png)
 
 4. Choose **Integrations** and find "LaunchDarkly" in the "Available Integrations" section.
 5. Click **Setup**. The setup form appears.
 
-![The Integrations menu.](../../images/release-manage-integrations.png)
+![The Integrations menu.](release-manage-integrations.png)
 
 Every field in the setup form is required, and all but one have defaults you can use.
 
@@ -61,7 +61,7 @@ The fields in the setup form are:
 * **Access Token**: This is the token for the account under which you would like Release to create environments in LaunchDarkly. Create a new access token in the **Authorization** tab of the **Account Settings** page in LaunchDarkly. To learn more, read [Creating API access tokens](/home/account-security/api-access-tokens#creating-api-access-tokens).
 * **Environment Variables**: The last three form elements define the names of the environment variables where Release stores the API keys from LaunchDarkly. You can change them to anything you like. Release uses these environment variables to store API keys as Kubernetes secrets.
 
-![An example LaunchDarkly configuration.](../../images/release-setup-ld-integration.png)
+![An example LaunchDarkly configuration.](release-setup-ld-integration.png)
 
 After you save the configuration, Release uses the **Access Token** to connect to your LaunchDarkly account.
 
@@ -72,17 +72,17 @@ The integration can take two actions, both of which are automated and handled by
 * **Pre-Deployment step:** This step adds a task to each of your deployments to create the feature flag environment.
 * **Pre-Delete step:** When you delete an environment, this step deletes the environment in LaunchDarkly.
 
-![A diagram of the environment creation workflow.](../../images/release-ld-integration-workflow.png)
+![A diagram of the environment creation workflow.](release-ld-integration-workflow.png)
 
 ### Understanding the Pre-Deployment step
 
 The Pre-Deployment step occurs when you first deploy a space or a new configuration. It creates the environment in LaunchDarkly only the first time it runs.
 
-![A completed Pre-Deployment step in Release.](../../images/release-pre-deployment-step.png)
+![A completed Pre-Deployment step in Release.](release-pre-deployment-step.png)
 
 After the Pre-Deployment step, the environment variables you specified populate and become available to your containers.
 
-![LaunchDarkly-specific environments as Kubernetes secrets.](../../images/release-ld-envs.png)
+![LaunchDarkly-specific environments as Kubernetes secrets.](release-ld-envs.png)
 
 You can use these environment variables in your code to access your feature flags.
 

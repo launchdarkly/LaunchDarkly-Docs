@@ -125,19 +125,6 @@ config.DataStore = ldcomponents.PersistentDataStore(
     lddynamodb.DataStore("my-table"),
 ).CacheSeconds(30)
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
-
-
-// Before version 5.0, the syntax was different:
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-    "gopkg.in/launchdarkly/go-server-sdk.v4/lddynamodb"
-)
-
-factory, err := lddynamodb.NewDynamoDBFeatureStoreFactory("my-table",
-    lddynamodb.CacheTTL(30 * time.Second))
-config := ld.DefaultConfig
-config.FeatureStoreFactory = factory
-client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
 </CodeTabItem>
@@ -170,18 +157,6 @@ LDConfig config = new LDConfig.Builder()
   )
   .build();
 LDClient client = new LDClient(sdkKey, config);
-
-
-// Before version 5.0, the syntax was different:
-import com.launchdarkly.client.*;
-import com.launchdarkly.client.dynamodb.*;
-
-LDConfig config = new LDConfig.Builder()
-  .featureStoreFactory(
-    DynamoDbComponents.dynamoDbFeatureStore("my-table")
-      .caching(FeatureStoreCacheConfig.enabled().withTtlSeconds(30));
-  )
-  .build();
 ```
 
 </CodeTabItem>

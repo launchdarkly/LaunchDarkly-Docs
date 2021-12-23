@@ -285,18 +285,6 @@ config.DataStore = ldcomponents.PersistentDataStore(
     examplepackage.DataStore().SomeStoreOptions(),
 )
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
-
-
-// Before version 5.0, the syntax was different:
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-    examplepackage "gopkg.in/launchdarkly/go-server-sdk.v4/some-example-database"
-)
-
-factory, err := examplepackage.NewExampleFeatureStoreFactory(someStoreOptions)
-config := ld.DefaultConfig
-config.FeatureStoreFactory = factory
-client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
 </CodeTabItem>
@@ -430,15 +418,6 @@ LDConfig config = new LDConfig.Builder()
   )
   .build();
 LDClient client = new LDClient(sdkKey, config);
-
-
-// Before version 5.0, the syntax was different:
-import com.launchdarkly.client.*;
-import com.launchdarkly.client.integrations.*;
-
-LDConfig config = new LDConfig.Builder()
-  .featureStoreFactory(new SomeFeatureStoreBuilder(storeOptions))
-  .build();
 ```
 
 </CodeTabItem>
@@ -470,16 +449,6 @@ LDConfig config = new LDConfig.Builder()
   .dataSource(Components.externalUpdatesOnly())  // <-- the extra option
   .build();
 LDClient client = new LDClient(sdkKey, config);
-
-
-// Before version 5.0, the syntax was different:
-
-import com.launchdarkly.client.*;
-
-LDConfig config = new LDConfig.Builder()
-  .featureStoreFactory(new SomeFeatureStoreBuilder(storeOptions))
-  .useLdd(true)
-  .build();
 ```
 
 </CodeTabItem>

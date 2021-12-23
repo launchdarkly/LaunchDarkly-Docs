@@ -79,7 +79,7 @@ const store = RedisFeatureStore();
 
 ## Understanding changes to logging
 
-Previously, if you did not specify your own logger in the [`logger`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldoptions.html#logger) property, the SDK used [`winston`](https://www.npmjs.com/package/winston) to create a logger.
+Previously, if you did not specify your own logger in the [`logger`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDOptions.html#logger) property, the SDK used [`winston`](https://www.npmjs.com/package/winston) to create a logger.
 
 In versions 6.0 and higher of the SDK, if you do not specify your own logger, the SDK writes log output directly to the console. It uses the same format that it was previously using with `winston`, so you may not notice any difference.
 

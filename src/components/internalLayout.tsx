@@ -8,6 +8,7 @@ import Reset from './resetStyles'
 import { Code, CodeTabItem, CodeTabs } from './mdx/code'
 import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
 import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
+import Details from './mdx/details'
 
 const components = {
   pre: function Pre({ children }: React.HTMLProps<HTMLPreElement>) {
@@ -22,6 +23,7 @@ const components = {
   LearnMoreLink,
   CodeTabs,
   CodeTabItem,
+  Details,
 }
 
 interface LayoutProps {

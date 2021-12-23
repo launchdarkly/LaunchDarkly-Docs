@@ -25,7 +25,7 @@ The LaunchDarkly sidebar has a dropdown widget that shows you the current projec
 
 Here is a screenshot of the Switch environment menu:
 
-![The Environment switching widget.](../../images/env-switcher.png)
+![The Environment switching widget.](env-switcher.png)
 
 
 You can manage your environments from the Account settings page. Here, you can add new environments to a project (for example, to give each developer on your team their own environment for local testing).
@@ -35,7 +35,7 @@ To add a new environment:
 1. Navigate to the **Account Settings** page.
 2. Click **Create environment**. The "Create an environment" screen appears:
 
-![The Account Settings page with the new environment button called out.](../../images/env-new-callout.png)
+![The Account Settings page with the new environment button called out.](env-new-callout.png)
 
 <Callout intent="alert">
 <CalloutTitle>Make sure you're in the right project</CalloutTitle>
@@ -98,14 +98,14 @@ The TTL setting checkbox only applies to environments using the PHP SDK. To lear
 11. Choose a **Color** to differentiate this environment from other environments.
 12. Click **Save Environment**. The new environment appears on the Account Settings page:
 
-![The Create an environment screen.](../../images/env-create.png)
+![The Create an environment screen.](env-create.png)
 
 
 ## Migrating content between environments
 
 You can migrate some, but not all, content between environments. Compare and copy flag settings between environments from the LaunchDarkly UI. To learn more, read [Compare and copy flag settings](/home/organize/flag-compare-copy).
 
-Alternatively, use the REST API to migrate flags from one environment to another. First, GET the feature flag you wish to import, then PATCH to update the flag configuration in production.
+Alternatively, customers on a Pro or Enterprise plan can use the REST API to migrate flags from one environment to another. First, GET the feature flag you wish to import, then PATCH to update the flag configuration in production.
 
 To learn more about these endpoints, read [Get feature flag](https://apidocs.launchdarkly.com/tag/Feature-flags#operation/getFeatureFlag) and [Update feature flag](https://apidocs.launchdarkly.com/tag/Feature-flags#operation/patchFeatureFlag).
 
@@ -117,7 +117,7 @@ When you edit an environment, you see the option to reset your SDK or mobile key
 
 Here is an image of the SDK key reset screen:
 
-![The SDK key reset screen.](../../images/env-sdk-key-reset.png)
+![The SDK key reset screen.](env-sdk-key-reset.png)
 
 
 ## TTL settings

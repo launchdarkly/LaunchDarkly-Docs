@@ -450,8 +450,6 @@ Here's how:
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.12.x-4.17.x', value: 'go-pre-5.0', },
-    { label: 'Go SDK versions 4.11.x and earlier', value: 'go-pre-4.12', },
   ]
 }>
 <CodeTabItem value="go">
@@ -475,53 +473,6 @@ config.Logging = ldcomponents.Logging().
 
 // Or, disable logging
 config.Logging = ldcomponents.NoLogging()
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
-
-```go
-
-import (
-    "log"
-    "os"
-    ldlog "gopkg.in/launchdarkly/go-sdk-common.v2"
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-)
-
-config := ld.DefaultConfig
-
-// Send output to a file, and change minimum level to Warn (Debug and Info are disabled)
-file, _ := os.Create("app.log")
-config.Loggers.SetBaseLogger(log.New(file, "", log.LstdFlags))
-config.Loggers.SetMinLevel(ldlog.Warn)
-
-// Or, disable logging
-config.Loggers = ldlog.NewDisabledLoggers()
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-4.12">
-
-```go
-
-import (
-    "io/ioutil"
-    "log"
-    "os"
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-)
-
-config := ld.DefaultConfig
-
-// The SDK did not support log levels prior to 4.12.
-
-// Send output to a file
-file, _ := os.Create("app.log")
-config.Logger = log.New(file, "", log.LstdFlags)
-
-// Or, disable logging
-config.Logger = log.new(ioutil.Discard, "", 0)
 ```
 
 </CodeTabItem>
@@ -561,7 +512,7 @@ In the default configuration, the SDK sends output to the console and enables al
 
 Versions 5.x and earlier of the SDK used the [`winston`](https://www.npmjs.com/package/winston) logging package for the default configuration. Versions 6.0 and later do not have a dependency on `winston`. Instead, they write directly to the console by default.
 
-For full control over logging behavior, you can set the [`logger`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldoptions.html#logger) option to an object that implements the `LDLogger` interface. To learn more about the logger's requirements and methods, read [LDLogger](http://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldlogger.html). The `winston` package is compatible with this interface, so if you are already using a `winston` logger, you can pass it directly to the SDK.
+For full control over logging behavior, you can set the [`logger`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDOptions.html#logger) option to an object that implements the `LDLogger` interface. To learn more about the logger's requirements and methods, read [LDLogger](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDLogger.html). The `winston` package is compatible with this interface, so if you are already using a `winston` logger, you can pass it directly to the SDK.
 
 You can use [`basicLogger`](https://launchdarkly.github.io/node-server-sdk/index.html#basicLogger) for simpler control over logging behavior. Versions 5.x and earlier of the SDK do not support `basicLogger`.
 

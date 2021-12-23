@@ -322,6 +322,10 @@
             "path": "/home/billing/usage-metrics"
           },
           {
+            "label": "LaunchDarkly features and plans",
+            "path": "/home/billing/plans"
+          },
+          {
             "label": "Your Billing tab",
             "path": "/home/billing/billing-tab"
           }
@@ -1147,6 +1151,10 @@
           {
             "label": "Integrations use cases",
             "path": "/guides/best-practices/integrations-use-cases"
+          },
+          {
+            "label": "Migrating your existing feature flag solution to LaunchDarkly",
+            "path": "/guides/best-practices/migrating-solutions"
           },
           {
             "label": "Minimizing LaunchDarkly's access to user data",

@@ -24,6 +24,6 @@ LaunchDarkly SDKs that support New Relic will automatically detect whether you h
 
 If LaunchDarkly detects New Relic, LaunchDarkly adds a [custom attribute](https://docs.newrelic.com/docs/telemetry-data-platform/custom-data/custom-events/apm-report-custom-events-attributes/) for every feature flag request call made within a New Relic transaction trace.
 
-![In this transaction, a feature flag with key "map.save.header" was requested, and the variation returned was "true".](../images/new-relic-custom-attribute.png)
+![In this transaction, a feature flag with key "map.save.header" was requested, and the variation returned was "true".](new-relic-custom-attribute.png)
 
 You can see custom attributes for particular transactions on your New Relic dashboard, or use [NRQL](https://docs.newrelic.com/docs/query-your-data/nrql-new-relic-query-language/get-started/nrql-syntax-clauses-functions/) to explore how feature flags impact performance across many transactions.

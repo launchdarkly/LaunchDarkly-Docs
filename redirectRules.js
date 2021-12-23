@@ -117,6 +117,10 @@ module.exports = [
     toPath: '/home/users/anonymous-users',
   },
   {
+    fromPath: '/home/managing-users/synced-segments',
+    toPath: '/home/users/synced-segments',
+  },
+  {
     fromPath: '/home/account-security/managing-your-team',
     toPath: '/home/team/managing',
   },
@@ -397,6 +401,10 @@ module.exports = [
     toPath: '/home/getting-started/feature-flags',
   },
   {
+    fromPath: '/docs/managing-a-feature-flag',
+    toPath: '/home/flags',
+  },
+  {
     fromPath: '/docs/flags-index',
     toPath: '/home/managing-flags',
   },
@@ -566,6 +574,10 @@ module.exports = [
   },
   {
     fromPath: '/docs/running-ab-tests',
+    toPath: '/home/experimentation',
+  },
+  {
+    fromPath: '/docs/running-an-ab-test',
     toPath: '/home/experimentation',
   },
   {
@@ -770,6 +782,10 @@ module.exports = [
   },
   {
     fromPath: '/docs/getting-started-with-launchdarkly-sdks',
+    toPath: '/sdk',
+  },
+  {
+    fromPath: '/docs/sdk-setup',
     toPath: '/sdk',
   },
   {

@@ -17,13 +17,20 @@ const markStyles = {
   },
 }
 const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, onClick }) => {
-  const { path, displayCategory } = hit
+  const { path, displayCategory, _highlightResult } = hit
+  // At the moment, query will only be used for page text,
+  // not categories or title
+  const terms = _highlightResult.excerpt.matchedWords.join('+')
+  const [mainPath, hash] = path.split('#')
+  const query = terms ? `?q=${terms}` : ''
+  const addHash = hash ? `#${hash}` : ''
+  const queryPath = `${mainPath}/${query}${addHash}`
   const onClickWrapper = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
-    onClick(path)
+    onClick(queryPath)
   }
   return (
-    <GatsbyLink to={path} sx={{ textDecoration: 'none' }} onClick={onClickWrapper}>
+    <GatsbyLink to={queryPath} sx={{ textDecoration: 'none' }} onClick={onClickWrapper}>
       <Flex px={5} py={3} sx={{ flexDirection: 'column', '&:hover': { bg: 'grayLight' } }}>
         <Highlight hit={hit} attribute="title" tagName="mark" sx={{ color: 'primarySafe', ...markStyles }} />
         <Box pt={2} sx={{ color: 'graySafe', fontSize: 2, fontWeight: 'bold' }}>
