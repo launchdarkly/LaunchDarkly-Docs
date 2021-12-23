@@ -184,16 +184,18 @@ const Layout: FunctionComponent<LayoutProps> = ({
         <DesktopSideNav />
 
         <main sx={{ gridArea: 'main', px: [5, 7, 8], pt: '2.75rem' }}>
-          <MdxHeader
-            fileAbsolutePath={fileAbsolutePath}
-            title={title}
-            timeToRead={timeToRead}
-            lastModifiedDateFormatted={modifiedDate}
-            isLandingPage={isLandingPage}
-          />
-          <MDXProvider components={components}>
-            <MDXRenderer>{body}</MDXRenderer>
-          </MDXProvider>
+          <article>
+            <MdxHeader
+              fileAbsolutePath={fileAbsolutePath}
+              title={title}
+              timeToRead={timeToRead}
+              lastModifiedDateFormatted={modifiedDate}
+              isLandingPage={isLandingPage}
+            />
+            <MDXProvider components={components}>
+              <MDXRenderer>{body}</MDXRenderer>
+            </MDXProvider>
+          </article>
         </main>
         {!isLandingPage && (
           <aside sx={{ gridArea: 'aside', pt: 4, display: ['none', 'none', 'block'], width: '18rem' }}>
