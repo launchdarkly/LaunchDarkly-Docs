@@ -162,8 +162,8 @@ Here is a diagram representing an example migration strategy:
 
 Depending on the complexity of your current data store and your volume of traffic, you may want to break your migration into even more steps. Here are some additional variations to consider:
 
-* **Create flags for critical workflows.** Rather than wrapping all of your reads and writes in just two flags, create additional pairs of read/write flags for specific, critical workflows in your application. You can roll these out separately to further mitigate risk.
-* **Create flags for workflows that are changing.** Sometimes an infrastructure change necessitates a functional change. For example, if you are migrating between two different kinds of databases, you may have to rework some of your queries substantially. Wrapping these changes in a separate flag makes it easier to evaluate their performance and correctness independently of your other updates.
+* **Create flags for critical processes.** Rather than wrapping all of your reads and writes in just two flags, create additional pairs of read/write flags for specific, critical processes in your application. You can roll these out separately to further mitigate risk.
+* **Create flags for processes that are changing.** Sometimes an infrastructure change necessitates a functional change. For example, if you are migrating between two different kinds of databases, you may have to rework some of your queries substantially. Wrapping these changes in a separate flag makes it easier to evaluate their performance and correctness independently of your other updates.
 * **Use flags for tuning.** In addition to flags that control reading and writing to each database, you can add flags within your DAO to help you tune the implementation for your new system. For example, if you are moving to a highly distributed database, you might use an integer flag type to tune the sizes you use for bulk inserts. To learn more about multivariate flags, read [Creating flag variations](/home/flags/variations).
 
 ## Migrating between schemas with feature flags
