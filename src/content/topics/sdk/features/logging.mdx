@@ -70,7 +70,7 @@ if (BuildConfig.DEBUG) {
 
 ### Electron
 
-By default, the SDK uses the [`winston`](https://www.npmjs.com/package/winston) package. There are four logging levels: `debug`, `info`, `warn`, and `error`; by default, `debug` and `info` messages are hidden.
+By default, the SDK uses the [`winston`](https://www.npmjs.com/package/winston) package. There are four logging levels: `debug`, `info`, `warn`, and `error`. By default, `debug` messages are hidden.
 
 To change the logging configuration, you can set `LDOptions.logger` to either another Winston instance or any object that implements the `LDLogger` interface. The `createConsoleLogger` function creates a minimal logger.
 
