@@ -23,7 +23,7 @@ To reduce the size of the SDK code, some dependencies have been removed or made 
 
 * `redis`: The Redis integration is no longer included in the SDK package. It is now a separate package. To learn more, see "Understanding changes to the Redis integration".
 * `winston`: The SDK no longer uses the `winston` package by default. You can still use `winston`. To learn more, see "Understanding changes to logging".
-* `yaml`: The SDK no longer uses the `yaml` package by default. This only affects [`FileDataSource`](https://launchdarkly.github.io/node-server-sdk/index.html#filedatasource). To learn more, see "Understanding changes to the file data source".
+* `yaml`: The SDK no longer uses the `yaml` package by default. This only affects [`FileDataSource`](https://launchdarkly.github.io/node-server-sdk/modules/_launchdarkly_node_server_sdk_.html#FileDataSource). To learn more, read "Understanding changes to the file data source".
 
 ## Understanding changes to the Redis integration
 
@@ -85,11 +85,11 @@ In versions 6.0 and higher of the SDK, if you do not specify your own logger, th
 
 If you want to use `winston`, you can still create a `winston` logger and put it in the SDK's `logger` property. This works exactly the same as before. The only difference is that you must make sure `winston` exists as a dependency in your project, instead of the dependency being provided automatically by the SDK.
 
-The SDK also has a new option to allow configuring a simple logger without using `winston`. To learn more, read [`basicLogger`](https://launchdarkly.github.io/node-server-sdk/index.html#basicLogger).
+The SDK also has a new option to allow configuring a simple logger without using `winston`. To learn more, read [`basicLogger`](https://launchdarkly.github.io/node-server-sdk/modules/_launchdarkly_node_server_sdk_.html#basicLogger).
 
 ## Understanding changes to the file data source
 
-The [`FileDataSource`](https://launchdarkly.github.io/node-server-sdk/index.html#filedatasource) component allows you to load feature flag data from files. The file data can be either JSON or YAML.
+The [`FileDataSource`](https://launchdarkly.github.io/node-server-sdk/modules/_launchdarkly_node_server_sdk_.html#FileDataSource) component allows you to load feature flag data from files. The file data can be either JSON or YAML.
 
 In versions 6.0 and higher of the SDK, the [`yaml`](https://www.npmjs.com/package/yaml) package is no longer loaded by default. Without it, `FileDataSource` will only allow JSON files.
 
