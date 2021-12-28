@@ -58,6 +58,8 @@ exclude = [
   # Repeated 404s on these links - [Issue opened](https://github.com/lycheeverse/lychee/issues/431)
   'https://github.com/marketplace/actions/launchdarkly-code-references',
   'https://github.com/features/actions',
+  # TODO: SC-135999 workaround
+  'https://www.php.net/manual/en/language.types.declarations.php',
 ]
 
 # Exclude all private IPs from checking
