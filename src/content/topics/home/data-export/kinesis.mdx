@@ -106,7 +106,7 @@ To create a cross-account IAM role:
 1. Log into AWS and [access the IAM section](https://console.aws.amazon.com/iamhome#/roles$new?step=type&roleType=crossAccount).
 2. In the Account ID section, enter `554582317989` as shown in the image below. This allows LaunchDarkly to assume the role:
 
-![The Account ID section of the Create a role screen.](../../images/kinesis-create-role.png)
+![The Account ID section of the Create a role screen.](kinesis-create-role.png)
 
 
 3. Add the policy you created earlier to this role. Write down or save the _role ARN_.
@@ -134,7 +134,7 @@ To create the Kinesis destination:
 
 1. Navigate to the **[Integrations page](https://app.launchdarkly.com/default/integrations)** and find the Amazon Kinesis card.
 
-![The add destination screen.](../../images/kinesis-add.png)
+![The add destination screen.](kinesis-add.png)
 
 2. Click **+ Integration.** The integration screen appears.
 3. (Optional) Enter a Name for the destination.
@@ -147,7 +147,7 @@ To create the Kinesis destination:
 
 6. Click **Save**:
 
-![A Kinesis destination with AWS information, a name and environment selected.](../../images/kinesis-create.png)
+![A Kinesis destination with AWS information, a name and environment selected.](kinesis-create.png)
 
 
 ## Testing the Kinesis Destination
@@ -157,7 +157,7 @@ After you've saved the destination, send a test event to confirm that the destin
 1. From the Integrations page, click the edit button on the Amazon Kinesis card. The Edit destination screen appears.
 2. In the Send a test event section, click **Send Event**:
 
-![The Send a test event screen.](../../images/kinesis-test-event.png)
+![The Send a test event screen.](kinesis-test-event.png)
 
 2. If you have configured the destination correctly, an event is logged in the Kinesis destination.
 3. Identify a successful test event by searching for the user or flag key `LaunchDarklyDataExportTestEvent`. When this key appears in the destination, you know the test event arrived.
@@ -193,4 +193,4 @@ To delete a destination:
 2. Find the destination you wish to delete and click **Edit**. The "Edit destination" screen opens.
 3. Click **Delete Destination**:
 
-![The Delete destination section.](../../images/destination-delete.png)
+![The Delete destination section.](destination-delete.png)

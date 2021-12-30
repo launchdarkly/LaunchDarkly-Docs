@@ -54,7 +54,7 @@ To add LaunchDarkly as a destination in Amplitude, you need an access token from
 
 Your access token must have either a `writer` or custom role:
 
-![An access token with the Writer role called out.](../../images/create-access-token-callout.png)
+![An access token with the Writer role called out.](create-access-token-callout.png)
 
 If your access token has a custom role, it must have the actions `createSegment` and `updateIncluded` to sync a segment from Amplitude.
 
@@ -85,25 +85,25 @@ To add LaunchDarkly as a destination:
 
 1. Log in to Amplitude and navigate to Data Destinations:
 
-![The Amplitude dashboard with the "Data Destinations" button called out.](../../images/segments-amplitude-data-destinations.png)
+![The Amplitude dashboard with the "Data Destinations" button called out.](segments-amplitude-data-destinations.png)
 
 2. Scroll to the "Add More Destinations" section and click **View All Destinations**:
 
-![The Add More Destinations section with the "View All Destinations" button called out.](../../images/segments-amplitude-view-all-destinations.png)
+![The Add More Destinations section with the "View All Destinations" button called out.](segments-amplitude-view-all-destinations.png)
 
 3. Select the LaunchDarkly Destination:
 
-![The Add Destination list with LaunchDarkly called out.](../../images/segments-amplitude-launchdarkly-destination.png)
+![The Add Destination list with LaunchDarkly called out.](segments-amplitude-launchdarkly-destination.png)
 
 If you don't see LaunchDarkly on the destinations list, contact your Amplitude Customer Success Manager to enable the LaunchDarkly integration. If you do not have Admin or Manager credentials Amplitude displays an error message:
 
-![A permission error message in Amplitude.](../../images/segment-amplitude-permission-error.png)
+![A permission error message in Amplitude.](segment-amplitude-permission-error.png)
 
 4. Enter a destination name and add the access token and client-side ID for your LaunchDarkly project and environment.
 
 5. Select a matching user property in Amplitude to map to LaunchDarkly's User Key. This will most likely be your Amplitude user ID but it depends on your [Amplitude configuration](https://help.amplitude.com/hc/en-us/articles/206404628-Step-2-Identifying-your-users):
 
-![The Connect to LaunchDarkly screen.](../../images/segments-amplitude-configure-destination.png)
+![The Connect to LaunchDarkly screen.](segments-amplitude-configure-destination.png)
 
 Users in Amplitude must have a value in the field you map to the LaunchDarkly User Key to be included in a LaunchDarkly segment.
 
@@ -111,7 +111,7 @@ Users in Amplitude must have a value in the field you map to the LaunchDarkly Us
 
 7. Verify that LaunchDarkly shows as "Connected":
 
-![The Cohort Destinations screen.](../../images/segments-amplitude-connected-destination.png)
+![The Cohort Destinations screen.](segments-amplitude-connected-destination.png)
 
 LaunchDarkly is now an Amplitude data destination.
 
@@ -122,23 +122,23 @@ To connect a cohort to LaunchDarkly:
 1. Navigate to the cohort you wish to connect to LaunchDarkly.
 2. Click **Sync to...** to open a new tab with a modal:
 
-![The SuccessCohort screen with the "Sync to..." button called out.](../../images/segments-amplitude-sync.png)
+![The SuccessCohort screen with the "Sync to..." button called out.](segments-amplitude-sync.png)
 
 3. Select **Experiment** then **LaunchDarkly**. If you don't see the LaunchDarkly destination, make sure you have [added LaunchDarkly as a destination](#adding-launchdarkly-as-a-destination):
 
-![The "Select Sync Type" screen.](../../images/segments-amplitude-select-sync-type.png)
+![The "Select Sync Type" screen.](segments-amplitude-select-sync-type.png)
 
 4. Click **next**. The destination configuration screen appears.
 
 5. Select your **LaunchDarkly destination** and set the scheduled sync frequency. An hourly sync frequency ensures your segments are kept up to date with your Amplitude cohorts. A one-time sync exports the cohort into a Big Segment once:
 
-![The Amplitude destination configuration screen.](../../images/segments-amplitude-destination-config.png)
+![The Amplitude destination configuration screen.](segments-amplitude-destination-config.png)
 
 6. Click **Sync**.
 
 7. The sync process begins and might take a few minutes to complete:
 
-![The Amplitude cohort destinations screen.](../../images/segments-amplitude-cohort-destinations.png)
+![The Amplitude cohort destinations screen.](segments-amplitude-cohort-destinations.png)
 
 When the sync finishes Amplitude sends you an email and LaunchDarkly appears in the list of Destinations connected to that cohort.
 
@@ -157,7 +157,7 @@ To check for users in your Amplitude cohort missing user IDs, you can download a
 
 1. While viewing your cohort in Amplitude, click on the export CSV button:
 
-![The Amplitude top menu with the export CSV button called out.](../../images/segment-amplitude-export-csv.png)
+![The Amplitude top menu with the export CSV button called out.](segment-amplitude-export-csv.png)
 
 2. Open the file. The second column is `user_id`. If you mapped `user_id` to the LaunchDarkly User Key, any user without a value in this column is not included in the LaunchDarkly segment.
 
@@ -165,10 +165,10 @@ To check for users in your Amplitude cohort missing user IDs, you can download a
 
 You can view your synced Amplitude cohort as a segment in LaunchDarkly. It appears in the Segments tab with the Amplitude logo in its name:
 
-![The Segments dashboard with the Amplitude-driven segment called out.](../../images/segments-amplitude-dashboard-callout.png)
+![The Segments dashboard with the Amplitude-driven segment called out.](segments-amplitude-dashboard-callout.png)
 
 Click into that segment to see details about its targeting:
 
-![The synced segment's details screen.](../../images/segments-amplitude-sync-in-ld.png)
+![The synced segment's details screen.](segments-amplitude-sync-in-ld.png)
 
 You can't edit rules for a Big Segment synced with an Amplitude cohort because they are managed by Amplitude.

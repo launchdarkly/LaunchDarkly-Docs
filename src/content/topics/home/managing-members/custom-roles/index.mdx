@@ -22,35 +22,14 @@ Custom roles give you precise access control to everything in LaunchDarkly, incl
 
 With custom roles, you can:
 
-- Lock your production environment down to a small set of trusted users,
-- Allow account members to control feature flags on projects or environments that are designated for their team only,
-- Allow different permissions at the flag level, such as between experiment flags and operational flags, and
+- Lock your production environment down to a small set of trusted users
+- Allow account members to control feature flags on projects or environments that are designated for their team only
+- Allow different permissions at the flag level, such as between experiment flags and operational flags
 - Create private projects that only the account members you select can see. To learn more, read [Creating private projects with custom roles](/home/organize/private-projects).
 
 Our custom role system is inspired by [AWS Identity and Access Management (IAM)](https://aws.amazon.com/iam/). If you're familiar with IAM, there are some similarities.
 
-## Understanding LaunchDarkly's built-in roles
-
-LaunchDarkly's role-based permission system provides global access control levels for account members based on a set of built-in roles. Every LaunchDarkly project has these roles, whether they use custom roles or not.
-
-The three built-in roles are:
-
-- **Reader**: The view-only role, who can see many details about your LaunchDarkly account but cannot modify any of its content.
-- **Writer**: This role can create, update, and delete most entities in LaunchDarkly, but cannot invite members, manage permission, or manage other orgnization-level settings like billing and security.
-- **Admin / Owner**: The role with the largest set of permissions. It can do everything readers and writers can do, and also create new account members and designate a new admin.
-
-To learn more about what each of these roles can do, read [Understanding member roles](/home/members/managing#understanding-member-roles).
-
-Every account member must have at least one of these three roles or a custom role. If you need to, you can also assign account members multiple roles to give them the exact set of permissions they need. If you apply one or more custom roles to a member, their built-in role is no longer applicable.
-
-<Callout intent="alert">
-<CalloutTitle>Viewing a member's most recent built-in role</CalloutTitle>
-<CalloutDescription>
-
-You can use the LaunchDarkly API to get member details, including the last built-in role the member had. You can use this information to determine what role would be restored if you removed the all custom roles from that member.
-
-</CalloutDescription>
-</Callout>
+Each account member must have at least one role. You can assign account members a built-in role or one or more custom roles to give them the exact set of permissions they need. To learn more, read [LaunchDarkly's built-in roles](/home/members/built-in-roles).
 
 An account member's initial role is set when they're invited to LaunchDarkly. If not otherwise specified, new account members are assigned the reader role. An account member with the ability to do so must adjust a reader's role to give them more advanced permissions.
 
@@ -62,7 +41,7 @@ Custom roles are extremely precise in their scope and targeting. For example, yo
 
 This level of precision also means you must specifically allow or deny actions for every resource you want the role recipient to be able to take. If you do not specify an action for a resource, that action is set to deny by default.
 
-One method of creating a custom role is to start with with a policy that matches permissions for a reader or writer, and modify it.
+One method of creating a custom role is to start with a policy that matches permissions for a reader or writer, and modify it.
 
 For templates that match these permission levels, read [Example policies](/home/members/example-policies).
 
@@ -72,10 +51,30 @@ Implementing custom roles is a three-step process.
 
 To implement a custom role:
 
-1. Create a custom role,
-2. Create a policy for that custom role, and
+1. Create a custom role.
+2. Create a policy for that custom role.
 3. Assign the role to the account member or resource who needs it.
 
-The process for doing each of these actions is described in the "Custom roles" section of the documentation, which you are currently reading. Read each topic in this section to learn more about custom roles.
+Read each topic in this section to learn more about custom roles.
 
-We strongly recommend familiarizing yourself with the concepts that power custom roles first. To learn more, read [Custom role concepts](/home/members/role-concepts).
+Before creating a custom role, we recommend familiarizing yourself with the concepts that power custom roles. To learn more, read [Custom role concepts](/home/members/role-concepts).
+
+To learn how to create a custom role, read [Creating custom roles and policies](/home/members/role-create).
+
+## Viewing an individual member's roles
+
+To view an individual member's roles from the Members tab:
+
+1. Navigate to the [Members](https://app.launchdarkly.com/settings/members) tab in Account Settings.
+2. Click the name of the member you want to view. The member's "Permissions" screen opens.
+3. View the member's individually assigned built-in and custom roles the "Member roles" section.
+5. (Optional) View the member's roles granted from belonging to any teams in the "Team roles" section.
+
+<Callout intent="primary">
+<CalloutTitle>Teams is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Teams is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>

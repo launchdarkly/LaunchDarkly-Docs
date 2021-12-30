@@ -42,6 +42,105 @@ If you have an existing team and you want to add a member to it:
 5. Select the members to add to the team.
 6. Click the **Add members** button.
 
+### Adding members in bulk to an existing team
+
+You can add multiple members to an existing team by uploading a CSV file of member email addresses. Your CSV file must include email addresses in the first column. You can include data in additional columns, but LaunchDarkly ignores all data outside the first column. Headers are optional.
+
+To upload a CSV file:
+
+1. Navigate to [Account settings](https://app.launchdarkly.com/settings).
+2. Click into the [Teams](https://app.launchdarkly.com/settings/teams) tab.
+3. Click on the name of the team you want to add members to. The team's "Team members" tab appears.
+4. Click **Upload CSV**. The "Upload CSV" screen appears:
+
+![The Upload CSV screen.](teams-upload-csv-modal.png)
+
+5. Click **Select file**. A prompt to choose a file appears.
+6. Choose a CSV file. You are returned to the "Upload CSV" screen.
+7. Click **Upload file.**
+
+A success indicator appears with the number of team members successfully added to your team. 
+
+If the file upload was not successful, an error message appears with information about the errors in the file.
+
+There are two types of CSV file upload errors:
+- **Global errors** are errors at the file level preventing LaunchDarkly from processing the file.
+- **Line errors** are errors on one or more individual lines in your CSV file.
+
+### Troubleshooting global errors
+
+Global errors mean that something is wrong at the file level preventing LaunchDarkly from processing the file. You must resolve the errors in your file and try uploading again.
+
+This table includes a list of global errors and how to resolve them:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Error message</TableHeadCell>
+    <TableHeadCell>Resolution</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+    <TableCell>Unable to process file</TableCell>
+    <TableCell>LaunchDarkly could not process the file for an unspecified reason. Review your file for errors and try again.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>File exceeds 25mb</TableCell>
+    <TableCell>Break up your file into multiple files of less than 25mbs each.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>All emails have invalid formatting</TableCell>
+    <TableCell>None of the email addresses in the file are in the correct format. Fix the formatting and try again.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>All emails belong to existing team members</TableCell>
+    <TableCell>All listed members are already on this team. No action needed.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>File is empty</TableCell>
+    <TableCell>The CSV file does not contain any email addresses. Populate the file and try again.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>No emails belong to members of your LaunchDarkly organization</TableCell>
+    <TableCell>None of the email addresses belong to members of your LaunchDarkly account. Invite these members to LaunchDarkly, then re-add them to the team. To learn how, read <a href="/home/members/managing#adding-members-to-launchdarkly">Adding members to LaunchDarkly</a>.</TableCell>
+  </TableRow>
+ </TableBody>
+</Table>
+
+### Troubleshooting line errors
+
+Line errors mean that something is wrong with one or more individual lines in your CSV file. You can either add only the valid entries from your CSV file, or upload a new file.
+
+This table includes a list of line errors and how to resolve them:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Error message</TableHeadCell>
+    <TableHeadCell>Resolution</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+    <TableCell>Empty row</TableCell>
+    <TableCell>This line is blank. Add an email address and try again.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Duplicate entry</TableCell>
+    <TableCell>This email address appears in the file twice. Remove the email from the file and try again.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Email already exists in the specified team</TableCell>
+    <TableCell>This member is already on your team. No action needed.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Invalid formatting</TableCell>
+    <TableCell>This email address is not formatted correctly. Fix the formatting and try again.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Email does not belong to LaunchDarkly member</TableCell>
+    <TableCell>The email address doesn't belong to a LaunchDarkly account member. Invite them to LaunchDarkly, then re-add them to the team. To learn how, read <a href="/home/members/managing#adding-members-to-launchdarkly">Adding members to LaunchDarkly</a>.</TableCell>
+  </TableRow>
+ </TableBody>
+</Table>
+
 ### Removing a member from a team
 
 You can remove a member from a team in two ways. You can remove them from the team management page or from the Members page.
@@ -160,17 +259,4 @@ To view the teams that a member is on:
   </CalloutDescription>
 </Callout>
 
-### Viewing an individual member's roles
-
-To view an individual member's roles from the Members page:
-1. Navigate to [Members](https://app.launchdarkly.com/settings/members).
-2. Filter the list of members for the member you're looking for.
-3. Click **Manage** / **Details** for the member you want to view.
-4. In the "Team membership and roles" section you can view:
-  * Any teams that they are a member of
-  * Any teams that they maintain
-  * Any custom roles granted to them through the teams that they are a member of
-  * If you have permission to remove members, you will also see a "Remove Member" button. This allows you to remove this member from the team.
-
-
-A team maintainer who is not also a team member cannot be removed while viewing their individual member "Access" screen. To learn how to remove a team maintainer, read [Removing a team maintainer from a team](#removing-a-team-maintainer-from-a-team).
+To view the roles for an individual team member, read [Viewing an individual member's roles](/home/members/custom-roles#viewing-an-individual-members-roles).

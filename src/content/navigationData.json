@@ -393,11 +393,21 @@
         "items": [
           {
             "label": "Approvals",
-            "path": "/home/feature-workflows/approvals"
+            "path": "/home/feature-workflows/approvals",
+            "items": [
+              {
+                "label": "Configuring approvals by environment",
+                "path": "/home/feature-workflows/environment-approvals"
+              }
+            ]
           },
           {
-            "label": "Configuring approvals by environment",
-            "path": "/home/feature-workflows/environment-approvals"
+            "label": "Flag triggers",
+            "path": "/home/feature-workflows/triggers"
+          },
+          {
+            "label": "Required comments",
+            "path": "/home/feature-workflows/required-comments"
           },
           {
             "label": "Scheduled flag changes",

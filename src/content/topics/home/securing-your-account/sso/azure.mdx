@@ -19,11 +19,11 @@ To integrate LaunchDarkly with Azure:
 2. Navigate to your Enterprise applications.
 3. Click **New application**:
 
-![The Azure Enterprise Applications page with "New application" called out.](../../images/azure-new-application.png)
+![The Azure Enterprise Applications page with "New application" called out.](azure-new-application.png)
 
 
 4. Search for the LaunchDarkly application.
-5. Once you've added it, follow the [Azure LaunchDarkly Application Tutorial](https://docs.microsoft.com/en-us/azure/active-directory/active-directory-saas-launchdarkly-tutorial).
+5. After you add it, follow the [Azure LaunchDarkly Application Tutorial](https://docs.microsoft.com/en-us/azure/active-directory/active-directory-saas-launchdarkly-tutorial).
 
 <Callout intent="info">
 <CalloutTitle>Azure user identifier guidelines</CalloutTitle>
@@ -37,7 +37,9 @@ addresses attribute set. If you haven't set attributes for every user, use the i
 
 ## Mapping user attributes
 
-After LaunchDarkly is integrated with Azure, you can map LaunchDarkly role and custom role attributes to Azure using Azure claims. To learn more about SSO provisioning for roles and custom roles, read [Custom attributes](/home/account-security/sso#custom-attributes).
+After LaunchDarkly is integrated with Azure, you can map LaunchDarkly role and custom role attributes to Azure using Azure claims. The LaunchDarkly Azure SSO integration only provides Just-In-Time user provisioning for IdP-Initiated SSO.
+
+To learn more about SSO provisioning for roles and custom roles, read [Custom attributes](/home/account-security/sso#custom-attributes).
 
 To set up `role` and `customRole` claims in Azure:
 
@@ -49,6 +51,6 @@ To set up `role` and `customRole` claims in Azure:
 6. Choose a source attribute from the dropdown that is not currently mapped. In this example, we use `user.country`.
 7. Click save:
 
-![The Azure Manage Claim screen.](../../images/azure-manage-claim.png)
+![The Azure Manage Claim screen.](azure-manage-claim.png)
 
 8. Repeat steps 1-7 with `customRole`, mapping to a different unused source attribute.

@@ -30,7 +30,7 @@ Anyone with a `writer`, `owner / admin`, or custom role can approve a flag chang
 
 Here is an image of the approvals email notification from LaunchDarkly:
 
-![The email notification from LaunchDarkly.](../../images/approvals-email.png)
+![The email notification from LaunchDarkly.](approvals-email.png)
 
 From that email, a requested approver can access a summary page of the flag changes and approve or decline the changes proposed.
 
@@ -40,7 +40,7 @@ To learn more about the Slack app, read [Slack](/integrations/slack).
 
 You can request approval on changes to a flag's targeting at any point after creation. You can also delete your own approval requests. To learn more, read [Deleting an approval request](#deleting-an-approval-request).
 
-![The approval request.](../../images/approvals-approval-screen.png)
+![The approval request.](approvals-approval-screen.png)
 
 The only people you can request approval from are other members of your LaunchDarkly project. You can request approval from anyone in your project with approval permissions, up to a maximum of ten people.
 
@@ -49,7 +49,7 @@ Here's how:
 1. Make the changes you wish to make to any flag.
 2. Click the **dropdown icon** in the **Save Changes** button. The additional actions menu opens:
 
-    ![The flag targeting screen with the additional actions menu expanded.](../../images/approvals-request-dropdown.png)
+    ![The flag targeting screen with the additional actions menu expanded.](approvals-request-dropdown.png)
 
 <Callout intent="info">
 <CalloutTitle>Your environment may require approvals</CalloutTitle>
@@ -62,7 +62,7 @@ If your environment requires approvals, **Request approval** is the default opti
 
 3. Click **Request approval**. The approval request screen appears. Members on an Enterprise plan also see the Schedule option.
 
-    ![The request approval screen.](../../images/approvals-request.png)
+    ![The request approval screen.](approvals-request.png)
 
 4. Enter a **Description** to add context that helps your reviewers understand the changes you made.
 5. (Optional) If necessary, you can edit your flag changes by clicking the **Edit** button.
@@ -73,7 +73,7 @@ The Reviewers dropdown automatically excludes members with a Reader role, since 
 
 The flag's **Targeting** page also updates with a number next to the pending changes icon to indicate that there are pending changes waiting for review.
 
-![The "Pending changes" icon on the flag's Targeting tab.](../../images/workflows-pending-changes-icon.png)
+![The "Pending changes" icon on the flag's Targeting tab.](workflows-pending-changes-icon.png)
 
 ## Reviewing flag approval requests
 
@@ -83,11 +83,11 @@ To approve or decline a change:
 
 1. Find the email from "The Team at LaunchDarkly" in your email client. The email subject includes name of the project, environment, and flag you're being asked to review and the phrase "Review request":
 
-![The email notification from LaunchDarkly.](../../images/approvals-email.png)
+![The email notification from LaunchDarkly.](approvals-email.png)
 
 2. In the email body, click **Review request**. A new tab with the approval request appears.
 
-![The approval request.](../../images/approvals-approval-screen.png)
+![The approval request.](approvals-approval-screen.png)
 
 3. Review the flag changes and choose to approve or decline the changes. Optionally, you can leave a comment summarizing your decision.
 
@@ -110,7 +110,7 @@ In addition to using the link in the email to access the approval request, you c
 
 To access this screen, click the icon on the flag's **Targeting** page:
 
-![The "Pending changes" icon on the flag's Targeting tab.](../../images/workflows-pending-changes-icon.png)
+![The "Pending changes" icon on the flag's Targeting tab.](workflows-pending-changes-icon.png)
 
 ## Deleting an approval request
 
@@ -126,7 +126,7 @@ To delete approval requests from a flag's "Pending changes" screen:
 1. Navigate to the flag's **Targeting** page and click the **Pending Changes** icon. The "Pending Changes" screen appears.
 2. Find the change you wish to delete and click the **overflow menu**. Additional options appear:
 
-![The Delete option in the the overflow menu.](../../images/workflows-pending-changes-overflow.png)
+![The Delete option in the the overflow menu.](workflows-pending-changes-overflow.png)
 
 3. Choose **Delete**. A confirmation screen appears.
 4. Type the flag's name or key to confirm.
@@ -143,4 +143,5 @@ To delete an approval request from the request's page:
 4. Type the flag's name or key to confirm.
 5. Click **Delete request**. The request is deleted:
 
-![The overflow menu expanded with the "Delete request" option.](../../images/approvals-delete-overflow.png)
+![The overflow menu expanded with the "Delete request" option.](approvals-delete-overflow.png)
+

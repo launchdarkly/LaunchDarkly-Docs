@@ -1,5 +1,6 @@
 ---
 path: '/components'
+title: 'Custom components and their usage'
 isInternal: true
 published: true
 ---
@@ -8,16 +9,16 @@ This guide helps authors and developers unify implementation by providing you wi
 
 ### Table of Contents
 
-- Best practices & gotchas
-- Components
-  - LearnMore
-  - Image
-  - Callout
-  - CodeTabs
-  - CodeTabItem
-  - Table
+- [Best practices and gotchas](#best-practices-and-gotchas)
+- [Components](#components)
+  - [LearnMore](#learn-more)
+  - [Details](#details)
+  - [Image](#image)
+  - [Callout](#callout)
+  - [Code Samples](#code-samples)
+  - [Tables](#tables)
 
-# Best practices & gotchas
+# Best practices and gotchas
 
 Translating markdown and HTML components into human-usable formatting can be scary. Follow these best practices to have a better experience:
 
@@ -143,12 +144,69 @@ There are four different types of callouts:
 </CodeTabItem>
 </CodeTabs>
 
+## Details
+
+The docs site supports a details or "disclosure" component to expand/collapse information.
+
+<Details summary="Click to open more information">
+
+Here are some expanded details
+
+</Details>
+
+<CodeTabs
+  defaultValue=""
+  values={[
+    { label: 'Details', value: 'Details', },
+  ]
+}>
+
+<CodeTabItem value="Details">
+
+```jsx
+<Details summary="Click to open more information">
+
+Here are some expanded details
+
+</Details>
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Details may also be set to be open by default
+
+<Details open summary="Click to open more information">
+
+This details is open by default
+
+</Details>
+
+<CodeTabs
+  defaultValue=""
+  values={[
+    { label: 'Details', value: 'Details', },
+  ]
+}>
+
+<CodeTabItem value="Details">
+
+```jsx
+<Details open summary="Click to open more information">
+
+This details is open by default
+
+</Details>
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ## Image
 
-The docs site supports PNGs and GIFs. Just use Markdown images.
+The docs site supports PNGs and GIFs. Just use Markdown images. Put the images in `/src/content/images`. In your Markdown, the path to the image is relative to that directory.
 
-![Some caption](../images/data-export.png)
+![Some caption](data-export.png)
 
 
 <CodeTabs
@@ -161,7 +219,7 @@ The docs site supports PNGs and GIFs. Just use Markdown images.
 <CodeTabItem value="Image">
 
 ```markdown
-![Some caption](../images/data-export.png)
+![Some caption](data-export.png)
 ```
 
 </CodeTabItem>
@@ -169,48 +227,50 @@ The docs site supports PNGs and GIFs. Just use Markdown images.
 
 ## Callout
 
+Include a blank line between the opening and closing `<CalloutDescription>` tags and the content. Do not indent any lines.
+
 ### Primary
 
 <Callout intent="primary">
-  <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
-  <CalloutDescription>
-    You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them
-    with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they
-    encounter feature flags.
-  </CalloutDescription>
+<CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
+<CalloutDescription>
+
+You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they encounter feature flags.
+
+</CalloutDescription>
 </Callout> 
 
 ### Alert
 
 <Callout intent="alert">
-  <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
-  <CalloutDescription>
-    You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them
-    with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they
-    encounter feature flags.
-  </CalloutDescription>
+<CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
+<CalloutDescription>
+
+You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they encounter feature flags.
+
+</CalloutDescription>
 </Callout> 
 
 ### Warning
 
 <Callout intent="warning">
-  <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
-  <CalloutDescription>
-    You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them
-    with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they
-    encounter feature flags.
-  </CalloutDescription>
+<CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
+<CalloutDescription>
+
+You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they encounter feature flags.
+
+</CalloutDescription>
 </Callout> 
 
 ### Info
 
 <Callout intent="info">
-  <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
-  <CalloutDescription>
-    You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them
-    with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they
-    encounter feature flags.
-  </CalloutDescription>
+<CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
+<CalloutDescription>
+
+You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they encounter feature flags.
+
+</CalloutDescription>
 </Callout> 
 
 
@@ -227,9 +287,11 @@ The docs site supports PNGs and GIFs. Just use Markdown images.
 <Callout intent="primary"> <!-- OR alert, warning, info -->
   <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
   <CalloutDescription>
-    You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them
-    with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they
-    encounter feature flags.
+
+You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them
+with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they
+encounter feature flags.
+
   </CalloutDescription>
 </Callout> 
 ```
@@ -301,6 +363,14 @@ The docs site supports PNGs and GIFs. Just use Markdown images.
 
 Markdown tables are hard to read in text editors and easy to break. We built our own table component to use instead. It's much like an HTML table. When content in a table cell is left-justified, and bracketed by empty lines, you can use HTML tags in it.
 
+<CodeTabs
+  defaultValue="Table"
+  values={[
+    { label: 'Table', value: 'Table', },
+  ]
+}>
+<CodeTabItem value="Table">
+
 ```jsx
 <Table>
   <TableHeader>
@@ -323,3 +393,7 @@ Column 2 Cell 1 <a href="example.com">with a link in it</a>.
   </TableBody>
 </Table>
 ```
+
+</CodeTabItem>
+</CodeTabs>
+

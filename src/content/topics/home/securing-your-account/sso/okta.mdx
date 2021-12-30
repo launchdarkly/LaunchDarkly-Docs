@@ -51,7 +51,7 @@ To authorize Okta to manage your LaunchDarkly users:
 2. Navigate to **Applications** and click **Browse App Integration Catalog**.
 3. In the search bar, type "LaunchDarkly". The LaunchDarkly app appears in the search results:
 
-![The Browse App Integration Catalog screen with search results populating.](../../../../images/okta-ld-app.png)
+![The Browse App Integration Catalog screen with search results populating.](okta-ld-app.png)
 
 4. Click **Add**. The **General Settings** page for the LaunchDarkly app appears.
 5. (Optional) Give the app a custom name by modifying the **Application Label**.
@@ -70,7 +70,7 @@ To grant Okta permission to manage users:
 2. Click the **Provisioning** tab. The Integration page opens.
 3. Click **Configure API Integration**:
 
-    ![The Integration page with the API integration button called out.](../../../../images/okta-configure-api-integration.png)
+    ![The Integration page with the API integration button called out.](okta-configure-api-integration.png)
 
 4. Check the **Enable API Integration** checkbox and click **Save**. An authorization window appears.
 5. Click **Authenticate with LaunchDarkly**. A new browser window opens describing what permissions Okta requires to integrate with LaunchDarkly. Review the permissions and verify that you are comfortable granting them.
@@ -108,7 +108,7 @@ To configure Okta to recognize email addresses as usernames:
 5. Enter your Entity ID.
 3. Use the dropdown to set the Application username format to **Email**:
 
-    ![The Credentials Details screen, with username format set to "Email."](../../../../images/okta-username-format.png)
+    ![The Credentials Details screen, with username format set to "Email."](okta-username-format.png)
 
 4. Click **Save**.
 
@@ -146,7 +146,7 @@ To assign custom roles to groups:
 2. Navigate to the **Assignments** tab.
 3. In the **Assign** dropdown, choose **Assign to Groups**:
 
-![The "Assign" dropdown.](../../../../images/okta-assignments-assign-dropdown.png)
+![The "Assign" dropdown.](okta-assignments-assign-dropdown.png)
 
 <Callout intent="info">
 <CalloutTitle>Assigning custom roles to one user</CalloutTitle>
@@ -160,7 +160,7 @@ Users** in step 3.
 
 4. Find the groups you want to assign custom roles to and click **Assign**:
 
-    ![The "Assign LaunchDarkly to Groups" screen.](../../../../images/okta-assign-ld-to-groups.png)
+    ![The "Assign LaunchDarkly to Groups" screen.](okta-assign-ld-to-groups.png)
 
 
 5. Enter the key for the custom role you wish to assign to this group. This connects one role to the selected group.
@@ -169,14 +169,14 @@ Users** in step 3.
 <CalloutTitle>You cannot assign roles and custom roles at the same time</CalloutTitle>
 <CalloutDescription>
 
-You can assign either a role or a custom role in this step, but not both. If you enter values in both the Role and customRole fields, Okta ignores the customRole field.
+You can assign either a role or a custom role in this step, but not both. If you enter values in both the Role and customRole fields, LaunchDarkly will ignore the Role field. If you want to assign a custom role, leave the Role field set to the default value of `Reader`.
 
 </CalloutDescription>
 </Callout>
 
 6. Add more custom roles by entering additional keys in the customRole field seperated by commas, with no spaces:
 
-    ![The "Add Another Role" screen.](../../../../images/okta-ld-custom-roles.png)
+    ![The "Add Another Role" screen.](okta-ld-custom-roles.png)
 
 7. Click **Save and Go Back**.
 
@@ -184,7 +184,7 @@ You can assign either a role or a custom role in this step, but not both. If you
 
 If you have custom roles already configured in Okta, you can set up custom roles in **Attribute Mapping** when you first set up a user in Okta:
 
-![The Okta LaunchDarkly Attribute Mappings screen with custom roles available.](../../../../images/okta-ld-attribute-mappings.png)
+![The Okta LaunchDarkly Attribute Mappings screen with custom roles available.](okta-ld-attribute-mappings.png)
 
 
 <Callout intent="info">

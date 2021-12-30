@@ -370,7 +370,6 @@ To use the all flags feature:
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.17.x and earlier', value: 'go-pre-5.0', },
   ]
 }>
 <CodeTabItem value="go">
@@ -381,13 +380,6 @@ import (
 )
 
 state := client.AllFlagsState(user, flagstate.OptionClientSideOnly())
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
-
-```go
-state := client.AllFlagsState(user, ld.ClientSideOnly)
 ```
 
 </CodeTabItem>
@@ -489,7 +481,7 @@ client.allFlagsState(user, (err, flagsState) => {
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read the [API documentation](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.ldclient.html#allflagsstate).
+To learn more, read the [API documentation](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDClient.html#allFlagsState).
 
 ### Node.js (Cloudflare)
 

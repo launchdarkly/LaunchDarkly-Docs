@@ -19,7 +19,7 @@ In order for LaunchDarkly to send events to your Google Cloud Pub/Sub topic, you
 
 Find this information in the [Google Cloud Pub/Sub topic list](https://console.cloud.google.com/cloudpubsub/topicList), as pictured below.
 
-![After picking the topic, you can find the projectId and topicId.](../../images/google-pubsub-projid-testid-callout.png)
+![After picking the topic, you can find the projectId and topicId.](google-pubsub-projid-testid-callout.png)
 
 
 ## Granting publish access to LaunchDarkly
@@ -38,7 +38,7 @@ Verify you see the LaunchDarkly Service account email as a Pub/Sub Publisher. If
 
 Here is an image of the Pub/Sub topic list:
 
-![The Pub/Sub topic list with the LaunchDarkly Service account email called out.](../../images/google-pubsub-publisher-callout.png)
+![The Pub/Sub topic list with the LaunchDarkly Service account email called out.](google-pubsub-publisher-callout.png)
 
 
 ## Connecting the Pub/Sub topic to LaunchDarkly
@@ -54,7 +54,7 @@ The final step is to connect your topic to LaunchDarkly. To do this:
 7. Enter the Project ID.
 8. Click **Save destination**:
 
-![The Pub/Sub Create a destination screen.](../../images/google-pubsub-create-destination.png)
+![The Pub/Sub Create a destination screen.](google-pubsub-create-destination.png)
 
 ## Testing the Google Cloud Pub/Sub destination
 
@@ -64,7 +64,7 @@ After you've saved the destination, send a test event to confirm that the destin
 2. In the Send a test event section, click **Send Event**.
 3. If you have configured the destination correctly, an event is logged in the Google Cloud Pub/Sub destination.
 
-![The Send a test event screen.](../../images/google-pubsub-test-event.png)
+![The Send a test event screen.](google-pubsub-test-event.png)
 
 
 ## Enabling Data Export for flags and environments
@@ -83,4 +83,4 @@ To delete a destination:
 2. Find the destination you wish to delete and click **Edit**. The "Create a destination" screen opens.
 3. Click **Delete Destination**:
 
-![The Delete destination section.](../../images/destination-delete.png)
+![The Delete destination section.](destination-delete.png)

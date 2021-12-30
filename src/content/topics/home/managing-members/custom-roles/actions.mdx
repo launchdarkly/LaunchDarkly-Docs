@@ -49,21 +49,42 @@ This table explains available account actions:
   <TableBody>
     <TableRow>
       <TableCell>
-        <code>updateOrganization</code>
+        <code>createSamlConfig</code>
       </TableCell>
-      <TableCell>Update the organization name.</TableCell>
+      <TableCell>Create a new SAML configuration for the account.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateSubscription</code>
+        <code>createScimConfig</code>
       </TableCell>
-      <TableCell>Change the pricing plan for the account.</TableCell>
+      <TableCell>Create a new SCIM configuration for the account.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateBillingContact</code>
+        <code>deleteAccount</code>
       </TableCell>
-      <TableCell>Update the billing contact for the account.</TableCell>
+      <TableCell>Delete the account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteAccountToken</code>
+      </TableCell>
+      <TableCell>
+        Delete account tokens (for the{' '}
+        <a href="https://apidocs.launchdarkly.com/#section/Authentication">LaunchDarkly REST API</a>).
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteSamlConfig</code>
+      </TableCell>
+      <TableCell>Delete the SAML configuration for the account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteScimConfig</code>
+      </TableCell>
+      <TableCell>Delete the SCIM configuration for the account.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -79,15 +100,9 @@ This table explains available account actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updatePaymentCard</code>
+        <code>revokeSessions</code>
       </TableCell>
-      <TableCell>Change the credit card for the account.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateRequireMfa</code>
-      </TableCell>
-      <TableCell>Change whether multi-factor authentication (MFA) is required for all users on the account.</TableCell>
+      <TableCell>Revoke sessions issued before a specified date.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -100,24 +115,27 @@ This table explains available account actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>deleteAccountToken</code>
+        <code>updateBillingContact</code>
       </TableCell>
-      <TableCell>
-        Delete account tokens (for the{' '}
-        <a href="https://apidocs.launchdarkly.com/#section/Authentication">LaunchDarkly REST API</a>).
-      </TableCell>
+      <TableCell>Update the billing contact for the account.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>createSamlConfig</code>
+        <code>updateOrganization</code>
       </TableCell>
-      <TableCell>Create a new SAML configuration for the account.</TableCell>
+      <TableCell>Update the organization name.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>deleteSamlConfig</code>
+        <code>updatePaymentCard</code>
       </TableCell>
-      <TableCell>Delete the SAML configuration for the account.</TableCell>
+      <TableCell>Change the credit card for the account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateRequireMfa</code>
+      </TableCell>
+      <TableCell>Change whether multi-factor authentication (MFA) is required for all members on the account.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -127,9 +145,9 @@ This table explains available account actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateSamlX509Certificate</code>
+        <code>updateSamlRequireSso</code>
       </TableCell>
-      <TableCell>Update the SAML X509 certificate for the account.</TableCell>
+      <TableCell>Change whether SSO must be used for authentication.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -139,21 +157,9 @@ This table explains available account actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateSamlRequireSso</code>
+        <code>updateSamlX509Certificate</code>
       </TableCell>
-      <TableCell>Change whether SSO must be used for authentication.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>createScimConfig</code>
-      </TableCell>
-      <TableCell>Create a new SCIM configuration for the account.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>deleteScimConfig</code>
-      </TableCell>
-      <TableCell>Delete the SCIM configuration for the account.</TableCell>
+      <TableCell>Update the SAML X509 certificate for the account.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -169,15 +175,9 @@ This table explains available account actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>revokeSessions</code>
+        <code>updateSubscription</code>
       </TableCell>
-      <TableCell>Revoke sessions issued before a specified date.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>deleteAccount</code>
-      </TableCell>
-      <TableCell>Delete the account.</TableCell>
+      <TableCell>Change the pricing plan for the account.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -235,21 +235,15 @@ This table explains available member actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateRole</code>
-      </TableCell>
-      <TableCell>Update an account member's built-in roles (reader, writer, or admin).</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateCustomRole</code>
-      </TableCell>
-      <TableCell>Update an account member's custom roles.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
         <code>deleteMember</code>
       </TableCell>
       <TableCell>Remove an account member from an account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>sendMfaRecoveryCode</code>
+      </TableCell>
+      <TableCell>Send an account member their MFA recovery code.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -259,9 +253,15 @@ This table explains available member actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>sendMfaRecoveryCode</code>
+        <code>updateCustomRole</code>
       </TableCell>
-      <TableCell>Send an account member their MFA recovery code.</TableCell>
+      <TableCell>Update an account member's custom roles.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateRole</code>
+      </TableCell>
+      <TableCell>Update an account member's built-in roles (reader, writer, or admin).</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -311,9 +311,9 @@ This table explains available team actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateTeamName</code>
+        <code>updateTeamCustomRoles</code>
       </TableCell>
-      <TableCell>Rename a team.</TableCell>
+      <TableCell>Add or remove custom roles from a team.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -329,9 +329,9 @@ This table explains available team actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateTeamCustomRoles</code>
+        <code>updateTeamName</code>
       </TableCell>
-      <TableCell>Add or remove custom roles from a team.</TableCell>
+      <TableCell>Change the name of a team.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -391,24 +391,6 @@ This table explains available personal access token actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateAccessTokenPolicy</code>
-      </TableCell>
-      <TableCell>Change the policy filter of a personal access token.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateAccessTokenName</code>
-      </TableCell>
-      <TableCell>Change the name of a personal access token.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateAccessTokenDescription</code>
-      </TableCell>
-      <TableCell>Change the description of a personal access token.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
         <code>deleteAccessToken</code>
       </TableCell>
       <TableCell>Delete a personal access token.</TableCell>
@@ -418,6 +400,24 @@ This table explains available personal access token actions:
         <code>resetAccessToken</code>
       </TableCell>
       <TableCell>Reset a personal access token's secret key.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccessTokenDescription</code>
+      </TableCell>
+      <TableCell>Change the description of a personal access token.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccessTokenName</code>
+      </TableCell>
+      <TableCell>Change the name of a personal access token.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccessTokenPolicy</code>
+      </TableCell>
+      <TableCell>Change the policy filter of a personal access token.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -461,18 +461,6 @@ This table explains available service access token actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateAccessTokenName</code>
-      </TableCell>
-      <TableCell>Change the name of a service access token.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateAccessTokenDescription</code>
-      </TableCell>
-      <TableCell>Change the description of a service access token.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
         <code>deleteAccessToken</code>
       </TableCell>
       <TableCell>Delete a service access token.</TableCell>
@@ -482,6 +470,18 @@ This table explains available service access token actions:
         <code>resetAccessToken</code>
       </TableCell>
       <TableCell>Reset a service access token's secret key.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccessTokenDescription</code>
+      </TableCell>
+      <TableCell>Change the description of a service access token.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccessTokenName</code>
+      </TableCell>
+      <TableCell>Change the name of a service access token.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -524,15 +524,9 @@ This table explains available role actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updatePolicy</code>
+        <code>deleteRole</code>
       </TableCell>
-      <TableCell>Update a custom role's policy.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateName</code>
-      </TableCell>
-      <TableCell>Update a custom role's name.</TableCell>
+      <TableCell>Delete a custom role.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -542,17 +536,23 @@ This table explains available role actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>deleteRole</code>
-      </TableCell>
-      <TableCell>Delete a custom role.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
         <code>updateMembers</code>
       </TableCell>
       <TableCell>
         Add or remove users from a custom role (equivalent to <code>updateCustomRole</code> on account members).
       </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateName</code>
+      </TableCell>
+      <TableCell>Update a custom role's name.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updatePolicy</code>
+      </TableCell>
+      <TableCell>Update a custom role's policy.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -601,15 +601,9 @@ This table explains available project actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateProjectName</code>
+        <code>updateDefaultClientSideAvailability</code>
       </TableCell>
-      <TableCell>Rename a project.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTags</code>
-      </TableCell>
-      <TableCell>Update tags associated with a project.</TableCell>
+      <TableCell>Change whether new feature flags are made available to client-side SDKs.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -619,9 +613,15 @@ This table explains available project actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateDefaultClientSideAvailability</code>
+        <code>updateProjectName</code>
       </TableCell>
-      <TableCell>Change whether new feature flags are made available to client-side SDKs.</TableCell>
+      <TableCell>Rename a project.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTags</code>
+      </TableCell>
+      <TableCell>Update tags associated with a project.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -689,9 +689,9 @@ This table explains available environments actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateName</code>
+        <code>updateApiKey</code>
       </TableCell>
-      <TableCell>Change the name of an environment.</TableCell>
+      <TableCell>Reset the API key for an environment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -701,27 +701,9 @@ This table explains available environments actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateTtl</code>
+        <code>updateConfirmChanges</code>
       </TableCell>
-      <TableCell>Change the TTL for an environment.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateApiKey</code>
-      </TableCell>
-      <TableCell>Reset the API key for an environment.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateMobileKey</code>
-      </TableCell>
-      <TableCell>Reset the mobile key for an environment.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateSecureMode</code>
-      </TableCell>
-      <TableCell>Turn secure mode on or off for an environment.</TableCell>
+      <TableCell>Require environment confirmation for changes to flags and segments.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -731,9 +713,15 @@ This table explains available environments actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateTags</code>
+        <code>updateMobileKey</code>
       </TableCell>
-      <TableCell>Update tags associated with an environment.</TableCell>
+      <TableCell>Reset the mobile key for an environment.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateName</code>
+      </TableCell>
+      <TableCell>Change the name of an environment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -743,9 +731,21 @@ This table explains available environments actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateConfirmChanges</code>
+        <code>updateSecureMode</code>
       </TableCell>
-      <TableCell>Require environment confirmation for changes to flags and segments.</TableCell>
+      <TableCell>Turn secure mode on or off for an environment.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTags</code>
+      </TableCell>
+      <TableCell>Update tags associated with an environment.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTtl</code>
+      </TableCell>
+      <TableCell>Change the TTL for an environment.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -803,45 +803,27 @@ This table explains available metric actions:
     </TableRow>
     <TableRow>
       <TableCell>
+        <code>updateDescription</code>
+      </TableCell>
+      <TableCell>Change the description of a metric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
         <code>updateEventKey</code>
       </TableCell>
       <TableCell>Change the event key for a custom metric.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
+        <code>updateMaintainer</code>
+      </TableCell>
+      <TableCell>Change the metric's maintainer.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
         <code>updateName</code>
       </TableCell>
-      <TableCell>Update metric's names.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateDescription</code>
-      </TableCell>
-      <TableCell>Update metric's descriptions.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateUrls</code>
-      </TableCell>
-      <TableCell>Update the URLs for a click or page view metric.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateSelector</code>
-      </TableCell>
-      <TableCell>Update the CSS selector for a click metric.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateOn</code>
-      </TableCell>
-      <TableCell>Mark a metric as active or inactive.</TableCell>
-    </TableRow>
-      <TableRow>
-      <TableCell>
-        <code>updateTags</code>
-      </TableCell>
-      <TableCell>Change the tags associated with a metric.</TableCell>
+      <TableCell>Change the name of a metric.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -851,21 +833,39 @@ This table explains available metric actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateNumericUnit</code>
-      </TableCell>
-      <TableCell>Update the unit displayed in results for a numeric custom metric.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
         <code>updateNumericSuccess</code>
       </TableCell>
       <TableCell>Update the success criteria for a numeric custom metric.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateMaintainer</code>
+        <code>updateNumericUnit</code>
       </TableCell>
-      <TableCell>Change the metric's maintainer.</TableCell>
+      <TableCell>Update the unit displayed in results for a numeric custom metric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateOn</code>
+      </TableCell>
+      <TableCell>Mark a metric as active or inactive.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateSelector</code>
+      </TableCell>
+      <TableCell>Update the CSS selector for a click metric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTags</code>
+      </TableCell>
+      <TableCell>Change the tags associated with a metric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateUrls</code>
+      </TableCell>
+      <TableCell>Update the URLs for a click or page view metric.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -892,7 +892,9 @@ proj/*:env/*:flag/*
 
 To learn more, read [Your first feature flag](/home/getting-started/feature-flags).
 
-This table explains available feature flag actions:
+Some feature flag actions affect only the current environment. Other feature flag actions affect all environments in a project.
+
+This table explains available feature flag actions that affect only the **current environment**:
 
 <Table>
   <TableHeader>
@@ -902,148 +904,43 @@ This table explains available feature flag actions:
   <TableBody>
     <TableRow>
       <TableCell>
-        <code>createFlag</code>
+        <code>applyApprovalRequest</code>
       </TableCell>
       <TableCell>
-        Create a feature flag. Creating a feature flag impacts all environments in a project, so users will need
-        permission to create flags in all environments.
+        Apply an approved approval request for a flag.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>cloneFlag</code>
+        <code>copyFlagConfigFrom</code>
       </TableCell>
       <TableCell>
-        Create a new flag with settings based on an existing flag. To clone a flag, you need to have the{' '}
-        <code>cloneFlag</code> permission on the source flag, as well as the <code>createFlag</code> permission for the
-        new flag
+        Copy settings from a feature flag.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>deleteFlag</code>
+        <code>copyFlagConfigTo</code>
       </TableCell>
       <TableCell>
-        Delete a feature. Deleting a feature impacts all environments in a project, so users will need permission to
-        delete features in all environments.
+        Copy settings to a feature flag.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateOn</code>
-      </TableCell>
-      <TableCell>Toggle a feature off</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateIncludeInSnippet</code>
+        <code>createApprovalRequest</code>
       </TableCell>
       <TableCell>
-        Change whether the feature flag is available to front-end code with the{' '}
-        <a href="/sdk/client-side/javascript">JavaScript SDK</a>. Impacts all environments in a project.
+        Create an approval request for a flag.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateName</code>
+        <code>deleteApprovalRequest</code>
       </TableCell>
-      <TableCell>Change the name of a feature flag. Impacts all environments in a project.</TableCell>
-    </TableRow>
-    <TableRow>
       <TableCell>
-        <code>updateDescription</code>
+        Delete an approval request for a flag.
       </TableCell>
-      <TableCell>Change the description of a feature flag. Impacts all environments in a project.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateClientSideFlagAvailability</code>
-      </TableCell>
-      <TableCell>Change whether the feature flag is available to client-side SDKs.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTemporary</code>
-      </TableCell>
-      <TableCell>Marks a flag temporary or permanent. Impacts all environments in a project.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTags</code>
-      </TableCell>
-      <TableCell>Update tags associated with a flag. Impacts all environments in a project.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updatePrerequisites</code>
-      </TableCell>
-      <TableCell>Update flag prerequisites.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTargets</code>
-      </TableCell>
-      <TableCell>Update individual user targeting rules.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateRules</code>
-      </TableCell>
-      <TableCell>Update custom targeting rules.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateFlagRuleDescription</code>
-      </TableCell>
-      <TableCell>Update the description for custom targeting rules.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateFallthrough</code>
-      </TableCell>
-      <TableCell>Update the "default" or "fallthrough" rule.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateOffVariation</code>
-      </TableCell>
-      <TableCell>Update the variation returned when flag toggle is set to <code>off</code>.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateMaintainer</code>
-      </TableCell>
-      <TableCell>Update the flag maintainer. Impacts all environments.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateFlagVariations</code>
-      </TableCell>
-      <TableCell>Change the flag's variations. Impacts all environments.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateFlagDefaultVariations</code>
-      </TableCell>
-      <TableCell>Change the default flag variations used by newly created environments for a feature flag.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateFlagCustomProperties</code>
-      </TableCell>
-      <TableCell>Update custom properties attached to a flag. Impacts all environments.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>createExperiment</code>
-      </TableCell>
-      <TableCell>Create an experiment.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>deleteExperiment</code>
-      </TableCell>
-      <TableCell>Delete an experiment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -1053,39 +950,83 @@ This table explains available feature flag actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateExperimentActive</code>
-      </TableCell>
-      <TableCell>Start or stop an experiment in an environment.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateExperimentBaseline</code>
-      </TableCell>
-      <TableCell>Change a flag's baseline variation for experiments.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateAttachedGoals</code>
-      </TableCell>
-      <TableCell>Start or stop an A/B testing experiment.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
         <code>deleteFlagAttachedGoalResults</code>
       </TableCell>
-      <TableCell>Reset the experiment results for a flag in a given environment.</TableCell>
+      <TableCell>
+        Reset the experiment results for a flag in a given environment.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>copyFlagConfigFrom</code>
+        <code>reviewApprovalRequest</code>
       </TableCell>
-      <TableCell>Copy settings from a feature flag.</TableCell>
+      <TableCell>
+        Review an approval request for a flag.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>copyFlagConfigTo</code>
+        <code>updateApprovalRequest</code>
       </TableCell>
-      <TableCell>Copy settings to a feature flag.</TableCell>
+      <TableCell>
+        Update an existing approval request for a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateExperimentActive</code>
+      </TableCell>
+      <TableCell>
+        Start or stop an experiment in an environment.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateExpiringRules</code>
+      </TableCell>
+      <TableCell>
+        Change a flag's expiring custom targeting rules.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateExpiringTargets</code>
+      </TableCell>
+      <TableCell>
+        Change a flag's expiring individual user targeting rules.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFallthrough</code>
+      </TableCell>
+      <TableCell>
+        Update the "default" or "fallthrough" rule.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFeatureWorkflows</code>
+      </TableCell>
+      <TableCell>
+        Change a flag's feature workflows.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFlagFallthroughTrackEvents</code>
+      </TableCell>
+      <TableCell>
+        Change whether to send detailed event information for a flag in a given environment when the fallthrough variation is selected.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFlagRuleDescription</code>
+      </TableCell>
+      <TableCell>
+        Update the description for custom targeting rules.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -1095,92 +1036,222 @@ This table explains available feature flag actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateTrackEvents</code>
+        <code>updateOffVariation</code>
       </TableCell>
-      <TableCell>Change whether to send detailed event information for a flag in a given environment.</TableCell>
+      <TableCell>
+        Update the variation returned when flag toggle is set to <code>off</code>.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateFlagFallthroughTrackEvents</code>
+        <code>updateOn</code>
       </TableCell>
-      <TableCell>Change whether to send detailed event information for a flag in a given environment when the fallthrough variation was selected.</TableCell>
+      <TableCell>
+        Toggle a feature flag on or off.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateGlobalArchived</code>
+        <code>updatePrerequisites</code>
       </TableCell>
-      <TableCell>Change whether a flag is archived.</TableCell>
+      <TableCell>
+        Update flag prerequisites.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateExpiringRules</code>
+        <code>updateRules</code>
       </TableCell>
-      <TableCell>Change a flag's expiring custom targeting rules.</TableCell>
-    </TableRow>
-    <TableRow>
       <TableCell>
-        <code>updateExpiringTargets</code>
+        Update custom targeting rules.
       </TableCell>
-      <TableCell>Change a flag's expiring individual user targeting rules.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateFeatureWorkflows</code>
-      </TableCell>
-      <TableCell>Change a flag's feature workflows.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateScheduledChanges</code>
       </TableCell>
-      <TableCell>Change the scheduled updates on a feature flag.</TableCell>
+      <TableCell>
+        Change the scheduled updates on a feature flag.
+      </TableCell>
     </TableRow>
-<TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTargets</code>
+      </TableCell>
+      <TableCell>
+        Update individual user targeting rules.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTrackEvents</code>
+      </TableCell>
+      <TableCell>
+        Change whether to send detailed event information for a flag in a given environment.
+      </TableCell>
+    </TableRow>
+    <TableRow>
       <TableCell>
         <code>updateTriggers</code>
       </TableCell>
       <TableCell>
-      Create a new trigger, edit existing flag triggers, or delete an existing trigger.
+        Create a new trigger, edit existing flag triggers, or delete an existing trigger.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+This table explains available feature flag actions that affect **all environments** within a project:
+
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>cloneFlag</code>
+      </TableCell>
+      <TableCell>
+        Create a new flag with settings based on an existing flag. To clone a flag, members need to have the <code>cloneFlag</code> permission on the source flag, as well as the <code>createFlag</code> permission for the new flag. Impacts all environments in a project.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>createApprovalRequest</code>
+        <code>createExperiment</code>
       </TableCell>
       <TableCell>
-      Create an approval request for a flag.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateApprovalRequest</code>
-      </TableCell>
-      <TableCell>
-      Update an existing approval request for a flag.
+        Create an experiment. Impacts all environments in a project.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>deleteApprovalRequest</code>
+        <code>createFlag</code>
       </TableCell>
       <TableCell>
-      Delete an approval request for a flag.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>reviewApprovalRequest</code>
-      </TableCell>
-      <TableCell>
-      Review an approval request for a flag.
+        Create a feature flag. Impacts all environments in a project.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>applyApprovalRequest</code>
+        <code>deleteExperiment</code>
       </TableCell>
       <TableCell>
-      Apply an approved approval request for a flag.
+        Delete an experiment. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteFlag</code>
+      </TableCell>
+      <TableCell>
+        Delete a flag. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAttachedGoals</code>
+      </TableCell>
+      <TableCell>
+        Start or stop an A/B testing experiment. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateClientSideFlagAvailability</code>
+      </TableCell>
+      <TableCell>
+        Change whether the feature flag is available to client-side SDKs. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateDescription</code>
+      </TableCell>
+      <TableCell>
+        Change the description of a feature flag. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateExperimentBaseline</code>
+      </TableCell>
+      <TableCell>
+        Change a flag's baseline variation for experiments. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFlagCustomProperties</code>
+      </TableCell>
+      <TableCell>
+        Update custom properties attached to a flag. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFlagDefaultVariations</code>
+      </TableCell>
+      <TableCell>
+        Change the default flag variations used by newly created environments for a feature flag. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFlagVariations</code>
+      </TableCell>
+      <TableCell>
+        Change the flag's variations. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateGlobalArchived</code>
+      </TableCell>
+      <TableCell>
+        Change whether a flag is archived. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateIncludeInSnippet</code>
+      </TableCell>
+      <TableCell>
+        Change whether the feature flag is available to front-end code with the <a href="/sdk/client-side/javascript">JavaScript SDK</a>. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateMaintainer</code>
+      </TableCell>
+      <TableCell>
+        Update the flag maintainer. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateName</code>
+      </TableCell>
+      <TableCell>
+        Change the name of a feature flag. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTags</code>
+      </TableCell>
+      <TableCell>
+        Update tags associated with a flag. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTemporary</code>
+      </TableCell>
+      <TableCell>
+        Marks a flag temporary or permanent. Impacts all environments in a project.
       </TableCell>
     </TableRow>
   </TableBody>
@@ -1234,34 +1305,10 @@ This table explains available segments actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateName</code>
-      </TableCell>
-      <TableCell>
-        Rename a segment.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
         <code>updateDescription</code>
       </TableCell>
       <TableCell>
         Update a segment's description.
-      </TableCell>
-    </TableRow>
-     <TableRow>
-      <TableCell>
-        <code>updateTags</code>
-      </TableCell>
-      <TableCell>
-        Change the tags associated with a segment.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateIncluded</code>
-      </TableCell>
-      <TableCell>
-        Change a segment's included users.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1270,14 +1317,6 @@ This table explains available segments actions:
       </TableCell>
       <TableCell>
         Change a segment's excluded users.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateRules</code>
-      </TableCell>
-      <TableCell>
-        Change a segment's custom targeting rules.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1298,10 +1337,42 @@ This table explains available segments actions:
     </TableRow>
     <TableRow>
       <TableCell>
+        <code>updateIncluded</code>
+      </TableCell>
+      <TableCell>
+        Change a segment's included users.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateName</code>
+      </TableCell>
+      <TableCell>
+        Change the name of a segment.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateRules</code>
+      </TableCell>
+      <TableCell>
+        Change a segment's custom targeting rules.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
         <code>updateScheduledChanges</code>
       </TableCell>
       <TableCell>
         Change the scheduled updates on a segment.
+      </TableCell>
+    </TableRow>
+     <TableRow>
+      <TableCell>
+        <code>updateTags</code>
+      </TableCell>
+      <TableCell>
+        Change the tags associated with a segment.
       </TableCell>
     </TableRow>
   </TableBody>
@@ -1363,10 +1434,18 @@ This table explains available webhooks actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateUrl</code>
+        <code>updateOn</code>
       </TableCell>
       <TableCell>
-        Change the URL for a webhook.
+        Enable and disabled existing webhooks.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateQuery</code>
+      </TableCell>
+      <TableCell>
+        Modify webhook query.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1387,14 +1466,6 @@ This table explains available webhooks actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateOn</code>
-      </TableCell>
-      <TableCell>
-        Enable and disabled existing webhooks.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
         <code>updateTags</code>
       </TableCell>
       <TableCell>
@@ -1403,10 +1474,10 @@ This table explains available webhooks actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateQuery</code>
+        <code>updateUrl</code>
       </TableCell>
       <TableCell>
-        Modify webhook query.
+        Change the URL for a webhook.
       </TableCell>
     </TableRow>
   </TableBody>
@@ -1462,18 +1533,18 @@ This table explains available integrations actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateName</code>
-      </TableCell>
-      <TableCell>
-        Change the name of third-party integration configurations.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
         <code>updateConfiguration</code>
       </TableCell>
       <TableCell>
         Modify existing third-party integration configurations.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateName</code>
+      </TableCell>
+      <TableCell>
+        Change the name of third-party integration configurations.
       </TableCell>
     </TableRow>
      <TableRow>
@@ -1535,6 +1606,18 @@ This table explains available Relay Proxy automatic configuration actions:
     </TableRow>
     <TableRow>
       <TableCell>
+        <code>deleteRelayAutoConfiguration</code>
+      </TableCell>
+      <TableCell>Delete the Relay Proxy with automatic configuration enabled.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>resetRelayAutoConfiguration</code>
+      </TableCell>
+      <TableCell>Reset the configuration of the Relay Proxy with automatic configuration enabled.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
         <code>updateRelayAutoConfigurationName</code>
       </TableCell>
       <TableCell>Change the Relay Proxy with automatic configuration's name.</TableCell>
@@ -1544,18 +1627,6 @@ This table explains available Relay Proxy automatic configuration actions:
         <code>updateRelayAutoConfigurationPolicy</code>
       </TableCell>
       <TableCell>Change the policies associated with the Relay Proxy with automatic configuration.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>deleteRelayAutoConfiguration</code>
-      </TableCell>
-      <TableCell>Delete the Relay Proxy with automatic configuration enabled.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>resetRelayAutoConfiguration</code>
-      </TableCell>
-      <TableCell>Resets the configuration of the Relay Proxy with automatic configuration enabled.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -1616,18 +1687,18 @@ This table explains available destinations actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateOn</code>
+        <code>updateName</code>
       </TableCell>
       <TableCell>
-        Flip the on/off status of a Data Export destination.
+        Change the name of a Data Export destination.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateName</code>
+        <code>updateOn</code>
       </TableCell>
       <TableCell>
-        Rename a Data Export destination.
+        Flip the on/off status of a Data Export destination.
       </TableCell>
     </TableRow>
   </TableBody>
@@ -1673,26 +1744,10 @@ This table explains available code references actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateCodeRefsRepositoryName</code>
+        <code>deleteCodeRefsRepository</code>
       </TableCell>
       <TableCell>
-        Update a Git repository connection name.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateCodeRefsRepositoryConfiguration</code>
-      </TableCell>
-      <TableCell>
-        Update a Git repository connection configuration.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>UpdateCodeRefsRepositoryOn</code>
-      </TableCell>
-      <TableCell>
-        Flip the on/off status of a Git repository connection.
+        Delete a Git repository connection.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1705,10 +1760,26 @@ This table explains available code references actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>deleteCodeRefsRepository</code>
+        <code>updateCodeRefsRepositoryConfiguration</code>
       </TableCell>
       <TableCell>
-        Delete a Git repository connection.
+        Update a Git repository connection configuration.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateCodeRefsRepositoryName</code>
+      </TableCell>
+      <TableCell>
+        Update a Git repository connection name.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>UpdateCodeRefsRepositoryOn</code>
+      </TableCell>
+      <TableCell>
+        Flip the on/off status of a Git repository connection.
       </TableCell>
     </TableRow>
   </TableBody>

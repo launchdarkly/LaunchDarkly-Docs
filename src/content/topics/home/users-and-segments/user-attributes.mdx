@@ -160,8 +160,6 @@ The Users dashboard indicates private attributes with a lock icon:
 
 ![The Users dashboard with a private attribute called out.](users-private-attribute-callout.png)
 
-If you initially mark an attribute as private, LaunchDarkly will continue to treat the attribute as private in subsequent evaluations as long as the user is on the dashboard, even if you later remove the "private" designation from the attribute. If you no longer want LaunchDarkly to treat the attribute as private, remove the "private" designation, delete the user from the Users dashboard, and re-evaluate the user.
-
 To learn more about setting these configuration options, read your SDK's documentation.
 
 <Callout intent="alert">
@@ -185,6 +183,8 @@ The value of a custom attribute can be of the following types:
 * array
 
 If you set the value of a custom attribute to a JSON object, it won't appear on your Users dashboard.
+
+You can set custom attributes by configuring user objects within your SDK. To learn how, read [User configuration](/sdk/features/user-config).
 
 Here is an example user object which contains custom user attributes:
 

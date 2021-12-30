@@ -27,16 +27,30 @@ If you're a LaunchDarkly administrator or account owner, you can configure Launc
 To do this:
 
 1. Log in to LaunchDarkly as an administrator or account owner.
-2. Navigate to the [Security tab](https://app.launchdarkly.com/settings/security) on the Account Settings page:
+2. Navigate to the "SSO management" section of the [Security tab](https://app.launchdarkly.com/settings/security) on the Account Settings page:
 
-![The Team Management section of the Security tab.](../../../images/settings-security-enable-sso.png)
+
+![The "SSO management" section of the Security tab.](settings-security-enable-sso.png)
 
 
 3. Click **Configure SAML**. The SAML configuration screen appears, pre-populated with information you need to set up LaunchDarkly as a SAML application with your identity provider:
 
-![The SAML configuration screen.](../../../images/settings-security-saml-config.png)
+![The SAML configuration screen.](settings-security-saml-config.png)
 
 You cannot complete SAML configuration without configuration details from your IdP.
+
+<Callout intent="info">
+<CalloutTitle>The initial SAML role setting is for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+Setting an initial SAML role to `no access` is limited to a subset of customers in LaunchDarkly's Early Access Program (EAP). If you want access to this feature, email product@launchdarkly.com.
+
+</CalloutDescription>
+</Callout>
+
+If you have not specified a role or custom role for new LaunchDarkly members through your IdP, LaunchDarkly sets the default role to `reader`. Certain EAP customers can change the default role to `no access`. To learn more, read [Understanding LaunchDarkly's built-in roles](/home/members/built-in-roles#understanding-launchdarklys-built-in-roles).
+
+![The default initial SAML role dropdown of the SAML configuration page.](default-initial-saml-role.png)
 
 ## Configuring an external IdP
 
@@ -300,7 +314,7 @@ To use SSO in test-drive mode:
 2. Navigate **Account settings** > **Security** and scroll to the "Team management" section.
 3. Click **Simulate SSO**. This performs the same authentication request flow that occurs for LaunchDarkly-initiated SSO logins:
 
-![The test-drive enablement option.](../../../images/settings-security-sso-test-drive.png)
+![The test-drive enablement option.](settings-security-sso-test-drive.png)
 
 
 ## Enabling SSO
@@ -314,7 +328,7 @@ To enable SSO:
 3. Click **Enable SSO**. A confirmation screen appears.
 4. Click **Enable**:
 
-![The enable SSO confirmation screen.](../../../images/settings-security-enable-sso-confirm.png)
+![The enable SSO confirmation screen.](settings-security-enable-sso-confirm.png)
 
 
 Once SSO is enabled, the LaunchDarkly login procedure defers to your identity provider for authentication. Users will no longer be able to log in with their existing LaunchDarkly password.
@@ -334,7 +348,7 @@ To disable SSO:
 3. Click **Disable SSO**. A confirmation screen appears.
 4. Click **Disable**:
 
-![The disable SSO confirmation screen.](../../../images/settings-security-sso-disable.png)
+![The disable SSO confirmation screen.](settings-security-sso-disable.png)
 
 
 ## Enabling SCIM provisioning

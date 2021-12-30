@@ -9,6 +9,7 @@ const ldColors = {
   brandPink: '#FF386B',
   brandCyan: '#3DD6F5',
   brandPurple: '#A34FDE',
+  brandBlueMuted: '#E2E6FF',
   systemGreen: '#00DA7B',
   systemRed: '#E83B3B',
   systemYellow: '#EEC340',
@@ -49,6 +50,7 @@ const theme = makeTheme({
     secondary: ldColors.brandCyan, // secondary buttons/links
     accent: ldColors.grayscaleBlack100, // header text, emphasised text/icons, contrasted backgrounds/borders
     muted: ldColors.grayscaleWhite100, // faint backgrounds/borders to complement the background not contrast it
+    primaryMuted: ldColors.brandBlueMuted,
     // Legacy colors - try not to use these directly anymore, some have been remapped for
     // expediency, but we should remove them all eventually
     primarySafe: ldColors.brandBlue,
@@ -251,6 +253,45 @@ const theme = makeTheme({
       my: [4, 5],
     },
   },
+  details: {
+    details: {
+      lineHeight: 'spaced',
+      px: 4,
+      '&[open]': {
+        borderRadius: 2,
+        border: '1px solid',
+        borderColor: 'muted',
+        borderTop: 0,
+      },
+    },
+    summary: {
+      bg: 'primaryMuted',
+      transition: 'background-color 0.5s ease',
+      borderRadius: 2,
+      cursor: 'pointer',
+      mx: -4,
+      marginBottom: 4,
+      padding: 4,
+      '&.open': {
+        bg: 'muted',
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
+      },
+    },
+  },
+  figures: {
+    figure: {
+      mt: 4,
+      mb: 5,
+    },
+    figcaption: {
+      fontSize: 3,
+      fontStyle: 'italic',
+      pt: 2,
+      color: 'graySafe',
+      textAlign: 'center',
+    },
+  },
   images: {
     icon: {
       width: '1.25rem',
@@ -397,20 +438,10 @@ const theme = makeTheme({
         color: 'accent',
       },
     },
-    figcaption: {
-      fontSize: 3,
-      fontStyle: 'italic',
-      pt: 2,
-      color: 'graySafe',
-      textAlign: 'center',
-    },
     p: {
       fontSize: 4,
       lineHeight: 'regular',
       marginBottom: 5,
-      '& figcaption': (theme: Theme) => ({
-        ...theme.styles.figcaption,
-      }),
     },
     ol: {
       marginBottom: [5, 5, 5],

@@ -34,7 +34,6 @@ There are several packages that you can import, depending on which features you 
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.17.x and earlier', value: 'go-pre-5.0', },
   ]
 }>
 <CodeTabItem value="go">
@@ -49,16 +48,6 @@ import (
 
     // go-server-sdk.v5/ldcomponents is for advanced configuration options
     "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
-)
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
-
-```go
-import (
-    // go-server-sdk.v4 is the main SDK package - here we are aliasing it to "ld"
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
 )
 ```
 
@@ -112,7 +101,6 @@ Using the `LDClient` methods, you can check which variation a particular user sh
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.17.x and earlier', value: 'go-pre-5.0', },
   ]
 }>
 <CodeTabItem value="go">
@@ -124,24 +112,6 @@ import (
 
 flagKey := "some-flag-key"
 user := lduser.NewUser("some-user-key")
-showFeature, _ := client.BoolVariation(flagKey, user, false)
-if showFeature {
-    // application code to show the feature
-} else {
-    // the code to run if the feature is off
-}
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
-
-```go
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-)
-
-flagKey := "some-flag-key"
-user := ld.NewUser("some-user-key")
 showFeature, _ := client.BoolVariation(flagKey, user, false)
 if showFeature {
     // application code to show the feature
@@ -188,7 +158,6 @@ You can also specify a proxy programmatically through the SDK configuration:
   defaultValue="go"
   values={[
     { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.x and earlier', value: 'go-pre-5.0', },
   ]
 }>
 <CodeTabItem value="go">
@@ -202,24 +171,6 @@ import (
 var config ld.Config
 config.HTTP = ldcomponents.HTTPConfiguration().
     ProxyURL("https://web-proxy.domain.com:8080")
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
-
-```go
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-    "gopkg.in/launchdarkly/go-server-sdk.v4/ldhttp"
-)
-
-proxyURL, _ := url.Parse("https://web-proxy.domain.com:8080")
-
-config := ld.DefaultConfig
-config.HTTPClientFactory = ldhttp.NewHTTPClientFactory(
-    ldhttp.ProxyURL(*proxyURL))
-
-// This is supported only in SDK versions 4.14.0 and higher.
 ```
 
 </CodeTabItem>

@@ -35,7 +35,7 @@ Find all the experiments in your environment by clicking **Experiments** in the 
 
 Here is an image of the Experiments dashboard:
 
-![The Experiments dashboard.](../../images/experiment-dashboard.png)
+![The Experiments dashboard.](experiment-dashboard.png)
 
 After you set up your first metric and flag, you can create new experiments by clicking the **Create experiment** button.
 
@@ -197,7 +197,7 @@ To create a pageview metric:
 1. Follow steps 1-6 in [Creating click metrics](#creating-click-metrics) until you have configured the form up to the "Event information" section.
 2. Choose **Page view** from the **Event kind** dropdown:
 
-![The Event kind dropdown.](../../../images/metrics-event-kind.png)
+![The Event kind dropdown.](metrics-event-kind.png)
 
 3. Specify a type of URL you want to track behavior on. To learn about the different options for URL matching, see the table in [Creating click metrics](#creating-click-metrics).
 4. (Optional) Click **Add Additional URL** to track behavior on more than one URL.
@@ -234,13 +234,13 @@ To create a custom conversion metric:
 1. Follow steps 1-6 in [Creating click metrics](#creating-click-metrics) until you have configured the form up to the "Event information" section.
 2. Choose **Custom** from the **Event kind** dropdown:
 
-![The Event kind dropdown.](../../../images/metrics-event-kind-custom.png)
+![The Event kind dropdown.](metrics-event-kind-custom.png)
 
 3. Click to select the **Conversion** radio button
 4. Enter a human-readable **Event name**. This is the event name you will reference in your code snippet when you insert the metric information into your app.
 5. Click **Save Metric**:
 
-![The "Event information" section of the "Create a new metric" screen with a conversion metric configured.](../../../images/metrics-event-information.png)
+![The "Event information" section of the "Create a new metric" screen with a conversion metric configured.](metrics-event-information.png)
 
 
 ### Creating numeric metrics
@@ -305,7 +305,7 @@ To create a numeric metric:
 4. Choose a **Success criteria** from the dropdown.
 5. Click **Save Metric**:
 
-![The "Event information" section of the "Create a new metric" screen with a numeric metric configured.](../../../images/metrics-event-information-numeric.png)
+![The "Event information" section of the "Create a new metric" screen with a numeric metric configured.](metrics-event-information-numeric.png)
 
 
 <Callout intent="info">
@@ -335,7 +335,7 @@ To connect a metric to a flag from the Experiments dashboard:
 1. Navigate to the Experiments dashboard.
 2. Click **Create experiment**:
 
-![The Experiments dashboard with the "Create experiment" button called out.](../../images/experiment-dashboard-new-callout.png)
+![The Experiments dashboard with the "Create experiment" button called out.](experiment-dashboard-new-callout.png)
 
 3. Choose a flag from the "Select flag" dropdown.
 4. (Optional) If the flag doesn't have a baseline variation, choose one from the "Select baseline" dropdown.
@@ -356,13 +356,13 @@ To connect a metric to a flag from the flag's Experiments tab:
 1. Navigate to the flag's Experimentation tab.
 2. If the flag does not have other running experiments, click **Create an Experiment.** If it already has running experiments, click **Manage metrics**. The "Experiment Setup" screen appears.
 
-![A flag's Experiments tab with the Manage metrics button called out.](../../../images/flag-experiment-manage-callout.png)
+![A flag's Experiments tab with the Manage metrics button called out.](flag-experiment-manage-callout.png)
 
 3. Enter a metric name or choose a metric from the **Add new metric** dropdown. The metric you choose appears in the table below.
 4. Choose a baseline from the **Baseline** dropdown.
 5. Click **Save Experiment Settings**. The new experiment appears in the flag's Experiments tab.
 
-![The "Experiment Setup" screen, configured to connect a metric to a flag.](../../../images/experiment-settings-metrics.png)
+![The "Experiment Setup" screen, configured to connect a metric to a flag.](experiment-settings-metrics.png)
 
 
 After you create an experiment, you must start a new iteration in every environment where you want it to run.

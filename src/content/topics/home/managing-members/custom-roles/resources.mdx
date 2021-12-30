@@ -7,7 +7,7 @@ published: true
 
 ## Overview
 
-This topic explains how to specify different resources to use with custom roles, integrations access, and Rely Proxy access.
+This topic explains how to specify different resources to use with custom roles, integrations access, and Relay Proxy access.
 
 To learn more about how resources are structured within custom role policies, read [Custom role concepts](/home/members/role-concepts).
 
@@ -104,7 +104,7 @@ proj/*;mobile
 
 ## Scoping resources
 
-The term "scoping" refers to identifying resources in relation to other resources and the hieriarchy of permissions that connects them.
+The term "scoping" refers to identifying resources in relation to other resources and the hierarchy of permissions that connects them.
 
 Resources can be scoped within parent resources. For example, metrics are scoped within a project, and feature flags are scoped within a project and environment.
 
@@ -191,7 +191,7 @@ Here is a reference list of all the supported resources in LaunchDarkly, and the
       <code>acct</code>
     </TableCell>
     <TableCell>
-      <code>acct</code> is a unique resource specifier representing modifications to your account itself
+      <code>acct</code> is a unique resource specifier representing modifications to your account itself.
     </TableCell>
     <TableCell>
       <code>acct</code>
@@ -257,7 +257,7 @@ Here is a reference list of all the supported resources in LaunchDarkly, and the
       <code>proj</code>
     </TableCell>
     <TableCell>
-      Top-level resource. Projects have no parent resource.
+      <code>proj</code> is a top-level resource.
     </TableCell>
     <TableCell>
       <code>proj/*</code>
@@ -268,7 +268,7 @@ Here is a reference list of all the supported resources in LaunchDarkly, and the
       <code>env</code>
     </TableCell>
     <TableCell>
-      A child resources of <code>projects</code>.
+      <code>env</code> is a child resource of <code>projects</code>.
     </TableCell>
     <TableCell>
       <code>proj/*:env/*</code>

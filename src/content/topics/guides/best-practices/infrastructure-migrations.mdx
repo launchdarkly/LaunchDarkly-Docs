@@ -26,13 +26,13 @@ This technical guide explores a database migration strategy. To use it successfu
 
 The example below focuses on a database migration, but you can use a similar strategy for other infrastructure migrations as well.
 
-For our example, let's start with a data model that is never updated, where events are written and later read, but never changed. Later in the guide, we'll discuss how to handle the more complicated data model with ongoing event updates.
+For this example, let's start with a data model that is never updated, where events are written and later read, but never changed. Later in the guide, we'll discuss how to handle the more complicated data model with ongoing event updates.
 
 In the next sections, we refer to two databases, `db1` and `db2`. `db1` is the original database from which you will migrate. `db2` is the destination database to which you will migrate your data. It receives data from `db1`.
 
 Here is a diagram representing migrating databases with feature flags:
 
-![Migrating databases with feature flags](../images/database-migration.jpg)
+![Migrating databases with feature flags. Before your migration begins, all users work with the original database, db1.](database-migration.jpg)
 
 ### Preparing your Data Access Object (DAO)
 
@@ -44,9 +44,9 @@ First, you must write a new DAO that uses the same interface as `db1`, but can a
 
 Now, you have two implementations of your DAO interface, one backed by `db1` and the other by `db2`.
 
-Use a set of four feature flags to control reading and writing to each database independently (referred to below as `events-db1-write`, `events-db2-write`, `events-db1-read`, and `events-db2-read`).
+Use a set of four feature flags to control reading and writing to each database independently (referred to below as `events-db1-read`, `events-db2-read`, `events-db1-write`, and `events-db2-write`).
 
-For example, the function below will save an event to the approriate database depending on the value of our feature flags (`events-db1-write` and `events-db2-write`):
+For example, the function below will save an event to the approriate database depending on the value of your feature flags (`events-db1-write` and `events-db2-write`):
 
 <CodeTabs
   defaultValue="code"
@@ -82,9 +82,9 @@ The `ldclient.BoolVariation()` function retrieves the feature flag value from La
 
 If you follow the code above precisely, you can save the same event in both databases. This is deliberate. It lets us write events to the new data store while maintaining the integrity of the old store.
 
-If we need to cancel the migration or rollback from `db2` to `db1`, we can do so with confidence because both databases have all of the events stored.
+If you need to cancel the migration or roll back from `db2` to `db1`, we can do so with confidence because both databases have all of the events stored.
 
-The code that reads the events is more complicated. Here, our strategy is to read from both data stores at the same time, compare the results, then return the results from `db1`. If the results are different between the data stores, then we log it.
+The code that reads the events is more complicated. Here, the strategy is to read from both data stores at the same time, compare the results, then return the results from `db1`. If the results are different between the data stores, then we log it.
 
 Here is an example:
 
@@ -131,17 +131,17 @@ This implementation has a bias toward the incumbent data store, which in this ex
 
 ### Rolling it out
 
-Now that we’ve wrapped our data access in feature flags, we can plan the rollout.
+Now that you’ve wrapped your data access in feature flags, you can plan the rollout.
 
 You can leave the read flag (`events-db2-read`) turned off for everyone, and progressively roll out the write flag (`events-db2-write`) to your userbase. Watch performance metrics and error logs. If things perform as expected and you've verified the data is written correctly in `db2`, roll the flag out to more users, until all events are being written to both databases.
 
-When you are happy with the write performance and confirmed that the data in `db2` is correct, you can plan to migrate the missing data that's not in `db1`. This data was written before the `events-db2-write` flag was turned on. You can do this as a one-time copy with a script, ignoring any duplicate entries that came in after you enabled writes to `db2`. Make sure to do a final check on the resulting data in `db2`.
+When you are happy with the write performance and have confirmed that the data in `db2` is correct, you can plan to migrate the missing data that's not yet in `db2`. This data was written before the `events-db2-write` flag was turned on. You can do this as a one-time copy with a script, ignoring any duplicate entries that came in after you enabled writes to `db2`. Make sure to do a final check on the resulting data in `db2`.
 
 <Callout intent="alert">
 <CalloutTitle>How do you handle a data model that can be updated?</CalloutTitle>
 <CalloutDescription>
 
-Our example up until this point assumed a data model that doesn't get updated (only created). The write strategy for a mutable data model is a bit more complicated. In this case, you may want to consider adding a <code>lastUpdate</code> property to your data store so that you can decide if your copy script will need to update the data in <code>db2</code>.
+The example up until this point assumed a data model that doesn't get updated, only created. The write strategy for a mutable data model is a bit more complicated. In this case, you may want to consider adding a <code>lastUpdate</code> property to your data store so that you can decide if your copy script will need to update the data in <code>db2</code>.
 
 </CalloutDescription>
 </Callout>
@@ -156,7 +156,16 @@ Once you're comfortable with the performance metrics and error counts you're see
 
 Here is a diagram representing an example migration strategy:
 
-![A migration strategy](../images/database-migration-using-ff.jpg)
+![A migration strategy.](database-migration-using-ff.jpg)
+
+
+### Variations to consider
+
+Depending on the complexity of your current data store and your volume of traffic, you may want to break your migration into even more steps. Here are some additional variations to consider:
+
+* **Create flags for critical processes.** Rather than wrapping all of your reads and writes in just two flags, create additional pairs of read/write flags for specific, critical processes in your application. You can roll these out separately to further mitigate risk.
+* **Create flags for processes that are changing.** Sometimes an infrastructure change necessitates a functional change. For example, if you are migrating between two different kinds of databases, you may have to rework some of your queries substantially. Wrapping these changes in a separate flag makes it easier to evaluate their performance and correctness independently of your other updates.
+* **Use flags for tuning.** In addition to flags that control reading and writing to each database, you can add flags within your DAO to help you tune the implementation for your new system. For example, if you are moving to a highly distributed database, you might use an integer flag type to tune the sizes you use for bulk inserts. To learn more about multivariate flags, read [Creating flag variations](/home/flags/variations).
 
 ## Migrating between schemas with feature flags
 
@@ -168,7 +177,7 @@ More frequently, you may find that you need to make changes to your database as 
 - removing elements
 - splitting fields
 
-If your database has frequent read and write actions, it may make more sense to treat the migration as a database migration. You can create a secondary database containing the new schema, then migrate using the methods we discussed in [Migrating between databases with feature flags](#migrating-between-databases-with-feature-flags).
+If your database has frequent read and write actions, it may make more sense to treat the migration as a database migration. You can create a secondary database containing the new schema, then migrate using the methods discussed in [Migrating between databases with feature flags](#migrating-between-databases-with-feature-flags).
 
 Less busy databases don't require the extra step. Instead, you can make the changes in place. Feature flags allow you to deliberately and carefully manage your changes within the database, greatly reducing the risk of data disruption. You don't have to make the changeover all at once. You can pause the migration as many times as you need to assess your progress and change direction if necessary.
 
@@ -178,8 +187,8 @@ Imagine you have been collecting five-digit ZIP codes as part of your client's a
 
 Here's how to approach the migration:
 
-1. **Update your application code to collect and retrieve `ZIP+4` address information**: When migrating schema, it's important to seperate your database changes from your codebase changes. Begin by making changes to your code that reference the database change.
-2. **Wrap your code changes in a feature flag**: Add your feature flags to the affected elements of your codebase, not your database. Wrap the read action and the write action in separate flags.
+1. **Plan feature flags for your code changes**: Add your feature flags to the affected elements of your codebase, not your database. Wrap the read action and the write action in separate flags.
+2. **Update your application code to collect and retrieve `ZIP+4` address information**: When migrating schema, it's important to separate your database changes from your codebase changes. Begin by making changes to your code that reference the database change, and wrap the code changes in feature flags.
 3. **Make changes to your database**: Add the ZIP+4 column to your database. For the moment, the column will sit empty. Your feature flags allowing the read and write of `ZIP+4` data are still off.
 4. **Toggle on the write action feature flag**: Your application begins populating the new `ZIP+4` fields. You may want to retroactively fill in the missing `ZIP+4` fields for addresses already in the database, or you may just want to collect the data for new addresses.
 5. **Toggle on the read action feature flag**: How long you wait to toggle on this flag depends on your needs and processes. It may make sense to begin using the field right away, or you may want to wait until you have a critical mass of addresses with the `ZIP+4` data before reading from the new column.

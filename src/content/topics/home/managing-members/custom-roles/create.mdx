@@ -1,7 +1,7 @@
 ---
 path: '/home/members/role-create'
 title: 'Creating custom roles and policies'
-description: 'This topic explains how to create and implement custom roles in LaunchDarkly. Create a custom role and apply it to one or more members in your team.'
+description: 'This topic explains how to create and implement custom roles and policies in LaunchDarkly. Create a custom role and apply it to one or more members in your team.'
 published: true
 ---
 
@@ -24,16 +24,37 @@ Before you can give an account member custom permissions in LaunchDarkly, you mu
 
 To create a custom role:
 
-1. Navigate to **Account Settings**.
+1. Navigate to **Account settings**.
 2. Click into the **Roles** tab.
-3. Click **Create Role**. The "Create a role" screen appears.
+3. Click **Create role**. The "Create custom role" screen appears.
 4. Enter a human-readable **Name** for the role.
 5. Enter a **Key** for the role.
 6. (Optional) Enter a **Description** to explain what the role does.
-7. Create a policy in the "Policy" fields.
-8. Click **Save Role**:
+7. (Optional) Uncheck the "By default, members can view all LaunchDarkly content" box for this role to start with no access.
+8. Create a policy in the "Policy" fields.
+9. Click **Save Role**:
 
-![The "Create a role" screen.](../../../../images/settings-roles-create.png)
+
+![The "Create custom role" screen.](settings-roles-create.png)
+
+
+<Callout intent="info">
+<CalloutTitle>The base role setting is for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+Setting a custom role's base role to `no access` is limited to a subset of customers in LaunchDarkly's Early Access Program (EAP). If you want access to this feature, email product@launchdarkly.com.
+
+</CalloutDescription>
+</Callout>
+
+If you keep the "By default, members can view all LaunchDarkly content" box checked, the custom role starts with `reader` permissions. You can use the role's policy to remove view permissions or allow the ability to modify resources.
+
+If you uncheck the box, the custom role starts with `no access` permissions. You can use the role's policy to allow view permissions for specific projects or teams, or allow the ability to modify resources. However, if you give access to modify a resource without giving access to view the project the resource is in, the member still won't be able to see the resource.
+
+For example, suppose you create a custom role with this box unchecked but grant access to modify a flag. Members with the role will not have view access to the project in LaunchDarkly, so will not be able to edit the flag from the LaunchDarkly Dashboard. However, they will be able to make changes to the flag using the API.
+
+![The base role option checkbox in the "Create custom role" screen.](settings-roles-base-role-custom.png)
+
 
 ## Creating policies for custom roles
 
@@ -73,12 +94,21 @@ To learn more, read [Finding resource IDs](#finding-resource-ids).
 4. Choose an **Effect** from the dropdown.
 5. Choose one or more **Actions** for the policy to enforce:
 
-![The Actions dropdown with options selected.](../../../../images/settings-roles-resources-action-menu.png)
+![The Actions dropdown with options selected.](settings-roles-resources-action-menu.png)
 
 
 6. Click **Update**. The results of your policy display:
 
-![A custom policy.](../../../../images/settings-roles-policy.png)
+![A custom policy.](settings-roles-policy.png)
+
+### Finding resource IDs
+
+You can find resource IDs with the resource finder, which you can access with the “resource finder” link in either the simple or advanced editor, or by using the keyboard shortcut `⌘` + `.` (Mac) or `ctl` + `.` (Windows). All of your environments, members, feature flags, metrics, and roles will be available.
+
+Here is a screenshot of the "Find a resource ID" screen:
+
+![The "Find a resource ID" screen.](settings-roles-resource-id.png)
+
 
 ### Finding resource IDs
 
@@ -95,22 +125,22 @@ After you have created a custom role and policies for it, you must give that rol
 
 To give a member a custom role:
 
-1. Navigate to **Account Settings**.
+1. Navigate to **Account settings**.
 2. Click into the **Members** tab and find the account member you wish to give a custom role.
 3. Click **Manage** beside that account member's name. The member's Settings page opens:
 
-![The member's Settings page.](../../../../images/settings-team-member-edit.png)
+![The member's Settings page.](settings-team-member-edit.png)
 
 
 4. Click the member's **Role**. A dropdown menu expands.
 5. Choose **Custom**. All available custom roles appear with checkboxes beside them:
 
-![The Role dropdown menu.](../../../../images/settings-team-role-dropdown.png)
+![The Role dropdown menu.](settings-team-role-dropdown.png)
 
 6. Choose all custom roles you wish to give the member.
-7. Click **Save Member**:
+7. Click **Save role**:
 
-![Custom roles given to the member.](../../../../images/settings-team-custom-roles-assigned.png)
+![Custom roles given to the member.](settings-team-custom-roles-assigned.png)
 
 
 <Callout intent="alert">
@@ -126,21 +156,25 @@ For example, if you wish to add a role for the QA team, you must find each QA ac
 
 You can also assign custom roles through your IdP with SSO or SCIM. For an in-depth guide on how to use custom roles with IdPs, read [Managing custom roles with SSO and SCIM](/guides/platform-specific/custom-roles).
 
+## Viewing an account member's roles
+
+To view the roles for an individual account member, read [Viewing an individual member's roles](/home/members/custom-roles#viewing-an-individual-members-roles).
+
 ## Removing an account member's custom role
 
 If an account member changes function or needs their permissions modified, you can remove a custom role from them at any time.
 
 To remove a custom role from a member:
 
-1. Navigate to **Account Settings**.
+1. Navigate to **Account settings**.
 2. Click into the **Team** tab and find the account member you wish to remove a custom role from.
 3. Click **Edit** beside that account member's name. The member's Settings page opens.
 4. Deselect the checkboxes for the roles you wish to remove from the member.
 5. (Optional) If you wish to return the member to a standard role, choose **Reader**, **Writer**, or **Admin / Owner** from the **Role** dropdown:
 
-![The Role dropdown menu.](../../../../images/settings-team-role-dropdown.png)
+![The Role dropdown menu.](settings-team-role-dropdown.png)
 
-6. Click **Save Member**.
+6. Click **Save role**.
 
 ## Viewing custom role details
 
@@ -150,18 +184,18 @@ Use the "Role policy details" screen to view detailed information about a custom
 
 Here is a screenshot of the "Role policy details" screen:
 
-![The "Role policy details" screen.](../../../../images/settings-roles-role-policy-details.png)
+![The "Role policy details" screen.](settings-roles-role-policy-details.png)
 
 To view details for custom roles from the **Roles** tab:
 
-1. Navigate to **Account Settings** and click into the **Roles** tab.
+1. Navigate to **Account settings** and click into the **Roles** tab.
 2. Find the role with details you wish to view and click **Details** or **Edit**. The "Role policy details" screen appears:
 
-![A role's entry in the Roles tab with the Details button called out.](../../../../images/settings-roles-details-callout.png)
+![A role's entry in the Roles tab with the Details button called out.](settings-roles-details-callout.png)
 
 To view details for custom roles in other parts of the LaunchDarkly user interface (UI), click a custom role's name to open the "Role policy details" screen:
 
-![A member's Access screen in the Members tab with a custom role called out.](../../../../images/settings-team-roles-callout.png)
+![A member's Access screen in the Members tab with a custom role called out.](settings-team-roles-callout.png)
 
 ## Editing existing custom roles
 
@@ -169,14 +203,14 @@ Edit an existing policy at any time by clicking the **pencil icon** or add a new
 
 To edit a custom role:
 
-1. Navigate to **Account Settings**.
+1. Navigate to **Account settings**.
 2. Click into the **Roles** tab and find the role you wish to edit.
 3. Click **Edit**. The "Edit custom role" screen appears:
 
-![The "Edit custom role" screen.](../../../../images/settings-roles-edit.png)
+![The "Edit custom role" screen.](settings-roles-edit.png)
 
 4. Change whatever features of the role you wish.
-5. Click **Save**.
+5. Click **Save changes**.
 
 ## Deleting custom roles
 
@@ -184,9 +218,9 @@ Delete a custom role from the Account Settings page.
 
 To delete a custom role:
 
-1. Navigate to **Account Settings**.
+1. Navigate to **Account settings**.
 2. Click into the **Roles** tab and find the role you wish to edit.
 3. Click **Edit**. The "Edit custom role" screen appears.
-4. Click **Delete Role**:
+4. Click **Delete role**:
 
-![The "Delete role" button.](../../../../images/settings-roles-delete.png)
+![The "Delete role" button.](settings-roles-delete.png)

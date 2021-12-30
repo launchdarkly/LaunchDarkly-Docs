@@ -7,7 +7,7 @@ published: true
 
 ## Overview
 
-This topic shows some examples of different types of policies you can implement with policy filters for custom roles, integrations access, and Rely Proxy access.
+This topic shows some examples of different types of policies you can implement with policy filters for custom roles, integrations access, and Relay Proxy access.
 
 It also provides two templates you can copy and modify for your own custom roles. One template is for a reader role, and one is for a writer role.
 
@@ -23,7 +23,7 @@ Use the `viewProject` action to allow or deny viewing and editing access to proj
 
 ## Example: Granting access to specific environments and flags
 
-This example policy allows members of the QA team to administer environments that are tagged `qa_*`, and also to manage flags in environments tagged `qa_*`.
+This example policy uses the `*` wildcard to allow members of the QA team to administer environments that have tags beginning with `qa_`, such as `qa_test`, `qa_production`, and so on. This policy also allows members to manage flags in environments that have tags beginning with `qa_`.
 
 To manage flags in environments tagged `qa_*`, you must specify the flag-level resource you want to control. Limiting `resources` to `"proj/*:env/*;qa_*"` lets you manage the environment itself.
 
@@ -56,6 +56,7 @@ To do this:
 </CodeTabItem>
 </CodeTabs>
 
+For more tag policy examples, read [Using tags in custom role policies](/home/members/role-tags#using-tags-in-custom-role-policies).
 
 ## Example: Granting access to kill switch features, but not flag rollout or targeting rules
 
@@ -189,7 +190,7 @@ Here's how to do this:
     "actions": ["viewProject"],
     "effect": "deny"
   },
-    {
+  {
     "resources": ["proj/project-1:env/*:flag/*"],
     "actions": ["*"],
     "effect": "allow"
@@ -226,7 +227,7 @@ Here's how to do this:
 
 ```json
 [
-    {
+  {
     "resources": ["proj/*"],
     "actions": ["*"],
     "effect": "deny"
@@ -440,129 +441,73 @@ Here's a template:
 ```json
 [
     {
-        "resources": [
-            "proj/"
-        ],
-        "actions": [
-            ""
-        ],
+        "resources": ["proj/"],
+        "actions": ["*"],
         "effect": "allow"
     },
     {
-        "resources": [
-            "proj/:env/"
-        ],
-        "actions": [
-            ""
-        ],
+        "resources": ["proj/:env/"],
+        "actions": ["*"],
         "effect": "allow"
     },
     {
-        "resources": [
-            "proj/:metric/"
-        ],
-        "actions": [
-            ""
-        ],
+        "resources": ["proj/:metric/"],
+        "actions": ["*"],
         "effect": "allow"
     },
     {
-        "resources": [
-            "member/"
-        ],
-        "actions": [
-            ""
-        ],
+        "resources": ["member/"],
+        "actions": ["*"],
         "effect": "allow"
     },
     {
-        "resources": [
-            "member/:token/"
-        ],
-        "actions": [
-            ""
-        ],
+        "resources": ["member/:token/"],
+        "actions": ["*"],
         "effect": "allow"
     },
     {
-        "resources": [
-            "role/"
-        ],
-        "actions": [
-            ""
-        ],
+        "resources": ["role/"],
+        "actions": ["*"],
         "effect": "allow"
     },
     {
-        "resources": [
-            "proj/:env/:flag/"
-        ],
-        "actions": [
-            ""
-        ],
+        "resources": ["proj/:env/:flag/"],
+        "actions": ["*"],
         "effect": "allow"
     },
     {
-        "resources": [
-            "integration/"
-        ],
-        "actions": [
-            ""
-        ],
+        "resources": ["integration/"],
+        "actions": ["*"],
         "effect": "allow"
     },
     {
-        "resources": [
-            "proj/:env/:segment/"
-        ],
-        "actions": [
-            ""
-        ],
+        "resources": ["proj/:env/:segment/"],
+        "actions": ["*"],
         "effect": "allow"
     },
     {
-        "resources": [
-            "webhook/"
-        ],
-        "actions": [
-            ""
-        ],
+        "resources": ["webhook/"],
+        "actions": ["*"],
         "effect": "allow"
     },
     {
-        "resources": [
-            "proj/:env/:user/"
-        ],
-        "actions": [
-            ""
-        ],
+        "resources": ["proj/:env/:user/"],
+        "actions": ["*"],
         "effect": "allow"
     },
     {
-        "resources": [
-            "code-reference-repository/"
-        ],
-        "actions": [
-            ""
-        ],
+        "resources": ["code-reference-repository/"],
+        "actions": ["*"],
         "effect": "allow"
     },
     {
-        "resources": [
-            "proj/:env/:destination/"
-        ],
-        "actions": [
-            ""
-        ],
+        "resources": ["proj/:env/:destination/"],
+        "actions": ["*"],
         "effect": "allow"
     },
     {
-        "resources": [
-            "acct"
-        ],
-        "actions": [
-            ""
-        ],
+        "resources": ["acct"],
+        "actions": ["*"],
         "effect": "allow"
     }
 ]

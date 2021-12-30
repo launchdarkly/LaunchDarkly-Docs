@@ -5,6 +5,15 @@ description: 'This topic explains how to use API access tokens to authenticate w
 published: true
 ---
 
+<Callout intent="primary">
+<CalloutTitle>The REST API is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+The LaunchDarkly REST API is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic explains how to use API access tokens to authenticate with the [LaunchDarkly REST API](https://apidocs.launchdarkly.com), as well as constraints and suggestions for implementing them.
@@ -105,7 +114,7 @@ Your API access token is visible one time, immediately after you create it. If y
 
 Here is a screenshot of the Access tokens page:
 
-![The Access tokens page with an obscured access token called out.](../../images/settings-access-tokens-obscured-callout.png)
+![The Access tokens page with an obscured access token called out.](settings-access-tokens-obscured-callout.png)
 
 To create an access token:
 
@@ -113,18 +122,18 @@ To create an access token:
 2. Click into the **Authorization** tab.
 3. Click **Create token**. The **Create an access token** screen appears:
 
-![The Create an access token screen.](../../images/settings-access-tokens-create-callout.png)
+![The Create an access token screen.](settings-access-tokens-create-callout.png)
 
 4. Give your token a human-readable **Name**.
 5. Assign a **Role** to the token by choosing one from the dropdown.
 6. (Optional) Select the "This is a service token" checkbox if you wish to create a service token. This feature is only available to customers on Enterprise plans:
 
-![The create an access token screen with the service token checkbox called out.](../../images/settings-access-tokens-service-checkbox-callout.png)
+![The create an access token screen with the service token checkbox called out.](settings-access-tokens-service-checkbox-callout.png)
 
 7. Click **Save Token**. The new token appears in the **Authorization** page.
 8. Copy and save the token somewhere secure. After you leave this page, the token is obscured:
 
-![A new access token with a reminder to copy and store it displayed.](../../images/settings-access-tokens-notification.png)
+![A new access token with a reminder to copy and store it displayed.](settings-access-tokens-notification.png)
 
 After you create a token, you can **Clone** or **Delete** it from the "Access tokens" screen.
 
@@ -133,7 +142,7 @@ After you create a token, you can **Clone** or **Delete** it from the "Access to
 
 Here is a screenshot of the access tokens screen:
 
-![A new access token with the Clone and Delete buttons called out.](../../images/settings-access-tokens-clone-delete-callout.png)
+![A new access token with the Clone and Delete buttons called out.](settings-access-tokens-clone-delete-callout.png)
 
 You can also manage existing tokens from the **Authorizations** tab. From that tab, you can reset the secret values of your tokens, or delete them. You may also adjust the scope of your personal tokens.
 
