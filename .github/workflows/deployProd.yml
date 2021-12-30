@@ -49,3 +49,35 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
         with:
           args: ':rotating_light::rotating_light::rotating_light: The deployProd script failed to successfully deploy the Docs site. :rotating_light::rotating_light::rotating_light:'
+
+  cypress-run:
+    runs-on: ubuntu-latest
+    name: Run cypress
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          build: yarn build-dev
+          start: yarn serve-dev
+          headless: true
+          wait-on: 'http://localhost:9000/home/getting-started'
+          wait-on-timeout: 5
+          env: skip_external=true
+      - name: Archive Cypress screenshots
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-screenshots
+          path: |
+            /home/runner/work/git-gatsby/git-gatsby/cypress/screenshots
+          retention-days: 5
+      - name: Notify slack
+        if: ${{ failure() }}
+        uses: Ilshidur/action-slack@2.1.0
+        env:
+          SLACK_USERNAME: Docs DeployBot
+          SLACK_WEBHOOK: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+        with:
+          args: ':rotating_light::rotating_light::rotating_light: The Cypress tests failed on deploy prod step. https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} :rotating_light::rotating_light::rotating_light:'
