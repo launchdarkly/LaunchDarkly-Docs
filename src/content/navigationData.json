@@ -414,6 +414,10 @@
             "path": "/home/feature-workflows/scheduled-changes"
           },
           {
+            "label": "Flag triggers",
+            "path": "/home/feature-workflows/triggers"
+          },
+          {
             "label": "Workflows",
             "path": "/home/feature-workflows/workflows"
           }

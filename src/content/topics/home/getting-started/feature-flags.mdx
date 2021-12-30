@@ -72,6 +72,10 @@ If an SDK tries to evaluate a feature flag that is not available, the user will 
 
 To make all of a project's flags available to client-side or mobile SDKs by default, check the **SDKs using Client-side ID** or **SDKs using Mobile key** checkboxes in your project [Settings](https://app.launchdarkly.com/settings#/projects).
 
+If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
+
+To make all of a project's flags available to client-side or mobile SDKs by default, check the **SDKs using Client-side ID** or **SDKs using Mobile key** checkboxes in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+
 <Callout intent="alert">
 <CalloutTitle>Security implications of making flags available to mobile SDKs</CalloutTitle>
 <CalloutDescription>
