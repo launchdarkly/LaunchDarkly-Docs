@@ -43,6 +43,7 @@ Here are the configuration options for user entities in client-side SDKs.
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
 * [C/C++ (client-side)](#cc-client-side)
+* [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
 * [JavaScript](#javascript)
@@ -89,13 +90,14 @@ Most of the built-in attributes, like names and email addresses, expect string v
 </Callout>
 
 #### Private user attributes in the client-side .NET SDK
+---
 
 You can optionally configure the client-side .NET SDK to treat some or all user attributes as [private user attributes](/home/users/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the client-side .NET SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
 - When creating the LaunchDarkly `Configuration` object, you can call the `AllAttributesPrivate` method, which takes in a boolean parameter. If `true`, all user attributes except the key for all users are removed before the SDK sends the user to LaunchDarkly.
-- When creating the LaunchDarkly `Configuration` object, you can call the `PrivateAttributeName` method, which takes in a string attribute nameas a parameter and adds it to an internally managed list of private attributes. This method may be called multiple times to mark additional attributes as private. If any user has a custom or built-in attribute named in the private attributes list, it are removed before the SDK sends the user to LaunchDarkly.
+- When creating the LaunchDarkly `Configuration` object, you can call the `PrivateAttributeName` method, which takes in a string attribute, names a parameter, and adds it to an internally managed list of private attributes. This method may be called multiple times to mark additional attributes as private. If any user has a custom or built-in attribute named in the private attributes list, the SDK removes it before sending the user to LaunchDarkly.
 
 You can also mark attributes as private when building the user object by calling `AsPrivateAttribute()` immediately after setting the attribute.
 
@@ -118,9 +120,10 @@ var user = User.Builder("aa0ceb")
 </CodeTabItem>
 </CodeTabs>
 
-When this user is sent back to LaunchDarkly, the `email` attribute is omitted.
+When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
 
 #### Anonymous users in the client-side .NET SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
@@ -213,10 +216,11 @@ Most of the built-in attributes, like names and email addresses, expect string v
 </Callout>
 
 #### Private user attributes in the Android SDK
+---
 
 You can optionally configure the Android SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
-In the Android SDK you can define private attributes for the entire LaunchDarkly client. When creating the `LDConfig` object, call the `setPrivateAttributeNames` method, which which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this set, it is removed before the SDK sends the user to LaunchDarkly.
+In the Android SDK you can define private attributes for the entire LaunchDarkly client. When creating the `LDConfig` object, call the `setPrivateAttributeNames` method, which which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this set, the SDK removes it before sending the user to LaunchDarkly.
 
 Here's how to configure private user attributes:
 
@@ -288,9 +292,10 @@ val user: LDUser = LDUser.Builder("aa0ceb")
 </CodeTabItem>
 </CodeTabs>
 
-When this user is sent back to LaunchDarkly, the `name` and `group` attributes are removed.
+When the SDK sends this user back to LaunchDarkly, it removes the `name` and `group` attributes.
 
 #### Anonymous users in the Android SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
@@ -359,19 +364,20 @@ The argument to `LDUserNew` is the user's key. The key should uniquely identify 
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of our built-in attributes (like names and e-mail addresses) expect string values. Custom attributes values can be strings, booleans like true or false, numbers, or lists of strings, booleans or numbers. If you enter a custom value that looks like a number or a boolean, it is interpreted that way.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value that looks like a number or a boolean, the SDK interprets it that way.
 
 </CalloutDescription>
 </Callout>
 
 #### Private user attributes in the C/C++ SDK
+---
 
 You can optionally configure the C/C++ SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the C/C++ SDK there are two ways to define private attributes for the LaunchDarkly client:
 
 - When creating the `LDConfig` object, you can set the `allAttributesPrivate` value to `true`. When you do this, all user attributes except the key are removed before the SDK sends the user to LaunchDarkly.
-- When creating the `LDConfig` object, you can configure a map of `privateAttributeNames`. If any user has a custom or built-in attribute named in this list, it is removed before the SDK sends the user to LaunchDarkly.
+- When creating the `LDConfig` object, you can configure a map of `privateAttributeNames`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
 
 
 <CodeTabs
@@ -392,6 +398,7 @@ LDConfigSetAllAttributesPrivate(config, true);
 </CodeTabs>
 
 #### Anonymous users in the C/C++ SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
@@ -406,6 +413,143 @@ You can distinguish logged-in users from anonymous users in the SDK, as follows:
 ```c
 struct LDUser *user = LDUserNew("aa0ceb");
 LDUserSetAnonymous(user, true);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+
+### Electron
+
+<Callout intent="alert">
+<CalloutTitle>Personally-identifying user keys</CalloutTitle>
+<CalloutDescription>
+
+By default, when the SDK requests feature flags from LaunchDarkly, it makes an HTTP GET request with the user properties encoded in the URL. If you do not want user keys or other properties to be in request URLs, enable the `useReport` option in your client configuration. The SDK sends user data in the body of an HTTP REPORT request instead.
+
+</CalloutDescription>
+</Callout>
+
+Here's an example of a user:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const user = {
+  key: "aa0ceb",
+  firstName: "Ernestina",
+  lastName: "Evans",
+  email: "ernestina@example.com",
+  custom: {
+    groups: ["Google", "Microsoft"]
+  }
+};
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+
+<Callout intent="info">
+<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutDescription>
+
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attribute values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
+
+</CalloutDescription>
+</Callout>
+
+#### Private user attributes in the Electron SDK
+---
+
+You can optionally configure the SDK to treat all user attributes as [private user attributes](/home/users/attributes). Private user attributes can be used for targeting purposes, but the SDK removes them from the user data sent back to LaunchDarkly.
+
+To mark all user attributes except the key as private, you can use the `allAttributesPrivate` option:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const user = {
+  key: "aa0ceb",
+  name: "Grace Hopper",
+  email: "gracehopper@example.com"
+};
+
+const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
+  allAttributesPrivate: true
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+In the above example, the SDK removes the `name` and `email` attributes.
+
+You can also specify an array of which attributes should be private with the `privateAttributeNames` option. You can configure this option on a per-user basis by specifying which attributes should be private in your user object.
+
+This option is configured in both the user object and the configuration object:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const user = {
+  key: "aa0ceb",
+  name: "Grace Hopper",
+  email: "gracehopper@example.com"
+  privateAttributeNames: ["email"]
+};
+
+const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
+  privateAttributeNames: ["email"]
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+In the above example, the SDK sends only the `key` and `name` back to LaunchDarkly.
+
+#### Anonymous users in the Electron SDK
+---
+
+You can distinguish logged-in users from anonymous users in the SDK, as follows:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+// To create an anonymous user with an auto-generated key, specify
+// the "anonymous" property and omit the "key" property. The LaunchDarkly
+// client creates a unique key for this user and caches it locally.
+const user = { anonymous: true };
+
+// You can also specify any key you want:
+const user2 = { key: "aa0ceb", anonymous: true };
 ```
 
 </CodeTabItem>
@@ -445,16 +589,17 @@ The argument to `LDUserBuilder` is the user's key. The key should uniquely ident
 <CalloutTitle>Custom attribute type interpretation</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. Custom attribute values in the Flutter SDK use the `LDValue` class to support the various underlying types for the values. If you enter a custom value on the dashboard that looks like a number or a boolean, it is interpreted that way. The Flutter SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. Custom attribute values in the Flutter SDK use the `LDValue` class to support the various underlying types for the values. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way. The Flutter SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
 
 #### Private user attributes in the Flutter SDK
+---
 
 Optionally, you can configure the Flutter SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). You can use private user attributes for targeting purposes. They are removed from the user data sent back to LaunchDarkly.
 
-In the Flutter SDK, you can define private attributes for the **entire** LaunchDarkly client. When you create the `LDConfig` object, you can call the `setPrivateAttributeNames` method, which which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this set, it are removed before the SDK sends the user to LaunchDarkly.
+In the Flutter SDK, you can define private attributes for the **entire** LaunchDarkly client. When you create the `LDConfig` object, you can call the `setPrivateAttributeNames` method, which which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this set, the SDK removes it before sending the user to LaunchDarkly.
 
 <CodeTabs
   defaultValue="dart"
@@ -499,9 +644,10 @@ LDUser user = LDUserBuilder('aa0ceb')
 </CodeTabItem>
 </CodeTabs>
 
-When this user is sent back to LaunchDarkly, the `name` and `group` attributes are removed.
+When the SDK sends this user back to LaunchDarkly, the `name` and `group` attributes are removed.
 
 #### Anonymous users in the Flutter SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
@@ -559,13 +705,14 @@ user.email = @"human@example.com";
 Here, we added the user's full name and email address. To learn more about the specific user properties that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ios-client-sdk/Structs/LDUser.html).
 
 #### Private user attributes in the iOS SDK
+---
 
 You can optionally configure the iOS SDK to treat some or all user attributes as private user attributes. Private user attributes can be used for targeting purposes, but are removed from the user data the SDK sends to LaunchDarkly.
 
 In the iOS SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
 - When creating the `LDConfig` object, you can set the `allUserAttributesPrivate` attribute to `true`.
-- When creating the LDConfig object, you can set the privateUserAttributes attribute to a list of user attribute names, such as ["name", "email"]. If any user has a custom or built-in attribute named in this list, it is removed before the SDK sends the user to LaunchDarkly.
+- When creating the LDConfig object, you can set the privateUserAttributes attribute to a list of user attribute names, such as ["name", "email"]. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
 
 You can also mark attributes as private on a particular `LDUser` instance, for example:
 
@@ -595,6 +742,7 @@ user.privateAttributes = @[@"name"];
 </CodeTabs>
 
 #### Anonymous users in the iOS SDK
+---
 
 You can declare an `LDUser` to be an anonymous, not logged-in user:
 
@@ -639,7 +787,7 @@ We recommend using the same user key for every initialization and then replacing
 <CalloutTitle>Personally-identifying user keys</CalloutTitle>
 <CalloutDescription>
 
-If the `key` attribute you rely on in your user JSON contains personally identifiable information, you should enable the `useReport` option by sending the user JSON as a JSON base64 URL-encoded path parameter. When `useReport` is enabled, flag settings will be fetched by sending the user JSON in the body of a REPORT request instead, thereby hiding that information from request logs.
+If the `key` attribute you rely on in your user JSON contains personally identifiable information, you should enable the `useReport` option by sending the user JSON as a JSON base64 URL-encoded path parameter. When you enable `useReport`, the SDK fetches flag settings by sending the user JSON in the body of a REPORT request instead, hiding that information from request logs.
 
 </CalloutDescription>
 </Callout>
@@ -681,6 +829,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 </Callout>
 
 #### Private user attributes in the JavaScript SDK
+---
 
 You can optionally configure the JavaScript SDK to treat all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
@@ -713,7 +862,7 @@ In the above example, the `name` and `email` attributes are removed.
 
 You can also specify an array of which attributes should be private with the `privateAttributeNames` option. You can configure this option on a per-user basis by specifying which attributes should be private in your user object.
 
-In the example below, this option is configured in both the user object and the configuration object to demonstrate what this looks like:
+This option is configured in both the user object and the configuration object:
 
 <CodeTabs
   defaultValue="js"
@@ -739,18 +888,19 @@ var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
 </CodeTabItem>
 </CodeTabs>
 
-In the example above, only the user's key and their name will be sent back to LaunchDarkly.
+In the above example, the SDK sends only the user's key and name back to LaunchDarkly.
 
 <Callout intent="alert">
 <CalloutTitle>Parameters for JS SDK &lt; 2.0</CalloutTitle>
 <CalloutDescription>
 
-SDK versions earlier than 2.0 use snake case rather than camel case in the options object. `private_attribute_names` and `all_attributes_private` are the parameter names that should be used. `privateAttributeNames` is still valid when specified in the user object.
+SDK versions earlier than 2.0 use snake case rather than camel case in the options object. `private_attribute_names` and `all_attributes_private` are the parameter names that should be used. `privateAttributeNames` is still valid when you specify it in the user object.
 
 </CalloutDescription>
 </Callout>
 
 #### Anonymous users in the JavaScript SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
@@ -793,7 +943,7 @@ We recommend using the same user key for every initialization and then replacing
 <CalloutTitle>Personally-identifying user keys</CalloutTitle>
 <CalloutDescription>
 
-By default, when the SDK requests feature flags from LaunchDarkly, it makes an HTTP GET request with the user properties encoded in the URL. If you do not want user keys or other properties to be in request URLs, enable the `useReport` option in your client configuration. User data is sent in the body of an HTTP REPORT request instead.
+By default, when the SDK requests feature flags from LaunchDarkly, it makes an HTTP GET request with the user properties encoded in the URL. If you do not want user keys or other properties to be in request URLs, enable the `useReport` option in your client configuration. The SDK sends user data in the body of an HTTP REPORT request instead.
 
 </CalloutDescription>
 </Callout>
@@ -835,8 +985,9 @@ Most of the built-in attributes, like names and email addresses, expect string v
 </Callout>
 
 #### Private user attributes in the Node.js SDK
+---
 
-You can optionally configure the JavaScript SDK to treat all user attributes as [private user attributes](/home/users/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the SDK to treat all user attributes as [private user attributes](/home/users/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 To mark all user attributes except the key as private in the JavaScript SDK, you can use the `allAttributesPrivate` option:
 
@@ -867,7 +1018,7 @@ In the above example, the `name` and `email` attributes are removed.
 
 You can also specify an array of which attributes should be private with the `privateAttributeNames` option. You can configure this option on a per-user basis by specifying which attributes should be private in your user object.
 
-In the example below, this option is configured in both the user object and the configuration object to demonstrate what this looks like:
+This option is configured in both the user object and the configuration object:
 
 <CodeTabs
   defaultValue="js"
@@ -893,9 +1044,10 @@ const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
 </CodeTabItem>
 </CodeTabs>
 
-In the example above, only the user's key and their name will be sent back to LaunchDarkly.
+In the above example, the SDK sends only the user's key and name back to LaunchDarkly.
 
 #### Anonymous users in the Node.js SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
@@ -926,7 +1078,7 @@ We recommend using the same user key for every initialization and then replacing
 
 All user-related functionality provided by the [JavaScript SDK](#javascript) is also available in the React SDK.
 
-Unlike the JavaScript SDK, the React SDK does not require a user object for initialization. If one is not specified, the React SDK uses an anonymous user by default.
+Unlike the JavaScript SDK, the React SDK does not require a user object for initialization. If you do not specify one, the React SDK uses an anonymous user by default.
 
 ### React Native
 
@@ -959,13 +1111,15 @@ let user =
 </CodeTabItem>
 </CodeTabs>
 
-The first attribute in the object is the user's key. In this case we've used the value `2fbfa269b78e24c8e967f482b89c939b`. The user key is the only mandatory user attribute. The key should also uniquely identify each user. You can use any value such as a primary key, an e-mail address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+The first attribute in the object is the user's key. In this case we've used the value `2fbfa269b78e24c8e967f482b89c939b`. The user key is the only mandatory user attribute. The key should also uniquely identify each user. You can use any value such as a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
 #### Private user attributes in the React Native SDK
+---
 
-Private attributes allow you to specify keys you do not want to send to the LaunchDarkly servers. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly. When this user is sent back to LaunchDarkly, the `name` attribute is removed.
+Private attributes allow you to specify keys you do not want to send to the LaunchDarkly servers. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly. When the SDK sends this user back to LaunchDarkly, it removes the `name` attribute.
 
 #### Anonymous user attributes in the React Native SDK
+---
 
 The `anonymous` key lets you distinguish logged out or unregistered users while still using LaunchDarkly. Anonymous users work just like regular users, except that they do not appear on your Users page in LaunchDarkly. This prevents unauthenticated users from diluting useful data on the Users dashboard.
 
@@ -1020,6 +1174,7 @@ user.setCustom(AssociativeArray)
 </CodeTabs>
 
 #### Private user attributes in the Roku SDK
+---
 
 Users can have specific fields marked as private with:
 
@@ -1040,6 +1195,7 @@ user.addPrivateAttribute(String)
 </CodeTabs>
 
 #### Anonymous users in the Roku SDK
+---
 
 Designate an anonymous user with:
 
@@ -1070,6 +1226,7 @@ Here are the configuration options for user entities in server-side SDKs:
 * [Go](#go)
 * [Haskell](#haskell)
 * [Java](#java)
+* [Lua](#lua)
 * [Node.js (server-side)](#nodejs-server-side)
 * [PHP](#php)
 * [Python](#python)
@@ -1113,13 +1270,14 @@ Most of the built-in attributes, like names and email addresses, expect string v
 </Callout>
 
 #### Private user attributes in the .NET SDK
+---
 
 You can optionally configure the .NET SDK to treat some or all user attributes as [private user attributes](/home/users/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the .NET SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- When creating the LaunchDarkly `Configuration` object, you can configure [`Events`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html#LaunchDarkly_Sdk_Server_ConfigurationBuilder_Events_) `Events` with [`AllAttributesPrivate`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.EventProcessorBuilder.html#LaunchDarkly_Sdk_Server_Integrations_EventProcessorBuilder_AllAttributesPrivate_), which takes in a boolean parameter. If `true`, all user attributes except the key for all users are removed before the user is sent to LaunchDarkly.
-- Or, you can can configure `Events` with [`PrivateAttributes`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.EventProcessorBuilder.html#LaunchDarkly_Sdk_Server_Integrations_EventProcessorBuilder_PrivateAttributes_), which takes in a list of specific `UserAttribute` names. If any user has a custom or built-in attribute named in the private attributes list, it will be removed before the SDK sends the user to LaunchDarkly.
+- When creating the LaunchDarkly `Configuration` object, you can configure [`Events`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html#LaunchDarkly_Sdk_Server_ConfigurationBuilder_Events_) `Events` with [`AllAttributesPrivate`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.EventProcessorBuilder.html#LaunchDarkly_Sdk_Server_Integrations_EventProcessorBuilder_AllAttributesPrivate_), which takes in a boolean parameter. If `true`, the SDK removes all user attributes for all users before sending the user to LaunchDarkly, except the key.
+- Or, you can can configure `Events` with [`PrivateAttributes`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.EventProcessorBuilder.html#LaunchDarkly_Sdk_Server_Integrations_EventProcessorBuilder_PrivateAttributes_), which takes in a list of specific `UserAttribute` names. If any user has a custom or built-in attribute named in the private attributes list, the SDK removes it before sending the user to LaunchDarkly.
 
 You can also mark attributes as private when building the user object by calling [`AsPrivateAttribute()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.IUserBuilderCanMakeAttributePrivate.html#LaunchDarkly_Sdk_IUserBuilderCanMakeAttributePrivate_AsPrivateAttribute_) after setting the attribute on the user builder.
 
@@ -1142,9 +1300,10 @@ var user = User.Builder("aa0ceb")
 </CodeTabItem>
 </CodeTabs>
 
-When this user is sent back to LaunchDarkly, the `email` attribute is omitted.
+When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
 
 #### Anonymous users in the .NET SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
@@ -1201,6 +1360,7 @@ LDUser user = new LDUser.Builder('aa0ceb')
 The argument to `Builder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
 
 #### Anonymous users in the Apex SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
@@ -1224,6 +1384,7 @@ LDUser user = new LDUser.Builder('abc123')
 You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
 
 #### Private user attributes in the Apex SDK
+---
 
 Optionally, you can configure the Apex SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). You can use private user attributes for targeting, but they are redacted from the user data sent back to LaunchDarkly.
 
@@ -1326,6 +1487,7 @@ LDUserFree(user);
 When you are done with an `LDUser` ensure that you free the structure.
 
 #### Private user attributes in the C/C++ SDK
+---
 
 You can optionally configure the C/C++ SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
@@ -1350,7 +1512,7 @@ LDConfigSetAllAttributesPrivate(config, true);
 </CodeTabItem>
 </CodeTabs>
 
-* When creating the `LDConfig` object, you can list specific private attributes with `LDConfigAddPrivateAttribute`. If any user has a custom or built-in attribute named in this list, it are removed before the SDK sends the user to LaunchDarkly.
+* When creating the `LDConfig` object, you can list specific private attributes with `LDConfigAddPrivateAttribute`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
 
 <CodeTabs
   defaultValue="c"
@@ -1385,6 +1547,7 @@ LDUserAddPrivateAttribute(user, "email");
 </CodeTabs>
 
 #### Anonymous users in the C/C++ SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
@@ -1440,6 +1603,7 @@ User = ldclient_user:new_from_map(Map)
 The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
 
 #### Anonymous users in the Erlang SDK
+---
 
 Here's how to create anonymous users in the Erlang SDK:
 
@@ -1467,6 +1631,7 @@ User = ldclient_user:new_from_map(Map)
 You must still generate a unique key for anonymous users. We recommend using Session IDs or UUIDs.
 
 #### Private user attributes in the Erlang SDK
+---
 
 You can configure the Erlang SDK to treat some or all user attributes as private user attributes. You can use private user attributes to target users without sending data associated with that user back to LaunchDarkly.
 
@@ -1550,13 +1715,14 @@ Most of the built-in attributes, like names and email addresses, expect string v
 </Callout>
 
 #### Private user attributes in the Go SDK
+---
 
 You can optionally configure the Go SDK to treat some or all user attributes as [Private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Go SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- You can set the configuration option `AllAttributesPrivate` to true. If this is enabled, all user attributes (except the key) for all users are removed before the SDK sends the user to LaunchDarkly.
-- You can set the configuration option `PrivateAttributeNames` to a list of attribute names. If any user has a custom or built-in attribute named in this list, it are removed before the SDK sends the user to LaunchDarkly.
+- You can set the configuration option `AllAttributesPrivate` to true. If you enable this, the SDK removes all user attributes for all users before it sends the user to LaunchDarkly, except the key.
+- You can set the configuration option `PrivateAttributeNames` to a list of attribute names. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
 
 Here's how to to define private attributes:
 
@@ -1613,6 +1779,7 @@ user := lduser.NewUserBuilder("user-key").
 </CodeTabs>
 
 #### Anonymous users in the Go SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
@@ -1676,6 +1843,7 @@ user = (makeUser "aa0ceb")
 The argument to `makeUser` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
 
 #### Private user attributes in the Haskell SDK
+---
 
 Optionally, you can configure the Haskell SDK to treat some or all user attributes as private user attributes. You can use private user attributes for targeting purposes without sending data about the user associated with them back to LaunchDarkly.
 
@@ -1700,7 +1868,7 @@ config' = configSetAllAttributesPrivate True config
 </CodeTabItem>
 </CodeTabs>
 
-When you create the `Config` object, you can list specific private attributes with `configSetPrivateAttributeNames`. If any user has a custom or built-in attribute named in this list, it is removed before the SDK sends the user to LaunchDarkly.
+When you create the `Config` object, you can list specific private attributes with `configSetPrivateAttributeNames`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
 
 Here's an example:
 
@@ -1743,6 +1911,7 @@ user' = userSetPrivateAttributeNames (fromList ["email"]) user
 </CodeTabs>
 
 #### Anonymous users in the Haskell SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK.
 
@@ -1802,13 +1971,14 @@ Most of the built-in attributes, like names and email addresses, expect string v
 </Callout>
 
 #### Private user attributes in the Java SDK
+---
 
 You can optionally configure the Java SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Java SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
 - When creating the `LDConfig` object, you can call the [`allAttributesPrivate`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#allAttributesPrivate-boolean-) method, which takes in a boolean parameter. If `true`, all user attributes except the key for all users are removed before the SDK sends the user to LaunchDarkly.
-- When creating the `LDConfig` object, you can call the [`privateAttributes`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#privateAttributes-com.launchdarkly.sdk.UserAttribute...-) method, which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this list, it are removed before the SDK sends the user to LaunchDarkly.
+- When creating the `LDConfig` object, you can call the [`privateAttributes`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#privateAttributes-com.launchdarkly.sdk.UserAttribute...-) method, which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
 
 Here's how to define private attributes:
 
@@ -1859,9 +2029,10 @@ LDUser user = new LDUser.Builder("aa0ceb")
 </CodeTabItem>
 </CodeTabs>
 
-When this user is sent back to LaunchDarkly, the `email` attribute is omitted.
+When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
 
 #### Anonymous users in the Java SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
@@ -1954,13 +2125,14 @@ Most of the built-in attributes, like names and email addresses, expect string v
 </Callout>
 
 #### Private user attributes in the Node.js SDK
+---
 
 You can optionally configure the Node.js SDK to treat some or all user attributes as [Private user attributes](/home/users/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Node.js SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- In the LaunchDarkly `config`, you can set `allAttributesPrivate` to `true`. If this is enabled, all user attributes except the key for all users are removed before the SDK sends the user to LaunchDarkly.
-- In the LaunchDarkly `config` object, you can define a list of `privateAttributeNames`. If any user has a custom or built-in attribute named in this list, it are removed before the SDK sends the user to LaunchDarkly.
+- In the LaunchDarkly `config`, you can set `allAttributesPrivate` to `true`. If you enable this, the SDK removes all user attributes for all users before sending the user to LaunchDarkly, except the key.
+- In the LaunchDarkly `config` object, you can define a list of `privateAttributeNames`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
 
 You can also define a set of `privateAttributeNames` on the user object. For example:
 
@@ -1983,9 +2155,10 @@ var user = {
 </CodeTabItem>
 </CodeTabs>
 
-When this user is sent back to LaunchDarkly, the `email` attribute is removed.
+When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
 
 #### Anonymous users in the Node.js SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
@@ -2037,13 +2210,14 @@ Most of the built-in attributes, like names and email addresses, expect string v
 </Callout>
 
 #### Private user attributes in the PHP SDK
+---
 
 You can optionally configure the PHP SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the PHP SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-*In the LaunchDarkly `config`, you can set `allAttributesPrivate` to `true`. If this is enabled, all user attributes (except the key) for all users are removed before the SDK sends the user to LaunchDarkly.
-*In the LaunchDarkly `config` object, you can define a list of `privateAttributeNames`. If any user has a custom or built-in attribute named in this list, it are removed before the SDK sends the user to LaunchDarkly.
+*In the LaunchDarkly `config`, you can set `allAttributesPrivate` to `true`. If you enable this, the SDK removes all user attributes for all users before sending the user to LaunchDarkly, except the key.
+*In the LaunchDarkly `config` object, you can define a list of `privateAttributeNames`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
 
 You can also mark attributes as private when building the user object by calling the equivalent "private" [`LDUserBuilder`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDUserBuilder.html) method.
 
@@ -2066,9 +2240,10 @@ $user = (new LDUserBuilder('aa0ceb'))
 </CodeTabItem>
 </CodeTabs>
 
-When this user is sent back to LaunchDarkly, the `email` attribute are removed.
+When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
 
 #### Anonymous users in the PHP SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
@@ -2130,13 +2305,14 @@ Most of the built-in attributes, like names and email addresses, expect string v
 </Callout>
 
 #### Private user attributes in the Python SDK
+---
 
 You can optionally configure the Python SDK to treat some or all user attributes as [Private user attribute](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Python SDK there are two ways to define private attributes for the LaunchDarkly client:
 
-- In the LaunchDarkly `config`, you can set `all_attributes_private` to true. If this is enabled, all user attributes (except the key) for all users are removed before the SDK sends the user to LaunchDarkly.
-- In the LaunchDarkly `config` object, you can define a list of `private_attribute_names`. If any user has a custom or built-in attribute named in this list, it are removed before the SDK sends the user to LaunchDarkly.
+- In the LaunchDarkly `config`, you can set `all_attributes_private` to true. If you enable this, the SDK removes all user attributes for all users before sending the user to LaunchDarkly, except the key.
+- In the LaunchDarkly `config` object, you can define a list of `private_attribute_names`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
 
 You can also define a set of `privateAttributeNames` on the user object. For example:
 
@@ -2159,9 +2335,10 @@ user = {
 </CodeTabItem>
 </CodeTabs>
 
-When this user is sent back to LaunchDarkly, the `email` attribute are removed.
+When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
 
 #### Anonymous users in the Python SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
@@ -2232,13 +2409,14 @@ Most of the built-in attributes, like names and email addresses, expect string v
 </Callout>
 
 #### Private user attributes in the Ruby SDK
+---
 
 You can optionally configure the Ruby SDK to treat some or all user attributes as [Private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Ruby SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- In the LaunchDarkly `config`, you can set `all_attributes_private` to true. If this is enabled, all user attributes (except the key) for all users are removed before the SDK sends the user to LaunchDarkly.
-- In the LaunchDarkly config object, you can define a list of `private_attribute_names`. If any user has a custom or built-in attribute named in this list, it are removed before the SDK sends the user to LaunchDarkly.
+- In the LaunchDarkly `config`, you can set `all_attributes_private` to true. If you enable this, the SDK removes all user attributes for all users before sending the user to LaunchDarkly, except the key.
+- In the LaunchDarkly config object, you can define a list of `private_attribute_names`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
 
 You can also define a set of `privateAttributeNames` on the user object. For example:
 
@@ -2266,9 +2444,10 @@ user = {
 </CodeTabItem>
 </CodeTabs>
 
-When this user is sent back to LaunchDarkly, the `email` attribute are removed.
+When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
 
 #### Anonymous users in the Ruby SDK
+---
 
 You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
