@@ -162,6 +162,11 @@
     {
       "name": "C/C++ (client-side)",
       "versions": [
+      {
+          "versionMajorMinor": "2.4",
+          "releaseYear": 2021,
+          "releaseMonthDay": "12-10"
+        },
         {
           "versionMajorMinor": "2.3",
           "releaseYear": 2021,
