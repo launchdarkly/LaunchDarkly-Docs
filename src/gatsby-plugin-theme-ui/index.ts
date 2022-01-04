@@ -394,12 +394,20 @@ const theme = makeTheme({
       lineHeight: ['medium', 'medium', 'fixed'],
       marginBottom: [3, 3, 4],
       fontWeight: 'body',
+      code: {
+        ml: 1,
+        fontSize: 7,
+      },
     },
     h2: {
       fontSize: 6,
       lineHeight: ['medium', 'medium', 'fixed'],
       marginTop: [5, 6, 7],
       marginBottom: [3, 3, 4],
+      code: {
+        ml: 1,
+        fontSize: 6,
+      },
     },
     h3: {
       fontSize: 5,
@@ -408,19 +416,35 @@ const theme = makeTheme({
       marginBottom: [2, 2, 3],
       fontWeight: 'heading',
       color: ['grayBlack', 'grayBlack'],
+      code: {
+        ml: 1,
+        fontSize: 5,
+      },
     },
     h4: {
       fontSize: 3,
       fontWeight: 'body',
+      code: {
+        ml: 1,
+        fontSize: 3,
+      },
     },
     h5: {
       fontSize: 2,
       textTransform: 'uppercase',
       fontWeight: 'body',
       color: 'graySafe',
+      code: {
+        ml: 1,
+        fontSize: 2,
+      },
     },
     h6: {
       fontSize: 1,
+      code: {
+        ml: 1,
+        fontSize: 1,
+      },
     },
     strong: {
       fontWeight: 'bold',
