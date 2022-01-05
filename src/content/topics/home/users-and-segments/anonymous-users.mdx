@@ -64,7 +64,7 @@ If you feel like you hit this limit too frequently, you may be creating more use
 
 Here are some examples of ways you may be creating unique user IDs:
 
-* Creating users that include request IDs, so each user generates a new ID every time they request against the server. Users do not need a user ID to use a request ID. For example, an unathenticated API might only give you a request ID, not a user ID.
+* Creating users that include request IDs, so each user generates a new ID every time they request against the server. Users do not need a user ID to use a request ID. For example, an unauthenticated API might only give you a request ID, not a user ID.
 * Server-to-server communication where there are no human operators, just software components interacting.
 * If you use LaunchDarkly to configure log levels or tracing, you may use a different type of ID, like a timestamp. LaunchDarkly classifies each of those IDs as unique IDs.
 

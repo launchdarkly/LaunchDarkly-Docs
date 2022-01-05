@@ -164,9 +164,9 @@ You can also attach custom data to your event using the [track method](https://l
 
 In the iOS SDK, track is a custom event added to the LDClient event store. A client app can set a tracking event to allow client customized data analysis. After an app has called `track`, the app cannot remove the event from the event store. LDClient periodically transmits events to LaunchDarkly based on the frequency set in `LDConfig.eventFlushInterval`. The LDClient must be started and online.
 
-After the SDK's event store is full, the SDK discards new events until the event store is cleared when it reports events to LaunchDarkly. Configure the size of the event store using `LDConfig.eventCapacity`. The first parameter, `key`, is the key for the event. The SDK does nothing with the key, which can be any string the client app sends. The second parameter, `data`, is the data for the event. The `data` paraemeter is optional. The SDK does nothing with the data, which can be any valid JSON item the client app sends. If the data is not a valid JSON item, the method throws an `LDInvalidArgumentError`.
+After the SDK's event store is full, the SDK discards new events until the event store is cleared when it reports events to LaunchDarkly. Configure the size of the event store using `LDConfig.eventCapacity`. The first parameter, `key`, is the key for the event. The SDK does nothing with the key, which can be any string the client app sends. The second parameter, `data`, is the data for the event. The `data` parameter is optional. The SDK does nothing with the data, which can be any valid JSON item the client app sends. If the data is not a valid JSON item, the method throws an `LDInvalidArgumentError`.
 
-Optionally, you can add a `metricValue` parameter of type `Double` to `track` in Swift or as a required paramter to the overloaded `track` method in Objective-C.
+Optionally, you can add a `metricValue` parameter of type `Double` to `track` in Swift or as a required parameter to the overloaded `track` method in Objective-C.
 
 <CodeTabs
   defaultValue="swift"

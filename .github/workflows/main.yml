@@ -65,7 +65,7 @@ jobs:
       - run: yarn --prefer-offline --frozen-lockfile
       - run: yarn test
   linkChecker:
-    name: "Check external links"
+    name: Check external links
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -76,3 +76,15 @@ jobs:
           fail: true
         env:
           GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
+  spellcheck:
+    name: Check spelling
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: streetsidesoftware/cspell-action@v1
+        with:
+          config: .cspell/config.json
+          inline: error
+          files: |
+            **/*.{md,mdx}
+          incremental_files_only: false # check everything

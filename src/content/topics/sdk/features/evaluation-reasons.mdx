@@ -378,7 +378,7 @@ To learn more about the `LDDetails` structure, inspect `ldvariations.h`.
 
 ### Erlang
 
-The `variation_detail` function is similar to the variation function, but also returns an explanation of the evaluation that you can inspect programatically.
+The `variation_detail` function is similar to the variation function, but also returns an explanation of the evaluation that you can inspect programmatically.
 
 Here is an example:
 
@@ -577,7 +577,7 @@ To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/php-serv
 
 ### Python
 
-The `variation_detail` method lets you evaluate a feature flag with the same parameters as you would for `variation`. You can use thie method to receive more information about how the value was calculated.
+The `variation_detail` method lets you evaluate a feature flag with the same parameters as you would for `variation`. You can use this method to receive more information about how the value was calculated.
 
 The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the user was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 

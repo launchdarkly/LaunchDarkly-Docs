@@ -46,7 +46,7 @@ Now, you have two implementations of your DAO interface, one backed by `db1` and
 
 Use a set of four feature flags to control reading and writing to each database independently (referred to below as `events-db1-read`, `events-db2-read`, `events-db1-write`, and `events-db2-write`).
 
-For example, the function below will save an event to the approriate database depending on the value of your feature flags (`events-db1-write` and `events-db2-write`):
+For example, the function below will save an event to the appropriate database depending on the value of your feature flags (`events-db1-write` and `events-db2-write`):
 
 <CodeTabs
   defaultValue="code"

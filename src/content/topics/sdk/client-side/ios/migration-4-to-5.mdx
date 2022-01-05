@@ -282,11 +282,11 @@ The SDK supports registering observers on flags to be notified when the flag val
 
 For Swift, the properties `LDChangedFlag.oldValueSource` and `LDChangedFlag.newValueSource` were removed. Any `LDFlagChangeHandler`s or `LDFlagCollectionChangeHandler`s can no longer use these properties on on the provided `LDChangedFlag`(s).
 
-The Objective-C bindings similiarly no longer include the `oldValueSource` and `newValueSource` properties. Additionally, the static properties `nilSource` and `typeMismatch` of the `LDChangedFlag` Objective-C binding have been removed. As handlers can be registered for a specific flag value type, `LDChangedFlag.typeMismatch` was provided to allow using the value source to detect when a flag observer had been called for an value update with a non-matching type. In order to still allow handling this case, the `LD<T>ChangedFlag` classes now expose the boolean `typeMismatch` property that indicates whether this situation has occurred.
+The Objective-C bindings similarly no longer include the `oldValueSource` and `newValueSource` properties. Additionally, the static properties `nilSource` and `typeMismatch` of the `LDChangedFlag` Objective-C binding have been removed. As handlers can be registered for a specific flag value type, `LDChangedFlag.typeMismatch` was provided to allow using the value source to detect when a flag observer had been called for an value update with a non-matching type. In order to still allow handling this case, the `LD<T>ChangedFlag` classes now expose the boolean `typeMismatch` property that indicates whether this situation has occurred.
 
 ## Recording custom events
 
-If your application uses `trackEvent` to record custom events, it is necessary to rename usages to `track`. Additionally, the type of `Error` that `track` throws when the given `data` parameter is not JSON convertable has been changed from `JSONSerialization.JSONError.invalidJsonObject` to `LDInvalidArgumentError`.
+If your application uses `trackEvent` to record custom events, it is necessary to rename usages to `track`. Additionally, the type of `Error` that `track` throws when the given `data` parameter is not JSON convertible has been changed from `JSONSerialization.JSONError.invalidJsonObject` to `LDInvalidArgumentError`.
 
 Here is an example using the new names:
 
@@ -396,7 +396,7 @@ LDClient.get()!.close()
 
 ## Removing exposed implementation details
 
-The following were removed from the publically exposed surface of the SDK. These were implementation details that were not intended to be public:
+The following were removed from the publicly exposed surface of the SDK. These were implementation details that were not intended to be public:
 
 * `isEqual` extension to `Array`.
 * `==` and `!=` extension to `Optional<[String: Any]>` (note that this was not declared as `Equatable` conformance).

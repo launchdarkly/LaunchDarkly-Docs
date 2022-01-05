@@ -96,7 +96,7 @@ After you complete these steps successfully, click the bucket URL to view the pa
 
 ### Manually setting up the CloudFront distribution
 
-Next, set up a CloudFront distribution. You will need this to deploy the function to Lamda@Edge.
+Next, set up a CloudFront distribution. You will need this to deploy the function to Lambda@Edge.
 
 1. In the AWS Console, search for "CloudFront" and click **Create a CloudFront Distribution**.
 2. For the "Origin domain," choose the S3 bucket we just created.
@@ -158,7 +158,7 @@ After you download the function locally, install the [LaunchDarkly Node SDK](htt
 
     Do not place the SDK key in an environment variable. Lambda@Edge does not support environment variables.
 
-    However, if you are integrating LaunchDarkly in a standard Lambda function, you should use an environment variable to keep your SDK key secrure and out of your source code repository. You can do this from the AWS Console by going to your Lambda function and navigating to <strong>Configuration</strong> &gt; <strong>Environment Variables</strong>.
+    However, if you are integrating LaunchDarkly in a standard Lambda function, you should use an environment variable to keep your SDK key secure and out of your source code repository. You can do this from the AWS Console by going to your Lambda function and navigating to <strong>Configuration</strong> &gt; <strong>Environment Variables</strong>.
 
     </CalloutDescription>
     </Callout>
@@ -260,7 +260,7 @@ A function running on Lambda@Edge receives a specific [event structure](https://
 
 The code below gets the value of the flag and, if the value is `true`, redirects them to the beta site. Otherwise, if the value is `false`, it redirects them to the original site. A more complete solution would take into account the URI and query string that was requested and redirect them to the appropriate location on either the beta or main site, but this example is simpler than a real-life example. The code below gets the value of the flag and, if the value is `true`, redirects them to the beta site.
 
-First, update your function to use this event. You can use the user's IP address as the key. While the IP isn't unique to an individual, it is the only indentifying information we always have available for the user.
+First, update your function to use this event. You can use the user's IP address as the key. While the IP isn't unique to an individual, it is the only identifying information we always have available for the user.
 
 Here is the event code:
 
@@ -347,7 +347,7 @@ Try changing the IP address in the payload and clicking invoke again. In most ca
 
 ### Connecting a CloudFront trigger
 
-Your function now uses the Lambda@Edge event data and returns the correct redirect response, but you need to trigger it from the CloudFront distribution you created earlier. To do this, add a CloudFront tigger.
+Your function now uses the Lambda@Edge event data and returns the correct redirect response, but you need to trigger it from the CloudFront distribution you created earlier. To do this, add a CloudFront trigger.
 
 First, you must update the execution role of the function. Here's how:
 
@@ -396,7 +396,7 @@ That's it! You've successfully integrated LaunchDarkly into a Lambda function an
 If you'd like to clean up your AWS environment when you complete this guide, here's how:
 
 1. Remove the CloudFront association by following the instructions in [Amazon's documentation](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-delete-replicas.html).
-2. Navigate to the Behaviors tab of your CloudFront distribution, edit the behavior and remove the Function association for Lambda@Edge. After the distrubution deploys, we can delete the Lambda function.
+2. Navigate to the Behaviors tab of your CloudFront distribution, edit the behavior and remove the Function association for Lambda@Edge. After the distribution deploys, we can delete the Lambda function.
 3. Empty the S3 bucket and delete it.
 4. Disable the CloudFront distribution. After disabling it, wait for it to finish deploying and delete the distribution.
 

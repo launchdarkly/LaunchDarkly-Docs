@@ -287,7 +287,7 @@ Finally, the `boolVariation`, `boolVariationDetail`, `intVariation`, and `intVar
 
 The `allFlags` method has been changed to take advantage of the `LDValue` type rather than using untyped objects. In 2.x versions of the SDK, the values in the returned `Map` would be one of `Boolean`, `Float`, or `String`. All flags with numeric values would be included as `Float`, array and object flag values would be serialized to a `String`, and malformed flags missing a value would be omitted.
 
-In the 3.0 release, the values in the returned `Map` are `LDValue`s wrapping the flag value and maintaining complex types. Malformed flags that are missing a value are now included as an `LDValue.ofNull()` object. The resultant values are equivilent to calling `jsonValueVariation` for each flag with `LDValue.ofNull()` as the application default value.
+In the 3.0 release, the values in the returned `Map` are `LDValue`s wrapping the flag value and maintaining complex types. Malformed flags that are missing a value are now included as an `LDValue.ofNull()` object. The resultant values are equivalent to calling `jsonValueVariation` for each flag with `LDValue.ofNull()` as the application default value.
 
 Here is an example of retrieving all flag values:
 

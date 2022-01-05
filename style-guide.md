@@ -47,7 +47,7 @@ Similarly, a "hands-on" exercise might not be "hands-on" for a user with a mobil
 
 This section explains mandatory and optional sections for docs topics and best practices for using them in the LaunchDarkly style.
 
-LaunchDarkly's docs respect markdown formatting. You can use hashes for headers, braket-paren links, exclamation points to indicate images, and asterisks to emphasize text like in regular markdown.
+LaunchDarkly's docs respect markdown formatting. You can use hashes for headers, bracket-paren links, exclamation points to indicate images, and asterisks to emphasize text like in regular markdown.
 
 ## LaunchDarkly's custom components
 

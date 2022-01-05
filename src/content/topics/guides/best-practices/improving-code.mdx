@@ -26,7 +26,7 @@ In order to use this guide effectively, you should understand these concepts:
 
 ### Improving flag hygiene
 
-Most of the flags added to a project are temporary, intended to be removed later. Unfortunately, most teams are worse at removing flags than adding them, because removal is usually less urgent. This can lead to a codebase cluttered with flags that are no longer relevent. At best, this makes the code harder to read; at worst, inadvertently toggling the wrong flag can cause production failures.
+Most of the flags added to a project are temporary, intended to be removed later. Unfortunately, most teams are worse at removing flags than adding them, because removal is usually less urgent. This can lead to a codebase cluttered with flags that are no longer relevant. At best, this makes the code harder to read; at worst, inadvertently toggling the wrong flag can cause production failures.
 
 Teams that use flags need to ensure that their code only references flags which are currently in use. This practice is known as "flag hygiene". Here is a selection of techniques that help maintain good flag hygiene.
 
