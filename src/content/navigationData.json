@@ -1208,6 +1208,10 @@
           {
             "label": "Experimenting with feature flags",
             "path": "/guides/tutorials/experimentation"
+          },
+          {
+            "label": "Getting started with the LaunchDarkly REST API",
+            "path": "/guides/tutorials/rest-api"
           }
         ]
       },
