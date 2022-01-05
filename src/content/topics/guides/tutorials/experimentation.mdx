@@ -7,11 +7,11 @@ published: true
 
 ## Overview
 
-This guide explains how to run an experiment in LaunchDarkly. Experiments are useful for product managers, engineers, designers,
-or anyone who wants to validate their hypothesis about any part of their platform controlled by feature flags.
+This guide explains how to run an experiment in LaunchDarkly. Experiments are useful for product managers, engineers, designers, or anyone who wants to validate their hypothesis about any part of their platform controlled by feature flags.
 
 In this guide, you will:
-- Install and configure a client-side SDK,
+
+- Configure an SDK,
 - Create a multivariate flag,
 - Configure targeting rules,
 - Create a metric and connect it to a flag, which creates an experiment, and
@@ -52,13 +52,11 @@ The following concepts will help you understand this guide.
 
 ### Multivariate flags
 
-A multivariate flag is a feature flag that is not boolean and has more than one possible variation.
-Multivariate flags allow you to use one flag to serve multiple variations of a feature simultaneously.
+A multivariate flag is a feature flag that is not boolean and has more than one possible variation. Multivariate flags allow you to use one flag to serve multiple variations of a feature simultaneously. To learn more, read [Understanding multivariate flags](/home/flags/variations#understanding-multivariate-flags).
 
 ## Setting up the app
 
-This app builds on the same app in the [Rules and targeting](/guides/tutorials/rules-and-targeting)
-guide. If you haven't completed that guide yet, read and complete those exercises first and then return to this guide.
+This app builds on the same app we use in the [Rules and targeting](/guides/tutorials/rules-and-targeting) guide. If you haven't completed that guide yet, read and complete those exercises first and then return to this guide.
 
 The app below begins where the previous guide left off:
 
@@ -78,9 +76,9 @@ To begin, remix the Glitch project to create an editable copy of the app. Use th
 
 ## Setting up the LaunchDarkly project and environment
 
-The LaunchDarkly Python SDK and client-side JavaScript SDK are installed in this app already. You must add your project's SDK key, which we'll do in the next section.
+The LaunchDarkly Python SDK and client-side JavaScript SDK are installed in this app already. You must add your project's SDK key, which you'll do in the next section.
 
-You can re-use the project and environment you created in [Getting started with your first flag](/guides/tutorials/sdk-flag), or create a new one.
+You can reuse the project and environment you created in [Getting started with your first flag](/guides/tutorials/sdk-flag), or create a new one.
 
 Here is an image of where to find your SDK keys:
 
@@ -115,20 +113,17 @@ LD_CLIENT_SIDE_ID=<your-client-side-id>
 
 ### Creating a multivariate flag
 
-Experiments can use boolean flags for A/B tests, or multivariate flags for A/B/n tests. Multivariate flags have multiple settings
-that let you define different variations of one feature. This exercise uses a multivariate flag.
+Experiments can use boolean flags for A/B tests, or multivariate flags for A/B/n tests. Multivariate flags have multiple settings that let you define different variations of one feature. This exercise uses a multivariate flag.
 
 Experiments use multivariate flags to test different versions of a feature. Settings can include strings, numbers, or JSON.
 
 This exercise tests different prices to determine at what price students are more willing to purchase a trip. The trips are discounted to 25%, 50%, and 75% off their original price.
 
-A 25% discount means a student would pay 75% of the original cost of the trip. The equation to calculate this for a $100 trip is `100 * .75`. Similarly, to calculate a 50% discount for a $100 trip, you would enter `100 * .5`
+A 25% discount means a student would pay 75% of the original cost of the trip. The equation to calculate this for a $100 trip is `100 * .75`. Similarly, to calculate a 50% discount for a $100 trip, enter `100 * .5`
 
-Our application stores numbers like this in an array. We will use a multivariate flag's
-value to calculate the discount. To do this, we multiply the values in the
-array by a constant .25 for 75% off, .5 for 50% off, and .75 for 25% off.
+The application stores numbers like this in an array. You will use a multivariate flag's value to calculate the discount. To do this, multiply the values in the array by a constant .25 for 75% off, .5 for 50% off, and .75 for 25% off.
 
-Each of those values corresponds to one variation of a feature flag. When we run an experiment, we compare how each variation of a flag produces different behavior in our users.
+Each of those values corresponds to one variation of a feature flag. When you run an experiment, you compare how each variation of a flag produces different behavior in your users.
 
 ### Creating the "Student Discount Pricing" feature flag
 
@@ -136,30 +131,29 @@ First, create a new flag in LaunchDarkly.
 
 To create a new flag:
 
-1. Click **+ Flag**.
-2. Name your flag "Student Discount Pricing" (omit the quotes around the phrase).
+1. Click **Create Flag**.
+2. Name your flag `Student Discount Pricing`.
 4. Enter a description of the flag to help account members understand what the flag is for.
-5. Click into the **Tags** dropdown and enter “experiment”. This creates a tag that lets you filter flags based on which flags have experiments running.
+5. Click into the **Tags** dropdown and enter `experiment`. This creates a tag that lets you filter flags based on which flags have experiments running.
 6. Check the **SDKs using Client-side ID** checkbox.
-7. Under "Flag variations," choose **Number**.
+7. In the "Flag variations" dropdown choose **Number**.
 8. Enter a name and value for the variations as given below:
-  * Variation 1 value: .25
+  * Variation 1 value: `.25`
   * Variation 1 name: 75% off
-  * Variation 2 value: .5
+  * Variation 2 value: `.5`
   * Variation 2 name: 50% off
-  * Variation 3 value: .75
+  * Variation 3 value: `.75`
   * Variation 3 name: 25% off
-  * Variation 4 value: 1
+  * Variation 4 value: `1`
   * Variation 4 name: No discount
 
 ![The "Create a feature flag" screen for the Student Discount Pricing flag.](starlight-travel-student-discount-flag.png)
 
-9. Save your new flag.
+9. Click **Save flag**.
 
 ### Targeting users
 
-A successful experiment requires two or more segments to test against. How you segment your users
-will vary based on your business.
+A successful experiment requires two or more segments to test against. How you segment your users varies based on your business.
 
 Here are some possible ways to segment users:
 
@@ -168,29 +162,35 @@ Here are some possible ways to segment users:
 * By geography
 * Randomly
 
-In this experiment, we target users based on their email address. We want to offer pricing discounts based on
-whether a person is a student. Users with a `.edu` email address will be presented
-with three different prices.
+In this experiment, you target users based on their email address. You want to offer pricing discounts based on whether a person is a student. Users with a `.edu` email address are presented with three different prices.
 
 To target users with a `.edu` email address:
 
-1. In LaunchDarkly, navigate to the **Targeting** menu for your new flag.
-1. Under the "Target users who match these rules" section, click **Add a rule**.
-1. Under "Select an attribute" choose `email`, `ends with`, and `.edu`.
-1. Select a percentage rollout. Enter percentage values for the four variations of your flag. The values must add up to 100%.
-1. Toggle flag targeting **on**:
+1. Navigate to the **Targeting** menu for your new flag.
+1. In the "Target users who match these rules" section, click **Add rules**.
+1. Click the **Experiment menu** icon.
+1. Click **Run an experiment on this rule**.
+1. In the "Select an attribute" dropdown choose `email`.
+1. In the "Select an operator" dropdown choose `ends with`.
+1. In the "Enter some values" field enter `.edu`.
+1. In the last dropdown choose `a percentage rollout`. 
+1. Enter percentage values for the four variations of your flag. The values must add up to 100%:
 
-![A flag's targeting rules configuration.](../../../targeting-rules.png)
+![A flag's targeting rules configuration.](starlight-travel-targeting-rules.png)
+
+1. Toggle flag targeting **on**.
+1. Click **Save changes**.
+
 
 ### Adding the flag's code to the application
 
-Now you must update your app to display discounted pricing if a user logs in with a .edu email address.
+Next, update your app to display discounted pricing if a user logs in with a `.edu` email address.
 
 To update your app:
 
 1. Navigate to your Glitch app.
 2. Find the `server.py` file in the sidebar and click to open it.
-3. Add or change the pricing array code. Comments in the file indicate where to add the code:
+3. Replace the pricing array line `price = np.array([10000, 25000, 100000])` with the following:
 
 <CodeTabs defaultValue="py" values={[{ label: 'Multivariate flag with discount', value: 'py', }]}>
   <CodeTabItem value="py">
@@ -205,8 +205,7 @@ price = np.array([10000, 25000, 100000]) * discount
 
 ### Validating the flag's behavior
 
-Before going on to set up your experiment, confirm the multivariate flag and
-targeting rules work.
+Before going on to set up your experiment, confirm the multivariate flag and targeting rules work.
 
 To confirm the rules work:
 
@@ -215,29 +214,29 @@ To confirm the rules work:
 
 ![Starlight Travel app login.](starlight-travel-login.png)
 
-1. Enter a random email ending in .edu.
-1. A discounted price should appear.
-1. Log out.
-1. Log in again with a random email ending in .com.
-1. Standard pricing should appear.
+1. Enter a random email address ending in `.edu`.
+1. Click **Log in**.
+1. A discounted price appears for all tiers.
+1. Click your avatar in the upper right and select **Log out**.
+1. Log in again with a random email ending in `.com`.
+1. Standard pricing appears.
 
 <Callout intent="alert">
 <CalloutTitle>Disable "Do not track"</CalloutTitle>
 <CalloutDescription>
 
-If you have not disabled "Do not track," you will not be able to log in to the Glitch app. If "Do not track" is disabled, but the login still fails, try disabling ad blockers or popup blockers in your browser as well.
+If you have enabled "Do not track," you will not be able to log in to the Glitch app. If you disable "Do not track" but the login still fails, try disabling ad blockers or popup blockers in your browser as well.
 
 </CalloutDescription>
 </Callout>
 
 ### Creating a click metric
 
-Metrics let you measure user behaviors affected by your flag. The three types of
-metrics are click, pageview, and custom metrics.
+Metrics let you measure user behaviors affected by your flag. The three types of metrics are click, pageview, and custom metrics.
 
 To learn more about metrics in experiments, read [Creating experiments](/home/experimentation/create).
 
-First, you must get the URL for your Glitch app. To find it:
+First, copy the URL for your Glitch app. To find it:
 
 1. From the Glitch console, click the **Share** button. A pop-up with a URL appears.
 1. Copy the **Live site** URL.
@@ -245,29 +244,27 @@ First, you must get the URL for your Glitch app. To find it:
 
 ![The Share project pop-up in Glitch.](starlight-travel-share-project.png)
 
-Here's how to create a click metric to track the discount which results in the highest number of packages purchased:
+Next, create a click metric to track the discount which results in the highest number of packages purchased:
 
-1. Navigate to LaunchDarkly.
-1. Select **Experiments** from the sidebar menu.
+1. In LaunchDarkly, select **Experiments** from the sidebar menu.
 1. Navigate to the **Metrics** tab.
 1. Click **Create metric**. The "Create a new metric screen" appears.
 1. Name your metric "Student pricing tier".
-1. Enter a **Description** to indicate what the metric is tracking. For example, you could enter “Track price chosen by students”.
+1. Enter a **Description** to indicate what the metric is tracking, such as “Track price chosen by students”.
 1. Choose **Click** from the "Event kind" dropdown.
-1. Enter `a.btn` in the CSS selector in the "Click targets" field.
-1. In the "Target URL" field, choose **Substring Match**.
+1. Enter `a.btn` in the "Click targets" field.
+1. In the "Target URL" dropdown, choose **Substring Match**.
 1. Paste in the URL for your Glitch app, which you found and saved in the previous procedure:
 
-![The Create a new metric screen.](starlight-travel-create-new-metric.png)
+![The "Create a new metric" screen.](starlight-travel-create-new-metric.png)
 
 ### Connecting the metric to the flag
 
-You must connect the metric to the flag to create an experiment. To do this:
+Next, connect the metric to the flag to create an experiment. To do this:
 
-1. Navigate to LaunchDarkly.
-1. Click on the `student-discount-pricing` flag. The flag's dashboard appears.
+1. In LaunchDarkly, click on the `student-discount-pricing` flag. The flag's dashboard appears.
 1. Click into the flag's **Experimentation** tab.
-1. Click **+ Create an Experiment**. The "Experiment setup" screen appears.
+1. Click **Create an Experiment**. The "Experiment setup" screen appears.
 1. Choose the metric you created from the "Add a new metric" dropdown.
 1. Select Variation 4, "No discount," as the baseline.
 1. Click **Save Experiment Settings**:
@@ -278,7 +275,7 @@ You return to the flag's **Experiments** tab and the experiment is ready for you
 
 ### Starting your experiment
 
-For this exercise, we will simulate traffic to your application. To do this:
+For this exercise, you will simulate traffic to your application. To do this:
 
 1. In the flag's **Experiments** tab, click **Start recording**.
 1. Open a new browser window.
@@ -295,18 +292,44 @@ Data can take up to ten minutes to appear in LaunchDarkly after your experiment 
 </CalloutDescription>
 </Callout>
 
-After you press `!`, 100 .com email addresses and 100 .edu email addresses will try to access your app. None of the .com email addresses will receive a reduced price. The .edu addresses will randomly receive discounted prices. This information is reflected in the experiment's results.
+When you press `!`, 100 `.com` email addresses and 100 `.edu` email addresses try to access your app. None of the `.com` email addresses will receive a reduced price. The `.edu` addresses will randomly receive discounted prices. This information is reflected in the experiment's results.
+
+## Interpreting experiment results
+
+When you start your experiment, LaunchDarkly runs a statistical test in the background. After LaunchDarkly has enough data, you receive a message on the results page letting you know that your results are statistically significant. This means that the measured differences between the variations are likely due to an actual underlying change in user behavior, rather than random chance.
+
+LaunchDarkly uses two different types of statistical tests to report results. Both types of tests are well-known in the field of statistics:
+
+- Experiments measuring Numeric metrics calculate significance using a two-tailed T-test. To learn more, read [One- and two-tailed tests](https://en.wikipedia.org/wiki/One-_and_two-tailed_tests) and [Student's t-test](https://en.wikipedia.org/wiki/Student%27s_t-test).
+- Experiments measuring Conversion metrics calculate significance using a Pearson's Chi-Squared test. To learn more, read [Pearson's chi-squared test](https://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test).
+
+### Reading experiment data
+
+The data your experiment collected is represented in a set of columns in the experiment's card.
+
+Here is an image of the experiment's data:
+
+![An experiment's results page.](starlight-travel-experiment-results.png)
+
+The list below explains what each column means:
+
+- **Variation**: Which flag variation's data is shown in the row.
+- **Conversions / unique users**: How many unique users took action based on the variation they saw, relative to the total number of unique users who viewed the page. The denominator is the number of views matching the Glitch URL you specified when you created the click metric.
+- **Conversion rate**: The percentage of users who took action based on the variation they saw, relative to the total number of unique users who encountered that flag variation.
+- **Confidence interval**: A range of values between which the actual value for the conversion rate likely falls. The smaller the confidence interval, the more confident you can be about the prediction. For example, a confidence interval of 11%-13% is more reliable than a confidence interval of 10%-30%.
+- **Change**: The difference, in positive or negative values, the flag variation has from the baseline variation. Baseline flag variations say **Baseline** rather than showing a value.
+- **P-value**: The likelihood that differences in user behavior within an experiment are random, rather than a result of receiving different variations of a flag. LaunchDarkly uses the industry standard of a p-value of .05 or lower to consider results statistically significant. The lower the p-value, the more likely it is that the results of your experiment are statistically significant. For example, a p-value of .03 means there's a 97% chance differences in user behavior are due to the flag variations you tested, and there's a 3% chance any differences in user behavior were random.
 
 ## Conclusion
 
 In this guide you:
 
-* Created a multi-variate flag
-* Configured metrics
-* Ran an experiment
+- Created a multivariate flag
+- Configured a metric
+- Ran an experiment
+- Interpreted the results
 
-We hope this helped you learn how to collect metrics from feature flags to make
-data-informed decisions about features.
+We hope this helped you learn how to collect metrics from feature flags to make data-informed decisions about features.
 
 <Callout intent="primary">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
