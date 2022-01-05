@@ -155,7 +155,7 @@ curl -X GET 'https://app.launchdarkly.com/api/v2/projects/MY-PROJECT-KEY' \
 
 In this example, the `-X` option specifies the type of request, `PATCH`. The URL specifies the resource that the request is acting on. Each `-H` option specifies a header that will be included in the request. You must include the `-X`, request type, URL, and headers each time you use curl to make a request.
 
-The LaunchDarkly REST API supports semantic patch for a few of its endpoints. [Semantic patch](#semantic-patch) is described later in this guide. For semantic patch requests, you must append `domain-model=launchdarkly.semanticpatch` to the `Content-Type` header.
+The LaunchDarkly REST API supports semantic patch for a few of its endpoints. [Semantic patch](#using-semantic-patch-in-the-launchdarkly-api) is described later in this guide. For semantic patch requests, you must append `domain-model=launchdarkly.semanticpatch` to the `Content-Type` header.
 
 ### Optional headers
 
