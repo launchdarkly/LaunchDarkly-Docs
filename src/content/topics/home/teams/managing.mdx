@@ -50,7 +50,7 @@ To upload a CSV file:
 6. Choose a CSV file. You are returned to the "Upload CSV" screen.
 7. Click **Upload file.**
 
-A success indicator appears with the number of team members successfully added to your team. 
+A success indicator appears with the number of team members successfully added to your team.
 
 If the file upload was not successful, an error message appears with information about the errors in the file.
 
@@ -151,10 +151,12 @@ To use the **Members** page to remove a member from a team:
 
 1. Navigate to the [Members](https://app.launchdarkly.com/settings/members) page.
 2. Find the member in the list of team members.
-3. Click on the **Manage** button.
-4. On the list of "Team membership and roles", find the team that you want to remove the member from.
-5. Click **Remove Member**.
-6. Click **Delete**.
+3. Click on the member's name.
+4. Click the **Teams** tab.
+6. Find the team that you want to remove this member from.
+5. Click the ellipsis button at the right of the row of the team you want to remove the member from.
+8. Click **Remove member**. A confirmation modal appears.
+7. Confirm by clicking **Remove member** again in the modal.
 
 ## Managing team permissions
 
@@ -239,15 +241,13 @@ To view the teams that a member is on:
 
 1. Navigate to [Members](https://app.launchdarkly.com/settings/members).
 2. Filter the list of members for the member you're looking for.
-3. Find the "Teams" column. The teams of which that member is a part are listed here. There may be additional teams in the overflow menu.
+3. Find the "Teams" column. The teams of which that member is a part are listed here. There may be additional teams in the overflow menu. Click the overflow link to view the Teams tab on that member's page. It has a complete list of that member's teams, along with an indicator that shows any teams that they are assigned as a team maintainer.
 
 <Callout intent="info">
   <CalloutTitle>Maintained teams do not necessarily appear in the "Teams" column</CalloutTitle>
   <CalloutDescription>
 
- Team maintainers are not members of the team, so the teams they maintain do not appear in the "Teams" column.
+ Team maintainers are not members of the team, so the teams they maintain do not appear in the "Teams" column on the Members tab.
 
   </CalloutDescription>
 </Callout>
-
-To view the roles for an individual team member, read [Viewing an individual member's roles](/home/members/custom-roles#viewing-an-individual-members-roles).

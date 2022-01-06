@@ -118,29 +118,26 @@ To give a member a custom role:
 
 1. Navigate to **Account settings**.
 2. Click into the **Members** tab and find the account member you wish to give a custom role.
-3. Click **Manage** beside that account member's name. The member's Settings page opens:
+3. Click that account member's name. The member's Permissions page opens:
 
-![The member's Settings page.](settings-team-member-edit.png)
+![The member's Permissions page.](settings-member-permissions.png)
 
+4. Click **Edit member roles**. A modal appears.
+5. Choose **Custom**. A dropdown menu containing your organization's custom roles appears.
 
-4. Click the member's **Role**. A dropdown menu expands.
-5. Choose **Custom**. All available custom roles appear with checkboxes beside them:
+![A member's Edit role menu.](edit-member-roles-modal.png)
 
-![The Role dropdown menu.](settings-team-role-dropdown.png)
+6. Choose all the custom roles you wish to give the member.
+7. Click **Save roles**. You are returned to the permissions page:
 
-6. Choose all custom roles you wish to give the member.
-7. Click **Save role**:
+![The member's Permissions page with updated custom roles.](settings-member-permissions-updated.png)
 
-![Custom roles given to the member.](settings-team-custom-roles-assigned.png)
-
-
-<Callout intent="alert">
-<CalloutTitle>You must assign roles to members individually</CalloutTitle>
+<Callout intent="info">
+<CalloutTitle>Use Teams to assign roles to multiple members</CalloutTitle>
 <CalloutDescription>
 
-You must add a custom role to one member at a time. You may not apply a role to multiple members simultaneously.
+Use the Teams feature to group a set of members and assign them all the same custom roles. To learn more, read [Teams](/home/teams).
 
-For example, if you wish to add a role for the QA team, you must find each QA account member and add the role to each member individually.
 
 </CalloutDescription>
 </Callout>
@@ -157,15 +154,15 @@ If an account member changes function or needs their permissions modified, you c
 
 To remove a custom role from a member:
 
-1. Navigate to **Account settings**.
-2. Click into the **Team** tab and find the account member you wish to remove a custom role from.
-3. Click **Edit** beside that account member's name. The member's Settings page opens.
-4. Deselect the checkboxes for the roles you wish to remove from the member.
-5. (Optional) If you wish to return the member to a standard role, choose **Reader**, **Writer**, or **Admin / Owner** from the **Role** dropdown:
+1. Navigate to **Account Settings**.
+2. Click into the **Members** tab and find the account member you wish to remove a custom role from.
+3. Click that account member's name. The member's Permissions page opens.
+4. Click **Edit member roles**. The Edit role window appears:
 
-![The Role dropdown menu.](settings-team-role-dropdown.png)
+![A member's Edit role menu.](edit-member-roles-modal.png)
 
-6. Click **Save role**.
+6. Click the X icon on all the custom roles you wish to remove from the member. You may also choose a built-in role for this member.
+7. Click **Save roles**.
 
 ## Viewing custom role details
 
@@ -186,7 +183,7 @@ To view details for custom roles from the **Roles** tab:
 
 To view details for custom roles in other parts of the LaunchDarkly user interface (UI), click a custom role's name to open the "Role policy details" screen:
 
-![A member's Access screen in the Members tab with a custom role called out.](settings-team-roles-callout.png)
+![A member's Permissions tab with custom role names called out.](settings-member-roles-callout.png)
 
 ## Editing existing custom roles
 
@@ -196,9 +193,9 @@ To edit a custom role:
 
 1. Navigate to **Account settings**.
 2. Click into the **Roles** tab and find the role you wish to edit.
-3. Click **Edit**. The "Edit custom role" screen appears:
+3. Click **Edit role**. The "Edit custom role policy" screen appears:
 
-![The "Edit custom role" screen.](settings-roles-edit.png)
+![The "Edit custom role policy" screen.](settings-roles-edit.png)
 
 4. Change whatever features of the role you wish.
 5. Click **Save changes**.
@@ -211,7 +208,7 @@ To delete a custom role:
 
 1. Navigate to **Account settings**.
 2. Click into the **Roles** tab and find the role you wish to edit.
-3. Click **Edit**. The "Edit custom role" screen appears.
+3. Click **Edit role**. The "Edit custom role" screen appears.
 4. Click **Delete role**:
 
 ![The "Delete role" button.](settings-roles-delete.png)
