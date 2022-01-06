@@ -3,13 +3,14 @@ import { jsx } from 'theme-ui'
 import sdkData from '../content/sdkVersions.json'
 import relayData from '../content/relayVersions.json'
 import Table, { TableBody, TableCell, TableHeadCell, TableHeader, TableRow } from './mdx/table'
+import Details from './mdx/details'
 
 export function SdksEndOfLife() {
-  return <EndOfLife data={sdkData} showHeaders={true} />
+  return <EndOfLife data={sdkData} expandable={true} />
 }
 
 export function RelayEndOfLife() {
-  return <EndOfLife data={relayData} showHeaders={false} />
+  return <EndOfLife data={relayData} expandable={false} />
 }
 
 type EOLVersion = {
@@ -25,10 +26,10 @@ type EOL = {
 
 type EndOfLifeProps = {
   data: EOL[]
-  showHeaders: boolean
+  expandable: boolean
 }
 
-function EndOfLife({ data, showHeaders }: EndOfLifeProps) {
+function EndOfLife({ data, expandable }: EndOfLifeProps) {
   const eols: EOL[] = data
 
   if (!eols) {
@@ -61,34 +62,43 @@ function EndOfLife({ data, showHeaders }: EndOfLifeProps) {
           return
         }
         const oldestVersion = versions[versions.length - 1]
+        const tableContent = (
+          <Table>
+            <TableHeader>
+              <TableHeadCell>Version</TableHeadCell>
+              <TableHeadCell>Initial release date</TableHeadCell>
+              <TableHeadCell>End of life (EOL)</TableHeadCell>
+            </TableHeader>
+            <TableBody>
+              {versions.map((v, i) => (
+                <TableRow key={name + v.versionMajorMinor}>
+                  <TableCell>{getVersion(v)}</TableCell>
+                  <TableCell>{getInitialReleaseDate(v)}</TableCell>
+                  <TableCell>{getEOL(versions, i)}</TableCell>
+                </TableRow>
+              ))}
+              {oldestVersion.versionMajorMinor !== '1.0' ? (
+                <TableRow key={name + 'Older'}>
+                  <TableCell>{'< ' + getVersion(oldestVersion)}</TableCell>
+                  <TableCell>{'Various'}</TableCell>
+                  <TableCell>{getEOLText(oldestVersion) + ' or earlier'}</TableCell>
+                </TableRow>
+              ) : (
+                ''
+              )}
+            </TableBody>
+          </Table>
+        )
         return (
           <div key={name}>
-            {showHeaders ? <h3 sx={{ fontSize: 5, lineHeight: 'medium', mb: 2 }}>{name}</h3> : ''}
-            <Table>
-              <TableHeader>
-                <TableHeadCell>Version</TableHeadCell>
-                <TableHeadCell>Initial release date</TableHeadCell>
-                <TableHeadCell>End of life (EOL)</TableHeadCell>
-              </TableHeader>
-              <TableBody>
-                {versions.map((v, i) => (
-                  <TableRow key={name + v.versionMajorMinor}>
-                    <TableCell>{getVersion(v)}</TableCell>
-                    <TableCell>{getInitialReleaseDate(v)}</TableCell>
-                    <TableCell>{getEOL(versions, i)}</TableCell>
-                  </TableRow>
-                ))}
-                {oldestVersion.versionMajorMinor !== '1.0' ? (
-                  <TableRow key={name + 'Older'}>
-                    <TableCell>{'< ' + getVersion(oldestVersion)}</TableCell>
-                    <TableCell>{'Various'}</TableCell>
-                    <TableCell>{getEOLText(oldestVersion) + ' or earlier'}</TableCell>
-                  </TableRow>
-                ) : (
-                  ''
-                )}
-              </TableBody>
-            </Table>
+            {expandable ? (
+              <Details summary={name} open={false}>
+                <h3 sx={{ fontSize: 5, lineHeight: 'medium', mb: 2 }}>{name}</h3>
+                {tableContent}
+              </Details>
+            ) : (
+              tableContent
+            )}
           </div>
         )
       })}
