@@ -4,6 +4,7 @@
 * @launchdarkly/developer-flow
 
 # Content
+.cspell/custom-words.txt @launchdarkly/docs-reviewers
 *.md @launchdarkly/docs-reviewers
 *.mdx @launchdarkly/docs-reviewers
 /assets/ @launchdarkly/docs-reviewers
