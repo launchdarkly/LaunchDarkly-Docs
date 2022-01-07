@@ -65,3 +65,38 @@ jobs:
           AWS_S3_BUCKET: 'launchdarkly-docs-staging'
           AWS_HOSTNAME: 'docs-stg.launchdarkly.com'
           CI: true
+  smoke-test:
+    needs: build-deploy
+    runs-on: ubuntu-latest
+    name: Smoke test staging
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          build: yarn build-nav-data
+          headless: true
+          config: baseUrl=http://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }}
+          spec: cypress/integration/smoke.test.ts
+          env: pr_number=${{ github.event.pull_request.number }}
+      - name: Archive Cypress screenshots
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-screenshots
+          path: |
+            /home/runner/work/git-gatsby/git-gatsby/cypress/screenshots
+          retention-days: 5
+    

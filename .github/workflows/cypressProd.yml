@@ -20,6 +20,9 @@ jobs:
           wait-on: 'http://localhost:9000/home/getting-started'
           wait-on-timeout: 5
           env: skip_external=true
+          spec: |
+            cypress/integration/links.test.ts
+            cypress/integration/redirects.test.ts
       - name: Archive Cypress screenshots
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
