@@ -24,6 +24,7 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 This feature is available in the following client-side SDKs:
 
+* [.NET (client-side)](#net-client-side)
 * [Android](#android)
 * [C/C++ (client-side)](#cc-client-side)
 * [Electron](#electron)
@@ -32,6 +33,27 @@ This feature is available in the following client-side SDKs:
 * [JavaScript](#javascript)
 * [Node.js](#nodejs-client-side)
 * [React](#javascript): The React SDK relies on the JavaScript SDK for user-related functionality.
+
+### .NET (client-side)
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+<CodeTabItem value="dotnet">
+
+```csharp
+client.Alias(newUser, previousUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`LdClient.Alias`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.LdClient.html#LaunchDarkly_Sdk_Client_LdClient_Alias_) and [`ConfigurationBuilder.AutoAliasingOptOut`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.LdClient.html#LaunchDarkly_Sdk_Client_ConfigurationBuilder_AutoAliasingOptOut_).
 
 ### Android
 

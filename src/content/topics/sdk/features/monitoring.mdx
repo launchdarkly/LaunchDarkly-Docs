@@ -17,11 +17,68 @@ Some SDKs expose some of their internal statuses through the Connection Status A
 
 This feature is available in the following client-side SDKs:
 
+* [.NET (client-side)](#net-client-side)
 * [Android](#android)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
 * [React Native](#react-native)
+
+### .NET (client-side)
+
+<Callout intent="info">
+<CalloutTitle>Supported versions</CalloutTitle>
+<CalloutDescription>
+
+This feature is available in the client-side .NET SDK's versions 2.0.0 and later.
+
+</CalloutDescription>
+</Callout>
+
+The client-side .NET SDK defines "data source status" as the status of the SDK's communication with LaunchDarkly to get feature flag data. If the streaming connection to LaunchDarkly is interrupted, or, in polling mode, if a polling request fails, the SDK might not be able to receive flag updates. The data source status will indicate this, providing an overall state such as "valid" or "interrupted" and information about the last error that occurred, if any.
+
+To check the data source status:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+
+<CodeTabItem value="dotnet">
+
+```csharp
+var dataSourceStatus = client.DataSourceStatusProvider.Status;
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Alternatively, you can register an event handler that will receive a new status value whenever the status changes.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+
+<CodeTabItem value="dotnet">
+
+```csharp
+client.DataSourceStatusProvider.StatusChanged +=
+    (sender, status) -> {
+        Console.WriteLine("new status is: {0}", status);
+    };
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`IDataSourceStatusProvider`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.Interfaces.IDataSourceStatusProvider.html).
 
 ### Android
 
@@ -623,7 +680,7 @@ Data store status is the status of a database, such as Redis or DynamoDB, if the
 
 This feature is available in the following server-side SDKs:
 
-* [.NET](#net-server-side)
+* [.NET (server-side)](#net-server-side)
 * [Go](#go)
 * [Java](#java)
 
@@ -687,7 +744,7 @@ Here is an example:
 
 <CodeTabItem value="dotnet">
 
-```dotnet
+```csharp
 client.DataSourceStatusProvider.StatusChanged +=
     (sender, status) -> {
         Console.WriteLine("new status is: {0}", status);

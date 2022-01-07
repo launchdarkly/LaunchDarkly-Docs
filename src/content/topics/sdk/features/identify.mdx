@@ -28,6 +28,7 @@ Details about each SDK's identify feature are available in the SDK-specific sect
 
 This feature is available in the following client-side SDKs:
 
+* [.NET (client-side)](#net-client-side)
 * [Android](#android)
 * [C/C++ (client-side)](#cc-client-side)
 * [Electron](#electron)
@@ -37,6 +38,39 @@ This feature is available in the following client-side SDKs:
 * [Node.js (client-side)](#nodejs-client-side)
 * [React Native](#react-native)
 * [Roku](#roku)
+
+### .NET (client-side)
+
+You can use the `Identify` or `IdentifyAsync` method to switch user contexts. This loads any saved flag values for the new user, and immediately triggers an update of the latest flags from LaunchDarkly.
+
+You may want to wait until the flag values for the new user have been loaded before proceeding. You can do this either by calling the synchronous method `Identify` with a timeout, or by calling the asynchronous method `IdentifyAsync` and awaiting the result.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet' },
+  ]
+}>
+<CodeTabItem value="dotnet">
+
+```csharp
+var updatedUser = LDUser.Builder("user-key")
+    .Email("user@example.com")
+    .Build();
+
+// Synchronous method
+client.Identify(updatedUser, TimeSpan.FromSeconds(5));
+
+// Asynchronous method
+await client.IdentifyAsync(updatedUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`Identify`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.LdClient.html#LaunchDarkly_Sdk_Client_LdClient_Identify_) and [`IdentifyAsync`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.LdClient.html#LaunchDarkly_Sdk_Client_LdClient_IdentifyAsync_).
 
 ### Android
 

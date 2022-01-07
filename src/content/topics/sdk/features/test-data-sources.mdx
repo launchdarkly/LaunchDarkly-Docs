@@ -13,7 +13,7 @@ This topic explains how to use the test data source feature for more control ove
 
 LaunchDarkly SDKs must have a data source when they initialize. Usually, this data source is connected to LaunchDarkly. However, when you write unit tests, using a test data source can give you more control over your SDK.
 
-LaunchDarkly supports a test data source for server-side SDKs. The test data source allows you to mock the behavior of a LaunchDarkly SDK so it has predictable behavior when evaluating flags.
+LaunchDarkly supports a test data source for some SDKs. The test data source allows you to mock the behavior of a LaunchDarkly SDK so it has predictable behavior when evaluating flags.
 
 <Callout intent="alert">
 <CalloutTitle>Use the test data source for testing only</CalloutTitle>
@@ -29,6 +29,85 @@ You can set a flag's initial state by calling the data source's `update` method 
 You can modify targeting rules at any time, including when the SDK is already in use. This allows you to simulate a situation where a feature flag changes values. When you set a flag's state in the test data source, you can either set it to return a single variation for all users, or set up more complicated behavior similar to the ways you can configure a flag in the LaunchDarkly dashboard. This can be useful in testing application code that expects flags to be different for different users.
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
+
+## Client-side SDKs
+
+This feature is available in the following client-side SDKs:
+
+* [.NET (client-side)](#net-client-side)
+
+### .NET (client-side)
+
+To configure the SDK to use a test data source:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+<CodeTabItem value="dotnet">
+
+```csharp
+using LaunchDarkly.Sdk.Client.Integrations;
+
+var td = TestData.DataSource();
+// You can set any initial flag states here with td.Update
+
+var config = Configuration.Builder("sdk-key")
+    .DataSource(td)
+    .Build();
+var client = LdClient.Init(config, user, startWaitTime);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To set a flag to a specific value:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+<CodeTabItem value="dotnet">
+
+```csharp
+td.Update(td.Flag("flag-key-1").Variation(false);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There are other ways you can configure flag behavior using a test data source. Here is an example:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet', },
+  ]
+}>
+<CodeTabItem value="dotnet">
+
+```csharp
+// This flag is true for the user key "some-user-key" and false for everyone else
+td.Update(td.Flag("flag-key-2")
+    .Variation(false)
+    .VariationForUser("some-user-key", true);
+
+// This flag returns the string variation "green" for users who have the custom
+// attribute "admin" with a value of true, and "red" for everyone else.
+td.Update(td.Flag("flag-key-3")
+    .Variations(LdValue.Of("red"), LdValue.Of("green"))
+    .VariationFunc(user =>
+        user.GetAttribute(UserAttribute.ForName("admin")).AsBool ? 1 : 0);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [TestData](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.Integrations.TestData.html).
 
 ## Server-side SDKs
 

@@ -5,17 +5,6 @@ description: 'This topic explains the API changes made in the client-side .NET S
 published: true
 ---
 
-<Callout intent="info">
-  <CalloutTitle>This migration guide is for a prerelease version of the client-side .NET SDK</CalloutTitle>
-  <CalloutDescription>
-
-Client-side .NET SDK 2.0 is not yet generally available. This topic describes the latest `2.0.0-rc.*` prerelease version. This is a living document that may change if we make additional modifications to the SDK before the final release.
-
-The API documentation for 2.0 will not be in GitHub Pages until the GA release, but documentation for any version is available in HTML form by downloading the "Documentation" archive from the [GitHub release](https://github.com/launchdarkly/dotnet-server-sdk/releases) for that version.
-
-  </CalloutDescription>
-</Callout>
-
 ## Overview
 
 This topic explains how to adapt code that currently uses a 1.x version of the [.NET client-side SDK](/sdk/server-side/dotnet) (previously called the Xamarin SDK) to use version 2.0 or later.
@@ -175,7 +164,6 @@ var config = Configuration.Builder("my-mobile-key")
 
 </CodeTabItem>
 </CodeTabs>
-
 
 ### Understanding changes to events
 
@@ -511,8 +499,6 @@ The 2.0 release also includes new features as described in the release notes.
 
 These include:
 
-* The SDK now supports aliasing users. See `LdClient.Alias` and `ConfigurationBuilder.AutoAliasingOptOut`.
-* `LdClient.DataSourceStatusProvider` allows you to monitor the status of the connection to LaunchDarkly.
-* The `Integrations.TestData` class provides a way to inject simulated feature flag data into the SDK for testing.
-
-To learn more, read the API documentation for these classes and methods.
+* The SDK now supports aliasing users. To learn more, read: [Aliasing users](/sdk/features/aliasing-users).
+* `LdClient.DataSourceStatusProvider` allows you to monitor the status of the connection to LaunchDarkly. To learn more, read: [Monitoring SDK status](/sdk/features/monitoring).
+* The `Integrations.TestData` class provides a way to inject simulated feature flag data into the SDK for testing. To learn more, read: [Test data sources](/sdk/features/test-data-sources).

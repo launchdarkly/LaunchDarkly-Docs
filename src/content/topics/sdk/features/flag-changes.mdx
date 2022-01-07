@@ -50,12 +50,24 @@ To perform real-time updates in the app, it must register listeners for updates 
 Here's how:
 
 <CodeTabs
-  defaultValue="csharp"
+  defaultValue="dotnet-client"
   values={[
-    { label: 'Example', value: 'csharp', },
+    { label: 'client-side .NET', value: 'dotnet-client', },
+    { label: 'client-side .NET SDK versions 1.x', value: 'dotnet-client-pre-2.0', },
   ]
 }>
-<CodeTabItem value="csharp">
+<CodeTabItem value="dotnet-client">
+
+```csharp
+client.FlagTracker.FlagChanged += (sender, eventArgs) => {
+    if (eventArgs.Key == "key-for-flag-i-am-watching") {
+        DoSomethingWithNewFlagValue(eventArgs.NewBoolValue);
+    }
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="dotnet-client-pre-2.0">
 
 ```csharp
 client.FlagChanged += (sender, eventArgs) => {
@@ -67,6 +79,8 @@ client.FlagChanged += (sender, eventArgs) => {
 
 </CodeTabItem>
 </CodeTabs>
+
+To learn more, read [`IFlagTracker`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.Interfaces.IFlagTracker.html).
 
 ### Android
 

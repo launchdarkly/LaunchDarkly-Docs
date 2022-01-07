@@ -7,7 +7,7 @@ published: true
 
 ## Overview
 
-This reference guide documents all of the methods available in the client-side .NET SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read the [client-side .NET SDK GitHub repository](https://github.com/launchdarkly/dotnet-client-sdk). Additionally you can clone and run sample applications using this SDK with [Xamarin](https://github.com/launchdarkly/hello-xamarin), and [Xamarin.Forms](https://github.com/launchdarkly/hello-xamarin-forms). The [online API docs](https://launchdarkly.github.io/dotnet-client-sdk/) contain the programmatic definitions of every type, property, and method.
+This reference guide documents all of the methods available in the client-side .NET SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read the [client-side .NET SDK GitHub repository](https://github.com/launchdarkly/dotnet-client-sdk). Additionally you can clone and run sample applications using this SDK from https://github.com/launchdarkly/hello-dotnet-client. The [online API docs](https://launchdarkly.github.io/dotnet-client-sdk/) contain the programmatic definitions of every type, property, and method.
 
 <Callout intent="info">
 <CalloutTitle>For use in mobile, desktop, and embedded client applications only</CalloutTitle>
@@ -55,7 +55,7 @@ To start using the client-side .NET SDK:
 <CodeTabItem value="csharp">
 
 ```csharp
-Install-Package LaunchDarkly.XamarinSdk
+Install-Package LaunchDarkly.ClientSdk
 ```
 
 </CodeTabItem>
@@ -72,8 +72,11 @@ Next, import the LaunchDarkly packages in your application code:
 <CodeTabItem value="csharp">
 
 ```csharp
-using LaunchDarkly.Client;
-using LaunchDarkly.Xamarin;
+using LaunchDarkly.Sdk;
+using LaunchDarkly.Sdk.Client;
+
+// LaunchDarkly.Sdk defines general types like User, which are also used in the server-side .NET SDK.
+// LaunchDarkly.Sdk.Client defines the LdClient and Configuration types for the client-side .NET SDK.
 ```
 
 </CodeTabItem>
@@ -102,7 +105,7 @@ client = LdClient.Init("MY_MOBILE_KEY", user, timeSpan);
 </CodeTabItem>
 </CodeTabs>
 
-However, calling blocking code from the main thread in an Android app is not considered a best practice. The preferred method, loading the client asynchronously, is shown here:
+However, calling blocking code from the main thread in a mobile app is not considered a best practice. The preferred method, loading the client asynchronously, is shown here:
 
 <CodeTabs
   defaultValue="csharp"
@@ -186,7 +189,9 @@ You can configure the client-side .NET SDK to connect to the [Relay Proxy](https
 
 ```csharp
 Configuration config = Configuration.Builder("YOUR_SDK_KEY")
-    .StreamUri(new URI("YOUR_RELAY_URI"))
+    .ServiceEndpoints(
+        Components.ServiceEndpoints().RelayProxy("YOUR_RELAY_URI")
+    )
     .Build();
 LdClient client = LdClient.Init(config);
 ```
@@ -204,14 +209,18 @@ To learn more about data collection within this SDK and implications on submissi
 
 This SDK supports the following features:
 
+* [Aliasing users](/sdk/features/aliasing-users#net-client-side)
 * [Configuration](/sdk/features/config#net-client-side)
 * [Evaluating flags](/sdk/features/evaluating#net-client-side)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#net-client-side)
 * [Flushing events](/sdk/features/flush#net-client-side)
 * [Getting all flags](/sdk/features/all-flags#net-client-side)
+* [Identifying and changing users](/sdk/features/identify#net-client-side)
 * [Logging configuration](/sdk/features/logging#net-client-side)
+* [Monitoring SDK status](/sdk/features/monitoring#net-client-side)
 * [Offline mode](/sdk/features/offline-mode#net-client-side)
 * [Sending custom events](/sdk/features/events#net-client-side)
 * [Shutting down](/sdk/features/shutdown#net-client-side)
 * [Subscribing to flag changes](/sdk/features/flag-changes#net-client-side)
+* [Test data sources](/sdk/features/test-data-sources#net-client-side)
 * [User configuration](/sdk/features/user-config#net-client-side)
