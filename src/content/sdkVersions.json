@@ -1,6 +1,31 @@
 [
     {
-      "name": ".NET",
+      "name": ".NET (client-side)",
+      "versions": [
+        {
+          "versionMajorMinor": "2.0",
+          "releaseYear": 2022,
+          "releaseMonthDay": "01-07"
+        },
+        {
+          "versionMajorMinor": "1.2",
+          "releaseYear": 2020,
+          "releaseMonthDay": "01-15"
+        },
+        {
+          "versionMajorMinor": "1.1",
+          "releaseYear": 2019,
+          "releaseMonthDay": "10-17"
+        },
+        {
+          "versionMajorMinor": "1.0",
+          "releaseYear": 2019,
+          "releaseMonthDay": "09-13"
+        }
+      ]
+    },
+    {
+      "name": ".NET (server-side)",
       "versions": [
         {
           "versionMajorMinor": "6.3",
@@ -1191,26 +1216,6 @@
           "versionMajorMinor": "5.2",
           "releaseYear": 2018,
           "releaseMonthDay": "08-30"
-        }
-      ]
-    },
-    {
-      "name": "Xamarin",
-      "versions": [
-        {
-          "versionMajorMinor": "1.2",
-          "releaseYear": 2020,
-          "releaseMonthDay": "01-15"
-        },
-        {
-          "versionMajorMinor": "1.1",
-          "releaseYear": 2019,
-          "releaseMonthDay": "10-17"
-        },
-        {
-          "versionMajorMinor": "1.0",
-          "releaseYear": 2019,
-          "releaseMonthDay": "09-13"
         }
       ]
     }
