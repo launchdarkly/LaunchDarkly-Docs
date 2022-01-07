@@ -5,15 +5,14 @@
 verbose = true
 
 # Show progress
-progress = false
+progress = true
 
 ###
 ### Exclusions
 ###
 # Exclude URLs from checking (supports regex)
+# does not exclude all github
 exclude = [
-  # ignore github links when running locally
-  'github.com',
   'https://sdk.launchdarkly.',
   'https://stream.launchdarkly.',
   'https://events.launchdarkly.',
@@ -56,7 +55,12 @@ exclude = [
   'https://.*.mycompany.launchdarkly.com',
   'https://unpkg.com',
   'https://cdn.jsdelivr.net',
-  'https://launchdarklydemostack1-s3bucketforwebsitecontent-jffmp2434grq.s3.amazonaws.com/site/'
+  'https://launchdarklydemostack1-s3bucketforwebsitecontent-jffmp2434grq.s3.amazonaws.com/site/',
+  # Repeated 404s on these links - [Issue opened](https://github.com/lycheeverse/lychee/issues/431)
+  'https://github.com/marketplace/actions/launchdarkly-code-references',
+  'https://github.com/features/actions',
+  # TODO: SC-135999 workaround
+  'https://www.php.net/manual/en/language.types.declarations.php',
 ]
 
 # Exclude all private IPs from checking

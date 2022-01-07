@@ -1,0 +1,21 @@
+name: Scheduled link check
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
+
+
+jobs:
+  check-external-links:
+    # includes github
+    name: Check external links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: --config .github/lychee-all.toml README.md src/content/topics/**/*.mdx src/content/topics/**/**/*.mdx src/content/topics/**/**/**/*.mdx src/content/topics/**/**/**/**/*.mdx
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{secrets.GH_TOKEN}}

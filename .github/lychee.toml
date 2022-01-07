@@ -5,7 +5,7 @@
 verbose = true
 
 # Show progress
-progress = false
+progress = true
 
 ###
 ### Exclusions
@@ -34,8 +34,6 @@ exclude = [
   'https://developers.cloudflare.com',
   # specific example links
   '^https://launchdarkly.github.io/$',
-  # ignore git clone links
-  'https://github.com/.+/.+.git',
   # links used in examples
   '.*domain.com',
   'https://base.custom_domain',
@@ -56,9 +54,6 @@ exclude = [
   'https://unpkg.com',
   'https://cdn.jsdelivr.net',
   'https://launchdarklydemostack1-s3bucketforwebsitecontent-jffmp2434grq.s3.amazonaws.com/site/',
-  # Repeated 404s on these links - [Issue opened](https://github.com/lycheeverse/lychee/issues/431)
-  'https://github.com/marketplace/actions/launchdarkly-code-references',
-  'https://github.com/features/actions',
   # TODO: SC-135999 workaround
   'https://www.php.net/manual/en/language.types.declarations.php',
 ]
