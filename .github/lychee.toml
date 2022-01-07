@@ -12,6 +12,7 @@ progress = false
 ###
 # Exclude URLs from checking (supports regex)
 exclude = [
+  'github.com',
   'https://sdk.launchdarkly.',
   'https://stream.launchdarkly.',
   'https://events.launchdarkly.',
