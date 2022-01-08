@@ -1,21 +1,23 @@
 ---
 path: '/sdk/server-side/c-c--'
 title: 'C/C++ SDK reference (server-side)'
-description: 'This topic explains all of the methods available in the server-side C and C++ SDK, with detail about how they work.'
+description: 'This reference guide documents all of the methods available in the server-side C/C++ SDK, and explains how these methods work.'
 published: true
 ---
 
 ## Overview
 
-This reference guide documents basic usage of our C server-side SDK, and explains in detail how its functions work. LaunchDarkly's SDKs are open source. To learn more, read [C/C++ SDK GitHub repository](https://github.com/launchdarkly/c-server-sdk). The online [API docs](https://launchdarkly.github.io/c-server-sdk) contain the programmatic definitions of every type and method. You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-c-server).
+This reference guide documents all of the methods available in the server-side C/C++ SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/c-server-sdk) and its generated [API reference](https://launchdarkly.github.io/c-server-sdk).
+
+You can also use this SDK to clone and run a [sample application](https://github.com/launchdarkly/hello-c-server).
 
 <Callout intent="info">
 <CalloutTitle>For use in server-side applications only</CalloutTitle>
 <CalloutDescription>
 
-This SDK is intended for use in *multi-user* C/C++ server applications. If you have a C/C++ application and are looking to set up LaunchDarkly in a desktop or embedded application, head to our [C/C++ client-side SDK reference](/sdk/client-side/c-c--).
+This SDK is intended for use in *multi-user* C/C++ server applications. If you have a C/C++ application and want to set up LaunchDarkly in a desktop or embedded application, read the [C/C++ client-side SDK reference](/sdk/client-side/c-c--).
 
-To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+For information about how to choose an SDK, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
 </CalloutDescription>
 </Callout>
@@ -26,7 +28,7 @@ After you complete the [Getting Started process](/home/getting-started), follow 
 
 Unlike other LaunchDarkly SDKs, the C/C++ SDK has no installation steps. To get started, clone [this repository](https://github.com/launchdarkly/c-server-sdk) or download a release archive from the [GitHub Releases](https://github.com/launchdarkly/c-server-sdk/releases) page. You can use `CMakeLists.txt` in this repository as a starting point for integrating this SDK into your application.
 
-Once ready, your first step should be to include the LaunchDarkly SDK headers:
+After cloning the repository, include the LaunchDarkly SDK headers:
 
 <CodeTabs
   defaultValue="c"
@@ -43,7 +45,7 @@ Once ready, your first step should be to include the LaunchDarkly SDK headers:
 </CodeTabItem>
 </CodeTabs>
 
-Configure logging, and call the global initialization function. These functions must be called before any other operations are performed. LaunchDarkly provides a predefined convenience logger.
+Configure logging, and call the global initialization function. You must call these functions before you perform any other operations. LaunchDarkly provides a predefined convenience logger.
 
 Here's how:
 
@@ -63,9 +65,9 @@ LDGlobalInit();
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of `LDClient`. You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+After you install and import the SDK, create a single, shared instance of `LDClient`. Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
-Calling `LDClientInit` will initiate a remote call to the LaunchDarkly service to fetch feature flags. This call will block up to the time defined by `maxwaitmilliseconds`. If you request a feature flag before the client has completed initialization, you will receive the default flag value.
+Calling `LDClientInit` initiates a remote call to the LaunchDarkly service to fetch feature flags. This call blocks up to the time defined by `maxwaitmilliseconds`. If you request a feature flag before the client has completed initialization, you will receive the default flag value.
 
 Here is an example:
 
@@ -91,13 +93,12 @@ struct LDClient *client = LDClientInit(config, maxwaitmilliseconds);
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make LDClient a singleton. The client instance maintains internal state that allows us to
-serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
+It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
 
 </CalloutDescription>
 </Callout>
 
-Using `client`, you can check which variation a particular user should receive for a given feature flag:
+Using `client`, you can check which variation a particular user will receive for a given feature flag:
 
 <CodeTabs
   defaultValue="c"
@@ -119,7 +120,7 @@ if (show_feature) {
 </CodeTabItem>
 </CodeTabs>
 
-If it is possible for your flag evaluation to be executed before `client` initializes, you should wrap your call in `LDClientIsInitialized(client)`:
+If the SDK might be able to execute your flag evaluation before `client` initializes, wrap your call in `LDClientIsInitialized(client)`:
 
 <CodeTabs
   defaultValue="c"
@@ -138,24 +139,7 @@ if (LDClientIsInitialized(client)) {
 </CodeTabItem>
 </CodeTabs>
 
-Lastly, when your application is about to terminate, shut down `client`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
-
-Here's how:
-
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'Example', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
-
-```c
-LDClientClose(client);
-```
-
-</CodeTabItem>
-</CodeTabs>
+## Shutting down
 
 Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#cc-server-side).
 

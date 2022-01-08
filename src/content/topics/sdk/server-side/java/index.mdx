@@ -7,13 +7,17 @@ published: true
 
 ## Overview
 
-This reference guide documents all of the methods available in the Java SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read [Java SDK GitHub repository](https://github.com/launchdarkly/java-server-sdk) or our [Javadocs](http://launchdarkly.github.io/java-server-sdk/). You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-java) using this SDK and an example of running it in another JRE-based language such as [Scala](https://github.com/launchdarkly/hello-scala).
+This reference guide documents all of the methods available in the Java SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/java-server-sdk) and its [Javadocs](http://launchdarkly.github.io/java-server-sdk/). 
+
+You can also use this SDK to clone and run a [sample application](https://github.com/launchdarkly/hello-java) or run it in another JRE-based language such as [Scala](https://github.com/launchdarkly/hello-scala).
 
 <Callout intent="alert">
 <CalloutTitle>Android support</CalloutTitle>
 <CalloutDescription>
 
-The Java SDK is intended for use in server environments only, and should not be used in mobile devices. Learn more about our [client-side and server-side SDKs](/sdk/concepts/client-side-server-side). If you want to use LaunchDarkly in an Android application, read the [Android SDK reference](/sdk/client-side/android).
+The Java SDK is intended for use in server environments only, and should not be used in mobile devices. If you want to use LaunchDarkly in an Android application, read the [Android SDK reference](/sdk/client-side/android).
+
+For information about how to choose an SDK, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
 </CalloutDescription>
 </Callout>
@@ -76,7 +80,7 @@ import com.launchdarkly.sdk.server.*;
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of [`LDClient`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html). You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+After you install and import the SDK, create a single, shared instance of [`LDClient`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html). Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
 Here's how:
 
@@ -99,12 +103,14 @@ LDClient client = new LDClient("YOUR_SDK_KEY");
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make this a singleton. Internally, the client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
+It's important to make this a singleton. Internally, the client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
 
 </CalloutDescription>
 </Callout>
 
-Using `client`, you can check which variation a particular user should receive for a given feature flag:
+Using `client`, you can check which variation a particular user should receive for a given feature flag.
+
+Here's how:
 
 <CodeTabs
   defaultValue="java"
@@ -118,31 +124,11 @@ Using `client`, you can check which variation a particular user should receive f
 LDUser user = new LDUser("user@test.com");
 boolean showFeature = client.boolVariation("your.feature.key", user, false);
 if (showFeature) {
-  // application code to show the feature
+  // Application code to show the feature
 }
 else {
-  // the code to run if the feature is off
+  // The code to run if the feature is off
 }
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Lastly, when your application is about to terminate, shut down `client` with [`close()`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#close--). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
-
-Here's how:
-
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
-
-```java
-// shut down the client, since we're about to quit
-client.close();
 ```
 
 </CodeTabItem>
@@ -150,11 +136,13 @@ client.close();
 
 ## Using the Java SDK in OSGi
 
-Versions 4.6.0 and higher of the SDK can be installed as OSGi bundles.
+You can install versions 4.6.0 and higher of the SDK as OSGi bundles.
 
-Note that the SDK's default jar—the one you get from Maven or Gradle if you do not specify a "classifier"—does not contain Gson or SLF4j, since applications are often built with their own specific versions of those libraries. Therefore, using that jar in OSGi requires Gson and SLF4j to be provided by some other bundle.
+The SDK's default jar, which it gets from Maven or Gradle if you do not specify a "classifier", does not contain Gson or SLF4j because applications are often built with their own specific versions of those libraries. Using the default jar in OSGi requires Gson and SLF4j to be provided by some other bundle.
 
-However, there is also a distribution that includes Gson and SLF4j as part of the SDK bundle. You can use this if you do not care about controlling the versions of those libraries separately. To do so, add the classifier "all":
+However, there is also a distribution that includes Gson and SLF4j as part of the SDK bundle. You can use this if you do not need to control the versions of those libraries separately. 
+
+To do so, add the classifier "all":
 
 <CodeTabs
   defaultValue="java"
@@ -182,12 +170,12 @@ However, there is also a distribution that includes Gson and SLF4j as part of th
 </CodeTabs>
 
 <Callout intent="alert">
-  <CalloutTitle>Potential network connectivity issues caused by DNS caching</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>Potential network connectivity issues caused by DNS caching</CalloutTitle>
+<CalloutDescription>
 
-There is a potential problem for any Java application that communicates with a web service, if that service uses a load-balancing framework. LaunchDarkly is such a service. The issue is that if a service starts to use a different set of IP addresses, a Java application could continue trying to use an old IP address, causing connection attempts to fail. In most environments, this is unlikely to be a problem because IP addresses are not cached for very long.
+There is a potential problem for any Java application that communicates with a web service, such as LaunchDarkly, that also uses a load-balancing framework. If a service starts to use a different set of IP addresses, a Java application could continue trying to use an old IP address, causing connection attempts to fail. In most environments, this is unlikely to be a problem because IP addresses are not cached for very long.
 
-However, Java has special behavior if the runtime environment has a [security manager](https://docs.oracle.com/javase/tutorial/essential/environment/security.html): in that case, it caches IP addresses indefinitely and will never update them until the application is restarted. If you are running in an environment that has a security manager—or if you're not sure whether that is the case—we recommend that you set the cache duration (TTL) explicitly. [This page](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-jvm-ttl.html) describes two ways to do so.
+However, Java has special behavior if the runtime environment has a [security manager](https://docs.oracle.com/javase/tutorial/essential/environment/security.html). In that case, it caches IP addresses indefinitely and doesn't update them until the application is restarted. If you are running in an environment that has a security manager, or if you're not sure whether that is the case, we recommend that you set the cache duration (TTL) explicitly. To learn how, read [Setting the JVM TTL for DNS Name Lookups](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-jvm-ttl.html).
 
 </CalloutDescription>
 </Callout>

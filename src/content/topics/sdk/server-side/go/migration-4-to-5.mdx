@@ -25,7 +25,7 @@ LaunchDarkly no longer supports lower Go versions, as stated in the [End of Life
 
 [Modules](https://github.com/golang/go/wiki/Modules) are supported in all modern versions of Go, and are now the standard way to write Go code. However, not all Go users use Go modules.
 
-To support as many users as possible, we designed the 5.x SDK for use with or without modules. It has a `go.mod` file so it will be recognized as a module, but if you use an older dependency management system like `dep` or `govendor`, the 5.x SDK will still work.
+To support as many users as possible, we designed the 5.x SDK for use with or without modules. It has a `go.mod` file so it is recognized as a module, but if you use an older dependency management system like `dep` or `govendor`, the 5.x SDK will still work.
 
 This is why we have continued to use the [`gopkg.in`](https://labix.org/gopkg.in) redirection service for the SDK's import paths. Go modules with major versions greater than 1 must normally have an import path suffix like `/v5`, which would not work with `dep` and `govendor`. Paths that use `gopkg.in` are exempt from that rule.
 
@@ -38,7 +38,7 @@ Starting with the next major version, 6.0.0, you will only be able to use the Go
 </CalloutDescription>
 </Callout>
 
-As described below, the SDK is now made up of multiple repositories. If you do not use modules and you have pinned your dependency versions, when you update the SDK to a new version you should also update any other `github.com/launchdarkly` or `gopkg.in/launchdarkly` dependencies that were previously pinned. This is not required if you use modules, since the SDK can specify its own preferred dependency versions.
+As described below, the SDK is now made up of multiple repositories. If you do not use modules and you have pinned your dependency versions, when you update the SDK to a new version you should also update any other `github.com/launchdarkly` or `gopkg.in/launchdarkly` dependencies that were previously pinned. This is not required if you use modules, because the SDK can specify its own preferred dependency versions.
 
 ## Using updated package names
 

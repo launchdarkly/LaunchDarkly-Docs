@@ -1,21 +1,23 @@
 ---
 path: '/sdk/server-side/dotnet'
 title: '.NET SDK reference (server-side)'
-description: 'This topic explains all of the methods available in the server-side .NET SDK, with detail about how they work.'
+description: 'This reference guide documents all of the methods available in the server-side .NET SDK, and explains how these methods work.'
 published: true
 ---
 
 ## Overview
 
-This reference guide documents all of the methods available in the .NET SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read [.NET SDK GitHub repository](https://github.com/launchdarkly/dotnet-server-sdk). The online [API docs](https://launchdarkly.github.io/dotnet-server-sdk/) contain the programmatic definitions of every type and method. You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-dotnet-server).
+This reference guide documents all of the methods available in the server-side .NET SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/dotnet-server-sdk) and its generated [API reference](https://launchdarkly.github.io/dotnet-server-sdk/).
+
+You can also use this SDK to clone and run a [sample application](https://github.com/launchdarkly/hello-dotnet).
 
 <Callout intent="info">
 <CalloutTitle>For use in server-side applications only</CalloutTitle>
 <CalloutDescription>
 
-This SDK is intended for use in *multi-user* .NET server applications. If you have a .NET application and are looking to set up LaunchDarkly in a mobile, desktop, or embedded application, head to our [client-side .NET SDK reference](/sdk/client-side/dotnet).
+This SDK is intended for use in *multi-user* .NET server applications. If you have a .NET application and want to set up LaunchDarkly in a mobile, desktop, or embedded application, read the [client-side .NET SDK reference](/sdk/client-side/dotnet).
 
-To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+For information about how to choose an SDK, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
 </CalloutDescription>
 </Callout>
@@ -23,10 +25,10 @@ To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side
 ## Getting started
 
 <Callout intent="info">
-<CalloutTitle>Requirements</CalloutTitle>
+<CalloutTitle>Version requirements</CalloutTitle>
 <CalloutDescription>
 
-Version 6.0 and higher of the LaunchDarkly .NET SDK is compatible with .NET 5.0+, .NET Framework 4.5.2+, or .NET Core 2.1+.
+Version 6.0 and higher of the LaunchDarkly .NET SDK is compatible with .NET 5.0+, .NET Framework 4.5.2+, and .NET Core 2.1+.
 
 Prior to version 6.0, the LaunchDarkly .NET SDK also supported .NET Framework 4.5.0 and .NET Core 1.0.
 
@@ -35,7 +37,7 @@ Prior to version 6.0, the LaunchDarkly .NET SDK also supported .NET Framework 4.
 
 After you complete the [Getting Started process](/home/getting-started), follow these instructions to start using the LaunchDarkly SDK in your .NET application.
 
-The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager.
+First, install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager.
 
 Here's how:
 
@@ -54,7 +56,7 @@ Install-Package LaunchDarkly.ServerSdk
 </CodeTabItem>
 </CodeTabs>
 
-Next, import the LaunchDarkly SDK's namespace(s) in your application code. The namespace is not the same as the package name:
+Next, import the LaunchDarkly SDK's namespaces in your application code. The namespace is not the same as the package name:
 
 <CodeTabs
   defaultValue="sdk6"
@@ -83,7 +85,7 @@ using LaunchDarkly.Client;
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, create a single, shared instance of [`LdClient`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html). You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+After you install and import the SDK, create a single, shared instance of [`LdClient`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html). Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
 To create a single instance:
 
@@ -106,14 +108,16 @@ LdClient client = new LdClient("YOUR_SDK_KEY");
 <CalloutTitle>LdClient should be a singleton</CalloutTitle>
 <CalloutDescription>
 
-In the standard use case where there is only one SDK key, it's important to make the `LdClient` a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
+In the standard use case where there is only one SDK key, it's important to make the `LdClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
 
 If you need to use more than one SDK key, the SDK allows you to create more than one `LdClient` instance. This is an uncommon requirement, but one the SDK supports.
 
 </CalloutDescription>
 </Callout>
 
-Using `client`, you can check which variation a particular user should receive for a given feature flag. Here's how:
+Using `client`, you can check which variation a particular user should receive for a given feature flag. 
+
+Here's how:
 
 <CodeTabs
   defaultValue="csharp"
@@ -137,26 +141,6 @@ else {
 </CodeTabItem>
 </CodeTabs>
 
-When your application is about to terminate, shut down `client` with [`Dispose()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Dispose_). This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
-
-Here's how:
-
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: '.NET', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
-
-```csharp
-// shut down the client, since we're about to quit
-client.Dispose();
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## Transport Layer Security (TLS) and other networking issues
 
 .NET applications running on older operating systems are prone to use older, less secure versions of TLS. It is possible to increase your application's security using AppContext switches.
@@ -171,6 +155,8 @@ LaunchDarkly servers operate in a load-balancing framework which may cause their
 
 </CalloutDescription>
 </Callout>
+
+## Shutting down
 
 Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#net-server-side).
 

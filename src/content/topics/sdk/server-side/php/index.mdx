@@ -7,13 +7,15 @@ published: true
 
 ## Overview
 
-This reference guide documents all of the methods available in the PHP SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read [PHP SDK repository](https://github.com/launchdarkly/php-server-sdk) on GitHub. The online [API docs](https://launchdarkly.github.io/php-server-sdk/) contain the programmatic definitions of every type and method. You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-php).
+This reference guide documents all of the methods available in the PHP SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/php-server-sdk) and its generated [API reference](https://launchdarkly.github.io/php-server-sdk/). 
+
+You can also use this SDK to clone and run a [sample application](https://github.com/launchdarkly/hello-php).
 
 <Callout intent="info">
-<CalloutTitle>Requirements</CalloutTitle>
+<CalloutTitle>Version requirements</CalloutTitle>
 <CalloutDescription>
 
-Version 4.0 or higher of the SDK requires PHP 7.3 or higher.
+Version 4.0 and higher of this SDK requires PHP 7.3 or higher.
 
 For older versions of PHP, use version 3.x of the SDK.
 
@@ -39,7 +41,7 @@ To install Composer:
 ```bash
 php composer.phar require launchdarkly/server-sdk
 
-# Note that in earlier versions, this was "launchdarkly/launchdarkly-php"
+# In earlier versions, this was "launchdarkly/launchdarkly-php"
 ```
 
 </CodeTabItem>
@@ -62,7 +64,7 @@ require 'vendor/autoload.php';
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed, you'll want to create a single, shared instance of [`LDClient`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html). You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+After you install and import the SDK, create a single, shared instance of [`LDClient`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html). Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
 To create a single instance:
 
@@ -117,7 +119,7 @@ We strongly suggest using the Relay Proxy. Per-flag caching mode using Guzzle is
 
 ## Using the Relay Proxy
 
-PHP's shared-nothing architecture prevents LaunchDarkly from re-using the streaming API connection across requests.
+PHP's shared-nothing architecture prevents LaunchDarkly from reusing the streaming API connection across requests.
 
 You can use PHP without the Relay Proxy, but we strongly recommend using the Relay Proxy in **daemon mode** if you are using PHP in a high-throughput setting. This makes the Relay Proxy receive feature flag updates.
 
@@ -147,7 +149,7 @@ php composer.phar require "kevinrob/guzzle-cache-middleware:^1.4.0"
 
 Guzzle is then used to fetch flags. You can persist your cache somewhere other than the default in-memory store, like Memcached or Redis.
 
-You could then specify your cache when initializing the client with the cache option:
+You can then specify your cache when initializing the client with the cache option:
 
 <CodeTabs
   defaultValue="php"

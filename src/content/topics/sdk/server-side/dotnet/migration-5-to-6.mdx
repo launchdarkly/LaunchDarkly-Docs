@@ -333,7 +333,7 @@ var config = Configuration.Builder("my-sdk-key")
 </CodeTabItem>
 </CodeTabs>
 
-It also has an adapter system for connecting it to other logging frameworks. If you use .NET Core, there is a built-in adapter that sends log output to the .NET Core logging framework (`Microsoft.Extensions.Logging`):
+It also has an adapter system for connecting it to other logging frameworks. If you use .NET Core, the built-in adapter that sends log output to the .NET Core logging framework is `Microsoft.Extensions.Logging`:
 
 <CodeTabs
   values={[
@@ -549,7 +549,7 @@ The 6.0 release also includes new features as described in the release notes.
 
 These include:
 
-* You can tell the SDK to notify you whenever a feature flag's configuration has changed with `LdClient.FlagTracker`. See [Subscribing to flag changes](/sdk/features/flag-changes#net-server-side).
+* You can tell the SDK to notify you whenever a feature flag's configuration has changed with `LdClient.FlagTracker`. To learn more, read [Subscribing to flag changes](/sdk/features/flag-changes#net-server-side).
 * You can monitor the status of the SDK's connection to LaunchDarkly services with `LdClient.DataSourceStatusProvider`.
 * You can monitor the status of a persistent data store (for instance, to get caching statistics, or to be notified if the store's availability changes due to a database outage) with `LdClient.DataStoreStatusProvider`.
 * You can configure the SDK's use of different logging levels depending on the duration of a service outage with `ConfigurationBuilder.Logging` and `LoggingConfigurationBuilder`.

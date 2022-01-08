@@ -1,23 +1,25 @@
 ---
 path: '/sdk/server-side/lua'
 title: 'Lua SDK reference'
-description: 'This topic explains all of the methods available in the server-side Lua SDK, with details about how they work.'
+description: 'This reference guide documents all of the methods available in the Lua SDK, and explains how these methods work.'
 published: true
 ---
 
 ## Overview
 
-This reference guide documents basic usage of our Lua server-side SDK, and explains in detail how its functions work. Our SDKs are open source. To learn more, read [Lua SDK GitHub repository](https://github.com/launchdarkly/lua-server-sdk). The online [API docs](https://launchdarkly.github.io/lua-server-sdk/modules/launchdarkly-server-sdk.html) contain the programmatic definitions of every type and method. You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-lua-server). We provide documentation for running the SDK in [NGINX](/sdk/server-side/lua/nginx), and also [HAProxy](/sdk/server-side/lua/haproxy).
+This reference guide documents all of the methods available in the Lua SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/lua-server-sdk) and its generated [API reference](https://launchdarkly.github.io/lua-server-sdk/modules/launchdarkly-server-sdk.html).
+
+You can also use this SDK to clone and run a [sample application](https://github.com/launchdarkly/hello-lua-server). We provide documentation for running the SDK in [NGINX](/sdk/server-side/lua/nginx) and [HAProxy](/sdk/server-side/lua/haproxy).
 
 ## Getting started
 
 After you complete the  [Getting Started](/home/getting-started) process, follow these steps to get started using the LaunchDarkly SDK in your Lua application.
 
-The Lua server-side SDK is implemented using a foreign function interface that calls the C/C++ server-side SDK. You will need the C/C++ server-side SDK dynamic library to be installed somewhere accessible by the linker.
+The Lua server-side SDK is implemented using a foreign function interface that calls the C/C++ server-side SDK. You need to install the C/C++ server-side SDK dynamic library somewhere accessible by the linker.
 
 To learn more, read [C/C++ SDK reference (server-side)](/sdk/server-side/c-c--).
 
-To get started, include the library:
+First, include the library:
 
 <CodeTabs
   defaultValue="lua"
@@ -34,19 +36,18 @@ local ld = require("launchdarkly_server_sdk")
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of the client. Specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+After you install and import the SDK, create a single, shared instance of `LDClient`. Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
 <Callout intent="alert">
 <CalloutTitle>LDClient should be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make this a singleton. The client instance maintains internal state that allows us to
-serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
+It's important to make this a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
 
 </CalloutDescription>
 </Callout>
 
-Calling `clientInit` initiates a remote call to the LaunchDarkly service to fetch feature flags. This call blocks up to the time defined by `maxwaitmilliseconds`. If you request a feature flag before the client has completed initialization, you receive the default flag value.
+Calling `clientInit` initiates a remote call to the LaunchDarkly service to fetch feature flags. This call blocks up to the time defined by `maxwaitmilliseconds`. If you request a feature flag before the client completes initialization, you will receive the default flag value.
 
 Here is an example:
 
@@ -69,7 +70,7 @@ local client = ld.clientInit(config, 1000)
 </CodeTabItem>
 </CodeTabs>
 
-Using `client`, you can check which variation a particular user should receive for a given feature flag:
+Using `client`, you can check which variation a particular user will receive for a given feature flag:
 
 <CodeTabs
   defaultValue="lua"

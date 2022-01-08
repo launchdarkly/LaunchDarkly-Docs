@@ -1,13 +1,15 @@
 ---
 path: '/sdk/server-side/apex'
 title: 'Apex SDK reference'
-description: 'This topic explains features available in the server-side Apex SDK, with details about how they work.'
+description: 'This reference guide documents all of the methods available in the Apex SDK, and explains how these methods work.'
 published: true
 ---
 
 ## Overview
 
-This reference guide documents the features available in the Apex SDK, and explains how these features work. LaunchDarkly's SDKs are open source. The source is available in [GitHub](https://github.com/launchdarkly/apex-server-sdk) or the [API documentation](https://github.com/launchdarkly/apex-server-sdk/blob/master/doc.md). You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-apex-server) that uses this SDK.
+This reference guide documents all of the methods available in the Apex SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/apex-server-sdk) and the generated [API reference](https://github.com/launchdarkly/apex-server-sdk/blob/master/doc.md). 
+
+You can also use this SDK to clone and run a [sample application](https://github.com/launchdarkly/hello-apex-server).
 
 ## Getting started
 
@@ -63,7 +65,7 @@ LDClient client = new LDClient(config);
 </CodeTabItem>
 </CodeTabs>
 
-Using `client`, you can check which variation a particular user should receive for a given feature flag:
+Using `client`, you can check which variation a particular user will receive for a given feature flag:
 
 <CodeTabs
   defaultValue="java"
@@ -86,11 +88,11 @@ if (client.boolVariation(user, 'your.flag.key', false)) {
 </CodeTabItem>
 </CodeTabs>
 
-After the SDK is deployed to Salesforce, start the bridge, and you can begin evaluating flags. The bridge must be running in order to receive flag updates and publish events to LaunchDarkly.
+After the SDK is deployed to Salesforce, start the bridge to begin evaluating flags. The bridge must be running in order to receive flag updates and publish events to LaunchDarkly.
 
 ## Using the LaunchDarkly Salesforce bridge
 
-The Apex server-side SDK is architected differently than our other SDKs. In most of our SDKs, the SDK downloads feature configurations and sends events by itself. The Apex SDK is different because it uses an external bridging application to connect LaunchDarkly and Salesforce.
+The Apex server-side SDK is architected differently than our other SDKs. In most of our SDKs, the SDK downloads feature configurations and sends events by itself. The Apex SDK instead uses an external bridging application to connect LaunchDarkly and Salesforce.
 
 Because the SDK uses a bridge to handle state management, there is no initialization delay required to download flags. Additionally, the lack of state inside the SDK means that initializing multiple instances of the SDK is not problematic.
 
@@ -98,7 +100,9 @@ The Apex SDK exposes two HTTP endpoints that the bridge uses: `/store` and `/eve
 
 The bridge is a Go application configured with environment variables. The bridge needs authorization for both LaunchDarkly and Salesforce.
 
-To build the bridge from source install Go 1.14 or higher. To install Go, read [Go's documentation](https://golang.org/doc/install). Build and run the bridge like this:
+To build the bridge from source install Go 1.14 or higher. To install Go, read [Go's documentation](https://golang.org/doc/install). 
+
+Build and run the bridge like this:
 
 <CodeTabs
   defaultValue="bash"

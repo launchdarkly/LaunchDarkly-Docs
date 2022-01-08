@@ -1,21 +1,23 @@
 ---
 path: '/sdk/server-side/node-js'
 title: 'Node.js SDK reference (server-side)'
-description: 'This topic explains all of the methods available in the server-side Node.js SDK, with detail about how they work.'
+description: 'This reference guide documents all of the methods available in the server-side Node.js SDK, and explains how these methods work.'
 published: true
 ---
 
 ## Overview
 
-This reference guide documents all of the methods available in the Node.js SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read [Node.js SDK repository](https://github.com/launchdarkly/node-server-sdk) on GitHub. The online [API docs](https://launchdarkly.github.io/node-server-sdk/) contain the programmatic definitions of every type and method. Additionally you can clone and run sample applications using this SDK with [vanilla JavaScript](https://github.com/launchdarkly/hello-node-server), [TypeScript](https://github.com/launchdarkly/hello-node-typescript), and [server-side bootstrapping](https://github.com/launchdarkly/hello-bootstrap).
+This reference guide documents all of the methods available in the server-side Node.js SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/node-server-sdk) and its generated [API reference](https://launchdarkly.github.io/node-server-sdk/).
+
+You can also use this SDK to clone and run a sample application with [vanilla JavaScript](https://github.com/launchdarkly/hello-node-server), [TypeScript](https://github.com/launchdarkly/hello-node-typescript), or [server-side bootstrapping](https://github.com/launchdarkly/hello-bootstrap).
 
 <Callout intent="info">
 <CalloutTitle>For use in server-side applications only</CalloutTitle>
 <CalloutDescription>
 
-This SDK is intended for use in *multi-user* Node.js server applications. If you're looking to set up LaunchDarkly in JavaScript in a browser environment, read [JavaScript SDK](/sdk/client-side/javascript). If you're creating a *client-side* Node application, read [Node SDK](/sdk/client-side/node-js). Alternatively if you're creating a desktop application in Electron, read [Electron SDK](/sdk/client-side/electron).
+This SDK is intended for use in *multi-user* Node.js server applications. If you want to set up LaunchDarkly in JavaScript in a browser environment, read [JavaScript SDK](/sdk/client-side/javascript). If you're creating a *client-side* Node application, read [Node SDK](/sdk/client-side/node-js). If you're creating a desktop application in Electron, read [Electron SDK](/sdk/client-side/electron).
 
-To learn more, read [client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+For information about how to choose an SDK, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
 </CalloutDescription>
 </Callout>
@@ -45,7 +47,7 @@ npm install launchdarkly-node-server-sdk
 </CodeTabItem>
 </CodeTabs>
 
-Next you should import the LaunchDarkly client in your application code:
+Next, import the LaunchDarkly client in your application code:
 
 <CodeTabs
   defaultValue="js"
@@ -62,7 +64,7 @@ const LaunchDarkly = require('launchdarkly-node-server-sdk');
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of the LaunchDarkly client. You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+After you install and import the SDK, create a single, shared instance of `LDClient`. Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
 Here's how:
 
@@ -85,14 +87,14 @@ client = LaunchDarkly.init("YOUR_SDK_KEY");
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make this a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with  every request.**
+It's important to make this a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. Do not instantiate a new client with  every request.
 
 </CalloutDescription>
 </Callout>
 
-The client will emit a `ready` event when it has been initialized and can serve feature flags.
+The client will emit a `ready` event when you initialize it and it can serve feature flags.
 
-Using `client`, you can check which variation a particular user should receive for a given feature flag. Note that the `ready` event is _only_ emitted once - when the client first initializes. In a production application you should place your `client.variation` code so that it is invoked as desired.
+You can check which variation a particular user should receive for a given feature flag using `client`. The `ready` event is only emitted once, when the client first initializes. In a production application you should place your `client.variation` code so that it is invoked as desired.
 
 Here is an example:
 
@@ -120,48 +122,9 @@ client.once("ready", () => {
 </CodeTabItem>
 </CodeTabs>
 
-Lastly, when your application is about to terminate, shut down `client`. This ensures that the client releases any resources it is using, and that any pending analytics events are delivered to LaunchDarkly. If your application quits without this shutdown step, you may not see your requests and users on the dashboard, because they are derived from analytics events. **This is something you only need to do once**.
-
-Here's how:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Node.js', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-// This example repeats the code from the previous example because in Node, the client methods are
-// asynchronous, so in order to add another step that happens after the previous steps are finished,
-// we need to add code *inside* the existing block. In other words, do not type the whole thing over
-// again, just modify the last part you added as shown.
-//
-// Again, in a real application, this step is something you would only do when the application is
-// about to quit, not after every call to variation().
-
-client.once("ready", () => {
-  client.variation("your.flag.key", {"key": "user@test.com"}, false,
-    (err, showFeature) => {
-      if (showFeature) {
-        // application code to show the feature
-      } else {
-        // the code to run if the feature is off
-      }
-
-      // ADDED: shut down the client, since we're about to quit
-      client.close();
-    });
-});
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 ## Promises and async
 
-All asynchronous SDK methods which accept a callback also return a `Promise`. This means that if your application uses promises to manage asynchronous operations, interacting with the SDK should be convenient. Since the `async/await` syntax is based on Promises, these methods will also work with `await`.
+All asynchronous SDK methods which accept a callback also return a `Promise`. This means that if your application uses promises to manage asynchronous operations, interacting with the SDK should be convenient. Because the `async/await` syntax is based on Promises, these methods also work with `await`.
 
 Here is an example:
 
@@ -207,9 +170,9 @@ client.waitForInitialization().then((client) => {
 // Using "await" instead, within an async function
 try {
   await client.waitForInitialization();
-  // initialization complete
+  // Initialization complete
 } catch (err) {
-  // initialization failed
+  // Initialization failed
 }
 ```
 
@@ -217,6 +180,8 @@ try {
 </CodeTabs>
 
 `allFlagsState` and `flush` also return a `Promise`.
+
+## Shutting down
 
 Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#nodejs-server-side).
 

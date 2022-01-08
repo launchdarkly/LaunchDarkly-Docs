@@ -1,19 +1,21 @@
 ---
 path: '/sdk/server-side/haskell'
 title: 'Haskell SDK reference'
-description: 'This topic explains all of the methods available in the server-side Haskell SDK, with detail about how they work.'
+description: 'This reference guide documents all of the methods available in the Haskell SDK, and explains how these methods work.'
 published: true
 ---
 
 ## Overview
 
-This reference guide documents all of the methods available in the Haskell SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, visit our [Haskell SDK GitHub repository](https://github.com/launchdarkly/haskell-server-sdk). The online [API docs](https://launchdarkly.github.io/haskell-server-sdk/) contain the programmatic definitions of every type and method. You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-haskell-server).
+This reference guide documents all of the methods available in the Haskell SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/haskell-server-sdk) and its generated [API reference](https://launchdarkly.github.io/haskell-server-sdk/). 
+
+You can also use this SDK to clone and run a [sample application](https://github.com/launchdarkly/hello-haskell-server).
 
 ## Getting started
 
-Follow the steps below to get started using the LaunchDarkly SDK in your Haskell application.
+Follow the steps below to get started using the LaunchDarkly SDK in your Haskell application. 
 
-The root module of the SDK `LaunchDarkly.Server` re-exports the entire project. That's all that you need to start.
+The root module of the SDK `LaunchDarkly.Server` re-exports the entire project.
 
 Here is an example:
 
@@ -32,7 +34,7 @@ import LaunchDarkly.Server
 </CodeTabItem>
 </CodeTabs>
 
-After you import and install the SDK, create a single shared instance of `Client`. Specify your SDK key to authorize your application to connect to LaunchDarkly for a particular environment.
+After you import and install the SDK, create a single shared instance of `Client`. Specify your SDK key to authorize your application to connect to a particular environment within LaunchDarkly.
 
 Here's how:
 
@@ -56,12 +58,12 @@ client = makeClient $ makeConfig "YOUR_SDK_KEY"
 <CalloutTitle>Client must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-Make `client` a singleton. The client instance maintains an internal state that allows us to serve feature flags without making any remote requests.
+Make `client` a singleton. The client instance maintains an internal state that allows LaunchDarkly to serve feature flags without making any remote requests.
 
 </CalloutDescription>
 </Callout>
 
-Using `client`, you can check which variation a particular user should receive for a given feature flag:
+Using `client`, you can check which variation a particular user will receive for a given feature flag:
 
 <CodeTabs
   defaultValue="haskell"
@@ -77,6 +79,8 @@ boolVariation client "YOUR_FLAG_KEY" (makeUser "abc") False
 
 </CodeTabItem>
 </CodeTabs>
+
+## Shutting down
 
 Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#haskell).
 

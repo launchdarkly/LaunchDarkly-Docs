@@ -1,17 +1,19 @@
 ---
 path: '/sdk/server-side/python'
 title: 'Python SDK reference'
-description: 'This topic explains all of the methods available in the server-side Python SDK, with detail about how they work.'
+description: 'This reference guide documents all of the methods available in the Python SDK, and explains how these methods work.'
 published: true
 ---
 
-This reference guide documents all of the methods available in the Python SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read [Python SDK GitHub repository](https://github.com/launchdarkly/python-server-sdk). The online [Python API docs](https://launchdarkly-python-sdk.readthedocs.io/) contain the programmatic definitions of every class and method. You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-python). For an example of using the Python SDK inside an R application see [hello-r](https://github.com/launchdarkly/hello-r).
+This reference guide documents all of the methods available in the Python SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/python-server-sdk) and its generated [API reference](https://launchdarkly-python-sdk.readthedocs.io/).
+
+You can also use this SDK to clone and run a [sample application](https://github.com/launchdarkly/hello-python). For an example of using the Python SDK inside an R application, clone and run [hello-r](https://github.com/launchdarkly/hello-r).
 
 ## Getting started
 
 After you complete the [Getting Started process](/home/getting-started), follow these instructions to start using the LaunchDarkly SDK in your Python application.
 
-The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/python-server-sdk/releases) to identify the latest version if you want to depend on a specific version.
+The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. If you want to depend on a specific version, refer to the [SDK releases page](https://github.com/launchdarkly/python-server-sdk/releases) to identify the latest version.
 
 Here's how:
 
@@ -30,7 +32,7 @@ pip install launchdarkly-server-sdk
 </CodeTabItem>
 </CodeTabs>
 
-Next you should import the LaunchDarkly client in your application code:
+Next, import the LaunchDarkly client in your application code:
 
 <CodeTabs
   defaultValue="py"
@@ -48,7 +50,9 @@ from ldclient.config import Config
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, you'll want to create a single, shared instance of `ldclient`. The `get()` function enforces the singleton pattern; you should only have one instance of the client in your application. You should specify your SDK key here so that your application will be authorized to connect to LaunchDarkly and for your application and environment.
+After you install and import the SDK, create a single, shared instance of `ldclient`. Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
+
+The `get()` function enforces the singleton pattern. You should only have one instance of the client in your application. 
 
 To create a single instance:
 
@@ -68,7 +72,7 @@ client = ldclient.get()
 </CodeTabItem>
 </CodeTabs>
 
-Using `client`, you can check which variation a particular user should receive for a given feature flag:
+Using `client`, you can check which variation a particular will should receive for a given feature flag:
 
 <CodeTabs
   defaultValue="py"
@@ -92,13 +96,13 @@ else:
 
 ## Configuring uWSGI
 
-The LaunchDarkly SDK is compatible with uWSGI. However, in uWSGI environments, the SDK requires the `enable-threads` option to be set.
+The LaunchDarkly SDK is compatible with uWSGI. However, in uWSGI environments, the SDK requires you to set the `enable-threads` option.
 
 ## HTTPS proxy
 
-Python's standard HTTP library provides a built-in HTTPS proxy. If the HTTPS_PROXY environment variable is present then the SDK will proxy all network requests through the URL provided.
+Python's standard HTTP library provides a built-in HTTPS proxy. If the HTTPS_PROXY environment variable is present, then the SDK will proxy all network requests through the URL provided.
 
-How to set the HTTPS_PROXY environment variable on Mac/Linux systems:
+Here's how to set the HTTPS_PROXY environment variable on Mac/Linux systems:
 
 <CodeTabs
   defaultValue="py"
@@ -115,7 +119,7 @@ export HTTPS_PROXY=https://web-proxy.domain.com:8080
 </CodeTabItem>
 </CodeTabs>
 
-How to set the HTTPS_PROXY environment variable on Windows systems:
+Here's how to set the HTTPS_PROXY environment variable on Windows systems:
 
 <CodeTabs
   defaultValue="py"
@@ -132,7 +136,7 @@ set HTTPS_PROXY=https://web-proxy.domain.com:8080
 </CodeTabItem>
 </CodeTabs>
 
-Or it can be set from within Python:
+Here's how to set the HTTPS_PROXY environment variable from within Python:
 
 <CodeTabs
   defaultValue="py"
@@ -148,6 +152,8 @@ os.environ["https_proxy"] = "https://web-proxy.domain.com:8080"
 
 </CodeTabItem>
 </CodeTabs>
+
+## Shutting down
 
 Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#python).
 
