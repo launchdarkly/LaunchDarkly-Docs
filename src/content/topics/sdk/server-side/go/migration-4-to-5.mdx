@@ -650,10 +650,10 @@ There are two ways you can configure the SDK to use the [Relay Proxy](/home/rela
 
 You can use it in:
 
-* **proxy mode**, connecting to it via HTTP/HTTPS just as if it were the LaunchDarkly service
+* **proxy mode**, connecting to it via HTTP/HTTPS just as if it were the LaunchDarkly service.
 * **daemon mode**, receiving flag data only through a database.
 
-The syntax for configuring these has changed in version 5.0:
+The syntax for configuring these has changed in version 5.x.
 
 <CodeTabs
   defaultValue="sdk4"
@@ -673,14 +673,9 @@ import (
 config := ld.DefaultConfig
 relayURI := "http://my-relay-host:8000"
 
-// 4.x model: proxy mode with streaming
+// 4.x model: proxy mode
 config.BaseURI = relayURI
 config.StreamURI = relayURI
-config.EventsURI = relayURI // if you want to proxy events
-
-// 4.x model: proxy mode with polling
-config.Stream = false
-config.BaseURI = relayURI
 config.EventsURI = relayURI // if you want to proxy events
 
 // 4.x model: daemon mode with a Redis database
@@ -702,13 +697,8 @@ import (
 var config ld.Config
 relayURI := "http://my-relay-host:8000"
 
-// 5.0 model: proxy mode with streaming
-config.DataSource = ldcomponents.StreamingDataSource().BaseURI(relayURI)
-config.Events = ldcomponents.SendEvents().BaseURI(relayURI) // if you want to proxy events
-
-// 5.0 model: proxy mode with polling
-config.DataSource = ldcomponents.PollingDataSource().BaseURI(relayURI)
-config.Events = ldcomponents.SendEvents().BaseURI(relayURI) // if you want to proxy events
+// 5.0 model: proxy mode - this example requires version 5.8.0 or higher
+config.ServiceEndpoints = ldcomponents.RelayProxyEndpoints(relayURI)
 
 // 5.0 model: daemon mode with a Redis database
 config.DataSource = ExternalUpdatesOnly()
@@ -718,7 +708,6 @@ config.DataStore = ldcomponents.PersistentDataStore(
         Prefix("my-key-prefix"))
 ```
 </CodeTabItem>
-
 </CodeTabs>
 
 ## Implementing custom components
