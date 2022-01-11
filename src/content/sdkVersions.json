@@ -378,6 +378,11 @@
       "name": "Go",
       "versions": [
         {
+          "versionMajorMinor": "5.8",
+          "releaseYear": 2022,
+          "releaseMonthDay": "01-10"
+        },
+        {
           "versionMajorMinor": "5.7",
           "releaseYear": 2022,
           "releaseMonthDay": "01-07"
