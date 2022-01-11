@@ -60,7 +60,24 @@ To learn about how we write docs at LaunchDarkly, read the [documentation style 
 
 ## Adding a new topic
 
-To add a new topic to the docs, clone the repo locally and add a new topic following the structure outlined in [Architecture and workflow](#architecture-and-workflow). 
+To add a new topic to the docs, clone the repo locally and add a new topic following the structure outlined in [Architecture and workflow](#architecture-and-workflow).
+
+### Updating the changelog
+
+When you add a new topic, you should also add an entry to the [changelog](https://docs.launchdarkly.com/home/changelog).
+
+The entry should be a new table row at the top of the table. It should look like this:
+
+```
+<TableRow>
+  <TableCell>Date, spelled out as MONTH D, YYY</TableCell>
+  <TableCell>Summary of change</TableCell>
+  <TableCell><a href="location of new topic">Page name of new topic</a></TableCell>
+  <TableCell>Not applicable.</TableCell>
+</TableRow>
+```
+
+The fourth cell should be a link to the PR from the [LaunchDarkly-Docs repository](https://github.com/launchdarkly/LaunchDarkly-Docs/), if a PR from that repository was the reason for the change. In practice, almost all new topics originate in the [git-gatsby repository](https://github.com/launchdarkly/git-gatsby/), and this cell's value is left as "Not applicable." 
 
 ## Editing an existing topic in Github
 
