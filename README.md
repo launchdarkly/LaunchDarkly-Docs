@@ -69,6 +69,8 @@ yarn && yarn dev-fast
 
 This cuts the gatsby build time to just < 7 seconds as opposed to > 1 minute.
 
+To run tests, read [Running tests](#running-tests).
+
 ## 👥 Adding new topics and editing existing topics from within the repo
 
 The easiest way to modify an existing topic is by opening a PR against it directly from the docs site by clicking the "Edit in GitHub" button on the topic page.
@@ -141,6 +143,24 @@ in `navigationData.json`. Use the camel case version of the flag key, as shown b
 ```
 
 ## Running tests
+
+To validate links locally, install `lychee`
+
+```shell
+brew install lychee
+```
+
+Then run
+
+```shell
+yarn lychee
+```
+
+To run spellcheck locally, use
+
+```
+yarn spellcheck
+```
 
 To run our integration tests locally, make sure the dev server is running via `yarn start`, and
 
