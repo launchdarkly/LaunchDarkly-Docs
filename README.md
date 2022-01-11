@@ -120,6 +120,22 @@ yarn deploy
 ```
 
 This builds Gatsby and upload the artifacts to the staging s3 bucket.
+ 
+## (Internal LaunchDarkly use only) Scheduling a PR merge to master
+
+In your pull requests, add a line to the end of the pull request description like this:
+
+```
+/schedule 2021-08-25
+```
+
+Or if you need to specify the exact time, you can use an [ISO 8601 date string](https://www.progress.com/blogs/understanding-iso-8601-date-and-time-format):
+
+```
+/schedule 2021-08-25T15:45:00
+```
+
+Dates are in PT timezone. Any string that works with the [`new Date()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date) will work.
 
 ## (Internal LaunchDarkly use only) Flagging changes
 

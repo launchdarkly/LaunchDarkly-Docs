@@ -1,0 +1,15 @@
+name: Sync repos from private to public
+on: deployment_status
+jobs:
+  private-public-sync:
+    if: ${{ github.event.deployment_status.environment == 'production' && github.event.deployment_status.state == 'success' }}
+    runs-on: ubuntu-latest
+    name: Private to public repo sync
+    steps:
+      - name: git-sync
+        uses: wei/git-sync@v3
+        with:
+          source_repo: 'https://${{ secrets.GH_USER }}:${{ secrets.GH_TOKEN }}@github.com/launchdarkly/git-gatsby.git'
+          source_branch: 'main'
+          destination_repo: 'https://${{ secrets.GH_USER }}:${{ secrets.GH_TOKEN }}@github.com/launchdarkly/LaunchDarkly-Docs.git'
+          destination_branch: 'main'

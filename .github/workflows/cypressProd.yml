@@ -2,7 +2,7 @@ name: Link validation on master branch
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   cypress-run:

@@ -2,13 +2,13 @@ name: Deploy to Production
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
     name: Deploy to s3 production
-    environment: 
+    environment:
       name: production
       url: https://docs.launchdarkly.com/
     concurrency: prod_deploys
