@@ -1,0 +1,1 @@
+For more information [visit Fig's developer documentation](https://fig.io/docs/getting-started)
