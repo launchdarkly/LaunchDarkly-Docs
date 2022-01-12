@@ -91,11 +91,11 @@ jobs:
           config: baseUrl=http://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }}
           spec: cypress/integration/smoke.test.ts
           env: pr_number=${{ github.event.pull_request.number }}
+          wait-on: 'http://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }}/home'
       - name: Archive Cypress screenshots
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
         with:
           name: cypress-screenshots
-          path: |
-            /home/runner/work/git-gatsby/git-gatsby/cypress/screenshots
+          path: /home/runner/work/git-gatsby/git-gatsby/cypress/screenshots
           retention-days: 5

@@ -1,7 +1,3 @@
-// These correspond to theme file
-const brandBlue = 'rgb(64, 91, 255)'
-const fontWeightBold = '600'
-
 describe('Documentation website', () => {
   it('should be navigable', () => {
     // Set to desktop
@@ -14,12 +10,11 @@ describe('Documentation website', () => {
     cy.title().should('equal', 'Getting started')
 
     // interact with nav
-    cy.get('nav')
-      .contains('Getting started')
-      .should('have.css', 'font-weight', fontWeightBold)
-      .click()
-      .should('have.css', 'color', brandBlue)
+    cy.get('nav').contains('Getting started').isActiveLink()
     cy.get('nav').contains('Setting up an SDK')
+    // close
+    cy.get('nav').contains('Getting started').click()
+    cy.get('nav').contains('Setting up an SDK').should('not.exist')
 
     // click a link in the table of contents
     cy.get('aside').contains('Additional resources').click()
@@ -29,16 +24,11 @@ describe('Documentation website', () => {
     // interact with nav again
     cy.get('nav').contains('Organizing your flags').click()
     cy.title().should('equal', 'Organizing your flags')
-    cy.get('nav')
-      .contains('Organizing your flags')
-      .should('have.css', 'font-weight', fontWeightBold)
-      .should('have.css', 'color', brandBlue)
+    cy.get('nav').contains('Organizing your flags').isActiveLink()
     cy.get('nav').contains('The flags dashboard').click()
     cy.title().should('equal', 'The flags dashboard')
-    cy.get('nav')
-      .contains('The flags dashboard')
-      .should('have.css', 'font-weight', fontWeightBold)
-      .should('have.css', 'color', brandBlue)
+    cy.get('nav').contains('The flags dashboard').isActiveLink()
+    cy.get('nav').contains('Organizing your flags').isPartiallyActiveLink()
 
     // verify an image
     cy.get('main figure:first').find('figcaption').should('have.text', 'The Feature flags dashboard.')
@@ -67,9 +57,15 @@ describe('Documentation website', () => {
     // if it's too fast the result won't be clickable because it detaches from the page during re-render
     cy.wait(1000)
 
+    // click search result
     cy.get('header').contains('Experimentation').click()
 
     cy.location('search').should('equal', '?q=experimentation')
+    cy.get('nav').contains('Experimentation').isActiveLink()
+
+    cy.wait(1000)
+
+    cy.get('nav').contains('Creating experiments')
 
     cy.wait(1000)
 

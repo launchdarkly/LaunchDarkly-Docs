@@ -6,12 +6,7 @@ type Topic = {
   allItems: string[]
 }
 
-const stripTrailingSlash = (s: string) => {
-  if (s.substr(-1) === '/') {
-    return s.substr(0, s.length - 1)
-  }
-  return s
-}
+export const stripTrailingSlash = (s: string) => s.replace(/\/$/, '')
 
 export const findRootTopic = (topics: Topic[], navigationData: Array<SideNavItem>, pathPrefix: string) => {
   let currentPath = stripTrailingSlash(globalHistory.location.pathname)

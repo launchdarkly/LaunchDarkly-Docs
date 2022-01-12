@@ -9,6 +9,7 @@ import { SideNavItem } from './types'
 import isExternalLink from '../../utils/isExternalLink'
 import Icon, { IconName } from '../icon'
 import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
+import { stripTrailingSlash } from '../../utils/navigationDataUtils'
 
 const defaultLabelStyles = {
   color: 'text',
@@ -73,7 +74,8 @@ function isLeafNode(node: SideNavItem) {
 // Determine whether a node is active or not based given a URL path
 function isActiveNodeOrAncestor(pathname: string, node: SideNavItem): boolean {
   // This is the active node itself
-  if (node.path === pathname) {
+  // support trailing slash
+  if (node.path === stripTrailingSlash(pathname)) {
     return true
   }
 
@@ -197,14 +199,10 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, currentPath, maxDep
 
   const [expandCollapseStates, setState] = useState(initialState)
 
-  const setActiveLinkStyles = ({
-    isCurrent,
-    isPartiallyCurrent,
-  }: {
-    isCurrent: boolean
-    isPartiallyCurrent: boolean
-  }) => {
-    if (isCurrent) {
+  const setActiveLinkStyles = ({ isCurrent, isPartiallyCurrent, href, location }: LinkGetProps) => {
+    // support matching paths with ending slash
+    // this happens when there are query params
+    if (isCurrent || href === stripTrailingSlash(location.pathname)) {
       return { style: { color: theme.colors.primarySafe, fontWeight: theme.fontWeights.bold } }
     } else if (isPartiallyCurrent) {
       return { style: { fontWeight: theme.fontWeights.bold } }
