@@ -4,9 +4,9 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
     'plugin:jsx-a11y/recommended',
+    'plugin:prettier/recommended',
   ],
   settings: {
     react: {
@@ -52,7 +52,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
 
     'import/no-unresolved': 'error',
-    'import/named': 'error',
+    // 'import/named': 'error', disabling because this is handled by tsc
     'import/default': 'error',
     'import/export': 'error',
     'import/no-self-import': 'error',

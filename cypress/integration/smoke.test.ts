@@ -10,9 +10,7 @@ describe('Documentation website', () => {
     cy.title().should('equal', 'Welcome to LaunchDarkly docs')
 
     // navigate to a page
-    cy.get('main')
-      .contains('Getting started')
-      .click()
+    cy.get('main').contains('Getting started').click()
     cy.title().should('equal', 'Getting started')
 
     // interact with nav
@@ -24,24 +22,18 @@ describe('Documentation website', () => {
     cy.get('nav').contains('Setting up an SDK')
 
     // click a link in the table of contents
-    cy.get('aside')
-      .contains('Additional resources')
-      .click()
+    cy.get('aside').contains('Additional resources').click()
     cy.location('hash').should('equal', '#additional-resources')
     cy.get('main h2').contains('Additional resources')
 
     // interact with nav again
-    cy.get('nav')
-      .contains('Organizing your flags')
-      .click()
+    cy.get('nav').contains('Organizing your flags').click()
     cy.title().should('equal', 'Organizing your flags')
     cy.get('nav')
       .contains('Organizing your flags')
       .should('have.css', 'font-weight', fontWeightBold)
       .should('have.css', 'color', brandBlue)
-    cy.get('nav')
-      .contains('The flags dashboard')
-      .click()
+    cy.get('nav').contains('The flags dashboard').click()
     cy.title().should('equal', 'The flags dashboard')
     cy.get('nav')
       .contains('The flags dashboard')
@@ -49,9 +41,7 @@ describe('Documentation website', () => {
       .should('have.css', 'color', brandBlue)
 
     // verify an image
-    cy.get('main figure:first')
-      .find('figcaption')
-      .should('have.text', 'The Feature flags dashboard.')
+    cy.get('main figure:first').find('figcaption').should('have.text', 'The Feature flags dashboard.')
     cy.get('main figure:first a').should('have.attr', 'target', '_blank')
     cy.get('main figure:first img')
       .invoke('attr', 'src')
@@ -66,32 +56,24 @@ describe('Documentation website', () => {
         if (pr) {
           url = url.replace(`/${pr}`, '')
         }
-        cy.request(url)
-          .its('status')
-          .should('eq', 200)
+        cy.request(url).its('status').should('eq', 200)
       })
 
     // verify search
-    cy.get('header input')
-      .should('have.attr', 'placeholder', 'Search')
-      .type('experimentation')
+    cy.get('header input').should('have.attr', 'placeholder', 'Search').type('experimentation')
 
     cy.contains(/Results \(\d+\)/)
 
     // if it's too fast the result won't be clickable because it detaches from the page during re-render
     cy.wait(1000)
 
-    cy.get('header')
-      .contains('Experimentation')
-      .click()
+    cy.get('header').contains('Experimentation').click()
 
     cy.location('search').should('equal', '?q=experimentation')
 
     cy.wait(1000)
 
-    cy.get('header')
-      .contains('Integrations')
-      .click()
+    cy.get('header').contains('Integrations').click()
 
     cy.title().should('equal', 'Integrations')
     cy.get('h1').contains('Integrations')

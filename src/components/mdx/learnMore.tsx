@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Card, Text, Flex, Box } from 'theme-ui'
-import { Fragment, Children, PropsWithChildren, ReactElement, FunctionComponent } from 'react'
+import { Fragment, Children, ReactElement, FC } from 'react'
 import Icon from '../icon'
 import Link from '../link'
 
@@ -8,7 +8,7 @@ interface LearnMoreLinkProps {
   to: string
 }
 
-export const LearnMoreLink: FunctionComponent<LearnMoreLinkProps> = ({ to, children }) => {
+export const LearnMoreLink: FC<LearnMoreLinkProps> = ({ to, children }) => {
   return (
     <Link
       to={to}
@@ -25,23 +25,20 @@ export const LearnMoreLink: FunctionComponent<LearnMoreLinkProps> = ({ to, child
   )
 }
 
-export function LearnMoreTitle({ children }: PropsWithChildren<{}>) {
-  return (
-    children && (
-      <Text
-        sx={{
-          fontSize: 4,
-          lineHeight: 'small',
-          marginBottom: 4,
-        }}
-      >
-        {children}
-      </Text>
-    )
+export const LearnMoreTitle: FC = ({ children }) =>
+  children && (
+    <Text
+      sx={{
+        fontSize: 4,
+        lineHeight: 'small',
+        marginBottom: 4,
+      }}
+    >
+      {children}
+    </Text>
   )
-}
 
-export default function LearnMore({ children }: PropsWithChildren<{}>) {
+const LearnMore: FC = ({ children }): ReactElement => {
   const childrenArray = Children.toArray(children)
   const title = childrenArray.find((child: ReactElement) => child.props.mdxType === 'LearnMoreTitle')
   const links = childrenArray.filter((child: ReactElement) => child.props.mdxType === 'LearnMoreLink')
@@ -69,3 +66,5 @@ export default function LearnMore({ children }: PropsWithChildren<{}>) {
     </Card>
   )
 }
+
+export default LearnMore

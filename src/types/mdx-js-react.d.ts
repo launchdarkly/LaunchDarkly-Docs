@@ -1,5 +1,6 @@
+/** This will no longer be needed once we upgrade to v2 */
 declare module '@mdx-js/react' {
-  import React, { ComponentType, StyleHTMLAttributes } from 'react'
+  import React, { ComponentType } from 'react'
 
   type ComponentMap = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

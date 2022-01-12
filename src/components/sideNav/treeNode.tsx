@@ -125,7 +125,7 @@ function Node({
   isPristine: boolean
   isCollapsed: boolean
   setIsPristine(isPristine: boolean): void
-  setActiveLinkStyles(props: LinkGetProps): {}
+  setActiveLinkStyles(props: LinkGetProps): Record<string, unknown>
   onExpandCollapse(node: SideNavItem): void
   onFirstExpand(node: SideNavItem): void
 }) {

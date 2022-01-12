@@ -1,4 +1,4 @@
-import { ThemeUIContextValue, useThemeUI } from 'theme-ui'
+import { useThemeUI, ThemeUIContextValue } from 'theme-ui'
 import { GitGatsbyTheme } from '../gatsby-plugin-theme-ui'
 
 interface GitGatsbyThemeContext extends ThemeUIContextValue {

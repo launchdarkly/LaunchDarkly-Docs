@@ -10,10 +10,10 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     name: Deploy to s3 staging
-    environment: 
+    environment:
       name: staging
       url: http://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }}
-    concurrency: 
+    concurrency:
       group: staging-${{ github.event.pull_request.number }}
       cancel-in-progress: true
     steps:
@@ -49,7 +49,7 @@ jobs:
           key: ${{ runner.os }}-gatsby-build-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-gatsby-build-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn --prefer-offline --frozen-lockfile
+      - run: yarn install --immutable
       - run: yarn build-deploy-staging
         env:
           ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
@@ -99,4 +99,3 @@ jobs:
           path: |
             /home/runner/work/git-gatsby/git-gatsby/cypress/screenshots
           retention-days: 5
-    

@@ -57,7 +57,7 @@ export type IconName =
 
 export type IconProps = {
   name: IconName
-  onClick?: Function
+  onClick?: () => void
   fill?: string
 } & BoxOwnProps &
   HTMLProps<SVGSVGElement>
@@ -65,9 +65,11 @@ export type IconProps = {
 export default function Icon({ name = 'window-close', className, variant, onClick, ...props }: IconProps) {
   let SVGComponent
   try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     SVGComponent = require(`../../assets/icons/${name}.svg`).default
   } catch (e) {
     console.error(`${name}.svg does not exist.`, e)
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     SVGComponent = require('../../assets/icons/window-close.svg').default
   }
 

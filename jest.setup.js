@@ -3,7 +3,7 @@ const { format } = require('util')
 
 // fail tests on errors and warnings
 const { error } = global.console
-const customErrorLogFunction = function(...args) {
+const customErrorLogFunction = function (...args) {
   error(...args)
   throw new Error(format(...args))
 }

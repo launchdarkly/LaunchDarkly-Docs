@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, Link as ThemeUILink, LinkProps } from 'theme-ui'
 import { FunctionComponent, RefAttributes, PropsWithoutRef } from 'react'
-import { Link as GatsbyLink, GatsbyLinkProps, useStaticQuery, graphql } from 'gatsby'
+import { Link as GatsbyLink, useStaticQuery, graphql, GatsbyLinkProps } from 'gatsby'
 import isExternalLink from '../utils/isExternalLink'
 
 type ForwardRef<T, P> = React.ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>

@@ -1,14 +1,13 @@
 /** @jsx jsx */
-import { FunctionComponent, PropsWithChildren } from 'react'
+import { FunctionComponent } from 'react'
 import { jsx, Card } from 'theme-ui'
 
-export default function Table({ children }: PropsWithChildren<{}>) {
-  return (
-    <Card variant="table">
-      <table sx={{ width: '100%' }}>{children}</table>
-    </Card>
-  )
-}
+const Table: FunctionComponent = ({ children }) => (
+  <Card variant="table">
+    <table sx={{ width: '100%' }}>{children}</table>
+  </Card>
+)
+export default Table
 
 export const TableHeader: FunctionComponent = ({ children }) => (
   <thead

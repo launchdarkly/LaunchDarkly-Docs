@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { PropsWithChildren, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { jsx, ThemeUIStyleObject } from 'theme-ui'
+import { PropsWithChildren, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { keyframes } from '@emotion/react'
 
 export function findMatch(content: string, terms: string[]): boolean {

@@ -1,4 +1,4 @@
-import { Theme, get } from 'theme-ui'
+import { get, Theme } from 'theme-ui'
 
 // These names should correspond to those you'll find referenced in figma designs
 // e.g. "Brand/Blue" or "Grayscale/Gray 700"
