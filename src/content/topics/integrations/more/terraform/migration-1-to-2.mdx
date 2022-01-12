@@ -76,16 +76,28 @@ When importing `launchdarkly_project` resources, all of the project's environmen
 
 Here is an example of the meta-argument:
 
-```
+<CodeTabs
+  defaultValue="txt"
+  values={[
+    { label: 'Example', value: 'txt', },
+  ]
+}>
+<CodeTabItem value="txt">
+
+```txt
 resource "launchdarkly_project" "example" {
-		lifecycle {
-			ignore_changes = [environments]
-		}
-		name = "testProject"
-		key = "example-project"
-		# environments not included on this configuration will not be affected by subsequent applies
-	}
+	  lifecycle {
+	  	ignore_changes = [environments]
+	  }
+	  name = "testProject"
+	  key = "example-project"
+
+	  # Environments not included on this configuration will not be affected by subsequent applies
+  }
 ```
+
+</CodeTabItem>
+</CodeTabs>
 
 ## New required fields
 
@@ -103,7 +115,15 @@ You can use an optional `defaults` block containing an `on_variation` and `off_v
 
 For example, for a simple boolean flag with a 0-index variation of `true` and a 1-index variation of `false`, define the defaults like this:
 
-```hcl
+<CodeTabs
+  defaultValue="txt"
+  values={[
+    { label: 'Example', value: 'txt', },
+  ]
+}>
+<CodeTabItem value="txt">
+
+```txt
 resource "launchdarkly_feature_flag" "defaults_example" {
     ...
     defaults {
@@ -112,6 +132,10 @@ resource "launchdarkly_feature_flag" "defaults_example" {
     }
 }
 ```
+
+</CodeTabItem>
+</CodeTabs>
+
 For more information, read [Terraform's `launchdarkly_feature_flag` documentation](https://registry.terraform.io/providers/launchdarkly/launchdarkly/latest/docs/resources/feature_flag).
 
 ## Restructured targets block on launchdarkly_feature_flag_environment
