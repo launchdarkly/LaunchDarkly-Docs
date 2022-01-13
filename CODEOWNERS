@@ -11,6 +11,7 @@
 /src/content/*.json @launchdarkly/docs-reviewers
 /src/content/images @launchdarkly/docs-reviewers
 /templates/ @launchdarkly/docs-reviewers
+redirectRules.js @launchdarkly/docs-reviewers
 
 # EOL data
 /src/content/sdkVersions.json @launchdarkly/sdk-owners
