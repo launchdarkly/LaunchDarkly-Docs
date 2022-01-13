@@ -607,10 +607,6 @@
               {
                 "label": "Using flag triggers with New Relic One",
                 "path": "/integrations/new-relic/triggers"
-              },
-              {
-                "label": "New Relic (legacy)",
-                "path": "/integrations/new-relic/new-relic-legacy"
               }
             ]
           },
@@ -979,10 +975,6 @@
               {
                 "label": "iOS SDK 4.x to 5.0 migration guide",
                 "path": "/sdk/client-side/ios/migration-4-to-5"
-              },
-              {
-                "label": "Legacy iOS SDK reference",
-                "path": "/sdk/client-side/ios/legacy"
               }
             ]
           },

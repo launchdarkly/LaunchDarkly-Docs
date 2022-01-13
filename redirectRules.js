@@ -858,11 +858,11 @@ module.exports = [
   },
   {
     fromPath: '/docs/ios-objc-sdk-reference',
-    toPath: '/sdk/client-side/ios/legacy',
+    toPath: '/sdk/client-side/ios',
   },
   {
     fromPath: '/sdk/client-side/ios-objective-c',
-    toPath: '/sdk/client-side/ios/legacy',
+    toPath: '/sdk/client-side/ios',
   },
   {
     fromPath: '/docs/ios-sdk-reference',
