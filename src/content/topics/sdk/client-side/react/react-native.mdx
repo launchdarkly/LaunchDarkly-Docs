@@ -116,6 +116,15 @@ import LDClient from 'launchdarkly-react-native-client-sdk';
 
 Once the SDK is installed and imported, create a single, shared instance of `LDClient`, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key, available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a client-side ID. Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
 
+<Callout intent="alert">
+<CalloutTitle>LDClient must be a singleton</CalloutTitle>
+<CalloutDescription>
+
+It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+</CalloutDescription>
+</Callout>
+
 To create a shared instance of `LDClient`:
 
 <CodeTabs

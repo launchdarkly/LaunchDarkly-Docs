@@ -58,7 +58,7 @@ client = makeClient $ makeConfig "YOUR_SDK_KEY"
 <CalloutTitle>Client must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-Make `client` a singleton. The client instance maintains an internal state that allows LaunchDarkly to serve feature flags without making any remote requests.
+It's important to make `Client` a singleton. The client instance maintains an internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
 
 </CalloutDescription>
 </Callout>

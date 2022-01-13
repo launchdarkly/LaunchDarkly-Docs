@@ -52,7 +52,6 @@ wrappedClient.waitForInitialization().then(function() {
 
 The underlying implementation is still the client-side SDK, which has a single-current-user model. Therefore, when you call `client.variation(flagKey, user, defaultValue)` it is really calling `client.identify(user)` first, obtaining flag values for that user, and then evaluating the flag. This performs poorly if you attempt to evaluate flags for a variety of different users in rapid succession.
 
-
 ## Known issues in this release
 
 Known issues include:
@@ -111,6 +110,15 @@ const client = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options)
 
 </CodeTabItem>
 </CodeTabs>
+
+<Callout intent="alert">
+<CalloutTitle>Instantiate a single instance</CalloutTitle>
+<CalloutDescription>
+
+It's important to use `initializeInMain()` to instantiate a single instance. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+</CalloutDescription>
+</Callout>
 
 In a renderer process, to create a client object that uses the same feature flag data, you only need to do this:
 

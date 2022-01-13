@@ -87,6 +87,15 @@ using LaunchDarkly.Client;
 
 After you install and import the SDK, create a single, shared instance of [`LdClient`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html). Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
+<Callout intent="alert">
+<CalloutTitle>LdClient must be a singleton</CalloutTitle>
+<CalloutDescription>
+
+It's important to make `LdClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+</CalloutDescription>
+</Callout>
+
 To create a single instance:
 
 <CodeTabs

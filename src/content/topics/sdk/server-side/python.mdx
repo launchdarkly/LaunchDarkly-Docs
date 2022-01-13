@@ -52,7 +52,16 @@ from ldclient.config import Config
 
 After you install and import the SDK, create a single, shared instance of `ldclient`. Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
-The `get()` function enforces the singleton pattern. You should only have one instance of the client in your application. 
+The `get()` function enforces the singleton pattern. You should only have one instance of the client in your application.
+
+<Callout intent="alert">
+<CalloutTitle>ldclient must be a singleton</CalloutTitle>
+<CalloutDescription>
+
+It's important to make `ldclient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+</CalloutDescription>
+</Callout>
 
 To create a single instance:
 

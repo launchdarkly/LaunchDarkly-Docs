@@ -127,7 +127,7 @@ client = await LdClient.InitAsync("MY_MOBILE_KEY", user);
 <CalloutTitle>LdClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make LdClient a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. **Be sure that you're not instantiating a new client with every request.**
+It's important to make `LdClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
 
 </CalloutDescription>
 </Callout>

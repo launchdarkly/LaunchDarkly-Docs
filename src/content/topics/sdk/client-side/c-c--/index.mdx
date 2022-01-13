@@ -9,7 +9,7 @@ published: true
 
 This topic explains how to use the C/C++ client-side SDK, and gives reference information about the SDK's prerequisites and supported features.
 
-All LaunchDarkly SDKs are open source. Clone this SDK from its [GitHub repository](https://github.com/launchdarkly/c-client-sdk) or read its [API reference](https://github.com/launchdarkly/c-client-sdk).
+All LaunchDarkly SDKs are open source. Clone this SDK from its [GitHub repository](https://github.com/launchdarkly/c-client-sdk) or read its [API reference](https://launchdarkly.github.io/c-client-sdk/).
 
 You can also use this SDK to clone and run a [sample C application](https://github.com/launchdarkly/hello-c-client) or [sample C++ application](https://github.com/launchdarkly/hello-cpp-client).
 
@@ -103,6 +103,15 @@ LDClientCPP *client = LDClientCPP::Init(config, user, maxwaitmilliseconds);
 
 </CodeTabItem>
 </CodeTabs>
+
+<Callout intent="alert">
+<CalloutTitle>LDClient must be a singleton</CalloutTitle>
+<CalloutDescription>
+
+It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+</CalloutDescription>
+</Callout>
 
 Your environment's mobile key is available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a mobile key. Never embed a server-side SDK key into a mobile application.
 

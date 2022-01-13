@@ -67,6 +67,15 @@ LDGlobalInit();
 
 After you install and import the SDK, create a single, shared instance of `LDClient`. Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
+<Callout intent="alert">
+<CalloutTitle>LDClient must be a singleton</CalloutTitle>
+<CalloutDescription>
+
+It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+</CalloutDescription>
+</Callout>
+
 Calling `LDClientInit` initiates a remote call to the LaunchDarkly service to fetch feature flags. This call blocks up to the time defined by `maxwaitmilliseconds`. If you request a feature flag before the client has completed initialization, you will receive the default flag value.
 
 Here is an example:

@@ -70,7 +70,16 @@ const LaunchDarkly = require('launchdarkly-node-client-sdk');
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, Create a single, shared instance of `LdClient`. This authorizes your application to connect to LaunchDarkly and retrieve flag values for your application and environment. To create a client instance, you need your environment's mobile key, available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a client-side ID. Never embed a server-side SDK key into a client-side application. Client-side IDs are not secret and you can expose them in your client-side code without risk.
+Once the SDK is installed and imported, create a single, shared instance of `LdClient`. This authorizes your application to connect to LaunchDarkly and retrieve flag values for your application and environment. To create a client instance, you need your environment's mobile key, available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a client-side ID. Never embed a server-side SDK key into a client-side application. Client-side IDs are not secret and you can expose them in your client-side code without risk.
+
+<Callout intent="alert">
+<CalloutTitle>LdClient must be a singleton</CalloutTitle>
+<CalloutDescription>
+
+It's important to make `LdClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+</CalloutDescription>
+</Callout>
 
 Feature flag targeting and rollouts are determined by the active user. You must pass a user context to the SDK during initialization before requesting any feature flags with `variation`. Failure to pass a valid user context to the SDK during initialization will result in an error.
 

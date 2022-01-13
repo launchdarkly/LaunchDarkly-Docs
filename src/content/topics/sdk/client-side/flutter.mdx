@@ -53,6 +53,15 @@ import 'package:launchdarkly_flutter_client_sdk/launchdarkly_flutter_client_sdk.
 
 After you install the SDK, initialize the single shared instance of `LDClient`. This authorizes your application to connect to LaunchDarkly and retrieve flag values for your application and environment. To create a client instance, you need your environment's mobile key, available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a mobile key. Never embed a server-side SDK key into a mobile application.
 
+<Callout intent="alert">
+<CalloutTitle>LDClient must be a singleton</CalloutTitle>
+<CalloutDescription>
+
+It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+</CalloutDescription>
+</Callout>
+
 The following example shows how to create the client:
 
 <CodeTabs

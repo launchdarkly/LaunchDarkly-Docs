@@ -65,6 +65,15 @@ LDClient client = new LDClient(config);
 </CodeTabItem>
 </CodeTabs>
 
+<Callout intent="alert">
+<CalloutTitle>LDClient must be a singleton</CalloutTitle>
+<CalloutDescription>
+
+It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+</CalloutDescription>
+</Callout>
+
 Using `client`, you can check which variation a particular user will receive for a given feature flag:
 
 <CodeTabs

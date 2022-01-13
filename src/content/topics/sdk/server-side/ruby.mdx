@@ -83,7 +83,7 @@ client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY")
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make this a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
 
 </CalloutDescription>
 </Callout>

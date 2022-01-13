@@ -74,6 +74,15 @@ value = launchDarkly.boolVariation("MY_FLAG_KEY", false)
 </CodeTabs>
 
 <Callout intent="alert">
+<CalloutTitle>Use a single instance</CalloutTitle>
+<CalloutDescription>
+
+It's important to create a single client instance. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="alert">
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
 <CalloutDescription>
 
