@@ -5,7 +5,6 @@ import isExternalLink from '../../src/utils/isExternalLink'
 chai.use(require('chai-string'))
 
 const ignore = [
-  'mailto',
   // github responds with 429 too many requests because it thinks we are spamming them
   'https://github.com',
   'https://stream.launchdarkly.',
@@ -46,7 +45,7 @@ describe('Verify links', () => {
           cy.visit(path)
           const referencesToTest: { [pageUrl: string]: string[] } = {}
           // omitting the links that are built into each heading
-          cy.get('main :not(h2):not(h3) > a', { timeout: 8000 })
+          cy.get("main :not(h2):not(h3) > a:not([href*='mailto:'])", { timeout: 8000 })
             .each($a => {
               const href: string = $a.prop('href')
               if (ignore.some(prefix => href.startsWith(prefix))) {
