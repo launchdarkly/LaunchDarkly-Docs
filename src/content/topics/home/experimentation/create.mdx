@@ -25,9 +25,9 @@ It takes five steps to create an experiment. You must:
 
 1. [Create a metric](#creating-metrics), or choose an existing metric
 2. [Connect the metric to feature flags](#connecting-metrics-to-feature-flags)
-3. [Define the audience for the experiment](/home/experimentation/allocation)
-4. [Start recording the metric](#starting-your-experiment-iteration), and
-5. [Turn on the feature flags](/home/managing-flags/flag-toggle)
+3. [Define the audience for the experiment](#defining-the-audience-for-an-experiment)
+4. [Start an experiment iteration](#starting-experiment-iterations), and
+5. [Turn on the feature flags](#turning-on-feature-flags)
 
 You can reuse existing metrics by connecting them to multiple flags, which allows you to compare how this metric fares across numerous flags. Similarly, a single flag can have more than one metric connected to it, which allows you to see how this flag performs against various measurements.
 
@@ -367,7 +367,21 @@ To connect a metric to a flag from the flag's Experiments tab:
 
 After you create an experiment, you must start a new iteration in every environment where you want it to run.
 
-## Starting your experiment iteration
+## Defining the audience for an experiment
+
+Including only a subset of users in your experiments allows you to get accurate experiment results more quickly. This subset of users is called an experiment population. You can create a custom experiment population by selecting specific flag targeting rules to include in your active experiments.
+
+The method to create a custom experiment population is different depending on whether or not your LaunchDarkly account has allocation enabled. If you are unsure whether your account has allocation enabled, [contact Support](https://support.launchdarkly.com/hc/en-us). To learn more about allocation, read [Allocating experiment traffic](/home/experimentation/allocation).
+
+### Defining an experiment audience with allocation
+
+To learn how to define the experiment audience with allocation, read [Using experiment allocation](/home/experimentation/allocation#using-experiment-allocation).
+
+### Defining an experiment audience without allocation
+
+To learn how to define the experiment audience without allocation, read [Customizing experiment populations](/home/experimentation/populations#customizing-experiment-populations).
+
+## Starting experiment iterations
 
 After you've connected a metric to a flag, you can start an experiment iteration whenever you want. Click the **Start recording** button in every environment where you want to record data.
 
@@ -383,3 +397,7 @@ When you create an experiment, it appears in every environment in your project. 
 
 </CalloutDescription>
 </Callout>
+
+## Turning on feature flags
+
+For an experiment to begin recording data, the flags connected to its metrics must be toggled on. To learn how, read [Turning flags on and off](/home/managing-flags/flag-toggle).
