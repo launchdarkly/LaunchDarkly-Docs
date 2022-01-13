@@ -110,6 +110,14 @@ information, such as the date the flag was last reviewed, the purpose of the fla
 
 Descriptions are fast ways to help other account members learn what a flag does and what its impact is.
 
+### Minimizing flag scope
+
+A flag should have limited scope. Having a flag that controls more than one feature action at a time can be confusing and can make it harder to troubleshoot problems.
+
+Imagine the smallest unit of logic needed for the most responsive flag. If there are multiple parts to a feature that have to work together, you can create a main flag with other flags dependent on it.
+
+For example, you launch a new dashboard with three widgets. To manage them, create four flags: one flag for each widget, with a dependency on a fourth flag for the main dashboard. In this scenario, if one widget causes problems, you can disable it and still serve the dashboard with the two remaining widgets.
+
 ### Archiving and deleting flags
 
 LaunchDarkly provides the option to archive or delete a flag. The LaunchDarkly SDKs consider archived flags “gone.” When you archive a flag as opposed to deleting it, the flag's history remains in your LaunchDarkly project. If you delete it, all references to the flag, including the history, are deleted from LaunchDarkly.
@@ -217,6 +225,12 @@ To access code references:
 ![The code references tab for a feature flag.](flag-code-references.png)
 
 To learn more, read [Code references](/home/code/code-references).
+
+### Planning to remove flags during flag creation
+
+Create a branch that will remove a flag when you create the flag itself. You can use the flag to toggle a feature on or off, and merge the branch in after the feature releases and its performance is consistent.
+
+The code may change before you merge the branch, but creating it gives you somewhere to start when you're ready to clean up the code. The presence of the branch also serves as a reminder to remove the flag when it's no longer needed.
 
 ### Receiving flag removal alerts in Slack
 
