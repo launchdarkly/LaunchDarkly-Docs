@@ -386,7 +386,7 @@ The resource name for the request to update a flag is `flags`, just as it was fo
 ---
 <br/>
 
-LaunchDarkly's REST API primarily uses [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) to specify modifications. To use JSON Patch, your request body should include the single field, `patch`, whose value is an array of operations. These operations are performed sequentially to complete the request. Each operation is itself a JSON object that requires the following fields:
+LaunchDarkly's REST API primarily uses [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) to specify modifications. To use JSON Patch, your request body should include an array of operations. These operations are performed sequentially to complete the request. Each operation is itself a JSON object that requires the following fields:
 
 * `op`: the name of the operation. The most common operation is `replace`, which replaces the current value of a field with a new value that you specify.
 * `path`: the reference to the field you want updated, within its JSON object. For example, you can use `"/definition"` for the field named "definition" at the top level of your feature flag object.
@@ -413,15 +413,13 @@ To update the flag you just created using JSON Patch:
 curl -X PATCH 'https://app.launchdarkly.com/api/v2/flags/default/my-new-flag' \
   -H 'Authorization: EXAMPLE-API-ACCESS-TOKEN' \
   -H 'Content-Type: application/json' \
-  -d '{
-        "patch": [
-          {
-            "op": "replace",
-            "path": "/description",
-            "value": "New description for this flag"
-          }
-        ]
-    }'
+  -d '[
+        {
+          "op": "replace",
+          "path": "/description",
+          "value": "New description for this flag"
+        }
+      ]'
 ```
 
 </CodeTabItem>
