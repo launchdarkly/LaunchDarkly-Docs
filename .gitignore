@@ -65,11 +65,13 @@ public
 
 # Yarn
 yarn-error.log
+.pnp/
+.pnp.js
 # Yarn Integrity file
 .yarn-integrity
 # yarn
+.pnp.*
 .yarn/*
-!.yarn/cache
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases

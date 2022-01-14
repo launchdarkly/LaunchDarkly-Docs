@@ -25,7 +25,7 @@ jobs:
           aws-access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - run: yarn install --immutable
+      - run: yarn
       - run: yarn build-deploy-prod
         env:
           ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
@@ -71,8 +71,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          command-prefix: yarn dlx
-          install-command: yarn install --immutable
           build: yarn build-nav-data
           headless: true
           config: baseUrl=http://docs.launchdarkly.com
