@@ -9,6 +9,34 @@ published: true
 
 This topic explains how to access LaunchDarkly through one of our public IPs. If you're using a firewall, add a LaunchDarkly IP range to your firewall settings.
 
+## Accessing LaunchDarkly by Domain
+
+### Server Side SDKs
+
+stream.launchdarkly.com for streaming connections (default)
+sdk.launchdarkly.com for polling connections
+events.launchdarkly.com for sending data back to LaunchDarkly for experimentation analysis
+
+### Client(Web) SDKs
+
+clientstream.launchdarkly.com for streaming and polling connections
+events.launchdarkly.com for sending data back to LaunchDarkly for experimentation analysis
+
+### Client(Mobile) SDKs
+
+clientstream.launchdarkly.com for streaming connections (default)
+clientsdk.launchdarkly.com for polling connections
+mobile.launchdarkly.com for sending data back to LaunchDarkly for experimentation analysis
+
+### Cloudflare Edge SDK
+
+edge-clientsdk.launchdarkly.com for streaming connection only. There are no events collected at edge
+
+ 
+
+We generally recommend using streaming over polling when configuring SDKs because the streaming protocol allows us to deliver updates nearly instantaneously.  However, we do always use polling for the initial connection for browser/JS SDK (on page load) and for periodic background requests (defaulting to every 5 minutes) for mobile SDKs (iOS, Android, React Native, etc).
+
+
 ## Accessing LaunchDarkly through a public IP range
 
 To help you access LaunchDarkly services through your firewall, we provide a list of LaunchDarkly's public IP ranges.
