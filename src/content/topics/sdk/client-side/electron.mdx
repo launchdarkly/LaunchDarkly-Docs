@@ -1,29 +1,31 @@
 ---
 path: '/sdk/client-side/electron'
 title: 'Electron SDK reference'
-description: 'This topic explains how to use the client-side SDK for the Electron desktop application framework.'
+description: 'This topic explains all of the methods available in the LaunchDarkly SDK for the Electron desktop application framework.'
 published: true
 ---
 
 ## Overview
 
-This reference guide documents the LaunchDarkly SDK for the [Electron](https://electronjs.org/) desktop application framework. This is a variant of the [client-side JavaScript SDK](/sdk/client-side/javascript) with additional functionality for Electron.
+This reference guide documents all of the methods available in the LaunchDarkly SDK for the [Electron](https://electronjs.org/) desktop application framework. This is a variant of the [client-side JavaScript SDK](/sdk/client-side/javascript) with additional functionality for Electron.
 
-LaunchDarkly's SDKs are open source. To learn more, read [Electron SDK GitHub repository](https://github.com/launchdarkly/electron-client-sdk). It also makes use of code from the [JavaScript SDK repository](https://github.com/launchdarkly/js-client-sdk). The [online API docs](https://launchdarkly.github.io/electron-client-sdk/) contain the programmatic definitions of every type and method. You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-electron).
+LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/electron-client-sdk) and its generated [API reference](https://launchdarkly.github.io/electron-client-sdk/). It also uses code from the [JavaScript SDK repository](https://github.com/launchdarkly/js-client-sdk). To learn more about the specific configuration options that are available in this SDK, read the [LDOptions API reference](https://launchdarkly.github.io/electron-client-sdk/interfaces/_launchdarkly_electron_client_sdk_.ldoptions.html).
+
+You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-electron).
 
 ## Why use this instead of the Node.js SDK?
 
-Since Electron is based on Node.js, it is possible to run the [LaunchDarkly Node SDK](/sdk/client-side/node-js) in it. However, this is strongly discouraged because the Node.js SDK is meant for server-side use, not for applications that are distributed to users. There are several reasons why this distinction matters:
+Because Electron is based on Node.js, it is possible to run the [LaunchDarkly Node SDK](/sdk/client-side/node-js) in it. However, we strongly discourage this because the Node.js SDK is meant for server-side use, not for applications that are distributed to users. There are several reasons why this distinction matters:
 
-- The server-side SDKs include an SDK key that can download the entire definition (including rollout rules and individual user targets) of all of your feature flags. If you embed this SDK key in an application, any user who looks inside the application can then access all of your feature flag definitions—which may include sensitive data such as other users' email addresses. The client-side and mobile SDKs use different credentials that do not allow this.
-- The server-side SDKs do in fact download your entire flag data using this key, since they have to be able to evaluate flags quickly for any user. That can be quite a large amount of data. The client-side and mobile SDKs, which normally evaluate flags for just one user at a time, use a much more efficient protocol where they request only the active variation for each flag for that specific user.
+- The server-side SDKs include an SDK key that can download the entire definition, including rollout rules and individual user targets, of all of your feature flags. If you embed this SDK key in an application, any user who looks inside the application can then access all of your feature flag definitions, which may include sensitive data such as other users' email addresses. The client-side and mobile SDKs use different credentials that do not allow this.
+- The server-side SDKs download your entire flag data using this key, because they have to be able to evaluate flags quickly for any user. This can be a large amount of data. The client-side and mobile SDKs, which normally evaluate flags for just one user at a time, use a much more efficient protocol where they request only the active variation for each flag for that specific user.
 - The Electron SDK also includes features that are specific to Electron, such as the ability to access main-process flags from the front end as described below.
 
 ### Server-side Node SDK compatibility
 
 For developers who were using the server-side Node.js in Electron before the Electron SDK was available, there are differences between the APIs that can be inconvenient. For instance, in the server-side Node SDK, `variation()` is an asynchronous call that takes a callback, whereas in the client-side SDKs it is synchronous.
 
-To make this transition easier, the LaunchDarkly Electron SDK provides an optional wrapper that emulates the Node.js SDK. When creating the main-process client, after calling `initializeInMain`, pass the client object to `createNodeSdkAdapter`. The resulting object uses the Node-style API.
+To make this transition easier, the LaunchDarkly Electron SDK provides an optional wrapper that emulates the Node.js SDK. When you create the main-process client, after you call `initializeInMain`, pass the client object to `createNodeSdkAdapter`. The resulting object uses the Node-style API.
 
 Here's how to create the wrapper:
 
@@ -52,16 +54,18 @@ wrappedClient.waitForInitialization().then(function() {
 
 The underlying implementation is still the client-side SDK, which has a single-current-user model. Therefore, when you call `client.variation(flagKey, user, defaultValue)` it is really calling `client.identify(user)` first, obtaining flag values for that user, and then evaluating the flag. This performs poorly if you attempt to evaluate flags for a variety of different users in rapid succession.
 
-## Known issues in this release
+<Callout intent="warning">
+<CalloutTitle>Set the current user in the main process</CalloutTitle>
+<CalloutDescription>
 
-Known issues include:
+If you are using the normal pattern of configuring your LaunchDarkly client in the main process, and then using `initializeInRenderer()` to get a mirror of the client in a renderer process, the client instance in the renderer process will not allow you to call `identify()` to change the current user. You can only set the current user in the main process.
 
-- If you are using the normal pattern of configuring your LaunchDarkly client in the main process, and then using `initializeInRenderer()` to get a mirror of the client in a renderer process, the client instance in the renderer process will not allow you to call `identify()` to change the current user. The current user can only be set in the main process. This may or may not change in future versions.
-- When the main process receives new feature flag values from LaunchDarkly, they should be sent to the renderer processes automatically; however, there was one report of this not working, i.e. the renderer process continued to have the old flag values. Please let us know if you see any such problems.
+</CalloutDescription>
+</Callout>
 
 ## Getting started
 
-After you complete the [Getting Started process](/home/getting-started), follow these instructions to start using the LaunchDarkly SDK in your Electron code.
+After you complete the [Getting started](/home/getting-started) process, follow these instructions to start using the LaunchDarkly SDK in your Electron code.
 
 You can install the SDK into your Electron project using `npm`:
 
@@ -86,9 +90,9 @@ npm install launchdarkly-electron-client-sdk
 
 Every Electron application consists of a _main process_, which is similar to a Node.js application, and some number of _renderer processes_, each of which is a Chromium web browser with its own window. These processes have their own independent JavaScript engines and data spaces, although there are ways to communicate between them.
 
-The LaunchDarkly Electron SDK is designed to use LaunchDarkly feature flags from within any of these processes. In the normal use case, there is an SDK client running in the main process; the renderer processes can then create client instances that are in effect mirrors of the main one.
+We designed the LaunchDarkly Electron SDK to use LaunchDarkly feature flags from within any of these processes. In the normal use case, there is an SDK client running in the main process and the renderer processes can then create client instances that are in effect mirrors of the main one.
 
-To set up the main process client, you need the client-side ID for your LaunchDarkly environment, an object containing user properties (although you can change the user later), and optional configuration properties. Your client-side ID is available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a client-side ID. Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
+To set up the main process client, you need the client-side ID for your LaunchDarkly environment, an object containing user properties, and optional configuration properties. You can change the user later if needed. The client-side ID authorizes your application to connect to a particular environment within LaunchDarkly. Your client-side ID is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects). Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
 
 To initialize the client:
 
@@ -120,7 +124,7 @@ It's important to use `initializeInMain()` to instantiate a single instance. The
 </CalloutDescription>
 </Callout>
 
-In a renderer process, to create a client object that uses the same feature flag data, you only need to do this:
+To create a client object that uses the same feature flag data in a renderer process, use this:
 
 <CodeTabs
   defaultValue="js"
@@ -139,20 +143,20 @@ const client = LDElectron.initializeInRenderer();
 </CodeTabItem>
 </CodeTabs>
 
-This gives you an object with the same interface—so you can evaluate feature flags, listen for flag change events, etc., in exactly the same way in the main process and the renderer process. However, only the main-process client is actually communicating with LaunchDarkly; the renderer-process clients are just delegating to the main one. This means that the overhead per application window is minimal, although it is still a good idea to retain a single client instance per window, rather than creating them ad-hoc when you need to evaluate a flag.
+This gives you an object with the same interface so you can do things like evaluate feature flags, listen for flag change events, and so on in the same way for both the main process and the renderer process. However, only the main-process client is actually communicating with LaunchDarkly. The renderer-process clients are delegating to the main-process client. This means that the overhead per application window is minimal, although you should retain a single client instance per window, rather than creating them ad-hoc when you need to evaluate a flag.
 
 <Callout intent="alert">
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
 <CalloutDescription>
 
-You must make feature flags available to client-side SDKs before the flags can be evaluated. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
+You must make feature flags available to client-side SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
 
-To make a flag available to this SDK, check the **SDKs using Client-side ID** checkbox during flag creation, or on the flag's **Settings** tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+To make a flag available to this SDK, check the **SDKs using Client-side ID** checkbox during flag creation, or on the flag's **Settings** tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [Settings](https://app.launchdarkly.com/settings/projects).
 
 </CalloutDescription>
 </Callout>
 
-Both types of client are initialized asynchronously, so if you want to determine when the client is ready to evaluate feature flags, use the `ready` event or `waitForInitialization()`:
+The SDK initializes both types of client asynchronously, so if you want to determine when the client is ready to evaluate feature flags, use the `ready` event or `waitForInitialization()`:
 
 <CodeTabs
   defaultValue="js"
@@ -163,25 +167,25 @@ Both types of client are initialized asynchronously, so if you want to determine
 <CodeTabItem value="js">
 
 ```js
-// using an event listener:
+// Using an event listener:
 client.on('ready', function() {
-  // now we can evaluate some feature flags
+  // Now we can evaluate some feature flags
 });
 
-// or, using a Promise:
+// Or, using a Promise:
 client.waitForInitialization().then(function() {
-  // now we can evaluate some feature flags
+  // Now we can evaluate some feature flags
 });
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-If you try to evaluate feature flags before the client is ready, it will behave as it would if no flags existed (for example,`variation` returns a default value).
+If you try to evaluate feature flags before the client is ready, it will behave as it would if no flags existed. For example,`variation` will return a default value.
 
-Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#electron).
+## Shutting down
 
-To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/electron-client-sdk/interfaces/_launchdarkly_electron_client_sdk_.ldoptions.html).
+Shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#electron).
 
 ## Supported features
 

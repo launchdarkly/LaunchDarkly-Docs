@@ -29,6 +29,7 @@ classname
 classpath
 clientstream
 cmake
+cocoapods
 codebases
 coderefs
 configurability

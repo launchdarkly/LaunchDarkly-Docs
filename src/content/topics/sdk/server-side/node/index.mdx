@@ -41,7 +41,7 @@ Here's how:
 ```bash
 npm install launchdarkly-node-server-sdk
 
-# Note that in earlier versions, the package name was ldclient-node
+# In earlier versions, the package name was ldclient-node
 ```
 
 </CodeTabItem>
@@ -92,9 +92,9 @@ It's important to make `LDClient` a singleton. The client instance maintains int
 </CalloutDescription>
 </Callout>
 
-The client will emit a `ready` event when you initialize it and it can serve feature flags.
+The client emits a `ready` event when you initialize it and it can serve feature flags.
 
-You can check which variation a particular user should receive for a given feature flag using `client`. The `ready` event is only emitted once, when the client first initializes. In a production application you should place your `client.variation` code so that it is invoked as desired.
+Using `client`, you can check which variation a particular user will receive for a given feature flag. The `ready` event is only emitted once, when you first initialize the client. In a production application, place your `client.variation` code so that it is invoked as needed.
 
 Here is an example:
 

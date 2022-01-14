@@ -7,7 +7,9 @@ published: true
 
 ## Overview
 
-This reference guide documents all of the methods available in the client-side JavaScript SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read [JavaScript SDK GitHub repository](https://github.com/launchdarkly/js-client-sdk). The online [API docs](https://launchdarkly.github.io/js-client-sdk/) contain the programmatic definitions of every type and method. You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-js).
+This reference guide documents all of the methods available in the client-side JavaScript SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/js-client-sdk) and its generated [API reference](https://launchdarkly.github.io/js-client-sdk/). 
+
+You can also use this SDK to clone and run a [sample application](https://github.com/launchdarkly/hello-js).
 
 <Callout intent="alert">
 <CalloutTitle>For client-side JavaScript only</CalloutTitle>
@@ -25,7 +27,7 @@ This SDK does two things:
 
 ## Browser support
 
-The LaunchDarkly client-side JavaScript SDK can be used in all major browsers. However, not all browsers have built-in support for the standard APIs that it uses. Those APIs are Promise, EventSource, and querySelectorAll. Promise is always required, but the other two are optional depending on which SDK features you use.
+The LaunchDarkly client-side JavaScript SDK can be used in all major browsers. However, not all browsers have built-in support for the standard APIs that it uses. Those APIs are Promise, EventSource, and querySelectorAll. The SDK always requires Promise, but the other two are optional depending on which SDK features you use.
 
 The standard solution for ensuring that you will get the same functionality even in browsers that do not have native support for these features is to use [polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill). For a detailed description, and links to information about which browsers may require this, read [JS SDK requirements and polyfills](/sdk/client-side/javascript/requirements-polyfills).
 
@@ -93,10 +95,10 @@ Here are two examples in commonly used frameworks:
 <CodeTabItem value="js">
 
 ```js
-// using require()
+// Using require()
 const LDClient = require('launchdarkly-js-client-sdk');
 
-// using ES2015 imports
+// Using ES2015 imports
 import * as LDClient from "launchdarkly-js-client-sdk";
 ```
 
@@ -166,7 +168,7 @@ Here is an example of code to include in the `<head>` tag of your site:
 
 ## Initializing the client
 
-Once the dependency is installed, initialize the LaunchDarkly client. To create a client instance, you need your environment's client-side ID, available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a client-side ID. Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
+After you install the dependency, initialize the LaunchDarkly client. To create a client instance, you need your environment's client-side ID. This authorizes your application to connect to a particular environment within LaunchDarkly. Your client-side ID is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects). Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
 
 <Callout intent="alert">
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
@@ -206,7 +208,7 @@ var client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
 <CalloutTitle>Initialization delay</CalloutTitle>
 <CalloutDescription>
 
-Initializing the client makes a remote request to LaunchDarkly, so it may take 100 milliseconds or more before the ready event is emitted. If you require feature flag values before rendering the page, we recommend bootstrapping the client. To learn more, read [Bootstrapping](/sdk/features/bootstrapping#javascript). If the client is bootstrapped, it will emit the ready event immediately.
+Initializing the client makes a remote request to LaunchDarkly, so it may take 100 milliseconds or more before the SDK emits the ready event. If you require feature flag values before rendering the page, we recommend bootstrapping the client. To learn more, read [Bootstrapping](/sdk/features/bootstrapping#javascript). If you bootstrap the client, it will emit the ready event immediately.
 
 </CalloutDescription>
 </Callout>
@@ -241,7 +243,7 @@ client.on('ready', function() {
 <CalloutTitle>Streaming Updates</CalloutTitle>
 <CalloutDescription>
 
-The SDK does not subscribe to streaming real-time updates automatically when it is initialized. As a side effect, subscribing to the SDK's **change** event by calling **.on('change').** will cause the SDK to open a streaming connection to LaunchDarkly. This is the only way to receive realtime updates.
+The SDK does not subscribe to streaming real-time updates automatically when you initialize it. As a side effect, subscribing to the SDK's `change` event by calling `.on('change')` causes the SDK to open a streaming connection to LaunchDarkly. This is the only way to receive realtime updates.
 
 </CalloutDescription>
 </Callout>
@@ -250,9 +252,9 @@ The SDK does not subscribe to streaming real-time updates automatically when it 
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
 <CalloutDescription>
 
-You must make feature flags available to client-side SDKs before the flags can be evaluated. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
+You must make feature flags available to client-side SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
 
-To make a flag available to this SDK, check the **SDKs using Client-side ID** checkbox during flag creation, or on the flag's **Settings** tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+To make a flag available to this SDK, check the **SDKs using Client-side ID** checkbox during flag creation, or on the flag's **Settings** tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [Settings](https://app.launchdarkly.com/settings/projects).
 
 </CalloutDescription>
 </Callout>

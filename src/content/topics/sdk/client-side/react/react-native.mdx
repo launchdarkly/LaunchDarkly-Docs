@@ -1,9 +1,15 @@
 ---
 path: '/sdk/client-side/react/react-native'
 title: 'React Native SDK reference'
-description: 'This topic explains all of the methods available in the client-side React Native, with detail about how they work.'
+description: 'This topic explains all of the methods available in the React Native SDK, and explains how these methods work.'
 published: true
 ---
+
+## Overview
+
+This reference guide documents all of the methods available in the React Native SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/react-native-client-sdk) and its generated [API reference](https://launchdarkly.github.io/react-native-client-sdk/).
+
+You can also use this SDK to clone and run a [sample application](https://github.com/launchdarkly/hello-react-native).
 
 <Callout intent="alert">
 <CalloutTitle>SDK version compatibility</CalloutTitle>
@@ -14,10 +20,6 @@ The latest version of the SDK is compatible with Xcode 12 and React Native 0.64.
 </CalloutDescription>
 </Callout>
 
-## Overview
-
-This reference guide documents all of the methods available in the React Native SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. To learn more, read [React Native SDK GitHub repository](https://github.com/launchdarkly/react-native-client-sdk). The online [API docs](https://launchdarkly.github.io/react-native-client-sdk/) contain the programmatic definitions of every type and method. You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-react-native).
-
 To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/react-native-client-sdk/index.html#ldconfig).
 
 ## Getting Started
@@ -26,7 +28,7 @@ To learn more about the specific configuration options that are available in thi
 <CalloutTitle>Expo usage</CalloutTitle>
 <CalloutDescription>
 
-The LaunchDarkly React Native client-side SDK is not compatible with the Expo managed workflow because the SDK uses native modules. Consider using the [bare workflow](https://docs.expo.dev/bare/exploring-bare-workflow/).
+The LaunchDarkly React Native client-side SDK is not compatible with the Expo managed workflow because the SDK uses native modules. Consider using the [bare workflow](https://docs.expo.dev/bare/exploring-bare-workflow/) instead.
 
 </CalloutDescription>
 </Callout>
@@ -60,7 +62,7 @@ You must have a `Podfile` in your `ios/` directory. After you write the `Podfile
 <CalloutTitle><code>use_frameworks!</code> and undefined symbols errors</CalloutTitle>
 <CalloutDescription>
 
-As of v2.1.0 <code>use_frameworks!</code> is not necessary in the Podfile. If you encounter an undefined symbols error when building without <code>use_frameworks!</code> in your <code>Podfile</code> you will need to create a new empty Swift file and accept the prompt to create a matching Objective-C bridging header. If you are building for multiple platforms, add those as targets for the bridging header. If you're still having trouble resolving the undefined symbols error, clean and rebuild and try again.
+As of v2.1.0, <code>use_frameworks!</code> is not necessary in the Podfile. If you encounter an undefined symbols error when building without <code>use_frameworks!</code> in your <code>Podfile</code> you will need to create a new empty Swift file and accept the prompt to create a matching Objective-C bridging header. If you are building for multiple platforms, add those as targets for the bridging header. If you're still having trouble resolving the undefined symbols error, clean and rebuild and try again.
 
 </CalloutDescription>
 </Callout>
@@ -97,7 +99,7 @@ end
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is downloaded and saved in `package.json` and the other install steps are complete, you'll need to import it into your project:
+After you have downloaded the SDK, saved it in `package.json`, and completed the other install steps, import the SDK into your project:
 
 <CodeTabs
   defaultValue="js"
@@ -114,7 +116,7 @@ import LDClient from 'launchdarkly-react-native-client-sdk';
 </CodeTabItem>
 </CodeTabs>
 
-Once the SDK is installed and imported, create a single, shared instance of `LDClient`, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key, available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Be sure to use a client-side ID. Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
+After the SDK is imported, create a single, shared instance of `LDClient`, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly.Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects). Mobile keys are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
 
 <Callout intent="alert">
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
@@ -150,9 +152,9 @@ await client.configure(config, user);
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
 <CalloutDescription>
 
-You must make feature flags available to mobile SDKs before the flags can be evaluated. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
+You must make feature flags available to mobile SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
 
-To make a flag available to this SDK, check the **SDKs using Mobile key** checkbox during flag creation, or on the flag's **Settings** tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Mobile key** checkbox in your project [Settings](https://app.launchdarkly.com/settings#/projects).
+To make a flag available to this SDK, check the **SDKs using Mobile key** checkbox during flag creation, or on the flag's Settings tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Mobile key** checkbox in your project [Settings](https://app.launchdarkly.com/settings/projects).
 
 </CalloutDescription>
 </Callout>
@@ -161,7 +163,9 @@ To make a flag available to this SDK, check the **SDKs using Mobile key** checkb
 
 The React Native SDK defaults to the background fetch behavior for the platform it's running on.
 
-Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#react-native).
+## Shutting down
+
+Shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#react-native).
 
 ## Data collection
 

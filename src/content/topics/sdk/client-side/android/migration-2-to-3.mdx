@@ -7,11 +7,9 @@ published: true
 
 ## Overview
 
-This topic explains how to adapt code that currently uses a 2.x version of the [Android client-side
-SDK](/sdk/client-side/android) to use version 3.0 or later.
+This topic explains how to adapt code that currently uses a 2.x version of the [Android client-side SDK](/sdk/client-side/android) to use version 3.0 or later.
 
-Sections in this topic address different changes and updates between versions 2.x and 3.0 of the
-SDK.
+Sections in this topic address different changes and updates between versions 2.x and 3.0 of the SDK.
 
 ## Minimum Android API version
 
@@ -21,24 +19,15 @@ Lollipop 5.0).
 ## AndroidX
 
 The Android SDK now depends on the [Android Jetpack](https://developer.android.com/jetpack)
-libraries rather than the Android support libraries. The Android support libraries are no longer
-maintained. Using AndroidX requires the `android.useAndroidX` Android Gradle plugin flag to be set
-to `true` in your application's `gradle.properties` file. If your application set the
-`android.enableJetifier` Android Gradle plugin flag to `true` in the `gradle.properties` file
-only for the LaunchDarkly SDK, you can now remove this flag.
+libraries rather than the Android support libraries. The Android support libraries are no longer maintained. Using AndroidX requires your application to set the `android.useAndroidX` Android Gradle plugin flag to `true` in your application's `gradle.properties` file. If your application set the `android.enableJetifier` Android Gradle plugin flag to `true` in the `gradle.properties` file only for the LaunchDarkly SDK, you can now remove this flag.
 
 ## Using updated package names
 
-The package naming convention has changed. Instead of using `com.launchdarkly.android`, the main
-packages are now `com.launchdarkly.sdk` and `com.launchdarkly.sdk.android`. Most of the class names
-have not changed, so you may be able to fix your import statements with a find and replace.
+The package naming convention has changed. Instead of using `com.launchdarkly.android`, the main packages are now `com.launchdarkly.sdk` and `com.launchdarkly.sdk.android`. Most of the class names have not changed, so you may be able to fix your import statements with a find and replace.
 
-The base `.sdk` package contains classes that are not specific to the Android SDK. They also exist
-in the Java server-side SDK. In the SDK source code, the base `.sdk` package is implemented in a new
-repository, [java-sdk-common](https://github.com/launchdarkly/java-sdk-common).
+The base `.sdk` package contains classes that are not specific to the Android SDK. They also exist in the Java server-side SDK. In the SDK source code, the base `.sdk` package is implemented in a new repository, [java-sdk-common](https://github.com/launchdarkly/java-sdk-common).
 
-To learn more about the differences between SDKs, read [Client-side and server-side
-SDKs](/sdk/concepts/client-side-server-side).
+To learn more about the differences between SDKs, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
 The full package schema is as follows:
 
@@ -53,28 +42,17 @@ The full package schema is as follows:
 
 ## Updating the configuration
 
-The `set` prefix has been removed from all the configuration methods of `LDConfig.Builder`, and
-should be removed from your configuration calls.
+This version removed the `set` prefix from all the configuration methods of `LDConfig.Builder`, and you should remove it from your configuration calls.
 
 Additionally, certain configuration options have changed:
 
-* If your application used `setPrivateAttributeNames(Set<String>)` to configure globally private
-  user attributes, it needs to be updated to use
-  `privateAttributes(UserAttribute...)`. `UserAttribute` lets you easily specify default user
-  attribute names.
+* If your application used `setPrivateAttributeNames(Set<String>)` to configure globally private user attributes, you need to update it to use `privateAttributes(UserAttribute...)`. `UserAttribute` lets you specify default user attribute names.
 
-* If your application has not been updated to use `setPollUri(Uri)` rather than the deprecated
-  `setBaseUri(Uri)`, it needs to be updated for this method rename, as `setBaseUri` has been removed.
+* If your application has not been updated to use `setPollUri(Uri)` rather than the deprecated `setBaseUri(Uri)`, you need to update it for this method rename, because this version removed `setBaseUri`.
 
-* If your application used `setEventsUri(Uri)` to configure the endpoint that the SDK uses to report
-  events, it needs to be updated as the SDK treats this field differently in 3.0. In 2.x, the SDK
-  expected the endpoint to be specified in the provided `Uri` (normally `/mobile`), in 3.0, the SDK
-  will append the path. `eventsUri` should normally be given a pathless URI in 3.0.
+* If your application used `setEventsUri(Uri)` to configure the endpoint that the SDK uses to report events, you need to update it because the SDK treats this field differently in 3.0. In 2.x, the SDK expected you to specify the endpoint in the provided `Uri`, normally `/mobile`. In 3.0, the SDK appends the path. You should normally give `eventsUri` a pathless URI in 3.0.
 
-* If your application used `setAdditionalHeaders(Map<String, String>)` to add additional headers to
-  requests made by the SDK, it needs to be updated to use `headerTransform(LDHeaderUpdater)`. The
-  provided `LDHeaderUpdater` is called to update the headers used on each request to the
-  LaunchDarkly service, allowing the headers to differ between requests.
+* If your application used `setAdditionalHeaders(Map<String, String>)` to add additional headers to requests made by the SDK, you need to update it to use `headerTransform(LDHeaderUpdater)`. The SDK calls the provided `LDHeaderUpdater` to update the headers used on each request to the LaunchDarkly service, allowing the headers to differ between requests.
 
 The following example shows all of these changes:
 
@@ -232,7 +210,7 @@ val user: LDUser = LDUser.Builder("userKey")
 
 Additionally, the `custom` and `privateCustom` overrides that took the nullable types `Boolean` and `Number` as the attribute value have been removed, which avoids potential `NullPointerExceptions`. There are new overrides for setting `boolean`, `int`, and `double` attribute values as replacements for the previous overrides.
 
-Finally, there are changes to the `countryCode` built-in user attribute. In 2.x this attribute was treated specially. If set as a `String`, the SDK attempted to look up the country, matching it to an ISO-3166-1 alpha-2, alpha-3 code, or a country name, and set the country to the resultant IOS-3166-1 alpha-2 code only if the lookup was successful. This behavior has been removed in the 3.0 release, and the SDK now treats this field as a normal `String`.
+Finally, there are changes to the `countryCode` built-in user attribute. In 2.x the SDK treated this attribute specially. If set as a `String`, the SDK attempted to look up the country, matching it to an ISO-3166-1 alpha-2, alpha-3 code, or a country name, and set the country to the resultant IOS-3166-1 alpha-2 code only if the lookup was successful. This behavior has been removed in the 3.0 release, and the SDK now treats this field as a normal `String`.
 
 ## Understanding changes to the variation methods
 
@@ -279,7 +257,7 @@ val result: LDValue = client.jsonValueVariation("flagKey", LDValue.buildArray().
 </CodeTabItem>
 </CodeTabs>
 
-Additionally, a behavioral change has been made to the `stringVariation` and `stringVariationDetail` methods. Before the 3.0 release of the Android SDK, these methods were lenient in handling the type mismatch when the value for the requested flag key was a complex type of a JSON array or object. In this case the SDK returned a serialized representation of the flag value. For consistency with how the other variation methods behave when the flag value does not match the type expected by the variation call, the resultant flag value is the provided default value in this case.
+Additionally, a behavioral change has been made to the `stringVariation` and `stringVariationDetail` methods. Before the 3.0 release of the Android SDK, these methods were lenient in handling the type mismatch when the value for the requested flag key was a complex type of a JSON array or object. In this case, the SDK returned a serialized representation of the flag value. For consistency with how the other variation methods behave when the flag value does not match the type expected by the variation call, the resultant flag value is the provided default value in this case.
 
 Finally, the `boolVariation`, `boolVariationDetail`, `intVariation`, and `intVariationDetail` methods no longer take the nullable object types `Boolean` and `Integer` as application default values. Instead they require primitive `boolean` and `int` values as the provided application default values.
 
@@ -439,7 +417,7 @@ Second, if you prefer to use the popular [Gson](https://github.com/google/gson) 
 
 Previously, classes from Gson were exposed in the SDK's public API, so `gson` had to be a regular dependency on your application classpath. This has changed so that even though Gson is used internally by the SDK, it is a private copy that does not interact with outside code.
 
-However, this also means that if you want to convert LaunchDarkly SDK objects such as `LDUser` or `LDValue` to or from JSON—for instance, to send them to your backend service—and you are using Gson, you can't simply call `Gson.toJson()` or `Gson.fromJson()` and get correct results. The Gson in your application does not automatically recognize the Gson annotations and custom serializers that are contained in the SDK.
+However, this also means that if you want to convert LaunchDarkly SDK objects such as `LDUser` or `LDValue` to or from JSON, to send them to your backend service for example, and you are using Gson, you can't call `Gson.toJson()` or `Gson.fromJson()` and get correct results. The Gson in your application does not automatically recognize the Gson annotations and custom serializers that are contained in the SDK.
 
 To make this work correctly, you must add an extra step to the setup of your Gson instance.
 

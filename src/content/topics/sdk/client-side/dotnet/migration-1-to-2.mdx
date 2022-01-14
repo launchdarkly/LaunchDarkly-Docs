@@ -7,7 +7,7 @@ published: true
 
 ## Overview
 
-This topic explains how to adapt code that currently uses a 1.x version of the [.NET client-side SDK](/sdk/server-side/dotnet) (previously called the Xamarin SDK) to use version 2.0 or later.
+This topic explains how to adapt code that currently uses a 1.x version of the [.NET client-side SDK](/sdk/server-side/dotnet), previously called the Xamarin SDK, to use version 2.0 or later.
 
 Before you migrate to 2.0, update to the latest 1.x version. Some of the changes that are mandatory in 6.0 were originally added in a 1.x version and made optional to use.
 
@@ -315,7 +315,7 @@ var config = Configuration.Builder("my-mobile-key")
 </CodeTabItem>
 </CodeTabs>
 
-When connecting to a private LaunchDarkly instance, you still need to specify separate URIs (using whatever values were provided to you by LaunchDarkly):
+When connecting to a private LaunchDarkly instance, you still need to specify separate URIs, using whatever values were provided to you by LaunchDarkly:
 
 <CodeTabs
   defaultValue="sdk1"
@@ -358,7 +358,7 @@ The `EvaluationDetail` and `EvaluationReason` types, which were formerly in `Lau
 
 1. They are now `struct`s rather than `class`es.
 2. `EvaluationReason` is no longer a base class with subclasses like `EvaluationReason.Off` for different reasons. Instead, it is always the same `struct` type, and you can distinguish one reason from another by looking at its properties such as `Kind`.
-3. `EvaluationReason.RuleIndex` is now an optional `int?` rather than an `int`. If it is not applicable (because the reason is not a rule match), the value of this property is now `null`. Previously, the special value of `-1` was used to mean "not applicable".
+3. `EvaluationReason.RuleIndex` is now an optional `int?` rather than an `int`. If it is not applicable because the reason is not a rule match, the value of this property is now `null`. Previously, the special value of `-1` was used to mean "not applicable".
 
 ## Understanding changes to logging
 
