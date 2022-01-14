@@ -5,7 +5,7 @@ description: 'This guide explains the concepts behind deployment and release str
 published: true
 ---
 
-# Overview
+## Overview
 
 This guide explains the concepts behind deployment and release strategies made possible by feature flags and feature management.
 
@@ -17,7 +17,7 @@ In this guide, we'll explore:
 - How to determine flag longevity
 - How to avoid technical debt
 
-# Prerequisites
+## Prerequisites
 
 To complete this guide, you must have the following prerequisites:
 
@@ -27,11 +27,11 @@ To complete this guide, you must have the following prerequisites:
 
 To learn more about segments, read [Building user segments](/home/users/segments).
 
-# Concepts
+## Concepts
 
 You should understand the following concepts before you read this guide.
 
-## Deployment and release
+### Deployment and release
 
 It’s easy to use deployment and release interchangeably, but in a feature-flagging or continuous-delivery environment, they have distinct meanings. It’s useful to understand the differences between them so you can
 understand the following patterns more clearly.
@@ -62,7 +62,7 @@ The following patterns are some of the ways we've seen people do deployment and 
 
 Depending on your business needs, you may want to adopt some of these practices:
 
-## Ring deployment
+### Ring deployment
 
 In a ring deployment, different groups gradually receive a new feature to manage the risk of deployment. These groups are represented as an expanding series of rings, starting with a small group and growing to encompass all your users.
 
@@ -74,7 +74,7 @@ In a ring deployment, the release pattern mirrors the deployment pattern, which 
 Jez Humble introduced the concept of a ring deployment in his book [_Continuous
 Delivery_](https://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912).
 
-## Percentage-based releases
+### Percentage-based releases
 
 In a percentage rollout, the deployment has already occurred and the release occurs incrementally based on a percentage. The new feature rolls out to 10% of users, then 25%, then 50%, until all users receive the new feature.
 
@@ -90,7 +90,7 @@ remainder of your user base.
 
 To learn more, read [Percentage rollouts](/home/flags/targeting-users#percentage-rollouts).
 
-## Canary releases
+### Canary releases
 
 A canary release lets you test whether a feature release will have positive impact without affecting your whole userbase. Only a small number of your users see the new feature you release, and you can target by user or segment to determine who those users are.
 
@@ -98,7 +98,7 @@ Ensure that the small group in your canary release is representative of your ove
 
 You can use a canary release to test both user acceptance and capacity management. If you roll out a new feature to a group and realize that it consumes too many resources, you can turn the feature off and refactor the product without having stressed your infrastructure or caused a bad user experience.
 
-## Targeted releases
+### Targeted releases
 
 It may make business sense to target a release based on some identifier or segment other than percentages.
 
@@ -107,7 +107,7 @@ feature or set of related features to one medium-size city to test how it works 
 
 If that service makes a change that affects restaurants, drivers, and consumers, all of those users should receive the change simultaneously, since they all perform functions that relate to each other. If the city-wide rollout produces good results, the service can release it to the rest of their user base with confidence.
 
-## Entitlement releases
+### Entitlement releases
 
 You might want a flag that affects user permissions or access to be permanent. These flags affect what users can do in your platform, or their **entitlements**.
 
@@ -117,14 +117,14 @@ For example, if you had a premium service, you could configure the release so th
 
 You can combine entitlement releases with percentage-based releases or canary releases, but when the release is done, only some users will have access to to the feature.
 
-# Post-release tasks
+## Post-release tasks
 
 Your flag's lifecycle doesn't finish when the feature it controls is fully deployed. You need to
 have metrics and monitoring set up to see human and system behaviors during your rollout, and you need to have a plan to remove temporary flags after you fully implement the new feature.
 
 We'll discuss both metrics and temporary flag hygiene in this section.
 
-## Tracking metrics
+### Tracking metrics
 
 Metrics help us determine whether something is improving or not. Consider what metrics you need to track when you release new features.
 
@@ -134,7 +134,7 @@ feature. Set up monitoring to track performance before, during, and after you de
 The metrics you track will vary based on your business and objectives. Tracking metrics such as
 page load time, errors, uptime, conversions, or user registrations can tell you whether a feature is performing well or causing problems.
 
-## Removing temporary flags
+### Removing temporary flags
 
 Deployment and release flags should not be a permanent part of your code. After a feature is fully released and stable, you can remove all the code associated with the feature flags that support the feature. This
 makes your code easier to read and understand, and eliminates the possibility of accidental deactivation of the feature.

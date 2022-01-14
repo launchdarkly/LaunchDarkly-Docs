@@ -1163,6 +1163,10 @@
             "path": "/guides/best-practices/technical-debt"
           },
           {
+            "label": "Use cases for SDK wrappers",
+            "path": "/guides/best-practices/sdk-wrappers"
+          },
+          {
             "label": "Using entitlements to manage user experience",
             "path": "/guides/best-practices/entitlements"
           },
