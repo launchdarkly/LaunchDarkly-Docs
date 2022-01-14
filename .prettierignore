@@ -1,4 +1,6 @@
 .cache
+.fig
+.yarn
 package.json
 package-lock.json
 public

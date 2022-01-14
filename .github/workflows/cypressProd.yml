@@ -14,6 +14,8 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
+          command-prefix: yarn dlx
+          install-command: yarn install --immutable
           build: yarn build-dev
           start: yarn serve-dev
           headless: true
