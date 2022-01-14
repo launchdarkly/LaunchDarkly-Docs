@@ -43,20 +43,13 @@ const plugins = [
     },
   },
   'gatsby-plugin-theme-ui',
-  {
-    resolve: 'gatsby-theme-style-guide',
-    options: {
-      // sets path for generated page
-      basePath: '/design-system',
-    },
-  },
   'gatsby-plugin-react-helmet',
   'gatsby-plugin-typescript',
   'gatsby-transformer-json',
   {
     resolve: 'gatsby-plugin-sitemap',
     options: {
-      excludes: ['/systemLayout/', '/components', '/design-system'],
+      excludes: ['/systemLayout/', '/components'],
     },
   },
   {
@@ -94,12 +87,14 @@ const plugins = [
         options: {
           svgoConfig: {
             plugins: [
-              { removeAttrs: { attrs: 'fill' } },
+              { name: 'removeAttrs', params: { attrs: 'fill' } },
               {
-                removeViewBox: false,
+                name: 'removeViewBox',
+                active: false,
               },
               {
-                removeDimensions: true,
+                name: 'removeDimensions',
+                active: true,
               },
             ],
           },
