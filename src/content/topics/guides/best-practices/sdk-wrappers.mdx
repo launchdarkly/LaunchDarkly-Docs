@@ -74,9 +74,7 @@ When you set a wrapper to run mid-session updates, the wrapper can change an end
 
 When you encapsulate an SDK, the wrapper reads app configuration and knows how to construct `LDClient` based on the app. Multiple SDKs use the same wrapper library. This makes it easier to do mass reconfiguration of the SDKs, because updates you make to the wrapper affect all the SDKs inside it.
 
-You can also encapsulate an `LDClient` instance with a user context so you can pass them as a single object. This is the existing pattern provided by our client-side SDKs. It’s also useful for server-side SDKs in apps that have to evaluate multiple flags for the same user as part of a request or session.
-
-In this use case, the object also acts as a single request/session context, which is useful for observability purposes. To learn more, read [Observability](#observability).
+You can also encapsulate an `LDClient` instance with a user context so you can pass them as a single object. This is the existing pattern provided by our client-side SDKs. It’s also useful for server-side SDKs in apps that have to evaluate multiple flags for the same user as part of a request or session. In this use case, the object also acts as a single request/session context, which is useful for observability purposes.
 
 ## Use cases for SDK wrappers
 
