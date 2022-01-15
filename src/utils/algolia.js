@@ -104,7 +104,7 @@ const flatten = (mdx, rootTopics, secondLevelTopics) => {
 
       if (tableOfContents.items) {
         tableOfContents.items.forEach(({ url: anchor, title: heading }) => {
-          const include = !excludedHeadings.find(h => heading.toLowerCase() === h)
+          const include = anchor && heading && !excludedHeadings.find(h => heading.toLowerCase() === h)
           if (include) {
             // create an index for each heading
             result.push({
