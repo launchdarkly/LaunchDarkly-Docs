@@ -58,7 +58,7 @@ const excludedPages = [
 const excludedHeadings = [
   'getting started',
   'overview',
-  'prerequistites',
+  'prerequisites',
   'concepts',
   'conclusion',
   'troubleshooting',
