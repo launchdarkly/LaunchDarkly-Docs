@@ -74,4 +74,30 @@ describe('Documentation website', () => {
     cy.title().should('equal', 'Integrations')
     cy.get('h1').contains('Integrations')
   })
+
+  it('should let a user copy a code snippet', done => {
+    cy.visit('/sdk/features/aliasing-users#electron')
+    const $snippet = cy.get('.language-js').first()
+    $snippet.siblings('button').first().should('contain', 'COPY').click()
+    cy.window().then(({ navigator }: Cypress.AUTWindow) => {
+      navigator.clipboard.readText().then((clipboardText: string) => {
+        cy.wrap($snippet).should('eq', clipboardText.trim())
+        done()
+      })
+    })
+  })
+
+  it('should let a user copy a code snippet multiple times', done => {
+    cy.visit('/sdk/features/aliasing-users#electron')
+    const $snippet1 = cy.get('.language-js').first()
+    $snippet1.siblings('button').first().should('contain', 'COPY').click()
+    const $snippet2 = cy.get('.language-dart').first()
+    $snippet2.siblings('button').first().should('contain', 'COPY').click()
+    cy.window().then(({ navigator }: Cypress.AUTWindow) => {
+      navigator.clipboard.readText().then((clipboardText: string) => {
+        cy.wrap($snippet2).should('eq', clipboardText.trim())
+        done()
+      })
+    })
+  })
 })
