@@ -64,7 +64,7 @@ The screenshot below shows the code references tab displaying an active code ref
 
 ![The code references tab for a feature flag.](flag-code-references.png)
 
-Once the code reference has been removed from the codebase, and the scanning tool has been run again, the LaunchDarkly UI will notify you that the flag has been removed from the codebase:
+After you remove all code references mentioning that flag from the codebase and rerun the scanning tool, LaunchDarkly creates an Extinction event and notifies you that it has removed the flag from the codebase. You can also use the API to find these events. To learn more, read [List Extinctions](https://apidocs.launchdarkly.com/tag/Code-references#operation/getExtinctions).
 
 ![The code references tab for an extinct feature flag](flag-code-references-extinct.png)
 
