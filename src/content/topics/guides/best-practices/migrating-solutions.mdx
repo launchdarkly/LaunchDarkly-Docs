@@ -17,20 +17,20 @@ There are many reasons why your organization may be ready to migrate to LaunchDa
 
 After you’ve decided to retire your old system, it’s time to begin planning your migration project, along with the challenges and opportunities it presents. We recommend careful planning as a preliminary step. 
 
-Successful migrations commonly take place over several incremental steps, rather than all at once. Tracking and visibility into the process will help you and your teams ensure a smooth rollout, as will having a failsafe in place if problems occur.
+Successful migrations commonly take place over several incremental steps, rather than all at once. Tracking and visibility into the process helps you and your teams ensure a smooth rollout, as will having a failsafe in place if problems occur. A gradual migration also reduces opportunities for error.
 
 To begin the process, divide your migration into three phases: 
 
-1. [Preparing the project](#preparing-the-project): Determine what is needed for a successful migration, and how the migration will occur.
-2. [Migrating your flags](#migrating-your-flags): Recreate selected flags from the legacy system in LaunchDarkly.
+1. [Preparing for the migration](#preparing-for-the-migration): Determine what is needed for a successful migration, and how the migration will occur.
+2. [Migrating your flags](#migrating-your-flags): Recreate selected flags from the legacy system in LaunchDarkly, group by group.
 3. [Planning for future use](#planning-for-future-use): Make a plan for how to go forward with day-to-day use.
 
 ## Prerequisites
 
 To complete this guide, you must have the following prerequisites:
 
-* A LaunchDarkly account with owner or admin access
-* Administrative access to the third-party platform you're migrating from
+* A LaunchDarkly account with owner or admin access.
+* Administrative access to the third-party platform you're migrating from.
 * Familiarity with and access to the LaunchDarkly REST API is helpful, but not required. To learn more, read our [API documentation](https://apidocs.launchdarkly.com/).
 
 ## Concepts
@@ -41,76 +41,21 @@ This guide relies on the following concepts:
 
 ​​LaunchDarkly accounts can contain one or more projects. A project can contain multiple environments, and flags exist across all environments within a project. When you create a new feature flag, it is created in every environment in your LaunchDarkly project. However, flag configuration settings are specific to each environment. The changes you make in one environment do not apply to the same flag in any other environment. If you want to, you can configure the same flag in a unique way for every environment you have.
 
-Many software projects have a test, staging, and production environment within each project. In LaunchDarkly, you can define any environment structure that suits your team’s needs. For example, your mobile team might need an `android test`, `android prod`, `ios test`, and `ios prod` environment in a "Mobile apps" project.
+Many software projects have a test, staging, and production environment within each project. In LaunchDarkly, you can define any environment structure that suits your group’s needs. For example, your mobile team might need an `android test`, `android prod`, `ios test`, and `ios prod` environment in a "Mobile apps" project.
 
 To learn more, read [Projects](/home/organize/projects) and [Environments](/home/organize/environments).
 
-## Preparing the project
+## Preparing for the migration
 
-Preparing for the migration may be the most important part of the process. To prepare, you’ll need to consider how to handle technical debt, any integrations you need, how to organize your flags in LaunchDarkly, and how you want to manage your teams.
+Preparing for the migration may be the most important part of the process. 
 
-### Identifying active flags
+Here are the steps we recommend you take to prepare:
 
-If you haven't been regularly archiving flags in your legacy solution, you may have accumulated a lot of flag debt. You may have hundreds or thousands of flags that are no longer in use. Migrating every feature flag you’ve ever created would be an overwhelming task. Instead, consider the best way to address your flag debt, as well as how to avoid accumulating more in the future. To learn more about avoiding accumulating flag debt in LaunchDarkly, read [Reducing technical debt from feature flags](/guides/best-practices/technical-debt).
-
-Identify your permanent and active operations flags in your legacy system, as well as any others that are actively in use. You should consider any remaining flags that don't fit into one of these three categories to be legacy flags. When it is time to migrate, you will leave your legacy flags in the legacy system. To learn more how to classify flag types, read [Determining your flag's use case](/guides/best-practices/creating-flags#determining-your-flags-use-case).
-
-It may be helpful to organize your flags into a spreadsheet to help you decide which flags to migrate and which to leave in your legacy system. Here is an example:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Legacy flag name</TableHeadCell>
-    <TableHeadCell>Permanent or operational</TableHeadCell>
-    <TableHeadCell>New flag name</TableHeadCell>
-    <TableHeadCell>Tags</TableHeadCell>
-    <TableHeadCell>Team</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-  <TableRow>
-    <TableCell>2-click-checkout</TableCell>
-    <TableCell>Operational</TableCell>
-    <TableCell>N/A</TableCell>
-    <TableCell>N/A</TableCell>
-    <TableCell>Payment processing</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>currency-display</TableCell>
-    <TableCell>Permanent</TableCell>
-    <TableCell>item-currency-display</TableCell>
-    <TableCell><code>product</code>,<code>per-flag</code>,<code>front-end</code></TableCell>
-    <TableCell>Payment processing</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>background-colors</TableCell>
-    <TableCell>Operational</TableCell>
-    <TableCell>N/A</TableCell>
-    <TableCell>N/A</TableCell>
-    <TableCell>UX</TableCell>
-  </TableRow>
-  </TableBody>
-</Table>
-
-### Creating a flag naming convention
-
-If you didn't already have a naming convention or style guide in place for feature flags, take this opportunity to create one. Flag naming conventions help identify which team owns a flag, what release it is associated with, and the purpose of a flag. They also can help prevent technical debt from accumulating by making it easier to understand which flags can be archived when.
-
-Things to consider when you create a naming convention: 
-- Be descriptive. Verbose flag names are better than brief flag names. 
-- Use prefixes with a feature name, team name, release, or other identifying elements. 
-- Specify whether the flag is temporary or permanent. 
-- Include a creation date for the flag to help with flag cleanup.
-
-To learn more, read [Creating a flag naming scheme](/guides/best-practices/creating-flags#creating-a-flag-naming-scheme).
-
-### Planning your tags
-
-If you only have a handful of flags, it's not time-consuming to find a flag in LaunchDarkly. As your number of flags grows and more teams use feature flags, this becomes harder. Tags help you organize and sort flags into groups.  
-
-For example, if you have flags related to experiments you can create an ‘experiments' tag. If you have flags for specific departments, you can create a tag with the department name. These tags can help you control which team members can read, write, or modify a flag. 
-
-Before migrating, brainstorm a list of relevant tags. You can always add more tags later, but try to limit the number of tags to make things easier to find.
-
-To learn more, read [Tags](/home/members/role-concepts#tags).
+- [Choose an organization schema](#choosing-an-organization-schema)
+- [Create a flag naming convention](#creating-a-flag-naming-convention)
+- [Plan your tags](#planning-your-tags)
+- [Decide whether to use LaunchDarkly teams](#using-teams)
+- [Communicate your plan](#choosing-a-project-or-group-to-migrate-first)
 
 ### Choosing an organization schema
 
@@ -122,33 +67,136 @@ Common organizational schemas options include:
 - **A single project for the entire organization:** If you have a smaller team, or are rolling out LaunchDarkly for only a specific project, you may not need to break it up into multiple projects. We do not recommend this approach if you have multiple teams, as your account can quickly become complex with multiple groups making thousands of flags in your environment.
 - **Shared services with multiple projects:** In the shared services model, you have one project that refers to the product line and a second project that supports the shared service. You can initialize multiple instances of an SDK and write a wrapper around them to move the complexity away from your developers while still having features flags for all your services. However, this model can be complex to manage. To learn more, read [Use cases for SDK wrappers](/guides/best-practices/sdk-wrappers).
 
+### Creating a flag naming convention
+
+If you don't already have a naming convention or style guide in place for feature flags, take this opportunity to create one. Flag naming conventions help identify which team owns a flag, what release it is associated with, and the purpose of a flag. They also can help prevent technical debt from accumulating by making it easier to understand which flags can be archived when.
+
+To learn more, read [Creating a flag naming scheme](/guides/best-practices/creating-flags#creating-a-flag-naming-scheme).
+
+### Planning your tags
+
+If you only have a handful of flags, it's not time-consuming to find a flag in LaunchDarkly. As your number of flags grows and more teams use feature flags, this becomes harder. Tags help you organize and sort flags into groups. For example, if you have flags related to experiments you can create an ‘experiments' tag. If you have flags for specific departments, you can create a tag with the department name. These tags can help you control which team members can read, write, or modify a flag. 
+
+Before migrating, brainstorm a list of relevant tags. You can always add more tags later. To learn more, read [Tags](/home/members/role-concepts#tags).
+
 ### Using teams
 
 In addition to your broad organizational schema, you can further organize your LaunchDarkly account members using teams. Teams allow you to set up fine-grained access rules and assign this access to specific groups of people, giving them precise control over their feature flags, experiments, and projects. While you don’t need to define your teams and their permissions before you migrate, thinking about how you might like to organize your teams can help you decide which schema makes sense for your organization.
 
 To learn more, read [Teams](/home/teams).
 
-### Choosing a project or team to migrate first
+### Choosing a project or group to migrate first
 
-If your engineering organization contains many teams, we recommend starting with a single team rather than trying to migrate all teams and their projects at once. You can focus your attention on helping one team rather than spreading it across many. Pick a team that won't be under pressure during the pilot. Teams starting a new project or teams with a maintenance period coming up between projects are good candidates. 
+If your engineering organization contains many groups, we recommend starting with a single group or project rather than trying to migrate all groups and their projects at once. This allows you to focus your attention on helping one group at time rather than spreading it across many. Because new flags are being created all the time, it also allows you to narrow your scope when managing the multi-state period.
 
-The team should be ready to provide regular feedback on its migration process, as well as assist in creating lightweight migration tools and documentation for the rest of the organization to use in their migrations.
+Begin by grouping your flags organizationally, and decide on a rough order you'd like to move groups over in. Your goal should be to cause the least disruption, try not to break code, and require groups to use both systems for as little time as possible.
+
+When choosing a pilot group, pick one that won't be under time pressure. Groups starting a new project or groups with a maintenance period coming up between projects are good candidates. The group should be ready to provide regular feedback on its migration process, as well as assist in creating lightweight migration tools and documentation for the rest of the organization to use in their migrations.
+
+You can also show your teams how to self-serve to enable groups to migrate on their own.
+
+### Communicating your plan
+
+Inform all of your engineering and other relevant teams of the plan. Provide your teams with a rough outline and a scheduled timeline.
 
 ## Migrating your flags
 
-Once you've completed your preparations, it's time to start migrating your feature flags. Often customers will run their old and new systems in parallel. Your migration can take as long as you need. If you have a feature currently in the middle of a rollout, or you're running an experiment, leave those flags on the existing platform while you set up new flags in LaunchDarkly. It's fine to run systems in parallel for a couple of months while things wind down in your legacy system and your teams are trained. By implementing the migration slowly, you may be able to avoid giant cut-over steps and downtime.
+Once you've completed your preparations, it's time to start migrating your feature flags, one group at a time. Often our customers run their old and new systems in parallel for some time. Your migration can take as long as you need. If you have a feature currently in the middle of a rollout, or you're running an experiment, leave those flags on the existing platform while you set up new flags in LaunchDarkly. It's fine to run systems in parallel for a couple of months while things wind down in your legacy system and your teams are trained. By implementing the migration slowly, you may be able to avoid giant cut-over steps and downtime.
 
-To migrate your feature flags:
+To begin, create an “evaluation mode” flag in LaunchDarkly. This flag tells your application which system to consult for feature flags: your legacy system, LaunchDarkly, or both. You can leverage targeting rules for granular control between your environments and applications. When this flag is ready, you can begin the migration process.
 
-1. **Inform all engineering and other relevant teams of the plan**: Provide your teams with a rough outline and a scheduled timeline for each step.
-2. **Choose the flags to migrate:** While preparing for the project, you identified your permanent and operations flags in your legacy system. Designate these for migration into LaunchDarkly.
-3. **Create each new flag in LaunchDarkly:** Follow the flag naming convention you created during your planning phase. Ideally, you should be migrating few enough flags it is not burdensome to create them manually. You can use the LaunchDarkly API to preload all of your existing flags and targeting rules, but if you are migrating so many flags you need an automated process, you may not have thoroughly weeded your legacy flags.
-4. **Compare flags between systems:** Look for mismatches between flags in your legacy system and LaunchDarkly. These may be flags that exist in both systems but have different targeting rules, or flags in the legacy system that you marked for migration but haven't migrated yet. You can do this manually or by using an external application performance management (APM) tool like New Relic One.
-5. **Create an “evaluation mode” flag in LaunchDarkly:** This flag tells your application which system to consult for feature flags: your legacy system, LaunchDarkly, or both. You can leverage targeting rules for granular control between your environments and applications.
-6. **Change the wrapper, not the calls:** Your legacy flag system may provide an API module. It likely contains flag evaluation functions that are called throughout the application code. Instead of changing all the application code that uses flags, change the implementation of the evaluation functions to use both the legacy system and LaunchDarkly. Internally, the new implementation evaluates flags by querying both the legacy system and LaunchDarkly and uses whichever flag it finds first. The order of querying is set by a dedicated “flag evaluation mode” flag, kept in LaunchDarkly. When the new wrapper is deployed, it should look to the legacy flag system first. Once the team is comfortable with LaunchDarkly, and the most important flags have been migrated, you can switch the flag evaluation mode to query LaunchDarkly first.
-7. **Transition and test applications one at a time:** Prioritize transitioning the teams which own those applications, rather than the applications themselves. If the team fully understands the work to be done and the new practices to take on, they’ll work in sync with you rather than against you. Some customers use dual-writes so that any changes to feature flag states are automatically written to both LaunchDarkly and their legacy system. You can implement this in LaunchDarkly using webhooks. You can then perform periodic comparisons of specific applications as you migrate, or of all flag data, across both systems to ensure they remain consistent over time. To learn more, read [Webhooks](/home/connecting/webhooks).
-8. **Stop creating new flags in your legacy system:** After you've maintained flags in both systems long enough to ensure things are working as expected, phase out your legacy system by creating new flags in LaunchDarkly only. This is the point of no return, as now the data between your legacy system and LaunchDarkly will diverge. You may want to enforce this by turning off the ability to create new flags in the legacy system, since it’s common for engineers to default to using it out of habit.
-9. **Continue to monitor your flags:** Utilize your APM tool to identify any unexpected behavior going forward. When you're confident your flags are performing as expected, you can decommission your legacy system.
+Here's how to  migrate your feature flags, group by group:
+
+1. [Identify permanent flags](#identifying-permanent-flags) for the group you're working on
+2. [Recreate permanent flags in LaunchDarkly](#recreating-permanent-flags-in-launchdarkly)
+3. [Compare flags between systems](#comparing-flags-between-systems)
+4. [Change the wrapper](#changing-the-wrapper)
+5. [Transition and test applications](#transitioning-and-testing-applications)
+6. [Repeat the process for each group](#repeating-the-process-for-each-group)
+7. [Retire your legacy system](#retiring-your-legacy-system)
+
+### Identifying permanent flags
+
+If you haven't been regularly archiving flags in your legacy solution, you may have accumulated a lot of flag debt. You may have hundreds or thousands of flags that are no longer in use. Migrating every feature flag you’ve ever created would be an overwhelming task. Instead, consider the best way to address your flag debt, as well as how to avoid accumulating more in the future. To learn more about avoiding accumulating flag debt in LaunchDarkly, read [Reducing technical debt from feature flags](/guides/best-practices/technical-debt).
+
+Identify all permanent flags in your legacy system used by your pilot group. Ideally, you should leave all temporary flags in the legacy system. If a group as temporary flags in use, wait until those flags are no longer needed before migrating. Moving only permanent flags greatly reduces the flags you need to handle, and helps reduce your existing technical debt. To learn more how to classify flag types, read [Determining your flag's use case](/guides/best-practices/creating-flags#determining-your-flags-use-case).
+
+If possible, keep your flag keys the same between the legacy system and LaunchDarkly. If you change keys between systems, it can cause problems with your wrappers. However, you may have to update keys for flags that use characters not allowed by LaunchDarkly. LaunchDarkly flag key can contain only letters, numbers, periods (`.`), underscores (`_`), and dashes (`-`).
+
+It may be helpful to organize your flags into a spreadsheet to help you decide which flags to migrate and which to leave in your legacy system. Here is an example:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Legacy flag key</TableHeadCell>
+    <TableHeadCell>Flag type</TableHeadCell>
+    <TableHeadCell>New flag key</TableHeadCell>
+    <TableHeadCell>Tags</TableHeadCell>
+    <TableHeadCell>Team</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>2-click-checkout</TableCell>
+    <TableCell>Permanent</TableCell>
+    <TableCell>2-click-checkout</TableCell>
+    <TableCell><code>product</code>, <code>front-end</code>, <code>team-payment-processing</code></TableCell>
+    <TableCell>Payment processing</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>currency-display</TableCell>
+    <TableCell>Permanent</TableCell>
+    <TableCell>item-currency-display</TableCell>
+    <TableCell><code>product</code>, <code>per-flag</code>, <code>front-end</code>, <code>team-payment-processing</code></TableCell>
+    <TableCell>Payment processing</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>background-colors</TableCell>
+    <TableCell>Temporary</TableCell>
+    <TableCell>Not needed</TableCell>
+    <TableCell><code>team-ux</code></TableCell>
+    <TableCell>UX</TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
+
+If your legacy system only allows boolean flags, you may be able to simplify by combining multiple boolean flags into one multivariate flags.
+
+For example, if you have three different possible background colors of red, blue, and yellow, your legacy system might have two boolean flags to determine the background color for a user:
+
+- If flag A is on, the user sees a read background
+- If flag B is on, the user sees a blue background
+- If neither flag A nor B is on, the user sees a yellow background
+
+You could replace flags A and B in the legacy system with one multivariate flag in LaunchDarkly that serves either a red, blue, or yellow background depending on the flag's targeting rules.
+
+### Recreating permanent flags in LaunchDarkly
+
+Follow the flag naming convention you created during your planning phase. Ideally, you will migrate a small number of flags and it will not be burdensome to create them manually. 
+
+You can use the LaunchDarkly API to preload all of your existing flags and targeting rules, but if you are migrating so many flags you need an automated process, consider whether you have eliminated legacy flags thoroughly enough. There may be more you can archive or delete. 
+
+### Comparing flags between systems
+
+Search for mismatches between flags in your legacy system and LaunchDarkly. These may be flags that exist in both systems but have different targeting rules, or flags in the legacy system that you marked for migration but haven't been migrated yet. You can do this manually or by using an external application performance management (APM) tool like New Relic One. To learn more about available integrations, read [APM tools](/integrations/app-performance).
+
+### Changing the wrapper
+
+Your legacy flag system may provide an API module. It likely contains flag evaluation functions that are called throughout the application code. Instead of changing all the application code that uses flags, change the implementation of the evaluation functions to use both the legacy system and LaunchDarkly. Internally, the new implementation evaluates flags by querying both the legacy system and LaunchDarkly and uses whichever flag it finds first. The order of querying is set by a dedicated “flag evaluation mode” flag, kept in LaunchDarkly. When the new wrapper is deployed, it should look to the legacy flag system first. After the group is comfortable with LaunchDarkly, and the most important flags have been migrated, you can switch the flag evaluation mode to query LaunchDarkly first.
+
+To learn more, read [Use cases for SDK wrappers](/guides/best-practices/sdk-wrappers).
+
+### Transitioning and testing applications
+
+Some customers use dual-writes so that any changes to feature flag states are automatically written to both LaunchDarkly and their legacy system. You can use webhooks to implement this in LaunchDarkly. You can then perform periodic comparisons of specific applications as you migrate, or of all flag data, across both systems to ensure they remain consistent over time. To learn more, read [Webhooks](/home/connecting/webhooks).
+
+### Repeating the process for each group
+
+Repeat the above steps for each group you are migrating to LaunchDarkly. When all of your groups have been migrated, you can retire your legacy system.
+
+### Retiring your legacy system
+
+After you've maintained flags in both systems long enough to ensure things are working as expected, phase out your legacy system by creating all new flags in LaunchDarkly only, and ceasing to create flags in your legacy system. This is the point of no return, as now the data between your legacy system and LaunchDarkly will diverge. You may want to enforce this by turning off the ability to create new flags in the legacy system, since it’s common for engineers to default to using it out of habit.
+
+Utilize your APM tool to identify any unexpected behavior going forward. When you're confident your flags are performing as expected, you can decommission your legacy system.
 
 Congratulations! You have now successfully implemented LaunchDarkly.
 

@@ -5,7 +5,7 @@ description: 'This guide explains the best practices for flag creating that we a
 published: true
 ---
 
-# Overview
+## Overview
 
 This guide explains the best practices for creating feature flags in LaunchDarkly.
 
@@ -13,11 +13,11 @@ The purpose of this guide is to help your team create flags that fit their curre
 
 Best practices around feature flags are still evolving. The suggestions below are not firm rules for how to use feature flags. They're best practices and advice.
 
-# Concepts
+## Concepts
 
 You should understand the following concepts before you read this guide.
 
-## Flag longevity
+### Flag longevity
 
 You create a temporary flag when you know you can remove it after a feature is fully deployed or the flag is no longer needed. Temporary flags can include flags used for experimentation, rollout, testing, and feature releases.
 
@@ -25,11 +25,11 @@ Long-lived flags are a part of regular software operations and architecture. Whe
 
 Every flag has a "permanent" checkbox on its Settings page. This checkbox identifies long-lived flags that no one should remove.
 
-## Experiments
+### Experiments
 
 An experiment is a set of actions used to test a hypothesis. You can use feature flags to send flag variations to portions of your user base, and compare your users' different reactions. You can use this for A/B/n testing, acceptance testing, and stress testing.
 
-# Determining your flag's use case
+## Determining your flag's use case
 
 Before you create a feature flag, answer these questions:
 
@@ -46,13 +46,13 @@ You may also consider:
 
 Most flags are responsible for one of the following use cases:
 
-## Managing code releases
+### Managing code releases
 
 Flags can wrap code for a new feature or improved  feature. Unless something goes wrong, you will end up enabling the feature for all users. The flag provides more control over the release.
 
 The flag's variations are almost always `true` or `false` booleans that represent whether the new code is enabled. After you roll the feature out and verify the new code is stable and working for all users, you can delete this flag.
 
-## Conducting experiments
+### Conducting experiments
 
 A flag associated with an experiment is similar to a flag that controls a release, in that it wraps code for a feature that will have impact on your users. But instead of just `true` or `false`, the flag may be multivariate so that the experiment can test multiple values.
 
@@ -64,11 +64,11 @@ Flags can gate access to certain features or areas of your product. For example,
 
 Flags like these are usually permanent or long-lived.
 
-## Reconfiguring existing code
+### Reconfiguring existing code
 
 Operational flags can add configurability to existing code. This is useful when you need to change how your app or service operates. Often, these changes happen in response to unplanned events, such as traffic spikes or third-party service failures.
 
-# Considering flag dependencies
+## Considering flag dependencies
 
 Keep the scope of a flag as small as possible. Both the code and the effects triggered by the flag changes (such as integrations and webhooks) should be small. Many small flags help prevent unintended impact from flag targeting.
 
@@ -90,7 +90,7 @@ The answer to this question often depends on the flag category:
 - Flags that control user entitlements or operations are usually **permanent** flags
 - Flags that control a feature release are usually temporary, but may become permanent.
 
-# Setting flag identifiers
+## Setting flag identifiers
 
 Flags have two identifiers:
 
@@ -99,11 +99,10 @@ Flags have two identifiers:
 
 You specify both of these identifiers when you create a flag for the first time.
 
-### Creating a flag naming scheme
+#### Creating a flag naming scheme
+---
 
-You'll likely be making many more flags in the future so it helps for them to be named consistently.
-
-The best way to write comprehensible names is to use a **flag naming scheme**. Many teams have one as part of their coding style guide. If your team already has a naming style guide, use that.
+You are likely to make many more flags in the future, and it helps to name them consistently. The best way to write comprehensible names is to use a **flag naming scheme**. 
 
 Flag naming schemes should address at least three things:
 
@@ -111,17 +110,19 @@ Flag naming schemes should address at least three things:
 * How those components should be phrased and formatted
 * How they should be ordered in the name
 
-Consider what information about a flag might be useful for later users of the flag to know.
+Many teams have a naming style guide as part of their coding style guide. Use your team's style guide if it exists. If there isn't one, consider what information about a flag might be useful for later users of the flag to know. We recommend using descriptive naming conventions that include as much information about the flag as possible.
 
-Some useful facts about a flag are:
+Some useful facts to include in a flag name are:
 
-* which feature it relates to,
-* the intent behind the flag,
-* the effect of changing its value,
-* where that effect happens, such as the interface element or page affected, and
-* which team is responsible for the flag
+- Which feature it relates to
+- The intent behind the flag
+- The effect of changing its value
+- Where that effect happens, such as the interface element or page affected
+- Which team is responsible for the flag
+- Whether the flag is temporary or permanent
+- The date it was created
 
-## Writing an effective flag description
+### Writing an effective flag description
 
 Write short flag descriptions. They should be no longer than a sentence or two.
 
@@ -132,7 +133,7 @@ Don't repeat any information already present in the flag's name. Instead, focus 
 * Who is responsible for this flag
 * When you can remove the flag
 
-## Assigning tags to your flag
+### Assigning tags to your flag
 
 The LaunchDarkly dashboard has controls for filtering and sorting flags by different major attributes. You can also create tags for flags you want to find quickly.
 
@@ -144,7 +145,7 @@ To learn more, read [Custom roles](/home/members/custom-roles).
 
 Try to re-use existing tags as much as possible. This streamlines the dashboard and makes it easier to find things later.
 
-# Using flag variations
+## Using flag variations
 
 Most flags have boolean variations. Their values are either `true` or `false`. You can use flags that evaluate different values, like strings or numbers, when you need to do more complex operations. You can add more variations to a flag at any time.
 
@@ -154,7 +155,7 @@ You could make this a boolean flag that determines whether or not tax is applied
 
 If you do this and the tax rate then changes, you can update the tax percentage charged by the app without changing code. Alternatively, you could make more variations of the same flag that address other tax rates used in different regions, and use targeting rules to automatically return the user's correct tax rate.
 
-## Understanding the flag's default variation
+### Understanding the flag's default variation
 
 Your default variation is the starting state of the flag.
 
@@ -162,7 +163,7 @@ For most flags, the default variation for a feature is `off`.
 
 In some cases, like when you want to deprecate a feature, you can set the default variation to `on` where `on` is `false`, because the feature is already running. The `off` variation would then be set to `true`.
 
-## Setting client-side visibility
+### Setting client-side visibility
 
 LaunchDarkly SDKs are divided into two types:
 
@@ -173,7 +174,7 @@ Client-side SDKs evaluate flags differently than server-side SDKs, because we bu
 
 To learn more, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
-# Conclusion
+## Conclusion
 
 In this guide, you have learned about:
 - Flag naming standards
