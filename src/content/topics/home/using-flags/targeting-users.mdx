@@ -55,40 +55,30 @@ Scheduling removal dates is available to customers on a Pro or Enterprise plan. 
 </CalloutDescription>
 </Callout>
 
-You can schedule a removal date and time for each individual user who is targeted by a flag. By doing this, you can specify a future date and time after which the user will no longer be targeted for the specific flag. You can do this for existing users, or when you create a new user.
+You can schedule a removal date and time for each individual user who is targeted by a flag. By doing this, you can specify a future date and time after which the user will no longer be targeted for the specific flag. You can do this when you add a new user, or for existing user targets.
 
-This is useful if you want to give users trial access to a feature, run a controlled beta test, or just keep your flags organized by not having too many flags at work at once.
+This is useful if you want to give users trial access to a feature, run a controlled beta test, or just keep your flags organized by not having too many flags working at once.
 
 You can also schedule a user to be removed from a segment, rather than from flag targeting. To learn more, read [Scheduling user removal from segments](/home/users/segments#scheduling-user-removal-from-segments
 ).
 
-To set a targeting removal date:
-
+To schedule a removal date for a user target:
 1. Navigate to the flag dashboard and select the flag for which you want to configure a removal date. The flag's **Targeting** tab appears.
-2. In the "Target individual users" section, click the name of the user for which you wish to set a removal date.
-3. In the "Remove user on" section, click to expand a calendar view:
+2. In the "Target individual users" section, search for the new user you want to target or click the name of an existing user you want to set a removal date for.
+3. Click **Add + schedule Removal** next to the user's name.
 
-![The removal scheduling calendar.](flag-targeting-user-expire-calendar.png)
+![The user targeting field with the "Add + Schedule Removal" option called out.](users-targeting-add-schedule-removal.png)
 
-4. Set a date and time for the user to be removed from the flag.
-5. Click **Apply**.
-* If approvals are not required, the user is now scheduled for removal on the date and time you specified.
-* If approvals are required for scheduled removal dates, click the **Request Approval** button in the upper right. The Request Approval screen appears:
+4. In the "Remove user on" section, click **never** to expand a calendar view.
+5. Set a date and time for the user to be removed from the flag:
 
-![The request approval screen.](approvals-request-schedule-removal.png)
+![The calendar picker to schedule the user removal.](users-targeting-removal-date-picker.png)
 
-6. Enter a **Description** to add context that helps your reviewers understand the changes you made.
-7. (Optional) If necessary, you can edit your flag changes by clicking the **Edit** button.
-8. Choose one or more reviewers from the **Reviewers** dropdown.
-9. Click **Request approval**.
 
-The people you chose from the dropdown each receive an email asking them to approve your flag changes. The flag's **Targeting** page also updates with an icon to indicate that there are pending changes waiting for review.
+6. Click **Apply**.
+7. Click **Save changes**, or if approvals are required for your environment, click **Request approval**.
 
-Additionally, when you add a user to a flag, you can schedule them for removal later by clicking **Add + Schedule Removal**.
-
-Here is an image of the user targeting field:
-
-![The user targeting field with the "Add + Schedule Removal" option called out.](flag-targeting-user-add-schedule-callout.png)
+The user targets are now scheduled for removal on the date and time you specified.
 
 ## Creating targeting rules
 
