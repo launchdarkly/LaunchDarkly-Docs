@@ -95,7 +95,6 @@ Here's how to do this:
 </CodeTabItem>
 </CodeTabs>
 
-
 ## Example: Granting all actions to just one flag
 
 The policy below allows all actions to be done to a single specified flag, `flag-1`.
@@ -167,8 +166,8 @@ This lets you restrict access to only one project without having to explicitly d
 
 This policy allows using only these actions in the `production-1` environment:
 
-* `updateFlagVariations`
-* `updateTags`
+- `updateFlagVariations`
+- `updateTags`
 
 This means they can take all other actions in any other non-production environment.
 
@@ -234,7 +233,14 @@ Here's how to do this:
   },
   {
     "resources": ["proj/project-1:env/*:flag/*"],
-    "notActions": ["createFlag", "updateTargets", "updateRules", "createExperiment", "deleteExperiment", "updateScheduledChanges"],
+    "notActions": [
+      "createFlag",
+      "updateTargets",
+      "updateRules",
+      "createExperiment",
+      "deleteExperiment",
+      "updateScheduledChanges"
+    ],
     "effect": "allow"
   },
   {
@@ -246,9 +252,10 @@ Here's how to do this:
     "resources": ["proj/*:metric/*"],
     "actions": ["*"],
     "effect": "allow"
-  },
+  }
 ]
 ```
+
 </CodeTabItem>
 </CodeTabs>
 
@@ -283,24 +290,24 @@ Copy this reader role and make any modifications to it to suit your needs:
     "effect": "deny"
   },
   {
-      "resources": ["proj/*:env/*:flag/*"],
-      "actions": ["*"],
-      "effect": "deny"
+    "resources": ["proj/*:env/*:flag/*"],
+    "actions": ["*"],
+    "effect": "deny"
   },
   {
-      "resources": ["proj/*:env/*:segment/*"],
-      "actions": ["*"],
-      "effect": "deny"
+    "resources": ["proj/*:env/*:segment/*"],
+    "actions": ["*"],
+    "effect": "deny"
   },
   {
-      "resources": ["proj/*:env/*:destination/*"],
-      "actions": ["*"],
-      "effect": "deny"
+    "resources": ["proj/*:env/*:destination/*"],
+    "actions": ["*"],
+    "effect": "deny"
   },
   {
-      "resources": ["proj/*:env/*:user/*"],
-      "actions": ["*"],
-      "effect": "deny"
+    "resources": ["proj/*:env/*:user/*"],
+    "actions": ["*"],
+    "effect": "deny"
   },
   {
     "resources": ["member/*"],
@@ -440,76 +447,76 @@ Here's a template:
 
 ```json
 [
-    {
-        "resources": ["proj/"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["proj/:env/"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["proj/:metric/"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["member/"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["member/:token/"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["role/"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["proj/:env/:flag/"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["integration/"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["proj/:env/:segment/"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["webhook/"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["proj/:env/:user/"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["code-reference-repository/"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["proj/:env/:destination/"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["acct"],
-        "actions": ["*"],
-        "effect": "allow"
-    }
+  {
+    "resources": ["proj/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["proj/*:env/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["proj/*:metric/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["member/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["member/*:token/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["role/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["proj/*:env/*:flag/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["integration/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["proj/*:env/*:segment/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["webhook/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["proj/*:env/*:user/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["code-reference-repository/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["proj/*:env/*:destination/*"],
+    "actions": ["*"],
+    "effect": "allow"
+  },
+  {
+    "resources": ["acct"],
+    "actions": ["*"],
+    "effect": "allow"
+  }
 ]
 ```
 
