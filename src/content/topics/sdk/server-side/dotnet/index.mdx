@@ -15,9 +15,9 @@ You can also use this SDK to clone and run a [sample application](https://github
 <CalloutTitle>For use in server-side applications only</CalloutTitle>
 <CalloutDescription>
 
-This SDK is intended for use in *multi-user* .NET server applications. If you have a .NET application and want to set up LaunchDarkly in a mobile, desktop, or embedded application, read the [client-side .NET SDK reference](/sdk/client-side/dotnet).
+This SDK is intended for use in multi-user .NET server applications. If you have a .NET application and want to set up LaunchDarkly in a mobile, desktop, or embedded application, read the [client-side .NET SDK reference](/sdk/client-side/dotnet).
 
-For information about how to choose an SDK, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+To learn more about LaunchDarkly's different SDK types, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
 </CalloutDescription>
 </Callout>
@@ -25,10 +25,10 @@ For information about how to choose an SDK, read [Client-side and server-side SD
 ## Getting started
 
 <Callout intent="info">
-<CalloutTitle>Version requirements</CalloutTitle>
+<CalloutTitle>SDK version compatibility</CalloutTitle>
 <CalloutDescription>
 
-Version 6.0 and higher of the LaunchDarkly .NET SDK is compatible with .NET 5.0+, .NET Framework 4.5.2+, and .NET Core 2.1+.
+The LaunchDarkly .NET SDK, version 6.0 and higher, is compatible with .NET 5.0+, .NET Framework 4.5.2+, and .NET Core 2.1+.
 
 Prior to version 6.0, the LaunchDarkly .NET SDK also supported .NET Framework 4.5.0 and .NET Core 1.0.
 
@@ -86,15 +86,6 @@ using LaunchDarkly.Client;
 </CodeTabs>
 
 After you install and import the SDK, create a single, shared instance of [`LdClient`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html). Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
-
-<Callout intent="alert">
-<CalloutTitle>LdClient must be a singleton</CalloutTitle>
-<CalloutDescription>
-
-It's important to make `LdClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
-
-</CalloutDescription>
-</Callout>
 
 To create a single instance:
 
