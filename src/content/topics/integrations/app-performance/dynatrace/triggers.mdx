@@ -16,7 +16,7 @@ Flag triggers is available to customers on an Enterprise plan. To learn more, [r
 
 ## Overview
 
-This topic explains how to use LaunchDarkly's triggers feature with Dynatrace. For example, you can create an alert in Dynatrace that uses a LaunchDarkly trigger to toggle a flag on or off when a predefined or custom Dynatrace event has been triggered.
+This topic explains how to use LaunchDarkly's triggers feature with Dynatrace. For example, you can create an alert in Dynatrace that uses a LaunchDarkly trigger to toggle a flag on or off when Dynatrace triggers a predefined or custom event.
 
 We recommend specifying a custom Dynatrace alerting profile for your triggers. This ensures that the scope of events that send a webhook to your LaunchDarkly trigger is correct. To learn more about how to create custom alerting profiles, read [Dynatrace's documentation on alerting profiles](https://www.dynatrace.com/support/help/how-to-use-dynatrace/problem-detection-and-analysis/notifications-and-alerting/alerting-profiles/).
 
@@ -34,7 +34,7 @@ In order to complete this topic, you must meet the following prerequisites:
 
 In order to configure a LaunchDarkly trigger in Dynatrace, you must perform two steps:
 1. Create an [alerting profile](https://www.dynatrace.com/support/help/how-to-use-dynatrace/problem-detection-and-analysis/notifications-and-alerting/alerting-profiles/) in Dynatrace to determine what Dynatrace events you want associated with your trigger, and
-2. Create a webhook in Dynatrace that includes a custom JSON template with your trigger URL and alerting profile specified.
+2. Create a webhook in Dynatrace that includes a custom JSON template that specifies your trigger URL and alerting profile.
 
 ### Creating a custom alerting profile in Dynatrace
 
@@ -47,7 +47,7 @@ In order to configure a LaunchDarkly trigger in Dynatrace, you must perform two 
 </CalloutDescription>
 </Callout>
 
-To configure a custom alerting profile:
+To create a custom alerting profile:
 
 1. Log in to Dynatrace.
 2. Create a new alerting profile that filters for the specific events you want to be associated with your LaunchDarkly trigger. To learn more, read [Dynatrace's Alerting profiles documentation](https://www.dynatrace.com/support/help/how-to-use-dynatrace/problem-detection-and-analysis/notifications-and-alerting/alerting-profiles/).
@@ -56,7 +56,7 @@ To configure a custom alerting profile:
 
 ### Creating a webhook in Dynatrace with a JSON template
 
-To see event details associated with the invocation of a LaunchDarkly trigger, you must configure a JSON template when setting up the webhook in Dynatrace.
+To display event details associated with the invocation of a LaunchDarkly trigger, you must configure a JSON template when you set up the webhook in Dynatrace.
 
 To configure the template:
 
@@ -95,9 +95,9 @@ LaunchDarkly uses the payload `title` and `url` fields to create the main body o
 </Callout>
 
 4. Select your pre-configured alerting profile from the **Alerting profile** dropdown field.
-5. Send a test notification in order to save any new webhook configurations or changes.
-6. Return to the LaunchDarkly flag settings page and check that the test notification has been received by clicking on the overflow menu on your LaunchDarkly trigger and confirming that the execution count has incremented.
-7. Return to Dynatrace and click **Save**.
+5. Click **Send test notification**. If the integration was successful, a "Custom Integration test successful" message appears.
+6. Return to the LaunchDarkly flag's Settings page and verify that the test notification has arrived. To do this, click on the trigger's overflow menu confirm that the execution count has incremented.
+7. Return to Dynatrace and click **Save changes**.
 
 Your new Dynatrace webhook now triggers flag changes based on the action you specified in LaunchDarkly. 
 

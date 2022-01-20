@@ -1225,6 +1225,10 @@
             "path": "/guides/platform-specific/terraform"
           },
           {
+            "label": "Using flag triggers with Dynatrace",
+            "path": "/guides/platform-specific/triggers-dynatrace"
+          },
+          {
             "label": "Using flags on static sites with JavaScript",
             "path": "/guides/platform-specific/static-sites"
           },
