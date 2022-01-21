@@ -51,7 +51,7 @@ LaunchDarkly's docs respect markdown formatting. You can use hashes for headers,
 
 ## LaunchDarkly's custom components
 
-LaunchDarkly's docs use a hybrid of markdown and React components. A list of the entire custom component set the docs use is available in the [components file](https://github.com/launchdarkly/LaunchDarkly-Docs/blob/master/src/content/topics/components.mdx).
+LaunchDarkly's docs use a hybrid of markdown and React components. A list of the entire custom component set the docs use is available in the [components file](https://github.com/launchdarkly/LaunchDarkly-Docs/blob/main/src/content/topics/components.mdx).
 
 An explanation of how and where we use some of the custom components is provided below.
 

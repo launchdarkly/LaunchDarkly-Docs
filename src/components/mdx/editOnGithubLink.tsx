@@ -4,7 +4,7 @@ import { FunctionComponent } from 'react'
 import Icon from '../icon'
 import Link from '../link'
 
-const GITHUB_ROOT_URL = 'https://github.com/launchdarkly/LaunchDarkly-Docs/blob/master/src'
+const GITHUB_ROOT_URL = 'https://github.com/launchdarkly/LaunchDarkly-Docs/blob/main/src'
 
 type EditOnGithubLinkProps = {
   fileAbsolutePath: string

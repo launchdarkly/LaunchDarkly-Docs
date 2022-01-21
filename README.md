@@ -107,11 +107,11 @@ If you're a new LaunchDarkly technical writer or other contributor accessing the
 
 When you open a docs PR, it creates a unique staging site. The URL for each site is linked in the PR page in the repo.
 
-Staging is automatically refreshed on push to master. See [Build & Deploy](#-build--deploy).
+Staging is automatically refreshed on push to main. See [Build & Deploy](#-build--deploy).
 
 ## (Internal LaunchDarkly use only) 🚀 Building and deploying the docs site
 
-GitHub action automatically builds and deploys to staging on push to master.
+GitHub action automatically builds and deploys to staging on push to main.
 
 If you want to manually deploy your own branch to staging, do this:
 
@@ -121,7 +121,7 @@ yarn deploy
 
 This builds Gatsby and upload the artifacts to the staging s3 bucket.
  
-## (Internal LaunchDarkly use only) Scheduling a PR merge to master
+## (Internal LaunchDarkly use only) Scheduling a PR merge to main
 
 In your pull requests, add a line to the end of the pull request description like this:
 
@@ -198,7 +198,7 @@ yarn cypress --env skip_external=true
 
 ## 🔨 Navigation data
 
-All navigation data are stored in [src/content/navigationData.json](https://github.com/launchdarkly/git-gatsby/blob/master/src/content/navigationData.json).
+All navigation data are stored in [src/content/navigationData.json](https://github.com/launchdarkly/git-gatsby/blob/main/src/content/navigationData.json).
 This is flattened at build time to autogenerate two files `rootTopics.json` and `secondLevelTopics.json`. The
 flattened data are queryable via graphql and allows us to render the side nav more efficiently.
 
