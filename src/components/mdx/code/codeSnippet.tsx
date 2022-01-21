@@ -85,9 +85,13 @@ export function CodeSnippet({ children, className: languageClassName, ...props }
                         width: 4,
                         position: 'absolute',
                         left: 0,
+                        '::before': {
+                          content: 'attr(data-pseudo-content)',
+                        },
                       }}
+                      data-pseudo-content={i + 1}
                     >
-                      {i + 1}
+                      {/* no content - using pseudo-element */}
                     </span>
                     {line.map((token, key) => {
                       const tokenProps = getTokenProps({ token, key })
