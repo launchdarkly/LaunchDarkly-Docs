@@ -800,6 +800,10 @@
             "path": "/sdk/concepts/contributors-guide"
           },
           {
+            "label": "Domain list",
+            "path": "/sdk/concepts/domain-list"
+          },
+          {
             "label": "Evaluation reasons",
             "path": "/sdk/concepts/evaluation-reasons"
           },

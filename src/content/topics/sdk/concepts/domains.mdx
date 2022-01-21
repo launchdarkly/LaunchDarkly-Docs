@@ -1,0 +1,47 @@
+---
+path: '/sdk/concepts/domain-list'
+title: 'Domain list'
+description: 'This topic explains which domains the LaunchDarkly SDKs connect to by default.'
+published: true
+---
+
+## Overview
+
+This topic explains which domains the LaunchDarkly SDKs connect to by default. If you are restricting access, make sure your SDK can reach these domains.
+
+If you use the Relay Proxy, you must update your SDK's configuration to connect to the Relay Proxy rather than using these defaults. To learn more, read [Using the Relay Proxy](/home/relay-proxy/using).
+
+If you use a firewall and would like to configure access based on IP addresses, read [Public IP list](/home/advanced/public-ip-list).
+
+## Accessing LaunchDarkly by domain
+
+The LaunchDarkly SDKs access various base uniform resource identifiers (URIs) for different services.
+
+The SDKs use the streaming service and polling service to request flag updates. They use the events service to send data back to LaunchDarkly for experimentation analysis.
+
+The following table describes the default base URIs for each service and SDK:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Service</TableHeadCell>
+    <TableHeadCell>Server-side SDKs</TableHeadCell>
+    <TableHeadCell>Client-side or mobile SDKs</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>Streaming</TableCell>
+    <TableCell>https://stream.launchdarkly.com</TableCell>
+    <TableCell>https://clientstream.launchdarkly.com</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Polling</TableCell>
+    <TableCell>https://app.launchdarkly.com or https://sdk.launchdarkly.com</TableCell>
+    <TableCell>https://clientsdk.launchdarkly.com</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Events</TableCell>
+    <TableCell>https://events.launchdarkly.com</TableCell>
+    <TableCell>https://mobile.launchdarkly.com</TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
