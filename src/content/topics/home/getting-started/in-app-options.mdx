@@ -1,0 +1,64 @@
+---
+path: '/home/getting-started/in-app-options'
+title: 'In-app tutorials'
+description: 'This topic describes interactive tutorials and demos that are available from the LaunchDarkly dashboard.'
+published: true
+---
+
+## Overview
+
+This topic describes interactive tutorials and demos that are available from the LaunchDarkly dashboard.
+
+## Using the in-app tutorial
+
+You can use the "Connect an SDK" in-app tutorial to connect LaunchDarkly to your application.
+
+Here's how:
+
+1. From the Guide menu, select [**Get started**](https://app.launchdarkly.com/get-started). The Get started page appears.
+
+![The Guide menu, with the Get started option called out.](guide-menu-get-started.png)
+
+2. In the "Connect LaunchDarkly to your app" panel, select **Connect**.
+
+![The "Connect LaunchDarkly to your app" panel.](connect-an-sdk-panel.png)
+
+3. Follow the steps in the in-app tutorial to select an SDK, connect to a flag, and test your application. Your application displays a message indicating the current value of your flag.
+
+![The "Connect an SDK" in-app tutorial.](connect-an-sdk.png)
+
+### Troubleshooting your SDK connection
+
+The in-app tutorial is complete when LaunchDarkly starts receiving analytics events from your application. In some cases, LaunchDarkly does not receive events immediately, and displays an error message instead.
+
+![The "Connect an SDK" in-app tutorial, if no events are received.](connect-an-sdk-connection-error.png)
+
+If you are having trouble with your SDK connection, here are some actions you can try:
+
+* **Ensure you have a reliable network connection for first-time initialization.** The SDK will time out if it cannot get a network connection to LaunchDarkly. If this happens, it will serve the flag values defined in your application code until it can connect to LaunchDarkly.
+* **Double-check your SDK key.** The example file provided within the tutorial automatically includes the correct SDK key. You can confirm the current value of your SDK key on the **Account settings** page under the Projects tab. Alternatively, you can open the search bar and copy the SDK key for the current environment. To open the search bar, click on the magnifying glass icon or use `CMD+K` (Mac) or `CTRL+K` (PC).
+* **Confirm that you copied the entirety of the sample code to create your application.** If you have modified the sample code, refer to the appropriate SDK documentation. To learn more, visit the  [LaunchDarkly SDK repositories on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-sdk+org%3Alaunchdarkly&type=Repositories).
+
+## Using the interactive demo
+
+You can use the interactive demo to play with feature flags in an existing application. This is a good option if you want to experience how feature flags work without having to create your own application.
+
+As part of the demo, LaunchDarkly automatically creates a new project called "LaunchDarkly demo application" in your account. The project includes two environments and the feature flags that the demo uses.
+
+Here's how to use the interactive demo:
+
+1. From the Guide menu, select [**Get started**](https://app.launchdarkly.com/get-started). The Get started page appears.
+
+![The Guide menu, with the Get started option called out.](guide-menu-get-started.png)
+
+2. In the "Try an interactive demo" panel, select **Begin**.
+
+![The "Try an interactive demo" panel.](interactive-demo-panel.png)
+
+3. A new browser tab opens and describes the demo scenario: you're a game developer working on a game called **Toggle Runner**.
+
+4. Follow the instructions in the demo to release the game and enable different difficulty modes. The demo creates a new project and environment in your account, so you can review the setup as often as you like.
+
+## Exploring additional tutorials
+
+If you have completed the options from the [Get started](https://app.launchdarkly.com/get-started) page within LaunchDarkly and would like to continue exploring, additional tutorials are available in our documentation. The exercises in these tutorials build on the core concepts and behaviors introduced here. To learn more, read [Tutorials](/guides/tutorials).

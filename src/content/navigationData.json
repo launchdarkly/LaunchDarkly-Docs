@@ -24,6 +24,10 @@
           {
             "label": "Joining an account",
             "path": "/home/getting-started/your-account"
+          },
+          {
+            "label": "In-app tutorials",
+            "path": "/home/getting-started/in-app-options"
           }
         ]
       },
