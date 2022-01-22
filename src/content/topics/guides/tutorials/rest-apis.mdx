@@ -389,7 +389,7 @@ The resource name for the request to update a flag is `flags`, just as it was fo
 LaunchDarkly's REST API primarily uses [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) to specify modifications. To use JSON Patch, your request body should include an array of operations. These operations are performed sequentially to complete the request. Each operation is itself a JSON object that requires the following fields:
 
 * `op`: the name of the operation. The most common operation is `replace`, which replaces the current value of a field with a new value that you specify.
-* `path`: the reference to the field you want updated, within its JSON object. For example, you can use `"/definition"` for the field named "definition" at the top level of your feature flag object.
+* `path`: the reference to the field you want updated, within its JSON object. For example, you can use `/definition` for the field named "definition" at the root level of your feature flag object.
 * `value`: the data used by the operation. For a `replace` operation, this is the new value.
 
 In the LaunchDarkly API documentation for each request:
@@ -433,14 +433,14 @@ The response to this request is `200` success code and a JSON representation of 
 ---
 <br/>
 
-A few of the LaunchDarkly REST API endpoints support semantic patch. Semantic patch is a way to specify the modifications you'd like as a set of executable instructions, rather than an specific JSON diff. To learn more, read the blog post [Announcing Semantic Patch](https://launchdarkly.com/blog/announcing-semantic-patch/).
+A few of the LaunchDarkly REST API endpoints support semantic patch. Semantic patch is a way to specify the modifications you'd like as a set of executable instructions, rather than a specific JSON update. To learn more, read the blog post [Announcing Semantic Patch](https://launchdarkly.com/blog/announcing-semantic-patch/).
 
 For semantic patch requests, the structure of the PATCH request is the same. However, you must append `domain-model=launchdarkly.semanticpatch` to the `Content-Type` header. To learn more, read [Required headers](#required-headers).
 
 Although the structure of the request is the same, the content of the request body is different. Set your request body to an object with the following fields:
 
 * `environmentKey`: the environment where the modifications should occur. Recall that your LaunchDarkly project has multiple environments. With semantic patch, you can only update in one environment at a time.
-* `instructions`: an array of instructions. Each instruction must include a `kind` field that indicates the instruction. Depending on the kind, the API may require additional parameters for the instruction. When this is the case, add the parameters as additional fields to the instruction object.
+* `instructions`: an array of instructions. Each instruction must include a `kind` field that indicates the instruction. Depending on the `kind`, the API may require additional parameters for the instruction. When this is the case, add the parameters as additional fields to the instruction object.
 
 When a request supports semantic patch, the API documentation lists the supported `kind`s and describes their parameters. To review the API documentation for this request, read [Update feature flag](https://apidocs.launchdarkly.com/tag/Feature-flags#operation/patchFeatureFlag).
 
@@ -482,7 +482,7 @@ Here are some examples of common use cases:
 * **Check for flags in a particular state.** For example, if you want to create your own dashboard outside of LaunchDarkly you might [list feature flags](https://apidocs.launchdarkly.com/tag/Feature-flags#operation/getFeatureFlags) that are active in a production environment, evaluated in the last four hours, and have a particular tag.
 * **Update feature flags.** You already learned how to [update a feature flag](#updating-a-flag) with a `PATCH` request. You can also build conditional logic into your updates by taking advantage of the additional operations that are available within a JSON Patch request, or explore the operations available through semantic patch. To learn more, read [Updates](https://apidocs.launchdarkly.com/#section/Overview/Updates). Some examples of common reasons to update feature flags include:
   * Writing automated tests for your application. You can set flags to different states and re-run your test suite for each state.
-  * Adding or removing user targets, or adding or removing target rules. You can change a flag's targeting programmatically. To learn more, read the semantic patch instructions in [Update feature flag](https://apidocs.launchdarkly.com/tag/Feature-flags#operation/patchFeatureFlag).
+  * Adding or removing user targets, or adding or removing targeting rules. You can change a flag's targeting programmatically. To learn more, read the semantic patch instructions in [Update feature flag](https://apidocs.launchdarkly.com/tag/Feature-flags#operation/patchFeatureFlag).
 * **Add or remove segments.** Segments allow you to create targeting rules and lists of users that can be shared by one or more feature flags. To learn more, read [Segments](https://apidocs.launchdarkly.com/tag/Segments).
 * **Create new projects and environments for local testing.** For example, each developer has their own development instance of your product. Each instance requires its own set of resources, such as databases, static files, and feature flags. You can use the REST API to [create new projects](https://apidocs.launchdarkly.com/tag/Projects#operation/postProject) and [create new environments](https://apidocs.launchdarkly.com/tag/Environments#operation/postEnvironment) as part of this local setup.
 * **Manage account members.** For example, you can [invite new members](https://apidocs.launchdarkly.com/tag/Account-members#operation/postMembers) or [find account members](https://apidocs.launchdarkly.com/tag/Account-members#operation/getMembers) in a particular role.
@@ -494,7 +494,9 @@ Here are some examples of common use cases:
 If you decide to use LaunchDarkly's REST API as part of your feature management, there are a few considerations to keep in mind:
 
 * **Review the client libraries.** LaunchDarkly auto-generates client libraries based on our OpenAPI specification, so that you can work with the LaunchDarkly REST API in your language of choice. To learn more, visit the [collection of client libraries on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories).
-* **Pay attention to error codes.** Some error codes returned by the REST API are effectively permanent. For example, if you receive a `403 Forbidden` response, you don't have access to the resource you're requesting. Other error codes are temporary but require careful handling. For example, most resources return a `429 Rate limited` response if you make too many requests over a short timeframe. Make sure to call each resource only when you need to. If your code is looping and repeatedly getting a `429` error, build in a back off to reduce the rate at which you're calling an individual resource.
+* **Pay attention to error codes.** Some error codes returned by the REST API are effectively permanent. For example, if you receive a `403 Forbidden` response, you don't have access to the resource you're requesting. Other error codes are temporary but require careful handling. For example, most resources return a `429 Rate limited` response if you make too many requests over a short timeframe. Make sure to call each resource only when you need to. If your code is looping and repeatedly getting a `429` error, build in a back off to reduce the rate at which you're calling an individual resource. 
+
+ Alternatively, consider if there is another way to approach the problem. For example, if your flag targets individual users and you frequently add and remove the same user, try using flag targeting rules instead.
 * **Contact the LaunchDarkly Support team.** If you're considering building out significant functionality with the REST API, [contact Support](https://support.launchdarkly.com/hc/en-us). There may already be a complete or partial solution available that doesn't require custom code on your part.
 
 ## Conclusion
