@@ -21,7 +21,7 @@ You should understand the following concepts before you read this guide.
 
 Flags can be either temporary or permanent. You should create a temporary flag when you know you can remove it after a feature is fully deployed or the flag is no longer needed. Temporary flags can include flags used for experimentation, rollout, testing, and feature releases. Permanent flags are a part of regular software operations and architecture. When you create a permanent flag, you do not plan to remove it.
 
-Every flag has a "permanent" checkbox on its **Settings** tab. This checkbox identifies long-lived flags that no one should remove. To learn more, read [Creating a feature flag](/getting-started/feature-flags#creating-a-feature-flag).
+Every flag has a "permanent" checkbox on its **Settings** tab. This checkbox identifies long-lived flags that no one should remove. To learn more, read [Creating a feature flag](/home/getting-started/feature-flags#creating-a-feature-flag).
 
 ### Experimentation
 
@@ -49,7 +49,7 @@ Answering these questions will help you determine how you name and describe the 
 
 ### Rollout flags
 
-You can wrap a flag around code for a new or improved feature, and use it to release the new feature to users in increments. Rollout flags are almost always boolean with `true` or `false` variations that represent whether the new code is enabled. 
+You can wrap a flag around code for a new or improved feature, and use it to release the new feature to users in increments. Rollout flags are almost always boolean with `true` or `false` variations that represent whether the new code is enabled.
 
 Rollout flags are temporary. After you verify the new code is stable and roll out the feature to 100% of users, you should delete the flag. To learn more, read [Percentage rollouts](/home/flags/targeting-users#percentage-rollouts).
 
@@ -90,7 +90,7 @@ You specify both of these identifiers when you create a flag for the first time.
 
 ### Creating a flag naming scheme
 
-You are likely to make many more flags in the future, and it helps to name them consistently. The best way to write comprehensible names is to use a **flag naming scheme**. 
+You are likely to make many more flags in the future, and it helps to name them consistently. The best way to write comprehensible names is to use a **flag naming scheme**.
 
 Flag naming schemes should address at least three things:
 
@@ -135,7 +135,7 @@ Try to reuse existing tags as much as possible. This streamlines the dashboard a
 
 Most flags are boolean with two variations: `true` and `false`. However, you can use multivariate flags that evaluate different values, like strings or numbers, when you need to do more complex operations. You can add more variations to a multivariate flag at any time.
 
-For example, imagine some of your users need to be charged sales tax for a purchase. If they are charged, the tax is 7%. If they are not charged, it is zero. You could make a boolean flag that determines whether or not tax is applied by assigning the tax to `true` or `false` states. 
+For example, imagine some of your users need to be charged sales tax for a purchase. If they are charged, the tax is 7%. If they are not charged, it is zero. You could make a boolean flag that determines whether or not tax is applied by assigning the tax to `true` or `false` states.
 
 However, there is an opportunity to add more complexity later if you use a multivariate flag and assign the flag variations to the numbers `7` and `0`. If the tax rate later changes, you can update the tax percentage charged by the app without changing your code. Alternatively, you could make more variations of the same flag that address other tax rates used in different regions, and use targeting rules to automatically return the user's correct tax rate.
 
@@ -152,7 +152,7 @@ LaunchDarkly SDKs are divided into two types:
 
 Client-side SDKs evaluate flags differently than server-side SDKs, because client-side SDKs may connect to and serve insecure or public devices. It is important to understand the security impact of making flags available on the client side. To learn more, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
-You can make new flags available to client-side and mobile SDKs from the "Create a feature flag" screen. To learn how, read [Making flags available to client-side and mobile SDKs](/home/getting-started/feature-flags#making-flags-available-to-client-side-and-mobile-sdks). 
+You can make new flags available to client-side and mobile SDKs from the "Create a feature flag" screen. To learn how, read [Making flags available to client-side and mobile SDKs](/home/getting-started/feature-flags#making-flags-available-to-client-side-and-mobile-sdks).
 
 For existing flags, you can make flags available to client-side and mobile SDKs from the flag's **Settings** tab.
 
