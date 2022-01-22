@@ -1,13 +1,19 @@
 ---
 path: '/home/experimentation/allocation'
 title: 'Allocating experiment traffic'
-description: 'This topic explains how to include users in an experiment using experiment allocation.'
+description: 'This topic explains how to include specific groups of users in an experiment using experiment allocation.'
 published: true
 ---
 
 ## Overview
 
-This topic explains how to include users in an experiment using experiment allocation.
+This topic explains how to include specific groups of users in an experiment using experiment allocation.
+
+## Understanding experiment populations
+
+You have the option to only include a subset of users in your experiments, which gives you accurate experiment results more quickly. This subset of users is called your "experiment population."
+
+You can create a custom experiment population by selecting specific flag targeting rules to include in your active experiments. To learn more, read [Defining the audience for an experiment](/home/experimentation/create#defining-the-audience-for-an-experiment).
 
 ## Prerequisites
 
@@ -143,7 +149,16 @@ You must request that we enable experiment allocation so that we can confirm tha
 
 Enabling experiment allocation does not affect any experiments you are currently running. Your experiments will continue to record results for the same audience until you pause the experiment.
 
-Once experiment allocation is enabled, all new or paused experiments will require an experiment allocation before you can begin recording.
+After experiment allocation is enabled, all new or paused experiments will require an experiment allocation before you can begin recording.
+
+<Callout intent="info">
+<CalloutTitle>Experiment allocation</CalloutTitle>
+<CalloutDescription>
+
+If you do not have experiment allocation enabled, customizing your experiment populations works differently than described below. To learn how to customize your experiments without experiment allocation enabled, read [Controlling experiment populations](/home/experimentation/populations).
+
+</CalloutDescription>
+</Callout>
 
 ## Using experiment allocation
 

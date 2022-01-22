@@ -9,19 +9,20 @@ published: true
 
 This topic explains what an experiment population is, and how to use LaunchDarkly's features to show experiments only to a specific group of users.
 
+<Callout intent="alert">
+<CalloutTitle>These methods are only for accounts that do not use allocation</CalloutTitle>
+<CalloutDescription>
+
+Most LaunchDarkly accounts use allocation to control their experiment traffic, instead of the methods described below. Only use the methods on this page if allocation is not enabled for your account. To learn how to customize your experiments using allocation, read [Allocating experiment traffic](/home/experimentation/allocation). If you are unsure whether your account has allocation enabled, [contact Support](https://support.launchdarkly.com/hc/en-us).
+
+</CalloutDescription>
+</Callout>
+
 ## Understanding experiment populations
 
-You can get accurate results more quickly if you only expose some of your user base to experiments. You have the option to only include a subset of users in your experiments. This subset of users is referred to as your _experiment population_.
+You have the option to only include a subset of users in your experiments, which gives you accurate experiment results more quickly. This subset of users is called your "experiment population."
 
-You can create a custom experiment population by selecting specific flag targeting rules to include in your active experiments.
-
-For example, imagine you are testing alternate copy for your checkout button. You're currently targeting all your Canadian and US users with the 'true' variation for the alternate button, which shows your new copy, but you only want to run an experiment measuring click conversions for users in the United States. To accomplish this, you select the user targeting rule that affects US-based users and de-select the rule that targets users in Canada.
-
-You may want to refine your experiment population for any of the following reasons:
-
-1. Running targeted experiments for a subset of your flag-targeted users.
-2. Excluding user groups whose events you do not need to measure. For example, users affected by 'Default' rules.
-3. Reducing the events volume an experiment generates in order to manage billing costs.
+You can create a custom experiment population by selecting specific flag targeting rules to include in your active experiments. To learn more, read [Defining the audience for an experiment](/home/experimentation/create#defining-the-audience-for-an-experiment).
 
 <Callout intent="info">
 <CalloutTitle>Can't see the "Configure event settings" options?</CalloutTitle>
