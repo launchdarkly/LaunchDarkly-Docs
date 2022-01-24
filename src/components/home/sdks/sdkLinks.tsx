@@ -4,17 +4,26 @@ import { FunctionComponent } from 'react'
 import { SideNavItem } from '../../sideNav/types'
 import Icon, { IconName } from '../../icon'
 import Link from '../../link'
-
+import useGitGatsbyTheme from '../../../hooks/useGitGatsbyTheme'
 type SdkLinkProps = {
   navItem: SideNavItem
 }
 
 const SdkLink: FunctionComponent<SdkLinkProps> = ({ navItem }) => {
+  const { theme } = useGitGatsbyTheme()
   const { label, shortLabel, path, svg } = navItem
   const display = shortLabel ?? label.split(' ')[0]
   const svgIconName = svg ?? (display.toLowerCase() as IconName)
   return (
-    <Link to={path} p="2" sx={{ '&:hover': { bg: 'muted', '& svg': { fill: 'primary' } }, textDecoration: 'none' }}>
+    <Link
+      to={path}
+      p="2"
+      sx={{
+        '&:hover': { bg: 'muted', '& svg': { fill: 'primary' } },
+        textDecoration: 'none',
+        p: { color: theme.colors.primarySafe },
+      }}
+    >
       <Icon name={svgIconName} height="2rem" fill="text" />
       <p sx={{ mt: 3 }}>{display}</p>
     </Link>

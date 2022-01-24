@@ -94,7 +94,7 @@ const plugins = [
         options: {
           svgoConfig: {
             plugins: [
-              { name: 'removeAttrs', params: { attrs: 'fill' } },
+              { name: 'removeAttrs', params: { attrs: ['fill', 'path:fill'] } },
               {
                 name: 'removeViewBox',
                 active: false,
