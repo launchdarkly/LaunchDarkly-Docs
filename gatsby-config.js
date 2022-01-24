@@ -209,16 +209,20 @@ if (isProd || isStaging) {
       protocol: 'https',
       hostname: process.env.AWS_HOSTNAME,
       generateRedirectObjectsForPermanentRedirects: true,
-      generateIndexPageForRedirect: true,
+      generateIndexPageForRedirect: isProd, // this is on by default, but should should be off in staging
       enableS3StaticWebsiteHosting: false,
     },
   }
   plugins.push(gatsbyPluginS3)
-} else {
-  // GOTCHA: On dev, the client side redirect plugin auto-generates index.html files
+}
+
+if (!isProd) {
+  // GOTCHA: On dev and staging, the client side redirect plugin auto-generates index.html files
   // which acts as default pages which contains scripts to enforce redirects defined in
   // gatsby-node.js. Production doesn't need this because gatsby-plugin-s3 does this for us
   // automatically
+  // Re:staging - the s3 plugin doesn't properly generate redirects when using bucketPrefix
+  // Track issue here: https://github.com/jariz/gatsby-plugin-s3/issues/24
   plugins.push('gatsby-plugin-client-side-redirect')
 }
 
