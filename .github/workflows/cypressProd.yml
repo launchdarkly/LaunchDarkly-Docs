@@ -34,6 +34,7 @@ jobs:
             /home/runner/work/git-gatsby/git-gatsby/cypress/screenshots
           retention-days: 5
       - name: Notify slack
+        if: failure()
         uses: slackapi/slack-github-action@v1.17.0
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
