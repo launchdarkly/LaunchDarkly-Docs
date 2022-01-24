@@ -34,10 +34,39 @@ jobs:
             /home/runner/work/git-gatsby/git-gatsby/cypress/screenshots
           retention-days: 5
       - name: Notify slack
-        if: ${{ failure() }}
-        uses: Ilshidur/action-slack@2.1.0
+        uses: slackapi/slack-github-action@v1.17.0
         env:
-          SLACK_USERNAME: Docs DeployBot
-          SLACK_WEBHOOK: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
         with:
-          args: ':rotating_light::rotating_light::rotating_light: The Cypress tests failed on deploy prod step. https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} :rotating_light::rotating_light::rotating_light:'
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":rotating_light::rotating_light::rotating_light::link: Invalid internal link found on *<https://docs.launchdarkly.com|Production>* :rotating_light::rotating_light::rotating_light:"
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "View failed run"
+                    },
+                    "action_id": "view-action-${{github.run_id}}",
+                    "url": "https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
+                  }
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "plain_text",
+                      "text": ":github: Deploy triggered by ${{github.actor}}",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
