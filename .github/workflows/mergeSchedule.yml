@@ -27,7 +27,7 @@ jobs:
           merge_method: squash
           time_zone: 'America/Los_Angeles'
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   display_PR_status_job:
     name: Show status of PR
