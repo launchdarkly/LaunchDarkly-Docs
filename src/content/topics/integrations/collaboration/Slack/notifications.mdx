@@ -43,16 +43,15 @@ You do not need to manually invite the LaunchDarkly bot user to public channels.
   </CalloutDescription>
 </Callout>
 
-To add a flag to a channel:
+To add a flag filter to a channel:
 
 1. Open the Slack channel where you wish notifications about a flag to appear.
-2. Type `/launchdarkly` in your Slack client's text bar and press **Enter**. The LaunchDarkly Slack app appears.
-3. Find the flag you wish to subscribe to by filtering in the Slack app.
+2. Type `/launchdarkly subscribe` in your Slack client's text bar and press **Enter**. The filter modal appears.
+3. Filter on the project, environment, flag key, status, action, or flag tags to narrow the scope of changes.
 4. Click **Add to Channel** in the dropdown menu next to the flag you wish to subscribe to.
 5. The channel receives a notification that the flag has been added to that channel.
 
 ![A notification that a flag has been added to channel.](slack-flag-notifications.png)
-
 
 ![A notification that a flag subscribed to the channel has had a status change.](slack-flag-change.png)
 
@@ -76,16 +75,24 @@ To set up a ready to remove flag alert:
 
 ## Removing flag notifications from a channel
 
-You are able to remove Flags from a channel so that you no longer receive notifications when the flag changes.
+You are able to remove flags from a channel so that you no longer receive notifications when the flag changes.
 
-1. Open the Slack channel where you wish notifications about a flag to appear.
-2. Type `/launchdarkly` in your Slack client's text bar and press **Enter**. The LaunchDarkly Slack app appears.
-3. Click **List Channel Flags**. A list of the flags sending associated with the channel appears.
-4. Locate the flag you wish to remove from the channel.
-5. Select **Remove from channel** in the dropdown menu beside the name of the flag.
-6. Once the subscription is removed, the entire channel receives a notification of the change.
+1. Open the Slack channel where you would like to remove notifications.
+2. Type `/launchdarkly flags` and press **Enter**. A list of flags associated with the channel appears.
+3. Locate the flag you wish to remove from the channel.
+4. Select **Remove flag from channel** in the dropdown menu beside the name of the flag.
+5. Once the subscription is removed, the entire channel receives a notification of the change.
 
-![Remove flag from channel.](slack-view-flag-details.png)
+![The output of the `/launchdarkly flags` command with the "Remove flag from channel" menu item highlighted.](slack-remove-flag-from-channel.png)
+
+## Removing flag filter notifications from a channel
+
+1. Open the Slack channel where you would like to remove notifications.
+2. Type `/launchdarkly filters` and press **Enter**. A list of flag filters associated with the channel appears.
+3. Locate the filter you wish to remove from the channel.
+4. Select **Remove** to remove notifications matching the filter from the Slack channel.
+
+![The output of the `/launchdarkly filters` command.](slack-manage-filters.png)
 
 ## Receiving approval request notifications
 
