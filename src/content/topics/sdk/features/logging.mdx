@@ -30,7 +30,7 @@ This feature is available in the following client-side SDKs:
 
 The client-side .NET SDK uses the `Common.Logging` framework. For an example configuration, read the [Common.Logging README](https://github.com/net-commons/common-logging#2-register-and-configure-commonlogging).
 
-Be aware of two considerations before you enable the DEBUG log level:
+There are two important things to consider before you enable the DEBUG log level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
@@ -317,10 +317,11 @@ This feature is available in the following server-side SDKs:
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
+* [Rust](#rust)
 
 ### .NET (server-side)
 
-The .NET SDK has four logging levels: `Debug`, `Info`, `Warn`, and `Error`. By default, the lowest enabled level is `Info`, so `Debug` messages are hidden. Be aware of two considerations if you enable the `Debug` level:
+The .NET SDK has four logging levels: `Debug`, `Info`, `Warn`, and `Error`. By default, the lowest enabled level is `Info`, so `Debug` messages are hidden. There are two important things to consider if you enable the `Debug` level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
@@ -478,7 +479,7 @@ config.Logging = ldcomponents.NoLogging()
 </CodeTabItem>
 </CodeTabs>
 
-Be aware of two considerations if you enable the `Debug` log level:
+There are two things to consider if you enable the `Debug` log level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
@@ -499,7 +500,7 @@ In versions of the SDK before 5.0, logger names were not standardized and were s
 
 For an example SLF4J configuration, visit [hello-java](https://github.com/launchdarkly/hello-java).
 
-Be aware of two considerations when enabling the `DEBUG` log level:
+There are two important things to consider before you enable the `DEBUG` log level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
@@ -541,7 +542,7 @@ const config = {
 </CodeTabItem>
 </CodeTabs>
 
-Be aware of two considerations when enabling debug-level logging:
+There are two important things to consider before you enable debug-level logging:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
@@ -550,7 +551,7 @@ Be aware of two considerations when enabling debug-level logging:
 
 The PHP SDK uses [Monolog](https://github.com/Seldaek/monolog). All loggers are namespaced under `LaunchDarkly`.
 
-Be aware of two considerations when enabling the DEBUG log level:
+There are two important things to consider before you enable the DEBUG log level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
@@ -576,7 +577,7 @@ $client = new LaunchDarkly\LDClient("YOUR_SDK_KEY", array("logger" => new Logger
 
 The Python SDK uses Python's built-in [logging library](https://docs.python.org/2/library/logging.html). All loggers are namespaced under `ldclient.util`. For an example configuration, visit [hello-python](https://github.com/launchdarkly/hello-python).
 
-Be aware of two considerations when enabling the DEBUG log level:
+There are two important things to consider before you enable the DEBUG log level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
@@ -585,7 +586,7 @@ Be aware of two considerations when enabling the DEBUG log level:
 
 The Ruby SDK uses Ruby's built-in [Logger class](https://ruby-doc.org/stdlib-2.4.0/libdoc/logger/rdoc/Logger.html). All loggers are namespaced under `[LDClient]`.
 
-Be aware of two considerations when enabling the DEBUG log level:
+There are two important things to consider before you enable the DEBUG log level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
@@ -609,3 +610,12 @@ client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
 
 </CodeTabItem>
 </CodeTabs>
+
+### Rust
+
+The Rust SDK uses the [log](https://docs.rs/log/latest/log/) crate.
+
+There are two important things to consider before you enable the DEBUG log level:
+
+1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
+2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.

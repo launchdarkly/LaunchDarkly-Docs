@@ -212,6 +212,7 @@ This feature is available in the following server-side SDKs:
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
+* [Rust](#rust)
 
 ### .NET (server-side)
 
@@ -452,6 +453,29 @@ Here's how:
 config = LaunchDarkly::Config.new({offline: true})
 client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
 client.variation("any.feature.flag", user, false) # will always return the default value (false)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Rust
+
+In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. Offline mode lets you do this easily.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+let config = ConfigBuilder::new("sdk-key").offline(true).build();
+let ld_client = Client::build(config).unwrap();
+ld_client.bool_variation(&user, "any.feature.flag", false); // will always return the default value (false)
 ```
 
 </CodeTabItem>

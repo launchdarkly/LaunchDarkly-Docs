@@ -4,6 +4,7 @@ export type LanguageName =
   | 'java'
   | 'javascript'
   | 'python'
+  | 'rust'
   | 'haskell'
   | 'hcl'
   | 'lua'
@@ -31,6 +32,7 @@ export const languageDisplay: { [key in LanguageName]: string } = {
   lua: 'Lua',
   php: 'PHP',
   python: 'Python',
+  rust: 'Rust',
   objectivec: 'iOS Objective-C',
   swift: 'iOS Swift',
   dart: 'Dart',

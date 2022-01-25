@@ -212,6 +212,7 @@ Server-side SDKs must be the following minimum version or higher to support sema
 - Node: 3.4.0
 - Python: 4.3.0
 - Ruby: 2.5.0
+- Rust: 1.0.0-beta.1
 
 No updates are required for client-side SDKs.
 
@@ -276,6 +277,7 @@ Here's how:
     { label: '.NET', value: 'dotnet', },
     { label: 'Python', value: 'py', },
     { label: 'Ruby', value: 'ruby', },
+    { label: 'Rust', value: 'rust', },
     { label: 'Node.js', value: 'js', },
     { label: 'PHP', value: 'php', },
   ]
@@ -333,6 +335,17 @@ user = {
 
 ```ruby
 user = {:key => "foo@example.com", :custom => {:groups => "beta_testers"}}
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="rust">
+
+```rust
+let custom = hashmap! {
+    "groups".into() => "beta_testers".into(),
+};
+let user = User::with_key("foo@example.com").custom(custom).build();
 ```
 
 </CodeTabItem>

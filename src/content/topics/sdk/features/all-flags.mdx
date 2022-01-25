@@ -15,7 +15,7 @@ The all flags feature returns the state of all feature flags targeted to a user.
 
 In most of the client- and server-side SDKs, getting all flags does not create users or other analytic events in your LaunchDarkly account. Unlike evaluating individual flags or identifying users, getting all flags usually does not send events that create a user within LaunchDarkly or populate the "Insights" for a flag.
 
-For client-side SDKs, The all flags feature may return a null value in cases where a flag's fallback variation would be served to the user.
+For client-side SDKs, the all flags feature may return a null value in cases where a flag's fallback variation would be served to the user.
 
 For server-side SDKs, you can use the all flags feature to pass feature flags to your front end. In particular, you can use it to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript). To learn more about bootstrapping from a client-side SDK, read [Bootstrapping](/sdk/features/bootstrapping).
 
@@ -263,6 +263,7 @@ This feature is available in the following server-side SDKs:
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
+* [Rust](#rust)
 
 ### .NET (server-side)
 
@@ -561,3 +562,28 @@ state = client.all_flags_state(user)
 </CodeTabs>
 
 To learn more, read the [API documentation](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/LDClient.html#all_flags_state-instance_method).
+
+### Rust
+
+The `all_flags_detail` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
+
+This method can be useful for passing feature flags to your front end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
+
+To use the all flags feature:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+let state = ldclient.all_flags_detail(&user, FlagDetailConfig::new());
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read the [API documentation](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.all_flags_detail).

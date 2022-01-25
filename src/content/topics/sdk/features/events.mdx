@@ -382,6 +382,7 @@ This feature is available in the following server-side SDKs:
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
+* [Rust](#rust)
 
 ### .NET (server-side)
 
@@ -667,3 +668,28 @@ client.track("your-goal-key", user)
 </CodeTabs>
 
 You can also attach an extra hash containing arbitrary data to your event. To learn how, read [`track`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/LDClient.html#track-instance_method).
+
+### Rust
+
+The `track` methods allow you to record actions your users take on your site. This lets you record events that take place on your server.
+
+In this example, we use [`track_event`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.track_event) to send an event called `completed-purchase`. This event can correspond to a metric with the same key.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'Rust', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+client.track_event(user, "completed-purchase");
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You can also attach custom data to your event by calling [`track_data`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.track_data), which takes an extra parameter. Or, if you are using experimentation, you can specify a numeric metric with [`track_metric`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.track_metric).

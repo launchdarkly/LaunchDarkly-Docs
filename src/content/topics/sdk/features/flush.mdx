@@ -285,6 +285,7 @@ This feature is available in the following server-side SDKs:
 * [Node.js (server-side)](#nodejs-server-side)
 * [Python](#python)
 * [Ruby](#ruby)
+* [Rust](#rust)
 
 ### .NET (server-side)
 
@@ -488,6 +489,29 @@ Here's how:
 
 ```ruby
 client.flush
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Rust
+
+Internally, the LaunchDarkly SDK keeps an event buffer for the analytics events that are produced by calling the `variation` or `variation_detail` methods, the `track` methods, or `identify`. These are flushed periodically in a background thread. In some situations, you may want to manually call [`flush`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.flush) to process events immediately.
+
+The flush interval is configurable. If you need to change the interval, you can do so by making a custom client configuration.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+let result = client.flush();
 ```
 
 </CodeTabItem>

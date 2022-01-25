@@ -26,6 +26,7 @@ import 'prismjs/components/prism-brightscript'
 import 'prismjs/components/prism-nginx'
 import 'prismjs/components/prism-dart'
 import 'prismjs/components/prism-erlang'
+import 'prismjs/components/prism-rust'
 import { copyToClipboard } from '../../../utils/copyToClipboard'
 
 export type CodeSnippetProps = {

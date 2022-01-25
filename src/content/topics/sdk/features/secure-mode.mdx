@@ -39,6 +39,7 @@ You can use the following server-side SDKs to generate a secure mode hash:
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
+* [Rust](#rust)
 
 ### .NET (server-side)
 
@@ -182,6 +183,27 @@ Here is the method:
 
 ```ruby
 client.secure_mode_hash(user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Rust
+
+The `secure_mode_hash` method computes an HMAC signature of a user signed with the client's SDK key.
+
+Here is the method:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+client.secure_mode_hash(&user);
 ```
 
 </CodeTabItem>

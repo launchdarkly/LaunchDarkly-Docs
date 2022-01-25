@@ -13,7 +13,7 @@ You can also use this SDK to clone and run a [sample application](https://github
 
 After you complete the [Getting Started process](/home/getting-started), follow these instructions to start using the LaunchDarkly SDK in your Python application.
 
-The first step is to install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. If you want to depend on a specific version, refer to the [SDK releases page](https://github.com/launchdarkly/python-server-sdk/releases) to identify the latest version.
+First, install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. If you want to depend on a specific version, refer to the [SDK releases page](https://github.com/launchdarkly/python-server-sdk/releases) to identify the latest version.
 
 Here's how:
 
@@ -63,7 +63,9 @@ It's important to make `ldclient` a singleton. The client instance maintains int
 </CalloutDescription>
 </Callout>
 
-To create a single instance:
+Only create one instance of `client`.
+
+Here's how:
 
 <CodeTabs
   defaultValue="py"
@@ -81,7 +83,9 @@ client = ldclient.get()
 </CodeTabItem>
 </CodeTabs>
 
-Using `client`, you can check which variation a particular will should receive for a given feature flag:
+You can use `client` to check which variation a particular user will receive for a given feature flag.
+
+Here's how:
 
 <CodeTabs
   defaultValue="py"

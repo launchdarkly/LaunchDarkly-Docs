@@ -1120,6 +1120,10 @@
           {
             "label": "Ruby SDK reference",
             "path": "/sdk/server-side/ruby"
+          },
+          {
+            "label": "Rust SDK reference",
+            "path": "/sdk/server-side/rust"
           }
         ]
       }

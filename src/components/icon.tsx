@@ -22,6 +22,7 @@ export type IconName =
   | 'php'
   | 'python'
   | 'ruby'
+  | 'rust'
   | 'alert-rhombus'
   | 'checkbox-marked-circle'
   | 'remove-circle'

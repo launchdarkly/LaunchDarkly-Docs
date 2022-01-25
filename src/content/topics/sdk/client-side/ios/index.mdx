@@ -26,7 +26,7 @@ After you complete the [Getting started](/home/getting-started) process, follow 
 
 ### Including the SDK as a dependency
 
-The first step is to install the LaunchDarkly SDK as a dependency in your application. 
+The first step is to install the LaunchDarkly SDK as a dependency in your application.
 
 LaunchDarkly supports multiple methods for installing the SDK:
 - [Using the Swift Package Manager](#using-the-swift-package-manager)
@@ -266,7 +266,9 @@ To make a flag available to this SDK, check the **SDKs using Mobile key** checkb
 </CalloutDescription>
 </Callout>
 
-Using the `LDClient` instance, you can check which variation the configured user will receive for a given feature flag:
+You can use `client` to check which variation a particular user will receive for a given feature flag.
+
+Here's how:
 
 <CodeTabs
   defaultValue="swift"

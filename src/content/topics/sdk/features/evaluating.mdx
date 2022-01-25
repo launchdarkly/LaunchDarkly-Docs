@@ -369,10 +369,17 @@ This feature is available for all of our server-side SDKs:
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
+* [Rust](#rust)
 
 ### .NET (server-side)
 
-The `Variation` methods determine whether a flag is enabled or not for a specific user. In .NET, there is  a `Variation` method for each type, such as [`BoolVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_BoolVariation_) and [`StringVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_StringVariation_).
+The `Variation` methods determine whether a flag is enabled or not for a specific user. In .NET, there is  a `Variation` method for each type:
+* [`BoolVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_BoolVariation_)
+* [`DoubleVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_DoubleVariation_)
+* [`FloatVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_FloatVariation_)
+* [`IntVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_IntVariation_)
+* [`JsonVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_JsonVariation_)
+* [`StringVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_StringVariation_).
 
 `Variation` calls take the feature flag key, a [`User`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.User.html), and a default value. The `Variation` call adds a user to the Users dashboard if a user with that key doesn't exist already.
 
@@ -475,9 +482,14 @@ Flag = ldclient:variation(<<"my-bool-key">>, #{key => <<"aa0ceb">>,}, false, my_
 
 ### Go
 
-The `Variation` methods determine whether a flag is enabled or not for a specific user. In Go, there is a `Variation` method for each type: [`BoolVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.BoolVariation), [`IntVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.IntVariation), [`Float64Variation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Float64Variation), [`StringVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.StringVariation) and [`JSONVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.JSONVariation), which can be any JSON type.
+The `Variation` methods determine whether a flag is enabled or not for a specific user. In Go, there is a `Variation` method for each type: 
+* [`BoolVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.BoolVariation)
+* [`IntVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.IntVariation)
+* [`Float64Variation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Float64Variation)
+* [`StringVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.StringVariation)
+* [`JSONVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.JSONVariation), which can be any JSON type.
 
-`Variation` methods take the feature flag key, a `User`, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified. In the example above the default value is `false`.
+`Variation` methods take the feature flag key, a `User`, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified. In the example below, the default value is `false`.
 
 The `Variation` call generates analytics events to tell LaunchDarkly about the flag evaluation and the user properties, so the user will be added to the Users dashboard if a user with that key doesn't exist already.
 
@@ -680,6 +692,37 @@ Here is an example:
 
 ```ruby
 value = client.variation("your.feature.key", user, false)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Rust
+
+The `variation` methods determine whether a flag is enabled or not for a specific user. In Rust, there is a `variation` method for each type: 
+* [`bool_variation`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.bool_variation),
+* [`int_variation`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.int_variation),
+* [`float_variation`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.float_variation),
+* [`str_variation`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.str_variation) for strings, and
+* [`json_variation`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.json_variation), which can be any JSON type.
+
+`variation` methods take a `User`, the feature flag key, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified. In the example below, the default value is `false`.
+
+The `variation` call generates analytics events to tell LaunchDarkly about the flag evaluation and the user properties, so the user will be created in LaunchDarkly if a user with that key doesn't exist already.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+let result = client.bool_variation(&user, "your.feature.key", false);
+// result is now true or false depending on the setting of this boolean feature flag
 ```
 
 </CodeTabItem>

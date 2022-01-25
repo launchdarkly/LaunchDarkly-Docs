@@ -222,6 +222,7 @@ This feature is available in the following server-side SDKs:
 * [Node.js (server-side)](#nodejs-server-side)
 * [Python](#python)
 * [Ruby](#ruby)
+* [Rust](#rust)
 
 ### .NET (server-side)
 
@@ -393,3 +394,23 @@ client.alias(new_user, previous_user)
 
 </CodeTabItem>
 </CodeTabs>
+
+### Rust
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+client.alias(user, previous_user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+

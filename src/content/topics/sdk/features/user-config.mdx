@@ -81,7 +81,7 @@ LDUser user = User.Builder("aa0ceb")
 The argument to `Builder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
 
 <Callout intent="info">
-<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
 Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way. The client-side .NET SDK is strongly-typed, so be aware of this distinction.
@@ -125,7 +125,9 @@ When the SDK sends this user back to LaunchDarkly, it removes the `email` attrib
 #### Anonymous users in the client-side .NET SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="csharp"
@@ -207,7 +209,7 @@ val user: LDUser = LDUser.Builder("aa0ceb")
 The argument to `Builder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
 
 <Callout intent="info">
-<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
 Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way. The Android SDK is strongly-typed, so be aware of this distinction.
@@ -297,7 +299,9 @@ When the SDK sends this user back to LaunchDarkly, it removes the `name` and `gr
 #### Anonymous users in the Android SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="java"
@@ -361,7 +365,7 @@ LDUserSetCustomAttributesJSON(user, attributes);
 The argument to `LDUserNew` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
 
 <Callout intent="info">
-<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
 Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value that looks like a number or a boolean, the SDK interprets it that way.
@@ -400,7 +404,9 @@ LDConfigSetAllAttributesPrivate(config, true);
 #### Anonymous users in the C/C++ SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="c"
@@ -459,7 +465,7 @@ const user = {
 The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
 
 <Callout intent="info">
-<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
 Most of the built-in attributes, like names and email addresses, expect string values. Custom attribute values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
@@ -532,7 +538,9 @@ In the above example, the SDK sends only the `key` and `name` back to LaunchDark
 #### Anonymous users in the Electron SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="js"
@@ -586,7 +594,7 @@ LDUser user = LDUserBuilder('aa0ceb')
 The argument to `LDUserBuilder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
 
 <Callout intent="info">
-<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
 Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. Custom attribute values in the Flutter SDK use the `LDValue` class to support the various underlying types for the values. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way. The Flutter SDK is strongly-typed, so be aware of this distinction.
@@ -649,7 +657,9 @@ When the SDK sends this user back to LaunchDarkly, the `name` and `group` attrib
 #### Anonymous users in the Flutter SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="dart"
@@ -820,7 +830,7 @@ const user = {
 The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
 
 <Callout intent="info">
-<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
 Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
@@ -902,7 +912,9 @@ SDK versions earlier than 2.0 use snake case rather than camel case in the optio
 #### Anonymous users in the JavaScript SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="js"
@@ -976,7 +988,7 @@ const user = {
 The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
 
 <Callout intent="info">
-<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
 Most of the built-in attributes, like names and email addresses, expect string values. Custom attribute values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
@@ -1049,7 +1061,9 @@ In the above example, the SDK sends only the user's key and name back to LaunchD
 #### Anonymous users in the Node.js SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="js"
@@ -1231,6 +1245,7 @@ Here are the configuration options for user entities in server-side SDKs:
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
+* [Rust](#rust)
 
 ### .NET (server-side)
 
@@ -1261,7 +1276,7 @@ LDUser user = User.Builder("aa0ceb")
 The argument to `Builder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
 
 <Callout intent="info">
-<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
 Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. If you enter a custom value that looks like a number or a boolean, the SDK interprets it that way. The .NET SDK is strongly-typed, so be aware of this distinction.
@@ -1305,7 +1320,9 @@ When the SDK sends this user back to LaunchDarkly, it removes the `email` attrib
 #### Anonymous users in the .NET SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="csharp"
@@ -1362,7 +1379,9 @@ The argument to `Builder` is the user's key. The key should uniquely identify ea
 #### Anonymous users in the Apex SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="java"
@@ -1549,7 +1568,9 @@ LDUserAddPrivateAttribute(user, "email");
 #### Anonymous users in the C/C++ SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="c"
@@ -1703,10 +1724,10 @@ user2 := lduser.NewUserBuilder("user2-key").
 
 The most common attribute is the user's key. In this case we used the strings `"user1-key"` and `"user2-key"`. The user key is the only mandatory user attribute. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
 
-The documentation for [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User) and [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder) shows all of the available attributes.
+To learn more about the available attributes, read [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User) and [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder).
 
 <Callout intent="info">
-<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
 Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. In SDK versions 4.16.0 and later, these types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value) type; earlier versions use the catch-all Go type `interface{}`. If you enter a custom value on the dashboard that looks like a number or a boolean, LaunchDarkly interprets it that way. The Go SDK is strongly-typed, so be aware of this distinction.
@@ -1781,7 +1802,9 @@ user := lduser.NewUserBuilder("user-key").
 #### Anonymous users in the Go SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="go"
@@ -1915,6 +1938,8 @@ user' = userSetPrivateAttributeNames (fromList ["email"]) user
 
 You can distinguish logged-in users from anonymous users in the SDK.
 
+Here's how:
+
 <CodeTabs
   defaultValue="haskell"
   values={[
@@ -1962,7 +1987,7 @@ The argument to `Builder` is the user's key. The key should uniquely identify ea
 Our Javadoc for [LDUser.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/LDUser.Builder.html) shows you all the attributes that LaunchDarkly supports by default.
 
 <Callout intent="info">
-<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
 Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way. The Java SDK is strongly-typed, so be aware of this distinction.
@@ -2034,7 +2059,9 @@ When the SDK sends this user back to LaunchDarkly, it removes the `email` attrib
 #### Anonymous users in the Java SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="java"
@@ -2116,7 +2143,7 @@ var user = {
 The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
 
 <Callout intent="info">
-<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
 Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
@@ -2160,7 +2187,9 @@ When the SDK sends this user back to LaunchDarkly, it removes the `email` attrib
 #### Anonymous users in the Node.js SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="js"
@@ -2201,7 +2230,7 @@ $user = (new LDUserBuilder("aa0ceb"))->firstName("Ernestina")->lastName("Evans")
 The first argument to [`LDUserBuilder`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDUserBuilder.html) is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
 
 <Callout intent="info">
-<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
 Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way. The PHP SDK is strongly-typed, so be aware of this distinction.
@@ -2245,7 +2274,9 @@ When the SDK sends this user back to LaunchDarkly, it removes the `email` attrib
 #### Anonymous users in the PHP SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="php"
@@ -2296,7 +2327,7 @@ user = {
 The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
 
 <Callout intent="info">
-<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
 Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
@@ -2340,7 +2371,9 @@ When the SDK sends this user back to LaunchDarkly, it removes the `email` attrib
 #### Anonymous users in the Python SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="py"
@@ -2400,7 +2433,7 @@ All user attribute keys, for both built-in and custom attributes, must be symbol
 </Callout>
 
 <Callout intent="info">
-<CalloutTitle>Custom attribute type interpretation</CalloutTitle>
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
 Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
@@ -2449,7 +2482,9 @@ When the SDK sends this user back to LaunchDarkly, it removes the `email` attrib
 #### Anonymous users in the Ruby SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK, as follows:
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
 
 <CodeTabs
   defaultValue="ruby"
@@ -2461,6 +2496,84 @@ You can distinguish logged-in users from anonymous users in the SDK, as follows:
 
 ```ruby
 user = { key: "aa0ceb", anonymous: true }
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+
+### Rust
+
+Feature flag targeting and rollouts are determined by the user you pass to your `variation` calls. The Rust SDK defines a [`User`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.User.html) struct and a [`UserBuilder`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.UserBuilder.html) to accomplish this.
+
+Here's an example:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+// User with only a key
+let user1 = User::with_key("user1-key").build();
+
+// User with a key plus other attributes
+let custom = hashmap! {
+    "groups".into() => vec!["Google", "Microsoft"].into(),
+};
+let mut builder = User::with_key("user2-key");
+builder.first_name("Ernestina");
+builder.last_name("Evans");
+builder.email("ernestina@example.com");
+builder.custom(custom);
+
+let user2 = builder.build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The most common attribute is the user's key. In the example, the strings `"user1-key"` and `"user2-key"` are the user keys. The user key is the only mandatory user attribute. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash string, as long as the same user always has the same key. We recommend using a hash string if possible.
+
+To learn more about the available attributes, read [`User`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.User.html) and [`UserBuilder`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.UserBuilder.html).
+
+<Callout intent="info">
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
+<CalloutDescription>
+
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. These types are all represented by the [`AttributeValue`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/enum.AttributeValue.html) type. The Rust SDK is strongly-typed, so be aware of this distinction.
+
+</CalloutDescription>
+</Callout>
+
+#### Anonymous users in the Rust SDK
+---
+
+You can distinguish logged-in users from anonymous users in the SDK.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+// Anonymous user with only a key
+let user1 = User::with_key("user1-key").anonymous(true).build();
+
+// Anonymous user with a key plus other attributes
+let user2 = User::with_key("user2-key").
+    anonymous(true).
+    country("US").
+    build();
 ```
 
 </CodeTabItem>

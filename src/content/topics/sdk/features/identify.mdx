@@ -368,6 +368,7 @@ This feature is available in the following server-side SDKs:
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
+* [Rust](#rust)
 
 ### .NET (server-side)
 
@@ -647,6 +648,29 @@ To use `identify`:
 
 ```ruby
 client.identify(user)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Rust
+
+[`identify`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.identify) creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+
+In most cases, you do not need to call `identify`. The `variation` methods automatically create users on the dashboard for you. `identify` is useful if you want to pre-populate your dashboard before you launch any features.
+
+To use `identify`:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+client.identify(user);
 ```
 
 </CodeTabItem>

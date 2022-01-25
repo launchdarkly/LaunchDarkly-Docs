@@ -66,7 +66,9 @@ require 'vendor/autoload.php';
 
 After you install and import the SDK, create a single, shared instance of [`LDClient`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html). Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
-To create a single instance:
+Only create one instance of `client`.
+
+Here's how:
 
 <CodeTabs
   defaultValue="php"
@@ -83,7 +85,9 @@ $client = new LaunchDarkly\LDClient("YOUR_SDK_KEY");
 </CodeTabItem>
 </CodeTabs>
 
-Using `$client`, you can check which variation a particular user should receive for a given feature flag:
+You can use `$client` to check which variation a particular user will receive for a given feature flag.
+
+Here's how:
 
 <CodeTabs
   defaultValue="php"

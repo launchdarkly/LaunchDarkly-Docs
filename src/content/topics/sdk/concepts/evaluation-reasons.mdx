@@ -113,6 +113,7 @@ Here is an example of how you could access the details of a reason object in som
     { label: 'C# (.NET)', value: 'dotnet', },
     { label: 'Ruby', value: 'ruby', },
     { label: 'Python', value: 'py', },
+    { label: 'Rust', value: 'rust', },
     { label: 'Node.js or JS', value: 'node', },
     { label: 'PHP', value: 'php', },
     { label: 'Android', value: 'android', },
@@ -271,6 +272,30 @@ def print_reason(reason):
 ```
 
 *To learn more, read [`EvaluationDetail.reason`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.flag.EvaluationDetail.reason).*
+
+</CodeTabItem>
+<CodeTabItem value="rust">
+
+```rust
+fn print_reason(reason: Reason) {
+    match reason {
+        Reason::Off => println!("it's off"),
+        Reason::Fallthrough { .. } => println!("fell through"),
+        Reason::TargetMatch => println!("targeted"),
+        Reason::RuleMatch {
+            rule_index,
+            rule_id,
+            ..
+        } => println!("matched rule {}/{}", rule_index, rule_id),
+        Reason::PrerequisiteFailed { prerequisite_key } => {
+            println!("prereq failed: {}", prerequisite_key)
+        }
+        Reason::Error { error } => println!("error: {:?}", error),
+    };
+}
+```
+
+*To learn more, read [`Reason`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/enum.Reason.html).*
 
 </CodeTabItem>
 <CodeTabItem value="node">

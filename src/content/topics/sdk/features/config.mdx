@@ -333,6 +333,7 @@ This feature is available for the following server-side SDKs:
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
+* [Rust](#rust)
 
 ### .NET (server-side)
 
@@ -712,3 +713,27 @@ client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
 </CodeTabs>
 
 To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Config).
+
+### Rust
+
+This code sample shows you how to pass custom parameters to the client by creating a custom configuration object:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', }
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+let config = ConfigBuilder::new("YOUR_SDK_KEY")
+  .offline(true)
+  .build();
+let client = Client::build(config).unwrap();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The `Config` type lets you specify a variety of options. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Config.html).

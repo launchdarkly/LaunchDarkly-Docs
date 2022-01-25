@@ -248,6 +248,7 @@ This feature is available in the following server-side SDKs:
 * [Node.js (server-side)](#nodejs-server-side)
 * [Python](#python)
 * [Ruby](#ruby)
+* [Rust](#rust)
 
 ### .NET (server-side)
 
@@ -432,6 +433,25 @@ To shut down:
 
 ```ruby
 client.close
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Rust
+
+To shut down:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+client.close();
 ```
 
 </CodeTabItem>
