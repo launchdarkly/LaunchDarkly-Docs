@@ -141,7 +141,8 @@ LaunchDarkly sends events in the following formats:
           "flag_version": "42",
           "default": "false",
           "reason_kind": "FALLTHROUGH",
-          "prerequisite_of": "PARENT-FLAG"
+          "prerequisite_of": "PARENT-FLAG",
+        "event_type": "custom_event"
         }
       }
     }
@@ -172,7 +173,8 @@ LaunchDarkly sends events in the following formats:
           "version": "1",
           "key": "EXAMPLE-CLICK-EVENT-KEY",
           "selector": "btn",
-          "url": "http://example.com?queryParam=this"
+          "url": "http://example.com?queryParam=this",
+        "event_type": "custom_event"
         }
       }
     }
@@ -202,6 +204,7 @@ LaunchDarkly sends events in the following formats:
           "environment": "5d4b12345d2a2806bd2cc6eb",
           "version": "1",
           "key": "EXAMPLE-CUSTOM-EVENT-KEY",
+        "event_type": "custom_event"
         }
       }
     }
