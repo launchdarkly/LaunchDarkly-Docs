@@ -1003,7 +1003,13 @@
           {
             "label": "Node.js SDK reference",
             "path": "/sdk/client-side/node-js",
-            "svg": "nodejs"
+            "svg": "nodejs",
+            "items": [
+              {
+                "label": "Client-side Node.js SDK 1.x to 2.0 migration guide",
+                "path": "/sdk/client-side/node-js/migration-1-to-2"
+              }
+            ]
           },
           {
             "label": "React SDK reference",
