@@ -29,7 +29,7 @@ const verifyUrlRequest = (url: string) =>
   cy.request({ url: url, retryOnStatusCodeFailure: true }).then(resp => expect(resp.status).to.eq(200))
 
 describe('Verify links', () => {
-  flattenedNavigationData.forEach(({ label, allItems }) => {
+  flattenedNavigationData.forEach(({ allItems }) => {
     allItems
       .filter(path => path !== '/home/changelog/archive')
       .forEach(path => {
@@ -37,7 +37,7 @@ describe('Verify links', () => {
         if (skipExternal && isExternalLink(path)) {
           return console.log(`skipping external link: ${path}`)
         }
-        it(`${label}: ${path}`, () => {
+        it(`on page: ${path}`, () => {
           if (isExternalLink(path)) {
             return verifyUrlRequest(path)
           }
@@ -82,7 +82,7 @@ describe('Verify links', () => {
               Object.keys(referencesToTest).forEach(pageUrl => {
                 cy.visit(pageUrl)
                 referencesToTest[pageUrl].forEach(reference =>
-                  cy.get(`#${reference}`).should($ref => {
+                  cy.get(`#${reference}`, { timeout: 500 }).should($ref => {
                     expect($ref, `Verify reference on ${pageUrl}`).to.exist
                   }),
                 )
