@@ -218,6 +218,7 @@ This feature is available in the following server-side SDKs:
 * [C/C++ (server-side)](#cc-server-side)
 * [Go](#go)
 * [Haskell](#haskell)
+* [Java](#java)
 * [Lua](#lua)
 * [Node.js (server-side)](#nodejs-server-side)
 * [Python](#python)
@@ -314,6 +315,25 @@ To manually send an alias event:
 
 ```haskell
 alias client newUser previousUser
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Java
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+alias(user, previousUser);
 ```
 
 </CodeTabItem>
