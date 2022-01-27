@@ -1,0 +1,640 @@
+---
+path: '/sdk/features/relay-proxy-configuration/proxy-mode'
+title: 'Using proxy mode'
+description: 'This topic explains how to configure LaunchDarkly SDKs to connect to your Relay Proxy when you are running in proxy mode.'
+published: true
+---
+
+## Overview
+
+Each SDK connects to several LaunchDarkly web services. These include services for getting feature flag data via streaming or polling, and a service for storing analytics events. By default, the SDK connects directly to LaunchDarkly for these services.
+
+If you are using the Relay Proxy, you must configure the SDK so that it connects to the Relay Proxy for these services instead.
+
+If you use the Relay Proxy in **proxy** mode, you must know the base uniform resource identifier (URI) of your Relay Proxy instance. This is an `http` or `https` address with the hostname and port where you have deployed the Relay Proxy. In all of the code examples below, the Relay Proxy's base URI is `https://your-relay-proxy.com:8080`.
+
+Different SDKs have different ways of configuring the SDK. In some SDKs, you must set the base URI of each service to the Relay Proxy's base URI, using a separate configuration property for each service but setting each one to the same value. In other SDKs, you can set the base URI for all services with a single configuration property.
+
+The examples below show how to configure the SDK for each service. In most SDKs, you then need to pass the configuration in as a parameter when you initialize the client. To learn more, read [Configuration](/sdk/features/config).
+
+The following examples also include configuring the events service. If you choose not to send analytics events to the Relay Proxy, you do not need to configure the events service. To learn more, read [Deciding how to handle analytics events](/sdk/features/relay-proxy-configuration#deciding-how-to-handle-analytics-events).
+
+Details about each SDK's configuration are available in the SDK-specific sections below:
+
+* [Client-side SDKs](#client-side-sdks)
+* [Server-side SDKs](#server-side-sdks)
+
+## Client-side SDKs
+
+This feature is available in the following client-side SDKs:
+
+* [.NET (client-side)](#net-client-side)
+* [Android](#android)
+* [C/C++ (client-side)](#cc-client-side)
+* [Electron](#electron)
+* [Flutter](#flutter)
+* [iOS](#ios)
+* [JavaScript](#javascript)
+* [Node.js (client-side)](#nodejs-client-side)
+* [React Native](#react-native)
+* [Roku](#roku)
+
+
+### .NET (client-side)
+
+To connect the SDK to the Relay Proxy, use the `ServiceEndpoints` builder method and `Components.ServiceEndpoints().RelayProxy` to specify the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: '.NET (client-side)', value: 'csharp' }
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+var config = Configuration.Builder("YOUR_MOBILE_KEY")
+    .ServiceEndpoints(Components.ServiceEndpoints()
+      .RelayProxy("https://your-relay-proxy.com:8080"))
+    .Build();
+
+```
+</CodeTabItem>
+</CodeTabs>
+
+### Android
+
+To connect the SDK to the Relay Proxy, use the `streamUri`, `pollUri`, and `eventsUri` builder methods to specify the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDConfig ldConfig = new LDConfig.Builder()
+  .mobileKey("YOUR_MOBILE_KEY")
+  .streamUri(Uri.parse("https://your-relay-proxy.com:8080"))
+  .pollUri(Uri.parse("https://your-relay-proxy.com:8080"))
+  .eventsUri(Uri.parse("https://your-relay-proxy.com:8080"))
+  .build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+
+val ldConfig: LDConfig = LDConfig.Builder()
+  .setMobileKey("YOUR_MOBILE_KEY")
+  .streamUri(Uri.parse("https://your-relay-proxy.com:8080"))
+  .pollUri(Uri.parse("https://your-relay-proxy.com:8080"))
+  .eventsUri(Uri.parse("https://your-relay-proxy.com:8080"))
+  .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### C/C++ (client-side)
+
+To connect the SDK to the Relay Proxy, use `LDConfigSetStreamURI`, `LDConfigSetAppURI`, and `LDConfigSetEventsURI` to specify the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'C/C++', value: 'c' }
+    ]
+}>
+<CodeTabItem value="c">
+
+```c
+struct LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
+LDConfigSetStreamURI(config, "https://your-relay-proxy.com:8080");
+LDConfigSetAppURI(config, "https://your-relay-proxy.com:8080");
+LDConfigSetEventsURI(config, "https://your-relay-proxy.com:8080");
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Electron
+
+To connect the SDK to the Relay Proxy, set the `streamUrl`, `baseUrl`, and `eventsUrl` options to the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const options = {
+  streamUrl: 'https://your-relay-proxy.com:8080',
+  baseUrl: 'https://your-relay-proxy.com:8080',
+  eventsUrl: 'https://your-relay-proxy.com:8080'
+};
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Flutter
+
+To connect the SDK to the Relay Proxy, use the `streamUri`, `pollUri`, and `eventsUri` builder methods to specify the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="dart"
+  values={[
+    { label: 'Dart', value: 'dart', },
+  ]
+}>
+<CodeTabItem value="dart">
+
+```dart
+LDConfig ldConfig = LDConfigBuilder("YOUR_MOBILE_KEY")
+  .streamUri("https://your-relay-proxy.com:8080")
+  .pollUri("https://your-relay-proxy.com:8080")
+  .eventsUri("https://your-relay-proxy.com:8080")
+  .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### iOS
+
+To connect the SDK to the Relay Proxy, set the `streamUrl`, `baseUrl`, and `eventsUrl` properties to the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="swift"
+  values={[
+    { label: 'iOS (Swift)', value: 'swift'},
+    { label: 'iOS (Objective-C)', value: 'objc'},
+  ]
+}>
+<CodeTabItem value="swift">
+
+```swift
+var ldConfig = LDConfig(mobileKey: "YOUR_MOBILE_KEY")
+ldConfig.streamUrl = URL(string: "https://your-relay-proxy.com:8080")
+ldConfig.baseUrl = URL(string: "https://your-relay-proxy.com:8080")
+ldConfig.eventsUrl = URL(string: "https://your-relay-proxy.com:8080")
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+LDConfig *ldConfig = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
+ldConfig.streamUrl = URL(string: "https://your-relay-proxy.com:8080")
+ldConfig.baseUrl = URL(string: "https://your-relay-proxy.com:8080")
+ldConfig.eventsUrl = URL(string: "https://your-relay-proxy.com:8080")
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### JavaScript
+
+To connect the SDK to the Relay Proxy, set the `streamUrl`, `baseUrl`, and `eventsUrl` properties to the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js' },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const options = {
+  streamUrl: 'https://your-relay-proxy.com:8080',
+  baseUrl: 'https://your-relay-proxy.com:8080',
+  eventsUrl: 'https://your-relay-proxy.com:8080'
+};
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Node.js (client-side)
+
+To connect the SDK to the Relay Proxy, set the `streamUrl`, `baseUrl`, and `eventsUrl` properties to the base URI of your Relay Proxy:
+
+<CodeTabs defaultValue="js"
+  values={[
+    { label: 'Node.JS (JavaScript)', value: 'js' },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const options = {
+  streamUrl: 'https://your-relay-proxy.com:8080',
+  baseUrl: 'https://your-relay-proxy.com:8080',
+  eventsUrl: 'https://your-relay-proxy.com:8080'
+};
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### React Native
+
+To connect the SDK to the Relay Proxy, set the `streamUri`, `pollUri`, and `eventsUri` properties to the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'React Native (JavaScript)', value: 'js'},
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+let config =
+  { "mobileKey": "YOUR_MOBILE_KEY",
+    "streamUri": "https://your-relay-proxy.com:8080",
+    "pollUri": "https://your-relay-proxy.com:8080",
+    "eventsUri": "https://your-relay-proxy.com:8080",
+  };
+```
+</CodeTabItem>
+</CodeTabs>
+
+### Roku
+
+To connect the SDK to the Relay Proxy, use the `setStreamURI`, `setAppURI`, and `setEventsURI` methods to specify the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'Roku (Brightscript)', value: 'brightscript' },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+REM for a legacy Roku application
+config = LaunchDarklyConfig("YOUR_MOBILE_KEY")
+
+REM for a SceneGraph Roku Application
+config = LaunchDarklyConfig("YOUR_MOBILE_KEY", CLIENT_SCENEGRAPH_NODE)
+
+config.setStreamURI("https://your-relay-proxy.com:8080")
+config.setAppURI("https://your-relay-proxy.com:8080")
+config.setEventsURI("https://your-relay-proxy.com:8080")
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+## Server-side SDKs
+
+This feature is available for the following server-side SDKs:
+
+* [.NET (server-side)](#net-server-side)
+* [C/C++ (server-side)](#cc-server-side)
+* [Erlang](#erlang)
+* [Go](#go)
+* [Haskell](#haskell)
+* [Java](#java)
+* [Lua](#lua)
+* [Node.js (server-side)](#nodejs-server-side)
+* [PHP](#php)
+* [Python](#python)
+* [Ruby](#ruby)
+
+### .NET (server-side)
+
+To connect the SDK to the Relay Proxy, use the `ServiceEndpoints` builder method and `Components.ServiceEndpoints().RelayProxy` to specify the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet' },
+    { label: '.NET SDK versions 6.2.x and earlier', value: 'dotnet-pre-6.3' },
+  ]
+}>
+<CodeTabItem value="dotnet">
+
+```csharp
+var config = Configuration.Builder("YOUR_SDK_KEY")
+    .ServiceEndpoints(Components.ServiceEndpoints()
+      .RelayProxy("https://your-relay-proxy.com:8080"))
+    .Build();
+```
+</CodeTabItem>
+<CodeTabItem value="dotnet-pre-6.3">
+
+```csharp
+// Prior to version 6.3.0, the base URI had to be specified for each service,
+// depending on which services you were actually using. To use the Relay
+// Proxy in proxy mode for both streaming and events:
+
+var config = Configuration.Builder("YOUR_SDK_KEY")
+    .DataSource(Components.StreamingDataSource()
+       .BaseUri("https://your-relay-proxy.com:8080"))
+    .Events(Components.SendEvents()
+       .BaseUri("https://your-relay-proxy.com:8080"))
+    .Build();
+
+// Alternatively, if you are using the Relay Proxy in proxy mode for streaming,
+// but want to send events directly to LaunchDarkly, use:
+
+var config = Configuration.Builder("YOUR_SDK_KEY")
+    .DataSource(Components.StreamingDataSource()
+      .BaseUri("https://your-relay-proxy.com:8080"))
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### C/C++ (server-side)
+
+To connect the SDK to the Relay Proxy, use `LDConfigSetStreamURI`, `LDConfigSetBaseURI`, and `LDConfigSetEventsURI` to specify the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label:'C/C++', value: 'c' },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+struct LDConfig *config = LDConfigNew("YOUR_SDK_KEY");
+LDConfigSetStreamURI(config, "https://your-relay-proxy.com:8080");
+LDConfigSetBaseURI(config, "https://your-relay-proxy.com:8080");
+LDConfigSetEventsURI(config, "https://your-relay-proxy.com:8080");
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Erlang
+
+To connect the SDK to the Relay Proxy, set the `stream_uri`, `base_uri`, and `events_uri` properties to the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', }
+  ]
+}>
+<CodeTabItem value="erlang">
+
+```
+ldclient:start_instance("YOUR_SDK_KEY", #{
+  stream_uri => "https://your-relay-proxy.com:8080",
+  base_uri => "https://your-relay-proxy.com:8080",
+  events_uri => "https://your-relay-proxy.com:8080"
+})
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+### Go
+
+To connect the SDK to the Relay Proxy, use the `Config.ServiceEndpoints` property and `ldcomponents.RelayProxyEndpoints()` to specify the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 5.7.x and earlier', value: 'go-pre-5.8', }
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+
+// To use the Replay Proxy in proxy mode for both streaming and events:
+
+config := ld.Config{
+    ServiceEndpoints: ldcomponents.RelayProxyEndpoints(
+      "https://your-relay-proxy.com:8080"),
+}
+
+// Alternatively, to use the Relay Proxy in proxy mode for streaming,
+// but send events directly to LaunchDarkly, use:
+config := ld.Config{
+    ServiceEndpoints: ldcomponents.RelayProxyEndpointsWithoutEvents(
+        "https://your-relay-proxy.com:8080"),
+}
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.8">
+
+```go
+
+// Prior to version 5.8.0, the base URI had to be specified for each service,
+// depending on which services you were actually using.
+// To use the Relay Proxy in proxy mode for both streaming and events:
+
+
+config := ld.Config{
+    DataSource: ldcomponents.StreamingDataSource().
+        BaseURI("https://your-relay-proxy.com:8080"),
+    Events: ldcomponents.SendEvents().
+        BaseURI("https://your-relay-proxy.com:8080"),
+}
+
+// Alternatively, to use the Relay Proxy in proxy mode for streaming,
+// but send events to LaunchDarkly, use:
+
+config := ld.Config{
+    DataSource: ldcomponents.StreamingDataSource().
+        BaseURI("https://your-relay-proxy.com:8080"),
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Haskell
+
+To connect the SDK to the Relay Proxy, use `configSetStreamURI`, `configSetBaseURI`, and `configSetEventsURI` to specify the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', }
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+{-# LANGUAGE OverloadedStrings #-}
+
+import LaunchDarkly.Server.Config
+
+import Data.Function ((&))
+
+config :: Config
+config = (makeConfig "YOUR_SDK_KEY")
+    & configSetStreamURI "https://your-relay-proxy.com:8080"
+    & configSetBaseURI "https://your-relay-proxy.com:8080"
+    & configSetEventsURI "https://your-relay-proxy.com:8080"
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Java
+
+To connect the SDK to the Relay Proxy, set the `baseURI` property of each service to the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDConfig config = new LDConfig.Builder()
+  .dataSource(Components.streamingDataSource()
+    .baseURI(URI.create("https://your-relay-proxy.com:8080"))
+  .events(Components.sendEvents()
+    .baseURI(URI.create("https://your-relay-proxy.com:8080"))
+  .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Lua
+
+To connect the SDK to the Relay Proxy, set the `streamURI`, `baseURI`, and `eventsURI` properties to the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="lua"
+  values={[
+    { label: 'Lua', value: 'lua', },
+  ]
+}>
+<CodeTabItem value="lua">
+
+```lua
+local config = {
+    key = YOUR_SDK_KEY,
+    streamURI = "https://your-relay-proxy.com:8080",
+    baseUri = "https://your-relay-proxy.com:8080",
+    eventsURI = "https://your-relay-proxy.com:8080",
+}
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+### Node.js (server-side)
+
+To connect the SDK to the Relay Proxy, set the `streamUri`, `baseUri`, and `eventsUri` properties to the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', }
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+var config = {
+  streamUri: "https://your-relay-proxy.com:8080",
+  baseUri: "https://your-relay-proxy.com:8080",
+  eventsUri: "https://your-relay-proxy.com:8080",
+};
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+### PHP
+
+To connect the SDK to the Relay Proxy, set the `base_uri` and `events_uri` properties to the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', }
+  ]
+}>
+<CodeTabItem value="php">
+
+```php
+$client = new LaunchDarkly\LDClient("YOUR_SDK_KEY",
+    [ "base_uri" => "https://your-relay-proxy.com:8080",
+      "events_uri" => "https://your-relay-proxy.com:8080" ]);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There is not a streaming service for the PHP SDK.
+
+### Python
+
+To connect the SDK to the Relay Proxy, set the `stream_uri`, `base_uri`, and `events_uri` properties to the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="python"
+  values={[
+    { label: 'Python', value: 'python' },
+  ]
+}>
+<CodeTabItem value="python">
+
+```py
+config = Config(sdk_key='YOUR_SDK_KEY',
+  stream_uri="https://your-relay-proxy.com:8080",
+  base_uri="https://your-relay-proxy.com:8080",
+  events_uri="https://your-relay-proxy.com:8080")
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Ruby
+
+To connect the SDK to the Relay Proxy, set the service endpoints to the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', }
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+config = LaunchDarkly::Config.new(
+  stream_uri: "https://your-relay-proxy.com:8080",
+  base_uri: "https://your-relay-proxy.com:8080",
+  events_uri: "https://your-relay-proxy.com:8080")
+```
+
+</CodeTabItem>
+</CodeTabs>

@@ -150,27 +150,27 @@ LDConfig ldConfig = LDConfigBuilder('YOUR_MOBILE_KEY')
 This code sample shows you how to configure the client connection timeout and event flush interval parameters:
 
 <CodeTabs
-  defaultValue="objc"
+  defaultValue="swift"
   values={[
-    { label: 'iOS (Objective-C)', value: 'objc'},
     { label: 'iOS (Swift)', value: 'swift'},
+    { label: 'iOS (Objective-C)', value: 'objc'},
   ]
 }>
-<CodeTabItem value="objc">
-
-```objectivec
-LDConfig *ldConfig = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
-ldConfig.connectionTimeout = 10.0;
-ldConfig.eventFlushInterval = 30.0;
-```
-
-</CodeTabItem>
 <CodeTabItem value="swift">
 
 ```swift
 var ldConfig = LDConfig(mobileKey: "YOUR_MOBILE_KEY")
 ldConfig.connectionTimeout = 10.0
 ldConfig.eventFlushInterval = 30.0
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+LDConfig *ldConfig = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
+ldConfig.connectionTimeout = 10.0;
+ldConfig.eventFlushInterval = 30.0;
 ```
 
 </CodeTabItem>
@@ -191,9 +191,11 @@ This code sample shows you how to create a custom configuration object to pass c
 <CodeTabItem value="js">
 
 ```js
-var client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
+const options = {
   allAttributesPrivate: true
-});
+};
+const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+
 ```
 
 </CodeTabItem>

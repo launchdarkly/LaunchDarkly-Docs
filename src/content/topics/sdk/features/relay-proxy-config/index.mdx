@@ -1,0 +1,65 @@
+---
+path: '/sdk/features/relay-proxy-configuration'
+title: 'Relay Proxy configuration'
+description: 'This topic explains how to configure LaunchDarkly SDKs to connect to your Relay Proxy in various modes.'
+published: true
+---
+
+## Overview
+
+This topic explains how to configure LaunchDarkly SDKs to connect to your Relay Proxy.
+
+The Relay Proxy lets multiple servers connect to a local stream instead of making a large number of outbound connections to LaunchDarkly's streaming service. To learn more, read [The Relay Proxy](/home/relay-proxy).
+
+When you use the Relay Proxy, there are two choices you need to make:
+
+* What mode will the Relay Proxy run in?
+* Will the Relay Proxy handle your analytics events?
+
+Your decisions determine the details of how you need to configure an SDK to use the Relay Proxy.
+
+## Deciding between proxy mode and daemon mode
+
+The Relay Proxy has two modes:
+
+* In **proxy** mode, several Relay Proxy instances exist in a high-availability configuration behind a load balancer, and the SDK connects to the load balancer. Proxy mode is the most common use case for connecting to the Relay Proxy. LaunchDarkly SDKs are configured to run in proxy mode by default.
+
+* In **daemon** mode, the SDK connects directly to the Relay Proxy's datastore. We recommend this configuration when you're using LaunchDarkly with PHP or in a serverless environment.
+
+Client-side SDKs should only use proxy mode. Server-side SDKs can use either mode. The two modes are not mutually exclusive. If you configure multiple services to use Relay Proxy, some of these services can operate in proxy mode while others are in daemon mode. To learn more, read [Using the Relay Proxy in different modes](https://docs.launchdarkly.com/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
+
+After you set up the Relay Proxy, you can configure your SDKs to run in the mode you've decided upon. To learn how, read [Configuring an SDK to use the Relay Proxy](#configuring-an-sdk-to-use-the-relay-proxy).
+
+## Deciding how to handle analytics events
+
+Regardless of whether you are using proxy mode or daemon mode, you also need to determine how to handle your analytics events, so that you can configure the SDK appropriately. The SDK sends data from analytics events to the Users dashboard.
+
+There are three options for handling analytics events:
+
+* The SDK can send events to the Relay Proxy. In this situation, the SDK connects to the Relay Proxy for the events service. You need to change the base uniform resource identifier (URI) for the events service in the SDK configuration to connect to the Relay Proxy. Additionally, you must enable event forwarding in the Relay Proxy.
+* The SDK can send events to LaunchDarkly. In this situation, the SDK connects directly to LaunchDarkly for the events service. You do not need to change any configuration in your SDK.
+* You can disable events. This is uncommon, but is an action you can take regardless of whether you are using the Relay Proxy or not.
+
+To learn more about analytics events, read [The Users dashboard](/home/users/users-dashboard).
+
+## Configuring an SDK to use the Relay Proxy
+
+Each SDK connects to several LaunchDarkly web services. These include services for getting feature flag data via streaming or polling, and a service for storing analytics events. By default, the SDK connects directly to LaunchDarkly for these services.
+
+If you are using the Relay Proxy, you must configure the SDK so that it connects to the Relay Proxy instead.
+
+Details about each SDK's configuration are available in the mode-specific topics below:
+
+* [Using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode)
+* [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode)
+
+<Callout intent="info">
+<CalloutTitle>Using the Relay Proxy and a web proxy</CalloutTitle>
+<CalloutDescription>
+
+The service URIs define where the SDK should connect in order to request flag updates. If you are using the Relay Proxy, you must configure the SDK to connect to your Relay Proxy.
+
+If you are also using a web proxy, the SDK will connect first to the web proxy, and from there to your Relay Proxy. You still must configure the SDK to connect to your Relay Proxy. To learn more, read [Securing connections to and from the Relay Proxy](https://docs.launchdarkly.com/home/relay-proxy/using#securing-connections-to-and-from-the-relay-proxy).
+
+</CalloutDescription>
+</Callout>

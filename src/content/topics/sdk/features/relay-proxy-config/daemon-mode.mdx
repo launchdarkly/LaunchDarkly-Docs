@@ -1,0 +1,311 @@
+---
+path: '/sdk/features/relay-proxy-configuration/daemon-mode'
+title: 'Using daemon mode'
+description: 'This topic explains how to configure LaunchDarkly SDKs to connect to your Relay Proxy when you are running in daemon mode.'
+published: true
+---
+
+## Overview
+
+Each SDK connects to several LaunchDarkly web services. These include services for getting feature flag data via streaming or polling, and a service for storing analytics events. By default, the SDK connects directly to LaunchDarkly for these services.
+
+If you are using the Relay Proxy, you must configure the SDK so that it connects to the Relay Proxy for these services instead.
+
+If you are using the Relay Proxy in **daemon** mode, you must configure your SDK to use a persistent data store to do this. The SDK and the Relay Proxy must use the same data store. To configure your SDK to use a persistent data store, read [Storing Data](/sdk/features/storing-data).
+
+Then, you must configure your SDK to use daemon mode, as shown in the following examples. When you use the Relay Proxy in daemon mode, the SDK must not connect to any service for flag data. Some versions of the SDKs refer to this as using "external updates only." Other versions of the SDKs refer to this as "LDD mode," because the Relay Proxy is also known as the LaunchDarkly Daemon. In most SDKs, you then need to pass the configuration in as a parameter when you initialize the client. To learn more, read [Configuration](/sdk/features/config).
+
+This feature is not available for client-side SDKs. In daemon mode, the SDK connects directly to the Relay Proxy's data store. This is not a supported behavior for client-side SDKs.
+
+## Server-side SDKs
+
+This feature is available for the following server-side SDKs:
+
+* [.NET (server-side)](#net-server-side)
+* [C/C++ (server-side)](#cc-server-side)
+* [Erlang](#erlang)
+* [Go](#go)
+* [Haskell](#haskell)
+* [Java](#java)
+* [Lua](#lua)
+* [Node.js (server-side)](#nodejs-server-side)
+* [PHP](#php)
+* [Python](#python)
+* [Ruby](#ruby)
+
+### .NET (server-side)
+
+Use the `DataStore` builder method to set a persistent feature store. Then, use the `DataSource` builder method and `Components.ExternalUpdatesOnly` to configure daemon mode:
+
+<CodeTabs
+  defaultValue="dotnet"
+  values={[
+    { label: '.NET', value: 'dotnet' },
+  ]
+}>
+<CodeTabItem value="dotnet">
+
+```csharp
+
+var config = Configuration.Builder("YOUR_SDK_KEY")
+    .DataStore(
+        Components.PersistentDataStore(
+            SomeDatabaseName.DataStore()
+        )
+    )
+    .DataSource(Components.ExternalUpdatesOnly)
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### C/C++ (server-side)
+
+Use `LDConfigSetFeatureStoreBackend` to set a persistent feature store. Then, use `LDConfigSetUseLDD` to configure daemon mode:
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label:'C/C++', value: 'c' },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+struct LDConfig *config = LDConfigNew("YOUR_SDK_KEY");
+
+struct LDStoreInterface *store = ConstructYourFeatureStoreInterface();
+
+LDConfigSetFeatureStoreBackend(config, store);
+LDConfigSetUseLDD(config, true);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Erlang
+
+Set the `feature_store` property to use a persistent data store. Then set the `use_ldd` property to configure daemon mode:
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', }
+  ]
+}>
+<CodeTabItem value="erlang">
+
+```
+ldclient:start_instance("YOUR_SDK_KEY", #{
+  use_ldd => true,
+  feature_store => your_feature_store
+})
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+### Go
+
+Use `PersistentDataStore()` to set the persistent data store. Then, use `ExternalUpdatesOnly()` to configure daemon mode:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+config := ld.Config{
+    DataStore:  ldcomponents.PersistentDataStore(
+      examplepackage.DataStore().SomeStoreOptions(),
+    ),
+    DataSource: ldcomponents.ExternalUpdatesOnly(),
+}
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Haskell
+
+Use `configSetStoreBackend` to set the persistent data store. Then, use `configSetUseLdd` to configure daemon mode:
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', }
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+{-# LANGUAGE OverloadedStrings #-}
+
+import LaunchDarkly.Server.Config
+
+import Data.Function ((&))
+
+config :: Config
+config = (makeConfig "YOUR_SDK_KEY")
+    & configSetUseLdd true
+    & configSetStoreBackend backend
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Java
+
+Set the `dataStore` property to `persistentDataStore()` to use the persistent data store. Then, set the `dataSource` property to `externalUpdatesOnly()` to configure daemon mode:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDConfig config = new LDConfig.Builder()
+  .dataStore(
+    Components.persistentDataStore(
+      SomeDatabaseName.DataStore(storeOptions)
+    )
+  )
+  .dataSource(Components.externalUpdatesOnly())
+  .build();
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Lua
+
+Set the `featureStoreBackend` property to use the persistent data store. Then, set the `useLDD` property to configure daemon mode:
+
+<CodeTabs
+  defaultValue="lua"
+  values={[
+    { label: 'Lua', value: 'lua', },
+  ]
+}>
+<CodeTabItem value="lua">
+
+```lua
+
+local backend = makeYourBackendInterface()
+
+local config = {
+    key = YOUR_SDK_KEY,
+    featureStoreBackend = backend,
+    useLDD = true
+}
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+### Node.js (server-side)
+
+Set the `featureStore` property to use a persistent feature store. Then, set the `useLdd` property to configure daemon mode:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', }
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+
+var store = SomeKindOfFeatureStore(storeOptions);
+
+var config = {
+  featureStore: store,
+  useLdd: true,
+};
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+### PHP
+
+Set the `feature_requester` property to use a persistent data store and daemon mode:
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', }
+  ]
+}>
+<CodeTabItem value="php">
+
+```php
+$client = new LaunchDarkly\LDClient("YOUR_SDK_KEY",
+    [ 'feature_requester' => LaunchDarkly\Integrations\NameOfDatabase::featureRequester() ]);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Python
+
+Set the `feature_store` property to use a persistent data store. Then, set the `use_ldd` property to configure daemon mode:
+
+<CodeTabs
+  defaultValue="python"
+  values={[
+    { label: 'Python', value: 'python' },
+  ]
+}>
+<CodeTabItem value="python">
+
+```py
+store = SomeKindOfFeatureStore(store_options)
+
+config = Config(
+  feature_store=store,
+  use_ldd=True)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Ruby
+
+Set the `feature_store` property to use a persistent feature store. Then, set the `use_ldd` property to configure daemon mode:
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', }
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+
+store = SomeKindOfFeatureStore.new(storeOptions)
+
+config = LaunchDarkly::Config.new(
+  feature_store: store
+  use_ldd: true
+)
+```
+
+</CodeTabItem>
+</CodeTabs>

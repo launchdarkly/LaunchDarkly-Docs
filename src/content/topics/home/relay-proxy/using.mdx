@@ -17,24 +17,13 @@ You must set certain values in your SDK's configuration to connect to the Relay 
 
 The values you may replace are:
 
-- The base URL for the polling service: defaults to `https://app.launchdarkly.com`, `https://sdk.launchdarkly.com`, or `https://clientsdk.launchdarkly.com`, depending on which SDK you use.
-- The base URL for the streaming service: defaults to `https://stream.launchdarkly.com` for server-side SDKs and `https://clientstream.launchdarkly.com` for client-side and mobile SDKs.
-- The base URL for the events service: defaults to `https://events.launchdarkly.com`
+- The base URI for the polling service. The default value is `https://app.launchdarkly.com`, `https://sdk.launchdarkly.com`, or `https://clientsdk.launchdarkly.com`, depending on which SDK you use.
+- The base URI for the streaming service. The default value is `https://stream.launchdarkly.com` for server-side SDKs and `https://clientstream.launchdarkly.com` for client-side and mobile SDKs.
+- The base URI for the events service. The default value is `https://events.launchdarkly.com` or `https://mobile.launchdarkly.com`, depending on which SDK you use.
 
-The SDK uses these values to determine where to request flag updates. Change the values to point to the Relay Proxy URL instead of directly to LaunchDarkly's services.
+Each SDK uses these values to determine where to request flag updates. Change the values to point to the Relay Proxy URI instead of directly to LaunchDarkly's services. In some SDKs, you must set the base URI of each service to the Relay Proxy's base URI, using a separate configuration property for each service but setting each one to the same value. In other SDKs, you can set the base URI for all services with a single configuration property.
 
-<Callout intent="alert">
-<CalloutTitle>You do not need to set all three properties to configure an SDK</CalloutTitle>
-<CalloutDescription>
-
-Each SDK requires a different property or set of properties during configuration. Depending on which SDK you use and how you configure it, you may need to set different properties.<br/><br/>
-
-You do not need to set all the properties listed above to successfully configure an SDK. Precise implementation details to establish a connection vary depending on which SDK you use.<br/><br/>
-
-To learn more, read [your SDK's documentation](/sdk).
-
-</CalloutDescription>
-</Callout>
+To learn more, read [Relay Proxy configuration](/sdk/features/relay-proxy-configuration).
 
 ## Configuring the Relay Proxy for Big Segments
 
@@ -122,8 +111,8 @@ There is no need to put a load balancer in front of the Relay Proxy when your SD
 
 To enable daemon mode:
 
-1. Configure your SDK to use a persistent data store. The SDK and the Relay Proxy must use the same data store.
-2. Configure your SDK to use run in daemon mode.
+1. Configure your SDK to use a persistent data store. The SDK and the Relay Proxy must use the same data store. To learn how, read [Storing data](/sdk/features/storing-data).
+2. Configure your SDK to use daemon mode. To learn how, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode).
 
 If you use LaunchDarkly in a serverless environment, we recommend using DynamoDB as a persistent feature store. In this scenario, the Relay Proxy’s purpose is to keep the feature store updated. To learn more about setting up a persistent feature store for use in daemon mode, read [Using a persistent feature store without connecting to LaunchDarkly](/sdk/concepts/data-stores#using-a-persistent-feature-store-without-connecting-to-launchdarkly). For a tutorial that demonstrates a persistent store set up in a serverless environment, read [Use a persistent feature store](/guides/best-practices/serverless#option-2-use-a-persistent-feature-store).
 

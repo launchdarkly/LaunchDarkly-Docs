@@ -155,7 +155,7 @@ The SDK also provides helper methods to create TLS options. We recommend ensurin
 Here is a list of helper methods:
 
 - `ldclient_config:tls_basic_options()`: This helper provides a basic TLS configuration suitable for development. It tries to use a CA store in the default location for many linux distributions (`/etc/ssl/certs/ca-certificates.crt`). If it can't find the store, then it will use the store from the `certifi` package.
-- `ldclient_config:tls_basic_linux_options()`: This helper provides a basic TLS configuration for linux. It uses the CA store located at `/etc/ssl/certs/ca-certificates.crt`. 
+- `ldclient_config:tls_basic_linux_options()`: This helper provides a basic TLS configuration for linux. It uses the CA store located at `/etc/ssl/certs/ca-certificates.crt`.
 - `ldclient_config:tls_ca_certfile_options(CaStorePath)`: This helper provides a basic TLS configuration with the CA store you specify.
 - `ldclient_config:tls_basic_certifi_options()`: This helper provides a basic TLS configuration that uses the `certifi` store. Because this store is from a dependency of the package, it is not maintained or updated by OS releases.
 - `ldclient_config:with_tls_revocation(TlsOptions)`: This helper extends a TLS configuration with certificate revocation. Revocation is not included in the basic configuration because the Erlang/OTP does not cache revocation results. Enabling this feature incurs additional requests per request the SDK makes.
@@ -175,6 +175,9 @@ This SDK supports the following features:
 * [Identifying and changing users](/sdk/features/identify#erlang)
 * [Offline mode](/sdk/features/offline-mode#erlang)
 * [Reading flags from a file](/sdk/features/flags-from-files#erlang)
+* [Relay Proxy configuration](/sdk/features/relay-proxy-configuration)
+  * [Using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#erlang)
+  * [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#erlang)
 * [Sending custom events](/sdk/features/events#erlang)
 * [Shutting down](/sdk/features/shutdown#erlang)
 * [Storing data](/sdk/features/storing-data#erlang)

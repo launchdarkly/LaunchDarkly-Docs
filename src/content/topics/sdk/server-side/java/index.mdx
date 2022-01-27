@@ -7,7 +7,7 @@ published: true
 
 ## Overview
 
-This reference guide documents all of the methods available in the Java SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/java-server-sdk) and its [Javadocs](http://launchdarkly.github.io/java-server-sdk/). 
+This reference guide documents all of the methods available in the Java SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/java-server-sdk) and its [Javadocs](http://launchdarkly.github.io/java-server-sdk/).
 
 You can also use this SDK to clone and run a [sample application](https://github.com/launchdarkly/hello-java) or run it in another JRE-based language such as [Scala](https://github.com/launchdarkly/hello-scala).
 
@@ -142,7 +142,7 @@ You can install versions 4.6.0 and higher of the SDK as OSGi bundles.
 
 The SDK's default jar, which it gets from Maven or Gradle if you do not specify a "classifier", does not contain Gson or SLF4j because applications are often built with their own specific versions of those libraries. Using the default jar in OSGi requires Gson and SLF4j to be provided by some other bundle.
 
-However, there is also a distribution that includes Gson and SLF4j as part of the SDK bundle. You can use this if you do not need to control the versions of those libraries separately. 
+However, there is also a distribution that includes Gson and SLF4j as part of the SDK bundle. You can use this if you do not need to control the versions of those libraries separately.
 
 To do so, add the classifier "all":
 
@@ -199,6 +199,9 @@ This SDK supports the following features:
 * [Monitoring SDK status](/sdk/features/monitoring#java)
 * [Offline mode](/sdk/features/offline-mode#java)
 * [Reading flags from a file](/sdk/features/flags-from-files#java)
+* [Relay Proxy configuration](/sdk/features/relay-proxy-configuration)
+  * [Using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#java)
+  * [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#java)
 * [Secure mode](/sdk/features/secure-mode#java)
 * [Sending custom events](/sdk/features/events#java)
 * [Shutting down](/sdk/features/shutdown#java)
