@@ -49,7 +49,7 @@ jobs:
           key: ${{ runner.os }}-gatsby-build-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-gatsby-build-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn install --immutable
+      - run: CYPRESS_INSTALL_BINARY=0 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable --immutable-cache
       - run: yarn build-deploy-staging
         env:
           ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
@@ -88,7 +88,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           command-prefix: yarn dlx
-          install-command: yarn install --immutable
+          install-command: yarn install --immutable --immutable-cache
           build: yarn build-nav-data
           headless: true
           config: baseUrl=http://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }}

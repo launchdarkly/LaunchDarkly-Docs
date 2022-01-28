@@ -16,7 +16,7 @@ jobs:
         timeout-minutes: 30
         with:
           command-prefix: yarn dlx
-          install-command: yarn install --immutable
+          install-command: yarn install --immutable --immutable-cache
           build: yarn build-dev
           start: yarn serve-dev
           headless: true
