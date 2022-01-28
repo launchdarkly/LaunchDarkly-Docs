@@ -1269,6 +1269,10 @@
             "path": "/guides/platform-specific/aws-lambda"
           },
           {
+            "label": "Using flags with Cloudflare Workers",
+            "path": "/guides/platform-specific/cloudflare-workers"
+          },
+          {
             "label": "Using flags with Next.js",
             "path": "/guides/platform-specific/nextjs"
           },

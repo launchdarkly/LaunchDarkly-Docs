@@ -33,6 +33,7 @@ exclude = [
   'https://support.launchdarkly.com',
   'https://support.pendo.io',
   'https://developers.cloudflare.com',
+  'https://dash.cloudflare.com/*',
   # specific example links
   '^https://launchdarkly.github.io/$',
   # links used in examples

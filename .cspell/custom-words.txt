@@ -24,6 +24,8 @@ Cartfile
 Catfood
 Centrify
 certifi
+choco
+cfworkers
 circleci
 classname
 classpath
