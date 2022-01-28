@@ -568,7 +568,7 @@ Because ISR and DPR are essentially just deferred static rendering, the integrat
 
 In the example below, you see a dynamic "catch all" route as `/dpr/[[slug]].js`. The folder name `/dpr` is just for example purposes and not required to use DPR. This page pulls the top 5 posts from the featured user as determined by the `featured-username` flag, and prerenders those. This is determined by only adding these 5 paths to the `paths` variable returned by `getStaticPaths()`.
 
-This page uses DPR/ISR because of the `fallback: "blocking"` line on the return instead of `fallback: false`. In a typical prerendered static path, `fallback: false` causes any path not returned in the `paths` variable to return a 404. However, with `fallback: "blocking"`, any path not in the `paths` variable waits for the page to be generated and return that to the browser. To learn more, read the [Next.js documentation](https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation).
+This page uses DPR/ISR because of the `fallback: "blocking"` line on the return instead of `fallback: false`. In a typical prerendered static path, `fallback: false` causes any path not returned in the `paths` variable to return a 404. However, with `fallback: "blocking"`, any path not in the `paths` variable waits for the page to be generated and return that to the browser. To learn more, read the [Next.js documentation](https://nextjs.org/docs/basic-features/data-fetching/get-static-paths#getstaticpaths).
 
 Here is an example:
 
