@@ -112,49 +112,7 @@ var config = Configuration.Builder(sdkKey)
 
 To learn more, read [`ConfigurationBuilder.DataStore`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html#DataStore).
 
-To use a persistent feature store without connecting to LaunchDarkly:
-
-<CodeTabs
-  defaultValue="dotnet6"
-  values={[
-    { label: '.NET', value: 'dotnet6', },
-    { label: '.NET SDK versions 5.14.x and earlier', value: 'dotnet5', },
-  ]
-}>
-
-<CodeTabItem value="dotnet6">
-
-```csharp
-using LaunchDarkly.Sdk.Server;
-using LaunchDarkly.Sdk.Server.Integrations;
-
-var config = Configuration.Builder(sdkKey)
-    .DataStore(
-        Components.PersistentDataStore(
-            SomeDatabaseName.DataStore()
-        )
-    )
-    .DataSource(Components.ExternalUpdatesOnly)
-    .Build();
-```
-
-</CodeTabItem>
-<CodeTabItem value="dotnet5">
-
-```csharp
-using LaunchDarkly.Client;
-
-var store = createSomeKindOfFeatureStore();
-var config = Configuration.Default(sdkKey)
-    .WithFeatureStoreFactory(store)
-    .WithUseLdd(true);
-var client = new LDClient(config);
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [`Components.ExternalUpdatesOnly`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Components.html#LaunchDarkly_Sdk_Server_Components_ExternalUpdatesOnly).
+To use a persistent feature store without connecting to LaunchDarkly, use the `DataStore` builder method as above, and then use [`Components.ExternalUpdatesOnly`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Components.html#LaunchDarkly_Sdk_Server_Components_ExternalUpdatesOnly) to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#net-server-side).
 
 ### C/C++ (server-side)
 
@@ -184,30 +142,7 @@ LDConfigSetFeatureStoreBackend(config, store);
 </CodeTabItem>
 </CodeTabs>
 
-To use a persistent feature store without connecting to LaunchDarkly:
-
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C', value: 'c', }
-  ]
-}>
-
-<CodeTabItem value="c">
-
-```c
-#include <launchdarkly/api.h>
-
-struct LDConfig *config = LDConfigNew("my-key");
-
-struct LDStoreInterface *store = ConstructYourFeatureStoreInterface();
-
-LDConfigSetFeatureStoreBackend(config, store);
-LDConfigSetUseLDD(config, true);  // <-- the extra option
-```
-
-</CodeTabItem>
-</CodeTabs>
+To use a persistent feature store without connecting to LaunchDarkly, use `LDConfigSetFeatureStoreBackend` as above, and then use [`LDConfigSetUseLDD`](https://launchdarkly.github.io/c-server-sdk/config_8h.html#a1adabf587a063f4a2c97bb5927458963) to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#cc-server-side).
 
 ### Erlang
 
@@ -234,29 +169,7 @@ ldclient:start_instance("your_sdk_key", LdOptions).
 </CodeTabItem>
 </CodeTabs>
 
-To use a persistent feature store without connecting to LaunchDarkly:
-
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-
-<CodeTabItem value="erlang">
-
-```erlang
-LdOptions = #{
-  use_ldd       => true,
-  feature_store => your_feature_store
-},
-ldclient:start_instance("your_sdk_key", LdOptions).
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [`ldclient_config`](https://hexdocs.pm/launchdarkly_server_sdk/ldclient_config.html).
+To use a persistent feature store without connecting to LaunchDarkly, set the `feature_store` property as above, and then set the `use_ldd` option to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#erlang).
 
 ### Go
 
@@ -292,49 +205,7 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 
 To learn more, read [`PersistentDataStore`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#PersistentDataStore).
 
-To use a persistent feature store without connecting to LaunchDarkly:
-
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go', value: 'go', },
-  ]
-}>
-
-<CodeTabItem value="go">
-
-```go
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
-    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
-    examplepackage "github.com/launchdarkly/go-server-sdk-some-example-database"
-)
-
-var config ld.Config
-config.DataStore = ldcomponents.PersistentDataStore(
-    examplepackage.DataStore().SomeStoreOptions(),
-)
-config.DataSource = ldcomponents.ExternalUpdatesOnly()  // <-- the extra option
-client := ld.MakeCustomClient(sdkKey, config, waitTime)
-
-
-// Before version 5.0, the syntax was different:
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-    examplepackage "gopkg.in/launchdarkly/go-server-sdk.v4/some-example-database"
-)
-
-factory, err := examplepackage.NewExampleFeatureStoreFactory(someStoreOptions)
-config := ld.DefaultConfig
-config.FeatureStoreFactory = factory
-config.UseLdd = true  // <-- the extra option
-client := ld.MakeCustomClient(sdkKey, config, waitTime)
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [`ExternalUpdatesOnly`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#ExternalUpdatesOnly).
+To use a persistent feature store without connecting to LaunchDarkly, use `PersistentDataStore()` as above, and then use [`ExternalUpdatesOnly()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#ExternalUpdatesOnly) to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#go).
 
 ### Haskell
 
@@ -366,30 +237,7 @@ main = do
 </CodeTabItem>
 </CodeTabs>
 
-To use a persistent feature store without connecting to LaunchDarkly:
-
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', }
-  ]
-}>
-
-<CodeTabItem value="haskell">
-
-```haskell
-import LaunchDarkly.Server
-
-main = do
-    backend <- makeYourBackendInterface
-
-    let config = configSetUseLdd True $ configSetStoreBackend backend $ makeConfig "your_sdk_key"
-
-    client <- makeClient config
-```
-
-</CodeTabItem>
-</CodeTabs>
+To use a persistent feature store without connecting to LaunchDarkly, use `configSetStoreBackend` as above, and then use `configSetUseLdd` to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#haskell).
 
 ### Java
 
@@ -425,36 +273,7 @@ LDClient client = new LDClient(sdkKey, config);
 
 To learn more, read [`Components.persistentDataStore`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/Components.html#persistentDataStore-com.launchdarkly.sdk.server.interfaces.PersistentDataStoreFactory-).
 
-To use a persistent feature store without connecting to LaunchDarkly:
-
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-
-<CodeTabItem value="java">
-
-```java
-import com.launchdarkly.sdk.server.*;
-import com.launchdarkly.sdk.server.integrations.*;
-
-LDConfig config = new LDConfig.Builder()
-  .dataStore(
-    Components.persistentDataStore(
-      SomeDatabaseName.dataStore(storeOptions)
-    )
-  )
-  .dataSource(Components.externalUpdatesOnly())  // <-- the extra option
-  .build();
-LDClient client = new LDClient(sdkKey, config);
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [`Components.externalUpdatesOnly`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/Components.html#externalUpdatesOnly--m).
+To use a persistent feature store without connecting to LaunchDarkly, use `persistentDataStore` as above, and then use [`externalUpdatesOnly`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/Components.html#externalUpdatesOnly--m) to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#java).
 
 ### Lua
 
@@ -485,31 +304,7 @@ local c = l.clientInit({
 </CodeTabItem>
 </CodeTabs>
 
-To use a persistent feature store without connecting to LaunchDarkly:
-
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', }
-  ]
-}>
-
-<CodeTabItem value="lua">
-
-```lua
-local l = require("launchdarkly_server_sdk")
-
-local backend = makeYourBackendInterface()
-
-local c = l.clientInit({
-    key                 = "your_sdk_key",
-    featureStoreBackend = backend,
-    useLDD              = true
-)}
-```
-
-</CodeTabItem>
-</CodeTabs>
+To use a persistent feature store without connecting to LaunchDarkly, set the `featureStoreBackend` as above, and then set the `useLDD` property to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#lua).
 
 ### Node.js (server-side)
 
@@ -539,30 +334,7 @@ const client = LaunchDarkly.init(sdkKey, config);
 </CodeTabItem>
 </CodeTabs>
 
-To use a persistent feature store without connecting to LaunchDarkly:
-
-<CodeTabs
-  defaultValue="node"
-  values={[
-    { label: 'Node.js', value: 'node', }
-  ]
-}>
-
-<CodeTabItem value="node">
-
-```js
-const LaunchDarkly = require('launchdarkly-node-server-sdk');
-
-const store = SomeKindOfFeatureStore(storeOptions);
-const config = {
-  featureStore: store,
-  useLdd: true  // the extra option
-};
-const client = LaunchDarkly.init(sdkKey, config);
-```
-
-</CodeTabItem>
-</CodeTabs>
+To use a persistent feature store without connecting to LaunchDarkly, set the `featureStore` property as above, and then set the `useLdd` property to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#nodejs-server-side).
 
 ### PHP
 
@@ -632,31 +404,7 @@ ldclient.set_config(config)
 </CodeTabItem>
 </CodeTabs>
 
-### Using a persistent feature store without connecting to LaunchDarkly
-
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python', value: 'py', }
-  ]
-}>
-
-<CodeTabItem value="py">
-
-```python
-import ldclient
-from ldclient.config import Config
-
-store = SomeKindOfFeatureStore(store_options)
-config = Config(
-  feature_store=store,
-  use_ldd=True  # <-- the extra option
-)
-ldclient.set_config(config)
-```
-
-</CodeTabItem>
-</CodeTabs>
+To use a persistent feature store without connecting to LaunchDarkly, set the `feature_store` property as above, and then set the `use_ldd` property to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#python).
 
 ### Ruby
 
@@ -688,29 +436,4 @@ client = LaunchDarkly::Client.new(sdk_key, config)
 </CodeTabItem>
 </CodeTabs>
 
-To use a persistent feature store without connecting to LaunchDarkly:
-
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', }
-  ]
-}>
-
-<CodeTabItem value="ruby">
-
-```ruby
-require 'ldclient-rb'
-
-store = SomeKindOfFeatureStore.new(storeOptions)
-config = LaunchDarkly::Config.new(
-  feature_store: store,
-  use_ldd: true  # <-- the extra option
-)
-client = LaunchDarkly::Client.new(sdk_key, config)
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read the [API documentation](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Integrations).
+To use a persistent feature store without connecting to LaunchDarkly, set the `feature_store` property as above, and then set the `use_ldd` property to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#ruby).
