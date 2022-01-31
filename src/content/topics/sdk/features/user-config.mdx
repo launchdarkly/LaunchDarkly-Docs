@@ -928,8 +928,9 @@ Here's how:
 // Starting with version 2.10.0 of the JavaScript SDK, to create
 // an anonymous user you can specify the "anonymous" property and
 // omit the "key" property. In doing so, the LaunchDarkly client
-// will auto-generate a unique identifier for this user, and the
-// identifier will remain constant across browser sessions.
+// auto-generates a unique identifier for this user. The
+// identifier is saved in local storage and reused in future
+// browser sessions to ensure a constant experience.
 var user = {"anonymous": true};
 
 // If you are using earlier SDK versions, you need to specify

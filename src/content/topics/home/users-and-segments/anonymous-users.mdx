@@ -28,12 +28,18 @@ To learn how to create anonymous users, read your SDK-specific section in [User 
 
 ## Understanding how anonymous users contribute to MAU
 
-Anonymous users contribute to MAU. LaunchDarkly can track anonymous users in two different ways:
+Anonymous users also contribute to MAU. LaunchDarkly builds user objects in two ways:
 
-* With a shared key
-* By unique keys
+* With a unique key that you provide and that persists between pages
+* With a static key that is shared among all anonymous users
 
-If you specify a unique key for each anonymous user, LaunchDarkly tracks those users by session. If you do *not* specify a unique key for each anonymous user, and the user has saving to local storage disabled, LaunchDarkly creates a new user for each request. The number of real users who have disabled saving to local storage is likely small, but bots and crawlers almost never utilize local storage. One user and/or bot with local storage disabled can drastically inflate your MAU count.
+Optionally, if you use the JavaScript or React SDKs and want to use a unique key, you can defer key generation onto the SDK. This lets the SDK generate and persist a key in browser storage between pages.
+
+All users are identified by their unique key, including anonymous users. If you provide the anonymous user key yourself, you must ensure that the user uses that key on each subsequent visit.
+
+A common strategy to make sure that you're using the same anonymous user key each time is to store the unique identifier in a cookie or local storage. Because this is such a common strategy, we've implemented it directly into the SDK. If you build a user object and omit the key completely, the SDK will generate a unique identifier for the user. The SDK persists this unique identifier in local storage. Each subsequent user object that omits the user key uses that saved unique identifier.
+
+A common challenge from using cookies or local storage is that they are optional. End users can turn them off. They are also often not observed by bots and site crawlers. To mitigate this challenge, use a single key for all anonymous users.
 
 To learn more about MAU, read [Account usage metrics](/home/billing/usage-metrics).
 
