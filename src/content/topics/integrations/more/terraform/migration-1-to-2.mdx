@@ -40,7 +40,7 @@ The following previously-deprecated attributes are no longer supported:
 
 - `targeting_enabled` on the `launchdarkly_feature_flag_environment` resource was removed in favor of `on`.
 - `user_targets` on the `launchdarkly_feature_flag_environment` resource was removed in favor of `targets`.
-- `flag_fallthrough` on the `launchdarkly_feature_flag_environment` resource has been removed in favor of  `fallthrough`. This field is required.
+- `flag_fallthrough` on the `launchdarkly_feature_flag_environment` resource has been removed in favor of `fallthrough`. This field is required.
 - `enabled` on the `launchdarkly_webhooks` resource has been removed in favor of`on`.
 
 ## Standardized behavior of optional attributes
@@ -71,6 +71,15 @@ Manage all environments in projects maintained by Terraform as `environments` co
 ### Importing project resources
 
 Because of a bug in the [2.0.0 release](https://github.com/launchdarkly/terraform-provider-launchdarkly/issues/67), slightly different logic applies for project imports in v2.0.1.
+
+<Callout intent="info">
+<CalloutTitle>Managing the transition of environment resources in your Terraform state</CalloutTitle>
+<CalloutDescription>
+
+To transition from managing environment resources independently to managing them as attribute blocks on a project resource, you must remove those environments from your Terraform state using `terraform state rm launchdarkly_environment.<resource_name>`.<br/><br/>After you do this, the next apply will incorrectly show that the environments are going to change. This is incorrect. Your resources will be imported into the relevant project resource without being replaced and your SDK keys will not change.
+
+</CalloutDescription>
+</Callout>
 
 When importing `launchdarkly_project` resources, all of the project's environments are saved to the Terraform state whether or not they are explicitly defined on the import configuration, and are updated with subsequent applies. This means that any environments not included in your import configuration are torn down with any subsequent apply. If you want to manage project properties with Terraform but not nested environments, you can use Terraform's [ignore changes](https://www.terraform.io/docs/language/meta-arguments/lifecycle.html#ignore_changes) lifecycle meta-argument.
 
