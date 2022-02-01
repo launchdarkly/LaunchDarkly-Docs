@@ -1,0 +1,79 @@
+---
+path: '/integrations/managing'
+title: 'Managing integrations'
+description: 'This topic explains how to manage push-based LaunchDarkly integrations.'
+published: true
+---
+
+## Overview
+
+This topic explains how to manage push-based LaunchDarkly integrations. In a push-based integration, LaunchDarkly delivers events to the third-party integration through an integration service and logs whether the integration's configuration successfully received the event.
+
+LaunchDarkly provides several tools to help set up and maintain push-based integrations, including status tables, error logs, and connection validation tests.
+
+These tools are available for the following integrations:
+
+- [AppDynamics](/integrations/appdynamics)
+- [Datadog events](/integrations/datadog/events)
+- [Dynatrace events](/integrations/dynatrace/events)
+- [Elastic (ELK) Stack](/integrations/elastic-stack)
+- [Honeycomb events](/integrations/honeycomb/events)
+- [New Relic events](/integrations/new-relic/events)
+- [Microsoft Teams](/integrations/microsoft-teams)
+- [SignalFX events](/integrations/signalfx/events)
+- [Splunk](/integrations/splunk)
+
+## Checking configuration statuses
+
+LaunchDarkly provides a status table on the **Integrations** page for each push-based integration's configuration. The status table provides information about event successes and failures.
+
+To view the status table, click the **expand arrows** next to the **Add integration** button for the integration you want to view:
+
+![The status table for Datadog integration connections with the expand arrows called out.](images/manage-integrations-status-table-arrow-callout.png)
+
+The status table contains the following information:
+
+- **Success events**: The total number of events LaunchDarkly successfully delivered since you created the integration configuration.
+- **Most recent success**: How long ago LaunchDarkly delivered the last successful event.
+- **Errors**: The total number of errors LaunchDarkly received from integration events since you created the integration configuration.
+- **Most recent error**: How long ago LaunchDarkly received the most recent error. Click the link in this column to view the configuration's error log.
+
+## Reading the error log
+
+The error log shows a list of the most recent errors a given integration configuration has received. 
+
+To read an error log, click the link in the "Most recent error" column of a configuration's status table:
+
+![The status table for an integration with an error log link called out.](images/manage-integrations-error-log-link-callout.png)
+
+Error log entries contain the following information:
+
+- **Status code**: The HTTP status code returned by the integration service.
+- **Response body**: The HTTP response body returned by the integration service.
+- **Event timestamp**: The timestamp when the error occurred. Your web browser determines the timezone.
+
+Here is an image of the error log:
+
+![An integration error log.](images/manage-integrations-error-log.png)
+
+## Validating connections
+
+After configuring an integration, you can test the connection to LaunchDarkly from the **Integrations** page.
+
+To test a connection:
+
+1. Navigate to the **Integrations** page. 
+2. Find the integration you want to validate from the "Integrations" list.
+3. Click the **expand arrows** next to the **Add integration** button. The list of configurations for that integration appears.
+4. Click the **overflow** menu next to the configuration you want to test.
+5. Click **Edit integration configuration**:
+
+![The configuration overflow menu with the "Edit integration configuration" button called out.](images/manage-integrations-edit-integration-callout.png)
+
+  The "Edit configuration" screen appears.
+
+6. Click **Validate Connection**.
+  - If your connection is valid and LaunchDarkly delivered the test event successfully, then a success message appears. 
+  - If your connection is not valid and LaunchDarkly could not deliver the test event successfully, then an error message appears with an HTTP status code:
+
+![The "Edit Datadog configuration" screen with an error message.](images/manage-integrations-edit-config-failure.png)

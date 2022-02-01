@@ -771,6 +771,10 @@
       {
         "label": "Building your own integrations",
         "path": "/integrations/building-integrations"
+      },
+      {
+        "label": "Managing integrations",
+        "path": "/integrations/managing"
       }
     ]
   },
