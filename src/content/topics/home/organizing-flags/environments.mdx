@@ -100,6 +100,16 @@ The TTL setting checkbox only applies to environments using the PHP SDK. To lear
 
 ![The Create an environment screen.](env-create.png)
 
+## Cloning an environment
+
+For organizations with many flags, cloning an environment is the fastest way to create an environment and copy current flag settings from an existing environment. Cloning an environment also copies segment and flag rules for that environment.
+
+Cloning an environment is currently only available as a feature through the REST API. To learn more, read [Create Environment](https://apidocs.launchdarkly.com/tag/Environments#operation/postEnvironment).
+
+When you clone an environment, the following restrictions apply:
+* You cannot clone an environment if it has more than 1000 segments.
+* When you clone an environment, user targeting does not carry over to the new environment, because users may not exist in both environments.
+* Users in Segments, Amplitude synced segments, and Big segments do not carry over to the new environment. Instead, an empty segment is created as a placeholder for flag rules to reference. To learn more about how to sync these segments, read [Big Segments](/home/users-and-segments/big-segments.mdx).
 
 ## Migrating content between environments
 
