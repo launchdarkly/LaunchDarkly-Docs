@@ -14,15 +14,6 @@ Workflows is available to customers on an Enterprise plan. To learn more, [read 
 </CalloutDescription>
 </Callout>
 
-<Callout intent="alert">
-<CalloutTitle>Workflows is in beta</CalloutTitle>
-<CalloutDescription>
-
-Development work on workflows is ongoing. Elements of workflows may change without notice.
-
-</CalloutDescription>
-</Callout>
-
 ## Overview
 
 This topic explains how to build, start, and view workflows in LaunchDarkly. A workflow is a set of actions that you can schedule in advance to make changes to a feature flag.
@@ -44,11 +35,49 @@ To use workflows, you should understand the following features:
 
 ## Setting up a workflow
 
-To build a workflow:
+You can set up two kinds of workflows. Progressive rollout workflows gradually increase the percentage of users targeted by a flag. Custom workflows manage a specific rollout process that you define. 
+
+### Building a progressive rollout workflow
+
+To build a progressive rollout workflow:
 
 1. Navigate to the flag dashboard and select the flag you want to create a workflow for. The flag's Targeting tab appears.
 2. Click on the **Workflows** tab.
-3. Click **Create a workflow**.
+3. Click **Create a workflow**, and then choose the option to build a **Progressive rollout**. Click **Next**.
+4. Configure your progressive rollout:
+  * Choose when to start the workflow.
+  * Choose the default variation to roll out to users.
+  * Choose how much to increase the percentage of the rollout, starting at 0%. This setting overwrites any previously-defined rollouts for the default variation, so you should check to ensure that the default variation will not be reduced. 
+  * Choose how frequently to increase the rollout percentage. 
+5. Click **Review workflow** to review the workflow that LaunchDarkly creates based on your configuration.
+6. Give your workflow a name, and optionally add a description.
+7. (Optional) If you have an approvals process, you can remove the first **Schedule** step, add an approval step, and then re-add the schedule step.
+
+<Details summary="Click to expand details on adding an approval step">
+
+If you have an approvals process, you can add an approval step to your workflow.
+
+Here's how:
+
+1. Click **Request approval**.
+2. Click into the **Reviewers** dropdown and choose an approver.
+3. Enter a description in the **Description** field.
+
+You must add approval steps before you add schedule steps. If you already have a schedule step, delete the schedule step, and then add the approval step as the first step of that stage.
+
+</Details>
+
+8. Once the workflow looks correct, click **Start workflow**. 
+
+For multivariate workflows, LaunchDarkly decreases and recalculates the variations that are not selected for the rollout. You should confirm the auto-calculated percentage rollouts and adjust them to your preferences if needed. 
+
+### Building a custom workflow
+
+To build a custom workflow:
+
+1. Navigate to the flag dashboard and select the flag you want to create a workflow for. The flag's Targeting tab appears.
+2. Click on the **Workflows** tab.
+3. Click **Create a workflow**, and then choose the option to build a **Custom workflow**.
 4. Give your workflow a name, and optionally add a description.
 5. (Optional) If you have an approvals process, click **Request approval**.
   * Click into the **Reviewers** dropdown and choose an approver.
@@ -65,7 +94,7 @@ LaunchDarkly now processes the workflow steps for you based on the timeline and 
 
 ## Viewing a workflow
 
-There are two ways to view active workflows for a feature flag. You can use the progress bar or view the workflows in a list.
+There are two ways to view active workflows for a feature flag. You can use the progress bar or view the workflow details in a read-only view.
 
 ### Progress bar
 
@@ -80,12 +109,13 @@ To view the status of a workflow on the Targeting page:
 
 ![Click on the bubbles of the progress bar to view more details about each change in the stage.](workflows-progress-bar-details.png)
 
-### List view
+### Workflow details
 
-To view the list of active workflows on a feature flag:
+To view the workflow details:
 
 1. Navigate to the flags dashboard and select the flag with the workflow you want to view. The flag's Targeting tab appears.
 2. Click the **Workflows** tab to view a list of all active workflows.
+3. Click the name of the workflow you'd like to view. 
 
 ## Deleting a workflow
 
