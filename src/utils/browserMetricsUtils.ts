@@ -1,4 +1,4 @@
-import { datadogRum } from '@datadog/browser-rum'
+import { datadogRum } from '@datadog/browser-rum-slim'
 import { datadogLogs } from '@datadog/browser-logs'
 import { getLCP, Metric } from 'web-vitals'
 

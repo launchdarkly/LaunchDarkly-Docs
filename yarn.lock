@@ -2235,14 +2235,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@datadog/browser-rum@npm:^4.2.0":
+"@datadog/browser-rum-slim@npm:^4.2.0":
   version: 4.2.0
-  resolution: "@datadog/browser-rum@npm:4.2.0"
+  resolution: "@datadog/browser-rum-slim@npm:4.2.0"
   dependencies:
     "@datadog/browser-core": 4.2.0
     "@datadog/browser-rum-core": 4.2.0
     tslib: ^1.10.0
-  checksum: 3f8c6e921baef55154fe6c35e463a85c16abb5882101c9a647f984660ef636fd46ca7285c2dd2d374cbc845ed6879418127fa5f56d3f11d04dae488e30239790
+  checksum: 7497c4875ad2d3fc27c2fdc3363be9aa771f1fb25644bd3375a278adf3c39648a919c5ec703d5fbf32b0493f2709f834f4d5e1a114dead0ea89bf1c28d2c4ec2
   languageName: node
   linkType: hard
 
@@ -11978,7 +11978,7 @@ __metadata:
     "@babel/preset-env": ^7.16.11
     "@cypress/webpack-preprocessor": ^5.11.0
     "@datadog/browser-logs": ^4.2.0
-    "@datadog/browser-rum": ^4.2.0
+    "@datadog/browser-rum-slim": ^4.2.0
     "@emotion/jest": ^11.7.1
     "@emotion/react": ^11.7.1
     "@emotion/styled": ^11.6.0

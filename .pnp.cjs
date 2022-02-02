@@ -40,7 +40,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/preset-env", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:7.16.11"],
             ["@cypress/webpack-preprocessor", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.11.0"],
             ["@datadog/browser-logs", "npm:4.2.0"],
-            ["@datadog/browser-rum", "npm:4.2.0"],
+            ["@datadog/browser-rum-slim", "npm:4.2.0"],
             ["@emotion/jest", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:11.7.1"],
             ["@emotion/react", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:11.7.1"],
             ["@emotion/styled", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:11.6.0"],
@@ -4800,24 +4800,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["@datadog/browser-rum", [
-        ["npm:4.2.0", {
-          "packageLocation": "./.yarn/cache/@datadog-browser-rum-npm-4.2.0-705061cc2b-3f8c6e921b.zip/node_modules/@datadog/browser-rum/",
-          "packageDependencies": [
-            ["@datadog/browser-rum", "npm:4.2.0"],
-            ["@datadog/browser-core", "npm:4.2.0"],
-            ["@datadog/browser-rum-core", "npm:4.2.0"],
-            ["tslib", "npm:1.14.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["@datadog/browser-rum-core", [
         ["npm:4.2.0", {
           "packageLocation": "./.yarn/cache/@datadog-browser-rum-core-npm-4.2.0-91f1b9c814-558e74ce6d.zip/node_modules/@datadog/browser-rum-core/",
           "packageDependencies": [
             ["@datadog/browser-rum-core", "npm:4.2.0"],
             ["@datadog/browser-core", "npm:4.2.0"],
+            ["tslib", "npm:1.14.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@datadog/browser-rum-slim", [
+        ["npm:4.2.0", {
+          "packageLocation": "./.yarn/cache/@datadog-browser-rum-slim-npm-4.2.0-506ab52e4e-7497c4875a.zip/node_modules/@datadog/browser-rum-slim/",
+          "packageDependencies": [
+            ["@datadog/browser-rum-slim", "npm:4.2.0"],
+            ["@datadog/browser-core", "npm:4.2.0"],
+            ["@datadog/browser-rum-core", "npm:4.2.0"],
             ["tslib", "npm:1.14.1"]
           ],
           "linkType": "HARD",
@@ -17748,7 +17748,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/preset-env", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:7.16.11"],
             ["@cypress/webpack-preprocessor", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.11.0"],
             ["@datadog/browser-logs", "npm:4.2.0"],
-            ["@datadog/browser-rum", "npm:4.2.0"],
+            ["@datadog/browser-rum-slim", "npm:4.2.0"],
             ["@emotion/jest", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:11.7.1"],
             ["@emotion/react", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:11.7.1"],
             ["@emotion/styled", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:11.6.0"],

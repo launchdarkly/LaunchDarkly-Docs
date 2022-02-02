@@ -7,7 +7,7 @@
   "dependencies": {
     "@algolia/transporter": "^4.12.0",
     "@datadog/browser-logs": "^4.2.0",
-    "@datadog/browser-rum": "^4.2.0",
+    "@datadog/browser-rum-slim": "^4.2.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mdx-js/mdx": "^1.6.22",
