@@ -253,7 +253,7 @@ NSDictionary* dictionaryFlagValue = [[LDClient get] dictionaryVariationForKey:@"
 
 The `variation` method determines which variation of a feature flag a user receives. `variation` calls take the feature flag key and a default value.
 
-The default value is only be returned if an error is encountered, such as when the feature flag key doesn't exist or the user doesn't have a key specified.
+The method returns the default value only if it encounters an error, such as when the feature flag key doesn't exist or the user doesn't have a key specified.
 
 Here is an example of the `variation` method:
 
@@ -261,12 +261,24 @@ Here is an example of the `variation` method:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.variation("your.feature.key", false);
+client.variation('your.feature.key', false);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+const boolFlagValue = client.variation('your.feature.key', false) as boolean;
+const numberFlagValue = client.variation('your.feature.key', 2) as number;
+const stringFlagValue = client.variation('your.feature.key', 'default') as string;
 ```
 
 </CodeTabItem>

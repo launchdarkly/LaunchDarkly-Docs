@@ -209,6 +209,7 @@ To connect the SDK to the Relay Proxy, set the `streamUrl`, `baseUrl`, and `even
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js' },
+    { label: 'TypeScript', value: 'ts'}
   ]
 }>
 <CodeTabItem value="js">
@@ -218,6 +219,20 @@ const options = {
   streamUrl: 'https://your-relay-proxy.com:8080',
   baseUrl: 'https://your-relay-proxy.com:8080',
   eventsUrl: 'https://your-relay-proxy.com:8080'
+};
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+const options: ld.LDOptions = {
+  streamUrl: 'https://your-relay-proxy.com:8080',
+  baseUrl: 'https://your-relay-proxy.com:8080',
+  eventsUrl: 'https://your-relay-proxy.com:8080',
 };
 
 ```

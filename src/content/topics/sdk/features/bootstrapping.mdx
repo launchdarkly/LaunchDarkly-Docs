@@ -30,22 +30,20 @@ If you set `bootstrap` to the string `"localStorage"`, the client tries to get f
 
 We recommend populating bootstrap values with a JSON object containing flag metadata derived from calling the server-side SDK's "allFlagsState" method. All of the server-side SDKs have a function, called some variation of "allFlagsState," to evaluate flags on behalf of a specified user. This function provides the initial set of bootstrap values to your front end. The exact name varies depending on the back-end technology's naming conventions, such as camel-case or snake-case.
 
-Below are two examples of how to bootstrap flags into the JavaScript client:
+If your back end passes values to your front end on pageload, you can call your server-side SDK's `allFlagsState` function on pageload and pass the results as a parameter to your front-end initialization code. 
+
+Here is an example of how to bootstrap flags into the JavaScript client, if it passes the flags on pageload:
 
 <CodeTabs
-  defaultValue="param"
+  defaultValue="js"
   values={[
-    { label: 'Flags passed on pageload', value: 'param', },
-    { label: 'Flags acquired from a Ruby template directive', value: 'ruby', },
+    { label: 'JavaScript', value: "js" },
+    { label: 'TypeScript', value: "ts" },
   ]
 }>
-<CodeTabItem value="param">
+<CodeTabItem value="js">
 
 ```js
-// If your back end passes values to your front end on pageload,
-// you can call your server-side SDK's allFlagsState function
-// on pageload and pass the results as a parameter to your
-// front-end initialization code.
 function onPageLoad(flags) {
   ...
 
@@ -62,13 +60,36 @@ function onPageLoad(flags) {
 ```
 
 </CodeTabItem>
-<CodeTabItem value="ruby">
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+function onPageLoad(flags: ld.LDFlagSet) {
+  ...
+  const user: ld.LDUser = { key: 'aa0ceb'}
+  const options: ld.LDOptions = { bootstrap: flags };
+  const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+  ...
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+If you can invoke your back end dynamically, such as in Ruby with a template directory, you can inline the function invocation and request that the SDK return only the client-side flags. 
+
+Here is an example of how to bootstrap flags into the JavaScript client, if you acquire the flags from a Ruby template directive:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: "js" },
+  ]
+}>
+<CodeTabItem value="js">
 
 ```js
-// If your back end can be invoked dynamically, such as in Ruby
-// with a template directory, you can inline the function
-// invocation. We are requesting only the client-side
-// flags to be returned.
 var ldclient = LDClient.initialize(
   'YOUR_CLIENT_SIDE_ID',
   user,
@@ -92,6 +113,7 @@ Alternatively, you can bootstrap feature flags from local storage:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
@@ -100,6 +122,17 @@ Alternatively, you can bootstrap feature flags from local storage:
 var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
   bootstrap: 'localStorage'
 });
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+const user: ld.LDUser = { key: 'aa0ceb'}
+const options: ld.LDOptions = { bootstrap: 'localStorage' };
+const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>

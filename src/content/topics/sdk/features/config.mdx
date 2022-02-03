@@ -186,6 +186,7 @@ This code sample shows you how to create a custom configuration object to pass c
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js' },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
@@ -196,6 +197,16 @@ const options = {
 };
 const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+const options: ld.LDOptions = { allAttributesPrivate: true };
+const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>

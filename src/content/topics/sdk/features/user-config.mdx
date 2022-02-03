@@ -808,6 +808,7 @@ Here's an example of a user:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
@@ -822,6 +823,23 @@ const user = {
     "groups": ["Google", "Microsoft"]
   }
 };
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+const user: ld.LDUser = {
+  key: 'aa0ceb',
+  firstName: 'Ernestina',
+  lastName: 'Evans',
+  email: 'ernestina@example.com',
+  custom: {
+    groups: ['Google', 'Microsoft'],
+  },
+}
 ```
 
 </CodeTabItem>
@@ -849,6 +867,7 @@ To mark all user attributes except the key as private in the JavaScript SDK, you
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
@@ -866,6 +885,22 @@ var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
 ```
 
 </CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+const user: ld.LDUser = {
+  key: 'aa0ceb',
+  name: 'Grace Hopper',
+  email: 'gracehopper@example.com',
+}
+const options: ld.LDOptions = { allAttributesPrivate: true };
+
+const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+```
+
+</CodeTabItem>
 </CodeTabs>
 
 In the above example, the `name` and `email` attributes are removed.
@@ -878,6 +913,7 @@ This option is configured in both the user object and the configuration object:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
@@ -893,6 +929,23 @@ var user = {
 var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
   privateAttributeNames: ["email"]
 });
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+const user: ld.LDUser = {
+  key: 'aa0ceb',
+  name: 'Grace Hopper',
+  email: 'gracehopper@example.com',
+  privateAttributeNames: ['email'],
+};
+const options: ld.LDOptions = { allAttributesPrivate: ['email'] };
+
+const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>
@@ -920,6 +973,7 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
@@ -943,6 +997,15 @@ var user = {"anonymous": true};
 // We suggest storing the user's key in a cookie, otherwise you
 // might create a new user for each page request.
 var user2 = {"key":"aa0ceb", "anonymous": true};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+const anonymousUser: ld.LDUser = { key: 'anon-user', anonymous: true };
 ```
 
 </CodeTabItem>

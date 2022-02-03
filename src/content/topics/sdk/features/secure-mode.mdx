@@ -242,25 +242,38 @@ You should send the computed secure mode hash for your user as the [`hash` attri
 <CodeTabs
   defaultValue="init"
   values={[
-    { label: 'JavaScript initialization', value: 'init', },
-    { label: 'JavaScript identify', value: 'identify', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
-<CodeTabItem value="init">
+<CodeTabItem value="js">
 
 ```js
+// client initialization
 var client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
-  hash: "SERVER_GENERATED_HASH"
+  hash: 'SERVER_GENERATED_HASH'
+});
+
+// identification of new user contexts
+client.identify(newUser, hash, function() {
+  console.log("New user's flags available");
 });
 ```
 
 </CodeTabItem>
-<CodeTabItem value="identify">
+<CodeTabItem value="ts">
 
-```js
-client.identify(newUser, hash, function() {
+```ts
+// client initialization
+const user: ld.LDUser = { key: 'aa0ceb' };
+const options: ld.LDOptions = { allAttributesPrivate: true };
+const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+
+// identification of new user contexts
+client.identify(newUser, hash, function () {
   console.log("New user's flags available");
 });
+
 ```
 
 </CodeTabItem>

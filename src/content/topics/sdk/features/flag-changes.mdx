@@ -435,12 +435,22 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 client.on('change', function(settings) {
+  console.log('flags changed:', settings);
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+client.on('change', function (settings) {
   console.log('flags changed:', settings);
 });
 ```
@@ -456,12 +466,22 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-ldclient.on('change:YOUR_FLAG_KEY', function(value, previous) {
+client.on('change:YOUR_FLAG_KEY', function (value, previous) {
+  console.log('YOUR_FLAG_KEY changed:', value, '(' + previous + ')');
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+client.on('change:YOUR_FLAG_KEY', function (value, previous) {
   console.log('YOUR_FLAG_KEY changed:', value, '(' + previous + ')');
 });
 ```

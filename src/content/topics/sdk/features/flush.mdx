@@ -180,11 +180,19 @@ To call `flush`:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
+client.flush();
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
 client.flush();
 ```
 

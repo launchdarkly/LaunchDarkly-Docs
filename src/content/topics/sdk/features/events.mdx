@@ -217,12 +217,20 @@ To call `track`:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.track("your-event-name", { customProperty: someValue });
+client.track('your-event-name', { customProperty: someValue });
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+client.track('your-event-name', { customProperty: someValue });
 ```
 
 </CodeTabItem>
@@ -258,13 +266,21 @@ You can also explicitly send an event with any data you like using the `track` f
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-ldclient.track("your-event-name", { customProperty: someValue });
+client.track('your-event-name', { customProperty: someValue });
 ```
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+client.track('your-event-name', { customProperty: someValue });
+```
+
 </CodeTabItem>
 </CodeTabs>
 

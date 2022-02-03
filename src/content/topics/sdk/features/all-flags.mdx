@@ -155,12 +155,22 @@ Unlike most of our SDKs, our JavaScript SDK's `allFlags` method sends analytic e
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 let allFlagsResult = client.allFlags();
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+const allFlagsResult: ld.LDFlagSet = client.allFlags();
 ```
 
 </CodeTabItem>
