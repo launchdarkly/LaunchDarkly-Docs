@@ -132,11 +132,11 @@ With the _region_, _stream name_ and _role ARN_ from earlier in the procedure, y
 
 To create the Kinesis destination:
 
-1. Navigate to the **[Integrations page](https://app.launchdarkly.com/default/integrations)** and find the Amazon Kinesis card.
+1. Navigate to the **[Integrations page](https://app.launchdarkly.com/default/integrations)** and find "Amazon Kinesis."
 
 ![The add destination screen.](kinesis-add.png)
 
-2. Click **+ Integration.** The integration screen appears.
+2. Click **Add integration.** The "Create a destination" panel appears.
 3. (Optional) Enter a Name for the destination.
 4. Choose an environment from the **Environment** drop-down list.
 5. Enter the AWS data you saved earlier:
@@ -154,13 +154,14 @@ To create the Kinesis destination:
 
 After you've saved the destination, send a test event to confirm that the destination is configured properly.
 
-1. From the Integrations page, click the edit button on the Amazon Kinesis card. The Edit destination screen appears.
-2. In the Send a test event section, click **Send Event**:
+1. From the Integrations page, click in the "Amazon Kinesis" section to display current integrations.
+2. Click the edit button next to the destination you want to test. The "Edit destination" panel appears.
+3. In the "Send a test event" section, click **Send Event**:
 
 ![The Send a test event screen.](kinesis-test-event.png)
 
-2. If you have configured the destination correctly, an event is logged in the Kinesis destination.
-3. Identify a successful test event by searching for the user or flag key `LaunchDarklyDataExportTestEvent`. When this key appears in the destination, you know the test event arrived.
+4. If you have configured the destination correctly, an event is logged in the Kinesis destination.
+5. Identify a successful test event by searching for the user or flag key `LaunchDarklyDataExportTestEvent`. When this key appears in the destination, you know the test event arrived.
 
 <Callout intent="info">
 <CalloutTitle>Partition Keys</CalloutTitle>
