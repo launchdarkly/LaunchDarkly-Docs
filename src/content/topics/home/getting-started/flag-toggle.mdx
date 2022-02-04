@@ -29,7 +29,7 @@ Here is a screenshot of the dashboard:
 <CalloutTitle>Use the toggle in a flag's Targeting tab</CalloutTitle>
 <CalloutDescription>
 
-You can also turn a flag on or off from the flag's Targeting tab. To learn more about flag targeting, read [Targeting users](/home/flags/targeting-users).
+You can also turn a flag on or off from the flag's **Targeting** tab. To learn more about flag targeting, read [Targeting users](/home/flags/targeting-users).
 
 </CalloutDescription>
 </Callout>
@@ -38,14 +38,14 @@ Flag behavior can do a lot more than just turning features on or off. Continue r
 
 ## Turning flags on
 
-When you create a new flag, it is turned **off** by default. You can turn the flag **on** by clicking the flag toggle button in the dashboard or the flag's Targeting tab.
+When you create a new flag, it is turned **off** by default. You can turn the flag **on** by clicking the flag toggle button in the dashboard or the flag's **Targeting** tab.
 
 To turn a flag on:
 
 1. Navigate to the dashboard or the **Targeting** tab in the flag detail page.
 2. Click the flag toggle. The toggle turns green and displays the word **on**:
 
-![The flag toggle in the Targeting tab.](flag-targeting-toggle.png)
+![The flag toggle in the "Targeting" tab.](flag-targeting-toggle.png)
 
 
 To learn more about creating flags, read [Creating a feature flag](/home/getting-started/feature-flags).
@@ -54,20 +54,20 @@ To learn more about creating flags, read [Creating a feature flag](/home/getting
 
 When you turn a flag to **off**, you disable the targeting rules for that flag. Instead of serving an active variation, you serve the **off** variation.
 
-In the Targeting tab, you can set an **off** variation for both boolean and multivariate flags. Boolean feature flags default to `false` when the feature flag is off.
+In the **Targeting** tab, you can set an **off** variation for both boolean and multivariate flags. Boolean feature flags default to `false` when the feature flag is off.
 
 To turn a flag off:
 
 1. Navigate to the dashboard or the **Targeting** tab in the flag detail page.
 2. Set the toggle to **off**:
 
-![The Targeting tab with the flag turned off.](flag-targeting-toggle-off.png)
+![The "Targeting" tab with the flag turned off.](flag-targeting-toggle-off.png)
 
 If you don't specify an explicit **off** variation, LaunchDarkly serves the fallback value for the flag. You can specify the fallback value in your code's `variation` calls. This is also the value that LaunchDarkly serves if your application is unable to connect to LaunchDarkly's servers.
 
-This value is indicated at the bottom of the Targeting tab:
+This value is indicated at the bottom of the **Targeting** tab:
 
-![The fallback value at the bottom of the Targeting tab.](flag-default-value.png)
+![The fallback value at the bottom of the "Targeting" tab.](flag-default-value.png)
 
 
 <Callout intent="info">

@@ -1,31 +1,31 @@
 ---
 path: '/home/billing/usage-metrics'
 title: 'Account usage metrics'
-description: 'This topic explains how to understand the billing and usage metrics visualized in the Account Settings page.'
+description: 'This topic explains how to understand the billing and usage metrics visualized in the Account settings page.'
 published: true
 ---
 
 ## Overview
 
-This topic explains how to understand the billing and usage metrics visualized in the Account Settings page. It introduces the concept of Monthly Active Users (MAU), an amount of unique identifiers designated in your LaunchDarkly plan.
+This topic explains how to understand the billing and usage metrics visualized in the **Account settings** page. It introduces the concept of Monthly Active Users (MAU), an amount of unique identifiers designated in your LaunchDarkly plan.
 
 ## Understanding how LaunchDarkly calculates Monthly Active Users (MAU)
 
 LaunchDarkly calculates client-side MAUs as unique keys that evaluate, initialize, or identify any flag from a client SDK. The amount of these keys is designated per account. We count unique user keys that are evaluated by a flag, so even if a single user account evaluates flags from multiple device types or over multiple sessions, we count that user as one MAU over the 30-day period.
 
-You can see this data visualized in **Account Settings** > **Usage**.
+You can see this data visualized in **Account settings** > **Usage**.
 
-LaunchDarkly usage charts also show you the number of unique keys per Project and per Environment. Your usage is based on the total number of unique user keys across your entire account. The Monthly Active Users chart shows the total number of unique keys over the previous 30-day rolling period.
+LaunchDarkly usage charts also show you the number of unique keys per project and per environment. Your usage is based on the total number of unique user keys across your entire account. The Monthly Active Users chart shows the total number of unique keys over the previous 30-day rolling period.
 
-Here is an example Usage dashboard screen:
+Here is an example **Usage** screen:
 
-![The Usage dashboard screen.](settings-usage.png)
+![The "Usage" screen.](settings-usage.png)
 
 Project MAU and account MAU are not always the same number. MAU charts count unique users for a specific Project or Environment. Users can be active in multiple projects or environments, contributing to the unique user counts in each context.
 
-* The Overview tab shows the unique client MAUs at the account level
-* The client tab can show all the unique client MAUs from each named project, *or*
-* The client tab can show all the unique client MAUs from each named environment
+* The **Overview** tab shows the unique client MAUs at the account level
+* The **Client** tab can show all the unique client MAUs from each named project, *or*
+* The **Client** tab can show all the unique client MAUs from each named environment
 
 For example, LaunchDarkly may be seeing 10K unique user keys for Project A and 10K for Project B, but if there is any overlap in the user base your account may be serving 13k unique user keys.
 
@@ -52,7 +52,7 @@ If you have configured LaunchDarkly to use anonymous users, that can impact your
 
 ## Understanding billing metrics
 
-Billing metrics are located under **Account Settings** > **Billing**.
+Billing metrics are located under **Account settings** > **Billing**.
 
 Billing metrics show you:
 
@@ -66,7 +66,7 @@ You can easily see your usage, and adjust your plan as you need to accommodate y
 
 ## Understanding usage metrics
 
-Usage metrics are located under **Account Settings** > **Usage**. These usage metrics tell you more about how your application and members of your organization are using LaunchDarkly.
+Usage metrics are located under **Account settings** > **Usage**. These usage metrics tell you more about how your application and members of your organization are using LaunchDarkly.
 
 Usage metrics tell you:
 
