@@ -236,7 +236,7 @@ To create a custom conversion metric:
 
 ![The Event kind dropdown.](metrics-event-kind-custom.png)
 
-3. Click to select the **Conversion** radio button
+3. Select the **Conversion** radio button.
 4. Enter a human-readable **Event name**. This is the event name you will reference in your code snippet when you insert the metric information into your app.
 5. Click **Save Metric**:
 
@@ -255,7 +255,7 @@ For example, you can use numeric metrics to track:
 
 To add a custom numeric metric in LaunchDarkly, you must identify it with a code snippet embedded in your app. Numeric metrics must send a metric event value for each unique user in an experiment for accurate experiment results.
 
-When you're ready to add a custom event, put this snippet in your code:
+To add a custom event, put this snippet in your code:
 
 <CodeTabs
   defaultValue="java"
@@ -300,10 +300,12 @@ If you can't see the feature described below, your SDKs may be out of date. To s
 To create a numeric metric:
 
 1. Follow steps 1-6 in [Creating click metrics](#creating-click-metrics) until you have configured the form up to the "Event information" section.
-2. Enter a human-readable **Event name**. This is the event name you will reference in your code snippet when you insert the metric information into your app.
-3. Enter a **Unit of measure** to track.
-4. Choose a **Success criteria** from the dropdown.
-5. Click **Save Metric**:
+2. Choose **Custom** from the **Event kind** dropdown.
+3. Select the **Numeric** radio button.
+4. Enter a human-readable **Event name**. This is the event name you will reference in your code snippet when you insert the metric information into your app.
+5. Enter a **Unit of measure** to track.
+6. Choose a **Success criteria** from the dropdown.
+7. Click **Save Metric**:
 
 ![The "Event information" section of the "Create a new metric" screen with a numeric metric configured.](metrics-event-information-numeric.png)
 
@@ -325,8 +327,8 @@ You can connect multiple metrics to one flag to run multiple experiments about t
 
 There are two ways to connect metrics to feature flags:
 
-* From the Experiments dashboard, and
-* From a flag's Experiments tab.
+* [From the Experiments dashboard](#creating-an-experiment-from-the-experiments-dashboard), and
+* [From a flag's Experiments tab](#creating-an-experiment-from-a-flags-experiments-tab).
 
 ### Creating an experiment from the Experiments dashboard
 
@@ -381,26 +383,11 @@ You may want to refine your experiment population for any of the following reaso
 2. To exclude user groups whose events you do not need to measure. For example, users affected by 'Default' rules.
 3. To reduce the events volume an experiment generates in order to manage billing costs.
 
-<Callout intent="info">
-<CalloutTitle>Experiment allocation</CalloutTitle>
-<CalloutDescription>
-
-The method to create a custom experiment population is different depending on whether or not your LaunchDarkly account has allocation enabled. Most accounts use allocation. If you are unsure whether your account has allocation enabled, [contact Support](https://support.launchdarkly.com/hc/en-us).
-
-</CalloutDescription>
-</Callout>
-
-### Defining an experiment audience with allocation
-
-To learn how to define the experiment audience with allocation, read [Using experiment allocation](/home/experimentation/allocation#using-experiment-allocation). Most LaunchDarkly accounts use this method.
-
-### Defining an experiment audience without allocation
-
-To learn how to define the experiment audience without allocation, read [Customizing experiment populations](/home/experimentation/populations#customizing-experiment-populations).
+To learn how to define an experiment audience, read [Using experiment allocation](/home/experimentation/allocation#using-experiment-allocation).
 
 ## Starting experiment iterations
 
-After you've connected a metric to a flag, you can start an experiment iteration whenever you want. Click the **Start recording** button in every environment where you want to record data.
+After you connect a metric to a flag, you can start an experiment iteration at any time. Click **Start recording** in every environment where you want to record data.
 
 Experiment iterations allow you to record experiments in discrete blocks of time. To ensure accurate experiment results, when you make changes that impact an experiment’s audience or variations it is best practice to start a new iteration of the experiment.
 

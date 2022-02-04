@@ -206,7 +206,7 @@ module.exports = [
   },
   {
     fromPath: '/home/experimentation/managing/populations',
-    toPath: '/home/experimentation/populations',
+    toPath: '/home/experimentation/allocation',
   },
   {
     fromPath: '/home/experimentation/managing/segment',
@@ -963,5 +963,9 @@ module.exports = [
   {
     fromPath: '/guides/best-practices/using-feature-flags-on-static-sites',
     toPath: '/guides/platform-specific/static-sites',
+  },
+  {
+    fromPath: '/home/experimentation/populations',
+    toPath: '/home/experimentation/allocation',
   },
 ]
