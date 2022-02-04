@@ -154,6 +154,12 @@ This identifies all references to `firstFeatureFlag` in your code base.
 
 To learn more about aliases, read the [aliases documentation](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/ALIASES.md).
 
+## Using `ld-find-code-refs` with a monorepo
+
+`ld-find-code-refs` version 2.5.0+ provides support for monorepos. This means a single scan of code references can find feature flags and aliases from multiple LaunchDarkly projects stored in the same repository. You can specify an optional starting subdirectory for each project, which limits your scan to directories below the initial subdirectory only. The required top-level `dir` value should still be the overall git repository root directory.
+
+To learn more about monorepo support, read [Projects](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#projects) in the `ld-find-code-refs` configuration documentation.
+
 ## Limitations
 
 The LaunchDarkly code references API asserts various limits to limit the number of "false positive" code references. `ld-find-code-refs` logs warning messages if you exceed any of these limits. Above certain values, LaunchDarkly may ignore some files and references.
