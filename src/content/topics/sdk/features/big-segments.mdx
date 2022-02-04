@@ -101,6 +101,7 @@ This feature is available in the listed versions and later of the following serv
 
 * [.NET (server-side)](#net-server-side): 6.2.0
 * [Go](#go): 5.5.0
+* [Java](#java): 5.7.0
 * [Node.js (server-side)](#nodejs-server-side): 6.2.0
 * [Python](#python): 7.3.0
 * [Ruby](#ruby): 6.3.0
@@ -173,6 +174,46 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 </CodeTabs>
 
 To learn more about the available Big Segments configuration options, read [`BigSegmentsConfigurationBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#BigSegmentsConfigurationBuilder).
+
+### Java
+
+Big Segments is available in version 5.7.0 and later:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+  }>
+  <CodeTabItem value="java">
+
+```java
+import com.launchdarkly.sdk.server.*;
+import com.launchdarkly.sdk.server.integrations.*;
+
+import java.net.URI;
+import java.time.Duration;
+
+LDConfig config = new LDConfig.Builder()
+    .bigSegments(
+        Components.bigSegments(
+            Redis.dataStore()
+                .uri(URI.create("redis://my-redis:6379"))
+                .prefix("my-key-prefix")
+        )
+        .userCacheSize(2000)
+        .userCacheTime(Duration.ofSeconds(30))
+    )
+    .build();
+LDClient client = new LDClient(sdkKey, config);
+```
+
+  </CodeTabItem>
+</CodeTabs>
+
+To use either the Redis integration, as shown above, or the DynamoDB integration in the Java SDK, you must also install additional packages. To learn more, read [Using Redis as a persistent feature store](/sdk/features/storing-data/redis#java) and [Using DynamoDB as a persistent feature store](/sdk/features/storing-data/dynamodb#java).
+
+To learn more about the available Big Segments configuration options, read [`BigSegmentsConfigurationBuilder`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/BigSegmentsConfigurationBuilder.html).
 
 ### Node.js (server-side)
 
@@ -261,7 +302,7 @@ client = LaunchDarkly::LDClient.new(sdk_key, config)
   </CodeTabItem>
 </CodeTabs>
 
-To use either the Redis integration (as shown above) or the DynamoDB integration in the Ruby SDK, you must also install additional packages. To learn more, read [Storing data: Redis](/sdk/features/storing-data/redis#python) and [Storing data: DynamoDB](/sdk/features/storing-data/dynamodb#python).
+To use either the Redis integration, as shown above, or the DynamoDB integration in the Python SDK, you must also install additional packages. To learn more, read [Using Redis as a persistent feature store](/sdk/features/storing-data/redis#python) and [Using DynamoDB as a persistent feature store](/sdk/features/storing-data/dynamodb#python).
 
 To learn more about the available Big Segments configuration options, read [`BigSegmentsConfig`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.config.BigSegmentsConfig).
 
@@ -293,6 +334,6 @@ client = LaunchDarkly::LDClient.new(sdk_key, config)
   </CodeTabItem>
 </CodeTabs>
 
-To use either the Redis integration (as shown above) or the DynamoDB integration in the Ruby SDK, you must also install additional gems. To learn more, read [Storing data: Redis](/sdk/features/storing-data/redis#ruby) and [Storing data: DynamoDB](/sdk/features/storing-data/dynamodb#ruby).
+To use either the Redis integration, as shown above, or the DynamoDB integration in the Ruby SDK, you must also install additional gems. To learn more, read [Using Redis as a persistent feature store](/sdk/features/storing-data/redis#ruby) and [Using DynamoDB as a persistent feature store](/sdk/features/storing-data/dynamodb#ruby).
 
 To learn more about the available Big Segments configuration options, read [`BigSegmentsConfig`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/BigSegmentsConfig.html).
