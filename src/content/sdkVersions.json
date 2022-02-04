@@ -593,6 +593,11 @@
     "name": "Java",
     "versions": [
       {
+        "versionMajorMinor": "5.7",
+        "releaseYear": 2022,
+        "releaseMonthDay": "01-28"
+      },
+      {
         "versionMajorMinor": "5.6",
         "releaseYear": 2021,
         "releaseMonthDay": "07-02"
