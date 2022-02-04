@@ -176,22 +176,12 @@ Here is how to specify your mobile key:
 <CodeTabItem value="swift">
 
 ```swift
-let config = LDConfig(mobileKey: "YOUR_MOBILE_KEY")
-let user = LDUser(key: "test-user")
-
-LDClient.start(config: config, user: user)
-
-// If you need to ensure that the most recent flags have been received,
-// start supports an optional completion that the SDK triggers when it
-// retrieves flags for the configured user.
-LDClient.start(config: config, user: user) {
-    // Client has received flags for the user
-}
-
 // If you would like the completion to be called even in cases where
 // the SDK is unable to retrieve flags for the user, there is a variant
 // to the start method that takes a maximum time to wait for flag values.
 // This variant notifies the completion whether the operation timed out.
+let config = LDConfig(mobileKey: "YOUR_MOBILE_KEY")
+let user = LDUser(key: "test-user")
 LDClient.start(config: config, user: user, startWaitSeconds: 5) { timedOut in
     if timedOut {
         // The SDK may not have the most recent flags for the configured user
@@ -208,7 +198,56 @@ LDClient.start(config: config, user: user, startWaitSeconds: 5) { timedOut in
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
 LDUser *user = [[LDUser alloc] initWithKey:@"test-user"];
 
-[LDClient startWithConfiguration:config user:user]
+[LDClient startWithConfiguration:config user:user startWaitSeconds:5.0 completion:^(bool timedOut) {
+    if(timedOut) {
+        // The SDK may not have the most recent flags for the configured user
+    } else {
+        // The SDK has received flags for the configured user
+    }
+}];
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+However, calling blocking code from the main thread in a mobile app is not considered a best practice. The preferred method is loading the client asynchronously.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="swift"
+  values={[
+    { label: 'Swift', value: 'swift', },
+    { label: 'Objective-C', value: 'objc', },
+  ]
+}>
+<CodeTabItem value="swift">
+
+```swift
+let config = LDConfig(mobileKey: "YOUR_MOBILE_KEY")
+let user = LDUser(key: "test-user")
+
+LDClient.start(config: config, user: user)
+
+// If you need to ensure that the most recent flags have been received
+// start supports an optional completion that is triggered when the SDK
+// has retrieved flags for the configured user.
+LDClient.start(config: config, user: user) {
+    // Client has received flags for the user
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+[LDClient startWithConfiguration:config user:user startWaitSeconds:5.0 completion:^(bool timedOut) {
+    if(timedOut) {
+        // The SDK may not have the most recent flags for the configured user
+    } else {
+        // The SDK has received flags for the configured user
+    }
+}];
 ```
 
 </CodeTabItem>

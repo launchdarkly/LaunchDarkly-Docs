@@ -129,7 +129,7 @@ It's important to make `LDClient` a singleton. The client instance maintains int
 </CalloutDescription>
 </Callout>
 
-To create a shared instance of `LDClient`:
+The following example shows the simplest way to create a shared instance of `LDClient`:
 
 <CodeTabs
   defaultValue="js"
@@ -145,6 +145,29 @@ let config = { "mobileKey": "YOUR_MOBILE_KEY" };
 let user = { "key": "user_key" };
 
 await client.configure(config, user);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You can give `.configure` a timeout parameter. If it receives flag values before the timeout, the returned promise will resolve . Otherwise, it will be rejected.
+
+Here is an example with a timeout of five seconds:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+let client = new LDClient();
+let config = { "mobileKey": "YOUR_MOBILE_KEY" };
+let user = { "key": "user_key" };
+
+client.configure(config, user, 5.0)
 ```
 
 </CodeTabItem>

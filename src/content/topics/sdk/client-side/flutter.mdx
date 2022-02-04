@@ -69,7 +69,7 @@ It's important to make `LDClient` a singleton. The client instance maintains int
 </CalloutDescription>
 </Callout>
 
-The following example shows how to create the client:
+The following example shows the simplest way to create the client:
 
 <CodeTabs
   defaultValue="dart"
@@ -90,6 +90,33 @@ await LDClient.start(config, user);
 
 </CodeTabItem>
 </CodeTabs>
+
+This method of initializing the client lets you use the SDK as soon as it is ready to return evaluated flags. 
+
+To block until the SDK receives the most recent feature flag values, use the `LDClient.startFuture` method with `await` and an optional `timeLimit`:
+
+<CodeTabs
+  defaultValue="dart"
+  values={[
+    { label: 'Dart', value: 'dart' },
+  ]
+}>
+<CodeTabItem value="dart">
+
+```dart
+LDConfig config = LDConfigBuilder('YOUR_MOBILE_KEY').build();
+LDUser user = LDUserBuilder('user key')
+    .email('fake@example.com')
+    .build();
+
+await LDClient.start(config, user);
+await LDClient.startFuture(timeLimit: Duration(seconds: 5));
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+If you have configured the SDK not to make network requests, or if the device does not have a network connection, `LDClient.startFuture` returns a `Future` that  will complete immediately to avoid blocking the application indefinitely.
 
 <Callout intent="alert">
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
