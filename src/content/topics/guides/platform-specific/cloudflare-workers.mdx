@@ -15,17 +15,15 @@ LaunchDarkly provides a Cloudflare Workers integration that synchronizes flags a
 
 This guide explains how to get set up within Cloudflare and set up the LaunchDarkly integration. It also contains several examples of using LaunchDarkly flags within a Worker to alter the response sent back to the user based upon flag values.
 
-## Getting set up
+## Setting up a project
 
 For this guide, we created a sample CloudFlare Workers project that demonstrates several uses of flags within a Worker. The finished code is [on GitHub](https://github.com/launchdarkly-labs/cfworkers-ld). You can use this code as a reference as you work through the steps in the guide. You can view the finished page running on [Cloudflare Workers](https://cfworkers-ld.remotesynth.workers.dev/).
 
 To create the project documented in this guide, clone the site assets from [this Github repository](https://github.com/launchdarkly-labs/cfworkers-ld-assets). The assets contain the code for the website without the Worker file or the custom client-side JavaScript that appear in the examples below.
 
-To compile the site, [install Hugo](https://gohugo.io/getting-started/installing/), a static site generator built in Go. The easiest way to install Hugo is using Homebrew on Mac.
+To compile the site, [install Hugo](https://gohugo.io/getting-started/installing/), a static site generator built in Go. The fastest way to install Hugo is using Homebrew on Mac.
 
 Here's how to install Hugo:
-
-To install Hugo:
 
 <CodeTabs
   defaultValue="bash"
@@ -52,9 +50,9 @@ choco install hugo -confirm
 
 ### Setting up Cloudflare CLI
 
-The quickest way to get set up with Cloudflare Workers locally is to use npm to install [Cloudflare's Worker CLI](https://developers.cloudflare.com/workers/cli-wrangler/install-update), which is called Wrangler.
+The fastest way to start using Cloudflare Workers locally is to install Wrangler, [Cloudflare's Worker CLI](https://developers.cloudflare.com/workers/cli-wrangler/install-update).
 
-To install Wrangler:
+Here's how to install Wrangler:
 
 <CodeTabs
   defaultValue="npm"
@@ -83,7 +81,7 @@ After you install it, use the `wrangler login` command to open a browser window.
 
 ### Setting up local development for Cloudflare Workers
 
-This guide uses [Workers Sites](https://developers.cloudflare.com/workers/platform/sites) that allow you to deploy an application but with a static site generator (SSG) or front end framework to a worker. You can publish a simple static site built with the [Hugo SSG](https://gohugo.io) by following Cloudflare's documentation on [starting from an existing project](https://developers.cloudflare.com/workers/platform/sites/start-from-existing).
+This guide uses [Workers Sites](https://developers.cloudflare.com/workers/platform/sites) that allow you to deploy an application with a static site generator (SSG) or front end framework to a worker. You can publish a simple static site built with the [Hugo SSG](https://gohugo.io) by following Cloudflare's documentation on [starting from an existing project](https://developers.cloudflare.com/workers/platform/sites/start-from-existing).
 
 <Callout intent="info">
 <CalloutTitle>Only use a supported version of Wrangler</CalloutTitle>
@@ -94,61 +92,64 @@ The Wrangler 2 beta supports a new, streamlined Workers integration with Pages, 
 </CalloutDescription>
 </Callout>
 
-Open the folder containing the site assets from GitHub and enter the following command:
+Here's how to set up local development:
 
-<CodeTabs
+1. Open the folder containing the site assets from GitHub and enter the following command:
+
+ <CodeTabs
   defaultValue="bash"
   values={[
     { label: 'Console', value: 'bash', },
   ]
-}>
-<CodeTabItem value="bash">
+ }>
+ <CodeTabItem value="bash">
 
-```bash
-wrangler init --site my-static-site
-```
+ ```bash
+ wrangler init --site my-static-site
+ ```
 
-</CodeTabItem>
-</CodeTabs>
+ </CodeTabItem>
+ </CodeTabs>
 
-This creates a `wrangler.toml` and a `workers-site` directory within the `my-static-site` project. Next, tell the worker to find the site files in the `/public` folder, which is where Hugo outputs them by default.
+ This creates a `wrangler.toml` and a `workers-site` directory within the `my-static-site` project.
+2. Tell the worker to find the site files in the `/public` folder, which is where Hugo outputs them by default.
 
-To do this, open the `wrangler.toml` and add the following line:
+ To do this, open the `wrangler.toml` and add the following line:
 
-<CodeTabs
+ <CodeTabs
   defaultValue="toml"
   values={[
     { label: 'wrangler.toml', value: 'toml', },
   ]
-}>
-<CodeTabItem value="toml">
+ }>
+ <CodeTabItem value="toml">
 
-```toml
-site = { bucket = "./public" }
-```
+ ```toml
+ site = { bucket = "./public" }
+ ```
 
-  </CodeTabItem>
-</CodeTabs>
+   </CodeTabItem>
+ </CodeTabs>
 
-You can run the site locally using Wrangler, even though you haven't created a Worker yet. The first step is to use Hugo to build the site and then run a local server with Wrangler.
+3. Use Hugo to build the site and then run a local server with Wrangler. You use Wrangler to run the site locally, even though you haven't created a Worker yet.
 
-Here's how:
+ Here's how:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Console', value: 'bash', },
-  ]
-}>
-<CodeTabItem value="bash">
+ <CodeTabs
+   defaultValue="bash"
+   values={[
+     { label: 'Console', value: 'bash', },
+   ]
+ }>
+ <CodeTabItem value="bash">
 
-```bash
-hugo
-wrangler dev
-```
+ ```bash
+ hugo
+ wrangler dev
+ ```
 
-</CodeTabItem>
-</CodeTabs>
+ </CodeTabItem>
+ </CodeTabs>
 
 You can view the site at the URL and port indicated in the console, typically `localhost:8787`.
 
@@ -199,95 +200,99 @@ LaunchDarkly's Cloudflare integration synchronizes flag data from a LaunchDarkly
 
 To set up the integration, you need a minimum of one KV created to sync values with. To set this up, first make sure that your account ID is in the `wrangler.toml` that the Wrangler CLI created. Your account ID is listed on the overview page of the Cloudflare Workers dashboard, or you can get it by using `wrangler whoami` from the command line.
 
-To check if your account ID is in the `wrangler.toml`:
+Here's how to set up the integration:
 
-<CodeTabs
+1. Verify that your account ID is in the `wrangler.toml`:
+
+ <CodeTabs
   defaultValue="toml"
   values={[
     { label: 'wrangler.toml', value: 'toml', },
   ]
-}>
-<CodeTabItem value="toml">
+ }>
+ <CodeTabItem value="toml">
 
-```toml
-account_id = "<YOUR_CLOUDFLARE_ACCOUNT_ID>"
-```
+ ```toml
+ account_id = "<YOUR_CLOUDFLARE_ACCOUNT_ID>"
+ ```
 
-</CodeTabItem>
-</CodeTabs>
+ </CodeTabItem>
+ </CodeTabs>
 
-Copy and store your account ID as you need it to enable the Cloudflare integration.
+2. Copy and store your account ID as you need it to enable the Cloudflare integration.
 
-Next, create a new KV namespace by entering the following command. Run this command from within your project folder:
+3. Create a new KV namespace by entering the following command. Run this command from within your project folder:
 
-<CodeTabs
+ <CodeTabs
   defaultValue="bash"
   values={[
     { label: 'Console', value: 'bash', },
   ]
-}>
-<CodeTabItem value="bash">
+ }>
+ <CodeTabItem value="bash">
 
-```bash
-wrangler kv:namespace create "MY_KV"
-```
+ ```bash
+ wrangler kv:namespace create "MY_KV"
+ ```
 
-</CodeTabItem>
-</CodeTabs>
+ </CodeTabItem>
+ </CodeTabs>
 
-The namespace name on Cloudflare is a combination of the name you provided (`MY_KV`) and the project name. For example, if your project is named `cfworkers-ld`, the name of the created namespace on Cloudflare will be `cfworkers-ld-MY_KV`. After the namespace is created, Wrangler returns the ID of the new KV namespace.
+ The namespace name on Cloudflare is a combination of the name you provided (`MY_KV`) and the project name. For example, if your project is named `cfworkers-ld`, the name of the created namespace on Cloudflare will be `cfworkers-ld-MY_KV`. After the namespace is created, Wrangler returns the ID of the new KV namespace.
 
-Open `wrangler.toml` and add the namespace ID to the `kv_namespaces` configuration. If this configuration key does not exist yet, create it. If it does exist with the KV namespace that was created for your site assets, add the new namespace to the array of namespaces.
+4. Open `wrangler.toml` and add the namespace ID to the `kv_namespaces` configuration. If this configuration key does not exist yet, create it. If it does exist with the KV namespace that was created for your site assets, add the new namespace to the array of namespaces.
 
-Here's how:
+ Here's how:
 
-<CodeTabs
+ <CodeTabs
   defaultValue="toml"
   values={[
     { label: 'wrangler.toml', value: 'toml', },
   ]
-}>
-<CodeTabItem value="toml">
+ }>
+ <CodeTabItem value="toml">
 
-```toml
-kv_namespaces = [{((binding = 'MY_KV'), (id = '<NAMESPACE_ID>'))},
-{
+ ```toml
+ kv_namespaces = [{((binding = 'MY_KV'), (id = '<NAMESPACE_ID>'))},
+ {
   ((binding = 'SITE_ASSETS'),
   (preview_id = '43ecd3c7d05f45caa947fb48fd7b7c83'),
   (id = 'a0a8f76d2fe14947826adc1453c2e90c'))
-}
-, ]
-```
+ }
+ , ]
+ ```
 
-</CodeTabItem>
-</CodeTabs>
+ </CodeTabItem>
+ </CodeTabs>
 
-Copy and store the namespace ID as you'll need it to enable LaunchDarkly's Cloudflare integration.
+5. Copy and store the namespace ID as you'll need it to enable LaunchDarkly's Cloudflare integration.
 
-<Callout intent="info">
-<CalloutTitle>Cloudflare Workers preview service</CalloutTitle>
-<CalloutDescription>
+ <Callout intent="info">
+ <CalloutTitle>Cloudflare Workers preview service</CalloutTitle>
+ <CalloutDescription>
 
-If you plan to use the [Cloudflare Workers preview service](https://cloudflareworkers.com/), you will need to create a preview namespace as well. To set this up, follow the [Cloudflare integration docs](/integrations/cloudflare#creating-a-cloudflare-worker-with-the-launchdarkly-cloudflare-edge-sdk).
+ If you plan to use the [Cloudflare Workers preview service](https://cloudflareworkers.com/), you will need to create a preview namespace as well. To set this up, follow the [Cloudflare integration docs](/integrations/cloudflare#creating-a-cloudflare-worker-with-the-launchdarkly-cloudflare-edge-sdk).
 
-</CalloutDescription>
-</Callout>
+ </CalloutDescription>
+ </Callout>
 
-The last piece of information you'll need to enable Cloudflare integration is a Cloudflare API token. From the Workers overview page in the Cloudflare dashboard, under "Get started" on the right-hand navigation links, click [**API tokens**](https://dash.cloudflare.com/profile/api-tokens). Then click **Create Token**.
+ The last piece of information you'll need to enable the Cloudflare integration is a Cloudflare API token.
 
-Next, click the "Get started" button next to the "Create custom token" option.
+6. From the Workers overview page in the Cloudflare dashboard, under "Get started" on the right-hand navigation links, click [**API tokens**](https://dash.cloudflare.com/profile/api-tokens).
+7. Click **Create Token**.
+8. Click **Get started** next to the "Create custom token" option.
 
 ![The Create custom token option.](CF-SDK-custom-token.png)
 
-Give the token a name (for example, "LaunchDarkly") and then under "Permissions" choose the following options from the dropdowns:
-
-1. Account
-2. Workers KV Storage
-3. Edit
+9. Give the token a name, for example, "LaunchDarkly." Under "Permissions," choose the following options from the dropdowns:
+ a. Account
+ b. Workers KV Storage
+ c. Edit
 
 ![Cloudflare token permissions on the Create Custom Token screen.](CF-SDK-token-creation.png)
 
-Click **Continue to Summary** and then **Create Token**. Copy the token from the subsequent page and store it, as it will not be shown again.
+10. Click **Continue to Summary** and then **Create Token**.
+11. Copy the token from the subsequent page and store it, as it will not be shown again.
 
 <Callout intent="info">
 <CalloutTitle>Creating a Cloudflare API token</CalloutTitle>
@@ -298,80 +303,93 @@ For detailed instructions on creating a token, read the [Cloudflare docs](https:
 </CalloutDescription>
 </Callout>
 
-Next, set up the integration within the LaunchDarkly dashboard. Go to the [Integrations page](https://app.launchdarkly.com/default/integrations/) and search for Cloudflare. Click the "Add integration" button. A form requesting the following details appears:
+Next, you'll set up the integration in the LaunchDarkly dashboard.
 
-- **Name**: This is optional, but is useful for determining which Worker namespace this is connected to when you have multiple connections.
-- **Environment**: Which LaunchDarkly environment to use when syncing flags and values with the KV on Cloudflare.
-- **Account ID**: Your Cloudflare account ID.
-- **KV Namespace ID**: The namespace ID for the KV connected to your Worker. If you also created a preview KV, you'll need a separate integration set up using the preview KV namespace ID as well.
-- **API token**: The Cloudflare API token you just created.
+Here's how to set up the integration in LaunchDarkly:
+
+1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations/) and search for "Cloudflare".
+2. Click **Add integration**. A form requesting the following details appears:
+
+ - **Name**: This is optional, but is useful for determining which Worker namespace this is connected to when you have multiple connections.
+ - **Environment**: Which LaunchDarkly environment to use when syncing flags and values with the KV on Cloudflare.
+ - **Account ID**: Your Cloudflare account ID.
+ - **KV Namespace ID**: The namespace ID for the KV connected to your Worker. If you also created a preview KV, you'll need a separate integration set up using the preview KV namespace ID as well.
+ - **API token**: The Cloudflare API token you just created.
 
 ![The LaunchDarkly Edit Cloudflare configuration screen.](CF-SDK-integration.png)
 
-Click the "Save configuration" button. If you want to verify that the information is correct, click the "Validate Connection" button. If everything connected properly, you're ready to begin adding LaunchDarkly into your Worker.
+3. Click **Save configuration**.
+
+If you want to verify that the information is correct, click **Validate Connection**. If everything connected properly, you're ready to begin adding LaunchDarkly into your Worker.
 
 ### Initializing LaunchDarkly within a Worker
 
 Before you can get flag values from within a Worker, you need to import and initialize the Cloudflare Edge SDK.
 
-Begin by installing the SDK:
+Here's how:
 
-<CodeTabs
+1. Install the SDK:
+
+ <CodeTabs
   defaultValue="bash"
   values={[
     { label: 'Console', value: 'bash', },
   ]
-}>
-<CodeTabItem value="bash">
+ }>
+ <CodeTabItem value="bash">
 
-```bash
-npm install launchdarkly-cloudflare-edge-sdk
-```
+ ```bash
+ npm install launchdarkly-cloudflare-edge-sdk
+ ```
 
-</CodeTabItem>
-</CodeTabs>
+ </CodeTabItem>
+ </CodeTabs>
 
-Open the `index.js` file within the `workers-site` folder of your project. This folder was created by the `wrangler init` command you ran earlier. If you don't have an `index.js` file, create it now. At the top of the file, add the `require` statement to import the SDK into the Worker file. In addition, initialize the variable that will contain the instance of the LaunchDarkly client when it is initialized.
+2. Open the `index.js` file within the `workers-site` folder of your project. This folder was created by the `wrangler init` command you ran earlier. If you don't have an `index.js` file, create it now.
 
-To initialize the variable:
+3. At the top of the file, add the `require` statement to import the SDK into the Worker file. In addition, initialize the variable that will contain the instance of the LaunchDarkly client when it is initialized.
 
-<CodeTabs
+ Here's how:
+
+ <CodeTabs
   defaultValue="js"
   values={[
       { label: 'JavaScript', value: 'js', }
   ]
   }>
-<CodeTabItem value="js">
+ <CodeTabItem value="js">
 
-```js
-const { init } = require('launchdarkly-cloudflare-edge-sdk')
-let ldClient
-```
+ ```js
+ const { init } = require('launchdarkly-cloudflare-edge-sdk')
+ let ldClient
+ ```
 
-</CodeTabItem>
-</CodeTabs>
+ </CodeTabItem>
+ </CodeTabs>
 
-Within your Worker, there is an event listener for the `fetch` event that calls a `handleEvent()` function. The `fetch` event is triggered by any incoming HTTP request. You can initialize the LaunchDarkly client within this function. Pass to it the KV namespace defined within your `wrangler.toml` and your LaunchDarkly client ID, which can be found in your [account settings](https://app.launchdarkly.com/settings/projects).
+ Within your Worker, there is an event listener for the `fetch` event that calls a `handleEvent()` function. The `fetch` event is triggered by any incoming HTTP request. You can initialize the LaunchDarkly client within this function.
 
-Here's how:
+5. Pass in both the KV namespace defined within your `wrangler.toml` and your LaunchDarkly client ID, which you can find in [Account settings](https://app.launchdarkly.com/settings/projects).
 
-<CodeTabs
+ Here's how:
+
+ <CodeTabs
   defaultValue="js"
   values={[
       { label: 'JavaScript', value: 'js', }
   ]
   }>
-<CodeTabItem value="js">
+ <CodeTabItem value="js">
 
-```js
-if (!ldClient) {
+ ```js
+ if (!ldClient) {
   ldClient = init(MY_KV, '<LAUNCHDARKLY_CLIENT_ID>')
   await ldClient.waitForInitialization()
-}
-```
+ }
+ ```
 
-</CodeTabItem>
-</CodeTabs>
+ </CodeTabItem>
+ </CodeTabs>
 
 Now you are ready to use flag variations within your application.
 
@@ -414,58 +432,62 @@ A persistent problem with modifying the client UI on the web using JavaScript is
 
 Imagine a scenario using a LaunchDarkly flag to enable or disable a feature within the browser UI. You definitely do not want the feature to display, however briefly, before disappearing. This could cause confusion and possibly frustration on the part of the user. While LaunchDarkly's client SDKs provide tools caching in LocalStorage to minimize these types of issues, the nature of how JavaScript runs in the browser means that any fully client-side solution cannot completely eliminate the delay, though there are methods to obscure it. Cloudflare Workers allow you to actually eliminate that delay by directly injecting your client-side flag values into the HTML before the browser ever receives the request.
 
-Within your Cloudflare Worker file, first instantiate an instance of the HTMLRewriter class. You can place this prior to the `addEventListener()` block within `/workers-site/index.js`.
+Here's how to bootstrap the client-side flag values:
 
-Here's how:
+1. Instantiate an instance of the HTMLRewriter class in your Cloudflare Worker file. You can place this prior to the `addEventListener()` block within `/workers-site/index.js`.
 
-<CodeTabs
+ Here's how:
+
+ <CodeTabs
   defaultValue="js"
   values={[
       { label: 'JavaScript', value: 'js', }
   ]
   }>
-<CodeTabItem value="js">
+ <CodeTabItem value="js">
 
-```js
-const rewriter = new HTMLRewriter()
-```
+ ```js
+ const rewriter = new HTMLRewriter()
+ ```
 
-</CodeTabItem>
-</CodeTabs>
+ </CodeTabItem>
+ </CodeTabs>
 
-Inject these values in the HTML `<head>` so that they are available immediately before the browser engine processes any of the DOM or JavaScript. You can do this by having the HTMLRewriter listen for the head element. Place this directly after the `rewriter` instantiation.
+2. Inject these values in the HTML `<head>` so that they are available immediately before the browser engine processes any of the DOM or JavaScript. You can do this by having the HTMLRewriter listen for the head element. Place this directly after the `rewriter` instantiation.
 
-To inject the values:
+ To inject the values:
 
-<CodeTabs
+ <CodeTabs
   defaultValue="js"
   values={[
       { label: 'JavaScript', value: 'js', }
   ]
   }>
-<CodeTabItem value="js">
+ <CodeTabItem value="js">
 
-```js
-rewriter.on('head', new FlagsStateInjector())
-```
+ ```js
+ rewriter.on('head', new FlagsStateInjector())
+ ```
 
-</CodeTabItem>
-</CodeTabs>
+ </CodeTabItem>
+ </CodeTabs>
 
-When the rewriter finds a `<head>` element, it creates a new instance of the `FlagStateInjector` class. This class contains an element handler that injects the flag values into a `<script>` element within the `<head>`. In this example, the LaunchDarkly client is only pulling flag values that have client-side SDK availability enabled using an anonymous user. If you have user details available within your Worker, you can pass them here instead of the anonymous user. This code can be placed anywhere within the Worker file that is outside of existing function blocks.
+ When the rewriter finds a `<head>` element, it creates a new instance of the `FlagStateInjector` class. This class contains an element handler that injects the flag values into a `<script>` element within the `<head>`. In this example, the LaunchDarkly client is only pulling flag values that have client-side SDK availability enabled using an anonymous user.
 
-In this example, the code is at the top of the file immediately after the `ldClient` variable instantiation:
+3. (Optional) Pass user details. If you have user details available within your Worker, you can use them instead of the anonymous user. Place this code anywhere in the Worker file, as long as it is outside of existing function blocks.
 
-<CodeTabs
+ In this example, the code is at the top of the file immediately after the `ldClient` variable instantiation:
+
+ <CodeTabs
   defaultValue="js"
   values={[
       { label: 'JavaScript', value: 'js', }
   ]
   }>
-<CodeTabItem value="js">
+ <CodeTabItem value="js">
 
-```js
-class FlagsStateInjector {
+ ```js
+ class FlagsStateInjector {
   async element(element) {
     // fetch all flag values for client-side SDKs as evaluated for an anonymous user
     // use a more appropriate user key if needed
@@ -475,43 +497,43 @@ class FlagsStateInjector {
     })
     element.append(`<script>window.ldFlags = ${JSON.stringify(allFlags)}</script>`, { html: true })
   }
-}
-```
+ }
+ ```
 
-</CodeTabItem>
-</CodeTabs>
+ </CodeTabItem>
+ </CodeTabs>
 
-The last small change you need to make to your Worker is to call the HTMLRewriter instance to alter the response. Instead of returning just `response` from within the `handleEvent()` method, wrap it in the rewriter's `transform()` method.
+4. Call the `HTMLRewriter` instance to alter the response. Instead of returning just `response` from within the `handleEvent()` method, wrap it in the rewriter's `transform()` method.
 
-<CodeTabs
+ <CodeTabs
+   defaultValue="js"
+   values={[
+       { label: 'JavaScript', value: 'js', }
+   ]
+   }>
+ <CodeTabItem value="js">
+
+ ```js
+ return rewriter.transform(response)
+ ```
+
+ </CodeTabItem>
+ </CodeTabs>
+
+5. Open the `/assets/custom.js` file and add the following code at the top of the file, replacing `<LAUNCHDARKLY_CLIENT_ID>` with your LaunchDarkly project's client ID. This tells LaunchDarkly to [bootstrap the client](/guides/platform-specific/static-sites#bootstrapping-the-client) using the injected script.
+
+ Here's how to bootstrap the client:
+
+ <CodeTabs
   defaultValue="js"
   values={[
       { label: 'JavaScript', value: 'js', }
   ]
   }>
-<CodeTabItem value="js">
+ <CodeTabItem value="js">
 
-```js
-return rewriter.transform(response)
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Finally, tell LaunchDarkly to [bootstrap the client](/guides/platform-specific/static-sites#bootstrapping-the-client) using the injected script.
-
-Open the `/assets/custom.js` file and add the following code at the top of the file, replacing `<LAUNCHDARKLY_CLIENT_ID>` with your LaunchDarkly project's client ID:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-      { label: 'JavaScript', value: 'js', }
-  ]
-  }>
-<CodeTabItem value="js">
-
-```js
-const client = LDClient.initialize(
+ ```js
+ const client = LDClient.initialize(
   '<LAUNCHDARKLY_CLIENT_ID>',
   {
     key: 'anonymous',
@@ -519,11 +541,11 @@ const client = LDClient.initialize(
   {
     bootstrap: window.ldFlags,
   },
-)
-```
+ )
+ ```
 
-</CodeTabItem>
-</CodeTabs>
+ </CodeTabItem>
+ </CodeTabs>
 
 Because the flag values are automatically synced between LaunchDarkly and the KV store, every time this page is served it automatically injects the current flag state values before it sends the page to the end user. This eliminates any flash of content caused even by a very brief rendering delay between when the UI initially displays, and when the LaunchDarkly client receives flag values that are used to update the user interface.
 
@@ -561,28 +583,32 @@ Because the value of `show-about-us` is bootstrapped in the client, there is no 
 
 You can use Cloudflare Workers to modify the content being served to an end user at the CDN level, before they ever receive it in their browser client. This can be useful to do things like [A/B testing](https://developers.cloudflare.com/workers/examples/ab-testing), [fetching an HTML or API response](https://developers.cloudflare.com/workers/examples/fetch-html), targeting content based upon user data, or personalizing content for an authenticated user.
 
-The below example shows how to use the value of a string flag to replace the header text on a page. This type of solution could be modified for use in A/B testing, for slowly rolling out content changes, or for personalizing content.
+This example shows how to use the value of a string flag to replace the header text on a page. This type of solution could be modified for use in A/B testing, for slowly rolling out content changes, or for personalizing content.
 
-First, create a string flag in LaunchDarkly that has two variations containing the header text. You do not need to enable it for client-side SDKs since you'll be calling it within a Worker function.
+Here's how to replace the header text:
 
-To create a string flag in LaunchDarkly, choose the "String" option under flag variations as shown in the illustration below:
+1. Create a string flag in LaunchDarkly that has two variations containing the header text. You do not need to enable it for client-side SDKs because you'll call it within a Worker function.
 
-![The Create a feature flag screen with string flag options chosen.](CF-SDK-create-string-flag.png)
+ To create a string flag in LaunchDarkly, choose the "String" option:
 
-Within the Worker, you can reuse the LaunchDarkly client you created in the prior example. However, since you'll get flag values in multiple places, it can be easier to create a single function to handle asynchronously retrieving the flag values. The following function passes in a user `key` and a `user` object and returns the value of the flag for that user. If you do not pass a user, it defaults to `anonymous` as a user key. You can place this function anywhere within the `/workers-site/index.js` Worker file that is outside an existing code block.
+ ![The Create a feature flag screen with string flag options chosen.](CF-SDK-create-string-flag.png)
 
-In this example, it is just prior to the `addEventListener` function block:
+2. Create a function to handle asynchronously retrieving the flag values. You can reuse the LaunchDarkly client you created in the prior example, but you'll get flag values in multiple places, so it's simpler to create a new function.
 
-<CodeTabs
+ The following function passes in a user `key` and a `user` object and returns the value of the flag for that user. If you do not pass a user, it defaults to `anonymous` as a user key. You can place this function anywhere within the `/workers-site/index.js` Worker file that is outside an existing code block.
+
+ In this example, it is just prior to the `addEventListener` function block:
+
+ <CodeTabs
     defaultValue="js"
   values={[
       { label: 'JavaScript', value: 'js', }
   ]
   }>
-<CodeTabItem value="js">
+ <CodeTabItem value="js">
 
-```js
-async function getFlagValue(key, user) {
+ ```js
+ async function getFlagValue(key, user) {
   let flagValue
   if (!user) {
     user = {
@@ -591,57 +617,57 @@ async function getFlagValue(key, user) {
   }
   flagValue = await ldClient.variation(key, user, false)
   return flagValue
-}
-```
+ }
+ ```
 
-</CodeTabItem>
-</CodeTabs>
+ </CodeTabItem>
+ </CodeTabs>
 
-Next, create an element handler to modify the DOM element that you want to populate with the returned value of the string flag in LaunchDarkly. In the below example, the element handler is called for every `<h1>` element within the page HTML. Use the same instance of `HTMLRewriter` from the above example. Trying to create more than one instance of `HTMLRewriter` in a single Worker causes errors.
+3. Create an element handler to modify the DOM element that you want to populate with the returned value of the string flag in LaunchDarkly. In the below example, the element handler is called for every `<h1>` element within the page HTML. Use the same instance of `HTMLRewriter` from the above example. Trying to create more than one instance of `HTMLRewriter` in a single Worker causes errors.
 
-Place the following line immediately after the `rewriter.on()` call from the prior example:
+ Place the following line immediately after the `rewriter.on()` call from the prior example:
 
-<CodeTabs
+ <CodeTabs
+   defaultValue="js"
+   values={[
+       { label: 'JavaScript', value: 'js', }
+   ]
+   }>
+ <CodeTabItem value="js">
+
+ ```js
+ rewriter.on('h1', new H1ElementHandler())
+ ```
+
+ </CodeTabItem>
+ </CodeTabs>
+
+4. Give the element handler the value of the flag named `header-text` and replace the text within the `<h1>` tag with the result.
+
+ Place this code following the existing `FlagsStateInjector` block from the previous example:
+
+ <CodeTabs
   defaultValue="js"
   values={[
       { label: 'JavaScript', value: 'js', }
   ]
   }>
-<CodeTabItem value="js">
+ <CodeTabItem value="js">
 
-```js
-rewriter.on('h1', new H1ElementHandler())
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-Lastly, the element handler gets the value of the flag named `header-text` and replaces the text within the `<h1>` tag with the result.
-
-Place this code following the existing `FlagsStateInjector` block from the prior example:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-      { label: 'JavaScript', value: 'js', }
-  ]
-  }>
-<CodeTabItem value="js">
-
-```js
-class H1ElementHandler {
+ ```js
+ class H1ElementHandler {
   async element(element) {
     // replace the header text with the value of a string flag
     const headerText = await getFlagValue('header-text')
     element.setInnerContent(headerText)
   }
-}
-```
+ }
+ ```
 
-</CodeTabItem>
-</CodeTabs>
+ </CodeTabItem>
+ </CodeTabs>
 
-The result is shown in the below video clip that demonstrates how changing the flag in LaunchDarkly will trigger the Worker to alter the text response in the `h1` tag before the page is received by the user. Because the change happens within the Worker, the user must refresh the page to reflect any flag change after the user has already received the page source.
+The video clip below demonstrates how changing the flag in LaunchDarkly will trigger the Worker to alter the text response in the `h1` tag before the page is received by the user. Because the change happens within the Worker, the user must refresh the page to reflect any flag change after the user has already received the page source.
 
 <iframe
   width="560"
@@ -659,7 +685,57 @@ Modifying the response headers for a response can be a powerful tool. You can us
 
 First, create a JSON flag in LaunchDarkly. JSON flags can contain any valid, arbitrary JSON data. In the example below, the flag contains an array of request header names and values. In one case, a `x-launchdarkly-hello` header is set, while in the other it is not.
 
-![The Create a feature flag screen with JSON flag options chosen.](CF-SDK-json-flag.png)
+For variation one:
+
+<CodeTabs
+  defaultValue="txt"
+  values={[
+      { label: 'Text', value: 'txt', }
+  ]
+  }>
+<CodeTabItem value="txt">
+
+```txt
+{
+  "headers": [
+    {
+      "name": "Referrer-Policy",
+      "value": "unsafe-url"
+    },
+    {
+      "name": "x-launchdarkly-hello",
+      "value": "Hello from LaunchDarkly"
+    }
+  ]
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+For variation two:
+
+<CodeTabs
+  defaultValue="txt"
+  values={[
+      { label: 'Text', value: 'txt', }
+  ]
+  }>
+<CodeTabItem value="txt">
+
+```txt
+{
+  "headers": [
+    {
+      "name": "Referrer-Policy",
+      "value": "unsafe-url"
+    }
+  ]
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 Next, get the flag value. Since the result of getting the flag is an array of objects, the code below loops through each item in the array and sets a header for the response for each item found in the array.
 
