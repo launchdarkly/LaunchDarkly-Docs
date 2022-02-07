@@ -35,7 +35,7 @@ This feature is available in the following client-side SDKs:
 * [Flutter](#flutter)
 * [iOS](#ios)
 * [JavaScript](#javascript)
-* [Node.js](#nodejs-client-side)
+* [Node.js (client-side)](#nodejs-client-side)
 * [React Native](#react-native)
 * [Roku](#roku)
 
@@ -190,12 +190,22 @@ Unlike most of our SDKs, our Node.js (client-side) SDK's `allFlags` method sends
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 let allFlagsResult = client.allFlags();
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const allFlagsResult: ld.LDFlagSet = client.allFlags();
 ```
 
 </CodeTabItem>

@@ -307,14 +307,24 @@ Here's an example:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.track("something-happened");
+client.track('something-happened');
 
-client.track("something-happened-with-custom-data", { someData: 2 });
+client.track('something-happened-with-custom-data', { someData: 2 });
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+client.track('something-happened');
+
+client.track('something-happened-with-custom-data', { someData: 2 });
 ```
 
 </CodeTabItem>

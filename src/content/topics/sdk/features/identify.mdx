@@ -297,11 +297,26 @@ You may want to change the user context dynamically and receive the new set of f
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
+client.identify(newUser, () => {
+  console.log("New user's flags available");
+});
+
+// or, with a Promise:
+client.identify(newUser).then(() => {
+  console.log("New user's flags available");
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
 client.identify(newUser, () => {
   console.log("New user's flags available");
 });

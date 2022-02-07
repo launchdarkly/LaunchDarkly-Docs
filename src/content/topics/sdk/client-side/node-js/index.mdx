@@ -61,6 +61,7 @@ Next, import the LaunchDarkly client in your application code:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
@@ -70,15 +71,22 @@ const LaunchDarkly = require('launchdarkly-node-client-sdk');
 ```
 
 </CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+```
+
+</CodeTabItem>
 </CodeTabs>
 
-After you install and import the SDK, create a single, shared instance of `LdClient`. To create a client instance, you need your environment's client-side ID. This authorizes your application to connect to a particular environment within LaunchDarkly. Your client-side ID is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects). Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
+After you install and import the SDK, create a single, shared instance of `LDClient`. To create a client instance, you need your environment's client-side ID. This authorizes your application to connect to a particular environment within LaunchDarkly. Your client-side ID is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects). Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
 
 <Callout intent="alert">
-<CalloutTitle>LdClient must be a singleton</CalloutTitle>
+<CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `LdClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
 
 </CalloutDescription>
 </Callout>
@@ -91,16 +99,25 @@ Here's how to initialize the client:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 const user = {
-  key: "aa0ceb"
+  key: 'aa0ceb'
 };
 
 const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+const user: ld.LDUser = { key: 'aa0ceb' };
+const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user);
 ```
 
 </CodeTabItem>
@@ -114,6 +131,7 @@ To emit a `ready` event:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
@@ -129,6 +147,22 @@ client.on('ready', () => {
   } else {
     ...
   }
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+client.on('ready', () => {
+  console.log("It's now safe to request feature flags");
+
+  // initialization succeeded, flag values are now available
+  const boolFlagValue = client.variation('key', false) as boolean;
+  const numberFlagValue = client.variation('key', 2) as number;
+  const stringFlagValue = client.variation('key', 'default') as string;
+  // etc.
+
 });
 ```
 

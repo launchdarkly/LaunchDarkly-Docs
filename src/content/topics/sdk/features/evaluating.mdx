@@ -296,12 +296,25 @@ Here is an example:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 const value = client.variation("your.feature.key", false);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const boolFlagValue = client.variation('your.feature.key', false) as boolean;
+const numberFlagValue = client.variation('your.feature.key', 2) as number;
+const stringFlagValue = client.variation('your.feature.key', 'default') as string;
+
 ```
 
 </CodeTabItem>
@@ -494,7 +507,7 @@ Flag = ldclient:variation(<<"my-bool-key">>, #{key => <<"aa0ceb">>,}, false, my_
 
 ### Go
 
-The `Variation` methods determine whether a flag is enabled or not for a specific user. In Go, there is a `Variation` method for each type: 
+The `Variation` methods determine whether a flag is enabled or not for a specific user. In Go, there is a `Variation` method for each type:
 * [`BoolVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.BoolVariation)
 * [`IntVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.IntVariation)
 * [`Float64Variation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Float64Variation)
@@ -711,7 +724,7 @@ value = client.variation("your.feature.key", user, false)
 
 ### Rust
 
-The `variation` methods determine whether a flag is enabled or not for a specific user. In Rust, there is a `variation` method for each type: 
+The `variation` methods determine whether a flag is enabled or not for a specific user. In Rust, there is a `variation` method for each type:
 * [`bool_variation`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.bool_variation),
 * [`int_variation`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.int_variation),
 * [`float_variation`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.float_variation),

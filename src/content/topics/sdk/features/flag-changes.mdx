@@ -499,11 +499,21 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
+client.on('change', allChanges => {
+  console.log('flags changed:', JSON.stringify(allChanges));
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
 client.on('change', allChanges => {
   console.log('flags changed:', JSON.stringify(allChanges));
 });
@@ -520,6 +530,7 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
@@ -527,6 +538,15 @@ Here's how:
 ```js
 client.on('change:YOUR_FLAG_KEY', (value, previous) => {
   console.log('YOUR_FLAG_KEY changed:', value, '(was ' + previous + ')');
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+client.on('change:YOUR_FLAG_KEY', function (value, previous) {
+  console.log('YOUR_FLAG_KEY changed: ', value, ' (was ' + previous + ')');
 });
 ```
 

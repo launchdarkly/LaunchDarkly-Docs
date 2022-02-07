@@ -211,17 +211,31 @@ Here is an example:
   defaultValue="js"
   values={[
     { label: 'Node.js', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 
-var detail = client.variationDetail("flag-key", false);
+var detail = client.variationDetail('flag-key', false);
 
 var value = detail.value;
 var index = detail.variationIndex;
 var reason = detail.reason;
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const detail: ld.LDEvaluationDetail = client.variationDetail('key', 'default');
+
+const detailValue: ld.LDFlagValue = detail.value;
+const detailIndex: number | undefined = detail.variationIndex;
+const detailReason: ld.LDEvaluationReason = detail.reason;
 ```
 
 </CodeTabItem>

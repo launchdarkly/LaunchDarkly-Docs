@@ -152,6 +152,7 @@ You can use it to set the feature flags to any values you want:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -170,6 +171,22 @@ const client = LaunchDarkly.initialize(
 ```
 
 </CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const options: ld.LDOptions = {
+  bootstrap: {
+    flagKey1: flagValue1,
+    flagKey2: flagValue2,
+  },
+};
+
+const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+```
+
+</CodeTabItem>
 </CodeTabs>
 
 A more useful mode in a client-side Node application is to bootstrap from locally cached values. In this mode, if no values have been cached yet, the SDK obtains flags from LaunchDarkly and then caches them in persistent storage. The next time you start, the cached flags are immediately available, and the SDK also contacts LaunchDarkly in the background to obtain updated values.
@@ -180,6 +197,7 @@ To activate this mode, use the special string `"localStorage"`:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -192,6 +210,18 @@ const client = LaunchDarkly.initialize(
     bootstrap: 'localStorage'
   }
 );
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const options: ld.LDOptions = { bootstrap: 'localStorage' };
+
+const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+
 ```
 
 </CodeTabItem>

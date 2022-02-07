@@ -92,6 +92,7 @@ This example shows how to use `basicLogger` to enable debug-level logging in you
   defaultValue="node"
   values={[
     { label: 'Node.js', value: 'node', },
+    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="node">
@@ -104,6 +105,19 @@ const config = {
     level: 'debug',
   }),
 };
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const logger: ld.LDLogger = ld.basicLogger({ level: 'debug' });
+const options: ld.LDOptions = { logger: logger };
+
+const client: ld.LDClient = ld.initialize( 'YOUR_CLIENT_SIDE_ID', user, options);
+
 ```
 
 </CodeTabItem>
