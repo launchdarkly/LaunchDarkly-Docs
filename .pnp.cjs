@@ -38,6 +38,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@algolia/transporter", "npm:4.12.1"],
             ["@babel/core", "npm:7.16.12"],
             ["@babel/preset-env", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:7.16.11"],
+            ["@cspell/cspell-types", "npm:5.18.4"],
             ["@cypress/webpack-preprocessor", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.11.0"],
             ["@datadog/browser-logs", "npm:4.2.0"],
             ["@datadog/browser-rum-slim", "npm:4.2.0"],
@@ -4478,6 +4479,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@cspell-cspell-types-npm-5.18.0-e2364400b4-4aee2d00fa.zip/node_modules/@cspell/cspell-types/",
           "packageDependencies": [
             ["@cspell/cspell-types", "npm:5.18.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:5.18.4", {
+          "packageLocation": "./.yarn/cache/@cspell-cspell-types-npm-5.18.4-4ec2c6e7dc-4fd0fc8ea1.zip/node_modules/@cspell/cspell-types/",
+          "packageDependencies": [
+            ["@cspell/cspell-types", "npm:5.18.4"]
           ],
           "linkType": "HARD",
         }]
@@ -17903,6 +17911,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@algolia/transporter", "npm:4.12.1"],
             ["@babel/core", "npm:7.16.12"],
             ["@babel/preset-env", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:7.16.11"],
+            ["@cspell/cspell-types", "npm:5.18.4"],
             ["@cypress/webpack-preprocessor", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.11.0"],
             ["@datadog/browser-logs", "npm:4.2.0"],
             ["@datadog/browser-rum-slim", "npm:4.2.0"],
