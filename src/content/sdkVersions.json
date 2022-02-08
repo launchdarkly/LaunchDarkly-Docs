@@ -768,6 +768,11 @@
     "name": "Lua",
     "versions": [
       {
+        "versionMajorMinor": "1.2",
+        "releaseYear": 2022,
+        "releaseMonthDay": "02-07"
+      },
+      {
         "versionMajorMinor": "1.1",
         "releaseYear": 2021,
         "releaseMonthDay": "02-04"
