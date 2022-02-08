@@ -1013,6 +1013,11 @@
     "name": "React",
     "versions": [
       {
+        "versionMajorMinor": "2.25",
+        "releaseYear": 2022,
+        "releaseMonthDay": "02-08"
+      },
+      {
         "versionMajorMinor": "2.24",
         "releaseYear": 2021,
         "releaseMonthDay": "12-09"
