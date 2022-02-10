@@ -39,7 +39,7 @@ Some Data Export destinations have different event formatting schema. If you use
 
 ## Exporting event data for flags and environments
 
-After you create a Data Export destination, you can send data for individual flags or for all the flags in an environment to it.
+After you create a Data Export destination, you can send data to it for individual flags or for all the flags in an environment.
 
 ### Exporting flag event data
 
@@ -53,6 +53,10 @@ To export data from a specific flag to a destination:
 
 ![The flag's Settings page, with the Data Export checkbox called out.](data-export-detailed-event-info-callout.png)
 
+
+If you are using a flag in an experiment with allocation enabled, LaunchDarkly exports evaluation events for users included in the experiment, whether or not you check the **Send detailed event information for this flag** checkbox. If you do check the checkbox, then LaunchDarkly exports evaluation events for all users that encounter the flag.
+
+You can tell if a user evaluation was part of an experiment from the optional `inExperiment` attribute. Evaluations that were part of an experiment have the `inExperiment` attribute on the evaluation reason set to `true`. To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 
 ### Exporting environment event data
 
@@ -69,40 +73,6 @@ To export data from an environment to a destination:
 
 ![The Edit production environment screen, with the Data Export checkbox called out.](data-export-env-detailed-event-info-callout.png)
 
-
-## Customizing which data LaunchDarkly exports
-
-You can control which users send event data to destinations by choosing a group of users affected by certain flag targeting rules. To learn more, read [Allocating experiment traffic](/home/experimentation/allocation).
-
-<Callout intent="alert">
-<CalloutTitle>Enabling Data Export population targeting</CalloutTitle>
-<CalloutDescription>
-
-If you can't see this feature, your SDKs may be out of date. To solve this problem:
-
-1. Update your SDKs to the latest version.
-2. Contact support@launchdarkly.com to enable the feature.
-
-</CalloutDescription>
-</Callout>
-
-To customize which users send event data to Data Export destinations:
-
-1. Identify which flag you wish to export events from.
-2. Navigate to the flag's **Settings** page.
-3. Click **N of N targeting rules** in the "Exporting events from" line. The "Configure event settings" screen appears:
-
-![The flag's Settings tab with the targeting rules link called out.](flag-settings-data-export-targeting-rules-callout.png)
-
-
-4. Click the **Custom selection** radio box to modify the users whose events are exported. When you click **Custom selection**, you can choose which targeting rules you wish to include or exclude in data exports.
-5. Select the checkboxes of rules you wish to include in the experiment. This refines the population of users whose events are exported:
-
-![The "Configure event settings" screen](experiments-rules-custom-selection.png)
-
-
-6. Click **Save Changes**. A confirmation dialog appears.
-7. Type the name or key of the environment in the text box and click **Confirm**.
 
 ## Delivery guarantees
 
