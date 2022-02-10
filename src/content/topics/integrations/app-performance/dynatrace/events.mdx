@@ -51,7 +51,7 @@ To use the LaunchDarkly Dynatrace integration successfully, you must meet the fo
 
 The Dynatrace API token authenticates the LaunchDarkly integration so it can submit events to your Dynatrace account. To learn more about Dynatrace's API tokens, read [Dynatrace's documentation](https://www.dynatrace.com/support/help/extend-dynatrace/dynatrace-api/basics/dynatrace-api-authentication/).
 
-When you create the token, confirm that the _"Access problem and event feed, metrics, and topology"_ option is enabled. This is the only access scope the LaunchDarkly integration needs.
+When you create the token, confirm that the "Access problem and event feed, metrics, and topology" option is enabled. This is the only access scope the LaunchDarkly integration needs.
 
 ## Configuring the Dynatrace integration
 
@@ -65,12 +65,12 @@ Here's how to add and configure the Dynatrace integration:
 3. (Optional) Give your integration a human-readable **Name**.
 4. Enter your Dynatrace API token.
 5. Enter the URL of your Dynatrace service in the **Dynatrace URL** field. Do not include a slash at the end.
-6. Select the entity type of the Dynatrace entities you want to send LaunchDarkly events to. To learn more, read [About entity types](#about-entity-types).
+6. Select the entity type of the Dynatrace entities you want to send LaunchDarkly events to. To learn more, read [Understanding entity types](#understanding-entity-types).
 7. (Optional) Configure a custom policy to control which information LaunchDarkly sends to Dynatrace. To learn more, read [Configuring integration policies](#configuring-integration-policies).
 8. After reading the Integration Terms and Conditions, check the **I have read and agree to the Integration Terms and Conditions** checkbox.
 9. Click **Save configuration**.
 
-### About entity types
+### Understanding entity types
 
 Dynatrace uses specific entity types for applications within it. For example, if Dynatrace is monitoring your software application and flag change events appear on that Dynatrace's timeline, the application has an entity type such as `SERVICE`, `APPLICATION`, or `PROCESS_GROUP_INSTANCE`.
 
@@ -146,18 +146,18 @@ To associate a flag with one or more applications using Dynatrace tags:
 
 ![An application page in Dynatrace, with the "my-dynatrace-tag" added.](dynatrace-add-tag.png)
 
-2. **In LaunchDarkly:** Go to the flag's Settings tab.
+2. **In LaunchDarkly:** Go to the flag's **Settings**.
 
-![The available tabs on a flag page, with Settings highlighted.](dynatrace-flag-tabs.png)
+![The available tabs on a flag page, with "Settings" highlighted.](dynatrace-flag-tabs.png)
 
 3. Scroll down to the "Custom properties" section and click **Add custom property**.
 
-![The Custom Properties section of a Flag page, shown empty.](flag-settings-custom-properties-empty.png)
+![The "Custom Properties" section of a flag page, shown empty.](flag-settings-custom-properties-empty.png)
 
-4. Enter the name of the tag you created in the "Values" field.
-5. In the "Select a property type..." dropdown, select **Dynatrace tags**.
+4. Enter the name of the tag you created in the **Values** field.
+5. In the **Select a property type...** menu, select "Dynatrace tags."
 
-![The Custom Properties section of a Flag page, shown with a Dynatrace tag.](dynatrace-custom-properties-complete.png)
+![The "Custom Properties" section of a flag page, shown with a Dynatrace tag.](dynatrace-custom-properties-complete.png)
 
 7. Click **Save with comment** to save the custom property.
 

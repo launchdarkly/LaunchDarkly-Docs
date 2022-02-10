@@ -19,17 +19,17 @@ In summary, the semantic versioning standard specifies that each version should 
 - **minor** version number
 - **patch** version number
 
-These components are separated by periods. For example: The version `1.2.3` has a **major** version of `1`, a **minor** version of `2`, and a **patch** version of `3`.
+These components are separated by periods. For example: The version `1.2.3` has a major version of `1`, a minor version of `2`, and a patch version of `3`.
 
-For **pre-release** versions, we may suffix the version with an identifier indicating the version's pre-release status, like `-beta1` or `-alpha2`.
+For pre-release versions, we may suffix the version with an identifier indicating the version's pre-release status, like `-beta1` or `-alpha2`.
 
 When we release a new version, we increment one of the major, minor, or patch components. Differentiating between new versions is based on the kinds of changes introduced in the new version.
 
 As is conventional in the semantic versioning standard:
 
-- The **major** version component increments when the version contains **breaking changes**.
-- The **minor** version component increments when the version contains **new functionality that is backwards compatible**.
-- The **patch** version component increments when the version contains **backwards compatible bug fixes**.
+- The major version component increments when the version contains breaking changes.
+- The minor version component increments when the version contains new functionality that is backwards compatible.
+- The patch version component increments when the version contains backwards compatible bug fixes.
 
 To learn more, read [Semantic Versioning 2.0.0](http://semver.org/).
 
@@ -41,7 +41,7 @@ At LaunchDarkly, we version our SDKs based on the following criteria:
 
 ## Modifying unintentional behavior
 
-We release a **patch** version to modify a behavior if correcting that behavior does not change any documented types, properties, methods, or parameters.
+We release a patch version to modify a behavior if correcting that behavior does not change any documented types, properties, methods, or parameters.
 
 We release a patch version to modify a behavior when:
 
@@ -63,7 +63,7 @@ We release a patch version to modify a behavior when:
 
 It means providing you the ability to do something with the SDK that you could not do before and that involves a new type, property, method, optional parameter, or supported parameter value.
 
-New functionality qualifies as a **minor** version release.
+New functionality qualifies as a minor version release.
 
 ## Introducing breaking changes
 
@@ -73,7 +73,7 @@ The qualifications for a breaking change can vary from platform to platform. On 
 
 In cases like this, internal methods or properties can exist that LaunchDarkly cannot prevent application code from accessing, including methods and properties which are excluded from all documentation and from explicit interface declarations. We consider methods and properties like that, such as TypeScript declarations, to be internal. We do not consider breaking these internal references to be breaking changes as long as the underlying behavior persists. We will not release a major version solely to resolve an internal breakage.
 
-Examples of breaking changes that would qualify for a **major** version release include:
+Examples of breaking changes that would qualify for a major version release include:
 
 - the application code no longer compiles (in a compiled language)
 - the application or SDK is unable to do the thing you want it to do, even when you use it correctly

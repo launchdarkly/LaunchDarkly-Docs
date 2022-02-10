@@ -39,7 +39,7 @@ Read this section to understand the way we use some terms in this guide.
 
 ### LaunchDarkly data hierarchy
 
-The basic unit of work in LaunchDarkly is a **feature flag**, often referred to as a **flag**. Flags exist inside **environments**, which are grouped into **projects**. A project can contain multiple environments, and flags exist across all environments within a project.
+The basic unit of work in LaunchDarkly is a feature flag, often referred to as a "flag." Flags exist inside environments, which are grouped into projects. A project can contain multiple environments, and flags exist across all environments within a project.
 
 Many software projects have a test, staging, and production environment within each project. In LaunchDarkly, you can define any environment structure that suits your team's needs. For example, your mobile team might need an `android test`, `android prod`, `ios test`, and `ios prod` environment in a "Mobile apps" project.
 
@@ -179,10 +179,11 @@ You must set up a LaunchDarkly project and environment where your flags will liv
 To create a new project:
 
 1. Navigate to the [Account settings](https://app.launchdarkly.com/settings/projects) page.
-2. Click **Create project**.
-3. Give your project a human-readable **Name**. In the example below, the project is called `Starlight Travel`.
-4. Click **Save project**.
-5. In the **Account Settings** page on the **Projects** tab, click to copy the new project's SDK key to your clipboard:
+2. Click the **Projects** tab.
+3. Click **Create project**. The "Create a project" panel appears.
+4. Give your project a human-readable **Name**. In the example below, the project is called `Starlight Travel`.
+5. Click **Save project**. You are returned to the **Projects** tab.
+6. Click the new project's SDK key to copy it to your clipboard:
 
 ![The Account Settings page in LaunchDarkly with environment SDK keys called out.](starlight-travel-projects.png)
 
@@ -306,28 +307,28 @@ You've initialized the `ldclient`. Next, use the client to wrap your app's new p
 
 ### Creating a new flag
 
-Before you add code to the pricing page, create a new flag in your LaunchDarkly project. Name the flag `pricing-tier-3`.
+Before you add code to the pricing page, create a new flag in your LaunchDarkly project. Name the flag "Pricing tier 3."
 
 Here's how to create the new flag:
 
-1. From the LaunchDarkly app, click **Feature flags**.
+1. In LaunchDarkly, navigate to the **Feature flags** dashboard.
 2. Click **Create flag**:
 
-![The Create flag button on the flags dashboard.](flag-new-callout.png)
+![The Create flag button on the flag dashboard.](flag-new-callout.png)
 
-3. Enter `pricing-tier-3` for the name.
-4. Optionally, add a description of the flag.
-5. Leave the flag variation set to **Boolean**:
+3. Enter "Pricing tier 3" in the **Name** field.
+4. (Optional) Add a **Description** of the flag.
+5. Leave the flag variation set to "Boolean":
 
-![The Create a feature flag screen.](flag-create.png)
+![The "Create a feature flag" panel.](flag-create.png)
 
-6. Save the new flag.
+6. Click **Save flag**.
 
-The flag's targeting state is set to `off` by default. You can turn it on after implementing the code to use it.
+The flag's targeting state is set to **off** by default. You can turn it on after implementing the code to use it.
 
 The new flag is pictured below:
 
-![The pricing-tier-3 flag.](pricing-tier-3-flag.png)
+![The "Pricing tier 3" flag.](pricing-tier-3-flag.png)
 
 ### Adding a new pricing tier
 
@@ -498,12 +499,11 @@ Now that you've wrapped your feature in a flag, it's time to turn your feature o
 
 To turn your feature on:
 
-1. From the LaunchDarkly app, click **Feature flags**.
-2. Navigate to the `pricing-tier-3` flag.
-3. Click the Targeting toggle to toggle the flag to `on`.
-4. Enter a comment.
-5. Click **Save changes**.
-6. Refresh the browser with your Glitch app in it again to verify that the new pricing tier is available.
+1. In LaunchDarkly, navigate to the **Feature flags** dashboard.
+2. Find the "Pricing tier 3" flag and click on the flag name. The flag's **Targeting** tab appears.
+3. Click the toggle to toggle the flag to **on**.
+4. Click **Save changes**.
+5. Refresh the browser with your Glitch app in it again to verify that the new pricing tier is available.
 
 Here is a video showing how to turn on your feature:
 

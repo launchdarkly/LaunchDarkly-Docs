@@ -55,11 +55,11 @@ All of LaunchDarkly's features are supported by API endpoints. To learn more abo
 
 To schedule a set of flag changes:
 
-1. Navigate to the flag dashboard and select the flag for which you want to schedule targeting changes. The flag's Targeting tab appears.
+1. Navigate to the flag dashboard and select the flag for which you want to schedule targeting changes. The flag's **Targeting** tab appears.
 2. Make the changes you want to the flag’s targeting.
-3. Click the dropdown next to the **Save changes** button and select **Schedule Changes**:
+3. Click the **dropdown icon** in the **Save changes** button and select "Schedule changes":
 
-![The Schedule Changes button below the Save Changes button.](workflows-schedule-changes.png)
+![The "Schedule changes" option below the "Save Changes" button.](workflows-schedule-changes.png)
 
 4. In the "Schedule" section, click on **Select a date** to expand a calendar view:
 
@@ -67,13 +67,13 @@ To schedule a set of flag changes:
 
 5. Set a date and time for when you want the changes to execute.
 6. Click **Apply**.
-7. Review and confirm the changes displayed in the modal. If you need to make changes, click **Edit**, change what you need, and then click **Done**:
+7. Review and confirm the changes displayed in the dialog. If you need to make changes, click **Edit**, change what you need, and then click **Done**:
 
-![The Edit changes screen.](workflows-edit-changes.png)
+![The "Edit changes" dialog.](workflows-edit-changes.png)
 
 8. If your environment requires approvals for flag changes, enter a description and choose one or more reviewers.
 9. Enter a comment and the environment name.
-10. Click **Schedule Changes**. Your changes have now been scheduled.
+10. Click **Schedule changes**. Your changes have now been scheduled.
 
 You can schedule multiple changes for a single flag for different dates and times.
 
@@ -95,12 +95,12 @@ If there are conflicts between changed flags and requested changes, approved and
 
 To view all the scheduled changes for a flag:
 
-1. Navigate to the flag dashboard and select the flag for which you want to view the scheduled changes. The flag's Targeting tab appears.
+1. Navigate to the flag dashboard and select the flag for which you want to view the scheduled changes. The flag's **Targeting** tab appears.
 2. The number of scheduled changes appear in the upper right corner:
 
 ![The number of pending changes for a flag.](workflows-pending-changes-icon.png)
 
-3. To view the complete list of changes, click on the clock icon. A drawer opens that displays all the pending changes that are scheduled for this flag. The changes are listed chronologically, with the earliest upcoming change listed first:
+3. To view the complete list of changes, click on the **clock** icon. A drawer appears that displays all the pending changes that are scheduled for this flag. The changes are listed chronologically, with the earliest upcoming change listed first:
 
 ![The pending number of changes for a flag.](workflows-pending-changes.png)
 
@@ -110,23 +110,23 @@ To update a scheduled flag change:
 
 1. Follow the steps in [Viewing scheduled flag changes](#viewing-scheduled-flag-changes) to open the list of pending scheduled changes for the flag.
 2. Find the scheduled change you wish to update.
-3. Click on the menu in the upper right and choose **Edit**:
+3. Click on the **overflow menu** in the upper right and choose "Edit":
 
 ![The Edit option on a pending change.](workflows-pending-changes-edit.png)
 
-4. A modal appears with the list of scheduled flag changes.
+4. A dialog appears with the list of scheduled flag changes.
 5. You can change the schedule by changing the date or time for these changes. Alternatively, you can click **Edit** to make updates and click **Done** when complete.
-6. Type in a comment and the environment name.
-7. Hit **Update Change** to save your updates to the scheduled change.
+6. Enter a comment and the environment name.
+7. Click **Update schedule change** to save your updates to the scheduled change.
 
 ## Deleting scheduled flag changes
 
 To delete a scheduled flag change:
 
 1. Follow the steps in [Viewing scheduled flag changes](#viewing-scheduled-flag-changes) to open the list of pending scheduled changes for the flag.
-2. For the scheduled change you wish to delete, click on the menu to the top-right and click **Delete**:
+2. For the scheduled change you wish to delete, click on the **overflow menu** in the upper right and choose "Delete":
 
-![The Edit and Delete options for a scheduled workflow.](workflows-pending-changes-edit.png)
+![The "Edit" and "Delete" options for a scheduled workflow.](workflows-pending-changes-edit.png)
 
 ## Managing conflicts with scheduled changes
 
@@ -138,7 +138,7 @@ Conflicts occur for two reasons:
 
 LaunchDarkly warns users in the user interface (UI) when they save or schedule changes to the flag that introduce conflicts with other pending scheduled changes.
 
-Here is an image of the Confirm changes screen:
+Here is an image of the Confirm changes dialog:
 
 ![A notification showing a conflicting scheduled change.](workflows-conflict.png)
 
@@ -156,5 +156,5 @@ Here is an image of the email you could receive:
 
 You can resolve the conflict and ensure your scheduled changes don’t fail in one of two ways:
 
-1. **Choose one of the two conflicting changes and delete the other.** For example, you may have scheduled 3 targeting rules to be updated and someone deletes 1 of those rules, which causes a conflict. If this happens, you can update your scheduled changes to delete the scheduled changes to that rule. This ensures that the conflict is resolved and the remaining rules are updating successfully.
+1. **Choose one of the two conflicting changes and delete the other.** For example, you may have scheduled three targeting rules to be updated and someone deletes one of those rules, which causes a conflict. If this happens, you can update your scheduled changes to delete the scheduled changes to that rule. This ensures that the conflict is resolved and the remaining rules are updating successfully.
 2. **Update the conflicting changes so they no longer conflict.** You can update your changes or the new scheduled changes to resolve the conflict and ensure both scheduled changes execute successfully.

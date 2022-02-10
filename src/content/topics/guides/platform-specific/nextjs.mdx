@@ -74,7 +74,9 @@ You do not need to manually trigger a rebuild each time you make a flag change. 
 
 First, you must add a tag. You can add this when you create a new feature flag that will need to trigger a rebuild. For example, you can name the tag `build-impact`. You can name yours whatever you like but it's best to keep it descriptive and consistent. Use the same tag for all flags that need to trigger a rebuild.
 
-![Adding a tag to a feature flag](nextjs-feature-flag-tag.png)
+Here is an image of the "Create a feature flag" panel in LaunchDarkly:
+
+![Adding a tag to a feature flag within the "Create a feature flag" panel.](nextjs-feature-flag-tag.png)
 
 You add the tag so that you can use it to filter only those flags that require a full site rebuild to trigger the webhook. This means that if a tag is only used in SSR or client-side rendering, it won't cause a rebuild. This prevents needless deploys and saves you money, because most deployment platforms ultimately charge for build minutes.
 
@@ -112,12 +114,12 @@ In the Vercel admin dashboard:
 This procedure requires a build hook from Netlify or a deploy hook from Vercel. You can use either type of hook interchangeably in this procedure.
 
 
-1. In LaunchDarkly, navigate to **Integrations** and go to the "Webhooks" section.
-2. Click **+ Integration** to add a new webhook.
+1. In LaunchDarkly, navigate to the **Integrations** page. 
+2. Find the the "Webhooks" section and click **Add integration**:
 
 ![Finding the webhook integration](nextjs-integrations.png)
 
-3. Give your webhook a human-readable name, and then paste the URL of the build/deploy hook you just created in Netlify or Vercel.
+3. Give your webhook a human-readable name, and then paste the URL of the build/deploy hook you just created in Netlify or Vercel:
 
 ![Adding a new webhook](nextjs-new-webhook.png)
 
@@ -125,9 +127,8 @@ Next, you must add a policy to this webhook. The policy determines the permissio
 
 To add a policy to the webhook:
 
-1. Navigate to the "Policy" section of the webhook and click **Advanced editor**. This lets us create a policy with very specific restrictions. The example code below says that this webhook has access to the environments (`env/*`) and flags (`flag/*`) tagged with `build-impact`.
-
-2. Paste this code into the advanced editor. Change the project key from `brian-test` to your LaunchDarkly project key. You can get the project key in the LaunchDarkly dashboard under **Account settings** > **Projects**.
+1. Navigate to the "Policy" section of the webhook and click **Advanced editor**. This lets you create a policy with very specific restrictions. The example code below says that this webhook has access to the environments (`env/*`) and flags (`flag/*`) tagged with `build-impact`.
+2. Paste this code into the advanced editor. Change the project key from `brian-test` to your LaunchDarkly project key. You can get the project key in the flag dashboard under **Account settings** > **Projects**.
 
 Here is the code to paste and modify:
 
@@ -156,7 +157,7 @@ Here is the code to paste and modify:
 </CodeTabItem>
 </CodeTabs>
 
-3. Click **Save changes**.
+3. Click **Save settings**.
 
 To test this policy, create a flag and tag it with `build-impact`. Now change its value and then go to your Netlify or Vercel dashboard. You should see a new build starting. Next, create a flag and do not tag it. Change its value and check your Netlify or Vercel dashboard. Nothing will change.
 

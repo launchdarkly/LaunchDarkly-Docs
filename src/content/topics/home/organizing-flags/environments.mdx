@@ -21,21 +21,22 @@ Your first project has two environments, `Test` and `Production`, by default. Ea
 
 Each feature flag that you create has its own set of targeting rules for each environment. This means that you can change your flag rollout rules in a development or staging environment for QA testing before rolling out to production.
 
-The LaunchDarkly sidebar has a dropdown menu that shows you the current project and environment and allows you to quickly switch between projects and environments.
+The LaunchDarkly sidebar has a menu that shows you the current project and environment and allows you to quickly switch between projects and environments.
 
-Here is a screenshot of the Switch environment menu:
+Here is a screenshot of the **Switch environment** menu:
 
-![The Switch environment menu.](env-switcher.png)
+![The "Switch environment" menu.](env-switcher.png)
 
 
-You can manage your environments from the Account settings page. Here, you can add new environments to a project (for example, to give each developer on your team their own environment for local testing).
+You can manage your environments from the **Account settings** page. Here, you can add new environments to a project, for example, to give each developer on your team their own environment for local testing.
 
 To add a new environment:
 
-1. Navigate to the **Account Settings** page.
-2. Click **Create environment**. The "Create an environment" screen appears:
+1. Navigate to the **Account settings** page.
+2. Click the **Projects** tab. Find the project to which you want to add a new environment.
+3. Click **Create environment**. The "Create an environment" panel appears:
 
-![The Account Settings page with the new environment button called out.](env-new-callout.png)
+![The "Account settings" page with the "Create environment" button called out.](env-new-callout.png)
 
 <Callout intent="alert">
 <CalloutTitle>Make sure you're in the right project</CalloutTitle>
@@ -46,11 +47,11 @@ Confirm you're creating the environment in the project where you want it to live
 </CalloutDescription>
 </Callout>
 
-3. Give your environment a human-readable **Name**.
-4. (Optional) Give your environment a unique **Key**. This field populates automatically based on your name, but you can change it now if you wish.
-5. (Optional) Add **Tags**.
-6. (Optional) Select the **Enable secure mode** checkbox to ensure a user of the client-side SDK cannot impersonate another user.
-7. (Optional) Select the **Require comments for flag and segment changes** checkbox to force members who modify flags and user segments to leave a comment to explain their changes.
+4. Give your environment a human-readable **Name**.
+5. (Optional) Give your environment a unique **Key**. This field populates automatically based on your name, but you can change it now if you wish.
+6. (Optional) Add **Tags**.
+7. (Optional) Select the **Enable secure mode** checkbox to ensure a user of the client-side SDK cannot impersonate another user.
+8. (Optional) Select the **Require comments for flag and segment changes** checkbox to force members who modify flags and user segments to leave a comment to explain their changes.
 
 <Callout intent="info">
 <CalloutTitle>Comments help establish a change history</CalloutTitle>
@@ -62,10 +63,10 @@ Requiring members to leave comments when they change flags or segments helps you
 </Callout>
 
 <Callout intent="alert">
-<CalloutTitle>Required comments are only enforced in the Dashboard</CalloutTitle>
+<CalloutTitle>Required comments are only enforced in the dashboard</CalloutTitle>
 <CalloutDescription>
 
-When **Require comments** is enabled, the LaunchDarkly Dashboard will force members to explain their changes. Comments are not required for changes made with the LaunchDarkly API.
+When **Require comments** is enabled, the flag dashboard will force members to explain their changes. Comments are not required for changes made with the LaunchDarkly API.
 
 Required comments is available to customers on an Enterprise plan. To learn more, read [Required comments](/home/feature-workflows/required-comments).
 
@@ -96,9 +97,9 @@ The TTL setting checkbox only applies to environments using the PHP SDK. To lear
 </Callout>
 
 11. (Optional) Choose a **Color** to differentiate this environment from other environments.
-12. Click **Save environment**. The new environment appears on the Account Settings page:
+12. Click **Save environment**. The new environment appears on the **Account settings** page:
 
-![The Create an environment screen.](env-create.png)
+![The "Create an environment" panel.](env-create.png)
 
 ## Cloning an environment
 
@@ -113,7 +114,7 @@ When you clone an environment, the following restrictions apply:
 
 ## Migrating content between environments
 
-You can migrate some, but not all, content between environments. Compare and copy flag settings between environments from the LaunchDarkly UI. To learn more, read [Compare and copy flag settings](/home/organize/flag-compare-copy).
+You can migrate some, but not all, content between environments from the flags dashboard. To learn more, read [Compare and copy flag settings](/home/organize/flag-compare-copy).
 
 Alternatively, customers on a Pro or Enterprise plan can use the REST API to migrate flags from one environment to another. First, GET the feature flag you wish to import, then PATCH to update the flag configuration in production.
 
@@ -121,20 +122,27 @@ To learn more about these endpoints, read [Get feature flag](https://apidocs.lau
 
 ## Resetting an environment's key
 
-If you need to reset an SDK or mobile key for an environment, navigate to the Account Settings page and click **Edit** next to the environment you wish to change.
+You can reset an SDK or mobile key for an environment from your **Account settings** page.
 
-When you edit an environment, you see the option to reset your SDK or mobile key for that environment. Click **Reset SDK key** or **Reset mobile key** to bring up a confirmation screen. From there, you have the option to keep the old key active for a period of time, up to a maximum of 720 hours (30 days).
+To reset an SDK or mobile key:
 
-Here is an image of the SDK key reset screen:
+1. Navigate to the the **Account settings** page.
+2. Click the **Projects** tab.
+3. Click the **overflow menu** next to your environment.
+4. Select "Edit environment." An "Edit environment" panel appears.
+5. In the "Keys" section click **Reset SDK key** or **Reset mobile key**.
+6. (Optional) If you are resetting an SDK key, choose how many hours to keep the current SDK key active for, up to 720 hours (30 days).
+6. Enter the name or key of your environment:
 
-![The SDK key reset screen.](env-sdk-key-reset.png)
+![The SDK key reset dialog.](env-sdk-key-reset.png)
 
+7. Click **Reset**.
 
 ## TTL settings
 
 Each environment also has a time-to-live (TTL) setting. This sets the number of minutes that the PHP SDK can cache feature flag rules locally.
 
-The TTL is only used in our PHP SDK, since PHP's shared-nothing architecture makes our streaming model impossible.
+The TTL is only used in the PHP SDK, since PHP's shared-nothing architecture makes our streaming model impossible.
 
 For customers using PHP, we recommend setting your TTL to at least five minutes in production environments. This lets our SDKs cache feature flag rules for five minutes, so most calls to `variation` will not make a remote request. The tradeoff is that changes you make to your feature flag rules on your dashboard will not take effect for five minutes.
 

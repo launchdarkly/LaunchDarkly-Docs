@@ -28,13 +28,13 @@ In order to use this guide effectively, you should understand these concepts:
 
 Most of the flags added to a project are temporary, intended to be removed later. Unfortunately, most teams are worse at removing flags than adding them, because removal is usually less urgent. This can lead to a codebase cluttered with flags that are no longer relevant. At best, this makes the code harder to read; at worst, inadvertently toggling the wrong flag can cause production failures.
 
-Teams that use flags need to ensure that their code only references flags which are currently in use. This practice is known as "flag hygiene". Here is a selection of techniques that help maintain good flag hygiene.
+Teams that use flags need to ensure that their code only references flags which are currently in use. This practice is known as "flag hygiene." Here is a selection of techniques that help maintain good flag hygiene.
 
 To learn more about flag hygiene, read [Reducing technical debt from feature flags](/guides/best-practices/technical-debt).
 
 ### Extending your team's "definition of done"
 
-Engineering teams maintain their own standards for when a task or project can be considered "done". For example, a team may consider the code for a task to be incomplete until it has automated tests.
+Engineering teams maintain their own standards for when a task or project can be considered "done." For example, a team may consider the code for a task to be incomplete until it has automated tests.
 
 You can maintain flag hygiene by ensuring that the temporary flags created for a task or project are no longer referenced by any code and are archived after they're no longer in use. Adding this as a requirement to your team's definition of done may help streamline your codebase, because only the flags you're actively using will be present in it.
 

@@ -131,12 +131,12 @@ First, create a new flag in LaunchDarkly.
 
 To create a new flag:
 
-1. Click **Create Flag**.
-2. Name your flag `Student Discount Pricing`.
-4. Enter a description of the flag to help account members understand what the flag is for.
-5. Click into the **Tags** dropdown and enter `experiment`. This creates a tag that lets you filter flags based on which flags have experiments running.
+1. From the flags dashboard, click **Create flag**.
+2. Name your flag "Student Discount Pricing."
+4. (Optional) Enter a description of the flag to help account members understand what the flag is for.
+5. Click into the **Tags** menu and enter `experiment`. This creates a tag that lets you filter flags based on which flags have experiments running.
 6. Check the **SDKs using Client-side ID** checkbox.
-7. In the "Flag variations" dropdown choose **Number**.
+7. In the **Flag variations** menu choose "Number."
 8. Enter a name and value for the variations as given below:
   * Variation 1 value: `.25`
   * Variation 1 name: 75% off
@@ -147,7 +147,7 @@ To create a new flag:
   * Variation 4 value: `1`
   * Variation 4 name: No discount
 
-![The "Create a feature flag" screen for the Student Discount Pricing flag.](starlight-travel-student-discount-flag.png)
+![The "Create a feature flag" panel for the "Student Discount Pricing" flag.](starlight-travel-student-discount-flag.png)
 
 9. Click **Save flag**.
 
@@ -166,14 +166,14 @@ In this experiment, you target users based on their email address. You want to o
 
 To target users with a `.edu` email address:
 
-1. Navigate to the **Targeting** menu for your new flag.
+1. Navigate to the **Targeting** tab for your new flag.
 1. In the "Target users who match these rules" section, click **Add rules**.
 1. Click the **Experiment menu** icon.
-1. Click **Run an experiment on this rule**.
-1. In the "Select an attribute" dropdown choose `email`.
-1. In the "Select an operator" dropdown choose `ends with`.
-1. In the "Enter some values" field enter `.edu`.
-1. In the last dropdown choose `a percentage rollout`.
+1. Select "Run an experiment on this rule."
+1. In the **Select an attribute** menu choose `email`.
+1. In the **Select an operator** menu choose `ends with`.
+1. In the **Enter some values** field enter `.edu`.
+1. In the last menu choose "a percentage rollout."
 1. Enter percentage values for the four variations of your flag. The values must add up to 100%:
 
 ![A flag's targeting rules configuration.](starlight-travel-targeting-rules.png)
@@ -247,37 +247,37 @@ First, copy the URL for your Glitch app. To find it:
 Next, create a click metric to track the discount which results in the highest number of packages purchased:
 
 1. In LaunchDarkly, select **Experiments** from the sidebar menu.
-1. Navigate to the **Metrics** tab.
-1. Click **Create metric**. The "Create a new metric screen" appears.
-1. Name your metric "Student pricing tier".
+1. Click the **Metrics** tab.
+1. Click **Create metric**. The "Create a new metric" panel appears.
+1. Name your metric "Student pricing tier."
 1. Enter a **Description** to indicate what the metric is tracking, such as “Track price chosen by students”.
-1. Choose **Click** from the "Event kind" dropdown.
-1. Enter `a.btn` in the "Click targets" field.
-1. In the "Target URL" dropdown, choose **Substring Match**.
+1. Choose "Click" from the **Event kind** menu.
+1. Enter `a.btn` in the **Click targets** field.
+1. In the **Target URL** menu, choose "Substring Match."
 1. Paste in the URL for your Glitch app, which you found and saved in the previous procedure:
 
-![The "Create a new metric" screen.](starlight-travel-create-new-metric.png)
+![The "Create a new metric" panel.](starlight-travel-create-new-metric.png)
 
 ### Connecting the metric to the flag
 
 Next, connect the metric to the flag to create an experiment. To do this:
 
-1. In LaunchDarkly, click on the `student-discount-pricing` flag. The flag's dashboard appears.
+1. In LaunchDarkly, click on the `student-discount-pricing` flag. The flag's **Targeting** tab appears.
 1. Click into the flag's **Experimentation** tab.
-1. Click **Create an Experiment**. The "Experiment setup" screen appears.
-1. Choose the metric you created from the "Add a new metric" dropdown.
+1. Click **Create an experiment**. The "Experiment Setup" panel appears.
+1. Choose the metric you created from the **Add a new metric** menu.
 1. Select Variation 4, "No discount," as the baseline.
-1. Click **Save Experiment Settings**:
+1. Click **Save experiment settings**:
 
-![The Experiment setup screen.](starlight-travel-experiment-setup.png)
+![The "Experiment Setup" panel.](starlight-travel-experiment-setup.png)
 
-You return to the flag's **Experiments** tab and the experiment is ready for you to start it.
+You are returned to the flag's **Experimentation** tab and the experiment is ready for you to start it.
 
 ### Starting your experiment
 
 For this exercise, you will simulate traffic to your application. To do this:
 
-1. In the flag's **Experiments** tab, click **Start recording**.
+1. In the flag's **Experimentation** tab, click **Start recording**.
 1. Open a new browser window.
 1. Load the Glitch application.
 1. Generate traffic by pressing `!`.

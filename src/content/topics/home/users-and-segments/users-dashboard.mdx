@@ -9,64 +9,64 @@ published: true
 
 This topic explains what the **Users** dashboard is, how it is populated, and how to use it.
 
-The Users dashboard gives you a summary view of how each user sees all of the features on your site, and lets you customize their experience from one screen. You can even set expiration dates for flag targeting, or remove flags targeted to individual users.
+The **Users** dashboard gives you a summary view of how each user sees all of the features on your site, and lets you customize their experience from one screen. You can even set expiration dates for flag targeting, or remove flags targeted to individual users.
 
 ## Understanding the Users dashboard
 
-The Users dashboard populates automatically when users encounter a feature flag and are evaluated by a LaunchDarkly SDK. The data on the Users dashboard is populated from the user data you send in `variation` calls, as well as data from `identify` calls. To learn more about users and user attributes, read [Understanding user attributes](/home/users/attributes#understanding-user-attributes).
+The **Users** dashboard populates automatically when users encounter a feature flag and are evaluated by a LaunchDarkly SDK. The data on the dashboard is populated from the user data you send in `variation` calls, as well as data from `identify` calls. To learn more about users and user attributes, read [Understanding user attributes](/home/users/attributes#understanding-user-attributes).
 
 <Callout intent="alert">
 <CalloutTitle>You cannot add users manually</CalloutTitle>
 <CalloutDescription>
 
-You cannot create users in the Users dashboard. The Users dashboard is not a database, and exists to serve users that have already been evaluated by a LaunchDarkly SDK. Evaluation always happens with the SDK locally on the machine.
+You cannot create users in the <strong>Users</strong> dashboard. The dashboard is not a database, and exists to serve users that have already been evaluated by a LaunchDarkly SDK. Evaluation always happens with the SDK locally on the machine.
 
 </CalloutDescription>
 </Callout>
 
-If a user's properties change within five minutes of their previous evaluation, and the user key stays the same, the Users dashboard deduplicates the user and does not reflect the latest evaluation. This does not affect variation calls, which always use the attribute values passed to them.
+If a user's properties change within five minutes of their previous evaluation, and the user key stays the same, the dashboard deduplicates the user and does not reflect the latest evaluation. This does not affect variation calls, which always use the attribute values passed to them.
 
-Here is an screenshot of the Users dashboard:
+Here is an screenshot of the **Users** dashboard:
 
-![The Users dashboard.](users.png)
+![The "Users" dashboard.](users.png)
 
-From the Users dashboard, you can filter users by standard or custom attributes. You can also sort the list to identify the oldest or most recent users in your LaunchDarkly account. By default, the most recently active users appear first. Click the toggle arrow to sort the **Last Seen** column to sort the dashboard by least recently active users.
+From the dashboard, you can filter users by standard or custom attributes. You can also sort the list to identify the oldest or most recent users in your LaunchDarkly account. By default, the most recently active users appear first. Click the toggle arrow to sort the "Last seen" column to sort the dashboard by least recently active users.
 
-To learn more about how the Users dashboard is populated, and how you might exceed the 100,000,000 user limit, read [Anonymous users](/home/users/anonymous-users).
+To learn more about how the **Users** dashboard is populated, and how you might exceed the 100,000,000 user limit, read [Anonymous users](/home/users/anonymous-users).
 
 ### Filtering users
 
-You can filter users on the dashboard by standard or custom attributes.
+You can filter users on the **Users** dashboard by standard or custom attributes.
 
 To filter users:
 
-1. Click the **Filter** button.
+1. Click **Filter**.
 2. Choose a standard or custom attribute to filter users by:
 
-![The filter menu with a custom attribute chosen.](users-filter.png)
+![The "Filter" menu with a custom attribute chosen.](users-filter.png)
 
-3. Choose an attribute value from the dropdown.
+3. Choose an attribute value from the menu.
 4. Click **Add**.
 
-Only users with matching attribute values now display on the Users dashboard.
+Only users with matching attribute values now display on the **Users** dashboard.
 
-To add additional attribute values to your filter, click on the attribute name and select the additional values from the dropdown. The dashboard displays only users that match all of the attribute values you selected:
+To add additional attribute values to your filter, click on the attribute name and select the additional values from the menu. The dashboard displays only users that match all of the attribute values you selected:
 
 ![The attribute menu with multiple values selected.](users-filter-clear.png)
 
-To remove a filter, click on the attribute name you want to stop filtering by and click **Clear filter**.
+To remove a filter, click on the attribute name you want to stop filtering by and choose "Clear filter."
 
 ### Customizing the Users dashboard
 
-You can customize which attributes appear on the Users dashboard. To start, click the **Attributes** button.
+You can customize which attributes appear on the **Users** dashboard. To start, click the **Attributes** button.
 
-Here is a screenshot of the Attributes button on the Users dashboard:
+Here is a screenshot of the **Attributes** button on the dashboard:
 
-![The Users dashboard with the "Attributes" button called out.](users-attributes-callout.png)
+![The "Users" dashboard with the "Attributes" button called out.](users-attributes-callout.png)
 
-The "Attributes" menu lets you choose standard or custom attributes to appear on the Users dashboard. After you choose specific attributes, that view persists when you visit the Users dashboard in the future.
+The **Attributes** menu lets you choose standard or custom attributes to appear on the **Users** dashboard. After you choose specific attributes, that view persists when you visit the dashboard in the future.
 
-Here is a screenshot of the "Attributes" menu:
+Here is a screenshot of the **Attributes** menu:
 
 ![The "Attributes" menu with some options selected.](users-attributes-menu.png)
 
@@ -76,27 +76,26 @@ Click a user to manage the feature flags that apply to them, view the segments t
 
 To modify a feature flag the user sees:
 
-1. Navigate to the **Users** dashboard.
-2. Click the user you wish to modify. Their user page appears, with their unique **Attributes** on the left and their **Flag settings** on the right.
-3. Click the dropdown next to the flag you wish to modify to change which variation the user receives:
+1. From the **Users** dashboard click the user you wish to modify. Their user page appears, with their unique attributes on the left and their flag settings on the right.
+2. Click the menu next to the flag for which you want to change the variation the user receives:
 
-    ![The Flag settings screen with different flag variations called out.](users-details-targeting-callout.png)
+    ![The "Flag settings" section with different flag variations called out.](users-details-targeting-callout.png)
 
-4. To remove the custom variation setting, click the **X** next to the flag.
-5. Click **Save Settings** to save your changes.
+3. Click the **X** next to the flag to remove the custom variation setting.
+4. Click **Save Settings** to save your changes.
 
 
 ## User storage
 
-The Users page shows only cached user information. Users appear in the dashboard for 30 days from creation. If a flag sends a `identify` or `flag evaluation` event for a user less than 30 days after it sent the previous event, the user will remain on the dashboard.
+The **Users** dashboard shows only cached user information. Users appear on the dashboard for 30 days from creation. If a flag sends a `identify` or `flag evaluation` event for a user less than 30 days after it sent the previous event, the user will remain on the dashboard.
 
-If a feature flag does not send an `identify` or `flag evaluation` event for a user within 30 days of creation, they age out of the system and their information no longer appears in the Users dashboard. Those users reappear on the dashboard when a flag sends an `identify` or `flag evaluation` event again, if your account has not reached the maximum number of users.
+If a feature flag does not send an `identify` or `flag evaluation` event for a user within 30 days of creation, they age out of the system and their information no longer appears on the dashboard. Those users reappear on the dashboard when a flag sends an `identify` or `flag evaluation` event again, if your account has not reached the maximum number of users.
 
 If you want to keep users on the dashboard for longer than 30 days between flags sending `identify` or `flag evaluation` events, you can manually call `identify` for all of the users that you wish to retain. To learn how to do this in your SDK, read [Identifying and changing users](/sdk/features/identify).
 
-Accounts are limited to 100,000,000 users. If you reach the users limit, flag evaluations will still work for new users, but they won't appear on the Users dashboard until stale users age out of the 30-day user cache and your users drop below 100,000,000. To learn more, read [Understanding client-side MAU limits](/home/billing/usage-metrics#understanding-client-side-mau-limits).
+Accounts are limited to 100,000,000 users. If you reach the users limit, flag evaluations will still work for new users, but they won't appear on the dashboard until stale users age out of the 30-day user cache and your users drop below 100,000,000. To learn more, read [Understanding client-side MAU limits](/home/billing/usage-metrics#understanding-client-side-mau-limits).
 
-If you want to increase your client-side Monthly Active Users (MAU) limit to see more users from your client-side SDKs on the user dashboard, contact [Support](https://support.launchdarkly.com/hc/en-us/requests/new).
+If you want to increase your client-side Monthly Active Users (MAU) limit to see more users from your client-side SDKs on the dashboard, contact [Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 
 ## Scheduling removal dates for user targeting
 
@@ -113,19 +112,19 @@ You can also specify a date and time when a user should be removed from a flag's
 
 You can identify users who are scheduled to be removed from any flag's targeting settings by looking for the **clock icon** next to the flag's name.
 
-![The Users dashboard with a flag with removal scheduled called out.](users-clock-icon-callout.png)
+![The "Users" dashboard with a flag with removal scheduled called out.](users-clock-icon-callout.png)
 
 To schedule a date for the user to be removed from the flag's targeting settings:
 
-1. Navigate to the **Users** dashboard.
-2. Click the user you wish to modify. Their user page appears, with their unique **Attributes** on the left and their **Flag settings** on the right.
-3. Click the **overflow** menu. The user editing menu appears.
+1. From the **Users** dashboard, click the user you wish to modify. Their user page appears, with their unique attributes on the left and their flag settings on the right.
+2. Click the **overflow menu**. The user editing menu appears.
 
 ![A user's entry with the "Remove user on" menu expanded.](users-flag-expiration-date.png)
 
-4. In the "Remove user on" section, click to expand a calendar view.
+3. In the "Remove user on" section, click "never" to expand a calendar view.
 4. Set a date and time for the user to be removed from that flag's targeting settings.
-5. Click **Save with Comment**.
+5. Click **Apply**.
+6. Click **Save changes**.
 
 When you schedule a user to be removed from a flag, a **clock icon** appears next to the flag's variation. Hover over it to see when that user will be removed.
 
@@ -133,7 +132,7 @@ To learn more about targeting users for specific dates, read [Scheduling expirat
 
 ## Removing a user
 
-You can delete individual users from the dashboard, or by opening their page and clicking the **Delete** button.
+You can delete individual users from the **Users** dashboard by clicking the **overflow menu** and choosing "Delete." You can also delete users by opening their user page and clicking **Delete**.
 
 Deleting users from the dashboard does not decrease your Monthly Active User (MAU) count.
 

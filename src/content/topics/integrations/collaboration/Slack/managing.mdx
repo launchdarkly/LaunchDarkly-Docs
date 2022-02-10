@@ -27,11 +27,11 @@ You can filter to see a list of resources that match the criteria that you enter
 To filter and subscribe:
 
 1. Type `/launchdarkly subscribe` in your Slack client's text bar and press **Enter**.
-2. The Filter Flags menu appears.
+2. The "Filter flags" menu appears.
 3. Enter optional arguments to search for a specific flag. You can only search for one flag at a time.
-4. Use the dropdown menus to specify filtering criteria and hit **Filter**.
+4. Use the dropdown menus to specify filtering criteria and click **Filter**.
 5. Subscribe to any flags by selecting "Add flag to channel" from the dropdown.
-6. Subscribe to all the flags from this Filter by clicking the "Add filter to channel" button.
+6. Subscribe to all the flags from this filter by clicking **Add filter to channel**.
 
 You can use the four types of optional filters in any combination to view different flags. If you click **Filter** without specifying any of the fields, you'll be subscribing to changes in all flags and resources.
 
@@ -112,9 +112,7 @@ The table below explains the different filtering criteria:
 
 ## Filtering for resources with in-line commands
 
-You can also use in-line commands to filter for flags and resources in Slack.
-
-**Note**: All in-line commands start with `/launchdarkly` and typing `/launchdarkly` or `/ld` will bring up a help menu listing the commands.
+You can also use in-line commands to filter for flags and resources in Slack. All in-line commands start with `/launchdarkly` and typing `/launchdarkly` or `/ld` will bring up a help menu listing the commands.
 
 To filter with in-line commands:
 
@@ -122,7 +120,7 @@ To filter with in-line commands:
 2. Specify the filtering criteria with either a single dash (`-`) and the first letter of the criteria, or a double dash (`--`) and the criteria name and an equal sign.
 3. Press **Enter.** The results of the filter display.
 4. Subscribe to any flags by selecting "Add flag to channel" from the dropdown.
-5. Subscribe to all the resources from this Filter by clicking the "Add filter to channel" button.
+5. Subscribe to all the resources from this Filter by clicking **Add filter to channel**.
 
 Examples of both types of entries:
 
@@ -133,7 +131,7 @@ Examples of both types of entries:
 - `-f` or `--flag_key=`
 - `-a` or `--action=`
 
-**Note**: `/launchdarkly subscribe -p mobile -e test -s active` would retrieve the same results as `/launchdarkly subscribe --project=mobile --environment=test --status=active`
+`/launchdarkly subscribe -p mobile -e test -s active` retrieves the same results as `/launchdarkly subscribe --project=mobile --environment=test --status=active`
 
 ## Viewing feature flag information
 
@@ -143,7 +141,7 @@ You can use the Flag Overview page to interact with the flag and access it on th
 
 Here are some things you can do from the Flag Overview page:
 
-- Click the flag's name to be taken to the Flag Targeting screen of the LaunchDarkly website.
+- Click the flag's name to be taken to the flag's **Targeting** tab within the LaunchDarkly app.
 - Toggle the flag on or off by clicking the overflow menu and selecting **Toggle targeting**. If you change the flag's state to on or off, a flag update notification appears in the Slack channel.
 
 For more information about flag update notifications, read [Subscribing to Notifications](/integrations/slack/notifications).
@@ -224,7 +222,7 @@ the project is `My-Project`, the filter does not return any results.
 
 ## Filter results
 
-When you filter resources, the results appear in a Slack modal. Flags and resources matching the filter criteria appear in this screen.
+When you filter resources, the results appear in a Slack dialog. Flags and resources matching the filter criteria appear in this dialog.
 
 ![An example set of filtered flags.](slack-flag-filtered-list.png)
 

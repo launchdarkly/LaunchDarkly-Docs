@@ -43,7 +43,7 @@ Here's how to configure the Elastic Stack integration:
 1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) and find "Elastic (ELK) Stack."
 3. Click **Add integration**. The "Create Elastic (ELK) Stack configuration" panel appears.
 
-![The LaunchDarkly Elastic (ELK) Stack integration configuration screen.](elastic-integration.png)
+![The "Create Elastic (ELK) Stack configuration" panel.](elastic-integration.png)
 
 4. (Optional) Enter a human-readable **Name**.
 5. Paste in the **Elasticsearch endpoint URL**.
@@ -102,10 +102,10 @@ Alternatively, you use the integration to monitor not just flag changes, but all
 To send more data to Elasticsearch:
 
 1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations).
-2. Find the integration you wish to modify and click **Edit integration configuration**. The "Edit Elastic (ELK) Stack configuration" screen appears.
-3. If the current policy is already expanded, click **cancel** in the lower-right. Otherwise click **+ Add statement** under "Policy".
+2. Find the integration you wish to modify and click **Edit integration configuration**. The "Edit Elastic (ELK) Stack configuration" panel appears.
+3. If the current policy is already expanded, click **cancel** in the lower-right. Otherwise click **+ Add statement** under "Policy."
 4. Enter a statement for the resources you would like to send to Elasticsearch. For example, `proj/*` will send all project data and `proj/*:env/*` will send all environment data from all projects.
-5.  Click **Update**.
+5. Click **Update**.
 6. Repeat steps 3 and 4 for each additional category of data you'd like to send to Elasticsearch.
 6. When you've added all the policies you wish, click **Save configuration**.
 

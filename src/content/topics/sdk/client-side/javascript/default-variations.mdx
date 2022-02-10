@@ -13,7 +13,7 @@ As the feature flags must be evaluated against a user to get the correct variati
 
 ## Initialize the client earlier
 
-As a simple change to reduce the chance and duration of these flashes is to optimize your page to allow evaluating the flags earlier. By moving LaunchDarkly's script higher in the page's `<head>` and initializing the SDK earlier in your code you can reduce the amount of time waiting for the SDK script to download and the SDK to initialize. This means drawing the right content earlier, preventing or reducing the impact of "flashes".
+As a simple change to reduce the chance and duration of these flashes is to optimize your page to allow evaluating the flags earlier. By moving LaunchDarkly's script higher in the page's `<head>` and initializing the SDK earlier in your code you can reduce the amount of time waiting for the SDK script to download and the SDK to initialize. This means drawing the right content earlier, preventing or reducing the impact of "flashes."
 
 ## Block drawing the page until the flag values are available
 

@@ -18,7 +18,7 @@ REST API access is available to customers on a Pro or Enterprise plan. To learn 
 </CalloutDescription>
 </Callout>
 
-The LaunchDarkly REST API is a programmatic alternative to interacting with the LaunchDarkly user interface (UI). You can use the LaunchDarkly API to perform any action that's available in the LaunchDarkly dashboard, including creating and manipulating resources such as flags, members, or environments. For example, the REST API is often used for toggling feature flags, updating segments, and building custom integrations.
+The LaunchDarkly REST API is a programmatic alternative to interacting with the LaunchDarkly user interface (UI). You can use the LaunchDarkly API to perform any action that's available in the flag dashboard, including creating and manipulating flags, members, or environments. For example, the REST API is often used for toggling feature flags, updating segments, and building custom integrations.
 
 <Callout intent="alert">
 <CalloutTitle>Use the LaunchDarkly SDKs to evaluate flags</CalloutTitle>
@@ -74,13 +74,13 @@ Here's how to run the examples in this guide using the API documentation:
 1. Find the documentation for the request you want to make in the [API documentation](https://apidocs.launchdarkly.com/).
 2. Click **Try it**.
 
-![The interactive panel in the API documentation, before any information is entered.](api-documentation-try-it.png)
+![The interactive "Try it" form in the API documentation, before any information is entered.](api-documentation-try-it.png)
 
 3. Select the Request tab.
-4. In the Security panel, enter your access token under **Authorization**.
-5. In the Parameters panel, enter the values for any parameters you are including in the request.
+4. In the "Security" section, enter your access token under **Authorization**.
+5. In the "Parameters" section, enter the values for any parameters you are including in the request.
 
-![The interactive panel in the API documentation, with parameters filled in.](api-documentation-interactive-example.png)
+![The interactive "Try it" form in the API documentation, with parameters filled in.](api-documentation-interactive-example.png)
 
 6. Click **Send**.
 7. Select the Response tab and review the headers and body of the response.
@@ -107,7 +107,7 @@ To learn more, read [Projects](/home/organize/projects) and [Environments](/home
 
 ### REST API basics
 
-The LaunchDarkly REST API is a programmatic alternative to interacting with the LaunchDarkly user interface. You can use the REST API to perform any action that's available in the LaunchDarkly Dashboard. The API uses HTTP requests to access LaunchDarkly resources. Each request consists of an HTTP method, a base URI, path parameters, and a set of request headers. Some requests also include query parameters or a request body. This guide assumes a basic familiarity with these request components.
+The LaunchDarkly REST API is a programmatic alternative to interacting with the LaunchDarkly user interface. You can use the REST API to perform any action that's available in the LaunchDarkly UI. The API uses HTTP requests to access LaunchDarkly resources. Each request consists of an HTTP method, a base URI, path parameters, and a set of request headers. Some requests also include query parameters or a request body. This guide assumes a basic familiarity with these request components.
 
 There are many tools to create a REST request. This guide uses [curl](#curl), a common command line tool. The complete [LaunchDarkly API documentation](#launchdarkly-api-documentation) provides interactive examples of each request using curl, Python, and Node.js. [Postman](#postman) is a platform for using APIs, especially REST APIs, and is a good alternative if you would like additional tooling for setting up your requests.
 
@@ -494,7 +494,7 @@ Here are some examples of common use cases:
 If you decide to use LaunchDarkly's REST API as part of your feature management, there are a few considerations to keep in mind:
 
 * **Review the client libraries.** LaunchDarkly auto-generates client libraries based on our OpenAPI specification, so that you can work with the LaunchDarkly REST API in your language of choice. To learn more, visit the [collection of client libraries on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories).
-* **Pay attention to error codes.** Some error codes returned by the REST API are effectively permanent. For example, if you receive a `403 Forbidden` response, you don't have access to the resource you're requesting. Other error codes are temporary but require careful handling. For example, most resources return a `429 Rate limited` response if you make too many requests over a short timeframe. Make sure to call each resource only when you need to. If your code is looping and repeatedly getting a `429` error, build in a back off to reduce the rate at which you're calling an individual resource. 
+* **Pay attention to error codes.** Some error codes returned by the REST API are effectively permanent. For example, if you receive a `403 Forbidden` response, you don't have access to the resource you're requesting. Other error codes are temporary but require careful handling. For example, most resources return a `429 Rate limited` response if you make too many requests over a short timeframe. Make sure to call each resource only when you need to. If your code is looping and repeatedly getting a `429` error, build in a back off to reduce the rate at which you're calling an individual resource.
 
  Alternatively, consider if there is another way to approach the problem. For example, if your flag targets individual users and you frequently add and remove the same user, try using flag targeting rules instead.
 * **Contact the LaunchDarkly Support team.** If you're considering building out significant functionality with the REST API, [contact Support](https://support.launchdarkly.com/hc/en-us). There may already be a complete or partial solution available that doesn't require custom code on your part.

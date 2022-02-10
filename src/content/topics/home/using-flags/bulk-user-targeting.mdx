@@ -16,15 +16,15 @@ Bulk user targeting is available to customers on an Enterprise plan. To learn mo
 
 ## Overview
 
-This topic explains how to perform edits on groups of users with the **Bulk Edit** button, or export all the users a flag is targeted to with the **Export as CSV** button.
+This topic explains how to perform edits on groups of users with the "Bulk edit" option, or export all the users a flag is targeted to with the "Export as CSV" option.
 
-The **Bulk Edit** button lets you manage all of your user targets for a single feature flag variation. You can use it to make changes to users in large numbers, such as adding or removing them to a flag variation. The **Export as CSV** button lets you export all the user keys for a flag's targeting settings as a spreadsheet.
+The "Bulk edit" option lets you manage all of your user targets for a single feature flag variation. You can use it to make changes to users in large numbers, such as adding or removing them to a flag variation. The "Export as CSV" option lets you export all the user keys for a flag's targeting settings as a spreadsheet.
 
 <Callout intent="alert">
 <CalloutTitle>Bulk user targeting limitations</CalloutTitle>
 <CalloutDescription>
 
-Very large lists of named users increases the size of the payload the SDK fetches when initializing, as well as the memory footprint of the SDK. Lists of over 50,000
+Very large lists of named users increase the size of the payload the SDK fetches when initializing, as well as the memory footprint of the SDK. Lists of over 50,000
 individual users are not supported for flags or segments in LaunchDarkly.
 
 We recommend not exceeding a few thousand individual users across your flags and segments. Instead, use custom attributes to target a large number of individual users. Custom attributes let you assign an attribute to the users who should receive the feature flag and then set up the targeting rules to serve the flag to users who have that attribute, so you can target groups of users without increasing the size of the payload.
@@ -37,43 +37,45 @@ based on custom attributes](/home/flags/targeting-users#targeting-users-based-on
 
 ## Bulk editing users
 
-You can bulk edit users from a flag's Targeting screen.
+You can bulk edit users from a flag's **Targeting** tab.
 
-To add, remove, or replace user targets for a flag variation, paste a list of users into the "Add users" field, or click the overflow menu, then click **Bulk Edit**.
+To add, remove, or replace user targets for a flag variation, paste a list of users into the "Add users" field, or click the **overflow menu**, then choose "Bulk edit."
 
 Here is an image of the user targeting section:
 
-![The user targeting section with the Bulk edit button called out.](flag-targeting-bulk-edit-callout.png)
+![The user targeting section with the "Bulk edit" option called out.](flag-targeting-bulk-edit-callout.png)
 
-In the screenshot below, we are bulk editing the `true` variation by targeting additional users.
+In the screenshot below, you are bulk editing the `true` variation by targeting additional users.
 
-![The Bulk editing screen.](flag-targeting-bulk-edit.png)
+![The "Bulk editing" dialog.](flag-targeting-bulk-edit.png)
 
 
-Use the dropdown to do one of the following actions:
+Use the menu to do one of the following actions:
 
-- **Add** adds the selected users as targets to the variation
-- **Remove** removes the selected users from the target variation
-- **Replace** replaces all currently targeted users with the selected users
+- "Add" adds the selected users as targets to the variation
+- "Remove" removes the selected users from the target variation
+- "Replace" replaces all currently targeted users with the selected users
 
 In the left text area, you can paste or type user keys or emails as comma separated values (CSV), one per line or separated by a comma.
 
-Once you're finished, LaunchDarkly looks up users by key or email and displays them in the right panel. If you want to target a user that has not been seen by LaunchDarkly, you must enter their key.
+Once you're finished, LaunchDarkly looks up users by key or email and displays them in the list on the right. If you want to target a user that has not been seen by LaunchDarkly, you must enter their key.
 
-The Bulk editing screen includes the following:
+You can update the list on the right before you perform the selected action. The options for updating the list include the following:
 
 - **All** represents all of the users that may be impacted by the action, whether they are added or removed. Check the user's checkbox for the action to apply.
 - **The checkmark** represents inputted user keys that currently match users in the system. For example, if you enter the user key `bob@example.com`, and `bob@example.com` already exists in LaunchDarkly, he will show up in this list.
-- **The question mark** represents users with no matching records in LaunchDarkly. If you are adding users and they users do not currently exist in LaunchDarkly, they will be added to the targeting list.
+- **The question mark** represents users with no matching records in LaunchDarkly. If you are adding users and the users do not currently exist in LaunchDarkly, they will be added to the targeting list.
 - **The exclamation mark** represents user key inputs with multiple matching records. For example, if you enter the email address `bob@example.com`, but there are multiple user keys that have `bob@example.com` as an email address, the system may return multiple matching records. You can select the correct record by clicking the checkbox.
 - **Current** lists all of the currently targeted users for the variation.
 
+When you have finished reviewing the list on the right, click **Add users**, **Remove users**, or **Replace users** to perform the selected action.
+
 ## Exporting a list of users to CSV
 
-You can download a list of all the users a flag variation is targeted to from the flag's Targeting screen.
+You can download a list of all the users a flag variation is targeted to from the flag's **Targeting** tab.
 
-Click **Export as CSV** to download a list of the keys for users a flag variation is targeted to.
+In the user targeting section, click the **overflow menu**, then choose "Export as CSV" to download a list of the keys for users a flag variation is targeted to.
 
 Here is an image of the user targeting section:
 
-![The user targeting section with the Export as CSV button called out.](flag-targeting-export-as-csv.png)
+![The user targeting section with the "Export as CSV" option called out.](flag-targeting-export-as-csv.png)

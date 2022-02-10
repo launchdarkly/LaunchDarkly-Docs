@@ -121,15 +121,16 @@ For example, some CSS selectors include:
 
 To create a click metric:
 
-1. Navigate to the Metrics screen.
-2. Click **Create metric**. The "Create a new metric" screen appears.
-3. Enter a human-readable Name for the metric.
-4. (Optional) Enter a Description.
-5. (Optional) Type or choose from available Tags.
-6. (Optional) Choose a Maintainer. By default, the person who creates the metric is set as the Maintainer.
-7. Choose Click from the Event kind dropdown.
-8. Enter one or more CSS selectors in the Click targets field.
-9. Specify a type of URL you want to track behavior on. There are four types of URL matching:
+1. Navigate to the **Experiments** screen.
+2. Click the **Metrics** tab.
+3. Click **Create metric**. The "Create a new metric" panel appears.
+4. Enter a human-readable **Name** for the metric.
+5. (Optional) Enter a **Description**.
+6. (Optional) Type or choose from available **Tags**.
+7. (Optional) Choose a **Maintainer**. By default, the person who creates the metric is set as the Maintainer.
+8. Choose "Click" from the **Event kind** menu.
+9. Enter one or more CSS selectors in the **Click targets** field.
+10. Specify a type of URL you want to track behavior on. There are four types of URL matching:
 
 <Table>
   <TableHeader>
@@ -183,8 +184,8 @@ To create a click metric:
   </TableBody>
 </Table>
 
-10. (Optional) Click Add Additional URL to track behavior on more than one URL.
-11. Click Save Metric.
+10. (Optional) Click **Add additional URL** to track behavior on more than one URL.
+11. Click **Save metric**.
 
 ### Creating pageview metrics
 
@@ -194,14 +195,14 @@ For example, you might want to track how often customers view an item when its p
 
 To create a pageview metric:
 
-1. Follow steps 1-6 in [Creating click metrics](#creating-click-metrics) until you have configured the form up to the "Event information" section.
-2. Choose **Page view** from the **Event kind** dropdown:
+1. Follow steps 1-7 in [Creating click metrics](#creating-click-metrics) until you have configured the form up to the "Event information" section.
+2. Choose "Page view" from the **Event kind** menu:
 
-![The Event kind dropdown.](metrics-event-kind.png)
+![The "Event kind" menu.](metrics-event-kind.png)
 
 3. Specify a type of URL you want to track behavior on. To learn about the different options for URL matching, see the table in [Creating click metrics](#creating-click-metrics).
-4. (Optional) Click **Add Additional URL** to track behavior on more than one URL.
-5. Click **Save Metric**.
+4. (Optional) Click **Add additional URL** to track behavior on more than one URL.
+5. Click **Save metric**.
 
 ### Creating custom conversion metrics
 
@@ -231,16 +232,16 @@ Often, the information you should put in your code includes the event key, user 
 
 To create a custom conversion metric:
 
-1. Follow steps 1-6 in [Creating click metrics](#creating-click-metrics) until you have configured the form up to the "Event information" section.
-2. Choose **Custom** from the **Event kind** dropdown:
+1. Follow steps 1-7 in [Creating click metrics](#creating-click-metrics) until you have configured the form up to the "Event information" section.
+2. Choose "Custom" from the **Event kind** menu:
 
-![The Event kind dropdown.](metrics-event-kind-custom.png)
+![The Event kind menu.](metrics-event-kind-custom.png)
 
 3. Select the **Conversion** radio button.
 4. Enter a human-readable **Event name**. This is the event name you will reference in your code snippet when you insert the metric information into your app.
-5. Click **Save Metric**:
+5. Click **Save metric**:
 
-![The "Event information" section of the "Create a new metric" screen with a conversion metric configured.](metrics-event-information.png)
+![The "Event information" section of the "Create a new metric" panel with a conversion metric configured.](metrics-event-information.png)
 
 
 ### Creating numeric metrics
@@ -299,15 +300,15 @@ If you can't see the feature described below, your SDKs may be out of date. To s
 
 To create a numeric metric:
 
-1. Follow steps 1-6 in [Creating click metrics](#creating-click-metrics) until you have configured the form up to the "Event information" section.
-2. Choose **Custom** from the **Event kind** dropdown.
+1. Follow steps 1-7 in [Creating click metrics](#creating-click-metrics) until you have configured the form up to the "Event information" section.
+2. Choose "Custom" from the **Event kind** menu.
 3. Select the **Numeric** radio button.
 4. Enter a human-readable **Event name**. This is the event name you will reference in your code snippet when you insert the metric information into your app.
 5. Enter a **Unit of measure** to track.
-6. Choose a **Success criteria** from the dropdown.
-7. Click **Save Metric**:
+6. Choose a **Success criteria** from the menu.
+7. Click **Save metric**:
 
-![The "Event information" section of the "Create a new metric" screen with a numeric metric configured.](metrics-event-information-numeric.png)
+![The "Event information" section of the "Create a new metric" panel with a numeric metric configured.](metrics-event-information-numeric.png)
 
 
 <Callout intent="info">
@@ -339,11 +340,10 @@ To connect a metric to a flag from the Experiments dashboard:
 
 ![The Experiments dashboard with the "Create experiment" button called out.](experiment-dashboard-new-callout.png)
 
-3. Choose a flag from the "Select flag" dropdown.
-4. (Optional) If the flag doesn't have a baseline variation, choose one from the "Select baseline" dropdown.
-5. Choose a metric from the "Connect metric" dropdown.
-6. Choose a baseline variation from the "Select baseline" dropdown.
-7. Click **Create Experiment**.
+3. Choose a flag from the **Select flag** menu.
+4. Choose a metric from the **Connect metric** menu.
+5. Choose a baseline variation from the **Select baseline** menu.
+6. Click **Create experiment**.
 
 Your new experiment appears on the dashboard.
 
@@ -353,18 +353,18 @@ To learn more, read [Starting your experiment iteration](#starting-experiment-it
 
 ### Creating an experiment from a flag's Experiments tab
 
-To connect a metric to a flag from the flag's Experiments tab:
+To connect a metric to a flag from the flag's **Experimentation** tab:
 
-1. Navigate to the flag's Experimentation tab.
-2. If the flag does not have other running experiments, click **Create an Experiment.** If it already has running experiments, click **Manage metrics**. The "Experiment Setup" screen appears.
+1. Navigate to the flag's **Experimentation** tab.
+2. If the flag does not have other running experiments, click **Create an experiment.** If it already has running experiments, click **Manage metrics**. The "Experiment Setup" panel appears.
 
-![A flag's Experiments tab with the Manage metrics button called out.](flag-experiment-manage-callout.png)
+![A flag's "Experimentation" tab with the "Manage metrics" button called out.](flag-experiment-manage-callout.png)
 
-3. Enter a metric name or choose a metric from the **Add new metric** dropdown. The metric you choose appears in the table below.
-4. Choose a baseline from the **Baseline** dropdown.
-5. Click **Save Experiment Settings**. The new experiment appears in the flag's Experiments tab.
+3. Enter a metric name or choose a metric from the **Add new metric** menu. The metric you choose appears in the table below.
+4. Choose a baseline from the **Baseline** menu.
+5. Click **Save experiment settings**. The new experiment appears in the flag's **Experimentation** tab.
 
-![The "Experiment Setup" screen, configured to connect a metric to a flag.](experiment-settings-metrics.png)
+![The "Experiment Setup" panel, configured to connect a metric to a flag.](experiment-settings-metrics.png)
 
 
 After you create an experiment, you must start a new iteration in every environment where you want it to run.

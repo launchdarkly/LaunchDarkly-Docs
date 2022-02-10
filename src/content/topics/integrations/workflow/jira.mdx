@@ -40,10 +40,9 @@ An example custom role configuration appears below:
 
 ![An access token's custom role configuration in the LaunchDarkly UI.](jira-create-access-token.png)
 
+Use your access token to configure the Jira integration for your LaunchDarkly account.
 
-Now that you've created an access token, use it to configure the Jira integration for your LaunchDarkly account.
-
-1. Navigate to your Jira instance's app management page, and click the "Configuration" button for the LaunchDarkly app.
+1. Navigate to your Jira instance's app management page, and click the **Configuration** button for the LaunchDarkly app.
 2. Set your API access token.
 3. Select which environment the app will track for each of your LaunchDarkly projects. By default, the app will track your production environments.
 
@@ -60,7 +59,7 @@ New flag connections display the flag configuration for the updated environment.
 </CalloutDescription>
 </Callout>
 
-After you have set up the LaunchDarkly for Jira app is set up, a "Releases" panel appears when you view issues on the "Active sprints" board.
+After you have set up the LaunchDarkly for Jira app, a "Releases" panel appears when you view issues on the "Active sprints" board.
 
 If no flags are associated with an existing Jira issue, you can add one with a button. If you already have one or more flags associated with a Jira issue, the rollout status of each connected feature flag on each Jira issue appears.
 
@@ -80,15 +79,13 @@ The Jira issue view, which contains the release panel, is a per-user setting. If
 To create a new flag with Jira issues:
 
 1. Navigate to your Jira issue's feature flag panel.
-2. Click **Add feature flag** select the **Create feature flag** option. The LaunchDarkly flag creation page opens.
+2. Click **Add feature flag** select the **Create feature flag** option. The LaunchDarkly flag creation page appears.
 
 ![The Create feature flag option.](jira-create-feature-flag.png)
-
 
 3. In the feature flag creation page, the Jira issue is pre-populated.
 
 ![The feature flag creation page.](jira-new-feature-flag.png)
-
 
 ## Connecting an existing feature flag to a Jira issue from LaunchDarkly
 
@@ -97,14 +94,12 @@ If you have already created a feature flag for your Jira issue, you can add a Ji
 1. Navigate to the flag's **Settings** page.
 2. Name the custom property `Jira issues`.
 
-![The flag's Settings page, configured with a `Jira issues` custom property.](jira-custom-properties-dropdown.png)
-
+![The flag's "Settings" page, configured with a "Jira issues" custom property.](jira-custom-properties-menu.png)
 
 3. Enter a list of Jira issue keys as the property value. You can list multiple issues if applicable.
 4. Click **Save Changes**.
 
 ![The Jira issues custom properties field.](jira-custom-properties-issues.png)
-
 
 <Callout intent="alert">
 <CalloutTitle>Adding issues to an existing flag</CalloutTitle>

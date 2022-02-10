@@ -11,7 +11,7 @@ This topic explains how to use a flag's **Variations** tab to create and edit yo
 
 ## Understanding flag types
 
-LaunchDarkly supports boolean and multivariate flags. On the Variations tab, you can add, edit, or delete variations of existing flags:
+LaunchDarkly supports boolean and multivariate flags. On the **Variations** tab, you can add, edit, or delete variations of existing flags:
 
 - **Boolean** flags have two variations: `true` or `false`.
 - **Multivariate** flags can have more than two variations. The allowed variations depend on the type of flag. Multivariate flag types are strings, numbers, and JSON. To learn more, read [Understanding multivariate flags](#understanding-multivariate-flags).
@@ -27,7 +27,7 @@ After a feature flag has been created, you cannot change the type of its variati
 
 Here is an image of a multivariate flag:
 
-![The Variations tab with multivariate flag variations displayed.](flag-variations-multivariate.png)
+![The "Variations" tab with multivariate flag variations displayed.](flag-variations-multivariate.png)
 
 When you add, edit, or delete a feature flag's variations, the change impacts environments within the project.
 
@@ -64,15 +64,15 @@ You can also use multivariate flags to perform A/B/n testing with LaunchDarkly's
 
 When you create a feature flag, some of its variations are designated as *default* variations. A flag's default variations are the variations that are served when a flag is on or off unless you specify otherwise.
 
-For example, a boolean flag could have `false` set as its default **off** variation and `true` set as its default **on** variation. A multivariate flag could have `variation 1` set as its default **off** variation and `variation 2` set as its default **on** variation, with `variation 3` and `variation 4` configured to appear in other, more specific circumstances, such as when a user is based in a specific region or has a certain email address.
+For example, a boolean flag could have `false` set as its default **Off** variation and `true` set as its default **On** variation. A multivariate flag could have `variation 1` set as its default **Off** variation and `variation 2` set as its default **On** variation, with `variation 3` and `variation 4` configured to appear in other, more specific circumstances, such as when a user is based in a specific region or has a certain email address.
 
-Default variations are designated automatically every time you create a feature flag. You can accept the default variations or change them. When you do this and click **Save Flag**, the flag is created across all environments in your project with these variations set as its `on` and `off` values.
+Default variations are designated automatically every time you create a feature flag. You can accept the default variations or change them. When you do this and click **Save flag**, the flag is created across all environments in your project with these variations set as its `on` and `off` values.
 
 Here is an image of a flag's default variation options:
 
-![The default variation options on the flag creation screen.](flag-create-default-variations.png)
+![The default variation options on the flag creation panel.](flag-create-default-variations.png)
 
-You can change a flag's default variations from the **Variations** tab. Update the default variations in the "Defaults for new environments" section. Subsequent environments you create also use the flag's default values. If you change the default variations and then create a new environment, however, the environment you create will use the updated default variations.
+You can change a flag's default variations from the **Variations** tab. Update the default variations in the "Default variations for new environments" section. Subsequent environments you create also use the flag's default values. If you change the default variations and then create a new environment, however, the environment you create will use the updated default variations.
 
 <Callout intent="info">
 <CalloutTitle>Editing default variations only impacts new environments</CalloutTitle>

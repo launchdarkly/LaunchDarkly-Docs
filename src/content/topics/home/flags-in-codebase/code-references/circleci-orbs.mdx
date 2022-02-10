@@ -29,7 +29,7 @@ To complete this procedure, you must have the following prerequisites:
 <CalloutTitle>Circle Workflow version 2.1 or higher is required</CalloutTitle>
 <CalloutDescription>
 
-To use CircleCI Orbs, you must be using a Circle Workflow version of 2.1 or higher. If you're using an earlier version,  try manually using the utility <a href="https://github.com/launchdarkly/ld-find-code-refs/tree/master/README.md#execution-via-cli">binary or docker image</a> to create your own workflow job.
+To use CircleCI Orbs, you must be using a Circle Workflow version of 2.1 or higher. If you're using an earlier version, try manually using the utility binary or docker image to create your own workflow job. To learn more, read <a href="https://github.com/launchdarkly/ld-find-code-refs/tree/master/README.md#execution-via-cli">Execution via CLI</a> in the `ld-find-code-refs` documentation.
 
 </CalloutDescription>
 </Callout>
@@ -70,8 +70,10 @@ workflows:
 
 ## Additional configuration options
 
-There are more configuration options for the Code references orb. To learn more, read [Explore Orbs / launchdarkly/ld-find-code-refs](https://ld.click/CircleCIOrbs).
+There are additional configuration options for the code references orb.
 
-Skip searching files and directories with an [`.ldignore`](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#ignoring-files-and-directories) file.
+To skip searching files and directories, use an [`.ldignore`](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#ignoring-files-and-directories) file.
 
-Use the [`.launchdarkly/coderefs.yaml`](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#advanced-yaml-configuration) file for advanced configuration, such as configuring custom delimiters and aliases for your flag keys.
+To configure custom delimiters and aliases for your flag keys, or to set other advanced configuration, use the [`.launchdarkly/coderefs.yaml`](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#advanced-yaml-configuration) file.
+
+To learn more, read [Explore Orbs / launchdarkly/ld-find-code-refs](https://ld.click/CircleCIOrbs).

@@ -66,27 +66,27 @@ For more information, read the [Zendesk documentation on custom field types](htt
 
 To add a Zendesk custom User Field:
 
-1. Click the Admin gear icon in the left sidebar.
-2. Under Manage, select **User Fields**:
+1. Click the **Admin gear icon**.
+2. Under "Manage", select **User Fields**:
 
 ![The Admin screen with the User Fields menu item out.](zendesk-manage-user-fields-callout.png)
 
-3. Select the **Text** custom field type on the right and drag it to the active fields area. Alternatively, click the **+** beside the "Text" field type, then drag and drop the field into the order you would like it to appear in each User profile.
-4. Enter a Field title shown to agents and a Field key in the properties panel on the right. These can be anything you want, but they should be descriptive enough for your agents to recognize them as LaunchDarkly User Keys. Save the field key for the next section.
+3. Select the **Text** custom field type on the right and drag it to the active fields area. Alternatively, click the **plus icon ( + )** beside the "Text" field type, then drag and drop the field into the order you would like it to appear in each User profile.
+4. Enter a "Field title" shown to agents and a "Field key" in the "Properties" panel. These can be anything you want, but they should be descriptive enough for your agents to recognize them as LaunchDarkly user keys. Save the field key for the next section.
 5. Click **Create field**. The field now shows on all user profiles.
 
 To add a Zendesk custom Organization Field:
 
-1. Click the Admin gear icon in the left sidebar.
-2. Under Manage, select **Organization Fields**.
-3. Select the **Text** custom field type on the right and drag it to the active fields area. Alternatively, click the **+** beside the "Text" field type, then drag and drop the field into the order you would like it to appear in each Organization profile.
-4. Enter a Field title shown to agents and a Field key in the properties panel on the right. These can be anything you want, but they should be descriptive enough for your agents to recognize as  LaunchDarkly User Keys. Save the field key for the next section.
+1. Click the **Admin gear icon**.
+2. Under "Manage", select **Organization Fields**.
+3. Select the **Text** custom field type on the right and drag it to the active fields area. Alternatively, click the **plus icon ( + )** beside the "Text" field type, then drag and drop the field into the order you would like it to appear in each Organization profile.
+4. Enter a "Field title" shown to agents and a "Field key" in the "Properties" panel. These can be anything you want, but they should be descriptive enough for your agents to recognize them as LaunchDarkly user keys. Save the field key for the next section.
 5. Click **Create field**. The field now shows on all organization profiles.
 
 ### Configuring your LaunchDarkly application
 
-1. From your Zendesk account, click on the Admin gear icon in the left sidebar.
-2. Under Apps, select **Manage**.
+1. From your Zendesk account, click the **Admin gear icon**.
+2. Under "Apps", select **Manage**.
 3. Select the LaunchDarkly application:
 
 ![The LaunchDarkly application configuration page in Zendesk, configured with sample settings.](zendesk-app-configuration.png)
@@ -96,7 +96,7 @@ To add a Zendesk custom Organization Field:
 6. If you added the LaunchDarkly user key as a custom Organization field, check the box next to "LaunchDarkly user key is an Organization field." Otherwise, leave it blank.
 7. Enter the field key you defined in step 4 of the previous section into the LaunchDarkly user key field.
 8. Select whether or not you would like to enable role or group restrictions.
-9. Under OAuth Authentication, click **Authorize with LaunchDarkly**. A new tab opens.
+9. Under "OAuth Authentication", click **Authorize with LaunchDarkly**. A new tab appears.
 10. Click **Authorize**. You are returned to the integration configuration page.
 11. Click **Update** to save your settings.
 
@@ -108,7 +108,7 @@ Here are some errors you may encounter and suggested solutions:
 
 The warning ⚠️ icon next to the "Variation" header on the flag table indicates that LaunchDarkly has not observed any flag evaluations for this user in the past 30 days.
 
-Unless the user is new or inactive, you may have entered an incorrect value in the **User key** field. You can find user keys on the LaunchDarkly Users dashboard in the **Key** column. To learn more, read [The Users dashboard](/home/managing-users/users-dashboard).
+Unless the user is new or inactive, you may have entered an incorrect value in the **User key** field. You can find user keys on the Users dashboard in the **Key** column. To learn more, read [The Users dashboard](/home/managing-users/users-dashboard).
 
 ### "Error: LaunchDarkly user key not found"
 

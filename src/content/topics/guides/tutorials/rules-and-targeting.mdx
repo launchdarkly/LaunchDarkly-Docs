@@ -5,7 +5,7 @@ description: 'This guide explains LaunchDarkly''s flag Targeting features, inclu
 published: true
 ---
 
-# Overview
+## Overview
 
 This guide explains LaunchDarkly's flag **Targeting** features, including percentage rollouts, flag Insights, and segments. You can use these targeting features to create flags that serve different values to different users.
 
@@ -21,7 +21,7 @@ This guide covers:
 - Targeting users by their attributes
 - Preventing specific user details from being sent to LaunchDarkly
 
-# Prerequisites
+## Prerequisites
 
 To complete this guide, you must have the following prerequisites:
 
@@ -35,11 +35,11 @@ To complete this guide, you must have the following prerequisites:
   <LearnMoreLink to="https://glitch.com/create">How to use Glitch</LearnMoreLink>
 </LearnMore>
 
-# Concepts
+## Concepts
 
 In order to use this guide, you should understand the following concepts:
 
-## User context
+### User context
 
 The user context is everything LaunchDarkly knows about a targeted endpoint. LaunchDarkly refers to all objects targeted by a flag as `users`. Not all users are human beings. A user might be a server, an IP address, or any other object that can be addressed.
 
@@ -119,17 +119,17 @@ With LaunchDarkly, you can create user objects with as many attributes as you ne
 
 When a user encounters a flag, their attributes are sent to LaunchDarkly. This makes the attributes available through the dashboard. All the user attributes are sent, with the exception of those that have been marked private.
 
-## Flag variations
+### Flag variations
 
 A flag variation is whatever action the flag enables that is not the flag's default behavior. Some flags are boolean, and only have `true` and `false` variations. Other flags have many more variations.
 
-## Rule evaluation
+### Rule evaluation
 
 Rule evaluation occurs when a LaunchDarkly client determines whether or not to show a flag variation to a user. The rule is how the decision is described in a human-readable way. For example, “Turn on a new feature for 10% of users” is a rule that targets 10% of users.
 
 LaunchDarkly uses rule evaluation when it checks the rule against the user context of a particular destination. For example, LaunchDarkly could determine yes or no in response to the rule “Is this user in the 10% who get the new feature variation?"
 
-Flags can have multiple rules. If multiple rules exist, LaunchDarkly evaluates them top to bottom based on how the rules are configured in the flag's dashboard. You can drag and drop rules to change the evaluation order.
+Flags can have multiple rules. If multiple rules exist, LaunchDarkly evaluates them top to bottom based on how the rules are configured in the flag's **Targeting** tab. You can drag and drop rules to change the evaluation order.
 
 Most people write rules that have `AND` or `ONLY IF` statements, to refine the targeting.
 
@@ -141,13 +141,13 @@ For example:
 
 In that case, even if a user is in the `test_group`, they won’t see `flag variation 1` unless their version has been updated recently. If someone is on a new version but is not in the `test_group`, they also won’t see it. In this example, it doesn’t matter what order the rules are evaluated in.
 
-## Flag targeting
+### Flag targeting
 
 In feature management, targeting is the ability to make a flag's different variations appear to different users, "targeting" users with specific versions of the flag. Each flag can have targeting rules that specify which users should receive which variations.
 
-In LaunchDarkly, none of the targeting rules need to live in application code. They're all configured using the LaunchDarkly dashboard. Only the user needs to be implemented in your code. This prevents sensitive information from being transmitted with feature flag data.
+In LaunchDarkly, none of the targeting rules need to live in application code. They're all configured using the flag dashboard. Only the user needs to be implemented in your code. This prevents sensitive information from being transmitted with feature flag data.
 
-## Identifying users
+### Identifying users
 
 LaunchDarkly uses the user object's `key` attribute as the identifier for the user. This identifier can be any string of characters. It doesn't need to be in a particular format.
 
@@ -170,7 +170,7 @@ If you must create user attributes that contain PII, mark the attribute as priva
 </CalloutDescription>
 </Callout>
 
-# Exercise preparation
+## Exercise preparation
 
 <Callout intent="alert">
 <CalloutTitle>You must have completed prerequisites to do these exercises</CalloutTitle>
@@ -183,7 +183,7 @@ The exercises in this guide rely on the flags and SDK keys you created in the <a
 
 These exercises use a Python-based web application that we provide which runs on [Glitch](https://glitch.com/about), an online tool for creating web apps.
 
-## Remixing the targeting lab app
+### Remixing the targeting lab app
 
 You must remix the Glitch project embedded below to create an editable copy of the Python web app. **Remixing** is Glitch's term for cloning a project. This creates an editable copy of the Python web app we use for this exercise.
 
@@ -196,7 +196,7 @@ To remix the app, click this [Glitch remix link](https://glitch.com/edit/#!/remi
 To remix the app:
 
 1. Click the fullscreen button in the bottom right-hand corner of the Glitch app embedded above.
-app. The app opens in a separate tab.
+app. The app appears in a separate tab.
 2. In the new Glitch tab, click **Remix to Edit**.
 3. The name of your project appears in the top left corner. If you want to rename the app, click the arrow next to the name.
 
@@ -205,7 +205,8 @@ app. The app opens in a separate tab.
 </LearnMore>
 
 
-### Switching between the code and app views in Glitch
+#### Switching between the code and app views in Glitch
+---
 
 In the Glitch app, you have the option to see the live app in production, or the code for the app.
 
@@ -228,19 +229,20 @@ Some learners encounter issues when running the Glitch editor and app in the sam
 </CalloutDescription>
 </Callout>
 
-## Finding the LaunchDarkly SDK key in your project
+### Finding the LaunchDarkly SDK key in your project
 
 During the exercises in the [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag) guide, you created a LaunchDarkly project, and configured your app to use the SDK key from that project. This new app will use the same SDK key.
 
 To retrieve the SDK key for your project:
 
-1. Navigate to the [Account settings](https://app.launchdarkly.com/settings/projects) page. It lists all the projects to which your LaunchDarkly account has access.
+1. Navigate to the [Account settings](https://app.launchdarkly.com/settings/projects) page.
+1. Click the **Projects** tab.
 1. Find the project which you created for the [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag) guide.
-1. In the **Account settings** page, click on the project's SDK key to copy it to your clipboard:
+1. Click the project's SDK key to copy it to your clipboard:
 
 ![The Account settings page in LaunchDarkly with environment SDK keys called out.](starlight-travel-projects.png)
 
-## Configuring the LaunchDarkly SDK key in your app
+### Configuring the LaunchDarkly SDK key in your app
 
 1. Click the `.env` file in the Glitch sidebar.
 2. Assign the **SDK key** you copied above to an environment variable called `LD_SDK_KEY`:
@@ -265,19 +267,19 @@ LD_SDK_KEY=<PASTE-YOUR-SDK-KEY-HERE>
 ![The .env file in Glitch.](dot-env.png)
 
 
-# Exercise: Targeting a flag
+## Exercise: Targeting a flag
 
-When you completed the exercises in [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag), you created a flag named **Pricing Tier 3**.
+When you completed the exercises in [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag), you created a flag named Pricing Tier 3.
 
-This exercise references **Pricing Tier 3**'s Targeting page throughout the guide. Keep the Targeting page open to access it quickly.
+This exercise references Pricing Tier 3's **Targeting** tab throughout the guide. Keep the **Targeting** tab open to access it quickly.
 
-To open the Targeting page:
+To open the **Targeting** tab:
 
 1. Navigate to your LaunchDarkly project.
-2. Find the **Pricing Tier 3** flag in your feature flag list.
-3. Click the flag name. The flag's Targeting page appears. Keep this page open to access it quickly.
+2. Find the "Pricing Tier" 3 flag in your feature flag list.
+3. Click the flag name. The flag's **Targeting** tab appears. Keep this page open to access it quickly.
 
-## Finding the user object
+### Finding the user object
 
 In [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag), you learned about the `variation()` method, which application code uses to evaluate flags.
 
@@ -321,7 +323,7 @@ user = {
 
 To learn more, read [Anonymous users](/home/users/anonymous-users).
 
-## Logging in to the Glitch app
+### Logging in to the Glitch app
 
 We'll create a user in LaunchDarkly to reference for this exercise. To do this, log in to the Starlight Travel app with an email address.
 
@@ -341,7 +343,7 @@ To log in:
 
 The email address you just logged in with was registered as a user in LaunchDarkly.
 
-## Creating a user key with a hashed email address
+### Creating a user key with a hashed email address
 
 The Starlight Travel app uses email addresses as user IDs. Providing the user's email address as the `key` in our user object means that LaunchDarkly stores that email address. We do not recommend this approach for production environments.
 
@@ -563,7 +565,7 @@ To verify everything is working correctly, use this procedure to check your work
 
 ![The avatar menu now includes the user key, which is the shortened hash of the user's email address.](starlight-travel-menu-with-hash.png)
 
-## Adding more users to LaunchDarkly
+### Adding more users to LaunchDarkly
 
 After you verify you've configured a user correctly, log in to the Glitch app a few times using different email addresses.
 
@@ -573,23 +575,23 @@ Each time you view the front page as a logged-in user, LaunchDarkly records that
 
 After you've logged in using four or five different email addresses, look at the users that have been collected by LaunchDarkly in the Users dashboard.
 
-# Accessing the Users dashboard
+## Accessing the Users dashboard
 
-The Users dashboard displays all users who have been included in user objects so far. Access the Users dashboard in the left-hand navigation of your LaunchDarkly project.
+The **Users** dashboard displays all users who have been included in user objects so far. Access the **Users** dashboard in the left-hand navigation of your LaunchDarkly project.
 
 To learn more, read [The Users dashboard](/home/users/users-dashboard).
 
-The Users dashboard lists all the users for whom flags have been evaluated in this particular environment and project.
+The **Users** dashboard lists all the users for whom flags have been evaluated in this particular environment and project.
 
-Here is an image of the Users dashboard:
+Here is an image of the **Users** dashboard:
 
 ![The Users dashboard.](users-dashboard-hashes.png)
 
 Click on a user's `key` attribute to look at an individual user page. The left side displays all the attributes which have been uploaded to LaunchDarkly so far. On the right you can see how each flag in the project will evaluate for that particular user.
 
-You'll probably see that there are not many users yet. As you continue this guide, you'll add more users to test with.
+You might see that there are not many users yet. As you continue this guide, you'll add more users to test with.
 
-# Configuring a percentage rollout
+## Configuring a percentage rollout
 
 A percentage rollout is when you choose a percentage of users to see each variation of your flag. You can increase or decrease these percentages over time.
 
@@ -597,41 +599,36 @@ To learn more, read [Targeting users](/home/flags/targeting-users).
 
 To turn on a percentage rollout for the `Pricing Tier 3` flag:
 
-1. Navigate to LaunchDarkly.
-2. In the **Feature Flag** list, click **Pricing Tier 3**. The flag's **Targeting** page appears.
-3. Find the **Default rule**, which is the flag variation that appears when targeting is enabled. In this case, it is set to `true`:
+1. Navigate to the **Feature flags** dashboard in LaunchDarkly.
+2. In the "Feature flags" list, click Pricing Tier 3. The flag's **Targeting** tab appears.
+3. Find the "Default rule", which is the flag variation that appears when targeting is enabled. In this example, it is set to `true`:
 
 ![The flag's Default rule selector.](flag-default-rule.png)
 
-2. Click the dropdown.
-  You'll see the choice of three different options:
-  - `true`
-  - `false`
-  - `a percentage rollout`
-
-3. Choose the percentage rollout:
+2. Click the **Serve** menu.
+3. Choose "the "percentage rollout":
 
 ![A percentage rollout with percentage values for each variation.](flag-percentage-rule.png)
 
 4. Set the `true` variation to 30%.
-5. Confirm that the flag's **Targeting** toggle is set to **on**.
+5. Confirm that the flag's targeting toggle is set to **on**.
 6. Click **Save changes**.
 7. Log in to the Starlight Travel app as a few different users. Keep track of which email addresses you use as you log in and log out.
-8. When the third pricing tier appears, you know the user you logged in as is part of the 30% of users targeted by the **Pricing Tier 3** flag.
+8. When the third pricing tier appears, you know the user you logged in as is part of the 30% of users targeted by the "Pricing Tier 3" flag.
 9. Log out and log back in again as that same user. The third pricing tier appears every time that user logs in, because LaunchDarkly can now identify individual users. That user will always see the third tier until the flag's targeting changes.
 10. When you find a user who doesn't see the third tier, save their email address.
 
 Now you've seen flag targeting in action. Let's move on to verifying that the flag is working as you intended.
 
-# Verifying flag behavior with flag Insights
+## Verifying flag behavior with flag Insights
 
-You can confirm that the **Pricing Tier 3** flag is appearing for 30% of users. LaunchDarkly offers analytics tools to help you confirm that your flags are behaving the way you want them to.
+You can confirm that the "Pricing Tier 3" flag is appearing for 30% of users. LaunchDarkly offers analytics tools to help you confirm that your flags are behaving the way you want them to.
 
-1. Navigate to the **Pricing Tier 3** flag's dashboard and click on the **Insights** tab:
+1. Navigate to the "Pricing Tier 3" flag and click the **Insights** tab:
 
-![The "Insights" tab on the flag dashboard.](flag-insights-tab.png)
+![The "Insights" tab of the "Pricing Tier 3" flag.](flag-insights-tab.png)
 
-2. Choose **Last 60 minutes** to zoom in on recent activity.
+2. Choose **Last 60 minutes** from the menu to zoom in on recent activity.
 
  This graph shows all the times this flag has been evaluated in the last hour. It also shows the variations that were shown to users.
 
@@ -650,7 +647,7 @@ If it shows an absolute time range instead, such as "10:35 AM - 11:35 AM", chang
 
 Percentage rollouts give you broad control over the flag variation different users see. You can exercise much finer control too.
 
-# Targeting individual users
+## Targeting individual users
 
 You can override the percentage rollout for any particular user, forcing them to see or not see a flag regardless of other targeting rules. You can do this by targeting them with rules individually.
 
@@ -658,27 +655,27 @@ In [Configuring a percentage rollout](#configuring-a-percentage-rollout), you sa
 
 To target an individual user through the Users dashboard:
 
-1. Log in to your Glitch app with the email address of the user who did **not** see the **Pricing Tier 3** flag.
+1. Log in to your Glitch app with the email address of the user who did **not** see the "Pricing Tier 3" flag.
 2. Click on the avatar icon in the top-right of the page. The 10-character hashed user `key` is displayed. Copy this key and save it.
-3. Navigate to LaunchDarkly and click into the **Users** dashboard.
-4. Find the user `key` you saved in the list of users and click on it. The user's menu appears.
-5. Change the flag setting for the **Pricing Tier 3** flag from `false` to `true`.
+3. Navigate to the LaunchDarkly **Users** dashboard.
+4. Find the user `key` you saved in the list of users and click their name. The user's menu appears.
+5. Change the flag setting for the "Pricing Tier 3" flag from `false` to `true`.
 6. A targeting circle appears next to the selector. This indicates that you are adding an explicit targeting rule for this user.
-7. Click the **Save changes** button:
+7. Click **Save changes**:
 
 ![The flag settings for the user, after choosing the flag variation.](users-flag-settings.png)
 
-8. Click the **Pricing Tier 3** link to go straight to the flag's **Targeting** page. The **Target individual users** section has expanded. This section specifies the individual users who should always see a particular flag variation. In the `true` section, you see the key for the user whose setting you just changed:
+8. From the flags dashboard, click the name of the "Pricing Tier 3" flag to return to its **Targeting** tab. The "Target individual users" section is expanded. This section specifies the individual users who should always see a particular flag variation. In the `true` section, you see the key for the user whose setting you just changed:
 
-![The "Target individual users" section of the flag's "Targeting" page.](flag-targeting-individual-user.png)
+![The "Target individual users" section of the flag's "Targeting" tab.](flag-targeting-individual-user.png)
 
 9. Log back into the Starlight Travel app as that user and refresh the page. The third pricing tier should now be visible.
 
-# Targeting users by attribute
+## Targeting users by attribute
 
 Targeting individual users can take a long time if you wish to add entire groups to a flag. If you do not want to target one user at a time, you can configure LaunchDarkly to show a flag to every user with a certain attribute.
 
-Let's pretend that you only want to show the option for tier 3 pricing to users whose email addresses begin with the letter `A`. The **Pricing Tier 3** flag should evaluate to `true` only for those users.
+Let's pretend that you only want to show the option for tier 3 pricing to users whose email addresses begin with the letter `A`. The "Pricing Tier 3" flag should evaluate to `true` only for those users.
 
 To evaluate flags based on specific user criteria, you must create a targeting rule. You can create a rule about any user attribute.
 
@@ -686,7 +683,7 @@ However, in our current example, we can't use a rule to look at the first letter
 
 There are several ways around this problem. You can use a **custom attribute** or a **private attribute** to configure the targeting behavior how you want.
 
-# Configuring custom attributes
+## Configuring custom attributes
 
 You can create and add your own attributes to user objects. These are known as **custom attributes**. The values of these attributes can be numbers, strings, or even lists. Place these attributes within a sub-dictionary of your user object named `custom`.
 
@@ -720,29 +717,29 @@ return {
 </CodeTabs>
 
 4. Log in to the Starlight Travel app a couple more times, so that you send examples of this new attribute to LaunchDarkly.
-5. Navigate to LaunchDarkly.
-6. Find **Pricing Tier 3** and click into its targeting page.
-7. Find the section titled **Target users who match these rules**:
+5. Navigate to the flags dashboard in LaunchDarkly and find the "Pricing Tier 3" flag.
+6. Click on the "Pricing Tier 3" flag name. The **Targeting** tab appears.
+7. Find the section titled "Target users who match these rules":
 
-![The rules section of the Targeting page.](flag-rules-section.png)
+![The rules section of the "Targeting" tab.](flag-rules-section.png)
 
 8. Click **+ Add rules**. A form for adding a rule appears:
 
 ![The form for adding a new targeting rule.](flag-rule-form.png)
 
 9. (Optional) Name the rule in the first field.
-10. The second field in the form is where you choose the attribute to match. Click and scroll down to find `firstLetter`.
-11. Click the third field and choose "is one of". For the targeting rule to succeed, the value of `firstLetter` must match one of the two options you just entered.
-12. In the fourth field, enter both the upper and lower case letter `A` as values. Here's how:
-    - Click the fourth field to focus it.
+10. In the **Select an attribute** menu, choose "firstLetter."
+11. In the **Select an operator** menu, choose "is one of." For the targeting rule to succeed, the value of `firstLetter` must match one of the two options you just entered.
+12. In the **Enter some values** field, enter both the upper and lower case letter `A` as values. Here's how:
+    - Click the field to focus it.
     - Type a lower-case `a`. A suggestion appears: `Create option "a"`.
     - Press `Enter`. The letter `a` becomes an attribute.
     - Type an upper-case `A` and press `Enter`. Each of the two letters should be in its own option box, like this:
 
 ![The rule form, configured for the rule we specified.](flag-rule-filled.png)
 
-13. Click the fifth field and choose the `true` variation. Now when the rule matches a user object, the `true` variation appears.
-14. In the **Default rule** section, choose `false`. This ensures that only users who match our rules receive a `true` evaluation:
+13. In the last menu, choose the `true` variation. Now when the rule matches a user object, the `true` variation appears.
+14. In the "Default rule" section, choose `false` under the **Serve** menu . This ensures that only users who match our rules receive a `true` evaluation:
 
 ![Set the default rule to `false`.](flag-default-rule-false.png)
 
@@ -752,7 +749,8 @@ You can test your new targeting rule by logging in to your Glitch app with email
 
 Alternatively, you can also use a private attribute to target groups of users.
 
-### Configuring private attributes
+#### Configuring private attributes
+---
 
 You can use **private attributes** to target users without sending PII to LaunchDarkly.
 
@@ -819,10 +817,10 @@ return {
 </CodeTabItem>
 </CodeTabs>
 
-Now change the existing targeting rule in the LaunchDarkly dashboard:
+Now change the existing targeting rule:
 
 1. Navigate to LaunchDarkly.
-2. Find **Pricing Tier 3** and click into its targeting page.
+2. Find **Pricing Tier 3** and click into its **Targeting** tab.
 3. Find the section titled **Target users who match these rules**:
 4. Change the value in the first field from `firstLetter` to `email`.
 5. Change the operator selector from `is one of` to `starts with`. You don't need to change the third field, because we're still looking for an `A` or `a`.
@@ -836,7 +834,7 @@ You can test your new targeting rule by logging in to your Glitch app with email
 
 You can verify that none of the users' email addresses have been sent to LaunchDarkly. Return to the Users dashboard, and look at the **Email** column in the list of users. The whole column should be blank.
 
-# Conclusion
+## Conclusion
 
 In this tutorial, you have learned to:
 - target a rule to individuals or by attribute

@@ -23,7 +23,7 @@ This guide helps authors and developers unify implementation by providing you wi
 Translating markdown and HTML components into human-usable formatting can be scary. Follow these best practices to have a better experience:
 
 * Line breaks to separate HTML-style tags in React components from other types of content. For example:
-```  
+```
   <Callout intent="info">
   <CalloutTitle>CALLOUT-TITLE</CalloutTitle>
   <CalloutDescription>
@@ -36,21 +36,21 @@ CALLOUT CONTENT.
 
 * Left-justify text content inside callouts
 
-  As pictured above. Callout contents do not respect markdown unless they are left-justified. 
+  As pictured above. Callout contents do not respect markdown unless they are left-justified.
 
 * Line breaks after every component
-   
-  Separate headers, components, and other formatting with a paragraph break. This ensures the text formats correctly. Don't worry about inline links, those don't mess up any formatting. 
-  
+
+  Separate headers, components, and other formatting with a paragraph break. This ensures the text formats correctly. Don't worry about inline links, those don't mess up any formatting.
+
 ```
 # EXAMPLE HEADER
-< -- this line deliberately left blank -- > 
+< -- this line deliberately left blank -- >
 Content content.
 ```
 
 ## Formatting callouts
 
-You can put code samples and markdown into callouts in one of two ways. 
+You can put code samples and markdown into callouts in one of two ways.
 
 Use a code block:
 
@@ -235,10 +235,10 @@ Include a blank line between the opening and closing `<CalloutDescription>` tags
 <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
 <CalloutDescription>
 
-You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they encounter feature flags.
+You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the Users dashboard automatically after they encounter feature flags.
 
 </CalloutDescription>
-</Callout> 
+</Callout>
 
 ### Alert
 
@@ -246,10 +246,10 @@ You do not have to send users to LaunchDarkly in advance. <a href="">Check out t
 <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
 <CalloutDescription>
 
-You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they encounter feature flags.
+You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the Users dashboard automatically after they encounter feature flags.
 
 </CalloutDescription>
-</Callout> 
+</Callout>
 
 ### Warning
 
@@ -257,10 +257,10 @@ You do not have to send users to LaunchDarkly in advance. <a href="">Check out t
 <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
 <CalloutDescription>
 
-You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they encounter feature flags.
+You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the Users dashboard automatically after they encounter feature flags.
 
 </CalloutDescription>
-</Callout> 
+</Callout>
 
 ### Info
 
@@ -268,10 +268,10 @@ You do not have to send users to LaunchDarkly in advance. <a href="">Check out t
 <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
 <CalloutDescription>
 
-You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they encounter feature flags.
+You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the Users dashboard automatically after they encounter feature flags.
 
 </CalloutDescription>
-</Callout> 
+</Callout>
 
 
 
@@ -289,11 +289,11 @@ You do not have to send users to LaunchDarkly in advance. <a href="">Check out t
   <CalloutDescription>
 
 You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them
-with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they
+with feature flags have LaunchDarkly accounts of their own. Users appear in the Users dashboard automatically after they
 encounter feature flags.
 
   </CalloutDescription>
-</Callout> 
+</Callout>
 ```
 
 </CodeTabItem>
@@ -377,14 +377,14 @@ Markdown tables are hard to read in text editors and easy to break. We built our
     <TableHeadCell>Name of column 1</TableHeadCell>
     <TableHeadCell>Name of column 2</TableHeadCell>
   </TableHeader>
-  <TableBody>  
+  <TableBody>
     <TableRow>
       <TableCell>Column 1 Cell 1</TableCell>
       <TableCell>Column 1 Cell 2</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-      
+
 Column 2 Cell 1 <a href="example.com">with a link in it</a>.
 
       </TableCell>

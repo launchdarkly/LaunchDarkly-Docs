@@ -75,20 +75,20 @@ We strongly recommend that you update the second `uses` attribute value to refer
 </CalloutDescription>
 </Callout>
 
-5. Commit this file under a new branch and submit as a PR to your code reviewers to be merged into your master branch.
+5. Commit this file under a new branch and submit as a PR to your code reviewers to be merged into your main branch.
 
 <Callout intent="info">
 <CalloutTitle>Code references are not blocked by PR approval</CalloutTitle>
 <CalloutDescription>
 
-You do not need to have this branch merged into the master branch for code references to appear in the LaunchDarkly user interface (UI). Code references will appear for this newly created branch.
+You do not need to have this branch merged into the main branch for code references to appear in the LaunchDarkly user interface (UI). Code references will appear for this newly created branch.
 
 </CalloutDescription>
 </Callout>
 
 As shown in the example above, the workflow should run on the `push` event and contain an action provided by the [launchdarkly/find-code-references](https://github.com/launchdarkly/find-code-references) repository.
 
-Include both the `LD_ACCESS_TOKEN` as a secret and a new environment variable containing your LaunchDarkly project key. Find the project key in **Account Settings > Projects** in the LaunchDarkly dashboard.
+Include both the `LD_ACCESS_TOKEN` as a secret and a new environment variable containing your LaunchDarkly project key. Find the project key in **Account Settings > Projects** in the flag dashboard.
 
 ## Troubleshooting
 
@@ -127,7 +127,7 @@ This table explains the configuration variables:
         <code>projKey</code>
       </TableCell>
       <TableCell>
-        A LaunchDarkly project key. Found under Account Settings -> Projects in the LaunchDarkly dashboard.
+        A LaunchDarkly project key. Found under Account Settings > Projects in the flag dashboard.
       </TableCell>
       <TableCell>Yes</TableCell>
     </TableRow>
@@ -138,7 +138,7 @@ This table explains the configuration variables:
       <TableCell>
         Sets the repository name for this project. This is useful if you have a single monorepo
         containing multiple YAML configurations each mapping to its own <code>projKey</code>. Each YAML configuration
-        must have a unique <code>LD_PROJ_KEY</code> and <code>LD_REPO_NAME</code> combination so it displays correctly in the LaunchDarkly
+        must have a unique <code>LD_PROJ_KEY</code> and <code>LD_REPO_NAME</code> combination so it displays correctly in the flag
         dashboard. Defaults to the current Github repository.
       </TableCell>
       <TableCell>No</TableCell>
@@ -164,7 +164,7 @@ This table explains the configuration variables:
         <code>baseUri</code>
       </TableCell>
       <TableCell>
-        Set the base URL of the LaunchDarkly server for this configuration. Defaults to{' '}
+        Set the base uniform resource identifier (URI) of the LaunchDarkly server for this configuration. Defaults to{' '}
         <code>https://app.launchdarkly.com</code>.
       </TableCell>
       <TableCell>No</TableCell>

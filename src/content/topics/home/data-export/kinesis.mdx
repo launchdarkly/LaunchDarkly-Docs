@@ -104,12 +104,12 @@ This section explains how to create a cross-account IAM role for LaunchDarkly to
 To create a cross-account IAM role:
 
 1. Log into AWS and [access the IAM section](https://console.aws.amazon.com/iamhome#/roles$new?step=type&roleType=crossAccount).
-2. In the Account ID section, enter `554582317989` as shown in the image below. This allows LaunchDarkly to assume the role:
+2. Enter `554582317989` into the **Account ID** field. This allows LaunchDarkly to assume the role:
 
-![The Account ID section of the Create a role screen.](kinesis-create-role.png)
+![The Account ID field in the "Create role" screen.](kinesis-create-role.png)
 
 
-3. Add the policy you created earlier to this role. Write down or save the _role ARN_.
+3. Add the policy you created earlier to this role. Write down or save the role ARN.
 
 <Callout intent="alert">
 <CalloutTitle>Restricting trust</CalloutTitle>
@@ -128,7 +128,7 @@ Trust our role by following a procedure in [Amazon's documentation](https://docs
 
 ## Creating the Kinesis Destination in LaunchDarkly
 
-With the _region_, _stream name_ and _role ARN_ from earlier in the procedure, you can now create the Kinesis destination within LaunchDarkly.
+Using the region, stream name, and role ARN from earlier in the procedure, you can now create the Kinesis destination within LaunchDarkly.
 
 To create the Kinesis destination:
 
@@ -137,28 +137,31 @@ To create the Kinesis destination:
 ![The add destination screen.](kinesis-add.png)
 
 2. Click **Add integration.** The "Create a destination" panel appears.
-3. (Optional) Enter a Name for the destination.
-4. Choose an environment from the **Environment** drop-down list.
+3. (Optional) Enter a **Name** for the destination.
+4. Choose an environment from the **Environment** menu.
 5. Enter the AWS data you saved earlier:
 
 - AWS Kinesis stream region
 - ROle address
 - AWS Kinesis stream name
 
-6. Click **Save**:
+6. Click **Save destination**:
 
-![A Kinesis destination with AWS information, a name and environment selected.](kinesis-create.png)
+![A Kinesis destination with a name, an environment, and AWS information selected.](kinesis-create.png)
 
 
-## Testing the Kinesis Destination
+## Testing a Kinesis Destination
 
-After you've saved the destination, send a test event to confirm that the destination is configured properly.
+After you save the destination, send a test event to confirm that the destination is configured properly.
 
-1. From the Integrations page, click in the "Amazon Kinesis" section to display current integrations.
-2. Click the edit button next to the destination you want to test. The "Edit destination" panel appears.
-3. In the "Send a test event" section, click **Send Event**:
+To send a test event:
 
-![The Send a test event screen.](kinesis-test-event.png)
+1. Navigate to the **Integrations** page and find "Amazon Kinesis."
+2. Click into the "Amazon Kinesis" section to display a list of destinations.
+3. Click the **edit** icon next to the destination you want to test. The "Edit destination" panel appears.
+4. In the "Send a test event" section, click **Send event**:
+
+![The "Send a test event" section of the "Edit destination" panel.](kinesis-test-event.png)
 
 4. If you have configured the destination correctly, an event is logged in the Kinesis destination.
 5. Identify a successful test event by searching for the user or flag key `LaunchDarklyDataExportTestEvent`. When this key appears in the destination, you know the test event arrived.
@@ -190,8 +193,9 @@ You can delete a Data Export destination from the **Integrations** screen.
 
 To delete a destination:
 
-1. Navigate to the **Integrations** screen.
-2. Find the destination you wish to delete and click **Edit**. The "Edit destination" screen opens.
-3. Click **Delete Destination**:
+1. Navigate to the **Integrations** page and find "Amazon Kinesis."
+2. Click into the "Amazon Kinesis" section to display a list of destinations.
+2. Click the **edit** icon next to the destination you wish to delete. The "Edit destination" panel appears.
+3. Click **Delete destination**:
 
-![The Delete destination section.](destination-delete.png)
+![The "Delete destination" section of the "Edit destination" panel.](destination-delete.png)

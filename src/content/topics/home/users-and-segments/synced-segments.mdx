@@ -60,7 +60,16 @@ If your access token has a custom role, it must have the actions `createSegment`
 
 Below is an example of the permissions needed for your custom role:
 
-```js
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example policy', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
 [
   {
     "resources": [
@@ -74,6 +83,9 @@ Below is an example of the permissions needed for your custom role:
   }
 ]
 ```
+
+</CodeTabItem>
+</CodeTabs>
 
 To learn more, read [Custom roles](/home/members/custom-roles) and [Segments actions](/home/members/role-actions#segments-actions).
 
@@ -89,11 +101,11 @@ To add LaunchDarkly as a destination:
 
 2. Scroll to the "Add More Destinations" section and click **View All Destinations**:
 
-![The Add More Destinations section with the "View All Destinations" button called out.](segments-amplitude-view-all-destinations.png)
+![The "Add More Destinations" section with the "View All Destinations" button called out.](segments-amplitude-view-all-destinations.png)
 
 3. Select the LaunchDarkly Destination:
 
-![The Add Destination list with LaunchDarkly called out.](segments-amplitude-launchdarkly-destination.png)
+![The "Add Destination" list with LaunchDarkly called out.](segments-amplitude-launchdarkly-destination.png)
 
 If you don't see LaunchDarkly on the destinations list, contact your Amplitude Customer Success Manager to enable the LaunchDarkly integration. If you do not have Admin or Manager credentials Amplitude displays an error message:
 
@@ -103,7 +115,7 @@ If you don't see LaunchDarkly on the destinations list, contact your Amplitude C
 
 5. Select a matching user property in Amplitude to map to LaunchDarkly's User Key. This will most likely be your Amplitude user ID but it depends on your [Amplitude configuration](https://help.amplitude.com/hc/en-us/articles/206404628-Step-2-Identifying-your-users):
 
-![The Connect to LaunchDarkly screen.](segments-amplitude-configure-destination.png)
+![The "Connect to LaunchDarkly" screen.](segments-amplitude-configure-destination.png)
 
 Users in Amplitude must have a value in the field you map to the LaunchDarkly User Key to be included in a LaunchDarkly segment.
 
@@ -111,7 +123,7 @@ Users in Amplitude must have a value in the field you map to the LaunchDarkly Us
 
 7. Verify that LaunchDarkly shows as "Connected":
 
-![The Cohort Destinations screen.](segments-amplitude-connected-destination.png)
+![The "Cohort Destinations" screen.](segments-amplitude-connected-destination.png)
 
 LaunchDarkly is now an Amplitude data destination.
 
@@ -120,7 +132,7 @@ LaunchDarkly is now an Amplitude data destination.
 To connect a cohort to LaunchDarkly:
 
 1. Navigate to the cohort you wish to connect to LaunchDarkly.
-2. Click **Sync to...** to open a new tab with a modal:
+2. Click **Sync to...** to open a new tab with a dialog:
 
 ![The SuccessCohort screen with the "Sync to..." button called out.](segments-amplitude-sync.png)
 
@@ -163,12 +175,12 @@ To check for users in your Amplitude cohort missing user IDs, you can download a
 
 ## Viewing synced Amplitude cohorts in LaunchDarkly
 
-You can view your synced Amplitude cohort as a segment in LaunchDarkly. It appears in the Segments tab with the Amplitude logo in its name:
+You can view your synced Amplitude cohort as a segment in LaunchDarkly. It appears on the **Segments** dashboard with the Amplitude logo in its name:
 
-![The Segments dashboard with the Amplitude-driven segment called out.](segments-amplitude-dashboard-callout.png)
+![The "Segments" dashboard with the Amplitude-driven segment called out.](segments-amplitude-dashboard-callout.png)
 
-Click into that segment to see details about its targeting:
+Click into that segment's **Targeting** tab to see details about its targeting:
 
-![The synced segment's details screen.](segments-amplitude-sync-in-ld.png)
+![The synced segment's "Targeting" tab.](segments-amplitude-sync-in-ld.png)
 
 You can't edit rules for a Big Segment synced with an Amplitude cohort because they are managed by Amplitude.

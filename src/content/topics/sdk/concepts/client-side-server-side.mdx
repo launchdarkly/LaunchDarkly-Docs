@@ -24,7 +24,7 @@ All of our SDKs are one of these two categories:
 <CalloutTitle>Client-side SDKs include mobile SDKs</CalloutTitle>
 <CalloutDescription>
 
-Our SDKs primarily for mobile devices, known as our "mobile SDKs", are categorized as client-side SDKs since, like our client-side SDKs, most mobile applications have a single-user context. This includes our Android, iOS, Flutter, React Native, and client-side .NET SDKs. Each of these SDKs also has some mobile-specific functionality. To learn more, read [Functional differences](#functional-differences-between-sdks).
+Our SDKs primarily for mobile devices, known as our "mobile SDKs", are categorized as client-side SDKs since, like our client-side SDKs, most mobile applications have a single-user context. This includes our Android, iOS, Flutter, React Native, and client-side .NET SDKs. Each of these SDKs also has some mobile-specific functionality. To learn more, read [Functional differences between SDKs](#functional-differences-between-sdks).
 
   </CalloutDescription>
 </Callout>
@@ -67,21 +67,21 @@ LaunchDarkly attempts to keep all SDKs at feature parity with each other. Even s
 
 ### Persistent feature store integrations
 
-By default, our SDKs store transmitted data in in-memory caches. If you don't want to use an in-memory cache, we provide integrations for **server-side SDKs** to store data in persistent data stores like Redis or DynamoDB instead.
+By default, our SDKs store transmitted data in in-memory caches. If you don't want to use an in-memory cache, we provide integrations for server-side SDKs to store data in persistent data stores like Redis or DynamoDB instead.
 
-**Client-side** and **mobile SDKs** may have platform-specific storage mechanisms and can alternatively use our Relay Proxy.
+Client-side and mobile SDKs may have platform-specific storage mechanisms and can alternatively use our Relay Proxy.
 
 To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
 ### Multi-environment support
 
-We designed our SDKs to work with one LaunchDarkly environment at a time. However, mobile application developers might want their applications to be able to access flags on multiple LaunchDarkly environments. We designed the **mobile SDKs** to support behavior across multiple environments.
+We designed our SDKs to work with one LaunchDarkly environment at a time. However, mobile application developers might want their applications to be able to access flags on multiple LaunchDarkly environments. We designed the mobile SDKs to support behavior across multiple environments.
 
 For example, if your LaunchDarkly account is set up to have different "Android", "iOS", and "Core" environments and/or projects, you can use the the multi-environment SDK feature to access flags in multiple places.
 
 ### Mobile connection state
 
-This feature also pertains specifically to **mobile SDKs**. Mobile applications are more likely than web or desktop software to lose their network connection. Our mobile SDKs provide additional functionality to monitor the connection state to LaunchDarkly.
+This feature also pertains specifically to mobile SDKs. Mobile applications are more likely than web or desktop software to lose their network connection. Our mobile SDKs provide additional functionality to monitor the connection state to LaunchDarkly.
 
 ## Security
 
@@ -350,7 +350,7 @@ Use the "Client-side SDK availability" section on a flag's **Settings** tab to m
 
 Configure server-side SDKs to use the SDK key. This key grants server-side SDKs read-only access to all flag data associated with the provided key's environment. With this key, server-side SDKs can download the entire flag ruleset for all flags in the environment.
 
-The SDK key should be kept a secret. If an SDK key is exposed, you can reset it from the **Account settings** page by clicking on **Projects**, clicking the overflow menu next to your environment, selecting **Edit environment**, and clicking **Reset SDK key**. To learn more, read [Resetting an environment's key](/home/organize/environments#resetting-an-environments-key).
+The SDK key should be kept a secret. If an SDK key is exposed, you can reset it from the **Account settings** page. To learn how, read [Resetting an environment's key](/home/organize/environments#resetting-an-environments-key).
 
 ### Mobile key
 
@@ -358,11 +358,11 @@ Configure mobile SDKs, and other non-JavaScript client-side SDKs, to use the mob
 
 Because you must manually connect flags to a client-side SDK, you can restrict which flags are accessible by the client-side ID.
 
-The mobile key does not need to be kept a secret. However, if you wish to reset a mobile key, you can do so from the **Account settings** page by clicking on **Projects**, clicking the overflow menu next to your environment, selecting **Edit environment**, and clicking **Reset Mobile key**.
+The mobile key does not need to be kept a secret. However, if you wish to reset a mobile key, you can do so from the **Account settings** page. To learn how, read [Resetting an environment's key](/home/organize/environments#resetting-an-environments-key).
 
 ### Client-side ID
 
-Configure JavaScript-based client-side SDKs to use the client-side ID. This ID grants these SDKs access to evaluate any flags, as long as the flag is associated with the provided ID's environment and has been enabled for client-side SDK availability with the "SDKs using client-side ID" option. Because you must manually connect flags to a client-side SDK, you can restrict which flags are accessible by the client-side ID.
+Configure JavaScript-based client-side SDKs to use the client-side ID. The client-side ID grants these SDKs access to evaluate any flags that are associated with the key's environment, and that you have enabled for client-side SDK availability by checking the flag's **SDKs using Client-side key** checkbox. Because you must manually connect flags to a client-side SDK, you can restrict which flags are accessible by the client-side ID.
 
 Unlike a mobile key, the client-side ID for an environment never changes. The client-side ID does not need to be kept a secret.
 

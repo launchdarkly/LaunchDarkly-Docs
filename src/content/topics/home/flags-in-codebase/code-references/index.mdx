@@ -40,7 +40,7 @@ You can also invoke the [`ld-find-code-refs`](https://github.com/launchdarkly/ld
 
 To set up code references in LaunchDarkly, you must have the following prerequisites:
 
-- You must have an API access token with writer-level access or higher. Create an API access token in the [Access Tokens](https://app.launchdarkly.com/settings/tokens) page. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
+- You must have an API access token with writer-level access or higher. Create an API access token on the **Account settings** page, on the [**Authorization**](https://app.launchdarkly.com/settings/authorization) tab. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
 - You must have a custom role that allows all actions on code references.
 - You must allow [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) to run in environment that has access to your source code.
 
@@ -48,39 +48,39 @@ To set up code references in LaunchDarkly, you must have the following prerequis
 <CalloutTitle>API access tokens can also use custom roles</CalloutTitle>
 <CalloutDescription>
 
-  Alternatively, you can give the access token access to a custom role with the `code-reference-repository` resource
-  specifier. To learn more, read [Custom roles](/home/members/custom-roles).
+  Alternatively, you can give the access token access to a custom role with the `code-reference-repository` resource specifier. To learn more, read [Custom roles](/home/members/custom-roles).
 
 </CalloutDescription>
 </Callout>
 
 ## Using code references
 
-You can view existing code references for feature flags in the LaunchDarkly dashboard.
+You can view existing code references for feature flags in the flag dashboard.
 
-To do so, visit a feature flag's **Code references** tab.
+To view existing code references, visit a feature flag's **Code references** tab.
 
-The screenshot below shows the code references tab displaying an active code reference:
+The screenshot below shows the **Code references** tab displaying an active code reference:
 
-![The code references tab for a feature flag.](flag-code-references.png)
+![The "Code references" tab for a feature flag.](flag-code-references.png)
 
 After you remove all code references mentioning that flag from the codebase and rerun the scanning tool, LaunchDarkly creates an Extinction event and notifies you that it has removed the flag from the codebase. You can also use the API to find these events. To learn more, read [List Extinctions](https://apidocs.launchdarkly.com/tag/Code-references#operation/getExtinctions).
 
-![The code references tab for an extinct feature flag](flag-code-references-extinct.png)
+![The "Code references" tab for an extinct feature flag.](flag-code-references-extinct.png)
 
 
 You can toggle a repository on or off to allow or forbid code reference triggers from pushing new data to it.
 
 ## Managing code references
 
-Manage code references on the [Integrations](https://app.launchdarkly.com/integrations) page for your project. Code references are organized into repositories, which the `ld-find-code-refs` tool creates automatically.
+Manage code references on the [**Integrations**](https://app.launchdarkly.com/integrations) page for your project. Code references are organized into repositories, which the `ld-find-code-refs` tool creates automatically.
 
-After a repository appears on the Integrations page, you can either temporarily disable it (preventing new code references from being added to LaunchDarkly), or delete all code references associated with the repository.
+After a repository appears on the **Integrations** page, you can either temporarily disable it, which prevents new code references from being added to LaunchDarkly, or delete all code references associated with the repository.
 
 To disable the repository, click the toggle switch to **Off**.
+
 To delete the repository, click **Delete**.
 
-If you click **Delete,** LaunchDarkly purges all data associated with that repository. It will no longer have any record of the code reference or any source context lines. Deleting is permanent and cannot be undone.
+If you click **Delete**, LaunchDarkly purges all data associated with that repository. It will no longer have any record of the code reference or any source context lines. Deleting is permanent and cannot be undone.
 
 <Callout intent="alert">
 <CalloutTitle>Remove code references before you click Delete</CalloutTitle>
@@ -93,7 +93,7 @@ If you want to remove a connection permanently, be sure to remove any `ld-find-c
 
 The disabling and delete options appear below:
 
-![The code reference repositories section of the Integrations page.](integrations-code-references.png)
+![The "Code reference" section of the "Integrations" page.](integrations-code-references.png)
 
 
 ## Configuring context lines
@@ -117,7 +117,7 @@ The following screenshot shows code references without context lines:
 
 ## Finding flag aliases
 
-Aliases help you find indirect references to feature flags, such as flag keys stored in variables or in wrapped SDK code. 
+Aliases help you find indirect references to feature flags, such as flag keys stored in variables or in wrapped SDK code.
 
 Here's how to find references to `firstFeatureFlag` throughout your code base:
 
@@ -166,12 +166,12 @@ The LaunchDarkly code references API asserts various limits to limit the number 
 
 These limits include:
 
-- We do not scan code references for flags with keys that have less than 3 characters.
-- We store up to 10000 files with code references per repository. LaunchDarkly ignores additional files.
-- We allow up to 500 characters per line of source code stored. LaunchDarkly truncates additional characters.
-- We allow up to 25000 code references per file. LaunchDarkly ignores additional references.
+- LaunchDarkly does not scan code references for flags with keys that have fewer than three characters.
+- LaunchDarkly stores up to 10,000 files with code references per repository. Additional files are ignored.
+- LaunchDarkly allows up to 500 characters per line of source code stored. Additional characters are truncated.
+- LaunchDarkly allows up to 25,000 code references per file. Additional references are ignored.
 
-If you've encountered any of these limits, or are noticing a large number of false positives being detected by `ld-find-code-refs`, we'd recommend configuring an `.ldignore` file in your repository with rules matching the files and directories you'd like to exclude.
+If you've encountered any of these limits, or are noticing a large number of false positives being detected by `ld-find-code-refs`, you can configure an `.ldignore` file in your repository with rules matching the files and directories you'd like to exclude.
 
 To learn more about `.ldignore` files, read the [`ld-find-code-refs` documentation](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#ignoring-files-and-directories).
 
@@ -179,6 +179,4 @@ To learn more about `.ldignore` files, read the [`ld-find-code-refs` documentati
 
 The code references feature scans your source code for occurrences of your flag keys. This process requires your source code to reference flag keys exactly as they appear in LaunchDarkly.
 
-However, by default, the React SDK changes all flag keys to camel-case for easier access with dot notation. To use the code references feature in conjunction with the React SDK, configure `ld-find-code-refs` to generate camel-case aliases for the flag keys, or configure the React SDK to disable this camel-casing feature. To learn more, read [Flag keys transposed to common casing conventions](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/ALIASES.md#flag-keys-transposed-to-common-casing-conventions).
-
-To learn more, read [Flag keys](/sdk/client-side/react/react-web#flag-keys) in the React SDK documentation.
+However, by default, the React SDK changes all flag keys to camel-case for easier access with dot notation. To use the code references feature in conjunction with the React SDK, configure `ld-find-code-refs` to generate camel-case aliases for the flag keys, or configure the React SDK to disable this camel-casing feature. To learn more, read [Flag keys transposed to common casing conventions](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/ALIASES.md#flag-keys-transposed-to-common-casing-conventions) in the `ld-find-code-refs` documentation and [Flag keys](/sdk/client-side/react/react-web#flag-keys) in the React SDK documentation.

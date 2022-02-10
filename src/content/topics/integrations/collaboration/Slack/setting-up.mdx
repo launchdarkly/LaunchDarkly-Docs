@@ -23,9 +23,9 @@ To sign into the LaunchDarkly Slack app:
 
 4. Review the permissions required and click **Authorize** to authorize the Slack app.
 
-![The permissions authorization screen](slack-ld-authorize.png)
+![The permissions authorization dialog](slack-ld-authorize.png)
 
-5. A confirmation screen appears in your browser and the Slack app's username appears in the **Apps** section of your Slack client.
+5. A confirmation dialog appears in your browser and the Slack app's username appears in the **Apps** section of your Slack client.
 
 You can now use the LaunchDarkly Slack app. The Slack app configuration appears in the "Slack App" section of the Integrations dashboard.
 
@@ -33,7 +33,7 @@ You can now use the LaunchDarkly Slack app. The Slack app configuration appears 
 
 ## Understanding the Slack app's permissions
 
-The Slack app requires you to grant permission for it to work in your Slack account. The list of permissions shown in the authorization screen is inclusive of everything the app can do, but not all users will be able to perform all actions using the app.
+The Slack app requires you to grant permission for it to work in your Slack account. The list of permissions shown in the authorization dialog is inclusive of everything the app can do, but not all users will be able to perform all actions using the app.
 
 The things the Slack app can do are limited to what the user can do in LaunchDarkly. It never allows users to take actions beyond what their roles in LaunchDarkly allow.
 
@@ -59,9 +59,9 @@ To add more accounts to the Slack app:
 
 ![An example of an account associated with the Slack app.](slack-ld-add-account.png)
 
-If you want to add another account, click the Add an Account button. You'll then follow the same process as your first account to authorize.
+If you want to add another account, click **Add an account**. You'll then follow the same process as your first account to authorize.
 
-## Disconnecting an Account from the Slack App
+## Disconnecting an account from the Slack app
 
 When you click the drop down for an existing account, clicking logout will remove the account association with your Slack.
 
@@ -76,7 +76,7 @@ Connecting your Slack account with your LaunchDarkly account makes two changes. 
 
 The first item happens for each individual user. The second item only happens once per team, typically by the first member on the Slack team to authorize the app with LaunchDarkly.
 
-Members with the `reader` role in LaunchDarkly do not have the ability to create webhooks. If the first person to authorize the LaunchDarkly Slack app is a reader, this can cause a problem, because that user cannot create the necessary webhook.
+Members with the `reader` role in LaunchDarkly do not have the ability to create webhooks. If the first person to authorize the LaunchDarkly Slack app is a reader, this can cause a problem because that user cannot create the necessary webhook.
 
 To learn more about member permissions, read [Understanding Member Roles](/home/members/managing#understanding-member-roles).
 

@@ -83,7 +83,7 @@ Keep the scope of a flag as small as possible. Each flag should only do one thin
 
 Flags have two identifiers:
 
-* The flag **name**: Flag names only appear on the LaunchDarkly dashboard, above the flag's description and near other useful details about the flag.
+* The flag **name**: Flag names only appear on the flag dashboard, above the flag's description and near other useful details about the flag.
 * The flag **key**: This is how your flag is represented in LaunchDarkly's code. Keys are the only identifier used in code, and that code usually has no other details about the flag.
 
 You specify both of these identifiers when you create a flag for the first time.
@@ -123,7 +123,7 @@ Don't repeat any information already present in the flag's name. Instead, focus 
 
 ### Assigning tags to your flag
 
-The LaunchDarkly Flags dashboard has controls for filtering and sorting flags by different major attributes. You can also create tags for flags you want to find quickly.
+The flag dashboard has controls for filtering and sorting flags by different major attributes. You can also create tags for flags you want to find quickly.
 
 Tags are useful for grouping flags by particular details. For example, if there's a set of long-lived flags that are specifically intended for operational use, you can tag them with `operational`. If you have flags that have special targeting for users in Belgium, you can tag them `belgium`. To learn more, read [Tags](/home/members/role-concepts#tags).
 
@@ -152,7 +152,7 @@ LaunchDarkly SDKs are divided into two types:
 
 Client-side SDKs evaluate flags differently than server-side SDKs, because client-side SDKs may connect to and serve insecure or public devices. It is important to understand the security impact of making flags available on the client side. To learn more, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
-You can make new flags available to client-side and mobile SDKs from the "Create a feature flag" screen. To learn how, read [Making flags available to client-side and mobile SDKs](/home/getting-started/feature-flags#making-flags-available-to-client-side-and-mobile-sdks).
+You can make new flags available to client-side and mobile SDKs from the "Create a feature flag" panel. To learn how, read [Making flags available to client-side and mobile SDKs](/home/getting-started/feature-flags#making-flags-available-to-client-side-and-mobile-sdks).
 
 For existing flags, you can make flags available to client-side and mobile SDKs from the flag's **Settings** tab.
 

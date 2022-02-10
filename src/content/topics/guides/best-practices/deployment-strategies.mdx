@@ -33,8 +33,7 @@ You should understand the following concepts before you read this guide.
 
 ### Deployment and release
 
-It’s easy to use deployment and release interchangeably, but in a feature-flagging or continuous-delivery environment, they have distinct meanings. It’s useful to understand the differences between them so you can
-understand the following patterns more clearly.
+It’s easy to use deployment and release interchangeably, but in a feature-flagging or continuous-delivery environment, they have distinct meanings. It’s useful to understand the differences between them so you can understand the following patterns more clearly.
 
 * **Deployment** is the process of putting executable code in its final destination.
 
@@ -51,12 +50,11 @@ automated process.
 
 Using feature flags to deploy code without releasing it publicly is the original meaning of the phrase “dark launching.” When you do a dark launch, your new code or feature is present in your codebase, but not available to everyone.
 
-The flags you use for dark launches are temporary tools to help you make sure that the features you
-release are reliable, stable, and behaving the way you want. After you fully deploy and release a feature, you can remove these flags.
+The flags you use for dark launches are temporary tools to help you make sure that the features you release are reliable, stable, and behaving the way you want. After you fully deploy and release a feature, you can remove these flags.
 
 To learn more about different use cases for feature flags, read [Creating flags](/guides/best-practices/creating-flags).
 
-# Deployment and release patterns
+## Deployment and release patterns
 
 The following patterns are some of the ways we've seen people do deployment and release.
 
@@ -71,8 +69,7 @@ example, release to internal users first, and then beta users, and then to all u
 
 In a ring deployment, the release pattern mirrors the deployment pattern, which mitigates against the deployment itself causing a large unforeseen problem.
 
-Jez Humble introduced the concept of a ring deployment in his book [_Continuous
-Delivery_](https://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912).
+Jez Humble introduced the concept of a ring deployment in his book [_Continuous Delivery_](https://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912).
 
 ### Percentage-based releases
 
@@ -80,13 +77,11 @@ In a percentage rollout, the deployment has already occurred and the release occ
 
 In LaunchDarkly, the users who get the new feature in a percentage rollout are randomly selected. After they get the new feature, they retain access to it as long as there is a way to identify them. This kind of sorting is best when your users must log in to use your product, or have accepted cookies.
 
-These releases are useful when you cannot run a beta
-program, or there is little variation in your targeted user base. If you run a small B2B application with the same 1,000 monthly active users, a percentage-based release is likely to give you an accurate estimate of whether the full rollout is likely to have positive or negative impact on your userbase.
+These releases are useful when you cannot run a beta program, or there is little variation in your targeted user base. If you run a small B2B application with the same 1,000 monthly active users, a percentage-based release is likely to give you an accurate estimate of whether the full rollout is likely to have positive or negative impact on your userbase.
 
 You may want to automate percentage-based releases gradually by increasing the number of users receiving the new feature. You can terminate the release if there are too many errors or a response time exceeds a set threshold.
 
-You can combine ring deployments and percentage rollouts. You first release to selected groups and then use a percentage-based release to roll out to the
-remainder of your user base.
+You can combine ring deployments and percentage rollouts. You first release to selected groups and then use a percentage-based release to roll out to the remainder of your user base.
 
 To learn more, read [Percentage rollouts](/home/flags/targeting-users#percentage-rollouts).
 
@@ -102,8 +97,7 @@ You can use a canary release to test both user acceptance and capacity managemen
 
 It may make business sense to target a release based on some identifier or segment other than percentages.
 
-For example, a food delivery service could roll out a new
-feature or set of related features to one medium-size city to test how it works for multiple types of users who must all interact.
+For example, a food delivery service could roll out a new feature or set of related features to one medium-size city to test how it works for multiple types of users who must all interact.
 
 If that service makes a change that affects restaurants, drivers, and consumers, all of those users should receive the change simultaneously, since they all perform functions that relate to each other. If the city-wide rollout produces good results, the service can release it to the rest of their user base with confidence.
 
@@ -119,8 +113,7 @@ You can combine entitlement releases with percentage-based releases or canary re
 
 ## Post-release tasks
 
-Your flag's lifecycle doesn't finish when the feature it controls is fully deployed. You need to
-have metrics and monitoring set up to see human and system behaviors during your rollout, and you need to have a plan to remove temporary flags after you fully implement the new feature.
+Your flag's lifecycle doesn't finish when the feature it controls is fully deployed. You need to have metrics and monitoring set up to see human and system behaviors during your rollout, and you need to have a plan to remove temporary flags after you fully implement the new feature.
 
 We'll discuss both metrics and temporary flag hygiene in this section.
 
@@ -128,22 +121,19 @@ We'll discuss both metrics and temporary flag hygiene in this section.
 
 Metrics help us determine whether something is improving or not. Consider what metrics you need to track when you release new features.
 
-Availability, reliability, and response time of an application should not change with the deployment of a new
-feature. Set up monitoring to track performance before, during, and after you deploy code to ensure performance does not degrade.
+Availability, reliability, and response time of an application should not change with the deployment of a new feature. Set up monitoring to track performance before, during, and after you deploy code to ensure performance does not degrade.
 
-The metrics you track will vary based on your business and objectives. Tracking metrics such as
-page load time, errors, uptime, conversions, or user registrations can tell you whether a feature is performing well or causing problems.
+The metrics you track will vary based on your business and objectives. Tracking metrics such as page load time, errors, uptime, conversions, or user registrations can tell you whether a feature is performing well or causing problems.
 
 ### Removing temporary flags
 
-Deployment and release flags should not be a permanent part of your code. After a feature is fully released and stable, you can remove all the code associated with the feature flags that support the feature. This
-makes your code easier to read and understand, and eliminates the possibility of accidental deactivation of the feature.
+Deployment and release flags should not be a permanent part of your code. After a feature is fully released and stable, you can remove all the code associated with the feature flags that support the feature. This makes your code easier to read and understand, and eliminates the possibility of accidental deactivation of the feature.
 
-To help you know when a flag should be removed, LaunchDarkly has indicators in the dashboard indicating whether a flagged feature is fully active. An active flag has been rolled out to 100% of your userbase, so it may be safe to remove it.
+To help you know when a flag should be removed, LaunchDarkly has indicators on the flag dashboard that show whether a flagged feature is fully active. An active flag has been rolled out to 100% of your userbase, so it may be safe to remove it.
 
 To learn more, read [Flag status](/home/code/flag-status).
 
-After you decide to remove a flag from your code, you can use the Code References tab to find all the places that flag identifier appears in your code.
+After you decide to remove a flag from your code, you can use the **Code References** tab to find all the places that flag identifier appears in your code.
 
 The removal process is even easier if you use the following practice when you add a temporary flag:
 

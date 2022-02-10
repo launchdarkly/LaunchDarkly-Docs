@@ -41,7 +41,7 @@ The available scoping options are:
 <CalloutTitle>Never share an API access token</CalloutTitle>
 <CalloutDescription>
 
-API access tokens are secrets. If you share your access token with others, they may be able to use it to     impersonate you, or perform actions with it that could later be attributed to you or your integration erroneously.
+API access tokens are secrets. If you share your access token with others, they may be able to use it to impersonate you, or perform actions with it that could later be attributed to you or your integration erroneously.
 
 </CalloutDescription>
 </Callout>
@@ -52,7 +52,7 @@ API access tokens are secrets. If you share your access token with others, they 
 <CalloutTitle>Personal API access tokens and the principle of least privilege</CalloutTitle>
 <CalloutDescription>
 
-As a best practice, we recommend giving your tokens the smallest scope required for your integration. For example, if your integration is not designed to modify your **Production** environment, use a custom role or inline policy to restrict access appropriately.
+As a best practice, we recommend giving your tokens the smallest scope required for your integration. For example, if your integration is not designed to modify your Production environment, use a custom role or inline policy to restrict access appropriately.
 
 </CalloutDescription>
 </Callout>
@@ -66,7 +66,7 @@ If you use custom roles to scope your access tokens, note that modifying the per
 </CalloutDescription>
 </Callout>
 
-There are two types of tokens you can create in LaunchDarkly. You can create a personal token, which is linked to a user's account, or a service token, which is independent of the account that created it.
+There are two types of tokens you can create in LaunchDarkly. You can create a personal token, which is linked to an account member's account, or a service token, which is independent of the account that created it.
 
 The different token types respond differently when their creators' permissions change. Because of this, you may want to use different types of tokens for different things.
 
@@ -99,7 +99,7 @@ Use a service token to create long-term integrations with the LaunchDarkly API.
 
 ## Creating API access tokens
 
-You can create an API access token from the **Account settings** page.
+You can create an API access token from the **Account settings** page, on the **Authorization** tab.
 
 By default, the tokens you create on the **Account settings** page are personal tokens. You can choose to create a service token instead during the token creation workflow.
 
@@ -112,39 +112,46 @@ Your API access token is visible one time, immediately after you create it. If y
 </CalloutDescription>
 </Callout>
 
-Here is a screenshot of the Access tokens page:
+Here is a screenshot of the "Access tokens" section of the **Authorization** tab:
 
-![The Access tokens page with an obscured access token called out.](settings-access-tokens-obscured-callout.png)
+![The "Access tokens" section of the "Authorization" tab, with an obscured access token called out.](settings-access-tokens-obscured-callout.png)
 
 To create an access token:
 
 1. Navigate to the **Account settings** page.
 2. Click into the **Authorization** tab.
-3. Click **Create token**. The **Create an access token** screen appears:
+3. Click **Create token**. The "Create an access token" panel appears:
 
-![The Create an access token screen.](settings-access-tokens-create-callout.png)
+![The "Access tokens" section with the "Create token" button called out.](settings-access-tokens-create-callout.png)
 
 4. Give your token a human-readable **Name**.
-5. Assign a **Role** to the token by choosing one from the dropdown.
-6. (Optional) Select the "This is a service token" checkbox if you wish to create a service token. This feature is only available to customers on Enterprise plans:
+5. Assign a **Role** to the token by choosing one from the menu.
+6. (Optional) Select the **This is a service token** checkbox if you wish to create a service token. This feature is only available to customers on Enterprise plans:
 
-![The create an access token screen with the service token checkbox called out.](settings-access-tokens-service-checkbox-callout.png)
+![The "Create an access token" panel with the service token checkbox called out.](settings-access-tokens-service-checkbox-callout.png)
 
-7. Click **Save Token**. The new token appears in the **Authorization** page.
+7. Click **Save token**. The new token appears in the **Authorization** page.
 8. Copy and save the token somewhere secure. After you leave this page, the token is obscured:
 
 ![A new access token with a reminder to copy and store it displayed.](settings-access-tokens-notification.png)
 
-After you create a token, you can **Clone** or **Delete** it from the "Access tokens" screen.
+After you create a token, you can clone or delete it.
 
-* **Clone**: Clones the access token. This allows you to create multiple access tokens with the same set of permissions, rather than having to fill out each token's information in the "Create an access token" screen.
-* **Delete**: Deletes the access token. If you delete a token, API calls made with that token return `401 Unauthorized` status codes.
+To clone or delete an access token:
 
-Here is a screenshot of the access tokens screen:
+1. Navigate to the **Account settings** page.
+2. Click into the **Authorization** tab.
+3. Find your token in the "Access tokens" section.
+4. Click the **overflow menu** for the token and select from the menu:
 
-![A new access token with the Clone and Delete buttons called out.](settings-access-tokens-clone-delete-callout.png)
+  * "Clone token": Clones the access token. This allows you to create multiple access tokens with the same set of permissions, rather than having to fill out each token's information in the "Create an access token" panel.
+  * "Delete token": Deletes the access token. If you delete a token, API calls made with that token return `401 Unauthorized` status codes.
 
-You can also manage existing tokens from the **Authorizations** tab. From that tab, you can reset the secret values of your tokens, or delete them. You may also adjust the scope of your personal tokens.
+Here is a screenshot of the clone and delete options:
+
+![A new access token with the "Clone token" and "Delete token" options called out.](settings-access-tokens-clone-delete-callout.png)
+
+You can also manage existing tokens from the **Authorizations** tab. You can reset the secret values of your tokens, or adjust the scope of your personal tokens.
 
 <Callout intent="alert">
 <CalloutTitle>Rotate your tokens regularly</CalloutTitle>

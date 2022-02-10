@@ -55,13 +55,13 @@ documentation](https://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHT
 
 To configure LaunchDarkly to start sending events to Splunk:
 
-1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) and find  "Splunk."
+1. Navigate to the [**Integrations**](https://app.launchdarkly.com/default/integrations) page and find "Splunk."
 
 ![The "Splunk" section, showing the "Add integration" button.](splunk-add-integration.png)
 
 2. Click **Add integration**. The "Create Splunk configuration" panel appears.
 
-![The Splunk integration configuration screen.](splunk-integration-panel.png)
+![The "Create Splunk configuration" panel.](splunk-integration-panel.png)
 
 3. (Optional) Give the integration a human-readable **Name**.
 
@@ -94,7 +94,7 @@ By default, the Splunk integration sends production flag change events to
 Splunk. You can customize those events with the Policy editor, using the same
 language and construction as if you were creating a custom role.
 
-To learn more, read [Custom Roles ](/home/team).
+To learn more, read [Custom Roles](/home/members/custom-roles).
 
 You can customize the events LaunchDarkly sends to Splunk by using the policy
 editor in the Splunk configuration panel:
@@ -126,8 +126,7 @@ sourcetype="<NAME-OF-HTTP-EVENT-COLLECTOR>"
 After LaunchDarkly events start appearing in Splunk, you can create event
 annotations in your charts in order to show LaunchDarkly events in context.
 
-To
-learn more, read [Splunk's
+To learn more, read [Splunk's
 documentation](https://docs.splunk.com/Documentation/Splunk/latest/Viz/ChartEventAnnotations).
 
 ![LaunchDarkly events as annotations in Splunk
@@ -160,8 +159,7 @@ curl -k \
 * Self-service Splunk Cloud URLs format: `<protocol>://input-<host>:<port>/<endpoint>`.
 * Managed Splunk Cloud URLs format: `<protocol>://http-inputs-<host>:<port>/<endpoint>`.
 
-To learn more,
-[read Splunk's documentation](https://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHTTPEventCollector#Send_data_to_HTTP_Event_Collector).
+To learn more, [read Splunk's documentation](https://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHTTPEventCollector#Send_data_to_HTTP_Event_Collector).
 
 In Splunk, confirm that your **HEC Global Settings** as and your specific
 HEC are set to 'Enabled' and that the **Default Index** type on your token is 'main'.

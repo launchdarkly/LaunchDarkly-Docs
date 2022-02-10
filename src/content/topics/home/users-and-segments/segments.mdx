@@ -11,7 +11,7 @@ This topic explains how to build and manage user segments. User segments let you
 
 ## Understanding user segments
 
-User segments are lists of users that you can use to manage flag targeting behavior in bulk. You can include or exclude individual users from a segment based on user attributes. Use the **Segments** tab to create targeting rules and lists of users to manage flag targeting more efficiently.
+User segments are lists of users that you can use to manage flag targeting behavior in bulk. You can include or exclude individual users from a segment based on user attributes. Use the **Segments** dashboard to create targeting rules and lists of users to manage flag targeting more efficiently.
 
 Segments are useful for keeping groups of users, like `beta-users` or `enterprise-customers`, up to date. They allow you to more quickly turn features on or off for certain groups with confidence.
 
@@ -27,38 +27,39 @@ Creating a segment is similar to creating a flag.
 To add a new segment:
 
 1. Navigate to the **Segments** dashboard.
-2. Click **New Segment**. The "Create a segment" screen appears:
+2. Click **Create segment**. The "Create a segment" panel appears:
 
-![The Segments tab with the New Segment button called out.](segments-new-callout.png)
+![The "Segments" tab with the "Create segment" button called out.](segments-new-callout.png)
 
 
 3. Give your segment a human-readable **Name**.
 4. Enter a **Key** for the segment. This field auto-populates based on the segment name, but you can change it if you need to.
 5. (Optional) Add a **Description**.
-6. (Optional) Choose **Tags** from the dropdown menu.
-7. Click **Save Segment**. The Segment targeting screen appears:
+6. (Optional) Choose **Tags** from the menu.
+7. Click **Save segment**. The Segment's **Targeting** tab appears:
 
-![The "Create a segment" screen.](segments-create.png)
+![The "Create a segment" panel.](segments-create.png)
 
 
 ## Customizing a user segment
 
-You can customize a segment to apply to different users or attributes, or exclude users and attributes, in the segment's targeting screen. Segment targeting rules function the same way as flag targeting rules. To learn more, read [Targeting users](/home/flags/targeting-users).
+You can customize a segment to apply to different users or attributes, or exclude users and attributes, in the segment's **Targeting** tab. Segment targeting rules function the same way as flag targeting rules. To learn more, read [Targeting users](/home/flags/targeting-users).
 
 To customize a segment:
 
-1. Navigate to the user segment you wish to modify.
+1. Navigate to the **Targeting** tab of the user segment you wish to modify.
 2. Target individual users, or lists of users, with the **Included users** or **Excluded users** options.
-3. Click **Add rules** to create a custom rule for this segment. The custom rule menu appears:
+3. Click **+ Add rules** to create a custom rule for this segment. The custom rule menu appears:
 
-![A user segment screen with the "Add rules" button called out.](segments-add-rules-callout.png)
+![A user segment with the "Add rules" button called out.](segments-add-rules-callout.png)
 
-4. Specify an **attribute**, **operator**, and **values** for the rule.
+4. Specify an **attribute**, an **operator**, and **values** for the rule.
 5. If you want to add more criteria, click the **plus button** beside the rule criteria:
 
-![The custom rule menu.](segments-user-include-dropdown.png)
+![The custom rule menu.](segments-user-include-menu.png)
 
-6. When you are done configuring a rule, click **Save Changes**.
+6. Choose a variation from the **Serve** menu.
+7. Click **Save changes**.
 
 <Callout intent="info">
 <CalloutTitle>Understanding segment rule logic</CalloutTitle>
@@ -82,40 +83,26 @@ Scheduling removal dates is available to customers on an Enterprise plan. To lea
 </CalloutDescription>
 </Callout>
 
-You can schedule a date and time on which a user is removed from a segment.
-
-By doing this, you can specify a future date and time after which the user will no longer be a member of that segment. You can do this for existing users, or when you create a new one.
+You can schedule a date and time on which LaunchDarkly removes a user from a segment. You can do this for existing users, or when you create a new one.
 
 This is useful if you want to give users temporary access to a feature that has their segment targeted. The ability to remove users from segments, instead of flag targeting, allows you to keep your flag's targeting rules permanent and clean.
 
 To set a targeting removal date:
 
 1. Navigate to the **Segments** dashboard and choose the segment you wish to modify.
-2. In the "Included users" field, click the user you wish to remove from the segment:
+2. In the **Included users** field, click the user you wish to remove from the segment:
 
-![The "Target individual users" screen](segments-remove-user-on.png)
+![The "Target individual users" section.](segments-remove-user-on.png)
 
-3. In the "Remove user on" section, click to expand a calendar view:
+3. In the "Remove user on" section, click "never" to expand a calendar view:
 
 ![The removal scheduling calendar.](segments-schedule-calendar.png)
 
 4. Set a date and time for the user to be removed from the segment.
 5. Click **Apply**.
-* If approvals are not required, the user is now scheduled for removal on the date and time you specified.
-* If approvals are required for scheduled removal dates, click the **Request Approval** button in the upper right.
+6. Click **Save changes**.
 
-The Request Approval screen appears:
-
-![The request approval screen.](approvals-request-schedule-removal.png)
-
-6. Enter a **Description** to add context that helps your reviewers understand the changes you made.
-7. (Optional) If necessary, you can edit your flag changes by clicking the **Edit** button.
-8. Choose one or more reviewers from the **Reviewers** dropdown.
-9. Click **Request approval**.
-
-The people you chose from the dropdown each receive an email asking them to approve your flag changes. The flag's **Targeting** page also updates with an icon to indicate that there are pending changes waiting for review.
-
-Additionally, when you add a user to a segment, you can schedule them for removal later by clicking **Add + Schedule Removal**.
+Additionally, when you add a user to a segment, you can schedule them for removal later by clicking **Add + schedule removal**.
 
 Here is an image of the user targeting field:
 

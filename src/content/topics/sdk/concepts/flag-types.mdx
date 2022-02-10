@@ -101,7 +101,7 @@ Our strongly-typed SDKs are:
 
 Strongly-typed SDKs must call the correct evaluation method for the flag type they use. For example, strongly-typed SDKs won't convert a boolean `true` to a string "true".
 
-If the evaluation method does not match the flag type, then the SDK will proceed as if the result is a variation index of "undefined". The evaluation reason will have a `kind` of `ERROR` and an `errorKind` of `WRONG_TYPE`.
+If the evaluation method does not match the flag type, then the SDK will proceed as if the result is a variation index of "undefined." The evaluation reason will have a `kind` of `ERROR` and an `errorKind` of `WRONG_TYPE`.
 
 Other LaunchDarkly SDKs are not strongly-typed. They have just one `variation` method for all types of values.
 

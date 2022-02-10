@@ -13,7 +13,7 @@ This topic explains what user attributes are, how they impact what you see in La
 
 Users are people, services, machines, or other resources that encounter feature flags in your app. Any identifier that uniquely corresponds to a target can be designated as a user.
 
-A more precise way to refer to one user is as a _user object_. A user object is a collection of a user's built-in and custom user attributes, identified by a user key.
+A more precise way to refer to one user is as a "user object." A user object is a collection of a user's built-in and custom user attributes, identified by a user key.
 
 LaunchDarkly provides built-in attribute fields for you to fill in, but the SDK does not automatically collect any information. The exceptions to this are the `os` and `device` attributes used by mobile SDKs. If you want to target your users based on any other built-in attributes, you must supply their values.
 
@@ -68,7 +68,7 @@ All built-in user attributes are strings with the exception of `anonymous`:
         <code>avatar</code>
       </TableCell>
       <TableCell>"http://example.com/avatar.png"</TableCell>
-      <TableCell>This attribute must be an absolute URL to an avatar image for the user. The avatar appears on the Users page.</TableCell>
+      <TableCell>This attribute must be an absolute URL to an avatar image for the user. The avatar appears on the <strong>Users</strong> dashboard.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -123,12 +123,12 @@ You can view a user's attributes by clicking on the individual user from the [Us
 
 By default, all of the attributes in your user objects are sent to LaunchDarkly. This data lets LaunchDarkly calculate the current flag settings for users and powers the autocomplete functionality throughout the LaunchDarkly UI.
 
-Access user pages from the Users dashboard. To learn more, read [The Users dashboard](/home/users/users-dashboard).
+You can access user pages from the **Users** dashboard. To learn how, read [The Users dashboard](/home/users/users-dashboard).
 
 ![A user's page.](users-details.png)
 
 <Callout intent="alert">
-<CalloutTitle>The SDK does not use the attributes on the Users dashboard to evaluate flags</CalloutTitle>
+<CalloutTitle>The SDK does not use the attributes on the <strong>Users</strong> dashboard to evaluate flags</CalloutTitle>
 <CalloutDescription>
 
 The SDK only evaluates flags based on the user object you provide. The SDK does not use the attributes shown on the dashboard, and user attributes are not synchronized across SDK instances. You must provide all applicable user attributes for your targeting rules to apply correctly.
@@ -142,7 +142,7 @@ You may not want to send all attributes back to LaunchDarkly. The security or da
 
 For example, you may want to target customers by their personally identifying information (PII), such as their email address, without sending the email address to LaunchDarkly.
 
-LaunchDarkly's **private user attributes** feature lets you choose which attributes get sent back to LaunchDarkly without sacrificing the ability to target user segments. This lets you create targeting rules and segments based on the attributes without having to send sensitive data back to LaunchDarkly.
+LaunchDarkly's private user attributes let you choose which attributes get sent back to LaunchDarkly without sacrificing the ability to target user segments. This lets you create targeting rules and segments based on the attributes without having to send sensitive data back to LaunchDarkly.
 
 ### Configuring private attribute settings in your SDK
 
@@ -154,11 +154,11 @@ There are three different ways to configure private attributes:
 
 User keys cannot be marked private.
 
-If you initially mark an attribute as private, LaunchDarkly will continue to treat the attribute as private in subsequent evaluations as long as the user is on the dashboard, even if you later remove the "private" designation from the attribute. If you no longer want LaunchDarkly to treat the attribute as private, remove the "private" designation, delete the user from the Users dashboard, and re-evaluate the user.
+If you initially mark an attribute as private, LaunchDarkly will continue to treat the attribute as private in subsequent evaluations as long as the user is on the dashboard, even if you later remove the "private" designation from the attribute. If you no longer want LaunchDarkly to treat the attribute as private, remove the "private" designation, delete the user from the **Users** dashboard, and re-evaluate the user.
 
-The Users dashboard indicates private attributes with a lock icon:
+The dashboard indicates private attributes with a lock icon:
 
-![The Users dashboard with a private attribute called out.](users-private-attribute-callout.png)
+![The "Users" dashboard with a private attribute called out.](users-private-attribute-callout.png)
 
 To learn more about setting these configuration options, read your SDK's documentation.
 
@@ -166,7 +166,7 @@ To learn more about setting these configuration options, read your SDK's documen
 <CalloutTitle>Implications of using private attributes</CalloutTitle>
 <CalloutDescription>
 
-If a feature flag contains targeting rules that reference private attributes, the user page may not be able to calculate flag settings for your users. The Users page indicates when it is unable to calculate flag settings  because of private attributes. LaunchDarkly cannot perform autocomplete attributes you have made private.
+If a feature flag contains targeting rules that reference private attributes, the user page may not be able to calculate flag settings for your users. The user's page indicates when it is unable to calculate flag settings because of private attributes. LaunchDarkly cannot perform autocomplete attributes you have made private.
 
 </CalloutDescription>
 </Callout>
@@ -182,7 +182,7 @@ The value of a custom attribute can be of the following types:
 * string
 * array
 
-If you set the value of a custom attribute to a JSON object, it won't appear on your Users dashboard.
+If you set the value of a custom attribute to a JSON object, it won't appear on the **Users** dashboard.
 
 You can set custom attributes by configuring user objects within your SDK. To learn how, read [User configuration](/sdk/features/user-config).
 

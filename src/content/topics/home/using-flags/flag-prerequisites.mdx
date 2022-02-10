@@ -22,9 +22,9 @@ This topic explains how to use feature flag prerequisites to enable or disable f
 
 Prerequisites allow you to control feature dependencies in LaunchDarkly. You can make flags depend on other flags being enabled to take effect themselves, making them prerequisites to enable a feature. To meet a prerequisite, the prerequisite flag must be **On**, and the user must receive the variation you specify.
 
-You can manage prerequisites in the feature flag's Targeting tab:
+You can manage prerequisites in the feature flag's **Targeting** tab:
 
-![The flag's Targeting tab.](flag-targeting-prerequisite.png)
+![The flag's "Targeting" tab.](flag-targeting-prerequisite.png)
 
 
 In the example above, the "Pricing tier" flag is a prerequisite of the "Markdown List" flag. The "Markdown List" flag will not be evaluated for a user unless the "Pricing tier" flag is **On** and the user receives the `true` variation. If a user receives the `false` variation of the "Pricing tier" flag, LaunchDarkly does not consider the prerequisite met.
@@ -33,7 +33,7 @@ In the example above, the "Pricing tier" flag is a prerequisite of the "Markdown
 <CalloutTitle>Prerequisite flags must be on</CalloutTitle>
 <CalloutDescription>
 
-To meet a prerequisite, the prerequisite flag must be **On**. LaunchDarkly considers the prerequisite unfulfilled if the prerequisite flag is off, regardless of the value being served.
+To meet a prerequisite, the prerequisite flag must be **On**. LaunchDarkly considers the prerequisite unfulfilled if the prerequisite flag is **Off**, regardless of the value being served.
 
 </CalloutDescription>
 </Callout>

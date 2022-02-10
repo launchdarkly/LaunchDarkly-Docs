@@ -54,10 +54,10 @@ First, you must allow users in your Salesforce account to access the LaunchDarkl
 
 <!-- TODO: update link once we are published -->
 1. Install the LaunchDarkly Salesforce app from the [Salesforce AppExchange](https://appexchange.salesforce.com).
-2. In Salesforce, click **Setup** and type **Connected Apps** in the **Quick Find** search box on the top left corner of the screen.
+2. In Salesforce, click **Setup** and type "Connected apps" in the **Quick Find** search box on the top left corner of the screen.
 3. Choose **Manage Connected Apps**.
 4. Find the LaunchDarkly connected apps record and click **Edit**.
-5. In the **OAuth Policies** section, change the **Permitted Users** dropdown to **Admin approved users are pre-authorized**.
+5. In the **OAuth Policies** section, find the **Permitted Users** menu and select "Admin approved users are pre-authorized."
 6. Acknowledge the confirmation that appears.
 
 ![Changing the permitted users selection.](salesforce-oauth-policies.png)
@@ -77,7 +77,7 @@ This allows Salesforce users to access the LaunchDarkly Salesforce app.
 Next, you must configure the LaunchDarkly component to bring your flag data into the Salesforce "Record" page.
 
 1. In LaunchDarkly, create a new service token with a reader role. To learn more, read [Service tokens](/home/account-security/api-access-tokens#service-tokens).
-2. In Salesforce, click the **nine dots in a square** icon to open the app launcher.
+2. In Salesforce, click the **nine-dot icon** to open the app launcher.
 3. Search for and select **LaunchDarkly settings**.
 
 ![The search bar in the App Launcher.](salesforce-search-launchdarkly-settings.png)
@@ -85,12 +85,11 @@ Next, you must configure the LaunchDarkly component to bring your flag data into
 4. Click **Edit**. A text field appears.
 5. Enter your LaunchDarkly service token in the text field and click **Save**.
 
-
 ![A service token entered into the LaunchDarkly settings tab.](salesforce-launchdarkly-settings.png)
 
 
 6. Navigate to a record page for the object type you wish to embed the LaunchDarkly Salesforce app. Example object types include "Account" and "Case."
-7. Click the **nine dots in a square** icon and choose **Service**.
+7. Click the **nine-dot icon** and choose **Service**.
 8. Click **Case** and create a new case, or select an existing case to view.
 9. Click the **gear icon** and choose **Edit Page**.
 
@@ -111,7 +110,7 @@ Next, you must configure the LaunchDarkly component to bring your flag data into
 
 ## Using the LaunchDarkly Salesforce integration
 
-To get the best experience from the integration, we recommend configuring the **Tag** field to a tag in LaunchDarkly that has been applied to 15 or fewer feature flags. In some cases, it may be easier to set the **Tag** field to a new tag like `salesforce` or `customer-facing` and selectively add that tag to the feature flags of your choice in the LaunchDarkly dashboard.
+To get the best experience from the integration, we recommend configuring the **Tag** field to a tag in LaunchDarkly that has been applied to 15 or fewer feature flags. In some cases, it may be easier to set the **Tag** field to a new tag like `salesforce` or `customer-facing` and selectively add that tag to the feature flags of your choice in the flag dashboard.
 
 Be sure to notify your account members of how this tag is being used so they can accurately tag any relevant flags.
 

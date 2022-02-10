@@ -40,7 +40,7 @@ Each LaunchDarkly SDK is designed to have minimal impact on application performa
 Here's how the SDK interacts with your app:
 
 1. While the app starts, the SDK connects to LaunchDarkly and downloads the project's flags to an in-memory store. This network connection is held open while the app runs so that flag updates are received immediately.
-2. Once the app has finished initializing, the in-memory flag store is used for flag evaluation functions such as `variation`. These functions run instantly, with no need to wait for network input/output (I/O).
+2. After the app initializes, the in-memory flag store is used for flag evaluation functions such as `variation`. These functions run instantly, with no need to wait for network input/output (I/O).
 
 Most apps are architected with the expectation that initialization takes a small amount of the app's total runtime. Apps with serverless or containerized architectures may have different expectations.
 
@@ -155,9 +155,9 @@ Now that both the feature store and the store update function are ready, add a w
 
 After you set up the webhook, every configuration change made to the LaunchDarkly project's flags triggers an update in the cloud-hosted feature store.
 
-Here is an image of the Create a webhook screen:
+Here is an image of the "Create a webhook" panel:
 
-![Creation of a LaunchDarkly webhook which will send flag updates to a Lambda function.](../../lambda-webhook.png)
+![Creation of a LaunchDarkly webhook which sends flag updates to a Lambda function.](lambda-webhook.png)
 
 Finally, with the persistent feature store active and continuously updated, you can configure the app to use the feature store instead of connecting to LaunchDarkly's servers.
 

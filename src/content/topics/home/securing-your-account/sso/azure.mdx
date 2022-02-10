@@ -19,7 +19,7 @@ To integrate LaunchDarkly with Azure:
 2. Navigate to your Enterprise applications.
 3. Click **New application**:
 
-![The Azure Enterprise Applications page with "New application" called out.](azure-new-application.png)
+![The Azure "Enterprise Applications" page with "New application" called out.](azure-new-application.png)
 
 
 4. Search for the LaunchDarkly application.
@@ -29,8 +29,7 @@ To integrate LaunchDarkly with Azure:
 <CalloutTitle>Azure user identifier guidelines</CalloutTitle>
 <CalloutDescription>
 
-During configuration, we recommend using the identifier `user.mail` provided that every user has their email
-addresses attribute set. If you haven't set attributes for every user, use the identifier `user.userprincipalname`.
+During configuration, we recommend using the identifier `user.mail`, provided that every user has their email addresses attribute set. If you haven't set attributes for every user, use the identifier `user.userprincipalname`.
 
 </CalloutDescription>
 </Callout>
@@ -46,11 +45,11 @@ To set up `role` and `customRole` claims in Azure:
 1. Navigate to the User Attributes & Claims section.
 2. Click **Edit**.
 3. Click **Add new claim**.
-4. Enter `role` in the Name field.
-5. Leave the source as "Attribute".
-6. Choose a source attribute from the dropdown that is not currently mapped. In this example, we use `user.country`.
-7. Click save:
+4. Enter "role" in the **Name** field.
+5. Leave the source as "Attribute."
+6. Choose a source attribute from the menu that is not currently mapped. This example uses `user.country`.
+7. Click **Save**:
 
-![The Azure Manage Claim screen.](azure-manage-claim.png)
+![The Azure "Manage claim" screen.](azure-manage-claim.png)
 
-8. Repeat steps 1-7 with `customRole`, mapping to a different unused source attribute.
+8. Repeat steps 1-7 with "customRole", mapping to a different unused source attribute.

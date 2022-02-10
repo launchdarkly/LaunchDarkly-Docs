@@ -42,19 +42,19 @@ First you must configure a JSON template to use the LaunchDarkly trigger.
 To configure the template:
 
 1. Log in to New Relic One.
-2. Navigate to **Alerts & AI** and look for the **Notification Channels** section in the sidebar.
-3. In the **Notification Channels** section, click **+ New Notification Channel**.
+2. Navigate to "Alerts & AI" and find the "Notification Channels" section in the sidebar.
+3. In the "Notification Channels" section, click **+ New Notification Channel**.
 4. Select **Webhook** as the channel type.
-5. Paste the LaunchDarkly trigger URL into the **Base URL** field.
+5. Paste the LaunchDarkly trigger URL into the "Base URL" field.
 6. Click **Create Channel**.
 
 ### Connecting the webhook to a New Relic One policy
 
 After you create the webhook notification channel in New Relic One, you must connect it to a policy in order for the LaunchDarkly trigger to perform actions on the flag.
 
-1. Under **Alerts & AI**, navigate to **Policies**.
+1. Under "Alerts & AI", navigate to "Policies."
 2. Select the policy you wish to connect to the trigger.
-3. On the policy's **Notification channels** tab, add your newly-created webhook channel.
+3. On the policy's "Notification channels" tab, add your newly-created webhook channel.
 
 ## Testing the trigger configuration
 
@@ -64,6 +64,6 @@ To test the trigger:
 1. Navigate to the configuration for the webhook notification channel you set up in New Relic One.
 2. Click **Send a test notification** at the bottom of the page. A popup with a response code appears.
 3. Navigate back to the flag's **Settings** page in LaunchDarkly.
-4. Click on the **overflow** dropdown menu on your LaunchDarkly trigger to confirm that the execution count has incremented. Sending a test notification does not trigger the flag action, so don't worry that you might toggle a flag by testing the configuration.
+4. Click on the **overflow menu** on your LaunchDarkly trigger to confirm that the execution count has incremented. Sending a test notification does not trigger the flag action, so don't worry that you might toggle a flag by testing the configuration.
 
 That's it! When the conditions of your policy are met, your flag changes will now be performed.

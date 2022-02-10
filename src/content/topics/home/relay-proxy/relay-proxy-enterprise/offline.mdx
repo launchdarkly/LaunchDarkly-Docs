@@ -41,7 +41,7 @@ Enabling offline mode is a two-step process. These steps appear in detail below.
 
 You must:
 
-1. Create a Relay Proxy configuration in the [Relay Proxy section](https://app.launchdarkly.com/settings/relay) of the **Account Settings** page and save its unique key.
+1. Create a Relay Proxy configuration from the [**Relay proxy** tab](https://app.launchdarkly.com/settings/relay) of the **Account settings** page and save its unique key.
 2. Configure your Relay Proxy instance to use the unique key from the prior step. You may do so either as a property in your Relay Proxy configuration file or as an environment variable.
 
 <Callout intent="alert">
@@ -53,24 +53,24 @@ When you create a new Relay Proxy, LaunchDarkly assigns a unique key to it. You 
 </CalloutDescription>
 </Callout>
 
-Here's how to create a Relay Proxy configuration in the LaunchDarkly UI:
+Here's how to create a Relay Proxy configuration in the LaunchDarkly user interface:
 
-1. Navigate to the **Account Settings** page and click into the [**Relay Proxy** tab](https://app.launchdarkly.com/settings/relay):
+1. Navigate to the **Account settings** page and click into the [**Relay proxy** tab](https://app.launchdarkly.com/settings/relay):
 
-![The Relay Proxy tab on the Account Settings page.](account-settings-relay-proxy.png)
+![The "Relay proxy" tab on the "Account settings" page.](account-settings-relay-proxy.png)
 
-2. Click **Create configuration**. The Relay Proxy configuration screen appears.
+2. Click **Create configuration**. The "Create a Relay Proxy configuration" panel appears.
 3. Give the Relay Proxy a human-readable **Name**.
-4. Choose a **Rule** from the dropdown. This rule determines what content the Relay Proxy receives.
- * **All projects and environments** sends changes about all projects and environments to the Relay Proxy.
- * **Inline policy** allows you to specify which projects and environments you can track events for. To learn more, read [Writing an inline policy](/home/relay-proxy/automatic-configuration#writing-an-inline-policy).
+4. Choose a **Rule** from the menu. This rule determines what content the Relay Proxy receives.
+ * "All projects and environments" sends changes about all projects and environments to the Relay Proxy.
+ * "Inline policy" allows you to specify which projects and environments you can track events for. To learn more, read [Writing an inline policy](/home/relay-proxy/automatic-configuration#writing-an-inline-policy).
 
-![The Relay Proxy configuration screen with dropdown displayed.](relay-proxy-config-dropdown.png)
+![The "Create a Relay Proxy configuration" panel with the "Rule" menu displayed.](relay-proxy-config-menu.png)
 
-5. Click **Save configuration**. The Relay Proxy appears on the Relay Proxy tab of the Account Settings page with its key visible.
+5. Click **Save configuration**. The Relay Proxy appears on the **Relay proxy** tab of the **Account settings** page with its key visible.
 6. Copy and save the key somewhere secure:
 
-![The Relay Proxy screen with a newly created Relay Proxy. The key is displayed.](relay-proxy-key-displayed.png)
+![The "Relay proxy" tab with a newly created Relay Proxy. The key is displayed.](relay-proxy-key-displayed.png)
 
 Next, you must download all your flag rules and segments locally and tell the Relay Proxy where to find them. You do this by associating the file containing your flag rules with the Relay Proxy in a configuration file or with an environment variable.
 

@@ -17,11 +17,11 @@ In LaunchDarkly, you can enable MFA for your individual account, which requires 
 
 Administrators can also require all newly invited account members on the team to enable MFA when they first log in.
 
-We strongly recommend that all LaunchDarkly users enable MFA for their account, and that administrators enforce MFA for their entire team.
+We strongly recommend that all LaunchDarkly account members enable MFA for their account, and that administrators enforce MFA for their entire organization.
 
-Here is an image of the Multi-factor authentication screen:
+Here is an image of the "Multi-factor authentication" section:
 
-![The Enable MFA section of a user profile.](mfa.png)
+![The "Multi-factor authentication" section of the "Profile" tab.](mfa.png)
 
 ## Setting up MFA
 
@@ -29,18 +29,23 @@ Before you begin, install a compatible authenticator application on your mobile 
 
 To enable MFA for your account:
 
-1. Navigate to your [User Profile](https://app.launchdarkly.com/settings/profile) page.
-2. Click **Enable MFA**. A dialog with a QR code appears on your screen.
-3. Launch the authenticator application on your mobile device and hold the camera up to your screen to scan the code. When the QR code scans, a six-digit code appears on your mobile device.
-4. Enter the six-digit code from your authenticator application in the text box in LaunchDarkly:
+1. Click your account icon in the top right. A menu appears:
 
-![The Enable MFA screen, with an obscured six digit code.](mfa-qr.png)
+![The account menu, with "My profile" option called out.](account-menu-my-profile.png)
 
-5. Click "Continue". A confirmation screen with recovery codes appears:
+2. Click "My profile". Your profile page appears.
+  * Alternatively, you can access your profile page by navigating to **Account settings** and clicking the **Profile** tab.
+3. Click **Enable MFA**. A dialog with a QR code appears.
+4. Launch the authenticator application on your mobile device and hold the camera up to your screen to scan the code. When the QR code scans, a six-digit code appears on your mobile device.
+5. Enter the six-digit code from your authenticator application in the text box in LaunchDarkly:
 
-![The success screen, with obscured recovery codes displayed.](mfa-recovery-codes.png)
+![The "Enable multi-factor authentication" dialog with an obscured six digit code.](mfa-qr.png)
 
-6. Click **Complete**.
+6. Click **Continue**. A confirmation dialog with recovery codes appears:
+
+![The success dialog, with obscured recovery codes displayed.](mfa-recovery-codes.png)
+
+7. Click **Complete**.
 
 If you lose access to the mobile device with your MFA settings, you can use one of these recovery codes to access your account and reset your MFA settings.
 
@@ -65,13 +70,13 @@ Enter a valid passcode from your authenticator app within five minutes. If you d
 
 If you've lost access to your device or your authenticator application, click the link on the MFA login screen to log in with one of your recovery codes.
 
-When you use a recovery code, you'll be sent to your account profile page. When this happens, reset your MFA settings and generate new recovery codes immediately.
+When you use a recovery code, you'll be sent to your profile page. When this happens, reset your MFA settings and generate new recovery codes immediately.
 
 <Callout intent="alert">
 <CalloutTitle>Recovery codes are single-use</CalloutTitle>
 <CalloutDescription>
 
-Once you've logged in with a recovery code, reset your MFA settings immediately. You can only use recovery codes once, so every time you use one, you should generate new recovery codes and store them in a safe location as soon as possible. If you've lost your device **and** do not have access to any of your recovery codes, contact an administrator for your team's LaunchDarkly account. Your administrator can send you an email with a new recovery code.
+Once you've logged in with a recovery code, reset your MFA settings immediately. You can only use recovery codes once, so every time you use one, you should generate new recovery codes and store them in a safe location as soon as possible. If you've lost your device **and** do not have access to any of your recovery codes, contact an administrator for your organization's LaunchDarkly account. Your administrator can send you an email with a new recovery code.
 
 </CalloutDescription>
 </Callout>
@@ -87,10 +92,15 @@ To follow the procedures in the next section, you must be a LaunchDarkly Admin o
 </CalloutDescription>
 </Callout>
 
-To require multi-factor authentication, click the checkbox labeled **Require multi-factor authentication for new members** under **Multi-factor authentication** on your [Security](https://app.launchdarkly.com/settings/security) page.
+To require multi-factor authentication:
+
+1. Navigate to **Account settings**.
+2. Click the **Security** tab.
+3. In the "Multi-factor authentication" section, check the **Require multi-factor authentication for new members** checkbox.
+4. Click **Save**.
 
 When this setting is enabled, any new account members you invite must set up MFA for their account when they first log in. In addition, if this setting is enabled, account members cannot disable MFA for their account.
 
-Admins can also see whether account members have MFA enabled on the individual member's Settings page. If a user does not have MFA enabled, admins can send an email requesting that the account member enable MFA.
+Admins can also see whether account members have MFA enabled on the individual member's **Settings** page. If a member does not have MFA enabled, admins can send an email requesting that the account member enable MFA.
 
-Finally, if an account member with MFA enabled loses their device **and** no longer has access to their recovery code, administrators can send them an email with a new recovery code.
+Finally, if an account member with MFA enabled loses their device and no longer has access to their recovery code, administrators can send them an email with a new recovery code.

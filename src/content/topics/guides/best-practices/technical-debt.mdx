@@ -68,13 +68,13 @@ Cluttered code is harder to maintain and test. Unnecessary code remains because 
 
 Not only do you want to remove the references to the flag in your code, but you also don’t want to send evaluation settings for flags you don’t need. When you use features like Data Export to track the impact of your rollouts, your database may be overwhelmed with unnecessary event data. You don't want to transfer and store data on flags that should have been archived six months ago.
 
-Failure to remove flags clutters your LaunchDarkly dashboard, as well as your code. You can’t quickly find the flag you need to toggle. This may seem like a minor inconvenience, but if you need to quickly toggle a flag off, having to scroll through hundreds of flags adds time. But cluttered code and dashboards aren’t the only challenges.
+Failure to remove flags clutters your flag dashboard, as well as your code. You can’t quickly find the flag you need to toggle. This may seem like a minor inconvenience, but if you need to quickly toggle a flag off, having to scroll through hundreds of flags adds time. But cluttered code and dashboards aren’t the only challenges.
 
 You also run the risk of an old flag evaluating to a state that is invalid or undesirable.  When you’re rolling out a new change such as an updated UI, it is common to keep the default version to the current UI  until you have confidence in the new one. Once 100% of users have the new UI, the flag has reached the end of its lifecycle and should be archived. Failure to do this runs the risk of falling back to the undesired old UI if a flag gets turned off or an SDK failure results in using the fallback value. Speaking of fallback values, test the fallback values of permanent flags periodically, to ensure they are up to date and delivering valid states.
 
 ## Understanding the flag's lifecycle
 
-The LaunchDarkly dashboard provides the status of every flag and when it was last evaluated. Statuses include:
+The flag dashboard provides the status of every flag and when it was last evaluated. Statuses include:
 
 - **New/Never Requested**: This flag has not yet been evaluated. This status most commonly appears for newly created flags.
 - **Active**: LaunchDarkly is currently receiving requests for the flag using your production SDK.
@@ -122,7 +122,7 @@ For example, you launch a new dashboard with three widgets. To manage them, crea
 
 LaunchDarkly provides the option to archive or delete a flag. The LaunchDarkly SDKs consider archived flags “gone.” When you archive a flag as opposed to deleting it, the flag's history remains in your LaunchDarkly project. If you delete it, all references to the flag, including the history, are deleted from LaunchDarkly.
 
-Our flag archive process lets you confidently remove flags and help you reduce technical debt. When you select a flag to archive, the panel walks you through the archiving process.
+Our flag archive process lets you confidently remove flags and help you reduce technical debt. When you select a flag to archive, the panel takes you through the archiving process.
 
 To learn more, read [Archiving and deleting flags](/home/code/flag-archive).
 
@@ -147,20 +147,20 @@ You may also want to filter for flags `maintained by me` to reduce the results t
 
 Here is an image of a flag filter:
 
-![The flags filter "Maintainer is me".](../../../maintained-by-me.png)
+![The flags filter "Maintainer is me."](maintained-by-me.png)
 
 For temporary flags, filter your flags by status:
 
-1. Navigate to the feature flags dashboard and click **Filter**.
-2. Choose **Status** from the “Add a filter to refine your search” dropdown:
+1. Navigate to the feature flag dashboard and click **Filter**.
+2. Choose "Status" from the **Add a filter to refine your search** menu:
 
-![The flags filter "Status".](../../../filter-by-status.png)
+![The filter menu, with "Status" highlighted.](filter-by-status.png)
 
-3. Select a status of "Launched" *or* "Inactive."
+3. Select a status of "Launched" or "Inactive."
 4. Archive the flags you no longer need. Be sure to only archive temporary flags, not permanent ones.
 6. Repeat steps 3 and 4 for the status you did not filter by the first time:
 
-![The "Change filter" dropdown.](../../../change-filter.png)
+![Changing the filtered "Status" to "Inactive."](change-filter.png)
 
 During these review cycles, you should also review any permanent flags to
 determine that they are still necessary. As features

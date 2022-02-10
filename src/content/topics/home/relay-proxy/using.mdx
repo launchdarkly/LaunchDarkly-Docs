@@ -64,7 +64,7 @@ Error messages on initialization, including messages saying an environment was n
 3. In the LaunchDarkly UI, change the value of a feature flag so you will see a different variation in production.
 4. Verify in your application that the flag value has changed.
 
-Alternatively, you can validate your Relay Proxy with `curl`. Note that you need to specify your Relay Proxy base URL, SDK key, and user details in the command:
+Alternatively, you can validate your Relay Proxy with `curl`. Note that you need to specify your Relay Proxy base URI, SDK key, and user details in the command:
 
 <CodeTabs
   defaultValue="relay"
@@ -148,32 +148,23 @@ In some cases, you may want to pass relay traffic through a proxy when it commun
 
 If you include the `HTTPS_PROXY` environment variable in your configuration, the SDK will proxy all network requests through the URL you provide. Configuration instructions for Mac, Linux, and Windows systems appear below.
 
-Set the `HTTPS_PROXY` environment variable on Mac/Linux systems:
+To set the `HTTPS_PROXY` environment variable:
 
 <CodeTabs
-  defaultValue="relay"
+  defaultValue="mac-linux"
   values={[
-    { label: 'Mac and Linux configuration', value: 'relay', },
+    { label: 'Mac and Linux configuration', value: 'mac-linux', },
+    { label: 'Windows configuration', value: 'windows', },
   ]
 }>
-<CodeTabItem value="relay">
+<CodeTabItem value="mac-linux">
 
 ```bash
 export HTTPS_PROXY=https://web-proxy.domain.com:8080
 ```
 
 </CodeTabItem>
-</CodeTabs>
-
-Set the `HTTPS_PROXY` environment variable on Windows systems:
-
-<CodeTabs
-  defaultValue="relay"
-  values={[
-    { label: 'Windows configuration', value: 'relay', },
-  ]
-}>
-<CodeTabItem value="relay">
+<CodeTabItem value="windows">
 
 ```bash
 set HTTPS_PROXY=https://web-proxy.domain.com:8080

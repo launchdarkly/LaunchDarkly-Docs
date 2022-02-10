@@ -11,7 +11,7 @@ This topic explains how to send custom events using the track feature in your SD
 
 ## Tracking events
 
-The track feature lets you record actions your users take in your application as events. You can connect these events to metrics in A/B tests or experiments in the LaunchDarkly dashboard.
+The track feature lets you record actions your users take in your application as events. You can connect these events to metrics in A/B tests or experiments in the flag dashboard.
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 
@@ -134,7 +134,7 @@ client.track('my-custom-event-key', { customProperty: someValue });
 </CodeTabItem>
 </CodeTabs>
 
-You can completely disable event sending by setting `sendEvents` to `false` in the client options, but be aware that this means you will not have user data on your LaunchDarkly dashboard.
+You can completely disable event sending by setting `sendEvents` to `false` in the client options, but be aware that this means not all user data will appear on the flag dashboard.
 
 ### Flutter
 
@@ -286,7 +286,7 @@ client.track('your-event-name', { customProperty: someValue });
 
 If you [define click or pageview metrics](/home/experimentation) in LaunchDarkly, they are sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or pageview goals. The SDK will generate pageview events correctly regardless of how the URL is changed, such as by the HTML5 history API, by changing the URL hash fragment, etc.
 
-You can completely disable event sending by setting `sendEvents` to `false` in the client options, but this means you will not have user data on your LaunchDarkly dashboard.
+You can completely disable event sending by setting `sendEvents` to `false` in the client options, but this means not all data will appear on the flag dashboard.
 
 <Callout intent="info">
 <CalloutTitle>Do Not Track and ad blocking software</CalloutTitle>

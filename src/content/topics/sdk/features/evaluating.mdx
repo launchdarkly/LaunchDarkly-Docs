@@ -159,7 +159,7 @@ if (showFeature)  {
 </CodeTabItem>
 </CodeTabs>
 
-The return value of `variation` is always either one of the variations you defined for your flag in the LaunchDarkly dashboard, or the default value. The default value is the second parameter to `variation`. It is what the client uses if it's not possible to evaluate the flag. For example, the default value returns if the flag key does not exist, or if something about the definition of the flag is invalid.
+The return value of `variation` is always either one of the variations you defined for your flag in the flag dashboard, or the default value. The default value is the second parameter to `variation`. It is what the client uses if it's not possible to evaluate the flag. For example, the default value returns if the flag key does not exist, or if something about the definition of the flag is invalid.
 
 You can also fetch all flags for the current user.
 
@@ -435,9 +435,9 @@ The functions take an `LDUser`, feature flag key, and a default value. The defau
 <CalloutTitle>Apex variation methods do not automatically add users to the dashboard</CalloutTitle>
 <CalloutDescription>
 
-Variation methods like `boolVariation` or `stringVariation` do not automatically generate index events due to limitations with the Apex platform. This means that the SDK does not automatically populate the users dashboard.
+Variation methods like `boolVariation` or `stringVariation` do not automatically generate index events due to limitations with the Apex platform. This means that the SDK does not automatically populate the **Users** dashboard.
 
-We recommend calling `client.identify(user)` with each of your users to generate user indexing events and populate your users dashboard. To learn more, read [Identifying and changing users](/sdk/features/identify#apex).
+We recommend calling `client.identify(user)` with each of your users to generate user indexing events and populate your **Users** dashboard. To learn more, read [Identifying and changing users](/sdk/features/identify#apex).
 
 </CalloutDescription>
 </Callout>

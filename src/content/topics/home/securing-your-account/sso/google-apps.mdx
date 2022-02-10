@@ -72,7 +72,7 @@ To configure these fields:
 
 
 4. Select **Add Custom Category**.
-5. Name the custom category whatever you like. In the example below, we used **LaunchDarkly Attributes**.
+5. Name the custom category whatever you like. The example below uses **LaunchDarkly Attributes**.
 6. Add `role` and `customRoles` fields:
 
 ![The "LaunchDarkly Attributes" screen.](google-ld-attributes.png)
@@ -82,37 +82,36 @@ To configure these fields:
 <CalloutTitle>Allow multiple values for custom roles</CalloutTitle>
 <CalloutDescription>
 
-Set the "Multiple values" field for `customRoles` to **Yes**. Some users may have more than one custom role, which requires multiple values.
+Set the **Multiple values** field for `customRoles` to "Yes". Some account members may have more than one custom role, which requires multiple values.
 
 </CalloutDescription>
 </Callout>
 
-## Adding LaunchDarkly as a Custom SAML Application
+## Adding LaunchDarkly as a custom SAML application
 
 Next, you must add LaunchDarkly to your GSuite apps.
 
 To add LaunchDarkly:
 
-1. Navigate to **Apps** > **SAML Apps**.
-2. Click the plus button to **Add** an app.
-3. Select **Setup my own Custom App** to configure LaunchDarkly. The setup workflow initiates.
-4. In step 2 of the workflow, enter the information from the setup workflow into LaunchDarkly's **Security** tab under **Edit SAML Configuration**:
+1. Log into GSuite.
+2. Navigate to **Apps** > **SAML Apps**.
+3. Click the plus button to **Add** an app.
+4. Select **Setup my own Custom App** to configure LaunchDarkly. The setup workflow initiates.
+5. In step 2 of the workflow, copy the information from the setup workflow. You'll need to add this into LaunchDarkly's **Security** tab under **Edit SAML Configuration**:
 
 ![The Google IdP information window.](google-idp-info.png)
 
-
-5. In step 4 of the workflow, provide the **Assertion consumer service URL**, **entity ID **and **start URL** for your LaunchDarkly account. To find them, click **Edit your SAML configuration** on the LaunchDarkly **Security** tab:
-
-![LaunchDarkly's SAML Configuration screen.](settings-security-saml-config.png)
-
-
 6. In step 3, enter the name of the app.
-7. In step 4, enter LaunchDarkly’s service provider details as shown in the screenshot below:
+7. In step 4 of the workflow, provide the **Assertion consumer service URL**, **entity ID**, and **start URL** for your LaunchDarkly account:
 
 ![LaunchDarkly's service provider details.](google-ld-service-provider-details.png)
 
+   To find them, click **Edit your SAML configuration** on the LaunchDarkly **Security** tab:
 
-8. In step 5, map the LaunchDarkly attributes `firstName` and `lastName` to Google’s “Basic Information” fields of the same names. Map `role` and `customRole` to our LaunchDarkly attributes as shown below:
+![LaunchDarkly's SAML Configuration panel.](settings-security-saml-config.png)
+
+
+8. In step 5, map the LaunchDarkly attributes `firstName` and `lastName` to Google’s “Basic Information” fields "First Name" and "Last Name." Map the LaunchDarkly attributes `role` and `customRole` to Google's "LaunchDarkly Attributes" fields "Role" and "Custom Role". These mappings are shown below:
 
 ![The Attribute Mappings screen.](google-attribute-mapping.png)
 
@@ -130,17 +129,17 @@ You've successfully connected LaunchDarkly to GSuite.
 
 ## Assigning roles and custom roles with GSuite
 
-Now that the application is configured, you can assign roles to users.
+Now that the application is configured, you can assign roles.
 
 To assign roles:
 
 1. Log into GSuite.
 2. Navigate to **Directory** > **Users**.
-3. Click on the user that you want to assign roles to and choose **Account** to bring up the user's account settings.
+3. Click on the GSuite user that you want to assign roles to and choose **Account** to bring up the user's account settings.
 4. Click **Edit** beneath “Manage user attributes” to add the user’s role(s) to the corresponding attribute fields:
 
 ![The "Update User" screen.](google-update-user.png)
 
 5. Click **Update User.**
 
-The next time your user logs into LaunchDarkly through GSuite, their roles will update. If this is a brand new LaunchDarkly account member, an account will be created automatically with the roles you specified.
+The next time this user logs into LaunchDarkly through GSuite, their roles will update. If this is a brand new LaunchDarkly account member, an account will be created automatically with the roles you specified.

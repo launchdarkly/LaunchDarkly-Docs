@@ -25,7 +25,7 @@ Some SDKs let you configure users with private attributes. You can use private u
 
 ### Designating anonymous users
 
-Some SDKs let you designate anonymous users. Anonymous users don't appear on your Users page in the LaunchDarkly dashboard. You can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. If you use the same user key for every anonymous user, you also can't use percentage rollouts or Experimentation with anonymous users.
+Some SDKs let you designate anonymous users. Anonymous users don't appear on your Users page in the flag dashboard. You can't search for anonymous users on your Features page, and you can't search or autocomplete by anonymous user keys. If you use the same user key for every anonymous user, you also can't use percentage rollouts or Experimentation with anonymous users.
 
 In client-side SDKs, if you don't provide a user key or set it to null, and set `anonymous` to `true`, then the SDK generates a random user key for you.
 

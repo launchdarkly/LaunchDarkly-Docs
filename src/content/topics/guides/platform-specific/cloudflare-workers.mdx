@@ -289,7 +289,7 @@ Here's how to set up the integration:
  b. Workers KV Storage
  c. Edit
 
-![Cloudflare token permissions on the Create Custom Token screen.](CF-SDK-token-creation.png)
+![Cloudflare token permissions on the "Create Custom Token" screen.](CF-SDK-token-creation.png)
 
 10. Click **Continue to Summary** and then **Create Token**.
 11. Copy the token from the subsequent page and store it, as it will not be shown again.
@@ -307,7 +307,7 @@ Next, you'll set up the integration in the LaunchDarkly dashboard.
 
 Here's how to set up the integration in LaunchDarkly:
 
-1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations/) and search for "Cloudflare".
+1. Navigate to the [**Integrations**](https://app.launchdarkly.com/default/integrations/) page and search for "Cloudflare".
 2. Click **Add integration**. A form requesting the following details appears:
 
  - **Name**: This is optional, but is useful for determining which Worker namespace this is connected to when you have multiple connections.
@@ -316,7 +316,7 @@ Here's how to set up the integration in LaunchDarkly:
  - **KV Namespace ID**: The namespace ID for the KV connected to your Worker. If you also created a preview KV, you'll need a separate integration set up using the preview KV namespace ID as well.
  - **API token**: The Cloudflare API token you just created.
 
-![The LaunchDarkly Edit Cloudflare configuration screen.](CF-SDK-integration.png)
+![The LaunchDarkly "Edit Cloudflare configuration" panel.](CF-SDK-integration.png)
 
 3. Click **Save configuration**.
 
@@ -591,7 +591,7 @@ Here's how to replace the header text:
 
  To create a string flag in LaunchDarkly, choose the "String" option:
 
- ![The Create a feature flag screen with string flag options chosen.](CF-SDK-create-string-flag.png)
+ ![The "Create a feature flag" panel with string flag options chosen.](CF-SDK-create-string-flag.png)
 
 2. Create a function to handle asynchronously retrieving the flag values. You can reuse the LaunchDarkly client you created in the prior example, but you'll get flag values in multiple places, so it's simpler to create a new function.
 
@@ -762,7 +762,7 @@ customHeader.headers.forEach(header => {
 </CodeTabItem>
 </CodeTabs>
 
-As shown highlighted in the image below, when the flag is turned on, the user receives an `x-launchdarkly-hello` response header with the value of "Hello from LaunchDarkly".
+As shown highlighted in the image below, when the flag is turned on, the user receives an `x-launchdarkly-hello` response header with the value of "Hello from LaunchDarkly."
 
 ![Viewing custom response headers.](CF-SDK-custom-headers.png)
 

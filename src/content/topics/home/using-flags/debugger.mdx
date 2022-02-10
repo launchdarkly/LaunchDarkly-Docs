@@ -13,7 +13,7 @@ The debugger gives you real-time insight into the events your application is sen
 
 ## Using the debugger
 
-The debugger shows you a real-time stream of events arriving in LaunchDarkly from your app. When you first open the debugger, it connects to the event stream to show live events as they appear. Establishing the connection can take up to 30 seconds. In high-volume environments, you may see sampled events, rather than 100% of events.
+The debugger shows you a real-time stream of events arriving in LaunchDarkly from your app. To access the debugger, click **Debugger** from the sidebar. When you first open the debugger, it connects to the event stream to show live events as they appear. Establishing the connection can take up to 30 seconds. In high-volume environments, you may see sampled events, rather than 100% of events.
 
 <Callout intent="info">
 <CalloutTitle>The debugger must be visible to work</CalloutTitle>
@@ -26,16 +26,15 @@ The debugger does not display events when it is not the active tab in your brows
 
 ## Flag events
 
-The debugger displays evaluation counts and variation breakdowns for each flag evaluated since you opened the debugger. Click on a flag or select it from the dropdown to access individual event information.
+The debugger displays evaluation counts and variation breakdowns for each flag evaluated since you opened the debugger. Click on a flag or select it from the menu to access individual event information.
 
-Here is an image of the debugger:
+Here is an image of the **Flag events** tab in the debugger:
 
-![The debugger.](debugger-flag-events.png)
-
+![The debugger, showing flag events.](debugger-flag-events.png)
 
 Flag evaluation events display as a summary. This saves data load. To get detailed evaluation event information for a flag, select it and click **Debug**.
 
-This will temporarily enables detailed events for that flag, which appear as they are received. View additional information, including the user attributes used for evaluation, by clicking on an individual event.
+This temporarily enables detailed events for that flag. The events appear as they are received. View additional information, including the user attributes used for evaluation, by clicking on an individual event.
 
 <Callout intent="alert">
 <CalloutTitle>Older SDK versions send detailed events for every evaluation</CalloutTitle>
@@ -62,13 +61,13 @@ The minimum required version for each platform SDK to use summary events is:
 
 There are three types of user events:
 
-- **Identify** events are explicitly triggered by your application code
-- **Index** events are automatically triggered by the LaunchDarkly SDK based on flag evaluations
-- **Alias** events are triggered when your application calls the Alias SDK method, and when an anonymous user identifies as a non-anonymous user
+- **Identify** events are explicitly triggered by your application code.
+- **Index** events are automatically triggered by the LaunchDarkly SDK based on flag evaluations.
+- **Alias** events are triggered when your application calls the Alias SDK method, and when an anonymous user identifies as a non-anonymous user. To learn more, read [Aliasing users](/sdk/features/aliasing-users).
 
 Click on a user to see individual event information.
 
-Here is an image of user events in the debugger:
+Here is an image of the **User events** tab in the debugger:
 
 ![The debugger, showing user events.](debugger-user-events.png)
 
@@ -77,9 +76,9 @@ Here is an image of user events in the debugger:
 
 Experimentation events only display for customers who have Experimentation enabled. To learn more, read [Experimentation](/home/experimentation).
 
-Here is an image of the Experimentation events tab:
+Here is an image of the **Experimentation events** tab in the debugger:
 
-![The Experimentation events tab.](debugger-experimentation-events.png)
+![The debugger, showing Experimentation events.](debugger-experimentation-events.png)
 
 
 There are three types of experiment events:

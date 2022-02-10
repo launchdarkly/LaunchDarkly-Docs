@@ -32,7 +32,7 @@ When flags are evaluated, the SDK checks the database to get the latest flag sta
 
 The main reason to do this is to accelerate flag updates when your application has to restart, and after restarting, it takes longer to establish a connection to LaunchDarkly than you want. If you have a persistent feature store that has already been populated, the SDK can still evaluate flags using the last known flag state from the store until newer data is available from LaunchDarkly.
 
-To set up this configuration, most people create some kind of object for the specific type of database and put it in the client configuration's feature store property. For example, in PHP, this property is called the "feature requester".
+To set up this configuration, most people create some kind of object for the specific type of database and put it in the client configuration's feature store property. For example, in PHP, this property is called the "feature requester."
 
 To see code samples for specific SDKs, read [Storing data](/sdk/features/storing-data).
 

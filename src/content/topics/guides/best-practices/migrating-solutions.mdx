@@ -15,11 +15,11 @@ There are many reasons why your organization may be ready to migrate to LaunchDa
 - **It’s burdensome to maintain your own system:** The ongoing required maintenance of your system means your engineers are spending time on internal maintenance instead of working on the service your organization provides.
 - **Your projects need to scale:** Your system can’t support multiple, discrete projects, or doesn’t have the capacity to handle the variety of access permissions your teams and team members need.
 
-After you’ve decided to retire your old system, it’s time to begin planning your migration project, along with the challenges and opportunities it presents. We recommend careful planning as a preliminary step. 
+After you’ve decided to retire your old system, it’s time to begin planning your migration project, along with the challenges and opportunities it presents. We recommend careful planning as a preliminary step.
 
 Successful migrations commonly take place over several incremental steps, rather than all at once. Tracking and visibility into the process helps you and your teams ensure a smooth rollout, as will having a failsafe in place if problems occur. A gradual migration also reduces opportunities for error.
 
-To begin the process, divide your migration into three phases: 
+To begin the process, divide your migration into three phases:
 
 1. [Preparing for the migration](#preparing-for-the-migration): Determine what is needed for a successful migration, and how the migration will occur.
 2. [Migrating your flags](#migrating-your-flags): Recreate selected flags from the legacy system in LaunchDarkly, group by group.
@@ -47,7 +47,7 @@ To learn more, read [Projects](/home/organize/projects) and [Environments](/home
 
 ## Preparing for the migration
 
-Preparing for the migration may be the most important part of the process. 
+Preparing for the migration may be the most important part of the process.
 
 Here are the steps we recommend you take to prepare:
 
@@ -75,7 +75,7 @@ To learn more, read [Creating a flag naming scheme](/guides/best-practices/creat
 
 ### Planning your tags
 
-If you only have a handful of flags, it's not time-consuming to find a flag in LaunchDarkly. As your number of flags grows and more teams use feature flags, this becomes harder. Tags help you organize and sort flags into groups. For example, if you have flags related to experiments you can create an ‘experiments' tag. If you have flags for specific departments, you can create a tag with the department name. These tags can help you control which team members can read, write, or modify a flag. 
+If you only have a handful of flags, it's not time-consuming to find a flag in LaunchDarkly. As your number of flags grows and more teams use feature flags, this becomes harder. Tags help you organize and sort flags into groups. For example, if you have flags related to experiments you can create an ‘experiments' tag. If you have flags for specific departments, you can create a tag with the department name. These tags can help you control which team members can read, write, or modify a flag.
 
 Before migrating, brainstorm a list of relevant tags. You can always add more tags later. To learn more, read [Tags](/home/members/role-concepts#tags).
 
@@ -121,7 +121,7 @@ If you haven't been regularly archiving flags in your legacy solution, you may h
 
 Identify all permanent flags in your legacy system used by your pilot group. Ideally, you should leave all temporary flags in the legacy system. If a group as temporary flags in use, wait until those flags are no longer needed before migrating. Moving only permanent flags greatly reduces the flags you need to handle, and helps reduce your existing technical debt. To learn more how to classify flag types, read [Determining your flag's use case](/guides/best-practices/creating-flags#determining-your-flags-use-case).
 
-If possible, keep your flag keys the same between the legacy system and LaunchDarkly. If you change keys between systems, it can cause problems with your wrappers. However, you may have to update keys for flags that use characters not allowed by LaunchDarkly. LaunchDarkly flag key can contain only letters, numbers, periods (`.`), underscores (`_`), and dashes (`-`).
+If possible, keep your flag keys the same between the legacy system and LaunchDarkly. If you change keys between systems, it can cause problems with your wrappers. However, you may have to update keys for flags that use characters LaunchDarkly does not support. LaunchDarkly flag keys can contain only letters, numbers, periods (`.`), underscores (`_`), and dashes (`-`).
 
 It may be helpful to organize your flags into a spreadsheet to help you decide which flags to migrate and which to leave in your legacy system. Here is an example:
 
@@ -170,9 +170,9 @@ You could replace flags A and B in the legacy system with one multivariate flag 
 
 ### Recreating permanent flags in LaunchDarkly
 
-Follow the flag naming convention you created during your planning phase. Ideally, you will migrate a small number of flags and it will not be burdensome to create them manually. 
+Follow the flag naming convention you created during your planning phase. Ideally, you will migrate a small number of flags and it will not be burdensome to create them manually.
 
-You can use the LaunchDarkly API to preload all of your existing flags and targeting rules, but if you are migrating so many flags you need an automated process, consider whether you have eliminated legacy flags thoroughly enough. There may be more you can archive or delete. 
+You can use the LaunchDarkly API to preload all of your existing flags and targeting rules, but if you are migrating so many flags you need an automated process, consider whether you have eliminated legacy flags thoroughly enough. There may be more you can archive or delete.
 
 ### Comparing flags between systems
 
@@ -210,7 +210,7 @@ You likely use other third-party tools in your release process, such as applicat
 
 ### Preventing technical debt
 
-Accumulating technical debt with feature flags is unavoidable, but there are steps you can take to minimize it. 
+Accumulating technical debt with feature flags is unavoidable, but there are steps you can take to minimize it.
 
 First, define what done means when it comes to a feature. When you create a flag, what processes do you have in place for ensuring the flag is removed? Is a feature done when it rolls out to 100% of users, or is it done when the flag is removed from the code? Coding a flag is a two-part process: creating a flag and removing a flag. You shouldn’t consider these two separate processes. If you’re using Git to manage your work, we recommend submitting a pull request (PR) to remove the flag at the same time you submit the PR to add it.
 

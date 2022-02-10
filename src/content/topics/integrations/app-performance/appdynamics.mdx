@@ -38,37 +38,29 @@ To configure LaunchDarkly to start sending events to AppDynamics:
 
 ![The AppDynamics section of the Integrations page.](appdynamics-add-integration.png)
 
-2. Click **Add integration**. The integration configuration screen appears.
+2. Click **Add integration**. The "Create AppDynamics configuration" panel appears.
 
-![The AppDynamics integration configuration screen.](appdynamics-integration-panel.png)
+![The "Create AppDynamics configuration" panel.](appdynamics-integration-panel.png)
 
 3. Give the integration a human-readable **Name**.
-
-4. Click **Connect to AppDynamics** to authenticate in. A popup window opens.
+4. Click **Connect to AppDynamics** to authenticate in. A popup window appears.
 
 ![The AppDynamics OAuth2 popup window.](appdynamics-oauth.png)
 
 5. Enter your AppDynamics host URL. The format should resemble `https://example.saas.appdynamics.com`.
-
 6. Enter your AppDynamics client ID. Your client ID is the name of your newly created API client combined with your account name in the format `<apiClientName>@<accountName>`.
-
 7. Enter the Client Secret you received when you configured your [AppDynamics API client](https://docs.appdynamics.com/21.5/en/extend-appdynamics/appdynamics-apis/api-clients).
-
 8. Once you have successfully authenticated, return to the integrations page and enter your AppDynamics **Account name** in the configuration sidebar.
-
 9. Input your AppDynamics application ID or application name. The application name can be found on the "Applications" tab within AppDynamics.
-
 10. (Optional) Configure a custom policy to control which flag information LaunchDarkly sends to AppDynamics. To learn more, read [Adding custom policies to the AppDynamics integration](#adding-custom-policies-to-the-appdynamics-integration).
-
 11. After reading the Integration Terms and Conditions, check the **I have read and agree to the Integration Terms and Conditions** checkbox.
-
-12. Click **Save configuration**. The new integration appears on the Integrations page. It is switched **on** by default.
+12. Click **Save configuration**. The new integration appears on the Integrations page.
 
 Your AppDynamics application now receives events from LaunchDarkly.
 
 ### Adding custom policies to the AppDynamics integration
 
-LaunchDarkly sends all flag change events in the production environment to AppDynamics by default. To customize the events LaunchDarkly sends to AppDynamics, use the policy editor in the integration panel. To learn more about creating a policy, read [Example policies and templates](/home/members/example-policies).
+LaunchDarkly sends all flag change events in the production environment to AppDynamics by default. To customize the events LaunchDarkly sends to AppDynamics, use the policy editor in the configuration panel. To learn more about creating a policy, read [Example policies and templates](/home/members/example-policies).
 
 ![Policy editor](appdynamics-policy-editor.png)
 

@@ -20,9 +20,9 @@ To set up an mParticle destination in LaunchDarkly, you need:
 
 The key and secret are available in your mParticle account. Copy and save both strings. You'll need them to connect mParticle to LaunchDarkly.
 
-Here is an image of the mParticle API keys screen:
+Here is an image of the mParticle API keys dialog:
 
-![The mParticle API keys screen.](mparticle-api-keys.png)
+![The mParticle API keys dialog.](mparticle-api-keys.png)
 
 
 ## Creating the mParticle destination in LaunchDarkly
@@ -31,13 +31,13 @@ You can use the LaunchDarkly UI to create and modify destinations for Data Expor
 
 To create an mParticle destination in LaunchDarkly:
 
-1. Navigate to the **[Integrations page](https://app.launchdarkly.com/default/integrations)** and find "mParticle."
+1. Navigate to the **[Integrations](https://app.launchdarkly.com/default/integrations)** page and find "mParticle."
 
-![mParticle on the Integrations screen.](mparticle-add-destination.png)
+![mParticle on the "Integrations" page.](mparticle-add-destination.png)
 
 2. Click **Add integration.** The "Create a destination" panel appears.
-3. (Optional) Enter a Name for the destination.
-4. Select an Environment for this destination to receive events from.
+3. (Optional) Enter a **Name** for the destination.
+4. Select an **Environment** for this destination to receive events from.
 
 <Callout intent="alert">
 <CalloutTitle>Environment settings are permanent</CalloutTitle>
@@ -49,15 +49,15 @@ You cannot change an environment after you create the destination. If you wish t
 </Callout>
 
 5. Select an **mParticle Environment**.
-6. Enter your mParticle Server to Server Key in the "API key" field.
-7. Enter your mParticle Server to Server Secret in the "API secret" field:
+6. Enter your mParticle Server to Server Key in the **API key** field.
+7. Enter your mParticle Server to Server Secret in the **API secret** field:
 
-![The Create a destination screen.](mparticle-destination-create.png)
+![The "Create a destination" panel.](mparticle-destination-create.png)
 
 
-8. Select a **User identifier** type from the dropdown as shown below.
+8. Select a **User Identifier** type from the menu:
 
-![The User identifier dropdown.](mparticle-user-id.png)
+![The "User identifier" menu.](mparticle-user-id.png)
 
 
 <Callout intent="info">
@@ -73,27 +73,27 @@ To learn more about exported events, read [Schema reference](/home/data-export/s
 </CalloutDescription>
 </Callout>
 
-10. (Optional) Select an **Anonymous user identifier** type from the dropdown.
+10. (Optional) Select an **Anonymous user identifier** type from the menu.
 
  Anonymous user identifiers let you use an `alias` event to  connect two user IDs that represent the same person. To learn more about `alias` events, read [Associating anonymous users with logged in users](/home/users/anonymous-users#associating-anonymous-users-with-logged-in-users).
 
 11. Check the checkbox indicating you consent to the Integration Terms and Conditions.
-12. Click **Save Destination**.
+12. Click **Save destination**.
 
 The mParticle destination appears in the "Your data export destinations" section of the **Integrations** screen.
 
 ## Testing an mParticle destination
 
-After you create an mParticle destination for Data Export, you can confirm that it's working correctly in the "Create a destination screen."
+After you save the destination, send a test event to confirm that the destination is configured properly.
 
-To test the mParticle destination:
+To send a test event:
 
-1. Navigate to the **Integrations** screen.
-2. Find the mParticle destination and click **Edit**. The "Edit destination" screen opens.
-3. Set the **mParticle environment** to `development`. This allows the test event to appear in the events stream on the mParticle dashboard.
-4. Click **Send Event** in the "Send a test event" section:
+1. Navigate to the **Integrations** page and find "mParticle."
+2. Click into the "mParticle" section to display a list of destinations.
+3. Click the **edit** icon next to the destination you want to test. The "Edit destination" panel appears.
+4. In the "Send a test event" section, click **Send event**:
 
-![The Send a test event section.](mparticle-test-event.png)
+![The "Send a test event" section of the "Edit destination" panel.](mparticle-test-event.png)
 
 
 5. Verify the event appears on the mParticle events live stream.
@@ -255,8 +255,9 @@ You can delete a Data Export destination from the **Integrations** screen.
 
 To delete a destination:
 
-1. Navigate to the **Integrations** screen.
-2. Find the destination you wish to delete and click **Edit**. The "Create a destination" screen opens.
-3. Click **Delete Destination**:
+1. Navigate to the **Integrations** page and find "mParticle."
+2. Click into the "mParticle" section to display a list of destinations.
+2. Click the **edit** icon next to the destination you wish to delete. The "Edit destination" panel appears.
+3. Click **Delete destination**:
 
-![The Delete destination section.](destination-delete.png)
+![The "Delete destination" section of the "Edit destination" panel.](destination-delete.png)

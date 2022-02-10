@@ -31,9 +31,9 @@ Next, configure the Segment integration in LaunchDarkly. To do this, you need th
 
 To find the write key:
 
-1. Log into Segment and navigate to your project
-2. Navigate to **Sources** and select your LaunchDarkly source
-3. Select **API Keys** on the Source integration's menu bar
+1. Log into Segment and navigate to your project.
+2. Navigate to **Sources** and select your LaunchDarkly source.
+3. Select **API Keys** on the Source integration's menu bar.
 4. Copy the **Write Key** as shown in the text box:
 
 ![The API Keys section of Segment's UI.](integrations-segment-write-key.png)
@@ -43,11 +43,11 @@ To find the write key:
 
 To create the Segment destination:
 
-1. Navigate to the **[Integrations page](https://app.launchdarkly.com/default/integrations)** and find "Segment."
+1. Navigate to the **[Integrations](https://app.launchdarkly.com/default/integrations)** page and find "Segment."
 2. Click **Add integration.** The "Create a destination" panel appears.
-3. (Optional) Give your integration a human-readable Name.
-4. Choose an Environment for this integration to apply to.
-5. Enter the Segment Write key:
+3. (Optional) Give your integration a human-readable **Name**.
+4. Choose an **Environment** for this integration to apply to.
+5. Enter the Segment **Write key**:
 
 ![The "Create a destination" panel.](integrations-segment-create.png)
 
@@ -56,15 +56,16 @@ To create the Segment destination:
 
 ## Testing a Segment destination
 
-After you create a Segment destination for Data Export, you can confirm that it's working correctly in the "Edit destination screen."
+After you save the destination, send a test event to confirm that the destination is configured properly.
 
-To test the Segment destination:
+To send a test event:
 
-1. Navigate to the **Integrations** screen.
-2. Find the Segment destination and click **Edit**. The "Edit destination" screen opens.
-3. Click **Send Event** in the "Send a test event" section:
+1. Navigate to the **Integrations** page and find "Segment."
+2. Click into the "Segment" section to display a list of destinations.
+3. Click the **edit** icon next to the destination you want to test. The "Edit destination" panel appears.
+4. In the "Send a test event" section, click **Send event**:
 
-![The Send a test event section of the Edit destination screen.](integrations-segment-test-event.png)
+![The "Send a test event" section of the "Edit destination" panel.](integrations-segment-test-event.png)
 
 
 4. Verify the event appears in the Segment **Debugger**.
@@ -254,8 +255,9 @@ You can delete a Data Export destination from the **Integrations** screen.
 
 To delete a destination:
 
-1. Navigate to the **Integrations** screen.
-2. Find the destination you wish to delete and click **Edit**. The "Create a destination" screen opens.
-3. Click **Delete Destination**:
+1. Navigate to the **Integrations** page and find "Segment."
+2. Click into the "Segment" section to display a list of destinations.
+2. Click the **edit** icon next to the destination you wish to delete. The "Edit destination" panel appears.
+3. Click **Delete destination**:
 
-![The Delete destination section.](destination-delete.png)
+![The "Delete destination" section of the "Edit destination" panel.](destination-delete.png)

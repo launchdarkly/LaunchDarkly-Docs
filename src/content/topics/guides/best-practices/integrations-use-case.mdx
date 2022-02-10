@@ -122,15 +122,15 @@ Here is how to set up a circuit breaker to toggle a flag off when your HTTP erro
 3. Copy and save the unique trigger URL. You will need this URL to complete the next step. After you leave this page, the trigger URL will be obscured and you will not be able to view it again.
 4. In New Relic One, configure a notification channel to use the LaunchDarkly trigger you just created. Enter the unique trigger URL into the "Base Url" field.
 
-![The Notification channels screen.](integrations-use-cases-new-relic-notification.png)
+![The "Channel details" tab of the "Notification channels" screen.](integrations-use-cases-new-relic-notification.png)
 
 5. Create a policy and add alert conditions to the policy.
 
-![The Edit condition section on the Policies screen.](integrations-use-cases-new-relic-alert-condition.png)
+![The "Edit condition" section on the "Policies" screen.](integrations-use-cases-new-relic-alert-condition.png)
 
 6. Connect the webhook notification channel to the policy.
 
-![The Notification channel tab on the Policies screen.](integrations-use-cases-new-relic-policies.png)
+![The "Notification channel" tab on the "Policies" screen.](integrations-use-cases-new-relic-policies.png)
 
 Now when your HTTP response code 500 errors rise above a 2% threshold, New Relic One uses the flag trigger to toggle the flag off.
 
