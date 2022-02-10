@@ -70,7 +70,7 @@ Server-side rendered pages will reflect any changes on the next request. If a us
 
 ### Automating rebuilds
 
-You do not need to manually trigger a rebuild each time you make a flag change. Instead, you can use build hooks on your deployment platform to automate the process (for example, here's Netlify's [build hook documentation](https://docs.netlify.com/configure-builds/build-hooks/) or Vercel's [deploy hook documentation](https://vercel.com/docs/concepts/git/deploy-hooks)) with a combination of [tags](/home/members/role-tags) and [webhooks](/home/connecting/webhooks) on LaunchDarkly.
+You do not need to manually trigger a rebuild each time you make a flag change. Instead, you can use build hooks on your deployment platform to automate the process (for example, here's Netlify's [build hook documentation](https://docs.netlify.com/configure-builds/build-hooks/) or Vercel's [deploy hook documentation](https://vercel.com/docs/concepts/git/deploy-hooks) with a combination of [tags](/home/members/role-tags) and [webhooks](/home/connecting/webhooks) on LaunchDarkly.
 
 First, you must add a tag. You can add this when you create a new feature flag that will need to trigger a rebuild. For example, you can name the tag `build-impact`. You can name yours whatever you like but it's best to keep it descriptive and consistent. Use the same tag for all flags that need to trigger a rebuild.
 
