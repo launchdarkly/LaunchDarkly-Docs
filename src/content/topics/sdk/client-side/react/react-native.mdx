@@ -15,14 +15,12 @@ You can also use this SDK to clone and run a [sample application](https://github
 <CalloutTitle>SDK version compatibility</CalloutTitle>
 <CalloutDescription>
 
-The LaunchDarkly React Native SDK is compatible with Xcode 12 and React Native 0.64.
+The LaunchDarkly React Native SDK is compatible with Xcode 12.2 or higher and React Native 0.64 or higher.
 
 If you need support for earlier versions of React Native, use older versions of the LaunchDarkly React Native SDK. To learn more, read [Releases](https://github.com/launchdarkly/react-native-client-sdk/releases).
 
 </CalloutDescription>
 </Callout>
-
-To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/react-native-client-sdk/index.html#ldconfig).
 
 ## Getting Started
 
@@ -50,58 +48,16 @@ To add the LaunchDarkly npm dependency:
 <CodeTabItem value="js">
 
 ```bash
-npm install launchdarkly-react-native-client-sdk
-cd ios/
-pod install
+npm install --save launchdarkly-react-native-client-sdk
+npx pod-install
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-You must have a `Podfile` in your `ios/` directory. After you write the `Podfile`, run `pod install` in the `ios/` directory. This SDK requires Xcode 12 and compiles against Swift 5.
+You must have a `Podfile` in your `ios/` directory. After you write the `Podfile`, run `pod install` in the `ios/` directory. This SDK requires Xcode 12.2 or higher and compiles against Swift 5.
 
-<Callout intent="info">
-<CalloutTitle><code>use_frameworks!</code> and undefined symbols errors</CalloutTitle>
-<CalloutDescription>
-
-As of v2.1.0, <code>use_frameworks!</code> is not necessary in the Podfile. If you encounter an undefined symbols error when building without <code>use_frameworks!</code> in your <code>Podfile</code> you will need to create a new empty Swift file and accept the prompt to create a matching Objective-C bridging header. If you are building for multiple platforms, add those as targets for the bridging header. If you're still having trouble resolving the undefined symbols error, clean and rebuild and try again.
-
-</CalloutDescription>
-</Callout>
-
-Here is an example:
-
-<CodeTabs
-  defaultValue="podfile"
-  values={[
-    { label: 'Podfile', value: 'podfile', },
-  ]
-}>
-<CodeTabItem value="podfile">
-
-```ruby
-platform :ios, '10.0'
-require_relative '../node_modules/react-native/scripts/react_native_pods'
-require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
-
-target 'YOUR_MODULE_NAME' do
-  config = use_native_modules!
-
-  use_react_native!(
-    :path => config[:reactNativePath],
-    :hermes_enabled => false
-  )
-
-  post_install do |installer|
-    react_native_post_install(installer)
-  end
-end
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-After you have downloaded the SDK, saved it in `package.json`, and completed the other install steps, import the SDK into your project:
+After setting up the SDK, import the SDK into your project:
 
 <CodeTabs
   defaultValue="js"
