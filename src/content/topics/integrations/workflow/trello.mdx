@@ -1,0 +1,87 @@
+---
+path: '/integrations/trello'
+title: 'Trello'
+description: 'This topic explains how to use LaunchDarkly''s Trello integration to link your feature flags to Trello boards.'
+published: true
+---
+
+## Overview
+
+This topic explains how to use LaunchDarkly's Trello integration to link your feature flags to Trello boards. You can browse and attach feature flags, and, if you have flag edit permissions in LaunchDarkly, toggle flags on and off from within your Trello boards. This helps you minimize disruptions to your workflow processes.
+
+## Prerequisites
+
+To connect LaunchDarkly to Trello, you must have the following prerequisites:
+
+* A Trello account with at least one board.
+* A LaunchDarkly account with permission to view flags. To be able to toggle flags on and off from within Trello, you must also have permission to edit flags.
+
+The integration is initiated from your Trello account. After you connect it, you do not need to take further action in LaunchDarkly.
+
+## Setting up the Trello integration
+
+To set up the Trello integration, you first must connect a Trello board to LaunchDarkly, then authorize your boards to access LaunchDarkly.
+
+To connect a Trello board to LaunchDarkly:
+
+1. Log in to your [Trello account](https://trello.com/login).
+2. Navigate to the ["Power-Ups" screen](https://trello.com/power-ups).
+3. Search for "LaunchDarkly" in the **Find Power-Ups** search box. The "LaunchDarkly" integration appears as a search result:
+
+![The "Find Power-Up" search box with "LaunchDarkly" entered.](trello-power-up-search.png)
+
+4. Click **LaunchDarkly**. The LaunchDarkly Power-Up screen appears.
+5. Click **Add Power-Up**.
+6. Select the board you want to connect your LaunchDarkly account to:
+
+![The LaunchDarkly Power-Up screen with the "Two-click checkout project" board selected.](trello-power-up-connect.png)
+
+7. Click **Add**. A success screen appears.
+8. Click **Go to board**. You are returned to your Trello board.
+
+Your Trello board is now connected to LaunchDarkly. Repeat this process for each additional board you want to connect. 
+
+Next, you must authorize your boards to access LaunchDarkly. Authorizing access to LaunchDarkly in one board authorizes it for every board you have connected.
+
+To authorize your boards to access LaunchDarkly:
+
+1. Navigate to a Trello board connected to LaunchDarkly.
+2. Click **Power-Ups**. The "Power-Ups" screen appears.
+3. Under LaunchDarkly, click **Settings**. The "LaunchDarkly" dialog appears.
+4. Click **Authorize account**:
+
+![The "LaunchDarkly Authorization" dialog box.](trello-authorize-access.png)
+
+5. Click **Authorize Access To LaunchDarkly**. An authorization dialog appears.
+6. Click **Authorize**. You are returned to your Trello board.
+
+All of your connected Trello boards are now authorized to access LaunchDarkly.
+
+## Adding feature flags to Trello cards
+
+You can add feature flags to Trello cards within your board, which displays the status of the flag and, if you have flag edit permission in LaunchDarkly, lets you toggle the flag on or off. 
+
+There are two ways to add flags to Trello cards:
+- you can attach the URL of flags to cards, or 
+- you can add flags using the Trello card menu.
+
+To attach the URL of a flag to a card:
+
+1. In LaunchDarkly, open any tab of a feature flag. Copy the URL from your browser address bar.
+2. On your Trello card, click **Attachment**. An "Attach from..." menu appears.
+3. Paste the URL from step 1 into the **Attach a link** field.
+4. Click **Attach**.
+
+Your flag is now attached to the card. You can also drag and drop the flag URL directly from your browser window onto your Trello card. 
+
+To add a flag to a card using the Trello card menu:
+
+1. Open the card you want to add a flag to.
+2. Click **LaunchDarkly** in the "Power-Ups" section. A list of LaunchDarkly projects appears.
+3. Choose the project containing the flag you want to add. A list of flags within that project appears.
+4. Choose the flag you want to add to your card. The flag appears in your card for each environment within the project:
+
+![Feature flags in a Trello card.](trello-card-feature-flags.png)
+
+You can now view flags from your Trello card. If you have flag edit permissions in LaunchDarkly, you can also toggle flags on and off.
+

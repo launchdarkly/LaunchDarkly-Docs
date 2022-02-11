@@ -709,6 +709,10 @@
           {
             "label": "Tray",
             "path": "/integrations/tray"
+          },
+          {
+            "label": "Trello",
+            "path": "/integrations/trello"
           }
         ]
       },
