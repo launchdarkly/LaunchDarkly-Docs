@@ -77,7 +77,7 @@ In a percentage rollout, the deployment has already occurred and the release occ
 
 In LaunchDarkly, the users who get the new feature in a percentage rollout are randomly selected. After they get the new feature, they retain access to it as long as there is a way to identify them. This kind of sorting is best when your users must log in to use your product, or have accepted cookies.
 
-These releases are useful when you cannot run a beta program, or there is little variation in your targeted user base. If you run a small B2B application with the same 1,000 monthly active users, a percentage-based release is likely to give you an accurate estimate of whether the full rollout is likely to have positive or negative impact on your userbase.
+These releases are useful when you cannot run a beta program, or there is little variation in your targeted user base. If you run a small B2B application with the same 1,000 monthly active users, a percentage-based release is likely to give you an accurate estimate of whether the full rollout is likely to have positive or negative impact on your user base.
 
 You may want to automate percentage-based releases gradually by increasing the number of users receiving the new feature. You can terminate the release if there are too many errors or a response time exceeds a set threshold.
 
@@ -87,7 +87,7 @@ To learn more, read [Percentage rollouts](/home/flags/targeting-users#percentage
 
 ### Canary releases
 
-A canary release lets you test whether a feature release will have positive impact without affecting your whole userbase. Only a small number of your users see the new feature you release, and you can target by user or segment to determine who those users are.
+A canary release lets you test whether a feature release will have positive impact without affecting your whole user base. Only a small number of your users see the new feature you release, and you can target by user or segment to determine who those users are.
 
 Ensure that the small group in your canary release is representative of your overall users. For example, a canary release that only goes out to people with the latest phones may miss problems that occur on older versions of a phone's operating system.
 
@@ -129,7 +129,7 @@ The metrics you track will vary based on your business and objectives. Tracking 
 
 Deployment and release flags should not be a permanent part of your code. After a feature is fully released and stable, you can remove all the code associated with the feature flags that support the feature. This makes your code easier to read and understand, and eliminates the possibility of accidental deactivation of the feature.
 
-To help you know when a flag should be removed, LaunchDarkly has indicators on the flag dashboard that show whether a flagged feature is fully active. An active flag has been rolled out to 100% of your userbase, so it may be safe to remove it.
+To help you know when a flag should be removed, LaunchDarkly has indicators on the flag dashboard that show whether a flagged feature is fully active. An active flag has been rolled out to 100% of your user base, so it may be safe to remove it.
 
 To learn more, read [Flag status](/home/code/flag-status).
 

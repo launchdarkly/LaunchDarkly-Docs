@@ -133,7 +133,7 @@ This implementation has a bias toward the incumbent data store, which in this ex
 
 Now that you’ve wrapped your data access in feature flags, you can plan the rollout.
 
-You can leave the read flag (`events-db2-read`) turned off for everyone, and progressively roll out the write flag (`events-db2-write`) to your userbase. Watch performance metrics and error logs. If things perform as expected and you've verified the data is written correctly in `db2`, roll the flag out to more users, until all events are being written to both databases.
+You can leave the read flag (`events-db2-read`) turned off for everyone, and progressively roll out the write flag (`events-db2-write`) to your user base. Watch performance metrics and error logs. If things perform as expected and you've verified the data is written correctly in `db2`, roll the flag out to more users, until all events are being written to both databases.
 
 When you are happy with the write performance and have confirmed that the data in `db2` is correct, you can plan to migrate the missing data that's not yet in `db2`. This data was written before the `events-db2-write` flag was turned on. You can do this as a one-time copy with a script, ignoring any duplicate entries that came in after you enabled writes to `db2`. Make sure to do a final check on the resulting data in `db2`.
 
@@ -201,7 +201,7 @@ The techniques described in this guide are only some strategies for a fairly sim
 
 For example, your target data store may need to have a different schema, forcing your DAO to read and write that data differently. This is a likely scenario if you're moving from a document database to a relational database. In this case, your new DAO may require changes to the application that will also need to be flagged.
 
-Additionally, if you have corresponding mobile and desktop apps that need updated code to access the new data store, you must plan those migrations as well, since client-side apps are often not version-consistent across userbases. This may require shipping new versions of your mobile and desktop apps and waiting for your users to slowly upgrade to the new versions before attempting the migration.
+Additionally, if you have corresponding mobile and desktop apps that need updated code to access the new data store, you must plan those migrations as well, since client-side apps are often not version-consistent across user bases. This may require shipping new versions of your mobile and desktop apps and waiting for your users to slowly upgrade to the new versions before attempting the migration.
 
 There's no one-size-fits-all strategy for infrastructure migrations. This guide explores only a few strategies that can serve as a foundation to build on. Using feature flags for migration projects will increase your confidence, limit the risks, and allow you to make infrastructure migrations happen seamlessly.
 

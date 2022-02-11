@@ -231,8 +231,6 @@ unregistering
 unstarted
 untargeted
 unthrottled
-userbase
-userbases
 userprincipalname
 uthash
 variationdetail
