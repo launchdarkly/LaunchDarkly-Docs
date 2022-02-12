@@ -31,8 +31,10 @@ This feature is available in the following client-side SDKs:
 * [Flutter](#flutter)
 * [iOS](#ios)
 * [JavaScript](#javascript)
-* [Node.js](#nodejs-client-side)
+* [Node.js (client-side)](#nodejs-client-side)
 * [React](#javascript): The React SDK relies on the JavaScript SDK for user-related functionality.
+* [React Native](#react-native)
+* [Roku](#roku)
 
 ### .NET (client-side)
 
@@ -219,6 +221,48 @@ client.alias(newUser, previousUser);
 
 All user-related functionality provided by the [JavaScript SDK](#javascript) is also available in the React SDK.
 
+### React Native
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+client.alias(user, previousUser);
+
+// to send an alias event in a different environment than the default,
+// pass in the environment key (optional)
+client.alias(user, previousUser, environment);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Roku
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="brightscript"
+  values={[
+    { label: 'BrightScript', value: 'brightscript', },
+  ]
+}>
+<CodeTabItem value="brightscript">
+
+```brightscript
+client.alias(user, previousUser)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 ## Server-side SDKs
 
 This feature is available in the following server-side SDKs:
@@ -226,11 +270,13 @@ This feature is available in the following server-side SDKs:
 * [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
+* [Erlang](#erlang)
 * [Go](#go)
 * [Haskell](#haskell)
 * [Java](#java)
 * [Lua](#lua)
 * [Node.js (server-side)](#nodejs-server-side)
+* [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
 * [Rust](#rust)
@@ -292,6 +338,25 @@ LDClientAlias(client, newUser, previousUser);
 </CodeTabItem>
 </CodeTabs>
 
+### Erlang
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', },
+  ]
+}>
+<CodeTabItem value="erlang">
+
+```erlang
+ldclient:alias(User, PreviousUser)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 ### Go
 
 To manually send an alias event:
@@ -343,7 +408,7 @@ To manually send an alias event:
 <CodeTabItem value="java">
 
 ```java
-alias(user, previousUser);
+client.alias(user, previousUser);
 ```
 
 </CodeTabItem>
@@ -382,6 +447,25 @@ To manually send an alias event:
 
 ```js
 client.alias(newUser, previousUser);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### PHP
+
+To manually send an alias event:
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', },
+  ]
+}>
+<CodeTabItem value="php">
+
+```php
+$client->alias($user, $previousUser);
 ```
 
 </CodeTabItem>
