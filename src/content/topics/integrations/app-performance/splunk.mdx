@@ -6,49 +6,39 @@ published: true
 ---
 
 <Callout intent="primary">
-  <CalloutTitle>The Splunk integration is a Pro and Enterprise feature</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>The Splunk integration is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
 
 The Splunk integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Overview
 
-This topic explains how to use the LaunchDarkly [Splunk](https://www.splunk.com/) integration. The Splunk
-integration exports LaunchDarkly audit events when a LaunchDarkly resource you
-care about, such as feature flags, projects, or account members, changes. You can
-use these events to create reports, charts, alerts and dashboards in Splunk.
+This topic explains how to use the LaunchDarkly [Splunk](https://www.splunk.com/) integration. The Splunk integration exports LaunchDarkly audit events when a LaunchDarkly resource you care about, such as feature flags, projects, or account members, changes. You can use these events to create reports, charts, alerts and dashboards in Splunk.
 
 <Callout intent="info">
-  <CalloutTitle>This integration is for Splunk Enterprise and Splunk Cloud
-  (self-service and managed)</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>This integration is for Splunk Enterprise and Splunk Cloud (self-service and managed)</CalloutTitle>
+<CalloutDescription>
 
-Based on which type of Splunk account you have, endpoint hostnames, ports, and paths may differ from what's depicted in this topic. We'll indicate these differences when they occur in the text below.
+Based on which type of Splunk account you have, endpoint hostnames, ports, and paths may differ from what's depicted in this topic. We indicate these differences when they occur in the text below.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Prerequisites
 
-To configure the integration successfully, you must have the following
-prerequisites:
+To configure the integration, you must have the following prerequisites:
 
-* A Splunk HTTP Event Collector (HEC). To learn more, read [Setting up an HTTP
-Event Collector in Splunk
-Web](#setting-up-an-http-event-collector-in-splunk-web)
+* A Splunk HTTP Event Collector (HEC). To learn more, read [Setting up an HTTP Event Collector in Splunk Web](#setting-up-an-http-event-collector-in-splunk-web)
 * An HEC token, which is generated during HEC setup.
 
 ## Setting up an HTTP Event Collector in Splunk Web
 
-To add LaunchDarkly events to Slack, you must configure and enable Splunk's HTTP
-Event Collector (HEC) in Splunk Web.
+To add LaunchDarkly events to Slack, you must configure and enable Splunk's HTTP Event Collector (HEC) in Splunk Web.
 
-The steps to enable HEC vary based on your Splunk instance. To enable HEC, read
-[Splunk's
-documentation](https://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHTTPEventCollector).
+The steps to enable HEC vary based on your Splunk instance. To enable HEC, read [Splunk's documentation](https://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHTTPEventCollector).
 
 
 ## Configuring LaunchDarkly to work with Splunk
@@ -65,15 +55,11 @@ To configure LaunchDarkly to start sending events to Splunk:
 
 3. (Optional) Give the integration a human-readable **Name**.
 
-4. Paste the HTTP event collector URL into the **HTTP event collector base
-URL**. This URL varies based on which version of Splunk you have. To learn more
-about which URL format to use, read [Splunk's
-documentation](https://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHTTPEventCollector#Send_data_to_HTTP_Event_Collector).
+4. Paste the HTTP event collector URL into the **HTTP event collector base URL**. This URL varies based on which version of Splunk you have. To learn more about which URL format to use, read [Splunk's documentation](https://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHTTPEventCollector#Send_data_to_HTTP_Event_Collector).
 
 5. Paste your HEC token in the **Token** field.
 
-6. If you're using Splunk Cloud, you will probably need to check the **Skip certificate verification** checkbox. Splunk Cloud instances are deployed with self-signed SSL certificates which prevents LaunchDarkly's integration service from reaching Splunk Cloud's HEC
-service.
+6. If you're using Splunk Cloud, you will probably need to check the **Skip certificate verification** checkbox. Splunk Cloud instances are deployed with self-signed SSL certificates which prevents LaunchDarkly's integration service from reaching Splunk Cloud's HEC service.
 
 7. (Optional) Configure a custom policy to control which event information LaunchDarkly sends to Splunk. To learn more about this option, read [Adding custom policies to the Splunk integration](#adding-custom-policies-to-the-splunk-integration).
 
@@ -81,30 +67,23 @@ service.
 
 9. Click **Save configuration**.
 
-That's it! Splunk now receives events from LaunchDarkly.
+Splunk now receives events from LaunchDarkly.
 
-If you want to further modify the events that Splunk receives from LaunchDarkly,
-add custom policies to determine which events the integration should export. If after
-following these steps, you still are not able to locate LaunchDarkly events, see the
-[Troubleshooting](#troubleshooting) section for further guidance.
+If you want to further modify the events that Splunk receives from LaunchDarkly, add custom policies to determine which events the integration should export. If after following these steps, you still are not able to locate LaunchDarkly events, read the [Troubleshooting](#troubleshooting) section for further guidance.
 
 ### Adding custom policies to the Splunk integration
 
-By default, the Splunk integration sends production flag change events to
-Splunk. You can customize those events with the Policy editor, using the same
-language and construction as if you were creating a custom role.
+By default, the Splunk integration sends production flag change events to Splunk. You can customize those events with the Policy editor, using the same language and construction as if you were creating a custom role.
 
 To learn more, read [Custom Roles](/home/members/custom-roles).
 
-You can customize the events LaunchDarkly sends to Splunk by using the policy
-editor in the Splunk configuration panel:
+You can customize the events LaunchDarkly sends to Splunk by using the policy editor in the Splunk configuration panel:
 
 ![The policy editor.](splunk-policy-editor.png)
 
 ## Accessing LaunchDarkly events in Splunk
 
-Now that your integration is configured, you can see LaunchDarkly events in
-Splunk.
+Now that your integration is configured, you can view LaunchDarkly events in Splunk.
 
 Access those events with the following Splunk search query:
 
@@ -123,18 +102,15 @@ sourcetype="<NAME-OF-HTTP-EVENT-COLLECTOR>"
 
 ![LaunchDarkly events in Splunk](launchdarkly-in-splunk.png)
 
-After LaunchDarkly events start appearing in Splunk, you can create event
-annotations in your charts in order to show LaunchDarkly events in context.
+After LaunchDarkly events start appearing in Splunk, you can create event annotations in your charts in order to show LaunchDarkly events in context.
 
-To learn more, read [Splunk's
-documentation](https://docs.splunk.com/Documentation/Splunk/latest/Viz/ChartEventAnnotations).
+To learn more, read [Splunk's documentation](https://docs.splunk.com/Documentation/Splunk/latest/Viz/ChartEventAnnotations).
 
-![LaunchDarkly events as annotations in Splunk
-charts](ld-events-in-context-in-splunk.png)
+![LaunchDarkly events as annotations in Splunk charts](ld-events-in-context-in-splunk.png)
 
 ### Troubleshooting
 
-If you configure the LaunchDarkly integration and do not see events in Splunk, recreate the LaunchDarkly request with a `curl`.
+If you configure the LaunchDarkly integration and events in Splunk do not appear, recreate the LaunchDarkly request with a `curl`.
 
 Use this command to recreate the request:
 
@@ -161,11 +137,9 @@ curl -k \
 
 To learn more, [read Splunk's documentation](https://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHTTPEventCollector#Send_data_to_HTTP_Event_Collector).
 
-In Splunk, confirm that your **HEC Global Settings** as and your specific
-HEC are set to 'Enabled' and that the **Default Index** type on your token is 'main'.
+In Splunk, confirm that your **HEC Global Settings** and your specific HEC are set to 'Enabled' and that the **Default Index** type on your token is 'main'.
 
-To search within Splunk for LaunchDarkly events using
-`sourcetype="launchdarkly"`, set a custom sourcetype on your HEC token.
+To search within Splunk for LaunchDarkly events using `sourcetype="launchdarkly"`, set a custom sourcetype on your HEC token.
 
 Set the **Source Type** as `launchdarkly`, set **Index** to `main` and set **Status** to `Enabled`.
 

@@ -20,14 +20,13 @@ This topic explains how to use the LaunchDarkly Honeycomb events integration.
 
 The LaunchDarkly Honeycomb integration helps you diagnose problems by sending flag events to Honeycomb. Honeycomb displays those events alongside performance graphs so you can correlate feature rollouts with changes in operational health.
 
-![A Honeycomb events graph showing LaunchDarkly flag change
-events, with a flag event called out.](honeycomb-query.png)
+![A Honeycomb events graph showing LaunchDarkly flag change events, with a flag event called out.](honeycomb-query.png)
 
 <Callout intent="info">
 <CalloutTitle>The integration only sends flag actions to Honeycomb</CalloutTitle>
 <CalloutDescription>
 
- Only flag action events appear in Honeycomb after you configure the integration. Other event types do not appear. To learn more, read [Feature flag actions](/home/members/role-actions#feature-flags-actions).
+Only flag action events appear in Honeycomb after you configure the integration. Other event types do not appear. To learn more, read [Feature flag actions](/home/members/role-actions#feature-flags-actions).
 
 </CalloutDescription>
 </Callout>
@@ -49,20 +48,15 @@ To send flag change events to Honeycomb:
 
 ## Prerequisites
 
-To use the LaunchDarkly Honeycomb integration successfully, you must meet the
-following prerequisites:
+To use the LaunchDarkly Honeycomb integration successfully, you must meet the following prerequisites:
 
-* You must have an API key from your Honeycomb account. To learn more,
-  read [Creating a Honeycomb API key](#creating-a-honeycomb-api-key).
+* You must have an API key from your Honeycomb account. To learn more, read [Creating a Honeycomb API key](#creating-a-honeycomb-api-key).
 
 ## Creating a Honeycomb API key
 
-The Honeycomb API key authenticates the LaunchDarkly integration so it can
-submit events to your Honeycomb account. The LaunchDarkly integration uses
-Honeycomb's Marker API.
+The Honeycomb API key authenticates the LaunchDarkly integration so it can submit events to your Honeycomb account. The LaunchDarkly integration uses Honeycomb's Marker API.
 
-To learn more about Honeycomb's  Marker API, read
-[Honeycomb's documentation](https://docs.honeycomb.io/api/markers/).
+To learn more about Honeycomb's Marker API, read [Honeycomb's documentation](https://docs.honeycomb.io/api/markers/).
 
 When you create the API key, confirm that the key has access to create "markers." This is the only access scope the LaunchDarkly integration needs.
 
@@ -102,8 +96,7 @@ proj/*:env/production:flag/*
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [Resources in custom
-roles](/home/members/role-resources).
+To learn more, read [Resources in custom roles](/home/members/role-resources).
 
 You can use the policy editor to restrict the integration to:
 
@@ -111,8 +104,7 @@ You can use the policy editor to restrict the integration to:
 * a specific set of flags
 * a specific set of actions
 
-For example, to restrict the policy to a single project called `cool-app`, set
-the policy configuration's `resource` field to the following resource specifier:
+For example, to restrict the policy to a single project called `cool-app`, set the policy configuration's `resource` field to the following resource specifier:
 
 <CodeTabs
   defaultValue="json" values={[
@@ -130,13 +122,9 @@ proj/cool-app:env/production:flag/*
 
 The policy above makes the integration only send flag events from the `cool-app` project's Production environment to Honeycomb.
 
-If you need to restrict or allow a more complex set of resources than you can
-specify in a single policy, you can add multiple Honeycomb
-integrations and configure each one to a specific task. Each integration can
-have its own separate policy configuration.
+If you need to restrict or allow a more complex set of resources than you can specify in a single policy, you can add multiple Honeycomb integrations and configure each one to a specific task. Each integration can have its own separate policy configuration.
 
-To learn more about using the policy editor, read [Policies in custom
-roles](/home/members/role-policies).
+To learn more about using the policy editor, read [Policies in custom roles](/home/members/role-policies).
 
 ## Demonstration video
 
