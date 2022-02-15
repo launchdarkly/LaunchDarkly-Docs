@@ -106,6 +106,7 @@ jobs:
           headless: true
           config: baseUrl=http://docs.launchdarkly.com
           spec: cypress/integration/smoke.test.ts
+          wait-on: https://docs.launchdarkly.com
       - name: Archive Cypress screenshots
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
