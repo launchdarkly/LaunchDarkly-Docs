@@ -1,0 +1,99 @@
+---
+path: '/home/flags/links'
+title: 'Flag links'
+description: 'This topic explains how to create and use flag links to view external mentions of flags and relevant materials from other tools and services.'
+published: true
+---
+
+## Overview
+
+This topic explains how to create and use flag links to view external mentions of flags from other tools and services. Links to external conversations and references to your flags allow you to collaborate more easily and quickly review relevant flag contexts.
+
+You can create flag links automatically using Slack and Jira integrations. You can also create them manually using a URL to any system, tool, or site you wish.
+
+There are three types of flag links:
+
+* [URL flag links](#creating-custom-flag-links)
+* [Slack flag links](#creating-slack-flag-links)
+* [Jira flag links](#creating-jira-flag-links)
+
+
+## Creating URL flag links
+
+You can create URL flag links by associating an external URL with a feature flag. 
+
+To create a URL flag link:
+
+1. Find the feature flag you want to add a link to on the Flags dashboard.
+2. Click the flag's name. The flag's **Targeting** page opens.
+3. Click the **Links** tab.
+4. Click **Add link**. The "Add link to flag" screen appears:
+
+![The "Add link to flag" screen.](flag-links-custom-link-modal.png)
+
+5. Enter the URL for the external resource you're linking the flag to.
+6. (Optional) Enter a title and description for the link.
+6. Click **Save**. The modal closes and the linked resource appears in the "Other links" section.
+
+![A custom flag link.](flag-links-custom-link.png)
+
+
+## Creating Slack flag links
+
+<Callout intent="primary">
+<CalloutTitle>Slack flag links require the LaunchDarkly Slack app integration</CalloutTitle>
+<CalloutDescription>
+
+The LaunchDarkly Slack app integration is required to use Slack flag links. To learn how to set up the integration, read [Slack](/integrations/slack).
+
+</CalloutDescription>
+</Callout>
+
+The [LaunchDarkly Slack app](https://slack.com/apps/AKEEF9DTM-launchdarkly) automatically creates flag links when a flag's URL is mentioned in a public Slack channel. You can access the Slack conversation in LaunchDarkly on the flag's **Links** tab.
+
+![A Slack conversation on a flag's Links tab.](flag-links-slack-conversation.png)
+
+Additionally, you can manually associate a Slack conversation in a public channel with a flag using a flag link message shortcut.
+
+To link a flag to a conversation in Slack:
+
+1. In Slack, locate the conversation you want to reference. 
+2. Click **more actions**:
+
+![The "More actions" menu for a Slack conversation.](flag-links-slack-more-options.png)
+
+2. Click **More message shortcuts...** The "Use a shortcut" screen opens.
+3. Enter "Create flag link" into the search field.
+4. Click **Create flag link**. The "Create flag link" screen opens.
+5. Select the project name and flag you would like to associate with the conversation:
+
+![The Create flag link menu.](flag-links-slack-modal.png)
+
+6. Click **Create**.
+
+You can now view the Slack conversation on the flag's **Links** tab.
+
+
+## Creating Jira flag links
+
+<Callout intent="primary">
+<CalloutTitle>Jira flag links require the LaunchDarkly Jira integration</CalloutTitle>
+<CalloutDescription>
+
+The LaunchDarkly Jira integration is required to use Jira issue flag links. To learn how to set up the integration, read [Jira](/integrations/jira).
+
+</CalloutDescription>
+</Callout>
+
+When you connect a feature flag to a Jira issue, LaunchDarkly automatically creates a flag link. To learn more, read [Connecting an existing feature flag to a Jira issue from LaunchDarkly](/integrations/jira#connecting-an-existing-feature-flag-to-a-jira-issue-from-launchdarkly).
+
+After you connect a feature flag to a Jira issue, you can navigate to the flag's **Links** tab to access the link.
+
+![A Jira flag link.](flag-links-jira-issue.png)
+
+## Deleting flag links
+
+To delete a flag link, click the trash can icon next to the link:
+
+![A flag link with the delete icon called out.](flag-links-jira-issue-delete-callout.png)
+

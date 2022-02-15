@@ -58,6 +58,10 @@
             "path": "/home/flags/insights"
           },
           {
+            "label": "Flag links",
+            "path": "/home/flags/links"
+          },
+          {
             "label": "Flag prerequisites",
             "path": "/home/flags/prerequisites"
           },
