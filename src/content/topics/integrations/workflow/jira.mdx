@@ -16,7 +16,9 @@ The Jira integration is available to customers on a Pro or Enterprise plan. To l
 
 ## Overview
 
-This topic explains how LaunchDarkly's Jira integration allows you to link your feature flags to your team's Jira issues. When a feature flag is turned on, off, or has its targeting rules update, its associated Jira issue pages display the flag's current status.
+This topic explains how LaunchDarkly's Jira integration allows you to link your feature flags to your team's Jira issues. When you connect a feature flag to a Jira issue, LaunchDarkly automatically creates a Jira flag link. To learn more, read [Flag links](/home/flags/links).
+
+Additionally, when a feature flag is turned on or off or has its targeting rules updated, its associated Jira issue pages display the flag's current status.
 
 <Callout intent="info">
 <CalloutTitle>This integration is for Jira Cloud only</CalloutTitle>
@@ -34,7 +36,23 @@ To complete this procedure, you must have the following prerequisites:
 - The LaunchDarkly for Jira app from the [Atlassian Marketplace](https://marketplace.atlassian.com/apps/1219142/launchdarkly-for-jira?hosting=cloud&tab=overview) in your Jira Cloud instance.
 - An API access token with `writer` permissions. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
 
-You can also give the access token a custom role allowing it to control webhooks. In the custom role policy, **Allow** the Jira integration to access the `webhook/*` resources with the `createWebhook` and `deleteWebhook` actions.
+You can also give the access token a custom role allowing it to control webhooks and manage flag links.
+
+In the custom role policy, add the following statements:
+
+- Allow access to `webhook/*` resources with the `createWebhook` and `deleteWebhook` actions
+- Allow access to `proj/*:env/*:flag/*` resources with the `createFlagLink`, `updateFlagLink`, and `deleteFlagLink` actions
+
+To learn more about custom role policies, read [Creating custom roles and policies](/home/connecting/custom-properties).
+
+<Callout intent="info">
+<CalloutTitle>You may need to update your access token</CalloutTitle>
+<CalloutDescription>
+
+If you configured the Jira integration prior to February 15, 2022, you may need to update your access token's custom role to include a statement allowing access to `proj/*:env/*:flag/*` resources with the `createFlagLink`, `updateFlagLink`, and `deleteFlagLink` actions.
+
+</CalloutDescription>
+</Callout>
 
 An example custom role configuration appears below:
 
