@@ -3,7 +3,6 @@ on: workflow_dispatch
 
 jobs:
   smoke-test:
-    needs: build-deploy
     runs-on: ubuntu-latest
     name: Smoke test production
     steps:
