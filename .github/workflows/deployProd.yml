@@ -104,9 +104,9 @@ jobs:
           install-command: yarn install --immutable --immutable-cache
           build: yarn build-nav-data
           headless: true
-          config: baseUrl=http://docs.launchdarkly.com
+          config: baseUrl=https://docs.launchdarkly.com
           spec: cypress/integration/smoke.test.ts
-          wait-on: https://docs.launchdarkly.com
+          wait-on: 'https://docs.launchdarkly.com/home'
       - name: Archive Cypress screenshots
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
