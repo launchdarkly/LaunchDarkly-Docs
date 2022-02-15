@@ -13,24 +13,36 @@ The debugger gives you real-time insight into the events your application is sen
 
 ## Using the debugger
 
-The debugger shows you a real-time stream of events arriving in LaunchDarkly from your app. To access the debugger, click **Debugger** from the sidebar. When you first open the debugger, it connects to the event stream to show live events as they appear. Establishing the connection can take up to 30 seconds. In high-volume environments, you may see sampled events, rather than 100% of events.
+The debugger shows you a real-time stream of events arriving in LaunchDarkly from your app. When you first open the debugger, it connects to the event stream to show events as they appear. Establishing the connection can take up to 30 seconds, but the debugger connection state updates to show you the connection process status. In high-volume environments, you may see sampled events, rather than 100% of events.
 
 <Callout intent="info">
 <CalloutTitle>The debugger must be visible to work</CalloutTitle>
+
 <CalloutDescription>
 
-The debugger does not display events when it is not the active tab in your browser. Leave it open and visible to see events as they occur. If you need to click around in your app to generate events, open the app in a second window.
-
+The debugger does not display events when it is not the active tab in your browser. Leave it open and visible to see events as they occur. If you need to click around in your app to generate events, open the app in a second window. The debugger will time out after 15 minutes of inactivity. You can prompt to keep loading events. 
 </CalloutDescription>
+
 </Callout>
 
 ## Flag events
 
-The debugger displays evaluation counts and variation breakdowns for each flag evaluated since you opened the debugger. Click on a flag or select it from the menu to access individual event information.
+The debugger displays evaluation counts and variation breakdowns for each flag evaluated since you opened the debugger. Click on a flag or select it from the menu to access individual event information. The connection state for the "Flag events" tab indicates if events have occurred in your environment recently. 
 
-Here is an image of the **Flag events** tab in the debugger:
+![Debugger connected to live event stream with recent events seen.](debugger-connection-connected-state.png)
 
-![The debugger, showing flag events.](debugger-flag-events.png)
+If your environment has not registered any events, the status updates to indicate that. If you see this status frequently, it may mean that have configured your SDK incorrectly. To learn more, read [SDK concepts](/sdk/concepts).
+
+![Flag events connected to live event stream, but with no recent evaluations.
+](debugger-connection-never-seen-events-state.png)
+
+If there is an issue connecting to the event stream, an error status appears. This may appear because of an internal error or network disruptions. The error state should self-resolve, but if it does not, refresh your browser. 
+![Error connecting to the event steam.
+](debugger-connection-error-state.png)
+
+Here is an image of the Flag events tab of the debugger:
+
+![The debugger, showing flag events](debugger-connection-events-tab.png)
 
 Flag evaluation events display as a summary. This saves data load. To get detailed evaluation event information for a flag, select it and click **Debug**.
 
@@ -61,24 +73,23 @@ The minimum required version for each platform SDK to use summary events is:
 
 There are three types of user events:
 
-- **Identify** events are explicitly triggered by your application code.
-- **Index** events are automatically triggered by the LaunchDarkly SDK based on flag evaluations.
-- **Alias** events are triggered when your application calls the Alias SDK method, and when an anonymous user identifies as a non-anonymous user. To learn more, read [Aliasing users](/sdk/features/aliasing-users).
+- **Identify** events are explicitly triggered by your application code
+- **Index** events are automatically triggered by the LaunchDarkly SDK based on flag evaluations
 
 Click on a user to see individual event information.
 
 Here is an image of the **User events** tab in the debugger:
 
-![The debugger, showing user events.](debugger-user-events.png)
+![The User events tab.](debugger-connection-users-tab.png)
 
 
 ## Experimentation events
 
-Experimentation events only display for customers who have Experimentation enabled. To learn more, read [Experimentation](/home/experimentation).
+The Experimentation events tab only displays for customers who have Experimentation enabled. To learn more, read [Experimentation](https://docs.launchdarkly.com/home/experimentation). 
 
 Here is an image of the **Experimentation events** tab in the debugger:
 
-![The debugger, showing Experimentation events.](debugger-experimentation-events.png)
+![The Experimentation events tab.](debugger-connection-experimentation-tab.png)
 
 
 There are three types of experiment events:
