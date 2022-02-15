@@ -55,7 +55,7 @@ describe('Documentation website', () => {
     cy.contains(/Results \(\d+\)/)
 
     // if it's too fast the result won't be clickable because it detaches from the page during re-render
-    cy.wait(1000)
+    cy.wait(2000)
 
     // click search result
     cy.get('header').contains('Experimentation').click()
