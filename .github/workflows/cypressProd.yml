@@ -1,5 +1,6 @@
-name: Link validation on master branch
+name: Validate intrasite links
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -27,7 +28,7 @@ jobs:
             cypress/integration/links.test.ts
             cypress/integration/redirects.test.ts
       - name: Archive Cypress screenshots
-        if: ${{ failure() }}
+        if: failure()
         uses: actions/upload-artifact@v2
         with:
           name: cypress-screenshots
@@ -35,7 +36,7 @@ jobs:
             /home/runner/work/git-gatsby/git-gatsby/cypress/screenshots
           retention-days: 5
       - name: Notify slack
-        if: failure()
+        if: failure() && github.event.type != 'WorkflowDispatch'
         uses: slackapi/slack-github-action@v1.17.0
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}

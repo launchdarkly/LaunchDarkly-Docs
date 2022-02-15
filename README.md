@@ -160,6 +160,8 @@ in `navigationData.json`. Use the camel case version of the flag key, as shown b
 
 ## Running tests
 
+### Local
+
 To validate links locally, install `lychee`
 
 ```shell
@@ -195,6 +197,15 @@ To skip external link validation,
 ```shell
 yarn cypress --env skip_external=true
 ```
+
+### CI
+
+All of our tests are integrated into out CI/CI pipeline and most are guaranteed to run on every PR, except **Internal link validation** which only runs on `main` branch, because it can takes between 20-30 minutes.
+
+To run **Internal link validation** on a branch:
+
+1. Navigate to the [Workflow page](https://github.com/launchdarkly/git-gatsby/actions/workflows/cypressProd.yml)
+2. Select **Run workflow** and choose the branch you would like to run the validation tests on.
 
 ## 🔨 Navigation data
 
