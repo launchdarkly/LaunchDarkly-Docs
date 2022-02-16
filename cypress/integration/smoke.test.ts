@@ -6,7 +6,7 @@ describe('Documentation website', () => {
     cy.title().should('equal', 'Welcome to LaunchDarkly docs')
 
     // navigate to a page
-    cy.get('main').contains('Getting started').click()
+    cy.get('main').contains('Getting started').scrollIntoView().click()
     cy.title().should('equal', 'Getting started')
 
     // interact with nav
