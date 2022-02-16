@@ -20,7 +20,9 @@ There are some differences between flag and segment targeting that you should be
 - Unlike flags, segments are environment-specific. They do not populate in environments other than the one you created them in.
 - Segment targeting cannot reference another user segment.
 
-You can view segments and Big Segments on the **Segments** dashboard. From the dashboard you can filter segments to display only those synced from Amplitude.
+You can view segments and Big Segments on the **Segments** dashboard. 
+
+From the dashboard you can filter segments to display only those synced from Amplitude:
 
 ![The "Segments" dashboard with the "Amplitude synced cohorts" filter applied.](segments-dashboard-amplitude-filter.png)
 
@@ -39,13 +41,15 @@ To add a new segment:
 3. Give your segment a human-readable **Name**.
 4. Enter a **Key** for the segment. This field auto-populates based on the segment name, but you can change it if you need to.
 5. (Optional) Add a **Description**.
-6. (Optional) Choose **Tags** from the menu.
-7. Click **Save segment**. The Segment's **Targeting** tab appears:
+6. (Optional) Choose **Tags** from the menu:
 
 ![The "Create a segment" panel.](segments-create.png)
 
+7. Click **Save segment**. The Segment's **Targeting** tab appears.
 
-## Customizing a user segment
+You can further edit the segment's settings from its **Settings** tab. 
+
+## Customizing user segments
 
 You can customize a segment to apply to different users or attributes, or exclude users and attributes, in the segment's **Targeting** tab. Segment targeting rules function the same way as flag targeting rules. To learn more, read [Targeting users](/home/flags/targeting-users).
 
@@ -55,7 +59,7 @@ To customize a segment:
 2. Target individual users, or lists of users, with the **Included users** or **Excluded users** options.
 3. Click **+ Add rules** to create a custom rule for this segment. The custom rule menu appears:
 
-![A user segment with the "Add rules" button called out.](segments-add-rules-callout.png)
+![A user segment with the "+ Add rules" button called out.](segments-add-rules-callout.png)
 
 4. Specify an **attribute**, an **operator**, and **values** for the rule.
 5. If you want to add more criteria, click the **plus button** beside the rule criteria:
@@ -75,6 +79,62 @@ When you specify rules for a segment, LaunchDarkly parses them in order of appea
 </Callout>
 
 You can target the same user segment from multiple feature flags. If you have many flags that need the same targeting rules, it may be easier to set up a single user segment with those rules for your flags to target, rather than setting up the rules repeatedly in each flag.
+
+## Targeting individual users
+
+You can target individual users for inclusion in or exclusion from a segment. 
+
+To target an individual user:
+
+1. Navigate to the **Segments** dashboard and choose the segment you wish to modify.
+2. In the "Included users" or "Excluded users" section, search for the user you want to include or exclude by searching for their name or key in the **Add users** field.
+3. Click the user name or key. The user is now individually targeted within the segment.
+
+Here is an image of an individually targeted user:
+
+![An individually targeted user included in a segment.](segments-targeted-user.png)
+
+You can remove all included or excluded users from a segment by clicking the **overflow menu** and selecting "Clear targets."
+
+![The overflow menu with "Clear targets" called out.](segments-clear-targets-callout.png)
+
+## Bulk editing users
+
+If you have a long list of users you want to add, remove, or replace within a segment, you can bulk edit users from a segment's **Targeting** tab.
+
+To edit users in bulk:
+
+1. Navigate to the **Segments** dashboard and choose the segment you wish to modify.
+2. In the "Included users" or "Excluded users" section, click the **overflow menu**.
+3. Select "Bulk edit." A "Bulk editing users" dialog appears.
+4. Use the menu to do one of the following actions:
+  - "Add" adds the selected users as targets to the variation
+  - "Remove" removes the selected users from the target variation
+  - "Replace" replaces all currently targeted users with the selected users
+5. Enter a list of user keys or email addresses in the **these users** field, separated by a comma or new line. LaunchDarkly looks up users by key or email and displays them in the list on the right. If you want to target a user that has not been seen by LaunchDarkly, you must enter their key.
+
+![The "Bulk editing included users" dialog with "Add" selected and users added.](segments-bulk-editing.png)
+
+You can update the list on the right before you perform the selected action. The options for updating the list include the following:
+
+- **All** represents all of the users that may be impacted by the action, whether they are added or removed. Check the user's checkbox for the action to apply.
+- **The checkmark** represents inputted user keys that currently match users in the system. For example, if you enter the user key `bob@example.com`, and `bob@example.com` already exists in LaunchDarkly, they will show up in this list.
+- **The question mark** represents users with no matching records in LaunchDarkly. If you are adding users and the users do not currently exist in LaunchDarkly, they will be added to the targeting list.
+- **The exclamation mark** represents user key inputs with multiple matching records. For example, if you enter the email address `bob@example.com`, but there are multiple user keys that have `bob@example.com` as an email address, the system may return multiple matching records. You can select the correct record by clicking the checkbox.
+- **Current** lists all of the currently targeted users for the variation.
+
+6. Click **Add N users**, **Remove N users**, or **Replace N users** to perform the selected action.
+
+## Exporting user segments
+
+You can export the users within a segment to a CSV file for use in other systems.
+
+To export included or excluded users within a segment to a CSV file:
+
+1. Navigate to the **Segments** dashboard and choose the segment you wish to export.
+2. In the "Included users" or "Excluded users" section, click the **overflow menu**.
+3. Click "Export as CSV." A CSV file including the list of user keys the segment is targeted to downloads to your machine.
+
 
 ## Scheduling user removal from segments
 
