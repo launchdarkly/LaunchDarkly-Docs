@@ -34,7 +34,7 @@ First, install the LaunchDarkly SDK as a dependency in your application.
 
 ```bash
 cargo install cargo-edit
-cargo add launchdarkly-server-sdk
+cargo add launchdarkly-server-sdk --allow-prerelease
 ```
 
 </CodeTabItem>
@@ -59,6 +59,8 @@ use launchdarkly_server_sdk::{Client, ConfigBuilder, User};
 
 After you install and import the SDK, create a single, shared instance of the LaunchDarkly client. Specify your SDK key here so that your application is authorized to connect to LaunchDarkly, your application, and your environment.
 
+Once you have created the client, start the client process and wait for the client to initialize. This SDK depends on the tokio crate to provide a default runtime and as such it is a required dependency.
+
 Only create one instance of `client`.
 
 Here's how:
@@ -72,8 +74,17 @@ Here's how:
 <CodeTabItem value="rust">
 
 ```rust
-let config = ConfigBuilder::new(&sdk_key).build();
-let client = Client::build(config).unwrap();
+#[tokio::main]
+async fn main () {
+    let config = ConfigBuilder::new(&sdk_key).build();
+    let client = Client::build(config).unwrap();
+
+    client.start_with_default_executor();
+
+    if !client.initialized_async().await {
+        panic!("Client failed to successfully initialize");
+    }
+}
 ```
 
 </CodeTabItem>
