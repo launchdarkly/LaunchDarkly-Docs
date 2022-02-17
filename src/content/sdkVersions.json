@@ -948,6 +948,11 @@
     "name": "Python",
     "versions": [
       {
+        "versionMajorMinor": "7.4",
+        "releaseYear": 2022,
+        "releaseMonthDay": "02-16"
+      },
+      {
         "versionMajorMinor": "7.3",
         "releaseYear": 2021,
         "releaseMonthDay": "12-10"
