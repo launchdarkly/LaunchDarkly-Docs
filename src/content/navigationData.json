@@ -651,12 +651,12 @@
                 "path": "/integrations/slack/setting-up"
               },
               {
-                "label": "Viewing, monitoring and subscribing to flags",
-                "path": "/integrations/slack/managing"
-              },
-              {
                 "label": "Subscribing to notifications",
                 "path": "/integrations/slack/notifications"
+              },
+              {
+                "label": "Viewing and monitoring flags",
+                "path": "/integrations/slack/managing"
               },
               {
                 "label": "Turning targeting on and off",

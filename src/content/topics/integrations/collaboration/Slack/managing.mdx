@@ -1,6 +1,6 @@
 ---
 path: '/integrations/slack/managing'
-title: 'Viewing, monitoring, and subscribing to notifications'
+title: 'Viewing and monitoring flags'
 description: 'This topic explains how to view and filter flags and resources with the LaunchDarkly Slack app.'
 published: true
 ---
@@ -10,109 +10,21 @@ published: true
 This topic explains how to view and filter flags and resources with the LaunchDarkly Slack app.
 
 <Callout intent="info">
-  <CalloutTitle>You must invite the LaunchDarkly Slack app to private Slack channels</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>You must invite the LaunchDarkly Slack app to private Slack channels</CalloutTitle>
+<CalloutDescription>
 
-If you want to subscribe to notifications in private channels, you must invite the LaunchDarkly bot (`@LaunchDarkly`) to the channel. If the LaunchDarkly Slack bot is not in a channel, it cannot send notifications to that channel.
+If you want to subscribe to notifications in private channels, you must invite the LaunchDarkly bot `@LaunchDarkly` to the channel. If the LaunchDarkly Slack bot is not in a channel, it cannot send notifications to that channel.
 
 You do not need to manually invite the LaunchDarkly bot user to public channels.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
-## Filtering with the menu
-
-You can filter to see a list of resources that match the criteria that you enter. This filter will subscribe to all matching events for flags, segments, metrics, environments, and projects.
-
-To filter and subscribe:
-
-1. Type `/launchdarkly subscribe` in your Slack client's text bar and press **Enter**.
-2. The "Filter flags" menu appears.
-3. Enter optional arguments to search for a specific flag. You can only search for one flag at a time.
-4. Use the dropdown menus to specify filtering criteria and click **Filter**.
-5. Subscribe to any flags by selecting "Add flag to channel" from the dropdown.
-6. Subscribe to all the flags from this filter by clicking **Add filter to channel**.
-
-You can use the four types of optional filters in any combination to view different flags. If you click **Filter** without specifying any of the fields, you'll be subscribing to changes in all flags and resources.
-
-The table below explains the different filtering criteria:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Filter Criteria</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>Project / Environment</TableCell>
-      <TableCell>
-        Optional.
-        <br />
-        Filter by project, environment, or a combination of both.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>Flag key</TableCell>
-      <TableCell>
-        Optional.
-        <br />
-        Enter a flag key, which can begin or end with a wildcard *.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>Status</TableCell>
-      <TableCell>
-        Optional.
-        <br />
-        Filter by flag status. Available statuses are:
-        <br />
-        Any
-        <br />
-        Active
-        <br />
-        Inactive
-        <br />
-        Archived
-        <br />
-        Launched
-        <br />
-        New
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>Action</TableCell>
-      <TableCell>
-        Optional.
-        <br />
-        Filter by action. Available actions are:
-        <br />
-        Any
-        <br />
-        Created
-        <br />
-        Updated
-        <br />
-        Deleted
-        <br />
-        Ready for removal
-        <br />
-        New
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>Flag tag</TableCell>
-      <TableCell>
-        Optional.
-        <br />
-        Filter by a list of all flag tags. Does not include other types of tags, such as segment tags.
-      </TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
+You can subscribe to updates from specific flags or add a flag filter to receive notifications only from certain flags within a channel. To learn how, read [Adding flag filters to a channel](/integrations/slack/notifications#adding-flag-filters-to-a-channel).
 
 ## Filtering for resources with in-line commands
 
-You can also use in-line commands to filter for flags and resources in Slack. All in-line commands start with `/launchdarkly` and typing `/launchdarkly` or `/ld` will bring up a help menu listing the commands.
+You can use in-line commands to filter for flags and resources in Slack. All in-line commands start with `/launchdarkly` and typing `/launchdarkly` or `/ld` will bring up a help menu listing the commands.
 
 To filter with in-line commands:
 
@@ -135,18 +47,17 @@ Examples of both types of entries:
 
 ## Viewing feature flag information
 
-You can view more detail about any flag with the Flag Overview message. The Flag Overview message is available from the list of filtered flags and any flag update notification by clicking **View details**.
+You can view more detail about any flag using the flag overview message. The flag overview message is available from the list of filtered flags and any flag update notification by clicking **View details**.
 
-You can use the Flag Overview page to interact with the flag and access it on the LaunchDarkly website.
+You can use the flag overview message to interact with the flag and access it on the LaunchDarkly website.
 
-Here are some things you can do from the Flag Overview page:
+Here are some things you can do from the Flag Overview message:
 
 - Click the flag's name to be taken to the flag's **Targeting** tab within the LaunchDarkly app.
 - Toggle the flag on or off by clicking the overflow menu and selecting **Toggle targeting**. If you change the flag's state to on or off, a flag update notification appears in the Slack channel.
+- Subscribe to updates about the flag in the channel. To learn how, read [Subscribing to flag notifications](/integrations/slack/notifications#subscribing-to-flag-notifications).
 
-For more information about flag update notifications, read [Subscribing to Notifications](/integrations/slack/notifications).
-
-![The Flag Overview message.](slack-flag-overview.png)
+![The flag overview message.](slack-flag-overview.png)
 
 The table below explains the flag detail fields:
 
