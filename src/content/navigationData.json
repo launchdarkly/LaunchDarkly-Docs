@@ -949,6 +949,10 @@
           {
             "label": "User configuration",
             "path": "/sdk/features/user-config"
+          },
+          {
+            "label": "Web proxy configuration",
+            "path": "/sdk/features/web-proxy"
           }
         ]
       },

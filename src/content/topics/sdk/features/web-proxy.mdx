@@ -1,0 +1,531 @@
+---
+path: '/sdk/features/web-proxy'
+title: 'Web proxy configuration'
+description: 'This topic explains how to configure an SDK to connect to LaunchDarkly through a web proxy. This feature is available for both client-side and server-side SDKs.'
+published: true
+---
+
+## Overview
+
+This topic explains how to configure an SDK to connect to LaunchDarkly through a web proxy. This feature is available for both client-side and server-side SDKs.
+
+Connecting to LaunchDarkly through a web proxy is not related to using LaunchDarkly's Relay Proxy. To learn about LaunchDarkly's Relay Proxy, read [The Relay Proxy](/home/relay-proxy).
+
+## Connecting though a web proxy
+
+If your organization requires that you use a web proxy to connect to external resources, you must configure your LaunchDarkly SDKs to connect through the proxy instead of connecting to LaunchDarkly directly.
+
+Some proxies require authentication with a username and password, or with custom headers. Instructions on how to configure the SDK to send these parameters are in the SDK-specific sections.
+
+In the following examples, the web proxy's hostname is "my-proxy-host" and it uses port 8080. Substitute the appropriate values for your proxy. Details about each SDK's configuration are available in the SDK-specific sections below:
+
+* [Client-side SDKs](#client-side-sdks)
+* [Server-side SDKs](#server-side-sdks)
+
+
+<Callout intent="info">
+<CalloutTitle>Using a web proxy with mobile SDKs</CalloutTitle>
+<CalloutDescription>
+
+Android, Flutter, iOS, and React Native support using a web proxy through their device operating systems (OS). You can use their onboard OS settings to configure a web proxy.
+
+</CalloutDescription>
+</Callout>
+
+## Client-side SDKs
+
+This feature is available in the following client-side SDKs:
+
+* [.NET (client-side)](#net-client-side)
+* [C/C++ (client-side)](#cc-client-side)
+
+### .NET (client-side)
+
+<Details summary="Expand .NET (client-side) code sample">
+
+To configure the client-side .NET SDK to connect to LaunchDarkly through a web proxy:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+var handler = new System.Net.Http.HttpClientHandler();
+handler.Proxy = new System.Net.WebProxy("http://my-proxy-host:8080");
+
+var config = Configuration.Builder("mobile-key")
+    .HttpMessageHandler(handler)
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To configure the client-side .NET SDK to connect to LaunchDarkly through a web proxy with authentication:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'Example', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+var handler = new System.Net.Http.HttpClientHandler();
+var proxy = new System.Net.WebProxy("http://my-proxy-host:8080");
+var credentials = new System.Net.CredentialCache();
+credentials.Add(proxy.Address, "Basic",
+    new NetworkCredential("username", "password"));
+proxy.Credentials = credentials;
+handler.Proxy = proxy;
+
+var config = Configuration.Builder("mobile-key")
+    .HttpMessageHandler(handler)
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### C/C++ (client-side)
+
+<Details summary="Expand C/C++ (client-side) code sample">
+
+To configure the C/C++ SDK to connect to LaunchDarkly through a web proxy:
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'C', value: 'c', },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+struct LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
+LDConfigSetProxyURI(config, "https://web-proxy.domain.com:8080");
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To configure the client-side C/C++ SDK to connect to LaunchDarkly through a web proxy with authentication:
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'C', value: 'c', },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+struct LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
+LDConfigSetProxyURI(config, "https://username:password@web-proxy.domain.com:8080");
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+## Server-side SDKs
+
+* [.NET (server-side)](#net-server-side)
+* [Apex](#apex)
+* [Go](#go)
+* [Java](#java)
+* [Node.js (server-side)](#nodejs-server-side)
+* [Python](#python)
+* [Ruby](#ruby)
+
+### .NET (server-side)
+
+<Details summary="Expand .NET (server-side) code sample">
+
+To configure the server-side .NET SDK to connect to LaunchDarkly through a web proxy:
+
+<CodeTabs
+  defaultValue="sdk6"
+  values={[
+    { label: '.NET', value: 'sdk6', },
+    { label: '.NET SDK versions 5.14.x and earlier', value: 'sdk5', },
+  ]
+}>
+<CodeTabItem value="sdk6">
+
+```csharp
+var proxy = new System.Net.WebProxy("http://my-proxy-host:8080");
+
+var config = Configuration.Builder("sdk-key")
+    .Http(Components.HttpConfiguration().Proxy(proxy))
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk5">
+
+```csharp
+var handler = new System.Net.Http.HttpClientHandler();
+handler.Proxy = new System.Net.WebProxy("http://my-proxy-host:8080");
+
+var config = Configuration.Builder("sdk-key")
+    .Http(Components.HttpConfiguration().MessageHandler(handler))
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To configure the server-side .NET SDK to connect to LaunchDarkly through a web proxy with authentication:
+
+<CodeTabs
+  defaultValue="sdk6"
+  values={[
+    { label: '.NET', value: 'sdk6', },
+    { label: '.NET SDK versions 5.14.x and earlier', value: 'sdk5', },
+  ]
+}>
+<CodeTabItem value="sdk6">
+
+```csharp
+var proxy = new System.Net.WebProxy("http://my-proxy-host:8080");
+var credentials = new System.Net.CredentialCache();
+credentials.Add(proxy.Address, "Basic",
+    new NetworkCredential("username", "password"));
+proxy.Credentials = credentials;
+
+var config = Configuration.Builder("sdk-key")
+    .Http(Components.HttpConfiguration().Proxy(proxy))
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk5">
+
+```csharp
+var handler = new System.Net.Http.HttpClientHandler();
+var proxy = new System.Net.WebProxy("http://my-proxy-host:8080");
+var credentials = new System.Net.CredentialCache();
+credentials.Add(proxy.Address, "Basic",
+    new NetworkCredential("username", "password"));
+proxy.Credentials = credentials;
+handler.Proxy = proxy;
+
+var config = Configuration.Builder("sdk-key")
+    .Http(Components.HttpConfiguration().MessageHandler(handler))
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Apex
+
+<Details summary="Expand Apex code sample">
+
+The Apex bridge that provides and retrieves flag values is written in Go, and uses the default Go networking mechanisms. 
+
+Go's standard HTTP library recognizes the environment variables `HTTP_PROXY` and `HTTPS_PROXY`. If you set these variables, the SDK will connect through a web proxy at the URL you provide. Because the LaunchDarkly services have `https:` URLs, you use `HTTPS_PROXY`. If you are connecting to services at an insecure `http:` URL use `HTTP_PROXY` instead.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="linux"
+  values={[
+    { label: 'command line - on Mac or Linux', value: 'linux', },
+    { label: 'command line - on Windows', value: 'windows', },
+  ]
+}>
+<CodeTabItem value="linux">
+
+```bash
+export HTTPS_PROXY=https://my-proxy-host:8080
+```
+
+</CodeTabItem>
+<CodeTabItem value="windows">
+
+```batch
+set HTTPS_PROXY=https://my-proxy-host:8080
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Go
+
+<Details summary="Expand Go code sample">
+
+There are two ways to specify proxy server parameters in the Go SDK.
+
+Go's standard HTTP library recognizes the environment variables `HTTP_PROXY` and `HTTPS_PROXY`. If you set these variables, the SDK will connect through a web proxy at the URL you provide. Because the LaunchDarkly services have `https:` URLs, you use `HTTPS_PROXY`. If you are connecting to services at an insecure `http:` URL, such as a Relay Proxy instance, use `HTTP_PROXY` instead.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="linux"
+  values={[
+    { label: 'command line - on Mac or Linux', value: 'linux', },
+    { label: 'command line - on Windows', value: 'windows', },
+  ]
+}>
+<CodeTabItem value="linux">
+
+```bash
+export HTTPS_PROXY=https://my-proxy-host:8080
+```
+
+</CodeTabItem>
+<CodeTabItem value="windows">
+
+```
+set HTTPS_PROXY=https://my-proxy-host:8080
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You can also specify a proxy programmatically through the SDK configuration:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 4.x and earlier', value: 'go-pre-5.0', },
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+)
+
+var config ld.Config
+config.HTTP = ldcomponents.HTTPConfiguration().
+    ProxyURL("https://my-proxy-host:8080")
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.0">
+
+```go
+import (
+    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
+    "gopkg.in/launchdarkly/go-server-sdk.v4/ldhttp"
+)
+
+proxyURL, _ := url.Parse("https://my-proxy-host:8080")
+
+config := ld.DefaultConfig
+config.HTTPClientFactory = ldhttp.NewHTTPClientFactory(
+    ldhttp.ProxyURL(*proxyURL))
+
+// This is supported only in SDK versions 4.14.0 and higher.
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Java
+
+<Details summary="Expand Java code sample">
+
+To configure the Java SDK to connect to LaunchDarkly through a web proxy:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDConfig config = new LDConfig.Builder()
+    .http(Components.httpConfiguration().proxyHostAndPort("my-proxy-host", 8080))
+    .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To configure the Java SDK to connect to LaunchDarkly through a web proxy with authentication:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDConfig config = new LDConfig.Builder()
+    .http(Components.httpConfiguration()
+        .proxyHostAndPort("my-proxy-host", 8080)
+        .proxyAuth(Components.httpBasicAuthentication("username", "password"))
+    .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
+
+To configure the server-side Node.js SDK to connect to LaunchDarkly through a web proxy:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const config = {
+  proxyHost: 'my-proxy-host',
+  proxyPort: 8080
+};
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To configure the server-side Node.js SDK to connect to LaunchDarkly through a web proxy with authentication:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Node.js', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const config = {
+  proxyHost: 'my-proxy-host',
+  proxyPort: 8080,
+  proxyAuth: 'username:password'
+};
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Python
+
+<Details summary="Expand Python code sample">
+
+There are two ways to specify proxy server parameters in the Python SDK.
+
+Python's standard HTTP library recognizes the environment variables `HTTP_PROXY` and `HTTPS_PROXY`. If you set these variables, the SDK will connect through a web proxy at the URL you provide. Because the LaunchDarkly services have `https:` URLs, you use `HTTPS_PROXY`. If you are connecting to services at an insecure `http:` URL, such as a Relay Proxy instance, use `HTTP_PROXY` instead.
+
+How to set the HTTPS_PROXY environment variable on Mac/Linux and Windows systems:
+
+<CodeTabs
+  defaultValue="linux"
+  values={[
+    { label: 'command line - on Mac or Linux', value: 'linux', },
+    { label: 'command line - on Windows', value: 'windows', },
+  ]
+}>
+<CodeTabItem value="linux">
+
+```bash
+export HTTPS_PROXY=https://my-proxy-host:8080
+```
+
+</CodeTabItem>
+<CodeTabItem value="windows">
+
+```bash
+set HTTPS_PROXY=https://my-proxy-host:8080
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Or it can be set from within Python:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+os.environ["https_proxy"] = "https://my-proxy-host:8080"
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Ruby
+
+<Details summary="Expand Ruby code sample">
+
+There are two ways to specify proxy server parameters in the Ruby SDK.
+
+Ruby's standard HTTP library recognizes the environment variables `HTTP_PROXY` and `HTTPS_PROXY`. If you set these variables, the SDK will connect through a web proxy at the URL you provide. Because the LaunchDarkly services have `https:` URLs, you use `HTTPS_PROXY`. If you are connecting to services at an insecure `http:` URL, such as a Relay Proxy instance, use `HTTP_PROXY` instead.
+
+To configure the Ruby SDK to connect to LaunchDarkly through a web proxy:
+
+<CodeTabs
+  defaultValue="linux"
+  values={[
+    { label: 'command line - on Mac or Linux', value: 'linux', },
+    { label: 'command line - on Windows', value: 'windows', },
+  ]
+}>
+<CodeTabItem value="linux">
+
+```bash
+export HTTPS_PROXY=https://my-proxy-host:8080
+```
+
+</CodeTabItem>
+<CodeTabItem value="windows">
+
+```batch
+set HTTPS_PROXY=https://my-proxy-host:8080
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Or it can be set from within Ruby:
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', },
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+ENV['HTTPS_PROXY'] = 'https://my-proxy-host:8080'
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>

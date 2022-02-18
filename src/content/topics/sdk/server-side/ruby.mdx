@@ -228,10 +228,6 @@ end
 </CodeTabItem>
 </CodeTabs>
 
-## Proxy configuration
-
-The Ruby SDK uses the standard Ruby mechanism for specifying an HTTP/HTTPS proxy: set the environment variable `HTTPS_PROXY` or `HTTP_PROXY` to the URL of the proxy server. All LaunchDarkly services use HTTPS, so `HTTPS_PROXY` is the variable to set unless you are configuring the SDK to use a custom service URL that is not secure, such as a Relay Proxy instance within your private network.
-
 Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#ruby).
 
 ## Supported features
@@ -258,3 +254,4 @@ This SDK supports the following features:
 * [Storing data](/sdk/features/storing-data#ruby)
 * [Test data sources](/sdk/features/test-data-sources#ruby)
 * [User configuration](/sdk/features/user-config#ruby)
+* [Web proxy configuration](/sdk/features/web-proxy#ruby)
