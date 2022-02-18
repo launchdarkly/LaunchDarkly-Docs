@@ -77,6 +77,12 @@ describe('Documentation website', () => {
 
   it('should let a user copy a code snippet', done => {
     cy.visit('/sdk/features/aliasing-users#electron')
+
+    // need to wait for react rerenders
+    cy.wait(1000)
+    cy.contains('Expand Electron code sample').parent().click()
+    cy.contains('Click to collapse')
+
     const $snippet = cy.get('.language-js').first()
     $snippet.siblings('button').first().should('contain', 'COPY').click()
     cy.window().then(({ navigator }: Cypress.AUTWindow) => {
@@ -89,8 +95,18 @@ describe('Documentation website', () => {
 
   it('should let a user copy a code snippet multiple times', done => {
     cy.visit('/sdk/features/aliasing-users#electron')
+
+    // need to wait for react rerenders
+    cy.wait(1000)
+    // Open electron snippet, copy, close again
+    cy.contains('Expand Electron code sample').parent().click()
+    cy.contains('Click to collapse')
     const $snippet1 = cy.get('.language-js').first()
     $snippet1.siblings('button').first().should('contain', 'COPY').click()
+    cy.contains('Click to collapse').parent().click()
+
+    // Open flutter, copy, check clipboard
+    cy.contains('Expand Flutter code sample').parent().click()
     const $snippet2 = cy.get('.language-dart').first()
     $snippet2.siblings('button').first().should('contain', 'COPY').click()
     cy.window().then(({ navigator }: Cypress.AUTWindow) => {
