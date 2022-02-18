@@ -250,8 +250,8 @@ Here's an example that uses Node.js:
 <CodeTabItem value="js">
 
 ```js
-var crypto = require('crypto');
-var hmac = crypto.createHmac('sha256', 'YOUR_SDK_KEY');
+const crypto = require('crypto');
+const hmac = crypto.createHmac('sha256', 'YOUR_SDK_KEY');
 hmac.update('YOUR_USER_KEY');
 hash = hmac.digest('hex');
 ```
@@ -274,7 +274,7 @@ You should send the computed secure mode hash for your user as the [`hash` attri
 
 ```js
 // client initialization
-var client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
+const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
   hash: 'SERVER_GENERATED_HASH'
 });
 

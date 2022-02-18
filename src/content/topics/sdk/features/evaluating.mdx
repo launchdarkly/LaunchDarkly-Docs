@@ -158,7 +158,7 @@ To evaluate any feature flag for the current user, call `variation`:
 <CodeTabItem value="js">
 
 ```js
-var showFeature = client.variation("YOUR_FEATURE_KEY", false);
+const showFeature = client.variation("YOUR_FEATURE_KEY", false);
 
 if (showFeature)  {
   // feature flag is  on
@@ -185,8 +185,8 @@ Here is an example:
 <CodeTabItem value="js">
 
 ```js
-var flags = client.allFlags();
-var showFeature = flags['YOUR_FEATURE_KEY'];
+const flags = client.allFlags();
+const showFeature = flags['YOUR_FEATURE_KEY'];
 ```
 
 </CodeTabItem>

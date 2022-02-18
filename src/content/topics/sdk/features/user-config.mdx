@@ -893,13 +893,13 @@ To mark all user attributes except the key as private in the JavaScript SDK, you
 <CodeTabItem value="js">
 
 ```js
-var user = {
+const user = {
   "key": "aa0ceb",
   "name": "Grace Hopper",
   "email": "gracehopper@example.com"
 };
 
-var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
+const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
   allAttributesPrivate: true
 });
 ```
@@ -939,14 +939,14 @@ This option is configured in both the user object and the configuration object:
 <CodeTabItem value="js">
 
 ```js
-var user = {
+const user = {
   "key": "aa0ceb",
   "name": "Grace Hopper",
   "email": "gracehopper@example.com"
   "privateAttributeNames": ["email"]
 };
 
-var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
+const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
   privateAttributeNames: ["email"]
 });
 ```
@@ -1005,7 +1005,7 @@ Here's how:
 // auto-generates a unique identifier for this user. The
 // identifier is saved in local storage and reused in future
 // browser sessions to ensure a constant experience.
-var user = {"anonymous": true};
+const user = {"anonymous": true};
 
 // If you are using earlier SDK versions, you need to specify
 // the "key" property as earlier versions do not auto-generate the
@@ -1016,7 +1016,7 @@ var user = {"anonymous": true};
 //
 // We suggest storing the user's key in a cookie, otherwise you
 // might create a new user for each page request.
-var user2 = {"key":"aa0ceb", "anonymous": true};
+const user2 = {"key":"aa0ceb", "anonymous": true};
 ```
 
 </CodeTabItem>
@@ -2316,7 +2316,7 @@ Feature flag targeting and rollouts are determined by the user you pass to your 
 <CodeTabItem value="js">
 
 ```js
-var user = {
+const user = {
   "key": "aa0ceb",
   "firstName": "Ernestina",
   "lastName": "Evans",
@@ -2356,13 +2356,13 @@ You can also define a set of `privateAttributeNames` on the user object. For exa
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JSON', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
   ]
 }>
 <CodeTabItem value="js">
 
-```json
-var user = {
+```js
+const user = {
   "key": "aa0ceb",
   "email": "test@example.com",
   "privateAttributeNames": ["email"]
@@ -2390,7 +2390,7 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
-var user = {"key":"aa0ceb", "anonymous": true};
+const user = {"key":"aa0ceb", "anonymous": true};
 ```
 
 </CodeTabItem>

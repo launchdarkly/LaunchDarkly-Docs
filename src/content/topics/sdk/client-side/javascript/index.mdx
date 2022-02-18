@@ -201,10 +201,10 @@ Here is an example showing how to initialize the client:
 <CodeTabItem value="js">
 
 ```js
-var user = {
+const user = {
   key: 'aa0ceb'
 };
-var client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
+const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
 ```
 
 </CodeTabItem>
@@ -246,7 +246,7 @@ Here's how:
 ```js
 client.on('ready', () => {
   // initialization succeeded, flag values are now available
-  var flagValue = client.variation("YOUR_FEATURE_KEY", false);
+  const flagValue = client.variation("YOUR_FEATURE_KEY", false);
   // etc.
 });
 ```

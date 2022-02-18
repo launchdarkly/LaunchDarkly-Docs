@@ -38,9 +38,9 @@ Here's how to create the wrapper:
 <CodeTabItem value="js">
 
 ```js
-var realClient = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options);
+const realClient = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options);
 
-var wrappedClient = LDElectron.createNodeSdkAdapter(realClient);
+const wrappedClient = LDElectron.createNodeSdkAdapter(realClient);
 
 wrappedClient.waitForInitialization().then(function() {
   wrappedClient.variation(flagKey, user, defaultValue, function(err, result) {

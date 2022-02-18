@@ -413,7 +413,7 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
-var config = {"offline": true};
+const config = {"offline": true};
 client = LaunchDarkly.init("YOUR_SDK_KEY", config);
 client.variation("any.feature.flag", user, false, cb) // cb will always be invoked with the default value (false)
 

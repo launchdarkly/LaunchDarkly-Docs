@@ -47,7 +47,7 @@ Here is an example of how to bootstrap flags into the JavaScript client, if it p
 function onPageLoad(flags) {
   ...
 
-  var client = LDClient.initialize(
+  const client = LDClient.initialize(
     'YOUR_CLIENT_SIDE_ID',
     user,
     options = {
@@ -90,7 +90,7 @@ Here is an example of how to bootstrap flags into the JavaScript client, if you 
 <CodeTabItem value="js">
 
 ```js
-var ldclient = LDClient.initialize(
+const ldclient = LDClient.initialize(
   'YOUR_CLIENT_SIDE_ID',
   user,
   options = {
@@ -119,7 +119,7 @@ Alternatively, you can bootstrap feature flags from local storage:
 <CodeTabItem value="js">
 
 ```js
-var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
+const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
   bootstrap: 'localStorage'
 });
 ```
