@@ -165,6 +165,8 @@ This feature is available in the following server-side SDKs:
 
 ### .NET (server-side)
 
+<Details summary="Expand .NET (server-side) code sample">
+
 To configure the client:
 
 <CodeTabs
@@ -217,8 +219,11 @@ var client = new LDClient(config);
 If you want to use YAML instead of JSON, you must [provide a YAML parser](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.FileDataSourceBuilder.html#LaunchDarkly_Sdk_Server_Integrations_FileDataSourceBuilder_Parser_).
 
 To learn more, read [`FileData`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.FileData.html).
+</Details>
 
 ### Erlang
+
+<Details summary="Expand Erlang code sample">
 
 To configure the client:
 
@@ -247,8 +252,11 @@ To configure the client:
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Go
+
+<Details summary="Expand Go code sample">
 
 <CodeTabs
   defaultValue="go"
@@ -300,8 +308,11 @@ client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Java
+
+<Details summary="Expand Java code sample">
 
 To configure the client:
 
@@ -333,8 +344,11 @@ LDClient client = new LDClient("sdk key", config);
 </CodeTabs>
 
 To learn more, read [`FileData`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/FileData.html).
+</Details>
 
 ### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
 
 To configure the client:
 
@@ -365,8 +379,11 @@ const client = LaunchDarkly.init(sdkKey, config);
 </CodeTabs>
 
 To learn more, read [`FileDataSource`](https://launchdarkly.github.io/node-server-sdk/modules/_launchdarkly_node_server_sdk_.html#FileDataSource).
+</Details>
 
 ### Python
+
+<Details summary="Expand Python code sample">
 
 To configure the client:
 
@@ -400,8 +417,11 @@ client = ldclient.get()
 In the Python SDK, if you want to use YAML files instead of JSON you must install the `pyyaml` package. Also, automatic reloading uses an inefficient file-polling mechanism. We recommend installing the `watchdog` package.
 
 To learn more, read [`Files`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-integrations.html#ldclient.integrations.Files).
+</Details>
 
 ### PHP
+
+<Details summary="Expand PHP code sample">
 
 To configure the client:
 
@@ -432,8 +452,11 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 </CodeTabs>
 
 To learn more, read [`Files`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-Integrations-Files.html).
+</Details>
 
 ### Ruby
+
+<Details summary="Expand Ruby code sample">
 
 To configure the client:
 
@@ -487,3 +510,4 @@ client = LaunchDarkly::LDClient.new("sdk key", config)
 In the Ruby SDK, automatic reloading uses an inefficient file-polling mechanism unless you install the `listen` gem.
 
 To learn more, read [`FileData`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Integrations/FileData.html).
+</Details>

@@ -26,6 +26,8 @@ This feature is available in the following client-side SDKs:
 
 ### .NET (client-side)
 
+<Details summary="Expand .NET (client-side) code sample">
+
 <Callout intent="info">
 <CalloutTitle>Supported versions</CalloutTitle>
 <CalloutDescription>
@@ -79,8 +81,11 @@ client.DataSourceStatusProvider.StatusChanged +=
 </CodeTabs>
 
 To learn more, read [`IDataSourceStatusProvider`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.Interfaces.IDataSourceStatusProvider.html).
+</Details>
 
 ### Android
+
+<Details summary="Expand Android code sample">
 
 <Callout intent="info">
 <CalloutTitle>Supported versions</CalloutTitle>
@@ -455,8 +460,11 @@ class MainActivity : Activity() {
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Electron
+
+<Details summary="Expand Electron code sample">
 
 By default, the client requests feature flag values only once per user. This happens once at startup time, and then each time you call `identify()`. You can also use a persistent connection to receive flag updates whenever they occur.
 
@@ -507,8 +515,11 @@ client.on('change', function(allFlagChanges)) {
 </CodeTabs>
 
 Subscribing to `change` events automatically turns on streaming mode as well, unless you have explicitly set `streaming` to `false`.
+</Details>
 
 ### Flutter
+
+<Details summary="Expand Flutter code sample">
 
 The Flutter SDK exposes some of its internal status through APIs to let your application monitor it. This allows the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
 
@@ -538,8 +549,11 @@ LDFailure? ldFailure = connectionInfo.lastFailure;
 </CodeTabs>
 
 To learn more about the connection status fields, read the [API docs](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDConnectionInformation-class.html).
+</Details>
 
 ### iOS
+
+<Details summary="Expand iOS code sample">
 
 The iOS SDK exposes some of its internal status through the Connection Status API to let your application monitor it. This allows the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
 
@@ -642,8 +656,11 @@ LDClient.get()!.observeCurrentConnectionMode(owner: self) { [weak self] connecti
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### React Native
+
+<Details summary="Expand React Native code sample">
 
 The React Native SDK exposes some of its internal status through the Connection Status API to allow your application to monitor the SDK's status. This is provided primarily as a mechanism for the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
 
@@ -666,6 +683,7 @@ const lastFailureReason = await client.getLastFailure();
 </CodeTabs>
 
 To learn more about the return types, read the API documentation about [`LDConnectionMode`](https://launchdarkly.github.io/react-native-client-sdk/interfaces/LDConnectionMode.html) and [`LDFailureReason`](https://launchdarkly.github.io/react-native-client-sdk/interfaces/LDFailureReason.html).
+</Details>
 
 ## Server-side SDKs
 
@@ -685,6 +703,8 @@ This feature is available in the following server-side SDKs:
 * [Java](#java)
 
 ### .NET (server-side)
+
+<Details summary="Expand .NET (server-side) code sample">
 
 <Callout intent="info">
 <CalloutTitle>Supported versions</CalloutTitle>
@@ -758,8 +778,11 @@ client.DataStoreStatusProvider.StatusChanged +=
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Go
+
+<Details summary="Expand Go code sample">
 
 To check the data source status:
 
@@ -828,8 +851,11 @@ go func() {
 </CodeTabs>
 
 To learn more, read [`GetDataSourceStatusProvider`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetDataSourceStatusProvider) and [`GetDataStoreStatusProvider`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetDataStoreStatusProvider).
+</Details>
 
 ### Java
+
+<Details summary="Expand Java code sample">
 
 To check the data source status:
 
@@ -898,3 +924,4 @@ client.getDataStoreStatusProvider().addStatusListener(
 </CodeTabs>
 
 To learn more, read [`DataSourceStatusProvider`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/interfaces/DataSourceStatusProvider.html) and [`DataStoreStatusProvider`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/interfaces/DataStoreStatusProvider.html).
+</Details>

@@ -68,7 +68,9 @@ This feature is available in the following server-side SDKs:
 
 ### .NET (server-side)
 
-The .NET SDK can use [Consul](/sdk/features/storing-data/consul#net), [DynamoDB](/sdk/features/storing-data/dynamodb#net), or [Redis](/sdk/features/storing-data/redis#net) to hold flag data.
+<Details summary="Expand .NET (server-side) code sample">
+
+The .NET SDK can use [Consul](/sdk/features/storing-data/consul#net-server-side), [DynamoDB](/sdk/features/storing-data/dynamodb#net-server-side), or [Redis](/sdk/features/storing-data/redis#net-server-side) to hold flag data.
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
@@ -113,8 +115,11 @@ var config = Configuration.Builder(sdkKey)
 To learn more, read [`ConfigurationBuilder.DataStore`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html#DataStore).
 
 To use a persistent feature store without connecting to LaunchDarkly, use the `DataStore` builder method as above, and then use [`Components.ExternalUpdatesOnly`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Components.html#LaunchDarkly_Sdk_Server_Components_ExternalUpdatesOnly) to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#net-server-side).
+</Details>
 
 ### C/C++ (server-side)
+
+<Details summary="Expand C/C++ (server-side) code sample">
 
 The C/C++ SDK can use [Redis](/sdk/features/storing-data/redis#cc-server-side) to hold flag data.
 
@@ -143,8 +148,11 @@ LDConfigSetFeatureStoreBackend(config, store);
 </CodeTabs>
 
 To use a persistent feature store without connecting to LaunchDarkly, use `LDConfigSetFeatureStoreBackend` as above, and then use [`LDConfigSetUseLDD`](https://launchdarkly.github.io/c-server-sdk/config_8h.html#a1adabf587a063f4a2c97bb5927458963) to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#cc-server-side).
+</Details>
 
 ### Erlang
+
+<Details summary="Expand Erlang code sample">
 
 The Erlang SDK can use [Redis](/sdk/features/storing-data/redis#erlang) to hold flag data.
 
@@ -170,8 +178,11 @@ ldclient:start_instance("your_sdk_key", LdOptions).
 </CodeTabs>
 
 To use a persistent feature store without connecting to LaunchDarkly, set the `feature_store` property as above, and then set the `use_ldd` option to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#erlang).
+</Details>
 
 ### Go
+
+<Details summary="Expand Go code sample">
 
 The Go SDK can use [Consul](/sdk/features/storing-data/consul#go), [DynamoDB](/sdk/features/storing-data/dynamodb#go), or [Redis](/sdk/features/storing-data/redis#go) to hold flag data.
 
@@ -206,8 +217,11 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 To learn more, read [`PersistentDataStore`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#PersistentDataStore).
 
 To use a persistent feature store without connecting to LaunchDarkly, use `PersistentDataStore()` as above, and then use [`ExternalUpdatesOnly()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#ExternalUpdatesOnly) to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#go).
+</Details>
 
 ### Haskell
+
+<Details summary="Expand Haskell code sample">
 
 The Haskell SDK can use [Redis](/sdk/features/storing-data/redis#haskell) to hold flag data.
 
@@ -238,8 +252,11 @@ main = do
 </CodeTabs>
 
 To use a persistent feature store without connecting to LaunchDarkly, use `configSetStoreBackend` as above, and then use `configSetUseLdd` to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#haskell).
+</Details>
 
 ### Java
+
+<Details summary="Expand Java code sample">
 
 The Java SDK can use [Consul](/sdk/features/storing-data/consul#java), [DynamoDB](/sdk/features/storing-data/dynamodb#java), or [Redis](/sdk/features/storing-data/redis#java) to hold flag data.
 
@@ -274,8 +291,11 @@ LDClient client = new LDClient(sdkKey, config);
 To learn more, read [`Components.persistentDataStore`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/Components.html#persistentDataStore-com.launchdarkly.sdk.server.interfaces.PersistentDataStoreFactory-).
 
 To use a persistent feature store without connecting to LaunchDarkly, use `persistentDataStore` as above, and then use [`externalUpdatesOnly`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/Components.html#externalUpdatesOnly--m) to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#java).
+</Details>
 
 ### Lua
+
+<Details summary="Expand Lua code sample">
 
 The module `launchdarkly_server_sdk_redis` allows feature flag data to be cached with Redis. To learn more, read [Redis](/sdk/features/storing-data/redis#lua).
 
@@ -305,8 +325,11 @@ local c = l.clientInit({
 </CodeTabs>
 
 To use a persistent feature store without connecting to LaunchDarkly, set the `featureStoreBackend` as above, and then set the `useLDD` property to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#lua).
+</Details>
 
 ### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
 
 The Node.js SDK can use [Consul](/sdk/features/storing-data/consul#nodejs-server-side), [DynamoDB](/sdk/features/storing-data/dynamodb#nodejs-server-side), or [Redis](/sdk/features/storing-data/redis#nodejs-server-side) to hold flag data.
 
@@ -335,8 +358,11 @@ const client = LaunchDarkly.init(sdkKey, config);
 </CodeTabs>
 
 To use a persistent feature store without connecting to LaunchDarkly, set the `featureStore` property as above, and then set the `useLdd` property to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#nodejs-server-side).
+</Details>
 
 ### PHP
+
+<Details summary="Expand PHP code sample">
 
 The PHP SDK can use [Consul](/sdk/features/storing-data/consul), [DynamoDB](/sdk/features/storing-data/dynamodb), or [Redis](/sdk/features/storing-data/redis) to get flag data.
 
@@ -375,8 +401,11 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 </CodeTabs>
 
 Prior to version 4.0, the database integrations were included in the main PHP SDK package. Starting in version 4.0, they are in separate packages.
+</Details>
 
 ### Python
+
+<Details summary="Expand Python code sample">
 
 The Python SDK can use [Consul](/sdk/features/storing-data/consul), [DynamoDB](/sdk/features/storing-data/dynamodb), or [Redis](/sdk/features/storing-data/redis) to hold flag data.
 
@@ -405,8 +434,11 @@ ldclient.set_config(config)
 </CodeTabs>
 
 To use a persistent feature store without connecting to LaunchDarkly, set the `feature_store` property as above, and then set the `use_ldd` property to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#python).
+</Details>
 
 ### Ruby
+
+<Details summary="Expand Ruby code sample">
 
 The Ruby SDK can use [Consul](/sdk/features/storing-data/consul), [DynamoDB](/sdk/features/storing-data/dynamodb), or [Redis](/sdk/features/storing-data/redis) to hold flag data.
 
@@ -437,3 +469,4 @@ client = LaunchDarkly::Client.new(sdk_key, config)
 </CodeTabs>
 
 To use a persistent feature store without connecting to LaunchDarkly, set the `feature_store` property as above, and then set the `use_ldd` property to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#ruby).
+</Details>

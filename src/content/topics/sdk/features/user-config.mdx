@@ -54,6 +54,8 @@ Here are the configuration options for user entities in client-side SDKs.
 
 ### .NET (client-side)
 
+<Details summary="Expand .NET (client-side) code sample">
+
 Feature flag targeting and rollouts are determined by the user you pass to your `Identify` call. In the client-side .NET SDK, you can construct a simple `User` that only has a key by calling `User.WithKey`, or use `User.Builder` which allows setting all properties.
 
 Here's an example:
@@ -166,8 +168,11 @@ LDUser user = User.Builder((string)null).Anonymous(true).Build();
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Android
+
+<Details summary="Expand Android code sample">
 
 Feature flag targeting and rollouts are determined by the user you pass to your client. In the Android SDK, we use a [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to construct users.
 
@@ -333,8 +338,11 @@ val user: LDUser = LDUser.Builder("user key")
 You can leave the key parameter in the Builder null or make it an empty string. The client will automatically set it to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots.
 
 We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+</Details>
 
 ### C/C++ (client-side)
+
+<Details summary="Expand C/C++ (client-side) code sample">
 
 Feature flag targeting and rollouts are determined by the user you pass to your client. Here's an example:
 
@@ -425,8 +433,11 @@ LDUserSetAnonymous(user, true);
 </CodeTabs>
 
 We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+</Details>
 
 ### Electron
+
+<Details summary="Expand Electron code sample">
 
 <Callout intent="alert">
 <CalloutTitle>Personally-identifying user keys</CalloutTitle>
@@ -564,8 +575,11 @@ const user2 = { key: "aa0ceb", anonymous: true };
 </CodeTabs>
 
 We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+</Details>
 
 ### Flutter
+
+<Details summary="Expand Flutter code sample">
 
 Feature flag targeting and rollouts are determined by the user you pass to your client. In the Flutter SDK, we use a [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to construct users.
 
@@ -679,8 +693,11 @@ LDUser user = LDUserBuilder('user key')
 </CodeTabs>
 
 We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+</Details>
 
 ### iOS
+
+<Details summary="Expand iOS code sample">
 
 You can pass optional properties to the user object in iOS:
 
@@ -790,8 +807,11 @@ LDUser *user = [LDUser new];
 You must generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
 
 We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+</Details>
 
 ### JavaScript
+
+<Details summary="Expand JavaScript code sample">
 
 <Callout intent="alert">
 <CalloutTitle>Personally-identifying user keys</CalloutTitle>
@@ -1012,8 +1032,11 @@ const anonymousUser: ld.LDUser = { key: 'anon-user', anonymous: true };
 </CodeTabs>
 
 We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+</Details>
 
 ### Node.js (client-side)
+
+<Details summary="Expand Node.js (client-side) code sample">
 
 <Callout intent="alert">
 <CalloutTitle>Personally-identifying user keys</CalloutTitle>
@@ -1221,6 +1244,7 @@ const anonymousUser2: ld.LDUser = { key: 'aa0ceb', anonymous: true };
 </CodeTabs>
 
 We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+</Details>
 
 ### React
 
@@ -1229,6 +1253,8 @@ All user-related functionality provided by the [JavaScript SDK](#javascript) is 
 Unlike the JavaScript SDK, the React SDK does not require a user object for initialization. If you do not specify one, the React SDK uses an anonymous user by default.
 
 ### React Native
+
+<Details summary="Expand React Native code sample">
 
 Here is a complete user configuration object utilizing all available fields:
 
@@ -1272,8 +1298,11 @@ Private attributes allow you to specify keys you do not want to send to the Laun
 The `anonymous` key lets you distinguish logged out or unregistered users while still using LaunchDarkly. Anonymous users work just like regular users, except that they do not appear on your Users page in LaunchDarkly. This prevents unauthenticated users from diluting useful data on the Users dashboard.
 
 We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+</Details>
 
 ### Roku
+
+<Details summary="Expand Roku code sample">
 
 You can create a user object with:
 
@@ -1362,6 +1391,7 @@ user.setAnonymous(Boolean)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ## Server-side SDKs
 
@@ -1382,6 +1412,8 @@ Here are the configuration options for user entities in server-side SDKs:
 * [Rust](#rust)
 
 ### .NET (server-side)
+
+<Details summary="Expand .NET (server-side) code sample">
 
 Feature flag targeting and rollouts are determined by the *user* you pass to your `variation` calls. In the .NET SDK, the [`User`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.User.html) class has a `WithKey` method for creating a simple user with only a key, and a `Builder` method for building a user with other properties. Here's an example:
 
@@ -1476,8 +1508,11 @@ var user = User.Builder("aa0ceb")
 </CodeTabs>
 
 You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+</Details>
 
 ### Apex
+
+<Details summary="Expand Apex code sample">
 
 Feature flag targeting and rollouts  are determined by the user you pass to your `variation` calls.
 
@@ -1586,8 +1621,11 @@ LDUser user = new LDUser.Builder('aa0ceb')
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### C/C++ (server-side)
+
+<Details summary="Expand C/C++ (server-side) code sample">
 
 Feature flag targeting and rollouts  are determined by the user you pass to your `variation` calls:
 
@@ -1722,8 +1760,11 @@ LDUserSetAnonymous(user, true);
 </CodeTabs>
 
 You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+</Details>
 
 ### Erlang
+
+<Details summary="Expand Erlang code sample">
 
 Feature flag targeting and rollouts are determined by the user you pass to your variation calls.
 
@@ -1819,8 +1860,11 @@ ldclient:start_instance("YOUR_SDK_KEY", my_instance, #{private_attributes => [em
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Go
+
+<Details summary="Expand Go code sample">
 
 Feature flag targeting and rollouts are determined by the user you pass to your `Variation` calls. The Go SDK defines a [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User) struct and a [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder) to make this easy.
 
@@ -1967,8 +2011,11 @@ user2 := lduser.NewUserBuilder("user2-key").
 </CodeTabs>
 
 You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+</Details>
 
 ### Haskell
+
+<Details summary="Expand Haskell code sample">
 
 Feature flag targeting and rollouts are determined by the user you pass to your variation calls:
 
@@ -2090,8 +2137,11 @@ user` = userSetAnonymous True user
 </CodeTabs>
 
 You still must generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+</Details>
 
 ### Java
+
+<Details summary="Expand Java code sample">
 
 Feature flag targeting and rollouts  are determined by the user you pass to your `variation` calls. In the Java SDK, we use a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern)  to construct users. Here's an example:
 
@@ -2215,8 +2265,11 @@ LDUser user = new LDUser.Builder("aa0ceb")
 </CodeTabs>
 
 You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this. Each unique user key registers a user in the system, so capture and reuse your anonymous user's key between requests.
+</Details>
 
 ### Lua
+
+<Details summary="Expand Lua code sample">
 
 Feature flag targeting and rollouts  are determined by the user you pass to your `variation` calls:
 
@@ -2246,8 +2299,11 @@ local user = ld.makeUser({
 The argument to `ld.makeUser` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
 
 To learn more about configuration options, read the [API docs](https://launchdarkly.github.io/lua-server-sdk/index.html#makeUser).
+</Details>
 
 ### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
 
 Feature flag targeting and rollouts are determined by the user you pass to your `variation` calls. In the Node.JS SDK, users are JSON objects. Here's an example:
 
@@ -2341,8 +2397,11 @@ var user = {"key":"aa0ceb", "anonymous": true};
 </CodeTabs>
 
 You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+</Details>
 
 ### PHP
+
+<Details summary="Expand PHP code sample">
 
 Feature flag targeting and rollouts are determined by the user you pass to your `Variation` calls. In the PHP SDK, we use a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern) to construct users. Here's an example:
 
@@ -2428,8 +2487,11 @@ $user = (new LDUserBuilder("aa0ceb"))->anonymous(true)->build();
 </CodeTabs>
 
 You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+</Details>
 
 ### Python
+
+<Details summary="Expand Python code sample">
 
 Feature flag targeting and rollouts are determined by the user you pass to your `variation` calls. In the Python SDK, users are simply dictionaries.
 
@@ -2525,8 +2587,11 @@ user = { "key":"aa0ceb", "anonymous": True }
 </CodeTabs>
 
 You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this. Anonymous users still count toward your plan's MAU limit, so make sure you capture and reuse your anonymous user's key between requests.
+</Details>
 
 ### Ruby
+
+<Details summary="Expand Ruby code sample">
 
 Feature flag targeting and rollouts are determined by the user you pass to your `variation` calls. In the Ruby SDK, users are simply hashes.
 
@@ -2636,8 +2701,11 @@ user = { key: "aa0ceb", anonymous: true }
 </CodeTabs>
 
 You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+</Details>
 
 ### Rust
+
+<Details summary="Expand Rust code sample">
 
 Feature flag targeting and rollouts are determined by the user you pass to your `variation` calls. The Rust SDK defines a [`User`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.User.html) struct and a [`UserBuilder`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.UserBuilder.html) to accomplish this.
 
@@ -2714,3 +2782,4 @@ let user2 = User::with_key("user2-key").
 </CodeTabs>
 
 You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+</Details>

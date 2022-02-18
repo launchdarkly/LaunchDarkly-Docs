@@ -21,6 +21,8 @@ This feature is available in the following client-side SDKs:
 
 ### Android
 
+<Details summary="Expand Android code sample">
+
 All `LDClient` instances evaluate against the same `LDUser`. The mobile keys for additional environments are specified, along with identifying names, in a map passed to your `LDConfig` object.
 
 <CodeTabs
@@ -139,8 +141,11 @@ coreInstance.close()
 </CodeTabs>
 
 Track calls, listeners, and flag evaluation are all tied to the client instance they are evaluated against.
+</Details>
 
 ### iOS
+
+<Details summary="Expand iOS code sample">
 
 All `LDClient` instances evaluate against the same `LDUser`. The mobile keys for additional environments are specified, along with identifying names, in a map passed to your `LDConfig` object.
 
@@ -236,8 +241,11 @@ coreInstance.close()
 </CodeTabs>
 
 Track calls, listeners, and flag evaluation are all tied to the client instance they are evaluated against.
+</Details>
 
 ### React Native
+
+<Details summary="Expand React Native code sample">
 
 All `LDClient` instances evaluate against the same `LDUser`. The environment names and their corresponding mobile keys are specified in a `secondaryMobileKeys` map passed to your `LDConfig` object.
 
@@ -267,3 +275,4 @@ await client.configure(config, user);
 </CodeTabs>
 
 To use functionality with a secondary environment, provide the name of desired secondary environment as the `environment` parameter value to many `LDClient` methods. Some `LDClient` methods do not have an optional `environment` parameter because they act across all environments. To learn more, read [`LDClient`](https://launchdarkly.github.io/react-native-client-sdk/classes/LDClient.html).
+</Details>

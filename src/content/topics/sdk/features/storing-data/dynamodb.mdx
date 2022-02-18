@@ -48,7 +48,7 @@ In the following examples, the DynamoDB feature store is set to use a table call
 
 This feature is available in the following server-side SDKs:
 
-* [.NET](#net)
+* [.NET (server-side)](#net-server-side)
 * [Go](#go)
 * [Java](#java)
 * [Node.js (server-side)](#nodejs-server-side)
@@ -56,7 +56,9 @@ This feature is available in the following server-side SDKs:
 * [Python](#python)
 * [Ruby](#ruby)
 
-### .NET
+### .NET (server-side)
+
+<Details summary="Expand .NET (server-side) code sample">
 
 If using the .NET SDK, you must install the additional package [`LaunchDarkly.ServerSdk.DynamoDB`](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb).
 
@@ -99,8 +101,11 @@ var client = new LDClient(config);
 </CodeTabs>
 
 To learn more, read [`dotnet-server-sdk-dynamodb`](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb).
+</Details>
 
 ### Go
+
+<Details summary="Expand Go code sample">
 
 The Go integration is in [`github.com/launchdarkly/go-server-sdk-dynamodb`](https://github.com/launchdarkly/go-server-sdk-redis) for version 5.0.0 or higher of the SDK. In versions 4.5.1 and higher, but below 5.0.0, it is in the main SDK distribution as the subpackage `lddynamodb`.
 
@@ -131,8 +136,11 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 </CodeTabs>
 
 To learn more, read [`go-server-sdk-dynamodb`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk-dynamodb).
+</Details>
 
 ### Java
+
+<Details summary="Expand Java code sample">
 
 If using the Java SDK, you must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-dynamodb-store`](https://github.com/launchdarkly/java-server-sdk-dynamodb). You must also add `software.amazon.awssdk.dynamodb` if your application does not already use the AWS SDK.
 
@@ -163,8 +171,11 @@ LDClient client = new LDClient(sdkKey, config);
 </CodeTabs>
 
 To learn more, read [`java-server-sdk-dynamodb`](https://github.com/launchdarkly/java-server-sdk-dynamodb).
+</Details>
 
 ### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
 
 If using the Node.js SDK, you must install the additional package [`launchdarkly-node-server-sdk`](https://github.com/launchdarkly/node-server-sdk-dynamodb). As of the 2.0.0 release of that package, the `aws-sdk` package that it uses is _not_ automatically loaded as a transitive dependency. This saves space when running in AWS Lambda, where `aws-sdk` is built in. If you are not running in Lambda, you must separately install `aws-sdk`.
 
@@ -191,8 +202,11 @@ const client = LaunchDarkly.init(sdkKey, config);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### PHP
+
+<Details summary="Expand PHP code sample">
 
 In version 4.0 and higher of the PHP SDK, you must add the package `launchdarkly/server-sdk-dynamodb` to your application's Composer dependencies to use the DynamoDB integration.
 
@@ -222,8 +236,11 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 </CodeTabs>
 
 To learn more, read [`php-server-sdk-dynamodb`](https://github.com/launchdarkly/php-server-sdk-dynamodb).
+</Details>
 
 ### Python
+
+<Details summary="Expand Python code sample">
 
 The Python integration is part of the main SDK distribution as of version 6.7.0, but you must also install the package `boto3`.
 
@@ -251,8 +268,11 @@ ldclient.set_config(config)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Ruby
+
+<Details summary="Expand Ruby code sample">
 
 The Ruby integration is part of the main SDK distribution as of version 5.1.1, but you must also install the gem `aws-sdk-dynamodb`.
 
@@ -279,3 +299,4 @@ client = LaunchDarkly::Client.new(sdk_key, config)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>

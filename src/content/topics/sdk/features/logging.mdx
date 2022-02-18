@@ -28,6 +28,8 @@ This feature is available in the following client-side SDKs:
 
 ### .NET (client-side)
 
+<Details summary="Expand .NET (client-side) code sample">
+
 The client-side .NET SDK uses the `Common.Logging` framework. For an example configuration, read the [Common.Logging README](https://github.com/net-commons/common-logging#2-register-and-configure-commonlogging).
 
 There are two important things to consider before you enable the DEBUG log level:
@@ -35,7 +37,11 @@ There are two important things to consider before you enable the DEBUG log level
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
 
+</Details>
+
 ### Android
+
+<Details summary="Expand Android code sample">
 
 The Android SDK makes heavy use of Timber logging. Include Timber in your application to enable debug output or production logging. An example is shown below to enable debug output when the application is built with a debug configuration.
 
@@ -67,14 +73,21 @@ if (BuildConfig.DEBUG) {
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Electron
+
+<Details summary="Expand Electron code sample">
 
 By default, the SDK uses the [`winston`](https://www.npmjs.com/package/winston) package. There are four logging levels: `debug`, `info`, `warn`, and `error`. By default, `debug` messages are hidden.
 
 To change the logging configuration, you can set `LDOptions.logger` to either another Winston instance or any object that implements the `LDLogger` interface. The `createConsoleLogger` function creates a minimal logger.
 
+</Details>
+
 ### Node.js (client-side)
+
+<Details summary="Expand Node.js (client-side) code sample">
 
 The client-side Node.js SDK offers several choices for logging.
 
@@ -128,7 +141,11 @@ Be aware of two considerations when enabling debug-level logging:
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
 
+</Details>
+
 ### Roku
+
+<Details summary="Expand Roku code sample">
 
 The Roku SDK's logging feature is configurable. You can set different log levels, or use a custom logging back end with one of the two supported custom loggers.
 
@@ -137,7 +154,8 @@ Those loggers are:
 * [Legacy API custom logger for the Roku SDK](#legacy-api-custom-logger-for-the-roku-sdk)
 * [SceneGraph API custom logger for the Roku SDK](#scenegraph-api-custom-logger-for-the-roku-sdk)
 
-### Log levels in the Roku SDK
+#### Log levels in the Roku SDK
+---
 
 You can configure the SDK log level. For example, to set the level to `info`:
 
@@ -178,7 +196,8 @@ LaunchDarklyLogLevels().none
 </CodeTabItem>
 </CodeTabs>
 
-### Legacy API custom logger for the Roku SDK
+#### Legacy API custom logger for the Roku SDK
+---
 
 <CodeTabs
   defaultValue="brightscript"
@@ -205,7 +224,8 @@ config.setLogger(CustomLogger())
 </CodeTabItem>
 </CodeTabs>
 
-### SceneGraph API custom logger for the Roku SDK
+#### SceneGraph API custom logger for the Roku SDK
+---
 
 Here is an example of the SceneGraph API custom logger:
 
@@ -289,6 +309,7 @@ config.setLoggerNode(myLoggerNode)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ## Server-side SDKs
 
@@ -305,6 +326,8 @@ This feature is available in the following server-side SDKs:
 * [Rust](#rust)
 
 ### .NET (server-side)
+
+<Details summary="Expand .NET (server-side) code sample">
 
 The .NET SDK has four logging levels: `Debug`, `Info`, `Warn`, and `Error`. By default, the lowest enabled level is `Info`, so `Debug` messages are hidden. There are two important things to consider if you enable the `Debug` level:
 
@@ -373,7 +396,11 @@ Before version 6.0, the .NET SDK had different logging behavior:
 * If you did not specifically configure a log destination using `Common.Logging`, logging was disabled by default.
 * The main logger name was `LaunchDarkly.Client.LdClient`.
 
+</Details>
+
 ### C/C++ (server-side)
+
+<Details summary="Expand C/C++ (server-side) code sample">
 
 By default, there is no log output, but we provide a default logger you can enable. The SDK does not lock on any logging. Ensure that your implementation is thread safe.
 
@@ -423,8 +450,11 @@ LDConfigureGlobalLogger(LD_LOG_TRACE, myCustomLogger);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Go
+
+<Details summary="Expand Go code sample">
 
 The Go SDK uses a logging abstraction that can write to a [`log.Logger`](https://pkg.go.dev/log#Logger) or anything with a compatible interface. This adds a system of log levels similar to logging frameworks on other platforms. There are four logging levels: `Debug`, `Info`, `Warn`, and `Error`.
 
@@ -469,7 +499,11 @@ There are two things to consider if you enable the `Debug` log level:
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
 
+</Details>
+
 ### Java
+
+<Details summary="Expand Java code sample">
 
 The Java SDK uses [SLF4J](https://www.slf4j.org/). All loggers are namespaced under `com.launchdarkly`. For an example configuration, visit [hello-java](https://github.com/launchdarkly/hello-java).
 
@@ -490,7 +524,11 @@ There are two important things to consider before you enable the `DEBUG` log lev
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
 
+</Details>
+
 ### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
 
 The Node.js SDK offers several choices for logging.
 
@@ -530,7 +568,11 @@ There are two important things to consider before you enable debug-level logging
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
 
+</Details>
+
 ### PHP
+
+<Details summary="Expand PHP code sample">
 
 The PHP SDK uses [Monolog](https://github.com/Seldaek/monolog). All loggers are namespaced under `LaunchDarkly`.
 
@@ -555,8 +597,11 @@ $client = new LaunchDarkly\LDClient("YOUR_SDK_KEY", array("logger" => new Logger
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Python
+
+<Details summary="Expand Python code sample">
 
 The Python SDK uses Python's built-in [logging library](https://docs.python.org/2/library/logging.html). All loggers are namespaced under `ldclient.util`. For an example configuration, visit [hello-python](https://github.com/launchdarkly/hello-python).
 
@@ -565,7 +610,11 @@ There are two important things to consider before you enable the DEBUG log level
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
 
+</Details>
+
 ### Ruby
+
+<Details summary="Expand Ruby code sample">
 
 The Ruby SDK uses Ruby's built-in [Logger class](https://ruby-doc.org/stdlib-2.4.0/libdoc/logger/rdoc/Logger.html). All loggers are namespaced under `[LDClient]`.
 
@@ -593,8 +642,11 @@ client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Rust
+
+<Details summary="Expand Rust code sample">
 
 The Rust SDK uses the [log](https://docs.rs/log/latest/log/) crate.
 
@@ -602,3 +654,5 @@ There are two important things to consider before you enable the DEBUG log level
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+
+</Details>

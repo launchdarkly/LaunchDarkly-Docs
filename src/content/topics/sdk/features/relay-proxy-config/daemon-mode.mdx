@@ -35,6 +35,8 @@ This feature is available for the following server-side SDKs:
 
 ### .NET (server-side)
 
+<Details summary="Expand .NET (server-side) code sample">
+
 Use the `DataStore` builder method to set a persistent feature store. Then, use the `DataSource` builder method and `Components.ExternalUpdatesOnly` to configure daemon mode:
 
 <CodeTabs
@@ -59,8 +61,11 @@ var config = Configuration.Builder("YOUR_SDK_KEY")
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### C/C++ (server-side)
+
+<Details summary="Expand C/C++ (server-side) code sample">
 
 Use `LDConfigSetFeatureStoreBackend` to set a persistent feature store. Then, use `LDConfigSetUseLDD` to configure daemon mode:
 
@@ -83,8 +88,11 @@ LDConfigSetUseLDD(config, true);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Erlang
+
+<Details summary="Expand Erlang code sample">
 
 Set the `feature_store` property to use a persistent data store. Then set the `use_ldd` property to configure daemon mode:
 
@@ -106,9 +114,11 @@ ldclient:start_instance("YOUR_SDK_KEY", #{
 
 </CodeTabItem>
 </CodeTabs>
-
+</Details>
 
 ### Go
+
+<Details summary="Expand Go code sample">
 
 Use `PersistentDataStore()` to set the persistent data store. Then, use `ExternalUpdatesOnly()` to configure daemon mode:
 
@@ -132,8 +142,11 @@ config := ld.Config{
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Haskell
+
+<Details summary="Expand Haskell code sample">
 
 Use `configSetStoreBackend` to set the persistent data store. Then, use `configSetUseLdd` to configure daemon mode:
 
@@ -160,8 +173,11 @@ config = (makeConfig "YOUR_SDK_KEY")
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Java
+
+<Details summary="Expand Java code sample">
 
 Set the `dataStore` property to `persistentDataStore()` to use the persistent data store. Then, set the `dataSource` property to `externalUpdatesOnly()` to configure daemon mode:
 
@@ -187,8 +203,11 @@ LDConfig config = new LDConfig.Builder()
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Lua
+
+<Details summary="Expand Lua code sample">
 
 Set the `featureStoreBackend` property to use the persistent data store. Then, set the `useLDD` property to configure daemon mode:
 
@@ -214,9 +233,11 @@ local config = {
 
 </CodeTabItem>
 </CodeTabs>
-
+</Details>
 
 ### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
 
 Set the `featureStore` property to use a persistent feature store. Then, set the `useLdd` property to configure daemon mode:
 
@@ -240,9 +261,11 @@ var config = {
 
 </CodeTabItem>
 </CodeTabs>
-
+</Details>
 
 ### PHP
+
+<Details summary="Expand PHP code sample">
 
 Set the `feature_requester` property to use a persistent data store and daemon mode:
 
@@ -261,8 +284,11 @@ $client = new LaunchDarkly\LDClient("YOUR_SDK_KEY",
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Python
+
+<Details summary="Expand Python code sample">
 
 Set the `feature_store` property to use a persistent data store. Then, set the `use_ldd` property to configure daemon mode:
 
@@ -284,8 +310,11 @@ config = Config(
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Ruby
+
+<Details summary="Expand Ruby code sample">
 
 Set the `feature_store` property to use a persistent feature store. Then, set the `use_ldd` property to configure daemon mode:
 
@@ -309,3 +338,4 @@ config = LaunchDarkly::Config.new(
 
 </CodeTabItem>
 </CodeTabs>
+</Details>

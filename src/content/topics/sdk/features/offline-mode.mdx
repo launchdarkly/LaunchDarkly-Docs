@@ -32,6 +32,8 @@ This feature is available in the following client-side SDKs:
 
 ### .NET (client-side)
 
+<Details summary="Expand .NET (client-side) code sample">
+
 The default (fallback) values are defined in your code. The default value only returns if an error is encountered or if LaunchDarkly is unreachable.
 
 In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. You can do this by setting offline mode in the client's Config. When the client is in offline mode, no network requests will be made, so it is suitable for unit-testing.
@@ -55,8 +57,11 @@ LdClient client = LdClient.Init(config);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Android
+
+<Details summary="Expand Android code sample">
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags. `offline` mode lets you do this easily.
 
@@ -100,8 +105,11 @@ client.setOffline()
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Flutter
+
+<Details summary="Expand Flutter code sample">
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached values for your feature flags for future evaluations. `offline` mode lets you do this easily.
 
@@ -128,8 +136,11 @@ await LDClient.setOnline(false);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### iOS
+
+<Details summary="Expand iOS code sample">
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags. Offline mode lets you do this easily.
 
@@ -174,8 +185,11 @@ let connectionStatus = LDClient.get()!.isOnline
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### React Native
+
+<Details summary="Expand React Native code sample">
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags. Offline mode lets you do this easily.
 
@@ -197,6 +211,7 @@ let onlineResult = client.setOnline(); //true or false
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ## Server-side SDKs
 
@@ -215,6 +230,8 @@ This feature is available in the following server-side SDKs:
 * [Rust](#rust)
 
 ### .NET (server-side)
+
+<Details summary="Expand .NET (server-side) code sample">
 
 The default (fallback) values are defined in your code. The default value only returns if an error is encountered or if LaunchDarkly is unreachable.
 
@@ -239,8 +256,11 @@ LdClient client = new LdClient(config);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### C/C++ (server-side)
+
+<Details summary="Expand C/C++ (server-side) code sample">
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises.
 
@@ -260,8 +280,11 @@ LDConfigSetOffline(config, true);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Erlang
+
+<Details summary="Expand Erlang code sample">
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to your feature flags' default values.
 
@@ -285,8 +308,11 @@ ldclient:start_instance("YOUR_SDK_KEY", #{offline => true})
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Go
+
+<Details summary="Expand Go code sample">
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. You can do this by setting `Offline` mode in the client's [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config).
 
@@ -310,8 +336,11 @@ client.BoolVariation("any.feature.flag", user, false) // will always return the 
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Haskell
+
+<Details summary="Expand Haskell code sample">
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. You can do this by setting offline mode in the config object with `configSetOffline`.
 
@@ -333,8 +362,11 @@ config' = configSetOffline True config
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Java
+
+<Details summary="Expand Java code sample">
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. You can do this by setting [`offline`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.Builder.html#offline-boolean-) mode in the client's `LDConfig`.
 
@@ -362,8 +394,11 @@ client.boolVariation("any.feature.flag", user, false)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. You can do this by setting `offline` mode in the client's `config` object.
 
@@ -388,8 +423,11 @@ client.variation("any.feature.flag", user, false, cb) // cb will always be invok
 </CodeTabs>
 
 The default value you set in the variation method is returned in offline mode. This does not refer to the default rule set in your flag configuration.
+</Details>
 
 ### PHP
+
+<Details summary="Expand PHP code sample">
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. `setOffline` lets you do this easily.
 
@@ -410,8 +448,11 @@ $client->variation("any.feature.flag", user, false); // will always return the d
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Python
+
+<Details summary="Expand Python code sample">
 
 In some situations, you might want avoid remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. You can do this by setting `offline` mode in the client's `Config`.
 
@@ -434,8 +475,11 @@ ldclient.get().variation("any.feature.flag", user, False) # will always return t
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Ruby
+
+<Details summary="Expand Ruby code sample">
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. Offline mode lets you do this easily.
 
@@ -457,8 +501,11 @@ client.variation("any.feature.flag", user, false) # will always return the defau
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Rust
+
+<Details summary="Expand Rust code sample">
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and fall back to default values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to fall back to defaults when running on-premises. Offline mode lets you do this easily.
 
@@ -480,3 +527,4 @@ ld_client.bool_variation(&user, "any.feature.flag", false); // will always retur
 
 </CodeTabItem>
 </CodeTabs>
+</Details>

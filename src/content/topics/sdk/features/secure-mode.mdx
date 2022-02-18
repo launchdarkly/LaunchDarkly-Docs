@@ -43,6 +43,8 @@ You can use the following server-side SDKs to generate a secure mode hash:
 
 ### .NET (server-side)
 
+<Details summary="Expand .NET (server-side) code sample">
+
 The [`SecureModeHash`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_SecureModeHash_) method computes an HMAC signature of a user signed with the client's SDK key.
 
 Here is the method:
@@ -61,8 +63,11 @@ var hash = client.SecureModeHash(user);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Go
+
+<Details summary="Expand Go code sample">
 
 The [`SecureModeHash`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.SecureModeHash) method computes an HMAC signature of a user signed with the client's SDK key.
 
@@ -82,8 +87,11 @@ client.SecureModeHash(user)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Java
+
+<Details summary="Expand Java code sample">
 
 The [`secureModeHash`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#secureModeHash-com.launchdarkly.sdk.LDUser-) method computes an HMAC signature of a user signed with the client's SDK key.
 
@@ -103,8 +111,11 @@ client.secureModeHash(user);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
 
 The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key.
 
@@ -124,8 +135,11 @@ client.secureModeHash(user);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### PHP
+
+<Details summary="Expand PHP code sample">
 
 The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key.
 
@@ -145,8 +159,11 @@ $client->secureModeHash(user);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Python
+
+<Details summary="Expand Python code sample">
 
 The `SecureModeHash` method computes an HMAC signature of a user signed with the client's SDK key.
 
@@ -166,8 +183,11 @@ hash = ldclient.get().secure_mode_hash(user)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Ruby
+
+<Details summary="Expand Ruby code sample">
 
 The `secure_mode_hash` method computes an HMAC signature of a user signed with the client's SDK key.
 
@@ -187,8 +207,11 @@ client.secure_mode_hash(user)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Rust
+
+<Details summary="Expand Rust code sample">
 
 The `secure_mode_hash` method computes an HMAC signature of a user signed with the client's SDK key.
 
@@ -208,6 +231,7 @@ client.secure_mode_hash(&user);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ## Computing the hash manually
 

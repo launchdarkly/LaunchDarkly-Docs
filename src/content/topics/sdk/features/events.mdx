@@ -35,6 +35,8 @@ This feature is available in the following client-side SDKs:
 
 ### .NET (client-side)
 
+<Details summary="Expand .NET (client-side) code sample">
+
 The `Track` method lets you record actions your users take on your site. This lets you record events that take place on your server.
 
 Here's how:
@@ -55,8 +57,11 @@ client.Track("your-goal-key");
 </CodeTabs>
 
 You can also attach custom data to your event by passing an extra parameter to `Track`, using the `LdValue` class to represent any value that can be encoded in JSON. To learn how, read [`LdClient.Track`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.LdClient.html#LaunchDarkly_Sdk_Client_LdClient_Track_System_String_LaunchDarkly_Sdk_LdValue_).
+</Details>
 
 ### Android
+
+<Details summary="Expand Android code sample">
 
 The `track` method lets you record actions your users take in your application. You can also attach custom JSON data to your event by passing an extra `JsonElement` parameter to `track`.
 
@@ -88,8 +93,11 @@ client.track("your-goal-key", data)
 To learn more, read [`track`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClientInterface.html#track-java.lang.String-).
 
 You can also attach custom data to your event by calling [`TrackData`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClientInterface.html#trackData-java.lang.String-com.launchdarkly.sdk.LDValue-) or [`TrackMetric`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClientInterface.html#trackMetric-java.lang.String-com.launchdarkly.sdk.LDValue-double-).
+</Details>
 
 ### C/C++ (client-side)
+
+<Details summary="Expand C/C++ (server-side) code sample">
 
 The track method allows you to record custom events in your application with LaunchDarkly:
 
@@ -112,8 +120,11 @@ LDClientTrack(client, "YOUR_EVENT_KEY");
 To learn more, read [`LDClientTrack`](https://launchdarkly.github.io/c-client-sdk/client_8h.html#aed07ba2acbb632f26e63c633b0ef5df5).
 
 You can also attach custom data to your event by calling [`LDClientTrackData`](https://launchdarkly.github.io/c-client-sdk/client_8h.html#aa46b7314691b447f514a432c673a54c3) or [`LDClientTrackMetric`](https://launchdarkly.github.io/c-client-sdk/client_8h.html#ab43d4a144c18509986b5e0a2f747cb8b).
+</Details>
 
 ### Electron
+
+<Details summary="Expand Electron code sample">
 
 Evaluating flags, either with `variation()` or with `allFlags()`, produces analytics events which you can observe on your LaunchDarkly Debugger page. The initial user you specify in the client constructor, as well as any user you specify with `identify()`, produces an analytics event which is how LaunchDarkly receives your user data.
 
@@ -135,8 +146,11 @@ client.track('my-custom-event-key', { customProperty: someValue });
 </CodeTabs>
 
 You can completely disable event sending by setting `sendEvents` to `false` in the client options, but be aware that this means not all user data will appear on the flag dashboard.
+</Details>
 
 ### Flutter
+
+<Details summary="Expand Flutter code sample">
 
 The `track` method lets you record actions your users take in your you do application. You can have also attach custom JSON data to your event by passing an extra `LDValue` parameter to `track`.
 
@@ -157,10 +171,12 @@ await LDClient.track('your-goal-key', data: LDValue.objectBuilder().addBool("cli
 </CodeTabItem>
 </CodeTabs>
 
-
 You can also attach custom data to your event using the [track method](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDClient/track.html) with optional parameters.
+</Details>
 
 ### iOS
+
+<Details summary="Expand iOS code sample">
 
 In the iOS SDK, track is a custom event added to the LDClient event store. A client app can set a tracking event to allow client customized data analysis. After an app has called `track`, the app cannot remove the event from the event store. LDClient periodically transmits events to LaunchDarkly based on the frequency set in `LDConfig.eventFlushInterval`. The LDClient must be started and online.
 
@@ -202,8 +218,11 @@ if (err != nil) {
 </CodeTabs>
 
 To learn how to attach custom data to your event with optional parameters, read [Events](https://launchdarkly.github.io/ios-client-sdk/Classes/ObjcLDClient.html#/Events).
+</Details>
 
 ### JavaScript
+
+<Details summary="Expand JavaScript code sample">
 
 You can record custom events using the `track` function. In LaunchDarkly, you can connect these events to metrics in experiments. To learn more, read [Experimentation](/home/experimentation).
 
@@ -296,8 +315,11 @@ The JavaScript SDK respects the [Do Not Track events](https://www.eff.org/issues
 
 </CalloutDescription>
 </Callout>
+</Details>
 
 ### Node.js (client-side)
+
+<Details summary="Expand Node.js (client-side) code sample">
 
 The `track` method lets you record actions your users take, giving them any event name you want. This lets you record events that take place client-side. The current user data automatically accompany the event.
 
@@ -331,8 +353,11 @@ client.track('something-happened-with-custom-data', { someData: 2 });
 </CodeTabs>
 
 To learn how to attach custom data to your event with optional parameters, read [`track`](https://launchdarkly.github.io/node-client-sdk/interfaces/_launchdarkly_node_client_sdk_.ldclient.html#track).
+</Details>
 
 ### React Native
+
+<Details summary="Expand React Native code sample">
 
 The `track` method lets you record actions your users take in your app. You can also attach custom JSON data to your event by passing an extra parameter to `track`.
 
@@ -362,8 +387,11 @@ client.track('MY_GOAL_FLAG_KEY_WITH_DATA', {'some_data':'value'});
 </CodeTabs>
 
 To learn how to attach custom data to your event with optional parameters, read [`track`](https://launchdarkly.github.io/react-native-client-sdk/classes/LDClient.html#track).
+</Details>
 
 ### Roku
+
+<Details summary="Expand Roku code sample">
 
 The `track` method lets you record custom events in your application with LaunchDarkly.
 
@@ -391,6 +419,7 @@ launchDarkly.track("YOUR_EVENT_KEY", invalid, 52.3)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ## Server-side SDKs
 
@@ -412,6 +441,8 @@ This feature is available in the following server-side SDKs:
 
 ### .NET (server-side)
 
+<Details summary="Expand .NET (server-side) code sample">
+
 The [`Track`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Track_) method lets you record actions users take on your site. This lets you record events that take place on your server. In LaunchDarkly, you can tie these events to goals in A/B tests.
 
 Here's an example:
@@ -432,8 +463,11 @@ client.Track("your-goal-key", user);
 </CodeTabs>
 
 You can also attach custom data to your event by passing an extra parameter to `Track`. To do this, use the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type, which can contain any kind of data supported by JSON. You can also pass another parameter for a custom metric value.
+</Details>
 
 ### Apex
+
+<Details summary="Expand Apex code sample">
 
 The `track` method lets you record actions your users take in your you do application. You can also attach custom JSON data to your event by passing an `LDValue` parameter to `track`, or a custom metric value by passing a `Double` parameter.
 
@@ -455,8 +489,11 @@ client.track(user, 'your-goal-key', 52.3, LDValue.of('my value'));
 </CodeTabs>
 
 To learn how to attach custom data to your event with extra parameters, read [Other methods](https://github.com/launchdarkly/apex-server-sdk/blob/master/doc.md#other-methods-1).
+</Details>
 
 ### C/C++ (server-side)
+
+<Details summary="Expand C/C++ (server-side) code sample">
 
 The `LDClientTrack` function lets you record actions your users take on your site. This lets you record events that take place on your server.
 
@@ -480,8 +517,11 @@ LDClientTrack(client, "your-goal-key", user, NULL);
 To learn more, read [`LDClientTrack()`](https://launchdarkly.github.io/c-server-sdk/client_8h.html#aef1fb9d7ad8cf35f95b7bfd0ab7d75b1).
 
 You can also attach custom data to your event by calling [`LDClientTrackMetric()`](https://launchdarkly.github.io/c-server-sdk/client_8h.html#af3d2df29367d8178dd4a3c2804cd3bec).
+</Details>
 
 ### Erlang
+
+<Details summary="Expand Erlang code sample">
 
 The `track` function lets you record actions your users take on your site. This lets you record events that take place on your server.
 
@@ -505,9 +545,11 @@ ldclient:track(<<"YOUR-METRIC-KEY">>, #{key => <<"aa0ceb">>}, #{data => <<"examp
 To learn more, read [`track`](https://hexdocs.pm/launchdarkly_server_sdk/ldclient.html#track-3).
 
 You can also attach a JSON object containing arbitrary data to your event, or a custom metric value. To learn how, read [`track_metric`](https://hexdocs.pm/launchdarkly_server_sdk/ldclient.html#track_metric-4).
-
+</Details>
 
 ### Go
+
+<Details summary="Expand Go code sample">
 
 The `Track` methods allow you to record actions your users take on your site. This lets you record events that take place on your server.
 
@@ -531,8 +573,11 @@ client.TrackEvent("completed-purchase", user)
 </CodeTabs>
 
 You can also attach custom data to your event by calling [`TrackData`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.TrackData), which takes an extra parameter. Or, if you are using experimentation, you can specify a numeric metric with [`TrackMetric`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.TrackMetric).
+</Details>
 
 ### Haskell
+
+<Details summary="Expand Haskell code sample">
 
 The `track` function lets you record actions your users take on your site. This lets you record events that take place on your server.
 
@@ -553,8 +598,11 @@ track client user "your-metric-key" Nothing Nothing
 </CodeTabs>
 
 You can also attach a JSON object containing arbitrary data to your event, or a custom metric value. To learn how, read [`track`](https://launchdarkly.github.io/haskell-server-sdk/src/LaunchDarkly.Server.Client.html#track).
+</Details>
 
 ### Java
+
+<Details summary="Expand Java code sample">
 
 The [`track`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#track-java.lang.String-com.launchdarkly.sdk.LDUser-) method lets you record actions your users take on your site. This lets you record events that take place on your server.
 
@@ -578,8 +626,11 @@ client.track("your-goal-key", user);
 You can also attach custom JSON data to your event with an alternate version of `track`, [`trackData`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackData-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-). You can set the data to any value that can be represented in JSON. To learn more, read [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html).
 
 If you are using [experimentation](/home/experimentation), you can specify a numeric metric with [`trackMetric`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackMetric-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-double-).
+</Details>
 
 ### Lua
+
+<Details summary="Expand Lua code sample">
 
 The `track` method lets you record actions your users take. This lets you record events that take place on your server.
 
@@ -601,9 +652,11 @@ client:track("your-goal-key", user);
 </CodeTabs>
 
 You can also attach an object containing arbitrary data to your event. To learn how, read [`track`](https://launchdarkly.github.io/lua-server-sdk/modules/launchdarkly-server-sdk.html#track).
-
+</Details>
 
 ### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
 
 The `track` method lets you record actions your users take on your site. This lets you record events that take place on your server.
 
@@ -625,8 +678,11 @@ client.track("your-goal-key", user);
 </CodeTabs>
 
 You can also attach custom data to your event with optional parameters. To learn how, read [track](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDClient.html#track).
+</Details>
 
 ### PHP
+
+<Details summary="Expand PHP code sample">
 
 The `track` method lets you record actions your users take on your site. This lets you record events that take place on your server.
 
@@ -648,8 +704,11 @@ $client->track("your-goal-key", user);
 </CodeTabs>
 
 You can also attach custom data, including anything that can be marshaled to JSON, to your event by passing an extra parameter to `track`. To learn how, read [`track()`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method_track).
+</Details>
 
 ### Python
+
+<Details summary="Expand Python code sample">
 
 The `track` method lets you record actions your users take on your site. This lets you record events that take place on your server.
 
@@ -671,8 +730,11 @@ ldclient.get().track("your-goal-key", user)
 </CodeTabs>
 
 You can also attach custom data to your event with optional parameters. To learn how, read [`track`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.client.LDClient.track).
+</Details>
 
 ### Ruby
+
+<Details summary="Expand Ruby code sample">
 
 The `track` method lets you record actions your users take on your site. This lets you record events that take place on your server.
 
@@ -694,8 +756,11 @@ client.track("your-goal-key", user)
 </CodeTabs>
 
 You can also attach an extra hash containing arbitrary data to your event. To learn how, read [`track`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/LDClient.html#track-instance_method).
+</Details>
 
 ### Rust
+
+<Details summary="Expand Rust code sample">
 
 The `track` methods allow you to record actions your users take on your site. This lets you record events that take place on your server.
 
@@ -719,3 +784,4 @@ client.track_event(user, "completed-purchase");
 </CodeTabs>
 
 You can also attach custom data to your event by calling [`track_data`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.track_data), which takes an extra parameter. Or, if you are using experimentation, you can specify a numeric metric with [`track_metric`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.track_metric).
+</Details>

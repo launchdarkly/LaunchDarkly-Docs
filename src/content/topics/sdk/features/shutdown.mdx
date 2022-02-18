@@ -38,6 +38,8 @@ This feature is available in the following client-side SDKs:
 
 ### .NET (client-side)
 
+<Details summary="Expand .NET (client-side) code sample">
+
 To shut down:
 
 <CodeTabs
@@ -54,8 +56,11 @@ client.Dispose();
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Android
+
+<Details summary="Expand Android code sample">
 
 To shut down:
 
@@ -81,8 +86,11 @@ client.close()
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### C/C++ (client-side)
+
+<Details summary="Expand C/C++ (client-side) code sample">
 
 To fully uninitialize the C/C++ SDK resources, you must use `close`. The operation blocks until all resources are free.
 
@@ -112,8 +120,11 @@ client->close();
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Electron
+
+<Details summary="Expand Electron code sample">
 
 To shut down:
 
@@ -131,8 +142,11 @@ await client.close();
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Flutter
+
+<Details summary="Expand Flutter code sample">
 
 To shut down:
 
@@ -150,8 +164,11 @@ await LDClient.close();
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### iOS
+
+<Details summary="Expand iOS code sample">
 
 To shut down:
 
@@ -177,9 +194,12 @@ client.close()
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### JavaScript
 
+<Details summary="Expand JavaScript code sample">
+
 To shut down:
 
 <CodeTabs
@@ -196,9 +216,12 @@ await client.close();
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Node.js (client-side)
 
+<Details summary="Expand Node.js (client-side) code sample">
+
 To shut down:
 
 <CodeTabs
@@ -215,9 +238,12 @@ await client.close();
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### React Native
 
+<Details summary="Expand React Native code sample">
+
 To shut down:
 
 <CodeTabs
@@ -234,6 +260,7 @@ await client.close();
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ## Server-side SDKs
 
@@ -251,6 +278,8 @@ This feature is available in the following server-side SDKs:
 * [Rust](#rust)
 
 ### .NET (server-side)
+
+<Details summary="Expand .NET (server-side) code sample">
 
 [`Dispose`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Dispose_) safely shuts down the client instance.
 
@@ -270,8 +299,11 @@ client.Dispose();
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### C/C++ (server-side)
+
+<Details summary="Expand C/C++ (server-side) code sample">
 
 `LDClientClose` uninitializes the resources the C/C++ SDK uses. The operation blocks until all resources are free.
 
@@ -291,8 +323,11 @@ LDClientClose(client);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Erlang
+
+<Details summary="Expand Erlang code sample">
 
 `stop_instance()`, `stop_instance(Tag)`, and `stop_all_instances()` all safely shut down client instances and release the resources associated with them.
 
@@ -318,8 +353,11 @@ ldclient:stop_instance(my_instance)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Go
+
+<Details summary="Expand Go code sample">
 
 When your application is about to terminate, shut down the `LDClient` with [`Close()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Close).
 
@@ -339,8 +377,11 @@ client.Close()
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Haskell
+
+<Details summary="Expand Haskell code sample">
 
 To shut down:
 
@@ -358,8 +399,11 @@ close client
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Java
+
+<Details summary="Expand Java code sample">
 
 [`Close`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#close--) safely shuts down the client instance and releases all resources associated with the client.
 
@@ -379,8 +423,11 @@ client.close()
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
 
 To shut down:
 
@@ -398,8 +445,11 @@ client.close();
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Python
+
+<Details summary="Expand Python code sample">
 
 To shut down:
 
@@ -418,8 +468,11 @@ ldclient.get().close()
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Ruby
+
+<Details summary="Expand Ruby code sample">
 
 To shut down:
 
@@ -437,8 +490,11 @@ client.close
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Rust
+
+<Details summary="Expand Rust code sample">
 
 To shut down:
 
@@ -456,3 +512,4 @@ client.close();
 
 </CodeTabItem>
 </CodeTabs>
+</Details>

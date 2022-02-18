@@ -32,6 +32,8 @@ This feature is available in the following client-side SDKs:
 
 ### .NET (client-side)
 
+<Details summary="Expand .NET (client-side) code sample">
+
 LaunchDarkly manages all flags for a user context by updating the flag cache based on a real-time event stream. When a flag is modified from the flag dashboard, the flag values for the current user update almost immediately.
 
 The SDK caches flag values in local storage after initializing with LaunchDarkly. If your app closes and then reopens without a connection to LaunchDarkly, the cached flag values are still available. After your app reinitializes with LaunchDarkly it receives any flag updates that occurred while disconnected.
@@ -81,8 +83,11 @@ client.FlagChanged += (sender, eventArgs) => {
 </CodeTabs>
 
 To learn more, read [`IFlagTracker`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.Interfaces.IFlagTracker.html).
+</Details>
 
 ### Android
+
+<Details summary="Expand Android code sample">
 
 The SDK maintains what variations a user should receive locally in its cache and evaluates flags based on that cache. The SDK uses both a streaming strategy and a polling strategy to keep the local cache in sync with your flag configurations in LaunchDarkly.
 
@@ -226,12 +231,15 @@ LDClient.get().unregisterAllFlagsListener(listener)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### C/C++ (client-side)
 
 To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is listened to by the C SDK. Whenever an event is performed on the dashboard, the C SDK is notified of the updated flag settings in real-time.
 
 ### Electron
+
+<Details summary="Expand Electron code sample">
 
 By default, the client requests feature flag values only once per user, once at startup time, and then each time you call `identify()`. You can also use a persistent connection to receive flag updates whenever they occur.
 
@@ -279,8 +287,11 @@ client.on('change', function(allFlagChanges)) {
 </CodeTabs>
 
 Subscribing to `change` events will automatically turn on streaming mode too, unless you have explicitly set `streaming` to `false`.
+</Details>
 
 ### Flutter
+
+<Details summary="Expand Flutter code sample">
 
 The SDK maintains what variations a user should receive locally in cache. The SDK evaluates flags based on what it has cached locally. To keep the local cache in sync with your flag configurations in LaunchDarkly, the SDK maintains a streaming connection to the service when in the foreground. This allows near instantaneous flag update delivery to your application.
 
@@ -349,8 +360,11 @@ await LDClient.unregisterFlagsReceivedListener(listener);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### iOS
+
+<Details summary="Expand iOS code sample">
 
 LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream. When a flag is modified from the flag dashboard, the flag values for the current user updates almost immediately.
 
@@ -424,8 +438,11 @@ __weak typeof(self) weakSelf = self;
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### JavaScript
+
+<Details summary="Expand JavaScript code sample">
 
 The client uses an event emitter pattern which allows you to subscribe to feature flag changes in real time. To subscribe to all feature flag changes, listen for the change event.
 
@@ -488,8 +505,11 @@ client.on('change:YOUR_FLAG_KEY', function (value, previous) {
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Node.js (client-side)
+
+<Details summary="Expand Node.js (client-side) code sample">
 
 The client uses an event emitter pattern which allows you to subscribe to feature flag changes in real time. To subscribe to all feature flag changes, listen for the change event.
 
@@ -552,8 +572,11 @@ client.on('change:YOUR_FLAG_KEY', function (value, previous) {
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### React Native
+
+<Details summary="Expand React Native code sample">
 
 LaunchDarkly manages all flags for a user context by updating flags based on a real-time event stream. When a flag is modified from the flag dashboard, the flag values for the current user update almost immediately.
 
@@ -601,6 +624,7 @@ this.setState({listeners: newListeners});
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ## Server-side SDKs
 
@@ -612,6 +636,8 @@ This feature is available in the following server-side SDKs:
 * [Node.js (server-side)](#nodejs-server-side)
 
 ### .NET (server-side)
+
+<Details summary="Expand .NET (server-side) code sample">
 
 <Callout intent="info">
 <CalloutTitle>This feature is not available in all SDK versions</CalloutTitle>
@@ -682,8 +708,11 @@ void LogWheneverOneFlagChangesForOneUser(LdClient client, string flagKey, User u
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Go
+
+<Details summary="Expand Go code sample">
 
 <Callout intent="info">
 <CalloutTitle>This feature is not available in all SDKs or versions</CalloutTitle>
@@ -760,8 +789,11 @@ func logWheneverOneFlagChangesForOneUser(client *ld.LDClient, flagKey string, us
 </CodeTabs>
 
 With both of these methods, it is the caller's responsibility to consume values from the channel. Letting values accumulate in the channel can cause an SDK goroutine to be blocked.
+</Details>
 
 ### Java
+
+<Details summary="Expand Java code sample">
 
 <Callout intent="info">
 <CalloutTitle>This feature is not available in all SDK versions</CalloutTitle>
@@ -822,8 +854,11 @@ void logWheneverOneFlagChangesForOneUser(LDClient client, string flagKey, LDUser
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
 
 The SDK provides an event-based mechanism to notify you when flag configurations change.
 
@@ -864,3 +899,4 @@ client.on('update:EXAMPLE_FLAG_KEY', () => {
 
 </CodeTabItem>
 </CodeTabs>
+</Details>

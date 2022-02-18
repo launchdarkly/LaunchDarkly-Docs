@@ -44,7 +44,7 @@ In the following examples, the Redis feature store is set to use a host address 
 
 This feature is available in the following server-side SDKs:
 
-* [.NET](#net)
+* [.NET (server-side)](#net-server-side)
 * [C/C++ (server-side)](#cc-server-side)
 * [Erlang](#erlang)
 * [Go](#go)
@@ -56,7 +56,9 @@ This feature is available in the following server-side SDKs:
 * [Python](#python)
 * [Ruby](#ruby)
 
-### .NET
+### .NET (server-side)
+
+<Details summary="Expand .NET (server-side) code sample">
 
 To use Redis with the .NET SDK you must install an additional package named [`LaunchDarkly.ServerSdk.Redis`](https://github.com/launchdarkly/dotnet-server-sdk-redis).
 
@@ -103,8 +105,11 @@ var client = new LDClient(config);
 </CodeTabs>
 
 To learn more, read [`dotnet-server-sdk-redis`](https://github.com/launchdarkly/dotnet-server-sdk-redis).
+</Details>
 
 ### C/C++ (server-side)
+
+<Details summary="Expand C/C++ (server-side) code sample">
 
 The C/C++ integration is part of the main SDK distribution.
 
@@ -130,8 +135,11 @@ LDConfigSetFeatureStoreBackend(config, store);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Erlang
+
+<Details summary="Expand Erlang code sample">
 
 <CodeTabs
   defaultValue="erlang"
@@ -154,8 +162,11 @@ ldclient:start_instance("your_sdk_key", LdOptions).
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Go
+
+<Details summary="Expand Go code sample">
 
 The Go integration is in [`github.com/launchdarkly/go-server-sdk-redis`](https://github.com/launchdarkly/go-server-sdk-redis) for 5.0.0 or higher of the SDK. In earlier SDK versions, it is in the main SDK distribution as the subpackage `redis`.
 
@@ -188,8 +199,11 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 </CodeTabs>
 
 To learn more, read [`go-server-sdk-redis`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk-redis).
+</Details>
 
 ### Haskell
+
+<Details summary="Expand Haskell code sample">
 
 If using the Haskell SDK you must install an additional package named `launchdarkly-server-sdk-redis`.
 
@@ -218,8 +232,11 @@ main = do
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Java
+
+<Details summary="Expand Java code sample">
 
 You must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-redis-store`](https://github.com/launchdarkly/java-server-sdk-redis).
 
@@ -251,8 +268,11 @@ LDClient client = new LDClient(sdkKey, config);
 </CodeTabs>
 
 To learn more, read [`java-server-sdk-redis`](https://github.com/launchdarkly/java-server-sdk-redis).
+</Details>
 
 ### Lua
+
+<Details summary="Expand Lua code sample">
 
 <CodeTabs
   defaultValue="lua"
@@ -281,8 +301,11 @@ local c = l.clientInit({
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
 
 In version 6.0.0 and higher of the Node.js SDK, you must install the additional package [`launchdarkly-node-server-sdk-redis`](https://github.com/launchdarkly/node-server-sdk-redis). In Node.js SDK 5.x and earlier, this integration is part of the main SDK distribution.
 
@@ -330,8 +353,11 @@ const client = LaunchDarkly.init(sdkKey, config);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### PHP
+
+<Details summary="Expand PHP code sample">
 
 There are two Redis integrations for the PHP SDK. One uses the [Predis](https://github.com/predis/predis) package, which can be used in any PHP environment. The other uses the more efficient [`phpredis`](https://github.com/phpredis/phpredis) extension, which must be installed in PHP itself.
 
@@ -407,8 +433,11 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 </CodeTabs>
 
 To learn more, read [`php-server-sdk-redis-predis`](https://github.com/launchdarkly/php-server-sdk-redis-predis) or [`php-server-sdk-redis-phpredis`](https://github.com/launchdarkly/php-server-sdk-redis-phpredis).
+</Details>
 
 ### Python
+
+<Details summary="Expand Python code sample">
 
 The Python integration is part of the main SDK distribution, but you must also install the package `redis`.
 
@@ -440,8 +469,11 @@ ldclient.set_config(config)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Ruby
+
+<Details summary="Expand Ruby code sample">
 
 The Ruby integration is part of the main SDK distribution, but you must also install the gems `redis` and `connection_pool`.
 
@@ -474,3 +506,4 @@ client = LaunchDarkly::Client.new(sdk_key, config)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>

@@ -38,6 +38,8 @@ This feature is available in the following client-side SDKs:
 
 ### .NET (client-side)
 
+<Details summary="Expand .NET (client-side) code sample">
+
 To manually send an alias event:
 
 <CodeTabs
@@ -56,8 +58,11 @@ client.Alias(newUser, previousUser);
 </CodeTabs>
 
 To learn more, read [`LdClient.Alias`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.LdClient.html#LaunchDarkly_Sdk_Client_LdClient_Alias_) and [`ConfigurationBuilder.AutoAliasingOptOut`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.LdClient.html#LaunchDarkly_Sdk_Client_ConfigurationBuilder_AutoAliasingOptOut_).
+</Details>
 
 ### Android
+
+<Details summary="Expand Android code sample">
 
 To manually send an alias event:
 
@@ -82,8 +87,11 @@ client.alias(newUser, previousUser)
 ```
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### C/C++ (client-side)
+
+<Details summary="Expand C/C++ (client-side) code sample">
 
 To manually send an alias event:
 
@@ -101,8 +109,11 @@ LDClientAlias(client, newUser, previousUser);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Electron
+
+<Details summary="Expand Electron code sample">
 
 To manually send an alias event:
 
@@ -120,8 +131,11 @@ client.alias(newUser, previousUser);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Flutter
+
+<Details summary="Expand Flutter code sample">
 
 To manually send an alias event:
 
@@ -139,8 +153,11 @@ await LDClient.alias(newUser, previousUser);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### iOS
+
+<Details summary="Expand iOS code sample">
 
 To manually send an alias event:
 
@@ -165,8 +182,11 @@ LDClient.get()!.alias(context: newUser, previousContext: previousUser)
 ```
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### JavaScript
+
+<Details summary="Expand JavaScript code sample">
 
 Both `alias` parameters must have `key` attributes. If the LaunchDarkly client auto-generated a unique identifier for one of your users, you can access the user's complete object with the `getUser` method.
 
@@ -197,8 +217,11 @@ client.alias(newUser, previousUser);
 ```
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Node.js (client-side)
+
+<Details summary="Expand Node.js (client-side) code sample">
 
 To manually send an alias event:
 
@@ -216,12 +239,15 @@ client.alias(newUser, previousUser);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### React
 
 All user-related functionality provided by the [JavaScript SDK](#javascript) is also available in the React SDK.
 
 ### React Native
+
+<Details summary="Expand React Native code sample">
 
 To manually send an alias event:
 
@@ -243,8 +269,11 @@ client.alias(user, previousUser, environment);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Roku
+
+<Details summary="Expand Roku code sample">
 
 To manually send an alias event:
 
@@ -262,6 +291,7 @@ client.alias(user, previousUser)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ## Server-side SDKs
 
@@ -283,6 +313,8 @@ This feature is available in the following server-side SDKs:
 
 ### .NET (server-side)
 
+<Details summary="Expand .NET (server-side) code sample">
+
 To manually send an alias event:
 
 <CodeTabs
@@ -299,8 +331,11 @@ client.Alias(newUser, previousUser);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Apex
+
+<Details summary="Expand Apex code sample">
 
 To manually send an alias event:
 
@@ -318,8 +353,11 @@ client.alias(newUser, previousUser)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### C/C++ (server-side)
+
+<Details summary="Expand C/C++ (server-side) code sample">
 
 To manually send an alias event:
 
@@ -337,8 +375,11 @@ LDClientAlias(client, newUser, previousUser);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Erlang
+
+<Details summary="Expand Erlang code sample">
 
 To manually send an alias event:
 
@@ -356,8 +397,11 @@ ldclient:alias(User, PreviousUser)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Go
+
+<Details summary="Expand Go code sample">
 
 To manually send an alias event:
 
@@ -375,8 +419,11 @@ client.Alias(newUser, previousUser)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Haskell
+
+<Details summary="Expand Haskell code sample">
 
 To manually send an alias event:
 
@@ -394,8 +441,11 @@ alias client newUser previousUser
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Java
+
+<Details summary="Expand Java code sample">
 
 To manually send an alias event:
 
@@ -413,8 +463,11 @@ client.alias(user, previousUser);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Lua
+
+<Details summary="Expand Lua code sample">
 
 To manually send an alias event:
 
@@ -432,8 +485,11 @@ client:alias(newUser, previousUser)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
 
 To manually send an alias event:
 
@@ -451,8 +507,11 @@ client.alias(newUser, previousUser);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### PHP
+
+<Details summary="Expand PHP code sample">
 
 To manually send an alias event:
 
@@ -470,8 +529,11 @@ $client->alias($user, $previousUser);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Python
+
+<Details summary="Expand Python code sample">
 
 To manually send an alias event:
 
@@ -489,8 +551,11 @@ ldclient.get().alias(new_user, previous_user)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Ruby
+
+<Details summary="Expand Ruby code sample">
 
 To manually send an alias event:
 
@@ -508,8 +573,11 @@ client.alias(new_user, previous_user)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Rust
+
+<Details summary="Expand Rust code sample">
 
 To manually send an alias event:
 
@@ -527,3 +595,4 @@ client.alias(user, previous_user);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>

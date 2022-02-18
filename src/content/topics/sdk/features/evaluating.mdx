@@ -39,6 +39,8 @@ This feature is available for all of our client-side SDKs:
 
 ### .NET (client-side)
 
+<Details summary="Expand .NET (client-side) code sample">
+
 The `Variation` method determines whether a flag is enabled or not for a specific user. In the client-side .NET SDK, there is  a `variation` method for each type, such as `BoolVariation` or `StringVariation`.
 
 `variation` calls take the feature flag key and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
@@ -59,8 +61,11 @@ client.BoolVariation("your.feature.key", false);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Android
+
+<Details summary="Expand Android code sample">
 
 The `variation` method determines whether or not a flag is enabled for a specific user. `variation` calls take the feature flag key and a fallback value. When `LDClient` is initialized for the first time at app launch, users receive the feature flag fallback values until an initial connection to LaunchDarkly completes.
 
@@ -90,8 +95,11 @@ val variationResult: Boolean = client.boolVariation(flagKey, false)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### C/C++ (client-side)
+
+<Details summary="Expand C/C++ (server-side) code sample">
 
 The variation methods determine whether or not a flag is enabled for a specific user. The variation method signatures take the feature flag key and a fallback value. When the client is initialized for the first time, users receive the feature flag fallback values until an initial connection to LaunchDarkly completes.
 
@@ -133,8 +141,11 @@ if (show_feature) {
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Electron
+
+<Details summary="Expand Electron code sample">
 
 To evaluate any feature flag for the current user, call `variation`:
 
@@ -184,8 +195,11 @@ var showFeature = flags['YOUR_FEATURE_KEY'];
 This returns a key-value map of all your feature flags. It contains `null` values for any flags that could not be evaluated.
 
 Both of these methods are synchronous. The client always has the last known flag values in memory, so retrieving them does not involve any input/output (I/O).
+</Details>
 
 ### Flutter
+
+<Details summary="Expand Flutter code sample">
 
 The `variation` methods determine the flag value for the current user. `variation` calls take the feature flag key and a fallback value. When `LDClient` is initialized for the first time at app launch, users receive the feature flag fallback values until an initial connection to LaunchDarkly completes.
 
@@ -207,8 +221,11 @@ bool variationResult = await LDClient.boolVariation(flagKey, false);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### iOS
+
+<Details summary="Expand iOS code sample">
 
 The `variation` method returns the variation for the given feature flag. If the flag does not exist, cannot be cast to the correct return type, or the LDClient is not started, the method returns the default value. Use this method when the default value is a non-`Optional` type. `LDFlagValue` shows you all available types.
 
@@ -248,8 +265,11 @@ NSDictionary* dictionaryFlagValue = [[LDClient get] dictionaryVariationForKey:@"
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### JavaScript
+
+<Details summary="Expand JavaScript code sample">
 
 The `variation` method determines which variation of a feature flag a user receives. `variation` calls take the feature flag key and a default value.
 
@@ -283,8 +303,11 @@ const stringFlagValue = client.variation('your.feature.key', 'default') as strin
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Node.js (client-side)
+
+<Details summary="Expand Node.js (client-side) code sample">
 
 The `variation` method determines which variation of a feature flag a user receives.
 
@@ -319,8 +342,11 @@ const stringFlagValue = client.variation('your.feature.key', 'default') as strin
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### React Native
+
+<Details summary="Expand React Native code sample">
 
 The variation method determines whether a flag is enabled or not for a specific user. In React Native, there is a variation method for each type, such as `boolVariation` or `stringVariation`.
 
@@ -342,8 +368,11 @@ let jsonResult = await client.jsonVariation('MY_JSON_FLAG_KEY', {});
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Roku
+
+<Details summary="Expand Roku code sample">
 
 The `*variation` methods determine which variation of a feature flag a user receives.
 
@@ -376,6 +405,7 @@ myValue = launchDarkly.variation("MY_FLAG_KEY", false)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ## Server-side SDKs
 
@@ -397,6 +427,8 @@ This feature is available for all of our server-side SDKs:
 * [Rust](#rust)
 
 ### .NET (server-side)
+
+<Details summary="Expand .NET (server-side) code sample">
 
 The `Variation` methods determine whether a flag is enabled or not for a specific user. In .NET, there is  a `Variation` method for each type:
 * [`BoolVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_BoolVariation_)
@@ -424,8 +456,11 @@ var value = client.BoolVariation("your.feature.key", user, false);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Apex
+
+<Details summary="Expand Apex code sample">
 
 The `variation` family of methods determine the flag value for a specific user. In Apex, there is a `variation` method for each type, such as `boolVariation` or `stringVariation`.
 
@@ -458,8 +493,11 @@ Boolean value = client.boolVariation(user, 'your.feature.key', false);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### C/C++ (server-side)
+
+<Details summary="Expand C/C++ (server-side) code sample">
 
 The `variation` family of functions determine whether a flag is enabled or not for a specific user. In C, there is a `variation` function for each type, such as `LDBoolVariation` or `LDStringVariation`.
 
@@ -481,8 +519,11 @@ bool value = LDBoolVariation(client, user, "your.feature.key", false, NULL);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Erlang
+
+<Details summary="Expand Erlang code sample">
 
 The `variation` function determines whether a flag is enabled or not for a specific user.
 
@@ -504,8 +545,11 @@ Flag = ldclient:variation(<<"my-bool-key">>, #{key => <<"aa0ceb">>,}, false, my_
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Go
+
+<Details summary="Expand Go code sample">
 
 The `Variation` methods determine whether a flag is enabled or not for a specific user. In Go, there is a `Variation` method for each type:
 * [`BoolVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.BoolVariation)
@@ -536,8 +580,11 @@ result, _ := client.BoolVariation("your.feature.key", user, false)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Haskell
+
+<Details summary="Expand Haskell code sample">
 
 The `variation` family of functions determine whether a flag is enabled or not for a specific user.
 
@@ -559,8 +606,11 @@ myBoolVariation <- boolVariation client user "YOUR_FEATURE_KEY" False
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Java
+
+<Details summary="Expand Java code sample">
 
 The `variation` methods determine which variation of a feature flag a user receives. In Java, there is a `variation` method for each type: [`boolVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#boolVariation-java.lang.String-com.launchdarkly.sdk.LDUser-boolean-), [`intVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#intVariation-java.lang.String-com.launchdarkly.sdk.LDUser-int-), [`doubleVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#doubleVariation-java.lang.String-com.launchdarkly.sdk.LDUser-double-), [`stringVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#stringVariation-java.lang.String-com.launchdarkly.sdk.LDUser-java.lang.String-) and [`jsonValueVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#jsonValueVariation-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-), which can be of any JSON type.
 
@@ -584,8 +634,11 @@ boolean value = client.boolVariation("your.feature.key", user, false);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Lua
+
+<Details summary="Expand Lua code sample">
 
 The `variation` family of functions determine whether a flag is enabled or not for a specific user. In Lua, there is a `variation` function for each type, such as `boolVariation` or  `stringVariation`.
 
@@ -609,8 +662,11 @@ local value = client:boolVariation(user, "YOUR_FEATURE_KEY", false)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
 
 The `variation` method determines which variation of a feature flag a user receives.
 
@@ -642,12 +698,15 @@ client.variation("your.feature.key", user, false,
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Node.js (Cloudflare)
 
 This SDK uses the same code as the [Node.js server-side SDK](#nodejs-server-side).
 
 ### PHP
+
+<Details summary="Expand PHP code sample">
 
 The `variation` method determines which variation of a feature flag a user receives.
 
@@ -671,8 +730,11 @@ $value = $client->variation($key, $user, false);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Python
+
+<Details summary="Expand Python code sample">
 
 The `variation` method determines which variation of a feature flag a user receives.
 
@@ -696,8 +758,11 @@ show_feature = ldclient.get().variation("your.feature.key", user, False)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Ruby
+
+<Details summary="Expand Ruby code sample">
 
 The `variation` method determines which variation of a feature flag a user receives.
 
@@ -721,8 +786,11 @@ value = client.variation("your.feature.key", user, false)
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
 
 ### Rust
+
+<Details summary="Expand Rust code sample">
 
 The `variation` methods determine whether a flag is enabled or not for a specific user. In Rust, there is a `variation` method for each type:
 * [`bool_variation`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.bool_variation),
@@ -752,3 +820,4 @@ let result = client.bool_variation(&user, "your.feature.key", false);
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
