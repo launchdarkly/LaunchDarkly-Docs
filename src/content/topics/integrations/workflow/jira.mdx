@@ -34,16 +34,7 @@ The LaunchDarkly Jira integration is only for Jira Cloud product offerings. It d
 To complete this procedure, you must have the following prerequisites:
 
 - The LaunchDarkly for Jira app from the [Atlassian Marketplace](https://marketplace.atlassian.com/apps/1219142/launchdarkly-for-jira?hosting=cloud&tab=overview) in your Jira Cloud instance.
-- An API access token with `writer` permissions. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
-
-You can also give the access token a custom role allowing it to control webhooks and manage flag links.
-
-In the custom role policy, add the following statements:
-
-- Allow access to `webhook/*` resources with the `createWebhook` and `deleteWebhook` actions
-- Allow access to `proj/*:env/*:flag/*` resources with the `createFlagLink`, `updateFlagLink`, and `deleteFlagLink` actions
-
-To learn more about custom role policies, read [Creating custom roles and policies](/home/connecting/custom-properties).
+- An API access token with the `writer` role or a custom role with permission to control webhooks and manage flag links. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
 
 <Callout intent="info">
 <CalloutTitle>You may need to update your access token</CalloutTitle>
@@ -54,13 +45,75 @@ If you configured the Jira integration prior to February 15, 2022, you may need 
 </CalloutDescription>
 </Callout>
 
-An example custom role configuration appears below:
+To create a custom role for the API access token:
 
-![An access token's custom role configuration in the LaunchDarkly UI.](jira-create-access-token.png)
+1. Navigate to the **Account settings** page.
+2. Click into the **Roles** tab.
+3. Click **Create role**. The "Create custom role" panel appears.
+4. Give the custom role a human-readable name.
+5. In the "Role policy" section, enter `webhook/*` in the **Choose resources for this policy statement** field.
+6. Select "Allow" from the **Allow or deny actions on the resource** menu.
+7. Choose `createWebhook` and `deleteWebhook` from the **Choose actions to allow or deny** menu.
+8. Click **Update statement**.
+9. Click **+ Add statement**.
+10. In the "Role policy" section, enter `proj/*:env/*:flag/*` in the **Choose resources for this policy statement** field.
+11. Select "Allow" from the **Allow or deny actions on the resource** menu.
+12. Choose `createFlagLink`, `updateFlagLink`, and `deleteFlagLink` from the **Choose actions to allow or deny** menu.
+13. Click **Update statement**.
 
-Use your access token to configure the Jira integration for your LaunchDarkly account.
+The custom role is now configured. 
 
-1. Navigate to your Jira instance's app management page, and click the **Configuration** button for the LaunchDarkly app.
+You can also use the advanced role policy editor to grant permissions by adding this policy:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Jira policy', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "effect": "allow",
+    "resources": ["webhook/*"],
+    "actions": ["createWebhook", "deleteWebhook"]
+  },
+  {
+    "effect": "allow",
+    "resources": ["proj/*:env/*:flag/*"],
+    "actions": ["createFlagLink", "updateFlagLink", "deleteFlagLink"]
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Here is an image of a custom role configured to grant access to webhooks and flag links:
+
+![An access token's custom role configured to grant access to webhooks and flag links.](jira-create-access-token.png)
+
+To learn more about custom role policies, read [Creating custom roles and policies](/home/members/role-create).
+
+Next, add the custom role to the API token to grant the Jira integration additional permissions.
+
+To add the custom role to the API token:
+
+1. Navigate to the **Account settings** page.
+2. Click into the **Authorization** tab.
+3. Find the API access token you want to add permissions to and select "Edit token" from its **overflow menu**. The "Edit" panel appears.
+4. In the **Role** menu, select "Custom."
+5. Check the checkbox next to the custom role you just created.
+6. Click **Save token**.
+
+The custom role is applied to the API token.
+
+Finally, use your access token to configure the Jira integration for your LaunchDarkly account.
+
+1. Navigate to your Jira instance's app management page, and click the **Configuration** button for the LaunchDarkly app. The "Configure LaunchDarkly Integration" screen appears.
 2. Set your API access token.
 3. Select which environment the app will track for each of your LaunchDarkly projects. By default, the app will track your production environments.
 
@@ -97,13 +150,14 @@ The Jira issue view, which contains the release panel, is a per-user setting. If
 To create a new flag with Jira issues:
 
 1. Navigate to your Jira issue's feature flag panel.
-2. Click **Add feature flag** select the **Create feature flag** option. The LaunchDarkly flag creation page appears.
+2. Click **Add feature flag**.
+3. Select "Create feature flag". 
 
-![The Create feature flag option.](jira-create-feature-flag.png)
+![The "Add feature flag" menu with the "Create feature flag" option called out.](jira-create-feature-flag-callout.png)
 
-3. In the feature flag creation page, the Jira issue is pre-populated.
+The LaunchDarkly "Create a feature flag" panel appears with the Jira issue pre-populated:
 
-![The feature flag creation page.](jira-new-feature-flag.png)
+![The "Create a feature flag" panel.](jira-new-feature-flag.png)
 
 ## Connecting an existing feature flag to a Jira issue from LaunchDarkly
 
