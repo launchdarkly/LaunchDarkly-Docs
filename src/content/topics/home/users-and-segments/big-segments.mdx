@@ -18,7 +18,14 @@ Big Segments is available to customers on an Enterprise plan. To learn more, [re
 
 This topic explains what Big Segments are and how to use them.
 
-A Big Segment is a kind of segment that is backed by an external data store. Big Segments can support massive numbers of targets. The maximum number of targets in a Big Segment is dictated only by the limits of the data store you configure it with, while a standard user segment is capped at 50,000 users. To use Big Segments, you must meet additional prerequisites. To learn more, read [Using Big Segments](#using-big-segments).
+A Big Segment is a kind of segment that is backed by an external data store. Big Segments can support massive numbers of targets. The maximum number of targets is dictated only by the limits of the data store you configure it with. A standard user segment is capped at 50,000 users. To use Big Segments, you must meet [additional prerequisites](#prerequisites).
+
+There are two ways to configure a Big Segment. A single segment can use one of the two methods, but not both.
+
+Here's how to configure a Big Segment:
+
+1. Configure a segment to sync with an Amplitude cohort, or
+2. Use the Big Segment import feature.
 
 To learn more about user segments, read [Building user segments](/home/users/segments).
 
@@ -26,9 +33,67 @@ To learn more about user segments, read [Building user segments](/home/users/seg
 
 You can sync Big Segments from an Amplitude cohort. When you sync your Amplitude cohort to the LaunchDarkly destination in the Amplitude dashboard, it creates a synced segment. This allows the segment to contain a large number of users from Amplitude.
 
-The same prerequisites for Big Segments apply to Big Segments that are synced from an Amplitude cohort. To learn more, read [Syncing segments from Amplitude cohorts](/home/users/synced-segments).
+To learn more, read [Syncing segments from Amplitude cohorts](/home/users/synced-segments).
 
-## Using Big Segments
+## Importing and exporting Big Segments
+
+<Callout intent="info">
+<CalloutTitle>This feature is for Early Access Program customers only
+</CalloutTitle>
+  <CalloutDescription>
+
+The ability to import to or export from a Big Segment is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](http://launchdarkly.com/eap).
+  </CalloutDescription>
+</Callout>
+
+[//]: # (TODO - Upon GA, the guidance around whether to use the checkbox should probably move to the main segments paged, linked to here, and this section can just cover import/export.  The screenshot for segment creation will need to be updated.)
+
+You can import and export directly to and from LaunchDarkly Big Segments using CSV files. The import/export feature is not available for synced Big Segments.
+
+If you want to import or export from a Big Segment, you must designate the segment as a Big Segment when you create it. To learn more about creating segments, read [Segments](/home/users/segments).
+
+### Importing users
+
+To import users from a CSV file:
+
+1. Navigate to the Big Segment you wish to import users to.
+2. Click **Upload CSV**:
+
+![An empty Big Segment screen with Upload CSV buttons](big-segment-empty.png)
+
+3. Select a CSV file from your computer.
+4. Click **Upload File**.
+
+The import process begins in the background. When the import completes successfully, you receive an email notification. Depending on the number of users in the CSV, this may take several minutes.
+
+### Limitations in the EAP version of this feature
+
+There are some limitations to the import/export feature. They are:
+
+1. When you import to a Big Segment from a CSV file, the contents of the CSV file replaces the current set of users. This means current users will be erased if they are not in the CSV file.
+2. The imported CSV file must not contain a header row. LaunchDarkly reads user keys from the first column of the CSV file.
+
+For example:
+
+![Big Segment example CSV content](big-segment-example-csv.png)
+
+4. Import/export of **Excluded users** is not supported.
+5. Concurrent imports within a single [environment](/home/organize/environments) are not supported.
+6. Uploaded CSV files may not exceed 10MB in size and may not contain more than 500K users.
+
+### Exporting users
+
+To initiate an CSV export of the members of a Big Segment:
+
+1. Navigate to the desired segment.
+2. Click on the **overflow menu** and select **Export as CSV**:
+
+![A Big Segment with the "Export as CSV" option.](big-segment-export.png)
+
+The export process runs in the background. When it completes, you receive an email notification containing a link to where you can download your CSV file.
+
+
+## Prerequisites
 
 To use Big Segments, you must meet the following prerequisites:
 
