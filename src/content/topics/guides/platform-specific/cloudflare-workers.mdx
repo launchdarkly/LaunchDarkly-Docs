@@ -282,14 +282,14 @@ Here's how to set up the integration:
 7. Click **Create Token**.
 8. Click **Get started** next to the "Create custom token" option.
 
-![The Create custom token option.](CF-SDK-custom-token.png)
+![The Create custom token option.](cloudflare-custom-token.png)
 
 9. Give the token a name, for example, "LaunchDarkly." Under "Permissions," choose the following options from the dropdowns:
  a. Account
  b. Workers KV Storage
  c. Edit
 
-![Cloudflare token permissions on the "Create Custom Token" screen.](CF-SDK-token-creation.png)
+![Cloudflare token permissions on the "Create Custom Token" screen.](cloudflare-token-creation.png)
 
 10. Click **Continue to Summary** and then **Create Token**.
 11. Copy the token from the subsequent page and store it, as it will not be shown again.
@@ -316,7 +316,7 @@ Here's how to set up the integration in LaunchDarkly:
  - **KV Namespace ID**: The namespace ID for the KV connected to your Worker. If you also created a preview KV, you'll need a separate integration set up using the preview KV namespace ID as well.
  - **API token**: The Cloudflare API token you just created.
 
-![The LaunchDarkly "Edit Cloudflare configuration" panel.](CF-SDK-integration.png)
+![The LaunchDarkly "Edit Cloudflare configuration" panel.](cloudflare-integration.png)
 
 3. Click **Save configuration**.
 
@@ -591,7 +591,7 @@ Here's how to replace the header text:
 
  To create a string flag in LaunchDarkly, choose the "String" option:
 
- ![The "Create a feature flag" panel with string flag options chosen.](CF-SDK-create-string-flag.png)
+ ![The "Create a feature flag" panel with string flag options chosen.](cloudflare-create-string-flag.png)
 
 2. Create a function to handle asynchronously retrieving the flag values. You can reuse the LaunchDarkly client you created in the prior example, but you'll get flag values in multiple places, so it's simpler to create a new function.
 
@@ -764,7 +764,7 @@ customHeader.headers.forEach(header => {
 
 As shown highlighted in the image below, when the flag is turned on, the user receives an `x-launchdarkly-hello` response header with the value of "Hello from LaunchDarkly."
 
-![Viewing custom response headers.](CF-SDK-custom-headers.png)
+![Viewing custom response headers.](cloudflare-custom-headers.png)
 
 ## Conclusion
 
