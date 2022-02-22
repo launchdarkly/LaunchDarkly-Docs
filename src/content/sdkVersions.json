@@ -828,6 +828,11 @@
     "name": "Node.js (server-side)",
     "versions": [
       {
+        "versionMajorMinor": "6.3",
+        "releaseYear": 2022,
+        "releaseMonthDay": "02-18"
+      },
+      {
         "versionMajorMinor": "6.2",
         "releaseYear": 2021,
         "releaseMonthDay": "07-22"
