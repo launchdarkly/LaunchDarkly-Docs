@@ -538,13 +538,23 @@ To use the all flags feature:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.allFlagsState(user, (err, flagsState) => {
+client.allFlagsState(user, options, (err, flagsState) => {
+  // this object can be converted to JSON or can be queried for flag values
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+client.allFlagsState(user, options, (err, flagsState) => {
   // this object can be converted to JSON or can be queried for flag values
 });
 ```

@@ -882,12 +882,26 @@ Here is an example:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
+client.on('update', (param) => {
+  console.log('a flag was changed: ' + param.key);
+});
+
+client.on('update:EXAMPLE_FLAG_KEY', () => {
+  console.log('the EXAMPLE_FLAG_KEY flag was changed');
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
 client.on('update', (param) => {
   console.log('a flag was changed: ' + param.key);
 });

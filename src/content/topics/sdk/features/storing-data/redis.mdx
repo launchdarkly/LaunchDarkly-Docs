@@ -314,6 +314,7 @@ In version 6.0.0 and higher of the Node.js SDK, you must install the additional 
   values={[
     { label: 'Node.js', value: 'nodesdk6', },
     { label: 'Node.js SDK versions 5.x and earlier', value: 'nodesdk5', },
+    { label: 'Node.js (TypeScript)', value: 'ts', },
   ]
 }>
 
@@ -338,17 +339,36 @@ const client = LaunchDarkly.init(sdkKey, config);
 <CodeTabItem value="nodesdk5">
 
 ```js
-const LaunchDarkly = require('launchdarkly-node-server-sdk');
+const ld = require('launchdarkly-node-server-sdk');
 
 const redisOpts = {
-  url: 'redis://my-redis:6379'
+  url: 'redis://redis-host:6379'
 };
-const store = LaunchDarkly.RedisFeatureStore(redisOpts, 30, 'my-key-prefix');
+const store = ld.RedisFeatureStore(redisOpts, 30, 'your-key-prefix');
 
-const config = {
+const options = {
   featureStore: store
 };
-const client = LaunchDarkly.init(sdkKey, config);
+const client = ld.init('YOUR_SDK_KEY', options);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+import { RedisFeatureStore } from 'launchdarkly-node-server-sdk-redis';
+
+const store = RedisFeatureStore({
+    redisOpts: { host: 'redis-host', port: 6379 },
+    prefix: 'your-key-prefix',
+    cacheTTL: 30,
+});
+
+const options: ld.LDOptions = {
+  featureStore: store,
+};
+const client = ld.init('YOUR_SDK_KEY', options);
 ```
 
 </CodeTabItem>

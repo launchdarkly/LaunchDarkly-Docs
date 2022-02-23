@@ -170,31 +170,55 @@ To learn more, read [`java-server-sdk-consul`](https://github.com/launchdarkly/j
 If using the Node.js SDK you must install the additional package [`launchdarkly-node-server-consul`](https://github.com/launchdarkly/node-server-sdk-consul).
 
 <CodeTabs
-  defaultValue="node"
+  defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'node', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts' },
   ]
 }>
 
-<CodeTabItem value="node">
+<CodeTabItem value="js">
 
 ```js
-const LaunchDarkly = require('launchdarkly-node-server-sdk');
+const ld = require('launchdarkly-node-server-sdk');
 const ConsulFeatureStore = require('launchdarkly-node-server-sdk-consul');
 
 const store = ConsulFeatureStore({
   consulOptions: {
-    host: 'my-consul',
+    host: 'your-consul',
     port:  8100
   },
-  prefix: 'my-key-prefix',
+  prefix: 'your-key-prefix',
   cacheTTL: 30
 });
 
 const config = {
   featureStore: store
 };
-const client = LaunchDarkly.init(sdkKey, config);
+const client = ld.init('YOUR_SDK_KEY', config);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+import ConsulFeatureStore from 'launchdarkly-node-server-sdk-consul';
+
+const store = ConsulFeatureStore({
+  consulOptions: {
+    host: 'your-consul',
+    port: 8100,
+  },
+  prefix: 'your-key-prefix',
+  cacheTTL: 30,
+});
+
+const config: ld.LDOptions = {
+  featureStore: store,
+};
+
+const client = ld.init('YOUR_SDK_KEY', config);
 ```
 
 </CodeTabItem>

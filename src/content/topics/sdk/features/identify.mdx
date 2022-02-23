@@ -653,12 +653,20 @@ To use `identify`:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
+client.identify(user);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
 client.identify(user);
 ```
 

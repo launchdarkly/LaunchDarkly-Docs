@@ -665,13 +665,21 @@ Here's how:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.track("your-goal-key", user);
+client.track('your-goal-key', user);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+client.track('your-goal-key', user);
 ```
 
 </CodeTabItem>

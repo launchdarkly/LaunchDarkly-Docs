@@ -2310,7 +2310,8 @@ Feature flag targeting and rollouts are determined by the user you pass to your 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -2324,6 +2325,23 @@ const user = {
   "custom": {
     "groups": ["Google", "Microsoft"]
   }
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
+const user: ld.LDUser = {
+  key: 'aa0ceb',
+  firstName: 'Ernestina',
+  lastName: 'Evans',
+  email: 'ernestina@example.com',
+  custom: {
+    groups: ['Google', 'Microsoft'],
+  },
 };
 ```
 
@@ -2357,15 +2375,29 @@ You can also define a set of `privateAttributeNames` on the user object. For exa
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const user = {
+var user = {
   "key": "aa0ceb",
   "email": "test@example.com",
-  "privateAttributeNames": ["email"]
+  "privateAttributeNames": ["email"],
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
+const user: ld.LDUser = {
+  key: 'aa0ceb',
+  email: 'test@example.com',
+  privateAttributeNames: ['email'],
 };
 ```
 
@@ -2384,13 +2416,26 @@ Here's how:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 const user = {"key":"aa0ceb", "anonymous": true};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
+const user: ld.LDUser = {
+  key: 'aa0ceb',
+  anonymous: true,
+}
 ```
 
 </CodeTabItem>

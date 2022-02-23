@@ -355,24 +355,42 @@ To configure the client:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 
 <CodeTabItem value="js">
 
 ```js
-const LaunchDarkly = require('ldclient-node');
+const ld = require('ldclient-node');
 
-const dataSource = LaunchDarkly.FileDataSource({
-  paths: [ "file1.json", "file2.json" ]
+const dataSource = ld.FileDataSource({
+  paths: [ 'file1.json', 'file2.json' ]
 });
 
-const config  = {
+const options = {
   updateProcessor: dataSource
 };
 
-const client = LaunchDarkly.init(sdkKey, config);
+const client = ld.init('YOUR_SDK_KEY', options);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
+const dataSource = ld.FileDataSource({
+  paths: [ 'file1.json', 'file2.json' ],
+});
+
+const options: ld.LDOptions = {
+  updateProcessor: dataSource
+};
+
+const client = ld.init('YOUR_SDK_KEY', options);
 ```
 
 </CodeTabItem>

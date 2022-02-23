@@ -679,13 +679,14 @@ Here is an example:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.variation("your.feature.key", user, false,
+client.variation('your.feature.key', user, false,
   (err, show_feature) => {
     if (show_feature) {
       // application code to show the feature
@@ -694,6 +695,15 @@ client.variation("your.feature.key", user, false,
       // the code to run if the feature is off
     }
   });
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+client.variation('your.feature.key', user, false, (err, value) => {
+    // check value and proceed accordingly
+});
 ```
 
 </CodeTabItem>

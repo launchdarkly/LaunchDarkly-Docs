@@ -52,13 +52,21 @@ Next, import the LaunchDarkly client in your application code:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const LaunchDarkly = require('launchdarkly-node-server-sdk');
+const ld = require('launchdarkly-node-server-sdk');
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
 ```
 
 </CodeTabItem>
@@ -71,13 +79,21 @@ Here's how:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client = LaunchDarkly.init("YOUR_SDK_KEY");
+client = ld.init('YOUR_SDK_KEY');
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+const client = ld.init('YOUR_SDK_KEY');
 ```
 
 </CodeTabItem>
@@ -101,14 +117,15 @@ Here is an example:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 client.once("ready", () => {
-  client.variation("your.flag.key", {"key": "user@test.com"}, false,
+  client.variation("your.flag.key", user, false,
     (err, showFeature) => {
       if (showFeature) {
         // application code to show the feature
@@ -116,6 +133,18 @@ client.once("ready", () => {
         // the code to run if the feature is off
       }
     });
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+client.on('ready', () => {
+  client.variation('your.flag.key', user, false,
+    (value) => {
+      // check value and proceed accordingly
+  });
 });
 ```
 
@@ -131,7 +160,8 @@ Here is an example:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -147,6 +177,24 @@ const value = await client.variation("any.feature.flag", user, false);
 ```
 
 </CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+// Using the .then() method to add a continuation handler for a Promise
+client.variation('any.feature.flag', user, false).then(
+  (value) => {
+    // application code
+});
+
+// Using "await" instead, within an async function
+const value = await client.variation('any.feature.flag', user, false);
+
+// In both cases, you can cast "value" to a boolean, number, or string,
+// rather than using the LDFlagValue type,
+// if you know the type of your flag variations
+```
+
+</CodeTabItem>
 </CodeTabs>
 
 There is also an alternative to the `ready` event:
@@ -154,12 +202,33 @@ There is also an alternative to the `ready` event:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
+// Using .then() and .catch() to add success and error handlers to a Promise
+client.waitForInitialization().then((client) => {
+  // initialization complete
+}).catch((err) => {
+  // initialization failed
+});
+
+// Using "await" instead, within an async function
+try {
+  await client.waitForInitialization();
+  // Initialization complete
+} catch (err) {
+  // Initialization failed
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
 // Using .then() and .catch() to add success and error handlers to a Promise
 client.waitForInitialization().then((client) => {
   // initialization complete

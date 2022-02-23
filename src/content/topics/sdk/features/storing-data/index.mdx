@@ -336,22 +336,37 @@ The Node.js SDK can use [Consul](/sdk/features/storing-data/consul#nodejs-server
 To use a persistent feature store while connecting to LaunchDarkly:
 
 <CodeTabs
-  defaultValue="node"
+  defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'node', }
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 
-<CodeTabItem value="node">
+<CodeTabItem value="js">
 
 ```js
-const LaunchDarkly = require('launchdarkly-node-server-sdk');
+const ld = require('launchdarkly-node-server-sdk');
 
 const store = SomeKindOfFeatureStore(storeOptions);
 const config = {
   featureStore: store
 };
-const client = LaunchDarkly.init(sdkKey, config);
+const client = ld.init('YOUR_SDK_KEY', config);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
+const store = SomeKindOfFeatureStore(storeOptions);
+
+const config: ld.LDOptions = {
+  featureStore: store,
+};
+const client = ld.init('YOUR_SDK_KEY', config);
 ```
 
 </CodeTabItem>

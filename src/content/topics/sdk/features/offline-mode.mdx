@@ -407,16 +407,28 @@ Here's how:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const config = {"offline": true};
-client = LaunchDarkly.init("YOUR_SDK_KEY", config);
-client.variation("any.feature.flag", user, false, cb) // cb will always be invoked with the default value (false)
+var options = {'offline': true};
+client = ld.init('YOUR_SDK_KEY', options);
+client.variation('any.feature.flag', user, false, cb) // cb will always be invoked with the default value (false)
 
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
+const options: ld.LDOptions = { offline: true };
+const client = ld.init('YOUR_SDK_KEY', options);
+client.variation('any.feature.flag', user, false, cb); // cb will always be invoked with the default value (false)
 ```
 
 </CodeTabItem>

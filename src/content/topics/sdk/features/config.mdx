@@ -686,14 +686,27 @@ This code sample shows you how to pass custom parameters to the client by creati
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', }
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const config = {"timeout": 3};
-client = LaunchDarkly.init("YOUR_SDK_KEY", config);
+var options = {'timeout': 3};
+client = ld.init('YOUR_SDK_KEY', options);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
+const options: ld.LDOptions = {
+  timeout: 3,
+};
+const client = ld.init('YOUR_SDK_KEY', options);
 ```
 
 </CodeTabItem>
