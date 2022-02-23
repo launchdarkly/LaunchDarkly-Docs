@@ -15,9 +15,15 @@ Secure mode ensures that users' feature flag evaluations are kept private in web
 
 Secure mode works by having you configure your JavaScript SDK to include a server-generated HMAC SHA256 hash of your user key. This hash is signed with the SDK key for your environment.
 
-Each of our server-side SDKs includes a method to compute the secure mode hash for a user. You can pass this to your front-end code with the mechanism of your choice, such as bootstrapping or as a template variable.
+To use secure mode, you must complete the following:
 
-You can enable secure mode for each environment in your LaunchDarkly account's [Account Settings](https://app.launchdarkly.com/settings/projects). Secure mode is an environment-wide setting. Enabling it requires every request coming from a client-side JavaScript SDK to contact the back end to evaluate flag variations. You can enable secure mode for your environment even if you're also using mobile SDKs that don't support it. Enabling secure mode does not cause those SDKs to fail.
+* **Enable secure mode for each environment.** You can enable secure mode for each of your environments on the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings/projects) page. Secure mode is an environment-wide setting. You can enable secure mode for your environment even if you're also using mobile SDKs that don't support it. Enabling secure mode does not cause those SDKs to fail.
+
+* **Compute the secure mode hash.** Enabling secure mode means that every request coming from a client-side JavaScript SDK requires the secure mode hash to evaluate flag variations. You can pass this to your front-end code with the mechanism of your choice, such as bootstrapping or as a template variable.
+
+  Each of our server-side SDKs includes a method to compute the secure mode hash for a user. To learn how, read [Generating a secure mode hash](#generating-a-secure-mode-hash). Alternatively, you can compute the hash yourself. To learn how, read [Computing the hash manually](#computing-the-hash-manually).
+
+* **Send the computed secure mode hash for your user.** You need to include this when requesting flag evaluations. To learn how, read [Configuring secure mode in the JavaScript client-side SDK](#configuring-secure-mode-in-the-javascript-client-side-sdk).
 
 <Callout intent="info">
 <CalloutTitle>Enable secure mode during initial setup</CalloutTitle>
@@ -237,7 +243,7 @@ client.secure_mode_hash(&user);
 
 Alternatively, you can compute the hash yourself.
 
-To compute the hash yourself, locate the SDK key for your environment on your account settings page. Then, compute an HMAC SHA256 hash of your user key, using your SDK key as a secret.
+To compute the hash yourself, locate the SDK key for your environment on the **Projects** tab of your **Account settings** page. Then, compute an HMAC SHA256 hash of your user key, using your SDK key as a secret.
 
 Here's an example that uses Node.js:
 
