@@ -97,8 +97,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Cypress run
-        timeout-minutes: 5
         uses: cypress-io/github-action@v2
+        timeout-minutes: 5
+        id: cypress
+        continue-on-error: true
         with:
           command-prefix: yarn dlx
           install-command: yarn install --immutable --immutable-cache
@@ -107,6 +109,11 @@ jobs:
           config: baseUrl=https://docs.launchdarkly.com
           spec: cypress/integration/smoke.test.ts
           wait-on: 'https://docs.launchdarkly.com/home'
+          record: true
+        env:
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Archive Cypress screenshots
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
