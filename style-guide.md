@@ -14,7 +14,8 @@ These are broad and non-exclusive guidelines for writing docs in the LaunchDarkl
 
 Here are some guidelines to get you started:
 
-* Avoid unnecessary capitalizations. Proper nouns, including product and feature names, and UI elements should reflect their proper display text, but do not capitalize unnecessary words in headings or text. For example, LaunchDarkly's Data Export feature uses capital letters because it's a proper noun, but when we refer to exporting data to a destination, we do not capitalize either the verb or the noun.
+* Avoid unnecessary capitalizations. Proper nouns, including product and feature names, and UI elements should reflect their display text. Do not capitalize unnecessary words in headings or text. For example, LaunchDarkly's Data Export feature uses capital letters because it's a proper noun, but when we refer to exporting data to a destination, we do not capitalize either the verb or the noun.
+* Bold text labels that you can click in the LaunchDarkly UI and have proper names. For example, bold left nav elements, tabs, button text, and toggle options. Put text that is read-only, like checkbox labels or dialog headers, in quotes.
 * All screenshots and graphics in the docs must have alt text that describes the content of the image. For example, say "The Users dashboard, with a specific user called out." not "The Users dashboard provides a simple interface you can use to track users registered with LaunchDarkly."
 * Use the Oxford comma. Every list with more than two items must have a comma before the "and" and final list item.
 
