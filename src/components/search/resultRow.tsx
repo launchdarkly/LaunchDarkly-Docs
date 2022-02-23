@@ -2,11 +2,13 @@
 import { jsx, Box, Flex, Theme } from 'theme-ui'
 import { FunctionComponent, MouseEvent } from 'react'
 import { Link as GatsbyLink } from 'gatsby'
-import { Hit } from 'react-instantsearch-core'
-import { Highlight, Snippet } from 'react-instantsearch-dom'
+import { Hit, WrappedInsightsClient } from 'react-instantsearch-core'
+import { connectHitInsights, Highlight, Snippet } from 'react-instantsearch-dom'
+import aa from 'search-insights'
 
 interface ResultRowProps {
   hit: Hit
+  insights: WrappedInsightsClient
   onClick(path: string): void
 }
 
@@ -16,7 +18,7 @@ const markStyles = {
     borderBottom: (theme: Theme) => `0.1rem solid ${theme.colors.grayBase}`,
   },
 }
-const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, onClick }) => {
+const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, insights, onClick }) => {
   const { path, displayCategory, _highlightResult } = hit
   // At the moment, query will only be used for page text,
   // not categories or title
@@ -27,6 +29,9 @@ const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, onClick }) => {
   const queryPath = `${mainPath}/${query}${addHash}`
   const onClickWrapper = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
+    insights('clickedObjectIDsAfterSearch', {
+      eventName: 'Result Clicked',
+    })
     onClick(queryPath)
   }
   return (
@@ -53,4 +58,4 @@ const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, onClick }) => {
   )
 }
 
-export default ResultRow
+export default connectHitInsights(aa)(ResultRow)

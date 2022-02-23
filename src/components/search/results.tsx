@@ -39,6 +39,10 @@ const Results: FunctionComponent<ResultsProps> = ({ searchState, searchResults }
     navigate(withPrefix(path))
   }
 
+  const props = {
+    onClick: onClickRow,
+  }
+
   return (
     <div
       ref={rootDiv}
@@ -60,7 +64,11 @@ const Results: FunctionComponent<ResultsProps> = ({ searchState, searchResults }
     >
       {!hasResults && <EmptyRow query={query} />}
       {hasResults && <ResultCount count={searchResults.nbHits} />}
-      {hasResults && searchResults.hits.map(hit => <ResultRow key={hit.objectID} hit={hit} onClick={onClickRow} />)}
+      {hasResults &&
+        searchResults.hits.map(hit => {
+          hit.__queryID = searchResults.queryID
+          return <ResultRow key={hit.objectID} hit={hit} {...props} />
+        })}
     </div>
   )
 }

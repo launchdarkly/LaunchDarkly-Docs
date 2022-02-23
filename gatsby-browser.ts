@@ -1,5 +1,12 @@
+import aa, { InsightsClient } from 'search-insights'
 import { TrackJS } from 'trackjs'
 import { initDataDogLogging } from './src/utils/browserMetricsUtils'
+
+declare global {
+  interface Window {
+    aa: InsightsClient
+  }
+}
 
 export const onClientEntry = () => {
   const activeEnv = process.env.GATSBY_ACTIVE_ENV
@@ -26,4 +33,10 @@ export const onClientEntry = () => {
   if (isStaging) {
     TrackJS.configure({ version: process.env.PR_NUMBER })
   }
+
+  // Algolia search insights
+  window.aa = aa
+  const appId = process.env.GATSBY_ALGOLIA_APP_ID
+  const apiKey = process.env.GATSBY_ALGOLIA_SEARCH_KEY
+  aa('init', { appId, apiKey })
 }

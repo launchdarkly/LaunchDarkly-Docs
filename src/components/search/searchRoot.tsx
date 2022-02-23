@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 import { Fragment, FunctionComponent, useRef } from 'react'
-import { InstantSearch, connectSearchBox } from 'react-instantsearch-dom'
+import { Configure, InstantSearch, connectSearchBox } from 'react-instantsearch-dom'
 import searchClient from './searchClient'
 import Results from './results'
 import { algoliaIndex } from '../../utils/envUtils'
@@ -60,6 +60,7 @@ const ConnectedSearchInput = connectSearchBox(SearchInput)
 
 const Root = () => (
   <InstantSearch indexName={algoliaIndex} searchClient={searchClient}>
+    <Configure clickAnalytics />
     <ConnectedSearchInput />
     <Results />
   </InstantSearch>

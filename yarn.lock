@@ -12395,6 +12395,7 @@ __metadata:
     remark-slug: ^6.1.0
     remark-unwrap-images: ^2.1.0
     rimraf: ^3.0.2
+    search-insights: ^2.2.1
     slug: ^5.2.0
     theme-ui: ^0.13.1
     trackjs: ^3.10.1
@@ -19592,6 +19593,13 @@ __metadata:
     ajv: ^6.12.5
     ajv-keywords: ^3.5.2
   checksum: fb73f3d759d43ba033c877628fe9751620a26879f6301d3dbeeb48cf2a65baec5cdf99da65d1bf3b4ff5444b2e59cbe4f81c2456b5e0d2ba7d7fd4aed5da29ce
+  languageName: node
+  linkType: hard
+
+"search-insights@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "search-insights@npm:2.2.1"
+  checksum: 6809c0bb63af4846c60089b655f2a2485e5db5ed3a545b947939b678e2413f6aa924ff4834295d787c58a3f2c257654b3ae9bef255dd640f0d867f6cb304b2d0
   languageName: node
   linkType: hard
 

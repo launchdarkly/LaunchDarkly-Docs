@@ -125,6 +125,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["remark-slug", "npm:6.1.0"],
             ["remark-unwrap-images", "npm:2.1.0"],
             ["rimraf", "npm:3.0.2"],
+            ["search-insights", "npm:2.2.1"],
             ["slug", "npm:5.2.0"],
             ["theme-ui", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:0.13.1"],
             ["trackjs", "npm:3.10.1"],
@@ -18172,6 +18173,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["remark-slug", "npm:6.1.0"],
             ["remark-unwrap-images", "npm:2.1.0"],
             ["rimraf", "npm:3.0.2"],
+            ["search-insights", "npm:2.2.1"],
             ["slug", "npm:5.2.0"],
             ["theme-ui", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:0.13.1"],
             ["trackjs", "npm:3.10.1"],
@@ -26749,6 +26751,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/json-schema", "npm:7.0.9"],
             ["ajv", "npm:6.12.6"],
             ["ajv-keywords", "virtual:f84d18c473fad3c01e1cf352f81ad13de804ca40da5bf6e752464a2e78dcb097ad579b06da5ff33a55ba9957fb9c74909b99fc5e215420a3f9b5dc87ad71363b#npm:3.5.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["search-insights", [
+        ["npm:2.2.1", {
+          "packageLocation": "./.yarn/cache/search-insights-npm-2.2.1-4d82e361bc-6809c0bb63.zip/node_modules/search-insights/",
+          "packageDependencies": [
+            ["search-insights", "npm:2.2.1"]
           ],
           "linkType": "HARD",
         }]
