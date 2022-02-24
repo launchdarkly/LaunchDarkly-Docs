@@ -301,6 +301,7 @@ Big Segments is available in version 7.3.0 and later:
   <CodeTabItem value="python">
 
 ```python
+import ldclient
 from ldclient.config import Config, BigSegmentsConfig
 from ldclient.integrations import Redis
 
@@ -308,9 +309,9 @@ store = Redis.new_big_segment_store(
     url='redis://my-redis:6379',
     prefix='my-key-prefix')
 
-config = Config(big_segments=BigSegmentsConfig(store=store))
-
-client = LaunchDarkly::LDClient.new(sdk_key, config)
+config = Config(sdk_key, big_segments=BigSegmentsConfig(store=store))
+ldclient.set_config(config)
+client = ldclient.get()
 ```
 
   </CodeTabItem>
