@@ -10,6 +10,7 @@ interface ResultRowProps {
   hit: Hit
   insights: WrappedInsightsClient
   onClick(path: string): void
+  position: number
 }
 
 const markStyles = {
@@ -18,7 +19,7 @@ const markStyles = {
     borderBottom: (theme: Theme) => `0.1rem solid ${theme.colors.grayBase}`,
   },
 }
-const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, insights, onClick }) => {
+const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, insights, onClick, position }) => {
   const { path, displayCategory, _highlightResult } = hit
   // At the moment, query will only be used for page text,
   // not categories or title
@@ -31,6 +32,7 @@ const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, insights, onClick }
     event.preventDefault()
     insights('clickedObjectIDsAfterSearch', {
       eventName: 'Result Clicked',
+      positions: [position],
     })
     onClick(queryPath)
   }

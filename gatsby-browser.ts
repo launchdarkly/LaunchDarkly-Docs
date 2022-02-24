@@ -38,5 +38,5 @@ export const onClientEntry = () => {
   window.aa = aa
   const appId = process.env.GATSBY_ALGOLIA_APP_ID
   const apiKey = process.env.GATSBY_ALGOLIA_SEARCH_KEY
-  aa('init', { appId, apiKey })
+  aa('init', { appId, apiKey, useCookie: true })
 }
