@@ -67,6 +67,14 @@ For smaller workloads, you can use the LaunchDarkly SDK as you normally would.
 
 Here is a code sample that shows how to evaluate a feature flag with the NodeJS runtime in AWS Lambda:
 
+<CodeTabs
+defaultValue="js"
+values={[
+  { label: 'JavaScript', value: 'js', },
+]
+}>
+<CodeTabItem value="js">
+
 ```javascript
 var LaunchDarkly = require('launchdarkly-node-server-sdk');
 var client = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY);
@@ -82,6 +90,9 @@ exports.handler = (event, context, callback) => {
     }, callback);
 }
 ```
+
+</CodeTabItem>
+</CodeTabs>
 
 This approach may take longer for the runtime to initialize, but after initialization the requests handled by that runtime instance will suffer no performance hit.
 
@@ -112,6 +123,14 @@ This dedicated AWS Lambda function, built on the NodeJS runtime, connects to the
 
 We configure it using the `RedisFeatureStore` method. The AWS Lambda function built on the NodeJS runtime could look like this:
 
+<CodeTabs
+defaultValue="js"
+values={[
+  { label: 'JavaScript', value: 'js', },
+]
+}>
+<CodeTabItem value="js">
+
 ```javascript
 var LaunchDarkly = require('launchdarkly-node-server-sdk');
 
@@ -135,6 +154,9 @@ exports.handler = (event, context, callback) => {
     }, 2000); // initialize after some delay to ensure that LD caches have been purged
 }
 ```
+
+</CodeTabItem>
+</CodeTabs>
 
 In this example, we initialize the LaunchDarkly SDK inside the handler.
 
@@ -167,6 +189,14 @@ The app code retains the same structure as the example in Option 1 above, but wi
 
 Here is an example:
 
+<CodeTabs
+defaultValue="js"
+values={[
+  { label: 'JavaScript', value: 'js', },
+]
+}>
+<CodeTabItem value="js">
+
 ```javascript
 var LaunchDarkly = require('launchdarkly-node-server-sdk');
 
@@ -190,6 +220,9 @@ exports.handler = (event, context, callback) => {
     callback();
 };
 ```
+
+</CodeTabItem>
+</CodeTabs>
 
 ## Sending analytics events to the Users dashboard
 

@@ -73,15 +73,34 @@ Each developer on the team should have their own running instance of the product
 
 Here is a Terraform configuration which creates these instances, each with an identical set of resources. It starts with the list of developer names, declared as a [local value](https://www.terraform.io/docs/configuration/locals.html):
 
+<CodeTabs
+defaultValue="hcl"
+values={[
+  { label: 'HCL', value: 'hcl', },
+]
+}>
+<CodeTabItem value="hcl">
+
 ```hcl
 locals {
     developers = [“frankie”, “stony”, “cleo”, “tt”]
 }
 ```
 
+</CodeTabItem>
+</CodeTabs>
+
 This is followed by a collection of [resource blocks](https://www.terraform.io/docs/configuration/resources.html), each one representing a different component of the instance.
 
 In this example, the resources we care about are the [LaunchDarkly environments](/home/organize/environments). Environments have to be part of a [LaunchDarkly project](/home/organize/projects), so this configuration creates that first, using the [launchdarkly_project](https://www.terraform.io/docs/providers/launchdarkly/r/project.html) resource:
+
+<CodeTabs
+defaultValue="hcl"
+values={[
+  { label: 'HCL', value: 'hcl', },
+]
+}>
+<CodeTabItem value="hcl">
 
 ```hcl
 resource "launchdarkly_project" "downtown" {
@@ -90,8 +109,19 @@ resource "launchdarkly_project" "downtown" {
 }
 ```
 
+</CodeTabItem>
+</CodeTabs>
+
 This is the point where each developer's LaunchDarkly Environment is created. Terraform 0.12 uses [loop constructs](https://www.thegreatcodeadventure.com/building-dynamic-outputs-with-terraform-for_each-for-and-zipmap/#building-dynamic-resources-with-for_each), so you do not need much additional code to create a [launchdarkly_environment](https://www.terraform.io/docs/providers/launchdarkly/r/environment.html) resource:
 
+
+<CodeTabs
+defaultValue="hcl"
+values={[
+  { label: 'HCL', value: 'hcl', },
+]
+}>
+<CodeTabItem value="hcl">
 
 ```hcl
 resource "launchdarkly_environment" "downtown" {
@@ -102,6 +132,9 @@ resource "launchdarkly_environment" "downtown" {
     project_key = launchdarkly_project.downtown.key
 }
 ```
+
+</CodeTabItem>
+</CodeTabs>
 
 In the example above, each environment is given a unique name that includes the developer’s name in the `key` and `name` properties. There's even a different color for each environment, which is derived by calculating the [MD5 hash](https://www.makeuseof.com/tag/md5-hash-stuff-means-technology-explained/) of the developer name and extracting the first six hexadecimal digits.
 
@@ -120,6 +153,14 @@ The code in this example adds a flag for a new product feature. The feature's na
 The code also specifies the flag maintainer by referencing a given account member. The flag is tagged `managed-by-terraform`, indicating to account members that they should not modify the core flag configuration in other ways.
 
 Here is an example:
+
+<CodeTabs
+defaultValue="hcl"
+values={[
+  { label: 'HCL', value: 'hcl', },
+]
+}>
+<CodeTabItem value="hcl">
 
 ```hcl
 resource "launchdarkly_project" "myproduct" {
@@ -148,6 +189,9 @@ resource "launchdarkly_feature_flag" "show-featurex" {
     }
 }
 ```
+
+</CodeTabItem>
+</CodeTabs>
 
 The code above defines the base flag configuration, but not its per-environment states, such as targeting or evaluation rules. Those are managed using a different resource: [launchdarkly_feature_flag_environment](https://www.terraform.io/docs/providers/launchdarkly/r/feature_flag_environment.html). This resource is **deliberately excluded** from the code because it allows account members to edit per-environment states in the flag dashboard without their changes being overwritten by updates to the Terraform configuration.
 

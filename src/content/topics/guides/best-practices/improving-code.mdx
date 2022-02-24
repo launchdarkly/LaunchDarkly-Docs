@@ -73,6 +73,14 @@ Here's an example to demonstrate this factoring tactic. The example code is take
 
 Here is an example:
 
+<CodeTabs
+defaultValue="js"
+values={[
+  { label: 'pseudocode', value: 'js', },
+]
+}>
+<CodeTabItem value="js">
+
 ```js
 function getSearchResults(query, user) {
   // 1. parse the query so engine can use it
@@ -95,11 +103,22 @@ function getSearchResults(query, user) {
 }
 ```
 
+</CodeTabItem>
+</CodeTabs>
+
 The app's engineering team is preparing to migrate to a new, improved search engine. To prepare for the migration, the team has created the flag `use-new-search-engine` to tell the app which search back-end to use. The code needs to include code for querying both the old and the new search engines.
 
 Inserting the flag logic in the middle of `getSearchResults` would make it even more complicated than it is already. Instead, they extract the relevant code and move it to new functions. They take the code which sends the query to the search engine (section 2 in the code above) and also code which processes errors and results (sections 3 and 4), because the new engine returns errors and results in a different format.
 
 The team moves these lines of code, along with code for the new search engine and code to check the flag, into their own functions:
+
+<CodeTabs
+defaultValue="js"
+values={[
+  { label: 'pseudocode', value: 'js', },
+]
+}>
+<CodeTabItem value="js">
 
 ```js
 // This new version of the main function is much shorter,
@@ -154,6 +173,9 @@ function queryNewEngine(query, user) {
 }
 ```
 
+</CodeTabItem>
+</CodeTabs>
+
 The migration is expected to last a few weeks. Because the new feature is wrapped in a feature flag, the team can integrate the new search engine code before it's been fully tested and optimized. Now, they can spend time improving the code with real production data. Because the new and old search engine code is separated into different functions, they can make those improvements without changing shared code. In addition, it's easier to add unit tests for the new code since they can call it directly without needing to create mock flag states.
 
 When it's time to retire the old search engine and archive the feature flag, the cleanup is minimal and less likely to cause merge conflicts.
@@ -193,6 +215,14 @@ Consider the `executeSearch` function we used as an example earlier. It calls `l
 
 If we moved that call out to `getSearchResults` and sent the flag value to `executeSearch` as an argument, the abbreviated code would look like this:
 
+<CodeTabs
+defaultValue="js"
+values={[
+  { label: 'pseudocode', value: 'js', },
+]
+}>
+<CodeTabItem value="js">
+
 ```js
 function getSearchResults(query, user) {
   // 1. parse the query so engine can use it
@@ -214,6 +244,9 @@ function executeSearch(query, user, useNewEngine) {
   }
 }
 ```
+
+</CodeTabItem>
+</CodeTabs>
 
 The purpose of our flag-oriented refactoring was to reduce merge conflicts by separating out the code that would need to change, and keeping it contained in dedicated functions. Unfortunately, putting the flag evaluation code in `getSearchResults` has given it more responsibility that it didn't need, and removed the benefits of the refactoring.
 
