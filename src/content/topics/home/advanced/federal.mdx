@@ -1,0 +1,64 @@
+---
+path: '/home/advanced/federal'
+title: 'LaunchDarkly in federal environments'
+description: 'This topic explains how LaunchDarkly is different in a domain controlled by the United States government.'
+published: true
+---
+
+## Overview
+
+This topic explains how the version of LaunchDarkly that is available on domains controlled by the United States government is different from the version of LaunchDarkly available to the general public. If you are an employee or contractor for a United States federal agency and use LaunchDarkly in your work, you likely use the federal instance of LaunchDarkly. This instance is compliant with the United States government's Federal Risk and Authorization Management Program (FedRAMP).
+
+In order to maintain FedRAMP compliance, LaunchDarkly's federal instance uses enhanced infrastructure and security configurations compared to the generally available instance of LaunchDarkly. Many components that function automatically in the generally available instance instead use encryption, authentication, or require authorization to perform functions in the federal instance. In addition, third-party components that are federally compliant, such as AWS and Datadog, have policies and agents enabled to maintain compliance when connecting to LaunchDarkly.
+
+## Understanding which features are available to the federal instance
+
+The LaunchDarkly federal instance has near-parity with the generally available LaunchDarkly instance. There are some exceptions, which are explained below.
+
+The federal instance includes:
+
+* Core flagging features through the LaunchDarkly application and [API](https://apidocs.launchdarkly.com)
+* [Code references](/home/code/code-references)
+* Customer metrics
+* [Data Export](/home/data-export) to [Azure Event Hubs](/home/data-export/event-hub) and [Kinesis](/home/data-export/kinesis) destinations
+* [Experimentation](/home/experimentation)
+* [The Relay Proxy](/home/relay-proxy)
+* [SDKs](/sdk)
+
+<Callout intent="info">
+<CalloutTitle>Federal instance URLs end in ".us"</CalloutTitle>
+<CalloutDescription>
+
+The federal instance does not use the common ".com" URL path. Instead, it uses the US government's path: ".us." When you navigate to a LaunchDarkly URL in the federal instance, replace the generally available ".com" URLs with URLs that end in ".us." This is true for both application URLs and URLs in the LaunchDarkly SDKs.
+
+Please note that if application or network layer firewalls are in use on your network, they will need to allowlist these URLs for LaunchDarkly to function properly.
+
+For example:
+
+* https://app.launchdarkly.us
+* https://clientsdk.launchdarkly.us/
+* https://clientstream.launchdarkly.us/
+* https://events.launchdarkly.us/
+* https://sdk.launchdarkly.us/
+* https://stream.launchdarkly.us/
+
+</CalloutDescription>
+</Callout>
+
+## Understanding which features have minimal support or are unsupported
+
+FedRAMP-compliant integrations are available on the federal instance of LaunchDarkly. This is because integrations connect LaunchDarkly to other systems and move data between them, so connected systems must also be FedRAMP-compliant.
+
+The federal instance supports the following integrations:
+
+* [Datadog](/integrations/datadog)
+* [Dynatrace](/integrations/dynatrace)
+* [New Relic](/integrations/new-relic)
+* [Slack](/integrations/slack)
+* [Splunk](/integrations/splunk)
+* [Terraform](integrations/terraform)
+
+The federal instance does not include:
+
+* [The debugger](/home/flags/debugger)
+* [Support for the Roku SDK](/home/sdk/client-side/roku)

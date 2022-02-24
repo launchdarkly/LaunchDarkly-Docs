@@ -352,6 +352,10 @@
           {
             "label": "LaunchDarkly in China",
             "path": "/home/advanced/china"
+          },
+          {
+            "label": "LaunchDarkly in federal environments",
+            "path": "/home/advanced/federal"
           }
         ]
       },
