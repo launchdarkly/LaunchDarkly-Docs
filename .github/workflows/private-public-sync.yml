@@ -6,6 +6,23 @@ jobs:
     runs-on: ubuntu-latest
     name: Private to public repo sync
     steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      - run: |
+          git config --global user.email "launchdarklyreleasebot@launchdarkly.com"
+          git config --global user.name "LaunchDarklyReleaseBot"
+          git remote add public 'https://${{ secrets.GH_USER }}:${{ secrets.GH_TOKEN }}@github.com/launchdarkly/LaunchDarkly-Docs.git'
+          git fetch public
+
+          if git pull public main --rebase; then
+            git pull --rebase && git push
+            echo "Successfully merged and pushed public changes to private repo. Will sync private to public now."
+          else
+            echo "Conflict detected. TODO: Using the GH cli, create a PR containing the conflicts to be resolved in private repo."
+            exit 1
+          fi
       - name: git-sync
         uses: wei/git-sync@v3
         with:
