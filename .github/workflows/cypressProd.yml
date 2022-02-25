@@ -34,14 +34,9 @@ jobs:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Archive Cypress screenshots
-        if: failure()
-        uses: actions/upload-artifact@v2
-        with:
-          name: cypress-screenshots
-          path: |
-            /home/runner/work/git-gatsby/git-gatsby/cypress/screenshots
-          retention-days: 5
+      - name: Check Cypress outcome
+        if: steps.cypress.outcome == 'failure' || steps.cypress.outcome == 'cancelled'
+        run: exit 1
       - name: Notify slack
         if: failure() && github.event.type != 'WorkflowDispatch'
         uses: slackapi/slack-github-action@v1.17.0
