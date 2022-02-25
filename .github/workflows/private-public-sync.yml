@@ -7,6 +7,9 @@ jobs:
     name: Private to public repo sync
     steps:
       - uses: actions/checkout@v2
+        with:
+          # fetch entire history to get Last Edit date for topics
+          fetch-depth: 0
       - uses: actions/setup-node@v2
         with:
           node-version: '16.x'
