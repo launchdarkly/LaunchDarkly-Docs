@@ -454,6 +454,7 @@ Here's an example of a user:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -467,6 +468,23 @@ const user = {
   custom: {
     groups: ["Google", "Microsoft"]
   }
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as LDElectron from 'launchdarkly-electron-client-sdk';
+
+const user: LDElectron.LDUser = {
+  key: 'aa0ceb',
+  firstName: 'Ernestina',
+  lastName: 'Evans',
+  email: 'ernestina@example.com',
+  custom: {
+    groups: ['Google', 'Microsoft'],
+  },
 };
 ```
 
@@ -495,6 +513,7 @@ To mark all user attributes except the key as private, you can use the `allAttri
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -512,6 +531,23 @@ const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
 ```
 
 </CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as LDElectron from 'launchdarkly-electron-client-sdk';
+
+const user: LDElectron.LDUser = {
+  key: 'aa0ceb',
+  name: 'Grace Hopper',
+  email: 'gracehopper@example.com',
+};
+
+const client = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, {
+  allAttributesPrivate: true,
+});
+```
+
+</CodeTabItem>
 </CodeTabs>
 
 In the above example, the SDK removes the `name` and `email` attributes.
@@ -524,6 +560,7 @@ This option is configured in both the user object and the configuration object:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -532,12 +569,30 @@ This option is configured in both the user object and the configuration object:
 const user = {
   key: "aa0ceb",
   name: "Grace Hopper",
-  email: "gracehopper@example.com"
+  email: "gracehopper@example.com",
   privateAttributeNames: ["email"]
 };
 
 const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
   privateAttributeNames: ["email"]
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as LDElectron from 'launchdarkly-electron-client-sdk';
+
+const user: LDElectron.LDUser = {
+  key: 'aa0ceb',
+  name: 'Grace Hopper',
+  email: 'gracehopper@example.com',
+  privateAttributeNames: ['email'],
+};
+
+const client = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, {
+  privateAttributeNames: ['email'],
 });
 ```
 
@@ -557,6 +612,7 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -569,6 +625,21 @@ const user = { anonymous: true };
 
 // You can also specify any key you want:
 const user2 = { key: "aa0ceb", anonymous: true };
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as LDElectron from 'launchdarkly-electron-client-sdk';
+
+// To create an anonymous user with an auto-generated key, specify
+// the "anonymous" property and omit the "key" property. The LaunchDarkly
+// client creates a unique key for this user and caches it locally.
+const user: LDElectron.LDUser = { anonymous: true };
+
+// You can also specify any key you want:
+const user2: LDElectron.LDUser = { key: 'aa0ceb', anonymous: true };
 ```
 
 </CodeTabItem>

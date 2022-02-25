@@ -121,11 +121,19 @@ To manually send an alias event:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
+client.alias(newUser, previousUser);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
 client.alias(newUser, previousUser);
 ```
 

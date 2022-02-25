@@ -478,12 +478,22 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 client.on('change:YOUR_FEATURE_KEY', function(newValue, oldValue) {
+  console.log('The flag was ' + oldValue + ' and now it is ' + newValue);
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+client.on('change:YOUR_FEATURE_KEY', (newValue, oldValue) => {
   console.log('The flag was ' + oldValue + ' and now it is ' + newValue);
 });
 ```
@@ -499,6 +509,7 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -506,6 +517,17 @@ Here's how:
 ```js
 client.on('change', function(allFlagChanges)) {
   Object.keys(allFlagChanges).forEach(function(key) {
+    console.log('Flag ' + key + ' is now ' + allFlagChanges[key]);
+  });
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+client.on('change', (allFlagChanges) => {
+  Object.keys(allFlagChanges).forEach((key) => {
     console.log('Flag ' + key + ' is now ' + allFlagChanges[key]);
   });
 });

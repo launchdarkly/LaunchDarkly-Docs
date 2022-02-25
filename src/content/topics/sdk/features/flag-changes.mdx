@@ -251,12 +251,22 @@ If you want to be notified when a flag has changed, you can use an event listene
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 client.on('change:YOUR_FEATURE_KEY', function(newValue, oldValue) {
+  console.log('The flag was ' + oldValue + ' and now it is ' + newValue);
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+client.on('change:YOUR_FEATURE_KEY', (newValue, oldValue) => {
   console.log('The flag was ' + oldValue + ' and now it is ' + newValue);
 });
 ```
@@ -271,6 +281,7 @@ Or, you can listen for all feature flag changes:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -278,6 +289,17 @@ Or, you can listen for all feature flag changes:
 ```js
 client.on('change', function(allFlagChanges)) {
   Object.keys(allFlagChanges).forEach(function(key) {
+    console.log('Flag ' + key + ' is now ' + allFlagChanges[key]);
+  });
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+client.on('change', (allFlagChanges) => {
+  Object.keys(allFlagChanges).forEach((key) => {
     console.log('Flag ' + key + ' is now ' + allFlagChanges[key]);
   });
 });

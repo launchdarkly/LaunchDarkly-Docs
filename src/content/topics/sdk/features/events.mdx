@@ -134,11 +134,19 @@ You can also explicitly send an event with any data you like using the `track` f
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
+client.track('my-custom-event-key', { customProperty: someValue });
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
 client.track('my-custom-event-key', { customProperty: someValue });
 ```
 

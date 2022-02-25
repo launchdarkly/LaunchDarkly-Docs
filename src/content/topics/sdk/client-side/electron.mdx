@@ -17,7 +17,7 @@ The sample code snippets for this SDK are available in both JavaScript and TypeS
 
 ## Why use this instead of the Node.js SDK?
 
-Because Electron is based on Node.js, it is possible to run the [LaunchDarkly Node SDK](/sdk/client-side/node-js) in it. However, we strongly discourage this because the Node.js SDK is meant for server-side use, not for applications that are distributed to users. There are several reasons why this distinction matters:
+Because Electron is based on Node.js, it is possible to run the [LaunchDarkly server-side Node.js SDK](/sdk/server-side/node-js) in it. However, we strongly discourage this because the server-side Node.js SDK is not meant for applications that are distributed to users. There are several reasons why this distinction matters:
 
 - The server-side SDKs include an SDK key that can download the entire definition, including rollout rules and individual user targets, of all of your feature flags. If you embed this SDK key in an application, any user who looks inside the application can then access all of your feature flag definitions, which may include sensitive data such as other users' email addresses. The client-side and mobile SDKs use different credentials that do not allow this.
 - The server-side SDKs download your entire flag data using this key, because they have to be able to evaluate flags quickly for any user. This can be a large amount of data. The client-side and mobile SDKs, which normally evaluate flags for just one user at a time, use a much more efficient protocol where they request only the active variation for each flag for that specific user.
@@ -94,7 +94,7 @@ Every Electron application consists of a _main process_, which is similar to a N
 
 We designed the LaunchDarkly Electron SDK to use LaunchDarkly feature flags from within any of these processes. In the normal use case, there is an SDK client running in the main process and the renderer processes can then create client instances that are in effect mirrors of the main one.
 
-To set up the main process client, you need the client-side ID for your LaunchDarkly environment, an object containing user properties, and optional configuration properties. You can change the user later if needed. The client-side ID authorizes your application to connect to a particular environment within LaunchDarkly. Your client-side ID is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects). Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
+To set up the main process client, you need the client-side ID for your LaunchDarkly environment, an object containing user properties, and optional configuration properties. You can change the user later if needed. The client-side ID authorizes your application to connect to a particular environment within LaunchDarkly. Your client-side ID is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings/projects) page. Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
 
 To initialize the client:
 
@@ -102,6 +102,7 @@ To initialize the client:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -111,6 +112,17 @@ const LDElectron = require('launchdarkly-electron-client-sdk');
 
 const user = { key: 'example' };
 const options = {};
+const client = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as LDElectron from 'launchdarkly-electron-client-sdk';
+
+const user: LDElectron.LDUser = { key: 'example' };
+const options: LDElectron.LDOptions = {};
 const client = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
@@ -132,12 +144,22 @@ To create a client object that uses the same feature flag data in a renderer pro
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 const LDElectron = require('launchdarkly-electron-client-sdk');
+
+const client = LDElectron.initializeInRenderer();
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as LDElectron from 'launchdarkly-electron-client-sdk';
 
 const client = LDElectron.initializeInRenderer();
 ```
@@ -164,6 +186,7 @@ The SDK initializes both types of client asynchronously, so if you want to deter
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -176,6 +199,21 @@ client.on('ready', function() {
 
 // Or, using a Promise:
 client.waitForInitialization().then(function() {
+  // Now we can evaluate some feature flags
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+// Using an event listener:
+client.on('ready', () => {
+  // Now we can evaluate some feature flags
+});
+
+// Or, using a Promise:
+client.waitForInitialization().then(() => {
   // Now we can evaluate some feature flags
 });
 ```

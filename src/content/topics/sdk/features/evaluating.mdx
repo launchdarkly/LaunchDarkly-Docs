@@ -153,18 +153,33 @@ To evaluate any feature flag for the current user, call `variation`:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const showFeature = client.variation("YOUR_FEATURE_KEY", false);
+const flagValue = client.variation("YOUR_FEATURE_KEY", false);
 
-if (showFeature)  {
-  // feature flag is  on
+// proceed based on flag value, for example:
+
+if (flagValue)  {
+  // feature flag is on
 } else {
   // feature flag is off
 }
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+const boolFlagValue = client.variation('YOUR_FEATURE_KEY', false) as boolean;
+const numberFlagValue = client.variation('YOUR_FEATURE_KEY', 2) as number;
+const stringFlagValue = client.variation('YOUR_FEATURE_KEY', 'default') as string;
+
+// proceed based on flag value...
+
 ```
 
 </CodeTabItem>
@@ -180,13 +195,22 @@ Here is an example:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 const flags = client.allFlags();
-const showFeature = flags['YOUR_FEATURE_KEY'];
+const flagValue = flags['YOUR_FEATURE_KEY'];
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+const flags = client.allFlags();
+const flagValue = flags['YOUR_FEATURE_KEY'];
 ```
 
 </CodeTabItem>

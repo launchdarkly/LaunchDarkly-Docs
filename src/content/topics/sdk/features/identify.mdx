@@ -161,6 +161,7 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -175,6 +176,27 @@ client.identify(newUser, function(newFlags) {
 
 // or:
 client.identify(newUser).then(function(newFlags) {
+  // as above
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as LDElectron from 'launchdarkly-electron-client-sdk';
+
+const newUser: LDElectron.LDUser = {
+  key: 'someone-else', name: 'John',
+};
+
+client.identify(newUser, (newFlags) => {
+  console.log('value of flag for this user is: ' + newFlags['YOUR_FEATURE_KEY']);
+  console.log('this should be the same: ' + client.variation('YOUR_FEATURE_KEY'));
+});
+
+// or:
+client.identify(newUser).then((newFlags) => {
   // as above
 });
 ```
