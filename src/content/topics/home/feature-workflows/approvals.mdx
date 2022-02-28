@@ -77,23 +77,44 @@ The flag's **Targeting** tab also updates with a number next to the **Pending ch
 
 ## Reviewing flag approval requests
 
-If someone requests your approval on a flag change, you receive an email and, if applicable, a Slack notification. From the notification email, you can click through to the approval request and review the request.
+If someone requests your approval on a flag change, an in-app notification appears and you receive notifications in email and, if applicable, Slack. You can click through to view and approve or decline the request from any of these notifications.
 
-To approve or decline a change:
+
+To approve or decline a change from within the LaunchDarkly app:
+
+1. Click the bell icon in the top menu bar. The approval notification inbox appears:
+
+![The approval notification inbox with a new approval request.](approvals-approval-request-notification.png)
+
+2. Click **View Details**. The approvals request screen opens:
+
+![The approval request screen.](approvals-approval-screen.png)
+
+3. Review the flag changes and choose to approve or decline the changes. You may optionally enter a comment in the **Add comment** box summarizing your decision.
+
+  - If you want to approve and apply the changes right away, click **Approve and apply**. The "Review history" section updates to indicate that you reviewed the change request, and the requestor receives an email notification.
+
+  - If you want to approve the changes but not apply them, click into the dropdown and choose **Approve changes**. The original requester, or any account member with a writer, owner / admin, or custom role can apply the changes you approved.
+
+  - If you want to decline the changes, click **Decline changes**.
+
+To approve or decline a change from an email notification:
 
 1. Find the email from "The Team at LaunchDarkly" in your email client. The email subject includes name of the project, environment, and flag you're being asked to review and the phrase "Review request":
 
 ![The email notification from LaunchDarkly.](approvals-email.png)
 
-2. In the email body, click **Review request**. A new tab with the approval request appears.
+2. In the message body, click **Review request** to open the approval request details.
 
-![The approval request.](approvals-approval-screen.png)
+![The approval request screen.](approvals-approval-screen.png)
 
-3. Review the flag changes and choose to approve or decline the changes. Optionally, you can leave a comment summarizing your decision.
+3. Review the flag changes and choose to approve or decline the changes. Optionally, you may enter a comment that gives context for your decision in the **Add comment** box.
 
-  a. (Optional) Click **Approve and Apply**. The "Review history" section updates to indicate that you reviewed the change request, and the requestor receives an email notification.
+  - If you want to approve and apply the changes right away, click **Approve and apply**. The "Review history" section updates to indicate that you reviewed the change request, and the requestor receives an email notification.
 
-  b. (Optional) Click into the menu and choose **Approve changes**. If you approve an approval request but do not apply it, the original requester, or any account member with a writer, owner / admin, or custom role can apply the  changes you approved.
+  - If you want to approve the changes but not apply them, click into the dropdown and choose **Approve changes**. The original requester, or any account member with a writer, owner / admin, or custom role can apply the changes you approved.
+
+  - If you want to deny the changes, click **Decline changes**.
 
 <Callout intent="info">
 <CalloutTitle>Anyone with role access can leave a comment</CalloutTitle>
