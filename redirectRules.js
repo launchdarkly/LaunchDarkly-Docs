@@ -210,7 +210,7 @@ module.exports = [
   },
   {
     fromPath: '/home/experimentation/managing/segment',
-    toPath: '/home/experimentation/',
+    toPath: '/home/experimentation',
   },
   {
     fromPath: '/home/advanced/relay-proxy',
