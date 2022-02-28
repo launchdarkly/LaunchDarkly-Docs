@@ -88,7 +88,7 @@ You do not need to have this branch merged into the main branch for code referen
 
 As shown in the example above, the workflow should run on the `push` event and contain an action provided by the [launchdarkly/find-code-references](https://github.com/launchdarkly/find-code-references) repository.
 
-Include both the `LD_ACCESS_TOKEN` as a secret and a new environment variable containing your LaunchDarkly project key. Find the project key in **Account Settings > Projects** in the flag dashboard.
+Include the `LD_ACCESS_TOKEN` as a secret, and include a new environment variable containing your LaunchDarkly project key. This is represented by `YOUR_PROJECT_KEY` in the above example. You can find your project key on the **Projects** tab under **Account Settings**, immediately following the project name. Do not use an environment's SDK key, mobile key, or client-side ID for this purpose.
 
 ## Troubleshooting
 
