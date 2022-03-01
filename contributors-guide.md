@@ -42,16 +42,16 @@ Here's a template for what the frontmatter should look like:
 
 ```
 ---
-path: '/home/managing-users/users-dashboard'
-title: 'The Users dashboard'
-description: 'This topic explains what the Users dashboard is. The Users dashboard gives you a summary view of how each user sees all of the features on your site, and lets you customize their experience from one screen.'
+path: /home/managing-users/users-dashboard
+title: The Users dashboard
+description: This topic explains what the Users dashboard is. The Users dashboard gives you a summary view of how each user sees all of the features on your site, and lets you customize their experience from one screen.
 published: true
 ---
 ```
 
 * `path`: This gives the URL path for the topic. It must include all parent directories, back to the root docs.launchdarkly.com URL.
 * `title`: This displays at the top of the page and in search results. Be sure the titles are the same in the topic, the sidebar nav, and index pages if applicable!
-* `description`: Algolia uses the description for more effective search. Compress the Overview section of your topic into a useful description. Don't make it too long! If you use apostrophes, you must escape them or the build will fail ("LaunchDarkly''s" not "LaunchDarkly's").
+* `description`: Algolia uses the description for more effective search. Compress the Overview section of your topic into a useful description. Don't make it too long!
 * `published`: Set to `true` to have your topic appear at its URL, and `false` to keep the topic private. `published` must be set to `true` for all topics that appear in the sidebar navigation. Clicking an item in the sidebar nav set to `false` will return a 404, and 404s make Google's SEO engines, and by extension the Marketing team, very sad.
 
 ## Writing docs in the LaunchDarkly style
