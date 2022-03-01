@@ -17,16 +17,61 @@ jobs:
         with:
           # fetch entire history to get Last Edit date for topics
           fetch-depth: 0
-      - uses: actions/setup-node@v2
+      - name: Find last successful run
+        uses: SamhammerAG/last-successful-build-action@v2
+        id: last-success
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          workflow: Deploy to Production
+      - name: Get specific changed files
+        # default output of last success is current SHA,
+        # so we should skip in that case
+        # if we can't find a last success, we should run deploy
+        if: steps.last-success.outputs.sha != github.sha
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v17.2
+        with:
+          token: ${{ github.token }}
+          separator: ' '
+          base_sha: ${{ steps.last-success.outputs.base_sha }}
+          sha: ${{ github.sha }}
+          files: |
+            assets
+            src
+            .github/workflows/deployProd.yml
+            package.json
+            yarn.lock
+            *.ts
+            *.js
+          files_ignore: |
+            cypress
+            .eslintrc.js
+            jest.config.js
+            jest.setup.js
+      - name: Should deploy?
+        id: build-status
+        run: |
+          echo "::debug::any changed: ${{ steps.changed-files-specific.outputs.any_changed }}"
+          echo "::debug::only changed: ${{ steps.changed-files-specific.outputs.only_changed }}"
+          echo "::debug::any modified: ${{ steps.changed-files-specific.outputs.any_modified }}"
+          echo "::set-output name=deploy::${{ toJSON(steps.changed-files-specific.outputs) == '{}' || steps.changed-files-specific.outputs.any_modified == 'true' }}"
+      - if: steps.build-status.outputs.deploy == 'true'
+        uses: actions/setup-node@v2
         with:
           node-version: '16.x'
-      - uses: aws-actions/configure-aws-credentials@v1
+      - if: steps.build-status.outputs.deploy == 'true'
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - run: CYPRESS_INSTALL_BINARY=0 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable --immutable-cache
-      - run: yarn build-deploy-prod
+      - name: Yarn install
+        if: steps.build-status.outputs.deploy == 'true'
+        run: CYPRESS_INSTALL_BINARY=0 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable --immutable-cache
+      - name: Build and deploy
+        if: steps.build-status.outputs.deploy == 'true'
+        run: yarn build-deploy-prod
         env:
           ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
@@ -86,16 +131,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
       - name: Cypress run
         uses: cypress-io/github-action@v2
         timeout-minutes: 5
