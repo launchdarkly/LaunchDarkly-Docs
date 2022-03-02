@@ -209,6 +209,8 @@ subfeature
 subfeatures
 subpackage
 subproject
+svelte
+sveltekit
 targetusername
 templating
 templatize
@@ -236,6 +238,7 @@ uthash
 variationdetail
 Vercel
 Vercel's
+vite
 withldconsumer
 withldprovider
 WSGI

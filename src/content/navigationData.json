@@ -1295,6 +1295,10 @@
             "path": "/guides/platform-specific/nextjs"
           },
           {
+            "label": "Using flags with Svelte",
+            "path": "/guides/platform-specific/svelte"
+          },
+          {
             "label": "Using the Lua SDK with HAProxy",
             "path": "/guides/platform-specific/haproxy"
           },
