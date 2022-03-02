@@ -42,7 +42,7 @@ module.exports = [
   },
   {
     fromPath: '/home/managing-flags/flag-compare-copy',
-    toPath: '/home/organize/flag-compare-copy',
+    toPath: '/home/code/flag-compare-copy',
   },
   {
     fromPath: '/home/managing-flags/flag-variations',
@@ -967,5 +967,13 @@ module.exports = [
   {
     fromPath: '/home/experimentation/populations',
     toPath: '/home/experimentation/allocation',
+  },
+  {
+    fromPath: '/home/code/flag-overview',
+    toPath: '/home/code/flag-compare-copy',
+  },
+  {
+    fromPath: '/home/organize/flag-compare-copy',
+    toPath: '/home/code/flag-compare-copy',
   },
 ]

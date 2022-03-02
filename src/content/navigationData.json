@@ -97,13 +97,7 @@
           },
           {
             "label": "Environments",
-            "path": "/home/organize/environments",
-            "items": [
-              {
-                "label": "Comparing and copying flag settings across environments",
-                "path": "/home/organize/flag-compare-copy"
-              }
-            ]
+            "path": "/home/organize/environments"
           }
         ]
       },
@@ -144,12 +138,12 @@
             ]
           },
           {
-            "label": "Archiving and deleting flags",
-            "path": "/home/code/flag-archive"
+            "label": "Viewing, comparing, and copying flag settings",
+            "path": "/home/code/flag-compare-copy"
           },
           {
-            "label": "Viewing flags across environments",
-            "path": "/home/code/flag-overview"
+            "label": "Archiving and deleting flags",
+            "path": "/home/code/flag-archive"
           }
         ]
       },
