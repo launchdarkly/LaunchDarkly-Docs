@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Run cypress
     steps:
+      - name: Check environment
+        id: check-env
+        run: |
+          if [ true = ${{ github.event_name != 'workflow_dispatch' }} ] ; then echo "::set-output name=name::production" ; else echo "::set-output name=name::staging" ; fi
       - name: Checkout
         uses: actions/checkout@v2
       - name: Cypress run
@@ -30,6 +34,7 @@ jobs:
             cypress/integration/links.test.ts
             cypress/integration/redirects.test.ts
           record: true
+          tag: links,${{ steps.check-env.outputs.name }}
         env:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -38,7 +43,7 @@ jobs:
         if: steps.cypress.outcome == 'failure' || steps.cypress.outcome == 'cancelled'
         run: exit 1
       - name: Notify slack
-        if: failure() && github.event.type != 'WorkflowDispatch'
+        if: failure() && steps.check-env.outputs.name == 'production'
         uses: slackapi/slack-github-action@v1.17.0
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
