@@ -1,25 +1,29 @@
 ---
 path: /home/experimentation/allocation
-title: Allocating experiment traffic
-description: This topic explains how to include specific groups of users in an experiment using experiment allocation.
+title: Allocating experiment populations
+description: This topic explains how to include specific groups of users in an experiment population using audience allocation.
 published: true
 ---
 
 ## Overview
 
-This topic explains how to include specific groups of users in an experiment using experiment allocation.
+This topic explains how to include specific groups of users in an experiment population using audience allocation.
 
 ## Understanding experiment populations
 
 You have the option to only include a subset of users in your experiments, which gives you accurate experiment results more quickly. This subset of users is called your "experiment population."
 
-You can create a custom experiment population by selecting specific flag targeting rules to include in your active experiments. To learn more, read [Defining the audience for an experiment](/home/experimentation/create#defining-the-audience-for-an-experiment).
+You can create a custom experiment population by selecting specific flag targeting rules to include in your active experiments. When making changes to ramp up or ramp down users in your variations, LaunchDarkly properly randomizes users and provides the configuration and guidance to prevent carryover bias. This method of managing your experiment population is called "audience allocation." To learn more about carryover bias, read [Understanding variation reassignment](#understanding-variation-reassignment).
+
+Audience allocation gives you flexibility when selecting your experiment population and ensures accurate experiment results. Only users that you elect to be part of the experiment will be analyzed for those results, which allows you to control billing costs.
 
 ## Prerequisites
 
-To use experiment allocation, you must have the following prerequisites:
+To use audience allocation, you must have the following prerequisites:
 
-1. You must be using the listed version number or higher for the following SDKs. If your SDK is listed as "not supported," then you cannot use experiment allocation.
+1. You must be using the listed version number or higher for the following SDKs.
+
+<Details summary="Click to expand a table listing required client-side SDK versions">
 
 Client-side SDKs:
 
@@ -75,6 +79,10 @@ Client-side SDKs:
     </TableRow>
 </TableBody>
 </Table>
+
+</Details>
+
+<Details summary="Click to expand a table listing required server-side SDK versions">
 
 Server-side SDKs:
 
@@ -139,6 +147,8 @@ Server-side SDKs:
 </TableBody>
 </Table>
 
+</Details>
+
 2. If you use the LaunchDarkly Relay Proxy, it must be at least version 6.3.0.
 3. You must email support@launchdarkly.com to have experimentation allocation enabled on your account.
 
@@ -146,48 +156,38 @@ Server-side SDKs:
 <CalloutTitle>Outdated SDKs return invalid experiment results</CalloutTitle>
 <CalloutDescription>
 
-You must request that we enable experiment allocation so that we can confirm that you use SDK and Relay Proxy versions that support this feature. If your SDK and Relay Proxy versions are outdated, users will see different flag variations across various SDK, rendering your experimentation results invalid.
+When you request that we enable audience allocation for your account, we will ask you to confirm that you are using SDK and Relay Proxy versions that support this feature. If your SDK and Relay Proxy versions are outdated, users will receive different flag variations across various SDKs, rendering your experimentation results invalid.
 
 </CalloutDescription>
 </Callout>
 
-Enabling experiment allocation does not affect any experiments you are currently running. Your experiments will continue to record results for the same audience until you pause the experiment.
+Enabling audience allocation does not affect any experiments you are currently running. Each of your experiments will continue to record results for the same audience until you pause the experiment.
 
-After experiment allocation is enabled, all new or paused experiments will require an experiment allocation before you can begin recording.
+After you enable audience allocation, all new or paused experiments will require an audience allocation before you can begin recording.
 
-## Using experiment allocation
+## Creating experiment populations
 
-To use experiment allocation:
-1. Navigate to the **Targeting** tab of the feature flag you want to add an experiment to.
-2. Click on the graph icon next to the rule you want to run an experiment on, and select “Run an experiment on this rule.”
+You will determine the initial experiment population when you create a new experiment. To learn how, read [Building experiments](/home/experimentation/create#building-experiments).
 
-![The experiment menu with the "Run an experiment" option called out.](experiment-run-experiment-callout.png)
+Here is an image of a flag's targeting rule with 20% of users included in the experiment:
 
-3. Enter the percentage of traffic you want to include in the experiment.
-4. Select which variation you want LaunchDarkly to serve to the remaining population.
-5. (Optional) To disable traffic variation reassignment, click **Advanced**, then check the **Keep users assigned to initial variation** checkbox. We strongly recommend leaving this box **unchecked**. To learn more, read [Using variation reassignment](#using-variation-reassignment).
+![The user targeting section of a flag's "Targeting" tab with an active experiment.](experiment-targeting-edit-population.png)
 
-![The experiment allocation section of a flag's "Targeting" tab.](experiment-allocation.png)
+If you decide to increase or decrease the amount of users in your experiment population, LaunchDarkly will automatically add or remove users to or from the variations using variation reassignment. To learn how to change the experiment population after the experiment has been running, read [Managing experiment populations](/home/experimentation/lifecycle#managing-experiment-populations).
 
-## Benefits of using experiment allocation
-
-Experiment allocation gives you more flexibility when selecting your experiment population and ensures accurate experiment results. Only users that you elect to be part of the experiment will be analyzed for those results, which allows you to control billing costs.
-
-When making changes to ramp up or ramp down users in your variations, LaunchDarkly properly randomizes users and provides the configuration and guidance to prevent carryover bias.
-
-## Using variation reassignment
+## Understanding variation reassignment
 
 Experiments are subject to day-of-week or hour-of-day effects. For example, a user’s behavior on a website is often different depending on if they are visiting on a Saturday or a Monday. This can cause problems in properly computing experiment results if you use traffic from two different time frames when you increased the percent of traffic going to various users.
 
 For example, say you allocated 6% of your traffic to your experiment and it included traffic from weekdays only, and later when you increase your allocated traffic to 30%, it also included traffic from weekends. Because you had more traffic on weekends, the data would overrepresent that traffic and you would get a biased result. You can avoid this by allowing "variation reassignment."
 
-Here is an example of experiment allocation using variation reassignment:
+Here is an example of audience allocation using variation reassignment:
 
 First, you add an experiment to a flag with three variations: A, B, and C. You roll out the three variations to 6% of the users, while the remainder receives variation A.
 
 An example starting traffic allocation appears below:
 
-![Experiment allocation at 6%](experiment-allocation-six-percent.png)
+![Audience allocation at 6%](experiment-allocation-six-percent.png)
 
 The traffic on the right is receiving variation A, but is not part of the experiment nor its analysis.
 
@@ -195,7 +195,7 @@ Next, you ramp up your experiment to 30% of traffic.
 
 Here is an example of the modified allocation:
 
-![Experiment allocation at 30%](experiment-allocation-thirty-percent.png)
+![Audience allocation at 30%](experiment-allocation-thirty-percent.png)
 
 The traffic that was receiving variations A, B, and C, is now reverted back to A, and new traffic is used for the 30% allocated to the experiment.
 
@@ -203,11 +203,11 @@ Finally, you roll out variations A and B to 50% of traffic each. In this case, t
 
 Here is an example image:
 
-![Experiment allocation at 50%](experiment-allocation-fifty-percent.png)
+![Audience allocation at 50%](experiment-allocation-fifty-percent.png)
 
 This new random assignment prevents carryover bias by ensuring that users from previous variations are evenly distributed between variations A and B.
 
-### Understanding when to use variation reassignment
+### Using variation reassignment
 
 It may seem counterintuitive to allow the experiment to reassign users to different variations, especially if you are used to the way rollouts work in LaunchDarkly outside of experimentation. However, allowing reassignment has advantages, provided the change you are experimenting on is not disruptive to users. In practice, this is the case for many experiments. A common example is "user-day experiments", which run for only one day at a time.
 
@@ -226,7 +226,7 @@ Allowing variation reassignment should be the default for your experiments. If y
 </CalloutDescription>
 </Callout>
 
-You should only rarely prevent users from switching variations during an experiment by disabling variation reassignment. You may want to disable variation reassignment for substantial changes, such as major navigation menu or UI changes. You can disable variation reassignment by checking the **Keep users assigned to initial variation** checkbox in the **advanced** menu.
+You should only rarely prevent users from switching variations during an experiment by disabling variation reassignment. You may want to disable variation reassignment for substantial changes, such as major navigation menu or UI changes. You can disable variation reassignment by clicking **Advanced**, then checking the **Keep users assigned to initial variation** checkbox.
 
 Here is an example of running an experiment with variation reassignment disabled:
 
@@ -234,7 +234,7 @@ You add an experiment to a flag with three variations: A, B, and C. You roll out
 
 Here is an example starting traffic allocation:
 
-![Experiment allocation at 6%](experiment-allocation-six-percent.png)
+![Audience allocation at 6%](experiment-allocation-six-percent.png)
 
 The traffic on the right is receiving variation A, but is not part of the experiment nor its analysis.
 
@@ -242,6 +242,6 @@ Next, you increase the experiment to 30% of traffic.
 
 Here is an example experiment with increased traffic:
 
-![Experiment allocation at 30%](experiment-allocation-thirty-percent-no-reshuffle.png)
+![Audience allocation at 30%](experiment-allocation-thirty-percent-no-reshuffle.png)
 
 We suggest you reset your experiment results when you increase traffic to avoid time-varying effects.

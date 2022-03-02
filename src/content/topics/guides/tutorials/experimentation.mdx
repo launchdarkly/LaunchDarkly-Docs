@@ -13,9 +13,10 @@ In this guide, you will:
 
 - Configure an SDK,
 - Create a multivariate flag,
-- Configure targeting rules,
-- Create a metric and connect it to a flag, which creates an experiment, and
-- Run and analyze the results of an experiment.
+- Configure the flag's targeting rules,
+- Create a metric,
+- Connect the metric to the flag, and
+- Run and analyze the results of the experiment.
 
 <Callout intent="info">
 <CalloutTitle>The experiment in this guide is for example use only</CalloutTitle>
@@ -181,6 +182,33 @@ To target users with a `.edu` email address:
 1. Toggle flag targeting **on**.
 1. Click **Save changes**.
 
+### Creating a click metric
+
+Metrics let you measure user behaviors affected by a flag. The three types of metrics are click, pageview, and custom metrics.
+
+To learn more about metrics in experiments, read [Creating metrics](/home/experimentation/creating-metrics).
+
+First, copy the URL for your Glitch app. To find it:
+
+1. From the Glitch console, click the **Share** button. A pop-up with a URL appears.
+1. Copy the **Live site** URL.
+1. Save the URL somewhere where it is easy to access.
+
+![The Share project pop-up in Glitch.](starlight-travel-share-project.png)
+
+Next, create a click metric to track the discount which results in the highest number of packages purchased:
+
+1. In LaunchDarkly, select **Experiments** from the sidebar menu.
+1. Navigate to the **Metrics** tab.
+1. Click **Create metric**. The "Create a new metric" panel appears.
+1. Name your metric "Student pricing tier".
+1. Enter a **Description** to indicate what the metric is tracking, such as “Track price chosen by students”.
+1. Choose "Click" from the **Event kind** menu.
+1. Enter `a.btn` in the **Click targets** field.
+1. In the **Target URL** menu, choose "Substring Match".
+1. Paste in the URL for your Glitch app, which you found and saved in the previous procedure:
+
+![The "Create a new metric" screen.](starlight-travel-create-new-metric.png)
 
 ### Adding the flag's code to the application
 
@@ -229,34 +257,6 @@ If you have enabled "Do not track," you will not be able to log in to the Glitch
 
 </CalloutDescription>
 </Callout>
-
-### Creating a click metric
-
-Metrics let you measure user behaviors affected by your flag. The three types of metrics are click, pageview, and custom metrics.
-
-To learn more about metrics in experiments, read [Creating experiments](/home/experimentation/create).
-
-First, copy the URL for your Glitch app. To find it:
-
-1. From the Glitch console, click the **Share** button. A pop-up with a URL appears.
-1. Copy the **Live site** URL.
-1. Save the URL somewhere where it is easy to access.
-
-![The Share project pop-up in Glitch.](starlight-travel-share-project.png)
-
-Next, create a click metric to track the discount which results in the highest number of packages purchased:
-
-1. In LaunchDarkly, select **Experiments** from the sidebar menu.
-1. Click the **Metrics** tab.
-1. Click **Create metric**. The "Create a new metric" panel appears.
-1. Name your metric "Student pricing tier."
-1. Enter a **Description** to indicate what the metric is tracking, such as “Track price chosen by students”.
-1. Choose "Click" from the **Event kind** menu.
-1. Enter `a.btn` in the **Click targets** field.
-1. In the **Target URL** menu, choose "Substring Match."
-1. Paste in the URL for your Glitch app, which you found and saved in the previous procedure:
-
-![The "Create a new metric" panel.](starlight-travel-create-new-metric.png)
 
 ### Connecting the metric to the flag
 

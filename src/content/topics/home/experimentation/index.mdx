@@ -46,7 +46,7 @@ Experimentation can do all of these things and more:
 
 ## How does it work?
 
-Experiments track the impact of different flag variations against a baseline variation of the metric you want to measure. When a user encounters a feature flag in your application, LaunchDarkly registers an event. If that flag is currently connected to a metric, the experiment receives a data point. Experiment data is collected in the Experiments dashboard, which displays experiment data in near-real time.
+Experiments track the impact of different flag variations against a baseline variation of the metric you want to measure. When a user encounters a feature flag in your application, LaunchDarkly registers an event. If that flag is currently connected to a metric, the experiment receives a data point. Experiment data is collected in the **Experiments** dashboard, which displays experiment data in near-real time.
 
 After a flag variation has reached statistical significance, LaunchDarkly declares a "winning" flag variation for your experiment. A winning variation is the variation with the most positive deviation from the baseline. You may have multiple winning variations, depending on what you're trying to measure.
 
@@ -72,7 +72,7 @@ As you think about creating experiments for your features, keep these best pract
 
 You can use experiments to measure a variety of different outcomes. Some example experiments include:
 
-- Test the efficacy of different search implementations, such as elasticsearch versus SOLR versus Algolia
+- Test the efficacy of different search implementations, such as Elasticsearch versus SOLR versus Algolia
 - Track how features you ship are increasing or decreasing page load time
 - Calculate conversion rates by monitoring how frequently users click on various page elements
 
@@ -82,9 +82,9 @@ Experiment events are charged on a per-event basis. Consider this when you're di
 
 You can minimize the cost of Experimentation by only running experiments on selected user groups.
 
-The number of experiments per flag (i.e. having multiple metrics connected to a single flag), the user engagement with that flag, and the target groups included in the experiment can all affect the volume of events LaunchDarkly sends.
+The number of experiments per flag, the user engagement with that flag, and the target groups included in the experiment can all affect the volume of events LaunchDarkly sends.
 
-Experimentation includes a built-in feature that lets you refine the users included in an experiment based on the flag's targeting rules. To learn more, read [Allocating experiment traffic](/home/experimentation/allocation).
+Experimentation includes a built-in feature that lets you refine the users included in an experiment based on the flag's targeting rules. To learn more, read [Allocating experiment populations](/home/experimentation/allocation).
 
 You may be billed twice for some events if you're also using LaunchDarkly's Data Export features. To learn more, read [Data Export](/home/data-export).
 

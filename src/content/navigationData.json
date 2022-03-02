@@ -367,7 +367,17 @@
         "items": [
           {
             "label": "Creating experiments",
-            "path": "/home/experimentation/create"
+            "path": "/home/experimentation/create",
+            "items": [
+              {
+                "label": "Creating metrics",
+                "path": "/home/experimentation/creating-metrics"
+              },
+              {
+                "label": "Allocating experiment populations",
+                "path": "/home/experimentation/allocation"
+              }
+            ]
           },
           {
             "label": "Managing experiments",
@@ -380,10 +390,6 @@
               {
                 "label": "Interpreting experiment data",
                 "path": "/home/experimentation/interpreting"
-              },
-              {
-                "label": "Allocating experiment traffic",
-                "path": "/home/experimentation/allocation"
               }
             ]
           }

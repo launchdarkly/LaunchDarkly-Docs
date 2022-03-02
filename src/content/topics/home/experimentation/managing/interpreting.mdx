@@ -11,7 +11,7 @@ This topic explains how to read an experiment's results in the flag's Experiment
 
 ## Understanding experiments as they run
 
-When your experiments are running, you can view information about them on the Experimentation tab for the flags connected to them. The Experimentation tab displays all the experiments a flag is participating in, including both experiments that are currently recording and experiments that are stopped.
+When your experiments are running, you can view information about them on the **Experimentation** tab for the flags connected to them. The **Experimentation** tab displays all the experiments a flag is participating in, including both experiments that are currently recording and experiments that are stopped.
 
 Each experiment shows details about what data the experiment is collecting and what that data means. You can see information about the experiment, like its name and experiment type, in the section header.
 
@@ -42,7 +42,7 @@ Here is an image of numeric experiment's data:
 
 ![A numeric experiment's data.](experiment-card.png)
 
-Experiment data differs based on whether you're running a numeric or conversion (clicks, pageviews, or custom) experiment.
+Experiment data differs based on whether you're running a numeric or conversion (click, page view, or custom) experiment.
 
 <Callout intent="info">
 <CalloutTitle>Your user interface (UI) may be different from the list below</CalloutTitle>
@@ -58,7 +58,7 @@ The list below explains what each column means:
 - **Variation**: Which flag variation's data is shown in the row.
 - **Conversions / unique users**: How many unique users took action based on the variation they saw, relative to the total number of unique users who viewed the page. For click experiments, this means the denominator is the number of views matching the URL specified in the click metric UI.
 - **Conversion rate**: The percentage of users who took action based on the variation they saw, relative to the total number of unique users who encountered that flag variation.
-- **Total events**: The number of times the metric connected to this flag variation was evaluated. The **total events** column only updates when the metric associated with the flag variation registers an event. This is **not** the total number of times the flag variation has ever been evaluated.
+- **Total events**: The number of times the metric connected to this flag variation was evaluated. The **total events** column only updates when the metric associated with the flag variation registers an event. This is not the total number of times the flag variation has ever been evaluated.
 - **Average**: The average numeric value this flag variation returned.
 - **Confidence interval**: A range of values between which the actual value for the conversion rate likely falls. The smaller the confidence interval, the more confident you can be about the prediction. For example, a confidence interval of 11%-13% is more reliable than a confidence interval of 10%-30%.
 - **Change**: The difference, in positive or negative values, the flag variation has from the baseline variation. Baseline flag variations say **Baseline** rather than showing a value.
@@ -78,7 +78,7 @@ After your experiment has registered enough events to achieve statistical signif
 
 If you run an experiment over an extended period of time, the winning variation may change. Review your experiment data regularly to make sure you're making the most informed choices about your business and product.
 
-You can view the statistical significance of your metrics, and the winning versions, in the **Statistical significance** column. The baseline variation does not show statistical significance.
+You can view the statistical significance of your metrics, and the winning versions, in the "Statistical significance" column. The baseline variation does not show statistical significance.
 
 Here is an image of an experiment with a winning variation designated:
 
