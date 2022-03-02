@@ -120,11 +120,12 @@ jobs:
           install-command: yarn install --immutable --immutable-cache
           build: yarn build-nav-data
           headless: true
-          config: baseUrl=https://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }}
+          config: baseUrl=https://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }},retries=2
           spec: cypress/integration/smoke.test.ts
           env: pr_number=${{ github.event.pull_request.number }}
           wait-on: 'https://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }}/home'
           record: true
+          tag: staging
         env:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
