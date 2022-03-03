@@ -1175,6 +1175,10 @@
             "path": "/guides/best-practices/teams"
           },
           {
+            "label": "Creating custom roles",
+            "path": "/guides/best-practices/custom-roles"
+          },
+          {
             "label": "Creating flags",
             "path": "/guides/best-practices/creating-flags"
           },
@@ -1260,10 +1264,6 @@
         "path": "/guides/platform-specific",
         "svg": "bullseye-arrow",
         "items": [
-          {
-            "label": "Managing custom roles with SSO and SCIM",
-            "path": "/guides/platform-specific/custom-roles"
-          },
           {
             "label": "Managing flags with Terraform",
             "path": "/guides/platform-specific/terraform"

@@ -56,6 +56,44 @@ To do this:
 </CodeTabItem>
 </CodeTabs>
 
+## Example: tag-specific permissions
+
+One way to organize access to resources is by tagging individual resources, and then creating custom roles with access based on those tags. For example, you can create a `dev` tag for your environments and use it in a policy to allow access only to development environments. You can add tags to projects, environments, segments, flags, and metrics.
+
+Here is the code sample to build a custom role with access to resources that have a `dev` tag:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Dev-tagged resources', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+{
+    "resources": ["proj/*:env/*:flag/*;dev"],
+    "actions": ["*"],
+    "effect": "allow"
+},
+{
+    "resources": ["proj/*:env/*;dev"],
+    "actions": ["*"],
+    "effect": "allow"
+},
+{
+    "resources": ["proj/*;dev"],
+    "actions": ["*"],
+    "effect": "allow"
+},
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Anyone with this custom role can edit resources that have a `dev` tag.
+
 For more tag policy examples, read [Using tags in custom role policies](/home/members/role-tags#using-tags-in-custom-role-policies).
 
 ## Example: Granting access to kill switch features, but not flag rollout or targeting rules
@@ -440,8 +478,8 @@ Here's a template:
 
 <CodeTabItem value="json">
 
-```
-
+```json
+ 
 [
     {
         "resources": ["proj/*"],
