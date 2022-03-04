@@ -28,59 +28,124 @@ You must assign each additional account member at least one role. You can assign
 
 You must set an account member's initial role when you invite them to LaunchDarkly. LaunchDarkly assigns new account members the `reader` role by default, unless you choose a different starting role. If an account member needs more advanced permissions, an account member with permissions to do so must adjust their role. To learn how, read [Changing an individual member's roles](#changing-an-individual-members-roles).
 
-The built-in roles are explained in more detail in this table:
+This table displays the built-in roles and their associated permissions:
 
 <Table>
   <TableHeader>
-    <TableHeadCell>Role</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
+    <TableHeadCell>
+    Role name
+    </TableHeadCell>
+    <TableHeadCell>
+    Can view data
+    </TableHeadCell>
+    <TableHeadCell>
+    Can modify data
+    </TableHeadCell>
+    <TableHeadCell>
+    Can manage account members
+    </TableHeadCell>
+    <TableHeadCell>
+    Can manage billing
+    </TableHeadCell>
   </TableHeader>
   <TableBody>
     <TableRow>
       <TableCell>
-        <code>reader</code>
+      Reader
       </TableCell>
       <TableCell>
-        Readers can see information in LaunchDarkly, but can't modify it. This role is for members of your
-        organization who need visibility into your feature flags, but shouldn’t be able to modify rollout rules or
-        administrative settings.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>writer</code>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
-        Writers can make changes to LaunchDarkly that impact what the platform does. For example, they can modify
-        feature flags, metrics, environments, projects, and more. They can’t add new account members to the account or manage your payment method or plans. This role for members who need the ability to configure your organization's feature flags.
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>admin</code> and <code>owner/admin</code>
+      Writer
       </TableCell>
       <TableCell>
-        Admins can do anything in LaunchDarkly except modify which account member has the owner role. You can have
-        multiple admins in your LaunchDarkly account.
-        <br />
-        <br />
-        Owners can do anything Admins can do in LaunchDarkly, as well as reassign the owner role to another account member.
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>no access</code>
+      Admin
       </TableCell>
       <TableCell>
-        The <code>no access</code> role prevents members from accessing any part of the LaunchDarkly
-        platform. This role is for members who shouldn't be able to see or modify anything until you give them access to specific areas of LaunchDarkly.
-        <br />
-        <br />
-        Customers on an Enterprise plan with access to the teams feature can add members to teams to give them additional permissions. To learn more, read <a href="/home/teams">Teams</a>.
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+      Owner
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+      No access
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
       </TableCell>
     </TableRow>
   </TableBody>
 </Table>
+
+### Reader
+
+Readers can see information in LaunchDarkly, but can't modify it. This role is for members of your organization who need visibility into your feature flags, but shouldn’t be able to modify rollout rules or administrative settings.
+
+### Writer
+
+Writers can make changes to LaunchDarkly that impact what the platform does. For example, they can modify feature flags, metrics, environments, projects, and more. They can’t add new account members to the account or manage your payment method or plans. This role for members who need the ability to configure your organization's feature flags.
+
+### Admin and owner/admin
+
+Admins can do anything in LaunchDarkly except modify which account member has the owner role. You can have multiple admins in your LaunchDarkly account.
+
+Owners can do anything Admins can do in LaunchDarkly, as well as reassign the owner role to another account member.
+
+### No access
+
+Members with this role can't access any part of the LaunchDarkly platform. This role is for members who shouldn't be able to see or modify anything until you give them access to specific areas of LaunchDarkly.
+
+Customers on an Enterprise plan with access to the teams feature can add members to teams to give them additional permissions. To learn more, read [Teams](/home/teams).
 
 ## Understanding how built-in roles interact with custom roles
 

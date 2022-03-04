@@ -24,6 +24,7 @@ This guide covers:
 - [Recreating built-in roles in LaunchDarkly](#recreating-built-in-roles)
 - [Creating your own custom roles](#creating-custom-roles)
 - [Mapping your current custom roles](#mapping-roles)
+- [Using teams to manage permissions](#using-launchdarkly-teams-to-manage-permissions)
 - [Using custom roles with specific IdPs](#using-custom-roles-with-your-idp)
 
 ## Prerequisites
@@ -61,7 +62,7 @@ To learn more about teams, read [Teams](/home/teams).
 
 ### LaunchDarkly's built-in roles
 
-Every LaunchDarkly account has three built-in roles: reader, writer, and owner / admin. Customers on an Enterprise plan also have a restricted no access role. Every account member must have at least either one of these built-in roles or a custom role. If you need to, you can also assign account members multiple custom roles to give them the exact set of permissions they need.
+Every LaunchDarkly account has three built-in roles: `reader`, `writer`, and `owner / admin`. Customers on an Enterprise plan also have a restricted `no access` role. Every account member must have at least either one of these built-in roles or a custom role. If you need to, you can also assign account members multiple custom roles to give them the exact set of permissions they need.
 
 To learn more about built-in roles, read [LaunchDarkly’s built-in roles](/home/members/built-in-roles).
 
@@ -71,13 +72,17 @@ Custom roles enable organizations to define granular permissions of actions that
 
 Many organizations prefer to use custom roles instead of LaunchDarkly's built-in roles to access this additional flexibility when they configure SSO or SCIM.
 
+To learn more, read [Custom roles](/home/members/custom-roles).
+
 ### Policies
 
 A policy in LaunchDarkly is a set of actions a role can or cannot take. Each policy is a list of statements allowing or denying a user access to resources and actions within LaunchDarkly.
 
-Policies can be direct or inverse. A direct policy allows or denies access to the resource defined.
+Policies can be direct or inverse. A direct policy allows or denies access to the resource defined. An inverse policy allows or denies actions for all resources except the one listed. 
 
-For example, this policy denies all actions within the production environment:
+<Details summary="Expand direct policy example">
+
+This policy denies all actions within the production environment:
 
 <CodeTabs
   defaultValue="json"
@@ -98,8 +103,12 @@ For example, this policy denies all actions within the production environment:
 
   </CodeTabItem>
   </CodeTabs>
+  
+  </Details>
+  
+<Details summary="Expand inverse policy example">
 
-An inverse policy allows or denies actions for all resources except the one listed. For example, this policy allows all actions across all environments except production:
+This policy allows all actions across all environments except production:
 
 <CodeTabs
   defaultValue="json"
@@ -121,6 +130,8 @@ An inverse policy allows or denies actions for all resources except the one list
 </CodeTabItem>
 </CodeTabs>
 
+</Details>
+
 To learn more about policies, read [Using policies](/home/members/role-policies).
 
 ### Identity provider
@@ -141,11 +152,11 @@ The SSO workflow within LaunchDarkly creates a new user if they sign in with the
 
 To learn more about SCIM, read [User provisioning with SCIM](/home/account-security/sso#user-provisioning-with-scim).
 
-## Built-in roles and permissions
+## Recreating built-in roles
 
-When you configure custom roles for SSO, start by recreating LaunchDarkly's built-in roles. Recreating built-in roles as the base for SSO roles allows you to use these roles in a way that best fits your organization.
+When you are ready to configure custom roles for your organization, start by recreating LaunchDarkly's built-in roles. Recreating built-in roles is useful because you can then build upon them to create similar, but personalized, custom roles. For example, you may want to create a role that gives a member `writer` access to one project, but `reader` access to all remaining projects.
 
-This table displays the built-in roles and their associated permissions that you need to recreate:
+This table displays the built-in roles and their associated permissions that you will recreate in this guide:
 
 <Table>
   <TableHeader>
@@ -228,21 +239,110 @@ This table displays the built-in roles and their associated permissions that you
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
     </TableRow>
+    <TableRow>
+      <TableCell>
+      No access
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
+      </TableCell>
+    </TableRow>
   </TableBody>
 </Table>
 
-<Callout intent="warning">
-<CalloutTitle>Using SCIM to provision users</CalloutTitle>
+<Callout intent="info">
+<CalloutTitle>The no access role is for Early Access Program customers only</CalloutTitle>
 <CalloutDescription>
 
-If you use SCIM to provision users, you will create the roles in LaunchDarkly, but you must configure and manage your account members in the IdP.
+The `no access` role is limited to a subset of customers in LaunchDarkly's Early Access Program (EAP). If you want access to this feature, email product@launchdarkly.com.
 
 </CalloutDescription>
 </Callout>
 
-### Recreating built-in roles
-
 Expand each of the sections below to learn how to recreate built-in roles using the advanced editor.
+
+<Details summary="Expand reader custom role">
+
+### Reader
+
+To create a role with `reader` permissions across LaunchDarkly:
+
+1. Navigate to **Account settings**.
+2. Click the **Roles** tab.
+3. Click **Create role**.
+4. Enter a name for the role and an optional description.
+5. Click **Advanced editor**.
+6. Copy the following policy and paste it into the **Role policy** window:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Reader', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "effect": "allow",
+    "resources": ["proj/*"],
+    "actions": ["viewProject"]
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+7. Click **Save role**.
+
+</Details>
+
+<Details summary="Expand writer custom role">
+
+### Writer
+
+To create a role with `writer` permissions across LaunchDarkly:
+
+1. Navigate to **Account settings**.
+2. Click the **Roles** tab.
+3. Click **Create role**.
+4. Enter a name for the role and an optional description.
+5. Click **Advanced editor**.
+6. Copy the following policy and paste it into the **Role policy** window:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Writer', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "effect": "allow",
+    "resources": ["proj/*"],
+    "actions": ["*"]
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+7. Click **Save role**.
+
+</Details>
 
 <Details summary="Expand administrator custom role">
 
@@ -315,15 +415,16 @@ To create a role with full administrator permissions across LaunchDarkly:
 
 </Details>
 
-<Details summary="Expand reader custom role">
+<Details summary="Expand no access custom role">
 
-### Reader
-
-To create a role with reader permissions across LaunchDarkly:
+To create a role with no access to any resources in LaunchDarkly:
 
 1. Navigate to **Account settings**.
 2. Click the **Roles** tab.
-3. Click **Create role**.
+3. Click **Create role**:
+
+![The Roles tab under Account settings with the "Create role" button called out.](/images/create-role-callout.png)
+
 4. Enter a name for the role and an optional description.
 5. Click **Advanced editor**.
 6. Copy the following policy and paste it into the **Role policy** window:
@@ -331,7 +432,7 @@ To create a role with reader permissions across LaunchDarkly:
 <CodeTabs
   defaultValue="json"
   values={[
-    { label: 'Reader', value: 'json', },
+    { label: 'No access', value: 'json', },
   ]
 }>
 
@@ -340,47 +441,8 @@ To create a role with reader permissions across LaunchDarkly:
 ```json
 [
   {
-    "effect": "allow",
-    "resources": ["proj/*"],
-    "actions": ["viewProject"]
-  }
-]
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-7. Click **Save role**.
-
-</Details>
-
-<Details summary="Expand writer custom role">
-
-### Writer
-
-To create a role with writer permissions across LaunchDarkly:
-
-1. Navigate to **Account settings**.
-2. Click the **Roles** tab.
-3. Click **Create role**.
-4. Enter a name for the role and an optional description.
-5. Click **Advanced editor**.
-6. Copy the following policy and paste it into the **Role policy** window:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Writer', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
-
-```json
-[
-  {
-    "effect": "allow",
-    "resources": ["proj/*"],
+    "effect": "deny",
+    "resources": ["*"],
     "actions": ["*"]
   }
 ]
@@ -389,7 +451,8 @@ To create a role with writer permissions across LaunchDarkly:
 </CodeTabItem>
 </CodeTabs>
 
-7. Click **Save role**.
+7. Click "Simple editor." You are returned to the simple editor displaying the policy details.
+8. Click **Save role**.
 
 </Details>
 
@@ -543,7 +606,7 @@ For more custom role examples, read [Example policies and templates](/home/membe
 
 ## Mapping roles
 
-Before you configure SSO to use custom roles, scope the different roles, teams, and permissions your organization uses. Defining your roles will help you create a policy structure that’s scalable and easy to implement.
+Now that you know how to create your own custom roles, you can begin thinking about your organization's specific needs. Scoping the different roles, teams, and permissions your organization uses will help you create a policy structure that’s scalable and easy to implement.
 
 Some questions to consider include:
 
@@ -714,11 +777,20 @@ To learn more about best practices when using teams, read [Building teams in Lau
 
 ## Using custom roles with your IdP
 
-With your custom roles designed and built, you can now manage them using your IdP provider.
+<Callout intent="warning">
+<CalloutTitle>Using SCIM to provision users</CalloutTitle>
+<CalloutDescription>
 
-When you pass account member information into LaunchDarkly from your IdP provider, you  must include the key of the member's custom role in a `customRole` attribute, along with their other profile information such as name and email address. To learn more about the `customRole` attribute, read [Custom attributes](/home/account-security/sso#custom-attributes).
+If you use SCIM to provision users, you will create the roles in LaunchDarkly, but you must configure and manage your account members in the IdP. To learn more, read [User provisioning with scim](/home/account-security/sso#user-provisioning-with-scim).
 
-The fields and methods you must use to pass custom role information to LaunchDarkly differ depending on your IdP provider. We support the following IdPs:
+</CalloutDescription>
+</Callout>
+
+With your custom roles designed and built, you can now manage them using SSO and your IdP.
+
+When you pass account member information into LaunchDarkly from your IdP, you  must include the key of the member's custom role in a `customRole` attribute, along with their other profile information such as name and email address. To learn more about the `customRole` attribute, read [Custom attributes](/home/account-security/sso#custom-attributes).
+
+The fields and methods you must use to pass custom role information to LaunchDarkly differ depending on your IdP. We provide configuration guidance for the following IdPs:
 
 - ADFS
 - Azure
@@ -762,9 +834,11 @@ You can assign custom roles that you created in LaunchDarkly to users through th
 
 </Details>
 
+To learn more, read [Configuring an external IdP](/home/account-security/sso#configuring-an-external-idp).
+
 ## Conclusion
 
-In this guide you have learned about creating custom roles for use with SSO and SCIM. Custom roles and SSO give you the security and flexibility you need to manage roles, permissions, and account members.
+In this guide you have learned about creating custom roles for use within your organization. Using custom roles with an IdP gives you the security and flexibility you need to easily manage roles, permissions, and account members.
 
 <Callout intent="primary">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
