@@ -11,6 +11,8 @@ This reference guide documents all of the methods available in the React Native 
 
 You can also use this SDK to clone and run a [sample application](https://github.com/launchdarkly/hello-react-native).
 
+The sample code snippets for this SDK are available in both JavaScript and TypeScript, where the sample code differs. To learn more, read [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
+
 <Callout intent="info">
 <CalloutTitle>SDK version compatibility</CalloutTitle>
 <CalloutDescription>
@@ -63,6 +65,7 @@ After setting up the SDK, import the SDK into your project:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -72,9 +75,16 @@ import LDClient from 'launchdarkly-react-native-client-sdk';
 ```
 
 </CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
+```
+
+</CodeTabItem>
 </CodeTabs>
 
-After the SDK is imported, create a single, shared instance of `LDClient`, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly.Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects). Mobile keys are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
+After the SDK is imported, create a single, shared instance of `LDClient`, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings/projects) page. Mobile keys are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
 
 <Callout intent="alert">
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
@@ -91,6 +101,7 @@ The following example shows the simplest way to create a shared instance of `LDC
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -104,9 +115,21 @@ await client.configure(config, user);
 ```
 
 </CodeTabItem>
+<CodeTabItem>
+
+```ts
+let client = new LDClient();
+let config: ld.LDConfig = { mobileKey: 'YOUR_MOBILE_KEY' };
+let user: ld.LDUser = { key: 'user_key' };
+
+await client.configure(config, user);
+
+```
+
+</CodeTabItem>
 </CodeTabs>
 
-You can give `.configure` a timeout parameter. If it receives flag values before the timeout, the returned promise will resolve . Otherwise, it will be rejected.
+You can give `.configure` a timeout parameter. If it receives flag values before the timeout, the returned promise will resolve. Otherwise, it will be rejected.
 
 Here is an example with a timeout of five seconds:
 
@@ -114,6 +137,7 @@ Here is an example with a timeout of five seconds:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -127,6 +151,18 @@ client.configure(config, user, 5.0)
 ```
 
 </CodeTabItem>
+<CodeTabItem>
+
+```ts
+let client = new LDClient();
+let config: ld.LDConfig = { mobileKey: 'YOUR_MOBILE_KEY' };
+let user: ld.LDUser = { key: 'user_key' };
+
+client.configure(config, user, 5.0);
+
+```
+
+</CodeTabItem>
 </CodeTabs>
 
 <Callout intent="alert">
@@ -135,7 +171,7 @@ client.configure(config, user, 5.0)
 
 You must make feature flags available to mobile SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
 
-To make a flag available to this SDK, check the **SDKs using Mobile key** checkbox during flag creation, or on the flag's Settings tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Mobile key** checkbox in your project [Settings](https://app.launchdarkly.com/settings/projects).
+To make a flag available to this SDK, check the **SDKs using Mobile key** checkbox during flag creation, or on the flag's **Settings** tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Mobile key** checkbox in your project [**Settings**](https://app.launchdarkly.com/settings/projects).
 
 </CalloutDescription>
 </Callout>

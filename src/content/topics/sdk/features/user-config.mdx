@@ -1333,24 +1333,48 @@ Here is a complete user configuration object utilizing all available fields:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-let user =
-  { key: '2fbfa269b78e24c8e967f482b89c939b',
-    name: 'grace_hopper',
-    firstName: 'Grace',
-    lastName: 'Hopper',
-    email: 'gracehopper@example.net',
-    anonymous: false,
-    privateAttributeNames: ['name'],
-    country: 'USA',
-    avatar: 'avatar',
-    ip: '192.0.2.1',
-    custom: {'groups': 'users'}
-  };
+let user = {
+  key: '2fbfa269b78e24c8e967f482b89c939b',
+  name: 'grace_hopper',
+  firstName: 'Grace',
+  lastName: 'Hopper',
+  email: 'gracehopper@example.net',
+  anonymous: false,
+  privateAttributeNames: ['name'],
+  country: 'USA',
+  avatar: 'avatar',
+  ip: '192.0.2.1',
+  secondary: '',
+  custom: {'groups': 'users'}
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
+
+let user: ld.LDUser = {
+  key: '2fbfa269b78e24c8e967f482b89c939b',
+  name: 'grace_hopper',
+  firstName: 'Grace',
+  lastName: 'Hopper',
+  email: 'gracehopper@example.net',
+  anonymous: false,
+  privateAttributeNames: ['name'],
+  country: 'USA',
+  avatar: 'avatar',
+  ip: '192.0.2.1',
+  secondary: '',
+  custom: {'groups': 'users'}
+};
 ```
 
 </CodeTabItem>

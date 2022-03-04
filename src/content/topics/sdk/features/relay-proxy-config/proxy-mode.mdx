@@ -324,19 +324,35 @@ To connect the SDK to the Relay Proxy, set the `streamUri`, `pollUri`, and `even
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'React Native (JavaScript)', value: 'js'},
+    { label: 'JavaScript', value: 'js' },
+    { label: 'TypeScript', value: 'ts' },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-let config =
-  { "mobileKey": "YOUR_MOBILE_KEY",
-    "streamUri": "https://your-relay-proxy.com:8080",
-    "pollUri": "https://your-relay-proxy.com:8080",
-    "eventsUri": "https://your-relay-proxy.com:8080",
-  };
+let config = {
+  mobileKey: 'YOUR_MOBILE_KEY',
+  streamUri: 'https://your-relay-proxy.com:8080',
+  pollUri: 'https://your-relay-proxy.com:8080',
+  eventsUri: 'https://your-relay-proxy.com:8080',
+};
 ```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
+
+let config: ld.LDConfig = {
+  mobileKey: 'YOUR_MOBILE_KEY',
+  streamUri: 'https://your-relay-proxy.com:8080',
+  pollUri: 'https://your-relay-proxy.com:8080',
+  eventsUri: 'https://your-relay-proxy.com:8080',
+};
+```
+
 </CodeTabItem>
 </CodeTabs>
 </Details>

@@ -255,6 +255,7 @@ You do not need to manage `LDClient` instances. Instead, access an instance by p
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -268,6 +269,24 @@ let config = {
   },
 };
 let user = {key: 'minimal_user'};
+await client.configure(config, user);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
+
+let config: ld.LDConfig = {
+  mobileKey: 'YOUR_MOBILE_KEY',
+  secondaryMobileKeys: {
+    'platform': 'PLATFORM_MOBILE_KEY',
+    'core': 'CORE_MOBILE_KEY'
+  },
+};
+let user: ld.LDUser = { key: 'minimal_user' };
+
 await client.configure(config, user);
 ```
 

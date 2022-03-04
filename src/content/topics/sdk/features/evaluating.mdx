@@ -387,7 +387,10 @@ Here is an example:
 <CodeTabItem value="js">
 
 ```js
-let jsonResult = await client.jsonVariation('MY_JSON_FLAG_KEY', {});
+let boolResult = await client.boolVariation('YOUR_BOOLEAN_FLAG_KEY', false);
+let numResult = await client.numberVariation('YOUR_NUMERIC_FLAG_KEY', 2);
+let stringResult = await client.stringVariation('YOUR_STRING_FLAG_KEY', '');
+let jsonResult = await client.jsonVariation('YOUR_JSON_FLAG_KEY', {});
 ```
 
 </CodeTabItem>

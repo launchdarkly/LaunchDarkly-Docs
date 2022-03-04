@@ -388,12 +388,24 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 let user = {'key': 'minimal_user'};
+await client.identify(user); //promise resolves to nil/null
+Alert.alert('identify', 'success');
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
+
+let user: ld.LDUser = {'key': 'minimal_user'};
 await client.identify(user); //promise resolves to nil/null
 Alert.alert('identify', 'success');
 ```
