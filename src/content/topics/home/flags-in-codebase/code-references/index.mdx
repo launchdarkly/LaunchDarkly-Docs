@@ -152,13 +152,13 @@ aliases:
 
 This identifies all references to `firstFeatureFlag` in your code base.
 
-To learn more about aliases, read the [aliases documentation](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/ALIASES.md).
+To learn more about aliases, read the [aliases documentation](https://github.com/launchdarkly/ld-find-code-refs/blob/main/docs/ALIASES.md).
 
 ## Using `ld-find-code-refs` with a monorepo
 
 `ld-find-code-refs` version 2.5.0+ provides support for monorepos. This means a single scan of code references can find feature flags and aliases from multiple LaunchDarkly projects stored in the same repository. You can specify an optional starting subdirectory for each project, which limits your scan to directories below the initial subdirectory only. The required top-level `dir` value should still be the overall git repository root directory.
 
-To learn more about monorepo support, read [Projects](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#projects) in the `ld-find-code-refs` configuration documentation.
+To learn more about monorepo support, read [Projects](https://github.com/launchdarkly/ld-find-code-refs/blob/main/docs/CONFIGURATION.md#projects) in the `ld-find-code-refs` configuration documentation.
 
 ## Limitations
 
@@ -173,10 +173,10 @@ These limits include:
 
 If you've encountered any of these limits, or are noticing a large number of false positives being detected by `ld-find-code-refs`, you can configure an `.ldignore` file in your repository with rules matching the files and directories you'd like to exclude.
 
-To learn more about `.ldignore` files, read the [`ld-find-code-refs` documentation](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/CONFIGURATION.md#ignoring-files-and-directories).
+To learn more about `.ldignore` files, read the [`ld-find-code-refs` documentation](https://github.com/launchdarkly/ld-find-code-refs/blob/main/docs/CONFIGURATION.md#ignoring-files-and-directories).
 
 ## Using ld-find-code-refs with the React SDK
 
 The code references feature scans your source code for occurrences of your flag keys. This process requires your source code to reference flag keys exactly as they appear in LaunchDarkly.
 
-However, by default, the React SDK changes all flag keys to camel-case for easier access with dot notation. To use the code references feature in conjunction with the React SDK, configure `ld-find-code-refs` to generate camel-case aliases for the flag keys, or configure the React SDK to disable this camel-casing feature. To learn more, read [Flag keys transposed to common casing conventions](https://github.com/launchdarkly/ld-find-code-refs/blob/master/docs/ALIASES.md#flag-keys-transposed-to-common-casing-conventions) in the `ld-find-code-refs` documentation and [Flag keys](/sdk/client-side/react/react-web#flag-keys) in the React SDK documentation.
+However, by default, the React SDK changes all flag keys to camel-case for easier access with dot notation. To use the code references feature in conjunction with the React SDK, configure `ld-find-code-refs` to generate camel-case aliases for the flag keys, or configure the React SDK to disable this camel-casing feature. To learn more, read [Flag keys transposed to common casing conventions](https://github.com/launchdarkly/ld-find-code-refs/blob/main/docs/ALIASES.md#flag-keys-transposed-to-common-casing-conventions) in the `ld-find-code-refs` documentation and [Flag keys](/sdk/client-side/react/react-web#flag-keys) in the React SDK documentation.
