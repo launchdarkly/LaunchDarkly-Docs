@@ -22,6 +22,8 @@ You can also use this SDK to clone and run a [sample application](/sdk/client-si
 
 You can use LaunchDarkly in a Gatsby application with our [Gatsby plugin](/sdk/client-side/react/gatsby).
 
+The sample code snippets for this SDK are in JavaScript. To learn more about using TypeScript with the React SDK, read [Importing types](#importing-types) and [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
+
 <Callout intent="info">
 <CalloutTitle>The React SDK is based on the JavaScript SDK</CalloutTitle>
 <CalloutDescription>
@@ -46,7 +48,7 @@ The LaunchDarkly React SDK offers two custom hooks. If you want to use these, th
 
 After you complete the [Getting started](/home/getting-started) process, follow these instructions to start using the LaunchDarkly SDK in your React code.
 
-To install the React SDK, you need your LaunchDarkly environment's client-side ID. Your client-side ID is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects). Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
+To install the React SDK, you need your LaunchDarkly environment's client-side ID. Your client-side ID is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings/projects) page. Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
 
 Install the React SDK using either `npm` or `yarn`:
 
@@ -86,7 +88,7 @@ Both rely on React's `Context` API which lets you access your flags from any lev
 
 You must make feature flags available to client-side SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
 
-To make a flag available to this SDK, check the **SDKs using Client-side ID** checkbox during flag creation, or on the flag's Settings tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [Settings](https://app.launchdarkly.com/settings/projects).
+To make a flag available to this SDK, check the **SDKs using Client-side ID** checkbox during flag creation, or on the flag's **Settings** tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [**Settings**](https://app.launchdarkly.com/settings/projects).
 
 </CalloutDescription>
 </Callout>
@@ -168,9 +170,12 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
+import { render } from 'react-dom';
 import { withLDProvider } from 'launchdarkly-react-client-sdk';
 
-export default withLDProvider({
+import App from './App';
+
+const LDProvider = withLDProvider({
   clientSideID: 'your-client-side-id',
   user: {
     "key": "aa0ceb",
@@ -178,7 +183,10 @@ export default withLDProvider({
     "email": "gracehopper@example.com"
   },
   options: { /* ... */ }
-})(YourApp);
+})(App);
+
+const rootElement = document.getElementById("root");
+render(<LDProvider />, rootElement);
 ```
 
 </CodeTabItem>
@@ -192,7 +200,7 @@ In the React SDK, streaming mode is enabled by default. To disable streaming mod
 
 ## Using `withLDConsumer`
 
-The return value of `withLDConsumer` is a wrapper function that takes your component and returns a React component injected with `flags` & `ldClient` as props.
+The return value of `withLDConsumer` is a wrapper function that takes your component and returns a React component injected with `flags` and `ldClient` as props.
 
 Here's how:
 
@@ -242,7 +250,7 @@ These are the properties:
 
 - `flags`: If you specify this, the React SDK will only subscribe for updates to these flags. When you don't specify this property, the React SDK subscribes to all flags. This property is optional.
 
-  Specify the `flags` property as a map of flag keys and values. The flag keys must be in their original form as known to LaunchDarkly rather than in their camel-cased form. Each flag's value is passed along to the resulting JS SDK [`variation`](/sdk/features/evaluating) invocation and used as the flag's default value in the case of an error.
+  Specify the `flags` property as a map of flag keys and values. The flag keys must be in their original form as known to LaunchDarkly rather than in their camel-cased form. Each flag's value is passed along to the resulting JavaScript SDK [`variation`](/sdk/features/evaluating) invocation and used as the flag's default value in the case of an error.
 
 The following is an example `ProviderConfig` object including each of the above properties:
 
@@ -292,9 +300,9 @@ The React SDK offers two custom hooks which you can use as an alternative to `wi
 </CalloutDescription>
 </Callout>
 
-`useFlags` is a custom hook which returns all feature flags. It uses the useContext primitive to access the LaunchDarkly context set up by `asyncWithLDProvider` or `withLDProvider`. You still must use the `asyncWithLDProvider` or the `withLDProvider` higher-order component at the root of your application to initialize the React SDK and populate the context with `LDClient` and your flags.
+`useFlags` is a custom hook which returns all feature flags. It uses the `useContext` primitive to access the LaunchDarkly context set up by `asyncWithLDProvider` or `withLDProvider`. You still must use the `asyncWithLDProvider` or the `withLDProvider` higher-order component at the root of your application to initialize the React SDK and populate the context with `LDClient` and your flags.
 
-`useLDClient` is the second custom hook which returns the underlying LaunchDarkly JavaScript SDK client object. Like the `useFlags` custom hook, `useLDClient` also uses the useContext primitive to access the LaunchDarkly context set up by `asyncWithLDProvider` or `withLDProvider`. You still must use the `asyncWithLDProvider` or the `withLDProvider` higher-order component to initialize the React SDK to use this custom hook.
+`useLDClient` is the second custom hook which returns the underlying LaunchDarkly JavaScript SDK client object. Like the `useFlags` custom hook, `useLDClient` also uses the `useContext` primitive to access the LaunchDarkly context set up by `asyncWithLDProvider` or `withLDProvider`. You still must use the `asyncWithLDProvider` or the `withLDProvider` higher-order component to initialize the React SDK to use this custom hook.
 
 For an example of how to use a custom hook, read [HooksDemo](https://github.com/launchdarkly/react-client-sdk/blob/master/examples/hoc/src/universal/hooksDemo.js).
 
@@ -341,12 +349,12 @@ With this configuration option in place, you would now access your `dev-flag-tes
 
 ## Example app
 
-Run this [example](https://github.com/launchdarkly/react-client-sdk/tree/master/examples/hoc) for a fully working single page app with React and react-router. You must enter your `clientSideId` in the [client root app file](https://github.com/launchdarkly/react-client-sdk/blob/master/examples/hoc/src/universal/app.js) and create a flag with key `dev-test-flag` in your dashboard before running the example.
+Run this [example](https://github.com/launchdarkly/react-client-sdk/tree/master/examples/hoc) for a fully working single page app with React and react-router. You must enter your `clientSideId` in the [client root app file](https://github.com/launchdarkly/react-client-sdk/blob/master/examples/hoc/src/universal/app.js) and create a flag with key `dev-test-flag` in your flag dashboard before running the example.
 
 ## Importing types
 
-In addition to its own bundled types, the React SDK uses types from `launchdarkly-js-client-sdk`. If you use Typescript
-and you need to use `launchdarkly-js-client-sdk` types, you can install the `launchdarkly-js-client-sdk` package as a
-dev dependency. You can then import the types you want directly from `launchdarkly-js-client-sdk`.
+In addition to its own bundled types, the React SDK uses types from `launchdarkly-js-client-sdk`. If you use Typescript and you need to use `launchdarkly-js-client-sdk` types, you can install the `launchdarkly-js-client-sdk` package as a dev dependency. You can then import the types you want directly from `launchdarkly-js-client-sdk`.
 
- If you use eslint, the SDK requires that you add `launchdarkly-js-client-sdk` as a dev dependency. Otherwise, eslint will report a `no-extraneous-dependencies` error.
+If you are using the React SDK within a React application that uses TypeScript, you may encounter some compiler errors or warnings initially. One solution is to wrap your component in a `withLDProvider` function, and then coerce your component to type `<ComponentType<{}>`. To learn how, read [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
+
+If you use eslint, the SDK requires that you add `launchdarkly-js-client-sdk` as a dev dependency. Otherwise, eslint will report a `no-extraneous-dependencies` error.
