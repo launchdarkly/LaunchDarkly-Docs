@@ -75,7 +75,10 @@ Alternatively, you can validate your Relay Proxy with `curl`. Note that you need
 <CodeTabItem value="relay">
 
 ```bash
-curl -X REPORT localhost:8030/sdk/eval/user -H "Authorization: YOUR_SDK_KEY" -H "Content-Type: application/json" -d '{"key": "a00ceb", "email":"barnie@example.org"}'
+curl -X REPORT localhost:8030/sdk/eval/user \
+  -H "Authorization: YOUR_SDK_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"key": "a00ceb", "email":"barnie@example.org"}'
 ```
 
 </CodeTabItem>
