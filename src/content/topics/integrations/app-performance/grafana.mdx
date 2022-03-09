@@ -1,0 +1,119 @@
+---
+path: /integrations/grafana
+title: Grafana
+description: This topic explains how to use the LaunchDarkly Grafana integration. You can use the integration to send flag, environment, and project updates to Grafana to add context to your graphs.
+published: true
+---
+
+<Callout intent="primary">
+<CalloutTitle>The Grafana integration is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+The Grafana integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="info">
+<CalloutTitle>This integration is in beta</CalloutTitle>
+<CalloutDescription>
+
+Development work on the Grafana integration is ongoing. Elements of this integration may change without notice.
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to use the LaunchDarkly Grafana integration. You can use the integration to send flag, environment, and project updates to Grafana to add context to your graphs.
+
+## Prerequisites
+
+To use the Grafana integration, you must have the following prerequisites:
+
+- A Grafana instance that is accessible to LaunchDarkly's servers.
+- An API key from Grafana with editor privileges.
+
+To generate an API key:
+
+1. In Grafana, open the the **Configuration** menu and select "API keys." The "API keys" tab appears.
+
+![The "API keys" tab in Grafana.](grafana-api-tab.png)
+
+2. Click **Add API key**. An "Add API Key" section appears.
+3. Enter a **Key name**.
+4. Change the **Role** selection to "Editor" or "Admin."
+5. Click **Add**. An "API Key Created" dialog appears.
+6. Copy the key from the **Key** field and save it somewhere secure. Grafana displays this key only once, so you must copy and store it now. You will use it to set up the Grafana integration in LaunchDarkly.
+
+## Setting up the Grafana integration
+
+After you create an API key in Grafana, you can set up the integration in LaunchDarkly.
+
+1. Navigate to the [**Integrations** page](https://app.launchdarkly.com/default/integrations) and find "Grafana."
+2. Click **Add integration**. The "Create Grafana configuration" panel appears.
+3. (Optional) Give your integration a human-readable **Name**.
+4. Enter your Grafana instance URL.
+4. Enter the Grafana **API key**. You created this key in the [Prerequisites](#prerequisites) section.
+6. (Optional) Configure a custom policy to control which events LaunchDarkly sends to Grafana. To learn more, read [Filtering the events you send to Grafana](#filtering-the-events-you-send-to-grafana).
+
+![The "Create Grafana integration" panel.](grafana-config.png)
+
+7. After reading the Integration Terms and Conditions, check the **I have read and agree to the Integration Terms and Conditions** checkbox.
+8. Click **Save configuration**. The new integration appears on the **Integrations** page. It is switched **on** by default.
+
+After you set up the Grafana integration, events from LaunchDarkly appear in your Grafana dashboard.
+
+![Grafana configurations on the "Integrations" page.](grafana-integration.png)
+
+## Filtering the events you send to Grafana
+
+By default, LaunchDarkly sends events to Grafana for changes made to any feature flag, environment, or project. If you have a more limited use case for using the integration, or you wish to restrict which data you send to Grafana, you can filter which events LaunchDarkly sends.
+
+To filter events, write a policy using the same syntax as the custom roles feature to filter the events sent to Grafana.
+
+For more information about writing policies, read [Policies in custom roles](/home/members/role-policies).
+
+For example, if you only want to receive an event when a change is made to one of the feature flags in your testing environment, you can add the following policy to your events stream:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example Grafana policy', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "effect": "allow",
+    "resources": [
+      "proj/*:env/your-test-environment:flag/*"
+    ],
+    "actions": [
+      "*"
+    ]
+	}
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To add a custom filter:
+
+1. Navigate to the [**Integrations** page](https://app.launchdarkly.com/default/integrations) and find "Grafana."
+2. Find the configuration you wish to modify, and click the **overflow menu**. The "Edit Grafana configuration" panel appears.
+
+![Grafana integrations with the "Edit integration configuration" option called out.](grafana-edit-callout.png)
+
+3. Click **Advanced editor**. The Advanced editor appears.
+4. Enter your custom **policy**.
+
+![The "Edit Grafana configuration" panel with the Advanced editor open and a policy inside it.](grafana-custom-policy.png)
+
+5. Click **Save configuration**.
+
+You can verify that LaunchDarkly is sending a customized set of events by viewing the events in your Grafana dashboard.

@@ -64,6 +64,7 @@ getenv
 GOPATH
 gopkg
 govendor
+Grafana
 Grammarly
 grav
 gserviceaccount
