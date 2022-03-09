@@ -19,7 +19,7 @@ import { CodeTabs, CodeTabItem, Code } from './mdx/code'
 import Feature from './mdx/feature'
 import Metadata from './mdx/metadata'
 import Table, { TableHeader, TableHeadCell, TableBody, TableRow, TableCell } from './mdx/table'
-import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
+import LearnMore from './mdx/learnMore'
 import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
 import Link from './link'
 import Icon from './icon'
@@ -54,8 +54,6 @@ const components = {
   CalloutTitle,
   CalloutDescription,
   LearnMore,
-  LearnMoreTitle,
-  LearnMoreLink,
   Link,
   CodeTabs,
   CodeTabItem,

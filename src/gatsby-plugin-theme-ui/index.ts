@@ -199,6 +199,28 @@ const theme = makeTheme({
       paddingY: 4,
       lineHeight: 'regular',
       my: [4, 5],
+      p: {
+        mb: 0,
+      },
+      ol: {
+        margin: 0,
+        listStylePosition: 'outside',
+      },
+      ul: {
+        margin: 0,
+        listStyleType: 'none',
+        listStylePosition: 'outside',
+      },
+      li: {
+        mb: 0,
+      },
+      a: {
+        color: 'secondary',
+        textDecoration: 'none',
+        fontWeight: 'bold',
+        '&:visited': { color: 'secondary' },
+        '&:hover': { color: 'grayBlack', textDecoration: 'underline' },
+      },
     },
     info: {
       padding: 2,

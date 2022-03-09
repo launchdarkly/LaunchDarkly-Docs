@@ -27,9 +27,12 @@ exports[`learn more renders correctly with a single link 1`] = `
       <div
         class="emotion-0"
       >
-        <div>
-          See also:
-        </div>
+        Learn more: 
+        <a
+          href="/foobar"
+        >
+          Foobar
+        </a>
       </div>
       <div>
         Icon: lightbulb-on-outline
@@ -66,9 +69,21 @@ exports[`learn more renders correctly with multiple links 1`] = `
       <div
         class="emotion-0"
       >
-        <div>
-          See also:
-        </div>
+        <a
+          href="/foobar"
+        >
+          Foobar
+        </a>
+        <a
+          href="/foobar"
+        >
+          Foobar
+        </a>
+        <a
+          href="/foobar"
+        >
+          Foobar
+        </a>
       </div>
       <div>
         Icon: lightbulb-on-outline

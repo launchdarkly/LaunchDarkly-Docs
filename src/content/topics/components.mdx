@@ -96,7 +96,9 @@ There are four different types of callouts:
 ### Single
 
 <LearnMore>
-  <LearnMoreLink to="/foobar">Single link</LearnMoreLink>
+
+Learn more: [Single link](/foobar)
+
 </LearnMore>
 
 <CodeTabs
@@ -109,7 +111,9 @@ There are four different types of callouts:
 
 ```js
 <LearnMore>
-  <LearnMoreLink to="/foobar">Single link</LearnMoreLink>
+
+Learn more: [Single link](/foobar)
+
 </LearnMore>
 ```
 
@@ -119,9 +123,12 @@ There are four different types of callouts:
 ### Multiple
 
 <LearnMore>
-  <LearnMoreLink to="/foobar">This is an internal link</LearnMoreLink>
-  <LearnMoreLink to="http://reactjunkie.com">External link</LearnMoreLink>
-  <LearnMoreLink to="/foobar">Another internal link</LearnMoreLink>
+
+Learn more:
+  * [This is an internal link](/foobar)
+  * [External link](http://reactjunkie.com)
+  * [Another internal link](/foobar)
+
 </LearnMore>
 
 
@@ -135,9 +142,48 @@ There are four different types of callouts:
 
 ```js
 <LearnMore>
-  <LearnMoreLink to="/foobar">This is an internal link</LearnMoreLink>
-  <LearnMoreLink to="http://reactjunkie.com">External link</LearnMoreLink>
-  <LearnMoreLink to="/foobar">Another internal link</LearnMoreLink>
+
+Learn more:
+  * [This is an internal link](/foobar)
+  * [External link](http://reactjunkie.com)
+  * [Another internal link](/foobar)
+
+</LearnMore>
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Using Additional Text
+
+<LearnMore>
+
+Some lead text describing the links.<br/><br/>
+
+  * [This is an internal link](/foobar)
+  * [External link](http://reactjunkie.com)
+  * [Another internal link](/foobar)
+
+</LearnMore>
+
+
+<CodeTabs
+  defaultValue="LearnMore"
+  values={[
+    { label: 'Using Additional Text', value: 'LearnMore', },
+  ]
+}>
+<CodeTabItem value="LearnMore">
+
+```js
+<LearnMore>
+
+Some lead text describing the links.<br/><br/>
+
+  * [This is an internal link](/foobar)
+  * [External link](http://reactjunkie.com)
+  * [Another internal link](/foobar)
+
 </LearnMore>
 ```
 

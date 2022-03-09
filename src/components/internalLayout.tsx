@@ -6,7 +6,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { MDXProvider } from '@mdx-js/react'
 import Reset from './resetStyles'
 import { Code, CodeTabItem, CodeTabs } from './mdx/code'
-import LearnMore, { LearnMoreTitle, LearnMoreLink } from './mdx/learnMore'
+import LearnMore from './mdx/learnMore'
 import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
 import Details from './mdx/details'
 
@@ -19,8 +19,6 @@ const components = {
   CalloutTitle,
   CalloutDescription,
   LearnMore,
-  LearnMoreTitle,
-  LearnMoreLink,
   CodeTabs,
   CodeTabItem,
   Details,
