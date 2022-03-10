@@ -1,0 +1,51 @@
+---
+path: /home/experimentation/events
+title: Experimentation events
+description: This topic explains Experimentation events and how to manage them.
+published: true
+---
+
+## Overview
+
+This topic explains Experimentation events and how to manage them.
+
+## Understanding Experimentation events
+
+An Experimentation event is any event an SDK produces that impacts your experimentation event count. There are two categories of Experimentation events:
+
+- **Metric events**: `click`, `page view`, and `custom` events from metrics used in running experiments.
+- **Evaluation events**: `feature` events from flags with targeting rules included in running experiments.
+
+LaunchDarkly charges on a per-event basis. You can minimize the cost of Experimentation by only running experiments on selected user groups. To learn more, read [Allocating experiment populations](/home/experimentation/allocation).
+
+### Understanding metric events
+
+All LaunchDarkly SDKs send `custom` metric events when you call the SDK's `track` method. To learn more about the `track` method, read [Sending custom events](/sdk/features/events).
+
+In addition, the JavaScript SDK also sends a `click` metric event when a user clicks on a page URL or anchor tag that you have included in a click metric, and sends a `page view` metric event when a user visits a URL that you have included in a page view metric.
+
+You can view metric events in the debugger under the **Experimentation events** tab.
+
+### Understanding evaluation events
+
+All LaunchDarkly SDKs send a `feature` conversion event when you call the SDK's `variation` method for a flag in an experiment. To learn more about the `variation` method, read [Evaluating flags](/sdk/features/evaluating).
+
+In addition, the JavaScript SDK and client-side Node.js also send a `variation` evaluation event when you call the SDK's `allFlags` method, unless you configure it not to. To learn more, read [JavaScript](/sdk/features/all-flags#javascript) and [Node.js (client-side)](/sdk/features/all-flags#nodejs-client-side).
+
+Configuring the JavaScript and Node.js SDKs not to send evaluation events when you call `allFlags` can help keep your Experimentation costs down. To learn more about how SDKs send events, read [Recording events](/sdk/concepts/contributors-guide#recording-events).
+
+## Managing Experimentation event counts
+
+Every time a user triggers a metric that is attached to a running experiment, your Experimentation event count increases by one. You may want to reduce your Experimentation event counts to control billing costs. You can manage your event counts by not calling variation and track methods unnecessarily.
+
+### Decreasing metric events
+
+To reduce `page view` and `click` metric events, first update your metrics to use `custom` instead of `click` or `page view` where possible. Then, reduce `custom` metric events by limiting the number of times you call `track`.
+
+You can also cache when you call `track` to ensure you call it only once per user.
+
+### Decreasing evaluation events
+
+To reduce evaluation events, cache or persist the response from the SDK, so that you only call the variation method when when you want to register an impression, or when you don't have the response cached or persisted.
+
+You can also decrease the number of users in an experiment using audience allocation. To learn how, read [Allocating experiment populations](/home/experimentation/allocation).

@@ -7,11 +7,13 @@ published: true
 
 ## Overview
 
-This topic explains how to send custom events using the track feature in your SDK. The track feature is available on both client-side and server-side SDKs.
+This topic explains how to send `custom` events using the `track` feature in your SDK. The track feature is available on both client-side and server-side SDKs.
 
 ## Tracking events
 
 The track feature lets you record actions your users take in your application as events. You can connect these events to metrics in A/B tests or experiments in the flag dashboard.
+
+You can view events in the debugger. To learn more, read [The debugger](/home/flags/debugger/).
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 
@@ -93,13 +95,14 @@ client.track("your-goal-key", data)
 To learn more, read [`track`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClientInterface.html#track-java.lang.String-).
 
 You can also attach custom data to your event by calling [`TrackData`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClientInterface.html#trackData-java.lang.String-com.launchdarkly.sdk.LDValue-) or [`TrackMetric`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClientInterface.html#trackMetric-java.lang.String-com.launchdarkly.sdk.LDValue-double-).
+
 </Details>
 
 ### C/C++ (client-side)
 
-<Details summary="Expand C/C++ (server-side) code sample">
+<Details summary="Expand C/C++ (client-side) code sample">
 
-The track method allows you to record custom events in your application with LaunchDarkly:
+The track method allows you to record `custom` events in your application with LaunchDarkly:
 
 <CodeTabs
   defaultValue="c"
@@ -120,6 +123,7 @@ LDClientTrack(client, "YOUR_EVENT_KEY");
 To learn more, read [`LDClientTrack`](https://launchdarkly.github.io/c-client-sdk/client_8h.html#aed07ba2acbb632f26e63c633b0ef5df5).
 
 You can also attach custom data to your event by calling [`LDClientTrackData`](https://launchdarkly.github.io/c-client-sdk/client_8h.html#aa46b7314691b447f514a432c673a54c3) or [`LDClientTrackMetric`](https://launchdarkly.github.io/c-client-sdk/client_8h.html#ab43d4a144c18509986b5e0a2f747cb8b).
+
 </Details>
 
 ### Electron
@@ -186,7 +190,7 @@ You can also attach custom data to your event using the [track method](https://l
 
 <Details summary="Expand iOS code sample">
 
-In the iOS SDK, track is a custom event added to the LDClient event store. A client app can set a tracking event to allow client customized data analysis. After an app has called `track`, the app cannot remove the event from the event store. LDClient periodically transmits events to LaunchDarkly based on the frequency set in `LDConfig.eventFlushInterval`. The LDClient must be started and online.
+In the iOS SDK, `track` is a `custom` event added to the LDClient event store. A client app can set a tracking event to allow client customized data analysis. After an app has called `track`, the app cannot remove the event from the event store. LDClient periodically transmits events to LaunchDarkly based on the frequency set in `LDConfig.eventFlushInterval`. The LDClient must be started and online.
 
 After the SDK's event store is full, the SDK discards new events until the event store is cleared when it reports events to LaunchDarkly. Configure the size of the event store using `LDConfig.eventCapacity`. The first parameter, `key`, is the key for the event. The SDK does nothing with the key, which can be any string the client app sends. The second parameter, `data`, is the data for the event. The `data` parameter is optional. The SDK does nothing with the data, which can be any valid JSON item the client app sends. If the data is not a valid JSON item, the method throws an `LDInvalidArgumentError`.
 
@@ -232,7 +236,7 @@ To learn how to attach custom data to your event with optional parameters, read 
 
 <Details summary="Expand JavaScript code sample">
 
-You can record custom events using the `track` function. In LaunchDarkly, you can connect these events to metrics in experiments. To learn more, read [Experimentation](/home/experimentation).
+You can record `custom` events using the `track` function. In LaunchDarkly, you can connect these events to metrics in experiments. To learn more, read [Experimentation](/home/experimentation).
 
 Call `track` with the event name to record custom conversion metrics.
 
@@ -265,19 +269,19 @@ client.track('your-event-name', { customProperty: someValue });
 
 To learn how to attach custom data to your event with optional parameters, read [`track`](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldclient.html#track).
 
-#### Tracking click and pageview events in JavaScript
+#### Tracking click and page view events in JavaScript
 ---
 <br/>
 
-If you've defined click or pageview goals in LaunchDarkly, they'll be sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or pageview goals.
+If you've defined click or page view goals in LaunchDarkly, they'll be sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or page view goals.
 
-To learn more about click and pageview goals, read [Experimentation](/home/experimentation).
+To learn more about click and page view goals, read [Experimentation](/home/experimentation).
 
 <Callout intent="info">
 <CalloutTitle>Single-page apps</CalloutTitle>
 <CalloutDescription>
 
-The SDK automatically handles URL changes made by the HTML5 history API or by changing the URL hash fragment, and will trigger pageview and click events correctly.
+The SDK automatically handles URL changes made by the HTML5 history API or by changing the URL hash fragment, and will trigger <code>click</code> and <code>page view</code> events correctly.
 
 </CalloutDescription>
 </Callout>
@@ -311,7 +315,7 @@ client.track('your-event-name', { customProperty: someValue });
 </CodeTabItem>
 </CodeTabs>
 
-If you [define click or pageview metrics](/home/experimentation) in LaunchDarkly, they are sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or pageview goals. The SDK will generate pageview events correctly regardless of how the URL is changed, such as by the HTML5 history API, by changing the URL hash fragment, etc.
+If you [define click or page view metrics](/home/experimentation) in LaunchDarkly, they are sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or page view goals. The SDK will generate `page view` events correctly regardless of how the URL is changed, such as by the HTML5 history API, by changing the URL hash fragment, etc.
 
 You can completely disable event sending by setting `sendEvents` to `false` in the client options, but this means not all data will appear on the flag dashboard.
 
@@ -401,7 +405,7 @@ To learn how to attach custom data to your event with optional parameters, read 
 
 <Details summary="Expand Roku code sample">
 
-The `track` method lets you record custom events in your application with LaunchDarkly.
+The `track` method lets you record `custom` events in your application with LaunchDarkly.
 
 Here's how:
 
@@ -525,6 +529,7 @@ LDClientTrack(client, "your-goal-key", user, NULL);
 To learn more, read [`LDClientTrack()`](https://launchdarkly.github.io/c-server-sdk/client_8h.html#aef1fb9d7ad8cf35f95b7bfd0ab7d75b1).
 
 You can also attach custom data to your event by calling [`LDClientTrackMetric()`](https://launchdarkly.github.io/c-server-sdk/client_8h.html#af3d2df29367d8178dd4a3c2804cd3bec).
+
 </Details>
 
 ### Erlang
@@ -581,6 +586,7 @@ client.TrackEvent("completed-purchase", user)
 </CodeTabs>
 
 You can also attach custom data to your event by calling [`TrackData`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.TrackData), which takes an extra parameter. Or, if you are using experimentation, you can specify a numeric metric with [`TrackMetric`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.TrackMetric).
+
 </Details>
 
 ### Haskell
@@ -634,6 +640,7 @@ client.track("your-goal-key", user);
 You can also attach custom JSON data to your event with an alternate version of `track`, [`trackData`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackData-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-). You can set the data to any value that can be represented in JSON. To learn more, read [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html).
 
 If you are using [experimentation](/home/experimentation), you can specify a numeric metric with [`trackMetric`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackMetric-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-double-).
+
 </Details>
 
 ### Lua
@@ -660,6 +667,7 @@ client:track("your-goal-key", user);
 </CodeTabs>
 
 You can also attach an object containing arbitrary data to your event. To learn how, read [`track`](https://launchdarkly.github.io/lua-server-sdk/modules/launchdarkly-server-sdk.html#track).
+
 </Details>
 
 ### Node.js (server-side)

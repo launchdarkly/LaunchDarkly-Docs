@@ -11,9 +11,9 @@ This topic explains how to alias the users of various LaunchDarkly SDKs. This fe
 
 ## Aliased users
 
-There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person is identified by two different users as denoted by different user keys. Our SDKs can associate these two LaunchDarkly users by sending an alias event.
+There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person is identified by two different users as denoted by different user keys. Our SDKs can associate these two LaunchDarkly users by sending an `alias` event.
 
-All LaunchDarkly SDKs offer the ability to manually send an alias event. Additionally, client-side SDKs automatically send an alias event when identifying a known user if the previous user was anonymous. To lean more, read [Associating anonymous users with logged in users](/home/users/anonymous-users#associating-anonymous-users-with-logged-in-users). You can disable this behavior if necessary. To learn how, read [Configuration](/sdk/features/config).
+All LaunchDarkly SDKs offer the ability to manually send an `alias` event. Additionally, client-side SDKs automatically send an `alias` event when identifying a known user if the previous user was anonymous. To lean more, read [Associating anonymous users with logged in users](/home/users/anonymous-users#associating-anonymous-users-with-logged-in-users). You can disable this behavior if necessary. To learn how, read [Configuration](/sdk/features/config).
 
 Details about each SDK's configuration are available in the SDK-specific sections below:
 
@@ -40,7 +40,7 @@ This feature is available in the following client-side SDKs:
 
 <Details summary="Expand .NET (client-side) code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="dotnet"
@@ -64,7 +64,7 @@ To learn more, read [`LdClient.Alias`](https://launchdarkly.github.io/dotnet-cli
 
 <Details summary="Expand Android code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="java"
@@ -93,7 +93,7 @@ client.alias(newUser, previousUser)
 
 <Details summary="Expand C/C++ (client-side) code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="c"
@@ -115,7 +115,7 @@ LDClientAlias(client, newUser, previousUser);
 
 <Details summary="Expand Electron code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="js"
@@ -145,7 +145,7 @@ client.alias(newUser, previousUser);
 
 <Details summary="Expand Flutter code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="dart"
@@ -167,7 +167,7 @@ await LDClient.alias(newUser, previousUser);
 
 <Details summary="Expand iOS code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="swift"
@@ -198,7 +198,7 @@ LDClient.get()!.alias(context: newUser, previousContext: previousUser)
 
 Both `alias` parameters must have `key` attributes. If the LaunchDarkly client auto-generated a unique identifier for one of your users, you can access the user's complete object with the `getUser` method.
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="js"
@@ -231,7 +231,7 @@ client.alias(newUser, previousUser);
 
 <Details summary="Expand Node.js (client-side) code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="js"
@@ -257,7 +257,7 @@ All user-related functionality provided by the [JavaScript SDK](#javascript) is 
 
 <Details summary="Expand React Native code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="js"
@@ -283,7 +283,7 @@ client.alias(user, previousUser, environment);
 
 <Details summary="Expand Roku code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="brightscript"
@@ -323,7 +323,7 @@ This feature is available in the following server-side SDKs:
 
 <Details summary="Expand .NET (server-side) code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="dotnet"
@@ -345,7 +345,7 @@ client.Alias(newUser, previousUser);
 
 <Details summary="Expand Apex code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="java"
@@ -367,7 +367,7 @@ client.alias(newUser, previousUser)
 
 <Details summary="Expand C/C++ (server-side) code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="c"
@@ -389,7 +389,7 @@ LDClientAlias(client, newUser, previousUser);
 
 <Details summary="Expand Erlang code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="erlang"
@@ -411,7 +411,7 @@ ldclient:alias(User, PreviousUser)
 
 <Details summary="Expand Go code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="go"
@@ -433,7 +433,7 @@ client.Alias(newUser, previousUser)
 
 <Details summary="Expand Haskell code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="haskell"
@@ -455,7 +455,7 @@ alias client newUser previousUser
 
 <Details summary="Expand Java code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="java"
@@ -477,7 +477,7 @@ client.alias(user, previousUser);
 
 <Details summary="Expand Lua code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="lua"
@@ -499,7 +499,7 @@ client:alias(newUser, previousUser)
 
 <Details summary="Expand Node.js (server-side) code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="js"
@@ -521,7 +521,7 @@ client.alias(newUser, previousUser);
 
 <Details summary="Expand PHP code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="php"
@@ -543,7 +543,7 @@ $client->alias($user, $previousUser);
 
 <Details summary="Expand Python code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="py"
@@ -565,7 +565,7 @@ ldclient.get().alias(new_user, previous_user)
 
 <Details summary="Expand Ruby code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="ruby"
@@ -587,7 +587,7 @@ client.alias(new_user, previous_user)
 
 <Details summary="Expand Rust code sample">
 
-To manually send an alias event:
+To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="rust"

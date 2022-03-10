@@ -235,7 +235,7 @@ LDClient.get().unregisterAllFlagsListener(listener)
 
 ### C/C++ (client-side)
 
-To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is listened to by the C SDK. Whenever an event is performed on the dashboard, the C SDK is notified of the updated flag settings in real-time.
+To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is listened to by the C/C++ SDK. Whenever an event is performed on the dashboard, the C/C++ SDK is notified of the updated flag settings in real-time.
 
 ### Electron
 
@@ -893,7 +893,7 @@ These events are:
 
 You can listen for `"update:EXAMPLE_FLAG_KEY"` if you only want to know about updates affecting that flag specifically, or `"update"` if you want to be notified about all updates.
 
-For both of these event types, an extra parameter is sent to event listeners. This object has the single property `key`, with its value set to the flag key. If you listened for the general `"update"` event, this lets you see which flag changed.
+For both of these event kinds, an extra parameter is sent to event listeners. This object has the single property `key`, with its value set to the flag key. If you listened for the general `"update"` event, this lets you see which flag changed.
 
 The event parameter does not contain the flag value. In server-side SDKs, there is no such thing as a flag value except when it is evaluated for a specific set of user properties.
 

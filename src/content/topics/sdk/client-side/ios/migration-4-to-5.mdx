@@ -286,7 +286,7 @@ The Objective-C bindings similarly no longer include the `oldValueSource` and `n
 
 ## Recording custom events
 
-If your application uses `trackEvent` to record custom events, it is necessary to rename usages to `track`. Additionally, the type of `Error` that `track` throws when the given `data` parameter is not JSON convertible has been changed from `JSONSerialization.JSONError.invalidJsonObject` to `LDInvalidArgumentError`.
+If your application uses `trackEvent` to record `custom` events, it is necessary to rename usages to `track`. Additionally, the type of `Error` that `track` throws when the given `data` parameter is not JSON convertible has been changed from `JSONSerialization.JSONError.invalidJsonObject` to `LDInvalidArgumentError`.
 
 Here is an example using the new names:
 

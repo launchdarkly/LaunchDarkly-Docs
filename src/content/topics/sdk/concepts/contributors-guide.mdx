@@ -91,14 +91,16 @@ To implement the `variation` method in a client-side SDK, return the last-known 
 
 ## Recording events
 
-The SDKs send eight kinds of events:
+The SDKs send ten kinds of events:
 
-* feature and debug events that identify which feature flags are being evaluated,
-* index and identify events which push user data to LaunchDarkly,
-* alias events which associate two users for analytics purposes,
-* custom events that are triggered by the client application by an SDK method,
-* summary events that summarize a series of feature events, and
-* diagnostic events that report on how the SDK is configured and operating.
+* `feature` and `debug` events which identify which feature flags are being evaluated,
+* `index` and `identify` events which push user data to LaunchDarkly,
+* `alias` events which associate two users for analytics purposes,
+* `page view` events which are sent only by SDKs that are based on the JavaScript SDK when pages are visited,
+* `click` events which are sent only by SDKs that are based on the JavaScript SDK when elements on pages are clicked,
+* `custom` events which are sent when an application calls the SDK's `track` method,
+* `summary` events which summarize a series of `feature` events, and
+* `diagnostic` events that report on how the SDK is configured and operating.
 
 SDKs must batch and send events to the LaunchDarkly server **asynchronously**. This is a requirement for all SDKs. Do this by creating a background job that runs every 30 seconds and makes a `POST` call to `/bulk` for server-side SDKs, to `/events/bulk/{envId}` for client-side JavaScript SDKs, and to `/mobile/events/bulk` for mobile SDKs.
 
@@ -112,7 +114,7 @@ The time between batch calls to the event API should be configurable. The SDK sh
 
 ### Feature and debug events
 
-Feature events have the following shape:
+`feature` events have the following shape:
 
 <CodeTabs
   defaultValue="json"
@@ -139,18 +141,18 @@ Feature events have the following shape:
 </CodeTabItem>
 </CodeTabs>
 
-The `kind` attribute should always be `"feature"`. A feature event should only be generated in one of these scenarios:
+The `kind` attribute should always be `"feature"`. A `feature` event should only be generated in one of these scenarios:
    - the `trackEvents` or `trackEventsFallthrough` attribute on the flag configuration is sent
    - the `trackEvents` attribute on a targeting rule is sent
    - the targeting rule or fallthrough has a rollout of kind `"experiment"` and the variation associated with the event is included in the tracked variations for that rollout
 
-Evaluating flag prerequisites generates one additional feature event per evaluation. These feature events should have the `prereqOf` attribute set to the originating flag's key. The `prereqOf` attribute should only be set for flags which are evaluated to determine a prerequisite value.
+Evaluating flag prerequisites generates one additional `feature` event per evaluation. These `feature` events should have the `prereqOf` attribute set to the originating flag's key. The `prereqOf` attribute should only be set for flags which are evaluated to determine a prerequisite value.
 
 The optional `contextKind` attribute should be either `"user"` or `"anonymousUser"` depending on the corresponding user's `anonymous` property. If omitted, the context kind will be interpreted as `"user"`.
 
-Depending on your SDK configuration, feature events may include all of the user attribute values instead of the `userKey`. In this case, the SDK sends the user attributes in a `user` property. If feature events include all user attribute values, the SDK will not send a corresponding index event.
+Depending on your SDK configuration, `feature` events may include all of the user attribute values instead of the `userKey`. In this case, the SDK sends the user attributes in a `user` property. If `feature` events include all user attribute values, the SDK will not send a corresponding `index` event.
 
-Feature events with a `user` property have the following shape:
+`feature` events with a `user` property have the following shape:
 
 <CodeTabs
   defaultValue="json"
@@ -181,9 +183,9 @@ Feature events with a `user` property have the following shape:
 </CodeTabItem>
 </CodeTabs>
 
-The debug event is a variant on the feature event, with two differences. It has `kind` set to `"debug"` and it inlines the `user` value. It is only sent if the `debugEventsUntilDate` attribute is set for a feature flag and indicates a UNIX epoch timestamp in milliseconds that has not yet elapsed. Debug events are not controlled by the `trackEvents` field.
+The `debug` event is a variant on the `feature` event, with two differences. It has `kind` set to `"debug"` and it inlines the `user` value. It is only sent if the `debugEventsUntilDate` attribute is set for a feature flag and indicates a UNIX epoch timestamp in milliseconds that has not yet elapsed. `debug` events are not controlled by the `trackEvents` field.
 
-Here is an example a debug event:
+Here is an example `debug` event:
 
 <CodeTabs
   defaultValue="json"
@@ -221,9 +223,9 @@ Here is an example a debug event:
 
 ### Index and identify events
 
-The details of the `user` object used in a feature flag evaluation as reported by the feature event are transmitted periodically from a separate index event. It is expected that the SDK will only send index events when user attributes have changed.
+The details of the `user` object used in a feature flag evaluation as reported by the `feature` event are transmitted periodically from a separate `index` event. It is expected that the SDK will only send `index` events when user attributes have changed.
 
-Here is an example of an index event:
+Here is an example of an `index` event:
 
 <CodeTabs
   defaultValue="json"
@@ -253,11 +255,11 @@ Here is an example of an index event:
 </CodeTabItem>
 </CodeTabs>
 
-The `kind` for an index event is `"index"`. The value of `user` is the same as described above for a debug event.
+The `kind` for an `index` event is `"index"`. The value of `user` is the same as described above for a `debug` event.
 
-Identify events are produced when the client application calls an SDK method called `identify`. Identify events have an identical structure to index events, except the `kind` is set to `identify`:
+`identify` events are produced when the client application calls an SDK method called `identify`. `identify` events have an identical structure to `index` events, except the `kind` is set to `identify`:
 
-Here is an example of an identify event:
+Here is an example of an `identify` event:
 
 <CodeTabs
   defaultValue="json"
@@ -282,9 +284,9 @@ Here is an example of an identify event:
 
 ### Alias events
 
-Alias events are produced when the client application calls an SDK's `alias` method. Additionally, by default, client-side SDKs automatically produce alias events when changing (through calling `identify`) from an anonymous user to an identified user.
+`alias` events are produced when the client application calls an SDK's `alias` method. Additionally, by default, client-side SDKs automatically produce alias events when changing (through calling `identify`) from an anonymous user to an identified user.
 
-Alias events have the following shape:
+`alias` events have the following shape:
 
 <CodeTabs
   defaultValue="json"
@@ -308,13 +310,13 @@ Alias events have the following shape:
 </CodeTabItem>
 </CodeTabs>
 
-The `kind` for an alias event is `"alias"`. The `key` and `previousKey` attributes are the users' keys. The `contextKind` and `previousContextKind` define the kind of previous and new user; valid values are `"user"` and `"anonymousUser"`. The `creationDate` is the time the alias event was generated as UNIX epoch time in milliseconds.
+The `kind` for an `alias` event is `"alias"`. The `key` and `previousKey` attributes are the users' keys. The `contextKind` and `previousContextKind` define the kind of previous and new user; valid values are `"user"` and `"anonymousUser"`. The `creationDate` is the time the `alias` event was generated as UNIX epoch time in milliseconds.
 
 ### Custom events
 
-Custom events are produced when the client application calls an SDK method called `track`.
+`custom` events are produced when the client application calls an SDK method called `track`.
 
-Custom events have the following shape:
+`custom` events have the following shape:
 
 <CodeTabs
   defaultValue="json"
@@ -347,13 +349,13 @@ Custom events can contain the following optional attributes:
 - `contextKind` should be either `"user"` or `"anonymousUser"` depending on the corresponding user's `anonymous` property. If omitted, the context kind will be interpreted as `"user"`.
 - `metricValue` can contain a number.
 
-Depending on your SDK configuration, custom events may include all of the user attribute values instead of the `userKey`. In this case, the SDK sends the user attributes in a `user` property. If custom events include all user attribute values, the SDK will not send a corresponding index event.
+Depending on your SDK configuration, `custom` events may include all of the user attribute values instead of the `userKey`. In this case, the SDK sends the user attributes in a `user` property. If `custom` events include all user attribute values, the SDK will not send a corresponding `index` event.
 
 ### Summary events
 
-The SDK is expected to send summary events for every flush interval describing all of the feature evaluations that occurred during that interval. Summary events include all feature evaluations, regardless of whether the `trackEvents` field was set for individual flags.
+The SDK is expected to send `summary` events for every flush interval describing all of the feature evaluations that occurred during that interval. Summary events include all feature evaluations, regardless of whether the `trackEvents` field was set for individual flags.
 
-Here is an example of a summary event:
+Here is an example of a `summary` event:
 
 <CodeTabs
   defaultValue="json"
@@ -410,7 +412,7 @@ Here is an example of a summary event:
 </CodeTabItem>
 </CodeTabs>
 
-The summary event represents a set of feature flag evaluations occurring during an interval defined by `startDate` and `endDate`, broken out by feature flag.
+The `summary` event represents a set of feature flag evaluations occurring during an interval defined by `startDate` and `endDate`, broken out by feature flag.
 
 For each feature flag, the following data should be provided:
 
@@ -510,14 +512,14 @@ The call to `/api/events/bulk` should contain a JSON list of events.
 
 ### Diagnostic events
 
-Diagnostic events are optional events which report on the SDK's configuration and operational behavior. These events are strictly for use by LaunchDarkly's internal teams and are intended to provide insights into how SDKs are operating in the field. Diagnostic events are not used for any customer-facing features nor is the resulting data accessible to customers. Support for diagnostic events varies across LaunchDarkly SDKs.
+`diagnostic` events are optional events which report on the SDK's configuration and operational behavior. These events are strictly for use by LaunchDarkly's internal teams and are intended to provide insights into how SDKs are operating in the field. Diagnostic events are not used for any customer-facing features nor is the resulting data accessible to customers. Support for `diagnostic` events varies across LaunchDarkly SDKs.
 
-Diagnostic events have two variants:
+`diagnostic` events have two variants:
 
-1. An initial diagnostic event is sent upon SDK initialization. This event summarizes high-level information about the underlying platform such as the operating system name and version and the platform version name and version (e.g. Java 1.8 or Python 3.5). Additionally, this event includes information about how the SDK is configured.
-2. A diagnostic event is sent periodically throughout the SDK's lifetime. By default this event is sent every 15 minutes. This event describes the SDK's operational behavior in the time lapsed since the prior diagnostic event's submission. For example, the event includes information about the SDK's attempts to establish a streaming connection to LaunchDarkly and a counter of how many events were most recently sent to LaunchDarkly.
+1. An initial `diagnostic` event is sent upon SDK initialization. This event summarizes high-level information about the underlying platform such as the operating system name and version and the platform version name and version (e.g. Java 1.8 or Python 3.5). Additionally, this event includes information about how the SDK is configured.
+2. A `diagnostic` event is sent periodically throughout the SDK's lifetime. By default this event is sent every 15 minutes. This event describes the SDK's operational behavior in the time lapsed since the prior `diagnostic` event's submission. For example, the event includes information about the SDK's attempts to establish a streaming connection to LaunchDarkly and a counter of how many events were most recently sent to LaunchDarkly.
 
-The technical details of how to implement diagnostic events in a LaunchDarkly SDK are beyond the scope of this document. It is not expected that a third-party would implement diagnostic events when building a new SDK from scratch.
+The technical details of how to implement `diagnostic` events in a LaunchDarkly SDK are beyond the scope of this document. It is not expected that a third-party would implement `diagnostic` events when building a new SDK from scratch.
 
 ## Principles
 

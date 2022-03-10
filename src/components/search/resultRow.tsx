@@ -20,7 +20,7 @@ const markStyles = {
   },
 }
 const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, insights, onClick, position }) => {
-  const { path, displayCategory, _highlightResult } = hit
+  const { path, displayCategory, _highlightResult, title } = hit
   // At the moment, query will only be used for page text,
   // not categories or title
   const terms = _highlightResult.excerpt.matchedWords.join('+')
@@ -36,8 +36,9 @@ const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, insights, onClick, 
     })
     onClick(queryPath)
   }
+  const resultTestId = `result-${displayCategory}-${title}`
   return (
-    <GatsbyLink to={queryPath} sx={{ textDecoration: 'none' }} onClick={onClickWrapper}>
+    <GatsbyLink to={queryPath} sx={{ textDecoration: 'none' }} onClick={onClickWrapper} data-test={resultTestId}>
       <Flex px={5} py={3} sx={{ flexDirection: 'column', '&:hover': { bg: 'grayLight' } }}>
         <Highlight hit={hit} attribute="title" tagName="mark" sx={{ color: 'primarySafe', ...markStyles }} />
         <Box pt={2} sx={{ color: 'graySafe', fontSize: 2, fontWeight: 'bold' }}>

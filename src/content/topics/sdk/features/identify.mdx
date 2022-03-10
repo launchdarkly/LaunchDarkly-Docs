@@ -495,7 +495,7 @@ client.Identify(user);
 <CalloutTitle>Apex variation methods do not automatically add users to the dashboard</CalloutTitle>
 <CalloutDescription>
 
-Variation methods like `boolVariation` or `stringVariation` do not automatically generate index events due to limitations with the Apex platform. This means that the SDK does not automatically populate the **Users** dashboard.
+Variation methods like `boolVariation` or `stringVariation` do not automatically generate `index` events due to limitations with the Apex platform. This means that the SDK does not automatically populate the **Users** dashboard.
 
 We recommend calling `client.identify(user)` with each of your users to generate user indexing events and populate your **Users** dashboard.
 

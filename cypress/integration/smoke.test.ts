@@ -58,7 +58,7 @@ describe('Documentation website', () => {
     cy.wait(2000)
 
     // click search result
-    cy.get('header').contains('Experimentation').click()
+    cy.get('[data-test="result-Home-Experimentation"]').click()
 
     cy.location('search').should('equal', '?q=experimentation')
     cy.get('nav').contains('Experimentation').isActiveLink()

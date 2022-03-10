@@ -7,7 +7,7 @@ published: true
 
 ## Overview
 
-This topic explains the different event kinds for Segment Data Export destinations. The JSON schemas for Segment are formatted differently than LaunchDarkly's. The `index`, `identify`, and `summary` event types are **not available** in Segment Data Export destinations, and other events are exported with different labels.
+This topic explains the different event kinds for Segment Data Export destinations. The JSON schemas for Segment are formatted differently than LaunchDarkly's. The `index`, `identify`, and `summary` event kinds are **not available** in Segment Data Export destinations, and other events are exported with different labels.
 
 To learn more about the Segment destination, read [Segment's documentation](https://docs.Segment.com/).
 
@@ -16,15 +16,15 @@ There are five different event kinds exported to Segment. They are:
 * [Feature events](#feature-events): This event is emitted when a feature flag is evaluated.
 * [Click events](#click-events): This event is emitted when a user clicks on a CSS selector for which they have configured a metric in an experiment.
 * [Page view events](#page-view-events): This event is emitted when a user loads a page associated with an experiment metrics.
-* [Custom events](#custom-events): This event is emitted when LaunchDarkly SDK sends a custom event.
+* [Custom events](#custom-events): This event is emitted when LaunchDarkly SDK sends a `custom` event.
 * [Alias events](#alias-events): This event is emitted when the LaunchDarkly
-SDK calls the `Alias` method or automatically in client-side SDKs when an
-anonymous user identifies as a non-anonymous user. Read more about Alias events
+SDK calls the `alias` method or automatically in client-side SDKs when an
+anonymous user identifies as a non-anonymous user. Read more about `alias` events
 on [Segment's alias spec](https://segment.com/docs/connections/spec/alias/)
 
 ### Additional properties
 
-Segment events include additional information about different LaunchDarkly properties. These properties are included in all event types.
+Segment events include additional information about different LaunchDarkly properties. These properties are included in all event kinds.
 
 These properties are:
 
@@ -36,7 +36,7 @@ These properties are:
   <TableBody>
     <TableRow>
       <TableCell><code>event</code></TableCell>
-      <TableCell>The event type.</TableCell>
+      <TableCell>The event kind.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell><code>environment</code></TableCell>
@@ -55,7 +55,7 @@ These properties are:
 
 ## Feature events
 
-This table explains feature event properties:
+This table explains `feature` event properties:
 
 <Table>
   <TableHeader>
@@ -103,7 +103,7 @@ To learn more, read <a href="/sdk/concepts/evaluation-reasons">Evaluation reason
 
 ## Click events
 
-This table explains click event properties:
+This table explains `click` event properties:
 
 <Table>
   <TableHeader>
@@ -117,14 +117,14 @@ This table explains click event properties:
     </TableRow>
     <TableRow>
       <TableCell><code>selector</code></TableCell>
-      <TableCell>The CSS selector corresponding to the click event.</TableCell>
+      <TableCell>The CSS selector corresponding to the <code>click</code> event.</TableCell>
     </TableRow>
    </TableBody>
 </Table>
 
 ## Page view events
 
-This table explains page view event properties:
+This table explains `page view` event properties:
 
 <Table>
   <TableHeader>
@@ -141,15 +141,15 @@ This table explains page view event properties:
 
 ## Custom events
 
-There are no properties for custom events other than the properties listed in [Additional properties](#additional-properties).
+There are no properties for `custom` events other than the properties listed in [Additional properties](#additional-properties).
 
 ## Alias events
 
-The alias event schema is defined by [Segment's
+The `alias` event schema is defined by [Segment's
 spec](https://segment.com/docs/connections/spec/alias/). The following indicates
 LaunchDarkly's usage of the schema.
 
-This table explains alias event properties:
+This table explains `alias` event properties:
 
 <Table>
   <TableHeader>

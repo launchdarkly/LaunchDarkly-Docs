@@ -153,7 +153,7 @@ require('event-source-polyfill');
 
 ## `document.querySelectorAll()`
 
-The SDK uses `querySelectorAll` to support click events for A/B testing. **If you never use click goals, you do not need `querySelectorAll`.**
+The SDK uses `querySelectorAll` to support `click` events for A/B testing. **If you never use click goals, you do not need `querySelectorAll`.**
 
 It is widely available in browsers, [except in old versions of Internet Explorer](https://caniuse.com/#feat=queryselector). If you want to support these, and you need A/B testing support, you can install a polyfill such as [polyfill-queryselector](https://github.com/cobbdb/polyfill-queryselector).
 

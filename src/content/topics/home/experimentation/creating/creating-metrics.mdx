@@ -39,7 +39,7 @@ The following table explains the kinds of events you can track with a metric:
       <TableCell>JavaScript <br />React</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell><a href="#creating-pageview-metrics">Pageview</a></TableCell>
+      <TableCell><a href="#creating-page-view-metrics">Page view</a></TableCell>
       <TableCell>Conversion</TableCell>
       <TableCell>
         Tracks how many times a page is viewed. For example, how many times a blog post is viewed based on three different titles.
@@ -65,11 +65,22 @@ The following table explains the kinds of events you can track with a metric:
   </TableBody>
 </Table>
 
+To learn more about Experimentation events, read [Experimentation events](/home/experimentation/events).
+
 <Callout intent="info">
 <CalloutTitle>Some metrics require the JavaScript or React SDK</CalloutTitle>
 <CalloutDescription>
 
-You must be using the JavaScript or React SDK to use click and pageview metrics. If you do not use the JavaScript or React SDK and would like to track clicks or pageviews, use a custom conversion metric.
+Click and page view metrics are only available on the JavaScript and React SDKs. If you do not use the JavaScript or React SDK and would like to track clicks or page views, use a custom conversion metric.
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="warning">
+<CalloutTitle>Call <code>track</code> and <code>flush</code> when a user is redirected</CalloutTitle>
+<CalloutDescription>
+
+SDKs send events at regular intervals, such as every five seconds. If a browser redirects a user to another page, any events that occurred between when the SDK last sent events and when browser redirected the user will be lost. To avoid this, call `track` and then `flush` when you know the browser will redirect a user to another page, such as on click.
 
 </CalloutDescription>
 </Callout>
@@ -91,9 +102,7 @@ CSS selectors designate specific areas of your product UI, like buttons or image
 For example, some CSS selectors include:
 
 * `#example-element-id`,
-
 * `.example-classname`,
-
 * `button.example-button`, or `.example-button, .example-button-alt`.
 
 </CalloutDescription>
@@ -155,7 +164,7 @@ To create a click metric:
     <TableRow>
       <TableCell>Regular expression</TableCell>
       <TableCell>
-        This sends an event based on a regex expression you specify. This lets you designate more precise locations to send click and pageview events.
+        This sends an event based on a regex expression you specify. This lets you designate more precise locations to send click and page view events.
       </TableCell>
       <TableCell>
         You specify: <code>example\.com\\/account\\/.*\\/billing</code> This matches any string between <code>account/</code> and <code>/billing</code>, such as <code>http://example.com/account/12345/billing</code>
@@ -168,13 +177,13 @@ To create a click metric:
 11. (Optional) Click **Add additional URL** to track behavior on more than one URL.
 12. Click **Save metric**.
 
-## Creating pageview metrics
+## Creating page view metrics
 
-Pageview metrics track how often users see an element on a page hosted at a specific URL. Pageview metrics must be used with either the JavaScript or React SDK.
+Page view metrics track how often users see an element on a page hosted at a specific URL. Page view metrics must be used with either the JavaScript or React SDK.
 
 For example, you might want to track how often customers view an item when its price is discounted different amounts.
 
-To create a pageview metric:
+To create a page view metric:
 
 1. Follow steps 1-7 in [Creating click metrics](#creating-click-metrics) until you have configured the form up to the "Event information" section.
 2. Click the **Event kind** menu and select "Page view":
@@ -189,7 +198,7 @@ To create a pageview metric:
 
 Custom conversion metrics require you to create an event name and insert it into your application to track conversions for any event in your code. To add a custom conversion metric in LaunchDarkly, you must identify it with a code snippet embedded in your app.
 
-To add a custom event:
+To add a `custom` event:
 
 <CodeTabs
   defaultValue="java"
@@ -237,7 +246,7 @@ For example, you can use numeric metrics to track:
 
 To add a custom numeric metric in LaunchDarkly, you must identify it with a code snippet embedded in your app. Numeric metrics must send a metric event value for each unique user in an experiment for accurate experiment results.
 
-To add a custom event, put this snippet in your code:
+To add a `custom` event:
 
 <CodeTabs
   defaultValue="java"
