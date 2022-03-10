@@ -26,6 +26,15 @@ You cannot create users in the <strong>Users</strong> dashboard. The dashboard i
 
 If a user's properties change within five minutes of their previous evaluation, and the user key stays the same, the dashboard deduplicates the user and does not reflect the latest evaluation. This does not affect variation calls, which always use the attribute values passed to them.
 
+<Callout intent="alert">
+<CalloutTitle>The SDK does not use the attributes on the <strong>Users</strong> dashboard to evaluate flags</CalloutTitle>
+<CalloutDescription>
+
+The SDK only evaluates flags based on the user object you provide in the evaluation call. The SDK does not use the attributes shown on the dashboard, and user attributes are not synchronized across SDK instances. You must provide all applicable user attributes for each evaluation for your targeting rules to apply correctly. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+
+</CalloutDescription>
+</Callout>
+
 Here is an screenshot of the **Users** dashboard:
 
 ![The "Users" dashboard.](users.png)

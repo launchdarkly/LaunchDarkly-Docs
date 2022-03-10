@@ -15,7 +15,9 @@ Feature flag variations determine what a user sees when they encounter a feature
 
 Flags also have fallback variations. The fallback variation only returns if an error occurs. For example, LaunchDarkly serves the fallback variation if the feature flag key doesn't exist, or the user doesn't have a key specified.
 
-The flag evaluation feature adds a user to the Users dashboard if a user does not already exist. Feature flags evaluate against the user context provided to the SDK, which may be different from the data you see in the dashboard. You do not need to create users manually, but if you want to, you can use the `identify` feature. To learn more, read [Identifying and changing users](/sdk/features/identify).
+The flag evaluation feature adds a user to the **Users** dashboard if a user with the same key does not already exist. However, each SDK evaluates flags based only on the user object you provide in the evaluation call. The SDK does not automatically use the attributes shown on the dashboard, and user attributes are not synchronized across SDK instances. You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
+You do not need to create users manually, but if you want to, you can with the `identify` feature. To learn more, read [Identifying and changing users](/sdk/features/identify).
 
 Details about each SDK's configuration are available in the SDK-specific sections below:
 
@@ -43,7 +45,7 @@ This feature is available for all of our client-side SDKs:
 
 The `Variation` method determines whether a flag is enabled or not for a specific user. In the client-side .NET SDK, there is  a `variation` method for each type, such as `BoolVariation` or `StringVariation`.
 
-`variation` calls take the feature flag key and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+`variation` calls take the feature flag key and a default value.
 
 Here is an example:
 
@@ -61,6 +63,9 @@ client.BoolVariation("your.feature.key", false);
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### Android
@@ -95,6 +100,9 @@ val variationResult: Boolean = client.boolVariation(flagKey, false)
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### C/C++ (client-side)
@@ -141,6 +149,9 @@ if (show_feature) {
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### Electron
@@ -185,7 +196,9 @@ const stringFlagValue = client.variation('YOUR_FEATURE_KEY', 'default') as strin
 </CodeTabItem>
 </CodeTabs>
 
-The return value of `variation` is always either one of the variations you defined for your flag in the flag dashboard, or the default value. The default value is the second parameter to `variation`. It is what the client uses if it's not possible to evaluate the flag. For example, the default value returns if the flag key does not exist, or if something about the definition of the flag is invalid.
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
+The return value of `variation` is always either one of the variations you defined for your flag in the flag dashboard, or the default value. The default value is the second parameter to `variation`.
 
 You can also fetch all flags for the current user.
 
@@ -245,6 +258,9 @@ bool variationResult = await LDClient.boolVariation(flagKey, false);
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### iOS
@@ -255,7 +271,7 @@ The `variation` method returns the variation for the given feature flag. If the 
 
 The LDClient must be started in order to return feature flag values. If the LDClient is not started, it always returns the default value. The LDClient must be online to keep the feature flag values up-to-date. When online, the LDClient has two modes for maintaining feature flag values: *streaming* and *polling*. The client app requests the mode by setting the `config.streamingMode`. Read `LDConfig` for details.
 
-In streaming mode, the LDClient opens a long-running connection to LaunchDarkly's streaming server (called _clientstream_). When a flag value changes on the server, the clientstream notifies the SDK to update the value. Streaming mode is not available on watchOS. On iOS and tvOS, the client app must be running in the foreground to connect to clientstream. On macOS the client app may run in either foreground or background to connect to clientstream. If streaming mode is not available, the SDK reverts to polling mode.
+In streaming mode, the LDClient opens a long-running connection to LaunchDarkly's streaming server called _clientstream_. When a flag value changes on the server, the clientstream notifies the SDK to update the value. Streaming mode is not available on watchOS. On iOS and tvOS, the client app must be running in the foreground to connect to clientstream. On macOS the client app may run in either foreground or background to connect to clientstream. If streaming mode is not available, the SDK reverts to polling mode.
 
 In polling mode, the LDClient requests feature flags from LaunchDarkly's app server at regular intervals defined in the LDConfig. When a flag value changes on the server, the LDClient learns of the change the next time the SDK requests feature flags.
 
@@ -289,6 +305,9 @@ NSDictionary* dictionaryFlagValue = [[LDClient get] dictionaryVariationForKey:@"
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### JavaScript
@@ -296,8 +315,6 @@ NSDictionary* dictionaryFlagValue = [[LDClient get] dictionaryVariationForKey:@"
 <Details summary="Expand JavaScript code sample">
 
 The `variation` method determines which variation of a feature flag a user receives. `variation` calls take the feature flag key and a default value.
-
-The method returns the default value only if it encounters an error, such as when the feature flag key doesn't exist or the user doesn't have a key specified.
 
 Here is an example of the `variation` method:
 
@@ -327,15 +344,16 @@ const stringFlagValue = client.variation('your.feature.key', 'default') as strin
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### Node.js (client-side)
 
 <Details summary="Expand Node.js (client-side) code sample">
 
-The `variation` method determines which variation of a feature flag a user receives.
-
-`variation` calls take the feature flag key and a default value. The default value only returns if an error is encountered, such as if the feature flag key doesn't exist or the user doesn't have a key specified.
+The `variation` method determines which variation of a feature flag a user receives. `variation` calls take the feature flag key and a default value.
 
 Here is an example:
 
@@ -366,6 +384,9 @@ const stringFlagValue = client.variation('your.feature.key', 'default') as strin
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### React Native
@@ -395,15 +416,16 @@ let jsonResult = await client.jsonVariation('YOUR_JSON_FLAG_KEY', {});
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### Roku
 
 <Details summary="Expand Roku code sample">
 
-The `*variation` methods determine which variation of a feature flag a user receives.
-
-`*variation` calls take a feature flag key and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+The `*variation` methods determine which variation of a feature flag a user receives. `*variation` calls take a feature flag key and a default value.
 
 Here is an example:
 
@@ -432,6 +454,9 @@ myValue = launchDarkly.variation("MY_FLAG_KEY", false)
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ## Server-side SDKs
@@ -465,7 +490,7 @@ The `Variation` methods determine whether a flag is enabled or not for a specifi
 * [`JsonVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_JsonVariation_)
 * [`StringVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_StringVariation_).
 
-`Variation` calls take the feature flag key, a [`User`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.User.html), and a default value. The `Variation` call adds a user to the Users dashboard if a user with that key doesn't exist already.
+`Variation` calls take the feature flag key, a [`User`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.User.html), and a default value.
 
 Here is an example:
 
@@ -483,15 +508,16 @@ var value = client.BoolVariation("your.feature.key", user, false);
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### Apex
 
 <Details summary="Expand Apex code sample">
 
-The `variation` family of methods determine the flag value for a specific user. In Apex, there is a `variation` method for each type, such as `boolVariation` or `stringVariation`.
-
-The functions take an `LDUser`, feature flag key, and a default value. The default value only returns if an error occurs. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+The `variation` family of methods determine the flag value for a specific user. In Apex, there is a `variation` method for each type, such as `boolVariation` or `stringVariation`. The functions take an `LDUser`, feature flag key, and a default value.
 
 <Callout intent="info">
 <CalloutTitle>Apex variation methods do not automatically add users to the dashboard</CalloutTitle>
@@ -520,6 +546,9 @@ Boolean value = client.boolVariation(user, 'your.feature.key', false);
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### C/C++ (server-side)
@@ -528,7 +557,7 @@ Boolean value = client.boolVariation(user, 'your.feature.key', false);
 
 The `variation` family of functions determine whether a flag is enabled or not for a specific user. In C, there is a `variation` function for each type, such as `LDBoolVariation` or `LDStringVariation`.
 
-The functions take an `LDClient`, `LDUser`, feature flag key, default value, and optional `LDDetails` struct for an evaluation explanation (see below). The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
+The functions take an `LDClient`, `LDUser`, feature flag key, default value, and optional `LDDetails` struct for an evaluation explanation.
 
 Here is an example:
 
@@ -546,17 +575,16 @@ bool value = LDBoolVariation(client, user, "your.feature.key", false, NULL);
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### Erlang
 
 <Details summary="Expand Erlang code sample">
 
-The `variation` function determines whether a flag is enabled or not for a specific user.
-
-The functions take a flag key, user, default value and an instance tag. The instance tag is optional. The default variation only returns if an error occurs.
-
-For example, if the feature flag key doesn't exist or the user doesn't have a key specified, the user sees the default variation value.
+The `variation` function determines whether a flag is enabled or not for a specific user. The functions take a flag key, user, default value and an instance tag. The instance tag is optional.
 
 <CodeTabs
   defaultValue="erlang"
@@ -572,6 +600,9 @@ Flag = ldclient:variation(<<"my-bool-key">>, #{key => <<"aa0ceb">>,}, false, my_
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### Go
@@ -585,7 +616,7 @@ The `Variation` methods determine whether a flag is enabled or not for a specifi
 * [`StringVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.StringVariation)
 * [`JSONVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.JSONVariation), which can be any JSON type.
 
-`Variation` methods take the feature flag key, a `User`, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified. In the example below, the default value is `false`.
+`Variation` methods take the feature flag key, a `User`, and a default value. In the example below, the default value is `false`.
 
 The `Variation` call generates analytics events to tell LaunchDarkly about the flag evaluation and the user properties, so the user will be added to the Users dashboard if a user with that key doesn't exist already.
 
@@ -607,15 +638,16 @@ result, _ := client.BoolVariation("your.feature.key", user, false)
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### Haskell
 
 <Details summary="Expand Haskell code sample">
 
-The `variation` family of functions determine whether a flag is enabled or not for a specific user.
-
-The functions take a `Client`, `User`, feature flag key, and a default value. The default value only returns if an error occurs. For example, if the feature flag key doesn't exist or the user doesn't have a key specified, the default value is returned.
+The `variation` family of functions determine whether a flag is enabled or not for a specific user. The functions take a `Client`, `User`, feature flag key, and a default value.
 
 Here is an example:
 
@@ -633,6 +665,9 @@ myBoolVariation <- boolVariation client user "YOUR_FEATURE_KEY" False
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### Java
@@ -641,9 +676,7 @@ myBoolVariation <- boolVariation client user "YOUR_FEATURE_KEY" False
 
 The `variation` methods determine which variation of a feature flag a user receives. In Java, there is a `variation` method for each type: [`boolVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#boolVariation-java.lang.String-com.launchdarkly.sdk.LDUser-boolean-), [`intVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#intVariation-java.lang.String-com.launchdarkly.sdk.LDUser-int-), [`doubleVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#doubleVariation-java.lang.String-com.launchdarkly.sdk.LDUser-double-), [`stringVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#stringVariation-java.lang.String-com.launchdarkly.sdk.LDUser-java.lang.String-) and [`jsonValueVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#jsonValueVariation-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-), which can be of any JSON type.
 
-The `variation` methods take the feature flag key, an [`LDUser`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/LDUser.html), and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
-
-The `variation` call adds a user to the Users dashboard if a user with that key doesn't exist already.
+The `variation` methods take the feature flag key, an [`LDUser`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/LDUser.html), and a default value.
 
 Here is an example:
 
@@ -661,6 +694,9 @@ boolean value = client.boolVariation("your.feature.key", user, false);
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### Lua
@@ -668,8 +704,6 @@ boolean value = client.boolVariation("your.feature.key", user, false);
 <Details summary="Expand Lua code sample">
 
 The `variation` family of functions determine whether a flag is enabled or not for a specific user. In Lua, there is a `variation` function for each type, such as `boolVariation` or  `stringVariation`.
-
-The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
 
 To learn more about configuration options, read the [API docs](https://launchdarkly.github.io/lua-server-sdk/index.html).
 
@@ -689,6 +723,9 @@ local value = client:boolVariation(user, "YOUR_FEATURE_KEY", false)
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### Node.js (server-side)
@@ -697,9 +734,7 @@ local value = client:boolVariation(user, "YOUR_FEATURE_KEY", false)
 
 The `variation` method determines which variation of a feature flag a user receives.
 
-`variation` calls take the feature flag key, an `LDUser`, and a default value. The default value only returns in offline mode or if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
-
-The `variation` call adds a user to the Users dashboard if a user with that user key doesn't exist already.
+`variation` calls take the feature flag key, an `LDUser`, and a default value.
 
 Here is an example:
 
@@ -735,6 +770,9 @@ client.variation('your.feature.key', user, false, (err, value) => {
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### Node.js (Cloudflare)
@@ -745,11 +783,7 @@ This SDK uses the same code as the [Node.js server-side SDK](#nodejs-server-side
 
 <Details summary="Expand PHP code sample">
 
-The `variation` method determines which variation of a feature flag a user receives.
-
-`variation` calls take the feature flag key, an `LDUser`, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
-
-The `variation` call adds a user to the Users dashboard if a user with that user key doesn't exist already.
+The `variation` method determines which variation of a feature flag a user receives. `variation` calls take the feature flag key, an `LDUser`, and a default value.
 
 Here is an example:
 
@@ -767,17 +801,16 @@ $value = $client->variation($key, $user, false);
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### Python
 
 <Details summary="Expand Python code sample">
 
-The `variation` method determines which variation of a feature flag a user receives.
-
-`variation` calls take the feature flag key, an `LDUser`, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
-
-The `variation` call adds a user to the Users dashboard if a user with that user key doesn't exist already.
+The `variation` method determines which variation of a feature flag a user receives. `variation` calls take the feature flag key, an `LDUser`, and a default value.
 
 Here is an example:
 
@@ -795,6 +828,9 @@ show_feature = ldclient.get().variation("your.feature.key", user, False)
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### Ruby
@@ -803,9 +839,7 @@ show_feature = ldclient.get().variation("your.feature.key", user, False)
 
 The `variation` method determines which variation of a feature flag a user receives.
 
-`variation` calls take the feature flag key, a user, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified.
-
-The `variation` call adds a user to the Users dashboard if a user with that user key doesn't exist already.
+`variation` calls take the feature flag key, a user, and a default value.
 
 Here is an example:
 
@@ -823,6 +857,9 @@ value = client.variation("your.feature.key", user, false)
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
 
 ### Rust
@@ -836,9 +873,7 @@ The `variation` methods determine whether a flag is enabled or not for a specifi
 * [`str_variation`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.str_variation) for strings, and
 * [`json_variation`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.json_variation), which can be any JSON type.
 
-`variation` methods take a `User`, the feature flag key, and a default value. The default value only returns if an error is encountered. For example, the default value returns if the feature flag key doesn't exist or the user doesn't have a key specified. In the example below, the default value is `false`.
-
-The `variation` call generates analytics events to tell LaunchDarkly about the flag evaluation and the user properties, so the user will be created in LaunchDarkly if a user with that key doesn't exist already.
+`variation` methods take a `User`, the feature flag key, and a default value. In the example below, the default value is `false`.
 
 Here is an example:
 
@@ -857,4 +892,7 @@ let result = client.bool_variation(&user, "your.feature.key", false);
 
 </CodeTabItem>
 </CodeTabs>
+
+You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
 </Details>
