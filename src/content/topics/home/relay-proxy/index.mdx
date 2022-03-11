@@ -52,9 +52,9 @@ To learn more about performance expectations once the Relay Proxy is running, re
 
 ### Scaling guidelines
 
-If you want to size or scale your Relay Proxy, the most important thing to consider is the amount of dedicated network bandwidth available to it. The Relay Proxy is not CPU or memory intensive, so these are unlikely to be performance bottlenecks. However, the Relay Proxy does require a significant amount of network bandwidth, because it makes many small requests, very frequently.
+If you want to size or scale your Relay Proxy, the most important thing to consider is the amount of dedicated network bandwidth available to it. The Relay Proxy is not CPU or memory intensive, so these are unlikely to be performance bottlenecks. However, the Relay Proxy does require a significant amount of network bandwidth, because it makes many small requests, very frequently. To learn more about Relay Proxy CPU and memory utilization, read [System requirements under load](/home/relay-proxy/performance#system-requirements-under-load).
 
-We have tested and developed the Relay Proxy to work with an AWS `m4.xlarge` instance, but you can use the Relay Proxy with any technical equivalent. The `m4.xlarge` instances we test against have 4 vCPUs and 16GiB of memory, but that is not a hard requirement. In fact, the Relay Proxy may use significantly less memory and CPU than the `m4.xlarge` instance offers. More importantly, the `m4.xlarge` instance has sufficient networking performance that the Relay Proxy should perform well.
+We have tested and developed the Relay Proxy to work with an AWS `m4.xlarge` instance, but you can use the Relay Proxy with any technical equivalent. The `m4.xlarge` instances we test against have 4 vCPUs and 16GiB of memory, but that is not a hard requirement. The Relay Proxy may use significantly less memory and CPU than the `m4.xlarge` instance offers. More importantly, the `m4.xlarge` instance has sufficient networking performance that the Relay Proxy should perform well.
 
 To learn more about instance sizing, read [Amazon's documentation on EC2 instance types](https://aws.amazon.com/ec2/instance-types/).
 
