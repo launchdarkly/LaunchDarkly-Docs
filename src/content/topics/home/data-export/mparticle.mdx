@@ -15,8 +15,8 @@ mParticle is a customer data platform that allows you to aggregate your analytic
 
 To set up an mParticle destination in LaunchDarkly, you need:
 
-- Your mParticle server to server key
-- Your mParticle server to server secret
+- Your mParticle server-to-server key
+- Your mParticle server-to-server secret
 
 The key and secret are available in your mParticle account. Copy and save both strings. You'll need them to connect mParticle to LaunchDarkly.
 
@@ -49,11 +49,10 @@ You cannot change an environment after you create the destination. If you wish t
 </Callout>
 
 5. Select an **mParticle Environment**.
-6. Enter your mParticle Server to Server Key in the **API key** field.
-7. Enter your mParticle Server to Server Secret in the **API secret** field:
+6. Enter your mParticle server-to-server key in the **API key** field.
+7. Enter your mParticle server-to-server secret in the **API secret** field:
 
 ![The "Create a destination" panel.](mparticle-destination-create.png)
-
 
 8. Select a **User Identifier** type from the menu:
 
@@ -73,9 +72,11 @@ To learn more about exported events, read [Schema reference](/home/data-export/s
 </CalloutDescription>
 </Callout>
 
-10. (Optional) Select an **Anonymous user identifier** type from the menu.
+10. (Optional) If you use anonymous users, select the **Anonymous user identifier** type from the menu.
 
- Anonymous user identifiers let you use an `alias` event to  connect two user IDs that represent the same person. To learn more about `alias` events, read [Associating anonymous users with logged in users](/home/users/anonymous-users#associating-anonymous-users-with-logged-in-users).
+ If you select this user type, you must also configure your mParticle SDK to send an `alias` event. `Alias` events connect an anonymous user ID with the user ID of a known user. This ensures that your users are identified and counted accurately. LaunchDarkly SDKs also support `alias` events, but in this case you must send the `alias` event from the mParticle SDK.
+
+ To learn more about `alias` events in mParticle, read [mParticle's documentation on associating anonymous and known users](https://docs.mparticle.com/guides/idsync/aliasing/).
 
 11. Check the checkbox indicating you consent to the Integration Terms and Conditions.
 12. Click **Save destination**.
@@ -94,7 +95,6 @@ To send a test event:
 4. In the "Send a test event" section, click **Send event**:
 
 ![The "Send a test event" section of the "Edit destination" panel.](mparticle-test-event.png)
-
 
 5. Verify the event appears on the mParticle events live stream.
 
