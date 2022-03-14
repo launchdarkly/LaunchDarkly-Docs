@@ -1260,6 +1260,10 @@
           {
             "label": "Getting started with the LaunchDarkly REST API",
             "path": "/guides/tutorials/rest-api"
+          },
+          {
+            "label": "Using LaunchDarkly without a supported SDK",
+            "path": "/guides/tutorials/unsupported-sdk"
           }
         ]
       },

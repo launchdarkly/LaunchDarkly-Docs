@@ -51,6 +51,7 @@ Dynatrace's
 elif
 elsewhere
 Ernestina
+evalx
 eventhub
 eventsource
 examplepackage
