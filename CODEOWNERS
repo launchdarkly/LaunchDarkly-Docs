@@ -1,7 +1,7 @@
 # more about codeowners below:
 # https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners
 
-* @launchdarkly/developer-flow
+* @launchdarkly/squad-developer-flow
 
 # Content
 .cspell/custom-words.txt @launchdarkly/docs-reviewers
@@ -14,5 +14,5 @@
 redirectRules.js @launchdarkly/docs-reviewers
 
 # EOL data
-/src/content/sdkVersions.json @launchdarkly/sdk-owners
-/src/content/relayVersions.json @launchdarkly/sdk-owners
+/src/content/sdkVersions.json @launchdarkly/squad-sdk
+/src/content/relayVersions.json @launchdarkly/squad-sdk
