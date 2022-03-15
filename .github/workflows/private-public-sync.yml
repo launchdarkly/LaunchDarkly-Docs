@@ -20,7 +20,7 @@ jobs:
           git fetch public
 
           if git pull public main --rebase; then
-            git pull --rebase && git push
+            git pull --rebase && git push 'https://${{ secrets.GH_USER }}:${{ secrets.GH_TOKEN }}@github.com/launchdarkly/git-gatsby.git'
             echo "Successfully merged and pushed public changes to private repo. Will sync private to public now."
           else
             echo "Conflict detected. TODO: Using the GH cli, create a PR containing the conflicts to be resolved in private repo."
