@@ -140,7 +140,7 @@ exports.handler = (event, context, callback) => {
             port: process.env.ELASTICACHE_PORT,
             host: process.env.ELASTICACHE_ENDPOINT
         };
-        var store = new LaunchDarkly.RedisFeatureStore(redisConfig));
+        var store = new LaunchDarkly.RedisFeatureStore(redisConfig);
 
         var ldConfig = {
             featureStore: store
