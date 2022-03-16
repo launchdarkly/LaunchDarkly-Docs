@@ -1,17 +1,8 @@
 name: Sync repos from private to public
-#on: deployment_status
-
-# TODO: remove after debugging is finished
-on:
-  push:
-    branches:
-      - main
-# End TODO
-
+on: deployment_status
 jobs:
   private-public-sync:
-    # TODO: remove after debugging is finished
-    #    if: ${{ github.event.deployment_status.environment == 'production' && github.event.deployment_status.state == 'success' }}
+    if: ${{ github.event.deployment_status.environment == 'production' && github.event.deployment_status.state == 'success' }}
     runs-on: ubuntu-latest
     name: Private to public repo sync
     steps:
@@ -24,8 +15,6 @@ jobs:
         with:
           node-version: '16.x'
       - run: |
-          git config --global user.email "launchdarklyreleasebot@launchdarkly.com"
-          git config --global user.name "LaunchDarklyReleaseBot"
           git remote add public 'https://${{ secrets.GH_USER }}:${{ secrets.GH_TOKEN }}@github.com/launchdarkly/LaunchDarkly-Docs.git'
           git fetch public
 
