@@ -15,7 +15,7 @@ The Relay Proxy lets multiple servers connect to a local stream instead of makin
 
 The Relay Proxy is an open-source project supported by LaunchDarkly. The full source is in a [GitHub repository](https://github.com/launchdarkly/ld-relay). There's also a Docker image on [Docker Hub](https://hub.docker.com/r/launchdarkly/ld-relay).
 
-## Should I use the Relay Proxy?
+## Deciding whether to use the Relay Proxy
 
 We recommend using the Relay Proxy if you have certain specific configuration requirements, which are explained below. If you don't meet those requirements, using the Relay Proxy is optional.
 
@@ -40,9 +40,17 @@ Those scenarios are:
 
 ### Understanding the cost of using the Relay Proxy
 
+There are several considerations that go into determining the total cost of ownership for managing the Relay Proxy at scale.
+
+The time cost for onboarding and operating the Relay Proxy varies greatly between organizations, depending on your processes for introducing new technology.
+
+For the ongoing machine cost, following our [scaling guidelines](#scaling-guidelines), most customers find that they have plenty of capacity using three machines, with a load balancer in front of them. For customers who decide to use a database, there will be an ongoing machine cost for that as well. To learn more, read [Caching guidelines](#caching-guidelines). There will also likely be a cost when you turn [monitoring](/home/relay-proxy/monitoring) on, which will depend on your monitoring solution. You may want to consider the cost of adding this information to your runbooks as well.
+
+For the ongoing personnel cost, as a general guideline we recommend that customers estimate an hour or so per week of a DevOps engineer's time to monitor and maintain the cluster. We also recommend that your on-call rotation is familiar with this technology and that you set up your [monitoring](/home/relay-proxy/monitoring) to make sure that you can capture abnormalities when they occur.
+
 The Relay Proxy has certain features that are available to customers on an Enterprise plan, including automatic configuration and offline mode. Access to these features may make using the Relay Proxy more beneficial than it would be with only its out-of-the-box feature set. To learn more, read [Relay Proxy Enterprise](/home/relay-proxy/enterprise).
 
-In general, customers on Enterprise plans may be more tolerant of the infrastructural costs associated with using the Relay Proxy's Enterprise features than customers with more limited budgets. If you're on LaunchDarkly's Starter or Pro plan, you can use the Relay Proxy but the operating costs associated with onboarding it may be prohibitive. To learn more, read [Best practices for using the Relay Proxy](#best-practices-for-using-the-relay-proxy).
+In general, customers on Enterprise plans may be more tolerant of the infrastructural costs associated with using the Relay Proxy's Enterprise features than customers with more limited budgets. If you're on LaunchDarkly's Starter or Pro plan, you can use the Relay Proxy but the operating costs associated with onboarding and maintaining it may be prohibitive. To learn more, read [Best practices for using the Relay Proxy](#best-practices-for-using-the-relay-proxy).
 
 ## Best practices for using the Relay Proxy
 
