@@ -23,14 +23,14 @@ jobs:
         with:
           node-version: '16.x'
       - run: |
-          git config --global user.email "launchdarklyreleasebot@launchdarkly.com"
-          git config --global user.name "LaunchDarklyReleaseBot"
+          git config --global user.email "yusinto@gmail.com"
+          git config --global user.name "Yusinto Ngadiman"
           git config advice.skippedCherryPicks false
           git remote add public 'https://${{ secrets.GH_USER }}:${{ secrets.GH_TOKEN }}@github.com/launchdarkly/LaunchDarkly-Docs.git'
           git fetch public
 
           if git pull public main --rebase; then
-            git pull --rebase 'https://${{ secrets.GH_USER }}:${{ secrets.GH_TOKEN }}@github.com/launchdarkly/git-gatsby.git' && git push --force 'https://${{ secrets.GH_USER }}:${{ secrets.GH_TOKEN }}@github.com/launchdarkly/git-gatsby.git'
+            git pull --rebase && git push
             echo "Successfully merged and pushed public changes to private repo. Will sync private to public now."
           else
             echo "Conflict detected. TODO: Using the GH cli, create a PR containing the conflicts to be resolved in private repo."
