@@ -152,7 +152,18 @@ However, using the Relay Proxy comes with its own benefits and drawbacks. If you
 
 ## Using the SDK microservice
 
-Another option if there is not a supported SDK for your tech stack is to use the SDK microservice. LaunchDarkly does not officially support this option.
+<Callout intent="alert">
+<CalloutTitle>This option is unsupported</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly does not provide support for this option. We do provide some resources and guidance, described below.
+
+You should consider carefully whether using an unsupported option is appropriate for your organization.
+
+</CalloutDescription>
+</Callout>
+
+Another option if there is not a supported SDK for your tech stack is to use the SDK microservice.
 
 ### Understanding the SDK microservice option
 
@@ -191,7 +202,7 @@ You can manage the SDK microservice with environment variables. You must set the
 
 To learn more, read [Building](https://github.com/launchdarkly-labs/sdk-microservice#building) and [Specifying a configuration](https://github.com/launchdarkly-labs/sdk-microservice#specifying-a-configuration) in the project's [Readme](https://github.com/launchdarkly-labs/sdk-microservice/blob/main/README.md).
 
-#### Supported features of the SDK microservice
+#### Features of the SDK microservice
 ----
 <br/>
 
@@ -216,7 +227,7 @@ curl -X POST your-local-server/feature/example-flag-key/eval \
 </CodeTabItem>
 </CodeTabs>
 
-The SDK microservice is a wrapper around the Go SDK, so it supports several additional features available in that SDK. The following table summarizes the features and how to learn more about them.
+The SDK microservice is a wrapper around the Go SDK, so it includes several additional features available in that SDK. The following table summarizes the features and how to learn more about them.
 
 <Table>
   <TableHeader>
@@ -275,6 +286,17 @@ The primary drawback to the SDK microservice is that it is part of [LaunchDarkly
 
 ## Writing your own SDK wrapper
 
+<Callout intent="alert">
+<CalloutTitle>This option is unsupported</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly does not provide support for this option. We do provide some resources and guidance, described below.
+
+You should consider carefully whether using an unsupported option is appropriate for your organization.
+
+</CalloutDescription>
+</Callout>
+
 An SDK wrapper facilitates interactions between your codebase and the corresponding LaunchDarkly SDK. SDK wrappers can simplify your workflow by making an SDK easier to use or more accessible to your codebase. To learn more about SDK wrappers, read [Use cases for SDK wrappers](/guides/best-practices/sdk-wrappers).
 
 If LaunchDarkly does not support an SDK for your tech stack, you can write your own SDK wrapper. You might choose this option if there is an interoperability layer between your preferred language and one of our supported languages. You can write a wrapper around the supported SDK using your preferred language.
@@ -284,6 +306,17 @@ This is a common pattern, and one that we at LaunchDarkly have used ourselves, f
 One benefit of writing your own SDK wrapper is that writing a wrapper is likely to be simpler and faster than [writing your own SDK](#writing-your-own-sdk) because your wrapper will delegate to the underlying SDK for most functionality. And while your wrapper won't be officially supported, the underlying SDK is.
 
 ## Writing your own SDK
+
+<Callout intent="alert">
+<CalloutTitle>This option is unsupported</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly does not provide support for this option. We do provide some resources and guidance, described below.
+
+You should consider carefully whether using an unsupported option is appropriate for your organization.
+
+</CalloutDescription>
+</Callout>
 
 If LaunchDarkly does not support your preferred language, you can also choose to write your own SDK for it. This might be the right option for you if don't want to use the Relay Proxy and you also don't want to rely on the unsupported SDK microservice.
 
