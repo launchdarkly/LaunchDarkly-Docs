@@ -30,6 +30,8 @@ jobs:
           git fetch public
 
           if git pull public main --rebase; then
+            git config --global --get user.name
+            git config --global --get user.email
             git pull --rebase && git push
             echo "Successfully merged and pushed public changes to private repo. Will sync private to public now."
           else
