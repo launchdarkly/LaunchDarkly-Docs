@@ -16,6 +16,7 @@ jobs:
       - run: |
           git config --global user.email "launchdarklyreleasebot@launchdarkly.com"
           git config --global user.name "LaunchDarklyReleaseBot"
+          git config advice.skippedCherryPicks false
           git remote add public 'https://${{ secrets.GH_USER }}:${{ secrets.GH_TOKEN }}@github.com/launchdarkly/LaunchDarkly-Docs.git'
           git fetch public
 
