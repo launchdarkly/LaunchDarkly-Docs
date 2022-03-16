@@ -30,7 +30,9 @@ jobs:
           git fetch public
 
           if git pull public main --rebase; then
-            git pull --rebase && git push
+            git remote
+            git status
+            git pull --rebase && git push -f
             echo "Successfully merged and pushed public changes to private repo. Will sync private to public now."
           else
             echo "Conflict detected. TODO: Using the GH cli, create a PR containing the conflicts to be resolved in private repo."
