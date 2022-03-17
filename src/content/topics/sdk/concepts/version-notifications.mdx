@@ -1,0 +1,102 @@
+---
+path: /sdk/concepts/version-notifications
+title: Version notifications
+description: This topic explains how to set up notifications to learn about version updates and end of life notices for LaunchDarkly's SDKs.
+published: true
+---
+
+## Overview
+
+This topic explains how to set up notifications to learn about version updates and end of life notices for LaunchDarkly's SDKs. You have several options for receiving notifications about new versions of LaunchDarkly's SDKs. You can also subscribe to notifications about SDK versions that are approaching their end of life.
+
+## Using GitHub for notifications
+
+All of the LaunchDarkly SDKs have [repositories on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-sdk+org%3Alaunchdarkly&type=Repositories). You can use some of GitHub's features to stay informed about new versions of LaunchDarkly's SDKs.
+
+### Watching a repository
+
+For the particular SDK you are interested in, you can "watch" the repository to receive updates when new versions are released. To learn more, read the GitHub documentation on [Configuring your watch settings for an individual repository](https://docs.github.com/en/account-and-profile/managing-subscriptions-and-notifications-on-github/setting-up-notifications/configuring-notifications#configuring-your-watch-settings-for-an-individual-repository).
+
+### Subscribing to a release RSS feed
+
+For the particular SDK you are interested in, you can subscribe to the RSS feed for the GitHub releases.
+
+The location of the RSS feed is:
+
+<CodeTabs
+  defaultValue="rss"
+  values={[
+    { label: 'RSS feed', value: 'rss', },
+  ]
+}>
+<CodeTabItem value="rss">
+
+```bash
+# general format
+https://github.com/:organization/:repo/releases.atom
+
+# example
+https://github.com/launchdarkly/js-client-sdk/releases.atom
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+If your team uses Slack as a collaboration tool, you can also subscribe a Slack channel to the release RSS feed. In your Slack channel, type `/feed subscribe <RSS feed>` to subscribe.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="rss"
+  values={[
+    { label: 'Slack channel subscription', value: 'rss', },
+  ]
+}>
+<CodeTabItem value="rss">
+
+```bash
+# general format
+/feed subscribe https://github.com/:organization/:repo/releases.atom
+
+# example
+/feed subscribe https://github.com/launchdarkly/js-client-sdk/releases.atom
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Using package managers for notifications
+
+The LaunchDarkly SDKs are published through language-specific package managers. For the particular SDK you are interested in, you can subscribe to notifications or to an RSS feed directly through the package manager's site to receive updates when new versions are released if the package manager supports such a feature. For example, the [Ruby SDK](/sdk/server-side/ruby) is published through [RubyGems](https://rubygems.org/gems/launchdarkly-server-sdk/) which exposes an RSS feed.
+
+## Updating to a new SDK version
+
+When you are ready to update, check the SDK reference page for your [client-side](/sdk/client-side) or [server-side](/sdk/server-side) SDK, then navigate to the migration guide. Alternatively, use the search bar to search for "migration guide."
+
+In many cases, we provide a migration guide from the previous major version.
+
+Client-side SDK migration guides:
+
+* [.NET (client-side) SDK 1.x to 2.0](/sdk/client-side/dotnet/migration-1-to-2)
+* [Android SDK 2.x to 3.0](/sdk/client-side/android/migration-2-to-3)
+* [C/C++ (client-side) SDK 1.x to 2.0](/sdk/client-side/c-c--/migration-1-to-2)
+* [iOS SDK 4.x to 5.0](/sdk/client-side/ios/migration-4-to-5)
+* [Node.js (client-side) SDK 1.x to 2.0](/sdk/client-side/node-js/migration-1-to-2)
+
+Server-side SDK migration guides:
+
+* [.NET (server-side) SDK 5.x to 6.0](/sdk/server-side/dotnet/migration-5-to-6)
+* [Go SDK 4.x to 5.0](/sdk/server-side/go/migration-4-to-5)
+* [Java SDK 4.x to 5.0 ](/sdk/server-side/java/migration-4-to-5)
+* [Node.js (server-side) SDK 5.x to 6.0](/sdk/server-side/node-js/migration-5-to-6)
+* [PHP SDK 3.x to 4.0](/sdk/server-side/php/migration-3-to-4)
+
+## Receiving notifications about SDKs nearing end of life
+
+To receive notifications when SDK versions are approaching their end of life (EOL):
+
+1. Visit [status.launchdarkly.com](https://status.launchdarkly.com/).
+2. Click **Subscribe to updates**.
+3. Select your notification method and click **Subscribe**.
+4. On the "Choose components" page, check the **SDKs** checkbox. Optionally, check the boxes to subscribe to other status updates. Click **Save**.
+5. Confirm your notification subscription. For example, if you subscribed by email, check your inbox for an email requesting that you confirm your subscription, and follow its instructions.

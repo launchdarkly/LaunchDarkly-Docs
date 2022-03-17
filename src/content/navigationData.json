@@ -824,16 +824,20 @@
             "path": "/sdk/concepts/flag-evaluation-rules"
           },
           {
-            "label": "Using flag types",
-            "path": "/sdk/concepts/flag-types"
-          },
-          {
             "label": "Persistent data stores",
             "path": "/sdk/concepts/data-stores"
           },
           {
+            "label": "Using flag types",
+            "path": "/sdk/concepts/flag-types"
+          },
+          {
             "label": "Versioning policy",
             "path": "/sdk/concepts/versioning"
+          },
+          {
+            "label": "Version notifications",
+            "path": "/sdk/concepts/version-notifications"
           }
         ]
       },
