@@ -1215,6 +1215,10 @@
             "path": "/guides/best-practices/technical-debt"
           },
           {
+            "label": "Testing code that uses feature flags",
+            "path": "/guides/best-practices/testing-code"
+          },
+          {
             "label": "Use cases for SDK wrappers",
             "path": "/guides/best-practices/sdk-wrappers"
           },

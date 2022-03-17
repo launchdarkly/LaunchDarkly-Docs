@@ -13,6 +13,7 @@ autoloader
 awssdk
 azuredevops
 backgrounded
+Bahmutov's
 Bintray
 boto
 bracket-paren
@@ -61,7 +62,9 @@ flagdata
 flagstate
 frontmatter
 Gameplay
+getall
 getenv
+Gleb
 GOPATH
 gopkg
 govendor
