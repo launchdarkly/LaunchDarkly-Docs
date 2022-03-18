@@ -11,11 +11,11 @@ Depending on your organization's security and privacy requirements, you may need
 
 If you're an existing or potential customer of LaunchDarkly with questions about how we handle sensitive or third-party data, this guide is for you.
 
-## What is user data?
+## Understanding user data
 
 User data is information about your customers or users that your product sends to LaunchDarkly. This is different from information about your account members, who are authorized users of your LaunchDarkly account.
 
-User data can include Personally Identifiable Information (PII), including names, email addresses, or other unique identifiers. User data can be business-critical information and can present significant risk if exposed to unauthorized parties.
+User data can include personally identifiable information (PII), including names, email addresses, or other unique identifiers. User data can be business-critical information and can present significant risk if exposed to unauthorized parties.
 
 To learn more about users, read [The Users dashboard](/home/users/users-dashboard).
 
@@ -38,24 +38,23 @@ Depending on the requirements of your organization, you may want to limit or com
 ## How the LaunchDarkly SDK you use affects user data
 
 LaunchDarkly SDKs have different constraints that affect user data. Specifically, client-side SDKs differ from server-side SDKs in the following ways:
-
 - You must make available each flag that you want client-side or mobile SDKs to be able to access. To do this, select the checkboxes in the "Client-side SDK availability" section of the flag's configuration. To learn more, read [Client-side ID](/sdk/concepts/client-side-server-side#client-side-id).
-
-- By default, client-side SDKs aren't authenticated. Because of this, one user could use another user's account to evaluate flags not meant for them. To authenticate user data, you can enable the SDK's **secure mode**, which requires you to pass a server generated hash in your user data. To learn more, read [Secure mode](/sdk/features/secure-mode#configuring-secure-mode-in-the-javascript-client-side-sdk).
-
+- By default, client-side SDKs aren't authenticated. Because of this, one user could use another user's account to evaluate flags not meant for them. To authenticate user data, you can enable the SDK's secure mode, which requires you to pass a server generated hash in your user data. To learn more, read [Secure mode](/sdk/features/secure-mode#configuring-secure-mode-in-the-javascript-client-side-sdk).
 - Client-side SDKs send user data in the URL as a `GET` query parameter. If you are concerned about that data being stored in logs or by intermediary proxies, you can use the [`useReport`](/sdk/features/user-config#javascript) setting to use the HTTP `REPORT` verb. This sends the user data in the request body, rather than in the header. To learn more, read [Use REPORT in the JavaScript SDK](#use-report-in-the-javascript-sdk).
 
 ## LaunchDarkly member roles
 
 Every account member in your LaunchDarkly project can see user and flag information, including targeting data. Account members with `writer` or `owner / admin` roles can configure flag settings, including targeting flags by PII like user email addresses. Consider if your organization needs to restrict which account members can control access to user data.
 
-The exception to this is if an account member is assigned a custom role with the `viewProject` action set to `deny`. The `viewProject` action controls a role holder's access to an entire project by preventing or granting them viewing rights to the project. Viewing rights are required for any other permissions in a project to take effect, so restricting viewing rights effectively removes all access to the project.
+The exception to this is if an account member is assigned the `no access` role or a custom role with the `viewProject` action set to `deny`. The `viewProject` action controls a role holder's access to an entire project by preventing or granting them viewing rights to the project. Viewing rights are required for any other permissions in a project to take effect, so restricting viewing rights effectively removes all access to the project.
 
 You can give an account member custom permissions to view and modify user data by assigning them a custom role.
 
 To learn more, read [Custom roles](/home/members/custom-roles).
 
 ## Features to minimize user data sent to LaunchDarkly
+
+LaunchDarkly does not have detectors set up to prevent you from sending PII.
 
 <Callout intent="alert">
 <CalloutTitle>Increased privacy comes with tradeoffs</CalloutTitle>
@@ -68,7 +67,7 @@ Further hardening the privacy of your LaunchDarkly projects may require some Lau
 
 Here are some additional configuration options you can use to increase user privacy in LaunchDarkly. Using these features can impact certain features in the LaunchDarkly UI.
 
-### Use REPORT in the JavaScript SDK
+### Using REPORT in the JavaScript SDK
 
 You can configure the JavaScript SDK to use the REPORT HTTP verb instead of GET. In this model, the REPORT verb forces user objects to be sent as request bodies instead of as path parameters. Path parameters are frequently logged and easy for proxies to observe, but request bodies are typically not logged or stored.
 
@@ -97,7 +96,7 @@ var client = LDClient.initialize(‘EXAMPLE-ENVIRONMENT-ID’, user, options = {
 </CodeTabItem>
 </CodeTabs>
 
-### Evaluate flags against a Relay Proxy
+### Evaluating flags against a Relay Proxy
 
 The LaunchDarkly Relay Proxy provides mobile and client-side evaluation endpoints. You can initialize a client-side SDK directly against the Relay Proxy instead of connecting to LaunchDarkly.
 
@@ -150,7 +149,7 @@ Here is an example configuration for the Relay Proxy:
 </CodeTabItem>
 </CodeTabs>
 
-### Bootstrap flag values against a server-side SDK
+### Bootstrapping flag values against a server-side SDK
 
 Similar to using a Relay Proxy, you can get the initial payload for users from one of your own servers instead of reaching out to LaunchDarkly. This technique is referred to as bootstrapping. To learn more, read [Bootstrapping](/sdk/features/bootstrapping).
 
@@ -158,21 +157,47 @@ In this model, the user-specific values are acquired from a server-side SDK inst
 
 The only way to get updates with this approach is to “poll” for changes against your own server or perform a full page refresh.
 
-### Private user attributes
+### Using private user attributes
 
 You can use LaunchDarkly's private attribute settings to restrict the user data your service sends to LaunchDarkly while still using that data for flag targeting. You can make all attributes private, choose specific attributes to make private, or make attributes private for specific users.
 
 To learn more, read [Creating private user attributes](/home/users/attributes#creating-private-user-attributes).
 
-### Anonymous users
+### Using anonymous users
 
-Anonymous users do not register as users in your [Users dashboard](/home/users/users-dashboard), and so the usual data LaunchDarkly collects on a user isn't available for an anonymous user. You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user attributes instead. You can force all users to register in LaunchDarkly as anonymous users by setting the anonymous user bit in your SDK to `true` when you construct the LaunchDarkly User object from the domain user object.
+Anonymous users do not register as users in your [**Users** dashboard](/home/users/users-dashboard), and so the usual data LaunchDarkly collects on a user isn't available for an anonymous user. You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user attributes instead. You can force all users to register in LaunchDarkly as anonymous users by setting the anonymous user bit in your SDK to `true` when you construct the LaunchDarkly User object from the domain user object.
 
 To learn more, read [Anonymous users](/home/users/anonymous-users).
 
-### Impacted features
+<Callout intent="warning">
+<CalloutTitle>Anonymous users and private user attributes don't appear on the <strong>Users</strong> dashboard</CalloutTitle>
+<CalloutDescription>
 
-If you use anonymous users or private user attributes, the [Users dashboard](/home/users/users-dashboard) won't populate with a complete list of users who access LaunchDarkly, and autocomplete for private attributes won't function in LaunchDarkly.
+If you use anonymous users or private user attributes, the **Users** dashboard won't populate with a complete list of users who access LaunchDarkly, and autocomplete for private attributes won't function in LaunchDarkly.
+
+</CalloutDescription>
+</Callout>
+
+## Removing PII from LaunchDarkly
+
+In the event that you accidentally send PII to LaunchDarkly, you should take the following steps to remove the information from LaunchDarkly:
+
+1. Revert the change or action you took that sent the data to LaunchDarkly.
+2. Find any users with exposed PII using the [find users API endpoint](https://apidocs.launchdarkly.com/tag/Users#operation/getSearchUsers).
+3. Delete the affected users from the **Users** dashboard in one of two ways:
+  - [using the user interface (UI)](/home/users/users-dashboard#removing-a-user), or
+  - [using the API with the delete user API endpoint](https://apidocs.launchdarkly.com/tag/Users#operation/deleteUser). If you want to delete all users out of an environment rather than look for specific users, you can use the [list users API endpoint](https://apidocs.launchdarkly.com/tag/Users#operation/getUsers).
+
+<Callout intent="info">
+<CalloutTitle>Deleting users from the dashboard does not impact flag evaluations</CalloutTitle>
+<CalloutDescription>
+
+Flag evaluations are made based on the user object you provide to the SDK, not what's on the dashboard. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+
+</CalloutDescription>
+</Callout>
+
+These steps ensure that the PII no longer exists in LaunchDarkly. The PII attribute name will still appear in menu recommendations such as when you're creating or modifying a targeting rule, but no data will appear if you have deleted all of the users with the exposed data. LaunchDarkly automatically cycles out unused attribute fields within 30 days. If you need the field deleted sooner, [contact Support](https://support.launchdarkly.com/hc/en-us).
 
 ## User-initiated data minimization
 
