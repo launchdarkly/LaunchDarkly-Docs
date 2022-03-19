@@ -757,6 +757,10 @@
             "path": "/integrations/pendo"
           },
           {
+            "label": "Posthog",
+            "path": "/integrations/posthog"
+          },
+          {
             "label": "Release",
             "path": "/integrations/release"
           },
