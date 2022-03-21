@@ -78,13 +78,20 @@ You can also use the advanced role policy editor to grant permissions by adding 
 [
   {
     "effect": "allow",
-    "resources": ["webhook/*"],
-    "actions": ["createWebhook", "deleteWebhook"]
+    "actions": [
+      "createWebhook",
+      "deleteWebhook"
+    ],
+    "resources": ["webhook/*"]    
   },
   {
     "effect": "allow",
-    "resources": ["proj/*:env/*:flag/*"],
-    "actions": ["createFlagLink", "updateFlagLink", "deleteFlagLink"]
+    "actions": [
+      "createFlagLink",
+      "updateFlagLink",
+      "deleteFlagLink"
+      ],
+    "resources": ["proj/*:env/*:flag/*"]
   }
 ]
 ```

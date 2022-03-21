@@ -33,11 +33,13 @@ For example, the below statement allows a member with this role to perform all a
 <CodeTabItem value="json">
 
 ```json
-{
-    "resources": ["proj/*:env/*:flag/*;tag1,tag2"],
-    "actions": ["*"],
-    "effect": "allow"
-}
+[
+  {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["proj/*:env/*:flag/*;tag1,tag2"]
+  }
+]
 ```
 </CodeTabItem>
 </CodeTabs>
@@ -57,16 +59,18 @@ In the example below, the two statements allow member access to flags tagged eit
 <CodeTabItem value="json">
 
 ```json
-{
-    "resources": ["proj/*:env/*:flag/*;tag1"],
+[
+  {
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
-},
-{
-    "resources": ["proj/*:env/*:flag/*;tag2"],
+    "resources": ["proj/*:env/*:flag/*;tag1"]    
+  },
+  {
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
-}
+    "resources": ["proj/*:env/*:flag/*;tag2"]  
+  }
+]
 ```
 
 </CodeTabItem>
@@ -84,16 +88,18 @@ The following example gives a member access to all flags *except* those tagged e
 <CodeTabItem value="json">
 
 ```json
-{
-    "notResources": ["proj/*:env/*:flag/*;tag1"],
+[
+  {
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
-},
-{
-    "notResources": ["proj/*:env/*:flag/*;tag2"],
+    "notResources": ["proj/*:env/*:flag/*;tag1"]    
+  },
+  {
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
-}
+    "notResources": ["proj/*:env/*:flag/*;tag2"]
+  }
+]
 ```
 
 </CodeTabItem>

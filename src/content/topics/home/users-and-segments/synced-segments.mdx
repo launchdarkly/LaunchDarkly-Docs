@@ -72,14 +72,12 @@ Below is an example of the permissions needed for your custom role:
 ```json
 [
   {
-    "resources": [
-      "proj/*:env/*:segment/*"
-    ],
+    "effect": "allow",
     "actions": [
       "createSegment",
       "updateIncluded"
     ],
-    "effect": "allow"
+    "resources": ["proj/*:env/*:segment/*"]    
   }
 ]
 ```

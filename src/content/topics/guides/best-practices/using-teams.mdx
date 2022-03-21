@@ -146,14 +146,14 @@ The following code sample restricts view and edit access to a project called `pr
 ```json
 [
   {
-    "resources": ["proj/project-1"],
+    "effect": "deny",
     "actions": ["viewProject"],
-    "effect": "deny"
+    "resources": ["proj/project-1"]
   },
-{
-    "resources": ["team/team-1"],
+  {
+    "effect": "deny",
     "actions": ["viewTeam"],
-    "effect": "deny"
+    "resources": ["team/team-1"]
   }
 ]
 ```

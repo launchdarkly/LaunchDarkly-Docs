@@ -41,9 +41,9 @@ The following code sample restricts view and edit access to a project:
 ```json
 [
   {
-    "resources": ["proj/project-1"],
+    "effect": "deny",
     "actions": ["viewProject"],
-    "effect": "deny"
+    "resources": ["proj/project-1"]    
   }
 ]
 ```
@@ -72,9 +72,14 @@ The example below allows access to every project in an environment except the fo
 ```json
 [
   {
-    "resources": ["proj/project-1", "proj/project-2", "proj/project-3", "proj/project-4"],
-    "actions": ["viewProject"],
-    "effect": "deny"
+  	"effect": "deny",
+  	"actions": ["viewProject"],
+  	"resources": [
+  		"proj/project-1",
+  		"proj/project-2",
+  		"proj/project-3",
+  		"proj/project-4"
+  	]
   }
 ]
 ```

@@ -42,13 +42,13 @@ To do this:
 [
   {
     "effect": "allow",
-    "resources": ["proj/*:env/*;qa_*"],
-    "actions": ["*"]
+    "actions": ["*"],
+    "resources": ["proj/*:env/*;qa_*"]
   },
   {
     "effect": "allow",
-    "resources": ["proj/*:env/*;qa_*:/flag/*"],
-    "actions": ["*"]
+    "actions": ["*"],
+    "resources": ["proj/*:env/*;qa_*:/flag/*"]
   }
 ]
 ```
@@ -72,21 +72,23 @@ Here is the code sample to build a custom role with access to resources that hav
 <CodeTabItem value="json">
 
 ```json
-{
-    "resources": ["proj/*:env/*:flag/*;dev"],
+[
+  {
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
-},
-{
-    "resources": ["proj/*:env/*;dev"],
+    "resources": ["proj/*:env/*:flag/*;dev"]
+  },
+  {
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
-},
-{
-    "resources": ["proj/*;dev"],
+    "resources": ["proj/*:env/*;dev"]
+  },
+  {
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
-},
+    "resources": ["proj/*;dev"]
+  }
+]
 ```
 
 </CodeTabItem>
@@ -124,8 +126,8 @@ Here's how to do this:
 [
   {
     "effect": "allow",
-    "resources": ["proj/*:env/production:flag/*"],
-    "actions": ["updateOn"]
+    "actions": ["updateOn"],
+    "resources": ["proj/*:env/production:flag/*"]
   }
 ]
 ```
@@ -153,9 +155,9 @@ Here's how to do this:
 ```json
 [
   {
-    "resources": ["proj/*:env/*:flag/flag-1"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["proj/*:env/*:flag/flag-1"]
   }
 ]
 ```
@@ -181,14 +183,14 @@ Here's how to do this:
 ```json
 [
   {
-    "notResources": ["proj/project-1"],
+    "effect": "deny",
     "actions": ["viewProject"],
-    "effect": "deny"
+    "notResources": ["proj/project-1"]
   },
   {
-    "resources": ["proj/*:env/*:flag/flag-1"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["proj/*:env/*:flag/flag-1"]
   }
 ]
 ```
@@ -223,19 +225,19 @@ Here's how to do this:
 ```json
 [
   {
-    "notResources": ["proj/project-1"],
+    "effect": "deny",
     "actions": ["viewProject"],
-    "effect": "deny"
+    "notResources": ["proj/project-1"]
   },
   {
-    "resources": ["proj/project-1:env/*:flag/*"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["proj/project-1:env/*:flag/*"]
   },
   {
-    "resources": ["proj/project-1:env/production-1:flag/*"],
+    "effect": "deny",
     "notActions": ["updateFlagVariations", "updateTags"],
-    "effect": "deny"
+    "resources": ["proj/project-1:env/production-1:flag/*"]
   }
 ]
 ```
@@ -265,12 +267,12 @@ Here's how to do this:
 ```json
 [
   {
-    "resources": ["proj/*"],
+    "effect": "deny",
     "actions": ["*"],
-    "effect": "deny"
+    "resources": ["proj/*"]
   },
   {
-    "resources": ["proj/project-1:env/*:flag/*"],
+    "effect": "allow",
     "notActions": [
       "createFlag",
       "updateTargets",
@@ -279,17 +281,17 @@ Here's how to do this:
       "deleteExperiment",
       "updateScheduledChanges"
     ],
-    "effect": "allow"
+    "resources": ["proj/project-1:env/*:flag/*"]
   },
   {
-    "resources": ["proj/*:env/*:segment/*"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["proj/*:env/*:segment/*"]
   },
   {
-    "resources": ["proj/*:metric/*"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["proj/*:metric/*"]
   }
 ]
 ```
@@ -313,69 +315,69 @@ Copy this reader role and make any modifications to it to suit your needs:
 ```json
 [
   {
-    "resources": ["proj/*:env/*"],
+    "effect": "deny",
     "actions": ["*"],
-    "effect": "deny"
+    "resources": ["proj/*:env/*"]
   },
   {
-    "resources": ["proj/*:metric/*"],
+    "effect": "deny",
     "actions": ["*"],
-    "effect": "deny"
+    "resources": ["proj/*:metric/*"]
   },
   {
-    "resources": ["proj/*:env/*:flag/*"],
+    "effect": "deny",
     "actions": ["*"],
-    "effect": "deny"
+    "resources": ["proj/*:env/*:flag/*"]
   },
   {
-    "resources": ["proj/*:env/*:segment/*"],
+    "effect": "deny",
     "actions": ["*"],
-    "effect": "deny"
+    "resources": ["proj/*:env/*:segment/*"]
   },
   {
-    "resources": ["proj/*:env/*:destination/*"],
+    "effect": "deny",
     "actions": ["*"],
-    "effect": "deny"
+    "resources": ["proj/*:env/*:destination/*"]
   },
   {
-    "resources": ["proj/*:env/*:user/*"],
+    "effect": "deny",
     "actions": ["*"],
-    "effect": "deny"
+    "resources": ["proj/*:env/*:user/*"]    
   },
   {
-    "resources": ["member/*"],
+    "effect": "deny",
     "actions": ["*"],
-    "effect": "deny"
+    "resources": ["member/*"]
   },
   {
-    "resources": ["member/*:token/*"],
+    "effect": "deny",
     "actions": ["*"],
-    "effect": "deny"
+    "resources": ["member/*:token/*"]
   },
   {
-    "resources": ["role/*"],
+    "effect": "deny",
     "actions": ["*"],
-    "effect": "deny"
+    "resources": ["role/*"]
   },
   {
-    "resources": ["integration/*"],
+    "effect": "deny",
     "actions": ["*"],
-    "effect": "deny"
+    "resources": ["integration/*"]
   },
   {
-    "resources": ["webhook/*"],
+    "effect": "deny",
     "actions": ["*"],
-    "effect": "deny"
+    "resources": ["webhook/*"]
   },
   {
-    "resources": ["code-reference-repository/*"],
+    "effect": "deny",
     "actions": ["*"],
-    "effect": "deny"
+    "resources": ["code-reference-repository/*"]
   },
   {
-    "resources": ["acct"],
+    "effect": "deny",
     "actions": ["*"],
-    "effect": "deny"
+    "resources": ["acct"]
   }
 ]
 ```
@@ -403,59 +405,59 @@ Here's a template:
 ```json
 [
   {
-    "resources": ["proj/*"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["proj/*"]
   },
   {
-    "resources": ["proj/*:env/*"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["proj/*:env/*"]
   },
   {
-    "resources": ["proj/*:metric/*"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["proj/*:metric/*"]
   },
   {
-    "resources": ["proj/*:env/*:flag/*"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["proj/*:env/*:flag/*"]
   },
   {
-    "resources": ["proj/*:env/*:segment/*"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["proj/*:env/*:segment/*"]
   },
   {
-    "resources": ["proj/*:env/*:destination/*"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["proj/*:env/*:destination/*"]
   },
   {
-    "resources": ["proj/*:env/*:user/*"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["proj/*:env/*:user/*"]
   },
   {
-    "resources": ["member/*:token/*"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["member/*:token/*"]
   },
   {
-    "resources": ["integration/*"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["integration/*"]
   },
   {
-    "resources": ["webhook/*"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["webhook/*"]
   },
   {
-    "resources": ["code-reference-repository/*"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["code-reference-repository/*"]
   }
 ]
 ```
@@ -479,80 +481,78 @@ Here's a template:
 <CodeTabItem value="json">
 
 ```json
- 
 [
-    {
-        "resources": ["proj/*"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["proj/*:env/*"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["proj/*:metric/*"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["member/*"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["member/*:token/*"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["role/*"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["proj/*:env/*:flag/*"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["integration/*"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["proj/*:env/*:segment/*"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["webhook/*"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["proj/*:env/*:user/*"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["code-reference-repository/*"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["proj/*:env/*:destination/*"],
-        "actions": ["*"],
-        "effect": "allow"
-    },
-    {
-        "resources": ["acct"],
-        "actions": ["*"],
-        "effect": "allow"
-    }
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:metric/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["member/*"]  
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["member/*:token/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["role/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/*:flag/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["integration/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/*:segment/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["webhook/*"]  
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/*:user/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["code-reference-repository/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/*:destination/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["acct"]
+  }
 ]
-
 ```
 
 </CodeTabItem>

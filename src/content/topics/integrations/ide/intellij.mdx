@@ -6,21 +6,21 @@ published: true
 ---
 
 <Callout intent="primary">
-  <CalloutTitle>The IntelliJ plugin is a Pro and Enterprise feature</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>The IntelliJ plugin is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
 
 The IntelliJ plugin is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 <Callout intent="info">
-  <CalloutTitle>This plugin is in beta</CalloutTitle>
-  <CalloutDescription>
+<CalloutTitle>This plugin is in beta</CalloutTitle>
+<CalloutDescription>
 
 Development work on this IDE plugin is ongoing. Elements of the plugin may change without notice.
 
-  </CalloutDescription>
+</CalloutDescription>
 </Callout>
 
 ## Overview
@@ -56,32 +56,36 @@ In order to install this plugin, you must have the following prerequisites:
 
  This policy allows `reader` access to all projects and `writer` access to the minimum set of fields the plugin is able to update:
 
- <CodeTabs
+<CodeTabs
   defaultValue="json"
   values={[
     { label: 'Example inline policy', value: 'json', },
   ]
- }>
+}>
 
- <CodeTabItem value="json">
+<CodeTabItem value="json">
 
- ```json
- [
-   {
-     "resources": ["proj/*"],
+```json
+[
+  {
+     "effect": "allow",
      "actions": ["viewProject"],
-     "effect": "allow"
-   },
-   {
-     "resources": ["proj/*:env/*:flag/*"],
-     "actions": ["updateOn",  "updateFallthrough", "updateOffVariation"],
-     "effect": "allow"
-   }
- ]
- ```
+     "resources": ["proj/*"]
+  },
+  {
+     "effect": "allow",
+     "actions": [
+   	"updateOn",
+   	"updateFallthrough",
+   	"updateOffVariation"
+    ],
+    "resources": ["proj/*:env/*:flag/*"]
+  }
+]
+```
 
- </CodeTabItem>
- </CodeTabs>
+</CodeTabItem>
+</CodeTabs>
 
 ## Installing the IntelliJ plugin
 

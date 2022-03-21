@@ -55,15 +55,13 @@ For example, to receive an event only when a change is made to one of your produ
 <CodeTabItem value="json">
 
 ```json
-{
-  "effect": "allow",
-  "resources": [
-    "proj/*:env/production:flag/*"
-  ],
-  "actions": [
-    "*"
-  ]
-}
+[
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/production:flag/*"]  
+  }
+]
 ```
 
 </CodeTabItem>

@@ -94,11 +94,13 @@ This policy denies all actions within the production environment:
 <CodeTabItem value="json">
 
 ```json
-{
-  "effect": "deny",
-  "resources": ["proj/*:env/production:flag/*"],
-  "actions": ["*"]
-}
+[
+  {
+    "effect": "deny",
+    "actions": ["*"],
+    "resources": ["proj/*:env/production:flag/*"]
+  }
+]
   ```
 
   </CodeTabItem>
@@ -120,11 +122,13 @@ This policy allows all actions across all environments except production:
 <CodeTabItem value="json">
 
 ```json
-{
-  "effect": "allow",
-  "notResources": ["proj/*:env/production:flag/*"],
-  "actions": ["*"]
-}
+[
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "notResources": ["proj/*:env/production:flag/*"]
+  }
+]
 ```
 
 </CodeTabItem>
@@ -292,8 +296,8 @@ To create a role with `reader` permissions across LaunchDarkly:
 [
   {
     "effect": "allow",
-    "resources": ["proj/*"],
-    "actions": ["viewProject"]
+    "actions": ["viewProject"],
+    "resources": ["proj/*"]
   }
 ]
 ```
@@ -331,8 +335,8 @@ To create a role with `writer` permissions across LaunchDarkly:
 [
   {
     "effect": "allow",
-    "resources": ["proj/*"],
-    "actions": ["*"]
+    "actions": ["*"],
+    "resources": ["proj/*"]
   }
 ]
 ```
@@ -373,33 +377,33 @@ To create a role with full administrator permissions across LaunchDarkly:
 [
   {
     "effect": "allow",
-    "resources": ["proj/*"],
-    "actions": ["*"]
+    "actions": ["*"],
+    "resources": ["proj/*"]
   },
   {
     "effect": "allow",
-    "resources": ["member/*"],
-    "actions": ["*"]
+    "actions": ["*"],
+    "resources": ["member/*"]
   },
   {
     "effect": "allow",
-    "resources": ["role/*"],
-    "actions": ["*"]
+    "actions": ["*"],
+    "resources": ["role/*"]
   },
   {
     "effect": "allow",
-    "resources": ["webhook/*"],
-    "actions": ["*"]
+    "actions": ["*"],
+    "resources": ["webhook/*"]
   },
   {
     "effect": "allow",
-    "resources": ["integration/*"],
-    "actions": ["*"]
+    "actions": ["*"],
+    "resources": ["integration/*"]
   },
   {
     "effect": "allow",
-    "resources": ["code-reference-repository/*"],
-    "actions": ["*"]
+    "actions": ["*"],
+    "resources": ["code-reference-repository/*"]
   }
 ]
 ```
@@ -442,8 +446,8 @@ To create a role with no access to any resources in LaunchDarkly:
 [
   {
     "effect": "deny",
-    "resources": ["*"],
-    "actions": ["*"]
+    "actions": ["*"],
+    "resources": ["*"]
   }
 ]
 ```
@@ -499,21 +503,23 @@ Here is the code sample to build a custom role with access resources with a `dev
 <CodeTabItem value="json">
 
 ```json
-{
-    "resources": ["proj/*:env/*:flag/*;dev"],
+[
+  {
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
-},
-{
-    "resources": ["proj/*:env/*;dev"],
+    "resources": ["proj/*:env/*:flag/*;dev"]
+  },
+  {
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
-},
-{
-    "resources": ["proj/*;dev"],
+    "resources": ["proj/*:env/*;dev"]
+  },
+  {
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
-},
+    "resources": ["proj/*;dev"]
+  }
+]
 ```
 
 </CodeTabItem>
@@ -543,10 +549,10 @@ Here is the code sample:
 ```json
 [
   {
-    "resources": ["proj/New-checkout-flow:env/*"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
-  },
+    "resources": ["proj/New-checkout-flow:env/*"]
+  }
 ]
 ```
 </CodeTabItem>
@@ -576,22 +582,14 @@ Here is the code sample:
 ```json
 [
   {
-    "notResources": [
-      "proj/New-checkout-flow"
-    ],
-    "actions": [
-      "*"
-    ],
-    "effect": "deny"
+    "effect": "deny",
+    "actions": ["*"],
+    "notResources": ["proj/New-checkout-flow"]
   },
   {
-    "resources": [
-      "proj/New-checkout-flow"
-    ],
-    "actions": [
-      "*"
-    ],
-    "effect": "allow"
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/New-checkout-flow"]
   }
 ]
 ```

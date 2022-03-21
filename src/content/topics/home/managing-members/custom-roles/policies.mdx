@@ -137,14 +137,14 @@ Here's the example policy:
 ```json
 [
   {
-    "notResources": ["proj/account-management"],
+    "effect": "deny",
     "actions": ["viewProject"],
-    "effect": "deny"
+    "notResources": ["proj/account-management"]
   },
   {
-    "resources": ["proj/*:env/*:flag/checkout-flow"],
+    "effect": "allow",
     "actions": ["*"],
-    "effect": "allow"
+    "resources": ["proj/*:env/*:flag/checkout-flow"]
   }
 ]
 ```
@@ -164,11 +164,13 @@ In the next example, the environment key `production` represents the account's P
 <CodeTabItem value="json">
 
 ```json
+[
   {
     "effect": "deny",
-    "resources": ["proj/*:env/production:flag/*"],
-    "actions": ["*"]
+    "actions": ["*"],
+    "resources": ["proj/*:env/production:flag/*"]
   }
+]
 ```
 
 </CodeTabItem>
@@ -188,11 +190,13 @@ Here's how:
 <CodeTabItem value="json">
 
 ```json
+[
   {
     "effect": "allow",
-    "notResources": ["proj/*:env/production:flag/*"],
-    "actions": ["*"]
+    "actions": ["*"],
+    "notResources": ["proj/*:env/production:flag/*"]
   }
+]
 ```
 
 </CodeTabItem>

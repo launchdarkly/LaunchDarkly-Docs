@@ -89,13 +89,9 @@ For example, if you only want to receive an event when a change is made to one o
 [
   {
     "effect": "allow",
-    "resources": [
-      "proj/*:env/your-test-environment:flag/*"
-    ],
-    "actions": [
-      "*"
-    ]
-	}
+    "actions": ["*"],
+    "resources": ["proj/*:env/your-test-environment:flag/*"]    
+  }
 ]
 ```
 

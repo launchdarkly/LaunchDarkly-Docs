@@ -45,15 +45,13 @@ For example, if you want to receive an event only when a change is made to one o
 <CodeTabItem value="json">
 
 ```json
-[{
-  "effect": "allow",
-  "resources": [
-    "proj/*:env/production:flag/*"
-  ],
-  "actions": [
-    "*"
-  ]
-}]
+[
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/production:flag/*"]
+  }
+]
 ```
 
 </CodeTabItem>

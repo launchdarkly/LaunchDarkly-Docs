@@ -141,15 +141,11 @@ Here is the code to paste and modify:
 <CodeTabItem value="json">
 
 ```json
- [
+[
   {
-    "resources": [
-      "proj/brian-test:env/*:flag/*;build-impact"
-    ],
-    "actions": [
-      "*"
-    ],
-    "effect": "allow"
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/brian-test:env/*:flag/*;build-impact"]
   }
 ]
 ```

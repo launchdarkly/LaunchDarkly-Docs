@@ -55,14 +55,18 @@ The following is an example policy which allows reader access to all projects an
 ```json
 [
   {
-    "resources": ["proj/*"],
+    "effect": "allow",
     "actions": ["viewProject"],
-    "effect": "allow"
+    "resources": ["proj/*"]
   },
   {
-    "resources": ["proj/*:env/*:flag/*"],
-    "actions": ["updateOn", "updateFallthrough", "updateOffVariation"],
-    "effect": "allow"
+    "effect": "allow",
+    "actions": [
+      "updateOn",
+      "updateFallthrough",
+      "updateOffVariation"
+      ],
+    "resources": ["proj/*:env/*:flag/*"]
   }
 ]
 ```
