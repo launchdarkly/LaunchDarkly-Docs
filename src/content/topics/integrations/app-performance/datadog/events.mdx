@@ -57,6 +57,16 @@ To set up the Datadog integration:
 4. Enter the Datadog API key into the **Datadog API key** field. You created this key in the [Prerequisites](#prerequisites) section.
 5. (Optional) Enter a Datadog host URL.
 6. (Optional) Check the **Hide member details** checkbox to exclude member names and emails from the events you send to Datadog.
+
+<Callout intent="info">
+<CalloutTitle>Member details will not be surfaced</CalloutTitle>
+<CalloutDescription>
+
+When **Hide member details** is checked, member-specific events will not be sent to Datadog.
+
+</CalloutDescription>
+</Callout>
+
 7. (Optional) Configure a custom policy to control which events LaunchDarkly sends to Datadog. To learn more, read [Filtering the events you send to Datadog](#filtering-the-events-you-send-to-datadog).
 
 ![The "Create Datadog integration" panel.](datadog-config.png)
