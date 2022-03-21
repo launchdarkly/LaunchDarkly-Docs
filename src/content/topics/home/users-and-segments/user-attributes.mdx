@@ -13,7 +13,7 @@ This topic explains what user attributes are, how they impact what you see in La
 
 Users are people, services, machines, or other resources that encounter feature flags in your app. Any identifier that uniquely corresponds to a target can be designated as a user.
 
-A more precise way to refer to one user is as a "user object." A user object is a collection of a user's built-in and custom user attributes, identified by a user key.
+A more precise way to refer to one user is as a "user object." A user object is a collection of a user's built-in and custom user attributes, identified by a unique user key. It includes all of the information about a user that LaunchDarkly can use in a feature flag evaluation.
 
 LaunchDarkly provides built-in attribute fields for you to fill in, but the SDK does not automatically collect any information. The exceptions to this are the `os` and `device` attributes used by mobile SDKs. If you want to target your users based on any other built-in attributes, you must supply their values.
 
@@ -21,9 +21,9 @@ All built-in user attributes are strings with the exception of `anonymous`:
 
 <Table>
   <TableHeader>
-    <TableHeadCell>Attribute Key</TableHeadCell>
-    <TableHeadCell>Attribute Example Value</TableHeadCell>
-    <TableHeadCell>Note</TableHeadCell>
+    <TableHeadCell>Attribute&nbsp;key</TableHeadCell>
+    <TableHeadCell>Attribute example value</TableHeadCell>
+    <TableHeadCell>Notes</TableHeadCell>
   </TableHeader>
   <TableBody>
     <TableRow>
@@ -96,7 +96,7 @@ All built-in user attributes are strings with the exception of `anonymous`:
         <code>anonymous</code>
       </TableCell>
       <TableCell>"true"</TableCell>
-      <TableCell>This can be a Boolean or string value. This attribute prevents the user from appearing on the dashboard. If the anonymous attribute is set to <em>any</em> value other than boolean <code>false</code> or null, LaunchDarkly treats the user as anonymous.</TableCell>
+      <TableCell>This can be a boolean or string value. This attribute prevents the user from appearing on the dashboard. If the anonymous attribute is set to <em>any</em> value other than boolean <code>false</code> or null, LaunchDarkly treats the user as anonymous.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -116,6 +116,15 @@ All built-in user attributes are strings with the exception of `anonymous`:
 </Table>
 
 The user key is the only mandatory user attribute. All other user attributes are optional.
+
+<Callout intent="info">
+<CalloutTitle>Creating searchable user keys</CalloutTitle>
+<CalloutDescription>
+
+You can structure your user keys so they are both searchable and unique. To do this, we suggest adding a searchable term to the beginning of the key, followed by a unique ID. For example, if you wanted to easily search users that encountered a specific service, you could structure they key as follows: `service_name:uuid`.
+
+</CalloutDescription>
+</Callout>
 
 You can view a user's attributes by clicking on the individual user from the [Users dashboard](https://app.launchdarkly.com/users).
 
@@ -182,16 +191,18 @@ The value of a custom attribute can be of the following types:
 * string
 * array
 
-If you set the value of a custom attribute to a JSON object, it won't appear on the **Users** dashboard.
+You should not set the value of a custom attribute to a JSON object. If you do, it won't appear on the **Users** dashboard.
 
-You can set custom attributes by configuring user objects within your SDK. To learn how, read [User configuration](/sdk/features/user-config).
+You can set custom attributes by configuring user objects within your SDK. If you create a custom attribute on the dashboard, you can add the attribute to flag targeting rules, but flag evaluations won't be able to use the attribute until you configure it within your SDK. To learn how, read [User configuration](/sdk/features/user-config).
+
+Custom attributes are environment-specific. They are not shared between environments or projects.
 
 Here is an example user object which contains custom user attributes:
 
 <CodeTabs
   defaultValue="json"
   values={[
-    { label: 'JSON', value: 'json', },
+    { label: 'User object with custom attributes', value: 'json', },
   ]
 }>
 <CodeTabItem value="json">
