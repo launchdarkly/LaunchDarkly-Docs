@@ -70,7 +70,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Link Checker
-        uses: lycheeverse/lychee-action@v1.2.1
+        uses: lycheeverse/lychee-action@v1.4.0
         with:
           fail: true
           args: --config .github/lychee.toml ./README.md './src/content/**/*.mdx'
