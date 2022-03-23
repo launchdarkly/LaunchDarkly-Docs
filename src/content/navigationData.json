@@ -1319,6 +1319,10 @@
           {
             "label": "Using mobile SDKs",
             "path": "/guides/platform-specific/mobile"
+          },
+          {
+            "label": "Unit testing with Jest",
+            "path": "/guides/platform-specific/unit-tests"
           }
         ]
       },
