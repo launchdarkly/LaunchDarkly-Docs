@@ -7,11 +7,11 @@ jobs:
     name: Smoke test production
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -20,7 +20,7 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Cypress run
         timeout-minutes: 5
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v3
         with:
           command-prefix: yarn dlx
           install-command: yarn install --immutable --immutable-cache
@@ -32,7 +32,7 @@ jobs:
           wait-on: 'https://docs.launchdarkly.com/home'
       - name: Archive Cypress screenshots
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: cypress-screenshots
           path: |
@@ -40,7 +40,7 @@ jobs:
           retention-days: 5
       - name: Notify slack
         if: failure()
-        uses: slackapi/slack-github-action@v1.17.0
+        uses: slackapi/slack-github-action@v1
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

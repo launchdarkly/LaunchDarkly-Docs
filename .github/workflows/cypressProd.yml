@@ -15,9 +15,9 @@ jobs:
         run: |
           if [ true = ${{ github.event_name != 'workflow_dispatch' }} ] ; then echo "::set-output name=name::production" ; else echo "::set-output name=name::staging" ; fi
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Cypress run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v3
         timeout-minutes: 45
         id: cypress
         continue-on-error: true
@@ -45,7 +45,7 @@ jobs:
         run: exit 1
       - name: Notify slack
         if: failure() && steps.check-env.outputs.name == 'production'
-        uses: slackapi/slack-github-action@v1.17.0
+        uses: slackapi/slack-github-action@v1
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

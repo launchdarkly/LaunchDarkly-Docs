@@ -13,7 +13,7 @@ jobs:
       url: https://docs.launchdarkly.com/
     concurrency: prod_deploys
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           # fetch entire history to get Last Edit date for topics
           fetch-depth: 0
@@ -57,7 +57,7 @@ jobs:
           echo "::debug::any modified: ${{ steps.changed-files-specific.outputs.any_modified }}"
           echo "::set-output name=deploy::${{ toJSON(steps.changed-files-specific.outputs) == '{}' || steps.changed-files-specific.outputs.any_modified == 'true' }}"
       - if: steps.build-status.outputs.deploy == 'true'
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '16.x'
       - if: steps.build-status.outputs.deploy == 'true'
@@ -87,7 +87,7 @@ jobs:
           AWS_HOSTNAME: 'docs.launchdarkly.com'
       - name: Notify slack
         if: failure()
-        uses: slackapi/slack-github-action@v1.17.0
+        uses: slackapi/slack-github-action@v1
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
@@ -130,9 +130,9 @@ jobs:
     name: Smoke test production
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Cypress run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v3
         timeout-minutes: 5
         id: cypress
         continue-on-error: true
@@ -155,7 +155,7 @@ jobs:
         run: exit 1
       - name: Notify slack
         if: failure()
-        uses: slackapi/slack-github-action@v1.17.0
+        uses: slackapi/slack-github-action@v1
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

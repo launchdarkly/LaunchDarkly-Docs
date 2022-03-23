@@ -17,7 +17,7 @@ jobs:
       group: staging-${{ github.event.pull_request.number }}
       cancel-in-progress: true
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           # fetch entire history to get Last Edit date for topics
           fetch-depth: 0
@@ -60,7 +60,7 @@ jobs:
           echo "::debug::only changed: ${{ steps.changed-files-specific.outputs.only_changed }}"
           echo "::debug::any modified: ${{ steps.changed-files-specific.outputs.any_modified }}"
           echo "::set-output name=deploy::${{ toJSON(steps.changed-files-specific.outputs) == '{}' || steps.changed-files-specific.outputs.any_modified == 'true' }}"
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         if: steps.build-status.outputs.deploy == 'true'
         with:
           node-version: '16.x'
@@ -73,7 +73,7 @@ jobs:
       - name: Caching Gatsby
         if: steps.build-status.outputs.deploy == 'true'
         id: gatsby-cache-build
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             public
@@ -109,9 +109,9 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Cypress run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v3
         timeout-minutes: 5
         id: cypress
         continue-on-error: true

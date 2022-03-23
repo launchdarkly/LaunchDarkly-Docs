@@ -10,11 +10,11 @@ jobs:
     name: Check external links
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Link Checker
-        uses: lycheeverse/lychee-action@v1.2.0
+        uses: lycheeverse/lychee-action@v1.4.1
         with:
           fail: true
           args: --config .github/lychee-all.toml README.md src/content/topics/**/*.mdx src/content/topics/**/**/*.mdx src/content/topics/**/**/**/*.mdx src/content/topics/**/**/**/**/*.mdx
         env:
-          GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
