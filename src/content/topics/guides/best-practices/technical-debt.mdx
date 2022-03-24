@@ -7,9 +7,7 @@ published: true
 
 ## Overview
 
-This guide provides ways to reduce and eliminate technical debt
-related to feature flags using LaunchDarkly. Like all debt, technical debt
-accumulates over time, but you can mitigate that debt over time if you put effective processes in place before you need them.
+This guide provides ways to reduce and eliminate technical debt related to feature flags using LaunchDarkly. Like all debt, technical debt accumulates over time, but you can mitigate that debt over time if you put effective processes in place before you need them.
 
 In this guide, we'll explore:
 
@@ -120,9 +118,11 @@ For example, you launch a new dashboard with three widgets. To manage them, crea
 
 ### Archiving and deleting flags
 
-LaunchDarkly provides the option to archive or delete a flag. The LaunchDarkly SDKs consider archived flags “gone.” When you archive a flag as opposed to deleting it, the flag's history remains in your LaunchDarkly project. If you delete it, all references to the flag, including the history, are deleted from LaunchDarkly.
+LaunchDarkly provides the option to archive or delete a flag. We recommend that you remove a flag from your code before you archive the flag from LaunchDarkly.
 
-Our flag archive process lets you confidently remove flags and help you reduce technical debt. When you select a flag to archive, the panel takes you through the archiving process.
+The LaunchDarkly SDKs consider archived flags “gone.” When you archive a flag as opposed to deleting it, the flag's history remains in your LaunchDarkly project. If you delete it, all references to the flag, including the history, are deleted from LaunchDarkly.
+
+Our flag archive process lets you confidently remove flags and help you reduce technical debt. When you select a flag to archive, the panel takes you through the archiving process. LaunchDarkly warns you if you try to archive a flag that is still serving variations, or that is detected in your code through code references.
 
 To learn more, read [Archiving and deleting flags](/home/code/flag-archive).
 
@@ -211,18 +211,15 @@ To learn more about integrating flag archiving behavior into your feature develo
 
 Archiving a flag removes it from the flag dashboard and your app's users no longer encounter it.
 
-Before you do this, you need to remove the flag from your
-codebase. Code references let you quickly find where in your source code feature
-flags are referenced. This simplifies the process of finding code to remove in
-projects and files.
+Before you do this, you need to remove the flag from your codebase. Code references let you quickly find where in your source code feature flags are referenced. This simplifies the process of finding code to remove in projects and files.
 
 To access code references:
 
 1. Navigate to the flag dashboard and find the flag you wish to remove.
 2. Click the flag's name to open the flag dashboard.
-3. Click into the "Code references" tab:
+3. Click the **Code references** tab:
 
-![The code references tab for a feature flag.](flag-code-references.png)
+![The "Code references" tab for a feature flag.](flag-code-references.png)
 
 To learn more, read [Code references](/home/code/code-references).
 
@@ -243,6 +240,7 @@ In this guide, you learned about:
 - The flag lifecycle
 - Processes and features within LaunchDarkly to help control flag debt
 
+For additional discussion on the lifecycle of a feature flag, read the ebook [Effective Feature Management](https://learn.launchdarkly.com/effective-feature-management/).
 
 <Callout intent="primary">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>

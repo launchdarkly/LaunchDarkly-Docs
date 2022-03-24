@@ -1609,7 +1609,7 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 <Details summary="Expand Apex code sample">
 
-Feature flag targeting and rollouts  are determined by the user you pass to your `variation` calls.
+Feature flag targeting and rollouts are determined by the user you pass to your `variation` calls.
 
 <CodeTabs
   defaultValue="java"
@@ -1673,49 +1673,53 @@ Optionally, you can configure the Apex SDK to treat some or all user attributes 
 
 In the Apex SDK there are two ways to define private attributes for the LaunchDarkly client:
 
-- When creating the `LDConfig` object, you can use `setAllAttributesPrivate(true)`. When you do this, all user attributes (except the key) for the user are redacted before the SDK sends the user to LaunchDarkly.
+- When creating the `LDConfig` object, you can use `setAllAttributesPrivate(true)`. When you do this, all user attributes, except the key, are redacted before the SDK sends the user to LaunchDarkly.
 
-Here's how:
+  Here's how:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Apex', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+  <CodeTabs
+    defaultValue="java"
+    values={[
+      { label: 'Apex', value: 'java', },
+    ]
+  }>
+  <CodeTabItem value="java">
 
-```java
-LDConfig config = new LDConfig.Builder()
-    .setAllAttributesPrivate(true)
-    .build();
-```
+  ```java
+  LDConfig config = new LDConfig.Builder()
+      .setAllAttributesPrivate(true)
+      .build();
+  ```
 
-</CodeTabItem>
-</CodeTabs>
+  </CodeTabItem>
+  </CodeTabs>
 
-* You can also define private attribute names on a per-user basis. For example:
+* You can also define private attribute names on a per-user basis.
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Apex', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+  Here's how:
 
-```java
-Set<String> privateAttributes = new Set<String>();
-privateAttributes.add('firstName');
+  <CodeTabs
+    defaultValue="java"
+    values={[
+      { label: 'Apex', value: 'java', },
+    ]
+  }>
+  <CodeTabItem value="java">
 
-LDUser user = new LDUser.Builder('aa0ceb')
-    .setFirstName('alice')
-    .setPrivateAttributeNames(privateAttributes)
-    .build();
-```
+  ```java
+  Set<String> privateAttributes = new Set<String>();
+  privateAttributes.add('firstName');
 
-</CodeTabItem>
-</CodeTabs>
+  LDUser user = new LDUser.Builder('aa0ceb')
+      .setFirstName('alice')
+      .setPrivateAttributeNames(privateAttributes)
+      .build();
+  ```
+
+  </CodeTabItem>
+  </CodeTabs>
+
+
 </Details>
 
 ### C/C++ (server-side)

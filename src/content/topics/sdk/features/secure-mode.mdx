@@ -11,7 +11,7 @@ This topic explains how to use the secure mode feature to safely evaluate featur
 
 ## Using secure mode
 
-Secure mode ensures that users' feature flag evaluations are kept private in web browser environments, and that one user cannot inspect the variations for another user. On an insecure device, a malicious user could use a user key to identify what flag values a user receives by analyzing the results of multiple flag evaluations. Secure mode prevents you from doing an evaluation for a user key that hasn't been signed on the back end.
+Secure mode ensures that users' feature flag evaluations are kept private in web browser environments, and that one user cannot inspect the variations for another user. On an insecure device, a malicious user could use a user key to identify what flag values a user receives by analyzing the results of multiple flag evaluations. Secure mode prevents you from doing an evaluation for a user key that hasn't been signed on the backend.
 
 Secure mode works by having you configure your JavaScript SDK to include a server-generated HMAC SHA256 hash of your user key. This hash is signed with the SDK key for your environment.
 

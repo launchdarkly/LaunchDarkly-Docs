@@ -13,7 +13,7 @@ This topic explains how to run feature flags from a file when you're using a ser
 <CalloutTitle>Do not use file-based flag values in production environments</CalloutTitle>
 <CalloutDescription>
 
- Always configure production environments to receive flag updates from LaunchDarkly. Only use file-based flags in testing and pre-production environments. We do not support using flags from files in a production environment.
+ Always configure production environments to receive flag updates from LaunchDarkly. Only use file-based flags in testing and pre-production environments, or in local development. We do not support using flags from files in a production environment.
 
  If you use flags from files in a production environment, you need to propagate flag changes to the file whenever one of your flags is updated in the LaunchDarkly UI.
 

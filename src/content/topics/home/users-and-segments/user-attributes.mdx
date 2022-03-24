@@ -132,6 +132,8 @@ You can view a user's attributes by clicking on the individual user from the [Us
 
 By default, all of the attributes in your user objects are sent to LaunchDarkly. This data lets LaunchDarkly calculate the current flag settings for users and powers the autocomplete functionality throughout the LaunchDarkly UI.
 
+You can change the value of an attribute for a user object at any point. To learn more, read [Identifying and changing users](/sdk/features/identify).
+
 You can access user pages from the **Users** dashboard. To learn how, read [The Users dashboard](/home/users/users-dashboard).
 
 ![A user's page.](users-details.png)
@@ -222,3 +224,5 @@ Here is an example user object which contains custom user attributes:
 
 </CodeTabItem>
 </CodeTabs>
+
+There is no limit to the number of custom attributes. However, adding custom attributes does increase the size of the user object. JavaScript-based client-side SDKs send the user object during initialization, so a large number of custom attributes may mean it takes longer for the SDK to finish initializing. To learn more, read [Initializing the client](/sdk/client-side/javascript#initializing-the-client).

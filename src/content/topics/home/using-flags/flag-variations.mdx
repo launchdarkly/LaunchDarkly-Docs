@@ -9,6 +9,8 @@ published: true
 
 This topic explains how to use a flag's **Variations** tab to create and edit your feature flag's variations and outlines the different types of flag variations.
 
+Flag variations are available across all environments in a project. Flag targeting is environment-specific. For example, if you add a new flag variation, it is immediately available in all environments in your project. If you change the default targeting rule to serve a different variation, the targeting change only applies to the current environment. To learn more, read [Configuring the same flag in different environments](/home/getting-started/feature-flags#configuring-the-same-flag-in-different-environments).
+
 ## Understanding flag types
 
 LaunchDarkly supports boolean and multivariate flags. On the **Variations** tab, you can add, edit, or delete variations of existing flags:
@@ -36,6 +38,8 @@ When you add, edit, or delete a feature flag's variations, the change impacts en
 <CalloutDescription>
 
 When you delete a variation, custom rules that return that variation are also deleted. If a custom rule has a percentage rollout, the rollout for that variation is set to zero. If the default rule returns the deleted variation, it will be changed to return the `off` variation instead.
+
+LaunchDarkly allows you to delete variations that are designated to be served when targeting is off. Make sure that your application is able to handle a null value when targeting is off in case this happens. 
 
 </CalloutDescription>
 </Callout>

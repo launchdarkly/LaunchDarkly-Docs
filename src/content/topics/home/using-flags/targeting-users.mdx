@@ -116,6 +116,8 @@ You can add multiple conditions to a rule. Here is how rules handle multiple con
 
 LaunchDarkly allows you to target users based on arbitrary custom attributes, which means you can control who sees features based on any criteria that you send to us.
 
+For instance, you might want to target users based on plan, group, role, location, or organization. Using these attributes, you could show some features to users on your regular plan, and additional features to users on your premium plan. Or you could roll out a new feature to 30% of organizations, rather than 30% of users.
+
 <Callout intent="alert">
 <CalloutTitle>Custom attributes and built-in attributes</CalloutTitle>
 <CalloutDescription>
@@ -265,7 +267,7 @@ The secondary attribute is a special attribute. The SDKs incorporate this attrib
 
 ### Example: custom attribute targeting
 
-In this example, you will turn on a feature for a group of external beta testers. First, ensure that your back end sends a custom attribute called `groups` that identifies users that should be in the `beta_testers` group.
+In this example, you will turn on a feature for a group of external beta testers. First, ensure that your backend sends a custom attribute called `groups` that identifies users that should be in the `beta_testers` group.
 
 Here's how:
 
@@ -436,11 +438,20 @@ If you do not want to target users based on user key or any custom attributes, y
 
 ## Setting the Off variation
 
-When the toggle is turned off, LaunchDarkly will serve the **Off** variation for your feature flag. For boolean flags, the **Off** variation is set to `false` by default. For multivariate flags, you select one of your custom variations. You can customize the **Off** variation for both boolean and multivariate flags in the **Targeting** tab.
+When the toggle is turned off, LaunchDarkly will serve the **Off** variation for your feature flag. This is sometimes referred to as the fallback value. For boolean flags, the **Off** variation is set to `false` by default. For multivariate flags, you select one of your custom variations. You can customize the **Off** variation for both boolean and multivariate flags in the **Targeting** tab.
 
 If you do not specify an **Off** variation, then LaunchDarkly will return the fallback variation defined in your code.
 
-## Evaluation order
+<Callout intent="info">
+<CalloutTitle>Setting a fallthrough value in your SDK call</CalloutTitle>
+<CalloutDescription>
+
+Regardless of how you set up targeting in your flag dashboard, each time you evaluate a flag from the SDK, you must include a fallthrough value as one of the parameters. This fallthrough value is the value served to the user if the SDK cannot connect to LaunchDarkly. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+
+</CalloutDescription>
+</Callout>
+
+# Evaluation order
 
 The **Targeting** tab evaluates rules top-down. Imagine a highway with exits along the way. All of your users will start at the top and then gradually exit the highway when they match a rule.
 

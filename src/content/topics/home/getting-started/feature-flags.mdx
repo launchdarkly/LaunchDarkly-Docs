@@ -7,7 +7,7 @@ published: true
 
 ## Overview
 
-This topic explains how to create feature flags in LaunchDarkly. You can use feature flags in any aspect of your application, from the customer-facing user interface (UI) to the back end.
+This topic explains how to create feature flags in LaunchDarkly. You can use feature flags in any aspect of your application, from the customer-facing user interface (UI) to the backend.
 
 The procedures in this topic assume that you have already configured a LaunchDarkly SDK and are ready to use the LaunchDarkly UI. For an example tutorial of how to configure a LaunchDarkly SDK, read [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag).
 
@@ -37,6 +37,16 @@ To create a feature flag:
 
 3. Enter a unique, human-readable **Name**.
 4. Enter a unique flag **Key**. You'll use this key to reference the flag in your code. A suggested key auto-populates from the name you enter, but you can customize it if you wish.
+
+<Callout intent="alert">
+<CalloutTitle>Flag keys are permanent after you save them</CalloutTitle>
+<CalloutDescription>
+
+After you save the flag key, you cannot modify it. You can change a flag's name, however, whenever you want.
+
+</CalloutDescription>
+</Callout>
+
 5. (Optional) Enter a **Description** of the flag. A brief, human-readable description helps your account members understand what the flag is for.
 6. (Optional) Click into the **Tags** menu and choose one or more tags for your flag.
 
