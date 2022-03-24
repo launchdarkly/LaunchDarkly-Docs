@@ -9,12 +9,10 @@ jobs:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_TOKEN }}
-          # fetch entire history to get Last Edit date for topics
           fetch-depth: 0
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-      - run: |
+      - name: Pull changes from public repo
+        id: pull
+        run: |
           git config --global user.email "launchdarklyreleasebot@launchdarkly.com"
           git config --global user.name "LaunchDarklyReleaseBot"
           git remote add public 'https://${{ secrets.GH_USER }}:${{ secrets.GH_TOKEN }}@github.com/launchdarkly/LaunchDarkly-Docs.git'
@@ -23,10 +21,23 @@ jobs:
           if git pull public main --rebase; then
             git pull --rebase && git push
             echo "Successfully merged and pushed public changes to private repo. Will sync private to public now."
+            echo "::set-output name=has_conflict::false"
           else
-            echo "Conflict detected. TODO: Using the GH cli, create a PR containing the conflicts to be resolved in private repo."
-            exit 1
+            echo "Conflict detected"
+            echo "::set-output name=has_conflict::true"
           fi
+      - name: Open PR
+        if: steps.pull.outputs.has_conflict == 'true'
+        run: |
+          git checkout -b sync-conflict-${{ github.sha }}
+          git commit -am "Adding all with merge conflicts."
+          git push -u origin sync-conflict-${{ github.sha }}
+          gh pr create -t "CONFLICT: Resolve public repo sync conflict" -b "Syncing changes from public repo [failed](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}). Please resolve conflicts."
+          echo "::error::Conflict detected. Please review PR."
+          exit 1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
       - name: git-sync
         uses: wei/git-sync@v3
         with:
