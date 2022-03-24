@@ -1,7 +1,7 @@
 ---
 path: /home/members/role-concepts
 title: Custom role concepts
-description: This topic explains core concepts that will help you use custom roles.
+description: This topic is an overview of concepts that are important to creating custom roles.
 published: true
 ---
 
@@ -9,10 +9,11 @@ published: true
 
 This topic is an overview of concepts that are important to creating custom roles. You can create powerful custom roles by using LaunchDarkly's built-in advanced editor.
 
-To write your own custom role, you'll need to understand four key concepts:
+To write your own custom role, you'll need to understand the following key concepts:
 
 * [Resources](#resources)
 * [Actions](#actions)
+* [Roles](#roles)
 * [Policies](#policies)
 * [Tags](#tags)
 
@@ -47,6 +48,8 @@ The default permission level of any account member in LaunchDarkly is the built-
 
 To give an account member the ability to modify resources in LaunchDarkly, you must assign them a different role: `Writer`, `Owner / Admin`, or a custom role.
 
+To prevent an account member from accessing any part of the LaunchDarkly platform, you can assign them the `No access` role. This role is for members who shouldn't be able to see or modify anything until you give them access to specific areas of LaunchDarkly.
+
 To learn more about specific resources, read [Using resources](/home/members/role-resources).
 
 ## Actions
@@ -55,19 +58,28 @@ Each resource has a set of actions associated with it. By granting a custom role
 
 To learn more about specific actions, read [Using actions](/home/members/role-actions).
 
+## Roles
+
+When you create a role, you specify the role policy using either the **Resource finder** or the **Advanced editor**.
+
+There are two ways to approach writing your own custom roles:
+
+- Allow view-only access by default, then strategically add and deny additional actions as needed. A custom role that has no role policy specified, and the **By default, members can view all LaunchDarkly content** box checked, allows view access to all resources. You must explicitly grant access to a resource for a member to edit it.
+- Deny all actions by default, then strategically allow actions as needed. A custom role that has no role policy specified, and the **By default, members can view all LaunchDarkly content** box unchecked, denies all access to all resources. You must explicitly grant access to a resource for a member to view or edit it.
+
+For additional discussion on how to decide between these approaches, read the [Creating custom roles](guides/best-practices/custom-roles) guide.
+
 ### Understanding the minimum required actions for a role
 
-In most cases, you must explicitly allow each action you wish the role recipient to be able to do. The default state of a new custom role is to `deny` every possible action, except two.
+As a default state, a blank custom role allows only view access to all resources. You must explicitly grant access to a resource for a member to edit it.
 
 The two exceptions are:
 - The `viewProject` action: The ability to view and change resources is configured at the `project` resource level with the `viewProject` action.
 - The `createAccessToken` action: The ability to create personal access tokens is configured at the `members` resource level with the `createAccessToken` action. The ability to create service access tokens is configured at the top resource level with the `createAccessToken` action.
 
-You do not need to allow a custom role holder to see projects in your LaunchDarkly account. You can deny them viewing access to any project, but by default all roles can view all projects as soon as they are created.
-
 To learn more about configuring the `viewProject` action, read [Creating private projects with custom roles](/home/organize/private-projects).
 
-Viewing permissions are not the same as permissions that let a user modify the things they can see. Being able to view a project does not mean a role recipient can take action on that project. A role recipient cannot take any actions on the project unless you explicitly permit them.
+Viewing permissions are not the same as permissions that let a user modify the resources they can view. For example, being able to view a project does not mean a role recipient can take action on that project. A role recipient cannot take any actions on the project unless you explicitly permit them.
 
 ## Policies
 
@@ -88,9 +100,9 @@ Policies are represented as JSON arrays. They require you to use project and env
 
 Each element in the array is a statement represented as a JSON object with three attributes:
 
-* `resources` / `notResources`
 * `effect`
 * `actions` / `notActions`
+* `resources` / `notResources`
 
 The example below shows a policy that allows the role recipient to perform all actions on a flag called `exampleFlag`:
 
