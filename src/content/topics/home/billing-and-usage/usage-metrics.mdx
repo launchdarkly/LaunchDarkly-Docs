@@ -11,15 +11,17 @@ This topic explains how to understand the billing and usage metrics visualized i
 
 ## Understanding how LaunchDarkly calculates Monthly Active Users (MAU)
 
-LaunchDarkly calculates client-side MAUs as unique keys that evaluate, initialize, or identify any flag from a client SDK. The amount of these keys is designated per account. We count unique user keys that are evaluated by a flag, so even if a single user account evaluates flags from multiple device types or over multiple sessions, we count that user as one MAU over the 30-day period.
+LaunchDarkly calculates client-side MAUs as unique keys that evaluate, initialize, or identify any flag from a client-side SDK over a rolling 30-day period. The amount of these keys is designated per account.
 
-You can see this data visualized in **Account settings** > **Usage**.
+Your usage is based on the total number of unique user keys across your entire account, regardless of anonymity or whether the user is currently visible on the **Users** dashboard. We count unique user keys that are evaluated by a flag, so even if a single user account evaluates flags from multiple device types or over multiple sessions, we count that user as one MAU over the 30-day period.
 
-LaunchDarkly usage charts also show you the number of unique keys per project and per environment. Your usage is based on the total number of unique user keys across your entire account. The Monthly Active Users chart shows the total number of unique keys over the previous 30-day rolling period.
+You can see this data visualized in **Account settings** on the **Usage** tab. The Client MAUs chart shows the total number of unique keys over the previous 30-day rolling period. LaunchDarkly usage charts also show you the number of unique keys per project and per environment.
 
 Here is an example **Usage** tab:
 
 ![The "Usage" tab.](settings-usage.png)
+
+The users in your MAU count are automatically removed after 30 days of inactivity.
 
 Project MAU and account MAU are not always the same number. MAU charts count unique users for a specific Project or Environment. Users can be active in multiple projects or environments, contributing to the unique user counts in each context.
 
@@ -29,7 +31,7 @@ Project MAU and account MAU are not always the same number. MAU charts count uni
 
 For example, LaunchDarkly may be seeing 10K unique user keys for Project A and 10K for Project B, but if there is any overlap in the user base your account may be serving 13k unique user keys.
 
-A detailed breakdown of the user key allocation follows:
+A detailed breakdown of the example user key allocation follows:
 
 * Total keys in Project A: 10k
 * Total keys in Project B: 10k
@@ -46,7 +48,7 @@ The keys that exist in only one project (3k in each project, which adds up to 6k
 
 Your LaunchDarkly plan includes a client-side MAU limit. We understand that a company's user base can grow unexpectedly over time. We never stop or throttle service if you exceed your MAU limit, nor do we bill you for MAU overages. All users in your environment will continue to evaluate feature flags correctly, regardless of your MAU.
 
-If you exceed your client-side MAU limit, new users and changes to existing users, such as new attributes, do not appear in the dashboard. The user information on the dashboard has a Time to Live (TTL) of 30 days. No users receive updates while you are over your MAU limit, so all of your users become stale after 30 days and will be removed until you are back under your contracted MAU limit.
+If you exceed your client-side MAU limit, new users and changes to existing users, such as new attributes, will not appear in the dashboard. The user information on the dashboard has a Time to Live (TTL) of 30 days. No users in the dashboard receive updates while you are over your MAU limit, so all of your users become stale after 30 days and will be removed until you are back under your contracted MAU limit.
 
 If you have configured LaunchDarkly to use anonymous users, that can impact your MAU as well. To learn more, read [Understanding how anonymous users contribute to MAU](/home/users/anonymous-users#understanding-how-anonymous-users-contribute-to-mau).
 

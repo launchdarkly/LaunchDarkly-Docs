@@ -39,7 +39,7 @@ Here is an screenshot of the **Users** dashboard:
 
 ![The "Users" dashboard.](users.png)
 
-From the dashboard, you can filter users by standard or custom attributes. You can also sort the list to identify the oldest or most recent users in your LaunchDarkly account. By default, the most recently active users appear first. Click the toggle arrow to sort the "Last seen" column to sort the dashboard by least recently active users.
+From the dashboard, you can filter users by standard or custom attributes. You can also sort the list to identify the oldest or most recent users in your LaunchDarkly account. By default, the most recently active users appear first. Click the toggle arrow on the "Last seen" column to sort the dashboard by least recently active users.
 
 To learn more about how the **Users** dashboard is populated, and how you might exceed the 100,000,000 user limit, read [Anonymous users](/home/users/anonymous-users).
 
@@ -91,20 +91,20 @@ To modify a feature flag the user sees:
     ![The "Flag settings" section with different flag variations called out.](users-details-targeting-callout.png)
 
 3. Click the **X** next to the flag to remove the custom variation setting.
-4. Click **Save Settings** to save your changes.
+4. Click **Save changes** to save your changes.
 
 
 ## User storage
 
-The **Users** dashboard shows only cached user information. Users appear on the dashboard for 30 days from creation. If a flag sends a `identify` or `flag evaluation` event for a user less than 30 days after it sent the previous event, the user will remain on the dashboard.
+The **Users** dashboard shows only cached user information. Users appear on the dashboard for 30 days from creation. If a flag sends an `identify` or `flag evaluation` event for a user less than 30 days after it sent the previous event, the user will remain on the dashboard.
 
 If a feature flag does not send an `identify` or `flag evaluation` event for a user within 30 days of creation, they age out of the system and their information no longer appears on the dashboard. Those users reappear on the dashboard when a flag sends an `identify` or `flag evaluation` event again, if your account has not reached the maximum number of users.
 
 If you want to keep users on the dashboard for longer than 30 days between flags sending `identify` or `flag evaluation` events, you can manually call `identify` for all of the users that you wish to retain. To learn how to do this in your SDK, read [Identifying and changing users](/sdk/features/identify).
 
-Accounts are limited to 100,000,000 users. If you reach the users limit, flag evaluations will still work for new users, but they won't appear on the dashboard until stale users age out of the 30-day user cache and your users drop below 100,000,000. To learn more, read [Understanding client-side MAU limits](/home/billing/usage-metrics#understanding-client-side-mau-limits).
+Accounts are limited to 100,000,000 users. If you reach the users limit, flag evaluations will still work for new users, but those users won't appear on the dashboard until stale users age out of the 30-day user cache and your users drop below 100,000,000. To learn more, read [Understanding client-side MAU limits](/home/billing/usage-metrics#understanding-client-side-mau-limits).
 
-If you want to increase your client-side Monthly Active Users (MAU) limit to see more users from your client-side SDKs on the dashboard, contact [Support](https://support.launchdarkly.com/hc/en-us/requests/new).
+If you want to increase your client-side Monthly Active Users (MAU) limit and include more users from your client-side SDKs on the dashboard, contact [Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 
 ## Scheduling removal dates for user targeting
 

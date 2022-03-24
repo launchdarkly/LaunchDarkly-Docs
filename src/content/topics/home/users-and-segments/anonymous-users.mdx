@@ -1,7 +1,7 @@
 ---
 path: /home/users/anonymous-users
 title: Anonymous users
-description: This topic explains what anonymous users are and how they contribute to your Monthly Active Users (MAU).
+description: This topic explains what anonymous users are, how their information is handled in LaunchDarkly, and how they contribute to your Monthly Active Users (MAU) count.
 published: true
 ---
 
@@ -9,17 +9,21 @@ published: true
 
 This topic explains what anonymous users are, how their information is handled in LaunchDarkly, and how they contribute to your Monthly Active Users (MAU) count.
 
-The most common reason to designate anonymous users is to prevent unauthenticated users from diluting useful data in the **Users** dashboard. Anonymous users work just like regular users, except that they don't appear on your **Users** dashboard in LaunchDarkly. You can't search for anonymous users on your **Users** dashboard, and you can't search or autocomplete by anonymous user keys. Anonymous users still count toward your MAU limit.
+You can designate any user as an anonymous user. Anonymous users work just like regular users, except that they don't appear on your **Users** dashboard in LaunchDarkly. You can't search for anonymous users on your **Users** dashboard, and you can't search or autocomplete by anonymous user keys. Anonymous users still count toward your MAU limit.
 
-You can designate any user as an anonymous user. If you don't want anonymous users to count toward your MAU, you can assign all anonymous users the same shared user key. If you don't specify a key attribute, the SDK generates a random user key for them.
+The most common reason to designate anonymous users is to prevent unauthenticated users from diluting useful data in the **Users** dashboard.
+
+Anonymous users may have different key attributes, or they may use a shared user key.
+
+To use different key attributes, set the key attribute to a value that is unique for each of your anonymous users. You can also have the client-side SDKs generate a random user key and set a unique value for you. To learn more, read [Tracking anonymous users with unique keys](#tracking-anonymous-users-with-unique-keys).
+
+To use a shared user key, set the key attribute to the same value for each of your anonymous users. Because the user key is the same, all anonymous users will count as a single user toward your MAU limit. This means you cannot target subsets of your anonymous users for Experimentation, and if you want to target subsets of your anonymous users for a gradual rollout, you will need to target them using other attributes. To learn more, read [Tracking anonymous users with a shared key](#tracking-anonymous-users-with-a-shared-key).
 
 <Callout intent="info">
 <CalloutTitle>Ensuring user privacy</CalloutTitle>
 <CalloutDescription>
 
-You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user attributes instead.<br/> <br/>
-
-To learn more, read [Private user attributes](/home/managing-users/user-attributes).
+You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user attributes instead. To learn more, read [Creating private user attributes](/home/users/attributes#creating-private-user-attributes).
 
 </CalloutDescription>
 </Callout>
@@ -33,11 +37,9 @@ Anonymous users also contribute to MAU. LaunchDarkly builds user objects in two 
 * With a unique key that you provide and that persists between pages
 * With a static key that is shared among all anonymous users
 
-Optionally, if you use the JavaScript or React SDKs and want to use a unique key, you can defer key generation onto the SDK. This lets the SDK generate and persist a key in browser storage between pages.
-
 All users are identified by their unique key, including anonymous users. If you provide the anonymous user key yourself, you must ensure that the user uses that key on each subsequent visit.
 
-A common strategy to make sure that you're using the same anonymous user key each time is to store the unique identifier in a cookie or local storage. Because this is such a common strategy, we've implemented it directly into the SDK. If you build a user object and omit the key completely, the SDK will generate a unique identifier for the user. The SDK persists this unique identifier in local storage. Each subsequent user object that omits the user key uses that saved unique identifier.
+A common strategy to make sure that you're using the same anonymous user key each time is to store the unique identifier in a cookie or local storage. Because this is such a common strategy, we've implemented it directly into the SDK. If you use a client-side SDK and want to use a unique key for your anonymous users, you can defer key generation onto the SDK. To do this, build a user object and omit the key completely. The SDK generates a unique identifier for the user and persists this unique identifier in local storage. Each subsequent user object that omits the user key uses that saved unique identifier. To learn more, read [User configuration](/sdk/features/user-config).
 
 A common challenge from using cookies or local storage is that they are optional. End users can turn them off. They are also often not observed by bots and site crawlers. To mitigate this challenge, use a single key for all anonymous users.
 
@@ -45,13 +47,13 @@ To learn more about MAU, read [Account usage metrics](/home/billing/usage-metric
 
 ## Tracking anonymous users with a shared key
 
-You do not always need to uniquely identify your anonymous users. Instead, you can use a shared key. You can still target users by their attributes, but you cannot target specific user segments unless they have unique keys.
+You do not always need to uniquely identify your anonymous users. Instead, you can use a shared key.
 
-If you are targeting anonymous users in percentage rollouts, you may want to assign variations by an attribute other than the shared key. Otherwise, all anonymous users are served the same variation. To learn more about variation assignments by attribute, read [Percentage rollout logic](/home/flags/targeting-users#percentage-rollout-logic).
+If you are targeting anonymous users in percentage rollouts, you must assign variations by an attribute other than the shared key. Otherwise, all anonymous users are served the same variation. To learn more about variation assignments by attribute, read [Percentage rollout logic](/home/flags/targeting-users#percentage-rollout-logic).
 
-Using a shared user key for all anonymous users instead of unique keys helps reduce your client-side MAU usage.
+You cannot target anonymous users with a shared key in Experimentation. All users with the same key receive the same variation, and you cannot target specific user segments unless they have unique keys. To learn more about audience allocation for an experiment, read [Allocating experiment populations](/home/experimentation/allocation).
 
-To learn more about user limits, read [Understanding the Users dashboard](/home/users/users-dashboard#understanding-the-users-dashboard).
+Using a shared user key for all anonymous users instead of unique keys helps reduce your client-side MAU usage. To learn more about user limits, read [Understanding the Users dashboard](/home/users/users-dashboard#understanding-the-users-dashboard).
 
 ## Tracking anonymous users with unique keys
 
@@ -89,7 +91,7 @@ This section explains aliasing users, which is an optional feature in LaunchDark
 </CalloutDescription>
 </Callout>
 
-In some cases, one person can be represented by multiple users in LaunchDarkly. If LaunchDarkly registers a person as an anonymous user, and that person later logs in to the application, LaunchDarkly registers them again as a logged-in user. This one person is now represented by two unique user keys.
+In some cases, one person can be represented by multiple users in LaunchDarkly. If LaunchDarkly registers a person as an anonymous user, and that person later logs in to the application, LaunchDarkly registers them again as a logged-in user. This one person is now represented by two unique user keys. Both users are counted toward your MAU limit.
 
 You can associate these two user keys by configuring your SDK to send `alias` events. `Alias` events connect two user keys and register them as one event-sending entity.
 
