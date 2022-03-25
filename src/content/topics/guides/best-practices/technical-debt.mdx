@@ -64,11 +64,13 @@ Every feature should have a flag, but if you don't regularly archive flags, you 
 
 Cluttered code is harder to maintain and test. Unnecessary code remains because nobody remembers why it existed, and there is a fear that things will break if it is removed. Failure to remove flags leads to cluttered code.
 
-Not only do you want to remove the references to the flag in your code, but you also don’t want to send evaluation settings for flags you don’t need. When you use features like Data Export to track the impact of your rollouts, your database may be overwhelmed with unnecessary event data. You don't want to transfer and store data on flags that should have been archived six months ago.
+Not only do you want to remove the references to the flag in your code, but you also don’t want to send evaluation settings for flags you don’t need. When you use features like Data Export to track the impact of your rollouts, your database may be overwhelmed with unnecessary event data. You don't want to transfer and store data on flags that should have been archived three months ago.
 
 Failure to remove flags clutters your flag dashboard, as well as your code. You can’t quickly find the flag you need to toggle. This may seem like a minor inconvenience, but if you need to quickly toggle a flag off, having to scroll through hundreds of flags adds time. But cluttered code and dashboards aren’t the only challenges.
 
-You also run the risk of an old flag evaluating to a state that is invalid or undesirable.  When you’re rolling out a new change such as an updated UI, it is common to keep the default version to the current UI  until you have confidence in the new one. Once 100% of users have the new UI, the flag has reached the end of its lifecycle and should be archived. Failure to do this runs the risk of falling back to the undesired old UI if a flag gets turned off or an SDK failure results in using the fallback value. Speaking of fallback values, test the fallback values of permanent flags periodically, to ensure they are up to date and delivering valid states.
+You also run the risk of an old flag evaluating to a state that is invalid or undesirable. When you’re rolling out a new change such as an updated user interface (UI), it is common to keep the default version to the current UI until you have confidence in the new one. Once the flag is serving 100% of users new UI, the flag has reached the end of its lifecycle and should be archived. Failure to do this runs the risk of falling back to the undesired old UI if a flag gets turned off or an SDK failure results in using the fallback value. 
+
+You should also test the fallback values of permanent flags periodically, to ensure they are up to date and delivering valid states. To learn more about fallback values, read [Changing default flag variations](/home/flags/variations#changing-default-flag-variations).
 
 ## Understanding the flag's lifecycle
 
@@ -79,15 +81,48 @@ The flag dashboard provides the status of every flag and when it was last evalua
 - **Launched**: All users have been receiving one variation of the flag for seven days or more.
 - **Inactive**: The flag has not been requested for seven days or more.
 
-To learn more about flag statuses, read [The dashboard](/home/organize/dashboard).
+To learn more, read [Flag statuses](/home/code/flag-status).
 
-Do not archive flags solely because of their status. For example, consider this flag:
+Temporary flags with an "Inactive" status should likely be archived. The "Inactive" status indicates that the flag isn't being evaluated anymore. This may mean that you're no longer running the code which evaluates the flag, or that you have already removed the flag from the code.
 
-![A one-year-old-flag with status of 'never requested'](../../../tech-debt-never-requested.png)
+Temporary flags with a "Launched" status may also be ready to archive. The "Launched" status indicates that any gradual rollout of a new feature has ended, and it's now live for all users. The flag is still evaluated every time the code is run, but since it's returning the same variation for everyone, it's no longer needed. You should now either archive flag, or turn it into a permanent "kill switch," which is an easy way to disable the feature.
 
-This flag’s status is **“Never requested,”** but it was added over a year ago. Maybe it was created on accident, maybe the feature never shipped, perhaps it shipped with a different flag. Whatever the reason, no one is using the flag. You can archive it.
+For example, consider this flag:
 
-If you don't archive flags that no one is using, they can become a form of technical debt.
+![A one-year-old-flag with status of "Never requested."](tech-debt-never-requested.png)
+
+This flag’s status is "Never requested," but it was added over a year ago. Maybe it was created on accident, maybe the feature never shipped, perhaps it shipped with a different flag. Whatever the reason, no one is using the flag. You can archive it.
+
+If you don't archive flags that no one is using, they can become a form of technical debt. However, do not archive flags solely because of their status. Be sure it is no longer in use.
+
+### Archiving and deleting flags
+
+LaunchDarkly provides the options to archive and delete flags. We strongly recommend archiving flags rather than deleting them, because an archived flag's history remains in your LaunchDarkly project. To learn how to archive flags, read [Archiving and deleting flags](/home/code/flag-archive).
+
+<Callout intent="warning">
+<CalloutTitle>Archive flags instead of deleting them whenever possible</CalloutTitle>
+<CalloutDescription>
+
+If you delete a flag, LaunchDarkly deletes all references to the flag, including its history. Deleting a flag also means a member could make a new flag with the same key as the old deleted flag, creating the possibility that your code could begin referencing the wrong flag. This can have serious and unpredictable effects on your app performance.
+
+</CalloutDescription>
+</Callout>
+
+LaunchDarkly SDKs consider archived flags "gone." When you select a flag to archive, the panel takes you through the archiving process. LaunchDarkly warns you if you try to archive a flag that is still serving variations, or that is detected in your code through code references.
+
+A healthy project has a high ratio of archived to unarchived flags. A general guideline is that any project over three months old should have archived at least one flag. If it has not, you may want to examine your archival practices. An appropriate time-to-archive varies depending on your business needs, but a general best practice is to archive flags quarterly. This means a healthy time-to-archive is in the 90-120 day range.
+
+Generally, a project should have fewer deleted flags than archived flags. If you have more deleted flags than archived flags, or if a project has more than ten deleted flags, you may need to review your archiving and deleting practices. You may choose to restrict who can delete flags by assigning them a custom role. To learn more, read [Custom roles](/home/members/custom-roles).
+
+<Callout intent="primary">
+<CalloutTitle>Custom roles is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Custom roles are available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
 
 ## Eliminating flag debt
 
@@ -97,14 +132,13 @@ Here are some processes you can follow to reduce or eliminate flag debt in your 
 
 A shared naming convention for your organization's flags is an effective way to eliminate debt. Flags should have understandable, intuitive names.
 
-For example, when the developer that created flag `FF123_dont_delete_this_72` leaves the company, the person who takes over their work cannot necessarily tell what that flag is supposed to do. The name of that flag is too obscure to easily determine if the flag is important or not, and taking time to find the flag references in the codebase, determine the results of its variations, and calculate the impact of archiving the flag all seem less urgent than other work.
+For example, imagine a flag named `FF123_dont_delete_this_72`. When the developer that created the flag leaves the company, the person who takes over their work cannot necessarily tell what that flag is supposed to do. The name of that flag is too obscure to easily determine if the flag is important or not, and taking time to find the flag references in the codebase, determine the results of its variations, and calculate the impact of archiving the flag all seem less urgent than other work.
 
 If flags do not have human-readable names, they can become technical debt.
 
 ### Writing useful descriptions
 
-Use descriptions to add more context to the flag. Unlike flag names, you can update descriptions. They can include detailed
-information, such as the date the flag was last reviewed, the purpose of the flag, and more.
+Use descriptions to add more context to the flag. Unlike flag names, you can update descriptions. They can include detailed information, such as the date the flag was last reviewed, the purpose of the flag, and more.
 
 Descriptions are fast ways to help other account members learn what a flag does and what its impact is.
 
@@ -116,40 +150,23 @@ Imagine the smallest unit of logic needed for the most responsive flag. If there
 
 For example, you launch a new dashboard with three widgets. To manage them, create four flags: one flag for each widget, with a dependency on a fourth flag for the main dashboard. In this scenario, if one widget causes problems, you can disable it and still serve the dashboard with the two remaining widgets.
 
-### Archiving and deleting flags
-
-LaunchDarkly provides the option to archive or delete a flag. We recommend that you remove a flag from your code before you archive the flag from LaunchDarkly.
-
-The LaunchDarkly SDKs consider archived flags “gone.” When you archive a flag as opposed to deleting it, the flag's history remains in your LaunchDarkly project. If you delete it, all references to the flag, including the history, are deleted from LaunchDarkly.
-
-Our flag archive process lets you confidently remove flags and help you reduce technical debt. When you select a flag to archive, the panel takes you through the archiving process. LaunchDarkly warns you if you try to archive a flag that is still serving variations, or that is detected in your code through code references.
-
-To learn more, read [Archiving and deleting flags](/home/code/flag-archive).
-
-If you do decide after archiving a flag to delete it, you may choose to restrict who can delete flags by assigning them a custom role.
-
-<Callout intent="primary">
-<CalloutTitle>Custom roles is an Enterprise feature</CalloutTitle>
-<CalloutDescription>
-
-Custom roles are available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
-
-</CalloutDescription>
-</Callout>
-
 ### Scheduling regular flag reviews
 
-Schedule regular review cycles on a monthly or quarterly basis to identify flags to archive.
+Schedule regular review cycles on a monthly or quarterly basis to identify flags to archive. Some companies dedicate sprints to tackling technical debt. If you do this, include a review of your feature flags, too. 
 
-During a review cycle, search for flags with **Launched** and **Inactive** statuses. Both of these status types indicate flags that may be candidates for removal.
+Some teams schedule a regular "Flag Cleanup Day." In preparation, a team member produces a list of flags to be cleaned up. The list is divided up amongst the team. Then, each team member goes through their assigned flags and, for each flag, produces a patch or pull request which removes the flag from the code.
 
-You may also want to filter for flags `maintained by me` to reduce the results to flags you own.
+In addition to temporary flags, you should also review any permanent flags to determine that they are still necessary. As features change, the need for the flags associated with them can also change.
+
+During a review cycle, you can search for flags with "Launched" and "Inactive" statuses. Both of these status types indicate flags that may be candidates for removal. 
+
+If your project has tens or even hundreds of flags, finding all of the "Launched" and "Inactive" can take time. You can use flag filters to narrow the list of flags displayed to only those flags which meet your filter criteria.
 
 Here is an image of a flag filter:
 
 ![The flags filter "Maintainer is me."](maintained-by-me.png)
 
-For temporary flags, filter your flags by status:
+Here is how to filter and archive temporary flags by status:
 
 1. Navigate to the feature flag dashboard and click **Filter**.
 2. Choose "Status" from the **Add a filter to refine your search** menu:
@@ -162,16 +179,11 @@ For temporary flags, filter your flags by status:
 
 ![Changing the filtered "Status" to "Inactive."](change-filter.png)
 
-During these review cycles, you should also review any permanent flags to
-determine that they are still necessary. As features
-change, the need for the flags associated with them can also change.
-
-Some companies dedicate sprints to tackling technical debt. If you do this, make
-sure to include a review of your feature flags, too.
+In addition to flag status, you can also filter by flags that you personally maintain. You can save your dashboard filter configurations to return to later, making it easy to regularly check for flags to archive. To learn how, read [Saving dashboards](/home/organize/dashboard#saving-dashboards).
 
 ### Marking flags as permanent
 
-When you create or edit a flag, you can indicate whether or not the flag is permanent by selecting the **This is a permanent flag** checkbox in the flag's **Settings**. When someone tries to archive a permanent flag, a warning appears. This can help prevent them from being archived unnecessarily.
+When you create or edit a flag, you can indicate whether or not the flag is permanent by selecting the **This is a permanent flag** checkbox in the flag's **Settings** tab. When someone tries to archive a permanent flag, a warning appears. This can help prevent flags from being archived unnecessarily.
 
 You can also filter flags based on whether they are temporary or permanent. This can help you find flags to archive.
 
@@ -181,29 +193,26 @@ To learn more, read [Flag settings](/home/flags/settings).
 
 ### Using effective tagging conventions
 
-Tags are strings you can attach to any flag within LaunchDarkly. They help you
-group resources together.
+Tags are strings you can attach to any flag within LaunchDarkly. They help you group resources together.
 
-You can control the spread of technical debt with tags by including a tag with a
-sprint designation or deploy date.  When you conduct your regularly scheduled
-reviews, you can search for specific sprints or deploy dates.
+You can control the spread of technical debt with tags by including a tag with a sprint designation or deploy date. When you conduct your regularly scheduled reviews, you can search for specific sprints or deploy dates.
 
 <Callout intent="info">
-<CalloutTitle>Note</CalloutTitle>
+<CalloutTitle>Tag case sensitivity</CalloutTitle>
 <CalloutDescription>
 
-Tags are case sensitive. Searching for Permanent and permanent will yield different results.
+Tags are case sensitive. For example, searching for `Permanent` tags and `permanent` tags will yield different results.
 
 </CalloutDescription>
 </Callout>
 
 ### Including flags in your workflow's definition of "done"
 
-Each company and even each team within an organization may have their own standards for what constitutes "done" on  a task or project. Done indicates the project can be removed from the list of current tasks. For example, a team may consider the code for a task to be incomplete until it has automated tests.
+Each company and team within an organization may have their own standards for what constitutes "done" on a task or project. Done indicates the project can be removed from the list of current tasks. For example, a team may consider the code for a task to be incomplete until it has passed automated tests.
 
-Done means different things for different teams, a feature may be done when it rolls out to 100% of users, or when it roles out to a specific set of users. Your definition of done should include archiving temporary flags. A feature is done when the flag is archived.
+Done means different things for different teams. A feature may be done when it rolls out to 100% of users, or when it roles out to a specific set of users. When a feature is fully rolled out, or an experiment is ended, that's the best time to clean up the flag. When scheduling the work for rolling out a feature, include the flag cleanup work in the schedule. A feature is done when the flag is archived.
 
-If the flag you use for a release will convert to a permanent flag, the definition of done should be when the setting on the flag changes to indicate it is permanent. You can make archiving flags part of each sprint or project end. Using this method, you do the work to archive or delete the flag when the context is fresh.
+If the flag you use for a release will convert to a permanent flag, the definition of done should be when the setting on the flag changes to indicate it is permanent. You can make archiving flags part of each sprint or project end. Using this method, you'll do the work to archive the flag when the context is fresh.
 
 To learn more about integrating flag archiving behavior into your feature development processes, read the LaunchDarkly blog article [How to use feature flags without technical debt](https://launchdarkly.com/blog/how-to-use-feature-flags-without-technical-debt/).
 
@@ -211,7 +220,7 @@ To learn more about integrating flag archiving behavior into your feature develo
 
 Archiving a flag removes it from the flag dashboard and your app's users no longer encounter it.
 
-Before you do this, you need to remove the flag from your codebase. Code references let you quickly find where in your source code feature flags are referenced. This simplifies the process of finding code to remove in projects and files.
+Before you do this, remove the flag from your codebase. Code references let you quickly find where in your source code feature flags are referenced. This simplifies the process of finding code to remove in projects and files.
 
 To access code references:
 
@@ -225,9 +234,13 @@ To learn more, read [Code references](/home/code/code-references).
 
 ### Planning to remove flags during flag creation
 
-Create a branch that will remove a flag when you create the flag itself. You can use the flag to toggle a feature on or off, and merge the branch in after the feature releases and its performance is consistent.
+When creating a pull request to add a flag into your code, you can also create a second pull request which removes the flag. This pull request should simply remove the flag code without other changes. This minimizes the number of conflicts to resolve even if, as often happens, the code for the new feature is updated before the rollout is finished.
 
 The code may change before you merge the branch, but creating it gives you somewhere to start when you're ready to clean up the code. The presence of the branch also serves as a reminder to remove the flag when it's no longer needed.
+
+### Retiring inactive projects
+
+You can identify entire projects that may be inactive by the age and activity level of its flags. If no one has created new flags within the project in the last three months, and it does not contain any active permanent flags, you may be able to delete the project. To learn how, read [Deleting projects](/home/organize/projects#deleting-projects).
 
 ### Receiving flag removal alerts in Slack
 
