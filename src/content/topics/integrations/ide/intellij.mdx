@@ -1,60 +1,44 @@
 ---
 path: /integrations/intellij
-title: IntelliJ
-description: This topic explains how to use the LaunchDarkly IntelliJ plugin to interact with feature flags from within IntelliJ IDEs.
+title: IntelliJ IDEA
+description: This topic explains how to use the LaunchDarkly IntelliJ IDEA plugin to interact with feature flags from within IntelliJ IDEs.
 published: true
 ---
 
 <Callout intent="primary">
-<CalloutTitle>The IntelliJ plugin is a Pro and Enterprise feature</CalloutTitle>
-<CalloutDescription>
+  <CalloutTitle>The IntelliJ IDEA plugin is a Pro and Enterprise feature</CalloutTitle>
+  <CalloutDescription>
 
-The IntelliJ plugin is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+The IntelliJ IDEA plugin is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-</CalloutDescription>
-</Callout>
-
-<Callout intent="info">
-<CalloutTitle>This plugin is in beta</CalloutTitle>
-<CalloutDescription>
-
-Development work on this IDE plugin is ongoing. Elements of the plugin may change without notice.
-
-</CalloutDescription>
+  </CalloutDescription>
 </Callout>
 
 ## Overview
 
-This topic explains how to use the LaunchDarkly IntelliJ plugin to interact with feature flags from within IntelliJ integrated development environments (IDEs).
+This topic explains how to configure the LaunchDarkly IntelliJ IDEA plugin and use it to interact with feature flags from within IntelliJ integrated development environments (IDEs). 
 
-A full compatibility list is available on the [JetBrains Marketplace's plugin listing](https://plugins.jetbrains.com/plugin/15159-launchdarkly).
+Use this plugin with your favorite compatible products from JetBrains including IntelliJ IDEA, PyCharm, WebStorm, GoLand, and many others. A full compatibility list is available on the [JetBrains Marketplace's plugin listing](https://plugins.jetbrains.com/plugin/15159-launchdarkly).
 
 With the extension, you can:
 
+- Autocomplete feature flag keys
 - View a tooltip with feature flag details when you hover over a flag key in your source code
-
-![IntelliJ hover.](intellij-hover.png)
-
 - Open to specific feature flags in LaunchDarkly from your code editor
-
-![The treeview right click options.](intellij-treeview-right-click.png)
-
 - View a list of feature flags and their settings in the LaunchDarkly tool window
-- Update a flag's state, fallback value, and off variation
+- Update a feature flag's state, fallthrough value, and default **Off** variation
 
-![The LaunchDarkly IntelliJ plugin.](intellij-treeview.png)
+## Installing the IntelliJ IDEA plugin
 
-## Prerequisites
+To install the IntelliJ IDEA plugin, visit the LaunchDarkly plugin on the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/15159-launchdarkly/versions) and download the version compatible with your IDE.
 
-In order to install this plugin, you must have the following prerequisites:
+## Configuring the IntelliJ IDEA plugin
 
-* **The `beta` Custom Release Channel.** Add the `beta` [Custom Release Channel](https://plugins.jetbrains.com/docs/marketplace/custom-release-channels.html) to your editor. This allows it to access a beta plugin.
+To configure the IntelliJ IDEA plugin, you must have a valid access token.
 
-* **A LaunchDarkly API access token.** To learn more about creating tokens, read [API access tokens](/home/account-security/api-access-tokens).
+You can create a new access token on the [Authorization page](https://app.launchdarkly.com/settings/authorization). The access token must have sufficient permissions to support the plugin's functionality. To be able to toggle flags from your IDE, the access token must be generated with a writer role. A reader role is sufficient for viewing flag information.
 
- The access token must have sufficient permissions to support the plugin's functionality. Below is an example policy for those permissions.
-
- This policy allows `reader` access to all projects and `writer` access to the minimum set of fields the plugin is able to update:
+The following example policy allows read access to all projects and write access to the minimal set of fields the plugin is able to update:
 
 <CodeTabs
   defaultValue="json"
@@ -68,16 +52,16 @@ In order to install this plugin, you must have the following prerequisites:
 ```json
 [
   {
-     "effect": "allow",
-     "actions": ["viewProject"],
-     "resources": ["proj/*"]
+    "effect": "allow",
+    "actions": ["viewProject"],
+    "resources": ["proj/*"]
   },
   {
-     "effect": "allow",
-     "actions": [
-   	"updateOn",
-   	"updateFallthrough",
-   	"updateOffVariation"
+    "effect": "allow",
+    "actions": [
+      "updateOn",
+      "updateFallthrough",
+      "updateOffVariation"
     ],
     "resources": ["proj/*:env/*:flag/*"]
   }
@@ -87,31 +71,12 @@ In order to install this plugin, you must have the following prerequisites:
 </CodeTabItem>
 </CodeTabs>
 
-## Installing the IntelliJ plugin
+With your access token, you can finish configuring the LaunchDarkly extension in the "LaunchDarkly" menu option in the IntelliJ IDEA "Preferences" dialog.
 
-Here's how to install the IntelliJ plugin:
+You will need to grant IntelliJ IDEA access to system's default credential store. This is to securely store your access token with [IntelliJ's Credential Store API](https://plugins.jetbrains.com/docs/intellij/persisting-sensitive-data.html). You can then provide your access token and select the project and environment associated with your IntelliJ IDEA project.
 
-1. Pass in the plugin ID `15159` as part of the release channel. This ensures that only the LaunchDarkly Beta plugin is added to your available list.
-2. Add this URL to **Manage Plugin Repositories**: `https://plugins.jetbrains.com/plugins/beta/15159`
-3. After you configure the plugin, you can install LaunchDarkly from the list of available plugins or from the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/15159-launchdarkly).
+![The IntelliJ IDEA "Preferences" dialog.](intellij-configuration.png)
 
-## Configuring the IntelliJ plugin
+## Code references in the IntelliJ IDEA plugin
 
-After you install the LaunchDarkly extension, a "LaunchDarkly Plugin" menu option appears.
-
-![IntelliJ Configuration](intellij-configuration.png)
-
-1. Grant IntelliJ access to system's default credential store. This is to securely store your access token with [IntelliJ's Credential Store API](https://plugins.jetbrains.com/docs/intellij/persisting-sensitive-data.html).
-2. Provide a LaunchDarkly **API access token**.
-3. Click **Apply**. This queries the LaunchDarkly API for a list of projects and environments.
-4. Select your **LaunchDarkly project**.
-5. Select your **LaunchDarkly environment**.
-6. Click **OK**.
-
-After you complete this procedure, you have configured the plugin.
-
-If you only want to configure it for a specific IntelliJ Project, there is a sub-menu "Project Overrides" that only configures the plugin for the current project loaded.
-
-## Code references in the IntelliJ plugin
-
-The LaunchDarkly IntelliJ plugin supports code references. Configuring aliases for projects with code references makes the informational hover available wherever that alias is used. To learn more, read [Finding flag aliases](/home/code/code-references#finding-flag-aliases).
+The LaunchDarkly IntelliJ IDEA plugin supports code references. Configuring aliases for projects with code references makes the hover card available wherever that alias is used. To learn more, read [Finding flag aliases](/home/code/code-references#finding-flag-aliases).

@@ -679,7 +679,7 @@
         "path": "/integrations/ide",
         "items": [
           {
-            "label": "IntelliJ",
+            "label": "IntelliJ IDEA",
             "path": "/integrations/intellij"
           },
           {
