@@ -27,6 +27,7 @@ This feature is available in the following client-side SDKs:
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
 * [C/C++ (client-side)](#cc-client-side)
+* [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
 * [JavaScript](#javascript)
@@ -128,6 +129,45 @@ LDConfigSetEventsFlushIntervalMillis(config, 30000);
 </CodeTabs>
 
 To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/c-client-sdk/config_8h.html).
+</Details>
+
+### Electron
+
+<Details summary="Expand Electron code sample">
+
+This code sample shows you how to create a custom configuration object to pass custom parameters to the client:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js' },
+    { label: 'TypeScript', value: 'ts' },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const options = {
+  allAttributesPrivate: true
+};
+const client = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options);
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as LDElectron from 'launchdarkly-electron-client-sdk'
+
+const options: LDElectron.LDOptions = { allAttributesPrivate: true };
+const client = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/electron-client-sdk/interfaces/_launchdarkly_electron_client_sdk_.ldoptions.html).
 </Details>
 
 ### Flutter

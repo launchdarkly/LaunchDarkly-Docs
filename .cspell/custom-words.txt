@@ -231,6 +231,7 @@ touchpoints
 treeview
 Trello
 trendgraph
+tvos
 typedefs
 unarchived
 uninitialize
