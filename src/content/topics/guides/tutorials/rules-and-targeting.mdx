@@ -710,9 +710,9 @@ To add this attribute:
 
 ```py
 return {
-  "key": email_hash_hex,   ## don't forget the comma!
+  "key": email_hash_hex,   ## don't forget the comma
   "custom": {
-    "firstLetter": email[0]
+    "firstLetter": email[0].lower()   ## normalize your string case
   }
 }
 ```
@@ -740,8 +740,10 @@ return {
     - Press `Enter`. The letter `a` becomes an attribute.
     - Type an upper-case `A` and press `Enter`. Each of the two letters should be in its own option box, like this:
 
-![The rule form, configured for the rule we specified.](flag-rule-filled.png)
-
+    ![The rule form, configured for the rule we specified.](flag-rule-filled.png)
+  
+    If you don't want to include both the lowercase and capitalized values, normalizing the attribute's string case can help simplify your targeting rules.
+  
 13. In the last menu, choose the `true` variation. Now when the rule matches a user object, the `true` variation appears.
 14. In the "Default rule" section, choose `false` under the **Serve** menu . This ensures that only users who match our rules receive a `true` evaluation:
 
