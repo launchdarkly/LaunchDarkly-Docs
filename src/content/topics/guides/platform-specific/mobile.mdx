@@ -9,7 +9,7 @@ published: true
 
 This guide explores some best practices for using LaunchDarkly’s mobile SDKs.
 
-Mobile app development contains plenty of challenges. Your app will face wildly variable conditions: many different devices and runtime environments, and unstable data connections. We’ve done our best to provide robust and efficient performance in our mobile SDKs. In addition, we provide these recommendations to improve the quality of your user experience.
+Mobile app development contains plenty of challenges. Your app will face wildly variable conditions, including many different devices and runtime environments, and unstable data connections. We’ve done our best to provide robust and efficient performance in our mobile SDKs. In addition, we provide these recommendations to improve the quality of your users' experience.
 
 ## Avoiding app startup delays
 
@@ -27,15 +27,25 @@ To avoid delays caused by LaunchDarkly connection setup, initialize the `LDClien
 
 The asynchronous initialization process is different for each SDK.
 
+<Details summary="Expand .NET (client-side) initialization process">
+
 ### .NET (client-side)
 
-We recommend using `LdClient.InitAsync(key, user)` to initialize the SDK, as it runs asynchronously. The alternative method, `LdClient.Init(key, user, timeout)` blocks until either it has retrieved flag data _or_ it has exceeded the timeout period.
+We recommend using `LdClient.InitAsync(key, user)` to initialize the SDK, as it runs asynchronously.
+
+The alternative method, `LdClient.Init(key, user, timeout)` blocks until either it has retrieved flag data or it has exceeded the timeout period.
+
+To learn more, read [Getting started](/sdk/client-side/dotnet#getting-started) in the [.NET (client-side) SDK reference](/sdk/client-side/dotnet) topic.
+
+</Details>
+
+<Details summary="Expand Android initialization process">
 
 ### Android
 
 The Android SDK’s `LDClient.init()` method takes, as its fourth parameter, a timeout integer which specifies the maximum number of seconds the SDK can wait for a response from the server.
 
-Depending on how `init()` is called, the SDK may block the current thread until _either_ the flags are retrieved _or_ the timeout period is exceeded. If `init()` is called in the main app thread, the rest of the app startup will be blocked until this call completes, resulting in poor user experience.
+Depending on how `init()` is called, the SDK may block the current thread until either the flags are retrieved or the timeout period is exceeded. If `init()` is called in the main app thread, the rest of the app startup will be blocked until this call completes, resulting in poor user experience.
 
 To ensure that `LDClient.init()` doesn’t block the rest of the app, use any of these techniques:
 
@@ -43,11 +53,33 @@ To ensure that `LDClient.init()` doesn’t block the rest of the app, use any of
 * Call [this overload for](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClient.html#init-android.app.Application-com.launchdarkly.sdk.android.LDConfig-com.launchdarkly.sdk.LDUser-) `init()` which returns a `Future`. Wait for it to complete on a separate thread/executor to implement a timeout behavior without blocking the application using `future.get(timeout)`.
 * Move the `init()` call to its own thread.
 
+To learn more, read [Getting started](/sdk/client-side/android#getting-started) in the [Android SDK reference](/sdk/client-side/android) topic.
+
+</Details>
+
+<Details summary="Expand iOS initialization process">
+
 ### iOS
 
 `LDClient.start()` executes asynchronously to avoid blocking the main thread. To execute code as soon as flags have been retrieved, `start()` supports an optional `completion` handler.
 
 You can also provide a `startWaitSeconds` timeout value to set a maximum waiting period for establishing the connection. A `timedOut` boolean will be supplied to the `completion` closure, indicating whether the connection timed out.
+
+To learn more, read [Getting started](/sdk/client-side/ios#getting-started) in the [iOS SDK reference](/sdk/client-side/ios) topic.
+
+</Details>
+
+<Details summary="Expand React Native initialization process">
+
+### React Native
+
+We recommend using `await LDClient.configure()` to initialize the SDK, which returns a Promise.
+
+The `LDClient.configure()` method takes, as an optional third parameter, a timeout number, and blocks until either it has retrieved flag data or it has exceeded the timeout period.
+
+To learn more, read [Getting started](/sdk/client-side/react/react-native#getting-started) in the [React Native SDK reference](/sdk/client-side/react/react-native) topic.
+
+</Details>
 
 ## Deciding on the user experience for flag changes
 
@@ -57,6 +89,14 @@ For each flag used by your app, decide on a policy for how updates to the flag s
 
 These policies can be implemented as wrapper methods around the LaunchDarkly SDK, rather than configuration changes to the SDK itself.
 
+## Ensuring delivery of analytics events
+
+The SDK communicates evaluation and diagnostic data back to the server as part of normal usage. The LaunchDarkly user interface displays this data in several places, including the [flag dashboard](/home/organize/dashboard), the [flag Insights graph](/home/flags/insights), and in [Experimentation](/home/experimentation).
+
+This data is generated by the SDK and added to an event buffer. The SDK clears the buffer and sends the data back to LaunchDarkly periodically, every few seconds.
+
+To ensure that the client delivers any pending analytics to LaunchDarkly, we recommend shutting down the client properly when your application is about to terminate. To learn more, read [Shutting down](/sdk/features/shutdown). In some situations, such as when you test out the SDK in a simulator, you may want to manually flush the event buffer to request any queued events be sent immediately. To learn more, read [Flushing events](/sdk/features/flush).
+
 ## Targeting the app version number, OS, and device when enabling new features
 
 The LaunchDarkly mobile SDKs automatically provide and fill two custom user attributes: `os` and `device`. These attributes are automatically populated with information about the user's operating system and hardware, so that it's easier to target specific configurations. Because of this, we recommend that your code provide a custom attribute that contains the app version number.
@@ -65,24 +105,20 @@ This combination of attributes is particularly useful for targeting the release 
 
 Including the app version number in the user attributes makes it possible for you to add a flag rule which targets that version. This is also useful for situations when you must disable a feature due to code issues, which you then fix in a later release. By targeting the app version, you can re-enable the feature only for those users running the corrected code.
 
-## Common questions
-
-**How big is the SDK? How much will it increase the download size of my app?**
+## Understanding SDK size and usage
 
 SDK size depends on the platform, SDK, SDK version, and platform-specific dependencies you are using. We try to keep our SDKs small, though on some platforms they introduce some larger dependencies. In practice, they’re likely to be one of the smaller dependencies in your app.
-
-**How does using the SDK affect memory and battery usage?**
 
 Our mobile SDKs consume resources differently depending on whether the host app is running in the foreground or background.
 
 When running in the foreground, the SDK maintains a persistent HTTPS connection to LaunchDarkly. When a flag changes, LaunchDarkly uses the Server-Sent Events (SSE) protocol to notify the app of changes. The alternative method of receiving updates is for the SDK to poll the LaunchDarkly service with regular short requests.
 
-Most evidence shows that when appropriately configured, persistent HTTPS connections result in longer battery life than polling for our connection and data transfer patterns. [A 2013 study](http://kth.diva-portal.org/smash/record.jsf?pid=diva2%3A874674&dswid=-8201) showed that an open SSE connection with low-frequency event updates (under 120 seconds) and heartbeats has negligible impact on battery life.
+Most evidence shows that when appropriately configured, persistent HTTPS connections result in longer battery life than polling for our connection and data transfer patterns. [A 2013 study](http://kth.diva-portal.org/smash/record.jsf?pid=diva2%3A874674&dswid=-8201) showed that an open SSE connection with low-frequency event updates (under 120 seconds) and heartbeats had negligible impact on battery life.
 
-**Our app will be reviewed by Apple for inclusion in the App Store. Will Apple reviewers raise issues around our use of LaunchDarkly, and how can we avoid or resolve these issues?**
+## Preparing for Apple App Store reviews
+
+Many customers submit an app to be reviewed by Apple for inclusion in the App Store. Sometimes our customers are concerned that Apple reviewers will raise issues around their use of LaunchDarkly.
 
 Apple’s App Store policies and the actions of their reviewers are beyond our control or ability to predict. Apple has, in the past, raised concerns about code which is present in an app but which doesn’t seem to be reachable during testing. Customers who’ve encountered this problem told us that they resolved it by enabling all features for the app version being tested, then disabling unlaunched features before release.
-
-**What data collection information should be added to our submission to the Apple App Store?**
 
 Since December 2020, the Apple App Store requires apps you submit to provide information about their privacy practices, including the practices of third-party partners whose code is integrated into the app. If you integrate a LaunchDarkly SDK into your app and submit it to the Apple App Store, you must disclose which data LaunchDarkly collects. To learn more about the data which LaunchDarkly may collect, read [Apple App Store data collection policy](https://docs.launchdarkly.com/sdk/concepts/apple-app-store).
