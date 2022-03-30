@@ -1,0 +1,144 @@
+---
+path: /integrations/compass
+title: Compass
+description: This topic explains visualize LaunchDarkly feature flag changes in Atlassian Compass.
+published: true
+---
+
+<Callout intent="primary">
+<CalloutTitle>The Compass integration is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+The Compass integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to use the Compass integration for LaunchDarkly.
+
+<Callout intent="info">
+<CalloutTitle>The Compass integration is managed by Atlassian</CalloutTitle>
+<CalloutDescription>
+
+The Compass integration was built by and is managed by Atlassian. For questions about the integration or for technical support, [contact Atlassian](https://community.atlassian.com/t5/Compass-Alpha/gh-p/compass-alpha).
+
+</CalloutDescription>
+</Callout>
+
+The Compass integration for LaunchDarkly displays a timeline of feature flag changes related to a Compass component, as well as a complete list of feature flags and their current state. This helps you visualize how recent changes to feature flags may be impacting component health.
+
+## Prerequisites
+
+To connect Compass to LaunchDarkly, you must meet the following prerequisites:
+
+1. Be a Compass administrator on your Atlassian site
+2. Generate a LaunchDarkly [API access token](/home/account-security/api-access-tokens) for use with Compass.
+* Create a token with the **Reader** role.
+* If you are on an Enterprise plan, check the **This is a service token** option when creating your acesss token.
+* If you are on a Pro plan, leave this option unchecked.
+* Be sure to copy the new token to your clipboard.
+
+## Setting up the Compass integration
+
+The Compass integration is managed from the Compass product on your Atlassian Cloud site. Other than creating an API access token, there are no Compass settings or preferences to configure in LaunchDarkly.
+
+1. Generate a LaunchDarkly API access token as described in the [Prerequisites](#prerequisites) section.
+2. Go to your Atlassian Compass site, e.g. https://mysite.atlassian.net/compass.
+3. In the top nagivation, click the **Apps** link.
+4. Find **LaunchDarkly** in the list of apps and click the **Install** button.
+5. After the LaunchDakly app is installed, click the **Configure** button.
+6. Click the **Allow access** button to approve the access to your Atlassian account requested by the LaunchDarkly app.
+7. On the **LaunchDarkly is requesting Access** screen, review the requested permissions, then click the **Accept** button.
+
+<Callout intent="info">
+<CalloutTitle>You must authorize the requested permissions for the integration to work</CalloutTitle>
+<CalloutDescription>
+
+If you click **Cancel**, the integration cannot access your Compass data.
+
+</CalloutDescription>
+</Callout>
+
+![LaunchDarkly authorization screen for Compass](compass-ld-integration-auth-dialog.png)
+
+8. On the app configuration screen, paste your LaunchDarkly API access token and click the **Submit** button.
+
+![LaunchDarkly access token screen for Compass](compass-ld-integration-access-token.png)
+
+9. Confirm that the integration has connected LaunchDarkly and Compass when the **Connected to LaunchDarkly** success message is displayed.
+
+![Successfully connected Compass to LaunchDarkly](compass-ld-integration-connected.png)
+
+## Connecting Compass components to LaunchDarkly
+
+Now that you've set up the Compass integration for Compass, you must conncet your LaunchDarkly projects to Compass components in order to see feature flag data in Compass.
+
+To connect a LaunchDarkly project to a Compass component:
+
+1. In LaunchDarkly, navigate to the **Feature flags** page for the project you want to connect.
+2. Copy the project URL, e.g. https://app.launchdarkly.com/starship-command/production/features, to your clipboard.
+3. Navigate to your Compass site, e.g. https://mysite.atlassian.net/compass
+4. Navigate to the Compass component you want to connect to LaunchDarkly.
+5. In the **Other links** section of your Compass component, paste the LaunchDarkly project URL as a new link.
+6. Verify that the component was successfully connected by clicking on the **LaunchDarkly** tab in the left navigation.
+
+![Successfully connected Compass component to LaunchDarkly](compass-ld-integration-component-connected.png)
+
+7. Repeat the above steps to associate your other LaunchDarkly projects to the applicable Compass components.
+
+## Viewing feature flag information for a Compass component
+
+Once you have connected your Compass components to LaunchDarkly, you can view feature flag information on the component page in Compass.
+
+1. Navigate to your Compass site, e.g. https://mysite.atlassian.net/compass
+2. Navigate to the Compass component for which you want to view feature flag information.
+3. Make sure you have completed the steps in [Connecting Compass components to LaunchDarkly](#connecting-compass-components-to-launchdarkly).
+4. Click on the **LaunchDarkly** tab in the left navigation.
+
+### Recent feature flag changes for a connected Compass component
+
+You can see a history of recent feature flag changes for the associated LaunchDarkly project on the **Recently updated** subtab.
+* Click the dot next to each item to see more details about the feature flag change.
+* Click the feature flag name to view the feature flag in LaunchDarkly.
+
+![Recently feature flag changes](compass-ld-integration-recently-updated.png)
+
+### All feature flags for a connected Compass component
+
+You can see a list of all feature flags for the associated LaunchDarkly project on the **All feature flags** subtab.
+* Use the **Filter by status** dropdown to filter the list of flags displayed in the list
+* Click the column headings above the list to sort by the **Flag**, **Status** or **Last requested** column.
+* Click the feature flag name to view the feature flag in LaunchDarkly.
+
+![All feature flags](compass-ld-integration-all-feature-flags.png)
+
+## Disconnecting Compass components from LaunchDarkly
+
+The connection between a LaunchDarkly project and a Compass component is stored as a link on the Compass component, as described in the [Connecting Compass components to LaunchDarkly](#connecting-compass-components-to-launchdarkly) section. If desired, you can remove this connection on the Compass component page.
+
+1. Navigate to your Compass site, e.g. https://mysite.atlassian.net/compass
+2. Navigate to the Compass component you want to connect to LaunchDarkly.
+3. In the **Other links** section of your Compass component, remove the LaunchDarkly project link.
+4. Verify that the component was successfully disconnected by clicking on the **LaunchDarkly** tab in the left navigation. You should no longer see feature flag information on this tab.
+
+## Disconnecting your API access token
+
+The Compass integration stores your LaunchDarkly API access token (as described in the [Setting up the Compass integration](#setting-up-the-compass-integration)) section) to read data from the LaunchDarkly API. If you need to cycle your LaunchDarkly access token, or if you want to connect Compass to a different LaunchDarkly organization, you can disconnect your access token.
+
+1. Go to your Atlassian Compass site, e.g. https://mysite.atlassian.net/compass.
+2. In the top nagivation, click the **Apps** link.
+3. Find **LaunchDarkly** in the list of apps and click the **Configure** button.
+4. Click the **Disconnect access token** button.
+5. You can now provide Compass with a new access token if desired.
+
+## Removing the Compass integration
+
+To remove the Compass integration:
+
+1. Go to your Atlassian Compass site, e.g. https://mysite.atlassian.net/compass.
+2. In the top nagivation, click the **Apps** link.
+3. Find **LaunchDarkly** in the list of apps and click the **Uninstall** button.
+
+This removes the Compass integration with LaunchDarkly.
