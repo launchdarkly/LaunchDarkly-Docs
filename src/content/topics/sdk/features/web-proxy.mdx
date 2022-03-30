@@ -391,14 +391,27 @@ To configure the server-side Node.js SDK to connect to LaunchDarkly through a we
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const config = {
-  proxyHost: 'my-proxy-host',
+const options = {
+  proxyHost: 'your-proxy-host',
+  proxyPort: 8080
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
+const options: ld.LDOptions = {
+  proxyHost: 'your-proxy-host',
   proxyPort: 8080
 };
 ```
@@ -411,14 +424,28 @@ To configure the server-side Node.js SDK to connect to LaunchDarkly through a we
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const config = {
+const options = {
   proxyHost: 'my-proxy-host',
+  proxyPort: 8080,
+  proxyAuth: 'username:password'
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
+const options: ld.LDOptions = {
+  proxyHost: 'your-proxy-host',
   proxyPort: 8080,
   proxyAuth: 'username:password'
 };

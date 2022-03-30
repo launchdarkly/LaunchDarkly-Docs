@@ -138,19 +138,11 @@ You can also explicitly send an event with any data you like using the `track` f
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.track('my-custom-event-key', { customProperty: someValue });
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.track('my-custom-event-key', { customProperty: someValue });
 ```
 
@@ -248,19 +240,11 @@ To call `track`:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.track('your-event-name', { customProperty: someValue });
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.track('your-event-name', { customProperty: someValue });
 ```
 
@@ -297,7 +281,6 @@ You can also explicitly send an event with any data you like using the `track` f
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
@@ -305,13 +288,6 @@ You can also explicitly send an event with any data you like using the `track` f
 ```js
 client.track('your-event-name', { customProperty: someValue });
 ```
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
-client.track('your-event-name', { customProperty: someValue });
-```
-
 </CodeTabItem>
 </CodeTabs>
 
@@ -341,21 +317,11 @@ Here's an example:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.track('something-happened');
-
-client.track('something-happened-with-custom-data', { someData: 2 });
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.track('something-happened');
 
 client.track('something-happened-with-custom-data', { someData: 2 });
@@ -391,8 +357,8 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
-client.track('MY_GOAL_FLAG_KEY', false);
-client.track('MY_GOAL_FLAG_KEY_WITH_DATA', {'some_data':'value'});
+client.track('YOUR_GOAL_FLAG_KEY', false);
+client.track('YOUR_GOAL_FLAG_KEY_WITH_DATA', {some_data: 'value'});
 ```
 
 </CodeTabItem>
@@ -682,19 +648,11 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.track('your-goal-key', user);
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.track('your-goal-key', user);
 ```
 

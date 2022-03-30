@@ -52,7 +52,7 @@ To learn more about LaunchDarkly's different SDK types, read [Client-side and se
 
 This SDK is closely related to the [browser JavaScript SDK](/sdk/client-side/javascript) and has almost exactly the same API, but does not have any browser-specific functionality and adds several features specific to Node.
 
-The sample code snippets for this SDK are available in both JavaScript and TypeScript. To learn more, read [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
+The sample code snippets for this SDK are available in both JavaScript and TypeScript, where the sample code differs. To learn more, read [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
 
 ## Getting started
 
@@ -104,7 +104,7 @@ const LaunchDarkly = require('launchdarkly-node-client-sdk');
 <CodeTabItem value="ts">
 
 ```ts
-import * as ld from 'launchdarkly-node-client-sdk';
+import * as LaunchDarkly from 'launchdarkly-node-client-sdk';
 ```
 
 </CodeTabItem>
@@ -146,8 +146,10 @@ const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user);
 <CodeTabItem value="ts">
 
 ```ts
-const user: ld.LDUser = { key: 'aa0ceb' };
-const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user);
+const user: LaunchDarkly.LDUser = {
+  key: 'aa0ceb'
+};
+const client: LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user);
 ```
 
 </CodeTabItem>
@@ -168,15 +170,9 @@ To emit a `ready` event:
 
 ```js
 client.on('ready', () => {
-  console.log("It's now safe to request feature flags");
-
-  const showFeature = client.variation("YOUR_FEATURE_KEY", false);
-
-  if (showFeature) {
-    ...
-  } else {
-    ...
-  }
+  // initialization succeeded, flag values are now available
+  const flagValue = client.variation('YOUR_FEATURE_KEY', false);
+  // etc.
 });
 ```
 
@@ -185,14 +181,11 @@ client.on('ready', () => {
 
 ```ts
 client.on('ready', () => {
-  console.log("It's now safe to request feature flags");
-
   // initialization succeeded, flag values are now available
-  const boolFlagValue = client.variation('key', false) as boolean;
-  const numberFlagValue = client.variation('key', 2) as number;
-  const stringFlagValue = client.variation('key', 'default') as string;
+  const boolFlagValue = client.variation('YOUR_FEATURE_KEY', false) as boolean;
+  const numberFlagValue = client.variation('YOUR_FEATURE_KEY', 2) as number;
+  const stringFlagValue = client.variation('YOUR_FEATURE_KEY', 'default') as string;
   // etc.
-
 });
 ```
 

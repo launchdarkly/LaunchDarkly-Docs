@@ -63,13 +63,13 @@ function onPageLoad(flags) {
 <CodeTabItem value="ts">
 
 ```ts
-import * as ld from 'launchdarkly-js-client-sdk';
+import * as LDClient from 'launchdarkly-js-client-sdk';
 
-function onPageLoad(flags: ld.LDFlagSet) {
+function onPageLoad(flags: LDClient.LDFlagSet) {
   ...
-  const user: ld.LDUser = { key: 'aa0ceb'}
-  const options: ld.LDOptions = { bootstrap: flags };
-  const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+  const user: LDClient.LDUser = { key: 'aa0ceb'}
+  const options: LDClient.LDOptions = { bootstrap: flags };
+  const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
   ...
 }
 ```
@@ -119,7 +119,7 @@ Alternatively, you can bootstrap feature flags from local storage:
 <CodeTabItem value="js">
 
 ```js
-const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
+const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
   bootstrap: 'localStorage'
 });
 ```
@@ -128,11 +128,10 @@ const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
 <CodeTabItem value="ts">
 
 ```ts
-import * as ld from 'launchdarkly-js-client-sdk';
+import * as LDClient from 'launchdarkly-js-client-sdk';
 
-const user: ld.LDUser = { key: 'aa0ceb'}
-const options: ld.LDOptions = { bootstrap: 'localStorage' };
-const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const options: LDClient.LDOptions = { bootstrap: 'localStorage' };
+const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>
@@ -174,16 +173,16 @@ const client = LaunchDarkly.initialize(
 <CodeTabItem value="ts">
 
 ```ts
-import * as ld from 'launchdarkly-node-client-sdk';
+import * as LaunchDarkly from 'launchdarkly-node-client-sdk';
 
-const options: ld.LDOptions = {
+const options: LaunchDarkly.LDOptions = {
   bootstrap: {
     flagKey1: flagValue1,
     flagKey2: flagValue2,
   },
 };
 
-const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>
@@ -216,11 +215,11 @@ const client = LaunchDarkly.initialize(
 <CodeTabItem value="ts">
 
 ```ts
-import * as ld from 'launchdarkly-node-client-sdk';
+import * as LaunchDarkly from 'launchdarkly-node-client-sdk';
 
-const options: ld.LDOptions = { bootstrap: 'localStorage' };
+const options: LaunchDarkly.LDOptions = { bootstrap: 'localStorage' };
 
-const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 
 ```
 

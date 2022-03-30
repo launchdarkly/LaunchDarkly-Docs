@@ -244,8 +244,8 @@ const LaunchDarkly = require('launchdarkly-node-server-sdk');
 const { RedisBigSegmentStore } = require('launchdarkly-node-server-sdk-redis');
 
 const store = RedisBigSegmentStore({
-  redisOpts: { url: 'redis://my-redis:6379' },
-  prefix: 'my-key-prefix'
+  redisOpts: { url: 'redis://your-redis:6379' },
+  prefix: 'your-key-prefix'
 });
 
 const config = {
@@ -261,23 +261,23 @@ const client = LaunchDarkly.init(sdkKey, config);
   </CodeTabItem>
   <CodeTabItem value="ts">
 
-```js
+```ts
 import * as LaunchDarkly from 'launchdarkly-node-server-sdk';
 import { RedisBigSegmentStore } from 'launchdarkly-node-server-sdk-redis';
 
 const store = RedisBigSegmentStore({
-  redisOpts: { url: 'redis://my-redis:6379' },
-  prefix: 'my-key-prefix'
+  redisOpts: { url: 'redis://your-redis:6379' },
+  prefix: 'your-key-prefix'
 });
 
-const config = {
+const options: LaunchDarkly.LDOptions = {
   bigSegments: {
     store: store,
     userCacheSize: 2000,
     userCacheTime: 30
   }
 };
-const client = LaunchDarkly.init(sdkKey, config);
+const client = LaunchDarkly.init('YOUR_SDK_KEY', options);
 ```
 
   </CodeTabItem>

@@ -170,7 +170,7 @@ To evaluate any feature flag for the current user, call `variation`:
 <CodeTabItem value="js">
 
 ```js
-const flagValue = client.variation("YOUR_FEATURE_KEY", false);
+const flagValue = client.variation('YOUR_FEATURE_KEY', false);
 
 // proceed based on flag value, for example:
 
@@ -189,7 +189,13 @@ const boolFlagValue = client.variation('YOUR_FEATURE_KEY', false) as boolean;
 const numberFlagValue = client.variation('YOUR_FEATURE_KEY', 2) as number;
 const stringFlagValue = client.variation('YOUR_FEATURE_KEY', 'default') as string;
 
-// proceed based on flag value...
+// proceed based on flag value, for example:
+
+if (boolFlagValue)  {
+  // feature flag is on
+} else {
+  // feature flag is off
+}
 
 ```
 
@@ -208,20 +214,11 @@ Here is an example:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const flags = client.allFlags();
-const flagValue = flags['YOUR_FEATURE_KEY'];
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 const flags = client.allFlags();
 const flagValue = flags['YOUR_FEATURE_KEY'];
 ```
@@ -335,8 +332,6 @@ client.variation('your.feature.key', false);
 <CodeTabItem value="ts">
 
 ```ts
-import * as ld from 'launchdarkly-js-client-sdk';
-
 const boolFlagValue = client.variation('your.feature.key', false) as boolean;
 const numberFlagValue = client.variation('your.feature.key', 2) as number;
 const stringFlagValue = client.variation('your.feature.key', 'default') as string;
@@ -367,18 +362,16 @@ Here is an example:
 <CodeTabItem value="js">
 
 ```js
-const value = client.variation("your.feature.key", false);
+const value = client.variation('YOUR_FEATURE_KEY', false);
 ```
 
 </CodeTabItem>
 <CodeTabItem value="ts">
 
 ```ts
-import * as ld from 'launchdarkly-node-client-sdk';
-
-const boolFlagValue = client.variation('your.feature.key', false) as boolean;
-const numberFlagValue = client.variation('your.feature.key', 2) as number;
-const stringFlagValue = client.variation('your.feature.key', 'default') as string;
+const boolFlagValue = client.variation('YOUR_FEATURE_KEY', false) as boolean;
+const numberFlagValue = client.variation('YOUR_FEATURE_KEY', 2) as number;
+const stringFlagValue = client.variation('YOUR_FEATURE_KEY', 'default') as string;
 
 ```
 
@@ -742,30 +735,15 @@ Here is an example:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 client.variation('your.feature.key', user, false,
-  (err, show_feature) => {
-    if (show_feature) {
-      // application code to show the feature
-    }
-    else {
-      // the code to run if the feature is off
-    }
-  });
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
-client.variation('your.feature.key', user, false, (err, value) => {
+  (err, value) => {
     // check value and proceed accordingly
-});
+  });
 ```
 
 </CodeTabItem>

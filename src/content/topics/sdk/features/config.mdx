@@ -249,9 +249,7 @@ This code sample shows you how to create a custom configuration object to pass c
 <CodeTabItem value="js">
 
 ```js
-const options = {
-  allAttributesPrivate: true
-};
+const options = { allAttributesPrivate: true };
 const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 
 ```
@@ -260,10 +258,10 @@ const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 <CodeTabItem value="ts">
 
 ```ts
-import * as ld from 'launchdarkly-js-client-sdk';
+import * as LDClient from 'launchdarkly-js-client-sdk';
 
-const options: ld.LDOptions = { allAttributesPrivate: true };
-const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const options: LDClient.LDOptions = { allAttributesPrivate: true };
+const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>
@@ -288,24 +286,24 @@ This code sample shows you how to create a custom configuration object to pass c
 
 ```js
 const options = {
-  flushInterval: 10000,
+  flushInterval: 10000, // milliseconds
   allAttributesPrivate: true
 };
 
-const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>
 <CodeTabItem value="ts">
 
 ```ts
-import * as ld from 'launchdarkly-node-client-sdk';
+import * as LDClient from 'launchdarkly-node-client-sdk';
 
-const options: ld.LDOptions = {
+const options: LDClient.LDOptions = {
   flushInterval: 10000, // milliseconds
   allAttributesPrivate: true,
 };
-const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>
@@ -334,9 +332,9 @@ Here is an example:
 <CodeTabItem value="js">
 
 ```js
-let config =
-  { "mobileKey": "YOUR_MOBILE_KEY",
-    "connectionTimeoutMillis": 3000
+let config = {
+  mobileKey: 'YOUR_MOBILE_KEY',
+  connectionTimeoutMillis: 3000
   };
 await client.configure(config, user);
 ```
@@ -746,7 +744,9 @@ This code sample shows you how to pass custom parameters to the client by creati
 <CodeTabItem value="js">
 
 ```js
-var options = {'timeout': 3};
+const options = {
+  timeout: 3
+};
 client = ld.init('YOUR_SDK_KEY', options);
 ```
 

@@ -414,7 +414,7 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
-var options = {'offline': true};
+const options = { offline: true };
 client = ld.init('YOUR_SDK_KEY', options);
 client.variation('any.feature.flag', user, false, cb) // cb will always be invoked with the default value (false)
 

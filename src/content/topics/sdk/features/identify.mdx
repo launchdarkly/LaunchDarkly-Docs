@@ -169,13 +169,13 @@ Here's how:
 ```js
 const newUser = { key: 'someone-else', name: 'John' };
 
-client.identify(newUser, function(newFlags) {
-  console.log('value of flag for this user is: ' + newFlags["YOUR_FEATURE_KEY"]);
-  console.log('this should be the same: ' + client.variation("YOUR_FEATURE_KEY"));
+client.identify(newUser, (newFlags) => {
+  console.log('value of flag for this user is: ' + newFlags['YOUR_FEATURE_KEY']);
+  console.log('this should be the same: ' + client.variation('YOUR_FEATURE_KEY'));
 });
 
 // or:
-client.identify(newUser).then(function(newFlags) {
+client.identify(newUser).then((newFlags) => {
   // as above
 });
 ```
@@ -299,22 +299,12 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 client.identify(newUser, hash, function() {
-  console.log("New user's flags available");
-});
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
-client.identify(newUser, hash, function () {
   console.log("New user's flags available");
 });
 ```
@@ -342,26 +332,11 @@ You may want to change the user context dynamically and receive the new set of f
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.identify(newUser, () => {
-  console.log("New user's flags available");
-});
-
-// or, with a Promise:
-client.identify(newUser).then(() => {
-  console.log("New user's flags available");
-});
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.identify(newUser, () => {
   console.log("New user's flags available");
 });
@@ -688,19 +663,11 @@ To use `identify`:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.identify(user);
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.identify(user);
 ```
 

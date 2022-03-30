@@ -169,22 +169,12 @@ Unlike most of our SDKs, our JavaScript SDK's `allFlags` method sends analytic e
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 let allFlagsResult = client.allFlags();
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
-import * as ld from 'launchdarkly-js-client-sdk';
-
-const allFlagsResult: ld.LDFlagSet = client.allFlags();
 ```
 
 </CodeTabItem>
@@ -207,22 +197,12 @@ Unlike most of our SDKs, our Node.js (client-side) SDK's `allFlags` method sends
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 let allFlagsResult = client.allFlags();
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
-import * as ld from 'launchdarkly-node-client-sdk';
-
-const allFlagsResult: ld.LDFlagSet = client.allFlags();
 ```
 
 </CodeTabItem>
@@ -254,7 +234,7 @@ allFlagsResult.then(values => {
 });
 
 // All Flags Listener
-let listenerId = "ARBITRARY_VALUE"
+let listenerId = 'ARBITRARY_VALUE'
 let listener = value => Alert.alert('All Flags Listener Callback', value);
 client.registerAllFlagsListener(listenerId, listener);
 ```
@@ -539,21 +519,11 @@ To use the all flags feature:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.allFlagsState(user, options, (err, flagsState) => {
-  // this object can be converted to JSON or can be queried for flag values
-});
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.allFlagsState(user, options, (err, flagsState) => {
   // this object can be converted to JSON or can be queried for flag values
 });

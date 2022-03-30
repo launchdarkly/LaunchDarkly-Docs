@@ -39,7 +39,7 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
 </CalloutDescription>
 </Callout>
 
-The sample code snippets for this SDK are available in both JavaScript and TypeScript. To learn more, read [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
+The sample code snippets for this SDK are available in both JavaScript and TypeScript, where the sample code differs. To learn more, read [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
 
 ## Why use this instead of the Node.js SDK?
 
@@ -212,7 +212,6 @@ The SDK initializes both types of client asynchronously, so if you want to deter
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -225,21 +224,6 @@ client.on('ready', function() {
 
 // Or, using a Promise:
 client.waitForInitialization().then(function() {
-  // Now we can evaluate some feature flags
-});
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
-// Using an event listener:
-client.on('ready', () => {
-  // Now we can evaluate some feature flags
-});
-
-// Or, using a Promise:
-client.waitForInitialization().then(() => {
   // Now we can evaluate some feature flags
 });
 ```

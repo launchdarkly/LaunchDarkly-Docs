@@ -121,19 +121,11 @@ To manually send an `alias` event:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.alias(newUser, previousUser);
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.alias(newUser, previousUser);
 ```
 
@@ -204,25 +196,15 @@ To manually send an `alias` event:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const previousUser = ldclient.getUser();
+const previousUser = client.getUser();
 client.alias(newUser, previousUser);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
-import * as ld from 'launchdarkly-js-client-sdk';
-
-const previousUser: ld.LDUser = client.getUser();
-client.alias(newUser, previousUser);
-```
 </CodeTabItem>
 </CodeTabs>
 </Details>

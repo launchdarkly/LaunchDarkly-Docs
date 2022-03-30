@@ -461,12 +461,12 @@ Here's an example of a user:
 
 ```js
 const user = {
-  key: "aa0ceb",
-  firstName: "Ernestina",
-  lastName: "Evans",
-  email: "ernestina@example.com",
+  key: 'aa0ceb',
+  firstName: 'Ernestina',
+  lastName: 'Evans',
+  email: 'ernestina@example.com',
   custom: {
-    groups: ["Google", "Microsoft"]
+    groups: ['Google', 'Microsoft']
   }
 };
 ```
@@ -520,12 +520,12 @@ To mark all user attributes except the key as private, you can use the `allAttri
 
 ```js
 const user = {
-  key: "aa0ceb",
-  name: "Grace Hopper",
-  email: "gracehopper@example.com"
+  key: 'aa0ceb',
+  name: 'Grace Hopper',
+  email: 'gracehopper@example.com'
 };
 
-const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
+const client = LDElectron.initialize('YOUR_CLIENT_SIDE_ID', user, {
   allAttributesPrivate: true
 });
 ```
@@ -567,14 +567,14 @@ This option is configured in both the user object and the configuration object:
 
 ```js
 const user = {
-  key: "aa0ceb",
-  name: "Grace Hopper",
-  email: "gracehopper@example.com",
-  privateAttributeNames: ["email"]
+  key: 'aa0ceb',
+  name: 'Grace Hopper',
+  email: 'gracehopper@example.com',
+  privateAttributeNames: ['email']
 };
 
-const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
-  privateAttributeNames: ["email"]
+const client = LDElectron.initialize('YOUR_CLIENT_SIDE_ID', user, {
+  privateAttributeNames: ['email']
 });
 ```
 
@@ -621,10 +621,10 @@ Here's how:
 // To create an anonymous user with an auto-generated key, specify
 // the "anonymous" property and omit the "key" property. The LaunchDarkly
 // client creates a unique key for this user and caches it locally.
-const user = { anonymous: true };
+const anonymousUser = { anonymous: true };
 
 // You can also specify any key you want:
-const user2 = { key: "aa0ceb", anonymous: true };
+const anonymousUser2 = { key: 'aa0ceb', anonymous: true };
 ```
 
 </CodeTabItem>
@@ -636,10 +636,10 @@ import * as LDElectron from 'launchdarkly-electron-client-sdk';
 // To create an anonymous user with an auto-generated key, specify
 // the "anonymous" property and omit the "key" property. The LaunchDarkly
 // client creates a unique key for this user and caches it locally.
-const user: LDElectron.LDUser = { anonymous: true };
+const anonymousUser: LDElectron.LDUser = { anonymous: true };
 
 // You can also specify any key you want:
-const user2: LDElectron.LDUser = { key: 'aa0ceb', anonymous: true };
+const anonymousUser2: LDElectron.LDUser = { key: 'aa0ceb', anonymous: true };
 ```
 
 </CodeTabItem>
@@ -906,12 +906,12 @@ Here's an example of a user:
 
 ```js
 const user = {
-  "key": "aa0ceb",
-  "firstName": "Ernestina",
-  "lastName": "Evans",
-  "email": "ernestina@example.com",
-  "custom": {
-    "groups": ["Google", "Microsoft"]
+  key: 'aa0ceb',
+  firstName': 'Ernestina',
+  lastName': 'Evans',
+  email': 'ernestina@example.com',
+  custom: {
+    groups: ['Google', 'Microsoft']
   }
 };
 ```
@@ -965,12 +965,12 @@ To mark all user attributes except the key as private in the JavaScript SDK, you
 
 ```js
 const user = {
-  "key": "aa0ceb",
-  "name": "Grace Hopper",
-  "email": "gracehopper@example.com"
+  key: 'aa0ceb',
+  name: 'Grace Hopper',
+  email: 'gracehopper@example.com'
 };
 
-const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
+const ldclient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
   allAttributesPrivate: true
 });
 ```
@@ -988,7 +988,7 @@ const user: ld.LDUser = {
 }
 const options: ld.LDOptions = { allAttributesPrivate: true };
 
-const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>
@@ -1011,14 +1011,14 @@ This option is configured in both the user object and the configuration object:
 
 ```js
 const user = {
-  "key": "aa0ceb",
-  "name": "Grace Hopper",
-  "email": "gracehopper@example.com"
-  "privateAttributeNames": ["email"]
+  key: 'aa0ceb',
+  name: 'Grace Hopper',
+  email: 'gracehopper@example.com',
+  privateAttributeNames: ['email']
 };
 
-const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
-  privateAttributeNames: ["email"]
+const ldclient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
+  privateAttributeNames: ['email']
 });
 ```
 
@@ -1036,7 +1036,7 @@ const user: ld.LDUser = {
 };
 const options: ld.LDOptions = { allAttributesPrivate: ['email'] };
 
-const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>
@@ -1076,7 +1076,7 @@ Here's how:
 // auto-generates a unique identifier for this user. The
 // identifier is saved in local storage and reused in future
 // browser sessions to ensure a constant experience.
-const user = {"anonymous": true};
+const anonymousUser = { anonymous: true };
 
 // If you are using earlier SDK versions, you need to specify
 // the "key" property as earlier versions do not auto-generate the
@@ -1087,7 +1087,7 @@ const user = {"anonymous": true};
 //
 // We suggest storing the user's key in a cookie, otherwise you
 // might create a new user for each page request.
-const user2 = {"key":"aa0ceb", "anonymous": true};
+const anonymousUser2 = { key: 'aa0ceb', anonymous: true };
 ```
 
 </CodeTabItem>
@@ -1096,7 +1096,24 @@ const user2 = {"key":"aa0ceb", "anonymous": true};
 ```ts
 import * as ld from 'launchdarkly-js-client-sdk';
 
-const anonymousUser: ld.LDUser = { key: 'anon-user', anonymous: true };
+// Starting with version 2.10.0 of the JavaScript SDK, to create
+// an anonymous user you can specify the "anonymous" property and
+// omit the "key" property. In doing so, the LaunchDarkly client
+// auto-generates a unique identifier for this user. The
+// identifier is saved in local storage and reused in future
+// browser sessions to ensure a constant experience.
+const anonymousUser: ld.LDUser = { anonymous: true };
+
+// If you are using earlier SDK versions, you need to specify
+// the "key" property as earlier versions do not auto-generate the
+// property.
+//
+// Here you need to generate a unique key for anonymous
+// users. You can use the session ID or a UUID.
+//
+// We suggest storing the user's key in a cookie, otherwise you
+// might create a new user for each page request.
+const anonymousUser2: ld.LDUser = { key: 'aa0ceb', anonymous: true };
 ```
 
 </CodeTabItem>
@@ -1131,12 +1148,12 @@ Here's an example of a user:
 
 ```js
 const user = {
-  key: "aa0ceb",
-  firstName: "Ernestina",
-  lastName: "Evans",
-  email: "ernestina@example.com",
+  key: 'aa0ceb',
+  firstName: 'Ernestina',
+  lastName: 'Evans',
+  email: 'ernestina@example.com',
   custom: {
-    groups: ["Google", "Microsoft"]
+    groups: ['Google', 'Microsoft']
   }
 };
 ```
@@ -1190,12 +1207,12 @@ To mark all user attributes except the key as private in the JavaScript SDK, you
 
 ```js
 const user = {
-  key: "aa0ceb",
-  name: "Grace Hopper",
-  email: "gracehopper@example.com"
+  key: 'aa0ceb',
+  name: 'Grace Hopper',
+  email: 'gracehopper@example.com'
 };
 
-const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
+const client = ld.initialize('YOUR_CLIENT_SIDE_ID', user, {
   allAttributesPrivate: true
 });
 ```
@@ -1213,7 +1230,7 @@ const user: ld.LDUser = {
 };
 const options: ld.LDOptions = { allAttributesPrivate: true };
 
-const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>
@@ -1236,14 +1253,14 @@ This option is configured in both the user object and the configuration object:
 
 ```js
 const user = {
-  key: "aa0ceb",
-  name: "Grace Hopper",
-  email: "gracehopper@example.com"
-  privateAttributeNames: ["email"]
+  key: 'aa0ceb',
+  name: 'Grace Hopper',
+  email: 'gracehopper@example.com'
+  privateAttributeNames: ['email']
 };
 
-const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, {
-  privateAttributeNames: ["email"]
+const client = ld.initialize('YOUR_CLIENT_SIDE_ID', user, {
+  privateAttributeNames: ['email']
 });
 ```
 
@@ -1261,7 +1278,7 @@ const user: ld.LDUser = {
 };
 const options: ld.LDOptions = { allAttributesPrivate: ['email'] };
 
-const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>

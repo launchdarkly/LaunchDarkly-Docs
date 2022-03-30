@@ -136,8 +136,8 @@ The following example shows the simplest way to create a shared instance of `LDC
 
 ```js
 let client = new LDClient();
-let config = { "mobileKey": "YOUR_MOBILE_KEY" };
-let user = { "key": "user_key" };
+let config = { mobileKey: 'YOUR_MOBILE_KEY' };
+let user = { key: 'user_key' };
 
 await client.configure(config, user);
 ```
@@ -151,7 +151,6 @@ let config: ld.LDConfig = { mobileKey: 'YOUR_MOBILE_KEY' };
 let user: ld.LDUser = { key: 'user_key' };
 
 await client.configure(config, user);
-
 ```
 
 </CodeTabItem>
@@ -172,8 +171,8 @@ Here is an example with a timeout of five seconds:
 
 ```js
 let client = new LDClient();
-let config = { "mobileKey": "YOUR_MOBILE_KEY" };
-let user = { "key": "user_key" };
+let config = { mobileKey: 'YOUR_MOBILE_KEY' };
+let user = { key: 'user_key' };
 
 client.configure(config, user, 5.0)
 ```
@@ -187,7 +186,6 @@ let config: ld.LDConfig = { mobileKey: 'YOUR_MOBILE_KEY' };
 let user: ld.LDUser = { key: 'user_key' };
 
 client.configure(config, user, 5.0);
-
 ```
 
 </CodeTabItem>

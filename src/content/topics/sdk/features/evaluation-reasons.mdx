@@ -182,7 +182,6 @@ Here is an example:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
@@ -194,18 +193,6 @@ const detail = client.variationDetail('flag-key', false);
 const value = detail.value;
 const index = detail.variationIndex;
 const reason = detail.reason;
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
-import * as ld from 'launchdarkly-js-client-sdk';
-
-const detail: ld.LDEvaluationDetail = client.variationDetail('key', 'default');
-const detailValue: ld.LDFlagValue = detail.value;
-const detailIndex: number | undefined = detail.variationIndex;
-const detailReason: ld.LDEvaluationReason = detail.reason;
 ```
 
 </CodeTabItem>
@@ -228,7 +215,6 @@ Here is an example:
   defaultValue="js"
   values={[
     { label: 'Node.js', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
@@ -240,19 +226,6 @@ const detail = client.variationDetail('flag-key', false);
 const value = detail.value;
 const index = detail.variationIndex;
 const reason = detail.reason;
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
-import * as ld from 'launchdarkly-node-client-sdk';
-
-const detail: ld.LDEvaluationDetail = client.variationDetail('key', 'default');
-
-const detailValue: ld.LDFlagValue = detail.value;
-const detailIndex: number | undefined = detail.variationIndex;
-const detailReason: ld.LDEvaluationReason = detail.reason;
 ```
 
 </CodeTabItem>
@@ -279,7 +252,7 @@ Here is an example:
 
 ```js
 const detail =
-  client.boolVariationDetail("flag-key", false);
+  client.boolVariationDetail('YOUR_FEATURE_KEY', false);
 
 const value = detail.value;
 const index = detail.variationIndex;
