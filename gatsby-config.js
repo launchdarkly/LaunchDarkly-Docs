@@ -126,11 +126,12 @@ const plugins = [
     },
   },
   {
-    resolve: 'gatsby-plugin-google-analytics',
+    resolve: 'gatsby-plugin-google-gtag',
     options: {
-      trackingId: 'UA-44750782-3',
-      head: true,
-      cookieDomain: 'launchdarkly.com',
+      trackingIds: ['UA-44750782-3'],
+      pluginConfig: {
+        head: true,
+      },
     },
   },
   {
