@@ -149,7 +149,6 @@ client.track('my-custom-event-key', { customProperty: someValue });
 </CodeTabItem>
 </CodeTabs>
 
-You can completely disable event sending by setting `sendEvents` to `false` in the client options, but be aware that this means not all user data will appear on the flag dashboard.
 </Details>
 
 ### Flutter
@@ -292,8 +291,6 @@ client.track('your-event-name', { customProperty: someValue });
 </CodeTabs>
 
 If you [define click or page view metrics](/home/experimentation) in LaunchDarkly, they are sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or page view goals. The SDK will generate `page view` events correctly regardless of how the URL is changed, such as by the HTML5 history API, by changing the URL hash fragment, etc.
-
-You can completely disable event sending by setting `sendEvents` to `false` in the client options, but this means not all data will appear on the flag dashboard.
 
 <Callout intent="info">
 <CalloutTitle>Do Not Track and ad blocking software</CalloutTitle>
