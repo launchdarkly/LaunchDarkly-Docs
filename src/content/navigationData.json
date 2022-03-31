@@ -1025,8 +1025,8 @@
             "path": "/sdk/client-side/javascript",
             "items": [
               {
-                "label": "Default variations on page load",
-                "path": "/sdk/client-side/javascript/default-variations"
+                "label": "Default values on page load",
+                "path": "/sdk/client-side/javascript/default-values"
               },
               {
                 "label": "Requirements and polyfills",

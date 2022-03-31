@@ -13,7 +13,7 @@ Serverless functions play a critical role in modern application architectures. F
 
 In this guide, you'll explore how to build a serverless function with [AWS Lambda](https://aws.amazon.com/lambda/) and how you can use LaunchDarkly flags and Lambda functions to conditionally enable or modify server-side logic. In addition, you'll learn how to deploy this to [CloudFront](https://aws.amazon.com/cloudfront/), Amazon's content delivery network (CDN), as [Lambda@Edge](https://aws.amazon.com/lambda/edge/) so you can use the flags to conditionally perform actions at the "edge."
 
-The example function you will build redirects users to a different version of a website. It is better to do this "at the edge" to limit any latency the user might see during the request. Rather than intercept the request on the server and do a server-side redirect or send back a response that performs a client-side redirect, you can intercept the request at the CDN level closest to the user and direct it to a specific version of the site. Identifying the user and serving them a flag variation from the edge means faster state changes to feature flags, and no disruptions when the flag state changes from the default variation to the targeted variation.
+The example function you will build redirects users to a different version of a website. It is better to do this "at the edge" to limit any latency the user might see during the request. Rather than intercept the request on the server and do a server-side redirect or send back a response that performs a client-side redirect, you can intercept the request at the CDN level closest to the user and direct it to a specific version of the site. Identifying the user and serving them a flag variation from the edge means faster state changes to feature flags, and no disruptions when the flag state changes from the default value to the targeted variation.
 
 ### Prerequisites
 
@@ -213,7 +213,7 @@ LaunchDarkly is now initialized, so you can set up flags to use in the function 
  ![Setting a percentage rollout.](rules-percentage-fifty.png)
 
 6. Scroll up and click **Save changes**.
-7. Toggle the flag **on** and save again. If you don't turn targeting on, the percentage rollout will not run and you'll only get the default variation.
+7. Toggle the flag **On** and save again. If you don't turn targeting on, the percentage rollout will not run and you'll only get the default off variation.
 
 ### Getting a flag value in Lambda
 

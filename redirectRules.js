@@ -976,4 +976,8 @@ module.exports = [
     fromPath: '/home/organize/flag-compare-copy',
     toPath: '/home/code/flag-compare-copy',
   },
+  {
+    fromPath: '/sdk/client-side/javascript/default-variations',
+    toPath: '/sdk/client-side/javascript/default-values',
+  },
 ]

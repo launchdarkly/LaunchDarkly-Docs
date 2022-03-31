@@ -144,7 +144,7 @@ The time between batch calls to the event API should be configurable. The SDK sh
 The `kind` attribute should always be `"feature"`. A `feature` event should only be generated in one of these scenarios:
    - the `trackEvents` or `trackEventsFallthrough` attribute on the flag configuration is sent
    - the `trackEvents` attribute on a targeting rule is sent
-   - the targeting rule or fallthrough has a rollout of kind `"experiment"` and the variation associated with the event is included in the tracked variations for that rollout
+   - the targeting rule or default rule when on has a rollout of kind `"experiment"` and the variation associated with the event is included in the tracked variations for that rollout
 
 Evaluating flag prerequisites generates one additional `feature` event per evaluation. These `feature` events should have the `prereqOf` attribute set to the originating flag's key. The `prereqOf` attribute should only be set for flags which are evaluated to determine a prerequisite value.
 

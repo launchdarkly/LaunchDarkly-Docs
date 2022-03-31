@@ -29,9 +29,9 @@ To complete this guide, you should understand the following concepts:
 
 Flag variations let you use one flag to serve multiple variations of a feature to different users simultaneously. There is no limit to the number of variations you can add to a flag, making them useful for testing scenarios. To learn more, read [Creating flag variations](/home/flags/variations). 
 
-### Fallback variations
+### Fallback values
 
-Fallback variations are what your app serves to a user if a flag cannot be evaluated, such as if your app can’t connect to LaunchDarkly. To learn more, read [Configuring variations](/sdk/features/evaluating#configuring-variations).
+Fallback values are what your app serves to a user if it can't evaluate a flag, such as if your app can’t connect to LaunchDarkly. To learn more, read [Configuring variations](/sdk/features/evaluating#configuring-variations).
 
 ### Flag targeting
 
@@ -102,7 +102,7 @@ function oldSearch(searchQuery) {
 
 
 function search(searchQuery) {
-    // Feature Flag - false is the fallback variation
+    // Feature Flag - false is the fallback value
     useNewSearch = ldclient.variation("new-search-algorithm", user, false);
 
     if (useNewSearch) {

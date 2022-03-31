@@ -605,7 +605,7 @@ To turn on a percentage rollout for the `Pricing Tier 3` flag:
 
 1. Navigate to the **Feature flags** dashboard in LaunchDarkly.
 2. In the "Feature flags" list, click Pricing Tier 3. The flag's **Targeting** tab appears.
-3. Find the "Default rule", which is the flag variation that appears when targeting is enabled. In this example, it is set to `true`:
+3. Find the "Default rule", which is the flag variation or rollout that appears when targeting is enabled. In this example, it is set to `true`:
 
 ![The flag's Default rule selector.](flag-default-rule.png)
 
@@ -615,7 +615,7 @@ To turn on a percentage rollout for the `Pricing Tier 3` flag:
 ![A percentage rollout with percentage values for each variation.](flag-percentage-rule.png)
 
 4. Set the `true` variation to 30%.
-5. Confirm that the flag's targeting toggle is set to **on**.
+5. Confirm that the flag's targeting toggle is set to **On**.
 6. Click **Save changes**.
 7. Log in to the Starlight Travel app as a few different users. Keep track of which email addresses you use as you log in and log out.
 8. When the third pricing tier appears, you know the user you logged in as is part of the 30% of users targeted by the "Pricing Tier 3" flag.

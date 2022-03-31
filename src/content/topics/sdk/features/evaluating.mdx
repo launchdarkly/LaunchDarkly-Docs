@@ -13,7 +13,7 @@ This topic explains how to use the flag evaluation feature to serve different fe
 
 Feature flag variations determine what a user sees when they encounter a feature flag. Every flag has at least two variations, one for when the flag is off, and one for when it's on. To learn more, read [Creating flag variations](/home/flags/variations).
 
-Flags also have fallback variations. The fallback variation only returns if an error occurs. For example, LaunchDarkly serves the fallback variation if the feature flag key doesn't exist, or the user doesn't have a key specified.
+Flags also have fallback values. The fallback value only returns if an error occurs. For example, the SDK serves the fallback value if LaunchDarkly is unreachable, the feature flag key doesn't exist, or the user doesn't have a key specified.
 
 The flag evaluation feature adds a user to the **Users** dashboard if a user with the same key does not already exist. However, each SDK evaluates flags based only on the user object you provide in the evaluation call. The SDK does not automatically use the attributes shown on the dashboard, and user attributes are not synchronized across SDK instances. You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
 

@@ -68,9 +68,9 @@ Not only do you want to remove the references to the flag in your code, but you 
 
 Failure to remove flags clutters your flag dashboard, as well as your code. You can’t quickly find the flag you need to toggle. This may seem like a minor inconvenience, but if you need to quickly toggle a flag off, having to scroll through hundreds of flags adds time. But cluttered code and dashboards aren’t the only challenges.
 
-You also run the risk of an old flag evaluating to a state that is invalid or undesirable. When you’re rolling out a new change such as an updated user interface (UI), it is common to keep the default version to the current UI until you have confidence in the new one. Once the flag is serving 100% of users new UI, the flag has reached the end of its lifecycle and should be archived. Failure to do this runs the risk of falling back to the undesired old UI if a flag gets turned off or an SDK failure results in using the fallback value. 
+You also run the risk of an old flag evaluating to a state that is invalid or undesirable. When you’re rolling out a new change such as an updated user interface (UI), it is common to keep the current UI as the default version until you have confidence in the new one. Once the flag is serving 100% of users the new UI, the flag has reached the end of its lifecycle and should be archived. Failure to do this runs the risk of falling back to the undesired old UI if a flag gets turned off or an SDK failure results in using the fallback value.
 
-You should also test the fallback values of permanent flags periodically, to ensure they are up to date and delivering valid states. To learn more about fallback values, read [Changing default flag variations](/home/flags/variations#changing-default-flag-variations).
+Test the fallback values of permanent flags periodically to ensure they are up to date and delivering valid states. To learn more about fallback values, read [Changing default flag variations](/home/flags/variations#changing-default-flag-variations).
 
 ## Understanding the flag's lifecycle
 

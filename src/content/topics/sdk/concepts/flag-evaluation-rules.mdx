@@ -18,11 +18,11 @@ SDKs evaluate flags for specific users. The arguments needed to evaluate a flag 
 
 Evaluating a flag for a specific user involves the following steps:
 
-1. [Preliminary checks](#preliminary-checks): for example, verifying that the flag is on and the supplied user has a key
-2. [Prerequisite checks](#prerequisite-checks): determine whether the flag's prerequisites are met
-3. [Individual targeting checks](#individual-targeting-checks): determine whether the user matches an individual user targeting rule
-4. [Targeting rule checks](#targeting-rule-checks): determine whether the user matches other targeting rules
-5. [Fallthrough](#fallthrough): return the default variation value
+1. [Preliminary checks](#preliminary-checks): verify that the flag is on and the supplied user has a key. If the flag is off, the SDK does not complete the rest of the checks, and serves the default off variation.
+2. [Prerequisite checks](#prerequisite-checks): determine whether the flag's prerequisites are met.
+3. [Individual targeting checks](#individual-targeting-checks): determine whether the user matches an individual user targeting rule.
+4. [Targeting rule checks](#targeting-rule-checks): determine whether the user matches other targeting rules.
+5. [Fallthrough](#fallthrough): return the variation from the default rule when on.
 
 The result of the evaluation is:
 
@@ -37,11 +37,11 @@ As a side effect of the evaluation, the SDKs send events back to LaunchDarkly to
 
 Five preliminary checks occur before the main flag evaluation algorithm executes:
 
-- If the SDK is offline, return the provided default value with the `ERROR` evaluation reason and the corresponding error code.
+- If the SDK is offline, return the provided fallback value with the `ERROR` evaluation reason and the corresponding error code.
 - Fetch the flag definition from the flag store. If the definition is not found, return the provided default value with the `ERROR` evaluation reason and the corresponding error code.
 - If the user doesn't have a `key` attribute, return the provided default value with the `ERROR` evaluation reason and the corresponding error code.
 - If the user key is an empty string, log a warning and proceed.
-- If the flag is turned off, return the flag's off variation value with the `OFF` evaluation reason.
+- If the flag is turned off, return the flag's default off variation with the `OFF` evaluation reason.
 
 If all the above checks pass, the evaluation algorithm proceeds with prerequisite checks.
 
@@ -76,7 +76,7 @@ Flags may have rules. Rules offer more complex ways to match arbitrary user attr
 
 SDKs iterate through flags' rules to find the first rule that matches the given user. If the matched rule has a variation index, return the corresponding variation, with the rule's ID and the `RULE_MATCH` evaluation reason. If, on the other hand, the rule has a rollout, follow the rollout logic to arrive at the variation and also return the corresponding variation, along with the rule ID and the `RULE_MATCH` evaluation reason.
 
-If a targeting rule references any custom attributes with `null` values, then the flag skips that rule. If there were no rules, or no rules matched the user, the evaluation algorithm proceeds with the fallthrough.
+If a targeting rule references any custom attributes with `null` values, then the flag skips that rule. If there were no rules, or no rules matched the user, the evaluation algorithm proceeds with the default rule when on, also called the "fallthrough" value.
 
 ## Clauses
 
