@@ -9,11 +9,11 @@ published: true
 
 This topic explains how to use the Relay Proxy. It also explains the Relay Proxy's two modes and gives detail on how to perform flag evaluations with the Relay Proxy.
 
-To learn more about deploying the Relay Proxy, read [Deploying the Relay Proxy](/home/relay-proxy/deploying).
+To learn more about deploying and configuring the Relay Proxy, read [Deploying the Relay Proxy](/home/relay-proxy/deploying).
 
 ## Configuring an SDK to use the Relay Proxy
 
-You must set certain values in your SDK's configuration to connect to the Relay Proxy. Precise steps to set the configuration values depend on your particular SDK.
+After the Relay Proxy is up and running, you must set certain values in your SDK's configuration to connect to the Relay Proxy. Precise steps to set the configuration values depend on your particular SDK.
 
 The values you may replace are:
 
@@ -24,26 +24,6 @@ The values you may replace are:
 Each SDK uses these values to determine where to request flag updates. Change the values to point to the Relay Proxy URI instead of directly to LaunchDarkly's services. In some SDKs, you must set the base URI of each service to the Relay Proxy's base URI, using a separate configuration property for each service but setting each one to the same value. In other SDKs, you can set the base URI for all services with a single configuration property.
 
 To learn more, read [Relay Proxy configuration](/sdk/features/relay-proxy-configuration).
-
-## Configuring the Relay Proxy for Big Segments
-
-<Callout intent="alert">
-<CalloutTitle>This feature is not available on all versions of the Relay Proxy</CalloutTitle>
-<CalloutDescription>
-
-If you want to use Big Segments with server-side SDKs, you must upgrade the Relay Proxy to version <b>6.4.0</b> or above.
-
-</CalloutDescription>
-</Callout>
-
-To use Big Segments with the Relay Proxy, you must configure the Relay Proxy to use either Redis or DynamoDB for persistent storage. The Relay Proxy stores Big Segment data in the persistent data store, which your SDK then uses for flag evaluation. To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
-
-If you use a server-side SDK, you must use the Relay Proxy and configure your server-side SDKs to use the same persistent storage as the Relay Proxy. To learn how to configure server-side SDKs for Big Segments, read [Big Segments](/sdk/features/big-segments).
-
-If you use a client-side SDK, there's no additional setup required to use Big Segments. However, if you use the Relay Proxy with a client-side SDK, the Relay Proxy must be configured to use persistent storage with Redis or DynamoDB.
-
-To learn more, read [Persistent storage](https://github.com/launchdarkly/ld-relay/blob/v6/docs/persistent-storage.md) and [Big Segments](/home/users/big-segments).
-
 
 ## Validating your Relay Proxy configuration
 
@@ -128,7 +108,7 @@ If you have set your SDK to daemon mode and wish to restore proxy mode, you can 
 </CalloutDescription>
 </Callout>
 
-We recommend that you use a monitoring service, such as Datadog, when your SDKs are configured to run in daemon mode. Because the Relay Proxy's data store communicates directly with the SDKs when the Relay Proxy is in in daemon mode, an external monitoring service can provide information about problems that might otherwise be lost during an outage.
+We recommend that you use a monitoring service, such as Datadog, when your SDKs are configured to run in daemon mode. Because the Relay Proxy's data store communicates directly with the SDKs when the Relay Proxy is in daemon mode, an external monitoring service can provide information about problems that might otherwise be lost during an outage.
 
 Here is a diagram showing how SDKs can be configured to use the Relay Proxy in daemon mode:
 
