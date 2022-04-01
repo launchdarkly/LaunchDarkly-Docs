@@ -828,6 +828,10 @@
             "path": "/sdk/concepts/data-stores"
           },
           {
+            "label": "Server-side SDK bandwidth usage",
+            "path": "/sdk/concepts/server-side-bandwidth"
+          },
+          {
             "label": "Using flag types",
             "path": "/sdk/concepts/flag-types"
           },
