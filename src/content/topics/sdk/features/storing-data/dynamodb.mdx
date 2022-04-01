@@ -13,7 +13,7 @@ This topic explains how to use the SDK DynamoDB integration as a persistent feat
 <CalloutTitle>Data size limit in DynamoDB</CalloutTitle>
 <CalloutDescription>
 
-DynamoDB [does not support](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html#limits-items) storing values greater than 400KB (or slightly less, since that number includes the size of the column metadata). Therefore, using DynamoDB as a persistent feature store does not work if the JSON representation of any feature flag or user segment exceeds that size.
+DynamoDB does not support storing values greater than 400KB, including the size of the column metadata. Using DynamoDB as a persistent feature store will not work if the JSON representation of any feature flag or user segment exceeds that size. To learn more, read the [AWS documentation on item size](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html#limits-items).
 
 To see the JSON representations of all flags and segments, query https://app.launchdarkly.com/sdk/latest-all with your SDK key in the `Authorization` header.
 
