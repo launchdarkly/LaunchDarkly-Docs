@@ -21,7 +21,7 @@ There are three main components to a LaunchDarkly SDK implementation:
 
 ## Receiving feature flag updates
 
-LaunchDarkly SDKs store all feature flags in memory. SDKs typically receive flag updates asynchronously through our streaming protocol (as is the default case in most SDKs). While LaunchDarkly's various SDKs typically support the same two mechanisms for receiving feature flag updates, their implementation details vary.
+LaunchDarkly SDKs store all feature flags in memory. SDKs typically receive flag updates asynchronously through our streaming protocol, as is the default case in most SDKs. While LaunchDarkly's various SDKs typically support the same two mechanisms for receiving feature flag updates, their implementation details vary.
 
 The SDKs can use either of the following mechanisms to populate a feature flag store, which is a thread-safe, in-memory map from feature flag keys to feature flag JSON. Evaluating a feature flag is a very lightweight and inexpensive effort and requires no per-evaluation requests to LaunchDarkly's servers. Server-side SDKs can read flags from the in-memory store and evaluate them using the evaluation algorithm, and client-side SDKs can retrieve pre-evaluated flag values from the in-memory store. To learn more, read [Evaluating feature flags](#evaluating-feature-flags).
 
@@ -93,11 +93,11 @@ To implement the `variation` method in a client-side SDK, return the last-known 
 
 The SDKs send ten kinds of events:
 
-* `feature` and `debug` events which identify which feature flags are being evaluated,
+* `feature` and `debug` events which identify which feature flags the SDK is evaluating,
 * `index` and `identify` events which push user data to LaunchDarkly,
 * `alias` events which associate two users for analytics purposes,
-* `page view` events which are sent only by SDKs that are based on the JavaScript SDK when pages are visited,
-* `click` events which are sent only by SDKs that are based on the JavaScript SDK when elements on pages are clicked,
+* `page view` events which are sent only by JavaScript-based SDKs when pages are visited,
+* `click` events which are sent only by JavaScript-based SDKs when elements on pages are clicked,
 * `custom` events which are sent when an application calls the SDK's `track` method,
 * `summary` events which summarize a series of `feature` events, and
 * `diagnostic` events that report on how the SDK is configured and operating.

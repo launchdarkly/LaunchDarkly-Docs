@@ -800,6 +800,10 @@
             "path": "/sdk/concepts/getting-started"
           },
           {
+            "label": "Analytics events",
+            "path": "/sdk/concepts/events"
+          },
+          {
             "label": "Apple App Store data collection policy",
             "path": "/sdk/concepts/apple-app-store"
           },

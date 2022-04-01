@@ -13,7 +13,7 @@ This topic explains how the all flags feature works in the LaunchDarkly SDKs tha
 
 The all flags feature returns the state of all feature flags targeted to a user. This includes the flag values, and, for server-side SDKs, metadata for use on the front end.
 
-In most of the client- and server-side SDKs, getting all flags does not create users or other analytic events in your LaunchDarkly account. Unlike evaluating individual flags or identifying users, getting all flags usually does not send events that create a user within LaunchDarkly or populate the "Insights" for a flag.
+In most of the client- and server-side SDKs, getting all flags does not create users or other analytics events in your LaunchDarkly account. Unlike evaluating individual flags or identifying users, getting all flags usually does not send events that create a user within LaunchDarkly or populate the "Insights" for a flag.
 
 For client-side SDKs, the all flags feature may return a null value in cases where a flag's fallback value would be served to the user.
 
@@ -163,7 +163,7 @@ The `allFlags` method returns a key/value map of all your feature flags.
 
 The map contains null values for any flags that would return the fallback value. The fallback value is the second argument that you normally pass to `variation`.
 
-Unlike most of our SDKs, our JavaScript SDK's `allFlags` method sends analytic events to LaunchDarkly. If you do not want `allFlags` to generate any analytic events, you can turn this off with the [`sendEventsOnlyForVariation` configuration option](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldoptions.html#sendeventsonlyforvariation).
+Unlike most of our SDKs, our JavaScript SDK's `allFlags` method sends analytics events to LaunchDarkly. If you do not want `allFlags` to generate any analytics events, you can turn this off with the [`sendEventsOnlyForVariation` configuration option](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldoptions.html#sendeventsonlyforvariation).
 
 <CodeTabs
   defaultValue="js"
@@ -191,7 +191,7 @@ The `allFlags` method returns a key/value map of all your feature flags.
 
 The map contains null values for any flags that would return the fallback value. The fallback value is the second argument that you normally pass to `variation`.
 
-Unlike most of our SDKs, our Node.js (client-side) SDK's `allFlags` method sends analytic events to LaunchDarkly. If you do not want `allFlags` to generate any analytic events, you can turn this off with the [`sendEventsOnlyForVariation` configuration option](https://launchdarkly.github.io/node-client-sdk/interfaces/_launchdarkly_node_client_sdk_.ldoptions.html#sendeventsonlyforvariation).
+Unlike most of our SDKs, our Node.js (client-side) SDK's `allFlags` method sends analytics events to LaunchDarkly. If you do not want `allFlags` to generate any analytics events, you can turn this off with the [`sendEventsOnlyForVariation` configuration option](https://launchdarkly.github.io/node-client-sdk/interfaces/_launchdarkly_node_client_sdk_.ldoptions.html#sendeventsonlyforvariation).
 
 <CodeTabs
   defaultValue="js"
