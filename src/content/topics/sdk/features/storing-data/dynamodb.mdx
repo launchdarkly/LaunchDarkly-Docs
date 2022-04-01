@@ -35,8 +35,8 @@ The DynamoDB integrations for all LaunchDarkly server-side SDKs use the same con
 The storage schema is as follows:
 
 - For each data item that the SDK can store, such as a feature flag, there is a single DynamoDB data item, with the following attributes:
-    - `namespace`: a string value that denotes the type of data, such as `features` and `segments`. Or, if you have specified a prefix string, the `namespace` is set to `PREFIX:TYPE` where `PREFIX` is your configured prefix and `TYPE` is the type of data.
-    - `key`: the unique key of the item (such as the flag key for a feature flag).
+    - `namespace`: a string value with a `KeyType` of `HASH` that denotes the type of data, such as `features` and `segments`. Or, if you have specified a prefix string, the `namespace` is set to `PREFIX:TYPE` where `PREFIX` is your configured prefix and `TYPE` is the type of data.
+    - `key`: the unique key of the item, such as the flag key for a feature flag, with a `KeyType` of `RANGE`.
     - `version`: a number that the SDK uses to keep track of updates.
     - `item`: a serialized representation of the data item, in a format that is determined by the SDK.
 - An additional item with a `namespace` of `$inited` or `PREFIX:$inited` is created when the SDK has stored a full set of feature flag data. This allows a new SDK instance to check whether there is already a valid data set that was stored earlier.
