@@ -66,7 +66,10 @@ To require approvals on flag changes:
 
     ![The "Approval settings" menu with the "Require approvals for this environment" checkbox called out.](approvals-settings-require-callout.png)
 
-5. Make any other configuration changes you wish.
+5. Choose whether to require approvals for all flags, or just flags with specific tags.
+6. Choose whether to allow members to delete previously approved scheduled changes without an approval.
+7. Choose whether requestors can approve or decline their own requests.
+8. Enter a minimum number of approvals required.
 6. Click **Save environment**.
 
 ### Understanding how required approvals work
@@ -75,7 +78,7 @@ When you select the **Require approvals for this environment** checkbox in the "
 
 If you enable this feature, the following behaviors change:
 * When you toggle a flag on or off from the flag dashboard, the "Request approvals" dialog appears.
-* After any change to flag configuration on the flag's **Targeting** tab, the **Save changes** button changes to **Request approval**. When you click it, the "Request approval" dialog appears.
+* After any change to flag configuration on the flag's **Targeting** tab, the **Review and save** button changes to **Request approval**. When you click it, the "Request approval" dialog appears.
 * On the **Users** page, when you change flag targeting for a user, the **Save changes** button changes to **Request approval**. When you click it, the "Request approval" dialog appears.
 
 For all three of these changes, the flag state does not change until a reviewer approves and applies the change.
