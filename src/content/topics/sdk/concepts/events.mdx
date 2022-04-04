@@ -12,12 +12,13 @@ This topic explains analytics events, how SDKs send them to LaunchDarkly, and wh
 All SDKs send analytics events to LaunchDarkly as a result of feature flag evaluations and certain SDK calls. There are several kinds of analytics events. 
 
 Here is a list of analytics event kinds and their functions:
-- `feature` and `debug` events identify which feature flags the SDK is evaluating
-- `index` and `identify` events push user data to LaunchDarkly
-- `alias` events associate two users for analytics purposes
-- `page view` and `click` events are sent by JavaScript-based SDKs when pages are visited or clicked as part of an experiment
-- `custom` events are sent when an application calls the SDK's `track` method
-- `summary` events summarize a series of `feature` events
+- `summary` events describe a set of individual feature evaluations over an interval.
+- `feature` events include additional feature flag evaluation details for flags used in Experimentation and flags you enable detailed tracking for.
+- `debug` events describe feature flag evaluations when debugging mode is on.
+- `index` and `identify` events push user data to LaunchDarkly.
+- `alias` events associate two users for analytics purposes.
+- `page view` and `click` events are sent by JavaScript-based SDKs when pages are visited or clicked as part of an experiment.
+- `custom` events are sent when an application calls the SDK's `track` method.
 
 Analytics events are crucial to the functioning of several features in LaunchDarkly.
 
