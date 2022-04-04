@@ -171,9 +171,48 @@ else {
 
 ## Transport Layer Security (TLS) and other networking issues
 
-.NET applications running on older operating systems are prone to use older, less secure versions of TLS. It is possible to increase your application's security using AppContext switches.
+LaunchDarkly is deprecating support for TLS versions 1.0 and 1.1. .NET applications running on older operating systems are prone to use these older, less secure versions of TLS. It is possible to increase your application's security using AppContext switches.
 
 To learn more, [read Microsoft's documentation](https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls#configuring-security-via-appcontext-switches-for-net-framework-46-or-later-versions).
+
+If you cannot update your application platform's configurations to support TLS version 1.2, you can update your application's SDK configuration to use new LaunchDarkly endpoints that support TLS versions 1.0 and later. Here is an example:
+
+<CodeTabs
+  defaultValue="sdk6"
+  values={[
+    { label: '5.x syntax', value: 'sdk5', },
+    { label: '6.0 syntax', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk5">
+
+```csharp
+// Use `stream-tls10.launchdarkly.com` and `events-tls10.launchdarkly.com` TLSv1 endpoints
+var config = Configuration.Builder("my-sdk-key")
+    .DataSource(
+        Components.StreamingDataSource()
+            .BaseUri(new Uri("https://stream-tls10.launchdarkly.com")))
+    .Events(
+        Components.SendEvents()
+            .BaseUri(new Uri("https://events-tls10.launchdarkly.com")))
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk6">
+
+```csharp
+// Use `stream-tls10.launchdarkly.com` and `events-tls10.launchdarkly.com` TLSv1 endpoints
+var config = Configuration.Builder("my-sdk-key")
+    .ServiceEndpoints(
+        Components.ServiceEndpoints()
+          .Streaming("https://stream-tls10.launchdarkly.com")
+          .Events("https://events-tls10.launchdarkly.com"))
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 <Callout intent="alert">
 <CalloutTitle>Potential network connectivity issues caused by DNS caching</CalloutTitle>
