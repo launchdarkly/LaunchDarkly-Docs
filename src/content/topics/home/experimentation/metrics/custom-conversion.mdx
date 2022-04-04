@@ -1,0 +1,60 @@
+---
+path: /home/experimentation/metrics/custom-conversion
+title: Custom conversion metrics
+description: This topic explains how to create a custom conversion metric for an experiment in LaunchDarkly.
+published: true
+---
+
+## Overview
+
+This topic explains how to create a custom conversion metric for an experiment in LaunchDarkly.
+
+<Callout intent="warning">
+<CalloutTitle>Call <code>track</code> and <code>flush</code> when a user is redirected</CalloutTitle>
+<CalloutDescription>
+
+SDKs send events at regular intervals, such as every five seconds. If a browser redirects a user to another page, any events that occurred between when the SDK last sent events and when browser redirected the user will be lost. To avoid this, call `track` and then `flush` when you know the browser will redirect a user to another page, such as on click.
+
+</CalloutDescription>
+</Callout>
+
+## Creating custom conversion metrics
+
+Custom conversion metrics require you to create an event name and insert it into your application to track conversions for any event in your code. To add a custom conversion metric in LaunchDarkly, you must identify it with a code snippet embedded in your app.
+
+To add a `custom` event:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Example event code snippet', value: 'java', },
+  ]
+}>
+
+<CodeTabItem value="java">
+
+```java
+client.track("Example event name", user, value);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The area of your code you should put custom conversion metric information into, and the type of information you should include, varies based on which SDKs you use.
+
+Often, the information you should put in your code includes the event key, user object, data field, or numeric value fields. To learn more, read the [Sending custom events](/sdk/features/events) documentation for your SDKs.
+
+To create a custom conversion metric:
+
+1. Follow steps 1-7 in [Creating click metrics](/home/experimentation/metrics/click) until you have configured the form up to the "Event information" section.
+2. Click the **Event kind** menu and select "Custom":
+
+![The "Event kind" menu.](metrics-event-kind-custom.png)
+
+3. Select the **Conversion** radio button.
+4. Enter a human-readable **Event name**. This is the event name you will reference in your code snippet when you insert the metric information into your app.
+5. Click **Save metric**:
+
+![The "Event information" section of the "Create a new metric" panel with a conversion metric configured.](metrics-event-information.png)
+
+After you create a metric, you can connect it to an experiment. To learn how, read [Building experiments](/home/experimentation/create#building-experiments).

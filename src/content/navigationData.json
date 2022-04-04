@@ -364,12 +364,30 @@
             "path": "/home/experimentation/create",
             "items": [
               {
-                "label": "Creating metrics",
-                "path": "/home/experimentation/creating-metrics"
-              },
-              {
                 "label": "Allocating experiment populations",
                 "path": "/home/experimentation/allocation"
+              }
+            ]
+          },
+          {
+            "label": "Creating metrics",
+            "path": "/home/experimentation/metrics/index",
+            "items": [
+              {
+                "label": "Click metrics",
+                "path": "/home/experimentation/metrics/click"
+              },
+              {
+                "label": "Custom conversion metrics",
+                "path": "/home/experimentation/metrics/custom-conversion"
+              },
+              {
+                "label": "Custom numeric metrics",
+                "path": "/home/experimentation/metrics/custom-numeric"
+              },
+              {
+                "label": "Page view metrics",
+                "path": "/home/experimentation/metrics/page-view"
               }
             ]
           },

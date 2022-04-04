@@ -1,5 +1,10 @@
 module.exports = [
   // Redirects within the git-gatsby docs site
+
+  {
+    fromPath: '/home/experimentation/creating-metrics',
+    toPath: '/home/experimentation/metrics/index',
+  },
   {
     fromPath: '/guides/tutorials/first-flag',
     toPath: '/guides/tutorials/sdk-flag',
