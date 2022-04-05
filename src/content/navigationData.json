@@ -763,6 +763,10 @@
             "path": "/integrations/cloudflare"
           },
           {
+            "label": "Compass",
+            "path": "/integrations/compass"
+          },
+          {
             "label": "Heap",
             "path": "/integrations/heap"
           },
