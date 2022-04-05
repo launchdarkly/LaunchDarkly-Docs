@@ -217,6 +217,7 @@ subfeature
 subfeatures
 subpackage
 subproject
+subtab
 svelte
 sveltekit
 targetusername
