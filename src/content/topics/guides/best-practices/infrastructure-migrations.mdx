@@ -22,6 +22,32 @@ This technical guide explores a database migration strategy. To use it successfu
 * How applications use a database to read and write data
 * How to perform [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations on databases
 
+## Benefits of using feature flags to manage migrations
+
+When managing a migration, you should avoid a sudden switch-over from your old code to your new code. When your old code and new code are large and complex, it’s better to make the change gradual and easy to reverse. We recommend making both versions available at the same time, and gradually increasing the percentage or types of traffic sent to the new code.
+
+The traditional method is to separate your old code and new code into different code bases or branches. This may require separate deployment clusters and differentiation at a network level. This can be challenging, as it depends on the network being easily segmentable, involves changing configurations in multiple places, and doesn’t have much room for granularity.
+
+A more efficient method is to have both the old code and new code in the same service, with logic in the code deciding which to use for a particular request. This concentrates the decision logic in one place. It gives you more flexibility and granularity, though you may still need to depend on your network configuration in some cases depending on how much contextual info is sent in the request message.
+
+The downside to this method is that every change to that logic requires a code change and deployment, which can mean downtime, especially if the deployment needs to be rolled back. A gradual migration may involve many phases as you validate the new code, expand its capabilities, fix bugs, deploy clusters, migrate consumers, and so on. Each of those phases requires small changes in that logic. This is where LaunchDarkly feature flags come in. 
+
+You can define sets of identifiers within targeting rules to eliminate the need for multiple deployments. To learn more, read [Targeting users with flags](/home/flags/targeting-users).
+
+Some possibilities for targeting rules include:
+- Only use the new code when a “test mode” parameter is provided.
+- Only use the new code on servers in set A.
+- Consumers in set A get the old code, consumers in set B get the new code. Otherwise fall back to a default.
+- Only 1% of requests with given criteria use the new code. Later, set a schedule to gradually increase that percentage.
+- There are multiple active versions of consumer C, so only use the new code if the semantic version number is greater than 2.5.2.
+- All requests get the new code, except those where parameter P matches one a regular expression.
+- If the “debug” parameter is set, or if consumers X and Y see unintended behavior, set the log level to `DEBUG`.
+- If the monitoring system hits an error threshold, use flag triggers turn off all targeting and switch back to the old code momentarily. To learn more, read [Flag triggers](/home/feature-workflows/triggers).
+
+All of these rules are definable through either the LaunchDarkly user interface (UI) or our REST API. None of them require any code change.
+
+You can change these rules whenever you like, and your code will pick up the changes in milliseconds. If you realize there’s a problem and need to undo a change, you can quickly toggle the flag off with no deployment or restart required.
+
 ## Migrating between databases with feature flags
 
 The example below focuses on a database migration, but you can use a similar strategy for other infrastructure migrations as well.

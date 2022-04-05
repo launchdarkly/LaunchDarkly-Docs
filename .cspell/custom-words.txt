@@ -198,6 +198,7 @@ scim
 screenreaders
 scribblingfox
 SDLC
+segmentable
 semanticpatch
 sensiolabs
 serializers
