@@ -30,20 +30,19 @@ To create a custom role:
 4. Enter a human-readable **Name** for the role.
 5. Enter a **Key** for the role.
 6. (Optional) Enter a **Description** to explain what the role does.
-7. (Optional) Uncheck the "By default, members can view all LaunchDarkly content" box for this role to start with no access.
+7. (Optional) Uncheck the "By default, members can view all LaunchDarkly content" box for this role to start with no access to any resources.
 8. Create a policy in the "Policy" fields.
 9. Click **Save role**:
 
 ![The "Create custom role" panel.](settings-roles-create.png)
 
-If you keep the "By default, members can view all LaunchDarkly content" box checked, the custom role starts with `reader` permissions. You can use the role's policy to remove view permissions or allow the ability to modify resources.
+### Understanding starting roles
 
-If you uncheck the box, the custom role starts with `no access` permissions. You can use the role's policy to allow view permissions for specific projects or teams, or allow the ability to modify resources. However, if you give access to modify a resource without giving access to view the project the resource is in, the member still won't be able to see the resource.
+LaunchDarkly uses the built-in reader role as the starting point for new custom roles when you create them. If you keep the **By default, members can view all LaunchDarkly content** box checked, the custom role starts with `reader` permissions. You can use the role's policy to remove view permissions or allow the ability to modify resources.
 
-For example, suppose you create a custom role with this box unchecked but grant access to modify a flag. Members with the role will not have view access to the project in LaunchDarkly, so will not be able to edit the flag from the flag dashboard.
+You can also create custom roles with no access to any LaunchDarkly resources by unchecking the base role option checkbox. To learn how, read [Configuring roles with no access](/guides/best-practices/no-access).
 
 ![The base role option checkbox in the "Create custom role" panel.](settings-roles-base-role-custom.png)
-
 
 ## Creating policies for custom roles
 

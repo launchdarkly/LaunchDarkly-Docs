@@ -1284,6 +1284,10 @@
             "path": "/guides/tutorials/sdk-flag"
           },
           {
+            "label": "Configuring roles with no access",
+            "path": "/guides/tutorials/no-access"
+          },
+          {
             "label": "Flag rules and targeting",
             "path": "/guides/tutorials/rules-and-targeting"
           },
