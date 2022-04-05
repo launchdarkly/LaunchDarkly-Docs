@@ -15,8 +15,7 @@ It also provides two templates you can copy and modify for your own custom roles
 <CalloutTitle>Creating private projects with custom roles</CalloutTitle>
 <CalloutDescription>
 
-Use the `viewProject` action to allow or deny viewing and editing access to projects. To learn more, read
-[Configuring private projects with custom roles](/home/organize/private-projects).
+Use the `viewProject` action to allow or deny members viewing and editing access to one or more projects. Use the built-in `no access` role to deny viewing and editing access to all projects. To learn more, read [Creating private projects with custom roles](/home/organize/private-projects).
 
 </CalloutDescription>
 </Callout>
@@ -342,7 +341,7 @@ Copy this reader role and make any modifications to it to suit your needs:
   {
     "effect": "deny",
     "actions": ["*"],
-    "resources": ["proj/*:env/*:user/*"]    
+    "resources": ["proj/*:env/*:user/*"]
   },
   {
     "effect": "deny",
@@ -481,6 +480,7 @@ Here's a template:
 <CodeTabItem value="json">
 
 ```json
+
 [
   {
     "effect": "allow",
@@ -500,7 +500,7 @@ Here's a template:
   {
     "effect": "allow",
     "actions": ["*"],
-    "resources": ["member/*"]  
+    "resources": ["member/*"]
   },
   {
     "effect": "allow",
@@ -530,7 +530,7 @@ Here's a template:
   {
     "effect": "allow",
     "actions": ["*"],
-    "resources": ["webhook/*"]  
+    "resources": ["webhook/*"]
   },
   {
     "effect": "allow",
