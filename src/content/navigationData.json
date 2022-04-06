@@ -1005,7 +1005,7 @@
             "svg": "dotnet",
             "items": [
               {
-                "label": "Client-side .NET SDK 1.x to 2.0 migration guide",
+                "label": ".NET (client-side) SDK 1.x to 2.0 migration guide",
                 "path": "/sdk/client-side/dotnet/migration-1-to-2"
               }
             ]
@@ -1027,7 +1027,7 @@
             "svg": "c",
             "items": [
               {
-                "label": "C/C++ SDK 1.x to 2.0 migration guide",
+                "label": "C/C++ (client-side) SDK 1.x to 2.0 migration guide",
                 "path": "/sdk/client-side/c-c--/migration-1-to-2"
               }
             ]
@@ -1070,7 +1070,7 @@
             "svg": "nodejs",
             "items": [
               {
-                "label": "Client-side Node.js SDK 1.x to 2.0 migration guide",
+                "label": "Node.js (client-side) SDK 1.x to 2.0 migration guide",
                 "path": "/sdk/client-side/node-js/migration-1-to-2"
               }
             ]
@@ -1110,7 +1110,7 @@
             "svg": "dotnet",
             "items": [
               {
-                "label": ".NET SDK 5.x to 6.0 migration guide",
+                "label": ".NET (server-side) SDK 5.x to 6.0 migration guide",
                 "path": "/sdk/server-side/dotnet/migration-5-to-6"
               }
             ]
@@ -1163,7 +1163,7 @@
             "path": "/sdk/server-side/node-js",
             "items": [
               {
-                "label": "Node SDK 5.x to 6.0 migration guide",
+                "label": "Node.js (server-side) SDK 5.x to 6.0 migration guide",
                 "path": "/sdk/server-side/node-js/migration-5-to-6"
               },
               {
