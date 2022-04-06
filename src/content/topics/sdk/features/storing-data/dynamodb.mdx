@@ -13,7 +13,7 @@ This topic explains how to use the SDK DynamoDB integration as a persistent feat
 <CalloutTitle>Data size limit in DynamoDB</CalloutTitle>
 <CalloutDescription>
 
-DynamoDB [does not support](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html#limits-items) storing values greater than 400KB (or slightly less, since that number includes the size of the column metadata). Therefore, using DynamoDB as a persistent feature store does not work if the JSON representation of any feature flag or user segment exceeds that size.
+DynamoDB does not support storing values greater than 400KB, including the size of the column metadata. Using DynamoDB as a persistent feature store will not work if the JSON representation of any feature flag or user segment exceeds that size. To learn more, read the [AWS documentation on item size](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html#limits-items).
 
 To see the JSON representations of all flags and segments, query https://app.launchdarkly.com/sdk/latest-all with your SDK key in the `Authorization` header.
 
@@ -35,8 +35,8 @@ The DynamoDB integrations for all LaunchDarkly server-side SDKs use the same con
 The storage schema is as follows:
 
 - For each data item that the SDK can store, such as a feature flag, there is a single DynamoDB data item, with the following attributes:
-    - `namespace`: a string value that denotes the type of data, such as `features` and `segments`. Or, if you have specified a prefix string, the `namespace` is set to `PREFIX:TYPE` where `PREFIX` is your configured prefix and `TYPE` is the type of data.
-    - `key`: the unique key of the item (such as the flag key for a feature flag).
+    - `namespace`: a string value with a `KeyType` of `HASH` that denotes the type of data, such as `features` and `segments`. Or, if you have specified a prefix string, the `namespace` is set to `PREFIX:TYPE` where `PREFIX` is your configured prefix and `TYPE` is the type of data.
+    - `key`: the unique key of the item, such as the flag key for a feature flag, with a `KeyType` of `RANGE`.
     - `version`: a number that the SDK uses to keep track of updates.
     - `item`: a serialized representation of the data item, in a format that is determined by the SDK.
 - An additional item with a `namespace` of `$inited` or `PREFIX:$inited` is created when the SDK has stored a full set of feature flag data. This allows a new SDK instance to check whether there is already a valid data set that was stored earlier.
@@ -195,10 +195,10 @@ const DynamoDBFeatureStore = require('launchdarkly-node-server-sdk-dynamodb');
 
 const store = DynamoDBFeatureStore('your-table', { cacheTTL: 30 });
 
-const config = {
+const options = {
   featureStore: store
 };
-const client = ld.init('YOUR_SDK_KEY', config);
+const client = ld.init('YOUR_SDK_KEY', options);
 ```
 
 </CodeTabItem>
@@ -213,10 +213,10 @@ const store = DynamoDBFeatureStore(
   { cacheTTL: 30 }
 );
 
-const config: ld.LDOptions = {
+const options: ld.LDOptions = {
   featureStore: store,
 };
-const client = ld.init('YOUR_SDK_KEY', config);
+const client = ld.init('YOUR_SDK_KEY', options);
 
 ```
 

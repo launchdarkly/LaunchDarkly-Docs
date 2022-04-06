@@ -11,7 +11,7 @@ This topic explains how to send `custom` events using the `track` feature in you
 
 ## Tracking events
 
-The track feature lets you record actions your users take in your application as events. You can connect these events to metrics in A/B tests or experiments in the flag dashboard.
+The track feature lets you record actions your users take in your application as events. You can connect these events to metrics in experiments in the flag dashboard. To learn more about the events SDKs send to LaunchDarkly, read [Analytics events](/sdk/concepts/events). 
 
 You can view events in the debugger. To learn more, read [The debugger](/home/flags/debugger/).
 
@@ -138,7 +138,6 @@ You can also explicitly send an event with any data you like using the `track` f
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -148,16 +147,8 @@ client.track('my-custom-event-key', { customProperty: someValue });
 ```
 
 </CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
-client.track('my-custom-event-key', { customProperty: someValue });
-```
-
-</CodeTabItem>
 </CodeTabs>
 
-You can completely disable event sending by setting `sendEvents` to `false` in the client options, but be aware that this means not all user data will appear on the flag dashboard.
 </Details>
 
 ### Flutter
@@ -248,19 +239,11 @@ To call `track`:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.track('your-event-name', { customProperty: someValue });
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.track('your-event-name', { customProperty: someValue });
 ```
 
@@ -297,7 +280,6 @@ You can also explicitly send an event with any data you like using the `track` f
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
@@ -306,18 +288,9 @@ You can also explicitly send an event with any data you like using the `track` f
 client.track('your-event-name', { customProperty: someValue });
 ```
 </CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
-client.track('your-event-name', { customProperty: someValue });
-```
-
-</CodeTabItem>
 </CodeTabs>
 
 If you [define click or page view metrics](/home/experimentation) in LaunchDarkly, they are sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or page view goals. The SDK will generate `page view` events correctly regardless of how the URL is changed, such as by the HTML5 history API, by changing the URL hash fragment, etc.
-
-You can completely disable event sending by setting `sendEvents` to `false` in the client options, but this means not all data will appear on the flag dashboard.
 
 <Callout intent="info">
 <CalloutTitle>Do Not Track and ad blocking software</CalloutTitle>
@@ -341,21 +314,11 @@ Here's an example:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.track('something-happened');
-
-client.track('something-happened-with-custom-data', { someData: 2 });
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.track('something-happened');
 
 client.track('something-happened-with-custom-data', { someData: 2 });
@@ -391,8 +354,8 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
-client.track('MY_GOAL_FLAG_KEY', false);
-client.track('MY_GOAL_FLAG_KEY_WITH_DATA', {'some_data':'value'});
+client.track('YOUR_GOAL_FLAG_KEY', false);
+client.track('YOUR_GOAL_FLAG_KEY_WITH_DATA', {some_data: 'value'});
 ```
 
 </CodeTabItem>
@@ -682,19 +645,11 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.track('your-goal-key', user);
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.track('your-goal-key', user);
 ```
 

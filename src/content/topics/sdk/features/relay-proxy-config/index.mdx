@@ -24,7 +24,7 @@ The Relay Proxy has two modes:
 
 * In **proxy** mode, several Relay Proxy instances exist in a high-availability configuration behind a load balancer, and the SDK connects to the load balancer. Proxy mode is the most common use case for connecting to the Relay Proxy. LaunchDarkly SDKs are configured to run in proxy mode by default.
 
-* In **daemon** mode, the SDK connects directly to the Relay Proxy's datastore. We recommend this configuration when you're using LaunchDarkly with PHP or in a serverless environment.
+* In **daemon** mode, the SDK connects directly to the Relay Proxy's datastore. We recommend this configuration when you're using LaunchDarkly with PHP or in a serverless environment. To learn more, read [Using LaunchDarkly in serverless environments](/guides/best-practices/serverless).
 
 Client-side SDKs should only use proxy mode. Server-side SDKs can use either mode. The two modes are not mutually exclusive. If you configure multiple services to use Relay Proxy, some of these services can operate in proxy mode while others are in daemon mode. To learn more, read [Using the Relay Proxy in different modes](https://docs.launchdarkly.com/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
 
@@ -32,7 +32,7 @@ After you set up the Relay Proxy, you can configure your SDKs to run in the mode
 
 ## Deciding how to handle analytics events
 
-Regardless of whether you are using proxy mode or daemon mode, you also need to determine how to handle your analytics events, so that you can configure the SDK appropriately. The SDK sends data from analytics events to the Users dashboard.
+Regardless of whether you are using proxy mode or daemon mode, you also need to determine how to handle your analytics events, so that you can configure the SDK appropriately. The SDK sends data from analytics events to the **Users** dashboard.
 
 There are three options for handling analytics events:
 
@@ -40,7 +40,7 @@ There are three options for handling analytics events:
 * The SDK can send events to LaunchDarkly. In this situation, the SDK connects directly to LaunchDarkly for the events service. You do not need to change any configuration in your SDK.
 * You can disable events. This is uncommon, but is an action you can take regardless of whether you are using the Relay Proxy or not.
 
-To learn more about analytics events, read [The Users dashboard](/home/users/users-dashboard).
+To learn more, read [Analytics events](/sdk/concepts/events).
 
 ## Configuring an SDK to use the Relay Proxy
 

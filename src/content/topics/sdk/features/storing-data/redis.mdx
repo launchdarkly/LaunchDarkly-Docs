@@ -321,18 +321,18 @@ In version 6.0.0 and higher of the Node.js SDK, you must install the additional 
 <CodeTabItem value="nodesdk6">
 
 ```js
-const LaunchDarkly = require('launchdarkly-node-server-sdk');
+const ld = require('launchdarkly-node-server-sdk');
 const RedisFeatureStore = require('launchdarkly-node-server-sdk-redis');
 
 const redisOpts = {
-  url: 'redis://my-redis:6379'
+  url: 'redis://your-redis:6379'
 };
-const store = RedisFeatureStore(redisOpts, 30, 'my-key-prefix');
+const store = RedisFeatureStore(redisOpts, 30, 'your-key-prefix');
 
-const config = {
+const options = {
   featureStore: store
 };
-const client = LaunchDarkly.init(sdkKey, config);
+const client = LaunchDarkly.init(sdkKey, options);
 ```
 
 </CodeTabItem>

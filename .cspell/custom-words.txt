@@ -198,6 +198,7 @@ scim
 screenreaders
 scribblingfox
 SDLC
+segmentable
 semanticpatch
 sensiolabs
 serializers
@@ -216,6 +217,7 @@ subfeature
 subfeatures
 subpackage
 subproject
+subtab
 svelte
 sveltekit
 targetusername
@@ -231,7 +233,10 @@ touchpoints
 treeview
 Trello
 trendgraph
+tvos
 typedefs
+unarchived
+unchecking
 uninitialize
 uninitializes
 unixtime

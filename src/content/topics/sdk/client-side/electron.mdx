@@ -1,19 +1,45 @@
 ---
 path: /sdk/client-side/electron
 title: Electron SDK reference
-description: This topic explains all of the methods available in the LaunchDarkly SDK for the Electron desktop application framework.
+description: This topic documents how to get started with the LaunchDarkly SDK for the Electron desktop application framework, and links to reference information on all of the supported features.
 published: true
 ---
 
 ## Overview
 
-This reference guide documents all of the methods available in the LaunchDarkly SDK for the [Electron](https://electronjs.org/) desktop application framework. This is a variant of the [client-side JavaScript SDK](/sdk/client-side/javascript) with additional functionality for Electron.
+This topic documents how to get started with the LaunchDarkly SDK for the [Electron](https://electronjs.org/) desktop application framework, and links to reference information on all of the supported features. This is a variant of the [client-side JavaScript SDK](/sdk/client-side/javascript) with additional functionality for Electron.
 
-LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/electron-client-sdk) and its generated [API reference](https://launchdarkly.github.io/electron-client-sdk/). It also uses code from the [JavaScript SDK repository](https://github.com/launchdarkly/js-client-sdk). To learn more about the specific configuration options that are available in this SDK, read the [LDOptions API reference](https://launchdarkly.github.io/electron-client-sdk/interfaces/_launchdarkly_electron_client_sdk_.ldoptions.html).
+<Callout intent="primary">
+<CalloutTitle>SDK quick links</CalloutTitle>
+<CalloutDescription>
 
-You can also try this SDK out by cloning and running a [sample application](https://github.com/launchdarkly/hello-electron).
+LaunchDarkly's SDKs are open source. In addition to this reference guide, we provide source, API reference documentation, and a sample application:
 
-The sample code snippets for this SDK are available in both JavaScript and TypeScript. To learn more, read [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
+<Table>
+  <TableHeader>
+    <TableHeadCell>Resource</TableHeadCell>
+    <TableHeadCell>Location</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>SDK API documentation</TableCell>
+      <TableCell><a href="https://launchdarkly.github.io/electron-client-sdk/">SDK API docs</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>GitHub repository</TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/electron-client-sdk">electron-client-sdk</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Sample application</TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/hello-electron">hello-electron</a></TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</CalloutDescription>
+</Callout>
+
+The sample code snippets for this SDK are available in both JavaScript and TypeScript, where the sample code differs. To learn more, read [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
 
 ## Why use this instead of the Node.js SDK?
 
@@ -186,7 +212,6 @@ The SDK initializes both types of client asynchronously, so if you want to deter
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -199,21 +224,6 @@ client.on('ready', function() {
 
 // Or, using a Promise:
 client.waitForInitialization().then(function() {
-  // Now we can evaluate some feature flags
-});
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
-// Using an event listener:
-client.on('ready', () => {
-  // Now we can evaluate some feature flags
-});
-
-// Or, using a Promise:
-client.waitForInitialization().then(() => {
   // Now we can evaluate some feature flags
 });
 ```
@@ -233,6 +243,7 @@ This SDK supports the following features:
 
 * [Aliasing users](/sdk/features/aliasing-users#electron)
 * [Bootstrapping](/sdk/features/bootstrapping#electron)
+* [Configuration](/sdk/features/config#electron)
 * [Evaluating flags](/sdk/features/evaluating#electron)
 * [Identifying and changing users](/sdk/features/identify#electron)
 * [Logging configuration](/sdk/features/logging#electron)

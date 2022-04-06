@@ -120,7 +120,7 @@ This is helpful if you evaluate specific flags in multiple places in your codeba
 
 An SDK wrapper catches evaluation failures and uses the `EvaluationReason` to handle them appropriately. This is useful when specific failure types should raise an exception instead of only serving the fallback value.
 
-For example, in situations where the code needs to be sure that a `false` value is coming from the flag evaluation, and not a fallback served due to lack of connection to or data from LaunchDarkly. Another example is that rules that use Big Segments may also evaluate as `true` even if the Big Segment data is unavailable. The only way to diagnose this problem is by checking the `EvaluationReason`.
+For example, an SDK wrapper can use the `EvaluationReason` to handle situations where the code needs to be sure that a `false` value is coming from the flag evaluation, and not a fallback value served due to lack of connection to or data from LaunchDarkly. Another example is that rules that use Big Segments may also evaluate as `true` even if the Big Segment data is unavailable. The only way to diagnose this problem is by checking the `EvaluationReason`.
 
 ### Combining the SDK & API client behind one interface
 
@@ -132,7 +132,7 @@ The API client libraries, however, provide native interfaces for interacting wit
 
 To learn more about the API, visit the [API client libraries](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories).
 
-When you combine the SDK and API in a wrapper, the wrapper uses the LaunchDarkly REST API to fetch metadata about each flag, such as its title, description, tags, and custom attributes. You can use the metadata to describe policies, fallbacks, and other information the wrapper needs. This gives you more power over flag and SDK behavior without needing additional user interface (UI) or services.
+When you combine the SDK and API in a wrapper, the wrapper uses the LaunchDarkly REST API to fetch metadata about each flag, such as its title, description, tags, and custom attributes. You can use the metadata to describe policies, fallback values, and other information the wrapper needs. This gives you more power over flag and SDK behavior without needing additional user interface (UI) or services.
 
 ## Conclusion
 

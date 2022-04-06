@@ -9,11 +9,13 @@ published: true
 
 This topic explains how to use the flush feature. The flush feature is available on both server-side and client-side SDKs.
 
+All LaunchDarkly SDKs automatically flush pending analytics events to LaunchDarkly at regular intervals. This prevents the SDK from having to send constant network requests. The time between intervals varies by SDK, and is configurable. To learn how to configure your SDK's flush interval, read [Configuration](/sdk/features/config).
+
+You can manually call flush to send events immediately without waiting for the next interval. Most customers do not need to use the flush feature because SDKs automatically flush their pending analytics events on a periodic frequency. However, it can be useful if you test the SDK in a simulator. To learn more, read [Analytics events](/sdk/concepts/events).
+
 ## Using the flush feature
 
 The flush feature tells the client to send all of an SDK's pending analytics events to LaunchDarkly as soon as possible. Flushing is asynchronous, so this method returns before it is complete.
-
-Most customers do not need to use the flush feature because SDKs automatically flush their pending analytics events on a periodic frequency.
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 
@@ -38,7 +40,7 @@ This feature is available in the following client-side SDKs:
 
 <Details summary="Expand .NET (client-side) code sample">
 
-Internally, the client-side .NET SDK keeps an event buffer for `Track` and `Identify` calls. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a REPL, you may want to manually call `Flush` to process events immediately.
+Internally, the client-side .NET SDK keeps an event buffer for `Track` and `Identify` calls. These are flushed periodically in a background thread. If you test the SDK in a REPL, you may want to manually call `Flush` to process events immediately.
 
 The flush interval is configurable. If you need to change the interval, you can do so with the `Configuration` class.
 
@@ -66,7 +68,7 @@ client.Flush();
 
 The Android SDK keeps an internal event buffer for analytics calls. These are flushed periodically in a background thread. You can configure the flush interval if needed.
 
-In some situations, such as when you test out the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
+In some situations, such as when you're testing the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
 
 Here's how:
 
@@ -100,7 +102,7 @@ The flush interval is configurable.
 
 <Details summary="Expand C/C++ (server-side) code sample">
 
-The LaunchDarkly SDK keeps an internal event buffer for analytics events. These are flushed periodically in a background thread. In some situations, for example, if you're testing out the SDK in a simulator, you may want to manually call flush to process events immediately.
+The LaunchDarkly SDK keeps an internal event buffer for analytics events. These are flushed periodically in a background thread. In some situations, for example, if you're testing the SDK in a simulator, you may want to manually call flush to process events immediately.
 
 <CodeTabs
   defaultValue="c"
@@ -126,7 +128,7 @@ The flush interval is configurable. If you need to change the interval, you can 
 
 Internally, the Flutter SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. You can configure the flush interval if needed.
 
-In some situations, such as when you test out the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
+In some situations, such as when you're testing the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
 
 To call `flush`:
 
@@ -152,7 +154,7 @@ await LDClient.flush();
 
 Internally, the iOS SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. You can configure the flush interval if needed.
 
-In some situations, such as when you test out the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
+In some situations, such as when you're testing the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
 
 To call `flush`:
 
@@ -187,7 +189,7 @@ LDClient.get()!.flush()
 
 Internally, the JavaScript SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. You can configure the flush interval if needed.
 
-In some situations, such as when you test out the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
+In some situations, such as when you're testing the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
 
 This method is asynchronous. You can pass a callback or wait for the returned `Promise` to determine when all events have been flushed.
 
@@ -197,19 +199,11 @@ To call `flush`:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.flush();
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.flush();
 ```
 
@@ -259,7 +253,7 @@ client.flush().then(() => {
 
 Internally, the React Native SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. You can configure the flush interval if needed.
 
-In some situations, such as when you test out the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
+In some situations, such as when you're testing the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
 
 To call `flush`:
 
@@ -285,7 +279,7 @@ client.flush();
 
 Internally, the Roku SDK keeps an event buffer for `track` calls. These are flushed periodically in a background thread. You can configure the flush interval if needed.
 
-In some situations, such as when you test out the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
+In some situations, such as when you're testing the SDK in a simulator, you may want to manually call `flush` to request any queued events to be sent immediately. This call is non-blocking, so it returns before the events are sent.
 
 To call `flush`:
 
@@ -325,7 +319,7 @@ This feature is available in the following server-side SDKs:
 
 <Details summary="Expand .NET (server-side) code sample">
 
-Internally, the LaunchDarkly SDK keeps an event buffer for events generated by evaluations, or by `Track` or `Identify` calls. These events are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a REPL, you may want to manually call [`Flush`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Flush_) to process events immediately.
+Internally, the LaunchDarkly SDK keeps an event buffer for events generated by evaluations, or by `Track` or `Identify` calls. These events are flushed periodically in a background thread. If you test the SDK in a REPL, you may want to manually call [`Flush`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Flush_) to process events immediately.
 
 The flush interval is configurable. If you need to change the interval, you can do so with the `Configuration` class.
 
@@ -351,7 +345,7 @@ client.Flush();
 
 <Details summary="Expand C/C++ (server-side) code sample">
 
-The LaunchDarkly SDK keeps an internal event buffer for analytics events. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a simulator, you may want to manually call flush to process events immediately.
+The LaunchDarkly SDK keeps an internal event buffer for analytics events. These are flushed periodically in a background thread. If you test the SDK in a simulator, you may want to manually call flush to process events immediately.
 
 This function will not block, but instead initiate a flush operation in the background. The flush interval is configurable. If you need to change the interval, you can do so with the configuration.
 
@@ -403,7 +397,7 @@ client.Flush();
 
 <Details summary="Expand Haskell code sample">
 
-The LaunchDarkly SDK keeps an internal event buffer for analytics events. These events are flushed periodically in a background thread. In some situations, such as if you're testing the SDK in a simulator, you may want to manually call flush to process events immediately.
+The LaunchDarkly SDK keeps an internal event buffer for analytics events. These events are flushed periodically in a background thread. If you test the SDK in a simulator, you may want to manually call flush to process events immediately.
 
 This function will not block, but instead initiate a flush operation in the background. The flush interval is configurable. If you need to change the interval, you can do so with the configuration.
 
@@ -429,7 +423,7 @@ flushEvents client
 
 <Details summary="Expand Java code sample">
 
-Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a REPL, you may want to manually call [`flush`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#flush--) to process events immediately.
+Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. If you test the SDK in a REPL, you may want to manually call [`flush`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#flush--) to process events immediately.
 
 The flush interval is configurable. If you need to change the interval, you can do so with `LDConfig.Builder` and [`Components.sendEvents()`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html).
 
@@ -455,7 +449,7 @@ client.flush();
 
 <Details summary="Expand Lua code sample">
 
-The LaunchDarkly SDK keeps an internal event buffer for analytics events. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a simulator, you may want to manually call flush to process events immediately.
+The LaunchDarkly SDK keeps an internal event buffer for analytics events. These are flushed periodically in a background thread. If you test the SDK in a simulator, you may want to manually call flush to process events immediately.
 
 This function will not block, but instead initiate a flush operation in the background. The flush interval is configurable. If you need to change the interval, you can do so via the configuration.
 
@@ -481,7 +475,7 @@ client:flush()
 
 <Details summary="Expand Node.js (server-side) code sample">
 
-Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a REPL, you may want to manually call `flush` to process events immediately.
+Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. If you test the SDK in a REPL, you may want to manually call `flush` to process events immediately.
 
 The flush interval is configurable. If you need to change the interval, you can do so when configuring your client instance.
 
@@ -507,7 +501,7 @@ client.flush();
 
 <Details summary="Expand Python code sample">
 
-Internally, the LaunchDarkly SDK keeps an event buffer for `variation`, `track`, and `identify` calls. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a REPL, you may want to manually call `flush` to process events immediately. Otherwise Python may close before flushing the event buffer and your user changes and tracks will not be lost.
+Internally, the LaunchDarkly SDK keeps an event buffer for `variation`, `track`, and `identify` calls. These are flushed periodically in a background thread. If you test the SDK in a REPL, you may want to manually call `flush` to process events immediately. Otherwise Python may close before flushing the event buffer and your user changes and tracks will not be lost.
 
 The flush interval is configurable. If you need to change the interval, you can do so when you configure your client instance.
 
@@ -533,7 +527,7 @@ ldclient.get().flush()
 
 <Details summary="Expand Ruby code sample">
 
-Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. In some situations, such as if you're testing out the SDK in a REPL, you may want to manually call `flush` to process events immediately.
+Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. If you test the SDK in a REPL, you may want to manually call `flush` to process events immediately.
 
 The flush interval is configurable. If you need to change the interval, you can do so you configure your client instance.
 

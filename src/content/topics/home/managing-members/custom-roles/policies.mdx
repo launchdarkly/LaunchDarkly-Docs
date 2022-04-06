@@ -15,10 +15,10 @@ Policies combine resources and actions into a set of statements that define what
 
 The algorithm for determining whether a policy allows or denies access is as follows:
 
-- If any statement in the policy explicitly denies access to a resource and action, access is denied. This statement overrides any other statement in the policy that allows access to the resource and action.
-- If a statement in the policy explicitly allows access to a resource and action, and no statement denies access, access is allowed.
-- If two policies have conflicting permission levels, the more permissive level of access is applied.
-- Any resource or action not specifically included in a policy is denied by default, except the `viewProject` action and the `createAccessToken` action.
+- If a statement within a policy explicitly denies access to a resource and action, access is denied. This statement overrides any other statement in the policy that allows access to the resource and action.
+- If a statement within a policy explicitly allows access to a resource and action, and no statement denies access, access is allowed.
+- If two different policies have conflicting permission levels, the more permissive level of access is applied.
+- Any resource or action not specifically included within a policy is denied by default, except the `viewProject` action and the `createAccessToken` action in policies with a `reader` base.
 
 <Callout intent="info">
 <CalloutTitle>All roles can view all projects by default</CalloutTitle>
@@ -35,7 +35,7 @@ To learn  more, read [Understanding the minimum required actions for a role](/ho
 
 Statement order does not matter. You can assign multiple custom roles to one member, and each custom role has its own policy.
 
-Permissions are cumulative. If you assign multiple custom roles to a member, and one of those custom roles allows access to a resource, then access is allowed even if other roles deny that access. Adding roles to a user can only increase that user's access.
+Permissions are cumulative across roles. If you assign multiple custom roles to a member, and one of those custom roles allows access to a resource, then access is allowed even if other roles deny that access. Adding roles to a user can only increase that user's access.
 
 ## Understanding policies
 
@@ -57,18 +57,18 @@ Each element in the array is a statement represented as a JSON object with three
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>resources / notResources</code>
-      </TableCell>
-      <TableCell>
-        A list of resource specifiers defining the resources to which the statement applies or does not apply.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
         <code>actions / notActions</code>
       </TableCell>
       <TableCell>
         A list of action specifiers defining the actions to which the statement applies or does not apply.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>resources / notResources</code>
+      </TableCell>
+      <TableCell>
+        A list of resource specifiers defining the resources to which the statement applies or does not apply.
       </TableCell>
     </TableRow>
   </TableBody>

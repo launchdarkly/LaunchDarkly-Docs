@@ -19,19 +19,73 @@ LaunchDarkly's integration framework lets you use a standard configuration to bu
 
 We welcome participation from anyone who is interested in building integrations that work with LaunchDarkly:
 
-- Developers can build using our framework and open up new integrations for use by their teams.
-- Technology Partners can build using our framework and list their integration with us. To learn how to become a partner, read about our [Technology Partner Program](#technology-partner-program).
+- Developers can build using our framework and open up new integrations for use by their teams. To learn how, read [Building your own integrations](#building-your-own-integrations).
+- Technology Partners can build using our framework and list their integration with us. To learn how to become a partner, read about our [Building publicly available integrations](#building-publicly-available-integrations).
 
 ## Building your own integrations
 
-LaunchDarkly supports integration capabilities such as:
+LaunchDarkly supports a subset of actions that let you subscribe to LaunchDarkly events to trigger an action or event in your service. This capability is similar to a webhook, with the added convenience of not having to write your own service to manage the integration. LaunchDarkly manages the configuration, authentication, and transformation of our events to what your service expects without having to create an intermediary service. We provide step-by-step instructions to help you build integrations in our [LaunchDarkly Integration Framework repository](https://github.com/launchdarkly/integration-framework).
+
+## Understanding integration capabilities
+
+Your integration's capabilities describe how it interacts with LaunchDarkly. 
+
+LaunchDarkly supports the following integration capabilities:
+
 - Audit log events hook
 - Triggers
 - Reserved custom properties
 - Feature store
 
-We provide step-by-step instructions to help you build integrations in our [LaunchDarkly Integration Framework repository](https://github.com/launchdarkly/integration-framework).
+### Audit log events hook
 
-## Technology Partner Program
+An audit log events hook is a webhook that LaunchDarkly sends whenever an event happens inside of LaunchDarkly. Each of these events result in an event being published to LaunchDarkly's audit log. You can use this capability to send data to or trigger an event in another service.
 
-In addition to using the integration framework, you can join our Technology Partner Program. The Technology Partner Program empowers technology partners to build, launch, and go-to-market with LaunchDarkly. Benefits include partnership support, early product access, and joint marketing opportunities, among others. To learn more or to join the program, visit our [Partners page](https://launchdarkly.com/partners/).
+To learn more, read [Audit log events hook](https://github.com/launchdarkly/integration-framework/blob/main/docs/capabilities.md#audit-log-events-hook-auditlogeventshook).
+
+<LearnMore>
+
+API documentation: [Integration audit log subscriptions](https://apidocs.launchdarkly.com/tag/Integration-audit-log-subscriptions)
+
+</LearnMore>
+
+### Triggers
+
+<Callout intent="info">
+<CalloutTitle>Triggers are for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+Triggers are only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](http://launchdarkly.com/eap).
+
+</CalloutDescription>
+</Callout>
+
+You can use the trigger capability to generate a unique webhook URL that your service can request to generate a user-defined flag change in LaunchDarkly. To learn more, read [Trigger](https://github.com/launchdarkly/integration-framework/blob/main/docs/capabilities.md#trigger-trigger).
+
+<LearnMore>
+
+API documentation: [Flag triggers](https://apidocs.launchdarkly.com/tag/Flag-triggers)
+
+</LearnMore>
+
+### Reserved custom properties
+
+You can use custom properties to store data in LaunchDarkly alongside a feature flag. For example, you can use custom properties to indicate flag-level associations with data on your service. If you don't have any flag-level associations or configurations, you don't need to use this capability.
+
+To learn more, read [Custom properties](https://github.com/launchdarkly/integration-framework/blob/main/docs/capabilities.md#reserved-custom-properties-reservedcustomproperties).
+
+### Feature store
+
+The feature store capability allows LaunchDarkly to write feature flag data to a given provider. To view the schema for feature stores, read [Feature store](https://github.com/launchdarkly/integration-framework/blob/332ce1e6b58154f523a5bd7de8c7cd790c3bd4a4/schemas/capabilities/featureStore.json).
+
+## Using OAuth
+
+You can authorize your application to communicate with LaunchDarkly using OAuth. OAuth also lets you limit the connection of your integrated app to individual members. To learn how, read [OAuth applications](/home/connecting/oauth).
+
+## Using the LaunchDarkly REST API
+
+You can use the LaunchDarkly REST API to interact with LaunchDarkly in many of the same ways that you can through the user interface (UI). To learn how, read our [API documentation](https://apidocs.launchdarkly.com/).
+
+## Building publicly available integrations
+
+In addition to using the integration framework, you can join our Technology Partner Program to make your integrations publicly available. The Technology Partner Program empowers technology partners to build, launch, and go-to-market with LaunchDarkly. Benefits include partnership support, early product access, and joint marketing opportunities, among others. To learn more or to join the program, visit our [Partners page](https://launchdarkly.com/partners/).

@@ -3,6 +3,11 @@
     "name": "Relay Proxy",
     "versions": [
       {
+        "versionMajorMinor": "6.7",
+        "releaseYear": 2022,
+        "releaseMonthDay": "03-24"
+      },
+      {
         "versionMajorMinor": "6.6",
         "releaseYear": 2022,
         "releaseMonthDay": "01-05"

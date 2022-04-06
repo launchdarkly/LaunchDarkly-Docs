@@ -21,7 +21,7 @@
     "gatsby-parcel-config": "^0.1.0",
     "gatsby-plugin-catch-links": "^4.10.0",
     "gatsby-plugin-client-side-redirect": "^1.1.0",
-    "gatsby-plugin-google-analytics": "^4.10.0",
+    "gatsby-plugin-google-gtag": "^4.10.0",
     "gatsby-plugin-launchdarkly": "^0.3.2",
     "gatsby-plugin-manifest": "^4.10.1",
     "gatsby-plugin-mdx": "^3.10.1",

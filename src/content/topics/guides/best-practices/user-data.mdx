@@ -33,6 +33,10 @@ Every company has different types of data they collect and use for various purpo
 
 When you pass user data through LaunchDarkly, consider whether the users affected are protected by regional laws that restrict which data you can transmit or we can see. You may wish to default to a more restrictive set of data transmitted and stored than is required by your home country in order to comply with relevant international laws.
 
+LaunchDarkly is a multi-tenant platform. This means that, with some exceptions, LaunchDarkly stores data in the same place and uses the same application to respond to customer requests. Exceptions to this include certain large customers and customers who are members of the United States federal government. Multi-tenant software has a broader security footprint because more people access the same database than they would in a single-tenant instance.
+
+You may want to restrict which data you send to LaunchDarkly because of this, although multi-tenant software architecture is very common and extremely low-risk. When you pass data to LaunchDarkly, it is never available to anyone to whom you have not granted permission, regardless of where it is stored.
+
 Depending on the requirements of your organization, you may want to limit or completely restrict the user data you send to LaunchDarkly.
 
 ## How the LaunchDarkly SDK you use affects user data

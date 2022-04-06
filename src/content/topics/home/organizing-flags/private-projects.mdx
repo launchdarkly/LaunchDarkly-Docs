@@ -7,9 +7,10 @@ published: true
 
 ## Overview
 
-This topic explains how to use custom roles to create private projects or restrict access to projects. It gives examples of both how to restrict access to one project, effectively creating a private project for members you choose, and to grant access only to one or some projects.
+This topic explains how to use custom roles to create private projects or restrict access to projects. It gives examples of how to restrict access to one project, effectively creating a private project for members you choose, how to restrict access to all projects, and how to grant access only to one or some projects.
 
 This topic uses the `viewProject` action to restrict and grant access to projects. To learn more about this action, read [Using actions](/home/members/role-actions).
+
 
 <Callout intent="info">
 <CalloutTitle>Account members can't modify what they can't see</CalloutTitle>
@@ -43,13 +44,45 @@ The following code sample restricts view and edit access to a project:
   {
     "effect": "deny",
     "actions": ["viewProject"],
-    "resources": ["proj/project-1"]    
+    "resources": ["proj/project-1"]
   }
 ]
 ```
 
 </CodeTabItem>
 </CodeTabs>
+
+## Restricting access to all projects
+
+This example policy forbids access to all projects. It is equivalent to the built-in `no access` role.
+
+The following code sample restricts view and edit access to all projects:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "effect": "deny",
+    "actions": ["*"],
+    "resources": ["*"]
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Alternatively, to prevent members from viewing content in LaunchDarkly unless you give them access, you can uncheck the box below when you create a custom role. When this box is unchecked, you do not need to explicitly deny view access to projects because the custom role starts with no view or write access to anything in LaunchDarkly. Instead you must explicitly allow view or write access to relevant projects and other LaunchDarkly resources.
+
+![The "Block members from viewing content by default" checkbox from the "Create custom role" panel.](custom-role-create-block-content-view-checkbox.png)
 
 ## Granting access to specific projects
 
@@ -72,14 +105,14 @@ The example below allows access to every project in an environment except the fo
 ```json
 [
   {
-  	"effect": "deny",
-  	"actions": ["viewProject"],
-  	"resources": [
-  		"proj/project-1",
-  		"proj/project-2",
-  		"proj/project-3",
-  		"proj/project-4"
-  	]
+    "effect": "deny",
+    "actions": ["viewProject"],
+    "resources": [
+      "proj/project-1",
+      "proj/project-2",
+      "proj/project-3",
+      "proj/project-4"
+    ]
   }
 ]
 ```

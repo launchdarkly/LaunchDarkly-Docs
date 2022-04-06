@@ -1,15 +1,43 @@
 ---
 path: /sdk/client-side/javascript
 title: JavaScript SDK reference
-description: This reference guide documents all of the methods available in the client-side JavaScript SDK, and explains in detail how these methods work.
+description: This topic documents how to get started with the client-side JavaScript SDK, and links to reference information on all of the supported features.
 published: true
 ---
 
 ## Overview
 
-This reference guide documents all of the methods available in the client-side JavaScript SDK, and explains in detail how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/js-client-sdk) and its generated [API reference](https://launchdarkly.github.io/js-client-sdk/).
+This topic documents how to get started with the client-side JavaScript SDK, and links to reference information on all of the supported features.
 
-You can also use this SDK to clone and run a [sample application](https://github.com/launchdarkly/hello-js).
+<Callout intent="primary">
+<CalloutTitle>SDK quick links</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly's SDKs are open source. In addition to this reference guide, we provide source, API reference documentation, and a sample application:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Resource</TableHeadCell>
+    <TableHeadCell>Location</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>SDK API documentation</TableCell>
+      <TableCell><a href="https://launchdarkly.github.io/js-client-sdk/">SDK API docs</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>GitHub repository</TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/js-client-sdk">js-client-sdk</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Sample application</TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/hello-js">hello-js</a></TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</CalloutDescription>
+</Callout>
 
 <Callout intent="info">
 <CalloutTitle>For use in mobile, desktop, and embedded client applications only</CalloutTitle>
@@ -27,7 +55,7 @@ This SDK does two things:
 - Makes feature flags available to your client-side (front-end) JavaScript code.
 - Sends `click`, `page view`, and `custom` events from your front-end for A/B tests and analytics.
 
-The sample code snippets for this SDK are available in both JavaScript and TypeScript. To learn more, read [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
+The sample code snippets for this SDK are available in both JavaScript and TypeScript, where the sample code differs. To learn more, read [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
 
 ## Browser support
 
@@ -39,7 +67,7 @@ The standard solution for ensuring that you will get the same functionality even
 <CalloutTitle>Do Not Track and ad blocking software</CalloutTitle>
 <CalloutDescription>
 
-The JavaScript SDK respects the [Do Not Track events](https://www.eff.org/issues/do-not-track) header. If an end-user has Do Not Track enabled in their browser, the SDK does not send analytics events for flag evaluations or goals. In addition, ad-blocking software may block analytics events from being sent. This does not impact feature flag evaluations.
+The JavaScript SDK respects the [Do Not Track events](https://www.eff.org/issues/do-not-track) header. If an end-user has Do Not Track enabled in their browser, the SDK does not send analytics events for flag evaluations or goals. In addition, ad-blocking software may block analytics events from being sent. This does not impact feature flag evaluations. To learn more about the events SDKs send to LaunchDarkly, read [Analytics events](/sdk/concepts/events). 
 
 </CalloutDescription>
 </Callout>
@@ -106,7 +134,7 @@ const LDClient = require('launchdarkly-js-client-sdk');
 import * as LDClient from 'launchdarkly-js-client-sdk';
 
 // Using TypeScript imports
-import * as ld from 'launchdarkly-js-client-sdk';
+import * as LDClient from 'launchdarkly-js-client-sdk';
 
 ```
 
@@ -213,8 +241,10 @@ const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
 <CodeTabItem value="ts">
 
 ```ts
-const user: ld.LDUser = { key: 'aa0ceb' };
-const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user);
+const user: LDClient.LDUser = {
+  key: 'aa0ceb'
+};
+const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
 ```
 
 </CodeTabItem>
@@ -248,7 +278,7 @@ Here's how:
 ```js
 client.on('ready', () => {
   // initialization succeeded, flag values are now available
-  const flagValue = client.variation("YOUR_FEATURE_KEY", false);
+  const flagValue = client.variation('YOUR_FEATURE_KEY', false);
   // etc.
 });
 ```
@@ -259,9 +289,9 @@ client.on('ready', () => {
 ```ts
 client.on('ready', () => {
   // initialization succeeded, flag values are now available
-  const boolFlagValue = client.variation('your.feature.key', false) as boolean;
-  const numberFlagValue = client.variation('your.feature.key', 2) as number;
-  const stringFlagValue = client.variation('your.feature.key', 'default') as string;
+  const boolFlagValue = client.variation('YOUR_FEATURE_KEY', false) as boolean;
+  const numberFlagValue = client.variation('YOUR_FEATURE_KEY', 2) as number;
+  const stringFlagValue = client.variation('YOUR_FEATURE_KEY', 'default') as string;
   // etc.
 });
 ```
@@ -286,25 +316,11 @@ Here is an example:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.waitUntilReady().then(() => {
-  // initialization succeeded, flag values are now available
-});
-
-// or, with await:
-await client.waitUntilReady();
-// initialization succeeded, flag values are now available
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.waitUntilReady().then(() => {
   // initialization succeeded, flag values are now available
 });
@@ -325,31 +341,11 @@ Here is an example:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.waitForInitialization().then(() => {
-  // initialization succeeded, flag values are now available
-}).catch(err => {
-  // initialization failed
-});
-
-// or, with await:
-try {
-  await client.waitForInitialization();
-  // initialization succeeded, flag values are now available
-} catch (err) {
-  // initialization failed
-}
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.waitForInitialization().then(() => {
   // initialization succeeded, flag values are now available
 }).catch(err => {

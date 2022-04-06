@@ -113,23 +113,26 @@ This example shows how to use `basicLogger` to enable debug-level logging in you
 ```javascript
 const LaunchDarkly = require('launchdarkly-node-client-sdk');
 
-const config = {
+const options = {
   logger: LaunchDarkly.basicLogger({
     level: 'debug',
   }),
 };
+
+const client = LaunchDarkly.initialize( 'YOUR_CLIENT_SIDE_ID', user, options);
+
 ```
 
 </CodeTabItem>
 <CodeTabItem value="ts">
 
 ```ts
-import * as ld from 'launchdarkly-node-client-sdk';
+import * as LaunchDarkly from 'launchdarkly-node-client-sdk';
 
-const logger: ld.LDLogger = ld.basicLogger({ level: 'debug' });
-const options: ld.LDOptions = { logger: logger };
+const logger: LaunchDarkly.LDLogger = ld.basicLogger({ level: 'debug' });
+const options: LaunchDarkly.LDOptions = { logger: logger };
 
-const client: ld.LDClient = ld.initialize( 'YOUR_CLIENT_SIDE_ID', user, options);
+const client = LaunchDarkly.initialize( 'YOUR_CLIENT_SIDE_ID', user, options);
 
 ```
 
@@ -554,7 +557,7 @@ This example shows how to use `basicLogger` to enable debug-level logging in you
 ```javascript
 const ld = require('launchdarkly-node-server-sdk');
 
-const config = {
+const options = {
   logger: ld.basicLogger({
     level: 'debug',
   }),
@@ -567,7 +570,7 @@ const config = {
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
 
-const logger = ld.basicLogger({
+const logger: ld.LDLogger = ld.basicLogger({
   level: 'debug',
   destination: console.log,
 });

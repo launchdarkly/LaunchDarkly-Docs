@@ -71,16 +71,16 @@ Here's how to create a Relay Proxy configuration in the LaunchDarkly UI:
 
 ![The "Create a Relay Proxy configuration" panel with the "Rule" menu displayed.](relay-proxy-config-menu.png)
 
-5. Click **Save configuration**. The Relay Proxy appears on the Relay Proxy tab of the Account Settings page with its key visible.
+5. Click **Save configuration**. The Relay Proxy appears on the **Relay Proxy** tab of the **Account settings** page with its key visible.
 6. Copy and save the key somewhere secure:
 
 ![The "Relay proxy" tab with a newly created Relay Proxy. The key is displayed.](relay-proxy-key-displayed.png)
 
-Next you must specify the key in a Relay Proxy configuration file so it includes the configuration you created.
+Next you must specify the key in a Relay Proxy configuration file so it includes the configuration you created. Here's how:
 
 1. Configure your Relay Proxy to use your new key.
  * If you configured the Relay Proxy with a configuration file, specify the Relay Proxy key in an `AutoConfig` section as the `key` property.
- * If configured the Relay Proxy with environment variables, specify the Relay Proxy key with the `AUTO_CONFIG_KEY` environment variable. Here's how:
+ * If you configured the Relay Proxy with environment variables, specify the Relay Proxy key with the `AUTO_CONFIG_KEY` environment variable. Here's how:
 
   <CodeTabs
     defaultValue="file"

@@ -25,7 +25,7 @@ export default {
               items: [
                 {
                   path: '/integrations/intellij',
-                  label: 'IntelliJ',
+                  label: 'IntelliJ IDEA',
                 },
                 {
                   path: '/integrations/vscode',

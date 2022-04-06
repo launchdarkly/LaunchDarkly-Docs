@@ -9,7 +9,7 @@ published: true
 
 This topic explains how to deploy and start the Relay Proxy.
 
-## Deploying and starting the Relay Proxy
+## Deploying the Relay Proxy
 
 You can deploy the Relay Proxy in one of three ways. In order from most common to least common uses, the methods are:
 
@@ -98,11 +98,29 @@ After you do this, the executable binary `ld-relay` appears in the directory.
 
 There is also a shortcut command that can replace the longer procedure above. This command downloads the code and builds it in a single step. After you enter the command, the executable binary `ld-relay` appears in `$GOPATH/bin`. You can move it to any other location.
 
+<CodeTabs
+  defaultValue="bash"
+  values={[
+    { label: 'Download and build Relay Proxy', value: 'bash', },
+  ]
+}>
+
+<CodeTabItem value="bash">
+
 ```bash
 go install github.com/launchdarkly/ld-relay/v6@latest
 ```
 
+</CodeTabItem>
+</CodeTabs>
+
 When you execute the binary, you must tell the Relay Proxy about your desired configuration. You can do this either with a configuration file or environment variables.
+
+## Configuring the Relay Proxy
+
+Once you have downloaded or built the Relay Proxy, you need to set its configuration options. You can set these options using a configuration file or using environment variables.
+
+If you are using Relay Proxy Enterprise, you can also use automatic configuration. To learn more, read [Automatic configuration](/home/relay-proxy/automatic-configuration).
 
 ### Using a configuration file
 
@@ -147,7 +165,7 @@ To use a configuration file:
   </CodeTabItem>
   </CodeTabs>
 
-  To learn more about the supported configuration options, visit the [Relay Proxy GitHub repository](https://github.com/launchdarkly/ld-relay/blob/v6/docs/configuration.md).
+  To learn more about the supported configuration options, read [Configuration](https://github.com/launchdarkly/ld-relay/blob/v6/docs/configuration.md) in the Relay Proxy GitHub repository.
 
 2. Run the Relay Proxy binary while passing an argument to identify your configuration file's location. The following example assumes that the configuration file is in your current directory and named `ld-relay.conf`, and that the `ld-relay` binary is in `$GOPATH/bin`.
 
@@ -194,7 +212,7 @@ To use environment variables:
   </CodeTabItem>
   </CodeTabs>
 
-  To learn more about supported environment variables, visit the [Relay Proxy GitHub repository](https://github.com/launchdarkly/ld-relay/blob/v6/docs/configuration.md#configuration-file-format-and-environment-variables).
+  To learn more about supported environment variables, read [Configuration file format and environment variables](https://github.com/launchdarkly/ld-relay/blob/v6/docs/configuration.md#configuration-file-format-and-environment-variables) in the Relay Proxy GitHub repository.
 
 2. Run the Relay Proxy binary while passing the `--from-env` argument. The following command assumes that the `ld-relay` binary is in `$GOPATH/bin`.
 
@@ -212,3 +230,22 @@ To use environment variables:
 
   </CodeTabItem>
   </CodeTabs>
+
+## Configuring the Relay Proxy for Big Segments
+
+<Callout intent="alert">
+<CalloutTitle>This feature is not available on all versions of the Relay Proxy</CalloutTitle>
+<CalloutDescription>
+
+If you want to use Big Segments with server-side SDKs, you must upgrade the Relay Proxy to version <b>6.4.0</b> or above.
+
+</CalloutDescription>
+</Callout>
+
+To use Big Segments with the Relay Proxy, you must configure the Relay Proxy to use either Redis or DynamoDB for persistent storage. The Relay Proxy stores Big Segment data in the persistent data store, which your SDK then uses for flag evaluation. To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
+
+If you use a server-side SDK, you must use the Relay Proxy and configure your server-side SDKs to use the same persistent storage as the Relay Proxy. To learn how to configure server-side SDKs for Big Segments, read [Big Segments](/sdk/features/big-segments).
+
+If you use a client-side SDK, there's no additional setup required to use Big Segments. However, if you use the Relay Proxy with a client-side SDK, the Relay Proxy must be configured to use persistent storage with Redis or DynamoDB.
+
+To learn more, read [Persistent storage](https://github.com/launchdarkly/ld-relay/blob/v6/docs/persistent-storage.md) and [Big Segments](/home/users/big-segments).

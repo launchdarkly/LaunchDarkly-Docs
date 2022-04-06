@@ -1,0 +1,152 @@
+---
+path: /sdk/concepts/server-side-bandwidth
+title: Server-side SDK bandwidth usage
+description: This topic explains how to estimate bandwidth usage for server-side SDKs.
+published: true
+---
+
+## Overview
+
+This topic explains how to estimate bandwidth usage for server-side SDKs.
+
+This topic is for educational purposes only. The numbers below represent a hypothetical deployment and may not apply to your production environment. 
+
+The numbers we provide in this topic assume the following about your server-side SDK configuration:
+- You have implemented the SDK correctly. To learn more, read [the reference topic for your SDK](/sdk/server-side).
+- You are using the default SDK configuration. To learn more, read [Configuration](/sdk/features/config).
+- You are following our recommendations for targeting users. To learn more, read [Targeting users with flags](/home/flags/targeting-users).
+- There are no network issues inhibiting the SDK from maintaining a long-lived streaming connection with LaunchDarkly.
+
+<Callout intent="info">
+<CalloutTitle>The following bandwidth calculations do not apply to PHP</CalloutTitle>
+<CalloutDescription>
+
+The following estimates apply to all server-side SDKs except PHP. The LaunchDarkly PHP SDK doesn't use a streaming connection to receive updates, so the following calculations are not applicable.
+
+</CalloutDescription>
+</Callout>
+
+## Calculating streaming usage
+
+You can estimate your total streaming connection data usage by calculating usage for initialization, targeting rules updates, and heartbeats.
+
+### Initializing the stream
+
+To initialize the stream, the SDK performs an HTTPS handshake, sends headers, and receives the initial payload. This occurs each time you initialize the SDK and any time the SDK reconnects after losing connection to LaunchDarkly. The estimated bandwidth for these actions varies and depends on your SDK, but we have calculated the average usage below.
+
+The estimated bandwidth usage of each of these actions is as follows:
+- **HTTPS handshake**: Averages to about 6,500 bytes.
+- **Communicating headers**: Averages less than 100 bytes.
+- **Initial payload**: Differs in size depending on your targeting rules. Because targeting rules are unique to each environment, you need to fetch the size of the payload for the specific environment you're calculating bandwidth for.
+
+You can fetch the size of your environment payload using the following curl:
+
+<CodeTabs
+  defaultValue="bash"
+  values={[
+    { label: 'Payload calculation', value: 'bash', },
+  ]
+}>
+<CodeTabItem value="bash">
+
+```bash
+curl -sH "Authorization: SDK-KEY" \
+https://app.launchdarkly.com/sdk/latest-all | wc -c  
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+After fetching the size of your payload, here is the calculation you can use to estimate bandwidth usage for initialization:
+
+```
+initialization_data_usage = 
+(6500 bytes + 100 bytes + size_of_payload) * number_of_connections
+```
+
+### Targeting rule updates
+
+When you make flag targeting changes in the LaunchDarkly user interface or using the API, LaunchDarkly sends those changes to the SDK using the already open streaming connection. 
+
+The bandwidth required for sending the changes depends on the size of the changes, and how frequently you make them. The smallest change uses around 30 bytes. Because LaunchDarkly sends them over the existing connection, there is no additional overhead.
+
+Here is the calculation you can use to estimate bandwidth usage for targeting rule updates:
+
+```
+update_data_usage = 
+size_of_update * number_of_updates
+```
+
+### Heartbeats
+
+If there are no configuration changes for three minutes, then LaunchDarkly sends a single character as a heartbeat to keep the connection alive.
+
+Here is the calculation you can use to estimate bandwidth usage for a heartbeat:
+
+```
+heartbeat_data_usage = 
+1 byte * number_of_minutes_active / 3
+```
+
+## Calculating events usage
+
+When you call `variation`, `identify`, or `track`, the SDK queues an analytic event. SDKs send events to LaunchDarkly every five seconds. If you do not call any of these SDK methods, the SDK won't send any events.
+
+### Handshakes and headers
+
+To send events, the SDK performs an HTTPS handshake and sends headers.
+
+The estimated bandwidth usage for each of these actions is as follows:
+- **HTTPS handshake**: Averages to about 6,500 bytes.
+- **Communicating headers**: Averages less than 100 bytes.
+
+### Summary and index events
+
+The SDK summarizes most events when it sends them. This means that the SDK sends one `summary` event that contains an array of all flag keys requested since the last flush, and then one `index` event for each user seen during this period.
+
+<Callout intent="info">
+<CalloutTitle>Data Export and Experimentation events use more bandwidth</CalloutTitle>
+<CalloutDescription>
+
+If you are using Data Export or Experimentation, SDKs do not send `summary` events for those evaluations. Instead, SDKs will send detailed event information, which results in higher bandwidth usage.
+
+</CalloutDescription>
+</Callout>
+
+The overhead for the request is two bytes.
+
+The `summary` event has an overhead of 34 bytes, plus three bytes per flag requested.
+
+The SDK sends an `index` event once for each user the SDK encounters during the five second polling interval. `index` events have an overhead of 49 bytes. If the user has custom attributes, then the overhead increases to 59 bytes.
+
+The size of the `index` event is dependent on the user attributes. The overhead per attribute is four bytes. The size per attribute is equal to the size of the key, plus the size of the value of the attribute. The size of the value of an attribute can be difficult to approximate because the different types of attributes can be vastly different sizes. For example, arrays are much larger than single values, such as numbers and strings.
+
+Here is the calculation you can use to estimate bandwidth usage for `summary` and `index` events:
+
+```
+summary_index_event_usage = 
+(2 bytes events_overhead) + 
+(34 bytes summary_overhead + (3 * number_of_flags)) + 
+((59 bytes index_overhead + 
+  (number_of_attributes * (average_attribute_size + 4)) * 
+  (number_of_users))
+) * 
+(number_of_minutes_active / 5)
+```
+
+### Total event usage
+
+To calculate total event usage, add the handshake and headers usage:
+
+```
+total_event_usage = 
+6500 bytes handshake + 
+100 bytes header + 
+(2 bytes events_overhead) + 
+(34 bytes summary_overhead + (3 * number_of_flags)) + 
+((59 bytes index_overhead + 
+  (number_of_attributes * (average_attribute_size + 4)) * 
+  (number_of_users))
+) * 
+(number_of_minutes_active / 5)
+```
