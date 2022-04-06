@@ -36,6 +36,9 @@ If your environment has not registered any events, the status updates to indicat
 ![Flag events connected to live event stream, but with no recent evaluations.](debugger-connection-never-seen-events-state.png)
 
 If there is an issue connecting to the event stream, an error status appears. This may appear because of an internal error or network disruptions. The error state should self-resolve, but if it does not, refresh your browser.
+
+Here is an image of an event stream error message:
+
 ![Error connecting to the event steam.](debugger-connection-error-state.png)
 
 Here is an image of the Flag events tab of the debugger:
@@ -66,6 +69,39 @@ The minimum required version for each platform SDK to use `summary` events is:
 
 </CalloutDescription>
 </Callout>
+
+### Filtering detailed events
+
+You can view specific kinds of detailed events on the **Flag events** tab by filtering by user attributes, flag variations, or both.
+
+To filter detailed events:
+
+1. Select a flag from the **Find events by flag name or key** menu.
+2. Click **Filter**.
+3. Choose a standard or custom attribute to filter by from the **Add filter** menu:
+
+![The "Filter" menu with a standard attribute chosen.](debugger-user-attributes.png)
+
+4. Choose an attribute value from the **Select attribute value** menu.
+5. Click **Add**.
+
+Only events with matching attribute values now display on the **Debugger** dashboard.
+
+To add additional attribute values to your filter, click on the attribute name and select the additional values from the menu. The dashboard displays only events that match all of the attribute values you selected:
+
+![The attribute menu with multiple values selected.](debugger-user-attributes-dropdown.png)
+
+To remove a filter, click on the attribute name you want to stop filtering by and choose "Clear filter."
+
+To filter variations:
+
+1. Select a flag from the **Find events by flag name or key** menu.
+2. Click **Variation**.
+3. Select a variation:
+
+![The "Variation" menu with options displayed.](debugger-variation.png)
+
+Only detailed events corresponding to the selected variation now show on the dashboard. You can also filter by multiple variations.
 
 ## User events
 

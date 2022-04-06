@@ -1,7 +1,7 @@
 ---
 path: /sdk/client-side/react/react-web
 title: React SDK reference
-description: This topic explains all of the methods available in the client-side React SDK, and explains how these methods work.
+description: This topic documents how to get started with the client-side React SDK, and links to reference information on all of the supported features.
 published: true
 ---
 
@@ -16,9 +16,37 @@ If you want to add LaunchDarkly to your React Native codebase, use the React Nat
 
 ## Overview
 
-This reference guide documents all of the methods available in the client-side React SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/react-client-sdk) and its generated [API reference](https://launchdarkly.github.io/react-client-sdk/). 
+This topic documents how to get started with the client-side React SDK, and links to reference information on all of the supported features.
 
-You can also use this SDK to clone and run a [sample application](/sdk/client-side/react/react-web#example-app).
+<Callout intent="primary">
+<CalloutTitle>SDK quick links</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly's SDKs are open source. In addition to this reference guide, we provide source, API reference documentation, and a sample application:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Resource</TableHeadCell>
+    <TableHeadCell>Location</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>SDK API documentation</TableCell>
+      <TableCell><a href="https://launchdarkly.github.io/react-client-sdk/">SDK API docs</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>GitHub repository</TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/react-client-sdk">react-client-sdk</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Sample application</TableCell>
+      <TableCell><a href="/sdk/client-side/react/react-web#example-app">example</a></TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</CalloutDescription>
+</Callout>
 
 You can use LaunchDarkly in a Gatsby application with our [Gatsby plugin](/sdk/client-side/react/gatsby).
 
@@ -232,7 +260,7 @@ export default withLDConsumer()(Home);
 
 The [`AsyncProviderConfig`](https://launchdarkly.github.io/react-client-sdk/index.html#asyncwithldprovider) object provides configuration to the `asyncWithLDProvider` function and the [`ProviderConfig`](https://launchdarkly.github.io/react-client-sdk/interfaces/ProviderConfig.html) object provides configuration to the `withLDProvider` function.
 
-The only mandatory property is the client-side ID. All other properties are optional. 
+The only mandatory property is the client-side ID. All other properties are optional.
 
 These are the properties:
 

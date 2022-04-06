@@ -29,11 +29,11 @@ You don't have to send users to LaunchDarkly in advance. You can target them wit
 </CalloutDescription>
 </Callout>
 
-5. **Shut down the LaunchDarkly client when your application is about to terminate.** The client releases the resources it is using and sends pending analytics events to LaunchDarkly. If your application quits without this shutdown step, you may not see requests and users on the dashboard, because they are derived from analytics events. **You need to shut down the application manually only one time**.
+5. **Shut down the LaunchDarkly client when your application is about to terminate.** The client releases the resources it is using and sends pending analytics events to LaunchDarkly. If your application quits without this shutdown step, you may not see requests and users on the dashboard, because they are derived from analytics events. **You need to shut down the application manually only one time**. To learn more, read [Analytics events](/sdk/concepts/events).
 
 ### Editor support
 
-SDK documentation appears in your editor if the editor supports surfacing doc comments. LaunchDarkly offers further integrations for [VSCode](/integrations/vscode#installing-the-vscode-extension) or [IntelliJ(beta)](/integrations/intellij).
+SDK documentation appears in your editor if the editor supports surfacing doc comments. LaunchDarkly offers further integrations for [VSCode](/integrations/vscode#installing-the-vscode-extension) or [IntelliJ IDEA](/integrations/intellij).
 
 These integrations have extended functionality based on Code References aliases. If your team uses aliases to find all flag usage throughout your code base, you will also have hover documentation wherever those aliases appear.
 
@@ -43,7 +43,7 @@ If the SDK you use loses the connection with LaunchDarkly, your feature flags wi
 
 By default, an SDK initializes with an empty state. When the SDK first initializes, it opens a streaming connection to LaunchDarkly. The response from LaunchDarkly contains the SDK's current state, which your SDK uses to make any necessary changes to feature flags. After the initial update, the SDK keeps a streaming connection open to LaunchDarkly. If you make a change in the flag dashboard or with the REST API, LaunchDarkly sends these changes to all connected SDKs automatically.
 
-If the SDK ever loses connectivity to LaunchDarkly, it continues to try to establish a streaming connection until it succeeds. If you evaluate a flag before the SDK receives its initial state, or you try to fetch a flag which otherwise doesn't exist, then the SDK returns a fallthrough value which you can specify in your flag evaluation code.
+If the SDK ever loses connectivity to LaunchDarkly, it continues to try to establish a streaming connection until it succeeds. If you evaluate a flag before the SDK receives its initial state, or you try to fetch a flag which otherwise doesn't exist, then the SDK returns a fallback value. You can specify the fallback value in your flag evaluation code.
 
 All SDKs provide synchronous and asynchronous ways of waiting for the SDK's state to initialize.
 

@@ -100,8 +100,7 @@ This approach should function for the majority of serverless applications.
 
 ### Option 2: Use a persistent feature store
 
-If your app often sees high levels of concurrency or sensitivity to cold starts, you may need to reduce the initialization time that LaunchDarkly takes.
-You can do this by setting up a persistent feature store to serve flag values locally.
+If your app often sees high levels of concurrency or sensitivity to cold starts, you may need to reduce the initialization time that LaunchDarkly takes. You can do this by setting up a persistent feature store to serve flag values locally.
 
 In this configuration, the LaunchDarkly SDK no longer downloads the project's entire flag set for later evaluation. Instead, it connects to the configured feature store at initialization time, then queries the feature store for each flag evaluation call.
 
@@ -185,7 +184,7 @@ Finally, with the persistent feature store active and continuously updated, you 
 
 To learn more, read [Using a persistent feature store without connecting to LaunchDarkly](/sdk/concepts/data-stores#using-a-persistent-feature-store-without-connecting-to-launchdarkly).
 
-The app code retains the same structure as the example in Option 1 above, but with additional configuration to point at the feature store and enable the Relay Proxy. Because the Relay Proxy is also known as the LaunchDarkly Daemon, some versions of the SDKs refer to this mode as "LDD mode."
+The app code retains the same structure as the example in Option 1 above, but with additional configuration to point at the feature store, enable the Relay Proxy, and use it in daemon mode. Because the Relay Proxy is also known as the LaunchDarkly Daemon, some versions of the SDKs refer to this configuration option as "LDD mode." To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode).
 
 Here is an example:
 
@@ -226,7 +225,9 @@ exports.handler = (event, context, callback) => {
 
 ## Sending analytics events to the Users dashboard
 
-The Users dashboard is populated with data from analytic events. You must call close in your SDK before shutting down to ensure the SDK sends analytic events and your dashboard displays user data. To learn how, read [Shutting down](/sdk/features/shutdown).
+The Users dashboard is populated with data from analytics events. You must call close in your SDK before shutting down to ensure the SDK sends analytics events and your dashboard displays user data. To learn how, read [Shutting down](/sdk/features/shutdown).
+
+To learn more about the events SDKs send to LaunchDarkly, read [Analytics events](/sdk/concepts/events).
 
 ## Conclusion
 

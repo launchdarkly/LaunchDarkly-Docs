@@ -13,7 +13,7 @@ This topic explains how to configure various LaunchDarkly SDKs. It gives code sa
 
 You can use the configuration feature to configure certain aspects of your SDK, including flush intervals, timeout periods, and client connect parameters.
 
-You can disable the publication of events, but we strongly recommend against it. Many features such as targeting rules, flag statuses, and the Users dashboard depend on regularly receiving analytic events.
+You can disable the publication of events, but we strongly recommend against it. Many features such as targeting rules, flag statuses, and the Users dashboard depend on regularly receiving analytics events. To learn more, read [Analytics events](/sdk/concepts/events).
 
 Details about each SDK's configuration are available in the SDK-specific sections below:
 
@@ -27,6 +27,7 @@ This feature is available in the following client-side SDKs:
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
 * [C/C++ (client-side)](#cc-client-side)
+* [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
 * [JavaScript](#javascript)
@@ -130,6 +131,45 @@ LDConfigSetEventsFlushIntervalMillis(config, 30000);
 To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/c-client-sdk/config_8h.html).
 </Details>
 
+### Electron
+
+<Details summary="Expand Electron code sample">
+
+This code sample shows you how to create a custom configuration object to pass custom parameters to the client:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js' },
+    { label: 'TypeScript', value: 'ts' },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const options = {
+  allAttributesPrivate: true
+};
+const client = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options);
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as LDElectron from 'launchdarkly-electron-client-sdk'
+
+const options: LDElectron.LDOptions = { allAttributesPrivate: true };
+const client = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/electron-client-sdk/interfaces/_launchdarkly_electron_client_sdk_.ldoptions.html).
+</Details>
+
 ### Flutter
 
 <Details summary="Expand Flutter code sample">
@@ -209,9 +249,7 @@ This code sample shows you how to create a custom configuration object to pass c
 <CodeTabItem value="js">
 
 ```js
-const options = {
-  allAttributesPrivate: true
-};
+const options = { allAttributesPrivate: true };
 const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 
 ```
@@ -220,10 +258,10 @@ const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 <CodeTabItem value="ts">
 
 ```ts
-import * as ld from 'launchdarkly-js-client-sdk';
+import * as LDClient from 'launchdarkly-js-client-sdk';
 
-const options: ld.LDOptions = { allAttributesPrivate: true };
-const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const options: LDClient.LDOptions = { allAttributesPrivate: true };
+const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>
@@ -248,24 +286,24 @@ This code sample shows you how to create a custom configuration object to pass c
 
 ```js
 const options = {
-  flushInterval: 10000,
+  flushInterval: 10000, // milliseconds
   allAttributesPrivate: true
 };
 
-const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>
 <CodeTabItem value="ts">
 
 ```ts
-import * as ld from 'launchdarkly-node-client-sdk';
+import * as LDClient from 'launchdarkly-node-client-sdk';
 
-const options: ld.LDOptions = {
+const options: LDClient.LDOptions = {
   flushInterval: 10000, // milliseconds
   allAttributesPrivate: true,
 };
-const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 ```
 
 </CodeTabItem>
@@ -294,9 +332,9 @@ Here is an example:
 <CodeTabItem value="js">
 
 ```js
-let config =
-  { "mobileKey": "YOUR_MOBILE_KEY",
-    "connectionTimeoutMillis": 3000
+let config = {
+  mobileKey: 'YOUR_MOBILE_KEY',
+  connectionTimeoutMillis: 3000
   };
 await client.configure(config, user);
 ```
@@ -706,7 +744,9 @@ This code sample shows you how to pass custom parameters to the client by creati
 <CodeTabItem value="js">
 
 ```js
-var options = {'timeout': 3};
+const options = {
+  timeout: 3
+};
 client = ld.init('YOUR_SDK_KEY', options);
 ```
 
@@ -740,7 +780,7 @@ We've set the client connect timeout to three seconds in addition to providing a
 <CalloutTitle>Sending events in PHP</CalloutTitle>
 <CalloutDescription>
 
-The LaunchDarkly SDK sends data back to our server to record events from Track and Variation calls. On our other platforms, this data is sent asynchronously, so that it adds no latency to serving web pages. PHP's shared-nothing architecture makes this difficult.
+The LaunchDarkly SDK sends data back to our server to record events from `track` and `variation` calls. On our other platforms, this data is sent asynchronously, so that it adds no latency to serving web pages. PHP's shared-nothing architecture makes this difficult.
 
 By default, LaunchDarkly forks an external process that executes `curl` to send this data. In practice, we've found that this is the most reliable way to send data without introducing latency to page load times. If your server does not have `curl` installed, or has other restrictions that make it impossible to invoke `curl` as an external process, you may need to implement a custom `EventProcessor` to send events to LaunchDarkly.
 

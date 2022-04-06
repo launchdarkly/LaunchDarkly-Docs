@@ -11,7 +11,7 @@ This topic explains how to create feature flags in LaunchDarkly. You can use fea
 
 The procedures in this topic assume that you have already configured a LaunchDarkly SDK and are ready to use the LaunchDarkly UI. For an example tutorial of how to configure a LaunchDarkly SDK, read [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag).
 
-In the LaunchDarkly UI, you can create a new flag, clone and modify an existing flag to create new ones, and set default variations for flags.
+In the LaunchDarkly UI, you can create a new flag, clone and modify an existing flag to create new ones, and set default values for flags.
 
 <Callout intent="info">
 <CalloutTitle>You can use the API instead</CalloutTitle>
@@ -62,7 +62,7 @@ Tags are useful for managing flag permissions using custom roles. For example, y
 7. (Optional) In the "Client-side SDK flag availability" section, check the **SDKs using Mobile Key** and/or **SDKs using client-side ID** boxes to designate which SDKs the flag should be available to. To learn more, read [Making flags available to client-side and mobile SDKs](#making-flags-available-to-client-side-and-mobile-sdks).
 8. Choose an option in the **Flag variations** menu. To learn more, read [Flag variations](/home/flags/variations).
 9. (Optional) Specify details for your **Variation**. To learn more, read [Understanding multivariate flags](/home/flags/variations/#understanding-multivariate-flags).
-10. (Optional) Change the **Default variations** for the flag's on and off states. To learn more, read [Setting default variations](#setting-default-variations).
+10. (Optional) Change the **Default values** for the flag's on and off states. To learn more, read [Setting default values](#setting-default-values).
 11. (Optional) Select the **This is a permanent flag** box.
 12. Click **Save flag**.
 
@@ -130,15 +130,15 @@ You know you're in a different environment because the name displayed in the top
 
 4. Find the flag you wish to modify and make whatever changes you like.
 
-## Setting default variations
+## Setting default values
 
-When you create a feature flag, some of its variations are designated as *default* variations. You can accept the defaults or change them. When you do this and click **Save flag**, the flag is created across all environments in your project with these variations set as its `on` and `off` values.
+When you create a feature flag, some of its variations are designated as default values. You can accept the defaults or change them. When you change default values and click **Save flag**, the flag is created across all environments in your project with the new variations set as its default on and off values.
 
-To learn more about default flag variations, read [Changing default flag variations](/home/flags/variations#changing-default-flag-variations).
+To learn more about default flag values, read [Changing default flag values](/home/flags/variations#changing-default-flag-values).
 
 Here is a screenshot of flag creation panel:
 
-![The default variation options on the flag creation panel.](flag-create-default-variations.png)
+![The default value options on the flag creation panel.](flag-create-default-variations.png)
 
 ## Cloning flags
 
@@ -151,7 +151,7 @@ Cloning flags is available to customers on a Pro or Enterprise plan. To learn mo
 </CalloutDescription>
 </Callout>
 
-You can create new flags by cloning existing flags. When you clone a flag, LaunchDarkly makes a new flag and copies the original flag's targeting configuration for all environments, including default variations and whether the flag is toggled on or off. You can then modify the clone's configuration if needed.
+You can create new flags by cloning existing flags. When you clone a flag, LaunchDarkly makes a new flag and copies the original flag's targeting configuration for all environments, including default values and whether the flag is toggled on or off. You can then modify the clone's configuration if needed.
 
 To clone a flag:
 

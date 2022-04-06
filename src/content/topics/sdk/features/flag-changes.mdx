@@ -251,21 +251,11 @@ If you want to be notified when a flag has changed, you can use an event listene
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.on('change:YOUR_FEATURE_KEY', function(newValue, oldValue) {
-  console.log('The flag was ' + oldValue + ' and now it is ' + newValue);
-});
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.on('change:YOUR_FEATURE_KEY', (newValue, oldValue) => {
   console.log('The flag was ' + oldValue + ' and now it is ' + newValue);
 });
@@ -281,23 +271,11 @@ Or, you can listen for all feature flag changes:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.on('change', function(allFlagChanges)) {
-  Object.keys(allFlagChanges).forEach(function(key) {
-    console.log('Flag ' + key + ' is now ' + allFlagChanges[key]);
-  });
-});
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.on('change', (allFlagChanges) => {
   Object.keys(allFlagChanges).forEach((key) => {
     console.log('Flag ' + key + ' is now ' + allFlagChanges[key]);
@@ -474,22 +452,12 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.on('change', function(settings) {
-  console.log('flags changed:', settings);
-});
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
-client.on('change', function (settings) {
+client.on('change', (settings) => {
   console.log('flags changed:', settings);
 });
 ```
@@ -505,22 +473,12 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.on('change:YOUR_FLAG_KEY', function (value, previous) {
-  console.log('YOUR_FLAG_KEY changed:', value, '(' + previous + ')');
-});
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
-client.on('change:YOUR_FLAG_KEY', function (value, previous) {
+client.on('change:YOUR_FLAG_KEY', (value, previous) => {
   console.log('YOUR_FLAG_KEY changed:', value, '(' + previous + ')');
 });
 ```
@@ -541,21 +499,11 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.on('change', allChanges => {
-  console.log('flags changed:', JSON.stringify(allChanges));
-});
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.on('change', allChanges => {
   console.log('flags changed:', JSON.stringify(allChanges));
 });
@@ -572,7 +520,6 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
   ]
 }>
 <CodeTabItem value="js">
@@ -580,15 +527,6 @@ Here's how:
 ```js
 client.on('change:YOUR_FLAG_KEY', (value, previous) => {
   console.log('YOUR_FLAG_KEY changed:', value, '(was ' + previous + ')');
-});
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
-client.on('change:YOUR_FLAG_KEY', function (value, previous) {
-  console.log('YOUR_FLAG_KEY changed: ', value, ' (was ' + previous + ')');
 });
 ```
 
@@ -905,25 +843,11 @@ Here is an example:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.on('update', (param) => {
-  console.log('a flag was changed: ' + param.key);
-});
-
-client.on('update:EXAMPLE_FLAG_KEY', () => {
-  console.log('the EXAMPLE_FLAG_KEY flag was changed');
-});
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 client.on('update', (param) => {
   console.log('a flag was changed: ' + param.key);
 });

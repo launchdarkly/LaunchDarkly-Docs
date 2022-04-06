@@ -46,15 +46,6 @@ Every LaunchDarkly account has three built-in roles: reader, writer, and owner /
 
 To learn more about built-in roles, read [LaunchDarkly’s built-in roles](/home/members/built-in-roles).
 
-<Callout intent="info">
-<CalloutTitle>The no access role is for Early Access Program customers only</CalloutTitle>
-<CalloutDescription>
-
-The `no access` role is limited to a subset of customers in LaunchDarkly's Early Access Program (EAP). If you want access to this feature, email product@launchdarkly.com.
-
-</CalloutDescription>
-</Callout>
-
 ### Custom roles
 
 Custom roles give you precise access control to everything in LaunchDarkly, including feature flags, projects, environments, metrics, and teams, so you can enforce access policies that meet your exact process needs.
@@ -78,7 +69,7 @@ Follow these guidelines when you assign a role:
 
 * **Developers** who not need write privileges to everything in your LaunchDarkly account can be assigned the built-in reader role. This grants read access to everything in your LaunchDarkly account, but write and modification access to nothing. Alternatively, if your organization has security requirements in place to limit initial access assigned to individual members, you can set the built-in role to no access. This role will not allow a member to view or modify anything in your LaunchDarkly account. Then, create a new team. Create a custom role that grants write access only to specific projects, environments, or flags that the team needs to do their jobs. Assign the custom role and the account members to the team. Team members inherit the custom roles assigned to the team. To learn how to create a team and assign members and custom roles to it, read [Creating a team](/home/teams/creating) and [Managing teams](/home/teams/managing).
 
-* **Administrators** who require admin access to your LaunchDarkly account can be assigned an owner / admin built-in role when you invite them to LaunchDarkly. They will not lose this access if they are also added to a team in LaunchDarkly, because access granted to an individual member is aggregated with access granted to a team. To learn more, read [Understanding how team roles interact with individual member roles](https://docs.launchdarkly.com/home/teams#understanding-how-team-roles-interact-with-individual-member-roles).
+* **Administrators** who require admin access to your LaunchDarkly account can be assigned an owner / admin built-in role when you invite them to LaunchDarkly. They will not lose this access if they are also added to a team in LaunchDarkly, because access granted to an individual member is aggregated with access granted to a team. To learn more, read [Understanding how team roles interact with individual member roles](/home/teams#understanding-how-team-roles-interact-with-individual-member-roles).
 
 ## You already use LaunchDarkly
 
@@ -91,9 +82,9 @@ If your organization is already actively using LaunchDarkly and you want to migr
 
 To change the access for a set of account members to be controlled by membership in a team, rather than individual roles, follow this procedure:
 
-1. Create a new team for a set of account members, and add their leads as team maintainers.   To learn how, read [Creating a team](https://docs.launchdarkly.com/home/teams/creating) and [Adding a team maintainer](https://docs.launchdarkly.com/home/teams/managing#adding-a-team-maintainer-to-an-existing-team).
+1. Create a new team for a set of account members, and add their leads as team maintainers.   To learn how, read [Creating a team](/home/teams/creating) and [Adding a team maintainer](/home/teams/managing#adding-a-team-maintainer-to-an-existing-team).
 
-2. Add the existing account members to the team. Then, assign a custom role with the same level of access as the original member role to the team. Follow the steps outlined in [Managing teams](https://docs.launchdarkly.com/home/teams/managing) to assign members and custom roles to the team. If you need to create a new custom role before assigning it to the team, follow the steps outlined in [Creating custom roles and policies](https://docs.launchdarkly.com/home/members/role-create).
+2. Add the existing account members to the team. Then, assign a custom role with the same level of access as the original member role to the team. Follow the steps outlined in [Managing teams](/home/teams/managing) to assign members and custom roles to the team. If you need to create a new custom role before assigning it to the team, follow the steps outlined in [Creating custom roles and policies](/home/members/role-create).
 
 3. Update each of the team member’s member roles to a role with less access, such as the no access or reader built-in roles, or a custom role with limited access.
 
@@ -114,10 +105,10 @@ If you want to further restrict a team's current permissions, audit their existi
 
 After you’ve completed the audit, we recommend taking the following steps:
 
-1. Create a new team for each group identified. Optionally, add the team leads as team maintainers. To learn how, read [Creating a team](https://docs.launchdarkly.com/home/teams/creating) and [Adding a team maintainer](https://docs.launchdarkly.com/home/teams/managing#adding-a-team-maintainer-to-an-existing-team).
-2. Add the members to the appropriate team. Then, assign a custom role with a more focused level of access to the team. Follow the steps outlined in [Managing teams](https://docs.launchdarkly.com/home/teams/managing) to assign members and custom roles to the team. If you need to create a new custom role before assigning it to the team, follow the steps outlined in [Creating custom roles and policies](https://docs.launchdarkly.com/home/members/role-create).
+1. Create a new team for each group identified. Optionally, add the team leads as team maintainers. To learn how, read [Creating a team](/home/teams/creating) and [Adding a team maintainer](/home/teams/managing#adding-a-team-maintainer-to-an-existing-team).
+2. Add the members to the appropriate team. Then, assign a custom role with a more focused level of access to the team. Follow the steps outlined in [Managing teams](/home/teams/managing) to assign members and custom roles to the team. If you need to create a new custom role before assigning it to the team, follow the steps outlined in [Creating custom roles and policies](/home/members/role-create).
 
-Alternatively, you can update each of the team member's roles to a role with less access, such as the no access or reader built-in roles, or a custom role with limited access.
+Alternatively, you can update each of the team member's roles to a role with less access, such as the no access or reader built-in roles, or a custom role with limited access. To learn more, read [Configuring roles with no access](/guides/tutorials/no-access).
 
 To update a member’s role:
 1. Navigate to **Account settings** and click into the [**Members**](https://app.launchdarkly.com/settings/members) tab.
@@ -160,6 +151,10 @@ The following code sample restricts view and edit access to a project called `pr
 
 </CodeTabItem>
 </CodeTabs>
+
+Alternatively, to prevent members from viewing content in LaunchDarkly unless you give them access, you can uncheck the box below when you create a custom role. When this box is unchecked, you do not need to explicitly deny view access to projects because the custom role starts with no view or write access to anything in LaunchDarkly. Instead you must explicitly allow view or write access to relevant projects and other LaunchDarkly resources.
+
+![The "Block members from viewing content by default" checkbox from the "Create custom role" panel.](custom-role-create-block-content-view-checkbox.png)
 
 ## Conclusion
 

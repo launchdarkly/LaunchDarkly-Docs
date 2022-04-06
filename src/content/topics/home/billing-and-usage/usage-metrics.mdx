@@ -13,7 +13,7 @@ This topic explains how to understand the billing and usage metrics visualized i
 
 LaunchDarkly calculates client-side MAUs as unique keys that evaluate, initialize, or identify any flag from a client-side SDK over a rolling 30-day period. The amount of these keys is designated per account.
 
-Your usage is based on the total number of unique user keys across your entire account, regardless of anonymity or whether the user is currently visible on the **Users** dashboard. We count unique user keys that are evaluated by a flag, so even if a single user account evaluates flags from multiple device types or over multiple sessions, we count that user as one MAU over the 30-day period.
+Your usage is based on the total number of unique user keys across your entire account, regardless of anonymity or whether the user is currently visible on the **Users** dashboard. We count unique user keys that are evaluated by a flag. If a single user account evaluates flags from multiple device types or over multiple sessions, we count that user as one MAU over the 30-day period. If user accounts evaluate flags in your Relay Proxy, we also count each user as one MAU over the 30-day period.
 
 You can see this data visualized in **Account settings** on the **Usage** tab. The Client MAUs chart shows the total number of unique keys over the previous 30-day rolling period. LaunchDarkly usage charts also show you the number of unique keys per project and per environment.
 

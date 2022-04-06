@@ -21,7 +21,7 @@ The "Target individual users" section of the **Targeting** tab allows you to ass
 <CalloutTitle>Only target small numbers of users individually</CalloutTitle>
 <CalloutDescription>
 
-We recommend using individual user targeting for very small numbers of individual users. Targeting more than 10,000 users individually may cause performance degradation, because the SDK takes longer to initialize when the targeting rules payload is large. To learn more about targeting many users, read [Creating targeting rules](#creating-targeting-rules).
+We recommend using individual user targeting for very small numbers of individual users. Individually targeting more than 10,000 users per environment may cause performance degradation, because the SDK takes longer to initialize when the targeting rules payload is large. To learn more about targeting many users, read [Creating targeting rules](#creating-targeting-rules).
 
 </CalloutDescription>
 </Callout>
@@ -76,7 +76,7 @@ To schedule a removal date for a user target:
 
 
 6. Click **Apply**.
-7. Click **Save changes**, or if approvals are required for your environment, click **Request approval**.
+7. Click **Review and save**.
 
 The user targets are now scheduled for removal on the date and time you specified.
 
@@ -436,17 +436,17 @@ If you do not want to target users based on user key or any custom attributes, y
 </CalloutDescription>
 </Callout>
 
-## Setting the Off variation
+## Setting the default off variation
 
-When the toggle is turned off, LaunchDarkly will serve the **Off** variation for your feature flag. This is sometimes referred to as the fallback value. For boolean flags, the **Off** variation is set to `false` by default. For multivariate flags, you select one of your custom variations. You can customize the **Off** variation for both boolean and multivariate flags in the **Targeting** tab.
+When the toggle is turned off, LaunchDarkly will serve the default off variation for your feature flag. For boolean flags, the default off variation is set to `false`. For multivariate flags, you select one of your custom variations. You can customize the default off variation for both boolean and multivariate flags in the **Targeting** tab.
 
-If you do not specify an **Off** variation, then LaunchDarkly will return the fallback variation defined in your code.
+If you do not specify a default off variation, then the SDK will return the fallback value defined in your code.
 
 <Callout intent="info">
-<CalloutTitle>Setting a fallthrough value in your SDK call</CalloutTitle>
+<CalloutTitle>Setting a fallback value in your SDK call</CalloutTitle>
 <CalloutDescription>
 
-Regardless of how you set up targeting in your flag dashboard, each time you evaluate a flag from the SDK, you must include a fallthrough value as one of the parameters. This fallthrough value is the value served to the user if the SDK cannot connect to LaunchDarkly. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+Regardless of how you set up targeting in your flag dashboard, each time you evaluate a flag from the SDK, you must include a fallback value as one of the parameters. This fallback value is the value served to the user if the SDK cannot connect to LaunchDarkly. To learn more, read [Evaluating flags](/sdk/features/evaluating).
 
 </CalloutDescription>
 </Callout>

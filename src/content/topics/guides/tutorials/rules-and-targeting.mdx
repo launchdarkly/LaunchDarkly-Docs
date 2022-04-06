@@ -605,18 +605,18 @@ To turn on a percentage rollout for the `Pricing Tier 3` flag:
 
 1. Navigate to the **Feature flags** dashboard in LaunchDarkly.
 2. In the "Feature flags" list, click Pricing Tier 3. The flag's **Targeting** tab appears.
-3. Find the "Default rule", which is the flag variation that appears when targeting is enabled. In this example, it is set to `true`:
+3. Find the "Default rule", which is the flag variation or rollout that appears when targeting is enabled. In this example, it is set to `true`:
 
 ![The flag's Default rule selector.](flag-default-rule.png)
 
 2. Click the **Serve** menu.
-3. Choose "the "percentage rollout":
+3. Choose "a percentage rollout":
 
 ![A percentage rollout with percentage values for each variation.](flag-percentage-rule.png)
 
 4. Set the `true` variation to 30%.
-5. Confirm that the flag's targeting toggle is set to **on**.
-6. Click **Save changes**.
+5. Confirm that the flag's targeting toggle is set to **On**.
+6. Click **Review and save**.
 7. Log in to the Starlight Travel app as a few different users. Keep track of which email addresses you use as you log in and log out.
 8. When the third pricing tier appears, you know the user you logged in as is part of the 30% of users targeted by the "Pricing Tier 3" flag.
 9. Log out and log back in again as that same user. The third pricing tier appears every time that user logs in, because LaunchDarkly can now identify individual users. That user will always see the third tier until the flag's targeting changes.
@@ -710,9 +710,9 @@ To add this attribute:
 
 ```py
 return {
-  "key": email_hash_hex,   ## don't forget the comma!
+  "key": email_hash_hex,   ## don't forget the comma
   "custom": {
-    "firstLetter": email[0]
+    "firstLetter": email[0].lower()   ## normalize your string case
   }
 }
 ```
@@ -740,14 +740,16 @@ return {
     - Press `Enter`. The letter `a` becomes an attribute.
     - Type an upper-case `A` and press `Enter`. Each of the two letters should be in its own option box, like this:
 
-![The rule form, configured for the rule we specified.](flag-rule-filled.png)
-
+    ![The rule form, configured for the rule we specified.](flag-rule-filled.png)
+  
+    If you don't want to include both the lowercase and capitalized values, normalizing the attribute's string case can help simplify your targeting rules.
+  
 13. In the last menu, choose the `true` variation. Now when the rule matches a user object, the `true` variation appears.
 14. In the "Default rule" section, choose `false` under the **Serve** menu . This ensures that only users who match our rules receive a `true` evaluation:
 
 ![Set the default rule to `false`.](flag-default-rule-false.png)
 
-15. Click **Save changes**.
+15. Click **Review and save**.
 
 You can test your new targeting rule by logging in to your Glitch app with email addresses starting with the letter `a`, and addresses that start with other letters.
 
@@ -828,7 +830,7 @@ Now change the existing targeting rule:
 3. Find the section titled **Target users who match these rules**:
 4. Change the value in the first field from `firstLetter` to `email`.
 5. Change the operator selector from `is one of` to `starts with`. You don't need to change the third field, because we're still looking for an `A` or `a`.
-6. Click **Save changes**.
+6. Click **Review and save**.
 
 At the end, the rule should look like this:
 

@@ -1,15 +1,43 @@
 ---
 path: /sdk/server-side/node-js
 title: Node.js SDK reference (server-side)
-description: This reference guide documents all of the methods available in the server-side Node.js SDK, and explains how these methods work.
+description: This topic documents how to get started with the server-side Node.js SDK, and links to reference information on all of the supported features.
 published: true
 ---
 
 ## Overview
 
-This reference guide documents all of the methods available in the server-side Node.js SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/node-server-sdk) and its generated [API reference](https://launchdarkly.github.io/node-server-sdk/).
+This topic documents how to get started with the server-side Node.js SDK, and links to reference information on all of the supported features.
 
-You can also use this SDK to clone and run a sample application with [vanilla JavaScript](https://github.com/launchdarkly/hello-node-server), [TypeScript](https://github.com/launchdarkly/hello-node-typescript), or [server-side bootstrapping](https://github.com/launchdarkly/hello-bootstrap).
+<Callout intent="primary">
+<CalloutTitle>SDK quick links</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly's SDKs are open source. In addition to this reference guide, we provide source, API reference documentation, and sample applications:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Resource</TableHeadCell>
+    <TableHeadCell>Location</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>SDK API documentation</TableCell>
+      <TableCell><a href="https://launchdarkly.github.io/node-server-sdk/">SDK API docs</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>GitHub repository</TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/node-server-sdk">node-server-sdk</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Sample applications</TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/hello-node-server">hello-node-server</a> (JavaScript)<br/> <a href="https://github.com/launchdarkly/hello-node-typescript">hello-node-typescript</a> (TypeScript)<br/> <a href="https://github.com/launchdarkly/hello-bootstrap">hello-bootstrap</a> (JavaScript, server-side bootstrapping example)</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</CalloutDescription>
+</Callout>
 
 <Callout intent="info">
 <CalloutTitle>For use in server-side applications only</CalloutTitle>
@@ -22,7 +50,7 @@ To learn more about LaunchDarkly's different SDK types, read [Client-side and se
 </CalloutDescription>
 </Callout>
 
-The sample code snippets for this SDK are available in both JavaScript and TypeScript. To learn more, read [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
+The sample code snippets for this SDK are available in both JavaScript and TypeScript, where the sample code differs. To learn more, read [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
 
 ## Getting started
 
@@ -82,19 +110,11 @@ Here's how:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client = ld.init('YOUR_SDK_KEY');
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 const client = ld.init('YOUR_SDK_KEY');
 ```
 
@@ -126,8 +146,8 @@ Here is an example:
 <CodeTabItem value="js">
 
 ```js
-client.once("ready", () => {
-  client.variation("your.flag.key", user, false,
+client.once('ready', () => {
+  client.variation('YOUR_FLAG_KEY', user, false,
     (err, showFeature) => {
       if (showFeature) {
         // application code to show the feature
@@ -143,7 +163,7 @@ client.once("ready", () => {
 
 ```ts
 client.on('ready', () => {
-  client.variation('your.flag.key', user, false,
+  client.variation('YOUR_FLAG_KEY', user, false,
     (value) => {
       // check value and proceed accordingly
   });
@@ -170,12 +190,12 @@ Here is an example:
 
 ```js
 // Using the .then() method to add a continuation handler for a Promise
-client.variation("any.feature.flag", user, false).then((value) => {
+client.variation('YOUR_FLAG_KEY', user, false).then((value) => {
   // application code
 });
 
 // Using "await" instead, within an async function
-const value = await client.variation("any.feature.flag", user, false);
+const value = await client.variation('YOUR_FLAG_KEY', user, false);
 ```
 
 </CodeTabItem>
@@ -183,13 +203,12 @@ const value = await client.variation("any.feature.flag", user, false);
 
 ```ts
 // Using the .then() method to add a continuation handler for a Promise
-client.variation('any.feature.flag', user, false).then(
-  (value) => {
-    // application code
+client.variation('YOUR_FLAG_KEY', user, false).then((value) => {
+  // application code
 });
 
 // Using "await" instead, within an async function
-const value = await client.variation('any.feature.flag', user, false);
+const value = await client.variation('YOUR_FLAG_KEY', user, false);
 
 // In both cases, you can cast "value" to a boolean, number, or string,
 // rather than using the LDFlagValue type,
@@ -205,32 +224,11 @@ There is also an alternative to the `ready` event:
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-// Using .then() and .catch() to add success and error handlers to a Promise
-client.waitForInitialization().then((client) => {
-  // initialization complete
-}).catch((err) => {
-  // initialization failed
-});
-
-// Using "await" instead, within an async function
-try {
-  await client.waitForInitialization();
-  // Initialization complete
-} catch (err) {
-  // Initialization failed
-}
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
-
-```ts
 // Using .then() and .catch() to add success and error handlers to a Promise
 client.waitForInitialization().then((client) => {
   // initialization complete

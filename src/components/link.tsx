@@ -2,11 +2,14 @@
 import { jsx, Link as ThemeUILink, LinkProps } from 'theme-ui'
 import { FunctionComponent, RefAttributes, PropsWithoutRef } from 'react'
 import { Link as GatsbyLink, useStaticQuery, graphql, GatsbyLinkProps } from 'gatsby'
+import { OutboundLink, OutboundLinkProps } from 'gatsby-plugin-google-gtag'
 import isExternalLink from '../utils/isExternalLink'
 
 type ForwardRef<T, P> = React.ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>
 type CombinedLinkProps = Omit<LinkProps & GatsbyLinkProps<unknown>, 'defaultValue' | 'aria-relevant'>
 const ThemedGatsbyLink: ForwardRef<HTMLAnchorElement, CombinedLinkProps> = ThemeUILink
+type ExternalLinkProps = LinkProps & OutboundLinkProps
+const ThemedExternalLink: ForwardRef<HTMLAnchorElement, ExternalLinkProps> = ThemeUILink
 
 const Link: FunctionComponent<CombinedLinkProps> = ({ to, href, ...props }) => {
   const {
@@ -30,7 +33,7 @@ const Link: FunctionComponent<CombinedLinkProps> = ({ to, href, ...props }) => {
   }
 
   if (isExternal || isMailTo || isImage) {
-    return <ThemeUILink href={url} {...props} target="_blank" rel="noopener noreferrer" />
+    return <ThemedExternalLink as={OutboundLink} href={url} {...props} target="_blank" rel="noopener noreferrer" />
   }
 
   // if path prefix is set, remove it because Gatsby Link adds it too

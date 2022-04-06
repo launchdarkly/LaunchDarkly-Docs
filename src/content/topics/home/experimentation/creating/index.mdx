@@ -19,7 +19,7 @@ For example, an experiment might show that users are more likely to convert by c
 
 Configuring an experiment requires five steps:
 
-1. [Creating a metric](#creating-metrics), 
+1. [Creating a metric](#creating-metrics),
 2. [Defining the experiment population](#defining-experiment-populations),
 3. [Building an experiment](#building-experiments),
 4. [Starting an experiment iteration](#starting-experiment-iterations), and
@@ -33,13 +33,13 @@ To use Experimentation, you must have the following prerequisites:
 
 ### Your SDKs must be configured to send events
 
-All of your SDKs must be configured to send events. You may have disabled sending events to reduce your monthly active users (MAU). If so, you must re-enable it. To learn how, read [Sending custom events](/sdk/features/events).
+All of your SDKs must send events. You may have disabled sending events to reduce your monthly active users (MAU). If so, you must re-enable it.
 
-The all flags method sends events for some SDKs, but not others. For SDKs that do not send events with the all flags method, you must call the variation method instead. If you call the variation method, you must use the right variation type. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+The all flags method sends events for some SDKs, but not others. For SDKs that do not send events with the all flags method, you must call the `variation` method instead. If you call the `variation` method, you must use the right `variation` type. To learn more, read [Evaluating flags](/sdk/features/evaluating).
 
 ### Your network must be allowed to send events
 
-Your network must be allowed to send events to LaunchDarkly. Ensure that event streaming endpoints and `events.launchdarkly.com` is on your allow list.
+Your network must be allowed to send events to LaunchDarkly. Ensure that event streaming endpoints, `mobile.launchdarkly.com`, and `events.launchdarkly.com` are on your allow list.
 
 ### You must be using unique user keys
 
@@ -51,13 +51,13 @@ You do not have to use the Relay Proxy to use Experimentation. However, if you d
 
 ## Creating metrics
 
-Metrics are the measure against which you evaluate flag events. You can use metrics to track all kinds of things, from how often users access a URL to how long that URL takes to load a page. 
+Metrics are the measure against which you evaluate flag events. You can use metrics to track all kinds of things, from how often users access a URL to how long that URL takes to load a page.
 
 After you create a metric, you can connect it to one or more feature flags. If users load a URL, click an element, or otherwise participate in the behavior the metric tracks, LaunchDarkly sends an event to your experiment.
 
 You don't need to create a new metric for each new experiment. You can reuse existing metrics by connecting them to multiple flags, which allows you to compare how this metric fares across numerous flags. Similarly, a single flag can have more than one metric connected to it, which allows you to see how this flag performs against various measurements.
 
-To learn how to create a new metric, read [Creating metrics](/home/experimentation/creating-metrics).
+To learn how to create a new metric, read [Creating metrics](/home/experimentation/metrics/index).
 
 ## Defining experiment populations
 
@@ -87,7 +87,7 @@ Here is an image of the Experiments dashboard:
 <CalloutTitle>Creating an experiment is different for Early Access Program customers</CalloutTitle>
 <CalloutDescription>
 
-The process of building an experiment is different for Early Access Program customers. If you are an Early Access Program customer, read [Building experiments using the experiment builder](#building-experiments-using-the-experiment-builder). 
+The process of building an experiment is different for Early Access Program customers. If you are an Early Access Program customer, read [Building experiments using the experiment builder](#building-experiments-using-the-experiment-builder).
 
 If you are not an Early Access Program customer, read [Building experiments from the dashboard](#building-experiments-from-the-dashboard).
 

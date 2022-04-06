@@ -349,7 +349,7 @@ To use a persistent feature store while connecting to LaunchDarkly:
 const ld = require('launchdarkly-node-server-sdk');
 
 const store = SomeKindOfFeatureStore(storeOptions);
-const config = {
+const options = {
   featureStore: store
 };
 const client = ld.init('YOUR_SDK_KEY', config);
@@ -363,7 +363,7 @@ import * as ld from 'launchdarkly-node-server-sdk';
 
 const store = SomeKindOfFeatureStore(storeOptions);
 
-const config: ld.LDOptions = {
+const options: ld.LDOptions = {
   featureStore: store,
 };
 const client = ld.init('YOUR_SDK_KEY', config);

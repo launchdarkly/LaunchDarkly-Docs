@@ -259,15 +259,6 @@ This table displays the built-in roles and their associated permissions that you
   </TableBody>
 </Table>
 
-<Callout intent="info">
-<CalloutTitle>The no access role is for Early Access Program customers only</CalloutTitle>
-<CalloutDescription>
-
-The `no access` role is limited to a subset of customers in LaunchDarkly's Early Access Program (EAP). If you want access to this feature, email product@launchdarkly.com.
-
-</CalloutDescription>
-</Callout>
-
 Expand each of the sections below to learn how to recreate built-in roles using the advanced editor.
 
 <Details summary="Expand reader custom role">
@@ -466,7 +457,7 @@ These policies can now be used as a starting point to create more custom roles, 
 
 Now that you have LaunchDarkly's built-in roles recreated, you can use them as a foundation to build custom roles to suit your needs.
 
-As a default state, a blank custom role denies all access to all resources. You must explicitly grant access to a resource for a member to view or edit it.
+As a default state, a blank custom role allows only view access to all resources. You must explicitly grant access to a resource for a member to edit it.
 
 For some actions, access must be granted across all environments to function properly. These actions include:
 
@@ -491,7 +482,7 @@ Expand each of the sections below to learn how to build example custom roles usi
 
 One way to organize access to resources is by tagging individual resources, and then creating custom roles with access based on tags. For example, you can create a `dev` tag for your environments and use it in a policy to allow access only to development environments. Tags can be added to projects, environments, segments, flags, and metrics.
 
-Here is the code sample to build a custom role with access resources with a `dev` tag:
+Here is the code sample to build a custom role that can access resources with a `dev` tag:
 
 <CodeTabs
   defaultValue="json"
@@ -533,7 +524,7 @@ Anyone with this custom role can edit resources with a `dev` tag. This role is u
 
 ### Project-specific permissions with view access
 
-In this example, you will create a "New checkout flow" custom role that has edit permissions in the `New-checkout-flow` project only, and can view all other projects.
+In this example, you will create a "New checkout flow" custom role that has edit permissions in the `new-checkout-flow` project only, and can view all other projects.
 
 Here is the code sample:
 
@@ -551,7 +542,7 @@ Here is the code sample:
   {
     "effect": "allow",
     "actions": ["*"],
-    "resources": ["proj/New-checkout-flow:env/*"]
+    "resources": ["proj/new-checkout-flow:env/*"]
   }
 ]
 ```
@@ -566,7 +557,7 @@ Anyone with this custom role can edit all resources within the `New-checkout-flo
 
 ### Project-specific permissions without view access
 
-In this example, you will create a "New checkout flow" custom role that has edit permissions in the `New-checkout-flow` project only, but cannot view any other projects.
+In this example, you will create a "New checkout flow" custom role that has edit permissions in the `new-checkout-flow` project only, but cannot view any other projects.
 
 Here is the code sample:
 
@@ -584,19 +575,19 @@ Here is the code sample:
   {
     "effect": "deny",
     "actions": ["*"],
-    "notResources": ["proj/New-checkout-flow"]
+    "notResources": ["proj/new-checkout-flow"]
   },
   {
     "effect": "allow",
     "actions": ["*"],
-    "resources": ["proj/New-checkout-flow"]
+    "resources": ["proj/new-checkout-flow"]
   }
 ]
 ```
 </CodeTabItem>
 </CodeTabs>
 
-Anyone with this custom role can edit all resources within the `New-checkout-flow` project, but view no other projects. This role is useful for developers working only on specific projects who don't need visibility into other projects at your organization.
+Anyone with this custom role can edit all resources within the `new-checkout-flow` project, but view no other projects. This role is useful for developers working only on specific projects who don't need visibility into other projects at your organization.
 
 </Details>
 
@@ -613,12 +604,17 @@ Some questions to consider include:
 - Who do you want to target with custom roles?
 - Do you have separate QA, Dev, and Production units?
 - What level of access do you need for Engineering leads, QA, support, etc.?
+- Do you have a tech lead for each project?
+- Do your members need access to multiple projects?
+- Should members be able to view projects that aren't their own, or that they aren't working on?
 - What environments do you use within each project?
 - Do projects change frequently or do they last indefinitely?
-- Do you need separate roles for permissions at the project level and at the environment level?
+- Do you need separate roles for permissions at the flag level, project level, and environment level?
 - Do you have an internal approval process for enabling flags in Production?
 - Do external organizations ever toggle flags?
 - Who will be responsible for maintenance and future access control?
+- Do you need policies for service tokens?
+- Who should be able to rotate keys?
 
 Here is an example of a role map for an organization:
 
@@ -755,6 +751,89 @@ Account members can have more than one custom role. This is useful if one person
 If two custom roles have conflicting permission levels, the more permissive level of access is applied. For example, if a member has one custom role that allows access to a resource, and another custom role that denies access to that resource, the member is granted access.
 
 If you don't want to worry about conflicting permissions within multiple custom roles, you may want to create additional custom roles, such as a "Tech lead + QA" role, that includes access needed for both. This eliminates the complexity of managing multiple roles per member, but requires that you create more custom roles up front to cover all of the possible role combinations.
+
+### Writing your own custom roles
+
+There are two ways to approach writing your own custom roles:
+- **View-only access by default, then strategically allow actions as needed**: This method is the most secure. LaunchDarkly custom roles are view-only by default, so your LaunchDarkly administrators must modify your custom role policies to allow individual actions. However, this can create additional work for your administrators, as they must explicitly add permissions to custom roles each time LaunchDarkly releases a new feature.
+- **Allow all actions by default, then strategically deny actions as needed**: This method automatically allows members access to new features as they are released. However, we do not consider this a best security practice, because all members, regardless of role, are automatically granted access to new features. Administrators will need to explicitly deny access to new features in custom role policies as needed.
+
+Here is an example of a custom role that explicitly allows actions only on certain resources:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'View-only by default', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "effect": "allow",
+    "actions": [
+      "deleteFlag",
+      "updateTargets",
+      "updateRules"
+    ],
+    "resources": ["proj/public:env/*;sandbox,prod:flag/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/public:env/*;sandbox,prod:segment/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["deleteUser"],
+    "resources": ["proj/public:env/*;sandbox,prod:user/*"]
+  }
+]
+```
+</CodeTabItem>
+</CodeTabs>
+
+Here is an example of a custom role that allows all actions in the first statement, then explicitly denies actions on certain resources:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Allow all actions by default', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["*"]
+  },
+  {
+    "effect": "deny",
+    "actions": [
+      "updateOn",
+      "updatePrerequisites",
+      "updateRules",
+      "updateTargets",
+      "updateFallthrough",
+      "updateOffVariation",
+      "updateAttachedGoals",
+      "copyFlagConfigFrom",
+      "updateFlagDefaultVariations",
+      "copyFlagConfigTo",
+      "updateMaintainer"
+    ],
+    "resources": ["proj/team-1:env/*;production:flag/*"]
+  }
+]
+```
+</CodeTabItem>
+</CodeTabs>
 
 ## Using LaunchDarkly teams to manage permissions
 

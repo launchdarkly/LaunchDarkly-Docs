@@ -1,15 +1,43 @@
 ---
 path: /sdk/client-side/react/react-native
 title: React Native SDK reference
-description: This topic explains all of the methods available in the React Native SDK, and explains how these methods work.
+description: This topic documents how to get started with the React Native SDK, and links to reference information on all of the supported features.
 published: true
 ---
 
 ## Overview
 
-This reference guide documents all of the methods available in the React Native SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/react-native-client-sdk) and its generated [API reference](https://launchdarkly.github.io/react-native-client-sdk/).
+This topic documents how to get started with the React Native SDK, and links to reference information on all of the supported features.
 
-You can also use this SDK to clone and run a [sample application](https://github.com/launchdarkly/hello-react-native).
+<Callout intent="primary">
+<CalloutTitle>SDK quick links</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly's SDKs are open source. In addition to this reference guide, we provide source, API reference documentation, and sample applications:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Resource</TableHeadCell>
+    <TableHeadCell>Location</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>SDK API documentation</TableCell>
+      <TableCell><a href="https://launchdarkly.github.io/react-native-client-sdk/">SDK API docs</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>GitHub repository</TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/react-native-client-sdk">react-native-client-sdk</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Sample application</TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/hello-react-native">hello-react-native</a> (JavaScript) <br/> <a href="https://github.com/launchdarkly/hello-react-native-typescript">hello-react-native-typescript</a> (TypeScript)</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</CalloutDescription>
+</Callout>
 
 The sample code snippets for this SDK are available in both JavaScript and TypeScript, where the sample code differs. To learn more, read [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
 
@@ -24,7 +52,7 @@ If you need support for earlier versions of React Native, use older versions of 
 </CalloutDescription>
 </Callout>
 
-## Getting Started
+## Getting started
 
 <Callout intent="warning">
 <CalloutTitle>Expo usage</CalloutTitle>
@@ -108,8 +136,8 @@ The following example shows the simplest way to create a shared instance of `LDC
 
 ```js
 let client = new LDClient();
-let config = { "mobileKey": "YOUR_MOBILE_KEY" };
-let user = { "key": "user_key" };
+let config = { mobileKey: 'YOUR_MOBILE_KEY' };
+let user = { key: 'user_key' };
 
 await client.configure(config, user);
 ```
@@ -123,7 +151,6 @@ let config: ld.LDConfig = { mobileKey: 'YOUR_MOBILE_KEY' };
 let user: ld.LDUser = { key: 'user_key' };
 
 await client.configure(config, user);
-
 ```
 
 </CodeTabItem>
@@ -144,8 +171,8 @@ Here is an example with a timeout of five seconds:
 
 ```js
 let client = new LDClient();
-let config = { "mobileKey": "YOUR_MOBILE_KEY" };
-let user = { "key": "user_key" };
+let config = { mobileKey: 'YOUR_MOBILE_KEY' };
+let user = { key: 'user_key' };
 
 client.configure(config, user, 5.0)
 ```
@@ -159,7 +186,6 @@ let config: ld.LDConfig = { mobileKey: 'YOUR_MOBILE_KEY' };
 let user: ld.LDUser = { key: 'user_key' };
 
 client.configure(config, user, 5.0);
-
 ```
 
 </CodeTabItem>

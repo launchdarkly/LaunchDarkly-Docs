@@ -55,17 +55,21 @@ To set up code references in LaunchDarkly, you must have the following prerequis
 
 ## Using code references
 
-You can view existing code references for feature flags in the flag dashboard.
-
-To view existing code references, visit a feature flag's **Code references** tab.
+You can view existing code references for feature flags in the flag dashboard. To view existing code references, visit a feature flag's **Code references** tab.
 
 The screenshot below shows the **Code references** tab displaying an active code reference:
 
-![The "Code references" tab for a feature flag.](flag-code-references.png)
+![The "Code references" tab of a feature flag.](flag-code-references.png)
 
-After you remove all code references mentioning that flag from the codebase and rerun the scanning tool, LaunchDarkly creates an Extinction event and notifies you that it has removed the flag from the codebase. You can also use the API to find these events. To learn more, read [List Extinctions](https://apidocs.launchdarkly.com/tag/Code-references#operation/getExtinctions).
+### Understanding extinction events
 
-![The "Code references" tab for an extinct feature flag.](flag-code-references-extinct.png)
+After you remove all code references mentioning that flag from the codebase and rerun the scanning tool, LaunchDarkly creates an extinction event. This event appears as a message on the **Code references** tab of the feature flag. It indicates that all code references for the flag have been removed from the codebase as of a specified commit. 
+
+You can also use the API to find these events. To learn more, read [List extinctions](https://apidocs.launchdarkly.com/tag/Code-references#operation/getExtinctions).
+
+Here is an image of an extinction event on the **Code references** tab of a feature flag:
+
+![The "Code references" tab of a feature flag with an extinction event.](flag-code-references-extinct.png)
 
 
 You can toggle a repository on or off to allow or forbid code reference triggers from pushing new data to it.
@@ -154,7 +158,7 @@ This identifies all references to `firstFeatureFlag` in your code base.
 
 To learn more about aliases, read the [aliases documentation](https://github.com/launchdarkly/ld-find-code-refs/blob/main/docs/ALIASES.md).
 
-## Using `ld-find-code-refs` with a monorepo
+## Using ld-find-code-refs with a monorepo
 
 `ld-find-code-refs` version 2.5.0+ provides support for monorepos. This means a single scan of code references can find feature flags and aliases from multiple LaunchDarkly projects stored in the same repository. You can specify an optional starting subdirectory for each project, which limits your scan to directories below the initial subdirectory only. The required top-level `dir` value should still be the overall git repository root directory.
 

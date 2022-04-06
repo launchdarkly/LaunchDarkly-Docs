@@ -364,12 +364,30 @@
             "path": "/home/experimentation/create",
             "items": [
               {
-                "label": "Creating metrics",
-                "path": "/home/experimentation/creating-metrics"
-              },
-              {
                 "label": "Allocating experiment populations",
                 "path": "/home/experimentation/allocation"
+              }
+            ]
+          },
+          {
+            "label": "Creating metrics",
+            "path": "/home/experimentation/metrics/index",
+            "items": [
+              {
+                "label": "Click metrics",
+                "path": "/home/experimentation/metrics/click"
+              },
+              {
+                "label": "Custom conversion metrics",
+                "path": "/home/experimentation/metrics/custom-conversion"
+              },
+              {
+                "label": "Custom numeric metrics",
+                "path": "/home/experimentation/metrics/custom-numeric"
+              },
+              {
+                "label": "Page view metrics",
+                "path": "/home/experimentation/metrics/page-view"
               }
             ]
           },
@@ -679,7 +697,7 @@
         "path": "/integrations/ide",
         "items": [
           {
-            "label": "IntelliJ",
+            "label": "IntelliJ IDEA",
             "path": "/integrations/intellij"
           },
           {
@@ -804,6 +822,10 @@
             "path": "/sdk/concepts/getting-started"
           },
           {
+            "label": "Analytics events",
+            "path": "/sdk/concepts/events"
+          },
+          {
             "label": "Apple App Store data collection policy",
             "path": "/sdk/concepts/apple-app-store"
           },
@@ -830,6 +852,10 @@
           {
             "label": "Persistent data stores",
             "path": "/sdk/concepts/data-stores"
+          },
+          {
+            "label": "Server-side SDK bandwidth usage",
+            "path": "/sdk/concepts/server-side-bandwidth"
           },
           {
             "label": "Using flag types",
@@ -1029,8 +1055,8 @@
             "path": "/sdk/client-side/javascript",
             "items": [
               {
-                "label": "Default variations on page load",
-                "path": "/sdk/client-side/javascript/default-variations"
+                "label": "Default values on page load",
+                "path": "/sdk/client-side/javascript/default-values"
               },
               {
                 "label": "Requirements and polyfills",
@@ -1260,6 +1286,10 @@
           {
             "label": "Configuring an SDK and creating a flag",
             "path": "/guides/tutorials/sdk-flag"
+          },
+          {
+            "label": "Configuring roles with no access",
+            "path": "/guides/tutorials/no-access"
           },
           {
             "label": "Flag rules and targeting",

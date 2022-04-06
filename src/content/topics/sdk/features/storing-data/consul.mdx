@@ -192,10 +192,10 @@ const store = ConsulFeatureStore({
   cacheTTL: 30
 });
 
-const config = {
+const options = {
   featureStore: store
 };
-const client = ld.init('YOUR_SDK_KEY', config);
+const client = ld.init('YOUR_SDK_KEY', options);
 ```
 
 </CodeTabItem>
@@ -214,11 +214,11 @@ const store = ConsulFeatureStore({
   cacheTTL: 30,
 });
 
-const config: ld.LDOptions = {
+const options: ld.LDOptions = {
   featureStore: store,
 };
 
-const client = ld.init('YOUR_SDK_KEY', config);
+const client = ld.init('YOUR_SDK_KEY', options);
 ```
 
 </CodeTabItem>

@@ -1,15 +1,43 @@
 ---
 path: /sdk/server-side/dotnet
 title: .NET SDK reference (server-side)
-description: This reference guide documents all of the methods available in the server-side .NET SDK, and explains how these methods work.
+description: This topic documents how to get started with the server-side .NET SDK, and links to reference information on all of the supported features.
 published: true
 ---
 
 ## Overview
 
-This reference guide documents all of the methods available in the server-side .NET SDK, and explains how these methods work. LaunchDarkly's SDKs are open source. The source is available in its [GitHub repository](https://github.com/launchdarkly/dotnet-server-sdk) and its generated [API reference](https://launchdarkly.github.io/dotnet-server-sdk/).
+This topic documents how to get started with the server-side .NET SDK, and links to reference information on all of the supported features.
 
-You can also use this SDK to clone and run a [sample application](https://github.com/launchdarkly/hello-dotnet).
+<Callout intent="primary">
+<CalloutTitle>SDK quick links</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly's SDKs are open source. In addition to this reference guide, we provide source, API reference documentation, and a sample application:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Resource</TableHeadCell>
+    <TableHeadCell>Location</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>SDK API documentation</TableCell>
+      <TableCell><a href="https://launchdarkly.github.io/dotnet-server-sdk/">SDK API docs</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>GitHub repository</TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/dotnet-server-sdk">dotnet-server-sdk</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Sample application</TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/hello-dotnet-server">hello-dotnet-server</a></TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</CalloutDescription>
+</Callout>
 
 <Callout intent="info">
 <CalloutTitle>For use in server-side applications only</CalloutTitle>
@@ -143,9 +171,48 @@ else {
 
 ## Transport Layer Security (TLS) and other networking issues
 
-.NET applications running on older operating systems are prone to use older, less secure versions of TLS. It is possible to increase your application's security using AppContext switches.
+LaunchDarkly is deprecating support for TLS versions 1.0 and 1.1. .NET applications running on older operating systems are prone to use these older, less secure versions of TLS. It is possible to increase your application's security using AppContext switches.
 
 To learn more, [read Microsoft's documentation](https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls#configuring-security-via-appcontext-switches-for-net-framework-46-or-later-versions).
+
+If you cannot update your application platform's configurations to support TLS version 1.2, you can update your application's SDK configuration to use new LaunchDarkly endpoints that support TLS versions 1.0 and later. Here is an example:
+
+<CodeTabs
+  defaultValue="sdk6"
+  values={[
+    { label: '5.x syntax', value: 'sdk5', },
+    { label: '6.0 syntax', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk5">
+
+```csharp
+// Use `stream-tls10.launchdarkly.com` and `events-tls10.launchdarkly.com` TLSv1 endpoints
+var config = Configuration.Builder("my-sdk-key")
+    .DataSource(
+        Components.StreamingDataSource()
+            .BaseUri(new Uri("https://stream-tls10.launchdarkly.com")))
+    .Events(
+        Components.SendEvents()
+            .BaseUri(new Uri("https://events-tls10.launchdarkly.com")))
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk6">
+
+```csharp
+// Use `stream-tls10.launchdarkly.com` and `events-tls10.launchdarkly.com` TLSv1 endpoints
+var config = Configuration.Builder("my-sdk-key")
+    .ServiceEndpoints(
+        Components.ServiceEndpoints()
+          .Streaming("https://stream-tls10.launchdarkly.com")
+          .Events("https://events-tls10.launchdarkly.com"))
+    .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 <Callout intent="alert">
 <CalloutTitle>Potential network connectivity issues caused by DNS caching</CalloutTitle>

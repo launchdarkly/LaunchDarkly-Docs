@@ -244,7 +244,8 @@ Set the `featureStore` property to use a persistent feature store. Then, set the
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'js', }
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 <CodeTabItem value="js">
@@ -253,7 +254,21 @@ Set the `featureStore` property to use a persistent feature store. Then, set the
 
 const store = SomeKindOfFeatureStore(storeOptions);
 
-const config = {
+const options = {
+  featureStore: store,
+  useLdd: true,
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as LaunchDarkly from 'launchdarkly-node-server-sdk';
+
+const store = SomeKindOfFeatureStore(storeOptions);
+
+const options: LaunchDarkly.LDOptions = {
   featureStore: store,
   useLdd: true,
 };

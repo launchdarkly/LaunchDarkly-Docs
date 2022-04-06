@@ -29,16 +29,18 @@ To complete this guide, you should understand the following concepts:
 
 Flag variations let you use one flag to serve multiple variations of a feature to different users simultaneously. There is no limit to the number of variations you can add to a flag, making them useful for testing scenarios. To learn more, read [Creating flag variations](/home/flags/variations). 
 
-### Fallback variations
+### Fallback values
 
-Fallback variations are what your app serves to a user if a flag cannot be evaluated, such as if your app can’t connect to LaunchDarkly. To learn more, read [Configuring variations](/sdk/features/evaluating#configuring-variations).
+Fallback values are what your app serves to a user if it can't evaluate a flag, such as if your app can’t connect to LaunchDarkly. To learn more, read [Configuring variations](/sdk/features/evaluating#configuring-variations).
 
 ### Flag targeting
 
 Flag targeting lets you control which users see which variation of a feature flag. Targeting is useful when testing your code in production because it lets you target only specific test users and exclude your general user population. To learn more, read [Targeting users with flags](/home/flags/targeting-users).
 
 <LearnMore>
-  <LearnMoreLink to="https://apidocs.launchdarkly.com/tag/Feature-flags">Creating flags using the API</LearnMoreLink>
+
+Learn more: [Creating flags using the API](https://apidocs.launchdarkly.com/tag/Feature-flags)
+
 </LearnMore>
 
 ### Testing types
@@ -62,7 +64,7 @@ Consider testing the following flag combinations:
 
 ## Unit testing
 
-You can write unit tests for individual pieces of code in your application and test them independently. Because unit tests assess discrete pieces of functionality, wrapping that functionality in feature flags doesn’t affect these tests. 
+You can write unit tests for individual pieces of code in your application and test them independently. Because unit tests assess discrete pieces of functionality, wrapping that functionality in feature flags doesn’t affect these tests.
 
 You don’t want to connect to a LaunchDarkly SDK when running unit tests because you can’t ensure the values you’re pulling into your test will be consistent. You can use a mock test instead, which prevents variation in the values you’re using. To learn more, read [Mock testing](#mock-testing).
 
@@ -100,9 +102,9 @@ function oldSearch(searchQuery) {
 
 
 function search(searchQuery) {
-    // Feature Flag - false is the fallback variation
+    // Feature Flag - false is the fallback value
     useNewSearch = ldclient.variation("new-search-algorithm", user, false);
-    
+
     if (useNewSearch) {
         newSearch(searchQuery);
     } else {
@@ -131,7 +133,7 @@ function testNewSearch() {
     result = newSearch(searchQuery);
     assert(result.contains(searchQuery));
 }
- 
+
 function testOldSearch() {
     searchQuery = “my test query”;
     result = oldSearch(searchQuery);
@@ -170,13 +172,13 @@ function testSearchWithNewSearchOff() {
 
 Mock tests are a type of unit test that lets you test your code within a simulated version of an internal or external service. The simulation isolates the behavior of your code so you can focus on the code being tested, and not on the behavior of the service.
 
-We provide a mock to use with the Jest test runner and the React Web SDK, available in our [Jest mock GitHub repo](https://github.com/launchdarkly/jest-launchdarkly-mock). Although this mock is Jest-specific, it is simple enough you can use it with other JavaScript frameworks as well.
+We provide a mock to use with the Jest test runner and the React Web SDK, available in our [Jest mock GitHub repo](https://github.com/launchdarkly/jest-launchdarkly-mock). Although this mock is Jest-specific, it is simple enough you can use it with other JavaScript frameworks as well. To learn more about using the mock, read [Unit testing with Jest](/guides/platform-specific/unit-tests).
 
 ## Integration and end-to-end testing
 
 As you expand out from testing a unit to testing the whole system, you can start running integration and end-to-end tests. The presence of feature flags matters with these types of tests because the state of a flag could violate your test assertions.
 
-When running these types of tests, your code should use the real LaunchDarkly SDK to evaluate flags. However, it should use consistent flag configurations for the test. 
+When running these types of tests, your code should use the real LaunchDarkly SDK to evaluate flags. However, it should use consistent flag configurations for the test.
 
 To keep your input consistent, you should use one of the following methods to get values from your SDK.
 
@@ -198,7 +200,7 @@ To ensure the correct use of targeting in test runs, the test must meet these re
 - The code must supply a distinct but predictable user object for each test.
 - Each flag used in a test must have a targeting configuration that returns the correct flag variation for that test’s user object.
 
-There are many options for setting up a user object to reflect the needed flag values for the current test. 
+There are many options for setting up a user object to reflect the needed flag values for the current test.
 
 Here are some examples:
 - Perform each test as a distinct app user. Send the user’s ID as the `key` in the user object, which LaunchDarkly matches in flags’ individual user targeting.
@@ -229,7 +231,7 @@ This command:
 - Accepts an argument that maps flag keys to variation values, and adds the configured user to the variation with the specified value for each flag included in the argument.
 - Turns each flag on so the user targeting can take effect. If the user is already targeted to receive a variation of a flag other than the requested variation, this command will remove the user from the current variation and add them to the requested variation.
 
-Here is an example: 
+Here is an example:
 
 <CodeTabs
   defaultValue="json"
@@ -247,7 +249,7 @@ cy.setUserFlags({
       'flag-key-2': true,
       'flag-key-3': true,
     });
-    
+
 
 // target the configured user to receive the 'false' value of the specified flags
 cy.setUserFlags({
@@ -296,11 +298,11 @@ For a real-world example of using Cypress for end-to-end testing, read Gleb Bahm
 
 ## Manual testing
 
-Manual testing within your LaunchDarkly instance is useful because you can be in control of the flags in your test. However, if multiple people are working within the same environment when testing, they can accidentally overlap and affect each other’s tests. 
+Manual testing within your LaunchDarkly instance is useful because you can be in control of the flags in your test. However, if multiple people are working within the same environment when testing, they can accidentally overlap and affect each other’s tests.
 
 ### Using multiple environments
 
-To avoid overlap between multiple manual tests, you can use multiple LaunchDarkly test environments. You can create a unique environment for each QA tester, or create an environment for each QA test run that you delete at the end of the test. In either case, environments are free and easy to create and copy. 
+To avoid overlap between multiple manual tests, you can use multiple LaunchDarkly test environments. You can create a unique environment for each QA tester, or create an environment for each QA test run that you delete at the end of the test. In either case, environments are free and easy to create and copy.
 
 The downside to multiple test environments is that you have to carefully manage your SDK keys because each environment has its own key.
 
@@ -310,7 +312,7 @@ The downside to multiple test environments is that you have to carefully manage 
 
 ### Using targeted testing with the REST API
 
-You can use the LaunchDarkly REST API with test environments to set user targets and flag statuses. This method uses fewer environments and more targeted testing, which lets multiple people run tests concurrently. To use this method, you must coordinate how targeting is set up for testers. 
+You can use the LaunchDarkly REST API with test environments to set user targets and flag statuses. This method uses fewer environments and more targeted testing, which lets multiple people run tests concurrently. To use this method, you must coordinate how targeting is set up for testers.
 
 Targeting can work in two different ways:
 

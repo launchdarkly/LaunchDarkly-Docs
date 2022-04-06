@@ -38,39 +38,39 @@ Flag behavior can do a lot more than just turning features on or off. Continue r
 
 ## Turning flags on
 
-When you create a new flag, it is turned **off** by default. You can turn the flag **on** by clicking the flag toggle button in the dashboard or the flag's **Targeting** tab.
+When you create a new flag, it is turned **Off** by default. You can turn the flag **On** by clicking the flag toggle button in the dashboard or the flag's **Targeting** tab.
 
 To turn a flag on:
 
 1. Navigate to the flags dashboard or the **Targeting** tab of a flag.
-2. Click the flag toggle. The toggle turns green and displays the word **on**. The variation the flag will serve when you save your changes appears.
+2. Click the flag toggle. The toggle turns green and displays the word **On**. The variation the flag will serve when you save your changes appears.
 
 ![The flag toggle in the "Targeting" tab.](flag-targeting-toggle.png)
 
-3. Click **Save changes**.
+3. Click **Review and save**.
 
 To learn more about creating flags, read [Creating a feature flag](/home/getting-started/feature-flags).
 
 ## Turning flags off
 
-When you turn a flag to **off**, you disable the targeting rules for that flag. Instead of serving an active variation, you serve the **off** variation.
+When you turn a flag to **Off**, you disable the targeting rules for that flag. Instead of serving an active variation, you serve the off variation.
 
-In the **Targeting** tab, you can set an **off** variation for both boolean and multivariate flags. Boolean feature flags default to `false` when the feature flag is off.
+In the **Targeting** tab, you can set an off variation for both boolean and multivariate flags. Boolean feature flags default to `false` when the feature flag is **Off**.
 
-To turn a flag off:
+To turn a flag **Off**:
 
 1. Navigate to the dashboard or the **Targeting** tab in the flag detail page.
-2. Set the toggle to **off**. The variation the flag will serve when you save your changes appears.
+2. Set the toggle to **Off**. The variation the flag will serve when you save your changes appears.
 
 ![The "Targeting" tab with the flag turned off.](flag-targeting-toggle-off.png)
 
-3. Click **Save changes**.
+3. Click **Review and save**.
 
-If you don't specify an explicit **off** variation, LaunchDarkly serves the fallback value for the flag. You can specify the fallback value in your code's `variation` calls. This is also the value that LaunchDarkly serves if your application is unable to connect to LaunchDarkly's servers.
+If you don't specify an explicit default off variation, LaunchDarkly serves the fallback value for the flag. You can specify the fallback value in your code's `variation` calls.
 
 This value is indicated at the bottom of the **Targeting** tab:
 
-![The fallback value at the bottom of the "Targeting" tab.](flag-default-value.png)
+![The off default value at the bottom of the "Targeting" tab.](flag-off-default-value.png)
 
 
 <Callout intent="info">
