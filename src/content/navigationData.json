@@ -90,7 +90,7 @@
             "path": "/home/organize/projects",
             "items": [
               {
-                "label": "Creating private projects",
+                "label": "Creating private projects with custom roles",
                 "path": "/home/organize/private-projects"
               }
             ]
@@ -413,7 +413,7 @@
       },
       {
         "group": "additional-features",
-        "label": "Feature Workflows",
+        "label": "Feature workflows",
         "path": "/home/feature-workflows",
         "svg": "merge",
         "items": [
@@ -500,7 +500,7 @@
             ]
           },
           {
-            "label": "Data export schema reference",
+            "label": "Data Export schema reference",
             "path": "/home/data-export/schema-reference"
           }
         ]
@@ -681,7 +681,7 @@
                 "path": "/integrations/slack/managing"
               },
               {
-                "label": "Turning targeting on and off",
+                "label": "Turning flag targeting on and off",
                 "path": "/integrations/slack/toggle"
               },
               {
@@ -701,7 +701,7 @@
             "path": "/integrations/intellij"
           },
           {
-            "label": "Visual Studio Code",
+            "label": "VSCode",
             "path": "/integrations/vscode"
           }
         ]
@@ -818,7 +818,7 @@
         "svg": "puzzle-variation",
         "items": [
           {
-            "label": "Getting started",
+            "label": "Getting started with SDKs",
             "path": "/sdk/concepts/getting-started"
           },
           {
@@ -1080,11 +1080,11 @@
             "path": "/sdk/client-side/react",
             "items": [
               {
-                "label": "React Web",
+                "label": "React Web SDK reference",
                 "path": "/sdk/client-side/react/react-web"
               },
               {
-                "label": "React Native",
+                "label": "React Native SDK reference",
                 "path": "/sdk/client-side/react/react-native"
               },
               {
@@ -1265,7 +1265,7 @@
             "path": "/guides/best-practices/infrastructure-migration"
           },
           {
-            "label": "Using Experimentation",
+            "label": "Designing experiments in LaunchDarkly",
             "path": "/guides/best-practices/experimentation"
           },
           {
@@ -1331,7 +1331,7 @@
             "path": "/guides/platform-specific/static-sites"
           },
           {
-            "label": "Using flags with AWS Lambda",
+            "label": "Using LaunchDarkly with AWS Lambda",
             "path": "/guides/platform-specific/aws-lambda"
           },
           {
@@ -1339,11 +1339,11 @@
             "path": "/guides/platform-specific/cloudflare-workers"
           },
           {
-            "label": "Using flags with Next.js",
+            "label": "Using LaunchDarkly with Next.js",
             "path": "/guides/platform-specific/nextjs"
           },
           {
-            "label": "Using flags with Svelte",
+            "label": "Using LaunchDarkly with Svelte",
             "path": "/guides/platform-specific/svelte"
           },
           {
