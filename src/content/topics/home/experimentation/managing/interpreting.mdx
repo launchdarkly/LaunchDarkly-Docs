@@ -64,6 +64,12 @@ The list below explains what each column means:
 - **Change**: The difference, in positive or negative values, the flag variation has from the baseline variation. Baseline flag variations say **Baseline** rather than showing a value.
 - **P-value**: The likelihood that differences in user behavior within an experiment are random, rather than a result of receiving different variations of a flag. LaunchDarkly uses the industry standard of a p-value of .05 or lower to consider results statistically significant. The lower the p-value, the more likely it is that the results of your experiment are statistically significant. For example, a p-value of .03 means there's a 97% chance differences in user behavior are due to the flag variations you tested, and there's a 3% chance any differences in user behavior were random.
 
+<LearnMore>
+
+You can also use the REST API: [Get experiment results](https://apidocs.launchdarkly.com/tag/Experiments-(beta)/#operation/getExperiment)
+
+</LearnMore>
+
 ## Understanding conversions
 
 LaunchDarkly uses `variation` calls to correlate conversions and unique user impressions within a 24-hour window. If there are more than 24 hours between the time of a `variation` call and a `track` call on a user key, then LaunchDarkly does not register them in the experiment.

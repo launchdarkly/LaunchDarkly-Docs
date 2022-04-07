@@ -27,6 +27,12 @@ To learn more about creating an experiment, read [Creating experiments](/home/ex
 
 After you start your experiment iteration, you can check on it at any time in the flag's **Experimentation** tab. Experiment data appears on the **Experimentation** tab after a few minutes. You may have to refresh the page to fetch new data for your experiment.
 
+<LearnMore>
+
+You can also use the REST API: [Starting or resuming an experiment](https://apidocs.launchdarkly.com/tag/Experiments-(beta)#section/Starting-or-resuming-an-experiment)
+
+</LearnMore>
+
 ## Stopping experiments
 
 If you have discovered a winning variation or need to make changes to your experiment, you can stop your experiment iteration.
@@ -50,6 +56,12 @@ To view the data, choose the iteration from the **Iteration** menu:
 
 Stopping an experiment is not the same as deleting an experiment. As a best practice, we recommend stopping experiments you're not using, rather than deleting them. This lets you retain the results and data the experiment has already collected.
 
+<LearnMore>
+
+You can also use the REST API: [Pausing an experiment](https://apidocs.launchdarkly.com/tag/Experiments-(beta)#section/Pausing-an-experiment)
+
+</LearnMore>
+
 ## Creating new iterations
 
 If you want to start a new iteration of an experiment, click the **Recording stopped** button and select "Start recording." The experiment begins collecting event data again in a new iteration, and its chart updates with new information.
@@ -61,6 +73,12 @@ Here is an image of the "Start recording" option:
 Alternatively, you can start a new iteration of an experiment by choosing "Start new iteration" from the experiment's overflow menu:
 
 ![The Experimentation edit menu with the "Start new iteration" option called out.](experiment-menu-start-new-callout.png)
+
+<LearnMore>
+
+You can also use the REST API: [Reset experiment results](https://apidocs.launchdarkly.com/tag/Experiments-(beta)#operation/resetExperiment)
+
+</LearnMore>
 
 ## Managing experiment populations
 
@@ -100,3 +118,9 @@ To delete an experiment:
 ![The Experimentation edit menu with the "Remove metric from this experiment" option called out.](experiment-menu-remove-metric-callout.png)
 
 The experiment is now deleted.
+
+<LearnMore>
+
+You can also use the REST API: [Removing an experiment](https://apidocs.launchdarkly.com/tag/Experiments-(beta)#section/Removing-an-experiment)
+
+</LearnMore>

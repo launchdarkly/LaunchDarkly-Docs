@@ -75,6 +75,12 @@ The flag's **Targeting** tab also updates with a number next to the **Pending ch
 
 ![The "Pending changes" icon on the flag's "Targeting" tab.](workflows-pending-changes-icon.png)
 
+<LearnMore>
+
+You can also use the REST API: [Create approval request](https://apidocs.launchdarkly.com/tag/Approvals/#operation/postApprovalRequest)
+
+</LearnMore>
+
 ## Reviewing flag approval requests
 
 If someone requests your approval on a flag change, an in-app notification appears and you receive notifications in email and, if applicable, Slack. You can click through to view and approve or decline the request from any of these notifications.
@@ -133,12 +139,24 @@ To access this panel, click the **Pending changes** icon on the flag's **Targeti
 
 ![The "Pending changes" icon on the flag's "Targeting" tab.](workflows-pending-changes-icon.png)
 
+<LearnMore>
+
+You can also use the REST API: [Apply approval request](https://apidocs.launchdarkly.com/tag/Approvals/#operation/postApprovalRequestApplyRequest), [Review approval request](https://apidocs.launchdarkly.com/tag/Approvals/#operation/postApprovalRequestReview)
+
+</LearnMore>
+
 ## Deleting an approval request
 
 You may delete a request for changes to a flag at any point before the changes are applied. You can do this in two ways:
 
 * from the "Pending changes" panel, or
 * from the approval request.
+
+<LearnMore>
+
+You can also use the REST API: [Delete approval request](https://apidocs.launchdarkly.com/tag/Approvals/#operation/deleteApprovalRequest)
+
+</LearnMore>
 
 ### Deleting an approval request from the "Pending changes" panel
 
