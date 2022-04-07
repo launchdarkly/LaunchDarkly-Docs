@@ -19,6 +19,15 @@ The Relay Proxy is an open-source project supported by LaunchDarkly. The full so
 
 We recommend using the Relay Proxy if you have certain specific configuration requirements, which are explained below. If you don't meet those requirements, using the Relay Proxy is optional.
 
+Here are some common use cases for the Relay Proxy:
+- Reducing your app's outbound connections
+- Keeping user data private
+- Facilitating faster connections
+- Meeting legal requirements to ensure continuation of service
+- Reducing firewall configuration complexity for your customers
+- Increasing startup speed for serverless functions
+- Reducing operational work when creating new projects and environments
+
 Some customers may find operating the Relay Proxy cost-prohibitive for their use case, especially customers on Pro or Starter plans.
 
 ### Determining if your configuration is a good use case for the Relay Proxy
@@ -83,10 +92,18 @@ If you have security requirements, such as enforcing the use of a particular aut
 
 ### Caching guidelines
 
-We do not recommend relying solely on the Relay Proxy's in-memory caching in a production environment. Instead, we recommend that you cache flag data in a persistent feature store.
+We do not recommend relying solely on the Relay Proxy's in-memory caching in a production environment. Instead, we recommend that you cache flag data in a persistent feature store. You may want to use a persistent feature store if you want the Relay Proxy to remain operational even when it can’t connect to LaunchDarkly, such as in an environment with inconsistent connectivity.
+
+When you use a persistent store, the Relay Proxy keeps flag configurations in its in-memory cache and only fetches new ones from the store when those cached items expire. The default cache time-to-live (TTL) is 30 seconds, but you can change this in the Relay Proxy configuration.
+
+If the connection to the persistent store is lost, here’s how the Relay Proxy and connected SDKs will behave while the store is unavailable:
+- The Relay Proxy first notices the store’s unavailability when it tries to read or update the store. The Relay Proxy tries to read or update the store when it receives new requests from SDKs, and items have expired from the Relay Proxy’s in-memory cache.
+- The Relay Proxy in-memory cache drops expired items whether or not it has reinstated a connection to the store. When this happens, flags evaluate to their fallback values, with an `EvaluationReason` of `FLAG_NOT_FOUND`.
+- If the Relay Proxy receives flag updates from LaunchDarkly while the store is disconnected, it sends the updates to connected SDKs. It keeps the updates in the in-memory cache until they can be written to the store.
+- If the Relay Proxy loses and then regains a store connection, it has no way of checking whether the store is up to date with flag configurations. If the Relay Proxy receives updates from LaunchDarkly while the store is unavailable, then it writes those updates to the store as soon as the connection returns. Otherwise, it assumes that the store is up to date. To fix a persistent store that may have missing or corrupted data, start or restart a Relay Proxy so that it downloads the latest environment states from LaunchDarkly and writes them to the store.
 
 To learn more, read [Persistent data stores](/sdk/concepts/data-stores) and [Persistent storage](https://github.com/launchdarkly/ld-relay#persistent-storage).
 
 Whether or not you utilize a persistent feature store impacts how the Relay Proxy handles inbound feature flag requests on initialization, before it establishes a connection to LaunchDarkly.
 
-If you use a persistent feature store, Relay Proxy uses previously known-good values as stored in the persistent feature store. Without a persistent feature store, however, Relay Proxy doesn't know anything about any feature flags yet. SDKs use default flag values until the Relay Proxy establishes a connection to LaunchDarkly.
+If you use a persistent feature store, Relay Proxy uses previously known-good values as stored in the persistent feature store. Without a persistent feature store, however, Relay Proxy doesn't know anything about any feature flags yet. SDKs use fallback flag values until the Relay Proxy establishes a connection to LaunchDarkly.

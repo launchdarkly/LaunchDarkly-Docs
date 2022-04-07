@@ -36,7 +36,9 @@ If you want to use Big Segments with server-side SDKs, you must upgrade the Rela
 </CalloutDescription>
 </Callout>
 
-To use Big Segments with the Relay Proxy, you must configure the Relay Proxy to use either Redis or DynamoDB for persistent storage. The Relay Proxy stores Big Segment data in the persistent data store, which your SDK then uses for flag evaluation. To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
+Big Segments are larger than LaunchDarkly can fit into its streaming and in-memory protocol. To use Big Segments with the Relay Proxy, you must configure the Relay Proxy to use either Redis or DynamoDB for persistent storage. The Relay Proxy populates and stores Big Segment data in the persistent data store, which your SDK then uses for flag evaluation. 
+
+If your SDKs are already configured to use the Relay Proxy without a data store, you will need to reconfigure them to connect to the store in order to use Big Segments. To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
 <Callout intent="alert">
 <CalloutTitle>Data size limit in DynamoDB</CalloutTitle>
@@ -49,9 +51,21 @@ DynamoDB does not support storing values greater than 400KB, including the size 
 
 If you use a server-side SDK, you must use the Relay Proxy and configure your server-side SDKs to use the same persistent storage as the Relay Proxy. To learn how to configure server-side SDKs for Big Segments, read [Big Segments](/sdk/features/big-segments).
 
-If you use a client-side SDK, there's no additional setup required to use Big Segments. However, if you use the Relay Proxy with a client-side SDK, the Relay Proxy must be configured to use persistent storage with Redis or DynamoDB.
+If you use a client-side SDK, you do not need to use the Relay Proxy to use Big Segments. However, if you do use the Relay Proxy with a client-side SDK, the Relay Proxy must be configured to use persistent storage with Redis or DynamoDB.
+
+### Using DynamoDB with the Relay Proxy
+
+We generally recommend using DynamoDB for persistent storage with the Relay Proxy, because the Relay Proxy doesn't support Redis in cluster mode or other sharding. However, using DynamoDB can incur higher costs. The Relay Proxy and LaunchDarkly SDKs will continually write updates to DynamoDB while in proxy mode. To mitigate this, consider running multiple Relays in AWS without a persistent store. 
+
+### Using Redis with the Relay Proxy
+
+If you use Redis with the Relay Proxy, each of your Redis hosts will need enough RAM to load the full set of segments and flag configurations, because the Relay Proxy doesn't support Redis in cluster mode or other sharding. The Relay Proxy will not realize that Redis is empty if it became empty after the Relay Proxy fully initialized. Redis’ default configuration empties the database on reboot, so you must put Redis in persistent storage mode.
 
 To learn more, read [Persistent storage](https://github.com/launchdarkly/ld-relay/blob/v6/docs/persistent-storage.md) and [Big Segments](/home/users/big-segments).
+
+### Server-side flag evaluation using Big Segments and the Relay Proxy
+
+In unusual cases, server-side SDKs may return incorrect evaluations if the required segments data is unavailable. If an SDK tries to evaluate a flag rule that depends on a Big Segment but the segment data is unavailable, it continues evaluating the rest of the rules and records this problem in the `EvaluationReason`. In this case, the evaluation will return the result based on the remaining flag rules instead of the fallback value. To understand when and if this is happening, you can add code that examines the `EvaluationReason`.
 
 ## Validating your Relay Proxy configuration
 

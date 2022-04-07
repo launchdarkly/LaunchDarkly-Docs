@@ -14,8 +14,8 @@ This topic explains how to deploy and start the Relay Proxy.
 You can deploy the Relay Proxy in one of three ways. In order from most common to least common uses, the methods are:
 
 * starting the Relay Proxy from a Docker image,
-* starting the Relay Proxy after downloading a release binary, or
-* starting the Relay Proxy after building it from source.
+* downloading a Relay Proxy release binary, or
+* building the Relay Proxy from source.
 
 ### Starting the Relay Proxy from a Docker image
 
@@ -71,7 +71,7 @@ docker run --name ld-relay              \
      launchdarkly/ld-relay
  ```
 
- </CodeTabItem>
+</CodeTabItem>
 </CodeTabs>
 
 ### Downloading a Relay Proxy release binary
@@ -110,7 +110,6 @@ There is also a shortcut command that can replace the longer procedure above. Th
 ```bash
 go install github.com/launchdarkly/ld-relay/v6@latest
 ```
-
 </CodeTabItem>
 </CodeTabs>
 

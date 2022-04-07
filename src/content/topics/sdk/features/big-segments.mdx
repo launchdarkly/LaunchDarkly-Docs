@@ -24,7 +24,7 @@ Big Segments are a type of user segment that can contain an arbitrarily large nu
 
 Client-side SDKs support Big Segments by default, so no additional SDK configuration is required. However, if you use the Relay Proxy with client-side SDKs, then the Relay Proxy must be configured to use persistent storage.
 
-You must configure server-side SDKs to use the Relay Proxy to get Big Segments data from the Relay Proxy persistent storage.
+You must configure server-side SDKs to use the Relay Proxy to get Big Segments data from the Relay Proxy persistent storage. If your server-side SDKs are currently connecting to the Relay Proxy in proxy mode, then your app processes that use server-side SDKs will need direct access to the persistent store that the Relay Proxy uses.
 
 To learn more, read [Configuring the Relay Proxy for Big Segments](/home/relay-proxy/deploying#configuring-the-relay-proxy-for-big-segments).
 
@@ -40,14 +40,12 @@ Server-side SDK configuration for Big Segments is comprised of two parts:
 <CalloutTitle>Only certain types of database integration supports Big Segments</CalloutTitle>
 <CalloutDescription>
 
-Only the Redis and DynamoDB integrations support Big Segments.
+Only the Redis and DynamoDB integrations support Big Segments. If you use Redis, each Redis host needs enough RAM to load the full set of Big Segments and flag configurations.
 
 </CalloutDescription>
 </Callout>
 
-2. **The general options for the SDK's Big Segments behavior**: the table below lists all the general options
-available. They are all optional and valid for all server-side SDKs and can be used for any supported database
-integration.
+2. **The general options for the SDK's Big Segments behavior**: the table below lists all the general options available. They are all optional and valid for all server-side SDKs and can be used for any supported database integration.
 
 <Table>
   <TableHeader>

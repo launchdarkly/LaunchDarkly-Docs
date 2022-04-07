@@ -28,7 +28,7 @@ With automatic configuration enabled, you no longer need to manually update the 
 
 Additionally, you can use a page in the LaunchDarkly user interface (UI) to configure your Relay Proxy with the automatic configuration feature. A standard Relay Proxy requires all environments to be defined individually, and you cannot configure it through the LaunchDarkly UI.
 
-If you enable automatic configuration, your Relay Proxy automatically detects and reacts to events including the following:
+If you enable automatic configuration, your Relay Proxy automatically detects and reacts to server-sent events including the following:
 
 * SDK key rotation
 * Mobile key rotation
@@ -118,11 +118,13 @@ You can use the inline policy editor to specify precise instructions on what env
 
 There are three ways to write an inline policy:
 
-- Simple editor
-- Resource finder
-- Advanced editor
+- Using the simple editor
+- Using the resource finder
+- Using the advanced editor
 
 Each of these methods is described below.
+
+<Details summary="Expand Using the simple editor">
 
 ### Using the simple editor
 
@@ -131,11 +133,15 @@ You can create simple, one-line policies using the simple editor. To learn more 
 To use the simple editor from the "Create a Relay Proxy configuration" panel:
 
 1. Choose "inline policy" from the **Rule** menu.
-2. Enter a policy in the "Choose resources for this policy statement" field. In this example, the Relay Proxy has access to all environments within the `default` project.
+2. Enter a policy in the "Choose resources for this policy statement" field. In this example, `proj/default:env/*` gives the Relay Proxy access to all environments within the `default` project.
 
 ![The simple policy editor.](images/relay-proxy-simple-editor.png)
 
 5. Click **Save configuration**.
+
+</Details>
+
+<Details summary="Expand Using the resource finder">
 
 ### Using the resource finder
 
@@ -150,6 +156,10 @@ To create an inline policy using the resource finder from the "Create a Relay Pr
 4. Select the resource. The resource appears in the **Choose resources for this policy statement** field.
 5. Click **Save configuration**.
 
+</Details>
+
+<Details summary="Expand Using the advanced editor">
+
 ### Using the advanced editor
 
 To write more complicated policies you can use the advanced editor. To learn how to write advanced policies, read [Understanding policies](/home/members/role-policies#understanding-policies).
@@ -162,3 +172,35 @@ To use the advanced editor from the "Create a Relay Proxy configuration" panel:
 5. Click **Save configuration**.
 
 ![The advanced policy editor.](images/relay-proxy-advanced-editor.png)
+
+</Details>
+
+## Writing a custom role with access to the Relay Proxy
+
+You can give members access to the Relay Proxy using the `relay-proxy-config` resource in a custom role policy. To learn more about Relay Proxy resource actions, read [Relay Proxy automatic configuration actions](/home/members/role-actions#relay-proxy-automatic-configuration-actions).
+
+You can copy and paste this custom role policy into the advanced editor to grant access to all Relay Proxy actions:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Relay Proxy access', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["relay-proxy-config"]
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more about creating custom roles, read [Custom roles](/home/members/custom-roles).
