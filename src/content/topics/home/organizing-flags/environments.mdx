@@ -15,6 +15,12 @@ Your LaunchDarkly account supports an unlimited number of projects, environments
 
 You can create multiple environments within each project, and all projects must have at least one environment. To learn more about projects, read [Projects](/home/organize/projects).
 
+<LearnMore>
+
+You can also use the REST API: [Environments](https://apidocs.launchdarkly.com/tag/Environments)
+
+</LearnMore>
+
 ## Getting started with environments
 
 Your first project has two environments, `Test` and `Production`, by default. Each environment has its own SDK key, which is used to connect the LaunchDarkly SDK to a specific environment.
@@ -101,6 +107,12 @@ The TTL setting checkbox only applies to environments using the PHP SDK. To lear
 
 ![The "Create an environment" panel.](env-create.png)
 
+<LearnMore>
+
+You can also use the REST API: [Create environment](https://apidocs.launchdarkly.com/tag/Environments#operation/postEnvironment)
+
+</LearnMore>
+
 ## Cloning an environment
 
 For organizations with many flags, cloning an environment is the fastest way to create an environment and copy current flag settings from an existing environment. Cloning an environment also copies segment and flag rules for that environment.
@@ -137,6 +149,12 @@ To reset an SDK or mobile key:
 ![The SDK key reset dialog.](env-sdk-key-reset.png)
 
 7. Click **Reset**.
+
+<LearnMore>
+
+You can also use the REST API: [Reset environment SDK key](https://apidocs.launchdarkly.com/tag/Environments#operation/resetEnvironmentSDKKey), [Reset environment mobile SDK key](https://apidocs.launchdarkly.com/tag/Environments#operation/resetEnvironmentMobileKey)
+
+</LearnMore>
 
 ## TTL settings
 

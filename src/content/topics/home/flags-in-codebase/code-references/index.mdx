@@ -61,11 +61,21 @@ The screenshot below shows the **Code references** tab displaying an active code
 
 ![The "Code references" tab of a feature flag.](flag-code-references.png)
 
+<LearnMore>
+
+You can also use the REST API: [Code references](https://apidocs.launchdarkly.com/tag/Code-references)
+
+</LearnMore>
+
 ### Understanding extinction events
 
 After you remove all code references mentioning that flag from the codebase and rerun the scanning tool, LaunchDarkly creates an extinction event. This event appears as a message on the **Code references** tab of the feature flag. It indicates that all code references for the flag have been removed from the codebase as of a specified commit.
 
-You can also use the API to find these events. To learn more, read [List extinctions](https://apidocs.launchdarkly.com/tag/Code-references#operation/getExtinctions).
+<LearnMore>
+
+You can also use the REST API: [List extinctions](https://apidocs.launchdarkly.com/tag/Code-references#operation/getExtinctions)
+
+</LearnMore>
 
 Here is an image of an extinction event on the **Code references** tab of a feature flag:
 

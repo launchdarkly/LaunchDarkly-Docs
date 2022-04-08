@@ -117,6 +117,12 @@ All built-in user attributes are strings with the exception of `anonymous`:
 
 The user key is the only mandatory user attribute. All other user attributes are optional.
 
+<LearnMore>
+
+You can also use the REST API: [Get user attribute names](https://apidocs.launchdarkly.com/tag/Users-(beta)#operation/getUserAttributeNames)
+
+</LearnMore>
+
 <Callout intent="info">
 <CalloutTitle>Creating searchable user keys</CalloutTitle>
 <CalloutDescription>
@@ -137,6 +143,12 @@ You can change the value of an attribute for a user object at any point. To lear
 You can access user pages from the **Users** dashboard. To learn how, read [The Users dashboard](/home/users/users-dashboard).
 
 ![A user's page.](users-details.png)
+
+<LearnMore>
+
+You can also use the REST API: [List flag settings for user](https://apidocs.launchdarkly.com/tag/User-settings#operation/getUserFlagSettings)
+
+</LearnMore>
 
 <Callout intent="alert">
 <CalloutTitle>The SDK does not use the attributes on the <strong>Users</strong> dashboard to evaluate flags</CalloutTitle>
