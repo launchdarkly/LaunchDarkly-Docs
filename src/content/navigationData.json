@@ -1306,6 +1306,10 @@
           {
             "label": "Using the LaunchDarkly REST API",
             "path": "/guides/tutorials/rest-api"
+          },
+          {
+            "label": "Merging LaunchDarkly accounts",
+            "path": "/guides/tutorials/merge-accounts"
           }
         ]
       },
