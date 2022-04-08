@@ -1,6 +1,6 @@
 ---
 path: /guides/tutorials/rest-api
-title: Getting started with the LaunchDarkly REST API
+title: Using the LaunchDarkly REST API
 description: This guide explains how to get started with the LaunchDarkly REST API. It describes how to create API access tokens, make requests, and evaluate the responses, and introduces common use cases.
 published: true
 ---
@@ -57,7 +57,7 @@ To complete this guide, you must have the following prerequisites:
   * [LaunchDarkly API documentation](#launchdarkly-api-documentation)
   * [Postman](#postman)
 
-It is not required that you complete any of the other tutorials before reviewing this one. If you have completed the [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag) or [Flag rules and targeting](/guides/tutorials/rules-and-targeting) tutorials, you can use the same projects and flags in the exercises below.
+It is not required that you complete any of the other tutorials before reviewing this one. If you have completed the [Getting started: Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag) or [Getting started: Flag rules and targeting](/guides/tutorials/rules-and-targeting) tutorials, you can use the same projects and flags in the exercises below.
 
 ### Curl
 
@@ -193,7 +193,7 @@ In this exercise, you'll read two resources from LaunchDarkly using the REST API
 
 ### Reading a flag
 
-First, you'll read information about a single feature flag. While it's unlikely that you would use the REST API just to read flag information, it's a good introduction to how our APIs work. If you have not yet created a feature flag in your project, follow the procedure in [Your first feature flag](/home/getting-started/feature-flags) or complete the tutorial guide [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag).
+First, you'll read information about a single feature flag. While it's unlikely that you would use the REST API just to read flag information, it's a good introduction to how our APIs work. If you have not yet created a feature flag in your project, follow the procedure in [Your first feature flag](/home/getting-started/feature-flags) or complete the tutorial [Getting started: Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag).
 
 Each request consists of an HTTP method, a set of request headers, a base URI, a resource name, and path parameters. Let's review each component of the request.
 
@@ -271,7 +271,7 @@ curl -X GET 'https://app.launchdarkly.com/api/v2/user-search/default/production'
 </CodeTabItem>
 </CodeTabs>
 
-If no users have encountered your flag, the `totalCount` is zero. To see what the response looks like with several users, complete the [Flag rules and targeting](/guides/tutorials/rules-and-targeting) tutorial and repeat this request using the account, project, and flag you used in those exercises.
+If no users have encountered your flag, the `totalCount` is zero. To see what the response looks like with several users, complete the [Getting started: Flag rules and targeting](/guides/tutorials/rules-and-targeting) tutorial and repeat this request using the account, project, and flag you used in those exercises.
 
 Depending on your application, the `totalCount` of users may be quite large. You can add query parameters to your request to search for a smaller set of users. Query parameters are optional parameters appended to the request path, following a `?`.
 

@@ -328,7 +328,7 @@
             "path": "/home/billing/plans"
           },
           {
-            "label": "Your Billing tab",
+            "label": "The Billing tab",
             "path": "/home/billing/billing-tab"
           }
         ]
@@ -340,16 +340,60 @@
         "svg": "atom",
         "items": [
           {
-            "label": "Public IP list",
-            "path": "/home/advanced/public-ip-list"
-          },
-          {
             "label": "LaunchDarkly in China",
             "path": "/home/advanced/china"
           },
           {
             "label": "LaunchDarkly in federal environments",
             "path": "/home/advanced/federal"
+          },
+          {
+            "label": "Public IP list",
+            "path": "/home/advanced/public-ip-list"
+          }
+        ]
+      },
+      {
+        "group": "additional-features",
+        "label": "Data Export",
+        "path": "/home/data-export",
+        "svg": "database-export",
+        "items": [
+          {
+            "label": "Azure Event Hubs",
+            "path": "/home/data-export/event-hub"
+          },
+          {
+            "label": "Google Cloud Pub/Sub",
+            "path": "/home/data-export/google-pubsub"
+          },
+          {
+            "label": "Kinesis",
+            "path": "/home/data-export/kinesis"
+          },
+          {
+            "label": "mParticle",
+            "path": "/home/data-export/mparticle",
+            "items": [
+              {
+                "label": "mParticle schema reference",
+                "path": "/home/data-export/mparticle-schema-reference"
+              }
+            ]
+          },
+          {
+            "label": "Segment",
+            "path": "/home/data-export/segment",
+            "items": [
+              {
+                "label": "Segment schema reference",
+                "path": "/home/data-export/segment-schema-reference"
+              }
+            ]
+          },
+          {
+            "label": "Data Export schema reference",
+            "path": "/home/data-export/schema-reference"
           }
         ]
       },
@@ -463,54 +507,22 @@
       },
       {
         "group": "additional-features",
-        "label": "Data Export",
-        "path": "/home/data-export",
-        "svg": "database-export",
-        "items": [
-          {
-            "label": "Azure Event Hubs",
-            "path": "/home/data-export/event-hub"
-          },
-          {
-            "label": "Google Cloud Pub/Sub",
-            "path": "/home/data-export/google-pubsub"
-          },
-          {
-            "label": "Kinesis",
-            "path": "/home/data-export/kinesis"
-          },
-          {
-            "label": "mParticle",
-            "path": "/home/data-export/mparticle",
-            "items": [
-              {
-                "label": "mParticle schema reference",
-                "path": "/home/data-export/mparticle-schema-reference"
-              }
-            ]
-          },
-          {
-            "label": "Segment",
-            "path": "/home/data-export/segment",
-            "items": [
-              {
-                "label": "Segment schema reference",
-                "path": "/home/data-export/segment-schema-reference"
-              }
-            ]
-          },
-          {
-            "label": "Data Export schema reference",
-            "path": "/home/data-export/schema-reference"
-          }
-        ]
-      },
-      {
-        "group": "additional-features",
         "label": "The Relay Proxy",
         "path": "/home/relay-proxy",
         "svg": "relay-proxy",
         "items": [
+          {
+            "label": "Deploying the Relay Proxy",
+            "path": "/home/relay-proxy/deploying"
+          },
+          {
+            "label": "Using the Relay Proxy",
+            "path": "/home/relay-proxy/using"
+          },
+          {
+            "label": "Monitoring the Relay Proxy",
+            "path": "/home/relay-proxy/monitoring"
+          },
           {
             "label": "Relay Proxy Enterprise",
             "path": "/home/relay-proxy/enterprise",
@@ -524,18 +536,6 @@
                 "path": "/home/relay-proxy/offline"
               }
             ]
-          },
-          {
-            "label": "Deploying the Relay Proxy",
-            "path": "/home/relay-proxy/deploying"
-          },
-          {
-            "label": "Using the Relay Proxy",
-            "path": "/home/relay-proxy/using"
-          },
-          {
-            "label": "Monitoring the Relay Proxy",
-            "path": "/home/relay-proxy/monitoring"
           },
           {
             "label": "Testing Relay Proxy performance",
@@ -677,12 +677,12 @@
                 "path": "/integrations/slack/notifications"
               },
               {
-                "label": "Viewing and monitoring flags",
-                "path": "/integrations/slack/managing"
-              },
-              {
                 "label": "Turning flag targeting on and off",
                 "path": "/integrations/slack/toggle"
+              },
+              {
+                "label": "Viewing and monitoring flags",
+                "path": "/integrations/slack/managing"
               },
               {
                 "label": "Webhook integration",
@@ -723,7 +723,7 @@
                 "path": "/integrations/servicenow/setting-up"
               },
               {
-                "label": "Requesting approval",
+                "label": "Using the ServiceNow approvals integration",
                 "path": "/integrations/servicenow/approvals"
               }
             ]
@@ -862,12 +862,12 @@
             "path": "/sdk/concepts/flag-types"
           },
           {
-            "label": "Versioning policy",
-            "path": "/sdk/concepts/versioning"
-          },
-          {
             "label": "Version notifications",
             "path": "/sdk/concepts/version-notifications"
+          },
+          {
+            "label": "Versioning policy",
+            "path": "/sdk/concepts/versioning"
           }
         ]
       },
@@ -1163,12 +1163,12 @@
             "path": "/sdk/server-side/node-js",
             "items": [
               {
-                "label": "Node.js (server-side) SDK 5.x to 6.0 migration guide",
-                "path": "/sdk/server-side/node-js/migration-5-to-6"
-              },
-              {
                 "label": "Cloudflare Edge SDK",
                 "path": "/sdk/server-side/node-js/cloudflare-edge-sdk"
+              },
+              {
+                "label": "Node.js (server-side) SDK 5.x to 6.0 migration guide",
+                "path": "/sdk/server-side/node-js/migration-5-to-6"
               }
             ],
             "svg": "nodejs"
@@ -1221,6 +1221,10 @@
             "path": "/guides/best-practices/creating-flags"
           },
           {
+            "label": "Designing experiments in LaunchDarkly",
+            "path": "/guides/best-practices/experimentation"
+          },
+          {
             "label": "Deployment and release strategies",
             "path": "/guides/best-practices/deployment-strategies"
           },
@@ -1265,10 +1269,6 @@
             "path": "/guides/best-practices/infrastructure-migration"
           },
           {
-            "label": "Designing experiments in LaunchDarkly",
-            "path": "/guides/best-practices/experimentation"
-          },
-          {
             "label": "Using LaunchDarkly integrations",
             "path": "/guides/best-practices/integrations"
           },
@@ -1284,28 +1284,28 @@
         "svg": "atom",
         "items": [
           {
-            "label": "Configuring an SDK and creating a flag",
+            "label": "Getting started: Configuring an SDK and creating a flag",
             "path": "/guides/tutorials/sdk-flag"
+          },
+          {
+            "label": "Getting started: Flag rules and targeting",
+            "path": "/guides/tutorials/rules-and-targeting"
+          },
+          {
+            "label": "Getting started: Experimenting with feature flags",
+            "path": "/guides/tutorials/experimentation"
           },
           {
             "label": "Configuring roles with no access",
             "path": "/guides/tutorials/no-access"
           },
           {
-            "label": "Flag rules and targeting",
-            "path": "/guides/tutorials/rules-and-targeting"
-          },
-          {
-            "label": "Experimenting with feature flags",
-            "path": "/guides/tutorials/experimentation"
-          },
-          {
-            "label": "Getting started with the LaunchDarkly REST API",
-            "path": "/guides/tutorials/rest-api"
-          },
-          {
             "label": "Using LaunchDarkly without a supported SDK",
             "path": "/guides/tutorials/unsupported-sdk"
+          },
+          {
+            "label": "Using the LaunchDarkly REST API",
+            "path": "/guides/tutorials/rest-api"
           }
         ]
       },
@@ -1331,12 +1331,16 @@
             "path": "/guides/platform-specific/static-sites"
           },
           {
-            "label": "Using LaunchDarkly with AWS Lambda",
-            "path": "/guides/platform-specific/aws-lambda"
-          },
-          {
             "label": "Using flags with Cloudflare Workers",
             "path": "/guides/platform-specific/cloudflare-workers"
+          },
+          {
+            "label": "Using mobile SDKs",
+            "path": "/guides/platform-specific/mobile"
+          },
+          {
+            "label": "Using LaunchDarkly with AWS Lambda",
+            "path": "/guides/platform-specific/aws-lambda"
           },
           {
             "label": "Using LaunchDarkly with Next.js",
@@ -1353,10 +1357,6 @@
           {
             "label": "Using the Lua SDK with NGINX",
             "path": "/guides/platform-specific/nginx"
-          },
-          {
-            "label": "Using mobile SDKs",
-            "path": "/guides/platform-specific/mobile"
           }
         ]
       },

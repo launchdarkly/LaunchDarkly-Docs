@@ -1,6 +1,6 @@
 ---
 path: /guides/tutorials/rules-and-targeting
-title: Flag rules and targeting
+title: 'Getting started: Flag rules and targeting'
 description: This guide explains LaunchDarkly's flag targeting features, including percentage rollouts, flag insights, and segments. You can use these targeting features to create flags that serve different values to different users.
 published: true
 ---
@@ -28,8 +28,8 @@ To complete this guide, you must have the following prerequisites:
 * An active LaunchDarkly account with the ability to create a flag.
 * Basic knowledge of the Python programming language. You use Python in the exercises in this guide.
 * Access to [Glitch](https://glitch.com/about).
-* You must have completed the exercises in [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag). The exercises in this guide rely on apps and flags you create in that guide.
-* The SDK key for the environment you created in [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag).
+* You must have completed the exercises in [Getting started: Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag). The exercises in this guide rely on apps and flags you create in that guide.
+* The SDK key for the environment you created in [Getting started: Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag).
 
 <LearnMore>
 
@@ -178,7 +178,7 @@ If you must create user attributes that contain PII, mark the attribute as priva
 <CalloutTitle>You must have completed prerequisites to do these exercises</CalloutTitle>
 <CalloutDescription>
 
-The exercises in this guide rely on the flags and SDK keys you created in the <a href="/guides/tutorials/sdk-flag">Configuring an SDK and creating a flag</a> guide.<br/><br/> If you have not completed that guide, do so now and return to this section.
+The exercises in this guide rely on the flags and SDK keys you created in the <a href="/guides/tutorials/sdk-flag">Getting started: Configuring an SDK and creating a flag</a> guide.<br/><br/> If you have not completed that guide, do so now and return to this section.
 
 </CalloutDescription>
 </Callout>
@@ -235,13 +235,13 @@ Some learners encounter issues when running the Glitch editor and app in the sam
 
 ### Finding the LaunchDarkly SDK key in your project
 
-During the exercises in the [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag) guide, you created a LaunchDarkly project, and configured your app to use the SDK key from that project. This new app will use the same SDK key.
+During the exercises in the [Getting started: Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag) guide, you created a LaunchDarkly project, and configured your app to use the SDK key from that project. This new app will use the same SDK key.
 
 To retrieve the SDK key for your project:
 
 1. Navigate to the [Account settings](https://app.launchdarkly.com/settings/projects) page.
 1. Click the **Projects** tab.
-1. Find the project which you created for the [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag) guide.
+1. Find the project which you created for the [Getting started: Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag) guide.
 1. Click the project's SDK key to copy it to your clipboard:
 
 ![The Account settings page in LaunchDarkly with environment SDK keys called out.](starlight-travel-projects.png)
@@ -273,7 +273,7 @@ LD_SDK_KEY=<PASTE-YOUR-SDK-KEY-HERE>
 
 ## Exercise: Targeting a flag
 
-When you completed the exercises in [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag), you created a flag named Pricing Tier 3.
+When you completed the exercises in [Getting started: Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag), you created a flag named Pricing Tier 3.
 
 This exercise references Pricing Tier 3's **Targeting** tab throughout the guide. Keep the **Targeting** tab open to access it quickly.
 
@@ -285,7 +285,7 @@ To open the **Targeting** tab:
 
 ### Finding the user object
 
-In [Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag), you learned about the `variation()` method, which application code uses to evaluate flags.
+In [Getting started: Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag), you learned about the `variation()` method, which application code uses to evaluate flags.
 
 `variation()` takes three arguments:
 
@@ -741,9 +741,9 @@ return {
     - Type an upper-case `A` and press `Enter`. Each of the two letters should be in its own option box, like this:
 
     ![The rule form, configured for the rule we specified.](flag-rule-filled.png)
-  
+
     If you don't want to include both the lowercase and capitalized values, normalizing the attribute's string case can help simplify your targeting rules.
-  
+
 13. In the last menu, choose the `true` variation. Now when the rule matches a user object, the `true` variation appears.
 14. In the "Default rule" section, choose `false` under the **Serve** menu . This ensures that only users who match our rules receive a `true` evaluation:
 

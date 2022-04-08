@@ -6,20 +6,20 @@ import SdkLinks from './sdkLinks'
 const ReactSdks = () => {
   const reactSdkItems: SideNavItem[] = [
     {
-      label: 'React Web',
+      label: 'React Web SDK reference',
       shortLabel: 'React Web',
       path: '/sdk/client-side/react/react-web',
       svg: 'react',
     },
     {
-      label: 'React Native',
+      label: 'React Native SDK reference',
       shortLabel: 'React Native',
       path: '/sdk/client-side/react/react-native',
       svg: 'react',
     },
     {
-      label: 'Gatsby Plugin',
-      shortLabel: 'Gatsby Plugin',
+      label: 'Gatsby plugin',
+      shortLabel: 'Gatsby plugin',
       path: '/sdk/client-side/react/gatsby',
       svg: 'gatsby',
     },
