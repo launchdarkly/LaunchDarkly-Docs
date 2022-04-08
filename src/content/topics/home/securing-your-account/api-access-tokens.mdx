@@ -46,6 +46,12 @@ API access tokens are secrets. If you share your access token with others, they 
 </CalloutDescription>
 </Callout>
 
+<LearnMore>
+
+You can also use the REST API: [Access tokens](https://apidocs.launchdarkly.com/tag/Access-tokens/)
+
+</LearnMore>
+
 ## Understanding access token permissions
 
 <Callout intent="info">
@@ -61,7 +67,7 @@ As a best practice, we recommend giving your tokens the smallest scope required 
 <CalloutTitle>Using custom roles in access tokens</CalloutTitle>
 <CalloutDescription>
 
-If you use custom roles to scope your access tokens, note that modifying the permissions of the custom roles will also modify the permissions of related tokens.
+If you use custom roles to scope your access tokens, modifying the permissions of the custom roles will also modify the permissions of related tokens.
 
 </CalloutDescription>
 </Callout>
@@ -135,7 +141,15 @@ To create an access token:
 
 ![A new access token with a reminder to copy and store it displayed.](settings-access-tokens-notification.png)
 
+<LearnMore>
+
+You can also use the REST API: [Create access token](https://apidocs.launchdarkly.com/tag/Access-tokens#operation/postToken)
+
+</LearnMore>
+
 After you create a token, you can clone or delete it.
+
+## Cloning and deleting access tokens
 
 To clone or delete an access token:
 
@@ -151,6 +165,12 @@ Here is a screenshot of the clone and delete options:
 
 ![A new access token with the "Clone token" and "Delete token" options called out.](settings-access-tokens-clone-delete-callout.png)
 
+<LearnMore>
+
+You can also use the REST API: [Delete access token](https://apidocs.launchdarkly.com/tag/Access-tokens#operation/deleteToken)
+
+</LearnMore>
+
 You can also manage existing tokens from the **Authorizations** tab. You can reset the secret values of your tokens, or adjust the scope of your personal tokens.
 
 <Callout intent="alert">
@@ -161,6 +181,12 @@ As a best practice, we recommend rotating your tokens regularly to prevent token
 
 </CalloutDescription>
 </Callout>
+
+<LearnMore>
+
+You can also use the REST API: [Reset access token](https://apidocs.launchdarkly.com/tag/Access-tokens#operation/resetToken)
+
+</LearnMore>
 
 ## Restricting who can create and manage API access tokens
 

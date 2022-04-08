@@ -36,6 +36,12 @@ To create a custom role:
 
 ![The "Create custom role" panel.](settings-roles-create.png)
 
+<LearnMore>
+
+You can also use the REST API: [Create custom role](https://apidocs.launchdarkly.com/tag/Custom-roles#operation/postCustomRole)
+
+</LearnMore>
+
 ### Understanding starting roles
 
 LaunchDarkly uses the built-in reader role as the starting point for new custom roles when you create them. If you keep the **By default, members can view all LaunchDarkly content** box checked, the custom role starts with `reader` permissions. You can use the role's policy to remove view permissions or allow the ability to modify resources.
@@ -118,6 +124,12 @@ To give a member a custom role:
 
 ![The member's Permissions page with updated custom roles.](settings-member-permissions-updated.png)
 
+<LearnMore>
+
+You can also use the REST API: [Modify an account member](https://apidocs.launchdarkly.com/tag/Account-members#operation/patchMember)
+
+</LearnMore>
+
 <Callout intent="info">
 <CalloutTitle>Use Teams to assign roles to multiple members</CalloutTitle>
 <CalloutDescription>
@@ -132,6 +144,12 @@ You can also assign custom roles through your IdP with SSO or SCIM. For an in-de
 ## Viewing an account member's roles
 
 To view the roles for an individual account member, read [Viewing an individual member's roles](/home/members/built-in-roles#viewing-an-individual-members-roles).
+
+<LearnMore>
+
+You can also use the REST API: [Get account member](https://apidocs.launchdarkly.com/tag/Account-members#operation/getMember)
+
+</LearnMore>
 
 ## Removing an account member's custom role
 
@@ -170,6 +188,12 @@ To view details for custom roles in other parts of the LaunchDarkly user interfa
 
 ![A member's "Permissions" tab with custom role names called out.](settings-member-roles-callout.png)
 
+<LearnMore>
+
+You can also use the REST API: [Get custom role](https://apidocs.launchdarkly.com/tag/Custom-roles#operation/getCustomRole)
+
+</LearnMore>
+
 ## Editing existing custom roles
 
 Edit an existing policy at any time by clicking the **pencil icon** or add a new policy to a custom role by clicking **Add statement**.
@@ -185,6 +209,12 @@ To edit a custom role:
 4. Change whatever features of the role you wish.
 5. Click **Save changes**.
 
+<LearnMore>
+
+You can also use the REST API: [Update custom role](https://apidocs.launchdarkly.com/tag/Custom-roles#operation/patchCustomRole)
+
+</LearnMore>
+
 ## Deleting custom roles
 
 Delete a custom role from the Account Settings page.
@@ -197,3 +227,9 @@ To delete a custom role:
 4. Click **Delete role**:
 
 ![The "Delete role" button.](settings-roles-delete.png)
+
+<LearnMore>
+
+You can also use the REST API: [Delete custom role](https://apidocs.launchdarkly.com/tag/Custom-roles#operation/deleteCustomRole)
+
+</LearnMore>
