@@ -9,6 +9,7 @@ Welcome to LaunchDarkly! We're excited to partner with you as you use feature fl
 
 From here, you can learn more about:
 
+* [Using feature management](#using-feature-management)
 * [Joining an account](#joining-an-account)
 * [Using the flag dashboard](#using-the-flag-dashboard)
 * [Getting started as a software developer](#getting-started-as-a-software-developer)
@@ -16,6 +17,18 @@ From here, you can learn more about:
 * [Getting started as a systems architect](#getting-started-as-a-systems-architect)
 * [Getting started as an account administrator](#getting-started-as-an-account-administrator)
 * [Additional resources](#additional-resources)
+
+## Using feature management
+
+Feature management is a framework for feature flag-driven development, testing, and experimentation. The basic unit of feature management is a feature flag.
+
+To start using feature management, first create a feature flag in LaunchDarkly. A feature flag describes rules for who can access a feature in your app, whether that means individual users, users who share common characteristics like email domain or type of mobile device, or just a certain percentage of your application's traffic.
+
+Next, you need to connect your application to LaunchDarkly. You can connect to LaunchDarkly using any of our 20+ SDKs.
+
+Then, in your application, use the SDK to make a function call any time you want to determine whether a particular user should see a feature, and what variation of the feature they should see. Within milliseconds, the SDK analyzes the rules that exist in the flag and determines the correct feature variation to show the user. LaunchDarkly records every user who encounters a flag, and how the SDK evaluated the flag's rules for that user, so you can analyze application data easily.
+
+To begin, read [Joining an account](#joining-an-account), then skip to the "Getting started" section below that best describes your role.
 
 ## Joining an account
 
