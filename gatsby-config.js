@@ -128,7 +128,7 @@ const plugins = [
   {
     resolve: 'gatsby-plugin-google-gtag',
     options: {
-      trackingIds: ['UA-44750782-3'],
+      trackingIds: ['UA-44750782-3', 'G-P12DWV2SBZ'],
       pluginConfig: {
         head: true,
       },
