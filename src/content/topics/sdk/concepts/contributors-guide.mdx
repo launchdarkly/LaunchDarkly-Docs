@@ -79,7 +79,7 @@ Server-side and client-side SDKs significantly differ in how they evaluate featu
 
 ### Flag evaluation in server-side SDKs
 
-To implement the `variation` method in a server-side SDK, a feature flag is retrieved from the store and evaluated directly in the SDK. To learn more about evaluation rules, read [Flag evaluation rules in server-side SDKs](/sdk/concepts/flag-evaluation-rules).
+To implement the variation method in a server-side SDK, a feature flag is retrieved from the store and evaluated directly in the SDK. To learn more about evaluation rules, read [Flag evaluation rules in server-side SDKs](/sdk/concepts/flag-evaluation-rules).
 
 Our [Go SDK](https://github.com/launchdarkly/go-server-sdk/blob/v5/ldclient.go) serves as our reference evaluation algorithm.
 
@@ -87,7 +87,7 @@ Our [Go SDK](https://github.com/launchdarkly/go-server-sdk/blob/v5/ldclient.go) 
 
 As described in [Flag evaluations](/sdk/concepts/client-side-server-side#flag-evaluations), client-side SDKs do not evaluate flags on their own. LaunchDarkly's services are responsible for evaluating flag rules.
 
-To implement the `variation` method in a client-side SDK, return the last-known evaluated value from the store for the specified flag key.
+To implement the variation method in a client-side SDK, return the last-known evaluated value from the store for the specified flag key.
 
 ## Recording events
 
@@ -99,7 +99,7 @@ The SDKs send ten kinds of events:
 - `index` and `identify` events push user data to LaunchDarkly.
 - `alias` events associate two users for analytics purposes.
 - `page view` and `click` events are sent by JavaScript-based SDKs when pages are visited or clicked as part of an experiment.
-- `custom` events are sent when an application calls the SDK's `track` method.
+- `custom` events are sent when an application calls the SDK's track method.
 - `diagnostic` events report on how the SDK is configured and operating.
 
 SDKs must batch and send events to the LaunchDarkly server **asynchronously**. This is a requirement for all SDKs. Do this by creating a background job that runs every 30 seconds and makes a `POST` call to `/bulk` for server-side SDKs, to `/events/bulk/{envId}` for client-side JavaScript SDKs, and to `/mobile/events/bulk` for mobile SDKs.
@@ -257,7 +257,7 @@ Here is an example of an `index` event:
 
 The `kind` for an `index` event is `"index"`. The value of `user` is the same as described above for a `debug` event.
 
-`identify` events are produced when the client application calls an SDK method called `identify`. `identify` events have an identical structure to `index` events, except the `kind` is set to `identify`:
+`identify` events are produced when the client application calls an SDK method called identify. `identify` events have an identical structure to `index` events, except the `kind` is set to `identify`.
 
 Here is an example of an `identify` event:
 
@@ -284,7 +284,7 @@ Here is an example of an `identify` event:
 
 ### Alias events
 
-`alias` events are produced when the client application calls an SDK's `alias` method. Additionally, by default, client-side SDKs automatically produce alias events when changing (through calling `identify`) from an anonymous user to an identified user.
+`alias` events are produced when the client application calls an SDK's alias method. Additionally, by default, client-side SDKs automatically produce `alias` events when they change an anonymous user to an identified user through an identify call.
 
 `alias` events have the following shape:
 
@@ -314,7 +314,7 @@ The `kind` for an `alias` event is `"alias"`. The `key` and `previousKey` attrib
 
 ### Custom events
 
-`custom` events are produced when the client application calls an SDK method called `track`.
+`custom` events are produced when the client application calls an SDK's track method.
 
 `custom` events have the following shape:
 
@@ -533,7 +533,7 @@ The technical details of how to implement `diagnostic` events in a LaunchDarkly 
 8. Write unit tests using a standard testing framework.
 9. In statically typed languages, make the SDK as type-safe as possible.
 10. Use best practices with respect to logging. A proper logging package should be used, and log entries should have appropriate log levels. Simply logging output to standard out is probably not appropriate.
-11. Use best practices with respect to error handling. Be extremely defensive and assume anything can fail. For `variation` calls, use a top-level catch-all error handler that returns the default value if any exceptions or unexpected errors occur. Log when the default value is returned because of an exception or unexpected error.
+11. Use best practices with respect to error handling. Be extremely defensive and assume anything can fail. For variation calls, use a top-level catch-all error handler that returns the default value if any exceptions or unexpected errors occur. Log when the default value is returned because of an exception or unexpected error.
 12. Make the SDK thread-safe. SDKs should not be expected to have to introduce locking around API calls for thread-safety. Furthermore, the LDClient instance itself should be a thread-safe singleton. Clients should be expected to instantiate one LDClient for the lifetime of their application.
 13. All SDK calls to the LaunchDarkly REST API with an entity body should have the `Content-Type` header set to `application/json`.
 14. All timestamps should be sent as UNIX time in milliseconds. Event timestamps should reflect as nearly as possible the time that the event was created, not the time that the event was sent.

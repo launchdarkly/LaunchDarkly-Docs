@@ -10,10 +10,10 @@ published: true
 This topic explains how to create a custom numeric metric for an experiment in LaunchDarkly.
 
 <Callout intent="warning">
-<CalloutTitle>Call <code>track</code> and <code>flush</code> when a user is redirected</CalloutTitle>
+<CalloutTitle>Call track and flush when a user is redirected</CalloutTitle>
 <CalloutDescription>
 
-SDKs send events at regular intervals, such as every five seconds. If a browser redirects a user to another page, any events that occurred between when the SDK last sent events and when browser redirected the user will be lost. To avoid this, call `track` and then `flush` when you know the browser will redirect a user to another page, such as on click.
+SDKs send events at regular intervals, such as every five seconds. If a browser redirects a user to another page, any events that occurred between when the SDK last sent events and when browser redirected the user will be lost. To avoid this, call track and then flush when you know the browser will redirect a user to another page, such as on click.
 
 </CalloutDescription>
 </Callout>

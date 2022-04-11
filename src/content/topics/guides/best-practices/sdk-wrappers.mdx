@@ -112,7 +112,7 @@ An SDK wrapper can update your observability contexts whenever feature flags are
 
 ### Providing a single source of fallback flag values
 
-An SDK wrapper can provide a `variation` call that doesn’t ask for a fallback value, because this is configured for each flag in a centralized place. This ensures fallback values are consistent across your codebase, lets you update fallback values with a network-accessible resource, and, for client-side apps, makes it easier to switch the fallback from `false` to `true` as soon as possible after a feature launches.
+An SDK wrapper can provide a variation call that doesn’t ask for a fallback value, because this is configured for each flag in a centralized place. This ensures fallback values are consistent across your codebase, lets you update fallback values with a network-accessible resource, and, for client-side apps, makes it easier to switch the fallback from `false` to `true` as soon as possible after a feature launches.
 
 This is helpful if you evaluate specific flags in multiple places in your codebase and is in line with the Don't Repeat Yourself (DRY) principle of software development. To learn more, read [Don't repeat yourself](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself).
 

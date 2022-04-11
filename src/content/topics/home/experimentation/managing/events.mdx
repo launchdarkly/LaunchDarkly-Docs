@@ -20,7 +20,7 @@ LaunchDarkly charges on a per-event basis. You can minimize the cost of Experime
 
 ### Understanding metric events
 
-All LaunchDarkly SDKs send `custom` metric events when you call the SDK's `track` method. To learn more about the `track` method, read [Sending custom events](/sdk/features/events).
+All LaunchDarkly SDKs send `custom` metric events when you call the SDK's track method. To learn more about the track method, read [Sending custom events](/sdk/features/events).
 
 In addition, the JavaScript SDK also sends a `click` metric event when a user clicks on a page URL or anchor tag that you have included in a click metric, and sends a `page view` metric event when a user visits a URL that you have included in a page view metric.
 
@@ -28,7 +28,7 @@ You can view metric events in the debugger under the **Experimentation events** 
 
 ### Understanding evaluation events
 
-All LaunchDarkly SDKs send a `feature` conversion event when you call the SDK's `variation` method for a flag in an experiment. To learn more about the `variation` method, read [Evaluating flags](/sdk/features/evaluating).
+All LaunchDarkly SDKs send a `feature` conversion event when you call the SDK's variation method for a flag in an experiment. To learn more about the variation method, read [Evaluating flags](/sdk/features/evaluating).
 
 In addition, the JavaScript SDK and client-side Node.js also send a `variation` evaluation event when you call the SDK's `allFlags` method, unless you configure it not to. To learn more, read [JavaScript](/sdk/features/all-flags#javascript) and [Node.js (client-side)](/sdk/features/all-flags#nodejs-client-side).
 
@@ -40,9 +40,9 @@ Every time a user triggers a metric that is attached to a running experiment, yo
 
 ### Decreasing metric events
 
-To reduce `page view` and `click` metric events, first update your metrics to use `custom` instead of `click` or `page view` where possible. Then, reduce `custom` metric events by limiting the number of times you call `track`.
+To reduce `page view` and `click` metric events, first update your metrics to use `custom` instead of `click` or `page view` where possible. Then, reduce `custom` metric events by limiting the number of times you call track.
 
-You can also cache when you call `track` to ensure you call it only once per user.
+You can also cache when you call track to ensure you call it only once per user.
 
 ### Decreasing evaluation events
 

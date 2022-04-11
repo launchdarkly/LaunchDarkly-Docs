@@ -103,7 +103,7 @@ Strongly-typed SDKs must call the correct evaluation method for the flag type th
 
 If the evaluation method does not match the flag type, then the SDK will proceed as if the result is a variation index of "undefined." The evaluation reason will have a `kind` of `ERROR` and an `errorKind` of `WRONG_TYPE`.
 
-Other LaunchDarkly SDKs are not strongly-typed. They have just one `variation` method for all types of values.
+Other LaunchDarkly SDKs are not strongly-typed. They have just one variation method for all types of values.
 
 For information about how specific SDKs evaluate feature flags, read [Flag evaluation reasons](/sdk/features/evaluation-reasons).
 

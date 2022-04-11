@@ -17,10 +17,7 @@ There are five different event kinds exported to Segment. They are:
 * [Click events](#click-events): This event is emitted when a user clicks on a CSS selector for which they have configured a metric in an experiment.
 * [Page view events](#page-view-events): This event is emitted when a user loads a page associated with an experiment metrics.
 * [Custom events](#custom-events): This event is emitted when LaunchDarkly SDK sends a `custom` event.
-* [Alias events](#alias-events): This event is emitted when the LaunchDarkly
-SDK calls the `alias` method or automatically in client-side SDKs when an
-anonymous user identifies as a non-anonymous user. Read more about `alias` events
-on [Segment's alias spec](https://segment.com/docs/connections/spec/alias/)
+* [Alias events](#alias-events): This event is emitted when the LaunchDarkly SDK calls the alias method. It is also emitted automatically in client-side SDKs when an anonymous user identifies as a non-anonymous user. Read more about `alias` events in [Segment's alias spec](https://segment.com/docs/connections/spec/alias/).
 
 ### Additional properties
 
@@ -145,9 +142,7 @@ There are no properties for `custom` events other than the properties listed in 
 
 ## Alias events
 
-The `alias` event schema is defined by [Segment's
-spec](https://segment.com/docs/connections/spec/alias/). The following indicates
-LaunchDarkly's usage of the schema.
+The `alias` event schema is defined by [Segment's spec](https://segment.com/docs/connections/spec/alias/). The following indicates LaunchDarkly's usage of the schema.
 
 This table explains `alias` event properties:
 

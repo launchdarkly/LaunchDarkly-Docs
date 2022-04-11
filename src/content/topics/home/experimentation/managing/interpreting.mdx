@@ -72,9 +72,9 @@ You can also use the REST API: [Get experiment results](https://apidocs.launchda
 
 ## Understanding conversions
 
-LaunchDarkly uses `variation` calls to correlate conversions and unique user impressions within a 24-hour window. If there are more than 24 hours between the time of a `variation` call and a `track` call on a user key, then LaunchDarkly does not register them in the experiment.
+LaunchDarkly uses variation calls to correlate conversions and unique user impressions within a 24-hour window. If there are more than 24 hours between the time of a variation call and a track call on a user key, then LaunchDarkly does not register them in the experiment.
 
-If you want to correlate conversions and unique user impressions that occur more than 24 hours apart, call `variation` again so LaunchDarkly registers them as part of the experiment.
+If you want to correlate conversions and unique user impressions that occur more than 24 hours apart, call variation again so LaunchDarkly registers them as part of the experiment.
 
 If a user receives multiple variations before a conversion, the conversion is attributed to the variation the user saw most recently.
 
