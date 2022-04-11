@@ -34,7 +34,7 @@ The main reason to do this is to accelerate flag updates when your application h
 
 To set up this configuration, most people create some kind of object for the specific type of database and put it in the client configuration's feature store property. For example, in PHP, this property is called the "feature requester."
 
-To see code samples for specific SDKs, read [Storing data](/sdk/features/storing-data).
+For code samples for specific SDKs, read [Storing data](/sdk/features/storing-data).
 
 If there are multiple instances of your application configured in this way with the same database, the same data gets written to the database multiple times, because each instance receives feature flags from LaunchDarkly. This is harmless but inefficient, so you may want to use a persistent feature store without connecting to LaunchDarkly, as described below.
 
@@ -46,4 +46,4 @@ The other process could be the Relay Proxy in offline or daemon mode, or any oth
 
 Since the Relay Proxy is also known as the LaunchDarkly Daemon, some versions of the SDKs refer to this mode as "LDD mode." Creating the client is the same as above in terms of specifying the persistent store, but you must also add an option to make the SDK _not_ connect to LaunchDarkly.
 
-To see code samples for specific SDKs, read [Storing data](/sdk/features/storing-data).
+For code samples for specific SDKs, read [Storing data](/sdk/features/storing-data).

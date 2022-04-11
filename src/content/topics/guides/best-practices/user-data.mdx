@@ -31,7 +31,7 @@ To learn more about the built-in attributes LaunchDarkly suggests you collect, r
 
 Every company has different types of data they collect and use for various purposes. Consider whether data is advantageous for your business to collect, and if any data exposes you to unwanted risk. For data that presents a risk, understand your requirements for handling that data. If you are collecting data, examine the methods you use to store it, and how long you want to keep it.
 
-When you pass user data through LaunchDarkly, consider whether the users affected are protected by regional laws that restrict which data you can transmit or we can see. You may wish to default to a more restrictive set of data transmitted and stored than is required by your home country in order to comply with relevant international laws.
+When you pass user data through LaunchDarkly, consider whether the users affected are protected by regional laws that restrict which data you can transmit or we can receive. You may wish to default to a more restrictive set of data transmitted and stored than is required by your home country in order to comply with relevant international laws.
 
 LaunchDarkly is a multi-tenant platform. This means that, with some exceptions, LaunchDarkly stores data in the same place and uses the same application to respond to customer requests. Exceptions to this include certain large customers and customers who are members of the United States federal government. Multi-tenant software has a broader security footprint because more people access the same database than they would in a single-tenant instance.
 
@@ -48,7 +48,7 @@ LaunchDarkly SDKs have different constraints that affect user data. Specifically
 
 ## LaunchDarkly member roles
 
-Every account member in your LaunchDarkly project can see user and flag information, including targeting data. Account members with `writer` or `owner / admin` roles can configure flag settings, including targeting flags by PII like user email addresses. Consider if your organization needs to restrict which account members can control access to user data.
+Every account member in your LaunchDarkly project can view user and flag information, including targeting data. Account members with `writer` or `owner / admin` roles can configure flag settings, including targeting flags by PII like user email addresses. Consider if your organization needs to restrict which account members can control access to user data.
 
 The exception to this is if an account member is assigned the `no access` role or a custom role with the `viewProject` action set to `deny`. The `viewProject` action controls a role holder's access to an entire project by preventing or granting them viewing rights to the project. Viewing rights are required for any other permissions in a project to take effect, so restricting viewing rights effectively removes all access to the project.
 
@@ -227,7 +227,7 @@ Although ad blockers often block LaunchDarkly analytics data, LaunchDarkly analy
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
 <CalloutDescription>
 
-Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
 
 Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 

@@ -112,7 +112,7 @@ The example application centralizes all calls to the SDK into a single file. Thi
 The server-side wrapper is in `/src/lib/launchdarkly/server.js`. The wrapper does not implement all of the SDK functionality but has the following functions:
 
 - `initialize()` initializes the SDK using the LaunchDarkly SDK key that is stored in an environment variable in an `.env` file. The environment variable is named `VITE_LAUNCHDARKLY_SDK_KEY` as SvelteKit only exposes environment variables with the `VITE_` prefix. It then waits for the SDK to initialize and returns the SDK client. To learn more about SvelteKit environment variables, read [this FAQ](https://kit.svelte.dev/faq#env-vars).
-- `getClient()` checks to see if the client has already initialized and, if not, initializes it. In either case, it returns an instance of the SDK client.
+- `getClient()` checks if the client has already initialized and, if not, initializes it. In either case, it returns an instance of the SDK client.
 - `getFlagValue()` returns the value of a LaunchDarkly flag based upon the flag's key and the user data that is passed. If no user data is passed, the function will pass a generic anonymous user key.
 
 Here is an example:
@@ -357,7 +357,7 @@ Much like the server-side interaction, it can be useful to create a wrapper for 
 The client-side wrapper is in the file `/src/lib/launchdarkly/client.js`. The wrapper does not implement all the SDK functionality, but has the following functions:
 
 - `initialize()` initializes the SDK using the LaunchDarkly SDK key that is stored in an environment variable in the `.env` file. If no user data is passed, the function will pass a generic anonymous user key. It then waits for the SDK to initialize and returns the SDK client.
-- `getClient()` checks to see if the client has already been initialized and, if not, initializes it. In either case, it returns an instance of the SDK client.
+- `getClient()` checks if the client has already been initialized and, if not, initializes it. In either case, it returns an instance of the SDK client.
 - `getFlagValue()` returns the value of a LaunchDarkly flag based upon the flag's key. If a callback function is passed, it adds that as a change listener specific to the passed flag key, meaning that the passed function will only be called on a change to that specific flag rather than a change to any flag in the connected environment.
 
 <CodeTabs
@@ -574,7 +574,7 @@ The great news is that, because Svelte is just JavaScript, you can use LaunchDar
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
 <CalloutDescription>
 
-Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
 
 Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 

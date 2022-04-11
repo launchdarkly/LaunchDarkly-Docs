@@ -151,7 +151,7 @@ The 'identify' call will load any saved flag values for the new user and immedia
 
 The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user. The client always has one current user, because client-side SDKs are not designed for evaluating flags for different users at the same time.
 
-For example, on a sign-in page in a single-page app, you can initialize the client with an anonymous user. But when the user logs in, they should see the correct feature flag settings for their account.
+For example, on a sign-in page in a single-page app, you can initialize the client with an anonymous user. But when the user logs in, they should receive the correct feature flag settings for their account.
 
 If you provide a callback function, it is called with a map of flag keys and values after the flag values for the new user are available. After that point, `variation()` uses the new values. You can also use a Promise for the same purpose.
 
@@ -289,7 +289,7 @@ LDUser *newUser = [[LDUser alloc] initWithKey:@"NEW_USER_KEY"];
 
 The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user. The client always has one current user, because client-side SDKs are not designed for evaluating flags for different users at the same time.
 
-For example, on a sign-in page in a single-page app, you can initialize the client with an anonymous user. But when the user logs in, they should see the correct feature flag settings for their account.
+For example, on a sign-in page in a single-page app, you can initialize the client with an anonymous user. But when the user logs in, they should receive the correct feature flag settings for their account.
 
 If you provide a callback function, it is called with a map of flag keys and values after the flag values for the new user are available. After that point, `variation()` uses the new values. You can also use a Promise for the same purpose.
 

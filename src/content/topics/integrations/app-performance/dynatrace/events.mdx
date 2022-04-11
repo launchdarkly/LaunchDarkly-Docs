@@ -100,7 +100,7 @@ proj/*:env/production:flag/*
 
 To learn more about the Resource configuration fields, read [Resources in custom roles](/home/members/role-resources).
 
-You may want to override the default policy for various reasons, including restricting how the integration sees and exports events. Using the policy editor, you can restrict the integration to:
+You may want to override the default policy for various reasons, including restricting how the integration receives and exports events. Using the policy editor, you can restrict the integration to:
 
 * a specific set of LaunchDarkly projects/environments
 * a specific set of flags
@@ -134,7 +134,7 @@ To learn more about using the policy editor, read [Policies in custom roles](/ho
 
 The LaunchDarkly Dynatrace integration only sends events from flags which are explicitly associated with Dynatrace tags. It does **not** send events from every flag in your LaunchDarkly project.
 
-The integration lets you see an application's flag change events beside its performance graphs. This makes it easier to correlate problems with the flag changes that may have caused them.
+The integration lets you view an application's flag change events beside its performance graphs. This makes it easier to correlate problems with the flag changes that may have caused them.
 
 For this to be most effective, attach a flag's events to all the applications the flag affects, and _only_ those applications.
 

@@ -13,7 +13,7 @@ Serverless functions play a critical role in modern application architectures. F
 
 In this guide, you'll explore how to build a serverless function with [AWS Lambda](https://aws.amazon.com/lambda/) and how you can use LaunchDarkly flags and Lambda functions to conditionally enable or modify server-side logic. In addition, you'll learn how to deploy this to [CloudFront](https://aws.amazon.com/cloudfront/), Amazon's content delivery network (CDN), as [Lambda@Edge](https://aws.amazon.com/lambda/edge/) so you can use the flags to conditionally perform actions at the "edge."
 
-The example function you will build redirects users to a different version of a website. It is better to do this "at the edge" to limit any latency the user might see during the request. Rather than intercept the request on the server and do a server-side redirect or send back a response that performs a client-side redirect, you can intercept the request at the CDN level closest to the user and direct it to a specific version of the site. Identifying the user and serving them a flag variation from the edge means faster state changes to feature flags, and no disruptions when the flag state changes from the default value to the targeted variation.
+The example function you will build redirects users to a different version of a website. It is better to do this "at the edge" to limit any latency the user might experience during the request. Rather than intercept the request on the server and do a server-side redirect or send back a response that performs a client-side redirect, you can intercept the request at the CDN level closest to the user and direct it to a specific version of the site. Identifying the user and serving them a flag variation from the edge means faster state changes to feature flags, and no disruptions when the flag state changes from the default value to the targeted variation.
 
 ### Prerequisites
 
@@ -31,7 +31,7 @@ The source code for the example below is available [on GitHub](https://github.co
 
 Let's imagine your company is launching a rebrand that includes a new site design. This is a major undertaking and the marketing department wants to be sure that everything is perfect. Rather than enable a flag to deploy the site to everyone, they want to roll out the new site to an increasing percentage of users over time. How can you do this without it becoming a major DevOps headache?
 
-In this example, you'll use LaunchDarkly to control the release. LaunchDarkly will assign each user to a variation that determines whether they see the new site or the old site. An AWS Lambda@Edge function will use this information to route them to the appropriate version of the site at the edge, rather than relying on a client-side or server-side redirect.
+In this example, you'll use LaunchDarkly to control the release. LaunchDarkly will assign each user to a variation that determines whether they receive the new site or the old site. An AWS Lambda@Edge function will use this information to route them to the appropriate version of the site at the edge, rather than relying on a client-side or server-side redirect.
 
 After you create a Lambda function, users will either be directed to the old site or the new site depending on which variation they are assigned to within LaunchDarkly. LaunchDarkly determines this by assigning each unique user according to a percentage rollout.
 
@@ -343,7 +343,7 @@ You should get a response like:
 
 ![Invoking the Lambda with a sample payload.](aws-invoke-lambda-edge.png)
 
-Try changing the IP address in the payload and clicking invoke again. In most cases, you'll get a different response, because our rollout is split 50/50. If you see the original site variation again, you may need to change the IP more than once. Ultimately, the percentage percentage breakdown of sites that display will be 50/50, but that doesn't mean the value returned alternates between each request.
+Try changing the IP address in the payload and clicking invoke again. In most cases, you'll get a different response, because our rollout is split 50/50. If you receive the original site variation again, you may need to change the IP more than once. Ultimately, the percentage percentage breakdown of sites that display will be 50/50, but that doesn't mean the value returned alternates between each request.
 
 ### Connecting a CloudFront trigger
 
@@ -383,7 +383,7 @@ Finally, test to confirm this works. Here's how:
 3. In the "Details" section of the CloudFront distribution tab, copy the URL for this distribution.
 4. If necessary, wait for the CloudFront distribution to finish deploying. If you paste this URL in the browser, it will direct you to either the old version of the page or the new one.
 
-You can also change which site you see, or test what the full rollout looks like, from LaunchDarkly. Here's how:
+You can also change which site you receive, or test what the full rollout looks like, from LaunchDarkly. Here's how:
 
 1. Go to the flag dashboard and click into the "rebrand" flag.
 2. Change the "Default rule" from serving a percentage rollout to just serving `true`.
@@ -408,7 +408,7 @@ In this guide, you integrated a LaunchDarkly flag into a Lambda function and dep
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
 <CalloutDescription>
 
-Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
 
 Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 

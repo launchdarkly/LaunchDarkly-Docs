@@ -49,7 +49,7 @@ This section explains how you can use feature flags to manage entitlements for d
 
 ### Customizing in-product experience for premium users
 
-Premium users are the use case people think of most often when they think of entitlements. A premium user has a different experience of the application or site than a standard user. They might be notified about auctions sooner, have more editorial or posting rights, or see fewer ads. Using a flag to identify a segment as premium users saves you from the slightly-risky process of adding individual users to a different permissions level in your application or site. If there is any breach or problem with access, you can remove either the user or segment very quickly until the problem is resolved.
+Premium users are the use case people think of most often when they think of entitlements. A premium user has a different experience of the application or site than a standard user. They might be notified about auctions sooner, have more editorial or posting rights, or receive fewer ads. Using a flag to identify a segment as premium users saves you from the slightly-risky process of adding individual users to a different permissions level in your application or site. If there is any breach or problem with access, you can remove either the user or segment very quickly until the problem is resolved.
 
 A “logged-in user” is a special case of premium user. Many sites, from e-commerce to newspapers to community sites, have a logged-in/account assumption, which is a kind of premium user, even if it isn't about money. A user logs in to access the full site and the account they hold on it. In that sense, a logged-in user is a premium user who has more access than an anonymous user.
 
@@ -108,7 +108,7 @@ This table includes an example of effective flag naming:
   </TableBody>
 </Table>
 
-As you read the flag information, you can see that this flag controls a couple of other flags. If you turn `perm-PaidUser` off, it will affect those flags. You can also see that it is a permanent flag, so you know you shouldn’t delete it without extensive discussion. You can see the tags that will help group it with similar flags and make sure that only senior-level operators can change it.
+As you read the flag information, you'll learn that this flag controls a couple of other flags. If you turn `perm-PaidUser` off, it will affect those flags. It is a permanent flag, so you know you shouldn’t delete it without extensive discussion. The tags help group it with similar flags and make sure that only senior-level operators can change it.
 
 You can mark the flag **permanent** when you create it, but it is also useful to prepend the name with an agreed-on prefix, such as `perm-` or `entitle-`. Adding tags to your entitlements flags can also help you find and group them for administrative purposes. Use tags to limit who has access to control the flags, because any state change in an entitlement flag can be very visible to your users.
 
@@ -141,7 +141,7 @@ This guide discussed concepts you can find in:
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
 <CalloutDescription>
 
-Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
 
 Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 

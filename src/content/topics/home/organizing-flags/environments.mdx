@@ -166,6 +166,6 @@ For customers using PHP, we recommend setting your TTL to at least five minutes 
 
 If your site has relatively low traffic (fewer than one request per minute), you may wish to increase the TTL to five minutes or more to take better advantage of the local cache.
 
-If the TTL is set to zero minutes, the SDK will not use a local cache, and every call to `variation` will make a remote request to our CDN. You can set your TTL to zero in testing environments to see changes reflected immediately, but we do not recommend a zero minute TTL in production.
+If the TTL is set to zero minutes, the SDK will not use a local cache, and every call to `variation` will make a remote request to our CDN. You can set your TTL to zero in testing environments so it reflects changes immediately, but we do not recommend a zero minute TTL in production.
 
 In high volume PHP environments, we strongly recommend using our Relay Proxy. To learn more, read [The Relay Proxy](/home/relay-proxy).

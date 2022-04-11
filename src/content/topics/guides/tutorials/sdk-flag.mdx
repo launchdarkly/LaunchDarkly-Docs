@@ -162,7 +162,7 @@ Learn more: [How to use Glitch](https://glitch.com/create)
 
 ### Switching between the code and app views in Glitch
 
-In the Glitch app, you have the option to see the live app in production, or the code for the app.
+In the Glitch app, you have the option to view the live app in production, or the code for the app.
 
 To switch between them:
 
@@ -249,7 +249,7 @@ To verify a successful installation, open the the log console in Glitch:
 1. Click **Tools** in the bottom left hand corner.
 2. Select **Logs**.
 
-If you configured the Python SDK correctly, you will see a message indicating that `launchdarkly-server-sdk` was installed.
+If you configured the Python SDK correctly, you will receive a message indicating that `launchdarkly-server-sdk` was installed.
 
 <iframe src="https://drive.google.com/file/d/1bJsKHkuJYaNTYwlCX-qEg0llvFVoM6gt/preview" width="100%" height="410" allowfullscreen></iframe>
 
@@ -333,7 +333,7 @@ The new flag is pictured below:
 
 ### Adding a new pricing tier
 
-You're now ready to add the new pricing tier to the pricing page. To do this, you'll add the HTML for the new page to your app, but only after wrapping it in a feature flag so only intended users can see it.
+You're now ready to add the new pricing tier to the pricing page. To do this, you'll add the HTML for the new page to your app, but only after wrapping it in a feature flag so only intended users will receive it.
 
 The updated pricing tier page is pictured below:
 
@@ -389,7 +389,7 @@ This HTML is also available in your Glitch app, in **views/** > `tier_3.html`.
 
 ### Wrapping the pricing page code in a flag
 
-Now you wrap the HTML for the new pricing page in the flag you just created. This prevents anyone who is not targeted by the flag from seeing the new pricing page.
+Now you wrap the HTML for the new pricing page in the flag you just created. This prevents anyone who is not targeted by the flag from receiving the new pricing page.
 
 Use the following `server.py` code:
 
@@ -528,7 +528,7 @@ targeting](/guides/tutorials/rules-and-targeting).
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
 <CalloutDescription>
 
-Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
 
 Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 

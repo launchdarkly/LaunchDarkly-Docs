@@ -1,15 +1,15 @@
 ---
 path: /home/flags/targeting-users
 title: Targeting users with flags
-description: This topic explains how to use a flag's Targeting tab to control who sees a variation of a feature flag.
+description: This topic explains how to use a flag's Targeting tab to control who receives a variation of a feature flag.
 published: true
 ---
 
 ## Overview
 
-This topic explains how to use a flag's **Targeting** tab to control which users see a variation of a feature flag. Configuring which users see which variation of a flag is referred to as a flag's targeting.
+This topic explains how to use a flag's **Targeting** tab to control which users receive a variation of a feature flag. Configuring which users receive which variation of a flag is referred to as a flag's targeting.
 
-You can use the **Targeting** tab to roll features out for internal testing, private betas, or usability tests before performing a broader rollout. You can even set expiration dates for flag targeting if you know you only want users to see a flag for a specific period of time.
+You can use the **Targeting** tab to roll features out for internal testing, private betas, or usability tests before performing a broader rollout. You can even set expiration dates for flag targeting if you know you only want users to receive a flag for a specific period of time.
 
 While the **Targeting** tab uses the language of targeted "users", a user can be any identifier that uniquely corresponds to a target. You can target users of your application, email addresses, systems, services, machines, resources, or anything else that can be uniquely identified.
 
@@ -26,11 +26,11 @@ We recommend using individual user targeting for very small numbers of individua
 </CalloutDescription>
 </Callout>
 
-If your application is already sending data back to LaunchDarkly, you can search for users by name, email address, or user key. These strings are case sensitive. Hover over the user row to see more attributes for that user.
+If your application is already sending data back to LaunchDarkly, you can search for users by name, email address, or user key. These strings are case sensitive. Hover over the user row for more attributes for that user.
 
 If you need to target a user that LaunchDarkly doesn't know about, you can enter their key manually. These users display in yellow until they encounter a feature flag.
 
-In the screenshot below, we see which users are seeing the first variation of a flag. That flag is targeted to them. This means that these users will see that flag variation when they access the flag.
+In the screenshot below, specific users are receiving the first variation of a flag. That flag is targeted to them. This means that these users will receive that flag variation when they access the flag.
 
 ![A flag with users targeted.](flag-targeting-users-var1.png)
 
@@ -136,7 +136,7 @@ You can add multiple conditions to a rule. Here is how rules handle multiple con
 
 ### Targeting users based on custom attributes
 
-LaunchDarkly allows you to target users based on arbitrary custom attributes, which means you can control who sees features based on any criteria that you send to us.
+LaunchDarkly allows you to target users based on arbitrary custom attributes, which means you can control who receives features based on any criteria that you send to us.
 
 For instance, you might want to target users based on plan, group, role, location, or organization. Using these attributes, you could show some features to users on your regular plan, and additional features to users on your premium plan. Or you could roll out a new feature to 30% of organizations, rather than 30% of users.
 
@@ -398,7 +398,7 @@ $user = new LDUser("foo@example.com", null, null, null, ["groups" => "beta_teste
 
 Next, add a new rule on the **Targeting** tab. Set the attribute name to `groups`, the operator to `is one of`, the attribute value to `beta_testers`, and the name of your group of beta testers.
 
-Any users in the `beta_testers` group now see the new dashboard feature. You have also kept the feature on for your internal tester Ernesto, since there's still an Include rule for him.
+Any users in the `beta_testers` group now receive the new dashboard feature. You have also kept the feature on for your internal tester Ernesto, since there's still an Include rule for him.
 
 ## Percentage rollouts
 
@@ -408,7 +408,7 @@ Here is an image of the percentage rollout section:
 
 ![The percentage rollout section.](rules-percentage-rollout.png)
 
-In this example, 25% of the `beta_testers` group see the new dashboard feature.
+In this example, 25% of the `beta_testers` group receive the new dashboard feature.
 
 <Callout intent="info">
 <CalloutTitle>Experiment allocation</CalloutTitle>
@@ -421,11 +421,11 @@ If you're using Experimentation, experiment allocation allows you more flexibili
 
 ### Percentage rollout logic
 
-When you set up a percentage rollout, the variation a user receives is determined by the user's key. The percentage rollout logic generates a hash from the user's key or attribute, the user's secondary attribute (if provided), the flag's key, and a hidden salt attribute stored in the flag.
+When you set up a percentage rollout, the variation a user receives is determined by the user's key. The percentage rollout logic generates a hash from the user's key or attribute, the user's secondary attribute if provided, the flag's key, and a hidden salt attribute stored in the flag.
 
 The SDK uses this hash to generate a percentage value for that user. That value, compared to the value set for the percentage rollout value, determines which variation a user receives. The hash has partitions from 1 to 100,000. When you assign flag variations, the hash assigns values from 1 to 100,000 to users in each partition, in order. For example, when you assign 50% to variation A, LaunchDarkly serves variation A to hash partitions from 1 to 50,000.
 
-A common use case for percentage rollouts is to increment the percentage of users targeted by a flag over time until 100% of the users see one variation of a flag. When you change the percentage allocation of users to flag variations, those users are reassigned different flag variations based on their partition's position in the 1 to 100,000 hash list. For example, if you change the percentage of users seeing variation A from 50% to 70%, partitions 50,001 to 70,000 would be added to the set of partitions already seeing variation A.
+A common use case for percentage rollouts is to increment the percentage of users targeted by a flag over time until 100% of the users receive one variation of a flag. When you change the percentage allocation of users to flag variations, those users are reassigned different flag variations based on their partition's position in the 1 to 100,000 hash list. For example, if you change the percentage of users receiving variation A from 50% to 70%, partitions 50,001 to 70,000 would be added to the set of partitions already receiving variation A.
 
 To learn more about rollouts and variation assignments, read [Rollouts](/sdk/concepts/flag-evaluation-rules#percentage-rollouts).
 

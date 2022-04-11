@@ -15,7 +15,7 @@ LaunchDarkly calculates client-side MAUs as unique keys that evaluate, initializ
 
 Your usage is based on the total number of unique user keys across your entire account, regardless of anonymity or whether the user is currently visible on the **Users** dashboard. We count unique user keys that are evaluated by a flag. If a single user account evaluates flags from multiple device types or over multiple sessions, we count that user as one MAU over the 30-day period. If user accounts evaluate flags in your Relay Proxy, we also count each user as one MAU over the 30-day period.
 
-You can see this data visualized in **Account settings** on the **Usage** tab. The Client MAUs chart shows the total number of unique keys over the previous 30-day rolling period. LaunchDarkly usage charts also show you the number of unique keys per project and per environment.
+LaunchDarkly visualizes this data in **Account settings** on the **Usage** tab. The Client MAUs chart shows the total number of unique keys over the previous 30-day rolling period. LaunchDarkly usage charts also show you the number of unique keys per project and per environment.
 
 Here is an example **Usage** tab:
 
@@ -35,7 +35,7 @@ Project MAU and account MAU are not always the same number. MAU charts count uni
 * The **Client** tab can show all the unique client MAUs from each named project, *or*
 * The **Client** tab can show all the unique client MAUs from each named environment
 
-For example, LaunchDarkly may be seeing 10K unique user keys for Project A and 10K for Project B, but if there is any overlap in the user base your account may be serving 13k unique user keys.
+For example, LaunchDarkly may be receiving 10K unique user keys for Project A and 10K for Project B, but if there is any overlap in the user base your account may be serving 13k unique user keys.
 
 A detailed breakdown of the example user key allocation follows:
 
@@ -70,7 +70,7 @@ Billing metrics show you:
 - How many Experimentation events you're using
 - How many Data Export events you're using
 
-You can easily see your usage, and adjust your plan as you need to accommodate your application’s or organization’s growth. To learn more, read [The Billing tab](/home/billing/billing-tab).
+You can easily view your usage, and adjust your plan as you need to accommodate your application’s or organization’s growth. To learn more, read [The Billing tab](/home/billing/billing-tab).
 
 ## Understanding usage metrics
 
@@ -80,9 +80,9 @@ Usage metrics tell you:
 
 - How many LaunchDarkly seats, projects, and environments your organization is using.
 - How many unique MAUs LaunchDarkly is tracking, broken out by browser and mobile MAUs.
-- How many server connections your application has with LaunchDarkly. You can visualize them by hour, day, or over the past month to see trends.
+- How many server connections your application has with LaunchDarkly. You can visualize them by hour, day, or over the past month to observe trends.
 
-If you have Experimentation or Data Export enabled, you can see metrics related to that usage.
+If you have Experimentation or Data Export enabled, you can view metrics related to that usage.
 
-- For Experimentation, you can see the number of experiment events, as well as the average over the last hour, up to the last 60 days. To learn more about managing Experimentation events, read [Managing Experimentation event counts](/home/experimentation/events#managing-experimentation-event-counts).
-- For Data Export, you can see the number of events published along with the average, from a time period as short as one hour to as long as the last 60 days.
+- For Experimentation, you can view the number of experiment events, as well as the average over the last hour, up to the last 60 days. To learn more about managing Experimentation events, read [Managing Experimentation event counts](/home/experimentation/events#managing-experimentation-event-counts).
+- For Data Export, you can view the number of events published along with the average, from a time period as short as one hour to as long as the last 60 days.

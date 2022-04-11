@@ -117,7 +117,7 @@ When your application requests flag evaluation, server-side SDKs evaluate featur
 
 Server-side SDKs can evaluate flags because these SDKs know your complete flag ruleset. These SDKs can determine users' flag variations without having to make requests to LaunchDarkly's servers for every evaluated flag.
 
-You can think of each flag evaluation as a pure function, where LaunchDarkly uses the provided user context along with the complete ruleset to see if a specific user should be included in an evaluation or not. It is important to note that LaunchDarkly passes along *rule data*, not user data. If a user does not have the correct attributes locally, then it will not be evaluated by the rules that are cached by the SDK.
+You can think of each flag evaluation as a pure function, where LaunchDarkly uses the provided user context along with the complete ruleset to check if a specific user should be included in an evaluation or not. It is important to note that LaunchDarkly passes along *rule data*, not user data. If a user does not have the correct attributes locally, then it will not be evaluated by the rules that are cached by the SDK.
 
 ### Flag evaluation comparison
 

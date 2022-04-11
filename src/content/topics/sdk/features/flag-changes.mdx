@@ -831,7 +831,7 @@ These events are:
 
 You can listen for `"update:EXAMPLE_FLAG_KEY"` if you only want to know about updates affecting that flag specifically, or `"update"` if you want to be notified about all updates.
 
-For both of these event kinds, an extra parameter is sent to event listeners. This object has the single property `key`, with its value set to the flag key. If you listened for the general `"update"` event, this lets you see which flag changed.
+For both of these event kinds, an extra parameter is sent to event listeners. This object has the single property `key`, with its value set to the flag key. If you listened for the general `"update"` event, this lets you know which flag changed.
 
 The event parameter does not contain the flag value. In server-side SDKs, there is no such thing as a flag value except when it is evaluated for a specific set of user properties.
 

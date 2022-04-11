@@ -74,7 +74,7 @@ Prerequisite flags may control large UI elements which contain multiple componen
 
 Controlling these sub-elements with flags does not change the prerequisite flag behavior. All flag conditions and rules are evaluated, and if there is any condition that would prevent the flagged code from executing, that will stop execution. In other words, even if a flagged piece of code would execute according to 9 of its 10 rules, the tenth would prevent execution. That safety-first behavior would be reversed if the flag default was to serve the code on, and the flag rules existed to turn it off.
 
-For example, a flag named "New search bar" enables a new search bar on a new page in your app. Access to that page is required for a user to see the new search bar, and is controlled by the "New page" flag. In this example, the "New page" flag is a prerequisite of the "New search bar" flag.
+For example, a flag named "New search bar" enables a new search bar on a new page in your app. Access to that page is required for a user to use the new search bar, and is controlled by the "New page" flag. In this example, the "New page" flag is a prerequisite of the "New search bar" flag.
 
 Prerequisite flag settings can vary by environment, so you could have the prerequisite and dependent flags all on in a test environment, but not in production. The production prerequisite flag might be secured by role-based access control (RBAC), so it could only be enabled by a small subset of your organization.
 To learn more, read [Custom roles](/home/members/custom-roles).
@@ -202,7 +202,7 @@ If you would like to practice these concepts by creating flags, read [Getting st
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
 <CalloutDescription>
 
-Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
 
 Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 

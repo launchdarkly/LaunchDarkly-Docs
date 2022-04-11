@@ -17,7 +17,7 @@ This guide covers:
 - Examining users in the Users dashboard
 - Rolling out flag variations to a percentage of users
 - Targeting specific users with flag rules
-- Seeing how flag evaluations change over time with flag Insights
+- Understanding how flag evaluations change over time with flag Insights
 - Targeting users by their attributes
 - Preventing specific user details from being sent to LaunchDarkly
 
@@ -117,7 +117,7 @@ There are also optional **standard** attributes that must conform to these requi
   </TableBody>
 </Table>
 
-With LaunchDarkly, you can create user objects with as many attributes as you need. The only required attribute is the `key` attribute, which holds the user identifier. If the LaunchDarkly rules engine sees two user objects with the same `key`, it assumes they represent the same user.
+With LaunchDarkly, you can create user objects with as many attributes as you need. The only required attribute is the `key` attribute, which holds the user identifier. If the LaunchDarkly rules engine encounters two user objects with the same `key`, it assumes they represent the same user.
 
 When a user encounters a flag, their attributes are sent to LaunchDarkly. This makes the attributes available through the dashboard. All the user attributes are sent, with the exception of those that have been marked private.
 
@@ -141,7 +141,7 @@ For example:
 - `AND` user is using version 2.1 or above,
 - show the user `flag variation 1`.
 
-In that case, even if a user is in the `test_group`, they won’t see `flag variation 1` unless their version has been updated recently. If someone is on a new version but is not in the `test_group`, they also won’t see it. In this example, it doesn’t matter what order the rules are evaluated in.
+In that case, even if a user is in the `test_group`, they won’t receive `flag variation 1` unless their version has been updated recently. If someone is on a new version but is not in the `test_group`, they also won’t receive it. In this example, it doesn’t matter what order the rules are evaluated in.
 
 ### Flag targeting
 
@@ -212,7 +212,7 @@ Learn more: [How to use Glitch](https://glitch.com/create)How to use Glitch
 #### Switching between the code and app views in Glitch
 ---
 
-In the Glitch app, you have the option to see the live app in production, or the code for the app.
+In the Glitch app, you have the option to view the live app in production, or the code for the app.
 
 To switch between them:
 
@@ -458,7 +458,7 @@ else:
 </CodeTabItem>
 </CodeTabs>
 
-5. Modify this version of the app so you can see the hash that's been generated from the email address. To do this, add an extra `key` parameter to the `render_template()` call at the end of `pricing()`:
+5. Modify this version of the app to reveal the hash that's been generated from the email address. To do this, add an extra `key` parameter to the `render_template()` call at the end of `pricing()`:
 
 <CodeTabs
   defaultValue="py"
@@ -481,7 +481,7 @@ else:
 </CodeTabItem>
 </CodeTabs>
 
-The whole `pricing()` function should now look like this:
+The whole `pricing()` function should now be formatted like this:
 
 <CodeTabs
   defaultValue="py"
@@ -565,7 +565,7 @@ To verify everything is working correctly, use this procedure to check your work
 </CodeTabs>
 
 5. Navigate to your Glitch app and log in.
-6. Click on the avatar in the top right corner. If everything is working correctly, you should see both the email and the hash:
+6. Click on the avatar in the top right corner. If everything is working correctly, the menu should display both the email and the hash:
 
 ![The avatar menu now includes the user key, which is the shortened hash of the user's email address.](starlight-travel-menu-with-hash.png)
 
@@ -591,13 +591,13 @@ Here is an image of the **Users** dashboard:
 
 ![The Users dashboard.](users-dashboard-hashes.png)
 
-Click on a user's `key` attribute to look at an individual user page. The left side displays all the attributes which have been uploaded to LaunchDarkly so far. On the right you can see how each flag in the project will evaluate for that particular user.
+Click on a user's `key` attribute to look at an individual user page. The left side displays all the attributes which have been uploaded to LaunchDarkly so far. The right side displays how each flag in the project will evaluate for that particular user.
 
-You might see that there are not many users yet. As you continue this guide, you'll add more users to test with.
+You might notice that there are not many users yet. As you continue this guide, you'll add more users to test with.
 
 ## Configuring a percentage rollout
 
-A percentage rollout is when you choose a percentage of users to see each variation of your flag. You can increase or decrease these percentages over time.
+A percentage rollout is when you choose a percentage of users to receive each variation of your flag. You can increase or decrease these percentages over time.
 
 To learn more, read [Targeting users](/home/flags/targeting-users).
 
@@ -619,10 +619,10 @@ To turn on a percentage rollout for the `Pricing Tier 3` flag:
 6. Click **Review and save**.
 7. Log in to the Starlight Travel app as a few different users. Keep track of which email addresses you use as you log in and log out.
 8. When the third pricing tier appears, you know the user you logged in as is part of the 30% of users targeted by the "Pricing Tier 3" flag.
-9. Log out and log back in again as that same user. The third pricing tier appears every time that user logs in, because LaunchDarkly can now identify individual users. That user will always see the third tier until the flag's targeting changes.
-10. When you find a user who doesn't see the third tier, save their email address.
+9. Log out and log back in again as that same user. The third pricing tier appears every time that user logs in, because LaunchDarkly can now identify individual users. That user will always receive the third tier until the flag's targeting changes.
+10. When you find a user who doesn't receive the third tier, save their email address.
 
-Now you've seen flag targeting in action. Let's move on to verifying that the flag is working as you intended.
+Now you've experienced flag targeting in action. Let's move on to verifying that the flag is working as you intended.
 
 ## Verifying flag behavior with flag Insights
 
@@ -636,7 +636,7 @@ You can confirm that the "Pricing Tier 3" flag is appearing for 30% of users. La
 
  This graph shows all the times this flag has been evaluated in the last hour. It also shows the variations that were shown to users.
 
- As you've changed how the flag is targeted, the data changes with it. Since you changed the flag's targeting to a percentage rollout, you should see that roughly a third of flag evaluations have been `true`, while the rest have been `false`.
+ As you've changed how the flag is targeted, the data changes with it. Since you changed the flag's targeting to a percentage rollout, you should notice that roughly a third of flag evaluations have been `true`, while the rest have been `false`.
 
 <Callout intent="alert">
 <CalloutTitle>Waiting for Insights data</CalloutTitle>
@@ -649,17 +649,17 @@ If it shows an absolute time range instead, such as "10:35 AM - 11:35 AM", chang
 </CalloutDescription>
 </Callout>
 
-Percentage rollouts give you broad control over the flag variation different users see. You can exercise much finer control too.
+Percentage rollouts give you broad control over the flag variation different users receive. You can exercise much finer control too.
 
 ## Targeting individual users
 
-You can override the percentage rollout for any particular user, forcing them to see or not see a flag regardless of other targeting rules. You can do this by targeting them with rules individually.
+You can override the percentage rollout for any particular user, forcing them to receive or not receive a flag regardless of other targeting rules. You can do this by targeting them with rules individually.
 
-In [Configuring a percentage rollout](#configuring-a-percentage-rollout), you saved the email address of a user who did not see the new pricing option in your Glitch app. You need that email address for this exercise, so find it now.
+In [Configuring a percentage rollout](#configuring-a-percentage-rollout), you saved the email address of a user who did not receive the new pricing option in your Glitch app. You need that email address for this exercise, so find it now.
 
 To target an individual user through the Users dashboard:
 
-1. Log in to your Glitch app with the email address of the user who did **not** see the "Pricing Tier 3" flag.
+1. Log in to your Glitch app with the email address of the user who did **not** receive the "Pricing Tier 3" flag.
 2. Click on the avatar icon in the top-right of the page. The 10-character hashed user `key` is displayed. Copy this key and save it.
 3. Navigate to the LaunchDarkly **Users** dashboard.
 4. Find the user `key` you saved in the list of users and click their name. The user's menu appears.
@@ -669,7 +669,7 @@ To target an individual user through the Users dashboard:
 
 ![The flag settings for the user, after choosing the flag variation.](users-flag-settings.png)
 
-8. From the flag dashboard, click the name of the "Pricing Tier 3" flag to return to its **Targeting** tab. The "Target individual users" section is expanded. This section specifies the individual users who should always see a particular flag variation. In the `true` section, you see the key for the user whose setting you just changed:
+8. From the flag dashboard, click the name of the "Pricing Tier 3" flag to return to its **Targeting** tab. The "Target individual users" section is expanded. This section specifies the individual users who should always receive a particular flag variation. In the `true` section, you can view the key for the user whose setting you just changed:
 
 ![The "Target individual users" section of the flag's "Targeting" tab.](flag-targeting-individual-user.png)
 
@@ -854,7 +854,7 @@ We hope that this has helped you understand how precisely you can target flag de
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
 <CalloutDescription>
 
-Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
 
 Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 

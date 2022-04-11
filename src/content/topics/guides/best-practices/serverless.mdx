@@ -100,7 +100,7 @@ This approach should function for the majority of serverless applications.
 
 ### Option 2: Use a persistent feature store
 
-If your app often sees high levels of concurrency or sensitivity to cold starts, you may need to reduce the initialization time that LaunchDarkly takes. You can do this by setting up a persistent feature store to serve flag values locally.
+If your app often has high levels of concurrency or sensitivity to cold starts, you may need to reduce the initialization time that LaunchDarkly takes. You can do this by setting up a persistent feature store to serve flag values locally.
 
 In this configuration, the LaunchDarkly SDK no longer downloads the project's entire flag set for later evaluation. Instead, it connects to the configured feature store at initialization time, then queries the feature store for each flag evaluation call.
 
@@ -239,7 +239,7 @@ If you have more questions or need further assistance, get in touch by [contacti
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
 <CalloutDescription>
 
-Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
 
 Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 

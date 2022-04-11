@@ -408,8 +408,8 @@ The 5.0 release also includes new features and improvements as described in the 
 
 These include:
 
-* The SDK now has support for multiple LDClient instances that are tied to separate mobile keys, allowing the evaluation of flags in multiple environments. See the [multiple environments](/sdk/features/multiple-environments#ios) section of the reference guide for more information on this feature.
+* The SDK now has support for multiple LDClient instances that are tied to separate mobile keys, allowing the evaluation of flags in multiple environments. For more information on this feature, read [Multiple environments](/sdk/features/multiple-environments#ios). 
 * The SDK now periodically sends diagnostic data to LaunchDarkly, describing the version and configuration of the SDK, properties of the underlying operating system, and performance statistics. No credentials or identifiable values are included. This behavior can be disabled with `LDConfig.diagnosticOptOut(Bool)` or configured with `LDConfig.diagnosticRecordingInterval(TimeInterval)`.
-* The LaunchDarkly iOS SDK is now compatible with the Swift Package Manager. Read more about building with the Swift Package Manager in the [getting started](/sdk/client-side/ios#getting-started) section of the iOS reference guide.
+* The LaunchDarkly iOS SDK is now compatible with the Swift Package Manager. Read more about building with the Swift Package Manager in the [Getting started](/sdk/client-side/ios#getting-started) section of the iOS reference guide.
 * When shutting down the client instance by calling `close` (formerly `stop`), the event queue is flushed prior to shutting down. This ensures that all pending events are submitted before the client connections are closed.
 * The SDK configuration now offers the ability to set a wrapper name (`LDConfig.wrapperName`) and version (`LDConfig.wrapperVersion`). These allow a library wrapping the SDK (for example, the React Native SDK) to identify itself for usage data.

@@ -25,7 +25,7 @@ With custom roles, you can:
 - Lock your production environment down to a small set of trusted users
 - Allow account members to control feature flags on projects or environments that are designated for their team only
 - Allow different permissions at the flag level, such as between experiment flags and operational flags
-- Create private projects that only the account members you select can see. To learn more, read [Creating private projects with custom roles](/home/organize/private-projects).
+- Create private projects that only the account members you select can view. To learn more, read [Creating private projects with custom roles](/home/organize/private-projects).
 
 Our custom role system is inspired by [AWS Identity and Access Management (IAM)](https://aws.amazon.com/iam/). If you're familiar with IAM, there are some similarities.
 
@@ -43,7 +43,7 @@ You can also use the REST API: [Custom roles](https://apidocs.launchdarkly.com/t
 
 ## Configuring custom role scopes
 
-Custom roles are extremely precise in their scope and targeting. For example, you can define a custom role to allow the recipient of that role to take all actions on only one flag in a project, and also not allow that role recipient to see any other projects.
+Custom roles are extremely precise in their scope and targeting. For example, you can define a custom role to allow the recipient of that role to take all actions on only one flag in a project, and also not allow that role recipient to view any other projects.
 
 This level of precision also means you must specifically allow or deny actions for every resource you want the role recipient to be able to take. If you do not specify an action for a resource, that action is set to deny by default.
 

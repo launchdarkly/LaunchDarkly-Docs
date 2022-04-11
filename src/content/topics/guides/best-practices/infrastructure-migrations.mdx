@@ -41,7 +41,7 @@ Some possibilities for targeting rules include:
 - Only 1% of requests with given criteria use the new code. Later, set a schedule to gradually increase that percentage.
 - There are multiple active versions of consumer C, so only use the new code if the semantic version number is greater than 2.5.2.
 - All requests get the new code, except those where parameter P matches one a regular expression.
-- If the “debug” parameter is set, or if consumers X and Y see unintended behavior, set the log level to `DEBUG`.
+- If the “debug” parameter is set, or if consumers X and Y experience unintended behavior, set the log level to `DEBUG`.
 - If the monitoring system hits an error threshold, use flag triggers turn off all targeting and switch back to the old code momentarily. To learn more, read [Flag triggers](/home/feature-workflows/triggers).
 
 All of these rules are definable through either the LaunchDarkly user interface (UI) or our REST API. None of them require any code change.
@@ -172,7 +172,7 @@ The example up until this point assumed a data model that doesn't get updated, o
 </CalloutDescription>
 </Callout>
 
-After your data is copied to `db2`, you can start turning on reads to the new data store. Turn on reads for a small segment of your users and monitor the performance metrics and error logs. Specifically, look for a “db1 and db2 events differ” message. That message does not indicate that something is wrong in production. Even if you see that message, it hasn’t affected any users. They are still using the data from your old data store. If you see that error message, you can fix any issues without impacting your users and move forward.
+After your data is copied to `db2`, you can start turning on reads to the new data store. Turn on reads for a small segment of your users and monitor the performance metrics and error logs. Specifically, pay attention for a “db1 and db2 events differ” message. That message does not indicate that something is wrong in production. Even if you receive that message, it hasn’t affected any users. They are still using the data from your old data store. If you receive that error message, you can fix any issues without impacting your users and move forward.
 
 <LearnMore>
 
@@ -180,7 +180,7 @@ Learn more: [Percentage rollouts](/home/flags/targeting-users#percentage-rollout
 
 </LearnMore>
 
-Once you're comfortable with the performance metrics and error counts you're seeing with reads and writes, you can now turn off the read and write flags for `db1`, remove all references to all four flags in your code, and you are left with just `db2`.
+Once you're comfortable with the performance metrics and error counts you're receiving with reads and writes, you can now turn off the read and write flags for `db1`, remove all references to all four flags in your code, and you are left with just `db2`.
 
 Here is a diagram representing an example migration strategy:
 
@@ -237,7 +237,7 @@ There's no one-size-fits-all strategy for infrastructure migrations. This guide 
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
 <CalloutDescription>
 
-Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll see how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
 
 Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 

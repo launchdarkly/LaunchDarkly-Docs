@@ -454,7 +454,7 @@ First, you can use the serialize and deserialize methods in `LaunchDarkly.Sdk.Js
 
 Second, the `System.Text.Json` API (available on all platforms except .NET Framework 4.5.x) will correctly convert these types.
 
-Third, if you prefer to use the popular [Newtonsoft Json.NET](https://www.newtonsoft.com/json) framework, see below.
+Third, if you prefer to use the popular [Newtonsoft Json.NET](https://www.newtonsoft.com/json) framework, read the following section.
 
 ### Json.NET
 
@@ -529,7 +529,7 @@ The main changes are:
 
 The interface for "data source" components that receive feature flag data, either from LaunchDarkly or from some other source, such as a file, has also changed slightly to use the new data store model.
 
-To learn more, read the API documentation for the `IPersistentDataStore` and `IDataSource` interfaces. You may also want to review the source code for one of the LaunchDarkly database integrations, such as [Redis](http://github.com/launchdarkly/dotnet-server-sdk-redis), to see how it changed from the previous major version.
+To learn more, read the API documentation for the `IPersistentDataStore` and `IDataSource` interfaces. You may also want to review the source code for one of the LaunchDarkly database integrations, such as [Redis](http://github.com/launchdarkly/dotnet-server-sdk-redis), to learn how it changed from the previous major version.
 
 ## Miscellaneous API changes
 

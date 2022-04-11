@@ -107,7 +107,7 @@ If you're a new LaunchDarkly technical writer or other contributor accessing the
 
 When you open a docs PR, it creates a unique staging site. The URL for each site is linked in the PR page in the repo.
 
-Staging is automatically refreshed on push to main. See [Build & Deploy](#-build--deploy).
+Staging is automatically refreshed on push to main. To learn more, read [Build & Deploy](#-build--deploy).
 
 ## (Internal LaunchDarkly use only) 🚀 Building and deploying the docs site
 

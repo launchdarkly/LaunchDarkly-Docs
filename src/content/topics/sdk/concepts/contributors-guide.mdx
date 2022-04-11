@@ -75,7 +75,7 @@ Flag updates are triggered when you make changes on your flag dashboard, and arr
 
 ## Evaluating feature flags
 
-Server-side and client-side SDKs significantly differ in how they evaluate feature flags. See [Flag evaluations](/sdk/concepts/client-side-server-side#flag-evaluations) for a high-level explanation.
+Server-side and client-side SDKs significantly differ in how they evaluate feature flags. For a high-level explanation, read [Flag evaluations](/sdk/concepts/client-side-server-side#flag-evaluations).
 
 ### Flag evaluation in server-side SDKs
 
@@ -506,7 +506,7 @@ The `counters` field is an array of objects with the following shape:
   </TableBody>
 </Table>
 
-The SDK should generate be a separate entry in `counters` for each unique value/version/variation combination seen during the interval.
+The SDK should generate be a separate entry in `counters` for each unique value/version/variation combination encountered during the interval.
 
 The call to `/api/events/bulk` should contain a JSON list of events.
 
@@ -541,7 +541,7 @@ The technical details of how to implement `diagnostic` events in a LaunchDarkly 
 
 ## Common pitfalls
 
-We've seen a few common mistakes in integrating the LaunchDarkly SDK at customer sites. It's helpful for the SDKs to introduce specific logging around these errors and handle them as gracefully as possible:
+We've observed a few common mistakes in integrating the LaunchDarkly SDK at customer sites. It's helpful for the SDKs to introduce specific logging around these errors and handle them as gracefully as possible:
 
 1. Passing `null` (or the language equivalent) as the user `key`, or omitting the `key` property altogether. SDKs should log this at error level and return the default value.
 2. Including a trailing slash in the base URL of a custom config object. Example: `https://sdk.launchdarkly.com/`, which when appended to `/api`, yields `https://sdk.launchdarkly.com//api`. SDKs should deal with this by trimming trailing slashes off of custom base URL parameters.

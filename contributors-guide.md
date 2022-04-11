@@ -44,7 +44,7 @@ Here's a template for what the frontmatter should look like:
 ---
 path: /home/managing-users/users-dashboard
 title: The Users dashboard
-description: This topic explains what the Users dashboard is. The Users dashboard gives you a summary view of how each user sees all of the features on your site, and lets you customize their experience from one screen.
+description: This topic explains what the Users dashboard is. The Users dashboard gives you a summary view of how each user experiences all of the features in your app, and lets you customize their experience from one screen.
 published: true
 ---
 ```

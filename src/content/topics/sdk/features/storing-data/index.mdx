@@ -383,7 +383,7 @@ The PHP SDK can use [Consul](/sdk/features/storing-data/consul), [DynamoDB](/sdk
 
 Unlike other server-side SDKs, the PHP SDK cannot connect to LaunchDarkly while using a database as a backing store. It can only read from a database that has been populated by the [Relay Proxy](/home/relay-proxy), or by another application that uses a server-side LaunchDarkly SDK. To learn more, read [Using daemon mode](/home/relay-proxy/using#using-daemon-mode).
 
-Another difference from other SDKs is that the PHP SDK does not have an in-memory cache for database queries. This is because in PHP, the entire in-memory application state is normally discarded after each request. Therefore, in code examples for PHP you will not see a cache TTL parameter.
+Another difference from other SDKs is that the PHP SDK does not have an in-memory cache for database queries. This is because in PHP, the entire in-memory application state is normally discarded after each request. Therefore, code examples for PHP do not include a cache TTL parameter.
 
 To read from a persistent feature store without connecting to LaunchDarkly:
 
