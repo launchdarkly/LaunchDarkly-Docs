@@ -13,20 +13,28 @@ This topic explains how the bootstrapping feature works in the LaunchDarkly SDKs
 
 The bootstrapping feature lets you decrease startup times for client-side SDKs by providing them with an initial set of flag values. The SDK serves these values to the user while it initializes, before it has established a connection to LaunchDarkly. The SDK makes an initial call to LaunchDarkly to check for updated flag values, but this happens in the background. The user experiences no inconsistency in which flag variations they see.
 
+## Client-side SDKs
+
 This feature is available in the following client-side SDKs:
 
 * [Electron](#electron)
 * [JavaScript](#javascript)
-* [Node.js](#nodejs-client-side)
+* [Node.js (client-side)](#nodejs-client-side)
 * [React](#react)
 
 ### Electron
+
+<Details summary="Expand Electron code sample">
 
 The bootstrap feature in Electron works the same as in client-side Node.js SDK. To learn how to use it, read [Node.js (client-side)](#nodejs-client-side).
 
 If you set `bootstrap` to the string `"localStorage"`, the client tries to get flag values from persistent storage, using a unique key that is based on the user properties. In Electron, persistent storage consists of files in the [`userData`](https://electronjs.org/docs/) directory. If the client finds flag values stored for this user, it uses them and starts up immediately in a ready state, but also makes a background request to LaunchDarkly to get the latest values and stores them as soon as it receives them.
 
+</Details>
+
 ### JavaScript
+
+<Details summary="Expand JavaScript code sample">
 
 We recommend populating bootstrap values with a JSON object containing flag metadata derived from calling the server-side SDK's "allFlagsState" method. All of the server-side SDKs have a function, called some variation of "allFlagsState," to evaluate flags on behalf of a specified user. This function provides the initial set of bootstrap values to your front end. The exact name varies depending on the back-end technology's naming conventions, such as camel-case or snake-case.
 
@@ -141,7 +149,11 @@ When it uses local storage, the client stores the latest flag settings there. On
 
 You can still subscribe to flag changes if you use local storage.
 
+</Details>
+
 ### Node.js (client-side)
+
+<Details summary="Expand Node.js (client-side) code sample">
 
 You can use bootstrapping on the Node.js SDK with values provided by LaunchDarkly-enabled code on the backend.
 
@@ -226,7 +238,11 @@ const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 </CodeTabItem>
 </CodeTabs>
 
+</Details>
+
 ### React
+
+<Details summary="Expand React code sample">
 
 You can use the optional `flags` property to bootstrap the React SDK.
 
@@ -257,3 +273,5 @@ values={[
 </CodeTabs>
 
 To learn more, read the [React Web SDK reference](/sdk/client-side/react/react-web).
+
+</Details>
