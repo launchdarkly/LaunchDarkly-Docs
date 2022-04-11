@@ -80,11 +80,11 @@ Here's how to add the Honeycomb integration:
 
 The "Policy" field in the integration configuration panel lets you control which events LaunchDarkly sends to Honeycomb.
 
-The Resource specifier in the default policy value allows Production environments across all projects to send events:
+The resource specifier in the default policy value allows production environments across all projects to send events:
 
 <CodeTabs
   defaultValue="json" values={[
-    { label: 'Example', value: 'json', },
+    { label: 'Production environments across all projects', value: 'json', },
   ]
 }>
 <CodeTabItem value="json">
@@ -108,7 +108,7 @@ For example, to restrict the policy to a single project called `cool-app`, set t
 
 <CodeTabs
   defaultValue="json" values={[
-    { label: 'Example', value: 'json', },
+    { label: 'Restrict to a single project', value: 'json', },
   ]
 }>
 <CodeTabItem value="json">

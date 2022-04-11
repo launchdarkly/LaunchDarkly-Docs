@@ -48,7 +48,7 @@ To configure the client-side .NET SDK to connect to LaunchDarkly through a web p
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'Example', value: 'csharp', },
+    { label: 'C#', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -70,7 +70,7 @@ To configure the client-side .NET SDK to connect to LaunchDarkly through a web p
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'Example', value: 'csharp', },
+    { label: 'C#', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -102,7 +102,7 @@ To configure the C/C++ SDK to connect to LaunchDarkly through a web proxy:
 <CodeTabs
   defaultValue="c"
   values={[
-    { label: 'C', value: 'c', },
+    { label: 'C/C++', value: 'c', },
   ]
 }>
 <CodeTabItem value="c">
@@ -120,7 +120,7 @@ To configure the client-side C/C++ SDK to connect to LaunchDarkly through a web 
 <CodeTabs
   defaultValue="c"
   values={[
-    { label: 'C', value: 'c', },
+    { label: 'C/C++', value: 'c', },
   ]
 }>
 <CodeTabItem value="c">
@@ -151,13 +151,13 @@ LDConfigSetProxyURI(config, "https://username:password@web-proxy.domain.com:8080
 To configure the server-side .NET SDK to connect to LaunchDarkly through a web proxy:
 
 <CodeTabs
-  defaultValue="sdk6"
+  defaultValue="csharp"
   values={[
-    { label: '.NET', value: 'sdk6', },
-    { label: '.NET SDK versions 5.14.x and earlier', value: 'sdk5', },
+    { label: 'C#', value: 'csharp', },
+    { label: 'C# (.NET SDK versions 5.14.x and earlier)', value: 'sdk5', },
   ]
 }>
-<CodeTabItem value="sdk6">
+<CodeTabItem value="csharp">
 
 ```csharp
 var proxy = new System.Net.WebProxy("http://my-proxy-host:8080");
@@ -185,13 +185,13 @@ var config = Configuration.Builder("sdk-key")
 To configure the server-side .NET SDK to connect to LaunchDarkly through a web proxy with authentication:
 
 <CodeTabs
-  defaultValue="sdk6"
+  defaultValue="csharp"
   values={[
-    { label: '.NET', value: 'sdk6', },
-    { label: '.NET SDK versions 5.14.x and earlier', value: 'sdk5', },
+    { label: 'C#', value: 'csharp', },
+    { label: 'C# (.NET SDK versions 5.14.x and earlier)', value: 'sdk5', },
   ]
 }>
-<CodeTabItem value="sdk6">
+<CodeTabItem value="csharp">
 
 ```csharp
 var proxy = new System.Net.WebProxy("http://my-proxy-host:8080");
@@ -239,8 +239,8 @@ Here is an example:
 <CodeTabs
   defaultValue="linux"
   values={[
-    { label: 'command line - on Mac or Linux', value: 'linux', },
-    { label: 'command line - on Windows', value: 'windows', },
+    { label: 'Console', value: 'linux', },
+    { label: 'cmd', value: 'windows', },
   ]
 }>
 <CodeTabItem value="linux">
@@ -273,8 +273,8 @@ Here is an example:
 <CodeTabs
   defaultValue="linux"
   values={[
-    { label: 'command line - on Mac or Linux', value: 'linux', },
-    { label: 'command line - on Windows', value: 'windows', },
+    { label: 'Console', value: 'linux', },
+    { label: 'cmd', value: 'windows', },
   ]
 }>
 <CodeTabItem value="linux">
@@ -468,8 +468,8 @@ How to set the HTTPS_PROXY environment variable on Mac/Linux and Windows systems
 <CodeTabs
   defaultValue="linux"
   values={[
-    { label: 'command line - on Mac or Linux', value: 'linux', },
-    { label: 'command line - on Windows', value: 'windows', },
+    { label: 'Console', value: 'linux', },
+    { label: 'cmd', value: 'windows', },
   ]
 }>
 <CodeTabItem value="linux">
@@ -519,8 +519,8 @@ To configure the Ruby SDK to connect to LaunchDarkly through a web proxy:
 <CodeTabs
   defaultValue="linux"
   values={[
-    { label: 'command line - on Mac or Linux', value: 'linux', },
-    { label: 'command line - on Windows', value: 'windows', },
+    { label: 'Console', value: 'linux', },
+    { label: 'cmd', value: 'windows', },
   ]
 }>
 <CodeTabItem value="linux">

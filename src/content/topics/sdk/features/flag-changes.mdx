@@ -54,11 +54,11 @@ Here's how:
 <CodeTabs
   defaultValue="dotnet-client"
   values={[
-    { label: 'client-side .NET', value: 'dotnet-client', },
-    { label: 'client-side .NET SDK versions 1.x', value: 'dotnet-client-pre-2.0', },
+    { label: 'C#', value: 'csharp', },
+    { label: 'C# (.NET SDK versions 1.x)', value: 'dotnet-client-pre-2.0', },
   ]
 }>
-<CodeTabItem value="dotnet-client">
+<CodeTabItem value="csharp">
 
 ```csharp
 client.FlagTracker.FlagChanged += (sender, eventArgs) => {
@@ -619,12 +619,12 @@ The listener method is called synchronously from a background task.
 Here's how:
 
 <CodeTabs
-  defaultValue="dotnet"
+  defaultValue="csharp"
   values={[
-    { label: '.NET', value: 'dotnet', },
+    { label: 'C#', value: 'csharp', },
   ]
 }>
-<CodeTabItem value="dotnet">
+<CodeTabItem value="csharp">
 
 ```csharp
 void LogWheneverAnyFlagChanges(LdClient client) {
@@ -641,12 +641,12 @@ void LogWheneverAnyFlagChanges(LdClient client) {
 To listen for changes in flag values for a specific flag key and user, use [`IFlagTracker.FlagValueChangeHandler()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.IFlagTracker.html#LaunchDarkly_Sdk_Server_Interfaces_IFlagTracker_FlagValueChangeHandler_). It calls your code with a [`FlagValueChangeEvent`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.FlagValueChangeEvent.html). This is equivalent to re-evaluating the flag for that user whenever there is a change in that flag. Because flag values can have different data types, the value is reported using the general type [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html).
 
 <CodeTabs
-  defaultValue="dotnet"
+  defaultValue="csharp"
   values={[
-    { label: '.NET', value: 'dotnet', },
+    { label: 'C#', value: 'csharp', },
   ]
 }>
-<CodeTabItem value="dotnet">
+<CodeTabItem value="csharp">
 
 ```csharp
 void LogWheneverOneFlagChangesForOneUser(LdClient client, string flagKey, User user) {

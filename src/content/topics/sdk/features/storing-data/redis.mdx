@@ -63,13 +63,12 @@ This feature is available in the following server-side SDKs:
 To use Redis with the .NET SDK you must install an additional package named [`LaunchDarkly.ServerSdk.Redis`](https://github.com/launchdarkly/dotnet-server-sdk-redis).
 
 <CodeTabs
-  defaultValue="dotnet"
+  defaultValue="csharp"
   values={[
-    { label: '.NET', value: 'dotnet', }
+    { label: 'C#', value: 'csharp', },
   ]
 }>
-
-<CodeTabItem value="dotnet">
+<CodeTabItem value="csharp">
 
 ```csharp
 using LaunchDarkly.Sdk.Server;
@@ -116,7 +115,7 @@ The C/C++ integration is part of the main SDK distribution.
 <CodeTabs
   defaultValue="c"
   values={[
-    { label: 'C', value: 'c', },
+    { label: 'C/C++', value: 'c', },
   ]
 }>
 
@@ -310,15 +309,15 @@ local c = l.clientInit({
 In version 6.0.0 and higher of the Node.js SDK, you must install the additional package [`launchdarkly-node-server-sdk-redis`](https://github.com/launchdarkly/node-server-sdk-redis). In Node.js SDK 5.x and earlier, this integration is part of the main SDK distribution.
 
 <CodeTabs
-  defaultValue="nodesdk6"
+  defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'nodesdk6', },
-    { label: 'Node.js SDK versions 5.x and earlier', value: 'nodesdk5', },
-    { label: 'Node.js (TypeScript)', value: 'ts', },
+    { label: 'JavaScript', value: 'js', },
+    { label: 'JavaScript (Node.js SDK versions 5.x and earlier)', value: 'nodesdk5', },
+    { label: 'TypeScript', value: 'ts', },
   ]
 }>
 
-<CodeTabItem value="nodesdk6">
+<CodeTabItem value="js">
 
 ```js
 const ld = require('launchdarkly-node-server-sdk');

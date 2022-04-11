@@ -7,11 +7,9 @@ published: true
 
 ## Overview
 
-This guide explains how feature flags, evaluation rules, and
-sequences can make flag targeting more effective.
+This guide explains how feature flags, evaluation rules, and sequences can make flag targeting more effective.
 
 In this guide, you will:
-
 - Learn the difference between a prerequisite flag and a flag dependency
 - Learn about the order in which flags are evaluated
 
@@ -34,9 +32,7 @@ To learn more about how LaunchDarkly manages different environments, read [Envir
 
 ### Using LaunchDarkly to focus on your product, not on different teams
 
-Flag hierarchies can span multiple teams. When you think about the design
-of your hierarchy, remember that you may cross organizational boundaries to
-deliver a unified user experience. Different teams may rely on the same flags, use the same environments, or do complementary work.
+Flag hierarchies can span multiple teams. When you think about the design of your hierarchy, remember that you may cross organizational boundaries to deliver a unified user experience. Different teams may rely on the same flags, use the same environments, or do complementary work.
 
 ## Understanding how flag hierarchy impacts deployment and release
 
@@ -50,11 +46,7 @@ There are three main use cases for flags with dependencies:
 - [Prerequisite flags](#prerequisite-flags)
 - [Decommissioning](#decommissioning)
 
-It’s useful to remember that deployment is the process of getting code onto the
-servers or endpoints that execute it, and release is the act of making the
-feature visible or accessible. For testing and experimentation purposes, it’s
-useful to have features that respect dependencies you have preconfigured, so
-you are never surprised by which features are active.
+It’s useful to remember that deployment is the process of getting code onto the servers or endpoints that execute it, and release is the act of making the feature visible or accessible. For testing and experimentation purposes, it’s useful to have features that respect dependencies you have preconfigured, so you are never surprised by which features are active.
 
 ## Understanding flag relationships
 
@@ -106,7 +98,7 @@ Here’s the most common structure for code that uses a flag:
 <CodeTabs
   defaultValue="code"
   values={[
-    { label: 'Example flag code', value: 'code', },
+    { label: 'Flag code structure', value: 'code', },
   ]
 }>
 
@@ -114,9 +106,7 @@ Here’s the most common structure for code that uses a flag:
 
 ```
 `IF` FeatureX_Flag is `true`
-
 `THEN` show Feature X
-
 `ELSE` don’t show Feature X
 ```
 
@@ -128,7 +118,7 @@ Adding conditions or dependencies to the flag changes the code to something more
 <CodeTabs
   defaultValue="code"
   values={[
-    { label: 'Example flag code', value: 'code', },
+    { label: 'Flag code structure with dependencies', value: 'code', },
   ]
 }>
 
@@ -136,11 +126,8 @@ Adding conditions or dependencies to the flag changes the code to something more
 
 ```
 `IF` _Prerequisite-Flag is `true`
-
 `AND` FeatureX-Flag is `true`
-
 `THEN` show Feature X
-
 `ELSE` don’t show Feature X
 ```
 
@@ -155,38 +142,23 @@ Here are use cases for hierarchical flag relationships:
 
 ### Feature bundling
 
-Feature bundling is when many features or subfeatures are controlled by a single
-prerequisite flag. This pattern allows many teams to contribute to a major release without accidentally exposing parts of the code before the entire release is ready.
+Feature bundling is when many features or subfeatures are controlled by a single prerequisite flag. This pattern allows many teams to contribute to a major release without accidentally exposing parts of the code before the entire release is ready.
 
-For example, a LaunchDarkly customer did a major rebranding across multiple products, including fonts,
-graphics, CSS, and naming. Each of the changes in that list was a feature that had its own flag. All of those flags were dependent on one prerequisite flag called "Rebranding."
+For example, a LaunchDarkly customer did a major rebranding across multiple products, including fonts, graphics, CSS, and naming. Each of the changes in that list was a feature that had its own flag. All of those flags were dependent on one prerequisite flag called "Rebranding."
 
 Teams could test that their own flags were working correctly in a test environment that had the "Rebranding" flag set to `true`. When everything was ready, the CEO flipped the "Rebranding" flag live in production while on stage at a major conference.
 
 Since all the resources already existed at the destinations, when the "Rebranding" flag switched to `true`, the new branding appeared to everyone simultaneously, worldwide.
 
-All of the dependent flags will then be instantly accessible and evaluated. You can think of
-this pattern as a pyramid, where all of the individual dependent flags form the foundation while the  prerequisite flag is the single point of control at the apex. The value to the business in this case is that all the flags were tested and checked without any disruption, and the branding change happens instantly and completely.
+All of the dependent flags will then be instantly accessible and evaluated. You can think of this pattern as a pyramid, where all of the individual dependent flags form the foundation while the  prerequisite flag is the single point of control at the apex. The value to the business in this case is that all the flags were tested and checked without any disruption, and the branding change happens instantly and completely.
 
 ### Decommissioning
 
-In the previous two examples, we assumed that the default state of a flag is
-`false`. When `false` is the default, the feature doesn’t appear. From a user's standpoint,
-the software works the way it always has. Only if the flag changes from the
-default state (`false`) to `true` does a change appear to the user.
+In the previous two examples, we assumed that the default state of a flag is `false`. When `false` is the default, the feature doesn’t appear. From a user's standpoint, the software works the way it always has. Only if the flag changes from the default state (`false`) to `true` does a change appear to the user.
 
-There is also a pattern for flags with a default state of `true.` These
-are flags that might be put around features that are being removed or
-decommissioned. Changing the flag state to `false` means the existing
-feature no longer appears. When a team uses feature flags to turn a feature off,
-they have the option of turning it back on instantly if they need to. If you put a feature flag around code that is being decommissioned and make it dependent on status checks or tests, you can be sure all important preparations are complete before you turn off the flag that controls the legacy code.
+There is also a pattern for flags with a default state of `true.` These are flags that might be put around features that are being removed or decommissioned. Changing the flag state to `false` means the existing feature no longer appears. When a team uses feature flags to turn a feature off, they have the option of turning it back on instantly if they need to. If you put a feature flag around code that is being decommissioned and make it dependent on status checks or tests, you can be sure all important preparations are complete before you turn off the flag that controls the legacy code.
 
-Dependent flags for decommissioning might include version checking, as above, or
-client-specific identifiers. For example, you might be eliminating support for a
-legacy feature for almost everyone, unless they belong to a specific client that
-is paying you to maintain it. In that case, the state of the flag would be
-`false` for everyone, except people who were in the targeted group
-“client_legacy.” For people in that group, the flag would remain `true`.
+Dependent flags for decommissioning might include version checking, as above, or client-specific identifiers. For example, you might be eliminating support for a legacy feature for almost everyone, unless they belong to a specific client that is paying you to maintain it. In that case, the state of the flag would be `false` for everyone, except people who were in the targeted group “client_legacy.” For people in that group, the flag would remain `true`.
 
 ### Configuring flag dependencies
 
@@ -196,19 +168,13 @@ Here is an image of the "Prerequisites" section:
 
 ![An example of a flag dependent on the "Alternate sort order" flag.](flag-deps.png)
 
-Now you can use the prerequisite flag to make sure that all of the changes you make
-for a bundle are not visible in production, but turn it on for your test or
-development system so you can make sure they will work correctly.
+Now you can use the prerequisite flag to make sure that all of the changes you make for a bundle are not visible in production, but turn it on for your test or development system so you can make sure they will work correctly.
 
 ## Understanding the flag evaluation sequence
 
-When you assemble a complicated flag dependency, be sure that you
-understand the effect that you are trying to produce. It’s easy to end up in
-a state where a new feature won’t show because there’s a rule or prerequisite
-blocking it.
+When you assemble a complicated flag dependency, be sure that you understand the effect that you are trying to produce. It’s easy to end up in a state where a new feature won’t show because there’s a rule or prerequisite blocking it.
 
-Flag rules are evaluated top-to-bottom, as shown in the flag's **Targeting** tab.
-You can drag and drop flag rules to change the order of evaluation. *Prerequisites always apply before flag rules.*
+Flag rules are evaluated top-to-bottom, as shown in the flag's **Targeting** tab. You can drag and drop flag rules to change the order of evaluation. *Prerequisites always apply before flag rules.*
 
 Here is an image of a flag with a prerequisite and multiple rules:
 
@@ -216,28 +182,21 @@ Here is an image of a flag with a prerequisite and multiple rules:
 
 ## Additional considerations
 
-These considerations may affect how you choose to implement flag hierarchy,
-although they are not strictly required.
+These considerations may affect how you choose to implement flag hierarchy, although they are not strictly required.
 
 ### Considering role-based access control (RBAC)
 
-For many flags, especially those that are bundling many features or
-decommissioning software, it may make sense to restrict which account members can change the flag
-state based on their role.
+For many flags, especially those that are bundling many features or decommissioning software, it may make sense to restrict which account members can change the flag state based on their role.
 
-For example, you may set RBAC so that developers can add
-and remove dependent flags or change their state, but only release managers can
-change the state of prerequisite flags.
+For example, you may set RBAC so that developers can add and remove dependent flags or change their state, but only release managers can change the state of prerequisite flags.
 
 To learn more, read [Custom roles](/home/members/custom-roles).
 
 ## Conclusion
 
-In this guide, we have covered some of the use cases and
-considerations for using feature flags in a hierarchy.
+In this guide, we have covered some of the use cases and considerations for using feature flags in a hierarchy.
 
-If you would like to practice these concepts by creating flags, read [Getting started: Rules and
-targeting](/guides/tutorials/rules-and-targeting).
+If you would like to practice these concepts by creating flags, read [Getting started: Rules and targeting](/guides/tutorials/rules-and-targeting).
 
 <Callout intent="primary">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>

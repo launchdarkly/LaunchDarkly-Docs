@@ -43,12 +43,12 @@ This feature is available in the following client-side SDKs:
 To configure the SDK to use a test data source:
 
 <CodeTabs
-  defaultValue="dotnet"
+  defaultValue="csharp"
   values={[
-    { label: '.NET', value: 'dotnet', },
+    { label: 'C#', value: 'csharp', },
   ]
 }>
-<CodeTabItem value="dotnet">
+<CodeTabItem value="csharp">
 
 ```csharp
 using LaunchDarkly.Sdk.Client.Integrations;
@@ -68,12 +68,12 @@ var client = LdClient.Init(config, user, startWaitTime);
 To set a flag to a specific value:
 
 <CodeTabs
-  defaultValue="dotnet"
+  defaultValue="csharp"
   values={[
-    { label: '.NET', value: 'dotnet', },
+    { label: 'C#', value: 'csharp', },
   ]
 }>
-<CodeTabItem value="dotnet">
+<CodeTabItem value="csharp">
 
 ```csharp
 td.Update(td.Flag("flag-key-1").Variation(false);
@@ -85,12 +85,12 @@ td.Update(td.Flag("flag-key-1").Variation(false);
 There are other ways you can configure flag behavior using a test data source. Here is an example:
 
 <CodeTabs
-  defaultValue="dotnet"
+  defaultValue="csharp"
   values={[
-    { label: '.NET', value: 'dotnet', },
+    { label: 'C#', value: 'csharp', },
   ]
 }>
-<CodeTabItem value="dotnet">
+<CodeTabItem value="csharp">
 
 ```csharp
 // This flag is true for the user key "some-user-key" and false for everyone else
@@ -128,12 +128,12 @@ This feature is available in the following server-side SDKs:
 To configure the SDK to use a test data source:
 
 <CodeTabs
-  defaultValue="dotnet"
+  defaultValue="csharp"
   values={[
-    { label: '.NET', value: 'dotnet', },
+    { label: 'C#', value: 'csharp', },
   ]
 }>
-<CodeTabItem value="dotnet">
+<CodeTabItem value="csharp">
 
 ```csharp
 using LaunchDarkly.Sdk.Server.Integrations;
@@ -153,12 +153,12 @@ var client = new LdClient(config);
 To set a flag to a specific value:
 
 <CodeTabs
-  defaultValue="dotnet"
+  defaultValue="csharp"
   values={[
-    { label: '.NET', value: 'dotnet', },
+    { label: 'C#', value: 'csharp', },
   ]
 }>
-<CodeTabItem value="dotnet">
+<CodeTabItem value="csharp">
 
 ```csharp
 td.Update(td.Flag("flag-key-1").VariationForAllUsers(false);
@@ -170,12 +170,12 @@ td.Update(td.Flag("flag-key-1").VariationForAllUsers(false);
 There are other ways you can configure flag behavior using a test data source. Here is an example:
 
 <CodeTabs
-  defaultValue="dotnet"
+  defaultValue="csharp"
   values={[
-    { label: '.NET', value: 'dotnet', },
+    { label: 'C#', value: 'csharp', },
   ]
 }>
-<CodeTabItem value="dotnet">
+<CodeTabItem value="csharp">
 
 ```csharp
 // This flag is true for the user key "some-user-key" and false for everyone else

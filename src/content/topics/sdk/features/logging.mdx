@@ -102,13 +102,13 @@ You can use [`basicLogger`](https://launchdarkly.github.io/node-client-sdk/index
 This example shows how to use `basicLogger` to enable debug-level logging in your SDK configuration:
 
 <CodeTabs
-  defaultValue="node"
+  defaultValue="js"
   values={[
-    { label: 'Node.js', value: 'node', },
+    { label: 'JavaScript', value: 'js', },
     { label: 'TypeScript', value: 'ts'},
   ]
 }>
-<CodeTabItem value="node">
+<CodeTabItem value="js">
 
 ```javascript
 const LaunchDarkly = require('launchdarkly-node-client-sdk');
@@ -342,11 +342,12 @@ The .NET SDK sends log output to `Console.Error` by default. The [`Configuration
 Here is an example:
 
 <CodeTabs
+  defaultValue="csharp"
   values={[
-    { label: '.NET', value: 'dotnet', },
+    { label: 'C#', value: 'csharp', },
   ]
 }>
-<CodeTabItem value="dotnet">
+<CodeTabItem value="csharp">
 
 ```csharp
 using LaunchDarkly.Logging;
@@ -365,11 +366,12 @@ var config = Configuration.Builder("my-sdk-key")
 The destination could be another logging framework, such as the .NET Core `Microsoft.Extensions.Logging` API in this example:
 
 <CodeTabs
+  defaultValue="csharp"
   values={[
-    { label: '.NET', value: 'dotnet', },
+    { label: 'C#', value: 'csharp', },
   ]
 }>
-<CodeTabItem value="dotnet">
+<CodeTabItem value="csharp">
 
 ```csharp
 using LaunchDarkly.Logging;
@@ -418,7 +420,7 @@ Here is an example:
 <CodeTabs
   defaultValue="c"
   values={[
-    { label: 'Example', value: 'c', },
+    { label: 'C/C++', value: 'c', },
   ]
 }>
 <CodeTabItem value="c">
@@ -435,7 +437,7 @@ You can also use your own custom log function:
 <CodeTabs
   defaultValue="c"
   values={[
-    { label: 'Example', value: 'c', },
+    { label: 'C/C++', value: 'c', },
   ]
 }>
 <CodeTabItem value="c">
