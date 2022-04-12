@@ -144,9 +144,7 @@ corresponding to local dev, staging and prod respectively.
 
 ### Flagging navigation items
 
-You can use the [gatsby-plugin-launchdarkly](https://github.com/launchdarkly-labs/gatsby-plugin-launchdarkly), to hide
-nav items behind a feature flag. To do this, add the `flagKey` property to the nav item you want to control with a flag
-in `navigationData.json`. Use the camel case version of the flag key, as shown below:
+You can use the [gatsby-plugin-launchdarkly](https://github.com/launchdarkly/gatsby-plugin-launchdarkly), to hide nav items behind a feature flag. To do this, add the `flagKey` property to the nav item you want to control with a flag in `navigationData.json`. Use the camel case version of the flag key, as shown below:
 
 ```json
 ...
