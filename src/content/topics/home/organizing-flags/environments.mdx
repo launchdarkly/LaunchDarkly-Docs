@@ -113,7 +113,7 @@ You can also use the REST API: [Create environment](https://apidocs.launchdarkly
 
 </LearnMore>
 
-## Cloning an environment
+## Cloning environments
 
 For organizations with many flags, cloning an environment is the fastest way to create an environment and copy current flag settings from an existing environment. Cloning an environment also copies segment and flag rules for that environment.
 
@@ -169,3 +169,25 @@ If your site has relatively low traffic (fewer than one request per minute), you
 If the TTL is set to zero minutes, the SDK will not use a local cache, and every call to `variation` will make a remote request to our CDN. You can set your TTL to zero in testing environments so it reflects changes immediately, but we do not recommend a zero minute TTL in production.
 
 In high volume PHP environments, we strongly recommend using our Relay Proxy. To learn more, read [The Relay Proxy](/home/relay-proxy).
+
+## Deleting environments
+
+You can delete an environment when you are no longer using it. Delete with caution, as deleting an environment is permanent.
+
+To delete an environment:
+
+1. Navigate to the **Account settings** page.
+2. Click the **Projects** tab.
+3. Click the name of the project that contains the environment you want to delete.
+4. Click the **overflow menu** for the environment.
+5. Select **Delete environment**. A "Delete environment?" dialog appears.
+6. Enter the name or key of your environment in the confirmation field.
+7. Click **Delete**.
+
+Your environment is now deleted.
+
+<LearnMore>
+
+You can also use the REST API: [Delete environment](https://apidocs.launchdarkly.com/tag/Environments#operation/deleteEnvironment)
+
+</LearnMore>
