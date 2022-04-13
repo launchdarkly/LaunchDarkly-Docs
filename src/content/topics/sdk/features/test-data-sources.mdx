@@ -119,6 +119,7 @@ This feature is available in the following server-side SDKs:
 * [.NET (server-side)](#net-server-side)
 * [Go](#go)
 * [Java](#java)
+* [PHP](#php)
 * [Ruby](#ruby)
 
 ### .NET (server-side)
@@ -357,6 +358,84 @@ td.update(td.flag("flag-key-3")
 </CodeTabs>
 
 To learn more, read [`TestData`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/TestData.html).
+</Details>
+
+### PHP
+
+<Details summary="Expand PHP code sample">
+
+To configure the SDK to use a test data source:
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', },
+  ]
+}>
+<CodeTabItem value="php">
+
+```php
+require 'vendor/autoload.php';
+
+$td = new LaunchDarkly\Integrations\TestData();
+// You can set any initial flag states here with td.update
+
+$client = new LaunchDarkly\LDClient($sdkKey, ['feature_requester' => $td]);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To set a flag to a specific value:
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', },
+  ]
+}>
+<CodeTabItem value="php">
+
+```php
+$td->update($td->flag("flag-key-1")->variationForAllUsers(false));
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There are other ways you can configure flag behavior using a test data source. Here is an example:
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', },
+  ]
+}>
+<CodeTabItem value="php">
+
+```php
+// This flag is true for the user key "some-user-key" and false for everyone else
+$td->update(
+    $td->flag("flag-key-2")
+       ->variationForUser("some-user-key", true)
+       ->fallthroughVariation(false)
+);
+
+// This flag returns the string variation "green" for users who have the custom
+// attribute "admin" with a value of true, and "red" for everyone else.
+$td->update(
+    $td->flag("flag-key-3")
+       ->variations("red", "green")
+       ->fallthroughVariation(0)
+       ->ifMatch("admin", true)
+       ->thenReturn(1)
+);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`TestData`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-Integrations-TestData.html).
 </Details>
 
 ### Ruby
