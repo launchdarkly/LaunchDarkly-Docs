@@ -75,6 +75,7 @@ gserviceaccount
 gson
 gsuite
 guzzlehttp
+Hackage
 Hashicorp
 hashlib
 hexdigest
@@ -145,6 +146,7 @@ onelogin
 Optimizely
 overrepresent
 packagename
+Packagist
 pageload
 pageview
 pageviews
