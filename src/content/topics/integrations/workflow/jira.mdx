@@ -34,7 +34,7 @@ The LaunchDarkly Jira integration is only for Jira Cloud product offerings. It d
 To complete this procedure, you must have the following prerequisites:
 
 - The LaunchDarkly for Jira app from the [Atlassian Marketplace](https://marketplace.atlassian.com/apps/1219142/launchdarkly-for-jira?hosting=cloud&tab=overview) in your Jira Cloud instance.
-- An API access token with the `writer` role or a custom role with permission to control webhooks and manage flag links. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
+- An API access token with the Writer role or a custom role with permission to control webhooks and manage flag links. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
 
 <Callout intent="info">
 <CalloutTitle>You may need to update your access token</CalloutTitle>
@@ -61,7 +61,7 @@ To create a custom role for the API access token:
 12. Choose `createFlagLink`, `updateFlagLink`, and `deleteFlagLink` from the **Choose actions to allow or deny** menu.
 13. Click **Update statement**.
 
-The custom role is now configured. 
+The custom role is now configured.
 
 You can also use the advanced role policy editor to grant permissions by adding this policy:
 
@@ -82,7 +82,7 @@ You can also use the advanced role policy editor to grant permissions by adding 
       "createWebhook",
       "deleteWebhook"
     ],
-    "resources": ["webhook/*"]    
+    "resources": ["webhook/*"]
   },
   {
     "effect": "allow",
@@ -158,7 +158,7 @@ To create a new flag with Jira issues:
 
 1. Navigate to your Jira issue's feature flag panel.
 2. Click **Add feature flag**.
-3. Select "Create feature flag". 
+3. Select "Create feature flag".
 
 ![The "Add feature flag" menu with the "Create feature flag" option called out.](jira-create-feature-flag-callout.png)
 

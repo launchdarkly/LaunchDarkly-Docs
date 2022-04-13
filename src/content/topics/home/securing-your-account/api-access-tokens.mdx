@@ -33,7 +33,7 @@ You can scope your API tokens to restrict the set of operations they can perform
 
 The available scoping options are:
 
-- **Built-in roles**: Gives a token the same permissions as a `reader`, `writer`, or `admin`.
+- **Built-in roles**: Gives a token the same permissions as a Reader, Writer, or Admin.
 - **[Custom roles](/home/members/custom-roles)**: Gives a token the same permissions as one of your team's existing custom roles. This option is only available if your LaunchDarkly plan includes custom roles.
 - **In-line custom roles**: Gives a token a custom set of permissions in-line, rather than specifying it as an existing custom role. This option is only available if your LaunchDarkly plan includes custom roles.
 
@@ -190,7 +190,7 @@ You can also use the REST API: [Reset access token](https://apidocs.launchdarkly
 
 ## Restricting who can create and manage API access tokens
 
-By default, all account members can create access tokens limited to their existing permissions. Account members with `reader` level permissions can only create tokens with `reader` permissions, whereas admins and owners can create tokens with any permission level.
+By default, all account members can create access tokens limited to their existing permissions. Account members with a Reader role can only create tokens with a Reader role, whereas account members with an Admin or Owner role can create tokens with any permission level.
 
 You can restrict account members from creating or managing access tokens with custom roles.
 

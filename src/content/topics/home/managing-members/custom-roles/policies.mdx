@@ -7,7 +7,7 @@ published: true
 
 ## Overview
 
-This topic explains how to write policies for  custom roles, integrations access, and Relay Proxy access.
+This topic explains how to write policies for custom roles, integrations access, and Relay Proxy access.
 
 Policies combine resources and actions into a set of statements that define what users can or cannot do in LaunchDarkly. To learn more, read [Custom role concepts](/home/members/role-concepts).
 
@@ -18,7 +18,7 @@ The algorithm for determining whether a policy allows or denies access is as fol
 - If a statement within a policy explicitly denies access to a resource and action, access is denied. This statement overrides any other statement in the policy that allows access to the resource and action.
 - If a statement within a policy explicitly allows access to a resource and action, and no statement denies access, access is allowed.
 - If two different policies have conflicting permission levels, the more permissive level of access is applied.
-- Any resource or action not specifically included within a policy is denied by default, except the `viewProject` action and the `createAccessToken` action in policies with a `reader` base.
+- Any resource or action not specifically included within a policy is denied by default, except the `viewProject` action and the `createAccessToken` action in policies that use the built-in Reader role as the starting point. To learn more, read [Understanding starting roles](/home/members/role-create#understanding-starting-roles).
 
 <Callout intent="info">
 <CalloutTitle>All roles can view all projects by default</CalloutTitle>
@@ -26,7 +26,7 @@ The algorithm for determining whether a policy allows or denies access is as fol
 
 The ability to view and change resources is configured at the `project` resource level with the `viewProject` action. All custom role recipients can view all projects in your LaunchDarkly instance unless specifically denied.<br/><br/>
 
-Custom role recipients can also create access tokens that are limited to their existing permissions. For example, account members with `reader` level permissions can only create tokens with `reader` permissions, whereas admins and owners can create tokens with any permission level.<br/><br/>
+Custom role recipients can also create access tokens that are limited to their existing permissions. For example, account members with a Reader role can only create tokens with a Reader role, whereas account members with an Admin or Owner role can create tokens with any permission level.<br/><br/>
 
 To learn  more, read [Understanding the minimum required actions for a role](/home/members/role-concepts#understanding-the-minimum-required-actions-for-a-role).
 

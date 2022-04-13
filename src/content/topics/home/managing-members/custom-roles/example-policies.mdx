@@ -9,7 +9,7 @@ published: true
 
 This topic shows some examples of different types of policies you can implement with policy filters for custom roles, integrations access, and Relay Proxy access.
 
-It also provides templates you can copy and modify for your own custom roles, including reader, writer, and admin roles.
+It also provides templates you can copy and modify for your own custom roles, including Reader, Writer, and Admin roles.
 
 <Callout intent="info">
 <CalloutTitle>Creating private projects with custom roles</CalloutTitle>
@@ -26,7 +26,7 @@ Use the `viewProject` action to allow or deny members viewing access to one or m
 
 This example policy uses the `*` wildcard to allow members of the QA team to administer environments that have tags beginning with `qa_`, such as `qa_test`, `qa_production`, and so on. This policy also allows members to manage flags in environments that have tags beginning with `qa_`.
 
-To manage flags in environments tagged `qa_*`, you must specify the flag-level resource you want to control. Limiting `resources` to `"proj/*:env/*;qa_*"` lets you manage the environment itself. 
+To manage flags in environments tagged `qa_*`, you must specify the flag-level resource you want to control. Limiting `resources` to `"proj/*:env/*;qa_*"` lets you manage the environment itself.
 
 When you recreate this custom role, keep the **By default, members can view all LaunchDarkly content** box checked.
 
@@ -113,7 +113,7 @@ For more tag policy examples, read [Using tags in custom role policies](/home/me
 
 ## Example: Granting access to flag toggles, but not flag rollout or targeting rules
 
-This example policy allows members of the Ops team to toggle on or off any flags in the production environment. They may not change percentage rollouts or targeting rules, or manage any environments or projects. 
+This example policy allows members of the Ops team to toggle on or off any flags in the production environment. They may not change percentage rollouts or targeting rules, or manage any environments or projects.
 
 When you recreate this custom role, keep the **By default, members can view all LaunchDarkly content** box checked.
 
@@ -190,7 +190,7 @@ Copy this role and make any modifications to it to suit your needs:
 
 ## Example: Granting all actions to just one flag while showing only one project
 
-The policy below restricts access to a project a flag is in, while still allowing you to perform actions on that flag. In this example, the flag is called `flag-1`. 
+The policy below restricts access to a project a flag is in, while still allowing you to perform actions on that flag. In this example, the flag is called `flag-1`.
 
 When you recreate this custom role, keep the **By default, members can view all LaunchDarkly content** box checked.
 
@@ -277,7 +277,7 @@ Copy this role and make any modifications to it to suit your needs:
 </CodeTabItem>
 </CodeTabs>
 
-The second statement in the code snippet above allows all actions in all environments and to all flags in the project named `project-1`. You must specifically allow access, or the roles default to the reader role.
+The second statement in the code snippet above allows all actions in all environments and to all flags in the project named `project-1`. You must specifically allow access, or the roles default to the Reader role.
 
 </Details>
 
@@ -285,7 +285,7 @@ The second statement in the code snippet above allows all actions in all environ
 
 ## Example: Allowing access to flags, metrics, and segments in one project
 
-In this example, we deny all actions to all projects, but allow specific flag actions in one project, all segment actions in all projects, and all metric actions in all projects. When you restrict all actions this comprehensively, you must add each action for flags, segments, and metrics explicitly. 
+In this example, we deny all actions to all projects, but allow specific flag actions in one project, all segment actions in all projects, and all metric actions in all projects. When you restrict all actions this comprehensively, you must add each action for flags, segments, and metrics explicitly.
 
 When you recreate this custom role, keep the **By default, members can view all LaunchDarkly content** box checked.
 
@@ -339,13 +339,13 @@ Copy this role and make any modifications to it to suit your needs:
 
 
 
-<Details summary="Expand Template: Built-in reader role replication">
+<Details summary="Expand Template: Built-in Reader role replication">
 
-## Template: Built-in reader role replication
+## Template: Built-in Reader role replication
 
 When you recreate this custom role, keep the **By default, members can view all LaunchDarkly content** box checked. If you uncheck this box, the role will not have read access to any resources.
 
-Copy this reader role and make any modifications to it to suit your needs:
+Copy this Reader role and make any modifications to it to suit your needs:
 
 <CodeTabs
   defaultValue="json"
@@ -431,15 +431,15 @@ Copy this reader role and make any modifications to it to suit your needs:
 
 </Details>
 
-<Details summary="Expand Template: Built-in writer role replication">
+<Details summary="Expand Template: Built-in Writer role replication">
 
-## Template: Built-in writer role replication
+## Template: Built-in Writer role replication
 
-Because permissions are set to `deny` by default, you must explicitly allow actions for the writer role. The code snippet below is a replication of LaunchDarkly's built-in writer role. You can copy it and make adjustments as needed.
+Because permissions are set to `deny` by default, you must explicitly allow actions for the Writer role. The code snippet below is a replication of LaunchDarkly's built-in Writer role. You can copy it and make adjustments as needed.
 
-If you compare the code snippet below to the [reader role replication](#template-built-in-reader-role-replication), you'll find that every resource level is addressed except for `member/*`, `member/*:token/*`, `role/*`, and `acct`. By default, those resources are already set to `deny`, so you don't have to specifically `deny` them again.
+If you compare the code snippet below to the [Reader role replication](#template-built-in-reader-role-replication), you'll find that every resource level is addressed except for `member/*`, `member/*:token/*`, `role/*`, and `acct`. By default, those resources are already set to `deny`, so you don't have to specifically `deny` them again.
 
-Copy this writer role and make any modifications to it to suit your needs:
+Copy this Writer role and make any modifications to it to suit your needs:
 
 <CodeTabs
   defaultValue="json"
@@ -515,13 +515,13 @@ Copy this writer role and make any modifications to it to suit your needs:
 
 </Details>
 
-<Details summary="Expand Template: Built-in admin role replication">
+<Details summary="Expand Template: Built-in Admin role replication">
 
-## Template: Built-in admin role replication
+## Template: Built-in Admin role replication
 
-Because permissions are set to `deny` by default, you must explicitly allow actions for the admin role. The code snippet below is a replication of LaunchDarkly's built-in admin role. You can copy it and make adjustments as needed.
+Because permissions are set to `deny` by default, you must explicitly allow actions for the Admin role. The code snippet below is a replication of LaunchDarkly's built-in Admin role. You can copy it and make adjustments as needed.
 
-Copy this admin role and make any modifications to it to suit your needs:
+Copy this Admin role and make any modifications to it to suit your needs:
 
 <CodeTabs
   defaultValue="json"

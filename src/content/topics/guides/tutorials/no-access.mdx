@@ -6,21 +6,21 @@ published: true
 ---
 
 <Callout intent="primary">
-  <CalloutTitle>The no access role is an Enterprise feature</CalloutTitle>
+  <CalloutTitle>The No access role is an Enterprise feature</CalloutTitle>
   <CalloutDescription>
 
-The no access role is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+The No access role is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
   </CalloutDescription>
 </Callout>
 
 ## Overview
 
-This guide explains how to configure custom roles that start with no access to LaunchDarkly, and how to create new members that have the built-in no access role by default.
+This guide explains how to configure custom roles that start with no access to LaunchDarkly, and how to create new members that have the built-in No access role by default.
 
-Some organizations, especially those in highly regulated industries, do not want members to be able to view everything in their LaunchDarkly account when they first join. To prevent an account member from accessing any part of the LaunchDarkly platform, you can assign them the no access role. This role is for members who shouldn't be able to view or modify anything until you give them access to specific areas of LaunchDarkly.
+Some organizations, especially those in highly regulated industries, do not want members to be able to view everything in their LaunchDarkly account when they first join. To prevent an account member from accessing any part of the LaunchDarkly platform, you can assign them the built-in No access role. This role is for members who shouldn't be able to view or modify anything until you give them access to specific areas of LaunchDarkly.
 
-The no access role can help your organization manage access to resources within LaunchDarkly and enforce security best practices, such as the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege).
+The No access role can help your organization manage access to resources within LaunchDarkly and enforce security best practices, such as the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege).
 
 To learn more about built-in roles and their permissions, read [Understanding LaunchDarkly's built-in roles](/home/members/built-in-roles#understanding-launchdarklys-built-in-roles).
 
@@ -28,7 +28,7 @@ To learn more about built-in roles and their permissions, read [Understanding La
 
 In order to complete this guide, you must have the following prerequisites:
 
-- An owner / admin role in your LaunchDarkly account, or a custom role with the ability to update member roles. To learn more, read [Role actions](/home/members/role-actions#member-actions).
+- An Admin or Owner role in your LaunchDarkly account, or a custom role with the ability to update member roles. To learn more, read [Role actions](/home/members/role-actions#member-actions).
 - An Enterprise plan with LaunchDarkly
 
 ## Concepts
@@ -37,7 +37,7 @@ This guide relies on the following concepts:
 
 ### LaunchDarkly's built-in roles
 
-Every LaunchDarkly account has built-in roles: reader, writer, and owner / admin. Customers on an Enterprise plan also have a restricted no access role.
+Every LaunchDarkly account has four built-in roles: Reader, Writer, Admin, and Owner. Customers on an Enterprise plan also have a restricted No access role.
 
 Every account member must have at least either one of these built-in roles or a custom role.
 
@@ -51,11 +51,11 @@ To learn more about custom roles, read [Custom roles](/home/members/custom-roles
 
 ## Creating custom roles with no access
 
-LaunchDarkly uses the built-in reader role as the starting point for new custom roles. When you create a custom role, it starts with reader permissions if you keep the **By default, members can view all LaunchDarkly content** box checked. To learn how to create custom roles, read [Creating custom roles and policies](/home/members/role-create).
+LaunchDarkly uses the built-in Reader role as the starting point for new custom roles. When you create a custom role, it starts with reader permissions if you keep the **By default, members can view all LaunchDarkly content** box checked. To learn how to create custom roles, read [Creating custom roles and policies](/home/members/role-create).
 
-![The "Block members from viewing content by default" checkbox from the "Create custom role" panel.](settings-roles-base-role-custom.png)
+![The "By default, members can view all LaunchDarkly content" checkbox from the "Create custom role" panel.](settings-roles-base-role-custom.png)
 
-If you uncheck the box, the custom role starts with `no access` permissions. You can then further configure the role's policy to allow view permissions for specific projects or teams, or grant the ability to modify resources.
+If you uncheck the box, the custom role starts without any access permissions. You can then further configure the role's policy to allow view permissions for specific projects or teams, or grant the ability to modify resources.
 
 <Callout intent="info">
 <CalloutTitle>Members must be able to view resources as well as modify them.</CalloutTitle>
@@ -70,10 +70,10 @@ For example, if you create a custom role with this box unchecked, and grant acce
 
 ### Setting the no access role for teams
 
-Large customers with many members may find that it is easiest to manage access using the teams feature rather than individually-assigned custom roles. You can automatically assign new members the no access role, then grant them access to resources by adding them to specific teams with assigned custom roles to give them additional permissions. To learn more, read [Teams](/home/teams).
+Large customers with many members may find that it is easiest to manage access using the teams feature rather than individually-assigned custom roles. You can automatically assign new members the No access role, then grant them access to resources by adding them to specific teams with assigned custom roles to give them additional permissions. To learn more, read [Teams](/home/teams).
 
 ## Changing default roles to no access
 
-If you have not specified a role or custom role for new LaunchDarkly members through your IdP, LaunchDarkly sets the default role to `reader`. Enterprise customers with access to the no access role can change the default role to `no access`. To learn how, read [Single sign-on](/home/account-security/sso).
+If you have not specified a role or custom role for new LaunchDarkly members through your IdP, LaunchDarkly sets the default role to Reader. Enterprise customers can change the default role to No access. To learn how, read [Single sign-on](/home/account-security/sso).
 
 ![The "Default initial role" section of the SAML configuration panel.](default-initial-saml-role.png)

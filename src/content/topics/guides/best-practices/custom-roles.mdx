@@ -31,7 +31,7 @@ This guide covers:
 
 To complete this guide, you must have the following prerequisites:
 
-- An owner / admin role in your LaunchDarkly account, or a custom role with [team management permissions](/home/members/role-actions#team-actions).
+- An Admin or Owner role in your LaunchDarkly account, or a custom role with [team management permissions](/home/members/role-actions#team-actions).
 - A basic understanding of custom roles within LaunchDarkly. To learn more, read [Custom roles](/home/members/custom-roles).
 - Access to the SSO and SCIM configuration at your organization and the Identity Provider (IdP) you use. To learn more, read [Single sign-on](/home/account-security/sso).
 
@@ -62,7 +62,7 @@ To learn more about teams, read [Teams](/home/teams).
 
 ### LaunchDarkly's built-in roles
 
-Every LaunchDarkly account has three built-in roles: `reader`, `writer`, and `owner / admin`. Customers on an Enterprise plan also have a restricted `no access` role. Every account member must have at least either one of these built-in roles or a custom role. If you need to, you can also assign account members multiple custom roles to give them the exact set of permissions they need.
+Every LaunchDarkly account has four built-in roles: Reader, Writer, Admin, and Owner. Customers on an Enterprise plan also have a restricted No access role. Every account member must have at least either one of these built-in roles or a custom role. If you need to, you can also assign account members multiple custom roles to give them the exact set of permissions they need.
 
 To learn more about built-in roles, read [LaunchDarkly’s built-in roles](/home/members/built-in-roles).
 
@@ -78,7 +78,7 @@ To learn more, read [Custom roles](/home/members/custom-roles).
 
 A policy in LaunchDarkly is a set of actions a role can or cannot take. Each policy is a list of statements allowing or denying a user access to resources and actions within LaunchDarkly.
 
-Policies can be direct or inverse. A direct policy allows or denies access to the resource defined. An inverse policy allows or denies actions for all resources except the one listed. 
+Policies can be direct or inverse. A direct policy allows or denies access to the resource defined. An inverse policy allows or denies actions for all resources except the one listed.
 
 <Details summary="Expand direct policy example">
 
@@ -105,9 +105,9 @@ This policy denies all actions within the production environment:
 
   </CodeTabItem>
   </CodeTabs>
-  
+
   </Details>
-  
+
 <Details summary="Expand inverse policy example">
 
 This policy allows all actions across all environments except production:
@@ -158,7 +158,7 @@ To learn more about SCIM, read [User provisioning with SCIM](/home/account-secur
 
 ## Recreating built-in roles
 
-When you are ready to configure custom roles for your organization, start by recreating LaunchDarkly's built-in roles. Recreating built-in roles is useful because you can then build upon them to create similar, but personalized, custom roles. For example, you may want to create a role that gives a member `writer` access to one project, but `reader` access to all remaining projects.
+When you are ready to configure custom roles for your organization, start by recreating LaunchDarkly's built-in roles. Recreating built-in roles is useful because you can then build upon them to create similar, but personalized, custom roles. For example, you may want to create a role that gives a member Writer access to one project, but Reader access to all remaining projects.
 
 This table displays the built-in roles and their associated permissions that you will recreate in this guide:
 
@@ -265,7 +265,7 @@ Expand each of the sections below to learn how to recreate built-in roles using 
 
 ### Reader
 
-To create a role with `reader` permissions across LaunchDarkly:
+To create a role with the same permissions as the built-in Reader role:
 
 1. Navigate to **Account settings**.
 2. Click the **Roles** tab.
@@ -304,7 +304,7 @@ To create a role with `reader` permissions across LaunchDarkly:
 
 ### Writer
 
-To create a role with `writer` permissions across LaunchDarkly:
+To create a role with the same permissions as the built-in Writer role:
 
 1. Navigate to **Account settings**.
 2. Click the **Roles** tab.
@@ -343,7 +343,7 @@ To create a role with `writer` permissions across LaunchDarkly:
 
 ### Administrator
 
-To create a role with full administrator permissions across LaunchDarkly:
+To create a role with the same permissions as the built-in Admin role:
 
 1. Navigate to **Account settings**.
 2. Click the **Roles** tab.
@@ -410,9 +410,9 @@ To create a role with full administrator permissions across LaunchDarkly:
 
 </Details>
 
-<Details summary="Expand no access custom role">
+<Details summary="Expand No access custom role">
 
-To create a role with no access to any resources in LaunchDarkly:
+To create a role with the same permissions as the built-in No access role:
 
 1. Navigate to **Account settings**.
 2. Click the **Roles** tab.
@@ -848,7 +848,7 @@ Teams is available to customers on an Enterprise plan. To learn more, [read abou
 
 Teams help large organizations to more easily manage their members and access in LaunchDarkly. Instead of assigning custom roles to individual members, you can assign a custom role to a team, then add members to the team. If you update or add permissions to the team, all the team members inherit those permissions automatically. To learn how to add custom roles to a team, read [Managing team permissions](/home/teams/managing#managing-team-permissions).
 
-Removing members from the team revokes any permissions the team granted to them. To learn how to add or remove members from a team, read [Managing team members](/home/teams/managing#managing-team-members). 
+Removing members from the team revokes any permissions the team granted to them. To learn how to add or remove members from a team, read [Managing team members](/home/teams/managing#managing-team-members).
 
 To learn more about best practices when using teams, read [Building teams in LaunchDarkly](/guides/best-practices/teams).
 

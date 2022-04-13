@@ -48,9 +48,9 @@ LaunchDarkly SDKs have different constraints that affect user data. Specifically
 
 ## LaunchDarkly member roles
 
-Every account member in your LaunchDarkly project can view user and flag information, including targeting data. Account members with `writer` or `owner / admin` roles can configure flag settings, including targeting flags by PII like user email addresses. Consider if your organization needs to restrict which account members can control access to user data.
+Every account member in your LaunchDarkly project can view user and flag information, including targeting data. Account members with Writer, Admin, or Owner roles can configure flag settings, including targeting flags by PII like user email addresses. Consider if your organization needs to restrict which account members can control access to user data.
 
-The exception to this is if an account member is assigned the `no access` role or a custom role with the `viewProject` action set to `deny`. The `viewProject` action controls a role holder's access to an entire project by preventing or granting them viewing rights to the project. Viewing rights are required for any other permissions in a project to take effect, so restricting viewing rights effectively removes all access to the project.
+The exception to this is if an account member is assigned the No access role or a custom role with the `viewProject` action set to `deny`. The `viewProject` action controls a role holder's access to an entire project by preventing or granting them viewing rights to the project. Viewing rights are required for any other permissions in a project to take effect, so restricting viewing rights effectively removes all access to the project.
 
 You can give an account member custom permissions to view and modify user data by assigning them a custom role.
 

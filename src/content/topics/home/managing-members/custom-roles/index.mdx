@@ -31,9 +31,9 @@ Our custom role system is inspired by [AWS Identity and Access Management (IAM)]
 
 Each account member must have at least one role. You can assign account members a built-in role or one or more custom roles to give them the exact set of permissions they need. To learn more, read [LaunchDarkly's built-in roles](/home/members/built-in-roles).
 
-An account member's initial role is set when they're invited to LaunchDarkly. If not otherwise specified, new account members are assigned the reader role. An account member with the ability to do so must adjust a reader's role to give them more advanced permissions.
+An account member's initial role is set when they're invited to LaunchDarkly. If not otherwise specified, new account members are assigned the Reader role. An account member with the ability to do so must adjust the member's role to give them more advanced permissions.
 
-The one exception to this is the first account member, the person who created your LaunchDarkly account. This role is granted admin permissions automatically, because they are required to configure your account completely and add more account members.
+The one exception to this is the first account member, the person who created your LaunchDarkly account. This role is granted Owner permissions automatically, because they are required to configure your account completely and add more account members.
 
 <LearnMore>
 
@@ -47,7 +47,7 @@ Custom roles are extremely precise in their scope and targeting. For example, yo
 
 This level of precision also means you must specifically allow or deny actions for every resource you want the role recipient to be able to take. If you do not specify an action for a resource, that action is set to deny by default.
 
-One method of creating a custom role is to start with a policy that matches permissions for a reader or writer, and modify it.
+One method of creating a custom role is to start with a policy that matches permissions for a Reader or Writer role, and modify it.
 
 For templates that match these permission levels, read [Example policies](/home/members/example-policies).
 

@@ -26,7 +26,7 @@ Approvals let more people have input on planned changes to a flag. These review-
 
 When an account member plans a flag change, they have the option to request approval for that change from anyone in their LaunchDarkly project.
 
-Anyone with a `writer`, `owner / admin`, or custom role can approve a flag change, regardless of whether or not their review has been requested. Account members who the requester chooses receive an email notifying them that their review has been requested, and, if applicable, a notification in the LaunchDarkly Slack app.
+Anyone with a Writer, Admin, Owner, or custom role with `reviewApprovalRequest` permission can approve a flag change, regardless of whether or not their review has been requested. Account members who the requester chooses receive an email notifying them that their review has been requested, and, if applicable, a notification in the LaunchDarkly Slack app.
 
 Here is an image of the approvals email notification from LaunchDarkly:
 
@@ -100,7 +100,7 @@ To approve or decline a change from within the LaunchDarkly app:
 
   - If you want to approve and apply the changes right away, click **Approve and apply**. The "Review history" section updates to indicate that you reviewed the change request, and the requestor receives an email notification.
 
-  - If you want to approve the changes but not apply them, click into the dropdown and choose **Approve changes**. The original requester, or any account member with a writer, owner / admin, or custom role can apply the changes you approved.
+  - If you want to approve the changes but not apply them, click into the dropdown and choose **Approve changes**. The original requester, or any account member with a Writer, Admin, Owner, or appropriate custom role can apply the changes you approved.
 
   - If you want to decline the changes, click **Decline changes**.
 
@@ -118,7 +118,7 @@ To approve or decline a change from an email notification:
 
   - If you want to approve and apply the changes right away, click **Approve and apply**. The "Review history" section updates to indicate that you reviewed the change request, and the requestor receives an email notification.
 
-  - If you want to approve the changes but not apply them, click into the dropdown and choose **Approve changes**. The original requester, or any account member with a writer, owner / admin, or custom role can apply the changes you approved.
+  - If you want to approve the changes but not apply them, click into the dropdown and choose **Approve changes**. The original requester, or any account member with a Writer, Admin, Owner, or appropriate custom role can apply the changes you approved.
 
   - If you want to deny the changes, click **Decline changes**.
 
@@ -126,7 +126,7 @@ To approve or decline a change from an email notification:
 <CalloutTitle>Anyone with role access can leave a comment</CalloutTitle>
 <CalloutDescription>
 
-The requestor, anyone with a writer, owner / admin role, or anyone with a custom role that can review approval requests can comment on an approval request.
+Anyone with role access can comment on an approval request. This includes the requestor, as well as anyone with a role of Writer, Admin, Owner, or anyone with a custom role that can review approval requests.
 
 The only time someone with access cannot comment on an approval request is after the request has been applied. Applying an approval request freezes the approval request page to preserve the state it was in when the change was applied.
 

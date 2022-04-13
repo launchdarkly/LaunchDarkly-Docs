@@ -11,19 +11,19 @@ This topic explains the built-in roles that come with every LaunchDarkly project
 
 ## Understanding LaunchDarkly's built-in roles
 
-Every LaunchDarkly account has three built-in roles: `reader`, `writer`, and `owner / admin`. Customers on an Enterprise plan also have a restricted `no access` role.
+Every LaunchDarkly account has four built-in roles: Reader, Writer, Admin, and Owner. Customers on an Enterprise plan also have a restricted No access role.
 
-The first account member who created your LaunchDarkly account is granted `owner` permissions automatically, because those permissions are required to configure your account and add more account members. You can change the account owner when there is more than one account member in your LaunchDarkly project. To learn more, read [Changing account owners](/home/account-security/account-owners).
+The first account member who created your LaunchDarkly account is granted an Owner role automatically, because those permissions are required to configure your account and add more account members. Only one account member can have the Owner role at a time. You can change which member has the Owner role when there is more than one account member in your LaunchDarkly project. To learn more, read [Changing account owners](/home/account-security/account-owners).
 
-You must assign each additional account member at least one role. You can assign account members a built-in role or one or more custom roles to give them the exact set of permissions they need.
+You must assign each account member at least one role. You can assign account members a built-in role or one or more custom roles to give them the exact set of permissions they need.
 
-You must set an account member's initial role when you invite them to LaunchDarkly. LaunchDarkly assigns new account members the `reader` role by default, unless you choose a different starting role. The reader role gives view, but not write, access to all projects and flags within your LaunchDarkly account.
+You must set an account member's initial role when you invite them to LaunchDarkly. LaunchDarkly assigns new account members the Reader role by default, unless you choose a different starting role. The Reader role gives view, but not write, access to all projects and flags within your LaunchDarkly account.
 
 <Callout intent="info">
-<CalloutTitle>The no access role gives your organization the most control</CalloutTitle>
+<CalloutTitle>The No access role gives your organization the most control</CalloutTitle>
 <CalloutDescription>
 
-Some customers, especially those in highly regulated industries, do not want members to have view access to everything in their LaunchDarkly account when they first join. The no access role can help your organization manage access to resources within LaunchDarkly and enforce security best practices, such as the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege).
+Some customers, especially those in highly regulated industries, do not want members to have view access to everything in their LaunchDarkly account when they first join. The No access role can help your organization manage access to resources within LaunchDarkly and enforce security best practices, such as the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege).
 
 </CalloutDescription>
 </Callout>
@@ -137,19 +137,19 @@ Readers can view information in LaunchDarkly, but can't modify it. This role is 
 
 Writers can make changes to LaunchDarkly that impact what the platform does. For example, they can modify feature flags, metrics, environments, projects, and more. They can’t add new account members to the account or manage your payment method or plans. This role for members who need the ability to configure your organization's feature flags.
 
-### Admin and owner/admin
+### Admin and Owner
 
-Admins can do anything in LaunchDarkly except modify which account member has the owner role. You can have multiple admins in your LaunchDarkly account.
+Admins can do anything in LaunchDarkly except modify which account member has the Owner role. You can have multiple Admins in your LaunchDarkly account.
 
-Owners can do anything Admins can do in LaunchDarkly, as well as reassign the owner role to another account member.
+Owners have absolute power over your entire LaunchDarkly account, including the ability to add or remove the Admin role from other account members, or to remove the Owner role from themselves and assign it to someone else.
 
 ### No access
 
 <Callout intent="primary">
-<CalloutTitle>The no access role and custom roles are Enterprise features</CalloutTitle>
+<CalloutTitle>The No access role and custom roles are Enterprise features</CalloutTitle>
 <CalloutDescription>
 
-The no access role and custom roles are available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+The No access role and custom roles are available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>

@@ -64,9 +64,9 @@ Adding someone as a team maintainer does not automatically make them a member of
 
 Every organization using LaunchDarkly is made up of members. Members are people who work for your organization or use your organization's LaunchDarkly account. Every member must be individually assigned either one of LaunchDarkly's built-in roles or a custom role. To learn more, read [LaunchDarkly's built-in roles](/home/members/built-in-roles) and [Custom roles](/home/members/custom-roles).
 
-Organizations use custom roles to gain more precise control over their feature flags, experiments, or LaunchDarkly administration. Custom roles are the granular permission scopes that an Admin can set up for their organization. An individual member may have a custom role. To learn more, read [Custom roles](/home/members/custom-roles).
+Organizations use custom roles to gain more precise control over their feature flags, experiments, or LaunchDarkly administration. Custom roles are the granular permission scopes that an administrator can set up for their organization. An individual member may have a custom role. To learn more, read [Custom roles](/home/members/custom-roles).
 
-If a member belongs to one or more teams, a member's role(s), which includes either a built-in role or custom role(s), will aggregate with the custom role(s) that are applied to their team(s). Note that adding a member with a built-in `owner / admin` role will not affect their permissions since those roles can perform all actions in LaunchDarkly.
+If a member belongs to one or more teams, a member's role(s), which includes either a built-in role or custom role(s), will aggregate with the custom role(s) that are applied to their team(s). Note that adding a member with a built-in Admin role will not affect their permissions since those roles can perform all actions in LaunchDarkly.
 
 A team can have one or more custom roles assigned to it. In cases where a team's custom roles have conflicting permission levels, or a team's custom role has conflicting permission levels with the permissions assigned to a member of that team, the more permissive set of permissions will be applied. For example, if a team has one custom role that allows access to a resource, and a member of that team has another custom role that restricts access to a resource, the team member will be able to access that resource.
 
