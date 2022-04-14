@@ -62,6 +62,8 @@ exclude = [
   'https://launchdarklydemostack1-s3bucketforwebsitecontent-jffmp2434grq.s3.amazonaws.com/site/',
   # TODO: SC-135999 workaround
   'https://www.php.net/manual/en/language.types.declarations.php',
+  # TODO: SC-149484 workaround
+  'https://pkg.go.dev*',
 ]
 
 # Exclude all private IPs from checking

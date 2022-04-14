@@ -32,6 +32,7 @@ exclude = [
   'https://support.launchdarkly.com',
   'https://support.pendo.io',
   'https://developers.cloudflare.com',
+  'https://pkg.go.dev*',
   # specific example links
   '^https://launchdarkly.github.io/$',
   # ignore git clone links
