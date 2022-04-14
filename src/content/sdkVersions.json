@@ -918,6 +918,11 @@
     "name": "PHP",
     "versions": [
       {
+        "versionMajorMinor": "4.2",
+        "releaseYear": 2022,
+        "releaseMonthDay": "04-13"
+      },
+      {
         "versionMajorMinor": "4.1",
         "releaseYear": 2022,
         "releaseMonthDay": "02-16"
