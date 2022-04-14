@@ -9,7 +9,9 @@ published: true
 
 This topic explains the implications of using a LaunchDarkly SDK in an app you submit to the Apple App Store.
 
-Since December 2020, the Apple App Store requires apps you submit to provide information about their privacy practices, including the practices of third-party partners whose code is integrated into the app. If you integrate a LaunchDarkly SDK into your app and submit it to the Apple App Store, you must disclose which data LaunchDarkly collects.
+Since December 2020, the Apple App Store requires apps you submit to provide information about their privacy practices, including the practices of third-party partners whose code is integrated into the app. If you integrate a LaunchDarkly SDK into your app and submit it to the Apple App Store, you must disclose which data LaunchDarkly collects. Before you submit your app to Apple, you may have questions about how Apple App Store reviewers treat your app's use of LaunchDarkly.
+
+Apple’s App Store policies and the actions of their reviewers are beyond our control or ability to predict. Apple has, in the past, raised concerns about code which is present in an app but which doesn’t seem to be reachable during testing. If you encounter this feedback, you may be able to resolve it by enabling all features for the app version being tested, allowing App Store reviewers to investigate your app, and then disabling unlaunched features before release.
 
 We're providing this topic to help facilitate the submission process. Read this topic to understand which SDKs are impacted by the Apple App Store's policy and learn about what kind of data our SDKs collect.
 
@@ -34,7 +36,7 @@ The tables below summarize the data that LaunchDarkly SDKs collect by default. T
 
 ### Contact info
 
-This table explains the contact information LaunchDarkly SDKs collect by default: 
+This table explains the contact information LaunchDarkly SDKs collect by default:
 
 <Table>
   <TableHeader>
