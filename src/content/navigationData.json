@@ -39,11 +39,21 @@
         "items": [
           {
             "label": "Targeting users with flags",
-            "path": "/home/flags/targeting-users"
-          },
-          {
-            "label": "Bulk user targeting",
-            "path": "/home/flags/bulk-targeting"
+            "path": "/home/flags/targeting-users",
+            "items": [
+              {
+                "label": "Targeting rules",
+                "path": "/home/flags/targeting-rules"
+              },
+              {
+                "label": "Individual user targeting",
+                "path": "/home/flags/individual-targeting"
+              },
+              {
+                "label": "Bulk user targeting",
+                "path": "/home/flags/bulk-targeting"
+              }
+            ]
           },
           {
             "label": "Creating flag variations",

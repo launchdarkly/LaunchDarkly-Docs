@@ -1,0 +1,324 @@
+---
+path: /home/flags/targeting-rules
+title: Targeting rules
+description: This topic explains how to use targeting rules to target segments of users based on their built-in and custom user attributes.
+published: true
+---
+
+## Overview
+
+This topic explains how to use targeting rules to target segments of users based on their built-in and custom user attributes.
+
+## Creating targeting rules
+
+Targeting rules can have one or more conditions. 
+
+Each condition has three parts:
+- An **attribute**, which defines the scope of the condition's impact, such as only targeting an email address.
+- An **operator**, which sets differentiating characteristics of the attribute, such as limiting the condition to emails that end with certain extensions. If a condition specifies multiple values for the operator to track, the operator iterates over the array.
+- A **value**, which identifies the attribute by a value you specify, such as `gmail.com`.
+
+Here is an image of a user targeting rule:
+
+![A user targeting rule.](users-targeting-rules.png)
+
+To create a rule that serves `true` to all users whose email address ends with `gmail.com`:
+
+1. Click **Add rules**.
+2. Enter a name for the rule.
+3. Choose `email` from the **Select an attribute** menu.
+4. Choose `ends with` from the **Select an operator** menu.
+5. Enter `gmail.com` in the **Enter some values** field.
+6. Choose `true` from the **serve** menu.
+7. (Optional) If you need to undo the changes you just made, click the **undo arrow** icon to discard all changes.
+8. Click **Review and save**.
+
+If a targeting rule references any custom attributes with `null` values, then the flag skips that rule.
+
+You can add multiple conditions to a rule. Here is how rules handle multiple conditions and values:
+
+- Users must meet *all* the conditions in a rule to match the rule. If any of the conditions are not met, the user will not match the rule.
+- If a condition has multiple values, LaunchDarkly considers the condition met if there is a match on *any* of the values.
+- If a custom attribute has an array value, LaunchDarkly treats it as multiple values and allows any of the values within the array to match a rule.
+
+
+
+### Operators
+
+LaunchDarkly supports the following operators:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Operator</TableHeadCell>
+    <TableHeadCell>Attribute type</TableHeadCell>
+    <TableHeadCell>Meaning</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>is one of (=), is not one of (!=)</TableCell>
+      <TableCell>string, number, boolean, date</TableCell>
+      <TableCell>exact match</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>ends with, does not end with</TableCell>
+      <TableCell>string</TableCell>
+      <TableCell>string suffix match</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>starts with, does not start with</TableCell>
+      <TableCell>string</TableCell>
+      <TableCell>string prefix match</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>matches, does not match</TableCell>
+      <TableCell>string</TableCell>
+      <TableCell>regular expression match</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>contains, does not contain</TableCell>
+      <TableCell>string</TableCell>
+      <TableCell>substring match</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>greater than (&gt;), less than (&lt;), greater than or equal to (&gt;=), less than or equal to (&lt;=)</TableCell>
+      <TableCell>number</TableCell>
+      <TableCell>numeric comparisons</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>before, after</TableCell>
+      <TableCell>date</TableCell>
+      <TableCell>date comparisons</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>user is in segment, user is not in segment</TableCell>
+      <TableCell>segment names</TableCell>
+      <TableCell>
+        user is included or excluded by the targeting rules for the named segments. To learn more, read <a href="/home/users/segments">Building user segments</a>.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>semantic version is one of (=), is not one of (!=), greater than (&gt;), less than (&lt;), greater than or equal to (&gt;=), less than or equal to (&lt;=)</TableCell>
+      <TableCell>string</TableCell>
+      <TableCell>
+        <a href="https://semver.org/">Semantic version</a> comparison. Valid string attributes must follow the semantic versioning
+        specification, though LaunchDarkly allows you to omit the PATCH version. For example, `2.0` is a valid semantic version.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+Server-side SDKs must be the following minimum version or higher to support semantic versioning:
+
+- .NET: 3.6.1
+- Apex: all versions
+- C/C++: all versions
+- Erlang: all versions
+- Go: v3
+- Java: 2.6.0
+- Haskell: all versions
+- Lua: all versions
+- Node.js: all versions
+- PHP: 2.5.0
+- Node: 3.4.0
+- Python: 4.3.0
+- Ruby: 2.5.0
+- Rust: 1.0.0-beta.1
+
+No updates are required for client-side SDKs.
+
+### Date comparisons
+
+Dates specified in the `user` object must be formatted in UNIX milliseconds: UNIX epoch * 1000. To learn more about UNIX date formatting, or convert a date and time to UNIX milliseconds, read [Current Millis](https://currentmillis.com/).
+
+## Targeting based on built-in attributes
+
+LaunchDarkly includes built-in attributes for users. Here are some examples of common user attributes:
+
+- `key`
+- `firstName`
+- `lastName`
+- `email`
+- `avatar`
+
+The user key is the only mandatory user attribute. The JavaScript and React Web SDKs automatically generate a random key for you if you do not provide one.
+
+All other user attributes are optional. For a full list of built-in user attributes, read [Understanding user attributes](/home/users/attributes#understanding-user-attributes).
+
+<Callout intent="info">
+<CalloutTitle>LaunchDarkly does not automatically populate built-in attributes</CalloutTitle>
+<CalloutDescription>
+
+While LaunchDarkly provides built-in attribute fields for you to fill in, the SDK does not automatically collect any information. If you want to target your users based on any other built-in attributes, you must supply their values.<br /><br />
+
+The exceptions to this are the `os` and `device` attributes used by mobile SDKs. Mobile SDKs automatically populate these values.
+
+</CalloutDescription>
+</Callout>
+
+## Targeting based on custom attributes
+
+LaunchDarkly allows you to target users based on arbitrary custom attributes, which means you can control who receives features based on any criteria that you send to us.
+
+For instance, you might want to target users based on plan, group, role, location, or organization. Using these attributes, you could show some features to users on your regular plan, and additional features to users on your premium plan. Or you could roll out a new feature to 30% of organizations, rather than 30% of users.
+
+<Callout intent="warning">
+<CalloutTitle>First create custom attributes in your SDK</CalloutTitle>
+<CalloutDescription>
+
+You must first create custom attributes within your SDK before you can use them in targeting rules. To learn how, read [User configuration](/sdk/features/user-config).
+
+</CalloutDescription>
+</Callout>
+
+As an example, here is a targeting rule with two conditions. This rule serves `true` to users who are not in the segment `Test Segment` and whose `Account` custom attribute does not start with `test`.
+
+Here is an image of the rule with conditions:
+
+![A rule serving "true" to users affected by two conditions.](users-targeting-multiple-rules.png)
+
+When you've finished setting up the conditions for your rule, you can decide whether your users will receive one variation, or a percentage rollout across several variations.
+
+<Callout intent="alert">
+<CalloutTitle>Attributes cannot share the same key</CalloutTitle>
+<CalloutDescription>
+
+Assigning a custom attribute a key already used by a built-in attribute causes the SDK to ignore the custom attribute during feature flag evaluation.
+
+</CalloutDescription>
+</Callout>
+
+### Maintaining user experience across anonymous and logged-in states
+
+To associate pre-login (anonymous user) behaviors with post-login (known user) behaviors to get a singular view of a user flow, you should use a custom attribute and the advanced option for percentage rollouts that allows you to rollout based on a different attribute. 
+
+Here's how to do this:
+
+1. Store a unique identifier for the anonymous user into a cookie. A session ID or UUID works well.
+2. Use this unique identifier as both the user's key and a custom attribute until the user logs in. The custom attribute can be named anything, but for this example it is named `uniqueId`.
+3 While the user is logged in, set the user's key to their real (primary) user key, but continue to use the unique identifier stored in the cookie as the user's `uniqueId` custom attribute.
+4. For all flags, or for those that may affect logged out users, use the advanced option for all percentage rollouts to do rollouts based on the `uniqueId` custom attribute.
+
+To learn more about anonymous users, read [Anonymous users](/home/users/anonymous-users).
+
+<Callout intent="info">
+<CalloutTitle>Secondary attribute</CalloutTitle>
+<CalloutDescription>
+
+The secondary attribute is a special attribute. The SDKs incorporate this attribute into the variation bucket assignment hash automatically when it is included in your user object. Unlike other attributes, you cannot use the secondary attribute in targeting rules.
+
+</CalloutDescription>
+</Callout>
+
+## Percentage rollouts
+
+If you want to do a percentage rollout, select "percentage rollout" from the menu and allocate users accordingly.
+
+Here is an image of the percentage rollout section:
+
+![The percentage rollout section.](rules-percentage-rollout.png)
+
+In this example, 25% of the `beta_testers` group receive the new dashboard feature.
+
+<Callout intent="info">
+<CalloutTitle>Experiment allocation</CalloutTitle>
+<CalloutDescription>
+
+If you're using Experimentation, experiment allocation allows you more flexibility when selecting your experiment population and ensures accurate experiment results. To learn how to enable and use experiment allocation, read [Allocating experiment populations](/home/experimentation/allocation).
+
+</CalloutDescription>
+</Callout>
+
+### Percentage rollout logic
+
+When you set up a percentage rollout, the variation a user receives is determined by the user's key. The percentage rollout logic generates a hash from the user's key or attribute, the user's secondary attribute if provided, the flag's key, and a hidden salt attribute stored in the flag.
+
+The SDK uses this hash to generate a percentage value for that user. That value, compared to the value set for the percentage rollout value, determines which variation a user receives. The hash has partitions from 1 to 100,000. When you assign flag variations, the hash assigns values from 1 to 100,000 to users in each partition, in order. For example, when you assign 50% to variation A, LaunchDarkly serves variation A to hash partitions from 1 to 50,000.
+
+A common use case for percentage rollouts is to increment the percentage of users targeted by a flag over time until 100% of the users receive one variation of a flag. When you change the percentage allocation of users to flag variations, those users are reassigned different flag variations based on their partition's position in the 1 to 100,000 hash list. For example, if you change the percentage of users receiving variation A from 50% to 70%, partitions 50,001 to 70,000 would be added to the set of partitions already receiving variation A.
+
+To learn more about rollouts and variation assignments, read [Rollouts](/sdk/concepts/flag-evaluation-rules#percentage-rollouts).
+
+<Callout intent="info">
+<CalloutTitle>Advanced Targeting: Percentage rollout variation assignment by attribute</CalloutTitle>
+<CalloutDescription>
+
+In the "Advanced" area of the percentage rollout menu, you can assign variation buckets to users based on any attribute sent to LaunchDarkly. For example, you can roll out a feature to 20% of `companies`, whereby users will be assigned to a variation bucket based on the value of their `company` attribute. This ensures that LaunchDarkly treats all users with matching attribute-value pairs the same. If you choose a custom attribute for this purpose, it should have either string values or integer numeric values. For users with a custom attribute number that includes a fraction or has a value type besides `string` or `number`, the variation bucket assignment is undefined.
+
+</CalloutDescription>
+</Callout>
+
+## Setting the default rule
+
+LaunchDarkly defines a final default rule, sometimes called the "fallthrough" rule, for any users that don't match any of the previous targeting rules on the page. As with other rules, you can choose to serve a specific variation, or apply a percentage rollout to any remaining users.
+
+Here is an image of the percentage rollout section:
+
+![A percentage rollout, set to 50%.](rules-percentage-fifty.png)
+
+
+Now, 50% of all users who have not been targeted by any other rules will receive `true`.
+
+If you do not want to target users based on user key or any custom attributes, you can use the default rule to control the flag's rollout for all users.
+
+
+## Setting the default off variation
+
+When the toggle is turned off, LaunchDarkly will serve the default off variation for your feature flag. For boolean flags, the default off variation is set to `false`. For multivariate flags, you select one of your custom variations. You can customize the default off variation for both boolean and multivariate flags in the **Targeting** tab.
+
+If you do not specify a default off variation, then the SDK will return the fallback value defined in your code.
+
+<Callout intent="info">
+<CalloutTitle>Setting a fallback value in your SDK call</CalloutTitle>
+<CalloutDescription>
+
+Regardless of how you set up targeting in your flag dashboard, each time you evaluate a flag from the SDK, you must include a fallback value as one of the parameters. This fallback value is the value served to the user if the SDK cannot connect to LaunchDarkly. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+
+</CalloutDescription>
+</Callout>
+
+## Evaluation order
+
+The **Targeting** tab evaluates rules top-down. Imagine a highway with exits along the way. All of your users will start at the top and then gradually exit the highway when they match a rule.
+
+If a user matches multiple rules, the first matching rule applies.
+
+Here is a diagram representing rule matching behavior:
+
+![A tree diagram showing rule matching behavior.](flag-targeting-diagram.png)
+
+
+Here, we have two custom rules. Rules are evaluated top down, so in this example, the first rule (`email` ends with `gmail.com` and `country` is one of `USA` or `Canada`) is evaluated before the second rule (`groups` is one of `beta_testers`). If a user matched both rules, the first rule would take priority.
+
+Here is an image of two targeting rules:
+
+![Two custom rules targeted at user groups.](users-targeting-multiple-groups.png)
+
+
+Rules can be re-ordered by clicking on the left edge of a rule and dragging it up or down.
+
+## Converting a rule into a segment
+
+You may require complex targeting rules to successfully perform feature launches. You can convert a targeting rule into a reusable segment from the flag's **Targeting** page.
+
+Here is an image of the "Convert individual user targets to segment" dialog:
+
+![The "Convert to segment" dialog.](segment-convert-to-segment-modal.png)
+
+To convert a rule to a segment:
+
+1. Navigate to the flag's **Targeting** page.
+2. In the user targeting section or the rule matching section, click the **overflow menu** of the rule you wish to convert. The overflow menu appears.
+3. Click "Convert to segment". The "Convert to segment" window appears:
+
+![A flag rule, with the "Convert to segment" option called out.](segment-convert-to-segment-users.png)
+
+4. Give your segment a human-readable **Name**.
+5. (Optional) Add a **Description**.
+6. (Optional) Choose any **Tags** from the menu menu.
+7. Click **Save segment**. A confirmation appears indicating that you've created a new segment.
+
+After you click "Convert to segment", targeted users are cleared. A new segment rule targeting the newly created segment `test-12345` appears at the top of the list of targeting rules.
+
+Here is an image of the targeting section:
+
+![The targeting section, with the new segment called out.](segment-convert-to-segment-creation.png)
