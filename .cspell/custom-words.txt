@@ -79,6 +79,7 @@ Hackage
 Hashicorp
 hashlib
 hexdigest
+HMACSHA
 inclusivity
 infrastructing
 inited

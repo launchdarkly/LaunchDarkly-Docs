@@ -241,25 +241,28 @@ client.secure_mode_hash(&user);
 
 ## Computing the hash manually
 
-Alternatively, you can compute the hash yourself.
+To compute the hash manually, locate the SDK key for your environment on the **Projects** tab of your **Account settings** page. Then, compute an HMAC SHA256 hash of the UTF8 encoding of your user key, using the UTF-8 encoding of your SDK key as a secret, and convert the hash to a hexadecimal string.
 
-To compute the hash yourself, locate the SDK key for your environment on the **Projects** tab of your **Account settings** page. Then, compute an HMAC SHA256 hash of your user key, using your SDK key as a secret.
-
-Here's an example that uses Node.js:
+Here is a .NET (server-side) example:
 
 <CodeTabs
-  defaultValue="js"
+  defaultValue="csharp"
   values={[
-    { label: 'JavaScript', value: 'js', },
+    { label: 'C#', value: 'csharp', },
   ]
 }>
-<CodeTabItem value="js">
+<CodeTabItem value="csharp">
 
-```js
-const crypto = require('crypto');
-const hmac = crypto.createHmac('sha256', 'YOUR_SDK_KEY');
-hmac.update('YOUR_USER_KEY');
-hash = hmac.digest('hex');
+```csharp
+using System;
+using System.Security.Cryptography;
+using System.Text;
+
+var encoding = new UTF8Encoding();
+var keyBytes = encoding.GetBytes("YOUR_SDK_KEY");
+var hmacSha256 = new HMACSHA256(keyBytes);
+var hashBytes = hmacSha256.ComputeHash(encoding.GetBytes("YOUR_USER_KEY"));
+var hashString = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
 ```
 
 </CodeTabItem>
