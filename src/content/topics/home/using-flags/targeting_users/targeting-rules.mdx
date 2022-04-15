@@ -195,7 +195,7 @@ Here's how to do this:
 
 1. Store a unique identifier for the anonymous user into a cookie. A session ID or UUID works well.
 2. Use this unique identifier as both the user's key and a custom attribute until the user logs in. The custom attribute can be named anything, but for this example it is named `uniqueId`.
-3 While the user is logged in, set the user's key to their real (primary) user key, but continue to use the unique identifier stored in the cookie as the user's `uniqueId` custom attribute.
+3. While the user is logged in, set the user's key to their real (primary) user key, but continue to use the unique identifier stored in the cookie as the user's `uniqueId` custom attribute.
 4. For all flags, or for those that may affect logged out users, use the advanced option for all percentage rollouts to do rollouts based on the `uniqueId` custom attribute.
 
 To learn more about anonymous users, read [Anonymous users](/home/users/anonymous-users).
