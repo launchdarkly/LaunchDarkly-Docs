@@ -1,17 +1,17 @@
 ---
 path: /home/account-security/google
-title: GSuite
-description: This topic explains how to configure GSuite to support SSO in LaunchDarkly.
+title: Google Apps
+description: This topic explains how to configure Google Apps to support SSO in LaunchDarkly.
 published: true
 ---
 
 ## Overview
 
-This topic explains how to configure GSuite to support SSO in LaunchDarkly.
+This topic explains how to configure Google Apps to support SSO in LaunchDarkly.
 
 ## Prerequisites
 
-To configure SSO for LaunchDarkly using GSuite, you must complete the following prerequisite:
+To configure SSO for LaunchDarkly using Google Apps, you must complete the following prerequisite:
 
 - Configure SAML for authentication. For more information, read the [Google knowledge base](https://support.google.com/a/answer/6087519).
 
@@ -58,13 +58,13 @@ Use the table below to configure Google fields for LaunchDarkly:
   </TableBody>
 </Table>
 
-## Configuring SSO for LaunchDarkly with GSuite
+## Configuring SSO for LaunchDarkly with Google Apps
 
-Before you create the LaunchDarkly app in GSuite, you must create the LaunchDarkly specific fields for roles and custom roles.
+Before you create the LaunchDarkly app in Google Apps, you must create the LaunchDarkly specific fields for roles and custom roles.
 
 To configure these fields:
 
-1. Log into GSuite.
+1. Log into Google Apps.
 2. Navigate to your user directory by clicking **Directory** and then **Users**.
 3. Click the **Manage user attributes** icon. A popup screen appears:
 
@@ -89,11 +89,11 @@ Set the **Multiple values** field for `customRoles` to "Yes". Some account membe
 
 ## Adding LaunchDarkly as a custom SAML application
 
-Next, you must add LaunchDarkly to your GSuite apps.
+Next, you must add LaunchDarkly to your Google Apps apps.
 
 To add LaunchDarkly:
 
-1. Log into GSuite.
+1. Log into Google Apps.
 2. Navigate to **Apps** > **SAML Apps**.
 3. Click the plus button to **Add** an app.
 4. Select **Setup my own Custom App** to configure LaunchDarkly. The setup workflow initiates.
@@ -125,21 +125,21 @@ In the screenshot above, the names in the left-hand columns map to those present
 </CalloutDescription>
 </Callout>
 
-You've successfully connected LaunchDarkly to GSuite.
+You've successfully connected LaunchDarkly to Google Apps.
 
-## Assigning roles and custom roles with GSuite
+## Assigning roles and custom roles with Google Apps
 
 Now that the application is configured, you can assign roles.
 
 To assign roles:
 
-1. Log into GSuite.
+1. Log into Google Apps.
 2. Navigate to **Directory** > **Users**.
-3. Click on the GSuite user that you want to assign roles to and choose **Account** to bring up the user's account settings.
+3. Click on the Google Apps user that you want to assign roles to and choose **Account** to bring up the user's account settings.
 4. Click **Edit** beneath “Manage user attributes” to add the user’s role(s) to the corresponding attribute fields:
 
 ![The "Update User" screen.](google-update-user.png)
 
 5. Click **Update User.**
 
-The next time this user logs into LaunchDarkly through GSuite, their roles will update. If this is a brand new LaunchDarkly account member, an account will be created automatically with the roles you specified.
+The next time this user logs into LaunchDarkly through Google Apps, their roles will update. If this is a brand new LaunchDarkly account member, an account will be created automatically with the roles you specified.

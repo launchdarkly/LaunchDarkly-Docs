@@ -126,19 +126,19 @@
             "path": "/home/code/code-references",
             "items": [
               {
-                "label": "Bitbucket Pipes",
+                "label": "Bitbucket code references",
                 "path": "/home/code/bitbucket"
               },
               {
-                "label": "CircleCI Orbs",
+                "label": "CircleCI code references",
                 "path": "/home/code/circleci"
               },
               {
-                "label": "GitHub Actions",
+                "label": "GitHub code references",
                 "path": "/home/code/github-actions"
               },
               {
-                "label": "GitLab CI",
+                "label": "GitLab code references",
                 "path": "/home/code/gitlab"
               },
               {
@@ -264,7 +264,7 @@
             "path": "/home/account-security/sso",
             "items": [
               {
-                "label": "ADFS",
+                "label": "Active Directory Federation Services (ADFS)",
                 "path": "/home/account-security/adfs"
               },
               {
@@ -272,7 +272,7 @@
                 "path": "/home/account-security/azure"
               },
               {
-                "label": "GSuite",
+                "label": "Google Apps",
                 "path": "/home/account-security/google"
               },
               {
@@ -378,7 +378,7 @@
             "path": "/home/data-export/google-pubsub"
           },
           {
-            "label": "Kinesis",
+            "label": "Amazon Kinesis",
             "path": "/home/data-export/kinesis"
           },
           {
@@ -633,7 +633,7 @@
             ]
           },
           {
-            "label": "New Relic",
+            "label": "New Relic One",
             "path": "/integrations/new-relic",
             "items": [
               {
@@ -675,7 +675,7 @@
             "path": "/integrations/microsoft-teams"
           },
           {
-            "label": "Slack",
+            "label": "Slack app",
             "path": "/integrations/slack",
             "items": [
               {
@@ -695,7 +695,7 @@
                 "path": "/integrations/slack/managing"
               },
               {
-                "label": "Webhook integration",
+                "label": "Slack Incoming Webhooks",
                 "path": "/integrations/slack/webhooks"
               }
             ]
@@ -711,7 +711,7 @@
             "path": "/integrations/intellij"
           },
           {
-            "label": "VSCode",
+            "label": "Visual Studio Code (VSCode)",
             "path": "/integrations/vscode"
           }
         ]
@@ -721,7 +721,7 @@
         "path": "/integrations/workflow",
         "items": [
           {
-            "label": "Jira",
+            "label": "Jira Cloud",
             "path": "/integrations/jira"
           },
           {
@@ -757,7 +757,7 @@
         "path": "/integrations/more",
         "items": [
           {
-            "label": "Ansible",
+            "label": "Ansible Collection",
             "path": "/integrations/ansible"
           },
           {

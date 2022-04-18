@@ -1,7 +1,7 @@
 ---
 path: /home/code/gitlab
-title: GitLab CI
-description: This topic explains how to set up and configure the Gitlab CI to use with LaunchDarkly. You can use the ld-find-code-refs utility with Gitlab CI to automatically populate code references in LaunchDarkly.
+title: GitLab code references
+description: This topic explains how to set up and configure the GitLab code references to use with LaunchDarkly. You can use the ld-find-code-refs utility with GitLab code references to automatically populate code references in LaunchDarkly.
 published: true
 ---
 
@@ -16,11 +16,11 @@ Code references is available to customers on an Enterprise plan. To learn more, 
 
 ## Overview
 
-This topic explains how to set up and configure the Gitlab CI to use with LaunchDarkly.
+This topic explains how to set up and configure the GitLab code references to use with LaunchDarkly.
 
 You can use the [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) utility with [GitLab CI](https://about.gitlab.com/product/continuous-integration/) to automatically populate code references in LaunchDarkly.
 
-Follow the procedure below to create a GitLab CI configuration using LaunchDarkly's code references executable.
+Follow the procedure below to create a GitLab code references configuration using LaunchDarkly's code references executable.
 
 ## Prerequisites
 
@@ -28,9 +28,9 @@ To complete this procedure, you must have the following prerequisites:
 
 - An API access token with Writer permissions. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
 
-## Setting up GitLab CI
+## Setting up GitLab code references
 
-Here's how to set up the GitLab CI:
+Here's how to set up the GitLab code references:
 
 1. Navigate to your GitLab project's CI / CD settings by clicking through **Your project** > **Settings** > **CI/CD**.
 2. Expand **Variables**.
@@ -39,7 +39,7 @@ Here's how to set up the GitLab CI:
 
 ![The GitLab Variables dialog with masked "LD_ACCESS_TOKEN" and "LD_PROJECT_KEY" created.](gitlab-ci-env-variables.png)
 
-5. Open your `.gitlab-ci.yml` file. This file defines your project's CI/CD pipeline. To learn more about getting started with GitLab CI, read [GitLab's documentation](https://docs.gitlab.com/ee/ci/#getting-started).
+5. Open your `.gitlab-ci.yml` file. This file defines your project's CI/CD pipeline. To learn more about getting started with GitLab code references, read [GitLab's documentation](https://docs.gitlab.com/ee/ci/#getting-started).
 6. Copy and paste the following into `.gitlab-ci.yml`. No changes to the script are needed if your pipeline runs on Alpine Linux. If `apk` is unavailable in your environment then you'll need to modify the first three steps to use a different package manager:
 
 <CodeTabs
