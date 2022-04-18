@@ -159,6 +159,7 @@ phar
 phpredis
 Phusion
 podfile
+Preact
 preconfigured
 predis
 prerender
