@@ -34,7 +34,7 @@ jobs:
         # for PR that is the merge commit, which is why we don't use it elsewhere
         if: steps.last-success.outputs.sha != github.sha 
         id: changed-files-specific
-        uses: tj-actions/changed-files@v18.6
+        uses: tj-actions/changed-files@v18.7
         with:
           token: ${{ github.token }}
           separator: ' '
