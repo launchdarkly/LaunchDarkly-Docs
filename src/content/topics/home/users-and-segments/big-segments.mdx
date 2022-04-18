@@ -35,36 +35,31 @@ You can sync Big Segments from an Amplitude cohort. When you sync your Amplitude
 
 To learn more, read [Syncing segments from Amplitude cohorts](/home/users/synced-segments).
 
-## Importing and exporting Big Segments
+## Importing into and exporting from Big Segments
 
-<Callout intent="info">
-<CalloutTitle>This feature is for Early Access Program customers only
-</CalloutTitle>
-  <CalloutDescription>
-
-The ability to import to or export from a Big Segment is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](http://launchdarkly.com/eap).
-  </CalloutDescription>
-</Callout>
-
-[//]: # (TODO - Upon GA, the guidance around whether to use the checkbox should probably move to the main segments paged, linked to here, and this section can just cover import/export.  The screenshot for segment creation will need to be updated.)
-
-You can import and export directly to and from LaunchDarkly Big Segments using CSV files. The import/export feature is not available for synced Big Segments.
-
-If you want to import or export from a Big Segment, you must designate the segment as a Big Segment when you create it. To learn more about creating segments, read [Segments](/home/users/segments).
+You can import users into a Big Segment from a CSV file, as well as export users from a Big Segment into a CSV file.
 
 ### Importing users
 
 To import users from a CSV file:
 
-1. Navigate to the Big Segment you wish to import users to.
-2. Click **Upload CSV**:
+1. Navigate to the Big Segment you wish to import users into.
 
-![An empty Big Segment screen with Upload CSV buttons](big-segment-empty.png)
+![The "Targeting" tab of an empty Big Segment.](big-segment-empty.png)
 
-3. Select a CSV file from your computer.
-4. Click **Upload File**.
+2. Click **Upload CSV**. An "Upload CSV" dialog appears. 
 
-The import process begins in the background. When the import completes successfully, you receive an email notification. Depending on the number of users in the CSV, this may take several minutes.
+If the Big Segment already contains users, you have the option to merge or overwrite the existing users with the users from the CSV file.
+ - Select "Overwrite" to replace all existing users in the segment
+ - Select "Merge" to add to the existing users in the segment
+
+![The Big segment "Upload CSV" dialog.](big-segment-upload-modal.png)
+
+3. Click **Select File**.
+4. Select a CSV file from your computer.
+5. Click **Upload File**.
+
+The import process begins in the background. When the import completes successfully, you receive an email notification. Depending on the number of users in the CSV, this may take several minutes or hours.
 
 <LearnMore>
 
@@ -72,31 +67,45 @@ You can also use the REST API: [Update targets on a Big Segment](https://apidocs
 
 </LearnMore>
 
-### Limitations in the EAP version of this feature
-
-There are some limitations to the import/export feature. They are:
-
-1. When you import to a Big Segment from a CSV file, the contents of the CSV file replaces the current set of users. This means current users will be erased if they are not in the CSV file.
-2. The imported CSV file must not contain a header row. LaunchDarkly reads user keys from the first column of the CSV file.
-
-For example:
-
-![Big Segment example CSV content](big-segment-example-csv.png)
-
-4. Import/export of **Excluded users** is not supported.
-5. Concurrent imports within a single [environment](/home/organize/environments) are not supported.
-6. Uploaded CSV files may not exceed 10MB in size and may not contain more than 500K users.
 
 ### Exporting users
 
-To initiate an CSV export of the members of a Big Segment:
+To export the members from a Big Segment into a CSV file:
 
 1. Navigate to the desired segment.
-2. Click on the **overflow menu** and select **Export as CSV**:
+2. Click on the segment's **overflow menu** and select "Export as CSV".
 
-![A Big Segment with the "Export as CSV" option.](big-segment-export.png)
+![The overflow menu for a Big Segment with the "Export as CSV" option displayed.](big-segment-export.png)
 
 The export process runs in the background. When it completes, you receive an email notification containing a link to where you can download your CSV file.
+
+### Limitations for CSV import and export
+
+There are some limitations to the import and export features. They are:
+
+- The imported CSV file must not contain a header row. LaunchDarkly reads user keys from the first column of the CSV file. For example:
+
+![An example Big Segment CSV file.](big-segment-example-csv.png)
+
+- LaunchDarkly does not support concurrent imports within a single environment.
+- Uploaded CSV files may not exceed 40MB in size and may not contain more than 1 million users. If you want to create segments containing more than 1 million users, you can use the "Merge" option with multiple sequential file uploads.
+- LaunchDarkly does not support exporting segments with more than 10 million users.
+
+## Adding and removing individual users
+
+1. Navigate to the desired segment.
+2. In the **Included users** search box, enter the key of the user you want to add or remove. If the user is present in
+the segment, a **Remove user** button appears. If the user is not present in the segment, an **Add user** button appears.
+
+![Add individual user](big-segment-add-individual-user.png)
+
+3. Click **Add user** or **Remove user**.
+4. Click **Review and save**. A "Review and save" dialog appears.
+
+![The Big Segment "Review and save" dialog.](big-segment-review-and-save.png)
+
+
+5. Click **Save changes**.
 
 
 ## Prerequisites
