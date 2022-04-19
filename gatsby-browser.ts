@@ -1,6 +1,7 @@
 import aa from 'search-insights'
 import { TrackJS } from 'trackjs'
 import { initDataDogLogging } from './src/utils/browserMetricsUtils'
+import { initUAParser } from './src/utils/userAgent'
 
 export const onClientEntry = () => {
   const activeEnv = process.env.GATSBY_ACTIVE_ENV
@@ -27,6 +28,8 @@ export const onClientEntry = () => {
   if (isStaging) {
     TrackJS.configure({ version: process.env.PR_NUMBER })
   }
+
+  initUAParser()
 
   // Algolia search insights
   window.aa = aa

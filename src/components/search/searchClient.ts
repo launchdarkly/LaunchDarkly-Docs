@@ -21,6 +21,7 @@ const searchClient = {
           nbHits: 0,
           nbPages: 0,
           processingTimeMS: 0,
+          analyticsTags: [],
         })),
       })
     }

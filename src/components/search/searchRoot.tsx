@@ -5,8 +5,8 @@ import { Configure, InstantSearch, connectSearchBox } from 'react-instantsearch-
 import searchClient from './searchClient'
 import Results from './results'
 import { algoliaIndex } from '../../utils/envUtils'
+import { getAlgoliaAnalyticsTags, trackSearch } from '../../utils/analyticsUtils'
 import Icon from '../icon'
-import { trackSearch } from '../../utils/analyticsUtils'
 
 type SearchInputProps = {
   currentRefinement: string
@@ -61,7 +61,7 @@ const ConnectedSearchInput = connectSearchBox(SearchInput)
 
 const Root = () => (
   <InstantSearch indexName={algoliaIndex} searchClient={searchClient} onSearchStateChange={trackSearch}>
-    <Configure clickAnalytics />
+    <Configure clickAnalytics analyticsTags={getAlgoliaAnalyticsTags()} />
     <ConnectedSearchInput />
     <Results />
   </InstantSearch>

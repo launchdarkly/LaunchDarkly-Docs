@@ -70,6 +70,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/rimraf", "npm:3.0.2"],
             ["@types/segment-analytics", "npm:0.0.34"],
             ["@types/styled-system__css", "npm:5.0.16"],
+            ["@types/ua-parser-js", "npm:0.7.36"],
             ["@typescript-eslint/eslint-plugin", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.16.0"],
             ["@typescript-eslint/parser", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.16.0"],
             ["algoliasearch", "npm:4.13.0"],
@@ -137,6 +138,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-loader", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:9.2.8"],
             ["ts-node", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:10.7.0"],
             ["typescript", "patch:typescript@npm%3A4.5.5#~builtin<compat/typescript>::version=4.5.5&hash=493e53"],
+            ["ua-parser-js", "npm:1.0.2"],
             ["web-vitals", "npm:2.1.4"],
             ["webpack", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.70.0"],
             ["yarn", "npm:1.22.18"]
@@ -10200,6 +10202,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@types/ua-parser-js", [
+        ["npm:0.7.36", {
+          "packageLocation": "./.yarn/cache/@types-ua-parser-js-npm-0.7.36-f5ace9ead6-8c24d4dc12.zip/node_modules/@types/ua-parser-js/",
+          "packageDependencies": [
+            ["@types/ua-parser-js", "npm:0.7.36"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@types/unist", [
         ["npm:2.0.6", {
           "packageLocation": "./.yarn/cache/@types-unist-npm-2.0.6-82641b4aa5-25cb860ff1.zip/node_modules/@types/unist/",
@@ -19175,6 +19186,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/rimraf", "npm:3.0.2"],
             ["@types/segment-analytics", "npm:0.0.34"],
             ["@types/styled-system__css", "npm:5.0.16"],
+            ["@types/ua-parser-js", "npm:0.7.36"],
             ["@typescript-eslint/eslint-plugin", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.16.0"],
             ["@typescript-eslint/parser", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.16.0"],
             ["algoliasearch", "npm:4.13.0"],
@@ -19242,6 +19254,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-loader", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:9.2.8"],
             ["ts-node", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:10.7.0"],
             ["typescript", "patch:typescript@npm%3A4.5.5#~builtin<compat/typescript>::version=4.5.5&hash=493e53"],
+            ["ua-parser-js", "npm:1.0.2"],
             ["web-vitals", "npm:2.1.4"],
             ["webpack", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.70.0"],
             ["yarn", "npm:1.22.18"]
@@ -30196,6 +30209,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/typescript-patch-3020d8933d-c05c318d79.zip/node_modules/typescript/",
           "packageDependencies": [
             ["typescript", "patch:typescript@npm%3A4.5.5#~builtin<compat/typescript>::version=4.5.5&hash=493e53"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["ua-parser-js", [
+        ["npm:1.0.2", {
+          "packageLocation": "./.yarn/cache/ua-parser-js-npm-1.0.2-c3376785e2-ff7f6d79a9.zip/node_modules/ua-parser-js/",
+          "packageDependencies": [
+            ["ua-parser-js", "npm:1.0.2"]
           ],
           "linkType": "HARD",
         }]
