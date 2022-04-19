@@ -101,7 +101,7 @@ Here's how to migrate data objects from one account to another to merge your Lau
     gather_facts: yes
     tasks:
 
-      - name: Get Flag Variation Value
+      - name: Copy a LaunchDarkly project
         launchdarkly_labs.collection.launchdarkly_project_copy:
           api_key: <Replace with an API access token for your secondary account>
           api_key_dest: <Replace with an API access token for your primary account>
@@ -113,6 +113,8 @@ Here's how to migrate data objects from one account to another to merge your Lau
 
     </CodeTabItem>
   </CodeTabs>
+
+  To learn more, read [`launchdarkly_project_copy`](https://launchdarkly-labs.github.io/ansible-launchdarkly-collection/modules/launchdarkly_project_copy.html) in the Ansible collection documentation.
 
 7. Run the playbook with `ansible-playbook first_playbook.yml`. The data transfer initiates. It may take several minutes to complete.
 8. Verify that the transfer completed successfully by checking in your primary account for data from your secondary account. For example, if you tagged objects in your secondary account that you wanted to merge into the primary account, verify that those tagged objects now appear in your primary account.
