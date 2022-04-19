@@ -603,6 +603,11 @@
     "name": "Java",
     "versions": [
       {
+        "versionMajorMinor": "5.8",
+        "releaseYear": 2022,
+        "releaseMonthDay": "04-18"
+      },
+      {
         "versionMajorMinor": "5.7",
         "releaseYear": 2022,
         "releaseMonthDay": "01-28"
