@@ -137,6 +137,8 @@ const settings = {
   customRanking: ['asc(titleType)'],
   attributeForDistinct: 'description',
   distinct: true,
+  queryLanguages: ['en'],
+  ignorePlurals: true,
 }
 const queries = [
   {
