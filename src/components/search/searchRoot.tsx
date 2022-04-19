@@ -6,6 +6,7 @@ import searchClient from './searchClient'
 import Results from './results'
 import { algoliaIndex } from '../../utils/envUtils'
 import Icon from '../icon'
+import { trackSearch } from '../../utils/analyticsUtils'
 
 type SearchInputProps = {
   currentRefinement: string
@@ -59,7 +60,7 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({ currentRefinement, r
 const ConnectedSearchInput = connectSearchBox(SearchInput)
 
 const Root = () => (
-  <InstantSearch indexName={algoliaIndex} searchClient={searchClient}>
+  <InstantSearch indexName={algoliaIndex} searchClient={searchClient} onSearchStateChange={trackSearch}>
     <Configure clickAnalytics />
     <ConnectedSearchInput />
     <Results />

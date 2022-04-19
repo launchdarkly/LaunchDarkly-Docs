@@ -57,6 +57,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/chai", "npm:4.3.0"],
             ["@types/chai-string", "npm:1.4.2"],
             ["@types/jest", "npm:27.4.1"],
+            ["@types/lodash.debounce", "npm:4.0.6"],
             ["@types/node", "npm:17.0.22"],
             ["@types/pluralize", "npm:0.0.29"],
             ["@types/prismjs", "npm:1.26.0"],
@@ -67,6 +68,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-instantsearch-core", "npm:6.10.7"],
             ["@types/react-instantsearch-dom", "npm:6.12.2"],
             ["@types/rimraf", "npm:3.0.2"],
+            ["@types/segment-analytics", "npm:0.0.34"],
             ["@types/styled-system__css", "npm:5.0.16"],
             ["@typescript-eslint/eslint-plugin", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.16.0"],
             ["@typescript-eslint/parser", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.16.0"],
@@ -114,6 +116,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gatsby-transformer-sharp", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.10.0"],
             ["jest", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:27.5.1"],
             ["launchdarkly-js-client-sdk", "npm:2.21.0"],
+            ["lodash.debounce", "npm:4.0.8"],
             ["pluralize", "npm:8.0.0"],
             ["prettier", "npm:2.6.0"],
             ["prism-react-renderer", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:1.1.0"],
@@ -9829,6 +9832,23 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/lodash", "npm:4.14.178"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:4.14.181", {
+          "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.181-a4e20bcfaf-0d1863d838.zip/node_modules/@types/lodash/",
+          "packageDependencies": [
+            ["@types/lodash", "npm:4.14.181"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/lodash.debounce", [
+        ["npm:4.0.6", {
+          "packageLocation": "./.yarn/cache/@types-lodash.debounce-npm-4.0.6-38f73647d4-54b181c650.zip/node_modules/@types/lodash.debounce/",
+          "packageDependencies": [
+            ["@types/lodash.debounce", "npm:4.0.6"],
+            ["@types/lodash", "npm:4.14.181"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["@types/mdast", [
@@ -10101,6 +10121,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-scheduler-npm-0.16.2-ba3a7d8c68-b6b4dcfeae.zip/node_modules/@types/scheduler/",
           "packageDependencies": [
             ["@types/scheduler", "npm:0.16.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/segment-analytics", [
+        ["npm:0.0.34", {
+          "packageLocation": "./.yarn/cache/@types-segment-analytics-npm-0.0.34-c24d2d1959-022e2dc171.zip/node_modules/@types/segment-analytics/",
+          "packageDependencies": [
+            ["@types/segment-analytics", "npm:0.0.34"]
           ],
           "linkType": "HARD",
         }]
@@ -19133,6 +19162,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/chai", "npm:4.3.0"],
             ["@types/chai-string", "npm:1.4.2"],
             ["@types/jest", "npm:27.4.1"],
+            ["@types/lodash.debounce", "npm:4.0.6"],
             ["@types/node", "npm:17.0.22"],
             ["@types/pluralize", "npm:0.0.29"],
             ["@types/prismjs", "npm:1.26.0"],
@@ -19143,6 +19173,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-instantsearch-core", "npm:6.10.7"],
             ["@types/react-instantsearch-dom", "npm:6.12.2"],
             ["@types/rimraf", "npm:3.0.2"],
+            ["@types/segment-analytics", "npm:0.0.34"],
             ["@types/styled-system__css", "npm:5.0.16"],
             ["@typescript-eslint/eslint-plugin", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.16.0"],
             ["@typescript-eslint/parser", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.16.0"],
@@ -19190,6 +19221,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gatsby-transformer-sharp", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.10.0"],
             ["jest", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:27.5.1"],
             ["launchdarkly-js-client-sdk", "npm:2.21.0"],
+            ["lodash.debounce", "npm:4.0.8"],
             ["pluralize", "npm:8.0.0"],
             ["prettier", "npm:2.6.0"],
             ["prism-react-renderer", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:1.1.0"],

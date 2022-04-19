@@ -1,12 +1,6 @@
-import aa, { InsightsClient } from 'search-insights'
+import aa from 'search-insights'
 import { TrackJS } from 'trackjs'
 import { initDataDogLogging } from './src/utils/browserMetricsUtils'
-
-declare global {
-  interface Window {
-    aa: InsightsClient
-  }
-}
 
 export const onClientEntry = () => {
   const activeEnv = process.env.GATSBY_ACTIVE_ENV

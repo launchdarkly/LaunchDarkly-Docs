@@ -17,6 +17,7 @@ const pageQuery = `{
       id
       fileAbsolutePath
       frontmatter {
+        tags
         title
         path
         description
@@ -71,7 +72,7 @@ const flatten = (mdx, rootTopics, secondLevelTopics) => {
     const included = frontmatter.published && !excludedPages.find(p => fileAbsolutePath.includes(p))
 
     if (included) {
-      const { title, path, description } = frontmatter
+      const { tags, title, path, description } = frontmatter
       const modified = fields.lastModifiedTime
       const displayCategory = secondLevelTopics.find(t => !!t.allItems.find(i => i === path))
       let displayCategoryLabel
@@ -93,6 +94,7 @@ const flatten = (mdx, rootTopics, secondLevelTopics) => {
       // page index
       result.push({
         objectID: id,
+        tags,
         title,
         path,
         description,
@@ -109,6 +111,7 @@ const flatten = (mdx, rootTopics, secondLevelTopics) => {
             // create an index for each heading
             result.push({
               objectID: `${id}_${anchor}`,
+              tags,
               title: heading,
               path: `${path}${anchor}`,
               description,
@@ -129,6 +132,7 @@ const flatten = (mdx, rootTopics, secondLevelTopics) => {
 }
 
 const settings = {
+  searchableAttributes: ['tags', 'title', 'description', 'excerpt'],
   attributesToSnippet: ['excerpt:40'],
   customRanking: ['asc(titleType)'],
   attributeForDistinct: 'description',
