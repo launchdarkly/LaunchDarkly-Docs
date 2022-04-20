@@ -13,17 +13,6 @@ console.log(`
 
 const plugins = [
   {
-    //https://www.gatsbyjs.org/packages/gatsby-plugin-segment-js/
-    resolve: 'gatsby-plugin-segment-js',
-    options: {
-      prodKey: process.env.SEGMENT_KEY,
-      //track pageviews when there is a route change. Calls window.analytics.page() on each route change.
-      trackPage: true,
-      delayLoad: false,
-      delayLoadTime: 1000,
-    },
-  },
-  {
     resolve: 'gatsby-plugin-mdx',
     options: {
       remarkPlugins: [require('remark-slug'), require('remark-unwrap-images')],
@@ -186,35 +175,46 @@ if (process.env.DEV_FAST !== 'true') {
   })
 }
 
-// Only build algolia indexes in staging and production
 if (isStaging || isProd) {
-  plugins.push({
-    resolve: 'gatsby-plugin-algolia',
-    options: {
-      appId: process.env.GATSBY_ALGOLIA_APP_ID,
-      apiKey: process.env.ALGOLIA_ADMIN_KEY,
-      queries,
-      chunkSize: 10000, // default: 1000
-      continueOnFailure: isStaging,
-      enablePartialUpdates: true,
+  plugins.push(
+    {
+      // Only build algolia indexes in staging and production
+      resolve: 'gatsby-plugin-algolia',
+      options: {
+        appId: process.env.GATSBY_ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_ADMIN_KEY,
+        queries,
+        chunkSize: 10000, // default: 1000
+        continueOnFailure: isStaging,
+        enablePartialUpdates: true,
+      },
     },
-  })
+    {
+      resolve: 'gatsby-plugin-s3',
+      options: {
+        bucketName: process.env.AWS_S3_BUCKET,
+        bucketPrefix: process.env.PR_NUMBER,
+        protocol: 'https',
+        hostname: process.env.AWS_HOSTNAME,
+        generateRedirectObjectsForPermanentRedirects: true,
+        generateIndexPageForRedirect: isProd, // this is on by default, but should should be off in staging
+        enableS3StaticWebsiteHosting: false,
+      },
+    },
+  )
 }
 
-if (isProd || isStaging) {
-  const gatsbyPluginS3 = {
-    resolve: 'gatsby-plugin-s3',
+if (isProd) {
+  plugins.push({
+    //https://www.gatsbyjs.org/packages/gatsby-plugin-segment-js/
+    resolve: 'gatsby-plugin-segment-js',
     options: {
-      bucketName: process.env.AWS_S3_BUCKET,
-      bucketPrefix: process.env.PR_NUMBER,
-      protocol: 'https',
-      hostname: process.env.AWS_HOSTNAME,
-      generateRedirectObjectsForPermanentRedirects: true,
-      generateIndexPageForRedirect: isProd, // this is on by default, but should should be off in staging
-      enableS3StaticWebsiteHosting: false,
+      prodKey: process.env.SEGMENT_KEY,
+      //track pageviews when there is a route change. Calls window.analytics.page() on each route change.
+      trackPage: true,
+      delayLoad: false,
     },
-  }
-  plugins.push(gatsbyPluginS3)
+  })
 }
 
 if (!isProd) {
