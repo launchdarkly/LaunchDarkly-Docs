@@ -11,11 +11,11 @@ Each SDK connects to several LaunchDarkly web services. These include services f
 
 If you are using the Relay Proxy, you must configure the SDK so that it connects to the Relay Proxy for these services instead.
 
-If you are using the Relay Proxy in **daemon** mode, you must configure your SDK to use a persistent data store to do this. The SDK and the Relay Proxy must use the same data store. To configure your SDK to use a persistent data store, read [Storing Data](/sdk/features/storing-data).
+To use the Relay Proxy in **daemon** mode, you must first configure your server-side SDK to use a persistent data store. The SDK and the Relay Proxy must use the same data store. To configure your SDK to use a persistent data store, read [Storing Data](/sdk/features/storing-data).
 
 Then, you must configure your SDK to use daemon mode, as shown in the following examples. When you use the Relay Proxy in daemon mode, the SDK must not connect to any service for flag data. Some versions of the SDKs refer to this as using "external updates only." Other versions of the SDKs refer to this as "LDD mode," because the Relay Proxy is also known as the LaunchDarkly Daemon. In most SDKs, you then need to pass the configuration in as a parameter when you initialize the client. To learn more, read [Configuration](/sdk/features/config).
 
-This feature is not available for client-side SDKs. In daemon mode, the SDK connects directly to the Relay Proxy's data store. This is not a supported behavior for client-side SDKs.
+This feature is not available for client-side SDKs because in daemon mode, the SDK connects directly to the Relay Proxy's data store. This is not a supported behavior for client-side SDKs.
 
 ## Server-side SDKs
 

@@ -110,13 +110,13 @@ curl -X REPORT localhost:8030/sdk/eval/user \
 
 After you set up the Relay Proxy, you can configure your SDKs to run in either **proxy** mode or **daemon** mode.
 
-Client-side and mobile SDKs should only use the Relay Proxy in proxy mode. Server-side SDKs can use it in either mode. In daemon mode, the SDK connects directly to the Relay Proxy's datastore. This is not a supported behavior for client-side SDKs.
+Client-side and mobile SDKs can only use the Relay Proxy in proxy mode. In daemon mode, the SDK connects directly to the Relay Proxy's datastore, which is not a supported behavior for client-side SDKs. Server-side SDKs can use it in either mode.
 
 The Relay Proxy's two modes are not mutually exclusive. If you have configured multiple services to use Relay Proxy, some of these services can operate in proxy mode while others are in daemon mode. If this is your use case, we recommend configuring your Relay Proxy to follow the best practices listed in each of the following subsections.
 
 ### Using proxy mode
 
-Proxy mode is the most common use case for connecting to the Relay Proxy. LaunchDarkly SDKs are configured to run in proxy mode by default.
+Proxy mode is the most common use case for connecting to the Relay Proxy. LaunchDarkly SDKs are configured to run in proxy mode by default. Client-side SDKs must use proxy mode.
 
 In proxy mode, several Relay Proxy instances should exist in a high-availability configuration behind a load balancer. Relay Proxy nodes do not need to communicate with each other. There is no master node or cluster.
 
@@ -130,11 +130,11 @@ You should not use a persistent feature store between the Relay Proxy and your a
 
 ### Using daemon mode
 
-Optionally, you can configure LaunchDarkly SDKs to communicate directly with Relay Proxy's persistent data store. We recommend this configuration when you're using LaunchDarkly with PHP or in a serverless environment.
+Optionally, you can configure server-side LaunchDarkly SDKs to communicate directly with Relay Proxy's persistent data store. We recommend this configuration when you're using LaunchDarkly with PHP or in a serverless environment.
 
 There is no need to put a load balancer in front of the Relay Proxy when your SDKs are configured to run in daemon mode.
 
-To enable daemon mode:
+To use daemon mode:
 
 1. Configure your SDK to use a persistent data store. The SDK and the Relay Proxy must use the same data store. To learn how, read [Storing data](/sdk/features/storing-data).
 2. Configure your SDK to use daemon mode. To learn how, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode).
