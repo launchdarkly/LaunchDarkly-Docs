@@ -113,9 +113,11 @@ You can also use the REST API: [Update flag settings for user](https://apidocs.l
 
 ## User storage
 
-The **Users** dashboard shows only cached user information. Users appear on the dashboard for 30 days from creation. If a flag sends an `identify` or `flag evaluation` event for a user less than 30 days after it sent the previous event, the user will remain on the dashboard.
+The **Users** dashboard shows only cached user information. A user will appear on the dashboard for 30 days after a flag sends an `identify` or `flag evaluation` event for them. Each time a flag sends a new event for the user, the 30-day period starts over.
 
-If a feature flag does not send an `identify` or `flag evaluation` event for a user within 30 days of creation, they age out of the system and their information no longer appears on the dashboard. Those users reappear on the dashboard when a flag sends an `identify` or `flag evaluation` event again, if your account has not reached the maximum number of users.
+After 30 days with no new `identify` or `flag evaluation` events, users age out of the system and their information no longer appears on the dashboard.
+
+After a user ages out of the system, they will reappear on the dashboard if a flag sends an `identify` or `flag evaluation` event for them again. The exception to this is if your account has reached the maximum number of users.
 
 If you want to keep users on the dashboard for longer than 30 days between flags sending `identify` or `flag evaluation` events, you can manually call `identify` for all of the users that you wish to retain. To learn how to do this in your SDK, read [Identifying and changing users](/sdk/features/identify).
 
