@@ -33,7 +33,7 @@ To use Experimentation, you must have the following prerequisites:
 
 ### Your SDKs must be configured to send events
 
-All of your SDKs must send events. You may have disabled sending events to reduce your monthly active users (MAU). If so, you must re-enable it.
+All of your SDKs must send events. If you have disabled sending events for testing purposes, you must re-enable it. To learn more about the events SDKs send to LaunchDarkly, read [Analytics events](/sdk/concepts/events).
 
 The all flags method sends events for some SDKs, but not others. For SDKs that do not send events with the all flags method, you must call the variation method instead. If you call the variation method, you must use the right variation type. To learn more, read [Evaluating flags](/sdk/features/evaluating).
 
