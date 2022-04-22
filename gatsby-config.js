@@ -43,12 +43,6 @@ const plugins = [
   'gatsby-plugin-typescript',
   'gatsby-transformer-json',
   {
-    resolve: 'gatsby-plugin-sitemap',
-    options: {
-      excludes: ['/systemLayout/', '/components', '/design-system'],
-    },
-  },
-  {
     resolve: 'gatsby-source-filesystem',
     options: {
       name: 'navigationData',
@@ -205,16 +199,24 @@ if (isStaging || isProd) {
 }
 
 if (isProd) {
-  plugins.push({
-    //https://www.gatsbyjs.org/packages/gatsby-plugin-segment-js/
-    resolve: 'gatsby-plugin-segment-js',
-    options: {
-      prodKey: process.env.SEGMENT_KEY,
-      //track pageviews when there is a route change. Calls window.analytics.page() on each route change.
-      trackPage: true,
-      delayLoad: false,
+  plugins.push(
+    {
+      //https://www.gatsbyjs.org/packages/gatsby-plugin-segment-js/
+      resolve: 'gatsby-plugin-segment-js',
+      options: {
+        prodKey: process.env.SEGMENT_KEY,
+        //track pageviews when there is a route change. Calls window.analytics.page() on each route change.
+        trackPage: true,
+        delayLoad: false,
+      },
     },
-  })
+    {
+      resolve: 'gatsby-plugin-sitemap',
+      options: {
+        excludes: ['/systemLayout/', '/components', '/design-system'],
+      },
+    },
+  )
 }
 
 if (!isProd) {
