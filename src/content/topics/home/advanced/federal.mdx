@@ -39,7 +39,17 @@ Note the option key value pair names may differ between SDKs as we respect each 
 
 Sample code is provided below for reference to highlight differences.
  
-  React example:
+Here is an example for the React SDK:
+  
+  <CodeTabs
+defaultValue="json"
+values={[
+  { label: 'json', value: 'json', },
+]
+}>
+<CodeTabItem value="json">
+
+```json
   async () => {
   // Set clientSideID to your own Client-side ID. You can find this in
   // your LaunchDarkly portal under Account settings / Projects
