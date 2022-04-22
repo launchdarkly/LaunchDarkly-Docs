@@ -25,34 +25,42 @@ The federal instance includes:
 * [The Relay Proxy](/home/relay-proxy)
 * [SDKs](/sdk)
 
-<Callout intent="info">
-<CalloutTitle>Federal instance URLs end in ".us"</CalloutTitle>
-<CalloutDescription>
+## Understanding federal instance URLs
   
-The federal instance does not use the common ".com" URL path. Instead, it uses the US government's path: ".us." When you navigate to LaunchDarkly Federal application, use the federal instance API, or initialize your SDK to the federal instance, you must replace the generally available ".com" URLs with URLs that end in ".us." 
+The federal instance does not use the common ".com" URL path. Instead, it uses the US government's path: ".us." When you navigate to LaunchDarkly federal application, use the federal instance API, or initialize your SDK to the federal instance, you must replace the generally available ".com" URLs with URLs that end in ".us."
 
-Initialization of SDKs to the federal instance is performed in the initialization "options" settings for the SDK. Configuration options can be found in the generated API reference for each SDK. 
+If application or network layer firewalls are in use on your network, they will need to allowlist these URLs for LaunchDarkly to function properly.
 
-For example, the initialization options for the Node SDK are here. Depending on the SDK, there may be multiple service endpoints required to be configured in the initialization options. These could include the base/polling endpoint, streaming endpoint, and an events endpoint. 
+For example:
 
-Note the option key value pair names may differ between SDKs as we respect each language's URI/URL naming conventions and supported services. So, it is critical to reference the documentation for each specific SDK. 
+* https://app.launchdarkly.us
+* https://clientsdk.launchdarkly.us
+* https://clientstream.launchdarkly.us
+* https://events.launchdarkly.us
+* https://sdk.launchdarkly.us
+* https://stream.launchdarkly.us
 
-Sample code is provided below for reference to highlight differences.
+## Initializing an SDK for the federal instance
+
+You can initialize an SDK for the federal instance using the initialization "options" settings for the SDK. You can also find configuration options in the generated API reference for each SDK. 
+Depending on the SDK, it may require you to configure multiple service endpoints in the initialization options. These could include the base and polling endpoint, streaming endpoint, and an events endpoint. For an example of the initialization options for Node.js, read [Node.js SDK reference (client-side)](/sdk/client-side/node-js).
+
+The option key value pair names may differ between SDKs, as LaunchDarkly respects each language's URI and URL naming conventions and supported services. For this reason, it is critical to reference the documentation for each individual SDK.
  
 Here is an example for the React SDK:
   
-  <CodeTabs
-defaultValue="json"
-values={[
-  { label: 'json', value: 'json', },
-]
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', }
+  ]
 }>
-<CodeTabItem value="json">
+<CodeTabItem value="js">
 
-```json
+```js
   async () => {
   // Set clientSideID to your own Client-side ID. You can find this in
-  // your LaunchDarkly portal under Account settings / Projects
+  // the LaunchDarkly app under Account settings / Projects
   const LDProvider = await asyncWithLDProvider({
      clientSideID: 'your-client-side-ID-here',
      user: {
@@ -66,9 +74,24 @@ values={[
     deferInitialization: false
 });  
  ```
-  Java example (server-side SDKs normally require streaming and events settings, not polling):
- 
-```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+Server-side SDKs normally require streaming and events settings, not polling.
+
+Here is an example for the Java SDK:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
   LDConfig config = new LDConfig.Builder()
   .dataSource(Components.streamingDataSource()
     .baseURI(URI.create("https://stream.launchdarkly.us"))
@@ -76,22 +99,12 @@ values={[
     .baseURI(URI.create("https://events.launchdarkly.us"))
   .build();
  ```
+ 
+</CodeTabItem>
+</CodeTabs>
+
   
-For additional language syntax examples for setting configuration options, read [Using proxy mode](sdk/features/relay-proxy-configuration/proxy-mode). To use the examples, change the Relay Proxy URL to the respective federal instance URLs. A list of available service endpoints for the federal instance is below.
-
-Please note that if application or network layer firewalls are in use on your network, they will need to allowlist these URLs for LaunchDarkly to function properly.
-
-For example:
-
-* https://app.launchdarkly.us
-* https://clientsdk.launchdarkly.us
-* https://clientstream.launchdarkly.us
-* https://events.launchdarkly.us
-* https://sdk.launchdarkly.us
-* https://stream.launchdarkly.us
-
-</CalloutDescription>
-</Callout>
+For additional language syntax examples for setting configuration options, read [Using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode). To use the examples, change the Relay Proxy URL to the respective federal instance URLs. For a list of available service endpoints, read [Understanding federal instance URLs](#understanding-federal-instance-urls).
 
 ## Understanding which features have minimal support or are unsupported
 
