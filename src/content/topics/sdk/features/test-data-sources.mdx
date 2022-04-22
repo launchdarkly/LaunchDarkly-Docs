@@ -117,6 +117,7 @@ To learn more, read [TestData](https://launchdarkly.github.io/dotnet-client-sdk/
 This feature is available in the following server-side SDKs:
 
 * [.NET (server-side)](#net-server-side)
+* [Erlang](#erlang)
 * [Go](#go)
 * [Java](#java)
 * [PHP](#php)
@@ -197,6 +198,81 @@ td.Update(td.Flag("flag-key-3")
 </CodeTabs>
 
 To learn more, read [`TestData`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.TestData.html).
+</Details>
+
+### Erlang
+
+<Details summary="Expand Erlang code sample">
+
+To configure the SDK to use a test data source:
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', },
+  ]
+}>
+<CodeTabItem value="erlang">
+
+```erlang
+Options = #{
+  datasource => testdata,
+  send_events => false,
+  feature_store => ldclient_storage_map
+},
+ldclient:start_instance(SdkKey, Options),
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To set a flag to a specific value:
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', },
+  ]
+}>
+<CodeTabItem value="erlang">
+
+```erlang
+{ok, Flag} = ldclient_testdata:flag("flag-key-1"),
+ldclient_testdata:update(ldclient_flagbuilder:variation_for_all_users(true, Flag)),
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There are other ways you can configure flag behavior using a test data source. Here is an example:
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', },
+  ]
+}>
+<CodeTabItem value="erlang">
+
+```erlang
+%% This flag is true for the user key "some-user-key" and false for everyone else
+{ok, Flag2} = ldclient_testdata:flag("flag-key-2"),
+UpdatedFlag2 = ldclient_flagbuilder:fallthrough_variation(false,
+  ldclient_flagbuilder:variation_for_user(<<"some-user-key">>, true, Flag2)),
+
+%% This flag returns the string variation "green" for users who have the custom
+%% attribute "admin" with a value of true, and "red" for everyone else.
+{ok, Flag} = ldclient_testdata:flag("flag-key-3"),
+UpdatedFlag = ldclient_flagbuilder:fallthrough_variation(0,
+              ldclient_flagbuilder:then_return(1,
+              ldclient_flagbuilder:if_match(<<"admin">>, [true],
+              ldclient_flagbuilder:variations([<<"red">>, <<"green">>], Flag)))),
+ldclient_testdata:update(UpdatedFlag),
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 </Details>
 
 ### Go
