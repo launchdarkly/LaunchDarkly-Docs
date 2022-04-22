@@ -64,17 +64,19 @@ values={[
        eventsUrl:"https://events.launchdarkly.us"
     },
     deferInitialization: false
-});
- 
+});  
+ ```
   Java example (server-side SDKs normally require streaming and events settings, not polling):
  
-LDConfig config = new LDConfig.Builder()
+```
+  LDConfig config = new LDConfig.Builder()
   .dataSource(Components.streamingDataSource()
     .baseURI(URI.create("https://stream.launchdarkly.us"))
   .events(Components.sendEvents()
     .baseURI(URI.create("https://events.launchdarkly.us"))
   .build();
- 
+ ```
+  
 For additional language syntax examples for setting configuration options, read [Using proxy mode](sdk/features/relay-proxy-configuration/proxy-mode). To use the examples, change the Relay Proxy URL to the respective federal instance URLs. A list of available service endpoints for the federal instance is below.
 
 Please note that if application or network layer firewalls are in use on your network, they will need to allowlist these URLs for LaunchDarkly to function properly.
