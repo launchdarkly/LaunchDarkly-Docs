@@ -38,7 +38,7 @@ They contain up to three properties:
 <CalloutTitle>YAML files have limitations</CalloutTitle>
 <CalloutDescription>
 
-In some of the SDKs, YAML support requires an additional dependency. YAML is not available in PHP.
+In some of the SDKs, YAML support requires an additional dependency. YAML is not available in PHP or C/C++.
 
 </CalloutDescription>
 </Callout>
@@ -140,7 +140,7 @@ If you want some flags to have simple values and others to have complex behavior
 
 ## Configuring the client to use a file
 
-You can specify either a single file or multiple files. In all of the SDKs that support this feature except PHP, you can also specify whether the SDK should reload the file data if it detects that you have modified a file. For example, you could verify that your application behaves correctly when a flag changes.
+You can specify either a single file or multiple files. In all of the SDKs that support this feature except PHP and C/C++, you can also specify whether the SDK should reload the file data if it detects that you have modified a file. For example, you could verify that your application behaves correctly when a flag changes.
 
 The examples below show how to configure the client to use two data files called `file1.json` and `file2.json`. The client assumes these two files are in the current working directory, but you can specify any relative or absolute file path. It also enables automatic reloading, if supported.
 
@@ -155,6 +155,7 @@ If any of the specified files is missing or invalid, the SDK does not use any of
 This feature is available in the following server-side SDKs:
 
 * [.NET (server-side)](#net-server-side)
+* [C/C++](#cc)
 * [Erlang](#erlang)
 * [Go](#go)
 * [Java](#java)
@@ -219,6 +220,39 @@ var client = new LDClient(config);
 If you want to use YAML instead of JSON, you must [provide a YAML parser](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.FileDataSourceBuilder.html#LaunchDarkly_Sdk_Server_Integrations_FileDataSourceBuilder_Parser_).
 
 To learn more, read [`FileData`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.FileData.html).
+</Details>
+
+### C/C++
+
+<Details summary="Expand C/C++ code sample">
+
+To configure the client:
+
+<CodeTabs
+defaultValue="c"
+values={[
+    { label: 'C/C++', value: 'c', },
+]
+}>
+<CodeTabItem value="c">
+
+```c
+#include <launchdarkly/integrations/file_data.h>
+
+const char *filenames[2] = {
+    "file1.json",
+    "file2.json"
+};
+LDConfigSetDataSource(config, LDFileDataInit(2, filenames));
+LDConfigSetSendEvents(config, LDBooleanFalse);
+
+// Call LDClientInit with config as usual.
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`LDFileDataInit`](https://launchdarkly.github.io/c-server-sdk/file__data_8h.html).
 </Details>
 
 ### Erlang

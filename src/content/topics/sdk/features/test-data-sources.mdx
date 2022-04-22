@@ -117,6 +117,7 @@ To learn more, read [TestData](https://launchdarkly.github.io/dotnet-client-sdk/
 This feature is available in the following server-side SDKs:
 
 * [.NET (server-side)](#net-server-side)
+* [C/C++](#cc)
 * [Erlang](#erlang)
 * [Go](#go)
 * [Java](#java)
@@ -198,6 +199,111 @@ td.Update(td.Flag("flag-key-3")
 </CodeTabs>
 
 To learn more, read [`TestData`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.TestData.html).
+</Details>
+
+### C/C++
+<Details summary="Expand C/C++ code sample">
+
+To configure the SDK to use a test data source:
+
+<CodeTabs
+defaultValue="c"
+values={[
+    { label: 'C/C++', value: 'c', },
+]
+}>
+<CodeTabItem value="c">
+
+```c
+#include <launchdarkly/integrations/test_data.h>
+
+struct LDTestData *td = LDTestDataInit();
+
+LDConfigSetDataSource(config, LDTestDataCreateDataSource(td));
+
+// Call LDClientInit with config as usual.
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Once you are finished using the client, ensure the test data source is freed:
+<CodeTabs
+defaultValue="c"
+values={[
+    { label: 'C/C++', value: 'c', },
+]
+}>
+<CodeTabItem value="c">
+
+```c
+// After LDClientClose:
+LDTestDataFree(td)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To set a flag to a specific value:
+
+<CodeTabs
+defaultValue="c"
+values={[
+    { label: 'C/C++', value: 'c', },
+]
+}>
+<CodeTabItem value="c">
+
+```c
+struct LDFlagBuilder *flag = LDTestDataFlag(td, "flag-key-1");
+LDFlagBuilderVariationForAllUsersBoolean(flag, LDBooleanTrue);
+LDTestDataUpdate(td, flag);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There are other ways you can configure flag behavior using a test data source. Here is an example:
+<CodeTabs
+defaultValue="c"
+values={[
+    { label: 'C/C++', value: 'c', },
+]
+}>
+<CodeTabItem value="c">
+
+```c
+// This flag is true for the user key "some-user-key"
+// and false for everyone else.
+struct LDFlagBuilder *flag2 = LDTestDataFlag(td, "flag-key-2");
+LDFlagBuilderVariationForUserBoolean(flag2, "some-user-key", LDBooleanTrue);
+LDFlagBuilderFallthroughVariationBoolean(flag2, LDBooleanFalse);
+LDTestDataUpdate(td, flag2);
+
+
+// This flag returns the string variation "green" for
+// users who have the custom attribute "admin" with a
+// value of true, and "red" for everyone else.
+
+struct LDJSON *variations = LDNewArray();
+LDArrayPush(variations, LDNewText("red"));
+LDArrayPush(variations, LDNewText("green"));
+
+struct LDFlagBuilder *flag3 = LDTestDataFlag(td, "flag-key-3");
+LDFlagBuilderVariations(flag3, variations);
+LDFlagBuilderFallthroughVariation(flag3, 0);
+
+struct LDFlagRuleBuilder *rule = LDFlagBuilderIfMatch(flag3, "admin", LDNewBool(LDBooleanTrue));
+LDFlagRuleBuilderThenReturn(rule, 1);
+
+LDTestDataUpdate(td, flag3);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`LDTestData`](https://launchdarkly.github.io/c-server-sdk/structLDTestData.html).
+
 </Details>
 
 ### Erlang
