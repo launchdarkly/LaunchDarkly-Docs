@@ -29,7 +29,15 @@ The federal instance includes:
 <CalloutTitle>Federal instance URLs end in ".us"</CalloutTitle>
 <CalloutDescription>
   
-The federal instance does not use the common ".com" URL path. Instead, it uses the US government's path: ".us." When you navigate to LaunchDarkly Federal application, use the federal instance API, or initialize your SDK to the federal instance, you must replace the generally available ".com" URLs with URLs that end in ".us." Initialization of SDKs to the federal instance is performed in the initialization "options" settings for the SDK. Configuration options can be found in the generated API reference for each SDK. For example, the initialization options for the Node SDK are here. Depending on the SDK, there will be two or three service endpoints required to be configured in the initialization options: base/polling endpoint, streaming endpoint, and an events endpoint. Note the option key value pair names may differ between SDKs as we respect each language's URI/URL naming conventions and supported services. So, it is critical to reference the documentation for each specific SDK. Below are two sample codeblocks for reference to highlight differences.
+The federal instance does not use the common ".com" URL path. Instead, it uses the US government's path: ".us." When you navigate to LaunchDarkly Federal application, use the federal instance API, or initialize your SDK to the federal instance, you must replace the generally available ".com" URLs with URLs that end in ".us." 
+
+Initialization of SDKs to the federal instance is performed in the initialization "options" settings for the SDK. Configuration options can be found in the generated API reference for each SDK. 
+
+For example, the initialization options for the Node SDK are here. Depending on the SDK, there may be multiple service endpoints required to be configured in the initialization options. These could include the base/polling endpoint, streaming endpoint, and an events endpoint. 
+
+Note the option key value pair names may differ between SDKs as we respect each language's URI/URL naming conventions and supported services. So, it is critical to reference the documentation for each specific SDK. 
+
+Sample code is provided below for reference to highlight differences.
  
   React example:
   async () => {
