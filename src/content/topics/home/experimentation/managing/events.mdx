@@ -30,9 +30,9 @@ You can view metric events in the debugger under the **Experimentation events** 
 
 All LaunchDarkly SDKs send a `feature` conversion event when you call the SDK's variation method for a flag in an experiment. To learn more about the variation method, read [Evaluating flags](/sdk/features/evaluating).
 
-In addition, the JavaScript SDK and client-side Node.js also send a `variation` evaluation event when you call the SDK's `allFlags` method, unless you configure it not to. To learn more, read [JavaScript](/sdk/features/all-flags#javascript) and [Node.js (client-side)](/sdk/features/all-flags#nodejs-client-side).
+In addition, the JavaScript SDK and JavaScript-based SDKs also send a `variation` evaluation event when you call the SDK's `allFlags` method, unless you configure it not to. The React Web SDK automatically calls `allFlags` when you initialize the SDK, and when a user receives a new variation for a flag. To learn more, read [Getting all flags](/sdk/features/all-flags).
 
-Configuring the JavaScript and Node.js SDKs not to send evaluation events when you call `allFlags` can help keep your Experimentation costs down. To learn more about how SDKs send events, read [Recording events](/sdk/concepts/contributors-guide#recording-events).
+Configuring the the JavaScript SDK and JavaScript-based SDKs not to send evaluation events when you call `allFlags` can help keep your Experimentation costs down. To learn more about how SDKs send events, read [Recording events](/sdk/concepts/contributors-guide#recording-events).
 
 ## Managing Experimentation event counts
 
