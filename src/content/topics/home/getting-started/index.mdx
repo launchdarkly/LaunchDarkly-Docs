@@ -28,7 +28,7 @@ Next, you need to connect your application to LaunchDarkly. You can connect to L
 
 Then, in your application, use the SDK to make a function call any time you want to determine whether a particular user should receive a feature, and what variation of the feature they should receive. Within milliseconds, the SDK analyzes the rules that exist in the flag and determines the correct feature variation to show the user. LaunchDarkly records every user who encounters a flag, and how the SDK evaluated the flag's rules for that user, so you can analyze application data easily.
 
-To begin, read [Joining an account](#joining-an-account), then skip to the "Getting started" section below that best describes your role.
+To begin, read [Joining an account](#joining-an-account), then skip to the [Getting started](#getting-started-in-different-roles) section below that best describes your role.
 
 ## Joining an account
 
@@ -62,28 +62,46 @@ From the dashboard, you can navigate to LaunchDarkly's primary features in the l
 - [Integrations](/integrations): third-party integrations that let you configure the product to your specific needs
 - Account settings: manage [members](/home/members), [projects](/home/organize/projects), [roles](/home/members/built-in-roles), [authorization](/home/account-security), and more
 
-Additional help is available in the top toolbar:
+Additional help is available in the top toolbar, including your inbox, the Quick search bar, a guide, and a link to your account profile.
 
-- Search: click on the magnifying glass icon or `CMD`+`K` (Mac) or `CTRL`+`K` (PC) to open the search bar. From the search bar you can:
-    - [Create a new flag](/home/getting-started/feature-flags)
-    - [Switch environments](/home/organize/environments)
-    - Search our help documentation
-    - Follow an in-app tutorial to [connect an SDK](https://app.launchdarkly.com/get-started/connect-an-sdk)
-    - [Create a support ticket](https://support.launchdarkly.com/hc/en-us/requests/new)
-    - Copy your [SDK key](/sdk/concepts/client-side-server-side#keys) for the current environment
-    - Search for specific [flags](/home/flags), [segments](/home/users/segments), and [users](/home/users)
+### Using the inbox
 
-    ![The search bar.](search-bar.png)
+When you receive an approval request, or your own approval request is reviewed, you will receive a message in your inbox. Click on the **bell** icon to view the messages in your inbox.
 
-- Guide: click on the question mark icon to:
-    - Get help by [contacting us directly](https://support.launchdarkly.com/)
-    - Read our documentation
-    - Read about what's new
-    - [Get started](https://app.launchdarkly.com/get-started) by trying an interactive demo or following an in-app tutorial to connect LaunchDarkly to your own application
-- Account: click on your avatar to view your profile or sign out
+![The inbox with a new approval request.](approvals-approval-request-notification.png)
 
+### Using the Quick search bar
 
-## Getting started as a software developer
+Click on the **magnifying glass** icon or `CMD`+`K` (Mac) or `CTRL`+`K` (PC) to open the Quick search bar. From the Quick search bar you can:
+- [Create a new flag](/home/getting-started/feature-flags)
+- [Open](/home/organize/environments#opening-environments) or [switch environments](/home/organize/environments#switching-environments)
+- Search our help documentation
+- Follow an in-app tutorial to [connect an SDK](https://app.launchdarkly.com/get-started/connect-an-sdk)
+- [Create a support ticket](https://support.launchdarkly.com/hc/en-us/requests/new)
+- Copy your [SDK key](/sdk/concepts/client-side-server-side#keys) for the current environment
+- Search for specific [flags](/home/flags), [projects](/home/organize/projects), [segments](/home/users/segments), and [users](/home/users)
+
+![The Quick search bar.](getting-started-search-bar.png)
+
+### Using the guide
+
+Click on the **question mark** icon in the top toolbar to:
+- Get help by [contacting us directly](https://support.launchdarkly.com/)
+- Read our documentation
+- Read about what's new
+- [Get started](https://app.launchdarkly.com/get-started) by trying an interactive demo or following an in-app tutorial to connect LaunchDarkly to your own application
+
+![The guide menu.](getting-started-guide-menu.png)
+
+### Using your account profile
+
+Click on your avatar in the top toolbar to view your member profile or sign out.
+
+## Getting started in different roles
+
+<Details summary="Expand Getting started as a software developer">
+
+### Getting started as a software developer
 
 As a software developer, you're responsible for creating and implementing feature flags in code. You can use feature flags in any aspect of your application, from the customer-facing user interface (UI) to the backend.
 
@@ -99,7 +117,11 @@ As a software developer, you may also be responsible for other engineering work 
 
 For more ideas on what comes next, read [Additional resources](#additional-resources).
 
-## Getting started as a product manager
+</Details>
+
+<Details summary="Expand Getting started as a product manager">
+
+### Getting started as a product manager
 
 As a product manager or rollout manager, you are likely responsible for coordinating deployments and feature releases.
 
@@ -118,8 +140,11 @@ As a product manager, you may also build and monitor experiments to understand t
 
 For more ideas on what comes next, read [Additional resources](#additional-resources).
 
+</Details>
 
-## Getting started as a systems architect
+<Details summary="Expand Getting started as a systems architect">
+
+### Getting started as a systems architect
 
 As a systems architect, you're responsible for designing services and processes for your organization's engineering team.
 
@@ -129,7 +154,11 @@ To learn about common problems integrations can help solve, read [Integrations u
 
 For more ideas on what comes next, read [Additional resources](#additional-resources).
 
-## Getting started as an account administrator
+</Details>
+
+<Details summary="Expand Getting started as an account administrator">
+
+### Getting started as an account administrator
 
 As an account administrator, you are likely responsible for managing account members, monitoring billing and usage, and facilitating any integrations.
 
@@ -142,6 +171,8 @@ If you are in a larger organization, you may also think about grouping your acco
 Once your account is set up and your organization has started using feature flags, you can use LaunchDarkly's data visualization tools to [understand your monthly billing metrics](/home/billing).
 
 For more ideas on what comes next, read [Additional resources](#additional-resources).
+
+</Details>
 
 ## Additional resources
 

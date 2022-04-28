@@ -21,11 +21,35 @@ You can also use the REST API: [Environments](https://apidocs.launchdarkly.com/t
 
 </LearnMore>
 
-## Getting started with environments
+## Understanding environments
 
 Your first project has two environments, `Test` and `Production`, by default. Each environment has its own SDK key, which is used to connect the LaunchDarkly SDK to a specific environment.
 
 Each feature flag that you create has its own set of targeting rules for each environment. This means that you can change your flag rollout rules in a development or staging environment for QA testing before rolling out to production.
+
+### Opening environments
+
+You can open environments on the **Projects** tab under **Account settings**. Click on a project name to view the environments within the project.
+
+Here is a screenshot of the environments within a project:
+
+![A list of environments within a project.](env-tab.png)
+
+You can also open an environment using its SDK key and the Quick search bar. 
+
+To open an environment using the Quick search bar:
+
+1. Click on the **magnifying glass** icon in the top toolbar. The Quick search bar appears.
+2. Select **Open environment**.
+
+![The Quick search bar with "Open environment" highlighted.](env-search-bar-open-env.png)
+
+3. Enter an environment's key or SDK key.
+4. Click on the environment's name.
+
+You are now viewing the environment you selected.
+
+### Switching environments
 
 The LaunchDarkly sidebar has a menu that shows you the current project and environment and allows you to quickly switch between projects and environments.
 
@@ -33,6 +57,18 @@ Here is a screenshot of the **Switch environment** menu:
 
 ![The "Switch environment" menu.](env-switcher.png)
 
+You can also search for and switch between environments using the Quick search bar and your environment's key or SDK key. You can find your environment's key and SDK key on the **Projects** tab under **Account settings**.
+
+To switch environments using the Quick search bar:
+
+1. Click on the **magnifying glass** icon in the top toolbar. The Quick search bar appears.
+2. Select **Switch environment**.
+3. Enter an environment's key or SDK key.
+4. Click on the environment's name.
+
+You are now in the environment you selected.
+
+## Creating environments
 
 You can manage your environments from the **Account settings** page. Here, you can add new environments to a project, for example, to give each developer on your team their own environment for local testing.
 
