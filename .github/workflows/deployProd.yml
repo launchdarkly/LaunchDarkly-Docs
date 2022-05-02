@@ -30,7 +30,7 @@ jobs:
         # if we can't find a last success, we should run deploy
         if: steps.last-success.outputs.sha != github.sha
         id: changed-files-specific
-        uses: tj-actions/changed-files@v18.7
+        uses: tj-actions/changed-files@v19
         with:
           token: ${{ github.token }}
           separator: ' '
