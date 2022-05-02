@@ -161,11 +161,11 @@ The SDK only evaluates flags based on the user object you provide in the evaluat
 
 ## Creating private user attributes
 
-You may not want to send all attributes back to LaunchDarkly. The security or data protection requirements of your organization may require you to limit what customer or user data is transmitted from your service to a third-party platform like LaunchDarkly.
+You may not want to send all attributes back to, or store all attributes in, LaunchDarkly. The security or data protection requirements of your organization may require you to limit what customer or user data is transmitted to or stored within a third-party platform like LaunchDarkly.
 
-For example, you may want to target customers by their personally identifying information (PII), such as their email address, without sending the email address to LaunchDarkly.
+For example, you may want to target customers by their personally identifying information (PII), such as their email address. You can mark the email address attribute as private, but still use it in targeting rules and segments. If you are using a server-side SDK, the SDK will not send the private attribute back to LaunchDarkly. 
 
-LaunchDarkly's private user attributes let you choose which attributes get sent back to LaunchDarkly without sacrificing the ability to target user segments. This lets you create targeting rules and segments based on the attributes without having to send sensitive data back to LaunchDarkly.
+If you are using a client-side SDK, the SDK will send the private attribute back to LaunchDarkly for evaluation. However, the SDK won't send the attribute to LaunchDarkly in events data, LaunchDarkly won't store the private attribute, and the private attribute will not appear on the **Users** dashboard.
 
 ### Configuring private attribute settings in your SDK
 
@@ -189,7 +189,9 @@ To learn more about setting these configuration options, read your SDK's documen
 <CalloutTitle>Implications of using private attributes</CalloutTitle>
 <CalloutDescription>
 
-If a feature flag contains targeting rules that reference private attributes, the user page may not be able to calculate flag settings for your users. The user's page indicates when it is unable to calculate flag settings because of private attributes. LaunchDarkly cannot perform autocomplete attributes you have made private.
+If a feature flag contains targeting rules that reference private attributes, user pages may not be able to calculate flag settings for your users. Each user page indicates when it is unable to calculate flag settings because of private attributes.
+<br />
+When creating a targeting rule, LaunchDarkly cannot autocomplete attributes you have made private.
 
 </CalloutDescription>
 </Callout>
