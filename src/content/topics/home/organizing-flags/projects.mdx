@@ -36,6 +36,23 @@ Here is a diagram of two example projects, "Web App" and "Mobile App":
 
 Your LaunchDarkly account supports an unlimited number of projects, environments, flags, and server-side Monthly Active Users (MAU). If you are on a **legacy Starter plan**, your account may be limited to two projects and two environments. Contact our Support team at support@launchdarkly.com to remove those restrictions.
 
+## Projects and environments
+
+You can create multiple environments within each project. All projects must have at least one environment.
+
+Environments allow you to manage your feature flags throughout your entire development lifecycle, from local development through production. Typical environments within a project could be Production, QA, Staging, or individual environments.
+
+<Callout intent="info">
+<CalloutTitle>You can open environments using the quick search bar</CalloutTitle>
+<CalloutDescription>
+
+You can quickly open specific environments using the quick search bar and the environment's key or SDK key. To learn how, read [Opening environments](/home/organize/environments#opening-environments).
+
+</CalloutDescription>
+</Callout>
+
+To learn more, read [Environments](/home/organize/environments).
+
 ## Creating new projects
 
 When you first create your LaunchDarkly account, you start with a _Default_ project, and all account members in your account have access to every project within your account by default. Your current project is visible in the top of the sidebar. You must always have at least one project.
@@ -73,7 +90,7 @@ You can also use the REST API: [Create project](https://apidocs.launchdarkly.com
 
 ## Deleting projects
 
-You can delete a project when you are no longer using it. Delete with caution, as deleting a project is permanent and also deletes all of the environments and flags within it. 
+You can delete a project when you are no longer using it. Delete with caution, as deleting a project is permanent and also deletes all of the environments and flags within it.
 
 To delete a project:
 
@@ -92,11 +109,3 @@ Your project is now deleted.
 You can also use the REST API: [Delete project](https://apidocs.launchdarkly.com/tag/Projects#operation/deleteProject)
 
 </LearnMore>
-
-## Projects and environments
-
-You can create multiple environments within each project. All projects must have at least one environment.
-
-Environments allow you to manage your feature flags throughout your entire development lifecycle, from local development through production. Typical environments within a project could be Production, QA, Staging, or individual environments.
-
-To learn more, read [Environments](/home/organize/environments).

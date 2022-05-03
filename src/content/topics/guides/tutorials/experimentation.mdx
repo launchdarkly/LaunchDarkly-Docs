@@ -87,7 +87,7 @@ You can reuse the project and environment you created in [Getting started: Confi
 
 Here is an image of where to find your SDK keys:
 
-![The Account Settings page in LaunchDarkly with environment SDK keys called out.](starlight-travel-projects.png)
+![The Project page in LaunchDarkly with environment SDK keys called out.](starlight-travel-projects.png)
 
 ### Configuring the SDK key and client ID
 
@@ -138,19 +138,20 @@ To create a new flag:
 
 1. From the flag dashboard, click **Create flag**.
 2. Name your flag "Student Discount Pricing."
-4. (Optional) Enter a description of the flag to help account members understand what the flag is for.
-5. Click into the **Tags** menu and enter `experiment`. This creates a tag that lets you filter flags based on which flags have experiments running.
-6. Check the **SDKs using Client-side ID** checkbox.
-7. In the **Flag variations** menu choose "Number."
-8. Enter a name and value for the variations as given below:
-  * Variation 1 value: `.25`
-  * Variation 1 name: 75% off
-  * Variation 2 value: `.5`
-  * Variation 2 name: 50% off
-  * Variation 3 value: `.75`
-  * Variation 3 name: 25% off
-  * Variation 4 value: `1`
-  * Variation 4 name: No discount
+3. (Optional) Enter a description of the flag to help account members understand what the flag is for.
+4. Click into the **Tags** menu and enter `experiment`. This creates a tag that lets you filter flags based on which flags have experiments running.
+5. Check the **SDKs using Client-side ID** checkbox.
+6. In the **Flag variations** menu choose "Number."
+7. Enter a name and value for the variations as given below:
+
+- Variation 1 value: `.25`
+- Variation 1 name: 75% off
+- Variation 2 value: `.5`
+- Variation 2 name: 50% off
+- Variation 3 value: `.75`
+- Variation 3 name: 25% off
+- Variation 4 value: `1`
+- Variation 4 name: No discount
 
 ![The "Create a feature flag" panel for the "Student Discount Pricing" flag.](starlight-travel-student-discount-flag.png)
 
@@ -162,10 +163,10 @@ A successful experiment requires two or more segments to test against. How you s
 
 Here are some possible ways to segment users:
 
-* Logged in as opposed to anonymous
-* By company
-* By geography
-* Randomly
+- Logged in as opposed to anonymous
+- By company
+- By geography
+- Randomly
 
 In this experiment, you target users based on their email address. You want to offer pricing discounts based on whether a person is a student. Users with a `.edu` email address are presented with three different prices.
 
@@ -227,7 +228,7 @@ To update your app:
 <CodeTabs defaultValue="py" values={[{ label: 'Multivariate flag with discount', value: 'py', }]}>
   <CodeTabItem value="py">
 
-``` py
+```py
 discount = ld_client.variation('student-discount-pricing', user, 1)
 price = np.array([10000, 25000, 100000]) * discount
 ```

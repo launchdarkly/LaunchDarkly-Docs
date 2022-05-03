@@ -58,6 +58,7 @@ eventsource
 examplepackage
 Fastly
 featurex
+flagbuilder
 flagdata
 flagstate
 frontmatter
@@ -227,6 +228,7 @@ sveltekit
 targetusername
 templating
 templatize
+testdata
 testhelpers
 testid
 timeframe

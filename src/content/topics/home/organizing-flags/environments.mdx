@@ -21,11 +21,35 @@ You can also use the REST API: [Environments](https://apidocs.launchdarkly.com/t
 
 </LearnMore>
 
-## Getting started with environments
+## Understanding environments
 
 Your first project has two environments, `Test` and `Production`, by default. Each environment has its own SDK key, which is used to connect the LaunchDarkly SDK to a specific environment.
 
 Each feature flag that you create has its own set of targeting rules for each environment. This means that you can change your flag rollout rules in a development or staging environment for QA testing before rolling out to production.
+
+### Opening environments
+
+You can open environments on the **Projects** tab under **Account settings**. Click on a project name to view the environments within the project.
+
+Here is a screenshot of the environments within a project:
+
+![A list of environments within a project.](env-tab.png)
+
+You can also open an environment using its SDK key and the quick search bar.
+
+To open an environment using the quick search bar:
+
+1. Click on the **magnifying glass** icon in the top toolbar. The quick search bar appears.
+2. Select **Open environment**.
+
+![The quick search bar with "Open environment" highlighted.](env-search-bar-open-env.png)
+
+3. Enter an environment's key or SDK key.
+4. Click on the environment's name.
+
+You are now viewing the environment you selected.
+
+### Switching environments
 
 The LaunchDarkly sidebar has a menu that shows you the current project and environment and allows you to quickly switch between projects and environments.
 
@@ -33,6 +57,18 @@ Here is a screenshot of the **Switch environment** menu:
 
 ![The "Switch environment" menu.](env-switcher.png)
 
+You can also search for and switch between environments using the quick search bar and your environment's key or SDK key. You can find your environment's key and SDK key on the **Projects** tab under **Account settings**.
+
+To switch environments using the quick search bar:
+
+1. Click on the **magnifying glass** icon in the top toolbar. The quick search bar appears.
+2. Select **Switch environment**.
+3. Enter an environment's key or SDK key.
+4. Click on the environment's name.
+
+You are now in the environment you selected.
+
+## Creating environments
 
 You can manage your environments from the **Account settings** page. Here, you can add new environments to a project, for example, to give each developer on your team their own environment for local testing.
 
@@ -40,9 +76,13 @@ To add a new environment:
 
 1. Navigate to the **Account settings** page.
 2. Click the **Projects** tab. Find the project to which you want to add a new environment.
-3. Click **Create environment**. The "Create an environment" panel appears:
+3. Click the name of the project. The project page appears.
 
-![The "Account settings" page with the "Create environment" button called out.](env-new-callout.png)
+![The "Projects" tab with the Default Project link called out.](select-project-callout.png)
+
+4. Click **Create environment**. The "Create an environment" panel appears:
+
+![The "Environments" tab on a Project page with the "Create environment" button called out.](create-environment-callout.png)
 
 <Callout intent="alert">
 <CalloutTitle>Make sure you're in the right project</CalloutTitle>
@@ -124,7 +164,7 @@ When you clone an environment, the following restrictions apply:
 
 Cloning an environment is currently only available through the REST API.
 
-<LearnMore> 
+<LearnMore>
 
 You can use the REST API: [Create environment](https://apidocs.launchdarkly.com/tag/Environments#operation/postEnvironment). Use the `source` field in the request body to pass in the environment to clone from.
 
@@ -146,11 +186,12 @@ To reset an SDK or mobile key:
 
 1. Navigate to the the **Account settings** page.
 2. Click the **Projects** tab.
-3. Click the **overflow menu** next to your environment.
-4. Select "Edit environment." An "Edit environment" panel appears.
-5. In the "Keys" section click **Reset SDK key** or **Reset mobile key**.
-6. (Optional) If you are resetting an SDK key, choose how many hours to keep the current SDK key active for, up to 720 hours (30 days).
-6. Enter the name or key of your environment:
+3. Click the name of the project. The project page appears.
+4. Click the **overflow menu** next to your environment.
+5. Select "Edit environment." The "Edit environment" panel appears.
+6. In the "Keys" section click **Reset SDK key** or **Reset mobile key**.
+7. (Optional) If you are resetting an SDK key, choose how many hours to keep the current SDK key active for, up to 720 hours (30 days).
+8. Enter the name or key of your environment:
 
 ![The SDK key reset dialog.](env-sdk-key-reset.png)
 
@@ -175,6 +216,16 @@ If your site has relatively low traffic (fewer than one request per minute), you
 If the TTL is set to zero minutes, the SDK will not use a local cache, and every call to `variation` will make a remote request to our CDN. You can set your TTL to zero in testing environments so it reflects changes immediately, but we do not recommend a zero minute TTL in production.
 
 In high volume PHP environments, we strongly recommend using our Relay Proxy. To learn more, read [The Relay Proxy](/home/relay-proxy).
+
+To set the TTL:
+
+1. Navigate to the **Account settings** page.
+2. Click the **Projects** tab.
+3. Click the name of the project. The project page appears.
+4. Click the **overflow menu** next to your environment.
+5. Select "Edit environment." The "Edit environment" panel appears.
+6. Enter a value in the **TTL input** and click **Save environment**.
+   ![The "Edit environment" panel with the TTL settings called out.](ttl-settings.png)
 
 ## Deleting environments
 

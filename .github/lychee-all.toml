@@ -63,6 +63,12 @@ exclude = [
   'https://github.com/launchdarkly/dev',
   # TODO: SC-135999 workaround
   'https://www.php.net/manual/en/language.types.declarations.php',
+  # TODO: SC-149484 workaround
+  'https://pkg.go.dev*',
+  # TODO: SC-151435 workaround
+  'https://npmjs.com/package/yaml',
+  'https://npmjs.com/package/winston',
+  'https://npmjs.com/package/launchdarkly-node-server-sdk',
 ]
 
 # Exclude all private IPs from checking

@@ -103,6 +103,55 @@ EvaluationReason reason = detail.getReason();
 </CodeTabs>
 
 To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/EvaluationDetail.html) and [`getVariationIndex`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/EvaluationDetail.html#getVariationIndex--).
+
+Here is an example of how to access the details of a reason object:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+void printReason(EvaluationReason reason) {
+  switch (reason.getKind()) {
+    case OFF:
+      Timber.d("it's off");
+      break;
+    case FALLTHROUGH:
+      Timber.d("fell through");
+      break;
+    case TARGET_MATCH:
+      Timber.d("targeted");
+      break;
+    case RULE_MATCH:
+      EvaluationReason.RuleMatch rm =
+        (EvaluationReason.RuleMatch)reason;
+      Timber.d("matched rule %d/%s",
+               rm.getRuleIndex(),
+               rm.getRuleId());
+      break;
+    case PREREQUISITE_FAILED:
+      EvaluationReason.PrerequisiteFailed pf =
+        (EvaluationReason.PrerequisiteFailed)reason;
+      Timber.d("prereq failed: %s", pf.getPrerequisiteKey());
+      break;
+    case ERROR:
+      EvaluationReason.Error e = (EvaluationReason.Error)reason;
+      Timber.d("error: %s", e.getErrorKind());
+  }
+  // or, if all you want is a simple descriptive string:
+  Timber.d(reason.toString());
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`EvaluationReason`](https://javadoc.io/static/com.launchdarkly/launchdarkly-android-client-sdk/2.12.0/com/launchdarkly/android/EvaluationReason.html).
+
 </Details>
 
 ### Flutter
@@ -135,6 +184,49 @@ LDEvaluationReason reason = detail.reason;
 </CodeTabs>
 
 To learn more, read [`LDEvaluationDetail`](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDEvaluationDetail-class.html) and [`boolVariationDetail`](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDClient/boolVariationDetail.html).
+
+Here is an example of how to access the details of a reason object:
+
+<CodeTabs
+  defaultValue="dart"
+  values={[
+    { label: 'Dart', value: 'dart', },
+  ]
+}>
+<CodeTabItem value="dart">
+
+```dart
+void printReason(LDEvaluationReason reason) {
+  switch (reason.kind) {
+    case LDKind.OFF:
+      print("it's off");
+      break;
+    case LDKind.FALLTHROUGH:
+      print('fell through');
+      break;
+    case LDKind.TARGET_MATCH:
+      print('targeted');
+      break;
+    case LDKind.RULE_MATCH:
+      print('matched rule: ${reason.ruleIndex} ${reason.ruleId}');
+      break;
+    case LDKind.PREREQUISITE_FAILED:
+      print('prereq failed: ${reason.prerequisiteKey}');
+      break;
+    case LDKind.ERROR:
+      print('error: ${reason.errorKind}');
+      break;
+    default: // LDKind.UNKNOWN
+      print('unknown service kind');
+  }
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`LDEvaluationReason`](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDEvaluationDetail-class.html).
+
 </Details>
 
 ### iOS
@@ -343,6 +435,54 @@ EvaluationReason reason = detail.Reason;
 </CodeTabs>
 
 To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.EvaluationDetail-1.html), [`BoolVariationDetail`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_BoolVariationDetail_).
+
+Here is an example of how to access the details of a reason object:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'C#', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+void PrintReason(EvaluationReason reason)
+{
+  switch (reason.Kind)
+  {
+    case EvaluationReasonKind.OFF:
+      Console.WriteLine("it's off");
+      break;
+    case EvaluationReasonKind.FALLTHROUGH:
+      Console.WriteLine("fell through");
+      break;
+    case EvaluationReasonKind.TARGET_MATCH:
+      Console.WriteLine("targeted");
+      break;
+    case EvaluationReasonKind.RULE_MATCH:
+      var rm = reason as EvaluationReason.RuleMatch;
+      Console.WriteLine("matched rule " + rm.RuleIndex + "/" + rm.RuleID);
+      break;
+    case EvaluationReasonKind.PREREQUISITE_FAILED:
+      var pf = reason as EvaluationReason.PrerequisiteFailed;
+      Console.WriteLine("prereq failed: " + pf.PrerequisiteKey);
+      break;
+    case EvaluationReasonKind.ERROR:
+      var e = reason as EvaluationReason.Error;
+      Console.WriteLine("error: " + e.ErrorKind);
+      break;
+  }
+  // or, if all you want is a simple descriptive string:
+  System.out.println(reason.ToString());
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`EvaluationReason`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.EvaluationReason.html).
+
 </Details>
 
 ### Apex
@@ -467,6 +607,52 @@ reason := detail.Reason
 </CodeTabs>
 
 To learn more, read [`EvaluationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldreason#EvaluationDetail) and [`BoolVariationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.BoolVariationDetail).
+
+Here is an example of how to access the details of a reason object:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+  ]
+}>
+
+<CodeTabItem value="go">
+
+```go
+import (
+    "gopkg.in/launchdarkly/go-sdk-common.v2/ldreason"
+)
+
+func PrintReason(reason ldreason.EvaluationReason) {
+  switch reason.GetKind() {
+  case ldreason.EvalReasonOff:
+    fmt.Println("it's off")
+  case ldreason.EvalReasonFallthrough:
+    fmt.Println("fell through")
+  case ldreason.EvalReasonTargetMatch:
+    fmt.Println("targeted")
+  case ldreason.EvalReasonRuleMatch:
+    fmt.Printf("matched rule %d/%s\n", r.GetRuleIndex(), r.GetRuleID())
+  case ldreason.EvalReasonPrerequisiteFailed:
+    fmt.Printf("prereq failed: %s\n", r.GetPrerequisiteKey())
+  case ldreason.EvalReasonError:
+    fmt.Printf("error: %s\n", r.GetErrorKind())
+  }
+  // or, if all you want is a simple descriptive string:
+  fmt.Println(reason)
+}
+
+// The example above is for Go SDK 5.0 and higher. In earlier versions, the
+// EvaluationReason could be one of several types, such as EvaluationReasonOff,
+// so you would need a switch statement with .(type).
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`EvaluationReason`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldreason#EvaluationReason).
+
 </Details>
 
 ### Haskell
@@ -529,6 +715,54 @@ EvaluationReason reason = detail.getReason();
 </CodeTabs>
 
 To learn more, read [`EvaluationDetail`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/EvaluationDetail.html) and [`boolVariationDetail`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail-java.lang.String-com.launchdarkly.sdk.LDUser-boolean-).
+
+Here is an example of how to access the details of a reason object:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+  ]
+}>
+
+<CodeTabItem value="java">
+
+```java
+void printReason(EvaluationReason reason) {
+  switch (reason.getKind()) {
+    case OFF:
+      System.out.println("it's off");
+      break;
+    case FALLTHROUGH:
+      System.out.println("fell through");
+      break;
+    case TARGET_MATCH:
+      System.out.println("targeted");
+      break;
+    case RULE_MATCH:
+      EvaluationReason.RuleMatch rm = (EvaluationReason.RuleMatch)reason;
+      System.out.println("matched rule " + rm.getRuleIndex()
+        + "/" + rm.getRuleId());
+      break;
+    case PREREQUISITE_FAILED:
+      EvaluationReason.PrerequisiteFailed pf =
+        (EvaluationReason.PrerequisiteFailed)reason;
+      System.out.println("prereq failed: " + pf.getPrerequisiteKey());
+      break;
+    case ERROR:
+      EvaluationReason.Error e = (EvaluationReason.Error)reason;
+      System.out.println("error: " + e.getErrorKind());
+  }
+  // or, if all you want is a simple descriptive string:
+  System.out.println(reason.toString());
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`EvaluationReason`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/EvaluationReason.html).
+
 </Details>
 
 ### Lua
@@ -602,6 +836,47 @@ client.variationDetail('flag-key', user, 'default',
 </CodeTabs>
 
 To learn more, read [`LDEvaluationDetail`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDEvaluationDetail.html) and [`variationDetail`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDClient.html#variationDetail).
+
+Here is an example of how to access the details of a reason object:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+function printReason(reason) {
+  switch(reason.kind) {
+    case "OFF":
+      console.log("it's off");
+      break;
+    case "FALLTHROUGH":
+      console.log("fell through");
+      break;
+    case "TARGET_MATCH":
+      console.log("targeted");
+      break;
+    case "RULE_MATCH":
+      console.log("matched rule " + reason.ruleIndex + ", "  + reason.ruleId);
+      break;
+    case "PREREQUISITE_FAILED":
+      console.log("prereq failed: " + reason.prerequisiteKey);
+      break;
+    case "ERROR":
+      console.log("error: " + reason.errorKind);
+      break;
+  }
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`LDEvaluationReason`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDEvaluationReason.html).
+
 </Details>
 
 ### Node.js (Cloudflare)
@@ -641,6 +916,50 @@ $reason = $detail->getReason();
 </CodeTabs>
 
 To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-EvaluationDetail.html) and [`variationDetail`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method_variationDetail).
+
+Here is an example of how to access the details of a reason object:
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', },
+  ]
+}>
+<CodeTabItem value="php">
+
+```php
+function printReason($reason) {
+  switch ($reason->getKind()) {
+    case EvaluationReason::OFF:
+      echo("it's off");
+      break;
+    case EvaluationReason::FALLTHROUGH:
+      echo("fell through");
+      break;
+    case EvaluationReason::TARGET_MATCH:
+      echo("targeted");
+      break;
+    case EvaluationReason::RULE_MATCH:
+      echo("matched rule " . $reason->getRuleIndex() .
+        "/" . $reason->getRuleId());
+      break;
+    case EvaluationReason::PREREQUISITE_FAILED:
+      echo("prereq failed: " . $reason->getPrerequisiteKey());
+      break;
+    case EvaluationReason::ERROR:
+      echo("error: " . $reason->getErrorKind());
+      break;
+  }
+  // or, if all you want is a simple descriptive string:
+  echo($reason);
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`EvaluationReason`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-EvaluationReason.html).
+
 </Details>
 
 ### Python
@@ -672,6 +991,39 @@ reason = detail.reason
 </CodeTabs>
 
 To learn more, read [`EvaluationDetail`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.flag.EvaluationDetail) and [`variation_detail`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.client.LDClient.variation_detail).
+
+Here is an example of how to access the details of a reason object:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+def print_reason(reason):
+  kind = reason["kind"]
+  if kind == "OFF":
+    print "it's off"
+  elif kind == "FALLTHROUGH":
+    print "fell through"
+  elif kind == "TARGET_MATCH":
+    print "targeted"
+  elif kind == "RULE_MATCH":
+    print "matched rule %d/%s" % (reason["ruleIndex"], reason["ruleId"])
+  elif kind == "PREREQUISITE_FAILED":
+    print "prereq failed: %s" % reason["prerequisiteKey"]
+  elif kind == "ERROR":
+    print "error: %s" % reason["errorKind"]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`EvaluationDetail.reason`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.flag.EvaluationDetail.reason).
+
 </Details>
 
 ### Ruby
@@ -703,6 +1055,40 @@ reason = detail.reason
 </CodeTabs>
 
 To learn more, read [`EvaluationDetail`](https://www.rubydoc.info/gems/launchdarkly-server-sdk/LaunchDarkly/EvaluationDetail) and [`variation_detail`](https://www.rubydoc.info/gems/launchdarkly-server-sdk/LaunchDarkly/LDClient#variation_detail-instance_method).
+
+Here is an example of how to access the details of a reason object:
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', },
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+def print_reason(reason)
+  case reason[:kind]
+  when "OFF"
+    puts "it's off"
+  when "FALLTHROUGH"
+    puts "fell through"
+  when "TARGET_MATCH"
+    puts "targeted"
+  when "RULE_MATCH"
+    puts "matched rule #{reason[:ruleIndex]}/#{reason[:ruleId]}"
+  when "PREREQUISITE_FAILED"
+    puts "prereq failed: #{reason[:prerequisiteKey]}"
+  when "ERROR"
+    puts "error: #{reason[:errorKind]}"
+  end
+end
+```
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`EvaluationDetail.reason`](https://www.rubydoc.info/gems/launchdarkly-server-sdk/LaunchDarkly/EvaluationDetail#reason-instance_method).
+
 </Details>
 
 ### Rust
@@ -734,4 +1120,40 @@ let reason = detail.reason;
 </CodeTabs>
 
 To learn more, read [`variation_detail`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.variation_detail) and [`bool_variation_detail`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.bool_variation_detail).
+
+Here is an example of how to access the details of a reason object:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', },
+  ]
+}>
+
+<CodeTabItem value="rust">
+
+```rust
+fn print_reason(reason: Reason) {
+    match reason {
+        Reason::Off => println!("it's off"),
+        Reason::Fallthrough { .. } => println!("fell through"),
+        Reason::TargetMatch => println!("targeted"),
+        Reason::RuleMatch {
+            rule_index,
+            rule_id,
+            ..
+        } => println!("matched rule {}/{}", rule_index, rule_id),
+        Reason::PrerequisiteFailed { prerequisite_key } => {
+            println!("prereq failed: {}", prerequisite_key)
+        }
+        Reason::Error { error } => println!("error: {:?}", error),
+    };
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`Reason`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/enum.Reason.html).
+
 </Details>
