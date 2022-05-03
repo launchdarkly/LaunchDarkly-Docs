@@ -1,76 +1,22 @@
 ---
-path: /home/users/segments
-title: Building user segments
-description: This topic explains how to build and manage user segments. User segments let you target groups of users by attribute.
+path: /home/users/standard-segments
+title: Standard segments
+description: This topic explains how to build and manage standard user segments. Standard segments let you target groups of users by attribute.
 published: true
 ---
 
 ## Overview
 
-This topic explains how to build and manage user segments. User segments let you target groups of users by attribute.
-
-## Understanding user segments
-
-User segments are lists of users that you can use to manage flag targeting behavior in bulk. You can include or exclude individual users from a segment based on user attributes. Use the **Segments** dashboard to create targeting rules and lists of users to manage flag targeting more efficiently.
-
-Segments are useful for keeping groups of users, like `beta-users` or `enterprise-customers`, up to date. They allow you to more quickly turn features on or off for certain groups with confidence.
-
-There are some differences between flag and segment targeting that you should be aware of:
-
-- Unlike flags, segments are environment-specific. They do not populate in environments other than the one you created them in.
-- Segment targeting cannot reference another user segment.
-
-You can view segments, including Big Segments, on the **Segments** dashboard. A Big Segment is a kind of segment that is backed by an external data store, including segments that sync with an Amplitude cohort. To learn more, read [Big Segments](/home/users/big-segments).
-
-From the dashboard you can filter segments to display only those synced from Amplitude:
-
-![The "Segments" dashboard with the "Amplitude synced cohorts" filter applied.](segments-dashboard-amplitude-filter.png)
-
-<LearnMore>
-
-You can also use the REST API: [Segments](https://apidocs.launchdarkly.com/tag/Segments/)
-
-</LearnMore>
-
-## Creating user segments
-
-Creating a segment is similar to creating a flag.
+This topic explains how to build and manage the Standard user segments. Standard segments let you target groups of users by attribute.
 
 <Callout intent="info">
-<CalloutTitle>Importing CSV to a segment</CalloutTitle>
+<CalloutTitle>Managing Big Segments</CalloutTitle>
 <CalloutDescription>
 
-You can import and export directly to and from LaunchDarkly Big Segments using CSV files. The import/export feature is not available for synced Big Segments.
-
-If you want to import or export from a Big Segment, you must designate the segment as a Big Segment when you create it.
+The contents on this page are only applicable to standard segments. To learn how to create and manage Big Segments, read [Big Segments](/home/users/big-segments).
 
 </CalloutDescription>
 </Callout>
-
-To add a new segment:
-
-1. Navigate to the **Segments** dashboard.
-2. Click **Create segment**. The "Create a segment" panel appears:
-
-![The "Segments" tab with the "Create segment" button called out.](segments-new-callout.png)
-
-
-3. Give your segment a human-readable **Name**.
-4. Enter a **Key** for the segment. This field auto-populates based on the segment name, but you can change it if you need to.
-5. (Optional) Add a **Description**.
-6. (Optional) Choose **Tags** from the menu:
-
-![The "Create a segment" panel.](segments-create.png)
-
-7. Click **Save segment**. The Segment's **Targeting** tab appears.
-
-You can further edit the segment's settings from its **Settings** tab.
-
-<LearnMore>
-
-You can also use the REST API: [Create segment](https://apidocs.launchdarkly.com/tag/Segments#operation/postSegment)
-
-</LearnMore>
 
 ## Customizing user segments
 

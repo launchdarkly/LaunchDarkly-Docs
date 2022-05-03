@@ -172,15 +172,19 @@
             "path": "/home/users/attributes"
           },
           {
-            "label": "Building user segments",
-            "path": "/home/users/segments"
-          },
-          {
-            "label": "Big Segments",
-            "path": "/home/users/big-segments",
+            "label": "User segments",
+            "path": "/home/users/segments",
             "items": [
               {
-                "label": "Syncing segments from Amplitude cohorts",
+                "label": "Standard segments",
+                "path": "/home/users/standard-segments"
+              },
+              {
+                "label": "Big Segments",
+                "path": "/home/users/big-segments"
+              },
+              {
+                "label": "Syncing Big Segments from Amplitude cohorts",
                 "path": "/home/users/synced-segments"
               }
             ]

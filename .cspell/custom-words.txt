@@ -197,6 +197,7 @@ rulesets
 runbook
 runbooks
 runtimes
+samplekey
 scenegraph
 SCIM
 scim

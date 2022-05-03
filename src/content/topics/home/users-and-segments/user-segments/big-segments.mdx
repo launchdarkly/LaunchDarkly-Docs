@@ -1,0 +1,125 @@
+---
+path: /home/users/big-segments
+title: Big Segments
+description: This topic explains what Big Segments are and how to use them.
+published: true
+---
+
+<Callout intent="primary">
+  <CalloutTitle>Big Segments is an Enterprise feature</CalloutTitle>
+  <CalloutDescription>
+
+Big Segments is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+  </CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains what Big Segments are and how to use them.
+
+A Big Segment is a kind of segment that is backed by an external data store. Big Segments can support massive numbers of targets. The limit is based on the limits of the data store you configure.
+A standard user segment is capped at 50,000 users. To use Big Segments, you must meet additional prerequisites.
+
+## Prerequisites
+
+To use Big Segments, you must meet the following prerequisites:
+
+- You must properly configure the Relay Proxy:
+    - If you use server-side SDKs, you must use the Relay Proxy and it must be configured to use Big Segments.
+    - If you use client-side SDKs, the Relay Proxy is not required. However, if you do use the Relay Proxy, you must configure it to use Big Segments. To learn more, read [Using the Relay Proxy](/home/relay-proxy/using).
+- You must configure your SDKs to use Big Segments:
+    - If you use server-side SDKs, you must use an SDK version that supports Big Segments. To learn more, read the [Big Segments SDK documentation](/sdk/features/big-segments).
+    - All client-side SDKs support Big Segments by default, so there's no additional setup required for client-side SDKs.
+
+## Configuring Big Segments
+
+There are two ways to configure a Big Segment.
+
+A single segment can use one of these two methods, but not both:
+
+- Configure the Big Segment to sync from an Amplitude cohort
+- Use the Big Segment import feature to add targets to the segment from a CSV
+
+### Syncing Big Segments
+
+You can sync Big Segments from an Amplitude cohort. When you sync your Amplitude cohort to the LaunchDarkly destination in the Amplitude dashboard, it creates a synced segment. This allows the segment to contain a large number of users from Amplitude.
+
+To learn more, read [Syncing Big Segments from Amplitude cohorts](/home/users/synced-segments).
+
+### Importing into Big Segments
+
+To import users from a CSV file:
+
+1. Navigate to the Big Segment you wish to import users into.
+
+![The "Targeting" tab of an empty Big Segment.](big-segment-empty.png)
+
+2. Click **Upload CSV**. An "Upload CSV" dialog appears.
+
+If the Big Segment already contains users, you have the option to merge or overwrite the existing users with the users from the CSV file.
+ - Select "Overwrite" to replace all existing users in the segment
+ - Select "Merge" to add to the existing users in the segment
+
+![The Big segment "Upload CSV" dialog.](big-segment-upload-modal.png)
+
+3. Click **Select File**.
+4. Select a CSV file from your computer.
+5. Click **Upload File**.
+
+The import process begins in the background. When the import completes successfully, you receive an email notification. Depending on the number of users in the CSV, this may take several minutes or hours.
+
+<LearnMore>
+
+You can also use the REST API: [Create Big Segment import](https://apidocs.launchdarkly.com/tag/Segments-(beta)#operation/createBigSegmentImport)
+
+</LearnMore>
+
+## Adding and removing individual users
+
+You can also target individual users for inclusion in a Big Segment.
+
+To add or remove individual users in a Big Segment:
+
+1. Navigate to the desired segment.
+2. In the **Included users** search box, enter the key of the user you want to add or remove. If the user is present in the segment, a **Remove user** button appears. If the user is not present in the segment, an **Add user** button appears.
+
+![Adding an individual user to a Big Segment.](big-segment-add-individual-user.png)
+
+3. Click **Add user** or **Remove user**.
+4. Click **Review and save**. A "Review and save" dialog appears.
+
+![The Big Segment "Review and save" dialog.](big-segment-review-and-save.png)
+
+
+5. Click **Save changes**.
+
+
+## Exporting users
+
+To export the members from a Big Segment into a CSV file:
+
+1. Navigate to the desired segment.
+2. Click on the segment's **overflow menu** and select "Export as CSV".
+
+![The overflow menu for a Big Segment with the "Export as CSV" option displayed.](big-segment-export.png)
+
+The export process runs in the background. When it completes, you receive an email notification containing a link to where you can download your CSV file.
+
+<LearnMore>
+
+You can also use the REST API: [Create Big Segment export](https://apidocs.launchdarkly.com/tag/Segments-(beta)#operation/createBigSegmentExport)
+
+</LearnMore>
+
+## Limitations for CSV import and export
+
+There are some limitations to the import and export features. They are:
+
+- The imported CSV file must not contain a header row. LaunchDarkly reads user keys from the first column of the CSV file. For example:
+
+![An example Big Segment CSV file.](big-segment-example-csv.png)
+
+- LaunchDarkly does not support concurrent imports within a single environment.
+- Uploaded CSV files may not exceed 40MB in size and may not contain more than 1 million users. If you want to create segments containing more than 1 million users, you can use the "Merge" option with multiple sequential file uploads.
+- LaunchDarkly does not support exporting segments with more than 10 million users.
