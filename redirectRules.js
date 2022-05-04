@@ -3,7 +3,7 @@ module.exports = [
 
   {
     fromPath: '/home/experimentation/creating-metrics',
-    toPath: '/home/experimentation/metrics/index',
+    toPath: '/home/experimentation/metrics',
   },
   {
     fromPath: '/guides/tutorials/first-flag',
@@ -599,19 +599,19 @@ module.exports = [
   },
   {
     fromPath: '/docs/experimentation-manage',
-    toPath: '/home/experimentation/managing',
+    toPath: '/home/experimentation/analyzing',
   },
   {
     fromPath: '/docs/experimentation-lifecycle',
-    toPath: '/home/experimentation/managing/lifecycle',
+    toPath: '/home/experimentation/lifecycle',
   },
   {
     fromPath: '/docs/experimentation-interpret',
-    toPath: '/home/experimentation/managing/interpreting',
+    toPath: '/home/experimentation/analyzing',
   },
   {
     fromPath: '/docs/experimentation-targeting',
-    toPath: '/home/experimentation/managing/populations',
+    toPath: '/home/experimentation/allocation',
   },
   {
     fromPath: '/docs/integrations-index',
