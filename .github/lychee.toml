@@ -11,8 +11,8 @@ progress = true
 ### Exclusions
 ###
 # Exclude URLs from checking (supports regex)
+# does not exclude all github
 exclude = [
-  'github.com',
   'https://sdk.launchdarkly.',
   'https://stream.launchdarkly.',
   'https://stream-tls10.launchdarkly.',
@@ -38,6 +38,8 @@ exclude = [
   'https://dash.cloudflare.com/*',
   # specific example links
   '^https://launchdarkly.github.io/$',
+  # ignore git clone links
+  'https://github.com/.+/.+.git',
   # links used in examples
   '.*domain.com',
   'https://base.custom_domain',
@@ -60,14 +62,14 @@ exclude = [
   'https://unpkg.com',
   'https://cdn.jsdelivr.net',
   'https://launchdarklydemostack1-s3bucketforwebsitecontent-jffmp2434grq.s3.amazonaws.com/site/',
+  # Repeated 404s on these links - [Issue opened](https://github.com/lycheeverse/lychee/issues/431)
+  'https://github.com/marketplace/actions/launchdarkly-code-references',
+  'https://github.com/features/actions',
+  'https://github.com/launchdarkly/dev',
   # TODO: SC-135999 workaround
   'https://www.php.net/manual/en/language.types.declarations.php',
-  # TODO: SC-149484 workaround
-  'https://pkg.go.dev*',
   # TODO: SC-151435 workaround
-  'https://npmjs.com/package/yaml',
-  'https://npmjs.com/package/winston',
-  'https://npmjs.com/package/launchdarkly-node-server-sdk',
+  'https://www.npmjs.com/package/*'
 ]
 
 # Exclude all private IPs from checking

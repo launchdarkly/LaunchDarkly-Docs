@@ -64,16 +64,6 @@ jobs:
             ${{ runner.os }}-yarn-
       - run: CYPRESS_INSTALL_BINARY=0 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable --immutable-cache
       - run: yarn test
-  linkChecker:
-    name: Check external links
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Link Checker
-        uses: lycheeverse/lychee-action@v1.4.1
-        with:
-          fail: true
-          args: --config .github/lychee.toml ./README.md './src/content/**/*.mdx'
   spellcheck:
     name: Check spelling
     runs-on: ubuntu-latest

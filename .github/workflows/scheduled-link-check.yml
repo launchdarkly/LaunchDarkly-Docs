@@ -6,7 +6,6 @@ on:
 
 jobs:
   check-external-links:
-    # includes github
     name: Check external links
     runs-on: ubuntu-latest
     steps:
@@ -15,6 +14,44 @@ jobs:
         uses: lycheeverse/lychee-action@v1.4.1
         with:
           fail: true
-          args: --config .github/lychee-all.toml README.md src/content/topics/**/*.mdx src/content/topics/**/**/*.mdx src/content/topics/**/**/**/*.mdx src/content/topics/**/**/**/**/*.mdx
+          args: --config .github/lychee.toml ./README.md './src/content/**/*.mdx' --accept 429
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Notify slack
+        if: failure()
+        uses: slackapi/slack-github-action@v1
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        with:
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":rotating_light::rotating_light::rotating_light::link: Invalid external link found on *<https://docs.launchdarkly.com|Production>* :rotating_light::rotating_light::rotating_light:"
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "View failed run"
+                    },
+                    "action_id": "view-action-${{github.run_id}}",
+                    "url": "https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
+                  }
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "plain_text",
+                      "text": ":github: Scheduled run",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
