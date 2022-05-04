@@ -1,0 +1,231 @@
+---
+path: /sdk/client-side/ios/migration-5-to-6-swift
+title: iOS SDK 5.x to 6.0 migration guide for Swift
+description: This topic explains the API changes made in the iOS SDK 6 release and how to migrate to that version.
+published: true
+---
+
+## Overview
+
+This topic explains how to adapt Swift code that currently uses a 5.x version of the [iOS client-side SDK](/sdk/client-side/ios) to use version 6.0 or later.
+
+Sections in this topic address different changes and updates between versions 5.x and 6.0 of the SDK.
+
+## Understanding the new LDValue type
+
+The 6.0 release of the iOS client-side SDK introduces a new type that represents a value of any valid JSON type: `LDValue`. To learn more about the new type, read the  [generated documentation](https://launchdarkly.github.io/ios-client-sdk/Enums/LDValue.html). The `LDValue` `enum` implements several `ExpressibleBy` protocols allowing constants to be created the same as other Swift types, as shown below.
+
+<CodeTabs
+  defaultValue="sdk6"
+  values={[
+    { label: '6.0', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk6">
+
+```swift
+let nullValue: LDValue = nil
+let boolValue: LDValue = true
+let numericValue: LDValue = 5.5
+let stringValue: LDValue = "abc"
+let complexValue: LDValue = ["abc": 123, "def": [false, true]]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Understanding the changes to configuration
+
+The `LDConfig` class only requires changes if the application specifies the `privateUserAttributes` property. The type of the property has changed from `[String]` to `[UserAttribute]`. To learn more, read the [generated documentation](https://launchdarkly.github.io/ios-client-sdk/Classes/UserAttribute.html) to learn more about `UserAttribute`.
+
+Here is an example that highlights the changes:
+
+<CodeTabs
+  defaultValue="sdk5"
+  values={[
+    { label: '5.x syntax', value: 'sdk5', },
+    { label: '6.0 syntax', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk5">
+
+```swift
+var config = LDConfig(mobileKey: "your-mobile-key")
+config.privateUserAttributes = ["name", "premium"]
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk6">
+
+```swift
+var config = LDConfig(mobileKey: "your-mobile-key")
+config.privateUserAttributes = [UserAttribute.BuiltIn.name, UserAttribute.forName("premium")]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Setting `"custom"` as a private attribute no longer sets all custom attributes private. Only the custom attribute with the key `"custom"` would be considered private by the SDK.
+
+## Understanding the changes to creating users
+
+Similarly to `LDConfig.privateUserAttributes`, `LDUser.privateAttributes` has been updated to use `UserAttribute`. Additionally `LDUser.custom` now user the `LDValue` type rather than `Any` for specifying the value of custom attributes.
+
+Here is an example that highlights the changes:
+
+<CodeTabs
+  defaultValue="sdk5"
+  values={[
+    { label: '5.x syntax', value: 'sdk5', },
+    { label: '6.0 syntax', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk5">
+
+```swift
+let privateAttributes: [UserAttribute] = [UserAttribute.BuiltIn.name, UserAttribute.forName("premium")]
+let customAttributes: [String: LDValue] = ["premium": ["abc"]]
+let user = LDUser(key: "user_key", custom: customAttributes, privateAttributes: privateAttributes)
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk6">
+
+```swift
+let privateAttributes: [String] = ["name", "premium"]
+let customAttributes: [String: Any] = ["premium": ["abc"]]
+let user = LDUser(key: "user_key", custom: customAttributes, privateAttributes: privateAttributes)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The `Equatable` instance for `LDUser` has also changed. It now compares all properties, rather than only the `key` property.
+
+<CodeTabs
+  defaultValue="sdk5"
+  values={[
+    { label: '5.x syntax', value: 'sdk5', },
+    { label: '6.0 syntax', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk5">
+
+```swift
+let user1 = LDUser(key: "user_key", name: "John Smith")
+let user2 = LDUser(key: "user_key", name: "Jane Smith")
+// Results in true
+user1 == user2
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk6">
+
+```swift
+let user1 = LDUser(key: "user_key", name: "John Smith")
+let user2 = LDUser(key: "user_key", name: "Jane Smith")
+// Results in false
+user1 == user2
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Changes to variation functions
+
+The iOS SDK now provides functions per-type for retrieving the variation for a given flag. To retrieve variation values that are complex (JSON arrays or objects), use the new `jsonVariation` function.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="sdk5"
+  values={[
+    { label: '5.x syntax', value: 'sdk5', },
+    { label: '6.0 syntax', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk5">
+
+```swift
+let boolValue: Bool = LDClient.get()!.variation(forKey: "boolFlag", defaultValue: false)
+let arrayValue: [Any] = LDClient.get()!.variation(forKey: "arrayFlag", defaultValue: ["abc", "def"] as [Any])
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk6">
+
+```swift
+let boolValue = LDClient.get()!.boolVariation(forKey: "boolFlag", defaultValue: false)
+let arrayValue = LDClient.get()!.jsonVariation(forKey: "arrayFlag", defaultValue: ["abc", "def"])
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Changes to variationDetail functions
+
+The iOS SDK now provides function per-type for retrieving the detailed variation result for a given flag. To retrieve variation values that are complex, such as JSON arrays or objects, use the new `jsonVariation` function. The `reason` information associated with a `LDEvaluationDetail` has also changed from `[String: Any]?` to `[String: LDValue]?`.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="sdk5"
+  values={[
+    { label: '5.x syntax', value: 'sdk5', },
+    { label: '6.0 syntax', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk5">
+
+```swift
+let boolValue: LDEvaluationDetail<Bool> = LDClient.get()!.variationDetail(forKey: "boolFlag", defaultValue: false)
+let arrayValue: LDEvaluationDetail<[Any]> = LDClient.get()!.variationDetail(forKey: "arrayFlag", defaultValue: ["abc", "def"] as [Any])
+let arrayReason: [String: Any]? = arrayValue.reason
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk6">
+
+```swift
+let boolValue: LDEvaluationDetail<Bool> = LDClient.get()!.boolVariationDetail(forKey: "boolFlag", defaultValue: false)
+let arrayValue: LDEvaluationDetail<LDValue> = LDClient.get()!.jsonVariationDetail(forKey: "arrayFlag", defaultValue: ["abc", "def"])
+let arrayReason: [String: LDValue]? = arrayValue.reason
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Recording custom events
+
+If your application uses `track` to record `custom` events, remove `try` statements. This function no longer throws an error. Additionally, the `data` parameter type has changed from `Any?` to `LDValue?`. If your application provides the `data` parameter, you may need to update it to provide an `LDValue` type.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="sdk5"
+  values={[
+    { label: '5.x syntax', value: 'sdk5', },
+    { label: '6.0 syntax', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk5">
+
+```swift
+do {
+    let customData: Any = ["abc": 123]
+    try LDClient.get()!.track(key: "key", data: customData)
+} catch is LDInvalidArgumentError {
+    // Do something with the error
+} catch {}
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk6">
+
+```swift
+let customData: LDValue = ["abc": 123]
+LDClient.get()!.track(key: "key", data: customData)
+```
+
+</CodeTabItem>
+</CodeTabs>

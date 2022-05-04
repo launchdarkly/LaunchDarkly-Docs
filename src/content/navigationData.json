@@ -1059,6 +1059,10 @@
             "path": "/sdk/client-side/ios",
             "items": [
               {
+                "label": "iOS SDK 5.x to 6.0 migration guide for Swift",
+                "path": "/sdk/client-side/ios/migration-5-to-6-swift"
+              },
+              {
                 "label": "iOS SDK 4.x to 5.0 migration guide",
                 "path": "/sdk/client-side/ios/migration-4-to-5"
               }
