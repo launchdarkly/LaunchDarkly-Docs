@@ -1,0 +1,231 @@
+---
+path: /sdk/client-side/ios/migration-5-to-6-objc
+title: iOS SDK 5.x to 6.0 migration guide for Objective-C
+description: This topic explains the API changes made in the iOS SDK 6 release and how to migrate to that version.
+published: true
+---
+
+## Overview
+
+This topic explains how to adapt Objective-C code that currently uses a 5.x version of the [iOS client-side SDK](/sdk/client-side/ios) to use version 6.0 or later. The sections in this topic address different changes and updates between versions 5.x and 6.0 of the SDK.
+
+The Objective-C bridging types for the iOS SDK are implemented in Swift, where names are prefixed by `Objc`. This document refers to the types by the names exposed to Objective-C.
+
+## Understanding the new LDValue type
+
+The 6.0 release of the iOS client-side SDK introduces a new type that represents a value of any valid JSON type: `LDValue`. To learn more, read the [generated documentation](https://launchdarkly.github.io/ios-client-sdk/Classes/ObjcLDValue.html). You can initialize the `LDValue` type with different types of values to support arbitrary JSON data. 
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="sdk6"
+  values={[
+    { label: '6.0', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk6">
+
+```objectivec
+LDValue *nullValue = [LDValue ofNull];
+LDValue *boolValue = [LDValue ofBool:YES];
+LDValue *numericValue = [LDValue ofNumber:@5.5];
+LDValue *stringValue = [LDValue ofString:@"beta_testers"];
+LDValue *complexValue = [LDValue ofDict:@{@"groups": [LDValue ofArray:@[[LDValue ofBool:YES]]]}];
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Understanding the changes to creating users
+
+The `LDUser.custom` property has changed in type from `NSDictionary<NSString*, id> * _Nullable` to `NSDictionary<NSString*, LDValue*> * _Nonnull`.
+
+Here is an example of the change:
+
+<CodeTabs
+  defaultValue="sdk5"
+  values={[
+    { label: '5.x', value: 'sdk5', },
+    { label: '6.0', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk5">
+
+```objectivec
+LDUser *user = [[LDUser alloc] initWithKey:@"user_key"];
+user.custom = @{@"group": @"beta"};
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk6">
+
+```objectivec
+LDUser *user = [[LDUser alloc] initWithKey:@"user_key"];
+user.custom = @{@"group": [LDValue ofString:@"beta"]};
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The `isEqual` function on `LDUser` has changed. It no longer only compares the `key` property, and now compares all properties of the instance.
+
+<CodeTabs
+  defaultValue="sdk5"
+  values={[
+    { label: '5.x', value: 'sdk5', },
+    { label: '6.0', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk5">
+
+```objectivec
+LDUser *user1 = [[LDUser alloc] initWithKey:@"user_key"];
+user1.name = @"Jane Smith";
+LDUser *user2 = [[LDUser alloc] initWithKey:@"user_key"];
+user2.name = @"John Smith";
+// Results in true
+[user1 isEqual:user2]
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk6">
+
+```objectivec
+LDUser *user1 = [[LDUser alloc] initWithKey:@"user_key"];
+user1.name = @"Jane Smith";
+LDUser *user2 = [[LDUser alloc] initWithKey:@"user_key"];
+user2.name = @"John Smith";
+// Results in false
+[user1 isEqual:user2]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Setting `"custom"` as a private attribute no longer sets all custom attributes as private. The SDK considers only the custom attribute with the key `"custom"` as private.
+
+## Changes to variation functions
+
+The `LDClient` functions `arrayVariation` and `dictionaryVariation` have been removed. The new `jsonVariation` function lets you evaluate flags with any value type.
+
+<CodeTabs
+  defaultValue="sdk5"
+  values={[
+    { label: '5.x', value: 'sdk5', },
+    { label: '6.0', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk5">
+
+```objectivec
+NSArray *result = [[LDClient get] arrayVariationForKey:@"flag-key" defaultValue:@[]];
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk6">
+
+```objectivec
+LDValue* result = [[LDClient get] jsonVariationForKey:@"flag-key" defaultValue:[LDValue ofArray:@[]]];
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Understanding changes to variationDetail functions
+
+The `LDClient` functions `arrayVariationDetail` and `dictionaryVariationDetail` have been removed. The new `jsonVariationDetail` function allows evaluating flags with any resultant value type. The `LDJSONEvaluationDetail` type is used to store the resultant variation and detailed evaluation information. 
+
+The `reason` property of the detailed evaluation result types has also changed from `NSDictionary<NSString*, id> * _Nullable` to `NSDictionary<NSString*, LDValue*> * _Nullable`.
+
+<CodeTabs
+  defaultValue="sdk5"
+  values={[
+    { label: '5.x', value: 'sdk5', },
+    { label: '6.0', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk5">
+
+```objectivec
+LDArrayEvaluationDetail *result = [[LDClient get] arrayVariationDetailForKey:@"flag-key" defaultValue:@[]];
+NSArray* resultValue = result.value;
+NSDictionary<NSString*, id> *reason = result.reason;
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk6">
+
+```objectivec
+LDJSONEvaluationDetail *result = [[LDClient get] jsonVariationDetailForKey:@"flag-key" defaultValue:[LDValue ofArray:@[]]];
+LDValue* resultValue = result.value;
+NSDictionary<NSString*, LDValue*> *reason = result.reason;
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Understanding the changes to flag value observers
+
+The `LDClient` previously provided per-type functions for registering observers for flag values. These have been replaced with a single `observe` function you can use with flag variations of any JSON type.
+
+<CodeTabs
+  defaultValue="sdk5"
+  values={[
+    { label: '5.x', value: 'sdk5', },
+    { label: '6.0', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk5">
+
+```objectivec
+[[LDClient get] observeBool:@"flag-key" owner:self handler:^(LDBoolChangedFlag * _Nonnull changedFlag) {
+    Bool newValue = changedFlag.newValue;
+}];
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk6">
+
+```objectivec
+[[LDClient get] observe:@"flag-key" owner:self handler:^(LDChangedFlag * _Nonnull changedFlag) {
+    LDValue* newValue = changedFlag.newValue;
+}];
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Recording custom events
+
+If your application uses `track` to record `custom` events, you must remove the `error` parameter. The `track` functions no longer have the potential to error from invalid custom event data, because the `data` parameter is now restricted to the `LDValue` type. Change provided `data` types to `LDValue` instances.
+
+Here is an example of the required changes:
+
+<CodeTabs
+  defaultValue="sdk5"
+  values={[
+    { label: '5.x', value: 'sdk5', },
+    { label: '6.0', value: 'sdk6', },
+  ]
+}>
+<CodeTabItem value="sdk5">
+
+```objectivec
+NSError* err = nil;
+NSDictionary* data = @{@"abc": @123};
+[[LDClient get] trackWithKey:@"key" data:data error:&err];
+if (err != nil) {
+    // Do something with the error
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="sdk6">
+
+```objectivec
+LDValue* data = [LDValue ofDict:@{@"abc": [LDValue ofNumber:@123]}];
+[[LDClient get] trackWithKey: @"key" data:data];
+```
+
+</CodeTabItem>
+</CodeTabs>
