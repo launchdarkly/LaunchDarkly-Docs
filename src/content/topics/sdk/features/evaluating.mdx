@@ -264,17 +264,9 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 <Details summary="Expand iOS code sample">
 
-The `variation` method returns the variation for the given feature flag. If the flag does not exist, cannot be cast to the correct return type, or the LDClient is not started, the method returns the default value. Use this method when the default value is a non-`Optional` type. `LDFlagValue` shows you all available types.
+The variation functions determine the flag value for the current user. Variation functions take the feature flag key and a default value as parameters. If the flag does not exist, cannot be cast to the correct return type, or the `LDClient` is not started, the function returns the default value.
 
-The LDClient must be started in order to return feature flag values. If the LDClient is not started, it always returns the default value. The LDClient must be online to keep the feature flag values up-to-date. When online, the LDClient has two modes for maintaining feature flag values: *streaming* and *polling*. The client app requests the mode by setting the `config.streamingMode`. Read `LDConfig` for details.
-
-In streaming mode, the LDClient opens a long-running connection to LaunchDarkly's streaming server called _clientstream_. When a flag value changes on the server, the clientstream notifies the SDK to update the value. Streaming mode is not available on watchOS. On iOS and tvOS, the client app must be running in the foreground to connect to clientstream. On macOS the client app may run in either foreground or background to connect to clientstream. If streaming mode is not available, the SDK reverts to polling mode.
-
-In polling mode, the LDClient requests feature flags from LaunchDarkly's app server at regular intervals defined in the LDConfig. When a flag value changes on the server, the LDClient learns of the change the next time the SDK requests feature flags.
-
-When offline, LDClient closes the clientstream connection and no longer requests feature flags. The LDClient returns feature flag values, assuming the LDClient was started, which may not match the values set on the LaunchDarkly server.
-
-A call to `variation` records events reported later. Recorded events allow clients to analyze usage and assist in debugging issues. There is a single variation method for all types using Swift, but Objective-C requires type specific methods.
+In the iOS SDK, there is a variation method for each type, such as `boolVariation` or `jsonVariation`.
 
 Here is an example:
 
@@ -288,8 +280,8 @@ Here is an example:
 <CodeTabItem value="swift">
 
 ```swift
-let boolFlagValue = LDClient.get()!.variation(forKey: "bool-flag-key", defaultValue: false)
-let dictionaryFlagValue = LDClient.get()!.variation(forKey: "dictionary-flag-key", defaultValue: ["a": 1, "b": 2] as [String: Any])
+let boolFlagValue = LDClient.get()!.boolVariation(forKey: "bool-flag-key", defaultValue: false)
+let jsonFlagValue = LDClient.get()!.jsonVariation(forKey: "json-flag-key", defaultValue: ["enabled": false, "special": "none"])
 ```
 
 </CodeTabItem>
@@ -297,13 +289,11 @@ let dictionaryFlagValue = LDClient.get()!.variation(forKey: "dictionary-flag-key
 
 ```objectivec
 BOOL boolFlagValue = [[LDClient get] boolVariationForKey:@"bool-flag-key" defaultValue:NO];
-NSDictionary* dictionaryFlagValue = [[LDClient get] dictionaryVariationForKey:@"dictionary-flag-key" defaultValue:@{@"a": @1, @"b": @2}];
+LDValue* jsonFlagValue = [[LDClient get] jsonVariationForKey:@"json-flag-key" defaultValue:[LDValue ofNull]];
 ```
 
 </CodeTabItem>
 </CodeTabs>
-
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 

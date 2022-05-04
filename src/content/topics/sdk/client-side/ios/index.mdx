@@ -89,7 +89,7 @@ Including the SDK as a dependency in a `Package.swift` file looks like this:
 ```swift
 //...
     dependencies: [
-        .package(url: "https://github.com/launchdarkly/ios-client-sdk.git", .upToNextMinor("5.4.0")),
+        .package(url: "https://github.com/launchdarkly/ios-client-sdk.git", .upToNextMinor("6.0.0")),
     ],
     targets: [
         .target(
@@ -121,7 +121,7 @@ Here is the code to add to your `Podfile`:
 ```ruby
 use_frameworks!
 target 'YourTargetName' do
-  pod 'LaunchDarkly', '~> 5.4'
+  pod 'LaunchDarkly', '~> 6.0'
 end
 ```
 
@@ -145,7 +145,7 @@ Here is the code to include in your `Cartfile`:
 <CodeTabItem value="swift">
 
 ```swift
-github "launchdarkly/ios-client" ~> 5.4
+github "launchdarkly/ios-client" ~> 6.0
 ```
 
 </CodeTabItem>
@@ -351,7 +351,7 @@ Here's how:
 <CodeTabItem value="swift">
 
 ```swift
-let showFeature = client.variation(forKey: "flag-key", defaultValue: false)
+let showFeature = client.boolVariation(forKey: "flag-key", defaultValue: false)
 
 if showFeature {
   // Application code to show the feature
@@ -379,7 +379,7 @@ if (showFeature) {
 
 When the app is backgrounded, the SDK does not receive real-time events. However, MacOS supports background fetch which updates flag values opportunistically, according to iOS standard defaults. iOS does not support background fetch.
 
-To change the  background fetch interval for flags in your app, add the following code in your `LDConfig`:
+To change the background fetch interval for flags in your app, add the following code in your `LDConfig`:
 
 <CodeTabs
   defaultValue="swift"

@@ -233,7 +233,7 @@ To learn more, read [`LDEvaluationReason`](https://launchdarkly.github.io/flutte
 
 <Details summary="Expand iOS code sample">
 
-The `variationDetail` methods, such as `boolVariationDetail`, work the same as `variation`. They also provide additional "reason" information about how a flag value was calculated, such as if the user matched a specific rule. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The `variationDetail` methods, such as `boolVariationDetail`, work the same as the variation methods. They also provide additional "reason" information about how a flag value was calculated, such as if the user matched a specific rule. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
@@ -246,18 +246,17 @@ Here is an example:
 <CodeTabItem value="swift">
 
 ```swift
-let LDEvaluationDetail<Bool> detail =
-  client.variationDetail("flag-key", false);
+let detail = client.boolVariationDetail(forKey: "flag-key", defaultValue: false);
 
-Bool value = detail.value;
-Int? index = detail.variationIndex;
-Dictionary<String, Any>? reason = detail.reason;
+let value: Bool = detail.value
+let variationIndex: Int? = detail.variationIndex
+let reason: [String: LDValue]? = detail.reason
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`LDEvaluationDetail`](https://launchdarkly.github.io/ios-client-sdk/Classes/LDEvaluationDetail.html) and [`variationDetail`](https://launchdarkly.github.io/ios-client-sdk/Classes/LDClient.html#/s:12LaunchDarkly8LDClientC15variationDetail6forKey12defaultValueAA012LDEvaluationE0CyxGSS_xtAA06LDFlagI11ConvertibleRzlF).
+To learn more, read [`LDEvaluationDetail`](https://launchdarkly.github.io/ios-client-sdk/Classes/LDEvaluationDetail.html) and [`boolVariationDetail`](https://launchdarkly.github.io/ios-client-sdk/Classes/LDClient.html#/s:12LaunchDarkly8LDClientC19boolVariationDetail6forKey12defaultValueAA012LDEvaluationF0CySbGSS_SbtF).
 </Details>
 
 ### JavaScript

@@ -810,7 +810,7 @@ You can optionally configure the iOS SDK to treat some or all user attributes as
 In the iOS SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
 - When creating the `LDConfig` object, you can set the `allUserAttributesPrivate` attribute to `true`.
-- When creating the LDConfig object, you can set the privateUserAttributes attribute to a list of user attribute names, such as ["name", "email"]. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
+- When creating the LDConfig object, you can set the `privateUserAttributes` property to a list of `UserAttribute`s, such as `[UserAttribute.BuiltIn.name, UserAttribute.forName("group")]`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
 
 You can also mark attributes as private on a particular `LDUser` instance, for example:
 
@@ -824,16 +824,18 @@ You can also mark attributes as private on a particular `LDUser` instance, for e
 <CodeTabItem value="swift">
 
 ```swift
-var user = LDUser(key: "USER_KEY", name: "USER_NAME")
-user.privateAttributes = ["name"]
+var user = LDUser(key: "USER_KEY", name: "USER_NAME", custom: ["group": "beta"])
+user.privateAttributes = [UserAttribute.BuiltIn.name, UserAttribute.forName("group")]
 ```
 
 </CodeTabItem>
 <CodeTabItem value="objc">
 
 ```objectivec
-LDUser *user = [[LDUser alloc] initWithKey:@"USER_KEY" name:@"USER_NAME"];
-user.privateAttributes = @[@"name"];
+LDUser *user = [[LDUser alloc] initWithKey:@"USER_KEY"];
+user.name = @"USER_NAME";
+user.custom = @{@"group": [LDValue ofString:@"beta"]};
+user.privateAttributes = @[@"name", @"group"];
 ```
 
 </CodeTabItem>

@@ -126,8 +126,6 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/flutt
 
 All flags returns a dictionary with the flag keys and their values. If the `LDClient` is not started, it returns `nil`.
 
-The dictionary does not contain feature flags from the server with null values. `LDClient` does not provide any source or change information, only flag keys and flag values. The client app should convert the feature flag value into the desired type.
-
 To use the all flags feature:
 
 <CodeTabs
@@ -140,20 +138,21 @@ To use the all flags feature:
 <CodeTabItem value="swift">
 
 ```swift
-let allFlags = LDClient.get()!.allFlags
+let allFlags: [String: LDValue] = LDClient.get()!.allFlags
 ```
 
 </CodeTabItem>
 <CodeTabItem value="objc">
 
 ```objectivec
-NSDictionary* allFlags = [LDClient get].allFlags;
+NSDictionary<NSString*, LDValue*> * allFlags = [LDClient get].allFlags;
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read the [API documentation](https://launchdarkly.github.io/ios-client-sdk/Classes/LDClient.html#/s:12LaunchDarkly8LDClientC8allFlagsSDySSypGSgvp).
+To learn more, read the API documentation for [Swift](https://launchdarkly.github.io/ios-client-sdk/Classes/LDClient.html#/s:12LaunchDarkly8LDClientC8allFlagsSDySSypGSgvp) or [Objective-C](https://launchdarkly.github.io/ios-client-sdk/Classes/ObjcLDClient.html#/c:@M@LaunchDarkly@objc(cs)LDClient(py)allFlags).
+
 </Details>
 
 ### JavaScript
