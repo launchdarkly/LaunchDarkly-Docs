@@ -63,8 +63,9 @@ const QuickLinks = () => (
         heading="Experimentation"
         blurp="Test frontend and backend changes in real time, on real users."
         navItems={[
+          { path: '/guides/best-practices/experimentation', label: 'Designing experiments' },
           { path: '/home/experimentation/create', label: 'Creating experiments' },
-          { path: '/home/experimentation/managing', label: 'Managing experiments' },
+          { path: '/home/experimentation/analyzing', label: 'Analyzing experiments' },
         ]}
       />
       <QuickLink

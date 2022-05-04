@@ -58,19 +58,12 @@ describe('Documentation website', () => {
     cy.wait(2000)
 
     // click search result
-    cy.get('[data-test="result-Home-Experimentation"]').click()
+    cy.get('[data-test="result-Home-About Experimentation"]').click()
 
     cy.location('search').should('equal', '?q=experimentation')
-    cy.get('nav').contains('Experimentation').isActiveLink()
-
-    cy.wait(1000)
-
+    cy.get('nav').contains('About Experimentation').isActiveLink()
     cy.get('nav').contains('Creating experiments')
-
-    cy.wait(1000)
-
     cy.get('header').contains('Integrations').click()
-
     cy.title().should('equal', 'Integrations')
     cy.get('h1').contains('Integrations')
   })

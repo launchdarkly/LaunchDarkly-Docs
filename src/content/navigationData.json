@@ -368,6 +368,64 @@
         ]
       },
       {
+        "group": "experimentation",
+        "label": "About Experimentation",
+        "path": "/home/experimentation",
+        "svg": "chart-areaspline",
+        "items": [
+          {
+            "label": "Experimentation events",
+            "path": "/home/experimentation/events"
+          }
+        ]
+      },
+      {
+        "group": "experimentation",
+        "label": "Creating experiments",
+        "path": "/home/experimentation/create",
+        "svg": "lightbulb-on-outline",
+        "items": [
+          {
+            "label": "Creating metrics",
+            "path": "/home/experimentation/metrics",
+            "items": [
+              {
+                "label": "Click metrics",
+                "path": "/home/experimentation/metrics/click"
+              },
+              {
+                "label": "Custom conversion metrics",
+                "path": "/home/experimentation/metrics/custom-conversion"
+              },
+              {
+                "label": "Custom numeric metrics",
+                "path": "/home/experimentation/metrics/custom-numeric"
+              },
+              {
+                "label": "Page view metrics",
+                "path": "/home/experimentation/metrics/page-view"
+              }
+            ]
+          },
+          {
+            "label": "Allocating experiment populations",
+            "path": "/home/experimentation/allocation"
+          }
+        ]
+      },
+      {
+        "group": "experimentation",
+        "label": "Analyzing experiments",
+        "path": "/home/experimentation/analyzing",
+        "svg": "bullseye-arrow",
+        "items": [
+          {
+            "label": "The experiment lifecycle",
+            "path": "/home/experimentation/lifecycle"
+          }
+        ]
+      },
+      {
         "group": "additional-features",
         "label": "Data Export",
         "path": "/home/data-export",
@@ -408,64 +466,6 @@
           {
             "label": "Data Export schema reference",
             "path": "/home/data-export/schema-reference"
-          }
-        ]
-      },
-      {
-        "group": "additional-features",
-        "label": "Experimentation",
-        "path": "/home/experimentation",
-        "svg": "chart-areaspline",
-        "items": [
-          {
-            "label": "Creating experiments",
-            "path": "/home/experimentation/create",
-            "items": [
-              {
-                "label": "Allocating experiment populations",
-                "path": "/home/experimentation/allocation"
-              }
-            ]
-          },
-          {
-            "label": "Creating metrics",
-            "path": "/home/experimentation/metrics/index",
-            "items": [
-              {
-                "label": "Click metrics",
-                "path": "/home/experimentation/metrics/click"
-              },
-              {
-                "label": "Custom conversion metrics",
-                "path": "/home/experimentation/metrics/custom-conversion"
-              },
-              {
-                "label": "Custom numeric metrics",
-                "path": "/home/experimentation/metrics/custom-numeric"
-              },
-              {
-                "label": "Page view metrics",
-                "path": "/home/experimentation/metrics/page-view"
-              }
-            ]
-          },
-          {
-            "label": "Managing experiments",
-            "path": "/home/experimentation/managing",
-            "items": [
-              {
-                "label": "The experiment lifecycle",
-                "path": "/home/experimentation/lifecycle"
-              },
-              {
-                "label": "Experimentation events",
-                "path": "/home/experimentation/events"
-              },
-              {
-                "label": "Interpreting experiment data",
-                "path": "/home/experimentation/interpreting"
-              }
-            ]
           }
         ]
       },
@@ -1243,12 +1243,12 @@
             "path": "/guides/best-practices/creating-flags"
           },
           {
-            "label": "Designing experiments in LaunchDarkly",
-            "path": "/guides/best-practices/experimentation"
-          },
-          {
             "label": "Deployment and release strategies",
             "path": "/guides/best-practices/deployment-strategies"
+          },
+          {
+            "label": "Designing experiments",
+            "path": "/guides/best-practices/experimentation"
           },
           {
             "label": "Feature flag hierarchy",

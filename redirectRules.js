@@ -207,7 +207,7 @@ module.exports = [
   },
   {
     fromPath: '/home/experimentation/managing/interpreting',
-    toPath: '/home/experimentation/interpreting',
+    toPath: '/home/experimentation/analyzing',
   },
   {
     fromPath: '/home/experimentation/managing/populations',
@@ -984,5 +984,9 @@ module.exports = [
   {
     fromPath: '/sdk/client-side/javascript/default-variations',
     toPath: '/sdk/client-side/javascript/default-values',
+  },
+  {
+    fromPath: '/home/experimentation/interpreting',
+    toPath: '/home/experimentation/analyzing',
   },
 ]
