@@ -92,7 +92,7 @@ Here is an example where the `useReport` parameter is enabled:
 <CodeTabItem value="js">
 
 ```js
-var client = LDClient.initialize(‘EXAMPLE-ENVIRONMENT-ID’, user, options = {
+var client = LDClient.initialize(‘YOUR-ENVIRONMENT-ID’, user, options = {
   useReport: true
 });
 ```
@@ -121,7 +121,7 @@ Here is an example configuration for the client:
 <CodeTabItem value="js">
 
 ```js
-var ldclient = LDClient.initialize(‘5baa7d07a3050e21323b735d’,
+var ldclient = LDClient.initialize(‘YOUR_CLIENT_SIDE_ID’,
 user, options = {
   allAttributesPrivate: true,
   baseUrl: "RELAY-PROXY-INSTANCE-URL",
@@ -137,7 +137,7 @@ Here is an example configuration for the Relay Proxy:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
+    { label: 'Relay Proxy configuration', value: 'js', },
   ]
 }>
 <CodeTabItem value="js">
