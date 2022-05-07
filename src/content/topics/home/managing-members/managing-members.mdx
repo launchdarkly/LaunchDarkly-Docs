@@ -26,9 +26,16 @@ LaunchDarkly users are resources, including people, who encounter feature flags 
 
 Use the **Members** tab in the **Account settings** page to invite new account members to LaunchDarkly, remove old account members, or manage access controls for account members by setting roles.
 
-You can search for a specific member using the search bar. You can also filter members by team, role, or the last time a member took an action in your LaunchDarkly account using the filters at the top of the "Members" list:
+You can search for a specific member using the search bar. You can also filter members by **Team**, **Role**, or **Last seen** using the filters at the top of the "Members" list:
 
 ![The "Members" tab with filters applied.](/images/settings-members-filters.png)
+
+In addition to filtering, you can also sort by the "Name" and "Last seen" columns. The "Last seen" column displays how long it has been since members logged in to your LaunchDarkly account. 
+
+Possible  "Last seen" statuses include:
+
+- N minutes/hours/days/months/years ago: The amount of time since a member last logged in. If a member logged in using the API, the status also displays the name of the personal access token they used. 
+- Never: The member has never logged in.
 
 To learn more about teams in LaunchDarkly, read [Teams](/home/teams). To learn more about roles, read [Understanding member roles](#understanding-member-roles).
 
