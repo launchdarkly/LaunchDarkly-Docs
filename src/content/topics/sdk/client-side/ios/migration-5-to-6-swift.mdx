@@ -83,8 +83,8 @@ Here is an example that highlights the changes:
 <CodeTabItem value="sdk5">
 
 ```swift
-let privateAttributes: [UserAttribute] = [UserAttribute.BuiltIn.name, UserAttribute.forName("premium")]
-let customAttributes: [String: LDValue] = ["premium": ["abc"]]
+let privateAttributes: [String] = ["name", "premium"]
+let customAttributes: [String: Any] = ["premium": ["abc"]]
 let user = LDUser(key: "user_key", custom: customAttributes, privateAttributes: privateAttributes)
 ```
 
@@ -92,8 +92,8 @@ let user = LDUser(key: "user_key", custom: customAttributes, privateAttributes: 
 <CodeTabItem value="sdk6">
 
 ```swift
-let privateAttributes: [String] = ["name", "premium"]
-let customAttributes: [String: Any] = ["premium": ["abc"]]
+let privateAttributes: [UserAttribute] = [UserAttribute.BuiltIn.name, UserAttribute.forName("premium")]
+let customAttributes: [String: LDValue] = ["premium": ["abc"]]
 let user = LDUser(key: "user_key", custom: customAttributes, privateAttributes: privateAttributes)
 ```
 
