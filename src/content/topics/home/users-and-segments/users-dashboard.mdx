@@ -97,12 +97,14 @@ Click a user to manage the feature flags that apply to them, view the segments t
 
 To modify a feature flag the user receives:
 
-1. From the **Users** dashboard click the user you wish to modify. Their user page appears, with their unique attributes on the left and their flag settings on the right.
-2. Click the menu next to the flag for which you want to change the variation the user receives:
+1. From the **Users** dashboard click the user you wish to modify. Their user page appears, with their unique attributes on the left and their expected flag variations on the right.
+2. Select a new variation from the **Variation** menu next to the flag you want to update:
 
-    ![The "Flag settings" section with different flag variations called out.](users-details-targeting-callout.png)
+    ![The "Expected flag variations" section with a variation called out.](users-details-targeting-callout.png)
 
-3. Click the **X** next to the flag to remove the custom variation setting.
+3. (Optional) To remove individual targeting, either:
+  - change to the variation from the **Variation** dropdown, or
+  - click the "Target match" link to remove the individual target from the flag's **Targeting** tab.
 4. Click **Save changes**.
 
 <LearnMore>
@@ -125,51 +127,6 @@ Accounts are limited to 100,000,000 users. If you reach the users limit, flag ev
 
 If you want to increase your client-side Monthly Active Users (MAU) limit and include more users from your client-side SDKs on the dashboard, contact [Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 
-## Scheduling removal dates for user targeting
-
-<Callout intent="primary">
-<CalloutTitle>Scheduling user removal dates is a Pro and Enterprise feature</CalloutTitle>
-<CalloutDescription>
-
-Scheduling user removal dates is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
-
-</CalloutDescription>
-</Callout>
-
-You can also specify a date and time when a user should be removed from a flag's targeting settings. When this date and time arrives, LaunchDarkly removes the user from the flag's targeting automatically.
-
-You can identify users who are scheduled to be removed from any flag's targeting settings by looking for the **clock icon** next to the flag's name.
-
-![The "Users" dashboard with a flag with removal scheduled called out.](users-clock-icon-callout.png)
-
-<LearnMore>
-
-You can also use the REST API: [Get expiring dates on flags for user](https://apidocs.launchdarkly.com/tag/User-settings#operation/getExpiringFlagsForUser)
-
-</LearnMore>
-
-To schedule a date for the user to be removed from the flag's targeting settings:
-
-1. From the **Users** dashboard, click the user you wish to modify. Their user page appears, with their unique attributes on the left and their flag settings on the right.
-2. Click the **overflow menu**. The user editing menu appears.
-
-![A user's entry with the "Remove user on" menu expanded.](users-flag-expiration-date.png)
-
-3. In the "Remove user on" section, click "never" to expand a calendar view.
-4. Set a date and time for the user to be removed from that flag's targeting settings.
-5. Click **Apply**.
-6. Click **Save changes**.
-
-When you schedule a user to be removed from a flag, a **clock icon** appears next to the flag's variation. Hover over the icon to reveal a message with the date the user will be removed.
-
-To learn more about targeting users for specific dates, read [Scheduling expiration dates for user targeting](/home/flags/individual-targeting#scheduling-removal-dates-for-user-targeting).
-
-<LearnMore>
-
-You can also use the REST API: [Update expiring user target for flags](https://apidocs.launchdarkly.com/tag/User-settings#operation/patchExpiringFlagsForUser)
-
-</LearnMore>
-
 ## Removing a user
 
 You can delete individual users from the **Users** dashboard by clicking the **overflow menu** and choosing "Delete." You can also delete users by opening their user page and clicking **Delete**.
@@ -178,7 +135,7 @@ Deleting users from the dashboard does not decrease your Monthly Active User (MA
 
 Here is an image of a user screen:
 
-![A user's screen with the Delete button called out.](users-delete-callout.png)
+![A user page with the "Delete" button called out.](users-delete-callout.png)
 
 <LearnMore>
 
