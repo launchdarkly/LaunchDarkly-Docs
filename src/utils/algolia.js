@@ -3,12 +3,11 @@
 // This file selects data from graphql and flattens the results. These results are
 // then used to create algolia indices.
 // https://www.gatsbyjs.org/docs/adding-search-with-algolia/#configuring-the-algolia-plugin
-const activeEnv = process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || 'development'
+
+const { activeEnv, algoliaIndex } = require('./envUtils')
 require('dotenv').config({
   path: `.env.${activeEnv}`,
 })
-const algoliaIndexPrefix = process.env.GATSBY_ALGOLIA_INDEX || 'DELETE'
-const algoliaIndex = `${algoliaIndexPrefix}_${activeEnv}`
 console.log(`Using environment config: '${activeEnv}', indexing to: ${algoliaIndex}`)
 
 const pageQuery = `{

@@ -92,6 +92,7 @@ jobs:
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
           GATSBY_ALGOLIA_INDEX: 'Docs'
+          GATSBY_PR_NUMBER: ${{ github.event.pull_request.number }}
           LAUNCHDARKLY_CLIENT_SIDE_ID: ${{ secrets.STG_LAUNCHDARKLY_CLIENT_SIDE_ID }}
           GATSBY_DATADOG_CLIENT_TOKEN: ${{ secrets.STG_DATADOG_CLIENT_TOKEN }}
           GATSBY_DATADOG_RUM_APPLICATION_ID: ${{ secrets.DATADOG_RUM_APPLICATION_ID }}
