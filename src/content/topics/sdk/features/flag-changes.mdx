@@ -38,12 +38,15 @@ LaunchDarkly manages all flags for a user context by updating the flag cache bas
 
 The SDK caches flag values in local storage after initializing with LaunchDarkly. If your app closes and then reopens without a connection to LaunchDarkly, the cached flag values are still available. After your app reinitializes with LaunchDarkly it receives any flag updates that occurred while disconnected.
 
-The default SDK configuration has been found to be the best combination of low latency updates and minimal battery drain:
+The default SDK configuration has the best combination of low latency updates and minimal battery drain.
 
-1. When the app is foregrounded, a [Server-sent events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection is made to LaunchDarkly. This streaming connection stays open as long as your app is in the foreground and is connected to the internet.
-2. When the app is backgrounded, the stream connection is terminated and the SDK will poll with caching for flag updates every three minutes.
+Here's how the default configuration works:
+
+1. When the app is foregrounded, it makes a [Server-sent events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection to LaunchDarkly. This streaming connection stays open as long as your app is in the foreground and is connected to the internet.
+2. When the app is backgrounded, it terminates the stream connection and the SDK polls with caching for flag updates every three minutes.
 3. When the app is foregrounded, the SDK reconnects to the stream and fetches the latest flags.
-4. In either the foreground or background, the SDK doesn't try to update unless the device has internet connectivity.
+
+In either the foreground or background, the SDK doesn't try to update unless the device has internet connectivity.
 
 This configuration means that the device gets near real-time updates for feature flag values when the app is in the foreground. You can configure these settings if needed. To learn more, read [Configuration](/sdk/features/config#net-client-side).
 
@@ -98,7 +101,8 @@ Here is the default behavior:
 1. When the app is foregrounded, the SDK opens a [Server-Sent Events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection to LaunchDarkly. The initial payload from the streaming connection contains the variations your user receives. This streaming connection stays open and idles unless there are updates. This requires minimal data and battery power to maintain. The streaming connection stays open as long as your app is in the foreground and is connected to the internet.
 2. When the app is backgrounded, the stream connection terminates. The SDK polls for flag updates every hour to stay in sync. This strategy has higher latency, but optimizes battery and data usage.
 3. When the app is foregrounded again, the SDK reconnects to the stream which sends the latest flag values.
-4. When streaming, the SDK actively monitors network availability. It avoids requests when the network is unavailable, and reconnects when the network becomes available again. When polling, the SDK checks for network connectivity at the current polling interval, only making the request if the check succeeds. When it reconnects, it automatically syncs its local cache with LaunchDarkly.
+
+When streaming, the SDK actively monitors network availability. It avoids requests when the network is unavailable, and reconnects when the network becomes available again. When polling, the SDK checks for network connectivity at the current polling interval, only making the request if the check succeeds. When it reconnects, it automatically syncs its local cache with LaunchDarkly.
 
 This configuration means that you get near real-time updates for your feature flag values when the app is in the foreground, and maximum device and SDK efficiency when backgrounded.
 
@@ -286,7 +290,7 @@ client.on('change', (allFlagChanges) => {
 </CodeTabItem>
 </CodeTabs>
 
-Subscribing to `change` events will automatically turn on streaming mode too, unless you have explicitly set `streaming` to `false`.
+Subscribing to `change` events automatically turns on streaming mode, unless you have explicitly set `streaming` to `false`.
 </Details>
 
 ### Flutter
@@ -366,9 +370,11 @@ await LDClient.unregisterFlagsReceivedListener(listener);
 
 <Details summary="Expand iOS code sample">
 
-LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream. When a flag is modified from the flag dashboard, the flag values for the current user updates almost immediately.
+LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream. When you modify a flag from the flag dashboard, the flag values for the current user update almost immediately.
 
-To accomplish real-time updates, LaunchDarkly broadcasts an event stream that the SDK listens to. The SDK is notified of updated flag settings in real-time whenever an event registers on the dashboard.
+To accomplish real-time updates, LaunchDarkly broadcasts an event stream that the SDK listens to. LaunchDarkly notifies the SDK of updated flag settings in real-time whenever an event registers on the dashboard.  
+
+Streaming mode is not available on watchOS. On iOS and tvOS, the client app must be running in the foreground to connect to the event stream. On macOS, the client app may run in either the foreground or background to connect to the event stream. If streaming mode is not available, the SDK reverts to polling mode.
 
 The SDK provides methods for listening to a single flag, all flags, or no change to any flag. `observeFlagsUnchanged` is called when the SDK successfully receives an update or comes back online but no flags have changed. If the value of the flag changes, the method executes the handler. It passes in the `changedFlag` containing the old and new flag values, and old and new flag value source.
 
