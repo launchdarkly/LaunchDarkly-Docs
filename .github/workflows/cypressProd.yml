@@ -23,7 +23,7 @@ jobs:
         continue-on-error: true
         with:
           command-prefix: yarn dlx
-          install-command: yarn install --immutable --immutable-cache
+          install-command: yarn install --immutable
           build: yarn build-dev
           start: yarn serve-dev
           headless: true

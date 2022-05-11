@@ -64,6 +64,7 @@ jobs:
         if: steps.build-status.outputs.deploy == 'true'
         with:
           node-version: '16.x'
+          cache: 'yarn'
       - uses: aws-actions/configure-aws-credentials@v1
         if: steps.build-status.outputs.deploy == 'true'
         with:
@@ -83,7 +84,7 @@ jobs:
             ${{ runner.os }}-gatsby-build-${{ hashFiles('**/yarn.lock') }}
       - name: Yarn install
         if: steps.build-status.outputs.deploy == 'true'
-        run: CYPRESS_INSTALL_BINARY=0 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable --immutable-cache
+        run: CYPRESS_INSTALL_BINARY=0 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable
       - name: Build and deploy
         if: steps.build-status.outputs.deploy == 'true'
         run: yarn build-deploy-staging
@@ -118,7 +119,7 @@ jobs:
         continue-on-error: true
         with:
           command-prefix: yarn dlx
-          install-command: yarn install --immutable --immutable-cache
+          install-command: yarn install --immutable
           build: yarn build-nav-data
           headless: true
           config: baseUrl=https://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }},retries=2

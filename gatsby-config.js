@@ -32,13 +32,6 @@ const plugins = [
     },
   },
   'gatsby-plugin-theme-ui',
-  {
-    resolve: 'gatsby-theme-style-guide',
-    options: {
-      // sets path for generated page
-      basePath: '/design-system',
-    },
-  },
   'gatsby-plugin-react-helmet',
   'gatsby-plugin-typescript',
   'gatsby-transformer-json',
@@ -213,7 +206,7 @@ if (isProd) {
     {
       resolve: 'gatsby-plugin-sitemap',
       options: {
-        excludes: ['/systemLayout/', '/components', '/design-system'],
+        excludes: ['/systemLayout/', '/components'],
       },
     },
   )
