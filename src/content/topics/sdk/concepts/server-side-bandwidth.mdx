@@ -3,13 +3,14 @@ path: /sdk/concepts/server-side-bandwidth
 title: Server-side SDK bandwidth usage
 description: This topic explains how to estimate bandwidth usage for server-side SDKs.
 published: true
+tags: ['bandwidth', 'server-side', 'event', 'sdk']
 ---
 
 ## Overview
 
 This topic explains how to estimate bandwidth usage for server-side SDKs.
 
-This topic is for educational purposes only. The numbers below represent a hypothetical deployment and may not apply to your production environment. 
+This topic is for educational purposes only. The numbers below represent a hypothetical deployment and may not apply to your production environment.
 
 The numbers we provide in this topic assume the following about your server-side SDK configuration:
 - You have implemented the SDK correctly. To learn more, read [the reference topic for your SDK](/sdk/server-side).
@@ -51,7 +52,7 @@ You can fetch the size of your environment payload using the following curl:
 
 ```bash
 curl -sH "Authorization: SDK-KEY" \
-https://app.launchdarkly.com/sdk/latest-all | wc -c  
+https://app.launchdarkly.com/sdk/latest-all | wc -c
 ```
 
 </CodeTabItem>
@@ -60,20 +61,20 @@ https://app.launchdarkly.com/sdk/latest-all | wc -c
 After fetching the size of your payload, here is the calculation you can use to estimate bandwidth usage for initialization:
 
 ```
-initialization_data_usage = 
+initialization_data_usage =
 (6500 bytes + 100 bytes + size_of_payload) * number_of_connections
 ```
 
 ### Targeting rule updates
 
-When you make flag targeting changes in the LaunchDarkly user interface or using the API, LaunchDarkly sends those changes to the SDK using the already open streaming connection. 
+When you make flag targeting changes in the LaunchDarkly user interface or using the API, LaunchDarkly sends those changes to the SDK using the already open streaming connection.
 
 The bandwidth required for sending the changes depends on the size of the changes, and how frequently you make them. The smallest change uses around 30 bytes. Because LaunchDarkly sends them over the existing connection, there is no additional overhead.
 
 Here is the calculation you can use to estimate bandwidth usage for targeting rule updates:
 
 ```
-update_data_usage = 
+update_data_usage =
 size_of_update * number_of_updates
 ```
 
@@ -84,7 +85,7 @@ If there are no configuration changes for three minutes, then LaunchDarkly sends
 Here is the calculation you can use to estimate bandwidth usage for a heartbeat:
 
 ```
-heartbeat_data_usage = 
+heartbeat_data_usage =
 1 byte * number_of_minutes_active / 3
 ```
 
@@ -124,13 +125,13 @@ The size of the `index` event is dependent on the user attributes. The overhead 
 Here is the calculation you can use to estimate bandwidth usage for `summary` and `index` events:
 
 ```
-summary_index_event_usage = 
-(2 bytes events_overhead) + 
-(34 bytes summary_overhead + (3 * number_of_flags)) + 
-((59 bytes index_overhead + 
-  (number_of_attributes * (average_attribute_size + 4)) * 
+summary_index_event_usage =
+(2 bytes events_overhead) +
+(34 bytes summary_overhead + (3 * number_of_flags)) +
+((59 bytes index_overhead +
+  (number_of_attributes * (average_attribute_size + 4)) *
   (number_of_users))
-) * 
+) *
 (number_of_minutes_active / 5)
 ```
 
@@ -139,14 +140,14 @@ summary_index_event_usage =
 To calculate total event usage, add the handshake and headers usage:
 
 ```
-total_event_usage = 
-6500 bytes handshake + 
-100 bytes header + 
-(2 bytes events_overhead) + 
-(34 bytes summary_overhead + (3 * number_of_flags)) + 
-((59 bytes index_overhead + 
-  (number_of_attributes * (average_attribute_size + 4)) * 
+total_event_usage =
+6500 bytes handshake +
+100 bytes header +
+(2 bytes events_overhead) +
+(34 bytes summary_overhead + (3 * number_of_flags)) +
+((59 bytes index_overhead +
+  (number_of_attributes * (average_attribute_size + 4)) *
   (number_of_users))
-) * 
+) *
 (number_of_minutes_active / 5)
 ```

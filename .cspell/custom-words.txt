@@ -8,6 +8,7 @@ assocarray
 asyncwithldprovider
 atlassian
 auditlog
+autoconfig
 autoload
 autoloader
 awssdk
@@ -257,7 +258,9 @@ uthash
 variationdetail
 Vercel
 Vercel's
+viewproject
 vite
+walkthrough
 withldconsumer
 withldprovider
 WSGI

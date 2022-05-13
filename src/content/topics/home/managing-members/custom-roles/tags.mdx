@@ -3,6 +3,7 @@ path: /home/members/role-tags
 title: Using tags
 description: This topic explains how custom roles use tags.
 published: true
+tags: ['tag', 'resource', 'policy', 'custom role']
 ---
 
 ## Overview
@@ -63,12 +64,12 @@ In the example below, the two statements allow member access to flags tagged eit
   {
     "effect": "allow",
     "actions": ["*"],
-    "resources": ["proj/*:env/*:flag/*;tag1"]    
+    "resources": ["proj/*:env/*:flag/*;tag1"]
   },
   {
     "effect": "allow",
     "actions": ["*"],
-    "resources": ["proj/*:env/*:flag/*;tag2"]  
+    "resources": ["proj/*:env/*:flag/*;tag2"]
   }
 ]
 ```
@@ -92,7 +93,7 @@ The following example gives a member access to all flags *except* those tagged e
   {
     "effect": "allow",
     "actions": ["*"],
-    "notResources": ["proj/*:env/*:flag/*;tag1"]    
+    "notResources": ["proj/*:env/*:flag/*;tag1"]
   },
   {
     "effect": "allow",

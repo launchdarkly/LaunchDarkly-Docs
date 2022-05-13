@@ -3,6 +3,7 @@ path: /home/relay-proxy/using
 title: Using the Relay Proxy
 description: This topic explains how to set up and use the Relay Proxy. It explains the Relay Proxy's two modes and how to perform flag evaluations with the Relay Proxy.
 published: true
+tags: ['configure', 'relay proxy', 'sdk']
 ---
 
 ## Overview
@@ -36,7 +37,7 @@ If you want to use Big Segments with server-side SDKs, you must upgrade the Rela
 </CalloutDescription>
 </Callout>
 
-Big Segments are larger than LaunchDarkly can fit into its streaming and in-memory protocol. To use Big Segments with the Relay Proxy, you must configure the Relay Proxy to use either Redis or DynamoDB for persistent storage. The Relay Proxy populates and stores Big Segment data in the persistent data store, which your SDK then uses for flag evaluation. 
+Big Segments are larger than LaunchDarkly can fit into its streaming and in-memory protocol. To use Big Segments with the Relay Proxy, you must configure the Relay Proxy to use either Redis or DynamoDB for persistent storage. The Relay Proxy populates and stores Big Segment data in the persistent data store, which your SDK then uses for flag evaluation.
 
 If your SDKs are already configured to use the Relay Proxy without a data store, you will need to reconfigure them to connect to the store in order to use Big Segments. To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
@@ -55,7 +56,7 @@ If you use a client-side SDK, you do not need to use the Relay Proxy to use Big 
 
 ### Using DynamoDB with the Relay Proxy
 
-We generally recommend using DynamoDB for persistent storage with the Relay Proxy, because the Relay Proxy doesn't support Redis in cluster mode or other sharding. However, using DynamoDB can incur higher costs. The Relay Proxy and LaunchDarkly SDKs will continually write updates to DynamoDB while in proxy mode. To mitigate this, consider running multiple Relays in AWS without a persistent store. 
+We generally recommend using DynamoDB for persistent storage with the Relay Proxy, because the Relay Proxy doesn't support Redis in cluster mode or other sharding. However, using DynamoDB can incur higher costs. The Relay Proxy and LaunchDarkly SDKs will continually write updates to DynamoDB while in proxy mode. To mitigate this, consider running multiple Relays in AWS without a persistent store.
 
 ### Using Redis with the Relay Proxy
 

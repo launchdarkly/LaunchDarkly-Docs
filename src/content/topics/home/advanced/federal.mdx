@@ -3,6 +3,7 @@ path: /home/advanced/federal
 title: LaunchDarkly in federal environments
 description: This topic explains how LaunchDarkly is different in a domain controlled by the United States government.
 published: true
+tags: ['federal', 'relay proxy', 'sdk', 'url']
 ---
 
 ## Overview
@@ -26,7 +27,7 @@ The federal instance includes:
 * [SDKs](/sdk)
 
 ## Understanding federal instance URLs
-  
+
 The federal instance does not use the common ".com" URL path. Instead, it uses the US government's path: ".us." When you navigate to LaunchDarkly federal application, use the federal instance API, or initialize your SDK to the federal instance, you must replace the generally available ".com" URLs with URLs that end in ".us."
 
 If application or network layer firewalls are in use on your network, they will need to allowlist these URLs for LaunchDarkly to function properly.
@@ -42,13 +43,13 @@ For example:
 
 ## Initializing an SDK for the federal instance
 
-You can initialize an SDK for the federal instance using the initialization "options" settings for the SDK. You can also find configuration options in the generated API reference for each SDK. 
+You can initialize an SDK for the federal instance using the initialization "options" settings for the SDK. You can also find configuration options in the generated API reference for each SDK.
 Depending on the SDK, it may require you to configure multiple service endpoints in the initialization options. These could include the base and polling endpoint, streaming endpoint, and an events endpoint. For an example of the initialization options for Node.js, read [Node.js SDK reference (client-side)](/sdk/client-side/node-js).
 
 The option key value pair names may differ between SDKs, as LaunchDarkly respects each language's URI and URL naming conventions and supported services. For this reason, it is critical to reference the documentation for each individual SDK.
- 
+
 Here is an example for the React SDK:
-  
+
 <CodeTabs
   defaultValue="js"
   values={[
@@ -72,7 +73,7 @@ Here is an example for the React SDK:
        eventsUrl:"https://events.launchdarkly.us"
     },
     deferInitialization: false
-});  
+});
  ```
 
 </CodeTabItem>
@@ -99,11 +100,11 @@ Here is an example for the Java SDK:
     .baseURI(URI.create("https://events.launchdarkly.us"))
   .build();
  ```
- 
+
 </CodeTabItem>
 </CodeTabs>
 
-  
+
 For additional language syntax examples for setting configuration options, read [Using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode). To use the examples, change the Relay Proxy URL to the respective federal instance URLs. For a list of available service endpoints, read [Understanding federal instance URLs](#understanding-federal-instance-urls).
 
 ## Understanding which features have minimal support or are unsupported

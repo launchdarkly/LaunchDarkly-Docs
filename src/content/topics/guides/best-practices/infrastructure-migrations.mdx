@@ -3,6 +3,7 @@ path: /guides/best-practices/infrastructure-migration
 title: Using feature flags to mitigate risk in infrastructure migrations
 description: This guide explains how you can use feature flags to mitigate risks associated with infrastructure migrations.
 published: true
+tags: ['guide', 'migrate', 'flag']
 ---
 
 ## Overview
@@ -30,7 +31,7 @@ The traditional method is to separate your old code and new code into different 
 
 A more efficient method is to have both the old code and new code in the same service, with logic in the code deciding which to use for a particular request. This concentrates the decision logic in one place. It gives you more flexibility and granularity, though you may still need to depend on your network configuration in some cases depending on how much contextual info is sent in the request message.
 
-The downside to this method is that every change to that logic requires a code change and deployment, which can mean downtime, especially if the deployment needs to be rolled back. A gradual migration may involve many phases as you validate the new code, expand its capabilities, fix bugs, deploy clusters, migrate consumers, and so on. Each of those phases requires small changes in that logic. This is where LaunchDarkly feature flags come in. 
+The downside to this method is that every change to that logic requires a code change and deployment, which can mean downtime, especially if the deployment needs to be rolled back. A gradual migration may involve many phases as you validate the new code, expand its capabilities, fix bugs, deploy clusters, migrate consumers, and so on. Each of those phases requires small changes in that logic. This is where LaunchDarkly feature flags come in.
 
 You can define sets of identifiers within targeting rules to eliminate the need for multiple deployments. To learn more, read [Targeting users with flags](/home/flags/targeting-users).
 
@@ -180,7 +181,7 @@ Learn more: [Percentage rollouts](/home/flags/targeting-rules#percentage-rollout
 
 </LearnMore>
 
-Once you're comfortable with the performance metrics and error counts you're receiving with reads and writes, you can now turn off the read and write flags for `db1`, remove all references to all four flags in your code, and you are left with just `db2`.
+After you're comfortable with the performance metrics and error counts you're receiving with reads and writes, you can now turn off the read and write flags for `db1`, remove all references to all four flags in your code, and you are left with just `db2`.
 
 Here is a diagram representing an example migration strategy:
 

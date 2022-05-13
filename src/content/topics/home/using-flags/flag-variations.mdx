@@ -3,7 +3,7 @@ path: /home/flags/variations
 title: Creating flag variations
 description: This topic explains how to use a flag's Variations tab to create and edit your feature flag's variations and outlines the different types of flag variations.
 published: true
-tags: ['flag', 'variation', 'boolean', 'multivariate', 'default', 'rollout']
+tags: ['flag', 'variation', 'boolean', 'multivariate', 'default']
 ---
 
 ## Overview
@@ -40,7 +40,7 @@ When you add, edit, or delete a feature flag's variations, the change impacts en
 
 When you delete a variation, custom rules that return that variation are also deleted. If a custom rule has a percentage rollout, the rollout for that variation is set to zero. If the default rule returns the deleted variation, it will change to return the default off value instead.
 
-LaunchDarkly allows you to delete variations that are designated to be served when targeting is off. Make sure that your application is able to handle a null value when targeting is off in case this happens. 
+LaunchDarkly allows you to delete variations that are designated to be served when targeting is off. Make sure that your application is able to handle a null value when targeting is off in case this happens.
 
 </CalloutDescription>
 </Callout>

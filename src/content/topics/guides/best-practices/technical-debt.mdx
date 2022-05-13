@@ -3,6 +3,7 @@ path: /guides/best-practices/technical-debt
 title: Reducing technical debt from feature flags
 description: This guide provides strategies to reduce technical debt related to feature flags.
 published: true
+tags: ['guide', 'debt', 'flag lifecycle', 'code references', 'tag']
 ---
 
 ## Overview
@@ -152,13 +153,13 @@ For example, you launch a new dashboard with three widgets. To manage them, crea
 
 ### Scheduling regular flag reviews
 
-Schedule regular review cycles on a monthly or quarterly basis to identify flags to archive. Some companies dedicate sprints to tackling technical debt. If you do this, include a review of your feature flags, too. 
+Schedule regular review cycles on a monthly or quarterly basis to identify flags to archive. Some companies dedicate sprints to tackling technical debt. If you do this, include a review of your feature flags, too.
 
 Some teams schedule a regular "Flag Cleanup Day." In preparation, a team member produces a list of flags to be cleaned up. The list is divided up amongst the team. Then, each team member goes through their assigned flags and, for each flag, produces a patch or pull request which removes the flag from the code.
 
 In addition to temporary flags, you should also review any permanent flags to determine that they are still necessary. As features change, the need for the flags associated with them can also change.
 
-During a review cycle, you can search for flags with "Launched" and "Inactive" statuses. Both of these status types indicate flags that may be candidates for removal. 
+During a review cycle, you can search for flags with "Launched" and "Inactive" statuses. Both of these status types indicate flags that may be candidates for removal.
 
 If your project has tens or even hundreds of flags, finding all of the "Launched" and "Inactive" can take time. You can use flag filters to narrow the list of flags displayed to only those flags which meet your filter criteria.
 

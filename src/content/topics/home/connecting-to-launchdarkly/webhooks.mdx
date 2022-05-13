@@ -3,6 +3,7 @@ path: /home/connecting/webhooks
 title: Webhooks
 description: This topic explains how to create and use webhooks in LaunchDarkly. LaunchDarkly's webhooks allow you to build your own integrations. When something changes, LaunchDarkly sends an HTTP POST payload to the webhook's configured URL.
 published: true
+tags: ['webhook', 'integration', 'policy']
 ---
 
 ## Overview
@@ -71,7 +72,7 @@ For example, to receive an event only when a change is made to one of your produ
   {
     "effect": "allow",
     "actions": ["*"],
-    "resources": ["proj/*:env/production:flag/*"]  
+    "resources": ["proj/*:env/production:flag/*"]
   }
 ]
 ```
@@ -116,7 +117,7 @@ If you need to generate a test URL, we recommend using [RequestBin](https://requ
 
 ## Deleting webhooks
 
-You can delete a webhook when you no longer need it. 
+You can delete a webhook when you no longer need it.
 
 To delete a webhook:
 

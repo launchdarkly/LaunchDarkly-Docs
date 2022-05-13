@@ -3,6 +3,7 @@ path: /integrations/grafana
 title: Grafana
 description: This topic explains how to use the LaunchDarkly Grafana integration. You can use the integration to send flag, environment, and project updates to Grafana to add context to your graphs.
 published: true
+tags: ['grafana', 'integration', 'pro', 'enterprise', 'event', 'key']
 ---
 
 <Callout intent="primary">
@@ -90,7 +91,7 @@ For example, if you only want to receive an event when a change is made to one o
   {
     "effect": "allow",
     "actions": ["*"],
-    "resources": ["proj/*:env/your-test-environment:flag/*"]    
+    "resources": ["proj/*:env/your-test-environment:flag/*"]
   }
 ]
 ```
