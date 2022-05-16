@@ -613,3 +613,34 @@ Copy this Admin role and make any modifications to it to suit your needs:
 </CodeTabs>
 
 </Details>
+
+<Details summary="Expand Template: No access role replication">
+
+## Template: No access role replication
+
+Permissions are set to `deny` by default except for the `viewProject` and `createAccessToken` actions. You must explicitly deny those actions for the No access role. The code snippet below is a replication of LaunchDarkly's built-in No access role. You can copy it and make adjustments as needed.
+
+Copy this No access role and make any modifications to it to suit your needs:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'No access role', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "effect": "deny",
+    "actions": ["viewProject"],
+    "resources": ["proj/*"]
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>

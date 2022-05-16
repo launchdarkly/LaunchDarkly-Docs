@@ -305,6 +305,8 @@ To create a role with the same permissions as the built-in Reader role:
 
 ### Writer
 
+Because permissions are set to `deny` by default, you must explicitly allow actions for the Writer role.
+
 To create a role with the same permissions as the built-in Writer role:
 
 1. Navigate to **Account settings**.
@@ -343,6 +345,8 @@ To create a role with the same permissions as the built-in Writer role:
 <Details summary="Expand administrator custom role">
 
 ### Administrator
+
+Because permissions are set to `deny` by default, you must explicitly allow actions for the Admin role.
 
 To create a role with the same permissions as the built-in Admin role:
 
@@ -413,6 +417,8 @@ To create a role with the same permissions as the built-in Admin role:
 
 <Details summary="Expand No access custom role">
 
+Permissions are set to `deny` by default except for the `viewProject` and `createAccessToken` actions. You must explicitly deny those actions for the No access role.
+
 To create a role with the same permissions as the built-in No access role:
 
 1. Navigate to **Account settings**.
@@ -438,8 +444,8 @@ To create a role with the same permissions as the built-in No access role:
 [
   {
     "effect": "deny",
-    "actions": ["*"],
-    "resources": ["*"]
+    "actions": ["viewProject"],
+    "resources": ["proj/*"]
   }
 ]
 ```
