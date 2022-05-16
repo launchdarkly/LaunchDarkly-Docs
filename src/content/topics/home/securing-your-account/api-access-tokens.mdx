@@ -98,9 +98,9 @@ Service tokens are available to customers on an Enterprise plan. To learn more, 
 </CalloutDescription>
 </Callout>
 
-Unlike personal tokens, service tokens are not tied to your LaunchDarkly profile. You can assign an existing role to a service token, or create a custom role for it to use, but like personal access tokens, you can never give a service token more permissions than you have.
+Unlike personal tokens, service tokens are not tied to your LaunchDarkly profile. You can assign an existing role to a service token, or create a custom role for it to use, but you can never give a service token more permissions than you have.
 
-You can also configure service tokens to have up to the same permissions you do, but those permissions are **fixed**. Even if your permissions change, the service token's permissions stay the same.
+A service token's permissions are permanently fixed after you create it. You cannot edit the permissions of a service token, and even if your permissions change, the service token's permissions stay the same.
 
 Use a service token to create long-term integrations with the LaunchDarkly API.
 
