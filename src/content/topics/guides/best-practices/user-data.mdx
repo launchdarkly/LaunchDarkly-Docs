@@ -76,9 +76,7 @@ Here are some additional configuration options you can use to increase user priv
 
 You can configure the JavaScript SDK to use the REPORT HTTP verb instead of GET. In this model, the REPORT verb forces user objects to be sent as request bodies instead of as path parameters. Path parameters are frequently logged and easy for proxies to observe, but request bodies are typically not logged or stored.
 
-In addition, LaunchDarkly uses end-to-end encryption and all communication occurs over HTTPS. Unless a malicious third party breaks TLS encryption, a man-in-the-middle attack is impossible.
-
-When the JavaScript SDK uses the REPORT verb, the SDK operates in polling mode. The SDK connects to the stream when it initializes and receives pings from the stream to keep the connection live. Whenever a ping occurs, the SDK connects to LaunchDarkly using the same REPORT request and performs an evaluation to get the most recent flag values for that user.
+In addition, LaunchDarkly uses end-to-end encryption and all communication occurs over HTTPS. Unless a malicious third party breaks transport layer security (TLS) encryption, a man-in-the-middle attack is impossible.
 
 Using the REPORT HTTP verb requires an additional option when configuring the JavaScript SDK.
 
