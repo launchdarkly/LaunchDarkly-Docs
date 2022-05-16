@@ -20,6 +20,15 @@ The user `key` is the only mandatory user attribute. All of the other built-in a
 
 Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Custom attributes values can be booleans, numbers, strings, or arrays. If you set the value of a custom attribute to a JSON object, it won't appear on your Users dashboard. All custom attributes are optional. To learn more, read [Setting custom user attributes](/home/users/attributes#setting-custom-user-attributes).
 
+<Callout intent="alert">
+<CalloutTitle>Custom and built-in attributes cannot share keys</CalloutTitle>
+<CalloutDescription>
+
+If you create a custom attribute with a key already in use by a built-in attribute, the SDK will behave unpredictably during feature flag evaluation. For a list of built-in attributes and their keys, read [Understanding user attributes](/home/users/attributes#understanding-user-attributes).
+
+</CalloutDescription>
+</Callout>
+
 ### Using private attributes
 
 Each SDK lets you configure users with private attributes. You can use private user attributes for targeting purposes, but these attributes are removed from user data sent back to LaunchDarkly.
