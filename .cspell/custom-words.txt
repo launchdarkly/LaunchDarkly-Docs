@@ -245,6 +245,7 @@ tvos
 typedefs
 unarchived
 unchecking
+unfollow
 uninitialize
 uninitializes
 unixtime
