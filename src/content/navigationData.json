@@ -368,6 +368,10 @@
           {
             "label": "Public IP list",
             "path": "/home/advanced/public-ip-list"
+          },
+          {
+            "label": "Using LaunchDarkly with Protected Health Information (PHI)",
+            "path": "/home/advanced/protected-health-info"
           }
         ]
       },

@@ -124,6 +124,7 @@ haproxy
 haskell
 hcl
 heap
+hipaa
 history
 hierarchy
 honeycomb
@@ -199,6 +200,7 @@ percentage rollout
 performance
 persistent
 permission
+phi
 php
 pii
 pipeline
@@ -209,6 +211,7 @@ postman
 prerequisite
 pro
 project
+protected health information
 proxy
 pubsub
 python
