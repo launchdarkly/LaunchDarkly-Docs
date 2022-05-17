@@ -543,6 +543,16 @@
     "name": "iOS",
     "versions": [
       {
+        "versionMajorMinor": "6.1",
+        "releaseYear": 2022,
+        "releaseMonthDay": "05-17"
+      },
+      {
+        "versionMajorMinor": "6.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "05-04"
+      },
+      {
         "versionMajorMinor": "5.4",
         "releaseYear": 2021,
         "releaseMonthDay": "02-26"
