@@ -73,6 +73,34 @@ You can also use the REST API: [Create segment](https://apidocs.launchdarkly.com
 
 </LearnMore>
 
+## Converting a rule into a segment
+
+You can convert a targeting rule into a segment from the flag's **Targeting** page.
+
+Here is an image of the "Convert individual user targets to segment" dialog:
+
+![The "Convert to segment" dialog.](segment-convert-to-segment-modal.png)
+
+To convert a rule to a segment:
+
+1. Navigate to the flag's **Targeting** page.
+2. In the user targeting section or the rule matching section, click the **overflow menu** of the rule you wish to convert. The overflow menu appears.
+3. Click "Convert to segment". The "Convert to segment" window appears:
+
+![A flag rule, with the "Convert to segment" option called out.](segment-convert-to-segment-users.png)
+
+4. Give your segment a human-readable **Name**.
+5. (Optional) Add a **Description**.
+6. (Optional) Choose any **Tags** from the menu menu.
+7. Click **Save segment**. A confirmation appears indicating that you've created a new segment.
+
+After you click "Convert to segment", targeted users are cleared. A new segment rule targeting the newly created segment `test-12345` appears at the top of the list of targeting rules.
+
+Here is an image of the targeting section:
+
+![The targeting section, with the new segment called out.](segment-convert-to-segment-creation.png)
+
+
 ## Related content
 
 Here are the topics in this category:

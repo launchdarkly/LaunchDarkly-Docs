@@ -46,6 +46,10 @@
                 "path": "/home/flags/targeting-rules"
               },
               {
+                "label": "Percentage rollouts",
+                "path": "/home/flags/rollouts"
+              },
+              {
                 "label": "Individual user targeting",
                 "path": "/home/flags/individual-targeting"
               },
