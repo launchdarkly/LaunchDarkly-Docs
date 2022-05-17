@@ -21,17 +21,17 @@ The Relay Proxy is an open-source project supported by LaunchDarkly. The full so
 We recommend using the Relay Proxy if you have certain specific configuration requirements, which are explained below. If you don't meet those requirements, using the Relay Proxy is optional.
 
 Here are some common use cases for the Relay Proxy:
-- Reducing your app's outbound connections
-- Keeping user data private
+- [Reducing your app's outbound connections](#you-want-to-reduce-outbound-connections-to-launchdarkly)
+- [Keeping user data private](/guides/best-practices/user-data#evaluating-flags-against-a-relay-proxy)
 - Facilitating faster connections
-- Meeting legal requirements to ensure continuation of service
+- Meeting continuation of service requirements
 - Reducing firewall configuration complexity for your customers
-- Increasing startup speed for serverless functions
+- [Increasing startup speed for serverless functions](#you-want-to-reduce-initialization-latency-in-a-serverless-environment)
 - Reducing operational work when creating new projects and environments
 
 Some customers may find operating the Relay Proxy cost-prohibitive for their use case, especially customers on Pro or Starter plans.
 
-### Determining if your configuration is a good use case for the Relay Proxy
+## Determining if your configuration is a good use case for the Relay Proxy
 
 Adding the Relay Proxy to your LaunchDarkly configuration introduces architectural complexity that may not be necessary for smaller deployments.
 
@@ -43,68 +43,36 @@ The Relay Proxy was developed to address specific scenarios, and it works best w
 
 Those scenarios are:
 
-- **You use PHP**: PHP's shared-nothing architecture prevents LaunchDarkly from re-using the streaming API connection across requests. You can use PHP without the Relay Proxy, but we strongly recommend using the Relay Proxy in **daemon mode** if you are using PHP in a high-throughput setting. This makes the Relay Proxy receive feature flag updates. To learn more, read [Using the Relay Proxy in different modes](/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
-- **You want to reduce outbound connections to LaunchDarkly**: A large number of servers, such as thousands or tens of thousands, can present too many outbound persistent connections to LaunchDarkly's streaming API for a proxy or firewall to realistically handle. Use the Relay Proxy in **proxy mode** so your servers can connect directly to hosts in your own datacenter, instead of connecting directly to LaunchDarkly's streaming API. On an appropriately configured host, each Relay Proxy can handle tens of thousands of concurrent connections. This dramatically reduces the number of outbound connections to the LaunchDarkly streaming API.
-- **You want to reduce initialization latency in a serverless environment**: In most cases, the best way to use LaunchDarkly in serverless and short-lived environments is with the Relay Proxy hosted on a long-lived server.
-- **You want to reduce redundant database traffic**: If you use a persistent data store and you have a large number of servers connected to LaunchDarkly, each server attempts to update the data store when a flag update occurs. This behavior is safe, but inefficient. Instead, you can use the Relay Proxy in daemon mode by setting your LaunchDarkly SDKs to daemon mode. You can then delegate flag updates to a small number of Relay Proxy instances and reduce the number of redundant update calls to your data store. To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
-- **You want to use Big Segments or sync segments from Amplitude with server-side SDKs**: If you want to use Big Segments or sync segments from Amplitude with server-side SDKs, you must use the Relay Proxy. To learn more, read [Big Segments](/home/users/big-segments) and [Syncing Big Segments from Amplitude cohorts](/home/users/synced-segments).
+### You use PHP
 
-### Understanding the cost of using the Relay Proxy
+PHP's shared-nothing architecture prevents LaunchDarkly from re-using the streaming API connection across requests. You can use PHP without the Relay Proxy, but we strongly recommend using the Relay Proxy in **daemon mode** if you are using PHP in a high-throughput setting. This makes the Relay Proxy receive feature flag updates. To learn more, read [Using the Relay Proxy in different modes](/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
+
+### You want to reduce outbound connections to LaunchDarkly
+
+A large number of servers, such as thousands or tens of thousands, can present too many outbound persistent connections to LaunchDarkly's streaming API for a proxy or firewall to realistically handle. Use the Relay Proxy in **proxy mode** so your servers can connect directly to hosts in your own datacenter, instead of connecting directly to LaunchDarkly's streaming API. On an appropriately configured host, each Relay Proxy can handle tens of thousands of concurrent connections. This dramatically reduces the number of outbound connections to the LaunchDarkly streaming API.
+
+### You want to reduce initialization latency in a serverless environment
+
+In most cases, the best way to use LaunchDarkly in serverless and short-lived environments is with the Relay Proxy hosted on a long-lived server.
+
+### You want to reduce redundant database traffic
+
+If you use a persistent data store and you have a large number of servers connected to LaunchDarkly, each server attempts to update the data store when a flag update occurs. This behavior is safe, but inefficient. Instead, you can use the Relay Proxy in **daemon mode** by setting your LaunchDarkly SDKs to daemon mode. You can then delegate flag updates to a small number of Relay Proxy instances and reduce the number of redundant update calls to your data store. To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
+
+### You want to use Big Segments or sync segments from Amplitude with server-side SDKs
+
+If you want to use Big Segments or sync segments from Amplitude with server-side SDKs, you must use the Relay Proxy. To learn more, read [Big Segments](/home/users/big-segments) and [Syncing Big Segments from Amplitude cohorts](/home/users/synced-segments).
+
+## Understanding the cost of using the Relay Proxy
 
 There are several considerations that go into determining the total cost of ownership for managing the Relay Proxy at scale.
 
 The time cost for onboarding and operating the Relay Proxy varies greatly between organizations, depending on your processes for introducing new technology.
 
-For the ongoing machine cost, following our [scaling guidelines](#scaling-guidelines), most customers find that they have plenty of capacity using three machines, with a load balancer in front of them. For customers who decide to use a database, there will be an ongoing machine cost for that as well. To learn more, read [Caching guidelines](#caching-guidelines). There will also likely be a cost when you turn [monitoring](/home/relay-proxy/monitoring) on, which will depend on your monitoring solution. You may want to consider the cost of adding this information to your runbooks as well.
+For the ongoing machine cost, following our [Scaling guidelines](/home/relay-proxy/guidelines#scaling-guidelines), most customers find that they have plenty of capacity using three machines, with a load balancer in front of them. For customers who decide to use a database, there will be an ongoing machine cost for that as well. To learn more, read [Caching guidelines](/home/relay-proxy/guidelines#caching-guidelines). There will also likely be a cost when you turn [monitoring](/home/relay-proxy/monitoring) on, which will depend on your monitoring solution. You may want to consider the cost of adding this information to your runbooks as well.
 
 For the ongoing personnel cost, as a general guideline we recommend that customers estimate an hour or so per week of a DevOps engineer's time to monitor and maintain the cluster. We also recommend that your on-call rotation is familiar with this technology and that you set up your [monitoring](/home/relay-proxy/monitoring) to make sure that you can capture abnormalities when they occur.
 
 The Relay Proxy has certain features that are available to customers on an Enterprise plan, including automatic configuration and offline mode. Access to these features may make using the Relay Proxy more beneficial than it would be with only its out-of-the-box feature set. To learn more, read [Relay Proxy Enterprise](/home/relay-proxy/enterprise).
 
-In general, customers on Enterprise plans may be more tolerant of the infrastructural costs associated with using the Relay Proxy's Enterprise features than customers with more limited budgets. If you're on LaunchDarkly's Starter or Pro plan, you can use the Relay Proxy but the operating costs associated with onboarding and maintaining it may be prohibitive. To learn more, read [Best practices for using the Relay Proxy](#best-practices-for-using-the-relay-proxy).
-
-## Best practices for using the Relay Proxy
-
-This section includes some guidelines for positioning and using the Relay Proxy successfully. These guidelines are not exhaustive or required. The most effective practices for your organization may be different based on your configuration and deployment requirements.
-
-To learn more about performance expectations once the Relay Proxy is running, read [Monitoring the Relay Proxy](/home/relay-proxy/monitoring).
-
-### Scaling guidelines
-
-If you want to size or scale your Relay Proxy, the most important thing to consider is the amount of dedicated network bandwidth available to it. The Relay Proxy is not CPU or memory intensive, so these are unlikely to be performance bottlenecks. However, the Relay Proxy does require a significant amount of network bandwidth, because it makes many small requests, very frequently. To learn more about Relay Proxy CPU and memory utilization, read [System requirements under load](/home/relay-proxy/performance#system-requirements-under-load).
-
-We have tested and developed the Relay Proxy to work with an AWS `m4.xlarge` instance, but you can use the Relay Proxy with any technical equivalent. The `m4.xlarge` instances we test against have 4 vCPUs and 16GiB of memory, but that is not a hard requirement. The Relay Proxy may use significantly less memory and CPU than the `m4.xlarge` instance offers. More importantly, the `m4.xlarge` instance has sufficient networking performance that the Relay Proxy should perform well.
-
-To learn more about instance sizing, read [Amazon's documentation on EC2 instance types](https://aws.amazon.com/ec2/instance-types/).
-
-The Relay Proxy works best with LaunchDarkly's server-side SDKs and with SDKs configured for polling. It does not handle streaming connections from client-side SDKs efficiently. When you use LaunchDarkly's streaming architecture in a heavily-used client-side or mobile application, be sure to monitor and scale the Relay Proxy accordingly.
-
-To learn more, read [Monitoring the Relay Proxy](/home/relay-proxy/monitoring).
-
-### Architectural guidelines
-
-If you choose to use the Relay Proxy, position it effectively within your network architecture. Your application must be able to access the Relay Proxy for it to work, and that architecture varies based on the type of app you have.
-
-For example, do not put the Relay Proxy inside a firewall if you intend to connect it to any client-side apps.
-
-If you have deployed your application to multiple regions, consider running one or more Relay Proxy instances in each of those regions in close proximity to your application. This limits latency between your application and the Relay Proxy.
-
-If you have security requirements, such as enforcing the use of a particular authentication scheme, place the Relay Proxy behind a general purpose proxy so traffic from LaunchDarkly SDKs flows through the general purpose proxy before it reaches the Relay Proxy. The Relay Proxy does not replicate the functionality of a general purpose proxy. Do not use it as a replacement for a general purpose proxy.
-
-### Caching guidelines
-
-We do not recommend relying solely on the Relay Proxy's in-memory caching in a production environment. Instead, we recommend that you cache flag data in a persistent feature store. You may want to use a persistent feature store if you want the Relay Proxy to remain operational even when it can’t connect to LaunchDarkly, such as in an environment with inconsistent connectivity.
-
-When you use a persistent store, the Relay Proxy keeps flag configurations in its in-memory cache and only fetches new ones from the store when those cached items expire. The default cache time-to-live (TTL) is 30 seconds, but you can change this in the Relay Proxy configuration.
-
-If the connection to the persistent store is lost, here’s how the Relay Proxy and connected SDKs will behave while the store is unavailable:
-- The Relay Proxy first notices the store’s unavailability when it tries to read or update the store. The Relay Proxy tries to read or update the store when it receives new requests from SDKs, and items have expired from the Relay Proxy’s in-memory cache.
-- The Relay Proxy in-memory cache drops expired items whether or not it has reinstated a connection to the store. When this happens, flags evaluate to their fallback values, with an `EvaluationReason` of `FLAG_NOT_FOUND`.
-- If the Relay Proxy receives flag updates from LaunchDarkly while the store is disconnected, it sends the updates to connected SDKs. It keeps the updates in the in-memory cache until they can be written to the store.
-- If the Relay Proxy loses and then regains a store connection, it has no way of checking whether the store is up to date with flag configurations. If the Relay Proxy receives updates from LaunchDarkly while the store is unavailable, then it writes those updates to the store as soon as the connection returns. Otherwise, it assumes that the store is up to date. To fix a persistent store that may have missing or corrupted data, start or restart a Relay Proxy so that it downloads the latest environment states from LaunchDarkly and writes them to the store.
-
-To learn more, read [Persistent data stores](/sdk/concepts/data-stores) and [Persistent storage](https://github.com/launchdarkly/ld-relay#persistent-storage).
-
-Whether or not you utilize a persistent feature store impacts how the Relay Proxy handles inbound feature flag requests on initialization, before it establishes a connection to LaunchDarkly.
-
-If you use a persistent feature store, Relay Proxy uses previously known-good values as stored in the persistent feature store. Without a persistent feature store, however, Relay Proxy doesn't know anything about any feature flags yet. SDKs use fallback flag values until the Relay Proxy establishes a connection to LaunchDarkly.
+In general, customers on Enterprise plans may be more tolerant of the infrastructural costs associated with using the Relay Proxy's Enterprise features than customers with more limited budgets. If you're on LaunchDarkly's Starter or Pro plan, you can use the Relay Proxy but the operating costs associated with onboarding and maintaining it may be prohibitive. To learn more, read [Relay Proxy guidelines](/home/relay-proxy/guidelines).

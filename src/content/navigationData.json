@@ -530,6 +530,10 @@
             "path": "/home/relay-proxy/deploying"
           },
           {
+            "label": "Relay Proxy guidelines",
+            "path": "/home/relay-proxy/guidelines"
+          },
+          {
             "label": "Using the Relay Proxy",
             "path": "/home/relay-proxy/using"
           },
