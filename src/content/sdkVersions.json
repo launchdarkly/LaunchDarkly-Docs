@@ -1163,6 +1163,11 @@
     "name": "React Native",
     "versions": [
       {
+        "versionMajorMinor": "6.2",
+        "releaseYear": 2022,
+        "releaseMonthDay": "05-17"
+      },
+      {
         "versionMajorMinor": "6.1",
         "releaseYear": 2022,
         "releaseMonthDay": "02-25"
