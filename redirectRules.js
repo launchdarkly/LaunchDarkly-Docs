@@ -989,4 +989,8 @@ module.exports = [
     fromPath: '/home/experimentation/interpreting',
     toPath: '/home/experimentation/analyzing',
   },
+  {
+    fromPath: '/guides/best-practices/experimentation',
+    toPath: '/home/experimentation/create',
+  },
 ]

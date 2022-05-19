@@ -1259,10 +1259,6 @@
             "path": "/guides/best-practices/deployment-strategies"
           },
           {
-            "label": "Designing experiments",
-            "path": "/guides/best-practices/experimentation"
-          },
-          {
             "label": "Feature flag hierarchy",
             "path": "/guides/best-practices/flag-hierarchy"
           },
