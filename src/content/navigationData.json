@@ -826,7 +826,13 @@
       },
       {
         "label": "Building your own integrations",
-        "path": "/integrations/building-integrations"
+        "path": "/integrations/building-integrations",
+        "items": [
+          {
+            "label": "Registering a LaunchDarkly OAuth client",
+            "path": "/integrations/oauth-client-registration"
+          }
+        ]
       },
       {
         "label": "Managing integrations",

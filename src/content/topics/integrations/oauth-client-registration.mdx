@@ -1,0 +1,41 @@
+---
+path: /integrations/oauth-client-registration
+title: Registering a LaunchDarkly OAuth client
+description: This topic explains how to register a LaunchDarkly OAuth 2.0 client so you can develop your own applications with secure delegated access to LaunchDarkly.
+published: true
+tags: ['oauth', 'integration']
+---
+
+## Overview
+
+This topic explains how to register a LaunchDarkly OAuth 2.0 client so you can develop your own applications with secure delegated access to LaunchDarkly.
+
+## Creating and registering a LaunchDarkly OAuth client
+
+Registering a LaunchDarkly OAuth client allows you to [build custom integrations](/integrations/building-integrations) that let members log into your application with their LaunchDarkly account. You must have Admin privileges or an access token created by a member with Admin privileges that grants you permission to the `acct` resource.
+
+You can create and manage LaunchDarkly OAuth clients using the [LaunchDarkly OAuth client API](<https://apidocs.launchdarkly.com/tag/OAuth2-Clients-(beta)>). This API acknowledges creation of your client with a response containing a unique `_clientSecret`. If you lose your client secret, you will have to register a new client. LaunchDarkly does not store client secrets in plain text.
+
+<Callout intent="alert">
+<CalloutTitle>Store your client secret in a secure place</CalloutTitle>
+<CalloutDescription>
+
+It is critically important that you store your client secret securely. Access to the client secret would allow attackers to read and modify LaunchDarkly data on behalf of the team members who have authorized your application.
+
+</CalloutDescription>
+</Callout>
+
+LaunchDarkly OAuth clients do not support multiple redirect URIs.
+
+<Callout intent="info">
+<CalloutTitle>Non-standard redirect URIs</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly verifies submitted redirect URIs against the standard HTTP protocol format. If you wish to register a client with a redirect URI that does not conform to the HTTP protocol, [contact Support](https://support.launchdarkly.com/hc/en-us).
+
+  </CalloutDescription>
+</Callout>
+
+## Verifying a LaunchDarkly OAuth client
+
+By default, LaunchDarkly OAuth clients are unverified, meaning they only provide identity verification for members of your LaunchDarkly organization. LaunchDarkly offers the option to "verify" an OAuth client to allow users outside of your LaunchDarkly organization to log in with their LaunchDarkly account. If you wish to verify a LaunchDarkly OAuth client, [contact Support](https://support.launchdarkly.com/hc/en-us).
