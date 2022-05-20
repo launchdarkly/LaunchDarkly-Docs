@@ -1,14 +1,14 @@
 ---
 path: /guides/tutorials/rules-and-targeting
 title: 'Getting started: Flag rules and targeting'
-description: This guide explains LaunchDarkly's flag targeting features, including percentage rollouts, flag insights, and segments. You can use these targeting features to create flags that serve different values to different users.
+description: This guide explains LaunchDarkly's flag targeting features, including percentage rollouts, flag evaluations graphs, and segments. You can use these targeting features to create flags that serve different values to different users.
 published: true
 tags: ['guide', 'target', 'targeting rule', 'percentage rollout', 'segment']
 ---
 
 ## Overview
 
-This guide explains LaunchDarkly's flag **Targeting** features, including percentage rollouts, flag Insights, and segments. You can use these targeting features to create flags that serve different values to different users.
+This guide explains LaunchDarkly's flag **Targeting** features, including percentage rollouts, flag evaluations graphs, and segments. You can use these targeting features to create flags that serve different values to different users.
 
 This guide covers:
 
@@ -18,7 +18,7 @@ This guide covers:
 - Examining users in the Users dashboard
 - Rolling out flag variations to a percentage of users
 - Targeting specific users with flag rules
-- Understanding how flag evaluations change over time with flag Insights
+- Understanding how flag evaluations change over time with flag insights
 - Targeting users by their attributes
 - Preventing specific user details from being sent to LaunchDarkly
 
@@ -625,7 +625,7 @@ To turn on a percentage rollout for the `Pricing Tier 3` flag:
 
 Now you've experienced flag targeting in action. Let's move on to verifying that the flag is working as you intended.
 
-## Verifying flag behavior with flag Insights
+## Verifying flag behavior with flag insights
 
 You can confirm that the "Pricing Tier 3" flag is appearing for 30% of users. LaunchDarkly offers analytics tools to help you confirm that your flags are behaving the way you want them to.
 
@@ -635,15 +635,15 @@ You can confirm that the "Pricing Tier 3" flag is appearing for 30% of users. La
 
 2. Choose **Last 60 minutes** from the menu to zoom in on recent activity.
 
- This graph shows all the times this flag has been evaluated in the last hour. It also shows the variations that were shown to users.
+ This flag evaluations graph shows all the times this flag has been evaluated in the last hour. It also shows the variations that were shown to users.
 
  As you've changed how the flag is targeted, the data changes with it. Since you changed the flag's targeting to a percentage rollout, you should notice that roughly a third of flag evaluations have been `true`, while the rest have been `false`.
 
 <Callout intent="alert">
-<CalloutTitle>Waiting for Insights data</CalloutTitle>
+<CalloutTitle>Waiting for insights data</CalloutTitle>
 <CalloutDescription>
 
-It can take a couple of minutes for the Insights graph to process and display the latest data. If you reload the page, be sure to check that the time range button still reads <strong>Last 60 minutes</strong>.
+It can take a couple of minutes for the flag evaluations graph to process and display the latest data. If you reload the page, be sure to check that the time range button still reads <strong>Last 60 minutes</strong>.
 
 If it shows an absolute time range instead, such as "10:35 AM - 11:35 AM", change it back to <strong>Last 60 minutes</strong>.
 

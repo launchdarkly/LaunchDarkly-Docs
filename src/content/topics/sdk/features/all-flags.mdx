@@ -14,7 +14,7 @@ This topic explains how the all flags feature works in the LaunchDarkly SDKs tha
 
 The all flags feature returns the state of all feature flags targeted to a user. This includes the flag values, and, for server-side SDKs, metadata for use on the front end.
 
-In most of the client- and server-side SDKs, getting all flags does not create users or other analytics events in your LaunchDarkly account. Unlike evaluating individual flags or identifying users, getting all flags usually does not send events that create a user within LaunchDarkly or populate the "Insights" for a flag.
+In most of the client- and server-side SDKs, getting all flags does not create users or other analytics events in your LaunchDarkly account. Unlike evaluating individual flags or identifying users, getting all flags usually does not send events that create a user within LaunchDarkly or populate the flag evaluations graph for a flag.
 
 For client-side SDKs, the all flags feature may return a null value in cases where a flag's fallback value would be served to the user.
 
