@@ -1,7 +1,7 @@
 ---
 path: /home/flags/individual-targeting
 title: Individual user targeting
-description: This topic explains how to target individual users to receive a variation of a feature flag.
+description: This topic explains how to use a flag's Targeting tab to control which individual users receive a variation of a feature flag.
 published: true
 tags: ['target', 'user', 'targeting rule']
 ---
@@ -12,13 +12,13 @@ This topic explains how to use a flag's **Targeting** tab to control which indiv
 
 ## Assigning users to a variation
 
-The "Target individual users" section of the **Targeting** tab allows you to assign individual users to a particular flag variation.
+The "Individual targeting" section of the **Targeting** tab allows you to assign individual users to a particular flag variation.
 
 <Callout intent="info">
 <CalloutTitle>Only target small numbers of users individually</CalloutTitle>
 <CalloutDescription>
 
-We recommend using individual user targeting for very small numbers of individual users. Individually targeting more than 10,000 users per environment may cause performance degradation, because the SDK takes longer to initialize when the targeting rules payload is large. To learn more about targeting many users, read [Creating targeting rules](/home/flags/targeting-rules#creating-targeting-rules).
+We recommend using individual targeting for very small numbers of individual users. Individually targeting more than 10,000 users per environment may cause performance degradation, because the SDK takes longer to initialize when the targeting rules payload is large. To learn more about targeting many users, read [Creating targeting rules](/home/flags/targeting-rules#creating-targeting-rules).
 
 </CalloutDescription>
 </Callout>
@@ -42,7 +42,7 @@ You can also use the REST API: [Individual user targets](https://apidocs.launchd
 You can remove a user from a flag's targeting list by clicking the user's name. To do this:
 
 1. Navigate to the flag's **Targeting** tab.
-2. In the "Target individual users" section, find the name of the user you wish to remove.
+2. In the "Individual targeting" section, find the name of the user you wish to remove.
 3. Click the **X** next to their name to remove them:
 
 ![A user in the flag's targeting section, with the "X" to remove called out.](flag-targeting-remove-user-callout.png)
@@ -74,7 +74,7 @@ You can also schedule a user to be removed from a segment, rather than from flag
 
 To schedule a removal date for a user target:
 1. Navigate to the flag dashboard and select the flag for which you want to configure a removal date. The flag's **Targeting** tab appears.
-2. In the "Target individual users" section, search for the new user you want to target or click the name of an existing user you want to set a removal date for.
+2. In the "Individual targeting" section, search for the new user you want to target or click the name of an existing user you want to set a removal date for.
 3. Click **Add + schedule removal** next to the user's name.
 
 ![The user targeting field with the "Add + schedule removal" option called out.](users-targeting-add-schedule-removal.png)
