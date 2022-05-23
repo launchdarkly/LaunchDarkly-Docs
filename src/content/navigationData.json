@@ -418,6 +418,10 @@
           {
             "label": "Allocating experiment populations",
             "path": "/home/experimentation/allocation"
+          },
+          {
+            "label": "Sending Segment events to experiments",
+            "path": "/home/experimentation/segment"
           }
         ]
       },
