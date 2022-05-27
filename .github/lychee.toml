@@ -69,7 +69,9 @@ exclude = [
   # TODO: SC-135999 workaround
   'https://www.php.net/manual/en/language.types.declarations.php',
   # TODO: SC-151435 workaround
-  'https://www.npmjs.com/package/*'
+  'https://www.npmjs.com/package/*',
+  # TODO: SC-155104 workaround
+  'https://mvnrepository.com/artifact/com.launchdarkly/*'
 ]
 
 # Exclude all private IPs from checking
