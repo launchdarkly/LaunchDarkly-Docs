@@ -250,7 +250,7 @@ import { withLDConsumer } from 'launchdarkly-react-client-sdk';
 
 const Home = ({ flags, ldClient /*, ...otherProps */ }) => {
   // You can call any of the methods from the JavaScript SDK
-  // client.identify({...})
+  // ldClient.identify({...})
 
   return flags.devTestFlag ? <div>Flag on</div> : <div>Flag off</div>;
 };
