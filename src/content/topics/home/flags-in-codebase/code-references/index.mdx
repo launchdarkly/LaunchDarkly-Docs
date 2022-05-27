@@ -94,6 +94,7 @@ Here is an image of an extinction event on the **Code references** tab of a feat
 
 ![The "Code references" tab of a feature flag with an extinction event.](flag-code-references-extinct.png)
 
+To disable extinctions, set `lookback` to `0` in the `ld-find-code-refs` configuration settings.
 
 You can toggle a repository on or off to allow or forbid code reference triggers from pushing new data to it.
 
@@ -137,14 +138,30 @@ The screenshot below shows code references with context lines:
 
 ![Code references with context lines.](flag-code-references.png)
 
-
 Having a few lines of context can make it easier to understand references to a feature flag. However, these lines are optional. You can disable this feature when you configure `ld-find-code-refs`.
 
-If context lines are disabled, your code references only show a code location in the form of a filename and line, as well as a link to that location in your Git hosting provider.
 
 The following screenshot shows code references without context lines:
 
 ![Code references with no context lines.](flag-code-references-no-context.png)
+
+## Sending metadata only
+
+You can disable `contextLines` as shown in [Configuring context lines](#configuring-context-lines). When you disable `contextLines` no snippets of code leave your repository. All code scanning always happens within infrastructure your team manages as outlined in [Integrating ld-find-code-refs with your toolchain](#integrating-ld-find-code-refs-with-your-toolchain)
+
+Metadata sent to LaunchDarkly:
+ * Organization name, if applicable
+ * Repository name
+ * Commit ID
+ * Synced time
+ * File name
+ * Line number
+
+Metadata sent to LaunchDarkly if [`extinctions`](#understanding-extinction-events) are enabled and an extinction is found:
+ * All of the metadata listed in the section above
+ * Commit message when extinction was recorded
+
+[`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) is open source and available for review. Code reference give your team additional insights, such as surfacing flag usage in the code base to provide additional safety checks when archiving flags, during the lifecycle of the flag while still maintaining a secure SDLC.
 
 ## Finding flag aliases
 
