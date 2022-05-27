@@ -833,6 +833,10 @@
         "path": "/integrations/building-integrations",
         "items": [
           {
+            "label": "Building partner integrations",
+            "path": "/integrations/partner-integrations"
+          },
+          {
             "label": "Registering a LaunchDarkly OAuth client",
             "path": "/integrations/oauth-client-registration"
           }

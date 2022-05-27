@@ -267,6 +267,7 @@ tag
 target
 targeting rule
 team
+technology partner program
 template
 terraform
 test
