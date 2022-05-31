@@ -379,7 +379,22 @@ To create a role with the same permissions as the built-in Admin role:
   {
     "effect": "allow",
     "actions": ["*"],
+    "resources": ["proj/*:env/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:metric/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
     "resources": ["member/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["member/*:token/*"]
   },
   {
     "effect": "allow",
@@ -389,7 +404,7 @@ To create a role with the same permissions as the built-in Admin role:
   {
     "effect": "allow",
     "actions": ["*"],
-    "resources": ["webhook/*"]
+    "resources": ["proj/*:env/*:flag/*"]
   },
   {
     "effect": "allow",
@@ -399,7 +414,32 @@ To create a role with the same permissions as the built-in Admin role:
   {
     "effect": "allow",
     "actions": ["*"],
+    "resources": ["proj/*:env/*:segment/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["webhook/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/*:user/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
     "resources": ["code-reference-repository/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/*:destination/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["acct"]
   }
 ]
 ```
@@ -802,7 +842,7 @@ Here is an example of a custom role that explicitly allows actions only on certa
 </CodeTabItem>
 </CodeTabs>
 
-Here is an example of a custom role that allows all actions in the first statement, then explicitly denies actions on certain resources:
+Here is an example of a custom role that allows all actions, then explicitly denies actions on certain resources in the last statement:
 
 <CodeTabs
   defaultValue="json"
@@ -818,7 +858,72 @@ Here is an example of a custom role that allows all actions in the first stateme
   {
     "effect": "allow",
     "actions": ["*"],
-    "resources": ["*"]
+    "resources": ["proj/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:metric/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["member/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["member/*:token/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["role/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/*:flag/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["integration/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/*:segment/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["webhook/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/*:user/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["code-reference-repository/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/*:destination/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["acct"]
   },
   {
     "effect": "deny",
