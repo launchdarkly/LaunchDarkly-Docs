@@ -618,6 +618,11 @@
     "name": "Java",
     "versions": [
       {
+        "versionMajorMinor": "5.9",
+        "releaseYear": 2022,
+        "releaseMonthDay": "04-26"
+      },
+      {
         "versionMajorMinor": "5.8",
         "releaseYear": 2022,
         "releaseMonthDay": "04-18"
