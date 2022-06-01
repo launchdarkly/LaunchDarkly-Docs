@@ -122,7 +122,7 @@ You can think of each flag evaluation as a pure function, where LaunchDarkly use
 
 ### Flag evaluation comparison
 
-The client-side SDK requires user information in order to initialize the client. The server-side SDK requires the user context only when the SDK evaluates a flag.
+The client-side SDK requires user information in order to initialize the client. The server-side SDK requires the user context only when the SDK evaluates a flag. 
 
 Here is an example of the differences in flag evaluation between the client-side and server-side SDKs:
 
@@ -234,9 +234,9 @@ Here is an example of the differences in flag data received by the client-side a
 
 You may not want to send all of the user attributes that you are recording back to LaunchDarkly. The security or data protection requirements of your organization may require you to limit what customer or user data is transmitted from your service to a third-party platform like LaunchDarkly.
 
-All LaunchDarkly SDKs have configuration options to set all or specified user attributes as private attributes.
+Both the client-side and server-side SDKs have configuration options to set all or specified user attributes as private attributes.
 
-You can use private user attributes with both client-side and server-side SDKs, although the SDKs' requirements are different. With a client-side SDK, LaunchDarkly's servers receive and process private attributes, but do not store them. Server-side SDKs work differently. They store a full list of rules, including user attributes. Because the rules are available locally to a server-side SDK, you do not need to send LaunchDarkly information about private attributes.
+For both the client-side and server-side SDKs, private user attributes can still be used in targeting rules. With a client-side SDK, LaunchDarkly processes private attributes, but does not store them. With a server-side SDK, LaunchDarkly does not process or store private attributes.
 
 Here is an example of setting all attributes as private:
 
