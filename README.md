@@ -1,10 +1,6 @@
 <p align="center">
   <a href="https://docs.launchdarkly.com">
-  <picture>
-    <source media="(prefers-color-scheme: light)" srcset="assets/icons/gh-light-mode-only.svg" width="60">
-    <source media="(prefers-color-scheme: dark)" srcset="assets/icons/gh-dark-mode-only.svg" width="60">
-    <img alt="LaunchDarkly" src="assets/icons/gh-light-mode-only.svg" width="60">
-  </picture>
+    <img alt="LaunchDarkly" src="assets/icons/launchdarkly-icon.svg" width="60" />
   </a>
 </p>
 <h1 align="center">

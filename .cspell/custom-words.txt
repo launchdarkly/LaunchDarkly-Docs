@@ -216,7 +216,6 @@ signup
 signups
 sourcepath
 sourcetype
-srcset
 Stackdriver
 stdlib
 stflib
