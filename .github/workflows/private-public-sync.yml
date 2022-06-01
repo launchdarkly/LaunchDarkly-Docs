@@ -18,8 +18,8 @@ jobs:
           git remote add public 'https://${{ secrets.GH_USER }}:${{ secrets.GH_TOKEN }}@github.com/launchdarkly/LaunchDarkly-Docs.git'
           git fetch public
 
-          if git pull public main --rebase; then
-            git pull --rebase && git push
+          if git pull public main; then
+            git pull && git push
             echo "Successfully merged and pushed public changes to private repo. Will sync private to public now."
             echo "::set-output name=has_conflict::false"
           else
@@ -32,7 +32,7 @@ jobs:
           git checkout -b sync-conflict-${{ github.sha }}
           git commit -am "Adding all with merge conflicts."
           git push -u origin sync-conflict-${{ github.sha }}
-          gh pr create -t "CONFLICT: Resolve public repo sync conflict" -b "Syncing changes from public repo [failed](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}). Please resolve conflicts."
+          gh pr create -t "CONFLICT: Resolve public repo sync conflict" -b "Syncing changes from public repo [failed](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}). Please resolve conflicts and **merge without squash**."
           echo "::error::Conflict detected. Please review PR."
           exit 1
         env:
