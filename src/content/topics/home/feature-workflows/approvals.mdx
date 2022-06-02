@@ -82,6 +82,16 @@ You can also use the REST API: [Create approval request](https://apidocs.launchd
 
 </LearnMore>
 
+### Requesting approval for copying flags
+
+When you [copy flag settings](/home/code/flag-compare-copy#comparing-and-copying-flag-settings-between-two-environments) between environments, if the environment you're copying changes to requires approval, then **Review and request approval** is the default option. To learn more, read [Configuring approvals by environment](/home/feature-workflows/environment-approvals).
+
+<LearnMore>
+
+You can also use the REST API: [Create approval request to copy flag configurations across environments](https://apidocs.launchdarkly.com/tag/Approvals#operation/postFlagCopyConfigApprovalRequest)
+
+</LearnMore>
+
 ## Reviewing flag approval requests
 
 If someone requests your approval on a flag change, an in-app notification appears and you receive notifications in email and, if applicable, Slack. You can click through to view and approve or decline the request from any of these notifications.
