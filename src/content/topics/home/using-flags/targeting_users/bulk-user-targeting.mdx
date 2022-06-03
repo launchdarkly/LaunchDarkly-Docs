@@ -25,8 +25,7 @@ The "Bulk edit" option lets you manage all of your user targets for a single fea
 <CalloutTitle>Bulk user targeting limitations</CalloutTitle>
 <CalloutDescription>
 
-Very large lists of named users increase the size of the payload the SDK fetches when initializing, as well as the memory footprint of the SDK. Lists of over 50,000
-individual users are not supported for flags or segments in LaunchDarkly.
+Very large lists of named users increase the size of the payload the SDK fetches when initializing, as well as the memory footprint of the SDK. Lists of over 50,000 individual users are not supported for flags or segments in LaunchDarkly.
 
 We recommend not exceeding a few thousand individual users across your flags and segments. Instead, use custom attributes to target a large number of individual users. Custom attributes let you assign an attribute to the users who should receive the feature flag and then set up the targeting rules to serve the flag to users who have that attribute, so you can target groups of users without increasing the size of the payload.
 
