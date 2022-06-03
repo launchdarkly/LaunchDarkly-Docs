@@ -113,21 +113,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Cypress run
-        uses: cypress-io/github-action@v3
+        uses: cypress-io/github-action@v3.1.0 # must be locked because of yarn berry issue
         timeout-minutes: 5
         id: cypress
         continue-on-error: true
         with:
-          command-prefix: yarn dlx
+          # Note: this is used because of cypress yarn berry issue
+          # https://github.com/cypress-io/github-action/issues/430#issuecomment-1144054512
+          command: yarn dlx cypress@v9 run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }},retries=2 --spec cypress/integration/smoke.test.ts --config-file cypress.json --env pr_number=${{ github.event.pull_request.number }}
           install-command: yarn install --immutable
           build: yarn build-nav-data
-          headless: true
-          config: baseUrl=https://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }},retries=2
-          spec: cypress/integration/smoke.test.ts
-          env: pr_number=${{ github.event.pull_request.number }}
           wait-on: 'https://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }}/home'
-          record: true
-          tag: staging,smoke
         env:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

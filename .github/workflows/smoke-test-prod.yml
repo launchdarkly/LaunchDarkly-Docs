@@ -10,59 +10,19 @@ jobs:
         uses: actions/checkout@v3
       - name: Cypress run
         timeout-minutes: 5
-        uses: cypress-io/github-action@v3
+        uses: cypress-io/github-action@v3.1.0 # must be locked because of yarn berry issue
         with:
-          command-prefix: yarn dlx
+          # Note: this is used because of cypress yarn berry issue
+          # https://github.com/cypress-io/github-action/issues/430#issuecomment-1144054512
+          command: yarn dlx cypress@v9 run --headless --record --tag production,smoke --config baseUrl=https://docs.launchdarkly.com,retries=2 --spec cypress/integration/smoke.test.ts --config-file cypress.json
           install-command: yarn install --immutable
           build: yarn build-nav-data
-          headless: true
-          browser: chrome
-          config: baseUrl=https://docs.launchdarkly.com
-          spec: cypress/integration/smoke.test.ts
+          config: baseUrl=https://docs.launchdarkly.com,retries=2
           wait-on: 'https://docs.launchdarkly.com/home'
-      - name: Archive Cypress screenshots
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: cypress-screenshots
-          path: |
-            /home/runner/work/git-gatsby/git-gatsby/cypress/screenshots
-          retention-days: 5
-      - name: Notify slack
-        if: failure()
-        uses: slackapi/slack-github-action@v1
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-        with:
-          payload: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": ":rotating_light::rotating_light::rotating_light::test_tube: Smoke tests failed on *<https://docs.launchdarkly.com|Production>* :rotating_light::rotating_light::rotating_light:"
-                  },
-                  "accessory": {
-                    "type": "button",
-                    "text": {
-                      "type": "plain_text",
-                      "text": "View failed run"
-                    },
-                    "action_id": "view-action-${{github.run_id}}",
-                    "url": "https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
-                  }
-                },
-                {
-                  "type": "context",
-                  "elements": [
-                    {
-                      "type": "plain_text",
-                      "text": ":github: Deploy triggered by ${{github.actor}}",
-                      "emoji": true
-                    }
-                  ]
-                }
-              ]
-            }
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check Cypress outcome
+        if: steps.cypress.outcome == 'failure' || steps.cypress.outcome == 'cancelled'
+        run: exit 1

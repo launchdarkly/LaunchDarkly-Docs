@@ -17,25 +17,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Cypress run
-        uses: cypress-io/github-action@v3
+        uses: cypress-io/github-action@v3.1.0 # must be locked because of yarn berry issue
         timeout-minutes: 45
         id: cypress
         continue-on-error: true
         with:
-          command-prefix: yarn dlx
+          # Note: this is used because of cypress yarn berry issue
+          # https://github.com/cypress-io/github-action/issues/430#issuecomment-1144054512
+          command: yarn dlx cypress@v9 run --headless --record --tag links,${{ steps.check-env.outputs.name }} --config baseUrl=https://docs.launchdarkly.com,retries=2,video=false --spec cypress/integration/links.test.ts,cypress/integration/redirects.test.ts --config-file cypress.json --env skip_external=true
           install-command: yarn install --immutable
           build: yarn build-dev
           start: yarn serve-dev
-          headless: true
           wait-on: 'http://localhost:9000/home/getting-started'
           wait-on-timeout: 5
-          env: skip_external=true
-          spec: |
-            cypress/integration/links.test.ts
-            cypress/integration/redirects.test.ts
-          record: true
-          tag: links,${{ steps.check-env.outputs.name }}
-          config: video=false
         env:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
