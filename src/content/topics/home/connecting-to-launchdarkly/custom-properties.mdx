@@ -16,17 +16,22 @@ Each custom property you add to a feature flag can contain a list of associated 
 
 ## Setting a custom property
 
-You can set a custom property from the LaunchDarkly UI or by using API calls. To learn more, read the [REST API Documentation](https://apidocs.launchdarkly.com/tag/Feature-flags).
-
-To add a custom property to a flag through the UI:
+To add a custom property to a flag:
 
 1. Navigate to the flag's **Settings** tab.
-2. Click **Add custom property**.
+2. Click **+ Add custom property**.
 3. Choose a property type from the menu.
-4. Enter **Values** associated with the custom property.
+  * If you choose an existing property type, enter **Values** associated with the custom property.
+  * If you choose "New," enter a **Name** and **Key** for the new custom property. Then enter **Values** associated with the custom property.
 5. Click **Save**:
 
-![A flag's custom property configuration fields.](flag-settings-custom-property.png)
+![A flag's custom property configuration fields, for the existing "Jira issues" property.](flag-settings-custom-property.png)
+
+<LearnMore>
+
+You can also use the REST API: [Create a feature flag](https://apidocs.launchdarkly.com/tag/Feature-flags#operation/postFeatureFlag)
+
+</LearnMore>
 
 <Callout intent="alert">
 <CalloutTitle>Custom property restrictions</CalloutTitle>
