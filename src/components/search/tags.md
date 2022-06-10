@@ -42,6 +42,7 @@ built-in
 c
 c++
 cache
+capabilities
 cdn
 china
 circleci orb
@@ -111,6 +112,7 @@ flag lifecycle
 flag status
 flush
 flutter
+form variable
 
 # G
 gatsby
@@ -164,6 +166,7 @@ lua
 
 # M
 manage
+manifest
 mau
 member
 merge

@@ -52,12 +52,14 @@ Dynatrace
 Dynatrace's
 elif
 elsewhere
+emptystate
 Ernestina
 evalx
 eventhub
 eventsource
 examplepackage
 Fastly
+featurestorerequest
 featurex
 flagbuilder
 flagdata
@@ -244,6 +246,7 @@ Trello
 trendgraph
 tvos
 typedefs
+uiblocks
 unarchived
 unchecking
 unfollow
@@ -257,6 +260,7 @@ untargeted
 unthrottled
 userprincipalname
 uthash
+validationrequest
 variationdetail
 Vercel
 Vercel's

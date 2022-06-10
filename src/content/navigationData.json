@@ -829,22 +829,38 @@
         ]
       },
       {
-        "label": "Building your own integrations",
-        "path": "/integrations/building-integrations",
+        "label": "Managing integrations",
+        "path": "/integrations/managing"
+      },
+      {
+        "label": "Using the LaunchDarkly integration framework",
+        "path": "/integrations/building-integrations"
+      },
+      {
+        "label": "Building partner integrations",
+        "path": "/integrations/partner-integrations",
         "items": [
           {
-            "label": "Building partner integrations",
-            "path": "/integrations/partner-integrations"
+            "label": "Getting started",
+            "path": "/integrations/partner-integrations/getting-started"
+          },
+          {
+            "label": "Defining an integration manifest",
+            "path": "/integrations/partner-integrations/manifest"
           },
           {
             "label": "Registering a LaunchDarkly OAuth client",
-            "path": "/integrations/oauth-client-registration"
+            "path": "/integrations/partner-integrations/oauth-client-registration"
+          },
+          {
+            "label": "Using form variables",
+            "path": "/integrations/partner-integrations/form-variables"
+          },
+          {
+            "label": "Using integration framework capabilities",
+            "path": "/integrations/partner-integrations/capabilities"
           }
         ]
-      },
-      {
-        "label": "Managing integrations",
-        "path": "/integrations/managing"
       }
     ]
   },

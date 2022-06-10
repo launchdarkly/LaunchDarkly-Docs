@@ -1,5 +1,5 @@
 ---
-path: /integrations/oauth-client-registration
+path: /integrations/partner-integrations/oauth-client-registration
 title: Registering a LaunchDarkly OAuth client
 description: This topic explains how to register a LaunchDarkly OAuth 2.0 client so you can develop your own applications with secure delegated access to LaunchDarkly.
 published: true
@@ -12,7 +12,9 @@ This topic explains how to register a LaunchDarkly OAuth 2.0 client so you can d
 
 ## Creating and registering a LaunchDarkly OAuth client
 
-Registering a LaunchDarkly OAuth client allows you to [build custom integrations](/integrations/building-integrations) that let members log into your application with their LaunchDarkly account. You must have Admin privileges or an access token created by a member with Admin privileges that grants you permission to the `acct` resource.
+Registering a LaunchDarkly OAuth client allows you to build custom integrations that let members log into your application with their LaunchDarkly account. To learn more, read [Using the LaunchDarkly integration framework](/integrations/building-integrations).
+
+You must have Admin privileges or an access token created by a member with Admin privileges that grants you permission to the `acct` resource.
 
 You can create and manage LaunchDarkly OAuth clients using the [LaunchDarkly OAuth client API](<https://apidocs.launchdarkly.com/tag/OAuth2-Clients-(beta)>). This API acknowledges creation of your client with a response containing a unique `_clientSecret`. If you lose your client secret, you will have to register a new client. LaunchDarkly does not store client secrets in plain text.
 

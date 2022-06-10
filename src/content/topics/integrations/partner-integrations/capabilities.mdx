@@ -1,0 +1,669 @@
+---
+path: /integrations/partner-integrations/capabilities
+title: Using integration framework capabilities
+description: This topic explains how integration framework capabilities determine the ways in which your integration interacts with LaunchDarkly.
+published: true
+tags: ['integration', 'partner', 'capabilities']
+---
+
+## Overview
+
+This topic explains how LaunchDarkly's integration framework capabilities determine the ways in which your integration interacts with LaunchDarkly.
+
+LaunchDarkly supports the following integration framework capabilities:
+
+- [Audit log events hook](#audit-log-events-hook)
+- [Triggers](#triggers)
+- [Flag links](#flag-links)
+- [Reserved custom properties](#reserved-custom-properties)
+- [Feature stores](#feature-stores)
+
+## Audit log events hook
+
+An audit log events hook is a webhook that LaunchDarkly sends whenever an event happens inside of LaunchDarkly. Each of these events results in an event being published to LaunchDarkly's audit log. You can use this capability to send data to or trigger an event in another service.
+
+The `auditLogEventsHook` has four properties:
+
+- [`endpoint`](#the-endpoint-property): The HTTP handler that will receive the webhook.
+- [`templates`](#the-templates-property): A map of template paths relative to your integration's directory. You can use templates to transform the raw audit log events to a format that your integration expects. These templates can be any file type.
+- [`defaultPolicy`](#the-default-policy-property): An array of LaunchDarkly policies. The policies determine which events to send to your webhook endpoint. To learn more, read [Using policies](/home/members/role-policies).
+- [`includeErrorResponseBody`](#the-include-error-response-body-property) (optional): Allows you to view any errors LaunchDarkly receives when it sends events to your endpoint.
+
+Here's an example of an audit log events hook capability that subscribes to flag events in a LaunchDarkly account:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Subscribes to flag events', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+    "capabilities": {
+        "auditLogEventsHook": {
+            "includeErrorResponseBody": false,
+            "endpoint": {
+                "url": "{{endpointUrl}}",
+                "method": "POST",
+                "headers": [
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json"
+                    },
+                    {
+                        "name": "Authorization",
+                        "value": "Bearer {{apiToken}}"
+                    }
+                ]
+            },
+            "templates": {
+                "flag": "templates/flag.json"
+            },
+            "defaultPolicy": [
+                {
+                    "effect": "allow",
+                    "actions": ["*"],
+                    "resources": ["proj/*:env/production:flag/*"]
+                }
+            ]
+        }
+    }
+```
+</CodeTabItem>
+</CodeTabs>
+
+<LearnMore>
+
+You can also use the REST API: [Integration audit log subscriptions](https://apidocs.launchdarkly.com/tag/Integration-audit-log-subscriptions)
+
+</LearnMore>
+
+### The endpoint property
+
+Every `auditLogEventsHook` capability must specify the endpoint LaunchDarkly should send webhook data to. To learn more, read [Endpoints](#endpoints).
+
+### The templates property
+
+Before the `auditLogEventsHook` capability sends the request to the endpoint handling your webhook, you can transform the body of the request it sends to your handler.
+
+In your manifest, you can specify `templates` to execute when webhook events are of kinds `flag`, `project`, and `environment`. Additionally, you can specify a `default` template as a catch-all for any event without a more specific template. You can also specify a `validation` template to provide members with the ability to validate their connection by sending a test event from LaunchDarkly to your service.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Specifies a template', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+    "templates": {
+      "default": "templates/default.json.hbs",
+      "flag": "templates/flag.json.hbs",
+      "project": "templates/project.json.hbs",
+      "environment": "templates/environment.json.hbs",
+      "validation": "templates/default.json.hbs"
+    },
+```
+</CodeTabItem>
+</CodeTabs>
+
+If you don't provide one or more templates, LaunchDarkly sends you a default JSON payload that looks like this:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Default payload', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+{
+  "_links": {
+    "canonical": {
+      "href": "/api/v2/flags/always-snippet/example-test",
+      "type": "application/json"
+    },
+    "parent": {
+      "href": "/api/v2/auditlog",
+      "type": "application/json"
+    },
+    "self": {
+      "href": "/api/v2/auditlog/5defebd006121dd9f7ea90d0",
+      "type": "application/json"
+    },
+    "site": {
+      "href": "/always-snippet/production/features/example-test",
+      "type": "text/html"
+    }
+  },
+  "_id": "5defebd006121dd9f7ea90d0",
+  "_accountId": "",
+  "timestamp": {
+    "milliseconds": 1580778134028,
+    "seconds": 1580778134,
+    "rfc3339": "2020-02-04T01:02:14Z",
+    "simple": "2020-02-04 01:02:14"
+  },
+  "kind": "flag",
+  "name": "Example test",
+  "description": "",
+  "shortDescription": "",
+  "comment": "This is just a test",
+  "member": {
+    "_links": {
+      "parent": {
+        "href": "/api/v2/members",
+        "type": "application/json"
+      },
+      "self": {
+        "href": "/api/v2/members/569f514183f2164430000002",
+        "type": "application/json"
+      }
+    },
+    "_id": "569f514183f2164430000002",
+    "email": "testing@example.com",
+    "firstName": "Henry",
+    "lastName": "Barrow"
+  },
+  "titleVerb": "",
+  "markdownTitle": "[Henrietta Powell](mailto:testing@example.com) turned on the flag [Example test](http://app.launchdarkly/exampledotcom/production/features/example-test) in `Production`",
+  "title": "Henrietta Powell turned on the flag Example test in 'Production'",
+  "target": {
+    "_links": null,
+    "name": ""
+  }
+}
+```
+</CodeTabItem>
+</CodeTabs>
+
+If you choose to provide one or more templates, LaunchDarkly renders your template using the context data above. Your template can be any text-based format, but you must specify the appropriate `Content-Type` header in your `endpoint.headers` property to match the content type of your template body.
+
+LaunchDarkly uses a basic subset of the Handlebars template syntax to render your template. To learn more about Handlebars syntax, read [Handlebars Language Guide](https://handlebarsjs.com/guide/).
+
+In addition to the basic language syntax, LaunchDarkly supports the following built-in helpers:
+
+- `if`
+- `unless`
+- `each`
+- `with`
+- `lookup`
+
+To learn more, read [Built-in Helpers](https://handlebarsjs.com/guide/builtin-helpers.html).
+
+LaunchDarkly also supports the following custom helpers:
+
+- `equal`: renders a block if the string version of both arguments are equal
+- `pathEncode`: URL path encodes the string version of the argument
+- `queryEncode`: URL query encodes the string version of the argument
+- `basicAuthHeaderValue`: transforms `username` and `password` arguments into the `Authorization` header value required for a basic auth, including the `Basic ` prefix
+- `formatWithOffset`: adds an offset in seconds to a Unix milliseconds timestamp and formats the timestamp using one of the supported formats detailed below
+
+LaunchDarkly supports the following timestamp formats:
+
+- `milliseconds`: Unix milliseconds
+- `seconds`: Unix seconds
+- `rfc3339`: [RFC3339 format](https://datatracker.ietf.org/doc/html/rfc3339), for example, `2020-02-04T01:02:14Z`
+- `simple`: timestamp string formatted as `yyyy-mm-dd h:MM:ss`, for example, `2020-02-04 01:03:59`
+
+To test your templates, you can run `npm run preview $INTEGRATION_NAME` or use the [Handlebars Sandbox](http://tryhandlebarsjs.com/).
+
+### The default policy property
+
+Users of your integration can specify an array of LaunchDarkly policies to filter which events to send to your webhook endpoint. To learn more, read [Using policies](/home/members/role-policies)
+
+To simplify onboarding your integration, you can specify a default policy which follows best practices for your integration's use case.
+
+Assuming your integration only cares about flag activity, we recommend the following default policy. This policy specifies that LaunchDarkly will notify your integration of all flag activity across production environments from all projects.
+
+Here is the policy:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Default policy', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+      "defaultPolicy": [
+        {
+          "effect": "allow",
+          "actions": ["*"],
+          "resources": ["proj/*:env/production:flag/*"]
+        }
+      ]
+```
+</CodeTabItem>
+</CodeTabs>
+
+### The include error response body property
+
+A static domain is one in which the domain part of the endpoint is not a template variable. For endpoints defined with static domains, you can specify the optional property `includeErrorResponseBody` in your `auditLogEventsHook` configuration to view any errors LaunchDarkly receives when it sends events to your endpoint. This is particularly useful for members troubleshooting issues with their integration.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Includes error response body', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+    "includeErrorResponseBody": true,
+    "endpoint": {
+        "url": "https://static-domian.com/apiToken?={{apiToken}}",
+        "method": "POST"
+    },
+```
+</CodeTabItem>
+</CodeTabs>
+
+### Previewing your webhook
+
+To preview your integration's templates with sample data, run `npm run preview $INTEGRATION_NAME`.
+
+Alternatively, to produce a sample `curl` command, run `npm run curl $INTEGRATION_NAME`. This returns data with your integration's service as if it was sent by the audit log event hook capability.
+
+## Triggers
+
+<Callout intent="primary">
+<CalloutTitle>Flag triggers is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Flag triggers is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+Flag triggers let you turn flags on or off remotely from a third-party application. To learn more about the feature, read [Flag triggers](/home/feature-workflows/triggers).
+
+You can use the `trigger` capability to generate a unique webhook URL that your service can request to generate a user-defined flag change in LaunchDarkly. By default, the trigger URL contains a globally unique path parameter to provide security in the form of an unguessable URL. To learn more, read [Google's Unguessable URLs](https://www.schneier.com/blog/archives/2015/07/googles_unguess.html).
+
+The required `documentation` field must be a link to documentation outlining how webhooks should be configured in your service.
+
+If the integration offers the option to send test events or webhook requests, the optional `testEventNameRegexp` field lets you to specify regex to match the expected `eventName` value. This tells the integration framework not to make any real flag or resource changes associated with matching events.
+
+If your webhooks' request bodies are non-empty, you can specify the optional `parser` object with one or more of `eventName`, `value`, and `url`. The provided values will flow through LaunchDarkly into the resulting audit log messages when your service invokes a trigger in LaunchDarkly.
+
+Here is an example `trigger` capability:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Trigger capability', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+    "trigger": {
+      "documentation": "https://example.com/configuring-webhooks",
+      "parser": {
+        "eventName": "/event",
+        "value": "/value",
+        "url": "/links/self/href"
+      },
+    }
+```
+</CodeTabItem>
+</CodeTabs>
+
+If an integration only has the trigger capability, the word "trigger" will be added to its name in the LaunchDarkly user interface (UI). For this reason, do not include the word "trigger" in the manifest name. For an example, read the [generic-trigger manifest](https://github.com/launchdarkly/integration-framework/blob/main/integrations/generic-trigger/manifest.json).
+
+## Flag links
+
+Flag links let you associate feature flags with resources contained in external services, such as Slack messages and Jira issues. To learn more about the feature, read [Flag links](/home/flags/links).
+
+Here is an image of a flag link:
+
+![A Slack conversation on a flag's "Links" tab.](flag-links-slack-conversation.png)
+
+The `flagLink` capability is used to apply custom formatting and metadata to flag links that originate from your integration service. For complete examples, read the [Slack App manifest](/integrations/slack-app/manifest.json) and the [Jira integration manifest](https://github.com/launchdarkly/integration-framework/blob/main/integrations/jira/manifest.json).
+
+The `flagLink` capability has the following properties:
+- [`header`](#the-header-property)
+- [`metadata`](#the-metadata-property)
+- [`uiBlocks`](#the-uiblocks-property)
+- [`emptyState`](#the-emptystate-property)
+
+### The header property
+
+This property string specifies the sentence-cased title to show for all flag links for the integration, for example, "Jira issue" or "Slack conversation".
+
+### The metadata property
+
+The `metadata` object specifies the shape of the data for the flag link POST body and API response. Additionally, the metadata can be referenced in the visual representation of the flag link and may be indexed for search purposes. In the integration manifest, the `metadata` object is a mapping of a metadata key to a metadata value object that specifies the format of the metadata item.
+
+For example, the [Jira integration](https://github.com/launchdarkly/integration-framework/blob/main/integrations/jira/manifest.json) has the following `metadata` object:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'A metadata object', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+"metadata": {
+  "creator": {
+    "type": "string"
+  },
+  "iconUrl": {
+    "type": "uri"
+  },
+  "issueKey": {
+    "type": "string"
+  },
+  "issueTitle": {
+    "type": "string"
+  }
+},
+
+```
+</CodeTabItem>
+</CodeTabs>
+
+### The uiBlocks property
+
+The `uiBlocks` object specifies the look and feel of the integration's flag links in the LaunchDarkly UI. 
+
+Any combination of the following properties can be specified:
+- `image`: An object specifying the icon or avatar used to represent the link. Handlebars templating can be utilized in the `sourceUrl` field to reference metadata submitted by the integration when the link is created.
+- `title`: An object specifying the flag link title. UI block `elements` are used to provide design flexibility.
+- `context`: An object specifying additional information about the flag link. UI block `elements` are used to shape the message.
+
+#### UI block elements
+---
+
+The `title` and `context` UI blocks take advantage of UI block `elements` to provide flexible formatting. 
+
+A UI block element is an object comprised of a required `text` field and may contain one or more of the following properties:
+- `isBold` (boolean): Whether or not the text should be rendered in bold face
+- `isTimestamp` (boolean): Whether or not the text should be converted from Unix milliseconds to a human-readable format
+- `url` (string): If you provide this, the block element will link to the rendered URL
+
+Both the `text` and `url` properties can include Handlebars template variables to reference metadata submitted by the integration when the link is created.
+
+For example, the [Slack App integration](https://github.com/launchdarkly/integration-framework/blob/main/integrations/slack-app/manifest.json) specifies the `context` UI block as follows:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'A context block', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+"context": {
+  "elements": [
+    { "text": "Posted in" },
+    { "text": "#{{{metadata.channelName}}}", "isBold": true },
+    { "text": "View message", "url": "{{{deepLink}}}" }
+  ]
+}
+```
+</CodeTabItem>
+</CodeTabs>
+
+### The emptyState property
+
+This `emptyState` object specifies the message used to assist members when there have not been any flag links created for the integration. 
+
+The `emptyState` object contains two properties:
+- `title`: The title heading of the empty state message.
+- `leadText`: Text or markup content detailing how members can create flag links for this integration.
+
+For example, the [Jira integration](https://github.com/launchdarkly/integration-framework/blob/main/integrations/jira/manifest.json) specifies the `emptyState` object as follows:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'An emptyState object', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+"emptyState": {
+  "title": "There are no Jira issues that link to this flag.",
+  "leadText": "Jira issues connected to this feature flag will automatically appear here. To learn how to enable the Jira integration or to connect an issue to a feature flag, [read our documentation](https://docs.launchdarkly.com/home/flags/links#creating-jira-flag-links)"
+}
+```
+</CodeTabItem>
+</CodeTabs>
+
+## Reserved custom properties
+
+Custom properties let you store data in LaunchDarkly alongside a feature flag. For example, you can use custom properties to indicate flag-level associations with data on your service. If you don't have any flag-level associations or configurations, you don't need to use this capability.
+
+To learn more, read [Custom properties](/home/connecting/custom-properties).
+
+By default, members must specify a custom property name and key when they attach the custom property value to a feature flag. This step introduces the possibility of user error. To prevent this, developers can _reserve_ a custom property for their integration, which makes it much easier for members to correctly add the property's value to feature flags.
+
+ `reservedCustomProperties` require a `name` and `key`. Adding a `description` is optional.
+
+After a member configures your integration, the custom property appears in the dropdown on the flag's **Settings** page.
+
+For example, the [Datadog integration](https://github.com/launchdarkly/integration-framework/blob/main/integrations/datadog/manifest.json) uses the following `reservedCustomProperties`:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'The reservedCustomProperties capability', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+    "reservedCustomProperties": [
+      {
+        "name": "Datadog tags",
+        "description": "Tags are a way of adding additional dimension to LaunchDarkly change events in Datadog so they can be filtered, aggregated, and compared in visualizations.",
+        "key": "datadog"
+      }
+    ]
+```
+</CodeTabItem>
+</CodeTabs>
+
+## Feature stores
+
+Feature stores allow LaunchDarkly to write feature flag data to a given provider. To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
+
+The feature store capability allows you to specify an endpoint that can receive a payload containing up-to-date flag data from LaunchDarkly.
+
+In addition to `formVariables`, the `featureStore` has two properties:
+- [`featureStoreRequest`](#the-featurestorerequest-property)
+- [`validationRequest` (optional)](#the-validationrequest-property)
+
+To learn more about form variables, read [Using form variables](/integrations/partner-integrations/form-variables).
+
+### The featureStoreRequest property
+
+This specifies the request `endpoint` that LaunchDarkly makes when flag data are updated. You can do this using an `endpoint` and a `parser`. To learn more, read [Endpoints](#endpoints).
+
+In addition to the form variables defined in your manifest, you can use the special variable `_featureStoreKey`. `_featureStoreKey` is provided by LaunchDarkly, and is unique per environment.
+
+### The validationRequest property
+
+Specifying an optional validation request allows members to verify that they have properly filled out the details to correctly make a request.
+
+The `parser` object allows LaunchDarkly to interpret the response of the validation request. It allows a mapping of success and errors for the given response body of the request in the form of a [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901). The `parser` object has two properties: a required `success` and an optional `error`.
+
+Here is an example `parse` object:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'A parse object', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+    "parser": {
+      "success": "/success",
+      "error": "/error"
+    },
+```
+</CodeTabItem>
+</CodeTabs>
+
+Choose an endpoint with a response that will indicate that the specified form variables are correct, but has no side effects.
+
+Here is an example `featureStore` capability:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'The featureStore capability', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+    "featureStoreRequest": {
+      "endpoint": {
+        "url": "https://example.com/{{accountId}}/dictionary/{{dictId}}/item/{{_featureStoreKey}}",
+        "method": "PUT",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer {{apiToken}}"
+          },
+          {
+            "name": "Content-Type",
+            "value": "text/plain"
+          }
+        ]
+      }
+    },
+    "validationRequest": {
+      "endpoint": {
+        "url": "https://example.com/{{accountId}}/dictionary/{{dictId}}/items",
+        "method": "GET",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer {{apiToken}}"
+          }
+        ]
+      },
+      "parser": {
+        "success": "/success"
+      }
+    }
+```
+</CodeTabItem>
+</CodeTabs>
+
+## Endpoints
+
+Some capabilities require you to specify an endpoint that LaunchDarkly can make requests to. For example, you can specify an endpoint as follows:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Endpoint example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+    "endpoint": {
+        "url": "{{endpointUrl}}",
+        "method": "POST",
+        "headers": [
+            {
+                "name": "Content-Type",
+                "value": "application/json"
+            },
+            {
+                "name": "Authorization",
+                "value": "Bearer {{apiToken}}"
+            }
+        ]
+    },
+```
+</CodeTabItem>
+</CodeTabs>
+
+This specification must include all appropriate request semantics including the URL, method, and headers.
+
+In the example above, the properties `endpoint.url` and `endpoint.headers[].value` accept template variables. These template variables can reference any `formVariables` you've defined in your manifest. This lets you configure a dynamic endpoint based on the `formVariables` your integration collects from the user. To learn more, read [Using form variables](/integrations/partner-integrations/form-variables).
+
+The templating language LaunchDarkly uses is based off of a subset of the Handlebars syntax. To learn more, read the [Handlebars documentation](https://handlebarsjs.com/).
+
+This example uses the `endpointUrl` form variable as the URL of the endpoint and the `apiToken` as a `Bearer` token in the `Authorization` header:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Endpoint example', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+    "endpoint": {
+        "url": "{{endpointUrl}}",
+        "method": "POST",
+        "headers": [
+            {
+                "name": "Content-Type",
+                "value": "application/json"
+            },
+            {
+                "name": "Authorization",
+                "value": "Bearer {{apiToken}}"
+            }
+        ]
+    },
+```
+</CodeTabItem>
+</CodeTabs>
+
+This example uses the `apiToken` form variable as a query parameter on the URL:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'An apiToken form variable', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+    "endpoint": {
+        "url": "https://example.com/apiToken?={{apiToken}}",
+        "method": "POST"
+    },
+```
+</CodeTabItem>
+</CodeTabs>
