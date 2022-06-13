@@ -8,7 +8,7 @@ tags: ['segment', 'user', 'target']
 
 ## Overview
 
-This topic explains how to build and manage the Standard user segments. Standard segments let you target groups of users by attribute.
+This topic explains how to build and manage standard user segments. Standard segments let you target groups of users by attribute.
 
 <Callout intent="info">
 <CalloutTitle>Managing Big Segments</CalloutTitle>
@@ -68,32 +68,7 @@ You can remove all included or excluded users from a segment by clicking the **o
 
 ![The overflow menu with "Clear targets" called out.](segments-clear-targets-callout.png)
 
-## Bulk editing users
-
-If you have a long list of users you want to add, remove, or replace within a segment, you can bulk edit users from a segment's **Targeting** tab.
-
-To edit users in bulk:
-
-1. Navigate to the **Segments** dashboard and choose the segment you wish to modify.
-2. In the "Included users" or "Excluded users" section, click the **overflow menu**.
-3. Select "Bulk edit." A "Bulk editing users" dialog appears.
-4. Use the menu to do one of the following actions:
-  - "Add" adds the selected users as targets to the variation
-  - "Remove" removes the selected users from the target variation
-  - "Replace" replaces all currently targeted users with the selected users
-5. Enter a list of user keys or email addresses in the **these users** field, separated by a comma or new line. LaunchDarkly looks up users by key or email and displays them in the list on the right. If you want to target a user that has not yet been encountered by LaunchDarkly, you must enter their key.
-
-![The "Bulk editing included users" dialog with "Add" selected and users added.](segments-bulk-editing.png)
-
-You can update the list on the right before you perform the selected action. The options for updating the list include the following:
-
-- **All** represents all of the users that may be impacted by the action, whether they are added or removed. Check the user's checkbox for the action to apply.
-- **The checkmark** represents inputted user keys that currently match users in the system. For example, if you enter the user key `bob@example.com`, and `bob@example.com` already exists in LaunchDarkly, they will show up in this list.
-- **The question mark** represents users with no matching records in LaunchDarkly. If you are adding users and the users do not currently exist in LaunchDarkly, they will be added to the targeting list.
-- **The exclamation mark** represents user key inputs with multiple matching records. For example, if you enter the email address `bob@example.com`, but there are multiple user keys that have `bob@example.com` as an email address, the system may return multiple matching records. You can select the correct record by clicking the checkbox.
-- **Current** lists all of the currently targeted users for the variation.
-
-6. Click **Add N users**, **Remove N users**, or **Replace N users** to perform the selected action.
+If you're on an Enterprise plan, you can also bulk edit segments to make changes to multiple users simultaneously. To learn more, read [Bulk editing users in segments](/home/users/bulk-edit-segments).
 
 ## Exporting user segments
 

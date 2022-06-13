@@ -190,6 +190,10 @@
               {
                 "label": "Syncing Big Segments from Amplitude cohorts",
                 "path": "/home/users/synced-segments"
+              },
+              {
+                "label": "Bulk editing users in segments",
+                "path": "/home/users/bulk-edit-segments"
               }
             ]
           },
