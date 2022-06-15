@@ -38,6 +38,7 @@ codebases
 coderefs
 configurability
 Contentful
+Cristiano
 databind
 datacenter
 datasource

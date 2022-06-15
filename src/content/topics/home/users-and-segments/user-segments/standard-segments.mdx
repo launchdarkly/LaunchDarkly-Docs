@@ -8,7 +8,7 @@ tags: ['segment', 'user', 'target']
 
 ## Overview
 
-This topic explains how to build and manage standard user segments. Standard segments let you target groups of users by attribute.
+This topic explains how to customize and manage standard user segments. Standard segments let you target groups of users by attribute. To learn how to build standard segments, read [Creating user segments](/home/users/segments#creating-user-segments).
 
 <Callout intent="info">
 <CalloutTitle>Managing Big Segments</CalloutTitle>
@@ -32,12 +32,13 @@ To customize a segment:
 ![A user segment with the "+ Add rules" button called out.](segments-add-rules-callout.png)
 
 4. Specify an **attribute**, an **operator**, and **values** for the rule.
-5. If you want to add more criteria, click the **plus button** beside the rule criteria:
+5. If you want to add more criteria, click the **plus button** beside the rule criteria.
 
-![The custom rule menu.](segments-user-include-menu.png)
+![The segment custom rule menu.](segments-user-include-menu.png)
 
-6. Choose a variation from the **Serve** menu.
-7. Click **Review and save**.
+6. Select whether to include in the segment all users that match the rule, or a percentage of users that match the rule.
+  - If you select a percentage of users, enter the percentage to include in the segment.
+7. Click **Save**.
 
 <Callout intent="info">
 <CalloutTitle>Understanding segment rule logic</CalloutTitle>
@@ -48,7 +49,13 @@ When you specify rules for a segment, LaunchDarkly parses them in order of appea
 </CalloutDescription>
 </Callout>
 
+### Targeting a segment in multiple flags
+
 You can target the same user segment from multiple feature flags. If you have many flags that need the same targeting rules, it may be easier to set up a single user segment with those rules for your flags to target, rather than setting up the rules repeatedly in each flag.
+
+If you target only a percentage of users that match your segment targeting rule, each flag that targets that segment will include the same users in its targeting, assuming there are no other differences between the flags' targeting rules.
+
+For example, imagine you configure a segment to target 50% of users that match its rule. As a result, the segment includes users `Adrian`, `Bailey`, and `Cristiano`, and excludes users `DJ`, `Ellis`, and `Felicia`. If there are no other differences between the flags' targeting rules, each flag that targets that segment will also include users `Adrian`, `Bailey`, and `Cristiano` in its targeting, while excluding users `DJ`, `Ellis`, and `Felicia`.
 
 ## Targeting individual users
 
