@@ -689,6 +689,29 @@ td.update(td.flag("flag-key-3").
     if_match("admin", true).then_return(1))
 ```
 
+
+<CodeTabs
+  defaultValue="node"
+  values={[
+    { label: 'node', value: 'node', },
+  ]
+}>
+<CodeTabItem value="node">
+
+```ruby
+# This flag is true for the user key "some-user-key" and false for everyone else
+td.update(td.flag("flag-key-2").
+    variation_for_user("some-user-key", true).
+    fallthrough_variation(false))
+
+# This flag returns the string variation "green" for users who have the custom
+# attribute "admin" with a value of true, and "red" for everyone else.
+td.update(td.flag("flag-key-3").
+    variations("red", "green").
+    fallthrough_variation(0).
+    if_match("admin", true).then_return(1))
+```
+
 </CodeTabItem>
 </CodeTabs>
 
