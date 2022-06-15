@@ -160,7 +160,7 @@ The LaunchDarkly REST API supports semantic patch for a few of its endpoints. [S
 
 ### Optional headers
 
-The most commonly used optional header is the `LD-API-Version` header. You can use this to specify a particular API version, including a beta version. If this header is not included, your request uses the latest version of the API.
+The most commonly used optional header is the `LD-API-Version` header. You can use this to specify a particular API version, including a beta version. If this header is not included, your request uses the API version specified in your access token.
 
 The header value is the version number of the API version you'd like to request. The version number is the date the version was released, using the `yyyymmdd` format. To learn more, read [Versioning](https://apidocs.launchdarkly.com/#section/Overview/Versioning).
 
