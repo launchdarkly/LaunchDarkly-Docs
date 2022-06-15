@@ -64,6 +64,7 @@ featurex
 flagbuilder
 flagdata
 flagstate
+frequentist
 frontmatter
 Gameplay
 getall
@@ -90,6 +91,7 @@ inited
 inlines
 inspectable
 intellij
+interpretability
 Isha
 Javadoc
 Javadocs

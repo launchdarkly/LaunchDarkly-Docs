@@ -1293,6 +1293,10 @@
             "path": "/guides/best-practices/deployment-strategies"
           },
           {
+            "label": "Experimentation and Bayesian statistics",
+            "path": "/guides/best-practices/bayesian"
+          },
+          {
             "label": "Feature flag hierarchy",
             "path": "/guides/best-practices/flag-hierarchy"
           },

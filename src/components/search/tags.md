@@ -30,6 +30,7 @@ azure
 
 # B
 bandwidth
+bayesian
 big segment
 billing
 bitbucket
@@ -113,6 +114,7 @@ flag status
 flush
 flutter
 form variable
+frequentist
 
 # G
 gatsby
@@ -258,6 +260,7 @@ sso
 start
 starter
 static
+statistics
 stop
 store
 subscribe
