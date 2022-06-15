@@ -333,7 +333,7 @@ Here is an image of a flag link:
 
 ![A Slack conversation on a flag's "Links" tab.](flag-links-slack-conversation.png)
 
-The `flagLink` capability is used to apply custom formatting and metadata to flag links that originate from your integration service. For complete examples, read the [Slack App manifest](/integrations/slack-app/manifest.json) and the [Jira integration manifest](https://github.com/launchdarkly/integration-framework/blob/main/integrations/jira/manifest.json).
+The `flagLink` capability is used to apply custom formatting and metadata to flag links that originate from your integration service. For complete examples, read the [Slack App manifest](https://github.com/launchdarkly/integration-framework/blob/main/integrations/slack-app/manifest.json) and the [Jira integration manifest](https://github.com/launchdarkly/integration-framework/blob/main/integrations/jira/manifest.json).
 
 The `flagLink` capability has the following properties:
 - [`header`](#the-header-property)
@@ -446,7 +446,7 @@ For example, the [Jira integration](https://github.com/launchdarkly/integration-
 ```json
 "emptyState": {
   "title": "There are no Jira issues that link to this flag.",
-  "leadText": "Jira issues connected to this feature flag will automatically appear here. To learn how to enable the Jira integration or to connect an issue to a feature flag, [read our documentation](https://docs.launchdarkly.com/home/flags/links#creating-jira-flag-links)"
+  "leadText": "Jira issues connected to this feature flag will automatically appear here."
 }
 ```
 </CodeTabItem>
@@ -479,7 +479,7 @@ For example, the [Datadog integration](https://github.com/launchdarkly/integrati
     "reservedCustomProperties": [
       {
         "name": "Datadog tags",
-        "description": "Tags are a way of adding additional dimension to LaunchDarkly change events in Datadog so they can be filtered, aggregated, and compared in visualizations.",
+        "description": "Tags are a way of adding additional dimension...",
         "key": "datadog"
       }
     ]
