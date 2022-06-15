@@ -42,7 +42,11 @@ You can add multiple conditions to a rule. Here is how rules handle multiple con
 - If a condition has multiple values, LaunchDarkly considers the condition met if there is a match on *any* of the values.
 - If a custom attribute has an array value, LaunchDarkly treats it as multiple values and allows any of the values within the array to match a rule.
 
+After you save a targeting rule, you can click the **graph** icon to run an experiment on the rule. To learn more, read [Creating experiments](/home/creating-experiments).
 
+Here is an image of the **graph** icon on a flag's targeting rule:
+
+![A user targeting rule with the "graph" icon called out.](rules-percentage-fifty-callout.png)
 
 ### Operators
 
@@ -224,7 +228,7 @@ In this example, 25% of the `beta_testers` group receive the new dashboard featu
 <CalloutTitle>Experiment allocation</CalloutTitle>
 <CalloutDescription>
 
-If you're using Experimentation, experiment allocation allows you more flexibility when selecting your experiment population and ensures accurate experiment results. To learn how to enable and use experiment allocation, read [Allocating experiment populations](/home/experimentation/allocation).
+If you're using Experimentation, experiment allocation allows you more flexibility when selecting your experiment population and ensures accurate experiment results. To learn how to enable and use experiment allocation, read [Allocating experiment audiences](/home/creating-experiments/allocation).
 
 </CalloutDescription>
 </Callout>

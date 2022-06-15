@@ -1,0 +1,77 @@
+---
+path: /home/analyzing-experiments/winning-variation
+title: Winning variations
+description: This topic explains how to choose a winning variation for a completed experiment.
+published: true
+tags: ['winning', 'variation', 'experiment', 'experimentation', 'enterprise']
+---
+
+## Overview
+
+This topic explains how to choose a winning variation for a completed experiment.
+
+## Choosing a winning variation
+
+LaunchDarkly uses Bayesian statistics in its Experimentation model. The winning variation for a completed experiment is the variation that is most likely to be the best option out of all of the variations you tested. To learn more, read [Experimentation and Bayesian statistics](/guides/best-practices/bayesian).
+
+The "Primary metric results" table on an experiment's **Results** tab displays the variation with the highest probability to be best:
+
+![The "Primary metric results" section on an experiment's "Results" tab.](experiment-card.png)
+
+
+In this example, "Model v2" is the winning variation.
+
+In cases where you have many metrics to consider, it can be difficult to come up with a consistent decision-making strategy. This is why we recommended that you choose a single, primary metric or evaluation criterion for making decisions before you start the experiment.
+
+"Probability to be best" evaluates the primary metric and is the statistic you should use to decide which variation is the winner. The other statistics can help you further understand the difference between variations.
+
+The results table also includes the following statistics:
+- **Relative difference from (the control)**: The relative difference from the control variation is the range that you should have 90% confidence in. For example, if the range of the relative difference is [-1%, 4%], you can have 90% confidence that the population difference is a number between 1% lower and 4% higher than the control.
+- **Credible interval**: The credible interval is the range of the metric's _values_ that you should have 90% confidence in. For example, if the range is [7, 34], you can have 90% confidence that the value of the metric in the population is a number between 7 and 34.
+- **Mean**: The mean is the average value of the variation in this sample. It doesn’t capture the uncertainty in the measurement, so it should not be the only measurement you use to make decisions.
+
+### Decision making with Bayesian statistics
+
+Here is an example of how to make decisions using Bayesian statistics. Imagine you have to choose between three equivalent search algorithms for your website. Now imagine someone gives you three probabilities, one for each search algorithm. The probability percentage represents the chance that the search algorithm will return the best results.
+
+This table displays each search engine's probability of being best:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Variation</TableHeadCell>
+    <TableHeadCell>Probability to be best</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>Search engine 1</TableCell>
+    <TableCell>23%</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Search engine 2</TableCell>
+    <TableCell>31%</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Search engine 3</TableCell>
+    <TableCell>46%</TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
+
+
+The most logical choice of algorithm to use is Search engine 3. This is considered an "optimal strategy" in decision making. 
+
+However, this decision making strategy includes the assumption that there are no costs to switching between options. In online experimentation, this assumption is usually true, but may not be for your particular experiment. 
+
+Switching between variations in a feature flag is a small configuration change, but there might be hidden costs associated with switching. For example, you are testing out a new search algorithm for your website that uses more expensive hardware than your current solution. In that case, you should also consider the hardware costs, in addition to the probability to be best, when choosing the winner.
+
+Another example where there may be additional costs is if you are testing a feature that isn’t fully developed. If the new feature performs only marginally better in the experiment than the variation you currently use, then you may not want to continue developing it.
+
+### Decision making when the best option changes
+
+You may find in some experiments that the variation most likely to be best changes from day to day. For example, on Monday variation one is the winner, and on Tuesday variation two is the winner. This typically happens when there is no real difference between the variations, so the results change slightly day to day depending on the users encountering the experiment.
+
+## Choosing your sample size and run time
+
+The number of users included in an experiment is called the sample size. The larger the sample size for an experiment, the more confident you can be in its outcome. How big your sample size should be depends on how confident you want to be in the outcome and how large the credible intervals are for your metrics. Metrics with large credible intervals are sometimes called "noisy" metrics.
+
+We recommend running experiments for two to four weeks. If you’re time constrained, then run them as long as you can. In some cases, you only may be able to run an experiment for a few days, such as if your marketing campaign is only 48 hours long. It’s still valuable to run short experiments, because making decisions using some data is better than making decisions using no data.

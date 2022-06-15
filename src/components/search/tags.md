@@ -23,6 +23,7 @@ api
 apple
 approval
 attribute
+audience
 audit log
 autoconfig
 aws
@@ -144,6 +145,7 @@ invite
 ios
 ip
 issue
+iteration
 
 # J
 java
@@ -303,6 +305,7 @@ vscode
 # W
 walkthrough
 webhook
+winning
 worker
 workflow
 wrapper

@@ -1,0 +1,145 @@
+---
+path: /home/creating-experiments
+title: Creating experiments
+description: This topic explains how to set up and configure an experiment in LaunchDarkly. It introduces the concepts of metrics, explains different metric types, and explains how metrics interact with feature flags to create experiments.
+published: true
+tags: ['create', 'configure', 'experiment', 'experimentation', 'metric', 'enterprise']
+---
+
+## Overview
+
+This topic explains how to set up and configure an experiment in LaunchDarkly. It introduces the concepts of metrics, explains different metric types, and explains how metrics interact with feature flags to create experiments.
+
+In LaunchDarkly, the combination of metrics and flags is an experiment. Experiments let you measure the effect of flags on users by mapping them to the metrics your team cares about.
+
+## Understanding Experimentation
+
+When a user performs a metric-tracked action in your application after they encounter a feature flag, the experiment logs an event.
+
+For example, an experiment might show that users are more likely to convert by clicking "Checkout" when the checkout button is a certain color. The metric you would track is the number of times users click on the checkout button. You would connect the metric to a flag serving four variations, each of which is a different color for the button.
+
+Configuring an experiment requires four steps:
+
+1. [Creating a metric](#creating-metrics),
+2. [Building an experiment](#building-experiments), 
+3. [Turning on the feature flag](#turning-on-feature-flags), and
+4. [Starting an iteration](#starting-experiment-iterations).
+
+These steps are explained in detail below.
+
+## Prerequisites
+
+To use Experimentation, you must have the following prerequisites:
+
+### Your SDKs must be configured to send events
+
+All of your SDKs must send events. If you have disabled sending events for testing purposes, you must re-enable it. To learn more about the events SDKs send to LaunchDarkly, read [Analytics events](/sdk/concepts/events).
+
+The all flags method sends events for some SDKs, but not others. For SDKs that do not send events with the all flags method, you must call the variation method instead. If you call the variation method, you must use the right variation type. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+
+### Your network must be allowed to send events
+
+Your network must be allowed to send events to LaunchDarkly. Ensure that event streaming endpoints, `mobile.launchdarkly.com`, and `events.launchdarkly.com` are on your allow list.
+
+### You must be using unique user keys
+
+Your anonymous users must have their own unique user keys to use Experimentation. To learn more, read [Designating anonymous users](/sdk/features/user-config#designating-anonymous-users).
+
+### You must configure the Relay Proxy to send events
+
+You do not have to use the Relay Proxy to use Experimentation. However, if you do use the Relay Proxy, you must configure it to send events. To learn more, read [Configuring an SDK to use the Relay Proxy](/home/relay-proxy/using#configuring-an-sdk-to-use-the-relay-proxy).
+
+## Creating metrics
+
+Metrics are the measure against which you evaluate flag events. You can use metrics to track all kinds of things, from how often users access a URL to how long that URL takes to load a page.
+
+After you create a metric, you can connect it to one or more feature flags. If users load a URL, click an element, or otherwise participate in the behavior the metric tracks, LaunchDarkly sends an event to your experiment.
+
+You don't need to create a new metric for each new experiment. You can reuse existing metrics in multiple experiments, which allows you to compare how the metric performs with different flags. Similarly, a single experiment can use primary and secondary metrics, which allow you to observe how the variations perform against various measurements.
+
+### Using primary and secondary metrics
+
+You can designate only one metric as the primary metric in an experiment, but you can attach secondary metrics to your experiments if you want to track the performance of additional measurements.
+
+The primary metric is sometimes called the "overall evaluation criterion." When you are making decisions about the winning variation in an experiment, you should base your decision making only on your primary metric, because decision making becomes much more complicated when you include multiple metrics in a decision.
+
+If you are using just one metric, there are two possible outcomes: up or down. If you are using two metrics, there are four possible outcome combinations: up/down, down/up, up/up, or down/down. 
+
+For each metric you add to an experiment, the possible outcomes increase quickly. If you are using three metrics, there are eight different possible outcome combinations. If you are using ten metrics, there are 1,024 possible outcome combinations. For this reason we recommend basing your decision-making on only your primary metric.
+
+To learn how to create a new metric, read [Creating metrics](/home/creating-experiments/metrics).
+
+## Building experiments
+
+You can view all of the experiments in your environment on the **Experiments** dashboard.
+
+To build an experiment:
+
+1. Navigate to the **Experiments** dashboard.
+2. Click **Create experiment**:
+
+![The "Experiments" dashboard with the "Create experiment" button called out.](experiment-dashboard-new-callout.png)
+
+3. Enter an **Experiment name**.
+4. Enter a **Hypothesis** for your experiment.
+5. Click **Next**. The "Select metrics" step opens.
+6. Choose a metric from the **Primary metric** menu.
+7. (Optional) Choose additional metrics from the **Secondary metrics** menu. To learn more, read [Using primary and secondary metrics](#using-primary-and-secondary-metrics).
+
+![The "Select metrics" section of a new experiment.](experiment-builder-select-metrics.png)
+
+8. Click **Next**. The "Define variations" step opens.
+9. Choose a flag to use in the experiment from the **Select flag** menu.
+10. Click **Next**. The "Set audience" step opens.
+11. Choose the audience to include in the experiment. The audience options are created from the targeting rules in the feature flag you connected in step 9.
+12. Enter the percentage of traffic for each variation you want to include in the experiment.
+13. Select which variation you want LaunchDarkly to serve to the remaining population.
+  - (Optional) To disable traffic variation reassignment, click **Advanced**, then check the **Keep users assigned to initial variation** checkbox. We strongly recommend leaving this box **unchecked**. To learn more, read [Understanding variation reassignment](/home/creating-experiments/allocation#understanding-variation-reassignment).
+  
+  ![The "Set audience" section of a new experiment.](experiment-builder-set-audience.png)
+  
+15. Click **Finish**. You are returned to the experiment's **Design** tab.
+
+<LearnMore>
+
+You can also use the REST API: [Create experiment](https://apidocs.launchdarkly.com/tag/Experiments-(beta)#operation/createExperiment)
+
+</LearnMore>
+
+After you have created your experiment, the next steps are to toggle on the flag and start an iteration.
+
+## Turning on feature flags
+
+For an experiment to begin recording data, the flag used in the experiment must be on. To learn how, read [Turning flags on and off](/home/managing-flags/flag-toggle).
+
+## Starting experiment iterations
+
+After you create an experiment and toggle on the flag, you can start an experiment iteration in one or more environments. 
+
+To start an experiment iteration:
+
+1. Navigate to the **Experiments** dashboard in the environment you want to start an iteration in.
+2. Click on the name of the experiment you want to start an iteration for. The **Results** tab appears.
+3. Click **Start**.
+4. Repeat steps 1-3 for each environment you want to start an iteration in.
+
+![The "Results" tab of an experiment with the "Start" button called out.](experiment-results-start-callout.png)
+  
+Experiment iterations allow you to record experiments in discrete blocks of time. To ensure accurate experiment results, when you make changes that impact an experiment, LaunchDarkly starts a new iteration of the experiment.
+
+To learn more about starting and stopping experiment iterations, read [Managing experiments](/home/analyzing-experiments/managing).
+
+<Callout intent="info">
+<CalloutTitle>Experiment settings are environment-specific</CalloutTitle>
+<CalloutDescription>
+
+When you create an experiment, it appears in every environment in your project. However, the **Start** button only impacts the experiment in your current environment. If you want to start a new iteration of the experiment in multiple environments, you must click **Start** in each environment individually. For example, you might run an experiment in Staging to gather data internally before starting an iteration in Production to gather customer data.
+
+</CalloutDescription>
+</Callout>
+
+<LearnMore>
+
+You can also use the REST API: [Create iteration](https://apidocs.launchdarkly.com/tag/Experiments-(beta)#operation/createIteration)
+
+</LearnMore>

@@ -1,0 +1,109 @@
+---
+path: /home/analyzing-experiments/managing
+title: Managing experiments
+description: This topic explains how to start recording an experiment iteration and stop the experiment iteration when you're finished.
+published: true
+tags: ['start', 'stop', 'iteration', 'manage', 'experiment', 'experimentation', 'enterprise']
+---
+
+## Overview
+
+This topic explains how to start recording an experiment iteration and stop the experiment iteration when you're finished.
+
+When you start an experiment, LaunchDarkly creates a new iteration for that experiment. Each iteration includes the results of the experiment over a period of time for its specific configuration. When you stop an experiment or edit its configuration, including its hypothesis, metrics, variations, or audience, LaunchDarkly ends the iteration. This ensures that your experiment results are valid.
+
+## Starting experiment iterations
+
+Experiments do not start collecting data automatically. When you want to begin recording data, you must start a new experiment iteration.
+
+To start a new experiment iteration:
+
+1. Navigate to the **Experiments** dashboard.
+2. Click on the name of the experiment you want to start an iteration for. The **Design** tab appears.
+3. Click **Start**:
+
+![An experiment with the "Start" button called out.](experiment-results-start-callout.png)
+
+The **Start** button only starts a new iteration of the experiment in that specific environment. If you wish to run the same experiment in multiple environments, you must press the **Start** button on each experiment in each environment. This behavior prevents you from being billed for events you don't want to track.
+
+To learn more about creating an experiment, read [Creating experiments](/home/creating-experiments).
+
+After you start your experiment iteration, you can check on it at any time in the flag's **Experimentation** tab. Experiment data appears on the **Experimentation** tab after a few minutes. You may have to refresh the page to fetch new data for your experiment.
+
+<LearnMore>
+
+You can also use the REST API: [Patch experiment](https://apidocs.launchdarkly.com/tag/Experiments-(beta)#operation/patchExperiment)
+
+</LearnMore>
+
+## Stopping experiment iterations
+
+If you have discovered a winning variation or need to make changes to your experiment, you can stop your experiment iteration.
+
+To stop an experiment iteration:
+
+1. Navigate to the **Experiments** dashboard.
+2. Click on the name of the experiment you want to stop. The **Design** tab appears.
+3. Click **Stop**:
+
+![An experiment with the "Stop" button called out.](experiment-stop-callout.png)
+
+You can stop recording an experiment at any time. Just like starting an iteration, stopping an iteration only impacts the experiment in one environment. If you wish to stop collecting data from every instance of an experiment, you must stop each experiment in each environment individually.
+
+When you stop recording an experiment, LaunchDarkly ends the iteration and stops collecting data about user behavior for that experiment. The data collected for that iteration is available in a table.
+
+To view the data, choose the iteration from the **Iteration** tab:
+
+![An experiment's "Iteration" tab.](experiment-iterations-tab.png)
+
+Stopping an experiment does not delete the experiment. Stopping an experiment lets you retain the results and data the experiment has already collected.
+
+<LearnMore>
+
+You can also use the REST API: [Patch experiment](https://apidocs.launchdarkly.com/tag/Experiments-(beta)#operation/patchExperiment)
+
+</LearnMore>
+
+## Managing experiment audiences
+
+Before you make any changes to an active experiment's audience, you must stop your experiment. To learn how, read [Stopping experiment iterations](#stopping-experiment-iterations).
+
+To edit the audience of an experiment:
+
+1. Navigate to the **Design** tab of your experiment.
+2. Click **Edit experiment**.
+3. Navigate to the "Experiment audience" section and click the pencil **edit** icon.
+
+![The user targeting section of a flag's "Targeting" tab with an active experiment.](experiment-targeting-edit-population.png)
+
+4. Edit the traffic allocation as needed.
+  - (Optional) To disable traffic variation reassignment, click **Advanced**, then check the **Keep users assigned to initial variation** checkbox. We strongly recommend leaving this box **unchecked**. To learn more, read [Understanding variation reassignment](/home/creating-experiments/allocation#understanding-variation-reassignment).
+5. Scroll to the top of the page and click **Save**. 
+  - If you didn't stop the experiment before making edits, a "Stop this experiment?" dialog appears. Select a variation to serve users while the experiment is stopped, enter a reason for the change, and click **Stop experiment**.
+  - If you did stop the experiment before making edits, a "Save experiment design?" dialog appears. Enter a reason for the change and click **Save and start new iteration**.
+
+## Legacy experiments
+
+Customers on older contracts may have experiments they created under an old data model. These experiments are listed on the **Experiments** dashboard as "Legacy experiments." 
+
+You cannot edit or start new iterations for legacy experiments, but you can view their results by clicking on the name of the legacy experiment from the dashboard.
+
+<LearnMore>
+
+You can also use the REST API: [Get legacy experiment results](https://apidocs.launchdarkly.com/tag/Experiments-(beta)#operation/getLegacyExperimentResults)
+
+</LearnMore>
+
+### Winning variations in legacy experiments
+
+After your legacy experiment has registered enough events to achieve statistical significance compared to the baseline flag variation, LaunchDarkly declares a winning variation. A winning variation appears when that variation reaches 95% statistical significance.
+
+You can view the statistical significance of your metrics and the winning versions in the "Statistical significance" column. The baseline variation does not show statistical significance.
+
+Your winning variation is the flag variation that has the most positive impact compared to the baseline. You can roll the winning variation out to 100% of your users from the flag's **Targeting** tab. To learn how, read [Percentage rollouts](/home/flags/rollouts).
+
+To learn how to determine the winning variation in the current Experimentation model instead, read [Winning variations](/home/analyzing-experiments/winning-variation).
+
+### Billing for legacy experiments
+
+Legacy experiments were billed using a different billing model than our current Experimentation product. To learn more, read [Managing Experimentation billing costs](/home/about-experimentation/events#managing-experimentation-billing-costs).

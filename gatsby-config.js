@@ -155,7 +155,7 @@ if (process.env.DEV_FAST !== 'true') {
         '**/sdk',
         '**/home/account-security',
         '**/home/advanced',
-        '**/home/experimentation',
+        '**/home/about-experimentation',
         '**/home/metrics-and-insights',
       ],
     },

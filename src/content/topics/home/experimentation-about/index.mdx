@@ -1,0 +1,233 @@
+---
+path: /home/about-experimentation
+title: About Experimentation
+description: This topic explains the concepts and value of LaunchDarkly's Experimentation feature.
+published: true
+tags: ['experiment', 'experimentation', 'enterprise']
+---
+
+<Callout intent="primary">
+<CalloutTitle>Experimentation is an add-on feature</CalloutTitle>
+<CalloutDescription>
+
+Experimentation is available as an add-on for customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To add Experimentation to your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains the concepts and value of LaunchDarkly's Experimentation feature. Experiments let you measure the effect of flags on users by tracking metrics your team cares about.
+
+## Understanding Experimentation
+
+Experimentation lets you validate the impact of features you roll out to your app or infrastructure. You can measure things like page views, clicks, load time, infrastructure costs, and more.
+
+By connecting metrics you create to flags in your LaunchDarkly environment, you can measure the changes in your users' behavior based on what flags they evaluate. This helps you make more informed decisions, so the features your development team ships align with your business objectives.
+
+![An active experiment.](experiment-card.png)
+
+## Using Experimentation
+
+We designed Experimentation to be accessible to a variety of roles within your organization. For example, product managers can use experiments to measure the value of the features they ship, designers can use experiments to conduct multivariate testing on UI and UX components, and DevOps engineers can use them to test the efficacy and performance of their infrastructure changes.
+
+If an experiment tells you a flag has positive impact, you can roll that flag out to your entire user base to maximize its value. Alternatively, if you don't like the results you're getting from one flag, you can switch it off and minimize its impact on your user base.
+
+Some of the things you can do with Experimentation include:
+
+- A/B/n testing, also called multivariate testing
+- Start and stop experiments at any time so you have granular control over when data is recorded
+- Review credible intervals in experiment results so you can decide which variation you can trust to have the most impact
+- Expose specific groups of users to experiments, refining your testing audience
+
+## Analyzing experiment results
+
+Experiment data is collected on an experiment's **Results** tab, which displays experiment data in near-real time.
+
+As your experiment collects data, LaunchDarkly calculates the variation that is most likely to be the best choice out of all the variations you're testing. After you decide which flag variation has the impact you want, you can gradually roll that variation out to 100% of your users with LaunchDarkly's percentage rollouts feature. To learn more about percentage rollouts, read [Percentage rollouts](/home/flags/rollouts).
+
+To learn more, read [Analyzing experiments](/home/analyzing-experiments).
+
+## Experimentation best practices
+
+As you use Experimentation, consider these best practices:
+
+- **Use feature flags on every new feature you develop.** This is a best practice, but it especially helps when you're running experiments in LaunchDarkly. By flagging every feature, you can quickly turn any aspect of your product into an experiment.
+- **Consider experiments from day one.** Create hypotheses in the planning stage of feature development, so you and your team are ready to run experiments as soon as your feature launches.
+- **Define what you're measuring.** Align with your team on which tangible metrics you're optimizing for, and what results constitute success.
+- **Plan your experiments in relation to each other.** If you're running multiple experiments simultaneously, make sure they don't collect similar or conflicting data.
+- **Associate users who interact with your app before and after logging in.** If a user accesses your experiment from both a logged out and logged in state, each state will generate its own user key. Use `alias` events to associate the two user keys, which prevents one user from generating duplicate events. To learn more, read [Associating anonymous users with logged in users](/home/users/anonymous-users#associating-anonymous-users-with-logged-in-users).
+
+You can use experiments to measure a variety of different outcomes. Some example experiments include:
+
+- Testing the efficacy of different search implementations, such as Elasticsearch versus SOLR versus Algolia
+- Tracking how features you ship are increasing or decreasing page load time
+- Calculating conversion rates by monitoring how frequently users click on various page elements
+
+<LearnMore>
+
+You can also use the REST API: [Experiments (beta)](https://apidocs.launchdarkly.com/tag/Experiments-(beta))
+
+</LearnMore>
+
+## Experiment pricing
+
+Experiments are billed monthly based on the number of unique user keys in each experiment. To estimate your Experimentation billing costs, multiply the number of experiments you run each month by the number of unique users in your experiment audience.
+
+<Callout intent="info">
+<CalloutTitle>Your billing model may be different</CalloutTitle>
+<CalloutDescription>
+
+Customers on older contracts may be billed by Experimentation event count, rather than unique user keys. To learn more, read [Experimentation events](/home/about-experimentation/events). If you are unsure about how you are being billed for Experimentation, [contact Sales](https://launchdarkly.com/contact-sales/) or your LaunchDarkly Account Executive.
+
+
+You may be billed twice for some events if you're also using LaunchDarkly's Data Export features. To learn more, read [Data Export](/home/data-export).
+
+</CalloutDescription>
+</Callout>
+
+## Prerequisites
+
+To use Experimentation, you must have the following prerequisites:
+
+1. You must be using the listed version number or higher for the following SDKs.
+
+<Details summary="Click to expand a table listing required client-side SDK versions">
+
+Client-side SDKs:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>SDK</TableHeadCell>
+    <TableHeadCell>Version</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>.NET (client-side/Xamarin)</TableCell>
+      <TableCell>2.0.0</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Android</TableCell>
+      <TableCell>3.1.0</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>C/C++</TableCell>
+      <TableCell>All versions</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Electron</TableCell>
+      <TableCell>All versions</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Flutter</TableCell>
+      <TableCell>0.2.0</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>iOS</TableCell>
+      <TableCell>All versions</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>JavaScript</TableCell>
+      <TableCell>All versions</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Node.js</TableCell>
+      <TableCell>All versions</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>React Native</TableCell>
+      <TableCell>5.0.0</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>React Web</TableCell>
+      <TableCell>All versions</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Roku</TableCell>
+      <TableCell>All versions</TableCell>
+    </TableRow>
+</TableBody>
+</Table>
+
+</Details>
+
+<Details summary="Click to expand a table listing required server-side SDK versions">
+
+Server-side SDKs:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>SDK</TableHeadCell>
+    <TableHeadCell>Version</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>.NET</TableCell>
+    <TableCell>6.1.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Apex</TableCell>
+    <TableCell>1.1.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>C/C++</TableCell>
+    <TableCell>2.4.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Erlang</TableCell>
+    <TableCell>1.2.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Go</TableCell>
+    <TableCell>5.4.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Haskell</TableCell>
+    <TableCell>2.2.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Java</TableCell>
+    <TableCell>5.5.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Lua</TableCell>
+    <TableCell>2.4.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Node.js</TableCell>
+    <TableCell>6.1.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>PHP</TableCell>
+    <TableCell>4.1.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Python</TableCell>
+    <TableCell>7.2.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Ruby</TableCell>
+    <TableCell>6.2.0</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Rust</TableCell>
+    <TableCell>1.0.0-beta.1</TableCell>
+  </TableRow>
+</TableBody>
+</Table>
+
+</Details>
+
+2. If you use the LaunchDarkly Relay Proxy, it must be at least version 6.3.0.
+3. You must email support@launchdarkly.com to have audience allocation enabled on your account.
+
+<Callout intent="alert">
+<CalloutTitle>Outdated SDKs return invalid experiment results</CalloutTitle>
+<CalloutDescription>
+
+When you request that we enable audience allocation for your account, we will ask you to confirm that you are using SDK and Relay Proxy versions that support this feature. If your SDK and Relay Proxy versions are outdated, users will receive different flag variations across various SDKs, rendering your experimentation results invalid.
+
+</CalloutDescription>
+</Callout>
+
+If you are currently running any experiments, enabling audience allocation does not affect those experiments. Each of your experiments will continue to record results for the same audience until you pause the experiment. After you enable audience allocation, all new or paused experiments will require an audience allocation before you can begin recording.
