@@ -72,7 +72,7 @@ This new random assignment prevents carryover bias by ensuring that users from p
 
 It may seem counterintuitive to allow the experiment to reassign users to different variations, especially if you are used to the way rollouts work in LaunchDarkly outside of experimentation. However, allowing reassignment has advantages, provided the change you are experimenting on is not disruptive to users. In practice, this is the case for many experiments. A common example is "user-day experiments", which run for only one day at a time.
 
-For experiments where users should not leave the variation they're initially allocated to, such as significant navigation menu changes or large user interface (UI) changes, you can disable variation reassignment. However, keeping users in the same variations incurs additional risk. To learn more, read [Disabling variation reassignment](#disabling-variation-reassignment).
+For experiments where users should not leave the variation they're initially allocated to, such as significant navigation menu changes or large user interface (UI) changes, you can disable variation reassignment. However, keeping users in the same variations incurs additional risk.
 
 Using fresh traffic and freeing the previous ramp’s traffic prevents carry-over effects and ensures you don't run out of traffic for your experiment.
 
