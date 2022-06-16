@@ -10,7 +10,7 @@ tags: ['okta', 'admin', 'scim', 'sso', 'custom role', 'idp']
 
 This topic explains how Okta and LaunchDarkly work together to provide user management for your account members. Okta and LaunchDarkly communicate through the System for Cross-domain Identity Management (SCIM) API specification. SCIM is designed to make managing identities in cloud-based applications and services easier.
 
-A LaunchDarkly app is available in Okta. You can connect LaunchDarkly and Okta through the Okta UI, give Okta permissions to modify account members in LaunchDarkly, and even integrate LaunchDarkly custom roles with Okta.
+A LaunchDarkly app is available in Okta. You can connect LaunchDarkly and Okta through the Okta UI, give Okta permissions to modify account members in LaunchDarkly, and even integrate LaunchDarkly custom roles with Okta. Optionally, you can also sync groups in Okta with teams in LaunchDarkly to automate team member provisioning.
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ To use Okta with LaunchDarkly, you must meet the following prerequisites:
 <CalloutTitle>SCIM-based user provisioning is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-SCIM facilitates _user provisioning_, which means your IdP can use it to create, update, and deactivate members in LaunchDarkly. User provisioning with SCIM is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+SCIM facilitates _real-time user provisioning_, which means your IdP can use it to create, update, and deactivate members in LaunchDarkly prior to user authentication. User provisioning with SCIM is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>

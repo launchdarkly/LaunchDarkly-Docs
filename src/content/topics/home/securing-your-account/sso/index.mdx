@@ -19,7 +19,9 @@ Single sign-on is available to customers on an Enterprise plan. It is available 
 
 This topic explains what Single Sign-On (SSO) features are available in LaunchDarkly and how to configure your environment for SSO.
 
-SSO allows your team to authenticate with LaunchDarkly using the same identity provider (IdP) you use for your other internal and external services. LaunchDarkly implements SSO with the SAML 2.0 protocol. Administrators can use SSO with their IdP to manage access rights in LaunchDarkly. After SSO is enabled, administrators can also enable System for Cross-domain Identity Management (SCIM) provisioning through their IdP.
+SSO allows your team to authenticate with LaunchDarkly using the same identity provider (IdP) you use for your other internal and external services. LaunchDarkly implements SSO with the SAML 2.0 protocol. Administrators can use SSO with their IdP to manage access rights in LaunchDarkly. After SSO is turned on, administrators can also enable System for Cross-domain Identity Management (SCIM) provisioning through their IdP.
+
+Once SCIM is configured, administrators can optionally turn on and configure team sync with IdP. Team sync with IdP allows administrators to sync groups in their IdP with teams in LaunchDarkly to automate team member provisioning.
 
 ## Setting up SSO in LaunchDarkly
 
@@ -48,15 +50,12 @@ To learn more, about built-in roles and their permissions, read [Understanding L
 
 ## Configuring an external IdP
 
-This table lists our external IdPs:
+This table lists the external IdPs for which we provide configuration guidance, as well as their supported features:
 
 <Table>
   <TableHeader>
     <TableHeadCell>
     Identity providers
-    </TableHeadCell>
-    <TableHeadCell>
-    Configurable SAML SSO
     </TableHeadCell>
     <TableHeadCell>
     IdP Integration SAML SSO
@@ -70,6 +69,9 @@ This table lists our external IdPs:
     <TableHeadCell>
     Enterprise plan support
     </TableHeadCell>
+    <TableHeadCell>
+    Team sync with IdP
+    </TableHeadCell>
   </TableHeader>
   <TableBody>
     <TableRow>
@@ -80,14 +82,13 @@ This table lists our external IdPs:
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
-      </TableCell>
-      <TableCell>
-      </TableCell>
-      <TableCell>
-        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
     </TableRow>
     <TableRow>
@@ -98,14 +99,13 @@ This table lists our external IdPs:
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
-      </TableCell>
-      <TableCell>
-      </TableCell>
-      <TableCell>
-        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
     </TableRow>
     <TableRow>
@@ -116,15 +116,14 @@ This table lists our external IdPs:
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
-        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
-      </TableCell>
-      <TableCell>
       </TableCell>
       <TableCell>
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
       </TableCell>
     </TableRow>
     <TableRow>
@@ -144,7 +143,7 @@ This table lists our external IdPs:
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
-        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+            <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
     </TableRow>
     <TableRow>
@@ -164,7 +163,6 @@ This table lists our external IdPs:
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
-        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
     </TableRow>
   </TableBody>
@@ -317,31 +315,31 @@ To use SSO in test-drive mode:
 ![The test-drive enablement option.](settings-security-sso-test-drive.png)
 
 
-## Enabling SSO
+## Turning on SSO
 
-When you're satisfied with the SSO integration and are ready to enable it for all account members in LaunchDarkly, enable SSO by following the procedure below.
+When you're satisfied with the SSO integration and are ready to turn it on it for all account members in LaunchDarkly, turn on SSO by following the procedure below.
 
 To enable SSO:
 
 1. Log into LaunchDarkly as an administrator.
 2. Navigate **Account settings** > **Security** and scroll to the "SSO management" section.
-3. Click **Enable SSO**. A confirmation dialog appears.
-4. Click **Enable**:
+3. Click **Turn on SSO**. A confirmation dialog appears.
+4. Click **Turn on**:
 
 ![The "Enable SSO" confirmation dialog.](settings-security-enable-sso-confirm.png)
 
 
-Once SSO is enabled, the LaunchDarkly login procedure defers to your identity provider for authentication. Users will no longer be able to log in with their existing LaunchDarkly password.
+Once SSO is turned on, the LaunchDarkly login procedure defers to your identity provider for authentication. Users will no longer be able to log in with their existing LaunchDarkly password, and users logging in to LaunchDarkly for this first time will need to log in through their IdP.
 
 Additionally, LaunchDarkly administrator and account owners will no longer be able to invite members to the organization. The only way to add additional account members is to have them log in through your IdP.
 
-## Disabling SSO
+## Turning off SSO
 
-You can disable SSO at any time. When SSO is disabled, any existing members will still be able to sign into LaunchDarkly with their previous passwords, or reset their passwords.
+You can turn off SSO at any time. When SSO is turned off, any existing members will still be able to sign into LaunchDarkly with their previous passwords, or reset their passwords.
 
 Users that were provisioned through SSO will be required to reset their password in order to sign into LaunchDarkly.
 
-To disable SSO:
+To turn off SSO:
 
 1. Log into LaunchDarkly as an administrator.
 2. Navigate **Account settings** > **Security** and scroll to the "SSO management" section.
@@ -351,22 +349,24 @@ To disable SSO:
 ![The "Disable SSO" confirmation dialog.](settings-security-sso-disable.png)
 
 
-## Enabling SCIM provisioning
+## Configuring SCIM
 
 <Callout>
-<CalloutTitle>SSO is required</CalloutTitle>
+<CalloutTitle>Provisioning with SCIM is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-You must be a LaunchDarkly administrator and have SSO enabled to complete the following procedure.
+    SCIM is only available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+    Additionally, You must be a LaunchDarkly administrator and have SSO enabled to complete the following procedure.
 
 </CalloutDescription>
 </Callout>
 
-If you have enabled SSO, you can enable SCIM provisioning as well. SCIM facilitates _user provisioning_, which means your IdP can use it to create, update, and deactivate members in LaunchDarkly.
+If you have turned on SSO, you can configure SCIM provisioning as well. SCIM facilitates _real-time user provisioning_, which means your IdP can use it to create, update, and deactivate members in LaunchDarkly prior to user authentication.
 
 Initiate the workflow that links your IdP with SCIM from your IdP. The workflow will lead to an authorization screen where you can authorize your IdP to manage your account members.
 
-You may only have one SCIM provider linked to your IdP at once. If you need to change providers, disconnect the original provider by following the workflow below and enable a different one through your IdP.
+You may only have one SCIM provider linked to your IdP at once. If you need to change providers, disconnect the original provider by following the workflow below and configure a different one through your IdP.
 
 You cannot deactivate an account member using SCIM deprovisioning if you added the member to your LaunchDarkly account before you enabled SCIM provisioning or SSO.
 
