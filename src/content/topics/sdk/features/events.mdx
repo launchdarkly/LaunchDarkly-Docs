@@ -593,8 +593,7 @@ client.track("your-goal-key", user);
 </CodeTabItem>
 </CodeTabs>
 
-You can also attach custom JSON data to your event with an alternate version of `track`, [`trackData`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackData-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-). You can set the data to any value that can be represented in JSON. 
-<!--- To learn more, read [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html). -->
+You can also attach custom JSON data to your event with an alternate version of `track`, [`trackData`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackData-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-). You can set the data to any value that can be represented in JSON. To learn more, read [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html).
 
 If you are using [Experimentation](/home/about-experimentation), you can specify a numeric metric with [`trackMetric`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackMetric-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-double-).
 

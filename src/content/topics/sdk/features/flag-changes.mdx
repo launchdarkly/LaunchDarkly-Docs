@@ -771,13 +771,9 @@ The Java SDK only supports subscribing to flag changes in versions 5.0.0 and hig
 </CalloutDescription>
 </Callout>
 
-The SDK provides a listener-based mechanism to notify you when flag configurations change. The `LDClient.getFlagTracker()` method returns an interface for this mechanism, `FlagTracker`.
+The SDK provides a listener-based mechanism to notify you when flag configurations change. The [`LDClient.getFlagTracker()`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#getFlagTracker--) method returns an interface for this mechanism, [`FlagTracker`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html).
 
-<!--- The [`LDClient.getFlagTracker()`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#getFlagTracker--) method returns an interface for this mechanism, [`FlagTracker`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html). -->
-
-Calling `getFlagTracker().addFlagChangeListener` calls your listener with a `FlagChangeEvent` whenever there is a change in any feature flag's configuration, or in anything else that could indirectly affect the flag value, such as a prerequisite flag or a user segment that the flag uses.
-
-<!--- Calling [`getFlagTracker().addFlagChangeListener`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html#addFlagChangeListener-com.launchdarkly.sdk.server.interfaces.FlagChangeListener-) calls your listener with a [`FlagChangeEvent`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagChangeEvent.html) whenever there is a change in any feature flag's configuration, or in anything else that could indirectly affect the flag value, such as a prerequisite flag or a user segment that the flag uses. -->
+Calling [`getFlagTracker().addFlagChangeListener`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html#addFlagChangeListener-com.launchdarkly.sdk.server.interfaces.FlagChangeListener-) calls your listener with a [`FlagChangeEvent`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagChangeEvent.html) whenever there is a change in any feature flag's configuration, or in anything else that could indirectly affect the flag value, such as a prerequisite flag or a user segment that the flag uses.
 
 The event data consists only of the flag key. It does not contain a flag value, because in server-side SDKs, there is no such thing as a flag value except when it is evaluated for a specific set of user properties.
 
@@ -804,9 +800,7 @@ void logWheneverAnyFlagChanges(LDClient client) {
 </CodeTabItem>
 </CodeTabs>
 
-To listen for changes in flag values for a specific flag key and user, use `getFlagTracker().addFlagValueChangeListener`, which provides `FlagValueChangeEvent`s. This is equivalent to re-evaluating the flag for that user whenever `addFlagChangeListener()` reports a change in that flag. Because flag values can have different data types, the value is reported using the general type `LDValue`.
-
-<!--- To listen for changes in flag values for a specific flag key and user, use [`getFlagTracker().addFlagValueChangeListener`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html#addFlagValueChangeListener-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.server.interfaces.FlagValueChangeListener-), which provides [`FlagValueChangeEvent`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagValueChangeEvent.html)s. This is equivalent to re-evaluating the flag for that user whenever `addFlagChangeListener()` reports a change in that flag. Because flag values can have different data types, the value is reported using the general type [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html). -->
+To listen for changes in flag values for a specific flag key and user, use [`getFlagTracker().addFlagValueChangeListener`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html#addFlagValueChangeListener-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.server.interfaces.FlagValueChangeListener-), which provides [`FlagValueChangeEvent`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagValueChangeEvent.html)s. This is equivalent to re-evaluating the flag for that user whenever `addFlagChangeListener()` reports a change in that flag. Because flag values can have different data types, the value is reported using the general type [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html).
 
 <CodeTabs
   defaultValue="java"
