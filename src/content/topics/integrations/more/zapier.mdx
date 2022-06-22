@@ -1,0 +1,42 @@
+---
+path: /integrations/zapier
+title: Zapier
+description: This topic explains how to set up and use the LaunchDarkly Zapier integration.
+published: true
+tags: ['zapier', 'integration']
+---
+
+## Overview
+
+Do you want to integrate LaunchDarkly with the business tools you use everyday, but don't want to write a whole application or craft the perfect API calls? Our [Zapier integration] might be just what you need! Zapier provides a platform for setting up automated workflows between different apps using a web interface. Each Zap has a trigger, and actions that proceed from that trigger.
+
+The LaunchDarkly Zapier integration includes several triggers and actions for constructing useful Zaps. You can trigger a Zap on audit log events, with advanced filtering and globbing for finding the right events to trigger on. You can also toggle a flag, add a user to a flag, or evaluate a flag as an action in your Zap.
+
+Using the integration is as easy as going to [zapier.com](https://zapier.com), creating a Zap, and searching "LaunchDarkly" in the App Event search box.
+
+![Zapier event search for LaunchDarkly](zapier-event-search.png)
+
+## Prerequisites
+
+Some LaunchDarkly features available in this integration require a certain plan, and may not be available without an Enterprise plan.
+
+## Creating a Zap triggered by LaunchDarkly audit log events
+
+1. Go to [https://zapier.com](https://zapier.com) and log in
+2. Click 'Create a Zap' in the top left-hand corner
+3. Type 'LaunchDarkly' in the App Event search
+4. Select the type of event you want to trigger your Zap on (for example 'Flag events')
+5. Follow the Zapier prompts to authenticate with LaunchDarkly and configure the trigger.
+6. Et voila! You can set up the rest of your Zap to do things like notify you in Slack when certain events happen, or create calendar events for scheduled flag changes.
+
+## Creating a Zap to toggle a LaunchDarkly flag
+
+1. Go to [https://zapier.com](https://zapier.com) and log in
+2. Click 'Create a Zap' in the top left-hand corner
+3. Select the trigger you want to cause the LaunchDarkly flag to toggle, for example use the Schedule trigger to toggle a flag every year on April 1st.
+4. Once you've set up the trigger, Zapier will show a new 'App Event' modal. Search 'LaunchDarkly'
+5. Choose the 'Toggle a Feature Flag' event
+6. Follow the Zapier prompt to authenticate with LaunchDarkly, and configure the flag you want to toggle.
+7. Click 'Test & Continue'
+8. Turn the Zap on
+9. See your flag toggle when the trigger happens!
