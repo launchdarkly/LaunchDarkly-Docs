@@ -21,7 +21,7 @@ For example, an experiment might show that users are more likely to convert by c
 Configuring an experiment requires four steps:
 
 1. [Creating a metric](#creating-metrics),
-2. [Building an experiment](#building-experiments), 
+2. [Building an experiment](#building-experiments),
 3. [Turning on the feature flag](#turning-on-feature-flags), and
 4. [Starting an iteration](#starting-experiment-iterations).
 
@@ -30,6 +30,12 @@ These steps are explained in detail below.
 ## Prerequisites
 
 To use Experimentation, you must have the following prerequisites:
+
+### You must use a supported SDK version
+
+Most versions of LaunchDarkly SDKs support Experimentation, but if you use older versions of our SDKs, or you used an older version of Experimentation, compare your SDK versions to our list of supported SDKs to confirm that you're using a version that supports our most recent Experimentation offering.
+
+To find the supported SDK versions, read [Prerequisites](/home/about-experimentation#prerequisites) in [About Experimentation](/home/about-experimentation).
 
 ### Your SDKs must be configured to send events
 
@@ -63,7 +69,7 @@ You can designate only one metric as the primary metric in an experiment, but yo
 
 The primary metric is sometimes called the "overall evaluation criterion." When you are making decisions about the winning variation in an experiment, you should base your decision making only on your primary metric, because decision making becomes much more complicated when you include multiple metrics in a decision.
 
-If you are using just one metric, there are two possible outcomes: up or down. If you are using two metrics, there are four possible outcome combinations: up/down, down/up, up/up, or down/down. 
+If you are using just one metric, there are two possible outcomes: up or down. If you are using two metrics, there are four possible outcome combinations: up/down, down/up, up/up, or down/down.
 
 For each metric you add to an experiment, the possible outcomes increase quickly. If you are using three metrics, there are eight different possible outcome combinations. If you are using ten metrics, there are 1,024 possible outcome combinations. For this reason we recommend basing your decision-making on only your primary metric.
 
@@ -95,9 +101,9 @@ To build an experiment:
 12. Enter the percentage of traffic for each variation you want to include in the experiment.
 13. Select which variation you want LaunchDarkly to serve to the remaining population.
   - (Optional) To disable traffic variation reassignment, click **Advanced**, then check the **Keep users assigned to initial variation** checkbox. We strongly recommend leaving this box **unchecked**. To learn more, read [Understanding variation reassignment](/home/creating-experiments/allocation#understanding-variation-reassignment).
-  
+
   ![The "Set audience" section of a new experiment.](experiment-builder-set-audience.png)
-  
+
 15. Click **Finish**. You are returned to the experiment's **Design** tab.
 
 <LearnMore>
@@ -114,7 +120,7 @@ For an experiment to begin recording data, the flag used in the experiment must 
 
 ## Starting experiment iterations
 
-After you create an experiment and toggle on the flag, you can start an experiment iteration in one or more environments. 
+After you create an experiment and toggle on the flag, you can start an experiment iteration in one or more environments.
 
 To start an experiment iteration:
 
@@ -124,7 +130,7 @@ To start an experiment iteration:
 4. Repeat steps 1-3 for each environment you want to start an iteration in.
 
 ![The "Results" tab of an experiment with the "Start" button called out.](experiment-results-start-callout.png)
-  
+
 Experiment iterations allow you to record experiments in discrete blocks of time. To ensure accurate experiment results, when you make changes that impact an experiment, LaunchDarkly starts a new iteration of the experiment.
 
 To learn more about starting and stopping experiment iterations, read [Managing experiments](/home/analyzing-experiments/managing).

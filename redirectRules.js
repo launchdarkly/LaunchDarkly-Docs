@@ -2,6 +2,14 @@ module.exports = [
   // Redirects within the git-gatsby docs site
 
   {
+    fromPath: '/home/experimentation/',
+    toPath: '/home/about-experimentation',
+  },
+  {
+    fromPath: '/home/creating-experiments/allocation#prerequisites',
+    toPath: '/home/about-experimentation#prerequisites',
+  },
+  {
     fromPath: '/home/experimentation/creating-metrics',
     toPath: '/home/creating-experiments/metrics',
   },
