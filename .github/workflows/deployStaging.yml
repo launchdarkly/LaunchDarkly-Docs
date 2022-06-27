@@ -89,6 +89,7 @@ jobs:
         if: steps.build-status.outputs.deploy == 'true'
         run: yarn build-deploy-staging
         env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
