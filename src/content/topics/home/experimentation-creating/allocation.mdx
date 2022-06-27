@@ -63,15 +63,15 @@ An example starting traffic allocation appears below:
 
 The traffic on the right is receiving variation A, but is not part of the experiment nor its analysis.
 
-Next, you ramp up your experiment to 30% of traffic.
+Next, you ramp up your experiment to 30% of traffic. This creates a new iteration of the experiment.
 
 Here is an example of the modified allocation:
 
 ![Audience allocation at 30%](experiment-allocation-thirty-percent.png)
 
-The traffic that was receiving variations A, B, and C, is now reverted back to A, and new traffic is used for the 30% allocated to the experiment.
+In the new iteration, the traffic that was receiving variations A, B, and C, is now reverted back to A, and new traffic is used for the 30% allocated to the experiment.
 
-Finally, you roll out variations A and B to 50% of traffic each. In this case, the entire audience is reallocated randomly. For example, 0%-1% partition will not have the exact same set of users as the previous 0%-1% partition.
+Finally, you roll out variations A and B to 50% of traffic each. This creates another iteration of the experiment, and the entire audience is reallocated randomly. For example, 0%-1% partition will not have the exact same set of users as the previous 0%-1% partition.
 
 Here is an example image:
 

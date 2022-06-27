@@ -78,4 +78,4 @@ LaunchDarkly uses variation calls to correlate the variation a user received to 
 
 To learn more about variation calls, read [Evaluating flags](/sdk/features/evaluating). To learn more about track calls, read [Sending custom events](/sdk/features/events).
 
-If a user receives multiple variations in the 90 days prior to a conversion, LaunchDarkly attributes the conversion to the first variation the user received in that 90-day period.
+In rare cases, unexpected behavior may cause a user to receive multiple variations in the 90 days prior to a conversion. In these cases, LaunchDarkly attributes the conversion to the first variation the user received in that 90-day period.
