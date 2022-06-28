@@ -19,7 +19,7 @@ Single sign-on is available to customers on an Enterprise plan. It is available 
 
 This topic explains what Single Sign-On (SSO) features are available in LaunchDarkly and how to configure your environment for SSO.
 
-SSO allows your team to authenticate with LaunchDarkly using the same identity provider (IdP) you use for your other internal and external services. LaunchDarkly implements SSO with the SAML 2.0 protocol. Administrators can use SSO with their IdP to manage access rights in LaunchDarkly. After SSO is turned on, administrators can also enable System for Cross-domain Identity Management (SCIM) provisioning through their IdP.
+SSO allows your team to authenticate with LaunchDarkly using the same identity provider (IdP) you use for your other internal and external services. LaunchDarkly implements SSO with the SAML 2.0 protocol. Administrators can use SSO with their IdP to manage access rights in LaunchDarkly. After SSO is turned on, administrators can also configure System for Cross-domain Identity Management (SCIM) provisioning through their IdP.
 
 Once SCIM is configured, administrators can optionally turn on and configure team sync with IdP. Team sync with IdP allows administrators to sync groups in their IdP with teams in LaunchDarkly to automate team member provisioning.
 
@@ -64,13 +64,13 @@ This table lists the external IdPs for which we provide configuration guidance, 
     IdP Integration SCIM
     </TableHeadCell>
     <TableHeadCell>
+    Team sync with IdP
+    </TableHeadCell>
+    <TableHeadCell>
     Starter and Pro plan support
     </TableHeadCell>
     <TableHeadCell>
     Enterprise plan support
-    </TableHeadCell>
-    <TableHeadCell>
-    Team sync with IdP
     </TableHeadCell>
   </TableHeader>
   <TableBody>
@@ -86,9 +86,9 @@ This table lists the external IdPs for which we provide configuration guidance, 
       <TableCell>
       </TableCell>
       <TableCell>
-        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
     </TableRow>
     <TableRow>
@@ -103,9 +103,9 @@ This table lists the external IdPs for which we provide configuration guidance, 
       <TableCell>
       </TableCell>
       <TableCell>
-        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
     </TableRow>
     <TableRow>
@@ -118,12 +118,12 @@ This table lists the external IdPs for which we provide configuration guidance, 
       <TableCell>
       </TableCell>
       <TableCell>
-        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
     </TableRow>
     <TableRow>
@@ -143,7 +143,7 @@ This table lists the external IdPs for which we provide configuration guidance, 
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
-            <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
     </TableRow>
     <TableRow>
@@ -157,12 +157,12 @@ This table lists the external IdPs for which we provide configuration guidance, 
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
-        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
     </TableRow>
   </TableBody>
@@ -317,7 +317,7 @@ To use SSO in test-drive mode:
 
 ## Turning on SSO
 
-When you're satisfied with the SSO integration and are ready to turn it on it for all account members in LaunchDarkly, turn on SSO by following the procedure below.
+When you're satisfied with the SSO integration and are ready to turn it on for all account members in LaunchDarkly, turn on SSO by following the procedure below.
 
 To enable SSO:
 
@@ -329,7 +329,7 @@ To enable SSO:
 ![The "Enable SSO" confirmation dialog.](settings-security-enable-sso-confirm.png)
 
 
-Once SSO is turned on, the LaunchDarkly login procedure defers to your identity provider for authentication. Users will no longer be able to log in with their existing LaunchDarkly password, and users logging in to LaunchDarkly for this first time will need to log in through their IdP.
+Once SSO is turned on, the LaunchDarkly login procedure defers to your identity provider for authentication. Users will no longer be able to log in with their existing LaunchDarkly password, and users logging in to LaunchDarkly for the first time will need to log in through their IdP.
 
 Additionally, LaunchDarkly administrator and account owners will no longer be able to invite members to the organization. The only way to add additional account members is to have them log in through your IdP.
 
@@ -343,8 +343,8 @@ To turn off SSO:
 
 1. Log into LaunchDarkly as an administrator.
 2. Navigate **Account settings** > **Security** and scroll to the "SSO management" section.
-3. Click **Disable SSO**. A confirmation dialog appears.
-4. Click **Disable**:
+3. Click **Turn off SSO**. A confirmation dialog appears.
+4. Click **Turn off**:
 
 ![The "Disable SSO" confirmation dialog.](settings-security-sso-disable.png)
 
