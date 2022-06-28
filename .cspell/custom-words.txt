@@ -166,6 +166,7 @@ phar
 phpredis
 Phusion
 podfile
+postfork
 Preact
 preconfigured
 predis
@@ -263,6 +264,8 @@ untargeted
 unthrottled
 userprincipalname
 uthash
+uwsgi
+uwsgidecorators
 validationrequest
 variationdetail
 Vercel
