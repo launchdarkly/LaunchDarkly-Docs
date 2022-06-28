@@ -379,3 +379,33 @@ To disconnect SCIM:
 1. Log into LaunchDarkly as an administrator.
 2. Navigate **Account settings** > **Security** and scroll to the "SSO management" section.
 3. Click **Disconnect SCIM**.
+
+## Team sync with IdP
+
+<Callout intent="primary">
+<CalloutTitle>Team sync with IdP is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Team sync with IdP is only available to customers on an Enterprise plan and requires SCIM to be configured. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+LaunchDarkly allows you to sync groups from your IdP to teams within your account. This feature will create a new team, or link an existing one, with the same name and membership as the IdP group. Once team sync is turned on, any changes to your synced teams' memberships can only be made through your IdP.
+
+To turn on team sync in LaunchDarkly:
+
+1. Log in to LaunchDarkly as an administrator or account owner.
+2. Navigate to the "SSO management" section of the [**Security**](https://app.launchdarkly.com/settings/security) tab on the **Account settings** page.
+
+3. Click **Turn on team sync**. A confirmation modal will appear that confirms that existing teams will not be deleted, and that you will have limited team management permissions in LaunchDarkly for synced teams.
+
+   ![Turn on team sync within "SSO management" section of the "Security tab".](settings-security-turn-on-team-sync.png)
+
+5. Teams are now able to be managed by your IdP, which is done within the admin panel of the IdP. We currently only support team sync for the following identity providers:
+   * [Okta](/home/account-security/okta)
+   * Azure (coming soon)
+
+
+6. Teams that have been synced with an IdP now have limited team management permissions in LaunchDarkly. This new team sync status will be denoted by either a **Synced** or **Not Synced** indicator.
+   ![Teams synced with IdP.](teams-synced-with-idp-PLACEHOLDER.png)
