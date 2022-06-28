@@ -1,0 +1,46 @@
+name: Find code references
+on: [push, workflow_dispatch]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  find-code-references:
+    name: Find code references
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub Action Repo
+        uses: actions/checkout@v3
+        with:
+          repository: launchdarkly/gha-flags
+          path: gha-flags
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Evaluate flags
+        id: flags
+        uses: ./gha-flags
+        with:
+          base-uri: 'https://app.ld.catamorphic.com'
+          events-uri: 'https://events.ld.catamorphic.com'
+          stream-uri: 'https://stream.ld.catamorphic.com'
+          sdk-key: ${{ secrets.LD_SDK_KEY_PROD }}
+          flag-keys: |
+            gha-code-references
+            gha-code-references-context-lines
+            gha-code-references-debug
+            gha-code-references-ignore-service-errors
+            gha-code-references-lookback
+      - name: Checkout current repo
+        if: steps.flags.outputs.gha-code-references == 'true'
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ steps.flags.outputs.gha-code-references-lookback }}
+      - name: Find code references
+        if: steps.flags.outputs.gha-code-references == 'true'
+        uses: launchdarkly/find-code-references@master
+        with:
+          accessToken: ${{ secrets.LD_ACCESS_TOKEN }}
+          baseUri: https://app.ld.catamorphic.com
+          contextLines: ${{ steps.flags.outputs.gha-code-references-context-lines }}
+          debug: ${{ steps.flags.outputs.gha-code-references-debug }}
+          projKey: docs
+          lookback: ${{ steps.flags.outputs.gha-code-references-lookback }}
+          ignoreServiceErrors: ${{ steps.flags.outputs.gha-code-references-ignore-service-errors }}
