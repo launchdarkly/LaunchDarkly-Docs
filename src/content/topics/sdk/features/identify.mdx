@@ -37,6 +37,7 @@ This feature is available in the following client-side SDKs:
 * [iOS](#ios)
 * [JavaScript](#javascript)
 * [Node.js (client-side)](#nodejs-client-side)
+* [React](#react)
 * [React Native](#react-native)
 * [Roku](#roku)
 
@@ -350,6 +351,37 @@ client.identify(newUser).then(() => {
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
+
+### React
+
+<Details summary="Expand React code sample">
+
+The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user. The client always has one current user, because client-side SDKs are not designed for evaluating flags for different users at the same time. You can also pass a callback that is called when the new flags are in effect.
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+import { useLDClient } from 'launchdarkly-react-client-sdk';
+
+let ldClient = useLDClient();
+
+ldClient.identify(newUser, null, () => {
+  console.log("New user's flags available");
+});
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`identify`](https://launchdarkly.github.io/react-native-client-sdk/classes/LDClient.html#identify).
+
 </Details>
 
 ### React Native

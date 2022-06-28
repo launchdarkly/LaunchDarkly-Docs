@@ -170,6 +170,67 @@ import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
 
 After initialization is complete, your flags and the client become available at the start of your React app lifecycle. This ensures your app does not flicker due to flag changes at startup time.
 
+If your app does not yet have the user context when you call `asyncWithLDProvider()`, you can instantiate the `LDClient` and call `identify()` after initialization is complete.
+
+Here's how to identify the user after initialization:
+
+<CodeTabs
+  defaultValue="app"
+  values={[
+    { label: 'JavaScript: app.js', value: 'app', },
+    { label: 'JavaScript: index.js', value: 'index', },
+  ]
+}>
+<CodeTabItem value="app">
+
+```js
+// app.js
+import React, { useEffect } from 'react';
+import { useFlags, useLDClient } from 'launchdarkly-react-client-sdk';
+
+export default function App {
+  const flags = useFlags();
+  const ldClient = useLDClient();
+
+  useEffect(() => {
+    lDClient.identify({ key: 'enter-user-key' });
+  }, []);
+
+  return <div>Let your feature flags fly!</div>
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="index">
+
+```js
+// index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from 'app.js';
+import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
+
+const renderApp = async () => {
+  const LDProvider = await asyncWithLDProvider({ clientSideID: 'your-client-side-id' });
+
+  ReactDOM.render(
+    <React.StrictMode>
+      <LDProvider>
+        <App />
+      </LDProvider>
+    </React.StrictMode>,
+    document.getElementById('root')
+  )
+}
+
+renderApp();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [Identifying and changing users](/sdk/features/identify#react).
+
 <Callout intent="alert">
 <CalloutTitle>Rendering may be delayed</CalloutTitle>
 <CalloutDescription>
