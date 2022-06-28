@@ -672,12 +672,30 @@ $client = new LaunchDarkly\LDClient("YOUR_SDK_KEY", array("logger" => new Logger
 
 <Details summary="Expand Python code sample">
 
-The Python SDK uses Python's built-in [logging library](https://docs.python.org/2/library/logging.html). All loggers are namespaced under `ldclient.util`. For an example configuration, visit [hello-python](https://github.com/launchdarkly/hello-python).
+The Python SDK uses Python's built-in [logging library](https://docs.python.org/2/library/logging.html).
 
-There are two important things to consider before you enable the DEBUG log level:
+Here's how to enable the debug log level:
 
-1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
-2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+ld_logger = logging.getLogger("ldclient")
+ld_logger.setLevel(logging.DEBUG)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There are two important things to consider before you enable the debug log level:
+
+- Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
+- Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
 
 </Details>
 
