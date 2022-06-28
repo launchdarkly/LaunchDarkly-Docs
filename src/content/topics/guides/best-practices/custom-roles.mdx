@@ -457,7 +457,7 @@ To create a role with the same permissions as the built-in Admin role:
 
 <Details summary="Expand No access custom role">
 
-Permissions are set to `deny` by default except for the `viewProject` and `createAccessToken` actions. You must explicitly deny those actions for the No access role.
+LaunchDarkly sets role permissions to `deny` by default, except for the `viewProject` and `createAccessToken` actions. You must explicitly deny the `viewProject` action to recreate the No access role. You do not need to deny the `createAccessToken` action, because a member can't create an access token if they don't have view permissions.
 
 To create a role with the same permissions as the built-in No access role:
 
