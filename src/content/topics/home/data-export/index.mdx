@@ -73,7 +73,7 @@ To export data from a specific flag to a destination:
 
 If you check a flag's **Send detailed events to data export destinations** checkbox, then LaunchDarkly exports evaluation events for all users that encounter the flag.
 
-If you do not check the **Send detailed events to data export destinations** checkbox, then LaunchDarkly does not export evaluation events, unless you are using the flag in an experiment with audience allocation. If you are using the flag in an experiment with audience allocation, then LaunchDarkly will still export evaluation events for users included in the experiment, but no other users.
+If you do not check the **Send detailed events to data export destinations** checkbox, then LaunchDarkly does not export evaluation events, unless you are using the flag in an experiment. If you are using the flag in an experiment, then LaunchDarkly will still export evaluation events for users included in the experiment, but no other users.
 
 You can tell if a user evaluation was part of an experiment from the optional `inExperiment` attribute. Evaluations that were part of an experiment have the `inExperiment` attribute on the evaluation reason set to `true`. To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 
