@@ -235,6 +235,7 @@ subtab
 svelte
 sveltekit
 targetusername
+templatable
 templating
 templatize
 testdata
