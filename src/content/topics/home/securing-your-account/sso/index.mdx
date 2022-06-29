@@ -386,12 +386,17 @@ To disconnect SCIM:
 <CalloutTitle>Team sync with IdP is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-Team sync with IdP is only available to customers on an Enterprise plan and requires SCIM to be configured. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+Team sync with IdP is only available to customers on an Enterprise plan, and is currently only supported by the Okta integration. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
 
-LaunchDarkly allows you to sync groups from your IdP to teams within your account. This feature will create a new team, or link an existing one, with the same name and membership as the IdP group. Once team sync is turned on, any changes to your synced teams' memberships can only be made through your IdP.
+LaunchDarkly allows you to sync groups from your IdP to teams within your account. This feature will create a new team, or link an existing one, with the same name and membership as the IdP group.
+
+Once team sync is turned on:
+* New teams can only be created through Group Push in Okta, and not from the LaunchDarkly UI.
+* Changes to your synced teams' name and memberships can only be made through your IdP. Unsynced teams can still be maintained in the LaunchDarkly UI.
+* Team permissions will still be managed in LaunchDarkly. To learn how to add custom roles to a team, read [Managing team permissions](/home/teams/managing#managing-team-permissions).
 
 To turn on team sync in LaunchDarkly:
 

@@ -197,9 +197,9 @@ SAML ignores empty fields if used in **Roles** or **customRoles**. To clear all 
 
 ## Using Okta to manage LaunchDarkly teams with SCIM
 
-To push an existing Okta group to create a new team in LaunchDarkly:
+### Push an Okta group to create a new team in LaunchDarkly
 
-1. Navigate to the "Applications" page within Okta and open the LaunchDarkly app. Under the "Push Groups" tab you will find and option to "Push Groups". Click this to find the group by name or by rule.
+1. Navigate to the "Applications" page within Okta and open the LaunchDarkly app. Under the "Push Groups" tab you will find an option to "Push Groups". Click this to find the group by name or by rule.
 
 ![The 'Push Groups' tab within the LaunchDarkly Okta application.](okta-push-groups.png)
 
@@ -211,10 +211,24 @@ To push an existing Okta group to create a new team in LaunchDarkly:
 
 ![Active group push](okta-active-group-push.png)
 
-4. Once the push status in Okta is "Active", you can navigate back to the LaunchDarkly Account Settings page under the teams tab to confirm the new team was created and synced with Okta.
+4. Once the push status in Okta is "Active", you can navigate back to the LaunchDarkly Account Settings page under the Teams tab to confirm the new team was created and synced with Okta.
 
 ![Teams synced with IdP.](teams-synced-with-idp-PLACEHOLDER.png)
 
-5. To link an Okta group to an existing LaunchDarkly team, after clicking "Push Groups" and choosing to find a group by name or by rule and finding the group you wish to link, Okta will attempt to find a matching team based on the group name to link. Otherwise, if the team is not automatically selected based off of the team name, click the dropdown under "Create Group", select the "Link Group", and search for the team you wish you link.
+### Link an Okta group to an existing LaunchDarkly team
+
+1. Navigate to the "Applications" page within Okta and open the LaunchDarkly app. Under the "Push Groups" tab you will find and option to "Push Groups". Click this to find the group by name or by rule.
+
+![The 'Push Groups' tab within the LaunchDarkly Okta application.](okta-push-groups.png)
+
+2. Find the group you wish you to link by searching for its name. Okta will attempt to find a matching team based on the group name. Otherwise, if the team is not automatically selected based off of the team name, click the dropdown under "Create Group", select the "Link Group", and search for the team you wish you link.
 
 ![Teams synced with IdP.](okta-group-link.png)
+
+3. The group should now appear in the LaunchDarkly application's group list. It may take a moment for the "Push Status" column to change from "Pushing" to "Active".
+
+![Active group push](okta-active-group-push.png)
+
+4. Once the push status in Okta is "Active", you can navigate back to the LaunchDarkly Account Settings page and confirm that the team membership matches the group membership in Okta.
+
+![Teams synced with IdP.](teams-synced-with-idp-PLACEHOLDER.png)
