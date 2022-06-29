@@ -14,7 +14,7 @@ This topic explains how to use the secure mode feature to safely evaluate featur
 
 Secure mode ensures that users' feature flag evaluations are kept private in web browser environments, and that one user cannot inspect the variations for another user. On an insecure device, a malicious user could use a user key to identify what flag values a user receives by analyzing the results of multiple flag evaluations. Secure mode prevents you from doing an evaluation for a user key that hasn't been signed on the backend.
 
-Secure mode works by having you configure your JavaScript SDK to include a server-generated HMAC SHA256 hash of your user key. This hash is signed with the SDK key for your environment.
+Secure mode is only applicable when a client-side SDK connects to LaunchDarkly. It works by having you configure your JavaScript SDK to include a server-generated HMAC SHA-256 hash of your user key. This hash is signed with the SDK key for your environment.
 
 To use secure mode, you must complete the following:
 
@@ -242,7 +242,7 @@ client.secure_mode_hash(&user);
 
 ## Computing the hash manually
 
-To compute the hash manually, locate the SDK key for your environment on the **Projects** tab of your **Account settings** page. Then, compute an HMAC SHA256 hash of the UTF8 encoding of your user key, using the UTF-8 encoding of your SDK key as a secret, and convert the hash to a hexadecimal string.
+To compute the hash manually, locate the server-side SDK key for your environment on the **Projects** tab of your **Account settings** page. Do not use the client ID. Then, compute an HMAC SHA256 hash of the UTF8 encoding of your user key, using the UTF-8 encoding of your SDK key as a secret, and convert the hash to a hexadecimal string.
 
 Here is a .NET (server-side) example:
 
