@@ -193,7 +193,7 @@ export default function App {
   const ldClient = useLDClient();
 
   useEffect(() => {
-    lDClient.identify({ key: 'enter-user-key' });
+    ldClient.identify({ key: 'enter-user-key' });
   }, []);
 
   return <div>Let your feature flags fly!</div>
