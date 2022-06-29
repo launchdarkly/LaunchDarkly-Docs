@@ -46,6 +46,7 @@ path: /home/managing-users/users-dashboard
 title: The Users dashboard
 description: This topic explains what the Users dashboard is. The Users dashboard gives you a summary view of how each user experiences all of the features in your app, and lets you customize their experience from one screen.
 published: true
+tags: ['dashboard', 'user', 'attribute', 'mau']
 ---
 ```
 
@@ -53,6 +54,7 @@ published: true
 * `title`: This displays at the top of the page and in search results. Be sure the titles are the same in the topic, the sidebar nav, and index pages if applicable!
 * `description`: Algolia uses the description for more effective search. Compress the Overview section of your topic into a useful description. Don't make it too long!
 * `published`: Set to `true` to have your topic appear at its URL, and `false` to keep the topic private. `published` must be set to `true` for all topics that appear in the sidebar navigation. Clicking an item in the sidebar nav set to `false` will return a 404, and 404s make Google's SEO engines, and by extension the Marketing team, very sad.
+* `tags`: Algolia uses this array of topic tags for more effective search. If you create a new tag, update `/src/components/search/tags.md` to keep our dictionary of tags up to date.
 
 ## Writing docs in the LaunchDarkly style
 

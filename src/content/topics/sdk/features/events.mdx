@@ -220,7 +220,7 @@ To learn more, read the generated API documentation for [Swift](https://launchda
 
 <Details summary="Expand JavaScript code sample">
 
-You can record `custom` events using the `track` function. In LaunchDarkly, you can connect these events to metrics in experiments. To learn more, read [Experimentation](/home/experimentation).
+You can record `custom` events using the `track` function. In LaunchDarkly, you can connect these events to metrics in experiments. To learn more, read [About Experimentation](/home/about-experimentation).
 
 Call `track` with the event name to record custom conversion metrics.
 
@@ -251,7 +251,7 @@ To learn how to attach custom data to your event with optional parameters, read 
 
 If you've defined click or page view goals in LaunchDarkly, they'll be sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or page view goals.
 
-To learn more about click and page view goals, read [Experimentation](/home/experimentation).
+To learn more about click and page view goals, read [About Experimentation](/home/about-experimentation).
 
 <Callout intent="info">
 <CalloutTitle>Single-page apps</CalloutTitle>
@@ -283,7 +283,7 @@ client.track('your-event-name', { customProperty: someValue });
 </CodeTabItem>
 </CodeTabs>
 
-If you [define click or page view metrics](/home/experimentation) in LaunchDarkly, they are sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or page view goals. The SDK will generate `page view` events correctly regardless of how the URL is changed, such as by the HTML5 history API, by changing the URL hash fragment, etc.
+If you [define click or page view metrics](/home/about-experimentation) in LaunchDarkly, they are sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or page view goals. The SDK will generate `page view` events correctly regardless of how the URL is changed, such as by the HTML5 history API, by changing the URL hash fragment, etc.
 
 <Callout intent="info">
 <CalloutTitle>Do Not Track and ad blocking software</CalloutTitle>
@@ -595,7 +595,7 @@ client.track("your-goal-key", user);
 
 You can also attach custom JSON data to your event with an alternate version of `track`, [`trackData`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackData-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-). You can set the data to any value that can be represented in JSON. To learn more, read [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html).
 
-If you are using [experimentation](/home/experimentation), you can specify a numeric metric with [`trackMetric`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackMetric-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-double-).
+If you are using [Experimentation](/home/about-experimentation), you can specify a numeric metric with [`trackMetric`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackMetric-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-double-).
 
 </Details>
 

@@ -160,7 +160,7 @@ The LaunchDarkly REST API supports semantic patch for a few of its endpoints. [S
 
 ### Optional headers
 
-The most commonly used optional header is the `LD-API-Version` header. You can use this to specify a particular API version, including a beta version. If this header is not included, your request uses the latest version of the API.
+The most commonly used optional header is the `LD-API-Version` header. You can use this to specify a particular API version, including a beta version. If this header is not included, your request uses the API version specified in your access token.
 
 The header value is the version number of the API version you'd like to request. The version number is the date the version was released, using the `yyyymmdd` format. To learn more, read [Versioning](https://apidocs.launchdarkly.com/#section/Overview/Versioning).
 
@@ -498,7 +498,7 @@ If you decide to use LaunchDarkly's REST API as part of your feature management,
 * **Pay attention to error codes.** Some error codes returned by the REST API are effectively permanent. For example, if you receive a `403 Forbidden` response, you don't have access to the resource you're requesting. Other error codes are temporary but require careful handling. For example, most resources return a `429 Rate limited` response if you make too many requests over a short timeframe. Make sure to call each resource only when you need to. If your code is looping and repeatedly getting a `429` error, build in a back off to reduce the rate at which you're calling an individual resource.
 
  Alternatively, consider if there is another way to approach the problem. For example, if your flag targets individual users and you frequently add and remove the same user, try using flag targeting rules instead.
-* **Contact the LaunchDarkly Support team.** If you're considering building out significant functionality with the REST API, [contact Support](https://support.launchdarkly.com/hc/en-us). There may already be a complete or partial solution available that doesn't require custom code on your part.
+* **Contact the LaunchDarkly Support team.** If you're considering building out significant functionality with the REST API, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new). There may already be a complete or partial solution available that doesn't require custom code on your part.
 
 ## Conclusion
 

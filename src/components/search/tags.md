@@ -1,7 +1,9 @@
 # Other
+
 .net
 
 # A
+
 access
 account
 adfs
@@ -23,13 +25,16 @@ api
 apple
 approval
 attribute
+audience
 audit log
 autoconfig
 aws
 azure
 
 # B
+
 bandwidth
+bayesian
 big segment
 billing
 bitbucket
@@ -39,9 +44,11 @@ bootstrap
 built-in
 
 # C
+
 c
 c++
 cache
+capabilities
 cdn
 china
 circleci orb
@@ -63,6 +70,7 @@ custom property
 custom role
 
 # D
+
 daemon
 dashboard
 data
@@ -81,6 +89,7 @@ dynamodb
 dynatrace
 
 # E
+
 edge
 elastic
 electron
@@ -99,6 +108,7 @@ experimentation
 export
 
 # F
+
 fallback
 feature
 feature store
@@ -111,8 +121,11 @@ flag lifecycle
 flag status
 flush
 flutter
+form variable
+frequentist
 
 # G
+
 gatsby
 github actions
 google
@@ -121,6 +134,7 @@ graph
 guide
 
 # H
+
 haproxy
 haskell
 hcl
@@ -131,6 +145,7 @@ hierarchy
 honeycomb
 
 # I
+
 idp
 inactive
 insight
@@ -140,20 +155,25 @@ invite
 ios
 ip
 issue
+iteration
 
 # J
+
 java
 javascript
 jest
 jira
+js sdk
 json
 
 # K
+
 key
 kinesis
 kubernetes
 
 # L
+
 lambda
 launched
 ld-find-code-refs
@@ -163,7 +183,9 @@ logdna
 lua
 
 # M
+
 manage
+manifest
 mau
 member
 merge
@@ -180,6 +202,7 @@ mparticle
 multivariate
 
 # N
+
 net
 new
 new relic
@@ -190,10 +213,12 @@ node.js
 notification
 
 # O
+
 oauth
 offline
 
 # P
+
 page view
 partner
 password
@@ -218,6 +243,7 @@ pubsub
 python
 
 # R
+
 react
 react native
 reason
@@ -233,6 +259,7 @@ ruby
 rust
 
 # S
+
 saml
 schema
 scim
@@ -255,6 +282,7 @@ sso
 start
 starter
 static
+statistics
 stop
 store
 subscribe
@@ -263,6 +291,7 @@ svelte
 sveltekit
 
 # T
+
 tag
 target
 targeting rule
@@ -281,12 +310,14 @@ ttl
 type
 
 # U
+
 unit test
 url
 user
 user object
 
 # V
+
 variation
 value
 variation
@@ -295,11 +326,15 @@ viewproject
 vscode
 
 # W
+
 walkthrough
 webhook
+widget
+winning
 worker
 workflow
 wrapper
 
 # Z
+
 zendesk

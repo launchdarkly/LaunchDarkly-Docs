@@ -3,16 +3,38 @@ const path = require('path')
 const slug = require('slug')
 const redirectRules = require('./redirectRules')
 const getFinalDestination = require('./getFinalDestination')
+const isDev = process.env.GATSBY_ACTIVE_ENV === 'development'
 
 // This generates URL-safe slugs.
 slug.defaults.mode = 'rfc3986'
 
 exports.onCreateNode = async ({ node, actions }) => {
   const { createNodeField } = actions
+  const {
+    fileAbsolutePath,
+    internal: { type },
+  } = node
+  if (fileAbsolutePath && type === 'Mdx') {
+    const repoPrefix = 'git-gatsby/src/'
+    const fileRelativePath = fileAbsolutePath.substring(fileAbsolutePath.indexOf(repoPrefix) + repoPrefix.length)
 
-  if (node.internal.type === 'Mdx') {
-    // Ripped from: https://angelos.dev/2019/09/add-support-for-modification-times-in-gatsby/
-    const lastModifiedTime = execSync(`git log -1 --pretty=format:%aI ${node.fileAbsolutePath}`).toString()
+    let lastModifiedTime
+    if (isDev) {
+      // for local dev use local git commits to speed up the build
+      lastModifiedTime = execSync(`git log -1 --pretty=format:%aI ${node.fileAbsolutePath}`).toString()
+    } else {
+      const gitCommits = JSON.parse(
+        execSync(`
+      gh api -XGET \\
+        -H "Accept: application/vnd.github.v3+json" \\
+        /repos/launchdarkly/git-gatsby/commits \\
+        -F path=src/${fileRelativePath}`),
+      )
+
+      // the first commit is most recent one
+      lastModifiedTime = gitCommits[0].commit?.author?.date
+      console.log(`${fileRelativePath} last modified ${lastModifiedTime}`)
+    }
 
     createNodeField({
       name: 'lastModifiedTime',

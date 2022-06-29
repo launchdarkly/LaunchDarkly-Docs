@@ -101,7 +101,7 @@ Lists are quick references that either describe steps or collections of three or
 
 Use screenshots sparingly. They're expensive to maintain. If you're a LaunchDarkly partner contributing documentation for your product or service, you are responsible for contributing updated screenshots for your service when needed.
 
-You can add screenshots as .PNGs or .GIFs. For a screenshot to render in the docs correctly, you must reference the `/images/` directory in the filepath and end the screenshot name with the file type (.png or .gif).
+You can add screenshots as .PNGs or .GIFs. For a screenshot to render in the docs correctly, you must end the screenshot name with the file type (.png or .gif).
 
 We do not have a minimum or maximum size guideline to follow, but in general you should capture as little of the screen as possible to keep your screenshot useful. Please avoid full-screen screenshots, but if you must include them you probably also want to include a callout indicating which part of the screen the reader should focus on.
 

@@ -38,6 +38,7 @@ codebases
 coderefs
 configurability
 Contentful
+Cristiano
 databind
 datacenter
 datasource
@@ -52,16 +53,19 @@ Dynatrace
 Dynatrace's
 elif
 elsewhere
+emptystate
 Ernestina
 evalx
 eventhub
 eventsource
 examplepackage
 Fastly
+featurestorerequest
 featurex
 flagbuilder
 flagdata
 flagstate
+frequentist
 frontmatter
 Gameplay
 getall
@@ -88,6 +92,7 @@ inited
 inlines
 inspectable
 intellij
+interpretability
 Isha
 Javadoc
 Javadocs
@@ -161,6 +166,7 @@ phar
 phpredis
 Phusion
 podfile
+postfork
 Preact
 preconfigured
 predis
@@ -216,6 +222,7 @@ signup
 signups
 sourcepath
 sourcetype
+srcset
 Stackdriver
 stdlib
 stflib
@@ -228,6 +235,7 @@ subtab
 svelte
 sveltekit
 targetusername
+templatable
 templating
 templatize
 testdata
@@ -243,6 +251,7 @@ Trello
 trendgraph
 tvos
 typedefs
+uiblocks
 unarchived
 unchecking
 unfollow
@@ -256,6 +265,9 @@ untargeted
 unthrottled
 userprincipalname
 uthash
+uwsgi
+uwsgidecorators
+validationrequest
 variationdetail
 Vercel
 Vercel's

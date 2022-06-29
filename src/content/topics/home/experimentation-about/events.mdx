@@ -1,0 +1,61 @@
+---
+path: /home/about-experimentation/events
+title: Experimentation events
+description: This topic explains Experimentation events and how they work.
+published: true
+tags: ['event', 'experiment', 'experimentation', 'enterprise']
+---
+
+## Overview
+
+This topic explains Experimentation events and how they work.
+
+## Understanding Experimentation events
+
+An Experimentation event is any event an SDK produces that impacts your experimentation event count. There are two categories of Experimentation events:
+
+- **Metric events**: `click`, `page view`, and `custom` events from metrics used in running experiments.
+- **Evaluation events**: `feature` events from flags with targeting rules included in running experiments.
+
+### Understanding metric events
+
+All LaunchDarkly SDKs send `custom` metric events when you call the SDK's track method. To learn more about the track method, read [Sending custom events](/sdk/features/events).
+
+In addition, the JavaScript SDK also sends a `click` metric event when a user clicks on a page URL or anchor tag that you have included in a click metric, and sends a `page view` metric event when a user visits a URL that you have included in a page view metric.
+
+You can view metric events in the debugger under the **Experimentation events** tab.
+
+### Understanding evaluation events
+
+All LaunchDarkly SDKs send a `feature` conversion event when you call the SDK's variation method for a flag in an experiment. To learn more about the variation method, read [Evaluating flags](/sdk/features/evaluating).
+
+In addition, the JavaScript SDK and JavaScript-based SDKs also send a `variation` evaluation event when you call the SDK's `allFlags` method, unless you configure it not to. The React Web SDK automatically calls `allFlags` when you initialize the SDK, and when a user receives a new variation for a flag. To learn more, read [Getting all flags](/sdk/features/all-flags).
+
+Configuring the the JavaScript SDK and JavaScript-based SDKs not to send evaluation events when you call `allFlags` can help keep your Experimentation costs down. To learn more about how SDKs send events, read [Recording events](/sdk/concepts/contributors-guide#recording-events).
+
+## Managing Experimentation billing costs
+
+<Callout intent="info">
+<CalloutTitle>Your billing model may be different</CalloutTitle>
+<CalloutDescription>
+
+Customers on newer contracts may be billed by unique user keys, rather than by event count. To learn more, read [Experiment pricing](/home/about-experimentation#experiment-pricing). If you are unsure about how you are being billed for Experimentation, [contact Sales](https://launchdarkly.com/contact-sales/) or your LaunchDarkly Account Executive.
+
+</CalloutDescription>
+</Callout>
+
+Every time a user triggers a metric that is attached to a running experiment, your Experimentation event count increases by one. If you are being billed by event count, you may want to reduce your Experimentation event counts to control billing costs. You can manage your event counts by not calling variation and track methods unnecessarily.
+
+If you use Data Export, you will be billed for Experimentation events included in your export. To learn more, read [Understanding Data Export and Experimentation events](/home/data-export##understanding-data-export-and-experimentation-events).
+
+### Decreasing metric events
+
+To reduce `page view` and `click` metric events, first update your metrics to use `custom` instead of `click` or `page view` where possible. Then, reduce `custom` metric events by limiting the number of times you call track.
+
+You can also cache when you call track to ensure you call it only once per user.
+
+### Decreasing evaluation events
+
+To reduce evaluation events, cache or persist the response from the SDK, so that you only call the variation method when when you want to register an impression, or when you don't have the response cached or persisted.
+
+You can also decrease the number of users in an experiment using audience allocation. To learn how, read [Allocating experiment audiences](/home/creating-experiments/allocation).

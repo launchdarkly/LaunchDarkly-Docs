@@ -142,7 +142,35 @@ else:
 
 ## Configuring uWSGI
 
-The LaunchDarkly SDK is compatible with uWSGI. However, in uWSGI environments, the SDK requires you to set the `enable-threads` option.
+The LaunchDarkly SDK is compatible with uWSGI. However, there are a few considerations.
+
+First, in uWSGI environments, you must set the `enable-threads` option.
+
+Additionally, you should initialize a new client only after `uwsgi` has forked the worker process. This way your client will accurately reflect flag changes in the forked thread. You can do this using`uwsgidecorators`.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="py"
+  values={[
+    { label: 'Python - uWSGI initialization', value: 'py', },
+  ]
+}>
+<CodeTabItem value="py">
+
+```py
+import uwsgidecorators
+
+@uwsgidecorators.postfork
+def post_fork_client_initialization():
+    ldclient.set_config(LDConfig("YOUR_SDK_KEY"))
+    client = ldclient.get()
+end
+
+```
+
+</CodeTabItem>
+</CodeTabs>
 
 ## HTTPS proxy
 

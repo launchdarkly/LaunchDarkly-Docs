@@ -181,11 +181,11 @@ Here is an image of the "Create a webhook" panel:
 
 ![Creation of a LaunchDarkly webhook which sends flag updates to a Lambda function.](lambda-webhook.png)
 
-Finally, with the persistent feature store active and continuously updated, you can configure the app to use the feature store instead of connecting to LaunchDarkly's servers.
+Finally, with the persistent feature store active and continuously updated, you can configure the app to use the feature store instead of connecting to LaunchDarkly's servers. This is called "daemon mode".
 
-To learn more, read [Using a persistent feature store without connecting to LaunchDarkly](/sdk/concepts/data-stores#using-a-persistent-feature-store-without-connecting-to-launchdarkly).
+To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode).
 
-The app code retains the same structure as the example in Option 1 above, but with additional configuration to point at the feature store, enable the Relay Proxy, and use it in daemon mode. Because the Relay Proxy is also known as the LaunchDarkly Daemon, some versions of the SDKs refer to this configuration option as "LDD mode." To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode).
+The app code retains the same structure as the example in Option 1 above, but with additional configuration to point at the feature store and enable daemon mode.
 
 Here is an example:
 
@@ -234,7 +234,7 @@ To learn more about the events SDKs send to LaunchDarkly, read [Analytics events
 
 In most cases, LaunchDarkly works in serverless environments without additional configuration. If you need more support, however, the methods outlined above can help.
 
-If you have more questions or need further assistance, get in touch by [contacting Support](https://support.launchdarkly.com/hc/en-us).
+If you have more questions or need further assistance, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 
 <Callout intent="primary">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>

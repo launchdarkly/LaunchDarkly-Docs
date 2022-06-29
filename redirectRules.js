@@ -2,8 +2,16 @@ module.exports = [
   // Redirects within the git-gatsby docs site
 
   {
+    fromPath: '/home/experimentation/',
+    toPath: '/home/about-experimentation',
+  },
+  {
+    fromPath: '/home/creating-experiments/allocation#prerequisites',
+    toPath: '/home/about-experimentation#prerequisites',
+  },
+  {
     fromPath: '/home/experimentation/creating-metrics',
-    toPath: '/home/experimentation/metrics',
+    toPath: '/home/creating-experiments/metrics',
   },
   {
     fromPath: '/guides/tutorials/first-flag',
@@ -203,19 +211,19 @@ module.exports = [
   },
   {
     fromPath: '/home/experimentation/managing/lifecycle',
-    toPath: '/home/experimentation/lifecycle',
+    toPath: '/home/analyzing-experiments/managing',
   },
   {
     fromPath: '/home/experimentation/managing/interpreting',
-    toPath: '/home/experimentation/analyzing',
+    toPath: '/home/analyzing-experiments',
   },
   {
     fromPath: '/home/experimentation/managing/populations',
-    toPath: '/home/experimentation/allocation',
+    toPath: '/home/creating-experiments/allocation',
   },
   {
     fromPath: '/home/experimentation/managing/segment',
-    toPath: '/home/experimentation/segment',
+    toPath: '/home/creating-experiments/segment',
   },
   {
     fromPath: '/home/advanced/relay-proxy',
@@ -579,39 +587,39 @@ module.exports = [
   },
   {
     fromPath: '/docs/running-ab-tests',
-    toPath: '/home/experimentation',
+    toPath: '/home/about-experimentation',
   },
   {
     fromPath: '/docs/running-an-ab-test',
-    toPath: '/home/experimentation',
+    toPath: '/home/about-experimentation',
   },
   {
     fromPath: '/docs/experimentation-index',
-    toPath: '/home/experimentation',
+    toPath: '/home/about-experimentation',
   },
   {
     fromPath: '/docs/experimentation',
-    toPath: '/home/experimentation',
+    toPath: '/home/about-experimentation',
   },
   {
     fromPath: '/docs/experimentation-create',
-    toPath: '/home/experimentation/create',
+    toPath: '/home/creating-experiments',
   },
   {
     fromPath: '/docs/experimentation-manage',
-    toPath: '/home/experimentation/analyzing',
+    toPath: '/home/analyzing-experiments/managing',
   },
   {
     fromPath: '/docs/experimentation-lifecycle',
-    toPath: '/home/experimentation/lifecycle',
+    toPath: '/home/analyzing-experiments/managing',
   },
   {
     fromPath: '/docs/experimentation-interpret',
-    toPath: '/home/experimentation/analyzing',
+    toPath: '/home/analyzing-experiments',
   },
   {
     fromPath: '/docs/experimentation-targeting',
-    toPath: '/home/experimentation/allocation',
+    toPath: '/home/creating-experiments/allocation',
   },
   {
     fromPath: '/docs/integrations-index',
@@ -971,7 +979,7 @@ module.exports = [
   },
   {
     fromPath: '/home/experimentation/populations',
-    toPath: '/home/experimentation/allocation',
+    toPath: '/home/creating-experiments/allocation',
   },
   {
     fromPath: '/home/code/flag-overview',
@@ -987,10 +995,62 @@ module.exports = [
   },
   {
     fromPath: '/home/experimentation/interpreting',
-    toPath: '/home/experimentation/analyzing',
+    toPath: '/home/analyzing-experiments',
   },
   {
     fromPath: '/guides/best-practices/experimentation',
-    toPath: '/home/experimentation/create',
+    toPath: '/home/creating-experiments',
+  },
+  {
+    fromPath: '/home/experimentation/lifecycle',
+    toPath: '/home/analyzing-experiments/managing',
+  },
+  {
+    fromPath: '/home/experimentation',
+    toPath: '/home/about-experimentation',
+  },
+  {
+    fromPath: '/home/experimentation/events',
+    toPath: '/home/about-experimentation/events',
+  },
+  {
+    fromPath: '/home/experimentation/analyzing',
+    toPath: '/home/analyzing-experiments',
+  },
+  {
+    fromPath: '/home/experimentation/managing',
+    toPath: '/home/analyzing-experiments/managing',
+  },
+  {
+    fromPath: '/home/experimentation/create',
+    toPath: '/home/creating-experiments',
+  },
+  {
+    fromPath: '/home/experimentation/allocation',
+    toPath: '/home/creating-experiments/allocation',
+  },
+  {
+    fromPath: '/home/experimentation/segment',
+    toPath: '/home/creating-experiments/segment',
+  },
+  {
+    fromPath: '/home/experimentation/metrics',
+    toPath: '/home/creating-experiments/metrics',
+  },
+  {
+    fromPath: '/home/experimentation/metrics/click',
+    toPath: '/home/creating-experiments/metrics/click',
+  },
+  {
+    fromPath: '/home/experimentation/metrics/custom-conversion',
+    toPath: '/home/creating-experiments/metrics/custom-conversion',
+  },
+  {
+    fromPath: '/home/experimentation/metrics/custom-numeric',
+    toPath: '/home/creating-experiments/metrics/custom-numeric',
+  },
+  {
+    fromPath: '/home/experimentation/metrics/page-view',
+    toPath: '/home/creating-experiments/metrics/page-view',
   },
 ]

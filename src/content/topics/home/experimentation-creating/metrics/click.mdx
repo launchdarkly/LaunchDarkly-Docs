@@ -1,0 +1,128 @@
+---
+path: /home/creating-experiments/metrics/click
+title: Click metrics
+description: This topic explains how to create a click metric for an experiment in LaunchDarkly.
+published: true
+tags: ['metric', 'click', 'experiment', 'experimentation', 'enterprise']
+---
+
+## Overview
+
+This topic explains how to create a click metric for an experiment in LaunchDarkly.
+
+<Callout intent="info">
+<CalloutTitle>Some metrics require the JavaScript or React SDK</CalloutTitle>
+<CalloutDescription>
+
+Click metrics are only available on the JavaScript and React SDKs. If you do not use the JavaScript or React SDK and would like to track clicks or page views, use a custom conversion metric.
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="warning">
+<CalloutTitle>Call track and flush when a user is redirected</CalloutTitle>
+<CalloutDescription>
+
+SDKs send events at regular intervals, such as every five seconds. If a browser redirects a user to another page, any events that occurred between when the SDK last sent events and when browser redirected the user will be lost. To avoid this, call track and then flush when you know the browser will redirect a user to another page, such as on click.
+
+</CalloutDescription>
+</Callout>
+
+## Creating click metrics
+
+Click metrics track how often a user interacts with an element of your product's UI. Click metrics must be used with either the JavaScript or React SDK.
+
+For example, you might want to track how often a user clicks a "Save" button when it is red versus how often a user clicks the "Save" button when it is blue. You can create a metric that monitors clicks on the button as designated by a CSS selector located at a specific URL.
+
+You can even monitor clicks on the button across different URLs by telling the metric to track different URLs based on substrings or simple matches. For example, you could track an event on every URL with <code>/checkout-page/</code> in the URL path.
+
+<Callout intent="info">
+<CalloutTitle>What's a CSS selector?</CalloutTitle>
+<CalloutDescription>
+
+CSS selectors designate specific areas of your product UI, like buttons or images, that your users can interact with.
+
+For example, some CSS selectors include:
+
+* `#example-element-id`,
+* `.example-classname`,
+* `button.example-button`, or `.example-button, .example-button-alt`.
+
+</CalloutDescription>
+</Callout>
+
+To create a click metric:
+
+1. Navigate to the **Experiments** dashboard.
+2. Click the **Metrics** tab.
+3. Click **Create metric**. The "Create a new metric" panel appears.
+4. Enter a human-readable **Name** for the metric.
+5. (Optional) Enter a **Description**.
+6. (Optional) Type or choose from available **Tags**.
+7. (Optional) Choose a **Maintainer**. By default, the person who creates the metric is set as the Maintainer.
+8. Click the **Event kind** menu and select "Click."
+9. Enter one or more CSS selectors in the **Click targets** field.
+10. Specify the type of **Target URL** you want to track behavior on. There are four types of URL matching:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>URL matching schema</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+    <TableHeadCell>Example</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Simple match</TableCell>
+      <TableCell>
+        This sends an event when the user accesses a URL, or clicks on an element hosted at a URL, that matches the string you enter in the Target URL field or a formulation of that URL that included appended parameters. If you want events to record for URLs with substrings, specify each URL individually.
+      </TableCell>
+      <TableCell>You specify: <code>example.com</code>.<br />
+        Views or clicks at <code>example.com</code> and <code>example.com#signin</code> send events.<br /><br />
+        You specify: <code>example.com</code> and <code>example.com/login</code>.<br />
+        Views or clicks on <code>example.com</code> and <code>example.com/login</code>{' '} send events.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Exact match</TableCell>
+      <TableCell>
+        This sends an event when the user accesses a URL, or clicks on an element hosted at a URL, that exactly matches what you enter in the Target URL field. Identical base URLs with different substrings do not send events.
+      </TableCell>
+      <TableCell>
+        You specify: <code>example.com</code>.<br />
+        Only views or clicks at <code>example.com</code> send events.<br /> Views and clicks at <code> www.example.com/signup</code> and <code>https://www.example.com</code> do not send events.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Substring match</TableCell>
+      <TableCell>
+        This sends an event when the user accesses a URL, or clicks on an element hosted at a URL with a specific string of text in it.
+      </TableCell>
+      <TableCell>
+        You specify: <code>your-substring</code>, <code>example.com/your-substring</code>, <code>home.com/username/your-substring/</code>, <code>launchdarkly.com/your-substring/settings</code>.<br />
+        Because all of these URLs contain <code>your-substring</code>, clicks on the CSS selectors you specify on each page send events.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Regular expression</TableCell>
+      <TableCell>
+        This sends an event based on a regex expression you specify. This lets you designate more precise locations to send click and page view events.
+      </TableCell>
+      <TableCell>
+        You specify: <code>example\.com\\/account\\/.*\\/billing</code><br />
+        This matches any string between <code>account/</code> and <code>/billing</code>, such as <code>http://example.com/account/12345/billing</code>.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+11. Enter the webpage URL.
+11. (Optional) Click **Add additional URL** to track behavior on more than one URL.
+12. Click **Save metric**.
+
+After you create a metric, you can connect it to an experiment. To learn how, read [Building experiments](/home/creating-experiments#building-experiments).
+
+<LearnMore>
+
+You can also use the REST API: [Create metric](https://apidocs.launchdarkly.com/tag/Metrics#operation/postMetric)
+
+</LearnMore>

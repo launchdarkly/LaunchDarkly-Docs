@@ -1,0 +1,81 @@
+---
+path: /home/analyzing-experiments
+title: Analyzing experiments
+description: This topic explains how to read an experiment's results in the flag's Experimentation tab and apply its findings to your product.
+published: true
+tags: ['analyze', 'result', 'experiment', 'experimentation', 'enterprise']
+---
+
+## Overview
+
+This topic explains how to read an experiment's results in the flag's Experimentation tab and apply its findings to your product.
+
+## Understanding experiments as they run
+
+When your experiments are running, you can view information about them on the **Experiments** dashboard or on the related flag's **Experimentation** tab. The **Experimentation** tab displays all the experiments a flag is participating in, including both experiments that are currently recording and experiments that are stopped.
+
+Here are some things you can do with each experiment:
+
+- Stop the experiment or start a new iteration. To learn more, read [Managing experiments](/home/analyzing-experiments/managing).
+- Edit the metrics connected to the experiment and start a new iteration.
+- View experiment data over set periods of time on the **Iterations** tab:
+
+![An experiment's "Iterations" tab.](experiment-iterations-tab.png)
+
+## Reading experiment data
+
+The data an experiment has collected is represented in a results table:
+
+![A numeric experiment's data.](experiment-card.png)
+
+The list below explains what each column means:
+
+- **Probability to be best**: The probability to be best is the likelihood that the variation has the biggest effect on the primary metric. Of all the variations in the experiment, the one with highest probability is likely the best option to choose.
+- **Relative difference from (the control)**: The relative difference from the control variation is the range that you should have 90% confidence in. For example, if the range of the relative difference is [-1%, 4%], you can have 90% confidence that the population difference is a number between 1% lower and 4% higher than the control.
+- **Credible interval**: The credible interval is the range of the value of the metric that you should have 90% confidence in. For example, if the range is [7, 34], you can have 90% confidence that the value of the metric in the population is a number between 7 and 34.
+- **Mean**: The mean is the average value of the variation in this sample. It doesn’t capture the uncertainty in the measurement, so it should not be the only measurement you use to make decisions.
+
+<LearnMore>
+
+You can also use the REST API: [Get experiment results](https://apidocs.launchdarkly.com/tag/Experiments-(beta)#operation/getExperimentResults)
+
+</LearnMore>
+
+In each metrics results table you can view metric event values per unique user as an average or a sum, depending on your needs. 
+
+Here's the **View metric event values per unique user as** option in a metric results table:
+
+![A metric results table with "View metric event values per unique user as" called out.](experiment-card-view-metric-event-callout.png)
+
+Imagine you are tracking purchases made by users using a new checkout flow. A user makes three purchases for $15 each. If you view metric event values as an average, the average of their purchases is $15. If you view metric event values as a sum, the sum of their purchases is $45. If your goal is to increase revenue per user, viewing metric event values as a sum makes the most sense.
+
+Alternatively, imagine you want to decrease the time to checkout per transaction. If a user takes two minutes for their first purchase, four minutes for their second purchase, and three minutes for their third purchase, their average checkout time is three minutes, but their total checkout time is nine minutes. In this case, viewing metric event values as an average makes the most sense.
+
+## Choosing a winning variation
+
+The winning variation for a completed experiment is the variation that is most likely to be the best option out of all of the variations tested. To learn more, read [Winning variations](/home/analyzing-experiments/winning-variation).
+
+<Callout intent="info">
+<CalloutTitle>Consider stopping an experiment after you choose a winning variation</CalloutTitle>
+<CalloutDescription>
+
+If you're done with an experiment and have rolled out the winning variation to your user base, it is a good time to stop your experiment. Experiments running on a user base that only receives one flag variation do not return useful results. Stopping an experiment retains all the data collected so far.
+
+</CalloutDescription>
+</Callout>
+
+## Further analyzing results
+
+If you're using Data Export, you can find experiment data in your Data Export destinations to further analyze it using third-party tools of your own.
+
+To learn more, read [Data Export](/home/data-export).
+
+## Correlating variations and conversions
+
+A conversion is when a user action provides a measurable value for a metric. For example, if a metric is tracking clicks on a checkout button, LaunchDarkly registers a conversion each time a user clicks the button. The SDK sends a track call to register the conversion in LaunchDarkly.
+
+LaunchDarkly uses variation calls to correlate the variation a user received to a conversion within a 90-day window. If there are more than 90 days between the time of a variation call and a track call on a user key, then LaunchDarkly does not register the metric in the experiment. 
+
+To learn more about variation calls, read [Evaluating flags](/sdk/features/evaluating). To learn more about track calls, read [Sending custom events](/sdk/features/events).
+
+In rare cases, unexpected behavior may cause a user to receive multiple variations in the 90 days prior to a conversion. In these cases, LaunchDarkly attributes the conversion to the first variation the user received in that 90-day period.

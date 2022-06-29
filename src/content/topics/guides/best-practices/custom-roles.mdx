@@ -354,7 +354,7 @@ To create a role with the same permissions as the built-in Admin role:
 2. Click the **Roles** tab.
 3. Click **Create role**:
 
-![The Roles tab under Account settings with the "Create role" button called out.](/images/create-role-callout.png)
+![The Roles tab under Account settings with the "Create role" button called out.](create-role-callout.png)
 
 4. Enter a name for the role and an optional description.
 5. Click **Advanced editor**.
@@ -449,7 +449,7 @@ To create a role with the same permissions as the built-in Admin role:
 
 7. Click "Simple editor." You are returned to the simple editor displaying the policy details. The details should look like the following:
 
-![The list of permissions for an Administrator role.](/images/custom-role-administrator.png)
+![The list of permissions for an Administrator role.](custom-role-administrator.png)
 
 8. Click **Save role**.
 
@@ -457,7 +457,7 @@ To create a role with the same permissions as the built-in Admin role:
 
 <Details summary="Expand No access custom role">
 
-Permissions are set to `deny` by default except for the `viewProject` and `createAccessToken` actions. You must explicitly deny those actions for the No access role.
+LaunchDarkly sets role permissions to `deny` by default, except for the `viewProject` and `createAccessToken` actions. You must explicitly deny the `viewProject` action to recreate the No access role. You do not need to deny the `createAccessToken` action, because a member can't create an access token if they don't have view permissions.
 
 To create a role with the same permissions as the built-in No access role:
 
@@ -465,7 +465,7 @@ To create a role with the same permissions as the built-in No access role:
 2. Click the **Roles** tab.
 3. Click **Create role**:
 
-![The Roles tab under Account settings with the "Create role" button called out.](/images/create-role-callout.png)
+![The Roles tab under Account settings with the "Create role" button called out.](create-role-callout.png)
 
 4. Enter a name for the role and an optional description.
 5. Click **Advanced editor**.

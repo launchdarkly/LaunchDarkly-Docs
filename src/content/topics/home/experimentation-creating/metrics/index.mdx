@@ -1,0 +1,103 @@
+---
+path: /home/creating-experiments/metrics
+title: Creating metrics
+description: This topic explains how to create a metric to use within an experiment in LaunchDarkly.
+published: true
+tags: ['metric', 'create', 'configure', 'experiment', 'experimentation', 'enterprise']
+---
+
+## Overview
+
+This topic explains how to create a metric to use within an experiment in LaunchDarkly.
+
+Metrics are the measure against which you evaluate flag events. You can use metrics to track all kinds of things, from how often users access a URL to how long that URL takes to load a page. Create metrics that align with your business goals and connect them to your team's flags to track the impact of different flag variations over time.
+
+<LearnMore>
+
+You can also use the REST API: [Metrics](https://apidocs.launchdarkly.com/tag/Metrics)
+
+</LearnMore>
+
+## Understanding types of metrics
+
+You can use two different types of metrics to track experiment results in LaunchDarkly. They are:
+
+- **Conversion metrics** register events when a user takes an action based on a feature flag they encounter.
+- **Numeric metrics** measure numeric values against a baseline you set.
+
+These metrics can track different kinds of user events, such as viewing a page or clicking on a link. There are four different types of metrics:
+
+* [Click metrics](/home/creating-experiments/metrics/click)
+* [Custom conversion metrics](/home/creating-experiments/metrics/custom-conversion)
+* [Custom numeric metrics](/home/creating-experiments/metrics/custom-numeric)
+* [Page view metrics](/home/creating-experiments/metrics/page-view)
+
+The following table explains the kinds of events you can track with a metric:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Event kind</TableHeadCell>
+    <TableHeadCell>Metric type</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+    <TableHeadCell>SDK compatibility</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Click</TableCell>
+      <TableCell>Conversion</TableCell>
+      <TableCell>
+        Tracks the clicks on a user interface (UI) element. For example, how frequently a user clicks the Save button.
+      </TableCell>
+      <TableCell>JavaScript <br />React</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Custom</TableCell>
+      <TableCell>Conversion</TableCell>
+      <TableCell>
+        Tracks events for any arbitrary event. For example, whether a user search called a service or not.
+      </TableCell>
+      <TableCell>All</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Custom</TableCell>
+      <TableCell>Numeric</TableCell>
+      <TableCell>
+        Tracks increases or decreases in numeric value against a baseline you set. For example, how many items are in a user's cart when they check out of your online store.
+      </TableCell>
+      <TableCell>All</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Page view</TableCell>
+      <TableCell>Conversion</TableCell>
+      <TableCell>
+        Tracks how many times a page is viewed. For example, how many times a blog post is viewed based on three different titles.
+      </TableCell>
+      <TableCell>JavaScript <br />React</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+To learn more about Experimentation events, read [Experimentation events](/home/about-experimentation/events).
+
+## Connecting a metric to an experiment
+
+After you create a metric, you can use it in an experiment. To learn how, read [Building experiments](/home/creating-experiments#building-experiments).
+
+## Deleting metrics
+
+You should delete a metric only when you are sure you will no longer use it in any experiments.
+
+To delete a metric:
+
+1. Navigate to the **Experiments** dashboard.
+2. Click the **Metrics** tab.
+3. Click the title of the metric you want to delete. The "Edit metric" panel appears.
+4. Click **Delete this metric**.
+
+This metric is now deleted permanently across all environments in the project.
+
+<LearnMore>
+
+You can also use the REST API: [Delete metric](https://apidocs.launchdarkly.com/tag/Metrics#operation/deleteMetric)
+
+</LearnMore>

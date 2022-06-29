@@ -24,7 +24,7 @@ jobs:
         with:
           # Note: this is used because of cypress yarn berry issue
           # https://github.com/cypress-io/github-action/issues/430#issuecomment-1144054512
-          command: yarn dlx cypress@v9 run --headless --record --tag links,${{ steps.check-env.outputs.name }} --config baseUrl=https://docs.launchdarkly.com,retries=2,video=false --spec cypress/integration/links.test.ts,cypress/integration/redirects.test.ts --config-file cypress.json --env skip_external=true
+          command: yarn dlx cypress@v9 run --headless --browser chrome --record --tag links,${{ steps.check-env.outputs.name }} --config video=false --spec cypress/integration/links.test.ts,cypress/integration/redirects.test.ts --config-file cypress.json --env skip_external=true
           install-command: yarn install --immutable
           build: yarn build-dev
           start: yarn serve-dev

@@ -252,7 +252,7 @@ Shut down the client when your application terminates. To learn more, read [Shut
 
 ## Data collection
 
-To learn more about data collection within this SDK and implications on submissions to the Apple App Store, read the [Apple App Store data collection policy](/sdk/concepts/apple-app-store).
+The data collected by the Android SDK persists until the number of cached users exceeds a limit. When you call `identify`, the number of cached users increments. Eventually, the number of cached users exceeds `maxCachedUsers`. When that happens, user data in excess of `maxCachedUsers` is deleted, starting with the oldest user first.
 
 ## Supported features
 

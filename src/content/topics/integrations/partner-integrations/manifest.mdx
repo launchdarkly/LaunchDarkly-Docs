@@ -1,0 +1,81 @@
+---
+path: /integrations/partner-integrations/manifest
+title: Defining an integration manifest
+description: This topic explains how to create an integration manifest for your partner integration.
+published: true
+tags: ['integration', 'partner', 'manifest']
+---
+
+## Overview
+
+This topic explains how to create an integration manifest for your partner integration.
+
+Each integration should contain a manifest that includes basic concepts about your integration and your organization. Your manifest should also instruct LaunchDarkly on how to interact with your integration.
+
+## Creating your manifest
+
+Create an empty `manifest.json` file inside your new directory. You will use this file to describe your integration's details and capabilities.
+
+LaunchDarkly defines the properties of its integration manifests through a [JSON schema](https://github.com/launchdarkly/integration-framework/blob/main/manifest.schema.json). Many integrated development environments (IDEs) can provide you inline help and validation while editing your manifest. You can register the JSON schema in your IDE to enable this kind of help.
+
+If you use [VSCode](https://code.visualstudio.com/), it detects the settings in this repository and applies the schema validation without any additional configuration.
+
+Here is an example in VSCode:
+
+![An example manifest in VSCode](integrations-manifest-vscode.png)
+
+## Building your manifest
+
+The first part of your manifest should describe your organization, contacts, URLs, and a few items LaunchDarkly needs to list your integration properly.
+
+LaunchDarkly uses most of this information to render your integration card and configuration form in the LaunchDarkly user interface (UI).
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Example manifest', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+{
+  "name": "Sample Integration",
+  "version": "1.0.0",
+  "overview": "Short one-liner describing your integration",
+  "description": "Send flag data to space. Markdown-based description.",
+  "author": "Example Dot Com",
+  "supportEmail": "support@example.com",
+  "links": {
+    "site": "https://example.com",
+    "privacyPolicy": "https://example.com/privacy"
+  },
+  "categories": ["monitoring"],
+  "icons": {
+    "square": "assets/images/square.svg",
+    "horizontal": "assets/images/horizontal.svg"
+  },
+  "requiresOAuth": false
+}
+```
+</CodeTabItem>
+</CodeTabs>
+
+Some properties in the manifest, such as `description`, can accept simple [Markdown](https://daringfireball.net/projects/markdown/). The LaunchDarkly UI converts Markdown to HTML. To get the best results, only use simple Markdown, such as links and basic text formatting.
+
+The `icons` the manifest describes are in SVG format. LaunchDarkly does not accept other image formats.
+
+We use your organization's or integration's logo in the LaunchDarkly UI and in the public integrations listing on [launchdarkly.com/integrations](https://launchdarkly.com/integrations/). SVG files allow your logo to scale nicely on different devices. To ensure your logo appears correctly everywhere we use it, do not include any padding around the image.
+
+The `icon.square` and `icon.horizontal` properties point to relative paths. These paths are relative to your integration's directory. You can create any directories and files that support your integration.
+
+## Using OAuth
+
+Many integrations in LaunchDarkly use API tokens. However, if your API requires OAuth for authentication, LaunchDarkly can support that as well. To learn more, read [Registering a LaunchDarkly OAuth client](/integrations/partner-integrations/oauth-client-registration).
+
+## Form variables and capabilities
+
+Form variables and capabilities are the most important part of the manifest. They define the primary interactions that LaunchDarkly and users will have with your integration.
+
+To learn more, read [Using form variables](/integrations/partner-integrations/form-variables) and [Using integration framework capabilities](/integrations/partner-integrations/capabilities).

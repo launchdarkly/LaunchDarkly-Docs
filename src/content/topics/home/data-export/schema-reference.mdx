@@ -10,14 +10,14 @@ tags: ['schema', 'destination', 'event', 'data export']
 
 This topic explains the schema of Data Export events.
 
-Data Export exposes five different kinds of events:
+Data Export exposes the following kinds of events:
 
 - `feature` events
 - `index` events
 - `identify` events
 - `custom` events
 - `alias` events
-- `summary` events. To export `summary` events, contact [LaunchDarkly Support](https://support.launchdarkly.com/).
+- `summary` events. To export `summary` events, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 
 Some Data Export destinations have different event formatting schema. If you use mParticle or Segment as your event destination, we have specific documentation for their event schema:
 
@@ -45,7 +45,7 @@ This table lists events kinds:
     <TableRow>
       <TableCell>index</TableCell>
       <TableCell>
-        This event kind contains the user attributes for a particular user, defined by a user key, when a feature flag evaluates the user. This event kind is not available for Segment or mParticle destinations. To export <code>index</code> events, contact <a href="https://support.launchdarkly.com">LaunchDarkly Support</a>.
+        This event kind contains the user attributes for a particular user, defined by a user key, when a feature flag evaluates the user. This event kind is not available for Segment or mParticle destinations. To export <code>index</code> events, <a href="https://support.launchdarkly.com/hc/en-us/requests/new">contact Support</a>.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -69,7 +69,7 @@ This table lists events kinds:
     <TableRow>
       <TableCell>summary</TableCell>
       <TableCell>
-        This event kind describes a roll-up of individual feature evaluations over an interval. To export <code>summary</code> events, contact <a href="https://support.launchdarkly.com">LaunchDarkly Support</a>.
+        This event kind describes a roll-up of individual feature evaluations over an interval. To export <code>summary</code> events, <a href="https://support.launchdarkly.com/hc/en-us/requests/new">contact Support</a>.
       </TableCell>
     </TableRow>
   </TableBody>
@@ -94,7 +94,7 @@ Older SDKs will also send `user` attributes as an object inside `feature` events
 <CalloutTitle>Enabling detailed analytics events</CalloutTitle>
 <CalloutDescription>
 
-To receive `feature` events, in addition to `index`, `identify`, and `custom` events, check the **Send detailed events to data export destinations** checkbox on a flag's **Settings** tab or an environment's **Edit** panel. By default, LaunchDarkly does not export `summary` events. To export `summary` events, contact <a href="https://support.launchdarkly.com">LaunchDarkly Support</a>.
+To receive `feature` events, in addition to `index`, `identify`, and `custom` events, check the **Send detailed events to data export destinations** checkbox on a flag's **Settings** tab or an environment's **Edit** panel. By default, LaunchDarkly does not export `summary` events. To export `summary` events, <a href="https://support.launchdarkly.com/hc/en-us/requests/new">contact Support</a>.
 
 </CalloutDescription>
 </Callout>
@@ -187,7 +187,7 @@ Here is a list of `feature` event properties:
 <CalloutTitle>Enabling <code>index</code> event exports</CalloutTitle>
 <CalloutDescription>
 
-By default, LaunchDarkly does not export `index` events. To export `index` events, contact [LaunchDarkly Support](https://support.launchdarkly.com/).
+By default, LaunchDarkly does not export `index` events. To export `index` events, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 
 </CalloutDescription>
 </Callout>
@@ -365,7 +365,7 @@ An example `alias` event is shown below:
 <CalloutTitle>Enabling <code>summary</code> event exports</CalloutTitle>
 <CalloutDescription>
 
-By default, we do not export <code>summary</code> events. To export <code>summary</code> events, contact [LaunchDarkly Support](https://support.launchdarkly.com/).
+By default, we do not export <code>summary</code> events. To export <code>summary</code> events, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 
 </CalloutDescription>
 </Callout>

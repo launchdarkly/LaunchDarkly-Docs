@@ -190,6 +190,10 @@
               {
                 "label": "Syncing Big Segments from Amplitude cohorts",
                 "path": "/home/users/synced-segments"
+              },
+              {
+                "label": "Bulk editing users in segments",
+                "path": "/home/users/bulk-edit-segments"
               }
             ]
           },
@@ -378,62 +382,66 @@
       {
         "group": "experimentation",
         "label": "About Experimentation",
-        "path": "/home/experimentation",
+        "path": "/home/about-experimentation",
         "svg": "chart-areaspline",
         "items": [
           {
             "label": "Experimentation events",
-            "path": "/home/experimentation/events"
+            "path": "/home/about-experimentation/events"
           }
         ]
       },
       {
         "group": "experimentation",
         "label": "Creating experiments",
-        "path": "/home/experimentation/create",
+        "path": "/home/creating-experiments",
         "svg": "lightbulb-on-outline",
         "items": [
           {
             "label": "Creating metrics",
-            "path": "/home/experimentation/metrics",
+            "path": "/home/creating-experiments/metrics",
             "items": [
               {
                 "label": "Click metrics",
-                "path": "/home/experimentation/metrics/click"
+                "path": "/home/creating-experiments/metrics/click"
               },
               {
                 "label": "Custom conversion metrics",
-                "path": "/home/experimentation/metrics/custom-conversion"
+                "path": "/home/creating-experiments/metrics/custom-conversion"
               },
               {
                 "label": "Custom numeric metrics",
-                "path": "/home/experimentation/metrics/custom-numeric"
+                "path": "/home/creating-experiments/metrics/custom-numeric"
               },
               {
                 "label": "Page view metrics",
-                "path": "/home/experimentation/metrics/page-view"
+                "path": "/home/creating-experiments/metrics/page-view"
               }
             ]
           },
           {
-            "label": "Allocating experiment populations",
-            "path": "/home/experimentation/allocation"
+            "label": "Allocating experiment audiences",
+            "path": "/home/creating-experiments/allocation"
           },
           {
             "label": "Sending Segment events to experiments",
-            "path": "/home/experimentation/segment"
+            "path": "/home/creating-experiments/segment"
           }
         ]
       },
       {
         "group": "experimentation",
         "label": "Analyzing experiments",
-        "path": "/home/experimentation/analyzing",
+        "path": "/home/analyzing-experiments",
         "svg": "bullseye-arrow",
         "items": [
           {
-            "label": "The experiment lifecycle",
-            "path": "/home/experimentation/lifecycle"
+            "label": "Managing experiments",
+            "path": "/home/analyzing-experiments/managing"
+          },
+          {
+            "label": "Winning variations",
+            "path": "/home/analyzing-experiments/winning-variation"
           }
         ]
       },
@@ -829,22 +837,38 @@
         ]
       },
       {
-        "label": "Building your own integrations",
-        "path": "/integrations/building-integrations",
+        "label": "Managing integrations",
+        "path": "/integrations/managing"
+      },
+      {
+        "label": "Using the LaunchDarkly integration framework",
+        "path": "/integrations/building-integrations"
+      },
+      {
+        "label": "Building partner integrations",
+        "path": "/integrations/partner-integrations",
         "items": [
           {
-            "label": "Building partner integrations",
-            "path": "/integrations/partner-integrations"
+            "label": "Getting started",
+            "path": "/integrations/partner-integrations/getting-started"
+          },
+          {
+            "label": "Defining an integration manifest",
+            "path": "/integrations/partner-integrations/manifest"
           },
           {
             "label": "Registering a LaunchDarkly OAuth client",
-            "path": "/integrations/oauth-client-registration"
+            "path": "/integrations/partner-integrations/oauth-client-registration"
+          },
+          {
+            "label": "Using form variables",
+            "path": "/integrations/partner-integrations/form-variables"
+          },
+          {
+            "label": "Using integration framework capabilities",
+            "path": "/integrations/partner-integrations/capabilities"
           }
         ]
-      },
-      {
-        "label": "Managing integrations",
-        "path": "/integrations/managing"
       }
     ]
   },
@@ -1271,6 +1295,10 @@
           {
             "label": "Deployment and release strategies",
             "path": "/guides/best-practices/deployment-strategies"
+          },
+          {
+            "label": "Experimentation and Bayesian statistics",
+            "path": "/guides/best-practices/bayesian"
           },
           {
             "label": "Feature flag hierarchy",

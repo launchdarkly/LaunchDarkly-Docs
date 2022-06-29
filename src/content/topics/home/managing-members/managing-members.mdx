@@ -29,7 +29,7 @@ Use the **Members** tab in the **Account settings** page to invite new account m
 
 You can search for a specific member using the search bar. You can also filter members by **Team**, **Role**, or **Last seen** using the filters at the top of the "Members" list:
 
-![The "Members" tab with filters applied.](/images/settings-members-filters.png)
+![The "Members" tab with filters applied.](settings-members-filters.png)
 
 In addition to filtering, you can also sort by the "Name" and "Last seen" columns. The "Last seen" column displays how long it has been since members logged in to your LaunchDarkly account.
 
@@ -39,12 +39,6 @@ Possible  "Last seen" statuses include:
 - Never: The member has never logged in.
 
 To learn more about teams in LaunchDarkly, read [Teams](/home/teams). To learn more about roles, read [Understanding member roles](#understanding-member-roles).
-
-<LearnMore>
-
-You can also use the REST API: [List account members](https://apidocs.launchdarkly.com/tag/Account-members#operation/getMembers)
-
-</LearnMore>
 
 ## Adding members to LaunchDarkly
 
@@ -59,9 +53,7 @@ The **Members** dashboard is only accessible if you're a LaunchDarkly Admin. To 
 
 Use the **Members** tab to access a list of all the members in your organization with LaunchDarkly access.
 
-![The "Members" tab.](settings-members.png)
-
-From here, you can invite new account members to LaunchDarkly, remove old account members, or manage access controls for account members by setting roles. To modify an existing member's information, click their name.
+From there, you can invite new account members to LaunchDarkly, remove old account members, or manage access controls for account members by setting roles. To modify an existing member's information, click their name.
 
 To add new members:
 
@@ -69,7 +61,7 @@ To add new members:
 2. Click the [**Members**](https://app.launchdarkly.com/settings/members) tab.
 3. Click **Invite members**:
 
-![The "Members" tab with "Invite members" called out.](/images/settings-members-invite-callout.png)
+![The "Members" tab with "Invite members" called out.](settings-members-invite-callout.png)
 
 4. Enter one or more email addresses. If you are inviting multiple members, separate email addresses with a comma or new line.
 5. Choose an initial built-in role or custom role from the **Initial role** menu.
@@ -80,6 +72,25 @@ New members now receive an email inviting them to your LaunchDarkly account. You
 <LearnMore>
 
 You can also use the REST API: [Invite new members](https://apidocs.launchdarkly.com/tag/Account-members#operation/postMembers)
+
+</LearnMore>
+
+## Exporting a list of account members
+
+You can export a list of your account members, including their IDs, email addresses, first and last names, built-in roles, and custom roles, to a CSV file. 
+
+Here's how:
+
+1. Navigate to the [**Account settings**](https://app.launchdarkly.com/settings) page.
+2. Click the **Members** tab.
+3. (Optional) Filter by **Team**, **Role**, or **Last seen** if you want to export a subset of your account members.
+4. Click **Export CSV**. A CSV file of account members downloads to your machine.
+
+![The "Members" tab with "Export CSV" called out.](settings-members-export-callout.png)
+
+<LearnMore>
+
+You can also use the REST API: [List account members](https://apidocs.launchdarkly.com/tag/Account-members#operation/getMembers)
 
 </LearnMore>
 
