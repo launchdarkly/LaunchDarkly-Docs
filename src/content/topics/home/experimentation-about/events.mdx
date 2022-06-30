@@ -46,8 +46,6 @@ Customers on newer contracts may be billed by unique user keys, rather than by e
 
 Every time a user triggers a metric that is attached to a running experiment, your Experimentation event count increases by one. If you are being billed by event count, you may want to reduce your Experimentation event counts to control billing costs. You can manage your event counts by not calling variation and track methods unnecessarily.
 
-If you use Data Export, you will be billed for Experimentation events included in your export. To learn more, read [Understanding Data Export and Experimentation events](/home/data-export##understanding-data-export-and-experimentation-events).
-
 ### Decreasing metric events
 
 To reduce `page view` and `click` metric events, first update your metrics to use `custom` instead of `click` or `page view` where possible. Then, reduce `custom` metric events by limiting the number of times you call track.
