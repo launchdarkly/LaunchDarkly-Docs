@@ -57,15 +57,13 @@ You do not have to use the Relay Proxy to use Experimentation. However, if you d
 
 ## Creating metrics
 
-Metrics are the measure against which you evaluate flag events. You can use metrics to track all kinds of things, from how often users access a URL to how long that URL takes to load a page.
-
-After you create a metric, you can connect it to one or more feature flags. If users load a URL, click an element, or otherwise participate in the behavior the metric tracks, LaunchDarkly sends an event to your experiment.
+Metrics are the measure against which you evaluate flag events. You can use metrics to track all kinds of things, from how often users access a URL to how long that URL takes to load a page. If users load a URL, click an element, or otherwise participate in the behavior the metric tracks, LaunchDarkly sends an event to your experiment.
 
 You don't need to create a new metric for each new experiment. You can reuse existing metrics in multiple experiments, which allows you to compare how the metric performs with different flags. Similarly, a single experiment can use primary and secondary metrics, which allow you to observe how the variations perform against various measurements.
 
 ### Using primary and secondary metrics
 
-You can designate only one metric as the primary metric in an experiment, but you can attach secondary metrics to your experiments if you want to track the performance of additional measurements.
+You can designate only one metric as the primary metric in an experiment, but you can attach secondary metrics to your experiments if you want to track the performance of additional measurements. We recommend using no more than ten metrics per experiment.
 
 The primary metric is sometimes called the "overall evaluation criterion." When you are making decisions about the winning variation in an experiment, you should base your decision making only on your primary metric, because decision making becomes much more complicated when you include multiple metrics in a decision.
 
@@ -97,7 +95,7 @@ To build an experiment:
 8. Click **Next**. The "Define variations" step opens.
 9. Choose a flag to use in the experiment from the **Select flag** menu.
 10. Click **Next**. The "Set audience" step opens.
-11. Choose the audience to include in the experiment. The audience options are created from the targeting rules in the feature flag you connected in step 9.
+11. Choose the audience to include in the experiment. The targeting rules of the feature flag you connected in step 9 determine the audience options that are available.
 12. Enter the percentage of traffic for each variation you want to include in the experiment. You must include at least two variations for the experiment to be valid.
 13. Select which variation you want LaunchDarkly to serve to the remaining population.
   - (Optional) To disable traffic variation reassignment, click **Advanced**, then check the **Keep users assigned to initial variation** checkbox. We strongly recommend leaving this box **unchecked**. To learn more, read [Understanding variation reassignment](/home/creating-experiments/allocation#understanding-variation-reassignment).

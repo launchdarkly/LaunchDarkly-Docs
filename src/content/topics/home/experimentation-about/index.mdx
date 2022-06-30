@@ -31,7 +31,7 @@ By connecting metrics you create to flags in your LaunchDarkly environment, you 
 
 To use Experimentation, you must have the following prerequisites:
 
-1. You must be using the listed version number or higher for the following SDKs.
+- You must be using the listed version number or higher for the following SDKs.
 
 <Details summary="Click to expand a table listing required client-side SDK versions">
 
@@ -159,8 +159,8 @@ Server-side SDKs:
 
 </Details>
 
-2. If you use the LaunchDarkly Relay Proxy, it must be at least version 6.3.0.
-3. You must email support@launchdarkly.com to have audience allocation enabled on your account.
+- If you use the LaunchDarkly Relay Proxy, it must be at least version 6.3.0.
+- You must have audience allocation enabled on your account. If you do not have allocation enabled or you are unsure, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 
 <Callout intent="alert">
 <CalloutTitle>Outdated SDKs return invalid experiment results</CalloutTitle>
@@ -188,11 +188,11 @@ Some of the things you can do with Experimentation include:
 
 ## Analyzing experiment results
 
-Experiment data is collected on an experiment's **Results** tab, which displays experiment data in near-real time.
+Experiment data is collected on an experiment's **Results** tab, which displays experiment data in near-real time. To learn more, read [Analyzing experiments](/home/analyzing-experiments).
 
 As your experiment collects data, LaunchDarkly calculates the variation that is most likely to be the best choice out of all the variations you're testing. After you decide which flag variation has the impact you want, you can gradually roll that variation out to 100% of your users with LaunchDarkly's percentage rollouts feature. To learn more about percentage rollouts, read [Percentage rollouts](/home/flags/rollouts).
 
-To learn more, read [Analyzing experiments](/home/analyzing-experiments).
+You can export experiment data to an external destination using Data Export. To learn more, read [Data Export](/home/data-export).
 
 ## Experimentation best practices
 
@@ -225,9 +225,6 @@ Experiments are billed monthly based on the number of unique user keys in each e
 <CalloutDescription>
 
 Customers on older contracts may be billed by Experimentation event count, rather than unique user keys. To learn more, read [Experimentation events](/home/about-experimentation/events). If you are unsure about how you are being billed for Experimentation, [contact Sales](https://launchdarkly.com/contact-sales/) or your LaunchDarkly Account Executive.
-
-
-You may be billed twice for some events if you're also using LaunchDarkly's Data Export features. To learn more, read [Data Export](/home/data-export).
 
 </CalloutDescription>
 </Callout>
