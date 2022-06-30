@@ -329,7 +329,7 @@ To enable SSO:
 ![The "Enable SSO" confirmation dialog.](settings-security-enable-sso-confirm.png)
 
 
-Once SSO is turned on, the LaunchDarkly login procedure defers to your identity provider for authentication. Users will no longer be able to log in with their existing LaunchDarkly password, and users logging in to LaunchDarkly for the first time will need to log in through their IdP.
+Once SSO is turned on, the LaunchDarkly login procedure defers to your identity provider for authentication. Members will no longer be able to log in with their existing LaunchDarkly password, and members logging in to LaunchDarkly for the first time will need to log in through their IdP.
 
 Additionally, LaunchDarkly administrator and account owners will no longer be able to invite members to the organization. The only way to add additional account members is to have them log in through your IdP.
 
@@ -355,9 +355,8 @@ To turn off SSO:
 <CalloutTitle>Provisioning with SCIM is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-    SCIM is only available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+SCIM is only available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-    Additionally, You must be a LaunchDarkly administrator and have SSO enabled to complete the following procedure.
 
 </CalloutDescription>
 </Callout>
@@ -386,31 +385,30 @@ To disconnect SCIM:
 <CalloutTitle>Team sync with IdP is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-Team sync with IdP is only available to customers on an Enterprise plan, and is currently only supported by the Okta integration. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+Team sync with IdP is only available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
 
-LaunchDarkly allows you to sync groups from your IdP to teams within your account. This feature will create a new team, or link an existing one, with the same name and membership as the IdP group.
+LaunchDarkly allows you to sync groups from Okta to teams within your account. You can use this feature to create a new team or link an existing team with the same name to an Okta group.
 
-Once team sync is turned on:
-* New teams can only be created through Group Push in Okta, and not from the LaunchDarkly UI.
-* Changes to your synced teams' name and memberships can only be made through your IdP. Unsynced teams can still be maintained in the LaunchDarkly UI.
-* Team permissions will still be managed in LaunchDarkly. To learn how to add custom roles to a team, read [Managing team permissions](/home/teams/managing#managing-team-permissions).
+After you turn on team sync:
+* You can only create new teams through Group Push in Okta, and not from the LaunchDarkly UI.
+* You can only make changes to your synced teams' names and memberships through your IdP. You can still maintain unsynced teams can in the LaunchDarkly UI.
+* You can still manage team permissions in LaunchDarkly. To learn how to add custom roles to a team, read [Managing team permissions](/home/teams/managing#managing-team-permissions).
+* LaunchDarkly will not delete any existing teams.
+
+To use team sync, you must have administrator access in LaunchDarkly and you must have configured SCIM for your LaunchDarkly account.
 
 To turn on team sync in LaunchDarkly:
 
 1. Log in to LaunchDarkly as an administrator or account owner.
-2. Navigate to the "SSO management" section of the [**Security**](https://app.launchdarkly.com/settings/security) tab on the **Account settings** page. Please note that SCIM must be configured in order for this feature to be turned on. 
+2. Navigate to the "SSO management" section of the [**Security**](https://app.launchdarkly.com/settings/security) tab on the **Account settings** page.
 
-3. Click **Turn on team sync**. A confirmation modal will appear that confirms that existing teams will not be deleted, and that you will have limited team management permissions in LaunchDarkly for synced teams.
+3. Click **Turn on team sync**. A confirmation dialog appears.
+4. Click **Turn on team sync**. 
+   ![Turn on team sync within the "SSO management" section of the "Security tab".](settings-security-turn-on-team-sync.png)
 
-   ![Turn on team sync within "SSO management" section of the "Security tab".](settings-security-turn-on-team-sync.png)
-
-5. Teams are now able to be managed by your IdP, which is done within the admin panel of the IdP. We currently only support team sync for the following identity providers:
-   * [Okta](/home/account-security/okta)
-   * Azure (coming soon)
-
-
-6. Teams that have been synced with an IdP now have limited team management permissions in LaunchDarkly. This new team sync status will be denoted by either a **Synced** or **Not Synced** indicator.
-   ![Teams synced with IdP.](teams-synced-with-idp-PLACEHOLDER.png)
+You can now manage teams within the admin panel of Okta.
+Teams you have synced with an IdP have limited team management permissions in LaunchDarkly. You can tell which teams you have synced with an IdP on the **Teams** tab in the "Team sync with IdP" column.
+![The "Team sync with IdP" column on the "Teams" tab.](teams-synced-with-idp-PLACEHOLDER.png)
