@@ -12,13 +12,19 @@ This topic explains how to configure user objects in LaunchDarkly SDKs. These fe
 
 ## Configuring user objects
 
-Every LaunchDarkly SDK lets you configure user objects to return specific data to LaunchDarkly. Any attributes you pass to LaunchDarkly become available on your dashboard.
+Every LaunchDarkly SDK lets you configure user objects to return specific data to LaunchDarkly. Any attributes you pass to LaunchDarkly become available on the **Users** dashboard.
+
+The user `key` is the only mandatory user attribute. User keys must be unique, deterministic, and should not contain Personally Identifiable Information (PII). User keys must be consistent, which means the same person must correspond to the same user key across different services to contribute to consistent flag evaluations and accurate monthly active user (MAU) counts.
+
+When you set a user key, consider where you will use it. User keys are transmitted to LaunchDarkly, so if your security best practices require you to obscure employee information when it is sent to third-party services, you may want to compose user keys of a unique identifier that is not PII and that has been hashed and salted.
 
 ### Using built-in and custom attributes
 
-The user `key` is the only mandatory user attribute. All of the other built-in attributes, like `firstName` and `email`, are optional. For a list of all built-in user attributes LaunchDarkly supports, read [Understanding user attributes](/home/users/attributes#understanding-user-attributes).
+Attributes other than the user key are optional. There are two types of attributes: built-in attributes, which are LaunchDarkly names, and custom attributes, which you can name anything you choose.
 
-Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Custom attributes values can be booleans, numbers, strings, or arrays. If you set the value of a custom attribute to a JSON object, it won't appear on your Users dashboard. All custom attributes are optional. To learn more, read [Setting custom user attributes](/home/users/attributes#setting-custom-user-attributes).
+Built-in attributes include common identifiers for users, like `firstName` and `email`. For a list of all built-in user attributes LaunchDarkly supports, read [Understanding user attributes](/home/users/attributes#understanding-user-attributes).
+
+Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Custom attributes values can be booleans, numbers, strings, or arrays. If you set the value of a custom attribute to a JSON object, it won't appear on your **Users** dashboard. To learn more, read [Setting custom user attributes](/home/users/attributes#setting-custom-user-attributes).
 
 <Callout intent="alert">
 <CalloutTitle>Custom and built-in attributes cannot share keys</CalloutTitle>
