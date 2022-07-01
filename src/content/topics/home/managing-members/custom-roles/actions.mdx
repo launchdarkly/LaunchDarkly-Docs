@@ -753,15 +753,6 @@ This table explains available environments actions:
 
 ## Metrics actions
 
-<Callout intent="info">
-<CalloutTitle>The name of this action has changed</CalloutTitle>
-<CalloutDescription>
-
-Goals have been redesigned as metrics and associated with our Experimentation add-on. You do not need to update your actions to use `metric`, however. If you are using goals actions, they will still work.
-
-</CalloutDescription>
-</Callout>
-
 `metric` is a child resource of **projects**. A code sample is below:
 
 <CodeTabs
@@ -871,6 +862,61 @@ This table explains available metric actions:
   </TableBody>
 </Table>
 
+## Experiments actions
+
+`experiment` is a child of both a project and environments. A code sample is below:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Experiment resource', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+proj/*:env/*:experiment/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [About Experimentation](/home/about-experimentation).
+
+This table explains available experiment actions:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>archiveExperiment</code>
+      </TableCell>
+      <TableCell>
+        Archive an experiment.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>createExperiment</code>
+      </TableCell>
+      <TableCell>Create an experiment.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateExperiment</code>
+      </TableCell>
+      <TableCell>
+        Update an experiment.
+      </TableCell>
+    </TableRow>
+    </TableBody>
+  </Table>
+
 ## Feature flags actions
 
 `flag` is a child of **both a project and environments**. A code sample is below:
@@ -955,14 +1001,14 @@ This table explains available feature flag actions that affect only the **curren
       <TableCell>
         <code>deleteExperimentResults</code>
       </TableCell>
-      <TableCell>Delete experiment results.</TableCell>
+      <TableCell>Delete legacy experiment results. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteFlagAttachedGoalResults</code>
       </TableCell>
       <TableCell>
-        Reset the experiment results for a flag in a given environment.
+        Reset legacy experiment results for a flag in a given environment. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -994,7 +1040,7 @@ This table explains available feature flag actions that affect only the **curren
         <code>updateExperimentActive</code>
       </TableCell>
       <TableCell>
-        Start or stop an experiment in an environment.
+        Stop a legacy experiment in an environment. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1139,7 +1185,7 @@ This table explains available feature flag actions that affect **all environment
         <code>createExperiment</code>
       </TableCell>
       <TableCell>
-        Create an experiment. Impacts all environments in a project.
+        Create a legacy experiment. Impacts all environments in a project. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1163,7 +1209,7 @@ This table explains available feature flag actions that affect **all environment
         <code>deleteExperiment</code>
       </TableCell>
       <TableCell>
-        Delete an experiment. Impacts all environments in a project.
+        Delete a legacy experiment. Impacts all environments in a project. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1187,7 +1233,7 @@ This table explains available feature flag actions that affect **all environment
         <code>updateAttachedGoals</code>
       </TableCell>
       <TableCell>
-        Start or stop an A/B testing experiment. Impacts all environments in a project.
+        Stop a legacy experiment. Impacts all environments in a project. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1211,7 +1257,7 @@ This table explains available feature flag actions that affect **all environment
         <code>updateExperimentBaseline</code>
       </TableCell>
       <TableCell>
-        Change a flag's baseline variation for experiments. Impacts all environments in a project.
+        Change a flag's baseline variation for a legacy experiment. Impacts all environments in a project. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
       </TableCell>
     </TableRow>
     <TableRow>
