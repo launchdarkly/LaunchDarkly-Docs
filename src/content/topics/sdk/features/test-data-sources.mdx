@@ -121,6 +121,7 @@ This feature is available in the following server-side SDKs:
 * [C/C++](#cc)
 * [Erlang](#erlang)
 * [Go](#go)
+* [Haskell](#haskell)
 * [Java](#java)
 * [PHP](#php)
 * [Ruby](#ruby)
@@ -462,6 +463,84 @@ td.Update(td.Flag("flag-key-3").
 </CodeTabs>
 
 To learn more, read [`ldtestdata`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/testhelpers/ldtestdata).
+</Details>
+
+### Haskell
+
+<Details summary="Expand Haskell code sample">
+
+To configure the SDK to use a test data source:
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', },
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+import qualified LaunchDarkly.Server.Integrations.TestData as TestData
+
+ td <- TestData.newTestData
+ let config = LD.configSetDataSourceFactory (Just $ TestData.dataSourceFactory td) $ LD.makeConfig "sdk-key"
+ client <- LD.makeClient config
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To set a flag to a specific value:
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', },
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+TestData.update td =<< ( TestData.flag td "flag-key-1"
+	<&> TestData.booleanFlag
+	<&> TestData.variationForAllUsers True
+)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There are other ways you can configure flag behavior using a test data source. Here is an example:
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', },
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+-- This flag is true for the user key "some-user-key" and false for everyone else
+TestData.update td =<< ( TestData.flag td "flag-key-2"
+	<&> TestData.booleanFlag
+	<&> TestData.variationForUser "some-user-key" (0 :: TestData.VariationIndex)
+	<&> TestData.fallthroughVariation (1 :: TestData.VariationIndex)
+)
+
+-- This flag returns the string variation "green" for users who have the custom
+-- attribute "admin" with a value of true, and "red" for everyone else.
+TestData.update td =<< ( TestData.flag td "flag-key-2"
+	<&> TestData.variations [toJSON "red", toJSON "green"]
+	<&> TestData.ifMatch "admin" [Aeson.Bool True]
+	<&> TestData.thenReturn (1 :: TestData.VariationIndex)
+	<&> TestData.fallthroughVariation (0 :: TestData.VariationIndex))
+)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 </Details>
 
 ### Java
