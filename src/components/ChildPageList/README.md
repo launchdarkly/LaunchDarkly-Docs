@@ -1,6 +1,6 @@
 # ChildPageList
 
-This component renders a list of navigation links to the immediate children of the nav item specified by its path. Links are listed alphabetically by label.
+This component renders a list of navigation links to the immediate children of the sidenav item specified by its path. Links are listed alphabetically by label.
 
 ## Props
 

@@ -217,6 +217,7 @@ semanticpatch
 sensiolabs
 serializers
 sfdx
+sidenav
 signalfx
 signin
 signup
