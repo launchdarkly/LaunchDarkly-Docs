@@ -20,6 +20,7 @@ Bintray
 boto
 bracket-paren
 brightscript
+bytecode
 callout
 callouts
 camelcase
