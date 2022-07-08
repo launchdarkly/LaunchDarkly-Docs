@@ -15,10 +15,11 @@ jobs:
         run: |
           git config --global user.email "launchdarklyreleasebot@launchdarkly.com"
           git config --global user.name "LaunchDarklyReleaseBot"
+          git config --global pull.rebase false
           git remote add public 'https://${{ secrets.GH_USER }}:${{ secrets.GH_TOKEN }}@github.com/launchdarkly/LaunchDarkly-Docs.git'
           git fetch public
 
-          if git pull public main; then
+          if git pull public main --no-edit; then
             git pull && git push
             echo "Successfully merged and pushed public changes to private repo. Will sync private to public now."
             echo "::set-output name=has_conflict::false"
