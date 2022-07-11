@@ -79,12 +79,19 @@ You can also use the advanced role policy editor to grant permissions by adding 
 [
   {
     "effect": "allow",
-    "actions": ["createWebhook", "deleteWebhook"],
+    "actions": [
+      "createWebhook",
+      "deleteWebhook"
+    ],
     "resources": ["webhook/*"]
   },
   {
     "effect": "allow",
-    "actions": ["createFlagLink", "updateFlagLink", "deleteFlagLink"],
+    "actions": [
+      "createFlagLink",
+      "updateFlagLink",
+      "deleteFlagLink"
+    ],
     "resources": ["proj/*:env/*:flag/*"]
   }
 ]
@@ -180,7 +187,7 @@ To remove a flag from a Jira issue:
 
 1. Navigate to the flag's **Settings** tab.
 2. In the "Jira Issues" section, click the **X** on the Jira issue custom property you want to remove:
-   ![The Jira issues custom properties field with delete custom property shown](jira-delete-custom-properties.png)
+   ![The "Custom properties" section with with the "Delete custom property" option shown.](jira-delete-custom-properties.png)
 3. Click **Save with comment**.
 
 <Callout intent="alert">
