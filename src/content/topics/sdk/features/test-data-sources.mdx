@@ -118,11 +118,12 @@ To learn more, read [TestData](https://launchdarkly.github.io/dotnet-client-sdk/
 This feature is available in the following server-side SDKs:
 
 * [.NET (server-side)](#net-server-side)
-* [C/C++](#cc)
+* [C/C++ (server-side)](#cc-server-side)
 * [Erlang](#erlang)
 * [Go](#go)
 * [Haskell](#haskell)
 * [Java](#java)
+* [Node.js (server-side)](#)
 * [PHP](#php)
 * [Ruby](#ruby)
 
@@ -203,8 +204,8 @@ td.Update(td.Flag("flag-key-3")
 To learn more, read [`TestData`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.TestData.html).
 </Details>
 
-### C/C++
-<Details summary="Expand C/C++ code sample">
+### C/C++ (server-side)
+<Details summary="Expand C/C++ (server-side) code sample">
 
 To configure the SDK to use a test data source:
 
@@ -620,6 +621,41 @@ td.update(td.flag("flag-key-3")
 </CodeTabs>
 
 To learn more, read [`TestData`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/TestData.html).
+</Details>
+
+### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
+
+To configure the SDK to use a test data source:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const { TestData } = require('launchdarkly-node-server-sdk/integrations');
+
+const td = TestData();
+testData.update(td.flag('flag-key-1').booleanFlag().variationForAllUsers(true));
+const client = new LDClient('YOUR_SDK_KEY', { updateProcessor: td });
+
+// flags can be updated at any time:
+td.update(td.flag('flag-key-2')
+    .variationForUser('some-user-key', true)
+    .fallthroughVariation(false));
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`TestData`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_integrations_.TestData.html).
+
 </Details>
 
 ### PHP
