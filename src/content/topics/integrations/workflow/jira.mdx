@@ -91,7 +91,7 @@ You can also use the advanced role policy editor to grant permissions by adding 
       "createFlagLink",
       "updateFlagLink",
       "deleteFlagLink"
-      ],
+    ],
     "resources": ["proj/*:env/*:flag/*"]
   }
 ]
@@ -180,6 +180,15 @@ If you have already created a feature flag for your Jira issue, you can add a Ji
 4. Click **Save Changes**.
 
 ![The Jira issues custom properties field.](jira-custom-properties-issues.png)
+
+## Removing a feature flag from a Jira issue
+
+To remove a flag from a Jira issue:
+
+1. Navigate to the flag's **Settings** tab.
+2. In the "Jira Issues" section, click the **X** on the Jira issue custom property you want to remove:
+   ![The "Custom properties" section with with the "Delete custom property" option shown.](jira-delete-custom-properties.png)
+3. Click **Save with comment**.
 
 <Callout intent="alert">
 <CalloutTitle>Adding issues to an existing flag</CalloutTitle>
