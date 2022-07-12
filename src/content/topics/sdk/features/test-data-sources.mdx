@@ -118,10 +118,12 @@ To learn more, read [TestData](https://launchdarkly.github.io/dotnet-client-sdk/
 This feature is available in the following server-side SDKs:
 
 * [.NET (server-side)](#net-server-side)
-* [C/C++](#cc)
+* [C/C++ (server-side)](#cc-server-side)
 * [Erlang](#erlang)
 * [Go](#go)
+* [Haskell](#haskell)
 * [Java](#java)
+* [Node.js (server-side)](#)
 * [PHP](#php)
 * [Ruby](#ruby)
 
@@ -202,8 +204,8 @@ td.Update(td.Flag("flag-key-3")
 To learn more, read [`TestData`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.TestData.html).
 </Details>
 
-### C/C++
-<Details summary="Expand C/C++ code sample">
+### C/C++ (server-side)
+<Details summary="Expand C/C++ (server-side) code sample">
 
 To configure the SDK to use a test data source:
 
@@ -464,6 +466,84 @@ td.Update(td.Flag("flag-key-3").
 To learn more, read [`ldtestdata`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/testhelpers/ldtestdata).
 </Details>
 
+### Haskell
+
+<Details summary="Expand Haskell code sample">
+
+To configure the SDK to use a test data source:
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', },
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+import qualified LaunchDarkly.Server.Integrations.TestData as TestData
+
+ td <- TestData.newTestData
+ let config = LD.configSetDataSourceFactory (Just $ TestData.dataSourceFactory td) $ LD.makeConfig "sdk-key"
+ client <- LD.makeClient config
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To set a flag to a specific value:
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', },
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+TestData.update td =<< ( TestData.flag td "flag-key-1"
+	<&> TestData.booleanFlag
+	<&> TestData.variationForAllUsers True
+)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There are other ways you can configure flag behavior using a test data source. Here is an example:
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', },
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+-- This flag is true for the user key "some-user-key" and false for everyone else
+TestData.update td =<< ( TestData.flag td "flag-key-2"
+	<&> TestData.booleanFlag
+	<&> TestData.variationForUser "some-user-key" (0 :: TestData.VariationIndex)
+	<&> TestData.fallthroughVariation (1 :: TestData.VariationIndex)
+)
+
+-- This flag returns the string variation "green" for users who have the custom
+-- attribute "admin" with a value of true, and "red" for everyone else.
+TestData.update td =<< ( TestData.flag td "flag-key-2"
+	<&> TestData.variations [toJSON "red", toJSON "green"]
+	<&> TestData.ifMatch "admin" [Aeson.Bool True]
+	<&> TestData.thenReturn (1 :: TestData.VariationIndex)
+	<&> TestData.fallthroughVariation (0 :: TestData.VariationIndex))
+)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+</Details>
+
 ### Java
 
 <Details summary="Expand Java code sample">
@@ -541,6 +621,41 @@ td.update(td.flag("flag-key-3")
 </CodeTabs>
 
 To learn more, read [`TestData`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/TestData.html).
+</Details>
+
+### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
+
+To configure the SDK to use a test data source:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const { TestData } = require('launchdarkly-node-server-sdk/integrations');
+
+const td = TestData();
+testData.update(td.flag('flag-key-1').booleanFlag().variationForAllUsers(true));
+const client = new LDClient('YOUR_SDK_KEY', { updateProcessor: td });
+
+// flags can be updated at any time:
+td.update(td.flag('flag-key-2')
+    .variationForUser('some-user-key', true)
+    .fallthroughVariation(false));
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`TestData`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_integrations_.TestData.html).
+
 </Details>
 
 ### PHP

@@ -14,7 +14,9 @@ This topic explains how to include specific groups of users in an experiment aud
 
 You have the option to only include a subset of users in your experiments, which gives you accurate experiment results more quickly. This subset of users is called your "experiment audience."
 
-For example, imagine you plan to test alternate copy for your checkout button. You target all Canadian and US users with the `true` variation for the button, which shows the new, alternate copy, but you only want to run an experiment measuring click conversions for users in the United States. To accomplish this, you select the user targeting rule that affects US-based users and de-select the rule that targets users in Canada. This limits the users who evaluate the flag to only those who are based in the United States.
+For example, imagine you plan to test alternate copy for your checkout button. You target all Canadian and US users with the `true` variation for the button, which shows the new, alternate copy, but you only want to run an experiment measuring click conversions for users in the United States. 
+
+To accomplish this, you would select the user targeting rule on the flag's **Targeting** tab that affects US-based users and de-select the rule that targets users in Canada. This limits the users who evaluate the flag to only those who are based in the United States.
 
 You may want to refine your experiment audience for any of the following reasons:
 
@@ -22,24 +24,23 @@ You may want to refine your experiment audience for any of the following reasons
 - To exclude user groups whose events you do not need to measure. For example, users affected by 'Default' rules.
 - To reduce the volume of users in an experiment.
 
-You can create a custom experiment audience by selecting specific flag targeting rules to include in your active experiments. When increasing or decreasing the number of users in your variations, LaunchDarkly properly randomizes users and provides the configuration and guidance to prevent carryover bias. This method of managing your experiment audience is called "audience allocation." To learn more about carryover bias, read [Understanding variation reassignment](#understanding-variation-reassignment).
-
-Audience allocation gives you flexibility when selecting your experiment audience and ensures accurate experiment results. Only users that you elect to be part of the experiment will be analyzed for those results.
-
-<Callout intent="info">
-<CalloutTitle>Verify that your SDK versions support Experimentation</CalloutTitle>
-<CalloutDescription>
-
-Before you begin, compare your SDK versions to our list of required SDK versions to confirm that you're using an SDK that supports our most recent Experimentation offering. Most versions of our SDKs support Experimentation, but if you use older versions of SDKs or you used an older version of Experimentation, you may need to update your SDKs.
-
-To find the supported SDK versions, read [Prerequisites](/home/about-experimentation#prerequisites).
-
-</CalloutDescription>
-</Callout>
-
 ## Creating experiment audiences
 
 You determine the initial experiment audience when you create a new experiment. You must include at least two variations in the experiment for the experiment to be valid. To learn more, read [Building experiments](/home/creating-experiments#building-experiments).
+
+### Using targeting rules
+
+You can run an experiment on a flag's default rule, or you can create a custom experiment audience by selecting a specific flag targeting rule to include in your experiment. You can target by any user attribute you collect. To learn how, read [Targeting rules](/home/flags/targeting-rules).
+
+### Allocating audiences
+
+When you build your experiment, you can allocate all or a percentage of the user traffic that encounters a flag in an experiment. Audience allocation gives you flexibility when selecting your experiment audience and ensures accurate experiment results. LaunchDarkly analyzes only users that you choose to be part of the experiment.
+
+If you decide to increase or decrease the number of users in an experiment, LaunchDarkly will create a new iteration of your experiment. To learn more, read [Starting experiment iterations](/home/creating-experiments#starting-experiment-iterations).
+
+### Changing traffic allocation
+
+When the number of users in your variations increases or decreases, LaunchDarkly properly reassigns users to different variations to prevent carryover bias. This method of managing your experiment audience is called "audience allocation." To learn more about carryover bias, read [Understanding variation reassignment](#understanding-variation-reassignment).
 
 Here is an image of a flag's targeting rule with 20% of users included in the experiment:
 
@@ -87,7 +88,7 @@ For experiments where users should not leave the variation they're initially all
 
 Using fresh traffic and freeing the previous ramp’s traffic prevents carry-over effects and ensures you don't run out of traffic for your experiment.
 
-## Disabling variation reassignment
+### Disabling variation reassignment
 
 <Callout intent="alert">
 <CalloutTitle>We do not recommend this option for the majority of use cases</CalloutTitle>

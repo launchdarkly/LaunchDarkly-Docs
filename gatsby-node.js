@@ -8,6 +8,10 @@ const isDev = process.env.GATSBY_ACTIVE_ENV === 'development'
 // This generates URL-safe slugs.
 slug.defaults.mode = 'rfc3986'
 
+const getLastModifiedFromGitLog = absolutePath => {
+  return execSync(`git log -1 --pretty=format:%aI ${absolutePath}`).toString()
+}
+
 exports.onCreateNode = async ({ node, actions }) => {
   const { createNodeField } = actions
   const {
@@ -21,7 +25,7 @@ exports.onCreateNode = async ({ node, actions }) => {
     let lastModifiedTime
     if (isDev) {
       // for local dev use local git commits to speed up the build
-      lastModifiedTime = execSync(`git log -1 --pretty=format:%aI ${node.fileAbsolutePath}`).toString()
+      lastModifiedTime = getLastModifiedFromGitLog(fileAbsolutePath)
     } else {
       const gitCommits = JSON.parse(
         execSync(`
@@ -31,8 +35,13 @@ exports.onCreateNode = async ({ node, actions }) => {
         -F path=src/${fileRelativePath}`),
       )
 
-      // the first commit is most recent one
-      lastModifiedTime = gitCommits[0].commit?.author?.date
+      // the first commit is most recent one. Fallback to git log.
+      lastModifiedTime = gitCommits[0]?.commit?.author?.date ?? getLastModifiedFromGitLog(fileAbsolutePath)
+
+      // if lastModified is still empty then use today's date
+      if (!lastModifiedTime || lastModifiedTime === '') {
+        lastModifiedTime = new Date().toISOString()
+      }
       console.log(`${fileRelativePath} last modified ${lastModifiedTime}`)
     }
 

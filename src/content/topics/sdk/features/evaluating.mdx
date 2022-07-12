@@ -16,7 +16,7 @@ Feature flag variations determine what a user receives when they encounter a fea
 
 Flags also have fallback values. The fallback value only returns if an error occurs. For example, the SDK serves the fallback value if LaunchDarkly is unreachable, the feature flag key doesn't exist, or the user doesn't have a key specified.
 
-The flag evaluation feature adds a user to the **Users** dashboard if a user with the same key does not already exist. However, each SDK evaluates flags based only on the user object you provide in the evaluation call. The SDK does not automatically use the attributes shown on the dashboard, and user attributes are not synchronized across SDK instances. You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+The flag evaluation feature adds a user to the **Users** dashboard if a user with the same key does not already exist. However, each SDK evaluates flags based only on the user object you provide in the evaluation call. The SDK does not automatically use the attributes shown on the dashboard, and user attributes are not synchronized across SDK instances. You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly. To learn more, read [User configuration](/sdk/features/user-config).
 
 You do not need to create users manually, but if you want to, you can with the identify feature. To learn more, read [Identifying and changing users](/sdk/features/identify).
 
@@ -810,7 +810,7 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 The `variation` method determines which variation of a feature flag a user receives.
 
-`variation` calls take the feature flag key, a user, and a default value.
+`variation` calls take the feature flag key, a user hash, and a default value. To learn more about constructing the user hash, read [User configuration](/sdk/features/user-config#ruby).
 
 Here is an example:
 

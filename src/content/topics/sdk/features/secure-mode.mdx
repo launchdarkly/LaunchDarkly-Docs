@@ -18,7 +18,7 @@ Secure mode works by having you configure your JavaScript SDK to include a serve
 
 To use secure mode, you must complete the following:
 
-* **Enable secure mode for each environment.** You can enable secure mode for each of your environments on the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings/projects) page. Secure mode is an environment-wide setting. You can enable secure mode for your environment even if you're also using mobile SDKs that don't support it. Enabling secure mode does not cause those SDKs to fail.
+* **Enable secure mode for each environment.** You can enable secure mode for each of your environments on the **Environments** tab of your project under [**Account settings**](https://app.launchdarkly.com/settings/projects) page. Secure mode is an environment-wide setting. You can enable secure mode for your environment even if you're also using mobile SDKs that don't support it. Enabling secure mode does not cause those SDKs to fail.
 
 * **Compute the secure mode hash.** Enabling secure mode means that every request coming from a client-side JavaScript SDK requires the secure mode hash to evaluate flag variations. You can pass this to your front-end code with the mechanism of your choice, such as bootstrapping or as a template variable.
 
@@ -242,7 +242,7 @@ client.secure_mode_hash(&user);
 
 ## Computing the hash manually
 
-To compute the hash manually, locate the SDK key for your environment on the **Projects** tab of your **Account settings** page. Then, compute an HMAC SHA256 hash of the UTF8 encoding of your user key, using the UTF-8 encoding of your SDK key as a secret, and convert the hash to a hexadecimal string.
+To compute the hash manually, locate the SDK key for your environment on the **Environments** tab of your project under **Account settings** page. Then, compute an HMAC SHA256 hash of the UTF8 encoding of your user key, using the UTF-8 encoding of your SDK key as a secret, and convert the hash to a hexadecimal string.
 
 Here is a .NET (server-side) example:
 

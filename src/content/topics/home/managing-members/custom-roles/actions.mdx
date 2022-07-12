@@ -22,7 +22,9 @@ You can specify actions in bulk using glob syntax and wildcards. For example, yo
 
 ## Account actions
 
-`acct` is a **top-level resource**. A code sample is below:
+<Details summary="Expand Account actions">
+
+`acct` is a top-level resource. A code sample is below:
 
 <CodeTabs
   defaultValue="json"
@@ -183,7 +185,7 @@ This table explains available account actions:
   </TableBody>
 </Table>
 
-## Account ownership actions
+### Account ownership actions
 
 This table explains available account ownership actions:
 
@@ -198,29 +200,33 @@ This table explains available account ownership actions:
 </TableBody>
 </Table>
 
-## Member actions
+</Details>
 
-`member` is a **top-level resource**. A code sample is below:
+## Code reference actions
+
+<Details summary="Expand Code reference actions">
+
+`code-reference-repository` is a top-level resource. A code sample is below:
 
 <CodeTabs
   defaultValue="json"
   values={[
-    { label: 'Member resource', value: 'json', },
+    { label: 'Code references resource', value: 'json', },
   ]
 }>
 
 <CodeTabItem value="json">
 
 ```json
-member/*
+code-reference-repository/*
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [LaunchDarkly account members](/home/members/managing).
+To learn more, read [Code references](/home/code/code-references).
 
-This table explains available member actions:
+This table explains available code reference actions:
 
 <Table>
   <TableHeader>
@@ -230,67 +236,82 @@ This table explains available member actions:
   <TableBody>
     <TableRow>
       <TableCell>
-        <code>createMember</code>
+        <code>createCodeRefsRepository</code>
       </TableCell>
-      <TableCell>Add a new account member to an account.</TableCell>
+      <TableCell>
+        Connect a Git repository.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>deleteMember</code>
+        <code>deleteCodeRefsRepository</code>
       </TableCell>
-      <TableCell>Remove an account member from an account.</TableCell>
+      <TableCell>
+        Delete a Git repository connection.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>sendMfaRecoveryCode</code>
+        <code>updateCodeRefsRepositoryBranches</code>
       </TableCell>
-      <TableCell>Send an account member their MFA recovery code.</TableCell>
+      <TableCell>
+        Update the stored branch data for a Git repository connection.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>sendMfaRequest</code>
+        <code>updateCodeRefsRepositoryConfiguration</code>
       </TableCell>
-      <TableCell>Send an account member a request to enable MFA.</TableCell>
+      <TableCell>
+        Update a Git repository connection configuration.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateCustomRole</code>
+        <code>updateCodeRefsRepositoryName</code>
       </TableCell>
-      <TableCell>Update an account member's custom roles.</TableCell>
+      <TableCell>
+        Update a Git repository connection name.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateRole</code>
+        <code>UpdateCodeRefsRepositoryOn</code>
       </TableCell>
-      <TableCell>Update an account member's built-in role.</TableCell>
+      <TableCell>
+        Flip the on/off status of a Git repository connection.
+      </TableCell>
     </TableRow>
   </TableBody>
 </Table>
 
+</Details>
 
-## Team actions
+## Destination actions
 
-`team` is a **top-level resource**. A code sample is below:
+<Details summary="Expand Destination actions">
+
+`destination` is a child of both a project and environments. A code sample is below:
 
 <CodeTabs
   defaultValue="json"
   values={[
-    { label: 'Team resource', value: 'json', },
+    { label: 'Destination resource', value: 'json', },
   ]
 }>
 
 <CodeTabItem value="json">
 
 ```json
-team/*
+proj/*:env/*:destination/*
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [Teams](/home/teams).
+To learn more, read [Data Export](/home/data-export).
 
-This table explains available team actions:
+This table explains available destinations actions:
 
 <Table>
   <TableHeader>
@@ -300,355 +321,54 @@ This table explains available team actions:
   <TableBody>
     <TableRow>
       <TableCell>
-        <code>createTeam</code>
+        <code>createDestination</code>
       </TableCell>
-      <TableCell>Create a new team.</TableCell>
+      <TableCell>
+        Create a new Data Export destination.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>deleteTeam</code>
+        <code>deleteDestination</code>
       </TableCell>
-      <TableCell>Delete a team.</TableCell>
+      <TableCell>
+        Delete a Data Export destination.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateTeamCustomRoles</code>
-      </TableCell>
-      <TableCell>Add or remove custom roles from a team.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTeamDescription</code>
-      </TableCell>
-      <TableCell>Update the description of a team.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTeamMembers</code>
-      </TableCell>
-      <TableCell>Add or remove members to or from a team.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTeamName</code>
-      </TableCell>
-      <TableCell>Change the name of a team.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>viewTeam</code>
-      </TableCell>
-      <TableCell> If set to deny, anyone impacted by this policy can neither view nor modify a team.</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-<Callout intent="info">
-<CalloutTitle>More information about the viewTeam action</CalloutTitle>
-<CalloutDescription>
-
-The `deny` effect for your `resource` in the `viewTeam` action hides the teams you specify from the member. The `allow` effect for the same resource and action pairing doesn't do anything since your account member can already view the team.
-
-To learn more, read [Creating private teams](/guides/best-practices/teams#creating-private-teams).
-
-</CalloutDescription>
-</Callout>
-
-## Personal access token actions
-
-`token` is a child resource of **members**. A code sample is below:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Token resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
-
-```json
-member/*:token/*
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [API access tokens](/home/account-security/api-access-tokens).
-
-This table explains available personal access token actions:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Action</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>createAccessToken</code>
-      </TableCell>
-      <TableCell>Create a personal access token. All custom roles can take this action by default.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>deleteAccessToken</code>
-      </TableCell>
-      <TableCell>Delete a personal access token.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>resetAccessToken</code>
-      </TableCell>
-      <TableCell>Reset a personal access token's secret key.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateAccessTokenDescription</code>
-      </TableCell>
-      <TableCell>Change the description of a personal access token.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateAccessTokenName</code>
-      </TableCell>
-      <TableCell>Change the name of a personal access token.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateAccessTokenPolicy</code>
-      </TableCell>
-      <TableCell>Change the policy filter of a personal access token.</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-
-## Service access token actions
-
-`service-token` is a **top-level resource**. A code sample is below:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Service token resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
-
-```json
-service-token/*
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [API access tokens](/home/account-security/api-access-tokens).
-
-This table explains available service access token actions:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Action</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>createAccessToken</code>
-      </TableCell>
-      <TableCell>Create a service access token. All custom roles can take this action by default.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>deleteAccessToken</code>
-      </TableCell>
-      <TableCell>Delete a service access token.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>resetAccessToken</code>
-      </TableCell>
-      <TableCell>Reset a service access token's secret key.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateAccessTokenDescription</code>
-      </TableCell>
-      <TableCell>Change the description of a service access token.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateAccessTokenName</code>
-      </TableCell>
-      <TableCell>Change the name of a service access token.</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-## Role actions
-
-`role` is a **top-level resource**. A code sample is below:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Role resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
-
-```json
-role/*
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [Custom roles](/home/members/custom-roles).
-
-This table explains available role actions:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Action</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>createRole</code>
-      </TableCell>
-      <TableCell>Create new custom roles.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>deleteRole</code>
-      </TableCell>
-      <TableCell>Delete a custom role.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateDescription</code>
-      </TableCell>
-      <TableCell>Update a custom role's description.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateMembers</code>
+        <code>updateConfiguration</code>
       </TableCell>
       <TableCell>
-        Add or remove users from a custom role (equivalent to <code>updateCustomRole</code> on account members).
+        Change a Data Export destination.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateName</code>
       </TableCell>
-      <TableCell>Update a custom role's name.</TableCell>
+      <TableCell>
+        Change the name of a Data Export destination.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updatePolicy</code>
-      </TableCell>
-      <TableCell>Update a custom role's policy.</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-## Project actions
-
-`proj` is a **top-level resource**. A code sample is below:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Project resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
-
-```json
-proj/*
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [Projects](/home/organize/projects).
-
-This table explains available project actions:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Action</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>createProject</code>
-      </TableCell>
-      <TableCell>Create a new project.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>deleteProject</code>
-      </TableCell>
-      <TableCell>Delete a project.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateDefaultClientSideAvailability</code>
-      </TableCell>
-      <TableCell>Change whether new feature flags are made available to client-side SDKs.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateIncludeInSnippetByDefault</code>
-      </TableCell>
-      <TableCell>Make new flags available to the client-side (JavaScript) SDK by default.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateProjectName</code>
-      </TableCell>
-      <TableCell>Rename a project.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTags</code>
-      </TableCell>
-      <TableCell>Update tags associated with a project.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>viewProject</code>
+        <code>updateOn</code>
       </TableCell>
       <TableCell>
-        View a project. All custom roles can take this action by default. If set to <code>deny</code>, anyone impacted by this policy can neither view nor modify a project.
+        Flip the on/off status of a Data Export destination.
       </TableCell>
     </TableRow>
   </TableBody>
 </Table>
 
-<Callout intent="info">
-<CalloutTitle>More information about viewProject</CalloutTitle>
-<CalloutDescription>
+</Details>
 
-The `deny` effect in the `viewProject` action hides the projects you specify from the member. However, the `allow` effect for the same resource and action pairing doesn't do anything. Your LaunchDarkly member does not need explicit permission to view the project, because all custom roles can view all projects in a LaunchDarkly instance by default.
+## Environment actions
 
-To learn more, read <a href="/home/organize/private-projects">Configuring private projects with custom roles</a>
+<Details summary="Expand Environment actions">
 
-</CalloutDescription>
-</Callout>
-
-## Environments actions
-
-`env` is a child resource of **projects**. A code sample is below:
+`env` is a child resource of projects. A code sample is below:
 
 <CodeTabs
   defaultValue="json"
@@ -751,30 +471,25 @@ This table explains available environments actions:
   </TableBody>
 </Table>
 
-## Metrics actions
+</Details>
 
-<Callout intent="info">
-<CalloutTitle>The name of this action has changed</CalloutTitle>
-<CalloutDescription>
+## Experiment actions
 
-Goals have been redesigned as metrics and associated with our Experimentation add-on. You do not need to update your actions to use `metric`, however. If you are using goals actions, they will still work.
+<Details summary="Expand experiment actions">
 
-</CalloutDescription>
-</Callout>
-
-`metric` is a child resource of **projects**. A code sample is below:
+`experiment` is a child of both a project and environments. A code sample is below:
 
 <CodeTabs
   defaultValue="json"
   values={[
-    { label: 'Metric resource', value: 'json', },
+    { label: 'Experiment resource', value: 'json', },
   ]
 }>
 
 <CodeTabItem value="json">
 
 ```json
-proj/*:metric/*
+proj/*:env/*:experiment/*
 ```
 
 </CodeTabItem>
@@ -782,7 +497,7 @@ proj/*:metric/*
 
 To learn more, read [About Experimentation](/home/about-experimentation).
 
-This table explains available metric actions:
+This table explains available experiment actions:
 
 <Table>
   <TableHeader>
@@ -792,88 +507,36 @@ This table explains available metric actions:
   <TableBody>
     <TableRow>
       <TableCell>
-        <code>createMetric</code>
+        <code>archiveExperiment</code>
       </TableCell>
-      <TableCell>Create metrics.</TableCell>
+      <TableCell>
+        Archive an experiment.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>deleteMetric</code>
+        <code>createExperiment</code>
       </TableCell>
-      <TableCell>Delete metrics.</TableCell>
+      <TableCell>Create an experiment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateDescription</code>
+        <code>updateExperiment</code>
       </TableCell>
-      <TableCell>Change the description of a metric.</TableCell>
-    </TableRow>
-    <TableRow>
       <TableCell>
-        <code>updateEventKey</code>
+        Update an experiment.
       </TableCell>
-      <TableCell>Change the event key for a custom metric.</TableCell>
     </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateMaintainer</code>
-      </TableCell>
-      <TableCell>Change the metric's maintainer.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateName</code>
-      </TableCell>
-      <TableCell>Change the name of a metric.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateNumeric</code>
-      </TableCell>
-      <TableCell>Mark a custom metric as numeric or non-numeric.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateNumericSuccess</code>
-      </TableCell>
-      <TableCell>Update the success criteria for a numeric custom metric.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateNumericUnit</code>
-      </TableCell>
-      <TableCell>Update the unit displayed in results for a numeric custom metric.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateOn</code>
-      </TableCell>
-      <TableCell>Mark a metric as active or inactive.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateSelector</code>
-      </TableCell>
-      <TableCell>Update the CSS selector for a click metric.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTags</code>
-      </TableCell>
-      <TableCell>Change the tags associated with a metric.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateUrls</code>
-      </TableCell>
-      <TableCell>Update the URLs for a click or page view metric.</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
+    </TableBody>
+  </Table>
+  
+</Details>
 
-## Feature flags actions
+## Feature flag actions
 
-`flag` is a child of **both a project and environments**. A code sample is below:
+<Details summary="Expand Feature flag actions">
+
+`flag` is a child of both a project and environments. A code sample is below:
 
 <CodeTabs
   defaultValue="json"
@@ -895,7 +558,7 @@ To learn more, read [Your first feature flag](/home/getting-started/feature-flag
 
 Some feature flag actions affect only the current environment. Other feature flag actions affect all environments in a project.
 
-This table explains available feature flag actions that affect only the **current environment**:
+This table explains available feature flag actions that affect only the current environment:
 
 <Table>
   <TableHeader>
@@ -955,14 +618,14 @@ This table explains available feature flag actions that affect only the **curren
       <TableCell>
         <code>deleteExperimentResults</code>
       </TableCell>
-      <TableCell>Delete experiment results.</TableCell>
+      <TableCell>Delete legacy experiment results. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteFlagAttachedGoalResults</code>
       </TableCell>
       <TableCell>
-        Reset the experiment results for a flag in a given environment.
+        Reset legacy experiment results for a flag in a given environment. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -994,7 +657,7 @@ This table explains available feature flag actions that affect only the **curren
         <code>updateExperimentActive</code>
       </TableCell>
       <TableCell>
-        Start or stop an experiment in an environment.
+        Stop a legacy experiment in an environment. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1118,7 +781,7 @@ This table explains available feature flag actions that affect only the **curren
   </TableBody>
 </Table>
 
-This table explains available feature flag actions that affect **all environments** within a project:
+This table explains available feature flag actions that affect all environments within a project:
 
 <Table>
   <TableHeader>
@@ -1139,7 +802,7 @@ This table explains available feature flag actions that affect **all environment
         <code>createExperiment</code>
       </TableCell>
       <TableCell>
-        Create an experiment. Impacts all environments in a project.
+        Create a legacy experiment. Impacts all environments in a project. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1163,7 +826,7 @@ This table explains available feature flag actions that affect **all environment
         <code>deleteExperiment</code>
       </TableCell>
       <TableCell>
-        Delete an experiment. Impacts all environments in a project.
+        Delete a legacy experiment. Impacts all environments in a project. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1187,7 +850,7 @@ This table explains available feature flag actions that affect **all environment
         <code>updateAttachedGoals</code>
       </TableCell>
       <TableCell>
-        Start or stop an A/B testing experiment. Impacts all environments in a project.
+        Stop a legacy experiment. Impacts all environments in a project. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1211,7 +874,7 @@ This table explains available feature flag actions that affect **all environment
         <code>updateExperimentBaseline</code>
       </TableCell>
       <TableCell>
-        Change a flag's baseline variation for experiments. Impacts all environments in a project.
+        Change a flag's baseline variation for a legacy experiment. Impacts all environments in a project. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1297,9 +960,597 @@ This table explains available feature flag actions that affect **all environment
   </TableBody>
 </Table>
 
-## Segments actions
+</Details>
 
-`segment` is a child of **both a project and environments**. A code sample is below:
+## Integration actions
+
+<Details summary="Expand Integration actions">
+
+Most third-party integrations use a shared set of custom role actions.
+
+`integration` is a top-level resource. A code sample is below:
+
+  <CodeTabs
+    defaultValue="json"
+    values={[
+      { label: 'Integration resource', value: 'json', },
+    ]
+  }>
+
+  <CodeTabItem value="json">
+
+  ```json
+  integration/*
+  ```
+
+  </CodeTabItem>
+  </CodeTabs>
+
+  To learn more, read [Integrations](/integrations).
+
+  This table explains available integrations actions:
+
+  <Table>
+    <TableHeader>
+      <TableHeadCell>Action</TableHeadCell>
+      <TableHeadCell>Description</TableHeadCell>
+    </TableHeader>
+    <TableBody>
+      <TableRow>
+        <TableCell>
+          <code>createIntegration</code>
+        </TableCell>
+        <TableCell>
+          Create and configure new third-party integrations.
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>
+          <code>deleteIntegration</code>
+        </TableCell>
+        <TableCell>
+          Delete existing third-party integrations.
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>
+          <code>updateConfiguration</code>
+        </TableCell>
+        <TableCell>
+          Modify existing third-party integration configurations.
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>
+          <code>updateName</code>
+        </TableCell>
+        <TableCell>
+          Change the name of third-party integration configurations.
+        </TableCell>
+      </TableRow>
+       <TableRow>
+        <TableCell>
+          <code>updateOn</code>
+        </TableCell>
+        <TableCell>
+          Enable and disabled existing third-party integrations.
+        </TableCell>
+      </TableRow>
+      <TableRow>
+       <TableCell>
+         <code>validateConnection</code>
+       </TableCell>
+       <TableCell>
+         Validate the third-party connection.
+       </TableCell>
+     </TableRow>
+    </TableBody>
+  </Table>
+  
+</Details>
+
+## Member actions
+
+<Details summary="Expand Member actions">
+
+`member` is a top-level resource. A code sample is below:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Member resource', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+member/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [LaunchDarkly account members](/home/members/managing).
+
+This table explains available member actions:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createMember</code>
+      </TableCell>
+      <TableCell>Add a new account member to an account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteMember</code>
+      </TableCell>
+      <TableCell>Remove an account member from an account.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>sendMfaRecoveryCode</code>
+      </TableCell>
+      <TableCell>Send an account member their MFA recovery code.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>sendMfaRequest</code>
+      </TableCell>
+      <TableCell>Send an account member a request to enable MFA.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateCustomRole</code>
+      </TableCell>
+      <TableCell>Update an account member's custom roles.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateRole</code>
+      </TableCell>
+      <TableCell>Update an account member's built-in role.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</Details>
+
+## Metric actions
+
+<Details summary="Expand Metric actions">
+
+`metric` is a child resource of projects. A code sample is below:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Metric resource', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+proj/*:metric/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [About Experimentation](/home/about-experimentation).
+
+This table explains available metric actions:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createMetric</code>
+      </TableCell>
+      <TableCell>Create metrics.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteMetric</code>
+      </TableCell>
+      <TableCell>Delete metrics.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateDescription</code>
+      </TableCell>
+      <TableCell>Change the description of a metric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateEventKey</code>
+      </TableCell>
+      <TableCell>Change the event key for a custom metric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateMaintainer</code>
+      </TableCell>
+      <TableCell>Change the metric's maintainer.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateName</code>
+      </TableCell>
+      <TableCell>Change the name of a metric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateNumeric</code>
+      </TableCell>
+      <TableCell>Mark a custom metric as numeric or non-numeric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateNumericSuccess</code>
+      </TableCell>
+      <TableCell>Update the success criteria for a numeric custom metric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateNumericUnit</code>
+      </TableCell>
+      <TableCell>Update the unit displayed in results for a numeric custom metric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateOn</code>
+      </TableCell>
+      <TableCell>Mark a metric as active or inactive.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateSelector</code>
+      </TableCell>
+      <TableCell>Update the CSS selector for a click metric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTags</code>
+      </TableCell>
+      <TableCell>Change the tags associated with a metric.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateUrls</code>
+      </TableCell>
+      <TableCell>Update the URLs for a click or page view metric.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</Details>
+
+## Personal access token actions
+
+<Details summary="Expand Personal access token actions">
+
+`token` is a child resource of members. A code sample is below:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Token resource', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+member/*:token/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [API access tokens](/home/account-security/api-access-tokens).
+
+This table explains available personal access token actions:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createAccessToken</code>
+      </TableCell>
+      <TableCell>Create a personal access token. All custom roles can take this action by default.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteAccessToken</code>
+      </TableCell>
+      <TableCell>Delete a personal access token.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>resetAccessToken</code>
+      </TableCell>
+      <TableCell>Reset a personal access token's secret key.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccessTokenDescription</code>
+      </TableCell>
+      <TableCell>Change the description of a personal access token.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccessTokenName</code>
+      </TableCell>
+      <TableCell>Change the name of a personal access token.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccessTokenPolicy</code>
+      </TableCell>
+      <TableCell>Change the policy filter of a personal access token.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</Details>
+
+## Project actions
+
+<Details summary="Expand Project actions">
+
+`proj` is a top-level resource. A code sample is below:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Project resource', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+proj/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [Projects](/home/organize/projects).
+
+This table explains available project actions:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createProject</code>
+      </TableCell>
+      <TableCell>Create a new project.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteProject</code>
+      </TableCell>
+      <TableCell>Delete a project.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateDefaultClientSideAvailability</code>
+      </TableCell>
+      <TableCell>Change whether new feature flags are made available to client-side SDKs.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateIncludeInSnippetByDefault</code>
+      </TableCell>
+      <TableCell>Make new flags available to the client-side (JavaScript) SDK by default.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateProjectName</code>
+      </TableCell>
+      <TableCell>Rename a project.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTags</code>
+      </TableCell>
+      <TableCell>Update tags associated with a project.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>viewProject</code>
+      </TableCell>
+      <TableCell>
+        View a project. All custom roles can take this action by default. If set to <code>deny</code>, anyone impacted by this policy can neither view nor modify a project.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+<Callout intent="info">
+<CalloutTitle>More information about viewProject</CalloutTitle>
+<CalloutDescription>
+
+The `deny` effect in the `viewProject` action hides the projects you specify from the member. However, the `allow` effect for the same resource and action pairing doesn't do anything. Your LaunchDarkly member does not need explicit permission to view the project, because all custom roles can view all projects in a LaunchDarkly instance by default.
+
+To learn more, read <a href="/home/organize/private-projects">Configuring private projects with custom roles</a>
+
+</CalloutDescription>
+</Callout>
+
+</Details>
+
+## Relay Proxy configuration actions
+
+<Details summary="Expand Relay Proxy configuration actions">
+
+`relay-proxy-config` is a top-level resource for which you can allow or deny certain actions.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Relay Proxy configuration resource', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+relay-proxy-config/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [Automatic configuration](/home/relay-proxy/automatic-configuration).
+
+This table explains available Relay Proxy automatic configuration actions:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createRelayAutoConfiguration</code>
+      </TableCell>
+      <TableCell>Create a Relay Proxy with automatic configuration enabled.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteRelayAutoConfiguration</code>
+      </TableCell>
+      <TableCell>Delete the Relay Proxy with automatic configuration enabled.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>resetRelayAutoConfiguration</code>
+      </TableCell>
+      <TableCell>Reset the configuration of the Relay Proxy with automatic configuration enabled.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateRelayAutoConfigurationName</code>
+      </TableCell>
+      <TableCell>Change the Relay Proxy with automatic configuration's name.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateRelayAutoConfigurationPolicy</code>
+      </TableCell>
+      <TableCell>Change the policies associated with the Relay Proxy with automatic configuration.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</Details>
+
+## Role actions
+
+<Details summary="Expand Role actions">
+
+`role` is a top-level resource. A code sample is below:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Role resource', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+role/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [Custom roles](/home/members/custom-roles).
+
+This table explains available role actions:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createRole</code>
+      </TableCell>
+      <TableCell>Create new custom roles.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteRole</code>
+      </TableCell>
+      <TableCell>Delete a custom role.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateDescription</code>
+      </TableCell>
+      <TableCell>Update a custom role's description.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateMembers</code>
+      </TableCell>
+      <TableCell>
+        Add or remove users from a custom role (equivalent to <code>updateCustomRole</code> on account members).
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateName</code>
+      </TableCell>
+      <TableCell>Update a custom role's name.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updatePolicy</code>
+      </TableCell>
+      <TableCell>Update a custom role's policy.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</Details>
+
+## Segment actions
+
+<Details summary="Expand Segment actions">
+
+`segment` is a child of both a project and environments. A code sample is below:
 
 <CodeTabs
   defaultValue="json"
@@ -1418,9 +1669,215 @@ This table explains available segments actions:
   </TableBody>
 </Table>
 
-## Webhooks actions
+</Details>
 
-`webhook` is a **top-level resource**. A code sample is below:
+## Service access token actions
+
+<Details summary="Expand Service access token actions">
+
+`service-token` is a top-level resource. A code sample is below:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Service token resource', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+service-token/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [API access tokens](/home/account-security/api-access-tokens).
+
+This table explains available service access token actions:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createAccessToken</code>
+      </TableCell>
+      <TableCell>Create a service access token. All custom roles can take this action by default.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteAccessToken</code>
+      </TableCell>
+      <TableCell>Delete a service access token.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>resetAccessToken</code>
+      </TableCell>
+      <TableCell>Reset a service access token's secret key.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccessTokenDescription</code>
+      </TableCell>
+      <TableCell>Change the description of a service access token.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAccessTokenName</code>
+      </TableCell>
+      <TableCell>Change the name of a service access token.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</Details>
+
+## Team actions
+
+<Details summary="Expand Team actions">
+
+`team` is a top-level resource. A code sample is below:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Team resource', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+team/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [Teams](/home/teams).
+
+This table explains available team actions:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createTeam</code>
+      </TableCell>
+      <TableCell>Create a new team.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteTeam</code>
+      </TableCell>
+      <TableCell>Delete a team.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTeamCustomRoles</code>
+      </TableCell>
+      <TableCell>Add or remove custom roles from a team.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTeamDescription</code>
+      </TableCell>
+      <TableCell>Update the description of a team.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTeamMembers</code>
+      </TableCell>
+      <TableCell>Add or remove members to or from a team.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTeamName</code>
+      </TableCell>
+      <TableCell>Change the name of a team.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>viewTeam</code>
+      </TableCell>
+      <TableCell> If set to deny, anyone impacted by this policy can neither view nor modify a team.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+<Callout intent="info">
+<CalloutTitle>More information about the viewTeam action</CalloutTitle>
+<CalloutDescription>
+
+The `deny` effect for your `resource` in the `viewTeam` action hides the teams you specify from the member. The `allow` effect for the same resource and action pairing doesn't do anything since your account member can already view the team.
+
+To learn more, read [Creating private teams](/guides/best-practices/teams#creating-private-teams).
+
+</CalloutDescription>
+</Callout>
+
+</Details>
+
+## User actions
+
+<Details summary="Expand User actions">
+
+`user` is a child of both a project and environments. A code sample is below:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'User resource', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+proj/*:env/*:user/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [The Users dashboard](/home/users/users-dashboard).
+
+This table explains available users actions:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>deleteUser</code>
+      </TableCell>
+      <TableCell>
+        Delete a user.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</Details>
+
+## Webhook actions
+
+<Details summary="Expand Webhook actions">
+
+`webhook` is a top-level resource. A code sample is below:
 
 <CodeTabs
   defaultValue="json"
@@ -1523,355 +1980,4 @@ This table explains available webhooks actions:
   </TableBody>
 </Table>
 
-## Integrations actions
-
-Most third-party integrations use a shared set of custom role actions.
-
-`integration` is a **top-level resource**. A code sample is below:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Integration resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
-
-```json
-integration/*
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [Integrations](/integrations).
-
-This table explains available integrations actions:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Action</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>createIntegration</code>
-      </TableCell>
-      <TableCell>
-        Create and configure new third-party integrations.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>deleteIntegration</code>
-      </TableCell>
-      <TableCell>
-        Delete existing third-party integrations.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateConfiguration</code>
-      </TableCell>
-      <TableCell>
-        Modify existing third-party integration configurations.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateName</code>
-      </TableCell>
-      <TableCell>
-        Change the name of third-party integration configurations.
-      </TableCell>
-    </TableRow>
-     <TableRow>
-      <TableCell>
-        <code>updateOn</code>
-      </TableCell>
-      <TableCell>
-        Enable and disabled existing third-party integrations.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-     <TableCell>
-       <code>validateConnection</code>
-     </TableCell>
-     <TableCell>
-       Validate the third-party connection.
-     </TableCell>
-   </TableRow>
-  </TableBody>
-</Table>
-
-## Relay Proxy automatic configuration actions
-
-`relay-proxy-config` is a **top-level resource** for which you can allow or deny certain actions.
-
-Here is an example:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Relay Proxy configuration resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
-
-```json
-relay-proxy-config/*
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [Automatic configuration](/home/relay-proxy/automatic-configuration).
-
-This table explains available Relay Proxy automatic configuration actions:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Action</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>createRelayAutoConfiguration</code>
-      </TableCell>
-      <TableCell>Create a Relay Proxy with automatic configuration enabled.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>deleteRelayAutoConfiguration</code>
-      </TableCell>
-      <TableCell>Delete the Relay Proxy with automatic configuration enabled.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>resetRelayAutoConfiguration</code>
-      </TableCell>
-      <TableCell>Reset the configuration of the Relay Proxy with automatic configuration enabled.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateRelayAutoConfigurationName</code>
-      </TableCell>
-      <TableCell>Change the Relay Proxy with automatic configuration's name.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateRelayAutoConfigurationPolicy</code>
-      </TableCell>
-      <TableCell>Change the policies associated with the Relay Proxy with automatic configuration.</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-## Destinations actions
-
-`destination` is a child of **both a project and environments**. A code sample is below:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Destination resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
-
-```json
-proj/*:env/*:destination/*
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [Data Export](/home/data-export).
-
-This table explains available destinations actions:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Action</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>createDestination</code>
-      </TableCell>
-      <TableCell>
-        Create a new Data Export destination.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>deleteDestination</code>
-      </TableCell>
-      <TableCell>
-        Delete a Data Export destination.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateConfiguration</code>
-      </TableCell>
-      <TableCell>
-        Change a Data Export destination.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateName</code>
-      </TableCell>
-      <TableCell>
-        Change the name of a Data Export destination.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateOn</code>
-      </TableCell>
-      <TableCell>
-        Flip the on/off status of a Data Export destination.
-      </TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-## Code references actions
-
-`code-reference-repository` is a **top-level resource**. A code sample is below:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Code references resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
-
-```json
-code-reference-repository/*
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [Code references](/home/code/code-references).
-
-This table explains available code references actions:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Action</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>createCodeRefsRepository</code>
-      </TableCell>
-      <TableCell>
-        Connect a Git repository.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>deleteCodeRefsRepository</code>
-      </TableCell>
-      <TableCell>
-        Delete a Git repository connection.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateCodeRefsRepositoryBranches</code>
-      </TableCell>
-      <TableCell>
-        Update the stored branch data for a Git repository connection.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateCodeRefsRepositoryConfiguration</code>
-      </TableCell>
-      <TableCell>
-        Update a Git repository connection configuration.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateCodeRefsRepositoryName</code>
-      </TableCell>
-      <TableCell>
-        Update a Git repository connection name.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>UpdateCodeRefsRepositoryOn</code>
-      </TableCell>
-      <TableCell>
-        Flip the on/off status of a Git repository connection.
-      </TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-<Callout intent="alert">
-  <CalloutTitle>Optimizely API Tokens</CalloutTitle>
-  <CalloutDescription>
-
-For customers with A/B testing, a special resource `integration/optimizely` in conjunction with the action
-`updateIntegration` can be used to control access to updating their Optimizely API Token.
-
-  </CalloutDescription>
-</Callout>
-
-## Users actions
-
-`user` is a child of **both a project and environments**. A code sample is below:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'User resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
-
-```json
-proj/*:env/*:user/*
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-To learn more, read [The Users dashboard](/home/users/users-dashboard).
-
-This table explains available users actions:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Action</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>deleteUser</code>
-      </TableCell>
-      <TableCell>
-        Delete a user.
-      </TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
+</Details>

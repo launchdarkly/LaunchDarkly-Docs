@@ -1,5 +1,6 @@
 ADFS
 adfs
+Aeson
 allowfullscreen
 Apcu
 appdynamics
@@ -19,6 +20,7 @@ Bintray
 boto
 bracket-paren
 brightscript
+bytecode
 callout
 callouts
 camelcase
@@ -151,7 +153,6 @@ NRQL
 objc
 okhttp
 onelogin
-Optimizely
 overrepresent
 packagename
 Packagist
@@ -216,6 +217,7 @@ semanticpatch
 sensiolabs
 serializers
 sfdx
+sidenav
 signalfx
 signin
 signup

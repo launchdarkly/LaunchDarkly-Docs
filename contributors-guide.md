@@ -15,28 +15,28 @@ In order to write docs that build and run in our site, you must follow the guide
 All documentation topics follow identical formats:
 
 * They are .MDX files.
-* They exist in a file structure that corresponds to their placement in the sidebar navigation (for example, 'The Users dashboard' is inside a directory called 'Managing Users' because it exists in the 'Managing Users' category on the docs site).
+* They exist in a file structure that corresponds to their placement in the sidenav. For example, 'The Users dashboard' is inside a directory called 'Managing Users' because it exists in the 'Managing Users' category on the docs site.
 * They have frontmatter that assists their placement in search results, controls whether they appear on the docs site or not, and define their title and URL slug.
 
 The content architecture in the `LaunchDarkly-Docs` repo is as follows:
 
-* Documentation topics are in `src/content/topics`. Inside the `/topics` directory, sub-directories follow the structure of the sidebar and header navigation visible on docs.launchdarkly.com. 
+* Documentation topics are in `src/content/topics`. Inside the `/topics` directory, sub-directories follow the structure of the sidenav and header navigation visible on docs.launchdarkly.com. 
 * Filepaths dictate both the location of the topic in the repo and the URL of the topic on the live site.
 
  For example:
 
- /header-section/sidebar-category/directory/topic 
+ /header-section/sidenav-category/directory/topic 
  `/home/account-security/custom-roles/configure`
  or
- /header-section/sidebar-category/topic
+ /header-section/sidenav-category/topic
  `/home/managing-flags/dashboard`
 * Screenshots are in `src/content/images/`.
-* The sidebar navigation is in NavigationData.js. 
+* The sidenav is in NavigationData.js. 
 * Redirects are in redirectRules.js.
 
 ## Writing frontmatter for docs topics
 
-Frontmatter is worth a section of its own because it's extremely precise. If you do not format the frontmatter correctly, bad things happen; topics don't get indexed by Algolia, the sidebar navigation breaks, we serve 404s, or the whole site goes down. Yikes.
+Frontmatter is worth a section of its own because it's extremely precise. If you do not format the frontmatter correctly, bad things happen; topics don't get indexed by Algolia, the sidenav breaks, we serve 404s, or the whole site goes down. Yikes.
 
 Here's a template for what the frontmatter should look like:
 
@@ -51,9 +51,9 @@ tags: ['dashboard', 'user', 'attribute', 'mau']
 ```
 
 * `path`: This gives the URL path for the topic. It must include all parent directories, back to the root docs.launchdarkly.com URL.
-* `title`: This displays at the top of the page and in search results. Be sure the titles are the same in the topic, the sidebar nav, and index pages if applicable!
+* `title`: This displays at the top of the page and in search results. Be sure the titles are the same in the topic, the sidenav, and index pages if applicable!
 * `description`: Algolia uses the description for more effective search. Compress the Overview section of your topic into a useful description. Don't make it too long!
-* `published`: Set to `true` to have your topic appear at its URL, and `false` to keep the topic private. `published` must be set to `true` for all topics that appear in the sidebar navigation. Clicking an item in the sidebar nav set to `false` will return a 404, and 404s make Google's SEO engines, and by extension the Marketing team, very sad.
+* `published`: Set to `true` to have your topic appear at its URL, and `false` to keep the topic private. `published` must be set to `true` for all topics that appear in the sidenav. Clicking an item in the sidenav set to `false` will return a 404, and 404s make Google's SEO engines, and by extension the Marketing team, very sad.
 * `tags`: Algolia uses this array of topic tags for more effective search. If you create a new tag, update `/src/components/search/tags.md` to keep our dictionary of tags up to date.
 
 ## Writing docs in the LaunchDarkly style

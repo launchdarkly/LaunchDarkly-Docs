@@ -141,7 +141,7 @@ If you want some flags to have simple values and others to have complex behavior
 
 ## Configuring the client to use a file
 
-You can specify either a single file or multiple files. In all of the SDKs that support this feature except PHP and C/C++, you can also specify whether the SDK should reload the file data if it detects that you have modified a file. For example, you could verify that your application behaves correctly when a flag changes.
+You can specify either a single file or multiple files. In all of the SDKs that support this feature except Haskell, PHP, and C/C++, you can also specify whether the SDK should reload the file data if it detects that you have modified a file. For example, you could verify that your application behaves correctly when a flag changes.
 
 The examples below show how to configure the client to use two data files called `file1.json` and `file2.json`. The client assumes these two files are in the current working directory, but you can specify any relative or absolute file path. It also enables automatic reloading, if supported.
 
@@ -159,6 +159,7 @@ This feature is available in the following server-side SDKs:
 * [C/C++](#cc)
 * [Erlang](#erlang)
 * [Go](#go)
+* [Haskell](#haskell)
 * [Java](#java)
 * [Node.js (server-side)](#nodejs-server-side)
 * [Python](#python)
@@ -339,6 +340,29 @@ config.UpdateProcessorFactory = fileSource
 config.SendEvents = false
 
 client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Haskell
+
+<Details summary="Expand Haskell code sample">
+
+To configure the client:
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', },
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+let config = LD.configSetDataSourceFactory (Just $ FileData.dataSourceFactory ["./testData/flags.json"]) $ LD.makeConfig "sdk-key"
+client <- LD.makeClient config
 ```
 
 </CodeTabItem>

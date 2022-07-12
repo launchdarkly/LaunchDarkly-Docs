@@ -178,7 +178,7 @@ proj/*:env/*:flag/ops_*
 
 ## Understanding resource types and scopes
 
-Here is a reference list of all the supported resources in LaunchDarkly, and their scopes:
+Here is a reference list of all the supported resources in LaunchDarkly and their scopes, ordered by written expression:
 
 <Table>
   <TableHeader>
@@ -200,6 +200,39 @@ Here is a reference list of all the supported resources in LaunchDarkly, and the
   </TableRow>
   <TableRow>
     <TableCell>
+      <code>code-reference-repository</code>
+    </TableCell>
+    <TableCell>
+      <code>code-reference-repository</code> is a top-level resource.
+    </TableCell>
+    <TableCell>
+      <code>code-reference-repository/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>experiment</code>
+    </TableCell>
+    <TableCell>
+      <code>experiment</code> is a top-level resource.
+    </TableCell>
+    <TableCell>
+      <code>experiment/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>integration</code>
+    </TableCell>
+    <TableCell>
+      <code>integration</code> is a top-level resource.
+    </TableCell>
+    <TableCell>
+      <code>integration/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
       <code>member</code>
     </TableCell>
     <TableCell>
@@ -211,17 +244,6 @@ Here is a reference list of all the supported resources in LaunchDarkly, and the
   </TableRow>
   <TableRow>
     <TableCell>
-      <code>team</code>
-    </TableCell>
-    <TableCell>
-      <code>team</code> is a top-level resource.
-    </TableCell>
-    <TableCell>
-      <code>team/*</code>
-    </TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>
       <code>token</code>
     </TableCell>
     <TableCell>
@@ -229,28 +251,6 @@ Here is a reference list of all the supported resources in LaunchDarkly, and the
     </TableCell>
     <TableCell>
       <code>member/*:token/*</code>
-    </TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>
-      <code>service-token</code>
-    </TableCell>
-    <TableCell>
-      <code>service-token</code> is a top-level resource.
-    </TableCell>
-    <TableCell>
-      <code>service-token/*</code>
-    </TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>
-      <code>role</code>
-    </TableCell>
-    <TableCell>
-      <code>role</code> is a top-level resource.
-    </TableCell>
-    <TableCell>
-      <code>role/*</code>
     </TableCell>
   </TableRow>
   <TableRow>
@@ -277,6 +277,50 @@ Here is a reference list of all the supported resources in LaunchDarkly, and the
   </TableRow>
   <TableRow>
     <TableCell>
+      <code>destination</code>
+    </TableCell>
+    <TableCell>
+      <code>destination</code> is a child of both a project and environments.
+    </TableCell>
+    <TableCell>
+      <code>proj/*:env/*:destination/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>flag</code>
+    </TableCell>
+    <TableCell>
+      <code>flag</code> is a child of both a project and environments.
+    </TableCell>
+    <TableCell>
+      <code>proj/*:env/*:flag/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>segment</code>
+    </TableCell>
+    <TableCell>
+      <code>segment</code> is a child of both a project and environments.
+    </TableCell>
+    <TableCell>
+      <code>proj/*:env/*:segment/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>user</code>
+    </TableCell>
+    <TableCell>
+      <code>user</code> is a child of both a project and environments.
+    </TableCell>
+    <TableCell>
+      <code>proj/*:env/*:user/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
       <code>metric</code>
     </TableCell>
     <TableCell>
@@ -285,95 +329,62 @@ Here is a reference list of all the supported resources in LaunchDarkly, and the
     <TableCell>
       <code>proj/*:metric/*</code>
     </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>flag</code>
-      </TableCell>
-      <TableCell>
-        <code>flag</code> is a child of both a project and environments.
-      </TableCell>
-      <TableCell>
-        <code>proj/*:env/*:flag/*</code>
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>segment</code>
-      </TableCell>
-      <TableCell>
-        <code>segment</code> is a child of both a project and environments.
-      </TableCell>
-      <TableCell>
-        <code>proj/*:env/*:segment/*</code>
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>webhook</code>
-      </TableCell>
-      <TableCell>
-        <code>webhook</code> is a top-level resource.
-      </TableCell>
-      <TableCell>
-        <code>webhook/*</code>
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>integration</code>
-      </TableCell>
-      <TableCell>
-        <code>integration</code> is a top-level resource.
-      </TableCell>
-      <TableCell>
-        <code>integration/*</code>
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>relay-proxy-config</code>
-      </TableCell>
-      <TableCell>
-        <code>relay-proxy-config</code> is a top-level resource.
-      </TableCell>
-      <TableCell>
-        <code>relay-proxy-config/*</code>
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>destination</code>
-      </TableCell>
-      <TableCell>
-        <code>destination</code> is a child of both a project and environments.
-      </TableCell>
-      <TableCell>
-        <code>proj/*:env/*:destination/*</code>
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>code-reference-repository</code>
-      </TableCell>
-      <TableCell>
-        <code>code-reference-repository</code> is a top-level resource.
-      </TableCell>
-      <TableCell>
-        <code>code-reference-repository/*</code>
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>user</code>
-      </TableCell>
-      <TableCell>
-        <code>user</code> is a child of both a project and environments.
-      </TableCell>
-      <TableCell>
-        <code>proj/*:env/*:user/*</code>
-      </TableCell>
-    </TableRow>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>relay-proxy-config</code>
+    </TableCell>
+    <TableCell>
+      <code>relay-proxy-config</code> is a top-level resource.
+    </TableCell>
+    <TableCell>
+      <code>relay-proxy-config/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>role</code>
+    </TableCell>
+    <TableCell>
+      <code>role</code> is a top-level resource.
+    </TableCell>
+    <TableCell>
+      <code>role/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>service-token</code>
+    </TableCell>
+    <TableCell>
+      <code>service-token</code> is a top-level resource.
+    </TableCell>
+    <TableCell>
+      <code>service-token/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>team</code>
+    </TableCell>
+    <TableCell>
+      <code>team</code> is a top-level resource.
+    </TableCell>
+    <TableCell>
+      <code>team/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>webhook</code>
+    </TableCell>
+    <TableCell>
+      <code>webhook</code> is a top-level resource.
+    </TableCell>
+    <TableCell>
+      <code>webhook/*</code>
+    </TableCell>
+  </TableRow>
   </TableBody>
 </Table>
 

@@ -8,7 +8,7 @@ tags: ['segment', 'target']
 
 ## Overview
 
-This topic explains how to build and manage user segments. User segments let you target groups of users by attribute.
+This topic explains how to build and manage user segments. User segments let you target groups of users individually or by attribute.
 
 ## Understanding user segments
 
@@ -21,19 +21,67 @@ There are some differences between flag and segment targeting that you should be
 
 LaunchDarkly supports two types of segments:
 
-* Standard segments
-* Big Segments, including Big Segments synced with Amplitude
+- [Standard segments](/home/users/standard-segments)
+- [Big Segments](/home/users/big-segments), including Big Segments synced with Amplitude
 
 ### Understanding segment types
 
-There are a few differences between Big Segments and standard segments.
+There are a few differences between standard segments and Big Segments. You cannot convert a segment from one kind to another after you create it, so choose the kind that best suits your use case when you create it.
 
-These differences include:
+This table explains the differences between standard segments and Big Segments:
 
-* Standard segments are built to support segments with 15,000 or fewer users. Big Segments are built to support millions of users. You cannot convert a segment from one kind to another after you create it, so choose the kind that best suits your use case when you create it.
-* A Big Segment is backed by an external data store and has [additional prerequisites](/home/users/big-segments#prerequisites).
-* Big Segments support uploading users from a CSV.
-* Big Segments do not support user targeting rules by attribute.
+<Table>
+  <TableHeader>
+    <TableHeadCell>
+      Segment type
+    </TableHeadCell>
+    <TableHeadCell>
+      Number of users
+    </TableHeadCell>
+    <TableHeadCell>
+      Backed by external data store
+    </TableHeadCell>
+    <TableHeadCell>
+      Supports uploading users from CSV
+    </TableHeadCell>
+    <TableHeadCell>
+      Supports user targeting rules
+    </TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+      Standard segments
+      </TableCell>
+      <TableCell>
+        Up to 15,000
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+      Big Segments
+      </TableCell>
+      <TableCell>
+        More than 15,000
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
 
 ## Using the Segments dashboard
 
@@ -57,9 +105,7 @@ To create a new segment:
 4. Enter a **Key** for the segment. This field auto-populates based on the segment name, but you can change it if you need to.
 5. (Optional) Add a **Description**.
 6. (Optional) Choose **Tags** from the menu.
-7. Select the **Under 15,000 users** option to create a standard segment, or the **15,000 or more users** option to create a Big Segment.
-
-Big Segments have different requirements and capabilities than standard segments. To learn more, read [Understanding segment types](#understanding-segment-types)
+7. Select the **Standard** option to create a standard segment, or the **Big** option to create a Big Segment. You cannot convert a segment from one kind to another after you create it.
 
 ![The "Create a segment" panel.](segments-create.png)
 
@@ -73,15 +119,15 @@ You can also use the REST API: [Create segment](https://apidocs.launchdarkly.com
 
 </LearnMore>
 
-## Converting a rule into a segment
+## Converting a rule into a standard segment
 
-You can convert a targeting rule into a segment from the flag's **Targeting** page.
+You can convert a targeting rule into a standard segment from the flag's **Targeting** page.
 
 Here is an image of the "Convert individual user targets to segment" dialog:
 
 ![The "Convert to segment" dialog.](segment-convert-to-segment-modal.png)
 
-To convert a rule to a segment:
+To convert a rule to a standard segment:
 
 1. Navigate to the flag's **Targeting** page.
 2. In the user targeting section or the rule matching section, click the **overflow menu** of the rule you wish to convert. The overflow menu appears.
