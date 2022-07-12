@@ -263,6 +263,7 @@ unixtime
 unlaunched
 unregistering
 unstarted
+unsynced
 untargeted
 unthrottled
 userprincipalname
