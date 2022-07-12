@@ -1,7 +1,7 @@
 ---
 path: /sdk/features/user-config
 title: User configuration
-description: This topic explains how to customize the users of various LaunchDarkly SDKs, both client- and server-side.
+description: This topic explains how to configure user objects in LaunchDarkly SDKs. User configuration is available for both client-side and server-side SDKs.
 published: true
 tags: ['user', 'configure', 'built-in', 'custom', 'attribute', 'sdk']
 ---
@@ -12,7 +12,7 @@ This topic explains how to configure user objects in LaunchDarkly SDKs. These fe
 
 ## Configuring user objects
 
-Every LaunchDarkly SDK lets you configure user objects to return specific data to LaunchDarkly. Any attributes you pass to LaunchDarkly become available on the **Users** dashboard.
+Every LaunchDarkly SDK lets you configure user objects to return specific data to LaunchDarkly. Any attributes you pass to LaunchDarkly become available on the **Users** dashboard. A user's attribute values determine which variation of a feature flag the user receives.
 
 The user `key` is the only mandatory user attribute. User keys must be unique, deterministic, and should not contain Personally Identifiable Information (PII). User keys must be consistent, which means the same person must correspond to the same user key across different services to contribute to consistent flag evaluations and accurate monthly active user (MAU) counts.
 
@@ -72,7 +72,7 @@ Here are the configuration options for user entities in client-side SDKs.
 
 <Details summary="Expand .NET (client-side) code sample">
 
-Feature flag targeting and rollouts are determined by the user you pass to your `Identify` call. In the client-side .NET SDK, you can construct a simple `User` that only has a key by calling `User.WithKey`, or use `User.Builder` which allows setting all properties.
+In the client-side .NET SDK, you can construct a simple `User` that only has a key by calling `User.WithKey`, or use `User.Builder` which allows setting all properties.
 
 Here's an example:
 
@@ -190,7 +190,7 @@ LDUser user = User.Builder((string)null).Anonymous(true).Build();
 
 <Details summary="Expand Android code sample">
 
-Feature flag targeting and rollouts are determined by the user you pass to your client. In the Android SDK, we use a [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to construct users.
+In the Android SDK, use a [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to construct users.
 
 Here's an example:
 
@@ -360,7 +360,9 @@ We recommend using the same user key for every initialization and then replacing
 
 <Details summary="Expand C/C++ (client-side) code sample">
 
-Feature flag targeting and rollouts are determined by the user you pass to your client. Here's an example:
+In the C/C++ (client-side) SDK, you can construct a user using `LDUserNew`.
+
+Here's an example:
 
 <CodeTabs
   defaultValue="c"
@@ -668,7 +670,7 @@ We recommend using the same user key for every initialization and then replacing
 
 <Details summary="Expand Flutter code sample">
 
-Feature flag targeting and rollouts are determined by the user you pass to your client. In the Flutter SDK, we use a [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to construct users.
+In the Flutter SDK, use a [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to construct users.
 
 Here's an example:
 
@@ -1545,7 +1547,7 @@ Here are the configuration options for user entities in server-side SDKs:
 
 <Details summary="Expand .NET (server-side) code sample">
 
-Feature flag targeting and rollouts are determined by the *user* you pass to your `variation` calls. In the .NET SDK, the [`User`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.User.html) class has a `WithKey` method for creating a simple user with only a key, and a `Builder` method for building a user with other properties. Here's an example:
+In the .NET SDK, the [`User`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.User.html) class has a `WithKey` method for creating a simple user with only a key, and a `Builder` method for building a user with other properties.
 
 Here's an example:
 
@@ -1644,7 +1646,7 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 <Details summary="Expand Apex code sample">
 
-Feature flag targeting and rollouts are determined by the user you pass to your `variation` calls.
+Here's an example of a user:
 
 <CodeTabs
   defaultValue="java"
@@ -1761,7 +1763,7 @@ In the Apex SDK there are two ways to define private attributes for the LaunchDa
 
 <Details summary="Expand C/C++ (server-side) code sample">
 
-Feature flag targeting and rollouts  are determined by the user you pass to your `variation` calls:
+Here's an example of a user:
 
 <CodeTabs
   defaultValue="c"
@@ -1900,7 +1902,7 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 <Details summary="Expand Erlang code sample">
 
-Feature flag targeting and rollouts are determined by the user you pass to your variation calls.
+Here's an example of a user:
 
 <CodeTabs
   defaultValue="erlang"
@@ -2000,7 +2002,7 @@ ldclient:start_instance("YOUR_SDK_KEY", my_instance, #{private_attributes => [em
 
 <Details summary="Expand Go code sample">
 
-Feature flag targeting and rollouts are determined by the user you pass to your `Variation` calls. The Go SDK defines a [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User) struct and a [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder) to make this easy.
+The Go SDK defines a [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User) struct and a [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder).
 
 Here's an example:
 
@@ -2151,7 +2153,7 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 <Details summary="Expand Haskell code sample">
 
-Feature flag targeting and rollouts are determined by the user you pass to your variation calls:
+Here's an example of a user:
 
 <CodeTabs
   defaultValue="haskell"
@@ -2277,7 +2279,9 @@ You still must generate a unique key for anonymous users. Session IDs or UUIDs w
 
 <Details summary="Expand Java code sample">
 
-Feature flag targeting and rollouts  are determined by the user you pass to your `variation` calls. In the Java SDK, we use a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern)  to construct users. Here's an example:
+In the Java SDK, use a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern) to construct users.
+
+Here's an example:
 
 <CodeTabs
   defaultValue="java"
@@ -2405,7 +2409,7 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 <Details summary="Expand Lua code sample">
 
-Feature flag targeting and rollouts  are determined by the user you pass to your `variation` calls:
+Here's an example of a user:
 
 <CodeTabs
   defaultValue="lua"
@@ -2439,7 +2443,9 @@ To learn more about configuration options, read the [API docs](https://launchdar
 
 <Details summary="Expand Node.js (server-side) code sample">
 
-Feature flag targeting and rollouts are determined by the user you pass to your `variation` calls. In the Node.JS SDK, users are JSON objects. Here's an example:
+In the Node.JS SDK, users are JSON objects.
+
+Here's an example:
 
 <CodeTabs
   defaultValue="js"
@@ -2582,7 +2588,9 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 <Details summary="Expand PHP code sample">
 
-Feature flag targeting and rollouts are determined by the user you pass to your `Variation` calls. In the PHP SDK, we use a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern) to construct users. Here's an example:
+In the PHP SDK, use a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern) to construct users.
+
+Here's an example:
 
 <CodeTabs
   defaultValue="php"
@@ -2672,7 +2680,7 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 <Details summary="Expand Python code sample">
 
-Feature flag targeting and rollouts are determined by the user you pass to your `variation` calls. In the Python SDK, users are simply dictionaries.
+In the Python SDK, users are dictionaries.
 
 Here's an example:
 
@@ -2772,7 +2780,7 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 <Details summary="Expand Ruby code sample">
 
-Feature flag targeting and rollouts are determined by the user you pass to your `variation` calls. In the Ruby SDK, users are simply hashes.
+In the Ruby SDK, users are hashes.
 
 Here's an example:
 
@@ -2886,7 +2894,7 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 <Details summary="Expand Rust code sample">
 
-Feature flag targeting and rollouts are determined by the user you pass to your `variation` calls. The Rust SDK defines a [`User`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.User.html) struct and a [`UserBuilder`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.UserBuilder.html) to accomplish this.
+The Rust SDK defines a [`User`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.User.html) struct and a [`UserBuilder`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.UserBuilder.html).
 
 Here's an example:
 
