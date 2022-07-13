@@ -1168,6 +1168,10 @@
           {
             "label": "Roku SDK reference",
             "path": "/sdk/client-side/roku"
+          },
+          {
+            "label": "Vue SDK reference",
+            "path": "/sdk/client-side/vue"
           }
         ]
       },
