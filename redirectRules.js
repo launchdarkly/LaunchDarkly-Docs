@@ -1,6 +1,148 @@
 module.exports = [
   // Redirects within the git-gatsby docs site
 
+  // Redirects from guide rearchitecture project, q2 2022
+  {
+    fromPath: '/guides/best-practices/migrating-solutions',
+    toPath: '/guides/account/migrating-solutions',
+  },
+  {
+    fromPath: '/guides/tutorials/merge-accounts',
+    toPath: '/guides/account/merge-accounts',
+  },
+  {
+    fromPath: '/guides/best-practices/user-data',
+    toPath: '/guides/account/user-data',
+  },
+  {
+    fromPath: 'guides/best-practices/teams',
+    toPath: '/guides/teams-roles/teams',
+  },
+  {
+    fromPath: '/guides/best-practices/custom-roles',
+    toPath: '/guides/teams-roles/custom-roles',
+  },
+  {
+    fromPath: '/guides/tutorials/no-access',
+    toPath: '/guides/teams-roles/no-access',
+  },
+  {
+    fromPath: '/guides/tutorials/sdk-flag',
+    toPath: '/guides/flags/sdk-flag',
+  },
+  {
+    fromPath: '/guides/tutorials/rules-and-targeting',
+    toPath: '/guides/flags/rules-and-targeting',
+  },
+  {
+    fromPath: '/guides/best-practices/creating-flags',
+    toPath: '/guides/flags/creating-flags',
+  },
+  {
+    fromPath: '/guides/best-practices/flag-hierarchy',
+    toPath: '/guides/flags/flag-hierarchy',
+  },
+  {
+    fromPath: '/guides/best-practices/improving-code',
+    toPath: '/guides/flags/improving-code',
+  },
+  {
+    fromPath: '/guides/best-practices/technical-debt',
+    toPath: '/guides/flags/technical-debt',
+  },
+  {
+    fromPath: '/guides/best-practices/testing-code',
+    toPath: '/guides/flags/testing-code',
+  },
+  {
+    fromPath: '/guides/best-practices/entitlements',
+    toPath: '/guides/flags/entitlements',
+  },
+  {
+    fromPath: '/guides/platform-specific/triggers-dynatrace',
+    toPath: '/guides/flags/triggers-dynatrace',
+  },
+  {
+    fromPath: '/guides/platform-specific/static-sites',
+    toPath: '/guides/flags/static-sites',
+  },
+  {
+    fromPath: '/guides/platform-specific/cloudflare-workers',
+    toPath: '/guides/flags/cloudflare-workers',
+  },
+  {
+    fromPath: '/guides/best-practices/bayesian',
+    toPath: '/guides/flags/terraform',
+  },
+  {
+    fromPath: '/guides/best-practices/integrations',
+    toPath: '/guides/integrations/integrations',
+  },
+  {
+    fromPath: '/guides/best-practices/integrations-use-cases',
+    toPath: '/guides/integrations/integrations-use-cases',
+  },
+  {
+    fromPath: '/guides/best-practices/deployment-strategies',
+    toPath: '/guides/infrastructure/deployment-strategies',
+  },
+  {
+    fromPath: '/guides/best-practices/infrastructure-migration',
+    toPath: '/guides/infrastructure/infrastructure-migration',
+  },
+  {
+    fromPath: '/guides/best-practices/serverless',
+    toPath: '/guides/infrastructure/serverless',
+  },
+  {
+    fromPath: '/guides/platform-specific/aws-lambda',
+    toPath: '/guides/infrastructure/aws-lambda',
+  },
+  {
+    fromPath: '/guides/platform-specific/nextjs',
+    toPath: '/guides/infrastructure/nextjs',
+  },
+  {
+    fromPath: '/guides/platform-specific/svelte',
+    toPath: '/guides/infrastructure/svelte',
+  },
+  {
+    fromPath: '/guides/platform-specific/unit-tests',
+    toPath: '/guides/infrastructure/unit-tests',
+  },
+  {
+    fromPath: '/guides/platform-specific/mobile',
+    toPath: '/guides/sdk-api/mobile',
+  },
+  {
+    fromPath: '/guides/tutorials/unsupported-sdk',
+    toPath: '/guides/sdk-api/unsupported-sdk',
+  },
+  {
+    fromPath: '/guides/platform-specific/haproxy',
+    toPath: '/guides/sdk-api/haproxy',
+  },
+  {
+    fromPath: '/guides/platform-specific/nginx',
+    toPath: '/guides/sdk-api/nginx',
+  },
+  {
+    fromPath: '/guides/tutorials/rest-api',
+    toPath: '/guides/sdk-api/rest-api',
+  },
+  {
+    fromPath: '/guides/best-practices/sdk-wrappers',
+    toPath: '/guides/sdk-api/sdk-wrappers',
+  },
+  {
+    fromPath: 'guides/tutorials/experimentation',
+    toPath: '/guides/experimentation/experimentation',
+  },
+  {
+    fromPath: '/guides/best-practices/bayesian',
+    toPath: '/guides/experimentation/bayesian',
+  },
+  // Redirects within docs site
   {
     fromPath: '/home/experimentation/',
     toPath: '/home/about-experimentation',
@@ -678,7 +820,7 @@ module.exports = [
     toPath: '/integrations/slack/webhooks',
   },
   {
-    fromPath: '/docs/terraform',
+    fromPath: '/guides/platform-specific/terraform',
     toPath: '/integrations/terraform',
   },
   {

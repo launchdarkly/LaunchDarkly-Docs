@@ -1276,163 +1276,191 @@
     "path": "/guides",
     "items": [
       {
-        "label": "Best practices",
-        "path": "/guides/best-practices",
+        "label": "LaunchDarkly account management",
+        "path": "/guides/account",
+        "svg": "compass",
+        "items": [
+          {
+            "label": "Migrating your existing feature flag solution to LaunchDarkly",
+            "path": "/guides/account/migrating-solutions"
+          },
+          {
+            "label": "Merging LaunchDarkly accounts",
+            "path": "/guides/account/merge-accounts"
+          },
+          {
+            "label": "Minimizing LaunchDarkly's access to user data",
+            "path": "/guides/account/user-data"
+          }
+        ]
+      },
+      {
+        "label": "Teams and custom roles",
+        "path": "/guides/teams-roles",
         "svg": "compass",
         "items": [
           {
             "label": "Building teams in LaunchDarkly",
-            "path": "/guides/best-practices/teams"
+            "path": "/guides/teams-roles/teams"
           },
           {
             "label": "Creating custom roles",
-            "path": "/guides/best-practices/custom-roles"
-          },
-          {
-            "label": "Creating flags",
-            "path": "/guides/best-practices/creating-flags"
-          },
-          {
-            "label": "Deployment and release strategies",
-            "path": "/guides/best-practices/deployment-strategies"
-          },
-          {
-            "label": "Experimentation and Bayesian statistics",
-            "path": "/guides/best-practices/bayesian"
-          },
-          {
-            "label": "Feature flag hierarchy",
-            "path": "/guides/best-practices/flag-hierarchy"
-          },
-          {
-            "label": "Improving flag usage in code",
-            "path": "/guides/best-practices/improving-code"
-          },
-          {
-            "label": "Integrations use cases",
-            "path": "/guides/best-practices/integrations-use-cases"
-          },
-          {
-            "label": "Migrating your existing feature flag solution to LaunchDarkly",
-            "path": "/guides/best-practices/migrating-solutions"
-          },
-          {
-            "label": "Minimizing LaunchDarkly's access to user data",
-            "path": "/guides/best-practices/user-data"
-          },
-          {
-            "label": "Reducing technical debt from feature flags",
-            "path": "/guides/best-practices/technical-debt"
-          },
-          {
-            "label": "Testing code that uses feature flags",
-            "path": "/guides/best-practices/testing-code"
-          },
-          {
-            "label": "Use cases for SDK wrappers",
-            "path": "/guides/best-practices/sdk-wrappers"
-          },
-          {
-            "label": "Using entitlements to manage user experience",
-            "path": "/guides/best-practices/entitlements"
-          },
-          {
-            "label": "Using feature flags to mitigate risk in infrastructure migrations",
-            "path": "/guides/best-practices/infrastructure-migration"
-          },
-          {
-            "label": "Using LaunchDarkly integrations",
-            "path": "/guides/best-practices/integrations"
-          },
-          {
-            "label": "Using LaunchDarkly in serverless environments",
-            "path": "/guides/best-practices/serverless"
-          }
-        ]
-      },
-      {
-        "label": "Tutorials",
-        "path": "/guides/tutorials",
-        "svg": "atom",
-        "items": [
-          {
-            "label": "Getting started: Configuring an SDK and creating a flag",
-            "path": "/guides/tutorials/sdk-flag"
-          },
-          {
-            "label": "Getting started: Flag rules and targeting",
-            "path": "/guides/tutorials/rules-and-targeting"
-          },
-          {
-            "label": "Getting started: Experimenting with feature flags",
-            "path": "/guides/tutorials/experimentation"
+            "path": "/guides/teams-roles/custom-roles"
           },
           {
             "label": "Configuring roles with no access",
-            "path": "/guides/tutorials/no-access"
-          },
-          {
-            "label": "Using LaunchDarkly without a supported SDK",
-            "path": "/guides/tutorials/unsupported-sdk"
-          },
-          {
-            "label": "Using the LaunchDarkly REST API",
-            "path": "/guides/tutorials/rest-api"
-          },
-          {
-            "label": "Merging LaunchDarkly accounts",
-            "path": "/guides/tutorials/merge-accounts"
+            "path": "/guides/teams-roles/no-access"
           }
         ]
       },
       {
-        "label": "Platform-specific guides",
-        "path": "/guides/platform-specific",
-        "svg": "bullseye-arrow",
+        "label": "Feature flags",
+        "path": "/guides/flags",
+        "svg": "compass",
         "items": [
           {
-            "label": "Managing flags with Terraform",
-            "path": "/guides/platform-specific/terraform"
+            "label": "Getting started: Configuring an SDK and creating a flag",
+            "path": "/guides/flags/sdk-flag"
           },
           {
-            "label": "Unit testing with Jest",
-            "path": "/guides/platform-specific/unit-tests"
+            "label": "Getting started: Flag rules and targeting",
+            "path": "/guides/flags/rules-and-targeting"
+          },
+          {
+            "label": "Creating flags",
+            "path": "/guides/flags/creating-flags"
+          },
+          {
+            "label": "Feature flag hierarchy",
+            "path": "/guides/flags/flag-hierarchy"
+          },
+          {
+            "label": "Improving flag usage in code",
+            "path": "/guides/flags/improving-code"
+          },
+          {
+            "label": "Reducing technical debt from feature flags",
+            "path": "/guides/flags/technical-debt"
+          },
+          {
+            "label": "Testing code that uses feature flags",
+            "path": "/guides/flags/testing-code"
+          },
+          {
+            "label": "Using entitlements to manage user experience",
+            "path": "/guides/flags/entitlements"
           },
           {
             "label": "Using flag triggers with Dynatrace",
-            "path": "/guides/platform-specific/triggers-dynatrace"
+            "path": "/guides/flags/triggers-dynatrace"
           },
           {
             "label": "Using flags on static sites with JavaScript",
-            "path": "/guides/platform-specific/static-sites"
+            "path": "/guides/flags/static-sites"
           },
           {
             "label": "Using flags with Cloudflare Workers",
-            "path": "/guides/platform-specific/cloudflare-workers"
+            "path": "/guides/flags/cloudflare-workers"
           },
           {
-            "label": "Using mobile SDKs",
-            "path": "/guides/platform-specific/mobile"
+            "label": "Managing flags with Terraform",
+            "path": "/guides/flags/terraform"
+          }
+        ]
+      },
+      {
+        "label": "LaunchDarkly integrations",
+        "path": "/guides/integrations",
+        "svg": "compass",
+        "items": [
+          {
+            "label": "Integrations use cases",
+            "path": "/guides/integrations/integrations-use-cases"
+          },
+          {
+            "label": "Using LaunchDarkly integrations",
+            "path": "/guides/integrations/integrations"
+          }
+        ]
+      },
+      {
+        "label": "Infrastructure",
+        "path": "/guides/infrastructure",
+        "svg": "compass",
+        "items": [
+          {
+            "label": "Deployment and release strategies",
+            "path": "/guides/infrastructure/deployment-strategies"
+          },
+          {
+            "label": "Using feature flags to mitigate risk in infrastructure migrations",
+            "path": "/guides/infrastructure/infrastructure-migration"
+          },
+          {
+            "label": "Using LaunchDarkly in serverless environments",
+            "path": "/guides/infrastructure/serverless"
           },
           {
             "label": "Using LaunchDarkly with AWS Lambda",
-            "path": "/guides/platform-specific/aws-lambda"
+            "path": "/guides/infrastructure/aws-lambda"
           },
           {
             "label": "Using LaunchDarkly with Next.js",
-            "path": "/guides/platform-specific/nextjs"
+            "path": "/guides/infrastructure/nextjs"
           },
           {
             "label": "Using LaunchDarkly with Svelte",
-            "path": "/guides/platform-specific/svelte"
+            "path": "/guides/infrastructure/svelte"
+          },
+          {
+            "label": "Unit testing with Jest",
+            "path": "/guides/infrastructure/unit-tests"
+          }
+        ]
+      },
+      {
+        "label": "SDKs and the API",
+        "path": "/guides/sdk-api",
+        "svg": "compass",
+        "items": [
+          {
+            "label": "Using mobile SDKs",
+            "path": "/guides/sdk-api/mobile"
+          },
+          {
+            "label": "Using LaunchDarkly without a supported SDK",
+            "path": "/guides/sdk-api/unsupported-sdk"
           },
           {
             "label": "Using the Lua SDK with HAProxy",
-            "path": "/guides/platform-specific/haproxy"
+            "path": "/guides/sdk-api/haproxy"
           },
           {
             "label": "Using the Lua SDK with NGINX",
-            "path": "/guides/platform-specific/nginx"
+            "path": "/guides/sdk-api/nginx"
+          },
+          {
+            "label": "Using the LaunchDarkly REST API",
+            "path": "/guides/sdk-api/rest-api"
+          },
+          {
+            "label": "Use cases for SDK wrappers",
+            "path": "/guides/sdk-api/sdk-wrappers"
+          }
+        ]
+      },
+      {
+        "label": "Experimentation",
+        "path": "/guides/experimentation",
+        "svg": "compass",
+        "items": [
+          {
+            "label": "Getting started: Experimenting with feature flags",
+            "path": "/guides/experimentation/experimentation"
+          },
+          {
+            "label": "Baysian guide title",
+            "path": "/guides/best-practices/bayesian"
           }
         ]
       },
