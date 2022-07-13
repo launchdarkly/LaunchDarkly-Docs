@@ -1,0 +1,155 @@
+---
+path: /guides/best-practices/integrations
+title: Using LaunchDarkly integrations
+description: This guide explains how using LaunchDarkly in concert with other tools enhances your team's ability to react when issues arise. LaunchDarkly offers many integrations with third-party services that let your existing tools work in concert with your feature flagging practices.
+published: true
+tags: ['guide', 'integration', 'code references', 'monitor', 'issue', 'data export']
+---
+
+## Overview
+
+This guide explains how using LaunchDarkly in concert with other tools enhances your team's ability to react when issues arise. You can use our integrations to enhance collaboration, change management, and many other business areas.
+
+LaunchDarkly offers many integrations with third-party services that let your existing tools work in concert with your feature flagging practices.
+
+## Learning about different types of integrations
+
+LaunchDarkly's integrations span a variety of categories, including monitoring, messaging, code references, issue management, and Data Export.
+
+For a list of all supported integrations, visit the [Integrations page](https://app.launchdarkly.com/integrations) in your LaunchDarkly app, or read the [Integrations documentation](/integrations).
+
+To learn about common problems integrations can help solve, read [Integrations use cases](/guides/best-practices/integrations-use-cases).
+
+### Using code references
+
+The LaunchDarkly code references tool
+integrates with your CI tool to identify where LaunchDarkly flags occur in your code.
+
+A best practice for managing feature flags is archiving flags you no longer need. Identifying where those flags are referenced in code can be difficult, especially if you have more than one repository to
+search through.
+
+After you turn this integration on, navigate to the flag you want to archive. The flag's **Code references** tab shows you everywhere that flag appears in your code.
+
+Here is an image of the code references tab:
+
+![The code references tab for a feature flag.](flag-code-references.png)
+
+<LearnMore>
+
+Learn more: [Code references](/home/code/code-references)
+
+</LearnMore>
+
+## Monitoring
+
+LaunchDarkly offers integrations with many modern monitoring and observability tools.
+
+Many software teams use monitoring and observability tools to identify anomalies. You can even use tools like these to catch when bugs are introduced by your feature flagging practices.
+
+These integrations make it
+possible to surface flag change events and display them in context
+with other events or metrics being monitored and tracked inside the corresponding
+tool.
+
+Here is an image of the SignalFx dashboard:
+
+![Example of LaunchDarkly flag change inside SignalFx](signalfx-marker-1.png)
+
+<LearnMore>
+
+Learn more:
+  * [Datadog](/integrations/datadog)
+  * [Dynatrace](/integrations/dynatrace)
+  * [LogDNA](/integrations/logdna)
+  * [Honeycomb](/integrations/honeycomb)
+  * [SignalFx](/integrations/signalfx)
+  * [Splunk](/integrations/splunk)
+
+</LearnMore>
+
+## Issue tracking
+
+LaunchDarkly has integrations that support common engineering workflows and tools.
+
+It is useful to be able to control or manage features and feature flags from project management tools.
+
+For example, you can associate an existing flag with a project ticket, and the flag is turned on when the ticket is approved.
+
+<LearnMore>
+
+Learn more:
+  * [Jira Cloud](/integrations/jira)
+  * [Trello](https://trello.com/power-ups/5d795c43ef5f7d1dc307da46)
+
+</LearnMore>
+
+## Messaging
+
+When teams are distributed, it is useful to be able to centralize information about your feature flags in messaging and collaboration tools that many teams in your organization use.
+
+We have integrations that allow LaunchDarkly to send notifications and even give
+authorized users the ability to trigger flag changes from different apps.
+
+<LearnMore>
+
+Learn more:
+  * [Microsoft Teams](/integrations/microsoft-teams)
+  * [Slack](/integrations/slack)
+
+</LearnMore>
+
+## Developer tools
+
+Developer tools are the place where developers spend most of their day and do most of their work, so it makes sense that we built integrations that allow them to schedule ring deployments or perform internal testing directly from their tool.
+
+<LearnMore>
+
+Learn more:
+  * [Dynatrace](/integrations/dynatrace)
+  * [Terraform](/integrations/terraform)
+
+</LearnMore>
+
+## Using Data Export
+
+<Callout intent="primary">
+  <CalloutTitle>Data Export is an add-on feature</CalloutTitle>
+  <CalloutDescription>
+
+Data Export is available as an add-on for customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To add Data Export to your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+  </CalloutDescription>
+</Callout>
+
+Data Export allows companies to do extremely detailed and rich analysis of flag
+evaluations and behavior. You can export a configurable log stream to a destination such
+as Amazon Kinesis, Google PubSub, or others.
+
+<LearnMore>
+
+Learn more: [Data Export](/home/data-export)
+
+</LearnMore>
+
+## Building your own integration
+
+We're building more integrations all the time as customers or partners request them.
+
+If you want to build an integration yourself, or request one from us, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new) or your LaunchDarkly account representative.
+
+## Conclusion
+
+Integrations are a way to incorporate LaunchDarkly's powerful feature-flagging capabilities into your existing process, or to enhance LaunchDarkly's reporting and analytics capabilities.
+
+This guide summarized some of the integrations available in LaunchDarkly and how you can use them to help your team work better.
+
+<Callout intent="primary">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>

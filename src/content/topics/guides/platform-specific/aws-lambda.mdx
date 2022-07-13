@@ -1,0 +1,417 @@
+---
+path: /guides/platform-specific/aws-lambda
+title: Using LaunchDarkly with AWS Lambda
+description: This guide explains how to connect LaunchDarkly with an AWS Lambda serverless function and deploy this function to Lambda@Edge.
+published: true
+tags: ['guide', 'serverless', 'aws', 'lambda']
+---
+
+## Overview
+
+This guide explains how to connect LaunchDarkly with an AWS Lambda serverless function and deploy this function to Lambda@Edge.
+
+Serverless functions play a critical role in modern application architectures. For many applications, particularly applications built with a microservices architecture, serverless functions are the core of any server-side logic and data retrieval.
+
+In this guide, you'll explore how to build a serverless function with [AWS Lambda](https://aws.amazon.com/lambda/) and how you can use LaunchDarkly flags and Lambda functions to conditionally enable or modify server-side logic. In addition, you'll learn how to deploy this to [CloudFront](https://aws.amazon.com/cloudfront/), Amazon's content delivery network (CDN), as [Lambda@Edge](https://aws.amazon.com/lambda/edge/) so you can use the flags to conditionally perform actions at the "edge."
+
+The example function you will build redirects users to a different version of a website. It is better to do this "at the edge" to limit any latency the user might experience during the request. Rather than intercept the request on the server and do a server-side redirect or send back a response that performs a client-side redirect, you can intercept the request at the CDN level closest to the user and direct it to a specific version of the site. Identifying the user and serving them a flag variation from the edge means faster state changes to feature flags, and no disruptions when the flag state changes from the default value to the targeted variation.
+
+### Prerequisites
+
+To complete this guide, you must have the following prerequisites:
+
+* An AWS account
+* A LaunchDarkly account
+* A way to build and deploy a Lambda function
+
+The example below uses the [AWS Toolkit for Visual Studio Code](https://docs.aws.amazon.com/toolkit-for-visual-studio/latest/user-guide/setup.html), which makes it easy to download, upload, and test our Lambda Function within Visual Studio Code (VS Code).
+
+The source code for the example below is available [on GitHub](https://github.com/launchdarkly-labs/launchDarklyLambda).
+
+## Example: Controlling a percentage release from the edge
+
+Let's imagine your company is launching a rebrand that includes a new site design. This is a major undertaking and the marketing department wants to be sure that everything is perfect. Rather than enable a flag to deploy the site to everyone, they want to roll out the new site to an increasing percentage of users over time. How can you do this without it becoming a major DevOps headache?
+
+In this example, you'll use LaunchDarkly to control the release. LaunchDarkly will assign each user to a variation that determines whether they receive the new site or the old site. An AWS Lambda@Edge function will use this information to route them to the appropriate version of the site at the edge, rather than relying on a client-side or server-side redirect.
+
+After you create a Lambda function, users will either be directed to the old site or the new site depending on which variation they are assigned to within LaunchDarkly. LaunchDarkly determines this by assigning each unique user according to a percentage rollout.
+
+To learn more about percentage rollouts, read [Percentage rollouts](/home/flags/rollouts).
+
+## Setting up AWS
+
+Before we can start coding, you must set up AWS.
+
+Here are the resources we need:
+
+* **An S3 bucket**: S3 is Amazon's storage solution where you can house and retrieve arbitrary files, including the static website for this example. The site is intentionally simple. It has an index page in the root as well as a `/beta` folder that contains the same page with the new branding.
+
+* **A CloudFront distribution** – You need this to run a Lambda function with AWS's edge servers (Lambda@Edge) on their CloudFront CDN.
+
+There are two ways that we can set this up. The quickest way is to use an [AWS CloudFormation](https://aws.amazon.com/cloudformation/) template that creates both the S3 bucket and CloudFront distribution for you. The second is to set both of these up individually with the AWS console.
+
+<Callout intent="info">
+<CalloutTitle>Uploading resources to CloudFormation and S3</CalloutTitle>
+<CalloutDescription>
+
+To simplify the steps in the following procedures, when you upload resources to CloudFormation and S3, you upload everything into a folder, rather than into the root of the bucket. This means that you must append the `/site` folder in each URL.
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="info">
+<CalloutTitle>Creating resources with infrastructure as code</CalloutTitle>
+<CalloutDescription>
+
+For example purposes, we are manually creating the infrastructure on AWS. However, there are a number of tools such as [Terraform](https://www.terraform.io/) that allow you to build an infrastructure as code workflow to create AWS resources. Better yet, you can even [integrate LaunchDarkly with Terraform](https://docs.launchdarkly.com/guides/platform-specific/terraform).
+
+</CalloutDescription>
+</Callout>
+
+### Using CloudFormation
+
+A CloudFormation template is available in the [GitHub repository](https://github.com/launchdarkly-labs/launchDarklyLambda). You must have the `CloudFormationTemplate` file available locally on your machine.
+
+1. In the AWS console, search for CloudFormation and then click **Create stack**.
+2. Choose the "Template is Ready" option and "Upload a Template." Select the `CloudFormationTemplate` file that you downloaded from the repository. Click **Next**.
+3. Give the stack a human-readable name and click **Next**.
+4. On the "Configure stack options" step, accept all the defaults and click **Next**.
+5. Review the details and click **Create stack**. Wait for creation to complete before you continue. This can take several minutes.
+6. When the S3 bucket is ready, search for "S3" in the AWS console and locate the bucket you created.
+7. Click **Upload** and then **Add folder**. From the [source repository](https://github.com/launchdarkly-labs/launchDarklyLambda), upload the `/site` folder containing both the existing site's `index.html` and `logo.png`, and a `/beta` folder containing the new site. Click "Upload" and, when the procedure completes, click "Close."
+8. Select the `site` directory in your bucket. From the Actions pull down select "Make public", click to confirm and then click "Close."
+
+### Manually setting up an S3 bucket
+
+First, you must set up the S3 bucket and put the web site resources into it.
+
+1. Search for "S3" in the AWS console and click **Create bucket**.
+2. Give the bucket a human-readable name, choose `US East` as the AWS Region, and disable the "block public access" option.
+3. Click **Upload** and then **Add folder**. From the [source repository](https://github.com/launchdarkly-labs/launchDarklyLambda), upload the `/site` folder containing both the existing site's `index.html` and `logo.png`, and a `/beta` folder containing the new site. Click "Upload" and, when the procedure completes, click "Close."
+4. Select the `site` directory in your bucket. From the Actions menu, select "Make public", click to confirm and click **Close**.
+5. Click on the "Properties" tab for the S3 bucket. Scroll all the way down to "Static website hosting." Click **Edit** and then choose "Enable." Specify `index.html` as your index document and **Save changes**.
+
+![Setting up static web hosting in AWS.](aws-static-hosting.png)
+
+After you complete these steps successfully, click the bucket URL to view the page. Append `/site` at the end of the URL to load the page. Copy and save this URL, because you will need it later.
+
+### Manually setting up the CloudFront distribution
+
+Next, set up a CloudFront distribution. You will need this to deploy the function to Lambda@Edge.
+
+1. In the AWS Console, search for "CloudFront" and click **Create a CloudFront Distribution**.
+2. For the "Origin domain," choose the S3 bucket we just created.
+3. Scroll down and click **Create distribution**.
+
+![Choosing the S3 bucket for our CloudFront distribution.](aws-cloudfront-distribution.png)
+
+## Creating a Lambda function connected to LaunchDarkly
+
+Now you can create a Lambda function. You can use the AWS console to get started.
+
+1. In the AWS console, search for "Lambda."
+2. Click **Create function**.
+3. Choose "Author from Scratch." Name the function "launchDarklyExample" and choose the Node.js runtime, which is the default. You can also leave all the other options as the defaults. Click **Create function**.
+
+![Create a Lambda function from scratch.](aws-create-lambda.png)
+
+The function you created doesn't do anything yet. In order to modify the code, let's move to VS Code. This will allow us to install our npm dependencies and upload the files back to Lambda.
+
+1. Create or open an empty project in VS Code.
+2. Click the AWS icon on the left. This is part of the [AWS Toolkit for Visual Studio Code](https://docs.aws.amazon.com/toolkit-for-visual-studio/latest/user-guide/setup.html).
+3. Choose Lambda and find the "launchDarklyExample" you created.
+4. Right-click on the function and select "Download." When prompted, choose the current project folder.
+
+![Download the function in VS Code](aws-vscode-download.png)
+
+### Installing and configuring the LaunchDarkly SDK
+
+After you download the function locally, install the [LaunchDarkly Node SDK](https://docs.launchdarkly.com/sdk/server-side/node-js).
+
+1. Open the command line in the `launchDarklyExample` folder that contains the Lambda function.
+2. Run `npm install launchdarkly-node-server-sdk`.
+
+ ![Installing the server-side Node SDK.](aws-vscode-terminal.png)
+
+3. Place the following code above the handler in `index.js`. Replace `sdk-my-sdk-key` with the SDK key from your LaunchDarkly environment. You can get this from **Account settings** in LaunchDarkly.
+
+    Use this code:
+
+    <CodeTabs
+    defaultValue="js"
+    values={[
+        { label: 'JavaScript', value: 'js', }
+    ]
+    }>
+    <CodeTabItem value="js">
+
+    ```js
+    const LaunchDarkly = require('launchdarkly-node-server-sdk')
+    const client = LaunchDarkly.init('sdk-my-sdk-key')
+    ```
+
+   </CodeTabItem>
+   </CodeTabs>
+
+   <Callout intent="info">
+   <CalloutTitle>Lambda@Edge does not support environment variables.</CalloutTitle>
+   <CalloutDescription>
+
+    Do not place the SDK key in an environment variable. Lambda@Edge does not support environment variables.
+
+    However, if you are integrating LaunchDarkly in a standard Lambda function, you should use an environment variable to keep your SDK key secure and out of your source code repository. You can do this from the AWS Console by going to your Lambda function and navigating to <strong>Configuration</strong> &gt; <strong>Environment Variables</strong>.
+
+    </CalloutDescription>
+    </Callout>
+
+4. Test your setup by initializing LaunchDarkly and returning a response indicating whether it has succeeded or failed.
+
+    <CodeTabs
+    defaultValue="js"
+    values={[
+        { label: 'JavaScript', value: 'js', }
+    ]
+    }>
+    <CodeTabItem value="js">
+
+    ```js
+    exports.handler = async (event) => {
+        let response = {
+          statusCode: 200,
+        };
+        try {
+            await client.waitForInitialization();
+            response.body = JSON.stringify("Initialization successful");
+        } catch (err) {
+            response.body = JSON.stringify("Initialization failed");
+        }
+        return response;
+    };
+    ```
+
+    </CodeTabItem>
+    </CodeTabs>
+
+5. To update the Lambda function, including uploading the npm dependencies, open the AWS panel in VS Code. Right-click the function and select "Upload." When prompted, choose "Directory" and then select the directory that the Lambda function is in. When it asks you whether to build with SAM, choose "No."
+
+6. To test the function, right-click on the function again and choose "Invoke on AWS." We do not need to provide any payload, just click the "Invoke" button. The output panel should show a response `{"statusCode":200,"body":"\"Initialization successful\""}` showing that the SDK client properly initialized.
+
+ ![Initialization was successful.](aws-invoke-initialize.png)
+
+### Creating a flag in LaunchDarkly
+
+LaunchDarkly is now initialized, so you can set up flags to use in the function code.
+
+1. Navigate to the flag dashboard.
+2. Click **Create flag**.
+3. Name the flag "rebrand." Deselect the checkbox calling for a mobile or client-side ID. Keep the flag's default variation type of "Boolean." Variation 1 will be `true` and variation 2 will be `false`
+4. Click **Save flag**. You are returned to the **Targeting** tab.
+
+ ![Creating a flag in LaunchDarkly.](aws-create-flag.png)
+
+5. Find to the "Default rule" section and choose "A percentage rollout" from the **Serve** menu. For the purposes of this example, assign 50/50. In a real world scenario, you'd likely start with a smaller distribution in the first variation and increase that number over time.
+
+ ![Setting a percentage rollout.](rules-percentage-fifty.png)
+
+6. Scroll up and click **Save changes**.
+7. Toggle the flag **On** and save again. If you don't turn targeting on, the percentage rollout will not run and you'll only get the default off variation.
+
+### Getting a flag value in Lambda
+
+Now that you've created a flag, you can use it in your function. First, you'll add a new flag call to the code. The code below uses the LaunchDarkly SDK to call for the value of the `rebrand` flag. Use your email as a static key to identify the user. The key determines which variation you receive, based on rollout percentages. Because you're entering the key manually, you will always get the same result regardless of how many times you call the flag.
+
+Replace the existing handler code with the code below:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+      { label: 'JavaScript', value: 'js', }
+  ]
+  }>
+<CodeTabItem value="js">
+
+  ```js
+  exports.handler = async event => {
+      let response = {
+        statusCode: 200,
+      }
+      await client.waitForInitialization()
+      let viewBetaSite = await client.variation('rebrand', { key: 'YOUR-EMAIL-ADDRESS-HERE@EXAMPLE.COM' }, false)
+      response.body = JSON.stringify(viewBetaSite)
+      return response
+  }
+  ```
+
+</CodeTabItem>
+</CodeTabs>
+
+Open the AWS panel in VSCode. Right-click to upload. When the upload finishes, right-click the function and invoke it again. You do not need a payload.
+
+ You should receive a response similar to `{"statusCode":200,"body":"true"}`.
+
+   ![response from our AWS Lambda test](aws-invoke-flag.png)
+
+You've successfully integrated and used a LaunchDarkly flag in a Lambda function. If you weren't deploying to Lambda@Edge, there would be no additional setup steps necessary. All you would need now would be to implement your code within the Lambda to respond to the value our flag returns.
+
+## Deploying our function to Lambda@Edge
+
+You're using Lambda, and now you can add Lambda@Edge. Here's how to deploy your function there.
+
+A function running on Lambda@Edge receives a specific [event structure](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html). You can use this to specify a key for LaunchDarkly that will ensure that different users get different flag variations, but the same user always ends up in the same group. For example, users 1 and 2 will each get variations A and B, respectively, regardless of how many times they load the website. User 2 will never get variation A and user 1 will never get variation B.
+
+The code below gets the value of the flag and, if the value is `true`, redirects them to the beta site. Otherwise, if the value is `false`, it redirects them to the original site. A more complete solution would take into account the URI and query string that was requested and redirect them to the appropriate location on either the beta or main site, but this example is simpler than a real-life example. The code below gets the value of the flag and, if the value is `true`, redirects them to the beta site.
+
+First, update your function to use this event. You can use the user's IP address as the key. While the IP isn't unique to an individual, it is the only identifying information we always have available for the user.
+
+Here is the event code:
+
+<CodeTabs
+defaultValue="js"
+values={[
+     { label: 'JavaScript', value: 'js', }
+]
+}>
+<CodeTabItem value="js">
+
+```js
+exports.handler = async (event) => {
+  let URL =
+    "https://launchdarklydemostack1-s3bucketforwebsitecontent-jffmp2434grq.s3.amazonaws.com/site/";
+
+  await client.waitForInitialization();
+  let viewBetaSite = await client.variation(
+    "rebrand",
+    { key: event.Records[0].cf.request.clientIp },
+    false
+  );
+  console.log(`LaunchDarkly returned ${viewBetaSite}`);
+
+  if (viewBetaSite) URL += "beta/index.html";
+  else URL += "index.html";
+  return {
+    status: "302",
+    statusDescription: "Found",
+    headers: {
+      location: [
+        {
+          key: "Location",
+          value: URL,
+        },
+      ],
+    },
+  };
+};
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Use the AWS panel in VSCode to upload it again by right-clicking on the function and choosing "Upload Lambda."
+
+### Testing our Lambda@Edge function
+
+To test the function within the AWS panel, you must provide a payload that represents the Lambda@Edge event structure.
+
+Open the AWS panel in VS Code. Right-click on the function and select "Invoke on AWS." From the sample request payload menu, choose the "Cloudfront HTTP Redirect" and then click "Invoke."
+
+You should get a response like:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'JSON', value: 'json', }
+  ]
+}>
+<CodeTabItem value="json">
+
+```json
+{
+   "status":"302",
+   "statusDescription":"Found",
+   "headers":{
+      "location":[
+         {
+            "key":"Location",
+            "value":"https://launchdarklydemostack1-s3bucketforwebsitecontent-jffmp2434grq.s3.amazonaws.com/site/beta/index.html"
+         }
+      ]
+   }
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+![Invoking the Lambda with a sample payload.](aws-invoke-lambda-edge.png)
+
+Try changing the IP address in the payload and clicking invoke again. In most cases, you'll get a different response, because our rollout is split 50/50. If you receive the original site variation again, you may need to change the IP more than once. Ultimately, the percentage percentage breakdown of sites that display will be 50/50, but that doesn't mean the value returned alternates between each request.
+
+### Connecting a CloudFront trigger
+
+Your function now uses the Lambda@Edge event data and returns the correct redirect response, but you need to trigger it from the CloudFront distribution you created earlier. To do this, add a CloudFront trigger.
+
+First, you must update the execution role of the function. Here's how:
+
+1. In the AWS console, search for "Lambda" and select your function.
+2. Go to the Configuration tab for the Lambda function, click **Permissions**, then under Execution role click **Edit**.
+
+![Changing the execution role.](aws-lambda-execution.png)
+
+3. In the "Existing Role" menu, select "service-role/lambdaEdge."
+4. Click **Save**.
+
+![Changing the service role to Lambda@Edge.](aws-lambda-service-role.png)
+
+Now you can enable the trigger. Here's how:
+
+1. Open your Lambda Function and click **Add trigger**.
+2. In the "Select a trigger" menu, search for "CloudFront" and then click the button to **Deploy to Lambda@Edge**.
+
+   ![Adding a CloudFront trigger.](aws-lambda-add-trigger.png)
+
+3. When you configure the CloudFront trigger, change the CloudFront event to "Viewer request." This ensures that the Lambda will execute on every request before the cache is checked.
+
+ If you used the default, which is "Origin request", the cache would be checked first and flag changes after the initial run would pull from this cache. That means flag changes would not impact the redirect.
+
+4. Accept the defaults for the remaining properties and click "Deploy." You may get asked to do this a second time. If you are, choose "Viewer request" both times.
+
+![The trigger is deployed.](aws-lambda-cloudfront-trigger.png)
+
+Finally, test to confirm this works. Here's how:
+
+1. Click the "CloudFront" box in the "Function Overview". **Configuration** > **Triggers settings** appears.
+2. Click the link next to the CloudFront trigger that has your CloudFront distribution ID. The CloudFront distribution appears in a new tab.
+3. In the "Details" section of the CloudFront distribution tab, copy the URL for this distribution.
+4. If necessary, wait for the CloudFront distribution to finish deploying. If you paste this URL in the browser, it will direct you to either the old version of the page or the new one.
+
+You can also change which site you receive, or test what the full rollout looks like, from LaunchDarkly. Here's how:
+
+1. Go to the flag dashboard and click into the "rebrand" flag.
+2. Change the "Default rule" from serving a percentage rollout to just serving `true`.
+3. Save the changes to your flag and go to the CloudFront domain again. You will be directed to the beta site.
+
+That's it! You've successfully integrated LaunchDarkly into a Lambda function and then deployed that function to Lambda@Edge.
+
+**Cleanup**
+
+If you'd like to clean up your AWS environment when you complete this guide, here's how:
+
+1. Remove the CloudFront association by following the instructions in [Amazon's documentation](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-delete-replicas.html).
+2. Navigate to the Behaviors tab of your CloudFront distribution, edit the behavior and remove the Function association for Lambda@Edge. After the distribution deploys, we can delete the Lambda function.
+3. Empty the S3 bucket and delete it.
+4. Disable the CloudFront distribution. After disabling it, wait for it to finish deploying and delete the distribution.
+
+## Conclusion
+
+In this guide, you integrated a LaunchDarkly flag into a Lambda function and deployed the function to Lambda@Edge. By doing this, you serve a flag variation closer to the user, which  means faster state changes to feature flags and no disruptions when the flag state changes.
+
+<Callout intent="primary">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>

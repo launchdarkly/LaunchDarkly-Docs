@@ -1,0 +1,160 @@
+---
+path: /guides/tutorials/merge-accounts
+title: Merging LaunchDarkly accounts
+description: This tutorial explains how to use Ansible to merge two existing LaunchDarkly accounts.
+published: true
+tags: ['guide', 'merge', 'ansible', 'account']
+---
+
+## Overview
+
+This tutorial explains how to use Ansible to merge two existing LaunchDarkly accounts. You might want to do this when you upgrade your LaunchDarkly plan, or if your organization has multiple LaunchDarkly accounts that you want to combine into one.
+
+<Callout intent = "alert">
+<CalloutTitle>This tutorial uses experimental functions.</CalloutTitle>
+<CalloutDescription>
+
+ This tutorial relies on functions that were created by LaunchDarkly, but are not extensively tested or formally supported. For best results, test the procedure on accounts that do not contain business-critical data before you modify production environments.
+
+</CalloutDescription>
+</Callout>
+
+Instead of merging two accounts, you can use the LaunchDarkly Terraform integration to provision multiple identical LaunchDarkly projects. To learn more, read [Terraform](/integrations/terraform).
+
+### Understanding how merging accounts works
+
+When you merge accounts, you designate one account as the "main" account and transfer data objects to it from another, "secondary" account. After the process completes, you can delete the secondary account. Data objects that have been transferred into the primary account behave like any other object. There is no hierarchical difference between objects from different accounts.
+
+When you merge accounts, we recommend that you choose what data objects you want to transfer, instead of trying to transfer everything. The less you try to transfer, the less likely you are to introduce errors. Only transfer data objects that are operationally important, and leave behind anything that you are not actively using.
+
+We suggest tagging all the objects that you want to transfer, if that is feasible, to help you verify your transfer. In addition, verify that there are no duplicate flag keys between accounts.
+
+<Callout intent = "alert">
+<CalloutTitle>Only experienced LaunchDarkly administrators should merge accounts</CalloutTitle>
+<CalloutDescription>
+
+ Merging accounts is not a common behavior. It could impact an end user's experience of your product. Plan extensively before you merge LaunchDarkly accounts.
+
+</CalloutDescription>
+</Callout>
+
+### Understanding what you can and cannot transfer
+
+Not all data objects can transfer from one account to another. However, you can back up some data before you merge accounts. To learn more, read [Backing up secondary account data](#backing-up-secondary-account-data).
+
+Here is what you cannot transfer:
+
+* The audit log does not transfer between accounts.
+* SDK keys do not transfer between accounts.
+* Custom roles do not transfer between accounts. You must grant custom roles to new account members in the primary account after the merge completes.
+* Data from running experiments does not transfer between accounts. If you merge a secondary account into the primary account while the secondary account has experiments running, the experiment cannot match its user targeting to the user targeting options in the primary account. To prevent data loss, pause experiments during the merge and resume them in the primary account after.
+* User data from the **Users** dashboard. This data is account-specific and cannot transfer between accounts.
+* Flag metadata, including flag status, the flag evaluations graph, and the time when flags were most recently evaluated.
+
+## Prerequisites
+
+To complete this guide, you must have the following prerequisites:
+
+* Working knowledge of [Ansible](https://www.ansible.com)
+* An Admin or Owner role for each account you want to merge
+* Recent backups of your flag environments and settings for the secondary account. To learn more, read [Backing up secondary account data](#backing-up-secondary-account-data).
+* Backups of your audit log for the secondary account. To learn more, read [Backing up secondary account data](#backing-up-secondary-account-data).
+* LaunchDarkly Support must have temporarily removed rate limiting from your account, because the merge may cause a large number of requests. To request this, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
+
+## Concepts
+
+In order to use this guide, you should understand the following concepts:
+
+### Account
+
+A LaunchDarkly account contains projects and environments.
+
+### Account members
+
+Account members are people who work at your organization or have access rights to your organization's LaunchDarkly environment for another reason, such as contractors or part-time employees. To learn more, read [LaunchDarkly account members](/home/members/managing).
+
+### Users
+
+Users are people, services, machines, or other resources that encounter feature flags in your product. Users are not account members. To learn more, read [Users and user segments](/home/users).
+
+## Merging LaunchDarkly accounts
+
+Here's how to migrate data objects from one account to another to merge your LaunchDarkly accounts:
+
+1. Implement a change freeze on both LaunchDarkly accounts. Stop all changes to the projects, flags, segments, and webhooks that you plan to migrate.
+2. Install Ansible on your local machine. To learn how, read [Ansible's documentation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
+3. Navigate to the **LaunchDarkly Labs** repo in Github and clone the [Ansible LaunchDarkly collection repo](https://github.com/launchdarkly-labs/ansible-launchdarkly-collection).
+4. Evaluate any dependencies.
+5. Create a file named "playbook.yml."
+6. Copy and paste this code into playbook.yml:
+
+  <CodeTabs
+    defaultValue="text"
+    values={[
+      { label: 'Copy project', value: 'text', },
+    ]
+  }>
+    <CodeTabItem value="text">
+
+    ```txt
+
+    ---
+    - name: Copy Project
+    hosts: localhost
+    gather_facts: yes
+    tasks:
+
+      - name: Copy a LaunchDarkly project
+        launchdarkly_labs.collection.launchdarkly_project_copy:
+          api_key: <Replace with an API access token for your secondary account>
+          api_key_dest: <Replace with an API access token for your primary account>
+          project_key: <Replace with your secondary account's project key>
+          project_key_dest: <Replace with your primary account's project key>
+          name: "Copy Project"
+
+    ```
+
+    </CodeTabItem>
+  </CodeTabs>
+
+  To learn more, read [`launchdarkly_project_copy`](https://launchdarkly-labs.github.io/ansible-launchdarkly-collection/modules/launchdarkly_project_copy.html) in the Ansible collection documentation.
+
+7. Run the playbook with `ansible-playbook first_playbook.yml`. The data transfer initiates. It may take several minutes to complete.
+8. Verify that the transfer completed successfully by checking in your primary account for data from your secondary account. For example, if you tagged objects in your secondary account that you wanted to merge into the primary account, verify that those tagged objects now appear in your primary account.
+
+After you verify that the account merge has completed successfully, you may deprecate the secondary account.
+
+### Ansible functions to assist merges
+
+There are helper functions available in Ansible that can support the merge of two LaunchDarkly accounts. To learn more, read [`launchdarkly_project_copy`](https://launchdarkly-labs.github.io/ansible-launchdarkly-collection/modules/launchdarkly_project_copy.html).
+
+## Backing up secondary account data
+
+Because LaunchDarkly is cloud-based software, it does not have built-in data backup features available. Customers rarely need to back up existing data, because it is always available in the cloud. However, for the specific case of merging two accounts, there are some existing features that support backing up the data from the secondary account for record-keeping purposes. You can use these features to preserve the history of the secondary account before you merge it with the primary account.
+
+### Backing up the audit log
+
+You can download the contents of your audit log by using the LaunchDarkly REST API to produce a list of all audit log entries. You may need to call this API endpoint multiple times to get a full export of audit log events.
+
+To learn more, read [Audit log](https://apidocs.launchdarkly.com/tag/Audit-log).
+
+### Backing up other account data
+
+For other data, like environment information, you may be able to use LaunchDarkly's Data Export feature to review some historical events and data from an account.
+
+To learn more, read [Data Export](/home/data-export).
+
+## Conclusion
+
+In this guide, you learned how to transfer data objects from one LaunchDarkly account into another, effectively merging the accounts. You also learned how to back up some data from one account to preserve its history before merging.
+
+<Callout intent="primary">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>

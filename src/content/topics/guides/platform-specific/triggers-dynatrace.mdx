@@ -1,0 +1,160 @@
+---
+path: /guides/platform-specific/triggers-dynatrace
+title: Using flag triggers with Dynatrace
+description: This guide explains how to create flag triggers and integrate them with Dynatrace.
+published: true
+tags: ['guide', 'dynatrace', 'trigger', 'pro', 'enterprise']
+---
+
+<Callout intent="primary">
+<CalloutTitle>The Dynatrace integration is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+The Dynatrace integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This guide explains how to create flag triggers and integrate them with Dynatrace. [Dynatrace](https://dynatrace.com/) is an infrastructure monitoring platform that offers [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) and automated problem remediation.
+
+You can use flag triggers to automate flag changes. For example, you can create an alert in Dynatrace that uses a LaunchDarkly trigger to toggle a flag on or off when Dynatrace triggers a predefined or custom event.
+
+Integrating flag triggers with Dynatrace requires two steps:
+
+1. [Creating a flag trigger](#creating-a-flag-trigger)
+2. [Connecting a LaunchDarkly trigger to Dynatrace](#connecting-a-launchdarkly-trigger-to-dynatrace)
+
+## Prerequisites
+
+To complete this guide, you must have the following prerequisites:
+
+- You must have a Pro or Enterprise LaunchDarkly account.
+- You must have a user role with permission to edit flag triggers.
+- You must have access to trigger URLs. To learn more about accessing trigger URLs, read [Understanding flag triggers' security](/home/feature-workflows/triggers#understanding-flag-triggers-security).
+- You must have an existing [Dynatrace](https://www.dynatrace.com/) account.
+
+## Concepts
+
+To use the Dynatrace trigger integration, you must understand the following concepts.
+
+### Flag triggers
+
+Flag triggers let you initiate flag changes remotely using a unique webhook URL. Triggers integrate with your existing tools to let you enable or disable flags when you hit specific operational health thresholds or receive certain alerts. Triggers work by creating unique URLs to connect feature flags to third-party tools. When the third-party tool generates a specific alert, the trigger sets the flag's targeting to on or off. To learn more, read [Flag triggers](/home/feature-workflows/triggers).
+
+## Creating a flag trigger
+
+You can create triggers for individual feature flags from the flag's **Settings** page.
+
+To create a trigger:
+
+1. From the flag dashboard, click the name of the flag you want to create a trigger for.
+2. Click the **Settings** tab.
+2. Find the "Triggers for [Environment Name]" section and click **Add trigger**. The "Create trigger" dialog box appears:
+
+![The "Create trigger" dialog box.](guide-dynatrace-triggers-create.png)
+
+3. Choose "Dynatrace" from the **Trigger type** menu.
+4. Choose an action you wish to perform with the trigger from the **Action** menu.
+5. Click **Save Trigger**. A confirmation appears and the trigger appears in the flag's **Settings** page.
+6. Copy and save the unique trigger URL. You must do this now. After you leave this page, the trigger URL will be obscured and you will not be able to view it again:
+
+![A trigger with the URL obscured.](guide-dynatrace-triggers-url-obscured.png)
+
+You just created a new trigger for your flag. You can create more triggers if necessary by clicking **Add trigger**.
+
+<Callout intent="info">
+<CalloutTitle>Triggers are environment-specific</CalloutTitle>
+<CalloutDescription>
+
+Triggers are unique to each flag within a given environment. This means that you can add multiple tools and multiple triggers to every flag, but if you wish to use the same trigger in multiple environments, you must create a new trigger for each flag in each environment as flags do not share URLs across environments.
+
+</CalloutDescription>
+</Callout>
+
+## Connecting a LaunchDarkly trigger to Dynatrace
+
+To configure a LaunchDarkly trigger in Dynatrace, you must perform two steps:
+
+1. Create an [alerting profile](https://www.dynatrace.com/support/help/how-to-use-dynatrace/problem-detection-and-analysis/notifications-and-alerting/alerting-profiles/) in Dynatrace to determine what Dynatrace events you want associated with your trigger, and
+2. Create a webhook in Dynatrace that includes a custom JSON template that specifies your trigger URL and alerting profile.
+
+### Creating a custom alerting profile in Dynatrace
+
+<Callout intent="alert">
+<CalloutTitle>Create a custom alerting profile in Dynatrace to associate with your trigger</CalloutTitle>
+<CalloutDescription>
+
+ We strongly recommend that you use a custom alerting profile. Alerting profiles specify what Dynatrace event or set of events will invoke the webhook. In the absence of a user-specified alerting profile, Dynatrace's default alerting profile sends a webhook to LaunchDarkly for all Dynatrace events.
+
+</CalloutDescription>
+</Callout>
+
+To create a custom alerting profile:
+
+1. Log in to Dynatrace.
+2. Create a new alerting profile that filters for the specific events you want to be associated with your LaunchDarkly trigger. To learn more, read [Dynatrace's Alerting profiles documentation](https://www.dynatrace.com/support/help/how-to-use-dynatrace/problem-detection-and-analysis/notifications-and-alerting/alerting-profiles/).
+3. Give the alerting profile a human-readable name.
+4. Click **Done** in the top right-hand corner of the page.
+
+### Creating a webhook in Dynatrace with a JSON template
+
+To display event details associated with the invocation of a LaunchDarkly trigger, you must configure a JSON template when you set up the webhook in Dynatrace.
+
+To configure the template:
+
+1. Create a new webhook in Dynatrace. To learn how, read [Dynatrace's Webhook integration documentation](https://www.dynatrace.com/support/help/setup-and-configuration/integrations/third-party-integrations/problem-notification-systems/webhook-integration).
+2. Paste the LaunchDarkly trigger URL into the **Webhook URL** field.
+3. Copy this payload into the **Custom payload** field in Dynatrace:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'JSON', value: 'json', },
+  ]
+}>
+<CodeTabItem value="json">
+
+```json
+
+{
+"title":"{ProblemTitle}",
+"url": "{ProblemURL}"
+}
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<Callout intent="alert">
+<CalloutTitle>You must customize the payload to render LaunchDarkly audit logs correctly</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly uses the payload `title` and `url` fields to create the main body of trigger audit log entries. If you use a different JSON template than the one provided above, you must include the `title` and `url` fields or the trigger will not save useful data about the event in the flag's audit log. The `url` is the URL of your Dynatrace event.
+
+</CalloutDescription>
+</Callout>
+
+4. Select your pre-configured alerting profile from the **Alerting profile** menu.
+5. Click **Send test notification**. If the integration was successful, a "Custom Integration test successful" message appears.
+6. Return to the LaunchDarkly flag's Settings page and verify that the test notification has arrived. To do this, click on the trigger's **overflow menu** confirm that the execution count has incremented.
+7. Return to Dynatrace and click **Save changes**.
+
+Your new Dynatrace webhook now triggers flag changes based on the action you specified in LaunchDarkly.
+
+For more granular problem detection and alerting, you may want to explore static thresholds in Dynatrace’s custom alerting settings. To learn more, read [Dynatrace's Static thresholds documentation](https://www.dynatrace.com/support/help/how-to-use-dynatrace/problem-detection-and-analysis/problem-detection/static-thresholds).
+
+For another example of how you can use flag triggers with APM tools, read [Automating application performance management](/guides/best-practices/integrations-use-cases#automating-application-performance-management).
+
+<Callout intent="primary">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>
