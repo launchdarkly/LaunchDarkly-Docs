@@ -394,7 +394,7 @@ LaunchDarkly allows you to sync groups from Okta to teams within your account. Y
 
 After you turn on team sync:
 * You can only create new teams through Group Push in Okta, and not from the LaunchDarkly UI.
-* You can only make changes to your synced teams' names and memberships through your IdP. You can still maintain unsynced teams can in the LaunchDarkly UI.
+* You can only make changes to your synced teams' names and memberships through Okta. You can still maintain unsynced teams in the LaunchDarkly UI.
 * You can still manage team permissions in LaunchDarkly. To learn how to add custom roles to a team, read [Managing team permissions](/home/teams/managing#managing-team-permissions).
 * LaunchDarkly will not delete any existing teams.
 
@@ -407,8 +407,11 @@ To turn on team sync in LaunchDarkly:
 
 3. Click **Turn on team sync**. A confirmation dialog appears.
 4. Click **Turn on team sync**. 
-   ![Turn on team sync within the "SSO management" section of the "Security tab".](settings-security-turn-on-team-sync.png)
 
-You can now manage teams within the admin panel of Okta.
-Teams you have synced with an IdP have limited team management permissions in LaunchDarkly. You can tell which teams you have synced with an IdP on the **Teams** tab in the "Synced with IdP" column.
-![The "Synced with IdP" column on the "Teams" tab.](teams-synced-with-idp.png)
+   ![The "Turn on team sync" option within the "SSO management" section of the "Security" tab.](settings-security-turn-on-team-sync.png)
+
+You can now manage teams within the admin panel of Okta. Teams you have synced with Okta have limited team management permissions in LaunchDarkly. 
+
+You can tell which teams you have synced on the **Teams** tab in the "Synced with (IdP)" column:
+
+![The "Synced with (IdP)" column on the "Teams" tab.](teams-synced-with-idp.png)
