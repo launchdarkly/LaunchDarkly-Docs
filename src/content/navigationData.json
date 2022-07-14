@@ -1168,6 +1168,10 @@
           {
             "label": "Roku SDK reference",
             "path": "/sdk/client-side/roku"
+          },
+          {
+            "label": "Vue SDK reference",
+            "path": "/sdk/client-side/vue"
           }
         ]
       },
@@ -1295,6 +1299,10 @@
           {
             "label": "Deployment and release strategies",
             "path": "/guides/best-practices/deployment-strategies"
+          },
+          {
+            "label": "Designing experiments",
+            "path": "/guides/best-practices/designing-experiments"
           },
           {
             "label": "Experimentation and Bayesian statistics",

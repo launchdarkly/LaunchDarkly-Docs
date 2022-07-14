@@ -1,0 +1,230 @@
+---
+path: /guides/best-practices/designing-experiments
+title: Designing experiments
+description: This guide provides strategies and best practices to design an effective experiment in LaunchDarkly.
+published: true
+tags: ['guide', 'experiment', 'metric', 'add-on', 'experimentation']
+---
+
+<Callout intent="primary">
+<CalloutTitle>Experimentation is an add-on feature</CalloutTitle>
+<CalloutDescription>
+
+Experimentation is available as an add-on for customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To add Experimentation to your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This guide provides strategies and best practices to design an effective experiment in LaunchDarkly.
+
+The changes you make to your applications should be purposeful and provide value to the businesses you support and the people who use your software. But how do you know that the decisions you make are valuable? Experimentation can help you determine this.
+
+It is critical to plan out and document experiments before you run them. Experiment design documents contain the definition of why you are running this test and the decisions you want to make based on its outcomes.
+
+The guide covers the following topics:
+
+- Types of experiments
+- Generating ideas
+- Formulating a hypothesis
+- Choosing your sample size
+- Determining an audience
+- Choosing variations
+- Setting experiment metrics
+- Creating a roadmap
+
+To learn more about Experimentation, read [About Experimentation](/home/about-experimentation).
+
+## Prerequisites
+
+To complete this guide, you must have the following prerequisites:
+
+- A basic understanding of feature flags
+- A basic understanding of your business's needs or key performance indicators (KPIs)
+
+## Concepts
+
+It’s not critical to understand these concepts completely, but some awareness of what they are will be helpful. Don’t worry if some of these items are complicated. Experimentation is a scientific discipline that takes time to learn and understand.
+
+You should understand these concepts before you read this guide:
+
+### How LaunchDarkly performs experiments
+
+Experiments help you learn and demonstrate what you have learned to others. You can use experiments to gather supplemental data to confirm or refine your ideas. To learn more, read [Types of experiments](#types-of-experiments).
+
+In LaunchDarkly, experiments can:
+
+- validate new ideas by testing multiple variations of a feature,
+- determine your user base's interest in a feature before you build it,
+- gather performance data for a feature, service, or API,
+- increase the adoption of a product by determining the features your users prefer,
+- drive revenue and conversion rate by rolling out successful variations to the rest of your user base, 
+- and more.
+
+You can create an experiment by connecting any flag to a metric you want to track. Because you can wrap any part of your technology stack or product in a feature flag, you can use experiments to test for much more than the efficacy of user interface (UI) changes.
+
+### What hypotheses are and how they relate to experiments
+
+A hypothesis is a theoretical statement that an experiment can prove or disprove. A well-constructed hypothesis has both a positive and negative result defined.
+
+For example, you may hypothesize that changing the button position to the top-right corner will increase click-through by at least 2%, and leaving the button in its current position will not cause any changes in click-through.
+
+To learn more about writing effective hypotheses, read [Formulating a hypothesis](#formulating-a-hypothesis).
+
+## Types of experiments
+
+Different types of experiments can test different types of hypotheses.
+
+Here are some examples of experiment types:
+
+- Feature validation: After developing a feature, make sure user reaction to the feature is positive. If it's not, iterate on the new feature until it's neutral or positive for the target metric.
+- Risk mitigation: Some changes must go out. For example, upgrading to a new version of an OS on all servers. It's difficult to test all the failure scenarios before doing so, so you can roll these out slowly and watch critical metrics for dips.
+- Optimization: Commonly thought of in the sense of "conversion funnel optimization," optimization is used more and more in different parts of an app where the app can be parameterized and new test configurations can be selected by an algorithm.
+
+Here are some external resources we recommend to learn more about building experiments:
+- [A/B Testing Mastery: From Beginner to Pro in a Blog Post](https://cxl.com/blog/ab-testing-guide/)
+- [Your First Chaos Experiment](https://www.gremlin.com/community/tutorials/your-first-chaos-experiment/)
+- [How to run a successful beta in 7 steps](https://www.intercom.com/blog/how-to-run-a-successful-beta/).
+
+## Generating ideas
+
+When you plan your experiment, it can be helpful to identify it as a brief, simple explanation of what you are trying to prove and why. You may also want to explain where the rationale behind this experiment originates. References to any user research, prior bugs, or feature requests provide context to what you are trying to achieve.
+
+Here are some example questions you can answer with an experiment:
+
+- Does removing complexity and adding white space result in users spending more time on the site?
+- Do more product images lead to increased sales?
+- Does page load time increase significantly when search results are sorted?
+- What is the best color for a call to action button?
+- What is the best location on the page for the button?
+
+Remember that you can approach a solution from many perspectives. That means many hypotheses per idea and, potentially, multiple experiments.
+
+## Formulating a hypothesis
+
+A hypothesis should be specific and answer a single question. You may need to run multiple experiments to answer numerous questions about a feature.
+
+Here are two example hypotheses:
+
+- “We believe that by rewriting our results page in React, we will reduce page load time and increase utilization by X%.”
+- “We believe that by adding a chatbot to the second page of our account registration process, we will decrease incomplete signups by 15% and have a minimum 1% increase in signup completion.”
+
+Your hypothesis must be as robust and specific as possible to get useful data from your experiment. An imprecise hypothesis can allow more subjective interpretation of the results.
+
+A good hypothesis has the following considerations:
+
+- Specific: The more specific you are in your expectations, the easier it is to determine whether you have a real effect and what you need to do next.
+- Rigorous: The hypothesis must have solid metrics to work toward, and you should review them regularly.
+- Multiplicative: A great hypothesis lets you generate further hypotheses. You should be able to build your next hypothesis from your results from the current one. It should generate value no matter what the results of the experiment.
+
+<Callout intent="info">
+<CalloutTitle>Use this template to write useful hypotheses</CalloutTitle>
+<CalloutDescription>
+
+Most hypothesis can be reduced to the following statement:
+
+"By doing [X] to [Y], we expect [Z]."
+
+</CalloutDescription>
+</Callout>
+
+## Choosing your sample size
+
+The number of users included in an experiment is called the sample size. The larger an experiment’s sample size, the more confident you can be in the experiment’s outcome. However, one benefit of using Bayesian statistics for our experimentation model is you can still get useful results even with small sample sizes. To learn more, read [Experimentation and Bayesian statistics](/guides/best-practices/bayesian).
+
+While you assess an experiment's viability, consider how many unique users it takes to get a representative sample of your audience. Sample size estimators can tell you how many users you need, how long the experiment should run for, an estimated impact of the experiment, and other information you need for your test. We recommend using the [Power Calculator estimator](https://bookingcom.github.io/powercalculator/).
+
+After you have calculated your sample size, you can run your experiment as long as you need until the experiment includes the desired number of users. We recommend running experiments for at least one week, if possible. For example, if your experiment needs to include 70,000 users, it’s better to run an experiment that includes 10,000 users per day for seven days, rather than an experiment that includes all 70,000 on the first day. This helps avoid “day of week” effects. To learn more about day of week effects and how they can affect your experiment, read [Understanding variation reassignment](/home/creating-experiments/allocation#understanding-variation-reassignment).
+
+## Determining an audience
+
+An experiment requires two or more samples to test against. You may want to run an experiment on all of your users, or you may want to target users by certain attributes so you can run it on a smaller sample of your population. For example, you may want to run your experiment only on users in the United States, or only those that have an account with your business.
+
+Here are some possible ways to construct your experiment sample:
+- Logged in as opposed to anonymous
+- By company
+- By geography
+- Randomly
+
+To learn more, read [Allocating experiment audiences](/home/creating-experiments/allocation).
+
+## Choosing variations
+
+Before building the experiment, you need to decide how many variations you want to test, and what those variations are. For example, will you be testing a red checkout button versus a blue checkout button, or will you be testing a red versus a blue versus a green checkout button? 
+
+Then, you need to add the variations you choose to the flag you are including in your experiment. To learn more, read [Creating flag variations](/home/flags/variations).
+
+## Setting experiment metrics
+
+A good experiment requires well-defined metrics. You must determine what kind and how many metrics to include in your experiment.
+
+### Deciding which metrics to use
+
+Identifying the right metrics is imperative to getting accurate results from your experiments.
+
+Choosing metrics that correctly measure the effect of a change on your users or codebase can be difficult. Where possible, choose metrics that are a direct result of the changes you are making, rather than those that might be influenced by other factors.
+
+For example, if you know your business' key performance indicators (KPIs), you may be able to break them down into smaller numeric goals, such as an item's average revenue per order, a server's response speed, or a link's click-through rate. These goals might make useful metrics to track in an experiment.
+
+Here is a list of metrics that LaunchDarkly supports:
+
+- Click conversion metrics: Tracks the clicks on a user interface (UI) element. For example, how frequently a user clicks the Save button. Only compatible with the JavaScript and React SDKs.
+- Custom conversion metrics: Tracks events for any arbitrary event. For example, whether a user search called a service or not.
+- Custom numeric metrics: Tracks increases or decreases in numeric value against a baseline you set. For example, how many items are in a user's cart when they check out of your online store.
+- Page view conversion metrics: Tracks how many times a page is viewed. For example, how many times a blog post is viewed based on three different titles. Only compatible with the JavaScript and React SDKs.
+
+To learn more about metric types, read [Creating metrics](/home/experimentation/metrics).
+
+### Choosing how many metrics to use
+
+With LaunchDarkly experiments, you will choose one primary metric to base your decision making on. With each additional metric you add to an experiment, decision making becomes harder, which is why you can choose only one primary metric. You can add up to 19 secondary metrics to track additional user behaviors.
+
+To learn more, read [Using primary and secondary metrics.](/home/creating-experiments#using-primary-and-secondary-metrics)
+
+## Creating a roadmap
+
+There are many tools to help you manage an experiment's roadmap. Jira, Trello, Asana, Excel, and Google Sheets are all good candidates for storing and logging information on experiments.
+
+Your roadmap should contain the following:
+
+- Experiment name.
+- Experiment description.
+- Experiment hypothesis.
+- Sample size: how much traffic you need before you can check your results and determine an outcome. 
+- Audience: the target population for your experiment and the logic you use to identify it.
+- Variations: how many flag variations this experiment uses, and what percentage of traffic each is assigned.
+- Metrics: which metric types you are using and why.
+- Location: the project and environment within LaunchDarkly where your experiment will run.
+- The date your experiment will start.
+- How long your experiment will run.
+- Status: whether your experiment is still being drafted, is running, is being analyzed after collecting data, or is complete.
+- Priority in comparison to other experiments and projects.
+
+## Building and running an experiment
+
+After your have designed your experiment, it’s time to build and run it. To learn how, read [Building experiments](/home/creating-experiments#building-experiments).
+
+## After the experiment completes
+
+One of the advantages of feature-flag-based experimentation is that your engineering team can immediately roll out the winning variation to the appropriate audiences. The winning variation for a completed experiment is the variation that is most likely to be the best option out of all of the variations you tested. To learn more, read [Winning variations](/home/analyzing-experiments/winning-variations).
+
+If you’re not ready to roll out the winning variation yet, you can change the flag variations in an experiment in order to measure different data. Iterations of an experiment build on the value you have generated and allow you to pivot and investigate further.
+
+## Conclusion
+
+In this guide you have learned some of the key concepts of experimentation and
+how to design an experiment using feature flags.
+
+To complete an exercise in which you create an experiment and assess its results, read [Getting started: Experimenting with feature flags](/guides/tutorials/experimentation).
+
+<Callout intent="primary">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>

@@ -93,11 +93,11 @@ Here is an example for the Java SDK:
 <CodeTabItem value="java">
 
 ```java
-  LDConfig config = new LDConfig.Builder()
-  .dataSource(Components.streamingDataSource()
-    .baseURI(URI.create("https://stream.launchdarkly.us"))
-  .events(Components.sendEvents()
-    .baseURI(URI.create("https://events.launchdarkly.us"))
+// Requires SDK version 5.9.0 or above
+LDConfig config = new LDConfig.Builder()
+  .serviceEndpoints(Components.serviceEndpoints()
+    .streaming("https://stream.launchdarkly.us")
+    .events("https://events.launchdarkly.us"))
   .build();
  ```
 

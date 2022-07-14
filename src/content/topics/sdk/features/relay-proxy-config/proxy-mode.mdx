@@ -605,21 +605,43 @@ config = (makeConfig "YOUR_SDK_KEY")
 
 <Details summary="Expand Java code sample">
 
-To connect the SDK to the Relay Proxy, set the `baseURI` property of each service to the base URI of your Relay Proxy:
+To connect the SDK to the Relay Proxy, use the `serviceEndpoints` builder method and `Components.serviceEndpoints().relayProxy` to specify the base URI of your Relay Proxy:
 
 <CodeTabs
   defaultValue="java"
   values={[
     { label: 'Java', value: 'java', },
+    { label: 'Java (SDK versions 5.8.x and earlier)', value: 'java-pre-5.9' },
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
 LDConfig config = new LDConfig.Builder()
+  .serviceEndpoints(Components.serviceEndpoints()
+    .relayProxy("https://your-relay-proxy.com:8080"))
+  .build();
+```
+</CodeTabItem>
+<CodeTabItem value="java-pre-5.9">
+
+```java
+// Prior to version 5.9.0, the base URI had to be specified for each service,
+// depending on which services you were actually using. To use the Relay
+// Proxy in proxy mode for both streaming and events:
+
+LDConfig config = new LDConfig.Builder()
   .dataSource(Components.streamingDataSource()
     .baseURI(URI.create("https://your-relay-proxy.com:8080"))
   .events(Components.sendEvents()
+    .baseURI(URI.create("https://your-relay-proxy.com:8080"))
+  .build();
+
+// Alternatively, if you use the Relay Proxy in proxy mode for streaming
+// but want to send events directly to LaunchDarkly, use:
+
+LDConfig config = new LDConfig.Builder()
+  .dataSource(Components.streamingDataSource()
     .baseURI(URI.create("https://your-relay-proxy.com:8080"))
   .build();
 ```

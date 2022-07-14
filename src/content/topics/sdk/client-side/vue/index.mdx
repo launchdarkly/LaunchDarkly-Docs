@@ -1,0 +1,291 @@
+---
+path: /sdk/client-side/vue
+title: Vue SDK reference
+description: This topic documents how to get started with the Vue SDK.
+tags: ['vue', 'sdk', 'client-side', 'javascript']
+published: true
+---
+
+## Overview
+
+This topic documents how to get started with the Vue SDK.
+
+<Callout intent="primary">
+<CalloutTitle>SDK quick links</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly's SDKs are open source. In addition to this reference guide, we provide source, API reference documentation, and a sample application:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Resource</TableHeadCell>
+    <TableHeadCell>Location</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>GitHub repository</TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/vue-client-sdk">vue-client-sdk</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Sample application</TableCell>
+      <TableCell><a href="/sdk/client-side/vue#example-app">example</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Published module</TableCell>
+      <TableCell><a href="https://www.npmjs.com/package/launchdarkly-vue-client-sdk">npm</a></TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="info">
+<CalloutTitle>The Vue SDK is based on the JavaScript SDK</CalloutTitle>
+<CalloutDescription>
+
+The Vue SDK builds on LaunchDarkly's JavaScript SDK to provide a better integration for use in Vue applications. As a result, much of the JavaScript SDK functionality is also available for the Vue SDK to use. For a complete client-side JavaScript SDK reference, read [JavaScript SDK reference](/sdk/client-side/javascript).
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="info">
+<CalloutTitle>SDK version compatibility</CalloutTitle>
+<CalloutDescription>
+
+The LaunchDarkly Vue SDK only works with Vue 3.
+
+For Vue 2 projects, you can use the [JavaScript SDK](/sdk/client-side/javascript) directly, or a community developed package such as [vue-ld](https://github.com/dashhudson/vue-ld).
+
+</CalloutDescription>
+</Callout>
+
+## Getting started
+
+After you complete the [Getting started](/home/getting-started) process, follow these instructions to start using the LaunchDarkly SDK in your Vue project.
+
+<Callout intent="alert">
+<CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
+<CalloutDescription>
+
+You must make feature flags available to client-side SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
+
+To make a flag available to this SDK, check the **SDKs using Client-side ID** checkbox during flag creation, or on the flag's **Settings** tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [**Settings**](https://app.launchdarkly.com/settings/projects).
+
+</CalloutDescription>
+</Callout>
+
+To install the Vue SDK, you need your LaunchDarkly environment's client-side ID. Your client-side ID is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings/projects) page. Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
+
+Install the Vue SDK using either `npm` or `yarn`:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Installing with npm', value: 'js', },
+    { label: 'Installing with yarn', value: 'yarn', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```bash
+npm install launchdarkly-vue-client-sdk
+```
+
+</CodeTabItem>
+<CodeTabItem value="yarn">
+
+```bash
+yarn add launchdarkly-vue-client-sdk
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+After you install the dependency, add the LaunchDarkly plugin to your Vue app. Typically you do this in `main.js`:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+import { createApp } from 'vue'
+import App from './App.vue'
+import { LDPlugin } from 'launchdarkly-vue-client-sdk'
+
+const clientSideID = 'YOUR_CLIENT_SIDE_ID'
+
+const app = createApp(App)
+app.use(LDPlugin, { clientSideID })
+app.mount('#app')
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Configuring the Vue SDK
+
+The SDK provides a Vue plugin that you can add to your app. You can pass configuration options to the plugin when it loads, or to the `ldInit` function if you are using the `deferInitialization` option. To learn more, read [Initializing the client](#initializing-the-client). 
+<!--- To learn more about the available configuration options, read [LDPluginOptions](https://launchdarkly.github.io/vue-client-sdk/types/LDPluginOptions.html). -->
+
+## Using the plugin
+
+The plugin exposes the LaunchDarkly client, as well as some convenience functions. As it uses the Vue provide/inject API to do this, these functions will only work when run within Vue's setup hook or `<script setup>`. To learn more, read [Provide/Inject](https://vuejs.org/guide/components/provide-inject.html).
+
+### Initializing the LaunchDarkly client
+
+The SDK automatically initializes the LaunchDarkly client if you provide a `clientSideID`, and do not use the `deferInitialization` option. Otherwise, you will need to initialize the LaunchDarkly client manually with `ldInit`, which accepts the same `options` as the plugin.
+
+For example, if you do not know your user at plugin load time and need to defer initialization until you do, you can use the `deferInitialization` option.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="main"
+  values={[
+    { label: 'main.js', value: 'main', },
+    { label: 'App.vue', value: 'app', },
+  ]
+}>
+<CodeTabItem value="main">
+
+```js
+import { createApp } from 'vue'
+import App from './App.vue'
+import { LDPlugin } from 'launchdarkly-vue-client-sdk'
+
+const app = createApp(App)
+app.use(LDPlugin, { clientSideID: 'YOUR_CLIENT_SIDE_ID', deferInitialization: true })
+app.mount('#app')
+```
+
+</CodeTabItem>
+<CodeTabItem value="app">
+
+```html
+<script setup>
+import { ldInit } from 'launchdarkly-vue-client-sdk'
+
+const [ldReady] = ldInit({ user: { key: 'example-user-key', name: 'Sandy' } })
+</script>
+
+<template>
+  <div v-if="ldReady">LaunchDarkly initialized.</div>
+  <div v-else>LaunchDarkly initializing.</div>
+</template>
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+<!--- To learn more, read [the API documentation for ldInit](https://launchdarkly.github.io/vue-client-sdk/functions/ldInit.html). -->
+
+Use `ldReady` to check when the LaunchDarkly client has finished initializing. This is returned by `ldInit`. You can also retrieve it independently with `useLDReady`. `ldReady` is a ref, so to access its value outside of a template you need to use `ldReady.value`.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="vue"
+  values={[
+    { label: 'Vue', value: 'vue', },
+  ]
+}>
+<CodeTabItem value="vue">
+
+```html
+<script setup lang="ts">
+  import { inject } from 'vue'
+  import { useLDReady } from 'launchdarkly-vue-client-sdk'
+
+  const ldReady = useLDReady()
+</script>
+
+<template>
+  <div v-if="ldReady">... content that uses LaunchDarkly ...</div>
+  <div v-else>LaunchDarkly client initializing...</div>
+</template>
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Retrieving flag values with the client
+
+Use `useLDFlag` to access a single flag value by key. It returns a readonly ref for the value of a flag. If you are using TypeScript, the ref's type can be inferred from the type of the default value provided to `useLDFlag`. To learn more about Vue refs, read [ref](https://vuejs.org/api/reactivity-core.html#ref) in the Vue.js documentation.
+
+Example usage:
+
+<CodeTabs
+  defaultValue="vue"
+  values={[
+    { label: 'Vue', value: 'vue', },
+  ]
+}>
+<CodeTabItem value="vue">
+
+```html
+<script setup lang="ts">
+  import { useLDFlag } from 'launchdarkly-vue-client-sdk'
+  const featureFlagKey = 'my-boolean-flag'
+  const myFlagValue = useLDFlag(featureFlagKey, false /* default flag value */)
+</script>
+
+<template>
+  Feature flag "{{ featureFlagKey }}" has value "{{ myFlagValue }}".
+</template>
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The Vue SDK automatically subscribes to flag change events with `useLDFlag`, and your component re-renders automatically when flag changes occur. This is a benefit of `useLDFlag` as compared with getting flag values using the underlying JavaScript SDK, for example with `ldClient.variant()` or `ldClient.allFlags()`. If you do not want flag updates streamed to your application, you can disable this by including the `streaming: false` option when loading the plugin or calling `ldInit`.
+
+<!--- To learn more, read [the API documentation for useLDFlag](https://launchdarkly.github.io/vue-client-sdk/functions/useLDFlag.html). -->
+
+You may also access the LaunchDarkly client with `useLDClient`, the [LDClient](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldclient.html) object from the underlying JavaScript SDK.
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+import { useLDClient } from 'launchdarkly-vue-client-sdk'
+
+const ldClient = useLDClient()
+const allFlags = ldClient.allFlags()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Example app
+
+An example app is included in [launchdarkly/vue-client-sdk](https://github.com/launchdarkly/vue-client-sdk/tree/main/example).
+
+<CodeTabs
+  defaultValue="bash"
+  values={[
+    { label: 'bash', value: 'bash', },
+  ]
+}>
+<CodeTabItem value="bash">
+
+```bash
+git clone git@github.com:launchdarkly/vue-client-sdk.git
+cd vue-client-sdk
+npm i
+npm start
+```
+
+</CodeTabItem>
+</CodeTabs>
