@@ -258,6 +258,11 @@
     "name": "C/C++ (server-side)",
     "versions": [
       {
+        "versionMajorMinor": "2.8",
+        "releaseYear": 2022,
+        "releaseMonthDay": "07-12"
+      },
+      {
         "versionMajorMinor": "2.7",
         "releaseYear": 2022,
         "releaseMonthDay": "06-02"
