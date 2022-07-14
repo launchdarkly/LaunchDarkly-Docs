@@ -129,7 +129,8 @@ app.mount('#app')
 
 ## Configuring the Vue SDK
 
-The SDK provides a Vue plugin that you can add to your app. You can pass configuration options to the plugin when it loads, or to the `ldInit` function if you are using the `deferInitialization` option. To learn more, read [Initializing the client](#initializing-the-client). To learn more about the available configuration options, read [LDPluginOptions](https://launchdarkly.github.io/vue-client-sdk/types/LDPluginOptions.html).
+The SDK provides a Vue plugin that you can add to your app. You can pass configuration options to the plugin when it loads, or to the `ldInit` function if you are using the `deferInitialization` option. To learn more, read [Initializing the client](#initializing-the-client). 
+<!--- To learn more about the available configuration options, read [LDPluginOptions](https://launchdarkly.github.io/vue-client-sdk/types/LDPluginOptions.html). -->
 
 ## Using the plugin
 
@@ -181,7 +182,7 @@ const [ldReady] = ldInit({ user: { key: 'example-user-key', name: 'Sandy' } })
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [the API documentation for ldInit](https://launchdarkly.github.io/vue-client-sdk/functions/ldInit.html).
+<!--- To learn more, read [the API documentation for ldInit](https://launchdarkly.github.io/vue-client-sdk/functions/ldInit.html). -->
 
 Use `ldReady` to check when the LaunchDarkly client has finished initializing. This is returned by `ldInit`. You can also retrieve it independently with `useLDReady`. `ldReady` is a ref, so to access its value outside of a template you need to use `ldReady.value`.
 
@@ -243,7 +244,7 @@ Example usage:
 
 The Vue SDK automatically subscribes to flag change events with `useLDFlag`, and your component re-renders automatically when flag changes occur. This is a benefit of `useLDFlag` as compared with getting flag values using the underlying JavaScript SDK, for example with `ldClient.variant()` or `ldClient.allFlags()`. If you do not want flag updates streamed to your application, you can disable this by including the `streaming: false` option when loading the plugin or calling `ldInit`.
 
-To learn more, read [the API documentation for useLDFlag](https://launchdarkly.github.io/vue-client-sdk/functions/useLDFlag.html).
+<!--- To learn more, read [the API documentation for useLDFlag](https://launchdarkly.github.io/vue-client-sdk/functions/useLDFlag.html). -->
 
 You may also access the LaunchDarkly client with `useLDClient`, the [LDClient](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldclient.html) object from the underlying JavaScript SDK.
 
