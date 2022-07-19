@@ -177,7 +177,7 @@ function queryNewEngine(query, user) {
 </CodeTabItem>
 </CodeTabs>
 
-The migration is expected to last a few weeks. Because the new feature is wrapped in a feature flag, the team can integrate the new search engine code before it's been fully tested and optimized. Now, they can spend time improving the code with real production data. Because the new and old search engine code is separated into different functions, they can make those improvements without changing shared code. In addition, it's easier to add unit tests for the new code since they can call it directly without needing to create mock flag states.
+The migration is expected to last a few weeks. Because the new feature is wrapped in a feature flag, the team can integrate the new search engine code before it's been fully tested and optimized. Now, they can spend time improving the code with real production data. Because the new and old search engine code is separated into different functions, they can make those improvements without changing shared code. In addition, it's easier to add unit tests for the new code because they can call it directly without needing to create mock flag states.
 
 When it's time to retire the old search engine and archive the feature flag, the cleanup is minimal and less likely to cause merge conflicts.
 
@@ -185,7 +185,7 @@ The cleanup steps are:
 
 1. Delete the `executeSearch` and `queryOldEngine` functions.
 2. Rename `queryNewEngine` to `executeSearch`.
-3. Within `queryNewEngine`, change the `log.ERROR` message from `"Search failure on new engine"` to just `"Search failure"`, since there's only one engine now.
+3. Within `queryNewEngine`, change the `log.ERROR` message from `"Search failure on new engine"` to just `"Search failure"`, because there is only one engine now.
 
 ### Avoid additional refactoring
 
@@ -285,7 +285,7 @@ Each service is responsible for sending its output to the next step.
 
 It's tempting to have each service evaluate the `process-order` flag after it's processed and use this to decide the next step. However, if the flag is flipped in the middle of processing, this could cause problems.
 
-If the flag is set to `normalize-first`, the batch starts at the normalization service. Before that service finishes processing, someone flips the flag to enable the `relabel-first` process. When the normalization service finishes processing, it'll evaluate the `process-order` flag and use the `relabel-first` ordering, in which the normalization step is followed by storage. This data batch should be sent to the relabeling service since it hasn't been relabeled, but it will be sent to storage instead.
+If the flag is set to `normalize-first`, the batch starts at the normalization service. Before that service finishes processing, someone flips the flag to enable the `relabel-first` process. When the normalization service finishes processing, it'll evaluate the `process-order` flag and use the `relabel-first` ordering, in which the normalization step is followed by storage. This data batch should be sent to the relabeling service because it hasn't been relabeled, but it will be sent to storage instead.
 
 This is an example of a situation in which flag consistency is required throughout multiple steps. The flag should be evaluated once for each batch, and that value should be sent in the call from service to service.
 

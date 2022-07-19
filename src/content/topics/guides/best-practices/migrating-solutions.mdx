@@ -196,7 +196,7 @@ Repeat the above steps for each group you are migrating to LaunchDarkly. When al
 
 ### Retiring your legacy system
 
-After you've maintained flags in both systems long enough to ensure things are working as expected, phase out your legacy system by creating all new flags in LaunchDarkly only, and ceasing to create flags in your legacy system. This is the point of no return, as now the data between your legacy system and LaunchDarkly will diverge. You may want to enforce this by turning off the ability to create new flags in the legacy system, since it’s common for engineers to default to using it out of habit.
+After you've maintained flags in both systems long enough to ensure things are working as expected, phase out your legacy system by creating all new flags in LaunchDarkly only, and ceasing to create flags in your legacy system. This is the point of no return, as now the data between your legacy system and LaunchDarkly will diverge. You may want to enforce this by turning off the ability to create new flags in the legacy system, because it’s common for engineers to default to using it out of habit.
 
 Utilize your APM tool to identify any unexpected behavior going forward. When you're confident your flags are performing as expected, you can decommission your legacy system.
 

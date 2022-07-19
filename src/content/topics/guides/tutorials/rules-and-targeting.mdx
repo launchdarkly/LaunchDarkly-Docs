@@ -417,7 +417,7 @@ def user_object_from_email(email):
 <CodeTabItem value="py">
 
 ```py
-# Since this page doesn't require a logged-in user,
+# Because this page doesn't require a logged-in user,
 # tell LaunchDarkly that this is an anonymous user for now.
 # The key is arbitrary and can be anything you want.
 # Here, we wanted to be clear that this was an anonymous
@@ -448,7 +448,7 @@ user = {
 if (email):
   user = user_object_from_email(email)
 else:
-  ## Since the user isn't logged in,
+  ## Because the user isn't logged in,
   ## let's tell LD that this is an anonymous user.
   user = {
     "key": "anon",
@@ -503,7 +503,7 @@ def pricing():
     if (email):
       user = user_object_from_email(email)
     else:
-      ## Since the user isn't logged in,
+      ## Because the user isn't logged in,
       ## let's tell LD that this is an anonymous user.
       user = {
         "key": "anon",
@@ -637,7 +637,7 @@ You can confirm that the "Pricing Tier 3" flag is appearing for 30% of users. La
 
  This flag evaluations graph shows all the times this flag has been evaluated in the last hour. It also shows the variations that were shown to users.
 
- As you've changed how the flag is targeted, the data changes with it. Since you changed the flag's targeting to a percentage rollout, you should notice that roughly a third of flag evaluations have been `true`, while the rest have been `false`.
+ As you've changed how the flag is targeted, the data changes with it. Because you changed the flag's targeting to a percentage rollout, you should notice that roughly a third of flag evaluations have been `true`, while the rest have been `false`.
 
 <Callout intent="alert">
 <CalloutTitle>Waiting for insights data</CalloutTitle>
@@ -765,7 +765,7 @@ Instead of creating the `firstLetter` custom attribute, we can put the whole ema
 
 There are three different ways to mark attributes private:
 
-- You can mark all attributes private globally in the `LDClient` configuration object. This indicator does not apply to the user's `key`, since LaunchDarkly needs the key to determine flag targeting.
+- You can mark all attributes private globally in the `LDClient` configuration object. This indicator does not apply to the user's `key`, because LaunchDarkly needs the key to determine flag targeting.
 - You can mark specific attributes private by name globally in the `LDClient` configuration object.
 - You can mark specific attributes private by name for individual users when you construct user objects.
 

@@ -72,7 +72,7 @@ The `redis`, `ldconsul`, and `lddynamodb` packages are now in separate repositor
 
 Previously, the [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config) struct had fields for all of the SDK's configuration options. An empty `Config{}` struct was not a valid configuration. Applications had to first copy from `ld.DefaultConfig` and then make any desired changes.
 
-Now, most of the properties are grouped into areas of functionality, each of which has its own builder class that is only available if you are using that functionality. The `Config` struct has a much smaller number of fields, since most of its options are contained within one of the builders.
+Now, most of the properties are grouped into areas of functionality, each of which has its own builder class that is only available if you are using that functionality. The `Config` struct has a much smaller number of fields, because most of its options are contained within one of the builders.
 
 For example, if you use streaming mode, there are options you can set to control streaming mode, and if you use polling mode, you use a different builder that does not have the streaming options. Similarly, if you have disabled analytics events, the event-related options are not accessible.
 
@@ -380,7 +380,7 @@ config.HTTP = ldcomponents.HTTPConfiguration().
 
 ## Using the user builder
 
-Before [Go SDK 4.16](https://github.com/launchdarkly/go-server-sdk/releases/tag/4.16.0), the way to define user properties was to set the fields of the `User` struct directly. Since the fields had pointer types, this was somewhat inconvenient. Also, the mutability of the `User` struct and the `Custom` map inside it could cause [concurrency problems](https://launchdarkly.com/blog/avoid-concurrency-pitfalls-with-the-launchdarkly-sdks/).
+Before [Go SDK 4.16](https://github.com/launchdarkly/go-server-sdk/releases/tag/4.16.0), the way to define user properties was to set the fields of the `User` struct directly. Because the fields had pointer types, this was somewhat inconvenient. Also, the mutability of the `User` struct and the `Custom` map inside it could cause [concurrency problems](https://launchdarkly.com/blog/avoid-concurrency-pitfalls-with-the-launchdarkly-sdks/).
 
 Version 4.16 added the `UserBuilder` type as a safer and more convenient way to define user properties. As of version 5.0, this is the only way, if you need to use the full set of properties. The `NewUser` and `NewAnonymousUser` constructors still exist for simple users. The `User` struct no longer has any exported fields and cannot be modified by application code after it is built. It now has getter methods like `GetName()` if you need to inspect existing property values.
 

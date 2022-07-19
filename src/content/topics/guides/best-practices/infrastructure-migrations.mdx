@@ -230,7 +230,7 @@ The techniques described in this guide are only some strategies for a fairly sim
 
 For example, your target data store may need to have a different schema, forcing your DAO to read and write that data differently. This is a likely scenario if you're moving from a document database to a relational database. In this case, your new DAO may require changes to the application that will also need to be flagged.
 
-Additionally, if you have corresponding mobile and desktop apps that need updated code to access the new data store, you must plan those migrations as well, since client-side apps are often not version-consistent across user bases. This may require shipping new versions of your mobile and desktop apps and waiting for your users to slowly upgrade to the new versions before attempting the migration.
+Additionally, if you have corresponding mobile and desktop apps that need updated code to access the new data store, you must plan those migrations as well, because client-side apps are often not version-consistent across user bases. This may require shipping new versions of your mobile and desktop apps and waiting for your users to slowly upgrade to the new versions before attempting the migration.
 
 There's no one-size-fits-all strategy for infrastructure migrations. This guide explores only a few strategies that can serve as a foundation to build on. Using feature flags for migration projects will increase your confidence, limit the risks, and allow you to make infrastructure migrations happen seamlessly.
 

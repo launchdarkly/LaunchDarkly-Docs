@@ -144,7 +144,7 @@ LDClientIdentify(client, newUser);
 </CodeTabItem>
 </CodeTabs>
 
-The 'identify' call will load any saved flag values for the new user and immediately trigger an update of the latest flags from LaunchDarkly. Since this method re-fetches flag settings for the new user, it should not be called at high frequency. The intended use case for switching user contexts is the login/logout flow.
+The 'identify' call will load any saved flag values for the new user and immediately trigger an update of the latest flags from LaunchDarkly. Because this method re-fetches flag settings for the new user, it should not be called at high frequency. The intended use case for switching user contexts is the login/logout flow.
 </Details>
 
 ### Electron

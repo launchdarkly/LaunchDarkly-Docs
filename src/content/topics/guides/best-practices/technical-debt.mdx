@@ -86,7 +86,7 @@ To learn more, read [Flag statuses](/home/code/flag-status).
 
 Temporary flags with an "Inactive" status should likely be archived. The "Inactive" status indicates that the flag isn't being evaluated anymore. This may mean that you're no longer running the code which evaluates the flag, or that you have already removed the flag from the code.
 
-Temporary flags with a "Launched" status may also be ready to archive. The "Launched" status indicates that any gradual rollout of a new feature has ended, and it's now live for all users. The flag is still evaluated every time the code is run, but since it's returning the same variation for everyone, it's no longer needed. You should now either archive flag, or turn it into a permanent "kill switch," which is an easy way to disable the feature.
+Temporary flags with a "Launched" status may also be ready to archive. The "Launched" status indicates that any gradual rollout of a new feature has ended, and it's now live for all users. The flag is still evaluated every time the code is run, but because it returns the same variation for everyone, it's no longer needed. You should now either archive the flag, or turn it into a permanent flag that you can use as a kill switch to disable the feature entirely.
 
 For example, consider this flag:
 

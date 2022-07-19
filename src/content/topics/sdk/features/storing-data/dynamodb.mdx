@@ -21,7 +21,7 @@ To view the JSON representations of all flags and segments, query https://app.la
 </CalloutDescription>
 </Callout>
 
-Many of our server-side SDKs support DynamoDB. DynamoDB is a particularly useful solution if you are running code in AWS Lambda, since it can be accessed from Lambda without needing access to any VPC resource.
+Many of our server-side SDKs support DynamoDB. DynamoDB is a particularly useful solution if you are running code in AWS Lambda, because you can access it from Lambda without needing access to any VPC resource.
 
 In your application code, the only required parameter is the table name, although you can also specify any other options supported by AWS. By default, the DynamoDB driver expects to get your AWS credentials and region from environment variables or local configuration files, as described in the AWS SDK documentation.
 
