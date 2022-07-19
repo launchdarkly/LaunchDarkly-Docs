@@ -66,6 +66,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const redirectMap = redirectRules.reduce((map, r) => ({ ...map, [r.fromPath]: r.toPath }), {})
 
   redirectRules.forEach(({ fromPath }) => {
+    console.log(`Attempting to create redirect from: ${fromPath}`)
     createRedirect({
       fromPath,
       toPath: getFinalDestination(redirectMap, fromPath),
