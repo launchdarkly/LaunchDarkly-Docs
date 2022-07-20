@@ -199,6 +199,8 @@ SAML ignores empty fields if used in **Roles** or **customRoles**. To clear all 
 
 You can use Okta to create new teams in LaunchDarkly, or link an Okta group to an existing team.
 
+However, it is important to note that using the same Okta group for assignments and for Group Push is not supported. To maintain consistent group membership between Okta and LaunchDarkly, you need to create a separate group that is configured to push teams. This is a known limitation of Okta's Group Push feature.
+
 ### Push an Okta group to create a new team
 
 To push an Okta group to create a new team in LaunchDarkly:
@@ -241,3 +243,13 @@ To link an Okta group to an existing LaunchDarkly team:
 Once the push status in Okta is "Active," you can confirm that the team membership matches the group membership in Okta on the LaunchDarkly **Account settings** page.
 
 ![Teams synced with IdP.](teams-synced-with-idp.png)
+
+### Unlinking and Deactivating Group Push in Okta
+
+![Unlink and deactivate group push in Okta.](okta-deactivate-groups.png)
+
+Once a team has been synced to an Okta group, it is unable to be unsynced. We therefore recommend that you choose the "Unlink pushed group" option and then choose to "Delete the group in the target app" when you wish to remove a synced team from LaunchDarkly.
+
+![Unlink pushed group in Okta.](okta-unlink-push-group.png)
+
+Deactivating group push or unlinking a group while leaving the group in the target app will result in an orphaned team in LaunchDarkly that cannot be managed or maintained within the LaunchDarkly UI.
