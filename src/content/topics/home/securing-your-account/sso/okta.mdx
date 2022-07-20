@@ -244,12 +244,14 @@ Once the push status in Okta is "Active," you can confirm that the team membersh
 
 ![Teams synced with IdP.](teams-synced-with-idp.png)
 
-### Unlinking and Deactivating Group Push in Okta
+### Limitations of team sync with Okta
+
+Once a team has been synced to an Okta group, it is unable to be unsynced. The only way to remove the team is to unlink the pushed group in Okta.
 
 ![Unlink and deactivate group push in Okta.](okta-deactivate-groups.png)
 
-Once a team has been synced to an Okta group, it is unable to be unsynced. We therefore recommend that you choose the "Unlink pushed group" option and then choose to "Delete the group in the target app" when you wish to remove a synced team from LaunchDarkly.
+After clicking on the group's push status, choose the "Unlink pushed group" option and then choose to "Delete the group in the target app".
 
 ![Unlink pushed group in Okta.](okta-unlink-push-group.png)
 
-Deactivating group push or unlinking a group while leaving the group in the target app will result in an orphaned team in LaunchDarkly that cannot be managed or maintained within the LaunchDarkly UI.
+Deactivating group push or unlinking a group while leaving the group in the target app will result in an orphaned team in LaunchDarkly that cannot be managed or maintained within the LaunchDarkly UI. To undo this action, simply re-sync the team using the steps above and then choose the "Unlink pushed group" & "Delete the group in the target app" options.
