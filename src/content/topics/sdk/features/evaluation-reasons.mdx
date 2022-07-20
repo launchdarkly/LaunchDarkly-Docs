@@ -34,6 +34,7 @@ This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
+* [C/C++ (client-side)](#cc-client-side)
 * [Flutter](#flutter)
 * [iOS](#ios)
 * [JavaScript](#javascript)
@@ -153,6 +154,61 @@ void printReason(EvaluationReason reason) {
 
 To learn more, read [`EvaluationReason`](https://javadoc.io/static/com.launchdarkly/launchdarkly-android-client-sdk/2.12.0/com/launchdarkly/android/EvaluationReason.html).
 
+</Details>
+
+### C/C++ (client-side)
+
+<Details summary="Expand C/C++ (client-side) code sample">
+
+By passing an `LDVariationDetails` struct to a variation call you can programmatically inspect the reason for a particular evaluation.
+
+The `details.reason` member is the `reason` object described in [Evaluation reasons](/sdk/concepts/evaluation-reasons).
+
+Here is an example:
+
+<CodeTabs
+defaultValue="c"
+values={[
+    { label: 'C', value: 'c'},
+    { label: 'C++', value: 'c++'},
+]
+}>
+<CodeTabItem value="c">
+
+```c
+LDVariationDetails details;
+LDBoolean value;
+
+value = LDBoolVariationDetail(client, "your.feature.key", LDBooleanFalse, &details);
+
+/* inspect details.reason, which is a JSON object */
+if (strcmp(LDGetText(LDObjectLookup(details->reason, "errorKind")), "FLAG_NOT_FOUND") == 0) {
+    /* ... */
+}
+
+LDFreeDetailContents(&details);
+```
+
+</CodeTabItem>
+<CodeTabItem value="c++">
+
+```cpp
+LDVariationDetails details;
+
+bool value = LDBoolVariationDetail(client, "your.feature.key", false, &details);
+
+/* inspect details.reason, which is a JSON object */
+if (strcmp(LDGetText(LDObjectLookup(details->reason, "errorKind")), "FLAG_NOT_FOUND") == 0) {
+/* ... */
+}
+
+LDFreeDetailContents(&details);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more about the `LDVariationDetails` structure, inspect [`client.h`](https://launchdarkly.github.io/c-client-sdk/structLDVariationDetails.html).
 </Details>
 
 ### Flutter
@@ -527,17 +583,36 @@ Here is an example:
 <CodeTabs
   defaultValue="c"
   values={[
-    { label: 'C/C++', value: 'c', },
+    { label: 'C', value: 'c'},
+    { label: 'C++', value: 'c++'},
   ]
 }>
 <CodeTabItem value="c">
 
 ```c
 struct LDDetails details;
+LDBoolean value;
+
+value = LDBoolVariation(client, user, "your.feature.key", LDBooleanFalse, &details);
+
+/* inspect details here */
+if (details.reason == LD_RULE_MATCH) {
+    /* ... */
+}
+
+LDDetailsClear(&details);
+```
+
+</CodeTabItem>
+<CodeTabItem value="c++">
+
+```cpp
+LDDetails details;
+
 bool value = LDBoolVariation(client, user, "your.feature.key", false, &details);
 
 /* inspect details here */
-if (details.reason == LD_FLAG_NOT_FOUND) {
+if (details.reason == LD_RULE_MATCH) {
     /* ... */
 }
 
@@ -547,7 +622,7 @@ LDDetailsClear(&details);
 </CodeTabItem>
 </CodeTabs>
 
-To learn more about the `LDDetails` structure, inspect `ldvariations.h`.
+To learn more about the `LDDetails` structure, inspect [`variations.h`](https://launchdarkly.github.io/c-server-sdk/structLDDetails.html).
 </Details>
 
 ### Erlang
