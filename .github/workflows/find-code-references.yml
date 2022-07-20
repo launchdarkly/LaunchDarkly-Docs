@@ -8,15 +8,9 @@ jobs:
     name: Find code references
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout GitHub Action Repo
-        uses: actions/checkout@v3
-        with:
-          repository: launchdarkly/gha-flags
-          path: gha-flags
-          token: ${{ secrets.GH_TOKEN }}
       - name: Evaluate flags
         id: flags
-        uses: ./gha-flags
+        uses: launchdarkly/gha-flags@eap
         with:
           base-uri: 'https://app.ld.catamorphic.com'
           events-uri: 'https://events.ld.catamorphic.com'
