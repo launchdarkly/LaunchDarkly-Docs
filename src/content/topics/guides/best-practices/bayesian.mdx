@@ -110,6 +110,49 @@ In traditional frequentist experimentation frameworks the treatment has to "beat
 
 If you have small sample sizes or noisy metrics, it can be impossible to reach statistical significance. Rather than not experiment at all and not make data-driven decisions, Bayesian statistics allows you to make decisions under uncertainty by providing the uncertainty of the data and allowing you to make a decision given that uncertainty.
 
+## How Experimentation uses Bayesian statistics
+
+<Callout intent="warning">
+<CalloutTitle>This section includes advanced concepts</CalloutTitle>
+<CalloutDescription>
+
+This section includes an explanation of advanced statistical concepts. We provide them for informational purposes, but you do not need to understand these concepts in order to use Experimentation.
+
+</CalloutDescription>
+</Callout>
+
+For numeric metrics we use a normal prior on the mean of the metric. It is an informed prior based on meta-analyses of online experiments across industries. To learn more about priors and prior beliefs, read [Frequentist and Bayesian modeling](#frequentist-and-bayesian-modeling).
+
+Some of these meta-analyses include:
+- [Online Controlled Experiments at Large Scale](https://www.exp-platform.com/Documents/2013%20controlledExperimentsAtScale.pdf)
+- [False Discovery in A/B Testing](https://ron-berman.com/papers/fdr.pdf)
+
+The prior is only on the mean while the experiment assumes the known variance. For numeric metrics the prior is on the sampling distribution, which is normally distributed per the central limit theorem. To learn more, read [Central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem).
+
+Here is the updating function for the normal distribution assuming known variance:
+
+![The updating function for the normal distribution assuming known variance.](bayesian-updating-function.png)
+
+To learn more, read [When likelihood function is a continuous distribution](https://en.wikipedia.org/wiki/Conjugate_prior#When_likelihood_function_is_a_continuous_distribution).
+
+For conversion metrics we use a beta prior. Similar to numeric metrics, this is an informed prior based on meta-analyses of online experiments across industries.
+
+Here is the updating function for the binomial distribution:
+
+![The updating function for the binomial distribution.](bayesian-binomial-distribution.png)
+
+To learn more, read [When likelihood function is a discrete distribution](https://en.wikipedia.org/wiki/Conjugate_prior#When_likelihood_function_is_a_discrete_distribution).
+
+After we have the posterior distribution for each variant, we use Monte Carlo sampling to determine the probability of each variant winning. Some systems compare each variant to the control, but this approach has the same problem as frequentist statistics in determining the winner with multiple variants. 
+
+To learn more, read [The Difference between "Significant" and "Not Significant" Is Not Itself Statistically Significant](https://www.jstor.org/stable/27643811).
+
+The procedure we use is the same as an optimal reinforcement learning algorithm for choosing variants, called Thompson Sampling. For example, the output might be that variant A has 10% chance of winning, variant B has 30% chance of winning, and variant C has a 60% chance of winning.
+
+Given these probabilities, you can make an optimal decision at any time by choosing the variant with the highest probability. To learn more, read [Decision Theory](https://plato.stanford.edu/entries/decision-theory/) or watch [Making choices like a poker champ](https://www.nytimes.com/video/business/100000004868264/making-choices-like-a-poker-champ.html).
+
+If you want to use statistical significance to make decisions, you can still use Bayesian statistics. Statistical significance is a threshold criterion for choosing a variant. You can use one in Bayesian statistics as well. For example, the analogous decision criterion in Bayesian stats would be to wait until a variant has a 90% probability of winning before choosing it.
+
 ## Conclusion
 
 In our decades of experimentation experience both in academia and in industry, we notice that people often interpret frequentist probabilities as if they were Bayesian probabilities. For example, people say things like "the p-value is the probability that there really is a difference." Many experimentation experts have tried to correct these misinterpretations. But Bayesian statistics avails itself to this interpretation already. So instead of trying to teach unintuitive concepts, we think providing intuitive probabilities is a better approach.
