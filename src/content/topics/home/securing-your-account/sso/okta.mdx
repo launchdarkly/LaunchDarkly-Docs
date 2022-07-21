@@ -199,11 +199,11 @@ SAML ignores empty fields if used in **Roles** or **customRoles**. To clear all 
 
 You can use Okta to create new teams in LaunchDarkly, or link an Okta group to an existing team, in order to maintain team memberships within Okta.
 
-Key requirements:
+Prerequisites:
 - You must have SCIM provisioning enabled in the LaunchDarkly Okta app. If it is not enabled, you will be prompted to do so.
-- Any group members that you want to push to a team in LaunchDarkly MUST be previously provisioned and assigned to the LaunchDarkly application in Okta. Once a group is synced with a LaunchDarkly team, changes should never be made from the LaunchDarkly UI.
-
-It is also worth noting that using the same Okta group for assignments and for Group Push is not supported. To maintain consistent group membership between Okta and LaunchDarkly, you need to create a separate group that is configured to push teams. This is a known limitation of Okta's Group Push feature.
+- Any group members that you want to push to a team in LaunchDarkly MUST be previously provisioned and assigned to the LaunchDarkly application in Okta. Once a group is synced with a LaunchDarkly team, team membership changes will be disabled in the LaunchDarkly UI.
+- Using the same Okta group for assignments and for Group Push is not supported.
+- To maintain consistent group membership between Okta and LaunchDarkly, you need to create a separate group that is configured to push teams. This is a known limitation of Okta's Group Push feature.
 
 To learn more about Okta's Group Push feature, [read more here](https://help.okta.com/en-us/Content/Topics/users-groups-profiles/usgp-about-group-push.htm).
 
