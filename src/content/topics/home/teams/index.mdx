@@ -23,6 +23,8 @@ In these topics, you can learn how to create teams in LaunchDarkly, add and remo
 
 To learn more about best practices for how to start using teams, read [Building teams in LaunchDarkly](/guides/best-practices/teams).
 
+You can also sync groups from your IdP to teams within your account. To learn more, read about [team sync with IdP](/home/account-security/sso#team-sync-with-idp).
+
 <LearnMore>
 
 You can also use the REST API: [Teams](https://apidocs.launchdarkly.com/tag/Teams)
@@ -70,9 +72,6 @@ Organizations use custom roles to gain more precise control over their feature f
 If a member belongs to one or more teams, a member's role(s), which includes either a built-in role or custom role(s), will aggregate with the custom role(s) that are applied to their team(s). Note that adding a member with a built-in Admin role will not affect their permissions since those roles can perform all actions in LaunchDarkly.
 
 A team can have one or more custom roles assigned to it. In cases where a team's custom roles have conflicting permission levels, or a team's custom role has conflicting permission levels with the permissions assigned to a member of that team, the more permissive set of permissions will be applied. For example, if a team has one custom role that allows access to a resource, and a member of that team has another custom role that restricts access to a resource, the team member will be able to access that resource.
-
-## Managing teams with your Identity Provider
-You can also sync groups from your IdP to teams within your account. To learn more, read about [team sync with IdP](/home/account-security/sso#team-sync-with-idp).
 
 ## Related content
 
