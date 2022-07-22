@@ -27,17 +27,17 @@ To learn how to create a Big Segment, read [Creating user segments](/home/users/
 
 To use Big Segments, you must meet the following prerequisites:
 
-### You must properly configure the Relay Proxy
-
-How you need to configure the Relay Proxy depends on what kinds of SDKs you use:
-- If you use server-side SDKs, you must use the Relay Proxy and it must be configured to use Big Segments.
-- If you use client-side SDKs, the Relay Proxy is not required. However, if you do use the Relay Proxy, you must configure it to use Big Segments. To learn more, read [Using the Relay Proxy](/home/relay-proxy/using).
-
-### You must configure your SDKs to use Big Segments
+### You must configure server-side SDKs to use Big Segments
 
 How you need to configure your SDKs depends on what kinds of SDKs you use:
-- If you use server-side SDKs, you must use an SDK version that supports Big Segments. To learn more, read the [Big Segments SDK documentation](/sdk/features/big-segments).
-- If you use client-side SDKs, all client-side SDKs support Big Segments by default so there's no additional setup required.
+- **Server-side SDKs**: You must use an SDK version that supports Big Segments. To learn more, read the [SDK documentation on Big Segments](/sdk/features/big-segments).
+- **Client-side SDKs**: All client-side SDKs support Big Segments by default. No additional setup is required.
+
+### You must properly configure the Relay Proxy to use Big Segments with server-side SDKs
+
+How you need to configure the Relay Proxy depends on what kinds of SDKs you use:
+- **Server-side SDKs**: You must use the Relay Proxy and it must be configured to use Big Segments.
+- **Client-side SDKs**: The Relay Proxy is not required. However, if you do use the Relay Proxy, you must configure it to use Big Segments. To learn more, read [Using the Relay Proxy](/home/relay-proxy/using).
 
 ## Configuring Big Segments
 
@@ -132,4 +132,3 @@ LaunchDarkly does not support exporting segments with more than 10 million users
 You can also use the REST API: [Create Big Segment export](https://apidocs.launchdarkly.com/tag/Segments-(beta)#operation/createBigSegmentExport)
 
 </LearnMore>
-
