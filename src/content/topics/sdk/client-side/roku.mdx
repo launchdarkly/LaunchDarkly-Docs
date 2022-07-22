@@ -52,7 +52,16 @@ We provide releases on [GitHub](https://github.com/launchdarkly/roku-client-sdk/
 
 For SceneGraph usage add a `LaunchDarklyTask` node to your scene.
 
-To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects). Mobile keys are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
+To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects). 
+
+<Callout intent="alert">
+<CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
+<CalloutDescription>
+
+Mobile keys are not secret and you can expose them in your client-side code without risk. However, never embed a server-side SDK key into a client-side application.
+
+</CalloutDescription>
+</Callout>
 
 Here's how:
 

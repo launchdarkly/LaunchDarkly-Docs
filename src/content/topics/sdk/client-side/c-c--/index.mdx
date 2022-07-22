@@ -144,7 +144,16 @@ It's important to make `LDClient` a singleton. The client instance maintains int
 </CalloutDescription>
 </Callout>
 
-Your environment's mobile key is available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). Mobile keys are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a mobile application.
+Your environment's mobile key is available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). 
+
+<Callout intent="alert">
+<CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
+<CalloutDescription>
+
+Mobile keys are not secret and you can expose them in your client-side code without risk. However, never embed a server-side SDK key into a client-side application.
+
+</CalloutDescription>
+</Callout>
 
 ### Fetching flag configuration
 
