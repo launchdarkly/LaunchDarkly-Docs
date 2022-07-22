@@ -40,8 +40,10 @@ To create a feature flag:
 4. Enter a unique flag **Key**. You'll use this key to reference the flag in your code. A suggested key auto-populates from the name you enter, but you can customize it if you wish.
 
 <Callout intent="alert">
-<CalloutTitle>Flag keys are permanent after you save them</CalloutTitle>
+<CalloutTitle>Flag keys are important and permanent</CalloutTitle>
 <CalloutDescription>
+
+Designate flag keys with naming conventions that the SDKs you use support. For example, if your SDK does not use dot notation, you may not want to use dot notation in your flag keys. If you do, LaunchDarkly automatically converts the key to a format your SDK can use, but this can cause collisions if two flags have similar keys. There are configuration options at the SDK level that help you avoid these issues. To learn more, read [Flag keys](/sdk/client-side/react/react-web/#flag-keys).
 
 After you save the flag key, you cannot modify it. You can change a flag's name, however, whenever you want.
 
