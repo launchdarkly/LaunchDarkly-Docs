@@ -25,7 +25,7 @@ The Relay Proxy has two modes:
 
 * In **proxy** mode, several Relay Proxy instances exist in a high-availability configuration behind a load balancer, and the SDK connects to the load balancer. Proxy mode is the most common use case for connecting to the Relay Proxy. LaunchDarkly SDKs are configured to run in proxy mode by default.
 
-* In **daemon** mode, the SDK connects directly to the Relay Proxy's datastore. We recommend this configuration when you're using LaunchDarkly with PHP or in a serverless environment. To learn more, read [Using LaunchDarkly in serverless environments](/guides/best-practices/serverless).
+* In **daemon** mode, the SDK connects directly to the Relay Proxy's datastore. We recommend this configuration when you're using LaunchDarkly with PHP or in a serverless environment. To learn more, read [Using LaunchDarkly in serverless environments](/guides/infrastructure/serverless).
 
 Client-side SDKs should only use proxy mode. Server-side SDKs can use either mode. The two modes are not mutually exclusive. If you configure multiple services to use Relay Proxy, some of these services can operate in proxy mode while others are in daemon mode. To learn more, read [Using the Relay Proxy in different modes](https://docs.launchdarkly.com/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
 

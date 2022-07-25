@@ -1,0 +1,248 @@
+---
+path: /guides/infrastructure/serverless
+title: Using LaunchDarkly in serverless environments
+description: This guide provides best practice advice for using LaunchDarkly in serverless and short-lived environments.
+published: true
+tags: ['guide', 'serverless', 'sdk', 'feature store']
+---
+
+## Overview
+
+This guide provides best practice advice for using LaunchDarkly in serverless and short-lived environments. While most uses of serverless architecture require no extra configuration, some apps may benefit from additional configuration to ensure consistent high performance.
+
+In most cases, the best way to use LaunchDarkly in serverless and short-lived environments is with the Relay Proxy hosted on a long-lived server. To learn how to configure the Relay Proxy in your environment, read [The Relay Proxy](/home/relay-proxy).
+
+If you are working in a strictly serverless environment and cannot use the Relay Proxy, an alternative option is described here. This guide assumes that you have already chosen to use serverless functions in your application architecture.
+
+## Concepts
+
+To use this guide effectively, you should understand the following concepts:
+
+### Serverless
+
+Serverless computing is a cloud computing model where a cloud provider runs the server and dynamically manages the allocation of machine resources.
+
+### Function-as-a-Service (FaaS)
+
+FaaS services are serverless computing services that allow customers to develop, run, and manage small units of functionality. These units can be developed and deployed independently, and then connected later to form a single app. This model contrasts with the more traditional software development model, in which functions are compiled together into a single monolithic unit before deployment.
+
+## Using LaunchDarkly in a serverless infrastructure
+
+FaaS platforms let developers code in the languages they know while reducing the effort required to create and manage production infrastructure.
+
+If you're considering using LaunchDarkly in a serverless or containerized app, the LaunchDarkly SDK in its default configuration has no significant performance impact in a serverless environment.
+
+However, if your app is sensitive to initialization performance, consider configuring the LaunchDarkly SDK to use a persistent local flag store. A local flag store can increase initialization speed.
+
+### How the SDKs balance performance
+
+Each LaunchDarkly SDK is designed to have minimal impact on application performance. In its default configuration, its impact occurs almost entirely in the app's initialization phase.
+
+Here's how the SDK interacts with your app:
+
+1. While the app starts, the SDK connects to LaunchDarkly and downloads the project's flags to an in-memory store. This network connection is held open while the app runs so that flag updates are received immediately.
+2. After the app initializes, the in-memory flag store is used for flag evaluation functions such as variation calls. These functions run instantly, with no need to wait for network input/output (I/O).
+
+Most apps are architected with the expectation that initialization takes a small amount of the app's total runtime. Apps with serverless or containerized architectures may have different expectations.
+
+During normal operation with relatively consistent load, the underlying platform uses long-lived runtime instances, or [Execution Contexts](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-context.html) for each function or container. As in most other app architectures, the initialization time has insignificant impact on performance.
+
+However, if a serverless app receives a sudden flood of requests, the platform may start extra runtime instances to handle the requests that arrive. Any additional latency in the initialization phase has extra impact, reducing performance and increasing the number of instances required to handle the load.
+
+Most serverless apps never deal with this kind of sudden traffic increase, nor are they as sensitive to latency in the initial request. Those apps should use the default LaunchDarkly configuration. This configuration is displayed in [Example 1](#option-1-use-the-sdk-as-normal).
+
+If your app has higher performance needs and is more likely to receive sudden traffic floods, or if the LaunchDarkly project has such a large and complex set of flags that initialization time is noticeably affected, then you can take additional steps to mitigate that. This configuration is displayed in [Example 2](#option-2-use-a-persistent-feature-store).
+
+<Callout intent="info">
+<CalloutTitle>The examples below are service-agnostic</CalloutTitle>
+<CalloutDescription>
+
+Both of the examples below use AWS Lambda, but you can use this approach for other FaaS platforms as well.
+
+</CalloutDescription>
+</Callout>
+
+### Option 1: Use the SDK as normal
+
+For smaller workloads, you can use the LaunchDarkly SDK as you normally would.
+
+Here is a code sample that shows how to evaluate a feature flag with the NodeJS runtime in AWS Lambda:
+
+<CodeTabs
+defaultValue="js"
+values={[
+  { label: 'JavaScript', value: 'js', },
+]
+}>
+<CodeTabItem value="js">
+
+```javascript
+var LaunchDarkly = require('launchdarkly-node-server-sdk');
+var client = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY);
+var ready = client.waitUntilReady();
+
+exports.handler = (event, context, callback) => {
+
+    ready.then(() => {
+        /*
+            ...evaluate your flags and do your work here...
+        */
+        callback();
+    }, callback);
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+This approach may take longer for the runtime to initialize, but after initialization the requests handled by that runtime instance will suffer no performance hit.
+
+This approach should function for the majority of serverless applications.
+
+### Option 2: Use a persistent feature store
+
+If your app often has high levels of concurrency or sensitivity to cold starts, you may need to reduce the initialization time that LaunchDarkly takes. You can do this by setting up a persistent feature store to serve flag values locally.
+
+In this configuration, the LaunchDarkly SDK no longer downloads the project's entire flag set for later evaluation. Instead, it connects to the configured feature store at initialization time, then queries the feature store for each flag evaluation call.
+
+To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
+
+The example below is a five-step process to configure a feature store:
+
+  1. You can use a cloud-local storage service to act as a flag store.
+  2. You can use a dedicated AWS Lambda function to update the flag store when a flag configuration changes.
+  3. You can use an AWS API Gateway endpoint to give the Lambda function a consistent HTTPS URL.
+  4. You can create a LaunchDarkly webhook to send flag changes to the API Gateway URL.
+  5. You can configure the LaunchDarkly SDK to read flags from the persistent flag store.
+
+Most LaunchDarkly server-side SDKs can use a Redis database for persistent feature storage. AWS ElastiCache is compatible with Redis, and we use it as an example here, but other services will work as well.
+
+An ElastiCache cluster composed of three small nodes should be sufficient for all but the largest LaunchDarkly projects.
+
+This dedicated AWS Lambda function, built on the NodeJS runtime, connects to the LaunchDarkly network and updates the ElastiCache feature store.
+
+We configure it using the `RedisFeatureStore` method. The AWS Lambda function built on the NodeJS runtime could look like this:
+
+<CodeTabs
+defaultValue="js"
+values={[
+  { label: 'JavaScript', value: 'js', },
+]
+}>
+<CodeTabItem value="js">
+
+```javascript
+var LaunchDarkly = require('launchdarkly-node-server-sdk');
+
+exports.handler = (event, context, callback) => {
+    setTimeout(() => {
+        var redisConfig = {
+            port: process.env.ELASTICACHE_PORT,
+            host: process.env.ELASTICACHE_ENDPOINT
+        };
+        var store = new LaunchDarkly.RedisFeatureStore(redisConfig);
+
+        var ldConfig = {
+            featureStore: store
+        };
+        var client = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY, ldConfig);
+
+        client.once('ready', () => {
+            client.close();
+            callback(null, 'store updated');
+        });
+    }, 2000); // initialize after some delay to ensure that LD caches have been purged
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+In this example, we initialize the LaunchDarkly SDK inside the handler.
+
+<Callout intent="alert">
+  <CalloutTitle>Initializing the SDK inside the handler should be done only if necessary</CalloutTitle>
+  <CalloutDescription>
+
+  Initializing the LaunchDarkly SDK inside the handler is not best practice, and should be done only if strictly necessary.
+
+  </CalloutDescription>
+</Callout>
+
+By initializing the SDK in this way, we update the ElastiCache store with the latest flag state. The webhook lets this function know that an updated state is available.
+
+After the store update function has been created, it needs a URL so it can be triggered by an HTTPS call. To provide this URL, create an [API Gateway endpoint](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-as-simple-proxy-for-lambda.html).
+
+Now that both the feature store and the store update function are ready, add a webhook to the LaunchDarkly Project. To learn more, read [Webhooks](/home/connecting/webhooks).
+
+After you set up the webhook, every configuration change made to the LaunchDarkly project's flags triggers an update in the cloud-hosted feature store.
+
+Here is an image of the "Create a webhook" panel:
+
+![Creation of a LaunchDarkly webhook which sends flag updates to a Lambda function.](lambda-webhook.png)
+
+Finally, with the persistent feature store active and continuously updated, you can configure the app to use the feature store instead of connecting to LaunchDarkly's servers. This is called "daemon mode".
+
+To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode).
+
+The app code retains the same structure as the example in Option 1 above, but with additional configuration to point at the feature store and enable daemon mode.
+
+Here is an example:
+
+<CodeTabs
+defaultValue="js"
+values={[
+  { label: 'JavaScript', value: 'js', },
+]
+}>
+<CodeTabItem value="js">
+
+```javascript
+var LaunchDarkly = require('launchdarkly-node-server-sdk');
+
+var redisConfig = {
+    port: process.env.ELASTICACHE_PORT,
+    host: process.env.ELASTICACHE_ENDPOINT
+};
+var store = new LaunchDarkly.RedisFeatureStore(redisConfig);
+
+var ldConfig = {
+    featureStore: store,
+    useLdd: true
+};
+
+var client = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY, {ldConfig});
+
+exports.handler = (event, context, callback) => {
+    /*
+        ...evaluate your flags and do your work here...
+    */
+    callback();
+};
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Sending analytics events to the Users dashboard
+
+The Users dashboard is populated with data from analytics events. You must call close in your SDK before shutting down to ensure the SDK sends analytics events and your dashboard displays user data. To learn how, read [Shutting down](/sdk/features/shutdown).
+
+To learn more about the events SDKs send to LaunchDarkly, read [Analytics events](/sdk/concepts/events).
+
+## Conclusion
+
+In most cases, LaunchDarkly works in serverless environments without additional configuration. If you need more support, however, the methods outlined above can help.
+
+If you have more questions or need further assistance, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
+
+<Callout intent="primary">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>

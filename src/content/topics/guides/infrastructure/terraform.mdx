@@ -1,0 +1,232 @@
+---
+path: /guides/infrastructure/terraform
+title: Managing flags with Terraform
+description: This guide explains how using Terraform to manage your LaunchDarkly resources simplifies change control for your team.
+published: true
+tags: ['guide', 'terraform', 'hcl']
+---
+
+## Overview
+
+This guide explains how to use Terraform to manage your LaunchDarkly resources, which can simplify change control for your team.
+
+Complexity is unavoidable in modern software development. The variety of cloud services you can use to support your software make simple projects into complicated ones.
+
+These services solve many problems, but they also add others: how are you going to provision and manage all these different resources? What if you need to make a change across a hundred storage buckets? What if you have multiple account members all trying to make changes, and suddenly one of them needs to roll a change back?
+
+Terraform can work together with LaunchDarkly to address all of these problems. The [LaunchDarkly Provider for Terraform](https://www.terraform.io/docs/providers/launchdarkly/index.html) can automate the creation and maintenance of most kinds of LaunchDarkly resources such as flags, projects, and environments.
+
+## Concepts
+
+You should understand these concepts before you read this guide:
+
+### Infrastructure as code
+
+Infrastructure as code is a type of infrastructure management that uses similar processes to those used for code. You declare and manage infrastructure resources, such as servers, databases, and networks, with text files in a version-controlled source repository. When the repository is deployed, tools interpret these text files and perform whatever infrastructural changes are necessary.
+
+These processes mean that infrastructure changes are created, reviewed, and audited in a similar manner to code changes. Additionally, you can track infrastructure changes in sync with code changes.
+
+### Terraform
+
+Terraform is a popular open source tool created by Hashicorp. You can use Terraform to implement an infrastructure as code workflow. Terraform is capable of managing many kinds of infrastructural resources and providers.
+
+<Callout intent="info">
+<CalloutTitle>This integration is not for new Terraform users</CalloutTitle>
+<CalloutDescription>
+
+Terraform is a complex tool. This guide is intended for people who are already using Terraform in their toolchain.
+
+</CalloutDescription>
+</Callout>
+
+### Hashicorp Configuration Language (HCL)
+
+Hashicorp Configuration Language (HCL) is the infrastructure description syntax Terraform reads. Where most programming languages are _imperative_, meaning they describe a series of actions to be performed in order to reach a desired outcome, HCL is _declarative_. It describes only the desired outcome, and Terraform calculates the actions needed to reach it from the current state.
+
+## Choosing an approach based on your use case
+
+This guide shows multiple examples of how you can use Terraform to create and manage LaunchDarkly resources. These examples do not mean that those kinds of resources are best managed with Terraform in all cases. Think carefully before you use Terraform in these ways, as conflicts may occur if an account member tries to modify Terraform-managed resources through the flag dashboard.
+
+With each example, we'll discuss why Terraform was suited to that scenario. We'll also discuss the additional measures you should take to avoid the conflicts mentioned above.
+
+### Best practices for avoiding conflicts between LaunchDarkly and Terraform
+
+These are the practices we recommend to avoid conflicts that can arise when some of your flags are managed through Terraform and others are managed through the flag dashboard:
+
+* Tag everything Terraform manages with a `managed-by-terraform` tag.
+* Use custom roles to enforce that resources and properties managed by Terraform can not be manipulated by the LaunchDarkly UI. For example, put most account members in a role that does not have write access to the resources managed by Terraform.
+* Do not use Terraform to make changes to flag targeting rules or flag variations unless absolutely necessary. Managing these actions in the LaunchDarkly UI lets you use LaunchDarkly's comment, audit log, scheduling, flag trigger, and approval workflow features.
+* Have clear policies on what is:
+  * Managed exclusively by Terraform.
+  * Provisioned by Terraform, then managed from the UI.
+  * Provisioned and managed by the LaunchDarkly UI, but not Terraform.
+* Use methods such as prefixes, tags, and descriptions to ensure that anyone using the UI has enough context to understand the content.
+* For more complex patterns, add another tag such as `allow-ui-toggle`, to make it so rules are read-only but the toggle state is changeable.
+* Document all your practices and make the documentation widely accessible from both LaunchDarkly and Terraform.
+
+## Example 1: Using Terraform for automation
+
+You don’t need to store individual flag details in Terraform to use LaunchDarkly's Terraform provider effectively.
+
+Here's a common scenario for engineering teams collaborating on a software product: the automatic creation of  development instances and associated LaunchDarkly environments.
+
+Each developer on the team should have their own running instance of the product with which they can experiment. Each instance requires its own set of resources, such as databases, static files, worker processes, and feature flags. The instance is created together with its resources, which include a LaunchDarkly environment. Each instance is given a unique identifier which includes the name of the developer for whom it was created.
+
+Here is a Terraform configuration which creates these instances, each with an identical set of resources. It starts with the list of developer names, declared as a [local value](https://www.terraform.io/docs/configuration/locals.html):
+
+<CodeTabs
+defaultValue="hcl"
+values={[
+  { label: 'HCL', value: 'hcl', },
+]
+}>
+<CodeTabItem value="hcl">
+
+```hcl
+locals {
+    developers = [“frankie”, “stony”, “cleo”, “tt”]
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+This is followed by a collection of [resource blocks](https://www.terraform.io/docs/configuration/resources.html), each one representing a different component of the instance.
+
+In this example, the resources we care about are the [LaunchDarkly environments](/home/organize/environments). Environments have to be part of a [LaunchDarkly project](/home/organize/projects), so this configuration creates that first, using the [launchdarkly_project](https://www.terraform.io/docs/providers/launchdarkly/r/project.html) resource:
+
+<CodeTabs
+defaultValue="hcl"
+values={[
+  { label: 'HCL', value: 'hcl', },
+]
+}>
+<CodeTabItem value="hcl">
+
+```hcl
+resource "launchdarkly_project" "downtown" {
+    key  = "downtown"
+    name = "Downtown Bank project"
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+This is the point where each developer's LaunchDarkly Environment is created. Terraform 0.12 uses [loop constructs](https://www.thegreatcodeadventure.com/building-dynamic-outputs-with-terraform-for_each-for-and-zipmap/#building-dynamic-resources-with-for_each), so you do not need much additional code to create a [launchdarkly_environment](https://www.terraform.io/docs/providers/launchdarkly/r/environment.html) resource:
+
+
+<CodeTabs
+defaultValue="hcl"
+values={[
+  { label: 'HCL', value: 'hcl', },
+]
+}>
+<CodeTabItem value="hcl">
+
+```hcl
+resource "launchdarkly_environment" "downtown" {
+    for_each    = toset(local.developers)
+    key         = "${each.value}-dev"
+    name        = "${title(each.value)} dev env"
+    color       = substr(md5(each.value), 0, 6)
+    project_key = launchdarkly_project.downtown.key
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+In the example above, each environment is given a unique name that includes the developer’s name in the `key` and `name` properties. There's even a different color for each environment, which is derived by calculating the [MD5 hash](https://www.makeuseof.com/tag/md5-hash-stuff-means-technology-explained/) of the developer name and extracting the first six hexadecimal digits.
+
+## Example 2: Managing and protecting flags without changing their state
+
+If some flags are especially important, it makes sense to manage them through the same workflow as the code that relies on them. This is the "infrastructure as code" approach.
+
+This example features:
+
+*   HCL code to create a new feature flag
+*   Automated validation of the Terraform syntax and actions by Terraform Cloud
+*   Prevention of flag change through other methods and interfaces
+
+The code in this example adds a flag for a new product feature. The feature's name is "FeatureX", and the product is "MyProduct." The new flag's name is "Show FeatureX."
+
+The code also specifies the flag maintainer by referencing a given account member. The flag is tagged `managed-by-terraform`, indicating to account members that they should not modify the core flag configuration in other ways.
+
+Here is an example:
+
+<CodeTabs
+defaultValue="hcl"
+values={[
+  { label: 'HCL', value: 'hcl', },
+]
+}>
+<CodeTabItem value="hcl">
+
+```hcl
+resource "launchdarkly_project" "myproduct" {
+    key  = "myproduct"
+    name = "MyProduct"
+    tags = ["managed-by-terraform"] # LaunchDarkly tags
+}
+
+data "launchdarkly_team_member" "luther" {
+    email = "luther@myproduct.example.com"
+}
+
+resource "launchdarkly_feature_flag" "show-featurex" {
+    project_key    = launchdarkly_project.myproduct.key
+    name           = "Show FeatureX"
+    key            = "show-featurex"
+    description    = "Adds the FeatureX to the displayed interface"
+    tags           = ["managed-by-terraform"]
+    maintainer_id  = data.launchdarkly_team_member.luther.id
+    variation_type = "boolean"
+    variations {
+        value = true
+    }
+    variations {
+        value = false
+    }
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The code above defines the base flag configuration, but not its per-environment states, such as targeting or evaluation rules. Those are managed using a different resource: [launchdarkly_feature_flag_environment](https://www.terraform.io/docs/providers/launchdarkly/r/feature_flag_environment.html). This resource is **deliberately excluded** from the code because it allows account members to edit per-environment states in the flag dashboard without their changes being overwritten by updates to the Terraform configuration.
+
+<Callout intent="info">
+<CalloutTitle>You can use Terraform Cloud to perform automated reviews</CalloutTitle>
+<CalloutDescription>
+
+If you use Terraform Cloud to perform Continuous Integration or Continuous Deployment (CI/CD) tasks for your Terraform code, you can implement it here to check all new pull requests for Terraform changes. If Terraform Cloud finds any changes, they will then run through the `terraform plan` command.
+
+</CalloutDescription>
+</Callout>
+
+### Protecting Terraform-defined flags
+
+Now that the flag’s core configuration is controlled through Terraform, you can ensure that it’s not modified by other means, such as through the LaunchDarkly UI, by setting up some custom roles in LaunchDarkly.
+
+1.  Create a dedicated “terraform” user account in LaunchDarkly, which Terraform Cloud can use to perform all LaunchDarkly actions. This ensures that Terraform actions aren’t dependent on an individual account member’s LaunchDarkly account. Instead, this account belongs to the entire team. If you are on an Enterprise plan, we recommend you use a service token instead of a user account. To learn more, read [Service tokens](/home/account-security/api-access-tokens#service-tokens).
+3.  Assign all the other account member accounts a new custom role that can’t modify certain attributes of Terraform-controlled resources. You can specify which resources those are by using a tag.
+
+To learn more about custom roles, read [Custom roles](/home/members/custom-roles).
+
+## Conclusion
+
+Terraform provides a centralized change control process for infrastructure, helping a team to work together more effectively and with fewer errors.
+
+Your feature flags are a vital part of application infrastructure and should be treated as such. The [LaunchDarkly Provider for Terraform](https://www.terraform.io/docs/providers/launchdarkly/index.html) brings your LaunchDarkly resources in line with the rest of your infrastructure control processes.
+
+<Callout intent="primary">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>

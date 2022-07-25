@@ -12,7 +12,7 @@ This topic explains how to choose a winning variation for a completed experiment
 
 ## Choosing a winning variation
 
-LaunchDarkly uses Bayesian statistics in its Experimentation model. The winning variation for a completed experiment is the variation that is most likely to be the best option out of all of the variations you tested. To learn more, read [Experimentation and Bayesian statistics](/guides/best-practices/bayesian).
+LaunchDarkly uses Bayesian statistics in its Experimentation model. The winning variation for a completed experiment is the variation that is most likely to be the best option out of all of the variations you tested. To learn more, read [Experimentation and Bayesian statistics](/guides/experimentation/bayesian).
 
 The "Primary metric results" table on an experiment's **Results** tab displays the variation with the highest probability to be best:
 
@@ -58,9 +58,9 @@ This table displays each search engine's probability of being best:
 </Table>
 
 
-The most logical choice of algorithm to use is Search engine 3. This is considered an "optimal strategy" in decision making. 
+The most logical choice of algorithm to use is Search engine 3. This is considered an "optimal strategy" in decision making.
 
-However, this decision making strategy includes the assumption that there are no costs to switching between options. In online experimentation, this assumption is usually true, but may not be for your particular experiment. 
+However, this decision making strategy includes the assumption that there are no costs to switching between options. In online experimentation, this assumption is usually true, but may not be for your particular experiment.
 
 Switching between variations in a feature flag is a small configuration change, but there might be hidden costs associated with switching. For example, you are testing out a new search algorithm for your website that uses more expensive hardware than your current solution. In that case, you should also consider the hardware costs, in addition to the probability to be best, when choosing the winner.
 
