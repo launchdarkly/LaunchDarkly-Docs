@@ -1,26 +1,46 @@
 name: Deploy to Staging
 on:
-  pull_request:
-    types: [assigned, opened, synchronize, reopened]
-
-env:
-  PR_NUMBER: ${{ github.event.pull_request.number }}
+  push:
+    branches-ignore:
+      - main
 
 jobs:
+  getPRNumber:
+    runs-on: ubuntu-latest
+    name: Get pr number
+    outputs:
+      pull_request_number: ${{ steps.pr.outputs.pull_request_number }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get Pull Request Number
+        id: pr
+        run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - if: steps.pr.outputs.pull_request_number == ''
+        run: |
+          echo Skipping staging build because ${{ github.ref_name }} has no pr.
+      - if: steps.pr.outputs.pull_request_number != ''
+        run: |
+          echo Building staging because ${{ github.ref_name }} has a pr: ${{ steps.pr.outputs.pull_request_number }}
+
   build-deploy:
+    needs: getPRNumber
+    if: needs.getPRNumber.outputs.pull_request_number != ''
     runs-on: ubuntu-latest
     name: Deploy to s3 staging
     environment:
       name: staging
-      url: http://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }}
+      url: http://docs-stg.launchdarkly.com/${{ needs.getPRNumber.outputs.pull_request_number }}
     concurrency:
-      group: staging-${{ github.event.pull_request.number }}
+      group: staging-${{ needs.getPRNumber.outputs.pull_request_number }}
       cancel-in-progress: true
     steps:
       - uses: actions/checkout@v3
         with:
           # fetch entire history to get Last Edit date for topics
           fetch-depth: 0
+
       - name: Find last successful run
         uses: SamhammerAG/last-successful-build-action@v2
         id: last-success
@@ -94,7 +114,8 @@ jobs:
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
           GATSBY_ALGOLIA_INDEX: 'Docs'
-          GATSBY_PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ needs.getPRNumber.outputs.pull_request_number }}
+          GATSBY_PR_NUMBER: ${{ needs.getPRNumber.outputs.pull_request_number }}
           LAUNCHDARKLY_CLIENT_SIDE_ID: ${{ secrets.STG_LAUNCHDARKLY_CLIENT_SIDE_ID }}
           GATSBY_DATADOG_CLIENT_TOKEN: ${{ secrets.STG_DATADOG_CLIENT_TOKEN }}
           GATSBY_DATADOG_RUM_APPLICATION_ID: ${{ secrets.DATADOG_RUM_APPLICATION_ID }}
@@ -106,7 +127,8 @@ jobs:
           CI: true
 
   smoke-test:
-    needs: build-deploy
+    needs: [getPRNumber, build-deploy]
+    if: needs.getPRNumber.outputs.pull_request_number != ''
     runs-on: ubuntu-latest
     name: Smoke test staging
     timeout-minutes: 5
@@ -121,10 +143,10 @@ jobs:
         with:
           # Note: this is used because of cypress yarn berry issue
           # https://github.com/cypress-io/github-action/issues/430#issuecomment-1144054512
-          command: yarn dlx cypress@v9 run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }},retries=2 --spec cypress/integration/smoke.test.ts --config-file cypress.json --env pr_number=${{ github.event.pull_request.number }}
+          command: yarn dlx cypress@v9 run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ needs.getPRNumber.outputs.pull_request_number }},retries=2 --spec cypress/integration/smoke.test.ts --config-file cypress.json --env pr_number=${{ needs.getPRNumber.outputs.pull_request_number }}
           install-command: yarn install --immutable
           build: yarn build-nav-data
-          wait-on: 'https://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }}/home'
+          wait-on: 'https://docs-stg.launchdarkly.com/${{ needs.getPRNumber.outputs.pull_request_number }}/home'
         env:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
