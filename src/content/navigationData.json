@@ -831,6 +831,10 @@
             ]
           },
           {
+            "label": "Zapier",
+            "path": "/integrations/zapier"
+          },
+          {
             "label": "Zendesk",
             "path": "/integrations/zendesk"
           }
