@@ -519,7 +519,13 @@
           },
           {
             "label": "Workflows",
-            "path": "/home/feature-workflows/workflows"
+            "path": "/home/feature-workflows/workflows",
+            "items": [
+              {
+                "label": "Workflow templates",
+                "path": "/home/feature-workflows/workflow-templates"
+              }
+            ]
           }
         ]
       },
