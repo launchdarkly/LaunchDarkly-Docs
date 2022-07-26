@@ -1357,6 +1357,10 @@
         "svg": "chart-areaspline",
         "items": [
           {
+            "label": "Creating mutually exclusive experiments",
+            "path": "/guides/experimentation/mutually-exclusive"
+          },
+          {
             "label": "Designing experiments",
             "path": "/guides/experimentation/designing-experiments"
           },
