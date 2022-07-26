@@ -197,15 +197,15 @@ SAML ignores empty fields if used in **Roles** or **customRoles**. To clear all 
 
 ## Using Okta to manage LaunchDarkly teams with SCIM
 
-You can use Okta to create new teams in LaunchDarkly, or link an Okta group to an existing team, in order to maintain team memberships within Okta.
+You can use Okta to create new teams in LaunchDarkly, or link an Okta group to an existing team, to maintain team memberships within Okta.
 
 Prerequisites:
 - You must have SCIM provisioning enabled in the LaunchDarkly Okta app. If it is not enabled, you will be prompted to do so.
-- Any group members that you want to push to a team in LaunchDarkly MUST be previously provisioned and assigned to the LaunchDarkly application in Okta. Once a group is synced with a LaunchDarkly team, team membership changes will be disabled in the LaunchDarkly UI.
+- Any group members that you want to push to a team in LaunchDarkly must be previously provisioned and assigned to the LaunchDarkly application in Okta. After a group is synced with a LaunchDarkly team, team membership changes will be disabled in the LaunchDarkly UI.
 - Using the same Okta group for assignments and for Group Push is not supported.
-- To maintain consistent group membership between Okta and LaunchDarkly, you need to create a separate group that is configured to push teams. This is a known limitation of Okta's Group Push feature.
+- To maintain consistent group membership between Okta and LaunchDarkly, create a separate group that is configured to push teams. This is a known limitation of Okta's Group Push feature.
 
-To learn more about Okta's Group Push feature, [read more here](https://help.okta.com/en-us/Content/Topics/users-groups-profiles/usgp-about-group-push.htm).
+To learn more about Okta's Group Push feature, read [About Group Push](https://help.okta.com/en-us/Content/Topics/users-groups-profiles/usgp-about-group-push.htm).
 
 ### Push an Okta group to create a new team
 
@@ -224,7 +224,7 @@ To push an Okta group to create a new team in LaunchDarkly:
 
 ![An active group push in Okta.](okta-active-group-push.png)
 
-Once the push status in Okta is "Active", you can confirm the new team was created and synced with Okta on the **Teams** tab in LaunchDarkly.
+After the push status in Okta is "Active," you can confirm the new team was created and synced with Okta on the **Teams** tab in LaunchDarkly.
 
 ![The "Teams" tab showing teams synced with Okta.](teams-synced-with-idp.png)
 
@@ -240,7 +240,7 @@ To link an Okta group to an existing LaunchDarkly team:
 ![The "Push Groups" tab within the LaunchDarkly Okta application.](okta-push-groups.png)
 
 3. Find the group you wish to link by searching for its name. Okta will attempt to find a matching team based on the group name. 
- - If Okta doesn't automatically select a group based on the team name, click the "Create Group" menu and select "Link Group", then search for the team you wish to link.
+ - If Okta doesn't automatically select a group based on the team name, click the "Create Group" menu and select "Link Group," then search for the team you wish to link.
 
 ![The "Teams" tab showing teams synced with Okta.](okta-group-link.png)
 
@@ -248,18 +248,18 @@ To link an Okta group to an existing LaunchDarkly team:
 
 ![An active group push.](okta-active-group-push.png)
 
-Once the push status in Okta is "Active," you can confirm that the team membership matches the group membership in Okta on the LaunchDarkly **Account settings** page.
+After the push status in Okta is "Active," you can confirm that the team membership matches the group membership in Okta on the LaunchDarkly **Account settings** page.
 
 ![Teams synced with IdP.](teams-synced-with-idp.png)
 
 ### Limitations of team sync with Okta
 
-Once a team has been synced to an Okta group, it is unable to be unsynced. The only way to remove the team is to unlink the pushed group in Okta.
+After you have synced a team with an Okta group, you cannot unsync it. The only way to remove the team is to unlink the pushed group in Okta.
 
 ![Unlink and deactivate group push in Okta.](okta-deactivate-groups.png)
 
-After clicking on the group's push status, choose the "Unlink pushed group" option and then choose to "Delete the group in the target app".
+To unlink the push group, click on the group's push status, choose the "Unlink pushed group" option, then choose "Delete the group in the target app".
 
 ![Unlink pushed group in Okta.](okta-unlink-push-group.png)
 
-Deactivating group push or unlinking a group while leaving the group in the target app will result in an orphaned team in LaunchDarkly that cannot be managed or maintained within the LaunchDarkly UI. To remove the team, simply re-sync the team [using the steps above](/home/account-security/okta#link-an-okta-group-to-an-existing-team) and then choose the "Unlink pushed group" & "Delete the group in the target app" options.
+Deactivating group push or unlinking a group while leaving the group in LaunchDarkly results in an orphaned team. You will not be able to manage or maintain an orphaned team within the LaunchDarkly UI. To remove the team, first [re-link the team](#link-an-okta-group-to-an-existing-team), choose the "Unlink pushed group" option, then choose the "Delete the group in the target app" option.
