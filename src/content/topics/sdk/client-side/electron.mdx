@@ -125,7 +125,16 @@ Every Electron application consists of a _main process_, which is similar to a N
 
 We designed the LaunchDarkly Electron SDK to use LaunchDarkly feature flags from within any of these processes. In the normal use case, there is an SDK client running in the main process and the renderer processes can then create client instances that are in effect mirrors of the main one.
 
-To set up the main process client, you need the client-side ID for your LaunchDarkly environment, an object containing user properties, and optional configuration properties. You can change the user later if needed. The client-side ID authorizes your application to connect to a particular environment within LaunchDarkly. Your client-side ID is available in the **Environments** tab of your project under [**Account settings**](https://app.launchdarkly.com/settings/projects) page. Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
+To set up the main process client, you need the client-side ID for your LaunchDarkly environment, an object containing user properties, and optional configuration properties. You can change the user later if needed. The client-side ID authorizes your application to connect to a particular environment within LaunchDarkly. Your client-side ID is available in the **Environments** tab of your project under [**Account settings**](https://app.launchdarkly.com/settings/projects) page.
+
+<Callout intent="alert">
+<CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
+<CalloutDescription>
+
+Client-side IDs are not secret and you can expose them in your client-side code without risk. However, never embed a server-side SDK key into a client-side application.
+
+</CalloutDescription>
+</Callout>
 
 To initialize the client:
 

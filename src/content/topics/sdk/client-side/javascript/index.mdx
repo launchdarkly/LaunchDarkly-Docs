@@ -220,7 +220,16 @@ Here is an example of code to include in the `<head>` tag of your site:
 
 ## Initializing the client
 
-After you install the dependency, initialize the LaunchDarkly client. To create a client instance, you need your environment's client-side ID, available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings#/projects). Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
+After you install the dependency, initialize the LaunchDarkly client. To create a client instance, you need your environment's client-side ID, available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings#/projects). 
+
+<Callout intent="alert">
+<CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
+<CalloutDescription>
+
+Client-side IDs are not secret and you can expose them in your client-side code without risk. However, never embed a server-side SDK key into a client-side application.
+
+</CalloutDescription>
+</Callout>
 
 <Callout intent="alert">
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>

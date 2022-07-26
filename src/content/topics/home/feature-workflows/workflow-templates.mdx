@@ -1,0 +1,76 @@
+---
+path: /home/feature-workflows/workflow-templates
+title: Workflow templates
+description: This topic explains how to create and use workflow templates to automate your rollouts at scale.
+published: true
+tags: ['workflow', 'template', 'rollout', 'automation', 'enterprise']
+---
+
+<Callout intent="primary">
+<CalloutTitle>Workflow templates is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Workflow templates is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to create and use workflow templates to automate your rollouts at scale. It describes how to save workflows as templates that can be reused with other flags.
+
+## Using workflow templates
+
+If your organization follows a standard procedure for rolling out feature flags, you can turn your custom workflow into a template so other account members can use it. Workflow templates are saved versions of workflows that you can apply and use with any flags in your account.
+
+
+### Understanding how workflow templates are applied across flags
+
+You can create workflow templates in the context of a flag and an environment, but you can apply them to any flag in any environment or project.
+
+When you apply a template to a different flag or environment from where it was created, any environment or flag specific pieces of the workflow, such as variations, segments, or users are cleared. LaunchDarkly prompts you to fill in these blanks with appropriate values for the new flag and environment.
+
+## Saving a workflow as a template
+
+Here is how to save a workflow as a template:
+
+1. Navigate to a feature flag.
+2. Click on the **Workflows** tab.
+3. Click the **Create workflow** button. 
+4. Select the option to create a **Custom workflow**.
+
+![Select the option to create a Custom workflow.](click-create-custom-workflow.png)
+
+3. Build the workflow with the steps that you’d like each flag to follow.
+4. Click **Save as template**.
+5. Give the template a name, a key, and add an optional description. Then click **Next**.
+6. Click **Start workflow** if you would also like to run the workflow on the flag.
+
+
+## Applying templates to flags
+
+Here is how to apply a template to a flag:
+
+1. Navigate to a feature flag. 
+2. Click on the **Workflows** tab.
+3. Click **Create workflow**.
+4. Select the option to use a **Template**.
+
+![Select the option to use a template.](click-templates.png)
+
+4. Search for the template that you would like to use on the feature flag.
+5. Review the workflow and enter any missing details. 
+6. Click **Start workflow** to begin the workflow.
+
+
+## Deleting templates
+
+At this time, templates can only be deleted through the API.
+
+<LearnMore>
+
+Use the REST API: [Delete workflow template](https://apidocs.launchdarkly.com/tag/Workflows-(beta))
+
+</LearnMore>
+
+

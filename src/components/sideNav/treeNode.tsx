@@ -1,15 +1,17 @@
 /** @jsx jsx */
 import { LDFlagSet } from 'launchdarkly-js-client-sdk'
 import { LinkGetProps } from '@reach/router'
-import { jsx, Flex, Link as ThemeUILink, ThemeUIStyleObject } from 'theme-ui'
-import { ComponentProps, FunctionComponent, useEffect, useState } from 'react'
 import { Link as GatsbyLink } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
+import { jsx, Flex, Link as ThemeUILink, ThemeUIStyleObject } from 'theme-ui'
+import { ComponentProps, FunctionComponent, useEffect, useState } from 'react'
 import { SideNavItem } from './types'
 import isExternalLink from '../../utils/isExternalLink'
 import Icon, { IconName } from '../icon'
 import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
 import { stripTrailingSlash } from '../../utils/navigationDataUtils'
+import useSite from '../siteSelector/useSite'
+import { getUrlSiteAware } from '../siteSelector/siteUtils'
 
 const defaultLabelStyles = {
   color: 'text',
@@ -136,6 +138,9 @@ function Node({
   const showItem = flagKey ? flags[flagKey] : true
   const isActive = isActiveNodeOrAncestor(currentPath, node)
 
+  const [site] = useSite()
+  const pathSiteAware = getUrlSiteAware(path, site)
+
   useEffect(() => {
     if (isPristine && isActive && isCollapsed) {
       setIsPristine(false)
@@ -149,14 +154,14 @@ function Node({
 
   return showItem ? (
     <li sx={itemStyles}>
-      {isExternalLink(path) ? (
-        <ThemeUILink href={path} sx={labelStyles} target="_blank" rel="noopener noreferrer">
+      {isExternalLink(pathSiteAware) ? (
+        <ThemeUILink href={pathSiteAware} sx={labelStyles} target="_blank" rel="noopener noreferrer">
           {label}
           {svg && <Icon name={svg as IconName} height="0.8rem" fill="text" ml={1} />}
         </ThemeUILink>
       ) : (
         <Flex>
-          <GatsbyLink getProps={setActiveLinkStyles} sx={labelStyles} to={path} onClick={handleExpandCollapse}>
+          <GatsbyLink getProps={setActiveLinkStyles} sx={labelStyles} to={pathSiteAware} onClick={handleExpandCollapse}>
             <Flex sx={{ alignItems: 'center' }}>
               {svg && <Icon name={svg as IconName} height="1rem" fill="text" mr={2} />}
               {label}

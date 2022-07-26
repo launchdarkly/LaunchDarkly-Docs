@@ -373,7 +373,7 @@ await LDClient.unregisterFlagsReceivedListener(listener);
 
 LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream. When you modify a flag from the flag dashboard, the flag values for the current user update almost immediately.
 
-To accomplish real-time updates, LaunchDarkly broadcasts an event stream that the SDK listens to. LaunchDarkly notifies the SDK of updated flag settings in real-time whenever an event registers on the dashboard.  
+To accomplish real-time updates, LaunchDarkly broadcasts an event stream that the SDK listens to. LaunchDarkly notifies the SDK of updated flag settings in real-time whenever an event registers on the dashboard.
 
 Streaming mode is not available on watchOS. On iOS and tvOS, the client app must be running in the foreground to connect to the event stream. On macOS, the client app may run in either the foreground or background to connect to the event stream. If streaming mode is not available, the SDK reverts to polling mode.
 

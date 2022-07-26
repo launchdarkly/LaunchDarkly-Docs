@@ -4,6 +4,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   snapshotSerializers: ['@emotion/jest/enzyme-serializer'],
   setupFiles: ['../jest.setup.js'],
+  setupFilesAfterEnv: ['../jest.setupFilesAfterEnv.js'],
   testURL: 'http://localhost',
   globals: {
     __PATH_PREFIX__: '',

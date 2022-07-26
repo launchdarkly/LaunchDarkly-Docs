@@ -10,71 +10,45 @@ tags: ['flag', 'setting', 'client-side', 'trigger', 'custom property']
 
 This topic explains how to make other changes to your feature flags in the flag's **Settings** tab.
 
-A feature flag's **Settings** tab lets you change flag settings, including the name and description of the flag.
+A feature flag's **Settings** tab lets you change flag settings, including the name and description of the flag. Some settings apply only to the currently selected environment, while others apply across all environments. You can also clone or archive a flag from this tab.
 
-Here is an image of a flag's **Settings** tab:
+## Settings for the current environment
 
-![A flag's "Settings" tab.](flag-settings.png)
+Both data export settings and flag triggers are specific to the current environment.
 
+Here is an image of the settings for the current environment on the flag's **Settings** tab:
 
-The fields in the **Settings** tab do the following things:
+![The settings for the current environment, "Production," on the flag's "Settings" tab.](flag-settings-current-environment.png)
 
-<Table>
-  <TableHeader>
-    <TableHeadCell>Field Name</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>Maintainer</TableCell>
-      <TableCell>
-        The flag maintainer is the account member who is primarily responsible for the flag. By default, the maintainer is
-        set to the member who created the flag, but you can assign any member of your team as the maintainer for a
-        particular flag.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>Name</TableCell>
-      <TableCell>The feature flag's name. You can change it here.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>Description</TableCell>
-      <TableCell>The feature flag's description. You can change it here.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>Tags</TableCell>
-      <TableCell>
-        Tags are labels that help you categorize flags. They're especially helpful for managing flag permissions with
-        custom roles. For example, you can tag flags with <code>marketing</code> flags or <code>devOps</code> tags, and
-        then use these tags to determine who has read or write access for the flag.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>(Checkbox) This is a permanent flag</TableCell>
-      <TableCell>
-        You can mark flags permanent if they're intended to exist in your codebase long-term (for example, a flag that enables a site-wide maintenance mode). LaunchDarkly does not prompt you to remove permanent flags, even if one variation has been rolled out to all of your users. In addition, when someone attempts to remove a permanent flag, they receive a warning about the flag's permanent status.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>(Checkbox) SDKs using Mobile key</TableCell>
-      <TableCell>
-        You must make feature flags available to mobile SDKs before front-end calls can use them. Make this flag available to mobile SDKs by default by checking this box.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>(Checkbox) SDKs using Client-side ID</TableCell>
-      <TableCell>
-        You must make feature flags available to the client-side SDK before front-end calls can use them. Make this flag available to the client-side SDK by default by checking this box.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>Add custom property</TableCell>
-      <TableCell>
-      You can use custom properties to connect individual flags to some LaunchDarkly integrations. Click this button and choose an integration from the menu.
-      </TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
+### Sending detailed event information
+
+LaunchDarkly summarizes flag evaluation events by default to minimize data use, and limits events transmission to 100 MBps.
+
+If you use Data Export, you can enable it to send detailed event data for a given flag. You can adjust this setting for each environment in the project.
+
+To learn more, read [Data Export](/home/data-export).
+
+### Changing flag targeting remotely
+
+Flag triggers let you make changes to flag targeting remotely from a third-party application, such as an APM tool. You can use triggers to turn flag targeting on or off. You can enable flag triggers for each environment in the project.
+
+To learn more, read [Flag triggers](/home/feature-workflows/triggers).
+
+## Settings for all environments
+
+The majority of flag settings apply to all environments.
+
+Here is an image of the settings for all environments on the flag's **Settings** tab:
+
+![The settings for all environments on the flag's "Settings" tab.](flag-settings-all-environments.png)
+
+### Maintainer
+
+The flag maintainer is the account member who is primarily responsible for the flag. By default, the maintainer is set to the member who created the flag, but you can assign any member of your team as the maintainer for a particular flag.
+
+### Name, description
+
+You can change the flag's name and description here.
 
 <Callout intent="info">
   <CalloutTitle>Flag keys are permanent</CalloutTitle>
@@ -85,19 +59,30 @@ In addition to the descriptors, every flag has a unique key which you set during
   </CalloutDescription>
 </Callout>
 
-## Sending detailed event information
+### Tags
 
-<Callout intent="primary">
-<CalloutTitle>Detailed events require Data Export, an Enterprise feature</CalloutTitle>
-<CalloutDescription>
+Tags are labels that help you categorize flags. They're especially helpful for managing flag permissions with custom roles. For example, you can tag flags with `marketing` flags or `devOps` tags, and then use these tags to determine who has read or write access for the flag.
 
-Detailed events require Data Export, available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+### Permanent flags
 
-</CalloutDescription>
-</Callout>
+You can mark flags permanent if they're intended to exist in your codebase long-term, for example, a flag that enables a site-wide maintenance mode. LaunchDarkly does not prompt you to remove permanent flags, even if one variation has been rolled out to all of your users. In addition, when someone attempts to remove a permanent flag, they receive a warning about the flag's permanent status.
 
-LaunchDarkly summarizes flag evaluation events by default to minimize data use, and limits events transmission to 100 MBps.
+### Client-side SDK availability
 
-If you use Data Export, you can enable it to send detailed event data for a given flag. Unlike other flag settings on this page, you can adjust this setting for each environment in the project.
+If you're using a client-side or mobile SDK, you must expose your feature flags in order for the client-side or mobile SDKs to evaluate them. To learn more, read [Making flags available to client-side and mobile SDKs](/home/getting-started/feature-flags#making-flags-available-to-client-side-and-mobile-sdks).
 
-To learn more, read [Data Export](/home/data-export).
+### Custom properties
+
+You can use custom properties to connect individual flags to some LaunchDarkly integrations. To learn more, read [Custom properties](/home/connecting/custom-properties/).
+
+## Cloning a flag
+
+You can create new flags by cloning existing flags. When you clone a flag, LaunchDarkly makes a new flag and copies the original flag's targeting configuration for all environments. To learn more, read [Cloning flags](/getting-started/feature-flags#cloning-flags).
+
+![The "Clone flag" section of the flag's "Settings" tab.](flag-settings-clone.png)
+
+## Archiving a flag
+
+You can archive a flag if you want to retire it from LaunchDarkly without deleting it. Archived flags are archived across all environments. To learn more, read [Archiving flags](/home/code/flag-archive#archiving-flags).
+
+![The "Archive flag" section of the flag's "Settings" tab.](flag-settings-archive.png)

@@ -18,7 +18,7 @@ To learn more about updating to the latest 4.x version, visit the [SDK's GitHub 
 
 ## Identifying Java versions for the 5.0 SDK
 
-The minimum version for LaunchDarkly SDK 5.0 is Java 8. LaunchDarkly no longer supports Java 7, per our [End of Life policy](https://launchdarkly.com/policies/end-of-life-policy/). Since Java 8 is still in [long-term support](https://www.oracle.com/java/technologies/java-se-support-roadmap.html), you must use that version or later to use the version 5.0 SDK.
+The minimum version for LaunchDarkly SDK 5.0 is Java 8. LaunchDarkly no longer supports Java 7, per our [End of Life policy](https://launchdarkly.com/policies/end-of-life-policy/). Because Java 8 is still in [long-term support](https://www.oracle.com/java/technologies/java-se-support-roadmap.html), you must use that version or later to use the version 5.0 SDK.
 
 The primary impact of this in the public API is that the SDK now uses [`java.time.Duration`](https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html) to represent time intervals. Previously, these were represented by an integer number of milliseconds or seconds, depending on the case. Using `Duration` avoids that ambiguity. This only affects configuration methods.
 
@@ -26,9 +26,9 @@ Many other improvements have been made internally to take advantage of Java 8 fe
 
 ## Using updated package names
 
-The package naming convention has changed. Instead of `com.launchdarkly.client`, the main packages are now `com.launchdarkly.sdk` and `com.launchdarkly.sdk.server`. Since most of the class names have not changed, you may be able to fix your import statements with a find and replace.
+The package naming convention has changed. Instead of `com.launchdarkly.client`, the main packages are now `com.launchdarkly.sdk` and `com.launchdarkly.sdk.server`. Because most of the class names have not changed, you may be able to fix your import statements with a find and replace.
 
-The use of the word "client" in package names was potentially confusing, since even though this library is a service client that makes requests to the LaunchDarkly service, we built it to use in a server-side context. Classes that are specific to this server-side implementation are now in `.sdk.server`.
+The use of the word "client" in package names was potentially confusing, because even though this library is a service client that makes requests to the LaunchDarkly service, we built it to use in a server-side context. Classes that are specific to this server-side implementation are now in `.sdk.server`.
 
 The base `.sdk` package contains classes that are not specific to server-side Java. They also exist in the Android SDK. When you view the SDK source code, you will find that the base `.sdk` package is implemented in a new repository, [`java-sdk-common`](http://github.com/launchdarkly/java-sdk-common).
 
@@ -416,7 +416,7 @@ Starting in version 5.0, the SDK uses the following logger names:
 * `com.launchdarkly.sdk.server.LDClient.Evaluation`: messages related to feature flag evaluation
 * `com.launchdarkly.sdk.server.LDClient.Events`: messages related to analytics event processing
 
-The use of log levels has also changed somewhat. Previously, many kinds of I/O errors-- for instance, a network failure when the SDK was trying to make a streaming connection to LaunchDarkly, or trying to send analytics events-- were logged at `ERROR` level. This could cause an unwanted amount of noise from monitoring systems, since such errors were often due to temporary problems that the SDK could recover from without intervention.
+The use of log levels has also changed somewhat. Previously, many kinds of I/O errors-- for instance, a network failure when the SDK was trying to make a streaming connection to LaunchDarkly, or trying to send analytics events-- were logged at `ERROR` level. This could cause an unwanted amount of noise from monitoring systems, because such errors were often due to temporary problems that the SDK could recover from without intervention.
 
 Starting in version 5.0, if the SDK gets a network error that might interfere with receiving feature flag data from LaunchDarkly, it will log it at first at `WARN` level. Then it will continue retrying the connection as usual. If it remains unable to get a successful connection for a full minute, then it will report the problem again at the more serious `ERROR` level. You can change the connection interval using [`LoggingConfigurationBuilder`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/LoggingConfigurationBuilder.html#logDataSourceOutageAsErrorAfter-java.time.Duration-).
 
@@ -562,7 +562,7 @@ mapper.registerModule(LDJackson.module());
 
 ## Using other third-party dependencies
 
-Since Java 7 compatibility is no longer an issue, the SDK now uses more modern versions of the `okhttp`, `guava`, and `gson` packages internally.
+Because Java 7 compatibility is no longer an issue, the SDK now uses more modern versions of the `okhttp`, `guava`, and `gson` packages internally.
 
 As before, if you want to force the SDK to use the same versions of these dependencies that you are using, you can use the "thin" jar which does not embed them.
 
@@ -587,7 +587,7 @@ To learn more, read the API documentation for the [`PersistentDataStore`](http:/
 Here are several changes to names and types that do not affect the basic functionality of the SDK, but were changed for consistency.
 
 * The `initialized()` method of `LDClient` was renamed to `isInitialized()`, for consistency with Java naming conventions for methods that return a boolean.
-* The `intVariation()` and `doubleVariation()` methods of `LDClient` previously used the nullable types `Integer` and `Double`. They have been changed to use `int` and `double`, since the point of these type-specific methods is to be able to conveniently treat the feature flag value as a numeric type without having to worry about whether it is a null value or some other type. The `boolVariation` method already used the non-nullable `boolean` type, so it has not changed.
+* The `intVariation()` and `doubleVariation()` methods of `LDClient` previously used the nullable types `Integer` and `Double`. They have been changed to use `int` and `double`, because the point of these type-specific methods is to be able to conveniently treat the feature flag value as a numeric type without having to worry about whether it is a null value or some other type. The `boolVariation` method already used the non-nullable `boolean` type, so it has not changed.
 
 ## Understanding what was deprecated
 

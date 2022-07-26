@@ -1,12 +1,15 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
+import { useFlags } from 'gatsby-plugin-launchdarkly'
 import Icon from './icon'
 import Hamburger from './sideNav/hamburger'
 import TopNav from './topNav'
+import SiteSelector from './siteSelector/siteSelector'
 import SearchRoot from './search/searchRoot'
 import Link from './link'
 
 const Header = () => {
+  const { enableSiteSelection } = useFlags()
   return (
     <header sx={{ gridArea: 'header', bg: 'accent', color: 'grayscaleWhite' }}>
       <div
@@ -63,6 +66,7 @@ const Header = () => {
               ml: [0, 0, 4],
             }}
           >
+            {enableSiteSelection && <SiteSelector />}
             <SearchRoot />
           </div>
           <span sx={{ display: ['block', 'none'], mx: 5 }}>

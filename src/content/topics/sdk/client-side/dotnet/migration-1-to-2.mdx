@@ -408,7 +408,7 @@ Starting in version 2.0, the SDK uses the following logger names:
 * `Launchdarkly.Sdk.Evaluation`: messages related to feature flag evaluation
 * `Launchdarkly.Sdk.Events`: messages related to analytics event processing
 
-The use of log levels has also changed. Previously, many kinds of I/O errors, such a network failure when the SDK was trying to make a streaming connection or sending events to LaunchDarkly, were logged at `Error` level. This could cause an unwanted amount of noise from monitoring systems, since such errors were often due to temporary problems that the SDK could recover from without intervention.
+The use of log levels has also changed. Previously, many kinds of I/O errors, such a network failure when the SDK was trying to make a streaming connection or sending events to LaunchDarkly, were logged at `Error` level. This could cause an unwanted amount of noise from monitoring systems, because such errors were often due to temporary problems that the SDK could recover from without intervention.
 
 Starting in version 2.0, if the SDK gets a network error that might interfere with receiving feature flag data from LaunchDarkly, it first logs it at the `Warn` level. It retries the connection as usual, and reports the problem again at the more serious `Error` level only if it remains unable to get a successful connection for a full minute. You can change that interval with `LoggingConfigurationBuilder`.
 

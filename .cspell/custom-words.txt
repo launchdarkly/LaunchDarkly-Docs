@@ -228,6 +228,7 @@ srcset
 Stackdriver
 stdlib
 stflib
+strcmp
 struct
 subfeature
 subfeatures

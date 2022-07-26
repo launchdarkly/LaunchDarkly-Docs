@@ -25,9 +25,9 @@ Approvals let more people have input on planned changes to a flag. These review-
 
 ## Understanding approvals
 
-When an account member plans a flag change, they have the option to request approval for that change from anyone in their LaunchDarkly project.
+When an account member plans a flag change, they have the option to request approval for that change from a member or team in their LaunchDarkly project.
 
-Anyone with a Writer, Admin, Owner, or custom role with `reviewApprovalRequest` permission can approve a flag change, regardless of whether or not their review has been requested. Account members who the requester chooses receive an email notifying them that their review has been requested, and, if applicable, a notification in the LaunchDarkly Slack app.
+Anyone with a Writer, Admin, Owner, or custom role with `reviewApprovalRequest` permission can approve a flag change, regardless of whether or not their review has been requested. Account members and team members who the requester chooses receive an email notifying them that their review has been requested, and, if applicable, a notification in the LaunchDarkly Slack app. 
 
 Here is an image of the approvals email notification from LaunchDarkly:
 
@@ -43,7 +43,7 @@ You can request approval on changes to a flag's targeting at any point after cre
 
 ![The approval request.](approvals-approval-screen.png)
 
-The only people you can request approval from are other members of your LaunchDarkly project. You can request approval from anyone in your project with approval permissions, up to a maximum of ten people.
+The only people you can request approval from are other members and teams of your LaunchDarkly project.
 
 Here's how:
 
@@ -61,7 +61,7 @@ If your environment requires approvals, **Review and request approval** is the d
 </CalloutDescription>
 </Callout>
 
-3. Click "Request approval." The "Request approval" dialog appears. Members on an Enterprise plan also have a Schedule option.
+3. Click "Request approval." The "Request approval" dialog appears.
 
     ![The "Request approval" dialog.](approvals-request.png)
 
@@ -70,7 +70,7 @@ If your environment requires approvals, **Review and request approval** is the d
 6. Choose one or more reviewers from the **Reviewers** menu.
 7. Click **Request approval**. The approval request appears.
 
-You can choose reviewers that can approve your request, and members with a role that only allows them to view requests. The people you chose from the menu each receive an email, an inbox notification, and a Slack notification, if applicable, asking them to approve your flag changes.
+You can choose reviewers to approve your request, as well as members with a role that only allows them to view requests. The people you chose from the menu each receive an email, an inbox notification, and a Slack notification, if applicable, asking them to approve your flag changes.
 
 The flag's **Targeting** tab also updates with a number next to the **Pending changes** icon to indicate that there are pending changes waiting for review.
 

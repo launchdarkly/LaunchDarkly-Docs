@@ -81,7 +81,16 @@ The LaunchDarkly React SDK offers two custom hooks. If you want to use these, th
 
 After you complete the [Getting started](/home/getting-started) process, follow these instructions to start using the LaunchDarkly SDK in your React code.
 
-To install the React SDK, you need your LaunchDarkly environment's client-side ID. Your client-side ID is available in the **Environments** tab of your project under [**Account settings**](https://app.launchdarkly.com/settings/projects) page. Client-side IDs are not secret and you can expose them in your client-side code without risk. Never embed a server-side SDK key into a client-side application.
+To install the React SDK, you need your LaunchDarkly environment's client-side ID. Your client-side ID is available in the **Environments** tab of your project under [**Account settings**](https://app.launchdarkly.com/settings/projects) page. 
+
+<Callout intent="alert">
+<CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
+<CalloutDescription>
+
+Client-side IDs are not secret and you can expose them in your client-side code without risk. However, never embed a server-side SDK key into a client-side application.
+
+</CalloutDescription>
+</Callout>
 
 Install the React SDK using either `npm` or `yarn`:
 

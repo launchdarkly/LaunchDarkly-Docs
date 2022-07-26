@@ -10,7 +10,7 @@ tags: ['flag', 'variation', 'toggle', 'clone', 'value']
 
 This topic explains how to create feature flags in LaunchDarkly. You can use feature flags in any aspect of your application, from the customer-facing user interface (UI) to the backend.
 
-The procedures in this topic assume that you have already configured a LaunchDarkly SDK and are ready to use the LaunchDarkly UI. For an example tutorial of how to configure a LaunchDarkly SDK, read [Getting started: Configuring an SDK and creating a flag](/guides/tutorials/sdk-flag).
+The procedures in this topic assume that you have already configured a LaunchDarkly SDK and are ready to use the LaunchDarkly UI. For an example tutorial of how to configure a LaunchDarkly SDK, read [Getting started: Configuring an SDK and creating a flag](/guides/flags/sdk-flag).
 
 In the LaunchDarkly UI, you can create a new flag, clone and modify an existing flag to create new ones, and set default values for flags.
 
@@ -18,7 +18,7 @@ In the LaunchDarkly UI, you can create a new flag, clone and modify an existing 
 <CalloutTitle>You can use the API instead</CalloutTitle>
 <CalloutDescription>
 
-Customers on a Pro or Enterprise plan can also use the LaunchDarkly API to create and manage feature flags, as well as do many other tasks. LaunchDarkly is an API-first product, so everything you can do in the LaunchDarkly UI is also available as an API endpoint. To learn more, read the tutorial [Using the LaunchDarkly REST API](/guides/tutorials/rest-api). For complete reference materials, read the [API documentation](https://apidocs.launchdarkly.com/).
+Customers on a Pro or Enterprise plan can also use the LaunchDarkly API to create and manage feature flags, as well as do many other tasks. LaunchDarkly is an API-first product, so everything you can do in the LaunchDarkly UI is also available as an API endpoint. To learn more, read the tutorial [Using the LaunchDarkly REST API](/guides/api/rest-api). For complete reference materials, read the [API documentation](https://apidocs.launchdarkly.com/).
 
 </CalloutDescription>
 </Callout>
@@ -40,8 +40,10 @@ To create a feature flag:
 4. Enter a unique flag **Key**. You'll use this key to reference the flag in your code. A suggested key auto-populates from the name you enter, but you can customize it if you wish.
 
 <Callout intent="alert">
-<CalloutTitle>Flag keys are permanent after you save them</CalloutTitle>
+<CalloutTitle>Flag keys are important and permanent</CalloutTitle>
 <CalloutDescription>
+
+Designate flag keys with naming conventions that the SDKs you use support. For example, if your SDK does not use dot notation, you may not want to use dot notation in your flag keys. If you do, LaunchDarkly automatically converts the key to a format your SDK can use, but this can cause collisions if two flags have similar keys. There are configuration options at the SDK level that help you avoid these issues. To learn more, read [Flag keys](/sdk/client-side/react/react-web/#flag-keys).
 
 After you save the flag key, you cannot modify it. You can change a flag's name, however, whenever you want.
 
@@ -168,14 +170,18 @@ To clone a flag:
 ![A flag on the dashboard.](dashboard-flag.png)
 
 3. Click the flag's **Settings** tab.
-4. Click **Clone this flag**. The "Clone feature flag" panel appears:
+4. Click **Clone this flag**.
 
 ![The "Clone this flag" button.](flag-clone.png)
 
-5. Enter a unique, human-readable **Name**.
-6. Enter a unique flag **Key**. You'll use this key to reference the flag in your code. A suggested key auto-populates from the name you enter, but you can customize it if you wish.
-7. (Optional) Enter a **Description** of the flag. A brief, human-readable description helps your account members understand what the flag is for.
-8. (Optional) Click into the **Tags** menu and choose one or more tags for your flag.
+5. The "Clone feature flag" panel appears:
+
+![The "Clone feature flag" panel.](flag-clone-details.png)
+
+6. Enter a unique, human-readable **Name**.
+7. Enter a unique flag **Key**. You'll use this key to reference the flag in your code. A suggested key auto-populates from the name you enter, but you can customize it if you wish.
+8. (Optional) Enter a **Description** of the flag. A brief, human-readable description helps your account members understand what the flag is for.
+9. (Optional) Click into the **Tags** menu and choose one or more tags for your flag.
 
 <Callout intent="info">
 <CalloutTitle>Tags sort flags into groups</CalloutTitle>
@@ -186,9 +192,7 @@ Tags are useful for managing flag permissions using custom roles. For example, y
 </CalloutDescription>
 </Callout>
 
-9. Click **Save flag.** You are taken to the new flag's details page:
-
-![The flag cloning configuration panel.](flag-clone-details.png)
+10. Click **Save flag.** You are taken to the new flag's details page.
 
 The new flag also appears in the dashboard, where you can search for it or access it any time.
 
