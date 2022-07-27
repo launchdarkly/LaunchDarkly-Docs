@@ -149,7 +149,7 @@ You can also use the REST API: [Create access token](https://apidocs.launchdarkl
 
 </LearnMore>
 
-After you create a token, you can clone or delete it.
+After you create a token, you can clone or delete it. You can also manage existing tokens from the **Authorizations** tab. You can reset the secret values of your tokens, or adjust the scope of your personal tokens.
 
 ## Cloning and deleting access tokens
 
@@ -173,7 +173,19 @@ You can also use the REST API: [Delete access token](https://apidocs.launchdarkl
 
 </LearnMore>
 
-You can also manage existing tokens from the **Authorizations** tab. You can reset the secret values of your tokens, or adjust the scope of your personal tokens.
+## Resetting access tokens
+
+To reset your access token:
+
+1. Navigate to the **Account settings** page.
+2. Click into the **Authorization** tab.
+3. Find your token in the "Access tokens" section.
+4. Click the **overflow menu** for the token and select "Edit token" from the menu. The "Edit token" panel appears.
+5. Click **Reset Token**.
+6. In the "Reset token?" dialog, enter the number of hours to keep the old token active.
+7. Enter the name of the access token to confirm the reset. Then click **Reset**.
+
+Resetting a token invalidates it. You must copy and store the new token somewhere secure. Then, update any clients to use the new token.
 
 <Callout intent="alert">
 <CalloutTitle>Rotate your tokens regularly</CalloutTitle>
