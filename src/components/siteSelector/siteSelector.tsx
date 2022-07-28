@@ -27,7 +27,7 @@ const SiteSelector = () => {
         mr: 4,
       }}
     >
-      <option value="launchdarkly">LaunchDarkly docs</option>
+      <option value="launchDarkly">LaunchDarkly docs</option>
       <option value="federal">Federal docs</option>
     </select>
   )

@@ -1482,14 +1482,15 @@
           }
         ]
       },
-      {   "label": "REST API",
-          "path": "/guides/api",
-          "svg": "compass",
-          "items": [
-            {
-              "label": "Using the LaunchDarkly REST API",
-              "path": "/guides/api/rest-api"
-            }
+      {
+        "label": "REST API",
+        "path": "/guides/api",
+        "svg": "compass",
+        "items": [
+          {
+            "label": "Using the LaunchDarkly REST API",
+            "path": "/guides/api/rest-api"
+          }
         ]
       },
       {

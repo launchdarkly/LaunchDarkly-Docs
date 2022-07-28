@@ -13,6 +13,6 @@ describe('useSite', () => {
 
   test('useLocalStorageState is invoked correctly', () => {
     renderHook(useSite)
-    expect(mockUseLocalStorageState).toHaveBeenCalledWith('site', { defaultValue: 'launchdarkly' })
+    expect(mockUseLocalStorageState).toHaveBeenCalledWith('site', { defaultValue: 'launchDarkly' })
   })
 })

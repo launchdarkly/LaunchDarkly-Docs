@@ -1,1 +1,1 @@
-export type SiteType = 'launchdarkly' | 'federal'
+export type SiteType = 'launchDarkly' | 'federal'

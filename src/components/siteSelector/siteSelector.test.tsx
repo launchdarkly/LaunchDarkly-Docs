@@ -22,7 +22,7 @@ const mockGetUrlSiteAware = getUrlSiteAware as jest.Mock
 
 describe('site selector', () => {
   beforeEach(() => {
-    mockUseSite.mockImplementation(() => ['launchdarkly', mockSetSite])
+    mockUseSite.mockImplementation(() => ['launchDarkly', mockSetSite])
     mockGetUrlSiteAware.mockImplementation(() => 'mockUrl')
     render(<SiteSelector />)
   })
@@ -31,12 +31,12 @@ describe('site selector', () => {
     jest.resetAllMocks()
   })
 
-  test('renders correctly with launchdarkly as default', () => {
+  test('renders correctly with launchDarkly as default', () => {
     const siteSelector = screen.getByRole('combobox')
-    expect(siteSelector).toHaveValue('launchdarkly')
+    expect(siteSelector).toHaveValue('launchDarkly')
   })
 
-  test('renders launchdarkly and federal options', () => {
+  test('renders launchDarkly and federal options', () => {
     const siteOptions = screen.getAllByRole('option')
     expect(siteOptions.length).toEqual(2)
     expect(siteOptions[0]).toHaveTextContent('LaunchDarkly docs')

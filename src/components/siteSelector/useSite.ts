@@ -3,7 +3,7 @@ import { SiteType } from './types'
 
 const useSite = () => {
   return useLocalStorageState<SiteType>('site', {
-    defaultValue: 'launchdarkly',
+    defaultValue: 'launchDarkly',
   })
 }
 
