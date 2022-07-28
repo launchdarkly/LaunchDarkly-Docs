@@ -164,7 +164,13 @@ You can use the [gatsby-plugin-launchdarkly](https://github.com/launchdarkly/gat
 
 ### Local
 
-To validate links locally, install `lychee`
+To check local links in MDX files run
+
+```shell
+yarn test-links
+```
+
+To validate external links locally, install `lychee`
 
 ```shell
 brew install lychee

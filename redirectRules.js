@@ -514,7 +514,7 @@ module.exports = [
     toPath: '/home/members/managing',
   },
   {
-    fromPath: '/home/team/',
+    fromPath: '/home/team',
     toPath: '/home/members',
   },
   {

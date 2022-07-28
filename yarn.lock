@@ -5740,6 +5740,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/github-slugger@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@types/github-slugger@npm:1.3.0"
+  checksum: 6561f26814d7c6bf619b1abfba07930ddc2f71e1e1d58a03c20852fd4086ec17f8ee98a44a8ac77ba917c0ff7052cd3fe74071fba59bd526dff8a3a980e2e528
+  languageName: node
+  linkType: hard
+
 "@types/glob-to-regexp@npm:^0.4.0":
   version: 0.4.1
   resolution: "@types/glob-to-regexp@npm:0.4.1"
@@ -13406,6 +13413,7 @@ __metadata:
     "@types/body-scroll-lock": ^3.1.0
     "@types/chai": ^4.3.1
     "@types/chai-string": ^1.4.2
+    "@types/github-slugger": ^1.3.0
     "@types/jest": ^27.5.0
     "@types/lodash.debounce": ^4.0.7
     "@types/node": ^17.0.31
@@ -13466,6 +13474,7 @@ __metadata:
     gatsby-source-filesystem: ^4.13.0
     gatsby-transformer-json: ^4.13.0
     gatsby-transformer-sharp: ^4.13.0
+    github-slugger: ^1.4.0
     jest: ^27.5.1
     launchdarkly-js-client-sdk: ^2.22.1
     lodash.debounce: ^4.0.8
@@ -13482,6 +13491,7 @@ __metadata:
     remark-slug: ^6.1.0
     remark-unwrap-images: ^2.1.0
     rimraf: ^3.0.2
+    scanfs: ^1.1.1
     search-insights: ^2.2.1
     slug: ^5.3.0
     theme-ui: ^0.14.5
@@ -13527,7 +13537,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"github-slugger@npm:^1.0.0, github-slugger@npm:^1.2.1":
+"github-slugger@npm:^1.0.0, github-slugger@npm:^1.2.1, github-slugger@npm:^1.4.0":
   version: 1.4.0
   resolution: "github-slugger@npm:1.4.0"
   checksum: 4f52e7a21f5c6a4c5328f01fe4fe13ae8881fea78bfe31f9e72c4038f97e3e70d52fb85aa7633a52c501dc2486874474d9abd22aa61cbe9b113099a495551c6b
@@ -20984,6 +20994,13 @@ __metadata:
   dependencies:
     xmlchars: ^2.2.0
   checksum: 5636b55cf15f7cf0baa73f2797bf992bdcf75d1b39d82c0aa4608555c774368f6ac321cb641fd5f3d3ceb87805122cd47540da6a7b5960fe0dbdb8f8c263f000
+  languageName: node
+  linkType: hard
+
+"scanfs@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "scanfs@npm:1.1.1"
+  checksum: b1d6306514fd40b36260994d743bd529a75e92d47f68e57e87bee82b5356e7f7f0579f3bb560ccd8207e027c14f9c2211f3e66baaff3dbe4219577d9c1903418
   languageName: node
   linkType: hard
 
