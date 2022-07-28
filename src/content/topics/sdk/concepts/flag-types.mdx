@@ -78,13 +78,13 @@ Custom attributes follow the same patterns as LaunchDarkly flag types. The value
 * string
 * array
 
-If you set the value of a custom attribute to a JSON object, it won't appear on your Users dashboard.
+If you set the value of a custom attribute to a JSON object, it won't appear on your **Users** dashboard.
 
 Number custom attributes are subject to the same restrictions as number flags. For example, if you define a flag targeting rule where `myCustomAttribute` is one of `0.3`, users with an attribute value of `0.3` may not be correctly targeted because 0.3 can't be exactly represented in binary floating point.
 
 Like number flags, LaunchDarkly truncates custom attribute number values to the first 16 digits. If you define a flag targeting rule where `myCustomAttribute` is one of `1234567812345678999999`, LaunchDarkly will target users with an attribute value of `1234567812345678999998`, because both the flag rule and the user attribute value are truncated to `1234567812345678`.
 
-To learn more about custom attributes, read [Setting custom user attributes](/home/users/attributes#setting-custom-user-attributes).
+To learn more about custom attributes, read [Custom user attributes](/home/users/custom-attributes).
 
 ## Using strongly-typed SDKs
 
@@ -129,9 +129,28 @@ Date/time and semantic version operators have individual rules because JSON does
 
 LaunchDarkly uses two ways to represent a date/time value:
 
-- A number, not a numeric string, that is treated as a millisecond offset from the Unix epoch. For example, 1400967000000 is equivalent to 2014/05/24 15:30:00 PST.
+- A number, not a numeric string, that is treated as a millisecond offset from the Unix epoch. For example, 1400967000000 is equivalent to 2014/05/24 15:30:00 PST. To learn more about UNIX date formatting, or convert a date and time to UNIX milliseconds, read [Current Millis](https://currentmillis.com/).
 - A string in RFC-3339 format, with no more than nine digits of fractional seconds. For example: `2014-05-24T15:30:00.000-08:00`. To learn more about RFC-3339 format, read [Date and Time on the Internet: Timestamps](https://datatracker.ietf.org/doc/html/rfc3339).
 
 ### Using semantic versions
 
 A value must be a string, not a numeric value, to be parsed as a semantic version. Semantic version syntax is defined by the Semantic Versioning 2.0.0 standard with the following addition: a string containing only two version components (”2.0”) is treated as if it had a suffix of .0 (”2.0.0”). To learn more, read [Semantic Versioning 2.0.0](https://semver.org/).
+
+Server-side SDKs must be the following minimum version or higher to support semantic versioning:
+
+- .NET: 3.6.1
+- Apex: all versions
+- C/C++: all versions
+- Erlang: all versions
+- Go: v3
+- Java: 2.6.0
+- Haskell: all versions
+- Lua: all versions
+- Node.js: all versions
+- PHP: 2.5.0
+- Node: 3.4.0
+- Python: 4.3.0
+- Ruby: 2.5.0
+- Rust: 1.0.0-beta.1
+
+No updates are required for client-side SDKs.

@@ -22,15 +22,15 @@ When you set a user key, consider where you will use it. User keys are transmitt
 
 Attributes other than the user key are optional. There are two types of attributes: built-in attributes, which are LaunchDarkly names, and custom attributes, which you can name anything you choose.
 
-Built-in attributes include common identifiers for users, like `firstName` and `email`. For a list of all built-in user attributes LaunchDarkly supports, read [Understanding user attributes](/home/users/attributes#understanding-user-attributes).
+Built-in attributes include common identifiers for users, like `firstName` and `email`. For a list of all built-in user attributes LaunchDarkly supports, read [Built-in user attributes](/home/users/built-in-attributes).
 
-Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Custom attributes values can be booleans, numbers, strings, or arrays. If you set the value of a custom attribute to a JSON object, it won't appear on your **Users** dashboard. To learn more, read [Setting custom user attributes](/home/users/attributes#setting-custom-user-attributes).
+Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Custom attributes values can be booleans, numbers, strings, or arrays. If you set the value of a custom attribute to a JSON object, it won't appear on your **Users** dashboard. To learn more, read [Custom user attributes](/home/users/custom-attributes).
 
 <Callout intent="alert">
 <CalloutTitle>Custom and built-in attributes cannot share keys</CalloutTitle>
 <CalloutDescription>
 
-If you create a custom attribute with a key already in use by a built-in attribute, the SDK will behave unpredictably during feature flag evaluation. For a list of built-in attributes and their keys, read [Understanding user attributes](/home/users/attributes#understanding-user-attributes).
+If you create a custom attribute with a key already in use by a built-in attribute, the SDK will behave unpredictably during feature flag evaluation. For a list of built-in attributes and their keys, read [Built-in user attributes](/home/users/built-in-attributes).
 
 </CalloutDescription>
 </Callout>
@@ -241,7 +241,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the Android SDK
 ---
 
-You can optionally configure the Android SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Android SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Android SDK you can define private attributes for the entire LaunchDarkly client. When creating the `LDConfig` object, call the `setPrivateAttributeNames` method, which which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this set, the SDK removes it before sending the user to LaunchDarkly.
 
@@ -402,7 +402,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the C/C++ SDK
 ---
 
-You can optionally configure the C/C++ SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the C/C++ SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the C/C++ SDK there are two ways to define private attributes for the LaunchDarkly client:
 
@@ -708,7 +708,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the Flutter SDK
 ---
 
-Optionally, you can configure the Flutter SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). You can use private user attributes for targeting purposes. They are removed from the user data sent back to LaunchDarkly.
+Optionally, you can configure the Flutter SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). You can use private user attributes for targeting purposes. They are removed from the user data sent back to LaunchDarkly.
 
 In the Flutter SDK, you can define private attributes for the **entire** LaunchDarkly client. When you create the `LDConfig` object, you can call the `setPrivateAttributeNames` method, which which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this set, the SDK removes it before sending the user to LaunchDarkly.
 
@@ -970,7 +970,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the JavaScript SDK
 ---
 
-You can optionally configure the JavaScript SDK to treat all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the JavaScript SDK to treat all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 To mark all user attributes except the key as private in the JavaScript SDK, you can use the `allAttributesPrivate` option:
 
@@ -1706,7 +1706,7 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 #### Private user attributes in the Apex SDK
 ---
 
-Optionally, you can configure the Apex SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). You can use private user attributes for targeting, but they are redacted from the user data sent back to LaunchDarkly.
+Optionally, you can configure the Apex SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). You can use private user attributes for targeting, but they are redacted from the user data sent back to LaunchDarkly.
 
 In the Apex SDK there are two ways to define private attributes for the LaunchDarkly client:
 
@@ -1816,7 +1816,7 @@ When you are done with an `LDUser` ensure that you free the structure.
 #### Private user attributes in the C/C++ SDK
 ---
 
-You can optionally configure the C/C++ SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the C/C++ SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the C/C++ SDK there are three ways to define private attributes for the LaunchDarkly client:
 
@@ -1967,7 +1967,7 @@ You must still generate a unique key for anonymous users. We recommend using Ses
 
 You can configure the Erlang SDK to treat some or all user attributes as private user attributes. You can use private user attributes to target users without sending data associated with that user back to LaunchDarkly.
 
-To learn more about private user attributes, read [Setting user attributes](/home/users/attributes).
+To learn more about private user attributes, read [Using private user attributes](/home/users/attributes#using-private-user-attributes).
 
 When you create the Options map, use the `private_attributes` key to set private user attributes. When you do this, the SDK does not send the user attributes you specify to LaunchDarkly.
 
@@ -2052,7 +2052,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the Go SDK
 ---
 
-You can optionally configure the Go SDK to treat some or all user attributes as [Private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Go SDK to treat some or all user attributes as [Private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Go SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
@@ -2187,7 +2187,7 @@ The argument to `makeUser` is the user's key. The key should uniquely identify e
 
 Optionally, you can configure the Haskell SDK to treat some or all user attributes as private user attributes. You can use private user attributes for targeting purposes without sending data about the user associated with them back to LaunchDarkly.
 
-To learn more about private user attributes, read [Setting user attributes](/home/users/attributes).
+To learn more about private user attributes, read [Using private user attributes](/home/users/attributes#using-private-user-attributes).
 
 When you create the `Config` object, use `configSetAllAttributesPrivate` to set all user attributes as private. When you do this, all user attributes (except the key) are removed before the SDK sends the user to LaunchDarkly.
 
@@ -2320,7 +2320,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the Java SDK
 ---
 
-You can optionally configure the Java SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Java SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Java SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
@@ -2621,7 +2621,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the PHP SDK
 ---
 
-You can optionally configure the PHP SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the PHP SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the PHP SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
@@ -2721,7 +2721,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the Python SDK
 ---
 
-You can optionally configure the Python SDK to treat some or all user attributes as [Private user attribute](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Python SDK to treat some or all user attributes as [Private user attribute](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Python SDK there are two ways to define private attributes for the LaunchDarkly client:
 
@@ -2830,7 +2830,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the Ruby SDK
 ---
 
-You can optionally configure the Ruby SDK to treat some or all user attributes as [Private user attributes](/home/users/attributes#creating-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Ruby SDK to treat some or all user attributes as [Private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Ruby SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 

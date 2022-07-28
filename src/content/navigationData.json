@@ -172,8 +172,18 @@
             "path": "/home/users/users-dashboard"
           },
           {
-            "label": "Setting user attributes",
-            "path": "/home/users/attributes"
+            "label": "User attributes",
+            "path": "/home/users/attributes",
+            "items": [
+              {
+                "label": "Built-in user attributes",
+                "path": "/home/users/built-in-attributes"
+              },
+              {
+                "label": "Custom user attributes",
+                "path": "/home/users/custom-attributes"
+              }
+            ]
           },
           {
             "label": "User segments",
