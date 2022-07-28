@@ -309,7 +309,7 @@ When SSO is in test-drive mode, you can test authentication through your IdP, bu
 To use SSO in test-drive mode:
 
 1. Log into LaunchDarkly as an administrator.
-2. Navigate to **Account settings** > **Security** and scroll to the "SSO management" section.
+2. Navigate to the "SSO management" section of the [**Security**](https://app.launchdarkly.com/settings/security) tab on the **Account settings** page.
 3. Click **Simulate SSO**. This performs the same authentication request flow that occurs for LaunchDarkly-initiated SSO logins:
 
 ![The test-drive enablement option.](settings-security-sso-test-drive.png)
@@ -317,32 +317,32 @@ To use SSO in test-drive mode:
 
 ## Turning on SSO
 
-When you're satisfied with the SSO integration and are ready to turn it on for all account members in LaunchDarkly, turn on SSO by following the procedure below.
+When you're satisfied with the SSO integration and are ready to turn it on for all account members in LaunchDarkly, you can turn on SSO.
 
 To turn on SSO:
 
 1. Log into LaunchDarkly as an administrator.
-2. Navigate **Account settings** > **Security** and scroll to the "SSO management" section.
+2. Navigate to the "SSO management" section of the [**Security**](https://app.launchdarkly.com/settings/security) tab on the **Account settings** page.
 3. Click **Turn on SSO**. A confirmation dialog appears.
 4. Click **Turn on**:
 
 ![The "Enable SSO" confirmation dialog.](settings-security-enable-sso-confirm.png)
 
 
-Once SSO is turned on, the LaunchDarkly login procedure defers to your identity provider for authentication. Members will no longer be able to log in with their existing LaunchDarkly password, and members logging in to LaunchDarkly for the first time will need to log in through their IdP.
+After you turn on SSO, the LaunchDarkly login procedure defers to your identity provider for authentication. Members will no longer be able to log in with their existing LaunchDarkly password, and members logging in to LaunchDarkly for the first time will need to log in through their IdP.
 
 Additionally, LaunchDarkly administrator and account owners will no longer be able to invite members to the organization. The only way to add additional account members is to have them log in through your IdP.
 
 ## Turning off SSO
 
-You can turn off SSO at any time. When SSO is turned off, any existing members will still be able to sign into LaunchDarkly with their previous passwords, or reset their passwords.
+You can turn off SSO at any time. When you turn off SSO, any existing members will still be able to sign into LaunchDarkly with their previous passwords, or reset their passwords.
 
-Users that were provisioned through SSO will be required to reset their password in order to sign into LaunchDarkly.
+LaunchDarkly will require users that were provisioned through SSO to reset their password to sign into LaunchDarkly.
 
 To turn off SSO:
 
 1. Log into LaunchDarkly as an administrator.
-2. Navigate **Account settings** > **Security** and scroll to the "SSO management" section.
+2. Navigate to the "SSO management" section of the [**Security**](https://app.launchdarkly.com/settings/security) tab on the **Account settings** page.
 3. Click **Turn off SSO**. A confirmation dialog appears.
 4. Click **Turn off**:
 
@@ -376,7 +376,7 @@ You can disconnect SCIM at any time.
 To disconnect SCIM:
 
 1. Log into LaunchDarkly as an administrator.
-2. Navigate **Account settings** > **Security** and scroll to the "SSO management" section.
+2. Navigate to the "SSO management" section of the [**Security**](https://app.launchdarkly.com/settings/security) tab on the **Account settings** page.
 3. Click **Disconnect SCIM**.
 
 ## Team sync with IdP
@@ -412,6 +412,6 @@ To turn on team sync in LaunchDarkly:
 
 You can now manage teams within the admin panel of Okta. Teams you have synced with Okta have limited team management permissions in LaunchDarkly. 
 
-You can tell which teams you have synced on the **Teams** tab in the "Synced with (IdP)" column:
+You can tell which teams you have synced on the **Teams** tab in the "Synced with Okta" column:
 
-![The "Synced with (IdP)" column on the "Teams" tab.](teams-synced-with-idp.png)
+![The "Synced with Okta" column on the "Teams" tab.](teams-synced-with-idp.png)
