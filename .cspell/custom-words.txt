@@ -264,6 +264,7 @@ unixtime
 unlaunched
 unregistering
 unstarted
+unsync
 unsynced
 untargeted
 unthrottled
