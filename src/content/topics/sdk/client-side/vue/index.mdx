@@ -102,7 +102,7 @@ Install the Vue SDK using either `npm` or `yarn`:
 <CodeTabItem value="js">
 
 ```bash
-npm install launchdarkly-vue-client-sdk
+npm install --save launchdarkly-vue-client-sdk
 ```
 
 </CodeTabItem>
@@ -210,7 +210,6 @@ Here's how:
 
 ```html
 <script setup lang="ts">
-  import { inject } from 'vue'
   import { useLDReady } from 'launchdarkly-vue-client-sdk'
 
   const ldReady = useLDReady()
