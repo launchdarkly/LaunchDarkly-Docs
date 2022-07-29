@@ -206,7 +206,7 @@ These steps ensure that the PII no longer exists in LaunchDarkly. The PII attrib
 
 When your product uses LaunchDarkly JavaScript SDKs, users can minimize the data that they send to LaunchDarkly by configuring their browser to prevent sending analytics data.
 
-This works because the JavaScript SDK sends data to the feature flag API (app.launchdarkly.com), the streaming API (stream.launchdarkly.com), and the analytics API (events.launchdarkly.com). Users can block the analytics API to reduce the amount of data they provide to LaunchDarkly, but the feature flag API and analytics API are necessary for LaunchDarkly to work.
+This works because the JavaScript SDK sends data to the feature flag API (`app.launchdarkly.com`), the streaming API (`stream.launchdarkly.com`), and the analytics API (`events.launchdarkly.com`). Users can block the analytics API to reduce the amount of data they provide to LaunchDarkly, but the feature flag API and analytics API are necessary for LaunchDarkly to work.
 
 ### Do Not Track
 
@@ -218,7 +218,7 @@ Individual users can enable DNT in their browsers. LaunchDarkly complies with DN
 
 If users configure ad blockers in their browsers, they can prevent analytics information from being transmitted to LaunchDarkly. However, because ad blockers are third-party products, LaunchDarkly cannot control how they implement their restrictions.
 
-If you use an ad blocker, some feature flags may not work because the ad blocker incorrectly blocks access to app.launchdarkly.com or stream.launchdarkly.com when it should only be blocking outbound connections to events.launchdarkly.com.
+If you use an ad blocker, some feature flags may not work because the ad blocker incorrectly blocks access to `app.launchdarkly.com` or `stream.launchdarkly.com` when it should only be blocking outbound connections to `events.launchdarkly.com`.
 
 Although ad blockers often block LaunchDarkly analytics data, LaunchDarkly analytics data is not used for ad targeting or tracking. To learn more, read our [Privacy Policy](https://launchdarkly.com/policies/privacy/).
 

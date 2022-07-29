@@ -71,7 +71,7 @@ Flag updates are triggered when you make changes on your flag dashboard, and arr
 2. **By polling LaunchDarkly's evaluation API**: The SDK implementor should periodically poll this resource. We recommend making one call every thirty seconds. At a minimum, you must throttle the implementation to make at most one call per second. Use [ETags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This resource may return caching headers. This call must include an `Authorization` header with value `${mobile_key}`, where `${mobile_key}` is the mobile key the client application passed to the LaunchDarkly client configuration. 
 
   There are two ways to use this method:
-  * **Using a `GET` request**: poll `hhttps://clientsdk.launchdarkly.com/msdk/evalx/users/<user>`. Replace the `user` variable with the base64-encoded, URL-safe version of the user's JSON object.
+  * **Using a `GET` request**: poll `https://clientsdk.launchdarkly.com/msdk/evalx/users/<user>`. Replace the `user` variable with the base64-encoded, URL-safe version of the user's JSON object.
   * **Using a `REPORT` request**: poll `https://clientsdk.launchdarkly.com/msdk/evalx/user`. Not all HTTP clients support `REPORT` requests.
 
 ## Evaluating feature flags
