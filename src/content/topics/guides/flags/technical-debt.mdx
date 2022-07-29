@@ -67,7 +67,7 @@ Cluttered code is harder to maintain and test. Unnecessary code remains because 
 
 Not only do you want to remove the references to the flag in your code, but you also don’t want to send evaluation settings for flags you don’t need. When you use features like Data Export to track the impact of your rollouts, your database may be overwhelmed with unnecessary event data. You don't want to transfer and store data on flags that should have been archived three months ago.
 
-Failure to remove flags clutters your flag dashboard, as well as your code. You can’t quickly find the flag you need to toggle. This may seem like a minor inconvenience, but if you need to quickly toggle a flag off, having to scroll through hundreds of flags adds time. But cluttered code and dashboards aren’t the only challenges.
+Failure to remove flags clutters your flags list, as well as your code. You can’t quickly find the flag you need to toggle. This may seem like a minor inconvenience, but if you need to quickly toggle a flag off, having to scroll through hundreds of flags adds time. But cluttered code and extensive flags lists aren’t the only challenges.
 
 You also run the risk of an old flag evaluating to a state that is invalid or undesirable. When you’re rolling out a new change such as an updated user interface (UI), it is common to keep the current UI as the default version until you have confidence in the new one. Once the flag is serving 100% of users the new UI, the flag has reached the end of its lifecycle and should be archived. Failure to do this runs the risk of falling back to the undesired old UI if a flag gets turned off or an SDK failure results in using the fallback value.
 
@@ -75,7 +75,7 @@ Test the fallback values of permanent flags periodically to ensure they are up t
 
 ## Understanding the flag's lifecycle
 
-The flag dashboard provides the status of every flag and when it was last evaluated. Statuses include:
+The flags list provides the status of every flag and when it was last evaluated. Statuses include:
 
 - **New/Never Requested**: This flag has not yet been evaluated. This status most commonly appears for newly created flags.
 - **Active**: LaunchDarkly is currently receiving requests for the flag using your production SDK.
@@ -169,7 +169,7 @@ Here is an image of a flag filter:
 
 Here is how to filter and archive temporary flags by status:
 
-1. Navigate to the feature flag dashboard and click **Filter**.
+1. Navigate to the feature flags list and click **Filter**.
 2. Choose "Status" from the **Add a filter to refine your search** menu:
 
 ![The filter menu, with "Status" highlighted.](filter-by-status.png)
@@ -180,7 +180,7 @@ Here is how to filter and archive temporary flags by status:
 
 ![Changing the filtered "Status" to "Inactive."](change-filter.png)
 
-In addition to flag status, you can also filter by flags that you personally maintain. You can save your dashboard filter configurations to return to later, making it easy to regularly check for flags to archive. To learn how, read [Saving dashboards](/home/organize/dashboard#saving-dashboards).
+In addition to flag status, you can also filter by flags that you personally maintain. You can save your list filter configurations to return to later, making it easy to regularly check for flags to archive. To learn how, read [Saving filtered flags lists](/home/organize/flags-list#saving-filtered-flags-lists).
 
 ### Marking flags as permanent
 
@@ -219,14 +219,14 @@ To learn more about integrating flag archiving behavior into your feature develo
 
 ### Using code references to find and remove references to flags
 
-Archiving a flag removes it from the flag dashboard and your app's users no longer encounter it.
+Archiving a flag removes it from the flags list and your app's users no longer encounter it.
 
 Before you do this, remove the flag from your codebase. Code references let you quickly find where in your source code feature flags are referenced. This simplifies the process of finding code to remove in projects and files.
 
 To access code references:
 
-1. Navigate to the flag dashboard and find the flag you wish to remove.
-2. Click the flag's name to open the flag dashboard.
+1. Navigate to the flags list and find the flag you wish to remove.
+2. Click the flag's name to open the flags list.
 3. Click the **Code references** tab:
 
 ![The "Code references" tab of a feature flag.](flag-code-references.png)

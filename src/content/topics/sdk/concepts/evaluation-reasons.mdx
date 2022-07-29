@@ -10,9 +10,9 @@ published: true
 
 This topic explains how to use LaunchDarkly to determine why a user receives a given flag variation. It can be useful to have this information when you're diagnosing problems or doing analysis of the impact of different flags.
 
-You can access this information programmatically from your SDK or from Data Export events. To learn more about Data Export, read [Data Export](/home/data-export). 
+You can access this information programmatically from your SDK or from Data Export events. To learn more about Data Export, read [Data Export](/home/data-export).
 
-You can also view evaluation reasons on a user's page. To learn how, read [Modifying feature flags for a user](/home/users/users-dashboard#modifying-feature-flags-for-a-user).
+You can also view evaluation reasons on a user's page. To learn how, read [Modifying feature flags for a user](/home/users/users-list#modifying-feature-flags-for-a-user).
 
 ## Accessing flag variation information programmatically
 
@@ -47,8 +47,7 @@ These values are:
         <code>OFF</code>
       </TableCell>
       <TableCell>
-        The flag is off and therefore returned its configured off value. This value appears on the dashboard next to "If
-        targeting is off, serve:".
+        The flag is off and therefore returned its configured off value. This value appears on the flag's <strong>Targeting</strong> tab next to "If targeting is off, serve:".
       </TableCell>
     </TableRow>
     <TableRow>
@@ -56,9 +55,7 @@ These values are:
         <code>FALLTHROUGH</code>
       </TableCell>
       <TableCell>
-        The flag is on, but the user did not match any targets or rules, so it returned the value that appears on the
-        dashboard under "Default rule." The "default rule" is not the same thing as the default value discussed in
-        "Error conditions."
+        The flag is on, but the user did not match any targets or rules, so it returned the value that appears on the flag's <strong>Targeting</strong> tab under "Default rule." The "default rule" is not the same thing as the default value discussed in "Error conditions."
       </TableCell>
     </TableRow>
     <TableRow>
@@ -112,7 +109,7 @@ For a list of SDKs that support experiment allocation, read [Allocating experime
 
 If the `kind` is `ERROR`, it means that the SDK was unable to select any of the flag's variations. This is an abnormal occurrence.
 
-In this case, the returned flag value is default value that you specified in your code, which is the last parameter of the method you called to evaluate the flag, rather than any value that you specified on your dashboard. In addition, the variation index will be `null/nil`.
+In this case, the returned flag value is default value that you specified in your code, which is the last parameter of the method you called to evaluate the flag, rather than any value that you specified on your flag's **Targeting** tab. In addition, the variation index will be `null/nil`.
 
 When there is an error, the reason object also has an `errorKind` property which will be one of the following:
 

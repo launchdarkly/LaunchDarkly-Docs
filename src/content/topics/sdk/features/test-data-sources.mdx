@@ -27,7 +27,7 @@ The test data source is intended strictly for testing purposes. It cannot be use
 
 You can set a flag's initial state by calling the data source's `update` method before or after starting the client. When you start the client, it acts as if it has connected to LaunchDarkly and received all of the test data that you have configured. Subsequent calls to `update` behave as if LaunchDarkly sent an update over a streaming connection.
 
-You can modify targeting rules at any time, including when the SDK is already in use. This allows you to simulate a situation where a feature flag changes values. When you set a flag's state in the test data source, you can either set it to return a single variation for all users, or set up more complicated behavior similar to the ways you can configure a flag in the flag dashboard. This can be useful in testing application code that expects flags to be different for different users.
+You can modify targeting rules at any time, including when the SDK is already in use. This allows you to simulate a situation where a feature flag changes values. When you set a flag's state in the test data source, you can either set it to return a single variation for all users, or set up more complicated behavior similar to the ways you can configure a flag in the flags list. This can be useful in testing application code that expects flags to be different for different users.
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 

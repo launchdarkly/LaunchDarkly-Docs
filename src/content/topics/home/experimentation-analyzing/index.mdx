@@ -12,7 +12,7 @@ This topic explains how to read an experiment's results in the flag's Experiment
 
 ## Understanding experiments as they run
 
-When your experiments are running, you can view information about them on the **Experiments** dashboard or on the related flag's **Experimentation** tab. The **Experimentation** tab displays all the experiments a flag is participating in, including both experiments that are currently recording and experiments that are stopped.
+When your experiments are running, you can view information about them on the **Experiments** list or on the related flag's **Experimentation** tab. The **Experimentation** tab displays all the experiments a flag is participating in, including both experiments that are currently recording and experiments that are stopped.
 
 Here are some things you can do with each experiment:
 
@@ -41,7 +41,7 @@ You can also use the REST API: [Get experiment results](https://apidocs.launchda
 
 </LearnMore>
 
-In each metrics results table you can view metric event values per unique user as an average or a sum, depending on your needs. 
+In each metrics results table you can view metric event values per unique user as an average or a sum, depending on your needs.
 
 Here's the **View metric event values per unique user as** option in a metric results table:
 
@@ -74,7 +74,7 @@ To learn more, read [Data Export](/home/data-export).
 
 A conversion is when a user action provides a measurable value for a metric. For example, if a metric is tracking clicks on a checkout button, LaunchDarkly registers a conversion each time a user clicks the button. The SDK sends a track call to register the conversion in LaunchDarkly.
 
-LaunchDarkly uses variation calls to correlate the variation a user received to a conversion within a 90-day window. If there are more than 90 days between the time of a variation call and a track call on a user key, then LaunchDarkly does not register the metric in the experiment. 
+LaunchDarkly uses variation calls to correlate the variation a user received to a conversion within a 90-day window. If there are more than 90 days between the time of a variation call and a track call on a user key, then LaunchDarkly does not register the metric in the experiment.
 
 To learn more about variation calls, read [Evaluating flags](/sdk/features/evaluating). To learn more about track calls, read [Sending custom events](/sdk/features/events).
 

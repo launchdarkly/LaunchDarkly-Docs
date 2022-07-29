@@ -28,7 +28,7 @@ The SDKs can use either of the following mechanisms to populate a feature flag s
 
 ### Receiving flag updates in server-side SDKs
 
-Flag updates are triggered when you make changes on your flag dashboard, and arrive by one of two mechanisms:
+Flag updates are triggered when you make changes on your flags list, and arrive by one of two mechanisms:
 
 1. **Through LaunchDarkly's streaming API**: A server-side SDK can subscribe to our streaming API at `https://stream.launchdarkly.com/all`. This call must include an `Authorization` header with the value `${sdk_key}`, where `${sdk_key}` is the SDK key the client application passes to the LaunchDarkly client configuration. Our streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events).
 
@@ -42,7 +42,7 @@ Additionally, server-side SDKs often support a mechanism for receiving feature f
 
 This section corresponds to a subset of LaunchDarkly's client-side SDKs. To learn more about the client-side ID, read [Keys](/sdk/concepts/client-side-server-side#keys).
 
-Flag updates are triggered when you make changes on your flag dashboard, and arrive by one of two mechanisms:
+Flag updates are triggered when you make changes on your flags list, and arrive by one of two mechanisms:
 
 1. **Through LaunchDarkly's streaming API**: LaunchDarkly's streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events).
 
@@ -60,7 +60,7 @@ Flag updates are triggered when you make changes on your flag dashboard, and arr
 
 This section corresponds to a subset of LaunchDarkly's client-side SDKs. To learn more about the mobile key, read [Keys](/sdk/concepts/client-side-server-side#keys).
 
-Flag updates are triggered when you make changes on your flag dashboard, and arrive by one of two mechanisms:
+Flag updates are triggered when you make changes on your flags list, and arrive by one of two mechanisms:
 
 1. **Through LaunchDarkly's streaming API**: LaunchDarkly's streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events). This call must include an Authorization header with the value ${mobile_key}, where ${mobile_key} is the mobile key the client application passes to the LaunchDarkly client configuration.
 
@@ -68,7 +68,7 @@ Flag updates are triggered when you make changes on your flag dashboard, and arr
   * **Using a `GET` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/meval/<user>`. Replace the `user` variable with the base64-encoded, URL-safe version of the user's JSON object.
   * **Using a `REPORT` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/meval`. Not all HTTP clients support `REPORT` requests.
 
-2. **By polling LaunchDarkly's evaluation API**: The SDK implementor should periodically poll this resource. We recommend making one call every thirty seconds. At a minimum, you must throttle the implementation to make at most one call per second. Use [ETags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This resource may return caching headers. This call must include an `Authorization` header with value `${mobile_key}`, where `${mobile_key}` is the mobile key the client application passed to the LaunchDarkly client configuration. 
+2. **By polling LaunchDarkly's evaluation API**: The SDK implementor should periodically poll this resource. We recommend making one call every thirty seconds. At a minimum, you must throttle the implementation to make at most one call per second. Use [ETags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This resource may return caching headers. This call must include an `Authorization` header with value `${mobile_key}`, where `${mobile_key}` is the mobile key the client application passed to the LaunchDarkly client configuration.
 
   There are two ways to use this method:
   * **Using a `GET` request**: poll `https://clientsdk.launchdarkly.com/msdk/evalx/users/<user>`. Replace the `user` variable with the base64-encoded, URL-safe version of the user's JSON object.

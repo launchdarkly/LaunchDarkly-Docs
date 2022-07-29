@@ -22,7 +22,7 @@ LaunchDarkly provides two types of user attributes:
 
 To learn more, read [Built-in user attributes](/home/users/built-in-attributes) and [Custom user attributes](/home/users/custom-attributes).
 
-By default, a user's values for both types of user attributes are displayed on the **Users** dashboard. You can mark any user attribute as private if you only want to use it during flag evaluation, and do not want to display it here. To learn more, read [Using private user attributes](#using-private-user-attributes).
+By default, a user's values for both types of user attributes are displayed on the **Users** list. You can mark any user attribute as private if you only want to use it during flag evaluation, and do not want to display it here. To learn more, read [Using private user attributes](#using-private-user-attributes).
 
 ## Targeting based on user attributes
 
@@ -40,7 +40,7 @@ By default, all of the attributes in your user objects are sent to LaunchDarkly.
 
 You can change the value of an attribute for a user at any point. To learn more, read [Identifying and changing users](/sdk/features/identify).
 
-You can access user pages from the **Users** dashboard. To learn how, read [The Users dashboard](/home/users/users-dashboard).
+You can access user pages from the **Users** list. To learn how, read [The Users list](/home/users/users-list).
 
 Here is a user page in the LaunchDarkly UI:
 
@@ -53,10 +53,10 @@ You can also use the REST API: [Get user](https://apidocs.launchdarkly.com/tag/U
 </LearnMore>
 
 <Callout intent="alert">
-<CalloutTitle>The SDK does not use the attributes on the <strong>Users</strong> dashboard to evaluate flags</CalloutTitle>
+<CalloutTitle>The SDK does not use the attributes on the <strong>Users</strong> list to evaluate flags</CalloutTitle>
 <CalloutDescription>
 
-The SDK only evaluates flags based on the user object you provide in the evaluation call. The SDK does not use the attributes shown on the dashboard, and user attributes are not synchronized across SDK instances. You must provide all applicable user attributes for your targeting rules to apply correctly. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+The SDK only evaluates flags based on the user object you provide in the evaluation call. The SDK does not use the attributes shown on the <strong>Users</strong> list, and user attributes are not synchronized across SDK instances. You must provide all applicable user attributes for your targeting rules to apply correctly. To learn more, read [Evaluating flags](/sdk/features/evaluating).
 
 </CalloutDescription>
 </Callout>
@@ -65,15 +65,15 @@ The SDK only evaluates flags based on the user object you provide in the evaluat
 
 You may not want to send all attributes back to, or store all attributes in, LaunchDarkly. The security or data protection requirements of your organization may require you to limit what customer or user data is transmitted to or stored within a third-party platform like LaunchDarkly.
 
-For example, you may want to target customers by their personally identifying information (PII), such as their email address. You can mark the email address attribute as private, but still use it in targeting rules and segments. 
+For example, you may want to target customers by their personally identifying information (PII), such as their email address. You can mark the email address attribute as private, but still use it in targeting rules and segments.
 
-The dashboard indicates private attributes with a lock icon:
+The **Users** list indicates private attributes with a lock icon:
 
-![The "Users" dashboard with a private attribute called out.](users-private-attribute-callout.png)
+![The "Users" list with a private attribute called out.](users-private-attribute-callout.png)
 
 If you are using a server-side SDK, the SDK will not send the private attribute back to LaunchDarkly.
 
-If you are using a client-side SDK, the SDK will send the private attribute back to LaunchDarkly for evaluation. However, the SDK won't send the attribute to LaunchDarkly in events data, LaunchDarkly won't store the private attribute, and the private attribute will not appear on the **Users** dashboard.
+If you are using a client-side SDK, the SDK will send the private attribute back to LaunchDarkly for evaluation. However, the SDK won't send the attribute to LaunchDarkly in events data, LaunchDarkly won't store the private attribute, and the private attribute will not appear on the **Users** list.
 
 ### Configuring private attribute settings in your SDK
 
@@ -85,7 +85,7 @@ There are three different ways to configure private attributes:
 
 User keys cannot be marked private.
 
-If you initially mark an attribute as private, LaunchDarkly will continue to treat the attribute as private in subsequent evaluations as long as the user is on the dashboard, even if you later remove the "private" designation from the attribute. If you no longer want LaunchDarkly to treat the attribute as private, remove the "private" designation, delete the user from the **Users** dashboard, and re-evaluate the user.
+If you initially mark an attribute as private, LaunchDarkly will continue to treat the attribute as private in subsequent evaluations as long as the user is on the **Users** list, even if you later remove the "private" designation from the attribute. If you no longer want LaunchDarkly to treat the attribute as private, remove the "private" designation, delete the user from the **Users** list, and re-evaluate the user.
 
 To learn more about setting these configuration options, read your SDK's documentation.
 

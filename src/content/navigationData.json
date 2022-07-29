@@ -96,8 +96,8 @@
         "svg": "toggles-multiple-solid",
         "items": [
           {
-            "label": "The flag dashboard",
-            "path": "/home/organize/dashboard"
+            "label": "The flags list",
+            "path": "/home/organize/flags-list"
           },
           {
             "label": "Projects",
@@ -168,8 +168,8 @@
         "svg": "chart-pie",
         "items": [
           {
-            "label": "The Users dashboard",
-            "path": "/home/users/users-dashboard"
+            "label": "The Users list",
+            "path": "/home/users/users-list"
           },
           {
             "label": "User attributes",

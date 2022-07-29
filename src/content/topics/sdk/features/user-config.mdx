@@ -12,7 +12,7 @@ This topic explains how to configure user objects in LaunchDarkly SDKs. These fe
 
 ## Configuring user objects
 
-Every LaunchDarkly SDK lets you configure user objects to return specific data to LaunchDarkly. Any attributes you pass to LaunchDarkly become available on the **Users** dashboard. A user's attribute values determine which variation of a feature flag the user receives.
+Every LaunchDarkly SDK lets you configure user objects to return specific data to LaunchDarkly. Any attributes you pass to LaunchDarkly become available on the **Users** list. A user's attribute values determine which variation of a feature flag the user receives.
 
 The user `key` is the only mandatory user attribute. User keys must be unique, deterministic, and should not contain Personally Identifiable Information (PII). User keys must be consistent, which means the same person must correspond to the same user key across different services to contribute to consistent flag evaluations and accurate monthly active user (MAU) counts.
 
@@ -24,7 +24,7 @@ Attributes other than the user key are optional. There are two types of attribut
 
 Built-in attributes include common identifiers for users, like `firstName` and `email`. For a list of all built-in user attributes LaunchDarkly supports, read [Built-in user attributes](/home/users/built-in-attributes).
 
-Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Custom attributes values can be booleans, numbers, strings, or arrays. If you set the value of a custom attribute to a JSON object, it won't appear on your **Users** dashboard. To learn more, read [Custom user attributes](/home/users/custom-attributes).
+Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Custom attributes values can be booleans, numbers, strings, or arrays. If you set the value of a custom attribute to a JSON object, it won't appear on your **Users** list. To learn more, read [Custom user attributes](/home/users/custom-attributes).
 
 <Callout intent="alert">
 <CalloutTitle>Custom and built-in attributes cannot share keys</CalloutTitle>
@@ -41,7 +41,7 @@ Each SDK lets you configure users with private attributes. You can use private u
 
 ### Designating anonymous users
 
-Each SDK lets you designate anonymous users. Anonymous users don't appear on your **Users** dashboard, so you can't search for those users, and you can't search for or autocomplete by anonymous user keys. If you use the same user key for every anonymous user, you also can't use Experimentation with anonymous users, because tracking events are attributed to the user key.
+Each SDK lets you designate anonymous users. Anonymous users don't appear on your **Users** list, so you can't search for those users, and you can't search for or autocomplete by anonymous user keys. If you use the same user key for every anonymous user, you also can't use Experimentation with anonymous users, because tracking events are attributed to the user key.
 
 In client-side SDKs, if you don't provide a user key or set it to null, and set `anonymous` to `true`, then the SDK generates a random user key for you.
 
@@ -102,7 +102,7 @@ The argument to `Builder` is the user's key. The key should uniquely identify ea
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way. The client-side .NET SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way. The client-side .NET SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
@@ -233,7 +233,7 @@ The argument to `Builder` is the user's key. The key should uniquely identify ea
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way. The Android SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way. The Android SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
@@ -394,7 +394,7 @@ The argument to `LDUserNew` is the user's key. The key should uniquely identify 
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value that looks like a number or a boolean, the SDK interprets it that way.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way.
 
 </CalloutDescription>
 </Callout>
@@ -515,7 +515,7 @@ The `key` property is the user's key. The key should uniquely identify each user
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attribute values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attribute values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way.
 
 </CalloutDescription>
 </Callout>
@@ -700,7 +700,7 @@ The argument to `LDUserBuilder` is the user's key. The key should uniquely ident
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. Custom attribute values in the Flutter SDK use the `LDValue` class to support the various underlying types for the values. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way. The Flutter SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. Custom attribute values in the Flutter SDK use the `LDValue` class to support the various underlying types for the values. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way. The Flutter SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
@@ -962,7 +962,7 @@ The `key` property is the user's key. The key should uniquely identify each user
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way.
 
 </CalloutDescription>
 </Callout>
@@ -1204,7 +1204,7 @@ The `key` property is the user's key. The key should uniquely identify each user
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attribute values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attribute values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way.
 
 </CalloutDescription>
 </Callout>
@@ -1427,7 +1427,7 @@ Private attributes allow you to specify keys you do not want to send to the Laun
 #### Anonymous user attributes in the React Native SDK
 ---
 
-The `anonymous` key lets you distinguish logged out or unregistered users while still using LaunchDarkly. Anonymous users work just like regular users, except that they do not appear on your Users page in LaunchDarkly. This prevents unauthenticated users from diluting useful data on the Users dashboard.
+The `anonymous` key lets you distinguish logged out or unregistered users while still using LaunchDarkly. Anonymous users work just like regular users, except that they do not appear on your Users page in LaunchDarkly. This prevents unauthenticated users from diluting useful data on the **Users** list.
 
 We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
 </Details>
@@ -1577,7 +1577,7 @@ The argument to `Builder` is the user's key. The key should uniquely identify ea
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. If you enter a custom value that looks like a number or a boolean, the SDK interprets it that way. The .NET SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way. The .NET SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
@@ -2044,7 +2044,7 @@ To learn more about the available attributes, read [`User`](https://pkg.go.dev/g
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. In SDK versions 4.16.0 and later, these types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value) type; earlier versions use the catch-all Go type `interface{}`. If you enter a custom value on the dashboard that looks like a number or a boolean, LaunchDarkly interprets it that way. The Go SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. In SDK versions 4.16.0 and later, these types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value) type; earlier versions use the catch-all Go type `interface{}`. If you enter a custom value on the **Users** list that looks like a number or a boolean, LaunchDarkly interprets it that way. The Go SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
@@ -2312,7 +2312,7 @@ Our Javadoc for [LDUser.Builder](http://launchdarkly.github.io/java-server-sdk/c
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way. The Java SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way. The Java SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
@@ -2494,7 +2494,7 @@ The `key` property is the user's key. The key should uniquely identify each user
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way.
 
 </CalloutDescription>
 </Callout>
@@ -2613,7 +2613,7 @@ The first argument to [`LDUserBuilder`](http://launchdarkly.github.io/php-server
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way. The PHP SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way. The PHP SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
@@ -2713,7 +2713,7 @@ The `key` property is the user's key. The key should uniquely identify each user
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way.
 
 </CalloutDescription>
 </Callout>
@@ -2822,7 +2822,7 @@ All user attribute keys, for both built-in and custom attributes, must be symbol
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the dashboard that looks like a number or a boolean, the SDK interprets it that way.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way.
 
 </CalloutDescription>
 </Callout>

@@ -48,7 +48,7 @@ You can set up two kinds of workflows. Progressive rollout workflows gradually i
 
 To build a progressive rollout workflow:
 
-1. Navigate to the flag dashboard and select the flag you want to create a workflow for.
+1. Navigate to the flags list and select the flag you want to create a workflow for.
 2. Click on the **Workflows** tab.
 3. Click **Create a workflow**, and then click **Progressive rollout**.
 4. Click **Next**.
@@ -57,9 +57,9 @@ To build a progressive rollout workflow:
   * Choose the default variation to roll out to users.
   * Choose how much to increase the percentage of the rollout, starting at 0%. This setting overwrites any previously-defined rollouts for the default variation, so you should check to ensure that the default variation will not be reduced.
   * Choose how frequently to increase the rollout percentage.
-  
+
   ![The "Configure progressive rollout" workflow dialog.](workflow-progressive-rollout-modal.png)
-  
+
 6. Click **Review workflow**. An overview of the workflow appears.
 7. (Optional) Click the **edit** icon next to the title to edit the title.
 8. (Optional) Click the **edit** icon next to "Add a description" to add a description.
@@ -89,7 +89,7 @@ For multivariate workflows, LaunchDarkly decreases and recalculates the variatio
 
 To build a custom workflow:
 
-1. Navigate to the flag dashboard and select the flag you want to create a workflow for.
+1. Navigate to the flags list and select the flag you want to create a workflow for.
 2. Click on the **Workflows** tab.
 3. Click **Create a workflow**, and then click **Custom workflow**.
 4. Click **Create workflow**.
@@ -99,9 +99,9 @@ To build a custom workflow:
   * Click into the **Reviewers** menu and choose an approver.
   * Enter a description in the **Description** field.
   * You must add approval steps before you add schedule steps. If you accidentally add a schedule step first, delete the schedule step, and then add the approval step as the first step of that stage.
-  
+
   ![The "Approval Request" step of a custom workflow.](workflow-custom-approval.png)
-  
+
 8. If you don't need to request approval, click **Schedule date and time**.
   * Choose **Later** to schedule the stage at a later time relative to the time you start the workflow.
   * Choose **On or after a specific date & time** to schedule the stage to begin at a specific time.
@@ -120,7 +120,7 @@ There are two ways to view active workflows for a feature flag. You can use the 
 
 To view the status of a workflow on the Targeting page:
 
-1. Navigate to the flag dashboard and select the flag with the workflow you want to view. The flag's **Targeting** tab appears.
+1. Navigate to the flags list and select the flag with the workflow you want to view. The flag's **Targeting** tab appears.
 2. View active workflows listed at the top of the **Targeting** tab.
 
 ![A progress bar that shows the workflow status on the "Targeting" tab.](workflows-progress-bar.png)
@@ -133,7 +133,7 @@ To view the status of a workflow on the Targeting page:
 
 To view the workflow details:
 
-1. Navigate to the flag dashboard and select the flag with the workflow you want to view.
+1. Navigate to the flags list and select the flag with the workflow you want to view.
 2. Click the **Workflows** tab to view a list of all active workflows.
 3. Click the name of the workflow you'd like to view.
 
@@ -143,7 +143,7 @@ Deleting a workflow stops any further stages from executing. It does not undo an
 
 To delete a workflow:
 
-1. Navigate to the flag dashboard and select the flag with the workflow you want to view.
+1. Navigate to the flags list and select the flag with the workflow you want to view.
 3. Click on the **Workflows** tab.
 4. Click on the **overflow menu** next to the workflow you want to delete.
 5. Select "Delete workflow."

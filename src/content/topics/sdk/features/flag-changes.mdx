@@ -35,7 +35,7 @@ This feature is available in the following client-side SDKs:
 
 <Details summary="Expand .NET (client-side) code sample">
 
-LaunchDarkly manages all flags for a user context by updating the flag cache based on a real-time event stream. When a flag is modified from the flag dashboard, the flag values for the current user update almost immediately.
+LaunchDarkly manages all flags for a user context by updating the flag cache based on a real-time event stream. When a flag is modified from the flags list, the flag values for the current user update almost immediately.
 
 The SDK caches flag values in local storage after initializing with LaunchDarkly. If your app closes and then reopens without a connection to LaunchDarkly, the cached flag values are still available. After your app reinitializes with LaunchDarkly it receives any flag updates that occurred while disconnected.
 
@@ -240,7 +240,7 @@ LDClient.get().unregisterAllFlagsListener(listener)
 
 ### C/C++ (client-side)
 
-To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is listened to by the C/C++ SDK. Whenever an event is performed on the dashboard, the C/C++ SDK is notified of the updated flag settings in real-time.
+To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is listened to by the C/C++ SDK. Whenever an event is performed on the flags list, the C/C++ SDK is notified of the updated flag settings in real-time.
 
 ### Electron
 
@@ -371,9 +371,9 @@ await LDClient.unregisterFlagsReceivedListener(listener);
 
 <Details summary="Expand iOS code sample">
 
-LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream. When you modify a flag from the flag dashboard, the flag values for the current user update almost immediately.
+LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream. When you modify a flag from the flags list, the flag values for the current user update almost immediately.
 
-To accomplish real-time updates, LaunchDarkly broadcasts an event stream that the SDK listens to. LaunchDarkly notifies the SDK of updated flag settings in real-time whenever an event registers on the dashboard.
+To accomplish real-time updates, LaunchDarkly broadcasts an event stream that the SDK listens to. LaunchDarkly notifies the SDK of updated flag settings in real-time whenever an event registers on the flags list.
 
 Streaming mode is not available on watchOS. On iOS and tvOS, the client app must be running in the foreground to connect to the event stream. On macOS, the client app may run in either the foreground or background to connect to the event stream. If streaming mode is not available, the SDK reverts to polling mode.
 
@@ -545,7 +545,7 @@ client.on('change:YOUR_FLAG_KEY', (value, previous) => {
 
 <Details summary="Expand React Native code sample">
 
-LaunchDarkly manages all flags for a user context by updating flags based on a real-time event stream. When a flag is modified from the flag dashboard, the flag values for the current user update almost immediately.
+LaunchDarkly manages all flags for a user context by updating flags based on a real-time event stream. When a flag is modified from the flags list, the flag values for the current user update almost immediately.
 
 To perform real-time updates, LaunchDarkly broadcasts an event stream that the React Native SDK listens to.
 
