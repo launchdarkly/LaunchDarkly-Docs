@@ -42,6 +42,29 @@ You can add multiple conditions to a rule. Here is how rules handle multiple con
 - If a condition has multiple values, LaunchDarkly considers the condition met if there is a match on *any* of the values.
 - If a custom attribute has an array value, LaunchDarkly treats it as multiple values and allows any of the values within the array to match a rule.
 
+### Percentage rollouts
+
+If you want only a portion of users matching a rule to receive a particular variation, you can serve a percentage rollout.
+
+Here is an image of the percentage rollout section:
+
+![The percentage rollout section.](rules-percentage-rollout.png)
+
+In this example, 25% of users will receive the `true` variation.
+
+To learn more, read [Percentage rollouts](/home/flags/rollouts).
+
+### Experimentation
+
+<Callout intent="primary">
+<CalloutTitle>Experimentation is an add-on feature</CalloutTitle>
+<CalloutDescription>
+
+Experimentation is available as an add-on for customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To add Experimentation to your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
 After you save a targeting rule, you can click the **graph** icon to run an experiment on the rule. To learn more, read [Creating experiments](/home/creating-experiments).
 
 Here is an image of the **graph** icon on a flag's targeting rule:
@@ -150,44 +173,6 @@ The secondary attribute is a special attribute. The SDKs incorporate this attrib
 </CalloutDescription>
 </Callout>
 
-## Percentage rollouts
-
-If you want to do a percentage rollout, select "percentage rollout" from the menu and allocate users accordingly.
-
-Here is an image of the percentage rollout section:
-
-![The percentage rollout section.](rules-percentage-rollout.png)
-
-In this example, 25% of the `beta_testers` group receive the new dashboard feature.
-
-<Callout intent="info">
-<CalloutTitle>Experiment allocation</CalloutTitle>
-<CalloutDescription>
-
-If you're using Experimentation, experiment allocation allows you more flexibility when selecting your experiment population and ensures accurate experiment results. To learn how to enable and use experiment allocation, read [Allocating experiment audiences](/home/creating-experiments/allocation).
-
-</CalloutDescription>
-</Callout>
-
-### Percentage rollout logic
-
-When you set up a percentage rollout, the variation a user receives is determined by the user's key. The percentage rollout logic generates a hash from the user's key or attribute, the user's secondary attribute if provided, the flag's key, and a hidden salt attribute stored in the flag.
-
-The SDK uses this hash to generate a percentage value for that user. That value, compared to the value set for the percentage rollout value, determines which variation a user receives. The hash has partitions from 1 to 100,000. When you assign flag variations, the hash assigns values from 1 to 100,000 to users in each partition, in order. For example, when you assign 50% to variation A, LaunchDarkly serves variation A to hash partitions from 1 to 50,000.
-
-A common use case for percentage rollouts is to increment the percentage of users targeted by a flag over time until 100% of the users receive one variation of a flag. When you change the percentage allocation of users to flag variations, those users are reassigned different flag variations based on their partition's position in the 1 to 100,000 hash list. For example, if you change the percentage of users receiving variation A from 50% to 70%, partitions 50,001 to 70,000 would be added to the set of partitions already receiving variation A.
-
-To learn more about rollouts and variation assignments, read [Rollouts](/sdk/concepts/flag-evaluation-rules#percentage-rollouts).
-
-<Callout intent="info">
-<CalloutTitle>Advanced Targeting: Percentage rollout variation assignment by attribute</CalloutTitle>
-<CalloutDescription>
-
-In the "Advanced" area of the percentage rollout menu, you can assign variation buckets to users based on any attribute sent to LaunchDarkly. For example, you can roll out a feature to 20% of `companies`, whereby users will be assigned to a variation bucket based on the value of their `company` attribute. This ensures that LaunchDarkly treats all users with matching attribute-value pairs the same. If you choose a custom attribute for this purpose, it should have either string values or integer numeric values. For users with a custom attribute number that includes a fraction or has a value type besides `string` or `number`, the variation bucket assignment is undefined.
-
-</CalloutDescription>
-</Callout>
-
 ## Setting the default rule
 
 LaunchDarkly defines a final default rule, sometimes called the "fallthrough" rule, for any users that don't match any of the previous targeting rules on the page. As with other rules, you can choose to serve a specific variation, or apply a percentage rollout to any remaining users.
@@ -196,11 +181,9 @@ Here is an image of the percentage rollout section:
 
 ![A percentage rollout, set to 50%.](rules-percentage-fifty.png)
 
-
 Now, 50% of all users who have not been targeted by any other rules will receive `true`.
 
 If you do not want to target users based on user key or any custom attributes, you can use the default rule to control the flag's rollout for all users.
-
 
 ## Setting the default off variation
 
