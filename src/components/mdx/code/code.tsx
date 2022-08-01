@@ -1,7 +1,15 @@
-import * as React from 'react'
-import { CodeSnippet, CodeSnippetProps } from './codeSnippet'
+import React, { ReactNode } from 'react'
+import { CodeSnippet } from './codeSnippet'
+import useSite from '../../siteSelector/useSite'
+import { makeSiteAware } from '../../../utils/siteAwareUtils'
 
-export function Code(props: CodeSnippetProps) {
+type CodeProps = {
+  className?: string
+  children?: string | ReactNode
+}
+
+export function Code(props: CodeProps) {
+  const [site] = useSite()
   const { children, className } = props
 
   if (!children) {
@@ -11,11 +19,12 @@ export function Code(props: CodeSnippetProps) {
     return null
   }
 
-  if (!className) {
-    return <code>{children}</code>
-  }
-
   if (typeof children === 'string') {
+    if (!className) {
+      const content = makeSiteAware(children, site)
+      return <code>{content}</code>
+    }
+
     return (
       <CodeSnippet className={className} {...props}>
         {children}
@@ -23,5 +32,5 @@ export function Code(props: CodeSnippetProps) {
     )
   }
 
-  return children
+  return <>{children}</>
 }
