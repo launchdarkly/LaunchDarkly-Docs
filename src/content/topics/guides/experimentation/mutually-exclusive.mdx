@@ -16,10 +16,21 @@ However, there are some cases in which you may not want to include your users in
 
 Ideally, you would run experiments with potential collisions sequentially or include all of the related changes in the same experiment. However, if you are unable to do that due to time or other constraints, you can create mutually exclusive experiments using prerequisite flags.
 
-In this tutorial, you will:
+In this tutorial you will:
+
 - Create a prerequisite flag
 - Create two dependent flags
 - Include each dependent flag in its own mutually exclusive experiment
+
+### Controlling experiment audiences with flag variations
+
+You can control experiment audiences with flag variations. First, you can create a prerequisite flag with variations that correspond to each of the mutually exclusive experiments you want to run. Then, you can use a percentage rollout to randomly assign each of your users to only one of those exclusive experiments. 
+
+If you want LaunchDarkly to include all of your users in one of the experiments, add the percentage rollout to the default rule in the prerequisite flag. If you want LaunchDarkly to include only some of your users in the experiments, add the percentage rollout to a targeting rule in the prerequisite flag.
+
+In this example, the prerequisite flag uses a targeting rule to limit users in the experiments to only those on an iOS device:
+
+![A prerequisite flag with a targeting rule that targets users on an iOS device.](mutually-exclusive-targeting-rule.png)
 
 ## Prerequisites
 
@@ -43,18 +54,22 @@ In this example, you will create a string prerequisite flag. You will assign 50%
 To create the prerequisite flag:
 
 1. Navigate to the flags list.
-2. Click **Create flag**. The "Create a feature flag" panel appears:
-
-![The flags list, with the "Create flag" button called out.](flag-new-callout.png)
-
+2. Click **Create flag**. The "Create a feature flag" panel appears.
 3. Enter “Mutually exclusive experiment prereq” in the **Name** field.
 4. Enter a description such as “The prerequisite flag for two mutually exclusive experiments” in the **Description** field.
 5. In the **Flag variations** menu, select “String.”
 6. Enter “Experiment 1” in the **Variation 1** field.
 7. Enter “Experiment 2” in the **Variation 2** field.
+
+![The "Flag variations" section of a flag's creation panel.](mutually-exclusive-flag-variations.png)
+
 8. Click **Save flag**. The flag’s **Targeting** tab appears.
-9. In the **serve** menu, select “a percentage rollout.”
+9. In the "Default rule" **serve** menu, select “a percentage rollout.”
+  - (Optional) If you want to include only some of your users in the experiments, targeted by attribute, add the percentage rollout to a targeting rule instead of the default rule.
 10. Update the rollout so 50% of users are served Experiment 1, and 50% of users are served Experiment 2.
+
+![A default rule on a prerequisite flag serving a rollout including 50% of users in Experiment 1, and 50% of users in Experiment 2.](mutually-exclusive-default-rule.png)
+
 11. Click **Review and save**.
 
 <Callout intent="info">
@@ -82,6 +97,9 @@ To create the first dependent flag:
 6. Click **Add prerequisites**.
 7. Choose “Mutually exclusive experiment prereq” from the **Select a flag** menu.
 8. Leave the variation set to “Experiment 1.”
+
+![The "Prerequisites" section of the dependent flag with a prerequisite flag added.](mutually-exclusive-prerequisite-section.png)
+
 9. Click **Review and save**.
 
 To create the second dependent flag:
@@ -142,13 +160,16 @@ To build your first experiment:
 5. Click **Next**. The "Select metrics" step opens.
 6. Choose “Experiment 1 custom metric” from the **Primary metric** menu.
 
-![The "Select metrics" section of a new experiment.](experiment-builder-select-metrics.png)
+![The "Select metrics" section of a new experiment.](mutually-exclusive-metric.png)
 
 7. Click **Next**. The "Define variations" step opens.
 8. Choose the “Mutually exclusive flag 1” flag from the **Select flag** menu.
 9. Click **Next**. The "Set audience" step opens.
 10. Enter the percentage of traffic for each variation you want to include in the experiment.
 12. Select which variation you want LaunchDarkly to serve to the remaining population.
+
+![The "Set audience" section of a new experiment.](mutually-exclusive-audience.png)
+
 13. Click **Finish**. You are returned to the experiment's **Design** tab.
 
 To create your second experiment, repeat steps 1-13, except choose “Experiment 2 custom metric” and “Mutually exclusive flag 2.”
