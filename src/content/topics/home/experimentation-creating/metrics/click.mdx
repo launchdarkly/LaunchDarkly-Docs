@@ -76,10 +76,26 @@ To create a click metric:
       <TableCell>
         This sends an event when the user accesses a URL, or clicks on an element hosted at a URL, that matches the string you enter in the Target URL field or a formulation of that URL that included appended parameters. If you want events to record for URLs with substrings, specify each URL individually.
       </TableCell>
-      <TableCell>You specify: <code>example.com</code>.<br />
-        Views or clicks at <code>example.com</code> and <code>example.com#signin</code> send events.<br /><br />
-        You specify: <code>example.com</code> and <code>example.com/login</code>.<br />
-        Views or clicks on <code>example.com</code> and <code>example.com/login</code>{' '} send events.
+        <TableCell>
+        If you specify:
+        <ul>
+          <li><code>https://www.example.com</code></li>
+        </ul>
+        Then LaunchDarkly sends events from views or clicks at:
+        <ul>
+          <li><code>https://www.example.com</code></li>
+          <li><code>https://www.example.com#signin</code></li>
+        </ul>
+        If you specify: 
+        <ul>
+          <li><code>https://www.example.com</code>, and</li>
+          <li><code>https://www.example.com/login</code></li>
+        </ul>
+        Then LaunchDarkly sends events from views or clicks at:
+        <ul>
+          <li><code>https://www.example.com</code></li>
+          <li><code>https://www.example.com/login</code></li>
+        </ul>
       </TableCell>
     </TableRow>
     <TableRow>
@@ -88,8 +104,15 @@ To create a click metric:
         This sends an event when the user accesses a URL, or clicks on an element hosted at a URL, that exactly matches what you enter in the Target URL field. Identical base URLs with different substrings do not send events.
       </TableCell>
       <TableCell>
-        You specify: <code>example.com</code>.<br />
-        Only views or clicks at <code>example.com</code> send events.<br /> Views and clicks at <code> www.example.com/signup</code> and <code>https://www.example.com</code> do not send events.
+      If you specify:
+      <ul>
+        <li><code>https://www.example.com</code></li>
+      </ul>
+      Then LaunchDarkly sends events from views or clicks at:
+      <ul>
+        <li><code>https://www.example.com</code></li>
+      </ul>
+        Views and clicks at <code>https://www.example.com/login</code> and <code>https://www.example.com#signin</code> do not send events.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -98,7 +121,16 @@ To create a click metric:
         This sends an event when the user accesses a URL, or clicks on an element hosted at a URL with a specific string of text in it.
       </TableCell>
       <TableCell>
-        You specify: <code>your-substring</code>, <code>example.com/your-substring</code>, <code>home.com/username/your-substring/</code>, <code>launchdarkly.com/your-substring/settings</code>.<br />
+        If you specify:
+        <ul>
+          <li><code>your-substring</code></li>
+        </ul>
+        Then LaunchDarkly sends events from views or clicks at:
+        <ul>
+          <li><code>example.com/your-substring</code></li>
+          <li><code>home.com/username/your-substring/</code></li>
+          <li><code>launchdarkly.com/your-substring/settings</code></li>
+        </ul>
         Because all of these URLs contain <code>your-substring</code>, clicks on the CSS selectors you specify on each page send events.
       </TableCell>
     </TableRow>
@@ -108,8 +140,11 @@ To create a click metric:
         This sends an event based on a regex expression you specify. This lets you designate more precise locations to send click and page view events.
       </TableCell>
       <TableCell>
-        You specify: <code>example\.com\\/account\\/.*\\/billing</code><br />
-        This matches any string between <code>account/</code> and <code>/billing</code>, such as <code>http://example.com/account/12345/billing</code>.
+        If you specify:
+        <ul>
+          <li><code>example\.com\\/account\\/.*\\/billing</code></li>
+        </ul>
+        Then LaunchDarkly sends events from views or clicks at any string between <code>account/</code> and <code>/billing</code>, such as <code>http://example.com/account/12345/billing</code>.
       </TableCell>
     </TableRow>
   </TableBody>
