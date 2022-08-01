@@ -33,13 +33,17 @@ The list below explains what each column means:
 - **Probability to be best**: The probability to be best is the likelihood that the variation has the biggest effect on the primary metric. Of all the variations in the experiment, the one with highest probability is likely the best option to choose.
 - **Relative difference from (the control)**: The relative difference from the control variation is the range that you should have 90% confidence in. For example, if the range of the relative difference is [-1%, 4%], you can have 90% confidence that the population difference is a number between 1% lower and 4% higher than the control.
 - **Credible interval**: The credible interval is the range of the value of the metric that you should have 90% confidence in. For example, if the range is [7, 34], you can have 90% confidence that the value of the metric in the population is a number between 7 and 34.
-- **Mean**: The mean is the average posterior value of the variation. It doesn’t capture the uncertainty in the measurement, so it should not be the only measurement you use to make decisions.
+- **Mean**: The mean is the average value of the variation. It doesn’t capture the uncertainty in the measurement, so it should not be the only measurement you use to make decisions.
+
+All of the data in the results table are based on a posterior distribution. To learn more about posterior distributions, read [Frequentist and Bayesian modeling](/guides/experimentation/bayesian#frequentist-and-bayesian-modeling).
 
 <LearnMore>
 
 You can also use the REST API: [Get experiment results](https://apidocs.launchdarkly.com/tag/Experiments-(beta)#operation/getExperimentResults)
 
 </LearnMore>
+
+### Viewing metric event values
 
 In each metrics results table you can view metric event values per unique user as an average or a sum, depending on your needs.
 
