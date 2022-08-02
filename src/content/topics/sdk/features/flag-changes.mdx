@@ -1,18 +1,18 @@
 ---
 path: /sdk/features/flag-changes
 title: Subscribing to flag changes
-description: This topic explains how to configure each SDK to receive changes in flag state from LaunchDarkly.
+description: This topic explains how to configure each SDK to allow applications to subscribe to flag change notifications.
 published: true
 tags: ['flag', 'subscribe', 'sdk']
 ---
 
 ## Overview
 
-This topic explains how to configure each SDK to receive changes in flag state from LaunchDarkly. This feature is available for both client-side and server-side SDKs.
+This topic explains how to configure each SDK to allow applications to subscribe to flag change notifications. This feature is available for both client-side and server-side SDKs.
 
-## Receiving flag changes
+## Subscribing to flag change notifications
 
-You can configure client-side and server-side SDKs to receive updated flag values when they change. Client-side SDKs use a streaming and/or a polling connection to receive updates with low latency, minimal data usage, and minimal battery drain. Server-side SDKs use a listener-based mechanism to notify you when flag values change.
+Details about each SDK's configuration are available in the SDK-specific sections below.
 
 * [Client-side SDKs](#client-side-sdks)
 * [Server-side SDKs](#server-side-sdks)
@@ -23,7 +23,6 @@ This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
-* [C/C++ (client-side)](#cc-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -35,28 +34,12 @@ This feature is available in the following client-side SDKs:
 
 <Details summary="Expand .NET (client-side) code sample">
 
-LaunchDarkly manages all flags for a user context by updating the flag cache based on a real-time event stream. When a flag is modified from the flags list, the flag values for the current user update almost immediately.
+The client uses an event pattern which allows your app to subscribe to feature flag changes in real time.
 
-The SDK caches flag values in local storage after initializing with LaunchDarkly. If your app closes and then reopens without a connection to LaunchDarkly, the cached flag values are still available. After your app reinitializes with LaunchDarkly it receives any flag updates that occurred while disconnected.
-
-The default SDK configuration has the best combination of low latency updates and minimal battery drain.
-
-Here's how the default configuration works:
-
-1. When the app is foregrounded, it makes a [Server-sent events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection to LaunchDarkly. This streaming connection stays open as long as your app is in the foreground and is connected to the internet.
-2. When the app is backgrounded, it terminates the stream connection and the SDK polls with caching for flag updates every three minutes.
-3. When the app is foregrounded, the SDK reconnects to the stream and fetches the latest flags.
-
-In either the foreground or background, the SDK doesn't try to update unless the device has internet connectivity.
-
-This configuration means that the device gets near real-time updates for feature flag values when the app is in the foreground. You can configure these settings if needed. To learn more, read [Configuration](/sdk/features/config#net-client-side).
-
-To perform real-time updates in the app, it must register listeners for updates from the streaming/polling connection for each flag you want to watch.
-
-Here's how:
+To subscribe to feature flag changes, register listeners for change events from the SDK:
 
 <CodeTabs
-  defaultValue="dotnet-client"
+  defaultValue="csharp"
   values={[
     { label: 'C#', value: 'csharp', },
     { label: 'C# (.NET SDK versions 1.x)', value: 'dotnet-client-pre-2.0', },
@@ -93,25 +76,9 @@ To learn more, read [`IFlagTracker`](https://launchdarkly.github.io/dotnet-clien
 
 <Details summary="Expand Android code sample">
 
-The SDK maintains what variations a user should receive locally in its cache and evaluates flags based on that cache. The SDK uses both a streaming strategy and a polling strategy to keep the local cache in sync with your flag configurations in LaunchDarkly.
+The client uses a listener pattern which allows your app to subscribe to feature flag changes in real time.
 
-The SDK is highly configurable, but the default configuration has low latency updates, minimal data usage, and minimal battery drain.
-
-Here is the default behavior:
-
-1. When the app is foregrounded, the SDK opens a [Server-Sent Events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection to LaunchDarkly. The initial payload from the streaming connection contains the variations your user receives. This streaming connection stays open and idles unless there are updates. This requires minimal data and battery power to maintain. The streaming connection stays open as long as your app is in the foreground and is connected to the internet.
-2. When the app is backgrounded, the stream connection terminates. The SDK polls for flag updates every hour to stay in sync. This strategy has higher latency, but optimizes battery and data usage.
-3. When the app is foregrounded again, the SDK reconnects to the stream which sends the latest flag values.
-
-When streaming, the SDK actively monitors network availability. It avoids requests when the network is unavailable, and reconnects when the network becomes available again. When polling, the SDK checks for network connectivity at the current polling interval, only making the request if the check succeeds. When it reconnects, it automatically syncs its local cache with LaunchDarkly.
-
-This configuration means that you get near real-time updates for your feature flag values when the app is in the foreground, and maximum device and SDK efficiency when backgrounded.
-
-You can configure these settings if needed. To learn more, read [Configuration](/sdk/features/config#android)
-
-To perform real-time updates in your app, it must register listeners to be notified when a flag's value changes.
-
-Here's how:
+To subscribe to feature flag changes, register listeners for change events from the SDK:
 
 <CodeTabs
   defaultValue="java"
@@ -238,19 +205,13 @@ LDClient.get().unregisterAllFlagsListener(listener)
 </CodeTabs>
 </Details>
 
-### C/C++ (client-side)
-
-To accomplish real-time updates, LaunchDarkly broadcasts an event stream that is listened to by the C/C++ SDK. Whenever an event is performed on the flags list, the C/C++ SDK is notified of the updated flag settings in real-time.
-
 ### Electron
 
 <Details summary="Expand Electron code sample">
 
-By default, the client requests feature flag values only once per user, once at startup time, and then each time you call `identify()`. You can also use a persistent connection to receive flag updates whenever they occur.
+The client uses an event emitter pattern which allows your app to subscribe to feature flag changes in real time. 
 
-Setting `streaming` to `true` in the client options, or calling `client.setStreaming(true)`, turns on this behavior. LaunchDarkly will push new values to the SDK, which will update the current feature flag state in the background, ensuring that `variation()` will always return the latest values.
-
-If you want to be notified when a flag has changed, you can use an event listener for a specific flag:
+To subscribe to feature flag changes, register listeners for change events from the SDK:
 
 <CodeTabs
   defaultValue="js"
@@ -292,17 +253,16 @@ client.on('change', (allFlagChanges) => {
 </CodeTabs>
 
 Subscribing to `change` events automatically turns on streaming mode, unless you have explicitly set `streaming` to `false`.
+
 </Details>
 
 ### Flutter
 
 <Details summary="Expand Flutter code sample">
 
-The SDK maintains what variations a user should receive locally in cache. The SDK evaluates flags based on what it has cached locally. To keep the local cache in sync with your flag configurations in LaunchDarkly, the SDK maintains a streaming connection to the service when in the foreground. This allows near instantaneous flag update delivery to your application.
+The client uses an observer pattern which allows your app to subscribe to feature flag changes in real time.
 
-Your application can register listeners to be notified immediately when the SDK receives updated flag values.
-
-Here's how:
+To subscribe to feature flag changes, register listeners for change events from the SDK:
 
 <CodeTabs
   defaultValue="dart"
@@ -371,11 +331,7 @@ await LDClient.unregisterFlagsReceivedListener(listener);
 
 <Details summary="Expand iOS code sample">
 
-LaunchDarkly manages all flags for a user context in real-time by updating flags based on a real-time event stream. When you modify a flag from the flags list, the flag values for the current user update almost immediately.
-
-To accomplish real-time updates, LaunchDarkly broadcasts an event stream that the SDK listens to. LaunchDarkly notifies the SDK of updated flag settings in real-time whenever an event registers on the flags list.
-
-Streaming mode is not available on watchOS. On iOS and tvOS, the client app must be running in the foreground to connect to the event stream. On macOS, the client app may run in either the foreground or background to connect to the event stream. If streaming mode is not available, the SDK reverts to polling mode.
+The client uses an observer pattern which allows your app to subscribe to feature flag changes in real time. To subscribe to feature flag changes, register listeners for change events from the SDK.
 
 The SDK provides methods for listening to a single flag, all flags, or no change to any flag. `observeFlagsUnchanged` is called when the SDK successfully receives an update or comes back online but no flags have changed. If the value of the flag changes, the method executes the handler. It passes in the `changedFlag` containing the old and new flag values, and old and new flag value source.
 
@@ -451,9 +407,9 @@ __weak typeof(self) weakSelf = self;
 
 <Details summary="Expand JavaScript code sample">
 
-The client uses an event emitter pattern which allows you to subscribe to feature flag changes in real time. To subscribe to all feature flag changes, listen for the change event.
+The client uses an event emitter pattern which allows your app to subscribe to feature flag changes in real time. 
 
-Here's how:
+To subscribe to all feature flag changes, register listeners for change events from the SDK:
 
 <CodeTabs
   defaultValue="js"
@@ -498,9 +454,9 @@ client.on('change:YOUR_FLAG_KEY', (value, previous) => {
 
 <Details summary="Expand Node.js (client-side) code sample">
 
-The client uses an event emitter pattern which allows you to subscribe to feature flag changes in real time. To subscribe to all feature flag changes, listen for the change event.
+The client uses an event emitter pattern which allows your app to subscribe to feature flag changes in real time.
 
-Here's how:
+To subscribe to all feature flag changes, register listeners for change events from the SDK:
 
 <CodeTabs
   defaultValue="js"
@@ -545,11 +501,7 @@ client.on('change:YOUR_FLAG_KEY', (value, previous) => {
 
 <Details summary="Expand React Native code sample">
 
-LaunchDarkly manages all flags for a user context by updating flags based on a real-time event stream. When a flag is modified from the flags list, the flag values for the current user update almost immediately.
-
-To perform real-time updates, LaunchDarkly broadcasts an event stream that the React Native SDK listens to.
-
-To perform real-time updates in your app, your app must register listeners for each flag you want to watch.
+For an app to perform real-time updates, it must register listeners for updates from the SDK for each flag you want it to watch.
 
 Here's how:
 
