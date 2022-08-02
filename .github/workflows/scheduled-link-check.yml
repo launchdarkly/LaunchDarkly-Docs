@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Link Checker
-        uses: lycheeverse/lychee-action@v1.5.0
+        uses: lycheeverse/lychee-action@v1.5.1
         with:
           fail: true
           args: --config .github/lychee.toml ./README.md './src/content/**/*.mdx' --accept 429
