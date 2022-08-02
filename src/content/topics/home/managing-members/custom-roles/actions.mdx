@@ -473,7 +473,7 @@ This table explains available environments actions:
               <code>viewSdkKey</code>
           </TableCell>
           <TableCell>
-              View the SDK keys including the server-side SDK key, mobile key, and client-side ID/environment ID. All custom roles can take this action by default. If set to <code>deny</code>, anyone impacted by this policy can neither view nor reset SDK or mobile keys.
+              View the SDK keys including the server-side SDK key, mobile key, and client-side ID. All custom roles can take this action by default. If set to <code>deny</code>, anyone impacted by this policy can neither view nor reset SDK or mobile keys.
           </TableCell>
       </TableRow>
   </TableBody>
@@ -483,7 +483,7 @@ This table explains available environments actions:
 <CalloutTitle>More information about viewSdkKey</CalloutTitle>
 <CalloutDescription>
 
-The `deny` effect in the `viewSdkKey` action hides the server-side SDK key, mobile key, and client-side ID/environment ID you specify from the member. However, the `allow` effect for the same resource and action pairing doesn't do anything. Your LaunchDarkly member does not need explicit permission to view the keys, because all custom roles can view all environments in a LaunchDarkly instance by default.
+The `deny` effect in the `viewSdkKey` action hides the server-side SDK key, mobile key, and client-side ID you specify from the member. However, the `allow` effect for the same resource and action pairing doesn't do anything. Your LaunchDarkly member does not need explicit permission to view the keys, because all custom roles can view all environments in a LaunchDarkly instance by default.
 
 </CalloutDescription>
 </Callout>
