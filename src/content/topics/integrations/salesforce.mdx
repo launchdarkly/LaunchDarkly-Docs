@@ -111,7 +111,7 @@ Next, you must configure the LaunchDarkly component to bring your flag data into
 
 ## Using the LaunchDarkly Salesforce integration
 
-To get the best experience from the integration, we recommend configuring the **Tag** field to a tag in LaunchDarkly that has been applied to 15 or fewer feature flags. In some cases, it may be easier to set the **Tag** field to a new tag like `salesforce` or `customer-facing` and selectively add that tag to the feature flags of your choice in the flag dashboard.
+To get the best experience from the integration, we recommend configuring the **Tag** field to a tag in LaunchDarkly that has been applied to 15 or fewer feature flags. In some cases, it may be easier to set the **Tag** field to a new tag like `salesforce` or `customer-facing` and selectively add that tag to the feature flags of your choice in the flags list.
 
 Be sure to notify your account members of how this tag is being used so they can accurately tag any relevant flags.
 
@@ -127,9 +127,9 @@ The ⚠️ icon at the bottom of the integration next to the **User**, means Lau
 
 Unless the user is new or inactive, this could be a sign that you have misconfigured the **User key field**. The **User key field** should be mapped to a field on the Salesforce record page that represents the **Key** used to evaluate feature flags.
 
-If you are unsure what the **Key** field should look like, visit the Users dashboard in LaunchDarkly and inspect the **Key** column. To learn more, read [The Users dashboard](/home/managing-users/users-dashboard).
+If you are unsure what the **Key** field should look like, visit the **Users** list in LaunchDarkly and inspect the **Key** column. To learn more, read [The Users dashboard](/home/managing-users/users-dashboard).
 
-![The Users dashboard](users.png)
+![The "Users" list](users.png)
 
 ### Cannot load flag data for user because 'Field' is empty.
 

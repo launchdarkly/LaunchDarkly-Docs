@@ -1,25 +1,25 @@
 ---
-path: /home/organize/dashboard
-title: The flag dashboard
-description: This topic explains how to use the flag dashboard, which shows your feature flags and gives you options to create, modify, and manage them.
+path: /home/organize/flags-list
+title: The flags list
+description: This topic explains how to use the "Feature flags" list, which shows your feature flags and gives you options to create, modify, and manage them.
 published: true
 tags: ['dashboard', 'flag', 'key', 'tag', 'filter']
 ---
 
 ## Overview
 
-This topic explains how to use the flag dashboard, which shows your feature flags and gives you options to create, modify, and manage them.
+This topic explains how to use the **Feature flags** list, which shows your feature flags and gives you options to create, modify, and manage them.
 
 ## Viewing feature flags
 
-All of your feature flags within a project appear on the flag dashboard. Creating a new flag adds it to the dashboard and all environments within your project, and archiving a feature flag removes it from the dashboard and all environments within your project.
+All of your feature flags within a project appear on the flags list. Creating a new flag adds it to the list and all environments within your project, and archiving a feature flag removes it from the list and all environments within your project.
 
-Here is an image of the flag dashboard:
+Here is an image of the feature flags list:
 
-![The flag dashboard.](flags-dashboard.png)
+![The feature flags list.](flags-list.png)
 
 <Callout intent="info">
-<CalloutTitle>Flag dashboard features vary by plan</CalloutTitle>
+<CalloutTitle>flags list features vary by plan</CalloutTitle>
 <CalloutDescription>
 
   To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
@@ -33,7 +33,7 @@ Use the search bar to find a flag by name, tag, key, or description. You can sor
 
 ## Filtering feature flags
 
-You can filter the list of flags on your dashboard to view only flags that share a particular attribute, such as a tag, a status, or an availability to an SDK type.
+You can filter the list of flags to view only flags that share a particular attribute, such as a tag, a status, or an availability to an SDK type.
 
 To filter your flags:
 
@@ -41,25 +41,25 @@ To filter your flags:
 2. Choose an attribute from the menu.
 3. Choose a value to filter by from the second menu:
 
-![A filter applied to display only flags with a specified maintainer.](flags-dashboard-filter.png)
+![A filter applied to display only flags with a specified maintainer.](flags-list-filter.png)
 
 4. Click **Add**.
 
-Your dashboard now displays only the flags that match the filter you specified.
+Your flags list now displays only the flags that match the filter you specified.
 
-To add additional attributes to your filter, repeat steps 1-4. The dashboard displays only flags that match all of the attributes you selected.
-
-To remove a filter, click on the attribute name you want to stop filtering by and click **Clear filter**. To remove multiple filters, click **Clear all**:
-
-![A list of filters applied to the flag dashboard.](flags-dashboard-filter-list.png)
+To add additional attributes to your filter, repeat steps 1-4. The list displays only flags that match all of the attributes you selected.
 
 You can also filter flags by tags. If a flag has a tag applied to it, click the tag to see all other feature flags with that tag applied. The tag's name appears beneath the search bar as a filter option. Click the filter option to add more tags or clear the filter.
 
 ![The dashboard filtered to one tag. The filter option is called out.](dashboard-tag-filter.png)
 
-## Saving dashboards
+To remove a filter, click on the attribute name you want to stop filtering by and click **Clear filter**. To remove multiple filters, click **Clear all**:
 
-You can save your dashboard filter configurations to return to later.
+![A list of filters applied to the flags list.](flags-list-filtered.png)
+
+## Saving filtered flags lists
+
+You can save your filter configurations as a dashboard to return to later.
 
 To save a dashboard:
 
@@ -79,19 +79,19 @@ Your dashboard now displays with the saved filters.
 
 ## Following flags
 
-You can follow a flag to receive an email notification, and, if applicable, a notification in the LaunchDarkly Slack app, when someone makes a targeting change to that flag. Notifications are environment-specific, so you must follow a flag in each environment you want notifications for. You can follow a flag from the flags dashboard or from a flag's **Targeting** tab.
+You can follow a flag to receive an email notification, and, if applicable, a notification in the LaunchDarkly Slack app, when someone makes a targeting change to that flag. Notifications are environment-specific, so you must follow a flag in each environment you want notifications for. You can follow a flag from the flags list or from a flag's **Targeting** tab.
 
 If you have the LaunchDarkly Slack app installed, you will automatically receive notifications in Slack about any changes to flags you have followed. To learn more about the Slack app, read [Slack](/integrations/slack).
 
-To follow a flag from the flags dashboard:
+To follow a flag from the flags list:
 
-1. Navigate to the flags dashboard.
+1. Navigate to the flags list.
 2. Click the overflow menu for the flag you want to follow.
 3. Click "Follow flag."
 
-![The "Follow flag" option in a flag's overflow menu.](follow-flag-on-dashboard.png)
+![The "Follow flag" option in a flag's overflow menu.](follow-flag-on-list.png)
 
-To unfollow a flag from the dashboard, click **Unfollow** in the overflow menu.
+To unfollow a flag from the flags list, click **Unfollow** in the overflow menu.
 
 <LearnMore>
 

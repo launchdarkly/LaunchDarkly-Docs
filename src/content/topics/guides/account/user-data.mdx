@@ -18,7 +18,7 @@ User data is information about your customers or users that your product sends t
 
 User data can include personally identifiable information (PII), including names, email addresses, or other unique identifiers. User data can be business-critical information and can present significant risk if exposed to unauthorized parties.
 
-To learn more about users, read [The Users dashboard](/home/users/users-dashboard).
+To learn more about users, read [The Users list](/home/users/users-list).
 
 ## How LaunchDarkly receives user data
 
@@ -168,15 +168,15 @@ To learn more, read [Using private user attributes](/home/users/attributes#using
 
 ### Using anonymous users
 
-Anonymous users do not register as users in your [**Users** dashboard](/home/users/users-dashboard), and so the usual data LaunchDarkly collects on a user isn't available for an anonymous user. You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user attributes instead. You can force all users to register in LaunchDarkly as anonymous users by setting the anonymous user bit in your SDK to `true` when you construct the LaunchDarkly User object from the domain user object.
+Anonymous users do not register as users in your [**Users** list](/home/users/users-list), and so the usual data LaunchDarkly collects on a user isn't available for an anonymous user. You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user attributes instead. You can force all users to register in LaunchDarkly as anonymous users by setting the anonymous user bit in your SDK to `true` when you construct the LaunchDarkly User object from the domain user object.
 
 To learn more, read [Anonymous users](/home/users/anonymous-users).
 
 <Callout intent="warning">
-<CalloutTitle>Anonymous users and private user attributes don't appear on the <strong>Users</strong> dashboard</CalloutTitle>
+<CalloutTitle>Anonymous users and private user attributes don't appear on the <strong>Users</strong> list</CalloutTitle>
 <CalloutDescription>
 
-If you use anonymous users or private user attributes, the **Users** dashboard won't populate with a complete list of users who access LaunchDarkly, and autocomplete for private attributes won't function in LaunchDarkly.
+If you use anonymous users or private user attributes, the **Users** list won't populate with a complete list of users who access LaunchDarkly, and autocomplete for private attributes won't function in LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
@@ -187,15 +187,15 @@ In the event that you accidentally send PII to LaunchDarkly, you should take the
 
 1. Revert the change or action you took that sent the data to LaunchDarkly.
 2. Find any users with exposed PII using the [find users API endpoint](https://apidocs.launchdarkly.com/tag/Users#operation/getSearchUsers).
-3. Delete the affected users from the **Users** dashboard in one of two ways:
-  - [using the user interface (UI)](/home/users/users-dashboard#removing-a-user), or
+3. Delete the affected users from the **Users** list in one of two ways:
+  - [using the user interface (UI)](/home/users/users-list#removing-a-user), or
   - [using the API with the delete user API endpoint](https://apidocs.launchdarkly.com/tag/Users#operation/deleteUser). If you want to delete all users out of an environment rather than look for specific users, you can use the [list users API endpoint](https://apidocs.launchdarkly.com/tag/Users#operation/getUsers).
 
 <Callout intent="info">
-<CalloutTitle>Deleting users from the dashboard does not impact flag evaluations</CalloutTitle>
+<CalloutTitle>Deleting users from the Users list does not impact flag evaluations</CalloutTitle>
 <CalloutDescription>
 
-Flag evaluations are made based on the user object you provide to the SDK, not what's on the dashboard. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+Flag evaluations are made based on the user object you provide to the SDK, not what's on the **Users** list. To learn more, read [Evaluating flags](/sdk/features/evaluating).
 
 </CalloutDescription>
 </Callout>

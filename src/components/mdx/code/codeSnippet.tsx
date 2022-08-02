@@ -31,7 +31,6 @@ import 'prismjs/components/prism-rust'
 import { copyToClipboard } from '../../../utils/copyToClipboard'
 
 export type CodeSnippetProps = {
-  code: string
   className: string
   children: string
 }

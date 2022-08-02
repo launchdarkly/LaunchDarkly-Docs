@@ -2,7 +2,7 @@
 import { jsx } from 'theme-ui'
 import { navigate } from 'gatsby'
 import React, { ChangeEventHandler } from 'react'
-import { SiteType } from './types'
+import { SiteType } from '../../types/siteType'
 import useSite from './useSite'
 import { getUrlSiteAware } from './siteUtils'
 

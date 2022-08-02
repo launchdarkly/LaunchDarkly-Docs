@@ -16,7 +16,7 @@ Feature flag variations determine what a user receives when they encounter a fea
 
 Flags also have fallback values. The fallback value only returns if an error occurs. For example, the SDK serves the fallback value if LaunchDarkly is unreachable, the feature flag key doesn't exist, or the user doesn't have a key specified.
 
-The flag evaluation feature adds a user to the **Users** dashboard if a user with the same key does not already exist. However, each SDK evaluates flags based only on the user object you provide in the evaluation call. The SDK does not automatically use the attributes shown on the dashboard, and user attributes are not synchronized across SDK instances. You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly. To learn more, read [User configuration](/sdk/features/user-config).
+The flag evaluation feature adds a user to the **Users** list if a user with the same key does not already exist. However, each SDK evaluates flags based only on the user object you provide in the evaluation call. The SDK does not automatically use the attributes shown on the **Users** list, and user attributes are not synchronized across SDK instances. You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly. To learn more, read [User configuration](/sdk/features/user-config).
 
 You do not need to create users manually, but if you want to, you can with the identify feature. To learn more, read [Identifying and changing users](/sdk/features/identify).
 
@@ -205,7 +205,7 @@ if (boolFlagValue)  {
 
 You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
 
-The return value of `variation` is always either one of the variations you defined for your flag in the flag dashboard, or the default value. The default value is the second parameter to `variation`.
+The return value of `variation` is always either one of the variations you defined for your flag in the flag's **Targeting** tab, or the default value. The default value is the second parameter to `variation`.
 
 You can also fetch all flags for the current user.
 
@@ -506,12 +506,12 @@ You must provide all relevant user attributes for each evaluation for your targe
 The `variation` family of methods determine the flag value for a specific user. In Apex, there is a `variation` method for each type, such as `boolVariation` or `stringVariation`. The functions take an `LDUser`, feature flag key, and a default value.
 
 <Callout intent="info">
-<CalloutTitle>Apex variation methods do not automatically add users to the dashboard</CalloutTitle>
+<CalloutTitle>Apex variation methods do not automatically add users to the Users list</CalloutTitle>
 <CalloutDescription>
 
-Variation methods like `boolVariation` or `stringVariation` do not automatically generate `index` events due to limitations with the Apex platform. This means that the SDK does not automatically populate the **Users** dashboard.
+Variation methods like `boolVariation` or `stringVariation` do not automatically generate `index` events due to limitations with the Apex platform. This means that the SDK does not automatically populate the **Users** list.
 
-We recommend calling `client.identify(user)` with each of your users to generate user indexing events and populate your **Users** dashboard. To learn more, read [Identifying and changing users](/sdk/features/identify#apex).
+We recommend calling `client.identify(user)` with each of your users to generate user indexing events and populate your **Users** list. To learn more, read [Identifying and changing users](/sdk/features/identify#apex).
 
 </CalloutDescription>
 </Callout>
@@ -604,7 +604,7 @@ The `Variation` methods determine whether a flag is enabled or not for a specifi
 
 `Variation` methods take the feature flag key, a `User`, and a default value. In the example below, the default value is `false`.
 
-The `Variation` call generates analytics events to tell LaunchDarkly about the flag evaluation and the user properties, so the user will be added to the Users dashboard if a user with that key doesn't exist already.
+The `Variation` call generates analytics events to tell LaunchDarkly about the flag evaluation and the user properties, so the user will be added to the **Users** list if a user with that key doesn't exist already.
 
 Here is an example:
 

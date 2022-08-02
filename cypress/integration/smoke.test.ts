@@ -25,13 +25,13 @@ describe('Documentation website', () => {
     cy.get('nav').contains('Organizing your flags').click()
     cy.title().should('equal', 'Organizing your flags')
     cy.get('nav').contains('Organizing your flags').isActiveLink()
-    cy.get('nav').contains('The flag dashboard').click()
-    cy.title().should('equal', 'The flag dashboard')
-    cy.get('nav').contains('The flag dashboard').isActiveLink()
+    cy.get('nav').contains('The flags list').click()
+    cy.title().should('equal', 'The flags list')
+    cy.get('nav').contains('The flags list').isActiveLink()
     cy.get('nav').contains('Organizing your flags').isPartiallyActiveLink()
 
     // verify an image
-    cy.get('main figure:first').find('figcaption').should('have.text', 'The flag dashboard.')
+    cy.get('main figure:first').find('figcaption').should('have.text', 'The feature flags list.')
     cy.get('main figure:first a').should('have.attr', 'target', '_blank')
     cy.get('main figure:first img')
       .invoke('attr', 'src')

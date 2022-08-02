@@ -16,7 +16,7 @@ Identify's behavior differs between client-side and server-side SDKs.
 
 Client-side SDKs are configured to operate for one user at a time, identified or anonymous. In these SDKs, the identify feature allows customers to change the user context, such as if a user logs in or changes their user settings. Identifying users will cause LaunchDarkly to index them.
 
-Server-side SDKs operate for multiple users concurrently. Unlike in client-side SDKs, server-side SDKs do not have a notion of "changing the user context" because users are directly passed to client method invocations for actions such as evaluating flag variations. In server-side SDKs, the only impact of identifying users is that they are added to the **Users** dashboard. However, in most applications this is not needed because users are automatically indexed when used for a flag evaluation. Instead, you should provide the user object in a variation or all flags call to get the expected flag evaluation. To learn more, read [Evaluating flags](/sdk/features/evaluating) and [Getting all flags](/sdk/features/all-flags).
+Server-side SDKs operate for multiple users concurrently. Unlike in client-side SDKs, server-side SDKs do not have a notion of "changing the user context" because users are directly passed to client method invocations for actions such as evaluating flag variations. In server-side SDKs, the only impact of identifying users is that they are added to the **Users** list. However, in most applications this is not needed because users are automatically indexed when used for a flag evaluation. Instead, you should provide the user object in a variation or all flags call to get the expected flag evaluation. To learn more, read [Evaluating flags](/sdk/features/evaluating) and [Getting all flags](/sdk/features/all-flags).
 
 To learn more about the differences in how SDKs identify and use user contexts, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
@@ -471,9 +471,9 @@ This feature is available in the following server-side SDKs:
 
 <Details summary="Expand .NET (server-side) code sample">
 
-[`Identify`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Identify_) creates or updates users on LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+[`Identify`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Identify_) creates or updates users on LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
-In most cases, you do not need to call `Identify`. The `Variation` methods automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+In most cases, you do not need to call `Identify`. The `Variation` methods automatically creates users on the **Users** list for you. `Identify` is useful if you want to pre-populate your **Users** list before you launch any features.
 
 To use `identify`:
 
@@ -497,15 +497,15 @@ client.Identify(user);
 
 <Details summary="Expand Apex code sample">
 
-`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
 <Callout intent="info">
-<CalloutTitle>Apex variation methods do not automatically add users to the dashboard</CalloutTitle>
+<CalloutTitle>Apex variation methods do not automatically add users to the Users list</CalloutTitle>
 <CalloutDescription>
 
-Variation methods like `boolVariation` or `stringVariation` do not automatically generate `index` events due to limitations with the Apex platform. This means that the SDK does not automatically populate the **Users** dashboard.
+Variation methods like `boolVariation` or `stringVariation` do not automatically generate `index` events due to limitations with the Apex platform. This means that the SDK does not automatically populate the **Users** list.
 
-We recommend calling `client.identify(user)` with each of your users to generate user indexing events and populate your **Users** dashboard.
+We recommend calling `client.identify(user)` with each of your users to generate user indexing events and populate your **Users** list.
 
 </CalloutDescription>
 </Callout>
@@ -532,9 +532,9 @@ client.identify(user);
 
 <Details summary="Expand C/C++ (server-side) code sample">
 
-`LDClientIdentify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+`LDClientIdentify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
-In most cases, you do not need to call `LDClientIdentify`. The `variation` call automatically creates users on the dashboard for you. `LDClientIdentify` is useful if you want to pre-populate your dashboard before you launch any features.
+In most cases, you do not need to call `LDClientIdentify`. The `variation` call automatically creates users on the **Users** list for you. `LDClientIdentify` is useful if you want to pre-populate your **Users** list before you launch any features.
 
 To use `identify`:
 
@@ -558,9 +558,9 @@ LDClientIdentify(client, user);
 
 <Details summary="Expand Erlang code sample">
 
-`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
-In most cases, you do not need to call `Identify`. The `Variation` methods automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+In most cases, you do not need to call `Identify`. The `Variation` methods automatically creates users on the **Users** list for you. `Identify` is useful if you want to pre-populate your **Users** list before you launch any features.
 
 To use `identify`:
 
@@ -584,9 +584,9 @@ ldclient:identify(#{key => <<"aa0ceb">>})
 
 <Details summary="Expand Go code sample">
 
-[`Identify`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Identify) creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+[`Identify`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Identify) creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
-In most cases, you do not need to call `Identify`. The `Variation` method automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+In most cases, you do not need to call `Identify`. The `Variation` method automatically creates users on the **Users** list for you. `Identify` is useful if you want to pre-populate your **Users** list before you launch any features.
 
 To use `identify`:
 
@@ -610,7 +610,7 @@ client.Identify(user)
 
 <Details summary="Expand Haskell code sample">
 
-In most cases, you do not need to call `Identify`. The `Variation` method automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+In most cases, you do not need to call `Identify`. The `Variation` method automatically creates users on the **Users** list for you. `Identify` is useful if you want to pre-populate your **Users** list before you launch any features.
 
 To use `identify`:
 
@@ -634,9 +634,9 @@ identify client user
 
 <Details summary="Expand Java code sample">
 
-[`Identify`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#identify-com.launchdarkly.sdk.LDUser-) creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+[`Identify`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#identify-com.launchdarkly.sdk.LDUser-) creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
-In most cases, you do not need to call `Identify`. The `Variation` method automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+In most cases, you do not need to call `Identify`. The `Variation` method automatically creates users on the **Users** list for you. `Identify` is useful if you want to pre-populate your **Users** list before you launch any features.
 
 To use `identify`:
 
@@ -660,9 +660,9 @@ client.identify(user);
 
 <Details summary="Expand Lua code sample">
 
-`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
-In most cases, you do not need to call `Identify`. The `Variation` call automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+In most cases, you do not need to call `Identify`. The `Variation` call automatically creates users on the **Users** list for you. `Identify` is useful if you want to pre-populate your **Users** list before you launch any features.
 
 To use `identify`:
 
@@ -686,9 +686,9 @@ client:identify(user)
 
 <Details summary="Expand Node.js (server-side) code sample">
 
-`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
-In most cases, you do not need to call `Identify`. The `Variation` call automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+In most cases, you do not need to call `Identify`. The `Variation` call automatically creates users on the **Users** list for you. `Identify` is useful if you want to pre-populate your **Users** list before you launch any features.
 
 To use `identify`:
 
@@ -712,9 +712,9 @@ client.identify(user);
 
 <Details summary="Expand PHP code sample">
 
-`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
-In most cases, you do not need to call `Identify`. The `Variation` call automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+In most cases, you do not need to call `Identify`. The `Variation` call automatically creates users on the **Users** list for you. `Identify` is useful if you want to pre-populate your **Users** list before you launch any features.
 
 To use `identify`:
 
@@ -738,9 +738,9 @@ $client->identify(user);
 
 <Details summary="Expand Python code sample">
 
-`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
-In most cases, you do not need to call `Identify`. The `Variation` call automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+In most cases, you do not need to call `Identify`. The `Variation` call automatically creates users on the **Users** list for you. `Identify` is useful if you want to pre-populate your **Users** list before you launch any features.
 
 To use `identify`:
 
@@ -764,9 +764,9 @@ ldclient.get().identify(user)
 
 <Details summary="Expand Ruby code sample">
 
-`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
-In most cases, you do not need to call `Identify`. The `Variation` call automatically creates users on the dashboard for you. `Identify` is useful if you want to pre-populate your dashboard before you launch any features.
+In most cases, you do not need to call `Identify`. The `Variation` call automatically creates users on the **Users** list for you. `Identify` is useful if you want to pre-populate your **Users** list before you launch any features.
 
 To use `identify`:
 
@@ -790,9 +790,9 @@ client.identify(user)
 
 <Details summary="Expand Rust code sample">
 
-[`identify`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.identify) creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the dashboard.
+[`identify`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.identify) creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
-In most cases, you do not need to call `identify`. The `variation` methods automatically create users on the dashboard for you. `identify` is useful if you want to pre-populate your dashboard before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` methods automatically create users on the **Users** list for you. `identify` is useful if you want to pre-populate your **Users** list before you launch any features.
 
 To use `identify`:
 

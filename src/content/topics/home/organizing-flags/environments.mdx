@@ -110,10 +110,10 @@ Requiring members to leave comments when they change flags or segments helps you
 </Callout>
 
 <Callout intent="alert">
-<CalloutTitle>Required comments are only enforced in the dashboard</CalloutTitle>
+<CalloutTitle>Required comments are only enforced from the flags list</CalloutTitle>
 <CalloutDescription>
 
-When **Require comments** is enabled, the flag dashboard will force members to explain their changes. Comments are not required for changes made with the LaunchDarkly API.
+When **Require comments** is enabled, members must leave a comment to explain their changes when they make changes from the flags list in the LaunchDarkly user interface (UI). Comments are not required for changes made with the LaunchDarkly API.
 
 Required comments is available to customers on an Enterprise plan. To learn more, read [Required comments](/home/feature-workflows/required-comments).
 
@@ -173,7 +173,7 @@ You can use the REST API: [Create environment](https://apidocs.launchdarkly.com/
 
 ## Migrating content between environments
 
-You can migrate some, but not all, content between environments from the flag dashboard. To learn more, read [Comparing and copying flag settings between two environments](/home/code/flag-compare-copy#comparing-and-copying-flag-settings-between-two-environments).
+You can migrate some, but not all, content between environments from the flags list. To learn more, read [Comparing and copying flag settings between two environments](/home/code/flag-compare-copy#comparing-and-copying-flag-settings-between-two-environments).
 
 Alternatively, customers on a Pro or Enterprise plan can use the REST API to migrate flags from one environment to another. First, GET the feature flag you wish to import, then PATCH to update the flag configuration in production.
 
@@ -210,7 +210,7 @@ Each environment also has a time-to-live (TTL) setting. This sets the number of 
 
 The TTL is only used in the PHP SDK, because PHP's shared-nothing architecture makes our streaming model impossible.
 
-For customers using PHP, we recommend setting your TTL to at least five minutes in production environments. This lets the PHP SDK cache feature flag rules for five minutes, so most calls to `variation` will not make a remote request. The tradeoff is that changes you make to your feature flag rules on your dashboard will not take effect for five minutes.
+For customers using PHP, we recommend setting your TTL to at least five minutes in production environments. This lets the PHP SDK cache feature flag rules for five minutes, so most calls to `variation` will not make a remote request. The tradeoff is that changes you make to your feature flag rules on your flags list will not take effect for five minutes.
 
 If your site has relatively low traffic (fewer than one request per minute), you may wish to increase the TTL to five minutes or more to take better advantage of the local cache.
 

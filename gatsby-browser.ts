@@ -14,6 +14,12 @@ export const onClientEntry = () => {
   const isStaging = activeEnv === 'staging'
   const isDev = activeEnv === 'development'
 
+  // HACK: this is a migration step for old ls values that shouldn't
+  // be an issue on prod and can be removed over time.
+  if (localStorage.getItem('site') === '"launchdarkly"') {
+    localStorage.removeItem('site')
+  }
+
   if (isProd || (isDev && process.env.RUN_DATADOG_LOCALLY === 'true')) {
     initDataDogLogging()
   }

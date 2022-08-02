@@ -8,30 +8,30 @@ Here's everything you need to contribute to the docs successfully.
 
 # Architecture and workflow
 
-The `LaunchDarkly-Docs` repo has a lot of things in it, but you only need to pay attention to one or two directories within it to add docs of your own and PR them into the site. 
+The `LaunchDarkly-Docs` repo has a lot of things in it, but you only need to pay attention to one or two directories within it to add docs of your own and PR them into the site.
 
 In order to write docs that build and run in our site, you must follow the guidelines given below.
 
 All documentation topics follow identical formats:
 
 * They are .MDX files.
-* They exist in a file structure that corresponds to their placement in the sidenav. For example, 'The Users dashboard' is inside a directory called 'Managing Users' because it exists in the 'Managing Users' category on the docs site.
+* They exist in a file structure that corresponds to their placement in the sidenav. For example, 'The Users list' is inside a directory called 'Users and user segments' because it exists in the 'Users and user segments' category on the docs site.
 * They have frontmatter that assists their placement in search results, controls whether they appear on the docs site or not, and define their title and URL slug.
 
 The content architecture in the `LaunchDarkly-Docs` repo is as follows:
 
-* Documentation topics are in `src/content/topics`. Inside the `/topics` directory, sub-directories follow the structure of the sidenav and header navigation visible on docs.launchdarkly.com. 
+* Documentation topics are in `src/content/topics`. Inside the `/topics` directory, sub-directories follow the structure of the sidenav and header navigation visible on docs.launchdarkly.com.
 * Filepaths dictate both the location of the topic in the repo and the URL of the topic on the live site.
 
  For example:
 
- /header-section/sidenav-category/directory/topic 
+ /header-section/sidenav-category/directory/topic
  `/home/account-security/custom-roles/configure`
  or
  /header-section/sidenav-category/topic
- `/home/managing-flags/dashboard`
+ `/home/users-and-segments/users-list`
 * Screenshots are in `src/content/images/`.
-* The sidenav is in NavigationData.js. 
+* The sidenav is in NavigationData.js.
 * Redirects are in redirectRules.js.
 
 ## Writing frontmatter for docs topics
@@ -42,9 +42,9 @@ Here's a template for what the frontmatter should look like:
 
 ```
 ---
-path: /home/managing-users/users-dashboard
-title: The Users dashboard
-description: This topic explains what the Users dashboard is. The Users dashboard gives you a summary view of how each user experiences all of the features in your app, and lets you customize their experience from one screen.
+path: /home/users-and-segments/users-list
+title: The Users list
+description: This topic explains what the Users list is. The Users list gives you a summary view of how each user experiences all of the features in your app, and lets you customize their experience from one screen.
 published: true
 tags: ['dashboard', 'user', 'attribute', 'mau']
 ---
@@ -79,7 +79,7 @@ The entry should be a new table row at the top of the table. It should look like
 </TableRow>
 ```
 
-The fourth cell should be a link to the PR from the [LaunchDarkly-Docs repository](https://github.com/launchdarkly/LaunchDarkly-Docs/), if a PR from that repository was the reason for the change. In practice, almost all new topics originate in the [git-gatsby repository](https://github.com/launchdarkly/git-gatsby/), and this cell's value is left as "Not applicable." 
+The fourth cell should be a link to the PR from the [LaunchDarkly-Docs repository](https://github.com/launchdarkly/LaunchDarkly-Docs/), if a PR from that repository was the reason for the change. In practice, almost all new topics originate in the [git-gatsby repository](https://github.com/launchdarkly/git-gatsby/), and this cell's value is left as "Not applicable."
 
 ## Editing an existing topic in Github
 

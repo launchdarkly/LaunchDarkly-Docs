@@ -45,13 +45,13 @@ Hashicorp Configuration Language (HCL) is the infrastructure description syntax 
 
 ## Choosing an approach based on your use case
 
-This guide shows multiple examples of how you can use Terraform to create and manage LaunchDarkly resources. These examples do not mean that those kinds of resources are best managed with Terraform in all cases. Think carefully before you use Terraform in these ways, as conflicts may occur if an account member tries to modify Terraform-managed resources through the flag dashboard.
+This guide shows multiple examples of how you can use Terraform to create and manage LaunchDarkly resources. These examples do not mean that those kinds of resources are best managed with Terraform in all cases. Think carefully before you use Terraform in these ways, as conflicts may occur if an account member tries to modify Terraform-managed resources through the flags list.
 
 With each example, we'll discuss why Terraform was suited to that scenario. We'll also discuss the additional measures you should take to avoid the conflicts mentioned above.
 
 ### Best practices for avoiding conflicts between LaunchDarkly and Terraform
 
-These are the practices we recommend to avoid conflicts that can arise when some of your flags are managed through Terraform and others are managed through the flag dashboard:
+These are the practices we recommend to avoid conflicts that can arise when some of your flags are managed through Terraform and others are managed through the flags list:
 
 * Tag everything Terraform manages with a `managed-by-terraform` tag.
 * Use custom roles to enforce that resources and properties managed by Terraform can not be manipulated by the LaunchDarkly UI. For example, put most account members in a role that does not have write access to the resources managed by Terraform.
@@ -194,7 +194,7 @@ resource "launchdarkly_feature_flag" "show-featurex" {
 </CodeTabItem>
 </CodeTabs>
 
-The code above defines the base flag configuration, but not its per-environment states, such as targeting or evaluation rules. Those are managed using a different resource: [launchdarkly_feature_flag_environment](https://www.terraform.io/docs/providers/launchdarkly/r/feature_flag_environment.html). This resource is **deliberately excluded** from the code because it allows account members to edit per-environment states in the flag dashboard without their changes being overwritten by updates to the Terraform configuration.
+The code above defines the base flag configuration, but not its per-environment states, such as targeting or evaluation rules. Those are managed using a different resource: [launchdarkly_feature_flag_environment](https://www.terraform.io/docs/providers/launchdarkly/r/feature_flag_environment.html). This resource is **deliberately excluded** from the code because it allows account members to edit per-environment states in the flags list without their changes being overwritten by updates to the Terraform configuration.
 
 <Callout intent="info">
 <CalloutTitle>You can use Terraform Cloud to perform automated reviews</CalloutTitle>

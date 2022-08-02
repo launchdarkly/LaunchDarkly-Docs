@@ -202,7 +202,7 @@ After you download the function locally, install the [LaunchDarkly Node SDK](htt
 
 LaunchDarkly is now initialized, so you can set up flags to use in the function code.
 
-1. Navigate to the flag dashboard.
+1. Navigate to the flags list.
 2. Click **Create flag**.
 3. Name the flag "rebrand." Deselect the checkbox calling for a mobile or client-side ID. Keep the flag's default variation type of "Boolean." Variation 1 will be `true` and variation 2 will be `false`
 4. Click **Save flag**. You are returned to the **Targeting** tab.
@@ -386,7 +386,7 @@ Finally, test to confirm this works. Here's how:
 
 You can also change which site you receive, or test what the full rollout looks like, from LaunchDarkly. Here's how:
 
-1. Go to the flag dashboard and click into the "rebrand" flag.
+1. Go to the flags list and click into the "rebrand" flag.
 2. Change the "Default rule" from serving a percentage rollout to just serving `true`.
 3. Save the changes to your flag and go to the CloudFront domain again. You will be directed to the beta site.
 

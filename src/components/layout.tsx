@@ -66,6 +66,7 @@ const components = {
   RelayEndOfLife,
   Icon,
   code: Code,
+  inlineCode: Code,
   pre: Pre,
   ChildPageList,
   Feature,
