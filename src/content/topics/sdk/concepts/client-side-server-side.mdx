@@ -16,19 +16,10 @@ The SDK types have different security considerations as well as some behavioral 
 
 It is important to understand the two types of SDKs we support. The different types of SDKs impact critical implementation details and use cases.
 
-All of our SDKs are one of these two categories:
+All of our SDKs belong to one of these categories:
 
-- client-side
-- server-side
-
-<Callout intent="info">
-<CalloutTitle>Client-side SDKs include mobile SDKs</CalloutTitle>
-<CalloutDescription>
-
-Our SDKs primarily for mobile devices, known as our "mobile SDKs", are categorized as client-side SDKs because, like our client-side SDKs, most mobile applications have a single-user context. This includes our Android, iOS, Flutter, React Native, and client-side .NET SDKs. Each of these SDKs also has some mobile-specific functionality. To learn more, read [Functional differences between SDKs](#functional-differences-between-sdks).
-
-</CalloutDescription>
-</Callout>
+- Client-side SDKs, including mobile SDKs
+- Server-side SDKs
 
 The table below summarizes the differences between client- and server-side SDKs:
 
@@ -43,8 +34,7 @@ The table below summarizes the differences between client- and server-side SDKs:
       <TableCell>
         These SDKs are designed for single-user desktop, mobile, and embedded applications.
         <br />
-        These SDKs are intended to be used in a potentially less secure environment, such as a personal computer or
-        mobile device.
+        These SDKs are intended to be used in a potentially less secure environment, such as a personal computer or mobile device.
         <br />
         These SDKs include mobile SDKs.
       </TableCell>
@@ -54,13 +44,22 @@ The table below summarizes the differences between client- and server-side SDKs:
       <TableCell>
         These SDKs are designed for multi-user systems.
         <br />
-        These SDKs are intended to be used in a trusted environment, such as inside a corporate network or on a web
-        server.
+        These SDKs are intended to be used in a trusted environment, such as inside a corporate network or on a web server.
         <br />
       </TableCell>
     </TableRow>
   </TableBody>
 </Table>
+
+### Understanding mobile SDKs
+
+We categorize SDKs designed for mobile devices as client-side SDKs because, like our client-side SDKs, most mobile applications have a single-user context. This includes our client-side .NET, Android, client-side C/C++, iOS, Flutter, React Native, and Roku SDKs. Each of these SDKs also has some mobile-specific functionality.
+
+Here are some of the ways that mobile SDKs are different than other client-side SDKs:
+
+- Mobile SDKs automatically populate values for the `os` and `device` built-in user attributes. To learn more, read [Built-in user attributes](/home/users/built-in-attributes).
+- Mobile SDKs support multiple environments. To learn more, read [Multi-environment support](#multi-environment-support).
+- Mobile SDKs handle streaming and polling connections differently than other client-side SDKs. To learn more, read [Receiving updates from LaunchDarkly](#receiving-updates-from-launchdarkly).
 
 ## Functional differences between SDKs
 
