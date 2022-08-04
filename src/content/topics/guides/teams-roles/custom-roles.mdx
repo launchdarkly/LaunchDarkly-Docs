@@ -262,9 +262,9 @@ This table displays the built-in roles and their associated permissions that you
 
 Expand each of the sections below to learn how to recreate built-in roles using the advanced editor.
 
-<Details summary="Expand reader custom role">
-
 ### Reader
+
+<Details summary="Expand reader custom role">
 
 To create a role with the same permissions as the built-in Reader role:
 
@@ -301,9 +301,9 @@ To create a role with the same permissions as the built-in Reader role:
 
 </Details>
 
-<Details summary="Expand writer custom role">
-
 ### Writer
+
+<Details summary="Expand writer custom role">
 
 Because permissions are set to `deny` by default, you must explicitly allow actions for the Writer role.
 
@@ -342,9 +342,9 @@ To create a role with the same permissions as the built-in Writer role:
 
 </Details>
 
-<Details summary="Expand administrator custom role">
-
 ### Administrator
+
+<Details summary="Expand administrator custom role">
 
 Because permissions are set to `deny` by default, you must explicitly allow actions for the Admin role.
 
@@ -455,6 +455,8 @@ To create a role with the same permissions as the built-in Admin role:
 
 </Details>
 
+### No access
+
 <Details summary="Expand No access custom role">
 
 LaunchDarkly sets role permissions to `deny` by default, except for the `viewProject` and `createAccessToken` actions. You must explicitly deny the `viewProject` action to recreate the No access role. You do not need to deny the `createAccessToken` action, because a member can't create an access token if they don't have view permissions.
@@ -523,9 +525,9 @@ To learn more, read [Using actions](/home/members/role-actions).
 
 Expand each of the sections below to learn how to build example custom roles using the advanced editor.
 
-<Details summary="Expand tag-specific permissions custom role">
-
 ### Tag-specific permissions
+
+<Details summary="Expand tag-specific permissions custom role">
 
 One way to organize access to resources is by tagging individual resources, and then creating custom roles with access based on tags. For example, you can create a `dev` tag for your environments and use it in a policy to allow access only to development environments. Tags can be added to projects, environments, segments, flags, and metrics.
 
@@ -567,9 +569,9 @@ Anyone with this custom role can edit resources with a `dev` tag. This role is u
 
 </Details>
 
-<Details summary="Expand project-specific permissions with view access custom role">
-
 ### Project-specific permissions with view access
+
+<Details summary="Expand project-specific permissions with view access custom role">
 
 In this example, you will create a "New checkout flow" custom role that has edit permissions in the `new-checkout-flow` project only, and can view all other projects.
 
@@ -600,9 +602,9 @@ Anyone with this custom role can edit all resources within the `New-checkout-flo
 
 </Details>
 
-<Details summary="Expand project-specific permissions without view access custom role">
-
 ### Project-specific permissions without view access
+
+<Details summary="Expand project-specific permissions without view access custom role">
 
 In this example, you will create a "New checkout flow" custom role that has edit permissions in the `new-checkout-flow` project only, but cannot view any other projects.
 

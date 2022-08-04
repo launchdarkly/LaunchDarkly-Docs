@@ -21,9 +21,9 @@ Use the `viewProject` action to allow or deny members viewing access to one or m
 </CalloutDescription>
 </Callout>
 
-<Details summary="Expand Example: Granting access to specific environments and flags">
-
 ## Example: Granting access to specific environments and flags
+
+<Details summary="Expand Example: Granting access to specific environments and flags">
 
 This example policy uses the `*` wildcard to allow members of the QA team to administer environments that have tags beginning with `qa_`, such as `qa_test`, `qa_production`, and so on. This policy also allows members to manage flags in environments that have tags beginning with `qa_`.
 
@@ -62,9 +62,9 @@ Copy this role and make any modifications to it to suit your needs:
 
 </Details>
 
-<Details summary="Expand Example: tag-specific permissions">
-
 ## Example: tag-specific permissions
+
+<Details summary="Expand Example: tag-specific permissions">
 
 One way to organize access to resources is by tagging individual resources, and then creating custom roles with access based on those tags. For example, you can create a `dev` tag for your environments and use it in a policy to allow access only to development environments. You can add tags to projects, environments, segments, flags, and metrics.
 
@@ -110,9 +110,9 @@ For more tag policy examples, read [Using tags in custom role policies](/home/me
 
 </Details>
 
-<Details summary="Expand Example: Granting access to flag toggles, but not flag rollout or targeting rules">
-
 ## Example: Granting access to flag toggles, but not flag rollout or targeting rules
+
+<Details summary="Expand Example: Granting access to flag toggles, but not flag rollout or targeting rules">
 
 This example policy allows members of the Ops team to toggle on or off any flags in the production environment. They may not change percentage rollouts or targeting rules, or manage any environments or projects.
 
@@ -153,9 +153,9 @@ Copy this role and make any modifications to it to suit your needs:
 
 </Details>
 
-<Details summary="Expand Example: Granting all actions to just one flag">
-
 ## Example: Granting all actions to just one flag
+
+<Details summary="Expand Example: Granting all actions to just one flag">
 
 The policy below allows all actions to be done to a single specified flag, `flag-1`. When you recreate this custom role, keep the **By default, members can view all LaunchDarkly content** box checked.
 
@@ -187,9 +187,9 @@ Copy this role and make any modifications to it to suit your needs:
 
 </Details>
 
-<Details summary="Expand Example: Granting all actions to just one flag while showing only one project">
-
 ## Example: Granting all actions to just one flag while showing only one project
+
+<Details summary="Expand Example: Granting all actions to just one flag while showing only one project">
 
 The policy below restricts access to a project a flag is in, while still allowing you to perform actions on that flag. In this example, the flag is called `flag-1`.
 
@@ -230,9 +230,9 @@ This lets you restrict access to only one project without having to explicitly d
 
 </Details>
 
-<Details summary="Expand Example: Restricting actions within production environments">
-
 ## Example: Restricting actions within production environments
+
+<Details summary="Expand Example: Restricting actions within production environments">
 
 This policy allows using only these actions in the `production-1` environment:
 
@@ -282,9 +282,9 @@ The second statement in the code snippet above allows all actions in all environ
 
 </Details>
 
-<Details summary="Expand Example: Allowing access to flags, metrics, and segments in one project">
-
 ## Example: Allowing access to flags, metrics, and segments in one project
+
+<Details summary="Expand Example: Allowing access to flags, metrics, and segments in one project">
 
 In this example, we deny all actions to all projects, but allow specific flag actions in one project, all segment actions in all projects, and all metric actions in all projects. When you restrict all actions this comprehensively, you must add each action for flags, segments, and metrics explicitly.
 
@@ -338,11 +338,9 @@ Copy this role and make any modifications to it to suit your needs:
 
 </Details>
 
-
+## Template: Built-in Reader role replication
 
 <Details summary="Expand Template: Built-in Reader role replication">
-
-## Template: Built-in Reader role replication
 
 When you recreate this custom role, keep the **By default, members can view all LaunchDarkly content** box checked. If you uncheck this box, the role will not have read access to any resources.
 
@@ -432,9 +430,9 @@ Copy this Reader role and make any modifications to it to suit your needs:
 
 </Details>
 
-<Details summary="Expand Template: Built-in Writer role replication">
-
 ## Template: Built-in Writer role replication
+
+<Details summary="Expand Template: Built-in Writer role replication">
 
 Because permissions are set to `deny` by default, you must explicitly allow actions for the Writer role. The code snippet below is a replication of LaunchDarkly's built-in Writer role. You can copy it and make adjustments as needed.
 
@@ -516,9 +514,9 @@ Copy this Writer role and make any modifications to it to suit your needs:
 
 </Details>
 
-<Details summary="Expand Template: Built-in Admin role replication">
-
 ## Template: Built-in Admin role replication
+
+<Details summary="Expand Template: Built-in Admin role replication">
 
 Because permissions are set to `deny` by default, you must explicitly allow actions for the Admin role. The code snippet below is a replication of LaunchDarkly's built-in Admin role. You can copy it and make adjustments as needed.
 
@@ -614,9 +612,9 @@ Copy this Admin role and make any modifications to it to suit your needs:
 
 </Details>
 
-<Details summary="Expand Template: No access role replication">
-
 ## Template: No access role replication
+
+<Details summary="Expand Template: No access role replication">
 
 Permissions are set to `deny` by default except for the `viewProject` and `createAccessToken` actions. You must explicitly deny those actions for the No access role. The code snippet below is a replication of LaunchDarkly's built-in No access role. You can copy it and make adjustments as needed.
 
