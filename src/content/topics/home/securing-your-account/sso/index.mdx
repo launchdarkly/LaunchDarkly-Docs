@@ -21,7 +21,7 @@ This topic explains what Single Sign-On (SSO) features are available in LaunchDa
 
 SSO allows your team to authenticate with LaunchDarkly using the same identity provider (IdP) you use for your other internal and external services. LaunchDarkly implements SSO with the SAML 2.0 protocol. Administrators can use SSO with their IdP to manage access rights in LaunchDarkly. After SSO is turned on, administrators can also configure System for Cross-domain Identity Management (SCIM) provisioning through their IdP.
 
-Once SCIM is configured, administrators can optionally turn on and configure team sync with IdP. Team sync with IdP allows administrators to sync groups in their IdP with teams in LaunchDarkly to automate team member provisioning.
+Once SCIM is configured, administrators can optionally turn on and configure team sync with SCIM. Team sync with SCIM allows administrators to sync groups in their IdP with teams in LaunchDarkly to automate team member provisioning.
 
 ## Setting up SSO in LaunchDarkly
 
@@ -64,7 +64,7 @@ This table lists the external IdPs for which we provide configuration guidance, 
     IdP Integration SCIM
     </TableHeadCell>
     <TableHeadCell>
-    Team sync with IdP
+    Team sync with SCIM
     </TableHeadCell>
     <TableHeadCell>
     Starter and Pro plan support
@@ -379,13 +379,13 @@ To disconnect SCIM:
 2. Navigate to the "SSO management" section of the [**Security**](https://app.launchdarkly.com/settings/security) tab on the **Account settings** page.
 3. Click **Disconnect SCIM**.
 
-## Team sync with IdP
+## Team sync with SCIM
 
 <Callout intent="primary">
-<CalloutTitle>Team sync with IdP is an Enterprise feature</CalloutTitle>
+<CalloutTitle>Team sync with SCIM is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-Team sync with IdP is only available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+Team sync with SCIM is only available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
