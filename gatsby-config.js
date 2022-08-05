@@ -57,13 +57,6 @@ const plugins = [
     },
   },
   {
-    resolve: 'gatsby-source-filesystem',
-    options: {
-      name: 'images',
-      path: `${__dirname}/assets/images`,
-    },
-  },
-  {
     resolve: 'gatsby-plugin-svgr-loader',
     options: {
       rule: {
@@ -98,7 +91,7 @@ const plugins = [
       background_color: '#0E1932',
       theme_color: '#FFF',
       display: 'minimal-ui',
-      icon: 'assets/images/favicon-osmo.png', // This path is relative to the root of the site.
+      icon: 'assets/icons/favicon-osmo-prod.svg', // This path is relative to the root of the site.
     },
   },
   {
