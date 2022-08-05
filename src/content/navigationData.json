@@ -412,7 +412,7 @@
             "path": "/home/creating-experiments/metrics",
             "items": [
               {
-                "label": "Click metrics",
+                "label": "Click conversion metrics",
                 "path": "/home/creating-experiments/metrics/click"
               },
               {
@@ -424,7 +424,7 @@
                 "path": "/home/creating-experiments/metrics/custom-numeric"
               },
               {
-                "label": "Page view metrics",
+                "label": "Page view conversion metrics",
                 "path": "/home/creating-experiments/metrics/page-view"
               }
             ]

@@ -19,8 +19,6 @@ SDKs send events at regular intervals, such as every five seconds. If a browser 
 </CalloutDescription>
 </Callout>
 
-## Creating custom numeric metrics
-
 You can use numeric metrics to track the changes in a value against a baseline value. Unlike conversion metrics, which track whether or not an event occurred, numeric metrics let you measure changes in value against a baseline flag variation you choose.
 
 For example, you can use numeric metrics to track:
@@ -28,6 +26,8 @@ For example, you can use numeric metrics to track:
 - Page load time
 - The efficacy of various search algorithms
 - The number of items in a shopping cart at checkout
+
+## Creating custom numeric metrics
 
 To add a custom numeric metric in LaunchDarkly, you must identify it with a code snippet embedded in your app. Numeric metrics must send a metric event value for each unique user in an experiment for accurate experiment results.
 
@@ -75,7 +75,7 @@ If the feature described below is not available in your "Create a new metric" pa
 
 To create a numeric metric:
 
-1. Follow steps 1-7 in [Creating click metrics](/home/creating-experiments/metrics/click) until you have configured the metric up to the "Event information" section.
+1. Follow steps 1-7 in [Creating click conversion metrics](/home/creating-experiments/metrics/click#creating-click-conversion-metrics) until you have configured the metric up to the "Event information" section.
 2. Click the **Event kind** menu and select "Custom."
 3. Select the **Numeric** radio button.
 4. Enter a human-readable **Event name**. This is the event name you will reference in your code snippet when you insert the metric information into your app.

@@ -283,7 +283,9 @@ client.track('your-event-name', { customProperty: someValue });
 </CodeTabItem>
 </CodeTabs>
 
-If you [define click or page view metrics](/home/about-experimentation) in LaunchDarkly, they are sent automatically once the client has been initialized. You do not have to do anything else with the client to send click or page view goals. The SDK will generate `page view` events correctly regardless of how the URL is changed, such as by the HTML5 history API, by changing the URL hash fragment, etc.
+If you define click conversion or page view conversion metrics in LaunchDarkly, the SDK sends them automatically after you have initialized the client. You do not have to do anything else with the client to send click or page view goals. The SDK will generate `page view` events correctly regardless of how the URL is changed, such as by the HTML5 history API, by changing the URL hash fragment, etc.
+
+To learn more about metrics, read [Creating metrics](/home/creating-experiments/metrics).
 
 <Callout intent="info">
 <CalloutTitle>Do Not Track and ad blocking software</CalloutTitle>

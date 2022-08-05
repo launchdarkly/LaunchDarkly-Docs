@@ -1,20 +1,20 @@
 ---
 path: /home/creating-experiments/metrics/click
-title: Click metrics
-description: This topic explains how to create a click metric for an experiment in LaunchDarkly.
+title: Click conversion metrics
+description: This topic explains how to create a click conversion metric for an experiment in LaunchDarkly.
 published: true
 tags: ['metric', 'click', 'experiment', 'experimentation', 'enterprise']
 ---
 
 ## Overview
 
-This topic explains how to create a click metric for an experiment in LaunchDarkly.
+This topic explains how to create a click conversion metric for an experiment in LaunchDarkly.
 
 <Callout intent="info">
 <CalloutTitle>Some metrics require the JavaScript or React SDK</CalloutTitle>
 <CalloutDescription>
 
-Click metrics are only available on the JavaScript and React SDKs. If you do not use the JavaScript or React SDK and would like to track clicks or page views, use a custom conversion metric.
+Click conversion metrics are only available on the JavaScript and React SDKs. If you do not use the JavaScript or React SDK and would like to track clicks or page views, use a custom conversion metric.
 
 </CalloutDescription>
 </Callout>
@@ -28,9 +28,7 @@ SDKs send events at regular intervals, such as every five seconds. If a browser 
 </CalloutDescription>
 </Callout>
 
-## Creating click metrics
-
-Click metrics track how often a user interacts with an element of your product's UI. Click metrics must be used with either the JavaScript or React SDK.
+Click conversion metrics track how often a user interacts with an element of your product's UI. Click conversion metrics must be used with either the JavaScript or React SDK.
 
 For example, you might want to track how often a user clicks a "Save" button when it is red versus how often a user clicks the "Save" button when it is blue. You can create a metric that monitors clicks on the button as designated by a CSS selector located at a specific URL.
 
@@ -51,7 +49,9 @@ For example, some CSS selectors include:
 </CalloutDescription>
 </Callout>
 
-To create a click metric:
+## Creating click conversion metrics
+
+To create a click conversion metric:
 
 1. Navigate to the **Experiments** list.
 2. Click the **Metrics** tab.
