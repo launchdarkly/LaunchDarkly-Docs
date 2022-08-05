@@ -10,9 +10,9 @@ tags: ['anonymous', 'key', 'mau', 'alias']
 
 This topic explains what anonymous users are, how their information is handled in LaunchDarkly, and how they contribute to your Monthly Active Users (MAU) count.
 
-You can designate any user as an anonymous user. Anonymous users work just like regular users, except that they don't appear on your **Users** dashboard in LaunchDarkly. You can't search for anonymous users on your **Users** dashboard, and you can't search or autocomplete by anonymous user keys. Anonymous users still count toward your MAU limit.
+You can designate any user as an anonymous user. Anonymous users work just like regular users, except that they don't appear on your **Users** list in LaunchDarkly. You can't search for anonymous users on your **Users** list, and you can't search or autocomplete by anonymous user keys. Anonymous users still count toward your MAU limit.
 
-The most common reason to designate anonymous users is to prevent unauthenticated users from diluting useful data in the **Users** dashboard.
+The most common reason to designate anonymous users is to prevent unauthenticated users from diluting useful data in the **Users** list.
 
 Anonymous users may have different key attributes, or they may use a shared user key.
 
@@ -24,7 +24,7 @@ To use a shared user key, set the key attribute to the same value for each of yo
 <CalloutTitle>Ensuring user privacy</CalloutTitle>
 <CalloutDescription>
 
-You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user attributes instead. To learn more, read [Creating private user attributes](/home/users/attributes#creating-private-user-attributes).
+You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user attributes instead. To learn more, read [Using private user attributes](/home/users/attributes#using-private-user-attributes).
 
 </CalloutDescription>
 </Callout>
@@ -54,7 +54,7 @@ If you are targeting anonymous users in percentage rollouts, you must assign var
 
 You cannot target anonymous users with a shared key in Experimentation. All users with the same key receive the same variation, and you cannot target specific user segments unless they have unique keys. To learn more about audience allocation for an experiment, read [Allocating experiment audiences](/home/creating-experiments/allocation).
 
-Using a shared user key for all anonymous users instead of unique keys helps reduce your client-side MAU usage. To learn more about user limits, read [Understanding the Users dashboard](/home/users/users-dashboard#understanding-the-users-dashboard).
+Using a shared user key for all anonymous users instead of unique keys helps reduce your client-side MAU usage. To learn more about user limits, read [Understanding the Users list](/home/users/users-list#understanding-the-users-list).
 
 ## Tracking anonymous users with unique keys
 
@@ -77,9 +77,9 @@ Here are some examples of ways you may be creating unique user IDs:
 * Server-to-server communication where there are no human operators, just software components interacting.
 * If you use LaunchDarkly to configure log levels or tracing, you may use a different type of ID, like a timestamp. LaunchDarkly classifies each of those IDs as unique IDs.
 
-You can replace some of the unique IDs in the examples above with anonymous users. This decreases your maximum user count, but keep in mind that anonymous users do not appear on the **Users** dashboard. Assess the components interacting with LaunchDarkly and feature flags to determine which require unique IDs, user IDs, or both, or can be classified as anonymous users.
+You can replace some of the unique IDs in the examples above with anonymous users. This decreases your maximum user count, but keep in mind that anonymous users do not appear on the **Users** list. Assess the components interacting with LaunchDarkly and feature flags to determine which require unique IDs, user IDs, or both, or can be classified as anonymous users.
 
-You can remove users you don't need anymore by clicking **Delete user** in the overflow menu for that user on the dashboard, or by opening the user's page and clicking **Delete**. Customers on a Pro or Enterprise plan can also remove users using the LaunchDarkly API. To learn more, read [Removing a user](/home/users/users-dashboard#removing-a-user).
+You can remove users you don't need anymore by clicking **Delete user** in the overflow menu for that user on the list, or by opening the user's page and clicking **Delete**. Customers on a Pro or Enterprise plan can also remove users using the LaunchDarkly API. To learn more, read [Removing a user](/home/users/users-list#removing-a-user).
 
 ## Associating anonymous users with logged in users
 

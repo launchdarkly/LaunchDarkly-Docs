@@ -96,8 +96,8 @@
         "svg": "toggles-multiple-solid",
         "items": [
           {
-            "label": "The flag dashboard",
-            "path": "/home/organize/dashboard"
+            "label": "The flags list",
+            "path": "/home/organize/flags-list"
           },
           {
             "label": "Projects",
@@ -168,12 +168,22 @@
         "svg": "chart-pie",
         "items": [
           {
-            "label": "The Users dashboard",
-            "path": "/home/users/users-dashboard"
+            "label": "The Users list",
+            "path": "/home/users/users-list"
           },
           {
-            "label": "Setting user attributes",
-            "path": "/home/users/attributes"
+            "label": "User attributes",
+            "path": "/home/users/attributes",
+            "items": [
+              {
+                "label": "Built-in user attributes",
+                "path": "/home/users/built-in-attributes"
+              },
+              {
+                "label": "Custom user attributes",
+                "path": "/home/users/custom-attributes"
+              }
+            ]
           },
           {
             "label": "User segments",
@@ -1357,6 +1367,10 @@
         "svg": "chart-areaspline",
         "items": [
           {
+            "label": "Creating mutually exclusive experiments",
+            "path": "/guides/experimentation/mutually-exclusive"
+          },
+          {
             "label": "Designing experiments",
             "path": "/guides/experimentation/designing-experiments"
           },
@@ -1478,14 +1492,15 @@
           }
         ]
       },
-      {   "label": "REST API",
-          "path": "/guides/api",
-          "svg": "compass",
-          "items": [
-            {
-              "label": "Using the LaunchDarkly REST API",
-              "path": "/guides/api/rest-api"
-            }
+      {
+        "label": "REST API",
+        "path": "/guides/api",
+        "svg": "compass",
+        "items": [
+          {
+            "label": "Using the LaunchDarkly REST API",
+            "path": "/guides/api/rest-api"
+          }
         ]
       },
       {

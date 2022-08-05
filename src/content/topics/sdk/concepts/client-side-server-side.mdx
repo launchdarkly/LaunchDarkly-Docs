@@ -16,19 +16,10 @@ The SDK types have different security considerations as well as some behavioral 
 
 It is important to understand the two types of SDKs we support. The different types of SDKs impact critical implementation details and use cases.
 
-All of our SDKs are one of these two categories:
+All of our SDKs belong to one of these categories:
 
-- client-side
-- server-side
-
-<Callout intent="info">
-<CalloutTitle>Client-side SDKs include mobile SDKs</CalloutTitle>
-<CalloutDescription>
-
-Our SDKs primarily for mobile devices, known as our "mobile SDKs", are categorized as client-side SDKs because, like our client-side SDKs, most mobile applications have a single-user context. This includes our Android, iOS, Flutter, React Native, and client-side .NET SDKs. Each of these SDKs also has some mobile-specific functionality. To learn more, read [Functional differences between SDKs](#functional-differences-between-sdks).
-
-</CalloutDescription>
-</Callout>
+- Client-side SDKs, including mobile SDKs
+- Server-side SDKs
 
 The table below summarizes the differences between client- and server-side SDKs:
 
@@ -43,8 +34,7 @@ The table below summarizes the differences between client- and server-side SDKs:
       <TableCell>
         These SDKs are designed for single-user desktop, mobile, and embedded applications.
         <br />
-        These SDKs are intended to be used in a potentially less secure environment, such as a personal computer or
-        mobile device.
+        These SDKs are intended to be used in a potentially less secure environment, such as a personal computer or mobile device.
         <br />
         These SDKs include mobile SDKs.
       </TableCell>
@@ -54,13 +44,22 @@ The table below summarizes the differences between client- and server-side SDKs:
       <TableCell>
         These SDKs are designed for multi-user systems.
         <br />
-        These SDKs are intended to be used in a trusted environment, such as inside a corporate network or on a web
-        server.
+        These SDKs are intended to be used in a trusted environment, such as inside a corporate network or on a web server.
         <br />
       </TableCell>
     </TableRow>
   </TableBody>
 </Table>
+
+### Understanding mobile SDKs
+
+We categorize SDKs designed for mobile devices as client-side SDKs because, like our client-side SDKs, most mobile applications have a single-user context. This includes our client-side .NET, Android, client-side C/C++, iOS, Flutter, React Native, and Roku SDKs. Each of these SDKs also has some mobile-specific functionality.
+
+Here are some of the ways that mobile SDKs are different than other client-side SDKs:
+
+- Mobile SDKs automatically populate values for the `os` and `device` built-in user attributes. To learn more, read [Built-in user attributes](/home/users/built-in-attributes).
+- Mobile SDKs support multiple environments. To learn more, read [Multi-environment support](#multi-environment-support).
+- Mobile SDKs handle streaming and polling connections differently than other client-side SDKs. To learn more, read [Receiving updates from LaunchDarkly](#receiving-updates-from-launchdarkly).
 
 ## Functional differences between SDKs
 
@@ -80,9 +79,39 @@ We designed our SDKs to work with one LaunchDarkly environment at a time. Howeve
 
 For example, if your LaunchDarkly account is set up to have different "Android", "iOS", and "Core" environments and/or projects, you can use the the multi-environment SDK feature to access flags in multiple places.
 
-### Mobile connection state
+### Receiving updates from LaunchDarkly
 
-This feature also pertains specifically to mobile SDKs. Mobile applications are more likely than web or desktop software to lose their network connection. Our mobile SDKs provide additional functionality to monitor the connection state to LaunchDarkly.
+All SDKs open a [Server-Sent Events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection to LaunchDarkly. The initial payload from the streaming connection contains the variations your user receives. 
+
+By default, most client-side and server-side SDKs receive updated flag values when you change a flag. Server-side SDKs receive flag configuration changes over the stream, while client-side SDKs receive flag value changes for a specific user.
+
+Mobile applications are more likely than web or desktop software to lose their network connection. To account for this, our mobile SDKs monitor the connection state to LaunchDarkly and use different connection types depending on whether the app is in the foreground or in the background.
+
+Here's how mobile connections work:
+
+- When the app is foregrounded, the SDK opens a streaming connection to LaunchDarkly.
+   - The initial payload from the streaming connection contains the variations your user receives.
+   - The streaming connection stays open as long as your app is in the foreground and is connected to the internet.
+   - The streaming connection idles unless there are updates. This requires minimal data and battery power to maintain. 
+   - The SDK actively monitors network availability. They avoid requests when the network is unavailable, and reconnect when the network becomes available again.
+- When the app is backgrounded, the stream connection terminates and the SDK uses polling instead. 
+   - The SDK polls for flag updates every hour to stay in sync. This strategy has higher latency, but optimizes battery and data usage. 
+   - The SDK checks for network connectivity at the current polling interval, only making the request if the check succeeds. When it reconnects, it automatically syncs its local cache with LaunchDarkly.
+- When the app is foregrounded again, the SDK reconnects to the stream which sends the latest flag values. 
+- If the app closes and reopens without a connection to LaunchDarkly, the flag values cached in local storage are still available. 
+  
+Whether streaming or polling, the SDK monitors the device's network connectivity state and does not send network requests when the device is offline.
+
+This configuration means that you get near real-time updates for your feature flag values when the app is in the foreground, and maximum device and SDK efficiency when backgrounded. You can configure these settings if needed. To learn more, read [Configuration](/sdk/features/config).
+
+<Callout intent="info">
+<CalloutTitle>Streaming mode is not available on watchOS</CalloutTitle>
+<CalloutDescription>
+
+WatchOS always operates in polling mode, as streaming mode is not available.
+
+</CalloutDescription>
+</Callout>
 
 ## Security
 
@@ -322,7 +351,7 @@ Here is an example of setting just the user's email address as private:
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [Creating private user attributes](/home/users/attributes#creating-private-user-attributes). For specifics on implementing private user attributes in a particular SDK, read [User configuration](/sdk/features/user-config).
+To learn more, read [Using private user attributes](/home/users/attributes#using-private-user-attributes). For specifics on implementing private user attributes in a particular SDK, read [User configuration](/sdk/features/user-config).
 
 ## Keys
 

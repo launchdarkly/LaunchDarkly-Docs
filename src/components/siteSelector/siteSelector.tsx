@@ -2,7 +2,7 @@
 import { jsx } from 'theme-ui'
 import { navigate } from 'gatsby'
 import React, { ChangeEventHandler } from 'react'
-import { SiteType } from './types'
+import { SiteType } from '../../types/siteType'
 import useSite from './useSite'
 import { getUrlSiteAware } from './siteUtils'
 
@@ -27,7 +27,7 @@ const SiteSelector = () => {
         mr: 4,
       }}
     >
-      <option value="launchdarkly">LaunchDarkly docs</option>
+      <option value="launchDarkly">LaunchDarkly docs</option>
       <option value="federal">Federal docs</option>
     </select>
   )

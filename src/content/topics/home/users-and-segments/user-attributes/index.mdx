@@ -1,0 +1,101 @@
+---
+path: /home/users/attributes
+title: User attributes
+description: This topic explains what user attributes are, how they impact what you receive in LaunchDarkly, how to configure them, and how LaunchDarkly uses them to calculate and display flag settings for users.
+published: true
+tags: ['user', 'attribute', 'custom attribute', 'built-in']
+---
+
+## Overview
+
+This topic explains what user attributes are, how they impact what you receive in LaunchDarkly, how to configure them, and how LaunchDarkly uses them to calculate and display flag settings for users.
+
+## Understanding user attributes
+
+Users are people, services, machines, or other resources that encounter feature flags in your app. Any identifier that uniquely corresponds to a target can be designated as a user.
+
+A more precise way to refer to one user is as a "user object." A user object is a collection of a user's attributes, identified by a unique user key. It includes all of the information about a user that LaunchDarkly can use in a feature flag evaluation.
+
+LaunchDarkly provides two types of user attributes:
+- built-in attributes, and
+- custom attributes.
+
+To learn more, read [Built-in user attributes](/home/users/built-in-attributes) and [Custom user attributes](/home/users/custom-attributes).
+
+By default, a user's values for both types of user attributes are displayed on the **Users** list. You can mark any user attribute as private if you only want to use it during flag evaluation, and do not want to display it here. To learn more, read [Using private user attributes](#using-private-user-attributes).
+
+## Targeting based on user attributes
+
+You can use built-in and custom user attributes in flag targeting rules. For example, imagine you want a flag to serve the `true` variation to users who are not in the segment `Test Segment`, and whose `Account` custom attribute does not start with `test`.
+
+Here is what the rule would look like:
+
+![A rule serving "true" to users affected by two conditions.](users-targeting-multiple-rules.png)
+
+After you have set up the conditions for your rule, you can decide whether your users will receive one variation, or a percentage rollout across several variations. To learn more, read [Targeting rules](/home/flags/targeting-rules).
+
+## Viewing and managing users
+
+By default, all of the attributes in your user objects are sent to LaunchDarkly. This data lets LaunchDarkly determine the expected flag variations for users and powers the autocomplete functionality throughout the LaunchDarkly user interface (UI).
+
+You can change the value of an attribute for a user at any point. To learn more, read [Identifying and changing users](/sdk/features/identify).
+
+You can access user pages from the **Users** list. To learn how, read [The Users list](/home/users/users-list).
+
+Here is a user page in the LaunchDarkly UI:
+
+![A user's page.](users-details.png)
+
+<LearnMore>
+
+You can also use the REST API: [Get user](https://apidocs.launchdarkly.com/tag/Users#operation/getUser), [List flag settings for user](https://apidocs.launchdarkly.com/tag/User-settings#operation/getUserFlagSettings)
+
+</LearnMore>
+
+<Callout intent="alert">
+<CalloutTitle>The SDK does not use the attributes on the <strong>Users</strong> list to evaluate flags</CalloutTitle>
+<CalloutDescription>
+
+The SDK only evaluates flags based on the user object you provide in the evaluation call. The SDK does not use the attributes shown on the <strong>Users</strong> list, and user attributes are not synchronized across SDK instances. You must provide all applicable user attributes for your targeting rules to apply correctly. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+
+</CalloutDescription>
+</Callout>
+
+## Using private user attributes
+
+You may not want to send all attributes back to, or store all attributes in, LaunchDarkly. The security or data protection requirements of your organization may require you to limit what customer or user data is transmitted to or stored within a third-party platform like LaunchDarkly.
+
+For example, you may want to target customers by their personally identifying information (PII), such as their email address. You can mark the email address attribute as private, but still use it in targeting rules and segments.
+
+The **Users** list indicates private attributes with a lock icon:
+
+![The "Users" list with a private attribute called out.](users-private-attribute-callout.png)
+
+If you are using a server-side SDK, the SDK will not send the private attribute back to LaunchDarkly.
+
+If you are using a client-side SDK, the SDK will send the private attribute back to LaunchDarkly for evaluation. However, the SDK won't send the attribute to LaunchDarkly in events data, LaunchDarkly won't store the private attribute, and the private attribute will not appear on the **Users** list.
+
+### Configuring private attribute settings in your SDK
+
+There are three different ways to configure private attributes:
+
+- You can mark _all_ attributes private globally in the `LDClient` configuration object.
+- You can mark specific attributes private by name globally in the `LdClient` configuration object.
+- You can mark specific attributes private by name for individual users when you construct `LDUser` objects.
+
+User keys cannot be marked private.
+
+If you initially mark an attribute as private, LaunchDarkly will continue to treat the attribute as private in subsequent evaluations as long as the user is on the **Users** list, even if you later remove the "private" designation from the attribute. If you no longer want LaunchDarkly to treat the attribute as private, remove the "private" designation, delete the user from the **Users** list, and re-evaluate the user.
+
+To learn more about setting these configuration options, read your SDK's documentation.
+
+<Callout intent="alert">
+<CalloutTitle>Implications of using private attributes</CalloutTitle>
+<CalloutDescription>
+
+If a feature flag contains targeting rules that reference private attributes, user pages may not be able to calculate flag settings for your users. Each user page indicates when it is unable to calculate flag settings because of private attributes.
+<br />
+When creating a targeting rule, LaunchDarkly cannot autocomplete attributes you have made private.
+
+</CalloutDescription>
+</Callout>

@@ -84,7 +84,7 @@ Keep the scope of a flag as small as possible. Each flag should only do one thin
 
 Flags have two identifiers:
 
-* The flag **name**: Flag names only appear on the flag dashboard, above the flag's description and near other useful details about the flag.
+* The flag **name**: Flag names only appear on the flags list, above the flag's description and near other useful details about the flag.
 * The flag **key**: This is how your flag is represented in LaunchDarkly's code. Keys are the only identifier used in code, and that code usually has no other details about the flag.
 
 You specify both of these identifiers when you create a flag for the first time.
@@ -124,13 +124,13 @@ Don't repeat any information already present in the flag's name. Instead, focus 
 
 ### Assigning tags to your flag
 
-The flag dashboard has controls for filtering and sorting flags by different major attributes. You can also create tags for flags you want to find quickly.
+The flags list has controls for filtering and sorting flags by different major attributes. You can also create tags for flags you want to find quickly.
 
 Tags are useful for grouping flags by particular details. For example, if there's a set of long-lived flags that are specifically intended for operational use, you can tag them with `operational`. If you have flags that have special targeting for users in Belgium, you can tag them `belgium`. To learn more, read [Tags](/home/members/role-concepts#tags).
 
 You can also use tags to control which account members can modify flags. To learn more, read [Using tags in custom role policies](/home/members/role-tags#using-tags-in-custom-role-policies).
 
-Try to reuse existing tags as much as possible. This streamlines the dashboard and makes it easier to find things later.
+Try to reuse existing tags as much as possible. This streamlines the flags list and makes it easier to find things later.
 
 ## Using flag variations
 

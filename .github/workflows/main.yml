@@ -1,4 +1,4 @@
-name: Lint, type check, and test
+name: Testing
 on: [push]
 
 jobs:
@@ -49,3 +49,14 @@ jobs:
           files: |
             **/*.{md,mdx}
           incremental_files_only: false # check everything
+  linkcheck:
+    runs-on: ubuntu-latest
+    name: Check local links
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          cache: 'yarn'
+      - run: CYPRESS_INSTALL_BINARY=0 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable
+      - run: yarn test-links

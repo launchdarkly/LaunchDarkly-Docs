@@ -15,7 +15,7 @@ This guide covers:
 - Concepts and terms that LaunchDarkly uses for targeting
 - Adding user details to flag evaluation code
 - Protecting Personally Identifiable Information (PII) when you create flags
-- Examining users in the Users dashboard
+- Examining users in the **Users** list
 - Rolling out flag variations to a percentage of users
 - Targeting specific users with flag rules
 - Understanding how flag evaluations change over time with flag insights
@@ -107,8 +107,7 @@ There are also optional **standard** attributes that must conform to these requi
     <TableRow>
       <TableCell>anonymous</TableCell>
       <TableCell>
-        Must be a boolean. This attribute prevents the user's other attributes from being transmitted to the events
-        endpoint, and prevents the user from showing up on the dashboard.
+        Must be a boolean. This attribute prevents the user's other attributes from being transmitted to the events endpoint, and prevents the user from showing up on the <strong>Users</strong> list.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -120,7 +119,7 @@ There are also optional **standard** attributes that must conform to these requi
 
 With LaunchDarkly, you can create user objects with as many attributes as you need. The only required attribute is the `key` attribute, which holds the user identifier. If the LaunchDarkly rules engine encounters two user objects with the same `key`, it assumes they represent the same user.
 
-When a user encounters a flag, their attributes are sent to LaunchDarkly. This makes the attributes available through the dashboard. All the user attributes are sent, with the exception of those that have been marked private.
+When a user encounters a flag, their attributes are sent to LaunchDarkly. This makes the attributes available through the **Users** list. All the user attributes are sent, with the exception of those that have been marked private.
 
 ### Flag variations
 
@@ -148,7 +147,7 @@ In that case, even if a user is in the `test_group`, they won’t receive `flag 
 
 In feature management, targeting is the ability to make a flag's different variations appear to different users, "targeting" users with specific versions of the flag. Each flag can have targeting rules that specify which users should receive which variations.
 
-In LaunchDarkly, none of the targeting rules need to live in application code. They're all configured using the flag dashboard. Only the user needs to be implemented in your code. This prevents sensitive information from being transmitted with feature flag data.
+In LaunchDarkly, none of the targeting rules need to live in application code. They're all configured using the flags list. Only the user needs to be implemented in your code. This prevents sensitive information from being transmitted with feature flag data.
 
 ### Identifying users
 
@@ -281,7 +280,7 @@ This exercise references Pricing Tier 3's **Targeting** tab throughout the guide
 To open the **Targeting** tab:
 
 1. Navigate to your LaunchDarkly project.
-2. Find the "Pricing Tier" 3 flag in your feature flag list.
+2. Find the "Pricing Tier" 3 flag in your feature flags list.
 3. Click the flag name. The flag's **Targeting** tab appears. Keep this page open to access it quickly.
 
 ### Finding the user object
@@ -298,7 +297,7 @@ The user object in the example app code has two attributes: `key` and `anonymous
 
 In the code for the Starlight Travel app, the user object is in the file named `server.py`, inside the `pricing()` function.
 
-In the example below, the `anonymous` attribute is set to `True`. When this happens, LaunchDarkly won't record any of this user's other attributes or list this user on the Users dashboard.
+In the example below, the `anonymous` attribute is set to `True`. When this happens, LaunchDarkly won't record any of this user's other attributes or list this user on the **Users** list.
 
 Here is an example:
 
@@ -578,19 +577,19 @@ You can use random values for the email address, such as `test1@email.com`. When
 
 Each time you view the front page as a logged-in user, LaunchDarkly records that user ID.
 
-After you've logged in using four or five different email addresses, look at the users that have been collected by LaunchDarkly in the Users dashboard.
+After you've logged in using four or five different email addresses, look at the users that have been collected by LaunchDarkly in the **Users** list.
 
-## Accessing the Users dashboard
+## Accessing the Users list
 
-The **Users** dashboard displays all users who have been included in user objects so far. Access the **Users** dashboard in the sidenav of your LaunchDarkly project.
+The **Users** list displays all users who have been included in user objects so far. Access the **Users** list in the sidenav of your LaunchDarkly project.
 
-To learn more, read [The Users dashboard](/home/users/users-dashboard).
+To learn more, read [The Users list](/home/users/users-list).
 
-The **Users** dashboard lists all the users for whom flags have been evaluated in this particular environment and project.
+The **Users** list lists all the users for whom flags have been evaluated in this particular environment and project.
 
-Here is an image of the **Users** dashboard:
+Here is an image of the **Users** list:
 
-![The Users dashboard.](users-dashboard-hashes.png)
+![The "Users" list.](users-list-hashes.png)
 
 Click on a user's `key` attribute to look at an individual user page. The left side displays all the attributes which have been uploaded to LaunchDarkly so far. The right side displays how each flag in the project will evaluate for that particular user.
 
@@ -604,7 +603,7 @@ To learn more, read [Targeting users](/home/flags/targeting-users).
 
 To turn on a percentage rollout for the `Pricing Tier 3` flag:
 
-1. Navigate to the **Feature flags** dashboard in LaunchDarkly.
+1. Navigate to the **Feature flags** list in LaunchDarkly.
 2. In the "Feature flags" list, click Pricing Tier 3. The flag's **Targeting** tab appears.
 3. Find the "Default rule", which is the flag variation or rollout that appears when targeting is enabled. In this example, it is set to `true`:
 
@@ -658,11 +657,11 @@ You can override the percentage rollout for any particular user, forcing them to
 
 In [Configuring a percentage rollout](#configuring-a-percentage-rollout), you saved the email address of a user who did not receive the new pricing option in your Glitch app. You need that email address for this exercise, so find it now.
 
-To target an individual user through the Users dashboard:
+To target an individual user through the **Users** list:
 
 1. Log in to your Glitch app with the email address of the user who did **not** receive the "Pricing Tier 3" flag.
 2. Click on the avatar icon in the top-right of the page. The 10-character hashed user `key` is displayed. Copy this key and save it.
-3. Navigate to the LaunchDarkly **Users** dashboard.
+3. Navigate to the LaunchDarkly **Users** list.
 4. Find the user `key` you saved in the list of users and click their name. The user's menu appears.
 5. Change the flag setting for the "Pricing Tier 3" flag from `false` to `true`.
 6. A targeting circle appears next to the selector. This indicates that you are adding an explicit targeting rule for this user.
@@ -670,7 +669,7 @@ To target an individual user through the Users dashboard:
 
 ![The flag settings for the user, after choosing the flag variation.](users-flag-settings.png)
 
-8. From the flag dashboard, click the name of the "Pricing Tier 3" flag to return to its **Targeting** tab. The "Individual targeting" section is expanded. This section specifies the individual users who should always receive a particular flag variation. In the `true` section, you can view the key for the user whose setting you just changed:
+8. From the flags list, click the name of the "Pricing Tier 3" flag to return to its **Targeting** tab. The "Individual targeting" section is expanded. This section specifies the individual users who should always receive a particular flag variation. In the `true` section, you can view the key for the user whose setting you just changed:
 
 ![The "Individual targeting" section of the flag's "Targeting" tab.](flag-targeting-individual-user.png)
 
@@ -722,7 +721,7 @@ return {
 </CodeTabs>
 
 4. Log in to the Starlight Travel app a couple more times, so that you send examples of this new attribute to LaunchDarkly.
-5. Navigate to the flag dashboard in LaunchDarkly and find the "Pricing Tier 3" flag.
+5. Navigate to the flags list in LaunchDarkly and find the "Pricing Tier 3" flag.
 6. Click on the "Pricing Tier 3" flag name. The **Targeting** tab appears.
 7. Find the section titled "Target users who match these rules":
 
@@ -839,7 +838,7 @@ At the end, the rule should look like this:
 
 You can test your new targeting rule by logging in to your Glitch app with email addresses starting with the letter `a`, and addresses that start with other letters. It should only show the third pricing tier to users whose email address begins with the letter `A`.
 
-You can verify that none of the users' email addresses have been sent to LaunchDarkly. Return to the Users dashboard, and look at the **Email** column in the list of users. The whole column should be blank.
+You can verify that none of the users' email addresses have been sent to LaunchDarkly. Return to the **Users** list, and look at the **Email** column. The whole column should be blank.
 
 ## Conclusion
 
@@ -847,7 +846,7 @@ In this tutorial, you have learned to:
 - target a rule to individuals or by attribute
 - mark attributes as private
 - execute a percentage-based rollout
-- use the dashboard to understand rule evaluation and how it changes over time.
+- use the **Users** list to understand rule evaluation and how it changes over time.
 
 We hope that this has helped you understand how precisely you can target flag delivery and how you can configure targeting to return only the information you want.
 

@@ -185,7 +185,7 @@ module.exports = [
   },
   {
     fromPath: '/home/managing-flags/dashboard',
-    toPath: '/home/organize/dashboard',
+    toPath: '/home/organize/flags-list',
   },
   {
     fromPath: '/home/managing-flags/flag-toggle',
@@ -257,7 +257,7 @@ module.exports = [
   },
   {
     fromPath: '/home/managing-users/users-dashboard',
-    toPath: '/home/users/users-dashboard',
+    toPath: '/home/users/users-list',
   },
   {
     fromPath: '/home/managing-users/user-attributes',
@@ -514,7 +514,7 @@ module.exports = [
     toPath: '/home/members/managing',
   },
   {
-    fromPath: '/home/team/',
+    fromPath: '/home/team',
     toPath: '/home/members',
   },
   {

@@ -124,7 +124,7 @@ yarn deploy
 ```
 
 This builds Gatsby and upload the artifacts to the staging s3 bucket.
- 
+
 ## (Internal LaunchDarkly use only) Scheduling a PR merge to main
 
 In your pull requests, add a line to the end of the pull request description like this:
@@ -164,7 +164,13 @@ You can use the [gatsby-plugin-launchdarkly](https://github.com/launchdarkly/gat
 
 ### Local
 
-To validate links locally, install `lychee`
+To check local links in MDX files run
+
+```shell
+yarn test-links
+```
+
+To validate external links locally, install `lychee`
 
 ```shell
 brew install lychee
@@ -219,9 +225,9 @@ You can also flag navigation items. To learn more, please refer the section [Fla
 
 ## 🔍 Algolia search
 
-Please reach out to @scribblingfox if you need to login to the Algolia dashboard. She will be able to send you an invite.
+Please reach out to @scribblingfox if you need to log in to Algolia. She will be able to send you an invite.
 
-To index mdx content and send to algolia, create a local `.env.development` file that contains the following:
+To index mdx content and send to Algolia, create a local `.env.development` file that contains the following:
 
 ```dotenv
 GATSBY_ALGOLIA_APP_ID=insertValue
