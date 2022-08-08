@@ -286,6 +286,14 @@
             "path": "/home/account-security/sso",
             "items": [
               {
+                "label": "Configuring SAML SSO",
+                "path": "/home/account-security/sso/saml"
+              },
+              {
+                "label": "Enabling SCIM provisioning",
+                "path": "/home/account-security/sso/scim"
+              },
+              {
                 "label": "Active Directory Federation Services (ADFS)",
                 "path": "/home/account-security/adfs"
               },

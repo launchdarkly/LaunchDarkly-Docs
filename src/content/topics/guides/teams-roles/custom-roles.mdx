@@ -143,7 +143,7 @@ To learn more about policies, read [Using policies](/home/members/role-policies)
 
 An identity provider (IdP) is a service that creates, maintains, and manages users’ digital identities and permissions to use applications and services. It functions as a directory, sharing credentials with digital services and devices. IdPs communicate over Security Assertion Markup Language (SAML) or Open Authorization (OAuth).
 
-To learn more about IdP configuration, read [Configuring an External IdP](/home/account-security/sso#configuring-an-external-idp).
+To learn more about IdP configuration, read [Configuring SAML SSO](/home/account-security/sso/saml).
 
 ### Single sign-on
 
@@ -155,7 +155,7 @@ SCIM is a standard for automating the exchange of information between identity d
 
 The SSO workflow within LaunchDarkly creates a new user if they sign in with the IdP and can pass a role. SCIM allows you to pass a role when creating and managing users as an admin.
 
-To learn more about SCIM, read [User provisioning with SCIM](/home/account-security/sso#user-provisioning-with-scim).
+To learn more about SCIM, read [Enabling SCIM provisioning](/home/account-security/sso/scim).
 
 ## Recreating built-in roles
 
@@ -972,14 +972,14 @@ To learn more about best practices when using teams, read [Building teams in Lau
 <CalloutTitle>Using SCIM to provision users</CalloutTitle>
 <CalloutDescription>
 
-If you use SCIM to provision users, you will create the roles in LaunchDarkly, but you must configure and manage your account members in the IdP. To learn more, read [User provisioning with scim](/home/account-security/sso#user-provisioning-with-scim).
+If you use SCIM to provision users, you will create the roles in LaunchDarkly, but you must configure and manage your account members in the IdP. To learn more, read [Enabling SCIM provisioning](/home/account-security/sso/scim).
 
 </CalloutDescription>
 </Callout>
 
 With your custom roles designed and built, you can now manage them using SSO and your IdP.
 
-When you pass account member information into LaunchDarkly from your IdP, you  must include the key of the member's custom role in a `customRole` attribute, along with their other profile information such as name and email address. To learn more about the `customRole` attribute, read [Custom attributes](/home/account-security/sso#custom-attributes).
+When you pass account member information into LaunchDarkly from your IdP, you  must include the key of the member's custom role in a `customRole` attribute, along with their other profile information such as name and email address. To learn more about the `customRole` attribute, read [Custom user attributes](/home/users/custom-attributes).
 
 The fields and methods you must use to pass custom role information to LaunchDarkly differ depending on your IdP. We provide configuration guidance for the following IdPs:
 
@@ -1025,7 +1025,7 @@ You can assign custom roles that you created in LaunchDarkly to users through th
 
 </Details>
 
-To learn more, read [Configuring an external IdP](/home/account-security/sso#configuring-an-external-idp).
+To learn more, read [Configuring SAML SSO](/home/account-security/sso/saml).
 
 ## Conclusion
 
