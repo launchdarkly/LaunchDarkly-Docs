@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 import { FC } from 'react'
-import { Link } from 'gatsby'
+import Link from '../link'
 import useNavItemChildren, { NavItem } from './useNavItemChildren'
 import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
 

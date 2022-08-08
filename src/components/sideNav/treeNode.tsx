@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { LDFlagSet } from 'launchdarkly-js-client-sdk'
 import { LinkGetProps } from '@reach/router'
-import { Link as GatsbyLink } from 'gatsby'
+import Link from '../link'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { jsx, Flex, Link as ThemeUILink, ThemeUIStyleObject } from 'theme-ui'
 import { ComponentProps, FunctionComponent, useEffect, useState } from 'react'
@@ -10,8 +10,6 @@ import isExternalLink from '../../utils/isExternalLink'
 import Icon, { IconName } from '../icon'
 import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
 import { stripTrailingSlash } from '../../utils/navigationDataUtils'
-import useSite from '../siteSelector/useSite'
-import { getUrlSiteAware } from '../siteSelector/siteUtils'
 
 const defaultLabelStyles = {
   color: 'text',
@@ -25,7 +23,7 @@ const defaultLabelStyles = {
       fill: 'primarySafe',
     },
   },
-  ':active': {
+  ':active, :visited': {
     color: 'text',
   },
   lineHeight: 'regular',
@@ -138,9 +136,6 @@ function Node({
   const showItem = flagKey ? flags[flagKey] : true
   const isActive = isActiveNodeOrAncestor(currentPath, node)
 
-  const [site] = useSite()
-  const pathSiteAware = getUrlSiteAware(path, site)
-
   useEffect(() => {
     if (isPristine && isActive && isCollapsed) {
       setIsPristine(false)
@@ -154,19 +149,19 @@ function Node({
 
   return showItem ? (
     <li sx={itemStyles}>
-      {isExternalLink(pathSiteAware) ? (
-        <ThemeUILink href={pathSiteAware} sx={labelStyles} target="_blank" rel="noopener noreferrer">
+      {isExternalLink(path) ? (
+        <ThemeUILink href={path} sx={labelStyles} target="_blank" rel="noopener noreferrer">
           {label}
           {svg && <Icon name={svg as IconName} height="0.8rem" fill="text" ml={1} />}
         </ThemeUILink>
       ) : (
         <Flex>
-          <GatsbyLink getProps={setActiveLinkStyles} sx={labelStyles} to={pathSiteAware} onClick={handleExpandCollapse}>
+          <Link getProps={setActiveLinkStyles} sx={labelStyles} to={path} onClick={handleExpandCollapse}>
             <Flex sx={{ alignItems: 'center' }}>
               {svg && <Icon name={svg as IconName} height="1rem" fill="text" mr={2} />}
               {label}
             </Flex>
-          </GatsbyLink>
+          </Link>
           {!isLeaf && (
             <Icon
               name={isCollapsed ? 'arrow-right' : 'arrow-down'}
@@ -205,12 +200,13 @@ const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, currentPath, maxDep
 
   const [expandCollapseStates, setState] = useState(initialState)
 
-  const setActiveLinkStyles = ({ isCurrent, isPartiallyCurrent, href, location }: LinkGetProps) => {
+  const setActiveLinkStyles = ({ isCurrent, isPartiallyCurrent, href, location: { pathname } }: LinkGetProps) => {
+    const hrefWithoutParams = href.split('?')[0]
     // support matching paths with ending slash
     // this happens when there are query params
-    if (isCurrent || href === stripTrailingSlash(location.pathname)) {
+    if (isCurrent || hrefWithoutParams === stripTrailingSlash(pathname)) {
       return { style: { color: theme.colors.primarySafe, fontWeight: theme.fontWeights.bold } }
-    } else if (isPartiallyCurrent) {
+    } else if (isPartiallyCurrent || pathname.startsWith(hrefWithoutParams)) {
       return { style: { fontWeight: theme.fontWeights.bold } }
     }
     // use defaultLabelStyles specified at the Link depth below

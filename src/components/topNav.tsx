@@ -1,14 +1,18 @@
 /** @jsx jsx */
-import { jsx, Link as ThemUILink } from 'theme-ui'
-import { graphql, useStaticQuery, Link as GatsbyLink } from 'gatsby'
+import { jsx } from 'theme-ui'
+import { graphql, useStaticQuery } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
+import { LinkGetProps } from '@reach/router'
+import Link from './link'
 import { SideNavItem } from './sideNav/types'
 import isExternalLink from '../utils/isExternalLink'
 import Icon, { IconName } from './icon'
+import useGitGatsbyTheme from '../hooks/useGitGatsbyTheme'
 
 const variant = 'links.topNav'
 
 const TopNav = () => {
+  const { theme } = useGitGatsbyTheme()
   const flags = useFlags()
   const {
     allNavigationDataJson: { nodes: navigationData },
@@ -24,6 +28,14 @@ const TopNav = () => {
       }
     }
   `)
+
+  const setActiveLinkStyles = ({ isCurrent, isPartiallyCurrent, href, location: { pathname } }: LinkGetProps) => {
+    const hrefWithoutParams = href.split('?')[0]
+    if (isCurrent || isPartiallyCurrent || pathname.startsWith(hrefWithoutParams)) {
+      return { style: theme.links.topNav[':active'] }
+    }
+    return null
+  }
 
   return (
     <ul
@@ -41,35 +53,17 @@ const TopNav = () => {
       {navigationData.map((rootItem: SideNavItem) => {
         const { label, path, flagKey, svg } = rootItem
         const showItem = flagKey ? flags[flagKey] : true
-
         return showItem ? (
           <li key={label} sx={{ display: 'flex', height: '100%', alignItems: 'center' }}>
             {isExternalLink(path) ? (
-              <ThemUILink
-                href={path}
-                variant={variant}
-                sx={{ display: 'flex' }}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Link href={path} variant={variant} sx={{ display: 'flex' }} target="_blank" rel="noopener noreferrer">
                 {label}
                 {svg && <Icon name={svg as IconName} height="1rem" fill="grayscaleWhite" ml={1} />}
-              </ThemUILink>
+              </Link>
             ) : (
-              <GatsbyLink
-                to={path}
-                sx={{ variant }}
-                partiallyActive={true}
-                activeStyle={{
-                  opacity: 1,
-                  borderStyle: 'solid',
-                  borderColor: 'primary',
-                  borderWidth: '0 0 3px 0',
-                  height: '100%',
-                }}
-              >
+              <Link to={path} sx={{ variant }} getProps={setActiveLinkStyles} partiallyActive>
                 {label}
-              </GatsbyLink>
+              </Link>
             )}
           </li>
         ) : null
