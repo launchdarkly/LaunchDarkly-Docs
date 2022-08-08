@@ -1,0 +1,32 @@
+
+## Adding a new SDK
+
+When someone adds a new SDK to LaunchDarkly, there are quite a few places in the documentation that they need to update. This checklist is for authors and reviewers of the git-gatsby PRs associated with new SDKs, to make sure we've added everything.
+
+### Basic information
+
+- [ ] Add a reference guide for the SDK. You can use the ["LANGUAGE SDK reference"](sdk-language-template.mdx) template.
+- [ ] Update [`navigationData.json`](../src/content/navigationData.json) to add the reference guide to the left hand navigation. Make sure to add your SDK in alphabetical order.
+- [ ] Update the [changelog](https://docs.launchdarkly.com/home/changelog) to add a new entry for the reference guide. To learn more, read [Updating the changelog](../contributors-guide.md#updating-the-changelog)
+
+### Feature documentation
+
+- [ ] For each [SDK feature](https://docs.launchdarkly.com/sdk/features) that the new SDK supports, add a section to the appropriate feature topic with a brief description and a code sample. Then, list the supported features in a "Supported features" section of the reference guide, and link the features to the sections you've just created in the feature topics. Here's an [example](https://docs.launchdarkly.com/sdk/server-side/rust#supported-features). There's also a [template for new SDK feature pages](sdk-feature-template.mdx) if you're introducing a new feature with this SDK.
+
+### Icons and language support
+
+- [ ] Add a new .svg icon to `/assets/icons/`. Name it with the name of the language for your new SDK.
+- [ ] Add the name of the icon to `/src/components/icon.tsx`.
+- [ ] If the SDK is a new language (for example, if it's _not_ a JavaScript wrapper), update `/src/components/mdx/code/codeSnippet.tsx` and `/src/components/mdx/code/languages.tsx` to add your language. This allows us to render code snippets nicely for your language.
+
+### Versions
+
+- [ ] Update the "Supported versions" section in the [Versioning policy](https://docs.launchdarkly.com/sdk/concepts/versioning#supported-versions) topic.
+- [ ] Update the "Language support" section of the [Client-side and server-side SDKs](https://docs.launchdarkly.com/sdk/concepts/client-side-server-side#language-support) topic to specify which identifier to use with this SDK (SDK key, client-side ID, or mobile key).
+- [ ] If necessary, update the "Prerequisites" section of the [About Experimentation](https://docs.launchdarkly.com/home/about-experimentation#prerequisites) topic to describe which version is required to use Experimentation.
+- [ ] If necessary, update the callout at the end of the "Flag events" section of the [Debugger](https://docs.launchdarkly.com/home/flags/debugger#flag-events) topic to describe the minimum required version of the SDK to use `summary` events.
+- [ ] If necessary, update the "Using semantic versions" section of the [Using flag types](https://docs.launchdarkly.com/sdk/concepts/flag-types#using-semantic-versions) to describe the minimum required version of the SDK to support semantic versioning.
+
+### Standard links
+
+- [ ] Update the "Additional resources" table on the [Client-side SDKs](https://docs.launchdarkly.com/sdk/client-side) or [Server-side SDKs](https://docs.launchdarkly.com/sdk/server-side) topic, as appropriate, to provide quick links to your SDK's sample application, SDK API documentation, GitHub repo, and package manager.

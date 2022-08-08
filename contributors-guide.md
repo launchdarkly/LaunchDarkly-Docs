@@ -64,6 +64,8 @@ To learn about how we write docs at LaunchDarkly, read the [documentation style 
 
 To add a new topic to the docs, clone the repo locally and add a new topic following the structure outlined in [Architecture and workflow](#architecture-and-workflow).
 
+For many types of new topics, we have templates available in the [templates](/templates) folder.
+
 ### Updating the changelog
 
 When you add a new topic, you should also add an entry to the [changelog](https://docs.launchdarkly.com/home/changelog).
