@@ -2,21 +2,27 @@ jest.mock('./codeSnippet', () => ({
   CodeSnippet: jest.fn(),
 }))
 jest.mock('../../siteSelector/useSite', () => ({ __esModule: true, default: jest.fn() }))
+jest.mock('gatsby-plugin-launchdarkly', () => ({
+  useFlags: jest.fn(),
+}))
 
 import React from 'react'
+import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { render } from '@testing-library/react'
 import { Code } from './code'
 import { CodeSnippet } from './codeSnippet'
 import useSite from '../../siteSelector/useSite'
 
 const mockUseSite = useSite as jest.Mock
+const mockUseFlags = useFlags as jest.Mock
 const mockSetSite = jest.fn()
 const mockCodeSnippet = CodeSnippet as jest.Mock
 
 describe('code', () => {
   beforeEach(() => {
+    mockUseFlags.mockReturnValue({ enableSiteSelection: true })
     mockUseSite.mockImplementation(() => ['launchDarkly', mockSetSite])
-    mockCodeSnippet.mockImplementation(() => 'CodeSnippetComponent')
+    mockCodeSnippet.mockImplementation(({ children }: { children: string }) => <>CodeSnippetComponent: {children}</>)
   })
 
   afterEach(() => {
@@ -25,6 +31,7 @@ describe('code', () => {
 
   it('renders site aware <code> component', () => {
     mockUseSite.mockImplementation(() => ['federal', mockSetSite])
+
     const { asFragment } = render(<Code>app.launchdarkly.com</Code>)
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
@@ -35,8 +42,29 @@ describe('code', () => {
 `)
   })
 
-  it('renders CodeSnippet for string children', () => {
-    const { getByText } = render(<Code className="testClass">test</Code>)
-    expect(getByText('CodeSnippetComponent')).toBeInTheDocument()
+  it('renders site aware <CodeSnippet> component', () => {
+    mockUseSite.mockImplementation(() => ['federal', mockSetSite])
+
+    const { asFragment } = render(<Code className="test">app.launchdarkly.com</Code>)
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        CodeSnippetComponent: app.launchdarkly.us
+      </DocumentFragment>
+    `)
+  })
+
+  it('renders non-string children as is', () => {
+    const { asFragment } = render(
+      <Code>
+        <div>test data</div>
+      </Code>,
+    )
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        <div>
+          test data
+        </div>
+      </DocumentFragment>
+    `)
   })
 })

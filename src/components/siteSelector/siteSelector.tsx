@@ -4,7 +4,7 @@ import { navigate } from 'gatsby'
 import React, { ChangeEventHandler } from 'react'
 import { SiteType } from '../../types/siteType'
 import useSite from './useSite'
-import { getUrlSiteAware } from './siteUtils'
+import { addRemoveSiteParam } from '../../utils/siteAwareUtils'
 
 const SiteSelector = () => {
   const [site, setSite] = useSite()
@@ -13,7 +13,7 @@ const SiteSelector = () => {
     const selectedValue = event.target.value as SiteType
     setSite(selectedValue)
 
-    navigate(getUrlSiteAware('', selectedValue, true), { replace: true })
+    navigate(addRemoveSiteParam('', selectedValue, true), { replace: true })
   }
 
   return (

@@ -5,20 +5,20 @@ jest.mock('gatsby', () => {
     navigate: jest.fn(),
   }
 })
-jest.mock('./siteUtils', () => ({ __esModule: true, getUrlSiteAware: jest.fn() }))
+jest.mock('../../utils/siteAwareUtils', () => ({ __esModule: true, addRemoveSiteParam: jest.fn() }))
 jest.mock('./useSite', () => ({ __esModule: true, default: jest.fn() }))
 
 import { navigate } from 'gatsby'
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import SiteSelector from './siteSelector'
-import { getUrlSiteAware } from './siteUtils'
+import { addRemoveSiteParam } from '../../utils/siteAwareUtils'
 import useSite from './useSite'
 
 const mockUseSite = useSite as jest.Mock
 const mockSetSite = jest.fn()
 const mockNavigate = navigate as jest.Mock
-const mockGetUrlSiteAware = getUrlSiteAware as jest.Mock
+const mockGetUrlSiteAware = addRemoveSiteParam as jest.Mock
 
 describe('site selector', () => {
   beforeEach(() => {
