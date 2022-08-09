@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import { jsx, Themed, Flex } from 'theme-ui'
 import { Fragment, FunctionComponent } from 'react'
+import { Flex, jsx, Themed } from 'theme-ui'
+
 import Breadcrumbs from './breadcrumbs'
-import Metadata from './metadata'
 import EditOnGithubLink from './editOnGithubLink'
+import Metadata from './metadata'
 
 type MdxHeaderProps = {
   fileAbsolutePath: string

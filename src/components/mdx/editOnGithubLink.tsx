@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
 import { FunctionComponent } from 'react'
+import { jsx } from 'theme-ui'
+
 import Icon from '../icon'
 import Link from '../link'
 

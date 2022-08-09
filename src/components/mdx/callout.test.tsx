@@ -1,6 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import Callout, { CalloutTitle, CalloutDescription } from './callout'
+
+import Callout, { CalloutDescription, CalloutTitle } from './callout'
 
 describe('callout', () => {
   test('renders', () => {

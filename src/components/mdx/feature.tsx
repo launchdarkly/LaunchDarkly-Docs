@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
 import { Fragment, FunctionComponent } from 'react'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
+import { jsx } from 'theme-ui'
 
 interface FeatureProps {
   flagKey: string

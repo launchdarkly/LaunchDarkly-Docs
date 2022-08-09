@@ -1,8 +1,9 @@
 import aa from 'search-insights'
 import { TrackJS } from 'trackjs'
+
 import { initDataDogLogging } from './src/utils/browserMetricsUtils'
-import { initUAParser } from './src/utils/userAgent'
 import { addRemoveSiteParam, getSiteFromHref } from './src/utils/siteAwareUtils'
+import { initUAParser } from './src/utils/userAgent'
 
 export const onClientEntry = () => {
   const activeEnv = process.env.GATSBY_ACTIVE_ENV

@@ -1,11 +1,13 @@
 /** @jsx jsx */
-import { jsx, Link as ThemeUILink, LinkProps } from 'theme-ui'
-import { FunctionComponent, ForwardRefExoticComponent, RefAttributes, PropsWithoutRef } from 'react'
-import { Link as GatsbyLink, useStaticQuery, graphql, GatsbyLinkProps } from 'gatsby'
+import { ForwardRefExoticComponent, FunctionComponent, PropsWithoutRef, RefAttributes } from 'react'
+import { GatsbyLinkProps, graphql, Link as GatsbyLink, useStaticQuery } from 'gatsby'
 import { OutboundLink, OutboundLinkProps } from 'gatsby-plugin-google-gtag'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
-import { addRemoveSiteParam, setSubdomain } from '../utils/siteAwareUtils'
+import { jsx, Link as ThemeUILink, LinkProps } from 'theme-ui'
+
 import isExternalLink from '../utils/isExternalLink'
+import { addRemoveSiteParam, setSubdomain } from '../utils/siteAwareUtils'
+
 import useSite from './siteSelector/useSite'
 
 type ForwardRef<T, P> = ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>

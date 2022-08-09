@@ -8,11 +8,13 @@ jest.mock('gatsby', () => {
 jest.mock('../../utils/siteAwareUtils', () => ({ __esModule: true, addRemoveSiteParam: jest.fn() }))
 jest.mock('./useSite', () => ({ __esModule: true, default: jest.fn() }))
 
-import { navigate } from 'gatsby'
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
-import SiteSelector from './siteSelector'
+import { navigate } from 'gatsby'
+
 import { addRemoveSiteParam } from '../../utils/siteAwareUtils'
+
+import SiteSelector from './siteSelector'
 import useSite from './useSite'
 
 const mockUseSite = useSite as jest.Mock

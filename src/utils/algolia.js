@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 // This is intentionally left as js because it is consumed by gatsby-config.js.
 // This file selects data from graphql and flattens the results. These results are
-// then used to create algolia indices.
+// then used to create algolia indices:
 // https://www.gatsbyjs.org/docs/adding-search-with-algolia/#configuring-the-algolia-plugin
 
 const { activeEnv, algoliaIndex } = require('./envUtils')

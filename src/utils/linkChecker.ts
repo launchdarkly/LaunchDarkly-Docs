@@ -1,7 +1,8 @@
 import type { Stats } from 'fs'
 import { readFile } from 'fs/promises'
-import scan from 'scanfs'
 import GithubSlugger from 'github-slugger'
+import scan from 'scanfs'
+
 import redirectRules from '../../redirectRules'
 
 const localLinkRegex = /[^!]\[[^\]]*\]\(([#A-Za-z0-9/_-]+)\)/gm

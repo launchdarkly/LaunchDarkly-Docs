@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { jsx, Card, Text, Flex, Box, ThemeUIStyleObject } from 'theme-ui'
 import { FC, PropsWithChildren } from 'react'
+import { Box, Card, Flex, jsx, Text, ThemeUIStyleObject } from 'theme-ui'
 
-import { Intent } from '../intent'
 import Icon, { IconName } from '../icon'
+import { Intent } from '../intent'
 
 const iconNames: { [key in Intent]: IconName } = {
   info: 'information',

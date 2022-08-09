@@ -1,13 +1,15 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { LinkGetProps } from '@reach/router'
 import { graphql, useStaticQuery } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
-import { LinkGetProps } from '@reach/router'
-import Link from './link'
-import { SideNavItem } from './sideNav/types'
-import isExternalLink from '../utils/isExternalLink'
-import Icon, { IconName } from './icon'
+import { jsx } from 'theme-ui'
+
 import useGitGatsbyTheme from '../hooks/useGitGatsbyTheme'
+import isExternalLink from '../utils/isExternalLink'
+
+import { SideNavItem } from './sideNav/types'
+import Icon, { IconName } from './icon'
+import Link from './link'
 
 const variant = 'links.topNav'
 

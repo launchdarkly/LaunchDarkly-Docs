@@ -7,11 +7,13 @@ jest.mock('gatsby-plugin-launchdarkly', () => ({
 }))
 
 import React from 'react'
-import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { render } from '@testing-library/react'
+import { useFlags } from 'gatsby-plugin-launchdarkly'
+
+import useSite from '../../siteSelector/useSite'
+
 import { Code } from './code'
 import { CodeSnippet } from './codeSnippet'
-import useSite from '../../siteSelector/useSite'
 
 const mockUseSite = useSite as jest.Mock
 const mockUseFlags = useFlags as jest.Mock

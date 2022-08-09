@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx, Box, Card, Flex, Button } from 'theme-ui'
-import { useState, Children, PropsWithChildren } from 'react'
+import { Children, PropsWithChildren, useState } from 'react'
+import { Box, Button, Card, Flex, jsx } from 'theme-ui'
 
 /**
  * https://github.com/facebook/docusaurus/blob/master/packages/docusaurus-theme-classic/src/theme/Tabs/index.js

@@ -1,12 +1,14 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
 import { Fragment, FunctionComponent, useRef } from 'react'
-import { Configure, InstantSearch, connectSearchBox } from 'react-instantsearch-dom'
-import searchClient from './searchClient'
-import Results from './results'
-import { algoliaIndex } from '../../utils/envUtils'
+import { Configure, connectSearchBox, InstantSearch } from 'react-instantsearch-dom'
+import { jsx } from 'theme-ui'
+
 import { getAlgoliaAnalyticsTags, trackSearch } from '../../utils/analyticsUtils'
+import { algoliaIndex } from '../../utils/envUtils'
 import Icon from '../icon'
+
+import Results from './results'
+import searchClient from './searchClient'
 
 type SearchInputProps = {
   currentRefinement: string
