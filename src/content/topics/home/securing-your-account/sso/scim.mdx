@@ -87,7 +87,7 @@ LaunchDarkly allows you to sync groups from Okta to teams within your account. Y
 After you turn on team sync:
 * You can only create new teams through Group Push in Okta, and not from the LaunchDarkly UI.
 * You can only make changes to your synced teams' names and memberships through Okta. You can still maintain unsynced teams in the LaunchDarkly UI.
-* You can still manage team permissions in LaunchDarkly. To learn how to add custom roles to a team, read [Managing team permissions](/home/teams/managing#managing-team-permissions).
+* You will still manage team permissions from within LaunchDarkly. To learn how to add custom roles to a team, read [Managing team permissions](/home/teams/managing#managing-team-permissions). Team maintainers and team description will also be managed from the LaunchDarkly UI.
 * LaunchDarkly will not delete any existing teams.
 
 To use team sync, you must have administrator access in LaunchDarkly and you must have configured SCIM for your LaunchDarkly account.
@@ -102,7 +102,7 @@ To turn on team sync in LaunchDarkly:
 
    ![The "Turn on team sync" option within the "SSO management" section of the "Security" tab.](settings-security-turn-on-team-sync.png)
 
-You can now manage teams within the admin panel of Okta. Teams you have synced with Okta have limited team management permissions in LaunchDarkly.
+You can now [manage teams within the admin panel of Okta](/home/account-security/okta#using-okta-to-manage-launchdarkly-teams-with-scim). Teams you have synced with Okta have limited team management permissions in LaunchDarkly.
 
 You can tell which teams you have synced on the **Teams** tab in the "Synced with Okta" column:
 
