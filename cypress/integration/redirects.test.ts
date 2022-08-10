@@ -1,5 +1,5 @@
-import redirectRules from '../../redirectRules'
 import getFinalDestination from '../../getFinalDestination'
+import redirectRules from '../../redirectRules'
 
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 chai.use(require('chai-string'))

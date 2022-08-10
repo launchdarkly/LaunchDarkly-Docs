@@ -1,11 +1,13 @@
 /** @jsx jsx */
-import { jsx, ThemeUICSSObject } from 'theme-ui'
-import { graphql, useStaticQuery } from 'gatsby'
-import { useState, useEffect, useRef, Fragment } from 'react'
-import { enableBodyScroll, disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { globalHistory } from '@reach/router'
-import TreeNode from './treeNode'
+import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import { graphql, useStaticQuery } from 'gatsby'
+import { jsx, ThemeUICSSObject } from 'theme-ui'
+
 import Icon from '../icon'
+
+import TreeNode from './treeNode'
 
 const stripButtonStyles: ThemeUICSSObject = {
   fontFamily: 'inherit',

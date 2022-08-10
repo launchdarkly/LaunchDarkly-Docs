@@ -109,6 +109,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "gatsby-plugin-algolia": "^0.26.0",
     "gatsby-plugin-s3": "^0.3.8",
     "gatsby-plugin-typescript": "^4.13.0",

@@ -1,12 +1,13 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
-import Icon from './icon'
-import Hamburger from './sideNav/hamburger'
-import TopNav from './topNav'
-import SiteSelector from './siteSelector/siteSelector'
+import { jsx } from 'theme-ui'
+
 import SearchRoot from './search/searchRoot'
+import Hamburger from './sideNav/hamburger'
+import SiteSelector from './siteSelector/siteSelector'
+import Icon from './icon'
 import Link from './link'
+import TopNav from './topNav'
 
 const Header = () => {
   const { enableSiteSelection } = useFlags()

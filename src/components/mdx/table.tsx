@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FunctionComponent } from 'react'
-import { jsx, Card } from 'theme-ui'
+import { Card, jsx } from 'theme-ui'
 
 const Table: FunctionComponent = ({ children }) => (
   <Card variant="table">

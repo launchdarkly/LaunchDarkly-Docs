@@ -1,7 +1,9 @@
 /** @jsx jsx */
 import { jsx, Themed } from 'theme-ui'
-import SystemLayout from './systemLayout'
+
 import Link from '../components/link'
+
+import SystemLayout from './systemLayout'
 
 const NotFoundPage = () => (
   <SystemLayout title="404 | Page not found" description="Page not found">

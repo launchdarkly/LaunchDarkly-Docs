@@ -1,10 +1,12 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import { navigate } from 'gatsby'
 import React, { ChangeEventHandler } from 'react'
+import { navigate } from 'gatsby'
+import { jsx } from 'theme-ui'
+
 import { SiteType } from '../../types/siteType'
-import useSite from './useSite'
 import { addRemoveSiteParam } from '../../utils/siteAwareUtils'
+
+import useSite from './useSite'
 
 const SiteSelector = () => {
   const [site, setSite] = useSite()

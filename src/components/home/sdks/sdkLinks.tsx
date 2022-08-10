@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
 import { FunctionComponent } from 'react'
-import { SideNavItem } from '../../sideNav/types'
+import { jsx } from 'theme-ui'
+
+import useGitGatsbyTheme from '../../../hooks/useGitGatsbyTheme'
 import Icon, { IconName } from '../../icon'
 import Link from '../../link'
-import useGitGatsbyTheme from '../../../hooks/useGitGatsbyTheme'
+import { SideNavItem } from '../../sideNav/types'
 type SdkLinkProps = {
   navItem: SideNavItem
 }

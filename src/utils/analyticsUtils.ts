@@ -1,5 +1,6 @@
-import debounce from 'lodash.debounce'
 import { SearchState } from 'react-instantsearch-core'
+import debounce from 'lodash.debounce'
+
 import getUserAgentResults from './userAgent'
 
 // Track custom events and sends them to segment.io e.g. track('Link to API docs clicked')

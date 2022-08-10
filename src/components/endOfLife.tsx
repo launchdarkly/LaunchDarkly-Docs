@@ -1,9 +1,11 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import sdkData from '../content/sdkVersions.json'
+
 import relayData from '../content/relayVersions.json'
-import Table, { TableBody, TableCell, TableHeadCell, TableHeader, TableRow } from './mdx/table'
+import sdkData from '../content/sdkVersions.json'
+
 import Details from './mdx/details'
+import Table, { TableBody, TableCell, TableHeadCell, TableHeader, TableRow } from './mdx/table'
 
 export function SdksEndOfLife() {
   return <EndOfLife data={sdkData} expandable={true} />

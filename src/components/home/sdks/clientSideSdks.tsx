@@ -1,7 +1,9 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
 import { graphql, useStaticQuery } from 'gatsby'
+import { jsx } from 'theme-ui'
+
 import { SideNavItem } from '../../sideNav/types'
+
 import SdkLinks from './sdkLinks'
 
 const ClientSideSdks = () => {
