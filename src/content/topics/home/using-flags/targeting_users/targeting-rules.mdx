@@ -144,8 +144,7 @@ LaunchDarkly supports the following operators:
       <TableCell>semantic version is one of (=), is not one of (!=), greater than (&gt;), less than (&lt;), greater than or equal to (&gt;=), less than or equal to (&lt;=)</TableCell>
       <TableCell>string</TableCell>
       <TableCell>
-        <a href="https://semver.org/">Semantic version</a> comparison. Valid string attributes must follow the semantic versioning
-        specification, though LaunchDarkly allows you to omit the PATCH version. For example, `2.0` is a valid semantic version. To learn more, read <a href="/sdk/concepts/flag-types#using-semantic-versions">Using semantic versioning</a>.
+        <a href="https://semver.org/">Semantic version</a> comparison. Valid string attributes must follow the semantic versioning specification, although LaunchDarkly allows you to omit the PATCH version. For example, `2.0` is a valid semantic version. To learn more, read <a href="/sdk/concepts/flag-types#using-semantic-versions">Using semantic versioning</a>.<br/><br/> For semantic versions, "greater than or equal" (&gt;=) is persisted as "not less than." Similarly, "less than or equal" (&lt;=) is persisted as "not greater than." To learn more, read <a href="/sdk/concepts/flag-evaluation-rules#operators">Operators</a>.
       </TableCell>
     </TableRow>
   </TableBody>
