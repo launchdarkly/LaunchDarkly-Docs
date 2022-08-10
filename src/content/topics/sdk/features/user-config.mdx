@@ -14,7 +14,7 @@ This topic explains how to configure user objects in LaunchDarkly SDKs. These fe
 
 Every LaunchDarkly SDK lets you configure user objects to return specific data to LaunchDarkly. Any attributes you pass to LaunchDarkly become available on the **Users** list. A user's attribute values determine which variation of a feature flag the user receives.
 
-The user `key` is the only mandatory user attribute. User keys must be unique, deterministic, and should not contain Personally Identifiable Information (PII). User keys must be consistent, which means the same person must correspond to the same user key across different services to contribute to consistent flag evaluations and accurate monthly active user (MAU) counts.
+The user `key` is the only mandatory user attribute. User keys must be a string type. User keys must be unique, deterministic, and should not contain Personally Identifiable Information (PII). User keys must be consistent, which means the same person must correspond to the same user key across different services to contribute to consistent flag evaluations and accurate monthly active user (MAU) counts.
 
 When you set a user key, consider where you will use it. User keys are transmitted to LaunchDarkly, so if your security best practices require you to obscure employee information when it is sent to third-party services, you may want to compose user keys of a unique identifier that is not PII and that has been hashed and salted.
 
