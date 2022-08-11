@@ -26,16 +26,43 @@ Here are some things you can do with each experiment:
 
 The data an experiment has collected is represented in a results table:
 
-![A numeric experiment's results.](experiment-results.png)
-
-The list below explains what each column means:
-
-- **Probability to be best**: The probability to be best is the likelihood that the variation has the biggest effect on the primary metric. Of all the variations in the experiment, the one with highest probability is likely the best option to choose.
-- **Relative difference from (the control)**: The relative difference from the control variation is the range that you should have 90% confidence in. For example, if the range of the relative difference is [-1%, 4%], you can have 90% confidence that the population difference is a number between 1% lower and 4% higher than the control.
-- **Credible interval**: The credible interval is the range of the value of the metric that you should have 90% confidence in. For example, if the range is [7, 34], you can have 90% confidence that the value of the metric in the population is a number between 7 and 34.
-- **Mean**: The mean is the average value of the variation. It doesn’t capture the uncertainty in the measurement, so it should not be the only measurement you use to make decisions.
+![An experiment's results table.](experiment-results-table.png)
 
 All of the data in the results table are based on a posterior distribution. To learn more about posterior distributions, read [Frequentist and Bayesian modeling](/guides/experimentation/bayesian#frequentist-and-bayesian-modeling).
+
+Imagine you want to test offering a discount for your online store, to see if more users complete their purchase when you offer a discount. You run an experiment using a click conversion metric on user behavior when you offer various discounts, with no discount serving as your control variation. The sections below explain what each column means.
+
+### Probability to be best**
+
+The probability to be best is the likelihood that a variation had the biggest effect on the primary metric. Of all the variations in the experiment, the one with highest probability is the best option to choose as a winner. In this example, the "15% off" variation has the highest probability to be best.
+
+### Relative difference from [the control]
+
+The relative difference from the control variation is the range that contains 90% of the variation's probable values. It is written as a percentage of the values from the control variation.
+
+This means the effect of the variation on the metric you're measuring, compared to the control variation, has a 90% probability of falling within this range. In the above example, the "15% off" variation has a relative difference of [0.61%, 101.96%]. You can have 90% confidence that the effect of the variation on the metric, for any given user who encounters it, will be between 0.61% and 101.96% higher than the control variation.
+
+To summarize this column, you can have 90% confidence that offering a 15% discount in your store will result in users checking out between about 1% to about 102% more often than those who receive no discount.
+
+The longer you run an experiment, the width of this interval decreases. This is because the more data you gather, the more confidence you can have because the range of plausible values is smaller.
+
+### Credible interval
+
+The credible interval is the range that contains 90% of probable values.
+
+This means the effect of the variation on the metric you're measuring has a 90% probability of falling between these two numbers. In the above example, the "15% off" variation has a credible interval of [43.12%, 86.55%]. This means you can have 90% confidence that the probable values of the metric, for any given user who encounters it, will be between 43.12% and 86.55%. 
+
+To summarize this column, you can have 90% confidence that offering a 15% discount in your store will result in users checking out between about 43% to 87% of the time.
+
+If you view metric event values per unique user as a sum instead of an average, the credible interval will be expressed in values rather than percentages. To learn more, read [Viewing metric event values](#viewing-metric-event-values).
+
+The longer you run an experiment, the width of this interval decreases. This is because the more data you gather, the more confidence you can have because the range of plausible values is smaller.
+
+### Mean
+
+The mean is the average value of the posterior distribution of the variation. This means, if you were to continue collecting data, it’s the future average numeric value for the variation that you should expect. It doesn’t capture the uncertainty in the measurement, so it should not be the only measurement you use to make decisions.
+
+In the above example, if you continued to run the experiment, you could expect that offering a 15% discount in your store will result in users checking out about 71% of the time.
 
 <LearnMore>
 
