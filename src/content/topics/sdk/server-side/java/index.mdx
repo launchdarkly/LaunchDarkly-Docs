@@ -156,9 +156,13 @@ Here's how:
 <CodeTabItem value="java">
 
 ```java
-LDUser user = new LDUser("user@test.com");
-boolean showFeature = client.boolVariation("your.feature.key", user, false);
-if (showFeature) {
+LDUser user = new LDUser.Builder("example-user-key")
+  .name("Sandy")
+  .build();
+
+boolean flagValue = client.boolVariation(FEATURE_FLAG_KEY, user, false);
+
+if (flagValue) {
   // Application code to show the feature
 }
 else {
