@@ -1,0 +1,52 @@
+name: Manually trigger buildStaging
+on:
+  workflow_dispatch:
+    branches-ignore:
+      - main
+  push:
+    branches-ignore:
+      - main
+jobs:
+  getPRNumber:
+    runs-on: ubuntu-latest
+    name: Get pr number
+    outputs:
+      pull_request_number: ${{ steps.pr.outputs.pull_request_number }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get Pull Request Number
+        id: pr
+        run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - if: steps.pr.outputs.pull_request_number == ''
+        run: |
+          echo Skipping staging build because ${{ github.ref_name }} has no pr.
+      - if: steps.pr.outputs.pull_request_number != ''
+        run: |
+          echo ${{ github.ref_name }} has a pr: ${{ steps.pr.outputs.pull_request_number }}
+
+  detectConflictTriggerBuild:
+    needs: getPRNumber
+    if: needs.getPRNumber.outputs.pull_request_number != ''
+    runs-on: ubuntu-latest
+    name: Detect conflict
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+      - name: Detect conflict and manually trigger buildStaging
+        run: |
+          git config --global user.email "launchdarklyreleasebot@launchdarkly.com"
+          git config --global user.name "LaunchDarklyReleaseBot"
+          git config --global pull.rebase false
+
+          if git pull origin main --no-edit; then
+            echo "No conflict so skipping manual trigger"
+          else
+            echo "Conflict detected, will manually trigger buildStaging"
+            gh workflow run deployStaging.yml -r ${{ github.ref_name }}  -f PR_NUMBER=${{ needs.getPRNumber.outputs.pull_request_number }}
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

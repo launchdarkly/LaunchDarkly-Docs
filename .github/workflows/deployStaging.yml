@@ -1,13 +1,17 @@
 name: Deploy to Staging
 on:
   workflow_dispatch:
+    inputs:
+      PR_NUMBER:
+        required: true
+        description: The pull request number which triggered this workflow
     branches-ignore:
       - main
   pull_request:
     types: [assigned, opened, synchronize, reopened]
 
 env:
-  PR_NUMBER: ${{ github.event.pull_request.number }}
+  PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.PR_NUMBER }}
 
 jobs:
   build-deploy:
@@ -15,9 +19,9 @@ jobs:
     name: Deploy to s3 staging
     environment:
       name: staging
-      url: http://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }}
+      url: http://docs-stg.launchdarkly.com/${{ github.event.pull_request.number || github.event.inputs.PR_NUMBER }}
     concurrency:
-      group: staging-${{ github.event.pull_request.number }}
+      group: staging-${{ github.event.pull_request.number || github.event.inputs.PR_NUMBER }}
       cancel-in-progress: true
     steps:
       - uses: actions/checkout@v3
@@ -97,7 +101,7 @@ jobs:
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
           GATSBY_ALGOLIA_INDEX: 'Docs'
-          GATSBY_PR_NUMBER: ${{ github.event.pull_request.number }}
+          GATSBY_PR_NUMBER: ${{ env.PR_NUMBER }}
           LAUNCHDARKLY_CLIENT_SIDE_ID: ${{ secrets.STG_LAUNCHDARKLY_CLIENT_SIDE_ID }}
           GATSBY_DATADOG_CLIENT_TOKEN: ${{ secrets.STG_DATADOG_CLIENT_TOKEN }}
           GATSBY_DATADOG_RUM_APPLICATION_ID: ${{ secrets.DATADOG_RUM_APPLICATION_ID }}
@@ -124,10 +128,10 @@ jobs:
         with:
           # Note: this is used because of cypress yarn berry issue
           # https://github.com/cypress-io/github-action/issues/430#issuecomment-1144054512
-          command: yarn dlx cypress@v9 run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }},retries=2 --spec cypress/integration/smoke.test.ts --config-file cypress.json --env pr_number=${{ github.event.pull_request.number }}
+          command: yarn dlx cypress@v9 run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ env.PR_NUMBER }},retries=2 --spec cypress/integration/smoke.test.ts --config-file cypress.json --env pr_number=${{ env.PR_NUMBER }}
           install-command: yarn install --immutable
           build: yarn build-nav-data
-          wait-on: 'https://docs-stg.launchdarkly.com/${{ github.event.pull_request.number }}/home'
+          wait-on: 'https://docs-stg.launchdarkly.com/${{ env.PR_NUMBER }}/home'
         env:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
