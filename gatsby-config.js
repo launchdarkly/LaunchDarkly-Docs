@@ -11,6 +11,10 @@ console.log(`
   GATSBY_ALGOLIA_APP_ID=${process.env.GATSBY_ALGOLIA_APP_ID}
 `)
 
+if (isStaging && !process.env.PR_NUMBER && !process.env.GATSBY_PR_NUMBER) {
+  throw new Error("There's no PR_NUMBER to deploy to staging")
+}
+
 const plugins = [
   {
     resolve: 'gatsby-plugin-mdx',
