@@ -389,6 +389,8 @@ To learn more, read [`identify`](https://launchdarkly.github.io/react-native-cli
 <Details summary="Expand React Native code sample">
 
 If multiple users use your app on a single device, you may want to change users and have separate flag settings for each one. To do this, the SDK stores the last five user contexts on a single device, with support for switching between different user contexts. You can use the `identify` method to switch user contexts. `identify` loads any saved flag values for the new user and immediately triggers an update of the latest flags from LaunchDarkly.
+  
+  **Note**: adding to many values in the payload of the `identify` function, can slow down the call to over 30+ seconds.
 
 Here's how:
 
