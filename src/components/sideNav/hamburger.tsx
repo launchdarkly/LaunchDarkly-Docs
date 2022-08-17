@@ -3,9 +3,11 @@ import { Fragment, useEffect, useRef, useState } from 'react'
 import { globalHistory } from '@reach/router'
 import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { graphql, useStaticQuery } from 'gatsby'
+import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { jsx, ThemeUICSSObject } from 'theme-ui'
 
 import Icon from '../icon'
+import SiteSelector from '../siteSelector/siteSelector'
 
 import TreeNode from './treeNode'
 
@@ -58,6 +60,7 @@ const Hamburger = () => {
       }
     }
   `)
+  const { enableSiteSelection } = useFlags()
   const [show, setShow] = useState(false)
   const rootDiv = useRef<HTMLDivElement>()
   useEffect(() => {
@@ -114,6 +117,16 @@ const Hamburger = () => {
             <span>CLOSE</span>
             <Icon name="window-close" variant="close" />
           </button>
+        </div>
+        <div
+          sx={{
+            display: 'flex',
+            mx: 0,
+            py: 2,
+            px: 3,
+          }}
+        >
+          {enableSiteSelection && <SiteSelector />}
         </div>
         <div sx={{ mb: 9 }}>
           <TreeNode

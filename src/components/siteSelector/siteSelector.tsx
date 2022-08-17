@@ -26,7 +26,10 @@ const SiteSelector = () => {
         border: '1px solid',
         borderColor: 'grayBase',
         borderRadius: '6px',
-        mr: 4,
+        mr: [0, 4],
+        py: 2,
+        px: 3,
+        width: '100%',
       }}
     >
       <option value="launchDarkly">LaunchDarkly docs</option>
