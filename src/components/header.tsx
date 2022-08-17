@@ -67,7 +67,13 @@ const Header = () => {
               ml: [0, 0, 4],
             }}
           >
-            {enableSiteSelection && <SiteSelector />}
+            <span
+              sx={{
+                display: ['none', 'flex'],
+              }}
+            >
+              {enableSiteSelection && <SiteSelector />}
+            </span>
             <SearchRoot />
           </div>
           <span sx={{ display: ['block', 'none'], mx: 5 }}>
