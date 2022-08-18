@@ -1,0 +1,236 @@
+---
+path: /guides/experimentation/example-experiments
+title: Example experiments
+description: This guide provides examples of experiments you can build in LaunchDarkly.
+published: true
+tags: ['guide', 'experiment', 'example', 'add-on', 'experimentation']
+---
+
+<Callout intent="primary">
+<CalloutTitle>Experimentation is an add-on feature</CalloutTitle>
+<CalloutDescription>
+
+Experimentation is available as an add-on for customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To add Experimentation to your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This guide provides examples of experiments you can build in LaunchDarkly.
+
+## Example 1: Notifications opt-in
+
+When a user downloads your app onto their phone or tablet for the first time, it may ask the user to opt-in to notifications from the app. Some apps ask the user to opt-in right away, and others wait until the user has interacted with your app for a certain amount of time before asking.
+
+Asking the user to opt-in right away may feel premature, as the user might not know yet if they like your app enough to want notifications. However, waiting too long may also result in fewer opt-ins, as the user may have become comfortable using your app without notifications.
+
+The Apple app store allows apps to ask users to opt-in only once. This means it's important to time your one opt-in request at a point when the user is most likely to opt-in. You can use Experimentation to find out when this time is.
+
+### Hypothesis
+
+To begin, create a hypothesis for your experiment. 
+
+Here is an example:
+
+"We believe that by prompting a user to opt-in to notifications on the fifth time they open our app, users will opt-in to notifications 15% more often than those who are prompted the first time they open our app, and 7%  more often than those who are prompted on the tenth time they open our app."
+
+### Sample size
+
+Next, determine the sample size needed for your experiment. In this example, you know that about 2,000 people download your app per day, and you'd like to have at least 40,000 users in your experiment. You decide to include 100% of your new users in the sample to get the fastest results. So, you will run this experiment for 21 days to include about 42,000 users.
+
+Here is the sample size calculation:
+
+`2,000 users x 21 days x 100% of users = 42,000 users in experiment`
+
+### Metric
+
+You will use a click conversion metric to track when users opt-in to notifications. To learn how to create a click conversion metric, read [Click conversion metrics](/home/creating-experiments/metrics/click).
+
+Here is what your metric will look like:
+
+![The "Metric information" panel for a click conversion metric.](experiment-example-opt-in-metric.png)
+
+### Variations
+
+The string flag you use in your experiment will have three variations:
+
+- Prompt on 1st open, which acts as the control
+- Prompt on 5th open
+- Prompt on 10th open
+
+Here is what your flag's **Variations** tab will look like:
+
+![A flag's "Variations" tab with three variations.](experiment-example-opt-in-flag-variations.png)
+
+### Audience
+
+You want to include only users who have newly downloaded the app. To accomplish this, you can build a rule on your flag to exclude users who have already made an opt-in decision. To learn how, read [Targeting rules](/home/flags/targeting-rules).
+
+Here is what your flag's **Targeting** tab will look like with a targeting rule:
+
+![A flag's "Targeting" tab including a targeting rule.](experiment-example-opt-in-flag-targeting.png)
+
+<Callout intent="primary">
+<CalloutTitle>You must run experiments on the correct rule</CalloutTitle>
+<CalloutDescription>
+
+When you build an experiment, you can choose which flag targeting rule to run the experiment on. This ensures you include the right group of users in your experiment. In this example, run the experiment on the flag’s targeting rule that you just created, not the flag’s default rule.
+
+</CalloutDescription>
+</Callout>
+
+### Experiment design
+
+Finally, combine your hypothesis, metric, flag, and audience into an experiment. To learn how, read [Building experiments](/home/creating-experiments#building-experiments).
+
+Here is what your finished experiment will look like in LaunchDarkly:
+
+![A complete opt-in experiment.](experiment-example-opt-in-experiment-design.png)
+
+## Example 2: Third-party library assessment
+
+Adding JavaScript libraries to your front end has both benefits and drawbacks. Each library adds latency to your site load time, but can also enable functionality with benefits to your organization such as analytics, personalization, ad revenue, audience assessment, surveys, and more.
+
+To find the balance between site load time and total revenue, you can use experimentation to measure your site revenue with different third-party JavaScript libraries installed.
+
+### Hypothesis
+
+To begin, create a hypothesis for your experiment. 
+
+Here is an example:
+
+"We believe that the version of our site with third-party library X installed will result in a total revenue increase of 7%, and the version of our site with third-party library Y installed will result in a total revenue increase of 5%, compared to the control with neither library X nor library Y installed."
+
+### Sample size
+
+Next, determine the sample size needed for your experiment. In this example, you do not want to include your entire user base in your experiment, so decide to limit your experiment to 10% of your users. You know that about 60,000 people visit your site per day, and you'd like to have at least 120,000 users in your experiment. So, you will run this experiment for 20 days.
+
+Here is the sample size calculation:
+
+`60,000 users x 20 days x 10% of users = 120,000 users in experiment`
+
+### Metric
+
+You will use a custom numeric metric to track total revenue. To learn how to create a custom numeric metric, read [Custom numeric metrics](/home/creating-experiments/metrics/custom-numeric).
+
+Here is what your metric will look like:
+
+![The "Metric information" panel for a custom numeric metric.](experiment-example-library-metric.png)
+
+When adding the event name in your codebase, use the same event name that you created as part of your metric. In this example, the event name is "Total revenue."
+
+Although you will limit your decision-making based on the results of your primary metric, you are also curious about the latency time each third-party library adds. You will add a secondary custom numeric metric with a lower than baseline success criteria to measure time to first byte (TTFB) for each variation.
+
+Here is what your secondary metric will look like:
+
+![The "Metric information" panel for a secondary custom numeric metric.](experiment-example-library-metric-2.png)
+
+When adding the event name in your codebase, use the event name "Time to first byte."
+
+### Variations
+
+The string flag you use in your experiment will have three variations:
+
+- No third-party library installed, which acts as the control
+- Library X installed
+- Library Y installed
+
+Here is what your flag's **Variations** tab will look like:
+
+![A flag's "Variations" tab with three variations.](experiment-example-library-flag-variations.png)
+
+### Audience
+
+In this experiment, you want a random sample of your entire user base in the experiment, so you will not create any targeting rules for the flag.
+
+### Experiment design
+
+Finally, combine your hypothesis, metrics, flag, and audience into an experiment. To learn how, read [Building experiments](/home/creating-experiments#building-experiments).
+
+Here is what your finished experiment will look like in LaunchDarkly:
+
+![A complete third-party library experiment.](experiment-example-library-experiment-design.png)
+
+## Example 3: Trial account conversions
+
+You offer 14-day trial accounts to potential customers. When the 14-day trial ends, customers have the option to convert to a paid account. You chose the 14-day trial arbitrarily, and would like to find out if giving customers a longer trial period results in more conversions to paid accounts.
+
+### Hypothesis
+
+To begin, create a hypothesis for your experiment. 
+
+Here is an example:
+
+"We believe that giving users an extra week in their free trial, for a total of 21 days, will increase conversions to a paid account by 12% compared to the control of 14 days."
+
+### Sample size
+
+Next, determine the sample size needed for your experiment. In this example, you know that about 750 users sign up for a free trial per day, and you'd like to have at least 10,000 users in your experiment. So, you will run this experiment for 14 days to include about 10,500 users.
+
+Here is the sample size calculation:
+
+`750 users x 14 days x 100% of users = 10,500 users in experiment`
+
+### Metric
+
+You will use a custom numeric metric to track total revenue. To learn how to create a custom numeric metric, read [Custom conversion metrics](/home/creating-experiments/metrics/custom-conversion).
+
+Here is what your metric will look like:
+
+![The "Metric information" panel for a custom conversion metric.](experiment-example-trial-metric.png)
+
+When adding the event name in your codebase, use the same event name that you created as part of your metric. In this example, the event name is "Conversion to paid accounts."
+
+### Variations
+
+The number flag you use in your experiment will have two variations:
+
+- A 14-day trial, which acts as the control
+- A 21-day trial
+
+Here is what your flag's **Variations** tab will look like:
+
+![A flag's "Variations" tab with two variations.](experiment-example-trial-flag-variations.png)
+
+### Audience
+
+In this experiment, you do not want to include students who may be using your trial service for school projects, so you will exclude users with email addresses that end with `.edu`. To accomplish this, you can build a rule on your flag. To learn how, read [Targeting rules](/home/flags/targeting-rules).
+
+Here is what your flag's **Targeting** tab will look like with a targeting rule:
+
+![A flag's "Targeting" tab including a targeting rule.](experiment-example-trial-flag-targeting.png)
+
+<Callout intent="primary">
+<CalloutTitle>You must run experiments on the correct rule</CalloutTitle>
+<CalloutDescription>
+
+When you build an experiment, you can choose which flag targeting rule to run the experiment on. This ensures you include the right group of users in your experiment. In this example, run the experiment on the flag’s targeting rule that you just created, not the flag’s default rule.
+
+</CalloutDescription>
+</Callout>
+
+### Experiment design
+
+Finally, combine your hypothesis, metric, flag, and audience into an experiment. To learn how, read [Building experiments](/home/creating-experiments#building-experiments).
+
+Here is what your finished experiment will look like in LaunchDarkly:
+
+![A complete trial period length experiment.](experiment-example-trial-experiment-design.png)
+
+## Conclusion
+
+In this guide, we present three use cases for LaunchDarkly Experimentation that cover app notification optimization, measuring the value of third-party libraries, and testing trial account conversions. For more examples of what you can measure with metrics, read [Choosing a metric](/home/creating-experiments/metrics#choosing-a-metric). 
+
+We hope this guide gets you started on the path to creating your own experiments. To learn more about our Experimentation feature, read [About experimentation](/home/about-experimentation).
+
+<Callout intent="primary">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>

@@ -110,12 +110,15 @@ Here's how:
 <CodeTabItem value="java">
 
 ```java
-LDUser user = new LDUser.Builder('abc').build();
+LDUser user = new LDUser.Builder('example-user-key')
+    .setName('Sandy')
+    .build();
 
-if (client.boolVariation(user, 'your.flag.key', false)) {
-    System.debug('feature is on');
+Boolean value = client.boolVariation(user, flagKey, false);
+if (value) {
+    // Application code to show the feature
 } else {
-    System.debug('feature is off');
+    // The code to run if the feature is off
 }
 ```
 

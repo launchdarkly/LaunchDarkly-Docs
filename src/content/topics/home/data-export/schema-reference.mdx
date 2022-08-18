@@ -86,7 +86,7 @@ The `index` and `identify` event kinds are **not available** for Segment and mPa
 
 ## SDK versioning for events
 
-Older SDKs always send `feature` events regardless of whether detailed tracking is enabled for that flag. The `summary` and `index` events described below are also only generated only by newer SDKs.
+Older SDKs always send `feature` events regardless of whether detailed tracking is enabled for that flag. Only newer SDKs generate the `summary` and `index` events described below.
 
 Older SDKs will also send `user` attributes as an object inside `feature` events instead of just providing a "userKey" that can reference user data sent in a prior `index` event.
 
@@ -101,7 +101,7 @@ To receive `feature` events, in addition to `index`, `identify`, and `custom` ev
 
 ## Understanding event kind structures
 
-Each of these events are sent as JSON files to your destinations.
+LaunchDarkly sends each of these events as JSON files to your destinations.
 
 All events have the following top level structure:
 
@@ -168,12 +168,12 @@ Here is an example `feature` event:
 
 Here is a list of `feature` event properties:
 
-- `kind`: The kind for a `feature` event is `feature`. A `feature` event will only be generated if the `trackEvents` attribute of the flag is set to `true`. This is also controlled by settings in the UI.
+- `kind`: The kind for a `feature` event is `feature`. An SDK only generates a `feature` event if the you set the `trackEvents` attribute of the flag to `true`. You can also control this with settings in the UI.
 - `contextKind`: The kind of context which generated an event. This will only be `"anonymousUser"` for events generated on behalf of an anonymous user. It is omitted for events generated on behalf of a non-anonymous user.
-- `userKey`: The key of the user object used in a feature flag evaluation. Details for the `user` object used in a feature flag evaluation as reported by the "feature" event are transmitted periodically with a separate `index` event.
-- `creationDate` When the feature flag was requested at UNIX epoch time in milliseconds.
+- `userKey`: The key of the user object used in a feature flag evaluation. SDKs periodically transmit details for the `user` object used in a feature flag evaluation as reported by the "feature" event with a separate `index` event.
+- `creationDate`: When the SDK requested the feature flag, at UNIX epoch time in milliseconds.
 - `key`: The key of the feature flag requested.
-- `variation`: The variation of the flag requested. Flag variation values are stored in an array. This value corresponds to the index of the variation the array. Boolean flags show as `0` or `1` for `true` and `false`, and other flag types are numbered starting with `0` for their different variations.
+- `variation`: The variation of the flag requested. The SDK stores flag variation values in an array. This value corresponds to the index of the variation the array. Boolean flags show as `0` or `1` for `true` and `false`, and other flag types are numbered starting with `0` for their different variations.
 - `variationName`: The evaluated variation's name, if it exists. If the evaluated variation doesn't have a name, this field doesn't appear.
 - `value`: The value of the feature flag returned by feature flag evaluation.
 - `default`: (Optional) This value is set to `true` if feature flag evaluation failed, in which case the value returned was the default value passed to `variation`. If the default field is omitted, it is assumed to be `false`.
@@ -233,7 +233,7 @@ Here is a list of `index` event properties:
 <CalloutTitle>Server-side SDKs determine when to send <code>index</code> events</CalloutTitle>
 <CalloutDescription>
 
-Server-side SDKs have internal logic that determine whether it is necessary to send an `index` event. `index` events are not created for every flag evaluation. If the SDKs identify the same user multiple times in succession, the SDK does not send multiple `index` events. The SDK identifies users based in the users' keys.
+Server-side SDKs have internal logic that determines whether it is necessary to send an `index` event. SDKs do not create `index` events for every flag evaluation. If the SDKs identify the same user multiple times in succession, the SDK does not send multiple `index` events. The SDK identifies users based on the users' keys.
 
 </CalloutDescription>
 </Callout>
@@ -281,7 +281,7 @@ Here is a list of `identify` event properties:
 
 ## Custom events
 
-`custom` events are produced when the client application calls the SDK's track method. To learn more, read [Sending custom events](/sdk/features/events).
+SDKs produce `custom` events when the client application calls the SDK's track method. To learn more, read [Sending custom events](/sdk/features/events).
 
 <Callout intent="alert">
 <CalloutTitle>mParticle and Segment schema differences</CalloutTitle>
@@ -322,9 +322,7 @@ An example `custom` event is shown below:
 
 ## Alias events
 
-`alias` events are produced when the client application calls the `Alias` SDK
-method. They are also emitted automatically by client-side SDKs when an anonymous user
-identifies as a non-anonymous user.
+SDKs produce `alias` events when the client application calls the SDK's alias method. Client-side SDKs also emit them automatically when an anonymous user identifies as a non-anonymous user.
 
 <Callout intent="alert">
 <CalloutTitle>mParticle and Segment schema differences</CalloutTitle>
@@ -370,7 +368,7 @@ By default, we do not export <code>summary</code> events. To export <code>summar
 </CalloutDescription>
 </Callout>
 
-Summary events are sent periodically by SDKs to describe a set of feature evaluations. Summary events include all feature evaluations, regardless of whether `trackEvents` field was set for individual flags.
+SDKs send summary events periodically to describe a set of feature evaluations. Summary events include all feature evaluations, regardless of whether the `trackEvents` field was set for individual flags.
 
 An example `summary` event is shown below:
 
@@ -437,30 +435,22 @@ Each feature flag includes the following details:
     <TableHeadCell>Meaning</TableHeadCell>
   </TableHeader>
   <TableBody>
-    <TableRow>
-      <TableCell>default</TableCell>
-      <TableCell>
-        The default value the SDK received for the feature (sampled at some point during the interval).
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>startDate</TableCell>
-      <TableCell>
-        The timestamp of the first feature flag evaluation included in this packet. This value is a UNIX epoch time in
-        milliseconds.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>endDate</TableCell>
-      <TableCell>
-        The timestamp of the last feature flag evaluation included in this packet. This value is a UNIX epoch time in
-        milliseconds.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>counters</TableCell>
-      <TableCell>A set of counters as described below.</TableCell>
-    </TableRow>
+  <TableRow>
+    <TableCell>default</TableCell>
+    <TableCell>The default value the SDK received for the feature, sampled at some point during the interval.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>startDate</TableCell>
+    <TableCell>The timestamp of the first feature flag evaluation included in this packet. This value is a UNIX epoch time in milliseconds.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>endDate</TableCell>
+    <TableCell>The timestamp of the last feature flag evaluation included in this packet. This value is a UNIX epoch time in milliseconds.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>counters</TableCell>
+    <TableCell>A set of counters as described below.</TableCell>
+  </TableRow>
   </TableBody>
 </Table>
 
@@ -472,32 +462,25 @@ The `counters` field is an array of objects with the following contents:
     <TableHeadCell>Meaning</TableHeadCell>
   </TableHeader>
   <TableBody>
-    <TableRow>
-      <TableCell>version</TableCell>
-      <TableCell>The version of the feature flag evaluated.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>value</TableCell>
-      <TableCell>The value returned by the SDK for the flag evaluation.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>variation</TableCell>
-      <TableCell>
-        A zero-based index into the list of variations. If this field not provided, a default value was used.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>count</TableCell>
-      <TableCell>
-        The number of times this value/version/variation combination was an evaluation result during the interval.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>unknown (optional)</TableCell>
-      <TableCell>
-        If this is present and true it indicates that no flag by this name was known to LaunchDarkly (and therefore the
-        SDK default value was returned).
-      </TableCell>
-    </TableRow>
+  <TableRow>
+    <TableCell>version</TableCell>
+    <TableCell>The version of the feature flag evaluated.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>value</TableCell>
+    <TableCell>The value the SDK returned for the flag evaluation.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>variation</TableCell>
+    <TableCell>A zero-based index into the list of variations. If LaunchDarkly does not provide this field, it means the SDK returned a fallback value.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>count</TableCell>
+    <TableCell>The number of times this value/version/variation combination was an evaluation result during the interval.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>unknown (optional)</TableCell>
+    <TableCell>If this is present and true, it indicates that no flag by this name was known to LaunchDarkly, and therefore the SDK returned the fallback value.</TableCell>
+  </TableRow>
   </TableBody>
 </Table>

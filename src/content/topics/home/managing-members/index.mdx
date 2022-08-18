@@ -12,6 +12,68 @@ This category contains documentation topics about how to set up and manage the p
 
 In these topics, you can learn about how to set up your organization in LaunchDarkly, how to change who controls your LaunchDarkly project, and what built-in roles LaunchDarkly offers for account members. You can also learn about LaunchDarkly's custom roles feature, which lets you create roles with precise permissions and access to different aspects of LaunchDarkly.
 
+Account members are people who work at your organization or have access rights to your organization's LaunchDarkly environment for another reason, such as contractors or part-time employees. To learn more, read [LaunchDarkly account members](/home/members/managing).
+
+## Understanding LaunchDarkly's role types
+
+Account members are assigned member roles. LaunchDarkly has two types of member roles. They are:
+
+* Built-in roles
+* Custom roles
+
+Each account member must have at least one role. Members can have both built-in roles and custom roles.
+
+### Built-in roles
+
+Every LaunchDarkly account has four built-in roles. They are:
+
+* Reader
+* Writer
+* Admin
+* Owner
+
+Customers on an Enterprise plan also have a restricted No access role.
+
+To learn more, read [LaunchDarkly's built-in roles](/home/members/built-in-roles).
+
+### Custom roles
+
+In addition to built-in roles, customers on an Enterprise plan can optionally configure custom roles. Custom roles are sets of permissions that give members or teams extremely precise access to different resources in LaunchDarkly, as well as the ability to perform only certain actions in your LaunchDarkly account. To learn more, read [Custom roles](/home/members/custom-roles).
+
+## Understanding how built-in roles interact with custom roles
+
+You can give account members granular control to LaunchDarkly using custom roles. Custom roles let you define specific permissions for members or teams and apply them across your organization. Custom roles can increase the permissions given to a built-in role.
+
+This is useful if you have members with multiple jobs, such as someone who needs access to flags controlled by an engineering team and the support team, or product managers who also code.
+
+## Viewing an individual member's roles
+
+To view an individual member's roles:
+
+1. Navigate to **Account settings** and click into the [**Members**](https://app.launchdarkly.com/settings/members) tab.
+2. Click the name of the member you want to view. The member's **Permissions** page opens.
+
+![The member's "Permissions" page.](settings-member-permissions.png)
+
+3. View the member's individually assigned built-in and custom roles in the "Member roles" section.
+4. (Optional) View the roles granted to that member by teams they belong to in the "Team roles" section.
+
+## Changing an individual member's roles
+
+To change an individual member's roles:
+
+1. Navigate to **Account settings** and click into the [**Members**](https://app.launchdarkly.com/settings/members) tab.
+2. Click the name of the member whose roles you want to change. The member's "Permissions" page opens.
+3. Click **Edit member roles**.
+
+![The "Member roles" section of the "Permissions" tab, with Edit member roles called out.](settings-member-permissions-member-roles.png)
+
+4. Select the built-in role to assign to this member. Alternatively, select **Custom**. From the menu, choose all the custom roles to assign to the member.
+
+![A member's Edit role menu.](edit-member-roles-built-in.png)
+
+5. Click **Save role**.
+
 <LearnMore>
 
 You can also use the REST API: [Account members](https://apidocs.launchdarkly.com/tag/Account-members/)

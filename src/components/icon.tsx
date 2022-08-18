@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx, BoxOwnProps } from 'theme-ui'
 import { HTMLProps } from 'react'
+import { BoxOwnProps, jsx } from 'theme-ui'
 
 export type IconName =
   | 'android'

@@ -1,17 +1,26 @@
 /** @jsx jsx */
-import { jsx, Link as ThemeUILink, LinkProps } from 'theme-ui'
-import { FunctionComponent, RefAttributes, PropsWithoutRef } from 'react'
-import { Link as GatsbyLink, useStaticQuery, graphql, GatsbyLinkProps } from 'gatsby'
+import { ForwardRefExoticComponent, FunctionComponent, PropsWithoutRef, RefAttributes } from 'react'
+import { GatsbyLinkProps, graphql, Link as GatsbyLink, useStaticQuery } from 'gatsby'
 import { OutboundLink, OutboundLinkProps } from 'gatsby-plugin-google-gtag'
-import isExternalLink from '../utils/isExternalLink'
+import { useFlags } from 'gatsby-plugin-launchdarkly'
+import { jsx, Link as ThemeUILink, LinkProps } from 'theme-ui'
 
-type ForwardRef<T, P> = React.ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>
-type CombinedLinkProps = Omit<LinkProps & GatsbyLinkProps<unknown>, 'defaultValue' | 'aria-relevant'>
+import isExternalLink from '../utils/isExternalLink'
+import { addRemoveSiteParam, setSubdomain } from '../utils/siteAwareUtils'
+
+import useSite from './siteSelector/useSite'
+
+type ForwardRef<T, P> = ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>
+type CombinedLinkProps = Omit<LinkProps & GatsbyLinkProps<unknown>, 'to' | 'defaultValue' | 'aria-relevant'> & {
+  to?: string
+}
 const ThemedGatsbyLink: ForwardRef<HTMLAnchorElement, CombinedLinkProps> = ThemeUILink
 type ExternalLinkProps = LinkProps & OutboundLinkProps
 const ThemedExternalLink: ForwardRef<HTMLAnchorElement, ExternalLinkProps> = ThemeUILink
 
 const Link: FunctionComponent<CombinedLinkProps> = ({ to, href, ...props }) => {
+  const [site] = useSite()
+  const { enableSiteSelection } = useFlags()
   const {
     site: { pathPrefix },
   } = useStaticQuery(graphql`
@@ -33,7 +42,19 @@ const Link: FunctionComponent<CombinedLinkProps> = ({ to, href, ...props }) => {
   }
 
   if (isExternal || isMailTo || isImage) {
-    return <ThemedExternalLink as={OutboundLink} href={url} {...props} target="_blank" rel="noopener noreferrer" />
+    const { children, ...restProps } = props
+
+    return (
+      <ThemedExternalLink
+        as={OutboundLink}
+        href={setSubdomain(url, site, enableSiteSelection)}
+        {...restProps}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {typeof children === 'string' ? setSubdomain(children, site, enableSiteSelection) : children}
+      </ThemedExternalLink>
+    )
   }
 
   // if path prefix is set, remove it because Gatsby Link adds it too
@@ -41,7 +62,8 @@ const Link: FunctionComponent<CombinedLinkProps> = ({ to, href, ...props }) => {
     url = url.replace(pathPrefix, '')
   }
 
-  return <ThemedGatsbyLink as={GatsbyLink} to={url} {...props} />
+  // internal links
+  return <ThemedGatsbyLink as={GatsbyLink} to={addRemoveSiteParam(url, site)} {...props} />
 }
 
 export default Link

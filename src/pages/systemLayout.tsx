@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import { Helmet } from 'react-helmet'
 import { Fragment, FunctionComponent } from 'react'
-import Reset from '../components/resetStyles'
+import { Helmet } from 'react-helmet'
+import { jsx } from 'theme-ui'
+
 import Header from '../components/header'
+import Reset from '../components/resetStyles'
 
 const rootGridStyles = {
   color: 'grayBlack',

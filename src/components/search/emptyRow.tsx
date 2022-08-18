@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx, Box } from 'theme-ui'
 import { FunctionComponent } from 'react'
+import { Box, jsx } from 'theme-ui'
 
 interface EmptyRowProps {
   query: string

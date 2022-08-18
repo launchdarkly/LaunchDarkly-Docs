@@ -1,9 +1,11 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
 import { FC } from 'react'
-import { Link } from 'gatsby'
-import useNavItemChildren, { NavItem } from './useNavItemChildren'
+import { jsx } from 'theme-ui'
+
 import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
+import Link from '../link'
+
+import useNavItemChildren, { NavItem } from './useNavItemChildren'
 
 interface Props {
   path: string

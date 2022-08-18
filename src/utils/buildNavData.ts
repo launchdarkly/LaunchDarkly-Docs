@@ -4,8 +4,9 @@
 // more lenient here with typescript.
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import fs from 'fs'
-import navigationDataJson from '../content/navigationData.json'
+
 import { SideNavItem } from '../components/sideNav/types'
+import navigationDataJson from '../content/navigationData.json'
 
 export const getPaths = (item: SideNavItem): string[] => {
   const { path, items } = item

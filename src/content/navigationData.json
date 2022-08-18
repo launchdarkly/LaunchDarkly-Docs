@@ -286,6 +286,14 @@
             "path": "/home/account-security/sso",
             "items": [
               {
+                "label": "Configuring SAML SSO",
+                "path": "/home/account-security/sso/saml"
+              },
+              {
+                "label": "Enabling SCIM provisioning",
+                "path": "/home/account-security/sso/scim"
+              },
+              {
                 "label": "Active Directory Federation Services (ADFS)",
                 "path": "/home/account-security/adfs"
               },
@@ -412,7 +420,7 @@
             "path": "/home/creating-experiments/metrics",
             "items": [
               {
-                "label": "Click metrics",
+                "label": "Click conversion metrics",
                 "path": "/home/creating-experiments/metrics/click"
               },
               {
@@ -424,7 +432,7 @@
                 "path": "/home/creating-experiments/metrics/custom-numeric"
               },
               {
-                "label": "Page view metrics",
+                "label": "Page view conversion metrics",
                 "path": "/home/creating-experiments/metrics/page-view"
               }
             ]
@@ -1373,6 +1381,10 @@
           {
             "label": "Designing experiments",
             "path": "/guides/experimentation/designing-experiments"
+          },
+          {
+            "label": "Example experiments",
+            "path": "/guides/experimentation/example-experiments"
           },
           {
             "label": "Experimentation and Bayesian statistics",

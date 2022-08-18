@@ -1,5 +1,5 @@
-import { datadogRum } from '@datadog/browser-rum-slim'
 import { datadogLogs } from '@datadog/browser-logs'
+import { datadogRum } from '@datadog/browser-rum-slim'
 import { getLCP, Metric } from 'web-vitals'
 
 const LCP_SLO_TARGET = 4000

@@ -131,7 +131,9 @@ Here's how:
 <CodeTabItem value="php">
 
 ```php
-$user = new LaunchDarkly\LDUser("user@test.com");
+$user = (new LaunchDarkly\LDUserBuilder("example-user-key"))
+  ->name("Sandy")
+  ->build();
 
 if ($client->variation("your.flag.key", $user)) {
     // application code to show the feature

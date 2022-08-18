@@ -148,7 +148,10 @@ import (
 )
 
 flagKey := "some-flag-key"
-user := lduser.NewUser("some-user-key")
+user := lduser.NewUserBuilder("example-user-key").
+    Name("Sandy").
+    Build()
+    
 showFeature, _ := client.BoolVariation(flagKey, user, false)
 if showFeature {
     // Application code to show the feature

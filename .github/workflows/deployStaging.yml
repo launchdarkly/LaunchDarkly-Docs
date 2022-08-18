@@ -1,46 +1,34 @@
 name: Deploy to Staging
 on:
-  push:
+  workflow_dispatch:
+    inputs:
+      PR_NUMBER:
+        required: true
+        description: The pull request number which triggered this workflow
     branches-ignore:
       - main
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
+
+env:
+  PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.PR_NUMBER }}
 
 jobs:
-  getPRNumber:
-    runs-on: ubuntu-latest
-    name: Get pr number
-    outputs:
-      pull_request_number: ${{ steps.pr.outputs.pull_request_number }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Get Pull Request Number
-        id: pr
-        run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - if: steps.pr.outputs.pull_request_number == ''
-        run: |
-          echo Skipping staging build because ${{ github.ref_name }} has no pr.
-      - if: steps.pr.outputs.pull_request_number != ''
-        run: |
-          echo Building staging because ${{ github.ref_name }} has a pr: ${{ steps.pr.outputs.pull_request_number }}
-
   build-deploy:
-    needs: getPRNumber
-    if: needs.getPRNumber.outputs.pull_request_number != ''
+    if: ${{ github.event.pull_request.number != '' || github.event.inputs.PR_NUMBER != '' }}
     runs-on: ubuntu-latest
     name: Deploy to s3 staging
     environment:
       name: staging
-      url: http://docs-stg.launchdarkly.com/${{ needs.getPRNumber.outputs.pull_request_number }}
+      url: http://docs-stg.launchdarkly.com/${{ github.event.pull_request.number || github.event.inputs.PR_NUMBER }}
     concurrency:
-      group: staging-${{ needs.getPRNumber.outputs.pull_request_number }}
+      group: staging-${{ github.event.pull_request.number || github.event.inputs.PR_NUMBER }}
       cancel-in-progress: true
     steps:
       - uses: actions/checkout@v3
         with:
           # fetch entire history to get Last Edit date for topics
           fetch-depth: 0
-
       - name: Find last successful run
         uses: SamhammerAG/last-successful-build-action@v2
         id: last-success
@@ -54,7 +42,7 @@ jobs:
         # for PR that is the merge commit, which is why we don't use it elsewhere
         if: steps.last-success.outputs.sha != github.sha
         id: changed-files-specific
-        uses: tj-actions/changed-files@v23
+        uses: tj-actions/changed-files@v26.1
         with:
           token: ${{ github.token }}
           separator: ' '
@@ -114,8 +102,7 @@ jobs:
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
           GATSBY_ALGOLIA_INDEX: 'Docs'
-          PR_NUMBER: ${{ needs.getPRNumber.outputs.pull_request_number }}
-          GATSBY_PR_NUMBER: ${{ needs.getPRNumber.outputs.pull_request_number }}
+          GATSBY_PR_NUMBER: ${{ env.PR_NUMBER }}
           LAUNCHDARKLY_CLIENT_SIDE_ID: ${{ secrets.STG_LAUNCHDARKLY_CLIENT_SIDE_ID }}
           GATSBY_DATADOG_CLIENT_TOKEN: ${{ secrets.STG_DATADOG_CLIENT_TOKEN }}
           GATSBY_DATADOG_RUM_APPLICATION_ID: ${{ secrets.DATADOG_RUM_APPLICATION_ID }}
@@ -127,8 +114,7 @@ jobs:
           CI: true
 
   smoke-test:
-    needs: [getPRNumber, build-deploy]
-    if: needs.getPRNumber.outputs.pull_request_number != ''
+    needs: build-deploy
     runs-on: ubuntu-latest
     name: Smoke test staging
     timeout-minutes: 5
@@ -143,10 +129,10 @@ jobs:
         with:
           # Note: this is used because of cypress yarn berry issue
           # https://github.com/cypress-io/github-action/issues/430#issuecomment-1144054512
-          command: yarn dlx cypress@v9 run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ needs.getPRNumber.outputs.pull_request_number }},retries=2 --spec cypress/integration/smoke.test.ts --config-file cypress.json --env pr_number=${{ needs.getPRNumber.outputs.pull_request_number }}
+          command: yarn dlx cypress@v9 run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ env.PR_NUMBER }},retries=2 --spec cypress/integration/smoke.test.ts --config-file cypress.json --env pr_number=${{ env.PR_NUMBER }}
           install-command: yarn install --immutable
           build: yarn build-nav-data
-          wait-on: 'https://docs-stg.launchdarkly.com/${{ needs.getPRNumber.outputs.pull_request_number }}/home'
+          wait-on: 'https://docs-stg.launchdarkly.com/${{ env.PR_NUMBER }}/home'
         env:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

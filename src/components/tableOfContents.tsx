@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Themed, Link } from 'theme-ui'
+import { jsx, Link, Themed } from 'theme-ui'
 
 type TOCItem = {
   url: string

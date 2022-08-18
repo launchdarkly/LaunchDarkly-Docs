@@ -1,10 +1,12 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import { navigate } from 'gatsby'
 import React, { ChangeEventHandler } from 'react'
+import { navigate } from 'gatsby'
+import { jsx } from 'theme-ui'
+
 import { SiteType } from '../../types/siteType'
+import { addRemoveSiteParam } from '../../utils/siteAwareUtils'
+
 import useSite from './useSite'
-import { getUrlSiteAware } from './siteUtils'
 
 const SiteSelector = () => {
   const [site, setSite] = useSite()
@@ -13,7 +15,7 @@ const SiteSelector = () => {
     const selectedValue = event.target.value as SiteType
     setSite(selectedValue)
 
-    navigate(getUrlSiteAware('', selectedValue, true), { replace: true })
+    navigate(addRemoveSiteParam('', selectedValue, true), { replace: true })
   }
 
   return (
@@ -24,7 +26,10 @@ const SiteSelector = () => {
         border: '1px solid',
         borderColor: 'grayBase',
         borderRadius: '6px',
-        mr: 4,
+        mr: [0, 4],
+        px: 3,
+        height: [4, 'inherit'],
+        width: ['100%', 'inherit'],
       }}
     >
       <option value="launchDarkly">LaunchDarkly docs</option>

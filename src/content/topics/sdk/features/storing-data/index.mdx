@@ -35,9 +35,7 @@ Whichever database you use, there are two ways to use it:
 
 In this configuration, the SDK receives feature flag data from LaunchDarkly and puts it in the feature store. The only difference is that the store is in a database.
 
-When flags are evaluated, the SDK checks the database to get the latest flag state, usually with some form of in-memory caching to improve performance.
-
-The main reason to do this is to accelerate flag updates when your application has to restart, and after restarting, it takes longer to establish a connection to LaunchDarkly than you want. If you have a persistent feature store that has already been populated, the SDK can still evaluate flags using the last known flag state from the store until newer data is available from LaunchDarkly.
+When flags are evaluated, the SDK checks the database to get the latest flag state, usually with some form of in-memory caching. If you have a persistent feature store that has already been populated, the SDK can still evaluate flags using the last known flag state from the store until newer data is available from LaunchDarkly.
 
 To set up this configuration, most people create some kind of object for the specific type of database and put it in the client configuration's feature store property. In PHP, this property is called the "feature requester."
 

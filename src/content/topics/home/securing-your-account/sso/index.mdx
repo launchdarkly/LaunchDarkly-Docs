@@ -1,7 +1,7 @@
 ---
 path: /home/account-security/sso
 title: Single sign-on
-description: This topic explains what Single Sign-On (SSO) features are available in LaunchDarkly and how to configure your environment for SSO.
+description: This topic explains what Single Sign-On (SSO) features are available in LaunchDarkly.
 published: true
 tags: ['sso', 'enterprise', 'admin', 'member', 'idp']
 ---
@@ -17,38 +17,22 @@ Single sign-on is available to customers on an Enterprise plan. It is available 
 
 ## Overview
 
-This topic explains what Single Sign-On (SSO) features are available in LaunchDarkly and how to configure your environment for SSO.
+This topic explains what Single Sign-On (SSO) features are available in LaunchDarkly.
 
-SSO allows your team to authenticate with LaunchDarkly using the same identity provider (IdP) you use for your other internal and external services. LaunchDarkly implements SSO with the SAML 2.0 protocol. Administrators can use SSO with their IdP to manage access rights in LaunchDarkly. After SSO is enabled, administrators can also enable System for Cross-domain Identity Management (SCIM) provisioning through their IdP.
+SSO allows your team to authenticate with LaunchDarkly using the same identity provider (IdP) you use for your other internal and external services. LaunchDarkly implements SSO with the SAML 2.0 protocol. You can use SSO with your IdP to manage access rights in LaunchDarkly. After you enable SSO, System for Cross-domain Identity Management (SCIM) becomes available.
 
-## Setting up SSO in LaunchDarkly
+## Summarizing how to enable SSO in LaunchDarkly
 
-If you're a LaunchDarkly administrator or account owner, you can configure LaunchDarkly to use your IdP for account member authentication.
+To configure SSO in your LaunchDarkly account:
 
-To do this:
+1. Enable SAML SSO in your account. To learn how to do this, read [Configuring SAML SSO](/home/account-security/sso/saml).
+2. (Optional) Configure SCIM. To learn how to do this, read [Enabling SCIM provisioning](/home/account-security/sso/scim).
 
-1. Log in to LaunchDarkly as an administrator or account owner.
-2. Navigate to the "SSO management" section of the [**Security**](https://app.launchdarkly.com/settings/security) tab on the **Account settings** page:
+When you configure SSO with your LaunchDarkly account, you can connect LaunchDarkly to a supported IdP.
 
-![The "SSO management" section of the "Security" tab.](settings-security-enable-sso.png)
+### Supported external identity providers
 
-3. Click **Configure SAML**. The SAML configuration panel appears, pre-populated with information you need to set up LaunchDarkly as a SAML application with your identity provider:
-
-![The SAML configuration panel.](settings-security-saml-config.png)
-
-You cannot complete SAML configuration without configuration details from your IdP.
-
-### Understanding default roles
-
-If you have not specified a role or custom role for new LaunchDarkly members through your IdP, LaunchDarkly sets the default role to Reader. The Reader role gives view access to all projects and flags within your LaunchDarkly account. Certain Enterprise customers can change the default role to No access. The No access role can help you mitigate risk, for example if you have private projects that should be hidden from most members. To learn how, read the configuration guidance for your IdP.
-
-![The "Default initial role" section of the SAML configuration panel.](default-initial-saml-role.png)
-
-To learn more, about built-in roles and their permissions, read [Understanding LaunchDarkly's built-in roles](/home/members/built-in-roles#understanding-launchdarklys-built-in-roles).
-
-## Configuring an external IdP
-
-This table lists our external IdPs:
+LaunchDarkly supports the following external IdPs:
 
 <Table>
   <TableHeader>
@@ -179,10 +163,6 @@ ADFS and Azure are available to customers on a Starter or Pro plan with the SSO 
 </CalloutDescription>
 </Callout>
 
-We provide configuration guidance for the following IdPs:
-
-<ChildPageList path="/home/account-security/sso" />
-
 Some customers use the following identity providers, but we do not provide support or configuration guidance for these providers:
 
 - PingIdentity
@@ -190,192 +170,10 @@ Some customers use the following identity providers, but we do not provide suppo
 - SecureAuth
 - DuoMobile
 
-Specific configuration details vary between IdPs, but the basic process is the same regardless of which IdP you use.
+### Understanding default roles
 
-To configure LaunchDarkly with an external IdP:
+During user provisioning, LaunchDarkly sets the default role for new members to Reader unless you have specified a different role in your IdP. The Reader role gives view access to all projects and flags within your LaunchDarkly account. Enterprise customers can change the default role to No access. The No access role can help you mitigate risk. For example if you have private projects that should be hidden from most members. To learn more, read [Configuring roles with no access](/guides/teams-roles/no-access).
 
-1. Create the SAML application in your IdP by following the IdP-specific instructions listed above.
-2. Copy the SAML configuration metadata from the IdP into LaunchDarkly's [SAML configuration panel](https://app.launchdarkly.com/settings/security).
-3. Click **Save**.
+![The "Default initial role" section of the SAML configuration panel.](default-initial-saml-role.png)
 
-## User provisioning with SCIM
-
-<Callout intent="primary">
-<CalloutTitle>User provisioning with SCIM is an Enterprise feature</CalloutTitle>
-<CalloutDescription>
-
-SCIM is only available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
-
-</CalloutDescription>
-</Callout>
-
-We also have a SCIM API available to allow for user provisioning of account members from IdPs. The SCIM API is only supported for the OAuth2 authorization type. Not all supported third-party providers support user provisioning through SCIM.
-
-We have pre-built integrations with the following providers:
-
-* [Okta](/home/account-security/okta)
-* [OneLogin](/home/account-security/onelogin)
-
-You may also configure your provider manually with the following information. Specific names for these fields may vary by IdP:
-
-- SCIM Base URI: `https://app.launchdarkly.com/trust/scim/v2`
-- Authorization method: `oauth2`
-- Authorization URI: `https://app.launchdarkly.com/trust/oauth/authorize`
-- Access token URI: `https://app.launchdarkly.com/trust/oauth/token`
-- Unique Identifier field for account members: `userName`
-  If you configure your provider manually, you will also need a client ID and client secret. [Contact Support](https://support.launchdarkly.com/hc/en-us/requests/new) and we will generate these for you.
-
-You cannot create new custom attributes through the SCIM API, but you can set two existing custom attributes for SCIM users:
-
-* `role`
-* `customRole`
-
-To learn more about these attributes, read [Custom attributes](#custom-attributes).
-
-For an in-depth guide on how to use custom roles with IdPs, read [Creating custom roles](/guides/teams-roles/custom-roles).
-
-## User provisioning with SSO
-
-LaunchDarkly automatically creates accounts for new account members who sign in through your IdP. Every time an account member signs in to LaunchDarkly, LaunchDarkly also updates the account member's profile with user attributes submitted by the IdP.
-
-You can configure your identity provider to send the following attributes when the account member is signing in to LaunchDarkly. Each attribute is optional and can also be managed from LaunchDarkly. Attribute names should be specified using "basic" format.
-
-<Callout intent="info">
-<CalloutTitle>New account members must sign into LaunchDarkly through your IdP</CalloutTitle>
-<CalloutDescription>
-
-New account members will not be able to sign in from LaunchDarkly's login screen until they have accessed LaunchDarkly through your IdP at least once.
-
-</CalloutDescription>
-</Callout>
-
-
-## NameID field formatting
-
-<Callout intent="alert">
-<CalloutTitle>Only use email addresses in the NameID field</CalloutTitle>
-<CalloutDescription>
-
-LaunchDarkly only supports the use of email addresses in the NameID field. Do not use other types of identifying strings.
-
-</CalloutDescription>
-</Callout>
-
-Below is an example of what your SSO provider should be providing LaunchDarkly:
-
-`<saml:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">admin@test.com</saml:NameID>`
-
-## Custom attributes
-
-These attributes are available for both SSO provisioning and SCIM provisioning:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Attribute name</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>role</TableCell>
-      <TableCell>
-        One of the built-in LaunchDarkly roles: <code>reader</code>, <code>writer</code>, <code>admin</code>, and for some customers, <code>no_access</code>. If unspecified, the default role is <code>reader</code>.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>customRole</TableCell>
-      <TableCell>
-        A list of keys for custom roles to give to the account member. These replace the member's existing custom roles. If a member has any custom roles, they supersede the built-in role. The value of customRole is case-sensitive and must match exactly the custom role key in LaunchDarkly.
-      </TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-SSO supports the following naming attributes:
-
-- `firstName`
-- `lastName`
-
-SCIM provisioning uses the standard naming attributes:
-
-- `givenName`
-- `familyName`
-
-For an in-depth guide on how to use custom roles with IdPs, read [Creating custom roles](/guides/teams-roles/custom-roles).
-
-## Test-drive mode
-
-When LaunchDarkly receives a valid SAML configuration, SSO enters test-drive mode. Test-drive mode lets you test the SSO integration before deploying the change to the rest of your organization.
-
-When SSO is in test-drive mode, you can test authentication through your IdP, but LaunchDarkly's login screen will continue to use regular password-based authentication.
-
-To use SSO in test-drive mode:
-
-1. Log into LaunchDarkly as an administrator.
-2. Navigate to **Account settings** > **Security** and scroll to the "SSO management" section.
-3. Click **Simulate SSO**. This performs the same authentication request flow that occurs for LaunchDarkly-initiated SSO logins:
-
-![The test-drive enablement option.](settings-security-sso-test-drive.png)
-
-
-## Enabling SSO
-
-When you're satisfied with the SSO integration and are ready to enable it for all account members in LaunchDarkly, enable SSO by following the procedure below.
-
-To enable SSO:
-
-1. Log into LaunchDarkly as an administrator.
-2. Navigate **Account settings** > **Security** and scroll to the "SSO management" section.
-3. Click **Enable SSO**. A confirmation dialog appears.
-4. Click **Enable**:
-
-![The "Enable SSO" confirmation dialog.](settings-security-enable-sso-confirm.png)
-
-
-Once SSO is enabled, the LaunchDarkly login procedure defers to your identity provider for authentication. Users will no longer be able to log in with their existing LaunchDarkly password.
-
-Additionally, LaunchDarkly administrator and account owners will no longer be able to invite members to the organization. The only way to add additional account members is to have them log in through your IdP.
-
-## Disabling SSO
-
-You can disable SSO at any time. When SSO is disabled, any existing members will still be able to sign into LaunchDarkly with their previous passwords, or reset their passwords.
-
-Users that were provisioned through SSO will be required to reset their password in order to sign into LaunchDarkly.
-
-To disable SSO:
-
-1. Log into LaunchDarkly as an administrator.
-2. Navigate **Account settings** > **Security** and scroll to the "SSO management" section.
-3. Click **Disable SSO**. A confirmation dialog appears.
-4. Click **Disable**:
-
-![The "Disable SSO" confirmation dialog.](settings-security-sso-disable.png)
-
-
-## Enabling SCIM provisioning
-
-<Callout>
-<CalloutTitle>SSO is required</CalloutTitle>
-<CalloutDescription>
-
-You must be a LaunchDarkly administrator and have SSO enabled to complete the following procedure.
-
-</CalloutDescription>
-</Callout>
-
-If you have enabled SSO, you can enable SCIM provisioning as well. SCIM facilitates _user provisioning_, which means your IdP can use it to create, update, and deactivate members in LaunchDarkly.
-
-Initiate the workflow that links your IdP with SCIM from your IdP. The workflow will lead to an authorization screen where you can authorize your IdP to manage your account members.
-
-You may only have one SCIM provider linked to your IdP at once. If you need to change providers, disconnect the original provider by following the workflow below and enable a different one through your IdP.
-
-You cannot deactivate an account member using SCIM deprovisioning if you added the member to your LaunchDarkly account before you enabled SCIM provisioning or SSO.
-
-## Disconnecting SCIM
-
-You can disconnect SCIM at any time.
-
-To disconnect SCIM:
-
-1. Log into LaunchDarkly as an administrator.
-2. Navigate **Account settings** > **Security** and scroll to the "SSO management" section.
-3. Click **Disconnect SCIM**.
+To learn more, about built-in roles and their permissions, read [Understanding LaunchDarkly's built-in roles](/home/members/built-in-roles#understanding-launchdarklys-built-in-roles). For an in-depth guide on how to use custom roles with IdPs, read [Creating custom roles](/guides/teams-roles/custom-roles).

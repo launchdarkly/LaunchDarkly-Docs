@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { jsx, Box, Flex, Theme } from 'theme-ui'
 import { FunctionComponent, MouseEvent } from 'react'
-import { Link as GatsbyLink } from 'gatsby'
 import { Hit, WrappedInsightsClient } from 'react-instantsearch-core'
 import { connectHitInsights, Highlight, Snippet } from 'react-instantsearch-dom'
+import { Link as GatsbyLink } from 'gatsby'
 import aa from 'search-insights'
+import { Box, Flex, jsx, Theme } from 'theme-ui'
 
 interface ResultRowProps {
   hit: Hit

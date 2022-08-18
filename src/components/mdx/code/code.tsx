@@ -1,7 +1,10 @@
 import React, { ReactNode } from 'react'
-import { CodeSnippet } from './codeSnippet'
+import { useFlags } from 'gatsby-plugin-launchdarkly'
+
+import { setSubdomain } from '../../../utils/siteAwareUtils'
 import useSite from '../../siteSelector/useSite'
-import { makeSiteAware } from '../../../utils/siteAwareUtils'
+
+import { CodeSnippet } from './codeSnippet'
 
 type CodeProps = {
   className?: string
@@ -10,6 +13,7 @@ type CodeProps = {
 
 export function Code(props: CodeProps) {
   const [site] = useSite()
+  const { enableSiteSelection } = useFlags()
   const { children, className } = props
 
   if (!children) {
@@ -20,14 +24,15 @@ export function Code(props: CodeProps) {
   }
 
   if (typeof children === 'string') {
+    const content = setSubdomain(children, site, enableSiteSelection)
+
     if (!className) {
-      const content = makeSiteAware(children, site)
       return <code>{content}</code>
     }
 
     return (
       <CodeSnippet className={className} {...props}>
-        {children}
+        {content}
       </CodeSnippet>
     )
   }

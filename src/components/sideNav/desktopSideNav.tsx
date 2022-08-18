@@ -1,9 +1,11 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import { graphql, useStaticQuery } from 'gatsby'
 import { globalHistory } from '@reach/router'
-import TreeNode from './treeNode'
+import { graphql, useStaticQuery } from 'gatsby'
+import { jsx } from 'theme-ui'
+
 import { findRootTopic } from '../../utils/navigationDataUtils'
+
+import TreeNode from './treeNode'
 
 const DesktopSideNav = () => {
   const {

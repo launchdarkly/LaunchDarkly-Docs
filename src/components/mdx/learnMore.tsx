@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { jsx, Card, Flex, Box } from 'theme-ui'
-import { Fragment, FC, ReactElement } from 'react'
+import { FC, Fragment, ReactElement } from 'react'
+import { Box, Card, Flex, jsx } from 'theme-ui'
+
 import Icon from '../icon'
 
 const LearnMore: FC = ({ children }): ReactElement => {

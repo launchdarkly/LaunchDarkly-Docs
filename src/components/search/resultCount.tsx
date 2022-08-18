@@ -1,7 +1,8 @@
 /** @jsx jsx */
-import { jsx, Box } from 'theme-ui'
 import { FunctionComponent } from 'react'
 import pluralize from 'pluralize'
+import { Box, jsx } from 'theme-ui'
+
 import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
 
 interface ResultCountProps {

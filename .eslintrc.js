@@ -23,7 +23,7 @@ module.exports = {
     node: true,
     es6: true,
   },
-  plugins: ['@typescript-eslint', 'react', 'import', 'react-hooks', 'jsx-a11y'],
+  plugins: ['@typescript-eslint', 'react', 'import', 'react-hooks', 'jsx-a11y', 'simple-import-sort'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -40,6 +40,29 @@ module.exports = {
     },
   ],
   rules: {
+    'simple-import-sort/imports': [
+      'error',
+      {
+        groups: [
+          // Npm packages. `react` related packages come first.
+          ['^react', '^@?\\w'],
+
+          // Internal packages
+          [
+            '^(actions|actionTypes|components|context|epics|hooks|middleware|reducers|routers|sources|stories|stylesheets|types|utils)(/.*|$)',
+          ],
+
+          // Side effect imports
+          ['^\\u0000'],
+
+          // Parent imports. Put `..` last.
+          ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
+
+          // Other relative imports. Put same-folder imports and `.` last.
+          ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
+        ],
+      },
+    ],
     'no-duplicate-imports': 'error',
 
     // Forbid unnecessary backticks
@@ -52,7 +75,6 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
 
     'import/no-unresolved': 'error',
-    // 'import/named': 'error', disabling because this is handled by tsc
     'import/default': 'error',
     'import/export': 'error',
     'import/no-self-import': 'error',
