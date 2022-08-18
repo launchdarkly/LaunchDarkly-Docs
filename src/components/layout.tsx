@@ -8,6 +8,8 @@ import { MDXRenderer } from 'gatsby-plugin-mdx'
 import pluralize from 'pluralize'
 import { Card, jsx, ThemeProvider } from 'theme-ui'
 
+import { SiteFrontmatter } from '../types/siteType'
+
 import Homepage from './home/landingPage'
 import ClientSideSdks from './home/sdks/clientSideSdks'
 import { AllSdks } from './home/sdks/exploreSdks'
@@ -123,6 +125,8 @@ interface LayoutProps {
         title: string
         description: string
         path: string
+        site: SiteFrontmatter
+        siteAlertTitle: string
       }
       fileAbsolutePath: string
     }
@@ -139,7 +143,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
       toc,
       timeToRead,
       fields: { isLandingPage, lastModifiedTime, modifiedDate },
-      frontmatter: { title, description, path },
+      frontmatter: { title, description, path, site = 'all', siteAlertTitle },
       fileAbsolutePath,
     },
   },
@@ -191,6 +195,8 @@ const Layout: FunctionComponent<LayoutProps> = ({
               timeToRead={timeToRead}
               lastModifiedDateFormatted={modifiedDate}
               isLandingPage={isLandingPage}
+              site={site}
+              siteAlertTitle={siteAlertTitle}
             />
             <MDXProvider components={components}>
               <MDXRenderer>{body}</MDXRenderer>
@@ -229,6 +235,8 @@ export const pageQuery = graphql`
         title
         description
         path
+        site
+        siteAlertTitle
       }
       fileAbsolutePath
     }

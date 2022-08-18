@@ -4,6 +4,8 @@ title: Roku SDK reference
 description: This topic documents how to get started with the client-side Roku SDK, and links to reference information on all of the supported features.
 published: true
 tags: ['roku', 'sdk', 'client-side']
+site: launchDarklyOnly
+siteAlertTitle: The LaunchDarkly Roku SDK is not FedRAMP compliant
 ---
 
 ## Overview
@@ -28,15 +30,21 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
     </TableRow>
     <TableRow>
       <TableCell>GitHub repository</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/roku-client-sdk">roku-client-sdk</a></TableCell>
+      <TableCell>
+        <a href="https://github.com/launchdarkly/roku-client-sdk">roku-client-sdk</a>
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Sample application</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/hello-roku">hello-roku</a></TableCell>
+      <TableCell>
+        <a href="https://github.com/launchdarkly/hello-roku">hello-roku</a>
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Published module</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/roku-client-sdk/releases">available through GitHub releases</a></TableCell>
+      <TableCell>
+        <a href="https://github.com/launchdarkly/roku-client-sdk/releases">available through GitHub releases</a>
+      </TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -52,7 +60,7 @@ We provide releases on [GitHub](https://github.com/launchdarkly/roku-client-sdk/
 
 For SceneGraph usage add a `LaunchDarklyTask` node to your scene.
 
-To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects). 
+To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects).
 
 <Callout intent="alert">
 <CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
@@ -205,13 +213,13 @@ end while
 
 This SDK supports the following features:
 
-* [Configuration](/sdk/features/config#roku)
-* [Evaluating flags](/sdk/features/evaluating#roku)
-* [Flag evaluation reasons](/sdk/features/evaluation-reasons#roku)
-* [Flushing events](/sdk/features/flush#roku)
-* [Getting all flags](/sdk/features/all-flags#roku)
-* [Identifying and changing users](/sdk/features/identify#roku)
-* [Logging configuration](/sdk/features/logging#roku)
-* [Relay Proxy configuration, using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#roku)
-* [Sending custom events](/sdk/features/events#roku)
-* [User configuration](/sdk/features/user-config#roku)
+- [Configuration](/sdk/features/config#roku)
+- [Evaluating flags](/sdk/features/evaluating#roku)
+- [Flag evaluation reasons](/sdk/features/evaluation-reasons#roku)
+- [Flushing events](/sdk/features/flush#roku)
+- [Getting all flags](/sdk/features/all-flags#roku)
+- [Identifying and changing users](/sdk/features/identify#roku)
+- [Logging configuration](/sdk/features/logging#roku)
+- [Relay Proxy configuration, using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#roku)
+- [Sending custom events](/sdk/features/events#roku)
+- [User configuration](/sdk/features/user-config#roku)
