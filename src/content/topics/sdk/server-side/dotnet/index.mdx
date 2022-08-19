@@ -161,9 +161,13 @@ Here's how:
 <CodeTabItem value="csharp">
 
 ```csharp
-User user = User.WithKey(username);
-bool showFeature = client.BoolVariation("your.feature.key", user, false);
-if (showFeature) {
+var user = User.Builder("example-user-key")
+  .Name("Sandy")
+  .Build();
+  
+var flagValue = client.BoolVariation(FeatureFlagKey, user, false);
+
+if (flagValue) {
     // application code to show the feature
 }
 else {
