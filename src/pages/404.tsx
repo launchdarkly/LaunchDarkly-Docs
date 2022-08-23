@@ -76,7 +76,17 @@ const NotFoundPage = () => {
     {
       allFile(
         filter: {
-          name: { in: ["planet@2x", "dark-toggle-star", "dark-toggle-star-long", "jet", "toggle-floating", "noise"] }
+          name: {
+            in: [
+              "planet@2x"
+              "dark-toggle-star"
+              "dark-toggle-star-long"
+              "jet"
+              "toggle-floating"
+              "noise"
+              "stars_new"
+            ]
+          }
         }
       ) {
         edges {
@@ -346,6 +356,20 @@ const NotFoundPage = () => {
             alt="Astronaut in sneakers giving thumbs up sign"
           />
         </div>
+        <img
+          sx={{
+            position: 'absolute',
+            display: 'block',
+            maxWidth: '87.5rem',
+            width: '100%',
+            top: 0,
+            left: 0,
+            right: 0,
+            margin: '0 auto',
+          }}
+          src={images['stars_new']}
+          alt="stars"
+        />
       </main>
     </Fragment>
   )
