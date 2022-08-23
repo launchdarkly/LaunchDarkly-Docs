@@ -50,16 +50,16 @@ on: push
 name: Find LaunchDarkly flag code references
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: true # cancel in-flight workflow run if another push was triggered
 
 jobs:
   launchDarklyCodeReferences:
     name: LaunchDarkly Code References
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
-          fetch-depth: 10 # This value must be set if the lookback configuration option is not disabled for find-code-references. Read more: https://github.com/launchdarkly/ld-find-code-refs#searching-for-unused-flags-extinctions
+          fetch-depth: 11 # This value must be set if the lookback configuration option is not disabled for find-code-references. Read more: https://github.com/launchdarkly/ld-find-code-refs#searching-for-unused-flags-extinctions
       - name: LaunchDarkly Code References
         uses: launchdarkly/find-code-references@v2.5.7
         with:
@@ -122,7 +122,8 @@ This table explains the configuration variables:
         <code>accessToken</code>
       </TableCell>
       <TableCell>
-        A LaunchDarkly access token with Writer-level access, or access to the <code>code-reference-repository</code> custom role resource. Supply this as a GitHub repository secret.
+        A LaunchDarkly access token with Writer-level access, or access to the <code>code-reference-repository</code>{' '}
+        custom role resource. Supply this as a GitHub repository secret.
       </TableCell>
       <TableCell>Yes</TableCell>
     </TableRow>
@@ -140,9 +141,10 @@ This table explains the configuration variables:
         <code>repoName</code>
       </TableCell>
       <TableCell>
-        Sets the repository name for this project. This is useful if you have a single monorepo
-        containing multiple YAML configurations each mapping to its own <code>projKey</code>. Each YAML configuration
-        must have a unique <code>LD_PROJ_KEY</code> and <code>LD_REPO_NAME</code> combination so it displays correctly in the flags list. Defaults to the current Github repository.
+        Sets the repository name for this project. This is useful if you have a single monorepo containing multiple YAML
+        configurations each mapping to its own <code>projKey</code>. Each YAML configuration must have a unique{' '}
+        <code>LD_PROJ_KEY</code> and <code>LD_REPO_NAME</code> combination so it displays correctly in the flags list.
+        Defaults to the current Github repository.
       </TableCell>
       <TableCell>No</TableCell>
     </TableRow>
