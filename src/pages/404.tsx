@@ -8,7 +8,14 @@ import { jsx, Theme, Themed, ThemeUICSSObject } from 'theme-ui'
 import Link from '../components/link'
 import Reset from '../components/resetStyles'
 
-const floatingToggle = keyframes`
+type edgeNode = {
+  node: {
+    name: 'planet@2x' | 'dark-toggle-star' | 'dark-toggle-star-long' | 'jet' | 'toggle-floating' | 'noise' | 'stars_new'
+    publicURL: string
+  }
+}
+
+const floatingToggleAnimation = keyframes`
 0% {
   transform: translateY(-10px);
 }
@@ -19,7 +26,8 @@ const floatingToggle = keyframes`
   transform: translateY(-10px);
 }
 `
-const jetpackSmallScreen = keyframes`
+
+const jetpackSmallScreenAnimation = keyframes`
 0% {
   opacity: 1;
   height: 84px;
@@ -37,7 +45,7 @@ const jetpackSmallScreen = keyframes`
 }
 `
 
-const jetpack = keyframes`
+const jetpackAnimation = keyframes`
 0% {
   opacity: 1;
   height: 126.5px;
@@ -66,7 +74,6 @@ const linkButtonStyles: ThemeUICSSObject = {
   transition: 'background-color 0.2s ease-in-out',
   textDecoration: 'none',
   whiteSpace: 'nowrap',
-
   '&:hover': {
     backgroundColor: '#364dd9',
     color: 'grayscaleWhite',
@@ -84,9 +91,6 @@ const linkButtonStyles: ThemeUICSSObject = {
     boxShadow: '0 0 0 2px #282828, 0 0 0 4px #364dd9',
   },
 }
-// We are using a different breakpoint to due to the animation
-// clashing with our current breakpoints
-const desktopBreakPoint = '@media screen and (min-width: 900px)'
 
 const jetpackBaseStyles: CSSObject = {
   animationDuration: '0.6s',
@@ -97,6 +101,10 @@ const jetpackBaseStyles: CSSObject = {
   height: 'auto',
   zIndex: '1',
 }
+
+// We are using a different breakpoint to due to the animation
+// clashing with our current breakpoints
+const desktopBreakPoint = '@media screen and (min-width: 900px)'
 
 const NotFoundPage = () => {
   const { allFile } = useStaticQuery(graphql`
@@ -127,7 +135,7 @@ const NotFoundPage = () => {
   `)
 
   let images: Record<string, string> = {}
-  allFile.edges.forEach(edge => {
+  allFile.edges.forEach((edge: edgeNode) => {
     images = { ...{ [edge.node.name]: edge.node.publicURL }, ...images }
   })
 
@@ -142,23 +150,21 @@ const NotFoundPage = () => {
         sx={{
           backgroundImage: `url('${images['noise']}')`,
           backgroundRepeat: 'repeat',
-          minHeight: '100vh',
           backgroundColor: 'rgba(33, 33, 33, 0.97)',
+          minHeight: '100vh',
         }}
       >
         <div
           // container
           sx={{
-            position: 'relative',
             display: 'grid',
-            padding: ['0 1.25rem'],
+            gridTemplateColumns: '1fr',
             gridAutoColumns: '1fr',
             gap: 0,
             margin: '0 auto',
             maxWidth: ['100%', null, '1140px'],
-          }}
-          css={{
-            gridTemplateColumns: '1fr',
+            padding: ['0 1.25rem'],
+            position: 'relative',
             [desktopBreakPoint]: {
               gridTemplateColumns: '25rem 1fr',
             },
@@ -168,56 +174,51 @@ const NotFoundPage = () => {
             // content
             sx={{
               alignSelf: 'center',
-              position: 'relative',
-              zIndex: '10',
-            }}
-            css={{
-              textAlign: 'center',
               padding: '6.4rem 0 6.4rem',
+              position: 'relative',
+              textAlign: 'center',
+              zIndex: '10',
               [desktopBreakPoint]: {
-                textAlign: 'left',
                 padding: '0',
+                textAlign: 'left',
               },
             }}
           >
             <Themed.h1
               sx={{
-                display: 'inline-block',
                 backgroundColor: '#9EADF1',
                 backgroundSize: '100%',
                 backgroundImage: 'linear-gradient(90deg, #EDF4C9 0%, #9EADF1 100%)',
                 backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                mozTextFillColor: 'transparent',
+                display: 'inline-block',
+                lineHeight: ['2.5rem', '3.75rem'],
                 fontFamily: (theme: Theme) => `"Audimat 3000", ${(theme.fonts as Record<string, string>).body}`,
                 fontSize: ['2.375rem', '3.75rem'],
-                lineHeight: ['2.5rem', '3.75rem'],
+                mozTextFillColor: 'transparent',
+                WebkitTextFillColor: 'transparent',
               }}
             >
               Lost in space
             </Themed.h1>
-            <Themed.h2
+            <h2
               sx={{
-                fontSize: '1.5rem',
                 color: '#BCBEC0',
-              }}
-              css={{
-                marginTop: 0,
                 lineHeight: '1.8875rem',
+                fontSize: '1.5rem',
+                marginTop: [0, null, null, 0],
+                marginBottom: '1.875rem',
               }}
             >
               {"404 error. Sorry, but the page you're looking for doesn't exist."}
-            </Themed.h2>
+            </h2>
             <Link to="/" sx={{ ...linkButtonStyles }}>
               LaunchDarkly docs homepage
             </Link>{' '}
           </div>
           <div
             sx={{
-              display: [null, 'block'],
-            }}
-            css={{
               position: 'relative',
+              display: [null, 'block'],
               [desktopBreakPoint]: {
                 right: '-2rem',
                 minHeight: '50.5rem',
@@ -225,7 +226,7 @@ const NotFoundPage = () => {
             }}
           >
             <img
-              css={{
+              sx={{
                 verticalAlign: 'top',
                 top: '1rem',
                 right: '0',
@@ -242,14 +243,12 @@ const NotFoundPage = () => {
             />
             <div
               sx={{
-                width: '100%',
-                margin: 'auto',
-                animation: `${floatingToggle} 5s cubic-bezier(0.4, 0.01, 0.6, 1) infinite`,
-              }}
-              css={{
-                position: 'relative',
-                maxWidth: '18.75rem',
+                animation: `${floatingToggleAnimation} 5s cubic-bezier(0.4, 0.01, 0.6, 1) infinite`,
                 display: 'grid',
+                margin: 'auto',
+                maxWidth: '18.75rem',
+                position: 'relative',
+                width: '100%',
                 [desktopBreakPoint]: {
                   display: 'block',
                   zIndex: '1',
@@ -260,9 +259,6 @@ const NotFoundPage = () => {
                 },
               }}
             >
-              {
-                // Toggle Body
-              }
               <img
                 src={images['toggle-floating']}
                 sx={{
@@ -271,18 +267,15 @@ const NotFoundPage = () => {
                 }}
                 alt="Astronaut in sneakers giving thumbs up sign"
               />
-              {
-                // Jet packs
-              }
               <img
                 css={{
                   ...jetpackBaseStyles,
-                  animationName: `${jetpackSmallScreen}`,
+                  animationName: `${jetpackSmallScreenAnimation}`,
                   top: '238px',
                   left: '96px',
                   width: '40px',
                   [desktopBreakPoint]: {
-                    animationName: `${jetpack}`,
+                    animationName: `${jetpackAnimation}`,
                     width: '60px',
                     top: '318px',
                     left: '126px',
@@ -294,13 +287,13 @@ const NotFoundPage = () => {
               <img
                 css={{
                   ...jetpackBaseStyles,
-                  animationName: `${jetpackSmallScreen}`,
+                  animationName: `${jetpackSmallScreenAnimation}`,
                   width: '40px',
                   top: '233px',
                   left: '123px',
                   animationDelay: '0.2s !important',
                   [desktopBreakPoint]: {
-                    animationName: `${jetpack}`,
+                    animationName: `${jetpackAnimation}`,
                     width: '60px',
                     top: '309px',
                     left: '160px',
@@ -312,7 +305,7 @@ const NotFoundPage = () => {
             </div>
           </div>
           <img
-            css={{
+            sx={{
               display: 'none',
               [desktopBreakPoint]: {
                 position: 'absolute',
@@ -330,7 +323,7 @@ const NotFoundPage = () => {
           />
           <img
             src={images['dark-toggle-star']}
-            css={{
+            sx={{
               display: 'none',
               [desktopBreakPoint]: {
                 position: 'absolute',
@@ -345,7 +338,7 @@ const NotFoundPage = () => {
           />
           <img
             src={images['dark-toggle-star']}
-            css={{
+            sx={{
               display: 'none',
               [desktopBreakPoint]: {
                 position: 'absolute',
@@ -360,7 +353,7 @@ const NotFoundPage = () => {
             alt="Astronaut in sneakers giving thumbs up sign"
           />
           <img
-            css={{
+            sx={{
               display: 'none',
               [desktopBreakPoint]: {
                 position: 'absolute',
