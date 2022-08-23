@@ -1,15 +1,12 @@
 /** @jsx jsx */
-import { CSSInterpolation } from '@emotion/serialize'
-import React, { ClassAttributes, Fragment, ImgHTMLAttributes } from 'react'
+import { Fragment } from 'react'
 import { Helmet } from 'react-helmet'
-import { keyframes } from '@emotion/react'
+import { CSSObject, keyframes } from '@emotion/react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { AspectImage, jsx, Theme, Themed, ThemeUICSSObject } from 'theme-ui'
+import { jsx, Theme, Themed, ThemeUICSSObject } from 'theme-ui'
 
 import Link from '../components/link'
 import Reset from '../components/resetStyles'
-
-import SystemLayout from './systemLayout'
 
 const floatingToggle = keyframes`
 0% {
@@ -57,11 +54,41 @@ const jetpack = keyframes`
   transform: translateX(0);
 }
 `
+
+const linkButtonStyles: ThemeUICSSObject = {
+  cursor: 'pointer',
+  padding: '1.1rem 2.2rem',
+  textDecoration: 'none',
+  display: 'inline-block',
+  transition: 'background-color 0.2s ease-in-out',
+  whiteSpace: 'nowrap',
+  backgroundColor: 'brandBlue',
+  border: 'none',
+  borderRadius: '0',
+  color: 'grayscaleWhite',
+
+  '&:hover': {
+    backgroundColor: '#364dd9',
+    color: 'grayscaleWhite',
+  },
+  '&:focus': {
+    outline: 'none',
+    boxShadow: '0 0 0 2px #282828, 0 0 0 4px #364dd9',
+  },
+  '&:focus:not(:focus-visible)': {
+    outline: 'initial',
+    boxShadow: 'none',
+  },
+  '&:focus-visible': {
+    outline: 'none',
+    boxShadow: '0 0 0 2px #282828, 0 0 0 4px #364dd9',
+  },
+}
 // We are using a different breakpoint to due to the animation
 // clashing with our current breakpoints
 const desktopBreakPoint = '@media screen and (min-width: 900px)'
 
-const jetpackBaseStyles: CSSInterpolation = {
+const jetpackBaseStyles: CSSObject = {
   animationDuration: '0.6s',
   animationTimingFunction: 'cubic-bezier(0, 0.3, 1, 0.7)',
   animationIterationCount: 'infinite',
@@ -125,7 +152,6 @@ const NotFoundPage = () => {
             position: 'relative',
             display: 'grid',
             padding: ['0 1.25rem'],
-
             gridAutoColumns: '1fr',
             gap: 0,
             margin: '0 auto',
@@ -182,14 +208,10 @@ const NotFoundPage = () => {
             >
               {"404 error. Sorry, but the page you're looking for doesn't exist."}
             </Themed.h2>
-            <Link to="/" sx={{ color: 'primarySafe', textDecoration: 'none' }}>
+            <Link to="/" sx={{ ...linkButtonStyles }}>
               LaunchDarkly docs homepage
             </Link>{' '}
           </div>
-
-          {
-            // Images
-          }
           <div
             sx={{
               display: [null, 'block'],
@@ -289,9 +311,6 @@ const NotFoundPage = () => {
               />
             </div>
           </div>
-          {
-            // Background elements
-          }
           <img
             css={{
               display: 'none',
