@@ -47,7 +47,11 @@ To set up GitHub code references:
 
 ```yaml
 on: push
-name: Example Workflow
+name: Find LaunchDarkly flag code references
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   launchDarklyCodeReferences:
     name: LaunchDarkly Code References
@@ -55,11 +59,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 11 # This value must be set if the lookback configuration option is not disabled for find-code-references. Read more: https://github.com/launchdarkly/ld-find-code-refs#searching-for-unused-flags-extinctions
+          fetch-depth: 10 # This value must be set if the lookback configuration option is not disabled for find-code-references. Read more: https://github.com/launchdarkly/ld-find-code-refs#searching-for-unused-flags-extinctions
       - name: LaunchDarkly Code References
         uses: launchdarkly/find-code-references@v2.5.7
         with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
           accessToken: ${{ secrets.LD_ACCESS_TOKEN }}
           projKey: YOUR_PROJECT_KEY
 ```
