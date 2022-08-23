@@ -56,16 +56,16 @@ const jetpack = keyframes`
 `
 
 const linkButtonStyles: ThemeUICSSObject = {
-  cursor: 'pointer',
-  padding: '1.1rem 2.2rem',
-  textDecoration: 'none',
-  display: 'inline-block',
-  transition: 'background-color 0.2s ease-in-out',
-  whiteSpace: 'nowrap',
   backgroundColor: 'brandBlue',
   border: 'none',
   borderRadius: '0',
   color: 'grayscaleWhite',
+  cursor: 'pointer',
+  display: 'inline-block',
+  padding: '1.1rem 2.2rem',
+  transition: 'background-color 0.2s ease-in-out',
+  textDecoration: 'none',
+  whiteSpace: 'nowrap',
 
   '&:hover': {
     backgroundColor: '#364dd9',
