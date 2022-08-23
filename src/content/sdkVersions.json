@@ -108,6 +108,11 @@
     "name": "Android",
     "versions": [
       {
+        "versionMajorMinor": "3.2",
+        "releaseYear": 2022,
+        "releaseMonthDay": "08-23"
+      },
+      {
         "versionMajorMinor": "3.1",
         "releaseYear": 2021,
         "releaseMonthDay": "08-06"
