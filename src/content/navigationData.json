@@ -163,6 +163,46 @@
       },
       {
         "group": "feature-flags",
+        "label": "Feature workflows",
+        "path": "/home/feature-workflows",
+        "svg": "merge",
+        "items": [
+          {
+            "label": "Approvals",
+            "path": "/home/feature-workflows/approvals",
+            "items": [
+              {
+                "label": "Configuring approvals by environment",
+                "path": "/home/feature-workflows/environment-approvals"
+              }
+            ]
+          },
+          {
+            "label": "Flag triggers",
+            "path": "/home/feature-workflows/triggers"
+          },
+          {
+            "label": "Required comments",
+            "path": "/home/feature-workflows/required-comments"
+          },
+          {
+            "label": "Scheduled flag changes",
+            "path": "/home/feature-workflows/scheduled-changes"
+          },
+          {
+            "label": "Workflows",
+            "path": "/home/feature-workflows/workflows",
+            "items": [
+              {
+                "label": "Workflow templates",
+                "path": "/home/feature-workflows/workflow-templates"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "group": "feature-flags",
         "label": "Users and user segments",
         "path": "/home/users",
         "svg": "chart-pie",
@@ -504,46 +544,6 @@
           {
             "label": "Data Export schema reference",
             "path": "/home/data-export/schema-reference"
-          }
-        ]
-      },
-      {
-        "group": "additional-features",
-        "label": "Feature workflows",
-        "path": "/home/feature-workflows",
-        "svg": "merge",
-        "items": [
-          {
-            "label": "Approvals",
-            "path": "/home/feature-workflows/approvals",
-            "items": [
-              {
-                "label": "Configuring approvals by environment",
-                "path": "/home/feature-workflows/environment-approvals"
-              }
-            ]
-          },
-          {
-            "label": "Flag triggers",
-            "path": "/home/feature-workflows/triggers"
-          },
-          {
-            "label": "Required comments",
-            "path": "/home/feature-workflows/required-comments"
-          },
-          {
-            "label": "Scheduled flag changes",
-            "path": "/home/feature-workflows/scheduled-changes"
-          },
-          {
-            "label": "Workflows",
-            "path": "/home/feature-workflows/workflows",
-            "items": [
-              {
-                "label": "Workflow templates",
-                "path": "/home/feature-workflows/workflow-templates"
-              }
-            ]
           }
         ]
       },
