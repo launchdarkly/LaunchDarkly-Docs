@@ -141,9 +141,7 @@ This table explains the configuration variables:
         <code>repoName</code>
       </TableCell>
       <TableCell>
-        Sets the repository name for this project. This is useful if you have a single monorepo
-        containing multiple YAML configurations each mapping to its own <code>projKey</code>. Each YAML configuration
-        must have a unique <code>LD_PROJ_KEY</code> and <code>LD_REPO_NAME</code> combination so it displays correctly in the flags list. Defaults to the current GitHub repository.
+        The repository name. Defaults to the current GitHub repository.
       </TableCell>
       <TableCell>No</TableCell>
     </TableRow>
@@ -206,7 +204,7 @@ This table explains the configuration variables:
         <code>lookback</code>
       </TableCell>
       <TableCell>
-        Sets the number of Git commits to search in history for whether a feature flag was removed from code. May be set
+        Sets the number of git commits to search in history for whether you removed a feature flag from code. You may set this
         to 0 to disabled this feature. Setting this option to a high value will increase search time. Defaults to{' '}
         <code>10</code>.
       </TableCell>
