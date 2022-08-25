@@ -74,6 +74,9 @@ const linkButtonStyles: ThemeUICSSObject = {
   transition: 'background-color 0.2s ease-in-out',
   textDecoration: 'none',
   whiteSpace: 'nowrap',
+  '&:visited': {
+    color: 'grayscaleWhite',
+  },
   '&:hover': {
     backgroundColor: '#364dd9',
     color: 'grayscaleWhite',
