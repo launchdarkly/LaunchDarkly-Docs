@@ -47,19 +47,23 @@ To set up GitHub code references:
 
 ```yaml
 on: push
-name: Example Workflow
+name: Find LaunchDarkly flag code references
+# cancel in-flight workflow run if another push was triggered
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   launchDarklyCodeReferences:
     name: LaunchDarkly Code References
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 11 # This value must be set if the lookback configuration option is not disabled for find-code-references. Read more: https://github.com/launchdarkly/ld-find-code-refs#searching-for-unused-flags-extinctions
       - name: LaunchDarkly Code References
         uses: launchdarkly/find-code-references@v2.5.7
         with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
           accessToken: ${{ secrets.LD_ACCESS_TOKEN }}
           projKey: YOUR_PROJECT_KEY
 ```
@@ -139,7 +143,7 @@ This table explains the configuration variables:
       <TableCell>
         Sets the repository name for this project. This is useful if you have a single monorepo
         containing multiple YAML configurations each mapping to its own <code>projKey</code>. Each YAML configuration
-        must have a unique <code>LD_PROJ_KEY</code> and <code>LD_REPO_NAME</code> combination so it displays correctly in the flags list. Defaults to the current Github repository.
+        must have a unique <code>LD_PROJ_KEY</code> and <code>LD_REPO_NAME</code> combination so it displays correctly in the flags list. Defaults to the current GitHub repository.
       </TableCell>
       <TableCell>No</TableCell>
     </TableRow>
