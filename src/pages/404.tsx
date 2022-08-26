@@ -155,6 +155,7 @@ const NotFoundPage = () => {
           backgroundRepeat: 'repeat',
           backgroundColor: 'rgba(33, 33, 33, 0.97)',
           minHeight: '100vh',
+          overflow: 'hidden',
         }}
       >
         <div
