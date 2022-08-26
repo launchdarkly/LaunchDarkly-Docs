@@ -188,36 +188,39 @@ const NotFoundPage = () => {
               },
             }}
           >
-            <Themed.h1
-              sx={{
-                backgroundColor: '#9EADF1',
-                backgroundSize: '100%',
-                backgroundImage: 'linear-gradient(90deg, #EDF4C9 0%, #9EADF1 100%)',
-                backgroundClip: 'text',
-                display: 'inline-block',
-                lineHeight: ['2.5rem', '3.75rem'],
-                fontFamily: (theme: Theme) => `"Audimat 3000", ${(theme.fonts as Record<string, string>).body}`,
-                fontSize: ['2.375rem', '3.75rem'],
-                mozTextFillColor: 'transparent',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Lost in space
-            </Themed.h1>
-            <h2
-              sx={{
-                color: '#BCBEC0',
-                lineHeight: '1.8875rem',
-                fontSize: '1.5rem',
-                marginTop: [0, null, null, 0],
-                marginBottom: '1.875rem',
-              }}
-            >
-              {"404 error. Sorry, but the page you're looking for doesn't exist."}
-            </h2>
-            <Link to="/" sx={{ ...linkButtonStyles }}>
-              LaunchDarkly docs homepage
-            </Link>{' '}
+            <hgroup>
+              <Themed.h1
+                sx={{
+                  backgroundColor: '#9EADF1',
+                  backgroundSize: '100%',
+                  backgroundImage: 'linear-gradient(90deg, #EDF4C9 0%, #9EADF1 100%)',
+                  backgroundClip: 'text',
+                  display: 'inline-block',
+                  lineHeight: ['2.5rem', '3.75rem'],
+                  fontFamily: (theme: Theme) => `"Audimat 3000", ${(theme.fonts as Record<string, string>).body}`,
+                  fontSize: ['2.375rem', '3.75rem'],
+                  mozTextFillColor: 'transparent',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                Lost in space
+              </Themed.h1>
+              <p
+                sx={{
+                  color: '#BCBEC0',
+                  lineHeight: '1.8875rem',
+                  fontSize: '1.5rem',
+                  marginTop: [0, null, null, 0],
+                  marginBottom: '1.875rem',
+                }}
+              >
+                {"404 error. Sorry, but the page you're looking for doesn't exist."}
+              </p>
+
+              <Link to="/" sx={{ ...linkButtonStyles }}>
+                LaunchDarkly docs homepage
+              </Link>
+            </hgroup>
           </div>
           <div
             sx={{
