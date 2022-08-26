@@ -84,3 +84,7 @@ export const getSiteFromHref = () => {
   const qsObject = qs.parse(globalHistory.location.search, { ignoreQueryPrefix: true })
   return qsObject.site as string
 }
+
+export const isValidSite = (site: string) => {
+  return ['launchDarkly', 'federal'].includes(site)
+}

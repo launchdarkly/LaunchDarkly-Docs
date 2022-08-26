@@ -348,6 +348,7 @@ You do not have to send users to LaunchDarkly in advance. <a href="">Check out t
 1. Write code block as markdown as usual.
 2. Add a `CodeTabs` component with a default value (which will be the first tab shown) and a values array of objects with a label and value.
 3. Each CodeTabItem will be one of the tabs
+4. If a code tab has federal specific content, set site=federal after the language.
 
 
 <CodeTabs
@@ -374,6 +375,11 @@ You do not have to send users to LaunchDarkly in advance. <a href="">Check out t
     function helloWorld() {
       console.log('Hello, world!');
     }
+    ```
+    ```js site=federal
+      function helloFederal() {
+        console.log('Hello, federal!');
+      }
     ```
 
     </CodeTabItem>
