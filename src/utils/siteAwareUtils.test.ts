@@ -30,6 +30,13 @@ describe('setSubdomain', () => {
   })
 })
 
+describe('setSubdomain', () => {
+  it('mobile.launchdarkly.com is a legacy URL that is not migrated to a .us URL', () => {
+    const mobileUrl = 'mobile.launchdarkly.com'
+    expect(setSubdomain(mobileUrl, 'federal', true)).toEqual(mobileUrl)
+  })
+})
+
 jest.mock('@reach/router', () => {
   const actual = jest.requireActual('@reach/router')
   return {
