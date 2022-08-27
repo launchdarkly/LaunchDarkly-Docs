@@ -222,173 +222,175 @@ const NotFoundPage = () => {
               </Link>
             </hgroup>
           </div>
-          <div
-            sx={{
-              position: 'relative',
-              display: [null, 'block'],
-              [desktopBreakPoint]: {
-                right: '-2rem',
-                minHeight: '50.5rem',
-              },
-            }}
-          >
-            <img
-              sx={{
-                verticalAlign: 'top',
-                top: '1rem',
-                right: '0',
-                height: 'auto',
-                width: '9.375rem',
-                transform: 'rotate(60deg)',
-                position: 'absolute',
-                [desktopBreakPoint]: {
-                  width: '18.75rem' /* 300px */,
-                },
-              }}
-              src={images['planet@2x']}
-              alt="Planet in the distance"
-            />
+          <figure aria-label="Astronaut floating in dark space with stars and planets in the distance">
             <div
               sx={{
-                animation: `${floatingToggleAnimation} 5s cubic-bezier(0.4, 0.01, 0.6, 1) infinite`,
-                display: 'grid',
-                margin: 'auto',
-                maxWidth: '18.75rem',
                 position: 'relative',
-                width: '100%',
+                display: [null, 'block'],
                 [desktopBreakPoint]: {
-                  display: 'block',
-                  zIndex: '1',
-                  position: 'absolute',
-                  maxWidth: '25rem',
-                  right: '7.5rem',
-                  bottom: '15.025rem',
+                  right: '-2rem',
+                  minHeight: '50.5rem',
                 },
               }}
             >
               <img
-                src={images['toggle-floating']}
                 sx={{
+                  verticalAlign: 'top',
+                  top: '1rem',
+                  right: '0',
+                  height: 'auto',
+                  width: '9.375rem',
+                  transform: 'rotate(60deg)',
+                  position: 'absolute',
+                  [desktopBreakPoint]: {
+                    width: '18.75rem' /* 300px */,
+                  },
+                }}
+                src={images['planet@2x']}
+                alt="Large planet in the distance"
+              />
+              <div
+                sx={{
+                  animation: `${floatingToggleAnimation} 5s cubic-bezier(0.4, 0.01, 0.6, 1) infinite`,
+                  display: 'grid',
+                  margin: 'auto',
+                  maxWidth: '18.75rem',
                   position: 'relative',
-                  zIndex: '2',
-                }}
-                alt="Astronaut in sneakers giving thumbs up sign"
-              />
-              <img
-                css={{
-                  ...jetpackBaseStyles,
-                  animationName: `${jetpackSmallScreenAnimation}`,
-                  top: '238px',
-                  left: '96px',
-                  width: '40px',
+                  width: '100%',
                   [desktopBreakPoint]: {
-                    animationName: `${jetpackAnimation}`,
-                    width: '60px',
-                    top: '318px',
-                    left: '126px',
+                    display: 'block',
+                    zIndex: '1',
+                    position: 'absolute',
+                    maxWidth: '25rem',
+                    right: '7.5rem',
+                    bottom: '15.025rem',
                   },
                 }}
-                src={images['jet']}
-                alt="Jetpack flame one"
-              />
-              <img
-                css={{
-                  ...jetpackBaseStyles,
-                  animationName: `${jetpackSmallScreenAnimation}`,
-                  width: '40px',
-                  top: '233px',
-                  left: '123px',
-                  animationDelay: '0.2s !important',
-                  [desktopBreakPoint]: {
-                    animationName: `${jetpackAnimation}`,
-                    width: '60px',
-                    top: '309px',
-                    left: '160px',
-                  },
-                }}
-                src={images['jet']}
-                alt="Jetpack flame two"
-              />
+              >
+                <img
+                  src={images['toggle-floating']}
+                  sx={{
+                    position: 'relative',
+                    zIndex: '2',
+                  }}
+                  alt="Floating astronaut in LaunchDarkly branded sneakers with arms crossed behind their head"
+                />
+                <img
+                  css={{
+                    ...jetpackBaseStyles,
+                    animationName: `${jetpackSmallScreenAnimation}`,
+                    top: '238px',
+                    left: '96px',
+                    width: '40px',
+                    [desktopBreakPoint]: {
+                      animationName: `${jetpackAnimation}`,
+                      width: '60px',
+                      top: '318px',
+                      left: '126px',
+                    },
+                  }}
+                  src={images['jet']}
+                  alt=""
+                />
+                <img
+                  css={{
+                    ...jetpackBaseStyles,
+                    animationName: `${jetpackSmallScreenAnimation}`,
+                    width: '40px',
+                    top: '233px',
+                    left: '123px',
+                    animationDelay: '0.2s !important',
+                    [desktopBreakPoint]: {
+                      animationName: `${jetpackAnimation}`,
+                      width: '60px',
+                      top: '309px',
+                      left: '160px',
+                    },
+                  }}
+                  src={images['jet']}
+                  alt=""
+                />
+              </div>
             </div>
-          </div>
-          <img
-            sx={{
-              display: 'none',
-              [desktopBreakPoint]: {
+            <img
+              sx={{
+                display: 'none',
+                [desktopBreakPoint]: {
+                  position: 'absolute',
+                  height: 'auto',
+                  display: 'inline-block',
+                  bottom: '2.5rem',
+                  width: '100%',
+                  maxWidth: '9.375rem',
+                  left: '1rem',
+                  transform: 'rotate(45deg)',
+                },
+              }}
+              src={images['planet@2x']}
+              alt="Small planet in the distance"
+            />
+            <img
+              src={images['dark-toggle-star']}
+              sx={{
+                display: 'none',
+                [desktopBreakPoint]: {
+                  position: 'absolute',
+                  zIndex: 1,
+                  display: 'block',
+                  width: '5.3125rem',
+                  bottom: '12.5rem',
+                  left: '40%',
+                },
+              }}
+              alt="Three shooting stars that have the appearance of a feature flag toggle"
+            />
+            <img
+              src={images['dark-toggle-star']}
+              sx={{
+                display: 'none',
+                [desktopBreakPoint]: {
+                  position: 'absolute',
+                  zIndex: 1,
+                  display: 'block',
+                  width: '4.25rem',
+                  opacity: 0.7,
+                  top: '2.5rem',
+                  left: '50%',
+                },
+              }}
+              alt=""
+            />
+            <img
+              sx={{
+                display: 'none',
+                [desktopBreakPoint]: {
+                  position: 'absolute',
+                  zIndex: 1,
+                  display: 'block',
+                  width: '8.125rem',
+                  top: '12.5rem',
+                  left: '-1.25rem',
+                },
+              }}
+              src={images['dark-toggle-star-long']}
+              alt=""
+            />
+            <img
+              sx={{
                 position: 'absolute',
-                height: 'auto',
-                display: 'inline-block',
-                bottom: '2.5rem',
+                display: 'block',
+                maxWidth: '87.5rem',
                 width: '100%',
-                maxWidth: '9.375rem',
-                left: '1rem',
-                transform: 'rotate(45deg)',
-              },
-            }}
-            src={images['planet@2x']}
-            alt="Planet in the distance"
-          />
-          <img
-            src={images['dark-toggle-star']}
-            sx={{
-              display: 'none',
-              [desktopBreakPoint]: {
-                position: 'absolute',
-                zIndex: 1,
-                display: 'block',
-                width: '5.3125rem',
-                bottom: '12.5rem',
-                left: '40%',
-              },
-            }}
-            alt="Astronaut in sneakers giving thumbs up sign"
-          />
-          <img
-            src={images['dark-toggle-star']}
-            sx={{
-              display: 'none',
-              [desktopBreakPoint]: {
-                position: 'absolute',
-                zIndex: 1,
-                display: 'block',
-                width: '4.25rem',
-                opacity: 0.7,
-                top: '2.5rem',
-                left: '50%',
-              },
-            }}
-            alt="Astronaut in sneakers giving thumbs up sign"
-          />
-          <img
-            sx={{
-              display: 'none',
-              [desktopBreakPoint]: {
-                position: 'absolute',
-                zIndex: 1,
-                display: 'block',
-                width: '8.125rem',
-                top: '12.5rem',
-                left: '-1.25rem',
-              },
-            }}
-            src={images['dark-toggle-star-long']}
-            alt="Astronaut in sneakers giving thumbs up sign"
-          />
+                top: 0,
+                left: 0,
+                right: 0,
+                margin: '0 auto',
+              }}
+              src={images['stars_new']}
+              alt=""
+            />
+          </figure>
         </div>
-        <img
-          sx={{
-            position: 'absolute',
-            display: 'block',
-            maxWidth: '87.5rem',
-            width: '100%',
-            top: 0,
-            left: 0,
-            right: 0,
-            margin: '0 auto',
-          }}
-          src={images['stars_new']}
-          alt="stars"
-        />
       </main>
     </Fragment>
   )
