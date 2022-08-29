@@ -3,8 +3,8 @@ import { Fragment, FunctionComponent } from 'react'
 import { Flex, jsx, Themed } from 'theme-ui'
 
 import { SiteFrontmatter } from '../../types/siteType'
+import { useIsFederal } from '../../utils/siteAwareUtils'
 import Link from '../link'
-import useSite from '../siteSelector/useSite'
 
 import Breadcrumbs from './breadcrumbs'
 import Callout, { CalloutDescription, CalloutTitle } from './callout'
@@ -30,7 +30,7 @@ const MdxHeader: FunctionComponent<MdxHeaderProps> = ({
   site,
   siteAlertTitle,
 }) => {
-  const [selectedSite] = useSite()
+  const isFederal = useIsFederal()
 
   return (
     <Fragment>
@@ -42,7 +42,7 @@ const MdxHeader: FunctionComponent<MdxHeaderProps> = ({
       )}
       <Themed.h1>{title}</Themed.h1>
       {!isLandingPage && <Metadata timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedDateFormatted} />}
-      {selectedSite === 'federal' && site === 'launchDarklyOnly' && (
+      {isFederal && site === 'launchDarklyOnly' && (
         <Callout intent="alert">
           <CalloutTitle>{siteAlertTitle ?? `${title} is not FedRAMP compliant`}</CalloutTitle>
           <CalloutDescription>

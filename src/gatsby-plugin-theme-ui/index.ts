@@ -356,9 +356,15 @@ const theme = makeTheme({
       },
     },
     header: {
-      height: 3,
+      height: '2.8rem',
       width: 'auto',
       fill: 'grayscaleWhite',
+      '& rect': {
+        fill: 'brandYellow',
+        '+ path': {
+          fill: 'grayscaleBlack',
+        },
+      },
     },
     sideNav: { width: 3, height: 3, fill: 'grayscaleWhite', cursor: 'pointer' },
     heading: {

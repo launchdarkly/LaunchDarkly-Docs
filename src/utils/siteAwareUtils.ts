@@ -1,6 +1,7 @@
 import { globalHistory } from '@reach/router'
 import qs from 'qs'
 
+import useSite from '../components/siteSelector/useSite'
 import { SiteType } from '../types/siteType'
 
 const siteAwareSubdomains = ['app', 'clientsdk', 'clientstream', 'events', 'sdk', 'stream'] as const
@@ -83,6 +84,11 @@ export const addRemoveSiteParam = (path = '', siteValue: string = undefined, app
 export const getSiteFromHref = () => {
   const qsObject = qs.parse(globalHistory.location.search, { ignoreQueryPrefix: true })
   return qsObject.site as string
+}
+
+export const useIsFederal = () => {
+  const [site] = useSite()
+  return site === 'federal'
 }
 
 export const isValidSite = (site: string) => {
