@@ -206,6 +206,17 @@ var config = Configuration.Builder("my-sdk-key")
             .BaseUri(new Uri("https://events-tls10.launchdarkly.com")))
     .Build();
 ```
+```csharp site=federal
+// Use `stream-tls10.launchdarkly.us` and `events-tls10.launchdarkly.us` TLSv1 endpoints
+var config = Configuration.Builder("my-sdk-key")
+    .DataSource(
+        Components.StreamingDataSource()
+            .BaseUri(new Uri("https://stream-tls10.launchdarkly.us")))
+    .Events(
+        Components.SendEvents()
+            .BaseUri(new Uri("https://events-tls10.launchdarkly.us")))
+    .Build();
+```
 
 </CodeTabItem>
 <CodeTabItem value="sdk6">
@@ -217,6 +228,15 @@ var config = Configuration.Builder("my-sdk-key")
         Components.ServiceEndpoints()
           .Streaming("https://stream-tls10.launchdarkly.com")
           .Events("https://events-tls10.launchdarkly.com"))
+    .Build();
+```
+```csharp site=federal
+// Use `stream-tls10.launchdarkly.us` and `events-tls10.launchdarkly.us` TLSv1 endpoints
+var config = Configuration.Builder("my-sdk-key")
+    .ServiceEndpoints(
+        Components.ServiceEndpoints()
+          .Streaming("https://stream-tls10.launchdarkly.us")
+          .Events("https://events-tls10.launchdarkly.us"))
     .Build();
 ```
 
