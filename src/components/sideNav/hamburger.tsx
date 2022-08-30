@@ -118,16 +118,7 @@ const Hamburger = () => {
             <Icon name="window-close" variant="close" />
           </button>
         </div>
-        <div
-          sx={{
-            display: 'flex',
-            mx: 0,
-            py: 2,
-            px: 3,
-          }}
-        >
-          {enableSiteSelection && <SiteSelector />}
-        </div>
+        {enableSiteSelection && <SiteSelector />}
         <div sx={{ mb: 9 }}>
           <TreeNode
             currentPath={

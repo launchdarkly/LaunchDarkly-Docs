@@ -53,6 +53,9 @@ export type IconName =
   | 'arrow-up'
   | 'pencil'
   | 'gatsby'
+  | 'expand-less'
+  | 'expand-more'
+  | 'check'
   | 'header-logo'
   | 'federal-tag'
 
