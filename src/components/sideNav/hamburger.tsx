@@ -92,7 +92,7 @@ const Hamburger = () => {
           overflowY: 'scroll',
           left: 0,
           top: 0,
-          zIndex: 2,
+          zIndex: 30,
           bg: 'grayWash',
           color: 'graySafe',
         }}

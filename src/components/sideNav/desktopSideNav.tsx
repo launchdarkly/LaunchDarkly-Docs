@@ -61,10 +61,14 @@ const DesktopSideNav = () => {
   return (
     <nav
       sx={{
-        gridArea: 'sideNav',
         bg: theme => theme.colors.grayscaleGray100,
         display: ['none', 'block'],
+        top: '4.5rem',
+        bottom: 0,
+        position: 'fixed',
+        overflow: 'auto',
         pt: 4,
+        width: '19rem',
       }}
     >
       <TreeNode

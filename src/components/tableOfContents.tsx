@@ -24,7 +24,9 @@ export function TableOfContents({ toc }: TableOfContentsProps) {
   }
 
   return (
-    <div sx={{ position: 'sticky', top: 2 }}>
+    <aside
+      sx={{ pt: 4, display: ['none', 'none', 'block'], position: 'fixed', right: 0, top: '4.5rem', width: '18rem' }}
+    >
       <Themed.h5
         sx={{
           borderBottomStyle: 'dotted',
@@ -71,6 +73,6 @@ export function TableOfContents({ toc }: TableOfContentsProps) {
           </li>
         ))}
       </ul>
-    </div>
+    </aside>
   )
 }

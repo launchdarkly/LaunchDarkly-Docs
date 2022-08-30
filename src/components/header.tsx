@@ -16,7 +16,17 @@ const Header = () => {
   const isFederal = useIsFederal()
 
   return (
-    <header sx={{ gridArea: 'header', bg: 'accent', color: 'grayscaleWhite' }}>
+    <header
+      sx={{
+        bg: 'accent',
+        color: 'grayscaleWhite',
+        height: '4.5rem',
+        width: '100%',
+        position: 'fixed',
+        top: '0',
+        zIndex: 10,
+      }}
+    >
       <div
         sx={{
           display: 'grid',
