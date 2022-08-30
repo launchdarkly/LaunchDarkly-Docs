@@ -1393,6 +1393,10 @@
           {
             "label": "Getting started: Experimenting with feature flags",
             "path": "/guides/experimentation/experimentation"
+          },
+          {
+            "label": "Measuring Experimentation impact with holdout experiments",
+            "path": "/guides/experimentation/holdouts"
           }
         ]
       },

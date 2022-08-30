@@ -64,16 +64,16 @@ To create the prerequisite flag:
 
 1. Navigate to the flags list.
 2. Click **Create flag**. The "Create a feature flag" panel appears.
-3. Enter “Mutually exclusive experiment prereq” in the **Name** field.
-4. Enter a description such as “The prerequisite flag for two mutually exclusive experiments” in the **Description** field.
-5. In the **Flag variations** menu, select “String.”
-6. Enter “Experiment 1” in the **Variation 1** field.
-7. Enter “Experiment 2” in the **Variation 2** field.
+3. Enter "Mutually exclusive experiment prereq" in the **Name** field.
+4. Enter a description such as "The prerequisite flag for two mutually exclusive experiments" in the **Description** field.
+5. In the **Flag variations** menu, select "String."
+6. Enter "Experiment 1" in the **Variation 1** field.
+7. Enter "Experiment 2" in the **Variation 2** field.
 
 ![The "Flag variations" section of a flag's creation panel.](mutually-exclusive-flag-variations.png)
 
 8. Click **Save flag**. The flag’s **Targeting** tab appears.
-9. In the "Default rule" **serve** menu, select “a percentage rollout.”
+9. In the "Default rule" **serve** menu, select "a percentage rollout."
   - (Optional) If you want to include only some of your users in the experiments, targeted by attribute, add the percentage rollout to a targeting rule instead of the default rule.
 10. Update the rollout so 50% of users are served Experiment 1, and 50% of users are served Experiment 2.
 
@@ -100,12 +100,12 @@ To create the first dependent flag:
 
 1. Navigate to the flags list.
 2. Click **Create flag**. The "Create a feature flag" panel appears.
-3. Enter “Mutually exclusive flag 1” in the **Name** field.
-4. Enter a description such as “The dependent flag in mutually exclusive experiment #1” in the **Description** field.
+3. Enter "Mutually exclusive flag 1" in the **Name** field.
+4. Enter a description such as "The dependent flag in mutually exclusive experiment #1" in the **Description** field.
 5. Click **Save flag**. The flag’s **Targeting** tab appears.
 6. Click **Add prerequisites**.
-7. Choose “Mutually exclusive experiment prereq” from the **Select a flag** menu.
-8. Leave the variation set to “Experiment 1.”
+7. Choose "Mutually exclusive experiment prereq" from the **Select a flag** menu.
+8. Leave the variation set to "Experiment 1."
 
 ![The "Prerequisites" section of the dependent flag with a prerequisite flag added.](mutually-exclusive-prerequisite-section.png)
 
@@ -115,12 +115,12 @@ To create the second dependent flag:
 
 1. Navigate to the flags list.
 2. Click **Create flag**. The "Create a feature flag" panel appears.
-3. Enter “Mutually exclusive flag 2” in the **Name** field.
-4. Enter a description such as “The dependent flag in mutually exclusive experiment #2” in the **Description** field.
+3. Enter "Mutually exclusive flag 2" in the **Name** field.
+4. Enter a description such as "The dependent flag in mutually exclusive experiment #2" in the **Description** field.
 5. Click **Save flag**. The flag’s **Targeting** tab appears.
 6. Click **Add prerequisites**.
-7. Choose “Mutually exclusive experiment prereq” from the **Select a flag** menu.
-8. Change the variation to “Experiment 2.”
+7. Choose "Mutually exclusive experiment prereq" from the **Select a flag** menu.
+8. Change the variation to "Experiment 2."
 9. Click **Review and save**.
 
 You will now have three related flags in your flags list. Next, you will include the two dependent flags in two separate experiments.
@@ -143,15 +143,15 @@ To create the first custom metric:
 1. Navigate to the **Experiments** list.
 2. Click the **Metrics** tab.
 3. Click **Create metric**. The "Create a new metric" panel appears.
-4. Enter “Experiment 1 custom metric” in the **Name** field.
+4. Enter "Experiment 1 custom metric" in the **Name** field.
 5. Click the **Event kind** menu and select "Custom."
-6. Enter “Experiment 1 metric” in the **Event name** field.
+6. Enter "Experiment 1 metric" in the **Event name** field.
 
 ![The "Event information" section of the "Create a new metric" panel with a conversion metric configured.](metrics-event-information.png)
 
 7. Click **Save metric**.
 
-To create the second custom metric, repeat steps 1-7, except name the metric “Experiment 2 custom metric” and name the event  “Experiment 2 metric.”
+To create the second custom metric, repeat steps 1-7, except name the metric "Experiment 2 custom metric" and name the event "Experiment 2 metric."
 
 ### Building your experiments
 
@@ -164,15 +164,15 @@ To build your first experiment:
 
 ![The "Experiments" list with the "Create experiment" button called out.](experiment-list-new-callout.png)
 
-3. Enter “Mutually exclusive experiment 1” in the **Experiment name** field.
+3. Enter "Mutually exclusive experiment 1" in the **Experiment name** field.
 4. Enter a **Hypothesis** for your experiment.
 5. Click **Next**. The "Select metrics" step opens.
-6. Choose “Experiment 1 custom metric” from the **Primary metric** menu.
+6. Choose "Experiment 1 custom metric" from the **Primary metric** menu.
 
 ![The "Select metrics" section of a new experiment.](mutually-exclusive-metric.png)
 
 7. Click **Next**. The "Define variations" step opens.
-8. Choose the “Mutually exclusive flag 1” flag from the **Select flag** menu.
+8. Choose the "Mutually exclusive flag 1" flag from the **Select flag** menu.
 9. Click **Next**. The "Set audience" step opens.
 10. Enter the percentage of traffic for each variation you want to include in the experiment.
 12. Select which variation you want LaunchDarkly to serve to the remaining population.
@@ -181,7 +181,7 @@ To build your first experiment:
 
 13. Click **Finish**. You are returned to the experiment's **Design** tab.
 
-To create your second experiment, repeat steps 1-13, except choose “Experiment 2 custom metric” and “Mutually exclusive flag 2.”
+To create your second experiment, repeat steps 1-13, except choose "Experiment 2 custom metric" and "Mutually exclusive flag 2."
 
 ### Toggling on your flags
 
@@ -194,9 +194,9 @@ The last step is to start an iteration for each of your mutually exclusive exper
 To start your experiment iterations:
 
 1. Navigate to the **Experiments** list.
-2. Click on “Mutually exclusive experiment 1.”
+2. Click on "Mutually exclusive experiment 1."
 3. Click **Start**.
-4. Repeat steps 1-3 for “Mutually exclusive experiment 2.”
+4. Repeat steps 1-3 for "Mutually exclusive experiment 2."
 
 You are now running two mutually exclusive experiments, with no overlap between the users included in each.
 
