@@ -481,10 +481,9 @@ from ldclient.integrations import Files
 data_source_callback = Files.new_data_source(paths=["file1.json", "file2.json"],
     auto_update=True)
 
-config = Config(update_processor_class=data_source_callback, send_events=False)
+config = Config('YOUR_SDK_KEY', update_processor_class=data_source_callback, send_events=False)
 
 ldclient.set_config(config)
-ldclient.set_sdk_key("sdk key")
 client = ldclient.get()
 ```
 
