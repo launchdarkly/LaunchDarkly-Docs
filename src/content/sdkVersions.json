@@ -1133,6 +1133,16 @@
     "name": "React",
     "versions": [
       {
+        "versionMajorMinor": "2.27",
+        "releaseYear": 2022,
+        "releaseMonthDay": "08-31"
+      },
+      {
+        "versionMajorMinor": "2.26",
+        "releaseYear": 2022,
+        "releaseMonthDay": "04-27"
+      },
+      {
         "versionMajorMinor": "2.25",
         "releaseYear": 2022,
         "releaseMonthDay": "02-08"

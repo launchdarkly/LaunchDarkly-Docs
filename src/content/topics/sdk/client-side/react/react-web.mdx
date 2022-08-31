@@ -343,7 +343,7 @@ These are the properties:
 - `clientSideID`: This is your project and environment specific client-side ID. This property is mandatory.
 - `user`: A LaunchDarkly [user](/sdk/features/user-config) object. This property is optional unless you are initializing in secure mode, in which case it is mandatory. Defaults to an anonymous user.
 - `options`: The LaunchDarkly JavaScript SDK initialization [options](/sdk/features/config#javascript). This property is optional.
-- `reactOptions`: This property is specific to the React SDK. You can use this option to [disable automatic camel casing](#flag-keys) of flag keys when using the React SDK. This property is optional.
+- `reactOptions`: This property is specific to the React SDK. You can use this option to [disable automatic camel casing](#flag-keys) of flag keys when using the React SDK, or to [disable evaluation events on read](#events). This property is optional.
 - `deferInitialization`: This property allows you to defer SDK initialization until you define the `user` property. This property is optional, and is only available in `ProviderConfig`, when you initialize using `withLDProvider`.
 
   By deferring SDK initialization, you defer all steps which take place as part of SDK initialization, including reading flag values from local storage and sending the SDK's `ready` event.
@@ -460,3 +460,11 @@ In addition to its own bundled types, the React SDK uses types from `launchdarkl
 If you are using the React SDK within a React application that uses TypeScript, you may encounter some compiler errors or warnings initially. One solution is to wrap your component in a `withLDProvider` function, and then coerce your component to type `<ComponentType<{}>`. To learn how, read [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
 
 If you use eslint, the SDK requires that you add `launchdarkly-js-client-sdk` as a dev dependency. Otherwise, eslint will report a `no-extraneous-dependencies` error.
+
+## Events
+
+The React SDK (version 2.27+) sends flag evaluation events only when a user reads a flag evaluation. The React SDK calls the JavaScript SDK's `allFlags` method on load to cache flag values. It uses the JavaScript SDK's `sendEventsOnlyForVariation` option, set to `true`, to prevent `allFlags` from sending evaluation events for every flag.
+
+Versions prior to 2.27 of the React SDK send an evaluation event for every flag on load by default. To recreate this behavior in version 2.27+, explicitly set `options.sendEventsOnlyForVariation: false` and set `reactOptions.sendEventsOnFlagRead: false`.
+
+To learn more about the `sendEventsOnlyForVariation` option, read the [JavaScript SDK API documentation](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldoptions.html#sendeventsonlyforvariation). To learn more about the `sendEventsOnFlagRead` option, read the [React SDK API documentation](https://launchdarkly.github.io/react-client-sdk/interfaces/LDReactOptions.html#sendEventsOnFlagRead).
