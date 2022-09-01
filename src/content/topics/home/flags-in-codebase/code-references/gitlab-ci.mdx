@@ -112,7 +112,7 @@ deploy1:
 find-launchdarkly-code-refs:
   stage: deploy
   image:
-    name: launchdarkly/ld-find-code-refs:2.5.0
+    name: launchdarkly/ld-find-code-refs:latest
     entrypoint: [""]
   script:
     - ld-find-code-refs
