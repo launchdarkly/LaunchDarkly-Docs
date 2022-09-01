@@ -12,11 +12,26 @@ This topic explains how the version of LaunchDarkly that is available on domains
 
 In order to maintain FedRAMP compliance, LaunchDarkly's federal instance uses enhanced infrastructure and security configurations compared to the generally available instance of LaunchDarkly. Many components that function automatically in the generally available instance instead use encryption, authentication, or require authorization to perform functions in the federal instance. In addition, third-party components that are federally compliant, such as AWS and Datadog, have policies and agents enabled to maintain compliance when connecting to LaunchDarkly.
 
+## Using the federal version of this docs site
+
+You can view a federal instance-specific version of this documentation site. 
+
+The federal version of the docs site is different from the standard version in the following ways:
+
+- Federal instance URLs display with`.us` URLs, including within code samples. To learn more, read [Understanding federal instance URLs](#understanding-federal-instance-urls).
+- Features and integrations that the federal instance does not support are marked with a warning message. To learn more, read [Supported features](#supported-features).
+
+To view the federal instance-specific version of this documentation site, change the site version menu to "Federal docs":
+
+![The site version menu with "Federal docs" selected.](federal-version-menu.png)
+
 ## Understanding which features are available to the federal instance
 
 The LaunchDarkly federal instance has near-parity with the generally available LaunchDarkly instance. There are some exceptions, which are explained below.
 
-The federal instance includes:
+### Supported features
+
+The federal instance supports the following features:
 
 * Core flagging features through the LaunchDarkly application and [API](https://apidocs.launchdarkly.com)
 * [Code references](/home/code/code-references), if the `ld-find-code-refs` utility is [compiled with FIPS 140-2 support](/home/code/code-references/#using-code-references-in-federal-environments)
@@ -26,13 +41,33 @@ The federal instance includes:
 * [The Relay Proxy](/home/relay-proxy)
 * [SDKs](/sdk)
 
+The federal instance does not support the following features:
+
+* [The debugger](/home/flags/debugger)
+* [Support for the Roku SDK](/sdk/client-side/roku)
+* [The flag Insights tab](/home/flags/insights)
+* [Inbox notifications for approval requests](/home/feature-workflows/approvals/#reviewing-flag-approval-requests)
+
+### Supported integrations
+
+Only FedRAMP-compliant integrations are available on the federal instance of LaunchDarkly. Integrations connect LaunchDarkly to other systems and move data between them, so connected systems must also be FedRAMP-compliant.
+
+The federal instance supports the following integrations:
+
+* [Datadog](/integrations/datadog)
+* [Dynatrace](/integrations/dynatrace)
+* [New Relic One](/integrations/new-relic)
+* [Slack](/integrations/slack)
+* [Splunk](/integrations/splunk)
+* [Terraform](/integrations/terraform)
+
+The federal instance does not support any other LaunchDarkly integrations.
+
 ## Understanding federal instance URLs
 
-The federal instance does not use the common ".com" URL path. Instead, it uses the US government's path: ".us." When you navigate to LaunchDarkly federal application, use the federal instance API, or initialize your SDK to the federal instance, you must replace the generally available ".com" URLs with URLs that end in ".us."
+The federal instance, including the LaunchDarkly application, the federal instance API, and some SDK initialization option settings, does not use the standard `.com` URL path. Instead, it uses the US government's `.us` URL path. If application or network layer firewalls are in use on your network, they will need to allowlist these URLs for LaunchDarkly to function properly.
 
-If application or network layer firewalls are in use on your network, they will need to allowlist these URLs for LaunchDarkly to function properly.
-
-For example:
+These URLs include:
 
 * https://app.launchdarkly.us
 * https://clientsdk.launchdarkly.us
@@ -44,6 +79,7 @@ For example:
 ## Initializing an SDK for the federal instance
 
 You can initialize an SDK for the federal instance using the initialization "options" settings for the SDK. You can also find configuration options in the generated API reference for each SDK.
+
 Depending on the SDK, it may require you to configure multiple service endpoints in the initialization options. These could include the base and polling endpoint, streaming endpoint, and an events endpoint. For an example of the initialization options for Node.js, read [Node.js SDK reference (client-side)](/sdk/client-side/node-js).
 
 The option key value pair names may differ between SDKs, as LaunchDarkly respects each language's URI and URL naming conventions and supported services. For this reason, it is critical to reference the documentation for each individual SDK.
@@ -105,24 +141,6 @@ LDConfig config = new LDConfig.Builder()
 </CodeTabs>
 
 
-For additional language syntax examples for setting configuration options, read [Using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode). To use the examples, change the Relay Proxy URL to the respective federal instance URLs. For a list of available service endpoints, read [Understanding federal instance URLs](#understanding-federal-instance-urls).
+For additional language syntax examples for setting configuration options, read [Using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode). To use the examples, change the Relay Proxy URLs to the respective federal instance URLs, or change this site's version dropdown to "Federal docs." To learn more, read [Using the federal version of this docs site](#using-the-federal-version-of-this-docs-site).
 
-## Understanding which features have minimal support or are unsupported
-
-FedRAMP-compliant integrations are available on the federal instance of LaunchDarkly. This is because integrations connect LaunchDarkly to other systems and move data between them, so connected systems must also be FedRAMP-compliant.
-
-The federal instance supports the following integrations:
-
-* [Datadog](/integrations/datadog)
-* [Dynatrace](/integrations/dynatrace)
-* [New Relic One](/integrations/new-relic)
-* [Slack](/integrations/slack)
-* [Splunk](/integrations/splunk)
-* [Terraform](/integrations/terraform)
-
-The federal instance does not include:
-
-* [The debugger](/home/flags/debugger)
-* [Support for the Roku SDK](/sdk/client-side/roku)
-* [The flag Insights tab](/home/flags/insights)
-* [Inbox notifications for approval requests](/home/feature-workflows/approvals/#reviewing-flag-approval-requests)
+For a list of available service endpoints, read [Understanding federal instance URLs](#understanding-federal-instance-urls).

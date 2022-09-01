@@ -48,7 +48,7 @@ const MdxHeader: FunctionComponent<MdxHeaderProps> = ({
           <CalloutDescription>
             <br />
             To learn more, read{' '}
-            <Link to="/home/advanced/federal#understanding-which-features-have-minimal-support-or-are-unsupported">
+            <Link to="/home/advanced/federal#understanding-which-features-are-available-to-the-federal-instance">
               LaunchDarkly in federal environments
             </Link>
             .
