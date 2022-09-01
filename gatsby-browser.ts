@@ -15,12 +15,13 @@ export const onClientEntry = () => {
   const isProd = activeEnv === 'production'
   const isStaging = activeEnv === 'staging'
   const isDev = activeEnv === 'development'
-  const siteLocalStorage = localStorage.getItem('site')
+  let siteLocalStorage = localStorage.getItem('site')
 
   // HACK: this is a migration step for old ls values that shouldn't
   // be an issue on prod and can be removed over time.
-  if (siteLocalStorage === '"launchdarkly"') {
+  if (siteLocalStorage !== JSON.stringify('launchDarkly') && siteLocalStorage !== JSON.stringify('federal')) {
     localStorage.removeItem('site')
+    siteLocalStorage = undefined
   }
 
   if (isProd || (isDev && process.env.RUN_DATADOG_LOCALLY === 'true')) {
@@ -47,8 +48,27 @@ export const onClientEntry = () => {
   aa('init', { appId, apiKey, useCookie: true })
 
   const currentSiteHref = getSiteFromHref()
-  if (siteLocalStorage === '"federal"' && currentSiteHref !== 'federal') {
-    const to = addRemoveSiteParam(currentSiteHref, 'federal', true)
-    location.replace(to)
+
+  // query param exists
+  if (currentSiteHref) {
+    const currentSiteHrefJson = JSON.stringify(currentSiteHref)
+    // sync qs and ls values if they are not in sync
+    // Use qs value as source of truth
+    if (currentSiteHrefJson !== siteLocalStorage) {
+      localStorage.setItem('site', currentSiteHrefJson)
+    }
+  } else {
+    // no query param
+    if (!siteLocalStorage) {
+      localStorage.setItem('site', JSON.stringify('launchDarkly'))
+    } else {
+      // append site=federal to qs and redirect to that
+      if (JSON.parse(siteLocalStorage) === 'federal') {
+        const to = addRemoveSiteParam(location.pathname, 'federal', true)
+        location.replace(to)
+      }
+      // else no qs means launchDarkly by default
+      // ls should already be launchDarkly so we do nothing here
+    }
   }
 }

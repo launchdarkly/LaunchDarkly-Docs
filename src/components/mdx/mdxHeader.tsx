@@ -44,7 +44,7 @@ const MdxHeader: FunctionComponent<MdxHeaderProps> = ({
       {!isLandingPage && <Metadata timeToRead={timeToRead} lastModifiedDateFormatted={lastModifiedDateFormatted} />}
       {isFederal && site === 'launchDarklyOnly' && (
         <Callout intent="alert">
-          <CalloutTitle>{siteAlertTitle ?? `${title} is not FedRAMP compliant`}</CalloutTitle>
+          <CalloutTitle>{siteAlertTitle ?? `${title} is not available on federal environments`}</CalloutTitle>
           <CalloutDescription>
             <br />
             To learn more, read{' '}
