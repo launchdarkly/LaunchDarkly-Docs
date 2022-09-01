@@ -42,9 +42,9 @@ describe('Documentation website', () => {
         }
 
         let url = src
-        const pr = Cypress.env('pr_number')
-        if (pr) {
-          url = url.replace(`/${pr}`, '')
+        const bucketPrefix = Cypress.env('bucket_prefix')
+        if (bucketPrefix) {
+          url = url.replace(`/${bucketPrefix}`, '')
         }
         cy.request(url).its('status').should('eq', 200)
       })
