@@ -53,15 +53,6 @@ client.track("Example event name", user, null, numericValue);
 
 Like conversion metrics, numeric metrics also require you to create an event name and insert it into your application's code to track metric data. The area of your code you should put custom conversion metric information into, and the type of information you should include, varies based on which SDKs you use.
 
-<Callout intent="alert">
-<CalloutTitle>Numeric metrics must send an event for each unique user</CalloutTitle>
-<CalloutDescription>
-
-When you use numeric metrics, you must send a metric event value for each unique user in an experiment. If your unique user count and metric event value count are not the same, LaunchDarkly cannot accurately calculate the results for your experiment. When this happens, an alert appears on the Experimentation tab of the feature flags included in the experiment.
-
-</CalloutDescription>
-</Callout>
-
 Usually, the information you should put in your code includes the event key, user object, data field, or numeric value fields. To learn more, read [Sending custom events](/sdk/features/events).
 
 <Callout intent="info">
