@@ -47,11 +47,7 @@ const MdxHeader: FunctionComponent<MdxHeaderProps> = ({
           <CalloutTitle>{siteAlertTitle ?? `${title} is not available in federal environments`}</CalloutTitle>
           <CalloutDescription>
             <br />
-            To learn more, read{' '}
-            <Link to="/home/advanced/federal#understanding-which-features-are-available-to-the-federal-instance">
-              LaunchDarkly in federal environments
-            </Link>
-            .
+            To learn more, read <Link to="/home/advanced/federal">LaunchDarkly in federal environments</Link>.
           </CalloutDescription>
         </Callout>
       )}
