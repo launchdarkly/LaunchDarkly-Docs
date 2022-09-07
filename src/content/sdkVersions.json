@@ -588,6 +588,11 @@
     "name": "iOS",
     "versions": [
       {
+        "versionMajorMinor": "6.2",
+        "releaseYear": 2022,
+        "releaseMonthDay": "09-02"
+      },
+      {
         "versionMajorMinor": "6.1",
         "releaseYear": 2022,
         "releaseMonthDay": "05-17"
