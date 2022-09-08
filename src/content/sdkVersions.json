@@ -1338,6 +1338,11 @@
     "name": "Ruby",
     "versions": [
       {
+        "versionMajorMinor": "6.4",
+        "releaseYear": 2022,
+        "releaseMonthDay": "09-07"
+      },
+      {
         "versionMajorMinor": "6.3",
         "releaseYear": 2021,
         "releaseMonthDay": "12-09"
