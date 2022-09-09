@@ -1,14 +1,15 @@
 /** @jsx jsx */
+import { FunctionComponent, useEffect, useRef, useState } from 'react'
+import { SearchResults, SearchState } from 'react-instantsearch-core'
+import { connectStateResults } from 'react-instantsearch-dom'
+import { navigate } from '@reach/router'
+import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
 import { withPrefix } from 'gatsby'
 import { jsx } from 'theme-ui'
-import { FunctionComponent, useEffect, useRef, useState } from 'react'
-import { navigate } from '@reach/router'
-import { SearchState, SearchResults } from 'react-instantsearch-core'
-import { connectStateResults } from 'react-instantsearch-dom'
-import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
+
 import EmptyRow from './emptyRow'
-import ResultRow from './resultRow'
 import ResultCount from './resultCount'
+import ResultRow from './resultRow'
 
 interface ResultsProps {
   searchState: SearchState
@@ -50,7 +51,7 @@ const Results: FunctionComponent<ResultsProps> = ({ searchState, searchResults }
         right: 0,
         width: ['100%', '28rem'],
         height: '100%',
-        zIndex: 1,
+        zIndex: 20,
         overflow: 'scroll',
         pb: 10,
         borderLeftWidth: ['0', '1px'],

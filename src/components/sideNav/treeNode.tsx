@@ -1,15 +1,17 @@
 /** @jsx jsx */
-import { LDFlagSet } from 'launchdarkly-js-client-sdk'
-import { LinkGetProps } from '@reach/router'
-import Link from '../link'
-import { useFlags } from 'gatsby-plugin-launchdarkly'
-import { jsx, Flex, Link as ThemeUILink, ThemeUIStyleObject } from 'theme-ui'
 import { ComponentProps, FunctionComponent, useEffect, useState } from 'react'
-import { SideNavItem } from './types'
-import isExternalLink from '../../utils/isExternalLink'
-import Icon, { IconName } from '../icon'
+import { LinkGetProps } from '@reach/router'
+import { useFlags } from 'gatsby-plugin-launchdarkly'
+import { LDFlagSet } from 'launchdarkly-js-client-sdk'
+import { Flex, jsx, Link as ThemeUILink, ThemeUIStyleObject } from 'theme-ui'
+
 import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
+import isExternalLink from '../../utils/isExternalLink'
 import { stripTrailingSlash } from '../../utils/navigationDataUtils'
+import Icon, { IconName } from '../icon'
+import Link from '../link'
+
+import { SideNavItem } from './types'
 
 const defaultLabelStyles = {
   color: 'text',

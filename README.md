@@ -63,6 +63,12 @@ Here's how to start:
 yarn && yarn start
 ```
 
+As a shortcut:
+
+```shell
+yarn dev
+```
+
 The site will build. Monitor the progress in your terminal, and when the build completes, navigate to [localhost:8000](http://localhost:8000).
 
 You can also run in a `fast` development mode which omits all mdx images and most mdx content except for getting-started, managing-flags and managing-users:
@@ -109,9 +115,9 @@ If you're a new LaunchDarkly technical writer or other contributor accessing the
 
 ## (Internal LaunchDarkly use only) 🌗 Accessing the staging site
 
-When you open a docs PR, it creates a unique staging site. The URL for each site is linked in the PR page in the repo.
+When you open a docs PR, it creates a unique staging directory. The URL for that PR is linked in the PR page in the repo, and follows the pattern `https://docs-stg.launchdarkly.com/nnnn/`, where `nnnn` is your PR number. If the branch you are merging into has a name ending in `-eap`, then its content is additionally deployed to the staging site at `https://docs-stg.launchdarkly.com/branch-name`, where `branch-name` is something like `your-feature-eap`.
 
-Staging is automatically refreshed on push to main. To learn more, read [Build & Deploy](#-build--deploy).
+Staging is automatically refreshed on a push to each branch. To learn more, read [Build & Deploy](#-build--deploy).
 
 ## (Internal LaunchDarkly use only) 🚀 Building and deploying the docs site
 

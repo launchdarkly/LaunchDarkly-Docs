@@ -153,7 +153,10 @@ Here's how:
 <CodeTabItem value="c">
 
 ```c
-show_feature = LDBoolVariation(client, user, "your.flag.key", false);
+user = LDUserNew("example-user-key");
+LDUserSetName(user, "Sandy");
+    
+LDBoolean show_feature = LDBoolVariation(client, user, FEATURE_FLAG_KEY, false, NULL);
 if (show_feature) {
     // application code to show the feature
 } else {

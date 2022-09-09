@@ -1,9 +1,11 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
-import { graphql, useStaticQuery } from 'gatsby'
 import { globalHistory } from '@reach/router'
-import TreeNode from './treeNode'
+import { graphql, useStaticQuery } from 'gatsby'
+import { jsx } from 'theme-ui'
+
 import { findRootTopic } from '../../utils/navigationDataUtils'
+
+import TreeNode from './treeNode'
 
 const DesktopSideNav = () => {
   const {
@@ -59,10 +61,14 @@ const DesktopSideNav = () => {
   return (
     <nav
       sx={{
-        gridArea: 'sideNav',
         bg: theme => theme.colors.grayscaleGray100,
         display: ['none', 'block'],
+        top: '4.5rem',
+        bottom: 0,
+        position: 'fixed',
+        overflow: 'auto',
         pt: 4,
+        width: '19rem',
       }}
     >
       <TreeNode

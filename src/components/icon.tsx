@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx, BoxOwnProps } from 'theme-ui'
 import { HTMLProps } from 'react'
+import { BoxOwnProps, jsx } from 'theme-ui'
 
 export type IconName =
   | 'android'
@@ -33,12 +33,10 @@ export type IconName =
   | 'clock-start'
   | 'compass'
   | 'cube'
-  | 'docs'
   | 'earth'
   | 'file-table'
   | 'information'
-  | 'launchdarkly'
-  | 'launchdarkly-icon'
+  | 'ozmo'
   | 'lightbulb-on-outline'
   | 'link-variant'
   | 'menu'
@@ -55,6 +53,11 @@ export type IconName =
   | 'arrow-up'
   | 'pencil'
   | 'gatsby'
+  | 'expand-less'
+  | 'expand-more'
+  | 'check'
+  | 'header-logo'
+  | 'federal-tag'
 
 export type IconProps = {
   name: IconName

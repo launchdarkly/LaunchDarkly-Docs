@@ -1,14 +1,15 @@
 /** @jsx jsx */
-import { jsx, ThemeProvider } from 'theme-ui'
 import { FunctionComponent } from 'react'
+import { MDXProvider } from '@mdx-js/react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
-import { MDXProvider } from '@mdx-js/react'
-import Reset from './resetStyles'
+import { jsx, ThemeProvider } from 'theme-ui'
+
+import Callout, { CalloutDescription, CalloutTitle } from './mdx/callout'
 import { Code, CodeTabItem, CodeTabs } from './mdx/code'
-import LearnMore from './mdx/learnMore'
-import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
 import Details from './mdx/details'
+import LearnMore from './mdx/learnMore'
+import Reset from './resetStyles'
 
 const components = {
   pre: function Pre({ children }: React.HTMLProps<HTMLPreElement>) {

@@ -8,11 +8,13 @@ jest.mock('gatsby', () => {
 jest.mock('../../utils/siteAwareUtils', () => ({ __esModule: true, addRemoveSiteParam: jest.fn() }))
 jest.mock('./useSite', () => ({ __esModule: true, default: jest.fn() }))
 
-import { navigate } from 'gatsby'
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
-import SiteSelector from './siteSelector'
+import { navigate } from 'gatsby'
+
 import { addRemoveSiteParam } from '../../utils/siteAwareUtils'
+
+import SiteSelector from './siteSelector'
 import useSite from './useSite'
 
 const mockUseSite = useSite as jest.Mock
@@ -21,10 +23,14 @@ const mockNavigate = navigate as jest.Mock
 const mockGetUrlSiteAware = addRemoveSiteParam as jest.Mock
 
 describe('site selector', () => {
+  let siteSelector: HTMLElement
+
   beforeEach(() => {
     mockUseSite.mockImplementation(() => ['launchDarkly', mockSetSite])
     mockGetUrlSiteAware.mockImplementation(() => 'mockUrl')
     render(<SiteSelector />)
+
+    siteSelector = screen.getByTestId('dropdown-label')
   })
 
   afterEach(() => {
@@ -32,22 +38,33 @@ describe('site selector', () => {
   })
 
   test('renders correctly with launchDarkly as default', () => {
-    const siteSelector = screen.getByRole('combobox')
-    expect(siteSelector).toHaveValue('launchDarkly')
+    expect(siteSelector.textContent).toBe('LaunchDarkly docs')
   })
 
   test('renders launchDarkly and federal options', () => {
-    const siteOptions = screen.getAllByRole('option')
-    expect(siteOptions.length).toEqual(2)
-    expect(siteOptions[0]).toHaveTextContent('LaunchDarkly docs')
-    expect(siteOptions[1]).toHaveTextContent('Federal docs')
+    fireEvent.click(siteSelector)
+
+    const [launchDarklyDocs, federalDocs] = screen.getAllByTestId('option')
+    expect(launchDarklyDocs).toHaveTextContent('LaunchDarkly docs')
+    expect(federalDocs).toHaveTextContent('Federal docs')
   })
 
   test('url update on site change', () => {
-    const siteSelector = screen.getByRole('combobox')
-    fireEvent.change(siteSelector, { target: { value: 'federal' } })
+    fireEvent.click(siteSelector)
+    const [, federalDocs] = screen.getAllByTestId('option')
+
+    fireEvent.click(federalDocs)
+
     expect(mockSetSite).toHaveBeenCalledWith('federal')
     expect(mockGetUrlSiteAware).toHaveBeenCalledWith('', 'federal', true)
     expect(mockNavigate).toHaveBeenCalledWith('mockUrl', { replace: true })
+  })
+
+  test('check appears beside selected item', () => {
+    fireEvent.click(siteSelector)
+
+    const [launchDarklyDocs] = screen.getAllByTestId('option')
+    const check = screen.getByText('Icon: check', { exact: false })
+    expect(launchDarklyDocs).toContainElement(check)
   })
 })

@@ -1,17 +1,32 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
-import Icon from './icon'
-import Hamburger from './sideNav/hamburger'
-import TopNav from './topNav'
-import SiteSelector from './siteSelector/siteSelector'
+import { jsx } from 'theme-ui'
+
+import { useIsFederal } from '../utils/siteAwareUtils'
+
 import SearchRoot from './search/searchRoot'
+import Hamburger from './sideNav/hamburger'
+import SiteSelector from './siteSelector/siteSelector'
+import Icon from './icon'
 import Link from './link'
+import TopNav from './topNav'
 
 const Header = () => {
   const { enableSiteSelection } = useFlags()
+  const isFederal = useIsFederal()
+
   return (
-    <header sx={{ gridArea: 'header', bg: 'accent', color: 'grayscaleWhite' }}>
+    <header
+      sx={{
+        bg: 'accent',
+        color: 'grayscaleWhite',
+        height: '4.5rem',
+        width: '100%',
+        position: 'fixed',
+        top: '0',
+        zIndex: 10,
+      }}
+    >
       <div
         sx={{
           display: 'grid',
@@ -36,9 +51,8 @@ const Header = () => {
             aria-label="Go to the LaunchDarkly documentation homepage"
             sx={{ display: 'flex', alignItems: 'center' }}
           >
-            <Icon name="launchdarkly" variant="header" />
-            <Icon name="launchdarkly-icon" variant="header" sx={{ marginLeft: '6px' }} />
-            <Icon name="docs" variant="header" sx={{ height: [null, 0], marginLeft: '11px' }} />
+            <Icon name="header-logo" variant="header" />
+            {isFederal && <Icon name="federal-tag" variant="header" sx={{ height: [null, '1.2rem'], ml: 3 }} />}
           </Link>
         </span>
         <span
@@ -50,8 +64,9 @@ const Header = () => {
             justifyContent: 'space-between',
           }}
         >
-          <Link to="/" sx={{ height: 3, mx: 5, display: ['block', 'none'] }}>
-            <Icon name="launchdarkly-icon" variant="header" />
+          <Link to="/" sx={{ mx: 4, display: ['flex', 'none'], flexDirection: 'column', alignItems: 'center' }}>
+            <Icon name="ozmo" variant="header" sx={{ height: 4, width: '1.4rem' }} />
+            {isFederal && <Icon name="federal-tag" variant="header" sx={{ height: '1.2rem' }} />}
           </Link>
           <span sx={{ ml: [0, 9, '4.5rem'], height: '100%', display: 'flex', alignItems: 'center' }}>
             <TopNav />
@@ -66,10 +81,16 @@ const Header = () => {
               ml: [0, 0, 4],
             }}
           >
-            {enableSiteSelection && <SiteSelector />}
+            <span
+              sx={{
+                display: ['none', 'flex'],
+              }}
+            >
+              {enableSiteSelection && <SiteSelector />}
+            </span>
             <SearchRoot />
           </div>
-          <span sx={{ display: ['block', 'none'], mx: 5 }}>
+          <span sx={{ display: ['flex', 'none'], mx: 4 }}>
             <Hamburger />
           </span>
         </span>

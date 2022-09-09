@@ -1,11 +1,19 @@
-import debounce from 'lodash.debounce'
 import { SearchState } from 'react-instantsearch-core'
+import debounce from 'lodash.debounce'
+
 import getUserAgentResults from './userAgent'
 
 // Track custom events and sends them to segment.io e.g. track('Link to API docs clicked')
 export const track = (event: string) => window?.analytics?.track?.(event)
 
-// Sends search events directly to gtm without segment.io.
+// Track site selection with gtm without segment.io
+// For a list of built-in gtag events see:
+// https://developers.google.com/analytics/devguides/collection/gtagjs/events
+export const trackSiteSelection = (site: string) => {
+  window?.gtag?.('event', 'select_content', { content_type: site })
+}
+
+// Sends search events directly to gtm without segment.io
 // GOTCHA: this is private! Use the debounced export instead.
 const _trackSearch = (searchState: SearchState) => {
   // Follow the gtags api for search related events:

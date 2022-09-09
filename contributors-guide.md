@@ -55,6 +55,10 @@ tags: ['dashboard', 'user', 'attribute', 'mau']
 * `description`: Algolia uses the description for more effective search. Compress the Overview section of your topic into a useful description. Don't make it too long!
 * `published`: Set to `true` to have your topic appear at its URL, and `false` to keep the topic private. `published` must be set to `true` for all topics that appear in the sidenav. Clicking an item in the sidenav set to `false` will return a 404, and 404s make Google's SEO engines, and by extension the Marketing team, very sad.
 * `tags`: Algolia uses this array of topic tags for more effective search. If you create a new tag, update `/src/components/search/tags.md` to keep our dictionary of tags up to date.
+* `site`: This indicates whether the functionality described in the topic is applicable to the commercial LaunchDarkly instance only, or also to the federal instance of LaunchDarkly.
+  * If you exclude this, the "LaunchDarkly docs" and "Federal docs" versions of this topic will have the same base content. (The "Federal docs" version will have relevant URLs changed from `.com` to `.us`, but that change is based entirely on which docs site version the reader has selected. It is not controlled by this frontmatter.)
+  * If you include this and set the value to `launchDarklyOnly`, then when the reader selects to view the "Federal docs" version of the docs, there will be a callout displayed at the top of this topic, indicating that the functionality is not available for the federal instance of LaunchDarkly.
+* `siteAlertTitle`: This indicates the title for the callout at the top of this topic. The callout will appear if `site` is `launchDarklyOnly` and the reader selects to view the "Federal docs" version of the docs. If not specified, the default is `<title> is not FedRAMP compliant`.
 
 ## Writing docs in the LaunchDarkly style
 
@@ -63,6 +67,8 @@ To learn about how we write docs at LaunchDarkly, read the [documentation style 
 ## Adding a new topic
 
 To add a new topic to the docs, clone the repo locally and add a new topic following the structure outlined in [Architecture and workflow](#architecture-and-workflow).
+
+For many types of new topics, we have templates available in the [templates](/templates) folder.
 
 ### Updating the changelog
 

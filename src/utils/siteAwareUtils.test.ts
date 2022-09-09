@@ -6,8 +6,8 @@ const launchDarklyContent = `
       clientstream.launchdarkly.com
       events.launchdarkly.com
       sdk.launchdarkly.com
+      status.launchdarkly.com
       stream.launchdarkly.com
-      app.launchdarkly.com
     `
 
 const federalContent = `
@@ -16,17 +16,20 @@ const federalContent = `
       clientstream.launchdarkly.us
       events.launchdarkly.us
       sdk.launchdarkly.us
+      status.launchdarkly.us
       stream.launchdarkly.us
-      app.launchdarkly.us
     `
 
 describe('setSubdomain', () => {
   it('replaces all launchDarkly urls to federal', () => {
     expect(setSubdomain(launchDarklyContent, 'federal', true)).toEqual(federalContent)
   })
+})
 
-  it('replaces all federal urls to launchDarkly', () => {
-    expect(setSubdomain(federalContent, 'launchDarkly', true)).toEqual(launchDarklyContent)
+describe('setSubdomain', () => {
+  it('mobile.launchdarkly.com is a legacy URL that is not migrated to a .us URL', () => {
+    const mobileUrl = 'mobile.launchdarkly.com'
+    expect(setSubdomain(mobileUrl, 'federal', true)).toEqual(mobileUrl)
   })
 })
 

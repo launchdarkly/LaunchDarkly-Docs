@@ -53,8 +53,8 @@ You can configure `Configuration.Builder`:
 <CodeTabItem value="csharp">
 
 ```csharp
-Configuration config = LaunchDarkly.Client.Configuration
-    .Builder("YOUR_SDK_KEY")
+Configuration config = Configuration
+    .Builder("YOUR_MOBILE_KEY")
     .EventFlushInterval(TimeSpan.FromSeconds(2))
     .Build();
 LdClient client = LdClient.Init(config, user);

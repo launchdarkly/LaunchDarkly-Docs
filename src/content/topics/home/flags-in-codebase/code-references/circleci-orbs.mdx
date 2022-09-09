@@ -55,14 +55,14 @@ To set up the LaunchDarkly orb in CircleCI:
 version: 2.1
 
 orbs:
-  launchdarkly: launchdarkly/ld-find-code-refs@2.5.7
+  launchdarkly: launchdarkly/ld-find-code-refs@2.6.1
 
 workflows:
   main:
     jobs:
       - launchdarkly/find-code-references:
           proj_key: $YOUR_LAUNCHDARKLY_PROJECT_KEY
-          repo_type: github # can be 'github', 'bitbucket', or 'custom'
+          repo_type: github # can be 'bitbucket', 'custom', 'github', or 'gitlab'
           repo_url: $YOUR_REPO_URL # used to generate links to your repository
 ```
 
@@ -77,4 +77,4 @@ To skip searching files and directories, use an [`.ldignore`](https://github.com
 
 To configure custom delimiters and aliases for your flag keys, or to set other advanced configuration, use the [`.launchdarkly/coderefs.yaml`](https://github.com/launchdarkly/ld-find-code-refs/blob/main/docs/CONFIGURATION.md#advanced-yaml-configuration) file.
 
-To learn more, read [Explore Orbs / launchdarkly/ld-find-code-refs](https://ld.click/CircleCIOrbs).
+<!-- To learn more, read [Explore Orbs / launchdarkly/ld-find-code-refs](https://ld.click/CircleCIOrbs). -->

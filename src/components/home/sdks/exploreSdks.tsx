@@ -1,8 +1,10 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
 import { graphql, useStaticQuery } from 'gatsby'
+import { jsx } from 'theme-ui'
+
 import Link from '../../link'
 import { SideNavItem } from '../../sideNav/types'
+
 import SdkLinks from './sdkLinks'
 
 export const ExploreSdks = () => {

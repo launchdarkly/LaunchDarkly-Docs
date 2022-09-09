@@ -70,12 +70,14 @@ This table explains `feature` event properties:
       <TableCell>The version of the evaluated flag.</TableCell>
     </TableRow>
     <TableRow>
+      <TableCell><code>inExperiment</code></TableCell>
+      <TableCell><code>true</code> if this flag evaluation was allocated to an experiment. <br/> To learn more, read <a href="/home/creating-experiments/allocation">Allocating experiment audiences</a>.
+      </TableCell>
+    </TableRow>
+    <TableRow>
       <TableCell><code>reasonKind</code></TableCell>
-      <TableCell>
-
-The evaluation reason for the flag. <br/>
+      <TableCell>The evaluation reason for the flag. <br/>
 To learn more, read <a href="/sdk/concepts/evaluation-reasons">Evaluation reasons</a>.
-
       </TableCell>
     </TableRow>
     <TableRow>
@@ -89,7 +91,7 @@ To learn more, read <a href="/sdk/concepts/evaluation-reasons">Evaluation reason
     </TableRow>
     <TableRow>
       <TableCell><code>variation</code></TableCell>
-      <TableCell>The variation of the flag requested. Flag variation values are stored in an array. This value corresponds to the index of the variation the array. Boolean flags show as <code>0</code> or <code>1</code> for <code>true</code> and <code>false</code>, and other flag types are numbered starting with <code>0</code> for their different variations.</TableCell>
+      <TableCell>The variation of the flag requested. The SDK stores flag variation values in an array. This value corresponds to the index of the variation the array. Boolean flags show as <code>0</code> or <code>1</code> for <code>true</code> and <code>false</code>, and other flag types are numbered starting with <code>0</code> for their different variations.</TableCell>
     </TableRow>
         <TableRow>
       <TableCell><code>variationName</code></TableCell>

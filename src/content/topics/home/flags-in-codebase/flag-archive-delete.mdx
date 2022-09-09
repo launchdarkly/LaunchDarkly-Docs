@@ -14,6 +14,8 @@ When a flag is no longer being served to users, and it is not a prerequisite of 
 
 LaunchDarkly will not let you archive a flag that is a prerequisite of other flags. Flags are good candidates for archival when they are serving only one variation in the environment you choose and have not been requested in the last seven days.
 
+When you archive a flag in LaunchDarkly, you should also remove the flag from your code. If you do not remove an archived flag from your code, then all end users encountering the feature will receive the fallback value. To learn more about fallback values, read [Configuring variations](/sdk/features/evaluating#configuring-variations).
+
 You can delete an archived flag after you determine that it will no longer be needed in your project.
 
 ## Archiving flags

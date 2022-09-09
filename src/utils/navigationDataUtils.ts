@@ -1,4 +1,5 @@
 import { globalHistory } from '@reach/router'
+
 import { SideNavItem } from '../components/sideNav/types'
 
 type Topic = {

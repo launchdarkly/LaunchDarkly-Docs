@@ -34,7 +34,7 @@ The guide covers the following topics:
 - Setting experiment metrics
 - Creating a roadmap
 
-To learn more about Experimentation, read [About Experimentation](/home/about-experimentation).
+To learn more about Experimentation, read [About Experimentation](/home/about-experimentation). To learn about Experimentation use cases, read [Example experiments](/guides/experimentation/example-experiments).
 
 ## Prerequisites
 
@@ -68,7 +68,7 @@ You can create an experiment by connecting any flag to a metric you want to trac
 
 A hypothesis is a theoretical statement that an experiment can prove or disprove. A well-constructed hypothesis has both a positive and negative result defined.
 
-For example, you may hypothesize that changing the button position to the top-right corner will increase click-through by at least 2%, and leaving the button in its current position will not cause any changes in click-through.
+For example, you may hypothesize that changing the button position to the top-right corner will increase the site's click-through rate, and leaving the button in its current position will not cause any changes to the site's click-through rate.
 
 To learn more about writing effective hypotheses, read [Formulating a hypothesis](#formulating-a-hypothesis).
 
@@ -107,8 +107,8 @@ A hypothesis should be specific and answer a single question. You may need to ru
 
 Here are two example hypotheses:
 
-- “We believe that by rewriting our results page in React, we will reduce page load time and increase utilization by X%.”
-- “We believe that by adding a chatbot to the second page of our account registration process, we will decrease incomplete signups by 15% and have a minimum 1% increase in signup completion.”
+- “We believe that by rewriting our results page in React, we will reduce page load time and increase utilization.”
+- “We believe that by adding a chatbot to the second page of our account registration process, we will decrease incomplete signups and increase total signup completion.”
 
 Your hypothesis must be as robust and specific as possible to get useful data from your experiment. An imprecise hypothesis can allow more subjective interpretation of the results.
 
@@ -122,7 +122,7 @@ A good hypothesis has the following considerations:
 <CalloutTitle>Use this template to write useful hypotheses</CalloutTitle>
 <CalloutDescription>
 
-Most hypothesis can be reduced to the following statement:
+Most hypotheses can be reduced to the following statement:
 
 "By doing [X] to [Y], we expect [Z]."
 
@@ -146,6 +146,8 @@ Here are some possible ways to construct your experiment sample:
 - By company
 - By geography
 - Randomly
+
+If you want to restrict your experiment audience to only users with certain attributes, create a targeting rule on the flag you include in the experiment and run the experiment on that rule. If you don't want to restrict the audience for your experiment, run the experiment on the flag's default rule.
 
 To learn more, read [Allocating experiment audiences](/home/creating-experiments/allocation).
 

@@ -151,6 +151,11 @@ Here is an example:
 <CodeTabItem value="js">
 
 ```js
+const user = {
+   "key": "example-user-key",
+   "name": "Sandy"
+};
+
 client.once('ready', () => {
   client.variation('YOUR_FLAG_KEY', user, false,
     (err, showFeature) => {
@@ -167,10 +172,19 @@ client.once('ready', () => {
 <CodeTabItem value="ts">
 
 ```ts
+const user = {
+   "name": "Sandy",
+   "key": "example-user-key"
+};
+
 client.on('ready', () => {
-  client.variation('YOUR_FLAG_KEY', user, false,
-    (value) => {
-      // check value and proceed accordingly
+  client.variation(YOUR_FLAG_KEY, user, false, function(err, showFeature) {
+    client.track("event-called", user);
+    if (showFeature) {
+      // application code to show the feature
+    } else {
+      // the code to run if the feature is off
+    }
   });
 });
 ```

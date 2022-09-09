@@ -3,8 +3,8 @@ jest.mock('./userAgent', () => ({
   default: jest.fn(),
 }))
 
-import getUserAgentResults from './userAgent'
 import { getAlgoliaAnalyticsTags } from './analyticsUtils'
+import getUserAgentResults from './userAgent'
 
 const mockUAResult = {
   device: {

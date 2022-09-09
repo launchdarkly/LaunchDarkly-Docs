@@ -125,6 +125,7 @@ This feature is available in the following server-side SDKs:
 * [Java](#java)
 * [Node.js (server-side)](#)
 * [PHP](#php)
+* [Python](#python)
 * [Ruby](#ruby)
 
 ### .NET (server-side)
@@ -736,6 +737,87 @@ $td->update(
 
 To learn more, read [`TestData`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-Integrations-TestData.html).
 </Details>
+
+### Python
+
+<Details summary="Expand Python code sample">
+
+To configure the SDK to use a test data source:
+
+<CodeTabs
+  defaultValue="python"
+  values={[
+    { label: 'Python', value: 'python', },
+  ]
+}>
+<CodeTabItem value="python">
+
+```python
+from ldclient.integrations.test_data import TestData
+from ldclient import LDClient, Config
+
+td = TestData.data_source()
+# You can set any initial flag states here with td.update
+client = LDClient(config=Config(sdk_key, update_processor_class = td))
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To set a flag to a specific value:
+
+<CodeTabs
+  defaultValue="python"
+  values={[
+    { label: 'Python', value: 'python', },
+  ]
+}>
+<CodeTabItem value="python">
+
+```python
+td.update(td.flag("flag-key-1").variation_for_all_users(True))
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There are other ways you can configure flag behavior using a test data source. Here is an example:
+
+<CodeTabs
+  defaultValue="python"
+  values={[
+    { label: 'Python', value: 'python', },
+  ]
+}>
+<CodeTabItem value="python">
+
+```python
+# This flag is true for the user key "some-user-key" and false for everyone else
+td.update(
+    td
+    .flag("flag-key-2")
+    .variation_for_user("some-user-key", True)
+    .fallthrough_variation(False)
+)
+
+# This flag returns the string variation "green" for users who have the custom
+# attribute "admin" with a value of true, and "red" for everyone else.
+td.update(
+    td
+    .flag("flag-key-3")
+    .variations("red", "green")
+    .fallthrough_variation(0)
+    .if_match("admin", True)
+    .then_return(1)
+)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`TestData`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-testing.html#ldclient-integrations-test-data-module).
+</Details>
+
 
 ### Ruby
 

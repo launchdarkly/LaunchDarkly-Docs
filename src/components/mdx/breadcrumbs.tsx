@@ -1,7 +1,8 @@
 /** @jsx jsx */
-import { jsx, Themed } from 'theme-ui'
-import { graphql, useStaticQuery, Link } from 'gatsby'
 import { globalHistory } from '@reach/router'
+import { graphql, Link, useStaticQuery } from 'gatsby'
+import { jsx, Themed } from 'theme-ui'
+
 import { SideNavItem } from '../sideNav/types'
 
 const Breadcrumbs = () => {

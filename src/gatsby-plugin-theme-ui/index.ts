@@ -86,6 +86,10 @@ const theme = makeTheme({
     medium: '2rem',
     large: '3rem',
   },
+  shadows: {
+    small:
+      '0 0 .25rem rgba(40, 40, 40, 0.12), 0 .063rem .125rem rgba(40, 40, 40, 0.1), 0 .25rem .25rem rgba(40, 40, 40, 0.08)',
+  },
   text: {
     label: {
       fontSize: 3,
@@ -147,6 +151,21 @@ const theme = makeTheme({
           bg: 'muted',
         },
       },
+    },
+    siteSelector: {
+      height: [4, 'inherit'],
+      border: 1,
+      borderRadius: 3,
+      borderStyle: 'solid',
+      color: ['grayscaleBlack300', 'grayscaleWhite'],
+      borderColor: 'grayscaleGray500',
+      pl: 3,
+      pr: 2,
+      py: 2,
+      justifyContent: 'space-between',
+      textAlign: 'justify',
+      display: 'flex',
+      fontSize: 3,
     },
   },
   cards: {
@@ -356,9 +375,15 @@ const theme = makeTheme({
       },
     },
     header: {
-      height: 3,
+      height: '2.8rem',
       width: 'auto',
       fill: 'grayscaleWhite',
+      '& rect': {
+        fill: 'brandYellow',
+        '+ path': {
+          fill: 'grayscaleBlack',
+        },
+      },
     },
     sideNav: { width: 3, height: 3, fill: 'grayscaleWhite', cursor: 'pointer' },
     heading: {

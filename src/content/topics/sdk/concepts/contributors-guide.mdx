@@ -226,7 +226,7 @@ Here is an example `debug` event:
 
 ### Index and identify events
 
-The details of the `user` object used in a feature flag evaluation as reported by the `feature` event are transmitted periodically from a separate `index` event. It is expected that the SDK will only send `index` events when user attributes have changed.
+SDKs periodically transmit details for the `user` object used in a feature flag evaluation as reported by the "feature" event with a separate `index` event. The SDK will only send `index` events when  a user's attributes change.
 
 Here is an example of an `index` event:
 
@@ -317,7 +317,7 @@ The `kind` for an `alias` event is `"alias"`. The `key` and `previousKey` attrib
 
 ### Custom events
 
-`custom` events are produced when the client application calls an SDK's track method.
+SDKs produce `custom` events when the client application calls the SDK's track method.
 
 `custom` events have the following shape:
 
@@ -430,7 +430,7 @@ For each feature flag, the following data should be provided:
         <code>default</code>
       </TableCell>
       <TableCell>
-        The default value the SDK received for the feature (sampled at some point during the interval).
+        The default value the SDK received for the feature, sampled at some point during the interval.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -438,8 +438,7 @@ For each feature flag, the following data should be provided:
         <code>startDate</code>
       </TableCell>
       <TableCell>
-        The timestamp of the first feature flag evaluation included in this packet. This value is a UNIX epoch time in
-        milliseconds.
+        The timestamp of the first feature flag evaluation included in this packet. This value is a UNIX epoch time in milliseconds.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -478,14 +477,14 @@ The `counters` field is an array of objects with the following shape:
       <TableCell>
         <code>value</code>
       </TableCell>
-      <TableCell>The value returned by the SDK for the flag evaluation.</TableCell>
+      <TableCell>The value the SDK returned for the flag evaluation.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>variation</code>
       </TableCell>
       <TableCell>
-        A zero-based index into the list of variations. If this field not provided, a default value was used.
+        A zero-based index into the list of variations. If LaunchDarkly does not provide this field, it means the SDK returned a fallback value.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -502,8 +501,7 @@ The `counters` field is an array of objects with the following shape:
         <code>unknown (optional)</code>
       </TableCell>
       <TableCell>
-        If this is present and true it indicates that no flag by this name was known to LaunchDarkly (and therefore the
-        SDK default value was returned).
+        If this is present and true, it indicates that no flag by this name was known to LaunchDarkly, and therefore the SDK returned the fallback value.
       </TableCell>
     </TableRow>
   </TableBody>

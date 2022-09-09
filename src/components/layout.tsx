@@ -1,36 +1,39 @@
 /** @jsx jsx */
-import { jsx, Card, ThemeProvider } from 'theme-ui'
-import { Helmet } from 'react-helmet'
 import { FunctionComponent } from 'react'
-import { graphql, withPrefix } from 'gatsby'
-import { MDXRenderer } from 'gatsby-plugin-mdx'
+import { Helmet } from 'react-helmet'
 import { MDXProvider } from '@mdx-js/react'
+import { graphql, withPrefix } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
+import { MDXRenderer } from 'gatsby-plugin-mdx'
 import pluralize from 'pluralize'
-import Reset from './resetStyles'
-import MdxHeader from './mdx/mdxHeader'
-import { TableOfContents, TOC } from './tableOfContents'
-import Header from './header'
-import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
-import Figure, { FigCaption } from './mdx/figure'
-import Pre from './mdx/pre'
-import DesktopSideNav from './sideNav/desktopSideNav'
-import { CodeTabs, CodeTabItem, Code } from './mdx/code'
-import Feature from './mdx/feature'
-import Metadata from './mdx/metadata'
-import Table, { TableHeader, TableHeadCell, TableBody, TableRow, TableCell } from './mdx/table'
-import LearnMore from './mdx/learnMore'
-import Callout, { CalloutTitle, CalloutDescription } from './mdx/callout'
-import Link from './link'
-import Icon from './icon'
+import { Card, jsx, ThemeProvider } from 'theme-ui'
+
+import { SiteFrontmatter } from '../types/siteType'
+
 import Homepage from './home/landingPage'
-import { AllSdks } from './home/sdks/exploreSdks'
 import ClientSideSdks from './home/sdks/clientSideSdks'
-import ServerSideSdks from './home/sdks/serverSideSdks'
+import { AllSdks } from './home/sdks/exploreSdks'
 import ReactSdks from './home/sdks/reactSdks'
-import ChildPageList from './ChildPageList'
-import { SdksEndOfLife, RelayEndOfLife } from './endOfLife'
+import ServerSideSdks from './home/sdks/serverSideSdks'
+import Callout, { CalloutDescription, CalloutTitle } from './mdx/callout'
+import { Code, CodeTabItem, CodeTabs } from './mdx/code'
 import Details from './mdx/details'
+import Feature from './mdx/feature'
+import Figure, { FigCaption } from './mdx/figure'
+import { H1, H2, H3, H4, H5, H6 } from './mdx/heading'
+import LearnMore from './mdx/learnMore'
+import MdxHeader from './mdx/mdxHeader'
+import Metadata from './mdx/metadata'
+import Pre from './mdx/pre'
+import Table, { TableBody, TableCell, TableHeadCell, TableHeader, TableRow } from './mdx/table'
+import DesktopSideNav from './sideNav/desktopSideNav'
+import ChildPageList from './ChildPageList'
+import { RelayEndOfLife, SdksEndOfLife } from './endOfLife'
+import Header from './header'
+import Icon from './icon'
+import Link from './link'
+import Reset from './resetStyles'
+import { TableOfContents, TOC } from './tableOfContents'
 
 const components = {
   h1: H1,
@@ -75,30 +78,9 @@ const components = {
 
 const theme = {}
 
-const rootGridStyles = {
+const rootStyles = {
   letterSpacing: '0.0125rem',
   color: 'text',
-  height: '100vh',
-  display: 'grid',
-  gridTemplateColumns: ['100%', '19rem auto', '19rem 48rem auto'],
-  gridTemplateRows: '4.5rem auto',
-  gridTemplateAreas: [
-    `
-            'header'
-            'main'
-            'footer'
-            `,
-    `
-            'header header'
-            'sideNav main'
-            'sideNav footer'
-            `,
-    `
-            'header header header'
-            'sideNav main aside'
-            'sideNav footer footer'
-            `,
-  ],
 }
 
 interface LayoutProps {
@@ -122,6 +104,8 @@ interface LayoutProps {
         title: string
         description: string
         path: string
+        site: SiteFrontmatter
+        siteAlertTitle: string
       }
       fileAbsolutePath: string
     }
@@ -138,7 +122,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
       toc,
       timeToRead,
       fields: { isLandingPage, lastModifiedTime, modifiedDate },
-      frontmatter: { title, description, path },
+      frontmatter: { title, description, path, site = 'all', siteAlertTitle },
       fileAbsolutePath,
     },
   },
@@ -178,30 +162,47 @@ const Layout: FunctionComponent<LayoutProps> = ({
           </script>
         )}
       </Helmet>
-      <div sx={rootGridStyles}>
+      <div sx={rootStyles}>
         <Header />
-        <DesktopSideNav />
 
-        <main sx={{ gridArea: 'main', px: [5, 7, 8], pt: '2.75rem' }}>
-          <article>
+        <main
+          sx={{
+            height: 'calc(100vh - 4.5rem)',
+            position: 'relative',
+            top: '4.5rem',
+          }}
+        >
+          <DesktopSideNav />
+          <article
+            sx={{
+              px: '3.5rem',
+              pt: '2.75rem',
+              position: 'relative',
+              height: '100%',
+              maxWidth: theme => [null, null, theme.breakpoints[1]],
+              ml: [0, '19rem'],
+              mr: [0, 0, '18rem'],
+              'h2,h3,h4': {
+                scrollMarginTop: '5.5rem',
+              },
+            }}
+          >
             <MdxHeader
               fileAbsolutePath={fileAbsolutePath}
               title={title}
               timeToRead={timeToRead}
               lastModifiedDateFormatted={modifiedDate}
               isLandingPage={isLandingPage}
+              site={site}
+              siteAlertTitle={siteAlertTitle}
             />
             <MDXProvider components={components}>
               <MDXRenderer>{body}</MDXRenderer>
             </MDXProvider>
+            <footer sx={{ height: '7rem' }}></footer>
           </article>
+          {!isLandingPage && <TableOfContents toc={toc} />}
         </main>
-        {!isLandingPage && (
-          <aside sx={{ gridArea: 'aside', pt: 4, display: ['none', 'none', 'block'], width: '18rem' }}>
-            <TableOfContents toc={toc} />
-          </aside>
-        )}
-        <footer sx={{ gridArea: 'footer', height: '7rem' }}></footer>
       </div>
     </ThemeProvider>
   )
@@ -228,6 +229,8 @@ export const pageQuery = graphql`
         title
         description
         path
+        site
+        siteAlertTitle
       }
       fileAbsolutePath
     }

@@ -243,7 +243,7 @@ end
 </CodeTabItem>
 </CodeTabs>
 
-Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#ruby).
+Lastly, shut down the client when your application terminates. This frees the resources the worker threads were using and provides an explicit signal for the Ruby SDK to send the remaining event data back to LaunchDarkly. To learn more, read [Shutting down](/sdk/features/shutdown#ruby).
 
 ## Supported features
 

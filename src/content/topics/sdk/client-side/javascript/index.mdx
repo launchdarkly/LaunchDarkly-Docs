@@ -90,13 +90,13 @@ The JavaScript SDK respects the [Do Not Track events](https://www.eff.org/issues
 
 ## Getting started
 
-After you complete the [Getting started](/home/getting-started) process, follow these instructions to start using the LaunchDarkly SDK in your JavaScript code.
+After you complete the [Getting started](/home/getting-started) process, follow these instructions to start using the LaunchDarkly JavaScript SDK in your JavaScript code.
 
-The first step is to make the LaunchDarkly SDK available as a dependency. There are two ways to make our JavaScript SDK available: as a module with a package manager, or with a `script` tag.
+The first step is to make the JavaScript SDK available as a dependency. There are two ways to make the JavaScript SDK available: as a module with a package manager, or with a `script` tag.
 
 ### Making the SDK available with a package manager
 
-In most cases, making the LaunchDarkly SDK available to your application or site requires running one of the following in your project:
+In most cases, making the JavaScript SDK available to your application or site requires running one of the following in your project:
 
 <CodeTabs
   defaultValue="npm"
@@ -130,7 +130,7 @@ bower install https://unpkg.com/launchdarkly-js-client-sdk@2
 </CodeTabItem>
 </CodeTabs>
 
-If you are using a package manager, and combining dependencies with your code using a tool such as Webpack, there are various ways to import the LaunchDarkly SDK into your code.
+If you are using a package manager, and combining dependencies with your code using a tool such as Webpack, there are various ways to import the JavaScript SDK into your code.
 
 Here are two examples in commonly used frameworks:
 
@@ -171,7 +171,7 @@ To load our JavaScript SDK as a script tag, include one of the following in the 
 
  Do not use script tags with sources from unpkg and jsDelivr in production environments. These introduce a critical dependency on a third-party service. The unpkg and jsDelivr scripts are intended to be used only for ease of development and getting started.
 
- In production environments, we strongly recommend that you self-host the LaunchDarkly SDK alongside your other JavaScript resources.
+ In production environments, we strongly recommend that you self-host the JavaScript SDK alongside your other JavaScript resources.
 
 </CalloutDescription>
 </Callout>
@@ -220,7 +220,7 @@ Here is an example of code to include in the `<head>` tag of your site:
 
 ## Initializing the client
 
-After you install the dependency, initialize the LaunchDarkly client. To create a client instance, you need your environment's client-side ID, available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings#/projects). 
+After you install the dependency, initialize the LaunchDarkly client. To create a client instance, you need your LaunchDarkly environment's client-side ID. Your client-side ID is available under **Environments** on the **Projects** tab on the [**Account settings** page](https://app.launchdarkly.com/settings#/projects).
 
 <Callout intent="alert">
 <CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
@@ -280,7 +280,7 @@ const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
 <CalloutTitle>Initialization delay</CalloutTitle>
 <CalloutDescription>
 
-Initializing the client makes a remote request to LaunchDarkly, so it may take 100 milliseconds or more before the SDK emits the ready event. If you require feature flag values before rendering the page, we recommend bootstrapping the client. If you bootstrap the client, it will emit the ready event immediately. To learn more, read [Bootstrapping](/sdk/features/bootstrapping#javascript).
+Initializing the client makes a remote request to LaunchDarkly. Depending on your network conditions, it may take a couple hundred milliseconds before the SDK emits the ready event. If you require feature flag values before rendering the page, we recommend bootstrapping the client. If you bootstrap the client, it will emit the ready event immediately. To learn more, read [Bootstrapping](/sdk/features/bootstrapping#javascript).
 
 </CalloutDescription>
 </Callout>

@@ -64,10 +64,10 @@ find-launchdarkly-code-refs:
        --dir $CI_PROJECT_DIR
        --repoName $CI_PROJECT_NAME
        --repoUrl $CI_PROJECT_URL
+       --repoType gitlab
        --branch $CI_COMMIT_REF_NAME
        --updateSequenceId $CI_PIPELINE_IID
-       --commitUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/commit/"\${sha}"
-       --hunkUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/blob/"\${sha}/\${filePath}#L\${lineNumber}"
+       --userAgent gitlab-pipeline
 ```
 
 </CodeTabItem>
@@ -112,7 +112,7 @@ deploy1:
 find-launchdarkly-code-refs:
   stage: deploy
   image:
-    name: launchdarkly/ld-find-code-refs:2.5.0
+    name: launchdarkly/ld-find-code-refs:latest
     entrypoint: [""]
   script:
     - ld-find-code-refs
@@ -121,10 +121,10 @@ find-launchdarkly-code-refs:
        --dir $CI_PROJECT_DIR
        --repoName $CI_PROJECT_NAME
        --repoUrl $CI_PROJECT_URL
+       --repoType gitlab
        --branch $CI_COMMIT_REF_NAME
        --updateSequenceId $CI_PIPELINE_IID
-       --commitUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/commit/"\${sha}"
-       --hunkUrlTemplate https://gitlab.com/${CI_PROJECT_PATH}/blob/"\${sha}/\${filePath}#L\${lineNumber}"
+       --userAgent gitlab-pipeline
 ```
 
 </CodeTabItem>

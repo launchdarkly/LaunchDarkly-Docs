@@ -5,7 +5,7 @@ isInternal: true
 published: true
 ---
 
-This guide helps authors and developers unify implementation by providing you with components, tokens and practices for our docsite.
+This guide helps authors and developers unify implementation by providing you with components, tokens, and practices for our docsite.
 
 ### Table of Contents
 
@@ -346,9 +346,9 @@ You do not have to send users to LaunchDarkly in advance. <a href="">Check out t
 ## Code samples
 
 1. Write code block as markdown as usual.
-2. Add a `CodeTabs` component with a default value (which will be the first tab shown) and a values array of objects with a label and value.
-3. Each CodeTabItem will be one of the tabs
-
+2. Add a `CodeTabs` component with a default value, which will be the first tab shown, and a values array of objects with a label and value.
+3. Each CodeTabItem will be one of the tabs.
+4. If a tab has federal-specific content, include two versions of the language. Set `site=federal` after the language for the federal-specific code block. When the reader selects "LaunchDarkly docs," the CodeTabItem displays the unannotated code block. When they select "Federal docs," the CodeTabItem displays the `site=federal` code block.
 
 <CodeTabs
   defaultValue="code"
@@ -374,6 +374,11 @@ You do not have to send users to LaunchDarkly in advance. <a href="">Check out t
     function helloWorld() {
       console.log('Hello, world!');
     }
+    ```
+    ```js site=federal
+      function helloFederal() {
+        console.log('Hello, federal!');
+      }
     ```
 
     </CodeTabItem>

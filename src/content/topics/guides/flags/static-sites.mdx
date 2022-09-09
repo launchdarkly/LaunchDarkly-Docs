@@ -32,9 +32,9 @@ This guide relies on the following concepts:
 
 Static websites are a set of one or more webpages served from a web server or content delivery network (CDN). We call them "static" sites because their pages are not generated dynamically. Static sites change when a new version is published, either with a content management system or with a new deployment.
 
-### Content management system (CMS)
+### Content management system
 
-You can use a CMS to manage the creation, management, and publishing workflow of a website. There are many different CMSs like [Contentful](https://www.contentful.com/) and [Prismic](https://prismic.io/).
+You can use a content management system (CMS) to manage the creation, management, and publishing workflow of a website. There are many different CMSs like [Contentful](https://www.contentful.com/) and [Prismic](https://prismic.io/).
 
 ### Content delivery network
 
@@ -186,25 +186,25 @@ To learn more, read [Initializing the client](/sdk/client-side/javascript#initia
 
 ## Bootstrapping the client
 
-"Bootstrapping" refers to hydrating the LaunchDarkly client with an initial set of feature flag values that is immediately available during client initialization.
+Bootstrapping lets you decrease startup times for client-side SDKs by providing them with an initial set of flag values that are immediately available during client initialization. The SDK serves these values to the user before it has established a connection to LaunchDarkly so there is no inconsistency in the flag variations they receive.
 
 There are two methods of bootstrapping the client:
 
-* Using the browser's localStorage, and
-* Sending HTML with flag information to the server
+* Using the browser's local storage, and
+* Sending HTML and JavaScript with flag information from the server
 
-### Using localStorage
+### Bootstrapping using local storage
 
-If you use localStorage, the client can initialize itself without an additional delay from fetching the flags from the LaunchDarkly servers.
+In this method, the client stores the latest flag settings in the browser's local storage so the client can initialize itself without an additional delay from fetching the flags from the LaunchDarkly servers. The client still initializes and connects to LaunchDarkly's service to fetch the most recent flag values, but is no longer dependent on those values to reach its `ready` state.
 
 While truly static sites don't have the flag values available before the JavaScript on the page starts executing, the LaunchDarkly client can cache the initial set of flag values retrieved from the server.
 
-This technique uses the browser's localStorage:
+This technique uses the browser's local storage:
 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Bootstrapping with localStorage', value: 'js', },
+    { label: 'Bootstrapping with local storage', value: 'js', },
   ]
 }>
 
@@ -219,23 +219,39 @@ const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
 </CodeTabItem>
 </CodeTabs>
 
-In this example, the client stores the latest flag settings in localStorage. On subsequent page loads, it fetches the most recently cached flag values from localStorage and emits the `ready` event immediately.
+The local storage cache updates when new values arrive. On subsequent page loads, it fetches the most recently cached flag values from local storage and emits the `ready` event immediately.
 
-The client still initializes and connects to LaunchDarkly's service to fetch the most recent flag values, but is no longer dependent on those values to reach its `ready` state. The localStorage cache updates when new values arrive.
+Bootstrapping using local storage has some benefits:
 
-There is a limitation to this approach. On the user's initial visit to your site, localStorage is empty. The user can observe the site's default behavior before the behavior that is controlled by a feature flag loads. This may delay parts of your site loading and reflect poorly on your site's perceived performance.
+- It is easy to set up, and requires little maintenance. 
+- It is useful when you can't dynamically add bootstrapping data to the page.
 
-Subsequent visits to that page will utilize the values in localStorage. Flag changes that happen while the user is on the page automatically update the localStorage cache, keeping it in sync with the server. If the user is not on the page when the flag change happens, the flag value in localStorage may go out of sync with the server. The next time this user visits that page, they could experience a flicker because of the client using the previous flag value from localStorage.
+Bootstrapping using local storage also has some downsides:
 
-If you bootstrap using localStorage, it's important to choose effective defaults for your flag values to limit rendering delays.
+- The first time the user visits your site, local storage is empty. This means the user will receive the site's default behavior before the values from feature flags load, and only after their second visit will the page utilize the values in local storage.
+- If there is a long time between page visits, the values stored in local storage may be out of date.
+- Some users have privacy settings that block sites from using their browser's local storage.
+- Flag changes that happen while the user is on the page automatically update the local storage cache, keeping it in sync with the server. However, if the user is not on the page when the flag change happens, the flag value in local storage may go out of sync with the server. The next time this user visits that page, they could experience a flicker because of the client using the previous flag value from local storage. If you bootstrap using local storage, it's important to choose effective defaults for your flag values to limit rendering delays. On SPA sites, this may not be a problem. Users will likely only load a site once per browser session. In this case, [subscribe to flag changes](#releasing-features-in-realtime) to trigger the appropriate behavior in your app in real-time.
 
-On SPA sites, this may not be a problem. Users will likely only load a site once per browser session. In this case, [subscribe to flag changes](#releasing-features-in-realtime) to trigger the appropriate behavior in your app in real-time.
+### Bootstrapping using server-rendered content
 
-### Bootstrapping from the server
+While bootstrapping from local storage is a must on a purely static site, you can also bootstrap using HTML and JavaScript from a server.
 
-While bootstrapping from localStorage is a must on a purely static site, you can also bootstrap from your server.
+In this method, the server sends to the browser an HTML page containing the JavaScript and the feature flags your site needs during the initial render. Your site then bootstraps the LaunchDarkly client with those flags. Feature flags are ready immediately, and clients always receive the latest feature flag values.
 
-In this model, the HTML page your server sends to the browser contains the feature flags your site needs during the initial render. Your site then bootstraps the LaunchDarkly client with those flags.
+Bootstrapping using server-rendered content requires more setup than bootstrapping from local storage, but provides more benefits.
+
+The benefits of bootstrapping using server-rendered content include:
+
+- It provides values the first time a user visits a page.
+- Bootstrapped values will not become out of date if there is a lag between page visits.
+- It does not rely on a user's privacy settings to function.
+
+The downside to bootstrapping using server-rendered content is that it requires significantly more set up work than bootstrapping from local storage.
+
+All of the server-side SDKs have a function, named some variation of `allFlagsState`, to evaluate flags on behalf of a specified user. We recommend populating the initial set of bootstrap values with a JSON object containing flag metadata derived from calling the server-side SDK's all flags method.
+
+If your back end passes values to your front end on page load, you can call your server-side SDK's all flags function on page load and pass the results as a parameter to your front-end initialization code. To learn more, read [Getting all flags](/sdk/features/all-flags).
 
 Here's an example of how to bootstrap from a server:
 
@@ -249,9 +265,9 @@ Here's an example of how to bootstrap from a server:
 <CodeTabItem value="js">
 
 ```js
-// If your server passes values to your front end on pageload,
-// you can call your server-side SDK's allFlagsState function (naming varies per SDK)
-// on pageload and pass the results as a parameter to your
+// If your server passes values to your front end on page load,
+// you can call your server-side SDK's all flags state function
+// on page load and pass the results as a parameter to your
 // front-end initialization code.
 function onPageLoad(flags) {
   ...
@@ -270,7 +286,7 @@ function onPageLoad(flags) {
 ...
 
 <script>
-// Elsewhere on the page, this is injected by the server
+// Elsewhere on the page, the server injects this
 onPageLoad({
   // flag values for user
   'foo': true,
@@ -284,7 +300,7 @@ onPageLoad({
 
 All LaunchDarkly server-side SDKs can evaluate all flags on a user's behalf. These flags can then be combined with the HTML response.
 
-To learn more, read [Bootstrapping the client](/sdk/features/bootstrapping#javascript).
+To learn more, read about [bootstrapping with JavaScript](/sdk/features/bootstrapping#javascript).
 
 ## Timing when your site renders
 
@@ -301,11 +317,11 @@ Here's [a simple demonstration](https://feature-flagging-static-sites.netlify.ap
 
 The examples above showcase several strategies you can apply to reduce the risk of your page flickering after the feature flags are loaded.
 
-In most cases, [using localStorage](#using-localstorage) might be enough for most sites. Depending on how complex your site is or whether your page is generated or rendered on the server, you may be able to take advantage of [bootstrapping from the server](#bootstrapping-from-the-server). But if that's not possible, choosing to delay rendering is undoubtedly an option but could reflect poorly on your site's perceived performance.
+In most cases, [using local storage](#bootstrapping-using-local-storage) might be enough for most sites. Depending on how complex your site is or whether your page is generated or rendered on the server, you may be able to take advantage of [bootstrapping using server-rendered content](#bootstrapping-using-server-rendered-content). If that's not possible, choosing to delay rendering is an option, but could reflect poorly on your site's perceived performance.
 
 ## Releasing features in realtime
 
-When your app initializes the LaunchDarkly client, the LaunchDarkly servers will send the full set of evaluated flags values to the browser. The browser will store the flags either in memory or localStorage.
+When your app initializes the LaunchDarkly client, the LaunchDarkly servers will send the full set of evaluated flags values to the browser. The browser will store the flags either in memory or local storage.
 
 If a flag changes after the page renders, the LaunchDarkly client is not notified of the change. If the site is a SPA, you might want the site to react to the flag change and re-render any affected components or interaction logic in the page in realtime.
 

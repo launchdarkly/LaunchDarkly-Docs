@@ -1,8 +1,10 @@
 import React, { ReactNode } from 'react'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
-import { CodeSnippet } from './codeSnippet'
-import useSite from '../../siteSelector/useSite'
+
 import { setSubdomain } from '../../../utils/siteAwareUtils'
+import useSite from '../../siteSelector/useSite'
+
+import { CodeSnippet } from './codeSnippet'
 
 type CodeProps = {
   className?: string

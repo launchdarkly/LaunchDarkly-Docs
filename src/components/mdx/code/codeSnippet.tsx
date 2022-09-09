@@ -1,9 +1,10 @@
 /** @jsx jsx */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Fragment, useState, useCallback } from 'react'
-import { jsx, Themed, Box, Button } from 'theme-ui'
+import { Fragment, useCallback, useState } from 'react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import Prism from 'prismjs'
+import { Box, Button, jsx, Themed } from 'theme-ui'
+
 import 'prismjs/components/prism-go'
 import 'prismjs/components/prism-ruby'
 import 'prismjs/components/prism-java'
@@ -28,6 +29,7 @@ import 'prismjs/components/prism-nginx'
 import 'prismjs/components/prism-dart'
 import 'prismjs/components/prism-erlang'
 import 'prismjs/components/prism-rust'
+
 import { copyToClipboard } from '../../../utils/copyToClipboard'
 
 export type CodeSnippetProps = {
