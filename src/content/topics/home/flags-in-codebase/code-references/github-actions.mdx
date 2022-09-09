@@ -46,8 +46,8 @@ To set up GitHub code references:
 <CodeTabItem value="yaml">
 
 ```yaml
-on: push
 name: Find LaunchDarkly flag code references
+on: push
 # cancel in-flight workflow run if another push was triggered
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -103,112 +103,8 @@ If the action fails, there may be a problem with your configuration. To investig
 
 ## Additional configuration options
 
-You can configure `ld-find-code-refs` with additional [inputs](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepswith) to enable more functionality.
+You can configure `find-code-references` with additional [inputs](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepswith) to enable more functionality. You can find additional configuration options at the bottom of the [LaunchDarkly Code References marketplace page](https://github.com/marketplace/actions/launchdarkly-code-references#inputs).
 
 In addition to inputs, you can skip searching files and directories using a [`.ldignore`](https://github.com/launchdarkly/ld-find-code-refs/blob/main/docs/CONFIGURATION.md#ignoring-files-and-directories) file.
 
 You can also use the [`.launchdarkly/coderefs.yaml`](https://github.com/launchdarkly/ld-find-code-refs/blob/main/docs/CONFIGURATION.md#advanced-yaml-configuration) file for advanced configuration options, such as configuring custom delimiters and aliases for your flag keys.
-
-This table explains the configuration variables:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Variable</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-    <TableHeadCell>Required</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>accessToken</code>
-      </TableCell>
-      <TableCell>
-        A LaunchDarkly access token with Writer-level access, or access to the <code>code-reference-repository</code> custom role resource. Supply this as a GitHub repository secret.
-      </TableCell>
-      <TableCell>Yes</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>projKey</code>
-      </TableCell>
-      <TableCell>
-        A LaunchDarkly project key. Found under <strong>Account Settings > Projects</strong> in the flags list.
-      </TableCell>
-      <TableCell>Yes</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>repoName</code>
-      </TableCell>
-      <TableCell>
-        The repository name. Defaults to the current GitHub repository.
-      </TableCell>
-      <TableCell>No</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>contextLines</code>
-      </TableCell>
-      <TableCell>
-        The number of context lines above and below a code reference for the flag finder to send to LaunchDarkly.
-        <br />
-        If &lt; 0, no source code will be sent to LaunchDarkly.
-        <br />
-        If 0, only the lines containing flag references will be sent.
-        <br />
-        If &gt; 0, will send that number of context lines above and below the flag reference.
-        <br />A maximum of 5 context lines may be provided. Defaults to 2.
-      </TableCell>
-      <TableCell>No</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>baseUri</code>
-      </TableCell>
-      <TableCell>
-        Set the base uniform resource identifier (URI) of the LaunchDarkly server for this configuration. Defaults to{' '}
-        <code>https://app.launchdarkly.com</code>.
-      </TableCell>
-      <TableCell>No</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>allowTags</code>
-      </TableCell>
-      <TableCell>
-        Enables storing references for tags. The tag is listed as a branch. Defaults to <code>false</code>.
-      </TableCell>
-      <TableCell>No</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>debug</code>
-      </TableCell>
-      <TableCell>
-        Enables verbose default logging. Defaults to <code>false</code>.
-      </TableCell>
-      <TableCell>No</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>ignoreServiceErrors</code>
-      </TableCell>
-      <TableCell>
-        If enabled, the scanner will terminate with exit code 0 when the LaunchDarkly API is unreachable or returns an
-        unexpected response. Defaults to <code>false</code>.
-      </TableCell>
-      <TableCell>No</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>lookback</code>
-      </TableCell>
-      <TableCell>
-        Sets the number of git commits to search in history for whether you removed a feature flag from code. You may set this
-        to 0 to disabled this feature. Setting this option to a high value will increase search time. Defaults to{' '}
-        <code>10</code>.
-      </TableCell>
-      <TableCell>No</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
