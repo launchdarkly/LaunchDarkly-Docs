@@ -35,6 +35,15 @@ To learn more about how LaunchDarkly manages different environments, read [Envir
 
 Flag hierarchies can span multiple teams. When you think about the design of your hierarchy, remember that you may cross organizational boundaries to deliver a unified user experience. Different teams may rely on the same flags, use the same environments, or do complementary work.
 
+<Callout intent="warning">
+<CalloutTitle>Flags must be in the same project to use one as a prerequisite of the other</CalloutTitle>
+<CalloutDescription>
+
+While different teams can use flag hierarchies to collaborate, they must be working from a common project to use flag prerequisites. Feature flags from different projects cannot be prerequisites of one another.
+
+</CalloutDescription>
+</Callout>
+
 ## Understanding how flag hierarchy impacts deployment and release
 
 Feature flags are control points we use to change how software acts after it's deployed. You can think of the ability to feature flag as a tool, and the ways feature flags get implemented as patterns. Feature flags are tools that we implement in specific patterns with the objective of achieving a business goal, like controlling who can access a certain feature or testing UI changes on a website.
@@ -145,7 +154,7 @@ Here are use cases for hierarchical flag relationships:
 
 Feature bundling is when many features or subfeatures are controlled by a single prerequisite flag. This pattern allows many teams to contribute to a major release without accidentally exposing parts of the code before the entire release is ready.
 
-For example, a LaunchDarkly customer did a major rebranding across multiple products, including fonts, graphics, CSS, and naming. Each of the changes in that list was a feature that had its own flag. All of those flags were dependent on one prerequisite flag called "Rebranding."
+For example, a LaunchDarkly customer did a major rebranding, including fonts, graphics, CSS, and naming. Each of the changes in that list was a feature that had its own flag. All of those flags were dependent on one prerequisite flag called "Rebranding."
 
 Teams could test that their own flags were working correctly in a test environment that had the "Rebranding" flag set to `true`. When everything was ready, the CEO flipped the "Rebranding" flag live in production while on stage at a major conference.
 
