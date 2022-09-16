@@ -5,7 +5,7 @@
 import React, { Children, FC, ReactElement } from 'react'
 import qs from 'qs'
 
-import { isValidSite } from '../../../utils/siteAwareUtils'
+import { errorOnInvalidSite } from '../../../utils/siteAwareUtils'
 import useSite from '../../siteSelector/useSite'
 
 export const CodeTabItem: FC = ({ children }) => {
@@ -17,9 +17,7 @@ export const CodeTabItem: FC = ({ children }) => {
     const metaString = child.props?.children?.props?.metastring
     const { site: codeTabItemSite } = qs.parse(metaString, { ignoreQueryPrefix: true })
 
-    if (codeTabItemSite && !isValidSite(codeTabItemSite as string)) {
-      throw Error(`Invalid site ${codeTabItemSite}. Site must either be launchDarkly or federal case sensitive.`)
-    }
+    errorOnInvalidSite(codeTabItemSite as string)
 
     // the default codeTabItem is the first that does not have a site prop
     if (!defaultChild && !codeTabItemSite) {
