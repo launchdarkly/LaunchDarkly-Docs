@@ -312,6 +312,7 @@ This feature is available in the following server-side SDKs:
 * [Java](#java)
 * [Lua](#lua)
 * [Node.js (server-side)](#nodejs-server-side)
+* [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
 * [Rust](#rust)
@@ -492,6 +493,30 @@ Here's how:
 
 ```js
 client.flush();
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### PHP
+
+<Details summary="Expand PHP code sample">
+
+Internally, the LaunchDarkly SDK keeps an event buffer for `variation`, `track`, and `identify` calls. These are automatically flushed when the LDClient is destroyed. PHP's shared-nothing architecture means manual invocation of this method is typically not needed. Developers may do so if they wish to flush events prior to teardown.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', },
+  ]
+}>
+<CodeTabItem value="php">
+
+```php
+ldclient->flush();
 ```
 
 </CodeTabItem>
