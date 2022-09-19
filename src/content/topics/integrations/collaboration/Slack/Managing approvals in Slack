@@ -1,0 +1,42 @@
+---
+path: /integrations/managing-approvals-in-slack
+title: Managing approvals in Slack
+description: This topic explains how to manage approvals for flag changes using the Slack integration.
+published: true
+tags: ['slack', 'approval']
+---
+
+## Overview
+
+This topic explains how to manage approvals for flag changes using the Slack integration.
+
+## Using Slack approvals
+
+You can use Slack to manage approval requests for flag changes. FEATURE NAME can also help OTHER BUSINESS CASES. Learn more about Approvals (link).
+
+### Understanding SPECIFIC THING about FEATURE NAME
+
+<!--
+
+This section is optional. Include it if you need to add more detail about how the feature works. You can also use this section to explain high-level concepts that are critical to using the feature.
+
+-->
+
+## Setting up FEATURE NAME
+
+Here is how to set up FEATURE NAME:
+
+1. Start every step in a procedure with a verb.
+2. Continue to start steps with verbs.
+
+![Here is an example alt-text caption explaining what the screenshot depicts.](UI-ELEMENT-BEHAVIOR.png)
+
+## VERBing FEATURE NAME
+
+<!--
+
+Continue to use ## and ### to outline different aspects of the feature. Think about both implementation and post-implementation use--does the reader need to know how to add, edit, manage, delete, or disable things in this feature? Each of those behaviors could have its own section.
+
+If organizing the topic is challenging, ask the docs team for help! Your most important job is making sure the feature is documented comprehensively and correctly, not that the docs are perfect.
+
+-->
