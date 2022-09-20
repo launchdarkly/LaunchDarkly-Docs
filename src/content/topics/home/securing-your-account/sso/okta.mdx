@@ -10,7 +10,7 @@ tags: ['okta', 'admin', 'scim', 'sso', 'custom role', 'idp']
 
 This topic explains how Okta and LaunchDarkly work together to provide user management for your account members. Okta and LaunchDarkly communicate through the System for Cross-domain Identity Management (SCIM) API specification. SCIM is designed to make managing identities in cloud-based applications and services easier.
 
-A LaunchDarkly app is available in Okta. You can connect LaunchDarkly and Okta through the Okta UI, give Okta permissions to modify account members in LaunchDarkly, and even integrate LaunchDarkly custom roles with Okta.
+A LaunchDarkly app is available in Okta. You can connect LaunchDarkly and Okta through the Okta UI, give Okta permissions to modify account members in LaunchDarkly, and even integrate LaunchDarkly custom roles with Okta. Optionally, you can also sync groups in Okta with LaunchDarkly teams to automate team member provisioning.
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ To use Okta with LaunchDarkly, you must meet the following prerequisites:
 <CalloutTitle>SCIM-based user provisioning is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-SCIM facilitates _user provisioning_, which means your IdP can use it to create, update, and deactivate members in LaunchDarkly. User provisioning with SCIM is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+SCIM facilitates _real-time user provisioning_, which means your IdP can create, update, and deactivate LaunchDarkly members before the first time a user authenticates in LaunchDarkly. User provisioning with SCIM is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
@@ -63,7 +63,7 @@ You just activated the LaunchDarkly app in Okta.
 
 ## Granting Okta permission to manage users in LaunchDarkly
 
-This procedure tells you how to connect the LaunchDarkly app and Okta by using SCIM. This allows you to provision, manage, and deprovision LaunchDarkly account members in Okta.
+You can use SCIM to connect the LaunchDarkly app to Okta. This lets you provision, manage, and deprovision LaunchDarkly account members in Okta.
 
 To grant Okta permission to manage account members:
 
@@ -194,3 +194,80 @@ SAML ignores empty fields if used in **Roles** or **customRoles**. To clear all 
 
 </CalloutDescription>
 </Callout>
+
+## Using Okta to manage LaunchDarkly teams with SCIM
+
+You can use Okta to create new teams in LaunchDarkly, or link an Okta group to an existing team, to maintain team memberships within Okta.
+
+Prerequisites:
+- You must configure SCIM provisioning in the LaunchDarkly Okta app.
+- You must have [turned on team sync with SCIM](/home/account-security/sso/scim#team-sync-with-scim).
+- Any group members that you want to push to a team in LaunchDarkly must already be provisioned and assigned to the LaunchDarkly application in Okta. After you sync an Okta group with a LaunchDarkly team, you will no longer be able to make team membership changes in the LaunchDarkly UI.
+
+<Callout intent="info">
+<CalloutTitle>You cannot use the same Okta group for assignments and for Group Push</CalloutTitle>
+<CalloutDescription>
+
+Okta does not support using the same Okta group for assignments and for Group Push. You must create a separate group that is configured to push teams to maintain consistent group membership between Okta and LaunchDarkly. This is a known limitation of Okta's Group Push feature. To learn more, read [About Group Push](https://help.okta.com/en-us/Content/Topics/users-groups-profiles/usgp-about-group-push.htm).
+
+</CalloutDescription>
+</Callout>
+
+### Pushing an Okta group to create a new team
+
+To push an Okta group to create a new team in LaunchDarkly:
+
+1. Navigate to the "Applications" page within Okta and open the LaunchDarkly app. 
+2. On the "Push Groups" tab, click **Push Groups**. Select whether to search for a group by name or by rule.
+
+![The "Push Groups" tab within the LaunchDarkly Okta application.](okta-push-groups.png)
+
+3. Search for the name of the group you wish you to push, then click **save**.
+
+![The "Push groups by name" screen in Okta.](okta-push-groups-by-name.png)
+
+4. The group now appears in the LaunchDarkly app's group list. It may take a moment for the "Push Status" column to change from "Pushing" to "Active."
+
+![An active group push in Okta.](okta-active-group-push.png)
+
+After the push status in Okta is "Active," you can confirm the new team was created and synced with Okta on the **Teams** tab in LaunchDarkly.
+
+![The "Teams" tab showing teams synced with Okta.](teams-synced-with-idp.png)
+
+### Linking an Okta group to an existing team
+
+LaunchDarkly also supports [Group Linking with Okta](https://help.okta.com/en-us/Content/Topics/users-groups-profiles/usgp-enhanced-group-push-main.htm), which adds the ability to push a group name that already exists within the LaunchDarkly application and link it to that team.
+
+To link an Okta group to an existing LaunchDarkly team:
+
+1. Navigate to the "Applications" page within Okta and open the LaunchDarkly app. 
+2. On the "Push Groups" tab, click **Push Groups**. Select whether to search for a group by name or by rule.
+
+![The "Push Groups" tab within the LaunchDarkly Okta application.](okta-push-groups.png)
+
+3. Find the group you wish to link by searching for its name. Okta will attempt to find a matching team based on the group name. 
+ - If Okta doesn't automatically select a group based on the team name, click the "Create Group" menu and select "Link Group," then search for the team you wish to link.
+
+![Linking a group to an existing LaunchDarkly team in Okta.](okta-group-link.png)
+
+4. The group now appears in the LaunchDarkly application's group list. It may take a moment for the "Push Status" column to change from "Pushing" to "Active."
+
+![An active group push.](okta-active-group-push.png)
+
+After the push status in Okta is "Active," you can confirm the team has been marked as "Synced" in the LaunchDarkly UI, and that the team membership matches the group membership in Okta, on the LaunchDarkly **Account settings** page.
+
+![Teams synced with SCIM.](teams-synced-with-idp.png)
+
+### Unlinking pushed groups in Okta
+
+After you have synced a team with an Okta group, you cannot unsync it. The only way to remove the team is to unlink the pushed group in Okta.
+
+![Unlink and deactivate group push in Okta.](okta-deactivate-groups.png)
+
+To unlink the push group, click on the group's push status, choose the "Unlink pushed group" option, then choose "Delete the group in the target app".
+
+![Unlink pushed group in Okta.](okta-unlink-push-group.png)
+
+Deactivating group push or unlinking a group while leaving the group in LaunchDarkly results in an orphaned team. You will not be able to manage or maintain an orphaned team within the LaunchDarkly UI. 
+
+To remove the team, first re-link the team, choose the "Unlink pushed group" option, then choose the "Delete the group in the target app" option.

@@ -52,7 +52,8 @@ Because Electron is based on Node.js, it is possible to run the [LaunchDarkly se
 
 - The server-side SDKs include an SDK key that can download the entire definition, including rollout rules and individual user targets, of all of your feature flags. If you embed this SDK key in an application, any user who looks inside the application can then access all of your feature flag definitions, which may include sensitive data such as other users' email addresses. The client-side and mobile SDKs use different credentials that do not allow this.
 - The server-side SDKs download your entire flag data using this key, because they have to be able to evaluate flags quickly for any user. This can be a large amount of data. The client-side and mobile SDKs, which normally evaluate flags for just one user at a time, use a much more efficient protocol where they request only the active variation for each flag for that specific user.
-- The Electron SDK also includes features that are specific to Electron, such as the ability to access main-process flags from the front end as described below.
+
+LaunchDarkly also provides a [client-side Node.js SDK](/sdk/client-side/node-js). However, we still recommend the Electron SDK if you are working in Electron. The Electron SDK includes features that are specific to Electron, such as the ability to access main-process flags from the front end as described below.
 
 ### Server-side Node SDK compatibility
 

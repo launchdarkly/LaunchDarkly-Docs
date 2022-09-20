@@ -1,0 +1,159 @@
+---
+path: /guides/experimentation/holdouts
+title: Measuring Experimentation impact with holdout experiments
+description: This guide explains how to create a holdout group to measure the effectiveness of your Experimentation program.
+published: true
+tags: ['experimentation', 'holdout', 'tutorial']
+---
+
+## Overview
+
+This guide explains how to create a holdout experiment to measure the overall effectiveness of your Experimentation program.
+
+As you begin planning your Experimentation program, you may want to track how much of an impact your experiments have over time. Will there be any measurable differences in behavior between the end users you include in experiments, and those you do not? Which group of users will spend more money, sign up for services, or affect other metrics at higher rates? Holdout groups can help you answer these questions.
+
+A holdout group is a set of users that you exclude from all of your experiments. This creates a control group against which you can measure the impact of your Experimentation program. If, after a set period of time such as a month or quarter, there are no measurable differences between your Experimentation group and your holdout group, you may want to reconsider the number, scope, and design of the experiments you're running.
+
+To form a holdout group, create a prerequisite flag that assigns all of your users to be either included or excluded from the holdout group, then add that flag as a prerequisite to all of your flags used in an experiment.
+
+In this tutorial you will:
+
+- Create a prerequisite holdout flag
+- Add that flag as a prerequisite to all flags you use within an experiment
+- Create a holdout experiment that compares the holdout group to the Experimentation group
+
+To learn more about LaunchDarkly's Experimentation offering, read [About Experimentation](/home/about-experimentation).
+
+## Prerequisites
+
+To complete this tutorial, you must have the following prerequisites:
+
+- An active LaunchDarkly account with Experimentation enabled, and with permissions to create flags and edit experiments.
+- Familiarity with LaunchDarkly's Experimentation feature.
+- A basic understanding of your business's needs or key performance indicators (KPIs).
+
+## Concepts
+
+To complete this guide, you should understand the following concepts:
+
+### Prerequisite flags
+
+Prerequisites allow you to control feature dependencies in LaunchDarkly. You can configure feature flags to depend on another flag to take effect, making the other flag a prerequisite to enable the feature. To learn more, read [Flag prerequisites](/home/flags/prerequisites).
+
+## Creating the holdout flag
+
+To begin, create a prerequisite boolean flag that determines what percentage of your users to include in the holdout group. In this example, you will include 5% of your total user base in the holdout group.
+
+To create the prerequisite flag:
+
+1. Navigate to the flags list.
+2. Click **Create flag**. The "Create a feature flag" panel appears.
+3. Enter "Experimentation holdout group prerequisite" in the **Name** field.
+4. Enter a description such as "The prerequisite flag for all experiments" in the **Description** field.
+5. In the **Flag variations** menu, select "Boolean."
+6. Enter "In holdout" in the **Name** field for the `true` variation.
+7. Enter "Not in holdout" in the **Name** field for the `false` variation.
+
+![The "Create a feature flag" panel for a new holdout flag.](holdouts-flag-creation.png)
+
+8. Click **Save flag**.
+
+Next, add this flag as a prerequisite to every flag you use in an experiment.
+
+## Adding the flag as a prerequisite
+
+When you create a new flag you plan to use in an experiment, or when you plan to use an existing flag in an experiment, you should add the "Experimentation holdout group prerequisite" flag as a prerequisite.
+
+To add the prerequisite flag:
+
+1. Navigate to the flags list.
+2. Click on the name of the flag you plan to use in an experiment. The **Targeting** tab appears.
+3. Click **Add prerequisites**.
+4. In the **Select a flag** menu, choose "Experimentation holdout group prerequisite."
+5. In the variation menu, choose "false."
+6. Click **Review and save**.
+
+![The "Prerequisites" section of the dependent flag with a prerequisite flag added.](holdouts-prerequisite-section.png)
+
+Repeat this procedure for every flag you use in an experiment.
+
+## Building a holdout experiment
+
+You can measure the impact of your Experimentation program by creating a metric and running an experiment on the prerequisite flag.
+
+### Creating a metric
+
+First, decide what metric you want to measure. Choose a metric that aligns with the same KPIs or goals you want to experiment on, such as average revenue per user or percentage of users that sign up for your service. In this example, you will measure average revenue per user.
+
+To create your metric:
+
+1. Navigate to the **Experiments** list.
+2. Click the **Metrics** tab.
+3. Click **Create metric**. The "Create a new metric" panel appears.
+4. Enter "Average revenue per user" in the **Name** field.
+5. Click the **Event kind** menu and select "Custom."
+6. Enter "Average revenue per user" in the **Event name** field.
+7. Enter "USD" in the **Unit of measure** field.
+8. Choose "Higher than baseline" from the **Success criteria** menu.
+9. Click **Save metric**.
+
+![The "Metric information" panel for a custom numeric metric.](holdouts-metric.png)
+
+### Building an experiment
+
+Next, build your holdout comparison experiment. In this example, you will build an experiment to run for the first quarter of the year. To learn more about the experiment builder, read [Creating experiments](/home/creating-experiments).
+
+To build your experiment:
+
+1. Navigate to the **Experiments** list.
+2. Click **Create experiment**:
+
+![The "Experiments" list with the "Create experiment" button called out.](experiment-list-new-callout.png)
+
+3. Enter "Holdout comparison for Q1 2023" in the **Experiment name** field.
+4. Enter a **Hypothesis** for your experiment.
+5. Click **Next**. The "Select metrics" step opens.
+6. Choose "Average revenue per user" from the **Primary metric** menu.
+
+![The "Select metrics" section of a new experiment.](holdouts-select-metrics.png)
+
+7. Click **Next**. The "Define variations" step opens.
+8. Choose the "Experimentation holdout group prerequisite" flag from the **Select flag** menu.
+9. Click **Next**. The "Set audience" step opens.
+10. Assign 5% of traffic to the `true` variation, and 95% of traffic to the `false` variation.
+12. Select `false` to serve to the remaining population.
+
+![The "Set audience" section of a new experiment.](holdouts-audience.png)
+
+13. Click **Finish**. You are returned to the experiment's **Design** tab.
+
+Next, begin an iteration of your experiment.
+
+### Starting the experiment iteration
+
+When you are ready to run the experiment, toggle **On** the "Experimentation holdout group prerequisite" flag. Then, start an iteration of your experiment.
+
+To start your experiment iteration:
+
+1. Navigate to the **Experiments** list.
+2. Click on "Holdout comparison for Q1 2023."
+3. Click **Start**.
+
+You are now running a holdout experiment. When your quarter is over, you can stop the experiment iteration and analyze your experiment results. To learn more, read [Analyzing experiments](/home/analyzing-experiments).
+
+After you stop the experiment iteration, you can start a new iteration at any time. To learn more, read [Starting experiment iterations](/home/creating-experiments#starting-experiment-iterations).
+
+## Conclusion
+
+In this guide you learned how to create a holdout experiment using a prerequisite flag to measure the overall impact of your Experimentation program. By assessing the impact of your experiments as a whole, you can fine-tune your audiences and the metrics you're measuring, and ensure you're getting the most value out of LaunchDarkly Experimentation.
+
+<Callout intent="primary" site="launchDarkly">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>

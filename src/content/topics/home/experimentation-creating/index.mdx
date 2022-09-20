@@ -90,17 +90,22 @@ To build an experiment:
 6. Choose a metric from the **Primary metric** menu.
 7. (Optional) Choose additional metrics from the **Secondary metrics** menu. To learn more, read [Using primary and secondary metrics](#using-primary-and-secondary-metrics).
 
-![The "Select metrics" section of a new experiment.](experiment-builder-select-metrics.png)
+![The "Select metrics" step of a new experiment.](experiment-builder-select-metrics.png)
 
 8. Click **Next**. The "Define variations" step opens.
 9. Choose a flag to use in the experiment from the **Select flag** menu.
 10. Click **Next**. The "Set audience" step opens.
-11. Choose the audience to include in the experiment. The targeting rules of the feature flag you connected in step 9 determine the audience options that are available.
+11. Choose which targeting rule to run the experiment on. 
+  - If you want to restrict your experiment audience to only users with certain attributes, create a targeting rule on the flag you include in the experiment and run the experiment on that rule.
+  - If you don't want to restrict the audience for your experiment, run the experiment on the flag's default rule. If the flag doesn't have any user targeting rules, the flag's default rule will be the only option.
+
+![The "Set audience" step with the default rule chosen.](experiment-builder-set-audience.png)
+
 12. Enter the percentage of traffic for each variation you want to include in the experiment. You must include at least two variations for the experiment to be valid.
 13. Select which variation you want LaunchDarkly to serve to the remaining population.
   - (Optional) To disable traffic variation reassignment, click **Advanced**, then check the **Keep users assigned to initial variation** checkbox. We strongly recommend leaving this box **unchecked**. To learn more, read [Understanding variation reassignment](/home/creating-experiments/allocation#understanding-variation-reassignment).
 
-  ![The "Set audience" section of a new experiment.](experiment-builder-set-audience.png)
+  ![The "Set audience" section of a new experiment.](experiment-builder-set-audience-default-rule.png)
 
 15. Click **Finish**. You are returned to the experiment's **Design** tab.
 

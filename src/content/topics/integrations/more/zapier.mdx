@@ -4,7 +4,17 @@ title: Zapier
 description: This topic explains how to set up and use the LaunchDarkly Zapier integration.
 published: true
 tags: ['zapier', 'integration']
+site: launchDarklyOnly
 ---
+
+<Callout intent="primary">
+<CalloutTitle>The Zapier integration is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+The Zapier integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
 
 ## Overview
 
@@ -16,16 +26,10 @@ To use the integration, go to [zapier.com](https://zapier.com), create a Zap, an
 
 ![Zapier event search for LaunchDarkly](zapier-event-search.png)
 
-<Callout intent="primary">
-<CalloutTitle>The Zapier integration is a Pro and Enterprise feature</CalloutTitle>
-<CalloutDescription>
+## Using LaunchDarkly triggers
 
-The Zapier integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
-
-</CalloutDescription>
-</Callout>
-
-## Creating a Zap triggered by LaunchDarkly audit log events
+You can trigger Zaps based on LaunchDarkly audit log events, and can filter which audit log events trigger the Zap. For example, you could trigger a Zap when a specific flag is turned on, or when a new team is created, or when an integration is configured.
+### Creating a Zap triggered by LaunchDarkly audit log events
 
 To create a Zap triggered by audit log events:
 
@@ -36,7 +40,11 @@ To create a Zap triggered by audit log events:
 5. Follow the Zapier prompts to authenticate with LaunchDarkly and configure the trigger.
 6. (Optional) Add additional functionality to your Zap based on the LaunchDarkly trigger. For example, your Zap could notify you in Slack when certain events happen, or create calendar events for scheduled flag changes.
 
-## Creating a Zap to toggle a LaunchDarkly flag
+## Using LaunchDarkly actions
+
+You can also use Zapier to run actions in LaunchDarkly as part of a Zap. Like all Zapier actions, LaunchDarkly actions are part of a pipeline that starts with a trigger. You can use LaunchDarkly actions with any trigger, including a LaunchDarkly trigger or the Zapier schedule trigger. The example in the following section toggles a LaunchDarkly flag, which demonstrates how to use one of the LaunchDarkly actions. Other LaunchDarkly actions follow the same set of steps.
+
+### Creating a Zap to toggle a LaunchDarkly flag
 
 To create a Zap that toggles a flag:
 

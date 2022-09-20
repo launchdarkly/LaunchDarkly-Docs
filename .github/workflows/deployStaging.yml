@@ -9,20 +9,23 @@ on:
       - main
   pull_request:
     types: [assigned, opened, synchronize, reopened]
+  push:
+    branches:
+      - '*-eap'
 
 env:
-  PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.PR_NUMBER }}
+  BUCKET_PREFIX: ${{ github.event.pull_request.number || github.event.inputs.PR_NUMBER || github.ref_name }}
 
 jobs:
   build-deploy:
-    if: ${{ github.event.pull_request.number != '' || github.event.inputs.PR_NUMBER != '' }}
+    if: ${{ github.event.pull_request.number != '' || github.event.inputs.PR_NUMBER != '' || endsWith(github.ref_name, '-eap') }}
     runs-on: ubuntu-latest
     name: Deploy to s3 staging
     environment:
       name: staging
-      url: http://docs-stg.launchdarkly.com/${{ github.event.pull_request.number || github.event.inputs.PR_NUMBER }}
+      url: http://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }}
     concurrency:
-      group: staging-${{ github.event.pull_request.number || github.event.inputs.PR_NUMBER }}
+      group: staging-${{ github.event.pull_request.number || github.event.inputs.PR_NUMBER || github.ref_name }}
       cancel-in-progress: true
     steps:
       - uses: actions/checkout@v3
@@ -42,7 +45,7 @@ jobs:
         # for PR that is the merge commit, which is why we don't use it elsewhere
         if: steps.last-success.outputs.sha != github.sha
         id: changed-files-specific
-        uses: tj-actions/changed-files@v26.1
+        uses: tj-actions/changed-files@v27
         with:
           token: ${{ github.token }}
           separator: ' '
@@ -102,7 +105,7 @@ jobs:
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
           GATSBY_ALGOLIA_INDEX: 'Docs'
-          GATSBY_PR_NUMBER: ${{ env.PR_NUMBER }}
+          BUCKET_PREFIX: ${{ env.BUCKET_PREFIX }}
           LAUNCHDARKLY_CLIENT_SIDE_ID: ${{ secrets.STG_LAUNCHDARKLY_CLIENT_SIDE_ID }}
           GATSBY_DATADOG_CLIENT_TOKEN: ${{ secrets.STG_DATADOG_CLIENT_TOKEN }}
           GATSBY_DATADOG_RUM_APPLICATION_ID: ${{ secrets.DATADOG_RUM_APPLICATION_ID }}
@@ -129,10 +132,10 @@ jobs:
         with:
           # Note: this is used because of cypress yarn berry issue
           # https://github.com/cypress-io/github-action/issues/430#issuecomment-1144054512
-          command: yarn dlx cypress@v9 run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ env.PR_NUMBER }},retries=2 --spec cypress/integration/smoke.test.ts --config-file cypress.json --env pr_number=${{ env.PR_NUMBER }}
+          command: yarn dlx cypress@v9 run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }},retries=2 --spec cypress/integration/smoke.test.ts --config-file cypress.json --env bucket_prefix=${{ env.BUCKET_PREFIX }}
           install-command: yarn install --immutable
           build: yarn build-nav-data
-          wait-on: 'https://docs-stg.launchdarkly.com/${{ env.PR_NUMBER }}/home'
+          wait-on: 'https://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }}/home'
         env:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

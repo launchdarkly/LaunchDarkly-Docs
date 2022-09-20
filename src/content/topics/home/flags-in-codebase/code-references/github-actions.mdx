@@ -46,20 +46,24 @@ To set up GitHub code references:
 <CodeTabItem value="yaml">
 
 ```yaml
+name: Find LaunchDarkly flag code references
 on: push
-name: Example Workflow
+# cancel in-flight workflow run if another push was triggered
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   launchDarklyCodeReferences:
     name: LaunchDarkly Code References
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 11 # This value must be set if the lookback configuration option is not disabled for find-code-references. Read more: https://github.com/launchdarkly/ld-find-code-refs#searching-for-unused-flags-extinctions
       - name: LaunchDarkly Code References
-        uses: launchdarkly/find-code-references@v2.5.7
+        uses: launchdarkly/find-code-references@v2.7.0
         with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
           accessToken: ${{ secrets.LD_ACCESS_TOKEN }}
           projKey: YOUR_PROJECT_KEY
 ```
@@ -99,114 +103,8 @@ If the action fails, there may be a problem with your configuration. To investig
 
 ## Additional configuration options
 
-You can configure `ld-find-code-refs` with additional [inputs](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepswith) to enable more functionality.
+You can configure `find-code-references` with additional [inputs](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepswith) to enable more functionality. You can find additional configuration options at the bottom of the [LaunchDarkly Code References marketplace page](https://github.com/marketplace/actions/launchdarkly-code-references#inputs).
 
 In addition to inputs, you can skip searching files and directories using a [`.ldignore`](https://github.com/launchdarkly/ld-find-code-refs/blob/main/docs/CONFIGURATION.md#ignoring-files-and-directories) file.
 
 You can also use the [`.launchdarkly/coderefs.yaml`](https://github.com/launchdarkly/ld-find-code-refs/blob/main/docs/CONFIGURATION.md#advanced-yaml-configuration) file for advanced configuration options, such as configuring custom delimiters and aliases for your flag keys.
-
-This table explains the configuration variables:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Variable</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-    <TableHeadCell>Required</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>accessToken</code>
-      </TableCell>
-      <TableCell>
-        A LaunchDarkly access token with Writer-level access, or access to the <code>code-reference-repository</code> custom role resource. Supply this as a GitHub repository secret.
-      </TableCell>
-      <TableCell>Yes</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>projKey</code>
-      </TableCell>
-      <TableCell>
-        A LaunchDarkly project key. Found under <strong>Account Settings > Projects</strong> in the flags list.
-      </TableCell>
-      <TableCell>Yes</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>repoName</code>
-      </TableCell>
-      <TableCell>
-        Sets the repository name for this project. This is useful if you have a single monorepo
-        containing multiple YAML configurations each mapping to its own <code>projKey</code>. Each YAML configuration
-        must have a unique <code>LD_PROJ_KEY</code> and <code>LD_REPO_NAME</code> combination so it displays correctly in the flags list. Defaults to the current Github repository.
-      </TableCell>
-      <TableCell>No</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>contextLines</code>
-      </TableCell>
-      <TableCell>
-        The number of context lines above and below a code reference for the flag finder to send to LaunchDarkly.
-        <br />
-        If &lt; 0, no source code will be sent to LaunchDarkly.
-        <br />
-        If 0, only the lines containing flag references will be sent.
-        <br />
-        If &gt; 0, will send that number of context lines above and below the flag reference.
-        <br />A maximum of 5 context lines may be provided. Defaults to 2.
-      </TableCell>
-      <TableCell>No</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>baseUri</code>
-      </TableCell>
-      <TableCell>
-        Set the base uniform resource identifier (URI) of the LaunchDarkly server for this configuration. Defaults to{' '}
-        <code>https://app.launchdarkly.com</code>.
-      </TableCell>
-      <TableCell>No</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>allowTags</code>
-      </TableCell>
-      <TableCell>
-        Enables storing references for tags. The tag is listed as a branch. Defaults to <code>false</code>.
-      </TableCell>
-      <TableCell>No</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>debug</code>
-      </TableCell>
-      <TableCell>
-        Enables verbose default logging. Defaults to <code>false</code>.
-      </TableCell>
-      <TableCell>No</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>ignoreServiceErrors</code>
-      </TableCell>
-      <TableCell>
-        If enabled, the scanner will terminate with exit code 0 when the LaunchDarkly API is unreachable or returns an
-        unexpected response. Defaults to <code>false</code>.
-      </TableCell>
-      <TableCell>No</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>lookback</code>
-      </TableCell>
-      <TableCell>
-        Sets the number of Git commits to search in history for whether a feature flag was removed from code. May be set
-        to 0 to disabled this feature. Setting this option to a high value will increase search time. Defaults to{' '}
-        <code>10</code>.
-      </TableCell>
-      <TableCell>No</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>

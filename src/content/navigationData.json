@@ -26,7 +26,7 @@
             "path": "/home/getting-started/your-account"
           },
           {
-            "label": "In-app tutorials",
+            "label": "Using the learning center",
             "path": "/home/getting-started/in-app-options"
           }
         ]
@@ -158,6 +158,46 @@
           {
             "label": "Archiving and deleting flags",
             "path": "/home/code/flag-archive"
+          }
+        ]
+      },
+      {
+        "group": "feature-flags",
+        "label": "Feature workflows",
+        "path": "/home/feature-workflows",
+        "svg": "merge",
+        "items": [
+          {
+            "label": "Approvals",
+            "path": "/home/feature-workflows/approvals",
+            "items": [
+              {
+                "label": "Configuring approvals by environment",
+                "path": "/home/feature-workflows/environment-approvals"
+              }
+            ]
+          },
+          {
+            "label": "Flag triggers",
+            "path": "/home/feature-workflows/triggers"
+          },
+          {
+            "label": "Required comments",
+            "path": "/home/feature-workflows/required-comments"
+          },
+          {
+            "label": "Scheduled flag changes",
+            "path": "/home/feature-workflows/scheduled-changes"
+          },
+          {
+            "label": "Workflows",
+            "path": "/home/feature-workflows/workflows",
+            "items": [
+              {
+                "label": "Workflow templates",
+                "path": "/home/feature-workflows/workflow-templates"
+              }
+            ]
           }
         ]
       },
@@ -504,46 +544,6 @@
           {
             "label": "Data Export schema reference",
             "path": "/home/data-export/schema-reference"
-          }
-        ]
-      },
-      {
-        "group": "additional-features",
-        "label": "Feature workflows",
-        "path": "/home/feature-workflows",
-        "svg": "merge",
-        "items": [
-          {
-            "label": "Approvals",
-            "path": "/home/feature-workflows/approvals",
-            "items": [
-              {
-                "label": "Configuring approvals by environment",
-                "path": "/home/feature-workflows/environment-approvals"
-              }
-            ]
-          },
-          {
-            "label": "Flag triggers",
-            "path": "/home/feature-workflows/triggers"
-          },
-          {
-            "label": "Required comments",
-            "path": "/home/feature-workflows/required-comments"
-          },
-          {
-            "label": "Scheduled flag changes",
-            "path": "/home/feature-workflows/scheduled-changes"
-          },
-          {
-            "label": "Workflows",
-            "path": "/home/feature-workflows/workflows",
-            "items": [
-              {
-                "label": "Workflow templates",
-                "path": "/home/feature-workflows/workflow-templates"
-              }
-            ]
           }
         ]
       },
@@ -1393,6 +1393,10 @@
           {
             "label": "Getting started: Experimenting with feature flags",
             "path": "/guides/experimentation/experimentation"
+          },
+          {
+            "label": "Measuring Experimentation impact with holdout experiments",
+            "path": "/guides/experimentation/holdouts"
           }
         ]
       },

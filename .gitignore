@@ -91,3 +91,4 @@ package-lock.json
 
 # Local file devs can add and have ignored
 .dev*
+.vscode/launch.json

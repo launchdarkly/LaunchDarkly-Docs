@@ -78,30 +78,9 @@ const components = {
 
 const theme = {}
 
-const rootGridStyles = {
+const rootStyles = {
   letterSpacing: '0.0125rem',
   color: 'text',
-  height: '100vh',
-  display: 'grid',
-  gridTemplateColumns: ['100%', '19rem auto', '19rem 48rem auto'],
-  gridTemplateRows: '4.5rem auto',
-  gridTemplateAreas: [
-    `
-            'header'
-            'main'
-            'footer'
-            `,
-    `
-            'header header'
-            'sideNav main'
-            'sideNav footer'
-            `,
-    `
-            'header header header'
-            'sideNav main aside'
-            'sideNav footer footer'
-            `,
-  ],
 }
 
 interface LayoutProps {
@@ -183,12 +162,31 @@ const Layout: FunctionComponent<LayoutProps> = ({
           </script>
         )}
       </Helmet>
-      <div sx={rootGridStyles}>
+      <div sx={rootStyles}>
         <Header />
-        <DesktopSideNav />
 
-        <main sx={{ gridArea: 'main', px: [5, 7, 8], pt: '2.75rem' }}>
-          <article>
+        <main
+          sx={{
+            height: 'calc(100vh - 4.5rem)',
+            position: 'relative',
+            top: '4.5rem',
+          }}
+        >
+          <DesktopSideNav />
+          <article
+            sx={{
+              px: '3.5rem',
+              pt: '2.75rem',
+              position: 'relative',
+              height: '100%',
+              maxWidth: theme => [null, null, theme.breakpoints[1]],
+              ml: [0, '19rem'],
+              mr: [0, 0, '18rem'],
+              'h2,h3,h4': {
+                scrollMarginTop: '5.5rem',
+              },
+            }}
+          >
             <MdxHeader
               fileAbsolutePath={fileAbsolutePath}
               title={title}
@@ -201,14 +199,10 @@ const Layout: FunctionComponent<LayoutProps> = ({
             <MDXProvider components={components}>
               <MDXRenderer>{body}</MDXRenderer>
             </MDXProvider>
+            <footer sx={{ height: '7rem' }}></footer>
           </article>
+          {!isLandingPage && <TableOfContents toc={toc} />}
         </main>
-        {!isLandingPage && (
-          <aside sx={{ gridArea: 'aside', pt: 4, display: ['none', 'none', 'block'], width: '18rem' }}>
-            <TableOfContents toc={toc} />
-          </aside>
-        )}
-        <footer sx={{ gridArea: 'footer', height: '7rem' }}></footer>
       </div>
     </ThemeProvider>
   )

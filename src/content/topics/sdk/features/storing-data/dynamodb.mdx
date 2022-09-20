@@ -23,11 +23,28 @@ To view the JSON representations of all flags and segments, query `https://app.l
 
 Many of our server-side SDKs support DynamoDB. DynamoDB is a particularly useful solution if you are running code in AWS Lambda, because you can access it from Lambda without needing access to any VPC resource.
 
+## Setup and permissions
+
 In your application code, the only required parameter is the table name, although you can also specify any other options supported by AWS. By default, the DynamoDB driver expects to get your AWS credentials and region from environment variables or local configuration files, as described in the AWS SDK documentation.
 
 The table must already exist before your application starts. It must have a partition key called `"namespace"`, and a sort key called `"key"`. The SDK does not create the table automatically because it would not know what values to use for other properties such as permissions and throughput.
 
 DynamoDB imposes a limit of 400KB on the total size of any database item. In this implementation, each feature flag or user segment is a single item, so the feature store is not able to persist any flag or segment whose JSON representation is larger than that limit.
+
+For a process to read from the DynamoDB table, it needs the following permissions:
+
+* `GetItem`
+* `Query`
+
+For a process to write to the DynamoDB table, it needs the following permissions:
+
+* `PutItem`
+* `UpdateItem`
+* `DeleteItem`
+* `BatchWriteItem`
+* `ConditionCheckItem`
+
+In some situations your process may only need the read permissions. For example, if you use the Relay Proxy, then only the Relay Proxy will write data to the table. In this case, the Relay Proxy will likely use permissions from a different role.
 
 ## How the SDKs store data in DynamoDB
 

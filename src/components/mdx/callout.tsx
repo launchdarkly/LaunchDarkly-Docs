@@ -2,8 +2,11 @@
 import { FC, PropsWithChildren } from 'react'
 import { Box, Card, Flex, jsx, Text, ThemeUIStyleObject } from 'theme-ui'
 
+import { SiteType } from '../../types/siteType'
+import { errorOnInvalidSite } from '../../utils/siteAwareUtils'
 import Icon, { IconName } from '../icon'
 import { Intent } from '../intent'
+import useSite from '../siteSelector/useSite'
 
 const iconNames: { [key in Intent]: IconName } = {
   info: 'information',
@@ -14,6 +17,7 @@ const iconNames: { [key in Intent]: IconName } = {
 
 export type CalloutProps = {
   intent?: Intent
+  site?: SiteType
 }
 
 export const CalloutTitle: FC = ({ children }) =>
@@ -28,13 +32,20 @@ export const CalloutDescription: FC = ({ children }) => (
   <Text sx={{ ...descriptionStyles, '& p': { ...descriptionStyles } }}>{children}</Text>
 )
 
-export default function Callout({ intent = 'info', children }: PropsWithChildren<CalloutProps>) {
-  return (
-    <Card variant={intent}>
-      <Flex>
-        <Box>{children}</Box>
-        <Icon name={iconNames[intent]} variant={`callout.${intent}`} mt={1} mr={1} ml="auto" />
-      </Flex>
-    </Card>
-  )
+export default function Callout({ intent = 'info', site, children }: PropsWithChildren<CalloutProps>) {
+  errorOnInvalidSite(site)
+  const [selectedSite] = useSite()
+
+  if (!site || site === selectedSite) {
+    return (
+      <Card variant={intent}>
+        <Flex>
+          <Box>{children}</Box>
+          <Icon name={iconNames[intent]} variant={`callout.${intent}`} mt={1} mr={1} ml="auto" />
+        </Flex>
+      </Card>
+    )
+  }
+
+  return null
 }

@@ -60,6 +60,7 @@ exclude = [
   'https://gitlab.com/\$%7BCI_PROJECT_PATH%7D/.*',
   'https://yourlinkhere.com',
   'https://.*.mycompany.launchdarkly.com',
+  'https://.*.mycompany.launchdarkly.us',
   'https://unpkg.com',
   'https://cdn.jsdelivr.net',
   'https://launchdarklydemostack1-s3bucketforwebsitecontent-jffmp2434grq.s3.amazonaws.com/site/',

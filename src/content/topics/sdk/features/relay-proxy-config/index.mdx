@@ -27,7 +27,7 @@ The Relay Proxy has two modes:
 
 * In **daemon** mode, the SDK connects directly to the Relay Proxy's datastore. We recommend this configuration when you're using LaunchDarkly with PHP or in a serverless environment. To learn more, read [Using LaunchDarkly in serverless environments](/guides/infrastructure/serverless).
 
-Client-side SDKs should only use proxy mode. Server-side SDKs can use either mode. The two modes are not mutually exclusive. If you configure multiple services to use Relay Proxy, some of these services can operate in proxy mode while others are in daemon mode. To learn more, read [Using the Relay Proxy in different modes](https://docs.launchdarkly.com/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
+Client-side SDKs should only use proxy mode. Server-side SDKs can use either mode. The two modes are not mutually exclusive. If you configure multiple services to use Relay Proxy, some of these services can operate in proxy mode while others are in daemon mode. To learn more, read [Using the Relay Proxy in different modes](/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
 
 After you set up the Relay Proxy, you can configure your SDKs to run in the mode you've decided upon. To learn how, read [Configuring an SDK to use the Relay Proxy](#configuring-an-sdk-to-use-the-relay-proxy).
 
@@ -62,7 +62,7 @@ Details about each SDK's configuration are available in the mode-specific topics
 
 The service URIs define where the SDK should connect in order to request flag updates. If you are using the Relay Proxy, you must configure the SDK to connect to your Relay Proxy.
 
-If you are also using a web proxy, the SDK will connect first to the web proxy, and from there to your Relay Proxy. You still must configure the SDK to connect to your Relay Proxy. To learn more, read [Securing connections to and from the Relay Proxy](https://docs.launchdarkly.com/home/relay-proxy/using#securing-connections-to-and-from-the-relay-proxy).
+If you are also using a web proxy, the SDK will connect first to the web proxy, and from there to your Relay Proxy. You still must configure the SDK to connect to your Relay Proxy. To learn more, read [Securing connections to and from the Relay Proxy](/home/relay-proxy/using#securing-connections-to-and-from-the-relay-proxy).
 
 </CalloutDescription>
 </Callout>

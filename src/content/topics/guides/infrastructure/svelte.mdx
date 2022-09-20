@@ -22,8 +22,8 @@ The example in this guide demonstrates how to use LaunchDarkly SDKs on both the 
 
 To complete this guide, it will be helpful, though not required, if you have the following prerequisites:
 
-- Experience using LaunchDarkly in client-side JavaScript applications using the [JavaScript SDK](https://docs.launchdarkly.com/sdk/client-side/javascript).
-- Some experience using LaunchDarkly in server-side JavaScript applications using the [Node SDK (server-side)](https://docs.launchdarkly.com/sdk/server-side/node-js).
+- Experience using LaunchDarkly in client-side JavaScript applications using the [JavaScript SDK](/sdk/client-side/javascript).
+- Some experience using LaunchDarkly in server-side JavaScript applications using the [Node SDK (server-side)](/sdk/server-side/node-js).
 
 ## Installing the guide exercise files locally
 
@@ -35,7 +35,7 @@ To run the project locally, clone the GitHub project, navigate to it in the term
 
 Because the example application has flags that are evaluated on both the server-side and the client-side, it requires a separate SDK for each.
 
-Server-side code in SvelteKit runs in a Node.js environment, so you need to use LaunchDarkly's server-side Node SDK. To learn more, read [Node SDK (server-side)](https://docs.launchdarkly.com/sdk/server-side/node-js).
+Server-side code in SvelteKit runs in a Node.js environment, so you need to use LaunchDarkly's server-side Node SDK. To learn more, read [Node SDK (server-side)](/sdk/server-side/node-js).
 
 The SDK is included in the project's dependencies, but you can also install it with `npm`:
 
@@ -54,7 +54,7 @@ npm install launchdarkly-node-server-sdk
 </CodeTabItem>
 </CodeTabs>
 
-However, client-side code must use the client-side JavaScript SDK. You do not need a framework-specific client-side SDK for Svelte. To learn more, read [JavaScript SDK reference](https://docs.launchdarkly.com/sdk/client-side/javascript).
+However, client-side code must use the client-side JavaScript SDK. You do not need a framework-specific client-side SDK for Svelte. To learn more, read [JavaScript SDK reference](/sdk/client-side/javascript).
 
 This SDK is also included in the project's dependencies, but you can also install it with `npm`:
 
@@ -295,7 +295,7 @@ Svelte and SvelteKit don't require any special framework libraries to work with 
 
 ### Understanding LaunchDarkly integration
 
-The standard client-side JavaScript integration with Svelte requires no special libraries or code. You can just work with it exactly as it is shown in the [JavaScript SDK documentation](https://docs.launchdarkly.com/sdk/client-side/javascript).
+The standard client-side JavaScript integration with Svelte requires no special libraries or code. You can just work with it exactly as it is shown in the [JavaScript SDK documentation](/sdk/client-side/javascript).
 
 For example, the Svelte component below:
 
@@ -571,7 +571,7 @@ Svelte continues to grow in popularity, jumping from 8% usage in 2019 to 20% in 
 
 The great news is that, because Svelte is just JavaScript, you can use LaunchDarkly to succeed with Svelte today, without any specialized SDKs. This makes it easy to integrate LaunchDarkly however you prefer – by including directly on a page using Svelte or by wrapping the SDK in a JavaScript wrapper that centralizes all your application's interactions with feature flags.
 
-<Callout intent="primary">
+<Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
 <CalloutDescription>
 

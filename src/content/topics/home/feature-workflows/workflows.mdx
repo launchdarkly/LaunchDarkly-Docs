@@ -51,8 +51,7 @@ To build a progressive rollout workflow:
 1. Navigate to the flags list and select the flag you want to create a workflow for.
 2. Click on the **Workflows** tab.
 3. Click **Create a workflow**, and then click **Progressive rollout**.
-4. Click **Next**.
-5. Configure your progressive rollout:
+4. Configure your progressive rollout:
   * Choose when to start the workflow.
   * Choose the default variation to roll out to users.
   * Choose how much to increase the percentage of the rollout, starting at 0%. This setting overwrites any previously-defined rollouts for the default variation, so you should check to ensure that the default variation will not be reduced.
@@ -60,10 +59,10 @@ To build a progressive rollout workflow:
 
   ![The "Configure progressive rollout" workflow dialog.](workflow-progressive-rollout-modal.png)
 
-6. Click **Review workflow**. An overview of the workflow appears.
-7. (Optional) Click the **edit** icon next to the title to edit the title.
-8. (Optional) Click the **edit** icon next to "Add a description" to add a description.
-9. (Optional) If you have an approvals process, you can remove the first "Schedule" step, add an approval step, and then re-add the schedule step.
+5. Click **Review workflow**. An overview of the workflow appears.
+6. (Optional) Click the **edit** icon next to the title to edit the title.
+7. (Optional) Click the **edit** icon next to "Add a description" to add a description.
+8. (Optional) If you have an approvals process, you can remove the first "Schedule" step, add an approval step, and then re-add the schedule step.
 
 <Details summary="Click to expand details on adding an approval step">
 
@@ -92,23 +91,22 @@ To build a custom workflow:
 1. Navigate to the flags list and select the flag you want to create a workflow for.
 2. Click on the **Workflows** tab.
 3. Click **Create a workflow**, and then click **Custom workflow**.
-4. Click **Create workflow**.
-5. (Optional) Click the **edit** icon next to the title to edit the title.
-6. (Optional) Click the **edit** icon next to "Add a description" to add a description.
-7. (Optional) If you have an approvals process, click **Request approval**.
+4. (Optional) Click the **edit** icon next to the title to edit the title.
+5. (Optional) Click the **edit** icon next to "Add a description" to add a description.
+6. (Optional) If you have an approvals process, click **Request approval**.
   * Click into the **Reviewers** menu and choose an approver.
   * Enter a description in the **Description** field.
   * You must add approval steps before you add schedule steps. If you accidentally add a schedule step first, delete the schedule step, and then add the approval step as the first step of that stage.
 
   ![The "Approval Request" step of a custom workflow.](workflow-custom-approval.png)
 
-8. If you don't need to request approval, click **Schedule date and time**.
+7. If you don't need to request approval, click **Schedule date and time**.
   * Choose **Later** to schedule the stage at a later time relative to the time you start the workflow.
   * Choose **On or after a specific date & time** to schedule the stage to begin at a specific time.
-9. Click **plus (+)** to add another step to your workflow.
-10. Add additional flag changes you want to make.
-11. Add another approval or schedule condition step to create another stage of the workflow.
-12. When you have added all of your release steps to the workflow, click **Start workflow**.
+8. Click **plus (+)** to add another step to your workflow.
+9. Add additional flag changes you want to make.
+10. Add another approval or schedule condition step to create another stage of the workflow.
+11. When you have added all of your release steps to the workflow, click **Start workflow**.
 
 LaunchDarkly now processes the workflow steps for you based on the timeline and actions that you defined.
 

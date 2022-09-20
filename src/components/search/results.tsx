@@ -51,7 +51,7 @@ const Results: FunctionComponent<ResultsProps> = ({ searchState, searchResults }
         right: 0,
         width: ['100%', '28rem'],
         height: '100%',
-        zIndex: 1,
+        zIndex: 20,
         overflow: 'scroll',
         pb: 10,
         borderLeftWidth: ['0', '1px'],

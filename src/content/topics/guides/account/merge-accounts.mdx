@@ -1,31 +1,39 @@
 ---
 path: /guides/account/merge-accounts
 title: Merging LaunchDarkly accounts
-description: This tutorial explains how to use Ansible to merge two existing LaunchDarkly accounts.
+description: This tutorial explains how to use a LaunchDarkly Labs utility to merge two existing LaunchDarkly projects in different accounts.
 published: true
 tags: ['guide', 'merge', 'ansible', 'account']
 ---
 
 ## Overview
 
-This tutorial explains how to use Ansible to merge two existing LaunchDarkly accounts. You might want to do this when you upgrade your LaunchDarkly plan, or if your organization has multiple LaunchDarkly accounts that you want to combine into one.
+This tutorial explains how to use a LaunchDarkly Labs utility to merge two existing LaunchDarkly projects in different accounts. The utility exports information from a source project, and imports it into a destination project, which can be in a different account. You might want to do this when you upgrade your LaunchDarkly plan, or if your organization has multiple LaunchDarkly accounts that you want to combine into one.
 
-<Callout intent = "alert">
-<CalloutTitle>This tutorial uses experimental functions.</CalloutTitle>
+<Callout intent="alert">
+<CalloutTitle>This guide uses experimental functions</CalloutTitle>
 <CalloutDescription>
 
- This tutorial relies on functions that were created by LaunchDarkly, but are not extensively tested or formally supported. For best results, test the procedure on accounts that do not contain business-critical data before you modify production environments.
+ This guide relies on functions that we created, but that we did not extensively test and do not formally support. For best results, test the procedure on accounts and projects that do not contain business-critical data before you modify production environments.
 
 </CalloutDescription>
 </Callout>
 
-Instead of merging two accounts, you can use the LaunchDarkly Terraform integration to provision multiple identical LaunchDarkly projects. To learn more, read [Terraform](/integrations/terraform).
+<Callout intent="info">
+<CalloutTitle>Consider identical projects instead</CalloutTitle>
+<CalloutDescription>
+
+ Instead of merging two projects, you can use the LaunchDarkly Terraform integration to provision multiple identical LaunchDarkly projects. To learn more, read [Terraform](/integrations/terraform).
+
+</CalloutDescription>
+</Callout>
+
 
 ### Understanding how merging accounts works
 
-When you merge accounts, you designate one account as the "main" account and transfer data objects to it from another, "secondary" account. After the process completes, you can delete the secondary account. Data objects that have been transferred into the primary account behave like any other object. There is no hierarchical difference between objects from different accounts.
+When you merge projects from one account into another, you designate one account and its projects as the "destination" account and transfer data objects to it from "source" projects in different accounts. After the process completes, you can delete the source account. Data objects that have been transferred into the destination account behave like any other object. There is no hierarchical difference between objects from different accounts.
 
-When you merge accounts, we recommend that you choose what data objects you want to transfer, instead of trying to transfer everything. The less you try to transfer, the less likely you are to introduce errors. Only transfer data objects that are operationally important, and leave behind anything that you are not actively using.
+When you merge projects from one account to another, we recommend that you choose what data objects you want to transfer, instead of trying to transfer everything. The less you try to transfer, the less likely you are to introduce errors. Only transfer data objects that are operationally important, and leave behind anything that you are not actively using.
 
 We suggest tagging all the objects that you want to transfer, if that is feasible, to help you verify your transfer. In addition, verify that there are no duplicate flag keys between accounts.
 
@@ -33,32 +41,38 @@ We suggest tagging all the objects that you want to transfer, if that is feasibl
 <CalloutTitle>Only experienced LaunchDarkly administrators should merge accounts</CalloutTitle>
 <CalloutDescription>
 
- Merging accounts is not a common behavior. It could impact an end user's experience of your product. Plan extensively before you merge LaunchDarkly accounts.
+ Merging projects from one account to another is not a common behavior. It could impact an end user's experience of your product. Plan extensively before you merge LaunchDarkly accounts.
 
 </CalloutDescription>
 </Callout>
 
 ### Understanding what you can and cannot transfer
 
-Not all data objects can transfer from one account to another. However, you can back up some data before you merge accounts. To learn more, read [Backing up secondary account data](#backing-up-secondary-account-data).
+Not all data objects can transfer from one account to another. However, you can back up some data before you merge projects across accounts. To learn more, read [Backing up source account data](#backing-up-source-account-data).
+
+The Project migrator scripts transfer projects, segments, and flag targeting.
 
 Here is what you cannot transfer:
 
 * The audit log does not transfer between accounts.
 * SDK keys do not transfer between accounts.
 * Custom roles do not transfer between accounts. You must grant custom roles to new account members in the primary account after the merge completes.
-* Data from running experiments does not transfer between accounts. If you merge a secondary account into the primary account while the secondary account has experiments running, the experiment cannot match its user targeting to the user targeting options in the primary account. To prevent data loss, pause experiments during the merge and resume them in the primary account after.
+* Data from running experiments does not transfer between accounts. If you merge a source project into the destination project while the source project has experiments running, the experiment cannot match its user targeting to the user targeting options in the destination project. To prevent data loss, pause experiments during the merge and resume them in the destination project after.
 * User data from the **Users** list. This data is account-specific and cannot transfer between accounts.
 * Flag metadata, including flag status, the flag evaluations graph, and the time when flags were most recently evaluated.
+* Big Segments, including Big Segments synced with Amplitude. Standard segments are transferred.
 
 ## Prerequisites
 
 To complete this guide, you must have the following prerequisites:
 
-* Working knowledge of [Ansible](https://www.ansible.com)
 * An Admin or Owner role for each account you want to merge
-* Recent backups of your flag environments and settings for the secondary account. To learn more, read [Backing up secondary account data](#backing-up-secondary-account-data).
-* Backups of your audit log for the secondary account. To learn more, read [Backing up secondary account data](#backing-up-secondary-account-data).
+* Comfort running command-line scripts
+* Security approval from your organization to temporarily store LaunchDarkly account data on your local machine
+* Authority to implement a change freeze on both the source and destination projects during the migration
+* A LaunchDarkly [API access token](/home/account-security/api-access-tokens) with write access to your account
+* Recent backups of your flag environments and settings for the source account. To learn more, read [Backing up source account data](#backing-up-source-account-data).
+* Backups of your audit log for the source account. To learn more, read [Backing up source account data](#backing-up-source-account-data).
 
 ## Concepts
 
@@ -78,58 +92,58 @@ Users are people, services, machines, or other resources that encounter feature 
 
 ## Merging LaunchDarkly accounts
 
-Here's how to migrate data objects from one account to another to merge your LaunchDarkly accounts:
+To merge your LaunchDarkly accounts, migrate data objects from each project in the source account to a project or projects in the destination account.
+
+Here's how:
 
 1. Implement a change freeze on both LaunchDarkly accounts. Stop all changes to the projects, flags, segments, and webhooks that you plan to migrate.
-2. Install Ansible on your local machine. To learn how, read [Ansible's documentation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
-3. Navigate to the **LaunchDarkly Labs** repo in Github and clone the [Ansible LaunchDarkly collection repo](https://github.com/launchdarkly-labs/ansible-launchdarkly-collection).
-4. Evaluate any dependencies.
-5. Create a file named "playbook.yml."
-6. Copy and paste this code into playbook.yml:
+2. Install Deno on your local machine. To learn how, read [Deno's documentation](https://deno.land/).
+3. Navigate to the **LaunchDarkly Labs** repo in GitHub and clone the [Project migrator script repo](https://github.com/launchdarkly-labs/project-migrator-script).
+4. Create a local copy of data from your source project:
 
   <CodeTabs
-    defaultValue="text"
+    defaultValue="source"
     values={[
-      { label: 'Copy project', value: 'text', },
+      { label: 'Export from source project'}
     ]
   }>
-    <CodeTabItem value="text">
+    <CodeTabItem value="source">
 
-    ```txt
-
-    ---
-    - name: Copy Project
-    hosts: localhost
-    gather_facts: yes
-    tasks:
-
-      - name: Copy a LaunchDarkly project
-        launchdarkly_labs.collection.launchdarkly_project_copy:
-          api_key: <Replace with an API access token for your secondary account>
-          api_key_dest: <Replace with an API access token for your primary account>
-          project_key: <Replace with your secondary account's project key>
-          project_key_dest: <Replace with your primary account's project key>
-          name: "Copy Project"
-
+    ```bash
+      deno run --allow-env --allow-read --allow-net --allow-write source.ts -p <SOURCE PROJECT> -k <LD API KEY>
     ```
 
     </CodeTabItem>
   </CodeTabs>
 
-  To learn more, read [`launchdarkly_project_copy`](https://launchdarkly-labs.github.io/ansible-launchdarkly-collection/modules/launchdarkly_project_copy.html) in the Ansible collection documentation.
+5. Migrate the source data to your destination project:
 
-7. Run the playbook with `ansible-playbook first_playbook.yml`. The data transfer initiates. It may take several minutes to complete.
-8. Verify that the transfer completed successfully by checking in your primary account for data from your secondary account. For example, if you tagged objects in your secondary account that you wanted to merge into the primary account, verify that those tagged objects now appear in your primary account.
+  <CodeTabs
+    defaultValue="destination"
+    values={[
+      { label: 'Migrate to destination project'}
+    ]
+  }>
+    <CodeTabItem value="destination">
 
-After you verify that the account merge has completed successfully, you may deprecate the secondary account.
+    ```bash
+      deno run --allow-env --allow-read --allow-net --allow-write migrate.ts -p <SOURCE PROJECT> -k <LD API KEY> -d <DESTINATION PROJECT>
+    ```
 
-### Ansible functions to assist merges
+    </CodeTabItem>
+  </CodeTabs>
 
-There are helper functions available in Ansible that can support the merge of two LaunchDarkly accounts. To learn more, read [`launchdarkly_project_copy`](https://launchdarkly-labs.github.io/ansible-launchdarkly-collection/modules/launchdarkly_project_copy.html).
+6. Verify that the migration completed successfully by checking in your destination project for data from your source project. For example, if you tagged objects in your source project that you wanted to merge into the destination project, verify that those tagged objects now appear in your destination project.
 
-## Backing up secondary account data
+  After you verify that the project merge has completed successfully, you may deprecate the source project.
 
-Because LaunchDarkly is cloud-based software, it does not have built-in data backup features available. Customers rarely need to back up existing data, because it is always available in the cloud. However, for the specific case of merging two accounts, there are some existing features that support backing up the data from the secondary account for record-keeping purposes. You can use these features to preserve the history of the secondary account before you merge it with the primary account.
+7. Delete your local copy of the source project data.
+
+8. Optionally, repeat for other projects in the source account. After you have merged all projects from the source account, you may deprecate the source account.
+
+## Backing up source account data
+
+Because LaunchDarkly is cloud-based software, it does not have built-in data backup features available. Customers rarely need to back up existing data, because it is always available in the cloud. However, for the specific case of merging two accounts, there are some existing features that support backing up the data from the source account for record-keeping purposes. You can use these features to preserve the history of the source account before you merge it with the destination account.
 
 ### Backing up the audit log
 
@@ -145,9 +159,9 @@ To learn more, read [Data Export](/home/data-export).
 
 ## Conclusion
 
-In this guide, you learned how to transfer data objects from one LaunchDarkly account into another, effectively merging the accounts. You also learned how to back up some data from one account to preserve its history before merging.
+In this guide, you learned how to transfer data objects from projects in one LaunchDarkly account into another, effectively merging the accounts. You also learned how to back up some data from one account to preserve its history before merging.
 
-<Callout intent="primary">
+<Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
 <CalloutDescription>
 

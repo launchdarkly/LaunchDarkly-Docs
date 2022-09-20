@@ -31,6 +31,19 @@ If your topic has sub-items, include them in a list:
           },
 ```
 
+The nav displays parent and sub-items in bold based on URL construction. For example, if a parent topic has a URL of:
+
+```
+/example/parent-filepath/
+```
+
+Then the nav will consider the following URLs child pages, and will display the parent `/example/parent-filepath/` nav item in bold when the reader is viewing them:
+
+```
+/example/parent-filepath/child-topic
+/example/parent-filepath-child-topic
+```
+
 ## Updating the changelog
 
 Add a changelog entry when you:

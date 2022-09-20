@@ -334,6 +334,13 @@ var config = Configuration.Builder("my-mobile-key")
     .EventsUri(new Uri("https://events.mycompany.launchdarkly.com"))
     .Build();
 ```
+```csharp site=federal
+var config = Configuration.Builder("my-mobile-key")
+    .BaseUri(new Uri("https://app.mycompany.launchdarkly.us"))
+    .StreamUri(new Uri("https://stream.mycompany.launchdarkly.us"))
+    .EventsUri(new Uri("https://events.mycompany.launchdarkly.us"))
+    .Build();
+```
 
 </CodeTabItem>
 <CodeTabItem value="sdk2">
@@ -345,6 +352,16 @@ var config = Configuration.Builder("my-mobile-key")
             .Polling("https://app.mycompany.launchdarkly.com")
             .Streaming("https://stream.mycompany.launchdarkly.com")
             .Events("https://events.mycompany.launchdarkly.com")
+    )
+    .Build();
+```
+```csharp site=federal
+var config = Configuration.Builder("my-mobile-key")
+    .ServiceEndpoints(
+        Components.ServiceEndpoints()
+            .Polling("https://app.mycompany.launchdarkly.us")
+            .Streaming("https://stream.mycompany.launchdarkly.us")
+            .Events("https://events.mycompany.launchdarkly.us")
     )
     .Build();
 ```

@@ -92,7 +92,7 @@ const Hamburger = () => {
           overflowY: 'scroll',
           left: 0,
           top: 0,
-          zIndex: 2,
+          zIndex: 30,
           bg: 'grayWash',
           color: 'graySafe',
         }}
@@ -118,16 +118,7 @@ const Hamburger = () => {
             <Icon name="window-close" variant="close" />
           </button>
         </div>
-        <div
-          sx={{
-            display: 'flex',
-            mx: 0,
-            py: 2,
-            px: 3,
-          }}
-        >
-          {enableSiteSelection && <SiteSelector />}
-        </div>
+        {enableSiteSelection && <SiteSelector />}
         <div sx={{ mb: 9 }}>
           <TreeNode
             currentPath={

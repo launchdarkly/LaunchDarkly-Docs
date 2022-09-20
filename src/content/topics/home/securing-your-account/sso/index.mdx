@@ -21,6 +21,8 @@ This topic explains what Single Sign-On (SSO) features are available in LaunchDa
 
 SSO allows your team to authenticate with LaunchDarkly using the same identity provider (IdP) you use for your other internal and external services. LaunchDarkly implements SSO with the SAML 2.0 protocol. You can use SSO with your IdP to manage access rights in LaunchDarkly. After you enable SSO, System for Cross-domain Identity Management (SCIM) becomes available.
 
+After you configure SCIM, administrators can optionally turn on and configure team sync with SCIM. Team sync with SCIM lets admins sync groups in their IdP with LaunchDarkly teams. This automates team member provisioning in LaunchDarkly.
+
 ## Summarizing how to enable SSO in LaunchDarkly
 
 To configure SSO in your LaunchDarkly account:
@@ -40,13 +42,13 @@ LaunchDarkly supports the following external IdPs:
     Identity providers
     </TableHeadCell>
     <TableHeadCell>
-    Configurable SAML SSO
-    </TableHeadCell>
-    <TableHeadCell>
     IdP Integration SAML SSO
     </TableHeadCell>
     <TableHeadCell>
     IdP Integration SCIM
+    </TableHeadCell>
+    <TableHeadCell>
+    Team sync with SCIM
     </TableHeadCell>
     <TableHeadCell>
     Starter and Pro plan support
@@ -64,7 +66,6 @@ LaunchDarkly supports the following external IdPs:
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
-        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
       </TableCell>
@@ -82,7 +83,6 @@ LaunchDarkly supports the following external IdPs:
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
-        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
       </TableCell>
@@ -100,7 +100,6 @@ LaunchDarkly supports the following external IdPs:
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
-        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
       </TableCell>
@@ -142,7 +141,6 @@ LaunchDarkly supports the following external IdPs:
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
-        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
       <TableCell>
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
@@ -176,4 +174,4 @@ During user provisioning, LaunchDarkly sets the default role for new members to 
 
 ![The "Default initial role" section of the SAML configuration panel.](default-initial-saml-role.png)
 
-To learn more, about built-in roles and their permissions, read [Understanding LaunchDarkly's built-in roles](/home/members/built-in-roles#understanding-launchdarklys-built-in-roles). For an in-depth guide on how to use custom roles with IdPs, read [Creating custom roles](/guides/teams-roles/custom-roles).
+To learn more about built-in roles and their permissions, read [Understanding LaunchDarkly's built-in roles](/home/members/built-in-roles#understanding-launchdarklys-built-in-roles). For an in-depth guide on how to use custom roles with IdPs, read [Creating custom roles](/guides/teams-roles/custom-roles).
