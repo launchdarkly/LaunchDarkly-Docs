@@ -87,7 +87,7 @@ Here is an image of the "Client-side SDK availability" section:
 
 If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
 
-To make all of a project's flags available to client-side or mobile SDKs by default, check the **SDKs using Client-side ID** or **SDKs using Mobile key** checkboxes in your project [Settings](https://app.launchdarkly.com/settings/projects).
+To make all of a project's flags available to client-side or mobile SDKs by default, check the **SDKs using Client-side ID** or **SDKs using Mobile key** checkboxes in the project's **Flag defaults** tab.
 
 <Callout intent="alert">
 <CalloutTitle>Security implications of making flags available to mobile SDKs</CalloutTitle>
@@ -142,6 +142,15 @@ You know you're in a different environment because the name displayed in the top
 When you create a feature flag, some of its variations are designated as default values. You can accept the defaults or change them. When you change default values and click **Save flag**, the flag is created across all environments in your project with the new variations set as its default on and off values.
 
 To learn more about default flag values, read [Changing default flag values](/home/flags/variations#changing-default-flag-values).
+
+<Callout intent="info">
+<CalloutTitle>You can set project-level flag defaults</CalloutTitle>
+<CalloutDescription>
+
+You can optionally configure flag defaults for a project, which LaunchDarkly will apply to any new flags you create within that project. To learn how, read [Project flag defaults](/home/organize/projects#project-flag-defaults).
+
+</CalloutDescription>
+</Callout>
 
 Here is a screenshot of flag creation panel:
 

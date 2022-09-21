@@ -77,8 +77,7 @@ After you save the project key, you cannot modify it. You can change a project's
 </Callout>
 
 6. (Optional) Assign **Tags** to your project.
-7. (Optional) Check the **Make new flags available to client-side SDKs by default** checkbox to make all flags created in this environment available on the client side. To learn more, read [Other flag settings](/home/flags/settings).
-8. Click **Create project**. The new project appears in the **Account settings** page:
+7. Click **Create project**. The new project appears in the **Account settings** page:
 
 ![The "Create a project" panel.](settings-projects-create.png)
 
@@ -109,3 +108,28 @@ Your project is now deleted.
 You can also use the REST API: [Delete project](https://apidocs.launchdarkly.com/tag/Projects#operation/deleteProject)
 
 </LearnMore>
+
+## Project flag defaults
+
+You can optionally configure flag defaults which LaunchDarkly applies to new flags you create within the project. Some settings apply to all flag types, and other settings apply only to boolean flags. You can override the defaults when you create a new flag. If you change a project's flag defaults, LaunchDarkly does not retroactively apply the new defaults to existing flags.
+
+### Setting project flag defaults
+
+You can access a project's flag defaults by navigating to the **Projects** tab under **Account settings**, clicking on the project name, and clicking the **Flag defaults** tab.
+
+![A project's "Flag defaults" tab.](proj-flag-defaults-tab.png)
+
+All flag types support the following defaults:
+
+- The **Mark flags as permanent** checkbox determines whether new flags should be permanent or temporary. 
+- The **Make available for Mobile SDK** and **Make available for Client-side** checkboxes determine whether new flags should be available to mobile and/or client-side SDKs. 
+- The **Default tags** field adds listed tags to new flags.
+
+In addition, boolean flags support the following defaults:
+
+- The **Display name** fields set the name of **true** and **false** variations of new flags.
+- The **Description** fields set the description for **true** and **false** variations of new flags.
+- The **Default on behavior** determines which variation a new flag will serve when the flag's targeting is on and the user did not match any targeting rules.
+- The **Off behavior** determines which variation a new flag will serve when the flag's targeting is off. 
+
+To learn more about these default settings, read [Other flag settings](/home/flags/settings).
