@@ -446,6 +446,10 @@
           {
             "label": "Experimentation events",
             "path": "/home/about-experimentation/events"
+          },
+          {
+            "label": "Importing metric events",
+            "path": "/home/about-experimentation/import-metric-events"
           }
         ]
       },
