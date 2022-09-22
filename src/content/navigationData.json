@@ -1344,14 +1344,6 @@
             "path": "/guides/flags/flag-hierarchy"
           },
           {
-            "label": "Getting started: Configuring an SDK and creating a flag",
-            "path": "/guides/flags/sdk-flag"
-          },
-          {
-            "label": "Getting started: Flag rules and targeting",
-            "path": "/guides/flags/rules-and-targeting"
-          },
-          {
             "label": "Improving flag usage in code",
             "path": "/guides/flags/improving-code"
           },
@@ -1393,10 +1385,6 @@
           {
             "label": "Experimentation and Bayesian statistics",
             "path": "/guides/experimentation/bayesian"
-          },
-          {
-            "label": "Getting started: Experimenting with feature flags",
-            "path": "/guides/experimentation/experimentation"
           },
           {
             "label": "Measuring Experimentation impact with holdout experiments",

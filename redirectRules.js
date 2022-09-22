@@ -6,6 +6,18 @@ module.exports = [
     toPath: '/home/users/users-list',
   },
   {
+    fromPath: '/guides/flags/rules-and-targeting',
+    toPath: '/guides/flags',
+  },
+  {
+    fromPath: '/guides/flags/sdk-flag',
+    toPath: '/guides/flags',
+  },
+  {
+    fromPath: '/guides/experimentation/experimentation',
+    toPath: '/guides/experimentation',
+  },
+  {
     fromPath: '/home/experimentation/',
     toPath: '/home/about-experimentation',
   },
