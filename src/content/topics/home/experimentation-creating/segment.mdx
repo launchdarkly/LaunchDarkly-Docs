@@ -59,6 +59,8 @@ To connect Segment to LaunchDarkly:
 
 After you connect Segment and LaunchDarkly, events from the source you choose can appear as custom metric events in LaunchDarkly experiments. This process fails if LaunchDarkly fails to recognize events Segment sends to it as Experimentation events.
 
+LaunchDarkly correlates the metric events sent from Segment with LaunchDarkly user keys. This correlation uses the Segment user ID, if it is present. Otherwise, the correlation uses the Segment anonymous ID.
+
 To register events from Segment in a LaunchDarkly experiment, you must meet the following criteria:
 
 - The name of the Segment event is identical to the name of the custom metric in your LaunchDarkly experiment. When the Segment event and LaunchDarkly metric have identical names, events from Segment will appear as events in the LaunchDarkly experiment with which the metric is associated.
