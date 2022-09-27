@@ -34,11 +34,9 @@ For example, you might want to track how often a user clicks a "Save" button whe
 
 You can even monitor clicks on the button across different URLs by telling the metric to track different URLs based on substrings or simple matches. For example, you could track an event on every URL with <code>/checkout-page/</code> in the URL path.
 
-<Callout intent="info">
-<CalloutTitle>What's a CSS selector?</CalloutTitle>
-<CalloutDescription>
+## Understanding CSS selectors
 
-CSS selectors designate specific areas of your product UI, like buttons or images, that your users can interact with.
+CSS selectors designate specific areas of your product UI, like buttons or images, that your users can interact with. You can create a metric that monitors interaction with any CSS selector.
 
 For example, some CSS selectors include:
 
@@ -46,8 +44,9 @@ For example, some CSS selectors include:
 * `.example-classname`,
 * `button.example-button`, or `.example-button, .example-button-alt`.
 
-</CalloutDescription>
-</Callout>
+The CSS selector must be present in your application after the end user interacts with it in order for LaunchDarkly to record the metric. For example, if the user clicks an element that is dynamically removed from your application in response to the click, then LaunchDarkly will not record the metric event.
+
+If the CSS selector will not be present after the end user interacts with it, we recommend using a custom conversion metric instead. To learn more, read [Custom conversion metrics](/home/creating-experiments/metrics/custom-conversion).
 
 ## Creating click conversion metrics
 

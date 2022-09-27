@@ -147,6 +147,7 @@ honeycomb
 # I
 
 idp
+import
 inactive
 insight
 integration
