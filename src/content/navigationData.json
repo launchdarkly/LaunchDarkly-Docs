@@ -986,7 +986,13 @@
           },
           {
             "label": "Configuration",
-            "path": "/sdk/features/config"
+            "path": "/sdk/features/config",
+            "items": [
+              {
+                "label": "Service endpoint configuration",
+                "path": "/sdk/features/service-endpoint-configuration"
+              }
+            ]
           },
           {
             "label": "Evaluating flags",
