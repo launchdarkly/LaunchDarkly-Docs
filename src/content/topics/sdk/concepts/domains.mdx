@@ -22,32 +22,70 @@ The LaunchDarkly SDKs access various base uniform resource identifiers (URIs) fo
 
 The SDKs use the streaming service and polling service to request flag updates. They use the events service to send data back to LaunchDarkly for experimentation analysis.
 
-The following table describes the default base URIs for each service and SDK:
+The following table describes the default base URIs for each service for the server-side SDKs:
 
 <Table>
   <TableHeader>
     <TableHeadCell>Service</TableHeadCell>
     <TableHeadCell>Server-side SDKs</TableHeadCell>
-    <TableHeadCell>Client-side JavaScript SDKs</TableHeadCell>
-    <TableHeadCell>Mobile SDKs</TableHeadCell>
   </TableHeader>
   <TableBody>
   <TableRow>
     <TableCell>Streaming</TableCell>
     <TableCell><code>https://stream.launchdarkly.com</code></TableCell>
-    <TableCell><code>https://clientstream.launchdarkly.com</code></TableCell>
-    <TableCell><code>https://clientstream.launchdarkly.com</code></TableCell>
   </TableRow>
   <TableRow>
     <TableCell>Polling</TableCell>
     <TableCell><code>https://sdk.launchdarkly.com</code> or <code>https://app.launchdarkly.com</code></TableCell>
-    <TableCell><code>https://clientsdk.launchdarkly.com</code> or <code>https://app.launchdarkly.com</code></TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Events</TableCell>
+    <TableCell><code>https://events.launchdarkly.com</code></TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
+
+The following table describes the default base URIs for each service for the client-side JavaScript SDKs:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Service</TableHeadCell>
+    <TableHeadCell>Client-side JavaScript SDKs</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>Streaming</TableCell>
+    <TableCell><code>https://clientstream.launchdarkly.com</code></TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Polling</TableCell>
     <TableCell><code>https://clientsdk.launchdarkly.com</code> or <code>https://app.launchdarkly.com</code></TableCell>
   </TableRow>
   <TableRow>
     <TableCell>Events</TableCell>
     <TableCell><code>https://events.launchdarkly.com</code></TableCell>
-    <TableCell><code>https://events.launchdarkly.com</code></TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
+
+The following table describes the default base URIs for each service for the mobile SDKs:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Service</TableHeadCell>
+    <TableHeadCell>Mobile SDKs</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>Streaming</TableCell>
+    <TableCell><code>https://clientstream.launchdarkly.com</code></TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Polling</TableCell>
+    <TableCell><code>https://clientsdk.launchdarkly.com</code> or <code>https://app.launchdarkly.com</code></TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Events</TableCell>
     <TableCell><code>https://mobile.launchdarkly.com</code></TableCell>
   </TableRow>
   </TableBody>
