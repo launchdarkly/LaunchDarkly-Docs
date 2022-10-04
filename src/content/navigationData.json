@@ -264,6 +264,10 @@
             "path": "/home/members/managing"
           },
           {
+            "label": "Your member profile",
+            "path": "/home/members/profile"
+          },
+          {
             "label": "LaunchDarkly's built-in roles",
             "path": "/home/members/built-in-roles"
           },
