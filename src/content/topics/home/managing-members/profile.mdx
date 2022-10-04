@@ -1,0 +1,101 @@
+---
+path: /home/members/profile
+title: Your member profile
+description: TKTK
+published: true
+tags: ['profile', 'member', 'password', 'email', 'mfa']
+---
+
+## Overview
+
+This topic explains how to access and use the **Profile** page to manage the information associated with your member profile.
+
+Every LaunchDarkly account member has a unique member profile. From the profile, you can change your display name, profile picture, and the email address associated with your account. You may also be able to enable or disable multi-factor authentication (MFA).
+
+## Accessing your profile
+
+You can access your profile in two ways:
+
+* Click **Account settings** and then click into the **Profile** tab, or
+* Click your **display picture** and choose **My profile** from the menu.
+
+![The account menu, with "My profile" option called out.
+](account-menu-my-profile.png)
+
+## Changing your display name and email address
+
+You can change your display name or email address from your profile. Here's how:
+
+1. Click your account icon in the top right. A menu appears.
+2. Click "My profile". Your profile page appears.
+  * Alternatively, you can access your profile page by navigating to **Account settings** and clicking the **Profile** tab.
+3. In the "User profile" section, type in the **First name**, **Last name**, and/or **Email address** fields to change them.
+4. Click **Update my info**.
+
+Your changes are confirmed. Test them by logging out and logging back in with your updated email address. If you changed your name, your new display name appears after you log in.
+
+### Accessing your roles and permissions
+
+You can read about the permissions that you have from the **Permissions** page. Access this page from your profile, or from the **Members** tab of the **Account settings** page.
+
+To do this, navigate to your profile. In the "User profile" section, click **Access**. The "Permissions" page opens.
+
+![The "User profile" section with the "Access" link called out.](account-settings-profile-access-callout.png)
+
+The **Permissions** page shows you the built-in, custom, and team roles you have been assigned.
+
+To learn more about each of these role types, read:
+
+* [LaunchDarkly's built-in roles](/home/members/built-in-roles)
+* [Custom roles](/home/members/custom-roles)
+* [Teams](/home/teams)
+
+## Changing your password
+
+You can set your LaunchDarkly password from the **Profile** tab in the **Account settings** page. You must have your current password to reset your password while logged in.
+
+<Callout intent="alert">
+<CalloutTitle>Can't remember your current password?</CalloutTitle>
+<CalloutDescription>
+
+If you don't know your current password, <a href="https://support.launchdarkly.com/hc/en-us/requests/new">contact Support</a>.
+
+</CalloutDescription>
+</Callout>
+
+New LaunchDarkly passwords must have:
+
+* at least eight characters, and *at least three of the four* following items
+* one uppercase letter,
+* one lowercase letter,
+* one number, or
+* one special character.
+
+To set a new password:
+
+1. Click your account icon in the top right. A menu appears.
+2. Click "My profile". Your profile page appears.
+  * Alternatively, you can access your profile page by navigating to **Account settings** and clicking the **Profile** tab.
+3. In the "Your password" section, enter your password in the **Current password** field.
+4. Enter a new password in the **New password** field.
+5. Re-enter the password identically in the **Confirm new password** field.
+6. Click **Update my password**.
+
+Your password is confirmed. You can test it by logging out and logging back in with the new password.
+
+You can also reset your password by following this procedure. To learn more about why you may need to reset your password, read [Resetting your password](/home/account-security/reset-password).
+
+## Enabling multi-factor authentication
+
+MFA is a security practice that requires someone to verify their identify through multiple methods before they can access an account. LaunchDarkly supports MFA. Individual members can enable or disable MFA from their profile.
+
+<Callout intent="info">
+    <CalloutTitle>You may be required to use MFA</CalloutTitle>
+    <CalloutDescription>
+
+    LaunchDarkly account admins and owners can force all account members to use MFA. If MFA is enabled project-wide, you will not have the option to enable or disable MFA from your member profile.
+
+    </CalloutDescription>
+</Callout>
+
+To learn how to enable MFA from your profile, read [Multi-factor authentication](/home/account-security/mfa).
