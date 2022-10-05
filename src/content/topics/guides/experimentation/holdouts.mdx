@@ -118,7 +118,7 @@ To build your experiment:
 ![The "Select metrics" section of a new experiment.](holdouts-select-metrics.png)
 
 7. Click **Next**. The "Define variations" step opens.
-8. Choose the "Experimentation holdout group prerequisite" flag from the **Select flag** menu.
+8. Choose a flag from the **Select flag** menu. This dependent flag should have the "Experimentation holdout group prerequisite" flag as a prerequisite.
 9. Click **Next**. The "Set audience" step opens.
 10. Assign 5% of traffic to the `true` variation, and 95% of traffic to the `false` variation.
 12. Select `false` to serve to the remaining population.
@@ -131,7 +131,7 @@ Next, begin an iteration of your experiment.
 
 ### Starting the experiment iteration
 
-When you are ready to run the experiment, toggle **On** the "Experimentation holdout group prerequisite" flag. Then, start an iteration of your experiment.
+When you are ready to run the experiment, toggle **On** the "Experimentation holdout group prerequisite" flag and the dependent flag you are using in the experiment. Then, start an iteration of your experiment.
 
 To start your experiment iteration:
 
