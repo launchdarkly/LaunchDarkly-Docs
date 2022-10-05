@@ -502,6 +502,10 @@
             "path": "/home/analyzing-experiments/managing"
           },
           {
+            "label": "Understanding sample ratios",
+            "path": "/home/analyzing-experiments/sample-ratios"
+          },
+          {
             "label": "Winning variations",
             "path": "/home/analyzing-experiments/winning-variation"
           }

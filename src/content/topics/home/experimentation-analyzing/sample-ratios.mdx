@@ -1,0 +1,98 @@
+---
+path: /home/analyzing-experiments/sample-ratios
+title: Understanding sample ratios
+description: This topic explains what sample ratios are and how to detect a sample ratio mismatch (SRM).
+published: true
+tags: ['sample ratio mismatch', 'srm', 'experiment', 'experimentation', 'enterprise']
+---
+
+## Overview
+
+This topic explains what sample ratios are and how to detect a sample ratio mismatch.
+
+## Understanding sample ratios and sample ratio mismatches
+
+In your experiments, the sample ratio is the ratio between end users receiving each of your experimentation treatments.
+
+A sample ratio mismatch (SRM) is a mismatch between the proportion of users expected in your experimentation treatments and the actual number of users in each treatment. For example, if you have an A/B test with 50% of users assigned to treatment A and 50% assigned to treatment B, you should expect that with a sufficient sample size, the split is roughly 50/50. If you have 10,000 users in your experiment iteration, you should expect around 5,000 users in treatment A and 5,000 in treatment B. Because the sampling is random, this split will not be exact. However, it should be close. You should not have 4,000 users in treatment A and 6,000 users in treatment B.
+
+LaunchDarkly uses statistics to determine if the sample ratio is more different than what you should expect from a random sampling. If there's a 99% or greater probability that the units, or users, in the experiment are not arriving at the same rate as expected given how you've allocated the traffic, then LaunchDarkly displays a warning noting that your experiment results are almost certainly invalid.
+
+There are many ways an SRM can occur. The most basic is that the randomization method is incorrect. At LaunchDarkly, we've run thousands of simulations and production data through our randomizer. We're confident that our randomization method randomly assigns users in the proportions expected.
+
+When we see an SRM, we know it's likely to be one of the following issues.
+
+## SRM in JavaScript SDKs
+
+If you observe an SRM and are using any of the LaunchDarkly JavaScript-based client-side SDKs, including the React Web SDK, confirm that you are using these versions or newer:
+
+* [JavaScript SDK](/sdk/client-side/javascript) >= 2.23.0
+* [React Web SDK](/sdk/client-side/react/react-web) >= 2.28.0
+
+These versions address the most common causes for SRMs, which relate to the [events](/home/about-experimentation/events) that LaunchDarkly needs for experimentation tracking.
+
+### Event deduplication
+
+Older versions of the JavaScript SDK, prior to version 2.23.0, deduplicate events by default. This can cause an SRM in the case where you evaluate the same flag before and after a call to `identify`.
+
+<Details summary="Expand for an example of event deduplication with identify">
+
+If you add attributes to your user object after initialization and then call `identify`, event deduplication can cause a non-random loss of experimentation events.
+
+Here's how this can happen:
+
+1. Your code initializes the JavaScript SDK.
+2. An end user encounters a flag in your application. The user does not match your experiment rule, and LaunchDarkly serves a flag variation to the user.
+3. Your application learns more about the end user. Your code adds attributes to the user object, without changing the user key, and calls `identify`.
+4. Because of the `identify` call, LaunchDarkly re-evaluates the flag for the same user. Based on the additional attributes, the user now matches your experiment rule and is eligible for the experiment.
+5. The user is randomly assigned to the same flag variation that they were previously served.
+
+If these steps happen within the SDK's deduplication window of five minutes, the user will not be counted as part of the experiment. If, in step 5, the user is randomly assigned to a different flag variation than they were previously served, then they will be counted correctly as part of the experiment. Because some users are being counted and some users are not, you will have an SRM.
+
+</Details>
+
+Older versions of the React Web SDK, prior to version 2.28.0, have a similar issue. Furthermore, in the React Web SDK `LDProvider` calls `allFlags` after initializing the client. This can potentially exacerbate issues with event deduplication.
+
+We strongly recommend upgrading your SDK version. If you can't upgrade your SDK version, you can set the `allowFrequentDuplicateEvents` option to `true`.
+
+<Details summary="Expand for allowFrequentDuplicateEvents code sample">
+
+Here's how to set the `allowFrequentDuplicateEvents` option in your JavaScript SDK to `true`:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts'},
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const options = { allowFrequentDuplicateEvents: true };
+const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as LDClient from 'launchdarkly-js-client-sdk';
+
+const options: LDClient.LDOptions = { allowFrequentDuplicateEvents: true };
+const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+</Details>
+
+### Experiencing event loss due to application behavior
+
+Some experimentation implementations can lose events disproportionally for JavaScript-based client-side SDKs. For example, if your experiment is an A/B test where the "A" does nothing and the "B" immediately redirects your end users to another page, it's possible that more events from the "B" variation will be lost.
+
+The LaunchDarkly SDKs send events immediately when the page unloads. However, some browsers do not respect asynchronous calls on unload. This includes Safari on iOS. If LaunchDarkly cannot record all of the events for your experiment, then you will have an SRM.
+
+Check to see if one of your experimentation treatments result in users leaving the page more quickly than the other treatments. You may need to adjust your experimentation treatments to account for this behavior.

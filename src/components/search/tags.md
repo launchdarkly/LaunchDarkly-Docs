@@ -264,6 +264,7 @@ rust
 # S
 
 saml
+sample ratio
 schema
 scim
 sdk
@@ -281,6 +282,7 @@ signalfx
 slack
 sleuth
 splunk
+srm
 sso
 start
 starter

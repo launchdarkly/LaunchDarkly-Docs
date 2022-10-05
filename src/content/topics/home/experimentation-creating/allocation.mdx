@@ -38,6 +38,8 @@ When you build your experiment, you can allocate all or a percentage of the user
 
 If you decide to increase or decrease the number of users in an experiment, LaunchDarkly will create a new iteration of your experiment. To learn more, read [Starting experiment iterations](/home/creating-experiments#starting-experiment-iterations).
 
+LaunchDarkly automatically performs checks on the allocation, to make sure that actual user traffic matches the allocation you set. To learn more, read [Understanding sample ratios](/home/analyzing-experiments/sample-ratios).
+
 ### Changing traffic allocation
 
 When the number of users in your variations increases or decreases, LaunchDarkly properly reassigns users to different variations to prevent carryover bias. This method of managing your experiment audience is called "audience allocation." To learn more about carryover bias, read [Understanding variation reassignment](#understanding-variation-reassignment).
