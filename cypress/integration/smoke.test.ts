@@ -50,7 +50,7 @@ describe('Documentation website', () => {
       })
 
     // verify search
-    cy.get('header input').should('have.attr', 'placeholder', 'Search').type('php')
+    cy.get('header input').should('have.attr', 'placeholder', 'Search').type('code references')
 
     cy.contains(/Results \(\d+\)/)
 
@@ -58,11 +58,11 @@ describe('Documentation website', () => {
     cy.wait(2000)
 
     // click search result
-    cy.get('[data-test="result-Server-side SDKs-PHP SDK reference"]').click()
+    cy.get('[data-test="result-Flags in your codebase-Code references"]').click()
 
-    cy.location('search').should('equal', '?q=php')
-    cy.get('nav').contains('PHP SDK reference').isActiveLink()
-    cy.get('nav').contains('Go SDK reference')
+    cy.location('search').should('equal', '?q=code+references')
+    cy.get('nav').contains('Code references').isActiveLink()
+    cy.get('nav').contains('Flag statuses')
     cy.get('header').contains('Integrations').click()
     cy.title().should('equal', 'Integrations')
     cy.get('h1').contains('Integrations')
