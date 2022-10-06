@@ -50,7 +50,7 @@ describe('Documentation website', () => {
       })
 
     // verify search
-    cy.get('header input').should('have.attr', 'placeholder', 'Search').type('experimentation')
+    cy.get('header input').should('have.attr', 'placeholder', 'Search').type('php')
 
     cy.contains(/Results \(\d+\)/)
 
@@ -58,11 +58,11 @@ describe('Documentation website', () => {
     cy.wait(2000)
 
     // click search result
-    cy.get('[data-test="result-Home-About Experimentation"]').click()
+    cy.get('[data-test="result-SDKs-PHP SDK reference"]').click()
 
-    cy.location('search').should('equal', '?q=experimentation')
-    cy.get('nav').contains('About Experimentation').isActiveLink()
-    cy.get('nav').contains('Creating experiments')
+    cy.location('search').should('equal', '?q=php')
+    cy.get('nav').contains('PHP SDK reference').isActiveLink()
+    cy.get('nav').contains('Go SDK reference')
     cy.get('header').contains('Integrations').click()
     cy.title().should('equal', 'Integrations')
     cy.get('h1').contains('Integrations')
