@@ -50,7 +50,7 @@ describe('Documentation website', () => {
       })
 
     // verify search
-    cy.get('header input').should('have.attr', 'placeholder', 'Search').type('code references')
+    cy.get('header input').should('have.attr', 'placeholder', 'Search').type('advanced')
 
     cy.contains(/Results \(\d+\)/)
 
@@ -58,11 +58,11 @@ describe('Documentation website', () => {
     cy.wait(2000)
 
     // click search result
-    cy.get('[data-test="result-Flags in your codebase-Code references"]').click()
+    cy.get('[data-test="result-Home-Advanced concepts"]').click()
 
-    cy.location('search').should('equal', '?q=code+references')
-    cy.get('nav').contains('Code references').isActiveLink()
-    cy.get('nav').contains('Flag statuses')
+    cy.location('search').should('equal', '?q=advanced')
+    cy.get('nav').contains('Advanced').isActiveLink()
+    cy.get('nav').contains('Billing and usage')
     cy.get('header').contains('Integrations').click()
     cy.title().should('equal', 'Integrations')
     cy.get('h1').contains('Integrations')
