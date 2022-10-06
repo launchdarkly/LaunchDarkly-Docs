@@ -58,7 +58,7 @@ describe('Documentation website', () => {
     cy.wait(2000)
 
     // click search result
-    cy.get('[data-test="result-SDKs-PHP SDK reference"]').click()
+    cy.get('[data-test="result-Server-side SDKs-PHP SDK reference"]').click()
 
     cy.location('search').should('equal', '?q=php')
     cy.get('nav').contains('PHP SDK reference').isActiveLink()
