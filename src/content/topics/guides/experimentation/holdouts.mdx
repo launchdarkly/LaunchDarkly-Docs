@@ -18,9 +18,9 @@ To form a holdout group, create a prerequisite flag that assigns all of your use
 
 In this tutorial you will:
 
-- Create a prerequisite holdout flag
-- Add that flag as a prerequisite to all flags you use within an experiment
-- Create a holdout experiment that compares the holdout group to the Experimentation group
+- [Create a prerequisite holdout flag](#creating-the-holdout-flag)
+- [Add that flag as a prerequisite](#adding-the-flag-as-a-prerequisite) to all flags you use within an experiment
+- [Create a holdout experiment](#building-a-holdout-experiment) that compares the holdout group to the Experimentation group
 
 To learn more about LaunchDarkly's Experimentation offering, read [About Experimentation](/home/about-experimentation).
 
@@ -79,9 +79,11 @@ Repeat this procedure for every flag you use in an experiment.
 
 ## Building a holdout experiment
 
-You can measure the impact of your Experimentation program by creating a metric and running an experiment on the prerequisite flag.
+After you have been running experiments for a few months or a quarter, you may want to evaluate your experimentation program by comparing the overall behavior of end users included in and excluded from experiments.
 
-### Creating a metric
+One way to measure the impact of your Experimentation program is by creating a relevant metric and running an experiment with it on the "Experimentation holdout group prerequisite" flag.
+
+### Creating the metric
 
 First, decide what metric you want to measure. Choose a metric that aligns with the same KPIs or goals you want to experiment on, such as average revenue per user or percentage of users that sign up for your service. In this example, you will measure average revenue per user.
 
@@ -99,7 +101,7 @@ To create your metric:
 
 ![The "Metric information" panel for a custom numeric metric.](holdouts-metric.png)
 
-### Building an experiment
+### Building the experiment
 
 Next, build your holdout comparison experiment. In this example, you will build an experiment to run for the first quarter of the year. To learn more about the experiment builder, read [Creating experiments](/home/creating-experiments).
 
@@ -118,20 +120,20 @@ To build your experiment:
 ![The "Select metrics" section of a new experiment.](holdouts-select-metrics.png)
 
 7. Click **Next**. The "Define variations" step opens.
-8. Choose a flag from the **Select flag** menu. This dependent flag should have the "Experimentation holdout group prerequisite" flag as a prerequisite.
+8. Choose the "Experimentation holdout group prerequisite" flag from the **Select flag** menu.
 9. Click **Next**. The "Set audience" step opens.
 10. Assign 5% of traffic to the `true` variation, and 95% of traffic to the `false` variation.
-12. Select `false` to serve to the remaining population.
+11. Select `false` to serve to the remaining population.
 
 ![The "Set audience" section of a new experiment.](holdouts-audience.png)
 
-13. Click **Finish**. You are returned to the experiment's **Design** tab.
+12. Click **Finish**. You are returned to the experiment's **Design** tab.
 
 Next, begin an iteration of your experiment.
 
 ### Starting the experiment iteration
 
-When you are ready to run the experiment, toggle **On** the "Experimentation holdout group prerequisite" flag and the dependent flag you are using in the experiment. Then, start an iteration of your experiment.
+When you are ready to run the experiment, toggle **On** the "Experimentation holdout group prerequisite" flag. Then, start an iteration of your experiment.
 
 To start your experiment iteration:
 
