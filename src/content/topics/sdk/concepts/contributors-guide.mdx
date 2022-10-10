@@ -94,6 +94,15 @@ To implement the variation method in a client-side SDK, return the last-known ev
 
 ## Recording events
 
+<Callout intent="info">
+  <CalloutTitle>Are you importing data?</CalloutTitle>
+  <CalloutDescription>
+
+This page is targeted at contributors to LaunchDarkly SDKs. If you are a LaunchDarkly customer looking for a way to import your metric events into LaunchDarkly from an existing data source, or a data provider looking to integrate with LaunchDarkly, use the metric import API to record your events instead. To learn more, read [Importing metric events](/home/about-experimentation/import-metric-events).
+
+  </CalloutDescription>
+</Callout>
+
 The SDKs send ten kinds of events:
 
 - `summary` events describe a set of individual feature evaluations over an interval.

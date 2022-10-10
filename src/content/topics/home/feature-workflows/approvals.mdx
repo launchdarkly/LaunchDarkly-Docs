@@ -12,6 +12,8 @@ tags: ['approval', 'feature workflows', 'enterprise', 'pro']
 
 Approvals is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
+Requiring approvals by environment is available only to customers on an Enterprise plan. To learn more, read [Configuring approvals by environment](/home/feature-workflows/environment-approvals).
+
 </CalloutDescription>
 </Callout>
 
@@ -29,7 +31,7 @@ Anyone with a Writer, Admin, Owner, or custom role with `reviewApprovalRequest` 
 
 ## Requesting approvals
 
-You can request approval on changes to a flag's targeting at any point after creation, from any member or team within your LaunchDarkly organization. Members that do not have permission to approve requests can still view the change.
+You can request approval on changes to a flag's targeting from any member or team within your LaunchDarkly organization. You can do this any time after you create a flag. Members that do not have permission to approve requests can still view the change.
 
 Here's how:
 
@@ -56,7 +58,7 @@ If your environment requires approvals, **Review and request approval** is the d
 6. Choose one or more reviewers from the **Reviewers** menu.
 7. Click **Request approval**. The approval request appears.
 
-Reviewers will receive an email, an in-app inbox notification, and a Slack notification, if applicable, asking them to approve your flag changes.
+Reviewers receive an email, an in-app inbox notification, and, if they use the LaunchDarkly Slack app, a Slack notification asking them to approve your flag changes.
 
 The flag's **Targeting** tab also updates with a number next to the **Pending changes** icon to indicate that there are pending changes waiting for review:
 
@@ -80,18 +82,27 @@ You can also use the REST API: [Create approval request to copy flag configurati
 
 ## Viewing flag approval requests
 
-If someone requests your approval on a flag change, you will receive an email, an in-app inbox notification, and, if applicable, a Slack notification. You can click through to view and approve or decline the request from any of these notifications. You can also view pending notifications from a flag's **Targeting** tab.
+If someone requests your approval on a flag change, you will receive an email, an in-app inbox notification, and, if they use the LaunchDarkly Slack app, a Slack notification. You can click through to view and approve or decline the request from any of these notifications. You can also view pending notifications from a flag's **Targeting** tab.
 
 ### Viewing approval notifications from email
 
-To view approval notifications from your email: 
+To view approval notifications from your email:
 
-1. Find the email from "The Team at LaunchDarkly" in your email client. The email subject includes the name of the project, environment, and flag you're being asked to review and the phrase "Review request." 
+1. Find the email from "The Team at LaunchDarkly" in your email client. The email subject includes the name of the project, environment, and flag you're being asked to review and the phrase "Review request."
 2. In the message body, click **Review request** to open the approval request details screen in LaunchDarkly.
 
 ### Viewing approval notifications from your in-app inbox
 
-To view approval notifications from your in-app inbox: 
+<Callout intent="alert" site="federal">
+<CalloutTitle>In-app approval notifications is not available in federal environments</CalloutTitle>
+<CalloutDescription>
+
+To learn more, read [LaunchDarkly in federal environments](/home/advanced/federal).
+
+</CalloutDescription>
+</Callout>
+
+To view approval notifications from your in-app inbox:
 
 1. Click the bell icon in the top menu bar. The approval notification inbox appears.
 
@@ -103,7 +114,7 @@ To view approval notifications from your in-app inbox:
 
 To view approval notifications from Slack:
 
-1. Click on the new notification from the LaunchDarkly Slack app. 
+1. Click on the new notification from the LaunchDarkly Slack app.
 2. Click on **Review request** to open the approval request details screen in LaunchDarkly.
 
 To learn more about the Slack app, read [Slack](/integrations/slack).
@@ -113,7 +124,7 @@ To learn more about the Slack app, read [Slack](/integrations/slack).
 To view approval notifications from a flag's **Targeting** tab:
 
 1. Navigate to the flag where changes were requested.
-2. Click **Pending changes** icon on the flag's **Targeting** tab. The Pending changes panel opens.
+2. Click the **Pending changes** icon on the flag's **Targeting** tab. The Pending changes panel opens.
 
 ![The "Pending changes" icon on the flag's "Targeting" tab.](workflows-pending-changes-icon.png)
 

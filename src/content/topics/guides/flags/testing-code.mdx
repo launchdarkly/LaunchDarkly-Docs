@@ -195,7 +195,7 @@ Using a dedicated LaunchDarkly environment is an easy option to set up because i
 
 Using a dedicated LaunchDarkly environment with targeting is similar to the previous option, but the flags in the environment are configured with targeting rules so that they return different values depending on the user object provided in the code. This allows you to run an entire set of tests with different flag values for each without needing to reconfigure any flags during the test run. This also means that multiple concurrent test runs will not conflict with each other.
 
-To learn more, read [Creating targeting rules](/home/flags/targeting-rules#creating-targeting-rules) and our guide [Getting started: Flag rules and targeting](/guides/flags/rules-and-targeting).
+To learn more, read [Creating targeting rules](/home/flags/targeting-rules#creating-targeting-rules).
 
 To ensure the correct use of targeting in test runs, the test must meet these requirements:
 - The code must supply a distinct but predictable user object for each test.
@@ -340,7 +340,7 @@ Here are some blog posts for further reading:
 - [Using LaunchDarkly in Automated Testing](https://launchdarkly.com/blog/automated-testing-in-launchdarkly/)
 - [Testing Failure Scenarios With Feature Flags](https://launchdarkly.com/blog/testing-failure-scenarios-with-feature-flags/)
 
-<Callout intent="primary">
+<Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
 <CalloutDescription>
 

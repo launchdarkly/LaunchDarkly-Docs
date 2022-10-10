@@ -7,10 +7,10 @@ tags: ['guide', 'experimentation', 'mutually exclusive', 'tutorial']
 ---
 
 <Callout intent="primary">
-<CalloutTitle>Experimentation is an add-on feature</CalloutTitle>
+<CalloutTitle>Experimentation is available for Pro and Enterprise plans</CalloutTitle>
 <CalloutDescription>
 
-Experimentation is available as an add-on for customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To add Experimentation to your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+Experimentation is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To add Experimentation to your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
@@ -33,7 +33,7 @@ In this tutorial you will:
 
 ### Controlling experiment audiences with flag variations
 
-You can control experiment audiences with flag variations. First, you can create a prerequisite flag with variations that correspond to each of the mutually exclusive experiments you want to run. Then, you can use a percentage rollout to randomly assign each of your users to only one of those exclusive experiments. 
+You can control experiment audiences with flag variations. First, you can create a prerequisite flag with variations that correspond to each of the mutually exclusive experiments you want to run. Then, you can use a percentage rollout to randomly assign each of your users to only one of those exclusive experiments.
 
 If you want LaunchDarkly to include all of your users in one of the experiments, add the percentage rollout to the default rule in the prerequisite flag. If you want LaunchDarkly to include only some of your users in the experiments, add the percentage rollout to a targeting rule in the prerequisite flag.
 
@@ -206,7 +206,7 @@ In this guide, you learned how to create a prerequisite flag and two dependent f
 
 Mutually exclusive experiments are not limited to two at a time. When it's time to create your own, you can create as many mutually exclusive experiments as you need to prevent collisions between experiments running on similar parts of your app or infrastructure.
 
-<Callout intent="primary">
+<Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
 <CalloutDescription>
 

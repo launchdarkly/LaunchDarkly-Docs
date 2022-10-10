@@ -58,8 +58,6 @@ To complete this guide, you must have the following prerequisites:
   * [LaunchDarkly API documentation](#launchdarkly-api-documentation)
   * [Postman](#postman)
 
-It is not required that you complete any of the other tutorials before reviewing this one. If you have completed the [Getting started: Configuring an SDK and creating a flag](/guides/flags/sdk-flag) or [Getting started: Flag rules and targeting](/guides/flags/rules-and-targeting) tutorials, you can use the same projects and flags in the exercises below.
-
 ### Curl
 
 [Curl](https://curl.se/) is a common command line tool that you can use to make calls to the REST API. This guide uses curl in its examples. You can run the examples in this guide from your own command line.
@@ -194,7 +192,7 @@ In this exercise, you'll read two resources from LaunchDarkly using the REST API
 
 ### Reading a flag
 
-First, you'll read information about a single feature flag. While it's unlikely that you would use the REST API just to read flag information, it's a good introduction to how our APIs work. If you have not yet created a feature flag in your project, follow the procedure in [Your first feature flag](/home/getting-started/feature-flags) or complete the tutorial [Getting started: Configuring an SDK and creating a flag](/guides/flags/sdk-flag).
+First, you'll read information about a single feature flag. While it's unlikely that you would use the REST API just to read flag information, it's a good introduction to how our APIs work. If you have not yet created a feature flag in your project, follow the procedure in [Your first feature flag](/home/getting-started/feature-flags).
 
 Each request consists of an HTTP method, a set of request headers, a base URI, a resource name, and path parameters. Let's review each component of the request.
 
@@ -272,7 +270,7 @@ curl -X GET 'https://app.launchdarkly.com/api/v2/user-search/default/production'
 </CodeTabItem>
 </CodeTabs>
 
-If no users have encountered your flag, the `totalCount` is zero. To find out what the response looks like with several users, complete the [Getting started: Flag rules and targeting](/guides/flags/rules-and-targeting) tutorial and repeat this request using the account, project, and flag you used in those exercises.
+If no users have encountered your flag, the `totalCount` is zero.
 
 Depending on your application, the `totalCount` of users may be quite large. You can add query parameters to your request to search for a smaller set of users. Query parameters are optional parameters appended to the request path, following a `?`.
 
@@ -513,7 +511,7 @@ In this guide, you learned to:
 
 We hope that this has helped you get started using LaunchDarkly's REST APIs.
 
-<Callout intent="primary">
+<Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
 <CalloutDescription>
 

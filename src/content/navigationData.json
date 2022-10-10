@@ -264,6 +264,10 @@
             "path": "/home/members/managing"
           },
           {
+            "label": "Your member profile",
+            "path": "/home/members/profile"
+          },
+          {
             "label": "LaunchDarkly's built-in roles",
             "path": "/home/members/built-in-roles"
           },
@@ -446,6 +450,10 @@
           {
             "label": "Experimentation events",
             "path": "/home/about-experimentation/events"
+          },
+          {
+            "label": "Importing metric events",
+            "path": "/home/about-experimentation/import-metric-events"
           }
         ]
       },
@@ -496,6 +504,10 @@
           {
             "label": "Managing experiments",
             "path": "/home/analyzing-experiments/managing"
+          },
+          {
+            "label": "Understanding sample ratios",
+            "path": "/home/analyzing-experiments/sample-ratios"
           },
           {
             "label": "Winning variations",
@@ -982,7 +994,13 @@
           },
           {
             "label": "Configuration",
-            "path": "/sdk/features/config"
+            "path": "/sdk/features/config",
+            "items": [
+              {
+                "label": "Service endpoint configuration",
+                "path": "/sdk/features/service-endpoint-configuration"
+              }
+            ]
           },
           {
             "label": "Evaluating flags",
@@ -1340,14 +1358,6 @@
             "path": "/guides/flags/flag-hierarchy"
           },
           {
-            "label": "Getting started: Configuring an SDK and creating a flag",
-            "path": "/guides/flags/sdk-flag"
-          },
-          {
-            "label": "Getting started: Flag rules and targeting",
-            "path": "/guides/flags/rules-and-targeting"
-          },
-          {
             "label": "Improving flag usage in code",
             "path": "/guides/flags/improving-code"
           },
@@ -1389,10 +1399,6 @@
           {
             "label": "Experimentation and Bayesian statistics",
             "path": "/guides/experimentation/bayesian"
-          },
-          {
-            "label": "Getting started: Experimenting with feature flags",
-            "path": "/guides/experimentation/experimentation"
           },
           {
             "label": "Measuring Experimentation impact with holdout experiments",

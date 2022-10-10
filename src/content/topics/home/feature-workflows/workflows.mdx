@@ -42,7 +42,7 @@ To use workflows, you should understand the following features:
 
 ## Setting up a workflow
 
-You can set up two kinds of workflows. Progressive rollout workflows gradually increase the percentage of users targeted by a flag. Custom workflows manage a specific rollout process that you define.
+You can set up three kinds of workflows. Progressive rollout workflows gradually increase the percentage of users targeted by a flag. Maintenance windows allow you to temporarily toggle a flag off. Custom workflows manage a specific rollout process that you define. You can also save a workflow created as a template to reuse later. To learn more, read [Workflow templates](/home/feature-workflows/workflow-templates).
 
 ### Building a progressive rollout workflow
 
@@ -80,9 +80,30 @@ You must add approval steps before you add schedule steps.
 
 </Details>
 
-8. Click **Start workflow**.
+9. Click **Start workflow**.
 
 For multivariate workflows, LaunchDarkly decreases and recalculates the variations that are not selected for the rollout. You should confirm the auto-calculated percentage rollouts and adjust them to your preferences if needed.
+
+### Building a maintenance window workflow
+
+You can use workflows to create maintenance windows that toggle a flag on or off, and then back off or on, during a scheduled date and time. 
+
+To build a maintenance window workflow:
+
+1. Navigate to the flags list and select the flag you want to create a workflow for.
+2. Click on the **Workflows** tab.
+3. Click **Create a workflow**, and then click **Maintenance window**.
+4. Configure your maintenance window:
+  * Choose whether to toggle the flag on or off during the maintenance.
+  * Choose when to start the maintenance.
+  * Choose the length of the maintenance period.
+
+  ![The "Configure maintenance window" workflow dialog.](workflows-configure-maintenance-window.png)
+
+5. Click **Review workflow**. An overview of the workflow appears.
+6. (Optional) Click the **edit** icon next to the title to edit the title.
+7. (Optional) Click the **edit** icon next to "Add a description" to add a description.
+8. (Optional) If you have an approvals process, you can remove the first "Schedule" step, add an approval step, and then re-add the schedule step.
 
 ### Building a custom workflow
 

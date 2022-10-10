@@ -3,7 +3,7 @@ path: /home/creating-experiments/allocation
 title: Allocating experiment audiences
 description: This topic explains how to include specific groups of users in an experiment audience using audience allocation.
 published: true
-tags: ['population', 'audience', 'allocation', 'experiment', 'experimentation', 'enterprise']
+tags: ['population', 'audience', 'allocation', 'ab testing', 'experiment', 'experimentation', 'enterprise']
 ---
 
 ## Overview
@@ -14,7 +14,7 @@ This topic explains how to include specific groups of users in an experiment aud
 
 You have the option to only include a subset of users in your experiments, which gives you accurate experiment results more quickly. This subset of users is called your "experiment audience."
 
-For example, imagine you plan to test alternate copy for your checkout button. You target all Canadian and US users with the `true` variation for the button, which shows the new, alternate copy, but you only want to run an experiment measuring click conversions for users in the United States. 
+For example, imagine you plan to test alternate copy for your checkout button. You target all Canadian and US users with the `true` variation for the button, which shows the new, alternate copy, but you only want to run an experiment measuring click conversions for users in the United States.
 
 To accomplish this, you would select the user targeting rule on the flag's **Targeting** tab that affects US-based users and de-select the rule that targets users in Canada. This limits the users who evaluate the flag to only those who are based in the United States.
 
@@ -37,6 +37,8 @@ You can run an experiment on a flag's default rule, or you can create a custom e
 When you build your experiment, you can allocate all or a percentage of the user traffic that encounters a flag in an experiment. Audience allocation gives you flexibility when selecting your experiment audience and ensures accurate experiment results. LaunchDarkly analyzes only users that you choose to be part of the experiment.
 
 If you decide to increase or decrease the number of users in an experiment, LaunchDarkly will create a new iteration of your experiment. To learn more, read [Starting experiment iterations](/home/creating-experiments#starting-experiment-iterations).
+
+LaunchDarkly automatically performs checks on the allocation, to make sure that actual user traffic matches the allocation you set. To learn more, read [Understanding sample ratios](/home/analyzing-experiments/sample-ratios).
 
 ### Changing traffic allocation
 

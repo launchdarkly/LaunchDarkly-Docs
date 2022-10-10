@@ -3,14 +3,14 @@ path: /guides/experimentation/bayesian
 title: Experimentation and Bayesian statistics
 description: This guide explains the difference between frequentist and Bayesian statistics, and explains why LaunchDarkly's Experimentation framework uses Bayesian statistics.
 published: true
-tags: ['guide', 'experimentation', 'bayesian', 'frequentist', 'statistics']
+tags: ['guide', 'experimentation', 'bayesian', 'frequentist', 'statistics', 'ab testing']
 ---
 
 <Callout intent="primary">
-<CalloutTitle>Experimentation is an add-on feature</CalloutTitle>
+<CalloutTitle>Experimentation is available for Pro and Enterprise plans</CalloutTitle>
 <CalloutDescription>
 
-Experimentation is available as an add-on for customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To add Experimentation to your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+Experimentation is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To add Experimentation to your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
@@ -133,6 +133,7 @@ This section includes an explanation of advanced statistical concepts. We provid
 For numeric metrics we use a normal prior on the mean of the metric. It is an informed prior based on meta-analyses of online experiments across industries. To learn more about priors and prior beliefs, read [Frequentist and Bayesian modeling](#frequentist-and-bayesian-modeling).
 
 Some of these meta-analyses include:
+
 - [Online Controlled Experiments at Large Scale](https://www.exp-platform.com/Documents/2013%20controlledExperimentsAtScale.pdf)
 - [False Discovery in A/B Testing](https://ron-berman.com/papers/fdr.pdf)
 
@@ -152,7 +153,7 @@ Here is the updating function for the binomial distribution:
 
 To learn more, read [When likelihood function is a discrete distribution](https://en.wikipedia.org/wiki/Conjugate_prior#When_likelihood_function_is_a_discrete_distribution).
 
-After we have the posterior distribution for each variant, we use Monte Carlo sampling to determine the probability of each variant winning. Some systems compare each variant to the control, but this approach has the same problem as frequentist statistics in determining the winner with multiple variants. 
+After we have the posterior distribution for each variant, we use Monte Carlo sampling to determine the probability of each variant winning. Some systems compare each variant to the control, but this approach has the same problem as frequentist statistics in determining the winner with multiple variants.
 
 To learn more, read [The Difference between "Significant" and "Not Significant" Is Not Itself Statistically Significant](https://www.jstor.org/stable/27643811).
 
@@ -166,7 +167,7 @@ If you want to use statistical significance to make decisions, you can still use
 
 In our decades of experimentation experience both in academia and in industry, we notice that people often interpret frequentist probabilities as if they were Bayesian probabilities. For example, people say things like "the p-value is the probability that there really is a difference." Many experimentation experts have tried to correct these misinterpretations. But Bayesian statistics avails itself to this interpretation already. So instead of trying to teach unintuitive concepts, we think providing intuitive probabilities is a better approach.
 
-<Callout intent="primary">
+<Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
 <CalloutDescription>
 

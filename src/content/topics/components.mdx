@@ -17,6 +17,7 @@ This guide helps authors and developers unify implementation by providing you wi
   - [Callout](#callout)
   - [Code Samples](#code-samples)
   - [Tables](#tables)
+- [Special considerations for Federal docs](#special-considerations-for-federal-docs)
 
 # Best practices and gotchas
 
@@ -275,60 +276,6 @@ The docs site supports PNGs and GIFs. Just use Markdown images. Put the images i
 
 Include a blank line between the opening and closing `<CalloutDescription>` tags and the content. Do not indent any lines.
 
-### Primary
-
-<Callout intent="primary">
-<CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
-<CalloutDescription>
-
-You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the <strong>Users</strong> list automatically after they encounter feature flags.
-
-</CalloutDescription>
-</Callout>
-
-### Alert
-
-<Callout intent="alert">
-<CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
-<CalloutDescription>
-
-You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the <strong>Users</strong> list automatically after they encounter feature flags.
-
-</CalloutDescription>
-</Callout>
-
-### Warning
-
-<Callout intent="warning">
-<CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
-<CalloutDescription>
-
-You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the <strong>Users</strong> list automatically after they encounter feature flags.
-
-</CalloutDescription>
-</Callout>
-
-### Info
-
-<Callout intent="info">
-<CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
-<CalloutDescription>
-
-You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the <strong>Users</strong> list automatically after they encounter feature flags.
-
-</CalloutDescription>
-</Callout>
-
-
-
-<CodeTabs
-  defaultValue="Callout"
-  values={[
-    { label: 'Callout', value: 'Callout', },
-  ]
-}>
-<CodeTabItem value="Callout">
-
 ```js
 <Callout intent="primary"> <!-- OR alert, warning, info -->
   <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
@@ -340,8 +287,17 @@ You do not have to send users to LaunchDarkly in advance. <a href="">Check out t
 </Callout>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+Optionally, you can include a `site` parameter in the initial callout tag:
+
+```js
+<Callout intent="primary" site="federal">
+```
+
+The behavior is as follows:
+
+* If there is no `site` parameter, the callout is visible in both "LaunchDarkly docs" and "Federal docs"
+* If `site="launchDarkly"`, the callout is only visible for "LaunchDarkly docs"
+* If `site="federal"`, the callout is only visible for "Federal docs"
 
 ## Code samples
 
@@ -445,3 +401,14 @@ Column 2 Cell 1 <a href="example.com">with a link in it</a>.
 
 </CodeTabItem>
 </CodeTabs>
+
+# Special considerations for federal docs
+
+Readers of [https://docs.launchdarkly.com/](https://docs.launchdarkly.com/) can select whether to view "LaunchDarkly docs" (default) or "Federal docs."
+
+When viewing the federal docs:
+
+* Select LaunchDarkly URLs in links and code samples automatically change from `.com` to `.us`. The list of these subdomains is maintained in `/src/utils/siteAwareUtils.ts`. However, any links authored as `.us` do NOT automatically change to `.com`.
+* Alerts specific to readers of the federal docs may appear. You can specify these using the ["site" frontmatter keyword](/contributors-guide.md#writing-frontmatter-for-docs-topics).
+* Callouts specific to readers of the federal docs may appear. You can specify these using the ["site" keyword in the callout tag](#callout).
+* Code samples specific to readers of the federal docs may appear. You specify these using the ["site" keyword after the language](#code-samples).

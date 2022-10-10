@@ -82,3 +82,9 @@ export const useIsFederal = () => {
 export const isValidSite = (site: string) => {
   return ['launchDarkly', 'federal'].includes(site)
 }
+
+export const errorOnInvalidSite = (site: string) => {
+  if (site && !isValidSite(site)) {
+    throw Error(`Invalid site ${site}. Site must either be launchDarkly or federal case sensitive.`)
+  }
+}

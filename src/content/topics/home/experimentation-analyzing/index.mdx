@@ -28,11 +28,11 @@ The data an experiment has collected is represented in a results table:
 
 ![An experiment's results table.](experiment-results-table.png)
 
-All of the data in the results table are based on a posterior distribution. To learn more about posterior distributions, read [Frequentist and Bayesian modeling](/guides/experimentation/bayesian#frequentist-and-bayesian-modeling).
+All of the data in the results table are based on a posterior distribution. To learn more about posterior distributions, read [Frequentist and Bayesian modeling](/guides/experimentation/bayesian#frequentist-and-bayesian-modeling). LaunchDarkly automatically performs checks on the results data, to make sure that actual user traffic matches the allocation you set. To learn more, read [Understanding sample ratios](/home/analyzing-experiments/sample-ratios).
 
 Imagine you want to test offering a discount for your online store, to see if more users complete their purchase when you offer a discount. You run an experiment using a click conversion metric on user behavior when you offer various discounts, with no discount serving as your control variation. The sections below explain what each column means.
 
-### Probability to be best**
+### Probability to be best
 
 The probability to be best is the likelihood that a variation had the biggest effect on the primary metric. Of all the variations in the experiment, the one with highest probability is the best option to choose as a winner. In this example, the "15% off" variation has the highest probability to be best.
 
