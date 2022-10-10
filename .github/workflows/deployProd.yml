@@ -18,7 +18,7 @@ jobs:
           # fetch entire history to get Last Edit date for topics
           fetch-depth: 0
       - name: Find last successful run
-        uses: SamhammerAG/last-successful-build-action@v2
+        uses: SamhammerAG/last-successful-build-action@v3
         id: last-success
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
