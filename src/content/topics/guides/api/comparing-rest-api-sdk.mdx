@@ -1,0 +1,82 @@
+---
+path: /guide/api/comparing-rest-api-sdk
+title: Comparing LaunchDarkly's REST API and SDK
+description: This guide explains the differences between LaunchDarkly's REST API and SDK, and when you should use each.
+published: true
+tags: ['guide', 'rest', 'api', 'sdk']
+---
+
+## Overview
+
+This guide explains the differences between LaunchDarkly's REST API and SDK, and when you should use each.
+
+## Using the LaunchDarkly SDK
+
+As a LaunchDarkly customer, you must set up an SDK to integrate LaunchDarkly with your code.
+
+At a high level, when your application starts up, your code should initialize the SDK. When a customer encounters a feature flag in your application, you code should use the SDK to evaluate the feature flag and retrieve the appropriate flag variation for that customer.
+
+The SDKs are specialized for the tasks of evaluating feature flags in your application and generating analytics events based on those evaluations. Constraining the SDKs to these use cases lets us keep them relatively small and easy to embed in your application.
+
+We provide both client-side and server-side SDKs, in a variety of languages, to support your use case and tech stack.
+
+To get started, read [Setting up an SDK](/home/getting-started/setting-up). To determine which type of SDK to use, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side). When you're reading to begin your implementation, read [Implementation guidelines for LaunchDarkly SDKs](/sdk/concepts/getting-started#implementation-guidelines-for-launchdarkly-sdks).
+
+### Access and documentation for the LaunchDarkly SDK
+
+To configure the LaunchDarkly SDK, you need either an SDK key, a mobile key, or client-side ID for your SDK. These keys are specific to each project and environment. They are listed on the [**Account settings**](https://app.launchdarkly.com/settings/projects) page, under the **Environments** tab for each project. They provide access to get the flag data needed for evaluations, and to send analytics events. Which type of SDK you use in your application determines which key you need to configure the SDK.
+
+LaunchDarkly SDKs are updated periodically. To learn more, read [Versioning policy](/sdk/concepts/versioning).
+
+To learn more about a particular LaunchDarkly SDK, read the SDK reference guides at [Client-side SDKs](/sdk/client-side) and [Server-side SDKs](/sdk/server-side). Each reference guide documents how to get started with the SDK, and links to information on all of the supported features, the SDK API documentation, the SDK's GitHub repository, and sample applications that use the SDK.
+
+## Using the LaunchDarkly REST API
+
+As a LaunchDarkly customer, you never need to use the REST API. If you want to, you can perform all of the functions available in the REST API through the LaunchDarkly user interface.
+
+However, you may find it convenient to perform this feature management programmatically. For example, with the LaunchDarkly REST API you can perform the following:
+
+* Create, update, and search for account members, teams, projects, environments, and feature flags
+* Toggle feature flags
+* Query data about users that have evaluated feature flags in your application
+* Build custom integrations
+* Export raw data to destinations outside of LaunchDarkly
+
+You cannot use the REST API to evaluate a feature flag on behalf of an end user of your application. For that, you must use the LaunchDarkly SDK embedded in your application.
+
+To get started, read [The LaunchDarkly API](/home/connecting/api).
+
+### Access and documentation for the LaunchDarkly REST API
+
+To use the REST API, you need an API access token. You can generate an access token in LaunchDarkly's **Account settings** menu. Depending on your use case, you may prefer a personal access token or a service token. To authenticate to the LaunchDarkly API, add an `Authorization` header with your access token to your requests. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
+
+The LaunchDarkly REST API is updated frequently, to support the latest features in the LaunchDarkly product. If breaking changes to the API are required, we release a new version. To set the API version for each request, add an `LD-API-Version` header to the request. To learn more, read [Versioning](https://apidocs.launchdarkly.com/#section/Overview/Versioning).
+
+Periodically, we auto-generate client libraries in several common languages based on the OpenAPI specification of our REST API. To learn more, read [OpenAPI and client libraries](https://apidocs.launchdarkly.com/#section/Overview/OpenAPI-(Swagger)-and-client-libraries).
+
+To get started using the LaunchDarkly API, read the tutorial [Using the LaunchDarkly REST API](/guides/api/rest-api). To learn more, read the [API documentation](https://apidocs.launchdarkly.com/).
+
+## Using other LaunchDarkly public APIs
+
+Outside of the official LaunchDarkly REST API, we occasionally provide supplemental API endpoints. These API endpoints:
+
+  * are still in beta
+  * are not yet incorporated into our REST API framework or client libraries, although they may be in the future
+  * correspond to features that are not yet available through the LaunchDarkly user interface
+
+To learn more about the currently available supplemental public APIs, read [Importing metric events](/home/creating-experiments/import-metric-events).
+
+## Conclusion
+
+This guide discussed several ways you can interact with LaunchDarkly, including through the LaunchDarkly SDK, the LaunchDarkly REST API, and other publicly available APIs. Understanding which of these options to use when helps you streamline the implementation of your application.
+
+<Callout intent="primary" site="launchDarkly">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>
