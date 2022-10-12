@@ -13,6 +13,10 @@ module.exports = [
     fromPath: '/guides/experimentation/experimentation',
     toPath: '/guides/experimentation',
   },
+  {
+    fromPath: '/home/about-experimentation/import-metric-events',
+    toPath: '/home/creating-experiments/import-metric-events',
+  },
 
   // Redirects from guide rearchitecture project, q2 2022
   {
