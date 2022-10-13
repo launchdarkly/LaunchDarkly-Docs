@@ -107,7 +107,7 @@ To merge your LaunchDarkly accounts, migrate data objects from each project in t
 <CalloutTitle>The source and destination project should have different names</CalloutTitle>
 <CalloutDescription>
 
-Your source project and your destination project should not have the same project name. If they do, some data objects may not transfer correctly.
+Your source project and your destination project should not have the same project name. If they do, some data objects, including segments, may not transfer correctly. If this happens, you will receive an error message that includes the status code `404` and a reference to `/segments/undefined`.
 
 </CalloutDescription>
 </Callout>
