@@ -64,6 +64,7 @@ exclude = [
   'https://unpkg.com',
   'https://cdn.jsdelivr.net',
   'https://launchdarklydemostack1-s3bucketforwebsitecontent-jffmp2434grq.s3.amazonaws.com/site/',
+  'https://github.com/:organization/:repo/releases.atom',
   # Repeated 404s on these links - [Issue opened](https://github.com/lycheeverse/lychee/issues/431)
   'https://github.com/marketplace/actions/launchdarkly-code-references',
   'https://github.com/features/actions',
