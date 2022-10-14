@@ -255,6 +255,7 @@ relay proxy
 release
 reset
 resource
+rest
 result
 roku
 role

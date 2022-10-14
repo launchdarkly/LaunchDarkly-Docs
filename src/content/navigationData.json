@@ -1520,6 +1520,10 @@
         "svg": "compass",
         "items": [
           {
+            "label": "Comparing LaunchDarkly's SDK and REST API",
+            "path": "/guide/api/comparing-sdk-rest-api"
+          },
+          {
             "label": "Using the LaunchDarkly REST API",
             "path": "/guides/api/rest-api"
           }
