@@ -752,7 +752,7 @@
               },
               {
                 "label": "Managing approvals in Slack",
-                "path": "/integrations/slack/managing-approvals-in-slack"
+                "path": "/integrations/slack/managing-approvals"
               },
               {
                 "label": "Turning flag targeting on and off",
