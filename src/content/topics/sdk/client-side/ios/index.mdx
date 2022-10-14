@@ -90,7 +90,7 @@ Including the SDK as a dependency in a `Package.swift` file looks like this:
 ```swift
 //...
     dependencies: [
-        .package(url: "https://github.com/launchdarkly/ios-client-sdk.git", .upToNextMinor("6.1.0")),
+        .package(url: "https://github.com/launchdarkly/ios-client-sdk.git", .upToNextMinor("7.0.0")),
     ],
     targets: [
         .target(
@@ -122,7 +122,7 @@ Here is the code to add to your `Podfile`:
 ```ruby
 use_frameworks!
 target 'YourTargetName' do
-  pod 'LaunchDarkly', '~> 6.1'
+  pod 'LaunchDarkly', '~> 7.0'
 end
 ```
 
@@ -146,7 +146,7 @@ Here is the code to include in your `Cartfile`:
 <CodeTabItem value="swift">
 
 ```swift
-github "launchdarkly/ios-client" ~> 6.1
+github "launchdarkly/ios-client" ~> 7.0
 ```
 
 </CodeTabItem>
@@ -442,6 +442,7 @@ This SDK supports the following features:
 * [Offline mode](/sdk/features/offline-mode#ios)
 * [Relay Proxy configuration, using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#ios)
 * [Sending custom events](/sdk/features/events#ios)
+* [Service endpoint configuration](/sdk/features/service-endpoint-configuration#ios)
 * [Shutting down](/sdk/features/shutdown#ios)
 * [Subscribing to flag changes](/sdk/features/flag-changes#ios)
 * [User configuration](/sdk/features/user-config#ios)

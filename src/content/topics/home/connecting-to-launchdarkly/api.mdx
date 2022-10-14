@@ -3,7 +3,7 @@ path: /home/connecting/api
 title: The LaunchDarkly API
 description: This topic explains how to access LaunchDarkly's API documentation.
 published: true
-tags: ['api', 'enterprise', 'pro']
+tags: ['rest', 'api', 'enterprise', 'pro']
 ---
 
 <Callout intent="primary">
@@ -21,24 +21,31 @@ This topic explains how to authenticate to the LaunchDarkly API and access Launc
 
 Every LaunchDarkly feature begins as an API endpoint. You can use the LaunchDarkly API to perform any action that's available in the LaunchDarkly product itself.
 
-LaunchDarkly APIs let you:
+For example, with the LaunchDarkly REST API you can perform the following:
 
-* Automatically toggle feature flags
+* Create, update, and search for account members, teams, projects, environments, and feature flags
+* Toggle feature flags
+* Query data about users that have evaluated feature flags in your application
 * Build custom integrations
 * Export raw data to destinations outside of LaunchDarkly
 
+The LaunchDarkly REST API is not designed to evaluate feature flags from within your application. For that, you should use the [LaunchDarkly SDKs](/sdk). To learn more about the differences between these offerings, read [Comparing LaunchDarkly's REST API and SDK](/guide/api/comparing-sdk-rest-api).
+
 ## Prerequisites
 
-To access the API, you must have the following prerequisites:
+To access the REST API, you must have the following prerequisites:
 
-* A personal API access token, which you can generate in LaunchDarkly's **Account settings** menu. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
-* An identifying key, mobile key, or client-side ID for your SDK. Your specific requirements are determined by which SDKs you use.
+* An API access token, which you can generate in LaunchDarkly's **Account settings** menu. Depending on your use case, you may prefer a personal access token or a service token. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
 
 ## Accessing the LaunchDarkly API
 
-Adding an `Authorization` header with your access token to your requests allows you to authenticate to the LaunchDarkly API.
+To access the LaunchDarkly API, you have several options:
 
-We recommend accessing the API via a request header, but you can also perform API calls from the browser when you're logged in to LaunchDarkly. To learn more, read the Authentication section of the [API documentation](https://apidocs.launchdarkly.com/#section/Authentication).
+* Explore the available REST endpoints at [https://apidocs.launchdarkly.com](https://apidocs.launchdarkly.com/).
+* Download our [OpenAPI specification](https://app.launchdarkly.com/api/v2/openapi.json) to use in an API-based tool, such as Postman or Insomnia.
+* Visit our [collection of client libraries on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories). We auto-generate client libraries in several common languages based on our OpenAPI specification. To learn more, read [OpenAPI and client libraries](https://apidocs.launchdarkly.com/#section/Overview/OpenAPI-(Swagger)-and-client-libraries).
+
+To authenticate to the LaunchDarkly API, add an `Authorization` header with your access token to your requests. While we recommend accessing the API using a request header, you can also perform API calls from the browser when you're logged in to LaunchDarkly. To learn more, read the Authentication section of the [API documentation](https://apidocs.launchdarkly.com/#section/Authentication).
 
 ## Accessing the API documentation
 

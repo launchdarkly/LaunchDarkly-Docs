@@ -1,4 +1,160 @@
 module.exports = [
+  // Redirects within the git-gatsby docs site
+
+  {
+    fromPath: '/guides/flags/rules-and-targeting',
+    toPath: '/guides/flags',
+  },
+  {
+    fromPath: '/guides/flags/sdk-flag',
+    toPath: '/guides/flags',
+  },
+  {
+    fromPath: '/guides/experimentation/experimentation',
+    toPath: '/guides/experimentation',
+  },
+  {
+    fromPath: '/home/about-experimentation/import-metric-events',
+    toPath: '/home/creating-experiments/import-metric-events',
+  },
+
+  // Redirects from guide rearchitecture project, q2 2022
+  {
+    fromPath: '/guides/best-practices/migrating-solutions',
+    toPath: '/guides/account/migrating-solutions',
+  },
+  {
+    fromPath: '/guides/tutorials/merge-accounts',
+    toPath: '/guides/account/merge-accounts',
+  },
+  {
+    fromPath: '/guides/best-practices/user-data',
+    toPath: '/guides/account/user-data',
+  },
+  {
+    fromPath: 'guides/best-practices/teams',
+    toPath: '/guides/teams-roles/teams',
+  },
+  {
+    fromPath: '/guides/best-practices/custom-roles',
+    toPath: '/guides/teams-roles/custom-roles',
+  },
+  {
+    fromPath: '/guides/tutorials/no-access',
+    toPath: '/guides/teams-roles/no-access',
+  },
+  {
+    fromPath: '/guides/tutorials/sdk-flag',
+    toPath: '/guides/flags/sdk-flag',
+  },
+  {
+    fromPath: '/guides/tutorials/rules-and-targeting',
+    toPath: '/guides/flags/rules-and-targeting',
+  },
+  {
+    fromPath: '/guides/best-practices/creating-flags',
+    toPath: '/guides/flags/creating-flags',
+  },
+  {
+    fromPath: '/guides/best-practices/flag-hierarchy',
+    toPath: '/guides/flags/flag-hierarchy',
+  },
+  {
+    fromPath: '/guides/best-practices/improving-code',
+    toPath: '/guides/flags/improving-code',
+  },
+  {
+    fromPath: '/guides/best-practices/technical-debt',
+    toPath: '/guides/flags/technical-debt',
+  },
+  {
+    fromPath: '/guides/best-practices/testing-code',
+    toPath: '/guides/flags/testing-code',
+  },
+  {
+    fromPath: '/guides/best-practices/entitlements',
+    toPath: '/guides/flags/entitlements',
+  },
+  {
+    fromPath: '/guides/platform-specific/triggers-dynatrace',
+    toPath: '/guides/integrations/triggers-dynatrace',
+  },
+  {
+    fromPath: '/guides/platform-specific/static-sites',
+    toPath: '/guides/flags/static-sites',
+  },
+  {
+    fromPath: '/guides/platform-specific/cloudflare-workers',
+    toPath: '/guides/infrastructure/cloudflare-workers',
+  },
+  {
+    fromPath: '/guides/best-practices/integrations',
+    toPath: '/guides/integrations/using-integrations',
+  },
+  {
+    fromPath: '/guides/best-practices/integrations-use-cases',
+    toPath: '/guides/integrations/integrations-use-cases',
+  },
+  {
+    fromPath: '/guides/best-practices/deployment-strategies',
+    toPath: '/guides/infrastructure/deployment-strategies',
+  },
+  {
+    fromPath: '/guides/best-practices/infrastructure-migration',
+    toPath: '/guides/infrastructure/infrastructure-migration',
+  },
+  {
+    fromPath: '/guides/best-practices/serverless',
+    toPath: '/guides/infrastructure/serverless',
+  },
+  {
+    fromPath: '/guides/platform-specific/aws-lambda',
+    toPath: '/guides/infrastructure/aws-lambda',
+  },
+  {
+    fromPath: '/guides/platform-specific/nextjs',
+    toPath: '/guides/infrastructure/nextjs',
+  },
+  {
+    fromPath: '/guides/platform-specific/svelte',
+    toPath: '/guides/infrastructure/svelte',
+  },
+  {
+    fromPath: '/guides/platform-specific/unit-tests',
+    toPath: '/guides/infrastructure/unit-tests',
+  },
+  {
+    fromPath: '/guides/platform-specific/mobile',
+    toPath: '/guides/sdk/mobile',
+  },
+  {
+    fromPath: '/guides/tutorials/unsupported-sdk',
+    toPath: '/guides/sdk/unsupported-sdk',
+  },
+  {
+    fromPath: '/guides/platform-specific/haproxy',
+    toPath: '/guides/sdk/haproxy',
+  },
+  {
+    fromPath: '/guides/platform-specific/nginx',
+    toPath: '/guides/sdk/nginx',
+  },
+  {
+    fromPath: '/guides/tutorials/rest-api',
+    toPath: '/guides/api/rest-api',
+  },
+  {
+    fromPath: '/guides/best-practices/sdk-wrappers',
+    toPath: '/guides/sdk/sdk-wrappers',
+  },
+  {
+    fromPath: 'guides/tutorials/experimentation',
+    toPath: '/guides/experimentation/experimentation',
+  },
+  {
+    fromPath: '/guides/best-practices/bayesian',
+    toPath: '/guides/experimentation/bayesian',
+  },
   // Redirects within docs site
 
   {
@@ -344,198 +500,6 @@ module.exports = [
   {
     fromPath: '/integrations/code-references/bitbucket-pipes',
     toPath: '/home/code/bitbucket',
-  },
-
-  // Redirects from guide rearchitecture project, q2 2022
-  {
-    fromPath: '/guides/best-practices/migrating-solutions',
-    toPath: '/guides/account/migrating-solutions',
-  },
-  {
-    fromPath: '/guides/tutorials/merge-accounts',
-    toPath: '/guides/account/merge-accounts',
-  },
-  {
-    fromPath: '/guides/best-practices/user-data',
-    toPath: '/guides/account/user-data',
-  },
-  {
-    fromPath: 'guides/best-practices/teams',
-    toPath: '/guides/teams-roles/teams',
-  },
-  {
-    fromPath: '/guides/best-practices/custom-roles',
-    toPath: '/guides/teams-roles/custom-roles',
-  },
-  {
-    fromPath: '/guides/tutorials/no-access',
-    toPath: '/guides/teams-roles/no-access',
-  },
-  {
-    fromPath: '/guides/tutorials/sdk-flag',
-    toPath: '/guides/flags/sdk-flag',
-  },
-  {
-    fromPath: '/guides/tutorials/rules-and-targeting',
-    toPath: '/guides/flags/rules-and-targeting',
-  },
-  {
-    fromPath: '/guides/best-practices/creating-flags',
-    toPath: '/guides/flags/creating-flags',
-  },
-  {
-    fromPath: '/guides/best-practices/flag-hierarchy',
-    toPath: '/guides/flags/flag-hierarchy',
-  },
-  {
-    fromPath: '/guides/best-practices/improving-code',
-    toPath: '/guides/flags/improving-code',
-  },
-  {
-    fromPath: '/guides/best-practices/technical-debt',
-    toPath: '/guides/flags/technical-debt',
-  },
-  {
-    fromPath: '/guides/best-practices/testing-code',
-    toPath: '/guides/flags/testing-code',
-  },
-  {
-    fromPath: '/guides/best-practices/entitlements',
-    toPath: '/guides/flags/entitlements',
-  },
-  {
-    fromPath: '/guides/platform-specific/triggers-dynatrace',
-    toPath: '/guides/integrations/triggers-dynatrace',
-  },
-  {
-    fromPath: '/guides/platform-specific/static-sites',
-    toPath: '/guides/flags/static-sites',
-  },
-  {
-    fromPath: '/guides/platform-specific/cloudflare-workers',
-    toPath: '/guides/infrastructure/cloudflare-workers',
-  },
-  {
-    fromPath: '/guides/best-practices/integrations',
-    toPath: '/guides/integrations/using-integrations',
-  },
-  {
-    fromPath: '/guides/best-practices/integrations-use-cases',
-    toPath: '/guides/integrations/integrations-use-cases',
-  },
-  {
-    fromPath: '/guides/best-practices/deployment-strategies',
-    toPath: '/guides/infrastructure/deployment-strategies',
-  },
-  {
-    fromPath: '/guides/best-practices/infrastructure-migration',
-    toPath: '/guides/infrastructure/infrastructure-migration',
-  },
-  {
-    fromPath: '/guides/best-practices/serverless',
-    toPath: '/guides/infrastructure/serverless',
-  },
-  {
-    fromPath: '/guides/platform-specific/aws-lambda',
-    toPath: '/guides/infrastructure/aws-lambda',
-  },
-  {
-    fromPath: '/guides/platform-specific/nextjs',
-    toPath: '/guides/infrastructure/nextjs',
-  },
-  {
-    fromPath: '/guides/platform-specific/svelte',
-    toPath: '/guides/infrastructure/svelte',
-  },
-  {
-    fromPath: '/guides/platform-specific/unit-tests',
-    toPath: '/guides/infrastructure/unit-tests',
-  },
-  {
-    fromPath: '/guides/platform-specific/mobile',
-    toPath: '/guides/sdk/mobile',
-  },
-  {
-    fromPath: '/guides/tutorials/unsupported-sdk',
-    toPath: '/guides/sdk/unsupported-sdk',
-  },
-  {
-    fromPath: '/guides/platform-specific/haproxy',
-    toPath: '/guides/sdk/haproxy',
-  },
-  {
-    fromPath: '/guides/platform-specific/nginx',
-    toPath: '/guides/sdk/nginx',
-  },
-  {
-    fromPath: '/guides/tutorials/rest-api',
-    toPath: '/guides/api/rest-api',
-  },
-  {
-    fromPath: '/guides/best-practices/sdk-wrappers',
-    toPath: '/guides/sdk/sdk-wrappers',
-  },
-  {
-    fromPath: 'guides/tutorials/experimentation',
-    toPath: '/guides/experimentation/experimentation',
-  },
-  {
-    fromPath: '/guides/best-practices/bayesian',
-    toPath: '/guides/experimentation/bayesian',
-  },
-
-  // Redirects from renaming "teams" category to "members"
-  {
-    fromPath: '/home/team/role-actions',
-    toPath: '/home/members/role-actions',
-  },
-  {
-    fromPath: '/home/team/role-policies',
-    toPath: '/home/members/role-policies',
-  },
-  {
-    fromPath: '/home/team/role-tags',
-    toPath: '/home/members/role-tags',
-  },
-  {
-    fromPath: '/home/team/role-resources',
-    toPath: '/home/members/role-resources',
-  },
-  {
-    fromPath: '/home/team/example-policies',
-    toPath: '/home/members/example-policies',
-  },
-  {
-    fromPath: '/home/team/role-create',
-    toPath: '/home/members/role-create',
-  },
-  {
-    fromPath: '/home/team/role-concepts',
-    toPath: '/home/members/role-concepts',
-  },
-  {
-    fromPath: '/home/team/custom-roles',
-    toPath: '/home/members/custom-roles',
-  },
-  {
-    fromPath: '/home/team/account-owners',
-    toPath: '/home/members/account-owners',
-  },
-  {
-    fromPath: '/home/team/built-in-roles',
-    toPath: '/home/members/built-in-roles',
-  },
-  {
-    fromPath: '/home/team/managing',
-    toPath: '/home/members/managing',
-  },
-  {
-    fromPath: '/home/team',
-    toPath: '/home/members',
-  },
-  {
-    fromPath: '/home/getting-started/your-team',
-    toPath: '/home/getting-started/your-account',
   },
 
   // Redirects from the readme-hosted docs site

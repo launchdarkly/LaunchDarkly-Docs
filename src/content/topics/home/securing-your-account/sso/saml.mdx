@@ -100,7 +100,7 @@ These attributes are available for both SSO provisioning and SCIM provisioning:
     <TableRow>
       <TableCell>customRole</TableCell>
       <TableCell>
-        A list of keys for custom roles to give to the account member. These replace the member's existing custom roles. If a member has any custom roles, they supersede the built-in role. The value of customRole is case-sensitive and must match exactly the custom role key in LaunchDarkly.
+        A comma-separated list of the keys of the custom roles to give to the account member. These replace the member's existing custom roles. If a member has any custom roles, they supersede the built-in role. The elements of the <code>customRole</code> list are case-sensitive, and each element of the list must match exactly a custom role key in LaunchDarkly.
       </TableCell>
     </TableRow>
   </TableBody>

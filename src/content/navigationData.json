@@ -264,6 +264,10 @@
             "path": "/home/members/managing"
           },
           {
+            "label": "Your member profile",
+            "path": "/home/members/profile"
+          },
+          {
             "label": "LaunchDarkly's built-in roles",
             "path": "/home/members/built-in-roles"
           },
@@ -446,10 +450,6 @@
           {
             "label": "Experimentation events",
             "path": "/home/about-experimentation/events"
-          },
-          {
-            "label": "Importing metric events",
-            "path": "/home/about-experimentation/import-metric-events"
           }
         ]
       },
@@ -486,6 +486,10 @@
             "path": "/home/creating-experiments/allocation"
           },
           {
+            "label": "Importing metric events",
+            "path": "/home/creating-experiments/import-metric-events"
+          },
+          {
             "label": "Sending Segment events to experiments",
             "path": "/home/creating-experiments/segment"
           }
@@ -500,6 +504,10 @@
           {
             "label": "Managing experiments",
             "path": "/home/analyzing-experiments/managing"
+          },
+          {
+            "label": "Understanding sample ratios",
+            "path": "/home/analyzing-experiments/sample-ratios"
           },
           {
             "label": "Winning variations",
@@ -986,7 +994,13 @@
           },
           {
             "label": "Configuration",
-            "path": "/sdk/features/config"
+            "path": "/sdk/features/config",
+            "items": [
+              {
+                "label": "Service endpoint configuration",
+                "path": "/sdk/features/service-endpoint-configuration"
+              }
+            ]
           },
           {
             "label": "Evaluating flags",
@@ -1505,6 +1519,10 @@
         "path": "/guides/api",
         "svg": "compass",
         "items": [
+          {
+            "label": "Comparing LaunchDarkly's SDK and REST API",
+            "path": "/guide/api/comparing-sdk-rest-api"
+          },
           {
             "label": "Using the LaunchDarkly REST API",
             "path": "/guides/api/rest-api"

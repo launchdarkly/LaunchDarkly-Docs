@@ -1,0 +1,829 @@
+---
+path: /sdk/features/service-endpoint-configuration
+title: Service endpoint configuration
+description: This topic explains how to configure LaunchDarkly SDKs to connect to alternate service endpoints. Typically this is only required for customers working with the LaunchDarkly federal instance.
+published: true
+tags: ['federal', 'sdk', 'domain', 'configure']
+---
+
+## Overview
+
+This topic explains how to configure LaunchDarkly SDKs to connect to alternate service endpoints. Typically this is only required for customers working with the LaunchDarkly federal instance.
+
+Each SDK connects to several LaunchDarkly web services. These include services for getting feature flag data using streaming or polling, and a service for storing analytics events.
+
+Each SDK is configured by default to connect these services. Most customers do not need to configure service endpoints.
+
+If you are using the [federal instance of LaunchDarkly](/home/advanced/federal), you must configure the SDK so that it connects to the federal instance for these services instead.
+
+The examples below show how to configure the SDK for each service. In most SDKs, you then need to pass the configuration in as a parameter when you initialize the client. To learn more, read [Configuration](/sdk/features/config).
+
+<Callout intent="info">
+<CalloutTitle>The example code uses endpoint values specific to the LaunchDarkly federal instance</CalloutTitle>
+<CalloutDescription>
+
+You can use the methods and options described on this page to configure any alternate service endpoints.
+
+The code samples all use URIs from the federal instance of LaunchDarkly, because working with a federal instance is the most common use case for setting alternate service endpoints.
+
+</CalloutDescription>
+</Callout>
+
+Details about each SDK's configuration are available in the SDK-specific sections below:
+
+* [Client-side SDKs](#client-side-sdks)
+* [Server-side SDKs](#server-side-sdks)
+
+## Client-side SDKs
+
+This feature is available in the following client-side SDKs:
+
+* [.NET (client-side)](#net-client-side)
+* [Android](#android)
+* [C/C++ (client-side)](#cc-client-side)
+* [Electron](#electron)
+* [Flutter](#flutter)
+* [iOS](#ios)
+* [JavaScript](#javascript)
+* [Node.js (client-side)](#nodejs-client-side)
+* [React Native](#react-native)
+* [React Web](#react-web)
+
+### .NET (client-side)
+
+<Details summary="Expand .NET (client-side) code sample">
+
+To configure an alternate service endpoint for the SDK, use the `ServiceEndpoints` builder method to specify the base URIs:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'C#', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+var config = Configuration.Builder("YOUR_MOBILE_KEY")
+    .ServiceEndpoints(Components.ServiceEndpoints()
+      .Streaming("https://clientstream.launchdarkly.us")
+      .Polling("https://clientsdk.launchdarkly.us")
+      .Events("https://events.launchdarkly.us"))
+    .Build();
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Android
+
+<Details summary="Expand Android code sample">
+
+To configure an alternate service endpoint for the SDK, use the `streamUri`, `pollUri`, and `eventsUri` builder methods to specify the base URIs:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Kotlin', value: 'kotlin' }
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDConfig ldConfig = new LDConfig.Builder()
+  .mobileKey("YOUR_MOBILE_KEY")
+  .streamUri(Uri.parse("https://clientstream.launchdarkly.us"))
+  .pollUri(Uri.parse("https://clientsdk.launchdarkly.us"))
+  .eventsUri(Uri.parse("https://events.launchdarkly.us"))
+  .build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+
+val ldConfig: LDConfig = LDConfig.Builder()
+  .setMobileKey("YOUR_MOBILE_KEY")
+  .streamUri(Uri.parse("https://clientstream.launchdarkly.us"))
+  .pollUri(Uri.parse("https://clientsdk.launchdarkly.us"))
+  .eventsUri(Uri.parse("https://events.launchdarkly.us"))
+  .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### C/C++ (client-side)
+
+<Details summary="Expand C/C++ (client-side) code sample">
+
+To configure an alternate service endpoint for the SDK, use `LDConfigSetStreamURI`, `LDConfigSetAppURI`, and `LDConfigSetEventsURI` to specify the base URIs:
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label: 'C/C++', value: 'c' }
+    ]
+}>
+<CodeTabItem value="c">
+
+```c
+struct LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
+LDConfigSetStreamURI(config, "https://clientstream.launchdarkly.us");
+LDConfigSetAppURI(config, "https://app.launchdarkly.us");
+LDConfigSetEventsURI(config, "https://events.launchdarkly.us");
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Electron
+
+<Details summary="Expand Electron code sample">
+
+To configure an alternate service endpoint for the SDK, use the `streamUrl`, `baseUrl`, and `eventsUrl` options to specify the base URIs:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const options = {
+  streamUrl: 'https://clientstream.launchdarkly.us',
+  baseUrl: 'https://app.launchdarkly.us',
+  eventsUrl: 'https://events.launchdarkly.us'
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as LDElectron from 'launchdarkly-electron-client-sdk';
+
+const options: LDElectron.LDOptions = {
+  streamUrl: 'https://clientstream.launchdarkly.us',
+  baseUrl: 'https://app.launchdarkly.us',
+  eventsUrl: 'https://events.launchdarkly.us'
+};
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Flutter
+
+<Details summary="Expand Flutter code sample">
+
+To configure an alternate service endpoint for the SDK, use the `streamUri`, `pollUri`, and `eventsUri` builder methods to specify the base URIs:
+
+<CodeTabs
+  defaultValue="dart"
+  values={[
+    { label: 'Dart', value: 'dart', },
+  ]
+}>
+<CodeTabItem value="dart">
+
+```dart
+LDConfig ldConfig = LDConfigBuilder("YOUR_MOBILE_KEY")
+  .streamUri("https://clientstream.launchdarkly.us")
+  .pollUri("https://clientsdk.launchdarkly.us")
+  .eventsUri("https://events.launchdarkly.us")
+  .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### iOS
+
+<Details summary="Expand iOS code sample">
+
+To configure an alternate service endpoint for the SDK, use the `streamUrl`, `baseUrl`, and `eventsUrl` properties to specify the base URIs:
+
+<CodeTabs
+  defaultValue="swift"
+  values={[
+    { label: 'Swift', value: 'swift'},
+    { label: 'Objective-C', value: 'objc'},
+  ]
+}>
+<CodeTabItem value="swift">
+
+```swift
+var ldConfig = LDConfig(mobileKey: "YOUR_MOBILE_KEY")
+ldConfig.streamUrl = URL(string: "https://clientstream.launchdarkly.us")
+ldConfig.baseUrl = URL(string: "https://app.launchdarkly.us")
+ldConfig.eventsUrl = URL(string: "https://events.launchdarkly.us")
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+LDConfig *ldConfig = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
+ldConfig.streamUrl = URL(string: "https://clientstream.launchdarkly.us")
+ldConfig.baseUrl = URL(string: "https://app.launchdarkly.us")
+ldConfig.eventsUrl = URL(string: "https://events.launchdarkly.us")
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### JavaScript
+
+<Details summary="Expand JavaScript code sample">
+
+To configure an alternate service endpoint for the SDK, use the `streamUrl`, `baseUrl`, and `eventsUrl` properties to specify the base URIs:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js' },
+    { label: 'TypeScript', value: 'ts' },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const options = {
+  streamUrl: 'https://clientstream.launchdarkly.us',
+  baseUrl: 'https://app.launchdarkly.us',
+  eventsUrl: 'https://events.launchdarkly.us'
+};
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+const options: ld.LDOptions = {
+  streamUrl: 'https://clientstream.launchdarkly.us',
+  baseUrl: 'https://app.launchdarkly.us',
+  eventsUrl: 'https://events.launchdarkly.us',
+};
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Node.js (client-side)
+
+<Details summary="Expand Node.js (client-side) code sample">
+
+To configure an alternate service endpoint for the SDK, use the `streamUrl`, `baseUrl`, and `eventsUrl` properties to set the base URIs:
+
+<CodeTabs defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js' },
+    { label: 'TypeScript', value: 'ts' },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const options = {
+  streamUrl: 'https://clientstream.launchdarkly.us',
+  baseUrl: 'https://app.launchdarkly.us',
+  eventsUrl: 'https://events.launchdarkly.us'
+};
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const options: ld.LDOptions = {
+  streamUrl: 'https://clientstream.launchdarkly.us',
+  baseUrl: 'https://app.launchdarkly.us',
+  eventsUrl: 'https://events.launchdarkly.us',
+};
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### React Native
+
+<Details summary="Expand React Native code sample">
+
+To configure an alternate service endpoint for the SDK, use the `streamUri`, `pollUri`, and `eventsUri` properties to set the base URIs:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js' },
+    { label: 'TypeScript', value: 'ts' },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+let config = {
+  mobileKey: 'YOUR_MOBILE_KEY',
+  streamUri: 'https://clientstream.launchdarkly.us',
+  pollUri: 'https://app.launchdarkly.us',
+  eventsUri: 'https://events.launchdarkly.us',
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
+
+let config: ld.LDConfig = {
+  mobileKey: 'YOUR_MOBILE_KEY',
+  streamUri: 'https://clientstream.launchdarkly.us',
+  pollUri: 'https://app.launchdarkly.us',
+  eventsUri: 'https://events.launchdarkly.us',
+};
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### React Web
+
+<Details summary="Expand React code sample">
+
+To configure an alternate service endpoint for the SDK, use the `streamUrl`, `baseUrl`, and `eventsUrl` options to specify the base URIs:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', }
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const options: {
+  baseUrl:"https://app.launchdarkly.us",
+  streamUrl:"https://clientstream.launchdarkly.us",
+  eventsUrl:"https://events.launchdarkly.us"
+};
+ ```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [Configuring the React SDK](/sdk/client-side/react/react-web#configuring-the-react-sdk).
+
+</Details>
+
+## Server-side SDKs
+
+This feature is available for the following server-side SDKs:
+
+* [.NET (server-side)](#net-server-side)
+* [Apex](#apex)
+* [C/C++ (server-side)](#cc-server-side)
+* [Erlang](#erlang)
+* [Go](#go)
+* [Haskell](#haskell)
+* [Java](#java)
+* [Lua](#lua)
+* [Node.js (server-side)](#nodejs-server-side)
+* [PHP](#php)
+* [Python](#python)
+* [Ruby](#ruby)
+* [Rust](#rust)
+
+### .NET (server-side)
+
+<Details summary="Expand .NET (server-side) code sample">
+
+To configure an alternate service endpoint for the SDK, use the `ServiceEndpoints` builder method to specify the base URIs:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'C#', value: 'csharp' },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+var config = Configuration.Builder("YOUR_SDK_KEY")
+    .ServiceEndpoints(Components.ServiceEndpoints()
+      .Streaming("https://stream.launchdarkly.us")
+      .Polling("https://sdk.launchdarkly.us")
+      .Events("https://events.launchdarkly.us"))
+    .Build();
+```
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Apex
+
+<Details summary="Expand Apex code sample">
+
+<Callout intent="alert" site="federal">
+<CalloutTitle>Federal customers should only use the Apex SDK with a FedRAMP-compliant database</CalloutTitle>
+<CalloutDescription>
+
+The Apex SDK uses an external bridging application to connect LaunchDarkly and Salesforce. To ensure that your overall implementation is FedRAMP-compliant, you must run the Apex bridge within your own FedRAMP-compliant environment.
+
+</CalloutDescription>
+</Callout>
+
+First, set up the Apex bridge. If you are a federal customer, make sure you run the Apex bridge within your own FedRAMP-compliant environment. To learn more, read [Using the LaunchDarkly Salesforce bridge](/sdk/server-side/apex#getting-started).
+
+To configure an alternate service endpoint for the SDK, export the alternate URIs before you build the bridge:
+
+<CodeTabs
+  defaultValue="bash"
+  values={[
+    { label: 'Console', value: 'bash', },
+  ]
+}>
+<CodeTabItem value="bash">
+
+```bash
+cd bridge && go build .
+
+# other required export statements...
+
+export LD_BASE_URI='https://sdk.launchdarkly.us'
+export LD_EVENTS_URL='https://events.launchdarkly.us'
+
+./bridge
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+</Details>
+
+### C/C++ (server-side)
+
+<Details summary="Expand C/C++ (server-side) code sample">
+
+To configure an alternate service endpoint for the SDK, use `LDConfigSetStreamURI`, `LDConfigSetBaseURI`, and `LDConfigSetEventsURI` to specify the base URIs:
+
+<CodeTabs
+  defaultValue="c"
+  values={[
+    { label:'C/C++', value: 'c' },
+  ]
+}>
+<CodeTabItem value="c">
+
+```c
+struct LDConfig *config = LDConfigNew("YOUR_SDK_KEY");
+LDConfigSetStreamURI(config, "https://stream.launchdarkly.us");
+LDConfigSetBaseURI(config, "https://app.launchdarkly.us");
+LDConfigSetEventsURI(config, "https://events.launchdarkly.us");
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Erlang
+
+<Details summary="Expand Erlang code sample">
+
+To configure an alternate service endpoint for the SDK, use the `stream_uri`, `base_uri`, and `events_uri` properties to set the base URIs:
+
+<CodeTabs
+  defaultValue="erlang"
+  values={[
+    { label: 'Erlang', value: 'erlang', }
+  ]
+}>
+<CodeTabItem value="erlang">
+
+```
+ldclient:start_instance("YOUR_SDK_KEY", #{
+  stream_uri => "https://stream.launchdarkly.us",
+  base_uri => "https://sdk.launchdarkly.us",
+  events_uri => "https://events.launchdarkly.us"
+})
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Go
+
+<Details summary="Expand Go code sample">
+
+To configure an alternate service endpoint for the SDK, use the `Config.ServiceEndpoints` property and `interfaces.ServiceEndpoints()` to specify the base URIs:
+
+<CodeTabs
+  defaultValue="go"
+  values={[
+    { label: 'Go', value: 'go', },
+    { label: 'Go SDK versions 5.7.x and earlier', value: 'go-pre-5.8', }
+  ]
+}>
+<CodeTabItem value="go">
+
+```go
+
+config := ld.Config{
+    ServiceEndpoints: interfaces.ServiceEndpoints{
+      Streaming: "https://stream.launchdarkly.us",
+      Polling: "https://sdk.launchdarkly.us",
+      Events: "https://events.launchdarkly.us"
+    },
+}
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-pre-5.8">
+
+```go
+
+// Prior to version 5.8.0, the base URI had to be specified for each service,
+// depending on which services you were actually using.
+
+config := ld.Config{
+    DataSource: ldcomponents.StreamingDataSource().
+        BaseURI("https://stream.launchdarkly.us"),
+    Events: ldcomponents.SendEvents().
+        BaseURI("https://events.launchdarkly.us"),
+}
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Haskell
+
+<Details summary="Expand Haskell code sample">
+
+To configure an alternate service endpoint for the SDK, use `configSetStreamURI`, `configSetBaseURI`, and `configSetEventsURI` to specify the base URIs:
+
+<CodeTabs
+  defaultValue="haskell"
+  values={[
+    { label: 'Haskell', value: 'haskell', }
+  ]
+}>
+<CodeTabItem value="haskell">
+
+```haskell
+{-# LANGUAGE OverloadedStrings #-}
+
+import LaunchDarkly.Server.Config
+
+import Data.Function ((&))
+
+config :: Config
+config = (makeConfig "YOUR_SDK_KEY")
+    & configSetStreamURI "https://stream.launchdarkly.us"
+    & configSetBaseURI "https://app.launchdarkly.us"
+    & configSetEventsURI "https://events.launchdarkly.us"
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Java
+
+<Details summary="Expand Java code sample">
+
+To configure an alternate service endpoint for the SDK, use the `serviceEndpoints` builder method to specify the base URIs:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java', },
+    { label: 'Java (SDK versions 5.8.x and earlier)', value: 'java-pre-5.9' },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDConfig config = new LDConfig.Builder()
+  .serviceEndpoints(Components.serviceEndpoints()
+    .streaming("https://stream.launchdarkly.us")
+    .polling("https://app.launchdarkly.us")
+    .events("https://events.launchdarkly.us"))
+  .build();
+```
+</CodeTabItem>
+<CodeTabItem value="java-pre-5.9">
+
+```java
+// Prior to version 5.9.0, the base URI had to be specified for each service,
+// depending on which services you were actually using.
+
+LDConfig config = new LDConfig.Builder()
+  .dataSource(Components.streamingDataSource()
+    .baseURI(URI.create("https://stream.launchdarkly.us"))
+  .events(Components.sendEvents()
+    .baseURI(URI.create("https://events.launchdarkly.us"))
+  .build();
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Lua
+
+<Details summary="Expand Lua code sample">
+
+To configure an alternate service endpoint for the SDK, use the `streamURI`, `baseURI`, and `eventsURI` properties to specify the base URIs:
+
+<CodeTabs
+  defaultValue="lua"
+  values={[
+    { label: 'Lua', value: 'lua', },
+  ]
+}>
+<CodeTabItem value="lua">
+
+```lua
+local config = {
+    key = YOUR_SDK_KEY,
+    streamURI = "https://stream.launchdarkly.us",
+    baseUri = "https://app.launchdarkly.us",
+    eventsURI = "https://events.launchdarkly.us",
+}
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
+
+To configure an alternate service endpoint for the SDK, use the `streamUri`, `baseUri`, and `eventsUri` properties to specify the base URIs:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+    { label: 'TypeScript', value: 'ts', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const options = {
+  streamUri: 'https://stream.launchdarkly.us',
+  baseUri: 'https://app.launchdarkly.us',
+  eventsUri: 'https://events.launchdarkly.us',
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
+const options ld.LDOptions = {
+  streamUri: 'https://stream.launchdarkly.us',
+  baseUri: 'https://app.launchdarkly.us',
+  eventsUri: 'https://events.launchdarkly.us',
+};
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### PHP
+
+<Details summary="Expand PHP code sample">
+
+To configure an alternate service endpoint for the SDK, use the `base_uri` and `events_uri` properties to specify the base URIs:
+
+<CodeTabs
+  defaultValue="php"
+  values={[
+    { label: 'PHP', value: 'php', }
+  ]
+}>
+<CodeTabItem value="php">
+
+```php
+$client = new LaunchDarkly\LDClient("YOUR_SDK_KEY",
+    [ "base_uri" => "https://sdk.launchdarkly.us",
+      "events_uri" => "https://events.launchdarkly.us" ]);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There is not a streaming service for the PHP SDK.
+</Details>
+
+### Python
+
+<Details summary="Expand Python code sample">
+
+To configure an alternate service endpoint for the SDK, use the `stream_uri`, `base_uri`, and `events_uri` properties to specify the base URIs:
+
+<CodeTabs
+  defaultValue="python"
+  values={[
+    { label: 'Python', value: 'python' },
+  ]
+}>
+<CodeTabItem value="python">
+
+```py
+config = Config(sdk_key='YOUR_SDK_KEY',
+  stream_uri="https://stream.launchdarkly.us",
+  base_uri="https://app.launchdarkly.us",
+  events_uri="https://events.launchdarkly.us")
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Ruby
+
+<Details summary="Expand Ruby code sample">
+
+To configure an alternate service endpoint for the SDK, use the `stream_uri`, `base_uri`, and `events_uri` properties to specify the base URIs:
+
+<CodeTabs
+  defaultValue="ruby"
+  values={[
+    { label: 'Ruby', value: 'ruby', }
+  ]
+}>
+<CodeTabItem value="ruby">
+
+```ruby
+config = LaunchDarkly::Config.new(
+  stream_uri: "https://stream.launchdarkly.us",
+  base_uri: "https://sdk.launchdarkly.us",
+  events_uri: "https://events.launchdarkly.us")
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### Rust
+
+<Details summary="Expand Rust code sample">
+
+To configure an alternate service endpoint for the SDK, use the `ConfigBuilder` and `ServiceEndpointsBuilder` to specify the base URIs:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+let config = ConfigBuilder::new("sdk-key").service_endpoints(ServiceEndpointsBuilder::new()
+  .streaming_base_url("https://stream.launchdarkly.us")
+  .polling_base_url("https://sdk.launchdarkly.us")
+  .events_base_url("https://events.launchdarkly.us"));
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+</Details>

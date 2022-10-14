@@ -49,7 +49,6 @@ The federal instance does not support the following features:
 * [Inbox notifications for approval requests](/home/feature-workflows/approvals/#viewing-flag-approval-requests)
 * [The **Billing** tab](/home/billing/billing-tab)
 * Certain areas of the [**Usage** tab](/home/billing/usage-metrics)
-* [Enabling SCIM provisioning](/home/account-security/sso/scim)
 
 ### Supported integrations
 
@@ -80,69 +79,8 @@ These URLs include:
 
 ## Initializing an SDK for the federal instance
 
-You can initialize an SDK for the federal instance using the initialization "options" settings for the SDK. You can also find configuration options in the generated API reference for each SDK.
+You can initialize an SDK for the federal instance using the initialization options for the SDK.
 
-Depending on the SDK, it may require you to configure multiple service endpoints in the initialization options. These could include the base and polling endpoint, streaming endpoint, and an events endpoint. For an example of the initialization options for Node.js, read [Node.js SDK reference (client-side)](/sdk/client-side/node-js).
+Depending on the SDK, you may need to configure multiple service endpoints in the initialization options. These could include the base and polling endpoint, streaming endpoint, and events endpoint. Server-side SDKs normally require streaming and events settings, not polling. For a list of available service endpoints, read [Understanding federal instance URLs](#understanding-federal-instance-urls).
 
-The option key value pair names may differ between SDKs, as LaunchDarkly respects each language's URI and URL naming conventions and supported services. For this reason, it is critical to reference the documentation for each individual SDK.
-
-Here is an example for the React SDK:
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', }
-  ]
-}>
-<CodeTabItem value="js">
-
-```js
-  async () => {
-  // Set clientSideID to your own Client-side ID. You can find this in
-  // the LaunchDarkly app under Account settings / Projects
-  const LDProvider = await asyncWithLDProvider({
-     clientSideID: 'your-client-side-ID-here',
-     user: {
-       "key":"samplekey", "name":"First Last", "email":"example@yourdomain.com"
-     },
-    options: {
-       baseUrl:"https://sdk.launchdarkly.us",
-       streamUrl:"https://clientstream.launchdarkly.us",
-       eventsUrl:"https://events.launchdarkly.us"
-    },
-    deferInitialization: false
-});
- ```
-
-</CodeTabItem>
-</CodeTabs>
-
-
-Server-side SDKs normally require streaming and events settings, not polling.
-
-Here is an example for the Java SDK:
-
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
-
-```java
-// Requires SDK version 5.9.0 or above
-LDConfig config = new LDConfig.Builder()
-  .serviceEndpoints(Components.serviceEndpoints()
-    .streaming("https://stream.launchdarkly.us")
-    .events("https://events.launchdarkly.us"))
-  .build();
- ```
-
-</CodeTabItem>
-</CodeTabs>
-
-
-For additional language syntax examples for setting configuration options, read [Using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode). To use the examples, change the Relay Proxy URLs to the respective federal instance URLs, or change this site's version dropdown to "Federal docs." To learn more, read [Using the federal version of this docs site](#using-the-federal-version-of-this-docs-site).
-
-For a list of available service endpoints, read [Understanding federal instance URLs](#understanding-federal-instance-urls).
+The details of how to set these options differ between SDKs, as LaunchDarkly respects each language's URI and URL naming conventions and supported services. For this reason, it is critical to reference the documentation for each individual SDK. To learn how, read [Service endpoint configuration](/sdk/features/service-endpoint-configuration).
