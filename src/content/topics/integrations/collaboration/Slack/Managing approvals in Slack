@@ -31,15 +31,6 @@ This section is optional. Include it if you need to add more detail about how th
 
 -->
 
-## Setting up approvals in Slack
-
-Here is how to set up Approvals in Slack:
-
-1. Start every step in a procedure with a verb.
-2. Continue to start steps with verbs.
-
-![Here is an example alt-text caption explaining what the screenshot depicts.](UI-ELEMENT-BEHAVIOR.png)
-
 ## Viewing approvals in Slack
 
 Here is how you can view approval requests with the Slack app.
@@ -79,11 +70,3 @@ Here's how to see updates to the approval request:
 1. Go to the LaunchDarkly app in your Slack account.
 2. Click into a thread to view comments, approvals, and declines on the approval request. 
 ![A reply thread on a review request.](Slack-app-reply-thread.png)
-
-<!--
-
-Continue to use ## and ### to outline different aspects of the feature. Think about both implementation and post-implementation use--does the reader need to know how to add, edit, manage, delete, or disable things in this feature? Each of those behaviors could have its own section.
-
-If organizing the topic is challenging, ask the docs team for help! Your most important job is making sure the feature is documented comprehensively and correctly, not that the docs are perfect.
-
--->
