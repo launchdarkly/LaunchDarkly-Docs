@@ -12,9 +12,10 @@ This topic explains how to deploy and start the Relay Proxy.
 
 ## Deploying the Relay Proxy
 
-You can deploy the Relay Proxy in one of three ways. In order from most common to least common uses, the methods are:
+You can deploy the Relay Proxy in one of four ways. In order from most common to least common uses, the methods are:
 
 * starting the Relay Proxy from a Docker image,
+* using Helm to run the Relay Proxy in Kubernetes,
 * downloading a Relay Proxy release binary, or
 * building the Relay Proxy from source.
 
@@ -74,6 +75,63 @@ docker run --name ld-relay              \
 
 </CodeTabItem>
 </CodeTabs>
+
+### Using Helm to run the Relay Proxy in Kubernetes
+
+We maintain a [Helm chart](https://github.com/launchdarkly/ld-relay-helm) to ease Kubernetes-based Relay Proxy deployments.
+
+To deploy the Relay Proxy using this Helm chart:
+
+1. Add the LaunchDarkly Relay Proxy Helm chart repository.
+
+<CodeTabs
+  defaultValue="relay"
+  values={[
+    { label: 'Add chart repository', value: 'relay', },
+  ]
+}>
+<CodeTabItem value="relay">
+
+```bash
+helm repo add launchdarkly-ld-relay https://launchdarkly.github.io/ld-relay-helm
+```
+</CodeTabItem>
+</CodeTabs>
+
+2. Use `helm install` to install the chart archive and deploy the proxy into your cluster.
+
+The fastest way to configure installation is through Helm's `--set` flag. However, we recommend using files with the `--values` flag as this enables easier long term maintenance. In the examples below, replace `MyEnvironment` with the name of your Relay Proxy environment and `sdk-key` with your SDK key. 
+
+Here's how:
+
+<CodeTabs
+  defaultValue="flags"
+  values={[
+    { label: 'Using command line flags', value: 'flags', },
+    { label: 'Using values file', value: 'file', },
+  ]
+}>
+<CodeTabItem value="flags">
+
+```bash
+helm install relay --set relay.environment.LD_ENV_MyEnvironment=sdk-key launchdarkly-ld-relay/ld-relay
+```
+</CodeTabItem>
+<CodeTabItem value="file">
+
+```yaml
+# values.yaml
+relay:
+    environment:
+        LD_ENV_MyEnvironment: sdk-key
+
+# Run on the terminal
+helm install relay --values ./values.yaml launchdarkly-ld-relay/ld-relay
+```
+</CodeTabItem>
+</CodeTabs>
+
+You can find examples and full documentation on all configuration options in the [GitHub repository](https://github.com/launchdarkly/ld-relay-helm).
 
 ### Downloading a Relay Proxy release binary
 
