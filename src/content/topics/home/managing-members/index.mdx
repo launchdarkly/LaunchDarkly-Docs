@@ -18,8 +18,8 @@ Account members are people who work at your organization or have access rights t
 
 Account members are assigned member roles. LaunchDarkly has two types of member roles. They are:
 
-* Built-in roles
-* Custom roles
+- Built-in roles
+- Custom roles
 
 Each account member must have at least one role. Members can have both built-in roles and custom roles.
 
@@ -27,10 +27,10 @@ Each account member must have at least one role. Members can have both built-in 
 
 Every LaunchDarkly account has four built-in roles. They are:
 
-* Reader
-* Writer
-* Admin
-* Owner
+- Reader
+- Writer
+- Admin
+- Owner
 
 Customers on an Enterprise plan also have a restricted No access role.
 
@@ -73,6 +73,41 @@ To change an individual member's roles:
 ![A member's Edit role menu.](edit-member-roles-built-in.png)
 
 5. Click **Save role**.
+
+## Changing multiple members' roles
+
+<Callout intent="info">
+<CalloutTitle>This is an Admin-only feature</CalloutTitle>
+<CalloutDescription>
+
+This feature is only accessible if you're a LaunchDarkly Admin. To learn more, read [Understanding member roles](/home/members/managing#understanding-member-roles).
+
+</CalloutDescription>
+</Callout>
+
+To change multiple members' roles:
+
+1. Navigate to **Account settings** and click into the [**Members**](https://app.launchdarkly.com/settings/members) tab.
+2. Select the checkbox to the left of a member's name to choose that member.
+
+![The Members dashboard checkboxes](member-dashboard-checkboxes.png)
+
+3. Select all members whose roles you wish to edit. Next to the **Export CSV** button, another button appears that says **Edit X members**, where X is the number of members that you selected.
+   3a. Alternatively, if you wish to select all the members, click the checkbox next to the **Name** column in the table.
+
+![The "Edit X members" button.](edit-x-members-button.png)
+
+4. Click the **Edit X members** button and select the "Edit member roles" option. A menu appears.
+
+![The "Edit member roles" option](edit-member-roles-option.png)
+
+6. Select one of the built-in roles or any existing custom role and click **Replace role(s)**. LaunchDarkly attempts to replace any of the roles on the members that you selected to the new role(s). Roles that have been assigned at the team level do not change.
+
+![The edit multiple member roles menu.](edit-multiple-member-roles-modal.png)
+
+When you select all members, the number of members may not match the number of members that appears at the top of the Members tab. This happens because you cannot perform bulk edit actions on yourself or the owner of the account.
+
+![A successful attempt to change permissions.](edit-member-roles-toast.png)
 
 <LearnMore>
 

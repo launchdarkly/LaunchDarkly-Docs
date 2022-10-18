@@ -85,18 +85,9 @@ To change the access for a set of account members to be controlled by membership
 
 1. Create a new team for a set of account members, and add their leads as team maintainers.   To learn how, read [Creating a team](/home/teams/creating) and [Adding a team maintainer](/home/teams/managing#adding-a-team-maintainer-to-an-existing-team).
 
-2. Add the existing account members to the team. Then, assign a custom role with the same level of access as the original member role to the team. Follow the steps outlined in [Managing teams](/home/teams/managing) to assign members and custom roles to the team. If you need to create a new custom role before assigning it to the team, follow the steps outlined in [Creating custom roles and policies](/home/members/role-create).
+2. Add the existing account members to the team. Then, assign a custom role with the same level of access as the original member role to the team. Follow the steps outlined in [Managing teams](/home/teams/managing) to assign members and custom roles to the team. If you’re an admin, you can [add members to teams in bulk](/home/teams/managing#adding-members-to-a-team-from-the-members-dashboard) to streamline the process. If you need to create a new custom role before assigning it to the team, follow the steps outlined in [Creating custom roles and policies](/home/members/role-create).
 
-3. Update each of the team member’s member roles to a role with less access, such as the No access or Reader built-in roles, or a custom role with limited access.
-
-To update a member’s role:
-
-1. Navigate to **Account settings** and click into the [**Members**](https://app.launchdarkly.com/settings/members) tab.
-2. Find the member in the list of account members.
-3. Click the member's name. The member's **Permissions** tab appears.
-4. Click **Edit member roles**.
-5. In the dialog, select the role you wish to assign.
-6. Click **Save role**.
+3. Update each of the team member’s member roles to a role with less access, such as the No access or Reader built-in roles, or a custom role with limited access. Follow the steps outlined in [Changing an individual member's roles](/home/members#changing-an-individual-members-roles) to update a member’s role. If you’re an admin, you can [change multiple members’ roles in bulk](/home/members#changing-multiple-members-roles) to streamline the process.
 
 We recommend the above approach because access granted to an individual member is aggregated with access granted to a team. This means individual member access should be kept at a minimum in order to layer on team access. To learn more, read [Understanding how team roles interact with individual member roles](/home/teams#understanding-how-team-roles-interact-with-individual-member-roles).
 
