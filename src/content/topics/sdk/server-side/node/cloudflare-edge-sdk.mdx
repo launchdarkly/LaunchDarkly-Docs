@@ -6,15 +6,6 @@ tags: ['cloudflare', 'edge', 'node', 'node.js', 'sdk', 'server-side']
 published: true
 ---
 
-<Callout intent="alert">
-<CalloutTitle>This SDK is in beta</CalloutTitle>
-<CalloutDescription>
-
-Development work on the Cloudflare Edge SDK is ongoing. Elements of this SDK may change without notice. Do not use this SDK in production environments.
-
-</CalloutDescription>
-</Callout>
-
 ## Overview
 
 This topic documents how to get started with the Cloudflare Edge SDK, which is a wrapper around the LaunchDarkly Node.js SDK, and links to reference information on all of the supported features.
@@ -33,15 +24,21 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
   <TableBody>
     <TableRow>
       <TableCell>SDK API documentation</TableCell>
-      <TableCell><a href="https://launchdarkly.github.io/cloudflare-edge-sdk/">SDK API docs</a></TableCell>
+      <TableCell>
+        <a href="https://launchdarkly.github.io/cloudflare-edge-sdk/">SDK API docs</a>
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>GitHub repository</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/cloudflare-edge-sdk">cloudflare-edge-sdk</a></TableCell>
+      <TableCell>
+        <a href="https://github.com/launchdarkly/cloudflare-edge-sdk">cloudflare-edge-sdk</a>
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Sample application</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/hello-cloudflare-react">hello-cloudflare-react</a></TableCell>
+      <TableCell>
+        <a href="https://github.com/launchdarkly/hello-cloudflare-react">hello-cloudflare-react</a>
+      </TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -53,7 +50,9 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
   <CalloutTitle>This SDK requires LaunchDarkly's Cloudflare integration</CalloutTitle>
   <CalloutDescription>
 
-  Configure the Cloudflare integration to use this SDK successfully. To learn more, read [Cloudflare](/integrations/cloudflare).
+Configure the Cloudflare integration to use this SDK successfully. To learn more, read [Cloudflare](/integrations/cloudflare).
+
+The Cloudflare integration is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
   </CalloutDescription>
 </Callout>
@@ -79,7 +78,7 @@ npm install launchdarkly-cloudflare-edge-sdk
 </CodeTabItem>
 </CodeTabs>
 
-2. Configure Wrangler to use webpack to bundle your worker:
+2. Configure Wrangler to use a [custom build](https://developers.cloudflare.com/workers/wrangler/configuration/#inheritable-keys) to bundle your worker with Webpack 4:
 
 <CodeTabs
   defaultValue="toml"
@@ -90,14 +89,16 @@ npm install launchdarkly-cloudflare-edge-sdk
 <CodeTabItem value="toml">
 
 ```toml
-type = "webpack"
-webpack_config = "webpack.config.js"
+main = "worker/script.js"
+
+[build]
+command = "npm run build"
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-3. Configure webpack:
+3. Configure Webpack:
 
 <CodeTabs
   defaultValue="js"
@@ -108,15 +109,18 @@ webpack_config = "webpack.config.js"
 <CodeTabItem value="js">
 
 ```js
+const path = require('path')
+
 module.exports = {
   entry: './index.js',
   target: 'webworker',
+  output: { path: path.resolve(__dirname, 'worker'), filename: 'script.js' },
   node: {
     fs: 'empty',
     tls: 'empty',
     net: 'empty',
   },
-};
+}
 ```
 
 </CodeTabItem>
@@ -133,19 +137,21 @@ module.exports = {
 <CodeTabItem value="js">
 
 ```js
-const { init } = require('launchdarkly-cloudflare-edge-sdk');
+const { init } = require('launchdarkly-cloudflare-edge-sdk')
 
-let ldClient;
+let ldClient
 
 addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event));
-});
+  event.respondWith(handleRequest(event))
+})
 
 async function handleRequest(event) {
   // client only needs to be initialized once, but may serve many requests
   if (!ldClient) {
-    ldClient = init(MY_KV, 'YOUR_CLIENT_SIDE_ID');
-    await ldClient.waitForInitialization();
+    // LD_KV and LD_CLIENT_SIDE_ID are runtime variables that the Workers runtime provides to your code.
+    // For more information read https://developers.cloudflare.com/workers/platform/environment-variables
+    ldClient = init(LD_KV, LD_CLIENT_SIDE_ID)
+    return ldClient.waitForInitialization()
   }
 
   // ldClient may now be used for flag evaluation
@@ -161,6 +167,6 @@ You can now evaluate individual flags or fetch all flags from the SDK.
 
 This SDK supports the following features:
 
-* [Evaluating flags](/sdk/features/evaluating#nodejs-cloudflare)
-* [Flag evaluation reasons](/sdk/features/evaluation-reasons#nodejs-cloudflare)
-* [Getting all flags](/sdk/features/all-flags#nodejs-cloudflare)
+- [Evaluating flags](/sdk/features/evaluating#nodejs-cloudflare)
+- [Flag evaluation reasons](/sdk/features/evaluation-reasons#nodejs-cloudflare)
+- [Getting all flags](/sdk/features/all-flags#nodejs-cloudflare)

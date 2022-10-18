@@ -450,10 +450,6 @@
           {
             "label": "Experimentation events",
             "path": "/home/about-experimentation/events"
-          },
-          {
-            "label": "Importing metric events",
-            "path": "/home/about-experimentation/import-metric-events"
           }
         ]
       },
@@ -488,6 +484,10 @@
           {
             "label": "Allocating experiment audiences",
             "path": "/home/creating-experiments/allocation"
+          },
+          {
+            "label": "Importing metric events",
+            "path": "/home/creating-experiments/import-metric-events"
           },
           {
             "label": "Sending Segment events to experiments",
@@ -1519,6 +1519,10 @@
         "path": "/guides/api",
         "svg": "compass",
         "items": [
+          {
+            "label": "Comparing LaunchDarkly's SDK and REST API",
+            "path": "/guide/api/comparing-sdk-rest-api"
+          },
           {
             "label": "Using the LaunchDarkly REST API",
             "path": "/guides/api/rest-api"

@@ -7,11 +7,11 @@ tags: ['cloudflare', 'worker', 'edge', 'integration']
 site: launchDarklyOnly
 ---
 
-<Callout intent="info">
-  <CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
+<Callout intent="primary">
+  <CalloutTitle>The Cloudflare integration is an Enterprise feature</CalloutTitle>
   <CalloutDescription>
 
-  The Cloudflare integration is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+The Cloudflare integration is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
   </CalloutDescription>
 </Callout>
@@ -24,7 +24,7 @@ This topic explains how to use LaunchDarkly's Cloudflare integration. This integ
   <CalloutTitle>This integration requires LaunchDarkly's Cloudflare Edge SDK</CalloutTitle>
   <CalloutDescription>
 
-  You must install and configure the Cloudflare Edge SDK in your Cloudflare Worker to use this integration. To learn more, read [Cloudflare Edge SDK](/sdk/server-side/node-js/cloudflare-edge-sdk).
+You must install and configure the Cloudflare Edge SDK in your Cloudflare Worker to use this integration. To learn more, read [Cloudflare Edge SDK](/sdk/server-side/node-js/cloudflare-edge-sdk).
 
   </CalloutDescription>
 </Callout>
@@ -105,7 +105,7 @@ If you do not know your Cloudflare account ID, use the command `wrangler whoami`
 <CodeTabItem value="bash">
 
 ```bash
-wrangler kv:namespace create "MY_KV"
+wrangler kv:namespace create "LD_KV"
 ```
 
 </CodeTabItem>
@@ -125,7 +125,7 @@ Wrangler responds with the namespace ID of the newly created namespace.
 
 ```toml
 kv_namespaces = [
-  { binding = "MY_KV", id = "<NAMESPACE_ID>" }
+  { binding = "LD_KV", id="<LD_KV NAMESPACE ID>" }
 ]
 ```
 
@@ -143,7 +143,7 @@ kv_namespaces = [
 <CodeTabItem value="bash">
 
 ```bash
-wrangler kv:namespace create "MY_KV" --preview
+wrangler kv:namespace create "LD_KV" --preview
 ```
 
 </CodeTabItem>
@@ -161,7 +161,7 @@ Wrangler responds with the updated IDs for your `kv_namespaces` array. Replace t
 
 ```toml
 kv_namespaces = [
-  { binding = "MY_KV", preview_id= "<PREVIEW_NAMESPACE_ID>", id = "<NAMESPACE_ID>" }
+   {binding = "LD_KV", id="<LD_KV NAMESPACE ID>", preview_id = "<LD_KV NAMESPACE PREVIEW ID>"}
 ]
 ```
 
@@ -244,43 +244,45 @@ To serve HTML injected with feature flags:
 <CodeTabItem value="js">
 
 ```js
-const { getAssetFromKV } = require('@cloudflare/kv-asset-handler');
-const { init } = require('launchdarkly-cloudflare-edge-sdk');
+const { getAssetFromKV } = require('@cloudflare/kv-asset-handler')
+const { init } = require('launchdarkly-cloudflare-edge-sdk')
 
-let ldClient;
+let ldClient
 
 const initLdClient = () => {
-  if (ldClient) {
-    return Promise.resolve();
+  if (!ldClient) {
+    // LD_KV and LD_CLIENT_SIDE_ID are runtime variables that the Workers runtime provides to your code.
+    // For more information read https://developers.cloudflare.com/workers/platform/environment-variables
+    ldClient = init(LD_KV, LD_CLIENT_SIDE_ID)
+    return ldClient.waitForInitialization()
   }
 
-  ldClient = init(MY_KV, 'YOUR_CLIENT_SIDE_ID');
-  return ldClient.waitForInitialization();
-};
+  return Promise.resolve()
+}
 
 class FlagsStateInjector {
   async element(element) {
     // fetch all flag values for client-side SDKs as evaluated for an anonymous user
     // use a more appropriate user key if needed
-    const user = { key: 'anonymous' };
-    const allFlags = await ldClient.allFlagsState(user, { clientSideOnly: true });
-    element.append(`<script>window.ldFlags = ${JSON.stringify(allFlags)}</script>`, { html: true });
+    const user = { key: 'anonymous' }
+    const allFlags = await ldClient.allFlagsState(user, { clientSideOnly: true })
+    element.append(`<script>window.ldFlags = ${JSON.stringify(allFlags)}</script>`, { html: true })
   }
 }
 
 addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event));
-});
+  event.respondWith(handleRequest(event))
+})
 
 async function handleRequest(event) {
-  const [response] = await Promise.all([getAssetFromKV(event), initLdClient()]);
-  const acceptHeader = event.request.headers.get('accept');
+  const [response] = await Promise.all([getAssetFromKV(event), initLdClient()])
+  const acceptHeader = event.request.headers.get('accept')
 
-  if(acceptHeader && acceptHeader.includes('text/html')) {
-    return new HTMLRewriter().on('head', new FlagsStateInjector()).transform(response);
+  if (acceptHeader && acceptHeader.includes('text/html')) {
+    return new HTMLRewriter().on('head', new FlagsStateInjector()).transform(response)
   }
 
-  return response;
+  return response
 }
 ```
 
@@ -318,4 +320,4 @@ export default withLDProvider({
 </CodeTabItem>
 </CodeTabs>
 
- To learn more about bootstrapping client-side feature flags from the server, read [Bootstrapping using server-rendered content](/guides/flags/static-sites#bootstrapping-using-server-rendered-content).
+To learn more about bootstrapping client-side feature flags from the server, read [Bootstrapping using server-rendered content](/guides/flags/static-sites#bootstrapping-using-server-rendered-content).
