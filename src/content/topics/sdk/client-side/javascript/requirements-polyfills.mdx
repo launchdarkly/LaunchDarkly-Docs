@@ -6,17 +6,21 @@ tags: ['javascript', 'js', 'sdk', 'polyfill', 'client-side']
 published: true
 ---
 
-Web browsers vary widely in their support of specific features and standards. It is common in JavaScript development to use [polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill)—scripts that implement a feature in case it is not built into the browser—to ensure the widest possible compatibility.
+## Overview
 
-Three features that are used by the LaunchDarkly SDK that may not be available on every browser are `Promise`, `EventSource`, and `document.querySelectorAll()`.
+This topic explains how to add different types of polyfills in the JavaScript SDK.
 
-## Methods of adding a polyfill
+Web browsers vary widely in their support of specific features and standards. It is common in JavaScript development to use [polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill) to ensure the widest possible compatibility. Polyfills are scripts that implement a feature in case it is not built into the browser.
 
-For all of these features, there are two ways you can provide the polyfill script.
+Three features that the LaunchDarkly JavaScript SDK uses that may not be available on every browser are `Promise`, `EventSource`, and `document.querySelectorAll()`.
 
-One is to load it directly from a CDN that hosts the package, with a `<script>` tag within the `<head>` element of your page. Note that you must put the `<script>` tag for the polyfill _before_ any scripts that make use of the LaunchDarkly SDK.
+## Adding a polyfill
 
-Here is how to load it directly from a CDN:
+For each of these features, there are two ways you can provide the polyfill script.
+
+The first way is to load the polyfill script directly from a CDN that hosts the package, with a `<script>` tag within the `<head>` element of your page. You must put the `<script>` tag for the polyfill _before_ any scripts that make use of the LaunchDarkly SDK.
+
+Here is how to load a polyfill script directly from a CDN:
 
 <CodeTabs
   defaultValue="html"
@@ -67,11 +71,15 @@ require('package-name-of-polyfill');
 </CodeTabItem>
 </CodeTabs>
 
-You only need to use one of these methods—CDN or package manager—not both.
+You only need to use one of these methods. You do not need to use both a CDN and a package manager.
 
-## Promise
+## Installing polyfills for specific features
 
-The SDK relies heavily on JavaScript Promises. [Browsers that do not support Promise](https://caniuse.com/#search=Promise) include Internet Explorer and older versions of Microsoft Edge. If you need to support these browsers, you will need to install a polyfill for Promise, such as [es6-promise.](https://github.com/stefanpenner/es6-promise)
+Three features that the LaunchDarkly SDK uses that may not be available on every browser are `Promise`, `EventSource`, and `document.querySelectorAll()`. This section describes how to install a polyfill for each of them.
+
+### Promise
+
+The JavaScript SDK relies heavily on JavaScript Promises. [Browsers that do not support Promise](https://caniuse.com/#search=Promise) include Internet Explorer and older versions of Microsoft Edge. If you need to support these browsers, you will need to install a polyfill for Promise, such as [es6-promise](https://github.com/stefanpenner/es6-promise).
 
 To install a polyfill for Promise:
 
@@ -109,13 +117,15 @@ require('es6-promise/auto');
 </CodeTabItem>
 </CodeTabs>
 
-## EventSource
+### EventSource
 
-The SDK uses [`EventSource`](https://developer.mozilla.org/en-US/docs/Web/API/EventSource) to provide a live streaming connection to LaunchDarkly, if you have enabled streaming (by using the `streaming` property or the `setStreaming` method, or by subscribing to `change` events). **If you never enable streaming, you do not need `EventSource`.**
+The JavaScript SDK uses [`EventSource`](https://developer.mozilla.org/en-US/docs/Web/API/EventSource) to provide a live streaming connection to LaunchDarkly, if you have enabled streaming.
 
-It is widely available in browsers, [except for Internet Explorer and Microsoft Edge](https://caniuse.com/#search=EventSource). If you want to support these, and you need streaming support, you can install a polyfill such as [event-source-polyfill](https://github.com/Yaffle/EventSource).
+By default, the JavaScript SDK client opens a streaming connection if you subscribe to `change` or `change:flag-key` events. You can also open a streaming connection explicitly by setting the `streaming` configuration option or using the `setStreaming` method. **If you never enable streaming, you do not need `EventSource`.** To learn more, read [Streaming](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldoptions.html#streaming).
 
-To install a polyfill:
+EventSource is widely available in browsers, [except for Internet Explorer and Microsoft Edge](https://caniuse.com/#search=EventSource). If you want to support these browsers, and you need streaming support, you can install a polyfill such as [event-source-polyfill](https://github.com/Yaffle/EventSource).
+
+To install a polyfill for EventSource:
 
 <CodeTabs
   defaultValue="html"
@@ -152,13 +162,13 @@ require('event-source-polyfill');
 </CodeTabs>
 
 
-## `document.querySelectorAll()`
+### `document.querySelectorAll()`
 
-The SDK uses `querySelectorAll` to support `click` events for A/B testing. **If you never use click goals, you do not need `querySelectorAll`.**
+The JavaScript SDK uses `querySelectorAll` to support `click` events for Experimentation. **If you never use click conversion metrics, you do not need `querySelectorAll`.** To learn more, read [Click conversion metrics](/home/creating-experiments/metrics/click).
 
-It is widely available in browsers, [except in old versions of Internet Explorer](https://caniuse.com/#feat=queryselector). If you want to support these, and you need A/B testing support, you can install a polyfill such as [polyfill-queryselector](https://github.com/cobbdb/polyfill-queryselector).
+`querySelectorAll` is widely available in browsers, [except in old versions of Internet Explorer](https://caniuse.com/#feat=queryselector). If you want to support these, and you need Experimentation support, you can install a polyfill such as [polyfill-queryselector](https://github.com/cobbdb/polyfill-queryselector).
 
-To install a polyfill:
+To install a polyfill for `querySelectorAll`:
 
 <CodeTabs
   defaultValue="html"
