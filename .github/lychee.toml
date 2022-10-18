@@ -65,6 +65,9 @@ exclude = [
   'https://cdn.jsdelivr.net',
   'https://launchdarklydemostack1-s3bucketforwebsitecontent-jffmp2434grq.s3.amazonaws.com/site/',
   'https://github.com/:organization/:repo/releases.atom',
+  # This URL returns 404 in a browser, but holds an index.yaml and tar files,
+  # and is what you should use as part of helm setup (/home/relay-proxy/deploying#using-helm-to-run-the-relay-proxy-in-kubernetes)
+  'https://launchdarkly.github.io/ld-relay-helm',
   # Repeated 404s on these links - [Issue opened](https://github.com/lycheeverse/lychee/issues/431)
   'https://github.com/marketplace/actions/launchdarkly-code-references',
   'https://github.com/features/actions',
