@@ -40,7 +40,42 @@ You can also use the REST API: [Add a member to teams](https://apidocs.launchdar
 
 </LearnMore>
 
-### Adding members in bulk to an existing team
+### Adding members to a team from the Members dashboard
+
+<Callout intent="info">
+<CalloutTitle>This is an Admin-only feature</CalloutTitle>
+<CalloutDescription>
+
+The bulk editing feature is only accessible if you're a LaunchDarkly Admin. To learn more, read [Understanding member roles](/home/members/managing#understanding-member-roles).
+
+</CalloutDescription>
+</Callout>
+
+To add members to an existing team:
+
+1. Navigate to **Account settings** and click into the [**Members**](https://app.launchdarkly.com/settings/members) tab.
+2. Select the checkbox to the left of a member's name to choose that member.
+
+![The Members dashboard checkboxes](member-dashboard-checkboxes.png)
+
+3. Select all the members that you want to add to the teams. Next to the **Export CSV** button, another button appears that says **Edit X members**, where X is the number of members that you selected.
+   3a. Alternatively, if you wish to select all the members, click the checkbox next to the **Name** column in the table.
+
+![The Edit X members button](edit-x-members-button.png)
+
+5. Click the "Edit x members" button and select the **Add to teams** option. A modal will appear.
+
+![The Add to teams option](add-to-teams-option.png)
+
+6. Select one or multiple teams from the input field and then click **Add members to teams**. LaunchDarkly attempts to add each of the selected members to the selected teams.
+
+![The Add to teams option](add-multiple-members-to-teams-modal.png)
+
+When you select all members, the number of members may not match the number of members that appears at the top of the Members tab. This happens because you cannot perform bulk edit actions on yourself or the owner of the account.
+
+![A successful attempt](add-to-teams-toast.png)
+
+### Adding members in bulk to an existing team from a CSV
 
 You can add multiple members to an existing team by uploading a CSV file of member email addresses. Your CSV file must include email addresses in the first column. You can include data in additional columns, but LaunchDarkly ignores all data outside the first column. Headers are optional.
 
@@ -68,6 +103,7 @@ You can also use the REST API: [Add multiple members to team](https://apidocs.la
 If the file upload was not successful, an error message appears with information about the errors in the file.
 
 There are two types of CSV file upload errors:
+
 - **Global errors** are errors at the file level preventing LaunchDarkly from processing the file.
 - **Line errors** are errors on one or more individual lines in your CSV file.
 
@@ -84,30 +120,41 @@ This table includes a list of global errors and how to resolve them:
   </TableHeader>
   <TableBody>
     <TableRow>
-    <TableCell>Unable to process file</TableCell>
-    <TableCell>LaunchDarkly could not process the file for an unspecified reason. Review your file for errors and try again.</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>File exceeds 25mb</TableCell>
-    <TableCell>Break up your file into multiple files of less than 25mbs each.</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>All emails have invalid formatting</TableCell>
-    <TableCell>None of the email addresses in the file are in the correct format. Fix the formatting and try again.</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>All emails belong to existing team members</TableCell>
-    <TableCell>All listed members are already on this team. Populate the file with member emails that do not belong to the team and try again.</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>File is empty</TableCell>
-    <TableCell>The CSV file does not contain any email addresses. Populate the file and try again.</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>No emails belong to members of your LaunchDarkly organization</TableCell>
-    <TableCell>None of the email addresses belong to members of your LaunchDarkly account. Invite these members to LaunchDarkly, then re-add them to the team. To learn how, read <a href="/home/members/managing#adding-members-to-launchdarkly">Adding members to LaunchDarkly</a>.</TableCell>
-  </TableRow>
- </TableBody>
+      <TableCell>Unable to process file</TableCell>
+      <TableCell>
+        LaunchDarkly could not process the file for an unspecified reason. Review your file for errors and try again.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>File exceeds 25mb</TableCell>
+      <TableCell>Break up your file into multiple files of less than 25mbs each.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>All emails have invalid formatting</TableCell>
+      <TableCell>
+        None of the email addresses in the file are in the correct format. Fix the formatting and try again.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>All emails belong to existing team members</TableCell>
+      <TableCell>
+        All listed members are already on this team. Populate the file with member emails that do not belong to the team
+        and try again.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>File is empty</TableCell>
+      <TableCell>The CSV file does not contain any email addresses. Populate the file and try again.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>No emails belong to members of your LaunchDarkly organization</TableCell>
+      <TableCell>
+        None of the email addresses belong to members of your LaunchDarkly account. Invite these members to
+        LaunchDarkly, then re-add them to the team. To learn how, read{' '}
+        <a href="/home/members/managing#adding-members-to-launchdarkly">Adding members to LaunchDarkly</a>.
+      </TableCell>
+    </TableRow>
+  </TableBody>
 </Table>
 
 ### Troubleshooting line errors
@@ -123,26 +170,30 @@ This table includes a list of line errors and how to resolve them:
   </TableHeader>
   <TableBody>
     <TableRow>
-    <TableCell>Empty row</TableCell>
-    <TableCell>This line is blank. Add an email address and try again.</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>Duplicate entry</TableCell>
-    <TableCell>This email address appears in the file twice. Remove the email from the file and try again.</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>Email already exists in the specified team</TableCell>
-    <TableCell>This member is already on your team. No action needed.</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>Invalid formatting</TableCell>
-    <TableCell>This email address is not formatted correctly. Fix the formatting and try again.</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>Email does not belong to LaunchDarkly member</TableCell>
-    <TableCell>The email address doesn't belong to a LaunchDarkly account member. Invite them to LaunchDarkly, then re-add them to the team. To learn how, read <a href="/home/members/managing#adding-members-to-launchdarkly">Adding members to LaunchDarkly</a>.</TableCell>
-  </TableRow>
- </TableBody>
+      <TableCell>Empty row</TableCell>
+      <TableCell>This line is blank. Add an email address and try again.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Duplicate entry</TableCell>
+      <TableCell>This email address appears in the file twice. Remove the email from the file and try again.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Email already exists in the specified team</TableCell>
+      <TableCell>This member is already on your team. No action needed.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Invalid formatting</TableCell>
+      <TableCell>This email address is not formatted correctly. Fix the formatting and try again.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Email does not belong to LaunchDarkly member</TableCell>
+      <TableCell>
+        The email address doesn't belong to a LaunchDarkly account member. Invite them to LaunchDarkly, then re-add them
+        to the team. To learn how, read{' '}
+        <a href="/home/members/managing#adding-members-to-launchdarkly">Adding members to LaunchDarkly</a>.
+      </TableCell>
+    </TableRow>
+  </TableBody>
 </Table>
 
 ### Removing a member from a team
@@ -159,18 +210,17 @@ To remove a member from a team using the team management page:
 6. Select "Remove member." A confirmation dialog appears.
 7. Click **Remove member** in the dialog to confirm.
 
-
 To remove a member from a team using the **Members** page:
 
 1. Navigate to [**Account settings**](https://app.launchdarkly.com/settings).
 1. Click into the [**Members**](https://app.launchdarkly.com/settings/members) tab.
-2. Find the member in the list of team members.
-3. Click on the member's name.
-4. Click the **Teams** tab.
-6. Find the team that you want to remove this member from.
-5. Click the **overflow menu** at the right of the row of the team you want to remove the member from.
-8. Select "Remove member." A confirmation dialog appears.
-7. Click **Remove member** in the dialog to confirm.
+1. Find the member in the list of team members.
+1. Click on the member's name.
+1. Click the **Teams** tab.
+1. Find the team that you want to remove this member from.
+1. Click the **overflow menu** at the right of the row of the team you want to remove the member from.
+1. Select "Remove member." A confirmation dialog appears.
+1. Click **Remove member** in the dialog to confirm.
 
 ## Managing team permissions
 
@@ -261,14 +311,14 @@ To view the teams that a member belongs to:
 
 1. Navigate to [**Account settings**](https://app.launchdarkly.com/settings).
 1. Click into the [**Members**](https://app.launchdarkly.com/settings/members) tab.
-2. Filter the list of members for the member you're looking for.
-3. The "Teams" column lists the teams the members belongs to. There may be additional teams in the overflow menu. Click the **overflow menu** to view the **Teams** tab on that member's page. It has a complete list of that member's teams, and indicates if the member is a team maintainer for each team.
+1. Filter the list of members for the member you're looking for.
+1. The "Teams" column lists the teams the members belongs to. There may be additional teams in the overflow menu. Click the **overflow menu** to view the **Teams** tab on that member's page. It has a complete list of that member's teams, and indicates if the member is a team maintainer for each team.
 
 <Callout intent="info">
   <CalloutTitle>Maintained teams do not necessarily appear in the "Teams" column</CalloutTitle>
   <CalloutDescription>
 
- Team maintainers are not members of the team, so the teams they maintain do not appear in the "Teams" column on the **Members** tab.
+Team maintainers are not members of the team, so the teams they maintain do not appear in the "Teams" column on the **Members** tab.
 
   </CalloutDescription>
 </Callout>
