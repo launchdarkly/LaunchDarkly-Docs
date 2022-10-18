@@ -136,6 +136,7 @@ Some of these meta-analyses include:
 
 - [Online Controlled Experiments at Large Scale](https://www.exp-platform.com/Documents/2013%20controlledExperimentsAtScale.pdf)
 - [False Discovery in A/B Testing](https://ron-berman.com/papers/fdr.pdf)
+- [What Can Be Learned From 1,001 A/B Tests?](https://blog.analytics-toolkit.com/2022/what-can-be-learned-from-1001-a-b-tests/#outcomes)
 
 The prior is only on the mean while the experiment assumes the known variance. For numeric metrics the prior is on the sampling distribution, which is normally distributed per the central limit theorem. To learn more, read [Central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem).
 
@@ -153,7 +154,7 @@ Here is the updating function for the binomial distribution:
 
 To learn more, read [When likelihood function is a discrete distribution](https://en.wikipedia.org/wiki/Conjugate_prior#When_likelihood_function_is_a_discrete_distribution).
 
-After we have the posterior distribution for each variant, we use Monte Carlo sampling to determine the probability of each variant winning. Some systems compare each variant to the control, but this approach has the same problem as frequentist statistics in determining the winner with multiple variants.
+After we have the posterior distribution for each variant, we use Monte Carlo sampling (not to be confused with Markov Chain Monte Carlo methods, which we do not use) to determine the probability of each variant winning. Some systems compare each variant to the control, but that approach has the same problem as frequentist statistics in determining the winner with multiple variants.
 
 To learn more, read [The Difference between "Significant" and "Not Significant" Is Not Itself Statistically Significant](https://www.jstor.org/stable/27643811).
 
