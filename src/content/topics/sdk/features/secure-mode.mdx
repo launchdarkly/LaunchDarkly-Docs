@@ -275,7 +275,7 @@ var hashString = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
 
 ## Configuring secure mode in the JavaScript client-side SDK
 
-You should send the computed secure mode hash for your user as the [`hash` attribute](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldoptions.html#hash) in the `LDOptions` object during client initialization and as the [`hash` parameter](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldclient.html#identify) if subsequently identifying new user contexts:
+You should send the computed secure mode hash for your user as the [`hash` attribute](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#hash) in the `LDOptions` object during client initialization and as the [`hash` parameter](https://launchdarkly.github.io/js-client-sdk/interfaces/LDClient.html#identify) if subsequently identifying new user contexts:
 
 <CodeTabs
   defaultValue="js"
