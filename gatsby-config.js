@@ -41,7 +41,7 @@ const plugins = [
                 maxImageWidth = 640
                 maxImageHeight = image.aspectRatio * 640
               }
-              return `max-width: ${maxImageWidth}px; max-height: ${maxImageHeight}px;`
+              return `max-width: ${maxImageWidth}px; max-height: ${maxImageHeight}px; margin-left: auto; margin-right: auto;`
             },
           },
         },
