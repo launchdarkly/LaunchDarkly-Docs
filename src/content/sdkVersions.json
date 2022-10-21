@@ -788,6 +788,11 @@
     "name": "JavaScript",
     "versions": [
       {
+        "versionMajorMinor": "2.24",
+        "releaseYear": 2022,
+        "releaseMonthDay": "10-18"
+      },
+      {
         "versionMajorMinor": "2.23",
         "releaseYear": 2022,
         "releaseMonthDay": "10-05"
@@ -897,6 +902,11 @@
   {
     "name": "Node.js (client-side)",
     "versions": [
+      {
+        "versionMajorMinor": "2.2",
+        "releaseYear": 2022,
+        "releaseMonthDay": "10-18"
+      },
       {
         "versionMajorMinor": "2.1",
         "releaseYear": 2022,
@@ -1162,6 +1172,11 @@
   {
     "name": "React",
     "versions": [
+      {
+        "versionMajorMinor": "2.29",
+        "releaseYear": 2022,
+        "releaseMonthDay": "10-18"
+      },
       {
         "versionMajorMinor": "2.28",
         "releaseYear": 2022,
@@ -1432,6 +1447,11 @@
   {
     "name": "Vue",
     "versions": [
+      {
+        "versionMajorMinor": "1.2",
+        "releaseYear": 2022,
+        "releaseMonthDay": "10-18"
+      },
       {
         "versionMajorMinor": "1.1",
         "releaseYear": 2022,
