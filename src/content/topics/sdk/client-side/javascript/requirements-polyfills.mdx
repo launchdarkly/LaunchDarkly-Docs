@@ -121,7 +121,7 @@ require('es6-promise/auto');
 
 The JavaScript SDK uses [`EventSource`](https://developer.mozilla.org/en-US/docs/Web/API/EventSource) to provide a live streaming connection to LaunchDarkly, if you have enabled streaming.
 
-By default, the JavaScript SDK client opens a streaming connection if you subscribe to `change` or `change:flag-key` events. You can also open a streaming connection explicitly by setting the `streaming` configuration option or using the `setStreaming` method. **If you never enable streaming, you do not need `EventSource`.** To learn more, read [Streaming](https://launchdarkly.github.io/js-client-sdk/interfaces/_launchdarkly_js_client_sdk_.ldoptions.html#streaming).
+By default, the JavaScript SDK client opens a streaming connection if you subscribe to `change` or `change:flag-key` events. You can also open a streaming connection explicitly by setting the `streaming` configuration option or using the `setStreaming` method. **If you never enable streaming, you do not need `EventSource`.** To learn more, read [Streaming](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#streaming).
 
 EventSource is widely available in browsers, [except for Internet Explorer and Microsoft Edge](https://caniuse.com/#search=EventSource). If you want to support these browsers, and you need streaming support, you can install a polyfill such as [event-source-polyfill](https://github.com/Yaffle/EventSource).
 
