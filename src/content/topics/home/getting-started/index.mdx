@@ -29,7 +29,7 @@ Next, you need to connect your application to LaunchDarkly. You can connect to L
 
 Then, in your application, use the SDK to make a function call any time you want to determine whether a particular user should receive a feature, and what variation of the feature they should receive. The SDKs use local caching to make these variation checks as efficient as possible.
 
-The SDKs send analytics events to LaunchDarkly to record every user who encounters a flag and which variation they received, so you can analyze usage patterns and remove temporary feature flags after a feature has been fully released (100% of traffic is receiving the same variation). You have complete control over which data is sent to LaunchDarkly and can designate certain data as private if you want LaunchDarkly to use it for flag evaluation but not to store it. The analytics data that our SDKs collect also enables [Experimentation](/home/about-experimentation) to help you measure how changes in your software are impacting metrics that matter to your team and your business.
+The SDKs send analytics events to LaunchDarkly to record every user who encounters a flag and which variation they received. You control which data is sent to LaunchDarkly and can designate certain data as private if you want LaunchDarkly to use it for flag evaluation but not store it.
 
 To begin, read [Joining an account](#joining-an-account), then skip to the [Getting started](#getting-started-in-different-roles) section below that best describes your role.
 
