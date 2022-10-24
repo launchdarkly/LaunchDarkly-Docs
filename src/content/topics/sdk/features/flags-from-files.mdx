@@ -46,7 +46,7 @@ In some of the SDKs, YAML support requires an additional dependency. YAML is not
 
 The format of the data in `flags` and `segments` is defined by the LaunchDarkly application and is subject to change. Rather than trying to construct these objects yourself, it's simpler to request existing flags directly from the LaunchDarkly server in JSON format and use this output as the starting point for your file.
 
-Get the flags from `https://app.launchdarkly.com/sdk/latest-all`. Pass your SDK key in the `Authorization` header.
+Get the flags from `https://sdk.launchdarkly.com/sdk/latest-all`. Pass your SDK key in the `Authorization` header.
 
 For instance, in Linux, you could use this command:
 
@@ -60,7 +60,7 @@ For instance, in Linux, you could use this command:
 <CodeTabItem value="bash">
 
 ```bash
-curl -H "Authorization: EXAMPLE_SDK_KEY" https://app.launchdarkly.com/sdk/latest-all >flagdata.json
+curl -H "Authorization: EXAMPLE_SDK_KEY" https://sdk.launchdarkly.com/sdk/latest-all >flagdata.json
 ```
 
 </CodeTabItem>
