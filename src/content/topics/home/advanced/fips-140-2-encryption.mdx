@@ -1,0 +1,60 @@
+---
+path: /home/advanced/fips-140-2-encryption
+title: LaunchDarkly in environments requiring FIPS 140-2 validated encryption modules
+description: This topic explains how customers can use LaunchDarkly in environments that require that all data is encrypted in transit using FIPS 140-2 validated encryption modules.
+published: false
+tags: ['federal', 'relay proxy', 'sdk', 'encryption']
+---
+
+## Overview
+
+In some customer environments, notably those serving the US government community, there may be compliance requirements to use 
+[FIPS 140-2](https://csrc.nist.gov/publications/detail/fips/140/2/final) validated encryption modules.
+
+<Callout intent="alery">
+  <CalloutTitle>Complying with requlatory requirements is the customer's responsibility</CalloutTitle>
+  <CalloutDescription>
+
+While this guide intends to guide you to meeting your compliance needs, it is up to you to ensure that your encryption practices are 
+documented in your SSP and are reviewed by your auditors, to ensure they are applicable and sufficient to your particular needs.
+
+  </CalloutDescription>
+</Callout>
+
+## SDKs
+
+Because the LaunchDarkly SDKs are bundled into your applications, they should inherit the encryption modules used by your application.
+
+For example, in Golang, you can use the 
+[BoringCrypto](https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp3678.pdf) 
+experiment flag when building your Go (1.19+) code. The Relay Proxy is a great example of such an application, written in Go, using the 
+LaunchDarkly Go SDK.
+
+## Relay Proxy
+
+To build the [LaunchDarkly Relay Proxy](https://github.com/launchdarkly/ld-relay) using BoringCrypto, instead of running `make`
+(which in turn calls `go build .`) you can run:
+
+```
+GOEXPERIMENT=boringcrypto go build .
+```
+
+### Verification
+
+To verify that a Go binary was indeed build with BoringCrypto, there are two methods you can use. The simpler method is to 
+call `go version` and check the experiments list. For example (assume the binary we are checking is called `ld-relay`):
+
+```
+$ go version ld-relay
+ld-relay: go1.19 X:boringcrypto
+```
+
+The `X:boringcrypto` indicates that this binary includes the FIPS 140-2 validated encryption modules.
+
+The other method is to examine the symbol table in the binary, looking for BoringCrypto symbols:
+
+```
+$ go tool nm ld-relay | grep _Cfunc__goboringcrypto_
+```
+
+If this command returns results (and a `0` exit code) then the binary includes the FIPS 140-2 validated encryption modules.
