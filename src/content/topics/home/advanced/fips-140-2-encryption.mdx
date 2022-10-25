@@ -27,7 +27,7 @@ Because the LaunchDarkly SDKs are bundled into your applications, they should in
 
 For example, in Golang, you can use the 
 [BoringCrypto](https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp3678.pdf) 
-experiment flag when building your Go (1.19+) code. The Relay Proxy is a great example of such an application, written in Go, using the 
+experiment flag when building your Go (1.19+) code. The [Relay Proxy](/home/relay-proxy) is a great example of such an application, written in Go, using the 
 LaunchDarkly Go SDK.
 
 ## Relay Proxy
@@ -58,3 +58,8 @@ $ go tool nm ld-relay | grep _Cfunc__goboringcrypto_
 ```
 
 If this command returns results (and a `0` exit code) then the binary includes the FIPS 140-2 validated encryption modules.
+
+## Code References
+
+If you are using [code references](/home/code/code-references) you will need to build the [ld-find-code-refs](https://github.com/launchdarkly/ld-find-code-refs)
+binary similarly.
