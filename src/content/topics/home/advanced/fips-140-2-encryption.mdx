@@ -35,27 +35,59 @@ LaunchDarkly Go SDK.
 To build the [LaunchDarkly Relay Proxy](https://github.com/launchdarkly/ld-relay) using BoringCrypto, instead of running `make`
 (which in turn calls `go build .`) you can run:
 
-```
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Shell', value: 'shell', },
+  ]
+}>
+
+    <CodeTabItem value="shell">
+```shell
 GOEXPERIMENT=boringcrypto go build .
 ```
+    </CodeTabItem>
+
+</CodeTabs>
 
 ### Verification
 
 To verify that a Go binary was indeed build with BoringCrypto, there are two methods you can use. The simpler method is to 
 call `go version` and check the experiments list. For example (assume the binary we are checking is called `ld-relay`):
 
-```
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Shell', value: 'shell', },
+  ]
+}>
+
+    <CodeTabItem value="shell">
+```shell
 $ go version ld-relay
 ld-relay: go1.19 X:boringcrypto
 ```
+    </CodeTabItem>
+
+</CodeTabs>
 
 The `X:boringcrypto` indicates that this binary includes the FIPS 140-2 validated encryption modules.
 
 The other method is to examine the symbol table in the binary, looking for BoringCrypto symbols:
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Shell', value: 'shell', },
+  ]
+}>
 
-```
+    <CodeTabItem value="shell">
+```shell
 $ go tool nm ld-relay | grep _Cfunc__goboringcrypto_
 ```
+    </CodeTabItem>
+
+</CodeTabs>
 
 If this command returns results (and a `0` exit code) then the binary includes the FIPS 140-2 validated encryption modules.
 
