@@ -100,7 +100,9 @@ You can toggle a repository on or off to allow or forbid code reference triggers
 
 ## Using code references in federal environments
 
-If you are using the FedRAMP compliant [LaunchDarkly federal instance](/home/advanced/federal), the `ld-find-code-refs` binary should be compiled with FIPS 140-2 support by using a tool like [Go+BoringCrypto](https://github.com/golang/go/tree/dev.boringcrypto/misc/boring).
+If you are using the ld-find-code-refs in an environment that requires the use of FIPS 140-2 
+validated encrytpion modules, you may need to take [additional steps](/home/advanced/fips-140-2-encryption) 
+to ensure compliance.
 
 ## Managing code references
 
@@ -228,9 +230,3 @@ To learn more about `.ldignore` files, read the [`ld-find-code-refs` documentati
 The code references feature scans your source code for occurrences of your flag keys. This process requires your source code to reference flag keys exactly as they appear in LaunchDarkly.
 
 However, by default, the React SDK changes all flag keys to camel-case for easier access with dot notation. To use the code references feature in conjunction with the React SDK, configure `ld-find-code-refs` to generate camel-case aliases for the flag keys, or configure the React SDK to disable this camel-casing feature. To learn more, read [Flag keys transposed to common casing conventions](https://github.com/launchdarkly/ld-find-code-refs/blob/main/docs/ALIASES.md#flag-keys-transposed-to-common-casing-conventions) in the `ld-find-code-refs` documentation and [Flag keys](/sdk/client-side/react/react-web#flag-keys) in the React SDK documentation.
-
-## Using ld-find-code-refs in environments requiring FIPS 140-2 validated encryption
-
-If you are using the ld-find-code-refs in an environment that requires the use of FIPS 140-2 
-validated encrytpion modules, you may need to take [additional steps](/home/advanced/fips-140-2-encryption) 
-to ensure compliance.
