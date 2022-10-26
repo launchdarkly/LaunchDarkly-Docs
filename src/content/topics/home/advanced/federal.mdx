@@ -84,3 +84,10 @@ You can initialize an SDK for the federal instance using the initialization opti
 Depending on the SDK, you may need to configure multiple service endpoints in the initialization options. These could include the base and polling endpoint, streaming endpoint, and events endpoint. Server-side SDKs normally require streaming and events settings, not polling. For a list of available service endpoints, read [Understanding federal instance URLs](#understanding-federal-instance-urls).
 
 The details of how to set these options differ between SDKs, as LaunchDarkly respects each language's URI and URL naming conventions and supported services. For this reason, it is critical to reference the documentation for each individual SDK. To learn how, read [Service endpoint configuration](/sdk/features/service-endpoint-configuration).
+
+## Using open-source LaunchDarkly components with FIPS 140-2 encryption
+
+If you are using the LaunchDarkly Relay Proxy or Code Refernces, you may need to take [additional
+steps](/home/advanced/fips-140-2-encryption) to ensure these components are using FIPS 140-2 validated 
+encryption modules. The LaunchDarkly federal instance itself uses FIPS 140-2 valided encryption
+modules in all applicable places.
