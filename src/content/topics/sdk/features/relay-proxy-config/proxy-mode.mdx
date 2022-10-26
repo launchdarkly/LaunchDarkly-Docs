@@ -31,7 +31,6 @@ This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
-* [C/C++ (client-side)](#cc-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -101,31 +100,6 @@ val ldConfig: LDConfig = LDConfig.Builder()
   .pollUri(Uri.parse("https://your-relay-proxy.com:8080"))
   .eventsUri(Uri.parse("https://your-relay-proxy.com:8080"))
   .build();
-```
-
-</CodeTabItem>
-</CodeTabs>
-</Details>
-
-### C/C++ (client-side)
-
-<Details summary="Expand C/C++ (client-side) code sample">
-
-To connect the SDK to the Relay Proxy, use `LDConfigSetStreamURI`, `LDConfigSetAppURI`, and `LDConfigSetEventsURI` to specify the base URI of your Relay Proxy:
-
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c' }
-    ]
-}>
-<CodeTabItem value="c">
-
-```c
-struct LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
-LDConfigSetStreamURI(config, "https://your-relay-proxy.com:8080");
-LDConfigSetAppURI(config, "https://your-relay-proxy.com:8080");
-LDConfigSetEventsURI(config, "https://your-relay-proxy.com:8080");
 ```
 
 </CodeTabItem>
