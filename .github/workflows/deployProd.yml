@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          # fetch entire history to get Last Edit date for topics
+          # fetch entire history to get last edit date for topics
           fetch-depth: 0
       - name: Find last successful run
         uses: SamhammerAG/last-successful-build-action@v4
@@ -30,7 +30,7 @@ jobs:
         # if we can't find a last success, we should run deploy
         if: steps.last-success.outputs.sha != github.sha
         id: changed-files-specific
-        uses: tj-actions/changed-files@v32
+        uses: tj-actions/changed-files@v33
         with:
           token: ${{ github.token }}
           separator: ' '
