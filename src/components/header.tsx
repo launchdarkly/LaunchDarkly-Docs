@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { jsx } from 'theme-ui'
 
 import { useIsFederal } from '../utils/siteAwareUtils'
@@ -12,7 +11,6 @@ import Link from './link'
 import TopNav from './topNav'
 
 const Header = () => {
-  const { enableSiteSelection } = useFlags()
   const isFederal = useIsFederal()
 
   return (
@@ -86,7 +84,7 @@ const Header = () => {
                 display: ['none', 'flex'],
               }}
             >
-              {enableSiteSelection && <SiteSelector />}
+              <SiteSelector />
             </span>
             <SearchRoot />
           </div>
