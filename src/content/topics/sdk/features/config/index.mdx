@@ -55,7 +55,7 @@ You can configure `Configuration.Builder`:
 ```csharp
 Configuration config = Configuration
     .Builder("YOUR_MOBILE_KEY")
-    .EventFlushInterval(TimeSpan.FromSeconds(2))
+    .Events(Components.SendEvents().FlushInterval(TimeSpan.FromSeconds(2)))
     .Build();
 LdClient client = LdClient.Init(config, user);
 ```
