@@ -42,6 +42,7 @@ To build the [LaunchDarkly Relay Proxy](https://github.com/launchdarkly/ld-relay
   ]
 }>
 <CodeTabItem value="bash">
+
 ```bash
 GOEXPERIMENT=boringcrypto go build .
 ```
@@ -83,7 +84,8 @@ The other method is to examine the symbol table in the binary, looking for Borin
   ]
 }>
 
-    <CodeTabItem value="bash">
+<CodeTabItem value="bash">
+
 ```bash
 $ go tool nm ld-relay | grep _Cfunc__goboringcrypto_
 ```
