@@ -11,6 +11,9 @@ tags: ['federal', 'relay proxy', 'sdk', 'encryption']
 In some customer environments, notably those serving the US government community, there may be compliance requirements to use 
 [FIPS 140-2](https://csrc.nist.gov/publications/detail/fips/140/2/final) validated encryption modules.
 
+One such module is [BoringSSL](https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp3678.pdf).
+It is a fork of OpenSSL that is maintained by Google, and allows for Golang applications to use FIPS 140-2 validated encryption, in place of the standard Golang cyrpto libraries.
+
 <Callout intent="alert">
   <CalloutTitle>Complying with regulatory requirements is the customer's responsibility</CalloutTitle>
   <CalloutDescription>
@@ -25,8 +28,7 @@ While this topic guides you in meeting your compliance needs, it is up to you to
 Because the LaunchDarkly SDKs are bundled into your applications, they should inherit the encryption modules used by your application.
 
 For example, in Golang, you can use the 
-[BoringCrypto](https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp3678.pdf) 
-[experiment flag](https://pkg.go.dev/internal/goexperiment) when building your Go (1.19+) code. The [Relay Proxy](/home/relay-proxy) is a great example of such an application, written in Go, using the 
+`boringcrypto` [experiment flag](https://pkg.go.dev/internal/goexperiment) when building your Go (1.19+) code. The [Relay Proxy](/home/relay-proxy) is a great example of such an application, written in Go, using the 
 LaunchDarkly Go SDK.
 
 ## Relay Proxy
