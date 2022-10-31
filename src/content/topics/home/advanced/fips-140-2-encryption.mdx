@@ -15,8 +15,7 @@ In some customer environments, notably those serving the US government community
   <CalloutTitle>Complying with regulatory requirements is the customer's responsibility</CalloutTitle>
   <CalloutDescription>
 
-While this guide intends to guide you to meeting your compliance needs, it is up to you to ensure that your encryption practices are 
-documented in your SSP and are reviewed by your auditors, to ensure they are applicable and sufficient to your particular needs.
+While this topic guides you in meeting your compliance needs, it is up to you to ensure that your encryption practices are documented in your SSP and are reviewed by your auditors, to ensure they are applicable and sufficient to your particular needs.
 
   </CalloutDescription>
 </Callout>
@@ -27,13 +26,12 @@ Because the LaunchDarkly SDKs are bundled into your applications, they should in
 
 For example, in Golang, you can use the 
 [BoringCrypto](https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp3678.pdf) 
-experiment flag when building your Go (1.19+) code. The [Relay Proxy](/home/relay-proxy) is a great example of such an application, written in Go, using the 
+[experiment flag](https://pkg.go.dev/internal/goexperiment) when building your Go (1.19+) code. The [Relay Proxy](/home/relay-proxy) is a great example of such an application, written in Go, using the 
 LaunchDarkly Go SDK.
 
 ## Relay Proxy
 
-To build the [LaunchDarkly Relay Proxy](https://github.com/launchdarkly/ld-relay) using BoringCrypto, instead of running `make`
-(which in turn calls `go build .`) you can run:
+To build the [LaunchDarkly Relay Proxy](https://github.com/launchdarkly/ld-relay) using BoringCrypto, run:
 
 <CodeTabs
   defaultValue="bash"
@@ -41,19 +39,20 @@ To build the [LaunchDarkly Relay Proxy](https://github.com/launchdarkly/ld-relay
     { label: 'Shell', value: 'bash', },
   ]
 }>
-
-    <CodeTabItem value="bash">
+<CodeTabItem value="bash">
 ```bash
 GOEXPERIMENT=boringcrypto go build .
 ```
-    </CodeTabItem>
 
+</CodeTabItem>
 </CodeTabs>
 
+Use this instead of running `make` or `go build .` to build the Relay Proxy with FIPS 140-2 encryption.
 ### Verification
 
-To verify that a Go binary was indeed build with BoringCrypto, there are two methods you can use. The simpler method is to 
-call `go version` and check the experiments list. For example (assume the binary we are checking is called `ld-relay`):
+To verify that a Go binary was indeed build with BoringCrypto, there are two methods you can use. 
+
+One method is to call `go version` and check the experiments list. For example, here's how to check a binary called `ld-relay`:
 
 <CodeTabs
   defaultValue="bash"
@@ -62,13 +61,14 @@ call `go version` and check the experiments list. For example (assume the binary
   ]
 }>
 
-    <CodeTabItem value="bash">
+<CodeTabItem value="bash">
+
 ```bash
 $ go version ld-relay
 ld-relay: go1.19 X:boringcrypto
 ```
-    </CodeTabItem>
 
+</CodeTabItem>
 </CodeTabs>
 
 The `X:boringcrypto` indicates that this binary includes the FIPS 140-2 validated encryption modules.
@@ -89,7 +89,7 @@ $ go tool nm ld-relay | grep _Cfunc__goboringcrypto_
 
 </CodeTabs>
 
-If this command returns results (and a `0` exit code) then the binary includes the FIPS 140-2 validated encryption modules.
+If this command returns results and a `0` exit code, then the binary includes the FIPS 140-2 validated encryption modules.
 
 ## Code References
 
