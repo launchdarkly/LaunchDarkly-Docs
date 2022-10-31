@@ -1,8 +1,7 @@
 describe('Documentation website', () => {
   it('should be navigable', () => {
-    // Set to desktop
-    cy.viewport('macbook-16')
-    cy.visit('/')
+    cy.visit('/', { failOnStatusCode: false })
+
     cy.title().should('equal', 'Welcome to LaunchDarkly docs')
 
     // navigate to a page

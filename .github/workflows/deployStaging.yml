@@ -132,12 +132,11 @@ jobs:
         with:
           # Note: this is used because of cypress yarn berry issue
           # https://github.com/cypress-io/github-action/issues/430#issuecomment-1144054512
-          command: yarn dlx cypress@v9 run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }},retries=2 --spec cypress/integration/smoke.test.ts --config-file cypress.json --env bucket_prefix=${{ env.BUCKET_PREFIX }}
+          command: yarn dlx cypress run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }},retries=2 --spec cypress/e2e/smoke.cy.ts --env bucket_prefix=${{ env.BUCKET_PREFIX }}
           install-command: yarn install --immutable
           build: yarn build-nav-data
           wait-on: 'https://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }}/home'
         env:
-          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Check Cypress outcome
