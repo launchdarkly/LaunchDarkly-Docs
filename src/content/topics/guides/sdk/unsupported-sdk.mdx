@@ -82,7 +82,7 @@ Here's how:
 <CodeTabItem value="get">
 
 ```bash
-curl -X GET https://your-relay-proxy.com:8080/sdk/eval/users/eyJrZXkiOiAiYTAwY2ViIn0= \
+curl -X GET https://your-relay-proxy.com:8030/sdk/eval/users/eyJrZXkiOiAiYTAwY2ViIn0= \
   -H "Authorization: YOUR_SDK_KEY"
 ```
 
@@ -90,7 +90,7 @@ curl -X GET https://your-relay-proxy.com:8080/sdk/eval/users/eyJrZXkiOiAiYTAwY2V
 <CodeTabItem value="report">
 
 ```bash
-curl -X REPORT https://your-relay-proxy.com:8080/sdk/eval/user \
+curl -X REPORT https://your-relay-proxy.com:8030/sdk/eval/user \
   -H "Authorization: YOUR_SDK_KEY" \
   -H "Content-Type: application/json" \
   -d '{"key": "a00ceb", "email":"barnie@example.org"}'
@@ -101,7 +101,7 @@ curl -X REPORT https://your-relay-proxy.com:8080/sdk/eval/user \
 
 In the example,
 
-* `https://your-relay-proxy.com:8080` is the local URI and port for your Relay Proxy. Depending on your configuration, your address may be different.
+* `https://your-relay-proxy.com:8030` is the local URI and port for your Relay Proxy. Depending on your configuration, your address may be different.
 * `eyJrZXkiOiAiYTAwY2ViIn0=` is the base64-encoded JSON object for the user key, `{"key": "a00ceb"}`.
 
 To evaluate all flag values for a given user and also receive additional metadata, such as the evaluation reason, you also have two options:
@@ -121,7 +121,7 @@ Here's how:
 <CodeTabItem value="get">
 
 ```bash
-curl -X GET https://your-relay-proxy.com:8080/sdk/evalx/users/eyJrZXkiOiAiYTAwY2ViIn0= \
+curl -X GET https://your-relay-proxy.com:8030/sdk/evalx/users/eyJrZXkiOiAiYTAwY2ViIn0= \
   -H "Authorization: YOUR_SDK_KEY"
 ```
 
@@ -129,7 +129,7 @@ curl -X GET https://your-relay-proxy.com:8080/sdk/evalx/users/eyJrZXkiOiAiYTAwY2
 <CodeTabItem value="report">
 
 ```bash
-curl -X REPORT https://your-relay-proxy.com:8080/sdk/evalx/user \
+curl -X REPORT https://your-relay-proxy.com:8030/sdk/evalx/user \
   -H "Authorization: YOUR_SDK_KEY" \
   -H "Content-Type: application/json" \
   -d '{"key": "a00ceb", "email":"barnie@example.org"}'
@@ -140,7 +140,7 @@ curl -X REPORT https://your-relay-proxy.com:8080/sdk/evalx/user \
 
 As in the previous example,
 
-* `https://your-relay-proxy.com:8080` is the local URI and port for your Relay Proxy. Depending on your configuration, your address may be different.
+* `https://your-relay-proxy.com:8030` is the local URI and port for your Relay Proxy. Depending on your configuration, your address may be different.
 * `eyJrZXkiOiAiYTAwY2ViIn0=` is the base64-encoded JSON object for the user key, `{"key": "a00ceb"}`.
 
 To learn more, read [Special flag evaluation endpoints](https://github.com/launchdarkly/ld-relay/blob/v6/docs/endpoints.md#special-flag-evaluation-endpoints) in the [Relay Proxy GitHub documentation](https://github.com/launchdarkly/ld-relay/blob/v6/README.md).
