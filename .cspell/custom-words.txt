@@ -17,6 +17,7 @@ azuredevops
 backgrounded
 Bahmutov's
 Bintray
+boringcrypto
 boto
 bracket-paren
 brightscript
@@ -28,6 +29,7 @@ Cartfile
 Catfood
 Centrify
 certifi
+Cfunc
 choco
 cfworkers
 circleci
@@ -73,6 +75,8 @@ Gameplay
 getall
 getenv
 Gleb
+goboringcrypto
+GOEXPERIMENT
 GOPATH
 gopkg
 govendor

@@ -429,7 +429,13 @@
           },
           {
             "label": "LaunchDarkly in federal environments",
-            "path": "/home/advanced/federal"
+            "path": "/home/advanced/federal",
+            "items": [
+              {
+                "label": "LaunchDarkly in environments requiring FIPS 140-2",
+                "path": "/home/advanced/fips-140-2-encryption"
+              }
+            ]
           },
           {
             "label": "Public IP list",
