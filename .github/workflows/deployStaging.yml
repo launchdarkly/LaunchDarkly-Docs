@@ -90,9 +90,9 @@ jobs:
           path: |
             public
             .cache
-          key: ${{ runner.os }}-gatsby-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-gatsby-build-${{ env.BUCKET_PREFIX }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gatsby-build-${{ hashFiles('**/yarn.lock') }}
+            ${{ runner.os }}-gatsby-build-${{ env.BUCKET_PREFIX }}-${{ hashFiles('**/yarn.lock') }}
       - name: Yarn install
         if: steps.build-status.outputs.deploy == 'true'
         run: CYPRESS_INSTALL_BINARY=0 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable
