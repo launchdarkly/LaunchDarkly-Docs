@@ -12,8 +12,15 @@ import getUserAgentResults from './userAgent'
  * @param eventName The description of the event
  * @param properties optional event properties
  */
-export const track = (eventName: string, properties?: Record<string, unknown>) =>
-  window?.analytics?.track?.(`Docs ${eventName}`, properties)
+export const track = (eventName: string, properties?: Record<string, unknown>) => {
+  const genericProperties = {
+    path: window.location.pathname,
+    host: window.location.host,
+    url: window.location.href,
+    title: document.title,
+  }
+  window?.analytics?.track?.(`Docs ${eventName}`, { ...genericProperties, ...properties })
+}
 
 /**
  * // Track site selection with gtm and segment.io
