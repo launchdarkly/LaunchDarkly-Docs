@@ -19,7 +19,7 @@ Access the list of public IP ranges from this URL: [https://app.launchdarkly.com
 The public IP endpoint returns a JSON object with two attributes:
 
 - `addresses`: This element contains the IP addresses LaunchDarkly uses.
-- `outboundAddresses`: This element contains the IP addresses LaunchDarkly uses for outbound webhook notifications. LaunchDarkly uses these addresses when making calls to your network.
+- `outboundAddresses`: This element contains the IP addresses LaunchDarkly uses for outbound webhook-based notifications and integrations. LaunchDarkly uses these addresses when making calls to your network.
 
 You can automate calls to this API to detect when the IP ranges change. We post upcoming changes to this list in advance on our [status page](https://status.launchdarkly.com/).
 
