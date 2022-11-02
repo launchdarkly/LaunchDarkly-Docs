@@ -4,12 +4,26 @@ import debounce from 'lodash.debounce'
 import getUserAgentResults from './userAgent'
 
 // Track custom events and sends them to segment.io e.g. track('Link to API docs clicked')
-export const track = (event: string) => window?.analytics?.track?.(event)
 
-// Track site selection with gtm without segment.io
-// For a list of built-in gtag events see:
-// https://developers.google.com/analytics/devguides/collection/gtagjs/events
-export const trackSiteSelection = (site: string) => {
+/**
+ * Track an event using Segment. "Docs" is prepended to all event names to align with the naming conventions outlined
+ * here: https://launchdarkly.atlassian.net/wiki/spaces/PROD/pages/150700347/User+Analytics+Event+Instrumentation+and+Naming+Conventions
+ *
+ * @param eventName The description of the event
+ * @param properties optional event properties
+ */
+export const track = (eventName: string, properties?: Record<string, unknown>) =>
+  window?.analytics?.track?.(`Docs ${eventName}`, properties)
+
+/**
+ * // Track site selection with gtm and segment.io
+ * For a list of built-in gtag events see:
+ * https://developers.google.com/analytics/devguides/collection/gtagjs/events
+ *
+ * @param site the site selected by the user.
+ */
+export const trackSiteSelection = (site: 'federal' | 'launchDarkly') => {
+  track('Site Selection Changed', { site })
   window?.gtag?.('event', 'select_content', { content_type: site })
 }
 

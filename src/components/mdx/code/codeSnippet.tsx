@@ -30,6 +30,7 @@ import 'prismjs/components/prism-dart'
 import 'prismjs/components/prism-erlang'
 import 'prismjs/components/prism-rust'
 
+import { track } from '../../../utils/analyticsUtils'
 import { copyToClipboard } from '../../../utils/copyToClipboard'
 
 export type CodeSnippetProps = {
@@ -51,6 +52,7 @@ export function CodeSnippet({ children, className: languageClassName, ...props }
 
     setTimeout(() => setShowCopied(false), 2000)
     copyToClipboard(children)
+    track('Copy to Clipboard Button Clicked')
   }, [children])
 
   return (

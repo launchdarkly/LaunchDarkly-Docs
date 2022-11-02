@@ -202,25 +202,28 @@ if (isStaging || isProd) {
   )
 }
 
+const { SEGMENT_KEY } = process.env
+if (SEGMENT_KEY) {
+  plugins.push({
+    //https://www.gatsbyjs.org/packages/gatsby-plugin-segment-js/
+    resolve: 'gatsby-plugin-segment-js',
+    options: {
+      prodKey: SEGMENT_KEY,
+      devKey: SEGMENT_KEY,
+      //track pageviews when there is a route change. Calls window.analytics.page() on each route change.
+      trackPage: true,
+      delayLoad: false,
+    },
+  })
+}
+
 if (isProd) {
-  plugins.push(
-    {
-      //https://www.gatsbyjs.org/packages/gatsby-plugin-segment-js/
-      resolve: 'gatsby-plugin-segment-js',
-      options: {
-        prodKey: process.env.SEGMENT_KEY,
-        //track pageviews when there is a route change. Calls window.analytics.page() on each route change.
-        trackPage: true,
-        delayLoad: false,
-      },
+  plugins.push({
+    resolve: 'gatsby-plugin-sitemap',
+    options: {
+      excludes: ['/systemLayout/', '/components'],
     },
-    {
-      resolve: 'gatsby-plugin-sitemap',
-      options: {
-        excludes: ['/systemLayout/', '/components'],
-      },
-    },
-  )
+  })
 }
 
 if (!isProd) {
