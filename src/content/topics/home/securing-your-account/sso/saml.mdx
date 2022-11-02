@@ -83,30 +83,49 @@ Below is an example of an SSO-provided nameID that LaunchDarkly will accept:
 
 ## Setting custom attributes
 
-These attributes are available for both SSO provisioning and SCIM provisioning:
+These attributes are available for SAML SSO provisioning and SCIM provisioning:
 
 <Table>
   <TableHeader>
     <TableHeadCell>Attribute name</TableHeadCell>
+    <TableHeadCell>Attribute format</TableHeadCell>
     <TableHeadCell>Description</TableHeadCell>
   </TableHeader>
   <TableBody>
     <TableRow>
       <TableCell>role</TableCell>
+      <TableCell>string</TableCell>
       <TableCell>
         One of the built-in LaunchDarkly roles: <code>reader</code>, <code>writer</code>, <code>admin</code>, and for some customers, <code>no_access</code>. If unspecified, the default role is <code>reader</code>.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>customRole</TableCell>
+      <TableCell>String array, or comma-separated string</TableCell>
       <TableCell>
-        A comma-separated list of the keys of the custom roles to give to the account member. These replace the member's existing custom roles. If a member has any custom roles, they supersede the built-in role. The elements of the <code>customRole</code> list are case-sensitive, and each element of the list must match exactly a custom role key in LaunchDarkly.
+        A list of the keys of the custom roles to assign to the account member. These replace the member's existing custom roles. If a member has any custom roles, they supersede the built-in role. The elements of the <code>customRole</code> list are case-sensitive, and each element of the list must match a custom role key in LaunchDarkly exactly.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>teamKey</TableCell>
+      <TableCell>String array, or comma-separated string</TableCell>
+      <TableCell>
+        A list of the keys of the teams that the account member belongs to. These replace the member's existing teams. The elements of the <code>teamKey</code> list are case-sensitive, and each element of the list must match a team key in LaunchDarkly exactly.
       </TableCell>
     </TableRow>
   </TableBody>
 </Table>
 
-SSO supports the following naming attributes:
+<Callout intent="alert">
+<CalloutTitle>Managing Teams with SAML SSO and SCIM</CalloutTitle>
+<CalloutDescription>
+
+The `teamKey` attribute is **only available for SAML SSO**. To learn more about managing teams with SCIM, read [Team sync with SCIM](/home/account-security/sso/scim#team-sync-with-scim).
+
+</CalloutDescription>
+</Callout>
+
+SAML SSO supports the following naming attributes:
 
 - `firstName`
 - `lastName`
