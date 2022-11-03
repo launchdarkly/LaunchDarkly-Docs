@@ -120,13 +120,12 @@ jobs:
     needs: build-deploy
     runs-on: ubuntu-latest
     name: Smoke test staging
-    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Cypress run
         uses: cypress-io/github-action@v3.1.0 # must be locked because of yarn berry issue
-        timeout-minutes: 5
+        timeout-minutes: 7
         id: cypress
         continue-on-error: true
         with:

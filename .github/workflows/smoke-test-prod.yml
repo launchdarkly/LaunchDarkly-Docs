@@ -9,7 +9,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Cypress run
-        timeout-minutes: 5
+        timeout-minutes: 7
         uses: cypress-io/github-action@v3.1.0 # must be locked because of yarn berry issue
         with:
           # Note: this is used because of cypress yarn berry issue
