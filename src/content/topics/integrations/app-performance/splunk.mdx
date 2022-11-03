@@ -32,15 +32,14 @@ Based on which type of Splunk account you have, endpoint hostnames, ports, and p
 
 To configure the integration, you must have the following prerequisites:
 
-* A Splunk HTTP Event Collector (HEC). To learn more, read [Setting up an HTTP Event Collector in Splunk Web](#setting-up-an-http-event-collector-in-splunk-web)
-* An HEC token, which is generated during HEC setup.
+- A Splunk HTTP Event Collector (HEC). To learn more, read [Setting up an HTTP Event Collector in Splunk Web](#setting-up-an-http-event-collector-in-splunk-web)
+- An HEC token, which is generated during HEC setup.
 
 ## Setting up an HTTP Event Collector in Splunk Web
 
 To add LaunchDarkly events to Splunk, you must configure and enable Splunk's HTTP Event Collector (HEC) in Splunk Web.
 
 The steps to enable HEC vary based on your Splunk instance. To enable HEC, read [Splunk's documentation](https://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHTTPEventCollector).
-
 
 ## Configuring LaunchDarkly to work with Splunk
 
@@ -109,7 +108,15 @@ To learn more, read [Splunk's documentation](https://docs.splunk.com/Documentati
 
 ![LaunchDarkly events as annotations in Splunk charts](ld-events-in-context-in-splunk.png)
 
-### Troubleshooting
+## Troubleshooting
+
+If you do not see LaunchDarkly events appearing in Splunk, confirm that incoming traffic is permitted. You can also recreate a single LaunchDarkly test event and verify that Splunk is receiving events.
+
+### Configure Splunk IP allow lists
+
+Some Splunk customers may need to configure their Splunk IP allow lists to permit incoming traffic from LaunchDarkly. To do this, follow Splunk's [Configure IP allow lists using Splunk Web](https://docs.splunk.com/Documentation/SplunkCloud/latest/Admin/ConfigureIPAllowList) documentation to configure the **HEC access for ingestion** allow list. Add the `outboundAddresses` from LaunchDarkly's [Public IP list](/home/advanced/public-ip-list) when configuring the IP allow list in Splunk.
+
+### Recreate the LaunchDarkly events collector in Splunk
 
 If you configure the LaunchDarkly integration and events in Splunk do not appear, recreate the LaunchDarkly request with a `curl`.
 
@@ -132,9 +139,9 @@ curl -k \
 </CodeTabItem>
 </CodeTabs>
 
-* Splunk Enterprise URLs format: `<protocol>://<host>:<port>/<endpoint>`.
-* Self-service Splunk Cloud URLs format: `<protocol>://input-<host>:<port>/<endpoint>`.
-* Managed Splunk Cloud URLs format: `<protocol>://http-inputs-<host>:<port>/<endpoint>`.
+- Splunk Enterprise URLs format: `<protocol>://<host>:<port>/<endpoint>`.
+- Self-service Splunk Cloud URLs format: `<protocol>://input-<host>:<port>/<endpoint>`.
+- Managed Splunk Cloud URLs format: `<protocol>://http-inputs-<host>:<port>/<endpoint>`.
 
 To learn more, [read Splunk's documentation](https://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHTTPEventCollector#Send_data_to_HTTP_Event_Collector).
 
@@ -152,4 +159,11 @@ An example token is below:
 
 This video presents a demonstration of the integration. To read along, enable YouTube's closed captioning feature on the video.
 
-<iframe width="100%" height="410" src="https://www.youtube.com/embed/Xob-rSN_oDU?cc_load_policy=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe
+  width="100%"
+  height="410"
+  src="https://www.youtube.com/embed/Xob-rSN_oDU?cc_load_policy=1"
+  frameborder="0"
+  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
