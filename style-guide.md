@@ -101,7 +101,7 @@ Lists are quick references that either describe steps or collections of three or
 
 Use screenshots sparingly. They're expensive to maintain. If you're a LaunchDarkly partner contributing documentation for your product or service, you are responsible for contributing updated screenshots for your service when needed.
 
-You can add screenshots as PNGs. For a screenshot to render in the docs correctly, you must end the screenshot name with the file type (.png).
+You can add screenshots as PNGs or JPEGs. For a screenshot to render in the docs correctly, you must end the screenshot name with the file type (.png, .jpg).
 
 We do not have a minimum or maximum size guideline to follow. For best results, we recommend taking screenshots on the monitor with the highest resolution and pixel density you have available. Often this means taking screenshots from your laptop, rather than from an external monitor.
 
