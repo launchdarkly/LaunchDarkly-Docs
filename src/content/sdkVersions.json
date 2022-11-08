@@ -413,6 +413,11 @@
     "name": "Flutter",
     "versions": [
       {
+        "versionMajorMinor": "1.2",
+        "releaseYear": 2022,
+        "releaseMonthDay": "11-07"
+      },
+      {
         "versionMajorMinor": "1.1.2",
         "releaseYear": 2022,
         "releaseMonthDay": "06-23"
