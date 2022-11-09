@@ -8,7 +8,7 @@ tags: ['okta', 'admin', 'scim', 'sso', 'custom role', 'idp']
 
 ## Overview
 
-This topic explains how Okta and LaunchDarkly work together to provide user management for your account members. Okta and LaunchDarkly communicate through the System for Cross-domain Identity Management (SCIM) API specification. SCIM is designed to make managing identities in cloud-based applications and services easier.
+This topic explains how Okta and LaunchDarkly work together to provide both authentication and provisioning for your account members.
 
 A LaunchDarkly app is available in Okta. You can connect LaunchDarkly and Okta through the Okta UI, give Okta permissions to modify account members in LaunchDarkly, and even integrate LaunchDarkly custom roles with Okta. Optionally, you can also sync groups in Okta with LaunchDarkly teams to automate team member provisioning.
 
@@ -18,9 +18,12 @@ To use Okta with LaunchDarkly, you must meet the following prerequisites:
 
 - You must have Administrator privileges in LaunchDarkly
 - You must have Administrator privileges in Okta
-- You must have followed Okta's documentation to [Enable Single Sign-On with SAML](https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-LaunchDarkly.html)
 - You must have your Assertion consumer service URL and Entity ID from LaunchDarkly's SAML configuration page
 - You must have access to the email addresses of the account members you wish to configure
+
+## Configuring Okta SAML SSO for LaunchDarkly
+
+After you have confirmed you meet the prerequisites above, follow Okta's documentation to [Enable Single Sign-On with SAML](https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-LaunchDarkly.html).
 
 ## Using Okta to manage LaunchDarkly members with SCIM
 
@@ -41,8 +44,6 @@ If you get an error during configuration that you cannot add an additional SCIM 
 
 </CalloutDescription>
 </Callout>
-
-To get started, navigate to the Okta Administrator Dashboard to add an application and search for LaunchDarkly.
 
 If you have not configured SAML SSO for LaunchDarkly in Okta, you must do that first. To learn more, read [How to configure SAML 2.0 for LaunchDarkly](https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-LaunchDarkly.html) in Okta's documentation.
 
@@ -82,6 +83,8 @@ To grant Okta permission to manage account members:
     - Create Users
     - Update User Attributes
     - Deactivate Users
+
+    ![The "Provisioning to App" page in Okta, with the "Create Users", "Update User Attributes", and "Deactivate Users" options enabled.](okta-provisioning-to-app.png)
 
 9. Click **Save**.
 

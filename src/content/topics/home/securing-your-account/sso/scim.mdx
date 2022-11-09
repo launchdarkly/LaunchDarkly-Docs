@@ -12,21 +12,6 @@ This topic explains how to enable SCIM user provisioning to work with your SSO-e
 
 ## Prerequisites
 
-In order to complete this procedure, you must have the following prerequisites:
-
-* You must be a LaunchDarkly Owner / Admin
-* You must have enabled SSO. To do this, read [Configuring SAML SSO](/home/account-security/sso/saml).
-
-## Configuring SCIM
-
-In your IdP, begin the workflow that links your IdP with SCIM. The workflow will lead to an authorization screen where you can authorize your IdP to manage your account members.
-
-You may only have one SCIM provider linked to your IdP at once. If you need to change providers, disconnect the original provider by following the workflow below and enable a different one through your IdP.
-
-You cannot deactivate an account member using SCIM deprovisioning if you added the member to your LaunchDarkly account before you enabled SCIM provisioning or SSO.
-
-## User provisioning with SCIM
-
 <Callout intent="primary">
 <CalloutTitle>User provisioning with SCIM is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
@@ -36,7 +21,18 @@ SCIM is only available to customers on an Enterprise plan. To learn more, [read 
 </CalloutDescription>
 </Callout>
 
-We also have a SCIM API available to allow for user provisioning of account members from IdPs. The SCIM API is only supported for the OAuth2 authorization type. Not all supported third-party providers support user provisioning through SCIM. To learn more about how LaunchDarkly treats users imported from the IdP, read [Understanding default roles](/home/account-security/sso#understanding-default-roles).
+In order to complete this procedure, you must have the following prerequisites:
+
+* You must be a LaunchDarkly Owner / Admin
+* You must have enabled SSO. To do this, read [Configuring SAML SSO](/home/account-security/sso/saml).
+
+You may only have one IdP linked to your LaunchDarkly account at once. If you need to change providers, disconnect the original provider by following the workflow below and enable a different one through your IdP.
+
+You cannot deactivate an account member using SCIM deprovisioning if you added the member to your LaunchDarkly account before you enabled SCIM provisioning or SSO.
+
+## Configuring SCIM
+
+We have a SCIM API available to allow for user provisioning of account members from IdPs. The SCIM API is only supported for the OAuth2 authorization type. Not all supported third-party providers support user provisioning through SCIM. To learn more about how LaunchDarkly treats users imported from the IdP, read [Understanding default roles](/home/account-security/sso#understanding-default-roles).
 
 We have pre-built integrations with the following providers:
 
