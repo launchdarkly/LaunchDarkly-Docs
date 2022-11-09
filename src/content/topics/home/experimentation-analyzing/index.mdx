@@ -24,9 +24,15 @@ Here are some things you can do with each experiment:
 
 ## Reading experiment data
 
-The data an experiment has collected is represented in a results table:
+The data an experiment has collected is represented in a results graph and table:
 
-![An experiment's results table.](experiment-results-table.png)
+![An experiment's results graph and table.](experiment-results-table.png)
+
+The horizontal X-axis displays the unit of the primary metric included in the experiment. For example, if the metric is measuring revenue, the unit might be dollars, or if the metric is measuring website latency, the unit might be milliseconds. The vertical Y-axis measures probability.
+
+To hide any of the variations from the results graph, uncheck the box next to the variation's name:
+
+![An experiment's results graph with two variations unchecked.](experiment-results-graph-unchecked.png)
 
 All of the data in the results table are based on a posterior distribution. To learn more about posterior distributions, read [Frequentist and Bayesian modeling](/guides/experimentation/bayesian#frequentist-and-bayesian-modeling). LaunchDarkly automatically performs checks on the results data, to make sure that actual user traffic matches the allocation you set. To learn more, read [Understanding sample ratios](/home/analyzing-experiments/sample-ratios).
 
