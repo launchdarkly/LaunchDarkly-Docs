@@ -257,12 +257,8 @@ Here's how to configure private user attributes:
 <CodeTabItem value="java">
 
 ```java
-HashSet<String> privateAttributes = new HashSet<>();
-privateAttributes.add("name");  // built-in attribute
-privateAttributes.add("group"); // custom attribute
-
 LDConfig ldConfig = new LDConfig.Builder()
-    .setPrivateAttributeNames(privateAttributes)
+    .privateAttributes(UserAttribute.NAME, UserAttribute.forName("group"))
     .build();
 ```
 
@@ -270,12 +266,8 @@ LDConfig ldConfig = new LDConfig.Builder()
 <CodeTabItem value="kotlin">
 
 ```kotlin
-val privateAttributes: HashSet<String> = HashSet()
-privateAttributes.add("name")  // built-in attribute
-privateAttributes.add("group") // custom attribute
-
 val ldConfig: LDConfig = LDConfig.Builder()
-    .setPrivateAttributeNames(privateAttributes)
+    .privateAttributes(UserAttribute.NAME, UserAttribute.forName("group"))
     .build()
 ```
 
