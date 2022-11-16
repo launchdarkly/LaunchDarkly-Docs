@@ -135,6 +135,7 @@ localstorage
 logdna
 lookback
 Lstd
+manifestjson
 maxwaitmilliseconds
 mebibyte
 mebibytes
