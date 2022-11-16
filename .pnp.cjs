@@ -101,7 +101,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gatsby-plugin-catch-links", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.13.0"],\
             ["gatsby-plugin-client-side-redirect", "npm:1.1.0"],\
             ["gatsby-plugin-google-gtag", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.13.0"],\
-            ["gatsby-plugin-launchdarkly", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:0.3.2"],\
+            ["gatsby-plugin-launchdarkly", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:0.4.0"],\
             ["gatsby-plugin-manifest", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.13.0"],\
             ["gatsby-plugin-mdx", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:3.13.0"],\
             ["gatsby-plugin-react-helmet", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.13.0"],\
@@ -18456,23 +18456,27 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["gatsby-plugin-launchdarkly", [\
-        ["npm:0.3.2", {\
-          "packageLocation": "./.yarn/cache/gatsby-plugin-launchdarkly-npm-0.3.2-1a429364ad-bd64ceb21a.zip/node_modules/gatsby-plugin-launchdarkly/",\
+        ["npm:0.4.0", {\
+          "packageLocation": "./.yarn/cache/gatsby-plugin-launchdarkly-npm-0.4.0-7f302e80ce-daa8b8f33a.zip/node_modules/gatsby-plugin-launchdarkly/",\
           "packageDependencies": [\
-            ["gatsby-plugin-launchdarkly", "npm:0.3.2"]\
+            ["gatsby-plugin-launchdarkly", "npm:0.4.0"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:0.3.2", {\
-          "packageLocation": "./.yarn/__virtual__/gatsby-plugin-launchdarkly-virtual-49498666bf/0/cache/gatsby-plugin-launchdarkly-npm-0.3.2-1a429364ad-bd64ceb21a.zip/node_modules/gatsby-plugin-launchdarkly/",\
+        ["virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:0.4.0", {\
+          "packageLocation": "./.yarn/__virtual__/gatsby-plugin-launchdarkly-virtual-8e7fe7f466/0/cache/gatsby-plugin-launchdarkly-npm-0.4.0-7f302e80ce-daa8b8f33a.zip/node_modules/gatsby-plugin-launchdarkly/",\
           "packageDependencies": [\
-            ["gatsby-plugin-launchdarkly", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:0.3.2"],\
+            ["gatsby-plugin-launchdarkly", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:0.4.0"],\
+            ["@types/gatsby", null],\
             ["@types/react", "npm:17.0.45"],\
-            ["launchdarkly-react-client-sdk", "virtual:49498666bf74e7809d1dd3a91905a8945bf6c0235876d1fe153df1b0ab249d4753e6de57c3a435aaff532c54d9f4905cc86cd947ba21a1dd0a01b860ecf4d0d4#npm:2.24.0"],\
+            ["gatsby", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.13.1"],\
+            ["launchdarkly-react-client-sdk", "virtual:8e7fe7f466809f506c759a5d02afef8121d3efc53d0c7281a0cb82c738147f5b50a2ef79205b31cf2c81dd2c8937f632490f89f495150f81c01279a3613c4437#npm:2.29.2"],\
             ["react", "npm:17.0.2"]\
           ],\
           "packagePeers": [\
+            "@types/gatsby",\
             "@types/react",\
+            "gatsby",\
             "react"\
           ],\
           "linkType": "HARD"\
@@ -19413,7 +19417,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gatsby-plugin-catch-links", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.13.0"],\
             ["gatsby-plugin-client-side-redirect", "npm:1.1.0"],\
             ["gatsby-plugin-google-gtag", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.13.0"],\
-            ["gatsby-plugin-launchdarkly", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:0.3.2"],\
+            ["gatsby-plugin-launchdarkly", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:0.4.0"],\
             ["gatsby-plugin-manifest", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.13.0"],\
             ["gatsby-plugin-mdx", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:3.13.0"],\
             ["gatsby-plugin-react-helmet", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.13.0"],\
@@ -22686,15 +22690,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["launchdarkly-js-client-sdk", [\
-        ["npm:2.19.2", {\
-          "packageLocation": "./.yarn/cache/launchdarkly-js-client-sdk-npm-2.19.2-5fccb716d8-5f91528782.zip/node_modules/launchdarkly-js-client-sdk/",\
-          "packageDependencies": [\
-            ["launchdarkly-js-client-sdk", "npm:2.19.2"],\
-            ["escape-string-regexp", "npm:1.0.5"],\
-            ["launchdarkly-js-sdk-common", "npm:3.3.2"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:2.22.1", {\
           "packageLocation": "./.yarn/cache/launchdarkly-js-client-sdk-npm-2.22.1-bf29d697ba-fbec5cdb7c.zip/node_modules/launchdarkly-js-client-sdk/",\
           "packageDependencies": [\
@@ -22703,19 +22698,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["launchdarkly-js-sdk-common", "npm:3.6.0"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:2.24.2", {\
+          "packageLocation": "./.yarn/cache/launchdarkly-js-client-sdk-npm-2.24.2-6ad6675b82-c12564e4ee.zip/node_modules/launchdarkly-js-client-sdk/",\
+          "packageDependencies": [\
+            ["launchdarkly-js-client-sdk", "npm:2.24.2"],\
+            ["escape-string-regexp", "npm:4.0.0"],\
+            ["launchdarkly-js-sdk-common", "npm:3.8.2"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["launchdarkly-js-sdk-common", [\
-        ["npm:3.3.2", {\
-          "packageLocation": "./.yarn/cache/launchdarkly-js-sdk-common-npm-3.3.2-76cd9cc53f-c1ff7dd2ed.zip/node_modules/launchdarkly-js-sdk-common/",\
-          "packageDependencies": [\
-            ["launchdarkly-js-sdk-common", "npm:3.3.2"],\
-            ["base64-js", "npm:1.5.1"],\
-            ["fast-deep-equal", "npm:2.0.1"],\
-            ["uuid", "npm:3.4.0"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:3.6.0", {\
           "packageLocation": "./.yarn/cache/launchdarkly-js-sdk-common-npm-3.6.0-03439fc52e-3694aac635.zip/node_modules/launchdarkly-js-sdk-common/",\
           "packageDependencies": [\
@@ -22725,28 +22719,37 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["uuid", "npm:3.4.0"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:3.8.2", {\
+          "packageLocation": "./.yarn/cache/launchdarkly-js-sdk-common-npm-3.8.2-e253c966d2-ad8725c4fc.zip/node_modules/launchdarkly-js-sdk-common/",\
+          "packageDependencies": [\
+            ["launchdarkly-js-sdk-common", "npm:3.8.2"],\
+            ["base64-js", "npm:1.5.1"],\
+            ["fast-deep-equal", "npm:2.0.1"],\
+            ["uuid", "npm:3.4.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["launchdarkly-react-client-sdk", [\
-        ["npm:2.24.0", {\
-          "packageLocation": "./.yarn/cache/launchdarkly-react-client-sdk-npm-2.24.0-fd97b642c2-473b144810.zip/node_modules/launchdarkly-react-client-sdk/",\
+        ["npm:2.29.2", {\
+          "packageLocation": "./.yarn/cache/launchdarkly-react-client-sdk-npm-2.29.2-f45324727f-89d318cad9.zip/node_modules/launchdarkly-react-client-sdk/",\
           "packageDependencies": [\
-            ["launchdarkly-react-client-sdk", "npm:2.24.0"]\
+            ["launchdarkly-react-client-sdk", "npm:2.29.2"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:49498666bf74e7809d1dd3a91905a8945bf6c0235876d1fe153df1b0ab249d4753e6de57c3a435aaff532c54d9f4905cc86cd947ba21a1dd0a01b860ecf4d0d4#npm:2.24.0", {\
-          "packageLocation": "./.yarn/__virtual__/launchdarkly-react-client-sdk-virtual-6db6053ada/0/cache/launchdarkly-react-client-sdk-npm-2.24.0-fd97b642c2-473b144810.zip/node_modules/launchdarkly-react-client-sdk/",\
+        ["virtual:8e7fe7f466809f506c759a5d02afef8121d3efc53d0c7281a0cb82c738147f5b50a2ef79205b31cf2c81dd2c8937f632490f89f495150f81c01279a3613c4437#npm:2.29.2", {\
+          "packageLocation": "./.yarn/__virtual__/launchdarkly-react-client-sdk-virtual-ae5b84f44a/0/cache/launchdarkly-react-client-sdk-npm-2.29.2-f45324727f-89d318cad9.zip/node_modules/launchdarkly-react-client-sdk/",\
           "packageDependencies": [\
-            ["launchdarkly-react-client-sdk", "virtual:49498666bf74e7809d1dd3a91905a8945bf6c0235876d1fe153df1b0ab249d4753e6de57c3a435aaff532c54d9f4905cc86cd947ba21a1dd0a01b860ecf4d0d4#npm:2.24.0"],\
+            ["launchdarkly-react-client-sdk", "virtual:8e7fe7f466809f506c759a5d02afef8121d3efc53d0c7281a0cb82c738147f5b50a2ef79205b31cf2c81dd2c8937f632490f89f495150f81c01279a3613c4437#npm:2.29.2"],\
             ["@types/react", "npm:17.0.45"],\
             ["@types/react-dom", null],\
             ["hoist-non-react-statics", "npm:3.3.2"],\
-            ["launchdarkly-js-client-sdk", "npm:2.19.2"],\
+            ["launchdarkly-js-client-sdk", "npm:2.24.2"],\
             ["lodash.camelcase", "npm:4.3.0"],\
             ["react", "npm:17.0.2"],\
-            ["react-dom", null],\
-            ["uuid", "npm:3.4.0"]\
+            ["react-dom", null]\
           ],\
           "packagePeers": [\
             "@types/react-dom",\
