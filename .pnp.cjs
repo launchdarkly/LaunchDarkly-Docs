@@ -9012,7 +9012,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@svgr/core", "npm:4.3.3"],\
             ["@svgr/plugin-jsx", "npm:4.3.3"],\
             ["@svgr/plugin-svgo", "npm:4.3.1"],\
-            ["loader-utils", "npm:1.4.1"]\
+            ["loader-utils", "npm:1.4.2"]\
           ],\
           "linkType": "HARD"\
         }],\
@@ -11942,7 +11942,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/babel__core", null],\
             ["@types/webpack", null],\
             ["find-cache-dir", "npm:3.3.2"],\
-            ["loader-utils", "npm:1.4.1"],\
+            ["loader-utils", "npm:1.4.2"],\
             ["make-dir", "npm:3.1.0"],\
             ["schema-utils", "npm:2.7.1"],\
             ["webpack", "virtual:ddbe0fd41f468c1df8ee3ab8d3ac7e023e239e6d5be5f3576ea3968903bf47b0f8b8dce46ee4f31814c036161abd2e60187f8f197baf86aea13d1aa638b89095#npm:5.65.0"]\
@@ -18544,7 +18544,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gatsby-core-utils", "npm:3.13.0"],\
             ["gray-matter", "npm:4.0.3"],\
             ["json5", "npm:2.2.0"],\
-            ["loader-utils", "npm:1.4.1"],\
+            ["loader-utils", "npm:1.4.2"],\
             ["lodash", "npm:4.17.21"],\
             ["mdast-util-to-string", "npm:1.1.0"],\
             ["mdast-util-toc", "npm:3.1.0"],\
@@ -23001,10 +23001,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["loader-utils", [\
-        ["npm:1.4.1", {\
-          "packageLocation": "./.yarn/cache/loader-utils-npm-1.4.1-91a9c6b986-ea0b648cba.zip/node_modules/loader-utils/",\
+        ["npm:1.4.2", {\
+          "packageLocation": "./.yarn/cache/loader-utils-npm-1.4.2-b4537b2f88-eb6fb622ef.zip/node_modules/loader-utils/",\
           "packageDependencies": [\
-            ["loader-utils", "npm:1.4.1"],\
+            ["loader-utils", "npm:1.4.2"],\
             ["big.js", "npm:5.2.2"],\
             ["emojis-list", "npm:3.0.0"],\
             ["json5", "npm:1.0.1"]\
@@ -32319,7 +32319,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/yaml-loader-npm-0.6.0-348c22dc2a-de6f070aaf.zip/node_modules/yaml-loader/",\
           "packageDependencies": [\
             ["yaml-loader", "npm:0.6.0"],\
-            ["loader-utils", "npm:1.4.1"],\
+            ["loader-utils", "npm:1.4.2"],\
             ["yaml", "npm:1.10.2"]\
           ],\
           "linkType": "HARD"\
