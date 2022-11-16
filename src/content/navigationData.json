@@ -1475,6 +1475,10 @@
           {
             "label": "Using LaunchDarkly integrations",
             "path": "/guides/integrations/using-integrations"
+          },
+          {
+            "label": "Building an audit log event hook integration",
+            "path": "/guides/integrations/build-audit-log-event-hook"
           }
         ]
       },
