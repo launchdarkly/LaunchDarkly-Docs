@@ -6,13 +6,13 @@ const isProd = process.env.GATSBY_ACTIVE_ENV === 'production'
 // These are useful to debug build issues
 console.log(`
   GATSBY_ACTIVE_ENV=${process.env.GATSBY_ACTIVE_ENV}
-  BUCKET_PREFIX=${process.env.BUCKET_PREFIX}
+  GATSBY_BUCKET_PREFIX=${process.env.GATSBY_BUCKET_PREFIX}
   GATSBY_ALGOLIA_INDEX=${process.env.GATSBY_ALGOLIA_INDEX}
   GATSBY_ALGOLIA_APP_ID=${process.env.GATSBY_ALGOLIA_APP_ID}
 `)
 
-if (isStaging && !process.env.BUCKET_PREFIX) {
-  throw new Error("There's no BUCKET_PREFIX to deploy to staging")
+if (isStaging && !process.env.GATSBY_BUCKET_PREFIX) {
+  throw new Error("There's no GATSBY_BUCKET_PREFIX to deploy to staging")
 }
 
 const plugins = [
@@ -191,7 +191,7 @@ if (isStaging || isProd) {
       resolve: 'gatsby-plugin-s3',
       options: {
         bucketName: process.env.AWS_S3_BUCKET,
-        bucketPrefix: process.env.BUCKET_PREFIX,
+        bucketPrefix: process.env.GATSBY_BUCKET_PREFIX,
         protocol: 'https',
         hostname: process.env.AWS_HOSTNAME,
         generateRedirectObjectsForPermanentRedirects: true,
@@ -240,7 +240,7 @@ if (!isProd) {
 // For example, a pr number 58 will be previewable on:
 // https://docs-stg.launchdarkly.com/58
 module.exports = {
-  pathPrefix: isStaging ? `/${process.env.BUCKET_PREFIX}` : '/',
+  pathPrefix: isStaging ? `/${process.env.GATSBY_BUCKET_PREFIX}` : '/',
   siteMetadata: {
     title: 'LaunchDarkly Docs',
     description: 'LaunchDarkly documentation',
