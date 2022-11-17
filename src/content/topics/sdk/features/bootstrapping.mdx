@@ -125,7 +125,7 @@ const client = LaunchDarkly.initializeInMain('YOUR_CLIENT_SIDE_ID', user, option
 
 If you set `bootstrap` to the string `"localStorage"`, the client tries to get flag values from persistent storage, using a unique key that is based on the user properties. 
 
-In Electron, persistent storage consists of files in the [`userData`](https://electronjs.org/docs/) directory. If the client finds flag values stored for this user, it uses them and starts up immediately in a ready state, but also makes a background request to LaunchDarkly to get the latest values and stores them as soon as it receives them.
+In Electron, persistent storage consists of files in the [`userData`](https://electronjs.org/docs/latest) directory. If the client finds flag values stored for this user, it uses them and starts up immediately in a ready state, but also makes a background request to LaunchDarkly to get the latest values and stores them as soon as it receives them.
 
 Here's how to use this mode:
 
