@@ -47,6 +47,7 @@ exclude = [
   '.*your-domain.*',
   'http://example.*',
   'https://example.*',
+  'https://api.example.*',
   'http://temp/variable',
   'http://my-consul:8100*',
   'http://my-relay-host.*',

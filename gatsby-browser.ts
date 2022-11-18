@@ -36,7 +36,7 @@ export const onClientEntry = () => {
   }
 
   if (isStaging) {
-    TrackJS.configure({ version: process.env.BUCKET_PREFIX })
+    TrackJS.configure({ version: process.env.GATSBY_BUCKET_PREFIX })
   }
 
   initUAParser()

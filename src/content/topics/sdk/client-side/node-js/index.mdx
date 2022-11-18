@@ -115,7 +115,7 @@ import * as LaunchDarkly from 'launchdarkly-node-client-sdk';
 </CodeTabItem>
 </CodeTabs>
 
-After you install and import the SDK, create a single, shared instance of `LDClient`. To create a client instance, you need your environment's client-side ID. This authorizes your application to connect to a particular environment within LaunchDarkly. Your client-side ID is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects). 
+After you install and import the SDK, create a single, shared instance of `LDClient`. To create a client instance, you need your environment's client-side ID. This authorizes your application to connect to a particular environment within LaunchDarkly. Your client-side ID is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects).
 
 <Callout intent="alert">
 <CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
@@ -163,7 +163,7 @@ const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user);
 const user: LaunchDarkly.LDUser = {
   key: 'aa0ceb'
 };
-const client: LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user);
+const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user);
 ```
 
 </CodeTabItem>

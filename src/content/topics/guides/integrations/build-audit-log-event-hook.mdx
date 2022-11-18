@@ -1,0 +1,204 @@
+---
+path: /guides/integrations/build-audit-log-event-hook
+title: Building an audit log event hook integration
+description: This guide explains how LaunchDarkly partners can use the integration framework to build an audit log event hook integration.
+published: true
+tags: ['guide', 'integration', 'webhook', 'audit log']
+---
+
+## Overview
+
+This guide explains how LaunchDarkly partners can use the integration framework to build an audit log event hook integration.
+
+An audit log events hook is a webhook that LaunchDarkly sends whenever an event happens inside of LaunchDarkly. Each of these events results in an event being published to LaunchDarkly's audit log. You can use this capability to send data to or trigger an event in another service.
+
+## Audit log events
+
+Every [resource](/home/members/role-resources#overview) you change in LaunchDarkly generates an associated [audit log](/home/flags/audit-log-history) entry. Your integration can transform these events into a format that a POST endpoint can receive. Your team can configure the POST endpoint when they set up the integration.
+
+A common use case for the events hook is associating feature flag changes with targeting changes in a specific environment. However, integrations are not limited to that resource only. For a full list of supported resources, read  [Understanding resource types and scopes](/home/members/role-resources#understanding-resource-types-and-scopes).
+
+## Building an integration
+
+To build an integration, make sure you meet the prerequisites, then follow the steps outlined on the [Getting Started](/integrations/partner-integrations/getting-started) page.
+
+The Getting started page explains each of the following steps in detail:
+
+1. [Forking the LaunchDarkly Integration Framework repository](/integrations/partner-integrations/getting-started#1-fork-the-launchdarkly-integration-framework-repository).
+2. [Creating a new directory](/integrations/partner-integrations/getting-started#2-create-a-new-directory).
+3. [Creating an integration manifest](/integrations/partner-integrations/getting-started#3-create-an-integration-manifest). 
+  - For an example of a completed manifest, read the [Manifest.json example](#manifestjson-example).
+4. [Collecting integration configuration data](/integrations/partner-integrations/getting-started#4-collect-integration-configuration-data).
+5. [Defining the integration's capabilities](/integrations/partner-integrations/getting-started#5-define-the-integrations-capabilities). 
+  - For this integration, define an [`auditLogEventsHook`](https://github.com/launchdarkly/integration-framework/blob/main/docs/capabilities.md#audit-log-events-hook-auditlogeventshook) integration.
+  - To review the fields for the source payload, read [Sample Context](https://github.com/launchdarkly/integration-framework/tree/main/sample-context) which contains a directory of samples with pre-transformed contexts.
+6. [Validating the integration](/integrations/partner-integrations/getting-started#6-validate-the-integration).
+7. [Creating user documentation and README](/integrations/partner-integrations/getting-started#7-create-your-user-documentation-and-readme).
+8. [Submitting the integration](/integrations/partner-integrations/getting-started#8-submit-the-integration).
+
+The following sections provide configuration guidance specific to audit log events hook integrations.
+
+## Authentication
+
+An audit log event hook integration can use either API keys or OAuth for authentication:
+- Most integrations use API Keys. If you use API keys, configure them as outlined in [step 4 of the Getting started page](/integrations/partner-integrations/getting-started#4-collect-integration-configuration-data). 
+- If you use OAuth, configured it in the root of the manifest as described in our [OAuth Documentation](https://github.com/launchdarkly/integration-framework/blob/main/docs/capabilities.md#audit-log-events-hook-auditlogeventshook) for additional information.
+
+For an example OAuth integration, read [AppDynamics Manifest](https://github.com/launchdarkly/integration-framework/blob/main/integrations/appdynamics/manifest.json) under `requiresOAuth`. Integrations with require OAuth can still request additional `formVariables`.
+
+The example below uses API Keys.
+
+### Manifest.json example
+
+This example is looking for a flag template file under `templates/flag.json`.
+
+The `defaultPolicy` limits the events to flag targeting changes for targeting in all `production` environments of all `projects`:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'JSON', value: 'json', },
+  ]
+}>
+<CodeTabItem value="json">
+
+```json
+
+{
+	"name": "Sample Integration",
+	"version": "1.0.0",
+	"overview": "Short one-liner describing your integration.",
+	"description": "Send flag data to space. Markdown-based description.",
+	"author": "Example Dot Com",
+	"supportEmail": "support@example.com",
+	"links": {
+		"site": "https://example.com",
+		"privacyPolicy": "https://example.com/privacy"
+	},
+	"categories": ["monitoring"],
+	"icons": {
+		"square": "assets/images/square.svg",
+		"horizontal": "assets/images/horizontal.svg"
+	},
+	"requiresOAuth": false,
+	"formVariables": [{
+			"key": "apiToken",
+			"name": "API key",
+			"type": "string",
+			"description": "Enter your Example [API key](https://example.com).",
+			"isSecret": true
+		},
+		{
+			"key": "endpointUrl",
+			"name": "Example host URL",
+			"description": "Your Example host URL.",
+			"type": "enum",
+			"allowedValues": [
+				"https://api.example.com",
+				"https://api.example.eu"
+			],
+			"isOptional": true,
+			"defaultValue": "https://api.example.com"
+		}
+	],
+	"capabilities": {
+		"auditLogEventsHook": {
+			"includeErrorResponseBody": false,
+			"endpoint": {
+				"url": "{{endpointUrl}}",
+				"method": "POST",
+				"headers": [{
+						"name": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"name": "Authorization",
+						"value": "Bearer {{apiToken}}"
+					}
+				]
+			},
+			"templates": {
+				"flag": "templates/flag.json"
+			},
+			"defaultPolicy": [{
+				"effect": "allow",
+				"resources": ["proj/*:env/production:flag/*"],
+				"actions": [
+					"updateFlagVariations",
+					"updateGlobalArchived"
+					"updateOn",
+					"updateRules"
+					"updatePrerequisites",
+					"updateTargets",
+					"createFlag",
+					"deleteFlag"
+				]
+			},
+			{
+				"effect": "allow",
+				"resources": ["proj/*:env/production:segment/*"],
+				"actions": [
+					"createSegment",
+					"deleteSegment"
+					"updateExcluded",
+					"updateIncluded"
+					"updateRules"
+				]
+			},
+			]
+		}
+	}
+}
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Default flag template file
+
+You can customize the flag template file as needed to control the rendering of your JSON payload to fit your expected output. If you don't customize the template, then the webhook uses the default template.
+
+Here is the default:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'JSON', value: 'json', },
+  ]
+}>
+<CodeTabItem value="json">
+
+```json
+
+{
+  "date": "{{timestamp.rfc3339}}",
+  "event": {
+    "kind": "{{kind}}",
+    "action": "{{verbKind}}"
+  },
+  "tags": "{{tags}}",
+  "message": "{{{title.plainText}}}",
+  "details": "{{{details.plainText}}}",
+  "comment": "{{#if comment}}{{{comment}}}{{/if}}"
+}
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Conclusion
+
+This guide walks you through the process of building an audit log event hook integration. To learn more about building your own integrations, read [Building partner integrations](/integrations/partner-integrations).
+
+<Callout intent="primary" site="launchDarkly">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>

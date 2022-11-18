@@ -500,7 +500,7 @@ The `deny` effect in the `viewSdkKey` action hides the server-side SDK key you s
 
 <Details summary="Expand experiment actions">
 
-`experiment` is a child of both a project and environments. A code sample is below:
+`experiment` is a top-level resource. A code sample is below:
 
 <CodeTabs
   defaultValue="json"
@@ -512,7 +512,7 @@ The `deny` effect in the `viewSdkKey` action hides the server-side SDK key you s
 <CodeTabItem value="json">
 
 ```json
-proj/*:env/*:experiment/*
+experiment/*
 ```
 
 </CodeTabItem>
