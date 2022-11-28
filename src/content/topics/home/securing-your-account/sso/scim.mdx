@@ -103,3 +103,5 @@ You can now manage teams within the admin panel of Okta. Teams you have synced w
 You can tell which teams you have synced on the **Teams** tab in the "Synced with Okta" column:
 
 ![The "Synced with Okta" column on the "Teams" tab.](teams-synced-with-idp.png)
+
+Please note that it is recommended to use either SCIM-based OR SAML-based member role and team assignment. If you use both SAML and SCIM methods in conjunction, team assignment set up with the SAML custom attribute (`teamKey`) will be overridden by SCIM team assignment.
