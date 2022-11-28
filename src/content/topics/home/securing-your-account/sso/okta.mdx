@@ -23,7 +23,22 @@ To use Okta with LaunchDarkly, you must meet the following prerequisites:
 
 ## Configuring Okta SAML SSO for LaunchDarkly
 
-After you have confirmed you meet the prerequisites above, follow Okta's documentation to [Enable Single Sign-On with SAML](https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-LaunchDarkly.html).
+To authorize Okta to manage your LaunchDarkly account members:
+
+1. Log in to Okta as an administrator.
+2. Navigate to **Applications** and click **Browse App Integration Catalog**.
+3. In the search bar, type "LaunchDarkly." The LaunchDarkly app appears in the search results:
+
+![The "Browse App Integration Catalog" screen in Okta, with search results populating.](okta-ld-app.png)
+
+4. Click **Add**. The **General Settings** page for the LaunchDarkly app appears.
+5. (Optional) Give the app a custom name by modifying the **Application Label**.
+6. (Optional) Configure the **Application Visibility** checkboxes however you prefer.
+7. Click **Done**. The LaunchDarkly Application page appears.
+
+You just activated the LaunchDarkly app in Okta.
+
+After you have activated the app and confirmed you meet the prerequisites above, follow Okta's documentation to [Enable Single Sign-On with SAML](https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-LaunchDarkly.html).
 
 ## Using Okta to manage LaunchDarkly members with SCIM
 
@@ -46,21 +61,6 @@ If you get an error during configuration that you cannot add an additional SCIM 
 </Callout>
 
 If you have not configured SAML SSO for LaunchDarkly in Okta, you must do that first. To learn more, read [How to configure SAML 2.0 for LaunchDarkly](https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-LaunchDarkly.html) in Okta's documentation.
-
-To authorize Okta to manage your LaunchDarkly account members:
-
-1. Log in to Okta as an administrator.
-2. Navigate to **Applications** and click **Browse App Integration Catalog**.
-3. In the search bar, type "LaunchDarkly." The LaunchDarkly app appears in the search results:
-
-![The "Browse App Integration Catalog" screen in Okta, with search results populating.](okta-ld-app.png)
-
-4. Click **Add**. The **General Settings** page for the LaunchDarkly app appears.
-5. (Optional) Give the app a custom name by modifying the **Application Label**.
-6. (Optional) Configure the **Application Visibility** checkboxes however you prefer.
-7. Click **Done**. The LaunchDarkly Application page appears.
-
-You just activated the LaunchDarkly app in Okta.
 
 ## Granting Okta permission to manage users in LaunchDarkly
 
