@@ -17,6 +17,16 @@ We auto-generate documentation for most our SDKs in Github Pages. The URL conven
 To set up LaunchDarkly:
 
 1. **Install the LaunchDarkly SDK in your application using your project's dependency manager.** This lets your application access the LaunchDarkly SDK.
+
+<Callout intent="info" site="federal">
+<CalloutTitle>Federal environments may require multiple service endpoints</CalloutTitle>
+<CalloutDescription>
+
+Depending on the SDK, you may need to configure multiple service endpoints in the initialization options for federal environments. To learn more, read [Initializing an SDK for the federal instance](/home/advanced/federal#initializing-an-sdk-for-the-federal-instance).
+
+</CalloutDescription>
+</Callout>
+
 2. **Import the LaunchDarkly client in your application code.** This client is the primary way your application uses the SDK and communicates with LaunchDarkly.
 3. **Configure the LaunchDarkly client with the appropriate key for your environment and create the client.** Your SDK key, client-side ID, and mobile key uniquely identify your project and environment, and they authorize your application to connect to LaunchDarkly.
 4. **Set which feature flag variation a user will receive.** Every feature flag is uniquely identified by a feature flag key. Use the key to associate flag variations with different users.
@@ -53,6 +63,15 @@ All SDKs provide synchronous and asynchronous ways of waiting for the SDK's stat
 After you have set up an SDK, you can manage features on your flags list. To learn more, read [The flags list](/home/organize/flags-list).
 
 When you're ready to test your integration, use the debugger to get a real-time view of your feature flag requests as they're received. To learn more, read [The debugger](/home/flags/debugger).
+
+<Callout intent="alert" site="federal">
+<CalloutTitle>The debugger is not available in federal environments</CalloutTitle>
+<CalloutDescription>
+
+To learn more, read [LaunchDarkly in federal environments](/home/advanced/federal).
+
+</CalloutDescription>
+</Callout>
 
 As you begin using feature flags, here are some useful features you can use without re-deploying your application:
 

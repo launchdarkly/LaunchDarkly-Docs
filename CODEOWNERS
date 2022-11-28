@@ -4,15 +4,15 @@
 * @launchdarkly/squad-integrations
 
 # Content
-.cspell/custom-words.txt @launchdarkly/docs-reviewers
-*.md @launchdarkly/docs-reviewers
-*.mdx @launchdarkly/docs-reviewers
-/assets/ @launchdarkly/docs-reviewers
-/src/content/*.json @launchdarkly/docs-reviewers
-/src/content/icons @launchdarkly/docs-reviewers
-/src/content/images @launchdarkly/docs-reviewers
-/templates/ @launchdarkly/docs-reviewers
-redirectRules.js @launchdarkly/docs-reviewers
+.cspell/custom-words.txt @launchdarkly/squad-docs
+*.md @launchdarkly/squad-docs
+*.mdx @launchdarkly/squad-docs
+/assets/ @launchdarkly/squad-docs
+/src/content/*.json @launchdarkly/squad-docs
+/src/content/icons @launchdarkly/squad-docs
+/src/content/images @launchdarkly/squad-docs
+/templates/ @launchdarkly/squad-docs
+redirectRules.js @launchdarkly/squad-docs
 
 # EOL data
 /src/content/sdkVersions.json @launchdarkly/squad-sdk

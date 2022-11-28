@@ -70,7 +70,7 @@ jobs:
           echo "::debug::any changed: ${{ steps.changed-files-specific.outputs.any_changed }}"
           echo "::debug::only changed: ${{ steps.changed-files-specific.outputs.only_changed }}"
           echo "::debug::any modified: ${{ steps.changed-files-specific.outputs.any_modified }}"
-          echo "::set-output name=deploy::${{ toJSON(steps.changed-files-specific.outputs) == '{}' || steps.changed-files-specific.outputs.any_modified == 'true' }}"
+          echo "deploy=${{ toJSON(steps.changed-files-specific.outputs) == '{}' || steps.changed-files-specific.outputs.any_modified == 'true' }}" >> $GITHUB_OUTPUT
       - uses: actions/setup-node@v3
         if: steps.build-status.outputs.deploy == 'true'
         with:
@@ -83,7 +83,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.STG_AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Caching Gatsby
-        if: steps.build-status.outputs.deploy == 'true'
+        # -eap builds are customer facing so we can't take any chances with build cache issues
+        # sc-176925
+        if: steps.build-status.outputs.deploy == 'true' &&  !(endsWith(github.ref_name, '-eap'))
         id: gatsby-cache-build
         uses: actions/cache@v3
         with:
@@ -105,7 +107,7 @@ jobs:
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
           GATSBY_ALGOLIA_INDEX: 'Docs'
-          BUCKET_PREFIX: ${{ env.BUCKET_PREFIX }}
+          GATSBY_BUCKET_PREFIX: ${{ env.BUCKET_PREFIX }}
           LAUNCHDARKLY_CLIENT_SIDE_ID: ${{ secrets.STG_LAUNCHDARKLY_CLIENT_SIDE_ID }}
           GATSBY_DATADOG_CLIENT_TOKEN: ${{ secrets.STG_DATADOG_CLIENT_TOKEN }}
           GATSBY_DATADOG_RUM_APPLICATION_ID: ${{ secrets.DATADOG_RUM_APPLICATION_ID }}

@@ -101,13 +101,17 @@ Lists are quick references that either describe steps or collections of three or
 
 Use screenshots sparingly. They're expensive to maintain. If you're a LaunchDarkly partner contributing documentation for your product or service, you are responsible for contributing updated screenshots for your service when needed.
 
-You can add screenshots as .PNGs or .GIFs. For a screenshot to render in the docs correctly, you must end the screenshot name with the file type (.png or .gif).
+You can add screenshots as PNGs or JPEGs. For a screenshot to render in the docs correctly, you must end the screenshot name with the file type (.png, .jpg).
 
-We do not have a minimum or maximum size guideline to follow, but in general you should capture as little of the screen as possible to keep your screenshot useful. Please avoid full-screen screenshots, but if you must include them you probably also want to include a callout indicating which part of the screen the reader should focus on.
+We do not have a minimum or maximum size guideline to follow. For best results, we recommend taking screenshots on the monitor with the highest resolution and pixel density you have available. Often this means taking screenshots from your laptop, rather than from an external monitor.
+
+Our images are automatically scaled to a maximum of 640px in their larger dimension. We also automatically generate smaller sizes, which are used in smaller displays. In practice, this means that larger images appear with good fidelity, and smaller images are enlarged.
+
+In general you should capture as little of the screen as possible to keep your screenshot useful. However, if you don't prefer having your smaller images enlarged, it may be helpful to capture a slightly larger portion of the screen. Please avoid full-screen screenshots. If you must include them, you probably also want to include a callout indicating which part of the screen the reader should focus on.
 
 If you capture identifying information in a screenshot, like an email address or API key, obscure it with a blurring tool. Most image editing apps have a blur or pixelate function.
 
-Alt text is required for all graphics and screenshots. To add alt text to your screenshot, type a description of the screenshot in the brackets section of the markdown image tag:
+Alt text is required for all graphics and screenshots, and is automatically used as a caption. To add alt text to your screenshot, type a description of the screenshot in the brackets section of the Markdown image tag:
 
 ```
 ![The alt text goes between these brackets.](screenshot-filepath.png)
