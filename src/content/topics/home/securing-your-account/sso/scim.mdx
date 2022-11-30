@@ -21,12 +21,12 @@ SCIM is only available to customers on an Enterprise plan. To learn more, [read 
 </CalloutDescription>
 </Callout>
 
-In order to complete this procedure, you must have the following prerequisites:
+To complete this procedure, you must have the following prerequisites:
 
-* You must be a LaunchDarkly Owner / Admin
+* You must be a LaunchDarkly Admin or Owner.
 * You must have enabled SSO. To do this, read [Configuring SAML SSO](/home/account-security/sso/saml).
 
-You may only have one IdP linked to your LaunchDarkly account at once. If you need to change providers, disconnect the original provider by following the workflow below and enable a different one through your IdP.
+You may have only one IdP linked to your LaunchDarkly account at once. If you need to change providers, disconnect the original provider by following the workflow below and enable a different one through your IdP.
 
 You cannot deactivate an account member using SCIM deprovisioning if you added the member to your LaunchDarkly account before you enabled SCIM provisioning or SSO.
 
@@ -105,4 +105,4 @@ You can tell which teams you have synced on the **Teams** tab in the "Synced wit
 
 ![The "Synced with Okta" column on the "Teams" tab.](teams-synced-with-idp.png)
 
-Please note that it is recommended to use either SCIM-based OR SAML-based member role and team assignment. If you use both SAML and SCIM methods in conjunction, team assignment set up with the SAML custom attribute (`teamKey`) will be overridden by SCIM team assignment.
+We recommend using either SCIM-based or SAML-based member role and team assignment. If you use both SAML and SCIM methods at the same time, team assignment set up with the SAML custom attribute (`teamKey`) will be overridden by SCIM team assignment.
