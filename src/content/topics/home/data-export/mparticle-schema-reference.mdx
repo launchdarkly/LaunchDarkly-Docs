@@ -245,8 +245,15 @@ This table lists custom attributes:
       <TableCell>The version of event schema.</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>key</TableCell>
-      <TableCell>The key of the feature flag requested.</TableCell>
+    <TableCell>key</TableCell>
+    <TableCell>The key of the <a href="https://docs.launchdarkly.com/home/creating-experiments/metrics">metric</a>
+    &nbsp;associated with the custom event.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>metric_value</TableCell>
+      <TableCell>The numeric value of a <a
+      href="https://docs.launchdarkly.com/home/creating-experiments/metrics">metric</a> if it is specified in the event.
+      If no metric value was provided, this field doesn't appear.</TableCell>
     </TableRow>
    </TableBody>
 </Table>

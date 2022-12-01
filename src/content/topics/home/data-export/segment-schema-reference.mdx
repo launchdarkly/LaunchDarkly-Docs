@@ -34,7 +34,8 @@ These properties are:
   <TableBody>
     <TableRow>
       <TableCell><code>event</code></TableCell>
-      <TableCell>The event kind.</TableCell>
+      <TableCell>The event kind. This field maps onto <a href="https://segment.com/docs/connections/spec/track/">Segment's event field</a>.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell><code>environment</code></TableCell>
@@ -48,6 +49,13 @@ These properties are:
       <TableCell><code>key</code></TableCell>
       <TableCell>The flag key corresponding to the event. In the case of Experimentation events, this will be the metric key for the experiment.</TableCell>
     </TableRow>
+    <TableRow>
+      <TableCell><code>userId</code></TableCell>
+      <TableCell>The key of the user object associated with the emitted event.
+      For example, in client-side SDKs, this is the key of the currently
+      identified user. This field maps onto <a href="https://segment.com/docs/connections/spec/track/">Segment's userId field</a>.
+      </TableCell>
+   </TableRow>
    </TableBody>
 </Table>
 
@@ -81,7 +89,7 @@ To learn more, read <a href="/sdk/concepts/evaluation-reasons">Evaluation reason
       </TableCell>
     </TableRow>
     <TableRow>
-      <TableCell><code>value</code></TableCell>
+      <TableCell><code>prereqOf</code></TableCell>
       <TableCell>Set to another flag’s key if this flag evaluation was only performed in order to determine whether the prerequisite values were met for the indicated flag. <br/> To learn more, read <a href="/home/flags/prerequisites">Flag prerequisites</a>.
 </TableCell>
     </TableRow>
@@ -141,7 +149,19 @@ This table explains `page view` event properties:
 
 ## Custom events
 
-There are no properties for `custom` events other than the properties listed in [Additional properties](#additional-properties).
+<Table>
+  <TableHeader>
+    <TableHeadCell>Property name</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell><code>metricValue</code></TableCell>
+      <TableCell>The numeric value of a metric if it is specified in the event.
+      If no metric value was provided, this field doesn't appear.</TableCell>
+    </TableRow>
+   </TableBody>
+</Table>
 
 ## Alias events
 
