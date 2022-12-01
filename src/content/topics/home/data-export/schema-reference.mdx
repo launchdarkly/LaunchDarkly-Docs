@@ -366,7 +366,8 @@ The `data` event kind is **not available** for mParticle or Segment events.
 </CalloutDescription>
 </Callout>
 
-An example `custom` event is shown below:
+An example `custom` event is shown below. Note that the `metricValue` field will
+not appear if a metric value was not provided by the event.
 
 <CodeTabs
   defaultValue="json"
@@ -383,6 +384,7 @@ An example `custom` event is shown below:
     "key": "user@test.com"
   },
   "creationDate": 1416003645758,
+  "metricValue": 5,
   "key": "custom.event.key",
   "data": {
     "custom": "value"
