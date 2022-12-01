@@ -47,6 +47,6 @@ The SDK will time out if it cannot get a network connection to LaunchDarkly. Fai
 
 ### Implement SDKs in a singleton pattern
 
-Your SDK should only initialize once statically, and that instance should be the exclusive instance you use. When you create multiple SDK instances, previous instances may leak into memory and stay active long after the context they were created in is destroyed.
+Your SDK should only initialize once statically, and that instance should be the exclusive instance you use. When you create multiple SDK instances, previous instances may leak into memory and stay active long after the setting they were created in is destroyed.
 
 When you have enough of these instances running, they can cause bottlenecks in the connection to the streaming endpoint.
