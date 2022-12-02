@@ -10,13 +10,23 @@ tags: ['saml', 'sso', 'idp']
 
 This topic explains how to configure your LaunchDarkly account for SSO.
 
-## Setting up SAML-based SSO in LaunchDarkly
-
 If you're a LaunchDarkly administrator or account owner, you can configure LaunchDarkly to use your IdP when account members authenticate.
 
-### Configuring SAML
+## Configure your IdP
 
-To configure SAML:
+To set up a LaunchDarkly connection, follow the instructions for your chosen IdP.
+
+We support the following IdP connectors:
+
+* [ADFS](/home/account-security/adfs)
+* [Azure](/home/account-security/azure)
+* [Google Apps](/home/account-security/google)
+* [Okta](/home/account-security/okta#configuring-okta-saml-sso-for-launchdarkly)
+* [OneLogin](/home/account-security/onelogin#adding-a-launchdarkly-saml-application)
+
+### Configure LaunchDarkly SAML
+
+To configure SAML within LaunchDarkly:
 
 1. Log in to LaunchDarkly as an administrator or account owner.
 2. Navigate to the "SSO management" section of the [**Security**](https://app.launchdarkly.com/settings/security) tab on the **Account settings** page:
