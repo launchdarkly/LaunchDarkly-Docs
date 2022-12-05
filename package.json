@@ -151,6 +151,7 @@
     "lint": "eslint --ignore-path .gitignore . --ext ts,tsx,js,jsx",
     "cypress": "cypress open --config video=false",
     "cypress:ci": "cypress run --config video=false",
+    "cypress:pnp": "node ./scripts/cypress-pnp.cjs",
     "lychee": "lychee --config .github/lychee.toml README.md 'src/content/topics/**/*.mdx' --accept 429",
     "spellcheck": "cspell '**/*.{md,mdx}' --no-progress --config .cspell/config.json"
   },
