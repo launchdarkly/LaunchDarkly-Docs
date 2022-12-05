@@ -148,7 +148,7 @@ jobs:
         id: cypress
         continue-on-error: true
         with:
-          command: yarn dlx cypress@10 run --headless --record --tag production,smoke --config baseUrl=https://docs.launchdarkly.com,retries=2 --spec cypress/e2e/smoke.cy.ts
+          command: yarn dlx cypress@11 run --headless --record --tag production,smoke --config baseUrl=https://docs.launchdarkly.com,retries=2 --spec cypress/e2e/smoke.cy.ts
           install: false
           build: yarn build-nav-data
           config: baseUrl=https://docs.launchdarkly.com,retries=2

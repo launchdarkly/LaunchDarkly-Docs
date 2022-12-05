@@ -141,7 +141,7 @@ jobs:
         id: cypress
         continue-on-error: true
         with:
-          command: yarn dlx cypress@10 run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }},retries=2 --spec cypress/e2e/smoke.cy.ts --env bucket_prefix=${{ env.BUCKET_PREFIX }}
+          command: yarn dlx cypress@11 run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }},retries=2 --spec cypress/e2e/smoke.cy.ts --env bucket_prefix=${{ env.BUCKET_PREFIX }}
           install: false
           build: yarn build-nav-data
           wait-on: 'https://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }}/home'
