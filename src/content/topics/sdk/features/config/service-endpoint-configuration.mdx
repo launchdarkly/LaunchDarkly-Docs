@@ -64,7 +64,7 @@ To configure an alternate service endpoint for the SDK, use the `ServiceEndpoint
 <CodeTabItem value="csharp">
 
 ```csharp
-var config = Configuration.Builder("YOUR_MOBILE_KEY")
+var config = Configuration.Builder("mobile-key-123abc")
     .ServiceEndpoints(Components.ServiceEndpoints()
       .Streaming("https://clientstream.launchdarkly.us")
       .Polling("https://clientsdk.launchdarkly.us")
@@ -94,7 +94,7 @@ To configure an alternate service endpoint for the SDK, use the `streamUri`, `po
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
-  .mobileKey("YOUR_MOBILE_KEY")
+  .mobileKey("mobile-key-123abc")
   .streamUri(Uri.parse("https://clientstream.launchdarkly.us"))
   .pollUri(Uri.parse("https://clientsdk.launchdarkly.us"))
   .eventsUri(Uri.parse("https://events.launchdarkly.us"))
@@ -107,7 +107,7 @@ LDConfig ldConfig = new LDConfig.Builder()
 ```kotlin
 
 val ldConfig: LDConfig = LDConfig.Builder()
-  .setMobileKey("YOUR_MOBILE_KEY")
+  .setMobileKey("mobile-key-123abc")
   .streamUri(Uri.parse("https://clientstream.launchdarkly.us"))
   .pollUri(Uri.parse("https://clientsdk.launchdarkly.us"))
   .eventsUri(Uri.parse("https://events.launchdarkly.us"))
@@ -133,7 +133,7 @@ To configure an alternate service endpoint for the SDK, use `LDConfigSetStreamUR
 <CodeTabItem value="c">
 
 ```c
-struct LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
+struct LDConfig *config = LDConfigNew("mobile-key-123abc");
 LDConfigSetStreamURI(config, "https://clientstream.launchdarkly.us");
 LDConfigSetAppURI(config, "https://app.launchdarkly.us");
 LDConfigSetEventsURI(config, "https://events.launchdarkly.us");
@@ -198,7 +198,7 @@ To configure an alternate service endpoint for the SDK, use the `streamUri`, `po
 <CodeTabItem value="dart">
 
 ```dart
-LDConfig ldConfig = LDConfigBuilder("YOUR_MOBILE_KEY")
+LDConfig ldConfig = LDConfigBuilder("mobile-key-123abcY")
   .streamUri("https://clientstream.launchdarkly.us")
   .pollUri("https://clientsdk.launchdarkly.us")
   .eventsUri("https://events.launchdarkly.us")
@@ -225,7 +225,7 @@ To configure an alternate service endpoint for the SDK, use the `streamUrl`, `ba
 <CodeTabItem value="swift">
 
 ```swift
-var ldConfig = LDConfig(mobileKey: "YOUR_MOBILE_KEY")
+var ldConfig = LDConfig(mobileKey: "mobile-key-123abc")
 ldConfig.streamUrl = URL(string: "https://clientstream.launchdarkly.us")
 ldConfig.baseUrl = URL(string: "https://app.launchdarkly.us")
 ldConfig.eventsUrl = URL(string: "https://events.launchdarkly.us")
@@ -235,7 +235,7 @@ ldConfig.eventsUrl = URL(string: "https://events.launchdarkly.us")
 <CodeTabItem value="objc">
 
 ```objectivec
-LDConfig *ldConfig = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
+LDConfig *ldConfig = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 ldConfig.streamUrl = URL(string: "https://clientstream.launchdarkly.us")
 ldConfig.baseUrl = URL(string: "https://app.launchdarkly.us")
 ldConfig.eventsUrl = URL(string: "https://events.launchdarkly.us")
@@ -344,9 +344,9 @@ To configure an alternate service endpoint for the SDK, use the `streamUri`, `po
 
 ```js
 let config = {
-  mobileKey: 'YOUR_MOBILE_KEY',
+  mobileKey: 'mobile-key-123abc',
   streamUri: 'https://clientstream.launchdarkly.us',
-  pollUri: 'https://app.launchdarkly.us',
+  pollUri: 'https://clientsdk.launchdarkly.us',
   eventsUri: 'https://events.launchdarkly.us',
 };
 ```
@@ -358,9 +358,9 @@ let config = {
 import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
 
 let config: ld.LDConfig = {
-  mobileKey: 'YOUR_MOBILE_KEY',
+  mobileKey: 'mobile-key-123abc',
   streamUri: 'https://clientstream.launchdarkly.us',
-  pollUri: 'https://app.launchdarkly.us',
+  pollUri: 'https://clientsdk.launchdarkly.us',
   eventsUri: 'https://events.launchdarkly.us',
 };
 ```
@@ -385,7 +385,7 @@ To configure an alternate service endpoint for the SDK, use the `streamUrl`, `ba
 
 ```js
 const options: {
-  baseUrl:"https://app.launchdarkly.us",
+  baseUrl:"https://clientsdk.launchdarkly.us",
   streamUrl:"https://clientstream.launchdarkly.us",
   eventsUrl:"https://events.launchdarkly.us"
 };
