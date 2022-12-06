@@ -47,10 +47,11 @@ jobs:
         id: changed-files-specific
         uses: tj-actions/changed-files@v34
         with:
-          token: ${{ github.token }}
           separator: ' '
+          # fetch_depth increased to 120 as an attempt to resolve sc-176350
+          fetch_depth: '120'
           base_sha: ${{ steps.last-success.outputs.sha }}
-          sha: ${{ github.events.pull_request.head.sha }}
+          sha: '${{ github.sha }}'
           files: |
             assets
             src
