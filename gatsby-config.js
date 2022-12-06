@@ -167,7 +167,7 @@ if (process.env.DEV_FAST !== 'true') {
         '**/home/account-security',
         '**/home/advanced',
         '**/home/about-experimentation',
-        '**/home/metrics-and-insights',
+        '**/home/billing',
       ],
     },
   })
