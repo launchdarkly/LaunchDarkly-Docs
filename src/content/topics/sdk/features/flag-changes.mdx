@@ -732,7 +732,7 @@ func logWheneverAnyFlagChanges(client *ld.LDClient) {
 </CodeTabItem>
 </CodeTabs>
 
-To listen for changes in flag values for a specific flag key and context, use `GetFlagTracker().AddFlagValueChangeListener()`, which provides [`FlagValueChangeEvent`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6/interfaces#FlagValueChangeEvent)s. This is equivalent to re-evaluating the flag for that context whenever `AddFlagChangeListener()` reports a change in that flag. Because flag values can have different data types, the value is reported using the general type [`ldvalue.Value`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common.v3/ldvalue#Value).
+To listen for changes in flag values for a specific flag key and context, use `GetFlagTracker().AddFlagValueChangeListener()`, which provides [`FlagValueChangeEvent`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6/interfaces#FlagValueChangeEvent)s. This is equivalent to re-evaluating the flag for that context whenever `AddFlagChangeListener()` reports a change in that flag. Because flag values can have different data types, the value is reported using the general type [`ldvalue.Value`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldvalue#Value).
 
 <CodeTabs
   defaultValue="go"

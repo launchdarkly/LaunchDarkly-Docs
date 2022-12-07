@@ -2350,7 +2350,7 @@ ldclient:start_instance("sdk-key-123abc", your_instance, #{private_attributes =>
 
 <Details summary="Expand Go code sample">
 
-The Go SDK defines a [`Context`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common.v3/ldcontext#Context) struct and a [`Builder`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common.v3/ldcontext#NewBuilder).
+The Go SDK defines a `Context` struct and a `Builder`.
 
 Here's an example:
 
@@ -2411,13 +2411,13 @@ user2 := lduser.NewUserBuilder("user-key-456def").
 
 The most common attribute is the context's key. In this case we used the strings `"context-key-123abc"` and `"context-key-456def"`. The key is the only mandatory context attribute. The combination of the key and kind should also uniquely identify each context. You can set the kind, or, if you do not set it, LaunchDarkly assumes that the context kind is "user". You can use a primary key, a hash, or some other value, as long as the same context always has the same context. We recommend using a hash if possible.
 
-To learn more about the available attributes, read [`Context`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common.v3/ldcontext#Context) and [`Builder`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common.v3/ldcontext#Builder).
+To learn more about the available attributes, read [`Context`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldcontext#Context) and [`Builder`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldcontext#Builder).
 
 <Callout intent="info">
 <CalloutTitle>Interpreting attribute types</CalloutTitle>
 <CalloutDescription>
 
-The kind and name attributes expect string values. Other attributes values can be booleans, numbers, strings, arrays, or JSON objects. These types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common.v3/ldvalue#Value) type. The Go SDK is strongly-typed, so be aware of this distinction.
+The kind and name attributes expect string values. Other attributes values can be booleans, numbers, strings, arrays, or JSON objects. These types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldvalue#Value) type. The Go SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
