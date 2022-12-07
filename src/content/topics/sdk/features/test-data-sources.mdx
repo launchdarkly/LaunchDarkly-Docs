@@ -51,6 +51,7 @@ Details about each SDK's configuration are available in the SDK-specific section
 This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
+* [Android](#android)
 
 ### .NET (client-side)
 
@@ -112,7 +113,7 @@ There are other ways you can configure flag behavior using a test data source. H
 // This flag is true for the user key "some-user-key" and false for everyone else
 td.Update(td.Flag("flag-key-456def")
     .Variation(false)
-    .VariationForUser("user-key-123abc", true);
+    .VariationForUser("user-key-123abc", true));
 
 // This flag returns the string variation "green" for users who have the custom
 // attribute "admin" with a value of true, and "red" for everyone else.
@@ -126,6 +127,88 @@ td.Update(td.Flag("flag-key-789ghi")
 </CodeTabs>
 
 To learn more, read [TestData](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.Integrations.TestData.html).
+</Details>
+
+### Android
+
+<Details summary="Expand .NET (client-side) code sample">
+
+This feature is available in versions 4.0 and higher of the Android SDK.
+
+To configure the SDK to use a test data source:
+
+<CodeTabs
+  defaultValue="android"
+  values={[
+    { label: 'Android', value: 'android', },
+  ]
+}>
+<CodeTabItem value="android">
+
+```android
+using com.launchdarkly.sdk.*;
+using com.launchdarkly.sdk.server.*;
+using com.launchdarkly.sdk.server.integrations.*;
+
+TestData td = TestData.dataSource();
+// You can set any initial flag states here with td.update
+
+LDConfig config = new LDConfig.Builder()
+  .mobileKey("mobile-key-123abc")
+  .dataSource(td)
+  .build();
+LDClient client = LDClient.init(this.getApplication(), ldConfig, context, secondsToBlock);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To set a flag to a specific value:
+
+<CodeTabs
+  defaultValue="android"
+  values={[
+    { label: 'Android', value: 'android', },
+  ]
+}>
+<CodeTabItem value="android">
+
+```android
+td.update(td.flag("flag-key-123abc").variation(false));
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+There are other ways you can configure flag behavior using a test data source. Here is an example:
+
+<CodeTabs
+  defaultValue="android"
+  values={[
+    { label: 'Android', value: 'android', },
+  ]
+}>
+<CodeTabItem value="android">
+
+```android
+// This flag is true for the context with the key "context-key-123abc" and kind of "organization",
+// and false for everyone else
+td.update(td.flag("flag-key-123abc")
+  .variation(false)
+  .variationForKey(ContextKind.of("organization"), "context-key-123abc", true));
+
+// This flag returns the string variation "green" for contexts who have the custom
+// attribute "admin" with a value of true, and "red" for everyone else.
+td.update(td.flag("flag-key-123abc")
+  .variations(LDValue.of("red"), LDValue.of("green"))
+  .variationFunc(context ->
+    context.getValue("admin").booleanValue() ? 1 : 0));
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`TestData`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-android-client-sdk/latest/com/launchdarkly/sdk/android/integrations/TestData.html).
 </Details>
 
 ## Server-side SDKs
@@ -184,7 +267,7 @@ To set a flag to a specific value:
 <CodeTabItem value="csharp">
 
 ```csharp
-td.Update(td.Flag("flag-key-123abc").BooleanFlag().VariationForAll(false));
+td.Update(td.Flag("flag-key-123abc").VariationForAll(false));
 ```
 
 </CodeTabItem>
@@ -209,9 +292,10 @@ There are other ways you can configure flag behavior using a test data source. H
 <CodeTabItem value="csharp">
 
 ```csharp
-// This flag is true for the context key "context-key-123abc" and false for everyone else
+// This flag is true for the context with the key "context-key-123abc" and kind of "organization",
+// and false for everyone else
 td.Update(td.Flag("flag-key-456def")
-    .VariationForAll("context-key-123abc", true)
+    .VariationForKey(ContextKind.Of("organization"), "context-key-123abc", true)
     .FallthroughVariation(false));
 
 // This flag returns the string variation "green" for contexts that have the
@@ -219,7 +303,7 @@ td.Update(td.Flag("flag-key-456def")
 td.Update(td.Flag("flag-key-789ghi")
     .Variations(LdValue.Of("red"), LdValue.Of("green"))
     .FallthroughVariation(0)
-    .IfMatch(Attribute.ForName("admin"), LdValue.Of(true))
+    .IfMatch("admin", LdValue.Of(true))
     .ThenReturn(1));
 ```
 
@@ -520,10 +604,10 @@ There are other ways you can configure flag behavior using a test data source. H
 <CodeTabItem value="go">
 
 ```go
-// This flag is true for the context key "context-key-123abc" and false for everyone else.
-// The context must have a context kind of "user".
+// This flag is true for the context with the key "context-key-123abc" and kind of "organization",
+// and false for everyone else
 td.Update(td.Flag("flag-key-456def").
-    VariationForUser("context-key-123abc", true).
+    VariationForKey("organization", "context-key-123abc", true).
     FallthroughVariation(false));
 
 
@@ -707,9 +791,11 @@ There are other ways you can configure flag behavior using a test data source. H
 <CodeTabItem value="java">
 
 ```java
-// This flag is true for the context with the key "context-key-123abc" and kind of "organization", and false for everyone else
+// This flag is true for the context with the key "context-key-123abc" and kind of "organization",
+// and false for everyone else
 td.update(td.flag("flag-key-123abc")
   .variationForKey(ContextKind.of("organization"), "context-key-123abc", true)
+  .fallthroughVariation(false));
 
 // This flag returns the string variation "green" for contexts who have the custom
 // attribute "admin" with a value of true, and "red" for everyone else.
