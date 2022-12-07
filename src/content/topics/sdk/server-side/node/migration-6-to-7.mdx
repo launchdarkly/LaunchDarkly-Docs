@@ -385,8 +385,6 @@ const client = ld.init('sdk-key-123abc', options);
 
 To learn more, read [the SDK's API documentation](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDUser.html#privateAttributeNames).
 
-<!-- TKTK Needs final API docs link SC-178150 -->
-
 Here's how to mark an attribute as private for a particular context:
 
 <CodeTabs
@@ -431,9 +429,7 @@ For attributes that are objects, you can mark specific fields private, using the
 
 For example, for the attribute `"address": { "street": "Main St", "city": "Springfield" }`, you could set just the `/address/street` as private.
 
-The `privateAttributeNames` attribute that existed in a user object in version 6.x has been renamed to `privateAttributes` in version 7.0. It has moved from the top level of a user object into the `_meta` object within a context. To learn more, read [privateAttributes](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDContext.html#privateAttributes).
-
-<!-- TKTK Needs final API docs link SC-178150 -->
+The `privateAttributeNames` attribute that existed in a user object in version 6.x has been renamed to `privateAttributes` in version 7.0. It has moved from the top level of a user object into the `_meta` object within a context. To learn more, read [privateAttributes](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDContextMeta.html#privateAttributes).
 
 ### Understanding changes to alias events
 
@@ -496,4 +492,4 @@ In the 7.0 version of the SDK, several configuration options have changed:
 
 All types and methods that were marked as deprecated in the last 6.x release have been removed from the 7.0 release. If you were using these with a recent version previously, you should already have received deprecation warnings at compile time, with suggestions about their recommended replacements.
 
-<!-- For a full list of deprecated types and methods, read [TKTK](/LINK/TO/SDK/API/DEPRECATION/LIST). SC-178150 -->
+For a full list of deprecated types and methods, read the [release notes in GitHub](https://github.com/launchdarkly/node-server-sdk/releases/tag/7.0.0).
