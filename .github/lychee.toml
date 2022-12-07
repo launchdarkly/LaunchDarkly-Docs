@@ -36,6 +36,7 @@ exclude = [
   'https://support.pendo.io',
   'https://developers.cloudflare.com',
   'https://dash.cloudflare.com/*',
+  'https://www.jstor.org/stable/27643811',
   # specific example links
   '^https://launchdarkly.github.io/$',
   # ignore git clone links
