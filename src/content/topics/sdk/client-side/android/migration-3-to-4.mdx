@@ -278,7 +278,7 @@ For attributes that are objects, you can mark specific fields private, using the
 
 For example, for the attribute `"address": { "street": "Main St", "city": "Springfield" }`, you could set just the `/address/street` as private.
 
-The `privateAttributeNames` attribute that existed in a user object in version 3.x has been renamed to `privateAttributes` in `LDContext`. To learn more, read [`privateAttributes`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/ContextBuilder.html#privateAttributes(java.lang.String...)). <!-- TKTK confirm during SC-178150 -->
+The `privateAttributeNames` attribute that existed in a user object in version 3.x has been renamed to `privateAttributes` in `LDContext`. To learn more, read [`privateAttributes`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/ContextBuilder.html#privateAttributes(java.lang.String...)).
 
 ### Understanding changes to automatic custom property population
 
@@ -400,7 +400,7 @@ client.identify(multiContext);
 </CodeTabItem>
 </CodeTabs>
 
-<!-- To learn more, read [TKTK SC-178150](/LINK/TO/SDK/API/DOCS). -->
+To learn more, read [`ContextMultiBuilder`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/ContextMultiBuilder.html).
 
 ## Understanding changes to SDK configuration
 
@@ -572,7 +572,7 @@ LDConfig config = new LDConfig.Builder()
 
 Previous versions of the SDK had `pollUri`, `streamUri`, and `eventsUri` options for using custom service URIs instead of the standard LaunchDarkly service URIs. This is normally only necessary if you are using the LaunchDarkly Relay Proxy, or if your company uses a special LaunchDarkly domain that is not `launchdarkly.com`.
 
-To customize these options in the new SDK, call [`Components.serviceEndpoints()`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/Components.html#serviceEndpoints()) to get a [`ServiceEndpointsBuilder`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/integrations/ServiceEndpointsBuilder.html) object, configure this builder, and then pass it to [`LDConfig.Builder.serviceEndpoints()`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDConfig.Builder.serviceEndpoints#http(com.launchdarkly.sdk.android.integrations.ServiceEndpointsBuilder)).
+To customize these options in the new SDK, call [`Components.serviceEndpoints()`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/Components.html#serviceEndpoints()) to get a [`ServiceEndpointsBuilder`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/integrations/ServiceEndpointsBuilder.html) object, configure this builder, and then pass it to [`LDConfig.Builder.serviceEndpoints()`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDConfig.Builder.html#serviceEndpoints(com.launchdarkly.sdk.android.integrations.ServiceEndpointsBuilder)).
 
 Here is an example:
 
