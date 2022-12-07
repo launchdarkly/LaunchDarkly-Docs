@@ -10,6 +10,21 @@ tags: ['offline', 'mode', 'sdk']
 
 This topic explains how to set an SDK to offline mode.
 
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
+
 ## Understanding offline mode
 
 Offline mode closes an SDK's connection to LaunchDarkly and switches to a feature flag's last known values.
@@ -71,11 +86,43 @@ Here's how:
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
+    { label: 'Java for Android SDK v4.0', value: 'java' },
+    { label: 'Kotlin for Android SDK v4.0', value: 'kotlin' },
+    { label: 'Java for Android SDK v3.x', value: 'java-v3' },
+    { label: 'Kotlin for Android SDK v3.x', value: 'kotlin-v3' }
   ]
 }>
 <CodeTabItem value="java">
+
+```java
+LDConfig ldConfig = new LDConfig.Builder()
+    .setMobileKey("mobile-key-123abc")
+    .setOffline(true)
+    .build();
+
+LDClient client = LDClient.init(this.getApplication(), ldConfig, context);
+
+// Or to switch an already-instantiated client to offline mode:
+client.setOffline();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val config: LDConfig = LDConfig.Builder()
+    .setMobileKey("YOUR_MOBILE_KEY")
+    .setOffline(true)
+    .build()
+
+val client: LDClient = LDClient.init(application, ldConfig, context);
+
+// Or to switch an already-instantiated client to offline mode:
+client.setOffline()
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v3">
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
@@ -90,11 +137,11 @@ client.setOffline();
 ```
 
 </CodeTabItem>
-<CodeTabItem value="kotlin">
+<CodeTabItem value="kotlin-v3">
 
 ```kotlin
 val config: LDConfig = LDConfig.Builder()
-    .setMobileKey("YOUR_MOBILE_KEY")
+    .setMobileKey("mobile-key-123abc")
     .setOffline(true)
     .build()
 
@@ -125,7 +172,7 @@ Here's how:
 <CodeTabItem value="dart">
 
 ```dart
-LDConfig ldConfig = LDConfigBuilder('YOUR_MOBILE_KEY')
+LDConfig ldConfig = LDConfigBuilder('mobile-key-123abc')
     .offline(true)
     .build();
 
@@ -147,7 +194,7 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 The SDK protects itself from multiple rapid calls to `setOnline(true)` by enforcing an increasing delay (called _throttling_) each time `setOnline(true)` is called within a short time. The first time, the call proceeds normally. For each subsequent call, the delay is enforced, and if waiting, increased to a maximum delay. When the delay has elapsed, the `setOnline(true)` proceeds, assuming that the client app has not called `setOnline(false)` during the delay. Therefore, a call to `setOnline(true)` may not immediately result in the LDClient going online.
 
-Client app developers should consider this situation abnormal, and take steps to prevent the client app from making multiple rapid `setOnline(true)` calls. Calls to `setOnline(false)` are not throttled. Calls to `start(config: user: completion:)`, and setting the `config` or `user` can also call `setOnline(true)` under certain conditions. After the delay, the SDK resets and the client app can make a subsequent call to `setOnline(true)` without being throttled.
+Client app developers should consider this situation abnormal, and take steps to prevent the client app from making multiple rapid `setOnline(true)` calls. Calls to `setOnline(false)` are not throttled. Calls to `start(config: context: completion:)`, and setting the `config` or `context` can also call `setOnline(true)` under certain conditions. After the delay, the SDK resets and the client app can make a subsequent call to `setOnline(true)` without being throttled.
 
 Client apps can set a completion closure called when the setOnline call completes. For unthrottled `setOnline(true)` and all `setOnline(false)` calls, the SDK calls the closure immediately on completion of this method. For throttled `setOnline(true)` calls, the SDK calls the closure after the throttling delay at the completion of the `setOnline` method.
 
@@ -234,7 +281,7 @@ This feature is available in the following server-side SDKs:
 
 <Details summary="Expand .NET (server-side) code sample">
 
-The fallback values are defined in your code. The default value only returns if the SDK encounters an error or if LaunchDarkly is unreachable.
+The feature flag fallback values are defined in your code. The fallback value only returns if the SDK encounters an error or if LaunchDarkly is unreachable.
 
 In some situations, you might want avoid remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. You can do this by setting offline mode in the client's Config. When the client is in offline mode, no network requests will be made, so it is suitable for unit-testing.
 
@@ -302,7 +349,7 @@ Here's how:
 <CodeTabItem value="erlang">
 
 ```
-ldclient:start_instance("YOUR_SDK_KEY", #{offline => true})
+ldclient:start_instance("sdk-key-123abc", #{offline => true})
 ```
 
 </CodeTabItem>
@@ -313,14 +360,15 @@ ldclient:start_instance("YOUR_SDK_KEY", #{offline => true})
 
 <Details summary="Expand Go code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. You can do this by setting `Offline` mode in the client's [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config).
+In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. You can do this by setting `Offline` mode in the client's [`Config`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#Config).
 
 Here's how:
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' }
   ]
 }>
 <CodeTabItem value="go">
@@ -329,7 +377,18 @@ Here's how:
 var config ld.Config
 config.Offline = true
 
-client, _ := ld.MakeCustomClient("YOUR_SDK_KEY", config, 5 * time.Second)
+client, _ := ld.MakeCustomClient("sdk-key-123abc", config, 5 * time.Second)
+client.BoolVariation("any.feature.flag", context, false) // will always return the default value (false)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
+
+```go
+var config ld.Config
+config.Offline = true
+
+client, _ := ld.MakeCustomClient("sdk-key-123abc", config, 5 * time.Second)
 client.BoolVariation("any.feature.flag", user, false) // will always return the default value (false)
 ```
 
@@ -372,7 +431,8 @@ Here's how:
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java SDK v6.0', value: 'java', },
+    { label: 'Java SDK v5.x', value: 'java-v5', },
   ]
 }>
 <CodeTabItem value="java">
@@ -381,7 +441,22 @@ Here's how:
 LDConfig config = new LDConfig.Builder()
   .offline(true)
   .build();
-LDClient client = new LDClient("YOUR_SDK_KEY", config);
+LDClient client = new LDClient("sdk-key-123abc", config);
+client.boolVariation("flag-key-123abc", context, false)
+
+// This call to client.boolVariation always
+// returns the default value (false)
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v5">
+
+```java
+LDConfig config = new LDConfig.Builder()
+  .offline(true)
+  .build();
+LDClient client = new LDClient("sdk-key-123abc", config);
 client.boolVariation("any.feature.flag", user, false)
 
 // This call to client.boolVariation always
@@ -395,6 +470,7 @@ client.boolVariation("any.feature.flag", user, false)
 
 ### Node.js (server-side)
 
+
 <Details summary="Expand Node.js (server-side) code sample">
 
 In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. You can do this by setting `offline` mode in the client's `config` object.
@@ -404,17 +480,18 @@ Here's how:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
+    { label: 'Node.js SDK v7 (JavaScript)', value: 'js', },
+    { label: 'Node.js SDK v7 (TypeScript)', value: 'ts', },
+    { label: 'Node.js SDK v6.x and older (JavaScript)', value: 'js-old', },
+    { label: 'Node.js SDK v6.x and older (TypeScript)', value: 'ts-old', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 const options = { offline: true };
-client = ld.init('YOUR_SDK_KEY', options);
+client = ld.init('sdk-key-123abc', options);
 client.variation('any.feature.flag', user, false, cb) // cb will always be invoked with the default value (false)
-
 ```
 
 </CodeTabItem>
@@ -424,7 +501,28 @@ client.variation('any.feature.flag', user, false, cb) // cb will always be invok
 import * as ld from 'launchdarkly-node-server-sdk';
 
 const options: ld.LDOptions = { offline: true };
-const client = ld.init('YOUR_SDK_KEY', options);
+const client = ld.init('sdk-key-123abc', options);
+client.variation('any.feature.flag', context, false, cb); // cb will always be invoked with the default value (false)
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-old">
+
+```js
+const options = { offline: true };
+client = ld.init('sdk-key-123abc', options);
+client.variation('any.feature.flag', user, false, cb) // cb will always be invoked with the default value (false)
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts-old">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
+const options: ld.LDOptions = { offline: true };
+const client = ld.init('sdk-key-123abc', options);
 client.variation('any.feature.flag', user, false, cb); // cb will always be invoked with the default value (false)
 ```
 
@@ -451,7 +549,7 @@ Here's how:
 <CodeTabItem value="php">
 
 ```php
-$client = new LaunchDarkly\LDClient("YOUR_SDK_KEY", array("offline" => true));
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", array("offline" => true));
 $client->variation("any.feature.flag", user, false); // will always return the default value (false)
 ```
 
@@ -477,7 +575,7 @@ Here's how:
 
 ```py
 # Initialization:
-ldclient.set_config(Config("YOUR_SDK_KEY", offline=True))
+ldclient.set_config(Config("sdk-key-123abc", offline=True))
 ldclient.get().variation("any.feature.flag", user, False) # will always return the default value (false)
 
 ```
@@ -504,7 +602,7 @@ Here's how:
 
 ```ruby
 config = LaunchDarkly::Config.new({offline: true})
-client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
+client = LaunchDarkly::LDClient.new("sdk-key-123abc", config)
 client.variation("any.feature.flag", user, false) # will always return the default value (false)
 ```
 
@@ -523,17 +621,25 @@ Here's how:
 <CodeTabs
   defaultValue="rust"
   values={[
-    { label: 'Rust', value: 'rust', },
+    { label: 'Rust SDK v1', value: 'rust', },
+    { label: 'Rust SDK beta', value: 'rust-beta', },
   ]
 }>
 <CodeTabItem value="rust">
 
 ```rust
-let config = ConfigBuilder::new("sdk-key").offline(true).build();
+let config = ConfigBuilder::new("sdk-key-123abc").offline(true).build();
 let ld_client = Client::build(config).unwrap();
-ld_client.bool_variation(&user, "any.feature.flag", false); // will always return the default value (false)
+ld_client.bool_variation(&context, "flag-key-123abc", false); // will always return the default value (false)
 ```
+</CodeTabItem>
+<CodeTabItem value="rust-beta">
 
+```rust
+let config = ConfigBuilder::new("sdk-key-123abc").offline(true).build();
+let ld_client = Client::build(config).unwrap();
+ld_client.bool_variation(&user, "flag-key-123abc", false); // will always return the default value (false)
+```
 </CodeTabItem>
 </CodeTabs>
 </Details>

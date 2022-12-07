@@ -132,10 +132,10 @@ Here is an example:
 
 ```erlang
 % This starts an instance with the default options
-ldclient:start_instance("YOUR_SDK_KEY")
+ldclient:start_instance("sdk-key-123abc")
 
 % You can also start a named instance
-ldclient:start_instance("YOUR_SDK_KEY", my_instance)
+ldclient:start_instance("sdk-key-123abc", your_instance)
 ```
 
 </CodeTabItem>
@@ -152,7 +152,7 @@ Next, check which flag variation a specific user should receive:
 <CodeTabItem value="erlang">
 
 ```erlang
-Flag = ldclient:variation(<<"YOUR_FLAG_KEY">>, #{key => <<"123">>}, false)
+Flag = ldclient:variation(<<"flag-key-123abc">>, #{key => <<"user-key-123abc">>}, false)
 ```
 
 </CodeTabItem>
@@ -205,7 +205,7 @@ This SDK supports the following features:
 * [Evaluating flags](/sdk/features/evaluating#erlang)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#erlang)
 * [Getting all flags](/sdk/features/all-flags#erlang)
-* [Identifying and changing users](/sdk/features/identify#erlang)
+* [Identifying and changing contexts](/sdk/features/identify#erlang)
 * [Offline mode](/sdk/features/offline-mode#erlang)
 * [Reading flags from a file](/sdk/features/flags-from-files#erlang)
 * [Relay Proxy configuration](/sdk/features/relay-proxy-configuration)
@@ -216,4 +216,4 @@ This SDK supports the following features:
 * [Shutting down](/sdk/features/shutdown#erlang)
 * [Storing data](/sdk/features/storing-data#erlang)
 * [Test data sources](/sdk/features/test-data-sources#erlang)
-* [User configuration](/sdk/features/user-config#erlang)
+* [User and context configuration](/sdk/features/user-context-config#erlang)

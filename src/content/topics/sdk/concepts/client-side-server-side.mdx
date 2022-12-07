@@ -12,6 +12,21 @@ This topic explains the differences between LaunchDarkly's client- and server-si
 
 The SDK types have different security considerations as well as some behavioral and architectural differences. They handle flag evaluations differently, use different kinds of SDK keys, and support different languages.
 
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
+
 ## Understanding the different types of SDKs
 
 It is important to understand the two types of SDKs we support. The different types of SDKs impact critical implementation details and use cases.
@@ -57,7 +72,6 @@ We categorize SDKs designed for mobile devices as client-side SDKs because, like
 
 Here are some of the ways that mobile SDKs are different than other client-side SDKs:
 
-- Mobile SDKs automatically populate values for the `os` and `device` built-in user attributes. To learn more, read [Built-in user attributes](/home/users/built-in-attributes).
 - Mobile SDKs support multiple environments. To learn more, read [Multi-environment support](#multi-environment-support).
 - Mobile SDKs handle streaming and polling connections differently than other client-side SDKs. To learn more, read [Receiving updates from LaunchDarkly](#receiving-updates-from-launchdarkly).
 
@@ -81,25 +95,25 @@ For example, if your LaunchDarkly account is set up to have different "Android",
 
 ### Receiving updates from LaunchDarkly
 
-All SDKs open a [Server-Sent Events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection to LaunchDarkly. The initial payload from the streaming connection contains the variations your user receives. 
+All SDKs open a [Server-Sent Events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection to LaunchDarkly. The initial payload from the streaming connection contains the variations a context instance receives.
 
-By default, most client-side and server-side SDKs receive updated flag values when you change a flag. Server-side SDKs receive flag configuration changes over the stream, while client-side SDKs receive flag value changes for a specific user.
+By default, most client-side and server-side SDKs receive updated flag values when you change a flag. Server-side SDKs receive flag configuration changes over the stream, while client-side SDKs receive flag value changes for a specific context.
 
 Mobile applications are more likely than web or desktop software to lose their network connection. To account for this, our mobile SDKs monitor the connection state to LaunchDarkly and use different connection types depending on whether the app is in the foreground or in the background.
 
 Here's how mobile connections work:
 
 - When the app is foregrounded, the SDK opens a streaming connection to LaunchDarkly.
-   - The initial payload from the streaming connection contains the variations your user receives.
+   - The initial payload from the streaming connection contains the variations a context instance receives.
    - The streaming connection stays open as long as your app is in the foreground and is connected to the internet.
-   - The streaming connection idles unless there are updates. This requires minimal data and battery power to maintain. 
+   - The streaming connection idles unless there are updates. This requires minimal data and battery power to maintain.
    - The SDK actively monitors network availability. They avoid requests when the network is unavailable, and reconnect when the network becomes available again.
-- When the app is backgrounded, the stream connection terminates and the SDK uses polling instead. 
-   - The SDK polls for flag updates every hour to stay in sync. This strategy has higher latency, but optimizes battery and data usage. 
+- When the app is backgrounded, the stream connection terminates and the SDK uses polling instead.
+   - The SDK polls for flag updates every hour to stay in sync. This strategy has higher latency, but optimizes battery and data usage.
    - The SDK checks for network connectivity at the current polling interval, only making the request if the check succeeds. When it reconnects, it automatically syncs its local cache with LaunchDarkly.
-- When the app is foregrounded again, the SDK reconnects to the stream which sends the latest flag values. 
-- If the app closes and reopens without a connection to LaunchDarkly, the flag values cached in local storage are still available. 
-  
+- When the app is foregrounded again, the SDK reconnects to the stream which sends the latest flag values.
+- If the app closes and reopens without a connection to LaunchDarkly, the flag values cached in local storage are still available.
+
 Whether streaming or polling, the SDK monitors the device's network connectivity state and does not send network requests when the device is offline.
 
 This configuration means that you get near real-time updates for your feature flag values when the app is in the foreground, and maximum device and SDK efficiency when backgrounded. You can configure these settings if needed. To learn more, read [Configuration](/sdk/features/config).
@@ -119,9 +133,9 @@ The client-side and server-side SDKs have different security considerations.
 
 ### Client-side SDKs
 
-Client-side SDKs typically run on customers' own devices. They can be compromised by users who unpack a mobile app to examine the SDK bytecode or use their browser's developer tools to inspect internal site data. As a result, you should never use a server-side SDK key in a client-side or mobile application.
+Client-side SDKs typically run on customers' own devices. They can be compromised by end users who unpack a mobile app to examine the SDK bytecode or use their browser's developer tools to inspect internal site data. As a result, you should never use a server-side SDK key in a client-side or mobile application.
 
-Flag rules may include user identifiers or other personally identifiable information (PII) that you might not want to transmit to client-side applications. Consequently, client-side SDKs depend on LaunchDarkly's servers to safely store flag rules. To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
+Flag rules may include context identifiers or other personally identifiable information (PII) that you might not want to transmit to client-side applications. Consequently, client-side SDKs depend on LaunchDarkly's servers to safely store flag rules. To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 
 ### Server-side SDKs
 
@@ -133,9 +147,11 @@ The two types of SDKs evaluate feature flags differently. The different evaluati
 
 ### Client-side SDKs
 
-Client-side SDKs are configured to operate for a single user at a time. When a flag evaluation is requested, client-side SDKs delegate the flag evaluation to LaunchDarkly on behalf of the specific user. LaunchDarkly's services are responsible for evaluating flag rules for the user. LaunchDarkly notifies the SDK of the evaluation results, through either the SDK's streaming or polling connections. Then the SDK stores these results for quick lookup.
+Client-side SDKs are configured to operate for a single end user at a time, although the end user may be represented by one or more contexts. For example, your application may be using both attributes pertaining to the user, such as name and email, and attributes pertaining to their environment, such as device model and operating system.
 
-For security reasons, client-side SDKs cannot download and store an entire ruleset. Client-side SDKs typically run on customers' own devices, so they are vulnerable to having users investigate SDK content by unpacking the SDK on a mobile device or inspecting its behavior in a browser. Instead of storing potentially sensitive data, the client-side SDKs confirm and update flag rules by communicating with LaunchDarkly servers through streaming connections or with REST API requests.
+When a flag evaluation is requested, client-side SDKs delegate the flag evaluation to LaunchDarkly on behalf of a specific evaluation context, which comprises one or more contexts. LaunchDarkly's services are responsible for evaluating flag rules for the evaluation context. LaunchDarkly notifies the SDK of the evaluation results, through either the SDK's streaming or polling connections. Then the SDK stores these results for quick lookup.
+
+For security reasons, client-side SDKs cannot download and store an entire ruleset. Client-side SDKs typically run on customers' own devices, so they are vulnerable to having end users investigate SDK content by unpacking the SDK on a mobile device or inspecting its behavior in a browser. Instead of storing potentially sensitive data, the client-side SDKs confirm and update flag rules by communicating with LaunchDarkly servers through streaming connections or with REST API requests.
 
 This approach is also beneficial from a data management perspective. Client-side SDKs' bandwidth requirements are lower than server-side SDKs' requirements because LaunchDarkly sends client-side SDKs less data.
 
@@ -143,15 +159,15 @@ This approach is also beneficial from a data management perspective. Client-side
 
 Server-side SDKs receive the complete ruleset associated with an SDK key when they initialize a connection to LaunchDarkly's servers. LaunchDarkly continuously updates the SDK's cached flag ruleset whenever flag rules change on LaunchDarkly, using this persistent connection.
 
-When your application requests flag evaluation, server-side SDKs evaluate feature flags using their cached ruleset, and determine the flag variation for a given user. To do this, they execute an in-process flag evaluation algorithm and return the resulting value.
+When your application requests flag evaluation, server-side SDKs evaluate feature flags using their cached ruleset, and determine the flag variation for a given evaluation context. To do this, they execute an in-process flag evaluation algorithm and return the resulting value.
 
-Server-side SDKs can evaluate flags because these SDKs know your complete flag ruleset. These SDKs can determine users' flag variations without having to make requests to LaunchDarkly's servers for every evaluated flag.
+Server-side SDKs can evaluate flags because these SDKs know your complete flag ruleset. These SDKs can determine contexts' flag variations without having to make requests to LaunchDarkly's servers for every evaluated flag.
 
-You can think of each flag evaluation as a pure function, where LaunchDarkly uses the provided user context along with the complete ruleset to check if a specific user should be included in an evaluation or not. It is important to note that LaunchDarkly passes along *rule data*, not user data. If a user does not have the correct attributes locally, then it will not be evaluated by the rules that are cached by the SDK.
+You can think of each flag evaluation as a pure function, where LaunchDarkly uses the provided evaluation context along with the complete ruleset to check if a specific context should be included in an evaluation or not. It is important to note that LaunchDarkly passes along *rule data*, not context data. If a context does not have the correct attributes locally, then it will not be evaluated by the rules that are cached by the SDK.
 
 ### Flag evaluation comparison
 
-The client-side SDK requires user information in order to initialize the client. The server-side SDK requires the user context only when the SDK evaluates a flag.
+The client-side SDK requires context information in order to initialize the client. The server-side SDK requires the context only when the SDK evaluates a flag.
 
 Here is an example of the differences in flag evaluation between the client-side and server-side SDKs:
 
@@ -168,11 +184,11 @@ Here is an example of the differences in flag evaluation between the client-side
 
   // JavaScript pseudocode
 
-  var user = {"key": "user_key_123"}
+  var context = {"key": "context-key-123abc"}
 
-  var ldclient = LDClient.initialize("YOUR_CLIENT_SIDE_ID", user);
+  var ldclient = LDClient.initialize("client-side-id-123abc", context);
 
-  var showFeature = ldclient.variation("FF_KEY", false);
+  var showFeature = ldclient.variation("flag-key-123abc", false);
 
 ```
 
@@ -183,13 +199,14 @@ Here is an example of the differences in flag evaluation between the client-side
 
   // Java pseudocode
 
-  LDClient ldclient = new LDClient(YOUR_SDK_KEY, config);
+  LDClient ldclient = new LDClient("sdk-key-123abc", config);
 
-  LDUser user = new LDUser.Builder("user_key_123").build();
+  LDContext context = new LDContext.Builder("context-key-123abc").build();
 
-  boolean showFeature = ldClient.boolVariation("FF_KEY", user, false);
+  boolean showFeature = ldClient.boolVariation("flag-key-123abc", context, false);
 
 ```
+<!-- TKTK Check that the above two code samples are correct. The client-side one probably needs to change because key is set automatically for client-side SDKs? SC-178002 -->
 
 </CodeTabItem>
 </CodeTabs>
@@ -238,7 +255,7 @@ Here is an example of the differences in flag data received by the client-side a
         "prerequisites":[],
         "salt":"8e0438b01245445d870fa5d8275efd87",
         "sel":"bda12c82c38e4542b32d2d59046820e2",
-        "targets":[{"values":["a.user@example.com"],"variation":0}],
+        "targets":[{"values":["context-key-123abc"],"variation":0}],
         "rules":[ {
           "id":"3803d988-a23d-4a24-a66f-2b151749fd23",
           "variation":0,
@@ -259,36 +276,39 @@ Here is an example of the differences in flag data received by the client-side a
 </CodeTabItem>
 </CodeTabs>
 
-## Private user attributes
+## Private attributes
 
-You may not want to send all of the user attributes that you are recording back to LaunchDarkly. The security or data protection requirements of your organization may require you to limit what customer or user data is transmitted from your service to a third-party platform like LaunchDarkly.
+You may not want to send all of the context attributes that you are recording back to LaunchDarkly. The security or data protection requirements of your organization may require you to limit what customer data is transmitted from your service to a third-party platform like LaunchDarkly.
 
-All LaunchDarkly SDKs have configuration options to set all or specified user attributes as private attributes.
+All LaunchDarkly SDKs have configuration options to set all or specified context attributes as private attributes. There are two scopes for which you can mark attributes as private:
 
-You can use private user attributes with both client-side and server-side SDKs, although the SDKs' requirements are different. With a client-side SDK, LaunchDarkly's servers receive and process private attributes, but do not store them. Server-side SDKs work differently. They store a full list of rules, including user attributes. Because the rules are available locally to a server-side SDK, you do not need to send LaunchDarkly information about private attributes.
+* Across all contexts of any context kind. You might use this if you want an "email" attribute to be private whether it occurs in a user context, an organization context, or something else.
+* Within a particular context or context kind. You might use this if you want an "email" attribute to be private in a user context, but not in an organization context.
+
+You can use private attributes with both client-side and server-side SDKs, although the SDKs' requirements are different. With a client-side SDK, LaunchDarkly's servers receive and process private attributes, but do not store them. Server-side SDKs work differently. They store a full list of rules, including context attributes. Because the rules are available locally to a server-side SDK, you do not need to send LaunchDarkly information about private attributes.
 
 Here is an example of setting all attributes as private:
 
 <CodeTabs
-  defaultValue="Client-side"
+  defaultValue="client-side"
   values={[
-    { label: 'Client-side', value: 'Client-side', },
-    { label: 'Server-side', value: 'Server-side' }
+    { label: 'Client-side', value: 'client-side', },
+    { label: 'Server-side', value: 'server-side' }
   ]
 }>
-<CodeTabItem value="Client-side">
+<CodeTabItem value="client-side">
 
 ```js
 
   // JavaScript pseudocode
 
-  var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user,
+  var ldclient = LDClient.initialize('client-side-id-123abc', context,
     options = { allAttributesPrivate: true });
 
 ```
 
 </CodeTabItem>
-<CodeTabItem value="Server-side">
+<CodeTabItem value="server-side">
 
 ```java
 
@@ -306,9 +326,9 @@ Here is an example of setting all attributes as private:
 </CodeTabItem>
 </CodeTabs>
 
-Note that the user `key` attribute can never be private.
+Note that the context `key` attribute can never be private.
 
-Here is an example of setting just the user's email address as private:
+Here is an example of setting just the end user's email address as private:
 
 <CodeTabs
   defaultValue="Client-side"
@@ -323,7 +343,7 @@ Here is an example of setting just the user's email address as private:
 
   // JavaScript pseudocode
 
-  var ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user,
+  var ldclient = LDClient.initialize('client-sideID-123abc', context,
     options = { privateAttributeNames: ["email"] });
 
 ```
@@ -338,20 +358,16 @@ Here is an example of setting just the user's email address as private:
   LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
   .events(
     Components.sendEvents()
-      .privateAttributes(UserAttribute.EMAIL)
+      .privateAttributes("email")
   )
   .build();
-
-  LDUser user = new LDUser.Builder("user_key_123")
-    .privateEmail("test@example.com")
-    .build();
 
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [Using private user attributes](/home/users/attributes#using-private-user-attributes). For specifics on implementing private user attributes in a particular SDK, read [User configuration](/sdk/features/user-config).
+To learn more, read [Using private context attributes](/home/contexts/attributes#using-private-context-attributes). For specifics on implementing private context attributes in a particular SDK, read [User and context configuration](/sdk/features/user-context-config).
 
 ## Keys
 

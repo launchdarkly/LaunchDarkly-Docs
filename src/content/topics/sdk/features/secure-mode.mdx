@@ -10,25 +10,40 @@ tags: ['secure', 'mode', 'evaluate', 'sdk']
 
 This topic explains how to use the secure mode feature to safely evaluate feature flags in your web browser.
 
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
+
 ## Using secure mode
 
-Secure mode ensures that users' feature flag evaluations are kept private in web browser environments, and that one user cannot inspect the variations for another user. On an insecure device, a malicious user could use a user key to identify what flag values a user receives by analyzing the results of multiple flag evaluations. Secure mode prevents you from doing an evaluation for a user key that hasn't been signed on the backend.
+Secure mode ensures that customers' feature flag evaluations are kept private in web browser environments, and that one end user cannot inspect the variations for another end user. On an insecure device, a malicious end user could use a context or user key to identify what flag values another end user receives by analyzing the results of multiple flag evaluations. Secure mode prevents you from doing an evaluation for a context or user key that hasn't been signed on the backend.
 
 Secure mode is only available for communication between client-side SDKs and LaunchDarkly. It is not necessary for server-side SDKs.
 
 ### Understanding how secure mode works
 
-Secure mode works by having you configure your JavaScript SDK to include a server-generated HMAC SHA256 hash of your user key. This hash is signed with the SDK key for your environment.
+Secure mode works by having you configure your JavaScript SDK to include a server-generated HMAC SHA256 hash of your context or user key. This hash is signed with the SDK key for your environment.
 
 To use secure mode, you must complete the following:
 
-* **Enable secure mode for each environment.** You can enable secure mode for each of your environments on the **Environments** tab of your project under [**Account settings**](https://app.launchdarkly.com/settings/projects) page. Secure mode is an environment-wide setting. You can enable secure mode for your environment even if you're also using mobile SDKs that don't support it. Enabling secure mode does not cause those SDKs to fail.
+* **Enable secure mode for each environment.** You can enable secure mode for each of your environments on the **Environments** tab of your project on the [**Account settings**](https://app.launchdarkly.com/settings/projects) page. Secure mode is an environment-wide setting. You can enable secure mode for your environment even if you're also using mobile SDKs that don't support it. Enabling secure mode does not cause those SDKs to fail.
 
 * **Compute the secure mode hash.** Enabling secure mode means that every request coming from a client-side JavaScript SDK requires the secure mode hash to evaluate flag variations. You can pass this to your front-end code with the mechanism of your choice, such as bootstrapping or as a template variable.
 
-  Each of our server-side SDKs includes a method to compute the secure mode hash for a user. To learn how, read [Generating a secure mode hash](#generating-a-secure-mode-hash). Alternatively, you can compute the hash yourself. To learn how, read [Computing the hash manually](#computing-the-hash-manually).
+  Each of our server-side SDKs includes a method to compute the secure mode hash for a key. To learn how, read [Generating a secure mode hash](#generating-a-secure-mode-hash). Alternatively, you can compute the hash yourself. To learn how, read [Computing the hash manually](#computing-the-hash-manually).
 
-* **Send the computed secure mode hash for your user.** You need to include this when requesting flag evaluations. To learn how, read [Configuring secure mode in the JavaScript client-side SDK](#configuring-secure-mode-in-the-javascript-client-side-sdk).
+* **Send the computed secure mode hash for the context or user.** You need to include this when requesting flag evaluations. To learn how, read [Configuring secure mode in the JavaScript client-side SDK](#configuring-secure-mode-in-the-javascript-client-side-sdk).
 
 <Callout intent="info">
 <CalloutTitle>Enable secure mode during initial setup</CalloutTitle>
@@ -56,17 +71,25 @@ You can use the following server-side SDKs to generate a secure mode hash:
 
 <Details summary="Expand .NET (server-side) code sample">
 
-The [`SecureModeHash`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_SecureModeHash_) method computes an HMAC signature of a user signed with the client's SDK key.
+The [`SecureModeHash`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_SecureModeHash_) method computes an HMAC signature of a context signed with the client's SDK key.
 
 Here is the method:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
   ]
 }>
 <CodeTabItem value="csharp">
+
+```csharp
+var hash = client.SecureModeHash(context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-6.x">
 
 ```csharp
 var hash = client.SecureModeHash(user);
@@ -80,17 +103,25 @@ var hash = client.SecureModeHash(user);
 
 <Details summary="Expand Go code sample">
 
-The [`SecureModeHash`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.SecureModeHash) method computes an HMAC signature of a user signed with the client's SDK key.
+The [`SecureModeHash`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.SecureModeHash) method computes an HMAC signature of a context signed with the client's SDK key.
 
 Here is the method:
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' }
   ]
 }>
 <CodeTabItem value="go">
+
+```go
+client.SecureModeHash(context)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 client.SecureModeHash(user)
@@ -111,10 +142,18 @@ Here is the method:
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java SDK v6.0', value: 'java', },
+    { label: 'Java SDK v5.x', value: 'java-v5', },
   ]
 }>
 <CodeTabItem value="java">
+
+```java
+client.secureModeHash(context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v5">
 
 ```java
 client.secureModeHash(user);
@@ -224,29 +263,35 @@ client.secure_mode_hash(user)
 
 <Details summary="Expand Rust code sample">
 
-The `secure_mode_hash` method computes an HMAC signature of a user signed with the client's SDK key.
+The `secure_mode_hash` method computes an HMAC signature of a context signed with the client's SDK key.
 
 Here is the method:
 
 <CodeTabs
   defaultValue="rust"
   values={[
-    { label: 'Rust', value: 'rust', },
+    { label: 'Rust SDK v1', value: 'rust', },
+    { label: 'Rust SDK beta', value: 'rust-beta', },
   ]
 }>
 <CodeTabItem value="rust">
 
 ```rust
+client.secure_mode_hash(&context);
+```
+</CodeTabItem>
+<CodeTabItem value="rust-beta">
+
+```rust
 client.secure_mode_hash(&user);
 ```
-
 </CodeTabItem>
 </CodeTabs>
 </Details>
 
 ## Computing the hash manually
 
-To compute the hash manually, locate the server-side SDK key for your environment on the **Environments** tab of your project under the **Account settings** page. Then, compute an HMAC SHA256 hash of the UTF-8 encoding of your user key, using the UTF-8 encoding of your SDK key as a secret, and convert the hash to a hexadecimal string.
+To compute the hash manually, locate the server-side SDK key for your environment on the **Environments** tab of your project on the **Account settings** page. Then, compute an HMAC SHA256 hash of the UTF-8 encoding of your context key, using the UTF-8 encoding of your SDK key as a secret, and convert the hash to a hexadecimal string.
 
 Here is a .NET (server-side) example:
 
@@ -264,9 +309,9 @@ using System.Security.Cryptography;
 using System.Text;
 
 var encoding = new UTF8Encoding();
-var keyBytes = encoding.GetBytes("YOUR_SDK_KEY");
+var keyBytes = encoding.GetBytes("sdk-key-123abc");
 var hmacSha256 = new HMACSHA256(keyBytes);
-var hashBytes = hmacSha256.ComputeHash(encoding.GetBytes("YOUR_USER_KEY"));
+var hashBytes = hmacSha256.ComputeHash(encoding.GetBytes("context-key-123abc"));
 var hashString = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
 ```
 
@@ -275,21 +320,54 @@ var hashString = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
 
 ## Configuring secure mode in the JavaScript client-side SDK
 
-You should send the computed secure mode hash for your user as the [`hash` attribute](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#hash) in the `LDOptions` object during client initialization and as the [`hash` parameter](https://launchdarkly.github.io/js-client-sdk/interfaces/LDClient.html#identify) if subsequently identifying new user contexts:
+You should send the computed secure mode hash for your user as the [`hash` attribute](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#hash) in the `LDOptions` object during client initialization and as the [`hash` parameter](https://launchdarkly.github.io/js-client-sdk/interfaces/LDClient.html#identify) if subsequently identifying new contexts:
 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
+    { label: 'JavaScript SDK 3.0', value: 'js', },
+    { label: 'TypeScript, JS SDK 3.0', value: 'ts', },
+    { label: 'JavaScript SDK 2.x', value: "js-2.x" },
+    { label: 'TypeScript, JS SDK 2.x', value: "ts-2.x" },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 // client initialization
-const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
-  hash: 'SERVER_GENERATED_HASH'
+const client = LDClient.initialize('client-side-id-123abc', context, options = {
+  hash: 'server-generated-hash-123abc'
+});
+
+// identification of new contexts
+client.identify(newContext, hash, function() {
+  console.log("New context's flags available");
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+// client initialization
+const context: ld.LDContext = { kind: 'user', key: 'context-key-123abc' };
+const options: ld.LDOptions = { hash: 'server-generated-hash-123abc' };
+const client: ld.LDClient = ld.initialize('client-side-id-123abc', context, options);
+
+// identification of new contexts
+client.identify(newContext, hash, function () {
+  console.log("New context's flags available");
+});
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-2.x">
+
+```js
+// client initialization
+const client = LDClient.initialize('client-side-id-123abc', user, options = {
+  hash: 'server-generated-hash-123abc'
 });
 
 // identification of new user contexts
@@ -299,13 +377,13 @@ client.identify(newUser, hash, function() {
 ```
 
 </CodeTabItem>
-<CodeTabItem value="ts">
+<CodeTabItem value="ts-2.x">
 
 ```ts
 // client initialization
-const user: ld.LDUser = { key: 'aa0ceb' };
-const options: ld.LDOptions = { allAttributesPrivate: true };
-const client: ld.LDClient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const user: ld.LDUser = { key: 'user-key-123abc' };
+const options: ld.LDOptions = { hash: 'server-generated-hash-123abc' };
+const client: ld.LDClient = ld.initialize('client-side-id-123abc', user, options);
 
 // identification of new user contexts
 client.identify(newUser, hash, function () {
@@ -317,4 +395,4 @@ client.identify(newUser, hash, function () {
 </CodeTabItem>
 </CodeTabs>
 
-To use secure mode, user objects must contain a predefined `key` attribute. Secure mode is not compatible with the SDK's ability to [automatically generate user keys for anonymous users](/sdk/features/user-config#anonymous-users-in-the-javascript-sdk) because the SDK needs a correctly calculated `hash` value.
+To use secure mode, context objects must contain a predefined `key` attribute. Secure mode is not compatible with the SDK's ability to [automatically generate keys for anonymous contexts](/sdk/features/user-context-config#anonymous-contexts-in-the-javascript-sdk) because the SDK needs a correctly calculated `hash` value.

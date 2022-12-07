@@ -10,9 +10,24 @@ tags: ['bootstrap', 'sdk']
 
 This topic explains how the bootstrapping feature works in the LaunchDarkly SDKs that support it.
 
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
+
 ## Understanding the bootstrapping feature
 
-The bootstrapping feature lets you decrease startup times for client-side SDKs by providing them with an initial set of flag values that are immediately available during client initialization. The SDK serves these values to the user before it has established a connection to LaunchDarkly so there is no inconsistency in the flag variations they receive.
+The bootstrapping feature lets you decrease startup times for client-side SDKs by providing them with an initial set of flag values that are immediately available during client initialization. The SDK serves these values to the end user before it has established a connection to LaunchDarkly so there is no inconsistency in the flag variations they receive.
 
 There are two methods of bootstrapping the client:
 
@@ -31,15 +46,15 @@ The local storage cache updates when new values arrive. On subsequent page loads
 
 Bootstrapping using local storage has some benefits:
 
-- It is easy to set up, and requires little maintenance. 
+- It is easy to set up, and requires little maintenance.
 - It is useful when you can't dynamically add bootstrapping data to the page.
 
 Bootstrapping using local storage also has some downsides:
 
-- The first time the user visits your site, local storage is empty. This means the user will receive the site's default behavior before the values from feature flags load, and only after their second visit will the page utilize the values in local storage.
+- The first time the customer visits your site, local storage is empty. This means the customer will receive the site's default behavior before the values from feature flags load, and only after their second visit will the page utilize the values in local storage.
 - If there is a long time between page visits, the values stored in local storage may be out of date.
-- Some users have privacy settings that block sites from using their browser's local storage.
-- Flag changes that happen while the user is on the page automatically update the local storage cache, keeping it in sync with the server. However, if the user is not on the page when the flag change happens, the flag value in local storage may go out of sync with the server. The next time this user visits that page, they could experience a flicker because of the client using the previous flag value from local storage. If you bootstrap using local storage, it's important to choose effective defaults for your flag values to limit rendering delays.
+- Some customers have privacy settings that block sites from using their browser's local storage.
+- Flag changes that happen while the customer is on the page automatically update the local storage cache, keeping it in sync with the server. However, if the customer is not on the page when the flag change happens, the flag value in local storage may go out of sync with the server. The next time this customer visits that page, they could experience a flicker because of the client using the previous flag value from local storage. If you bootstrap using local storage, it's important to choose effective defaults for your flag values to limit rendering delays.
 
 For an example of bootstrapping from local storage on a static site, read [Bootstrapping using local storage](/guides/flags/static-sites#bootstrapping-using-local-storage).
 
@@ -51,15 +66,15 @@ Bootstrapping using server-rendered content requires more setup than bootstrappi
 
 The benefits of bootstrapping using server-rendered content include:
 
-- It provides values the first time a user visits a page.
+- It provides values the first time a customer visits a page.
 - Bootstrapped values will not become out of date if there is a lag between page visits.
-- It does not rely on a user's privacy settings to function.
+- It does not rely on a customer's privacy settings to function.
 
 The downside to bootstrapping using server-rendered content is that it requires significantly more set up work than bootstrapping from local storage.
 
 For a demonstration of bootstrapping from the server, visit our [hello-bootstrap GitHub repository](https://github.com/launchdarkly/hello-bootstrap).
 
-All of the server-side SDKs have a function, named some variation of `allFlagsState`, to evaluate flags on behalf of a specified user. We recommend populating the initial set of bootstrap values with a JSON object containing flag metadata derived from calling the server-side SDK's all flags method.
+All of the server-side SDKs have a function, named some variation of `allFlagsState`, to evaluate flags on behalf of a specified user or context. We recommend populating the initial set of bootstrap values with a JSON object containing flag metadata derived from calling the server-side SDK's all flags method.
 
 If your back end passes values to your front end on page load, you can call your server-side SDK's all flags function on page load and pass the results as a parameter to your front-end initialization code. To learn more, read [Getting all flags](/sdk/features/all-flags).
 
@@ -93,7 +108,7 @@ You can use it to set the feature flags to any values you want:
 
 ```js
 const client = LaunchDarkly.initialize(
-  'YOUR_CLIENT_SIDE_ID',
+  'client-side-id-123abc',
   user,
   {
     bootstrap: {
@@ -117,13 +132,13 @@ const options: LaunchDarkly.LDOptions = {
   },
 };
 
-const client = LaunchDarkly.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LaunchDarkly.initializeInMain('client-side-id-123abc', user, options);
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-If you set `bootstrap` to the string `"localStorage"`, the client tries to get flag values from persistent storage, using a unique key that is based on the user properties. 
+If you set `bootstrap` to the string `"localStorage"`, the client tries to get flag values from persistent storage, using a unique key that is based on the user properties.
 
 In Electron, persistent storage consists of files in the [`userData`](https://electronjs.org/docs/latest) directory. If the client finds flag values stored for this user, it uses them and starts up immediately in a ready state, but also makes a background request to LaunchDarkly to get the latest values and stores them as soon as it receives them.
 
@@ -140,7 +155,7 @@ Here's how to use this mode:
 
 ```js
 const client = LaunchDarkly.initializeInMain(
-  'YOUR_CLIENT_SIDE_ID',
+  'client-side-id-123abc',
   user,
   {
     bootstrap: 'localStorage'
@@ -156,7 +171,7 @@ import * as LaunchDarkly from 'launchdarkly-electron-client-sdk';
 
 const options: LaunchDarkly.LDOptions = { bootstrap: 'localStorage' };
 
-const client = LaunchDarkly.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LaunchDarkly.initializeInMain('client-side-id-123abc', user, options);
 
 ```
 
@@ -174,8 +189,10 @@ Here is an example of how to bootstrap flags into the JavaScript client, if it p
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: "js" },
-    { label: 'TypeScript', value: "ts" },
+    { label: 'JavaScript SDK 3.0', value: "js" },
+    { label: 'TypeScript, JS SDK 3.0', value: "ts" },
+    { label: 'JavaScript SDK 2.x', value: "js-2.x" },
+    { label: 'TypeScript, JS SDK 2.x', value: "ts-2.x" },
   ]
 }>
 <CodeTabItem value="js">
@@ -185,8 +202,8 @@ function onPageLoad(flags) {
   ...
 
   const client = LDClient.initialize(
-    'YOUR_CLIENT_SIDE_ID',
-    user,
+    'client-side-id-123abc',
+    context,
     options = {
       bootstrap: flags
     }
@@ -204,9 +221,43 @@ import * as LDClient from 'launchdarkly-js-client-sdk';
 
 function onPageLoad(flags: LDClient.LDFlagSet) {
   ...
-  const user: LDClient.LDUser = { key: 'aa0ceb'}
+  const context: LDClient.LDContext = { kind: 'user', key: 'user-key-123abc'}
   const options: LDClient.LDOptions = { bootstrap: flags };
-  const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+  const client = LDClient.initialize('client-side-id-123abc', context, options);
+  ...
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-2.x">
+
+```js
+function onPageLoad(flags) {
+  ...
+
+  const client = LDClient.initialize(
+    'client-side-id-123abc',
+    user,
+    options = {
+      bootstrap: flags
+    }
+  );
+
+  ...
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts-2.x">
+
+```ts
+import * as LDClient from 'launchdarkly-js-client-sdk';
+
+function onPageLoad(flags: LDClient.LDFlagSet) {
+  ...
+  const user: LDClient.LDUser = { key: 'user-key-123abc'}
+  const options: LDClient.LDOptions = { bootstrap: flags };
+  const client = LDClient.initialize('client-side-id-123abc', user, options);
   ...
 }
 ```
@@ -228,7 +279,7 @@ Here is an example of how to bootstrap flags into the JavaScript client, if you 
 
 ```js
 const ldclient = LDClient.initialize(
-  'YOUR_CLIENT_SIDE_ID',
+  'client-side-id-123abc',
   user,
   options = {
     // Load values from a Ruby template directive
@@ -254,7 +305,7 @@ Alternatively, you can bootstrap feature flags from local storage:
 <CodeTabItem value="js">
 
 ```js
-const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
+const client = LDClient.initialize('client-side-id-123abc', user, options = {
   bootstrap: 'localStorage'
 });
 ```
@@ -266,7 +317,7 @@ const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
 import * as LDClient from 'launchdarkly-js-client-sdk';
 
 const options: LDClient.LDOptions = { bootstrap: 'localStorage' };
-const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LDClient.initialize('client-side-id-123abc', user, options);
 ```
 
 </CodeTabItem>
@@ -297,7 +348,7 @@ You can use it to set the feature flags to any values you want:
 
 ```js
 const client = LaunchDarkly.initialize(
-  'YOUR_CLIENT_SIDE_ID',
+  'client-side-id-123abc',
   user,
   {
     bootstrap: {
@@ -321,7 +372,7 @@ const options: LaunchDarkly.LDOptions = {
   },
 };
 
-const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LaunchDarkly.initialize('client-side-id-123abc', user, options);
 ```
 
 </CodeTabItem>
@@ -342,7 +393,7 @@ To activate this mode, use the special string `"localStorage"`:
 
 ```js
 const client = LaunchDarkly.initialize(
-  'YOUR_CLIENT_SIDE_ID',
+  'client-side-id-123abc',
   user,
   {
     bootstrap: 'localStorage'
@@ -358,7 +409,7 @@ import * as LaunchDarkly from 'launchdarkly-node-client-sdk';
 
 const options: LaunchDarkly.LDOptions = { bootstrap: 'localStorage' };
 
-const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LaunchDarkly.initialize('client-side-id-123abc', user, options);
 
 ```
 

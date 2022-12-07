@@ -130,7 +130,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { LDPlugin } from 'launchdarkly-vue-client-sdk'
 
-const clientSideID = 'YOUR_CLIENT_SIDE_ID'
+const clientSideID = 'client-side-id-123abc'
 
 const app = createApp(App)
 app.use(LDPlugin, { clientSideID })
@@ -171,7 +171,7 @@ import App from './App.vue'
 import { LDPlugin } from 'launchdarkly-vue-client-sdk'
 
 const app = createApp(App)
-app.use(LDPlugin, { clientSideID: 'YOUR_CLIENT_SIDE_ID', deferInitialization: true })
+app.use(LDPlugin, { clientSideID: 'client-side-id-123abc', deferInitialization: true })
 app.mount('#app')
 ```
 
@@ -182,7 +182,7 @@ app.mount('#app')
 <script setup>
 import { ldInit } from 'launchdarkly-vue-client-sdk'
 
-const [ldReady] = ldInit({ user: { key: 'example-user-key', name: 'Sandy' } })
+const [ldReady] = ldInit({ user: { key: 'user-key-123abc', name: 'Sandy' } })
 </script>
 
 <template>

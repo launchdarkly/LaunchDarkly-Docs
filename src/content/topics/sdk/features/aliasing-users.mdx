@@ -3,8 +3,19 @@ path: /sdk/features/aliasing-users
 title: Aliasing users
 description: This topic explains how to alias the users of various LaunchDarkly SDKs, both client- and server-side.
 published: true
-tags: ['alias', 'user', 'sdk']
+tags: ['alias', 'context', 'sdk', 'user']
 ---
+
+<Callout intent="alert">
+<CalloutTitle>This feature is deprecated in the contexts EAP</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly no longer supports `alias` events for SDKs included in the contexts Early Access Program (EAP). LaunchDarkly continues to support sending and receiving alias events for older SDK versions, and SDKs not included in the EAP. For a list of SDKs in the contexts EAP, read about our [SDKs that support contexts](/sdk).
+
+To learn how to associate contexts without using the `alias` method, read [Associating anonymous contexts with logged-in end users](/home/contexts/anonymous-contexts#associating-anonymous-contexts-with-logged-in-end-users).
+
+</CalloutDescription>
+</Callout>
 
 ## Overview
 
@@ -14,7 +25,7 @@ This topic explains how to alias the users of various LaunchDarkly SDKs. This fe
 
 There are situations in which multiple LaunchDarkly users can represent one person. For example, this can happen when a person initially logs into an application. The person might be represented by an anonymous user before they log in, and a different user after they log in. In that case, that one person is identified by two different users as denoted by different user keys. Our SDKs can associate these two LaunchDarkly users by sending an `alias` event.
 
-All LaunchDarkly SDKs offer the ability to manually send an `alias` event. Additionally, client-side SDKs automatically send an `alias` event when identifying a known user if the previous user was anonymous. To lean more, read [Associating anonymous users with logged in users](/home/users/anonymous-users#associating-anonymous-users-with-logged-in-users). You can disable this behavior if necessary. To learn how, read [Configuration](/sdk/features/config).
+Only some LaunchDarkly SDKs offer the ability to manually send an `alias` event. Some client-side SDKs automatically send an `alias` event when identifying a known user if the previous user was anonymous. You can disable this behavior if necessary. To learn how, read [Configuration](/sdk/features/config).
 
 Details about each SDK's configuration are available in the SDK-specific sections below:
 
@@ -26,14 +37,10 @@ Details about each SDK's configuration are available in the SDK-specific section
 This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
-* [Android](#android)
 * [C/C++ (client-side)](#cc-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
-* [iOS](#ios)
-* [JavaScript](#javascript)
 * [Node.js (client-side)](#nodejs-client-side)
-* [React](#javascript): The React SDK relies on the JavaScript SDK for user-related functionality.
 * [React Native](#react-native)
 * [Roku](#roku)
 
@@ -63,7 +70,9 @@ To learn more, read [`LdClient.Alias`](https://launchdarkly.github.io/dotnet-cli
 
 ### Android
 
-<Details summary="Expand Android code sample">
+In version 4.0 and newer of the Android SDK, aliasing is no longer supported or required. To learn more, read the [Android SDK 3.x to 4.0 migration guide](/sdk/client-side/android/migration-3-to-4).
+
+<Details summary="Expand Android code sample for older versions">
 
 To manually send an `alias` event:
 
@@ -158,7 +167,9 @@ await LDClient.alias(newUser, previousUser);
 
 ### iOS
 
-<Details summary="Expand iOS code sample">
+In version 8 and newer of the iOS SDK, aliasing is no longer supported or required. To learn more, read the [iOS SDK 7.x to 8.0 migration guide for Objective-C](/sdk/client-side/ios/migration-7-to-8-objc) or for [Swift](/sdk/client-side/ios/migration-7-to-8-swift).
+
+<Details summary="Expand iOS code sample for older versions">
 
 To manually send an `alias` event:
 
@@ -187,7 +198,9 @@ LDClient.get()!.alias(context: newUser, previousContext: previousUser)
 
 ### JavaScript
 
-<Details summary="Expand JavaScript code sample">
+In version 3 and newer of the JavaScript SDK, aliasing is no longer supported or required. To learn more, read [JavaScript SDK 2.x to 3.0 migration guide](/sdk/client-side/javascript/migration-2-to-3).
+
+<Details summary="Expand JavaScript code sample for older versions">
 
 Both `alias` parameters must have `key` attributes. If the LaunchDarkly client auto-generated a unique identifier for one of your users, you can access the user's complete object with the `getUser` method.
 
@@ -196,7 +209,7 @@ To manually send an `alias` event:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
+    { label: 'JavaScript SDK 2.x', value: 'js', },
   ]
 }>
 <CodeTabItem value="js">
@@ -231,10 +244,6 @@ client.alias(newUser, previousUser);
 </CodeTabItem>
 </CodeTabs>
 </Details>
-
-### React
-
-All user-related functionality provided by the [JavaScript SDK](#javascript) is also available in the React SDK.
 
 ### React Native
 
@@ -288,15 +297,11 @@ client.alias(user, previousUser)
 
 This feature is available in the following server-side SDKs:
 
-* [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
 * [Erlang](#erlang)
-* [Go](#go)
 * [Haskell](#haskell)
-* [Java](#java)
 * [Lua](#lua)
-* [Node.js (server-side)](#nodejs-server-side)
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
@@ -304,14 +309,16 @@ This feature is available in the following server-side SDKs:
 
 ### .NET (server-side)
 
-<Details summary="Expand .NET (server-side) code sample">
+In version 7.0 and newer of the .NET (server-side) SDK, aliasing is no longer supported or required. To learn more, read [.NET (server-side) SDK 6.x to 7.0 migration guide](/sdk/server-side/dotnet/migration-6-to-7).
+
+<Details summary="Expand .NET (server-side) code sample for older versions">
 
 To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET (server-side) SDK pre-7.0', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -392,14 +399,16 @@ ldclient:alias(User, PreviousUser)
 
 ### Go
 
-<Details summary="Expand Go code sample">
+In version 6.0 and newer of the Go SDK, aliasing is no longer supported or required. To learn more, read [Go SDK 5.x to 6.0 migration guide](/sdk/server-side/go/migration-5-to-6).
 
-To manually send an `alias` event:
+<Details summary="Expand Go code sample for older versions">
+
+To manually send an `alias` event in older versions of the Go SDK:
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go, v5.x and older', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
@@ -436,14 +445,16 @@ alias client newUser previousUser
 
 ### Java
 
-<Details summary="Expand Java code sample">
+In version 6 and newer of the Java SDK, aliasing is no longer supported or required. To learn more, read [Java SDK 5.x to 6.0 migration guide](/sdk/server-side/java/migration-5-to-6).
+
+<Details summary="Expand Java code sample for older versions">
 
 To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java SDK v5.x and older', value: 'java', },
   ]
 }>
 <CodeTabItem value="java">
@@ -480,7 +491,9 @@ client:alias(newUser, previousUser)
 
 ### Node.js (server-side)
 
-<Details summary="Expand Node.js (server-side) code sample">
+In version 7.0 and newer of the Node.js (server-side) SDK, aliasing is no longer supported or required. To learn more, read [Node.js (server-side) SDK 6.x to 7.0 migration guide](/sdk/server-side/node-js/migration-6-to-7).
+
+<Details summary="Expand Node.js (server-side) code sample for older versions">
 
 To manually send an `alias` event:
 
@@ -568,7 +581,9 @@ client.alias(new_user, previous_user)
 
 ### Rust
 
-<Details summary="Expand Rust code sample">
+In version 1 and newer of the Rust SDK, aliasing is not supported or required. To learn more, read [Rust SDK v1 implementation guide](/sdk/server-side/rust/implementation-v1).
+
+<Details summary="Expand Rust code sample for the beta version">
 
 To manually send an `alias` event:
 

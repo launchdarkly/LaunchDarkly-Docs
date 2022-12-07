@@ -1,0 +1,124 @@
+---
+path: /sdk/client-side/react/web-migration-2-to-3
+title: React Web SDK 2.x to 3.0 migration guide
+description: This topic explains the changes in the React Web SDK 3 release and how to migrate to that version.
+tags: ['react web', 'react', 'migration', 'sdk', 'client-side', 'context']
+published: true
+---
+
+<Callout intent="info">
+<CalloutTitle>Contexts are for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of describing and referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+Creating contexts and evaluating flags based on contexts is the primary feature in the React Web SDK 3.0 release. However, the ability to target flags or segments by context, or review context instances that have encountered flags in your application, is only available to members of LaunchDarkly's Early Access Program (EAP). To learn more or join the EAP, read [Contexts](/home/contexts).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains the changes in the React Web SDK 3.0 release and how to adapt code that uses a 2.28 version of the [React Web SDK](/sdk/client-side/react/react-web) to use version 3 or later.
+
+**Version 3 includes several breaking changes**. Additionally, if you use the Relay Proxy, you must update your Relay Proxy to version 7.0 before you update your SDK to version 3. To learn more, read the [Relay Proxy 7.0 release notes](https://github.com/launchdarkly/ld-relay/releases/tag/v7.0.0).
+
+Before you migrate to version 3, update to the latest 2.28 version. Some of the changes that are mandatory in 3 were originally added in a 2.28 version and made optional.
+
+If you update to the latest 2.28 version, deprecation warnings appear in areas of your code that need to be changed for 3. You can update them at your own pace while still using 2.28, rather than migrating everything simultaneously. To learn more about updating to the latest 2.28 version, visit the [SDK's GitHub repository](https://github.com/launchdarkly/react-client-sdk).
+
+## Identifying supported React versions for the 3 SDK
+
+The minimum React version for LaunchDarkly 3 SDK is 16.3.3. If you want to use hooks, the minimum version is 16.8.
+
+LaunchDarkly no longer supports earlier React Web versions, as stated in the [End of Life policy](https://launchdarkly.com/policies/end-of-life-policy/).
+
+## Understanding changes to provider configuration
+
+In version 3 of the SDK, the `user` provider configuration option has been deprecated. Replace this with `context`.
+
+Here's how with `asyncWithLDProvider`:
+
+<CodeTabs
+  defaultValue="single-context"
+  values={[
+    { label: 'Single context with key', value: 'single-context', },
+    { label: 'Version 2.x, user with key', value: 'user', },
+  ]
+  }>
+<CodeTabItem value='single-context'>
+
+```js
+const context = {
+  kind: "user",
+  key: "user-key-123abc",
+}
+
+const LDProvider = await asyncWithLDProvider({
+  clientSideID: "client-side-id-123abc",
+  context: context,
+})
+```
+
+</CodeTabItem>
+<CodeTabItem value='user'>
+
+```js
+const user = {
+  key: "user-key-123abc",
+}
+
+const LDProvider = await asyncWithLDProvider({
+  clientSideID: "client-side-id-123abc",
+  user: user,
+})
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Here's how with `withLDProvider`:
+
+<CodeTabs
+  defaultValue="single-context"
+  values={[
+    { label: 'Single context with key', value: 'single-context', },
+    { label: 'Version 2.x, user with key', value: 'user', },
+  ]
+  }>
+<CodeTabItem value='single-context'>
+
+```js
+const context = {
+  kind: "user",
+  key: "user-key-123abc",
+}
+
+export default withLDProvider({
+  clientSideID: "client-side-id-123abc",
+  context: context,
+})(App)
+```
+
+</CodeTabItem>
+<CodeTabItem value='user'>
+
+```js
+const user = {
+  key: "user-key-123abc",
+}
+
+export default withLDProvider({
+  clientSideID: "client-side-id-123abc",
+  user: user,
+})(App)
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+If you use the jest-launchdarkly-mock package, update it to version 2.0.
+
+## Using this migration guide
+
+The React Web client-side SDK is a wrapper of LaunchDarkly's [JavaScript SDK](/sdk/client-side/javascript). The updates necessary to migrate to version 3 of the React Web SDK are available in the [JavaScript SDK migration guide](/sdk/client-side/javascript/migration-2-to-3).

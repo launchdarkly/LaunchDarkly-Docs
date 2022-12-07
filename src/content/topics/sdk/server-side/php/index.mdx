@@ -112,7 +112,7 @@ Here's how:
 <CodeTabItem value="php">
 
 ```php
-$client = new LaunchDarkly\LDClient("YOUR_SDK_KEY");
+$client = new LaunchDarkly\LDClient("sdk-key-123abc");
 ```
 
 </CodeTabItem>
@@ -131,7 +131,7 @@ Here's how:
 <CodeTabItem value="php">
 
 ```php
-$user = (new LaunchDarkly\LDUserBuilder("example-user-key"))
+$user = (new LaunchDarkly\LDUserBuilder("user-key-123abc"))
   ->name("Sandy")
   ->build();
 
@@ -199,7 +199,7 @@ You can then specify your cache when initializing the client with the cache opti
 <CodeTabItem value="php">
 
 ```php
-$client = new LaunchDarkly\LDClient("YOUR_SDK_KEY", array("cache" => $cacheStorage));
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", array("cache" => $cacheStorage));
 ```
 
 </CodeTabItem>
@@ -214,7 +214,7 @@ This SDK supports the following features:
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#php)
 * [Flushing events](/sdk/features/flush#php)
 * [Getting all flags](/sdk/features/all-flags#php)
-* [Identifying and changing users](/sdk/features/identify#php)
+* [Identifying and changing contexts](/sdk/features/identify#php)
 * [Logging configuration](/sdk/features/logging#php)
 * [Offline mode](/sdk/features/offline-mode#php)
 * [Reading flags from a file](/sdk/features/flags-from-files#php)
@@ -226,4 +226,4 @@ This SDK supports the following features:
 * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#php)
 * [Storing data](/sdk/features/storing-data#nodejs-server-side)
 * [Test data sources](/sdk/features/test-data-sources#php)
-* [User configuration](/sdk/features/user-config#php)
+* [User and context configuration](/sdk/features/user-context-config#php)

@@ -1,51 +1,69 @@
 ---
-path: /sdk/features/user-config
-title: User configuration
-description: This topic explains how to configure user objects in LaunchDarkly SDKs. User configuration is available for both client-side and server-side SDKs.
+path: /sdk/features/user-context-config
+title: User and context configuration
+description: This topic explains how to configure user and context objects in LaunchDarkly SDKs. These features are available for both client-side and server-side SDKs.
 published: true
-tags: ['user', 'configure', 'built-in', 'custom', 'attribute', 'sdk']
+tags: ['context', 'configure', 'built-in', 'custom', 'attribute', 'sdk', 'user']
 ---
 
 ## Overview
 
-This topic explains how to configure user objects in LaunchDarkly SDKs. These features are available for both client-side and server-side SDKs.
+This topic explains how to configure user and context objects in LaunchDarkly SDKs. These features are available for both client-side and server-side SDKs.
 
-## Configuring user objects
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
 
-Every LaunchDarkly SDK lets you configure user objects to return specific data to LaunchDarkly. Any attributes you pass to LaunchDarkly become available on the **Users** list. A user's attribute values determine which variation of a feature flag the user receives.
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
 
-The user `key` is the only mandatory user attribute. User keys must be a string type. User keys must be unique, deterministic, and should not contain Personally Identifiable Information (PII). User keys must be consistent, which means the same person must correspond to the same user key across different services to contribute to consistent flag evaluations and accurate monthly active user (MAU) counts.
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
 
-When you set a user key, consider where you will use it. User keys are transmitted to LaunchDarkly, so if your security best practices require you to obscure employee information when it is sent to third-party services, you may want to compose user keys of a unique identifier that is not PII and that has been hashed and salted.
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
+
+## Configuring context objects
+
+Every LaunchDarkly SDK lets you configure context or user objects to return specific data to LaunchDarkly. Any attributes you pass to LaunchDarkly become available on the **Contexts** or **Users** list. The attribute values determine which variation of a feature flag the customer receives.
+
+The object's `key` is the only mandatory attribute. Keys are always transmitted to LaunchDarkly.
+
+Keys must be a string type. Keys must be unique, deterministic, and should not contain Personally Identifiable Information (PII). Keys must be consistent, which means the same person must correspond to the same key across different services to contribute to consistent flag evaluations and accurate Monthly Active Users (MAU). You can use a primary key, an email address, or a hash, as long as the same person always has the same key. We recommend using a hash if possible.
+<!-- TKTK, review/update during SC-163842 -->
 
 ### Using built-in and custom attributes
 
-Attributes other than the user key are optional. There are two types of attributes: built-in attributes, which are LaunchDarkly names, and custom attributes, which you can name anything you choose.
+Attributes other than the key are optional. There are two types of attributes: built-in attributes, which are LaunchDarkly names, and custom attributes, which you can name anything you choose.
 
-Built-in attributes include common identifiers for users, like `firstName` and `email`. For a list of all built-in user attributes LaunchDarkly supports, read [Built-in user attributes](/home/users/built-in-attributes).
+When you work with an SDK that supports contexts, the only built-in attributes are `kind`, `key`, `name`, and `anonymous`.
 
-Custom attributes let you target users according to any data that you want to send to LaunchDarkly, including organizations, groups, and account plans. Custom attributes values can be booleans, numbers, strings, or arrays. If you set the value of a custom attribute to a JSON object, it won't appear on your **Users** list. To learn more, read [Custom user attributes](/home/users/custom-attributes).
+You can define additional attributes for a context by passing in a name and value for each. These additional attributes let you add targeting rules for your flags based on any data that you want to send to LaunchDarkly. Attribute values can be any JSON type, including boolean, number, string, array, or object. To learn more, read [Context attributes](/home/contexts/attributes).
 
 <Callout intent="alert">
-<CalloutTitle>Custom and built-in attributes cannot share keys</CalloutTitle>
+<CalloutTitle>Custom and built-in attributes cannot share names</CalloutTitle>
 <CalloutDescription>
 
-If you create a custom attribute with a key already in use by a built-in attribute, the SDK will behave unpredictably during feature flag evaluation. For a list of built-in attributes and their keys, read [Built-in user attributes](/home/users/built-in-attributes).
+If you create an attribute with a name already in use by a built-in attribute, the SDK will behave unpredictably during feature flag evaluation.
+
+When you work with an SDK that supports contexts, the only built-in attributes are `kind`, `key`, `name`, and `anonymous`. If you work with an SDK that only supports users, there are several additional built-in attributes. For a list of built-in attributes and their names, read [Built-in user attributes](/home/contexts/built-in-attributes).
 
 </CalloutDescription>
 </Callout>
 
 ### Using private attributes
 
-Each SDK lets you configure users with private attributes. You can use private user attributes for targeting purposes, but these attributes are removed from user data sent back to LaunchDarkly.
+Each SDK lets you configure private attributes. You can use private attributes for targeting purposes, but these attributes are removed from data sent back to LaunchDarkly.
 
-### Designating anonymous users
+### Designating anonymous contexts
 
-Each SDK lets you designate anonymous users. Anonymous users don't appear on your **Users** list, so you can't search for those users, and you can't search for or autocomplete by anonymous user keys. If you use the same user key for every anonymous user, you also can't use Experimentation with anonymous users, because tracking events are attributed to the user key.
+Each SDK lets you designate anonymous contexts or users. Anonymous contexts or users don't appear on your **Contexts** or **Users** list, so you can't search for them, and you can't search for or autocomplete by their keys. If you use the same key for every anonymous context or user, you also can't use Experimentation, because tracking events are attributed to the context key.
 
-In client-side SDKs, if you don't provide a user key or set it to null, and set `anonymous` to `true`, then the SDK generates a random user key for you.
+In client-side SDKs, if you don't provide a key or set it to null, and set `anonymous` to `true`, then the SDK generates a random key for you.
 
-We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+If you want to reduce your client-side MAU, we recommend using the same key for every initialization and then replacing that with the actual key when you know who the user context is. This way LaunchDarkly counts the initialization key only once against your client-side MAU, instead of every time you initialize. However, you cannot use this method if you use Experimentation, because all contexts you include in an experiment must have a unique key.
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 
@@ -54,7 +72,7 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 ## Client-side SDKs
 
-Here are the configuration options for user entities in client-side SDKs.
+Here are the configuration options for context and user entities in client-side SDKs.
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
@@ -85,18 +103,18 @@ Here's an example:
 <CodeTabItem value="csharp">
 
 ```csharp
-LDUser user = User.Builder("aa0ceb")
-    .FirstName("Ernestina")
-    .LastName("Evans")
-    .Email("ernestina@example.com")
-    .Custom("group", "admins")
+LDUser user = User.Builder("user-key-123abc")
+    .FirstName("Sandy")
+    .LastName("Smith")
+    .Email("sandy@example.com")
+    .Custom("group", "Microsoft")
     .Build();
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-The argument to `Builder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The argument to `Builder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -110,7 +128,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the client-side .NET SDK
 ---
 
-You can optionally configure the client-side .NET SDK to treat some or all user attributes as [private user attributes](/home/users/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the client-side .NET SDK to treat some or all user attributes as [private user attributes](/home/contexts/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the client-side .NET SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
@@ -130,8 +148,8 @@ For example:
 <CodeTabItem value="csharp">
 
 ```csharp
-var user = User.Builder("aa0ceb")
-    .Email("test@example.com").AsPrivateAttribute()
+var user = User.Builder("user-key-123abc")
+    .Email("sandy@example.com").AsPrivateAttribute()
     .Build();
 ```
 
@@ -143,7 +161,7 @@ When the SDK sends this user back to LaunchDarkly, it removes the `email` attrib
 #### Anonymous users in the client-side .NET SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
@@ -156,7 +174,7 @@ Here's how:
 <CodeTabItem value="csharp">
 
 ```csharp
-LDUser user = User.Builder("aa0ceb")
+LDUser user = User.Builder("user-key-123abc")
     .Anonymous(true)
     .Build();
 ```
@@ -190,25 +208,27 @@ LDUser user = User.Builder((string)null).Anonymous(true).Build();
 
 <Details summary="Expand Android code sample">
 
-In the Android SDK, use a [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to construct users.
+In the Android SDK, use a [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to construct contexts.
 
 Here's an example:
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
+    { label: 'Java for Android SDK v4.0', value: 'java' },
+    { label: 'Kotlin for Android SDK v4.0', value: 'kotlin' },
+    { label: 'Java for Android SDK v3.x', value: 'java-v3' },
+    { label: 'Kotlin for Android SDK v3.x', value: 'kotlin-v3' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
-LDUser user = new LDUser.Builder("aa0ceb")
-    .email("fake@example.com")
-    .firstName("Jake")
-    .lastName("Fake")
-    .custom("group", "microsoft")
+LDContext context = LDContext.builder("context-key-123abc")
+    .set("email", "sandy@example.com")
+    .set("firstName", "Sandy")
+    .set("lastName", "Smith")
+    .set("group", "Microsoft")
     .build();
 ```
 
@@ -216,45 +236,95 @@ LDUser user = new LDUser.Builder("aa0ceb")
 <CodeTabItem value="kotlin">
 
 ```kotlin
-val user: LDUser = LDUser.Builder("aa0ceb")
-    .email("fake@example.com")
-    .firstName("Jake")
-    .lastName("Fake")
-    .custom("group", "microsoft")
+val context: LDContext = LDContext.builder("context-key-123abc")
+    .set("email", "sandy@example.com")
+    .set("firstName", "Sandy")
+    .set("lastName", "Smith")
+    .set("group", "Microsoft")
+    .build()
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v3">
+
+```java
+LDUser user = new LDUser.Builder("user-key-123abc")
+    .email("sandy@example.com")
+    .firstName("Sandy")
+    .lastName("Smith")
+    .custom("group", "Microsoft")
+    .build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin-v3">
+
+```kotlin
+val user: LDUser = LDUser.Builder("user-key-123abc")
+    .email("sandy@example.com")
+    .firstName("Sandy")
+    .lastName("Smith")
+    .custom("group", "Microsoft")
     .build()
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-The argument to `Builder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The argument to `Builder` is the context's key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"context-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way. The Android SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Contexts** list that looks like a number or a boolean, the SDK interprets it that way. The Android SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
 
-#### Private user attributes in the Android SDK
+#### Private attributes in the Android SDK
 ---
 
-You can optionally configure the Android SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Android SDK to treat some or all attributes as [private context attributes](/home/contexts/attributes#using-private-context-attributes). Private attributes can be used for targeting purposes, but are removed from the context data sent back to LaunchDarkly.
 
-In the Android SDK you can define private attributes for the entire LaunchDarkly client. When creating the `LDConfig` object, call the `setPrivateAttributeNames` method, which which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this set, the SDK removes it before sending the user to LaunchDarkly.
+In the Android SDK you can define private attributes for the entire LaunchDarkly client. When creating the `LDConfig` object, call the `setPrivateAttributeNames` method, which which takes in a set of custom or built-in attributes as a parameter. If any context has a custom or built-in attribute named in this set, the SDK removes it before sending the context to LaunchDarkly.
 
-Here's how to configure private user attributes:
+Here's how to configure private attributes:
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
+    { label: 'Java for Android SDK v4.0', value: 'java' },
+    { label: 'Kotlin for Android SDK v4.0', value: 'kotlin' },
+    { label: 'Java for Android SDK v3.x', value: 'java-v3' },
+    { label: 'Kotlin for Android SDK v3.x', value: 'kotlin-v3' }
   ]
 }>
 <CodeTabItem value="java">
+
+```java
+LDConfig ldConfig = new LDConfig.Builder()
+    .events(
+        Components.sendEvents()
+            .privateAttributes("name", "group")
+    )
+    .build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+LDConfig ldConfig = new LDConfig.Builder()
+    .events(
+        Components.sendEvents()
+            .privateAttributes("name", "group")
+    )
+    .build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v3">
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
@@ -263,70 +333,97 @@ LDConfig ldConfig = new LDConfig.Builder()
 ```
 
 </CodeTabItem>
-<CodeTabItem value="kotlin">
+<CodeTabItem value="kotlin-v3">
 
 ```kotlin
 val ldConfig: LDConfig = LDConfig.Builder()
     .privateAttributes(UserAttribute.NAME, UserAttribute.forName("group"))
-    .build()
+    .build();
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-You can also mark attributes as private when building the user object by using the private versions of the builder methods to set the attributes. For example:
+You can also mark attributes as private when building the context object by using the private versions of the builder methods to set the attributes. For example:
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
+    { label: 'Java for Android SDK v4.0', value: 'java' },
+    { label: 'Kotlin for Android SDK v4.0', value: 'kotlin' },
+    { label: 'Java for Android SDK v3.x', value: 'java-v3' },
+    { label: 'Kotlin for Android SDK v3.x', value: 'kotlin-v3' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
-LDUser user = new LDUser.Builder("aa0ceb")
-    .email("fake@example.com")
-    .privateName("Jane")
-    .privateCustom("group", "microsoft")
-    .build();
+LDContext context = LDContext.builder("context-key-123abc")
+    .set("email", "sandy@example.com")
+    .set("name", "Sandy")
+    .set("group", "Microsoft")
+    .privateAttributes("name", "group")
 ```
 
 </CodeTabItem>
 <CodeTabItem value="kotlin">
 
 ```kotlin
-val user: LDUser = LDUser.Builder("aa0ceb")
-    .email("fake@example.com")
-    .privateName("Jane")
-    .privateCustom("group", "microsoft")
+val context: LDContext = LDContext.builder("context-key-123abc")
+    .set("email", "sandy@example.com")
+    .set("name", "Sandy")
+    .set("group", "Microsoft")
+    .privateAttributes("name", "group")
+    .build()
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v3">
+
+```java
+LDUser user = new LDUser.Builder("user-key-123abc")
+    .email("sandy@example.com")
+    .privateName("Sandy")
+    .privateCustom("group", "Microsoft")
+    .build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin-v3">
+
+```kotlin
+val user: LDUser = LDUser.Builder("user-key-123abc")
+    .email("sandy@example.com")
+    .privateName("Sandy")
+    .privateCustom("group", "Microsoft")
     .build()
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-When the SDK sends this user back to LaunchDarkly, it removes the `name` and `group` attributes.
+When the SDK sends this context back to LaunchDarkly, it removes the `name` and `group` attributes.
 
 #### Anonymous users in the Android SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+You can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
+    { label: 'Java for Android SDK v4.0', value: 'java' },
+    { label: 'Kotlin for Android SDK v4.0', value: 'kotlin' },
+    { label: 'Java for Android SDK v3.x', value: 'java-v3' },
+    { label: 'Kotlin for Android SDK v3.x', value: 'kotlin-v3' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
-LDUser user = new LDUser.Builder("user key")
+LDContext context = LDContext.builder("context-key-123abc")
     .anonymous(true)
     .build();
 ```
@@ -335,7 +432,25 @@ LDUser user = new LDUser.Builder("user key")
 <CodeTabItem value="kotlin">
 
 ```kotlin
-val user: LDUser = LDUser.Builder("user key")
+val context: LDContext = LDContext.builder("context-key-123abc")
+    .anonymous(true)
+    .build()
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v3">
+
+```java
+LDUser user = new LDUser.Builder("user-key-123abc")
+    .anonymous(true)
+    .build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin-v3">
+
+```kotlin
+val user: LDUser = LDUser.Builder("user-key-123abc")
     .anonymous(true)
     .build()
 ```
@@ -345,7 +460,7 @@ val user: LDUser = LDUser.Builder("user key")
 
 You can leave the key parameter in the Builder null or make it an empty string. The client will automatically set it to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots.
 
-We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the end user is. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
 </Details>
 
 ### C/C++ (client-side)
@@ -371,16 +486,16 @@ LDArrayPush(groups, LDNewText("Google"));
 LDArrayPush(groups, LDNewText("Microsoft"));
 attributes = LDNewObject();
 LDObjectSetKey("groups", groups);
-struct LDUser *user = LDUserNew("aa0ceb");
-LDUserSetFirstName(user, "Jake");
-LDUserSetLastName(user, "Fake");
+struct LDUser *user = LDUserNew("user-key-123abc");
+LDUserSetFirstName(user, "Sandy");
+LDUserSetLastName(user, "Smith");
 LDUserSetCustomAttributesJSON(user, attributes);
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-The argument to `LDUserNew` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The argument to `LDUserNew` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -394,7 +509,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the C/C++ SDK
 ---
 
-You can optionally configure the C/C++ SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the C/C++ SDK to treat some or all user attributes as private user attributes. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the C/C++ SDK there are two ways to define private attributes for the LaunchDarkly client:
 
@@ -411,7 +526,7 @@ In the C/C++ SDK there are two ways to define private attributes for the LaunchD
 <CodeTabItem value="c">
 
 ```c
-struct LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
+struct LDConfig *config = LDConfigNew("mobile-key-123abc");
 // Mark all attributes private
 LDConfigSetAllAttributesPrivate(config, true);
 ```
@@ -422,7 +537,7 @@ LDConfigSetAllAttributesPrivate(config, true);
 #### Anonymous users in the C/C++ SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
@@ -435,7 +550,7 @@ Here's how:
 <CodeTabItem value="c">
 
 ```c
-struct LDUser *user = LDUserNew("aa0ceb");
+struct LDUser *user = LDUserNew("user-key-123abc");
 LDUserSetAnonymous(user, true);
 ```
 
@@ -471,10 +586,10 @@ Here's an example of a user:
 
 ```js
 const user = {
-  key: 'aa0ceb',
-  firstName: 'Ernestina',
-  lastName: 'Evans',
-  email: 'ernestina@example.com',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
   custom: {
     groups: ['Google', 'Microsoft']
   }
@@ -488,10 +603,10 @@ const user = {
 import * as LDElectron from 'launchdarkly-electron-client-sdk';
 
 const user: LDElectron.LDUser = {
-  key: 'aa0ceb',
-  firstName: 'Ernestina',
-  lastName: 'Evans',
-  email: 'ernestina@example.com',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
   custom: {
     groups: ['Google', 'Microsoft'],
   },
@@ -501,7 +616,7 @@ const user: LDElectron.LDUser = {
 </CodeTabItem>
 </CodeTabs>
 
-The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -515,7 +630,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the Electron SDK
 ---
 
-You can optionally configure the SDK to treat all user attributes as [private user attributes](/home/users/attributes). Private user attributes can be used for targeting purposes, but the SDK removes them from the user data sent back to LaunchDarkly.
+You can optionally configure the SDK to treat all user attributes as [private user attributes](/home/contexts/attributes). Private user attributes can be used for targeting purposes, but the SDK removes them from the user data sent back to LaunchDarkly.
 
 To mark all user attributes except the key as private, you can use the `allAttributesPrivate` option:
 
@@ -530,12 +645,12 @@ To mark all user attributes except the key as private, you can use the `allAttri
 
 ```js
 const user = {
-  key: 'aa0ceb',
-  name: 'Grace Hopper',
-  email: 'gracehopper@example.com'
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com'
 };
 
-const client = LDElectron.initialize('YOUR_CLIENT_SIDE_ID', user, {
+const client = LDElectron.initialize('client-side-id-123abc', user, {
   allAttributesPrivate: true
 });
 ```
@@ -547,12 +662,12 @@ const client = LDElectron.initialize('YOUR_CLIENT_SIDE_ID', user, {
 import * as LDElectron from 'launchdarkly-electron-client-sdk';
 
 const user: LDElectron.LDUser = {
-  key: 'aa0ceb',
-  name: 'Grace Hopper',
-  email: 'gracehopper@example.com',
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com',
 };
 
-const client = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, {
+const client = LDElectron.initializeInMain('client-side-id-123abc', user, {
   allAttributesPrivate: true,
 });
 ```
@@ -577,13 +692,13 @@ This option is configured in both the user object and the configuration object:
 
 ```js
 const user = {
-  key: 'aa0ceb',
-  name: 'Grace Hopper',
-  email: 'gracehopper@example.com',
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com',
   privateAttributeNames: ['email']
 };
 
-const client = LDElectron.initialize('YOUR_CLIENT_SIDE_ID', user, {
+const client = LDElectron.initialize('client-side-id-123abc', user, {
   privateAttributeNames: ['email']
 });
 ```
@@ -595,13 +710,13 @@ const client = LDElectron.initialize('YOUR_CLIENT_SIDE_ID', user, {
 import * as LDElectron from 'launchdarkly-electron-client-sdk';
 
 const user: LDElectron.LDUser = {
-  key: 'aa0ceb',
-  name: 'Grace Hopper',
-  email: 'gracehopper@example.com',
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com',
   privateAttributeNames: ['email'],
 };
 
-const client = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, {
+const client = LDElectron.initializeInMain('client-side-id-123abc', user, {
   privateAttributeNames: ['email'],
 });
 ```
@@ -614,7 +729,7 @@ In the above example, the SDK sends only the `key` and `name` back to LaunchDark
 #### Anonymous users in the Electron SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
@@ -634,7 +749,7 @@ Here's how:
 const anonymousUser = { anonymous: true };
 
 // You can also specify any key you want:
-const anonymousUser2 = { key: 'aa0ceb', anonymous: true };
+const anonymousUser2 = { key: 'user-key-123abc', anonymous: true };
 ```
 
 </CodeTabItem>
@@ -649,7 +764,7 @@ import * as LDElectron from 'launchdarkly-electron-client-sdk';
 const anonymousUser: LDElectron.LDUser = { anonymous: true };
 
 // You can also specify any key you want:
-const anonymousUser2: LDElectron.LDUser = { key: 'aa0ceb', anonymous: true };
+const anonymousUser2: LDElectron.LDUser = { key: 'user-key-123abc', anonymous: true };
 ```
 
 </CodeTabItem>
@@ -675,10 +790,10 @@ Here's an example:
 <CodeTabItem value="dart">
 
 ```dart
-LDUser user = LDUserBuilder('aa0ceb')
-    .email('fake@example.com')
-    .firstName('Jake')
-    .lastName('Fake')
+LDUser user = LDUserBuilder('user-key-123abc')
+    .email('sandy@example.com')
+    .firstName('Sandy')
+    .lastName('Smith')
     .custom('group', LDValue.ofString('microsoft'))
     .build();
 ```
@@ -686,7 +801,7 @@ LDUser user = LDUserBuilder('aa0ceb')
 </CodeTabItem>
 </CodeTabs>
 
-The argument to `LDUserBuilder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The argument to `LDUserBuilder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -700,7 +815,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the Flutter SDK
 ---
 
-Optionally, you can configure the Flutter SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). You can use private user attributes for targeting purposes. They are removed from the user data sent back to LaunchDarkly.
+Optionally, you can configure the Flutter SDK to treat some or all user attributes as private user attributes. You can use private user attributes for targeting purposes. They are removed from the user data sent back to LaunchDarkly.
 
 In the Flutter SDK, you can define private attributes for the **entire** LaunchDarkly client. When you create the `LDConfig` object, you can call the `setPrivateAttributeNames` method, which which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this set, the SDK removes it before sending the user to LaunchDarkly.
 
@@ -737,8 +852,8 @@ You can also mark attributes as private when building the user object by using t
 <CodeTabItem value="dart">
 
 ```dart
-LDUser user = LDUserBuilder('aa0ceb')
-    .email('fake@example.com')
+LDUser user = LDUserBuilder('user-key-123abc')
+    .email('sandy@example.com')
     .privateName('Jane')
     .privateCustom('group', LDValue.ofString('microsoft'))
     .build();
@@ -752,7 +867,7 @@ When the SDK sends this user back to LaunchDarkly, the `name` and `group` attrib
 #### Anonymous users in the Flutter SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
@@ -780,93 +895,172 @@ We recommend using the same user key for every initialization and then replacing
 
 <Details summary="Expand iOS code sample">
 
-You can pass optional properties to the user object in iOS:
+You can pass optional properties to the context object in iOS:
 
 <CodeTabs
   defaultValue="swift"
   values={[
     { label: 'Swift', value: 'swift', },
     { label: 'Objective-C', value: 'objc', },
+    { label: 'Swift for iOS SDK v7.x', value: 'swift-v7', },
+    { label: 'Objective-C for iOS SDK v7.x', value: 'objc-v7', }
   ]
 }>
 <CodeTabItem value="swift">
 
 ```swift
-var user = LDUser(key: "YOUR_USER_KEY")
-user.name = "Human Person"
-user.email = "human@example.com"
+var contextBuilder = LDContextBuilder(key: "user-key-123abc")
+contextBuilder.trySetValue("name", .string("Sandy"))
+contextBuilder.trySetValue("email", .string("sandy@example.com"))
 
+let context = try contextBuilder.build().get()
 ```
 
 </CodeTabItem>
 <CodeTabItem value="objc">
 
 ```objectivec
-LDUser *user = [[LDUser alloc] initWithKey:@"YOUR_USER_KEY"];
-user.name = @"Human Person";
-user.email = @"human@example.com";
+LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"];
+[builder trySetValueWithName:@"name" value:[LDValue ofString:@"Sandy"]];
+[builder trySetValueWithName:@"email" value:[LDValue ofString:@"sandy@example.com"]];
+
+LDContext *context = builder.build.success;
+```
+
+</CodeTabItem>
+<CodeTabItem value="swift-v7">
+
+```swift
+var user = LDUser(key: "user-key-123abc")
+user.name = "Sandy"
+user.email = "sandy@example.com"
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc-v7">
+
+```objectivec
+LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
+user.name = @"Sandy";
+user.email = @"sandy@example.com";
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-Here, we added the user's full name and email address. To learn more about the specific user properties that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ios-client-sdk/Structs/LDUser.html).
+Here, we added the end user's full name and email address. To learn more about the specific context properties that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ios-client-sdk/Structs/LDContext.html).
 
-#### Private user attributes in the iOS SDK
+#### Private attributes in the iOS SDK
 ---
 
-You can optionally configure the iOS SDK to treat some or all user attributes as private user attributes. Private user attributes can be used for targeting purposes, but are removed from the user data the SDK sends to LaunchDarkly.
+You can optionally configure the iOS SDK to treat some or all context attributes as private attributes. Private attributes can be used for targeting purposes, but are removed from the context data the SDK sends to LaunchDarkly.
 
 In the iOS SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- When creating the `LDConfig` object, you can set the `allUserAttributesPrivate` attribute to `true`.
-- When creating the LDConfig object, you can set the `privateUserAttributes` property to a list of `UserAttribute`s, such as `[UserAttribute.BuiltIn.name, UserAttribute.forName("group")]`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
+- When creating the `LDConfig` object, you can set the `allContextAttributesPrivate` attribute to `true`.
+- When creating the LDConfig object, you can set the `privateContextAttributes` property to a list of `Reference`s, such as `[Reference("name"), Reference("/address/state")]`. If any context has a custom or built-in attribute named in this list, the SDK removes it before sending the context to LaunchDarkly.
 
-You can also mark attributes as private on a particular `LDUser` instance, for example:
+You can also mark attributes as private on a particular `LDContext` instance, for example:
 
 <CodeTabs
   defaultValue="swift"
   values={[
     { label: 'Swift', value: 'swift', },
     { label: 'Objective-C', value: 'objc', },
+    { label: 'Swift for iOS SDK v7.x', value: 'swift-v7', },
+    { label: 'Objective-C for iOS SDK v7.x', value: 'objc-v7', }
   ]
 }>
 <CodeTabItem value="swift">
 
 ```swift
-var user = LDUser(key: "USER_KEY", name: "USER_NAME", custom: ["group": "beta"])
-user.privateAttributes = [UserAttribute.BuiltIn.name, UserAttribute.forName("group")]
+var contextBuilder = LDContextBuilder(key: "context-key-123abc")
+contextBuilder.trySetValue("name", .string("Sandy"))
+contextBuilder.trySetValue("group", .array([LDValue(stringLiteral: "microsoft")]))
+contextBuilder.addPrivateAttribute(Reference("name"))
+contextBuilder.addPrivateAttribute(Reference("group"))
+
+let context = try contextBuilder.build().get()
 ```
 
 </CodeTabItem>
 <CodeTabItem value="objc">
 
 ```objectivec
-LDUser *user = [[LDUser alloc] initWithKey:@"USER_KEY"];
-user.name = @"USER_NAME";
-user.custom = @{@"group": [LDValue ofString:@"beta"]};
+LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"];
+[builder trySetValueWithName:@"name" value:[LDValue ofString:@"Sandy"]];
+
+NSArray *groups = [NSArray arrayWithObjects:[LDValue ofString:@"microsoft"], nil];
+[builder trySetValueWithName:@"group" value:[LDValue ofArray:groups]];
+
+LDContext *context = builder.build.success;
+```
+
+</CodeTabItem>
+<CodeTabItem value="swift-v7">
+
+```swift
+var user = LDUser(key: "user-key-123abc", name: "Sandy", custom: ["group": "microsoft"])
+user.privateAttributes = [UserAttribute.BuiltIn.name, UserAttribute.forName("group")]
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc-v7">
+
+```objectivec
+LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
+user.name = @"Sandy";
+user.custom = @{@"group": [LDValue ofString:@"microsoft"]};
 user.privateAttributes = @[@"name", @"group"];
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-#### Anonymous users in the iOS SDK
+#### Anonymous contexts in the iOS SDK
 ---
 
-You can declare an `LDUser` to be an anonymous, not logged-in user:
+You can declare an `LDcontext` to be an anonymous, not logged-in end user:
 
 <CodeTabs
   defaultValue="swift"
   values={[
     { label: 'Swift', value: 'swift', },
     { label: 'Objective-C', value: 'objc', },
+    { label: 'Swift for iOS SDK v7.x', value: 'swift-v7', },
+    { label: 'Objective-C for iOS SDK v7.x', value: 'objc-v7', }
   ]
 }>
 <CodeTabItem value="swift">
 
 ```swift
-var user = LDUser(key: "USER_KEY")
+var contextBuilder = LDContextBuilder(key: "context-key-123abc")
+contextBuilder.anonymous(true)
+
+let context = contextBuilder.build().get()
+
+// Or have the SDK use a device persistent key. This sets `isAnonymous` by default.
+let context = try LDContextBuilder().build().get()
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"];
+[builder trySetValueWithName:@"anonymous" value:[LDValue ofBool:true]];
+
+LDContext *context = builder.build.success;
+
+// Or have the SDK use a device persistent key. This sets `isAnonymous` by default.
+LDContextBuilder *newThing = [[LDContextBuilder alloc] init];
+```
+
+</CodeTabItem>
+<CodeTabItem value="swift-v7">
+
+```swift
+var user = LDUser(key: "user-key-123abc")
 user.isAnonymous = true
 
 // Or have the SDK use a device persistent key. This sets `isAnonymous` by default.
@@ -874,10 +1068,10 @@ let user = LDUser()
 ```
 
 </CodeTabItem>
-<CodeTabItem value="objc">
+<CodeTabItem value="objc-v7">
 
 ```objectivec
-LDUser *user = [[LDUser alloc] initWithKey:@"USER_KEY"];
+LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user.isAnonymous = YES;
 
 // Or have the SDK use a device persistent key. This sets `isAnonymous` by default.
@@ -887,44 +1081,36 @@ LDUser *user = [LDUser new];
 </CodeTabItem>
 </CodeTabs>
 
-You must generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+You must generate a unique key for anonymous contexts. Session IDs or UUIDs work best for this.
 
-We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+We recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the context is. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
 </Details>
 
 ### JavaScript
 
 <Details summary="Expand JavaScript code sample">
 
-<Callout intent="alert">
-<CalloutTitle>Personally-identifying user keys</CalloutTitle>
-<CalloutDescription>
-
-If the `key` attribute you rely on in your user JSON contains personally identifiable information, you should enable the `useReport` option by sending the user JSON as a JSON base64 URL-encoded path parameter. When you enable `useReport`, the SDK fetches flag settings by sending the user JSON in the body of a REPORT request instead, hiding that information from request logs.
-
-</CalloutDescription>
-</Callout>
-
-Here's an example of a user:
+Here's an example of a context:
 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
+    { label: 'JavaScript SDK 3.0', value: 'js', },
+    { label: 'TypeScript, JS SDK 3.0', value: 'ts'},
+    { label: 'JavaScript SDK 2.x', value: "js-2.x" },
+    { label: 'TypeScript, JS SDK 2.x', value: "ts-2.x" },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const user = {
-  key: 'aa0ceb',
-  firstName': 'Ernestina',
-  lastName': 'Evans',
-  email': 'ernestina@example.com',
-  custom: {
-    groups: ['Google', 'Microsoft']
-  }
+const context = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  groups: ['Google', 'Microsoft']
 };
 ```
 
@@ -934,11 +1120,42 @@ const user = {
 ```ts
 import * as ld from 'launchdarkly-js-client-sdk';
 
+const context: ld.LDContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  groups: ['Google', 'Microsoft']
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-2.x">
+
+```js
+const user = {
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  custom: {
+    groups: ['Google', 'Microsoft']
+  }
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts-2.x">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
 const user: ld.LDUser = {
-  key: 'aa0ceb',
-  firstName: 'Ernestina',
-  lastName: 'Evans',
-  email: 'ernestina@example.com',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
   custom: {
     groups: ['Google', 'Microsoft'],
   },
@@ -948,41 +1165,46 @@ const user: ld.LDUser = {
 </CodeTabItem>
 </CodeTabs>
 
-The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The `key` property should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `user-key-123abc`.
 
-<Callout intent="info">
-<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
+The optional `name` and `kind` attributes expect string values. If the `kind` attribute is not specified, it is assumed to be "user". Other attributes can be booleans, numbers, strings, arrays, or JSON objects.
+
+<Callout intent="alert">
+<CalloutTitle>Personally-identifying context keys</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way.
+We recommend against using personally identifiable information (PII) in context keys. If the `key` attribute you rely on in your context JSON does contain PII, you should enable the `useReport` option by sending the evaluation context as a JSON base64 URL-encoded path parameter. When you enable `useReport`, the SDK fetches flag settings by sending the context JSON in the body of a REPORT request instead, hiding that information from request logs.
 
 </CalloutDescription>
 </Callout>
 
-#### Private user attributes in the JavaScript SDK
+#### Private attributes in the JavaScript SDK
 ---
 
-You can optionally configure the JavaScript SDK to treat all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the JavaScript SDK to treat all attributes as [private context attributes](/home/contexts/attributes#using-private-context-attributes). Private attributes can be used for targeting purposes, but are removed from the context data sent back to LaunchDarkly.
 
-To mark all user attributes except the key as private in the JavaScript SDK, you can use the `allAttributesPrivate` option:
+To mark all attributes except the key as private in the JavaScript SDK, you can use the `allAttributesPrivate` option:
 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
+    { label: 'JavaScript SDK 3.0', value: "js" },
+    { label: 'TypeScript, JS SDK 3.0', value: "ts" },
+    { label: 'JavaScript SDK 2.x', value: "js-2.x" },
+    { label: 'TypeScript, JS SDK 2.x', value: "ts-2.x" },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const user = {
-  key: 'aa0ceb',
-  name: 'Grace Hopper',
-  email: 'gracehopper@example.com'
+const context = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com'
 };
 
-const ldclient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
+const ldclient = ld.initialize('client-side-id-123abc', context, options = {
   allAttributesPrivate: true
 });
 ```
@@ -993,14 +1215,46 @@ const ldclient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
 ```ts
 import * as ld from 'launchdarkly-js-client-sdk';
 
-const user: ld.LDUser = {
-  key: 'aa0ceb',
-  name: 'Grace Hopper',
-  email: 'gracehopper@example.com',
+const context: ld.LDContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com',
 }
 const options: ld.LDOptions = { allAttributesPrivate: true };
 
-const client = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = ld.initialize('client-side-id-123abc', context, options);
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-2.x">
+
+```js
+const user = {
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com'
+};
+
+const ldclient = ld.initialize('client-side-id-123abc', user, options = {
+  allAttributesPrivate: true
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts-2.x">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+const user: ld.LDUser = {
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com',
+}
+const options: ld.LDOptions = { allAttributesPrivate: true };
+
+const client = ld.initialize('client-side-id-123abc', user, options);
 ```
 
 </CodeTabItem>
@@ -1008,29 +1262,34 @@ const client = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 
 In the above example, the `name` and `email` attributes are removed.
 
-You can also specify an array of which attributes should be private with the `privateAttributeNames` option. You can configure this option on a per-user basis by specifying which attributes should be private in your user object.
+You can configure this option either in the context object or in the configuration object, by specifying an array of attributes that should be private. In the context object, specify your array of attributes in the `privateNames` field of the reserved `_meta` property. In the configuration object, specify your array of attributes in the `privateAttributeNames` configuration option.
 
-This option is configured in both the user object and the configuration object:
+Here's how:
 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
+    { label: 'JavaScript SDK 3.0', value: "js" },
+    { label: 'TypeScript, JS SDK 3.0', value: "ts" },
+    { label: 'JavaScript SDK 2.x', value: "js-2.x" },
+    { label: 'TypeScript, JS SDK 2.x', value: "ts-2.x" },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const user = {
+const context = {
+  kind: 'user',
   key: 'aa0ceb',
   name: 'Grace Hopper',
   email: 'gracehopper@example.com',
-  privateAttributeNames: ['email']
+  _meta: {
+    privateAttributes: ['email']
+  }
 };
 
-const ldclient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
-  privateAttributeNames: ['email']
+const ldclient = ld.initialize('YOUR_CLIENT_SIDE_ID', context, options = {
+  privateAttributes: ['email']
 });
 ```
 
@@ -1040,66 +1299,99 @@ const ldclient = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
 ```ts
 import * as ld from 'launchdarkly-js-client-sdk';
 
-const user: ld.LDUser = {
+const context: ld.LDContext = {
   key: 'aa0ceb',
   name: 'Grace Hopper',
   email: 'gracehopper@example.com',
+  _meta: {
+    privateAttributes: ['email'],
+  }
+};
+const options: ld.LDOptions = { privateAttributes: ['email'] };
+
+const client = ld.initialize('YOUR_CLIENT_SIDE_ID', context, options);
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-2.x">
+
+```js
+const user = {
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com',
+  privateAttributeNames: ['email']
+};
+
+const ldclient = ld.initialize('client-side-id-123abc', user, options = {
+  privateAttributeNames: ['email']
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts-2.x">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+const user: ld.LDUser = {
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com',
   privateAttributeNames: ['email'],
 };
-const options: ld.LDOptions = { allAttributesPrivate: ['email'] };
+const options: ld.LDOptions = { privateAttributeNames: ['email'] };
 
-const client = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = ld.initialize('client-side-id-123abc', user, options);
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-In the above example, the SDK sends only the user's key and name back to LaunchDarkly.
+In the above example, the SDK sends only the context's key and name back to LaunchDarkly.
 
-<Callout intent="alert">
-<CalloutTitle>Parameters for JS SDK &lt; 2.0</CalloutTitle>
-<CalloutDescription>
-
-SDK versions earlier than 2.0 use snake case rather than camel case in the options object. `private_attribute_names` and `all_attributes_private` are the parameter names that should be used. `privateAttributeNames` is still valid when you specify it in the user object.
-
-</CalloutDescription>
-</Callout>
-
-#### Anonymous users in the JavaScript SDK
+#### Anonymous contexts in the JavaScript SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+You can distinguish logged-in end users from anonymous end users in the SDK.
+
+If you use [multi-contexts](/home/contexts#understanding-contexts-and-context-kinds), you can choose to make only some contexts anonymous.
 
 Here's how:
 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
+    { label: 'JavaScript SDK 3.0', value: "js" },
+    { label: 'TypeScript, JS SDK 3.0', value: "ts" },
+    { label: 'JavaScript SDK 2.x', value: "js-2.x" },
+    { label: 'TypeScript, JS SDK 2.x', value: "ts-2.x" },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-// Starting with version 2.10.0 of the JavaScript SDK, to create
-// an anonymous user you can specify the "anonymous" property and
+// To create an anonymous context, specify the "anonymous" property and
 // omit the "key" property. In doing so, the LaunchDarkly client
-// auto-generates a unique identifier for this user. The
+// auto-generates a unique identifier for this context. The
 // identifier is saved in local storage and reused in future
 // browser sessions to ensure a constant experience.
-const anonymousUser = { anonymous: true };
+const anonymousUserContext = {
+  kind: 'user',
+  anonymous: true
+};
 
-// If you are using earlier SDK versions, you need to specify
-// the "key" property as earlier versions do not auto-generate the
-// property.
-//
-// Here you need to generate a unique key for anonymous
-// users. You can use the session ID or a UUID.
-//
-// We suggest storing the user's key in a cookie, otherwise you
-// might create a new user for each page request.
-const anonymousUser2 = { key: 'aa0ceb', anonymous: true };
+// A multi-context can contain both anonymous and non-anonymous contexts.
+// Here, the organization is not anonymous.
+const multiContext = {
+  kind: 'multi',
+  user: anonymousUserContext,
+  org: {
+    key: 'org-key',
+    name: 'Example organization name'
+  }
+}
+
 ```
 
 </CodeTabItem>
@@ -1108,30 +1400,61 @@ const anonymousUser2 = { key: 'aa0ceb', anonymous: true };
 ```ts
 import * as ld from 'launchdarkly-js-client-sdk';
 
-// Starting with version 2.10.0 of the JavaScript SDK, to create
-// an anonymous user you can specify the "anonymous" property and
+// To create an anonymous context, specify the "anonymous" property and
+// omit the "key" property. In doing so, the LaunchDarkly client
+// auto-generates a unique identifier for this context. The
+// identifier is saved in local storage and reused in future
+// browser sessions to ensure a constant experience.
+const anonymousContext: ld.LDContext = {
+  kind: 'user',
+  anonymous: true
+};
+
+// A multi-context can contain both anonymous and non-anonymous contexts.
+// Here, the organization is not anonymous.
+const multiContext: ld.LDContext = {
+  kind: 'multi',
+  user: anonymousUserContext,
+  org: {
+    key: 'org-key-123abc',
+    name: 'Example organization name'
+  }
+}
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-2.x">
+
+```js
+// To create an anonymous user, specify the "anonymous" property and
+// omit the "key" property. In doing so, the LaunchDarkly client
+// auto-generates a unique identifier for this user. The
+// identifier is saved in local storage and reused in future
+// browser sessions to ensure a constant experience.
+const anonymousUser = { anonymous: true };
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts-2.x">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+// To create an anonymous user, specify the "anonymous" property and
 // omit the "key" property. In doing so, the LaunchDarkly client
 // auto-generates a unique identifier for this user. The
 // identifier is saved in local storage and reused in future
 // browser sessions to ensure a constant experience.
 const anonymousUser: ld.LDUser = { anonymous: true };
 
-// If you are using earlier SDK versions, you need to specify
-// the "key" property as earlier versions do not auto-generate the
-// property.
-//
-// Here you need to generate a unique key for anonymous
-// users. You can use the session ID or a UUID.
-//
-// We suggest storing the user's key in a cookie, otherwise you
-// might create a new user for each page request.
-const anonymousUser2: ld.LDUser = { key: 'aa0ceb', anonymous: true };
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+We recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the logged-in end user is. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
 </Details>
 
 ### Node.js (client-side)
@@ -1160,10 +1483,10 @@ Here's an example of a user:
 
 ```js
 const user = {
-  key: 'aa0ceb',
-  firstName: 'Ernestina',
-  lastName: 'Evans',
-  email: 'ernestina@example.com',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
   custom: {
     groups: ['Google', 'Microsoft']
   }
@@ -1177,10 +1500,10 @@ const user = {
 import * as ld from 'launchdarkly-node-client-sdk';
 
 const user: ld.LDUser = {
-  key: 'aa0ceb',
-  firstName: 'Ernestina',
-  lastName: 'Evans',
-  email: 'ernestina@example.com',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
   custom: {
     groups: ['Google', 'Microsoft'],
   },
@@ -1190,7 +1513,7 @@ const user: ld.LDUser = {
 </CodeTabItem>
 </CodeTabs>
 
-The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -1204,7 +1527,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the Node.js SDK
 ---
 
-You can optionally configure the SDK to treat all user attributes as [private user attributes](/home/users/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the SDK to treat all user attributes as [private user attributes](/home/contexts/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 To mark all user attributes except the key as private in the JavaScript SDK, you can use the `allAttributesPrivate` option:
 
@@ -1219,12 +1542,12 @@ To mark all user attributes except the key as private in the JavaScript SDK, you
 
 ```js
 const user = {
-  key: 'aa0ceb',
-  name: 'Grace Hopper',
-  email: 'gracehopper@example.com'
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com'
 };
 
-const client = ld.initialize('YOUR_CLIENT_SIDE_ID', user, {
+const client = ld.initialize('client-side-id-123abc', user, {
   allAttributesPrivate: true
 });
 ```
@@ -1236,13 +1559,13 @@ const client = ld.initialize('YOUR_CLIENT_SIDE_ID', user, {
 import * as ld from 'launchdarkly-node-client-sdk';
 
 const user: ld.LDUser = {
-  key: 'aa0ceb',
-  name: 'Grace Hopper',
-  email: 'gracehopper@example.com',
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com',
 };
 const options: ld.LDOptions = { allAttributesPrivate: true };
 
-const client = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = ld.initialize('client-side-id-123abc', user, options);
 ```
 
 </CodeTabItem>
@@ -1265,13 +1588,13 @@ This option is configured in both the user object and the configuration object:
 
 ```js
 const user = {
-  key: 'aa0ceb',
-  name: 'Grace Hopper',
-  email: 'gracehopper@example.com'
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com'
   privateAttributeNames: ['email']
 };
 
-const client = ld.initialize('YOUR_CLIENT_SIDE_ID', user, {
+const client = ld.initialize('client-side-id-123abc', user, {
   privateAttributeNames: ['email']
 });
 ```
@@ -1283,14 +1606,14 @@ const client = ld.initialize('YOUR_CLIENT_SIDE_ID', user, {
 import * as ld from 'launchdarkly-node-client-sdk';
 
 const user: ld.LDUser = {
-  key: 'aa0ceb',
-  name: 'Grace Hopper',
-  email: 'gracehopper@example.com',
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com',
   privateAttributeNames: ['email'],
 };
 const options: ld.LDOptions = { allAttributesPrivate: ['email'] };
 
-const client = ld.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = ld.initialize('client-side-id-123abc', user, options);
 ```
 
 </CodeTabItem>
@@ -1301,7 +1624,7 @@ In the above example, the SDK sends only the user's key and name back to LaunchD
 #### Anonymous users in the Node.js SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
@@ -1321,7 +1644,7 @@ Here's how:
 const anonymousUser = { anonymous: true };
 
 // You can also specify any key you want:
-const anonymousUser2 = { key: "aa0ceb", anonymous: true };
+const anonymousUser2 = { key: "user-key-123abc", anonymous: true };
 ```
 
 </CodeTabItem>
@@ -1336,7 +1659,7 @@ import * as ld from 'launchdarkly-node-client-sdk';
 const anonymousUser: ld.LDUser = { anonymous: true };
 
 // You can also specify any key you want:
-const anonymousUser2: ld.LDUser = { key: 'aa0ceb', anonymous: true };
+const anonymousUser2: ld.LDUser = { key: 'user-key-123abc', anonymous: true };
 
 ```
 
@@ -1371,9 +1694,9 @@ Here is a complete user configuration object utilizing all available fields:
 let user = {
   key: '2fbfa269b78e24c8e967f482b89c939b',
   name: 'grace_hopper',
-  firstName: 'Grace',
-  lastName: 'Hopper',
-  email: 'gracehopper@example.net',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.net',
   anonymous: false,
   privateAttributeNames: ['name'],
   country: 'USA',
@@ -1392,10 +1715,10 @@ import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
 
 let user: ld.LDUser = {
   key: '2fbfa269b78e24c8e967f482b89c939b',
-  name: 'grace_hopper',
-  firstName: 'Grace',
-  lastName: 'Hopper',
-  email: 'gracehopper@example.net',
+  name: 'sandy_smith',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.net',
   anonymous: false,
   privateAttributeNames: ['name'],
   country: 'USA',
@@ -1414,7 +1737,7 @@ The first attribute in the object is the user's key. In this case we've used the
 #### Private user attributes in the React Native SDK
 ---
 
-Private attributes allow you to specify keys you do not want to send to the LaunchDarkly servers. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly. When the SDK sends this user back to LaunchDarkly, it removes the `name` attribute.
+Private attributes allow you to specify keys you do not want to send to the LaunchDarkly servers. You can use private context attributes for targeting purposes, but the SDK removes private context attributes from the data it sends to LaunchDarkly. When the SDK sends this user back to LaunchDarkly, it removes the `name` attribute.
 
 #### Anonymous user attributes in the React Native SDK
 ---
@@ -1423,6 +1746,7 @@ The `anonymous` key lets you distinguish logged out or unregistered users while 
 
 We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
 </Details>
+
 
 ### Roku
 
@@ -1439,7 +1763,7 @@ You can create a user object with:
 <CodeTabItem value="brightscript">
 
 ```brightscript
-user = LaunchDarklyUser("my-user-key")
+user = LaunchDarklyUser("user-key-123abc")
 
 ```
 
@@ -1519,7 +1843,7 @@ user.setAnonymous(Boolean)
 
 ## Server-side SDKs
 
-Here are the configuration options for user entities in server-side SDKs:
+Here are the configuration options for context and user entities in server-side SDKs:
 
 * [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
@@ -1539,23 +1863,36 @@ Here are the configuration options for user entities in server-side SDKs:
 
 <Details summary="Expand .NET (server-side) code sample">
 
-In the .NET SDK, the [`User`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.User.html) class has a `WithKey` method for creating a simple user with only a key, and a `Builder` method for building a user with other properties.
+In the .NET SDK, the [`Context`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Context.html) class has a `New` method for creating a simple context, with a context kind of "user" and with only a key. It has a `Builder` method for building a context with other properties.
 
 Here's an example:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
   ]
 }>
 <CodeTabItem value="csharp">
 
 ```csharp
-LDUser user = User.Builder("aa0ceb")
-    .FirstName("Ernestina")
-    .LastName("Evans")
-    .Email("ernestina@example.com")
+LDContext context = Context.Builder("context-key-123abc")
+    .Set("firstName", "Sandy")
+    .Set("lastName", "Smith")
+    .Set("email", "sandy@example.com")
+    .Set("groups", LdValue.ArrayOf(LdValue.Of("Google"), LdValue.Of("Microsoft")))
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-6.x">
+
+```csharp
+LDUser user = User.Builder("user-key-123abc")
+    .FirstName("Sandy")
+    .LastName("Smith")
+    .Email("sandy@example.com")
     .Custom("groups", LdValue.ArrayOf(LdValue.Of("Google"), LdValue.Of("Microsoft")))
     .Build();
 ```
@@ -1563,67 +1900,88 @@ LDUser user = User.Builder("aa0ceb")
 </CodeTabItem>
 </CodeTabs>
 
-The argument to `Builder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The argument to `Builder` is the context's key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `context-key-123abc`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way. The .NET SDK is strongly-typed, so be aware of this distinction.
+The optional name and kind attributes, which you can set with `.Name()` and `.Kind()`, expect string values. If the kind attribute is not specified, it is assumed to be "user". Other attribute values can be booleans, numbers, strings, arrays, or JSON objects. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. The .NET SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
 
-#### Private user attributes in the .NET SDK
+#### Private attributes in the .NET SDK
 ---
 
-You can optionally configure the .NET SDK to treat some or all user attributes as [private user attributes](/home/users/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the .NET SDK to treat some or all context attributes as [private attributes](/home/contexts/attributes#using-private-context-attributes). You can use private context attributes for targeting purposes, but the SDK removes private context attributes from the data it sends to LaunchDarkly.
 
-In the .NET SDK there are two ways to define private attributes for the entire LaunchDarkly client:
+In the server-side .NET SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- When creating the LaunchDarkly `Configuration` object, you can configure [`Events`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html#LaunchDarkly_Sdk_Server_ConfigurationBuilder_Events_) `Events` with [`AllAttributesPrivate`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.EventProcessorBuilder.html#LaunchDarkly_Sdk_Server_Integrations_EventProcessorBuilder_AllAttributesPrivate_), which takes in a boolean parameter. If `true`, the SDK removes all user attributes for all users before sending the user to LaunchDarkly, except the key.
-- Or, you can can configure `Events` with [`PrivateAttributes`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.EventProcessorBuilder.html#LaunchDarkly_Sdk_Server_Integrations_EventProcessorBuilder_PrivateAttributes_), which takes in a list of specific `UserAttribute` names. If any user has a custom or built-in attribute named in the private attributes list, the SDK removes it before sending the user to LaunchDarkly.
+- When creating the LaunchDarkly `Configuration` object, you can configure [`Events`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html#LaunchDarkly_Sdk_Server_ConfigurationBuilder_Events_) with [`AllAttributesPrivate`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.EventProcessorBuilder.html#LaunchDarkly_Sdk_Server_Integrations_EventProcessorBuilder_AllAttributesPrivate_), which takes in a boolean parameter. If `true`, the SDK removes all attributes for all contexts before sending the context to LaunchDarkly, except the key.
+- Or, you can configure `Events` with [`PrivateAttributes`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.EventProcessorBuilder.html#LaunchDarkly_Sdk_Server_Integrations_EventProcessorBuilder_PrivateAttributes_), which takes any number of attribute names or slash-delimited paths to designated a JSON property within an attribute, such as `/address/street`. If any context has a custom or built-in attribute that matches one of these names, the SDK removes it before sending the context to LaunchDarkly.
 
-You can also mark attributes as private when building the user object by calling [`AsPrivateAttribute()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.IUserBuilderCanMakeAttributePrivate.html#LaunchDarkly_Sdk_IUserBuilderCanMakeAttributePrivate_AsPrivateAttribute_) after setting the attribute on the user builder.
+You can also mark attributes as private when building the context object by calling [`Private()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.ContextBuilder.html#LaunchDarkly_Sdk_ContextBuilder_Private_) after setting the attribute on the context builder.
 
 For example:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
   ]
 }>
 <CodeTabItem value="csharp">
 
 ```csharp
-var user = User.Builder("aa0ceb")
-    .Email("test@example.com").AsPrivateAttribute()
+var context = Context.Builder("context-key-123abc")
+    .Set("email", "sandy@example.com")
+    .Private("email")
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-6.x">
+
+```csharp
+var user = User.Builder("user-key-123abc")
+    .Email("sandy@example.com").AsPrivateAttribute()
     .Build();
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
+When the SDK sends this context back to LaunchDarkly, it removes the `email` attribute.
 
-#### Anonymous users in the .NET SDK
+#### Anonymous contexts in the .NET SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
   ]
 }>
 <CodeTabItem value="csharp">
 
 ```csharp
-var user = User.Builder("aa0ceb")
+var context = Context.Builder("context-key-123abc")
+    .Anonymous(true)
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-6.x">
+
+```csharp
+var user = User.Builder("user-key-123abc")
     .Anonymous(true)
     .Build();
 ```
@@ -1631,7 +1989,7 @@ var user = User.Builder("aa0ceb")
 </CodeTabItem>
 </CodeTabs>
 
-You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+You still need to generate a unique key for anonymous contexts. Session IDs or UUIDs work best for this.
 </Details>
 
 ### Apex
@@ -1649,10 +2007,10 @@ Here's an example of a user:
 <CodeTabItem value="java">
 
 ```java
-LDUser user = new LDUser.Builder('aa0ceb')
-    .setFirstName('Ernestina')
-    .setLastName('Evans')
-    .setEmail('ernestina@example.com')
+LDUser user = new LDUser.Builder('user-key-123abc')
+    .setFirstName('Sandy')
+    .setLastName('Smith')
+    .setEmail('sandy@example.com')
     .setCustom(new LDValueObject.Builder()
         .set('groups', new LDValueArray.Builder()
             .add(LDValue.of('Google'))
@@ -1667,12 +2025,12 @@ LDUser user = new LDUser.Builder('aa0ceb')
 </CodeTabItem>
 </CodeTabs>
 
-The argument to `Builder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The argument to `Builder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
 #### Anonymous users in the Apex SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
@@ -1698,7 +2056,7 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 #### Private user attributes in the Apex SDK
 ---
 
-Optionally, you can configure the Apex SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). You can use private user attributes for targeting, but they are redacted from the user data sent back to LaunchDarkly.
+Optionally, you can configure the Apex SDK to treat some or all user attributes as private user attributes. You can use private user attributes for targeting, but they are redacted from the user data sent back to LaunchDarkly.
 
 In the Apex SDK there are two ways to define private attributes for the LaunchDarkly client:
 
@@ -1739,7 +2097,7 @@ In the Apex SDK there are two ways to define private attributes for the LaunchDa
   Set<String> privateAttributes = new Set<String>();
   privateAttributes.add('firstName');
 
-  LDUser user = new LDUser.Builder('aa0ceb')
+  LDUser user = new LDUser.Builder('user-key-123abc')
       .setFirstName('alice')
       .setPrivateAttributeNames(privateAttributes)
       .build();
@@ -1766,10 +2124,10 @@ Here's an example of a user:
 <CodeTabItem value="c">
 
 ```c
-struct LDUser *user = LDUserNew("aa0ceb");
-LDUserSetFirstName(user, "Ernestina");
-LDUserSetLastName(user, "Evans");
-LDUserSetEmail(user, "ernestina@example.com");
+struct LDUser *user = LDUserNew("user-key-123abc");
+LDUserSetFirstName(user, "Sandy");
+LDUserSetLastName(user, "Smith");
+LDUserSetEmail(user, "sandy@example.com");
 
 struct LDJSON *tmp;
 struct LDJSON *custom = LDNewObject();
@@ -1786,7 +2144,7 @@ LDUserSetCustom(user, custom);
 </CodeTabItem>
 </CodeTabs>
 
-The argument to `LDUserNew` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The argument to `LDUserNew` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
 <CodeTabs
   defaultValue="c"
@@ -1808,7 +2166,7 @@ When you are done with an `LDUser` ensure that you free the structure.
 #### Private user attributes in the C/C++ SDK
 ---
 
-You can optionally configure the C/C++ SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the C/C++ SDK to treat some or all user attributes as private user attributes. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the C/C++ SDK there are three ways to define private attributes for the LaunchDarkly client:
 
@@ -1868,7 +2226,7 @@ LDUserAddPrivateAttribute(user, "email");
 #### Anonymous users in the C/C++ SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
@@ -1906,15 +2264,15 @@ Here's an example of a user:
 
 ```
 Map = #{
-    key => <<"aa0ceb">>,
-    secondary => <<"abc">>,
+    key => <<"user-key-123abc">>,
+    secondary => <<"secondary-123abc">>,
     ip => <<"198.51.100.0">>,
-    country => <<"your-country">>,
-    email => <<"foo@bar.com">>,
-    first_name => <<"a">>,
-    last_name => <<"z">>,
-    avatar => <<"ratavA">>,
-    name => <<"foobar">>,
+    country => <<"Canada">>,
+    email => <<"sandy@example.com">>,
+    first_name => <<"Sandy">>,
+    last_name => <<"Smith">>,
+    avatar => <<"avatar-123abc">>,
+    name => <<"Sandy Smith">>,
     anonymous => false,
     <<"custom-key">> => <<"custom-value">>
 },
@@ -1924,7 +2282,7 @@ User = ldclient_user:new_from_map(Map)
 </CodeTabItem>
 </CodeTabs>
 
-The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
 #### Anonymous users in the Erlang SDK
 ---
@@ -1940,7 +2298,7 @@ Here's how to create anonymous users in the Erlang SDK:
 <CodeTabItem value="erlang">
 
 ```
-Key = <<"aa0ceb">>,
+Key = <<"user-key-123abc">>,
 Anonymous = true,
 Map = #{
     key => Key,
@@ -1958,8 +2316,6 @@ You must still generate a unique key for anonymous users. We recommend using Ses
 ---
 
 You can configure the Erlang SDK to treat some or all user attributes as private user attributes. You can use private user attributes to target users without sending data associated with that user back to LaunchDarkly.
-
-To learn more about private user attributes, read [Using private user attributes](/home/users/attributes#using-private-user-attributes).
 
 When you create the Options map, use the `private_attributes` key to set private user attributes. When you do this, the SDK does not send the user attributes you specify to LaunchDarkly.
 
@@ -1983,7 +2339,7 @@ Here's how to set user attributes as private:
 <CodeTabItem value="erlang">
 
 ```
-ldclient:start_instance("YOUR_SDK_KEY", my_instance, #{private_attributes => [email]})
+ldclient:start_instance("sdk-key-123abc", your_instance, #{private_attributes => [email]})
 ```
 
 </CodeTabItem>
@@ -1994,17 +2350,42 @@ ldclient:start_instance("YOUR_SDK_KEY", my_instance, #{private_attributes => [em
 
 <Details summary="Expand Go code sample">
 
-The Go SDK defines a [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User) struct and a [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder).
+The Go SDK defines a [`Context`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common.v3/ldcontext#Context) struct and a [`Builder`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common.v3/ldcontext#NewBuilder).
 
 Here's an example:
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 <CodeTabItem value="go">
+
+```go
+import (
+    "github.com/launchdarkly/go-sdk-common/v3/ldcontext"
+    "github.com/launchdarkly/go-sdk-common/v3/ldvalue"
+)
+
+// Context with only a key
+// by default, the context kind is "user"
+context1 := ldcontext.New("context-key-123abc")
+
+// Context with a key plus other attributes
+context2 := ldcontext.NewBuilder("context-key-456def").
+    Kind("organization").
+    Name("Global Health Services").
+    SetValue("email", "info@globalhealthexample.com").
+    SetValue("address", ldvalue.ObjectBuild().
+      Set("street", ldvalue.String("123 Main Street")).
+      Set("city", ldvalue.String("Springfield"))).
+    Build()
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 import (
@@ -2013,13 +2394,13 @@ import (
 )
 
 // User with only a key
-user1 := lduser.NewUser("user1-key")
+user1 := lduser.NewUser("user-key-123abc")
 
 // User with a key plus other attributes
-user2 := lduser.NewUserBuilder("user2-key").
-    FirstName("Ernestina").
-    LastName("Events").
-    Email("ernestina@example.com").
+user2 := lduser.NewUserBuilder("user-key-456def").
+    FirstName("Sandy").
+    LastName("Smith").
+    Email("sandy@example.com").
     Custom("groups", ldvalue.ArrayOf(
         ldvalue.String("Google"), ldvalue.String("Microsoft"))).
     Build()
@@ -2028,27 +2409,27 @@ user2 := lduser.NewUserBuilder("user2-key").
 </CodeTabItem>
 </CodeTabs>
 
-The most common attribute is the user's key. In this case we used the strings `"user1-key"` and `"user2-key"`. The user key is the only mandatory user attribute. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+The most common attribute is the context's key. In this case we used the strings `"context-key-123abc"` and `"context-key-456def"`. The key is the only mandatory context attribute. The combination of the key and kind should also uniquely identify each context. You can set the kind, or, if you do not set it, LaunchDarkly assumes that the context kind is "user". You can use a primary key, a hash, or some other value, as long as the same context always has the same context. We recommend using a hash if possible.
 
-To learn more about the available attributes, read [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#User) and [`UserBuilder`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduser#UserBuilder).
+To learn more about the available attributes, read [`Context`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common.v3/ldcontext#Context) and [`Builder`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common.v3/ldcontext#Builder).
 
 <Callout intent="info">
-<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
+<CalloutTitle>Interpreting attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. In SDK versions 4.16.0 and later, these types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value) type; earlier versions use the catch-all Go type `interface{}`. If you enter a custom value on the **Users** list that looks like a number or a boolean, LaunchDarkly interprets it that way. The Go SDK is strongly-typed, so be aware of this distinction.
+The kind and name attributes expect string values. Other attributes values can be booleans, numbers, strings, arrays, or JSON objects. These types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common.v3/ldvalue#Value) type. The Go SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
 
-#### Private user attributes in the Go SDK
+#### Private attributes in the Go SDK
 ---
 
-You can optionally configure the Go SDK to treat some or all user attributes as [Private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Go SDK to treat some or all context attributes as [private attributes](/home/contexts/attributes#using-private-context-attributes). You can use private context attributes for targeting purposes, but the SDK removes private context attributes from the data it sends to LaunchDarkly.
 
 In the Go SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- You can set the configuration option `AllAttributesPrivate` to true. If you enable this, the SDK removes all user attributes for all users before it sends the user to LaunchDarkly, except the key.
+- You can set the configuration option `AllAttributesPrivate` to true. If you enable this, the SDK removes all attributes for all contexts before it sends the context to LaunchDarkly, except the key and kind.
 - You can set the configuration option `PrivateAttributeNames` to a list of attribute names. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
 
 Here's how to to define private attributes:
@@ -2056,10 +2437,30 @@ Here's how to to define private attributes:
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 <CodeTabItem value="go">
+
+```go
+import (
+    ld "github.com/launchdarkly/go-server-sdk/v6"
+    "github.com/launchdarkly/go-server-sdk/v6/ldcomponents"
+)
+
+var config ld.Config
+
+// Make all attributes private for all contexts
+config.Events = ldcomponents.SendEvents().AllAttributesPrivate(true)
+
+// Or, make just the email and address attributes private for all contexts
+config.Events = ldcomponents.SendEvents().
+    PrivateAttributes("email", "address")
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 import (
@@ -2080,45 +2481,69 @@ config.Events = ldcomponents.SendEvents().
 </CodeTabItem>
 </CodeTabs>
 
-You can also define a set of private attributes on the user object itself. In this example, `Email` is private for this user in addition to any private attributes that were specified globally:
+You can also define a set of private attributes on the context object itself. In this example, "email" and the "street" field of the "address" attribute are private for this context, in addition to any private attributes that were specified globally:
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
 import (
-    "gopkg.in/launchdarkly/go-sdk-common.v2/lduser"
+    "github.com/launchdarkly/go-sdk-common/v3/ldcontext"
 )
 
-user := lduser.NewUserBuilder("user-key").
-    FirstName("Ernestina").
-    LastName("Events").
-    Email("ernestina@example.com").AsPrivateAttribute().
+context := ldcontext.NewBuilder("context-key-123abc").
+    Kind("organization").
+    Name("Global Health Services").
+    SetValue("email", "info@globalhealthexample.com").
+    SetValue("address", ldvalue.ObjectBuild().
+      Set("street", ldvalue.String("123 Main Street")).
+      Set("city", ldvalue.String("Springfield"))).
+    Private("email").
+    Private("/address/street").
     Build()
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-#### Anonymous users in the Go SDK
+#### Anonymous contexts in the Go SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+You can distinguish anonymous contexts in the SDK. Anonymous contexts are only intended for flag evaluations and are not indexed by LaunchDarkly. Anonymous contexts do not appear on the **Contexts** list. However, they are not excluded from event data, so setting a context as anonymous is not the same as setting its attributes as private. To learn more, read [Anonymous contexts](/home/contexts/anonymous-contexts).
 
 Here's how:
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 <CodeTabItem value="go">
+
+```go
+import (
+    "github.com/launchdarkly/go-sdk-common/v3/ldcontext"
+)
+
+// Anonymous context with only a key
+context1 := ldcontext.NewBuilder("context-key-123abc").Anonymous(true)
+
+// Anonymous context with a key plus other attributes
+context2 := ldcontext.NewBuilder("context-key-456def").
+    Anonymous(true).
+    SetValue("country","Canada").
+    Build()
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 import (
@@ -2126,10 +2551,10 @@ import (
 )
 
 // Anonymous user with only a key
-user1 := lduser.NewAnonymousUser("user1-key")
+user1 := lduser.NewAnonymousUser("user-key-123abc")
 
 // Anonymous user with a key plus other attributes
-user2 := lduser.NewUserBuilder("user2-key").
+user2 := lduser.NewUserBuilder("user-key-456def").
     Anonymous(true).
     Country("US").
     Build()
@@ -2138,7 +2563,7 @@ user2 := lduser.NewUserBuilder("user2-key").
 </CodeTabItem>
 </CodeTabs>
 
-You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+You still need to generate a unique key for anonymous contexts. Session IDs or UUIDs work best for this.
 </Details>
 
 ### Haskell
@@ -2163,23 +2588,21 @@ import LaunchDarkly.Server.User
 import Data.Function ((&))
 
 user :: User
-user = (makeUser "aa0ceb")
-    & setFirstName "Ernestina"
-    & setLastName "Evans"
-    & setEmail "ernestina@example.com"
+user = (makeUser "user-key-123abc")
+    & setFirstName "Sandy"
+    & setLastName "Smith"
+    & setEmail "sandy@example.com"
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-The argument to `makeUser` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The argument to `makeUser` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
 #### Private user attributes in the Haskell SDK
 ---
 
 Optionally, you can configure the Haskell SDK to treat some or all user attributes as private user attributes. You can use private user attributes for targeting purposes without sending data about the user associated with them back to LaunchDarkly.
-
-To learn more about private user attributes, read [Using private user attributes](/home/users/attributes#using-private-user-attributes).
 
 When you create the `Config` object, use `configSetAllAttributesPrivate` to set all user attributes as private. When you do this, all user attributes (except the key) are removed before the SDK sends the user to LaunchDarkly.
 
@@ -2245,7 +2668,7 @@ user' = userSetPrivateAttributeNames (fromList ["email"]) user
 #### Anonymous users in the Haskell SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
@@ -2271,23 +2694,36 @@ You still must generate a unique key for anonymous users. Session IDs or UUIDs w
 
 <Details summary="Expand Java code sample">
 
-In the Java SDK, use a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern) to construct users.
+In the Java SDK, use a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern) to construct contexts.
 
 Here's an example:
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java SDK v6.0', value: 'java', },
+    { label: 'Java SDK v5.x', value: 'java-v5', },
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
-LDUser user = new LDUser.Builder("aa0ceb")
-  .firstName("Ernestina")
-  .lastName("Evans")
-  .email("ernestina@example.com")
+LDContext context = LDContext.builder("context-key-123abc")
+  .set("firstName", "Sandy")
+  .set("lastName", "Smith")
+  .set("email", "sandy@example.com")
+  .set("groups",
+    LDValue.buildArray().add("Google").add("Microsoft").build())
+  .build();
+```
+</CodeTabItem>
+<CodeTabItem value="java-v5">
+
+```java
+LDUser user = new LDUser.Builder("user-key-123abc")
+  .firstName("Sandy")
+  .lastName("Smith")
+  .email("sandy@example.com")
   .custom("groups",
     LDValue.buildArray().add("Google").add("Microsoft").build())
   .build()
@@ -2296,23 +2732,23 @@ LDUser user = new LDUser.Builder("aa0ceb")
 </CodeTabItem>
 </CodeTabs>
 
-The argument to `Builder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The argument to `Builder` is the context's key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"context-key-123abc"`.
 
-Our Javadoc for [LDUser.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/LDUser.Builder.html) shows you all the attributes that LaunchDarkly supports by default.
+Our Javadoc for [LDContext.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/LDContext.Builder.html) shows you all the attributes that LaunchDarkly supports by default.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way. The Java SDK is strongly-typed, so be aware of this distinction.
+The optional name and kind attributes expect string values. If the "kind" attribute is not specified, it is assumed to be "user." Other attributes values can be booleans, numbers, strings, arrays, or objects. If you pass a value that looks like a number or a boolean, the SDK interprets it that way. The Java SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
 
-#### Private user attributes in the Java SDK
+#### Private context attributes in the Java SDK
 ---
 
-You can optionally configure the Java SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Java SDK to treat some or all attributes as [private context attributes](/home/contexts/attributes#using-private-context-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Java SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
@@ -2324,10 +2760,29 @@ Here's how to define private attributes:
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java SDK v6.0', value: 'java', },
+    { label: 'Java SDK v5.x', value: 'java-v5', },
   ]
 }>
 <CodeTabItem value="java">
+
+```java
+LDConfig configWithAllAttributesPrivate = new LDConfig.Builder()
+  .events(
+    Components.sendEvents()
+      .allAttributesPrivate(true)
+  )
+  .build();
+
+LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
+  .events(
+    Components.sendEvents()
+      .privateAttributes("name", "email", "someAttribute")
+  )
+  .build();
+```
+</CodeTabItem>
+<CodeTabItem value="java-v5">
 
 ```java
 LDConfig configWithAllAttributesPrivate = new LDConfig.Builder()
@@ -2354,39 +2809,60 @@ You can also mark attributes as private when building the user object by calling
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java SDK v6.0', value: 'java', },
+    { label: 'Java SDK v5.x', value: 'java-v5', },
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
-LDUser user = new LDUser.Builder("aa0ceb")
-  .privateEmail("test@example.com")
+LDContext context = new LDContext.Builder("context-key-123abc")
+  .set("email", "sandy@example.com")
+  .private("email")
+  .build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v5">
+
+```java
+LDUser user = new LDUser.Builder("user-key-123abc")
+  .privateEmail("sandy@example.com")
   .build();
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
+When the SDK sends this context back to LaunchDarkly, it removes the `email` attribute.
 
 #### Anonymous users in the Java SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java SDK v6.0', value: 'java', },
+    { label: 'Java SDK v5.x', value: 'java-v5', },
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
-LDUser user = new LDUser.Builder("aa0ceb")
+LDContext context = new LDContext.Builder("context-key-123abc")
+  .anonymous(true)
+  .build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v5">
+
+```java
+LDUser user = new LDUser.Builder("user-key-123abc")
   .anonymous(true)
   .build();
 ```
@@ -2413,10 +2889,10 @@ Here's an example of a user:
 
 ```lua
 local user = ld.makeUser({
-    key       = "aa0ceb",
-    firstName = "Ernestina",
-    lastName  = "Evans",
-    email     = "ernestina@example.com",
+    key       = "user-key-123abc",
+    firstName = "Sandy",
+    lastName  = "Smith",
+    email     = "sandy@example.com",
     custom    = {
         groups = { "Google", "Microsoft" }
     }
@@ -2426,37 +2902,39 @@ local user = ld.makeUser({
 </CodeTabItem>
 </CodeTabs>
 
-The argument to `ld.makeUser` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The argument to `ld.makeUser` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
 To learn more about configuration options, read the [API docs](https://launchdarkly.github.io/lua-server-sdk/index.html#makeUser).
 </Details>
 
 ### Node.js (server-side)
 
+
 <Details summary="Expand Node.js (server-side) code sample">
 
-In the Node.JS SDK, users are JSON objects.
+In the Node.js SDK, contexts are JSON objects.
 
 Here's an example:
 
 <CodeTabs
   defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
+values={[
+    { label: 'Version 7 (JavaScript)', value: 'js', },
+    { label: 'Version 7 (TypeScript)', value: 'ts', },
+    { label: 'Version 6.x and older (JavaScript)', value: 'js-old', },
+    { label: 'Version 6.x and older (TypeScript)', value: 'ts-old', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const user = {
-  "key": "aa0ceb",
-  "firstName": "Ernestina",
-  "lastName": "Evans",
-  "email": "ernestina@example.com",
-  "custom": {
-    "groups": ["Google", "Microsoft"]
-  }
+const context = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  groups: ['Google', 'Microsoft'],
 };
 ```
 
@@ -2466,11 +2944,42 @@ const user = {
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
 
-const user: ld.LDUser = {
-  key: 'aa0ceb',
-  firstName: 'Ernestina',
-  lastName: 'Evans',
-  email: 'ernestina@example.com',
+const context: ld.LDContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  groups: ['Google', 'Microsoft'],
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-old">
+
+```js
+const user = {
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  custom: {
+    groups: ['Google', 'Microsoft']
+  }
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts-old">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
+const user: ld.LDUser
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
   custom: {
     groups: ['Google', 'Microsoft'],
   },
@@ -2480,43 +2989,46 @@ const user: ld.LDUser = {
 </CodeTabItem>
 </CodeTabs>
 
-The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Contexts** list that looks like a number or a boolean, the SDK interprets it that way.
 
 </CalloutDescription>
 </Callout>
 
-#### Private user attributes in the Node.js SDK
+#### Private attributes in the Node.js SDK
 ---
 
-You can optionally configure the Node.js SDK to treat some or all user attributes as [Private user attributes](/home/users/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Node.js SDK to treat some or all attributes as [private attributes](/home/contexts/attributes#using-private-context-attributes). You can use private attributes for targeting purposes, but they are removed from the data sent back to LaunchDarkly.
 
 In the Node.js SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
 - In the LaunchDarkly `config`, you can set `allAttributesPrivate` to `true`. If you enable this, the SDK removes all user attributes for all users before sending the user to LaunchDarkly, except the key.
-- In the LaunchDarkly `config` object, you can define a list of `privateAttributeNames`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
+- In the LaunchDarkly `config` object, you can define a list of `privateAttributes`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
 
-You can also define a set of `privateAttributeNames` on the user object. For example:
+You can also define a set of `privateAttributes` on the context object. For example:
 
 <CodeTabs
   defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
+values={[
+    { label: 'Node.js SDK v7 (JavaScript)', value: 'js', },
+    { label: 'Node.js SDK v7 (TypeScript)', value: 'ts', },
+    { label: 'Node.js SDK v6.x and older (JavaScript)', value: 'js-old', },
+    { label: 'Node.js SDK v6.x and older (TypeScript)', value: 'ts-old', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-var user = {
-  "key": "aa0ceb",
-  "email": "test@example.com",
-  "privateAttributeNames": ["email"],
+const context = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  email: 'sandy@example.com',
+  privateAttributes: ['email'],
 };
 ```
 
@@ -2526,36 +3038,63 @@ var user = {
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
 
+const user: ld.LDContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  email: 'sandy@example.com',
+  privateAttributes: ['email'],
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-old">
+
+```js
+const user = {
+  key: 'user-key-123abc',
+  email: 'sandy@example.com',
+  privateAttributes: ['email'],
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts-old">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
 const user: ld.LDUser = {
-  key: 'aa0ceb',
-  email: 'test@example.com',
-  privateAttributeNames: ['email'],
+  key: 'user-key-123abc',
+  email: 'sandy@example.com',
+  privateAttributes: ['email'],
 };
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
+When the SDK sends this user context back to LaunchDarkly, it removes the `email` attribute.
 
 #### Anonymous users in the Node.js SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
+    { label: 'Node.js SDK v7 (JavaScript)', value: 'js', },
+    { label: 'Node.js SDK v7 (TypeScript)', value: 'ts', },
+    { label: 'Node SDK v6.x and older (JavaScript)', value: 'js-old', },
+    { label: 'Node SDK v6.x and older (TypeScript)', value: 'ts-old', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const user = {"key":"aa0ceb", "anonymous": true};
+const context = {kind:'user', key:'user-key-123abc', anonymous: true};
 ```
 
 </CodeTabItem>
@@ -2564,8 +3103,29 @@ const user = {"key":"aa0ceb", "anonymous": true};
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
 
+const context: ld.LDContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  anonymous: true,
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-old">
+
+```js
+const user = {key:'user-key-123abc', anonymous: true};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts-old">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
 const user: ld.LDUser = {
-  key: 'aa0ceb',
+  kind: 'user',
+  key: 'user-key-123abc',
   anonymous: true,
 }
 ```
@@ -2573,7 +3133,9 @@ const user: ld.LDUser = {
 </CodeTabItem>
 </CodeTabs>
 
-You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+<!-- TKTK Need SDK team to verify this code sample. SC-178166 -->
+
+You still need to generate a unique key for anonymous contexts. Session IDs or UUIDs work best for this.
 </Details>
 
 ### PHP
@@ -2593,13 +3155,13 @@ Here's an example:
 <CodeTabItem value="php">
 
 ```php
-$user = (new LDUserBuilder("aa0ceb"))->firstName("Ernestina")->lastName("Evans")->email("ernestina@example.com")->custom(["groups" => array("Google","Microsoft")])->build();
+$user = (new LDUserBuilder("user-key-123abc"))->firstName("Sandy")->lastName("Smith")->email("sandy@example.com")->custom(["groups" => array("Google","Microsoft")])->build();
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-The first argument to [`LDUserBuilder`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDUserBuilder.html) is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The first argument to [`LDUserBuilder`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDUserBuilder.html) is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -2613,7 +3175,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the PHP SDK
 ---
 
-You can optionally configure the PHP SDK to treat some or all user attributes as [private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the PHP SDK to treat some or all user attributes as private user attributes. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the PHP SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
@@ -2633,8 +3195,8 @@ For example:
 <CodeTabItem value="php">
 
 ```php
-$user = (new LDUserBuilder('aa0ceb'))
-    ->privateEmail('test@example.com')
+$user = (new LDUserBuilder('user-key-123abc'))
+    ->privateEmail('sandy@example.com')
     ->build();
 ```
 
@@ -2646,7 +3208,7 @@ When the SDK sends this user back to LaunchDarkly, it removes the `email` attrib
 #### Anonymous users in the PHP SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
@@ -2659,7 +3221,7 @@ Here's how:
 <CodeTabItem value="php">
 
 ```php
-$user = (new LDUserBuilder("aa0ceb"))->anonymous(true)->build();
+$user = (new LDUserBuilder("user-key-123abc"))->anonymous(true)->build();
 ```
 
 </CodeTabItem>
@@ -2686,10 +3248,10 @@ Here's an example:
 
 ```py
 user = {
-    "key": "aa0ceb",
-    "firstName": "Ernestina",
-    "lastName": "Evans",
-    "email": "ernestina@example.com",
+    "key": "user-key-123abc",
+    "firstName": "Sandy",
+    "lastName": "Smith",
+    "email": "sandy@example.com",
     "custom": {
       "groups": ["Google", "Microsoft"]
     }
@@ -2699,7 +3261,7 @@ user = {
 </CodeTabItem>
 </CodeTabs>
 
-The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"aa0ceb"`.
+The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -2713,7 +3275,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the Python SDK
 ---
 
-You can optionally configure the Python SDK to treat some or all user attributes as [Private user attribute](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Python SDK to treat some or all user attributes as private user attributes. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Python SDK there are two ways to define private attributes for the LaunchDarkly client:
 
@@ -2732,8 +3294,8 @@ You can also define a set of `privateAttributeNames` on the user object. For exa
 
 ```py
 user = {
-    "key": "aa0ceb",
-    "email": "test@example.com",
+    "key": "user-key-123abc",
+    "email": "sandy@example.com",
     "privateAttributeNames": ["email"]
 }
 ```
@@ -2746,7 +3308,7 @@ When the SDK sends this user back to LaunchDarkly, it removes the `email` attrib
 #### Anonymous users in the Python SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
@@ -2759,7 +3321,7 @@ Here's how:
 <CodeTabItem value="py">
 
 ```py
-user = { "key":"aa0ceb", "anonymous": True }
+user = { "key":"user-key-123abc", "anonymous": True }
 ```
 
 </CodeTabItem>
@@ -2786,10 +3348,10 @@ Here's an example:
 
 ```ruby
 user = {
-    key: "aa0ceb",
-    firstName: "Ernestina",
-    lastName: "Evans",
-    email: "ernestina@example.com",
+    key: "user-key-123abc",
+    firstName: "Sandy",
+    lastName: "Smith",
+    email: "sandy@example.com",
     custom: {
       groups: ["Google", "Microsoft"]
     }
@@ -2799,7 +3361,7 @@ user = {
 </CodeTabItem>
 </CodeTabs>
 
-The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash string, as long as the same user always has the same key. We recommend using a hash string if possible. In this example the hash string is `"aa0ceb"`.
+The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash string, as long as the same user always has the same key. We recommend using a hash string if possible. In this example the hash string is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>User attribute keys must be symbols</CalloutTitle>
@@ -2822,7 +3384,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private user attributes in the Ruby SDK
 ---
 
-You can optionally configure the Ruby SDK to treat some or all user attributes as [Private user attributes](/home/users/attributes#using-private-user-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Ruby SDK to treat some or all user attributes as private user attributes. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
 In the Ruby SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
@@ -2841,10 +3403,10 @@ You can also define a set of `privateAttributeNames` on the user object. For exa
 
 ```ruby
 user = {
-  key: "aa0ceb",
-  firstName: "Ernestina",
-  lastName: "Evans",
-  email: "ernestina@example.com",
+  key: "user-key-123abc",
+  firstName: "Sandy",
+  lastName: "Smith",
+  email: "sandy@example.com",
   custom: {
     groups: ["Google", "Microsoft"]
   },
@@ -2860,7 +3422,7 @@ When the SDK sends this user back to LaunchDarkly, it removes the `email` attrib
 #### Anonymous users in the Ruby SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
@@ -2873,7 +3435,7 @@ Here's how:
 <CodeTabItem value="ruby">
 
 ```ruby
-user = { key: "aa0ceb", anonymous: true }
+user = { key: "user-key-123abc", anonymous: true }
 ```
 
 </CodeTabItem>
@@ -2886,41 +3448,59 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 <Details summary="Expand Rust code sample">
 
-The Rust SDK defines a [`User`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.User.html) struct and a [`UserBuilder`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.UserBuilder.html).
+The Rust SDK defines a [`Context`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Context.html) struct and a [`ContextBuilder`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.ContextBuilder.html). <!-- TKTK confirm during SC-178150 -->
 
 Here's an example:
 
 <CodeTabs
   defaultValue="rust"
   values={[
-    { label: 'Rust', value: 'rust', },
+    { label: 'Rust SDK v1', value: 'rust', },
+    { label: 'Rust SDK beta', value: 'rust-beta', },
   ]
 }>
 <CodeTabItem value="rust">
 
 ```rust
+// Context with only a key
+let context = ContextBuilder::new("context-key-123abc").build()?;
+
+// Context with a key plus other attributes
+let custom = hashmap! {
+    "groups".into() => vec!["Google", "Microsoft"].into(),
+};
+let context = ContextBuilder::new("context-key-123abc")
+    .set_value("first_name", "Sandy".into())
+    .set_value("last_name", "Smith".into())
+    .set_value("email", "sandy@example.com".into())
+    .set_value("Google", "groups".into())
+    .set_value("Microsoft", "groups".into())
+    .build();
+```
+</CodeTabItem>
+<CodeTabItem value="rust-beta">
+
+```rust
 // User with only a key
-let user1 = User::with_key("user1-key").build();
+let user = UserBuilder::new("user-key-123abc").build()?;
 
 // User with a key plus other attributes
 let custom = hashmap! {
     "groups".into() => vec!["Google", "Microsoft"].into(),
 };
-let mut builder = User::with_key("user2-key");
-builder.first_name("Ernestina");
-builder.last_name("Evans");
-builder.email("ernestina@example.com");
+let mut builder = User::with_key("user-key-123abc");
+builder.first_name("Sandy");
+builder.last_name("Smith");
+builder.email("sandy@example.com");
 builder.custom(custom);
-
 let user2 = builder.build();
 ```
-
 </CodeTabItem>
 </CodeTabs>
 
-The most common attribute is the user's key. In the example, the strings `"user1-key"` and `"user2-key"` are the user keys. The user key is the only mandatory user attribute. The key should also uniquely identify each user. You can use a primary key, an email address, or a hash string, as long as the same user always has the same key. We recommend using a hash string if possible.
+The most common attribute is the context's key. In the example, the string `"context-key-123abc"` is the context key. The context key is the only mandatory context attribute. The combination of the key and kind should also uniquely identify each context. You can set the kind, or, if you do not set it, LaunchDarkly assumes that the context kind is "user". You can use a primary key, a hash string, or some other value, as long as the same context always has the same key. We recommend using a hash string if possible.
 
-To learn more about the available attributes, read [`User`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.User.html) and [`UserBuilder`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.UserBuilder.html).
+To learn more about the available attributes, read [`Context`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Context.html) and [`ContextBuilder`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.ContextBuilder.html).
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -2931,34 +3511,95 @@ Most of the built-in attributes, like names and email addresses, expect string v
 </CalloutDescription>
 </Callout>
 
-#### Anonymous users in the Rust SDK
+#### Private attributes in the Rust SDK
 ---
 
-You can distinguish logged-in users from anonymous users in the SDK.
+You can optionally configure the Rust SDK to treat some or all attributes as [Private attributes](/home/contexts/attributes#using-private-context-attributes). You can use private attributes for targeting purposes, but the SDK removes them from the user data it sends back to LaunchDarkly.
+
+In the Rust SDK there are two ways to define private attributes for the entire LaunchDarkly client:
+
+- In the LaunchDarkly `config`, you can set `all_attributes_private` to true. If you enable this, the SDK removes all attributes for all contexts before sending the context to LaunchDarkly, except the key and kind.
+- In the LaunchDarkly config object, you can define a list of `private_attribute_names`. If any contexts has an attribute named in this list, the SDK removes it before sending the context to LaunchDarkly.
+
+You can also define a set of `privateAttributeNames` on the context object. For example:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust SDK v1', value: 'rust', },
+    { label: 'Rust SDK beta', value: 'rust-beta', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+let context = ContextBuilder::new("context-key-123abc")
+    .set_value("email", "youremail@example.com".into())
+    .add_private_attribute(Reference::new("email"))
+    .build()?;
+```
+
+</CodeTabItem>
+<CodeTabItem value="rust-beta">
+
+```rust
+let user = User::with_key("user-key-123abc")
+    .name("Sandy")
+    .private_attributes(
+        vec!["email".into()]
+            .into_iter()
+            .collect(),
+    )
+    .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
+
+
+#### Anonymous contexts in the Rust SDK
+---
+
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
 <CodeTabs
   defaultValue="rust"
   values={[
-    { label: 'Rust', value: 'rust', },
+    { label: 'Rust SDK v1', value: 'rust', },
+    { label: 'Rust SDK beta', value: 'rust-beta', },
   ]
 }>
 <CodeTabItem value="rust">
 
 ```rust
-// Anonymous user with only a key
-let user1 = User::with_key("user1-key").anonymous(true).build();
+// Anonymous context with only a key
+let context = ContextBuilder::new("context-key-123abc").anonymous(true).build();
+
+// Anonymous context with a key plus other attributes
+let context = ContextBuilder::new("context-key-123abc").
+    anonymous(true).
+    set_value("country", "US".into()).
+    build();
+```
+</CodeTabItem>
+<CodeTabItem value="rust-beta">
+
+```rust
+// Anonymous user with a key plus other attributes
+let user = User::with_key("user-key-123abc").
 
 // Anonymous user with a key plus other attributes
-let user2 = User::with_key("user2-key").
+let user = User::with_key("user-key-123abc").
     anonymous(true).
     country("US").
     build();
 ```
-
 </CodeTabItem>
 </CodeTabs>
 
-You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+You still need to generate a unique key for anonymous contexts. Session IDs or UUIDs work best for this.
 </Details>

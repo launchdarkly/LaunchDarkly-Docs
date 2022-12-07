@@ -12,6 +12,21 @@ This topic explains how LaunchDarkly SDKs work. It is intended to help anyone cr
 
 Our SDKs are all open source, and we encourage pull requests and other contributions from the community.
 
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
+
 ## Algorithms
 
 There are three main components to a LaunchDarkly SDK implementation:
@@ -24,7 +39,7 @@ There are three main components to a LaunchDarkly SDK implementation:
 
 LaunchDarkly SDKs store all feature flags in memory. SDKs typically receive flag updates asynchronously through our streaming protocol, as is the default case in most SDKs. While LaunchDarkly's various SDKs typically support the same two mechanisms for receiving feature flag updates, their implementation details vary.
 
-The SDKs can use either of the following mechanisms to populate a feature flag store, which is a thread-safe, in-memory map from feature flag keys to feature flag JSON. Evaluating a feature flag is a very lightweight and inexpensive effort and requires no per-evaluation requests to LaunchDarkly's servers. 
+The SDKs can use either of the following mechanisms to populate a feature flag store, which is a thread-safe, in-memory map from feature flag keys to feature flag JSON. Evaluating a feature flag is a very lightweight and inexpensive effort and requires no per-evaluation requests to LaunchDarkly's servers.
 
 Server-side SDKs can read flags from the in-memory store and evaluate them using the evaluation algorithm, and client-side SDKs can retrieve pre-evaluated flag values from the in-memory store. To learn more, read [Evaluating feature flags](#evaluating-feature-flags).
 
@@ -49,14 +64,14 @@ Flag updates are triggered when you make changes on your flags list, and arrive 
 1. **Through LaunchDarkly's streaming API**: LaunchDarkly's streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events).
 
   There are two ways to use this method:
-  * **Using a `GET` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/eval/<clientSideId>/<user>`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Replace the `user` variable with the base64-encoded, URL-safe version of the user's JSON object.
+  * **Using a `GET` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/eval/<clientSideId>/<context>`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Replace the `context` variable with the base64-encoded, URL-safe version of the context's JSON object. <!-- TKTK confirm this usage SC-178003 -->
   * **Using a `REPORT` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/eval/<clientSideId>`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Not all HTTP clients support `REPORT` requests.
 
 2. **By polling LaunchDarkly's evaluation API**: The SDK implementor should periodically poll this resource. We recommend making one call every thirty seconds. At a minimum, you must throttle the implementation to make at most one call per second. This resource may return caching headers. Use [ETags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This is a common use case, so remember to account for it.
 
   There are two ways to use this method:
-  * **Using a `GET` request**: poll `https://clientsdk.launchdarkly.com/sdk/evalx/<clientSideId>/users/<user>`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Replace the `user` variable with the base64-encoded, URL-safe version of the user's JSON object.
-  * **Using a `REPORT` request**: poll `https://clientsdk.launchdarkly.com/sdk/evalx/<clientSideId>/users`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Not all HTTP clients support `REPORT` requests.
+  * **Using a `GET` request**: poll `https://clientsdk.launchdarkly.com/sdk/evalx/<clientSideId>/contexts/<context>`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Replace the `context` variable with the base64-encoded, URL-safe version of the context's JSON object. <!-- TKTK confirm this usage SC-178003 -->
+  * **Using a `REPORT` request**: poll `https://clientsdk.launchdarkly.com/sdk/evalx/<clientSideId>/contexts`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Not all HTTP clients support `REPORT` requests. <!-- TKTK confirm this usage SC-178003 -->
 
 ### Receiving flag updates in SDKs using the mobile key
 
@@ -67,14 +82,14 @@ Flag updates are triggered when you make changes on your flags list, and arrive 
 1. **Through LaunchDarkly's streaming API**: LaunchDarkly's streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events). This call must include an Authorization header with the value ${mobile_key}, where ${mobile_key} is the mobile key the client application passes to the LaunchDarkly client configuration.
 
   There are two ways to use this method:
-  * **Using a `GET` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/meval/<user>`. Replace the `user` variable with the base64-encoded, URL-safe version of the user's JSON object.
+  * **Using a `GET` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/meval/<context>`. Replace the `context` variable with the base64-encoded, URL-safe version of the context's JSON object. <!-- TKTK confirm this usage SC-178003 -->
   * **Using a `REPORT` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/meval`. Not all HTTP clients support `REPORT` requests.
 
 2. **By polling LaunchDarkly's evaluation API**: The SDK implementor should periodically poll this resource. We recommend making one call every thirty seconds. At a minimum, you must throttle the implementation to make at most one call per second. Use [ETags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This resource may return caching headers. This call must include an `Authorization` header with value `${mobile_key}`, where `${mobile_key}` is the mobile key the client application passed to the LaunchDarkly client configuration.
 
   There are two ways to use this method:
-  * **Using a `GET` request**: poll `https://clientsdk.launchdarkly.com/msdk/evalx/users/<user>`. Replace the `user` variable with the base64-encoded, URL-safe version of the user's JSON object.
-  * **Using a `REPORT` request**: poll `https://clientsdk.launchdarkly.com/msdk/evalx/user`. Not all HTTP clients support `REPORT` requests.
+  * **Using a `GET` request**: poll `https://clientsdk.launchdarkly.com/msdk/evalx/contexts/<context>`. Replace the `context` variable with the base64-encoded, URL-safe version of the context's JSON object. <!-- TKTK confirm this usage SC-178003 -->
+  * **Using a `REPORT` request**: poll `https://clientsdk.launchdarkly.com/msdk/evalx/context`. Not all HTTP clients support `REPORT` requests. <!-- TKTK confirm this usage SC-178003 -->
 
 ## Evaluating feature flags
 
@@ -94,6 +109,8 @@ To implement the variation method in a client-side SDK, return the last-known ev
 
 ## Recording events
 
+<!-- TKTK confirm code samples in this section and its subsections, SC-169306 or SC-178003 -->
+
 <Callout intent="info">
   <CalloutTitle>Are you importing data?</CalloutTitle>
   <CalloutDescription>
@@ -108,8 +125,7 @@ The SDKs send ten kinds of events:
 - `summary` events describe a set of individual feature evaluations over an interval.
 - `feature` events include additional feature flag evaluation details for flags used in Experimentation and flags you enable detailed tracking for.
 - `debug` events describe feature flag evaluations when debugging mode is on.
-- `index` and `identify` events push user data to LaunchDarkly.
-- `alias` events associate two users for analytics purposes.
+- `index` and `identify` events push context data to LaunchDarkly.
 - `page view` and `click` events are sent by JavaScript-based SDKs when pages are visited or clicked as part of an experiment.
 - `custom` events are sent when an application calls the SDK's track method.
 - `diagnostic` events report on how the SDK is configured and operating.
@@ -126,76 +142,18 @@ The time between batch calls to the event API should be configurable. The SDK sh
 
 ### Feature and debug events
 
-`feature` events have the following shape:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Feature event', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
-
-```json
- {
-    "kind": "feature",
-    "userKey": "feature@test.com",
-    "contextKind": "user",
-    "creationDate": 1462220944000,
-    "key": "my.feature.key",
-    "value": false,
-    "default": false,
-    "version": 42,
-    "prereqOf": "parent-flag"
-  }
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-The `kind` attribute should always be `"feature"`. A `feature` event should only be generated in one of these scenarios:
+A `feature` event should only be generated in one of these scenarios:
    - the `trackEvents` or `trackEventsFallthrough` attribute on the flag configuration is sent
    - the `trackEvents` attribute on a targeting rule is sent
    - the targeting rule or default rule when on has a rollout of kind `"experiment"` and the variation associated with the event is included in the tracked variations for that rollout
 
-Evaluating flag prerequisites generates one additional `feature` event per evaluation. These `feature` events should have the `prereqOf` attribute set to the originating flag's key. The `prereqOf` attribute should only be set for flags which are evaluated to determine a prerequisite value.
+For feature events, the `kind` attribute should always be `"feature"`. Evaluating flag prerequisites generates one additional `feature` event per evaluation. These `feature` events should have the `prereqOf` attribute set to the originating flag's key. The `prereqOf` attribute should only be set for flags which are evaluated to determine a prerequisite value.
 
-The optional `contextKind` attribute should be either `"user"` or `"anonymousUser"` depending on the corresponding user's `anonymous` property. If omitted, the context kind will be interpreted as `"user"`.
+Depending on your SDK configuration, `feature` events may include all of the context attribute values instead of the `contextKey`. In this case, the SDK sends the context attributes in a `context` property. If `feature` events include all context attribute values, the SDK will not send a corresponding `index` event.
 
-Depending on your SDK configuration, `feature` events may include all of the user attribute values instead of the `userKey`. In this case, the SDK sends the user attributes in a `user` property. If `feature` events include all user attribute values, the SDK will not send a corresponding `index` event.
+For an example and the full list of `feature` event properties, read [Feature events](/home/data-export/schema-reference#feature-events).
 
-`feature` events with a `user` property have the following shape:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Feature event with a user property', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
-
-```json
-{
-    "kind": "feature",
-    "user": {
-        "key": "feature@test.com",
-        "name": "Miguel",
-        "custom": { "some-other-property": "etc." }
-    },
-    "contextKind": "user",
-    "creationDate": 1462220944000,
-    "key": "my.feature.key",
-    "value": false,
-    "default": false,
-    "version": 42,
-    "prereqOf": "parent-flag"
-}
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-The `debug` event is a variant on the `feature` event, with two differences. It has `kind` set to `"debug"` and it inlines the `user` value. It is only sent if the `debugEventsUntilDate` attribute is set for a feature flag and indicates a UNIX epoch timestamp in milliseconds that has not yet elapsed. `debug` events are not controlled by the `trackEvents` field.
+The `debug` event is a variant on the `feature` event, with two differences. It has `kind` set to `"debug"` and it inlines the `context` value. It is only sent if the `debugEventsUntilDate` attribute is set for a feature flag and indicates a UNIX epoch timestamp in milliseconds that has not yet elapsed. `debug` events are not controlled by the `trackEvents` field.
 
 Here is an example `debug` event:
 
@@ -210,13 +168,10 @@ Here is an example `debug` event:
 ```json
  {
     "kind": "debug",
-    "user": {
-      "key": "feature@test.com",
-      "custom": {
-        "groups": [
-          "microsoft",
-          "google"
-        ]
+    "context": {
+      "key": "context-key-123abc",
+      "kind": "user",
+      "name": "Sandy"
       }
     },
     "creationDate": 1462220944000,
@@ -231,294 +186,43 @@ Here is an example `debug` event:
 </CodeTabItem>
 </CodeTabs>
 
-​The `user` has the same schema as `user` objects for feature flag evaluation. The `creationDate` is the time the feature flag was requested as UNIX epoch time in milliseconds. The `key` is the key of the feature flag requested. The `value` is the value of the feature flag returned by feature flag evaluation. Finally, the `default` field, which is optional, should be set to `true` if feature flag evaluation failed and the value returned was the default value passed to `variation`. If the default field is omitted, it is assumed to be `false`.
+​The `context` has the same schema as `context` objects for feature flag evaluation. The `creationDate` is the time the feature flag was requested as UNIX epoch time in milliseconds. The `key` is the key of the feature flag requested. The `value` is the value of the feature flag returned by feature flag evaluation. Finally, the `default` field, which is optional, should be set to `true` if feature flag evaluation failed and the value returned was the default value passed to `variation`. If the default field is omitted, it is assumed to be `false`.
 
 ### Index and identify events
 
-SDKs periodically transmit details for the `user` object used in a feature flag evaluation as reported by the "feature" event with a separate `index` event. The SDK will only send `index` events when  a user's attributes change.
+SDKs periodically transmit details for the `context` object used in a feature flag evaluation as reported by the "feature" event with a separate `index` event. The SDK will only send `index` events when a context's attributes change.
 
-Here is an example of an `index` event:
+The `kind` for an `index` event is `"index"`. The value of `context` is the same as described above for a `debug` event.
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Index event', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
-
-```json
-  {
-    "kind": "index",
-    "user": {
-      "key": "feature@test.com",
-      "custom": {
-        "groups": [
-          "microsoft",
-          "google"
-        ]
-      }
-    },
-    "creationDate": 1462220944000,
-  }
-
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-The `kind` for an `index` event is `"index"`. The value of `user` is the same as described above for a `debug` event.
+For an example and the full list of `index` event properties, read [Index events](/home/data-export/schema-reference#index-events).
 
 `identify` events are produced when the client application calls an SDK method called identify. `identify` events have an identical structure to `index` events, except the `kind` is set to `identify`.
 
-Here is an example of an `identify` event:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Identify event', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
-
-```json
-{
-  "kind": "identify",
-  "user": {
-    "key": "user@test.com"
-  },
-  "creationDate": 1462220944000
-}
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-### Alias events
-
-`alias` events are produced when the client application calls an SDK's alias method. Additionally, by default, client-side SDKs automatically produce `alias` events when they change an anonymous user to an identified user through an identify call.
-
-`alias` events have the following shape:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Alias event', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
-
-```json
-{
-  "kind": "alias",
-  "key": "new-user",
-  "contextKind": "user",
-  "previousKey": "previous-user",
-  "previousContextKind": "anonymousUser",
-  "creationDate": 1462220944000
-}
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-The `kind` for an `alias` event is `"alias"`. The `key` and `previousKey` attributes are the users' keys. The `contextKind` and `previousContextKind` define the kind of previous and new user; valid values are `"user"` and `"anonymousUser"`. The `creationDate` is the time the `alias` event was generated as UNIX epoch time in milliseconds.
+For an example and the full list of `identify` event properties, read [Identify events](/home/data-export/schema-reference#identify-events).
 
 ### Custom events
 
 SDKs produce `custom` events when the client application calls the SDK's track method.
 
-`custom` events have the following shape:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Custom event', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
-
-```json
-{
-  "kind": "custom",
-  "user": {
-    "key": "user@test.com"
-  },
-  "contextKind": "user",
-  "creationDate": 1416003645758,
-  "key": "custom.event.key",
-  "data": {
-    "custom": "value"
-  }
-}
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 Custom events can contain the following optional attributes:
 - `data` can contain any arbitrary JSON.
-- `contextKind` should be either `"user"` or `"anonymousUser"` depending on the corresponding user's `anonymous` property. If omitted, the context kind will be interpreted as `"user"`.
 - `metricValue` can contain a number.
 
-Depending on your SDK configuration, `custom` events may include all of the user attribute values instead of the `userKey`. In this case, the SDK sends the user attributes in a `user` property. If `custom` events include all user attribute values, the SDK will not send a corresponding `index` event.
+Depending on your SDK configuration, `custom` events may include all of the context attribute values instead of the `contextKey`. In this case, the SDK sends the context attributes in a `context` property. If `custom` events include all context attribute values, the SDK will not send a corresponding `index` event.
+
+For an example and the full list of `custom` event properties, read [Custom events](/home/data-export/schema-reference#custom-events).
 
 ### Summary events
 
 The SDK is expected to send `summary` events for every flush interval describing all of the feature evaluations that occurred during that interval. Summary events include all feature evaluations, regardless of whether the `trackEvents` field was set for individual flags.
 
-Here is an example of a `summary` event:
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Summary event', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
-
-```json
-{
-  "startDate": 1517350765387,
-  "endDate":  1517350825243,
-  "features": {
-    "flag-key": {
-      "default": "default-value",
-      "counters": [
-        {
-          "value": "result-value"
-          "version": 17,
-          "count": 23,
-          "variation": 1,
-        },
-        {
-          "value": "another-value"
-          "version": 17,
-          "count": 2,
-          "variation": 0,
-        }
-      ]
-    },
-    "another-flag-key" :{
-      "default": "some-other-result-value",
-      "counters": [{
-        "value": "some-other-result-value",
-        "version": 19,
-        "count": 29,
-        "variation": null (or leave empty)
-      }],
-    "nonexistent-flag-key" : {
-      "default": false,
-      "counters": [
-        {
-          "unknown": true,
-          "value": false,
-          "count": 3,
-        }]
-      }
-    }
-  }
-}
-```
-
-</CodeTabItem>
-</CodeTabs>
-
 The `summary` event represents a set of feature flag evaluations occurring during an interval defined by `startDate` and `endDate`, broken out by feature flag.
-
-For each feature flag, the following data should be provided:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Field</TableHeadCell>
-    <TableHeadCell>Meaning</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>default</code>
-      </TableCell>
-      <TableCell>
-        The default value the SDK received for the feature, sampled at some point during the interval.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>startDate</code>
-      </TableCell>
-      <TableCell>
-        The timestamp of the first feature flag evaluation included in this packet. This value is a UNIX epoch time in milliseconds.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>endDate</code>
-      </TableCell>
-      <TableCell>
-        The timestamp of the last feature flag evaluation included in this packet. This value is a UNIX epoch time in
-        milliseconds.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>counters</code>
-      </TableCell>
-      <TableCell>A set of counters as described below.</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-The `counters` field is an array of objects with the following shape:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Field</TableHeadCell>
-    <TableHeadCell>Meaning</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>version</code>
-      </TableCell>
-      <TableCell>The version of the feature flag evaluated.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>value</code>
-      </TableCell>
-      <TableCell>The value the SDK returned for the flag evaluation.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>variation</code>
-      </TableCell>
-      <TableCell>
-        A zero-based index into the list of variations. If LaunchDarkly does not provide this field, it means the SDK returned a fallback value.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>count</code>
-      </TableCell>
-      <TableCell>
-        The number of times this value/version/variation combination was an evaluation result during during the
-        interval.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>unknown (optional)</code>
-      </TableCell>
-      <TableCell>
-        If this is present and true, it indicates that no flag by this name was known to LaunchDarkly, and therefore the SDK returned the fallback value.
-      </TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
 
 The SDK should generate be a separate entry in `counters` for each unique value/version/variation combination encountered during the interval.
 
 The call to `/api/events/bulk` should contain a JSON list of events.
+
+For an example and the full list of `summary` event properties, including `counters` properties, read [Summary events](/home/data-export/schema-reference#summary-events).
 
 ### Diagnostic events
 
@@ -553,8 +257,8 @@ The technical details of how to implement `diagnostic` events in a LaunchDarkly 
 
 We've observed a few common mistakes in integrating the LaunchDarkly SDK at customer sites. It's helpful for the SDKs to introduce specific logging around these errors and handle them as gracefully as possible:
 
-1. Passing `null` (or the language equivalent) as the user `key`, or omitting the `key` property altogether. SDKs should log this at error level and return the default value.
-2. Including a trailing slash in the base URL of a custom config object. Example: `https://sdk.launchdarkly.com/`, which when appended to `/api`, yields `https://sdk.launchdarkly.com//api`. SDKs should deal with this by trimming trailing slashes off of custom base URL parameters.
+- Passing `null` or the language equivalent) as the context `key`, or omitting the `key` property altogether. SDKs should log this at error level and return the default value.
+- Including a trailing slash in the base URL of a custom config object. Example: `https://sdk.launchdarkly.com/`, which when appended to `/api`, yields `https://sdk.launchdarkly.com//api`. SDKs should deal with this by trimming trailing slashes off of custom base URL parameters.
 
 ## More resources
 

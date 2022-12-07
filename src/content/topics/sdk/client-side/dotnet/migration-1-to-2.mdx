@@ -79,13 +79,13 @@ Here is an example:
 
 ```csharp
 // 1.x model: setting custom options for streaming mode
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .IsStreamingEnabled(true)
     .ReconnectTime(TimeSpan.FromSeconds(2))
     .Build();
 
 // 1.x model: specifying polling mode and setting custom polling options
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .IsStreamingEnabled(false)
     .PollingInterval(TimeSpan.FromSeconds(60))
     .Build();
@@ -96,7 +96,7 @@ var config = Configuration.Builder("my-mobile-key")
 
 ```csharp
 // 2.0 model: setting custom options for streaming mode
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .DataSource(
         Components.StreamingDataSource()
             .InitialReconnectDelay(TimeSpan.FromSeconds(2))
@@ -104,7 +104,7 @@ var config = Configuration.Builder("my-mobile-key")
     .Build();
 
 // 2.0 model: specifying polling mode and setting custom polling options
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .DataSource(
         Components.PollingDataSource()
             .PollInterval(TimeSpan.FromSeconds(60))
@@ -137,7 +137,7 @@ Previously, the SDK would copy flag data to persistent storage for every user ke
 
 ```csharp
 // Keep flags for the most recent 2 users in persistent storage
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .Persistence(
         Components.Persistence().MaxCachedUsers(2)
     )
@@ -158,7 +158,7 @@ You can also turn off persistent storage entirely with `NoPersistence`:
 <CodeTabItem value="sdk2">
 
 ```csharp
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .Persistence(Components.NoPersistence)
     .Build();
 ```
@@ -174,8 +174,6 @@ To completely disable events, set `ConfigurationBuilder.Events` to `Components.N
 
 If you use private user attributes and are configuring private attributes for the entire SDK rather than for individual users, there is a new syntax based on the new `UserAttribute` type. This ensures that built-in attributes are not misspelled and helps to distinguish these parameters from other kinds of string parameters.
 
-To learn more, read [Using private user attributes](/home/users/attributes#using-private-user-attributes).
-
 Here is an example:
 
 <CodeTabs
@@ -189,12 +187,12 @@ Here is an example:
 
 ```csharp
 // 1.x model: disabling events
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .SendEvents(false)
     .Build();
 
 // 1.x model: customizing event behavior
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .EventCapacity(20000)
     .EventFlushInterval(TimeSpan.FromSeconds(10))
     .PrivateAttribute("email")
@@ -207,12 +205,12 @@ var config = Configuration.Builder("my-mobile-key")
 
 ```csharp
 // 2.0 model: disabling events
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .Events(Components.NoEvents)
     .Build();
 
 // 2.0 model: customizing event behavior
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .Events(
         Components.SendEvents()
             .Capacity(20000)
@@ -247,7 +245,7 @@ Here is an example:
 
 ```csharp
 // 1.x model: setting connection and read timeouts
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .HttpClientTimeout(TimeSpan.FromSeconds(3))
     .ReadTimeout(TimeSpan.FromSeconds(4))
     .Build();
@@ -258,7 +256,7 @@ var config = Configuration.Builder("my-mobile-key")
 
 ```csharp
 // 2.0 model: setting connection and read timeouts
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .Http(
         Components.HttpConfiguration()
             .ConnectTimeout(TimeSpan.FromSeconds(3))
@@ -267,7 +265,7 @@ var config = Configuration.Builder("my-mobile-key")
     .Build();
 
 // 2.0 model: specifying an HTTP proxy
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .Http(
         Components.HttpConfiguration()
             .Proxy(new System.Net.WebProxy(new Uri("http://my-proxy:8080"))
@@ -296,7 +294,7 @@ When connecting to a Relay Proxy instance, previously you needed to set the Rela
 <CodeTabItem value="sdk1">
 
 ```csharp
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .BaseUri(new Uri("http://my-relay-proxy:8080"))
     .StreamUri(new Uri("http://my-relay-proxy:8080"))
     .EventsUri(new Uri("http://my-relay-proxy:8080"))
@@ -307,7 +305,7 @@ var config = Configuration.Builder("my-mobile-key")
 <CodeTabItem value="sdk2">
 
 ```csharp
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .ServiceEndpoints(
         Components.ServiceEndpoints().RelayProxy("http://my-relay-proxy:8080")
     )
@@ -328,14 +326,14 @@ When connecting to a private LaunchDarkly instance, you still need to specify se
 <CodeTabItem value="sdk1">
 
 ```csharp
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .BaseUri(new Uri("https://app.mycompany.launchdarkly.com"))
     .StreamUri(new Uri("https://stream.mycompany.launchdarkly.com"))
     .EventsUri(new Uri("https://events.mycompany.launchdarkly.com"))
     .Build();
 ```
 ```csharp site=federal
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .BaseUri(new Uri("https://app.mycompany.launchdarkly.us"))
     .StreamUri(new Uri("https://stream.mycompany.launchdarkly.us"))
     .EventsUri(new Uri("https://events.mycompany.launchdarkly.us"))
@@ -346,7 +344,7 @@ var config = Configuration.Builder("my-mobile-key")
 <CodeTabItem value="sdk2">
 
 ```csharp
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .ServiceEndpoints(
         Components.ServiceEndpoints()
             .Polling("https://app.mycompany.launchdarkly.com")
@@ -356,7 +354,7 @@ var config = Configuration.Builder("my-mobile-key")
     .Build();
 ```
 ```csharp site=federal
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .ServiceEndpoints(
         Components.ServiceEndpoints()
             .Polling("https://app.mycompany.launchdarkly.us")
@@ -403,7 +401,7 @@ Here is an example of configuring the .NET SDK to send log output to the console
 using LaunchDarkly.Logging;
 using LaunchDarkly.Sdk.Client;
 
-var config = Configuration.Builder("my-mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .Logging(Logs.ToConsole.Level(LogLevel.Warn))
     .Build();
 ```

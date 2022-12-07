@@ -157,7 +157,7 @@ LdOptions = #{
   redis_prefix   => "default",
   feature_store  => ldclient_storage_redis
 },
-ldclient:start_instance("your_sdk_key", LdOptions).
+ldclient:start_instance("sdk-key-123abc", LdOptions).
 ```
 
 </CodeTabItem>
@@ -173,11 +173,31 @@ The Go integration is in [`github.com/launchdarkly/go-server-sdk-redis`](https:/
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 
 <CodeTabItem value="go">
+
+```go
+import (
+    ld "github.com/launchdarkly/go-server-sdk/v6"
+    "github.com/launchdarkly/go-server-sdk/v6/ldcomponents"
+    ldredis "github.com/launchdarkly/go-server-sdk-redis"
+)
+
+var config ld.Config
+config.DataStore = ldcomponents.PersistentDataStore(
+    ldredis.DataStore().
+        HostAndPort("my-redis", 6379).
+        Prefix("my-key-prefix"),
+).CacheSeconds(30)
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 import (
@@ -225,7 +245,7 @@ main = do
     con <- R.checkedConnect R.defaultConnectInfo { R.connectHost = "my-redis:6379" }
     backend <- makeRedisStore $ redisConfigSetNamespace "my-key-prefix" $ makeRedisStoreConfig con
 
-    let config = configSetStoreBackend backend $ makeConfig "your_sdk_key"
+    let config = configSetStoreBackend backend $ makeConfig "sdk-key-123abc"
 
     client <- makeClient config
 ```
@@ -294,7 +314,7 @@ local backend = r.makeStore({
 })
 
 local c = l.clientInit({
-    key                 = "your_sdk_key",
+    key                 = "sdk-key-123abc",
     featureStoreBackend = backend
 )}
 ```
@@ -349,7 +369,7 @@ const store = ld.RedisFeatureStore(redisOpts, 30, 'your-key-prefix');
 const options = {
   featureStore: store
 };
-const client = ld.init('YOUR_SDK_KEY', options);
+const client = ld.init('sdk-key-123abc', options);
 ```
 
 </CodeTabItem>
@@ -368,7 +388,7 @@ const store = RedisFeatureStore({
 const options: ld.LDOptions = {
   featureStore: store,
 };
-const client = ld.init('YOUR_SDK_KEY', options);
+const client = ld.init('sdk-key-123abc', options);
 ```
 
 </CodeTabItem>
@@ -406,7 +426,7 @@ $fr = LaunchDarkly\Integrations\Redis::featureRequester([
     'redis_port' => 6379,
     'redis_prefix' => 'my-key-prefix'
 ]);
-$client = new LaunchDarkly\LDClient("your_sdk_key", [
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", [
     'feature_requester' => $fr
 ]);
 ```
@@ -416,7 +436,7 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 <CodeTabItem value="php34">
 
 ```php
-$client = new LaunchDarkly\LDClient("your_sdk_key", [
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", [
     'feature_requester_class' => 'LaunchDarkly\LDDFeatureRequester',
     'redis_host' => 'my-redis',
     'redis_port' => 6379,
@@ -444,7 +464,7 @@ $fr = LaunchDarkly\Integrations\PHPRedis::featureRequester([
     'redis_port' => 6379,
     'redis_prefix' => 'my-key-prefix'
 ]);
-$client = new LaunchDarkly\LDClient("your_sdk_key", [
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", [
     'feature_requester' => $fr
 ]);
 ```

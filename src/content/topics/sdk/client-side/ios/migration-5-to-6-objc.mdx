@@ -53,7 +53,7 @@ Here is an example of the change:
 <CodeTabItem value="sdk5">
 
 ```objectivec
-LDUser *user = [[LDUser alloc] initWithKey:@"user_key"];
+LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user.custom = @{@"group": @"beta"};
 ```
 
@@ -61,7 +61,7 @@ user.custom = @{@"group": @"beta"};
 <CodeTabItem value="sdk6">
 
 ```objectivec
-LDUser *user = [[LDUser alloc] initWithKey:@"user_key"];
+LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user.custom = @{@"group": [LDValue ofString:@"beta"]};
 ```
 
@@ -80,9 +80,9 @@ The `isEqual` function on `LDUser` has changed. It no longer only compares the `
 <CodeTabItem value="sdk5">
 
 ```objectivec
-LDUser *user1 = [[LDUser alloc] initWithKey:@"user_key"];
+LDUser *user1 = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user1.name = @"Jane Smith";
-LDUser *user2 = [[LDUser alloc] initWithKey:@"user_key"];
+LDUser *user2 = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user2.name = @"John Smith";
 // Results in true
 [user1 isEqual:user2]
@@ -92,9 +92,9 @@ user2.name = @"John Smith";
 <CodeTabItem value="sdk6">
 
 ```objectivec
-LDUser *user1 = [[LDUser alloc] initWithKey:@"user_key"];
+LDUser *user1 = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user1.name = @"Jane Smith";
-LDUser *user2 = [[LDUser alloc] initWithKey:@"user_key"];
+LDUser *user2 = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user2.name = @"John Smith";
 // Results in false
 [user1 isEqual:user2]

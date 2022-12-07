@@ -6,6 +6,19 @@ tags: ['android', 'sdk', 'client-side']
 published: true
 ---
 
+<Callout intent="info">
+<CalloutTitle>Version 4 of the Android SDK replaces users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
+
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [Android SDK 3.x to 4.0 migration guide](/sdk/client-side/android/migration-3-to-4).
+
+</CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic documents how to get started with the Android SDK, and links to reference information on all of the supported features.
@@ -68,7 +81,7 @@ First, declare a dependency on the LaunchDarkly Android SDK:
 <CodeTabItem value="java">
 
 ```java
-implementation 'com.launchdarkly:launchdarkly-android-client-sdk:3.1.1'
+implementation 'com.launchdarkly:launchdarkly-android-client-sdk:4.0.0'
 ```
 
 </CodeTabItem>
@@ -112,7 +125,7 @@ import com.launchdarkly.sdk.android.*
 </CodeTabItem>
 </CodeTabs>
 
-After you install the SDK, create a single, shared instance of `LDClient`. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects). 
+After you install the SDK, create a single, shared instance of `LDClient`. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects).
 
 <Callout intent="alert">
 <CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
@@ -134,27 +147,27 @@ It's important to make `LDClient` a singleton. The client instance maintains int
 
 The following example shows the simplest way to create the client. It will block for up to five seconds until the latest feature flags are retrieved from LaunchDarkly.
 
-Here is how to create the client:
+In the v4 example, the context key is "context-key-123abc". In the v3 example, the user key is "user-key-123abc". Here is how to create the client:
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java' },
-    { label: 'Kotlin', value: 'kotlin' }
+    { label: 'Java, Android SDK v4.0', value: 'java' },
+    { label: 'Kotlin, Android SDK v4.0', value: 'kotlin' },
+    { label: 'Java, Android SDK v3.x', value: 'java-v3' },
+    { label: 'Kotlin, Android SDK v3.0', value: 'kotlin-v3' },
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
-    .mobileKey("YOUR_MOBILE_KEY")
+    .mobileKey("mobile-key-123abc")
     .build();
 
-LDUser user = new LDUser.Builder("user key")
-    .email("fake@example.com")
-    .build();
+LDContext context = LDContext.create("context-key-123abc");
 
-LDClient client = LDClient.init(this.getApplication(), ldConfig, user, 5);
+LDClient client = LDClient.init(this.getApplication(), ldConfig, context, 5);
 ```
 
 </CodeTabItem>
@@ -163,14 +176,43 @@ LDClient client = LDClient.init(this.getApplication(), ldConfig, user, 5);
 
 ```kotlin
 val ldConfig: LDConfig = LDConfig.Builder()
-    .mobileKey("YOUR_MOBILE_KEY")
+    .mobileKey("mobile-key-123abc")
     .build()
 
-val user: LDUser = LDUser.Builder("user key")
-    .email("fake@example.com")
+val context = LDContext.create("context-key-123abc")
+
+val client: LDClient = LDClient.init(application, ldConfig, context, 5)
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v3">
+
+```java
+LDConfig ldConfig = new LDConfig.Builder()
+    .mobileKey("mobile-key-123abc")
+    .build();
+
+LDUser user = new LDUser.Builder("user-key-123abc")
+    .build();
+
+LDClient client = LDClient.init(this.getApplication(), ldConfig, user, 5);
+
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="kotlin-v3">
+
+```kotlin
+val ldConfig: LDConfig = LDConfig.Builder()
+    .mobileKey("mobile-key-123abc")
+    .build()
+
+val user: LDUser = LDUser.Builder("user-key-123abc")
     .build()
 
 val client: LDClient = LDClient.init(application, ldConfig, user, 5)
+
 ```
 
 </CodeTabItem>
@@ -182,7 +224,7 @@ However, calling blocking code from the main thread in an Android app is not a b
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
 <CalloutDescription>
 
-You must make feature flags available to mobile SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
+You must make feature flags available to mobile SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the context will receive the default value for that flag.
 
 To make a flag available to this SDK, check the **SDKs using Mobile key** checkbox during flag creation, or on the flag's Settings tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Mobile key** checkbox in your project [Settings](https://app.launchdarkly.com/settings/projects).
 
@@ -194,11 +236,28 @@ Here is the preferred method:
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
+    { label: 'Java, Android SDK v4.0', value: 'java' },
+    { label: 'Kotlin, Android SDK v4.0', value: 'kotlin' },
+    { label: 'Java, Android SDK v3.x', value: 'java-v3' },
+    { label: 'Kotlin, Android SDK v3.0', value: 'kotlin-v3' },
   ]
 }>
 <CodeTabItem value="java">
+
+```java
+LDClient client = LDClient.init(this.getApplication(), ldConfig, context, 0);
+```
+
+</CodeTabItem>
+
+<CodeTabItem value="kotlin">
+
+```kotlin
+val client: LDClient = LDClient.init(application, ldConfig, context, 0)
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v3">
 
 ```java
 LDClient client = LDClient.init(this.getApplication(), ldConfig, user, 0);
@@ -206,7 +265,7 @@ LDClient client = LDClient.init(this.getApplication(), ldConfig, user, 0);
 
 </CodeTabItem>
 
-<CodeTabItem value="kotlin">
+<CodeTabItem value="kotlin-v3">
 
 ```kotlin
 val client: LDClient = LDClient.init(application, ldConfig, user, 0)
@@ -215,7 +274,7 @@ val client: LDClient = LDClient.init(application, ldConfig, user, 0)
 </CodeTabItem>
 </CodeTabs>
 
-You can use `client` to check which variation a particular user will receive for a feature flag.
+You can use `client` to check which variation a particular context will receive for a feature flag.
 
 Here's how:
 
@@ -261,19 +320,18 @@ Shut down the client when your application terminates. To learn more, read [Shut
 
 ## Data collection
 
-The data collected by the Android SDK persists until the number of cached users exceeds a limit. When you call `identify`, the number of cached users increments. Eventually, the number of cached users exceeds `maxCachedUsers`. When that happens, user data in excess of `maxCachedUsers` is deleted, starting with the oldest user first.
+The data collected by the Android SDK persists until the number of cached contexts exceeds a limit. When you call `identify`, the number of cached contexts increments. Eventually, the number of cached contexts exceeds `maxCachedContexts`. When that happens, the SDK deletes context data in excess of `maxCachedContext`, starting with the oldest context first.
 
 ## Supported features
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#android)
 * [Configuration](/sdk/features/config#android)
 * [Evaluating flags](/sdk/features/evaluating#android)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#android)
 * [Flushing events](/sdk/features/flush#android)
 * [Getting all flags](/sdk/features/all-flags#android)
-* [Identifying and changing users](/sdk/features/identify#android)
+* [Identifying and changing contexts](/sdk/features/identify#android)
 * [Logging configuration](/sdk/features/logging#android)
 * [Monitoring SDK status](/sdk/features/monitoring#android)
 * [Multiple environments](/sdk/features/multiple-environments#android)
@@ -283,4 +341,4 @@ This SDK supports the following features:
 * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#android)
 * [Shutting down](/sdk/features/shutdown#android)
 * [Subscribing to flag changes](/sdk/features/flag-changes#android)
-* [User configuration](/sdk/features/user-config#android)
+* [User and context configuration](/sdk/features/user-context-config#android)

@@ -14,7 +14,7 @@ This topic explains how to use the SDK DynamoDB integration as a persistent feat
 <CalloutTitle>Data size limit in DynamoDB</CalloutTitle>
 <CalloutDescription>
 
-DynamoDB does not support storing values greater than 400KB, including the size of the column metadata. Using DynamoDB as a persistent feature store will not work if the JSON representation of any feature flag or user segment exceeds that size. To learn more, read the [AWS documentation on item size](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html#limits-items).
+DynamoDB does not support storing values greater than 400KB, including the size of the column metadata. Using DynamoDB as a persistent feature store will not work if the JSON representation of any feature flag or segment exceeds that size. To learn more, read the [AWS documentation on item size](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html#limits-items).
 
 To view the JSON representations of all flags and segments, query `https://sdk.launchdarkly.com/sdk/latest-all` with your SDK key in the `Authorization` header.
 
@@ -29,7 +29,7 @@ In your application code, the only required parameter is the table name, althoug
 
 The table must already exist before your application starts. It must have a partition key called `"namespace"`, and a sort key called `"key"`. The SDK does not create the table automatically because it would not know what values to use for other properties such as permissions and throughput.
 
-DynamoDB imposes a limit of 400KB on the total size of any database item. In this implementation, each feature flag or user segment is a single item, so the feature store is not able to persist any flag or segment whose JSON representation is larger than that limit.
+DynamoDB imposes a limit of 400KB on the total size of any database item. In this implementation, each feature flag or segment is a single item, so the feature store is not able to persist any flag or segment whose JSON representation is larger than that limit.
 
 For a process to read from the DynamoDB table, it needs the following permissions:
 
@@ -129,11 +129,29 @@ The Go integration is in [`github.com/launchdarkly/go-server-sdk-dynamodb`](http
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
    ]
 }>
 
 <CodeTabItem value="go">
+
+```go
+import (
+    ld "github.com/launchdarkly/go-server-sdk/v6"
+    "github.com/launchdarkly/go-server-sdk/v6/ldcomponents"
+    lddynamodb "github.com/launchdarkly/go-server-sdk-dynamodb"
+)
+
+var config ld.Config
+config.DataStore = ldcomponents.PersistentDataStore(
+    lddynamodb.DataStore("my-table"),
+).CacheSeconds(30)
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 import (
@@ -215,7 +233,7 @@ const store = DynamoDBFeatureStore('your-table', { cacheTTL: 30 });
 const options = {
   featureStore: store
 };
-const client = ld.init('YOUR_SDK_KEY', options);
+const client = ld.init('sdk-key-123abc', options);
 ```
 
 </CodeTabItem>
@@ -233,7 +251,7 @@ const store = DynamoDBFeatureStore(
 const options: ld.LDOptions = {
   featureStore: store,
 };
-const client = ld.init('YOUR_SDK_KEY', options);
+const client = ld.init('sdk-key-123abc', options);
 
 ```
 
@@ -264,7 +282,7 @@ To use the DynamoDB integration:
 $fr = LaunchDarkly\Integrations\DynamoDb::featureRequester([
     'dynamodb_table' => 'my-table'
 ]);
-$client = new LaunchDarkly\LDClient("your_sdk_key", [
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", [
     'feature_requester' => $fr
 ]);
 ```

@@ -12,7 +12,7 @@ When using LaunchDarkly on your website, the content that the end user receives 
 
 ## Causes
 
-Because the feature flags must be evaluated for a particular user to get the correct variations, the default behavior of the JavaScript SDK is to request the flags for that user from LaunchDarkly's servers. After the SDK retrieves the flags, it sends a `ready` event to signal that it is ready to evaluate flags. If the page is initially rendered before the `ready` event triggers an update to the page, the initial rendering could be displayed briefly before the final page content.
+Because the feature flags must be evaluated for a particular context to get the correct variations, the default behavior of the JavaScript SDK is to request the flags for that user from LaunchDarkly's servers. After the SDK retrieves the flags, it sends a `ready` event to signal that it is ready to evaluate flags. If the page is initially rendered before the `ready` event triggers an update to the page, the initial rendering could be displayed briefly before the final page content.
 
 ## Options for resolving
 

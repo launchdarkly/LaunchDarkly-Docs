@@ -6,11 +6,15 @@ tags: ['rust', 'sdk', 'server-side']
 published: true
 ---
 
-<Callout intent="alert">
-<CalloutTitle>This SDK is in beta</CalloutTitle>
+<Callout intent="info">
+<CalloutTitle>Version 1 of the Rust SDK replaces users with contexts</CalloutTitle>
 <CalloutDescription>
 
-Development work on the Rust SDK is ongoing. Elements of this SDK may change without notice. Do not use this SDK in production environments.
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
+
+Code samples on this page are from version 1 of the Rust SDK. To learn more about implementing version 1 if you have been using the beta version, read [Rust SDK v1 implementation guide](/sdk/server-side/rust/implementation-v1).
 
 </CalloutDescription>
 </Callout>
@@ -69,7 +73,7 @@ First, install the LaunchDarkly SDK as a dependency in your application.
 
 ```bash
 cargo install cargo-edit
-cargo add launchdarkly-server-sdk --allow-prerelease
+cargo add launchdarkly-server-sdk
 ```
 
 </CodeTabItem>
@@ -86,7 +90,7 @@ Next, import the LaunchDarkly client in your application code:
 <CodeTabItem value="rust">
 
 ```rust
-use launchdarkly_server_sdk::{Client, ConfigBuilder, User};
+use launchdarkly_server_sdk::{Client, ConfigBuilder, ContextBuilder, ServiceEndpointsBuilder};
 ```
 
 </CodeTabItem>
@@ -134,7 +138,7 @@ It's important to make `client` a singleton. The client instance maintains inter
 </CalloutDescription>
 </Callout>
 
-You can use `client` to check which variation a particular user will receive for a given feature flag.
+You can use `client` to check which variation a particular context will receive for a given feature flag.
 
 Here's how:
 
@@ -147,8 +151,8 @@ Here's how:
 <CodeTabItem value="rust">
 
 ```rust
-let user = User::with_key("user@test.com").build();
-let show_feature = client.bool_variation(&user, "your.flag.key", false);
+let context = ContextBuilder::new("specific.context.key").build();
+let show_feature = client.bool_variation(&context, "your.flag.key", false);
 
 if show_feature {
   # application code to show the feature
@@ -164,17 +168,16 @@ if show_feature {
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#rust)
 * [Configuration](/sdk/features/config#rust)
 * [Evaluating flags](/sdk/features/evaluating#rust)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#rust)
 * [Flushing events](/sdk/features/flush#rust)
 * [Getting all flags](/sdk/features/all-flags#rust)
-* [Identifying and changing users](/sdk/features/identify#rust)
+* [Identifying and changing contexts](/sdk/features/identify#rust)
 * [Logging configuration](/sdk/features/logging#rust)
 * [Offline mode](/sdk/features/offline-mode#rust)
 * [Secure mode](/sdk/features/secure-mode#rust)
 * [Sending custom events](/sdk/features/events#rust)
 * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#rust)
 * [Shutting down](/sdk/features/shutdown#rust)
-* [User configuration](/sdk/features/user-config#rust)
+* [User and context configuration](/sdk/features/user-context-config#rust)

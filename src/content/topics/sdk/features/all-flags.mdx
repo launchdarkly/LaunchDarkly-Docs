@@ -10,15 +10,30 @@ tags: ['all flags', 'sdk']
 
 This topic explains how the all flags feature works in the LaunchDarkly SDKs that support it. The all flags feature is available for both client-side and server-side SDKs.
 
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
+
 ## Understanding the all flags feature
 
-The all flags feature returns the state of all feature flags targeted to a user. This includes the flag values, and, for server-side SDKs, metadata for use on the front end.
+The all flags feature returns the state of all feature flags targeted to a context or user. This includes the flag values, and, for server-side SDKs, metadata for use on the front end.
 
-In most of the client- and server-side SDKs, getting all flags does not create users or other analytics events in your LaunchDarkly account. Unlike evaluating individual flags or identifying users, getting all flags usually does not send events that create a user within LaunchDarkly or populate the flag evaluations graph for a flag.
+In most of the client- and server-side SDKs, getting all flags does not create contexts, users, or other analytics events in your LaunchDarkly account. Additionally, getting all flags usually does not send events that create a context or user within LaunchDarkly or populate the flag evaluations graph for a flag.
 
-For client-side SDKs, the all flags feature may return a null value in cases where a flag's fallback value would be served to the user.
+For client-side SDKs, the all flags feature may return a null value in cases where a flag's fallback value would be served to the end user.
 
-For server-side SDKs, you can use the all flags feature to pass feature flags to your front end. In particular, you can use it to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript). To learn more about bootstrapping from a client-side SDK, read [Bootstrapping](/sdk/features/bootstrapping).
+For server-side SDKs, you can use the all flags feature to pass feature flags to your front end. In particular, you can use it to provide bootstrap flag settings for the [JavaScript SDK](/sdk/client-side/javascript). To learn more about bootstrapping from a client-side SDK, read [Bootstrapping](/sdk/features/bootstrapping).
 
 Details about each SDK's configuration are available in the SDK-specific sections below:
 
@@ -45,7 +60,7 @@ This feature is available in the following client-side SDKs:
 
 <Details summary="Expand .NET (client-side) code sample">
 
-The `AllFlags` method produces a map of feature flag keys to their values for the current user:
+The `AllFlags` method produces a map of feature flag keys to their values:
 
 <CodeTabs
   defaultValue="csharp"
@@ -69,7 +84,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/dotne
 
 <Details summary="Expand Android code sample">
 
-The `allFlags` method produces a map of feature flag keys to their values for a specific user:
+The `allFlags` method produces a map of feature flag keys to their values:
 
 <CodeTabs
   defaultValue="java"
@@ -101,7 +116,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/andro
 
 <Details summary="Expand Flutter code sample">
 
-The `allFlags` method produces a map of feature flag keys to their values for a specific user:
+The `allFlags` method produces a map of feature flag keys to their values:
 
 <CodeTabs
   defaultValue="dart"
@@ -164,7 +179,7 @@ The `allFlags` method returns a key/value map of all your feature flags.
 
 The map contains null values for any flags that would return the fallback value. The fallback value is the second argument that you normally pass to `variation`.
 
-Unlike most of our SDKs, our JavaScript SDK's `allFlags` method sends analytics events to LaunchDarkly. If you do not want `allFlags` to generate any analytics events, you can turn this off with by setting the configuration option [`sendEventsOnlyForVariation`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#sendEventsOnlyForVariation) to `true`.
+Unlike most of our SDKs, our JavaScript SDK's `allFlags` method sends analytics events to LaunchDarkly. If you do not want `allFlags` to generate any analytics events, you can turn this off by setting the configuration option [`sendEventsOnlyForVariation`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#sendEventsOnlyForVariation) to `true`.
 
 <CodeTabs
   defaultValue="js"
@@ -214,7 +229,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/node-
 
 ### React
 
-All user-related functionality provided by the [JavaScript SDK](#javascript) is also available in the React SDK after you have initialized the SDK and have an `ldClient` available.
+All context- and user-related functionality provided by the [JavaScript SDK](#javascript) is also available in the React SDK after you have initialized the SDK and have an `ldClient` available.
 
 ### React Native
 
@@ -298,17 +313,25 @@ This feature is available in the following server-side SDKs:
 
 <Details summary="Expand .NET (server-side) code sample">
 
-The [`AllFlagsState`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_AllFlagsState_) method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
+The [`AllFlagsState`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_AllFlagsState_) method captures the state of all feature flags with regard to a specific context. This includes the flag values, as well as other metadata.
 
 To use the all flags feature:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
   ]
 }>
 <CodeTabItem value="csharp">
+
+```csharp
+var state = client.AllFlagsState(context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-6.x">
 
 ```csharp
 var state = client.AllFlagsState(user);
@@ -391,7 +414,7 @@ To use the all flags feature:
 <CodeTabItem value="erlang">
 
 ```
-ldclient:all_flags_state(#{key => <<"aa0ceb">>})
+ldclient:all_flags_state(#{key => <<"user-key-123abc">>})
 ```
 
 </CodeTabItem>
@@ -404,7 +427,7 @@ To learn more, read the [API documentation](https://hexdocs.pm/launchdarkly_serv
 
 <Details summary="Expand Go code sample">
 
-The [`AllFlagsState`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.AllFlagsState) method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
+The [`AllFlagsState`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.AllFlagsState) method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
 
 In this example, the extra `ClientSideOnly` option is specified so that only the feature flags designated for client-side use are included in the result.
 
@@ -413,10 +436,22 @@ To use the all flags feature:
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 <CodeTabItem value="go">
+
+```go
+import (
+    "github.com/launchdarkly/go-server-sdk/v6/interfaces/flagstate"
+)
+
+state := client.AllFlagsState(context, flagstate.OptionClientSideOnly())
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 import (
@@ -429,7 +464,7 @@ state := client.AllFlagsState(user, flagstate.OptionClientSideOnly())
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read the [API documentation](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.AllFlagsState).
+To learn more, read the [API documentation](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.AllFlagsState).
 </Details>
 
 ### Haskell
@@ -462,7 +497,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/haske
 
 <Details summary="Expand Java code sample">
 
-The [`allFlagsState`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#allFlagsState-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.server.FlagsStateOption...-) method captures the state of all feature flags with regard to a specific user. This includes their values as well as other metadata.
+The [`allFlagsState`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#allFlagsState-com.launchdarkly.sdk.LDContext-com.launchdarkly.sdk.server.FlagsStateOption...-) method captures the state of all feature flags with regard to a specific context. This includes their values as well as other metadata.
 
 This method can be useful for passing feature flags to your front end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
 
@@ -471,10 +506,18 @@ To use the all flags feature:
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java SDK v6.0', value: 'java', },
+    { label: 'Java SDK v5.x', value: 'java-v5', },
   ]
 }>
 <CodeTabItem value="java">
+
+```java
+FeatureFlagsState state = client.allFlagsState(context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v5">
 
 ```java
 FeatureFlagsState state = client.allFlagsState(user);
@@ -483,7 +526,7 @@ FeatureFlagsState state = client.allFlagsState(user);
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read the [API documentation](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/interfaces/LDClientInterface.html#allFlagsState(com.launchdarkly.sdk.LDUser,com.launchdarkly.sdk.server.FlagsStateOption...)).
+To learn more, read the [API documentation](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/interfaces/LDClientInterface.html#allFlagsState(com.launchdarkly.sdk.LDContext,com.launchdarkly.sdk.server.FlagsStateOption...)).
 </Details>
 
 ### Lua
@@ -514,19 +557,30 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/lua-s
 
 ### Node.js (server-side)
 
+
 <Details summary="Expand Node.js (server-side) code sample">
 
-The `allFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
+The `allFlagsState` method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
 
 To use the all flags feature:
 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
+    { label: 'Node.js SDK v7', value: 'js', },
+    { label: 'Node.js SDK v6.x and older', value: 'js-old', },
   ]
 }>
 <CodeTabItem value="js">
+
+```js
+client.allFlagsState(context, options, (err, flagsState) => {
+  // this object can be converted to JSON or can be queried for flag values
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-old">
 
 ```js
 client.allFlagsState(user, options, (err, flagsState) => {
@@ -538,6 +592,7 @@ client.allFlagsState(user, options, (err, flagsState) => {
 </CodeTabs>
 
 To learn more, read the [API documentation](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDClient.html#allFlagsState).
+
 </Details>
 
 ### Node.js (Cloudflare)
@@ -632,7 +687,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/ruby-
 
 <Details summary="Expand Rust code sample">
 
-The `all_flags_detail` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
+The `all_flags_detail` method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
 
 This method can be useful for passing feature flags to your front end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
 
@@ -641,15 +696,21 @@ To use the all flags feature:
 <CodeTabs
   defaultValue="rust"
   values={[
-    { label: 'Rust', value: 'rust', },
+    { label: 'Rust SDK v1', value: 'rust', },
+    { label: 'Rust SDK beta', value: 'rust-beta', },
   ]
 }>
 <CodeTabItem value="rust">
 
 ```rust
+let state = ldclient.all_flags_detail(&context, FlagDetailConfig::new());
+```
+</CodeTabItem>
+<CodeTabItem value="rust-beta">
+
+```rust
 let state = ldclient.all_flags_detail(&user, FlagDetailConfig::new());
 ```
-
 </CodeTabItem>
 </CodeTabs>
 

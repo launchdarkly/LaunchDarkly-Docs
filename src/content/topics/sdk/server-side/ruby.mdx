@@ -106,7 +106,7 @@ Here's how:
 <CodeTabItem value="ruby">
 
 ```ruby
-client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY")
+client = LaunchDarkly::LDClient.new("sdk-key-123abc")
 ```
 
 </CodeTabItem>
@@ -159,7 +159,7 @@ To use LaunchDarkly in a Rails application, initialize the client in `config/ini
 <CodeTabItem value="ruby">
 
 ```ruby
-Rails.configuration.client = LaunchDarkly::LDClient.new("your_sdk_key")
+Rails.configuration.client = LaunchDarkly::LDClient.new("sdk-key-123abc")
 ```
 
 </CodeTabItem>
@@ -256,7 +256,7 @@ This SDK supports the following features:
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#ruby)
 * [Flushing events](/sdk/features/flush#ruby)
 * [Getting all flags](/sdk/features/all-flags#ruby)
-* [Identifying and changing users](/sdk/features/identify#ruby)
+* [Identifying and changing contexts](/sdk/features/identify#ruby)
 * [Logging configuration](/sdk/features/logging#ruby)
 * [Offline mode](/sdk/features/offline-mode#ruby)
 * [Reading flags from a file](/sdk/features/flags-from-files#ruby)
@@ -269,5 +269,5 @@ This SDK supports the following features:
 * [Shutting down](/sdk/features/shutdown#ruby)
 * [Storing data](/sdk/features/storing-data#ruby)
 * [Test data sources](/sdk/features/test-data-sources#ruby)
-* [User configuration](/sdk/features/user-config#ruby)
+* [User and context configuration](/sdk/features/user-context-config#ruby)
 * [Web proxy configuration](/sdk/features/web-proxy#ruby)

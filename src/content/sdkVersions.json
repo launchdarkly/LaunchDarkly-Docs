@@ -28,6 +28,11 @@
     "name": ".NET (server-side)",
     "versions": [
       {
+        "versionMajorMinor": "7.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-07"
+      },
+      {
         "versionMajorMinor": "6.3",
         "releaseYear": 2021,
         "releaseMonthDay": "10-25"
@@ -107,6 +112,11 @@
   {
     "name": "Android",
     "versions": [
+      {
+        "versionMajorMinor": "4.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-07"
+      },
       {
         "versionMajorMinor": "3.3",
         "releaseYear": 2022,
@@ -438,6 +448,11 @@
     "name": "Go",
     "versions": [
       {
+        "versionMajorMinor": "6.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-07"
+      },
+      {
         "versionMajorMinor": "5.10",
         "releaseYear": 2022,
         "releaseMonthDay": "07-05"
@@ -603,6 +618,11 @@
     "name": "iOS",
     "versions": [
       {
+        "versionMajorMinor": "8.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-07"
+      },
+      {
         "versionMajorMinor": "7.1",
         "releaseYear": 2022,
         "releaseMonthDay": "11-08"
@@ -692,6 +712,11 @@
   {
     "name": "Java",
     "versions": [
+      {
+        "versionMajorMinor": "6.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-07"
+      },
       {
         "versionMajorMinor": "5.10",
         "releaseYear": 2022,
@@ -807,6 +832,11 @@
   {
     "name": "JavaScript",
     "versions": [
+      {
+        "versionMajorMinor": "3.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-07"
+      },
       {
         "versionMajorMinor": "2.24",
         "releaseYear": 2022,
@@ -972,6 +1002,11 @@
   {
     "name": "Node.js (server-side)",
     "versions": [
+      {
+        "versionMajorMinor": "7.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-07"
+      },
       {
         "versionMajorMinor": "6.4",
         "releaseYear": 2022,
@@ -1192,6 +1227,11 @@
   {
     "name": "React",
     "versions": [
+      {
+        "versionMajorMinor": "3.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-07"
+      },
       {
         "versionMajorMinor": "2.29",
         "releaseYear": 2022,
@@ -1461,6 +1501,16 @@
         "versionMajorMinor": "5.2",
         "releaseYear": 2018,
         "releaseMonthDay": "08-30"
+      }
+    ]
+  },
+  {
+    "name": "Rust",
+    "versions": [
+      {
+        "versionMajorMinor": "1.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-07"
       }
     ]
   },

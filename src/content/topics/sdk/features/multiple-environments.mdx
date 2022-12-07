@@ -10,6 +10,21 @@ tags: ['multiple', 'environment', 'mobile', 'sdk']
 
 This topic explains how to support multiple environments in LaunchDarkly mobile SDKs.
 
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
+
 ## Client-side SDKs
 
 Some LaunchDarkly client-side SDKs support having multiple `LDClient` instances tied to separate mobile keys. This allows the SDK to evaluate flags from multiple environments.
@@ -24,32 +39,34 @@ This feature is available in the following client-side SDKs:
 
 <Details summary="Expand Android code sample">
 
-All `LDClient` instances evaluate against the same `LDUser`. The mobile keys for additional environments are specified, along with identifying names, in a map passed to your `LDConfig` object.
+All `LDClient` instances evaluate against the same `LDContext`. The mobile keys for additional environments are specified, along with identifying names, in a map passed to your `LDConfig` object.
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
+    { label: 'Java for Android SDK v4.0', value: 'java' },
+    { label: 'Kotlin for Android SDK v4.0', value: 'kotlin' },
+    { label: 'Java for Android SDK v3.x', value: 'java-v3' },
+    { label: 'Kotlin for Android SDK v3.x', value: 'kotlin-v3' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
 Map<String, String> otherKeys = new HashMap<String, String>();
-otherKeys.put("platform", "PLATFORM_MOBILE_KEY");
-otherKeys.put("core", "CORE_MOBILE_KEY");
+otherKeys.put("platform", "platform-mobile-key-456def");
+otherKeys.put("core", "core-mobile-key-789ghi");
 
 LDConfig ldConfig = new LDConfig.Builder()
-    .mobileKey("MOBILE_KEY")
+    .mobileKey("mobile-key-123abc")
     .secondaryMobileKeys(otherKeys)
     .build();
 
-LDUser user = new LDUser.Builder("user key")
-    .email("fake@example.com")
+LDContext context = LDContext.builder("context-key-123abc")
+    .set("email", "sandy@example.com")
     .build();
 
-LDClient.init(this.getApplication(), ldConfig, user);
+LDClient.init(this.getApplication(), ldConfig, context);
 ```
 
 </CodeTabItem>
@@ -57,16 +74,56 @@ LDClient.init(this.getApplication(), ldConfig, user);
 
 ```kotlin
 val otherKeys: Map<String, String> = HashMap()
-otherKeys.put("platform", "PLATFORM_MOBILE_KEY")
-otherKeys.put("core", "CORE_MOBILE_KEY")
+otherKeys.put("platform", "platform-mobile-key-123abc")
+otherKeys.put("core", "core-mobile-key-123abc")
 
 val ldConfig: LDConfig = LDConfig.Builder()
-    .mobileKey("MOBILE_KEY")
+    .mobileKey("mobile-key-123abc")
     .secondaryMobileKeys(otherKeys)
     .build()
 
-val user: LDUser = LDUser.Builder("user key")
-    .email("fake@example.com")
+val context: LDContext = LDContext.builder("context-key-123abc")
+    .set("email", "sandy@example.com")
+    .build()
+
+LDClient.init(application, ldConfig, context)
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v3">
+
+```java
+Map<String, String> otherKeys = new HashMap<String, String>();
+otherKeys.put("platform", "platform-mobile-key-123abc");
+otherKeys.put("core", "core-mobile-key-123abc");
+
+LDConfig ldConfig = new LDConfig.Builder()
+    .mobileKey("mobile-key-123abc")
+    .secondaryMobileKeys(otherKeys)
+    .build();
+
+LDUser user = new LDUser.Builder("user-key-123abc")
+    .email("sandy@example.com")
+    .build();
+
+LDClient.init(this.getApplication(), ldConfig, user);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin-v3">
+
+```kotlin
+val otherKeys: Map<String, String> = HashMap()
+otherKeys.put("platform", "platform-mobile-key-456def")
+otherKeys.put("core", "core-mobile-key-789ghi")
+
+val ldConfig: LDConfig = LDConfig.Builder()
+    .mobileKey("mobile-key-123abc")
+    .secondaryMobileKeys(otherKeys)
+    .build()
+
+val user: LDUser = LDUser.Builder("user-key-123abc")
+    .email("sandy@example.com")
     .build()
 
 LDClient.init(application, ldConfig, user)
@@ -102,16 +159,46 @@ coreInstance.boolVariation("core-flag", false)
 </CodeTabItem>
 </CodeTabs>
 
-As all the client instances use the same LDUser object, some calls affect all instances.
+As all the client instances use the same LDContext object, some calls affect all instances.
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
+    { label: 'Java for Android SDK v4.0', value: 'java' },
+    { label: 'Kotlin for Android SDK v4.0', value: 'kotlin' },
+    { label: 'Java for Android SDK v3.x', value: 'java-v3' },
+    { label: 'Kotlin for Android SDK v3.x', value: 'kotlin-v3' }
   ]
 }>
 <CodeTabItem value="java">
+
+```java
+LDClient coreInstance = LDClient.getForMobileKey("core");
+
+// Calls affect all LDClient Instances
+coreInstance.identify(/*Context Object*/);
+coreInstance.flush();
+coreInstance.setOffline();
+coreInstance.setOnline();
+coreInstance.close();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val coreInstance: LDClient = LDClient.getForMobileKey("core")
+
+// Calls affect all LDClient Instances
+coreInstance.identify(/*Context Object*/)
+coreInstance.flush()
+coreInstance.setOffline()
+coreInstance.setOnline()
+coreInstance.close()
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v3">
 
 ```java
 LDClient coreInstance = LDClient.getForMobileKey("core");
@@ -125,7 +212,7 @@ coreInstance.close();
 ```
 
 </CodeTabItem>
-<CodeTabItem value="kotlin">
+<CodeTabItem value="kotlin-v3">
 
 ```kotlin
 val coreInstance: LDClient = LDClient.getForMobileKey("core")
@@ -148,32 +235,59 @@ Track calls, listeners, and flag evaluation are all tied to the client instance 
 
 <Details summary="Expand iOS code sample">
 
-All `LDClient` instances evaluate against the same `LDUser`. The mobile keys for additional environments are specified, along with identifying names, in a map passed to your `LDConfig` object.
+All `LDClient` instances evaluate against the same `LDContext`. The mobile keys for additional environments are specified, along with identifying names, in a map passed to your `LDConfig` object.
 
 <CodeTabs
   defaultValue="swift"
   values={[
     { label: 'Swift', value: 'swift', },
     { label: 'Objective-C', value: 'objc', },
+    { label: 'Swift for iOS SDK v7.x', value: 'swift-v7', },
+    { label: 'Objective-C for iOS SDK v7.x', value: 'objc-v7', }
   ]
 }>
 <CodeTabItem value="swift">
 
 ```swift
-let user = LDUser(key: "YOUR_USER_KEY")
-var config = LDConfig(mobileKey: "PRIMARY_MOBILE_KEY")
+let context = try LDContextBuilder(key: "context-key-123abc").build().get()
+var config = LDConfig(mobileKey: "mobile-key-123abc")
 // Note that the SDK throws error strings if you add duplicate keys or put the primary key or name in secondaryMobileKeys.
-try! config.setSecondaryMobileKeys(["platform": "PLATFORM_MOBILE_KEY", "core": "CORE_MOBILE_KEY"])
-LDClient.start(config: config, user: user)
+try! config.setSecondaryMobileKeys(["platform": "platform-mobile-key-123abc", "core": "core-mobile-key-123abc"])
+LDClient.start(config: config, context: context)
 ```
 
 </CodeTabItem>
 <CodeTabItem value="objc">
 
 ```objectivec
-LDUser *user = [[LDUser alloc] initWithKey:@"YOUR_USER_KEY"];
-LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"MOBILE_KEY"];
-NSDictionary *otherMobileKeys = @{@"platform": @"PLATFORM_MOBILE_KEY", @"core": @"CORE_MOBILE_KEY"};
+LDContext *context = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"].build.success;
+LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
+NSDictionary *otherMobileKeys = @{@"platform": @"platform-mobile-key-123abc", @"core": @"core-mobile-key-123abc"};
+NSError *err = nil;
+[config setSecondaryMobileKeys:otherMobileKeys error:&err];
+[LDClient startWithConfiguration:config context:context completion:nil];
+
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="swift-v7">
+
+```swift
+let user = LDUser(key: "user-key-123abc")
+var config = LDConfig(mobileKey: "mobile-key-123abc")
+// Note that the SDK throws error strings if you add duplicate keys or put the primary key or name in secondaryMobileKeys.
+try! config.setSecondaryMobileKeys(["platform": "platform-mobile-key-456def", "core": "core-mobile-key-789ghi"])
+LDClient.start(config: config, user: user)
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc-v7">
+
+```objectivec
+LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
+LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
+NSDictionary *otherMobileKeys = @{@"platform": @"platform-mobile-key-456def", @"core": @"core-mobile-key-789ghi"};
 NSError *err = nil;
 [config setSecondaryMobileKeys:otherMobileKeys error:&err]
 [LDClient startWithConfiguration:config user:user];
@@ -196,7 +310,7 @@ To access the secondary mobile key instances, use the `LDClient.get` static meth
 
 ```swift
 var coreInstance = LDClient.get(environment: "core")
-let coreFlagValue = coreInstance?.variation(forKey: "CORE_FLAG_KEY", defaultValue: false)
+let coreFlagValue = coreInstance?.variation(forKey: "core-flag-key-123abc", defaultValue: false)
 ```
 
 </CodeTabItem>
@@ -204,13 +318,13 @@ let coreFlagValue = coreInstance?.variation(forKey: "CORE_FLAG_KEY", defaultValu
 
 ```objectivec
 LDClient *coreInstance = [LDClient getEnvironment:@"core"];
-let coreFlagValue = [coreInstance boolVariationForKey:@"CORE_FLAG_KEY" defaultValue:NO];
+let coreFlagValue = [coreInstance boolVariationForKey:@"core-flag-key-123abc" defaultValue:NO];
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-As all the client instances use the same `LDUser` object, some SDK functionality affects all instances.
+As all the client instances use the same `LDContext` object, some SDK functionality affects all instances.
 
 <CodeTabs
   defaultValue="swift"
@@ -222,7 +336,7 @@ As all the client instances use the same `LDUser` object, some SDK functionality
 <CodeTabItem value="swift">
 
 ```swift
-coreInstance.identify(/*User Object*/)
+coreInstance.identify(/*Context Object*/)
 coreInstance.flush()
 coreInstance.setOnline(true)
 coreInstance.close()
@@ -232,7 +346,7 @@ coreInstance.close()
 <CodeTabItem value="objc">
 
 ```objectivec
-[coreInstance identifyWithUser:/*User Object*/];
+[coreInstance identifyWithContext:/*Context Object*/];
 [coreInstance flush];
 [coreInstance setOnline:true];
 [coreInstance close];
@@ -263,10 +377,10 @@ You do not need to manage `LDClient` instances. Instead, access an instance by p
 
 ```js
 let config = {
-  mobileKey: 'YOUR_MOBILE_KEY',
+  mobileKey: 'mobile-key-123abc',
   secondaryMobileKeys: {
-    'platform': 'PLATFORM_MOBILE_KEY',
-    'core': 'CORE_MOBILE_KEY'
+    'platform': 'platform-mobile-key-456def',
+    'core': 'core-mobile-key-789ghi'
   },
 };
 let user = {key: 'minimal_user'};
@@ -280,10 +394,10 @@ await client.configure(config, user);
 import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
 
 let config: ld.LDConfig = {
-  mobileKey: 'YOUR_MOBILE_KEY',
+  mobileKey: 'mobile-key-123abc',
   secondaryMobileKeys: {
-    'platform': 'PLATFORM_MOBILE_KEY',
-    'core': 'CORE_MOBILE_KEY'
+    'platform': 'platform-mobile-key-456def',
+    'core': 'core-mobile-key-789ghi'
   },
 };
 let user: ld.LDUser = { key: 'minimal_user' };

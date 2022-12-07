@@ -14,7 +14,7 @@ This topic explains how to use the SDK Consul integration as a persistent featur
 <CalloutTitle>Data size limit in Consul</CalloutTitle>
 <CalloutDescription>
 
-Consul does not support storing values greater than 512KB. Using Consul as a persistent feature store does not work if the JSON representation of any feature flag or user segment exceeds that size. To learn more about these limitations, read [Consul's documentation](https://www.consul.io/docs/troubleshoot/faq#q-what-is-the-per-key-value-size-limitation-for-consul-s-key-value-store).
+Consul does not support storing values greater than 512KB. Using Consul as a persistent feature store does not work if the JSON representation of any feature flag or segment exceeds that size. To learn more about these limitations, read [Consul's documentation](https://www.consul.io/docs/troubleshoot/faq#q-what-is-the-per-key-value-size-limitation-for-consul-s-key-value-store).
 
 To view the JSON representations of all flags and segments, query <code>https://sdk.launchdarkly.com/sdk/latest-all</code> with your SDK key in the `Authorization` header.
 
@@ -99,11 +99,31 @@ The Go integration is in [`github.com/launchdarkly/go-server-sdk-consul`](https:
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 
 <CodeTabItem value="go">
+
+```go
+import (
+    ld "github.com/launchdarkly/go-server-sdk/v6"
+    "github.com/launchdarkly/go-server-sdk/v6/ldcomponents"
+    ldconsul "github.com/launchdarkly/go-server-sdk-consul"
+)
+
+var config ld.Config
+config.DataStore = ldcomponents.PersistentDataStore(
+    ldconsul.DataStore().
+        Address("http://my-consul:8100").
+        Prefix("my-key-prefix"),
+).CacheSeconds(30)
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 import (
@@ -195,7 +215,7 @@ const store = ConsulFeatureStore({
 const options = {
   featureStore: store
 };
-const client = ld.init('YOUR_SDK_KEY', options);
+const client = ld.init('sdk-key-123abc', options);
 ```
 
 </CodeTabItem>
@@ -218,7 +238,7 @@ const options: ld.LDOptions = {
   featureStore: store,
 };
 
-const client = ld.init('YOUR_SDK_KEY', options);
+const client = ld.init('sdk-key-123abc', options);
 ```
 
 </CodeTabItem>
@@ -249,7 +269,7 @@ $fr = LaunchDarkly\Integrations\Consul::featureRequester([
     'consul_uri' => 'http://my-consul:8100',
     'consul_prefix' => 'my-key-prefix'
 ]);
-$client = new LaunchDarkly\LDClient("your_sdk_key", [
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", [
     'feature_requester' => $fr
 ]);
 ```

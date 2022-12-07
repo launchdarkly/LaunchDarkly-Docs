@@ -94,7 +94,7 @@ Here is an example:
 
 ```lua
 local config = {
-    key = YOUR_SDK_KEY
+    key = sdk-key-123abc
 }
 
 local client = ld.clientInit(config, 1000)
@@ -116,7 +116,7 @@ Here's how:
 <CodeTabItem value="lua">
 
 ```lua
-if client:boolVariation(user, YOUR_FEATURE_KEY, false) then
+if client:boolVariation(user, flag-key-123abc, false) then
     print "feature is enabled"
 else
     print "feature is disabled"
@@ -136,10 +136,10 @@ This SDK supports the following features:
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#lua)
 * [Flushing events](/sdk/features/flush#lua)
 * [Getting all flags](/sdk/features/all-flags#lua)
-* [Identifying and changing users](/sdk/features/identify#lua)
+* [Identifying and changing contexts](/sdk/features/identify#lua)
 * [Relay Proxy configuration](/sdk/features/relay-proxy-configuration)
   * [Using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#lua)
   * [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#lua)
 * [Sending custom events](/sdk/features/events#lua)
 * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#lua)
-* [User configuration](/sdk/features/user-config#lua)
+* [User and context configuration](/sdk/features/user-context-config#lua)

@@ -10,6 +10,21 @@ published: true
 
 This topic explains the implications of using a LaunchDarkly SDK in an app you submit to the Apple App Store.
 
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
+
 Since December 2020, the Apple App Store requires apps you submit to provide information about their privacy practices, including the practices of third-party partners whose code is integrated into the app. If you integrate a LaunchDarkly SDK into your app and submit it to the Apple App Store, you must disclose which data LaunchDarkly collects. Before you submit your app to Apple, you may have questions about how Apple App Store reviewers treat your app's use of LaunchDarkly.
 
 Apple’s App Store policies and the actions of their reviewers are beyond our control or ability to predict. Apple has, in the past, raised concerns about code which is present in an app but which doesn’t seem to be reachable during testing. If you encounter this feedback, you may be able to resolve it by enabling all features for the app version being tested, allowing App Store reviewers to investigate your app, and then disabling unlaunched features before release.
@@ -67,7 +82,7 @@ This table explains the contact information LaunchDarkly SDKs collect by default
       <TableCell></TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Other user contact info</TableCell>
+      <TableCell>Other end user contact info</TableCell>
       <TableCell>Not collected by default.</TableCell>
       <TableCell></TableCell>
     </TableRow>
@@ -189,9 +204,9 @@ This table explains the contacts information LaunchDarkly SDKs collect by defaul
   </TableBody>
 </Table>
 
-### User content
+### End user content
 
-This table explains the user content information LaunchDarkly SDKs collect by default:
+This table explains the end user content information LaunchDarkly SDKs collect by default:
 
 <Table>
   <TableHeader>
@@ -226,7 +241,7 @@ This table explains the user content information LaunchDarkly SDKs collect by de
       <TableCell></TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Other user content</TableCell>
+      <TableCell>Other end user content</TableCell>
       <TableCell>Not collected by default.</TableCell>
       <TableCell></TableCell>
     </TableRow>
@@ -273,7 +288,7 @@ This table explains the search history LaunchDarkly SDKs collect by default:
 
 ### Identifiers
 
-LaunchDarkly SDKs collect user IDs so you can target by individual users. While the SDKs require you to provide user IDs, your application code is responsible for defining them. To learn more, read your SDK's reference page.
+LaunchDarkly SDKs collect context IDs so you can target by individual contexts. While the SDKs require you to provide context IDs, your application code is responsible for defining them. To learn more, read your SDK's reference page.
 
 This table explains the identifier information LaunchDarkly SDKs collect by default:
 
@@ -285,11 +300,11 @@ This table explains the identifier information LaunchDarkly SDKs collect by defa
   </TableHeader>
   <TableBody>
     <TableRow>
-      <TableCell>User ID</TableCell>
-      <TableCell>LaunchDarkly collects a unique identifier, as provided by your application code, for each of your users.</TableCell>
+      <TableCell>Context ID</TableCell>
+      <TableCell>LaunchDarkly collects a unique identifier, as provided by your application code, for each of your contexts.</TableCell>
       <TableCell><ul>
           <li>This data is used for product personalization.</li>
-          <li>This data may be linked to a user depending on how your application specifies user IDs.</li>
+          <li>This data may be linked to a user context depending on how your application specifies context IDs.</li>
         </ul></TableCell>
     </TableRow>
     <TableRow>
@@ -349,7 +364,7 @@ This table explains the usage data LaunchDarkly SDKs collect by default:
       <TableCell>LaunchDarkly collects counters of flag evaluations.</TableCell>
       <TableCell><ul>
           <li>This data is used for analytics.</li>
-          <li>This data is not linked to users.</li>
+          <li>This data is not linked to end users.</li>
         </ul></TableCell>
     </TableRow>
   </TableBody>
@@ -385,7 +400,7 @@ This table explains the diagnostics information LaunchDarkly SDKs collect by def
       </TableCell>
       <TableCell><ul>
           <li>This data is used for analytics.</li>
-          <li>This data is not linked to users.</li>
+          <li>This data is not linked to end users.</li>
         </ul></TableCell>
     </TableRow>
     <TableRow>
@@ -395,12 +410,12 @@ This table explains the diagnostics information LaunchDarkly SDKs collect by def
             <li>parts of the SDK configuration,</li>
             <li>high-level information about the underlying platform, operating system, and device type,</li>
             <li>metrics about LaunchDarkly event processing, and</li>
-            <li>metrics about LaunchDarkly user indexing.</li>
+            <li>metrics about LaunchDarkly context indexing.</li>
         </ul>
       </TableCell>
       <TableCell><ul>
           <li>This data is used for analytics.</li>
-          <li>This data is not linked to users.</li>
+          <li>This data is not linked to end users.</li>
         </ul></TableCell>
     </TableRow>
   </TableBody>
@@ -435,7 +450,7 @@ This table explains the device and operating system information LaunchDarkly SDK
       </TableCell>
       <TableCell><ul>
           <li>This data is used for product personalization.</li>
-          <li>This data is linked to the user ID.</li>
+          <li>This data is linked to the context ID.</li>
         </ul></TableCell>
     </TableRow>
   </TableBody>

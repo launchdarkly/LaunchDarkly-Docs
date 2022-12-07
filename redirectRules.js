@@ -1,4 +1,70 @@
 module.exports = [
+  // Temporary redirects for U2C EAP
+  {
+    fromPath: '/home/flags/targeting',
+    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/flags/targeting',
+  },
+  {
+    fromPath: '/home/flags/live-events',
+    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/flags/live-events',
+  },
+  {
+    fromPath: '/home/contexts',
+    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts',
+  },
+  {
+    fromPath: '/home/contexts/contexts-list',
+    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/contexts-list',
+  },
+  {
+    fromPath: '/home/contexts/context-details',
+    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/context-details',
+  },
+  {
+    fromPath: '/home/contexts/attributes',
+    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/attributes',
+  },
+  {
+    fromPath: '/home/contexts/built-in-attributes',
+    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/built-in-attributes',
+  },
+  {
+    fromPath: '/home/contexts/custom-attributes',
+    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/custom-attributes',
+  },
+  {
+    fromPath: '/home/contexts/context-kinds',
+    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/context-kinds',
+  },
+  {
+    fromPath: '/home/contexts/segments',
+    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/segments',
+  },
+  {
+    fromPath: '/home/contexts/standard-segments',
+    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/standard-segments',
+  },
+  {
+    fromPath: '/home/contexts/big-segments',
+    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/big-segments',
+  },
+  {
+    fromPath: '/home/contexts/synced-segments',
+    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/synced-segments',
+  },
+  {
+    fromPath: '/home/contexts/bulk-edit-segments',
+    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/bulk-edit-segments',
+  },
+  {
+    fromPath: '/home/contexts/anonymous-contexts',
+    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/anonymous-contexts',
+  },
+  {
+    fromPath: '/sdk/features/user-config',
+    toPath: '/sdk/features/user-context-config',
+  },
+
   // Redirects within the git-gatsby docs site
 
   {

@@ -10,6 +10,21 @@ tags: ['test', 'data', 'sdk']
 
 This topic explains how to use the test data source feature for more control over your LaunchDarkly SDKs during testing.
 
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
+
 ## Using test data sources
 
 LaunchDarkly SDKs must have a data source when they initialize. Usually, this data source is connected to LaunchDarkly. However, when you write unit tests, using a test data source can give you more control over your SDK.
@@ -27,7 +42,7 @@ The test data source is intended strictly for testing purposes. It cannot be use
 
 You can set a flag's initial state by calling the data source's `update` method before or after starting the client. When you start the client, it acts as if it has connected to LaunchDarkly and received all of the test data that you have configured. Subsequent calls to `update` behave as if LaunchDarkly sent an update over a streaming connection.
 
-You can modify targeting rules at any time, including when the SDK is already in use. This allows you to simulate a situation where a feature flag changes values. When you set a flag's state in the test data source, you can either set it to return a single variation for all users, or set up more complicated behavior similar to the ways you can configure a flag in the flags list. This can be useful in testing application code that expects flags to be different for different users.
+You can modify targeting rules at any time, including when the SDK is already in use. This allows you to simulate a situation where a feature flag changes values. When you set a flag's state in the test data source, you can either set it to return a single variation for all contexts or users, or set up more complicated behavior similar to the ways you can configure a flag in the flags list. This can be useful in testing application code that expects flags to be different for different contexts or users.
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 
@@ -57,7 +72,7 @@ using LaunchDarkly.Sdk.Client.Integrations;
 var td = TestData.DataSource();
 // You can set any initial flag states here with td.Update
 
-var config = Configuration.Builder("sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .DataSource(td)
     .Build();
 var client = LdClient.Init(config, user, startWaitTime);
@@ -77,7 +92,7 @@ To set a flag to a specific value:
 <CodeTabItem value="csharp">
 
 ```csharp
-td.Update(td.Flag("flag-key-1").Variation(false);
+td.Update(td.Flag("flag-key-123abc").Variation(false);
 ```
 
 </CodeTabItem>
@@ -95,13 +110,13 @@ There are other ways you can configure flag behavior using a test data source. H
 
 ```csharp
 // This flag is true for the user key "some-user-key" and false for everyone else
-td.Update(td.Flag("flag-key-2")
+td.Update(td.Flag("flag-key-456def")
     .Variation(false)
-    .VariationForUser("some-user-key", true);
+    .VariationForUser("user-key-123abc", true);
 
 // This flag returns the string variation "green" for users who have the custom
 // attribute "admin" with a value of true, and "red" for everyone else.
-td.Update(td.Flag("flag-key-3")
+td.Update(td.Flag("flag-key-789ghi")
     .Variations(LdValue.Of("red"), LdValue.Of("green"))
     .VariationFunc(user =>
         user.GetAttribute(UserAttribute.ForName("admin")).AsBool ? 1 : 0);
@@ -148,7 +163,7 @@ using LaunchDarkly.Sdk.Server.Integrations;
 var td = TestData.DataSource();
 // You can set any initial flag states here with td.Update
 
-var config = Configuration.Builder("sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .DataSource(td)
     .Build();
 var client = new LdClient(config);
@@ -162,13 +177,21 @@ To set a flag to a specific value:
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
   ]
 }>
 <CodeTabItem value="csharp">
 
 ```csharp
-td.Update(td.Flag("flag-key-1").VariationForAllUsers(false);
+td.Update(td.Flag("flag-key-123abc").BooleanFlag().VariationForAll(false));
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-6.x">
+
+```csharp
+td.Update(td.Flag("flag-key-123abc").VariationForAllUsers(false));
 ```
 
 </CodeTabItem>
@@ -179,20 +202,39 @@ There are other ways you can configure flag behavior using a test data source. H
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
   ]
 }>
 <CodeTabItem value="csharp">
 
 ```csharp
+// This flag is true for the context key "context-key-123abc" and false for everyone else
+td.Update(td.Flag("flag-key-456def")
+    .VariationForAll("context-key-123abc", true)
+    .FallthroughVariation(false));
+
+// This flag returns the string variation "green" for contexts that have the
+// attribute "admin" with a value of true, and "red" for everyone else.
+td.Update(td.Flag("flag-key-789ghi")
+    .Variations(LdValue.Of("red"), LdValue.Of("green"))
+    .FallthroughVariation(0)
+    .IfMatch(Attribute.ForName("admin"), LdValue.Of(true))
+    .ThenReturn(1));
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-6.x">
+
+```csharp
 // This flag is true for the user key "some-user-key" and false for everyone else
-td.Update(td.Flag("flag-key-2")
+td.Update(td.Flag("flag-key-456def")
     .VariationForUser("some-user-key", true)
     .FallthroughVariation(false));
 
 // This flag returns the string variation "green" for users who have the custom
 // attribute "admin" with a value of true, and "red" for everyone else.
-td.Update(td.Flag("flag-key-3")
+td.Update(td.Flag("flag-key-789ghi")
     .Variations(LdValue.Of("red"), LdValue.Of("green"))
     .FallthroughVariation(0)
     .IfMatch(UserAttribute.ForName("admin"), LdValue.Of(true))
@@ -260,7 +302,7 @@ values={[
 <CodeTabItem value="c">
 
 ```c
-struct LDFlagBuilder *flag = LDTestDataFlag(td, "flag-key-1");
+struct LDFlagBuilder *flag = LDTestDataFlag(td, "flag-key-123abc");
 LDFlagBuilderVariationForAllUsersBoolean(flag, LDBooleanTrue);
 LDTestDataUpdate(td, flag);
 ```
@@ -280,7 +322,7 @@ values={[
 ```c
 // This flag is true for the user key "some-user-key"
 // and false for everyone else.
-struct LDFlagBuilder *flag2 = LDTestDataFlag(td, "flag-key-2");
+struct LDFlagBuilder *flag2 = LDTestDataFlag(td, "flag-key-456def");
 LDFlagBuilderVariationForUserBoolean(flag2, "some-user-key", LDBooleanTrue);
 LDFlagBuilderFallthroughVariationBoolean(flag2, LDBooleanFalse);
 LDTestDataUpdate(td, flag2);
@@ -294,7 +336,7 @@ struct LDJSON *variations = LDNewArray();
 LDArrayPush(variations, LDNewText("red"));
 LDArrayPush(variations, LDNewText("green"));
 
-struct LDFlagBuilder *flag3 = LDTestDataFlag(td, "flag-key-3");
+struct LDFlagBuilder *flag3 = LDTestDataFlag(td, "flag-key-789ghi");
 LDFlagBuilderVariations(flag3, variations);
 LDFlagBuilderFallthroughVariation(flag3, 0);
 
@@ -348,7 +390,7 @@ To set a flag to a specific value:
 <CodeTabItem value="erlang">
 
 ```erlang
-{ok, Flag} = ldclient_testdata:flag("flag-key-1"),
+{ok, Flag} = ldclient_testdata:flag("flag-key-123abc"),
 ldclient_testdata:update(ldclient_flagbuilder:variation_for_all_users(true, Flag)),
 ```
 
@@ -367,13 +409,13 @@ There are other ways you can configure flag behavior using a test data source. H
 
 ```erlang
 %% This flag is true for the user key "some-user-key" and false for everyone else
-{ok, Flag2} = ldclient_testdata:flag("flag-key-2"),
+{ok, Flag2} = ldclient_testdata:flag("flag-key-456def"),
 UpdatedFlag2 = ldclient_flagbuilder:fallthrough_variation(false,
   ldclient_flagbuilder:variation_for_user(<<"some-user-key">>, true, Flag2)),
 
 %% This flag returns the string variation "green" for users who have the custom
 %% attribute "admin" with a value of true, and "red" for everyone else.
-{ok, Flag} = ldclient_testdata:flag("flag-key-3"),
+{ok, Flag} = ldclient_testdata:flag("flag-key-789ghi"),
 UpdatedFlag = ldclient_flagbuilder:fallthrough_variation(0,
               ldclient_flagbuilder:then_return(1,
               ldclient_flagbuilder:if_match(<<"admin">>, [true],
@@ -395,16 +437,37 @@ To configure the SDK to use a test data source:
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
 import (
+    ld "github.com/launchdarkly/go-server-sdk/v6"
+    "github.com/launchdarkly/go-server-sdk/v6/testhelpers/ldtestdata"
+    "github.com/launchdarkly/go-sdk-common/v3/ldcontext"
+    "github.com/launchdarkly/go-sdk-common/v3/ldvalue"
+)
+
+td := ldtestdata.DataSource()
+// You can set any initial flag states here with td.Update
+
+config := ld.Config{
+    DataSource: td,
+}
+client := ld.MakeCustomClient("sdk-key-123abc", config, 0)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
+
+```go
+import (
     ld "gopkg.in/launchdarkly/go-server-sdk.v5"
     "gopkg.in/launchdarkly/go-server-sdk.v5/testhelpers/ldtestdata"
-    "gopkg.in/launchdarkly/go-sdk-common.v2/lduser"
+    "gopkg.in/launchdarkly/go-sdk-common.v2/ldcontext"
     "gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue"
 )
 
@@ -414,7 +477,7 @@ td := ldtestdata.DataSource()
 config := ld.Config{
     DataSource: td,
 }
-client := ld.MakeCustomClient("sdk-key", config, 0)
+client := ld.MakeCustomClient("sdk-key-123abc", config, 0)
 ```
 
 </CodeTabItem>
@@ -425,13 +488,21 @@ To set a flag to a specific value:
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
-td.Update(td.Flag("flag-key-1").VariationForAllUsers(false))
+td.Update(td.Flag("flag-key-123abc").VariationForAll(false))
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
+
+```go
+td.Update(td.Flag("flag-key-123abc").VariationForAllUsers(false))
 ```
 
 </CodeTabItem>
@@ -442,20 +513,42 @@ There are other ways you can configure flag behavior using a test data source. H
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 <CodeTabItem value="go">
 
 ```go
-// This flag is true for the user key "some-user-key" and false for everyone else
-td.Update(td.Flag("flag-key-2").
+// This flag is true for the context key "context-key-123abc" and false for everyone else.
+// The context must have a context kind of "user".
+td.Update(td.Flag("flag-key-456def").
+    VariationForUser("context-key-123abc", true).
+    FallthroughVariation(false));
+
+
+// This flag returns the string variation "green" for contexts that have the
+// attribute "admin" with a value of true, and "red" for everyone else.
+td.Update(td.Flag("flag-key-789ghi").
+    Variations(ldvalue.String("red"), ldvalue.String("green")).
+    FallthroughVariationIndex(0).
+    IfMatch(ldcontext.GetValue("admin"), ldvalue.Bool(true)).
+    ThenReturnIndex(1));
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
+
+```go
+// This flag is true for the user key "context-key-123abc" and false for everyone else.
+td.Update(td.Flag("flag-key-456def").
     VariationForUser("some-user-key", true).
     FallthroughVariation(false));
 
+
 // This flag returns the string variation "green" for users who have the custom
 // attribute "admin" with a value of true, and "red" for everyone else.
-td.Update(td.Flag("flag-key-3").
+td.Update(td.Flag("flag-key-789ghi").
     Variations(ldvalue.String("red"), ldvalue.String("green")).
     FallthroughVariationIndex(0).
     IfMatch(lduser.UserAttribute("admin"), ldvalue.Bool(true)).
@@ -465,7 +558,7 @@ td.Update(td.Flag("flag-key-3").
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`ldtestdata`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/testhelpers/ldtestdata).
+To learn more, read [`ldtestdata`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6/testhelpers/ldtestdata).
 </Details>
 
 ### Haskell
@@ -486,7 +579,7 @@ To configure the SDK to use a test data source:
 import qualified LaunchDarkly.Server.Integrations.TestData as TestData
 
  td <- TestData.newTestData
- let config = LD.configSetDataSourceFactory (Just $ TestData.dataSourceFactory td) $ LD.makeConfig "sdk-key"
+ let config = LD.configSetDataSourceFactory (Just $ TestData.dataSourceFactory td) $ LD.makeConfig "sdk-key-123abc"
  client <- LD.makeClient config
 ```
 
@@ -504,7 +597,7 @@ To set a flag to a specific value:
 <CodeTabItem value="haskell">
 
 ```haskell
-TestData.update td =<< ( TestData.flag td "flag-key-1"
+TestData.update td =<< ( TestData.flag td "flag-key-123abc"
 	<&> TestData.booleanFlag
 	<&> TestData.variationForAllUsers True
 )
@@ -525,7 +618,7 @@ There are other ways you can configure flag behavior using a test data source. H
 
 ```haskell
 -- This flag is true for the user key "some-user-key" and false for everyone else
-TestData.update td =<< ( TestData.flag td "flag-key-2"
+TestData.update td =<< ( TestData.flag td "flag-key-456def"
 	<&> TestData.booleanFlag
 	<&> TestData.variationForUser "some-user-key" (0 :: TestData.VariationIndex)
 	<&> TestData.fallthroughVariation (1 :: TestData.VariationIndex)
@@ -533,7 +626,7 @@ TestData.update td =<< ( TestData.flag td "flag-key-2"
 
 -- This flag returns the string variation "green" for users who have the custom
 -- attribute "admin" with a value of true, and "red" for everyone else.
-TestData.update td =<< ( TestData.flag td "flag-key-2"
+TestData.update td =<< ( TestData.flag td "flag-key-456def"
 	<&> TestData.variations [toJSON "red", toJSON "green"]
 	<&> TestData.ifMatch "admin" [Aeson.Bool True]
 	<&> TestData.thenReturn (1 :: TestData.VariationIndex)
@@ -582,13 +675,21 @@ To set a flag to a specific value:
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java SDK v6.0', value: 'java', },
+    { label: 'Java SDK v5.x', value: 'java-v5', },
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
-td.update(td.flag("flag-key-1").variationForAllUsers(false));
+td.update(td.flag("flag-key-123abc").variationForAll(false));
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v5">
+
+```java
+td.update(td.flag("flag-key-123abc").variationForAllUsers(false));
 ```
 
 </CodeTabItem>
@@ -599,24 +700,42 @@ There are other ways you can configure flag behavior using a test data source. H
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java SDK v6.0', value: 'java', },
+    { label: 'Java SDK v5.x', value: 'java-v5', },
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
-// This flag is true for the user key "some-user-key" and false for everyone else
-td.update(td.flag("flag-key-2")
-    .variationForUser("some-user-key", true)
-    .fallthroughVariation(false));
+// This flag is true for the context with the key "context-key-123abc" and kind of "organization", and false for everyone else
+td.update(td.flag("flag-key-123abc")
+  .variationForKey(ContextKind.of("organization"), "context-key-123abc", true)
+
+// This flag returns the string variation "green" for contexts who have the custom
+// attribute "admin" with a value of true, and "red" for everyone else.
+td.update(td.flag("flag-key-123abc")
+  .variations(LDValue.of("red"), LDValue.of("green"))
+  .fallthroughVariation(0)
+  .ifMatch(ContextAttribute.forName("admin"), LDValue.of(true))
+  .thenReturn(1));
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v5">
+
+```java
+// This flag is true for the user key "user-key-123abc" and false for everyone else
+td.update(td.flag("flag-key-456def")
+  .variationForUser("user-key-123abc", true)
+  .fallthroughVariation(false));
 
 // This flag returns the string variation "green" for users who have the custom
 // attribute "admin" with a value of true, and "red" for everyone else.
-td.update(td.flag("flag-key-3")
-    .variations(LDValue.of("red"), LDValue.of("green"))
-    .fallthroughVariation(0)
-    .ifMatch(UserAttribute.forName("admin"), LDValue.of(true))
-    .thenReturn(1));
+td.update(td.flag("flag-key-123abc")
+  .variations(LDValue.of("red"), LDValue.of("green"))
+  .fallthroughVariation(0)
+  .ifMatch(UserAttribute.forName("admin"), LDValue.of(true))
+  .thenReturn(1));
 ```
 
 </CodeTabItem>
@@ -643,11 +762,11 @@ To configure the SDK to use a test data source:
 const { TestData } = require('launchdarkly-node-server-sdk/integrations');
 
 const td = TestData();
-testData.update(td.flag('flag-key-1').booleanFlag().variationForAllUsers(true));
-const client = new LDClient('YOUR_SDK_KEY', { updateProcessor: td });
+testData.update(td.flag('flag-key-123abc').booleanFlag().variationForAllUsers(true));
+const client = new LDClient('sdk-key-123abc', { updateProcessor: td });
 
 // flags can be updated at any time:
-td.update(td.flag('flag-key-2')
+td.update(td.flag('flag-key-456def')
     .variationForUser('some-user-key', true)
     .fallthroughVariation(false));
 
@@ -697,7 +816,7 @@ To set a flag to a specific value:
 <CodeTabItem value="php">
 
 ```php
-$td->update($td->flag("flag-key-1")->variationForAllUsers(false));
+$td->update($td->flag("flag-key-123abc")->variationForAllUsers(false));
 ```
 
 </CodeTabItem>
@@ -716,7 +835,7 @@ There are other ways you can configure flag behavior using a test data source. H
 ```php
 // This flag is true for the user key "some-user-key" and false for everyone else
 $td->update(
-    $td->flag("flag-key-2")
+    $td->flag("flag-key-456def")
        ->variationForUser("some-user-key", true)
        ->fallthroughVariation(false)
 );
@@ -724,7 +843,7 @@ $td->update(
 // This flag returns the string variation "green" for users who have the custom
 // attribute "admin" with a value of true, and "red" for everyone else.
 $td->update(
-    $td->flag("flag-key-3")
+    $td->flag("flag-key-789ghi")
        ->variations("red", "green")
        ->fallthroughVariation(0)
        ->ifMatch("admin", true)
@@ -775,7 +894,7 @@ To set a flag to a specific value:
 <CodeTabItem value="python">
 
 ```python
-td.update(td.flag("flag-key-1").variation_for_all_users(True))
+td.update(td.flag("flag-key-123abc").variation_for_all_users(True))
 ```
 
 </CodeTabItem>
@@ -795,7 +914,7 @@ There are other ways you can configure flag behavior using a test data source. H
 # This flag is true for the user key "some-user-key" and false for everyone else
 td.update(
     td
-    .flag("flag-key-2")
+    .flag("flag-key-456def")
     .variation_for_user("some-user-key", True)
     .fallthrough_variation(False)
 )
@@ -804,7 +923,7 @@ td.update(
 # attribute "admin" with a value of true, and "red" for everyone else.
 td.update(
     td
-    .flag("flag-key-3")
+    .flag("flag-key-789ghi")
     .variations("red", "green")
     .fallthrough_variation(0)
     .if_match("admin", True)
@@ -857,7 +976,7 @@ To set a flag to a specific value:
 <CodeTabItem value="ruby">
 
 ```ruby
-td.update(td.flag("flag-key-1").variation_for_all_users(false))
+td.update(td.flag("flag-key-123abc").variation_for_all_users(false))
 ```
 
 </CodeTabItem>
@@ -875,13 +994,13 @@ There are other ways you can configure flag behavior using a test data source. H
 
 ```ruby
 # This flag is true for the user key "some-user-key" and false for everyone else
-td.update(td.flag("flag-key-2").
+td.update(td.flag("flag-key-456def").
     variation_for_user("some-user-key", true).
     fallthrough_variation(false))
 
 # This flag returns the string variation "green" for users who have the custom
 # attribute "admin" with a value of true, and "red" for everyone else.
-td.update(td.flag("flag-key-3").
+td.update(td.flag("flag-key-789ghi").
     variations("red", "green").
     fallthrough_variation(0).
     if_match("admin", true).then_return(1))

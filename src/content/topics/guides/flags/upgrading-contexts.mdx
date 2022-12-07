@@ -1,0 +1,315 @@
+---
+path: /guides/flags/upgrading-contexts
+title: Best practices for upgrading users to contexts
+description: This guide summarizes what contexts are and describes best practices for upgrading your LaunchDarkly account and SDKs from users to contexts.
+published: true
+tags: ['guide', 'context', 'migration']
+---
+
+<Callout intent="info">
+<CalloutTitle>Contexts are for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+Contexts are only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+A context is a generalized way of describing and referring to the people, services, machines, or other resources that encounter feature flags in your product. Creating contexts and evaluating flags based on contexts is supported in the latest versions of some of our SDKs. However, the ability to target flags or segments by context, or review context instances that have encountered flags in your application, is only available for EAP customers.
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This guide summarizes what contexts are and describes best practices for upgrading your LaunchDarkly account and SDKs from users to contexts.
+
+Contexts are the upgraded version of LaunchDarkly's existing "user" data objects. Previously, flags could only target users, which was limiting if you wanted to target organizations, devices, groups, or other entities. Contexts give you much more targeting flexibility. They let you create targeting rules for feature flags based on a variety of different information, including attributes pertaining to users, organizations, devices, and more. To learn more, read [Contexts and segments](/home/contexts).
+
+## Concepts
+
+Before you use this guide, you should understand the following concepts.
+
+### Context kinds and attributes
+
+Every context has a context kind. "User" is a common context kind, but you can create context kinds for nearly anything. Other common context kinds include "organization," "device," and "account." To learn more, read [Context kinds](/home/contexts/context-kinds).
+
+Context attributes include all of the information about a context kind that LaunchDarkly can use in a feature flag evaluation. LaunchDarkly has the following built-in attributes for contexts: `kind`, `key`, `name`, and `anonymous`. While LaunchDarkly provides built-in attribute fields for you to fill in, the SDK does not automatically collect any information. If you want to target your users based on any built-in attributes, you must supply their values.
+
+In addition to built-in attributes, you can create your own custom attributes according to your needs. To learn more, read [Built-in attributes](/home/contexts/built-in-attributes) and [Custom attributes](/home/contexts/custom-attributes).
+
+### Multi-contexts
+
+When you evaluate a feature flag within your application, the flag's targeting rules can use information from one or more kinds of contexts. For example, you might evaluate a flag using only the "user" context. Or, you might evaluate a flag using both the "user" context and the "device" context simultaneously. We refer to evaluations with more than one context as a multi-context. To learn more, read [Context attributes](/home/contexts/attributes).
+
+You can configure your SDKs to send multi-contexts to LaunchDarkly, or you can create multi-contexts when you use an SDK's identify method to associate two contexts together. To learn more, read [Identifying and changing contexts](/sdk/features/identify).
+
+## Prerequisites
+
+To complete this guide, you must have the following prerequisites:
+
+- Be a member of the [contexts EAP](https://launchdarkly.com/eap).
+- Access to a LaunchDarkly account with permission to edit flags.
+- Access to the sections of your codebase that contain feature flags.
+
+## Migrating to contexts
+
+To begin using contexts, you need to take the following steps:
+
+1. [Familiarize yourself with updated elements of the LaunchDarkly user interface (UI)](#familiarize-yourself-with-the-launchdarkly-ui).
+2. [Update the Relay Proxy, if applicable](#update-the-relay-proxy-if-applicable)
+3. [Upgrade your SDKs](#upgrade-your-sdks)
+4. [Choose your context kinds](#choose-your-context-kinds)
+5. [Add contexts to your application code](#add-contexts-to-your-application-code)
+6. [Update your flag targeting](#update-your-flag-targeting)
+7. [Review your experiments](#review-your-experiments)
+8. [Confirm that SDKs are sending contexts to LaunchDarkly](#confirm-that-your-sdks-are-sending-contexts-to-launchdarkly)
+9. [Remove legacy targeting from flags](#remove-legacy-targeting-from-flags)
+10. [Remove legacy attributes from SDKs](#remove-legacy-attributes-from-sdks)
+
+Each of these steps is explained in detail below.
+
+## Familiarize yourself with the LaunchDarkly UI
+
+Some parts of the LaunchDarkly UI have changed to include contexts. Although much of the functionality is similar, there are some new features and sections.
+
+The following sections of the UI are new or have changed:
+
+- The flag [**Targeting** tab](/home/flags/targeting), including:
+  - [Targeting rules](/home/flags/targeting-rules)
+  - [Percentage rollouts](/home/flags/rollouts)
+  - [Individual targeting](/home/flags/individual-targeting)
+  - [Bulk targeting](/home/flags/bulk-targeting)
+- The [**Contexts**  list](/home/contexts/contexts-list), including:
+  - The [Context details page](/home/contexts/context-details)
+  - The [Context **Kinds** tab](/home/contexts/context-kinds)
+  
+Read about and learn how to navigate these sections before you update your flag targeting rules.
+
+## Update the Relay Proxy, if applicable
+
+If you are using the LaunchDarkly Relay Proxy, you must update it to version 7.0 or later before you upgrade your SDKs. To learn more about upgrading, read the [Relay Proxy 7.0.0 release notes](https://github.com/launchdarkly/ld-relay/releases/tag/v7.0.0).
+
+If you’re not sure whether you should use the Relay Proxy and want to learn more, read [Deciding whether to use the Relay Proxy](/home/relay-proxy#deciding-whether-to-use-the-relay-proxy).
+
+## Upgrade your SDKs
+
+You can only use contexts if your SDKs support them. If you are a new customer, use the latest version of the SDKs and make sure they support contexts. If you are an existing customer, you must upgrade your SDKs to the latest versions. For a list of SDKs that support contexts and links to their migration guides, read [SDKs](/sdk).
+
+Upgrading your SDKs should be minimally disruptive, as the major changes include changing from "user" to "context" types, and changes to certain functionality like aliasing.
+
+Not all SDKs support contexts at this time. If you are still using SDKs that do not support contexts, be sure those SDKs are not evaluating flags that target context kinds. Those SDKs will not be able to evaluate the flag rules properly. We are continually adding support for contexts to more SDKs, so if a particular SDK isn't supported yet, check back for updates.
+
+### Plan for features that are no longer supported
+
+Some SDK functionality is changing as part of upgrading to contexts. For a full list of changing features, [read your SDK's migration guide](/sdk).
+
+One significant feature change is that SDKs that support contexts no longer support user aliasing. Instead, if you want to associate two contexts with each other, you can identify a multi-context. To learn more, read [Identifying and changing contexts](/sdk/features/identify).
+
+## Choose your context kinds
+
+First, consider how you want to track and target your customers. "User" is the default context kind, and is automatically available for use. In addition to users, decide if you need to target particular organizations, businesses, locations, or account types. These categories will be your context kinds. You can add specific attributes later. 
+
+Some common context kinds include device, location, organization, and account type. You may already have a mental model of your "users" as stand-ins for other kinds of contexts. For example, if you have a custom user attribute of "organization" and you have many flags that target on that user attribute, you may want to create an "organization" context kind.
+
+If you use experimentation, think about what context kinds you may want to run experiments on. You can target any context kind when building your experiment audience. Currently, experiments can only randomize variations by the "user" context kind. When contexts are no longer part of the EAP and are generally available, experiments will be able to randomize on any context kind.
+<!-- TKTK Update this section at GA SC-178188 -->
+
+![The context "Kinds" tab.](contexts-kinds-tab.png)
+
+You may decide you don’t need additional context kinds beyond users. If that’s the case, we still encourage you to upgrade your SDK because doing so will give you more flexibility later. Even if you’re just tracking users, contexts allow you to more easily collect and store information about application IDs and application versions, as well as observe how your users are interacting with different parts of your app.
+
+You don’t have to make any final decisions now. You can create context kinds ahead of time, in the LaunchDarkly UI, or when you evaluate flags. To learn more, read [Context kinds](/home/contexts/context-kinds).
+
+## Add contexts to your application code
+
+First, follow the instructions in the SDK migration guides to update your client configuration and your `variation` and `identify` calls.
+
+Then, consider if you want to customize your application metadata. You can view your default application metadata on a context's details page under "From app/SDK:" as context instance versions. To learn more, read [The context details page](/home/contexts/context-details).
+
+In this example, this context's instance version is "NodeJSClient":
+
+![A user context with an instance version of "NodeJSClient."](contexts-details-instance-version.png)
+
+To learn how to customize your application metadata, read [Application metadata configuration](/sdk/features/app-config).
+
+### When to use multi-contexts
+
+Think about when you want to use multi-contexts. For example, you may want to associate two user contexts, one logged in and one anonymous, into a multi-context. Or, you may want to sometimes target more broadly, such as everyone on an iPhone, and other times more closely, such as everyone on an iPhone in the eastern region with an Enterprise account type. In these cases, you may want to use multi-contexts.
+
+For example, these multi-contexts have three contexts each:
+
+* "user", with the attributes of "first name" and "last name" 
+* "organization" with an attribute of "name"
+* "location" with an attribute of "city"
+
+Here's an illustration:
+
+![Two multi-contexts with three contexts each of "user," "organization," and "location."](contexts-multi.png)
+
+This configuration allows you to target only specific locations or organizations in addition to traditional user targeting.
+
+To learn more, read [Understanding context attributes](/home/contexts/attributes#understanding-context-attributes).
+
+### Legacy user attributes
+
+Any user attributes that were previously built-in and are no longer built-in for contexts (such as `firstName`, `lastName`, `email`, and so on) have become custom attributes. For any context kind other than "user," you must add the context kind and its associated attributes to your code base. Then, map existing attributes to one or more contexts.
+
+For example: 
+
+- `application-version` on the user object becomes `version` on the "application" context kind
+- `store-id` on the user object becomes `key` on the "store" context kind
+
+Now, `application-version` and `store-id` are legacy attributes.
+
+Here is an example of a user object:
+
+<CodeTabs
+  defaultValue="user"
+  values={[
+    { label: 'Legacy user object', value: 'user', },
+  ]
+}>
+
+<CodeTabItem value="user">
+
+```json
+{
+"user": {
+    "key": "user-key-abc123",
+    "name": "Sandy S",
+    "firstName": "Sandy",
+    "lastName": "Smith",
+    "email": "sandy@example.com",
+    "planType": "Enterprise",
+    "isTrial": false,
+    "hasConfiguredSSO": false,
+    "environmentId": "environment-id-123abc",
+    "memberId": "member-id-123abc",
+    "accountId": "account-id-123abc",
+    "organization": "Global Health Systems"
+  }
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+That user object, if translated into a multi-context with kinds of "account," "owner," "environment," "member," and "user" looks like this:
+
+<CodeTabs
+  defaultValue="context"
+  values={[
+    { label: ' Multi-context', value: 'context', },
+  ]
+}>
+
+<CodeTabItem value="context">
+
+```json
+
+{
+  "kind": "multi",
+  "account": {
+    "key": "account-id-123abc",
+    "planType": "Enterprise",
+    "isTrial": false
+  },
+  "owner": {
+    "email": "sandy@example.com",
+    "firstName": "Sandy",
+    "lastName": "Smith"
+  },
+  "environment": {
+    "key": "environment-id-123abc"
+  },
+  "member": {
+    "key": "member-id-123abc",
+    "email": "sandy@example.com",
+    "hasConfiguredSSO": false
+  },
+  "user": {
+    "key": "user-key-abc123",
+    "name": "Sandy S",
+    "firstName": "Sandy",
+    "lastName": "Smith",
+    "email": "sandy@example.com",
+    "planType": "Enterprise",
+    "isTrial": false,
+    "hasConfiguredSSO": false,
+    "signupDate": 1641496710527,
+    "environmentId": "environment-id-123abc",
+    "memberId": "member-id-123abc",
+    "accountId": "account-id-123abc",
+    "organization": "Global Health Systems"
+  }
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+The legacy attributes are all retained under the "user" kind.
+
+Each of your application teams should modify their SDKs to send a multi-context, containing the "user" context kind and whatever other context kinds you’re using. 
+
+In the "user" context, include all of your legacy attributes. Pass any other contexts with their newly defined attributes. This ensures that your feature flags can still evaluate your contexts using the "user" context and its legacy attributes, in case there are any issues with the new context kinds during testing.
+
+## Update your flag targeting
+
+Update your flags' individual targeting, targeting rules, and any default rules that are a percentage rollout.
+
+Your existing individual targeting, targeting rules, and rollouts automatically default to the "user" context kind and its legacy attributes. For any flags that need to target or roll out to new context kinds, you must recreate the associated rule or redefine the default rule to target the appropriate context and attributes, as applicable.
+
+You may also want to consider automating this process. If you have a list of legacy attributes and their new contexts and names in a .csv file, you can use a script with our REST API that identifies and updates rules for you or creates an approval request that replaces the rule. To learn more, read our [API documentation](https://apidocs.launchdarkly.com/).
+
+Here is an example of a flag targeting the "state" attribute of a "location" context kind:
+
+![A flag rule targeting the "state" attribute of a "location" context kind.](upgrading-contexts-flag-rule.png)
+
+If you have flags that target segments, your standard segments can target by multiple context kinds. Big Segments can target by only the "user" context kind. When contexts are no longer part of the EAP and are generally available, Big Segments will be able to target any context kind. To learn more, read [Segments](/home/contexts/segments).
+<!-- TKTK Update this section at GA SC-178188 -->
+
+## Review your experiments
+
+If you have decided to add new context kinds, you should review your running experiments to determine if they need changes. LaunchDarkly automatically updates any running experiments to target user kinds. However, if you decide to edit a flag's targeting rule to target a different context kind, you must start a new iteration of that experiment.
+
+For new experiments, the flag can target any context kind when building your experimentation audience. However, currently you can only assign variations by the "user" context kind when you allocate your experiment’s traffic. When contexts are no longer part of the EAP and are generally available, experiments will be able to assign contexts to variations by any context kind. To learn more, read [Using targeting rules](/home/creating-experiments/allocation#using-targeting-rules).
+<!-- TKTK Update this section at GA SC-178188 -->
+
+## Confirm that your SDKs are sending contexts to LaunchDarkly
+
+You can verify that you’re targeting contexts as you expect on the **Contexts** list. You should be able to filter by your new context kinds at the top of the list:
+
+![The "Contexts" list with context kind filters called out.](contexts-list-kind-callout.png)
+
+If your new context kinds don't appear at the top of the **Contexts** list as filter, your SDKs may not be set up correctly.
+
+To learn more, read [Filtering contexts](/home/contexts/contexts-list#filtering-contexts).
+
+You should also be able to look at individual context details pages to view the context's attributes and instances. To learn more, read [The context details page](/home/contexts/context-details).
+
+## Remove legacy targeting from flags
+
+After you upgrade all of your SDKs to support contexts, you can remove your legacy rules and targeting from your flags, as well as any legacy default rules configured as rollouts.
+
+You should only complete this step after all of the SDKs you use support contexts, and you have upgraded all of them to the latest versions. If you have any SDKs that don't support contexts yet or you haven't upgraded yet, your flag rules will not work with those SDKs.
+
+If you're not ready to remove your legacy targeting yet, you can also "disable" them by adding a nonsense condition to the rule that will never match any users. However, this is a temporary solution and you should eventually remove the rule to keep your flags clean.
+
+## Remove legacy attributes from SDKs
+
+After you have confirmed that your SDKs and flag rules are working correctly, you can remove any legacy attributes from your application code. You are now fully migrated to contexts.
+
+## Conclusion
+
+In this guide, you learned about how to upgrade your SDKs and edit your feature flags to begin using contexts. Contexts give you greatly expanded flexibility to precisely target end users, devices, organizations, and other entities to meet your complex business needs. As you begin using contexts as part of our Early Access Program, don't hesitate to contact us with your feedback.
+<!-- TKTK Update this section at GA SC-178188 -->
+
+<Callout intent="primary" site="launchDarkly">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>

@@ -116,8 +116,8 @@ Here's how to install the SDK:
 
 ```c
 unsigned int maxwaitmilliseconds = 10 * 1000;
-struct LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
-struct LDUser *user = LDUserNew("YOUR_USER_KEY");
+struct LDConfig *config = LDConfigNew("mobile-key-123abc");
+struct LDUser *user = LDUserNew("user-key-123abc");
 struct LDClient *client = LDClientInit(config, user, maxwaitmilliseconds);
 ```
 
@@ -127,8 +127,8 @@ struct LDClient *client = LDClientInit(config, user, maxwaitmilliseconds);
 
 ```cpp
 unsigned int maxwaitmilliseconds = 10 * 1000;
-struct LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
-struct LDUser *user = LDUserNew("YOUR_USER_KEY");
+struct LDConfig *config = LDConfigNew("mobile-key-123abc");
+struct LDUser *user = LDUserNew("user-key-123abc");
 LDClientCPP *client = LDClientCPP::Init(config, user, maxwaitmilliseconds);
 ```
 
@@ -144,7 +144,7 @@ It's important to make `LDClient` a singleton. The client instance maintains int
 </CalloutDescription>
 </Callout>
 
-Your environment's mobile key is available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects). 
+Your environment's mobile key is available in the Projects tab of your [account settings page](https://app.launchdarkly.com/settings#/projects).
 
 <Callout intent="alert">
 <CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
@@ -208,7 +208,7 @@ LDSetClientStatusCallback(initCallback);
 <CodeTabItem value="c">
 
 ```c
-bool show_feature = LDBoolVariation(client, "YOUR_FLAG_KEY", false);
+bool show_feature = LDBoolVariation(client, "flag-key-123abc", false);
 if (show_feature) {
     // Application code to show the feature
 } else {
@@ -221,7 +221,7 @@ if (show_feature) {
 <CodeTabItem value="cpp">
 
 ```cpp
-bool show_feature = client->boolVariation("YOUR_FLAG_KEY", false);
+bool show_feature = client->boolVariation("flag-key-123abc", false);
 
 if (show_feature) {
     // Application code to show the feature
@@ -245,9 +245,9 @@ This SDK supports the following features:
 * [Configuration](/sdk/features/config#cc-client-side)
 * [Evaluating flags](/sdk/features/evaluating#cc-client-side)
 * [Flushing events](/sdk/features/flush#cc-client-side)
-* [Identifying and changing users](/sdk/features/identify#cc-client-side)
+* [Identifying and changing contexts](/sdk/features/identify#cc-client-side)
 * [Sending custom events](/sdk/features/events#cc-client-side)
 * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#cc-client-side)
 * [Shutting down](/sdk/features/shutdown#cc-client-side)
-* [User configuration](/sdk/features/user-config#cc-client-side)
+* [User and context configuration](/sdk/features/user-context-config#cc-client-side)
 * [Web proxy configuration](/sdk/features/web-proxy#cc-client-side)

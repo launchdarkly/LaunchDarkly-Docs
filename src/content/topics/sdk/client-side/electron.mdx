@@ -72,7 +72,7 @@ Here's how to create the wrapper:
 <CodeTabItem value="js">
 
 ```js
-const realClient = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options);
+const realClient = LDElectron.initializeInMain('client-side-id-123abc', user, options);
 
 const wrappedClient = LDElectron.createNodeSdkAdapter(realClient);
 
@@ -153,7 +153,7 @@ const LDElectron = require('launchdarkly-electron-client-sdk');
 
 const user = { key: 'example' };
 const options = {};
-const client = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LDElectron.initializeInMain('client-side-id-123abc', user, options);
 ```
 
 </CodeTabItem>
@@ -164,7 +164,7 @@ import * as LDElectron from 'launchdarkly-electron-client-sdk';
 
 const user: LDElectron.LDUser = { key: 'example' };
 const options: LDElectron.LDOptions = {};
-const client = LDElectron.initializeInMain('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LDElectron.initializeInMain('client-side-id-123abc', user, options);
 ```
 
 </CodeTabItem>
@@ -260,7 +260,7 @@ This SDK supports the following features:
 * [Bootstrapping](/sdk/features/bootstrapping#electron)
 * [Configuration](/sdk/features/config#electron)
 * [Evaluating flags](/sdk/features/evaluating#electron)
-* [Identifying and changing users](/sdk/features/identify#electron)
+* [Identifying and changing contexts](/sdk/features/identify#electron)
 * [Logging configuration](/sdk/features/logging#electron)
 * [Monitoring SDK status](/sdk/features/monitoring#electron)
 * [Relay Proxy configuration, using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#electron)
@@ -268,4 +268,4 @@ This SDK supports the following features:
 * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#electron)
 * [Shutting down](/sdk/features/shutdown#electron)
 * [Subscribing to flag changes](/sdk/features/flag-changes#electron)
-* [User configuration](/sdk/features/user-config#electron)
+* [User and context configuration](/sdk/features/user-context-config#electron)

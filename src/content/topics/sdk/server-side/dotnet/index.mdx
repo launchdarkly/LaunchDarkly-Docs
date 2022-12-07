@@ -6,6 +6,19 @@ tags: ['net', '.net', 'sdk', 'server-side']
 published: true
 ---
 
+<Callout intent="info">
+<CalloutTitle>Version 7 of the .NET SDK replaces users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
+
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [.NET (server-side) SDK 6.x to 7.0 migration guide](/sdk/server-side/dotnet/migration-6-to-7).
+
+</CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic documents how to get started with the server-side .NET SDK, and links to reference information on all of the supported features.
@@ -61,9 +74,9 @@ To learn more about LaunchDarkly's different SDK types, read [Client-side and se
 <CalloutTitle>SDK version compatibility</CalloutTitle>
 <CalloutDescription>
 
-The LaunchDarkly .NET SDK, version 6.0 and higher, is compatible with .NET 5.0+, .NET Framework 4.5.2+, and .NET Core 2.1+.
+The LaunchDarkly .NET SDK, version 7.0 and higher, is compatible with .NET 6.0+, .NET Framework 4.6.2+, .NET Standard 2.0+, and .NET Core 3.1.
 
-Prior to version 6.0, the LaunchDarkly .NET SDK also supported .NET Framework 4.5.0 and .NET Core 1.0.
+Prior to version 7.0, the LaunchDarkly .NET SDK also supported .NET 5.0, .NET Framework 4.5.2 and .NET Framework 4.6.1, and .NET Core 2.1.
 
 </CalloutDescription>
 </Callout>
@@ -94,7 +107,7 @@ Next, import the LaunchDarkly SDK's namespaces in your application code. The nam
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C# (.NET SDK versions 6.x and later)', value: 'csharp', },
     { label: 'C# (.NET SDK versions 5.14.x and earlier)', value: 'sdk5', },
   ]
 }>
@@ -104,7 +117,7 @@ Next, import the LaunchDarkly SDK's namespaces in your application code. The nam
 using LaunchDarkly.Sdk;
 using LaunchDarkly.Sdk.Server;
 
-// LaunchDarkly.Sdk defines general types like User, which are also used in the client-side .NET SDK.
+// LaunchDarkly.Sdk defines general types like Context, which are also used in the client-side .NET SDK.
 // LaunchDarkly.Sdk.Server defines the LdClient and Configuration types for the server-side .NET SDK.
 ```
 
@@ -131,7 +144,7 @@ To create a single instance:
 <CodeTabItem value="csharp">
 
 ```csharp
-LdClient client = new LdClient("YOUR_SDK_KEY");
+LdClient client = new LdClient("sdk-key-123abc");
 ```
 
 </CodeTabItem>
@@ -148,23 +161,42 @@ If you need to use more than one SDK key, the SDK allows you to create more than
 </CalloutDescription>
 </Callout>
 
-You can use `client` to check which variation a particular user will receive for a given feature flag.
+You can use `client` to check which variation a particular context will receive for a given feature flag. To learn more, read [Evaluating flags](/sdk/features/evaluating) and [Flag evaluation reasons](/sdk/features/evaluation-reasons). For more information about how contexts are specified, read [User and context configuration](/sdk/features/user-context-config).
 
-Here's how:
+In the v7 example, the context key is the string "context-key-123abc". In the v6 example, the user key is the string "user-key-123abc":
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C# (.NET SDK v7)', value: 'csharp', },
+    { label: 'C# (.NET SDK v6)', value: 'csharp-v6', },
   ]
 }>
 <CodeTabItem value="csharp">
 
 ```csharp
+var context = Context.Builder("context-key-123abc")
+  .Name("Sandy")
+  .Build();
+
+var flagValue = client.BoolVariation(FeatureFlagKey, context, false);
+
+if (flagValue) {
+    // application code to show the feature
+}
+else {
+    // the code to run if the feature is off
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-v6">
+
+```csharp
 var user = User.Builder("example-user-key")
   .Name("Sandy")
   .Build();
-  
+
 var flagValue = client.BoolVariation(FeatureFlagKey, user, false);
 
 if (flagValue) {
@@ -178,6 +210,28 @@ else {
 </CodeTabItem>
 </CodeTabs>
 
+Contexts have a context kind of "user" by default. To specify a different kind, use the `Kind` method:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'C# (.NET SDK v7)', value: 'csharp', },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+var context = Context.Builder("context-key-123abc")
+  .Kind("device")
+  .Name("Android")
+  .Build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [Understanding contexts and context kinds](/home/contexts#understanding-contexts-and-context-kinds).
+
 ## Transport Layer Security (TLS) and other networking issues
 
 LaunchDarkly is deprecating support for TLS versions 1.0 and 1.1. .NET applications running on older operating systems are prone to use these older, less secure versions of TLS. It is possible to increase your application's security using AppContext switches.
@@ -189,15 +243,15 @@ If you cannot update your application platform's configurations to support TLS v
 <CodeTabs
   defaultValue="sdk6"
   values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
+    { label: '.NET SDK 6.x and 7.x syntax', value: 'sdk6', },
+    { label: '.NET SDK 5.x syntax', value: 'sdk5', },
   ]
 }>
 <CodeTabItem value="sdk5">
 
 ```csharp
 // Use `stream-tls10.launchdarkly.com` and `events-tls10.launchdarkly.com` TLSv1 endpoints
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .DataSource(
         Components.StreamingDataSource()
             .BaseUri(new Uri("https://stream-tls10.launchdarkly.com")))
@@ -208,7 +262,7 @@ var config = Configuration.Builder("my-sdk-key")
 ```
 ```csharp site=federal
 // Use `stream-tls10.launchdarkly.us` and `events-tls10.launchdarkly.us` TLSv1 endpoints
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .DataSource(
         Components.StreamingDataSource()
             .BaseUri(new Uri("https://stream-tls10.launchdarkly.us")))
@@ -223,7 +277,7 @@ var config = Configuration.Builder("my-sdk-key")
 
 ```csharp
 // Use `stream-tls10.launchdarkly.com` and `events-tls10.launchdarkly.com` TLSv1 endpoints
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .ServiceEndpoints(
         Components.ServiceEndpoints()
           .Streaming("https://stream-tls10.launchdarkly.com")
@@ -232,7 +286,7 @@ var config = Configuration.Builder("my-sdk-key")
 ```
 ```csharp site=federal
 // Use `stream-tls10.launchdarkly.us` and `events-tls10.launchdarkly.us` TLSv1 endpoints
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .ServiceEndpoints(
         Components.ServiceEndpoints()
           .Streaming("https://stream-tls10.launchdarkly.us")
@@ -260,14 +314,13 @@ Lastly, shut down the client when your application terminates. To learn more, re
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#net-server-side)
 * [Big Segments](/sdk/features/big-segments#net-server-side)
 * [Configuration](/sdk/features/config#net-server-side)
 * [Evaluating flags](/sdk/features/evaluating#net-server-side)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#net-server-side)
 * [Flushing events](/sdk/features/flush#net-server-side)
 * [Getting all flags](/sdk/features/all-flags#net-server-side)
-* [Identifying and changing users](/sdk/features/identify#net-server-side)
+* [Identifying and changing contexts](/sdk/features/identify#net-server-side)
 * [Logging configuration](/sdk/features/logging#net-server-side)
 * [Monitoring SDK status](/sdk/features/monitoring#net-server-side)
 * [Offline mode](/sdk/features/offline-mode#net-server-side)
@@ -282,5 +335,5 @@ This SDK supports the following features:
 * [Subscribing to flag changes](/sdk/features/flag-changes#net-server-side)
 * [Storing data](/sdk/features/storing-data#net-server-side)
 * [Test data sources](/sdk/features/test-data-sources#net-server-side)
-* [User configuration](/sdk/features/user-config#net-server-side)
+* [User and context configuration](/sdk/features/user-context-config#net-server-side)
 * [Web proxy configuration](/sdk/features/web-proxy#net-server-side)

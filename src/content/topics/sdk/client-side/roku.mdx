@@ -86,7 +86,7 @@ REM get a reference to the task
 launchDarklyNode = m.top.findNode("my-node-name")
 
 REM create configuration
-config = LaunchDarklyConfig("MY_MOBILE_KEY", launchDarklyNode)
+config = LaunchDarklyConfig("mobile-key-123abc", launchDarklyNode)
 
 REM create a user
 user = LaunchDarklyUser("user-key")
@@ -116,7 +116,7 @@ REM create the scenegraph communication wrapper
 launchDarkly = LaunchDarklySG(launchDarklyNode)
 
 REM use the client
-value = launchDarkly.boolVariation("MY_FLAG_KEY", false)
+value = launchDarkly.boolVariation("flag-key-123abc", false)
 
 ```
 
@@ -160,7 +160,7 @@ REM get a reference to the task
 launchDarklyNode = m.top.findNode("MY_NODE_NAME")
 
 REM create configuration
-config = LaunchDarklyConfig("MY_MOBILE_KEY", launchDarklyNode)
+config = LaunchDarklyConfig("mobile-key-123abc", launchDarklyNode)
 
 REM create a user
 user = LaunchDarklyUser("user-key")
@@ -174,7 +174,7 @@ launchDarkly = LaunchDarkly(config, user, messagePort)
 
 
 REM use the client
-value = launchDarkly.boolVariation("MY_FLAG_KEY", false)
+value = launchDarkly.boolVariation("flag-key-123abc", false)
 
 ```
 
@@ -218,8 +218,8 @@ This SDK supports the following features:
 - [Flag evaluation reasons](/sdk/features/evaluation-reasons#roku)
 - [Flushing events](/sdk/features/flush#roku)
 - [Getting all flags](/sdk/features/all-flags#roku)
-- [Identifying and changing users](/sdk/features/identify#roku)
+- [Identifying and changing contexts](/sdk/features/identify#roku)
 - [Logging configuration](/sdk/features/logging#roku)
 - [Relay Proxy configuration, using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#roku)
 - [Sending custom events](/sdk/features/events#roku)
-- [User configuration](/sdk/features/user-config#roku)
+- [User and context configuration](/sdk/features/user-context-config#roku)

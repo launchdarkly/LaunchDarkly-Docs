@@ -1,18 +1,33 @@
 ---
 path: /sdk/concepts/evaluation-reasons
 title: Evaluation reasons
-description: This topic explains how to use LaunchDarkly to determine why a user receives a given flag variation. You can access this information programmatically from your SDK or from Data Export events.
-tags: ['evaluation', 'reason', 'variation', 'flag', 'sdk']
+description: This topic explains how to use LaunchDarkly to determine why a context instance receives a given flag variation.
+tags: ['evaluation', 'context', 'reason', 'variation', 'flag', 'sdk']
 published: true
 ---
 
 ## Overview
 
-This topic explains how to use LaunchDarkly to determine why a user receives a given flag variation. It can be useful to have this information when you're diagnosing problems or doing analysis of the impact of different flags.
+This topic explains how to use LaunchDarkly to determine why a context instance receives a given flag variation. It can be useful to have this information when you're diagnosing problems or doing analysis of the impact of different flags.
+
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
 
 You can access this information programmatically from your SDK or from Data Export events. To learn more about Data Export, read [Data Export](/home/data-export).
 
-You can also view evaluation reasons on a user's page. To learn how, read [Modifying feature flags for a user](/home/users/users-list#modifying-feature-flags-for-a-user).
+You can also view evaluation reasons on the context detail page. To learn how, read [Context details](/home/contexts/context-details).
 
 ## Accessing flag variation information programmatically
 
@@ -55,7 +70,7 @@ These values are:
         <code>FALLTHROUGH</code>
       </TableCell>
       <TableCell>
-        The flag is on, but the user did not match any targets or rules, so it returned the value that appears on the flag's <strong>Targeting</strong> tab under "Default rule." The "default rule" is not the same thing as the default value discussed in "Error conditions."
+        The flag is on, but the context did not match any targets or rules, so it returned the value that appears on the flag's <strong>Targeting</strong> tab under "Default rule." The "default rule" is not the same thing as the default value discussed in "Error conditions."
       </TableCell>
     </TableRow>
     <TableRow>
@@ -63,7 +78,7 @@ These values are:
         <code>TARGET_MATCH</code>
       </TableCell>
       <TableCell>
-        The user key was specifically targeted for this flag in the "Target individual users" section.
+        The context key was specifically targeted for this flag in the "Individual targets" section.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -71,7 +86,7 @@ These values are:
         <code>RULE_MATCH</code>
       </TableCell>
       <TableCell>
-        The user who encountered the flag matched one of the flag's rules. In this case, the reason object also has
+        The context that encountered the flag matched one of the flag's rules. In this case, the reason object also has
         these properties: <code>ruleIndex</code>, which is the positional index of the matched rule (0 for the first
         rule), and <code>ruleId</code>, which is the rule's unique identifier, which stays the same even if you
         rearrange the order of the rules.
@@ -98,7 +113,7 @@ These values are:
 
 For examples of how to ask for the reason and how to interpret it, read [Flag evaluation reasons](/sdk/features/evaluation-reasons).
 
-`inExperiment` is an optional attribute on the `reason` object that indicates whether the user was evaluated as part of an experiment:
+`inExperiment` is an optional attribute on the `reason` object that indicates whether the context was evaluated as part of an experiment:
 
 - If `inExperiment` is true, LaunchDarkly includes the event in experimentation analysis
 - If `inExperiment` is false, LaunchDarkly does not include this attribute in the reason object
@@ -138,7 +153,7 @@ When there is an error, the reason object also has an `errorKind` property which
       <TableCell>
         <code>USER_NOT_SPECIFIED</code>
       </TableCell>
-      <TableCell>The user object or user key was not provided.</TableCell>
+      <TableCell>The context was not provided or was invalid.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -173,9 +188,9 @@ When there is an error, the reason object also has an `errorKind` property which
 
 ## Understanding how Data Export events display
 
-Calling any of the `variation detail` methods not only make extra information available to your code, it also causes the SDK to include it in analytics events. You can view this information if you use the event debugger or Data Export.
+Calling any of the `variation detail` methods not only make extra information available to your code, it also causes the SDK to include it in analytics events. You can view this information if you use the **Live events** page or Data Export.
 
-To learn more, read [Data Export](/home/data-export).
+To learn more, read [Live events](/home/flags/live-events) and [Data Export](/home/data-export).
 
 The JSON representation of the reason data will be included in the feature evaluation event as an extra property called `reason`.
 
@@ -192,10 +207,14 @@ For instance, a `debug` event might look like this:
 
 ```json
 {
-  "type": "debug",
+  "kind": "debug",
+  "context": {
+    "key": "context-key-123abc",
+    "kind": "user",
+    "name": "Sandy"
+  },
   "creationDate": 1548195712000,
-  "key": "my-flag-key",
-  "userKey": "test@example.com",
+  "key": "flag-key-123abc",
   "version": 1000,
   "variation": 0,
   "value": true,

@@ -89,13 +89,13 @@ Here is an example:
 
 ```csharp
 // 5.x model: setting custom options for streaming mode
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .IsStreamingEnabled(true)
     .ReconnectTime(TimeSpan.FromSeconds(2))
     .Build();
 
 // 5.x model: specifying polling mode and setting custom polling options
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .IsStreamingEnabled(false)
     .PollingInterval(TimeSpan.FromSeconds(60))
     .Build();
@@ -106,7 +106,7 @@ var config = Configuration.Builder("my-sdk-key")
 
 ```csharp
 // 6.0 model: setting custom options for streaming mode
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .DataSource(
         Components.StreamingDataSource()
             .InitialReconnectDelay(TimeSpan.FromSeconds(2))
@@ -114,7 +114,7 @@ var config = Configuration.Builder("my-sdk-key")
     .Build();
 
 // 6.0 model: specifying polling mode and setting custom polling options
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .DataSource(
         Components.PollingDataSource()
             .PollInterval(TimeSpan.FromSeconds(60))
@@ -150,7 +150,7 @@ The following examples use the [Redis integration](https://github.com/launchdark
 
 ```csharp
 // 5.x model: use Redis, set custom Redis URI and key prefix, set cache TTL to 45 seconds
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .FeatureStoreFactory(
         RedisComponents.RedisFeatureStore()
             .WithRedisUri(new Uri("redis://my-redis-host"))
@@ -165,7 +165,7 @@ var config = Configuration.Builder("my-sdk-key")
 
 ```csharp
 // 6.0 model: use Redis, set custom Redis URI and key prefix, set cache TTL to 45 seconds
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .DataStore(
         Components.PersistentDataStore(
             Redis.DataStore()
@@ -187,8 +187,6 @@ To completely disable events, set `ConfigurationBuilder.Events` to `Components.N
 
 If you use private user attributes and are configuring private attributes for the entire SDK rather than for individual users, there is a new syntax based on the new `UserAttribute` type. This ensures that built-in attributes are not misspelled and helps to distinguish these parameters from other kinds of string parameters.
 
-To learn more, read [Using private user attributes](/home/users/attributes#using-private-user-attributes).
-
 Here is an example:
 
 <CodeTabs
@@ -202,12 +200,12 @@ Here is an example:
 
 ```csharp
 // 5.x model: disabling events
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .SendEvents(false)
     .Build();
 
 // 5.x model: customizing event behavior
-var config =  Configuration.Builder("my-sdk-key")
+var config =  Configuration.Builder("sdk-key-123abc")
     .EventCapacity(20000)
     .EventFlushInterval(TimeSpan.FromSeconds(10))
     .PrivateAttribute("email")
@@ -220,12 +218,12 @@ var config =  Configuration.Builder("my-sdk-key")
 
 ```csharp
 // 6.0 model: disabling events
-var config =  Configuration.Builder("my-sdk-key")
+var config =  Configuration.Builder("sdk-key-123abc")
     .Events(Components.NoEvents)
     .Build();
 
 // 6.0 model: customizing event behavior
-var config =  Configuration.Builder("my-sdk-key")
+var config =  Configuration.Builder("sdk-key-123abc")
     .Events(
         Components.SendEvents()
             .Capacity(20000)
@@ -260,7 +258,7 @@ Here is an example:
 
 ```csharp
 // 5.x model: setting connection and read timeouts
-var config =  Configuration.Builder("my-sdk-key")
+var config =  Configuration.Builder("sdk-key-123abc")
     .HttpClientTimeout(TimeSpan.FromSeconds(3))
     .ReadTimeout(TimeSpan.FromSeconds(4))
     .Build();
@@ -271,7 +269,7 @@ var config =  Configuration.Builder("my-sdk-key")
 
 ```csharp
 // 6.0 model: setting connection and read timeouts
-var config =  Configuration.Builder("my-sdk-key")
+var config =  Configuration.Builder("sdk-key-123abc")
     .Http(
         Components.HttpConfiguration()
             .ConnectTimeout(TimeSpan.FromSeconds(3))
@@ -280,7 +278,7 @@ var config =  Configuration.Builder("my-sdk-key")
     .Build();
 
 // 6.0 model: specifying an HTTP proxy
-var config =  Configuration.Builder("my-sdk-key")
+var config =  Configuration.Builder("sdk-key-123abc")
     .Http(
         Components.HttpConfiguration()
             .Proxy(new System.Net.WebProxy(new Uri("http://my-proxy:8080"))
@@ -326,7 +324,7 @@ Here is an example of configuring the .NET SDK to send log output to the console
 using LaunchDarkly.Logging;
 using LaunchDarkly.Sdk.Server;
 
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .Logging(Logs.ToConsole.Level(LogLevel.Warn))
     .Build();
 ```
@@ -344,7 +342,7 @@ It also has an adapter system for connecting it to other logging frameworks. If 
 <CodeTabItem value="sdk6">
 
 ```csharp
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .Logging(Logs.CoreLogging(loggerFactory))
     .Build();
 ```
@@ -362,7 +360,7 @@ Other adapters are defined in separate packages whose source code is in the [`do
 <CodeTabItem value="sdk6">
 
 ```csharp
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .Logging(LdLog4net.Adapter)
     .Build();
 ```
@@ -409,13 +407,13 @@ Here's how:
 ```csharp
 // proxy mode
 var relayUri = new Uri("http://my-relay-host:8000");
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .StreamUri(relayUri)
     .EventsUri(relayUri) // if you want to proxy events
     .Build();
 
 // daemon mode with a Redis database
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .FeatureStore(
         RedisComponents.RedisFeatureStore().WithUri(new Uri("redis://my-redis-host"))
     )
@@ -429,12 +427,12 @@ var config = Configuration.Builder("my-sdk-key")
 ```csharp
 // proxy mode - this example requires version 6.3.0 or higher
 var relayUri = new Uri("http://my-relay-host:8000");
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .ServiceEndpoints(Components.ServiceEndpoints().RelayProxy(relayUri))
     .Build();
 
 // daemon mode with a Redis database
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .DataSource(Components.ExternalUpdatesOnly) // replaces "UseLdd"
     .DataStore(
         Components.PersistentDataStore(

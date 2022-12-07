@@ -6,6 +6,19 @@ tags: ['ios', 'sdk', 'client-side']
 published: true
 ---
 
+<Callout intent="info">
+<CalloutTitle>Version 8 of the iOS SDK replaces users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
+
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read the iOS SDK 7.x to 8.0 migration guides for [Swift](/sdk/client-side/ios/migration-7-to-8-swift) or [Objective-C](/sdk/client-side/ios/migration-7-to-8-objc).
+
+</CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic documents how to get started with the iOS SDK, and links to reference information on all of the supported features.
@@ -28,7 +41,7 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
     </TableRow>
     <TableRow>
       <TableCell>GitHub repository</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/ios-client-sdk/tree/v5">ios-client-sdk</a></TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/ios-client-sdk/tree/v8">ios-client-sdk</a></TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Sample applications</TableCell>
@@ -90,7 +103,7 @@ Including the SDK as a dependency in a `Package.swift` file looks like this:
 ```swift
 //...
     dependencies: [
-        .package(url: "https://github.com/launchdarkly/ios-client-sdk.git", .upToNextMinor("7.0.0")),
+        .package(url: "https://github.com/launchdarkly/ios-client-sdk.git", .upToNextMinor("8.0.0")),
     ],
     targets: [
         .target(
@@ -122,7 +135,7 @@ Here is the code to add to your `Podfile`:
 ```ruby
 use_frameworks!
 target 'YourTargetName' do
-  pod 'LaunchDarkly', '~> 7.0'
+  pod 'LaunchDarkly', '~> 8.0'
 end
 ```
 
@@ -146,7 +159,7 @@ Here is the code to include in your `Cartfile`:
 <CodeTabItem value="swift">
 
 ```swift
-github "launchdarkly/ios-client" ~> 7.0
+github "launchdarkly/ios-client" ~> 8.0
 ```
 
 </CodeTabItem>
@@ -195,7 +208,7 @@ import LaunchDarkly
 ---
 <br/>
 
-After importing the SDK, configure and initialize it. Specify your mobile key when configuring the SDK so that your application is authorized to connect to a particular environment within LaunchDarkly. Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects). 
+After importing the SDK, configure and initialize it. Specify your mobile key when configuring the SDK so that your application is authorized to connect to a particular environment within LaunchDarkly. Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects).
 
 <Callout intent="alert">
 <CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
@@ -211,19 +224,56 @@ Here is how to specify your mobile key:
 <CodeTabs
   defaultValue="swift"
   values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
+    { label: 'Swift, iOS SDK v8', value: 'swift', },
+    { label: 'Objective-C, iOS SDK v8', value: 'objc', },
+    { label: 'Swift, iOS SDK v7', value: 'swift-v7', },
+    { label: 'Objective-C, iOS SDK v7', value: 'objc-v7', },
   ]
 }>
 <CodeTabItem value="swift">
 
 ```swift
 // If you would like the completion to be called even in cases where
-// the SDK is unable to retrieve flags for the user, there is a variant
+// the SDK is unable to retrieve flags for the context, there is a variant
 // to the start method that takes a maximum time to wait for flag values.
 // This variant notifies the completion whether the operation timed out.
-let config = LDConfig(mobileKey: "YOUR_MOBILE_KEY")
-let user = LDUser(key: "test-user")
+let config = LDConfig(mobileKey: "mobile-key-123abc")
+let context = LDContext(key: "context-key-123abc")
+LDClient.start(config: config, context: context, startWaitSeconds: 5) { timedOut in
+    if timedOut {
+        // The SDK may not have the most recent flags for the configured context
+    } else {
+        // The SDK has received flags for the configured context
+    }
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
+LDContext *context = [[LDContext alloc] initWithKey:@"context-key-123abc"];
+
+[LDClient startWithConfiguration:config context:context startWaitSeconds:5.0 completion:^(bool timedOut) {
+    if(timedOut) {
+        // The SDK may not have the most recent flags for the configured context
+    } else {
+        // The SDK has received flags for the configured context
+    }
+}];
+```
+
+</CodeTabItem>
+<CodeTabItem value="swift-v7">
+
+```swift
+// If you would like the completion to be called even in cases where
+// the SDK is unable to retrieve flags for the context, there is a variant
+// to the start method that takes a maximum time to wait for flag values.
+// This variant notifies the completion whether the operation timed out.
+let config = LDConfig(mobileKey: "mobile-key-123abc")
+let user = LDUser(key: "user-key-123abc")
 LDClient.start(config: config, user: user, startWaitSeconds: 5) { timedOut in
     if timedOut {
         // The SDK may not have the most recent flags for the configured user
@@ -234,17 +284,17 @@ LDClient.start(config: config, user: user, startWaitSeconds: 5) { timedOut in
 ```
 
 </CodeTabItem>
-<CodeTabItem value="objc">
+<CodeTabItem value="objc-v7">
 
 ```objectivec
-LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
-LDUser *user = [[LDUser alloc] initWithKey:@"test-user"];
+LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
+LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 
 [LDClient startWithConfiguration:config user:user startWaitSeconds:5.0 completion:^(bool timedOut) {
     if(timedOut) {
-        // The SDK may not have the most recent flags for the configured user
+        // The SDK may not have the most recent flags for the configured context
     } else {
-        // The SDK has received flags for the configured user
+        // The SDK has received flags for the configured context
     }
 }];
 ```
@@ -259,15 +309,47 @@ Here's how:
 <CodeTabs
   defaultValue="swift"
   values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
+    { label: 'Swift, iOS SDK v8', value: 'swift', },
+    { label: 'Objective-C, iOS SDK v8', value: 'objc', },
+    { label: 'Swift, iOS SDK v7', value: 'swift-v7', },
+    { label: 'Objective-C, iOS SDK v7', value: 'objc-v7', },
   ]
 }>
 <CodeTabItem value="swift">
 
 ```swift
-let config = LDConfig(mobileKey: "YOUR_MOBILE_KEY")
-let user = LDUser(key: "test-user")
+let config = LDConfig(mobileKey: "mobile-key-123abc")
+let context = LDContext(key: "context-key-123abc")
+
+LDClient.start(config: config, context: context)
+
+// If you need to ensure that the most recent flags have been received
+// start supports an optional completion that is triggered when the SDK
+// has retrieved flags for the configured context.
+LDClient.start(config: config, context: context) {
+    // Client has received flags for the context
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+[LDClient startWithConfiguration:config context:context startWaitSeconds:5.0 completion:^(bool timedOut) {
+    if(timedOut) {
+        // The SDK may not have the most recent flags for the configured context
+    } else {
+        // The SDK has received flags for the configured context
+    }
+}];
+```
+
+</CodeTabItem>
+<CodeTabItem value="swift-v7">
+
+```swift
+let config = LDConfig(mobileKey: "mobile-key-123abc")
+let user = LDUser(key: "context-key-123abc")
 
 LDClient.start(config: config, user: user)
 
@@ -280,7 +362,7 @@ LDClient.start(config: config, user: user) {
 ```
 
 </CodeTabItem>
-<CodeTabItem value="objc">
+<CodeTabItem value="objc-v7">
 
 ```objectivec
 [LDClient startWithConfiguration:config user:user startWaitSeconds:5.0 completion:^(bool timedOut) {
@@ -333,21 +415,21 @@ LDClient *client = [LDClient get];
 </CodeTabItem>
 </CodeTabs>
 
-#### Getting the variation to serve the configured user
+#### Getting the variation to serve the configured context
 ---
 <br/>
 <Callout intent="alert">
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
 <CalloutDescription>
 
-You must make feature flags available to mobile SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
+You must make feature flags available to mobile SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the context will receive the default value for that flag.
 
 To make a flag available to this SDK, check the **SDKs using Mobile key** checkbox during flag creation, or on the flag's Settings tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Mobile key** checkbox in your project [Settings](https://app.launchdarkly.com/settings/projects).
 
 </CalloutDescription>
 </Callout>
 
-You can use `client` to check which variation a particular user will receive for a given feature flag.
+You can use `client` to check which variation a particular context will receive for a given feature flag.
 
 Here's how:
 
@@ -401,7 +483,7 @@ To change the background fetch interval for flags in your app, add the following
 <CodeTabItem value="swift">
 
 ```swift
-var ldConfig = LDConfig(mobileKey: "MY_MOBILE_KEY")
+var ldConfig = LDConfig(mobileKey: "mobile-key-123abc")
 ldConfig.backgroundFlagPollingInterval = 3600
 ```
 
@@ -409,7 +491,7 @@ ldConfig.backgroundFlagPollingInterval = 3600
 <CodeTabItem value="objc">
 
 ```objectivec
-LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
+LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 config.backgroundFlagPollingInterval = 3600
 ```
 
@@ -422,7 +504,7 @@ Shut down the client when your application terminates. To learn more, read [Shut
 
 ## Data collection
 
-The data collected by the iOS SDK persists until the number of cached users exceeds a limit. When you call `identify`, the number of cached users increments. Eventually, the number of cached users exceeds `maxCachedUsers`. When that happens, user data in excess of `maxCachedUsers` is deleted, starting with the oldest user first.
+The data collected by the iOS SDK persists until the number of cached contexts exceeds a limit. When you call `identify`, the number of cached contexts increments. Eventually, the number of cached contexts exceeds `maxCachedContexts`. When that happens, the SDK deletes context data in excess of `maxCachedContext`, starting with the oldest context first.
 
 To learn more about data collection within this SDK and implications on submissions to the Apple App Store, read the [Apple App Store data collection policy](/sdk/concepts/apple-app-store).
 
@@ -430,13 +512,12 @@ To learn more about data collection within this SDK and implications on submissi
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#ios)
 * [Configuration](/sdk/features/config#ios)
 * [Evaluating flags](/sdk/features/evaluating#ios)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#ios)
 * [Flushing events](/sdk/features/flush#ios)
 * [Getting all flags](/sdk/features/all-flags#ios)
-* [Identifying and changing users](/sdk/features/identify#ios)
+* [Identifying and changing contexts](/sdk/features/identify#ios)
 * [Monitoring SDK status](/sdk/features/monitoring#ios)
 * [Multiple environments](/sdk/features/multiple-environments#ios)
 * [Offline mode](/sdk/features/offline-mode#ios)
@@ -445,4 +526,4 @@ This SDK supports the following features:
 * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#ios)
 * [Shutting down](/sdk/features/shutdown#ios)
 * [Subscribing to flag changes](/sdk/features/flag-changes#ios)
-* [User configuration](/sdk/features/user-config#ios)
+* [User and context configuration](/sdk/features/user-context-config#ios)

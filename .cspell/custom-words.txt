@@ -51,6 +51,7 @@ deduplication
 defp
 Delivr
 deserialization
+deviceid
 Dockerized
 docsite
 Dynatrace
@@ -115,6 +116,7 @@ ldclientapi
 ldclientapicpp
 ldcomponents
 ldconsul
+ldcontext
 lddynamodb
 ldfiledata
 ldfilewatch
