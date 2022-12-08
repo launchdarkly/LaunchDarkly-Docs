@@ -2377,10 +2377,10 @@ context1 := ldcontext.New("context-key-123abc")
 context2 := ldcontext.NewBuilder("context-key-456def").
     Kind("organization").
     Name("Global Health Services").
-    SetValue("email", "info@globalhealthexample.com").
+    SetString("email", "info@globalhealthexample.com").
     SetValue("address", ldvalue.ObjectBuild().
-      Set("street", ldvalue.String("123 Main Street")).
-      Set("city", ldvalue.String("Springfield"))).
+        SetString("street", "123 Main Street").
+        SetString("city", "Springfield")).
     Build()
 ```
 
@@ -2499,10 +2499,10 @@ import (
 context := ldcontext.NewBuilder("context-key-123abc").
     Kind("organization").
     Name("Global Health Services").
-    SetValue("email", "info@globalhealthexample.com").
+    SetString("email", "info@globalhealthexample.com").
     SetValue("address", ldvalue.ObjectBuild().
-      Set("street", ldvalue.String("123 Main Street")).
-      Set("city", ldvalue.String("Springfield"))).
+        SetString("street", "123 Main Street").
+        SetString("city", "Springfield")).
     Private("email").
     Private("/address/street").
     Build()
@@ -2538,7 +2538,7 @@ context1 := ldcontext.NewBuilder("context-key-123abc").Anonymous(true)
 // Anonymous context with a key plus other attributes
 context2 := ldcontext.NewBuilder("context-key-456def").
     Anonymous(true).
-    SetValue("country","Canada").
+    SetString("country", "Canada").
     Build()
 ```
 
