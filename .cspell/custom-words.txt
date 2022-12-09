@@ -64,6 +64,7 @@ evalx
 eventhub
 eventsource
 examplepackage
+Fargate
 Fastly
 featurestorerequest
 featurex
