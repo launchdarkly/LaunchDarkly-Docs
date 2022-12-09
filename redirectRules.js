@@ -68,6 +68,10 @@ module.exports = [
   // Redirects within the git-gatsby docs site
 
   {
+    fromPath: '/guides/infrastructure/unit-tests',
+    toPath: '/guides/sdk/unit-tests',
+  },
+  {
     fromPath: '/guides/flags/rules-and-targeting',
     toPath: '/guides/flags',
   },

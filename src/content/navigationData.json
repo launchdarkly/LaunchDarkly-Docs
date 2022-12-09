@@ -1498,10 +1498,6 @@
           {
             "label": "Using LaunchDarkly with Svelte",
             "path": "/guides/infrastructure/svelte"
-          },
-          {
-            "label": "Unit testing with Jest",
-            "path": "/guides/infrastructure/unit-tests"
           }
         ]
       },
@@ -1533,6 +1529,10 @@
         "path": "/guides/sdk",
         "svg": "antenna",
         "items": [
+          {
+            "label": "Unit testing with Jest",
+            "path": "/guides/sdk/unit-tests"
+          },
           {
             "label": "Use cases for SDK wrappers",
             "path": "/guides/sdk/sdk-wrappers"
