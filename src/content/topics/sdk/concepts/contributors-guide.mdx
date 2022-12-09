@@ -64,14 +64,14 @@ Flag updates are triggered when you make changes on your flags list, and arrive 
 1. **Through LaunchDarkly's streaming API**: LaunchDarkly's streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events).
 
   There are two ways to use this method:
-  * **Using a `GET` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/eval/<clientSideId>/<context>`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Replace the `context` variable with the base64-encoded, URL-safe version of the context's JSON object. <!-- TKTK confirm this usage SC-178003 -->
+  * **Using a `GET` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/eval/<clientSideId>/<context>`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Replace the `context` variable with the base64-encoded, URL-safe version of the context's JSON object. <!-- cSpell:disable TKTK confirm this usage SC-178003 cSpell:enable -->
   * **Using a `REPORT` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/eval/<clientSideId>`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Not all HTTP clients support `REPORT` requests.
 
 2. **By polling LaunchDarkly's evaluation API**: The SDK implementor should periodically poll this resource. We recommend making one call every thirty seconds. At a minimum, you must throttle the implementation to make at most one call per second. This resource may return caching headers. Use [ETags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This is a common use case, so remember to account for it.
 
   There are two ways to use this method:
-  * **Using a `GET` request**: poll `https://clientsdk.launchdarkly.com/sdk/evalx/<clientSideId>/contexts/<context>`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Replace the `context` variable with the base64-encoded, URL-safe version of the context's JSON object. <!-- TKTK confirm this usage SC-178003 -->
-  * **Using a `REPORT` request**: poll `https://clientsdk.launchdarkly.com/sdk/evalx/<clientSideId>/contexts`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Not all HTTP clients support `REPORT` requests. <!-- TKTK confirm this usage SC-178003 -->
+  * **Using a `GET` request**: poll `https://clientsdk.launchdarkly.com/sdk/evalx/<clientSideId>/contexts/<context>`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Replace the `context` variable with the base64-encoded, URL-safe version of the context's JSON object. <!-- cSpell:disable TKTK confirm this usage SC-178003 cSpell:enable -->
+  * **Using a `REPORT` request**: poll `https://clientsdk.launchdarkly.com/sdk/evalx/<clientSideId>/contexts`. Replace the `clientSideId` variable with the LaunchDarkly environment's client-side ID. Not all HTTP clients support `REPORT` requests. <!-- cSpell:disable TKTK confirm this usage SC-178003 cSpell:enable -->
 
 ### Receiving flag updates in SDKs using the mobile key
 
@@ -82,14 +82,14 @@ Flag updates are triggered when you make changes on your flags list, and arrive 
 1. **Through LaunchDarkly's streaming API**: LaunchDarkly's streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events). This call must include an Authorization header with the value ${mobile_key}, where ${mobile_key} is the mobile key the client application passes to the LaunchDarkly client configuration.
 
   There are two ways to use this method:
-  * **Using a `GET` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/meval/<context>`. Replace the `context` variable with the base64-encoded, URL-safe version of the context's JSON object. <!-- TKTK confirm this usage SC-178003 -->
+  * **Using a `GET` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/meval/<context>`. Replace the `context` variable with the base64-encoded, URL-safe version of the context's JSON object. <!-- cSpell:disable TKTK confirm this usage SC-178003 cSpell:enable -->
   * **Using a `REPORT` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/meval`. Not all HTTP clients support `REPORT` requests.
 
 2. **By polling LaunchDarkly's evaluation API**: The SDK implementor should periodically poll this resource. We recommend making one call every thirty seconds. At a minimum, you must throttle the implementation to make at most one call per second. Use [ETags](https://en.wikipedia.org/wiki/HTTP_ETag) and conditional requests to reduce network transfer when no flags have been modified between requests. This resource may return caching headers. This call must include an `Authorization` header with value `${mobile_key}`, where `${mobile_key}` is the mobile key the client application passed to the LaunchDarkly client configuration.
 
   There are two ways to use this method:
-  * **Using a `GET` request**: poll `https://clientsdk.launchdarkly.com/msdk/evalx/contexts/<context>`. Replace the `context` variable with the base64-encoded, URL-safe version of the context's JSON object. <!-- TKTK confirm this usage SC-178003 -->
-  * **Using a `REPORT` request**: poll `https://clientsdk.launchdarkly.com/msdk/evalx/context`. Not all HTTP clients support `REPORT` requests. <!-- TKTK confirm this usage SC-178003 -->
+  * **Using a `GET` request**: poll `https://clientsdk.launchdarkly.com/msdk/evalx/contexts/<context>`. Replace the `context` variable with the base64-encoded, URL-safe version of the context's JSON object. <!-- cSpell:disable TKTK confirm this usage SC-178003 cSpell:enable -->
+  * **Using a `REPORT` request**: poll `https://clientsdk.launchdarkly.com/msdk/evalx/context`. Not all HTTP clients support `REPORT` requests. <!-- cSpell:disable TKTK confirm this usage SC-178003 cSpell:enable -->
 
 ## Evaluating feature flags
 
@@ -109,7 +109,7 @@ To implement the variation method in a client-side SDK, return the last-known ev
 
 ## Recording events
 
-<!-- TKTK confirm code samples in this section and its subsections, SC-169306 or SC-178003 -->
+<!-- cSpell:disable TKTK confirm code samples in this section and its subsections, SC-169306 or SC-178003 cSpell:enable -->
 
 <Callout intent="info">
   <CalloutTitle>Are you importing data?</CalloutTitle>

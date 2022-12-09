@@ -110,7 +110,7 @@ First, consider how you want to track and target your customers. "User" is the d
 Some common context kinds include device, location, organization, and account type. You may already have a mental model of your "users" as stand-ins for other kinds of contexts. For example, if you have a custom user attribute of "organization" and you have many flags that target on that user attribute, you may want to create an "organization" context kind.
 
 If you use experimentation, think about what context kinds you may want to run experiments on. You can target any context kind when building your experiment audience. Currently, experiments can only randomize variations by the "user" context kind. When contexts are no longer part of the EAP and are generally available, experiments will be able to randomize on any context kind.
-<!-- TKTK Update this section at GA SC-178188 -->
+<!-- cSpell:disable TKTK Update this section at GA SC-178188 cSpell:enable -->
 
 ![The context "Kinds" tab.](contexts-kinds-tab.png)
 
@@ -265,14 +265,14 @@ Here is an example of a flag targeting the "state" attribute of a "location" con
 ![A flag rule targeting the "state" attribute of a "location" context kind.](upgrading-contexts-flag-rule.png)
 
 If you have flags that target segments, your standard segments can target by multiple context kinds. Big Segments can target by only the "user" context kind. When contexts are no longer part of the EAP and are generally available, Big Segments will be able to target any context kind. To learn more, read [Segments](/home/contexts/segments).
-<!-- TKTK Update this section at GA SC-178188 -->
+<!-- cSpell:disable TKTK Update this section at GA SC-178188 cSpell:enable -->
 
 ## Review your experiments
 
 If you have decided to add new context kinds, you should review your running experiments to determine if they need changes. LaunchDarkly automatically updates any running experiments to target user kinds. However, if you decide to edit a flag's targeting rule to target a different context kind, you must start a new iteration of that experiment.
 
 For new experiments, the flag can target any context kind when building your experimentation audience. However, currently you can only assign variations by the "user" context kind when you allocate your experiment’s traffic. When contexts are no longer part of the EAP and are generally available, experiments will be able to assign contexts to variations by any context kind. To learn more, read [Using targeting rules](/home/creating-experiments/allocation#using-targeting-rules).
-<!-- TKTK Update this section at GA SC-178188 -->
+<!-- cSpell:disable TKTK Update this section at GA SC-178188 cSpell:enable -->
 
 ## Confirm that your SDKs are sending contexts to LaunchDarkly
 
@@ -301,7 +301,7 @@ After you have confirmed that your SDKs and flag rules are working correctly, yo
 ## Conclusion
 
 In this guide, you learned about how to upgrade your SDKs and edit your feature flags to begin using contexts. Contexts give you greatly expanded flexibility to precisely target end users, devices, organizations, and other entities to meet your complex business needs. As you begin using contexts as part of our Early Access Program, don't hesitate to contact us with your feedback.
-<!-- TKTK Update this section at GA SC-178188 -->
+<!-- cSpell:disable TKTK Update this section at GA SC-178188 cSpell:enable -->
 
 <Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>

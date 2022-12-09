@@ -32,7 +32,7 @@ Every LaunchDarkly SDK lets you configure context or user objects to return spec
 The object's `key` is the only mandatory attribute. Keys are always transmitted to LaunchDarkly.
 
 Keys must be a string type. Keys must be unique, deterministic, and should not contain Personally Identifiable Information (PII). Keys must be consistent, which means the same person must correspond to the same key across different services to contribute to consistent flag evaluations and accurate Monthly Active Users (MAU). You can use a primary key, an email address, or a hash, as long as the same person always has the same key. We recommend using a hash if possible.
-<!-- TKTK, review/update during SC-163842 -->
+<!-- cSpell:disable TKTK, review/update during SC-163842 cSpell:enable -->
 
 ### Using built-in and custom attributes
 
@@ -3133,7 +3133,7 @@ const user: ld.LDUser = {
 </CodeTabItem>
 </CodeTabs>
 
-<!-- TKTK Need SDK team to verify this code sample. SC-178166 -->
+<!-- cSpell:disable TKTK Need SDK team to verify this code sample. SC-178166 cSpell:enable -->
 
 You still need to generate a unique key for anonymous contexts. Session IDs or UUIDs work best for this.
 </Details>
