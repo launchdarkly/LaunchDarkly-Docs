@@ -73,12 +73,21 @@ Where you previously created users, now you must create contexts.
 Here's how to construct a basic context, as compared with constructing a user:
 
 <CodeTabs
-  defaultValue="single-context"
+  defaultValue="user"
   values={[
-    { label: 'Single context with key', value: 'single-context', },
-    { label: 'Version 2.x, user with key', value: 'user', },
+    { label: '2.x syntax, user with key', value: 'user', },
+    { label: '3.0 syntax, context with key', value: 'single-context', },
   ]
 }>
+<CodeTabItem value="user">
+
+```js
+const user = {
+  key: 'user-key-123abc'
+};
+const client = LDClient.initialize('client-side-id-123abc', user);
+```
+</CodeTabItem>
 <CodeTabItem value="single-context">
 
 ```js
@@ -87,15 +96,6 @@ const context = {
   key: 'user-key-123abc'
 };
 const client = LDClient.initialize('client-side-id-123abc', context);
-```
-</CodeTabItem>
-<CodeTabItem value="user">
-
-```js
-const user = {
-  key: 'user-key-123abc'
-};
-const client = LDClient.initialize('client-side-id-123abc', user);
 ```
 </CodeTabItem>
 </CodeTabs>
@@ -124,7 +124,7 @@ Here's how to construct a basic context, with a context kind of something other 
 <CodeTabs
   defaultValue="single-context"
   values={[
-    { label: 'Single context with key', value: 'single-context', },
+    { label: '3.0 syntax, single context with key', value: 'single-context', },
   ]
 }>
 <CodeTabItem value="single-context">
@@ -144,7 +144,7 @@ Here's how to construct a multi-context, which includes multiple context kinds:
 <CodeTabs
   defaultValue="multi-context"
   values={[
-    { label: 'Multi-context', value: 'multi-context', },
+    { label: '3.0 syntax, multi-context', value: 'multi-context', },
   ]
 }>
 <CodeTabItem value="multi-context">
@@ -191,17 +191,16 @@ You can define additional attributes for a context by passing in a name and valu
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
 <CodeTabs
-  defaultValue="context"
+  defaultValue="user"
   values={[
-    { label: 'Context with several attributes', value: 'context', },
-    { label: 'Version 2.x, user with several attributes', value: 'user', },
+    { label: '2.x syntax, user with attributes', value: 'user', },
+    { label: '3.0 syntax, context with attributes', value: 'context', },
   ]
 }>
-<CodeTabItem value="context">
+<CodeTabItem value="user">
 
 ```js
-const context = {
-  kind: 'user',
+const user = {
   key: 'user-key-123abc',
   firstName: 'Sandy',
   lastName: 'Smith',
@@ -209,10 +208,11 @@ const context = {
 };
 ```
 </CodeTabItem>
-<CodeTabItem value="user">
+<CodeTabItem value="context">
 
 ```js
-const user = {
+const context = {
+  kind: 'user',
   key: 'user-key-123abc',
   firstName: 'Sandy',
   lastName: 'Smith',
@@ -233,7 +233,7 @@ Here's how to add object attributes to a context:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Context with object attributes', value: 'js', },
+    { label: '3.0 syntax, context with object attributes', value: 'js', },
   ]
 }>
 <CodeTabItem value="js">
@@ -278,8 +278,8 @@ In the first example, all attributes are marked private for all contexts. Only t
 <CodeTabs
   defaultValue="private-all"
   values={[
-    { label: 'All attributes marked private for all contexts', value: 'private-all', },
-    { label: 'Two attributes marked private for all contexts', value: 'private-some', },
+    { label: '3.0 syntax, all attributes marked private', value: 'private-all', },
+    { label: '3.0 syntax, two attributes marked private', value: 'private-some', },
   ]
 }>
 <CodeTabItem value="private-all">
@@ -307,7 +307,7 @@ Here's how to mark an attribute as private for a particular context:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Attributes marked private for particular context', value: 'js', },
+    { label: '3.0 syntax, attributes marked private for particular context', value: 'js', },
   ]
 }>
 <CodeTabItem value="js">
@@ -348,7 +348,7 @@ If you are working with a multi-context, you can mark some contexts anonymous an
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Working with anonymous contexts', value: 'js', },
+    { label: '3.0 syntax, working with anonymous contexts', value: 'js', },
   ]
 }>
 <CodeTabItem value="js">
@@ -394,7 +394,7 @@ Here's how:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'Identifying a multi-context', value: 'js', },
+    { label: '3.0 syntax, identifying a multi-context', value: 'js', },
   ]
 }>
 <CodeTabItem value="js">

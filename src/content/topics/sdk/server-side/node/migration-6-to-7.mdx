@@ -79,7 +79,7 @@ Here's how to evaluate a flag using a context:
 <CodeTabs
   defaultValue="variation"
   values={[
-    { label: 'JavaScript', value: 'variation', },
+    { label: '7.0 syntax', value: 'variation', },
   ]
 }>
 <CodeTabItem value="variation">
@@ -100,13 +100,22 @@ Where you previously created users, now you must create contexts.
 Here's how to construct a basic context, as compared with constructing a user:
 
 <CodeTabs
-  defaultValue="single-context"
+  defaultValue="user"
   values={[
-    { label: 'Single context with key, JavaScript', value: 'single-context', },
-    { label: 'Single context with key, TypeScript', value: 'single-context-ts', },
-    { label: 'Version 6.x, user with key', value: 'user', },
+    { label: '6.x syntax, user with key', value: 'user', },
+    { label: '7.0 syntax, context with key, JavaScript', value: 'single-context', },
+    { label: '7.0 syntax, context with key, TypeScript', value: 'single-context-ts', },
   ]
 }>
+<CodeTabItem value="user">
+
+```js
+const user = {
+  key: 'user-key-123abc'
+};
+```
+
+</CodeTabItem>
 <CodeTabItem value="single-context">
 
 ```js
@@ -125,15 +134,6 @@ import * as ld from 'launchdarkly-node-server-sdk';
 const context: ld.LDContext = {
   kind: 'user',
   key: 'user-key-123abc',
-};
-```
-
-</CodeTabItem>
-<CodeTabItem value="user">
-
-```js
-const user = {
-  key: 'user-key-123abc'
 };
 ```
 
@@ -164,7 +164,7 @@ Here's how to construct a basic context, with a context kind of something other 
 <CodeTabs
   defaultValue="single-context"
   values={[
-    { label: 'Single context with key', value: 'single-context', },
+    { label: '7.0 syntax, single context with key', value: 'single-context', },
   ]
 }>
 <CodeTabItem value="single-context">
@@ -184,8 +184,8 @@ Here's how to construct a multi-context, which includes multiple context kinds:
 <CodeTabs
   defaultValue="multi-context"
   values={[
-    { label: 'JavaScript', value: 'multi-context', },
-    { label: 'TypeScript', value: 'multi-context-ts', },
+    { label: '7.0 syntax, JavaScript', value: 'multi-context', },
+    { label: '7.0 syntax, TypeScript', value: 'multi-context-ts', },
   ]
 }>
 <CodeTabItem value="multi-context">
@@ -229,13 +229,25 @@ You can define additional attributes for a context by passing in a name and valu
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
 <CodeTabs
-  defaultValue="context"
+  defaultValue="user"
   values={[
-    { label: 'JavaScript: Context with attributes', value: 'context', },
-    { label: 'Typescript: Context with attributes', value: 'context-ts', },
-    { label: 'v6.x, user with attributes', value: 'user', },
+    { label: '6.x syntax, user with attributes', value: 'user', },
+    { label: '7.0 syntax, JavaScript: context with attributes', value: 'context', },
+    { label: '7.0 syntax, Typescript: context with attributes', value: 'context-ts', },
   ]
 }>
+<CodeTabItem value="user">
+
+```js
+const user = {
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+};
+```
+
+</CodeTabItem>
 <CodeTabItem value="context">
 
 ```js
@@ -264,18 +276,6 @@ const context: ld.LDContext = {
 ```
 
 </CodeTabItem>
-<CodeTabItem value="user">
-
-```js
-const user = {
-  key: 'user-key-123abc',
-  firstName: 'Sandy',
-  lastName: 'Smith',
-  email: 'sandy@example.com',
-};
-```
-
-</CodeTabItem>
 </CodeTabs>
 
 #### Referencing properties of an attribute object
@@ -289,8 +289,8 @@ Here's how to add object attributes to a context:
 <CodeTabs
   defaultValue="context"
   values={[
-    { label: 'JavaScript', value: 'context', },
-    { label: 'TypeScript', value: 'context-ts', },
+    { label: '7.0 syntax, JavaScript', value: 'context', },
+    { label: '7.0 syntax, TypeScript', value: 'context-ts', },
   ]
 }>
 <CodeTabItem value="context">
@@ -351,8 +351,8 @@ In this example, the "email" and "address" attributes are private for all contex
 <CodeTabs
    defaultValue="private-config"
    values={[
-     { label: 'JavaScript', value: 'private-config', },
-     { label: 'TypeScript', value: 'private-config-ts', },
+     { label: '7.0 syntax, JavaScript', value: 'private-config', },
+     { label: '7.0 syntax, TypeScript', value: 'private-config-ts', },
    ]
  }>
 <CodeTabItem value="private-config">
@@ -390,8 +390,8 @@ Here's how to mark an attribute as private for a particular context:
 <CodeTabs
   defaultValue="private"
   values={[
-    { label: 'JavaScript', value: 'private', },
-    { label: 'TypeScript', value: 'private-ts', },
+    { label: '7.0 syntax, JavaScript', value: 'private', },
+    { label: '7.0 syntax, TypeScript', value: 'private-ts', },
   ]
 }>
 <CodeTabItem value="private">
@@ -446,8 +446,8 @@ Here's how:
 <CodeTabs
   defaultValue="multi-context"
   values={[
-    { label: 'JavaScript', value: 'multi-context', },
-    { label: 'TypeScript', value: 'multi-context-ts', },
+    { label: '7.0 syntax, JavaScript', value: 'multi-context', },
+    { label: '7.0 syntax, TypeScript', value: 'multi-context-ts', },
   ]
 }>
 <CodeTabItem value="multi-context">

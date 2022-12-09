@@ -76,13 +76,13 @@ Here's how to evaluate a flag using a context:
 <CodeTabs
   defaultValue="variation"
   values={[
-    { label: 'Rust', value: 'variation', },
+    { label: '1.0 syntax', value: 'variation', },
   ]
 }>
 <CodeTabItem value="variation">
 
 ```rust
-let value = client.bool_variation(&context, "YOUR-FLAG-KEY", false);
+let value = client.bool_variation(&context, "flag-key-123abc", false);
 ```
 </CodeTabItem>
 </CodeTabs>
@@ -94,22 +94,22 @@ Where you previously created users, now you must create contexts.
 Here's how to construct a basic context, as compared with constructing a user:
 
 <CodeTabs
-  defaultValue="single-context"
+  defaultValue="user"
   values={[
-    { label: 'Single context with key', value: 'single-context', },
-    { label: 'Beta version, user with key', value: 'user', },
+    { label: 'Beta syntax, user with key', value: 'user', },
+    { label: '1.0 syntax, context with key', value: 'single-context', },
   ]
 }>
-<CodeTabItem value="single-context">
-
-```rust
-let context = ContextBuilder::new("context-key").build()?;
-```
-</CodeTabItem>
 <CodeTabItem value="user">
 
 ```rust
-let user1 = User::with_key("user-key").build();
+let user1 = User::with_key("user-key-123abc").build();
+```
+</CodeTabItem>
+<CodeTabItem value="single-context">
+
+```rust
+let context = ContextBuilder::new("context-key-123abc").build()?;
 ```
 </CodeTabItem>
 </CodeTabs>
@@ -119,13 +119,13 @@ Here's how to construct a basic context, with a context kind of something other 
 <CodeTabs
   defaultValue="single-context"
   values={[
-    { label: 'Single context builder', value: 'single-context', },
+    { label: '1.0 syntax, single context builder', value: 'single-context', },
   ]
 }>
 <CodeTabItem value="single-context">
 
 ```rust
-let context = ContextBuilder::new("context-key")
+let context = ContextBuilder::new("context-key-123abc")
     .kind("organization")
     .build()?;
 ```
@@ -137,16 +137,16 @@ Here's how to construct a multi-context, which includes multiple context kinds:
 <CodeTabs
   defaultValue="multi-context"
   values={[
-    { label: 'Multi-context', value: 'multi-context', },
+    { label: '1.0 syntax, multi-context', value: 'multi-context', },
   ]
 }>
 <CodeTabItem value="multi-context">
 
 ```rust
-let user_context = ContextBuilder::new("user-key").build()?;
+let user_context = ContextBuilder::new("user-key-123abc").build()?;
 client.identify(user_context.clone());
 
-let device_context = ContextBuilder::new("device-key").kind("device").build()?;
+let device_context = ContextBuilder::new("device-key-123abc").kind("device").build()?;
 client.identify(device_context.clone());
 
 let multi_context = MultiContextBuilder::new()
@@ -176,21 +176,12 @@ You can define additional attributes for a context by passing in a name and valu
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
 <CodeTabs
-  defaultValue="context"
+  defaultValue="user"
   values={[
-    { label: 'Context with several attributes', value: 'context', },
-    { label: 'Beta version, user with several attributes', value: 'user', },
+    { label: 'Beta syntax, user with attributes', value: 'user', },
+    { label: '1.0 syntax, context with attributes', value: 'context', },
   ]
 }>
-<CodeTabItem value="context">
-
-```rust
-let context = ContextBuilder::new("user-key-123abc")
-    .name("Sandy")
-    .set_value("email", "sandy@example.com".into())
-    .build()?;
-```
-</CodeTabItem>
 <CodeTabItem value="user">
 
 ```rust
@@ -209,6 +200,15 @@ builder.custom(custom);
 let user2 = builder.build();
 ```
 </CodeTabItem>
+<CodeTabItem value="context">
+
+```rust
+let context = ContextBuilder::new("user-key-123abc")
+    .name("Sandy")
+    .set_value("email", "sandy@example.com".into())
+    .build()?;
+```
+</CodeTabItem>
 </CodeTabs>
 
 #### Referencing properties of an attribute object
@@ -222,13 +222,13 @@ Here's how to add object attributes to a context:
 <CodeTabs
   defaultValue="rust"
   values={[
-    { label: 'Rust', value: 'rust', },
+    { label: '1.0 syntax', value: 'rust', },
   ]
 }>
 <CodeTabItem value="rust">
 
 ```rust
-let context = ContextBuilder::new("the-key")
+let context = ContextBuilder::new("context-key123abc")
     .set_value(
         "address",
         AttributeValue::Object(HashMap::from([
@@ -267,13 +267,13 @@ In this example, the "email" and "address" attributes are private for all contex
 <CodeTabs
   defaultValue="rust"
   values={[
-    { label: 'Two attributes marked private for all contexts', value: 'rust', },
+    { label: '1.0 syntax, two attributes marked private for all contexts', value: 'rust', },
   ]
 }>
 <CodeTabItem value="rust">
 
 ```rust
-let config_builder = ConfigBuilder::new("sdk-key");
+let config_builder = ConfigBuilder::new("sdk-key-123abc");
 let mut processor_builder = EventProcessorBuilder::new();
 processor_builder.private_attributes(
     vec!["email".into(), "address".into()]
@@ -293,13 +293,13 @@ Here's how to mark an attribute as private for a particular context:
 <CodeTabs
   defaultValue="rust"
   values={[
-    { label: 'Rust', value: 'rust', },
+    { label: '1.0 syntax, attribute marked private for one context', value: 'rust', },
   ]
 }>
 <CodeTabItem value="rust">
 
 ```rust
-ContextBuilder::new("the-key").add_private_attribute(Reference::new("/address/street"))
+ContextBuilder::new("context-key-123abc").add_private_attribute(Reference::new("/address/street"))
 ```
 </CodeTabItem>
 </CodeTabs>
@@ -323,16 +323,16 @@ Here's how:
 <CodeTabs
   defaultValue="rust"
   values={[
-    { label: 'Rust', value: 'rust', },
+    { label: '1.0 syntax', value: 'rust', },
   ]
 }>
 <CodeTabItem value="rust">
 
 ```rust
-let user_context = ContextBuilder::new("user-key").build()?;
+let user_context = ContextBuilder::new("user-key-123abc").build()?;
 client.identify(user_context.clone());
 
-let device_context = ContextBuilder::new("device-key").kind("device").build()?;
+let device_context = ContextBuilder::new("device-key-123abc").kind("device").build()?;
 client.identify(device_context.clone());
 
 let multi_context = MultiContextBuilder::new()

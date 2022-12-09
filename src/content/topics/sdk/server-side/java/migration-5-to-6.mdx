@@ -86,13 +86,13 @@ Here's how to evaluate a flag using a context:
 <CodeTabs
   defaultValue="variation"
   values={[
-    { label: 'Java', value: 'variation', },
+    { label: '6.0 syntax', value: 'variation', },
   ]
 }>
 <CodeTabItem value="variation">
 
 ```java
-boolean value = client.boolVariation("your-flag-key", context, false);
+boolean value = client.boolVariation("flag-key-123abc", context, false);
 ```
 </CodeTabItem>
 </CodeTabs>
@@ -104,22 +104,22 @@ Where you previously created users, now you must create contexts.
 Here's how to construct a basic context, as compared with constructing a user:
 
 <CodeTabs
-  defaultValue="single-context"
+  defaultValue="user"
   values={[
-    { label: 'Single context with key', value: 'single-context', },
-    { label: 'Version 5.x, user with key', value: 'user', },
+    { label: '5.x syntax, user with key', value: 'user', },
+    { label: '6.0 syntax, context with key', value: 'single-context', },
   ]
 }>
-<CodeTabItem value="single-context">
-
-```java
-LDContext context = LDContext.create("context-key");
-```
-</CodeTabItem>
 <CodeTabItem value="user">
 
 ```java
-LDUser user = new LDUser("user-key");
+LDUser user = new LDUser("user-key-123abc");
+```
+</CodeTabItem>
+<CodeTabItem value="single-context">
+
+```java
+LDContext context = LDContext.create("context-key-123abc");
 ```
 </CodeTabItem>
 </CodeTabs>
@@ -129,13 +129,13 @@ Here's how to construct a basic context, with a context kind of something other 
 <CodeTabs
   defaultValue="single-context"
   values={[
-    { label: 'Single context shortcut', value: 'single-context', },
+    { label: '6.0 syntax, single context shortcut', value: 'single-context', },
   ]
 }>
 <CodeTabItem value="single-context">
 
 ```java
-LDContext context1 = LDContext.create(ContextKind.of("organization"), "org1-key");
+LDContext context1 = LDContext.create(ContextKind.of("organization"), "org-key-123abc");
 ```
 </CodeTabItem>
 </CodeTabs>
@@ -145,15 +145,15 @@ Here's how to construct a multi-context, which includes multiple context kinds:
 <CodeTabs
   defaultValue="multi-context"
   values={[
-    { label: 'Multi-context', value: 'multi-context', },
+    { label: '6.0 syntax, multi-context', value: 'multi-context', },
   ]
 }>
 <CodeTabItem value="multi-context">
 
 ```java
 LDContext multiContext = LDContext.createMulti(
-    LDContext.create("user1-key"),
-    LDContext.create(ContextKind.of("device"), "key-of-device")
+    LDContext.create("user-key-123abc"),
+    LDContext.create(ContextKind.of("device"), "device-key-123abc")
 );
 ```
 </CodeTabItem>
@@ -175,27 +175,27 @@ You can define additional attributes for a context by passing in a name and valu
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
 <CodeTabs
-  defaultValue="context"
+  defaultValue="user"
   values={[
-    { label: 'Context with several attributes', value: 'context', },
-    { label: 'Version 5.x, user with several attributes', value: 'user', },
+    { label: '5.x syntax, user with attributes', value: 'user', },
+    { label: '6.0 syntax, context with attributes', value: 'context', },
   ]
 }>
-<CodeTabItem value="context">
-
-```java
-LDContext context = LDContext.builder("user-key")
-  .name("Name of user")
-  .set("email", "email@example.com")
-  .build();
-```
-</CodeTabItem>
 <CodeTabItem value="user">
 
 ```java
-LDUser user = new LDUser.Builder("user-key")
-  .name("Name of user")
-  .email("email@example.com")
+LDUser user = new LDUser.Builder("user-key-123abc")
+  .name("Sandy")
+  .email("sandy@example.com")
+  .build();
+```
+</CodeTabItem>
+<CodeTabItem value="context">
+
+```java
+LDContext context = LDContext.builder("user-key-123abc")
+  .name("Sandy")
+  .set("email", "sandy@example.com")
   .build();
 ```
 </CodeTabItem>
@@ -212,7 +212,7 @@ Here's one way to add object attributes to a context:
 <CodeTabs
   defaultValue="context"
   values={[
-    { label: 'Context with object attributes', value: 'context', },
+    { label: '6.0 syntax, context with object attributes', value: 'context', },
   ]
 }>
 <CodeTabItem value="context">
@@ -222,7 +222,7 @@ LDValue addressData = LDValue.buildObject()
   .put("street", "Main St")
   .put("city", "Springfield")
   .build();
-LDContext context = LDContext.builder("user3-key")
+LDContext context = LDContext.builder("user-key-123abc")
   .set("address", addressData)
   .build();
 ```
@@ -255,8 +255,8 @@ In the first example, all attributes are marked private for all contexts. Only t
 <CodeTabs
   defaultValue="private-all"
   values={[
-    { label: 'All attributes marked private for all contexts', value: 'private-all', },
-    { label: 'Two attributes marked private for all contexts', value: 'private-some', },
+    { label: '6.0 syntax, all attributes marked private', value: 'private-all', },
+    { label: '6.0 syntax, two attributes marked private', value: 'private-some', },
   ]
 }>
 <CodeTabItem value="private-all">
@@ -290,7 +290,7 @@ Here's how to mark an attribute as private for a particular context:
 <CodeTabs
   defaultValue="private"
   values={[
-    { label: 'An attribute marked private for one context', value: 'private', },
+    { label: '6.0 syntax, attribute marked private for one context', value: 'private', },
   ]
 }>
 <CodeTabItem value="private">
@@ -324,14 +324,14 @@ Here's how:
 <CodeTabs
   defaultValue="multi-context"
   values={[
-    { label: 'Associating two contexts', value: 'multi-context', },
+    { label: '6.0 syntax, associating two contexts', value: 'multi-context', },
   ]
 }>
 <CodeTabItem value="multi-context">
 
 ```java
-LDContext context1 = LDContext.create("user1-key");
-LDContext context2 = LDContext.create(ContextKind.of("device"), "device1-key");
+LDContext context1 = LDContext.create("user-key-123abc");
+LDContext context2 = LDContext.create(ContextKind.of("device"), "device-key123abc");
 LDContext multiContext = LDContext.createMulti(context1, context2);
 client.identify(multiContext);
 ```

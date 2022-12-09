@@ -76,23 +76,23 @@ Where you previously created users, now you must create contexts.
 Here's how to construct a basic context, as compared with constructing a user:
 
 <CodeTabs
-  defaultValue="single-context"
+  defaultValue="user"
   values={[
-    { label: 'Single context with key', value: 'single-context', },
-    { label: 'Version 7.x, user with key', value: 'user', },
+    { label: '7.x syntax, user with key', value: 'user', },
+    { label: '8.0 syntax, context with key', value: 'single-context', },
   ]
 }>
+<CodeTabItem value="user">
+
+```swift
+var user = LDUser(key: "user-key-123abc")
+```
+</CodeTabItem>
 <CodeTabItem value="single-context">
 
 ```swift
 var contextBuilder = LDContextBuilder(key: "context-key-123abc")
 let context = try contextBuilder.build().get()
-```
-</CodeTabItem>
-<CodeTabItem value="user">
-
-```swift
-var user = LDUser(key: "user-key-123abc")
 ```
 </CodeTabItem>
 </CodeTabs>
@@ -102,7 +102,7 @@ Here's how to construct a multi-context, which includes multiple context kinds:
 <CodeTabs
   defaultValue="multi-context"
   values={[
-    { label: 'Multi-context', value: 'multi-context', },
+    { label: '8.0 syntax, multi-context', value: 'multi-context', },
   ]
 }>
 <CodeTabItem value="multi-context">
@@ -138,12 +138,21 @@ You can define additional attributes for a context by passing in a name and valu
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
 <CodeTabs
-  defaultValue="context"
+  defaultValue="user"
   values={[
-    { label: 'Context with several attributes', value: 'context', },
-    { label: 'Version 7.x, user with several attributes', value: 'user', },
+    { label: '7.x syntax, user with attributes', value: 'user', },
+    { label: '8.0 syntax, context with attributes', value: 'context', },
   ]
 }>
+
+<CodeTabItem value="user">
+
+```swift
+var user = LDUser(key: "user-key-123abc")
+user.name = "Sandy Smith"
+user.email = "sandy@example.com"
+```
+</CodeTabItem>
 <CodeTabItem value="context">
 
 ```swift
@@ -153,14 +162,6 @@ builder.name("Sandy Smith")
 builder.trySetValue("email", "sandy@example.com")
 
 let context = try builder.build().get()
-```
-</CodeTabItem>
-<CodeTabItem value="user">
-
-```swift
-var user = LDUser(key: "user-key-123abc")
-user.name = "Sandy Smith"
-user.email = "sandy@example.com"
 ```
 </CodeTabItem>
 </CodeTabs>
@@ -176,7 +177,7 @@ Here's how to add object attributes to a context:
 <CodeTabs
   defaultValue="context"
   values={[
-    { label: 'Context with object attributes', value: 'context', },
+    { label: '8.0 syntax, context with object attributes', value: 'context', },
   ]
 }>
 <CodeTabItem value="context">
@@ -215,8 +216,8 @@ In version 8.0, there are two scopes for which you can mark attributes as privat
 <CodeTabs
   defaultValue="private-all"
   values={[
-    { label: 'All attributes marked private for all contexts', value: 'private-all', },
-    { label: 'Two attributes marked private for all contexts', value: 'private-some', },
+    { label: '8.0 syntax, all attributes marked private', value: 'private-all', },
+    { label: '8.0 syntax, two attributes marked private', value: 'private-some', },
   ]
 }>
 <CodeTabItem value="private-all">
@@ -242,7 +243,7 @@ Here's how to mark an attribute as private for a particular context:
 <CodeTabs
   defaultValue="private"
   values={[
-    { label: 'An attribute marked private for one context', value: 'private', },
+    { label: '8.0 syntax, attribute marked private for one context', value: 'private', },
   ]
 }>
 <CodeTabItem value="private">
@@ -274,7 +275,7 @@ Here's how:
 <CodeTabs
   defaultValue="device"
   values={[
-    { label: 'Setting device and operating system', value: 'device', },
+    { label: '8.0 syntax, setting device and operating system', value: 'device', },
   ]
 }>
 <CodeTabItem value="device">
@@ -303,7 +304,7 @@ Here's how:
 <CodeTabs
   defaultValue="deviceid"
   values={[
-    { label: 'Setting the device ID', value: 'deviceid', },
+    { label: '8.0 syntax, setting the device ID', value: 'deviceid', },
   ]
 }>
 <CodeTabItem value="deviceid">
@@ -333,7 +334,7 @@ Here's how:
 <CodeTabs
   defaultValue="multi-context"
   values={[
-    { label: 'Associating two contexts', value: 'multi-context', },
+    { label: '8.0 syntax, associating two contexts', value: 'multi-context', },
   ]
 }>
 <CodeTabItem value="multi-context">

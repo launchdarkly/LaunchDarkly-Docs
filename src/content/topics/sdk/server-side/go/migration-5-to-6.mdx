@@ -101,13 +101,13 @@ Here's how to evaluate a flag using a context:
 <CodeTabs
   defaultValue="variation"
   values={[
-    { label: 'Go', value: 'variation', },
+    { label: '6.0 syntax', value: 'variation', },
   ]
 }>
 <CodeTabItem value="variation">
 
 ```go
-client.BoolVariation("your.feature.key", context, false)
+client.BoolVariation("flag-key-123abc", context, false)
 ```
 </CodeTabItem>
 </CodeTabs>
@@ -119,22 +119,22 @@ Where you previously created users, now you must create contexts.
 Here's how to construct a basic context, as compared with constructing a user:
 
 <CodeTabs
-  defaultValue="single-context"
+  defaultValue="user"
   values={[
-    { label: 'Single context with key', value: 'single-context', },
-    { label: 'Version 5.x, user with key', value: 'user', },
+    { label: '5.x syntax, user with key', value: 'user', },
+    { label: '6.0 syntax, context with key', value: 'single-context', },
   ]
 }>
-<CodeTabItem value="single-context">
-
-```go
-context1 := ldcontext.New("context-key-123abc")
-```
-</CodeTabItem>
 <CodeTabItem value="user">
 
 ```go
 user1 := lduser.NewUser("user-key-123abc")
+```
+</CodeTabItem>
+<CodeTabItem value="single-context">
+
+```go
+context1 := ldcontext.New("context-key-123abc")
 ```
 </CodeTabItem>
 </CodeTabs>
@@ -144,7 +144,7 @@ Here's how to construct a basic context, with a context kind of something other 
 <CodeTabs
   defaultValue="single-context"
   values={[
-    { label: 'Single context with key', value: 'single-context', },
+    { label: '6.0 syntax, single context with key', value: 'single-context', },
   ]
 }>
 <CodeTabItem value="single-context">
@@ -160,7 +160,7 @@ Here's how to construct a multi-context, which includes multiple context kinds:
 <CodeTabs
   defaultValue="multi-context"
   values={[
-    { label: 'Multi-context', value: 'multi-context', },
+    { label: '6.0 syntax, multi-context', value: 'multi-context', },
   ]
 }>
 <CodeTabItem value="multi-context">
@@ -181,7 +181,7 @@ You can also use the context builder to create each of the individual contexts:
 <CodeTabs
   defaultValue="multi-context"
   values={[
-    { label: 'Multi-context builder', value: 'multi-context', },
+    { label: '6.0 syntax, multi-context builder', value: 'multi-context', },
   ]
 }>
 <CodeTabItem value="multi-context">
@@ -212,27 +212,27 @@ In version 6.0, the only built-in attributes are `kind`, `key`, `name`, and `ano
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
 <CodeTabs
-  defaultValue="context"
+  defaultValue="user"
   values={[
-    { label: 'Context with several attributes', value: 'context', },
-    { label: 'Version 5.x, user with several attributes', value: 'user', },
+    { label: '5.x syntax, user with attributes', value: 'user', },
+    { label: '6.0 syntax, context with attributes', value: 'context', },
   ]
 }>
-<CodeTabItem value="context">
-
-```go
-context2 := ldcontext.NewBuilder("user-key-123abc").
-    Name("Sandy").
-    SetString("email", "sandy@example.com").
-    Build()
-```
-</CodeTabItem>
 <CodeTabItem value="user">
 
 ```go
 user2 := lduser.NewUserBuilder("user-key-123abc").
     Name("Sandy").
     Email("sandy@example.com").
+    Build()
+```
+</CodeTabItem>
+<CodeTabItem value="context">
+
+```go
+context2 := ldcontext.NewBuilder("user-key-123abc").
+    Name("Sandy").
+    SetString("email", "sandy@example.com").
     Build()
 ```
 </CodeTabItem>
@@ -249,7 +249,7 @@ Here's one way to add object attributes to a context:
 <CodeTabs
   defaultValue="context"
   values={[
-    { label: 'Context with object attributes', value: 'context', },
+    { label: '6.0 syntax, context with object attributes', value: 'context', },
   ]
 }>
 <CodeTabItem value="context">
@@ -259,7 +259,7 @@ addressData := ldvalue.ObjectBuild().
     SetString("street", "Main St").
     SetString("city", "Springfield").
     Build()
-context3 := ldcontext.NewBuilder("user-key-789ghi").
+context3 := ldcontext.NewBuilder("user-key-123abc").
     Set("address", addressData).
     Build()
 ```
@@ -292,8 +292,8 @@ In the first example, all attributes are marked private for all contexts. In the
 <CodeTabs
   defaultValue="private-all"
   values={[
-    { label: 'All attributes marked private for all contexts', value: 'private-all', },
-    { label: 'Two attributes marked private for all contexts', value: 'private-some', },
+    { label: '6.0 syntax, all attributes marked private', value: 'private-all', },
+    { label: '6.0 syntax, two attributes marked private', value: 'private-some', },
   ]
 }>
 <CodeTabItem value="private-all">
@@ -328,7 +328,7 @@ Here's how to mark an attribute as private for a particular context:
 <CodeTabs
   defaultValue="private"
   values={[
-    { label: 'An attribute marked private for one context', value: 'private', },
+    { label: '6.0 syntax, attribute marked private for one context', value: 'private', },
   ]
 }>
 <CodeTabItem value="private">
@@ -362,7 +362,7 @@ Here's how:
 <CodeTabs
   defaultValue="multi-context"
   values={[
-    { label: 'Associating two contexts', value: 'multi-context', },
+    { label: '6.0 syntax, associating two contexts', value: 'multi-context', },
   ]
 }>
 <CodeTabItem value="multi-context">
