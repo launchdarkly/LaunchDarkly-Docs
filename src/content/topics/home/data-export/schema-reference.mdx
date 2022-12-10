@@ -327,26 +327,26 @@ An example `identify` event is shown below:
 
 ```json
 {
-    "kind": "identify",
-    "context": {
-      "key": "context-key-123abc",
-      "kind": "user",
-      "name": "Sandy Smith",
-      "jobFunction": "doctor",
-      "moreComplex": {
-        "city": "Springfield",
-        "moreThanOne": [1,2,3]
-      }
-    },
-    "creationDate": 1462220944000
+  "kind": "identify",
+  "context": {
+    "key": "context-key-123abc",
+    "kind": "user",
+    "name": "Sandy Smith",
+    "jobFunction": "doctor",
+    "moreComplex": {
+      "city": "Springfield",
+      "moreThanOne": [1,2,3]
+    }
+  },
+  "creationDate": 1462220944000
 }
 ```
 </CodeTabItem>
-<CodeTabItem value="json">
+<CodeTabItem value="v1">
 
 ```json
 {
-  "kind": "index",
+  "kind": "identify",
   "user": {
     "key": "user-key-123abc",
     "custom": {
@@ -356,7 +356,7 @@ An example `identify` event is shown below:
       ]
     }
   },
-  "creationDate": 1462220944000,
+  "creationDate": 1462220944000
 }
 ```
 </CodeTabItem>
