@@ -835,6 +835,10 @@
             "path": "/integrations/ansible"
           },
           {
+            "label": "AWS CloudWatch RUM",
+            "path": "/integrations/aws-cloudwatch-rum"
+          },
+          {
             "label": "Azure DevOps",
             "path": "/integrations/azure-devops"
           },
@@ -1036,6 +1040,10 @@
             "label": "Identifying and changing contexts",
             "path": "/sdk/features/identify"
           },
+          {
+            "label": "Inspectors",
+            "path": "/sdk/features/inspectors"
+          },          
           {
             "label": "Logging configuration",
             "path": "/sdk/features/logging"
