@@ -29,7 +29,7 @@ If you are using the latest version of an SDK and are not part of the EAP, your 
 
 The track feature lets you record actions your customers take in your application as events. You can connect these events to metrics in experiments in the flags list. To learn more about the events SDKs send to LaunchDarkly, read [Analytics events](/sdk/concepts/events).
 
-You can view events in the **Live events** page. To learn more, read [Live events](/home/flags/live-events/).
+You can view events in the **Debugger** page.
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 
@@ -146,7 +146,7 @@ You can also attach custom data to your event by calling [`LDClientTrackData`](h
 
 <Details summary="Expand Electron code sample">
 
-Evaluating flags, either with `variation()` or with `allFlags()`, produces analytics events which you can observe on your LaunchDarkly **Live events** page. The initial user you specify in the client constructor, as well as any user you specify with `identify()`, produces an analytics event which is how LaunchDarkly receives your user data.
+Evaluating flags, either with `variation()` or with `allFlags()`, produces analytics events which you can observe on your LaunchDarkly **Debugger** page. The initial user you specify in the client constructor, as well as any user you specify with `identify()`, produces an analytics event which is how LaunchDarkly receives your user data.
 
 You can also explicitly send an event with any data you like using the `track` function:
 
@@ -280,7 +280,7 @@ The SDK automatically handles URL changes made by the HTML5 history API or by ch
 #### Analytics in JavaScript
 ---
 
-Evaluating flags, either with `variation()` or with `allFlags()`, produces analytics events which you can observe on your LaunchDarkly **Live events** page. The initial context you specify in the client constructor, as well as any context you specify with `identify()`, produces an analytics event which is how LaunchDarkly receives your context data.
+Evaluating flags, either with `variation()` or with `allFlags()`, produces analytics events which you can observe on your LaunchDarkly **Debugger** page. The initial context you specify in the client constructor, as well as any context you specify with `identify()`, produces an analytics event which is how LaunchDarkly receives your context data.
 
 You can also explicitly send an event with any data you like using the `track` function. The second argument is optional. For example:
 
