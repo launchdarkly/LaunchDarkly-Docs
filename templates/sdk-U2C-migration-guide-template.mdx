@@ -95,7 +95,7 @@ Here's how to evaluate a flag using a context:
 <CodeTabs
   defaultValue="variation"
   values={[
-    { label: 'LANGUAGE NAME', value: 'variation', },
+    { label: 'Y.0 syntax', value: 'variation', },
   ]
 }>
 <CodeTabItem value="variation">
@@ -114,22 +114,22 @@ Where you previously created users, now you must create contexts.
 Here's how to construct a basic context, as compared with constructing a user:
 
 <CodeTabs
-  defaultValue="single-context"
+  defaultValue="user"
   values={[
-    { label: 'Single context with key', value: 'single-context', },
-    { label: 'Version X.x, user with key', value: 'user', },
+    { label: 'X.x syntax, user with key', value: 'user', },
+    { label: 'Y.0 syntax, context with key', value: 'single-context', },
   ]
 }>
-<CodeTabItem value="single-context">
-
-```LANGUAGE-NAME
-TKTK - example building a single context, with a "kind" of "user" and a key
-```
-</CodeTabItem>
 <CodeTabItem value="user">
 
 ```LANGUAGE-NAME
 TKTK - example building a user in the previous version of the SDK, with just a key
+```
+</CodeTabItem>
+<CodeTabItem value="single-context">
+
+```LANGUAGE-NAME
+TKTK - example building a single context, with a "kind" of "user" and a key
 ```
 </CodeTabItem>
 </CodeTabs>
@@ -160,7 +160,7 @@ Here's how to construct a basic context, with a context kind of something other 
 <CodeTabs
   defaultValue="single-context"
   values={[
-    { label: 'Single context with key', value: 'single-context', },
+    { label: 'Y.0 syntax, single context with key', value: 'single-context', },
   ]
 }>
 <CodeTabItem value="single-context">
@@ -176,7 +176,7 @@ Here's how to construct a multi-context, which includes multiple context kinds:
 <CodeTabs
   defaultValue="multi-context"
   values={[
-    { label: 'Multi-context', value: 'multi-context', },
+    { label: 'Y.0 syntax, multi-context', value: 'multi-context', },
   ]
 }>
 <CodeTabItem value="multi-context">
@@ -204,22 +204,23 @@ You can define additional attributes for a context by passing in a name and valu
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
 <CodeTabs
-  defaultValue="context"
+  defaultValue="user"
   values={[
-    { label: 'Context with several attributes', value: 'context', },
-    { label: 'Version X.x, user with several attributes', value: 'user', },
+    { label: 'X.x syntax, user with attributes', value: 'user', },
+    { label: 'Y.0 syntax, context with attributes', value: 'context', },
+
   ]
 }>
-<CodeTabItem value="context">
-
-```LANGUAGE-NAME
-TKTK - example building a single context, with a "kind" of "user" and a key, name, and email
-```
-</CodeTabItem>
 <CodeTabItem value="user">
 
 ```LANGUAGE-NAME
 TKTK - example building a user in the previous version of the SDK, with a key, name, and email
+```
+</CodeTabItem>
+<CodeTabItem value="context">
+
+```LANGUAGE-NAME
+TKTK - example building a single context, with a "kind" of "user" and a key, name, and email
 ```
 </CodeTabItem>
 </CodeTabs>
@@ -235,7 +236,7 @@ Here's how to add object attributes to a context:
 <CodeTabs
   defaultValue="context"
   values={[
-    { label: 'Context with object attributes', value: 'context', },
+    { label: 'Y.0 syntax, context with object attributes', value: 'context', },
   ]
 }>
 <CodeTabItem value="context">
@@ -271,10 +272,10 @@ In version Y.0, there are two scopes for which you can mark attributes as privat
   In the first example, all attributes are marked private for all contexts. Only the context key and kind are sent to LaunchDarkly. In the second example, the "email" and "address" attributes are private for all contexts:
 
   <CodeTabs
-    defaultValue="private"
+    defaultValue="private-all"
     values={[
-      { label: 'All attributes marked private for all contexts', value: 'private-all', },
-      { label: 'Two attributes marked private for all contexts', value: 'private-some', },
+      { label: 'Y.0 syntax, all attributes marked private', value: 'private-all', },
+      { label: 'Y.0 syntax, two attributes marked private', value: 'private-some', },
     ]
   }>
   <CodeTabItem value="private-all">
@@ -298,7 +299,7 @@ Here's how to mark an attribute as private for a particular context:
 <CodeTabs
   defaultValue="private"
   values={[
-    { label: 'An attribute marked private for one context', value: 'private', },
+    { label: 'Y.0 syntax, attribute marked private for one context', value: 'private', },
   ]
 }>
 <CodeTabItem value="private">
@@ -332,7 +333,7 @@ Here's how:
 <CodeTabs
   defaultValue="device"
   values={[
-    { label: 'Setting device and operating system', value: 'device', },
+    { label: 'Y.0 syntax, setting device and OS', value: 'device', },
   ]
 }>
 <CodeTabItem value="device">
@@ -358,7 +359,7 @@ Here's how:
 <CodeTabs
   defaultValue="deviceid"
   values={[
-    { label: 'Setting the device ID', value: 'deviceid', },
+    { label: 'Y.0 syntax, setting the device ID', value: 'deviceid', },
   ]
 }>
 <CodeTabItem value="deviceid">
@@ -384,7 +385,7 @@ Here's how:
 <CodeTabs
   defaultValue="multi-context"
   values={[
-    { label: 'Associating two contexts', value: 'multi-context', },
+    { label: 'Y.0 syntax, associating two contexts', value: 'multi-context', },
   ]
 }>
 <CodeTabItem value="multi-context">
