@@ -30,7 +30,7 @@ The Getting started page explains each of the following steps in detail:
   - For an example of a completed manifest, read the [Manifest.json example](#manifestjson-example).
 4. [Collecting integration configuration data](/integrations/partner-integrations/getting-started#4-collect-integration-configuration-data).
 5. [Defining the integration's capabilities](/integrations/partner-integrations/getting-started#5-define-the-integrations-capabilities). 
-  - For this integration, define an [`auditLogEventsHook`](https://github.com/launchdarkly/integration-framework/blob/main/docs/capabilities.md#audit-log-events-hook-auditlogeventshook) integration.
+  - For this integration, define an [`auditLogEventsHook`](/integrations/partner-integrations/capabilities#audit-log-events-hook) integration.
   - To review the fields for the source payload, read [Sample Context](https://github.com/launchdarkly/integration-framework/tree/main/sample-context) which contains a directory of samples with pre-transformed contexts.
 6. [Validating the integration](/integrations/partner-integrations/getting-started#6-validate-the-integration).
 7. [Creating user documentation and README](/integrations/partner-integrations/getting-started#7-create-your-user-documentation-and-readme).
@@ -42,7 +42,7 @@ The following sections provide configuration guidance specific to audit log even
 
 An audit log event hook integration can use either API keys or OAuth for authentication:
 - Most integrations use API Keys. If you use API keys, configure them as outlined in [step 4 of the Getting started page](/integrations/partner-integrations/getting-started#4-collect-integration-configuration-data). 
-- If you use OAuth, configured it in the root of the manifest as described in our [OAuth Documentation](https://github.com/launchdarkly/integration-framework/blob/main/docs/capabilities.md#audit-log-events-hook-auditlogeventshook) for additional information.
+- If you use OAuth, configure it in the root of the manifest. To learn more, read [Defining an integration manifest](/integrations/partner-integrations/manifest) and [Registering a LaunchDarkly OAuth client](/integrations/partner-integrations/oauth-client-registration).
 
 For an example OAuth integration, read [AppDynamics Manifest](https://github.com/launchdarkly/integration-framework/blob/main/integrations/appdynamics/manifest.json) under `requiresOAuth`. Integrations with require OAuth can still request additional `formVariables`.
 
