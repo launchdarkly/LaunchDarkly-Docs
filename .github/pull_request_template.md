@@ -3,6 +3,11 @@
 
 Thank you for contributing to the docs!
 
+### What to expect for automatic tests
+
+When you create a PR, GitHub automatically deploys your PR to our docs staging site, and runs a number of tests. These tests should all pass before you merge your PR.
+
+**During the Contexts EAP, there is one exception.** If you are merging into `main` and the "Testing / Check local links" test is failing, you can still merge, even with this failure. The failing links are links to files that currently only exist on the `contexts-eap` branch. We have redirects set up to make sure that customers who use those links are directed to the Contexts EAP docs on our docs staging site, but our internal link checker doesn't know to follow redirects.
 
 ### What to expect for PR review
 
