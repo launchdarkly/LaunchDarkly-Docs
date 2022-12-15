@@ -11,4 +11,9 @@ if (bucketPrefix) {
   algoliaIndex = `${algoliaIndex}_${bucketPrefixSanitized}`
 }
 
+// Force index name for dev to avoid accidentally overwriting prod
+if (activeEnv == 'development') {
+  algoliaIndex = 'Docs_development'
+}
+
 module.exports = { activeEnv, algoliaIndex }
