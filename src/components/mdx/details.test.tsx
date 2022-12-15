@@ -1,4 +1,4 @@
-import { findMatch, getQueryParams } from './details'
+import { findMatch  } from './details'
 
 describe('findMatch', () => {
   it('should return true when it finds a match', () => {
@@ -13,15 +13,5 @@ describe('findMatch', () => {
     const terms = ['not']
 
     expect(findMatch(content, terms)).toBeFalsy()
-  })
-})
-
-describe('getQueryParams', () => {
-  it('should return query params', () => {
-    const location = {
-      search: '?q=one+two',
-    } as Location
-
-    expect(getQueryParams(location, 'q')).toEqual('one two')
   })
 })

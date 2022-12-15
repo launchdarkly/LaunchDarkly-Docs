@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import { Fragment, FunctionComponent, useRef } from 'react'
+import { Fragment, FunctionComponent, useEffect,useRef } from 'react'
 import { Configure, connectSearchBox, InstantSearch } from 'react-instantsearch-dom'
 import { jsx } from 'theme-ui'
 
 import { getAlgoliaAnalyticsTags, trackSearch } from '../../utils/analyticsUtils'
 import { algoliaIndex } from '../../utils/envUtils'
+import { getQueryParams } from '../../utils/queryUtils'
 import Icon from '../icon'
 
 import Results from './results'
@@ -21,6 +22,12 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({ currentRefinement, r
     inputRef.current.value = ''
     refine('')
   }
+
+  useEffect(() => {
+    const q = getQueryParams(window.location, 'iq')
+    inputRef.current.value = q
+    refine(q)
+  }, [])
 
   return (
     <Fragment>
