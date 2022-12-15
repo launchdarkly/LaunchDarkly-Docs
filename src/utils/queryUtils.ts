@@ -1,4 +1,3 @@
-
 export function getQueryParams(location: Location, param: string): string {
   // If there's a hash in url, it doesn't
   // properly parse query params

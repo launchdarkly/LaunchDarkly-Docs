@@ -1,4 +1,4 @@
-import { findMatch  } from './details'
+import { findMatch } from './details'
 
 describe('findMatch', () => {
   it('should return true when it finds a match', () => {
