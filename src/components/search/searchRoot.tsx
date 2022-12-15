@@ -27,7 +27,7 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({ currentRefinement, r
     const q = getQueryParams(window.location, 'iq')
     inputRef.current.value = q
     refine(q)
-  }, [])
+  }, [refine])
 
   return (
     <Fragment>
