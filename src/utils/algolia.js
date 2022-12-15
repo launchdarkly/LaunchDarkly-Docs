@@ -138,6 +138,7 @@ const settings = {
   distinct: true,
   queryLanguages: ['en'],
   ignorePlurals: true,
+  attributesForFaceting: ['searchable(tags)'],
 }
 const queries = [
   {
