@@ -184,11 +184,11 @@ Here is an example of the differences in flag evaluation between the client-side
 
   // JavaScript pseudocode
 
-  var context = {"key": "context-key-123abc"}
+  var context = {"kind": "user", "key": "context-key-123abc"}
 
   var ldclient = LDClient.initialize("client-side-id-123abc", context);
 
-  var showFeature = ldclient.variation("flag-key-123abc", false);
+  var flagValue = ldclient.variation("flag-key-123abc", false);
 
 ```
 
@@ -199,14 +199,13 @@ Here is an example of the differences in flag evaluation between the client-side
 
   // Java pseudocode
 
-  LDClient ldclient = new LDClient("sdk-key-123abc", config);
+  LDClient ldClient = new LDClient("sdk-key-123abc", config);
 
   LDContext context = new LDContext.Builder("context-key-123abc").build();
 
-  boolean showFeature = ldClient.boolVariation("flag-key-123abc", context, false);
+  boolean flagValue = ldClient.boolVariation("flag-key-123abc", context, false);
 
 ```
-<!-- cSpell:disable TKTK Check that the above two code samples are correct. The client-side one probably needs to change because key is set automatically for client-side SDKs? SC-178002 cSpell:enable -->
 
 </CodeTabItem>
 </CodeTabs>
