@@ -45,7 +45,7 @@ jobs:
         # for PR that is the merge commit, which is why we don't use it elsewhere
         if: steps.last-success.outputs.sha != github.sha
         id: changed-files-specific
-        uses: tj-actions/changed-files@v34
+        uses: tj-actions/changed-files@v35
         with:
           separator: ' '
           # fetch_depth increased to 120 as an attempt to resolve sc-176350
