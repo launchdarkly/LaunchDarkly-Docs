@@ -667,6 +667,10 @@
               {
                 "label": "Using flag triggers with Datadog",
                 "path": "/integrations/datadog/triggers"
+              },
+              {
+                "label": "Using the Datadog RUM integration",
+                "path": "/integrations/datadog/rum"
               }
             ]
           },
