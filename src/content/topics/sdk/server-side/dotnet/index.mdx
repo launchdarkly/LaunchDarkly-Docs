@@ -154,9 +154,11 @@ LdClient client = new LdClient("sdk-key-123abc");
 <CalloutTitle>LdClient should be a singleton</CalloutTitle>
 <CalloutDescription>
 
-In the standard use case where there is only one SDK key, it's important to make the `LdClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+In the standard use case where there is only one SDK key, it's important to make the `LdClient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
 
 If you need to use more than one SDK key, the SDK allows you to create more than one `LdClient` instance. This is an uncommon requirement, but one the SDK supports.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
