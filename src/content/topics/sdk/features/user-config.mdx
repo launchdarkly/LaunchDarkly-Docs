@@ -2734,7 +2734,7 @@ LDUser user = new LDUser.Builder("user-key-123abc")
 
 The argument to `Builder` is the context's key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"context-key-123abc"`.
 
-Our Javadoc for [LDContext](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/ContextBuilder.html) shows you all the attributes that LaunchDarkly supports by default.
+Our Javadoc for [ContextBuilder](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/ContextBuilder.html) shows you all the attributes that LaunchDarkly supports by default.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -2752,8 +2752,8 @@ You can optionally configure the Java SDK to treat some or all attributes as [pr
 
 In the Java SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- When creating the `LDConfig` object, you can call the [`allAttributesPrivate`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#allAttributesPrivate-boolean-) method, which takes in a boolean parameter. If `true`, all user attributes except the key for all users are removed before the SDK sends the user to LaunchDarkly.
-- When creating the `LDConfig` object, you can call the [`privateAttributes`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#privateAttributes-com.launchdarkly.sdk.UserAttribute...-) method, which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
+- When creating the `LDConfig` object, you can call the [`allAttributesPrivate`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#allAttributesPrivate) method, which takes in a boolean parameter. If `true`, all user attributes except the key for all users are removed before the SDK sends the user to LaunchDarkly.
+- When creating the `LDConfig` object, you can call the [`privateAttributes`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#privateAttributes) method, which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
 
 Here's how to define private attributes:
 
