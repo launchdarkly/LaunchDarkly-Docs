@@ -19,7 +19,7 @@ exports.onCreateNode = async ({ node, actions }) => {
     internal: { type },
   } = node
   if (fileAbsolutePath && type === 'Mdx') {
-    const repoPrefix = 'git-gatsby/src/'
+    const repoPrefix = 'ld-docs-private/src/'
     const fileRelativePath = fileAbsolutePath.substring(fileAbsolutePath.indexOf(repoPrefix) + repoPrefix.length)
 
     let lastModifiedTime
@@ -31,7 +31,7 @@ exports.onCreateNode = async ({ node, actions }) => {
         execSync(`
       gh api -XGET \\
         -H "Accept: application/vnd.github.v3+json" \\
-        /repos/launchdarkly/git-gatsby/commits \\
+        /repos/launchdarkly/ld-docs-private/commits \\
         -F path=src/${fileRelativePath}`),
       )
 

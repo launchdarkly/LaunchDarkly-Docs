@@ -85,7 +85,7 @@ The entry should be a new table row at the top of the table. It should look like
 </TableRow>
 ```
 
-The fourth cell should be a link to the PR from the [LaunchDarkly-Docs repository](https://github.com/launchdarkly/LaunchDarkly-Docs/), if a PR from that repository was the reason for the change. In practice, almost all new topics originate in the [git-gatsby repository](https://github.com/launchdarkly/git-gatsby/), and this cell's value is left as "Not applicable."
+The fourth cell should be a link to the PR from the [LaunchDarkly-Docs repository](https://github.com/launchdarkly/LaunchDarkly-Docs/), if a PR from that repository was the reason for the change. In practice, almost all new topics originate in the [ld-docs-private repository](https://github.com/launchdarkly/ld-docs-private/), and this cell's value is left as "Not applicable."
 
 ## Editing an existing topic in Github
 
