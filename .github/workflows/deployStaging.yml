@@ -32,12 +32,15 @@ jobs:
         with:
           # fetch entire history to get Last Edit date for topics
           fetch-depth: 0
+      - run: |
+          echo "REF NAME: ${{ github.ref_name }}"
+          echo "SHA ${{ github.sha }}"
       - name: Find last successful run
         uses: SamhammerAG/last-successful-build-action@v4
         id: last-success
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.head_ref }}
+          branch: ${{ github.ref_name }}
           workflow: Deploy to Staging
       - name: Get specific changed files
         # skip if we are checking self
