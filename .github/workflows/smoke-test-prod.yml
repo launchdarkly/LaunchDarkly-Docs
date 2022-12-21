@@ -20,7 +20,7 @@ jobs:
         run: yarn run cypress:pnp
       - name: Cypress run
         timeout-minutes: 7
-        uses: cypress-io/github-action@v5.0.0
+        uses: cypress-io/github-action@v5.0.2
         with:
           command: yarn dlx cypress@11 run --headless --record --tag production,smoke --config baseUrl=https://docs.launchdarkly.com,retries=2 --spec cypress/e2e/smoke.cy.ts
           install: false
