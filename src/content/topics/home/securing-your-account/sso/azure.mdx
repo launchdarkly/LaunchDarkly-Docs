@@ -63,3 +63,12 @@ To set up `role` and `customRole` claims in Azure:
 ![The Azure "Manage claim" screen.](azure-manage-claim.png)
 
 8. Repeat steps 1-7 with "customRole", mapping to a different unused source attribute.
+
+<Callout intent="info">
+<CalloutTitle>Removing existing roles</CalloutTitle>
+<CalloutDescription>
+
+SAML ignores empty fields if used in **Roles** or **customRoles**. To clear all existing roles, enter an empty string "" into the field.
+
+</CalloutDescription>
+</Callout>
