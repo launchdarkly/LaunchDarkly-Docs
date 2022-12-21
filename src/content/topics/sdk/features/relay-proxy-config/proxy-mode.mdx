@@ -378,6 +378,7 @@ This feature is available for the following server-side SDKs:
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
+* [Rust](#rust)
 
 ### .NET (server-side)
 
@@ -767,4 +768,31 @@ config = LaunchDarkly::Config.new(
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
+
+### Rust
+
+<Details summary="Expand Rust code sample">
+
+To connect the SDK to the Relay Proxy, use the `ConfigBuilder` and `ServiceEndpointsBuilder` to specify the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+let config = ConfigBuilder::new("sdk-key-123abc")
+    .service_endpoints(
+        ServiceEndpointsBuilder::new().relay_proxy("https://your-relay-proxy.com:8030"),
+    )
+    .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 </Details>

@@ -32,12 +32,15 @@ jobs:
         with:
           # fetch entire history to get Last Edit date for topics
           fetch-depth: 0
+      - run: |
+          echo "REF NAME: ${{ github.ref_name }}"
+          echo "SHA ${{ github.sha }}"
       - name: Find last successful run
         uses: SamhammerAG/last-successful-build-action@v4
         id: last-success
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.head_ref }}
+          branch: ${{ github.ref_name }}
           workflow: Deploy to Staging
       - name: Get specific changed files
         # skip if we are checking self
@@ -45,7 +48,7 @@ jobs:
         # for PR that is the merge commit, which is why we don't use it elsewhere
         if: steps.last-success.outputs.sha != github.sha
         id: changed-files-specific
-        uses: tj-actions/changed-files@v34
+        uses: tj-actions/changed-files@v35
         with:
           separator: ' '
           # fetch_depth increased to 120 as an attempt to resolve sc-176350

@@ -58,7 +58,7 @@ To learn more about contexts, read [Contexts](/home/contexts).
 
 ## Migrating from users to contexts
 
-The 7.0 version of this SDK lets you use contexts. When you migrate from version 6.x, replace every instance of a user with a context. If there are any instances you do not replace, the 7.0 version of the .NET (server-side) SDK will convert each `LDUser` parameter it receives to `LDContext` and call the `LDContext`-specific version of the method.
+The 7.0 version of this SDK lets you use contexts. When you migrate from version 6.x, replace every instance of a user with a context. If there are any instances you do not replace, the 7.0 version of the .NET (server-side) SDK will convert each `User` parameter it receives to `Context` and call the `Context`-specific version of the method.
 
 <Callout intent="info">
 <CalloutTitle>LaunchDarkly assumes older versions of the SDK use <code>user</code> contexts</CalloutTitle>
@@ -74,7 +74,7 @@ If a flag configuration specifies any context kinds other than "user," older ver
 The primary differences between working with users and working with contexts include the following:
 
 * [Changes to flag evaluation](#understanding-changes-to-flag-evaluation): The methods for evaluating flags now require contexts, rather than users.
-* [Create contexts, not users](#understanding-differences-between-users-and-contexts): Where you previously created users, now you must create contexts.
+* [Create contexts, not users](#understanding-differences-between-users-and-contexts): Where you previously created users, now you can create contexts.
 * [Changes to attributes](#understanding-changes-to-built-in-and-custom-attributes): There are now fewer built-in attributes. You can still add as many custom attributes as you like, although the format has changed slightly. A flag's targeting rules can now address fields within a JSON object.
 * [Changes to private attributes](#understanding-changes-to-private-attributes): You can mark specific attributes of a context as private, either across all contexts of any kind, or within a particular context or context kind.
 * [Changes to alias events](#understanding-changes-to-alias-events): The alias method has been removed.
@@ -106,7 +106,7 @@ var value = client.BoolVariation("flag-key-123abc", context, false);
 
 ### Understanding differences between users and contexts
 
-Where you previously created users, now you must create contexts.
+Where you previously created users, now you can create contexts.
 
 Here's how to construct a basic context, as compared with constructing a user:
 
@@ -145,10 +145,7 @@ Here's how to construct a basic context, with a context kind of something other 
 <CodeTabItem value="single-context">
 
 ```csharp
-var context2 = Context.Builder("device-key")
-  .Kind("device")
-  .Build();
-
+var context2 = Context.New(ContextKind.Of("organization"), "org-key-123abc");
 ```
 </CodeTabItem>
 </CodeTabs>

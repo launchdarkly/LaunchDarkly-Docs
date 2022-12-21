@@ -132,7 +132,9 @@ async fn main () {
 <CalloutTitle>client must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `client` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `client` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
@@ -178,5 +180,7 @@ This SDK supports the following features:
 * [Secure mode](/sdk/features/secure-mode#rust)
 * [Sending custom events](/sdk/features/events#rust)
 * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#rust)
+* [Relay Proxy configuration](/sdk/features/relay-proxy-configuration)
+  * [Using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#rust)
 * [Shutting down](/sdk/features/shutdown#rust)
 * [User and context configuration](/sdk/features/user-context-config#rust)

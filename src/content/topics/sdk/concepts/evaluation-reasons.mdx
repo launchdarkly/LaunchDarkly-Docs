@@ -35,8 +35,8 @@ For each of the SDK methods that you call to evaluate a feature flag, there is a
 
 This method returns three pieces of information:
 
-- The computed flag variation, which what you get when you only evaluated the flag
-- The variation index, which is a zero-based integer indicating which variation was selected. For example, if the flag's possible variations are `A`, `B`, and `C`, in that order, and the current variation is `C`, the variation index would be 2. This value is useful for tabulation, although in some cases, it may be absent. To learn more, read [Error conditions](#error-conditions).
+- The computed flag variation, which is what you get when you evaluate the flag
+- The variation index, which is a zero-based integer indicating which variation was selected. For example, if the flag's possible variations are `A`, `B`, and `C`, in that order, and the computed variation is `C`, the variation index would be 2. This value is useful for tabulation, although in some cases, it may be absent. To learn more, read [Error conditions](#error-conditions).
 - A `reason` object, which contains information about why that variation was selected. This data structure is described below.
 
 For SDK-specific configuration examples, read [Flag evaluation reasons](/sdk/features/evaluation-reasons).
@@ -86,10 +86,7 @@ These values are:
         <code>RULE_MATCH</code>
       </TableCell>
       <TableCell>
-        The context that encountered the flag matched one of the flag's rules. In this case, the reason object also has
-        these properties: <code>ruleIndex</code>, which is the positional index of the matched rule (0 for the first
-        rule), and <code>ruleId</code>, which is the rule's unique identifier, which stays the same even if you
-        rearrange the order of the rules.
+        The context that encountered the flag matched one of the flag's rules. In this case, the reason object also has these properties: <code>ruleIndex</code>, which is the positional index of the matched rule (0 for the first rule), and <code>ruleId</code>, which is the rule's unique identifier, and stays the same even if you rearrange the order of the rules.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -97,9 +94,7 @@ These values are:
         <code>PREREQUISITE_FAILED</code>
       </TableCell>
       <TableCell>
-        The flag had at least one prerequisite flag that either was off or did not return the desired variation. Because
-        of this, the flag returned its "off" value. In this case, the reason object also has this property:{' '}
-        <code>prerequisiteKey</code>: The key of the prerequisite flag that failed.
+        The flag had at least one prerequisite flag that either was off or did not return the desired variation. Because of this, the flag returned its "off" value. In this case, the reason object also has this property:{' '} <code>prerequisiteKey</code>: The key of the prerequisite flag that failed.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -124,7 +119,7 @@ For a list of SDKs that support experiment allocation, read [Allocating experime
 
 If the `kind` is `ERROR`, it means that the SDK was unable to select any of the flag's variations. This is an abnormal occurrence.
 
-In this case, the returned flag value is default value that you specified in your code, which is the last parameter of the method you called to evaluate the flag, rather than any value that you specified on your flag's **Targeting** tab. In addition, the variation index will be `null/nil`.
+In this case, the returned flag value is the default value that you specified in your code, which is the last parameter of the method you called to evaluate the flag, rather than any value that you specified on your flag's **Targeting** tab. In addition, the variation index will be `null/nil`.
 
 When there is an error, the reason object also has an `errorKind` property which will be one of the following:
 
@@ -139,8 +134,7 @@ When there is an error, the reason object also has an `errorKind` property which
         <code>CLIENT_NOT_READY</code>
       </TableCell>
       <TableCell>
-        The client is not able to establish a connection to LaunchDarkly yet. If there is a persistent feature store,
-        the store does not yet contain flag data.
+        The client is not able to establish a connection to LaunchDarkly yet. If there is a persistent feature store, the store does not yet contain flag data.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -160,8 +154,7 @@ When there is an error, the reason object also has an `errorKind` property which
         <code>MALFORMED_FLAG</code>
       </TableCell>
       <TableCell>
-        There was an internal inconsistency in the flag data. For example, a rule specified a nonexistent variation.
-        This is an unusual condition that might require assistance from LaunchDarkly's Support team.
+        There was an internal inconsistency in the flag data. For example, a rule specified a nonexistent variation. This is an unusual condition that might require assistance from LaunchDarkly's Support team.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -169,9 +162,7 @@ When there is an error, the reason object also has an `errorKind` property which
         <code>WRONG_TYPE</code>
       </TableCell>
       <TableCell>
-        The application code requested the flag value with a different data type than it actually is. For example, the
-        code asked for a boolean when the flag type is actually a string. This can only happen in strongly-typed
-        languages, such as Go, Java, and C#.
+        The application code requested the flag value with a different data type than it actually is. For example, the code asked for a boolean when the flag type is actually a string. This can only happen in strongly-typed languages, such as Go, Java, and C#.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -179,8 +170,7 @@ When there is an error, the reason object also has an `errorKind` property which
         <code>EXCEPTION</code>
       </TableCell>
       <TableCell>
-        An unexpected error stopped flag evaluation. This could happen if you are using a persistent feature store and
-        the database stops working. When this happens, the SDK always prints the specific error to the log.
+        An unexpected error stopped flag evaluation. This could happen if you are using a persistent feature store and the database stops working. When this happens, the SDK always prints the specific error to the log.
       </TableCell>
     </TableRow>
   </TableBody>

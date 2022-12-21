@@ -424,7 +424,7 @@ config' = configSetOffline True config
 
 <Details summary="Expand Java code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. You can do this by setting [`offline`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.Builder.html#offline-boolean-) mode in the client's `LDConfig`.
+In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. You can do this by setting [`offline`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDConfig.Builder.html#offline(boolean)) mode in the client's `LDConfig`.
 
 Here's how:
 

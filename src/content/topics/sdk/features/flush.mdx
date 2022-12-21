@@ -500,9 +500,7 @@ flushEvents client
 
 <Details summary="Expand Java code sample">
 
-Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. If you test the SDK in a REPL, you may want to manually call [`flush`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#flush--) to process events immediately.
-
-The flush interval is configurable. If you need to change the interval, you can do so with `LDConfig.Builder` and [`Components.sendEvents()`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html).
+Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. If you test the SDK in a REPL, you may want to manually call [`flush`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#flush()) to process events immediately.
 
 Here's how:
 
@@ -520,6 +518,9 @@ client.flush();
 
 </CodeTabItem>
 </CodeTabs>
+
+The flush interval is configurable. If you need to change the interval, you can do so with [`LDConfig.Builder`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDConfig.Builder.html) and [`Components.sendEvents()`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/Components.html#sendEvents()).
+
 </Details>
 
 ### Lua
