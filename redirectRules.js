@@ -65,7 +65,7 @@ module.exports = [
     toPath: '/sdk/features/user-context-config',
   },
 
-  // Redirects within the git-gatsby docs site
+  // Redirects within the docs site
 
   {
     fromPath: '/guides/infrastructure/unit-tests',

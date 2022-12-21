@@ -91,7 +91,9 @@ client = makeClient $ makeConfig "sdk-key-123abc"
 <CalloutTitle>Client must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `Client` a singleton. The client instance maintains an internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `Client` a singleton for each LaunchDarkly project. The client instance maintains an internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>

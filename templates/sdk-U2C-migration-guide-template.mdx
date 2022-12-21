@@ -56,7 +56,7 @@ To learn more about contexts, read [Contexts](/home/contexts).
 
 ## Migrating from users to contexts
 
-The Y.0 version of this SDK lets you use contexts. When you migrate from version X.x, you must replace every instance of a user with a context. <!-- Make sure to update the type names as applicable. --> For the Y.0 version of the LANGUAGE-NAME SDK, this means changing each use of `LDUser` to `LDContext`.
+The Y.0 version of this SDK lets you use contexts. <!-- Make sure to update the type names in this paragraph as applicable. --> <!-- Use this version if LDUser is NOT being automatically converted behind the scenes --> When you migrate from version X.x, you must replace every instance of a user with a context. For the Y.0 version of the LANGUAGE-NAME SDK, this means changing each use of `LDUser` to `LDContext`. <!-- Use this version if LDUser is being converted behind the scenes --> When you migrate from version X.x, replace every instance of a user with a context. If there are any instances you do not replace, the Y.0 version of the LANGUAGE-NAME SDK will convert each `LDUser` parameter it receives to `LDContext` and call the `LDContext`-specific version of the method.
 
 <Callout intent="info">
 <CalloutTitle>LaunchDarkly assumes older versions of the SDK use <code>user</code> contexts</CalloutTitle>
@@ -72,7 +72,7 @@ If a flag configuration specifies any context `kind`s other than `user`, older v
 The primary differences between working with users and working with contexts include the following:
 
 * [Changes to flag evaluation](#understanding-changes-to-flag-evaluation): The methods for evaluating flags now require contexts, rather than users. <!-- Only include this item for server-side SDKs -->
-* [Create contexts, not users](#understanding-differences-between-users-and-contexts): Where you previously created users, now you must create contexts.
+* [Create contexts, not users](#understanding-differences-between-users-and-contexts): Where you previously created users, now you can create contexts.
 * [Changes to attributes](#understanding-changes-to-built-in-and-custom-attributes): There are now fewer built-in attributes. You can still add as many custom attributes as you like, although the format has changed slightly. A flag's targeting rules can now address fields within a JSON object.
 * [Changes to private attributes](#understanding-changes-to-private-attributes): You can mark specific attributes of a context as private, either across all contexts of any kind, or within a particular context or context kind.
 * [Changes to automatic attribute population](#understanding-changes-to-automatic-custom-property-population): The SDK no longer automatically populates the "device" and "os" properties. <!-- Only include this item for Android and iOS SDKs -->
@@ -109,7 +109,7 @@ boolean value = client.boolVariation('flag-key-123abc', context, false);
 
 ### Understanding differences between users and contexts
 
-Where you previously created users, now you must create contexts.
+Where you previously created users, now you can create contexts.
 
 Here's how to construct a basic context, as compared with constructing a user:
 

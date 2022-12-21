@@ -73,11 +73,11 @@ To learn more about upgrading to contexts, read [Best practices for upgrading us
 The methods for [evaluating flags](/sdk/features/evaluating) and determining [flag evaluation reasons](/sdk/features/evaluation-reasons) have changed slightly. The 6.0 version of the SDK includes the following changes:
 
 * The `variation` and `variationDetail` methods now take a context, rather than a user, as a parameter. To learn more, read the following API docs:
-  * [`boolVariation`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#boolVariation(java.lang.String,com.launchdarkly.sdk.LDContext,boolean))
-  * [`intVariation`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#intVariation(java.lang.String,com.launchdarkly.sdk.LDContext,int))
-  * [`doubleVariation`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#doubleVariation(java.lang.String,com.launchdarkly.sdk.LDContext,double))
-  * [`stringVariation`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#stringVariation(java.lang.String,com.launchdarkly.sdk.LDContext,java.lang.String))
-  * [`jsonValueVariation`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#jsonValueVariation(java.lang.String,com.launchdarkly.sdk.LDContext,com.launchdarkly.sdk.LDValue))
+  * [`boolVariation`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/6.0.0/com/launchdarkly/sdk/server/LDClient.html#boolVariation(java.lang.String,com.launchdarkly.sdk.LDContext,boolean))
+  * [`intVariation`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/6.0.0/com/launchdarkly/sdk/server/LDClient.html#intVariation(java.lang.String,com.launchdarkly.sdk.LDContext,int))
+  * [`doubleVariation`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/6.0.0/com/launchdarkly/sdk/server/LDClient.html#doubleVariation(java.lang.String,com.launchdarkly.sdk.LDContext,double))
+  * [`stringVariation`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/6.0.0/com/launchdarkly/sdk/server/LDClient.html#stringVariation(java.lang.String,com.launchdarkly.sdk.LDContext,java.lang.String))
+  * [`jsonValueVariation`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/6.0.0/com/launchdarkly/sdk/server/LDClient.html#jsonValueVariation(java.lang.String,com.launchdarkly.sdk.LDContext,com.launchdarkly.sdk.LDValue))
 
 * The `USER_NOT_SPECIFIED` evaluation error code was previously defined as, the user object or user key was not provided. It has been redefined to mean that the context was not provided or was invalid.
 
@@ -229,7 +229,7 @@ LDContext context = LDContext.builder("user-key-123abc")
 </CodeTabItem>
 </CodeTabs>
 
-There are multiple ways you can construct attribute values. To learn more about additional methods, read [LDValue](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html)).
+There are multiple ways you can construct attribute values. To learn more about additional methods, read [LDValue](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/6.0.0/com/launchdarkly/sdk/LDValue.html).
 
 In your flag or segment targeting, use `/` as the delimiter to refer to specific object fields. For example, you can use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -283,7 +283,7 @@ LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`privateAttributes`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#privateAttributes).
+To learn more, read [`privateAttributes`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/6.0.0/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#privateAttributes(java.lang.String...)).
 
 Here's how to mark an attribute as private for a particular context:
 
@@ -338,7 +338,7 @@ client.identify(multiContext);
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`ContextBuilder`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/ContextBuilder.html) and [`ContextMultiBuilder`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/ContextMultiBuilder.html).
+To learn more, read [`ContextBuilder`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/6.0.0/com/launchdarkly/sdk/ContextBuilder.html) and [`ContextMultiBuilder`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/6.0.0/com/launchdarkly/sdk/ContextMultiBuilder.html).
 
 ## Understanding changes to configuration options
 
@@ -347,7 +347,7 @@ In the 6.0 version of the SDK, several configuration options have changed:
   * The `inlineUsersInEvents` option has been removed.
   * The `userKeysCapacity` and `userKeysFlushInterval` options have been renamed `contextKeysCapacity` and `contextKeysFlushInterval`, respectively.
 
-To learn more, read [EventProcessorBuilder](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html).
+To learn more, read [EventProcessorBuilder](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/6.0.0/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html).
 
 ## Understanding changes to logging
 

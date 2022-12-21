@@ -938,7 +938,7 @@ For specific information on the `EvaluationDetail` structure, inspect the `Launc
 
 <Details summary="Expand Java code sample">
 
-The `variationDetail` methods, such as [`boolVariationDetail`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail(java.lang.String,com.launchdarkly.sdk.LDContext,boolean)), work the same as `variation`, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the context was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The `variationDetail` methods, such as [`boolVariationDetail`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail(java.lang.String,com.launchdarkly.sdk.LDContext,boolean)), work the same as `variation`, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the context was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
@@ -982,7 +982,7 @@ EvaluationReason reason = detail.getReason();
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/EvaluationDetail.html) and [`boolVariationDetail`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail(java.lang.String,com.launchdarkly.sdk.LDContext,boolean)).
+To learn more, read [`EvaluationDetail`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/EvaluationDetail.html) and [`boolVariationDetail`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail(java.lang.String,com.launchdarkly.sdk.LDContext,boolean)).
 
 Here is an example of how to access the details of a reason object:
 
@@ -1029,7 +1029,7 @@ void printReason(EvaluationReason reason) {
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`EvaluationReason`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/EvaluationReason.html).
+To learn more, read [`EvaluationReason`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/EvaluationReason.html).
 
 </Details>
 
