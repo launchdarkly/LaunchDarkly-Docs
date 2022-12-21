@@ -130,7 +130,9 @@ Client-side IDs are not secret and you can expose them in your client-side code 
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `LDClient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
@@ -150,10 +152,10 @@ Here's how to initialize the client:
 
 ```js
 const user = {
-  key: 'aa0ceb'
+  key: 'user-key-123abc'
 };
 
-const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user);
+const client = LaunchDarkly.initialize('client-side-id-123abc', user);
 ```
 
 </CodeTabItem>
@@ -161,9 +163,9 @@ const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user);
 
 ```ts
 const user: LaunchDarkly.LDUser = {
-  key: 'aa0ceb'
+  key: 'user-key-123abc'
 };
-const client = LaunchDarkly.initialize('YOUR_CLIENT_SIDE_ID', user);
+const client: LaunchDarkly.initialize('client-side-id-123abc', user);
 ```
 
 </CodeTabItem>
@@ -185,7 +187,7 @@ To emit a `ready` event:
 ```js
 client.on('ready', () => {
   // initialization succeeded, flag values are now available
-  const flagValue = client.variation('YOUR_FEATURE_KEY', false);
+  const flagValue = client.variation('flag-key-123abc', false);
   // etc.
 });
 ```
@@ -196,9 +198,9 @@ client.on('ready', () => {
 ```ts
 client.on('ready', () => {
   // initialization succeeded, flag values are now available
-  const boolFlagValue = client.variation('YOUR_FEATURE_KEY', false) as boolean;
-  const numberFlagValue = client.variation('YOUR_FEATURE_KEY', 2) as number;
-  const stringFlagValue = client.variation('YOUR_FEATURE_KEY', 'default') as string;
+  const boolFlagValue = client.variation('flag-key-123abc', false) as boolean;
+  const numberFlagValue = client.variation('flag-key-123abc', 2) as number;
+  const stringFlagValue = client.variation('flag-key-123abc', 'default') as string;
   // etc.
 });
 ```
@@ -241,11 +243,11 @@ This SDK supports the following features:
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#nodejs-client-side)
 * [Flushing events](/sdk/features/flush#nodejs-client-side)
 * [Getting all flags](/sdk/features/all-flags#nodejs-client-side)
-* [Identifying and changing users](/sdk/features/identify#nodejs-client-side)
+* [Identifying and changing contexts](/sdk/features/identify#nodejs-client-side)
 * [Logging configuration](/sdk/features/logging#nodejs-client-side)
 * [Relay Proxy configuration, using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#nodejs-client-side)
 * [Sending custom events](/sdk/features/events#nodejs-client-side)
 * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#nodejs-client-side)
 * [Shutting down](/sdk/features/shutdown#nodejs-client-side)
 * [Subscribing to flag changes](/sdk/features/flag-changes#nodejs-client-side)
-* [User configuration](/sdk/features/user-config#nodejs-client-side)
+* [User and context configuration](/sdk/features/user-context-config#nodejs-client-side)

@@ -51,7 +51,7 @@ Here is an example that highlights the changes:
 <CodeTabItem value="sdk5">
 
 ```swift
-var config = LDConfig(mobileKey: "your-mobile-key")
+var config = LDConfig(mobileKey: "mobile-key-123abc")
 config.privateUserAttributes = ["name", "premium"]
 ```
 
@@ -59,7 +59,7 @@ config.privateUserAttributes = ["name", "premium"]
 <CodeTabItem value="sdk6">
 
 ```swift
-var config = LDConfig(mobileKey: "your-mobile-key")
+var config = LDConfig(mobileKey: "mobile-key-123abc")
 config.privateUserAttributes = [UserAttribute.BuiltIn.name, UserAttribute.forName("premium")]
 ```
 
@@ -84,18 +84,18 @@ Here is an example that highlights the changes:
 <CodeTabItem value="sdk5">
 
 ```swift
-let privateAttributes: [String] = ["name", "premium"]
-let customAttributes: [String: Any] = ["premium": ["abc"]]
-let user = LDUser(key: "user_key", custom: customAttributes, privateAttributes: privateAttributes)
+let privateAttributes: [String] = ["name", "jobFunction"]
+let customAttributes: [String: Any] = ["jobFunction": ["doctor"]]
+let user = LDUser(key: "user-key-123abc", custom: customAttributes, privateAttributes: privateAttributes)
 ```
 
 </CodeTabItem>
 <CodeTabItem value="sdk6">
 
 ```swift
-let privateAttributes: [UserAttribute] = [UserAttribute.BuiltIn.name, UserAttribute.forName("premium")]
-let customAttributes: [String: LDValue] = ["premium": ["abc"]]
-let user = LDUser(key: "user_key", custom: customAttributes, privateAttributes: privateAttributes)
+let privateAttributes: [UserAttribute] = [UserAttribute.BuiltIn.name, UserAttribute.forName("jobFunction")]
+let customAttributes: [String: LDValue] = ["jobFunction": ["doctor"]]
+let user = LDUser(key: "user-key-123abc", custom: customAttributes, privateAttributes: privateAttributes)
 ```
 
 </CodeTabItem>
@@ -113,8 +113,8 @@ The `Equatable` instance for `LDUser` has also changed. It now compares all prop
 <CodeTabItem value="sdk5">
 
 ```swift
-let user1 = LDUser(key: "user_key", name: "John Smith")
-let user2 = LDUser(key: "user_key", name: "Jane Smith")
+let user1 = LDUser(key: "user-key-123abc", name: "Sandy Smith")
+let user2 = LDUser(key: "user-key-123abc", name: "Jesse Smith")
 // Results in true
 user1 == user2
 ```
@@ -123,8 +123,8 @@ user1 == user2
 <CodeTabItem value="sdk6">
 
 ```swift
-let user1 = LDUser(key: "user_key", name: "John Smith")
-let user2 = LDUser(key: "user_key", name: "Jane Smith")
+let user1 = LDUser(key: "user-key-123abc", name: "Sandy Smith")
+let user2 = LDUser(key: "user-key-123abc", name: "Jesse Smith")
 // Results in false
 user1 == user2
 ```

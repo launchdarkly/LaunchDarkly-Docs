@@ -1,0 +1,446 @@
+---
+path: /sdk/client-side/javascript/migration-2-to-3
+title: JavaScript SDK 2.x to 3.0 migration guide
+description: This topic explains the changes in the JavaScript SDK 3.0 release and how to migrate to that version.
+published: true
+tags: ['javascript', 'migration', 'sdk', 'client-side', 'context']
+---
+
+<Callout intent="info">
+<CalloutTitle>Contexts are for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of describing and referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+Creating contexts and evaluating flags based on contexts is the primary feature in the JavaScript SDK 3.0 release. However, the ability to target flags or segments by context, or review context instances that have encountered flags in your application, is only available to members of LaunchDarkly's Early Access Program (EAP). To learn more or join the EAP, read [Contexts](/home/contexts).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains the changes in the JavaScript SDK 3.0 release and how to adapt code that uses a 2.x version of the [JavaScript SDK](/sdk/client-side/javascript) to use version 3.0 or later.
+
+**Version 3.0 includes several breaking changes**. Additionally, if you use the Relay Proxy, you must update your Relay Proxy to version 7.0 before you update your SDK to version 3.0. To learn more, read the [Relay Proxy 7.0 release notes](https://github.com/launchdarkly/ld-relay/releases/tag/v7.0.0).
+
+Before you migrate to version 3.0, update to the latest 2.x version. If you update to the latest 2.x version, deprecation warnings appear in areas of your code that need to be changed for 3.0. You can update them at your own pace while still using 2.x, rather than migrating everything simultaneously. To learn more about updating to the latest 2.x version, visit the [SDK's GitHub repository](https://github.com/launchdarkly/js-client-sdk).
+
+## Understanding contexts
+
+Many LaunchDarkly customers create targeting rules for feature flags based on a variety of different information, including attributes pertaining to users, organizations, devices, and more. In previous versions of the LaunchDarkly SDK, you could define this information in a user object, using a combination of built-in and custom attributes. Now you can define this information in a more structured way, using **contexts**.
+
+Each context has a required attribute called `kind` that describes the type of attributes it contains. You can also add other attributes. Attributes can be strings, booleans, numbers, arrays, or JSON objects.
+
+When you evaluate a feature flag within your application, the flag's targeting rules use information from one or more kinds of contexts. For example, you may know:
+
+  * the username, first name, last name, and email address of a person, as part of a context with `kind` of "user"
+  * the organization, department, and location of a person, as part of a context with `kind` of "organization"
+  * the device, model, and operating system of an environment, as part of a context with `kind` of "device"
+
+This new version of the LaunchDarkly SDK requires you to evaluate feature flags using an **evaluation context**, which is an object containing one or more contexts.
+
+To learn more about contexts, read [Contexts](/home/contexts).
+
+## Migrating from users to contexts
+
+The 3.0 version of this SDK lets you use contexts. When you migrate from version 2.x, you should replace every instance of a user with a context. If there are any instances of user you do not replace, the 3.0 version of the JavaScript SDK will convert each `LDUser` parameter it receives to `LDContext` and call the `LDContext`-specific version of the method.
+
+<Callout intent="info">
+<CalloutTitle>LaunchDarkly assumes older versions of the SDK use <code>user</code> contexts</CalloutTitle>
+<CalloutDescription>
+
+A context always has a `kind` attribute. When older versions of the JavaScript SDK send events to LaunchDarkly, LaunchDarkly will convert the users in those events to contexts with a `kind` of `user`.
+
+If a flag configuration specifies any context `kind`s other than `user`, older versions of the JavaScript SDK will not evaluate the flag correctly. You must upgrade your SDK if you are going to use context `kind`s other than `user` in your flag configurations.
+
+</CalloutDescription>
+</Callout>
+
+The primary differences between working with users and working with contexts include the following:
+
+* [Create contexts, not users](#understanding-differences-between-users-and-contexts): Where you previously created users, now you must create contexts.
+* [Changes to attributes](#understanding-changes-to-built-in-and-custom-attributes): There are now fewer built-in attributes. You can still add as many custom attributes as you like, although the format has changed slightly. A flag's targeting rules can now address fields within a JSON object.
+* [Changes to private attributes](#understanding-changes-to-private-attributes): You can mark specific attributes of a context as private, either across all contexts of any kind, or within a particular context or context kind.
+* [Changes to anonymous users](#understanding-changes-to-anonymous-users): Client-side SDKs no longer automatically populate the device ID.
+* [Changes to alias events](#understanding-changes-to-alias-events): The alias method has been removed.
+
+To learn more about upgrading to contexts, read [Best practices for upgrading users to contexts](/guides/flags/upgrading-contexts).
+
+### Understanding differences between users and contexts
+
+Where you previously created users, now you must create contexts.
+
+Here's how to construct a basic context, as compared with constructing a user:
+
+<CodeTabs
+  defaultValue="user"
+  values={[
+    { label: '2.x syntax, user with key', value: 'user', },
+    { label: '3.0 syntax, context with key', value: 'single-context', },
+  ]
+}>
+<CodeTabItem value="user">
+
+```js
+const user = {
+  key: 'user-key-123abc'
+};
+const client = LDClient.initialize('client-side-id-123abc', user);
+```
+</CodeTabItem>
+<CodeTabItem value="single-context">
+
+```js
+const context = {
+  kind: 'user',
+  key: 'user-key-123abc'
+};
+const client = LDClient.initialize('client-side-id-123abc', context);
+```
+</CodeTabItem>
+</CodeTabs>
+
+<Callout intent="alert">
+<CalloutTitle>Omitting the <code>kind</code> creates a user object, not a context</CalloutTitle>
+<CalloutDescription>
+
+If you omit the `kind` attribute when you create a context, then LaunchDarkly will assume the context kind is "user" when evaluating flags. Additionally, the SDK will assume you are working with a user object, rather than a context.
+
+Overall, this should make your upgrade easier, because your existing code will continue to work, as long as you don't make changes to your flag configuration or [bucket users based on the "secondary" attribute](#removing-the-secondary-attribute).
+
+However, if you are using version 3 of the SDK and you are omitting the `kind` attribute, then the following caveats apply:
+
+<ul>
+<li>The fields in your user object must be <code>LDUser</code> fields, not <code>LDContext</code> fields. For example, to mark an attribute as private, you must use <code>privateAttributeNames</code> in the user object, not <code>_meta.privateAttributes</code> as you would for a context object. Nested JSON, such as is used in <code>_meta.privateAttributes</code>, is not supported by older versions of the SDK. To learn more, read <a href="#understanding-changes-to-private-attributes">Understanding changes to private attributes</a>.</li>
+<li>Any additional attributes in your user object need to be inside the <code>custom</code> property of the <code>LDUser</code>, not at the top-level as they would in a context object. To learn more, read <a href="#working-with-built-in-and-custom-attributes">Working with built-in and custom attributes</a>.</li>
+</ul>
+
+We strongly recommend upgrading your SDK to take advantage of the context functionality.
+</CalloutDescription>
+</Callout>
+
+Here's how to construct a basic context, with a context kind of something other than "user":
+
+<CodeTabs
+  defaultValue="single-context"
+  values={[
+    { label: '3.0 syntax, single context with key', value: 'single-context', },
+  ]
+}>
+<CodeTabItem value="single-context">
+
+```js
+const context = {
+  kind: 'organization',
+  key: 'org-key-123abc'
+};
+const client = LDClient.initialize('client-side-id-123abc', context);
+```
+</CodeTabItem>
+</CodeTabs>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeTabs
+  defaultValue="multi-context"
+  values={[
+    { label: '3.0 syntax, multi-context', value: 'multi-context', },
+  ]
+}>
+<CodeTabItem value="multi-context">
+
+```js
+const deviceContext = {
+  kind: 'device',
+  type: 'iPad',
+  key: 'device-key-123abc'
+}
+
+const userContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  name: 'Sandy',
+  role: 'doctor'
+}
+
+const multiContext = {
+  kind: 'multi',
+  user: userContext,
+  device: deviceContext
+}
+
+const client = LDClient.initialize('client-side-id-123abc', multiContext)
+```
+</CodeTabItem>
+</CodeTabs>
+
+### Understanding changes to built-in and custom attributes
+
+This section describes the changes to built-in and custom attributes in the 3.0 version of the SDK.
+
+#### Working with built-in and custom attributes
+----
+<br/>
+
+In previous SDK versions, the user object included several built-in attributes for describing the user. It also included optional custom attributes, which you could add to a `custom` object within the user object and then populate.
+
+In version 3.0, the only built-in attributes are `kind`, `key`, `name`, and `anonymous`. `Kind`, `key`, and `name` are strings, and `anonymous` is a boolean.
+
+You can define additional attributes for a context by passing in a name and value for each. Additional attributes can be any JSON type, including boolean, number, string, array, or object.
+
+Here's how to construct a context with additional attributes, as compared with constructing a similar user:
+
+<CodeTabs
+  defaultValue="user"
+  values={[
+    { label: '2.x syntax, user with attributes', value: 'user', },
+    { label: '3.0 syntax, context with attributes', value: 'context', },
+  ]
+}>
+<CodeTabItem value="user">
+
+```js
+const user = {
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com'
+};
+```
+</CodeTabItem>
+<CodeTabItem value="context">
+
+```js
+const context = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com'
+};
+```
+</CodeTabItem>
+</CodeTabs>
+
+#### Referencing properties of an attribute object
+----
+<br/>
+
+In previous versions of the SDK, if you set the value of a user's custom attribute to an object, you could not reference that object in evaluations. In version 3.0, if a context attribute's value is a JSON object, you can reference properties of that object as the attribute in the targeting rules for a flag or segment.
+
+Here's how to add object attributes to a context:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: '3.0 syntax, context with object attributes', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const context = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  address: {
+    street: '123 Main St',
+    city: 'Springfield'
+  }
+};
+```
+</CodeTabItem>
+</CodeTabs>
+
+In your flag or segment targeting, use `/` as the delimiter to refer to specific object fields. For example, you can use `/address/city` in your targeting. To learn more, read [Targeting contexts](/home/flags/targeting).
+
+#### Removing the secondary attribute
+----
+<br/>
+
+In previous versions of the SDK, you could set the value of a user's `secondary` attribute, as an optional secondary key for a user. The SDK would incorporate this attribute into the variation bucket assignment hash.
+
+In version 3.0, the `secondary` attribute has been removed. If you were previously using this attribute as part of distinguishing [percentage rollouts](/home/flags/rollouts#understanding-percentage-rollout-logic), that will no longer work for your users.
+
+### Understanding changes to private attributes
+
+As in previous versions of the SDK, you can mark specific attributes of a context as private. This restricts the context data your application sends to LaunchDarkly, while still using that data for flag targeting.
+
+In version 3.0, there are two scopes for which you can mark attributes as private:
+
+  * Across all contexts of any context kind. You might use this if you want to ensure that the SDK never sends an "email" attribute to LaunchDarkly, no matter whether it occurs in a user context, an organization context, or something else.
+  * Within a particular context or context kind. You might use this if you want an "email" attribute to be private in a user context, but not in an organization context.
+
+In the first example, all attributes are marked private for all contexts. Only the context key and kind are sent to LaunchDarkly. In the second example, the "email" and "address" attributes are private for all contexts:
+
+<CodeTabs
+  defaultValue="private-all"
+  values={[
+    { label: '3.0 syntax, all attributes marked private', value: 'private-all', },
+    { label: '3.0 syntax, two attributes marked private', value: 'private-some', },
+  ]
+}>
+<CodeTabItem value="private-all">
+
+```js
+const options = { allAttributesPrivate: true };
+
+const client = ld.initialize('client-side-id-123abc', context, options);
+```
+</CodeTabItem>
+<CodeTabItem value="private-some">
+
+```js
+const options = { privateAttributeNames: ['email', 'address'] };
+
+const client = ld.initialize('client-side-id-123abc', context, options);
+```
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`allAttributesPrivate`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#allAttributesPrivate) and [`privateAttributeNames`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#privateattributenames).
+
+Here's how to mark an attribute as private for a particular context:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: '3.0 syntax, attributes marked private for particular context', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const context = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  address: {
+    street: '123 Main St',
+    city: 'Springfield'
+  },
+  _meta: {
+    privateAttributes: ['email', '/address/street']
+  }
+};
+```
+</CodeTabItem>
+</CodeTabs>
+
+For attributes that are objects, you can mark specific fields private, using the `/` delimiter followed by the attribute name, then the `/` delimiter followed by the JSON property within the value.
+
+In the example above, for the attribute `/address`, only the `/address/street` as marked as private.
+
+The `privateAttributeNames` attribute that existed in a user object in version 2.x has been renamed to `privateAttributes` in version 3.0. It has moved from the top level of a user object into the `_meta` object within a context. To learn more, read [`privateAttributes`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDContextMeta.html#privateAttributes).
+
+### Understanding changes to anonymous users
+
+In 2.x versions of the SDK, you could omit the user key when building an anonymous user, and the SDK would set the user key to a generated UUID.
+
+Similarly, in the 3.0 version of the SDK, you can omit the context key when building an anonymous context, and the SDK sets the context key to a generated UUID. If you omit the context key and do not mark the context as anonymous, the SDK gives a usage error.
+
+If you are working with a multi-context, you can mark some contexts anonymous and not others. Here's an example:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: '3.0 syntax, working with anonymous contexts', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+// This user context is not anonymous
+const userContext = {
+  kind: 'user',
+  key: 'user-key-123abc'
+}
+
+// This device context is anonymous
+// The key is omitted, and the SDK will automatically generate one
+const deviceContext = {
+  kind: 'device',
+  deviceId: '12345',
+  anonymous: true
+}
+
+// The multi-context contains one anonymous context
+// and one non-anonymous context
+const multiContext = {
+  kind: 'multi',
+  user: userContext,
+  device: deviceContext
+}
+```
+</CodeTabItem>
+</CodeTabs>
+
+### Understanding changes to alias events
+
+In previous versions of the SDK, multiple user objects could represent one person. For example, this could happen the first time a person logged in to your application. The person might be represented by an anonymous user before they logged in, and a different user after they logged in. You could associate these two LaunchDarkly users by sending an `alias` event in the SDK.
+
+With the introduction of contexts, the person in this scenario is represented by two different context kinds. For example, before they log in, they might be represented by a device context. After they log in, they might be represented by a multi-context, for example, by one context kind based on their device and simultaneously by another context kind based on their user information.
+
+The 3.0 version of the SDK removes the ability to send an `alias` event. If you currently [alias users](/sdk/features/aliasing-users), you will need to remove this code when you migrate to version 3.0.
+
+If you want to continue associating two contexts with each other, you can use two different context kinds, and then identify a multi-context that includes both individual contexts when you want the association to occur.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: '3.0 syntax, identifying a multi-context', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const deviceContext = {
+  kind: 'device',
+  key: 'device-key-123abc',
+  type: 'iPad'
+}
+
+const userContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  name: 'Sandy',
+  role: 'doctor'
+}
+
+const multiContext = {
+  kind: 'multi',
+  user: userContext,
+  device: deviceContext
+}
+
+client.identify(multiContext, hash, function() {
+  console.log("Multi-context's flags available");
+});
+```
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`identify`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDClient.html#identify).
+
+## Understanding changes to configuration options
+
+In the 3.0 version of the SDK, several configuration options have changed:
+
+  * The `privateAttributes` and `allAttributesPrivate` configuration options both now apply to all contexts of any context kind. To learn more, read [Understanding changes to private attributes](#understanding-changes-to-private-attributes).
+  * `privateAttributeNames` is now called `privateAttributes`. To learn more, read [Understanding changes to private attributes](#understanding-changes-to-private-attributes).
+  * The `autoAliasingOptOut` option has been removed.
+  * The `inlineUsersInEvents` option has been removed.
+
+To learn more, read [`LDOptions`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html).
+
+## Understanding what was deprecated
+
+All types and methods that were marked as deprecated in the last 2.x release have been removed from the 3.0 release. If you were using these with a recent version previously, you should already have received deprecation warnings at compile time, with suggestions about their recommended replacements.
+
+For a full list of deprecated types and methods, read the [release notes in GitHub](https://github.com/launchdarkly/js-client-sdk/releases).

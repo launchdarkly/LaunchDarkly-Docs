@@ -1,24 +1,39 @@
 ---
 path: /sdk/features/identify
-title: Identifying and changing users
+title: Identifying and changing contexts
 description: This topic explains how to use the identify feature in LaunchDarkly SDKs.
 published: true
-tags: ['identify', 'user', 'sdk']
+tags: ['identify', 'context', 'sdk', 'user']
 ---
 
 ## Overview
 
 This topic explains how to use the identify feature in LaunchDarkly SDKs. Identify is available for both client-side and server-side SDKs.
 
-## Using identify to change users
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
 
-Identify's behavior differs between client-side and server-side SDKs.
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
 
-Client-side SDKs are configured to operate for one user at a time, identified or anonymous. In these SDKs, the identify feature allows customers to change the user context, such as if a user logs in or changes their user settings. Identifying users causes LaunchDarkly to index them.
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
 
-Server-side SDKs operate for multiple users concurrently. Unlike in client-side SDKs, server-side SDKs do not have a notion of "changing the user context" because users are directly passed to client method invocations for actions such as evaluating flag variations. In server-side SDKs, the only impact of identifying users is that they are added to the **Users** list. However, in most applications this is not needed because users are automatically indexed when used for a flag evaluation. Instead, you should provide the user object in a variation or all flags call to get the expected flag evaluation. To learn more, read [Evaluating flags](/sdk/features/evaluating) and [Getting all flags](/sdk/features/all-flags).
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
 
-To learn more about the differences in how SDKs identify and use user contexts, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
+
+## Using identify to change contexts and users
+
+The identify feature's behavior differs between client-side and server-side SDKs.
+
+Client-side SDKs are configured to operate for one end user at a time, identified or anonymous. In these SDKs, the identify feature allows customers to change the context or user such as when an end user logs in or changes their settings. Identifying contexts and users causes LaunchDarkly to index them.
+
+Server-side SDKs operate for multiple end users concurrently. Unlike in client-side SDKs, server-side SDKs do not have a notion of "changing the user context" because contexts or users are directly passed to client method invocations for actions such as evaluating flag variations. In server-side SDKs, the only impact of identifying contexts and users is that they are added to the **Contexts** and **Users** lists, respectively. However, in most applications this is not needed because they are automatically indexed when used for a flag evaluation. Instead, you should provide the evaluation object in a variation or all flags call to get the expected flag evaluation. To learn more, read [Evaluating flags](/sdk/features/evaluating) and [Getting all flags](/sdk/features/all-flags).
+
+To learn more about the differences in how SDKs identify and use users and contexts, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
 Details about each SDK's identify feature are available in the SDK-specific sections below.
 
@@ -45,7 +60,11 @@ This feature is available in the following client-side SDKs:
 
 <Details summary="Expand .NET (client-side) code sample">
 
-You can use the `Identify` or `IdentifyAsync` method to switch user contexts. This loads any saved flag values for the new user, and immediately triggers an update of the latest flags from LaunchDarkly.
+The `Identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
+
+In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `Identify()` or `IdentifyAsync()` so that the person receives the correct feature flag settings for their account.
+
+<!-- cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-176640) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `Identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable -->
 
 You may want to wait until the flag values for the new user have been loaded before proceeding. You can do this either by calling the synchronous method `Identify` with a timeout, or by calling the asynchronous method `IdentifyAsync` and awaiting the result.
 
@@ -60,8 +79,8 @@ Here's how:
 <CodeTabItem value="csharp">
 
 ```csharp
-var updatedUser = LDUser.Builder("user-key")
-    .Email("user@example.com")
+var updatedUser = LDUser.Builder("user-key-123abc")
+    .Email("sandy@example.com")
     .Build();
 
 // Synchronous method
@@ -81,33 +100,61 @@ To learn more, read [`Identify`](https://launchdarkly.github.io/dotnet-client-sd
 
 <Details summary="Expand Android code sample">
 
-If multiple users use your app on a single device, you may want to change users and have separate flag settings for each one. To do this, the SDK stores the last five user contexts on a single device, with support for switching between different user contexts. You can use the `identify` method to switch user contexts. `identify` loads any saved flag values for the new user and immediately triggers an update of the latest flags from LaunchDarkly.
+The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
+
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context and call `identify()` so that the person receives the correct feature flag settings for their account.
+
+In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
 Here's how:
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
+    { label: 'Java for Android SDK v4.0', value: 'java' },
+    { label: 'Kotlin for Android SDK v4.0', value: 'kotlin' },
+    { label: 'Java for Android SDK v3.x', value: 'java-v3' },
+    { label: 'Kotlin for Android SDK v3.x', value: 'kotlin-v3' }
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
-LDUser updatedUser = new LDUser.Builder(user)
+LDContext updatedContext = LDContext.builderFromContext(context)
     .email("fake2@example.com")
     .build();
 
-client.identify(updatedUser);
+client.identify(updatedContext);
 ```
 
 </CodeTabItem>
 <CodeTabItem value="kotlin">
 
 ```kotlin
-val updatedUser: LDUser = LDUser.Builder(user)
+val updatedContext: LDContext = LDContext.builderFromContext(context)
     .email("fake2@example.com")
+    .build()
+
+client.identify(updatedContext)
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v3">
+
+```java
+LDUser updatedUser = new LDUser.Builder(user)
+    .email("sandy@example.com")
+    .build();
+
+client.identify(updatedUser);
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin-v3">
+
+```kotlin
+val updatedUser: LDUser = LDUser.Builder(user)
+    .email("sandy@example.com")
     .build()
 
 client.identify(updatedUser)
@@ -116,20 +163,24 @@ client.identify(updatedUser)
 </CodeTabItem>
 </CodeTabs>
 
-The `identify` call loads any saved flag values for the new user and immediately triggers an update of the latest flags from LaunchDarkly.
+The `identify()` call loads any saved flag values for the new user context and immediately triggers an update of the latest flags from LaunchDarkly.
 
-`identify` returns a [Future](https://developer.android.com/reference/java/util/concurrent/Future) to indicate completion. If you want to be sure subsequent code is using the latest values from the server, you can wait for the Future using `get`.
+`identify()` returns a [Future](https://developer.android.com/reference/java/util/concurrent/Future) to indicate completion. If you want to be sure subsequent code is using the latest values from the server, you can wait for the Future using `get`.
 
-To learn more, read [`identify`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClient.html#identify(com.launchdarkly.sdk.LDUser)).
+To learn more, read [`identify`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClient.html#identify(com.launchdarkly.sdk.LDContext)).
 </Details>
 
 ### C/C++ (client-side)
 
 <Details summary="Expand C/C++ (server-side) code sample">
 
-If your app is used by multiple users on a single device, you may want to change users and have separate flag settings for each user. To achieve this, the SDK supports switching between different user contexts.
+The `Identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
 
-You can use the `LDClientIdentify` method to switch user contexts:
+In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `Identify` so that the person receives the correct feature flag settings for their account.
+
+<!-- cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-174758) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `Identify` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable -->
+
+You can use the `LDClientIdentify` method to switch users:
 
 <CodeTabs
   defaultValue="c"
@@ -146,18 +197,18 @@ LDClientIdentify(client, newUser);
 </CodeTabItem>
 </CodeTabs>
 
-The 'LDClientIdentify' call loads any saved flag values for the new user and immediately trigger an update of the latest flags from LaunchDarkly. Because this method re-fetches flag settings for the new user, you should should not call it at high frequency. The intended use case for switching user contexts is the login/logout flow. To learn more, read [`LDClientIdentify`](https://launchdarkly.github.io/c-client-sdk/client_8h.html#a7ee43b2353f00798979ba51cfebb1a53).
+The `LDClientIdentify()` call loads any saved flag values for the new user and immediately trigger an update of the latest flags from LaunchDarkly. Because this method re-fetches flag settings for the new user, you should should not call it at high frequency. The intended use case for switching user contexts is the login/logout flow. To learn more, read [`LDClientIdentify`](https://launchdarkly.github.io/c-client-sdk/client_8h.html#a7ee43b2353f00798979ba51cfebb1a53).
 </Details>
 
 ### Electron
 
 <Details summary="Expand Electron code sample">
 
-The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user. The client always has one current user, because client-side SDKs are not designed for evaluating flags for different users at the same time.
+The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
 
-For example, on a sign-in page in a single-page app, you can initialize the client with an anonymous user. But when the user logs in, they should receive the correct feature flag settings for their account.
+In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
 
-If you provide a callback function, it is called with a map of flag keys and values after the flag values for the new user are available. After that point, `variation()` uses the new values. You can also use a Promise for the same purpose.
+<!-- cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-163925) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable -->
 
 Here's how:
 
@@ -171,11 +222,11 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
-const newUser = { key: 'someone-else', name: 'John' };
+const newUser = { key: 'user-key-123abc', name: 'Sandy' };
 
 client.identify(newUser, (newFlags) => {
-  console.log('value of flag for this user is: ' + newFlags['YOUR_FEATURE_KEY']);
-  console.log('this should be the same: ' + client.variation('YOUR_FEATURE_KEY'));
+  console.log('value of flag for this user is: ' + newFlags['flag-key-123abc']);
+  console.log('this should be the same: ' + client.variation('flag-key-123abc'));
 });
 
 // or:
@@ -195,8 +246,8 @@ const newUser: LDElectron.LDUser = {
 };
 
 client.identify(newUser, (newFlags) => {
-  console.log('value of flag for this user is: ' + newFlags['YOUR_FEATURE_KEY']);
-  console.log('this should be the same: ' + client.variation('YOUR_FEATURE_KEY'));
+  console.log('value of flag for this user is: ' + newFlags['flag-key-123abc']);
+  console.log('this should be the same: ' + client.variation('flag-key-123abc'));
 });
 
 // or:
@@ -216,7 +267,11 @@ To learn more, read [`identify`](https://launchdarkly.github.io/electron-client-
 
 <Details summary="Expand Flutter code sample">
 
-If multiple users use your app on a single device, you may want to change users and have separate flag settings for each one. To do this, the SDK stores the last five user contexts on a single device, with support for switching between different user contexts. You can use the `identify` method to switch user contexts. `identify` loads any saved flag values for the new user and immediately triggers an update of the latest flags from LaunchDarkly.
+The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
+
+In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
+
+<!-- cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-163930) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable -->
 
 Here's how:
 
@@ -230,7 +285,7 @@ Here's how:
 
 ```dart
 LDUser updatedUser = LDUserBuilder('user key')
-    .email('fake2@example.com')
+    .email('sandy@example.com')
     .build();
 
 await LDClient.identify(updatedUser);
@@ -247,13 +302,13 @@ To learn more, read [identify method](https://launchdarkly.github.io/flutter-cli
 
 <Details summary="Expand iOS code sample">
 
-If multiple users use your app on a single device, you may want to change users and have separate flag settings for each one. To do this, the SDK stores the last five user contexts on a single device, with support for switching between different user contexts. You can use the `identify` method to switch user contexts.
+The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
-When a new user is identified, the SDK temporarily goes offline while reconnecting on behalf of the new user. Upon successfully reconnecting, the SDK comes back online and calls the optional completion if one was provided.
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context and call `identify()` so that the person receives the correct feature flag settings for their account.
 
-If the client app does not identify an `LDUser`, `LDClient` creates an anonymous default user, which can affect which feature flags LaunchDarkly delivers to the `LDClient`. Client apps should follow the [Apple Privacy Policy](https://apple.com/legal/privacy) when collecting user information.
+In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
-`identify` loads any saved flag values for the new user and immediately triggers an update of the latest flags from LaunchDarkly.
+If the client app does not identify an `LDContext`, `LDClient` creates an anonymous default context, which can affect which feature flags LaunchDarkly delivers to the `LDClient`. Client apps should follow the [Apple Privacy Policy](https://apple.com/legal/privacy) when collecting end user information.
 
 Here's how:
 
@@ -262,13 +317,45 @@ Here's how:
   values={[
     { label: 'Swift', value: 'swift', },
     { label: 'Objective-C', value: 'objc', },
+    { label: 'Swift for iOS SDK v7.x', value: 'swift-v7', },
+    { label: 'Objective-C for iOS SDK v7.x', value: 'objc-v7', }
   ]
 }>
 <CodeTabItem value="swift">
 
 ```swift
-let newUser = LDUser(key: "NEW_USER_KEY")
-LDClient.get()!.identify(user: newUser)
+let newContext = try LDContextBuilder(key: "context-key-123abc").build().get();
+
+// You can also call identify with a completion
+LDClient.get()!.identify(context: newContext) {
+    // Flags have been retrieved for the new context
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objectivec
+LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"];
+ContextBuilderResult *result = builder.build;
+
+if (result.success) {
+    LDContext *context = result.success;
+}
+[[LDClient get] identifyWithContext:newContext];
+
+// You can also call identify with a completion
+[[LDClient get] identifyWithContext:newContext completion:^() {
+    // Flags have been retrieved for the new context
+}];
+```
+
+</CodeTabItem>
+<CodeTabItem value="swift-v7">
+
+```swift
+let newUser = LDUser(key: "user-key-123abc")
+LDUser.get()!.identify(user: newUser)
 
 // You can also call identify with a completion
 LDClient.get()!.identify(user: newUser) {
@@ -277,14 +364,14 @@ LDClient.get()!.identify(user: newUser) {
 ```
 
 </CodeTabItem>
-<CodeTabItem value="objc">
+<CodeTabItem value="objc-v7">
 
 ```objectivec
-LDUser *newUser = [[LDUser alloc] initWithKey:@"NEW_USER_KEY"];
+LDUser *newUser = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 [[LDClient get] identifyWithUser:newUser];
 
 // You can also call identify with a completion
-[[LDClient get] identifyWithUser:newUser completion:^() {
+[[LDUser get] identifyWithUser:newUser completion:^() {
     // Flags have been retrieved for the new user
 }];
 ```
@@ -292,7 +379,7 @@ LDUser *newUser = [[LDUser alloc] initWithKey:@"NEW_USER_KEY"];
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`identify`](https://launchdarkly.github.io/ios-client-sdk/Classes/ObjcLDClient.html#/c:@M@LaunchDarkly@objc(cs)LDClient(im)identifyWithUser:).
+To learn more, read [`identify`](https://launchdarkly.github.io/ios-client-sdk/Classes/ObjcLDClient.html#/c:@M@LaunchDarkly@objc(cs)LDClient(im)identifyWithContext:).
 
 </Details>
 
@@ -300,21 +387,58 @@ To learn more, read [`identify`](https://launchdarkly.github.io/ios-client-sdk/C
 
 <Details summary="Expand JavaScript code sample">
 
-The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user. The client always has one current user, because client-side SDKs are not designed for evaluating flags for different users at the same time.
+The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
-For example, on a sign-in page in a single-page app, you can initialize the client with an anonymous user. But when the user logs in, they should receive the correct feature flag settings for their account.
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context and call `identify()` so that the person receives the correct feature flag settings for their account.
 
-If you provide a callback function, it is called with a map of flag keys and values after the flag values for the new user are available. After that point, `variation()` uses the new values. You can also use a Promise for the same purpose.
+In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
+
+If you provide a callback function, it is called with a map of flag keys and values after the flag values for the new context are available. After that point, `variation()` uses the new values. You can also use a Promise for the same purpose.
 
 Here's how:
 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
+    { label: 'JavaScript SDK 3.0, single context', value: "js" },
+    { label: 'JavaScript SDK 3.0, multi-context', value: "js-multi" },
+    { label: 'JavaScript SDK 2.x', value: "js-2.x" },
   ]
 }>
 <CodeTabItem value="js">
+
+```js
+
+client.identify(newContext, hash, function() {
+  console.log("New context's flags available");
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-multi">
+
+```js
+
+const newMultiContext = {
+  kind: 'multi',
+  user: {
+    key: 'aa0ceb',
+    name: 'Anna',
+    role: 'doctor'
+  },
+  device: {
+    key: 'device-key',
+    platform: 'Android'
+  }
+}
+
+client.identify(newMultiContext, hash, function() {
+  console.log("New context's flags available");
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-2.x">
 
 ```js
 client.identify(newUser, hash, function() {
@@ -331,7 +455,7 @@ To learn more, read [`identify`](https://launchdarkly.github.io/js-client-sdk/in
 <CalloutTitle>You must use a hash parameter while in secure mode</CalloutTitle>
 <CalloutDescription>
 
-The hash parameter is the hash for the new user, assuming that the user's key has changed. The hash parameter is only required in secure mode. If secure mode is not enabled, pass in `null` for the hash.
+The hash parameter is the hash for the new context, assuming that the context's key has changed. The hash parameter is only required in secure mode. If secure mode is not enabled, pass in `null` for the hash.
 
 </CalloutDescription>
 </Callout>
@@ -341,7 +465,13 @@ The hash parameter is the hash for the new user, assuming that the user's key ha
 
 <Details summary="Expand Node.js (client-side) code sample">
 
-You may want to change the user context dynamically and receive the new set of feature flags for that user or generate events for the new user. To do this, you can call the `identify` function. You can also pass a callback that is called when the new flags are in effect.
+The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
+
+In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
+
+<!-- cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-163940) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable -->
+
+Here's how:
 
 <CodeTabs
   defaultValue="js"
@@ -373,7 +503,13 @@ To learn more, read [`identify`](https://launchdarkly.github.io/node-client-sdk/
 
 <Details summary="Expand React code sample">
 
-The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user. The client always has one current user, because client-side SDKs are not designed for evaluating flags for different users at the same time. You can also pass a callback that is called when the new flags are in effect.
+The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
+
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context and call `identify()` so that the person receives the correct feature flag settings for their account.
+
+In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
+
+Here's how:
 
 <CodeTabs
   defaultValue="js"
@@ -388,8 +524,8 @@ import { useLDClient } from 'launchdarkly-react-client-sdk';
 
 let ldClient = useLDClient();
 
-ldClient.identify(newUser, null, () => {
-  console.log("New user's flags available");
+ldClient.identify(newContext, null, () => {
+  console.log("New context's flags available");
 });
 ```
 
@@ -404,7 +540,9 @@ To learn more, read [`identify`](https://launchdarkly.github.io/react-native-cli
 
 <Details summary="Expand React Native code sample">
 
-If multiple users use your app on a single device, you may want to change users and have separate flag settings for each one. To do this, the SDK stores the last five user contexts on a single device, with support for switching between different user contexts. You can use the `identify` method to switch user contexts. `identify` loads any saved flag values for the new user and immediately triggers an update of the latest flags from LaunchDarkly.
+If multiple users use your app on a single device, you may want to change users and have separate flag settings for each one. To do this, the SDK stores the last five user contexts on a single device, and supports switching between different user contexts. You can use the `identify` method to switch user contexts. `identify` loads any saved flag values for the new user and immediately triggers an update of the latest flags from LaunchDarkly.
+
+In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
 Here's how:
 
@@ -442,7 +580,11 @@ Alert.alert('identify', 'success');
 
 <Details summary="Expand Roku code sample">
 
-If multiple users use your app on a single device, you may want to change users and have separate flag settings for each one. To do this, the SDK stores the last five user contexts on a single device, with support for switching between different user contexts. You can use the `identify` method to switch user contexts. `identify` loads any saved flag values for the new user and immediately triggers an update of the latest flags from LaunchDarkly. Because this method re-fetches flag settings for the new user, do not call it frequently.
+The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
+
+In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
+
+<!-- cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-163946) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable -->
 
 To do this:
 
@@ -487,19 +629,27 @@ This feature is available in the following server-side SDKs:
 
 <Details summary="Expand .NET (server-side) code sample">
 
-`Identify` creates or updates users on LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
+`Identify` creates or updates contexts on LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `Identify`. The `Variation` methods automatically creates users on the **Users** list for you. `Identify` is useful if you want to pre-populate your **Users** list before you launch any features.
+In most cases, you do not need to call `Identify`. The `Variation` methods automatically create contexts on the **Contexts** list for you. `Identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `Identify`:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
   ]
 }>
 <CodeTabItem value="csharp">
+
+```csharp
+client.Identify(context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-6.x">
 
 ```csharp
 client.Identify(user);
@@ -595,7 +745,7 @@ To use `identify`:
 <CodeTabItem value="erlang">
 
 ```
-ldclient:identify(#{key => <<"aa0ceb">>})
+ldclient:identify(#{key => <<"user-key-123abc">>})
 ```
 
 </CodeTabItem>
@@ -608,19 +758,27 @@ To learn more, read [`identify`](https://hexdocs.pm/launchdarkly_server_sdk/ldcl
 
 <Details summary="Expand Go code sample">
 
-`Identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
+`Identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `Identify`. The `Variation` method automatically creates users on the **Users** list for you. `Identify` is useful if you want to pre-populate your **Users** list before you launch any features.
+In most cases, you do not need to call `Identify`. The `Variation` method automatically creates contexts on the **Contexts** list for you. `Identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `Identify`:
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 <CodeTabItem value="go">
+
+```go
+client.Identify(context)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 client.Identify(user)
@@ -663,19 +821,27 @@ To learn more, read [`identify`](https://launchdarkly.github.io/haskell-server-s
 
 <Details summary="Expand Java code sample">
 
-`identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
+`identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `variation` methods automatically create users on the **Users** list for you. `identify` is useful if you want to pre-populate your **Users** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` methods automatically create users on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java SDK v6.0', value: 'java', },
+    { label: 'Java SDK v5.x', value: 'java-v5', },
   ]
 }>
 <CodeTabItem value="java">
+
+```java
+client.identify(context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v5">
 
 ```java
 client.identify(user);
@@ -684,7 +850,7 @@ client.identify(user);
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`identify`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#identify(com.launchdarkly.sdk.LDUser)).
+To learn more, read [`identify`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#identify(com.launchdarkly.sdk.LDContext)).
 </Details>
 
 ### Lua
@@ -719,19 +885,27 @@ To learn more, read [`identify`](https://launchdarkly.github.io/lua-server-sdk/m
 
 <Details summary="Expand Node.js (server-side) code sample">
 
-`identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
+`identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `variation` call automatically creates users on the **Users** list for you. `identify` is useful if you want to pre-populate your **Users** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` call automatically creates users on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
+    { label: 'Node.js SDK v6', value: 'js', },
+    { label: 'Node.js SDK v5.x and older', value: 'js-v5', },
   ]
 }>
 <CodeTabItem value="js">
+
+```js
+client.identify(context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-v5">
 
 ```js
 client.identify(user);
@@ -833,22 +1007,28 @@ To learn more, read [`identify`](https://launchdarkly.github.io/ruby-server-sdk/
 
 `identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
-In most cases, you do not need to call `identify`. The `variation` methods automatically create users on the **Users** list for you. `identify` is useful if you want to pre-populate your **Users** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` methods automatically create users or contexts on the **Users** or **Contexts** list for you. `identify` is useful if you want to pre-populate your **Users** or **Contexts** list before you launch any features.
 
 To use `identify`:
 
 <CodeTabs
   defaultValue="rust"
   values={[
-    { label: 'Rust', value: 'rust', },
+    { label: 'Rust SDK v1', value: 'rust', },
+    { label: 'Rust SDK beta', value: 'rust-beta', },
   ]
 }>
 <CodeTabItem value="rust">
 
 ```rust
+client.identify(context);
+```
+</CodeTabItem>
+<CodeTabItem value="rust-beta">
+
+```rust
 client.identify(user);
 ```
-
 </CodeTabItem>
 </CodeTabs>
 

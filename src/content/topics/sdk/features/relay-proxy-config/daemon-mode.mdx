@@ -50,7 +50,7 @@ Use the `DataStore` builder method to set a persistent feature store. Then, use 
 
 ```csharp
 
-var config = Configuration.Builder("YOUR_SDK_KEY")
+var config = Configuration.Builder("sdk-key-123abc")
     .DataStore(
         Components.PersistentDataStore(
             SomeDatabaseName.DataStore()
@@ -79,7 +79,7 @@ Use `LDConfigSetFeatureStoreBackend` to set a persistent feature store. Then, us
 <CodeTabItem value="c">
 
 ```c
-struct LDConfig *config = LDConfigNew("YOUR_SDK_KEY");
+struct LDConfig *config = LDConfigNew("sdk-key-123abc");
 
 struct LDStoreInterface *store = ConstructYourFeatureStoreInterface();
 
@@ -106,7 +106,7 @@ Set the `feature_store` property to use a persistent data store. Then set the `u
 <CodeTabItem value="erlang">
 
 ```
-ldclient:start_instance("YOUR_SDK_KEY", #{
+ldclient:start_instance("sdk-key-123abc", #{
   use_ldd => true,
   feature_store => your_feature_store
 })
@@ -167,7 +167,7 @@ import LaunchDarkly.Server.Config
 import Data.Function ((&))
 
 config :: Config
-config = (makeConfig "YOUR_SDK_KEY")
+config = (makeConfig "sdk-key-123abc")
     & configSetUseLdd true
     & configSetStoreBackend backend
 ```
@@ -225,7 +225,7 @@ Set the `featureStoreBackend` property to use the persistent data store. Then, s
 local backend = makeYourBackendInterface()
 
 local config = {
-    key = YOUR_SDK_KEY,
+    key = sdk-key-123abc,
     featureStoreBackend = backend,
     useLDD = true
 }
@@ -294,7 +294,7 @@ Set the `feature_requester` property to use a persistent data store and daemon m
 <CodeTabItem value="php">
 
 ```php
-$client = new LaunchDarkly\LDClient("YOUR_SDK_KEY",
+$client = new LaunchDarkly\LDClient("sdk-key-123abc",
     [ 'feature_requester' => LaunchDarkly\Integrations\NameOfDatabase::featureRequester() ]);
 ```
 

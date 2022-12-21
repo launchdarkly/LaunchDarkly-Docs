@@ -6,6 +6,19 @@ tags: ['java', 'sdk', 'server-side']
 published: true
 ---
 
+<Callout intent="info">
+<CalloutTitle>Version 6 of the Java SDK replaces users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
+
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [Java SDK 5.x to 6.0 migration guide](/sdk/server-side/java/migration-5-to-6).
+
+</CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic documents how to get started with the Java SDK, and links to reference information on all of the supported features.
@@ -24,7 +37,7 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
   <TableBody>
     <TableRow>
       <TableCell>SDK API documentation</TableCell>
-      <TableCell><a href="http://launchdarkly.github.io/java-server-sdk/">SDK API docs</a></TableCell>
+      <TableCell><a href="https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/index.html">SDK API docs</a></TableCell>
     </TableRow>
     <TableRow>
       <TableCell>GitHub repository</TableCell>
@@ -72,7 +85,7 @@ After you complete the [Getting Started process](/home/getting-started), follow 
 
 First, install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager. Refer to the [SDK releases page](https://github.com/launchdarkly/java-server-sdk/releases) to identify the latest version.
 
-In this example, it uses version 5.9.0:
+In this example, it uses version 6.0.0:
 
 <CodeTabs
   defaultValue="java"
@@ -86,11 +99,11 @@ In this example, it uses version 5.9.0:
 <dependency>
   <groupId>com.launchdarkly</groupId>
   <artifactId>launchdarkly-java-server-sdk</artifactId>
-  <version>5.9.0</version>
+  <version>6.0.0</version>
 </dependency>
 
 // or in Gradle:
-implementation group: 'com.launchdarkly', name: 'launchdarkly-java-server-sdk', version: '5.9.0'
+implementation group: 'com.launchdarkly', name: 'launchdarkly-java-server-sdk', version: '6.0.0'
 
 ```
 
@@ -115,7 +128,7 @@ import com.launchdarkly.sdk.server.*;
 </CodeTabItem>
 </CodeTabs>
 
-After you install and import the SDK, create a single, shared instance of [`LDClient`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html). Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
+After you install and import the SDK, create a single, shared instance of [`LDClient`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html). Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
 Here's how:
 
@@ -128,7 +141,7 @@ Here's how:
 <CodeTabItem value="java">
 
 ```java
-LDClient client = new LDClient("YOUR_SDK_KEY");
+LDClient client = new LDClient("sdk-key-123abc");
 ```
 
 </CodeTabItem>
@@ -138,25 +151,46 @@ LDClient client = new LDClient("YOUR_SDK_KEY");
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `LDClient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
 
-You can use `client` to check which variation a particular user will receive for a given feature flag.
+You can use `client` to check which variation a particular context will receive for a given feature flag. To learn more, read [Evaluating flags](/sdk/features/evaluating) and [Flag evaluation reasons](/sdk/features/evaluation-reasons). For more information about how contexts are specified, read [User and context configuration](/sdk/features/user-context-config).
 
-Here's how:
+In the v6 example, the context key is the string "context-key-123abc". In the v5 example, the user key is the string "user-key-123abc":
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java SDK v6', value: 'java', },
+    { label: 'Java SDK v5', value: 'java-v5', },
   ]
 }>
 <CodeTabItem value="java">
 
 ```java
-LDUser user = new LDUser.Builder("example-user-key")
+LDContext context = new LDContext.Builder("context-key-123abc")
+  .name("Sandy")
+  .build();
+
+boolean flagValue = client.boolVariation("flag-key-123abc", context, false);
+
+if (flagValue) {
+  // Application code to show the feature
+}
+else {
+  // The code to run if the feature is off
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v5">
+
+```java
+LDUser user = new LDUser.Builder("user-key-123abc")
   .name("Sandy")
   .build();
 
@@ -168,6 +202,7 @@ if (flagValue) {
 else {
   // The code to run if the feature is off
 }
+
 ```
 
 </CodeTabItem>
@@ -192,18 +227,17 @@ To do so, add the classifier "all":
 <CodeTabItem value="java">
 
 ```xml
-<!-- in Maven: -->
+<!-- in Maven -->
 <dependency>
    <groupId>com.launchdarkly</groupId>
    <artifactId>launchdarkly-java-server-sdk</artifactId>
-   <version>5.9.0</version>
+   <version>6.0.0</version>
    <classifier>all</classifier>
 </dependency>
 
-// or in Gradle:
-"com.launchdarkly:launchdarkly-java-server-sdk:5.9.0:all"
+<!-- or in Gradle -->
+"com.launchdarkly:launchdarkly-java-server-sdk:6.0.0:all"
 ```
-
 
 </CodeTabItem>
 </CodeTabs>
@@ -225,14 +259,13 @@ Lastly, shut down the client when your application terminates. To learn more, re
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#java)
 * [Big Segments](/sdk/features/big-segments#java)
 * [Configuration](/sdk/features/config#java)
 * [Evaluating flags](/sdk/features/evaluating#java)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#java)
 * [Flushing events](/sdk/features/flush#java)
 * [Getting all flags](/sdk/features/all-flags#java)
-* [Identifying and changing users](/sdk/features/identify#java)
+* [Identifying and changing contexts](/sdk/features/identify#java)
 * [Logging configuration](/sdk/features/logging#java)
 * [Monitoring SDK status](/sdk/features/monitoring#java)
 * [Offline mode](/sdk/features/offline-mode#java)
@@ -247,5 +280,5 @@ This SDK supports the following features:
 * [Storing data](/sdk/features/storing-data#java)
 * [Subscribing to flag changes](/sdk/features/flag-changes#java)
 * [Test data sources](/sdk/features/test-data-sources#java)
-* [User configuration](/sdk/features/user-config#java)
+* [User and context configuration](/sdk/features/user-context-config#java)
 * [Web proxy configuration](/sdk/features/web-proxy#java)

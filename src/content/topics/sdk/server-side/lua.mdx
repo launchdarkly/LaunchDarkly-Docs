@@ -75,7 +75,9 @@ After you install and import the SDK, create a single, shared instance of `LDCli
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `LDClient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
@@ -94,7 +96,7 @@ Here is an example:
 
 ```lua
 local config = {
-    key = YOUR_SDK_KEY
+    key = sdk-key-123abc
 }
 
 local client = ld.clientInit(config, 1000)
@@ -116,7 +118,7 @@ Here's how:
 <CodeTabItem value="lua">
 
 ```lua
-if client:boolVariation(user, YOUR_FEATURE_KEY, false) then
+if client:boolVariation(user, flag-key-123abc, false) then
     print "feature is enabled"
 else
     print "feature is disabled"
@@ -136,10 +138,10 @@ This SDK supports the following features:
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#lua)
 * [Flushing events](/sdk/features/flush#lua)
 * [Getting all flags](/sdk/features/all-flags#lua)
-* [Identifying and changing users](/sdk/features/identify#lua)
+* [Identifying and changing contexts](/sdk/features/identify#lua)
 * [Relay Proxy configuration](/sdk/features/relay-proxy-configuration)
   * [Using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#lua)
   * [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#lua)
 * [Sending custom events](/sdk/features/events#lua)
 * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#lua)
-* [User configuration](/sdk/features/user-config#lua)
+* [User and context configuration](/sdk/features/user-context-config#lua)

@@ -10,6 +10,21 @@ published: true
 
 This topic explains the prerequisites you must consider when you're setting up a LaunchDarkly SDK for the first time.
 
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
+
 ## Prerequisites
 
 Regardless of which SDK you use, everyone who integrates LaunchDarkly with their code must consider the following prerequisites. Making decisions about the items listed below will help you use feature flags in a way that makes sense for your use case, customers, security considerations, and existing network architecture.
@@ -39,7 +54,7 @@ To learn more, read [Client-side and server-side SDKs](/sdk/concepts/client-side
 
 ### Plan for a large initial payload from the streaming endpoint
 
-The initial payload contains all the targeting rules for the environment associated with the provided SDK key. If you target a large number of individual users, have a very large number of flags, or have large numbers of extremely complicated rules, then this can increase the initial payload size. Configure any relevant timeout options to anticipate a large initial load. This helps prevent the SDK from timing out.
+The initial payload contains all the targeting rules for the environment associated with the provided SDK key. If you target a large number of individual contexts, have a very large number of flags, or have large numbers of extremely complicated rules, then this can increase the initial payload size. Configure any relevant timeout options to anticipate a large initial load. This helps prevent the SDK from timing out.
 
 ### Ensure you have a reliable network connection for first-time initialization
 
@@ -47,6 +62,6 @@ The SDK will time out if it cannot get a network connection to LaunchDarkly. Fai
 
 ### Implement SDKs in a singleton pattern
 
-Your SDK should only initialize once statically, and that instance should be the exclusive instance you use. When you create multiple SDK instances, previous instances may leak into memory and stay active long after the setting they were created in is destroyed.
+Your SDK should only initialize once statically, and that instance should be the exclusive instance you use for a given LaunchDarkly project. When you create multiple SDK instances, previous instances may leak into memory and stay active beyond their useful lifespan.
 
 When you have enough of these instances running, they can cause bottlenecks in the connection to the streaming endpoint.

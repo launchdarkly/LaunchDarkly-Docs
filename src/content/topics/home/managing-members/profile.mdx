@@ -10,9 +10,17 @@ tags: ['profile', 'member', 'password', 'email', 'mfa']
 
 This topic explains how to access and use the **Profile** page to manage the information associated with your member profile.
 
-Every LaunchDarkly account member has a unique member profile. From the profile, you can change your display name, profile picture, and the email address associated with your account. You may also be able to enable or disable multi-factor authentication (MFA).
+Every LaunchDarkly account member has a unique member profile. 
 
-## Accessing your profile
+From the profile, you can take the following actions:
+
+- [View your roles and permissions](#view-your-roles-and-permissions)
+- [Change your display name](#change-your-display-name-and-email-address)
+- [Change the email address associated with your account](#change-your-display-name-and-email-address)
+- [Change your password](#change-your-password), if your organization does not use single sign-on (SSO)
+- [Enable or disable multi-factor authentication (MFA)](#enable-multi-factor-authentication)
+
+## Access your profile
 
 You can access your profile in two ways:
 
@@ -21,27 +29,17 @@ You can access your profile in two ways:
 
 ![The account menu, with "My profile" option called out.](account-menu-my-profile.png)
 
-## Changing your display name and email address
+## View your roles and permissions
 
-You can change your display name or email address from your profile. Here's how:
+You can read about the permissions that you have from the **Permissions** page. 
 
-1. Click your account icon in the top right. A menu appears.
-2. Click "My profile". Your profile page appears.
-  * Alternatively, you can access your profile page by navigating to **Account settings** and clicking the **Profile** tab.
-3. In the "My profile" section, type in the **First name**, **Last name**, and/or **Email address** fields to change them.
-4. Click **Update my info**.
-
-Your changes are confirmed. Test them by logging out and logging back in with your updated email address. If you changed your name, your new display name appears after you log in.
-
-### Accessing your roles and permissions
-
-You can read about the permissions that you have from the **Permissions** page. Access this page from your profile, or from the **Members** tab of the **Account settings** page.
-
-To do this, navigate to your profile. In the "My profile" section, click **Access**. The "Permissions" page opens.
+Access the **Permissions** page page from your profile by clicking on the **Access** link under "My profile."
 
 ![The "My profile" section with the "Access" link called out.](account-settings-profile-access-callout.png)
 
-The **Permissions** page shows you the built-in, custom, and team roles you have been assigned.
+You can also navigate to the **Permissions** page from the **Members** tab of the **Account settings** page.
+
+The **Permissions** page shows you the built-in, custom, and team roles that have been assigned to you.
 
 To learn more about each of these role types, read:
 
@@ -49,7 +47,17 @@ To learn more about each of these role types, read:
 * [Custom roles](/home/members/custom-roles)
 * [Teams](/home/teams)
 
-## Changing your password
+## Change your display name and email address
+
+You can change your display name or email address from your profile. Here's how:
+
+1. Navigate to your profile.
+2. In the "My profile" section, type in the **First name**, **Last name**, and/or **Email address** fields to change them.
+3. Click **Update my info**.
+
+Your changes are confirmed. Test them by logging out and logging back in with your updated email address. If you changed your name, your new display name appears after you log in.
+
+## Change your password
 
 You can set your LaunchDarkly password from the **Profile** tab in the **Account settings** page. You must have your current password to reset your password while logged in. If you sign in to LaunchDarkly though an SSO provider, such as Okta, Google, or your organization's SSO, you can reset your password through that provider. To learn more, read [Single sign-on](/home/account-security/sso).
 
@@ -84,7 +92,7 @@ Your password is confirmed. You can test it by logging out and logging back in w
 
 You can also reset your password by following this procedure. To learn more about why you may need to reset your password, read [Resetting your password](/home/account-security/reset-password).
 
-## Enabling multi-factor authentication
+## Enable multi-factor authentication
 
 MFA is a security practice that requires someone to verify their identify through multiple methods before they can access an account. LaunchDarkly supports MFA. Individual members can enable or disable MFA from their profile.
 

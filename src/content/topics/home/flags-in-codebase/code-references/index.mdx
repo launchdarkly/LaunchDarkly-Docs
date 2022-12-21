@@ -41,18 +41,9 @@ You can also invoke the [`ld-find-code-refs`](https://github.com/launchdarkly/ld
 
 To set up code references in LaunchDarkly, you must have the following prerequisites:
 
-- You must have an API access token with Writer-level access or higher. Create an API access token on the **Account settings** page, on the [**Authorization**](https://app.launchdarkly.com/settings/authorization) tab. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
-- You must have a custom role that allows all actions on code references.
+- An API access token with write permissions for the `code-reference-repository` resource, either through the built-in Writer role or a custom role. Create an API access token on the **Account settings** page, on the [**Authorization**](https://app.launchdarkly.com/settings/authorization) tab. To learn more, read [API access tokens](/home/account-security/api-access-tokens) and [Code reference actions](/home/members/role-actions#code-reference-actions).
+- You must have a Writer role or a custom role that allows all actions on code references.
 - You must allow [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) to run in environment that has access to your source code.
-
-<Callout intent="info">
-<CalloutTitle>API access tokens can also use custom roles</CalloutTitle>
-<CalloutDescription>
-
-  Alternatively, you can give the access token access to a custom role with the `code-reference-repository` resource specifier. To learn more, read [Custom roles](/home/members/custom-roles).
-
-</CalloutDescription>
-</Callout>
 
 ## Using code references
 

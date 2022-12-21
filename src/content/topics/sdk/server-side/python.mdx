@@ -91,7 +91,9 @@ The `get()` function enforces the singleton pattern. You should only have one in
 <CalloutTitle>ldclient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `ldclient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `ldclient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
@@ -109,7 +111,7 @@ Here's how:
 <CodeTabItem value="py">
 
 ```py
-ldclient.set_config(Config("YOUR_SDK_KEY"))
+ldclient.set_config(Config("sdk-key-123abc"))
 client = ldclient.get()
 ```
 
@@ -163,7 +165,7 @@ import uwsgidecorators
 
 @uwsgidecorators.postfork
 def post_fork_client_initialization():
-    ldclient.set_config(LDConfig("YOUR_SDK_KEY"))
+    ldclient.set_config(LDConfig("sdk-key-123abc"))
     client = ldclient.get()
 end
 
@@ -242,7 +244,7 @@ This SDK supports the following features:
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#python)
 * [Flushing events](/sdk/features/flush#python)
 * [Getting all flags](/sdk/features/all-flags#python)
-* [Identifying and changing users](/sdk/features/identify#python)
+* [Identifying and changing contexts](/sdk/features/identify#python)
 * [Logging configuration](/sdk/features/logging#python)
 * [Offline mode](/sdk/features/offline-mode#python)
 * [Reading flags from a file](/sdk/features/flags-from-files#python)
@@ -255,5 +257,5 @@ This SDK supports the following features:
 * [Shutting down](/sdk/features/shutdown#python)
 * [Storing data](/sdk/features/storing-data#python)
 * [Test data sources](/sdk/features/test-data-sources#python)
-* [User configuration](/sdk/features/user-config#python)
+* [User and context configuration](/sdk/features/user-context-config#python)
 * [Web proxy configuration](/sdk/features/web-proxy#python)

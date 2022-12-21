@@ -10,12 +10,27 @@ tags: ['bandwidth', 'server-side', 'event', 'sdk']
 
 This topic explains how to estimate bandwidth usage for server-side SDKs.
 
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
+
 This topic is for educational purposes only. The numbers below represent a hypothetical deployment and may not apply to your production environment.
 
 The numbers we provide in this topic assume the following about your server-side SDK configuration:
 - You have implemented the SDK correctly. To learn more, read [the reference topic for your SDK](/sdk/server-side).
 - You are using the default SDK configuration. To learn more, read [Configuration](/sdk/features/config).
-- You are following our recommendations for targeting users. To learn more, read [Targeting users with flags](/home/flags/targeting-users).
+- You are following our recommendations for targeting contexts. To learn more, read [Targeting with flags](/home/flags/targeting).
 - There are no network issues inhibiting the SDK from maintaining a long-lived streaming connection with LaunchDarkly.
 
 <Callout intent="info">
@@ -51,7 +66,7 @@ You can fetch the size of your environment payload using the following curl:
 <CodeTabItem value="bash">
 
 ```bash
-curl -sH "Authorization: SDK-KEY" \
+curl -sH "Authorization: sdk-key-123abc" \
 https://sdk.launchdarkly.com/sdk/latest-all | wc -c
 ```
 
@@ -67,7 +82,7 @@ initialization_data_usage =
 
 ### Targeting rule updates
 
-When you make flag targeting changes in the LaunchDarkly user interface or using the API, LaunchDarkly sends those changes to the SDK using the already open streaming connection.
+When you make flag targeting changes in the LaunchDarkly user interface (UI) or using the API, LaunchDarkly sends those changes to the SDK using the already open streaming connection.
 
 The bandwidth required for sending the changes depends on the size of the changes, and how frequently you make them. The smallest change uses around 30 bytes. Because LaunchDarkly sends them over the existing connection, there is no additional overhead.
 
@@ -103,7 +118,7 @@ The estimated bandwidth usage for each of these actions is as follows:
 
 ### Summary and index events
 
-The SDK summarizes most events when it sends them. This means that the SDK sends one `summary` event that contains an array of all flag keys requested since the last flush, and then one `index` event for each user encountered during this period.
+The SDK summarizes most events when it sends them. This means that the SDK sends one `summary` event that contains an array of all flag keys requested since the last flush, and then one `index` event for each context encountered during this period.
 
 <Callout intent="info">
 <CalloutTitle>Data Export and Experimentation events use more bandwidth</CalloutTitle>
@@ -118,9 +133,22 @@ The overhead for the request is two bytes.
 
 The `summary` event has an overhead of 34 bytes, plus three bytes per flag requested.
 
-The SDK sends an `index` event once for each user the SDK encounters during the five second polling interval. `index` events have an overhead of 49 bytes. If the user has custom attributes, then the overhead increases to 59 bytes.
+The SDK sends an `index` event once for each context the SDK encounters during the five second polling interval. `index` events have an overhead of 49 bytes. If the context has custom attributes, then the overhead increases to 59 bytes.
 
-The size of the `index` event is dependent on the user attributes. The overhead per attribute is four bytes. The size per attribute is equal to the size of the key, plus the size of the value of the attribute. The size of the value of an attribute can be difficult to approximate because the different types of attributes can be vastly different sizes. For example, arrays are much larger than single values, such as numbers and strings.
+The size of the `index` event is dependent on the context attributes, and whether the event was generated by a single context or a multi-context. The overhead per attribute is four bytes. The size per attribute is equal to the size of the key, plus the size of the value of the attribute. The size of the value of an attribute can be difficult to approximate because the different types of attributes can be vastly different sizes. For example, arrays are much larger than single values, such as numbers and strings.
+
+<Callout intent="info">
+<CalloutTitle>Use these request sizes as guidelines only</CalloutTitle>
+<CalloutDescription>
+
+The overhead size of `summary` and `index` events varies based on contexts and context kinds.
+
+Each `summary` event includes an array of `contextKinds` to indicate which context kinds have been used to evaluate each flag. The size of this array varies based on the number of different context kinds you use in your app. The overhead of the `index` event increases slightly if the event records a multi-context, rather than a single context.
+
+The event sizes listed here are good guidelines, but may not match the exact number of bytes sent by events from your application.
+
+</CalloutDescription>
+</Callout>
 
 Here is the calculation you can use to estimate bandwidth usage for `summary` and `index` events:
 
@@ -130,7 +158,7 @@ summary_index_event_usage =
 (34 bytes summary_overhead + (3 * number_of_flags)) +
 ((59 bytes index_overhead +
   (number_of_attributes * (average_attribute_size + 4)) *
-  (number_of_users))
+  (number_of_contexts))
 ) *
 (number_of_minutes_active / 5)
 ```
@@ -147,7 +175,7 @@ total_event_usage =
 (34 bytes summary_overhead + (3 * number_of_flags)) +
 ((59 bytes index_overhead +
   (number_of_attributes * (average_attribute_size + 4)) *
-  (number_of_users))
+  (number_of_contexts))
 ) *
 (number_of_minutes_active / 5)
 ```

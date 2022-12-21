@@ -45,7 +45,7 @@ If there are multiple instances of your application configured in this way with 
 
 This is similar to the previous configuration, except that the SDK does not connect to LaunchDarkly at all. Instead, it relies on some other process which _does_ have a LaunchDarkly connection to write the latest flag data to the database, where the SDK will then read it.
 
-The other process could be the Relay Proxy in offline or daemon mode, or any other application that creates a SDK client with the same persistent store. To learn more about the Relay Proxy, read [The Relay Proxy](/home/relay-proxy).
+The other process could be the Relay Proxy in offline or daemon mode, or any other application that creates an SDK client with the same persistent store. To learn more about the Relay Proxy, read [The Relay Proxy](/home/relay-proxy).
 
 The Relay Proxy is also known as the LaunchDarkly Daemon, so some versions of the SDKs refer to this mode as "LDD mode." Creating the client is the same as above in terms of specifying the persistent store, but you must also add an option to make the SDK _not_ connect to LaunchDarkly.
 
@@ -170,7 +170,7 @@ To use a persistent feature store while connecting to LaunchDarkly:
 LdOptions = #{
   feature_store => your_feature_store
 },
-ldclient:start_instance("your_sdk_key", LdOptions).
+ldclient:start_instance("sdk-key-123abc", LdOptions).
 ```
 
 </CodeTabItem>
@@ -190,11 +190,29 @@ To use a persistent feature store while connecting to LaunchDarkly:
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', }
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 
 <CodeTabItem value="go">
+
+```go
+import (
+    ld "github.com/launchdarkly/go-server-sdk/v6"
+    "github.com/launchdarkly/go-server-sdk/v6/ldcomponents"
+    examplepackage "github.com/launchdarkly/go-server-sdk-some-example-database"
+)
+
+var config ld.Config
+config.DataStore = ldcomponents.PersistentDataStore(
+    examplepackage.DataStore().SomeStoreOptions(),
+)
+client := ld.MakeCustomClient(sdkKey, config, waitTime)
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 import (
@@ -213,9 +231,9 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`PersistentDataStore`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#PersistentDataStore).
+To learn more, read [`PersistentDataStore`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6/ldcomponents#PersistentDataStore).
 
-To use a persistent feature store without connecting to LaunchDarkly, use `PersistentDataStore()` as above, and then use [`ExternalUpdatesOnly()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents#ExternalUpdatesOnly) to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#go).
+To use a persistent feature store without connecting to LaunchDarkly, use `PersistentDataStore()` as above, and then use [`ExternalUpdatesOnly()`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6/ldcomponents#ExternalUpdatesOnly) to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#go).
 </Details>
 
 ### Haskell
@@ -242,7 +260,7 @@ import LaunchDarkly.Server
 main = do
     backend <- makeYourBackendInterface
 
-    let config = configSetStoreBackend backend $ makeConfig "your_sdk_key"
+    let config = configSetStoreBackend backend $ makeConfig "sdk-key-123abc"
 
     client <- makeClient config
 ```
@@ -287,7 +305,7 @@ LDClient client = new LDClient(sdkKey, config);
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`Components.persistentDataStore`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/Components.html#persistentDataStore-com.launchdarkly.sdk.server.interfaces.PersistentDataStoreFactory-).
+To learn more, read [`Components.persistentDataStore`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/Components.html#persistentDataStore(com.launchdarkly.sdk.server.subsystems.ComponentConfigurer)).
 
 To use a persistent feature store without connecting to LaunchDarkly, use `persistentDataStore` as above, and then use [`externalUpdatesOnly`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/Components.html#externalUpdatesOnly--m) to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#java).
 </Details>
@@ -315,7 +333,7 @@ local l = require("launchdarkly_server_sdk")
 local backend = makeYourBackendInterface()
 
 local c = l.clientInit({
-    key                 = "your_sdk_key",
+    key                 = "sdk-key-123abc",
     featureStoreBackend = backend
 )}
 ```
@@ -351,7 +369,7 @@ const store = SomeKindOfFeatureStore(storeOptions);
 const options = {
   featureStore: store
 };
-const client = ld.init('YOUR_SDK_KEY', config);
+const client = ld.init('sdk-key-123abc', options);
 ```
 
 </CodeTabItem>
@@ -365,7 +383,7 @@ const store = SomeKindOfFeatureStore(storeOptions);
 const options: ld.LDOptions = {
   featureStore: store,
 };
-const client = ld.init('YOUR_SDK_KEY', config);
+const client = ld.init('sdk-key-123abc', options);
 ```
 
 </CodeTabItem>
@@ -397,7 +415,7 @@ To read from a persistent feature store without connecting to LaunchDarkly:
 <CodeTabItem value="php">
 
 ```php
-$client = new LaunchDarkly\LDClient("your_sdk_key", [
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", [
     'feature_requester' => LaunchDarkly\Integrations\NameOfDatabase::featureRequester()
 ]);
 ```
@@ -406,7 +424,7 @@ $client = new LaunchDarkly\LDClient("your_sdk_key", [
 <CodeTabItem value="php34">
 
 ```php
-$client = new LaunchDarkly\LDClient("your_sdk_key", [
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", [
     'feature_requester_class' => 'LaunchDarkly\NameOfDatabaseFeatureRequester'
 ]);
 ```

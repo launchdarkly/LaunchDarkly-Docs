@@ -55,7 +55,7 @@ To connect the SDK to the Relay Proxy, use the `ServiceEndpoints` builder method
 <CodeTabItem value="csharp">
 
 ```csharp
-var config = Configuration.Builder("YOUR_MOBILE_KEY")
+var config = Configuration.Builder("mobile-key-123abc")
     .ServiceEndpoints(Components.ServiceEndpoints()
       .RelayProxy("https://your-relay-proxy.com:8030"))
     .Build();
@@ -82,7 +82,7 @@ To connect the SDK to the Relay Proxy, use the `streamUri`, `pollUri`, and `even
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
-  .mobileKey("YOUR_MOBILE_KEY")
+  .mobileKey("mobile-key-123abc")
   .streamUri(Uri.parse("https://your-relay-proxy.com:8030"))
   .pollUri(Uri.parse("https://your-relay-proxy.com:8030"))
   .eventsUri(Uri.parse("https://your-relay-proxy.com:8030"))
@@ -95,7 +95,7 @@ LDConfig ldConfig = new LDConfig.Builder()
 ```kotlin
 
 val ldConfig: LDConfig = LDConfig.Builder()
-  .setMobileKey("YOUR_MOBILE_KEY")
+  .setMobileKey("mobile-key-123abc")
   .streamUri(Uri.parse("https://your-relay-proxy.com:8030"))
   .pollUri(Uri.parse("https://your-relay-proxy.com:8030"))
   .eventsUri(Uri.parse("https://your-relay-proxy.com:8030"))
@@ -161,7 +161,7 @@ To connect the SDK to the Relay Proxy, use the `streamUri`, `pollUri`, and `even
 <CodeTabItem value="dart">
 
 ```dart
-LDConfig ldConfig = LDConfigBuilder("YOUR_MOBILE_KEY")
+LDConfig ldConfig = LDConfigBuilder("mobile-key-123abc")
   .streamUri("https://your-relay-proxy.com:8030")
   .pollUri("https://your-relay-proxy.com:8030")
   .eventsUri("https://your-relay-proxy.com:8030")
@@ -188,7 +188,7 @@ To connect the SDK to the Relay Proxy, set the `streamUrl`, `baseUrl`, and `even
 <CodeTabItem value="swift">
 
 ```swift
-var ldConfig = LDConfig(mobileKey: "YOUR_MOBILE_KEY")
+var ldConfig = LDConfig(mobileKey: "mobile-key-123abc")
 ldConfig.streamUrl = URL(string: "https://your-relay-proxy.com:8030")
 ldConfig.baseUrl = URL(string: "https://your-relay-proxy.com:8030")
 ldConfig.eventsUrl = URL(string: "https://your-relay-proxy.com:8030")
@@ -198,7 +198,7 @@ ldConfig.eventsUrl = URL(string: "https://your-relay-proxy.com:8030")
 <CodeTabItem value="objc">
 
 ```objectivec
-LDConfig *ldConfig = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
+LDConfig *ldConfig = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 ldConfig.streamUrl = URL(string: "https://your-relay-proxy.com:8030")
 ldConfig.baseUrl = URL(string: "https://your-relay-proxy.com:8030")
 ldConfig.eventsUrl = URL(string: "https://your-relay-proxy.com:8030")
@@ -307,7 +307,7 @@ To connect the SDK to the Relay Proxy, set the `streamUri`, `pollUri`, and `even
 
 ```js
 let config = {
-  mobileKey: 'YOUR_MOBILE_KEY',
+  mobileKey: 'mobile-key-123abc',
   streamUri: 'https://your-relay-proxy.com:8030',
   pollUri: 'https://your-relay-proxy.com:8030',
   eventsUri: 'https://your-relay-proxy.com:8030',
@@ -321,7 +321,7 @@ let config = {
 import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
 
 let config: ld.LDConfig = {
-  mobileKey: 'YOUR_MOBILE_KEY',
+  mobileKey: 'mobile-key-123abc',
   streamUri: 'https://your-relay-proxy.com:8030',
   pollUri: 'https://your-relay-proxy.com:8030',
   eventsUri: 'https://your-relay-proxy.com:8030',
@@ -348,10 +348,10 @@ To connect the SDK to the Relay Proxy, use the `setStreamURI`, `setAppURI`, and 
 
 ```brightscript
 REM for a legacy Roku application
-config = LaunchDarklyConfig("YOUR_MOBILE_KEY")
+config = LaunchDarklyConfig("mobile-key-123abc")
 
 REM for a SceneGraph Roku Application
-config = LaunchDarklyConfig("YOUR_MOBILE_KEY", CLIENT_SCENEGRAPH_NODE)
+config = LaunchDarklyConfig("mobile-key-123abc", CLIENT_SCENEGRAPH_NODE)
 
 config.setStreamURI("https://your-relay-proxy.com:8030")
 config.setAppURI("https://your-relay-proxy.com:8030")
@@ -378,6 +378,7 @@ This feature is available for the following server-side SDKs:
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
+* [Rust](#rust)
 
 ### .NET (server-side)
 
@@ -395,7 +396,7 @@ To connect the SDK to the Relay Proxy, use the `ServiceEndpoints` builder method
 <CodeTabItem value="csharp">
 
 ```csharp
-var config = Configuration.Builder("YOUR_SDK_KEY")
+var config = Configuration.Builder("sdk-key-123abc")
     .ServiceEndpoints(Components.ServiceEndpoints()
       .RelayProxy("https://your-relay-proxy.com:8030"))
     .Build();
@@ -408,7 +409,7 @@ var config = Configuration.Builder("YOUR_SDK_KEY")
 // depending on which services you were actually using. To use the Relay
 // Proxy in proxy mode for both streaming and events:
 
-var config = Configuration.Builder("YOUR_SDK_KEY")
+var config = Configuration.Builder("sdk-key-123abc")
     .DataSource(Components.StreamingDataSource()
        .BaseUri("https://your-relay-proxy.com:8030"))
     .Events(Components.SendEvents()
@@ -418,7 +419,7 @@ var config = Configuration.Builder("YOUR_SDK_KEY")
 // Alternatively, if you are using the Relay Proxy in proxy mode for streaming,
 // but want to send events directly to LaunchDarkly, use:
 
-var config = Configuration.Builder("YOUR_SDK_KEY")
+var config = Configuration.Builder("sdk-key-123abc")
     .DataSource(Components.StreamingDataSource()
       .BaseUri("https://your-relay-proxy.com:8030"))
     .Build();
@@ -443,7 +444,7 @@ To connect the SDK to the Relay Proxy, use `LDConfigSetStreamURI`, `LDConfigSetB
 <CodeTabItem value="c">
 
 ```c
-struct LDConfig *config = LDConfigNew("YOUR_SDK_KEY");
+struct LDConfig *config = LDConfigNew("sdk-key-123abc");
 LDConfigSetStreamURI(config, "https://your-relay-proxy.com:8030");
 LDConfigSetBaseURI(config, "https://your-relay-proxy.com:8030");
 LDConfigSetEventsURI(config, "https://your-relay-proxy.com:8030");
@@ -468,7 +469,7 @@ To connect the SDK to the Relay Proxy, set the `stream_uri`, `base_uri`, and `ev
 <CodeTabItem value="erlang">
 
 ```
-ldclient:start_instance("YOUR_SDK_KEY", #{
+ldclient:start_instance("sdk-key-123abc", #{
   stream_uri => "https://your-relay-proxy.com:8030",
   base_uri => "https://your-relay-proxy.com:8030",
   events_uri => "https://your-relay-proxy.com:8030"
@@ -565,7 +566,7 @@ import LaunchDarkly.Server.Config
 import Data.Function ((&))
 
 config :: Config
-config = (makeConfig "YOUR_SDK_KEY")
+config = (makeConfig "sdk-key-123abc")
     & configSetStreamURI "https://your-relay-proxy.com:8030"
     & configSetBaseURI "https://your-relay-proxy.com:8030"
     & configSetEventsURI "https://your-relay-proxy.com:8030"
@@ -640,7 +641,7 @@ To connect the SDK to the Relay Proxy, set the `streamURI`, `baseURI`, and `even
 
 ```lua
 local config = {
-    key = YOUR_SDK_KEY,
+    key = sdk-key-123abc,
     streamURI = "https://your-relay-proxy.com:8030",
     baseUri = "https://your-relay-proxy.com:8030",
     eventsURI = "https://your-relay-proxy.com:8030",
@@ -708,7 +709,7 @@ To connect the SDK to the Relay Proxy, set the `base_uri` and `events_uri` prope
 <CodeTabItem value="php">
 
 ```php
-$client = new LaunchDarkly\LDClient("YOUR_SDK_KEY",
+$client = new LaunchDarkly\LDClient("sdk-key-123abc",
     [ "base_uri" => "https://your-relay-proxy.com:8030",
       "events_uri" => "https://your-relay-proxy.com:8030" ]);
 ```
@@ -734,7 +735,7 @@ To connect the SDK to the Relay Proxy, set the `stream_uri`, `base_uri`, and `ev
 <CodeTabItem value="python">
 
 ```py
-config = Config(sdk_key='YOUR_SDK_KEY',
+config = Config(sdk_key='sdk-key-123abc',
   stream_uri="https://your-relay-proxy.com:8030",
   base_uri="https://your-relay-proxy.com:8030",
   events_uri="https://your-relay-proxy.com:8030")
@@ -767,4 +768,31 @@ config = LaunchDarkly::Config.new(
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
+
+### Rust
+
+<Details summary="Expand Rust code sample">
+
+To connect the SDK to the Relay Proxy, use the `ConfigBuilder` and `ServiceEndpointsBuilder` to specify the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+let config = ConfigBuilder::new("sdk-key-123abc")
+    .service_endpoints(
+        ServiceEndpointsBuilder::new().relay_proxy("https://your-relay-proxy.com:8030"),
+    )
+    .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 </Details>

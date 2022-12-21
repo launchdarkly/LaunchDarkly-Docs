@@ -6,6 +6,19 @@ tags: ['node', 'node.js', 'sdk', 'server-side']
 published: true
 ---
 
+<Callout intent="info">
+<CalloutTitle>Version 7 of the Node.js (server-side) SDK replaces users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
+
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [Node.js (server-side) 6.x to 7.0 migration guide](/sdk/server-side/node-js/migration-6-to-7).
+
+</CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic documents how to get started with the server-side Node.js SDK, and links to reference information on all of the supported features.
@@ -120,7 +133,7 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
-const client = ld.init('YOUR_SDK_KEY');
+const client = ld.init('sdk-key-123abc');
 ```
 
 </CodeTabItem>
@@ -130,34 +143,39 @@ const client = ld.init('YOUR_SDK_KEY');
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `LDClient` a singleton. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `LDClient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows us to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
 
 The client emits a `ready` event when you initialize it and it can serve feature flags.
 
-Using `client`, you can check which variation a particular user will receive for a given feature flag. The `ready` event is only emitted once, when you first initialize the client. In a production application, place your `client.variation` code so that it is invoked as needed.
+Using `client`, you can check which variation a particular context will receive for a given feature flag. The `ready` event is only emitted once, when you first initialize the client. In a production application, place your `client.variation` code so that it is invoked as needed.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
+    { label: 'JavaScript, SDK v7', value: 'js', },
+    { label: 'TypeScript, SDK v7', value: 'ts', },
+    { label: 'JavaScript, SDK v6.x', value: 'js-old', },
+    { label: 'TypeScript, SDK v6.x', value: 'ts-old', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const user = {
-   "key": "example-user-key",
-   "name": "Sandy"
+const context = {
+   "kind": 'user',
+   "key": 'user-key-123abc',
+   "name": 'Sandy'
 };
 
 client.once('ready', () => {
-  client.variation('YOUR_FLAG_KEY', user, false,
+  client.variation('flag-key-123abc', context, false,
     (err, showFeature) => {
       if (showFeature) {
         // application code to show the feature
@@ -172,14 +190,15 @@ client.once('ready', () => {
 <CodeTabItem value="ts">
 
 ```ts
-const user = {
-   "name": "Sandy",
-   "key": "example-user-key"
+const context = {
+   "kind": 'user',
+   "key": 'user-key-123abc',
+   "name": 'Sandy',
 };
 
 client.on('ready', () => {
-  client.variation(YOUR_FLAG_KEY, user, false, function(err, showFeature) {
-    client.track("event-called", user);
+  client.variation('flag-key-123abc', context, false, function(err, showFeature) {
+    client.track('event-called', context);
     if (showFeature) {
       // application code to show the feature
     } else {
@@ -190,6 +209,51 @@ client.on('ready', () => {
 ```
 
 </CodeTabItem>
+
+<CodeTabItem value="js-old">
+
+```js
+const user = {
+   "key": 'user-key-123abc',
+   "name": 'Sandy'
+};
+
+client.once('ready', () => {
+  client.variation('flag-key-123abc', user, false,
+    (err, showFeature) => {
+      if (showFeature) {
+        // application code to show the feature
+      } else {
+        // the code to run if the feature is off
+      }
+    });
+});
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts-old">
+
+```ts
+const user = {
+   "key": 'user-key-123abc',
+   "name": 'Sandy'
+};
+
+client.on('ready', () => {
+  client.variation('flag-key-123abc', user, false, function(err, showFeature) {
+    client.track("event-called", user);
+    if (showFeature) {
+      // application code to show the feature
+    } else {
+      // the code to run if the feature is off
+    }
+  });
+});
+
+```
+</CodeTabItem>
+
 </CodeTabs>
 
 ## Promises and async
@@ -201,20 +265,22 @@ Here is an example:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
+    { label: 'JavaScript, SDK v7', value: 'js', },
+    { label: 'TypeScript, SDK v7', value: 'ts', },
+    { label: 'JavaScript, SDK v6.x', value: 'js-old', },
+    { label: 'TypeScript, SDK v6.x', value: 'ts-old', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 // Using the .then() method to add a continuation handler for a Promise
-client.variation('YOUR_FLAG_KEY', user, false).then((value) => {
+client.variation('flag-key-123abc', context, false).then((value) => {
   // application code
 });
 
 // Using "await" instead, within an async function
-const value = await client.variation('YOUR_FLAG_KEY', user, false);
+const value = await client.variation('flag-key-123abc', context, false);
 ```
 
 </CodeTabItem>
@@ -222,12 +288,42 @@ const value = await client.variation('YOUR_FLAG_KEY', user, false);
 
 ```ts
 // Using the .then() method to add a continuation handler for a Promise
-client.variation('YOUR_FLAG_KEY', user, false).then((value) => {
+client.variation('flag-key-123abc', context, false).then((value) => {
   // application code
 });
 
 // Using "await" instead, within an async function
-const value = await client.variation('YOUR_FLAG_KEY', user, false);
+const value = await client.variation('flag-key-123abc', context, false);
+
+// In both cases, you can cast "value" to a boolean, number, or string,
+// rather than using the LDFlagValue type,
+// if you know the type of your flag variations
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-old">
+
+```js
+// Using the .then() method to add a continuation handler for a Promise
+client.variation('flag-key-123abc', user, false).then((value) => {
+  // application code
+});
+
+// Using "await" instead, within an async function
+const value = await client.variation('flag-key-123abc', user, false);
+
+```
+</CodeTabItem>
+<CodeTabItem value="ts-old">
+
+```ts
+// Using the .then() method to add a continuation handler for a Promise
+client.variation('flag-key-123abc', user, false).then((value) => {
+  // application code
+});
+
+// Using "await" instead, within an async function
+const value = await client.variation('flag-key-123abc', user, false);
 
 // In both cases, you can cast "value" to a boolean, number, or string,
 // rather than using the LDFlagValue type,
@@ -277,7 +373,6 @@ Lastly, shut down the client when your application terminates. To learn more, re
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#nodejs-server-side)
 * [Big Segments](/sdk/features/big-segments#nodejs-server-side)
 * [Bootstrapping](/sdk/features/bootstrapping)
 * [Configuration](/sdk/features/config#nodejs-server-side)
@@ -285,7 +380,7 @@ This SDK supports the following features:
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#nodejs-server-side)
 * [Flushing events](/sdk/features/flush#nodejs-server-side)
 * [Getting all flags](/sdk/features/all-flags#nodejs-server-side)
-* [Identifying and changing users](/sdk/features/identify#nodejs-server-side)
+* [Identifying and changing contexts](/sdk/features/identify#nodejs-server-side)
 * [Logging configuration](/sdk/features/logging#nodejs-server-side)
 * [Offline mode](/sdk/features/offline-mode#nodejs-server-side)
 * [Reading flags from a file](/sdk/features/flags-from-files#nodejs-server-side)
@@ -299,5 +394,5 @@ This SDK supports the following features:
 * [Storing data](/sdk/features/storing-data#nodejs-server-side)
 * [Subscribing to flag changes](/sdk/features/flag-changes#nodejs-server-side)
 * [Test data sources](/sdk/features/test-data-sources#nodejs-server-side)
-* [User configuration](/sdk/features/user-config#nodejs-server-side)
+* [User and context configuration](/sdk/features/user-context-config#nodejs-server-side)
 * [Web proxy configuration](/sdk/features/web-proxy#nodejs-server-side)

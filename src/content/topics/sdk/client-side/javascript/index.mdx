@@ -6,6 +6,19 @@ tags: ['javascript', 'js sdk', 'js', 'sdk', 'client-side']
 published: true
 ---
 
+<Callout intent="info">
+<CalloutTitle>Version 3 of the JavaScript SDK replaces users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
+
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [JavaScript SDK 2.x to 3.0 migration guide](/sdk/client-side/javascript/migration-2-to-3).
+
+</CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic documents how to get started with the client-side JavaScript SDK, and links to reference information on all of the supported features.
@@ -83,7 +96,7 @@ The standard solution for ensuring that you will get the same functionality even
 <CalloutTitle>Do Not Track and ad blocking software</CalloutTitle>
 <CalloutDescription>
 
-The JavaScript SDK respects the [Do Not Track events](https://www.eff.org/issues/do-not-track) header. If an end-user has Do Not Track enabled in their browser, the SDK does not send analytics events for flag evaluations or goals. In addition, ad-blocking software may block analytics events from being sent. This does not impact feature flag evaluations. To learn more about the events SDKs send to LaunchDarkly, read [Analytics events](/sdk/concepts/events).
+The JavaScript SDK respects the [Do Not Track events](https://www.eff.org/issues/do-not-track) header. If an end user has Do Not Track enabled in their browser, the SDK does not send analytics events for flag evaluations or goals. In addition, ad-blocking software may block analytics events from being sent. This does not impact feature flag evaluations. To learn more about the events SDKs send to LaunchDarkly, read [Analytics events](/sdk/concepts/events).
 
 </CalloutDescription>
 </Callout>
@@ -124,7 +137,7 @@ yarn add launchdarkly-js-client-sdk
 
 ```bash
 # LaunchDarkly's JS SDK script is copied from unpkg in this example
-bower install https://unpkg.com/launchdarkly-js-client-sdk@2
+bower install https://unpkg.com/launchdarkly-js-client-sdk@3
 ```
 
 </CodeTabItem>
@@ -132,7 +145,7 @@ bower install https://unpkg.com/launchdarkly-js-client-sdk@2
 
 If you are using a package manager, and combining dependencies with your code using a tool such as Webpack, there are various ways to import the JavaScript SDK into your code.
 
-Here are two examples in commonly used frameworks:
+Here are some examples in commonly used frameworks:
 
 <CodeTabs
   defaultValue="js"
@@ -161,7 +174,7 @@ In earlier versions of the SDK, the package was named `ldclient-js` instead of `
 
 ### Making the SDK available with a script tag
 
-To load our JavaScript SDK as a script tag, include one of the following in the `<head>` tag of your site on any pages where you need feature flags or want to track A/B testing goals.
+To load the JavaScript SDK as a script tag, include one of the following in the `<head>` tag of your site on any pages where you need feature flags or want to track metrics for Experimentation.
 
 <Callout intent="alert">
 <CalloutTitle>Do not use script tags from unpkg or jsDelivr in production</CalloutTitle>
@@ -235,46 +248,71 @@ Client-side IDs are not secret and you can expose them in your client-side code 
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `LDClient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
 
 In practice, you should templatize your client-side ID so that you can use the same initialization code when you switch between development, QA, and production environments.
 
-Feature flag targeting and rollouts are determined by the user viewing the page. You must pass a user context to the SDK during initialization before requesting any feature flags with `variation`. If you fail to pass a valid user context to the SDK during initialization, you will receive a 400 error.
+Feature flag targeting and rollouts are determined by the end user viewing the page. You must pass a context to the SDK during initialization before requesting any feature flags with `variation`. If you fail to pass a valid context to the SDK during initialization, you will receive a 400 error.
 
 Here is an example showing how to initialize the client:
 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
+    { label: 'JavaScript SDK v3 (JavaScript)', value: 'js', },
+    { label: 'JavaScript SDK v3 (TypeScript)', value: 'ts'},
+    { label: 'JavaScript SDK v2.x (JavaScript)', value: 'js-v2', },
+    { label: 'JavaScript SDK v2.x (TypeScript)', value: 'ts-v2'},
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-const user = {
-  key: 'aa0ceb'
+const context = {
+  kind: 'user',
+  key: 'context-key-123abc'
 };
-const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
+const client = LDClient.initialize('client-side-id-123abc', context);
 ```
 
 </CodeTabItem>
 <CodeTabItem value="ts">
 
 ```ts
-const user: LDClient.LDUser = {
-  key: 'aa0ceb'
+const context: LDClient.LDContext = {
+  kind: 'user',
+  key: 'context-key-123abc'
 };
-const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
+const client = LDClient.initialize('client-side-id-123abc', context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-v2">
+
+```js
+const user = {
+  key: 'user-key-123abc'
+};
+const client = LDClient.initialize('client-side-id-123abc', user);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts-v2">
+
+```ts
+const user: LDClient.LDUser = {
+  key: 'user-key-123abc'
+};
+const client = LDClient.initialize('client-side-id-123abc', user);
 ```
 
 </CodeTabItem>
 </CodeTabs>
-
 
 <Callout intent="info">
 <CalloutTitle>Initialization delay</CalloutTitle>
@@ -303,7 +341,7 @@ Here's how:
 ```js
 client.on('ready', () => {
   // initialization succeeded, flag values are now available
-  const flagValue = client.variation('YOUR_FEATURE_KEY', false);
+  const flagValue = client.variation('flag-key-123abc', false);
   // etc.
 });
 ```
@@ -314,9 +352,9 @@ client.on('ready', () => {
 ```ts
 client.on('ready', () => {
   // initialization succeeded, flag values are now available
-  const boolFlagValue = client.variation('YOUR_FEATURE_KEY', false) as boolean;
-  const numberFlagValue = client.variation('YOUR_FEATURE_KEY', 2) as number;
-  const stringFlagValue = client.variation('YOUR_FEATURE_KEY', 'default') as string;
+  const boolFlagValue = client.variation('flag-key-123abc', false) as boolean;
+  const numberFlagValue = client.variation('flag-key-123abc', 2) as number;
+  const stringFlagValue = client.variation('flag-key-123abc', 'default') as string;
   // etc.
 });
 ```
@@ -325,7 +363,7 @@ client.on('ready', () => {
 </CodeTabs>
 
 <Callout intent="info">
-<CalloutTitle>Streaming Updates</CalloutTitle>
+<CalloutTitle>Streaming updates</CalloutTitle>
 <CalloutDescription>
 
 The SDK does not subscribe to streaming real-time updates automatically when you initialize it. This means subscribing to the SDK's `change` event by calling `.on('change').` causes the SDK to open a streaming connection to LaunchDarkly. This is the only way to receive realtime updates.
@@ -395,7 +433,7 @@ The SDK only decides initialization has failed if it receives an error response 
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
 <CalloutDescription>
 
-You must make feature flags available to client-side SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
+You must make feature flags available to client-side SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the end user will receive the default value for that flag.
 
 To make a flag available to this SDK, check the **SDKs using Client-side ID** checkbox during flag creation, or on the flag's **Settings** tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [Settings](https://app.launchdarkly.com/settings/projects).
 
@@ -408,14 +446,14 @@ Lastly, shut down the client when your application terminates. To learn more, re
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#javascript)
 * [Bootstrapping](/sdk/features/bootstrapping#javascript)
 * [Configuration](/sdk/features/config#javascript)
 * [Evaluating flags](/sdk/features/evaluating#javascript)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#javascript)
 * [Flushing events](/sdk/features/flush#javascript)
 * [Getting all flags](/sdk/features/all-flags#javascript)
-* [Identifying and changing users](/sdk/features/identify#javascript)
+* [Identifying and changing contexts](/sdk/features/identify#javascript)
+* [Inspectors](/sdk/features/inspectors#javascript)
 * [Logging](/sdk/features/logging#javascript)
 * [Relay Proxy configuration, using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#javascript)
 * [Secure mode](/sdk/features/secure-mode#configuring-secure-mode-in-the-javascript-client-side-sdk)
@@ -423,4 +461,4 @@ This SDK supports the following features:
 * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#javascript)
 * [Shutting down](/sdk/features/shutdown#javascript)
 * [Subscribing to flag changes](/sdk/features/flag-changes#javascript)
-* [User configuration](/sdk/features/user-config#javascript)
+* [User and context configuration](/sdk/features/user-context-config#javascript)

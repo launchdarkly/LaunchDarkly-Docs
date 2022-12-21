@@ -48,3 +48,13 @@ The other process could be the Relay Proxy in offline or daemon mode, or any oth
 Because the Relay Proxy is also known as the LaunchDarkly Daemon, some versions of the SDKs refer to this mode as "LDD mode." Creating the client is the same as above in terms of specifying the persistent store, but you must also add an option to make the SDK _not_ connect to LaunchDarkly.
 
 For code samples for specific SDKs, read [Storing data](/sdk/features/storing-data).
+
+## Initialization when working with persistent feature stores
+
+LaunchDarkly SDKs define their initialized state as when the SDK has successfully connected to LaunchDarkly and received an initial set of current flag data. The SDK allows your code to still proceed with using the client if it is not yet in an initialized state, so that your application can start up even if there are problems connecting to LaunchDarkly.
+
+If you are using a persistent feature store, and there are already some flag data in the database, then the SDK will use that last known flag data. However, the last known flag data from the database is not the current flag data, because it is not what's available directly from LaunchDarkly. Therefore, the SDK is technically not initialized.
+
+In this situation, LaunchDarkly logs a warning when your code evaluates a feature flag. The warning message begins with "Feature Flag evaluation attempted before client has initialized - using last known values from feature store for feature key" and includes the flag key. This message confirms that your code is evaluating the feature flag using data from the persistent feature store. You should expect to find this warning in your log repeatedly if you are using a persistent feature store.
+
+If the SDK could also not find any flag data in your feature store, then LaunchDarkly logs a different warning. The warning message begins with "Feature Flag evaluation attempted before client has initialized! Feature store unavailable - returning default" and includes the default value parameter that you passed to the `variation()` call. This message confirms that your code is evaluating the feature flag using the default value.

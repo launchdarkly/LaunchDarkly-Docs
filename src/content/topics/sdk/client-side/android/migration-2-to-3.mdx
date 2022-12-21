@@ -14,8 +14,7 @@ Sections in this topic address different changes and updates between versions 2.
 
 ## Minimum Android API version
 
-The minimum Android API version has increased from 16 (Android Jelly Bean 4.1) to 21 (Android
-Lollipop 5.0).
+The minimum Android API version has increased from 16 (Android Jelly Bean 4.1) to 21 (Android Lollipop 5.0).
 
 ## AndroidX
 
@@ -77,7 +76,7 @@ privateAttributes.add("name");
 privateAttributes.add("group");
 
 LDConfig ldConfig = new LDConfig.Builder()
-    .setMobileKey("YOUR_MOBILE_KEY")
+    .setMobileKey("mobile-key-123abc")
     .setPrivateAttributeNames(privateAttributes)
     .setBaseUri(Uri.parse("https://base.custom_domain.com"))
     .setEventsUri(Uri.parse("https://events.custom_domain.com/mobile"))
@@ -90,7 +89,7 @@ LDConfig ldConfig = new LDConfig.Builder()
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
-    .mobileKey("YOUR_MOBILE_KEY")
+    .mobileKey("mobile-key-123abc")
     .privateAttributes(
         UserAttribute.NAME,
         UserAttribute.forName("group")
@@ -115,7 +114,7 @@ privateAttributes.add("name")
 privateAttributes.add("group")
 
 val ldConfig: LDConfig = LDConfig.Builder()
-    .setMobileKey("YOUR_MOBILE_KEY")
+    .setMobileKey("mobile-key-123abc")
     .setPrivateAttributeNames(privateAttributes)
     .setBaseUri(Uri.parse("https://base.custom_domain.com"))
     .setEventsUri(Uri.parse("https://events.custom_domain.com/mobile"))
@@ -128,7 +127,7 @@ val ldConfig: LDConfig = LDConfig.Builder()
 
 ```kotlin
 val ldConfig: LDConfig = LDConfig.Builder()
-    .mobileKey("YOUR_MOBILE_KEY")
+    .mobileKey("mobile-key-123abc")
     .privateAttributes(
         UserAttribute.NAME,
         UserAttribute.forName("group")

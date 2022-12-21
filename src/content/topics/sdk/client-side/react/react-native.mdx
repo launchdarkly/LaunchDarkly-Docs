@@ -117,7 +117,7 @@ import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
 </CodeTabItem>
 </CodeTabs>
 
-After the SDK is imported, create a single, shared instance of `LDClient`, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the **Environments** tab of your project under [**Account settings**](https://app.launchdarkly.com/settings/projects) page. 
+After the SDK is imported, create a single, shared instance of `LDClient`, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the **Environments** tab of your project under [**Account settings**](https://app.launchdarkly.com/settings/projects) page.
 
 <Callout intent="alert">
 <CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
@@ -132,7 +132,9 @@ Mobile keys are not secret and you can expose them in your client-side code with
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `LDClient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
@@ -150,19 +152,19 @@ The following example shows the simplest way to create a shared instance of `LDC
 
 ```js
 let client = new LDClient();
-let config = { mobileKey: 'YOUR_MOBILE_KEY' };
-let user = { key: 'user_key' };
+let config = { mobileKey: 'mobile-key-123abc' };
+let user = { key: 'user-key-123abc' };
 
 await client.configure(config, user);
 ```
 
 </CodeTabItem>
-<CodeTabItem>
+<CodeTabItem value="ts">
 
 ```ts
 let client = new LDClient();
-let config: ld.LDConfig = { mobileKey: 'YOUR_MOBILE_KEY' };
-let user: ld.LDUser = { key: 'user_key' };
+let config: ld.LDConfig = { mobileKey: 'mobile-key-123abc' };
+let user: ld.LDUser = { key: 'user-key-123abc' };
 
 await client.configure(config, user);
 ```
@@ -185,19 +187,19 @@ Here is an example with a timeout of five seconds:
 
 ```js
 let client = new LDClient();
-let config = { mobileKey: 'YOUR_MOBILE_KEY' };
-let user = { key: 'user_key' };
+let config = { mobileKey: 'mobile-key-123abc' };
+let user = { key: 'user-key-123abc' };
 
 client.configure(config, user, 5.0)
 ```
 
 </CodeTabItem>
-<CodeTabItem>
+<CodeTabItem value="ts">
 
 ```ts
 let client = new LDClient();
-let config: ld.LDConfig = { mobileKey: 'YOUR_MOBILE_KEY' };
-let user: ld.LDUser = { key: 'user_key' };
+let config: ld.LDConfig = { mobileKey: 'mobile-key-123abc' };
+let user: ld.LDUser = { key: 'user-key-123abc' };
 
 client.configure(config, user, 5.0);
 ```
@@ -209,7 +211,7 @@ client.configure(config, user, 5.0);
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
 <CalloutDescription>
 
-You must make feature flags available to mobile SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
+You must make feature flags available to mobile SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, LaunchDarkly serves the default value for that flag.
 
 To make a flag available to this SDK, check the **SDKs using Mobile key** checkbox during flag creation, or on the flag's **Settings** tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Mobile key** checkbox in your project [**Settings**](https://app.launchdarkly.com/settings/projects).
 
@@ -232,13 +234,13 @@ To learn more about data collection within this SDK and implications on submissi
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#react-native)
 * [Configuration](/sdk/features/config#react-native)
 * [Evaluating flags](/sdk/features/evaluating#react-native)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#react-native)
 * [Flushing events](/sdk/features/flush#react-native)
 * [Getting all flags](/sdk/features/all-flags#react-native)
-* [Identifying and changing users](/sdk/features/identify#react-native)
+* [Identifying and changing contexts](/sdk/features/identify#react-native)
+* [Inspectors](/sdk/features/inspectors#react-native)
 * [Monitoring SDK status](/sdk/features/monitoring#react-native)
 * [Offline mode](/sdk/features/offline-mode#react-native)
 * [Relay Proxy configuration, using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#react-native)
@@ -246,4 +248,4 @@ This SDK supports the following features:
 * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#react-native)
 * [Shutting down](/sdk/features/shutdown#react-native)
 * [Subscribing to flag changes](/sdk/features/flag-changes#react-native)
-* [User configuration](/sdk/features/user-config#react-native)
+* [User and context configuration](/sdk/features/user-context-config#react-native)

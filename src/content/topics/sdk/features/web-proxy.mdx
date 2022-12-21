@@ -58,7 +58,7 @@ To configure the client-side .NET SDK to connect to LaunchDarkly through a web p
 var handler = new System.Net.Http.HttpClientHandler();
 handler.Proxy = new System.Net.WebProxy("http://my-proxy-host:8080");
 
-var config = Configuration.Builder("mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .HttpMessageHandler(handler)
     .Build();
 ```
@@ -85,7 +85,7 @@ credentials.Add(proxy.Address, "Basic",
 proxy.Credentials = credentials;
 handler.Proxy = proxy;
 
-var config = Configuration.Builder("mobile-key")
+var config = Configuration.Builder("mobile-key-123abc")
     .HttpMessageHandler(handler)
     .Build();
 ```
@@ -109,7 +109,7 @@ To configure the C/C++ SDK to connect to LaunchDarkly through a web proxy:
 <CodeTabItem value="c">
 
 ```c
-struct LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
+struct LDConfig *config = LDConfigNew("mobile-key-123abc");
 LDConfigSetProxyURI(config, "https://web-proxy.domain.com:8080");
 ```
 
@@ -127,7 +127,7 @@ To configure the client-side C/C++ SDK to connect to LaunchDarkly through a web 
 <CodeTabItem value="c">
 
 ```c
-struct LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
+struct LDConfig *config = LDConfigNew("mobile-key-123abc");
 LDConfigSetProxyURI(config, "https://username:password@web-proxy.domain.com:8080");
 ```
 
@@ -163,7 +163,7 @@ To configure the server-side .NET SDK to connect to LaunchDarkly through a web p
 ```csharp
 var proxy = new System.Net.WebProxy("http://my-proxy-host:8080");
 
-var config = Configuration.Builder("sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .Http(Components.HttpConfiguration().Proxy(proxy))
     .Build();
 ```
@@ -175,7 +175,7 @@ var config = Configuration.Builder("sdk-key")
 var handler = new System.Net.Http.HttpClientHandler();
 handler.Proxy = new System.Net.WebProxy("http://my-proxy-host:8080");
 
-var config = Configuration.Builder("sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .Http(Components.HttpConfiguration().MessageHandler(handler))
     .Build();
 ```
@@ -201,7 +201,7 @@ credentials.Add(proxy.Address, "Basic",
     new NetworkCredential("username", "password"));
 proxy.Credentials = credentials;
 
-var config = Configuration.Builder("sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .Http(Components.HttpConfiguration().Proxy(proxy))
     .Build();
 ```
@@ -218,7 +218,7 @@ credentials.Add(proxy.Address, "Basic",
 proxy.Credentials = credentials;
 handler.Proxy = proxy;
 
-var config = Configuration.Builder("sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .Http(Components.HttpConfiguration().MessageHandler(handler))
     .Build();
 ```
@@ -299,11 +299,25 @@ You can also specify a proxy programmatically through the SDK configuration:
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 4.x and earlier', value: 'go-pre-5.0', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 <CodeTabItem value="go">
+
+```go
+import (
+    ld "github.com/launchdarkly/go-server-sdk/v6"
+    "github.com/launchdarkly/go-server-sdk/v6/ldcomponents"
+)
+
+var config ld.Config
+config.HTTP = ldcomponents.HTTPConfiguration().
+    ProxyURL("https://my-proxy-host:8080")
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 import (
@@ -314,24 +328,6 @@ import (
 var config ld.Config
 config.HTTP = ldcomponents.HTTPConfiguration().
     ProxyURL("https://my-proxy-host:8080")
-```
-
-</CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
-
-```go
-import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-    "gopkg.in/launchdarkly/go-server-sdk.v4/ldhttp"
-)
-
-proxyURL, _ := url.Parse("https://my-proxy-host:8080")
-
-config := ld.DefaultConfig
-config.HTTPClientFactory = ldhttp.NewHTTPClientFactory(
-    ldhttp.ProxyURL(*proxyURL))
-
-// This is supported only in SDK versions 4.14.0 and higher.
 ```
 
 </CodeTabItem>
@@ -354,8 +350,8 @@ To configure the Java SDK to connect to LaunchDarkly through a web proxy:
 
 ```java
 LDConfig config = new LDConfig.Builder()
-    .http(Components.httpConfiguration().proxyHostAndPort("my-proxy-host", 8080))
-    .build();
+  .http(Components.httpConfiguration().proxyHostAndPort("my-proxy-host", 8080))
+  .build();
 ```
 
 </CodeTabItem>
@@ -373,10 +369,10 @@ To configure the Java SDK to connect to LaunchDarkly through a web proxy with au
 
 ```java
 LDConfig config = new LDConfig.Builder()
-    .http(Components.httpConfiguration()
-        .proxyHostAndPort("my-proxy-host", 8080)
-        .proxyAuth(Components.httpBasicAuthentication("username", "password"))
-    .build();
+  .http(Components.httpConfiguration()
+    .proxyHostAndPort("my-proxy-host", 8080)
+    .proxyAuth(Components.httpBasicAuthentication("username", "password"))
+  .build();
 ```
 
 </CodeTabItem>

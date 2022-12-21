@@ -667,6 +667,10 @@
               {
                 "label": "Using flag triggers with Datadog",
                 "path": "/integrations/datadog/triggers"
+              },
+              {
+                "label": "Using the Datadog RUM integration",
+                "path": "/integrations/datadog/rum"
               }
             ]
           },
@@ -833,6 +837,10 @@
           {
             "label": "Ansible Collection",
             "path": "/integrations/ansible"
+          },
+          {
+            "label": "AWS CloudWatch RUM",
+            "path": "/integrations/aws-cloudwatch-rum"
           },
           {
             "label": "Azure DevOps",
@@ -1007,6 +1015,10 @@
             "path": "/sdk/features/config",
             "items": [
               {
+                "label": "Application metadata configuration",
+                "path": "/sdk/features/app-config"
+              },
+              {
                 "label": "Service endpoint configuration",
                 "path": "/sdk/features/service-endpoint-configuration"
               }
@@ -1029,9 +1041,13 @@
             "path": "/sdk/features/all-flags"
           },
           {
-            "label": "Identifying and changing users",
+            "label": "Identifying and changing contexts",
             "path": "/sdk/features/identify"
           },
+          {
+            "label": "Inspectors",
+            "path": "/sdk/features/inspectors"
+          },          
           {
             "label": "Logging configuration",
             "path": "/sdk/features/logging"
@@ -1105,8 +1121,8 @@
             "path": "/sdk/features/test-data-sources"
           },
           {
-            "label": "User configuration",
-            "path": "/sdk/features/user-config"
+            "label": "User and context configuration",
+            "path": "/sdk/features/user-context-config"
           },
           {
             "label": "Web proxy configuration",
@@ -1134,6 +1150,10 @@
             "label": "Android SDK reference",
             "path": "/sdk/client-side/android",
             "items": [
+              {
+                "label": "Android SDK 3.x to 4.0 migration guide",
+                "path": "/sdk/client-side/android/migration-3-to-4"
+              },
               {
                 "label": "Android SDK 2.x to 3.0 migration guide",
                 "path": "/sdk/client-side/android/migration-2-to-3"
@@ -1165,16 +1185,20 @@
             "path": "/sdk/client-side/ios",
             "items": [
               {
+                "label": "iOS SDK 7.x to 8.0 migration guide for Swift",
+                "path": "/sdk/client-side/ios/migration-7-to-8-swift"
+              },
+              {
+                "label": "iOS SDK 7.x to 8.0 migration guide for Objective-C",
+                "path": "/sdk/client-side/ios/migration-7-to-8-objc"
+              },
+              {
                 "label": "iOS SDK 5.x to 6.0 migration guide for Swift",
                 "path": "/sdk/client-side/ios/migration-5-to-6-swift"
               },
               {
                 "label": "iOS SDK 5.x to 6.0 migration guide for Objective-C",
                 "path": "/sdk/client-side/ios/migration-5-to-6-objc"
-              },
-              {
-                "label": "iOS SDK 4.x to 5.0 migration guide",
-                "path": "/sdk/client-side/ios/migration-4-to-5"
               }
             ]
           },
@@ -1185,6 +1209,10 @@
               {
                 "label": "Default values on page load",
                 "path": "/sdk/client-side/javascript/default-values"
+              },
+              {
+                "label": "JavaScript SDK 2.x to 3.0 migration guide",
+                "path": "/sdk/client-side/javascript/migration-2-to-3"
               },
               {
                 "label": "Requirements and polyfills",
@@ -1210,6 +1238,10 @@
               {
                 "label": "React Web SDK reference",
                 "path": "/sdk/client-side/react/react-web"
+              },
+              {
+                "label": "React Web SDK 2.x to 3.0 migration guide",
+                "path": "/sdk/client-side/react/web-migration-2-to-3"
               },
               {
                 "label": "React Native SDK reference",
@@ -1242,6 +1274,10 @@
             "svg": "dotnet",
             "items": [
               {
+                "label": ".NET (server-side) SDK 6.x to 7.0 migration guide",
+                "path": "/sdk/server-side/dotnet/migration-6-to-7"
+              },
+              {
                 "label": ".NET (server-side) SDK 5.x to 6.0 migration guide",
                 "path": "/sdk/server-side/dotnet/migration-5-to-6"
               }
@@ -1267,6 +1303,10 @@
             "svg": "golang",
             "items": [
               {
+                "label": "Go SDK 5.x to 6.0 migration guide",
+                "path": "/sdk/server-side/go/migration-5-to-6"
+              },
+              {
                 "label": "Go SDK 4.x to 5.0 migration guide",
                 "path": "/sdk/server-side/go/migration-4-to-5"
               }
@@ -1281,6 +1321,10 @@
             "path": "/sdk/server-side/java",
             "items": [
               {
+                "label": "Java SDK 5.x to 6.0 migration guide",
+                "path": "/sdk/server-side/java/migration-5-to-6"
+              },
+              {
                 "label": "Java SDK 4.x to 5.0 migration guide",
                 "path": "/sdk/server-side/java/migration-4-to-5"
               }
@@ -1293,17 +1337,21 @@
           {
             "label": "Node.js SDK reference",
             "path": "/sdk/server-side/node-js",
+            "svg": "nodejs",
             "items": [
               {
                 "label": "Cloudflare Edge SDK",
                 "path": "/sdk/server-side/node-js/cloudflare-edge-sdk"
               },
               {
+                "label": "Node.js (server-side) SDK 6.x to 7.0 migration guide",
+                "path": "/sdk/server-side/node-js/migration-6-to-7"
+              },
+              {
                 "label": "Node.js (server-side) SDK 5.x to 6.0 migration guide",
                 "path": "/sdk/server-side/node-js/migration-5-to-6"
               }
-            ],
-            "svg": "nodejs"
+            ]
           },
           {
             "label": "PHP SDK reference",
@@ -1325,7 +1373,13 @@
           },
           {
             "label": "Rust SDK reference",
-            "path": "/sdk/server-side/rust"
+            "path": "/sdk/server-side/rust",
+            "items": [
+              {
+              "label": "Rust SDK v1 implementation guide",
+              "path": "/sdk/server-side/rust/implementation-v1"
+              }
+            ]
           }
         ]
       }
@@ -1359,6 +1413,10 @@
         "path": "/guides/flags",
         "svg": "toggle-switch",
         "items": [
+          {
+            "label": "Best practices for upgrading users to contexts",
+            "path": "/guides/flags/upgrading-contexts"
+          },
           {
             "label": "Creating flags",
             "path": "/guides/flags/creating-flags"
@@ -1452,10 +1510,6 @@
           {
             "label": "Using LaunchDarkly with Svelte",
             "path": "/guides/infrastructure/svelte"
-          },
-          {
-            "label": "Unit testing with Jest",
-            "path": "/guides/infrastructure/unit-tests"
           }
         ]
       },
@@ -1487,6 +1541,10 @@
         "path": "/guides/sdk",
         "svg": "antenna",
         "items": [
+          {
+            "label": "Unit testing with Jest",
+            "path": "/guides/sdk/unit-tests"
+          },
           {
             "label": "Use cases for SDK wrappers",
             "path": "/guides/sdk/sdk-wrappers"

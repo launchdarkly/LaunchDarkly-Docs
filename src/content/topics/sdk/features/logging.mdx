@@ -132,7 +132,7 @@ const options = {
   }),
 };
 
-const client = LaunchDarkly.initialize( 'YOUR_CLIENT_SIDE_ID', user, options);
+const client = LaunchDarkly.initialize( 'client-side-id-123abc', user, options);
 
 ```
 
@@ -145,7 +145,7 @@ import * as LaunchDarkly from 'launchdarkly-node-client-sdk';
 const logger: LaunchDarkly.LDLogger = ld.basicLogger({ level: 'debug' });
 const options: LaunchDarkly.LDOptions = { logger: logger };
 
-const client = LaunchDarkly.initialize( 'YOUR_CLIENT_SIDE_ID', user, options);
+const client = LaunchDarkly.initialize( 'client-side-id-123abc', user, options);
 
 ```
 
@@ -181,7 +181,7 @@ Here's how:
 import { basicLogger } from 'launchdarkly-js-sdk-client';
 
 export default withLDProvider({
-  clientSideID: 'YOUR_CLIENT_SIDE_ID',
+  clientSideID: 'client-side-id-123abc',
   options: {
     logger: basicLogger({level: 'debug'})
   }
@@ -384,7 +384,7 @@ This feature is available in the following server-side SDKs:
 The .NET SDK has four logging levels: `Debug`, `Info`, `Warn`, and `Error`. By default, the lowest enabled level is `Info`, so `Debug` messages are hidden. There are two important things to consider if you enable the `Debug` level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
-2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+2. Debug-level logs include sensitive information, including LaunchDarkly contexts you create when you use this SDK.
 
 The .NET SDK sends log output to `Console.Error` by default. The [`ConfigurationBuilder.Logging`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html#LaunchDarkly_Sdk_Server_ConfigurationBuilder_Logging_) method and the [`LaunchDarkly.Logging`](https://launchdarkly.github.io/dotnet-logging/) API allow you to change the output destination and log level.
 
@@ -402,9 +402,9 @@ Here is an example:
 using LaunchDarkly.Logging;
 using LaunchDarkly.Sdk.Server;
 
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .Logging(
-      Components.Logging(Logs.ToWriter(Console.Out)).Level(LogLevel.Debug)
+        Components.Logging(Logs.ToWriter(Console.Out)).Level(LogLevel.Debug)
     )
     .Build();
 ```
@@ -426,7 +426,7 @@ The destination could be another logging framework, such as the .NET Core `Micro
 using LaunchDarkly.Logging;
 using LaunchDarkly.Sdk.Server;
 
-var config = Configuration.Builder("my-sdk-key")
+var config = Configuration.Builder("sdk-key-123abc")
     .Logging(Logs.CoreLogging)
     .Build();
 ```
@@ -519,10 +519,35 @@ Here's how:
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 <CodeTabItem value="go">
+
+```go
+import (
+    "log"
+    "os"
+    ldlog "github.com/launchdarkly/go-sdk-common/v3"
+    ld "github.com/launchdarkly/go-server-sdk/v6"
+    "github.com/launchdarkly/go-server-sdk/v6/ldcomponents"
+)
+
+var config ld.Config
+
+// Send output to a file, and change minimum level to Warn (Debug and Info are disabled)
+file, _ := os.Create("app.log")
+config.Logging = ldcomponents.Logging().
+    BaseLogger(log.New(file, "", log.LstdFlags)).
+    MinLevel(ldlog.Warn)
+
+// Or, disable logging
+config.Logging = ldcomponents.NoLogging()
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 import (
@@ -551,7 +576,7 @@ config.Logging = ldcomponents.NoLogging()
 There are two things to consider if you enable the `Debug` log level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
-2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+2. Debug-level logs include sensitive information, including LaunchDarkly contexts you create when you use this SDK.
 
 </Details>
 
@@ -559,9 +584,11 @@ There are two things to consider if you enable the `Debug` log level:
 
 <Details summary="Expand Java code sample">
 
-By default, the Java SDK uses [SLF4J](https://www.slf4j.org/). SLF4J has its own configuration mechanisms for determining where output will go, and for filtering by level and/or logger name. It will not generate any output unless you have provided a configuration. For an example of using SLF4J with a simple console logging configuration, visit an SLF4J-specific version of [hello-java](https://github.com/launchdarkly/hello-java/tree/slf4j-logging).
+In version 5.10.0 and higher, the Java SDK allows you to specify a destination for logging using the [`LDConfig.Builder.logging`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDConfig.Builder.html#logging(com.launchdarkly.sdk.server.subsystems.ComponentConfigurer)) method and the [`com.launchdarkly.logging`](https://github.com/launchdarkly/java-logging/) API.
 
-Starting with version 5.10.0, you can also configure logging without using SLF4J. The [`LDConfig.Builder.logging`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.9.0/com/launchdarkly/sdk/server/LDConfig.Builder.html#logging(com.launchdarkly.sdk.server.interfaces.LoggingConfigurationFactory)) method and the [`com.launchdarkly.logging`](https://github.com/launchdarkly/java-logging/) API allow you to change the output destination and log level.
+If you do not specify a destination, the default behavior depends on the version of the SDK:
+* In versions 5.10.0 and earlier, the default destination is [SLF4J](https://www.slf4j.org/). SLF4J has its own configuration mechanisms for determining where output will go, and for filtering by level and/or logger name. It will not generate any output unless you have provided a configuration. For an example of using SLF4J with a simple console logging configuration, visit an SLF4J-specific version of [hello-java](https://github.com/launchdarkly/hello-java/tree/slf4j-logging).
+* Starting with version 6.0.0, the SDK does not require SLF4J. Instead, it detects whether the application is already using SLF4J. If the SLF4J classes are present in the classpath, then it sends log output to SLF4J by default. If the SLF4J classes are not present in the classpath, then it sends log output to `System.err` by default.
 
 Here is an example of configuring log output to go to the standard output stream (`System.out`), and enabling `DEBUG` level:
 
@@ -602,7 +629,7 @@ In versions of the SDK before 5.0, logger names were not standardized and were s
 There are two important things to consider before you enable the `DEBUG` log level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
-2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+2. Debug-level logs include sensitive information, including LaunchDarkly contexts you create when you use this SDK.
 
 </Details>
 
@@ -614,9 +641,9 @@ The Node.js SDK offers several choices for logging.
 
 In the default configuration, the SDK sends output to the console and enables all log levels except `debug`.
 
-Versions 5.x and earlier of the SDK used the [`winston`](https://www.npmjs.com/package/winston) logging package for the default configuration. Versions 6.0 and later do not have a dependency on `winston`. Instead, they write directly to the console by default.
+Pre-6.0 versions of the SDK used the [`winston`](https://www.npmjs.com/package/winston) logging package for the default configuration. Versions 6.0 and later write directly to the console by default.
 
-For full control over logging behavior, you can set the [`logger`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDOptions.html#logger) option to an object that implements the `LDLogger` interface. To learn more about the logger's requirements and methods, read [LDLogger](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDLogger.html). The `winston` package is compatible with this interface, so if you are already using a `winston` logger, you can pass it directly to the SDK.
+For full control over logging behavior, you can set the [`logger`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDOptions.html#logger) option to an object that implements the `LDLogger` interface. To learn more about the logger's requirements and methods, read [LDLogger](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDLogger.html).
 
 You can use [`basicLogger`](https://launchdarkly.github.io/node-server-sdk/modules/_launchdarkly_node_server_sdk_.html#basicLogger) for simpler control over logging behavior. Versions 5.x and earlier of the SDK do not support `basicLogger`.
 
@@ -687,7 +714,7 @@ You can pass a custom logger to the SDK by using the configurable `logger` prope
 <CodeTabItem value="php">
 
 ```php
-$client = new LaunchDarkly\LDClient("YOUR_SDK_KEY", array("logger" => new Logger("LaunchDarkly", [new ErrorLogHandler(0, Logger::DEBUG)])));
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", array("logger" => new Logger("LaunchDarkly", [new ErrorLogHandler(0, Logger::DEBUG)])));
 ```
 
 </CodeTabItem>
@@ -750,7 +777,7 @@ You can pass a custom logger to the SDK by using the configurable `logger` prope
 log = ::Logger.new($stdout)
 log.level = ::Logger::DEBUG
 config = LaunchDarkly::Config.new({logger: log})
-client = LaunchDarkly::LDClient.new("YOUR_SDK_KEY", config)
+client = LaunchDarkly::LDClient.new("sdk-key-123abc", config)
 ```
 
 </CodeTabItem>
@@ -766,6 +793,6 @@ The Rust SDK uses the [log](https://docs.rs/log/latest/log/) crate.
 There are two important things to consider before you enable the DEBUG log level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
-2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+2. Debug-level logs include sensitive information, including LaunchDarkly contexts you create when you use this SDK.
 
 </Details>

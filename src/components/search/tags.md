@@ -57,6 +57,7 @@ click
 client-side
 clone
 cloudflare
+cloudwatch
 code references
 compare
 configure
@@ -151,6 +152,7 @@ idp
 import
 inactive
 insight
+inspector
 integration
 intellij
 invite
@@ -260,6 +262,7 @@ result
 roku
 role
 ruby
+rum
 rust
 
 # S

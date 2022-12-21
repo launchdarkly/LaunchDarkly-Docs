@@ -1,0 +1,68 @@
+---
+path: /integrations/aws-cloudwatch-rum
+title: AWS CloudWatch RUM
+description: This topic explains how to set up and send LaunchDarkly flag evaluations as AWS CloudWatch RUM custom events.
+published: true
+tags: ['aws', 'cloudwatch', 'rum']
+site: launchDarklyOnly
+---
+
+<Callout intent="primary">
+<CalloutTitle>CloudWatch RUM SDK Requirements</CalloutTitle>
+<CalloutDescription>
+
+The CloudWatch RUM integration requires the JavaScript SDK version 2.24 or higher, or the React Native SDK version 2.29 or higher.
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to set up and use the LaunchDarkly AWS CloudWatch RUM integration. With AWS CloudWatch RUM, you can perform real user monitoring to collect and view client-side data about your web application performance from actual user sessions in near real-time.
+
+Read the [send custom events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-RUM-custom-events.html) CloudWatch documentation for more information on how to enable custom events for your app monitor.
+
+## Setting up the integration
+
+The code below can be modified to fit your setup.
+
+Here's how to get started:
+
+* Install and [configure the AWS CloudWatch RUM client](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-RUM-get-started.html)
+* Use the `recordEvent` API to send the evaluated flags to [CloudWatch RUM using custom events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-RUM-custom-events.html)
+
+Here is an example:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Inspector Setup', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+inspectors: [
+	{
+		type: 'flag-used',
+		name: 'cloudwatch-rum',
+		method: (key, detail) => {
+			const flagEvent = {
+			flagKey: key,
+			value: detail.value
+			}
+			if (detail.variationIndex) {
+			flagEvent["variationIndex"] = detail.variationIndex
+			}
+			if (detail.reason) {
+			flagEvent["reason"] = detail.reason
+			}
+
+			awsRum.recordEvent('com.launchdarkly.flag.evaluation', flagEvent)
+		}
+	}
+]
+```
+
+</CodeTabItem>
+</CodeTabs>

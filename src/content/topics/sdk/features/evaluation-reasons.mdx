@@ -1,16 +1,31 @@
 ---
 path: /sdk/features/evaluation-reasons
 title: Flag evaluation reasons
-description: This topic explains how to use the flag evaluation reason feature to get more information about the flag variations LaunchDarkly serves to users.
+description: This topic explains how to use the flag evaluation reason feature to get more information about the flag variations LaunchDarkly serves to contexts or users.
 published: true
 tags: ['flag', 'evaluation', 'reason', 'sdk']
 ---
 
 ## Overview
 
-This topic explains how to use the flag evaluation reason feature to get more information about the flag variations LaunchDarkly serves to users.
+This topic explains how to use the flag evaluation reason feature to get more information about the flag variations LaunchDarkly serves to contexts or users.
 
-To learn more about how LaunchDarkly determines why a user receives a given flag variation, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
+To learn more about how LaunchDarkly determines why a context or user receives a given flag variation, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
+
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
 
 ## Understanding the flag evaluation reason feature
 
@@ -61,14 +76,14 @@ Here is an example:
 ```csharp
 
 Configuration config = Configuration
-  .Builder("YOUR_MOBILE_KEY")
+  .Builder("mobile-key-123abc")
   .EvaluationReasons(true)
   .Build();
 LdClient client = LdClient.Init(config, user);
 
 EvaluationDetail<bool> detail =
   client.BoolVariationDetail("flag-key", false);
-  // or StringVariationDetail for a string-valued flag, etc.
+  // or StringVariationDetail for a string-valued flag, and so on.
 
 bool value = detail.Value;
 int? index = detail.VariationIndex;
@@ -85,17 +100,37 @@ To learn more about the `VariationDetail` methods, read [`EvaluationDetail`](htt
 
 <Details summary="Expand Android code sample">
 
-The `variationDetail` methods, such as `boolVariationDetail`, work the same as `variation`. They also provide additional "reason" information about how a flag value was calculated, such as if the user matched a specific rule. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The `variationDetail` methods, such as `boolVariationDetail`, work the same as `variation`. They also provide additional "reason" information about how a flag value was calculated, such as if the context matched a specific rule. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java for Android SDK v4.0', value: 'java', },
+    { label: 'Java for Android SDK v3.x', value: 'java-v3', }
   ]
 }>
 <CodeTabItem value="java">
+
+```java
+LDConfig ldConfig = new LDConfig.Builder()
+  .mobileKey("mobile-key-123abc")
+  .evaluationReasons(true)
+  .build();
+LDClient client = LDClient.init(this.getApplication(), ldConfig, context, secondsToBlock);
+
+EvaluationDetail<Boolean> detail =
+  client.boolVariationDetail("flag-key", false);
+  // or stringVariationDetail for a string-valued flag, etc.
+
+boolean value = detail.getValue();
+Integer index = detail.getVariationIndex();
+EvaluationReason reason = detail.getReason();
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v3">
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
@@ -106,7 +141,7 @@ LDClient client = LDClient.init(this.getApplication(), ldConfig, user, secondsTo
 
 EvaluationDetail<Boolean> detail =
   client.boolVariationDetail("flag-key", false);
-  // or stringVariationDetail for a string-valued flag, etc.
+  // or stringVariationDetail for a string-valued flag, and so on.
 
 boolean value = detail.getValue();
 Integer index = detail.getVariationIndex();
@@ -188,7 +223,7 @@ values={[
 <CodeTabItem value="c">
 
 ```c
-struct LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
+struct LDConfig *config = LDConfigNew("mobile-key-123abc");
 LDConfigSetUseEvaluationReasons(config, LDBooleanTrue);
 struct LDClient *client = LDClientInit(config, user, maxwaitmilliseconds);
 
@@ -209,7 +244,7 @@ LDFreeDetailContents(&details);
 <CodeTabItem value="c++">
 
 ```cpp
-struct LDConfig *config = LDConfigNew("YOUR_MOBILE_KEY");
+struct LDConfig *config = LDConfigNew("mobile-key-123abc");
 LDConfigSetUseEvaluationReasons(config, LDBooleanTrue);
 LDClientCPP *client = LDClientCPP::Init(config, user, maxwaitmilliseconds);
 
@@ -248,14 +283,14 @@ Here is an example:
 <CodeTabItem value="dart">
 
 ```dart
-final LDConfig config = LDConfigBuilder("YOUR_MOBILE_KEY")
+final LDConfig config = LDConfigBuilder("mobile-key-123abc")
   .evaluationReasons(true)
   .build();
 await LDClient.start(config, user);
 
 LDEvaluationDetail<bool> detail =
   await LDClient.boolVariationDetail("flag-key", false);
-  // or stringVariationDetail for a string-valued flag, etc.
+  // or stringVariationDetail for a string-valued flag, and so on.
 
 bool value = detail.value;
 int index = detail.variationIndex;
@@ -322,10 +357,40 @@ Here is an example:
 <CodeTabs
   defaultValue="swift"
   values={[
-    { label: 'Swift', value: 'swift', },
+    { label: 'Swift for iOS SDK v8.0', value: 'swift', },
+    { label: 'Objective-C for iOS SDK v8.0', value: 'objc', },
+    { label: 'Swift for iOS SDK v7.x', value: 'swift-v7', },
   ]
 }>
 <CodeTabItem value="swift">
+
+```swift
+ldConfig.evaluationReasons = true
+LDClient.start(config: ldConfig, context: context)
+
+let detail = client.boolVariationDetail(forKey: "flag-key", defaultValue: false);
+
+let value: Bool = detail.value
+let variationIndex: Int? = detail.variationIndex
+let reason: [String: LDValue]? = detail.reason
+```
+
+</CodeTabItem>
+<CodeTabItem value="objc">
+
+```objc
+config.evaluationReasons = true;
+[LDClient startWithConfiguration:config context:result.success completion: nil];
+
+LDBoolEvaluationDetail *detail = [[LDClient get] boolVariationDetailForKey:@"flag-key" defaultValue:NO];
+
+BOOL value = detail.value;
+NSInteger variationIndex = detail.variationIndex;
+NSDictionary<NSString*, LDValue*> *reason = detail.reason;
+```
+
+</CodeTabItem>
+<CodeTabItem value="swift-v7">
 
 ```swift
 ldConfig.evaluationReasons = true
@@ -350,23 +415,38 @@ To learn more about the `variationDetail` methods, read [`LDEvaluationDetail`](h
 
 The `variationDetail` method lets you evaluate a feature flag with the same parameters you would for `variation`. With `variationDetail`, you receive more information about how the value was calculated.
 
-The variation detail returns in an object containing both the result value and a "reason" object which tells you more information about the flag evaluation. For example, you can find out if the user was individually targeted for the flag or was matched by one of the flag's rules. It also indicates if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The variation detail returns in an object containing both the result value and a "reason" object which tells you more information about the flag evaluation. For example, you can find out if the context was individually targeted for the flag or was matched by one of the flag's rules. It also indicates if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
+    { label: 'JavaScript SDK 3.0', value: 'js', },
+    { label: 'JavaScript SDK 2.x', value: "js-2.x" },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
 const options = { evaluationReasons: true };
-const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LDClient.initialize('client-side-id-123abc', context, options);
 
-const detail = client.variationDetail('flag-key', false);
+const detail = client.variationDetail('flag-key-123abc', false);
+
+const value = detail.value;
+const index = detail.variationIndex;
+const reason = detail.reason;
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-2.x">
+
+```js
+const options = { evaluationReasons: true };
+const client = LDClient.initialize('client-side-id-123abc', user, options);
+
+const detail = client.variationDetail('flag-key-123abc', false);
 
 const value = detail.value;
 const index = detail.variationIndex;
@@ -399,7 +479,7 @@ Here is an example:
 
 ```js
 const options = { evaluationReasons: true };
-const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LDClient.initialize('client-side-id-123abc', user, options);
 
 const detail = client.variationDetail('flag-key', false);
 
@@ -432,13 +512,13 @@ Here is an example:
 
 ```js
 let config = {
-  mobileKey: 'YOUR_MOBILE_KEY',
+  mobileKey: 'mobile-key-123abc',
   evaluationReasons: true
 };
 await client.configure(config, user);
 
 const detail =
-  client.boolVariationDetail('YOUR_FEATURE_KEY', false);
+  client.boolVariationDetail('flag-key-123abc', false);
 
 const value = detail.value;
 const index = detail.variationIndex;
@@ -470,7 +550,7 @@ Here is an example:
 ```brightscript
 config.setUseEvaluationReasons(true)
 
-details = launchDarkly.intVariationDetail("YOUR_FLAG_KEY", 123)
+details = launchDarkly.intVariationDetail("flag-key-123abc", 123)
 
 ```
 
@@ -505,22 +585,36 @@ This feature is available in the following server-side SDKs:
 
 <Details summary="Expand .NET (server-side) code sample">
 
-The `VariationDetail` methods, such as [`BoolVariationDetail`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_BoolVariationDetail_), work the same as the `Variation` methods, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the user was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The `VariationDetail` methods, such as [`BoolVariationDetail`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_BoolVariationDetail_), work the same as the `Variation` methods, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the context was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
   ]
 }>
 <CodeTabItem value="csharp">
 
 ```csharp
 EvaluationDetail<bool> detail =
-  client.BoolVariationDetail("flag-key", myUser, false);
-  // or StringVariationDetail for a string-valued flag, etc.
+    client.BoolVariationDetail("flag-key", myContext, false);
+    // or StringVariationDetail for a string-valued flag, etc.
+
+bool value = detail.Value;
+int? index = detail.VariationIndex;
+EvaluationReason reason = detail.Reason;
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-6.x">
+
+```csharp
+EvaluationDetail<bool> detail =
+    client.BoolVariationDetail("flag-key-123abc", myUser, false);
+    // or StringVariationDetail for a string-valued flag, etc.
 
 bool value = detail.Value;
 int? index = detail.VariationIndex;
@@ -682,7 +776,7 @@ Here is an example:
 <CodeTabItem value="erlang">
 
 ```
-Flag = ldclient:variation_detail(<<"my-bool-key">>, #{key => <<"aa0ceb">>}, false)
+Flag = ldclient:variation_detail(<<"flag-key-123abc">>, #{key => <<"user-key-123abc">>}, false)
 ```
 
 </CodeTabItem>
@@ -693,22 +787,35 @@ Flag = ldclient:variation_detail(<<"my-bool-key">>, #{key => <<"aa0ceb">>}, fals
 
 <Details summary="Expand Go code sample">
 
-The `VariationDetail` methods ([`BoolVariationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.BoolVariationDetail), etc.) work the same as `Variation`, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the user was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The `VariationDetail` methods, such as [`BoolVariationDetail`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.BoolVariationDetail), work the same as `Variation`, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the context was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 
 <CodeTabItem value="go">
 
 ```go
-value, detail, err := client.BoolVariationDetail("flag-key", myUser, false)
+value, detail, err := client.BoolVariationDetail("flag-key", context, false)
 // or StringVariationDetail for a string-valued flag, etc.
+
+index := detail.VariationIndex
+reason := detail.Reason
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
+
+```go
+value, detail, err := client.BoolVariationDetail("flag-key", myUser, false)
+// or StringVariationDetail for a string-valued flag, and so on.
 
 index := detail.VariationIndex
 reason := detail.Reason
@@ -721,18 +828,48 @@ reason := detail.Reason
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`EvaluationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldreason#EvaluationDetail) and [`BoolVariationDetail`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.BoolVariationDetail).
+To learn more, read [`EvaluationDetail`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldreason#EvaluationDetail) and [`BoolVariationDetail`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.BoolVariationDetail).
 
 Here is an example of how to access the details of a reason object:
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 
 <CodeTabItem value="go">
+
+```go
+import (
+    "github.com/launchdarkly/go-sdk-common/v3/ldreason"
+)
+
+func PrintReason(reason ldreason.EvaluationReason) {
+  switch reason.GetKind() {
+  case ldreason.EvalReasonOff:
+    fmt.Println("it's off")
+  case ldreason.EvalReasonFallthrough:
+    fmt.Println("fell through")
+  case ldreason.EvalReasonTargetMatch:
+    fmt.Println("targeted")
+  case ldreason.EvalReasonRuleMatch:
+    fmt.Printf("matched rule %d/%s\n", r.GetRuleIndex(), r.GetRuleID())
+  case ldreason.EvalReasonPrerequisiteFailed:
+    fmt.Printf("prereq failed: %s\n", r.GetPrerequisiteKey())
+  case ldreason.EvalReasonError:
+    fmt.Printf("error: %s\n", r.GetErrorKind())
+  }
+  // or, if all you want is a simple descriptive string:
+  fmt.Println(reason)
+}
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 import (
@@ -766,7 +903,7 @@ func PrintReason(reason ldreason.EvaluationReason) {
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`EvaluationReason`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldreason#EvaluationReason).
+To learn more, read [`EvaluationReason`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldreason#EvaluationReason).
 
 </Details>
 
@@ -788,7 +925,7 @@ Here is an example:
 
 ```haskell
 details :: IO (EvaluationDetail Bool)
-details = boolVariationDetail client user "YOUR_FEATURE_KEY" False
+details = boolVariationDetail client user "flag-key-123abc" False
 ```
 
 </CodeTabItem>
@@ -801,14 +938,15 @@ For specific information on the `EvaluationDetail` structure, inspect the `Launc
 
 <Details summary="Expand Java code sample">
 
-The `variationDetail` methods ([`boolVariationDetail`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail-java.lang.String-com.launchdarkly.sdk.LDUser-boolean-), etc.) work the same as `variation`, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the user was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The `variationDetail` methods, such as [`boolVariationDetail`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail(java.lang.String,com.launchdarkly.sdk.LDContext,boolean)), work the same as `variation`, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the context was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java SDK v6.0', value: 'java', },
+    { label: 'Java SDK v5.x', value: 'java-v5', },
   ]
 }>
 
@@ -818,8 +956,23 @@ Here is an example:
 import com.launchdarkly.sdk.*;
 
 EvaluationDetail<Boolean> detail =
+  client.boolVariationDetail("flag-key-123abc", context, false);
+  // or stringVariationDetail for a string-valued flag, and so on.
+
+boolean value = detail.getValue();
+int index = detail.getVariationIndex();       // will be < 0 if evaluation failed
+EvaluationReason reason = detail.getReason();
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v5">
+
+```java
+import com.launchdarkly.sdk.*;
+
+EvaluationDetail<Boolean> detail =
   client.boolVariationDetail("flag-key", myUser, false);
-  // or stringVariationDetail for a string-valued flag, etc.
+  // or stringVariationDetail for a string-valued flag, and so on.
 
 boolean value = detail.getValue();
 int index = detail.getVariationIndex();       // will be < 0 if evaluation failed
@@ -829,7 +982,7 @@ EvaluationReason reason = detail.getReason();
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`EvaluationDetail`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/EvaluationDetail.html) and [`boolVariationDetail`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail-java.lang.String-com.launchdarkly.sdk.LDUser-boolean-).
+To learn more, read [`EvaluationDetail`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/EvaluationDetail.html) and [`boolVariationDetail`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail(java.lang.String,com.launchdarkly.sdk.LDContext,boolean)).
 
 Here is an example of how to access the details of a reason object:
 
@@ -876,7 +1029,7 @@ void printReason(EvaluationReason reason) {
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`EvaluationReason`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/EvaluationReason.html).
+To learn more, read [`EvaluationReason`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/EvaluationReason.html).
 
 </Details>
 
@@ -910,25 +1063,28 @@ To learn more about configuration options, read the [API docs](https://launchdar
 
 ### Node.js (server-side)
 
+
 <Details summary="Expand Node.js (server-side) code sample">
 
 The `variationDetail` method lets you evaluate a feature flag (using the same parameters as you would for `variation`) and receive more information about how the value was calculated.
 
-The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the user was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the context was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
+    { label: 'Node.js SDK v7 (JavaScript)', value: 'js', },
+    { label: 'Node.js SDK v7 (TypeScript)', value: 'ts', },
+    { label: 'Node.js SDK v6.x and older (JavaScript)', value: 'js-old', },
+    { label: 'Node.js SDK v6.x and older (TypeScript)', value: 'ts-old', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-var detail = client.variationDetail('flag-key', user, false);
+var detail = client.variationDetail('flag-key-123abc', context, false);
 
 var value = detail.value;
 var index = detail.variationIndex;
@@ -939,7 +1095,30 @@ var reason = detail.reason;
 <CodeTabItem value="ts">
 
 ```ts
-client.variationDetail('flag-key', user, 'default',
+client.variationDetail('flag-key-123abc', context, false,
+  (detail) => {
+    const detailValue = detail.value;
+    const detailIndex = detail.variationIndex;
+    const detailReason = detail.reason;
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-old">
+
+```js
+var detail = client.variationDetail('flag-key-123abc', user, false);
+
+var value = detail.value;
+var index = detail.variationIndex;
+var reason = detail.reason;
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts-old">
+
+```ts
+client.variationDetail('flag-key-123abc', user, false,
   (detail) => {
     const detailValue = detail.value;
     const detailIndex = detail.variationIndex;
@@ -1210,27 +1389,37 @@ To learn more, read [`EvaluationDetail.reason`](https://www.rubydoc.info/gems/la
 
 <Details summary="Expand Rust code sample">
 
-The `variation_detail` methods (for example, [`bool_variation_detail`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.bool_variation_detail)) let you evaluate a feature flag, using the same parameters as you would for `variation`, and receive more information about how the flag value was calculated. For example, you can find out if the user was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The `variation_detail` methods (for example, [`bool_variation_detail`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.bool_variation_detail)) let you evaluate a feature flag, using the same parameters as you would for `variation`, and receive more information about how the flag value was calculated. For example, you can find out if the context was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="rust"
   values={[
-    { label: 'Rust', value: 'rust', },
+    { label: 'Rust SDK v1', value: 'rust', },
+    { label: 'Rust SDK beta', value: 'rust-beta', },
   ]
 }>
 
 <CodeTabItem value="rust">
 
 ```rust
-let detail = client.bool_variation_detail(&myUser, "flag-key", false);
+let detail = client.bool_variation_detail(&context, "flag-key", false);
 
 let value = detail.value;
 let index = detail.variation_index;
 let reason = detail.reason;
 ```
+</CodeTabItem>
+<CodeTabItem value="rust-beta">
 
+```rust
+let detail = client.bool_variation_detail(&user, "flag-key", false);
+
+let value = detail.value;
+let index = detail.variation_index;
+let reason = detail.reason;
+```
 </CodeTabItem>
 </CodeTabs>
 
@@ -1241,7 +1430,7 @@ Here is an example of how to access the details of a reason object:
 <CodeTabs
   defaultValue="rust"
   values={[
-    { label: 'Rust', value: 'rust', },
+    { label: 'Rust SDK v1', value: 'rust', },
   ]
 }>
 

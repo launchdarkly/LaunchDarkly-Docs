@@ -76,8 +76,8 @@ Here is an an example of the `start` method:
 <CodeTabItem value="sdk4-swift">
 
 ```swift
-let config = LDConfig(mobileKey: "YOUR_MOBILE_KEY")
-let user = LDUser(key: "fake@example.com")
+let config = LDConfig(mobileKey: "mobile-key-123abc")
+let user = LDUser(key: "user-key-123abc")
 LDClient.shared.start(config: config, user: user)
 ```
 
@@ -85,8 +85,8 @@ LDClient.shared.start(config: config, user: user)
 <CodeTabItem value="sdk5-swift">
 
 ```swift
-let config = LDConfig(mobileKey: "YOUR_MOBILE_KEY")
-let user = LDUser(key: "fake@example.com")
+let config = LDConfig(mobileKey: "mobile-key-123abc")
+let user = LDUser(key: "user-key-123abc")
 LDClient.start(config: config, user: user)
 // Safe to force get
 let shared = LDClient.get()!
@@ -96,8 +96,8 @@ let shared = LDClient.get()!
 <CodeTabItem value="sdk4-objc">
 
 ```objectivec
-LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
-LDUser *user = [[LDUser alloc] initWithKey:@"fake@example.com"];
+LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
+LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 [[LDClient sharedInstance] startWithConfig:config user:user];
 ```
 
@@ -105,8 +105,8 @@ LDUser *user = [[LDUser alloc] initWithKey:@"fake@example.com"];
 <CodeTabItem value="sdk5-objc">
 
 ```objectivec
-LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"YOUR_MOBILE_KEY"];
-LDUser *user = [[LDUser alloc] initWithKey:@"fake@example.com"];
+LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
+LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 [LDClient start:config user:user];
 LDClient *shared = [LDClient get];
 ```
@@ -142,7 +142,7 @@ Here is an example of migrating to the `identify` method:
 <CodeTabItem value="sdk4-swift">
 
 ```swift
-let newUser = LDUser(key: "martian@example.com")
+let newUser = LDUser(key: "user-key-123abc")
 LDClient.shared.user = newUser
 ```
 
@@ -150,7 +150,7 @@ LDClient.shared.user = newUser
 <CodeTabItem value="sdk5-swift">
 
 ```swift
-let newUser = LDUser(key: "martian@example.com")
+let newUser = LDUser(key: "user-key-123abc")
 LDClient.get()!.identify(user: newUser)
 // identify can also be called with a completion
 LDClient.get()!.identify(user: newUser) {
@@ -162,7 +162,7 @@ LDClient.get()!.identify(user: newUser) {
 <CodeTabItem value="sdk4-objc">
 
 ```objectivec
-LDUser *newUser = [[LDUser alloc] initWithKey:@"martian@example.com"];
+LDUser *newUser = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 [LDClient sharedInstance].user = newUser;
 ```
 
@@ -170,7 +170,7 @@ LDUser *newUser = [[LDUser alloc] initWithKey:@"martian@example.com"];
 <CodeTabItem value="sdk5-objc">
 
 ```objectivec
-LDUser *newUser = [[LDUser alloc] initWithKey:@"martian@example.com"];
+LDUser *newUser = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 [[LDClient get] identify:newUser];
 ```
 

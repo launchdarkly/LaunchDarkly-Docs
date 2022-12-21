@@ -25,15 +25,30 @@ If you perform automated tests or prototyping, you might want to run application
 
 However, in some server-side SDKs, you can also use files to configure the feature flag state you desire.
 
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
+
 ## Creating a flag data file
 
 Flag data files can be either JSON or YAML.
 
 They contain up to three properties:
 
-- `flags`: These are feature flag definitions. These can contain all the same kinds of rules and targets that you can define in a LaunchDarkly feature flag, which allows the flag to produce different values for different users.
-- `flagValues`: These are simplified feature flags that specify only a value, and produce the same value for all users.
-- `segments`: These are user segment definitions. You only use this property if you have feature flags that use segments.
+- `flags`: These are feature flag definitions. These can contain all the same kinds of rules and targets that you can define in a LaunchDarkly feature flag, which allows the flag to produce different values for different contexts or users.
+- `flagValues`: These are simplified feature flags that specify only a value, and produce the same value for all contexts or users.
+- `segments`: These are segment definitions. You only use this property if you have feature flags that use segments.
 
 <Callout intent="alert">
 <CalloutTitle>YAML files have limitations</CalloutTitle>
@@ -60,7 +75,7 @@ For instance, in Linux, you could use this command:
 <CodeTabItem value="bash">
 
 ```bash
-curl -H "Authorization: EXAMPLE_SDK_KEY" https://sdk.launchdarkly.com/sdk/latest-all >flagdata.json
+curl -H "Authorization: sdk-key-123abc" https://sdk.launchdarkly.com/sdk/latest-all >flagdata.json
 ```
 
 </CodeTabItem>
@@ -89,7 +104,7 @@ The output looks like this, but with many more properties:
   "segments": {
     "segment-key-1": {
       "key": "segment-key-1",
-      "includes": [ "user-key-1" ]
+      "includes": [ "context-key-1" ]
     }
   }
 }
@@ -297,8 +312,8 @@ To configure the client:
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
-    { label: 'Go SDK 4.x and earlier', value: 'go-pre-5.0', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 
@@ -306,10 +321,10 @@ To configure the client:
 
 ```go
 import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
-    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
-    "gopkg.in/launchdarkly/go-server-sdk.v5/ldfiledata"
-    "gopkg.in/launchdarkly/go-server-sdk.v4/ldfilewatch"
+    ld "github.com/launchdarkly/go-server-sdk/v6"
+    "github.com/launchdarkly/go-server-sdk/v6/ldcomponents"
+    "github.com/launchdarkly/go-server-sdk/v6/ldfiledata"
+    "github.com/launchdarkly/go-server-sdk/v6/ldfilewatch"
 )
 
 var config ld.Config
@@ -322,22 +337,21 @@ client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
 ```
 
 </CodeTabItem>
-<CodeTabItem value="go-pre-5.0">
+<CodeTabItem value="go-v5">
 
 ```go
 import (
-    ld "gopkg.in/launchdarkly/go-server-sdk.v4"
-    "gopkg.in/launchdarkly/go-server-sdk.v4/ldfiledata"
-    "gopkg.in/launchdarkly/go-server-sdk.v4/ldfilewatch"
+    ld "gopkg.in/launchdarkly/go-server-sdk.v5"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldfiledata"
+    "gopkg.in/launchdarkly/go-server-sdk.v5/ldfilewatch"
 )
 
-fileSource, err := ldfiledata.NewFileDataSourceFactory(
-    ldfiledata.FilePaths("file1.json", "file2.json"),
-    ldfiledata.UseReloader(ldfilewatch.WatchFiles))
-
-config := ld.DefaultConfig
-config.UpdateProcessorFactory = fileSource
-config.SendEvents = false
+var config ld.Config
+config.DataSource = ldfiledata.DataSource().
+    FilePaths("file1.json", "file2.json").
+    UseReloader(ldfilewatch.WatchFiles)
+config.Events = ldcomponents.NoEvents()
 
 client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
 ```
@@ -361,7 +375,7 @@ To configure the client:
 <CodeTabItem value="haskell">
 
 ```haskell
-let config = LD.configSetDataSourceFactory (Just $ FileData.dataSourceFactory ["./testData/flags.json"]) $ LD.makeConfig "sdk-key"
+let config = LD.configSetDataSourceFactory (Just $ FileData.dataSourceFactory ["./testData/flags.json"]) $ LD.makeConfig "sdk-key-123abc"
 client <- LD.makeClient config
 ```
 
@@ -432,7 +446,7 @@ const options = {
   updateProcessor: dataSource
 };
 
-const client = ld.init('YOUR_SDK_KEY', options);
+const client = ld.init('sdk-key-123abc', options);
 ```
 
 </CodeTabItem>
@@ -449,7 +463,7 @@ const options: ld.LDOptions = {
   updateProcessor: dataSource
 };
 
-const client = ld.init('YOUR_SDK_KEY', options);
+const client = ld.init('sdk-key-123abc', options);
 ```
 
 </CodeTabItem>
@@ -481,7 +495,7 @@ from ldclient.integrations import Files
 data_source_callback = Files.new_data_source(paths=["file1.json", "file2.json"],
     auto_update=True)
 
-config = Config('YOUR_SDK_KEY', update_processor_class=data_source_callback, send_events=False)
+config = Config('sdk-key-123abc', update_processor_class=data_source_callback, send_events=False)
 
 ldclient.set_config(config)
 client = ldclient.get()
@@ -518,7 +532,7 @@ $fr = LaunchDarkly\Integrations\Files::featureRequester([
     'file1.json',
     'file2.json'
 ]);
-$client = new LaunchDarkly\LDClient("your_sdk_key", [
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", [
     'feature_requester' => $fr,
     'send_events' => false
 ]);

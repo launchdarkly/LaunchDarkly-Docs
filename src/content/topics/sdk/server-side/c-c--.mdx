@@ -104,7 +104,9 @@ After you install and import the SDK, create a single, shared instance of `LDCli
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `LDClient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
@@ -123,22 +125,13 @@ Here is an example:
 
 ```c
 unsigned int maxwaitmilliseconds = 10 * 1000;
-struct LDConfig *config = LDConfigNew("YOUR_SDK_KEY");
-struct LDUser *user = LDUserNew("YOUR_USER_KEY");
+struct LDConfig *config = LDConfigNew("sdk-key-123abc");
+struct LDUser *user = LDUserNew("user-key-123abc");
 struct LDClient *client = LDClientInit(config, maxwaitmilliseconds);
 ```
 
 </CodeTabItem>
 </CodeTabs>
-
-<Callout intent="alert">
-<CalloutTitle>LDClient must be a singleton</CalloutTitle>
-<CalloutDescription>
-
-It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
-
-</CalloutDescription>
-</Callout>
 
 You can use `client` to check which variation a particular user will receive for a given feature flag.
 
@@ -153,10 +146,10 @@ Here's how:
 <CodeTabItem value="c">
 
 ```c
-user = LDUserNew("example-user-key");
+user = LDUserNew("user-key-123abc");
 LDUserSetName(user, "Sandy");
-    
-LDBoolean show_feature = LDBoolVariation(client, user, FEATURE_FLAG_KEY, false, NULL);
+
+LDBoolean show_feature = LDBoolVariation(client, user, flag-key-123abc, false, NULL);
 if (show_feature) {
     // application code to show the feature
 } else {
@@ -200,7 +193,7 @@ This SDK supports the following features:
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#cc-server-side)
 * [Flushing events](/sdk/features/flush#cc-server-side)
 * [Getting all flags](/sdk/features/all-flags#cc-server-side)
-* [Identifying and changing users](/sdk/features/identify#cc-server-side)
+* [Identifying and changing contexts](/sdk/features/identify#cc-server-side)
 * [Logging configuration](/sdk/features/logging#cc-server-side)
 * [Offline mode](/sdk/features/offline-mode#cc-server-side)
 * [Relay Proxy configuration](/sdk/features/relay-proxy-configuration)
@@ -211,4 +204,4 @@ This SDK supports the following features:
 * [Shutting down](/sdk/features/shutdown#cc-server-side)
 * [Storing data](/sdk/features/storing-data#cc-server-side)
 * [Test data sources](/sdk/features/test-data-sources#cc-server-side)
-* [User configuration](/sdk/features/user-config#cc-server-side)
+* [User and context configuration](/sdk/features/user-context-config#cc-server-side)

@@ -51,6 +51,7 @@ deduplication
 defp
 Delivr
 deserialization
+deviceid
 Dockerized
 docsite
 Dynatrace
@@ -63,6 +64,7 @@ evalx
 eventhub
 eventsource
 examplepackage
+Fargate
 Fastly
 featurestorerequest
 featurex
@@ -115,6 +117,7 @@ ldclientapi
 ldclientapicpp
 ldcomponents
 ldconsul
+ldcontext
 lddynamodb
 ldfiledata
 ldfilewatch

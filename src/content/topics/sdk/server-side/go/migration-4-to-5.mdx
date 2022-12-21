@@ -408,7 +408,7 @@ user := ld.NewUser("key")
 
 // before 4.16: set email and country
 user := ld.NewUser("key")
-email := "test@example.com"
+email := "sandy@example.com"
 country := "us"
 user.Email = &email
 user.Country = &country
@@ -432,7 +432,7 @@ user := ld.NewUser("key")
 
 // 4.16+: set email and country
 user := ld.NewUserBuilder("key").
-    Email("test@example.com").
+    Email("sandy@example.com").
     Country("us").
     Build()
 
@@ -455,7 +455,7 @@ user := lduser.NewUser("key")
 
 // 5.0: set email and country
 user := lduser.NewUserBuilder("key").
-    Email("test@example.com").
+    Email("sandy@example.com").
     Country("us").
     Build()
 

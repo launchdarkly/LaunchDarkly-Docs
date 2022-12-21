@@ -21,7 +21,7 @@ Here is an example:
 <CodeTabs
   defaultValue="sdk6"
   values={[
-    { label: '6.0', value: 'sdk6', },
+    { label: '6.0 syntax', value: 'sdk6', },
   ]
 }>
 <CodeTabItem value="sdk6">
@@ -46,14 +46,14 @@ Here is an example of the change:
 <CodeTabs
   defaultValue="sdk5"
   values={[
-    { label: '5.x', value: 'sdk5', },
-    { label: '6.0', value: 'sdk6', },
+    { label: '5.x syntax', value: 'sdk5', },
+    { label: '6.0 syntax', value: 'sdk6', },
   ]
 }>
 <CodeTabItem value="sdk5">
 
 ```objectivec
-LDUser *user = [[LDUser alloc] initWithKey:@"user_key"];
+LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user.custom = @{@"group": @"beta"};
 ```
 
@@ -61,7 +61,7 @@ user.custom = @{@"group": @"beta"};
 <CodeTabItem value="sdk6">
 
 ```objectivec
-LDUser *user = [[LDUser alloc] initWithKey:@"user_key"];
+LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user.custom = @{@"group": [LDValue ofString:@"beta"]};
 ```
 
@@ -73,16 +73,16 @@ The `isEqual` function on `LDUser` has changed. It no longer only compares the `
 <CodeTabs
   defaultValue="sdk5"
   values={[
-    { label: '5.x', value: 'sdk5', },
-    { label: '6.0', value: 'sdk6', },
+    { label: '5.x syntax', value: 'sdk5', },
+    { label: '6.0 syntax', value: 'sdk6', },
   ]
 }>
 <CodeTabItem value="sdk5">
 
 ```objectivec
-LDUser *user1 = [[LDUser alloc] initWithKey:@"user_key"];
+LDUser *user1 = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user1.name = @"Jane Smith";
-LDUser *user2 = [[LDUser alloc] initWithKey:@"user_key"];
+LDUser *user2 = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user2.name = @"John Smith";
 // Results in true
 [user1 isEqual:user2]
@@ -92,9 +92,9 @@ user2.name = @"John Smith";
 <CodeTabItem value="sdk6">
 
 ```objectivec
-LDUser *user1 = [[LDUser alloc] initWithKey:@"user_key"];
+LDUser *user1 = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user1.name = @"Jane Smith";
-LDUser *user2 = [[LDUser alloc] initWithKey:@"user_key"];
+LDUser *user2 = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user2.name = @"John Smith";
 // Results in false
 [user1 isEqual:user2]
@@ -112,21 +112,21 @@ The `LDClient` functions `arrayVariation` and `dictionaryVariation` have been re
 <CodeTabs
   defaultValue="sdk5"
   values={[
-    { label: '5.x', value: 'sdk5', },
-    { label: '6.0', value: 'sdk6', },
+    { label: '5.x syntax', value: 'sdk5', },
+    { label: '6.0 syntax', value: 'sdk6', },
   ]
 }>
 <CodeTabItem value="sdk5">
 
 ```objectivec
-NSArray *result = [[LDClient get] arrayVariationForKey:@"flag-key" defaultValue:@[]];
+NSArray *result = [[LDClient get] arrayVariationForKey:@"flag-key-123abc" defaultValue:@[]];
 ```
 
 </CodeTabItem>
 <CodeTabItem value="sdk6">
 
 ```objectivec
-LDValue* result = [[LDClient get] jsonVariationForKey:@"flag-key" defaultValue:[LDValue ofArray:@[]]];
+LDValue* result = [[LDClient get] jsonVariationForKey:@"flag-key-123abc" defaultValue:[LDValue ofArray:@[]]];
 ```
 
 </CodeTabItem>
@@ -141,14 +141,14 @@ The `reason` property of the detailed evaluation result types has also changed f
 <CodeTabs
   defaultValue="sdk5"
   values={[
-    { label: '5.x', value: 'sdk5', },
-    { label: '6.0', value: 'sdk6', },
+    { label: '5.x syntax', value: 'sdk5', },
+    { label: '6.0 syntax', value: 'sdk6', },
   ]
 }>
 <CodeTabItem value="sdk5">
 
 ```objectivec
-LDArrayEvaluationDetail *result = [[LDClient get] arrayVariationDetailForKey:@"flag-key" defaultValue:@[]];
+LDArrayEvaluationDetail *result = [[LDClient get] arrayVariationDetailForKey:@"flag-key-123abc" defaultValue:@[]];
 NSArray* resultValue = result.value;
 NSDictionary<NSString*, id> *reason = result.reason;
 ```
@@ -157,7 +157,7 @@ NSDictionary<NSString*, id> *reason = result.reason;
 <CodeTabItem value="sdk6">
 
 ```objectivec
-LDJSONEvaluationDetail *result = [[LDClient get] jsonVariationDetailForKey:@"flag-key" defaultValue:[LDValue ofArray:@[]]];
+LDJSONEvaluationDetail *result = [[LDClient get] jsonVariationDetailForKey:@"flag-key-123abc" defaultValue:[LDValue ofArray:@[]]];
 LDValue* resultValue = result.value;
 NSDictionary<NSString*, LDValue*> *reason = result.reason;
 ```
@@ -172,14 +172,14 @@ The `LDClient` previously provided per-type functions for registering observers 
 <CodeTabs
   defaultValue="sdk5"
   values={[
-    { label: '5.x', value: 'sdk5', },
-    { label: '6.0', value: 'sdk6', },
+    { label: '5.x syntax', value: 'sdk5', },
+    { label: '6.0 syntax', value: 'sdk6', },
   ]
 }>
 <CodeTabItem value="sdk5">
 
 ```objectivec
-[[LDClient get] observeBool:@"flag-key" owner:self handler:^(LDBoolChangedFlag * _Nonnull changedFlag) {
+[[LDClient get] observeBool:@"flag-key-123abc" owner:self handler:^(LDBoolChangedFlag * _Nonnull changedFlag) {
     Bool newValue = changedFlag.newValue;
 }];
 ```
@@ -188,7 +188,7 @@ The `LDClient` previously provided per-type functions for registering observers 
 <CodeTabItem value="sdk6">
 
 ```objectivec
-[[LDClient get] observe:@"flag-key" owner:self handler:^(LDChangedFlag * _Nonnull changedFlag) {
+[[LDClient get] observe:@"flag-key-123abc" owner:self handler:^(LDChangedFlag * _Nonnull changedFlag) {
     LDValue* newValue = changedFlag.newValue;
 }];
 ```
@@ -205,8 +205,8 @@ Here is an example of the required changes:
 <CodeTabs
   defaultValue="sdk5"
   values={[
-    { label: '5.x', value: 'sdk5', },
-    { label: '6.0', value: 'sdk6', },
+    { label: '5.x syntax', value: 'sdk5', },
+    { label: '6.0 syntax', value: 'sdk6', },
   ]
 }>
 <CodeTabItem value="sdk5">

@@ -1,18 +1,21 @@
 ---
 path: /sdk/features/monitoring
 title: Monitoring SDK status
-description: This topic explains how various client-side SDKs monitor the connection to LaunchDarkly to determine the most recent flag values.
+description: This topic explains how various SDKs monitor the connection to LaunchDarkly to determine the most recent flag values.
 published: true
-tags: ['monitor', 'flag', 'value', 'client-side', 'sdk']
+tags: ['monitor', 'flag', 'value', 'sdk']
 ---
 
 ## Overview
 
-This topic explains how various client-side SDKs monitor the connection to LaunchDarkly to determine the most recent flag values.
+This topic explains how various SDKs monitor the connection to LaunchDarkly to determine the most recent flag values.
 
 ## Monitoring the connection to LaunchDarkly
 
 Some SDKs expose some of their internal statuses through the Connection Status API to allow your application to monitor the SDK's status. This is provided primarily as a mechanism for the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
+
+* [Client-side SDKs](#client-side-sdks)
+* [Server-side SDKs](#server-side-sdks)
 
 ## Client-side SDKs
 
@@ -192,7 +195,7 @@ ConnectionInformation.ConnectionMode connectionMode =
 Long lastSuccess = connectionInfo.getLastSuccessfulConnection();
 // Most recent unsuccessful flag cache update attempt in millis from the epoch
 // Or null if flag update has never been attempted
-Long lastSuccess = connectionInfo.getLastFailedConnection();
+Long lastError = connectionInfo.getLastFailedConnection();
 // Most recent failure or null
 LDFailure ldFailure = connectionInfo.getLastFailure();
 ```
@@ -211,7 +214,7 @@ val connectionMode: ConnectionInformation.ConnectionMode =
 val lastSuccess: Long? = connectionInfo.lastSuccessfulConnection
 // Most recent unsuccessful flag cache update attempt in millis from the epoch
 // Or null if flag update has never been attempted
-val lastSuccess: Long? = connectionInfo.lastFailedConnection
+val lastError: Long? = connectionInfo.lastFailedConnection
 // Most recent failure or null
 val ldFailure: LDFailure? = connectionInfo.lastFailure
 ```
@@ -481,7 +484,7 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
-client.on('change:YOUR_FEATURE_KEY', (newValue, oldValue) => {
+client.on('change:flag-key-123abc', (newValue, oldValue) => {
   console.log('The flag was ' + oldValue + ' and now it is ' + newValue);
 });
 ```
@@ -845,7 +848,7 @@ go func() {
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`GetDataSourceStatusProvider`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetDataSourceStatusProvider) and [`GetDataStoreStatusProvider`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetDataStoreStatusProvider).
+To learn more, read [`GetDataSourceStatusProvider`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.GetDataSourceStatusProvider) and [`GetDataStoreStatusProvider`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.GetDataStoreStatusProvider).
 </Details>
 
 ### Java
@@ -865,7 +868,7 @@ To check the data source status:
 
 ```java
 DataSourceStatusProvider.Status dataSourceStatus =
-    client.getDataSourceStatusProvider().getStatus()
+  client.getDataSourceStatusProvider().getStatus()
 ```
 
 </CodeTabItem>
@@ -884,7 +887,7 @@ To check the data store status:
 
 ```java
 DataStoreStatusProvider.Status dataStoreStatus =
-    client.getDataStoreStatusProvider().getStatus()
+  client.getDataStoreStatusProvider().getStatus()
 ```
 
 </CodeTabItem>
@@ -903,20 +906,20 @@ Alternatively, you can register an event listener that receives a new status val
 
 ```java
 client.getDataSourceStatusProvider().addStatusListener(
-    status -> {
-        System.out.println("new status is: " + status);
-    }
+  status -> {
+    System.out.println("new status is: " + status);
+  }
 );
 
 client.getDataStoreStatusProvider().addStatusListener(
-    status -> {
-        System.out.println("new status is: " + status);
-    }
+  status -> {
+    System.out.println("new status is: " + status);
+  }
 );
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`DataSourceStatusProvider`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/interfaces/DataSourceStatusProvider.html) and [`DataStoreStatusProvider`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/interfaces/DataStoreStatusProvider.html).
+To learn more, read [`DataSourceStatusProvider`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/DataSourceStatusProvider.html) and [`DataStoreStatusProvider`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/DataStoreStatusProvider.html).
 </Details>

@@ -500,7 +500,7 @@ The `deny` effect in the `viewSdkKey` action hides the server-side SDK key you s
 
 <Details summary="Expand experiment actions">
 
-`experiment` is a top-level resource. A code sample is below:
+`experiment` is a child of both a project and environments. A code sample is below:
 
 <CodeTabs
   defaultValue="json"
@@ -512,7 +512,7 @@ The `deny` effect in the `viewSdkKey` action hides the server-side SDK key you s
 <CodeTabItem value="json">
 
 ```json
-experiment/*
+proj/*:env/*:experiment/*
 ```
 
 </CodeTabItem>
@@ -595,6 +595,14 @@ This table explains available feature flag actions that affect only the current 
       </TableCell>
       <TableCell>
         Apply an approved approval request for a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>bypassRequiredApproval</code>
+      </TableCell>
+      <TableCell>
+        Bypass required approvals in the environment.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1849,6 +1857,61 @@ To learn more, read [Creating private teams](/guides/teams-roles/teams#creating-
 </CalloutDescription>
 </Callout>
 
+</Details>
+
+## Template actions
+
+<Details summary="Expand Team actions">
+
+`template` is a top-level resource. A code sample is below:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'template resource', value: 'json', },
+  ]
+}>
+
+<CodeTabItem value="json">
+
+```json
+template/*
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [Workflow templates](/home/feature-workflows/workflow-templates).
+
+This table explains available template actions:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createTemplate</code>
+      </TableCell>
+      <TableCell>Create a new template.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteTemplate</code>
+      </TableCell>
+      <TableCell>Delete a template.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>viewTemplate</code>
+      </TableCell>
+      <TableCell>If set to deny, anyone impacted by this policy can neither view nor modify a template.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+ 
 </Details>
 
 ## User actions

@@ -109,3 +109,9 @@ The following actions do **not** trigger an approval request:
 * Deleting a flag
 
 To prevent members from making these kinds of changes, you can configure and assign custom roles that deny these actions. To learn how, read [Custom roles](/home/members/custom-roles).
+
+### Bypassing required approvals
+
+If you want to grant workflows or members the ability to make flag changes without requesting approval, there is a custom role action that allows them to bypass the approval request process. This is helpful when you need to toggle off a flag immediately, such as during an incident or other end user-facing problem. This action is limited to the environment level, so no one with permission to bypass approval requests can make changes to your LaunchDarkly project unless otherwise allowed by their role.
+
+To bypass approval requirements, add the `bypassRequiredApproval` action to a member or service token's custom role. To learn about custom role actions, read [Custom role actions](/home/members/role-actions).

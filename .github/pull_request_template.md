@@ -3,6 +3,11 @@
 
 Thank you for contributing to the docs!
 
+### What to expect for automatic tests
+
+When you create a PR, GitHub automatically deploys your PR to our docs staging site, and runs a number of tests. These tests should all pass before you merge your PR.
+
+**During the Contexts EAP, there is one exception.** If you are merging into `main` and the "Testing / Check local links" test is failing, you can still merge, even with this failure. The failing links are links to files that currently only exist on the `contexts-eap` branch. We have redirects set up to make sure that customers who use those links are directed to the Contexts EAP docs on our docs staging site, but our internal link checker doesn't know to follow redirects.
 
 ### What to expect for PR review
 
@@ -19,7 +24,7 @@ Plan to merge your PR any time after it has been approved. It will be automatica
 
 If you expect your PR to remain open for some time after approval, update the PR title with the expected merge date. The Docs team will periodically check in on approved PRs that have not yet been merged.
 
-You can also schedule the merge in advance, for example if you have a firm release date planned. To learn how, read [Scheduling a PR merge to main](https://github.com/launchdarkly/git-gatsby/blob/main/README.md#internal-launchdarkly-use-only-scheduling-a-pr-merge-to-main).
+You can also schedule the merge in advance, for example if you have a firm release date planned. To learn how, read [Scheduling a PR merge to main](https://github.com/launchdarkly/ld-docs-private/blob/main/README.md#internal-launchdarkly-use-only-scheduling-a-pr-merge-to-main).
 
 
 ### What to expect for PR deploy

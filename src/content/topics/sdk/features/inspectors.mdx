@@ -1,0 +1,75 @@
+---
+path: /sdk/features/inspectors
+title: Inspectors
+description: This topic explains how to configure inspectors for client-side JavaScript LaunchDarkly SDKs.
+published: true
+tags: ['inspector', 'sdk']
+---
+
+## Overview
+
+This topic explains how to configure inspectors for client-side JavaScript LaunchDarkly SDKs.
+
+## Inspector types
+
+There are different types of inspectors you can provide when configuring the JavaScript SDK. They are intended for monitoring, analytics, or debugging purposes. The application should not use these interfaces to access flags for the purpose of controlling application flow.
+
+These are the inspector types:
+
+* [Flag Used](https://launchdarkly.github.io/js-sdk-common/interfaces/LDInspectionFlagUsedHandler.html)
+* [Flag Details Changed](https://launchdarkly.github.io/js-sdk-common/interfaces/LDInspectionFlagDetailsChangedHandler.html)
+* [Flag Detail Changed](https://launchdarkly.github.io/js-sdk-common/interfaces/LDInspectionFlagDetailChangedHandler.html)
+
+Details about each SDK's configuration are available in the SDK-specific sections below:
+
+* [JavaScript](#javascript)
+* [React Native](#javascript): The React Native SDK relies on the JavaScript SDK for user-related functionality.
+* [React Web](#javascript): The React Web SDK relies on the JavaScript SDK for user-related functionality.
+
+### JavaScript
+
+<Details summary="Expand JavaScript code sample">
+
+The inspector `type` defines when in the SDK lifecycle it calls the `method` callback, and with what arguments.
+
+To configure a `Flag Used` inspector, set type to `flag-used` and pass in a method that matches the expected signature:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const client = LDClient.initialize(
+  'client-side-id-123abc',
+  user,
+  options = {
+    inspectors: [
+      {
+        type: 'flag-used',
+        name: 'example-flag-used',
+        method: (flagKey, flagDetail) => {
+          console.log(flagKey)
+          console.log(flagDetail)
+        }
+      }
+    ]
+  }
+};
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+</Details>
+
+### React Native
+
+All inspector-related functionality provided by the [JavaScript SDK](#javascript) is also available in the React Native SDK.
+
+### React Web
+
+All inspector-related functionality provided by the [JavaScript SDK](#javascript) is also available in the React Web SDK.

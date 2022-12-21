@@ -10,6 +10,21 @@ tags: ['flag', 'subscribe', 'sdk']
 
 This topic explains how to configure each SDK to allow applications to subscribe to flag change notifications. This feature is available for both client-side and server-side SDKs.
 
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
+
 ## Subscribing to flag change notifications
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
@@ -209,7 +224,7 @@ LDClient.get().unregisterAllFlagsListener(listener)
 
 <Details summary="Expand Electron code sample">
 
-The client uses an event emitter pattern which allows your app to subscribe to feature flag changes in real time. 
+The client uses an event emitter pattern which allows your app to subscribe to feature flag changes in real time.
 
 To subscribe to feature flag changes, register listeners for change events from the SDK:
 
@@ -222,7 +237,7 @@ To subscribe to feature flag changes, register listeners for change events from 
 <CodeTabItem value="js">
 
 ```js
-client.on('change:YOUR_FEATURE_KEY', (newValue, oldValue) => {
+client.on('change:flag-key-123abc', (newValue, oldValue) => {
   console.log('The flag was ' + oldValue + ' and now it is ' + newValue);
 });
 ```
@@ -360,7 +375,7 @@ To configure the client:
 <CodeTabItem value="swift">
 
 ```swift
-let flagKey = "MY_OBSERVE_FLAG_KEY"
+let flagKey = "flag-key-123abc"
 let flagObserverOwner = flagKey as LDObserverOwner
 
 let client = LDClient.get()!
@@ -407,7 +422,7 @@ __weak typeof(self) weakSelf = self;
 
 <Details summary="Expand JavaScript code sample">
 
-The client uses an event emitter pattern which allows your app to subscribe to feature flag changes in real time. 
+The client uses an event emitter pattern which allows your app to subscribe to feature flag changes in real time.
 
 To subscribe to all feature flag changes, register listeners for change events from the SDK:
 
@@ -441,8 +456,8 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
-client.on('change:YOUR_FLAG_KEY', (value, previous) => {
-  console.log('YOUR_FLAG_KEY changed:', value, '(' + previous + ')');
+client.on('change:flag-key-123abc', (value, previous) => {
+  console.log('flag-key-123abc changed:', value, '(' + previous + ')');
 });
 ```
 
@@ -488,8 +503,8 @@ Here's how:
 <CodeTabItem value="js">
 
 ```js
-client.on('change:YOUR_FLAG_KEY', (value, previous) => {
-  console.log('YOUR_FLAG_KEY changed:', value, '(was ' + previous + ')');
+client.on('change:flag-key-123abc', (value, previous) => {
+  console.log('flag-key-123abc changed:', value, '(was ' + previous + ')');
 });
 ```
 
@@ -518,8 +533,8 @@ if (this.state.listeners.hasOwnProperty(key)) {
   return;
 }
 let listener = value => Alert.alert('Listener Callback', value);
-client.registerFeatureFlagListener('MY_LISTEN_FLAG_KEY', listener);
-this.setState({listeners: {...this.state.listeners, ...{['MY_LISTEN_FLAG_KEY']: listener}}});
+client.registerFeatureFlagListener('flag-key-123abc', listener);
+this.setState({listeners: {...this.state.listeners, ...{['flag-key-123abc']: listener}}});
 ```
 
 </CodeTabItem>
@@ -536,8 +551,8 @@ You can also disable listeners by unregistering them:
 <CodeTabItem value="js">
 
 ```js
-this.state.client.unregisterFeatureFlagListener('MY_LISTEN_FLAG_KEY', this.state.listeners['MY_LISTEN_FLAG_KEY']);
-let {['MY_LISTEN_FLAG_KEY']: omit, ...newListeners} = this.state.listeners;
+this.state.client.unregisterFeatureFlagListener('flag-key-123abc', this.state.listeners['flag-key-123abc']);
+let {['flag-key-123abc']: omit, ...newListeners} = this.state.listeners;
 this.setState({listeners: newListeners});
 ```
 
@@ -569,9 +584,9 @@ The .NET SDK only supports subscribing to flag changes in versions 6.0.0 and hig
 
 The SDK provides an event-based mechanism to notify you when flag configurations change. [`LDClient.FlagTracker`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_FlagTracker) returns an interface for this mechanism, [`IFlagTracker`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.IFlagTracker.html).
 
-Any event handler that you add to the [`IFlagTracker.FlagChanged`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.IFlagTracker.html#LaunchDarkly_Sdk_Server_Interfaces_IFlagTracker_FlagChanged) event will be called with a [`FlagChangeEvent`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.FlagChangeEvent.html) whenever there is a change in any feature flag's configuration, or in anything else that could indirectly affect the flag value, such as a prerequisite flag or a user segment that the flag uses.
+Any event handler that you add to the [`IFlagTracker.FlagChanged`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.IFlagTracker.html#LaunchDarkly_Sdk_Server_Interfaces_IFlagTracker_FlagChanged) event will be called with a [`FlagChangeEvent`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.FlagChangeEvent.html) whenever there is a change in any feature flag's configuration, or in anything else that could indirectly affect the flag value, such as a prerequisite flag or a segment that the flag uses.
 
-The event data consists only of the flag key. It does not contain a flag value, because in server-side SDKs, there is no such thing as a flag value except when it is evaluated for a specific set of user properties.
+The event data consists only of the flag key. It does not contain a flag value, because in server-side SDKs, there is no such thing as a flag value except when it is evaluated for a specific context.
 
 The listener method is called synchronously from a background task.
 
@@ -597,15 +612,37 @@ void LogWheneverAnyFlagChanges(LdClient client) {
 </CodeTabItem>
 </CodeTabs>
 
-To listen for changes in flag values for a specific flag key and user, use [`IFlagTracker.FlagValueChangeHandler()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.IFlagTracker.html#LaunchDarkly_Sdk_Server_Interfaces_IFlagTracker_FlagValueChangeHandler_). It calls your code with a [`FlagValueChangeEvent`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.FlagValueChangeEvent.html). This is equivalent to re-evaluating the flag for that user whenever there is a change in that flag. Because flag values can have different data types, the value is reported using the general type [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html).
+To listen for changes in flag values for a specific flag key and context, use [`IFlagTracker.FlagValueChangeHandler()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.IFlagTracker.html#LaunchDarkly_Sdk_Server_Interfaces_IFlagTracker_FlagValueChangeHandler_). It calls your code with a [`FlagValueChangeEvent`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.FlagValueChangeEvent.html). This is equivalent to re-evaluating the flag for that context whenever there is a change in that flag. Because flag values can have different data types, the value is reported using the general type [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html).
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
   ]
 }>
 <CodeTabItem value="csharp">
+
+```csharp
+void LogWheneverOneFlagChangesForOneContext(LdClient client, string flagKey, Context context) {
+    client.FlagTracker.FlagChanged += client.FlagTracker.FlagValueChangeHandler(
+        flagKey,
+        context,
+        (sender, event) =>
+        {
+            Console.WriteLine(
+                "Flag \"{0}\" for context \"{1}\" has changed from {2} to {3}",
+                flagKey,
+                context.Key,
+                event.OldValue,
+                event.NewValue
+            );
+        });
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-6.x">
 
 ```csharp
 void LogWheneverOneFlagChangesForOneUser(LdClient client, string flagKey, User user) {
@@ -642,19 +679,39 @@ The Go SDK only supports subscribing to flag changes in versions 5.0.0 and highe
 </CalloutDescription>
 </Callout>
 
-The Go SDK provides a channel-based mechanism to notify you when flag configurations change. The [`LDClient.GetFlagTracker()`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.GetFlagTracker) method returns an interface for this mechanism called [`FlagTracker`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#FlagTracker).
+The Go SDK provides a channel-based mechanism to notify you when flag configurations change. The [`LDClient.GetFlagTracker()`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.GetFlagTracker) method returns an interface for this mechanism called [`FlagTracker`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6/interfaces#FlagTracker).
 
-Calling `GetFlagTracker().AddFlagChangeListener()` provides a channel that receives a [`FlagChangeEvent`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#FlagChangeEvent) whenever there is a change in any feature flag's configuration. These changes include anything that could indirectly affect the flag value, such as a prerequisite flag or a user segment that the flag uses.
+Calling `GetFlagTracker().AddFlagChangeListener()` provides a channel that receives a [`FlagChangeEvent`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6/interfaces#FlagChangeEvent) whenever there is a change in any feature flag's configuration. These changes include anything that could indirectly affect the flag value, such as a prerequisite flag or a segment that the flag uses.
 
-The event data consists only of the flag key. It does not contain a flag value, because in server-side SDKs, flags only have values when they are evaluated for a specific set of user properties.
+The event data consists only of the flag key. It does not contain a flag value, because in server-side SDKs, flags only have values when they are evaluated for a specific evaluation context.
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 <CodeTabItem value="go">
+
+```go
+import (
+    "log"
+    ld "github.com/launchdarkly/go-server-sdk/v6"
+)
+
+func logWheneverAnyFlagChanges(client *ld.LDClient) {
+    updateCh := client.GetFlagTracker().AddFlagChangeListener()
+    go func() {
+        for event := range updateCh {
+            log.Printf("Flag %q has changed", event.Key)
+        }
+    }()
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 import (
@@ -675,15 +732,38 @@ func logWheneverAnyFlagChanges(client *ld.LDClient) {
 </CodeTabItem>
 </CodeTabs>
 
-To listen for changes in flag values for a specific flag key and user, use `GetFlagTracker().AddFlagValueChangeListener()`, which provides [`FlagValueChangeEvent`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5/interfaces#FlagValueChangeEvent)s. This is equivalent to re-evaluating the flag for that user whenever `AddFlagChangeListener()` reports a change in that flag. Because flag values can have different data types, the value is reported using the general type [`ldvalue.Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#Value).
+To listen for changes in flag values for a specific flag key and context, use `GetFlagTracker().AddFlagValueChangeListener()`, which provides [`FlagValueChangeEvent`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6/interfaces#FlagValueChangeEvent)s. This is equivalent to re-evaluating the flag for that context whenever `AddFlagChangeListener()` reports a change in that flag. Because flag values can have different data types, the value is reported using the general type [`ldvalue.Value`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldvalue#Value).
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 <CodeTabItem value="go">
+
+```go
+import (
+    "log"
+    ld "github.com/launchdarkly/go-server-sdk/v6"
+    "github.com/launchdarkly/go-sdk-common/v3/ldcontext"
+    "github.com/launchdarkly/go-sdk-common/v3/ldvalue"
+)
+
+func logWheneverOneFlagChangesForOneUser(client *ld.LDClient, flagKey string, context ldcontext.Context) {
+    updateCh := client.GetFlagTracker().AddFlagValueChangeListener(flagKey, context, ldvalue.Null())
+    go func() {
+        for event := range updateCh {
+            log.Printf("Flag %q for context %q has changed from %s to %s", event.Key,
+                context.Key(), event.OldValue, event.NewValue)
+        }
+    }()
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 import (
@@ -723,9 +803,9 @@ The Java SDK only supports subscribing to flag changes in versions 5.0.0 and hig
 </CalloutDescription>
 </Callout>
 
-The SDK provides a listener-based mechanism to notify you when flag configurations change. The [`LDClient.getFlagTracker()`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#getFlagTracker--) method returns an interface for this mechanism, [`FlagTracker`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html).
+The SDK provides a listener-based mechanism to notify you when flag configurations change. The [`LDClient.getFlagTracker()`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#getFlagTracker()) method returns an interface for this mechanism, [`FlagTracker`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html).
 
-Calling [`getFlagTracker().addFlagChangeListener`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html#addFlagChangeListener-com.launchdarkly.sdk.server.interfaces.FlagChangeListener-) calls your listener with a [`FlagChangeEvent`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagChangeEvent.html) whenever there is a change in any feature flag's configuration, or in anything else that could indirectly affect the flag value, such as a prerequisite flag or a user segment that the flag uses.
+Calling [`getFlagTracker().addFlagChangeListener`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html#addFlagChangeListener(com.launchdarkly.sdk.server.interfaces.FlagChangeListener)) calls your listener with a [`FlagChangeEvent`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagChangeEvent.html) whenever there is a change in any feature flag's configuration, or in anything else that could indirectly affect the flag value, such as a prerequisite flag or a user segment that the flag uses.
 
 The event data consists only of the flag key. It does not contain a flag value, because in server-side SDKs, there is no such thing as a flag value except when it is evaluated for a specific set of user properties.
 
@@ -752,15 +832,28 @@ void logWheneverAnyFlagChanges(LDClient client) {
 </CodeTabItem>
 </CodeTabs>
 
-To listen for changes in flag values for a specific flag key and user, use [`getFlagTracker().addFlagValueChangeListener`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html#addFlagValueChangeListener-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.server.interfaces.FlagValueChangeListener-), which provides [`FlagValueChangeEvent`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagValueChangeEvent.html)s. This is equivalent to re-evaluating the flag for that user whenever `addFlagChangeListener()` reports a change in that flag. Because flag values can have different data types, the value is reported using the general type [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html).
+To listen for changes in flag values for a specific flag key and context, use [`getFlagTracker().addFlagValueChangeListener`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html#addFlagValueChangeListener(java.lang.String,com.launchdarkly.sdk.LDContext,com.launchdarkly.sdk.server.interfaces.FlagValueChangeListener)), which provides [`FlagValueChangeEvent`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagValueChangeEvent.html)s. This is equivalent to re-evaluating the flag for that context whenever `addFlagChangeListener()` reports a change in that flag. Because flag values can have different data types, the value is reported using the general type [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html).
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java SDK v6.0', value: 'java', },
+    { label: 'Java SDK v5.x', value: 'java-v5', },
   ]
 }>
 <CodeTabItem value="java">
+
+```java
+void logWheneverOneFlagChangesForOneContext(LDClient client, string flagKey, LDContext context) {
+    client.getFlagTracker().addFlagValueChangeListener(flagKey, context, event -> {
+        System.out.printf("Flag \"%s\" for context \"%s\" has changed from %s to %s\n", event.getKey(),
+            context.getKey(), event.getOldValue(), event.getNewValue());
+    });
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v5">
 
 ```java
 void logWheneverOneFlagChangesForOneUser(LDClient client, string flagKey, LDUser user) {
@@ -781,14 +874,14 @@ void logWheneverOneFlagChangesForOneUser(LDClient client, string flagKey, LDUser
 
 The SDK provides an event-based mechanism to notify you when flag configurations change.
 
-For example, imagine you have a feature flag named `EXAMPLE_FLAG_KEY`. If the SDK detects a change in `EXAMPLE_FLAG_KEY`'s configuration, or in anything else that could indirectly affect the flag value, such as a prerequisite flag or a user segment that `EXAMPLE_FLAG_KEY` uses, it emits two events.
+For example, imagine you have a feature flag named `flag-key-123abc`. If the SDK detects a change in `flag-key-123abc`'s configuration, or in anything else that could indirectly affect the flag value, such as a prerequisite flag or a user segment that `flag-key-123abc` uses, it emits two events.
 
 These events are:
 
 * `"update"` and
-* `"update:EXAMPLE_FLAG_KEY"`
+* `"update:flag-key-123abc"`
 
-You can listen for `"update:EXAMPLE_FLAG_KEY"` if you only want to know about updates affecting that flag specifically, or `"update"` if you want to be notified about all updates.
+You can listen for `"update:flag-key-123abc"` if you only want to know about updates affecting that flag specifically, or `"update"` if you want to be notified about all updates.
 
 For both of these event kinds, an extra parameter is sent to event listeners. This object has the single property `key`, with its value set to the flag key. If you listened for the general `"update"` event, this lets you know which flag changed.
 
@@ -811,8 +904,8 @@ client.on('update', (param) => {
   console.log('a flag was changed: ' + param.key);
 });
 
-client.on('update:EXAMPLE_FLAG_KEY', () => {
-  console.log('the EXAMPLE_FLAG_KEY flag was changed');
+client.on('update:flag-key-123abc', () => {
+  console.log('the flag-key-123abc flag was changed');
 });
 ```
 

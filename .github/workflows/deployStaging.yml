@@ -32,12 +32,15 @@ jobs:
         with:
           # fetch entire history to get Last Edit date for topics
           fetch-depth: 0
+      - run: |
+          echo "REF NAME: ${{ github.ref_name }}"
+          echo "SHA ${{ github.sha }}"
       - name: Find last successful run
         uses: SamhammerAG/last-successful-build-action@v4
         id: last-success
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.head_ref }}
+          branch: ${{ github.ref_name }}
           workflow: Deploy to Staging
       - name: Get specific changed files
         # skip if we are checking self
@@ -45,12 +48,13 @@ jobs:
         # for PR that is the merge commit, which is why we don't use it elsewhere
         if: steps.last-success.outputs.sha != github.sha
         id: changed-files-specific
-        uses: tj-actions/changed-files@v34
+        uses: tj-actions/changed-files@v35
         with:
-          token: ${{ github.token }}
           separator: ' '
+          # fetch_depth increased to 120 as an attempt to resolve sc-176350
+          fetch_depth: '120'
           base_sha: ${{ steps.last-success.outputs.sha }}
-          sha: ${{ github.events.pull_request.head.sha }}
+          sha: '${{ github.sha }}'
           files: |
             assets
             src
@@ -141,7 +145,7 @@ jobs:
         id: cypress
         continue-on-error: true
         with:
-          command: yarn dlx cypress@10 run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }},retries=2 --spec cypress/e2e/smoke.cy.ts --env bucket_prefix=${{ env.BUCKET_PREFIX }}
+          command: yarn dlx cypress@11 run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }},retries=2 --spec cypress/e2e/smoke.cy.ts --env bucket_prefix=${{ env.BUCKET_PREFIX }}
           install: false
           build: yarn build-nav-data
           wait-on: 'https://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }}/home'

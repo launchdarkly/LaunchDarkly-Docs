@@ -81,7 +81,7 @@ Here's how:
 
 ```haskell
 client :: IO Client
-client = makeClient $ makeConfig "YOUR_SDK_KEY"
+client = makeClient $ makeConfig "sdk-key-123abc"
 ```
 
 </CodeTabItem>
@@ -91,7 +91,9 @@ client = makeClient $ makeConfig "YOUR_SDK_KEY"
 <CalloutTitle>Client must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `Client` a singleton. The client instance maintains an internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `Client` a singleton for each LaunchDarkly project. The client instance maintains an internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
@@ -109,7 +111,7 @@ Here's how:
 <CodeTabItem value="haskell">
 
 ```haskell
-boolVariation client "YOUR_FLAG_KEY" (makeUser "abc") False
+boolVariation client "flag-key-123abc" (makeUser "user-key-123abc") False
 ```
 
 </CodeTabItem>
@@ -129,7 +131,7 @@ This SDK supports the following features:
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#haskell)
 * [Flushing events](/sdk/features/flush#haskell)
 * [Getting all flags](/sdk/features/all-flags#haskell)
-* [Identifying and changing users](/sdk/features/identify#haskell)
+* [Identifying and changing contexts](/sdk/features/identify#haskell)
 * [Offline mode](/sdk/features/offline-mode#haskell)
 * [Reading flags from a file](/sdk/features/flags-from-files#haskell)
 * [Relay Proxy configuration](/sdk/features/relay-proxy-configuration)
@@ -139,4 +141,4 @@ This SDK supports the following features:
 * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#haskell)
 * [Shutting down](/sdk/features/shutdown#haskell)
 * [Test data sources](/sdk/features/test-data-sources#haskell)
-* [User configuration](/sdk/features/user-config#haskell)
+* [User and context configuration](/sdk/features/user-context-config#haskell)

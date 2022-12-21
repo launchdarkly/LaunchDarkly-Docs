@@ -15,6 +15,19 @@ If you want to add LaunchDarkly to your React Native codebase, use the React Nat
 </CalloutDescription>
 </Callout>
 
+<Callout intent="info">
+<CalloutTitle>Version 3 of the React Web SDK replaces users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
+
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [React Web SDK 2.x to 3.0 migration guide](/sdk/client-side/react/web-migration-2-to-3).
+
+</CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic documents how to get started with the client-side React SDK, and links to reference information on all of the supported features.
@@ -68,7 +81,9 @@ The React SDK builds on LaunchDarkly's JavaScript SDK to provide a better integr
 <CalloutTitle>SDK version compatibility</CalloutTitle>
 <CalloutDescription>
 
-The LaunchDarkly React SDK is compatible with React version 16.3.0 and higher.
+The LaunchDarkly React SDK, version 3.0 and higher, is compatible with React version 16.3.3 and higher.
+
+The LaunchDarkly React SDK, version 2.x, is compatible with React version 16.3.0 and higher.
 
 The LaunchDarkly React SDK offers two custom hooks. If you want to use these, then you must use React version 16.8.0 or higher. To learn more, read [Hooks](#hooks).
 
@@ -126,7 +141,7 @@ Both functions rely on React's `Context` API, which lets you access your flags f
 
 When you use `asyncWithLDProvider`, it initializes the React SDK and returns a provider which is a React component. If you use the `asyncWithLDProvider` function with `await`, the rendering of your React app is delayed until SDK initialization completes. Depending on your network conditions, this may take a couple hundred milliseconds. After initialization is complete, your flags and the LaunchDarkly client become available at the start of your React app lifecycle. This ensures that your app does not flicker due to flag changes at startup time. To learn more, read [Initializing using the `asyncWithLDProvider` function](#initializing-using-asyncwithldprovider).
 
-When you use `withLDProvider`, it initializes the underlying JavaScript SDK at `componentDidMount`. This means your flags and the LaunchDarkly client only become available after your app has mounted. Use this method if you prefer to render your app first, and then process flag updates after rendering is complete. You can also optionally defer initialization further, until after you define the user property. Because your app renders before initialization, using `withLDProvider` can result in a flicker due to flag changes at startup time. To learn more, read [Initializing using the `withLDProvider` function](#initializing-using-withldprovider).
+When you use `withLDProvider`, it initializes the underlying JavaScript SDK at `componentDidMount`. This means your flags and the LaunchDarkly client only become available after your app has mounted. Use this method if you prefer to render your app first, and then process flag updates after rendering is complete. You can also optionally defer initialization further, until after you define a context. Because your app renders before initialization, using `withLDProvider` can result in a flicker due to flag changes at startup time. To learn more, read [Initializing using the `withLDProvider` function](#initializing-using-withldprovider).
 
 ### Initializing using `asyncWithLDProvider`
 
@@ -137,23 +152,25 @@ The `asyncWithLDProvider` function accepts an `AsyncProviderConfig` object, whic
 Here's how to initialize using `asyncWithLDProvider`:
 
 <CodeTabs
-  defaultValue="js"
+  defaultValue="react"
   values={[
-    { label: 'JavaScript', value: 'js', },
+    { label: 'React Web SDK, v3.0', value: 'react', },
+    { label: 'React Web SDK, v2.x', value: 'react-v2', },
   ]
 }>
-<CodeTabItem value="js">
+<CodeTabItem value="react">
 
 ```js
 import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
 
 (async () => {
   const LDProvider = await asyncWithLDProvider({
-    clientSideID: 'your-client-side-id',
-    user: {
-      "key": "aa0ceb",
-      "name": "Grace Hopper",
-      "email": "gracehopper@example.com"
+    clientSideID: 'client-side-id-123abc',
+    context: {
+      "kind": "user",
+      "key": "user-key-123abc",
+      "name": "Sandy Smith",
+      "email": "sandy@example.com"
     },
     options: { /* ... */ }
   });
@@ -168,13 +185,59 @@ import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
 ```
 
 </CodeTabItem>
+<CodeTabItem value="react-v2">
+
+```js
+import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
+
+(async () => {
+  const LDProvider = await asyncWithLDProvider({
+    clientSideID: 'client-side-id-123abc',
+    user: {
+      "key": "user-key-123abc",
+      "name": "Sandy Smith",
+      "email": "sandy@example.com"
+    },
+    options: { /* ... */ }
+  });
+
+  render(
+    <LDProvider>
+      <YourApp />
+    </LDProvider>,
+    document.getElementById('reactDiv'),
+  );
+})();
+
+```
+
+</CodeTabItem>
 </CodeTabs>
+
+<Callout intent="alert">
+<CalloutTitle>Omitting the <code>kind</code> creates a user object, not a context</CalloutTitle>
+<CalloutDescription>
+
+If you omit the `kind` attribute when you create a context, then LaunchDarkly will assume the context kind is "user" when evaluating flags. Additionally, the SDK will assume you are working with a user object, rather than a context.
+
+Overall, this should make your upgrade easier, because your existing code will continue to work, as long as you don't make changes to your flag configuration or [bucket users based on the "secondary" attribute](/sdk/client-side/javascript/migration-2-to-3#removing-the-secondary-attribute).
+
+However, if you are using version 3.0 of the SDK and you are omitting the `kind` attribute, then the following caveats apply:
+
+<ul>
+<li>The fields in your user object must be <code>LDUser</code> fields, not <code>LDContext</code> fields. For example, to mark an attribute as private, you must use <code>privateAttributeNames</code> in the user object, not <code>_meta.privateAttributes</code> as you would for a context object. To learn more, read <a href="/sdk/client-side/javascript/migration-2-to-3#understanding-changes-to-private-attributes">Understanding changes to private attributes</a>.</li>
+<li>Any additional attributes in your user object need to be inside the <code>custom</code> property of the <code>LDUser</code>, not at the top-level as they would in a context object. To learn more, read <a href="/sdk/client-side/javascript/migration-2-to-3#working-with-built-in-and-custom-attributes">Working with built-in and custom attributes</a>.</li>
+</ul>
+
+We strongly recommend upgrading your SDK to take advantage of the context functionality.
+</CalloutDescription>
+</Callout>
 
 After initialization is complete, your flags and the client are available at the start of your React app lifecycle. This ensures your app does not flicker due to flag changes at startup time.
 
-If your app does not yet have the user context when you call `asyncWithLDProvider`, you can omit the `user` option. This instantiates the client without explicitly specifying a user. Instead, the React SDK uses an anonymous user. Later, when you have the user context, you can call `identify`.
+If your app does not yet have the context when you call `asyncWithLDProvider`, you can omit the `context` option. This instantiates the client without explicitly specifying a context. Instead, the React SDK uses an anonymous context. Later, when you have the context, you can call `identify`.
 
-Here's how to identify the user after initialization:
+Here's how to identify the context after initialization:
 
 <CodeTabs
   defaultValue="app"
@@ -195,7 +258,7 @@ export default function App {
   const ldClient = useLDClient();
 
   useEffect(() => {
-    ldClient.identify({ key: 'example-user-key' });
+    ldClient.identify({ key: 'context-key-123abc' });
   }, []);
 
   return <div>Let your feature flags fly!</div>
@@ -213,7 +276,7 @@ import App from 'app.js';
 import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
 
 const renderApp = async () => {
-  const LDProvider = await asyncWithLDProvider({ clientSideID: 'your-client-side-id' });
+  const LDProvider = await asyncWithLDProvider({ clientSideID: 'client-side-id-123abc' });
 
   ReactDOM.render(
     <React.StrictMode>
@@ -231,7 +294,7 @@ renderApp();
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [Identifying and changing users](/sdk/features/identify#react).
+To learn more, read [Identifying and changing contexts](/sdk/features/identify#react).
 
 <Callout intent="alert">
 <CalloutTitle>This function requires React 16.8.0 or later</CalloutTitle>
@@ -246,17 +309,18 @@ The `asyncWithLDProvider` function uses the Hooks API, which requires React vers
 
 The `withLDProvider` function initializes the React SDK and wraps your root component in a `Context.Provider`, which is a React component.
 
-The `withLDProvider` function accepts a `ProviderConfig` object, which provides configuration properties for the React SDK. In the example below, the `user` property is specified. Alternatively, you could set the `deferInitialization` property, and defer initialization until after you define the user property. To learn more, read [Configuring the React SDK](#configuring-the-react-sdk). Another of these configuration properties is the `options` field, which lets you customize your client. To learn more, read about [Configuration](/sdk/features/config#javascript) for the JavaScript SDK.
+The `withLDProvider` function accepts a `ProviderConfig` object, which provides configuration properties for the React SDK. In the example below, the `context` property is specified. Alternatively, you could set the `deferInitialization` property, and defer initialization until after you define the context property. To learn more, read [Configuring the React SDK](#configuring-the-react-sdk). Another of these configuration properties is the `options` field, which lets you customize your client. To learn more, read about [Configuration](/sdk/features/config#javascript) for the JavaScript SDK.
 
 Here's how to initialize using `withLDProvider`:
 
 <CodeTabs
-  defaultValue="js"
+  defaultValue="react"
   values={[
-    { label: 'JavaScript', value: 'js', },
+    { label: 'React Web SDK, v3.0', value: 'react', },
+    { label: 'React Web SDK, v2.x', value: 'react-v2', },
   ]
 }>
-<CodeTabItem value="js">
+<CodeTabItem value="react">
 
 ```js
 import { render } from 'react-dom';
@@ -265,17 +329,42 @@ import { withLDProvider } from 'launchdarkly-react-client-sdk';
 import App from './App';
 
 const LDProvider = withLDProvider({
-  clientSideID: 'your-client-side-id',
-  user: {
-    "key": "aa0ceb",
-    "name": "Grace Hopper",
-    "email": "gracehopper@example.com"
+  clientSideID: 'client-side-id-123abc',
+  context: {
+    "kind": "user",
+    "key": "user-key-123abc",
+    "name": "Sandy Smith",
+    "email": "sandy@example.com"
   },
   options: { /* ... */ }
 })(App);
 
 const rootElement = document.getElementById("root");
 render(<LDProvider />, rootElement);
+```
+
+</CodeTabItem>
+<CodeTabItem value="react-v2">
+
+```js
+import { render } from 'react-dom';
+import { withLDProvider } from 'launchdarkly-react-client-sdk';
+
+import App from './App';
+
+const LDProvider = withLDProvider({
+  clientSideID: 'client-side-id-123abc',
+  user: {
+    "key": "user-key-123abc",
+    "name": "Sandy Smith",
+    "email": "sandy@example.com"
+  },
+  options: { /* ... */ }
+})(App);
+
+const rootElement = document.getElementById("root");
+render(<LDProvider />, rootElement);
+
 ```
 
 </CodeTabItem>
@@ -291,7 +380,7 @@ The React SDK automatically subscribes to flag `change` events after your app ha
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
 <CalloutDescription>
 
-You must make feature flags available to client-side SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
+You must make feature flags available to client-side SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the context will receive the default value for that flag.
 
 To make a flag available to this SDK, check the **SDKs using Client-side ID** checkbox during flag creation, or on the flag's **Settings** tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [**Settings**](https://app.launchdarkly.com/settings/projects).
 
@@ -341,10 +430,10 @@ The only mandatory property is the client-side ID. All other properties are opti
 These are the properties:
 
 - `clientSideID`: This is your project and environment specific client-side ID. This property is mandatory.
-- `user`: A LaunchDarkly [user](/sdk/features/user-config) object. This property is optional unless you are initializing in secure mode, in which case it is mandatory. Defaults to an anonymous user.
+- `context`: A LaunchDarkly [context](/home/contexts) object. This property is optional unless you are initializing in secure mode, in which case it is mandatory. Defaults to an anonymous user.
 - `options`: The LaunchDarkly JavaScript SDK initialization [options](/sdk/features/config#javascript). This property is optional.
 - `reactOptions`: This property is specific to the React SDK. You can use this option to [disable automatic camel casing](#flag-keys) of flag keys when using the React SDK, or to [disable evaluation events on read](#events). This property is optional.
-- `deferInitialization`: This property allows you to defer SDK initialization until you define the `user` property. This property is optional, and is only available in `ProviderConfig`, when you initialize using `withLDProvider`.
+- `deferInitialization`: This property allows you to defer SDK initialization until you define the `context` property. This property is optional, and is only available in `ProviderConfig`, when you initialize using `withLDProvider`.
 
   By deferring SDK initialization, you defer all steps which take place as part of SDK initialization, including reading flag values from local storage and sending the SDK's `ready` event.
 
@@ -357,20 +446,22 @@ These are the properties:
 The following is an example `ProviderConfig` object including each of the above properties:
 
 <CodeTabs
-defaultValue="js"
+defaultValue="react"
 values={[
-  { label: 'JavaScript', value: 'js', },
+  { label: 'React Web SDK, v3.0', value: 'react', },
+  { label: 'React Web SDK, v2.x', value: 'react-v2', },
 ]
 }>
-<CodeTabItem value="js">
+<CodeTabItem value="react">
 
 ```js
 {
-  clientSideID: "your-client-side-id",
-  user: {
-    key: "aa0ceb",
-    name: "Grace Hopper",
-    email: "gracehopper@example.com"
+  clientSideID: "client-side-id-123abc",
+  context: {
+    kind: "user",
+    key: "user-key-123abc",
+    name: "Sandy Smith",
+    email: "sandy@example.com"
   },
   options: {
     bootstrap: "localStorage"
@@ -380,8 +471,33 @@ values={[
   },
   deferInitialization: false,
   flags: {
-    "my-bool-flag": true,
-    "my-int-flag": 5
+    "bool-flag-key-123abc": true,
+    "numeric-flag-key-123abc": 5
+  }
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="react-v2">
+
+```js
+{
+  clientSideID: "client-side-id-123abc",
+  user: {
+    key: "user-key-123abc",
+    name: "Sandy Smith",
+    email: "sandy@example.com"
+  },
+  options: {
+    bootstrap: "localStorage"
+  },
+  reactOptions: {
+    useCamelCaseFlagKeys: false
+  },
+  deferInitialization: false,
+  flags: {
+    "bool-flag-key-123abc": true,
+    "numeric-flag-key-123abc": 5
   }
 }
 ```
@@ -435,7 +551,7 @@ Here's how to configure the automatic camel-case feature:
 
 ```js
 export default withLDProvider({
-  clientSideID: 'your-client-side-id',
+  clientSideID: 'client-side-id-123abc',
   reactOptions: {
     useCamelCaseFlagKeys: false
   }
@@ -463,8 +579,8 @@ If you use eslint, the SDK requires that you add `launchdarkly-js-client-sdk` as
 
 ## Events
 
-The React SDK (version 2.27+) sends flag evaluation events only when a user reads a flag evaluation. The React SDK calls the JavaScript SDK's `allFlags` method on load to cache flag values. It uses the JavaScript SDK's `sendEventsOnlyForVariation` option, set to `true`, to prevent `allFlags` from sending evaluation events for every flag.
+The React SDK (version 2.27+) sends flag evaluation events only when a context receives a flag evaluation. The React SDK calls the JavaScript SDK's `allFlags` method on load to cache flag values. It uses the JavaScript SDK's `sendEventsOnlyForVariation` option, set to `true`, to prevent `allFlags` from sending evaluation events for every flag.
 
-Versions prior to 2.27 of the React SDK send an evaluation event for every flag on load by default. To recreate this behavior in version 2.27+, explicitly set `options.sendEventsOnlyForVariation: false` and set `reactOptions.sendEventsOnFlagRead: false`.
+Versions 2.28 and earlier of the React SDK send an evaluation event when a user reads a flag evaluation. To recreate this behavior in version 2.28 and later, explicitly set `options.sendEventsOnlyForVariation: false` and set `reactOptions.sendEventsOnFlagRead: false`. Version 3 sends events when a context receives a flag evaluation.
 
 To learn more about the `sendEventsOnlyForVariation` option, read the [JavaScript SDK API documentation](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#sendEventsOnlyForVariation). To learn more about the `sendEventsOnFlagRead` option, read the [React SDK API documentation](https://launchdarkly.github.io/react-client-sdk/interfaces/LDReactOptions.html#sendEventsOnFlagRead).

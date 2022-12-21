@@ -119,7 +119,7 @@ using LaunchDarkly.Sdk.Client;
 </CodeTabItem>
 </CodeTabs>
 
-After you install the dependency, initialize the LaunchDarkly client by creating a single, shared instance of `LdClient`. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects). 
+After you install the dependency, initialize the LaunchDarkly client by creating a single, shared instance of `LdClient`. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects).
 
 <Callout intent="alert">
 <CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
@@ -143,9 +143,9 @@ Here's how:
 <CodeTabItem value="csharp">
 
 ```csharp
-var user = User.WithKey(user_key);
+var user = User.WithKey("user-key-123abc");
 var timeSpan = TimeSpan.FromSeconds(10);
-client = LdClient.Init("YOUR_MOBILE_KEY", user, timeSpan);
+client = LdClient.Init("mobile-key-123abc", user, timeSpan);
 ```
 
 </CodeTabItem>
@@ -164,8 +164,8 @@ Here's how:
 <CodeTabItem value="csharp">
 
 ```csharp
-User user = User.WithKey(user_key);
-client = await LdClient.InitAsync("YOUR_MOBILE_KEY", user);
+User user = User.WithKey("user-key-123abc");
+client = await LdClient.InitAsync("mobile-key-123abc", user);
 ```
 
 </CodeTabItem>
@@ -175,7 +175,9 @@ client = await LdClient.InitAsync("YOUR_MOBILE_KEY", user);
 <CalloutTitle>LdClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `LdClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `LdClient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
@@ -238,7 +240,7 @@ You can configure the client-side .NET SDK to connect to the [Relay Proxy](https
 <CodeTabItem value="csharp">
 
 ```csharp
-Configuration config = Configuration.Builder("YOUR_SDK_KEY")
+Configuration config = Configuration.Builder("sdk-key-123abc")
     .ServiceEndpoints(
         Components.ServiceEndpoints().RelayProxy("YOUR_RELAY_URI")
     )
@@ -267,7 +269,7 @@ This SDK supports the following features:
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#net-client-side)
 * [Flushing events](/sdk/features/flush#net-client-side)
 * [Getting all flags](/sdk/features/all-flags#net-client-side)
-* [Identifying and changing users](/sdk/features/identify#net-client-side)
+* [Identifying and changing contexts](/sdk/features/identify#net-client-side)
 * [Logging configuration](/sdk/features/logging#net-client-side)
 * [Monitoring SDK status](/sdk/features/monitoring#net-client-side)
 * [Offline mode](/sdk/features/offline-mode#net-client-side)
@@ -277,5 +279,5 @@ This SDK supports the following features:
 * [Shutting down](/sdk/features/shutdown#net-client-side)
 * [Subscribing to flag changes](/sdk/features/flag-changes#net-client-side)
 * [Test data sources](/sdk/features/test-data-sources#net-client-side)
-* [User configuration](/sdk/features/user-config#net-client-side)
+* [User and context configuration](/sdk/features/user-context-config#net-client-side)
 * [Web proxy configuration](/sdk/features/web-proxy#net-client-side)

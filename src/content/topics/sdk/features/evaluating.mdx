@@ -8,17 +8,43 @@ tags: ['flag', 'evaluation', 'sdk']
 
 ## Overview
 
-This topic explains how to use the flag evaluation feature to serve different feature flag variations to users. This feature is available for all of our SDKs.
+This topic explains how to use the flag evaluation feature to serve different feature flag variations to contexts and users. This feature is available for all of our SDKs.
+
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+
+</CalloutDescription>
+</Callout>
 
 ## Configuring variations
 
-Feature flag variations determine what a user receives when they encounter a feature flag. Every flag has at least two variations, one for when the flag is off, and one for when it's on. To learn more, read [Creating flag variations](/home/flags/variations).
+Feature flag variations determine what a context or user receives when they encounter a feature flag. Every flag has at least two variations, one for when the flag is off, and one for when it's on. To learn more, read [Creating flag variations](/home/flags/variations).
 
-Flags also have fallback values. The fallback value only returns if an error occurs. For example, the SDK serves the fallback value if LaunchDarkly is unreachable, the feature flag key doesn't exist, or the user doesn't have a key specified.
+Flags also have fallback values. The fallback value only returns if an error occurs. For example, the SDK serves the fallback value if LaunchDarkly is unreachable, the feature flag key doesn't exist, or the context or user doesn't have a key specified.
 
-The flag evaluation feature adds a user to the **Users** list if a user with the same key does not already exist. However, each SDK evaluates flags based only on the user object you provide in the evaluation call. The SDK does not automatically use the attributes shown on the **Users** list, and user attributes are not synchronized across SDK instances. You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly. To learn more, read [User configuration](/sdk/features/user-config).
+The flag evaluation feature adds a context to the **Contexts** lists, or user to the **Users** list, if one with the same key does not already exist. However, each SDK evaluates flags based only on the object you provide in the evaluation call.
 
-You do not need to create users manually, but if you want to, you can with the identify feature. To learn more, read [Identifying and changing users](/sdk/features/identify).
+<Callout intent="info">
+<CalloutTitle>Contexts without a context kind are interpreted as users</CalloutTitle>
+<CalloutDescription>
+
+If you are working with an older version of the SDK, you may provide a user object in the evaluation call. If you are also part of the contexts Early Access Program (EAP), then that user object is automatically interpreted as a context with a context kind of "user." To learn more, read [Understanding the foundations of contexts](/home/contexts#understanding-the-foundations-of-contexts).
+
+</CalloutDescription>
+</Callout>
+
+The SDK does not automatically use the attributes shown on the **Contexts** or **Users** list, and attributes are not synchronized across SDK instances. You must provide all relevant attributes for each evaluation for your targeting rules to apply correctly. To learn more, read [User and context configuration](/sdk/features/user-context-config/).
+
+You do not need to create contexts or users manually, but if you want to, you can with the identify feature. To learn more, read [Identifying and changing contexts](/sdk/features/identify).
 
 Details about each SDK's configuration are available in the SDK-specific sections below:
 
@@ -73,7 +99,7 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 <Details summary="Expand Android code sample">
 
-The `variation` method determines whether or not a flag is enabled for a specific user. `variation` calls take the feature flag key and a fallback value. When `LDClient` is initialized for the first time at app launch, users receive the feature flag fallback values until an initial connection to LaunchDarkly completes.
+The `variation` method determines whether or not a flag is enabled for a specific context. `variation` calls take the feature flag key and a fallback value. When `LDClient` is initialized for the first time at app launch, contexts receive the feature flag fallback values until an initial connection to LaunchDarkly completes.
 
 In Android, there is  a `variation` method for each type, such as `boolVariation` or `stringVariation`.
 
@@ -102,7 +128,7 @@ val variationResult: Boolean = client.boolVariation(flagKey, false)
 </CodeTabItem>
 </CodeTabs>
 
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 
@@ -126,7 +152,7 @@ Here is an example:
 <CodeTabItem value="c">
 
 ```c
-bool show_feature = LDBoolVariation(client, "YOUR_FLAG_KEY", false);
+bool show_feature = LDBoolVariation(client, "flag-key-123abc", false);
 if (show_feature) {
     // application code to show the feature
 } else {
@@ -139,7 +165,7 @@ if (show_feature) {
 <CodeTabItem value="cpp">
 
 ```cpp
-bool show_feature = client->boolVariation("YOUR_FLAG_KEY", false);
+bool show_feature = client->boolVariation("flag-key-123abc", false);
 
 if (show_feature) {
     // application code to show the feature
@@ -171,7 +197,7 @@ To evaluate any feature flag for the current user, call `variation`:
 <CodeTabItem value="js">
 
 ```js
-const flagValue = client.variation('YOUR_FEATURE_KEY', false);
+const flagValue = client.variation('flag-key-123abc', false);
 
 // proceed based on flag value, for example:
 
@@ -186,9 +212,9 @@ if (flagValue)  {
 <CodeTabItem value="ts">
 
 ```ts
-const boolFlagValue = client.variation('YOUR_FEATURE_KEY', false) as boolean;
-const numberFlagValue = client.variation('YOUR_FEATURE_KEY', 2) as number;
-const stringFlagValue = client.variation('YOUR_FEATURE_KEY', 'default') as string;
+const boolFlagValue = client.variation('bool-flag-key-123abc', false) as boolean;
+const numberFlagValue = client.variation('number-flag-key-123abc', 2) as number;
+const stringFlagValue = client.variation('string-flag-key-123abc', 'default') as string;
 
 // proceed based on flag value, for example:
 
@@ -221,7 +247,7 @@ Here is an example:
 
 ```js
 const flags = client.allFlags();
-const flagValue = flags['YOUR_FEATURE_KEY'];
+const flagValue = flags['flag-key-123abc'];
 ```
 
 </CodeTabItem>
@@ -265,7 +291,7 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 <Details summary="Expand iOS code sample">
 
-The variation functions determine the flag value for the current user. Variation functions take the feature flag key and a default value as parameters. If the flag does not exist, cannot be cast to the correct return type, or the `LDClient` is not started, the function returns the default value.
+The variation functions determine the flag value for the current context. Variation functions take the feature flag key and a default value as parameters. If the flag does not exist, cannot be cast to the correct return type, or the `LDClient` is not started, the function returns the default value.
 
 In the iOS SDK, there is a variation method for each type, such as `boolVariation` or `jsonVariation`.
 
@@ -296,7 +322,7 @@ LDValue* jsonFlagValue = [[LDClient get] jsonVariationForKey:@"json-flag-key" de
 </CodeTabItem>
 </CodeTabs>
 
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 
@@ -304,7 +330,7 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 <Details summary="Expand JavaScript code sample">
 
-The `variation` method determines which variation of a feature flag a user receives. `variation` calls take the feature flag key and a default value.
+The `variation` method determines which variation of a feature flag a context receives. `variation` calls take the feature flag key and a default value.
 
 Here is an example of the `variation` method:
 
@@ -318,22 +344,22 @@ Here is an example of the `variation` method:
 <CodeTabItem value="js">
 
 ```js
-client.variation('your.feature.key', false);
+client.variation('flag-key-123abc', false);
 ```
 
 </CodeTabItem>
 <CodeTabItem value="ts">
 
 ```ts
-const boolFlagValue = client.variation('your.feature.key', false) as boolean;
-const numberFlagValue = client.variation('your.feature.key', 2) as number;
-const stringFlagValue = client.variation('your.feature.key', 'default') as string;
+const boolFlagValue = client.variation('bool-flag-key-123abc', false) as boolean;
+const numberFlagValue = client.variation('numeric-flag-key-123abc', 2) as number;
+const stringFlagValue = client.variation('string-flag-key-123abc', 'default') as string;
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 
@@ -355,16 +381,16 @@ Here is an example:
 <CodeTabItem value="js">
 
 ```js
-const value = client.variation('YOUR_FEATURE_KEY', false);
+const value = client.variation('flag-key-123abc', false);
 ```
 
 </CodeTabItem>
 <CodeTabItem value="ts">
 
 ```ts
-const boolFlagValue = client.variation('YOUR_FEATURE_KEY', false) as boolean;
-const numberFlagValue = client.variation('YOUR_FEATURE_KEY', 2) as number;
-const stringFlagValue = client.variation('YOUR_FEATURE_KEY', 'default') as string;
+const boolFlagValue = client.variation('flag-key-123abc', false) as boolean;
+const numberFlagValue = client.variation('flag-key-123abc', 2) as number;
+const stringFlagValue = client.variation('flag-key-123abc', 'default') as string;
 
 ```
 
@@ -381,7 +407,7 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 The variation method determines whether a flag is enabled or not for a specific user. In React Native, there is a variation method for each type, such as `boolVariation` or `stringVariation`.
 
-Variation calls take the feature flag key and a fallback value. When `LDClient` is initialized for the first time at app launch, users receive feature flag fallback values until an initial connection to LaunchDarkly is completed for the first time.
+Variation calls take the feature flag key and a fallback value. When `LDClient` is initialized for the first time at app launch, end users receive feature flag fallback values until an initial connection to LaunchDarkly is completed for the first time.
 
 Here is an example:
 
@@ -394,10 +420,10 @@ Here is an example:
 <CodeTabItem value="js">
 
 ```js
-let boolResult = await client.boolVariation('YOUR_BOOLEAN_FLAG_KEY', false);
-let numResult = await client.numberVariation('YOUR_NUMERIC_FLAG_KEY', 2);
-let stringResult = await client.stringVariation('YOUR_STRING_FLAG_KEY', '');
-let jsonResult = await client.jsonVariation('YOUR_JSON_FLAG_KEY', {});
+let boolResult = await client.boolVariation('bool-flag-key-123abc', false);
+let numResult = await client.numberVariation('numeric-flag-key-123abc', 2);
+let stringResult = await client.stringVariation('string-flag-key-123abc', '');
+let jsonResult = await client.jsonVariation('json-flag-key-123abc', {});
 ```
 
 </CodeTabItem>
@@ -425,16 +451,16 @@ Here is an example:
 
 ```brightscript
 REM typed variations
-myInt = launchDarkly.intVariation("MY_FLAG_KEY", 123)
+myInt = launchDarkly.intVariation("flag-key-123abc", 123)
 
-myBool = launchDarkly.boolVariation("MY_FLAG_KEY", false)
+myBool = launchDarkly.boolVariation("flag-key-123abc", false)
 
-myString = launchDarkly.stringVariation("MY_FLAG_KEY", "hello world!")
+myString = launchDarkly.stringVariation("flag-key-123abc", "hello world!")
 
-myObjectOrArray = launchDarkly.jsonVariation("MY_FLAG_KEY", {"value": 123})
+myObjectOrArray = launchDarkly.jsonVariation("flag-key-123abc", {"value": 123})
 
 REM generic variation
-myValue = launchDarkly.variation("MY_FLAG_KEY", false)
+myValue = launchDarkly.variation("flag-key-123abc", false)
 
 ```
 
@@ -468,7 +494,7 @@ This feature is available for all of our server-side SDKs:
 
 <Details summary="Expand .NET (server-side) code sample">
 
-The `Variation` methods determine whether a flag is enabled or not for a specific user. In .NET, there is  a `Variation` method for each type:
+The `Variation` methods determine whether a flag is enabled or not for a specific context. In .NET, there is  a `Variation` method for each type:
 * [`BoolVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_BoolVariation_)
 * [`DoubleVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_DoubleVariation_)
 * [`FloatVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_FloatVariation_)
@@ -476,17 +502,25 @@ The `Variation` methods determine whether a flag is enabled or not for a specifi
 * [`JsonVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_JsonVariation_)
 * [`StringVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_StringVariation_).
 
-`Variation` calls take the feature flag key, a [`User`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.User.html), and a default value.
+`Variation` calls take the feature flag key, a [`Context`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Context.html), and a default value.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
   ]
 }>
 <CodeTabItem value="csharp">
+
+```csharp
+var value = client.BoolVariation("your.feature.key", context, false);
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-6.x">
 
 ```csharp
 var value = client.BoolVariation("your.feature.key", user, false);
@@ -495,7 +529,7 @@ var value = client.BoolVariation("your.feature.key", user, false);
 </CodeTabItem>
 </CodeTabs>
 
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 
@@ -511,7 +545,7 @@ The `variation` family of methods determine the flag value for a specific user. 
 
 Variation methods like `boolVariation` or `stringVariation` do not automatically generate `index` events due to limitations with the Apex platform. This means that the SDK does not automatically populate the **Users** list.
 
-We recommend calling `client.identify(user)` with each of your users to generate user indexing events and populate your **Users** list. To learn more, read [Identifying and changing users](/sdk/features/identify#apex).
+We recommend calling `client.identify(user)` with each of your users to generate user indexing events and populate your **Users** list. To learn more, read [Identifying and changing contexts](/sdk/features/identify#apex).
 
 </CalloutDescription>
 </Callout>
@@ -581,7 +615,7 @@ The `variation` function determines whether a flag is enabled or not for a speci
 <CodeTabItem value="erlang">
 
 ```
-Flag = ldclient:variation(<<"my-bool-key">>, #{key => <<"aa0ceb">>,}, false, my_instance)
+Flag = ldclient:variation(<<"flag-key-123abc">>, #{key => <<"user-key-123abc">>,}, false, my_instance)
 ```
 
 </CodeTabItem>
@@ -595,26 +629,36 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 <Details summary="Expand Go code sample">
 
-The `Variation` methods determine whether a flag is enabled or not for a specific user. In Go, there is a `Variation` method for each type:
-* [`BoolVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.BoolVariation)
-* [`IntVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.IntVariation)
-* [`Float64Variation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Float64Variation)
-* [`StringVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.StringVariation)
-* [`JSONVariation`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.JSONVariation), which can be any JSON type.
+The `Variation` methods determine whether a flag is enabled or not for a specific context. In Go, there is a `Variation` method for each type:
+* [`BoolVariation`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.BoolVariation)
+* [`IntVariation`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.IntVariation)
+* [`Float64Variation`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.Float64Variation)
+* [`StringVariation`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.StringVariation)
+* [`JSONVariation`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.JSONVariation), which can be any JSON type.
 
-`Variation` methods take the feature flag key, a `User`, and a default value. In the example below, the default value is `false`.
+`Variation` methods take the feature flag key, a context, and a default value. In the example below, the default value is `false`.
 
-The `Variation` call generates analytics events to tell LaunchDarkly about the flag evaluation and the user properties, so the user will be added to the **Users** list if a user with that key doesn't exist already.
+The `Variation` call generates analytics events to tell LaunchDarkly about the flag evaluation and the context attributes, so the context will be added to the **Contexts** list if a context with that key doesn't exist already.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="go"
   values={[
-    { label: 'Go', value: 'go', },
+    { label: 'Go SDK v6.0', value: 'go', },
+    { label: 'Go SDK v5.x', value: 'go-v5' },
   ]
 }>
 <CodeTabItem value="go">
+
+```go
+result, _ := client.BoolVariation("your.feature.key", context, false)
+
+// result is now true or false depending on the setting of this boolean feature flag
+```
+
+</CodeTabItem>
+<CodeTabItem value="go-v5">
 
 ```go
 result, _ := client.BoolVariation("your.feature.key", user, false)
@@ -625,7 +669,7 @@ result, _ := client.BoolVariation("your.feature.key", user, false)
 </CodeTabItem>
 </CodeTabs>
 
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 
@@ -646,7 +690,7 @@ Here is an example:
 <CodeTabItem value="haskell">
 
 ```haskell
-myBoolVariation <- boolVariation client user "YOUR_FEATURE_KEY" False
+myBoolVariation <- boolVariation client user "flag-key-123abc" False
 ```
 
 </CodeTabItem>
@@ -660,19 +704,35 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 <Details summary="Expand Java code sample">
 
-The `variation` methods determine which variation of a feature flag a user receives. In Java, there is a `variation` method for each type: [`boolVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#boolVariation-java.lang.String-com.launchdarkly.sdk.LDUser-boolean-), [`intVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#intVariation-java.lang.String-com.launchdarkly.sdk.LDUser-int-), [`doubleVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#doubleVariation-java.lang.String-com.launchdarkly.sdk.LDUser-double-), [`stringVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#stringVariation-java.lang.String-com.launchdarkly.sdk.LDUser-java.lang.String-) and [`jsonValueVariation`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#jsonValueVariation-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-), which can be of any JSON type.
+The `variation` methods determine which variation of a feature flag a context receives. 
 
-The `variation` methods take the feature flag key, an [`LDUser`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/LDUser.html), and a default value.
+In Java, there is a `variation` method for each type:
+
+- [`boolVariation`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#boolVariation(java.lang.String,com.launchdarkly.sdk.LDContext,boolean))
+- [`intVariation`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#intVariation(java.lang.String,com.launchdarkly.sdk.LDContext,int))
+- [`doubleVariation`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#doubleVariation(java.lang.String,com.launchdarkly.sdk.LDContext,double))
+- [`stringVariation`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#stringVariation(java.lang.String,com.launchdarkly.sdk.LDContext,java.lang.String))
+- [`jsonValueVariation`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#jsonValueVariation(java.lang.String,com.launchdarkly.sdk.LDContext,com.launchdarkly.sdk.LDValue)), which can be of any JSON type.
+
+The `variation` methods take the feature flag key, an [`LDContext`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDContext.html), and a default value.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="java"
   values={[
-    { label: 'Java', value: 'java', },
+    { label: 'Java SDK v6.0', value: 'java', },
+    { label: 'Java SDK v5.x', value: 'java-v5', },
   ]
 }>
 <CodeTabItem value="java">
+
+```java
+boolean value = client.boolVariation("flag-key-123abc", context, false);
+```
+
+</CodeTabItem>
+<CodeTabItem value="java-v5">
 
 ```java
 boolean value = client.boolVariation("your.feature.key", user, false);
@@ -681,7 +741,7 @@ boolean value = client.boolVariation("your.feature.key", user, false);
 </CodeTabItem>
 </CodeTabs>
 
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 
@@ -704,7 +764,7 @@ Here is an example:
 <CodeTabItem value="lua">
 
 ```lua
-local value = client:boolVariation(user, "YOUR_FEATURE_KEY", false)
+local value = client:boolVariation(user, "flag-key-123abc", false)
 ```
 
 </CodeTabItem>
@@ -716,24 +776,36 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 ### Node.js (server-side)
 
+
 <Details summary="Expand Node.js (server-side) code sample">
 
-The `variation` method determines which variation of a feature flag a user receives.
+The `variation` method determines which variation of a feature flag a context receives.
 
-`variation` calls take the feature flag key, an `LDUser`, and a default value.
+`variation` calls take the feature flag key, an `LDContext`, and a default value.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
+    { label: 'Node.js SDK v7', value: 'js', },
+    { label: 'Node.js SDK v6.x and older', value: 'js-old', },
   ]
 }>
 <CodeTabItem value="js">
 
 ```js
-client.variation('your.feature.key', user, false,
+client.variation('flag-key-123abc', context, false,
+  (err, value) => {
+    // check value and proceed accordingly
+  });
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-old">
+
+```js
+client.variation('flag-key-123abc', user, false,
   (err, value) => {
     // check value and proceed accordingly
   });
@@ -742,7 +814,7 @@ client.variation('your.feature.key', user, false,
 </CodeTabItem>
 </CodeTabs>
 
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+You must provide all relevant attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 
@@ -810,7 +882,7 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 The `variation` method determines which variation of a feature flag a user receives.
 
-`variation` calls take the feature flag key, a user hash, and a default value. To learn more about constructing the user hash, read [User configuration](/sdk/features/user-config#ruby).
+`variation` calls take the feature flag key, a user hash, and a default value. To learn more about constructing the user hash, read [User and context configuration](/sdk/features/user-context-config#ruby).
 
 Here is an example:
 
@@ -844,26 +916,33 @@ The `variation` methods determine whether a flag is enabled or not for a specifi
 * [`str_variation`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.str_variation) for strings, and
 * [`json_variation`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.json_variation), which can be any JSON type.
 
-`variation` methods take a `User`, the feature flag key, and a default value. In the example below, the default value is `false`.
+`variation` methods take a `Context`, the feature flag key, and a default value. In the example below, the default value is `false`.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="rust"
   values={[
-    { label: 'Rust', value: 'rust', },
+    { label: 'Rust SDK v1', value: 'rust', },
+    { label: 'Rust SDK beta', value: 'rust-beta', },
   ]
 }>
 <CodeTabItem value="rust">
 
 ```rust
+let result = client.bool_variation(&context, "your.feature.key", false);
+// result is now true or false depending on the setting of this boolean feature flag
+```
+</CodeTabItem>
+<CodeTabItem value="rust-beta">
+
+```rust
 let result = client.bool_variation(&user, "your.feature.key", false);
 // result is now true or false depending on the setting of this boolean feature flag
 ```
-
 </CodeTabItem>
 </CodeTabs>
 
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
