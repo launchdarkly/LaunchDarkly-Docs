@@ -1,0 +1,23 @@
+{
+    "Create Code Tabs": {
+	"scope": "markdown, mdx",
+	"prefix": "ct",
+	"body": [
+	  "<CodeTabs",
+	  "defaultValue=\"csharp\"",
+	  "values={[",
+	  "  { label: '$1', value: '$2', }",
+	  "]",
+	  "}>",
+	  "<CodeTabItem value=\"$2\">",
+	  "",
+	  "```$2",
+	  "$3",
+	  "```",
+	  "",
+	"</CodeTabItem>",
+	"</CodeTabs>"
+	],
+	"description": "Add a Code Tab snippet"
+	}
+}
