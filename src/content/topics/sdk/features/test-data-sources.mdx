@@ -62,7 +62,8 @@ To configure the SDK to use a test data source:
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -73,7 +74,22 @@ using LaunchDarkly.Sdk.Client.Integrations;
 var td = TestData.DataSource();
 // You can set any initial flag states here with td.Update
 
-var config = Configuration.Builder("sdk-key-123abc")
+var config = Configuration.Builder("mobile-key-123abc")
+    .DataSource(td)
+    .Build();
+var client = LdClient.Init(config, context, startWaitTime);
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-2.x">
+
+```csharp
+using LaunchDarkly.Sdk.Client.Integrations;
+
+var td = TestData.DataSource();
+// You can set any initial flag states here with td.Update
+
+var config = Configuration.Builder("mobile-key-123abc")
     .DataSource(td)
     .Build();
 var client = LdClient.Init(config, user, startWaitTime);
@@ -104,13 +120,31 @@ There are other ways you can configure flag behavior using a test data source. H
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
   ]
 }>
 <CodeTabItem value="csharp">
 
 ```csharp
-// This flag is true for the user key "some-user-key" and false for everyone else
+// This flag is true for the context key "context-key-123abc" and false for everyone else
+td.Update(td.Flag("flag-key-456def")
+    .Variation(false)
+    .VariationForKey(ContextKind.Of("user"), "context-key-123abc", true));
+
+// This flag returns the string variation "green" for contexts where the custom
+// attribute "admin" has a value of true, and "red" for all other contexts.
+td.Update(td.Flag("flag-key-789ghi")
+    .Variations(LdValue.Of("red"), LdValue.Of("green"))
+    .VariationFunc(context =>
+        context.GetValue("admin").AsBool ? 1 : 0);
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-2.x">
+
+```csharp
+// This flag is true for the user key "user-key-123abc" and false for everyone else
 td.Update(td.Flag("flag-key-456def")
     .Variation(false)
     .VariationForUser("user-key-123abc", true));

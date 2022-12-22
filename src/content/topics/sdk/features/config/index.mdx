@@ -62,10 +62,22 @@ You can configure `Configuration.Builder`:
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
   ]
 }>
 <CodeTabItem value="csharp">
+
+```csharp
+Configuration config = Configuration
+    .Builder("mobile-key-123abc")
+    .Events(Components.SendEvents().FlushInterval(TimeSpan.FromSeconds(2)))
+    .Build();
+LdClient client = LdClient.Init(config, context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-2.x">
 
 ```csharp
 Configuration config = Configuration

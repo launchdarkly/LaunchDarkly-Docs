@@ -1141,6 +1141,10 @@
             "svg": "dotnet",
             "items": [
               {
+                "label": ".NET (client-side) SDK 2.x to 3.0 migration guide",
+                "path": "/sdk/client-side/dotnet/migration-2-to-3"
+              },
+              {
                 "label": ".NET (client-side) SDK 1.x to 2.0 migration guide",
                 "path": "/sdk/client-side/dotnet/migration-1-to-2"
               }

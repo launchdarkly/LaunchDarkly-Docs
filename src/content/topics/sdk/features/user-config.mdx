@@ -90,17 +90,30 @@ Here are the configuration options for context and user entities in client-side 
 
 <Details summary="Expand .NET (client-side) code sample">
 
-In the client-side .NET SDK, you can construct a simple `User` that only has a key by calling `User.WithKey`, or use `User.Builder` which allows setting all properties.
+In the client-side .NET SDK, you can construct a simple `Context`, with a context kind of "user", that only has a key by calling `Context.New`. Alternatively, you can use `Context.Builder`, which allows setting all properties.
 
 Here's an example:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
   ]
 }>
 <CodeTabItem value="csharp">
+
+```csharp
+Context context = Context.Builder("context-key-123abc")
+    .Set("firstName", "Sandy")
+    .Set("lastName", "Smith")
+    .Set("email", "sandy@example.com")
+    .Set("group", "microsoft")
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-2.x">
 
 ```csharp
 LDUser user = User.Builder("user-key-123abc")
@@ -114,38 +127,49 @@ LDUser user = User.Builder("user-key-123abc")
 </CodeTabItem>
 </CodeTabs>
 
-The argument to `Builder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The argument to `Builder` is the context's key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"context-key-123abc"`.
 
 <Callout intent="info">
-<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
+<CalloutTitle>Interpreting attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way. The client-side .NET SDK is strongly-typed, so be aware of this distinction.
+The optional name and kind attributes, which you can set with `.Name()` and `.Kind()`, expect string values. If the kind attribute is not specified, it is assumed to be "user". Other attribute values can be booleans, numbers, strings, arrays, or JSON objects. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. The client-side .NET SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
 
-#### Private user attributes in the client-side .NET SDK
+#### Private attributes in the client-side .NET SDK
 ---
 
-You can optionally configure the client-side .NET SDK to treat some or all user attributes as [private user attributes](/home/contexts/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the client-side .NET SDK to treat some or all attributes as [private attributes](/home/contexts/attributes). Private attributes can be used for targeting purposes, but are removed from the data sent back to LaunchDarkly.
 
 In the client-side .NET SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- When creating the LaunchDarkly `Configuration` object, you can call the `AllAttributesPrivate` method, which takes in a boolean parameter. If `true`, all user attributes except the key for all users are removed before the SDK sends the user to LaunchDarkly.
-- When creating the LaunchDarkly `Configuration` object, you can call the `PrivateAttributeName` method, which takes in a string attribute, names a parameter, and adds it to an internally managed list of private attributes. This method may be called multiple times to mark additional attributes as private. If any user has a custom or built-in attribute named in the private attributes list, the SDK removes it before sending the user to LaunchDarkly.
+- When creating the LaunchDarkly `Configuration` object, you can call the `AllAttributesPrivate` method, which takes in a boolean parameter. If `true`, all context attributes except the kind and key for all contexts are removed before the SDK sends the context to LaunchDarkly.
+- When creating the LaunchDarkly `Configuration` object, you can call the `PrivateAttributes` method, which takes any number of attribute names or slash-delimited paths to designated a JSON property within an attribute, such as `/address/street`. If any context has a custom or built-in attribute that matches one of these names, the SDK removes it before sending the context to LaunchDarkly.
 
-You can also mark attributes as private when building the user object by calling `AsPrivateAttribute()` immediately after setting the attribute.
+You can also mark attributes as private when building the user object by calling `Private()` on the context builder.
 
 For example:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
   ]
 }>
 <CodeTabItem value="csharp">
+
+```csharp
+var context = Context.Builder("context-key-123abc")
+    .Set("email", "sandy@example.com")
+    .Private("email")
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-2.x">
 
 ```csharp
 var user = User.Builder("user-key-123abc")
@@ -156,22 +180,32 @@ var user = User.Builder("user-key-123abc")
 </CodeTabItem>
 </CodeTabs>
 
-When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
+When the SDK sends this context back to LaunchDarkly, it removes the `email` attribute.
 
-#### Anonymous users in the client-side .NET SDK
+#### Anonymous contexts in the client-side .NET SDK
 ---
 
-If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
+You can distinguish logged-in end users from anonymous end users in the SDK.
 
 Here's how:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
   ]
 }>
 <CodeTabItem value="csharp">
+
+```csharp
+Context context = Context.Builder("context-key-123abc")
+    .Anonymous(true)
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-2.x">
 
 ```csharp
 LDUser user = User.Builder("user-key-123abc")
@@ -184,17 +218,51 @@ LDUser user = User.Builder("user-key-123abc")
 
 You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
 
-We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+<!-- cSpell:disable TKTK review this content during SC-163842 / billing cSpell:enable-->
 
-In Android or iOS, you can also allow the SDK to create a key for an anonymous user based on a unique device identifier as defined by the [DeviceInfo](https://github.com/jamesmontemagno/DeviceInfoPlugin) Xamarin plugin. It will do so if you set the key to null and set the anonymous flag:
+If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the end user is. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
+
+In Android or iOS, you can also set a configuration option to have the SDK to create a key for an anonymous context for you.
+
+Here's how:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
+
+```csharp
+Configuration config = Configuration.Builder("mobile-key-123abc")
+    .GenerateAnonymousKeys(true)
+    .Build();
+```
+</CodeTabItem>
+</CodeTabs>
+
+If you set this option, the SDK will generate a key for any context whose `anonymous` attribute is true. You must still specify a non-null key as a placeholder when you construct the `Context`, because the SDK does not allow a `Context` to exist with a null key. When you pass this context to SDK methods like `Init` or `Identify`, the SDK replaces the placeholder key with a generated key.
+
+In this example, the placeholder key is "unknown-context-key", but it could be any non-empty string:
+
+<CodeTabs
+  defaultValue="csharp"
+  values={[
+    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
+  ]
+}>
+<CodeTabItem value="csharp">
+
+```csharp
+Context context = Context.Builder("unknown-context-key")
+    .Anonymous(true)
+    .Build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-2.x">
 
 ```csharp
 LDUser user = User.Builder((string)null).Anonymous(true).Build();

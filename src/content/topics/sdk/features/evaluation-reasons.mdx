@@ -61,14 +61,15 @@ This feature is available in the following client-side SDKs:
 
 <Details summary="Expand .NET (client-side) code sample">
 
-The `VariationDetail` methods, such as `BoolVariationDetail`, work the same as `Variation`, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the user was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The `VariationDetail` methods, such as `BoolVariationDetail`, work the same as `Variation`, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the context was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -76,14 +77,34 @@ Here is an example:
 ```csharp
 
 Configuration config = Configuration
-  .Builder("mobile-key-123abc")
-  .EvaluationReasons(true)
-  .Build();
+    .Builder("mobile-key-123abc")
+    .EvaluationReasons(true)
+    .Build();
+LdClient client = LdClient.Init(config, context);
+
+EvaluationDetail<bool> detail =
+    client.BoolVariationDetail("bool-flag-key-123abc", false);
+    // or StringVariationDetail for a string-valued flag, and so on.
+
+bool value = detail.Value;
+int? index = detail.VariationIndex;
+EvaluationReason reason = detail.Reason;
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-2.x">
+
+```csharp
+
+Configuration config = Configuration
+    .Builder("mobile-key-123abc")
+    .EvaluationReasons(true)
+    .Build();
 LdClient client = LdClient.Init(config, user);
 
 EvaluationDetail<bool> detail =
-  client.BoolVariationDetail("flag-key", false);
-  // or StringVariationDetail for a string-valued flag, and so on.
+    client.BoolVariationDetail("bool-flag-key-123abc", false);
+    // or StringVariationDetail for a string-valued flag, and so on.
 
 bool value = detail.Value;
 int? index = detail.VariationIndex;
