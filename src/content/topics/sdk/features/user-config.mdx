@@ -133,7 +133,9 @@ The argument to `Builder` is the context's key. The key should uniquely identify
 <CalloutTitle>Interpreting attribute types</CalloutTitle>
 <CalloutDescription>
 
-The optional name and kind attributes, which you can set with `.Name()` and `.Kind()`, expect string values. If the kind attribute is not specified, it is assumed to be "user". Other attribute values can be booleans, numbers, strings, arrays, or JSON objects. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. The client-side .NET SDK is strongly-typed, so be aware of this distinction.
+The optional name and kind attributes, which you can set with `.Name()` and `.Kind()`, expect string values. If the kind attribute is not specified, it is assumed to be "user." Other attribute values can be an JSON type, including booleans, numbers, strings, arrays, or objects. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. The client-side .NET SDK is strongly-typed, so be aware of this distinction.
+
+If an attribute is an object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 </CalloutDescription>
 </Callout>
@@ -345,7 +347,9 @@ The argument to `Builder` is the context's key. The key should uniquely identify
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Contexts** list that looks like a number or a boolean, the SDK interprets it that way. The Android SDK is strongly-typed, so be aware of this distinction.
+The optional name and kind attributes, which you can set with `.name()` and `.kind()`, expect string values. If the kind attribute is not specified, it is assumed to be "user." Other attributes values can be any JSON type, including boolean, number, string, array, or object. The Android SDK is strongly-typed, so be aware of this distinction.
+
+If an attribute is an object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 </CalloutDescription>
 </Callout>
@@ -1016,7 +1020,11 @@ user.email = @"sandy@example.com";
 </CodeTabItem>
 </CodeTabs>
 
-Here, we added the end user's full name and email address. To learn more about the specific context properties that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ios-client-sdk/Structs/LDContext.html).
+This example sets a key and adds the end user's full name and email address.
+
+The `key` property should uniquely identify each context. You can define additional attributes for a context by passing in a name and value for each. Additional attributes can be any JSON type, including boolean, number, string, array, or object. If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
+To learn more about the specific context properties that are available in this SDK, read [`LDContextBuilder`](https://launchdarkly.github.io/ios-client-sdk/Structs/LDContextBuilder.html).
 
 #### Private attributes in the iOS SDK
 ---
@@ -1235,7 +1243,7 @@ const user: ld.LDUser = {
 
 The `key` property should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `user-key-123abc`.
 
-The optional `name` and `kind` attributes expect string values. If the `kind` attribute is not specified, it is assumed to be "user". Other attributes can be booleans, numbers, strings, arrays, or JSON objects.
+The optional `name` and `kind` attributes expect string values. If the `kind` attribute is not specified, it is assumed to be "user." Other attributes can be booleans, numbers, strings, arrays, or JSON objects. If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 <Callout intent="alert">
 <CalloutTitle>Personally-identifying context keys</CalloutTitle>
@@ -1976,6 +1984,8 @@ The argument to `Builder` is the context's key. The key should uniquely identify
 
 The optional name and kind attributes, which you can set with `.Name()` and `.Kind()`, expect string values. If the kind attribute is not specified, it is assumed to be "user". Other attribute values can be booleans, numbers, strings, arrays, or JSON objects. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. The .NET SDK is strongly-typed, so be aware of this distinction.
 
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
 </CalloutDescription>
 </Callout>
 
@@ -2487,6 +2497,8 @@ To learn more about the available attributes, read [`Context`](https://pkg.go.de
 
 The kind and name attributes expect string values. Other attributes values can be booleans, numbers, strings, arrays, or JSON objects. These types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldvalue#Value) type. The Go SDK is strongly-typed, so be aware of this distinction.
 
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
 </CalloutDescription>
 </Callout>
 
@@ -2810,6 +2822,8 @@ Our Javadoc for [ContextBuilder](https://javadoc.io/doc/com.launchdarkly/launchd
 
 The optional name and kind attributes expect string values. If the "kind" attribute is not specified, it is assumed to be "user." Other attributes values can be booleans, numbers, strings, arrays, or objects. If you pass a value that looks like a number or a boolean, the SDK interprets it that way. The Java SDK is strongly-typed, so be aware of this distinction.
 
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
 </CalloutDescription>
 </Callout>
 
@@ -3063,7 +3077,7 @@ The `key` property is the user's key. The key should uniquely identify each user
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Contexts** list that looks like a number or a boolean, the SDK interprets it that way.
+The optional `name` and `kind` attributes expect string values. If the `kind` attribute is not specified, it is assumed to be "user." Other attribute values can be booleans, numbers, strings, arrays, or JSON objects. If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 </CalloutDescription>
 </Callout>
@@ -3574,7 +3588,9 @@ To learn more about the available attributes, read [`Context`](https://docs.rs/l
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. These types are all represented by the [`AttributeValue`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/enum.AttributeValue.html) type. The Rust SDK is strongly-typed, so be aware of this distinction.
+The optional name and kind attributes, which you can set with `.name()` and `.kind()`, expect string values. Other attributes values can be any JSON type, including booleans, numbers, strings, arrays, or objects. These types are all represented by the [`AttributeValue`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/enum.AttributeValue.html) type. The Rust SDK is strongly-typed, so be aware of this distinction.
+
+If an attribute is an object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 </CalloutDescription>
 </Callout>
