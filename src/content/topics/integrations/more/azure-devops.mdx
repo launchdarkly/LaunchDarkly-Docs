@@ -33,31 +33,68 @@ Currently, this integration only supports boolean flag types. To learn more, rea
 
 ## Prerequisites
 
-To connect LaunchDarkly and Azure DevOps, you need the following things:
+To complete this procedure, you must have the following prerequisites:
 
-- A LaunchDarkly API access token with **at least** write-level access.
+- The Azure extension from the [Azure DevOps Marketplace](https://marketplace.visualstudio.com/items?itemName=launchdarkly.launchdarkly-extension). Before you add the extension to any of your Azure DevOps projects, you must first add it to your Azure DevOps organization. 
+  -  If your organization has not installed the extension, click **Get it free** on the Marketplace listing. Then, add the LaunchDarkly extension to your Azure DevOps project so the extension can connect to your LaunchDarkly account.
+- A personal or service API access token. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
 
-To learn more, read [API access tokens](/home/account-security/api-access-tokens).
+## Set up the Azure extension
 
-<Callout intent="info">
-  <CalloutTitle>The Azure DevOps integration supports custom roles</CalloutTitle>
-  <CalloutDescription>
+To set up the VSCode extension, you must complete the following steps:
 
-If you're using custom roles, you can create an access token with a role targeting environments and feature flags
-relevant to your Azure DevOps projects. To learn more, read [Custom roles](/home/members/).
+1. Give your API access token the required permissions:
+  - You can [create a custom role with appropriate permissions, then add the custom role to a personal or service access token](#create-a-custom-role-and-add-it-to-an-api-access-token), or
+  - you can [add the built-in Writer role to your personal access token](#add-the-built-in-writer-role-to-your-personal-access-token).
+2. [Configure the Azure extension](#configuring-the-azure-extension) with the API access token.
 
-  </CalloutDescription>
+## Give your API access token the required permissions
+
+You can create a custom role with appropriate permissions then add the custom role to a personal or service access token, or you can add the built-in Writer role to your personal access token.
+
+### Create a custom role and add it to an API access token
+
+<Details summary="Expand Create a custom role and add it to an API access token">
+
+<Callout intent="primary">
+<CalloutTitle>Service tokens and custom roles are Enterprise features</CalloutTitle>
+<CalloutDescription>
+
+Service tokens and custom roles are available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
 </Callout>
 
-## Connecting to LaunchDarkly
+To create a custom role for the API access token:
 
-The extension is available on the [Azure DevOps Marketplace](https://marketplace.visualstudio.com/items?itemName=launchdarkly.launchdarkly-extension). Before you add the extension to any of your Azure DevOps projects, you must first add it to your Azure DevOps organization.
+1. Navigate to the **Account settings** page.
+2. Click into the **Roles** tab.
+3. Click **Create role**. The "Create custom role" panel appears.
+4. Give the custom role a human-readable name.
+5. Grant write access to the environments and feature flags relevant to your Azure DevOps projects.
+6. Click **Save role**.
 
-If your organization has not installed the extension, click **Get it free** on the Marketplace listing.
+</Details>
 
-Then, add the LaunchDarkly extension to your Azure DevOps project so the extension can connect to your LaunchDarkly account.
+### Add the built-in Writer role to your personal access token
 
-To set up the extension:
+<Details summary="Expand Add the built-in Writer role to your personal access token">
+
+To add the built-in Writer role to a personal access token:
+
+1. Navigate to the **Account settings** page.
+2. Click into the **Authorization** tab.
+3. Find the personal access token you want to add permissions to and select "Edit token" from its **overflow menu**. The "Edit" panel appears.
+4. In the **Role** menu, select "Writer."
+5. Click **Save token**.
+
+Your personal token now has the Writer role.
+
+</Details>
+
+## Configuring the Azure extension
+
+To configure the Azure extension:
 
 1. Navigate to your Azure DevOps project dashboard. Click **Project Settings**.
 2. Navigate to **Pipelines** > **Service Connections**.

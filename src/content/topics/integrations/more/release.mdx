@@ -35,6 +35,13 @@ The Release integration prevents these issues by creating a new LaunchDarkly env
 
 The integration also stores SDK keys, mobile keys, and client IDs as environment variables that your application can access. If you are not using environment variables in your LaunchDarkly project, you must modify your code to do so in order to use this integration.
 
+## Prerequisites
+
+To complete this procedure, you must have the following prerequisites:
+
+- Have a Release account.
+- Have a personal or service API access token. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
+
 ## Configuring the integration
 
 To configure the LaunchDarkly integration, you must add it to your Release account and connect it to LaunchDarkly.
@@ -60,12 +67,12 @@ Every field in the setup form is required, and all but one have defaults you can
 The fields in the setup form are:
 
 * **Project Key**: This is the key for the project where you wish to create environments. The default value is _default_, because LaunchDarkly always has a project with key _default_.
-* **Access Token**: This is the token for the account under which you would like Release to create environments in LaunchDarkly. Create a new access token in the **Authorization** tab of the **Account Settings** page in LaunchDarkly. To learn more, read [Creating API access tokens](/home/account-security/api-access-tokens#creating-api-access-tokens).
+* **Access Token**: This is the API access token for the account under which you would like Release to create environments in LaunchDarkly.
 * **Environment Variables**: The last three form elements define the names of the environment variables where Release stores the API keys from LaunchDarkly. You can change them to anything you like. Release uses these environment variables to store API keys as Kubernetes secrets.
 
 ![An example LaunchDarkly configuration.](release-setup-ld-integration.png)
 
-After you save the configuration, Release uses the **Access Token** to connect to your LaunchDarkly account.
+After you save the configuration, Release uses the API access token to connect to your LaunchDarkly account.
 
 ## Using LaunchDarkly with the Release integration
 

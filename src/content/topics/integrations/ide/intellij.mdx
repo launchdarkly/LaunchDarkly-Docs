@@ -30,17 +30,49 @@ With the extension, you can:
 - View a list of feature flags and their settings in the LaunchDarkly tool window
 - Update a flag's state, fallback value, and default off variation
 
-## Installing the IntelliJ IDEA plugin
+## Prerequisites
 
-To install the IntelliJ IDEA plugin, visit the LaunchDarkly plugin on the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/15159-launchdarkly/versions) and download the version compatible with your IDE.
+To complete this procedure, you must have the following prerequisites:
 
-## Configuring the IntelliJ IDEA plugin
+- The IntelliJ IDEA plugin from the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/15159-launchdarkly/versions). The version must be compatible with your IDE.
+- A personal or service API access token. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
 
-To configure the IntelliJ IDEA plugin, you must have a valid access token.
+## Set up the IntelliJ IDEA plugin
 
-You can create a new access token on the [Authorization page](https://app.launchdarkly.com/settings/authorization). The access token must have sufficient permissions to support the plugin's functionality. To be able to toggle flags from your IDE, the access token must be generated with a Writer role. A Reader role is sufficient for viewing flag information.
+To set up the IntelliJ IDEA plugin, you must complete the following steps:
 
-The following example policy allows read access to all projects and write access to the minimal set of fields the plugin is able to update:
+1. Give your API access token the required permissions:
+  - You can [create a custom role with appropriate permissions, then add the custom role to a personal or service access token](#create-a-custom-role-and-add-it-to-an-api-access-token), or
+  - you can [add the built-in Writer role to your personal access token](#add-the-built-in-writer-role-to-your-personal-access-token).
+2. [Configure the LaunchDarkly extension in IntelliJ IDEA](#configuring-the-launchdarkly-extension-intellij-idea) with the API access token.
+
+## Give your API access token the required permissions
+
+You can create a custom role with appropriate permissions then add the custom role to a personal or service access token, or you can add the built-in Writer role to your personal access token.
+
+### Create a custom role and add it to an API access token
+
+<Details summary="Expand Create a custom role and add it to an API access token">
+
+<Callout intent="primary">
+<CalloutTitle>Service tokens and custom roles are Enterprise features</CalloutTitle>
+<CalloutDescription>
+
+Service tokens and custom roles are available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+The following example policy allows read access to all projects and write access to the minimal set of fields the plugin is able to update.
+
+To create a custom role for the API access token:
+
+1. Navigate to the **Account settings** page.
+2. Click into the **Roles** tab.
+3. Click **Create role**. The "Create custom role" panel appears.
+4. Give the custom role a human-readable name.
+5. Click **Advanced editor**. 
+6. Enter this policy in the "Role policy" field:
 
 <CodeTabs
   defaultValue="json"
@@ -72,6 +104,30 @@ The following example policy allows read access to all projects and write access
 
 </CodeTabItem>
 </CodeTabs>
+
+7. Click **Save role**.
+
+</Details>
+
+### Add the built-in Writer role to your personal access token
+
+<Details summary="Expand Add the built-in Writer role to your personal access token">
+
+To toggle flags from your IDE, you must generate the access token with a Writer role. A Reader role is sufficient for viewing flag information.
+
+To add the built-in Writer role to a personal access token:
+
+1. Navigate to the **Account settings** page.
+2. Click into the **Authorization** tab.
+3. Find the personal access token you want to add permissions to and select "Edit token" from its **overflow menu**. The "Edit" panel appears.
+4. In the **Role** menu, select "Writer."
+5. Click **Save token**.
+
+Your personal token now has the Writer role.
+
+</Details>
+
+## Configure the LaunchDarkly extension in IntelliJ IDEA
 
 With your access token, you can finish configuring the LaunchDarkly extension in the "LaunchDarkly" menu option in the IntelliJ IDEA "Preferences" dialog.
 
