@@ -110,7 +110,17 @@ Here's how mobile connections work:
    - The SDK actively monitors network availability. They avoid requests when the network is unavailable, and reconnect when the network becomes available again.
 - When the app is backgrounded, the stream connection terminates and the SDK uses polling instead.
    - The SDK polls for flag updates every hour to stay in sync. This strategy has higher latency, but optimizes battery and data usage.
-   - The SDK checks for network connectivity at the current polling interval, only making the request if the check succeeds. When it reconnects, it automatically syncs its local cache with LaunchDarkly.
+   
+   <Callout intent="info">
+   <CalloutTitle>The iOS SDK does not support background fetch</CalloutTitle>
+   <CalloutDescription>
+   
+   Unlike other mobile SDKs, the iOS SDK does not fetch flag values from the background.
+
+   </CalloutDescription>
+   </Callout>
+   
+   - The SDK checks for network connectivity at the current polling interval, only making the request if the check succeeds. When it reconnects, it automatically syncs its local cache with LaunchDarkly.   
 - When the app is foregrounded again, the SDK reconnects to the stream which sends the latest flag values.
 - If the app closes and reopens without a connection to LaunchDarkly, the flag values cached in local storage are still available.
 

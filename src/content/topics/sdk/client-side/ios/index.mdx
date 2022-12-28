@@ -471,9 +471,11 @@ if (showFeature) {
 
 ## Background fetch
 
-When the app is backgrounded, the SDK does not receive real-time events. However, MacOS supports background fetch which updates flag values opportunistically, according to iOS standard defaults. iOS does not support background fetch.
+When the app is backgrounded, the SDK does not receive real-time events. 
 
-To change the background fetch interval for flags in your app, add the following code in your `LDConfig`:
+Unlike other mobile SDKs, the iOS SDK does not support background fetch, so devices on the iOS operating system will not fetch flags from the background. However, devices on MacOS will update flag values opportunistically, according to the iOS SDK standard background polling defaults. 
+
+To change the background polling default for flags in your app, add the following code in your `LDConfig`:
 
 <CodeTabs
   defaultValue="swift"
