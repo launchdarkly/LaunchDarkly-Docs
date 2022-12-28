@@ -631,7 +631,7 @@ ldclient.get().flush()
 
 Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify` calls. These are flushed periodically in a background thread. If you test the SDK in a REPL, you may want to manually call `flush` to process events immediately.
 
-The flush interval is configurable. If you need to change the interval, you can do so you configure your client instance.
+The flush interval is configurable. If you need to change the interval, you can do so when you configure your client instance.
 
 Here's how:
 
