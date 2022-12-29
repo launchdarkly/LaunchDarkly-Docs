@@ -1473,6 +1473,10 @@
             "path": "/guides/experimentation/bayesian"
           },
           {
+            "label": "Managing experiments with logged-out and logged-in end users",
+            "path": "/guides/experimentation/logged-out-logged-in"
+          },
+          {
             "label": "Measuring Experimentation impact with holdout experiments",
             "path": "/guides/experimentation/holdouts"
           }
