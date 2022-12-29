@@ -8,28 +8,26 @@ tags: ['sample ratio mismatch', 'srm', 'experiment', 'experimentation', 'enterpr
 
 ## Overview
 
-This topic explains what sample ratios are and how to detect a sample ratio mismatch.
+This topic explains what sample ratios are and how to detect a sample ratio mismatch (SRM).
 
-## Understanding sample ratios and sample ratio mismatches
+In your experiments, the sample ratio is the ratio between end users receiving each of your experimentation treatments. An SRM is a mismatch between the proportion of users expected in your experimentation treatments and the actual number of users in each treatment. 
 
-In your experiments, the sample ratio is the ratio between end users receiving each of your experimentation treatments.
+SRMs can occur if you are using JavaScript-based client-side SDKs. If LaunchDarkly alerts you of an SRM in one of your experiments, there are actions you can take to correct it.
 
-A sample ratio mismatch (SRM) is a mismatch between the proportion of users expected in your experimentation treatments and the actual number of users in each treatment. For example, if you have an A/B test with 50% of users assigned to treatment A and 50% assigned to treatment B, you should expect that with a sufficient sample size, the split is roughly 50/50. If you have 10,000 users in your experiment iteration, you should expect around 5,000 users in treatment A and 5,000 in treatment B. Because the sampling is random, this split will not be exact. However, it should be close. You should not have 4,000 users in treatment A and 6,000 users in treatment B.
+## How to fix SRMs in JavaScript-based SDKs
 
-LaunchDarkly uses statistics to determine if the sample ratio is more different than what you should expect from a random sampling. If there's a 99% or greater probability that the units, or users, in the experiment are not arriving at the same rate as expected given how you've allocated the traffic, then LaunchDarkly displays a warning noting that your experiment results are almost certainly invalid.
+SRMs are most commonly caused by outdated SDKs, event deduplication, and problematic application behavior.
 
-There are many ways an SRM can occur. The most basic is that the randomization method is incorrect. At LaunchDarkly, we've run thousands of simulations and production data through our randomizer. We're confident that our randomization method randomly assigns users in the proportions expected.
+### Update your SDKs
 
-When we see an SRM, we know it's likely to be one of the following issues.
+Outdated SDKs are the most common cause of SRMs. If you observe an SRM and are using any of the LaunchDarkly JavaScript-based client-side SDKs, you may need to update your SDK. 
 
-## SRM in JavaScript SDKs
+If you are using JavaScript or React Web, confirm that you are using at least these versions:
 
-If you observe an SRM and are using any of the LaunchDarkly JavaScript-based client-side SDKs, including the React Web SDK, confirm that you are using these versions or newer:
+* Version 2.23.0 or newer of the [JavaScript SDK](/sdk/client-side/javascript)
+* Version 2.28.0 or newer of the [React Web SDK](/sdk/client-side/react/react-web)
 
-* [JavaScript SDK](/sdk/client-side/javascript) >= 2.23.0
-* [React Web SDK](/sdk/client-side/react/react-web) >= 2.28.0
-
-These versions address the most common causes for SRMs, which relate to the [events](/home/about-experimentation/events) that LaunchDarkly needs for experimentation tracking.
+These versions send the correct versions of events that LaunchDarkly needs for experimentation tracking. To learn more, read [Experimentation events](/home/about-experimentation/events).
 
 ### Event deduplication
 
@@ -53,7 +51,7 @@ If these steps happen within the SDK's deduplication window of five minutes, the
 
 Older versions of the React Web SDK, prior to version 2.28.0, have a similar issue. Furthermore, in the React Web SDK `LDProvider` calls `allFlags` after initializing the client. This can potentially exacerbate issues with event deduplication.
 
-We strongly recommend upgrading your SDK version. If you can't upgrade your SDK version, you can set the `allowFrequentDuplicateEvents` option to `true`.
+To fix this, we strongly recommend upgrading your SDK version. If you can't upgrade your SDK version, you can set the `allowFrequentDuplicateEvents` option to `true`.
 
 <Details summary="Expand for allowFrequentDuplicateEvents code sample">
 
@@ -70,7 +68,7 @@ Here's how to set the `allowFrequentDuplicateEvents` option in your JavaScript S
 
 ```js
 const options = { allowFrequentDuplicateEvents: true };
-const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LDClient.initialize('client-side-id-123abc', user, options);
 
 ```
 
@@ -81,7 +79,7 @@ const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 import * as LDClient from 'launchdarkly-js-client-sdk';
 
 const options: LDClient.LDOptions = { allowFrequentDuplicateEvents: true };
-const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
+const client = LDClient.initialize('client-side-id-123abc', user, options);
 ```
 
 </CodeTabItem>
@@ -89,10 +87,18 @@ const client = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options);
 
 </Details>
 
-### Experiencing event loss due to application behavior
+### Event loss due to application behavior
 
 Some experimentation implementations can lose events disproportionally for JavaScript-based client-side SDKs. For example, if your experiment is an A/B test where the "A" does nothing and the "B" immediately redirects your end users to another page, it's possible that more events from the "B" variation will be lost.
 
-The LaunchDarkly SDKs send events immediately when the page unloads. However, some browsers do not respect asynchronous calls on unload. This includes Safari on iOS. If LaunchDarkly cannot record all of the events for your experiment, then you will have an SRM.
+The LaunchDarkly SDKs send events immediately when the page unloads. However, some browsers, such as Safari on iOS, do not respect asynchronous calls on unload. If LaunchDarkly cannot record all of the events for your experiment, then your experiment will have an SRM.
 
-Check to see if one of your experimentation treatments result in users leaving the page more quickly than the other treatments. You may need to adjust your experimentation treatments to account for this behavior.
+Check to see if one of your experimentation treatments results in users leaving the page more quickly than the other treatments. You may need to adjust your experimentation treatments to account for this behavior.
+
+## How SRMs occur
+
+There are many ways an SRM can occur, but the most common is that the randomization method is incorrect.
+
+Imagine you have an A/B test with 50% of users assigned to treatment A and 50% assigned to treatment B, you should expect that with a sufficient sample size, the split is roughly 50/50. If you have 10,000 users in your experiment iteration, you should expect around 5,000 users in treatment A and 5,000 in treatment B. Because the sampling is random, this split will not be exact. However, it should be close. You should not have 4,000 users in treatment A and 6,000 users in treatment B.
+
+LaunchDarkly uses statistics to determine if the sample ratio is more different than what you should expect from a random sampling. If there's a 99% or greater probability that the units, or users, in the experiment are not arriving at the same rate as expected given how you've allocated the traffic, then LaunchDarkly displays a warning noting that your experiment results are almost certainly invalid.
