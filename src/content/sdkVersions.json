@@ -1158,6 +1158,11 @@
     "name": "Python",
     "versions": [
       {
+        "versionMajorMinor": "8.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-30"
+      },
+      {
         "versionMajorMinor": "7.5",
         "releaseYear": 2022,
         "releaseMonthDay": "07-01"
