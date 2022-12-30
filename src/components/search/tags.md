@@ -120,6 +120,7 @@ file
 filter
 flag
 flag lifecycle
+flag name
 flag status
 flush
 flutter

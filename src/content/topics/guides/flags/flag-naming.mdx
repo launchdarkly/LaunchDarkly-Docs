@@ -1,0 +1,327 @@
+---
+path: /guides/flags/flag-naming
+title: Creating naming conventions for flags
+description: This guide explains best practices for creating a flag naming convention.
+published: true
+tags: ['guide', 'flag name', 'create', 'flag lifecycle']
+---
+
+## Overview
+
+This guide explains best practices for creating a flag naming convention.
+
+We recommend using a naming convention that gives your organization's members an intuitive sense of the purpose and scope of a flag. Members should know what behavior the flag controls and how it will change just by looking at the flag name and its variations. Creating a comprehensive and well-documented naming convention requires some initial effort, but results in members being able to quickly and easily find flags, name flags, and understand their purposes.
+
+## Concepts
+
+You should understand the following concepts before you read this guide:
+
+### Temporary and operational flags
+
+Most feature flags fall into one of two main categories: temporary or operational.
+
+You can wrap a temporary flag around code for a new or improved feature, and use it to release the feature to customers all at once or in increments. After you verify the new code is stable and roll out the feature to 100% of customers, you should delete the temporary flag. To learn more about rollouts, read [Percentage rollouts](/home/flags/rollouts).
+
+Operational flags control or change how your app or service operates. Often, these changes happen in response to unplanned events, such as traffic spikes or third-party service failures. You can integrate operational flags with application performance management (APM) tools to automate flag shut off. Operational flags are usually permanent. To learn more about using operational flags with APM tools, read [APM tools](/integrations/app-performance).
+
+### Flag links
+
+You can use flag links to view external mentions of flags from other tools and services. Links to external flag references allow you to collaborate more easily and quickly review relevant flag contexts. To learn more, read [Flag links](/home/flags/links).
+
+### Tags
+
+Tags are labels that help you categorize flags. They're particularly helpful for managing flag permissions with custom roles. For example, you can tag flags with `marketing` or `devOps` tags, and then use these tags to determine who has read or write access to the flag. To learn more about using tags with custom roles, read [Using tags](/home/members/role-tags).
+
+## Why create a flag naming convention?
+
+Naming conventions are an important part of your organization's experience of using feature flags.
+
+A good naming convention should convey:
+
+- The intended behavior and impact of the application when the flag serves a variation.
+- The scope and target of the behavior.
+- The purpose of a feature flag in both the flags list and source code.
+
+Poorly-named flags can result in the following consequences:
+
+- Unclear or ambiguous flag impact and intent. For example, does a flag named "Dark mode" turn on dark mode, or allow users to choose dark mode?
+- Flags used for multiple purposes in an application by mistake.
+- Difficulty remembering and adhering to the naming convention.
+- Difficulty discovering and searching for flags from the flags list.
+
+Continue reading to learn how to avoid these pitfalls and create a useful, usable flag naming convention.
+
+## Getting started
+
+If your organization has a coding style guide, you may want to build your flag naming convention off of your style guide, add your convention to the guide, or store them together. If your organization doesn't have a coding style guide, consider what information about a flag might be useful for later users of the flag to know.
+
+You naming convention should include instructions on:
+
+- Which flag attributes make up the flag name
+- How those components should be phrased and formatted
+- How they should be ordered in the name
+
+### Flag kinds
+
+In your flag naming convention, we recommend that you describe each kind of flag used by your organization and the specific naming convention for that kind. Possible flag kinds you may want specific naming conventions for include "release," "configuration," "allow," "show," and "database" flags.
+
+In the naming convention for each flag kind, you should include:
+
+  - The action or prefix used
+  - An example flag name, key, and the semantic meaning of the flag as a sentence
+  - Examples when you should and should not use this kind of flag
+
+To learn more, read [Flag kind examples](#flag-kind-examples).
+
+### Consider shared architecture
+
+When using a shared project architecture, all of your work groups should be able to adopt the naming convention easily. If you use feature flagging on multiple platforms, consider whether you use single flags for multiple platforms or a different flag for each platform. This can impact your flag naming convention by requiring more or less precise flag names.
+
+You may want to assign prefixes to flags to designate them as belonging to members with particular roles. For example, you could add the "DBA" prefix to the name of flags managed by database administrators (DBAs). Then, in your custom role permissions for DBAs, you can grant permission to flags with keys that begin with `dba`. 
+
+However, we generally recommend using tags to manage flag access, rather than name prefixes. To learn more, read [Using tags](#using-tags).
+
+## The components of a flag name
+
+Flag names should read as an instructional sentence that begins with an action and concludes with a subject.
+
+The action describes purpose and behavior of the flag. This should be a single verb and an optional category, followed by a colon. Some example actions are "Release:" and "Release Mobile:".
+
+The subject describes the target and scope of the flag. Some example subjects are "Widget" and "Homepage banner color".
+
+You should be able to read the name as a sentence that describes the purpose and scope of a flag. For example:
+
+- "Release: a new feature"
+- "Configure: a setting"
+- "Allow: an action"
+- "Enable: an entitlement"
+- "Show: an offer"
+
+The exception to this is flags that are a proxy for the state of an external system or process. For these flags, you may not need an action in the flag name.
+
+For example:
+
+- "DB: widget table exists"
+- "Compliance: GDPR enforced"
+
+Other useful facts you can include in a flag name are:
+
+- The effect of changing its value
+- Where that effect happens, such as the interface element or page affected
+- Which work group is responsible for it
+- Whether it is temporary or permanent
+- The date it was created
+
+Here is an example of a feature flag with an effective name, description, tags, and variation names:
+
+![A flag with an effective name, description, tags, and variation names.](creating-flag-names-example.png)
+
+### Flag kind examples
+
+This section includes examples of naming schemes and best practices for specific flag kinds, including temporary release flags and several types of long-lived operational flags. When naming a flag, use the most specific category that you can. This ensures that all flags within that category have similar semantics and variations. 
+
+Expand the sections below for examples of each kind, when you should use them, and how you might name them.
+
+<Details summary="Expand release flags example">
+
+Release flags are temporary flags that control the progressive release of a new feature or behavior. They are intended to be removed after general release.
+
+Here is a table of release flag example names, keys, and human-language interpretations:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Name</TableHeadCell>
+    <TableHeadCell>Key</TableHeadCell>
+    <TableHeadCell>Human-language interpretation</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>Release: widget API</TableCell>
+    <TableCell><code>release-widget-api</code></TableCell>
+    <TableCell>"Release the Widget API"</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Release Android: live-chat</TableCell>
+    <TableCell><code>release-android-live-chat</code></TableCell>
+    <TableCell>"Release live chat to Android customers"</TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
+
+You should create flag links for related APM dashboards, metrics, monitors, alerts, and application logs.
+
+</Details>
+
+<Details summary="Expand configuration flags example">
+
+Configuration flags are long-lived operational flags that control the behavior of an application. They do not typically have a planned removal date.
+
+Here is a table of configuration flag example names, keys, and human-language interpretations:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Name</TableHeadCell>
+    <TableHeadCell>Key</TableHeadCell>
+    <TableHeadCell>Human-language interpretation</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>Config: log verbosity</TableCell>
+    <TableCell><code>config-log-verbosity</code></TableCell>
+    <TableCell>"Configure the log verbosity"</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Config: API rate limit</TableCell>
+    <TableCell><code>config-api-rate-limit</code></TableCell>
+    <TableCell>"Configure the API rate limit"</TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
+
+Use configuration flags when the flag's behavior and variations do not fit into a more specific category. Document any constraints on when the value can be safely changed and any potential side effects such as increased load on critical services.
+
+You should create flag links for documentation for the application, service, or component that uses this configuration, related APM dashboards, metrics, monitors, alerts, and application logs.
+
+</Details>
+
+<Details summary="Expand allow flags example">
+
+Allow flags are long-lived operational flags that control whether or not an action is allowed or denied.
+
+Here is an allow flag example name, key, and human-language interpretation:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Name</TableHeadCell>
+    <TableHeadCell>Key</TableHeadCell>
+    <TableHeadCell>Human-language interpretation</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>Allow: member impersonation</TableCell>
+    <TableCell><code>allow-member-impersonation</code></TableCell>
+    <TableCell>"Allow use of member impersonation"</TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
+
+Use allow flags when the deny or false variation would cause the application to return "Access denied" or a 403 error. Changing allow/deny should be safe and side effect-free unless otherwise documented.
+
+Create flag links for documentation for the application, service, or component that uses this configuration, documentation describing risks associated with allowing or denying access to this feature, and documentation describing when you should change the targeting of this flag.
+
+</Details>
+
+<Details summary="Expand show flags example">
+
+Show flags are long-lived operational flags that control the visibility of a component.
+
+Here is a show flag example name, key, and human-language interpretation:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Name</TableHeadCell>
+    <TableHeadCell>Key</TableHeadCell>
+    <TableHeadCell>Human-language interpretation</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>Show: unsupported browser warning</TableCell>
+    <TableCell><code>show-unsupported-browser-warning</code></TableCell>
+    <TableCell>"Show unsupported browser warning"</TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
+
+Use show flags when controlling the visibility of a component for a subset of end users, such as informational banners, alerts, and offers. Show flags must be side effect-free and safe to turn on and off for any end user.
+
+Create Flag links for documentation for the application, service, or component that uses this configuration, and screenshots or videos showing the application with the show/hide variations.
+
+</Details>
+
+<Details summary="Expand database flags example">
+
+Database flags are long-lived operational flags used to coordinate releases with schema migrations.
+
+Here is a database flag example name, key, and human-language interpretation:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Name</TableHeadCell>
+    <TableHeadCell>Key</TableHeadCell>
+    <TableHeadCell>Human-language interpretation</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>DB: widget table exists</TableCell>
+    <TableCell><code>db-widget-table-exists</code></TableCell>
+    <TableCell>"In the database, the widget table exists"</TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
+
+DBAs or automated tooling can update the flag after they create the table. You can use database flags primarily as a prerequisite in other flags to facilitate coordinations between work groups.
+
+</Details>
+
+## Managing flag keys
+
+We typically recommend using the automatically generated flag key, with only minor changes for style and consistency. For example, If you have a flag named "Release: optional dark mode (ODM) function" the generated key would be `release-optional-dark-mode-odm-function`. You might want to change the generated key to `release-odm-function` for brevity.
+
+Do not use flag keys to store additional metadata. The flag keys are static and cannot change, so must be applicable for the entire lifetime of the flag. For example, you shouldn't include team names in the flag key, because team names and responsibilities may change over the lifetime of the flag.
+
+## Effective flag descriptions
+
+In addition to naming best practices, you can also document flag description best practices. Flag descriptions should be no longer than one or two sentences. Don't repeat any information already present in the flag's name. Instead, focus on other things you want your teammates to know about the flag.
+
+This might include:
+
+- What side effects it may cause
+- Who is responsible for this flag
+- When you can remove the flag
+
+## Using tags
+
+Tags are useful for grouping flags by particular details. For example, if you have a set of long-lived flags that you intend for operational use, you can tag them with `operational`. If you have flags that have special targeting for end users in Canada, you can tag them `canada`. To learn more, read [Tags](/home/members/role-concepts#tags).
+
+You can also use tags to control which account members can modify flags. To learn more, read [Using tags in custom role policies](/home/members/role-tags#using-tags-in-custom-role-policies).
+
+Try to reuse existing tags as much as possible. This streamlines the flags list and makes it easier to find things later.
+
+## Flag variation names
+
+When you create flag variations, you should add variation names and descriptions. Variation descriptions should describe the behavior of the application when the variation is served and any related side effects or required conditions. This is particularly important for non-boolean flags.
+
+## Practices to avoid
+
+Some organizations use the following practices in their flag naming conventions. In this section we discuss why we don't recommend these practices, and what to do instead.
+
+### Including ticket or sprint numbers in the flag name
+
+Including ticket or sprint numbers in flag names let you quickly identify which flags are related to a ticket or sprint. However, we advise against this because flags are not always tied to a specific sprint, or may be tied to several tickets. Instead, we recommend using flag links to associate a flag with particular tickets.
+
+Some organizations include sprint numbers in flag names to avoid naming conflicts. However, if you need to include sprint numbers to differentiate between multiple flags using the same name, the flag names are likely not descriptive enough. Instead, tweak your flag naming conventions so they are sufficiently descriptive and unique.
+
+If you must include a ticket or sprint number in a flag's metadata, we recommend including it in the description or as a tag instead.
+
+### Including team or work group names in the flag name
+
+You shouldn't include team or work group names in a flag's name or key, because team names and responsibilities may change over the lifetime of the flag. Instead, use tags and prefixes based on flag kind or component for access control. Groups can also use custom dashboards to give them a view of flags that are relevant to their work. To learn more, read [Saving filtered flags lists](/home/organize/flags-list#saving-filtered-flags-lists).
+
+### Using machine-generated names
+
+You may be generating flag names automatically from an external system that are not human-readable. We do not recommend this, because it's important for all stakeholders, including those using the user interface (UI), to understand what a flag does. If a flag's name and key do not convey the intent of the flag, mistakes are easier to make and the scope of the flag may grow. If you must use machine-generated flag names, you should include your flag metadata in flag descriptions and tags instead.
+
+## Conclusion
+
+A clear and comprehensive flag naming convention allows your organization to quickly and easily discover and understand the purpose of any given feature flag. It also relieves cognitive load on your engineers when naming flags. Creating a flag naming convention for your organization is one of the many ways to set up your organization for success when using feature flags.
+
+<Callout intent="primary" site="launchDarkly">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>

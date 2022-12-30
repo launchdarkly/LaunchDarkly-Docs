@@ -1426,6 +1426,10 @@
             "path": "/guides/flags/creating-flags"
           },
           {
+            "label": "Creating naming conventions for flags",
+            "path": "/guides/flags/flag-naming"
+          },
+          {
             "label": "Feature flag hierarchy",
             "path": "/guides/flags/flag-hierarchy"
           },
