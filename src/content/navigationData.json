@@ -1379,7 +1379,13 @@
           },
           {
             "label": "Ruby SDK reference",
-            "path": "/sdk/server-side/ruby"
+            "path": "/sdk/server-side/ruby",
+            "items": [
+              {
+                "label": "Ruby SDK 6.x to 7.0 migration guide",
+                "path": "/sdk/server-side/ruby/migration-6-to-7"
+              }
+            ]
           },
           {
             "label": "Rust SDK reference",

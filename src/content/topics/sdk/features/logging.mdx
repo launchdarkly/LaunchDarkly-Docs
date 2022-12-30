@@ -761,7 +761,7 @@ The Ruby SDK uses Ruby's built-in [Logger class](https://ruby-doc.org/stdlib-2.4
 There are two important things to consider before you enable the DEBUG log level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
-2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+2. Debug-level logs include sensitive information, including LaunchDarkly contexts you create when you use this SDK.
 
 You can pass a custom logger to the SDK by using the configurable `logger` property:
 

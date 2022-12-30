@@ -888,19 +888,27 @@ You must provide all relevant context attributes for each evaluation for your ta
 
 <Details summary="Expand Ruby code sample">
 
-The `variation` method determines which variation of a feature flag a user receives.
+The `variation` method determines which variation of a feature flag a context receives.
 
-`variation` calls take the feature flag key, a user hash, and a default value. To learn more about constructing the user hash, read [User and context configuration](/sdk/features/user-context-config#ruby).
+`variation` calls take the feature flag key, an `LDContext` or user hash, and a default value. To learn more about constructing the context or user hash, read [User and context configuration](/sdk/features/user-context-config#ruby).
 
 Here is an example:
 
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+value = client.variation("your.feature.key", context, false)
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 value = client.variation("your.feature.key", user, false)
@@ -909,7 +917,7 @@ value = client.variation("your.feature.key", user, false)
 </CodeTabItem>
 </CodeTabs>
 
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 

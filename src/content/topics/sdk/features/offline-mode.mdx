@@ -595,10 +595,20 @@ Here's how:
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+config = LaunchDarkly::Config.new({offline: true})
+client = LaunchDarkly::LDClient.new("sdk-key-123abc", config)
+client.variation("any.feature.flag", context, false) # will always return the default value (false)
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 config = LaunchDarkly::Config.new({offline: true})

@@ -667,7 +667,7 @@ To learn more, read the [API documentation](https://launchdarkly-python-sdk.read
 
 <Details summary="Expand Ruby code sample">
 
-The `all_flags_state` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
+The `all_flags_state` method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
 
 This method can be useful for passing feature flags to your front end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
 
@@ -676,10 +676,18 @@ To use the all flags feature:
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+state = client.all_flags_state(context)
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 state = client.all_flags_state(user)
